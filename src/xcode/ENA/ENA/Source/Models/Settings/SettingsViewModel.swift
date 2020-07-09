@@ -17,34 +17,22 @@
 
 import Foundation
 
-class SettingsViewModel {
+final class SettingsViewModel {
+	// MARK: Properties
 	var tracing: Main
 	var notifications: Main
 	var reset: String
 
-	init(tracing: Main, notifications: Main, reset: String) {
+	// MARK: Creating a Settings View Model
+	init(
+		tracing: Main = .tracing,
+		notifications: Main = .notifications,
+		reset: String = AppStrings.Settings.resetLabel
+	) {
 		self.tracing = tracing
 		self.notifications = notifications
 		self.reset = reset
 	}
-
-	static let model = SettingsViewModel(
-		tracing: Main(
-			icon: "Icons_Settings_Risikoermittlung",
-			description: AppStrings.Settings.tracingLabel,
-			stateActive: AppStrings.Settings.trackingStatusActive,
-			stateInactive: AppStrings.Settings.trackingStatusInactive,
-			accessibilityIdentifier: "AppStrings.Settings.tracingLabel"
-		),
-		notifications: Main(
-			icon: "Icons_Settings_Mitteilungen",
-			description: AppStrings.Settings.notificationLabel,
-			stateActive: AppStrings.Settings.notificationStatusActive,
-			stateInactive: AppStrings.Settings.notificationStatusInactive,
-			accessibilityIdentifier: "AppStrings.Settings.notificationLabel"
-		),
-		reset: AppStrings.Settings.resetLabel
-	)
 }
 
 extension SettingsViewModel {
@@ -52,13 +40,30 @@ extension SettingsViewModel {
 		let icon: String
 		let description: String
 		var state: String?
-
 		let stateActive: String
 		let stateInactive: String
 		let accessibilityIdentifier: String?
+	}
+}
 
-		mutating func setState(state: Bool) {
-			self.state = state ? stateActive : stateInactive
-		}
+extension SettingsViewModel.Main {
+	static let tracing = SettingsViewModel.Main(
+		icon: "Icons_Settings_Risikoermittlung",
+		description: AppStrings.Settings.tracingLabel,
+		stateActive: AppStrings.Settings.trackingStatusActive,
+		stateInactive: AppStrings.Settings.trackingStatusInactive,
+		accessibilityIdentifier: AccessibilityIdentifiers.Settings.tracingLabel
+	)
+
+	static let notifications = SettingsViewModel.Main(
+		icon: "Icons_Settings_Mitteilungen",
+		description: AppStrings.Settings.notificationLabel,
+		stateActive: AppStrings.Settings.notificationStatusActive,
+		stateInactive: AppStrings.Settings.notificationStatusInactive,
+		accessibilityIdentifier: AccessibilityIdentifiers.Settings.notificationLabel
+	)
+
+	mutating func setState(state newState: Bool) {
+		state = newState ? stateActive : stateInactive
 	}
 }

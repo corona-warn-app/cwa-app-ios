@@ -40,7 +40,12 @@ enum OnboardingInfoViewControllerUtils {
 				alert.dismiss(animated: true, completion: nil)
 			}
 		)
+		let back = UIAlertAction(
+			title: AppStrings.Common.general_BackButtonTitle,
+			style: .cancel
+		)
 		alert.addAction(deactivate)
+		alert.addAction(back)
 		return alert
 	}
 }

@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Skip this job for non-PRs and when not on development
           command: |
-            testedBranches=(development)
+            testedBranches=(staging develop)
             [[ ${testedBranches[(r)$CIRCLE_BRANCH]} == $CIRCLE_BRANCH || -v CIRCLE_PULL_REQUEST ]] && true || circleci step halt
       - checkout
       - run:
@@ -80,12 +80,24 @@ jobs:
           command: cd src/xcode && bundle exec fastlane snapshot
       - store_artifacts:
           path: src/xcode/screenshots
+  testflight-release:
+    macos:
+      xcode: 11.5.0
+    shell: zsh
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: cd src/xcode && bundle install
+      - run: ./scripts/switch_to_dev_env.sh
+      - run:
+          name: fastlane
+          command: cd src/xcode && bundle exec fastlane betaRelease --env TestFlight
 
 workflows:
     test-and-scan:
       jobs:
-        - test:
-            context: SonarCloud
+        - test
     build:
       jobs:
         - build
@@ -94,3 +106,10 @@ workflows:
               branches:
                 only:
                   - master
+    betaRelease:
+      jobs:
+        - testflight-release:
+            filters:
+              branches:
+                only:
+                  - staging

@@ -48,6 +48,7 @@ final class HomeViewController: UIViewController {
 		addToUpdatingSetIfNeeded(homeInteractor)
 	}
 
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has intentionally not been implemented")
 	}
@@ -82,9 +83,13 @@ final class HomeViewController: UIViewController {
 		super.viewDidLoad()
 		configureCollectionView()
 		configureDataSource()
+		setupAccessibility()
+
+		homeInteractor.buildSections()
 		updateSections()
 		applySnapshotFromSections()
-		setupAccessibility()
+
+		setStateOfChildViewControllers()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -104,10 +109,10 @@ final class HomeViewController: UIViewController {
 		navigationItem.leftBarButtonItem?.isAccessibilityElement = true
 		navigationItem.leftBarButtonItem?.accessibilityTraits = .none
 		navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
-		navigationItem.leftBarButtonItem?.accessibilityIdentifier = "AppStrings.Home.leftBarButtonDescription"
+		navigationItem.leftBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.leftBarButtonDescription
 		navigationItem.rightBarButtonItem?.isAccessibilityElement = true
 		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
-		navigationItem.rightBarButtonItem?.accessibilityIdentifier = "AppStrings.Home.rightBarButtonDescription"
+		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
 	}
 
 	// MARK: Actions
@@ -137,6 +142,8 @@ final class HomeViewController: UIViewController {
 		homeInteractor.state.detectionMode = detectionMode
 		homeInteractor.state.exposureManagerState = exposureManagerState
 		homeInteractor.state.risk = risk
+
+		reloadData(animatingDifferences: false)
 	}
 
 	func showExposureSubmissionWithoutResult() {
@@ -149,7 +156,7 @@ final class HomeViewController: UIViewController {
 				ExposureSubmissionNavigationController(
 					coder: coder,
 					exposureSubmissionService: self.homeInteractor.exposureSubmissionService,
-					homeViewController: self,
+					submissionDelegate: self,
 					testResult: result
 				)
 			},
@@ -259,7 +266,7 @@ final class HomeViewController: UIViewController {
 			if row == 0 {
 				showInviteFriends()
 			} else {
-				WebPageHelper.showWebPage(from: self)
+				WebPageHelper.showWebPage(from: self, urlString: AppStrings.SafariView.targetURL)
 			}
 		case .settings:
 			if row == 0 {
@@ -272,10 +279,9 @@ final class HomeViewController: UIViewController {
 
 	// MARK: Configuration
 
-	func reloadData() {
-		guard isViewLoaded else { return }
+	func reloadData(animatingDifferences: Bool) {
 		updateSections()
-		collectionView.reloadData()
+		applySnapshotFromSections(animatingDifferences: animatingDifferences)
 	}
 
 	func reloadCell(at indexPath: IndexPath) {
@@ -437,19 +443,18 @@ private extension HomeViewController {
 extension HomeViewController: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
 		homeInteractor.state.exposureManagerState = state
-		updateOwnUI()
+		reloadData(animatingDifferences: false)
+
 		exposureDetectionController?.updateUI()
 		settingsController?.updateExposureState(state)
-	}
-
-	private func updateOwnUI() {
-		reloadData()
 	}
 }
 
 extension HomeViewController: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		homeInteractor.state.enState = state
+		reloadData(animatingDifferences: false)
+
 		updateAllState(state)
 	}
 
@@ -473,6 +478,12 @@ extension HomeViewController: NavigationBarOpacityDelegate {
 	var preferredNavigationBarOpacity: CGFloat {
 		let alpha = (collectionView.adjustedContentInset.top + collectionView.contentOffset.y) / collectionView.contentInset.top
 		return max(0, min(alpha, 1))
+	}
+}
+
+extension HomeViewController: ExposureSubmissionNavigationControllerDelegate {
+	func exposureSubmissionNavigationControllerWillDisappear(_ controller: ExposureSubmissionNavigationController) {
+		updateTestResultState()
 	}
 }
 

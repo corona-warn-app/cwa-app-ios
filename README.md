@@ -3,11 +3,12 @@
 </h1>
 
 <p align="center">
-    <a href="https://github.com/corona-warn-app/cwa-app-ios/commits/" title="Last Commit"><img src="https://img.shields.io/github/last-commit/corona-warn-app/cwa-app-ios?style=flat"></a>
-    <a href="https://github.com/corona-warn-app/cwa-app-ios/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-app-ios?style=flat"></a>
-    <a href="https://circleci.com/gh/corona-warn-app/cwa-app-ios" title="Build Status"><img src="https://circleci.com/gh/corona-warn-app/cwa-app-ios.png?circle-token=656940b0df758209128b0d782c5f8885ddceb7a8&style=shield"></a>
+   <a href="https://github.com/corona-warn-app/cwa-app-ios/commits/" title="Last Commit"><img src="https://img.shields.io/github/last-commit/corona-warn-app/cwa-app-ios?style=flat"></a>
+   <a href="https://github.com/corona-warn-app/cwa-app-ios/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-app-ios?style=flat"></a>
+   <a href="https://circleci.com/gh/corona-warn-app/cwa-app-ios" title="Build Status"><img src="https://circleci.com/gh/corona-warn-app/cwa-app-ios.png?circle-token=656940b0df758209128b0d782c5f8885ddceb7a8&style=shield"></a>
    <a href="https://sonarcloud.io/component_measures?id=corona-warn-app_cwa-app-ios&metric=Coverage&view=list" title="Coverage"><img src="https://sonarcloud.io/api/project_badges/measure?project=corona-warn-app_cwa-app-ios&metric=coverage"></a>
-    <a href="./LICENSE" title="License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg"></a>
+   <a href="./LICENSE" title="License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg"></a>
+   <a href="https://github-tools.github.io/github-release-notes/" title="Automated Release Notes"><img src="https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg"></a>
 </p>
 
 <p align="center">
@@ -15,7 +16,7 @@
   <a href="#architecture--documentation">Documentation</a> •
   <a href="#how-to-contribute">Contribute</a> •
   <a href="#support--feedback">Support</a> •
-  <a href="https://github.com/corona-warn-app/cwa-app-ios/releases">Changelog</a> •
+  <a href="./CHANGELOG.md">Changelog</a> •
   <a href="#licensing">Licensing</a>
 </p>
 
@@ -34,7 +35,7 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
 
 3. Set the user-defined variable to your development team
 
-   In [project.pbxproj](./src/xcode/ENA/ENA.xcodeproj/project.pbxproj), set IPHONE_APP_DEV_TEAM to your development team
+   In the [project.pbxproj](./src/xcode/ENA/ENA.xcodeproj/project.pbxproj) file, set IPHONE_APP_DEV_TEAM for the build setting `Community` to your development team
 4. Install SwiftLint
 
    ```console
@@ -49,7 +50,7 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
    ```
    Install _fastlane_ using [Bundler](https://bundler.io/)
    ```console
-   cd src/xcode && bundle install
+   cd src/xcode && bundle install --path vendor/bundle
    ```
 
 
@@ -85,6 +86,7 @@ The following channels are available for discussions, feedback, and support requ
 | Type                     | Channel                                                |
 | ------------------------ | ------------------------------------------------------ |
 | **General Discussion**   | <a href="https://github.com/corona-warn-app/cwa-documentation/issues/new/choose" title="General Discussion"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-documentation/question.svg?style=flat-square"></a> </a>   |
+| **Feature Requests**    | <a href="https://github.com/corona-warn-app/cwa-wishlist/issues/new/choose" title="Create Feature Request"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-wishlist?style=flat-square"></a>  |
 | **Concept Feedback**    | <a href="https://github.com/corona-warn-app/cwa-documentation/issues/new/choose" title="Open Concept Feedback"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-documentation/architecture.svg?style=flat-square"></a>  |
 | **iOS App Issue**    | <a href="https://github.com/corona-warn-app/cwa-app-ios/issues/new/choose" title="Open iOS Suggestion"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-app-ios?style=flat-square"></a>  |
 | **Backend Issue**    | <a href="https://github.com/corona-warn-app/cwa-server/issues/new/choose" title="Open Backend Issue"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-server?style=flat-square"></a>  |
@@ -111,6 +113,7 @@ The German government has asked SAP and Deutsche Telekom to develop the Corona-W
 | Repository          | Description                                                           |
 | ------------------- | --------------------------------------------------------------------- |
 | [cwa-documentation] | Project overview, general documentation, and white papers.            |
+| [cwa-wishlist]      | Community feature requests.                                           |
 | [cwa-app-ios]       | Native iOS app using the Apple/Google exposure notification API.      |
 | [cwa-app-android]   | Native Android app using the Apple/Google exposure notification API.  |
 | [cwa-server]        | Backend implementation for the Apple/Google exposure notification API.|
@@ -118,6 +121,7 @@ The German government has asked SAP and Deutsche Telekom to develop the Corona-W
 
 [cwa-verification-server]: https://github.com/corona-warn-app/cwa-verification-server
 [cwa-documentation]: https://github.com/corona-warn-app/cwa-documentation
+[cwa-wishlist]: https://github.com/corona-warn-app/cwa-wishlist
 [cwa-app-ios]: https://github.com/corona-warn-app/cwa-app-ios
 [cwa-app-android]: https://github.com/corona-warn-app/cwa-app-android
 [cwa-server]: https://github.com/corona-warn-app/cwa-server

@@ -50,6 +50,7 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 		super.init(coder: coder)
 	}
 
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has intentionally not been implemented")
 	}
@@ -64,7 +65,7 @@ extension ExposureDetectionViewController {
 		closeButton.isAccessibilityElement = true
 		closeButton.accessibilityTraits = .button
 		closeButton.accessibilityLabel = AppStrings.AccessibilityLabel.close
-		closeButton.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
+		closeButton.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 
 		consumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk
@@ -166,7 +167,7 @@ extension ExposureDetectionViewController {
 	}
 
 	private func updateCloseButton() {
-		if state.isTracingEnabled && state.riskLevel != .unknownOutdated {
+		if state.isTracingEnabled && state.riskLevel != .unknownOutdated && state.riskLevel != .inactive {
 			closeButton.setImage(UIImage(named: "Icons - Close - Contrast"), for: .normal)
 			closeButton.setImage(UIImage(named: "Icons - Close - Tap - Contrast"), for: .highlighted)
 		} else {

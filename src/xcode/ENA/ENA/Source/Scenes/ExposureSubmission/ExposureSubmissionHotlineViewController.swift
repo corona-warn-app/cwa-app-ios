@@ -17,7 +17,7 @@
 
 import UIKit
 
-class ExposureSubmissionHotlineViewController: DynamicTableViewController {
+class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 	// MARK: - View lifecycle methods.
 
 	override func viewDidLoad() {
@@ -32,7 +32,6 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		hideSecondaryButton()
 	}
 
 	// MARK: - View setup.
@@ -45,9 +44,9 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 	}
 
 	private func setupButtons() {
-		setButtonTitle(to: AppStrings.ExposureSubmissionHotline.callButtonTitle)
-		setSecondaryButtonTitle(to: AppStrings.ExposureSubmissionHotline.tanInputButtonTitle)
-		showSecondaryButton()
+		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionHotline.callButtonTitle
+		navigationFooterItem?.secondaryButtonTitle = AppStrings.ExposureSubmissionHotline.tanInputButtonTitle
+		navigationFooterItem?.isSecondaryButtonHidden = false
 	}
 
 	// MARK: - Data setup.
@@ -62,10 +61,10 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 				.section(
 					header: .image(UIImage(named: "Illu_Submission_Kontakt"),
 								   accessibilityLabel: AppStrings.ExposureSubmissionHotline.imageDescription,
-								   accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.imageDescription"),
+								   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.imageDescription),
 					cells: [
 						.body(text: AppStrings.ExposureSubmissionHotline.description,
-							  accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.description") { _, cell, _ in
+							  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.description) { _, cell, _ in
 								cell.textLabel?.accessibilityTraits = .header
 						}
 					]
@@ -73,7 +72,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 				DynamicSection.section(
 					cells: [
 						.title2(text: AppStrings.ExposureSubmissionHotline.sectionTitle,
-								accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.sectionTitle"),
+								accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.sectionTitle),
 						ExposureSubmissionDynamicCell.stepCell(
 							style: .body,
 							title: AppStrings.ExposureSubmissionHotline.sectionDescription1,
@@ -125,14 +124,14 @@ extension ExposureSubmissionHotlineViewController {
 	}
 }
 
-// MARK: - ExposureSubmissionNavigationControllerChild Extension.
+// MARK: - ENANavigationControllerWithFooterChild Extension.
 
-extension ExposureSubmissionHotlineViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapButton() {
+extension ExposureSubmissionHotlineViewController {
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		callHotline()
 	}
 
-	func didTapSecondButton() {
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
 		performSegue(withIdentifier: Segue.tanInput, sender: self)
 	}
 

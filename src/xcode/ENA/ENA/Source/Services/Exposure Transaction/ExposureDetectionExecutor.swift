@@ -7,8 +7,6 @@ import Foundation
 import ExposureNotification
 
 final class ExposureDetectionExecutor: ExposureDetectionDelegate {
-
-
 	private let client: Client
 	private let downloadedPackagesStore: DownloadedPackagesStore
 	private let store: Store
@@ -27,12 +25,14 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		self.exposureDetector = exposureDetector
 	}
 
-	func exposureDetection(_ detection: ExposureDetection, determineAvailableData completion: @escaping (DaysAndHours?) -> Void) {
-		client.availableDaysAndHoursUpUntil(.formattedToday()) { result in
-			let mappedResult = result.map { DaysAndHours(days: $0.days, hours: $0.hours) }
-			switch mappedResult {
-			case .success(let daysAndHours):
-				completion(daysAndHours)
+	func exposureDetection(
+		_ detection: ExposureDetection,
+		determineAvailableData completion: @escaping (DaysAndHours?) -> Void
+	) {
+		client.availableDays { result in
+			switch result {
+			case let .success(days):
+				completion((days: days, hours: []))
 			case .failure:
 				completion(nil)
 			}
@@ -104,9 +104,20 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 			}
 			fatalError("invalid state")
 		}
+
+		var fileURLs: [URL]  // Will contain all cached keypackages for the interaction with ENF
+		// Limit packages to upper thresshold
+		// This should never happen. Code is just here to be sure
+		if writtenPackages.urls.count > 14 {
+			logError(message: "Trying to feed too many files into the framework")
+			fileURLs = Array(writtenPackages.urls.prefix(14))
+		} else {
+			fileURLs = writtenPackages.urls
+		}
+
 		_ = exposureDetector.detectExposures(
 				configuration: configuration,
-				diagnosisKeyURLs: writtenPackages.urls
+				diagnosisKeyURLs: fileURLs
 		) { summary, error in
 			completion(withResultFrom(summary: summary, error: error))
 		}

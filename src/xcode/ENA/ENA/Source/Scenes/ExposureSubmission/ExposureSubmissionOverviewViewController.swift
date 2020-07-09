@@ -30,8 +30,14 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 
 	// MARK: - Initializers.
 
-	required init?(coder aDecoder: NSCoder) {
+	required init?(coder aDecoder: NSCoder, service: ExposureSubmissionService?) {
+		self.service = service
 		super.init(coder: aDecoder)
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 
 	// MARK: - View lifecycle methods.
@@ -40,13 +46,6 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 		super.viewDidLoad()
 		dynamicTableViewModel = dynamicTableData()
 		setupView()
-
-		// Grab ExposureSubmissionService from the navigation controller
-		// (which is the entry point for the storyboard, and in which
-		// this controller is embedded.)
-		if let navC = navigationController as? ExposureSubmissionNavigationController {
-			service = navC.getExposureSubmissionService()
-		}
 	}
 
 	private func setupView() {
@@ -92,7 +91,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			switch result {
 			case let .failure(error):
 				logError(message: "An error occurred during result fetching: \(error)", level: .error)
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+				let alert = self.setupErrorAlert(message: error.localizedDescription)
 				self.present(alert, animated: true, completion: nil)
 			case let .success(testResult):
 				self.performSegue(withIdentifier: Segue.labResult, sender: testResult)
@@ -108,7 +107,8 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			message: AppStrings.ExposureSubmission.dataPrivacyDisclaimer,
 			preferredStyle: .alert
 		)
-		let acceptAction = UIAlertAction(title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle, style: .default, handler: { _ in
+		let acceptAction = UIAlertAction(title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle,
+										 style: .default, handler: { _ in
 											self.service?.acceptPairing()
 											self.performSegue(
 												withIdentifier: Segue.qrScanner,
@@ -149,9 +149,11 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 			// The error handler could have been invoked on a non-main thread which causes
 			// issues (crash) when updating the UI.
 			DispatchQueue.main.async {
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error) {
-					self.dismissQRCodeScannerView(viewController, completion: nil)
-				}
+				let alert = self.setupErrorAlert(
+					message: error.localizedDescription,
+					completion: {
+						self.dismissQRCodeScannerView(viewController, completion: nil)
+				 })
 				viewController.present(alert, animated: true, completion: nil)
 			}
 		default:
@@ -162,15 +164,16 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 	func qrScanner(_ vc: QRScannerViewController, didScan code: String) {
 		guard let guid = sanitizeAndExtractGuid(code) else {
 			vc.delegate = nil
-			let alert = ExposureSubmissionViewUtils.setupAlert(
+
+			let alert = self.setupErrorAlert(
 				title: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundTitle,
 				message: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundText,
 				okTitle: AppStrings.Common.alertActionCancel,
-				retry: true,
-				action: {
+				secondaryActionTitle: AppStrings.Common.alertActionRetry,
+				completion: {
 					self.dismissQRCodeScannerView(vc, completion: nil)
 				},
-				retryActionHandler: { vc.delegate = self }
+				secondaryActionCompletion: { vc.delegate = self }
 			)
 			vc.present(alert, animated: true, completion: nil)
 			return
@@ -192,16 +195,21 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 				// Note: In the case the QR Code was already used, retrying will result
 				// in an endless loop.
 				if case .qRAlreadyUsed = error {
-					let alert = ExposureSubmissionViewUtils.setupErrorAlert(error, completion: nil)
+					let alert = self.setupErrorAlert(message: error.localizedDescription)
 					self.present(alert, animated: true, completion: nil)
 					return
 				}
 
 				logError(message: "Error while getting registration token: \(error)", level: .error)
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error, retry: true, retryActionHandler: {
-					self.startSpinner()
-					self.getRegistrationToken(forKey: forKey)
-				})
+
+				let alert = self.setupErrorAlert(
+					message: error.localizedDescription,
+					secondaryActionTitle: AppStrings.Common.alertActionRetry,
+					secondaryActionCompletion: {
+						self.startSpinner()
+						self.getRegistrationToken(forKey: forKey)
+					}
+				)
 				self.present(alert, animated: true, completion: nil)
 
 			case let .success(token):
@@ -273,7 +281,7 @@ private extension ExposureSubmissionOverviewViewController {
 				cells: [
 					.body(
 						text: AppStrings.ExposureSubmissionDispatch.description,
-						accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.description")
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.description)
 				]
 			)
 		)
@@ -284,21 +292,21 @@ private extension ExposureSubmissionOverviewViewController {
 				description: AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription,
 				image: UIImage(named: "Illu_Submission_QRCode"),
 				action: .execute(block: { _ in self.showDisclaimer() }),
-				accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
 			),
 			.imageCard(
 				title: AppStrings.ExposureSubmissionDispatch.tanButtonTitle,
 				description: AppStrings.ExposureSubmissionDispatch.tanButtonDescription,
 				image: UIImage(named: "Illu_Submission_TAN"),
 				action: .perform(segue: Segue.tanInput),
-				accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.tanButtonDescription"
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.tanButtonDescription
 			),
 			.imageCard(
 				title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
 				attributedDescription: applyFont(style: .headline, to: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription, with: AppStrings.ExposureSubmissionDispatch.positiveWord),
 				image: UIImage(named: "Illu_Submission_Anruf"),
 				action: .perform(segue: Segue.hotline),
-				accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.hotlineButtonDescription
 			)
 		]))
 

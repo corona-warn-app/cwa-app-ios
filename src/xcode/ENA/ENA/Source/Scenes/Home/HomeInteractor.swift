@@ -31,26 +31,19 @@ final class HomeInteractor: RequiresAppDependencies {
 	) {
 		self.homeViewController = homeViewController
 		self.state = state
-		sections = initialCellConfigurators()
 	}
 
 	// MARK: Properties
-	var state = HomeInteractor.State(
-		detectionMode: .default,
-		exposureManagerState: .init(),
-		enState: .unknown,
-		risk: nil
-	) {
+	var state: State {
 		didSet {
 			homeViewController.setStateOfChildViewControllers()
-			sections = initialCellConfigurators()
-			homeViewController.reloadData()
+			buildSections()
 		}
 	}
 
 	private unowned var homeViewController: HomeViewController
 	lazy var exposureSubmissionService: ExposureSubmissionService = {
-		ENAExposureSubmissionService(
+		ExposureSubmissionServiceFactory.create(
 			diagnosiskeyRetrieval: self.exposureManager,
 			client: self.client,
 			store: self.store
@@ -58,7 +51,6 @@ final class HomeInteractor: RequiresAppDependencies {
 	}()
 	var enStateHandler: ENStateHandler?
 
-	private var riskLevel: RiskLevel { state.riskLevel }
 	private var detectionMode: DetectionMode { state.detectionMode }
 	private(set) var sections: SectionConfiguration = []
 
@@ -114,34 +106,38 @@ final class HomeInteractor: RequiresAppDependencies {
 
 	}
 
+	func buildSections() {
+		sections = initialCellConfigurators()
+	}
+
 	private func initialCellConfigurators() -> SectionConfiguration {
 
 		let info1Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardShareTitle,
 			description: AppStrings.Home.infoCardShareBody,
 			position: .first,
-			accessibilityIdentifier: "AppStrings.Home.infoCardShareTitle"
+			accessibilityIdentifier: AccessibilityIdentifiers.Home.infoCardShareTitle
 		)
 
 		let info2Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardAboutTitle,
 			description: AppStrings.Home.infoCardAboutBody,
 			position: .last,
-			accessibilityIdentifier: "AppStrings.Home.infoCardAboutTitle"
+			accessibilityIdentifier: AccessibilityIdentifiers.Home.infoCardAboutTitle
 		)
 
 		let appInformationConfigurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.appInformationCardTitle,
 			description: nil,
 			position: .first,
-			accessibilityIdentifier: "AppStrings.Home.appInformationCardTitle"
+			accessibilityIdentifier: AccessibilityIdentifiers.Home.appInformationCardTitle
 		)
 
 		let settingsConfigurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.settingsCardTitle,
 			description: nil,
 			position: .last,
-			accessibilityIdentifier: "AppStrings.Home.settingsCardTitle"
+			accessibilityIdentifier: AccessibilityIdentifiers.Home.settingsCardTitle
 		)
 
 		let infosConfigurators: [CollectionViewCellConfiguratorAny] = [info1Configurator, info2Configurator]
@@ -171,9 +167,7 @@ extension HomeInteractor {
 
 	func reloadActionSection() {
 		sections[0] = setupActionSectionDefinition()
-		homeViewController.updateSections()
-		homeViewController.applySnapshotFromSections(animatingDifferences: true)
-		homeViewController.reloadData()
+		homeViewController.reloadData(animatingDifferences: false)
 	}
 }
 
@@ -193,6 +187,9 @@ extension HomeInteractor {
 		inactiveConfigurator = nil
 
 		let detectionInterval = (riskProvider.configuration.exposureDetectionInterval.day ?? 1) * 24
+
+		let riskLevel: RiskLevel? = state.exposureManagerState.enabled ? state.riskLevel : .inactive
+
 		switch riskLevel {
 		case .unknownInitial:
 			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
@@ -238,7 +235,10 @@ extension HomeInteractor {
 				detectionMode: detectionMode,
 				validityDuration: detectionInterval
 			)
+		case .none:
+			riskLevelConfigurator = nil
 		}
+
 		riskLevelConfigurator?.buttonAction = {
 			self.requestRisk(userInitiated: true)
 		}

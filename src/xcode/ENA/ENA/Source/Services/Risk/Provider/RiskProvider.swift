@@ -59,41 +59,22 @@ final class RiskProvider {
 private extension RiskConsumer {
 	func provideRisk(_ risk: Risk) {
 		targetQueue.async { [weak self] in
-			self?.didCalculateRisk?(risk)
-		}
-	}
-	
-	func provideNextExposureDetectionDate(_ date: Date) {
-		targetQueue.async { [weak self] in
-			self?.nextExposureDetectionDateDidChange?(date)
+			self?.didCalculateRisk(risk)
 		}
 	}
 }
 
 extension RiskProvider: RiskProviding {
 	func observeRisk(_ consumer: RiskConsumer) {
-		queue.async {
-			self._observeRisk(consumer)
+		queue.async { [weak self] in
+			self?.consumers.add(consumer)
 		}
 	}
 
-	func nextExposureDetectionDate() -> Date {
-		configuration.nextExposureDetectionDate(
-			lastExposureDetectionDate: store.summary?.date
-		)
-	}
-
-	private func _observeRisk(_ consumer: RiskConsumer) {
-		consumers.add(consumer)
-		consumer.nextExposureDetectionDateDidChange?(self.nextExposureDetectionDate())
-		consumer.manualExposureDetectionStateDidChange?(manualExposureDetectionState)
-	}
-
-	var manualExposureDetectionState: ManualExposureDetectionState {
-		let shouldPerformDetection = configuration.shouldPerformExposureDetection(
-			lastExposureDetectionDate: store.summary?.date
-			) && configuration.detectionMode == .manual
-		return shouldPerformDetection ? .possible : .waiting
+	var manualExposureDetectionState: ManualExposureDetectionState? {
+		configuration.manualExposureDetectionState(
+			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
+			lastExposureDetectionDate: store.summary?.date)
 	}
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
@@ -114,9 +95,10 @@ extension RiskProvider: RiskProviding {
 	) {
 		// Here we are in automatic mode and thus we have to check the validity of the current summary
 		let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
+			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
 			lastExposureDetectionDate: store.summary?.date
 		)
-		if enoughTimeHasPassed == false || self.exposureManagerState.isGood == false {
+		if !enoughTimeHasPassed || !self.exposureManagerState.isGood {
 			completion(
 				.init(
 					previous: nil,
@@ -155,10 +137,73 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
+	#if UITESTING
 	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
-		let group = DispatchGroup()
+		let risk = Risk.mocked
+
+		targetQueue.async {
+			completion?(.mocked)
+		}
+
+		for consumer in consumers.allObjects {
+			_provideRisk(risk, to: consumer)
+		}
+
+		saveRiskIfNeeded(risk)
+	}
+	#else
+	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
+		func completeOnTargetQueue(risk: Risk?) {
+			targetQueue.async {
+				completion?(risk)
+			}
+			// We only wish to notify consumers if an actual risk level has been calculated.
+			// We do not notify if an error occurred.
+			if let risk = risk {
+				for consumer in consumers.allObjects {
+					_provideRisk(risk, to: consumer)
+				}
+			}
+		}
 
 		var summaries: Summaries?
+		let tracingHistory = store.tracingStatusHistory
+		let numberOfEnabledHours = tracingHistory.activeTracing().inHours
+		let details = Risk.Details(
+			daysSinceLastExposure: store.summary?.summary.daysSinceLastExposure,
+			numberOfExposures: Int(store.summary?.summary.matchedKeyCount ?? 0),
+			activeTracing: tracingHistory.activeTracing(),
+			exposureDetectionDate: store.summary?.date
+		)
+
+		// Risk Calculation involves some potentially long running tasks, like exposure detection and
+		// fetching the configuration from the backend.
+		// However in some precondition cases we can return early, mainly:
+		// 1. The exposureManagerState is bad (turned off, not authorized, etc.)
+		// 2. Tracing has not been active for at least 24 hours
+		guard exposureManagerState.isGood else {
+			completeOnTargetQueue(
+				risk: Risk(
+					level: .inactive,
+					details: details,
+					riskLevelHasChanged: false // false because we don't want to trigger a notification
+				)
+			)
+			return
+		}
+
+		guard numberOfEnabledHours >= TracingStatusHistory.minimumActiveHours else {
+			completeOnTargetQueue(
+				risk: Risk(
+					level: .unknownInitial,
+					details: details,
+					riskLevelHasChanged: false // false because we don't want to trigger a notification
+				)
+			)
+			return
+		}
+
+		let group = DispatchGroup()
 
 		group.enter()
 		determineSummaries(userInitiated: userInitiated) {
@@ -173,12 +218,6 @@ extension RiskProvider: RiskProviding {
 			group.leave()
 		}
 
-		func completeOnTargetQueue(risk: Risk?) {
-			targetQueue.async {
-				completion?(risk)
-			}
-		}
-
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
 			completeOnTargetQueue(risk: nil)
 			return
@@ -189,15 +228,14 @@ extension RiskProvider: RiskProviding {
 			return
 		}
 		
-		let tracingHistory = store.tracingStatusHistory
-		let numberOfEnabledHours = tracingHistory.countEnabledHours()
+		let activeTracing = store.tracingStatusHistory.activeTracing()
 
 		guard
 			let risk = RiskCalculation.risk(
 				summary: summaries?.current?.summary,
 				configuration: _appConfiguration,
 				dateLastExposureDetection: summaries?.current?.date,
-				numberOfTracingActiveHours: numberOfEnabledHours,
+				activeTracing: activeTracing,
 				preconditions: exposureManagerState,
 				currentDate: Date(),
 				previousRiskLevel: store.previousRiskLevel,
@@ -208,18 +246,10 @@ extension RiskProvider: RiskProviding {
 				return
 		}
 
-		for consumer in consumers.allObjects {
-			_provideRisk(risk, to: consumer)
-		}
-
-		#if UITESTING
-		completeOnTargetQueue(risk: .mocked)
-		#else
 		completeOnTargetQueue(risk: risk)
-		#endif
-
 		saveRiskIfNeeded(risk)
 	}
+	#endif
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {
 		#if UITESTING

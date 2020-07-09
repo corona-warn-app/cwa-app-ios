@@ -17,32 +17,27 @@
 
 import UIKit
 
-class ExposureSubmissionIntroViewController: DynamicTableViewController, ExposureSubmissionNavigationControllerChild, SpinnerInjectable {
+class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 
 	// MARK: - Attributes.
 	
 	private var exposureSubmissionService: ExposureSubmissionService?
-	var spinner: UIActivityIndicatorView?
 
 	// MARK: - View lifecycle methods.
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmission.continueText
+
+		setupView()
+		setupBackButton()
+	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		// The button is shared among multiple controllers,
-		// make sure to reset it whenever the view appears.
-		setButtonTitle(to: AppStrings.ExposureSubmission.continueText)
-		button?.accessibilityIdentifier = "AppStrings.ExposureSubmission.continueText"
-	}
-
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-	}
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		setupView()
-		setupBackButton()
+		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.continueText
 	}
 
 	// MARK: - Setup helpers.
@@ -64,30 +59,34 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 		dynamicTableViewModel = .intro
 	}
 
-	// MARK: - ExposureSubmissionNavigationControllerChild methods.
+	// MARK: - ENANavigationControllerWithFooterChild methods.
 
-	func didTapButton() {
-		performSegue(withIdentifier: Segue.overview, sender: self)
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+		let service = (navigationController as? ExposureSubmissionNavigationController)?.exposureSubmissionService
+		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionOverviewViewController.self) { coder in
+			ExposureSubmissionOverviewViewController(coder: coder, service: service)
+		}
+		navigationController.pushViewController(vc, animated: true)
 	}
 }
 
 private extension DynamicTableViewModel {
 	static let intro = DynamicTableViewModel([
 		.navigationSubtitle(text: AppStrings.ExposureSubmissionIntroduction.subTitle,
-							accessibilityIdentifier: "AppStrings.ExposureSubmissionIntroduction.subTitle"),
+							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionIntroduction.subTitle),
 		.section(
 			header: .image(
 				UIImage(named: "Illu_Submission_Funktion1"),
 				accessibilityLabel: AppStrings.ExposureSubmissionIntroduction.accImageDescription,
-				accessibilityIdentifier: "ExposureSubmissionIntroViewController.image",
+				accessibilityIdentifier: AccessibilityIdentifiers.General.image,
 				height: 200
 			),
 			separators: false,
 			cells: [
 				.headline(text: AppStrings.ExposureSubmissionIntroduction.usage01,
-						  accessibilityIdentifier: "AppStrings.ExposureSubmissionIntroduction.usage01"),
+						  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionIntroduction.usage01),
 				.body(text: AppStrings.ExposureSubmissionIntroduction.usage02,
-					  accessibilityIdentifier: "AppStrings.ExposureSubmissionIntroduction.usage02"),
+					  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionIntroduction.usage02),
 				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem1),
 				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem2),
 				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem3),
@@ -98,10 +97,6 @@ private extension DynamicTableViewModel {
 }
 
 private extension ExposureSubmissionIntroViewController {
-	enum Segue: String, SegueIdentifiers {
-		case overview = "overviewSegue"
-		case labResult = "labResultSegue"
-	}
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case stepCell
 	}

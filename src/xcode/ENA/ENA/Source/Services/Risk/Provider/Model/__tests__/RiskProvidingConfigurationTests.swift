@@ -22,7 +22,6 @@ import Foundation
 import XCTest
 
 final class RiskProvidingConfigurationTests: XCTestCase {
-
 	private let validityDuration = DateComponents(day: 2)
 	private let detectionInterval = DateComponents(day: 1)
 	private lazy var config = RiskProvidingConfiguration(
@@ -62,18 +61,33 @@ final class RiskProvidingConfigurationTests: XCTestCase {
 	func testGetNextExposureDetectionDate_NoExposurePerformedInPast() {
 		// Test the case where we want to get the next exposure date,
 		// when we have not done the exposure detection before
-		// The expected date for us to get back would be the the distantPast + detectionInterval
-		let nextExpectedDate = Calendar.current.date(byAdding: detectionInterval, to: .distantPast)
 		let now = Date()
-		XCTAssertEqual(config.nextExposureDetectionDate(lastExposureDetectionDate: nil, currentDate: now), nextExpectedDate)
+		XCTAssertEqual(config.nextExposureDetectionDate(lastExposureDetectionDate: nil, currentDate: now), NextExposureDetection.now)
 	}
 
-	func testGetNextExposureDetectionDate_FutureLastDetectionDate() {
+	func testGetNextExposureDetectionDate_in22Hours() {
 		// Test the case where the last exposure detection date is in the future.
 		// This edge case should be handled by just returning now as the next detection date
+
+		let testDate = Date(timeIntervalSince1970: 1466467200.0)  // 21.06.2016
+		let twoHoursAgo = Calendar.current.date(byAdding: DateComponents(hour: -2), to: testDate)
+		let inTwentyTwoHours = Calendar.current.date(byAdding: DateComponents(hour: 22), to: testDate)
+		XCTAssertEqual(config.nextExposureDetectionDate(lastExposureDetectionDate: twoHoursAgo, currentDate: testDate), .date(inTwentyTwoHours!))
+	}
+
+// Temporarily disabled because expected behavior is not defined yet
+//	func testGetNextExposureDetectionDate_FutureLastDetectionDate() {
+//		// Test the case where the last exposure detection date is in the future.
+//		// This edge case should be handled by just returning now as the next detection date
+//		let now = Date()
+//		let future = Calendar.current.date(byAdding: DateComponents(day: 10), to: now)
+//		XCTAssertEqual(config.nextExposureDetectionDate(lastExposureDetectionDate: future, currentDate: now), now)
+//	}
+
+	func testGetNextExposureDetectionDate_Success() {
+		// Test the case where everything just works and you get a valid next date in the future.
 		let now = Date()
-		let future = Calendar.current.date(byAdding: DateComponents(day: 10), to: now)
-		XCTAssertEqual(config.nextExposureDetectionDate(lastExposureDetectionDate: future, currentDate: now), now)
+		XCTAssertFalse(config.shouldPerformExposureDetection(activeTracingHours: 42, lastExposureDetectionDate: now, currentDate: now))
 	}
 
 	// MARK: - Calculating exposure valid bool
@@ -108,31 +122,52 @@ final class RiskProvidingConfigurationTests: XCTestCase {
 		// Test the case when last detection was performed recently
 		// There should be no need to do the detection again.
 		let lastDetection = Calendar.current.date(byAdding: DateComponents(hour: -1), to: Date()) ?? .distantPast
-		XCTAssertFalse(config.shouldPerformExposureDetection(lastExposureDetectionDate: lastDetection))
+		XCTAssertFalse(config.shouldPerformExposureDetection(activeTracingHours: 42, lastExposureDetectionDate: lastDetection))
 	}
 
 	func testShouldPerformExposureDetection_LastDetectionNow() {
 		// Test the case when last detection was performed at this instant
 		// There should be no need to do the detection again
 		let now = Date()
-		XCTAssertFalse(config.shouldPerformExposureDetection(lastExposureDetectionDate: now, currentDate: now))
+		XCTAssertFalse(config.shouldPerformExposureDetection(activeTracingHours: 42, lastExposureDetectionDate: now, currentDate: now))
 	}
 
 	func testShouldPerformExposureDetection_LastDetectionFuture() {
 		// Test the case when last detection was performed in the future.
 		// This is not valid, and a detection should be performed.
-		XCTAssertTrue(config.shouldPerformExposureDetection(lastExposureDetectionDate: Date().addingTimeInterval(10000)))
+		XCTAssertTrue(config.shouldPerformExposureDetection(activeTracingHours: 42, lastExposureDetectionDate: Date().addingTimeInterval(10000)))
 	}
 
 	func testShouldPerformExposureDetection_LastDetectionDistantPast() {
 		// Test the case when last detection was performed in the past
 		// Detection is necessary
-		XCTAssertTrue(config.shouldPerformExposureDetection(lastExposureDetectionDate: .distantPast))
+		XCTAssertTrue(config.shouldPerformExposureDetection(activeTracingHours: 42, lastExposureDetectionDate: .distantPast))
 	}
 
 	func testShouldPerformExposureDetection_NilLastDetection() {
 		// Test the case when last detection not performed at all
 		// Detection is necessary
-		XCTAssertTrue(config.shouldPerformExposureDetection(lastExposureDetectionDate: nil))
+		XCTAssertTrue(config.shouldPerformExposureDetection(activeTracingHours: 42, lastExposureDetectionDate: nil))
+	}
+
+	func testShouldPerformExposureDetection_afterInstall() {
+		// Test the case when the tracing hasn't been active long enough
+		// Detection is not necessary
+		XCTAssertFalse(config.shouldPerformExposureDetection(activeTracingHours: 7, lastExposureDetectionDate: nil))
+	}
+	
+	func testExposureDetectionValidUntil_Case() {
+		// Last exposure detection date was last night
+		// Now it is morning, and we start the app again
+		let lastEvening = Calendar.current.date(from: DateComponents(year: 2020, month: 6, day: 6, hour: 22, minute: 0, second: 0)) ?? .distantPast
+		let nowMorning = Calendar.current.date(from: DateComponents(year: 2020, month: 6, day: 7, hour: 7, minute: 0, second: 0)) ?? .distantPast
+
+		XCTAssertFalse(config.shouldPerformExposureDetection(activeTracingHours: 42, lastExposureDetectionDate: lastEvening, currentDate: nowMorning))
+	}
+
+	func testShouldPerformExposureDetection_Success() {
+		// Test the case where everything just works and you get a valid next date in the future.
+		let now = Date()
+		XCTAssertFalse(config.shouldPerformExposureDetection(activeTracingHours: 42, lastExposureDetectionDate: now, currentDate: now))
 	}
 }
