@@ -79,9 +79,12 @@ final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
 
 	// MARK: Hashable
 
-	func hash(into hasher: inout Swift.Hasher) { }
+	func hash(into hasher: inout Swift.Hasher) {
+		// this class has no stored properties, that's why hash function is empty here
+	}
 
 	static func == (lhs: HomeThankYouRiskCellConfigurator, rhs: HomeThankYouRiskCellConfigurator) -> Bool {
+		// instances of this class have no differences between each other
 		true
 	}
 }
