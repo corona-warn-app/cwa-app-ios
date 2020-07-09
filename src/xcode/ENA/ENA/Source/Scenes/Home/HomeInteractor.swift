@@ -19,6 +19,8 @@ import ExposureNotification
 import Foundation
 import UIKit
 
+// swiftlint:disable file_length
+
 final class HomeInteractor: RequiresAppDependencies {
 	typealias SectionDefinition = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
 	typealias SectionConfiguration = [SectionDefinition]
@@ -44,6 +46,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	) {
 		didSet {
 			homeViewController.setStateOfChildViewControllers()
+			scheduleCountdownTimer()
 			buildSections()
 		}
 	}
@@ -60,6 +63,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	private var testResultConfigurator = HomeTestResultCellConfigurator()
 	private var riskLevelConfigurator: HomeRiskLevelCellConfigurator?
 	private var inactiveConfigurator: HomeInactiveRiskCellConfigurator?
+	private var countdownTimer: CountdownTimer?
 
 	private(set) var testResult: TestResult?
 
@@ -421,5 +425,45 @@ extension HomeInteractor: ENStateHandlerUpdating {
 extension HomeInteractor {
 	private func inActiveCellActionHandler() {
 		homeViewController.showExposureNotificationSetting()
+	}
+}
+
+// MARK: - CountdownTimerDelegate methods.
+
+/// The `CountdownTimerDelegate` is used to update the remaining time that is shown on the risk cell button until a manual refresh is allowed.
+extension HomeInteractor: CountdownTimerDelegate {
+	private func scheduleCountdownTimer() {
+		guard self.detectionMode == .manual else { return }
+
+		// Cleanup potentially existing countdown.
+		countdownTimer?.invalidate()
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+
+		// Schedule new countdown.
+		NotificationCenter.default.addObserver(self, selector: #selector(invalidateCountdownTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		let nextUpdate = self.riskProvider.nextExposureDetectionDate()
+		countdownTimer = CountdownTimer(countdownTo: nextUpdate)
+		countdownTimer?.delegate = self
+		countdownTimer?.start()
+	}
+
+	@objc
+	private func invalidateCountdownTimer() {
+		countdownTimer?.invalidate()
+	}
+
+	func countdownTimer(_ timer: CountdownTimer, didEnd done: Bool) {
+		// Reload action section to trigger full refresh of the risk cell configurator (updates
+		// the isButtonEnabled attribute).
+		self.reloadActionSection()
+	}
+
+	func countdownTimer(_ timer: CountdownTimer, didUpdate time: String) {
+		guard let indexPath = self.indexPathForRiskCell() else { return }
+		guard let cell = homeViewController.cellForItem(at: indexPath) as? RiskLevelCollectionViewCell else { return }
+
+		// We pass the time and let the configurator decide whether the button can be activated or not.
+		riskLevelConfigurator?.timeUntilUpdate = time
+		riskLevelConfigurator?.configureButton(for: cell)
 	}
 }
