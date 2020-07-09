@@ -345,6 +345,10 @@ final class HomeViewController: UIViewController {
 			collectionView.backgroundColor = .enaColor(for: .separator)
 		}
 	}
+
+	func cellForItem(at indexPath: IndexPath) -> UICollectionViewCell? {
+		return self.collectionView.cellForItem(at: indexPath)
+	}
 }
 
 // MARK: - Update test state.
@@ -497,4 +501,3 @@ private extension UICollectionViewCell {
 		subviews.filter(({ $0.tag == 100_000 })).forEach({ $0.removeFromSuperview() })
 	}
 }
-
