@@ -143,7 +143,7 @@ final class RiskProviderTests: XCTestCase {
 		let expectThatRiskIsReturned = expectation(description: "expectThatRiskIsReturned")
 		sut.requestRisk(userInitiated: false) { risk in
 			expectThatRiskIsReturned.fulfill()
-			XCTAssertNil(risk, "Tracing was active for < 24 hours but risk was calculated!")
+			XCTAssertEqual(risk?.level, .unknownInitial, "Tracing was active for < 24 hours but risk is not .unknownInitial")
 		}
 		waitForExpectations(timeout: 1.0)
 	}
