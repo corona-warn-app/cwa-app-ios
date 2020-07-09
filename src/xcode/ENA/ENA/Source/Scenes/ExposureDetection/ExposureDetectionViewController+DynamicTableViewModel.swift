@@ -20,8 +20,6 @@ import UIKit
 
 extension ExposureDetectionViewController {
 	func dynamicTableViewModel(for riskLevel: RiskLevel, isTracingEnabled: Bool) -> DynamicTableViewModel {
-		return offModel
-
 		if !isTracingEnabled {
 			return offModel
 		}
