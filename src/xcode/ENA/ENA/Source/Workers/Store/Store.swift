@@ -61,6 +61,9 @@ protocol Store: AnyObject {
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
 
+	/// TODO: Add description.
+	var hasSeenBackgroundFetchAlert: Bool { get set }
+
 	// Timestamp that represents the date at which
 	// the user has received a test reult.
 	var testResultReceivedTimeStamp: Int64? { get set }

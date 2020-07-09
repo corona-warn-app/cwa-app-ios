@@ -36,6 +36,9 @@ enum AppStrings {
 		static let enError5Description = NSLocalizedString("Common_ENError5_Description", comment: "")
 		static let enError11Description = NSLocalizedString("Common_ENError11_Description", comment: "")
 		static let enError13Description = NSLocalizedString("Common_ENError13_Description", comment: "")
+		static let backgroundFetch_AlertMessage = NSLocalizedString("Common_BackgroundFetch_AlertMessage", comment: "")
+		static let backgroundFetch_OKTitle = NSLocalizedString("Common_BackgroundFetch_OKTitle", comment: "")
+		static let backgroundFetch_SettingsTitle = NSLocalizedString("Common_BackgroundFetch_SettingsTitle", comment: "")
 	}
 
 	enum Links {

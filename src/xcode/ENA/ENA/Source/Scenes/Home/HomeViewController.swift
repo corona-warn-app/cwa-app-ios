@@ -81,6 +81,8 @@ final class HomeViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		checkBackgroundFetchingIsOn()
 		configureCollectionView()
 		configureDataSource()
 		setupAccessibility()
@@ -102,6 +104,33 @@ final class HomeViewController: UIViewController {
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		updateBackgroundColor()
+	}
+
+	/// TODO: Add comment.
+	private func checkBackgroundFetchingIsOn() {
+		if UIApplication.shared.backgroundRefreshStatus == .available { return }
+		if homeInteractor.store.hasSeenBackgroundFetchAlert { return }
+
+		let openSettings: (() -> Void) = {
+			if let url = URL(string: UIApplication.openSettingsURLString) {
+				UIApplication.shared.open(url, options: [:], completionHandler: nil)
+			}
+		}
+
+		let alert = setupErrorAlert(
+			title: AppStrings.Common.alertTitleGeneral,
+			message: AppStrings.Common.backgroundFetch_AlertMessage,
+			okTitle: AppStrings.Common.backgroundFetch_OKTitle,
+			secondaryActionTitle: AppStrings.Common.backgroundFetch_SettingsTitle,
+			completion: { self.homeInteractor.store.hasSeenBackgroundFetchAlert = true },
+			secondaryActionCompletion: openSettings
+		)
+
+		self.present(
+			alert,
+			animated: true,
+			completion: nil
+		)
 	}
 
 	private func setupAccessibility() {
