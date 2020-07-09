@@ -118,13 +118,13 @@
             <string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-            <string>التحديث في %02u:%2$#@seconds@ من الثواني</string>
+            <string>التحديث في ‎%02u:%2$#@seconds@‎ ثوانٍ</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One -->
-            <string>التحديث في %02u:%2$#@seconds@ من الدقائق</string>
+            <string>التحديث في ‎%02u:%2$#@seconds@‎ دقيقة</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other -->
-            <string>التحديث في %02u:%2$#@seconds@ من الدقائق</string>
+            <string>التحديث في ‎%02u:%2$#@seconds@‎ دقائق</string>
         </dict>
         <key>seconds</key>
         <dict>
@@ -134,7 +134,7 @@
             <string>u</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other -->
-            <string>%02u</string>
+            <string>‎%02u</string>
         </dict>
     </dict>
 	<key>ENSetting_Tracing_History</key>

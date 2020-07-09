@@ -83,9 +83,13 @@ final class HomeViewController: UIViewController {
 		super.viewDidLoad()
 		configureCollectionView()
 		configureDataSource()
+		setupAccessibility()
+
+		homeInteractor.buildSections()
 		updateSections()
 		applySnapshotFromSections()
-		setupAccessibility()
+
+		setStateOfChildViewControllers()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -138,6 +142,8 @@ final class HomeViewController: UIViewController {
 		homeInteractor.state.detectionMode = detectionMode
 		homeInteractor.state.exposureManagerState = exposureManagerState
 		homeInteractor.state.risk = risk
+
+		reloadData(animatingDifferences: false)
 	}
 
 	func showExposureSubmissionWithoutResult() {
@@ -260,7 +266,7 @@ final class HomeViewController: UIViewController {
 			if row == 0 {
 				showInviteFriends()
 			} else {
-				WebPageHelper.showWebPage(from: self)
+				WebPageHelper.showWebPage(from: self, urlString: AppStrings.SafariView.targetURL)
 			}
 		case .settings:
 			if row == 0 {
@@ -273,10 +279,9 @@ final class HomeViewController: UIViewController {
 
 	// MARK: Configuration
 
-	func reloadData() {
-		guard isViewLoaded else { return }
+	func reloadData(animatingDifferences: Bool) {
 		updateSections()
-		collectionView.reloadData()
+		applySnapshotFromSections(animatingDifferences: animatingDifferences)
 	}
 
 	func reloadCell(at indexPath: IndexPath) {
@@ -339,6 +344,10 @@ final class HomeViewController: UIViewController {
 		} else {
 			collectionView.backgroundColor = .enaColor(for: .separator)
 		}
+	}
+
+	func cellForItem(at indexPath: IndexPath) -> UICollectionViewCell? {
+		return self.collectionView.cellForItem(at: indexPath)
 	}
 }
 
@@ -438,19 +447,18 @@ private extension HomeViewController {
 extension HomeViewController: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
 		homeInteractor.state.exposureManagerState = state
-		updateOwnUI()
+		reloadData(animatingDifferences: false)
+
 		exposureDetectionController?.updateUI()
 		settingsController?.updateExposureState(state)
-	}
-
-	private func updateOwnUI() {
-		reloadData()
 	}
 }
 
 extension HomeViewController: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		homeInteractor.state.enState = state
+		reloadData(animatingDifferences: false)
+
 		updateAllState(state)
 	}
 
@@ -501,4 +509,3 @@ private extension UICollectionViewCell {
 		subviews.filter(({ $0.tag == 100_000 })).forEach({ $0.removeFromSuperview() })
 	}
 }
-
