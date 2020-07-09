@@ -35,7 +35,7 @@ class CountdownTimerTests: XCTestCase {
 		c.delegate = countdownTimerTarget
 
 		let expectation = self.expectation(description: "Calls done.")
-		countdownTimerTarget.doneCallback = {
+		countdownTimerTarget.doneCallback = { _, _ in
 			XCTAssert(Date() > end)
 			expectation.fulfill()
 		}
@@ -50,7 +50,7 @@ class CountdownTimerTests: XCTestCase {
 		c.delegate = countdownTimerTarget
 
 		let expectation = self.expectation(description: "Calls done when end in past.")
-		countdownTimerTarget.doneCallback = {
+		countdownTimerTarget.doneCallback = { _, _ in
 			expectation.fulfill()
 		}
 
@@ -65,12 +65,12 @@ class CountdownTimerTests: XCTestCase {
 
 		let updateExpectation = self.expectation(description: "Calls update every second.")
 		updateExpectation.expectedFulfillmentCount = 3
-		countdownTimerTarget.updateCallback = { time in
+		countdownTimerTarget.updateCallback = { _, time in
 			updateExpectation.fulfill()
 		}
 
 		let doneExpectation = self.expectation(description: "Calls done when finished.")
-		countdownTimerTarget.doneCallback = {
+		countdownTimerTarget.doneCallback = { _, _ in
 			doneExpectation.fulfill()
 		}
 
@@ -81,14 +81,14 @@ class CountdownTimerTests: XCTestCase {
 
 class CountdownTimerTarget: CountdownTimerDelegate {
 
-	var updateCallback: ((String) -> Void)?
-	var doneCallback: (() -> Void)?
+	var updateCallback: ((CountdownTimer, String) -> Void)?
+	var doneCallback: ((CountdownTimer, Bool) -> Void)?
 
-	func update(time: String) {
-		self.updateCallback?(time)
+	func countdownTimer(_ timer: CountdownTimer, didUpdate time: String) {
+		self.updateCallback?(timer, time)
 	}
 
-	func done() {
-		self.doneCallback?()
+	func countdownTimer(_ timer: CountdownTimer, didEnd done: Bool) {
+		self.doneCallback?(timer, done)
 	}
 }

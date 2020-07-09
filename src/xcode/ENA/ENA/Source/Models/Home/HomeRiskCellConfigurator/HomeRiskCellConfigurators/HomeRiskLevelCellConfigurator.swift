@@ -28,6 +28,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	var isButtonHidden: Bool
 	var detectionIntervalLabelHidden: Bool
 	var lastUpdateDate: Date?
+	var timeUntilUpdate: String?
 
 	private static let lastUpdateDateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
@@ -126,6 +127,12 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		lhs.isButtonHidden == rhs.isButtonHidden &&
 		lhs.detectionIntervalLabelHidden == rhs.detectionIntervalLabelHidden &&
 		lhs.lastUpdateDate == rhs.lastUpdateDate
+	}
+
+	/// Convenience method that can be overwritten to configure the button without running the full configure(_:) method.
+	/// This is handy when very frequent updates such as the update countdown are applied to the button.
+	func configureButton(for cell: RiskLevelCollectionViewCell) {
+		// Intentionally left blank.
 	}
 }
 
