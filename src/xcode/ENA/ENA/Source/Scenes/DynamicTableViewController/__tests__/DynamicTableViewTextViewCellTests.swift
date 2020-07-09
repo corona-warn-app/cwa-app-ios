@@ -41,6 +41,7 @@ class DynamicTableViewTextViewCellTests: XCTestCase {
 
 		XCTAssertEqual(sut.backgroundColor, UIColor.enaColor(for: .background))
 		XCTAssertEqual(try sut.getTextView().backgroundColor, UIColor.enaColor(for: .background))
+		XCTAssertEqual(try sut.getTextView().tintColor, UIColor.enaColor(for: .textTint))
 	}
 
 	func testSetup_UITextView_LikeLabel() throws {

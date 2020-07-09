@@ -49,6 +49,7 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 		// The two below settings make the UITextView look more like a UILabel
 		textView.textContainerInset = .zero
 		textView.textContainer.lineFragmentPadding = .zero
+		textView.tintColor = .enaColor(for: .textTint)
 
 		contentView.addSubview(textView)
 		contentView.layoutMarginsGuide.topAnchor.constraint(equalTo: textView.topAnchor).isActive = true
