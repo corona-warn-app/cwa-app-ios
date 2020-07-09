@@ -213,32 +213,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		store.isOnboarded ? showHome() : showOnboarding()
 	}
 
-	#if !RELEASE
-	func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-		guard let url = URLContexts.first?.url else {
-			return
-		}
-
-		guard let components = NSURLComponents(
-			url: url,
-			resolvingAgainstBaseURL: true
-		),
-			let query = components.queryItems else {
-			return
-		}
-
-		if let submissionBaseURL = query.valueFor(queryItem: "submissionBaseURL") {
-			store.developerSubmissionBaseURLOverride = submissionBaseURL
-		}
-		if let distributionBaseURL = query.valueFor(queryItem: "distributionBaseURL") {
-			store.developerDistributionBaseURLOverride = distributionBaseURL
-		}
-		if let verificationBaseURL = query.valueFor(queryItem: "verificationBaseURL") {
-			store.developerVerificationBaseURLOverride = verificationBaseURL
-		}
-	}
-	#endif
-
 	private var privacyProtectionWindow: UIWindow?
 }
 
