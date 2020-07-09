@@ -61,6 +61,9 @@ final class ENATaskScheduler {
 		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
 		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
 			taskHandler(task)
+			task.expirationHandler = {
+				task.setTaskCompleted(success: false)
+			}
 		}
 	}
 
@@ -109,15 +112,15 @@ final class ENATaskScheduler {
 	private func executeExposureDetectionRequest(_ task: BGTask) {
 		taskDelegate?.executeExposureDetectionRequest(task: task) { success in
 			task.setTaskCompleted(success: success)
-			self.scheduleTask(for: task.identifier)
 		}
+		scheduleTask(for: task.identifier)
 	}
 
 	private func executeFetchTestResults(_ task: BGTask) {
 		taskDelegate?.executeFetchTestResults(task: task) { success in
 			task.setTaskCompleted(success: success)
-			self.scheduleTask(for: task.identifier)
 		}
+		scheduleTask(for: task.identifier)
 	}
 
 }
