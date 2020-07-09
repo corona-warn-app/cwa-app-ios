@@ -59,8 +59,8 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 
 		let alert = vc.createENAlert(.internal)
 		XCTAssert(alert.actions.count == 2)
-		XCTAssert(alert.actions[1].title == AppStrings.ExposureSubmissionError.moreInfo)
-		XCTAssert(alert.message == AppStrings.ExposureSubmissionError.internal)
+		XCTAssert(alert.actions[1].title == AppStrings.Common.errorAlertActionMoreInfo)
+		XCTAssert(alert.message == AppStrings.Common.enError11Description)
 	}
 
 	func testShowENErrorAlertUnsupported() {
@@ -69,8 +69,8 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 
 		let alert = vc.createENAlert(.unsupported)
 		XCTAssert(alert.actions.count == 2)
-		XCTAssert(alert.actions[1].title == AppStrings.ExposureSubmissionError.moreInfo)
-		XCTAssert(alert.message == AppStrings.ExposureSubmissionError.unsupported)
+		XCTAssert(alert.actions[1].title == AppStrings.Common.errorAlertActionMoreInfo)
+		XCTAssert(alert.message == AppStrings.Common.enError5Description)
 	}
 
 	func testShowENErrorAlertRateLimited() {
@@ -79,29 +79,23 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 
 		let alert = vc.createENAlert(.rateLimited)
 		XCTAssert(alert.actions.count == 2)
-		XCTAssert(alert.actions[1].title == AppStrings.ExposureSubmissionError.moreInfo)
-		XCTAssert(alert.message == AppStrings.ExposureSubmissionError.rateLimited)
+		XCTAssert(alert.actions[1].title == AppStrings.Common.errorAlertActionMoreInfo)
+		XCTAssert(alert.message == AppStrings.Common.enError13Description)
 	}
 
 	func testGetURLInternal() {
-		let vc = createVC()
-
-		let url = vc.getURL(for: .internal)
-		XCTAssert(url?.absoluteString == AppStrings.ExposureSubmissionError.moreInfoURLEN11)
+		let url = ExposureSubmissionError.internal.faqURL
+		XCTAssert(url?.absoluteString == AppStrings.Links.appFaqENError11)
 	}
 
 	func testGetURLUnsupported() {
-		let vc = createVC()
-
-		let url = vc.getURL(for: .unsupported)
-		XCTAssert(url?.absoluteString == AppStrings.ExposureSubmissionError.moreInfoURLEN5)
+		let url = ExposureSubmissionError.unsupported.faqURL
+		XCTAssert(url?.absoluteString == AppStrings.Links.appFaqENError5)
 	}
 
 	func testGetURLRateLimited() {
-		let vc = createVC()
-
-		let url = vc.getURL(for: .rateLimited)
-		XCTAssert(url?.absoluteString == AppStrings.ExposureSubmissionError.moreInfoURLEN13)
+		let url = ExposureSubmissionError.rateLimited.faqURL
+		XCTAssert(url?.absoluteString == AppStrings.Links.appFaqENError13)
 	}
 
 }

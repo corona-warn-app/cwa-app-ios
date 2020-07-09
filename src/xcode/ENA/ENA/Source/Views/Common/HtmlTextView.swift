@@ -34,12 +34,13 @@ class HtmlTextView: UITextView {
 		super.init(frame: frame, textContainer: textContainer)
 		setup()
 	}
-
+	
 	private func setup() {
 		isScrollEnabled = false
 		backgroundColor = nil
 		adjustsFontForContentSizeCategory = true
-		font = .preferredFont(forTextStyle: .body)
+		font = .enaFont(for: .body)
+		textColor = .enaColor(for: .textPrimary1)
 		textContainer.lineFragmentPadding = .zero
 
 		linkTextAttributes = [
@@ -48,16 +49,6 @@ class HtmlTextView: UITextView {
 
 		isEditable = false
 	}
-
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		if var html = self.html {
-			DispatchQueue.main.async {
-				html = self.applyColors(to: html)
-				self.attributedText = try? self.parseHtml(html)
-			}
-		}
-	}
 }
 
 extension HtmlTextView {
@@ -65,7 +56,11 @@ extension HtmlTextView {
 		if var html = try? loadHtml(from: url) {
 			self.html = html
 			html = applyColors(to: html)
-			attributedText = try? parseHtml(html)
+			if let attributedText = try? parseHtml(html) {
+				let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
+				mutableAttributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.enaColor(for: .textPrimary1), range: NSRange(location: 0, length: attributedText.length))
+				self.attributedText = mutableAttributedText
+			}
 		} else {
 			logError(message: "HTML resource could not be loaded: \(url)")
 		}
