@@ -120,7 +120,6 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	override func configureButton(for cell: RiskLevelCollectionViewCell) {
 		super.configureButton(for: cell)
-
 		cell.configureUpdateButton(
 			title: buttonTitle,
 			isEnabled: isButtonEnabled,
