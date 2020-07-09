@@ -151,6 +151,7 @@ final class OnboardingInfoViewController: UIViewController {
 		guard let onboardingInfo = onboardingInfo else { return }
 
 		titleLabel.text = onboardingInfo.title
+		titleLabel.textAlignment = .natural
 
 		let exposureNotificationsNotSet = exposureManagerState.status == .unknown || exposureManagerState.status == .bluetoothOff
 		let exposureNotificationsEnabled = exposureManagerState.enabled
