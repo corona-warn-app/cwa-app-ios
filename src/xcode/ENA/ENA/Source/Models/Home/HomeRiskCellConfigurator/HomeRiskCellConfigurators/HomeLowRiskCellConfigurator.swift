@@ -120,19 +120,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	override func configureButton(for cell: RiskLevelCollectionViewCell) {
 		super.configureButton(for: cell)
-		
-		let buttonTitle: String
-		if isLoading {
-			buttonTitle = AppStrings.Home.riskCardStatusCheckButton
-		} else {
-			let intervalDisabledButtonTitle: String
-			if let timeUntilUpdate = timeUntilUpdate {
-				intervalDisabledButtonTitle = String(format: AppStrings.ExposureDetection.refreshIn, timeUntilUpdate)
-			} else {
-				intervalDisabledButtonTitle = String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, "\(detectionInterval)")
-			}
-			buttonTitle = isButtonEnabled ? AppStrings.Home.riskCardLowButton : intervalDisabledButtonTitle
-		}
+
 		cell.configureUpdateButton(
 			title: buttonTitle,
 			isEnabled: isButtonEnabled,
@@ -140,4 +128,12 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			accessibilityIdentifier: AccessibilityIdentifiers.Home.riskCardIntervalUpdateTitle
 		)
 	}
+
+	private var buttonTitle: String {
+		if isLoading { return AppStrings.Home.riskCardStatusCheckButton }
+		if isButtonEnabled { return AppStrings.Home.riskCardLowButton }
+		if let timeUntilUpdate = timeUntilUpdate { return String(format: AppStrings.ExposureDetection.refreshIn, timeUntilUpdate) }
+		return String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, "\(detectionInterval)")
+	}
+
 }
