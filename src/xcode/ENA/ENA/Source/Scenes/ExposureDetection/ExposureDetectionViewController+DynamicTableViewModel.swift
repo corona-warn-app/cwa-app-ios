@@ -347,7 +347,8 @@ extension ExposureDetectionViewController {
 
 	private var lowRiskModel: DynamicTableViewModel {
 		DynamicTableViewModel([
-			riskDataSection(cells: [
+			riskDataSection(
+				cells: [
 				.riskContacts(text: AppStrings.ExposureDetection.numberOfContacts, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
 				.riskStored(text: AppStrings.ExposureDetection.numberOfDaysStored, imageName: "Icons_TracingCircle-Dark_Step %u"),
 				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))

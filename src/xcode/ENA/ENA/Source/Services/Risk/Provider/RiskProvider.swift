@@ -173,31 +173,32 @@ extension RiskProvider: RiskProviding {
 			daysSinceLastExposure: store.summary?.summary.daysSinceLastExposure,
 			numberOfExposures: Int(store.summary?.summary.matchedKeyCount ?? 0),
 			activeTracing: tracingHistory.activeTracing(),
-			// FIXME: What to pass instead of .distantPast?
-			exposureDetectionDate: store.summary?.date ?? .distantPast)
+			exposureDetectionDate: store.summary?.date
+		)
 
 		// Risk Calculation involves some potentially long running tasks, like exposure detection and
 		// fetching the configuration from the backend.
 		// However in some precondition cases we can return early, mainly:
 		// 1. The exposureManagerState is bad (turned off, not authorized, etc.)
 		// 2. Tracing has not been active for at least 24 hours
-
 		guard exposureManagerState.isGood else {
-			completeOnTargetQueue(risk: Risk(
-				level: .inactive,
-				details: details,
-				// FIXME: What to set this to?
-				riskLevelHasChanged: false)
+			completeOnTargetQueue(
+				risk: Risk(
+					level: .inactive,
+					details: details,
+					riskLevelHasChanged: false // false because we don't want to trigger a notification
+				)
 			)
 			return
 		}
 
 		guard numberOfEnabledHours >= TracingStatusHistory.minimumActiveHours else {
-			completeOnTargetQueue(risk: Risk(
-				level: .unknownInitial,
-				details: details,
-				// FIXME: What to set this to?
-				riskLevelHasChanged: false)
+			completeOnTargetQueue(
+				risk: Risk(
+					level: .unknownInitial,
+					details: details,
+					riskLevelHasChanged: false // false because we don't want to trigger a notification
+				)
 			)
 			return
 		}
