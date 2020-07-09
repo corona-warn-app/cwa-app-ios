@@ -2,7 +2,7 @@
 set -euo pipefail
 
 script_dir=${0:a:h}
-cd $script_dir/../src/xcode/ENA/Source/Client/HTTP\ Client
+cd $script_dir/../src/xcode/ENA/ENA/Source/Client/HTTP\ Client
 
 # Strings to be replaced
 distr_endp='https://svc90.main.px.t-online.de'
