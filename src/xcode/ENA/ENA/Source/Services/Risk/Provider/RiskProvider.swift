@@ -139,15 +139,18 @@ extension RiskProvider: RiskProviding {
 
 	/// Returns the next possible date of a exposureDetection
 	/// Case1: Date is a valid date in the future
-	/// Case2: Date is in the past (could be .distantPast) to indicate that a detection may be performed
-	/// Case2 can only happen when shouldPerformExposure returns true
+	/// Case2: Date is in the past (could be .distantPast) (usually happens when no detection has been run before (e.g. fresh install).
+	/// For Case2, we need to calculate the remaining time until we reach a full 24h of tracing.
 	func nextExposureDetectionDate() -> Date {
 		let nextDate = configuration.nextExposureDetectionDate(
 			lastExposureDetectionDate: store.summary?.date
 		)
 		switch nextDate {
 		case .now:  // Occurs when no detection has been performed ever
-			return .distantPast
+			let tracingHistory = store.tracingStatusHistory
+			let numberOfEnabledSeconds = tracingHistory.activeTracing().interval
+			let remainingTime = TracingStatusHistory.minimumActiveSeconds - numberOfEnabledSeconds
+			return Date().addingTimeInterval(remainingTime)
 		case .date(let date):
 			return date
 		}

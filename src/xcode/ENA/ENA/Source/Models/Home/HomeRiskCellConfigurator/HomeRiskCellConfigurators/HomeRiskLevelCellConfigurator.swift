@@ -29,6 +29,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	var isButtonHidden: Bool
 	var detectionIntervalLabelHidden: Bool
 	var lastUpdateDate: Date?
+	var timeUntilUpdate: String?
 
 	private static let lastUpdateDateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
@@ -109,7 +110,12 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		cell.bodyLabel.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.bodyLabel
 		cell.detectionIntervalLabel.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.detectionIntervalLabel
 		cell.updateButton.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.updateButton
+	}
 
+	/// Convenience method that can be overwritten to configure the button without running the full configure(_:) method.
+	/// This is handy when very frequent updates such as the update countdown are applied to the button.
+	func configureButton(for cell: RiskLevelCollectionViewCell) {
+		// Intentionally left blank.
 	}
 }
 

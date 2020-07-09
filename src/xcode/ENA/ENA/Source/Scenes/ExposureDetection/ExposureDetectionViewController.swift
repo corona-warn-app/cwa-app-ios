@@ -239,6 +239,7 @@ extension ExposureDetectionViewController {
 	}
 
 	private func scheduleCountdownTimer(to end: Date) {
+		countdown?.invalidate()
 		countdown = CountdownTimer(countdownTo: end)
 		countdown?.delegate = self
 		countdown?.start()
@@ -262,11 +263,12 @@ extension ExposureDetectionViewController {
 // MARK: - CountdownTimerDelegate methods.
 
 extension ExposureDetectionViewController: CountdownTimerDelegate {
-	func update(time: String) {
+
+	func countdownTimer(_ timer: CountdownTimer, didUpdate time: String) {
 		self.updateCheckButton(time)
 	}
 
-	func done() {
+	func countdownTimer(_ timer: CountdownTimer, didEnd done: Bool) {
 		self.updateCheckButton()
 	}
 }
