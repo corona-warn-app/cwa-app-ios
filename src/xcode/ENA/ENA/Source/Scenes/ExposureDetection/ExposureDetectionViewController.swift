@@ -171,7 +171,7 @@ extension ExposureDetectionViewController {
 	}
 
 	private func updateCloseButton() {
-		if state.isTracingEnabled && state.riskLevel != .unknownOutdated {
+		if state.isTracingEnabled && state.riskLevel != .unknownOutdated && state.riskLevel != .inactive {
 			closeButton.setImage(UIImage(named: "Icons - Close - Contrast"), for: .normal)
 			closeButton.setImage(UIImage(named: "Icons - Close - Tap - Contrast"), for: .highlighted)
 		} else {
@@ -239,6 +239,7 @@ extension ExposureDetectionViewController {
 	}
 
 	private func scheduleCountdownTimer(to end: Date) {
+		countdown?.invalidate()
 		countdown = CountdownTimer(countdownTo: end)
 		countdown?.delegate = self
 		countdown?.start()
@@ -262,11 +263,12 @@ extension ExposureDetectionViewController {
 // MARK: - CountdownTimerDelegate methods.
 
 extension ExposureDetectionViewController: CountdownTimerDelegate {
-	func update(time: String) {
+
+	func countdownTimer(_ timer: CountdownTimer, didUpdate time: String) {
 		self.updateCheckButton(time)
 	}
 
-	func done() {
+	func countdownTimer(_ timer: CountdownTimer, didEnd done: Bool) {
 		self.updateCheckButton()
 	}
 }

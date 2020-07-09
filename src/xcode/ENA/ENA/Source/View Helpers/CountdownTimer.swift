@@ -37,6 +37,10 @@ class CountdownTimer {
 	}
 
 	deinit {
+		invalidate()
+	}
+
+	func invalidate() {
 		timer?.invalidate()
 		timer = nil
 	}
@@ -58,7 +62,7 @@ class CountdownTimer {
 	private func action(_ timer: Timer? = nil) {
 		guard self.end >= Date() else {
 			timer?.invalidate()
-			self.delegate?.done()
+			self.delegate?.countdownTimer(self, didEnd: true)
 			return
 		}
 
@@ -71,7 +75,7 @@ class CountdownTimer {
 			from: Date(),
 			to: end
 		)
-		delegate?.update(time: CountdownTimer.format(components))
+		delegate?.countdownTimer(self, didUpdate: CountdownTimer.format(components))
 	}
 
 	static func format(_ components: DateComponents) -> String {
@@ -86,6 +90,6 @@ class CountdownTimer {
 
 /// Provides callback methods that are called once per second (`update(_)`) until the countdown has finished.
 protocol CountdownTimerDelegate: class {
-	func update(time: String)
-	func done()
+	func countdownTimer(_ timer: CountdownTimer, didUpdate time: String)
+	func countdownTimer(_ timer: CountdownTimer, didEnd done: Bool)
 }

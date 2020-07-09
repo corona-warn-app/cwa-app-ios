@@ -58,6 +58,18 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 	private func setupButtons() {
 		guard let result = testResult else { return }
+
+		// Make sure to reset all button loading states.
+		self.navigationFooterItem?.isPrimaryButtonLoading = false
+		self.navigationFooterItem?.isSecondaryButtonLoading = false
+
+		// Make sure to reset buttons to default state.
+		self.navigationFooterItem?.isPrimaryButtonEnabled = true
+		self.navigationFooterItem?.isPrimaryButtonHidden = false
+
+		self.navigationFooterItem?.isSecondaryButtonEnabled = false
+		self.navigationFooterItem?.isSecondaryButtonHidden = true
+
 		switch result {
 		case .positive:
 			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.continueButton
@@ -68,6 +80,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		case .pending:
 			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.refreshButton
 			navigationFooterItem?.secondaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
+			navigationFooterItem?.isSecondaryButtonEnabled = true
 			navigationFooterItem?.isSecondaryButtonHidden = false
 		}
 	}
