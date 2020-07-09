@@ -99,7 +99,6 @@ final class HomeInteractor: RequiresAppDependencies {
 
 	private func observeRisk() {
 		riskConsumer.didChangeLoadingStatus = { isLoading in
-			print(#function, isLoading)
 			self.updateAndReloadRiskLoading(isRequestRiskRunning: isLoading)
 		}
 
