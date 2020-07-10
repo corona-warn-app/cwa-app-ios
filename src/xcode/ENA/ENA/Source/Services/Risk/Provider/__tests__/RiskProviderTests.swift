@@ -85,7 +85,7 @@ final class RiskProviderTests: XCTestCase {
 		sut.observeRisk(consumer)
 		sut.requestRisk(userInitiated: false)
 		waitForExpectations(timeout: 1.0)
-    }
+	}
 
 	func testExposureDetectionIsNotExecutedIfTracingHasNotBeenEnabledLongEnough() throws {
 		let duration = DateComponents(day: 1)
@@ -143,12 +143,12 @@ final class RiskProviderTests: XCTestCase {
 		let expectThatRiskIsReturned = expectation(description: "expectThatRiskIsReturned")
 		sut.requestRisk(userInitiated: false) { risk in
 			expectThatRiskIsReturned.fulfill()
-			XCTAssertNil(risk, "Tracing was active for < 24 hours but risk was calculated!")
+			XCTAssertEqual(risk?.level, .unknownInitial, "Tracing was active for < 24 hours but risk is not .unknownInitial")
 		}
 		waitForExpectations(timeout: 1.0)
 	}
 
-    func testThatDetectionIsRequested() throws {
+	func testThatDetectionIsRequested() throws {
 		let duration = DateComponents(day: 1)
 
 		let store = MockTestStore()
@@ -199,5 +199,5 @@ final class RiskProviderTests: XCTestCase {
 		sut.observeRisk(consumer)
 		sut.requestRisk(userInitiated: true)
 		wait(for: [detectionRequested, didCalculateRiskCalled], timeout: 1.0, enforceOrder: true)
-    }
+	}
 }
