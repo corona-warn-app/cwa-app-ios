@@ -19,14 +19,18 @@
 import ExposureNotification
 
 final class ClientMock {
-	// MARK: Creating a Mock Client
-	init(submissionError: SubmissionError?) {
+	// MARK: - Creating a Mock Client.
+	init(submissionError: SubmissionError? = nil) {
 		self.submissionError = submissionError
 	}
 
-	// MARK: Properties
+	// MARK: - Properties.
 	let submissionError: SubmissionError?
+
+	// MARK: - Configurable Mock Callbacks.
+
 	var onAppConfiguration: (AppConfigurationCompletion) -> Void = { $0(nil) }
+	var onGetTestResult: ((String, TestResultHandler) -> Void)?
 }
 
 extension ClientMock: Client {
@@ -59,7 +63,12 @@ extension ClientMock: Client {
 	}
 
 	func getTestResult(forDevice device: String, completion completeWith: @escaping TestResultHandler) {
-		completeWith(.success(2))
+		guard let onGetTestResult = self.onGetTestResult else {
+			completeWith(.success(2))
+			return
+		}
+
+		onGetTestResult(device, completeWith)
 	}
 
 	func getTANForExposureSubmit(forDevice device: String, completion completeWith: @escaping TANHandler) {

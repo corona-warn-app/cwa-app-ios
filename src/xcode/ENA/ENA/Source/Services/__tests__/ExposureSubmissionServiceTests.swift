@@ -142,4 +142,92 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		waitForExpectations(timeout: expectationsTimeout)
 	}
+
+	func testGetTestResult_success() {
+
+		// Initialize.
+
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let client = ClientMock()
+		let store = MockTestStore()
+		store.registrationToken = "dummyRegistrationToken"
+
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		// Execute test.
+
+		service.getTestResult { result in
+			expectation.fulfill()
+			switch result {
+			case .failure:
+				XCTFail("This test should always return a successful result.")
+			case .success(let testResult):
+				XCTAssertEqual(testResult, TestResult.positive)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testGetTestResult_noRegistrationToken() {
+
+		// Initialize.
+		let expectation = self.expectation(description: "Expect to receive a result.")
+		let service = ENAExposureSubmissionService(
+			diagnosiskeyRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil)),
+			client: ClientMock(submissionError: nil),
+			store: MockTestStore()
+		)
+
+		// Execute test.
+
+		service.getTestResult { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				XCTAssert(error == .noRegistrationToken)
+			case .success:
+				XCTFail("This test should always fail since the registration token is missing.")
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testGetTestResult_unknownTestResultValue() {
+
+		// Initialize.
+
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+
+		let store = MockTestStore()
+		store.registrationToken = "dummyRegistrationToken"
+
+		let client = ClientMock()
+		client.onGetTestResult = { _, completeWith in
+			let unknownTestResultValue = 4
+			completeWith(.success(unknownTestResultValue))
+		}
+
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+		let expectation = self.expectation(description: "Expect to receive a result.")
+		let expectationToFailWithOther = self.expectation(description: "Expect to fail with error of type .other(_)")
+
+		// Execute test.
+
+		service.getTestResult { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				if case ExposureSubmissionError.other(_) = error {
+					expectationToFailWithOther.fulfill()
+				}
+			case .success:
+				XCTFail("This test should intentionally produce an unknown test result that cannot be parsed.")
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
 }
