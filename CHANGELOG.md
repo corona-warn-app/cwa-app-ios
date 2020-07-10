@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.0.6 (10/07/2020)
+#### Bug fixes
+
+-  Fix text on risk detail page [#879](https://github.com/corona-warn-app/cwa-app-ios/pull/879)
+
+---
+
 ## v1.0.5 (09/07/2020)
 #### Bug fixes
 -  Home Screen Risk Cell Update on App start + Risk Calc Refinements [#874](https://github.com/corona-warn-app/cwa-app-ios/pull/874)
