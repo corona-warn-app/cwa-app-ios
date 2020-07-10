@@ -22,17 +22,19 @@ import XCTest
 
 class DynamicTableViewTextViewCellTests: XCTestCase {
 
-	func testDataDetectors_DefaultNone() {
+	func testDataDetectors_DefaultNone() throws {
 		let sut = DynamicTableViewTextViewCell()
-		XCTAssertEqual(sut.dataDetectorTypes, [])
+		let textView = try sut.getTextView()
+		XCTAssertEqual(textView.dataDetectorTypes, [])
 	}
 
-	func testDataDetectors_Setter() {
+	func testDataDetectors_Setter() throws {
 		let sut = DynamicTableViewTextViewCell()
 		let expectedDetectors: UIDataDetectorTypes = [.shipmentTrackingNumber, .phoneNumber]
-		sut.dataDetectorTypes = expectedDetectors
+		sut.configureTextView(dataDetectorTypes: expectedDetectors)
 
-		XCTAssertEqual(sut.dataDetectorTypes, expectedDetectors)
+		let textView = try sut.getTextView()
+		XCTAssertEqual(textView.dataDetectorTypes, expectedDetectors)
 	}
 
 	func testSetup_Colors() throws {

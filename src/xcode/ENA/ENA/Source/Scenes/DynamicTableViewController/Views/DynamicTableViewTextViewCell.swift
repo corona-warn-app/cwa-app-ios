@@ -23,11 +23,6 @@ import UIKit
 class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 	private let textView = UITextView()
 
-	var dataDetectorTypes: UIDataDetectorTypes {
-		get { textView.dataDetectorTypes }
-		set { textView.dataDetectorTypes = newValue }
-	}
-
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
 		setup()
@@ -47,6 +42,11 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 		textView.isScrollEnabled = false
 		textView.isEditable = false
 		// The two below settings make the UITextView look more like a UILabel
+		// By default, UITextView has some insets & padding that differ from a UILabel.
+		// For example, there are insets different from UILabel that cause the text to be a little offset
+		// at all sides when compared to a UILabel.
+		// As this cell is used together with regular UILabel-backed cells in the same table,
+		// we want to ensure that our text view looks exactly like the label-backed cells.
 		textView.textContainerInset = .zero
 		textView.textContainer.lineFragmentPadding = .zero
 		textView.tintColor = .enaColor(for: .textTint)
@@ -87,5 +87,9 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 		textView.accessibilityLabel = label
 		textView.accessibilityIdentifier = identifier
 		accessibilityTraits = traits
+	}
+
+	func configureTextView(dataDetectorTypes: UIDataDetectorTypes) {
+		textView.dataDetectorTypes = dataDetectorTypes
 	}
 }

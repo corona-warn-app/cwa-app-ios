@@ -70,7 +70,7 @@ extension DynamicCellTests {
 	}
 
 	func testMakeDynamicCell_UseTextViewCellStyle() {
-		let section = DynamicSection.section(cells: [.dynamicType(text: "Foo", cellStyle: .textView(dataDetectors: []))])
+		let section = DynamicSection.section(cells: [.dynamicType(text: "Foo", cellStyle: .textView([]))])
 		dynamicVC.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = dynamicVC
@@ -83,7 +83,7 @@ extension DynamicCellTests {
 
 	func testMakeDynamicCell_UseTextViewCellStyle_WithDataDetectors() throws {
 		let expectedDetectors = UIDataDetectorTypes.all
-		let section = DynamicSection.section(cells: [.dynamicType(text: "Foo", cellStyle: .textView(dataDetectors: expectedDetectors))])
+		let section = DynamicSection.section(cells: [.dynamicType(text: "Foo", cellStyle: .textView(expectedDetectors))])
 		dynamicVC.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = dynamicVC
@@ -92,7 +92,8 @@ extension DynamicCellTests {
 		let cell = dynamicVC.tableView.cellForRow(at: indexPath)
 
 		let textViewCell = try XCTUnwrap(cell as? DynamicTableViewTextViewCell)
-		XCTAssertEqual(textViewCell.dataDetectorTypes, expectedDetectors)
+		let textView = try textViewCell.getTextView()
+		XCTAssertEqual(textView.dataDetectorTypes, expectedDetectors)
 	}
 
 	// MARK: - Body Dynamic Cell Tests
@@ -107,5 +108,13 @@ extension DynamicCellTests {
 		let cell = dynamicVC.tableView.cellForRow(at: indexPath)
 
 		XCTAssert(cell is DynamicTableViewTextCell)
+	}
+}
+
+// MARK: - Helpers
+
+private extension DynamicTableViewTextViewCell {
+	func getTextView() throws -> UITextView {
+		return try XCTUnwrap(contentView.subviews.first(where: { $0 is UITextView }) as? UITextView)
 	}
 }

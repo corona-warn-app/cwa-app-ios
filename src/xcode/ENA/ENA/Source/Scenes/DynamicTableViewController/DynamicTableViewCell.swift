@@ -35,7 +35,7 @@ struct DynamicCell {
 
 extension DynamicCell {
 	enum CellReuseIdentifier: String, TableViewCellReuseIdentifiers {
-		case dynamicTypeText = "regularCell"
+		case dynamicTypeLabel = "labelCell"
 		case dynamicTypeTextView = "textViewCell"
 		case icon = "iconCell"
 		case space = "spaceCell"
@@ -51,11 +51,11 @@ extension DynamicCell {
 		case label
 		/// DynamicCell that uses a UITextView with data recognizers instead of a UILabel to display text
 		/// Useful for automatic link, phone #, etc. recognization
-		case textView(dataDetectors: UIDataDetectorTypes)
+		case textView(UIDataDetectorTypes)
 
 		var reuseIdentifier: CellReuseIdentifier {
 			switch self {
-			case .label: return .dynamicTypeText
+			case .label: return .dynamicTypeLabel
 			case .textView: return .dynamicTypeTextView
 			}
 		}
@@ -92,7 +92,7 @@ extension DynamicCell {
 
 			if case .textView(let dataDetectorTypes) = cellStyle,
 				let cell = cell as? DynamicTableViewTextViewCell {
-				cell.dataDetectorTypes = dataDetectorTypes
+				cell.configureTextView(dataDetectorTypes: dataDetectorTypes)
 			}
 
 			configure?(viewController, cell, indexPath)

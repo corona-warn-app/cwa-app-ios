@@ -56,7 +56,7 @@ extension DynamicTableViewControllerRegisterCellsTests {
 		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
 		
 		// dequeue cell
-		let reuseIdentifier = DynamicCell.CellReuseIdentifier.dynamicTypeText.rawValue
+		let reuseIdentifier = DynamicCell.CellReuseIdentifier.dynamicTypeLabel.rawValue
 		let cell = sut.tableView.dequeueReusableCell(
 			withIdentifier: reuseIdentifier,
 			for: IndexPath(row: 0, section: 0)
