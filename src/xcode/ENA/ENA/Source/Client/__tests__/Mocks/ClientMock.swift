@@ -19,12 +19,15 @@
 import ExposureNotification
 
 final class ClientMock {
+
 	// MARK: - Creating a Mock Client.
+
 	init(submissionError: SubmissionError? = nil) {
 		self.submissionError = submissionError
 	}
 
 	// MARK: - Properties.
+	
 	let submissionError: SubmissionError?
 
 	// MARK: - Configurable Mock Callbacks.
