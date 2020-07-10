@@ -64,8 +64,7 @@ extension ClientMock: Client {
 
 	func getTestResult(forDevice device: String, completion completeWith: @escaping TestResultHandler) {
 		guard let onGetTestResult = self.onGetTestResult else {
-			let positiveTestResult = 2
-			completeWith(.success(positiveTestResult))
+			completeWith(.success(TestResult.positive.rawValue))
 			return
 		}
 
