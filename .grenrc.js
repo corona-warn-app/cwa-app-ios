@@ -1,7 +1,7 @@
 module.exports = {
     "dataSource": "prs",
     "prefix": "v",
-    "ignoreLabels": ["on hold", "closed", "bug", "fix", "feature", "feature request", "enhancement", "UI polish, UX"],
+    "ignoreLabels": ["on hold", "chore", "closed", "bug", "fix", "feature", "feature request", "enhancement", "UI polish, UX"],
     "ignoreIssuesWith": ["admin", "documentation", "tests"],
     "onlyMilestones": false,
     "ignoreTagsWith": ["alpha", "beta"],
