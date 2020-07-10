@@ -35,7 +35,7 @@ extension ExposureDetectionViewController {
 		var actualRiskText: String { riskLevel.text }
 
 		var riskText: String {
-			 AppStrings.ExposureDetection.off
+			 isTracingEnabled ? riskLevel.text : AppStrings.ExposureDetection.off
 		}
 
 		var riskTintColor: UIColor {
