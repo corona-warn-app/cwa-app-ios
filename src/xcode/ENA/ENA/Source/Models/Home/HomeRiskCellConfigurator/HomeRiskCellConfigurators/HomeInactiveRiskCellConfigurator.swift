@@ -22,12 +22,12 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 	private var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 	private var lastUpdateDate: Date?
 
-	enum IncativeType {
+	enum InactiveType {
 		case noCalculationPossible
 		case outdatedResults
 	}
 
-	var incativeType: IncativeType = .noCalculationPossible
+	var inactiveType: InactiveType = .noCalculationPossible
 
 	var activeAction: (() -> Void)?
 
@@ -50,11 +50,11 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
-		incativeType: IncativeType,
+		inactiveType: InactiveType,
 		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
 		lastUpdateDate: Date?
 	) {
-		self.incativeType = incativeType
+		self.inactiveType = inactiveType
 		self.previousRiskLevel = previousRiskLevel
 		self.lastUpdateDate = lastUpdateDate
 	}
@@ -64,11 +64,11 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 	func configure(cell: RiskInactiveCollectionViewCell) {
 		cell.delegate = self
 
-		let title: String = incativeType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleTitle : AppStrings.Home.riskCardInactiveOutdatedResultsTitle
+		let title: String = inactiveType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleTitle : AppStrings.Home.riskCardInactiveOutdatedResultsTitle
 		let titleColor: UIColor = .enaColor(for: .textPrimary1)
 		cell.configureTitle(title: title, titleColor: titleColor)
 
-		let bodyText: String = incativeType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleBody : AppStrings.Home.riskCardInactiveOutdatedResultsBody
+		let bodyText: String = inactiveType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleBody : AppStrings.Home.riskCardInactiveOutdatedResultsBody
 		cell.configureBody(text: bodyText, bodyColor: titleColor)
 
 		let color: UIColor = .enaColor(for: .background)
@@ -95,7 +95,7 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
 		cell.configureBackgroundColor(color: color)
 
-		let buttonTitle: String = incativeType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleButton : AppStrings.Home.riskCardInactiveOutdatedResultsButton
+		let buttonTitle: String = inactiveType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleButton : AppStrings.Home.riskCardInactiveOutdatedResultsButton
 
 		cell.configureActiveButton(title: buttonTitle)
 
@@ -120,13 +120,13 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: Hashable
 
 	func hash(into hasher: inout Swift.Hasher) {
-		hasher.combine(incativeType)
+		hasher.combine(inactiveType)
 		hasher.combine(previousRiskLevel)
 		hasher.combine(lastUpdateDate)
 	}
 
 	static func == (lhs: HomeInactiveRiskCellConfigurator, rhs: HomeInactiveRiskCellConfigurator) -> Bool {
-		lhs.incativeType == rhs.incativeType &&
+		lhs.inactiveType == rhs.inactiveType &&
 		lhs.previousRiskLevel == rhs.previousRiskLevel &&
 		lhs.lastUpdateDate == rhs.lastUpdateDate
 	}
