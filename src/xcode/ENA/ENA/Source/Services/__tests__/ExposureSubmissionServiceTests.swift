@@ -26,7 +26,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 	func testSubmitExpousure_Success() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let client = ClientMock(submissionError: nil)
+		let client = ClientMock()
 		let store = MockTestStore()
 		store.registrationToken = "dummyRegistrationToken"
 
@@ -49,7 +49,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 	func testSubmitExpousure_NoKeys() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
-		let client = ClientMock(submissionError: nil)
+		let client = ClientMock()
 		let store = MockTestStore()
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
@@ -74,7 +74,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 	func testSubmitExpousure_EmptyKeys() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
-		let client = ClientMock(submissionError: nil)
+		let client = ClientMock()
 		let store = MockTestStore()
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
@@ -126,7 +126,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Arrange
 
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let client = ClientMock(submissionError: nil)
+		let client = ClientMock()
 		let store = MockTestStore()
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
@@ -176,7 +176,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let expectation = self.expectation(description: "Expect to receive a result.")
 		let service = ENAExposureSubmissionService(
 			diagnosiskeyRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil)),
-			client: ClientMock(submissionError: nil),
+			client: ClientMock(),
 			store: MockTestStore()
 		)
 
@@ -200,7 +200,6 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Initialize.
 
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-
 		let store = MockTestStore()
 		store.registrationToken = "dummyRegistrationToken"
 
