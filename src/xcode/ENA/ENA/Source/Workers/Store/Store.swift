@@ -61,7 +61,7 @@ protocol Store: AnyObject {
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
 
-	/// TODO: Add description.
+	/// A boolean flag that indicates whether the user has seen the background fetch disabled alert.
 	var hasSeenBackgroundFetchAlert: Bool { get set }
 
 	// Timestamp that represents the date at which

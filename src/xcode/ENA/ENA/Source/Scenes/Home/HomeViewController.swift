@@ -106,10 +106,17 @@ final class HomeViewController: UIViewController {
 		updateBackgroundColor()
 	}
 
-	/// TODO: Add comment.
+	/// This method checks whether the alert for background fetching should be shown or not.
+	/// The error alert should only be shown:
+	/// - once
+	/// - if the background refresh is disabled
+	/// - the user is __not__ in power saving mode, because in this case the background
+	///   refresh is disabled automatically. Therefore we have to explicitly check this.
 	private func checkBackgroundFetchingIsOn() {
-		if UIApplication.shared.backgroundRefreshStatus == .available { return }
-		if homeInteractor.store.hasSeenBackgroundFetchAlert { return }
+
+		if UIApplication.shared.backgroundRefreshStatus == .available
+		|| ProcessInfo.processInfo.isLowPowerModeEnabled
+		|| homeInteractor.store.hasSeenBackgroundFetchAlert { return }
 
 		let openSettings: (() -> Void) = {
 			if let url = URL(string: UIApplication.openSettingsURLString) {
