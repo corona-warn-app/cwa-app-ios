@@ -346,7 +346,7 @@ private class ENATanInputLabel: UILabel {
 
 		self.textColor = textColor
 
-		if false != text?.isEmpty {
+		if false != text?.isEmpty || !isValid {
 			guard let context = UIGraphicsGetCurrentContext() else { return }
 			context.setLineWidth(lineWidth)
 			context.setStrokeColor(lineColor.cgColor)
