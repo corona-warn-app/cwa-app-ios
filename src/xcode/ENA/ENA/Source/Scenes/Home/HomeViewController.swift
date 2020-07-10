@@ -82,7 +82,7 @@ final class HomeViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		checkBackgroundFetchingIsOn()
+		setupBackgroundFetchAlert()
 		configureCollectionView()
 		configureDataSource()
 		setupAccessibility()
@@ -106,17 +106,35 @@ final class HomeViewController: UIViewController {
 		updateBackgroundColor()
 	}
 
-	/// This method checks whether the alert for background fetching should be shown or not.
+	/// This method sets up a background fetch alert, and presents it, if needed.
+	/// Check the `createBackgroundFetchAlert` method for more information.
+	func setupBackgroundFetchAlert() {
+		guard let alert = createBackgroundFetchAlert(
+			status: UIApplication.shared.backgroundRefreshStatus,
+			inLowPowerMode: ProcessInfo.processInfo.isLowPowerModeEnabled,
+			hasSeenAlertBefore: homeInteractor.store.hasSeenBackgroundFetchAlert
+			) else { return }
+
+		self.present(
+			alert,
+			animated: true,
+			completion: nil
+		)
+	}
+
+	/// This method checks whether the below conditions in regards to background fetching have been met
+	/// and creates the corresponding alert.
 	/// The error alert should only be shown:
 	/// - once
 	/// - if the background refresh is disabled
-	/// - the user is __not__ in power saving mode, because in this case the background
+	/// - if the user is __not__ in power saving mode, because in this case the background
 	///   refresh is disabled automatically. Therefore we have to explicitly check this.
-	private func checkBackgroundFetchingIsOn() {
+	func createBackgroundFetchAlert(
+		status: UIBackgroundRefreshStatus,
+		inLowPowerMode: Bool,
+		hasSeenAlertBefore: Bool) -> UIAlertController? {
 
-		if UIApplication.shared.backgroundRefreshStatus == .available
-		|| ProcessInfo.processInfo.isLowPowerModeEnabled
-		|| homeInteractor.store.hasSeenBackgroundFetchAlert { return }
+		if status == .available || inLowPowerMode || hasSeenAlertBefore { return nil }
 
 		let openSettings: (() -> Void) = {
 			if let url = URL(string: UIApplication.openSettingsURLString) {
@@ -124,19 +142,13 @@ final class HomeViewController: UIViewController {
 			}
 		}
 
-		let alert = setupErrorAlert(
+		return setupErrorAlert(
 			title: AppStrings.Common.alertTitleGeneral,
 			message: AppStrings.Common.backgroundFetch_AlertMessage,
 			okTitle: AppStrings.Common.backgroundFetch_OKTitle,
 			secondaryActionTitle: AppStrings.Common.backgroundFetch_SettingsTitle,
 			completion: { self.homeInteractor.store.hasSeenBackgroundFetchAlert = true },
 			secondaryActionCompletion: openSettings
-		)
-
-		self.present(
-			alert,
-			animated: true,
-			completion: nil
 		)
 	}
 
