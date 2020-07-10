@@ -24,7 +24,7 @@ protocol CoordinatorDelegate: AnyObject {
 	func coordinatorUserDidRequestReset()
 }
 
-final class Coordinator: RequiresAppDependencies {
+class Coordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 
 	private let rootViewController: UINavigationController
