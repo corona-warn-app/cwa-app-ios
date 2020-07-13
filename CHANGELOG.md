@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.0.7 (11/07/2020)
+#### Bug fixes
+
+Remove check that prevented from feeding the correct amount of files [#893](https://github.com/corona-warn-app/cwa-app-ios/pull/893)
+---
+
 ## v1.0.6 (10/07/2020)
 #### Bug fixes
 
