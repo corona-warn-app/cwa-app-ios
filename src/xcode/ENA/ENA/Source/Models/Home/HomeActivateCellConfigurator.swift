@@ -19,8 +19,6 @@ import UIKit
 
 final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 
-	let identifier = UUID()
-	
 	private var state: ENStateHandler.State
 
 	init(state: ENStateHandler.State) {
@@ -61,6 +59,17 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 			)
 		}
 	}
+
+	// MARK: Hashable
+	
+	func hash(into hasher: inout Swift.Hasher) {
+		hasher.combine(state)
+	}
+
+	static func == (lhs: HomeActivateCellConfigurator, rhs: HomeActivateCellConfigurator) -> Bool {
+		lhs.state == rhs.state
+	}
+
 }
 
 extension HomeActivateCellConfigurator: ENStateHandlerUpdating {
