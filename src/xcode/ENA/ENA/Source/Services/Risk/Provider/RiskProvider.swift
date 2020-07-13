@@ -27,9 +27,16 @@ protocol ExposureSummaryProvider: AnyObject {
 }
 
 final class RiskProvider {
-	private var consumers = [RiskConsumer]()
-	private let queue = DispatchQueue(label: "com.sap.RiskLevelProvider")
+
+	private let queue = DispatchQueue(label: "com.sap.riskprovider.queue")
 	private let targetQueue: DispatchQueue
+	private var consumersQueue = DispatchQueue(label: "com.sap.riskprovider.consumersQueue")
+
+	private var _consumers: [RiskConsumer] = []
+	private var consumers: [RiskConsumer] {
+		get { consumersQueue.sync { _consumers } }
+		set { consumersQueue.sync { _consumers = newValue } }
+	}
 
 	// MARK: Creating a Risk Level Provider
 	init(
@@ -67,15 +74,11 @@ private extension RiskConsumer {
 
 extension RiskProvider: RiskProviding {
 	func observeRisk(_ consumer: RiskConsumer) {
-		queue.async { [weak self] in
-			self?.consumers.append(consumer)
-		}
+		consumers.append(consumer)
 	}
 
 	func removeRisk(_ consumer: RiskConsumer) {
-		queue.async { [weak self] in
-			self?.consumers.removeAll(where: { $0 === consumer })
-		}
+		consumers.removeAll(where: { $0 === consumer })
 	}
 
 	var manualExposureDetectionState: ManualExposureDetectionState? {
@@ -246,9 +249,13 @@ extension RiskProvider: RiskProviding {
 			group.leave()
 		}
 
-		group.notify(queue: queue) {
-			self._requestRiskLevel(summaries: summaries, appConfiguration: appConfiguration, completion: completion)
+		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
+			provideLoadingStatus(isLoading: false)
+			completeOnTargetQueue(risk: nil, completion: completion)
+			return
 		}
+
+		_requestRiskLevel(summaries: summaries, appConfiguration: appConfiguration, completion: completion)
 	}
 
 	private func _requestRiskLevel(summaries: Summaries?, appConfiguration: SAP_ApplicationConfiguration?, completion: Completion? = nil) {
