@@ -41,7 +41,7 @@ class HomeViewControllerTests: XCTestCase {
 	/// - background fetching is .available
 	/// - not in low power mode
 	/// - has not seen the alert before
-	func testBackgroundFetchingAlert1() {
+	func testNoBackgroundFetchingAlertShown() {
 		let vc = setupDummyHomeVC()
 
 		let alert = vc.createBackgroundFetchAlert(
@@ -58,7 +58,7 @@ class HomeViewControllerTests: XCTestCase {
 	/// - background fetching is .denied
 	/// - not in low power mode
 	/// - has not seen the alert before
-	func testBackgroundFetchingAlert2() {
+	func testBackgroundFetchingAlertShown() {
 		let vc = setupDummyHomeVC()
 
 		let alert = vc.createBackgroundFetchAlert(
@@ -75,7 +75,7 @@ class HomeViewControllerTests: XCTestCase {
 	/// - background fetching is .restricted
 	/// - not in low power mode
 	/// - has not seen the alert before
-	func testBackgroundFetchingAlert3() {
+	func testBackgroundFetchingAlertShownWhenRestricted() {
 		let vc = setupDummyHomeVC()
 
 		let alert = vc.createBackgroundFetchAlert(
@@ -92,7 +92,7 @@ class HomeViewControllerTests: XCTestCase {
 	/// - background fetching is .denied
 	/// - is in low power mode
 	/// - has not seen the alert before
-	func testBackgroundFetchingAlert4() {
+	func testNoBackgroundFetchingAlertShownWhenInLowPower() {
 		let vc = setupDummyHomeVC()
 
 		let alert = vc.createBackgroundFetchAlert(
@@ -109,7 +109,7 @@ class HomeViewControllerTests: XCTestCase {
 	/// - background fetching is .denied
 	/// - is not in low power mode
 	/// - has seen the alert before
-	func testBackgroundFetchingAlert5() {
+	func testNoBackgroundFetchingAlertShownWhenSeenOnce() {
 		let vc = setupDummyHomeVC()
 
 		let alert = vc.createBackgroundFetchAlert(
