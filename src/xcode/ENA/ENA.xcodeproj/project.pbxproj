@@ -78,6 +78,10 @@
 		514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */; };
 		514EE99D246D4CFB00DE4884 /* TableViewCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */; };
 		515BBDEB2484F8E500CDB674 /* HomeThankYouRiskCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BBDEA2484F8E500CDB674 /* HomeThankYouRiskCellConfigurator.swift */; };
+		516E42CB24B760F50008CC30 /* HomeRiskLevelCellConfiguratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E42C924B760EC0008CC30 /* HomeRiskLevelCellConfiguratorTests.swift */; };
+		516E42FB24B7739F0008CC30 /* HomeUnknownRiskCellConfiguratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E42FA24B7739F0008CC30 /* HomeUnknownRiskCellConfiguratorTests.swift */; };
+		516E42FE24B7773E0008CC30 /* HomeLowRiskCellConfiguratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E42FC24B776A90008CC30 /* HomeLowRiskCellConfiguratorTests.swift */; };
+		516E430024B777B20008CC30 /* HomeHighRiskCellConfiguratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E42FF24B777B20008CC30 /* HomeHighRiskCellConfiguratorTests.swift */; };
 		51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895EDB245E16CD0085DA38 /* ENAColor.swift */; };
 		518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518A69FA24687D5800444E66 /* RiskLevel.swift */; };
 		51B5B414246DF07300DC5D3E /* RiskImageItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51B5B413246DF07300DC5D3E /* RiskImageItemView.xib */; };
@@ -473,6 +477,10 @@
 		514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellConfigurator.swift; sourceTree = "<group>"; };
 		514EE99F246D4DF800DE4884 /* HomeRiskImageItemViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskImageItemViewConfigurator.swift; sourceTree = "<group>"; };
 		515BBDEA2484F8E500CDB674 /* HomeThankYouRiskCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeThankYouRiskCellConfigurator.swift; sourceTree = "<group>"; };
+		516E42C924B760EC0008CC30 /* HomeRiskLevelCellConfiguratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskLevelCellConfiguratorTests.swift; sourceTree = "<group>"; };
+		516E42FA24B7739F0008CC30 /* HomeUnknownRiskCellConfiguratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUnknownRiskCellConfiguratorTests.swift; sourceTree = "<group>"; };
+		516E42FC24B776A90008CC30 /* HomeLowRiskCellConfiguratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLowRiskCellConfiguratorTests.swift; sourceTree = "<group>"; };
+		516E42FF24B777B20008CC30 /* HomeHighRiskCellConfiguratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHighRiskCellConfiguratorTests.swift; sourceTree = "<group>"; };
 		51895EDB245E16CD0085DA38 /* ENAColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAColor.swift; sourceTree = "<group>"; };
 		518A69FA24687D5800444E66 /* RiskLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevel.swift; sourceTree = "<group>"; };
 		51B5B413246DF07300DC5D3E /* RiskImageItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RiskImageItemView.xib; sourceTree = "<group>"; };
@@ -767,6 +775,12 @@
 		EE902FF724B301B700C8DEE9 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EE902FF824B450F900C8DEE9 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = ar; path = "ar.lproj/privacy-policy.html"; sourceTree = "<group>"; };
 		EE92A33F245D96DA006B97B0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		EEDD6DF524A4885200BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = tr; path = tr.lproj/usage.html; sourceTree = "<group>"; };
+		EEDD6DF624A4885200BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = tr; path = "tr.lproj/privacy-policy.html"; sourceTree = "<group>"; };
+		EEDD6DF724A4885D00BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		EEDD6DF824A4889D00BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EEDD6DF924A488A500BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EEDD6DFA24A488AD00BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tr; path = tr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		EEF10679246EBF8B009DFB4E /* ResetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetViewController.swift; sourceTree = "<group>"; };
 		F22C6E242492082B00712A6B /* DynamicTableViewSpaceCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewSpaceCellTests.swift; sourceTree = "<group>"; };
 		F247572A24838AC8003E1FC5 /* DynamicTableViewControllerRowsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewControllerRowsTests.swift; sourceTree = "<group>"; };
@@ -1505,6 +1519,10 @@
 			isa = PBXGroup;
 			children = (
 				A32CA72E24B6F2E300B1A994 /* HomeRiskCellConfiguratorTests.swift */,
+				516E42C924B760EC0008CC30 /* HomeRiskLevelCellConfiguratorTests.swift */,
+				516E42FA24B7739F0008CC30 /* HomeUnknownRiskCellConfiguratorTests.swift */,
+				516E42FC24B776A90008CC30 /* HomeLowRiskCellConfiguratorTests.swift */,
+				516E42FF24B777B20008CC30 /* HomeHighRiskCellConfiguratorTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -2505,6 +2523,7 @@
 				A1E41949249548770016E52A /* HTTPClient+SubmitTests.swift in Sources */,
 				A1E41941249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift in Sources */,
 				015692E424B48C3F0033F35E /* TimeInterval+Convenience.swift in Sources */,
+				516E42FE24B7773E0008CC30 /* HomeLowRiskCellConfiguratorTests.swift in Sources */,
 				B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */,
 				A1E419582495A8F90016E52A /* HTTPClient+RegistrationTokenTests.swift in Sources */,
 				A1E419552495A8060016E52A /* HTTPClient+GetTestResultTests.swift in Sources */,
@@ -2529,6 +2548,7 @@
 				F2DC809424898CE600EDC40A /* DynamicTableViewControllerFooterTests.swift in Sources */,
 				B15382E5248273F30010F007 /* MockTestStore.swift in Sources */,
 				A32842672492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift in Sources */,
+				516E42FB24B7739F0008CC30 /* HomeUnknownRiskCellConfiguratorTests.swift in Sources */,
 				F25247312484456800C5556B /* DynamicTableViewModelTests.swift in Sources */,
 				B15382E7248290BB0010F007 /* AppleFilesWriterTests.swift in Sources */,
 				2FD881CC2490F65C00BEC8FC /* ExposureSubmissionHotlineViewControllerTest.swift in Sources */,
@@ -2537,6 +2557,7 @@
 				B117521A248ACFFC00C3325C /* SAP_RiskScoreClass+LowAndHighTests.swift in Sources */,
 				B11655932491437600316087 /* RiskProvidingConfigurationTests.swift in Sources */,
 				B1A76E9F24714AC700EA5208 /* HTTPClient+Configuration.swift in Sources */,
+				516E430024B777B20008CC30 /* HomeHighRiskCellConfiguratorTests.swift in Sources */,
 				F2DC809224898B1800EDC40A /* DynamicTableViewControllerHeaderTests.swift in Sources */,
 				B1D431C8246C69F300E728AD /* HTTPClient+ConfigurationTests.swift in Sources */,
 				B15382FE248424F00010F007 /* ExposureDetectionTests.swift in Sources */,
@@ -2553,6 +2574,7 @@
 				B1DDDABC247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift in Sources */,
 				2FD881CE249115E700BEC8FC /* ExposureSubmissionNavigationControllerTest.swift in Sources */,
 				A1E419522495A6F20016E52A /* HTTPClient+TANForExposureSubmitTests.swift in Sources */,
+				516E42CB24B760F50008CC30 /* HomeRiskLevelCellConfiguratorTests.swift in Sources */,
 				A32842612490E2AC006B1F09 /* ExposureSubmissionWarnOthersViewControllerTests.swift in Sources */,
 				B1B9CF1F246ED2E8008F04F5 /* Sap_FilebucketTests.swift in Sources */,
 				B17A44A22464906A00CB195E /* KeyTests.swift in Sources */,
@@ -2615,6 +2637,7 @@
 				13156D00248CDECC00AFC472 /* en */,
 				EE902FEE24B3015C00C8DEE9 /* ru */,
 				EE902FF424B301AE00C8DEE9 /* ar */,
+				EEDD6DF524A4885200BC30D0 /* tr */,
 			);
 			name = usage.html;
 			sourceTree = "<group>";
@@ -2626,6 +2649,7 @@
 				717D21EA248C072300D9717E /* en */,
 				EE902FEF24B3015C00C8DEE9 /* ru */,
 				EE902FF824B450F900C8DEE9 /* ar */,
+				EEDD6DF624A4885200BC30D0 /* tr */,
 			);
 			name = "privacy-policy.html";
 			sourceTree = "<group>";
@@ -2636,6 +2660,7 @@
 				85D7594D24570491008175F0 /* Base */,
 				EE902FED24B3015C00C8DEE9 /* ru */,
 				EE902FF324B301AE00C8DEE9 /* ar */,
+				EEDD6DF724A4885D00BC30D0 /* tr */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -2647,6 +2672,7 @@
 				EE26950B248FCB1600BAE234 /* en */,
 				EE902FF224B3015C00C8DEE9 /* ru */,
 				EE902FF724B301B700C8DEE9 /* ar */,
+				EEDD6DF824A4889D00BC30D0 /* tr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -2658,6 +2684,7 @@
 				EE70C23C245B09E900AC9B2F /* en */,
 				EE902FF024B3015C00C8DEE9 /* ru */,
 				EE902FF524B301B700C8DEE9 /* ar */,
+				EEDD6DF924A488A500BC30D0 /* tr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2669,6 +2696,7 @@
 				514C0A09247AEEE200F235F6 /* en */,
 				EE902FF124B3015C00C8DEE9 /* ru */,
 				EE902FF624B301B700C8DEE9 /* ar */,
+				EEDD6DFA24A488AD00BC30D0 /* tr */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
@@ -2761,7 +2789,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.6;
+				MARKETING_VERSION = 1.1.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -2912,7 +2940,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.6;
+				MARKETING_VERSION = 1.1.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -3066,7 +3094,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.6;
+				MARKETING_VERSION = 1.1.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -3282,7 +3310,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.6;
+				MARKETING_VERSION = 1.1.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -3318,7 +3346,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.6;
+				MARKETING_VERSION = 1.1.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",

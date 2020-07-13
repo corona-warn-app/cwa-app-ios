@@ -210,14 +210,14 @@ extension HomeInteractor {
 			)
 		case .inactive:
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
-				incativeType: .noCalculationPossible,
+				inactiveType: .noCalculationPossible,
 				previousRiskLevel: store.previousRiskLevel,
 				lastUpdateDate: dateLastExposureDetection
 			)
 			inactiveConfigurator?.activeAction = inActiveCellActionHandler
 		case .unknownOutdated:
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
-				incativeType: .outdatedResults,
+				inactiveType: .outdatedResults,
 				previousRiskLevel: store.previousRiskLevel,
 				lastUpdateDate: dateLastExposureDetection
 			)
