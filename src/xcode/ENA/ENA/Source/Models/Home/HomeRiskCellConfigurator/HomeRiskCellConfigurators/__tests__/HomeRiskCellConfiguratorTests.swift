@@ -59,7 +59,7 @@ class HomeRiskCellConfiguratorTests: XCTestCase {
 		configurator.isButtonEnabled = true
 		configurator.configureButton(for: cell)
 		XCTAssert(cell.updateButton.isEnabled)
-		XCTAssertEqual(cell.updateButton.currentTitle, AppStrings.Home.riskCardLowButton)
+		XCTAssertEqual(cell.updateButton.currentTitle, AppStrings.Home.riskCardUpdateButton)
 
 		// Test if button is clickable and triggers action.
 		let expectation = self.expectation(description: "Expect button to trigger action")
@@ -75,14 +75,14 @@ class HomeRiskCellConfiguratorTests: XCTestCase {
 	func testHighRiskCell_configureManualButton() {
 
 		// Intialize.
-		let validityDuration = 24
+		let detectionInterval = 24
 		let configurator = HomeHighRiskCellConfigurator(
 			numberRiskContacts: 10,
 			daysSinceLastExposure: 1,
 			lastUpdateDate: Date().addingTimeInterval(-3 * 60 * 60),
 			manualExposureDetectionState: .waiting,
 			detectionMode: .manual,
-			validityDuration: validityDuration
+			detectionInterval: detectionInterval
 		)
 
 		guard let cell = loadCell(ofType: RiskLevelCollectionViewCell.self) else {
@@ -94,7 +94,7 @@ class HomeRiskCellConfiguratorTests: XCTestCase {
 		// Test if button is disabled.
 		configurator.configureButton(for: cell)
 		XCTAssertFalse(cell.updateButton.isEnabled)
-		XCTAssertEqual(cell.updateButton.currentTitle, String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, "\(validityDuration)"))
+		XCTAssertEqual(cell.updateButton.currentTitle, String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, "\(detectionInterval)"))
 
 		// Test if button shows refresh date.
 		let nextRefreshDate = "00:11:22"
@@ -107,7 +107,7 @@ class HomeRiskCellConfiguratorTests: XCTestCase {
 		configurator.isButtonEnabled = true
 		configurator.configureButton(for: cell)
 		XCTAssert(cell.updateButton.isEnabled)
-		XCTAssertEqual(cell.updateButton.currentTitle, AppStrings.Home.riskCardLowButton)
+		XCTAssertEqual(cell.updateButton.currentTitle, AppStrings.Home.riskCardUpdateButton)
 
 		// Test if button is clickable and triggers action.
 		let expectation = self.expectation(description: "Expect button to trigger action")

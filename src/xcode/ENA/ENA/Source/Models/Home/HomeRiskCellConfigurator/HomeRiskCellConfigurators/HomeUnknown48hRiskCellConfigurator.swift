@@ -22,8 +22,6 @@ import UIKit
 final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	// MARK: Configuration
 
-	// This interval is 24
-	private let detectionInterval: Int
 	private var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 
 	// MARK: Creating a unknown Risk cell
@@ -35,7 +33,6 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		manualExposureDetectionState: ManualExposureDetectionState?,
 		previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 	) {
-		self.detectionInterval = detectionInterval
 		self.previousRiskLevel = previousRiskLevel
 
 		super.init(
@@ -43,7 +40,8 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			isButtonEnabled: manualExposureDetectionState == .possible,
 			isButtonHidden: detectionMode == .automatic,
 			detectionIntervalLabelHidden: detectionMode != .automatic,
-			lastUpdateDate: lastUpdateDate
+			lastUpdateDate: lastUpdateDate,
+			detectionInterval: detectionInterval
 		)
 	}
 
@@ -97,28 +95,10 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		setupAccessibility(cell)
 	}
 
-	override func configureButton(for cell: RiskLevelCollectionViewCell) {
-		super.configureButton(for: cell)
-		cell.configureUpdateButton(
-			title: buttonTitle,
-			isEnabled: isButtonEnabled,
-			isHidden: isButtonHidden,
-			accessibilityIdentifier: AccessibilityIdentifiers.Home.riskCardIntervalUpdateTitle
-		)
-	}
-
-	private var buttonTitle: String {
-		if isLoading { return AppStrings.Home.riskCardUpdateButton }
-		if isButtonEnabled { return AppStrings.Home.riskCardUpdateButton }
-		if let timeUntilUpdate = timeUntilUpdate { return String(format: AppStrings.ExposureDetection.refreshIn, timeUntilUpdate) }
-		return String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, "\(detectionInterval)")
-	}
-
 	// MARK: Hashable
 
 	override func hash(into hasher: inout Swift.Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(detectionInterval)
 		hasher.combine(previousRiskLevel)
 	}
 

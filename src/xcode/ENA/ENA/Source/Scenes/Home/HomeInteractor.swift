@@ -196,20 +196,13 @@ extension HomeInteractor {
 
 		switch riskLevel {
 		case .unknownInitial:
-			riskLevelConfigurator = HomeUnknown48hRiskCellConfigurator(
+			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
 				isLoading: false,
 				lastUpdateDate: nil,
 				detectionInterval: detectionInterval,
 				detectionMode: detectionMode,
-				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
-				previousRiskLevel: store.previousRiskLevel)
-//			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
-//				isLoading: false,
-//				lastUpdateDate: nil,
-//				detectionInterval: detectionInterval,
-//				detectionMode: detectionMode,
-//				manualExposureDetectionState: riskProvider.manualExposureDetectionState
-//			)
+				manualExposureDetectionState: riskProvider.manualExposureDetectionState
+			)
 		case .inactive:
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
 				inactiveType: .noCalculationPossible,
@@ -244,11 +237,20 @@ extension HomeInteractor {
 				lastUpdateDate: dateLastExposureDetection,
 				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
 				detectionMode: detectionMode,
-				validityDuration: detectionInterval
+				detectionInterval: detectionInterval
 			)
 		case .none:
 			riskLevelConfigurator = nil
 		}
+//      case .newRiskLevel:
+//		riskLevelConfigurator = HomeUnknown48hRiskCellConfigurator(
+//			isLoading: false,
+//			lastUpdateDate: nil,
+//			detectionInterval: detectionInterval,
+//			detectionMode: detectionMode,
+//			manualExposureDetectionState: riskProvider.manualExposureDetectionState,
+//			previousRiskLevel: store.previousRiskLevel)
+
 
 		riskLevelConfigurator?.buttonAction = {
 			self.requestRisk(userInitiated: true)
