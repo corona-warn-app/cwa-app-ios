@@ -143,7 +143,7 @@ final class HomeViewController: UIViewController {
 		}
 
 		return setupErrorAlert(
-			title: AppStrings.Common.alertTitleGeneral,
+			title: AppStrings.Common.backgroundFetch_AlertTitle,
 			message: AppStrings.Common.backgroundFetch_AlertMessage,
 			okTitle: AppStrings.Common.backgroundFetch_OKTitle,
 			secondaryActionTitle: AppStrings.Common.backgroundFetch_SettingsTitle,

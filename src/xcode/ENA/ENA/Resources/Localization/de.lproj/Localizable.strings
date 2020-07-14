@@ -35,6 +35,8 @@ Sie können die Hintergrundaktualisierung für die App jederzeit in den Gerätee
 
 "Common_BackgroundFetch_OKTitle" = "Risiko-Ermittlung manuell starten";
 
+"Common_BackgroundFetch_AlertTitle" = "Hintergrundaktualisierung ausgeschaltet";
+
 /* General - Links */
 
 "General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";

@@ -27,6 +27,8 @@ You can switch on background fetching for the app at any time in the device sett
 
 "Common_BackgroundFetch_OKTitle" = "Start Risk Detection Manually";
 
+"Common_BackgroundFetch_AlertTitle" = "Background Fetching Disabled";
+
 /* Accessibility */
 "AccessibilityLabel_Close" = "Закрыть";
 
