@@ -22,24 +22,15 @@ protocol ExposureSubmissionNavigationControllerDelegate: AnyObject {
 	func exposureSubmissionNavigationControllerWillDisappear(_ controller: ExposureSubmissionNavigationController)
 }
 
-final class ExposureSubmissionNavigationController: ENANavigationControllerWithFooter, UINavigationControllerDelegate {
-	private var testResult: TestResult?
+final class ExposureSubmissionNavigationController: ENANavigationControllerWithFooter, UINavigationControllerDelegate, ExposureSubmissionCoordinatorViewController {
 
-	private(set) var exposureSubmissionService: ExposureSubmissionService?
-	private weak var submissionDelegate: ExposureSubmissionNavigationControllerDelegate?
+	var coordinator: ExposureSubmissionCoordinator?
 
 	// MARK: - Initializers.
 
-	init?(
-		coder: NSCoder,
-		exposureSubmissionService: ExposureSubmissionService,
-		submissionDelegate: ExposureSubmissionNavigationControllerDelegate?,
-		testResult: TestResult? = nil
-	) {
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator) {
 		super.init(coder: coder)
-		self.exposureSubmissionService = exposureSubmissionService
-		self.submissionDelegate = submissionDelegate
-		self.testResult = testResult
+		self.coordinator = coordinator
 	}
 
 	@available(*, unavailable)
@@ -47,36 +38,8 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	/// Returns the root view controller, depending on whether we have a
-	/// registration token or not.
-	private func getRootViewController() -> UIViewController {
-		#if UITESTING
-		if ProcessInfo.processInfo.arguments.contains("-negativeResult") {
-			let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self)
-			vc.testResult = .negative
-			return vc
-		}
-
-		#else
-		// We got a test result and can jump straight into the test result view controller.
-		if let service = exposureSubmissionService, testResult != nil, service.hasRegistrationToken() {
-			let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self)
-			vc.exposureSubmissionService = service
-			vc.testResult = testResult
-			return vc
-		}
-		#endif
-
-		// By default, we show the intro view.
-		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionIntroViewController.self)
-		return vc
-	}
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		let rootVC = getRootViewController()
-		setViewControllers([rootVC], animated: false)
 
 		let closeButton = UIButton(type: .custom)
 		closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)
@@ -101,7 +64,10 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		submissionDelegate?.exposureSubmissionNavigationControllerWillDisappear(self)
+
+		// Check if the ExposureSubmissionNavigationController is popped from its parent.
+		guard let coordinator = coordinator, self.isMovingFromParent || self.isBeingDismissed else { return }
+		coordinator.delegate?.exposureSubmissionCoordinatorWillDisappear(coordinator)
 	}
 
 	private func applyDefaultRightBarButtonItem(to viewController: UIViewController?) {
@@ -114,7 +80,7 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 
 	@objc
 	func close() {
-		dismiss(animated: true)
+		self.coordinator?.dismiss()
 	}
 }
 

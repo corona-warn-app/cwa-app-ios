@@ -17,7 +17,12 @@
 
 import UIKit
 
-class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, ExposureSubmissionCoordinatorViewController {
+
+	// MARK: - Attributes.
+
+	var coordinator: ExposureSubmissionCoordinator?
+
 	// MARK: - View lifecycle methods.
 
 	override func viewDidLoad() {
@@ -108,14 +113,6 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 	}
 }
 
-// MARK: - Segue identifiers.
-
-extension ExposureSubmissionHotlineViewController {
-	enum Segue: String, SegueIdentifiers {
-		case tanInput = "tanInputSegue"
-	}
-}
-
 // MARK: - Cell reuse identifiers.
 
 extension ExposureSubmissionHotlineViewController {
@@ -132,7 +129,7 @@ extension ExposureSubmissionHotlineViewController {
 	}
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
-		performSegue(withIdentifier: Segue.tanInput, sender: self)
+		self.coordinator?.showTanScreen()
 	}
 
 	private func callHotline() {

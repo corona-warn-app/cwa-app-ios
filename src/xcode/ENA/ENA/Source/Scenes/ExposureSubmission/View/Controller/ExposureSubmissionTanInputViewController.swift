@@ -18,7 +18,7 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionTanInputViewController: UIViewController, ENANavigationControllerWithFooterChild {
+class ExposureSubmissionTanInputViewController: UIViewController, ENANavigationControllerWithFooterChild, ExposureSubmissionCoordinatorViewController {
 	// MARK: - Attributes.
 
 	@IBOutlet var scrollView: UIScrollView!
@@ -30,6 +30,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, ENANavigationC
 
 	var initialTan: String?
 	var exposureSubmissionService: ExposureSubmissionService?
+	var coordinator: ExposureSubmissionCoordinator?
 
 	// MARK: - View lifecycle methods.
 
@@ -43,11 +44,6 @@ class ExposureSubmissionTanInputViewController: UIViewController, ENANavigationC
 
 		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
 		errorView.alpha = 0
-	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		fetchService()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -66,30 +62,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, ENANavigationC
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-
 		tanInput.resignFirstResponder()
-	}
-
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if segue.identifier == Segue.labResultsSegue.rawValue,
-			let vc = segue.destination as? ExposureSubmissionTestResultViewController {
-			vc.exposureSubmissionService = exposureSubmissionService
-			vc.testResult = .positive
-		}
-	}
-
-	// MARK: - Helper methods.
-
-	private func fetchService() {
-		exposureSubmissionService = exposureSubmissionService ??
-			(navigationController as? ExposureSubmissionNavigationController)?
-			.exposureSubmissionService
-	}
-}
-
-extension ExposureSubmissionTanInputViewController {
-	enum Segue: String, SegueIdentifiers {
-		case labResultsSegue
 	}
 }
 
@@ -127,10 +100,8 @@ extension ExposureSubmissionTanInputViewController {
 				self.present(alert, animated: true, completion: nil)
 
 			case .success:
-				self.performSegue(
-					withIdentifier: Segue.labResultsSegue,
-					sender: self
-				)
+				// A TAN always indicates a positive test result.
+				self.coordinator?.showTestResultScreen(with: .positive)
 			}
 		}
 

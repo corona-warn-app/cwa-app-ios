@@ -20,13 +20,13 @@ import Foundation
 import UIKit
 
 
-class ExposureSubmissionOverviewViewController: DynamicTableViewController, SpinnerInjectable {
+class ExposureSubmissionOverviewViewController: DynamicTableViewController, SpinnerInjectable, ExposureSubmissionCoordinatorViewController {
 
 	// MARK: - Attributes.
 
-	@IBAction func unwindToExposureSubmissionIntro(_: UIStoryboardSegue) {}
 	var service: ExposureSubmissionService?
 	var spinner: UIActivityIndicatorView?
+	var coordinator: ExposureSubmissionCoordinator?
 
 	// MARK: - Initializers.
 
@@ -60,28 +60,6 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 		title = AppStrings.ExposureSubmissionDispatch.title
 	}
 
-	// MARK: - Segue handling.
-
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		let destination = segue.destination
-		switch Segue(segue) {
-		case .tanInput:
-			let vc = destination as? ExposureSubmissionTanInputViewController
-			vc?.initialTan = sender as? String
-			vc?.exposureSubmissionService = service
-		case .qrScanner:
-			let vc = destination as? ExposureSubmissionQRScannerNavigationController
-			vc?.scannerViewController?.delegate = self
-			vc?.exposureSubmissionService = service
-		case .labResult:
-			let vc = destination as? ExposureSubmissionTestResultViewController
-			vc?.exposureSubmissionService = service
-			vc?.testResult = sender as? TestResult
-		default:
-			break
-		}
-	}
-
 	// MARK: - Helpers.
 
 	private func fetchResult() {
@@ -94,7 +72,8 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 				let alert = self.setupErrorAlert(message: error.localizedDescription)
 				self.present(alert, animated: true, completion: nil)
 			case let .success(testResult):
-				self.performSegue(withIdentifier: Segue.labResult, sender: testResult)
+				self.coordinator?.testResult = testResult
+				self.coordinator?.showTestResultScreen(with: testResult)
 			}
 		}
 	}
@@ -110,10 +89,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 		let acceptAction = UIAlertAction(title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle,
 										 style: .default, handler: { _ in
 											self.service?.acceptPairing()
-											self.performSegue(
-												withIdentifier: Segue.qrScanner,
-												sender: self
-											)
+											self.coordinator?.showQRScreen(qrScannerDelegate: self)
 		})
 		alert.addAction(acceptAction)
 
@@ -124,18 +100,6 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			))
 		alert.preferredAction = acceptAction
 		present(alert, animated: true, completion: nil)
-	}
-}
-
-// MARK: - Segue extension.
-
-extension ExposureSubmissionOverviewViewController {
-	enum Segue: String, SegueIdentifiers {
-		case tanInput = "tanInputSegue"
-		case qrScanner = "qrScannerSegue"
-		case testDetails = "testDetailsSegue"
-		case hotline = "hotlineSegue"
-		case labResult = "labResultSegue"
 	}
 }
 
@@ -298,14 +262,14 @@ private extension ExposureSubmissionOverviewViewController {
 				title: AppStrings.ExposureSubmissionDispatch.tanButtonTitle,
 				description: AppStrings.ExposureSubmissionDispatch.tanButtonDescription,
 				image: UIImage(named: "Illu_Submission_TAN"),
-				action: .perform(segue: Segue.tanInput),
+				action: .execute(block: { [weak self] _ in self?.coordinator?.showTanScreen() }),
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.tanButtonDescription
 			),
 			.imageCard(
 				title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
 				attributedDescription: applyFont(style: .headline, to: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription, with: AppStrings.ExposureSubmissionDispatch.positiveWord),
 				image: UIImage(named: "Illu_Submission_Anruf"),
-				action: .perform(segue: Segue.hotline),
+				action: .execute(block: { [weak self] _ in self?.coordinator?.showHotlineScreen() }),
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.hotlineButtonDescription
 			)
 		]))

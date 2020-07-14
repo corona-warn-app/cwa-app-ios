@@ -18,12 +18,13 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, ExposureSubmissionCoordinatorViewController {
 	// MARK: - Attributes.
 
 	var exposureSubmissionService: ExposureSubmissionService?
 	var testResult: TestResult?
 	var timeStamp: Int64?
+	var coordinator: ExposureSubmissionCoordinator?
 
 	// MARK: - View Lifecycle methods.
 
@@ -36,16 +37,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
-	}
-
-	override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
-		switch Segue(segue) {
-		case .warnOthers:
-			let destination = segue.destination as? ExposureSubmissionWarnOthersViewController
-			destination?.exposureSubmissionService = exposureSubmissionService
-		default:
-			return
-		}
 	}
 
 	// MARK: - View Setup Helper methods.
@@ -178,16 +169,9 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 				self.present(alert, animated: true, completion: nil)
 				return
 			}
-			performSegue(withIdentifier: Segue.warnOthers, sender: self)
+
+			self.coordinator?.showWarnOthersScreen()
 		}
-	}
-}
-
-// MARK: - Custom Segues.
-
-extension ExposureSubmissionTestResultViewController {
-	enum Segue: String, SegueIdentifier {
-		case warnOthers = "warnOthersSegue"
 	}
 }
 

@@ -17,11 +17,11 @@
 
 import UIKit
 
-class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, ExposureSubmissionCoordinatorViewController {
 
 	// MARK: - Attributes.
-	
-	private var exposureSubmissionService: ExposureSubmissionService?
+
+	var coordinator: ExposureSubmissionCoordinator?
 
 	// MARK: - View lifecycle methods.
 
@@ -62,11 +62,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 	// MARK: - ENANavigationControllerWithFooterChild methods.
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		let service = (navigationController as? ExposureSubmissionNavigationController)?.exposureSubmissionService
-		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionOverviewViewController.self) { coder in
-			ExposureSubmissionOverviewViewController(coder: coder, service: service)
-		}
-		navigationController.pushViewController(vc, animated: true)
+		coordinator?.showOverviewScreen()
 	}
 }
 

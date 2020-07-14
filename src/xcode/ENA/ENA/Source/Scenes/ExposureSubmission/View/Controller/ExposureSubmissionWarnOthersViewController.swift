@@ -18,17 +18,17 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, ExposureSubmissionCoordinatorViewController {
 	// MARK: - Attributes.
 
 	var exposureSubmissionService: ExposureSubmissionService?
+	var coordinator: ExposureSubmissionCoordinator?
 
 	// MARK: - View lifecycle methods.
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
-		fetchService()
 	}
 
 	// MARK: Setup helpers.
@@ -49,10 +49,6 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 		dynamicTableViewModel = dynamicTableViewModel()
 	}
 
-	private func fetchService() {
-		exposureSubmissionService = exposureSubmissionService ?? (navigationController as? ExposureSubmissionNavigationController)?.exposureSubmissionService
-	}
-
 	// MARK: - ExposureSubmissionService Helpers.
 
 	internal func startSubmitProcess() {
@@ -62,7 +58,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 			switch error {
 			// We continue the regular flow even if there are no keys collected.
 			case .none, .noKeys:
-				self.performSegue(withIdentifier: Segue.sent, sender: self)
+				self.coordinator?.showThankYouScreen()
 
 			// Custom error handling for EN framework related errors.
 			case .internal, .unsupported, .rateLimited:
@@ -123,14 +119,6 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 extension ExposureSubmissionWarnOthersViewController {
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		startSubmitProcess()
-	}
-}
-
-// MARK: - Custom Segues.
-
-extension ExposureSubmissionWarnOthersViewController {
-	enum Segue: String, SegueIdentifier {
-		case sent = "sentSegue"
 	}
 }
 

@@ -18,8 +18,13 @@
 import Foundation
 import UIKit
 
-final class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
-	// MARK: UIViewController
+final class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, ExposureSubmissionCoordinatorViewController {
+
+	// MARK: - Attributes.
+
+	var coordinator: ExposureSubmissionCoordinator?
+
+	// MARK: - UIViewController.
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -44,7 +49,7 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController,
 
 extension ExposureSubmissionSuccessViewController {
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		dismiss(animated: true, completion: nil)
+		coordinator?.dismiss()
 	}
 }
 
