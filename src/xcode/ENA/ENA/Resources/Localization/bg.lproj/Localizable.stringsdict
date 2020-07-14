@@ -13,7 +13,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
-			<string>Сегодня, %%1$@</string>
+			<string>Днес, %%1$@</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
 			<string>Вчера, %%1$@</string>
@@ -43,22 +43,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
-			<string>Пока нет контактов</string>
+			<string>До момента няма излагане на риск</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
-			<string>Один контакт</string>
+			<string>Едно излагане на риск</string>
 			<key>few</key>
 			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
-			<string>%u контакта</string>
+			<string>%u излагания на риск</string>
 			<key>many</key>
 			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
-			<string>%u контактов</string>
+			<string>%u излагания на риск</string>
 			<key>two</key>
 			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
-			<string>%u контакта</string>
+			<string>%u излагания на риск</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
-			<string>%u контакта</string>
+			<string>%u излагания на риск</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_LastExposure</key>
@@ -73,22 +73,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
-			<string>%u дней с последнего контакта</string>
+			<string>%u дни от последното излагане на риск</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
-			<string>%u день с последнего контакта</string>
+			<string>%u ден от последното излагане на риск</string>
 			<key>few</key>
 			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
-			<string>%u дня с последнего контакта</string>
+			<string>%u дни от последното излагане на риск</string>
 			<key>many</key>
 			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
-			<string>%u дней с последнего контакта</string>
+			<string>%u дни от последното излагане на риск</string>
 			<key>two</key>
 			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
-			<string>%u дня с последнего контакта</string>
+			<string>%u дни от последното излагане на риск</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
-			<string>%u дня с последнего контакта</string>
+			<string>%u дни от последното излагане на риск</string>
 		</dict>
 	</dict>
     <key>Home_Risk_Number_Contacts_Item_Title</key>
@@ -103,22 +103,22 @@
             <string>u</string>
             <key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
-            <string>Пока нет контактов</string>
+            <string>До момента няма излагане на риск</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
-            <string>%u контакт</string>
+            <string>%u излагане на риск</string>
             <key>few</key>
             <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
-            <string>%u контакта</string>
+            <string>%u излагания на риск</string>
             <key>many</key>
             <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
-            <string>%u контактов</string>
+            <string>%u излагания на риск</string>
             <key>two</key>
             <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
-            <string>%u контакта</string>
+            <string>%u излагания на риск</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
-            <string>%u контакта</string>
+            <string>%u излагания на риск</string>
         </dict>
     </dict>
     <key>Home_Risk_Last_Contact_Item_Title</key>
@@ -133,22 +133,22 @@
             <string>u</string>
             <key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
-            <string>Меньше одного дня с последнего контакта</string>
+            <string>По-малко от един ден от последното излагане на риск</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
-            <string>%u день с последнего контакта</string>
+            <string>%u ден от последното излагане на риск</string>
             <key>few</key>
             <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
-            <string>%u дня с последнего контакта</string>
+            <string>%u дни от последното излагане на риск</string>
             <key>many</key>
             <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
-            <string>%u дней с последнего контакта</string>
+            <string>%u дни от последното излагане на риск</string>
             <key>two</key>
             <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
-            <string>%u дня с последнего контакта</string>
+            <string>%u дни от последното излагане на риск</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
-            <string>%u дня с последнего контакта</string>
+            <string>%u дни от последното излагане на риск</string>
         </dict>
     </dict>
     <key>Home_Risk_Status_Counter_Label</key>
@@ -163,22 +163,22 @@
             <string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
-            <string>Обновление через %02u:%2$#@seconds@ с</string>
+            <string>Актуализиране след %02u:%2$#@seconds@ секунди</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
-            <string>Обновление через %02u:%2$#@seconds@ мин</string>
+            <string>Актуализиране след %02u:%2$#@seconds@ минута</string>
             <key>few</key>
             <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
-            <string>Обновление через %02u:%2$#@seconds@ мин</string>
+            <string>Актуализиране след %02u:%2$#@seconds@ минути</string>
             <key>many</key>
             <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
-            <string>Обновление через %02u:%2$#@seconds@ мин</string>
+            <string>Актуализиране след %02u:%2$#@seconds@ минути</string>
             <key>two</key>
             <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
-            <string>Обновление через %02u:%2$#@seconds@ мин</string>
+            <string>Актуализиране след %02u:%2$#@seconds@ минути</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
-            <string>Обновление через %02u:%2$#@seconds@ мин</string>
+            <string>Актуализиране след %02u:%2$#@seconds@ минути</string>
         </dict>
         <key>seconds</key>
         <dict>
@@ -218,23 +218,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
-			<string>Определение контакта  активно менее одного дня. Для надежной проверки контактов функция определения контакта  должна быть активна всегда.</string>
+			<string>Регистрирането на излаганията на риск е активно от по-малко от един ден. Проверката за излагане на риск може да бъде надеждна само ако регистрирането е постоянно активирано.</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
-			<string>Определение контакта  активно в течение %u дня.
-Для надежной проверки контактов функция определения контакта  должна быть активна всегда.</string>
+			<string>Регистрирането на излаганията на риск е активно от %u ден. Проверката за излагане на риск може да бъде надеждна само ако регистрирането е постоянно активирано.</string>
 			<key>few</key>
 			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
-			<string>Определение контакта  активно в течение %u дней. Для надежной проверки контактов функция определения контакта  должна быть активна всегда.</string>
+			<string>Регистрирането на излаганията на риск е активно от %u дни. Проверката за излагане на риск може да бъде надеждна само ако регистрирането е постоянно активирано.</string>
 			<key>many</key>
 			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
-			<string>Определение контакта  активно в течение %u дней. Для надежной проверки контактов функция определения контакта  должна быть активна всегда.</string>
+			<string>Регистрирането на излаганията на риск е активно от %u дни. Проверката за излагане на риск може да бъде надеждна само ако регистрирането е постоянно активирано.</string>
 			<key>two</key>
 			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
-			<string>Определение контакта  активно в течение %u дней. Для надежной проверки контактов функция определения контакта  должна быть активна всегда.</string>
+			<string>Регистрирането на излаганията на риск е активно от %u дни. Проверката за излагане на риск може да бъде надеждна само ако регистрирането е постоянно активирано.</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
-			<string>Определение контакта  активно в течение %u дня. Для надежной проверки контактов функция определения контакта  должна быть активна всегда.</string>
+			<string>Регистрирането на излаганията на риск е активно от %u дни. Проверката за излагане на риск може да бъде надеждна само ако регистрирането е постоянно активирано.</string>
 		</dict>
 	</dict>
 </dict>
