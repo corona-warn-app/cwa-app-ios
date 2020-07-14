@@ -112,43 +112,14 @@ final class HomeViewController: UIViewController {
 		guard let alert = createBackgroundFetchAlert(
 			status: UIApplication.shared.backgroundRefreshStatus,
 			inLowPowerMode: ProcessInfo.processInfo.isLowPowerModeEnabled,
-			hasSeenAlertBefore: homeInteractor.store.hasSeenBackgroundFetchAlert
+			hasSeenAlertBefore: homeInteractor.store.hasSeenBackgroundFetchAlert,
+			store: homeInteractor.store
 			) else { return }
 
 		self.present(
 			alert,
 			animated: true,
 			completion: nil
-		)
-	}
-
-	/// This method checks whether the below conditions in regards to background fetching have been met
-	/// and creates the corresponding alert.
-	/// The error alert should only be shown:
-	/// - once
-	/// - if the background refresh is disabled
-	/// - if the user is __not__ in power saving mode, because in this case the background
-	///   refresh is disabled automatically. Therefore we have to explicitly check this.
-	func createBackgroundFetchAlert(
-		status: UIBackgroundRefreshStatus,
-		inLowPowerMode: Bool,
-		hasSeenAlertBefore: Bool) -> UIAlertController? {
-
-		if status == .available || inLowPowerMode || hasSeenAlertBefore { return nil }
-
-		let openSettings: (() -> Void) = {
-			if let url = URL(string: UIApplication.openSettingsURLString) {
-				UIApplication.shared.open(url, options: [:], completionHandler: nil)
-			}
-		}
-
-		return setupErrorAlert(
-			title: AppStrings.Common.backgroundFetch_AlertTitle,
-			message: AppStrings.Common.backgroundFetch_AlertMessage,
-			okTitle: AppStrings.Common.backgroundFetch_OKTitle,
-			secondaryActionTitle: AppStrings.Common.backgroundFetch_SettingsTitle,
-			completion: { self.homeInteractor.store.hasSeenBackgroundFetchAlert = true },
-			secondaryActionCompletion: openSettings
 		)
 	}
 
