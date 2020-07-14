@@ -28,9 +28,9 @@ protocol ExposureSummaryProvider: AnyObject {
 
 final class RiskProvider {
 
-	private let queue = DispatchQueue(label: "com.sap.riskprovider.queue")
+	private let queue = DispatchQueue(label: "com.sap.RiskProvider")
 	private let targetQueue: DispatchQueue
-	private var consumersQueue = DispatchQueue(label: "com.sap.riskprovider.consumersQueue")
+	private var consumersQueue = DispatchQueue(label: "com.sap.RiskProvider")
 
 	private var _consumers: [RiskConsumer] = []
 	private var consumers: [RiskConsumer] {
