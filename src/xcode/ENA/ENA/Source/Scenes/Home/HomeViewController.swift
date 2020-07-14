@@ -489,7 +489,6 @@ extension HomeViewController: NavigationBarOpacityDelegate {
 
 extension HomeViewController: ExposureSubmissionCoordinatorDelegate {
 	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinator) {
-		print("exposureSubmissionCoordinatorWillDisappear")
 		updateTestResultState()
 	}
 }

@@ -18,11 +18,9 @@
 import Foundation
 import UIKit
 
-protocol ExposureSubmissionNavigationControllerDelegate: AnyObject {
-	func exposureSubmissionNavigationControllerWillDisappear(_ controller: ExposureSubmissionNavigationController)
-}
-
 final class ExposureSubmissionNavigationController: ENANavigationControllerWithFooter, UINavigationControllerDelegate, ExposureSubmissionCoordinatorViewController {
+
+	// MARK: - Attributes.
 
 	var coordinator: ExposureSubmissionCoordinator?
 
