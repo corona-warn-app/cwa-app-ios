@@ -627,7 +627,8 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Low Risk";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "%@ of %@ days saved";
+"Home_Risk_Low_SaveDays_Item_Title" = "Risk detection was active for %u of %u days";
+"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Risk detection permanently active";
 
 "Home_Risk_Low_Button" = "Update";
 

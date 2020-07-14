@@ -628,7 +628,8 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "%@ von %@ Tagen aktiv";
+"Home_Risk_Low_SaveDays_Item_Title" = "Risiko-Ermittlung war für %u der letzten %u Tage aktiv";
+"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Risiko-Ermittlung dauerhaft aktiv";
 
 "Home_Risk_Low_Button" = "Aktualisieren";
 

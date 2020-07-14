@@ -78,6 +78,56 @@ final class ActiveTracingTests: XCTestCase {
 			11
 		)
 	}
+
+	func testLocalizedLowRiskLevelHomeScreenText() {
+		XCTAssertEqual(
+			_activeTracing(interval: 0).localizedLowRiskLevelHomeScreenText,
+			"Risk detection was active for 0 of 14 days"
+		)
+
+		// 13 hours = 1 day
+		XCTAssertEqual(
+			_activeTracing(interval: 3_600 * 13).localizedLowRiskLevelHomeScreenText,
+			"Risk detection was active for 1 of 14 days"
+		)
+
+		// 14 days yields different text
+		XCTAssertEqual(
+			_activeTracing(interval: 3_600 * 24 * 14).localizedLowRiskLevelHomeScreenText,
+			"Risk detection permanently active"
+		)
+
+		// 14+ days yields different text
+		XCTAssertEqual(
+			_activeTracing(interval: 3_600 * 24 * 15).localizedLowRiskLevelHomeScreenText,
+			"Risk detection permanently active"
+		)
+	}
+
+	func testLocalizedLowRiskLevelDetailScreenText() {
+		XCTAssertEqual(
+			_activeTracing(interval: 0).localizedLowRiskLevelHomeScreenText,
+			"Risk detection was active for 0 of 14 days"
+		)
+
+		// 13 hours = 1 day
+		XCTAssertEqual(
+			_activeTracing(interval: 3_600 * 13).localizedLowRiskLevelDetailScreenText,
+			"Risk detection was active for 1 of 14 days"
+		)
+
+		// 14 days yields different text
+		XCTAssertEqual(
+			_activeTracing(interval: 3_600 * 24 * 14).localizedLowRiskLevelDetailScreenText,
+			"Risk detection permanently active"
+		)
+
+		// 14+ days yields different text
+		XCTAssertEqual(
+			_activeTracing(interval: 3_600 * 24 * 15).localizedLowRiskLevelDetailScreenText,
+			"Risk detection permanently active"
+		)
+	}
 }
 
 private func _activeTracing(interval: TimeInterval) -> ActiveTracing {
