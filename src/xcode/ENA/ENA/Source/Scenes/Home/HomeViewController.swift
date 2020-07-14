@@ -108,7 +108,7 @@ final class HomeViewController: UIViewController {
 
 	/// This method sets up a background fetch alert, and presents it, if needed.
 	/// Check the `createBackgroundFetchAlert` method for more information.
-	func setupBackgroundFetchAlert() {
+	private func setupBackgroundFetchAlert() {
 		guard let alert = createBackgroundFetchAlert(
 			status: UIApplication.shared.backgroundRefreshStatus,
 			inLowPowerMode: ProcessInfo.processInfo.isLowPowerModeEnabled,
