@@ -19,10 +19,24 @@ import Foundation
 import UIKit
 
 class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, ExposureSubmissionCoordinatorViewController {
+	
 	// MARK: - Attributes.
 
 	var exposureSubmissionService: ExposureSubmissionService?
 	var coordinator: ExposureSubmissionCoordinator?
+
+	// MARK: - Initializers.
+
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator, exposureSubmissionService: ExposureSubmissionService?) {
+		self.coordinator = coordinator
+		self.exposureSubmissionService = exposureSubmissionService
+		super.init(coder: coder)
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	// MARK: - View lifecycle methods.
 

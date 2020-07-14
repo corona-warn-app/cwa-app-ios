@@ -46,13 +46,29 @@ protocol QRScannerViewController: class {
 	func present(_: UIViewController, animated: Bool, completion: (() -> Void)?)
 }
 
-final class ExposureSubmissionQRScannerNavigationController: UINavigationController {
-	var exposureSubmissionService: ExposureSubmissionService?
+final class ExposureSubmissionQRScannerNavigationController: UINavigationController, ExposureSubmissionCoordinatorViewController {
 
+	// MARK: - Attributes.
+	var coordinator: ExposureSubmissionCoordinator?
+	var exposureSubmissionService: ExposureSubmissionService?
 	weak var scannerViewController: ExposureSubmissionQRScannerViewController? {
 		viewControllers.first as? ExposureSubmissionQRScannerViewController
 	}
 
+	// MARK: - Initializers.
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator, exposureSubmissionService: ExposureSubmissionService?) {
+		self.coordinator = coordinator
+		self.exposureSubmissionService = exposureSubmissionService
+		super.init(coder: coder)
+	}
+
+	@available(*, unavailable)
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	// MARK: - View lifecycle methods.
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 

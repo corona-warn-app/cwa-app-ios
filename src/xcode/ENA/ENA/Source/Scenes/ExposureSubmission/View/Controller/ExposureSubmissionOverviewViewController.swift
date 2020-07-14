@@ -30,9 +30,10 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 
 	// MARK: - Initializers.
 
-	required init?(coder aDecoder: NSCoder, service: ExposureSubmissionService?) {
-		self.service = service
-		super.init(coder: aDecoder)
+	required init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator, exposureSubmissionService: ExposureSubmissionService?) {
+		self.service = exposureSubmissionService
+		self.coordinator = coordinator
+		super.init(coder: coder)
 	}
 
 	@available(*, unavailable)

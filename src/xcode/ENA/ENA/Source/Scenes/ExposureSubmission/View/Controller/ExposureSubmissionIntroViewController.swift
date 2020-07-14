@@ -23,6 +23,18 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 
 	var coordinator: ExposureSubmissionCoordinator?
 
+	// MARK: - Initializers.
+
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator) {
+		super.init(coder: coder)
+		self.coordinator = coordinator
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
 	// MARK: - View lifecycle methods.
 
 	override func viewDidLoad() {

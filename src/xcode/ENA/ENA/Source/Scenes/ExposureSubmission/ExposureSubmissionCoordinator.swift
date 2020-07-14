@@ -77,7 +77,7 @@ class ESCoordinator: ExposureSubmissionCoordinator {
 }
 
 // MARK: - Creation.
-/// TODO: Make this a factory?
+
 extension ESCoordinator {
 
 	private func createNavigationController() -> ExposureSubmissionNavigationController {
@@ -88,72 +88,57 @@ extension ESCoordinator {
 
 	private func createIntroViewController() -> ExposureSubmissionIntroViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionIntroViewController.self) { coder -> UIViewController? in
-			let vc = ExposureSubmissionIntroViewController(coder: coder)
-			vc?.coordinator = self
-			return vc
+			ExposureSubmissionIntroViewController(coder: coder, coordinator: self)
 		}
 	}
 
 	private func createOverviewViewController() -> ExposureSubmissionOverviewViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionOverviewViewController.self) { coder in
-			let vc = ExposureSubmissionOverviewViewController(coder: coder, service: self.exposureSubmissionService)
-			vc?.coordinator = self
-			return vc
+			ExposureSubmissionOverviewViewController(coder: coder, coordinator: self, exposureSubmissionService: self.exposureSubmissionService)
 		}
 
 	}
 
 	private func createTanInputViewController() -> ExposureSubmissionTanInputViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTanInputViewController.self) { coder -> UIViewController? in
-			let vc = ExposureSubmissionTanInputViewController(coder: coder)
-			vc?.exposureSubmissionService = self.exposureSubmissionService
-			vc?.coordinator = self
-			return vc
+			ExposureSubmissionTanInputViewController(coder: coder, coordinator: self, exposureSubmissionService: self.exposureSubmissionService)
 		}
 	}
 
 	private func createHotlineViewController() -> ExposureSubmissionHotlineViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self) { coder -> UIViewController? in
-			let vc = ExposureSubmissionHotlineViewController(coder: coder)
-			vc?.coordinator = self
-			return vc
+			ExposureSubmissionHotlineViewController(coder: coder, coordinator: self)
 		}
 	}
 
 	private func createTestResultViewController(with result: TestResult) -> ExposureSubmissionTestResultViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self) { coder -> UIViewController? in
-			let vc = ExposureSubmissionTestResultViewController(coder: coder)
-			vc?.testResult = result
-			vc?.exposureSubmissionService = self.exposureSubmissionService
-			vc?.coordinator = self
-			return vc
+			ExposureSubmissionTestResultViewController(
+				coder: coder,
+				coordinator: self,
+				exposureSubmissionService: self.exposureSubmissionService,
+				testResult: result
+			)
 		}
 	}
 
 	private func createQRScannerViewController(qrScannerDelegate: ExposureSubmissionQRScannerDelegate) -> ExposureSubmissionQRScannerNavigationController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionQRScannerNavigationController.self) { coder -> UIViewController? in
-			let vc = ExposureSubmissionQRScannerNavigationController(coder: coder)
-			vc?.exposureSubmissionService = self.exposureSubmissionService
+			let vc = ExposureSubmissionQRScannerNavigationController(coder: coder, coordinator: self, exposureSubmissionService: self.exposureSubmissionService)
 			vc?.scannerViewController?.delegate = qrScannerDelegate
 			return vc
 		}
 	}
 
 	private func createWarnOthersViewController() -> ExposureSubmissionWarnOthersViewController {
-		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnOthersViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionWarnOthersViewController(coder: coder)
+		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnOthersViewController.self) { coder -> UIViewController? in
+			ExposureSubmissionWarnOthersViewController(coder: coder, coordinator: self, exposureSubmissionService: self.exposureSubmissionService)
 		}
-
-		vc.exposureSubmissionService = exposureSubmissionService
-		vc.coordinator = self
-		return vc
 	}
 
 	private func createSuccessViewController() -> ExposureSubmissionSuccessViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSuccessViewController.self) { coder -> UIViewController? in
-			let vc = ExposureSubmissionSuccessViewController(coder: coder)
-			vc?.coordinator = self
-			return vc
+			ExposureSubmissionSuccessViewController(coder: coder, coordinator: self)
 		}
 	}
 }

@@ -32,6 +32,19 @@ class ExposureSubmissionTanInputViewController: UIViewController, ENANavigationC
 	var exposureSubmissionService: ExposureSubmissionService?
 	var coordinator: ExposureSubmissionCoordinator?
 
+	// MARK: - Initializers.
+
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator, exposureSubmissionService: ExposureSubmissionService?) {
+		self.coordinator = coordinator
+		self.exposureSubmissionService = exposureSubmissionService
+		super.init(coder: coder)
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
 	// MARK: - View lifecycle methods.
 
 	override func viewDidLoad() {

@@ -24,6 +24,18 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController,
 
 	var coordinator: ExposureSubmissionCoordinator?
 
+	// MARK: - Initializers.
+
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator) {
+		self.coordinator = coordinator
+		super.init(coder: coder)
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
 	// MARK: - UIViewController.
 
 	override func viewDidLoad() {

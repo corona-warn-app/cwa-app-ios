@@ -26,6 +26,20 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	var timeStamp: Int64?
 	var coordinator: ExposureSubmissionCoordinator?
 
+	// MARK: - Initializers.
+
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator, exposureSubmissionService: ExposureSubmissionService?, testResult: TestResult) {
+		self.coordinator = coordinator
+		self.exposureSubmissionService = exposureSubmissionService
+		self.testResult = testResult
+		super.init(coder: coder)
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
 	// MARK: - View Lifecycle methods.
 
 	override func viewWillAppear(_ animated: Bool) {
