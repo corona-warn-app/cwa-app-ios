@@ -60,7 +60,7 @@ final class HomeViewController: UIViewController {
 	// MARK: Properties
 
 	private var sections: HomeInteractor.SectionConfiguration = []
-	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
+	private var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable>?
 	private var collectionView: UICollectionView! { view as? UICollectionView }
 	private var homeInteractor: HomeInteractor!
 
@@ -316,7 +316,7 @@ final class HomeViewController: UIViewController {
 	}
 
 	private func configureDataSource() {
-		dataSource = UICollectionViewDiffableDataSource<Section, UUID>(collectionView: collectionView) { [unowned self] collectionView, indexPath, _ in
+		dataSource = UICollectionViewDiffableDataSource<Section, AnyHashable>(collectionView: collectionView) { [unowned self] collectionView, indexPath, _ in
 			let configurator = self.sections[indexPath.section].cellConfigurators[indexPath.row]
 			let cell = collectionView.dequeueReusableCell(cellType: configurator.viewAnyType, for: indexPath)
 			cell.unhighlight()
@@ -326,10 +326,10 @@ final class HomeViewController: UIViewController {
 	}
 
 	func applySnapshotFromSections(animatingDifferences: Bool = false) {
-		var snapshot = NSDiffableDataSourceSnapshot<Section, UUID>()
+		var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
 		for section in sections {
 			snapshot.appendSections([section.section])
-			snapshot.appendItems( section.cellConfigurators.map { $0.identifier })
+			snapshot.appendItems( section.cellConfigurators.map { $0.hashValue })
 		}
 		dataSource?.apply(snapshot, animatingDifferences: animatingDifferences)
 	}
@@ -344,6 +344,10 @@ final class HomeViewController: UIViewController {
 		} else {
 			collectionView.backgroundColor = .enaColor(for: .separator)
 		}
+	}
+
+	func cellForItem(at indexPath: IndexPath) -> UICollectionViewCell? {
+		return self.collectionView.cellForItem(at: indexPath)
 	}
 }
 
@@ -505,4 +509,3 @@ private extension UICollectionViewCell {
 		subviews.filter(({ $0.tag == 100_000 })).forEach({ $0.removeFromSuperview() })
 	}
 }
-

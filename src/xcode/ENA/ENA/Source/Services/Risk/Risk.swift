@@ -32,7 +32,7 @@ extension Risk {
 		var numberOfHoursWithActiveTracing: Int { activeTracing.inHours }
 		var activeTracing: ActiveTracing
 		var numberOfDaysWithActiveTracing: Int { activeTracing.inDays }
-		var exposureDetectionDate: Date
+		var exposureDetectionDate: Date?
 	}
 }
 

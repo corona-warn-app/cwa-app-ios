@@ -19,6 +19,24 @@
 
 "General_BackButtonTitle" = "Back";
 
+"Common_ENError5_Description" = "Error 5: Something went wrong. Your level of risk cannot be determined. We are working on a solution of the problem.";
+
+"Common_ENError11_Description" = "Error 11: Something went wrong. Your level of risk cannot be determined. For more information, please see our FAQ page.";
+
+"Common_ENError13_Description" = "Error 13: Your exposure logging for today has already been carried out. Please try again tomorrow.";
+
+"Common_Alert_Action_moreInfo" = "Learn more";
+
+/* General - Links */
+
+"General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
+
+"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/de/faq/#ENError5";
+
+"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/de/faq/#ENError11";
+
+"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/de/faq/#ENError13";
+
 /* Accessibility */
 "AccessibilityLabel_Close" = "Close";
 
@@ -44,6 +62,8 @@
 "ExposureDetection_RefreshingIn" = "Update in %02d:%02d\U00A0minutes";
 
 "ExposureDetection_Refresh_24h" = "Updated every 24 hours";
+
+"ExposureDetection_RefreshIn" = "Update in %@";
 
 "ExposureDetection_LastRiskLevel" = "Last exposure logging: %@";
 
@@ -98,7 +118,7 @@
 "ExposureDetection_Button_Refresh" = "Update";
 
 /* Exposure Detection Errors */
-"ExposureDetectionError_Alert_Title" = "Something went wrong.";
+"ExposureDetectionError_Alert_Title" = "Error";
 
 "ExposureDetectionError_Alert_Action_Details" = "Details";
 
@@ -484,22 +504,6 @@
 "ExposureSubmissionError_unknown" = "Unknown error";
 
 "ExposureSubmissionError_defaultError" = "Error during key transmission";
-
-"ExposureSubmissionError_unsupported" = "Error 5: Something went wrong. Your level of risk cannot be determined. We are working on a solution of the problem.";
-
-"ExposureSubmissionError_internal" = "Error 11: Something went wrong. Your level of risk cannot be determined. For more information, please see our FAQ page.";
-
-"ExposureSubmissionError_rateLimited" = "Error 13: Your exposure logging for today has already been carried out. Please try again tomorrow.";
-
-"ExposureSubmissionError_moreInfo" = "Find out more";
-
-"ExposureSubmissionError_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
-
-"ExposureSubmissionError_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
-
-"ExposureSubmissionError_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
-
-"ExposureSubmissionError_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Exposure Logging";

@@ -27,7 +27,7 @@ extension ExposureDetectionViewController {
 		switch riskLevel {
 		case .unknownInitial: return unknownRiskModel
 		case .unknownOutdated: return outdatedRiskModel
-		case .inactive: return unknownRiskModel
+		case .inactive: return offModel
 		case .low: return lowRiskModel
 		case .increased: return highRiskModel
 		}
@@ -85,8 +85,12 @@ private extension DynamicCell {
 			let state = viewController.state
 			cell.backgroundColor = state.riskTintColor
 
+
 			var tintColor: UIColor = state.isTracingEnabled ? .enaColor(for: .textContrast) : .enaColor(for: .riskNeutral)
+
 			if state.riskLevel == .unknownOutdated { tintColor = .enaColor(for: .riskNeutral) }
+			if state.riskLevel == .inactive { tintColor = .enaColor(for: .riskNeutral) }
+
 			cell.tintColor = tintColor
 
 			cell.textLabel?.textColor = state.riskContrastColor
@@ -190,6 +194,7 @@ private extension DynamicCell {
 			let state = viewController.state
 			var tintColor = state.isTracingEnabled ? state.riskTintColor : .enaColor(for: .riskNeutral)
 			if state.riskLevel == .unknownOutdated { tintColor = .enaColor(for: .riskNeutral) }
+			if state.riskLevel == .inactive { tintColor = .enaColor(for: .riskNeutral) }
 			cell.tintColor = tintColor
 			cell.textLabel?.text = text
 			cell.imageView?.image = image
@@ -347,7 +352,8 @@ extension ExposureDetectionViewController {
 
 	private var lowRiskModel: DynamicTableViewModel {
 		DynamicTableViewModel([
-			riskDataSection(cells: [
+			riskDataSection(
+				cells: [
 				.riskContacts(text: AppStrings.ExposureDetection.numberOfContacts, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
 				.riskStored(text: AppStrings.ExposureDetection.numberOfDaysStored, imageName: "Icons_TracingCircle-Dark_Step %u"),
 				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
