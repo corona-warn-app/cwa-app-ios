@@ -33,6 +33,7 @@ class ActivateCollectionViewCell: HomeCardCollectionViewCell {
 		self.titleLabel.text = title
 		self.iconImageView.image = icon
 		self.accessibilityIdentifier = accessibilityIdentifier
+		self.accessibilityLabel = title
 
 		if let animationImages = animationImages {
 			iconImageView.animationImages = animationImages
