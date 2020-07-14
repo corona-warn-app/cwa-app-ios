@@ -196,13 +196,20 @@ extension HomeInteractor {
 
 		switch riskLevel {
 		case .unknownInitial:
-			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
+			riskLevelConfigurator = HomeUnknown48hRiskCellConfigurator(
 				isLoading: false,
 				lastUpdateDate: nil,
 				detectionInterval: detectionInterval,
 				detectionMode: detectionMode,
-				manualExposureDetectionState: riskProvider.manualExposureDetectionState
-			)
+				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
+				previousRiskLevel: store.previousRiskLevel)
+//			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
+//				isLoading: false,
+//				lastUpdateDate: nil,
+//				detectionInterval: detectionInterval,
+//				detectionMode: detectionMode,
+//				manualExposureDetectionState: riskProvider.manualExposureDetectionState
+//			)
 		case .inactive:
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
 				inactiveType: .noCalculationPossible,

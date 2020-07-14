@@ -129,8 +129,8 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	}
 
 	private var buttonTitle: String {
-		if isLoading { return AppStrings.Home.riskCardStatusCheckButton }
-		if isButtonEnabled { return AppStrings.Home.riskCardLowButton }
+		if isLoading { return AppStrings.Home.riskCardUpdateButton }
+		if isButtonEnabled { return AppStrings.Home.riskCardUpdateButton }
 		if let timeUntilUpdate = timeUntilUpdate { return String(format: AppStrings.ExposureDetection.refreshIn, timeUntilUpdate) }
 		return String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, "\(detectionInterval)")
 	}

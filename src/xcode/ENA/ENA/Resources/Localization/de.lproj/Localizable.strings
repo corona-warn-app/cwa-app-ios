@@ -599,12 +599,23 @@
 
 "Home_Risk_Period_Disabled_Button_Title" = "Aktualisierung nur alle %@\U00A0Stunden";
 
-/* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
 
+"Home_Risk_Last_Activate_Item_Title" = "Letzte Risiko-Ermittlung: %@";
+
+"Home_Risk_Last_Activate_Item_Unknown_Title" = "Unbekanntes Risiko";
+
+"Home_Risk_Last_Activate_Item_Low_Title" = "Niedriges Risiko";
+
+"Home_Risk_Last_Activate_Item_High_Title" = "Erhöhtes Risiko";
+
+"Home_RiskCard_Update_Button" = "Aktualisieren";
+
+/* Home Unknown card */
 "Home_RiskCard_Unknown_Item_Title" = "Da Sie Ihre Begegnungs-Aufzeichnung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
 
-"Home_RiskCard_Unknown_Button" = "Aktualisieren";
+/* Home Unknown 48 card */
+"Home_RiskCard_Unknown48h_Body" = "Ihre Risiko-Berechnung wurde seit mehr als 48 Stunden nicht aktualisiert. Bitte aktualisieren Sie die Berechnung.";
 
 /* Home Inactive card */
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "Risiko-Ermittlung gestoppt";
@@ -615,14 +626,6 @@
 
 "Home_Risk_Inactive_Outdated_Results_Body" = "Ihre Risiko-Ermittlung konnte seit mehr als 24 Stunden nicht aktualisiert werden.";
 
-"Home_Risk_Inactive_Activate_Item_Title" = "Letzte Risiko-Ermittlung: %@";
-
-"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Unbekanntes Risiko";
-
-"Home_Risk_Inactive_Activate_Item_Low_Title" = "Niedriges Risiko";
-
-"Home_Risk_Inactive_Activate_Item_High_Title" = "Erhöhtes Risiko";
-
 "Home_Risk_Inactive_NoCalculation_Possible_Button" = "Risiko-Ermittlung einschalten";
 
 "Home_Risk_Inactive_Outdated_Results_Button" = "Risiko-Ermittlung einschalten";
@@ -632,19 +635,13 @@
 
 "Home_Risk_Low_SaveDays_Item_Title" = "%@ von %@ Tagen aktiv";
 
-"Home_Risk_Low_Button" = "Aktualisieren";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Erhöhtes Risiko";
-
-"Home_Risk_High_Button" = "Aktualisieren";
 
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Prüfung läuft …";
 
 "Home_Risk_Status_Check_Body" = "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
-
-"Home_Risk_Status_Check_Button" = "Aktualisieren";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Vielen Dank!";

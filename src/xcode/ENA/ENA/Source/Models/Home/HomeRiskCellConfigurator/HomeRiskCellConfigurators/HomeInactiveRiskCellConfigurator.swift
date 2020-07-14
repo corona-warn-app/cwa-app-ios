@@ -78,14 +78,14 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		let previousRiskTitle: String
 		switch previousRiskLevel {
 		case .low?:
-			previousRiskTitle = AppStrings.Home.riskCardInactiveActiveItemLowTitle
+			previousRiskTitle = AppStrings.Home.riskCardLastActiveItemLowTitle
 		case .increased?:
-			previousRiskTitle = AppStrings.Home.riskCardInactiveActiveItemHighTitle
+			previousRiskTitle = AppStrings.Home.riskCardLastActiveItemHighTitle
 		default:
-			previousRiskTitle = AppStrings.Home.riskCardInactiveActiveItemUnknownTitle
+			previousRiskTitle = AppStrings.Home.riskCardLastActiveItemUnknownTitle
 		}
 
-		let activateItemTitle = String(format: AppStrings.Home.riskCardInactiveActivateItemTitle, previousRiskTitle)
+		let activateItemTitle = String(format: AppStrings.Home.riskCardLastActiveItemTitle, previousRiskTitle)
 		let iconTintColor: UIColor = .enaColor(for: .riskNeutral)
 		let item1 = HomeRiskImageItemViewConfigurator(title: activateItemTitle, titleColor: titleColor, iconImageName: "Icons_LetzteErmittlung-Light", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
 		let dateTitle = String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString)
