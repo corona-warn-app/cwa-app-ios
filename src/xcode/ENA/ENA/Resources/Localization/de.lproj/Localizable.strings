@@ -483,7 +483,7 @@
 
 "ExposureSubmissionError_unknown" = "Unbekannter Fehler";
 
-"ExposureSubmissionError_defaultError" = "Fehler bei der Schlüsselübermittlung";
+"ExposureSubmissionError_defaultError" = "Fehler bei der Schlüssel-Übermittlung";
 
 "ExposureSubmissionError_unsupported" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
 
@@ -812,7 +812,7 @@
 
 "InviteFriends_ShareTitle" = "Gemeinsam Corona bekämpfen. Ich bin dabei. Du auch?";
 
-"InviteFriends_ShareUrl" = "https://www.coronawarn.app/de/";
+"InviteFriends_ShareUrl" = "https://www.corona-warn-app.de";
 
 "InviteFriends_Illustration_Label" = "Ein Mann teilt die Corona-Warn-App mit vier anderen Personen.";
 
