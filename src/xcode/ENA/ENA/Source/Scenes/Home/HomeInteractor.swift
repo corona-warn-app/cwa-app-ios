@@ -216,15 +216,15 @@ extension HomeInteractor {
 			inactiveConfigurator?.activeAction = inActiveCellActionHandler
 			
 		case .low:
+			let activeTracing = risk?.details.activeTracing ?? .init(interval: 0)
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(
 				numberRiskContacts: state.numberRiskContacts,
-				numberDays: state.risk?.details.numberOfDaysWithActiveTracing ?? 0,
-				totalDays: 14,
 				lastUpdateDate: dateLastExposureDetection,
 				isButtonHidden: detectionIsAutomatic,
 				detectionMode: detectionMode,
 				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
-				detectionInterval: detectionInterval
+				detectionInterval: detectionInterval,
+				activeTracing: activeTracing
 			)
 		case .increased:
 			riskLevelConfigurator = HomeHighRiskCellConfigurator(

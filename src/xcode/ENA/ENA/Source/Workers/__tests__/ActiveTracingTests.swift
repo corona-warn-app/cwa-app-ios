@@ -21,7 +21,7 @@ import XCTest
 @testable import ENA
 
 final class ActiveTracingTests: XCTestCase {
-    func testOneHour() {
+	func testOneHour() {
 		let activeTracing = _activeTracing(interval: 3600)
 		XCTAssertEqual(activeTracing.interval, 3600, accuracy: .high)
 		XCTAssertEqual(activeTracing.inDays, 0)
@@ -81,51 +81,26 @@ final class ActiveTracingTests: XCTestCase {
 
 	func testLocalizedLowRiskLevelHomeScreenText() {
 		XCTAssertEqual(
-			_activeTracing(interval: 0).localizedLowRiskLevelHomeScreenText,
-			"Risk detection was active for 0 of 14 days"
+			_activeTracing(interval: 0).localizedDuration,
+			"Risiko-Ermittlung war für 0 der letzten 14 Tage aktiv"
 		)
 
 		// 13 hours = 1 day
 		XCTAssertEqual(
-			_activeTracing(interval: 3_600 * 13).localizedLowRiskLevelHomeScreenText,
-			"Risk detection was active for 1 of 14 days"
+			_activeTracing(interval: 3_600 * 13).localizedDuration,
+			"Risiko-Ermittlung war für 1 der letzten 14 Tage aktiv"
 		)
 
 		// 14 days yields different text
 		XCTAssertEqual(
-			_activeTracing(interval: 3_600 * 24 * 14).localizedLowRiskLevelHomeScreenText,
-			"Risk detection permanently active"
+			_activeTracing(interval: 3_600 * 24 * 14).localizedDuration,
+			"Risiko-Ermittlung dauerhaft aktiv"
 		)
 
 		// 14+ days yields different text
 		XCTAssertEqual(
-			_activeTracing(interval: 3_600 * 24 * 15).localizedLowRiskLevelHomeScreenText,
-			"Risk detection permanently active"
-		)
-	}
-
-	func testLocalizedLowRiskLevelDetailScreenText() {
-		XCTAssertEqual(
-			_activeTracing(interval: 0).localizedLowRiskLevelHomeScreenText,
-			"Risk detection was active for 0 of 14 days"
-		)
-
-		// 13 hours = 1 day
-		XCTAssertEqual(
-			_activeTracing(interval: 3_600 * 13).localizedLowRiskLevelDetailScreenText,
-			"Risk detection was active for 1 of 14 days"
-		)
-
-		// 14 days yields different text
-		XCTAssertEqual(
-			_activeTracing(interval: 3_600 * 24 * 14).localizedLowRiskLevelDetailScreenText,
-			"Risk detection permanently active"
-		)
-
-		// 14+ days yields different text
-		XCTAssertEqual(
-			_activeTracing(interval: 3_600 * 24 * 15).localizedLowRiskLevelDetailScreenText,
-			"Risk detection permanently active"
+			_activeTracing(interval: 3_600 * 24 * 15).localizedDuration,
+			"Risiko-Ermittlung dauerhaft aktiv"
 		)
 	}
 }
