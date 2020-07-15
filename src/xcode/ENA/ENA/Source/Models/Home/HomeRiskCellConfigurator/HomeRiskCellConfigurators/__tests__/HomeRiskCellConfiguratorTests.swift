@@ -27,6 +27,7 @@ class HomeRiskCellConfiguratorTests: XCTestCase {
 		// Intialize.
 		let detectionInterval = 24
         let configurator = HomeLowRiskCellConfigurator(
+			isLoading: false,
 			numberRiskContacts: 0,
 			numberDays: 14,
 			totalDays: 14,
@@ -77,6 +78,7 @@ class HomeRiskCellConfiguratorTests: XCTestCase {
 		// Intialize.
 		let detectionInterval = 24
 		let configurator = HomeHighRiskCellConfigurator(
+			isLoading: false,
 			numberRiskContacts: 10,
 			daysSinceLastExposure: 1,
 			lastUpdateDate: Date().addingTimeInterval(-3 * 60 * 60),

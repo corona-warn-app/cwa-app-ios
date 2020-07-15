@@ -40,8 +40,8 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	override func configure(cell: RiskLevelCollectionViewCell) {
 		cell.delegate = self
-
 		let title: String = isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardUnknownTitle
+		
 		let titleColor: UIColor = .enaColor(for: .textContrast)
 		cell.configureTitle(title: title, titleColor: titleColor)
 		cell.configureBody(text: "", bodyColor: titleColor, isHidden: true)
