@@ -429,6 +429,9 @@ extension ExposureDetectionViewController {
 					])
 				]
 			),
+			activeTracingSection(
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.activeTracingSectionText
+			),
 			explanationSection(
 				text: AppStrings.ExposureDetection.explanationTextHigh,
 				isActive: true,
