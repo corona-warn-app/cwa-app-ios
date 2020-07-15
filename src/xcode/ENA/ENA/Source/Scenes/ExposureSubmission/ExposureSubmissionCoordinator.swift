@@ -23,11 +23,13 @@ import UIKit
 protocol ExposureSubmissionCoordinator {
 
 	// MARK: - Attributes.
-	
+
+	/// Delegate that is called for life-cycle events of the coordinator.
 	var delegate: ExposureSubmissionCoordinatorDelegate? { get set }
 
 	// MARK: - Navigation.
 
+	/// Starts the coordinator and displays the initial root view controller.
 	func start(with result: TestResult?)
 	func dismiss()
 
@@ -40,14 +42,17 @@ protocol ExposureSubmissionCoordinator {
 	func showThankYouScreen()
 }
 
+/// This delegate allows a class to be notified for life-cycle events of the coordinator.
 protocol ExposureSubmissionCoordinatorDelegate: class {
 	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinator)
 }
 
+/// Marker protocol that ensures that a `coordinator` can be set for a view controller.
 protocol ExposureSubmissionCoordinatorViewController {
 	var coordinator: ExposureSubmissionCoordinator? { get set }
 }
 
+/// Concrete implementation of the ExposureSubmissionCoordinator protocol.
 class ESCoordinator: ExposureSubmissionCoordinator {
 
 	// MARK: - Attributes.
@@ -55,6 +60,8 @@ class ESCoordinator: ExposureSubmissionCoordinator {
 	weak var delegate: ExposureSubmissionCoordinatorDelegate?
 	weak var parentNavigationController: UINavigationController?
 	weak var navigationController: UINavigationController?
+
+	/// - NOTE: We need a strong (aka non-weak) reference here.
 	var exposureSubmissionService: ExposureSubmissionService?
 
 	// MARK: - Initializers.
@@ -67,6 +74,90 @@ class ESCoordinator: ExposureSubmissionCoordinator {
 		self.parentNavigationController = parentNavigationController
 		self.exposureSubmissionService = exposureSubmissionService
 		self.delegate = delegate
+	}
+}
+
+// MARK: - Navigation.
+
+extension ESCoordinator {
+	
+	// MARK: - Helpers.
+
+	private func push(_ vc: UIViewController) {
+		self.navigationController?.pushViewController(vc, animated: true)
+	}
+
+	private func present(_ vc: UIViewController) {
+		self.navigationController?.present(vc, animated: true)
+	}
+
+	private func getRootViewController(with result: TestResult? = nil) -> UIViewController {
+		#if UITESTING
+		if ProcessInfo.processInfo.arguments.contains("-negativeResult") {
+			return createTestResultViewController(with: .negative)
+		}
+
+		#else
+		// We got a test result and can jump straight into the test result view controller.
+		if let service = exposureSubmissionService, let result = result, service.hasRegistrationToken() {
+			return createTestResultViewController(with: result)
+		}
+		#endif
+
+		// By default, we show the intro view.
+		return createIntroViewController()
+	}
+
+	// MARK: - Public API.
+
+	func start(with result: TestResult? = nil) {
+		let vc = getRootViewController(with: result)
+		guard let parentNavigationController = parentNavigationController else {
+			log(message: "Parent navigation controller not set.", level: .error, file: #file, line: #line, function: #function)
+			return
+		}
+
+		let navigationController = createNavigationController(rootViewController: vc)
+		parentNavigationController.present(navigationController, animated: true)
+		self.navigationController = navigationController
+	}
+
+	func dismiss() {
+		navigationController?.dismiss(animated: true)
+	}
+
+	func showOverviewScreen() {
+		let vc = createOverviewViewController()
+		push(vc)
+	}
+
+	func showTestResultScreen(with result: TestResult) {
+		let vc = createTestResultViewController(with: result)
+		push(vc)
+	}
+
+	func showHotlineScreen() {
+		let vc = createHotlineViewController()
+		push(vc)
+	}
+	func showTanScreen() {
+		let vc = createTanInputViewController()
+		push(vc)
+	}
+
+	func showQRScreen(qrScannerDelegate: ExposureSubmissionQRScannerDelegate) {
+		let vc = createQRScannerViewController(qrScannerDelegate: qrScannerDelegate)
+		present(vc)
+	}
+
+	func showWarnOthersScreen() {
+		let vc = createWarnOthersViewController()
+		push(vc)
+	}
+
+	func showThankYouScreen() {
+		let vc = createSuccessViewController()
+		push(vc)
 	}
 }
 
@@ -134,90 +225,5 @@ extension ESCoordinator {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSuccessViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionSuccessViewController(coder: coder, coordinator: self)
 		}
-	}
-}
-
-// MARK: - Navigation.
-
-extension ESCoordinator {
-	
-	// MARK: - Helpers.
-
-	private func push(_ vc: UIViewController) {
-		self.navigationController?.pushViewController(vc, animated: true)
-	}
-
-	private func present(_ vc: UIViewController) {
-		self.navigationController?.present(vc, animated: true)
-	}
-
-	private func getRootViewController(with result: TestResult? = nil) -> UIViewController {
-		#if UITESTING
-		if ProcessInfo.processInfo.arguments.contains("-negativeResult") {
-			return createTestResultViewController(with: .negative)
-		}
-
-		#else
-		// We got a test result and can jump straight into the test result view controller.
-		if let service = exposureSubmissionService, let result = result, service.hasRegistrationToken() {
-			return createTestResultViewController(with: result)
-		}
-		#endif
-
-		// By default, we show the intro view.
-		return createIntroViewController()
-	}
-
-	// MARK: - Public API.
-
-	func start(with result: TestResult? = nil) {
-		let vc = getRootViewController(with: result)
-		guard let parentNavigationController = parentNavigationController else {
-			log(message: "Parent navigation controller not set.", level: .error, file: #file, line: #line, function: #function)
-			return
-		}
-
-		let navigationController = createNavigationController(rootViewController: vc)
-		parentNavigationController.present(navigationController, animated: true)
-		self.navigationController = navigationController
-	}
-
-	func dismiss() {
-		navigationController?.dismiss(animated: true)
-	}
-
-	func showOverviewScreen() {
-		let vc = createOverviewViewController()
-		push(vc)
-	}
-
-	// TODO: HANDLING OF THE TEST RESULT ?
-	func showTestResultScreen(with result: TestResult) {
-		let vc = createTestResultViewController(with: result)
-		push(vc)
-	}
-
-	func showHotlineScreen() {
-		let vc = createHotlineViewController()
-		push(vc)
-	}
-	func showTanScreen() {
-		let vc = createTanInputViewController()
-		push(vc)
-	}
-
-	func showQRScreen(qrScannerDelegate: ExposureSubmissionQRScannerDelegate) {
-		let vc = createQRScannerViewController(qrScannerDelegate: qrScannerDelegate)
-		present(vc)
-	}
-
-	func showWarnOthersScreen() {
-		let vc = createWarnOthersViewController()
-		push(vc)
-	}
-
-	func showThankYouScreen() {
-		let vc = createSuccessViewController()
-		push(vc)
 	}
 }
