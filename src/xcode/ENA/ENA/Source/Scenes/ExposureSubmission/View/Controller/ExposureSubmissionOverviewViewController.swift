@@ -73,7 +73,6 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 				let alert = self.setupErrorAlert(message: error.localizedDescription)
 				self.present(alert, animated: true, completion: nil)
 			case let .success(testResult):
-				self.coordinator?.testResult = testResult
 				self.coordinator?.showTestResultScreen(with: testResult)
 			}
 		}

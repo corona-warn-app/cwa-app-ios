@@ -158,12 +158,11 @@ final class HomeViewController: UIViewController {
 
 		let coordinator: ExposureSubmissionCoordinator = ESCoordinator(
 			parentNavigationController: navigationController,
-			exposureSubmissionService: self.homeInteractor.exposureSubmissionService,
-			testResult: result,
+			exposureSubmissionService: homeInteractor.exposureSubmissionService,
 			delegate: self
 		)
 
-		coordinator.start()
+		coordinator.start(with: result)
 	}
 
 	func showDeveloperMenu() {

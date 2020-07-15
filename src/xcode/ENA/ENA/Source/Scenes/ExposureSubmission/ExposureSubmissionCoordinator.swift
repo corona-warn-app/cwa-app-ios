@@ -25,11 +25,10 @@ protocol ExposureSubmissionCoordinator {
 	// MARK: - Attributes.
 	
 	var delegate: ExposureSubmissionCoordinatorDelegate? { get set }
-	var testResult: TestResult? { get set }
 
 	// MARK: - Navigation.
 
-	func start()
+	func start(with result: TestResult?)
 	func dismiss()
 
 	func showOverviewScreen()
@@ -56,20 +55,17 @@ class ESCoordinator: ExposureSubmissionCoordinator {
 	weak var delegate: ExposureSubmissionCoordinatorDelegate?
 	weak var parentNavigationController: UINavigationController?
 	weak var navigationController: UINavigationController?
-	weak var exposureSubmissionService: ExposureSubmissionService?
-	var testResult: TestResult?
+	var exposureSubmissionService: ExposureSubmissionService?
 
 	// MARK: - Initializers.
 
 	init(
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
-		testResult: TestResult? = nil,
 		delegate: ExposureSubmissionCoordinatorDelegate? = nil
 	) {
 		self.parentNavigationController = parentNavigationController
 		self.exposureSubmissionService = exposureSubmissionService
-		self.testResult = testResult
 		self.delegate = delegate
 	}
 }
@@ -155,7 +151,7 @@ extension ESCoordinator {
 		self.navigationController?.present(vc, animated: true)
 	}
 
-	private func getRootViewController() -> UIViewController {
+	private func getRootViewController(with result: TestResult? = nil) -> UIViewController {
 		#if UITESTING
 		if ProcessInfo.processInfo.arguments.contains("-negativeResult") {
 			return createTestResultViewController(with: .negative)
@@ -163,9 +159,8 @@ extension ESCoordinator {
 
 		#else
 		// We got a test result and can jump straight into the test result view controller.
-		if let service = exposureSubmissionService, testResult != nil, service.hasRegistrationToken() {
-			// swiftlint:disable:next force_unwrapping
-			return createTestResultViewController(with: testResult!)
+		if let service = exposureSubmissionService, let result = result, service.hasRegistrationToken() {
+			return createTestResultViewController(with: result)
 		}
 		#endif
 
@@ -175,8 +170,8 @@ extension ESCoordinator {
 
 	// MARK: - Public API.
 
-	func start() {
-		let vc = getRootViewController()
+	func start(with result: TestResult? = nil) {
+		let vc = getRootViewController(with: result)
 		guard let parentNavigationController = parentNavigationController else {
 			log(message: "Parent navigation controller not set.", level: .error, file: #file, line: #line, function: #function)
 			return

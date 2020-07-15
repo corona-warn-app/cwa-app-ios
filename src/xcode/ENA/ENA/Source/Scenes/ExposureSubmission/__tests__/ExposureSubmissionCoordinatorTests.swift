@@ -43,13 +43,11 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 	private func createCoordinator(
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
-		testResult: TestResult?,
 		delegate: ExposureSubmissionCoordinatorDelegate) -> ExposureSubmissionCoordinator {
 
 		return ESCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
-			testResult: testResult,
 			delegate: delegate
 		)
 	}
@@ -69,11 +67,10 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
-			testResult: nil,
 			delegate: delegate
 		)
 
-		coordinator.start()
+		coordinator.start(with: nil)
 
 		// Get navigation controller and make sure to load view.
 		let navigationController = getNavigationController(from: coordinator)
@@ -95,11 +92,10 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
-			testResult: result,
 			delegate: delegate
 		)
 
-		coordinator.start()
+		coordinator.start(with: result)
 
 		// Get navigation controller and make sure to load view.
 		let navigationController = getNavigationController(from: coordinator)
@@ -125,7 +121,6 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
-			testResult: nil,
 			delegate: delegate
 		)
 
@@ -133,7 +128,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		delegate.onExposureSubmissionCoordinatorWillDisappear = { _ in expectation.fulfill() }
 
 		XCTAssertNil(parentNavigationController.presentedViewController)
-		coordinator.start()
+		coordinator.start(with: nil)
 		XCTAssertNotNil(parentNavigationController.presentedViewController)
 
 		coordinator.dismiss()
@@ -144,11 +139,10 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
-			testResult: nil,
 			delegate: delegate
 		)
 
-		coordinator.start()
+		coordinator.start(with: nil)
 		coordinator.showOverviewScreen()
 
 		// Get navigation controller and make sure to load view.
@@ -172,11 +166,10 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
-			testResult: result,
 			delegate: delegate
 		)
 
-		coordinator.start()
+		coordinator.start(with: nil)
 		coordinator.showTestResultScreen(with: result)
 
 		// Get navigation controller and make sure to load view.
@@ -199,11 +192,10 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
-			testResult: nil,
 			delegate: delegate
 		)
 
-		coordinator.start()
+		coordinator.start(with: nil)
 		coordinator.showHotlineScreen()
 
 		// Get navigation controller and make sure to load view.
@@ -224,11 +216,10 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
-			testResult: nil,
 			delegate: delegate
 		)
 
-		coordinator.start()
+		coordinator.start(with: nil)
 		coordinator.showTanScreen()
 
 		// Get navigation controller and make sure to load view.
@@ -250,11 +241,10 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
-			testResult: nil,
 			delegate: delegate
 		)
 
-		coordinator.start()
+		coordinator.start(with: nil)
 		coordinator.showWarnOthersScreen()
 
 		// Get navigation controller and make sure to load view.
@@ -276,11 +266,10 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
-			testResult: nil,
 			delegate: delegate
 		)
 
-		coordinator.start()
+		coordinator.start(with: nil)
 		coordinator.showThankYouScreen()
 
 		// Get navigation controller and make sure to load view.

@@ -17,18 +17,17 @@
 // under the License.
 //
 
-import Foundation
+@testable import ENA
 
 class MockExposureSubmissionCoordinator: ExposureSubmissionCoordinator {
 
 	// MARK: - Attributes.
 
 	weak var delegate: ExposureSubmissionCoordinatorDelegate?
-	var testResult: TestResult?
 
 	// MARK: - ExposureSubmissionCoordinator methods.
 
-	func start() { }
+	func start(with: TestResult? = nil) { }
 
 	func dismiss() { }
 
