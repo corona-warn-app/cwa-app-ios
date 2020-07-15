@@ -26,6 +26,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
+		isLoading: Bool,
 		numberRiskContacts: Int,
 		numberDays: Int,
 		totalDays: Int,
@@ -40,7 +41,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		self.totalDays = totalDays
 		self.detectionInterval = detectionInterval
 		super.init(
-			isLoading: false,
+			isLoading: isLoading,
 			isButtonEnabled: manualExposureDetectionState == .possible,
 			isButtonHidden: isButtonHidden,
 			detectionIntervalLabelHidden: detectionMode != .automatic,
