@@ -27,6 +27,16 @@
 
 "Common_Alert_Action_moreInfo" = "Learn more";
 
+"Common_BackgroundFetch_AlertMessage" = "You have disabled background fetching for the Corona-Warn-App. To use automatic risk detection, you must activate the background fetching. If you do not activate background fetching, you can still start the risk detection manually.
+
+You can switch on background fetching for the app at any time in the device settings.";
+
+"Common_BackgroundFetch_SettingsTitle" = "Open Settings";
+
+"Common_BackgroundFetch_OKTitle" = "Start Risk Detection Manually";
+
+"Common_BackgroundFetch_AlertTitle" = "Background Fetching Disabled";
+
 /* General - Links */
 
 "General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
