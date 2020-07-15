@@ -233,14 +233,6 @@ extension Coordinator: ExposureNotificationSettingViewControllerDelegate {
 }
 
 extension Coordinator: ExposureDetectionViewControllerDelegate {
-	func didStartLoading(exposureDetectionViewController: ExposureDetectionViewController) {
-		homeController?.updateAndReloadRiskLoading(isRequestRiskRunning: true)
-	}
-
-	func didFinishLoading(exposureDetectionViewController: ExposureDetectionViewController) {
-		homeController?.updateAndReloadRiskLoading(isRequestRiskRunning: false)
-	}
-
 	func exposureDetectionViewController(
 		_: ExposureDetectionViewController,
 		setExposureManagerEnabled enabled: Bool,

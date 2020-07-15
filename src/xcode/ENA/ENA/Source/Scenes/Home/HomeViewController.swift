@@ -81,6 +81,8 @@ final class HomeViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		setupBackgroundFetchAlert()
 		configureCollectionView()
 		configureDataSource()
 		setupAccessibility()
@@ -104,6 +106,23 @@ final class HomeViewController: UIViewController {
 		updateBackgroundColor()
 	}
 
+	/// This method sets up a background fetch alert, and presents it, if needed.
+	/// Check the `createBackgroundFetchAlert` method for more information.
+	private func setupBackgroundFetchAlert() {
+		guard let alert = createBackgroundFetchAlert(
+			status: UIApplication.shared.backgroundRefreshStatus,
+			inLowPowerMode: ProcessInfo.processInfo.isLowPowerModeEnabled,
+			hasSeenAlertBefore: homeInteractor.store.hasSeenBackgroundFetchAlert,
+			store: homeInteractor.store
+			) else { return }
+
+		self.present(
+			alert,
+			animated: true,
+			completion: nil
+		)
+	}
+
 	private func setupAccessibility() {
 		navigationItem.leftBarButtonItem?.customView = UIImageView(image: navigationItem.leftBarButtonItem?.image)
 		navigationItem.leftBarButtonItem?.isAccessibilityElement = true
@@ -125,7 +144,7 @@ final class HomeViewController: UIViewController {
 
 	// Called by HomeInteractor
 	func setStateOfChildViewControllers() {
-		delegate?.setExposureDetectionState(state: homeInteractor.state, isRequestRiskRunning: homeInteractor.isRequestRiskRunning)
+		delegate?.setExposureDetectionState(state: homeInteractor.state, isRequestRiskRunning: homeInteractor.riskProvider.isLoading)
 	}
 
 	func updateState(detectionMode: DetectionMode, exposureManagerState: ExposureManagerState, risk: Risk?) {
@@ -149,7 +168,7 @@ final class HomeViewController: UIViewController {
 	}
 
 	func showExposureDetection() {
-		delegate?.showExposureDetection(state: homeInteractor.state, isRequestRiskRunning: homeInteractor.isRequestRiskRunning)
+		delegate?.showExposureDetection(state: homeInteractor.state, isRequestRiskRunning: homeInteractor.riskProvider.isLoading)
 	}
 
 	private func showScreenForActionSectionForCell(at indexPath: IndexPath) {
@@ -306,12 +325,6 @@ extension HomeViewController: UICollectionViewDelegate {
 
 	func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		showScreen(at: indexPath)
-	}
-}
-
-extension HomeViewController {
-	func updateAndReloadRiskLoading(isRequestRiskRunning: Bool) {
-		homeInteractor.updateAndReloadRiskLoading(isRequestRiskRunning: isRequestRiskRunning)
 	}
 }
 

@@ -35,6 +35,7 @@ final class HomeInteractor: RequiresAppDependencies {
 		self.homeViewController = homeViewController
 		self.state = state
 		self.exposureSubmissionService = exposureSubmissionService
+		observeRisk()
 	}
 
 	// MARK: Properties
@@ -61,6 +62,13 @@ final class HomeInteractor: RequiresAppDependencies {
 
 	private(set) var testResult: TestResult?
 
+	private lazy var isRequestRiskRunning = riskProvider.isLoading
+	private let riskConsumer = RiskConsumer()
+
+	deinit {
+		riskProvider.removeRisk(riskConsumer)
+	}
+
 	private func updateActiveCell() {
 		guard let indexPath = indexPathForActiveCell() else { return }
 		homeViewController.updateSections()
@@ -85,7 +93,13 @@ final class HomeInteractor: RequiresAppDependencies {
 		homeViewController.reloadCell(at: indexPath)
 	}
 
-	private(set) var isRequestRiskRunning = false
+	private func observeRisk() {
+		riskConsumer.didChangeLoadingStatus = { isLoading in
+			self.updateAndReloadRiskLoading(isRequestRiskRunning: isLoading)
+		}
+
+		riskProvider.observeRisk(riskConsumer)
+	}
 
 	func updateAndReloadRiskLoading(isRequestRiskRunning: Bool) {
 		self.isRequestRiskRunning = isRequestRiskRunning
@@ -94,16 +108,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	}
 
 	func requestRisk(userInitiated: Bool) {
-
-		if userInitiated {
-			updateAndReloadRiskLoading(isRequestRiskRunning: true)
-			riskProvider.requestRisk(userInitiated: userInitiated) { _ in
-				self.updateAndReloadRiskLoading(isRequestRiskRunning: false)
-			}
-		} else {
-			riskProvider.requestRisk(userInitiated: userInitiated)
-		}
-
+		riskProvider.requestRisk(userInitiated: userInitiated)
 	}
 
 	func buildSections() {
@@ -193,7 +198,7 @@ extension HomeInteractor {
 		switch riskLevel {
 		case .unknownInitial:
 			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
-				isLoading: false,
+				isLoading: isRequestRiskRunning,
 				lastUpdateDate: nil,
 				detectionInterval: detectionInterval,
 				detectionMode: detectionMode,
@@ -206,7 +211,6 @@ extension HomeInteractor {
 				lastUpdateDate: dateLastExposureDetection
 			)
 			inactiveConfigurator?.activeAction = inActiveCellActionHandler
-
 		case .unknownOutdated:
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
 				inactiveType: .outdatedResults,
@@ -214,9 +218,9 @@ extension HomeInteractor {
 				lastUpdateDate: dateLastExposureDetection
 			)
 			inactiveConfigurator?.activeAction = inActiveCellActionHandler
-			
 		case .low:
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(
+				isLoading: isRequestRiskRunning,
 				numberRiskContacts: state.numberRiskContacts,
 				numberDays: state.risk?.details.numberOfDaysWithActiveTracing ?? 0,
 				totalDays: 14,
@@ -228,6 +232,7 @@ extension HomeInteractor {
 			)
 		case .increased:
 			riskLevelConfigurator = HomeHighRiskCellConfigurator(
+				isLoading: isRequestRiskRunning,
 				numberRiskContacts: state.numberRiskContacts,
 				daysSinceLastExposure: state.daysSinceLastExposure,
 				lastUpdateDate: dateLastExposureDetection,
