@@ -28,7 +28,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 	// MARK: - Initializers.
 
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator, exposureSubmissionService: ExposureSubmissionService?, testResult: TestResult) {
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator, exposureSubmissionService: ExposureSubmissionService?, testResult: TestResult?) {
 		self.coordinator = coordinator
 		self.exposureSubmissionService = exposureSubmissionService
 		self.testResult = testResult

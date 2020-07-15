@@ -30,7 +30,9 @@ class ExposureSubmissionTanInputViewControllerTests: XCTestCase {
 	}
 
 	private func createVC() -> ExposureSubmissionTanInputViewController {
-		return AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTanInputViewController.self)
+		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTanInputViewController.self) { coder -> UIViewController? in
+			ExposureSubmissionTanInputViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator(), exposureSubmissionService: self.service)
+		}
 	}
 
 	func testTanInputSuccess() {

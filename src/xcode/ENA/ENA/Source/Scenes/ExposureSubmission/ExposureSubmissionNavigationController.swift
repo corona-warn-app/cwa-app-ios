@@ -23,12 +23,14 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 	// MARK: - Attributes.
 
 	var coordinator: ExposureSubmissionCoordinator?
+	var rootViewController: UIViewController?
 
 	// MARK: - Initializers.
 
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator) {
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator, rootViewController: UIViewController? = nil) {
 		super.init(coder: coder)
 		self.coordinator = coordinator
+		self.rootViewController = rootViewController
 	}
 
 	@available(*, unavailable)
@@ -38,6 +40,10 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		if let rootVC = rootViewController {
+			setViewControllers([rootVC], animated: false)
+		}
 
 		let closeButton = UIButton(type: .custom)
 		closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)

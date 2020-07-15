@@ -17,19 +17,32 @@
 // under the License.
 //
 
-import XCTest
-@testable import ENA
+import Foundation
 
-class ExposureSubmissionHotlineViewControllerTest: XCTestCase {
+class MockExposureSubmissionCoordinator: ExposureSubmissionCoordinator {
 
-	func testSetupView() {
-		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionHotlineViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator())
-		}
-		_ = vc.view
-		XCTAssertNotNil(vc.tableView)
-		XCTAssertEqual(vc.tableView.numberOfSections, 2)
-		XCTAssertEqual(vc.tableView(vc.tableView, numberOfRowsInSection: 1), 5)
-	}
+	// MARK: - Attributes.
 
+	weak var delegate: ExposureSubmissionCoordinatorDelegate?
+	var testResult: TestResult?
+
+	// MARK: - ExposureSubmissionCoordinator methods.
+
+	func start() { }
+
+	func dismiss() { }
+
+	func showOverviewScreen() { }
+
+	func showTestResultScreen(with result: TestResult) { }
+
+	func showHotlineScreen() { }
+
+	func showTanScreen() { }
+
+	func showQRScreen(qrScannerDelegate: ExposureSubmissionQRScannerDelegate) { }
+
+	func showWarnOthersScreen() { }
+
+	func showThankYouScreen() { }
 }

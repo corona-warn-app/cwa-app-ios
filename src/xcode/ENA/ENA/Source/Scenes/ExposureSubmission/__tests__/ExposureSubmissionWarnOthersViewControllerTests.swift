@@ -31,9 +31,9 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 	}
 
 	private func createVC() -> ExposureSubmissionWarnOthersViewController {
-		return AppStoryboard.exposureSubmission.initiate(
-			viewControllerType: ExposureSubmissionWarnOthersViewController.self
-		)
+		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnOthersViewController.self) { coder -> UIViewController? in
+			ExposureSubmissionWarnOthersViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator(), exposureSubmissionService: self.service)
+		}
 	}
 
 	func testSuccessfulSubmit() {

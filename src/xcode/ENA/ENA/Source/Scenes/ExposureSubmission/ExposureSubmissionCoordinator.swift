@@ -23,6 +23,7 @@ import UIKit
 protocol ExposureSubmissionCoordinator {
 
 	// MARK: - Attributes.
+	
 	var delegate: ExposureSubmissionCoordinatorDelegate? { get set }
 	var testResult: TestResult? { get set }
 
@@ -38,9 +39,6 @@ protocol ExposureSubmissionCoordinator {
 	func showQRScreen(qrScannerDelegate: ExposureSubmissionQRScannerDelegate)
 	func showWarnOthersScreen()
 	func showThankYouScreen()
-
-
-	// MARK: - Buttons.
 }
 
 protocol ExposureSubmissionCoordinatorDelegate: class {
@@ -80,9 +78,9 @@ class ESCoordinator: ExposureSubmissionCoordinator {
 
 extension ESCoordinator {
 
-	private func createNavigationController() -> ExposureSubmissionNavigationController {
+	private func createNavigationController(rootViewController vc: UIViewController) -> ExposureSubmissionNavigationController {
 		return AppStoryboard.exposureSubmission.initiateInitial { coder in
-			ExposureSubmissionNavigationController(coder: coder, coordinator: self)
+			ExposureSubmissionNavigationController(coder: coder, coordinator: self, rootViewController: vc)
 		}
 	}
 
@@ -184,8 +182,7 @@ extension ESCoordinator {
 			return
 		}
 
-		let navigationController = createNavigationController()
-		navigationController.setViewControllers([vc], animated: false)
+		let navigationController = createNavigationController(rootViewController: vc)
 		parentNavigationController.present(navigationController, animated: true)
 		self.navigationController = navigationController
 	}
