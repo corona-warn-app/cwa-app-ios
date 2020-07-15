@@ -42,9 +42,8 @@ extension UIAlertController {
 			UIAlertAction(
 				title: NSLocalizedString("Alert_ActionOk", comment: ""),
 				style: .default
-			) { _ in
-//				alert.dismiss(animated: true, completion: nil)
-		})
+			)
+		)
 
 		return alert
 	}
