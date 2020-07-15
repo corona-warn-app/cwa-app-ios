@@ -421,12 +421,10 @@ enum AppStrings {
 		static let riskCardNumberContactsItemTitle = NSLocalizedString("Home_Risk_Number_Contacts_Item_Title", comment: "")
 		static let riskCardLastContactItemTitle = NSLocalizedString("Home_Risk_Last_Contact_Item_Title", comment: "")
 		static let riskCardUnknownTitle = NSLocalizedString("Home_Risk_Unknown_Title", comment: "")
-
 		static let riskCardLastActiveItemTitle = NSLocalizedString("Home_Risk_Last_Activate_Item_Title", comment: "")
 		static let riskCardLastActiveItemUnknownTitle = NSLocalizedString("Home_Risk_Last_Activate_Item_Unknown_Title", comment: "")
 		static let riskCardLastActiveItemLowTitle = NSLocalizedString("Home_Risk_Last_Activate_Item_Low_Title", comment: "")
 		static let riskCardLastActiveItemHighTitle = NSLocalizedString("Home_Risk_Last_Activate_Item_High_Title", comment: "")
-
 		static let riskCardUpdateButton = NSLocalizedString("Home_RiskCard_Update_Button", comment: "")
 
 		// Unknown Card

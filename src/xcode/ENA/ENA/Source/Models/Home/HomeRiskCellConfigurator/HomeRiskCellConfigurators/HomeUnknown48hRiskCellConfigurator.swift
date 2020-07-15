@@ -20,11 +20,10 @@
 import UIKit
 
 final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
-	// MARK: Configuration
 
 	private var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 
-	// MARK: Creating a unknown Risk cell
+	// MARK: Creating a unknown 48h Risk cell
 	init(
 		isLoading: Bool,
 		lastUpdateDate: Date?,
@@ -34,7 +33,6 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 	) {
 		self.previousRiskLevel = previousRiskLevel
-
 		super.init(
 			isLoading: isLoading,
 			isButtonEnabled: manualExposureDetectionState == .possible,

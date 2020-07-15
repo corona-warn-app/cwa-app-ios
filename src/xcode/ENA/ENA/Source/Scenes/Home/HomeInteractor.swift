@@ -247,15 +247,6 @@ extension HomeInteractor {
 		case .none:
 			riskLevelConfigurator = nil
 		}
-//      case .newRiskLevel:
-//		riskLevelConfigurator = HomeUnknown48hRiskCellConfigurator(
-//			isLoading: false,
-//			lastUpdateDate: nil,
-//			detectionInterval: detectionInterval,
-//			detectionMode: detectionMode,
-//			manualExposureDetectionState: riskProvider.manualExposureDetectionState,
-//			previousRiskLevel: store.previousRiskLevel)
-
 
 		riskLevelConfigurator?.buttonAction = {
 			self.requestRisk(userInitiated: true)
