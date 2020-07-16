@@ -27,9 +27,16 @@ protocol ExposureSummaryProvider: AnyObject {
 }
 
 final class RiskProvider {
-	private let consumers = NSHashTable<RiskConsumer>.weakObjects()
-	private let queue = DispatchQueue(label: "com.sap.RiskLevelProvider")
+
+	private let queue = DispatchQueue(label: "com.sap.RiskProvider")
 	private let targetQueue: DispatchQueue
+	private var consumersQueue = DispatchQueue(label: "com.sap.RiskProvider")
+
+	private var _consumers: [RiskConsumer] = []
+	private var consumers: [RiskConsumer] {
+		get { consumersQueue.sync { _consumers } }
+		set { consumersQueue.sync { _consumers = newValue } }
+	}
 
 	// MARK: Creating a Risk Level Provider
 	init(
@@ -54,6 +61,7 @@ final class RiskProvider {
 	private let appConfigurationProvider: AppConfigurationProviding
 	var exposureManagerState: ExposureManagerState
 	var configuration: RiskProvidingConfiguration
+	private(set) var isLoading: Bool = false
 }
 
 private extension RiskConsumer {
@@ -66,9 +74,11 @@ private extension RiskConsumer {
 
 extension RiskProvider: RiskProviding {
 	func observeRisk(_ consumer: RiskConsumer) {
-		queue.async { [weak self] in
-			self?.consumers.add(consumer)
-		}
+		consumers.append(consumer)
+	}
+
+	func removeRisk(_ consumer: RiskConsumer) {
+		consumers.removeAll(where: { $0 === consumer })
 	}
 
 	var manualExposureDetectionState: ManualExposureDetectionState? {
@@ -164,27 +174,28 @@ extension RiskProvider: RiskProviding {
 			completion?(.mocked)
 		}
 
-		for consumer in consumers.allObjects {
+		for consumer in consumers {
 			_provideRisk(risk, to: consumer)
 		}
 
 		saveRiskIfNeeded(risk)
 	}
 	#else
-	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
-		func completeOnTargetQueue(risk: Risk?) {
-			targetQueue.async {
-				completion?(risk)
-			}
-			// We only wish to notify consumers if an actual risk level has been calculated.
-			// We do not notify if an error occurred.
-			if let risk = risk {
-				for consumer in consumers.allObjects {
-					_provideRisk(risk, to: consumer)
-				}
+
+	private func completeOnTargetQueue(risk: Risk?, completion: Completion? = nil) {
+		targetQueue.async {
+			completion?(risk)
+		}
+		// We only wish to notify consumers if an actual risk level has been calculated.
+		// We do not notify if an error occurred.
+		if let risk = risk {
+			for consumer in consumers {
+				_provideRisk(risk, to: consumer)
 			}
 		}
+	}
 
+	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
 		var summaries: Summaries?
 		let tracingHistory = store.tracingStatusHistory
 		let numberOfEnabledHours = tracingHistory.activeTracing().inHours
@@ -206,7 +217,7 @@ extension RiskProvider: RiskProviding {
 					level: .inactive,
 					details: details,
 					riskLevelHasChanged: false // false because we don't want to trigger a notification
-				)
+				), completion: completion
 			)
 			return
 		}
@@ -217,11 +228,12 @@ extension RiskProvider: RiskProviding {
 					level: .unknownInitial,
 					details: details,
 					riskLevelHasChanged: false // false because we don't want to trigger a notification
-				)
+				), completion: completion
 			)
 			return
 		}
 
+		provideLoadingStatus(isLoading: true)
 		let group = DispatchGroup()
 
 		group.enter()
@@ -238,15 +250,21 @@ extension RiskProvider: RiskProviding {
 		}
 
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
-			completeOnTargetQueue(risk: nil)
+			provideLoadingStatus(isLoading: false)
+			completeOnTargetQueue(risk: nil, completion: completion)
 			return
 		}
 
+		_requestRiskLevel(summaries: summaries, appConfiguration: appConfiguration, completion: completion)
+	}
+
+	private func _requestRiskLevel(summaries: Summaries?, appConfiguration: SAP_ApplicationConfiguration?, completion: Completion? = nil) {
 		guard let _appConfiguration = appConfiguration else {
-			completeOnTargetQueue(risk: nil)
+			provideLoadingStatus(isLoading: false)
+			completeOnTargetQueue(risk: nil, completion: completion)
 			return
 		}
-		
+
 		let activeTracing = store.tracingStatusHistory.activeTracing()
 
 		guard
@@ -261,11 +279,13 @@ extension RiskProvider: RiskProviding {
 				providerConfiguration: configuration
 			) else {
 				logError(message: "Serious error during risk calculation")
-				completeOnTargetQueue(risk: nil)
+				provideLoadingStatus(isLoading: false)
+				completeOnTargetQueue(risk: nil, completion: completion)
 				return
 		}
 
-		completeOnTargetQueue(risk: risk)
+		provideLoadingStatus(isLoading: false)
+		completeOnTargetQueue(risk: risk, completion: completion)
 		saveRiskIfNeeded(risk)
 	}
 	#endif
@@ -276,6 +296,19 @@ extension RiskProvider: RiskProviding {
 		#else
 		consumer?.provideRisk(risk)
 		#endif
+	}
+
+	private func provideLoadingStatus(isLoading: Bool) {
+		self.isLoading = isLoading
+		_provideLoadingStatus(isLoading)
+	}
+
+	private func _provideLoadingStatus(_ isLoading: Bool) {
+		targetQueue.async { [weak self] in
+			self?.consumers.forEach {
+				$0.didChangeLoadingStatus?(isLoading)
+			}
+		}
 	}
 
 	private func saveRiskIfNeeded(_ risk: Risk) {

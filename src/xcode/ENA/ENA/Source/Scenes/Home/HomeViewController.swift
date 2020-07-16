@@ -60,7 +60,7 @@ final class HomeViewController: UIViewController {
 	// MARK: Properties
 
 	private var sections: HomeInteractor.SectionConfiguration = []
-	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
+	private var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable>?
 	private var collectionView: UICollectionView! { view as? UICollectionView }
 	private var homeInteractor: HomeInteractor!
 
@@ -81,6 +81,8 @@ final class HomeViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		setupBackgroundFetchAlert()
 		configureCollectionView()
 		configureDataSource()
 		setupAccessibility()
@@ -102,6 +104,23 @@ final class HomeViewController: UIViewController {
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		updateBackgroundColor()
+	}
+
+	/// This method sets up a background fetch alert, and presents it, if needed.
+	/// Check the `createBackgroundFetchAlert` method for more information.
+	private func setupBackgroundFetchAlert() {
+		guard let alert = createBackgroundFetchAlert(
+			status: UIApplication.shared.backgroundRefreshStatus,
+			inLowPowerMode: ProcessInfo.processInfo.isLowPowerModeEnabled,
+			hasSeenAlertBefore: homeInteractor.store.hasSeenBackgroundFetchAlert,
+			store: homeInteractor.store
+			) else { return }
+
+		self.present(
+			alert,
+			animated: true,
+			completion: nil
+		)
 	}
 
 	private func setupAccessibility() {
@@ -132,7 +151,7 @@ final class HomeViewController: UIViewController {
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: homeInteractor.state.exposureManagerState,
 			detectionMode: homeInteractor.state.detectionMode,
-			isLoading: homeInteractor.isRequestRiskRunning,
+			isLoading: homeInteractor.riskProvider.isLoading,
 			risk: homeInteractor.state.risk
 		)
 		exposureDetectionController?.state = state
@@ -213,7 +232,7 @@ final class HomeViewController: UIViewController {
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: homeInteractor.state.exposureManagerState,
 			detectionMode: homeInteractor.state.detectionMode,
-			isLoading: homeInteractor.isRequestRiskRunning,
+			isLoading: homeInteractor.riskProvider.isLoading,
 			risk: homeInteractor.state.risk
 		)
 		let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
@@ -316,7 +335,7 @@ final class HomeViewController: UIViewController {
 	}
 
 	private func configureDataSource() {
-		dataSource = UICollectionViewDiffableDataSource<Section, UUID>(collectionView: collectionView) { [unowned self] collectionView, indexPath, _ in
+		dataSource = UICollectionViewDiffableDataSource<Section, AnyHashable>(collectionView: collectionView) { [unowned self] collectionView, indexPath, _ in
 			let configurator = self.sections[indexPath.section].cellConfigurators[indexPath.row]
 			let cell = collectionView.dequeueReusableCell(cellType: configurator.viewAnyType, for: indexPath)
 			cell.unhighlight()
@@ -326,10 +345,10 @@ final class HomeViewController: UIViewController {
 	}
 
 	func applySnapshotFromSections(animatingDifferences: Bool = false) {
-		var snapshot = NSDiffableDataSourceSnapshot<Section, UUID>()
+		var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
 		for section in sections {
 			snapshot.appendSections([section.section])
-			snapshot.appendItems( section.cellConfigurators.map { $0.identifier })
+			snapshot.appendItems( section.cellConfigurators.map { $0.hashValue })
 		}
 		dataSource?.apply(snapshot, animatingDifferences: animatingDifferences)
 	}
@@ -393,14 +412,6 @@ extension HomeViewController: UICollectionViewDelegate {
 }
 
 extension HomeViewController: ExposureDetectionViewControllerDelegate {
-	func didStartLoading(exposureDetectionViewController: ExposureDetectionViewController) {
-		homeInteractor.updateAndReloadRiskLoading(isRequestRiskRunning: true)
-	}
-
-	func didFinishLoading(exposureDetectionViewController: ExposureDetectionViewController) {
-		homeInteractor.updateAndReloadRiskLoading(isRequestRiskRunning: false)
-	}
-
 	func exposureDetectionViewController(
 		_: ExposureDetectionViewController,
 		setExposureManagerEnabled enabled: Bool,

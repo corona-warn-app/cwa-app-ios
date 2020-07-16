@@ -26,6 +26,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
+		isLoading: Bool,
 		numberRiskContacts: Int,
 		numberDays: Int,
 		totalDays: Int,
@@ -40,7 +41,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		self.totalDays = totalDays
 		self.detectionInterval = detectionInterval
 		super.init(
-			isLoading: false,
+			isLoading: isLoading,
 			isButtonEnabled: manualExposureDetectionState == .possible,
 			isButtonHidden: isButtonHidden,
 			detectionIntervalLabelHidden: detectionMode != .automatic,
@@ -134,5 +135,26 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		if let timeUntilUpdate = timeUntilUpdate { return String(format: AppStrings.ExposureDetection.refreshIn, timeUntilUpdate) }
 		return String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, "\(detectionInterval)")
 	}
+	
+	// MARK: Hashable
 
+	override func hash(into hasher: inout Swift.Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(numberRiskContacts)
+		hasher.combine(numberDays)
+		hasher.combine(totalDays)
+		hasher.combine(detectionInterval)
+	}
+
+	static func == (lhs: HomeLowRiskCellConfigurator, rhs: HomeLowRiskCellConfigurator) -> Bool {
+		lhs.isLoading == rhs.isLoading &&
+		lhs.isButtonEnabled == rhs.isButtonEnabled &&
+		lhs.isButtonHidden == rhs.isButtonHidden &&
+		lhs.detectionIntervalLabelHidden == rhs.detectionIntervalLabelHidden &&
+		lhs.lastUpdateDate == rhs.lastUpdateDate &&
+		lhs.numberRiskContacts == rhs.numberRiskContacts &&
+		lhs.numberDays == rhs.numberDays &&
+		lhs.totalDays == rhs.totalDays &&
+		lhs.detectionInterval == rhs.detectionInterval
+	}
 }
