@@ -24,8 +24,8 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 	var testResult: TestResult?
 	var timeStamp: Int64?
-	private weak var coordinator: ExposureSubmissionCoordinating?
-	private weak var exposureSubmissionService: ExposureSubmissionService?
+	private(set) weak var coordinator: ExposureSubmissionCoordinating?
+	private(set) weak var exposureSubmissionService: ExposureSubmissionService?
 
 
 	// MARK: - Initializers.

@@ -25,8 +25,8 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 	// MARK: - Attributes.
 
 	var spinner: UIActivityIndicatorView?
-	private weak var coordinator: ExposureSubmissionCoordinating?
-	private weak var service: ExposureSubmissionService?
+	private(set) weak var coordinator: ExposureSubmissionCoordinating?
+	private(set) weak var service: ExposureSubmissionService?
 
 	// MARK: - Initializers.
 

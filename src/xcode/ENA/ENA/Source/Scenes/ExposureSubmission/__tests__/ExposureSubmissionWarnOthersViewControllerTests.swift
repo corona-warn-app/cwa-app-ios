@@ -39,7 +39,6 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 	func testSuccessfulSubmit() {
 		let vc = createVC()
 		_ = vc.view
-		vc.exposureSubmissionService = service
 
 		let expectSubmitExposure = self.expectation(description: "Call submitExposure")
 		service.submitExposureCallback = {  completion in

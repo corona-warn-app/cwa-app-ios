@@ -21,7 +21,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 
 	// MARK: - Attributes.
 
-	private weak var coordinator: ExposureSubmissionCoordinating?
+	private(set) weak var coordinator: ExposureSubmissionCoordinating?
 
 	// MARK: - Initializers.
 

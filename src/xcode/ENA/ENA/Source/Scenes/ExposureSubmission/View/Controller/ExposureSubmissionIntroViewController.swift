@@ -21,7 +21,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 
 	// MARK: - Attributes.
 
-	private weak var coordinator: ExposureSubmissionCoordinating?
+	private(set) weak var coordinator: ExposureSubmissionCoordinating?
 
 	// MARK: - Initializers.
 

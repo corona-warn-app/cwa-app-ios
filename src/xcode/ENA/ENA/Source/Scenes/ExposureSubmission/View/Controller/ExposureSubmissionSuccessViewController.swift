@@ -22,7 +22,7 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController,
 
 	// MARK: - Attributes.
 
-	private weak var coordinator: ExposureSubmissionCoordinating?
+	private(set) weak var coordinator: ExposureSubmissionCoordinating?
 
 	// MARK: - Initializers.
 

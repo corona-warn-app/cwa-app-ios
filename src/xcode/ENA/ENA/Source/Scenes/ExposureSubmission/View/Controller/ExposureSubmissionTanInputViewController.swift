@@ -29,8 +29,8 @@ class ExposureSubmissionTanInputViewController: UIViewController, ENANavigationC
 	@IBOutlet var tanInput: ENATanInput! { didSet { tanInput.delegate = self } }
 
 	var initialTan: String?
-	private weak var exposureSubmissionService: ExposureSubmissionService?
-	private weak var coordinator: ExposureSubmissionCoordinating?
+	private(set) weak var exposureSubmissionService: ExposureSubmissionService?
+	private(set) weak var coordinator: ExposureSubmissionCoordinating?
 
 	// MARK: - Initializers.
 

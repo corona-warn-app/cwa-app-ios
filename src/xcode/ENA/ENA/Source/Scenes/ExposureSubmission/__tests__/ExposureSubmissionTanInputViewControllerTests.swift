@@ -38,7 +38,6 @@ class ExposureSubmissionTanInputViewControllerTests: XCTestCase {
 	func testTanInputSuccess() {
 		let vc = createVC()
 		_ = vc.view
-		vc.exposureSubmissionService = service
 
 		let expectation = self.expectation(description: "Call getRegistration service method.")
 		service.getRegistrationTokenCallback = { deviceRegistrationKey, completion in

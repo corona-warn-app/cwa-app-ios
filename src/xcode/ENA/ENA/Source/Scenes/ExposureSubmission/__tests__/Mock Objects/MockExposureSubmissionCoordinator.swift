@@ -19,7 +19,7 @@
 
 @testable import ENA
 
-class MockExposureSubmissionCoordinator: ExposureSubmissionCoordinatoring {
+class MockExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
 
 	// MARK: - Attributes.
 

@@ -22,8 +22,8 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	
 	// MARK: - Attributes.
 
-	private weak var exposureSubmissionService: ExposureSubmissionService?
-	private weak var coordinator: ExposureSubmissionCoordinating?
+	private(set) weak var exposureSubmissionService: ExposureSubmissionService?
+	private(set) weak var coordinator: ExposureSubmissionCoordinating?
 
 	// MARK: - Initializers.
 
