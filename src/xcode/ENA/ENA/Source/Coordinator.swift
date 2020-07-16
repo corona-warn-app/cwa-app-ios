@@ -53,7 +53,7 @@ class Coordinator: RequiresAppDependencies {
 	}
 
 	func showHome(enStateHandler: ENStateHandler, state: SceneDelegate.State) {
-		let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
+		let homeController = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
 			HomeViewController(
 				coder: coder,
 				delegate: self,
@@ -65,14 +65,14 @@ class Coordinator: RequiresAppDependencies {
 			)
 		}
 
-		homeController = vc // strong ref needed
+		self.homeController = homeController
 
 		UIView.transition(with: rootViewController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
-			self.rootViewController.setViewControllers([vc], animated: false)
+			self.rootViewController.setViewControllers([homeController], animated: false)
 		})
 
 		#if !RELEASE
-		enableDeveloperMenuIfAllowed(in: vc)
+		enableDeveloperMenuIfAllowed(in: homeController)
 		#endif
 	}
 
