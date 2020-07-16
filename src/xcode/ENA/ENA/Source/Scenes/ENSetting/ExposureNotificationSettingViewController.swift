@@ -221,9 +221,12 @@ extension ExposureNotificationSettingViewController {
 
 						let numberOfDaysWithActiveTracing = activeTracing.inDays
 						let title = NSLocalizedString("ExposureDetection_ActiveTracingSection_Title", comment: "")
+						let subtitle = NSLocalizedString("ExposureDetection_ActiveTracingSection_Subtitle", comment: "")
+
 						tracingCell.configure(
 							progress: CGFloat(numberOfDaysWithActiveTracing),
 							title: title,
+							subtitle: subtitle,
 							text: text,
 							colorConfigurationTuple: colorConfig
 						)

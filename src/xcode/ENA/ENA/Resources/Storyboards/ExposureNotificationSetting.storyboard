@@ -253,14 +253,14 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tracingCell" id="Ip1-td-013" userLabel="tracingHistoryCell" customClass="TracingHistoryTableViewCell" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="899.5" width="414" height="156.5"/>
+                                <rect key="frame" x="0.0" y="899.5" width="414" height="170.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ip1-td-013" id="Udp-QI-MbE">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="156.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="170.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="WF0-kC-b9x">
-                                            <rect key="frame" x="16" y="16" width="382" height="124.5"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WF0-kC-b9x">
+                                            <rect key="frame" x="16" y="16" width="382" height="138.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title 2" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BAn-nl-BA0" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="382" height="26.5"/>
@@ -271,8 +271,17 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2R9-fE-gdR" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="34.5" width="382" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="EYI-ii-BQi">
-                                                    <rect key="frame" x="0.0" y="46.5" width="382" height="78"/>
+                                                    <rect key="frame" x="0.0" y="60.5" width="382" height="78"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="100" translatesAutoresizingMaskIntoConstraints="NO" id="XhU-KP-won" customClass="CircularProgressView" customModule="ENA" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="13" width="52" height="52"/>
@@ -330,11 +339,12 @@
                                 <connections>
                                     <outlet property="circleView" destination="XhU-KP-won" id="0Dg-nU-irl"/>
                                     <outlet property="historyLabel" destination="tDg-xD-SUW" id="Euf-Sf-Llw"/>
+                                    <outlet property="subtitleLabel" destination="2R9-fE-gdR" id="8Yc-3D-9lm"/>
                                     <outlet property="titleLabel" destination="BAn-nl-BA0" id="lIw-PE-LG9"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" id="xbF-3o-4Hm" userLabel="descriptionCell" customClass="DescriptionTableViewCell" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="1056" width="414" height="362"/>
+                                <rect key="frame" x="0.0" y="1070" width="414" height="362"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xbF-3o-4Hm" id="cDL-9j-OWe">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="362"/>
