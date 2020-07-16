@@ -255,7 +255,7 @@ private extension ExposureSubmissionOverviewViewController {
 				title: AppStrings.ExposureSubmissionDispatch.qrCodeButtonTitle,
 				description: AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription,
 				image: UIImage(named: "Illu_Submission_QRCode"),
-				action: .execute(block: { _ in self.showDisclaimer() }),
+				action: .execute(block: { [weak self] _ in self?.showDisclaimer() }),
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
 			),
 			.imageCard(
