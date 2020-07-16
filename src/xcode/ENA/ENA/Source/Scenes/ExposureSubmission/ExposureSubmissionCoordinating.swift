@@ -61,6 +61,9 @@ class ExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
 
 	weak var delegate: ExposureSubmissionCoordinatorDelegate?
 	weak var parentNavigationController: UINavigationController?
+
+	/// - Note: We keep a weak reference here to avoid a reference cycle.
+	///  (the navigationController holds a strong reference to the coordinator).
 	weak var navigationController: UINavigationController?
 
 	/// - NOTE: We need a strong (aka non-weak) reference here.
@@ -118,13 +121,15 @@ extension ExposureSubmissionCoordinator {
 	// MARK: - Public API.
 
 	func start(with result: TestResult? = nil) {
-		let vc = getInitialViewController(with: result)
+		let initialVC = getInitialViewController(with: result)
 		guard let parentNavigationController = parentNavigationController else {
 			log(message: "Parent navigation controller not set.", level: .error, file: #file, line: #line, function: #function)
 			return
 		}
 
-		let navigationController = createNavigationController(rootViewController: vc)
+		/// The navigation controller keeps a strong reference to the coordinator. The coordinator only reaches reference count 0
+		/// when UIKit dismisses the navigationController.
+		let navigationController = createNavigationController(rootViewController: initialVC)
 		parentNavigationController.present(navigationController, animated: true)
 		self.navigationController = navigationController
 	}

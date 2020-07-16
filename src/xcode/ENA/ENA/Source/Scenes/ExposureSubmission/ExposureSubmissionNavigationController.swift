@@ -22,15 +22,15 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 
 	// MARK: - Attributes.
 
-	private weak var coordinator: ExposureSubmissionCoordinating?
+	private let coordinator: ExposureSubmissionCoordinating
 	private var rootViewController: UIViewController?
 
 	// MARK: - Initializers.
 
 	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, rootViewController: UIViewController? = nil) {
-		super.init(coder: coder)
 		self.coordinator = coordinator
 		self.rootViewController = rootViewController
+		super.init(coder: coder)
 	}
 
 	@available(*, unavailable)
@@ -70,7 +70,7 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 		super.viewWillDisappear(animated)
 
 		// Check if the ExposureSubmissionNavigationController is popped from its parent.
-		guard let coordinator = coordinator, self.isMovingFromParent || self.isBeingDismissed else { return }
+		guard self.isMovingFromParent || self.isBeingDismissed else { return }
 		coordinator.delegate?.exposureSubmissionCoordinatorWillDisappear(coordinator)
 	}
 
@@ -84,7 +84,7 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 
 	@objc
 	func close() {
-		self.coordinator?.dismiss()
+		self.coordinator.dismiss()
 	}
 }
 
