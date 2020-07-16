@@ -18,16 +18,16 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, ExposureSubmissionCoordinatorViewController {
+class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 	
 	// MARK: - Attributes.
 
-	var exposureSubmissionService: ExposureSubmissionService?
-	var coordinator: ExposureSubmissionCoordinator?
+	private weak var exposureSubmissionService: ExposureSubmissionService?
+	private weak var coordinator: ExposureSubmissionCoordinating?
 
 	// MARK: - Initializers.
 
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator, exposureSubmissionService: ExposureSubmissionService?) {
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, exposureSubmissionService: ExposureSubmissionService) {
 		self.coordinator = coordinator
 		self.exposureSubmissionService = exposureSubmissionService
 		super.init(coder: coder)

@@ -18,15 +18,15 @@
 import Foundation
 import UIKit
 
-final class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, ExposureSubmissionCoordinatorViewController {
+final class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 
 	// MARK: - Attributes.
 
-	var coordinator: ExposureSubmissionCoordinator?
+	private weak var coordinator: ExposureSubmissionCoordinating?
 
 	// MARK: - Initializers.
 
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator) {
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating) {
 		self.coordinator = coordinator
 		super.init(coder: coder)
 	}

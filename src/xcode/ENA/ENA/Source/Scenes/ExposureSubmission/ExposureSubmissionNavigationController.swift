@@ -18,16 +18,16 @@
 import Foundation
 import UIKit
 
-final class ExposureSubmissionNavigationController: ENANavigationControllerWithFooter, UINavigationControllerDelegate, ExposureSubmissionCoordinatorViewController {
+final class ExposureSubmissionNavigationController: ENANavigationControllerWithFooter, UINavigationControllerDelegate {
 
 	// MARK: - Attributes.
 
-	var coordinator: ExposureSubmissionCoordinator?
-	var rootViewController: UIViewController?
+	private weak var coordinator: ExposureSubmissionCoordinating?
+	private var rootViewController: UIViewController?
 
 	// MARK: - Initializers.
 
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator, rootViewController: UIViewController? = nil) {
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, rootViewController: UIViewController? = nil) {
 		super.init(coder: coder)
 		self.coordinator = coordinator
 		self.rootViewController = rootViewController

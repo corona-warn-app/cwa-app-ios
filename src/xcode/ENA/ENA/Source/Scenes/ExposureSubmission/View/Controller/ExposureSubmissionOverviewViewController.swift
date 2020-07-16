@@ -20,17 +20,17 @@ import Foundation
 import UIKit
 
 
-class ExposureSubmissionOverviewViewController: DynamicTableViewController, SpinnerInjectable, ExposureSubmissionCoordinatorViewController {
+class ExposureSubmissionOverviewViewController: DynamicTableViewController, SpinnerInjectable {
 
 	// MARK: - Attributes.
 
-	var service: ExposureSubmissionService?
 	var spinner: UIActivityIndicatorView?
-	var coordinator: ExposureSubmissionCoordinator?
+	private weak var coordinator: ExposureSubmissionCoordinating?
+	private weak var service: ExposureSubmissionService?
 
 	// MARK: - Initializers.
 
-	required init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator, exposureSubmissionService: ExposureSubmissionService?) {
+	required init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, exposureSubmissionService: ExposureSubmissionService) {
 		self.service = exposureSubmissionService
 		self.coordinator = coordinator
 		super.init(coder: coder)

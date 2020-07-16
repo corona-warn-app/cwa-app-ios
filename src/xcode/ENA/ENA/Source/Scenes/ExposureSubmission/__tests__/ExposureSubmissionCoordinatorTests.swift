@@ -43,17 +43,17 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 	private func createCoordinator(
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
-		delegate: ExposureSubmissionCoordinatorDelegate) -> ExposureSubmissionCoordinator {
+		delegate: ExposureSubmissionCoordinatorDelegate) -> ExposureSubmissionCoordinatoring {
 
-		return ESCoordinator(
+		return ExposureSubmissionCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			delegate: delegate
 		)
 	}
 
-	private func getNavigationController(from coordinator: ExposureSubmissionCoordinator) -> UINavigationController? {
-		guard let navigationController = (coordinator as? ESCoordinator)?.navigationController else {
+	private func getNavigationController(from coordinator: ExposureSubmissionCoordinatoring) -> UINavigationController? {
+		guard let navigationController = (coordinator as? ExposureSubmissionCoordinator)?.navigationController else {
 			XCTFail("Could not load navigation controller from coordinator.")
 			return nil
 		}

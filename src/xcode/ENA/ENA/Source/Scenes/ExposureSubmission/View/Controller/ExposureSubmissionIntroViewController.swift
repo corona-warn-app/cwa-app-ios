@@ -17,15 +17,15 @@
 
 import UIKit
 
-class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, ExposureSubmissionCoordinatorViewController {
+class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 
 	// MARK: - Attributes.
 
-	var coordinator: ExposureSubmissionCoordinator?
+	private weak var coordinator: ExposureSubmissionCoordinating?
 
 	// MARK: - Initializers.
 
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator) {
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating) {
 		super.init(coder: coder)
 		self.coordinator = coordinator
 	}

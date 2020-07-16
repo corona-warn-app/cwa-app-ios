@@ -18,7 +18,7 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionTanInputViewController: UIViewController, ENANavigationControllerWithFooterChild, ExposureSubmissionCoordinatorViewController {
+class ExposureSubmissionTanInputViewController: UIViewController, ENANavigationControllerWithFooterChild {
 	// MARK: - Attributes.
 
 	@IBOutlet var scrollView: UIScrollView!
@@ -29,12 +29,12 @@ class ExposureSubmissionTanInputViewController: UIViewController, ENANavigationC
 	@IBOutlet var tanInput: ENATanInput! { didSet { tanInput.delegate = self } }
 
 	var initialTan: String?
-	var exposureSubmissionService: ExposureSubmissionService?
-	var coordinator: ExposureSubmissionCoordinator?
+	private weak var exposureSubmissionService: ExposureSubmissionService?
+	private weak var coordinator: ExposureSubmissionCoordinating?
 
 	// MARK: - Initializers.
 
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator, exposureSubmissionService: ExposureSubmissionService?) {
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, exposureSubmissionService: ExposureSubmissionService) {
 		self.coordinator = coordinator
 		self.exposureSubmissionService = exposureSubmissionService
 		super.init(coder: coder)

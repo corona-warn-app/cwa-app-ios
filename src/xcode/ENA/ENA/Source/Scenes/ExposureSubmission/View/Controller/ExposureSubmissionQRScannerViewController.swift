@@ -46,17 +46,19 @@ protocol QRScannerViewController: class {
 	func present(_: UIViewController, animated: Bool, completion: (() -> Void)?)
 }
 
-final class ExposureSubmissionQRScannerNavigationController: UINavigationController, ExposureSubmissionCoordinatorViewController {
+final class ExposureSubmissionQRScannerNavigationController: UINavigationController {
 
 	// MARK: - Attributes.
-	var coordinator: ExposureSubmissionCoordinator?
-	var exposureSubmissionService: ExposureSubmissionService?
+	
+	private weak var coordinator: ExposureSubmissionCoordinating?
+	private weak var exposureSubmissionService: ExposureSubmissionService?
 	weak var scannerViewController: ExposureSubmissionQRScannerViewController? {
 		viewControllers.first as? ExposureSubmissionQRScannerViewController
 	}
 
 	// MARK: - Initializers.
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator, exposureSubmissionService: ExposureSubmissionService?) {
+	
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, exposureSubmissionService: ExposureSubmissionService) {
 		self.coordinator = coordinator
 		self.exposureSubmissionService = exposureSubmissionService
 		super.init(coder: coder)

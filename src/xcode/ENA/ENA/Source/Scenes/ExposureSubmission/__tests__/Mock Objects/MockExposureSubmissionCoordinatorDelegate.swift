@@ -23,11 +23,11 @@ class MockExposureSubmissionCoordinatorDelegate: ExposureSubmissionCoordinatorDe
 
 	// MARK: - Callback handlers.
 
-	var onExposureSubmissionCoordinatorWillDisappear: ((ExposureSubmissionCoordinator) -> Void)?
+	var onExposureSubmissionCoordinatorWillDisappear: ((ExposureSubmissionCoordinatoring) -> Void)?
 
 	// MARK: ExposureSubmissionCoordinatorDelegate methods.
 
-	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinator) {
+	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinatoring) {
 		onExposureSubmissionCoordinatorWillDisappear?(coordinator)
 	}
 

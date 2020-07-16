@@ -18,17 +18,19 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, ExposureSubmissionCoordinatorViewController {
+class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+
 	// MARK: - Attributes.
 
-	var exposureSubmissionService: ExposureSubmissionService?
 	var testResult: TestResult?
 	var timeStamp: Int64?
-	var coordinator: ExposureSubmissionCoordinator?
+	private weak var coordinator: ExposureSubmissionCoordinating?
+	private weak var exposureSubmissionService: ExposureSubmissionService?
+
 
 	// MARK: - Initializers.
 
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinator, exposureSubmissionService: ExposureSubmissionService?, testResult: TestResult?) {
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, exposureSubmissionService: ExposureSubmissionService, testResult: TestResult?) {
 		self.coordinator = coordinator
 		self.exposureSubmissionService = exposureSubmissionService
 		self.testResult = testResult

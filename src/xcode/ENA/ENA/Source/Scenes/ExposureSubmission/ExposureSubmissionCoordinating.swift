@@ -20,7 +20,9 @@
 import Foundation
 import UIKit
 
-protocol ExposureSubmissionCoordinator {
+/// Coordinator for the exposure submission flow.
+/// This protocol hides the creation of view controllers and their transitions behind a slim interface.
+protocol ExposureSubmissionCoordinating: class {
 
 	// MARK: - Attributes.
 
@@ -30,6 +32,11 @@ protocol ExposureSubmissionCoordinator {
 	// MARK: - Navigation.
 
 	/// Starts the coordinator and displays the initial root view controller.
+	/// The underlying implementation may decide which initial screen to show, currently the following options are possible:
+	/// - Case 1: When a valid test result is provided, the coordinator shows the test result screen.
+	/// - Case 2: (DEFAULT) The coordinator shows the intro screen.
+	/// - Case 3: (UI-Testing) The coordinator may be configured to show other screens for UI-Testing.
+	/// For more information on the usage and configuration of the initial screen, check the concrete implementation of the method.
 	func start(with result: TestResult?)
 	func dismiss()
 
@@ -44,16 +51,11 @@ protocol ExposureSubmissionCoordinator {
 
 /// This delegate allows a class to be notified for life-cycle events of the coordinator.
 protocol ExposureSubmissionCoordinatorDelegate: class {
-	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinator)
-}
-
-/// Marker protocol that ensures that a `coordinator` can be set for a view controller.
-protocol ExposureSubmissionCoordinatorViewController {
-	var coordinator: ExposureSubmissionCoordinator? { get set }
+	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinating)
 }
 
 /// Concrete implementation of the ExposureSubmissionCoordinator protocol.
-class ESCoordinator: ExposureSubmissionCoordinator {
+class ExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
 
 	// MARK: - Attributes.
 
@@ -62,7 +64,7 @@ class ESCoordinator: ExposureSubmissionCoordinator {
 	weak var navigationController: UINavigationController?
 
 	/// - NOTE: We need a strong (aka non-weak) reference here.
-	var exposureSubmissionService: ExposureSubmissionService?
+	let exposureSubmissionService: ExposureSubmissionService
 
 	// MARK: - Initializers.
 
@@ -79,7 +81,7 @@ class ESCoordinator: ExposureSubmissionCoordinator {
 
 // MARK: - Navigation.
 
-extension ESCoordinator {
+extension ExposureSubmissionCoordinator {
 	
 	// MARK: - Helpers.
 
@@ -91,7 +93,12 @@ extension ESCoordinator {
 		self.navigationController?.present(vc, animated: true)
 	}
 
-	private func getRootViewController(with result: TestResult? = nil) -> UIViewController {
+	/// This method selects the correct initial view controller among the following options:
+	/// Option 1: (only for UITESTING) if the `-negativeResult` flag was passed, return ExposureSubmissionTestResultViewController
+	/// Option 2: if a test result was passed, the method checks further preconditions (e.g. the exposure submission service has a registration token)
+	/// and returns an ExposureSubmissionTestResultViewController.
+	/// Option 3: (default) return the ExposureSubmissionIntroViewController.
+	private func getInitialViewController(with result: TestResult? = nil) -> UIViewController {
 		#if UITESTING
 		if ProcessInfo.processInfo.arguments.contains("-negativeResult") {
 			return createTestResultViewController(with: .negative)
@@ -99,7 +106,7 @@ extension ESCoordinator {
 
 		#else
 		// We got a test result and can jump straight into the test result view controller.
-		if let service = exposureSubmissionService, let result = result, service.hasRegistrationToken() {
+		if let result = result, exposureSubmissionService.hasRegistrationToken() {
 			return createTestResultViewController(with: result)
 		}
 		#endif
@@ -111,7 +118,7 @@ extension ESCoordinator {
 	// MARK: - Public API.
 
 	func start(with result: TestResult? = nil) {
-		let vc = getRootViewController(with: result)
+		let vc = getInitialViewController(with: result)
 		guard let parentNavigationController = parentNavigationController else {
 			log(message: "Parent navigation controller not set.", level: .error, file: #file, line: #line, function: #function)
 			return
@@ -163,7 +170,7 @@ extension ESCoordinator {
 
 // MARK: - Creation.
 
-extension ESCoordinator {
+extension ExposureSubmissionCoordinator {
 
 	private func createNavigationController(rootViewController vc: UIViewController) -> ExposureSubmissionNavigationController {
 		return AppStoryboard.exposureSubmission.initiateInitial { coder in

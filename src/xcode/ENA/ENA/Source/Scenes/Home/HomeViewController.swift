@@ -175,7 +175,7 @@ final class HomeViewController: UIViewController {
 			return
 		}
 
-		let coordinator: ExposureSubmissionCoordinator = ESCoordinator(
+		let coordinator: ExposureSubmissionCoordinating = ExposureSubmissionCoordinator(
 			parentNavigationController: navigationController,
 			exposureSubmissionService: homeInteractor.exposureSubmissionService,
 			delegate: self
@@ -498,7 +498,7 @@ extension HomeViewController: NavigationBarOpacityDelegate {
 }
 
 extension HomeViewController: ExposureSubmissionCoordinatorDelegate {
-	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinator) {
+	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinating) {
 		updateTestResultState()
 	}
 }
