@@ -30,7 +30,7 @@ enum TestResult: Int {
 	case invalid = 3
 }
 
-protocol ExposureSubmissionService {
+protocol ExposureSubmissionService: class {
 	typealias ExposureSubmissionHandler = (_ error: ExposureSubmissionError?) -> Void
 	typealias RegistrationHandler = (Result<String, ExposureSubmissionError>) -> Void
 	typealias TestResultHandler = (Result<TestResult, ExposureSubmissionError>) -> Void

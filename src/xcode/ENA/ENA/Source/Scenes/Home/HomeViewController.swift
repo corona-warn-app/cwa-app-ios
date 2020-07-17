@@ -170,17 +170,21 @@ final class HomeViewController: UIViewController {
 	}
 
 	func showExposureSubmission(with result: TestResult? = nil) {
-		present(
-			AppStoryboard.exposureSubmission.initiateInitial { coder in
-				ExposureSubmissionNavigationController(
-					coder: coder,
-					exposureSubmissionService: self.homeInteractor.exposureSubmissionService,
-					submissionDelegate: self,
-					testResult: result
-				)
-			},
-			animated: true
+		guard let navigationController = self.navigationController else {
+			log(message: "No navigation controller found.", level: .error, file: #file, line: #line, function: #function)
+			return
+		}
+
+		// A strong reference to the coordinator is passed to the exposre submission navigation controller
+		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
+		// which is managed by UIKit.
+		let coordinator = ExposureSubmissionCoordinator(
+			parentNavigationController: navigationController,
+			exposureSubmissionService: homeInteractor.exposureSubmissionService,
+			delegate: self
 		)
+
+		coordinator.start(with: result)
 	}
 
 	func showDeveloperMenu() {
@@ -496,8 +500,8 @@ extension HomeViewController: NavigationBarOpacityDelegate {
 	}
 }
 
-extension HomeViewController: ExposureSubmissionNavigationControllerDelegate {
-	func exposureSubmissionNavigationControllerWillDisappear(_ controller: ExposureSubmissionNavigationController) {
+extension HomeViewController: ExposureSubmissionCoordinatorDelegate {
+	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinating) {
 		updateTestResultState()
 	}
 }
