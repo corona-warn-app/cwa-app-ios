@@ -482,6 +482,11 @@ Sie können die Hintergrundaktualisierung für die App jederzeit in den Gerätee
 "ExposureSubmissionResult_RegistrationDate" = "Registriert am";
 
 /* Exposure Submission */
+
+"ExposureSubmissionError_InvalidPayloadOrHeaders" = "Invalide Payload oder Header erhalten.";
+
+"ExposureSubmissionError_RequestCouldNotBeBuilt" = "Die Submission Request konnte nicht korrekt gebaut werden.";
+
 "ExposureSubmissionError_NoKeys" = "Keine Positivkennung verfügbar. Bitte versuchen Sie es morgen erneut.";
 
 "ExposureSubmissionError_InvalidTan" = "Die erzeugte Übermittlungs-TAN ist ungültig. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";

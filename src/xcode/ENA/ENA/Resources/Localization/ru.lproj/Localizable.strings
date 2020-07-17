@@ -453,6 +453,11 @@ You can switch on background fetching for the app at any time in the device sett
 "ExposureSubmissionResult_RegistrationDate" = "Дата регистрации ";
 
 /* Exposure Submission */
+
+"ExposureSubmissionError_InvalidPayloadOrHeaders" = "Received an invalid Payload or headers.";
+
+"ExposureSubmissionError_RequestCouldNotBeBuilt" = "The Submission Request could not be built correctly.";
+
 "ExposureSubmissionError_NoKeys" = "Код диагноза недоступен. Повторите попытку завтра.";
 
 "ExposureSubmissionError_InvalidTan" = "Сгенерированный TAN недействителен для отправки. Обратитесь на горячую линию по техническим вопросам по пути: Информация о приложении -> Горячая линия по техническим вопросам.";

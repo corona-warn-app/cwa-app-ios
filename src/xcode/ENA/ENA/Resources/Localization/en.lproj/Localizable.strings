@@ -482,6 +482,11 @@ You can switch on background fetching for the app at any time in the device sett
 "ExposureSubmissionResult_RegistrationDate" = "Registered on ";
 
 /* Exposure Submission */
+
+"ExposureSubmissionError_InvalidPayloadOrHeaders" = "Received an invalid Payload or headers.";
+
+"ExposureSubmissionError_RequestCouldNotBeBuilt" = "The Submission Request could not be built correctly.";
+
 "ExposureSubmissionError_NoKeys" = "No diagnosis key is available. Please try again tomorrow.";
 
 "ExposureSubmissionError_InvalidTan" = "The generated TAN is invalid for submission. Please contact the technical hotline via App Information -> Technical Hotline.";

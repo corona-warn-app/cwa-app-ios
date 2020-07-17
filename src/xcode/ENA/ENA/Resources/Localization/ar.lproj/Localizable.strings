@@ -465,6 +465,11 @@ You can switch on background fetching for the app at any time in the device sett
 "ExposureSubmissionResult_RegistrationDate" = "تاريخ التسجيل";
 
 /* Exposure Submission */
+
+"ExposureSubmissionError_InvalidPayloadOrHeaders" = "Received an invalid Payload or headers.";
+
+"ExposureSubmissionError_RequestCouldNotBeBuilt" = "The Submission Request could not be built correctly.";
+
 "ExposureSubmissionError_NoKeys" = "لا يتوفر أي مفتاح تشخيص. الرجاء المحاولة مرة أخرى غدًا.";
 
 "ExposureSubmissionError_InvalidTan" = "رقم المعاملة (TAN) غير صالح للتقديم. الرجاء الاتصال بالخط الساخن الفني عبر معلومات التطبيق -> الخط الساخن الفني.";
