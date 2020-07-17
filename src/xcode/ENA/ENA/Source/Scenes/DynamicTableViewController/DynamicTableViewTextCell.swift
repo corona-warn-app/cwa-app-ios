@@ -18,20 +18,10 @@
 //
 
 import Foundation
+import UIKit
 
-final class RiskConsumer: NSObject {
-	// MARK: Creating a Consumer
-	init(targetQueue: DispatchQueue = .main) {
-		self.targetQueue = targetQueue
-	}
-
-	// MARK: Properties
-	/// The queue `didCalculateRisk` will be called on. Defaults to `.main`.
-	let targetQueue: DispatchQueue
-
-	/// Called when the risk level changed
-	var didCalculateRisk: ((Risk) -> Void) = { _ in }
-
-	/// Called when loading status changed
-	var didChangeLoadingStatus: ((_ isLoading: Bool) -> Void)?
+protocol DynamicTableViewTextCell: UITableViewCell {
+	func configureDynamicType(size: CGFloat, weight: UIFont.Weight, style: UIFont.TextStyle)
+	func configure(text: String, color: UIColor?)
+	func configureAccessibility(label: String?, identifier: String?, traits: UIAccessibilityTraits)
 }

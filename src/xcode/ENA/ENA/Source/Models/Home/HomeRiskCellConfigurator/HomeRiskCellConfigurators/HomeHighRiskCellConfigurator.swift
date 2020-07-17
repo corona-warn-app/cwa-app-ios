@@ -25,6 +25,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
+		isLoading: Bool,
 		numberRiskContacts: Int,
 		daysSinceLastExposure: Int?,
 		lastUpdateDate: Date?,
@@ -36,7 +37,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		self.daysSinceLastExposure = daysSinceLastExposure
 		self.validityDuration = validityDuration
 		super.init(
-			isLoading: false,
+			isLoading: isLoading,
 			isButtonEnabled: manualExposureDetectionState == .possible,
 			isButtonHidden: detectionMode == .automatic,
 			detectionIntervalLabelHidden: detectionMode != .automatic,
