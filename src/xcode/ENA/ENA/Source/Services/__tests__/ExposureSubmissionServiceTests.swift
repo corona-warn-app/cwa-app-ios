@@ -241,10 +241,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
 
 		// Execute test.
-		let controlTest =
-			AppStrings.ExposureSubmissionError.other
-			+ AppStrings.ExposureSubmissionError.requestCouldNotBeBuilt
-			+ AppStrings.ExposureSubmissionError.otherend
+		let controlTest = AppStrings.ExposureSubmissionError.requestCouldNotBeBuilt
 
 		service.submitExposure { error in
 			expectation.fulfill()
@@ -265,10 +262,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
 
 		// Execute test.
-		let controlTest =
-			AppStrings.ExposureSubmissionError.other
-			+ AppStrings.ExposureSubmissionError.invalidPayloadOrHeaders
-			+ AppStrings.ExposureSubmissionError.otherend
+		let controlTest = AppStrings.ExposureSubmissionError.invalidPayloadOrHeaders
 
 		service.submitExposure { error in
 			expectation.fulfill()

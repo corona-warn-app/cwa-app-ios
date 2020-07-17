@@ -314,6 +314,8 @@ enum ExposureSubmissionError: Error, Equatable {
 	case `internal`
 	case unsupported
 	case rateLimited
+	case invalidPayloadOrHeaders
+	case requestCouldNotBeBuilt
 }
 
 extension ExposureSubmissionError: LocalizedError {
@@ -351,6 +353,10 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.Common.enError5Description
 		case .rateLimited:
 			return AppStrings.Common.enError13Description
+		case .invalidPayloadOrHeaders:
+			return AppStrings.ExposureSubmissionError.invalidPayloadOrHeaders
+		case .requestCouldNotBeBuilt:
+			return AppStrings.ExposureSubmissionError.requestCouldNotBeBuilt
 		case let .other(desc):
 			return  "\(AppStrings.ExposureSubmissionError.other)\(desc)\(AppStrings.ExposureSubmissionError.otherend)"
 		case .unknown:
