@@ -62,7 +62,7 @@ class DynamicTableViewModelTests: XCTestCase {
 		let section = sut.section(1)
 		
 		XCTAssertEqual(section.cells.count, 1)
-		XCTAssertEqual(section.cells.first?.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeText)
+		XCTAssertEqual(section.cells.first?.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeLabel)
 		
 	}
 
@@ -72,13 +72,13 @@ class DynamicTableViewModelTests: XCTestCase {
 		XCTAssertEqual(section.cells.count, 1)
 		XCTAssertEqual(
 			section.cells.first?.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier,
-			DynamicCell.CellReuseIdentifier.dynamicTypeText
+			DynamicCell.CellReuseIdentifier.dynamicTypeLabel
 		)
 	}
 
 	func testCellAt_returnsInitializedCell() {
 		let cell = sut.cell(at: IndexPath(row: 0, section: 0))
-		XCTAssertEqual(cell.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeText)
+		XCTAssertEqual(cell.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeLabel)
 	}
 	
 	func testNumberOfSections() {
@@ -100,7 +100,7 @@ class DynamicTableViewModelTests: XCTestCase {
 		let section = getLastSection(from: sut)
 		// assert cell type and content
 		XCTAssertEqual(
-			section.cells.first?.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeText
+			section.cells.first?.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeLabel
 		)
 	}
 
@@ -120,7 +120,7 @@ class DynamicTableViewModelTests: XCTestCase {
 		// assert cell type and content
 		XCTAssertEqual(
 			section.cells.first?.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier,
-			DynamicCell.CellReuseIdentifier.dynamicTypeText
+			DynamicCell.CellReuseIdentifier.dynamicTypeLabel
 		)
 	}
 }
