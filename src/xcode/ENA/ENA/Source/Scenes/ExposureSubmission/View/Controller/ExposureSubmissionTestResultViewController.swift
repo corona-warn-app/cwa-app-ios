@@ -27,7 +27,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	private(set) weak var coordinator: ExposureSubmissionCoordinating?
 	private(set) weak var exposureSubmissionService: ExposureSubmissionService?
 
-
 	// MARK: - Initializers.
 
 	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, exposureSubmissionService: ExposureSubmissionService, testResult: TestResult?) {

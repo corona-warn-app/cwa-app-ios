@@ -63,7 +63,7 @@ class ExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
 	weak var delegate: ExposureSubmissionCoordinatorDelegate?
 	weak var parentNavigationController: UINavigationController?
 
-	/// - Note: We keep a weak reference here to avoid a reference cycle.
+	/// - NOTE: We keep a weak reference here to avoid a reference cycle.
 	///  (the navigationController holds a strong reference to the coordinator).
 	weak var navigationController: UINavigationController?
 
