@@ -229,4 +229,52 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		waitForExpectations(timeout: .short)
 	}
+
+	func testCorrectErrorForRequestCouldNotBeBuilt() {
+
+		// Initialize.
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let client = ClientMock(submissionError: .requestCouldNotBeBuilt)
+		let store = MockTestStore()
+		store.registrationToken = "dummyRegistrationToken"
+		let expectation = self.expectation(description: "Correct error description received.")
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+
+		// Execute test.
+		let controlTest =
+			AppStrings.ExposureSubmissionError.other
+			+ AppStrings.ExposureSubmissionError.requestCouldNotBeBuilt
+			+ AppStrings.ExposureSubmissionError.otherend
+
+		service.submitExposure { error in
+			expectation.fulfill()
+			XCTAssertEqual(error?.localizedDescription, controlTest)
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testCorrectErrorForInvalidPayloadOrHeaders() {
+
+		// Initialize.
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
+		let store = MockTestStore()
+		store.registrationToken = "dummyRegistrationToken"
+		let expectation = self.expectation(description: "Correct error description received.")
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+
+		// Execute test.
+		let controlTest =
+			AppStrings.ExposureSubmissionError.other
+			+ AppStrings.ExposureSubmissionError.invalidPayloadOrHeaders
+			+ AppStrings.ExposureSubmissionError.otherend
+
+		service.submitExposure { error in
+			expectation.fulfill()
+			XCTAssertEqual(error?.localizedDescription, controlTest)
+		}
+
+		waitForExpectations(timeout: .short)
+	}
 }
