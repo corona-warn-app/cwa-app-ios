@@ -19,31 +19,6 @@
 
 "General_BackButtonTitle" = "Wstecz";
 
-"Common_ENError5_Description" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
-
-"Common_ENError11_Description" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Handy neu und versuchen Sie es morgen erneut.";
-
-"Common_ENError13_Description" = "Fehler 13: Ihre Risiko-Ermittlung für den heutigen Tag wurde bereits durchgeführt. Bitte versuchen Sie es in 24 Stunden erneut.";
-
-"Common_Alert_Action_moreInfo" = "Mehr Erfahren";
-
-"Common_BackgroundFetch_AlertMessage" = "Sie haben die Hintergrundaktualisierung für die Corona-Warn-App ausgeschaltet. Um die automatische Risiko-Ermittlung zu nutzen, müssen Sie die Hintergrundaktualisierung einschalten. Wenn Sie die Hintergrundaktualisierung nicht einschalten, können Sie Ihre Risiko-Ermittlung nur manuell in der App starten.\n\nSie können die Hintergrundaktualisierung für die App jederzeit in den Geräteeinstellungen einschalten.";
-
-"Common_BackgroundFetch_SettingsTitle" = "Geräteeinstellungen öffnen";
-
-"Common_BackgroundFetch_OKTitle" = "Risiko-Ermittlung manuell starten";
-
-"Common_BackgroundFetch_AlertTitle" = "Hintergrundaktualisierung ausgeschaltet";
-
-/* General - Links */
-"General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
-
-"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/de/faq/#ENError5";
-
-"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/de/faq/#ENError11";
-
-"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/de/faq/#ENError13";
-
 /* Accessibility */
 "AccessibilityLabel_Close" = "Zamknij";
 
@@ -67,8 +42,6 @@
 "ExposureDetection_Refreshed_Never" = "Nieznane";
 
 "ExposureDetection_RefreshingIn" = "Aktualizuj za %02d:%02d\U00A0minut(y)";
-
-"ExposureDetection_RefreshIn" = "Aktualisierung in %@";
 
 "ExposureDetection_Refresh_24h" = "Aktualizacja co 24 godziny";
 
@@ -511,6 +484,22 @@
 "ExposureSubmissionError_unknown" = "Nieznany błąd";
 
 "ExposureSubmissionError_defaultError" = "Błąd podczas przesyłania klucza";
+
+"ExposureSubmissionError_unsupported" = "Błąd 5: Coś poszło nie tak. Nie można ustalić Twojego poziomu ryzyka. Pracujemy nad rozwiązaniem tego problemu.";
+
+"ExposureSubmissionError_internal" = "Błąd 11: Coś poszło nie tak. Nie można ustalić Twojego poziomu ryzyka. Aby uzyskać więcej informacji, wejdź na naszą stronę Często zadawane pytania.";
+
+"ExposureSubmissionError_rateLimited" = "Błąd 13: Rejestrowanie narażenia dla bieżącego dnia zostało już wykonane. Spróbuj ponownie jutro.";
+
+"ExposureSubmissionError_moreInfo" = "Dowiedz się więcej";
+
+"ExposureSubmissionError_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
+
+"ExposureSubmissionError_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
+
+"ExposureSubmissionError_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
+
+"ExposureSubmissionError_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Rejestrowanie narażenia";

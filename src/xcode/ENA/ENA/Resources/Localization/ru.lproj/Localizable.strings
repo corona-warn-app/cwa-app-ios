@@ -19,30 +19,15 @@
 
 "General_BackButtonTitle" = "Назад";
 
-"Common_ENError5_Description" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
+"Common_BackgroundFetch_AlertMessage" = "You have disabled background fetching for the Corona-Warn-App. To use automatic risk detection, you must activate the background fetching. If you do not activate background fetching, you can still start the risk detection manually.
 
-"Common_ENError11_Description" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Handy neu und versuchen Sie es morgen erneut.";
+You can switch on background fetching for the app at any time in the device settings.";
 
-"Common_ENError13_Description" = "Fehler 13: Ihre Risiko-Ermittlung für den heutigen Tag wurde bereits durchgeführt. Bitte versuchen Sie es in 24 Stunden erneut.";
+"Common_BackgroundFetch_SettingsTitle" = "Open Settings";
 
-"Common_Alert_Action_moreInfo" = "Mehr Erfahren";
+"Common_BackgroundFetch_OKTitle" = "Start Risk Detection Manually";
 
-"Common_BackgroundFetch_AlertMessage" = "Sie haben die Hintergrundaktualisierung für die Corona-Warn-App ausgeschaltet. Um die automatische Risiko-Ermittlung zu nutzen, müssen Sie die Hintergrundaktualisierung einschalten. Wenn Sie die Hintergrundaktualisierung nicht einschalten, können Sie Ihre Risiko-Ermittlung nur manuell in der App starten.\n\nSie können die Hintergrundaktualisierung für die App jederzeit in den Geräteeinstellungen einschalten.";
-
-"Common_BackgroundFetch_SettingsTitle" = "Geräteeinstellungen öffnen";
-
-"Common_BackgroundFetch_OKTitle" = "Risiko-Ermittlung manuell starten";
-
-"Common_BackgroundFetch_AlertTitle" = "Hintergrundaktualisierung ausgeschaltet";
-
-/* General - Links */
-"General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
-
-"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/de/faq/#ENError5";
-
-"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/de/faq/#ENError11";
-
-"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/de/faq/#ENError13";
+"Common_BackgroundFetch_AlertTitle" = "Background Fetching Disabled";
 
 /* Accessibility */
 "AccessibilityLabel_Close" = "Закрыть";
@@ -67,8 +52,6 @@
 "ExposureDetection_Refreshed_Never" = "Неизвестно";
 
 "ExposureDetection_RefreshingIn" = "Обновление через %02d:%02d\U00A0мин";
-
-"ExposureDetection_RefreshIn" = "Aktualisierung in %@";
 
 "ExposureDetection_Refresh_24h" = "Обновление каждые 24 ч";
 
@@ -511,6 +494,22 @@
 "ExposureSubmissionError_unknown" = "Неизвестная ошибка";
 
 "ExposureSubmissionError_defaultError" = "Ошибка при передаче ключа";
+
+"ExposureSubmissionError_unsupported" = "Ошибка 5: что-то пошло не так. Невозможно определить Ваш уровень риска. Мы работаем над решением проблемы.";
+
+"ExposureSubmissionError_internal" = "Ошибка 11: что-то пошло не так. Невозможно определить Ваш уровень риска. Подробнее см. на странице часто задаваемых вопросов.";
+
+"ExposureSubmissionError_rateLimited" = "Ошибка 13: на сегодня определение риска уже выполнено. Повторите попытку завтра.";
+
+"ExposureSubmissionError_moreInfo" = "Узнать больше";
+
+"ExposureSubmissionError_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
+
+"ExposureSubmissionError_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
+
+"ExposureSubmissionError_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
+
+"ExposureSubmissionError_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Определение риска";

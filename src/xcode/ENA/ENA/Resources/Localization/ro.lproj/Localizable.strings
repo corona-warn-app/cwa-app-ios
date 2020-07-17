@@ -19,31 +19,6 @@
 
 "General_BackButtonTitle" = "Înapoi";
 
-"Common_ENError5_Description" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
-
-"Common_ENError11_Description" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Handy neu und versuchen Sie es morgen erneut.";
-
-"Common_ENError13_Description" = "Fehler 13: Ihre Risiko-Ermittlung für den heutigen Tag wurde bereits durchgeführt. Bitte versuchen Sie es in 24 Stunden erneut.";
-
-"Common_Alert_Action_moreInfo" = "Mehr Erfahren";
-
-"Common_BackgroundFetch_AlertMessage" = "Sie haben die Hintergrundaktualisierung für die Corona-Warn-App ausgeschaltet. Um die automatische Risiko-Ermittlung zu nutzen, müssen Sie die Hintergrundaktualisierung einschalten. Wenn Sie die Hintergrundaktualisierung nicht einschalten, können Sie Ihre Risiko-Ermittlung nur manuell in der App starten.\n\nSie können die Hintergrundaktualisierung für die App jederzeit in den Geräteeinstellungen einschalten.";
-
-"Common_BackgroundFetch_SettingsTitle" = "Geräteeinstellungen öffnen";
-
-"Common_BackgroundFetch_OKTitle" = "Risiko-Ermittlung manuell starten";
-
-"Common_BackgroundFetch_AlertTitle" = "Hintergrundaktualisierung ausgeschaltet";
-
-/* General - Links */
-"General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
-
-"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/de/faq/#ENError5";
-
-"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/de/faq/#ENError11";
-
-"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/de/faq/#ENError13";
-
 /* Accessibility */
 "AccessibilityLabel_Close" = "Închidere";
 
@@ -67,8 +42,6 @@
 "ExposureDetection_Refreshed_Never" = "Necunoscut";
 
 "ExposureDetection_RefreshingIn" = "Actualizare în %02d:%02d\U00A0minute";
-
-"ExposureDetection_RefreshIn" = "Aktualisierung in %@";
 
 "ExposureDetection_Refresh_24h" = "Actualizată la fiecare 24 de ore";
 
@@ -511,6 +484,22 @@
 "ExposureSubmissionError_unknown" = "Eroare necunoscută";
 
 "ExposureSubmissionError_defaultError" = "Eroare la transmiterea cheii";
+
+"ExposureSubmissionError_unsupported" = "Eroarea 5: A apărut o problemă. Nivelul dvs. de risc nu poate fi determinat. Lucrăm la soluționarea problemei.";
+
+"ExposureSubmissionError_internal" = "Eroarea 11: A apărut o problemă. Nivelul dvs. de risc nu poate fi determinat. Pentru mai multe informații, consultați pagina de întrebări frecvente.";
+
+"ExposureSubmissionError_rateLimited" = "Eroarea 13: Înregistrarea în jurnal a expunerilor dvs. pentru astăzi a fost deja efectuată. Reîncercați mâine.";
+
+"ExposureSubmissionError_moreInfo" = "Aflați mai multe";
+
+"ExposureSubmissionError_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
+
+"ExposureSubmissionError_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
+
+"ExposureSubmissionError_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
+
+"ExposureSubmissionError_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Înregistrarea în jurnal a expunerilor";

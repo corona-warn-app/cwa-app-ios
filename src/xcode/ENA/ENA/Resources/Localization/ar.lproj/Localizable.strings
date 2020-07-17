@@ -19,30 +19,15 @@
 
 "General_BackButtonTitle" = "الخلف";
 
-"Common_ENError5_Description" = "الخطأ 5: حدث خطأ ما. لا يمكن تحديد مستوى الخطر الواقع عليك، ونحن بصدد الوصول إلى حل للمشكلة.";
+"Common_BackgroundFetch_AlertMessage" = "You have disabled background fetching for the Corona-Warn-App. To use automatic risk detection, you must activate the background fetching. If you do not activate background fetching, you can still start the risk detection manually.
 
-"Common_ENError11_Description" = "الخطأ 11: حدث خطأ ما. لا يمكن تحديد مستوى الخطر الواقع عليك. الرجاء إعادة تشغيل جهازك ثم المحاولة مرة أخرى غدًا.";
+You can switch on background fetching for the app at any time in the device settings.";
 
-"Common_ENError13_Description" = "الخطأ 13: تم تنفيذ تسجيل المخالطة لهذا اليوم بالفعل. يرجى إعادة المحاولة في غضون 24 ساعة.";
+"Common_BackgroundFetch_SettingsTitle" = "Open Settings";
 
-"Common_Alert_Action_moreInfo" = "العثور على المزيد";
+"Common_BackgroundFetch_OKTitle" = "Start Risk Detection Manually";
 
-"Common_BackgroundFetch_AlertMessage" = "Sie haben die Hintergrundaktualisierung für die Corona-Warn-App ausgeschaltet. Um die automatische Risiko-Ermittlung zu nutzen, müssen Sie die Hintergrundaktualisierung einschalten. Wenn Sie die Hintergrundaktualisierung nicht einschalten, können Sie Ihre Risiko-Ermittlung nur manuell in der App starten.\n\nSie können die Hintergrundaktualisierung für die App jederzeit in den Geräteeinstellungen einschalten.";
-
-"Common_BackgroundFetch_SettingsTitle" = "Geräteeinstellungen öffnen";
-
-"Common_BackgroundFetch_OKTitle" = "Risiko-Ermittlung manuell starten";
-
-"Common_BackgroundFetch_AlertTitle" = "Hintergrundaktualisierung ausgeschaltet";
-
-/* General - Links */
-"General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
-
-"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
-
-"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
-
-"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
+"Common_BackgroundFetch_AlertTitle" = "Background Fetching Disabled";
 
 /* Accessibility */
 "AccessibilityLabel_Close" = "إغلاق";
@@ -67,8 +52,6 @@
 "ExposureDetection_Refreshed_Never" = "غير معروف";
 
 "ExposureDetection_RefreshingIn" = "التحديث في %02d:%02d من الدقائق";
-
-"ExposureDetection_RefreshIn" = "تحديث في %@";
 
 "ExposureDetection_Refresh_24h" = "يتم التحديث كل 24 ساعة";
 
@@ -125,7 +108,7 @@
 "ExposureDetection_Button_Refresh" = "تحديث";
 
 /* Exposure Detection Errors */
-"ExposureDetectionError_Alert_Title" = "خطأ";
+"ExposureDetectionError_Alert_Title" = "حدث خطأ ما.";
 
 "ExposureDetectionError_Alert_Action_Details" = "التفاصيل";
 
@@ -512,6 +495,22 @@
 
 "ExposureSubmissionError_defaultError" = "حدث خطأ في إرسال المفتاح";
 
+"ExposureSubmissionError_unsupported" = "الخطأ 5: حدث خطأ ما. لا يمكن تحديد مستوى الخطر الواقع عليك، ونحن بصدد الوصول إلى حل للمشكلة.";
+
+"ExposureSubmissionError_internal" = "الخطأ 11: حدث خطأ ما. لا يمكن تحديد مستوى الخطر الواقع عليك. لمزيد من المعلومات، يرجى الاطلاع على صفحة الأسئلة المتكررة لدينا.";
+
+"ExposureSubmissionError_rateLimited" = "الخطأ 13: تم تنفيذ تسجيل المخالطة لهذا اليوم بالفعل. يرجى إعادة المحاولة غدًا.";
+
+"ExposureSubmissionError_moreInfo" = "العثور على المزيد";
+
+"ExposureSubmissionError_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
+
+"ExposureSubmissionError_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
+
+"ExposureSubmissionError_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
+
+"ExposureSubmissionError_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
+
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "تسجيل المخالطة";
 
@@ -744,7 +743,7 @@
 
 "App_Information_About_Title" = "لنكافح فيروس كورونا معًا";
 
-"App_Information_About_Description" = "معهد روبرت كوخ (RKI) هو الهيئة الصحية الاتحادية العامة في ألمانيا. ينشر المعهد تطبيق Corona-Warn-App بالنيابة عن الحكومة الاتحادية، والتطبيق مصمم كامتداد رقمي لإجراءات الصحة العامة المنفَّذة بالفعل: التباعد الاجتماعي والنظافة الشخصية واستخدام أقنعة الوجه.";
+"App_Information_About_Description" = "معهد روبرت كوخ (RKI) هو الهيئة الصحية الاتحادية العامة في ألمانيا. ينشر المعهد تطبيق Corona-Warn-App باسم الحكومة الاتحادية، ويمثل التطبيق الامتداد الرقمي لإجراءات الصحة العامة المنفَّذة بالفعل: التباعد الاجتماعي والنظافة الشخصية واستخدام أقنعة الوجه.";
 
 "App_Information_About_Text" = "يمكن لأي شخص يستخدم التطبيق تتبع سلسلة العدوى وكسرها. يحفظ التطبيق التجمُّعات مع الأشخاص الآخرين محليًا على جهازك. ويتم إشعارك عند تجمُّعك مع أشخاص تم تشخيصهم مؤخرًا على أنهم مصابون بمرض كوفيد-19، علمًا أن هويتك وخصوصيتك محميتان دائمًا.";
 
@@ -823,7 +822,7 @@
 
 "InviteFriends_ShareTitle" = "مكافحة فيروس كورونا معًا. أنا مشارك في هذا، هل ستشارك أيضًا؟";
 
-"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
+"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-arabisch";
 
 "InviteFriends_Illustration_Label" = "رجل يشارك تطبيق Corona-Warn-App مع أربعة أشخاص آخرين.";
 
