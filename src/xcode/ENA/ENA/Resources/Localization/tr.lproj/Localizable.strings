@@ -19,15 +19,30 @@
 
 "General_BackButtonTitle" = "Geri";
 
-"Common_BackgroundFetch_AlertMessage" = "You have disabled background fetching for the Corona-Warn-App. To use automatic risk detection, you must activate the background fetching. If you do not activate background fetching, you can still start the risk detection manually.
+"Common_ENError5_Description" = "Hata 5: Bir sorun oluştu. Risk düzeyiniz belirlenemiyor. Problemi çözmeye çalışıyoruz.";
 
-You can switch on background fetching for the app at any time in the device settings.";
+"Common_ENError11_Description" = "Hata 11: Bir sorun oluştu. Risk düzeyiniz belirlenemiyor. Lütfen cihazınızı yeniden başlatın ve yarın tekrar deneyin.";
 
-"Common_BackgroundFetch_SettingsTitle" = "Open Settings";
+"Common_ENError13_Description" = "Hata 13: Bugünkü maruz kalma günlüğünüz zaten çıkarıldı. Lütfen 24 saat içinde tekrar deneyin.";
 
-"Common_BackgroundFetch_OKTitle" = "Start Risk Detection Manually";
+"Common_Alert_Action_moreInfo" = "Daha fazla bilgi edinin";
 
-"Common_BackgroundFetch_AlertTitle" = "Background Fetching Disabled";
+"Common_BackgroundFetch_AlertMessage" = "Sie haben die Hintergrundaktualisierung für die Corona-Warn-App ausgeschaltet. Um die automatische Risiko-Ermittlung zu nutzen, müssen Sie die Hintergrundaktualisierung einschalten. Wenn Sie die Hintergrundaktualisierung nicht einschalten, können Sie Ihre Risiko-Ermittlung nur manuell in der App starten.\n\nSie können die Hintergrundaktualisierung für die App jederzeit in den Geräteeinstellungen einschalten.";
+
+"Common_BackgroundFetch_SettingsTitle" = "Geräteeinstellungen öffnen";
+
+"Common_BackgroundFetch_OKTitle" = "Risiko-Ermittlung manuell starten";
+
+"Common_BackgroundFetch_AlertTitle" = "Hintergrundaktualisierung ausgeschaltet";
+
+/* General - Links */
+"General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
+
+"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
+
+"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
+
+"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
 
 /* Accessibility */
 "AccessibilityLabel_Close" = "Kapat";
@@ -53,9 +68,9 @@ You can switch on background fetching for the app at any time in the device sett
 
 "ExposureDetection_RefreshingIn" = "%02d:%02d\U00A0minutes içinde güncelle";
 
-"ExposureDetection_Refresh_24h" = "24 saatlik aralıklarla güncellenir";
+"ExposureDetection_RefreshIn" = "%@ içinde güncelle";
 
-"ExposureDetection_RefreshIn" = "Update in %@";
+"ExposureDetection_Refresh_24h" = "24 saatlik aralıklarla güncellenir";
 
 "ExposureDetection_LastRiskLevel" = "Son maruz kalma günlüğü: %@";
 
@@ -110,7 +125,7 @@ You can switch on background fetching for the app at any time in the device sett
 "ExposureDetection_Button_Refresh" = "Güncelle";
 
 /* Exposure Detection Errors */
-"ExposureDetectionError_Alert_Title" = "Bir sorun oluştu.";
+"ExposureDetectionError_Alert_Title" = "Hata";
 
 "ExposureDetectionError_Alert_Action_Details" = "Ayrıntılar";
 
@@ -497,22 +512,6 @@ You can switch on background fetching for the app at any time in the device sett
 
 "ExposureSubmissionError_defaultError" = "Önemli aktarım sırasında hata oluştu";
 
-"ExposureSubmissionError_unsupported" = "Hata 5: Bir sorun oluştu. Risk düzeyiniz belirlenemiyor. Problemi çözmeye çalışıyoruz.";
-
-"ExposureSubmissionError_internal" = "Hata 11: Bir sorun oluştu. Risk düzeyiniz belirlenemiyor. Daha fazla bilgi için lütfen SSS sayfamıza bakın.";
-
-"ExposureSubmissionError_rateLimited" = "Hata 13: Bugünkü maruz kalma günlüğünüz zaten çıkarıldı. Lütfen yarın tekrar deneyin.";
-
-"ExposureSubmissionError_moreInfo" = "Daha fazla bilgi edinin";
-
-"ExposureSubmissionError_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
-
-"ExposureSubmissionError_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
-
-"ExposureSubmissionError_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
-
-"ExposureSubmissionError_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
-
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Maruz Kalma Günlüğü";
 
@@ -745,7 +744,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "App_Information_About_Title" = "Koronavirüs ile birlikte mücadele edelim";
 
-"App_Information_About_Description" = "Robert Koch Institute (RKI), Almanya'nın federal kamu sağlığı kurumudur. RKI, Federal Hükûmet adına Corona-Warn-App uygulamasını yayınlamaktadır. Uygulama, daha önce açıklanan kamu sağlığı önlemlerine ilişkin dijital bir uzantı niteliğindedir: sosyal mesafe, hijyen uygulamaları ve yüz maskeleri.";
+"App_Information_About_Description" = "Robert Koch Institute (RKI), Almanya'nın federal kamu sağlığı kurumudur. RKI, Federal Hükûmet adına Corona-Warn-App uygulamasını yayınlamaktadır. Uygulama, daha önce açıklanan kamu sağlığı önlemlerine ilişkin dijital bir tamamlayıcı niteliğindedir: sosyal mesafe, hijyen uygulamaları ve yüz maskeleri.";
 
 "App_Information_About_Text" = "Uygulamayı kullanan herkes, enfeksiyon zincirlerinin takip edilmesine ve kırılmasına yardımcı olur. Uygulama, diğer kişilerle karşılaşmaları cihazınızda yerel olarak kaydeder. Daha sonra COVID-19 tanısı konan kişilerle karşılaşmışsanız size bildirim gönderilir. Kimliğiniz ve gizliliğiniz daima koruma altındadır.";
 
@@ -824,7 +823,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "InviteFriends_ShareTitle" = "Koronavirüs ile birlikte mücadele edelim. Ben katıldım, peki ya sen?";
 
-"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-tuerkisch";
+"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
 
 "InviteFriends_Illustration_Label" = "Bir erkek, Corona-Warn-App'i dört farklı kişi ile paylaşıyor.";
 
