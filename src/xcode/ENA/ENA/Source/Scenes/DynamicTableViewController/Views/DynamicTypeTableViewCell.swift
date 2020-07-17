@@ -18,7 +18,7 @@
 import Foundation
 import UIKit
 
-class DynamicTypeTableViewCell: UITableViewCell {
+class DynamicTypeTableViewCell: UITableViewCell, DynamicTableViewTextCell {
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
 	}
