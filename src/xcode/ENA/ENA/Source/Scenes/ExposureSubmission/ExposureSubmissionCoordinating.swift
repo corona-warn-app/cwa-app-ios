@@ -59,6 +59,7 @@ class ExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
 
 	// MARK: - Attributes.
 
+	/// - NOTE: The delegate is called by the `viewWillDisappear(_:)` method of the `navigationController`.
 	weak var delegate: ExposureSubmissionCoordinatorDelegate?
 	weak var parentNavigationController: UINavigationController?
 
