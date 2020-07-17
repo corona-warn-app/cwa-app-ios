@@ -19,7 +19,8 @@
 import ExposureNotification
 
 final class ClientMock {
-	// MARK: Creating a Mock Client
+	
+	// MARK: - Creating a Mock Client.
 
 	/// Creates a mock `Client` implementation.
 	///
@@ -40,12 +41,17 @@ final class ClientMock {
 		self.urlRequestFailure = urlRequestFailure
 	}
 
-	// MARK: Properties
+	// MARK: - Properties.
+	
 	let submissionError: SubmissionError?
 	let urlRequestFailure: Client.Failure?
 	let availableDaysAndHours: DaysAndHours
 	let downloadedPackage: SAPDownloadedPackage?
+
+	// MARK: - Configurable Mock Callbacks.
+
 	var onAppConfiguration: (AppConfigurationCompletion) -> Void = { $0(nil) }
+	var onGetTestResult: ((String, TestResultHandler) -> Void)?
 }
 
 extension ClientMock: Client {
@@ -98,7 +104,12 @@ extension ClientMock: Client {
 	}
 
 	func getTestResult(forDevice device: String, completion completeWith: @escaping TestResultHandler) {
-		completeWith(.success(2))
+		guard let onGetTestResult = self.onGetTestResult else {
+			completeWith(.success(TestResult.positive.rawValue))
+			return
+		}
+
+		onGetTestResult(device, completeWith)
 	}
 
 	func getTANForExposureSubmit(forDevice device: String, completion completeWith: @escaping TANHandler) {

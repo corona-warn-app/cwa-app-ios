@@ -35,7 +35,7 @@ extension ExposureDetectionViewController {
 		var actualRiskText: String { riskLevel.text }
 
 		var riskText: String {
-			isTracingEnabled ? riskLevel.text : AppStrings.ExposureDetection.off
+			 isTracingEnabled ? riskLevel.text : AppStrings.ExposureDetection.off
 		}
 
 		var riskTintColor: UIColor {
@@ -53,7 +53,7 @@ private extension RiskLevel {
 		switch self {
 		case .unknownInitial: return AppStrings.ExposureDetection.unknown
 		case .unknownOutdated: return AppStrings.ExposureDetection.outdated
-		case .inactive: return AppStrings.ExposureDetection.unknown
+		case .inactive: return AppStrings.ExposureDetection.off
 		case .low: return AppStrings.ExposureDetection.low
 		case .increased: return AppStrings.ExposureDetection.high
 		}
@@ -63,7 +63,7 @@ private extension RiskLevel {
 		switch self {
 		case .unknownInitial: return .enaColor(for: .riskNeutral)
 		case .unknownOutdated: return .enaColor(for: .background)
-		case .inactive: return .enaColor(for: .riskNeutral)
+		case .inactive: return .enaColor(for: .background)
 		case .low: return .enaColor(for: .riskLow)
 		case .increased: return .enaColor(for: .riskHigh)
 		}
@@ -73,7 +73,7 @@ private extension RiskLevel {
 		switch self {
 		case .unknownInitial: return .enaColor(for: .textContrast)
 		case .unknownOutdated: return .enaColor(for: .textPrimary1)
-		case .inactive: return .enaColor(for: .textContrast)
+		case .inactive: return .enaColor(for: .textPrimary1)
 		case .low: return .enaColor(for: .textContrast)
 		case .increased: return .enaColor(for: .textContrast)
 		}

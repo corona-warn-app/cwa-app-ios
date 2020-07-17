@@ -31,6 +31,22 @@ enum AppStrings {
 		static let alertActionLater = NSLocalizedString("Alert_CancelAction_Later", comment: "")
 		static let alertActionOpenSettings = NSLocalizedString("Alert_DefaultAction_OpenSettings", comment: "")
 		static let general_BackButtonTitle = NSLocalizedString("General_BackButtonTitle", comment: "")
+
+		static let errorAlertActionMoreInfo = NSLocalizedString("Common_Alert_Action_moreInfo", comment: "")
+		static let enError5Description = NSLocalizedString("Common_ENError5_Description", comment: "")
+		static let enError11Description = NSLocalizedString("Common_ENError11_Description", comment: "")
+		static let enError13Description = NSLocalizedString("Common_ENError13_Description", comment: "")
+		static let backgroundFetch_AlertMessage = NSLocalizedString("Common_BackgroundFetch_AlertMessage", comment: "")
+		static let backgroundFetch_OKTitle = NSLocalizedString("Common_BackgroundFetch_OKTitle", comment: "")
+		static let backgroundFetch_SettingsTitle = NSLocalizedString("Common_BackgroundFetch_SettingsTitle", comment: "")
+		static let backgroundFetch_AlertTitle = NSLocalizedString("Common_BackgroundFetch_AlertTitle", comment: "")
+	}
+
+	enum Links {
+		static let appFaq = NSLocalizedString("General_moreInfo_URL", comment: "")
+		static let appFaqENError5 = NSLocalizedString("General_moreInfo_URL_EN5", comment: "")
+		static let appFaqENError11 = NSLocalizedString("General_moreInfo_URL_EN11", comment: "")
+		static let appFaqENError13 = NSLocalizedString("General_moreInfo_URL_EN13", comment: "")
 	}
 
 	enum AccessibilityLabel {
@@ -207,6 +223,7 @@ enum AppStrings {
 		static let refreshedFormat = NSLocalizedString("ExposureDetection_Refreshed_Format", comment: "")
 		static let refreshedNever = NSLocalizedString("ExposureDetection_Refreshed_Never", comment: "")
 		static let refreshingIn = NSLocalizedString("ExposureDetection_RefreshingIn", comment: "")
+		static let refreshIn = NSLocalizedString("ExposureDetection_RefreshIn", comment: "")
 		static let refresh24h = NSLocalizedString("ExposureDetection_Refresh_24h", comment: "")
 		static let lastRiskLevel = NSLocalizedString("ExposureDetection_LastRiskLevel", comment: "")
 		static let offText = NSLocalizedString("ExposureDetection_OffText", comment: "")
@@ -242,7 +259,7 @@ enum AppStrings {
 
 	enum ExposureDetectionError {
 		static let errorAlertTitle = NSLocalizedString("ExposureDetectionError_Alert_Title", comment: "")
-				static let errorAlertMessage = NSLocalizedString("ExposureDetectionError_Alert_Message", comment: "")
+		static let errorAlertMessage = NSLocalizedString("ExposureDetectionError_Alert_Message", comment: "")
 		static let errorAlertActionDetails = NSLocalizedString("ExposureDetectionError_Alert_Action_Details", comment: "")
 	}
 
@@ -356,6 +373,25 @@ enum AppStrings {
 		static let accLabelDisabled = NSLocalizedString("ExposureNotificationSetting_AccLabel_Disabled", comment: "")
 		static let accLabelBluetoothOff = NSLocalizedString("ExposureNotificationSetting_AccLabel_BluetoothOff", comment: "")
 		static let accLabelInternetOff = NSLocalizedString("ExposureNotificationSetting_AccLabel_InternetOff", comment: "")
+	}
+
+	enum ExposureNotificationError {
+
+		static let generalErrorTitle = NSLocalizedString("ExposureNotificationSetting_GeneralError_Title", comment: "")
+
+		static let learnMoreActionTitle = NSLocalizedString("ExposureNotificationSetting_GeneralError_LearnMore_Action", comment: "")
+
+		static let learnMoreURL = NSLocalizedString("ExposureNotificationSetting_GeneralError_LearnMore_URL", comment: "")
+
+		static let enAuthorizationError = NSLocalizedString("ExposureNotificationSetting_AuthenticationError", comment: "")
+
+		static let enActivationRequiredError = NSLocalizedString("ExposureNotificationSetting_exposureNotification_Required", comment: "")
+
+		static let enUnavailableError = NSLocalizedString("ExposureNotificationSetting_exposureNotification_unavailable", comment: "")
+
+		static let enUnknownError = NSLocalizedString("ExposureNotificationSetting_unknownError", comment: "")
+
+		static let apiMisuse = NSLocalizedString("ExposureNotificationSetting_apiMisuse", comment: "")
 	}
 
 	enum Home {

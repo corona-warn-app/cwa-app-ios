@@ -19,6 +19,34 @@
 
 "General_BackButtonTitle" = "Back";
 
+"Common_ENError5_Description" = "Error 5: Something went wrong. Your level of risk cannot be determined. We are working on a solution of the problem.";
+
+"Common_ENError11_Description" = "Error 11: Something went wrong. Your level of risk cannot be determined. Please restart your device and try again tomorrow.";
+
+"Common_ENError13_Description" = "Error 13: Your risk calculation for today has already been carried out. Please try again in 24 hours.";
+
+"Common_Alert_Action_moreInfo" = "Learn more";
+
+"Common_BackgroundFetch_AlertMessage" = "You have disabled background fetching for the Corona-Warn-App. To use automatic risk detection, you must activate the background fetching. If you do not activate background fetching, you can still start the risk detection manually.
+
+You can switch on background fetching for the app at any time in the device settings.";
+
+"Common_BackgroundFetch_SettingsTitle" = "Open Settings";
+
+"Common_BackgroundFetch_OKTitle" = "Start Risk Detection Manually";
+
+"Common_BackgroundFetch_AlertTitle" = "Background Fetching Disabled";
+
+/* General - Links */
+
+"General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
+
+"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/de/faq/#ENError5";
+
+"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/de/faq/#ENError11";
+
+"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/de/faq/#ENError13";
+
 /* Accessibility */
 "AccessibilityLabel_Close" = "Close";
 
@@ -44,6 +72,8 @@
 "ExposureDetection_RefreshingIn" = "Update in %02d:%02d\U00A0minutes";
 
 "ExposureDetection_Refresh_24h" = "Updated every 24 hours";
+
+"ExposureDetection_RefreshIn" = "Update in %@";
 
 "ExposureDetection_LastRiskLevel" = "Last exposure logging: %@";
 
@@ -98,7 +128,7 @@
 "ExposureDetection_Button_Refresh" = "Update";
 
 /* Exposure Detection Errors */
-"ExposureDetectionError_Alert_Title" = "Something went wrong.";
+"ExposureDetectionError_Alert_Title" = "Error";
 
 "ExposureDetectionError_Alert_Action_Details" = "Details";
 
@@ -538,6 +568,22 @@
 "ExposureNotificationSetting_Activate_Action" = "Accept";
 
 "ExposureNotificationSetting_Dismiss_Action" = "Cancel";
+
+"ExposureNotificationSetting_GeneralError_Title" = "Error";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Learn more";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.coronawarn.app/en/faq/";
+
+"ExposureNotificationSetting_AuthenticationError" = "An error occurred when activating the exposure logging. Please go to system settings and make sure this app is authorized to make use of COVID-19 exposure logging.";
+
+"ExposureNotificationSetting_exposureNotification_Required" = "An error occurred when activating the exposure logging. Please go to system settings and make sure the exposure notifications are enabled for this app.";
+
+"ExposureNotificationSetting_exposureNotification_unavailable" = "An error occurred when activating the exposure logging. Please go to system settings and make sure this app is set active to make use of exposure notifications. Please visit the FAQ website for more information.";
+
+"ExposureNotificationSetting_unknownError" = "An unknown error occured. Please visit the FAQ website for more information.";
+
+"ExposureNotificationSetting_apiMisuse" = "An internal error occurred when activating the risk identification. Please visit the FAQ website for more information and try exposure logging later again.";
 
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App logo";

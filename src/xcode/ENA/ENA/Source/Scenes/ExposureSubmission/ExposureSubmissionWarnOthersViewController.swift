@@ -60,11 +60,21 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 		navigationFooterItem?.isPrimaryButtonEnabled = false
 		exposureSubmissionService?.submitExposure { error in
 			switch error {
+			// We continue the regular flow even if there are no keys collected.
 			case .none, .noKeys:
 				self.performSegue(withIdentifier: Segue.sent, sender: self)
+
+			// Custom error handling for EN framework related errors.
+			case .internal, .unsupported, .rateLimited:
+				guard let error = error else {
+					logError(message: "error while parsing EN error.")
+					return
+				}
+				self.showENErrorAlert(error)
+
 			case .some(let error):
 				logError(message: "error: \(error.localizedDescription)", level: .error)
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+				let alert = self.setupErrorAlert(message: error.localizedDescription)
 				self.present(alert, animated: true, completion: {
 					self.navigationFooterItem?.isPrimaryButtonLoading = false
 					self.navigationFooterItem?.isPrimaryButtonEnabled = true
@@ -73,6 +83,39 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 		}
 	}
 
+	// MARK: - UI-related helpers.
+
+
+	/// Instantiates and shows an alert with a "More Info" button for
+	/// the EN errors. Assumes that the passed in `error` is either of type
+	/// `.internal`, `.unsupported` or `.rateLimited`.
+	func showENErrorAlert(_ error: ExposureSubmissionError) {
+		logError(message: "error: \(error.localizedDescription)", level: .error)
+		let alert = createENAlert(error)
+
+		self.present(alert, animated: true, completion: {
+			self.navigationFooterItem?.isPrimaryButtonLoading = false
+			self.navigationFooterItem?.isPrimaryButtonEnabled = true
+		})
+	}
+
+	/// Creates an error alert for the EN errors.
+	func createENAlert(_ error: ExposureSubmissionError) -> UIAlertController {
+		return self.setupErrorAlert(
+			message: error.localizedDescription,
+			secondaryActionTitle: AppStrings.Common.errorAlertActionMoreInfo,
+			secondaryActionCompletion: {
+				guard let url = error.faqURL else {
+					logError(message: "Unable to open FAQ page.", level: .error)
+					return
+				}
+
+				UIApplication.shared.open(
+					url,
+					options: [:]
+				)
+		 })
+	}
 }
 
 // MARK: ENANavigationControllerWithFooterChild methods.

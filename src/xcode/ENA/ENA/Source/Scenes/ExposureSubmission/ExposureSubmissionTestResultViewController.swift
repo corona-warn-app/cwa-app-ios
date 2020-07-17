@@ -58,6 +58,18 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 	private func setupButtons() {
 		guard let result = testResult else { return }
+
+		// Make sure to reset all button loading states.
+		self.navigationFooterItem?.isPrimaryButtonLoading = false
+		self.navigationFooterItem?.isSecondaryButtonLoading = false
+
+		// Make sure to reset buttons to default state.
+		self.navigationFooterItem?.isPrimaryButtonEnabled = true
+		self.navigationFooterItem?.isPrimaryButtonHidden = false
+
+		self.navigationFooterItem?.isSecondaryButtonEnabled = false
+		self.navigationFooterItem?.isSecondaryButtonHidden = true
+
 		switch result {
 		case .positive:
 			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.continueButton
@@ -68,6 +80,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		case .pending:
 			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.refreshButton
 			navigationFooterItem?.secondaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
+			navigationFooterItem?.isSecondaryButtonEnabled = true
 			navigationFooterItem?.isSecondaryButtonHidden = false
 		}
 	}
@@ -133,7 +146,9 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 			.getTestResult { result in
 				switch result {
 				case let .failure(error):
-					let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+
+					let alert = self.setupErrorAlert(message: error.localizedDescription)
+					
 					self.present(alert, animated: true, completion: {
 						self.navigationFooterItem?.isPrimaryButtonEnabled = true
 						self.navigationFooterItem?.isPrimaryButtonLoading = false
@@ -156,7 +171,10 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	private func showWarnOthers() {
 		if let state = exposureSubmissionService?.preconditions() {
 			if !state.isGood {
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(.enNotEnabled)
+
+				let alert = self.setupErrorAlert(
+					message: ExposureSubmissionError.enNotEnabled.localizedDescription
+				)
 				self.present(alert, animated: true, completion: nil)
 				return
 			}
