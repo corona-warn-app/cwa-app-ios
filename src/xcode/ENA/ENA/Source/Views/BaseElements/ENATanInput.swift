@@ -320,6 +320,7 @@ private class ENATanInputLabel: UILabel {
 	var validColor: UIColor?
 	var invalidColor: UIColor?
 
+	var isEmpty: Bool { false != text?.isEmpty }
 	var isValid: Bool = true { didSet { setNeedsDisplay() ; updateAccessibilityLabel() } }
 
 	override var text: String? { didSet { updateAccessibilityLabel() } }
@@ -346,7 +347,7 @@ private class ENATanInputLabel: UILabel {
 
 		self.textColor = textColor
 
-		if false != text?.isEmpty {
+		if isEmpty || !isValid {
 			guard let context = UIGraphicsGetCurrentContext() else { return }
 			context.setLineWidth(lineWidth)
 			context.setStrokeColor(lineColor.cgColor)
