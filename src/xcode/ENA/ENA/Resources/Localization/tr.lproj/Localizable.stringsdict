@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>one</key>
-			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kaldığınız için enfeksiyon riskiniz daha yüksektir.</string>
+			<string>En son bir gün önce, COVID-19 tanısı konan en az bir kişiye uzun süreyle yakın mesafeden maruz kaldığınız için enfeksiyon riskiniz yüksektir.</string>
 			<key>other</key>
-			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kaldığınız için enfeksiyon riskiniz daha yüksektir.</string>
+			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiye uzun süreyle yakın mesafeden maruz kaldığınız için enfeksiyon riskiniz yüksektir.</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_Refreshed_Format</key>
