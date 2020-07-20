@@ -947,5 +947,5 @@ Daha fazla bilgi için lütfen SSS sayfamıza bakın.";
  during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise
  `Active_Tracing_Interval_Partially_Active` will be used.
  */
-"Active_Tracing_Interval_Partially_Active" = "Maruz kalma günlüğü son %1$u günde %2$u etkindi.";
+"Active_Tracing_Interval_Partially_Active" = "Maruz kalma günlüğü son %1$u günde %2$u gün etkindi.";
 "Active_Tracing_Interval_Permanently_Active" = "Maruz kalma günlüğü sürekli etkin";
