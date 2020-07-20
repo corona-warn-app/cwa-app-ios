@@ -156,7 +156,6 @@ extension Coordinator: HomeViewControllerDelegate {
 				delegate: self
 			)
 		}
-//		delegate?.addToUpdatingSetIfNeeded(vc)
 		exposureDetectionController = vc as? ExposureDetectionViewController
 		rootViewController.present(vc, animated: true)
 	}
@@ -172,17 +171,16 @@ extension Coordinator: HomeViewControllerDelegate {
 	}
 
 	func showExposureSubmission(with result: TestResult? = nil) {
-		rootViewController.present(
-			AppStoryboard.exposureSubmission.initiateInitial { coder in
-				ExposureSubmissionNavigationController(
-					coder: coder,
-					exposureSubmissionService: self.exposureSubmissionService,
-					submissionDelegate: self,
-					testResult: result
-				)
-			},
-			animated: true
+		// A strong reference to the coordinator is passed to the exposre submission navigation controller
+		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
+		// which is managed by UIKit.
+		let coordinator = ExposureSubmissionCoordinator(
+			parentNavigationController: rootViewController,
+			exposureSubmissionService: exposureSubmissionService,
+			delegate: self
 		)
+
+		coordinator.start(with: result)
 	}
 
 	func showInviteFriends() {
@@ -242,8 +240,8 @@ extension Coordinator: ExposureDetectionViewControllerDelegate {
 	}
 }
 
-extension Coordinator: ExposureSubmissionNavigationControllerDelegate {
-	func exposureSubmissionNavigationControllerWillDisappear(_ controller: ExposureSubmissionNavigationController) {
+extension Coordinator: ExposureSubmissionCoordinatorDelegate {
+	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinating) {
 		homeController?.updateTestResultState()
 	}
 }

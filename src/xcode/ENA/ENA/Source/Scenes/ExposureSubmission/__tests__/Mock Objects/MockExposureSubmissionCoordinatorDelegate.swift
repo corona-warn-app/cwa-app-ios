@@ -17,19 +17,18 @@
 // under the License.
 //
 
-import XCTest
 @testable import ENA
 
-class ExposureSubmissionHotlineViewControllerTest: XCTestCase {
+class MockExposureSubmissionCoordinatorDelegate: ExposureSubmissionCoordinatorDelegate {
 
-	func testSetupView() {
-		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionHotlineViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator())
-		}
-		_ = vc.view
-		XCTAssertNotNil(vc.tableView)
-		XCTAssertEqual(vc.tableView.numberOfSections, 2)
-		XCTAssertEqual(vc.tableView(vc.tableView, numberOfRowsInSection: 1), 5)
+	// MARK: - Callback handlers.
+
+	var onExposureSubmissionCoordinatorWillDisappear: ((ExposureSubmissionCoordinating) -> Void)?
+
+	// MARK: - ExposureSubmissionCoordinatorDelegate methods.
+
+	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinating) {
+		onExposureSubmissionCoordinatorWillDisappear?(coordinator)
 	}
 
 }
