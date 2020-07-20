@@ -90,5 +90,9 @@ protocol Store: AnyObject {
 
 	var previousRiskLevel: EitherLowOrIncreasedRiskLevel? { get set }
 
+	// `true` if the user needs to be informed about how risk detection works.
+	// We only inform the user once. By default the value of this property is `true`.
+	var userNeedsToBeInformedAboutHowRiskDetectionWorks: Bool { get set }
+
 	func clearAll(key: String?)
 }
