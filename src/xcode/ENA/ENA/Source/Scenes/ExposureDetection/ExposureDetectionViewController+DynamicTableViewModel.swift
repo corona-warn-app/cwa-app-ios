@@ -326,6 +326,26 @@ extension ExposureDetectionViewController {
 		)
 	}
 
+	private func highRiskExplanationSection(daysSinceLastExposureText: String, explanationText: String, isActive: Bool, accessibilityIdentifier: String?) -> DynamicSection {
+		let daysSinceLastExposure = state.risk?.details.daysSinceLastExposure ?? 0
+		return .section(
+			header: .backgroundSpace(height: 8),
+			footer: .backgroundSpace(height: 16),
+			cells: [
+				.header(
+					title: AppStrings.ExposureDetection.explanationTitle,
+					subtitle: isActive ? AppStrings.ExposureDetection.explanationSubtitleActive : AppStrings.ExposureDetection.explanationSubtitleInactive
+				),
+				.body(
+					text: [
+						.localizedStringWithFormat(daysSinceLastExposureText, daysSinceLastExposure),
+						explanationText
+					].joined(),
+					accessibilityIdentifier: accessibilityIdentifier)
+			]
+		)
+	}
+
 	private var offModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 			.section(
@@ -432,8 +452,9 @@ extension ExposureDetectionViewController {
 			activeTracingSection(
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.activeTracingSectionText
 			),
-			explanationSection(
-				text: AppStrings.ExposureDetection.explanationTextHigh,
+			highRiskExplanationSection(
+				daysSinceLastExposureText: AppStrings.ExposureDetection.explanationTextHighDaysSinceLastExposure,
+				explanationText: AppStrings.ExposureDetection.explanationTextHigh,
 				isActive: true,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextHigh
 			)
