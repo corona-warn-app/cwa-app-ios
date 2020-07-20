@@ -58,10 +58,11 @@ extension ActiveTracing {
 			return NSLocalizedString("Active_Tracing_Interval_Permanently_Active", comment: "")
 		default:
 			// Yields something like: "Risk detection was active for 4 out of 14 days"
+
 			return String(
 				format: NSLocalizedString("Active_Tracing_Interval_Partially_Active", comment: ""),
-				maximumNumberOfDays,
-				inDays
+				inDays,
+				maximumNumberOfDays
 			)
 		}
 	}
