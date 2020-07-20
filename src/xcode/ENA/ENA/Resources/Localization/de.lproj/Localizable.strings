@@ -19,6 +19,34 @@
 
 "General_BackButtonTitle" = "Zurück";
 
+"Common_ENError5_Description" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
+
+"Common_ENError11_Description" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Handy neu und versuchen Sie es morgen erneut.";
+
+"Common_ENError13_Description" = "Fehler 13: Ihre Risiko-Ermittlung für den heutigen Tag wurde bereits durchgeführt. Bitte versuchen Sie es in 24 Stunden erneut.";
+
+"Common_Alert_Action_moreInfo" = "Mehr Erfahren";
+
+"Common_BackgroundFetch_AlertMessage" = "Sie haben die Hintergrundaktualisierung für die Corona-Warn-App ausgeschaltet. Um die automatische Risiko-Ermittlung zu nutzen, müssen Sie die Hintergrundaktualisierung einschalten. Wenn Sie die Hintergrundaktualisierung nicht einschalten, können Sie Ihre Risiko-Ermittlung nur manuell in der App starten.
+
+Sie können die Hintergrundaktualisierung für die App jederzeit in den Geräteeinstellungen einschalten.";
+
+"Common_BackgroundFetch_SettingsTitle" = "Geräteeinstellungen öffnen";
+
+"Common_BackgroundFetch_OKTitle" = "Risiko-Ermittlung manuell starten";
+
+"Common_BackgroundFetch_AlertTitle" = "Hintergrundaktualisierung ausgeschaltet";
+
+/* General - Links */
+
+"General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
+
+"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/de/faq/#ENError5";
+
+"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/de/faq/#ENError11";
+
+"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/de/faq/#ENError13";
+
 /* Accessibility */
 "AccessibilityLabel_Close" = "Schließen";
 
@@ -42,6 +70,8 @@
 "ExposureDetection_Refreshed_Never" = "Unbekannt";
 
 "ExposureDetection_RefreshingIn" = "Aktualisierung in %02d:%02d\U00A0Minuten";
+
+"ExposureDetection_RefreshIn" = "Aktualisierung in %@";
 
 "ExposureDetection_Refresh_24h" = "Aktualisierung alle 24 Stunden";
 
@@ -97,12 +127,48 @@
 
 "ExposureDetection_Button_Refresh" = "Aktualisieren";
 
+/* Active Tracing Section */
+"ExposureDetection_ActiveTracingSection_Title" = "Ermittlungszeitraum";
+"ExposureDetection_ActiveTracingSection_Subtitle" = "Dieser Zeitraum wird berücksichtigt";
+
+/*
+ There are two paragraphs in this section. The first one just contains text…
+*/
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-Ermittlung sollte daher dauerhaft aktiv sein.";
+
+/*
+ … the second paragraph contains two columns. On the left there is our active
+ tracing indicator. On the right column there is just text that explains what
+ the indicator shows.
+
+ Parameters:
+ - first: total number of relevant days (usually 14).
+ - second: the actual number of days with active tracing.
+ */
+
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Für Ihre Risiko-Ermittlung wird nur der Zeitraum der letzten %1$u Tage betrachtet. In diesem Zeitraum war Ihre Risiko-Ermittlung für eine Gesamtdauer von %2$u Tagen aktiv. Ältere Tage werden automatisch gelöscht, da sie aus Sicht des Infektionsschutzes nicht mehr relevant sind.";
+
 /* Exposure Detection Errors */
-"ExposureDetectionError_Alert_Title" = "Etwas ist schiefgelaufen.";
+"ExposureDetectionError_Alert_Title" = "Fehler";
 
 "ExposureDetectionError_Alert_Action_Details" = "Details";
 
 "ExposureDetectionError_Alert_Message" = "Während der Risiko-Ermittlung ist ein Fehler aufgetreten.";
+
+/*
+ How Risk Detection Works Alert.
+ First introduced due to EXPOSUREAPP-1738.
+ The alert only displays a single OK-button. We re-use the localized string
+ `Alert_ActionOk` for that.
+*/
+
+"How_Risk_Detection_Works_Alert_Title" = "Information zur Funktionsweise der Risiko-Ermittlung";
+
+"How_Risk_Detection_Works_Alert_Message" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-Ermittlung sollte daher dauerhaft aktiv sein.
+Für Ihre Risiko-Ermittlung wird nur der Zeitraum der letzten %1$u Tage betrachtet.
+Ältere Tage werden automatisch gelöscht, da sie aus Sicht des Infektionsschutzes nicht mehr relevant sind.
+
+Weitere Informationen finden Sie in den FAQ.";
 
 /* Settings */
 "Settings_StatusActive" = "An";
@@ -539,6 +605,23 @@
 
 "ExposureNotificationSetting_Dismiss_Action" = "Abbrechen";
 
+"ExposureNotificationSetting_GeneralError_Title" = "Fehler";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Mehr erfahren";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.coronawarn.app/de/faq/";
+
+"ExposureNotificationSetting_AuthenticationError" = "Bei der Aktivierung der Risiko-Ermittlung ist ein Fehler aufgetreten. Bitte prüfen Sie in den Einstellungen ob Sie das COVID-19-Kontaktprotokoll aktiviert haben.";
+
+"ExposureNotificationSetting_exposureNotification_Required" = "Bei der Aktivierung der Risiko-Ermittlung ist ein Fehler aufgetreten. Bitte prüfen Sie in den Einstellungen ob für diese App die COVID-19 Kontaktmitteilung aktiviert wurde.";
+
+"ExposureNotificationSetting_exposureNotification_unavailable" = "Bei der Aktivierung der Risiko-Ermittlung ist ein Fehler aufgetreten. Bitte prüfen Sie in den Einstellungen ob diese App für die Covid19 - Kontaktermittlung als aktive App ausgewählt wurde. Besuchen Sie die FAQ-Website für weitere Informationen.";
+
+"ExposureNotificationSetting_unknownError" = "Ein unbekannter Fehler ist aufgetreten. Für mehr Informationen besuchen Sie bitte die FAQ-Website.";
+
+"ExposureNotificationSetting_apiMisuse" = "Bei der Aktivierung der Risiko-Ermittlung ist ein interner Fehler aufgetreten. Für mehr Informationen besuchen Sie bitte die FAQ-Website und probieren Sie es später noch einmal.";
+
+
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App Logo";
 
@@ -593,7 +676,8 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "%@ von %@ Tagen aktiv";
+"Home_Risk_Low_SaveDays_Item_Title" = "Risiko-Ermittlung war für %1$u der letzten %2$u Tage aktiv";
+"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Risiko-Ermittlung dauerhaft aktiv";
 
 "Home_Risk_Low_Button" = "Aktualisieren";
 
@@ -895,3 +979,11 @@
 
 "ENATanInput_CharacterIndex" = "Zeichen %1$u von %2$u";
 
+/*
+ Active Tracing Interval Formatting:
+ The following two entries are used together. If tracing was not active (almost) 14 days
+ during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise
+ `Active_Tracing_Interval_Partially_Active` will be used.
+ */
+"Active_Tracing_Interval_Partially_Active" = "Risiko-Ermittlung war für %1$u der letzten %2$u Tage aktiv";
+"Active_Tracing_Interval_Permanently_Active" = "Risiko-Ermittlung dauerhaft aktiv";

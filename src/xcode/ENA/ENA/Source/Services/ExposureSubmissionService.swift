@@ -30,7 +30,7 @@ enum TestResult: Int {
 	case invalid = 3
 }
 
-protocol ExposureSubmissionService {
+protocol ExposureSubmissionService: class {
 	typealias ExposureSubmissionHandler = (_ error: ExposureSubmissionError?) -> Void
 	typealias RegistrationHandler = (Result<String, ExposureSubmissionError>) -> Void
 	typealias TestResultHandler = (Result<TestResult, ExposureSubmissionError>) -> Void
@@ -291,6 +291,9 @@ enum ExposureSubmissionError: Error, Equatable {
 	case serverError(Int)
 	case unknown
 	case httpError(String)
+	case `internal`
+	case unsupported
+	case rateLimited
 }
 
 extension ExposureSubmissionError: LocalizedError {
@@ -322,6 +325,12 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.ExposureSubmissionError.regTokenNotExist
 		case .noKeys:
 			return AppStrings.ExposureSubmissionError.noKeys
+		case .internal:
+			return AppStrings.Common.enError11Description
+		case .unsupported:
+			return AppStrings.Common.enError5Description
+		case .rateLimited:
+			return AppStrings.Common.enError13Description
 		case let .other(desc):
 			return  "\(AppStrings.ExposureSubmissionError.other)\(desc)\(AppStrings.ExposureSubmissionError.otherend)"
 		case .unknown:

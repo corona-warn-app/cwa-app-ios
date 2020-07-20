@@ -153,6 +153,9 @@ extension ENATanInput {
 		stackView.isUserInteractionEnabled = false
 		stackView.alignment = .fill
 
+		// Enfore left-to-right semantics for RTL languages such as Arabic.
+		stackView.semanticContentAttribute = .forceLeftToRight
+
 		// Generate character groups
 		for (index, numberOfDigitsInGroup) in digitGroups.enumerated() {
 			let groupView = createGroup(count: numberOfDigitsInGroup, hasDash: index < digitGroups.count - 1)
@@ -191,6 +194,9 @@ extension ENATanInput {
 		stackView.axis = .horizontal
 		stackView.alignment = .fill
 		stackView.distribution = .fill
+
+		// Enfore left-to-right semantics for RTL languages such as Arabic.
+		stackView.semanticContentAttribute = .forceLeftToRight
 
 		for _ in 0..<count { stackView.addArrangedSubview(createLabel()) }
 		if hasDash { stackView.addArrangedSubview(createDash()) }
@@ -320,6 +326,7 @@ private class ENATanInputLabel: UILabel {
 	var validColor: UIColor?
 	var invalidColor: UIColor?
 
+	var isEmpty: Bool { false != text?.isEmpty }
 	var isValid: Bool = true { didSet { setNeedsDisplay() ; updateAccessibilityLabel() } }
 
 	override var text: String? { didSet { updateAccessibilityLabel() } }
@@ -346,7 +353,7 @@ private class ENATanInputLabel: UILabel {
 
 		self.textColor = textColor
 
-		if false != text?.isEmpty {
+		if isEmpty || !isValid {
 			guard let context = UIGraphicsGetCurrentContext() else { return }
 			context.setLineWidth(lineWidth)
 			context.setStrokeColor(lineColor.cgColor)
