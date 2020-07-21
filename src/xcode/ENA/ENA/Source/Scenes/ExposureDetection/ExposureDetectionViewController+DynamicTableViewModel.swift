@@ -127,11 +127,11 @@ private extension DynamicCell {
 		}
 	}
 
-	static func riskStored(text: String, imageName: String) -> DynamicCell {
+	static func riskStored(activeTracing: ActiveTracing, imageName: String) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			let state = viewController.state
 			var numberOfDaysStored = state.risk?.details.numberOfDaysWithActiveTracing ?? 0
-			cell.textLabel?.text = String(format: text, numberOfDaysStored)
+			cell.textLabel?.text = activeTracing.localizedDuration
 			if numberOfDaysStored < 0 { numberOfDaysStored = 0 }
 			if numberOfDaysStored > 13 {
 				cell.imageView?.image = UIImage(named: "Icons_TracingCircleFull - Dark")
@@ -280,6 +280,38 @@ extension ExposureDetectionViewController {
 		)
 	}
 
+	private func activeTracingSection(accessibilityIdentifier: String?) -> DynamicSection {
+		let p0 = NSLocalizedString(
+			"ExposureDetection_ActiveTracingSection_Text_Paragraph0",
+			comment: ""
+		)
+
+		let p1 = state.risk?.details.activeTracing.exposureDetectionActiveTracingSectionTextParagraph1 ?? ""
+
+		let body = [p0, p1].joined(separator: "\n\n")
+
+		return .section(
+			header: .backgroundSpace(height: 8),
+			footer: .backgroundSpace(height: 16),
+			cells: [
+				.header(
+					title: NSLocalizedString(
+						"ExposureDetection_ActiveTracingSection_Title",
+						comment: ""
+					),
+					subtitle: NSLocalizedString(
+						"ExposureDetection_ActiveTracingSection_Subtitle",
+						comment: ""
+					)
+				),
+				.body(
+					text: body,
+					accessibilityIdentifier: accessibilityIdentifier
+				)
+			]
+		)
+	}
+
 	private func explanationSection(text: String, isActive: Bool, accessibilityIdentifier: String?) -> DynamicSection {
 		.section(
 			header: .backgroundSpace(height: 8),
@@ -290,6 +322,26 @@ extension ExposureDetectionViewController {
 					subtitle: isActive ? AppStrings.ExposureDetection.explanationSubtitleActive : AppStrings.ExposureDetection.explanationSubtitleInactive
 				),
 				.body(text: text, accessibilityIdentifier: accessibilityIdentifier)
+			]
+		)
+	}
+
+	private func highRiskExplanationSection(daysSinceLastExposureText: String, explanationText: String, isActive: Bool, accessibilityIdentifier: String?) -> DynamicSection {
+		let daysSinceLastExposure = state.risk?.details.daysSinceLastExposure ?? 0
+		return .section(
+			header: .backgroundSpace(height: 8),
+			footer: .backgroundSpace(height: 16),
+			cells: [
+				.header(
+					title: AppStrings.ExposureDetection.explanationTitle,
+					subtitle: isActive ? AppStrings.ExposureDetection.explanationSubtitleActive : AppStrings.ExposureDetection.explanationSubtitleInactive
+				),
+				.body(
+					text: [
+						.localizedStringWithFormat(daysSinceLastExposureText, daysSinceLastExposure),
+						explanationText
+					].joined(),
+					accessibilityIdentifier: accessibilityIdentifier)
 			]
 		)
 	}
@@ -351,16 +403,19 @@ extension ExposureDetectionViewController {
 	}
 
 	private var lowRiskModel: DynamicTableViewModel {
-		DynamicTableViewModel([
+		let activeTracing = state.risk?.details.activeTracing ?? .init(interval: 0)
+
+		return DynamicTableViewModel([
 			riskDataSection(
 				cells: [
 				.riskContacts(text: AppStrings.ExposureDetection.numberOfContacts, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
-				.riskStored(text: AppStrings.ExposureDetection.numberOfDaysStored, imageName: "Icons_TracingCircle-Dark_Step %u"),
+				.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
 				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 			]),
 			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
+			activeTracingSection(accessibilityIdentifier: "hello"),
 			explanationSection(
 				text: AppStrings.ExposureDetection.explanationTextLow,
 				isActive: true,
@@ -370,11 +425,12 @@ extension ExposureDetectionViewController {
 	}
 
 	private var highRiskModel: DynamicTableViewModel {
-		DynamicTableViewModel([
+		let activeTracing = state.risk?.details.activeTracing ?? .init(interval: 0)
+		return DynamicTableViewModel([
 			riskDataSection(cells: [
 				.riskContacts(text: AppStrings.ExposureDetection.numberOfContacts, image: UIImage(named: "Icons_RisikoBegegnung")),
 				.riskLastExposure(text: AppStrings.ExposureDetection.lastExposure, image: UIImage(named: "Icons_Calendar")),
-				.riskStored(text: AppStrings.ExposureDetection.numberOfDaysStored, imageName: "Icons_TracingCircle-Dark_Step %u"),
+				.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
 				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 			]),
 			riskRefreshSection,
@@ -393,11 +449,26 @@ extension ExposureDetectionViewController {
 					])
 				]
 			),
-			explanationSection(
-				text: AppStrings.ExposureDetection.explanationTextHigh,
+			activeTracingSection(
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.activeTracingSectionText
+			),
+			highRiskExplanationSection(
+				daysSinceLastExposureText: AppStrings.ExposureDetection.explanationTextHighDaysSinceLastExposure,
+				explanationText: AppStrings.ExposureDetection.explanationTextHigh,
 				isActive: true,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextHigh
 			)
 		])
+	}
+}
+
+extension ActiveTracing {
+	var exposureDetectionActiveTracingSectionTextParagraph1: String {
+		let format = NSLocalizedString("ExposureDetection_ActiveTracingSection_Text_Paragraph1", comment: "")
+		return String(format: format, maximumNumberOfDays, inDays)
+	}
+
+	var exposureDetectionActiveTracingSectionTextParagraph0: String {
+		return NSLocalizedString("ExposureDetection_ActiveTracingSection_Text_Paragraph0", comment: "")
 	}
 }
