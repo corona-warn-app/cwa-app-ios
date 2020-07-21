@@ -21,31 +21,28 @@
 
 "Common_ENError5_Description" = "Error 5: Something went wrong. Your level of risk cannot be determined. We are working on a solution of the problem.";
 
-"Common_ENError11_Description" = "Error 11: Something went wrong. Your level of risk cannot be determined. For more information, please see our FAQ page.";
+"Common_ENError11_Description" = "Error 11: Something went wrong. Your level of risk cannot be determined. Please restart your device and try again tomorrow.";
 
-"Common_ENError13_Description" = "Error 13: Your exposure logging for today has already been carried out. Please try again tomorrow.";
+"Common_ENError13_Description" = "Error 13: Your exposure logging for today has already been carried out. Please try again in 24 hours.";
 
-"Common_Alert_Action_moreInfo" = "Learn more";
+"Common_Alert_Action_moreInfo" = "Find out more";
 
-"Common_BackgroundFetch_AlertMessage" = "You have disabled background fetching for the Corona-Warn-App. To use automatic risk detection, you must activate the background fetching. If you do not activate background fetching, you can still start the risk detection manually.
+"Common_BackgroundFetch_AlertMessage" = "You have deactivated background updates for the Corona-Warn-App. Please activate background updates to use automatic exposure logging. If you do not activate background updates, you can only start exposure logging manually in the app.\n\nYou can activate background updates for the app in your device settings.";
 
-You can switch on background fetching for the app at any time in the device settings.";
+"Common_BackgroundFetch_SettingsTitle" = "Open Device Settings";
 
-"Common_BackgroundFetch_SettingsTitle" = "Open Settings";
+"Common_BackgroundFetch_OKTitle" = "Start Exposure Logging Manually";
 
-"Common_BackgroundFetch_OKTitle" = "Start Risk Detection Manually";
-
-"Common_BackgroundFetch_AlertTitle" = "Background Fetching Disabled";
+"Common_BackgroundFetch_AlertTitle" = "Background updates deactivated";
 
 /* General - Links */
+"General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
 
-"General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
+"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
 
-"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/de/faq/#ENError5";
+"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
 
-"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/de/faq/#ENError11";
-
-"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/de/faq/#ENError13";
+"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
 
 /* Accessibility */
 "AccessibilityLabel_Close" = "Close";
@@ -71,9 +68,9 @@ You can switch on background fetching for the app at any time in the device sett
 
 "ExposureDetection_RefreshingIn" = "Update in %02d:%02d\U00A0minutes";
 
-"ExposureDetection_Refresh_24h" = "Updated every 24 hours";
-
 "ExposureDetection_RefreshIn" = "Update in %@";
+
+"ExposureDetection_Refresh_24h" = "Updated every 24 hours";
 
 "ExposureDetection_LastRiskLevel" = "Last exposure logging: %@";
 
@@ -127,49 +124,12 @@ You can switch on background fetching for the app at any time in the device sett
 
 "ExposureDetection_Button_Refresh" = "Update";
 
-/* Active Tracing Section */
-"ExposureDetection_ActiveTracingSection_Title" = "Period logged";
-"ExposureDetection_ActiveTracingSection_Subtitle" = "This period is included in the calculation";
-
-/*
- There are two paragraphs in this section. The first one just contains text…
- */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently.";
-
-/*
- … the second paragraph contains two columns. On the left there is our active
- tracing indicator. On the right column there is just text that explains what
- the indicator shows.
-
- Parameters:
- - first: total number of relevant days (usually 14).
- - second: the actual number of days with active tracing.
- */
-
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Exposure logging covers the last %1$u days. During this time, the logging feature on your device was active for %2$u days. The app automatically deletes older logs, as these are no longer relevant for infection prevention.";
-
 /* Exposure Detection Errors */
 "ExposureDetectionError_Alert_Title" = "Error";
 
 "ExposureDetectionError_Alert_Action_Details" = "Details";
 
 "ExposureDetectionError_Alert_Message" = "An error occurred during exposure logging.";
-
-
-/*
- How Risk Detection Works Alert.
- First introduced due to EXPOSUREAPP-1738.
- The alert only displays a single OK-button. We re-use the localized string
- `Alert_ActionOk` for that.
- */
-
-"How_Risk_Detection_Works_Alert_Title" = "Information about exposure logging functionality";
-
-"How_Risk_Detection_Works_Alert_Message" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently.
-Exposure logging covers the last %1$u days.
-The app automatically deletes older logs, as these are no longer relevant for infection prevention.
-
-For further information, please see our FAQ page.";
 
 /* Settings */
 "Settings_StatusActive" = "On";
@@ -679,8 +639,7 @@ For further information, please see our FAQ page.";
 /* Home Low card */
 "Home_Risk_Low_Title" = "Low Risk";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "Risk detection was active for %u of %u days";
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Risk detection permanently active";
+"Home_Risk_Low_SaveDays_Item_Title" = "%@ of %@ days active";
 
 "Home_Risk_Low_Button" = "Update";
 
@@ -785,7 +744,7 @@ For further information, please see our FAQ page.";
 
 "App_Information_About_Title" = "Let's fight coronavirus together";
 
-"App_Information_About_Description" = "Robert Koch Institute (RKI) is Germany’s federal public health body. The RKI publishes the Corona-Warn-App in the name of the Federal Government. The app represents the digital extension of public health measures already introduced: social distancing, hygiene, and face masks.";
+"App_Information_About_Description" = "Robert Koch Institute (RKI) is Germany’s federal public health body. The RKI publishes the Corona-Warn-App on behalf of the Federal Government. The app is intended as a digital complement to public health measures already introduced: social distancing, hygiene, and face masks.";
 
 "App_Information_About_Text" = "Whoever uses the app helps to trace and break chains of infection. The app saves encounters with other people locally on your device. You are notified if you have encountered people who were later diagnosed with COVID-19. Your identity and privacy are always protected.";
 
@@ -864,7 +823,7 @@ For further information, please see our FAQ page.";
 
 "InviteFriends_ShareTitle" = "Fighting coronavirus together. I'm in on this, you too?";
 
-"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-englisch";
+"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
 
 "InviteFriends_Illustration_Label" = "A man shares the Corona-Warn-App with four other persons.";
 
@@ -982,11 +941,3 @@ For further information, please see our FAQ page.";
 
 "ENATanInput_CharacterIndex" = "Character %1$u of %2$u";
 
-/*
- Active Tracing Interval Formatting:
- The following two entries are used together. If tracing was not active (almost) 14 days
- during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise
- `Active_Tracing_Interval_Partially_Active` will be used.
- */
-"Active_Tracing_Interval_Partially_Active" = "Exposure logging was active for %1$u of the last %2$u days.";
-"Active_Tracing_Interval_Permanently_Active" = "Exposure logging permanently active";
