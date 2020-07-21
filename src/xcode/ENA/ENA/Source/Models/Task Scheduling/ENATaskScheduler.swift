@@ -27,7 +27,7 @@ enum ENATaskIdentifier: String, CaseIterable {
 	var backgroundTaskScheduleInterval: TimeInterval? {
 		switch self {
 		case .exposureNotification: return nil // Apple schedules this special case regularly per default.
-		case .fetchTestResults: return 15 * 60 // TODO: This should actually be scheduled every two hours: 2 * 60 * 60
+		case .fetchTestResults: return 2 * 60 * 60
 		}
 	}
 	var backgroundTaskSchedulerIdentifier: String {
