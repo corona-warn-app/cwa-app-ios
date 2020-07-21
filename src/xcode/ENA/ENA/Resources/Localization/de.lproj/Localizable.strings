@@ -27,6 +27,16 @@
 
 "Common_Alert_Action_moreInfo" = "Mehr Erfahren";
 
+"Common_BackgroundFetch_AlertMessage" = "Sie haben die Hintergrundaktualisierung für die Corona-Warn-App ausgeschaltet. Um die automatische Risiko-Ermittlung zu nutzen, müssen Sie die Hintergrundaktualisierung einschalten. Wenn Sie die Hintergrundaktualisierung nicht einschalten, können Sie Ihre Risiko-Ermittlung nur manuell in der App starten.
+
+Sie können die Hintergrundaktualisierung für die App jederzeit in den Geräteeinstellungen einschalten.";
+
+"Common_BackgroundFetch_SettingsTitle" = "Geräteeinstellungen öffnen";
+
+"Common_BackgroundFetch_OKTitle" = "Risiko-Ermittlung manuell starten";
+
+"Common_BackgroundFetch_AlertTitle" = "Hintergrundaktualisierung ausgeschaltet";
+
 /* General - Links */
 
 "General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
@@ -60,6 +70,8 @@
 "ExposureDetection_Refreshed_Never" = "Unbekannt";
 
 "ExposureDetection_RefreshingIn" = "Aktualisierung in %02d:%02d\U00A0Minuten";
+
+"ExposureDetection_RefreshIn" = "Aktualisierung in %@";
 
 "ExposureDetection_Refresh_24h" = "Aktualisierung alle 24 Stunden";
 
