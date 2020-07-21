@@ -13,10 +13,10 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
-			<string>Today, %%1$@</string>
+			<string>Astăzi, %%1$@</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
-			<string>Yesterday, %%1$@</string>
+			<string>Ieri, %%1$@</string>
 			<key>few</key>
 			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
 			<string>%%2$@, %%1$@</string>
@@ -43,22 +43,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
-			<string>No exposure up to now</string>
+			<string>Nicio expunere până acum</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
-			<string>One exposure</string>
+			<string>O expunere</string>
 			<key>few</key>
 			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
-			<string>%u exposures</string>
+			<string>%u expuneri</string>
 			<key>many</key>
 			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
-			<string>%u exposures</string>
+			<string>%u expuneri</string>
 			<key>two</key>
 			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
-			<string>%u exposures</string>
+			<string>%u expuneri</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
-			<string>%u exposures</string>
+			<string>%u de expuneri</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_LastExposure</key>
@@ -73,22 +73,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
-			<string>%u days since last exposure</string>
+			<string>%u zile de la ultima expunere</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
-			<string>%u day since last exposure</string>
+			<string>%u zi de la ultima expunere</string>
 			<key>few</key>
 			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
-			<string>%u days since last exposure</string>
+			<string>%u zile de la ultima expunere</string>
 			<key>many</key>
 			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
-			<string>%u days since last exposure</string>
+			<string>%u zile de la ultima expunere</string>
 			<key>two</key>
 			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
-			<string>%u days since last exposure</string>
+			<string>%u zile de la ultima expunere</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
-			<string>%u days since last exposure</string>
+			<string>%u de zile de la ultima expunere</string>
 		</dict>
 	</dict>
     <key>Home_Risk_Number_Contacts_Item_Title</key>
@@ -103,22 +103,22 @@
             <string>u</string>
             <key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
-            <string>No exposure up to now</string>
+            <string>Nicio expunere până acum</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
-            <string>%u exposure</string>
+            <string>%u expunere</string>
             <key>few</key>
             <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
-            <string>%u exposures</string>
+            <string>%u expuneri</string>
             <key>many</key>
             <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
-            <string>%u exposures</string>
+            <string>%u expuneri</string>
             <key>two</key>
             <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
-            <string>%u exposures</string>
+            <string>%u expuneri</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
-            <string>%u exposures</string>
+            <string>%u de expuneri</string>
         </dict>
     </dict>
     <key>Home_Risk_Last_Contact_Item_Title</key>
@@ -133,22 +133,22 @@
             <string>u</string>
             <key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
-            <string>Less than one day since last exposure</string>
+            <string>Mai puțin de o zi de la ultima expunere</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
-            <string>%u day since last exposure</string>
+            <string>%u zi de la ultima expunere</string>
             <key>few</key>
             <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
-            <string>%u days since last exposure</string>
+            <string>%u zile de la ultima expunere</string>
             <key>many</key>
             <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
-            <string>%u days since last exposure</string>
+            <string>%u zile de la ultima expunere</string>
             <key>two</key>
             <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
-            <string>%u days since last exposure</string>
+            <string>%u zile de la ultima expunere</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
-            <string>%u days since last exposure</string>
+            <string>%u de zile de la ultima expunere</string>
         </dict>
     </dict>
     <key>Home_Risk_Status_Counter_Label</key>
@@ -163,22 +163,22 @@
             <string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
-            <string>Update in %02u:%2$#@seconds@ seconds</string>
+            <string>Actualizare în %02u:%2$#@seconds@ secunde</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
-            <string>Update in %02u:%2$#@seconds@ minute</string>
+            <string>Actualizare în %02u:%2$#@seconds@ minut</string>
             <key>few</key>
             <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
-            <string>Update in %02u:%2$#@seconds@ minutes</string>
+            <string>Actualizare în %02u:%2$#@seconds@ minute</string>
             <key>many</key>
             <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
-            <string>Update in %02u:%2$#@seconds@ minutes</string>
+            <string>Actualizare în %02u:%2$#@seconds@ minute</string>
             <key>two</key>
             <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
-            <string>Update in %02u:%2$#@seconds@ minutes</string>
+            <string>Actualizare în %02u:%2$#@seconds@ minute</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
-            <string>Update in %02u:%2$#@seconds@ minutes</string>
+            <string>Actualizare în %02u:%2$#@seconds@ de minute</string>
         </dict>
         <key>seconds</key>
         <dict>
@@ -218,22 +218,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
-			<string>Exposure logging has been active for less than one day. An exposure check can only be reliable if exposure logging is permanently activated.</string>
+			<string>Înregistrarea în jurnal a expunerilor a fost activă mai puțin de o zi. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
-			<string>Exposure logging has been active for %u day. An exposure check can only be reliable if exposure logging is permanently activated.</string>
+			<string>Înregistrarea în jurnal a expunerilor a fost activă %u zi. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
 			<key>few</key>
 			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
-			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
+			<string>Înregistrarea în jurnal a expunerilor a fost activă %u zile. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
 			<key>many</key>
 			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
-			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
+			<string>Înregistrarea în jurnal a expunerilor a fost activă %u zile. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
 			<key>two</key>
 			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
-			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
+			<string>Înregistrarea în jurnal a expunerilor a fost activă %u zile. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
-			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
+			<string>Înregistrarea în jurnal a expunerilor a fost activă %u de zile. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
 		</dict>
 	</dict>
 </dict>
