@@ -17,19 +17,34 @@
 // under the License.
 //
 
-import XCTest
-@testable import ENA
+import UIKit
 
-class ExposureSubmissionHotlineViewControllerTest: XCTestCase {
+extension UIAlertController {
+	class func localizedHowRiskDetectionWorksAlertController(
+		maximumNumberOfDays: Int
+	) -> UIAlertController {
+		let title = NSLocalizedString("How_Risk_Detection_Works_Alert_Title", comment: "")
+		let message = String(
+			format: NSLocalizedString(
+				"How_Risk_Detection_Works_Alert_Message",
+				comment: ""
+			),
+			maximumNumberOfDays
+		)
 
-	func testSetupView() {
-		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionHotlineViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator())
-		}
-		_ = vc.view
-		XCTAssertNotNil(vc.tableView)
-		XCTAssertEqual(vc.tableView.numberOfSections, 2)
-		XCTAssertEqual(vc.tableView(vc.tableView, numberOfRowsInSection: 1), 5)
+		let alert = UIAlertController(
+			title: title,
+			message: message,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: NSLocalizedString("Alert_ActionOk", comment: ""),
+				style: .default
+			)
+		)
+
+		return alert
 	}
-
 }
