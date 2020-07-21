@@ -96,7 +96,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: expectationsTimeout)
 	}
 
-	func testSubmitExpousure_InvalidTan() {
+	func testExposureSubmission_InvalidPayloadOrHeaders() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
@@ -104,7 +104,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		store.registrationToken = "dummyRegistrationToken"
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
-		let expectation = self.expectation(description: "OtherError")
+		let expectation = self.expectation(description: "invalidPayloadOrHeaders Error")
 
 		// Act
 		service.submitExposure { error in
@@ -113,8 +113,9 @@ class ExposureSubmissionServiceTests: XCTestCase {
 				XCTFail("error expected")
 				return
 			}
-			guard case ExposureSubmissionError.other = error else {
-				XCTFail("We expect error to be of type other")
+
+			guard case ExposureSubmissionError.invalidPayloadOrHeaders = error else {
+				XCTFail("We expect error to be of type invalidPayloadOrHeaders")
 				return
 			}
 		}
