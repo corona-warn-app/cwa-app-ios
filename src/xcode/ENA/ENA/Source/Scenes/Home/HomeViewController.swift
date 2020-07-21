@@ -23,7 +23,7 @@ protocol HomeViewControllerDelegate: AnyObject {
 }
 
 // swiftlint:disable:next type_body_length
-final class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Creating a Home View Controller
 	init?(
 		coder: NSCoder,
@@ -99,6 +99,20 @@ final class HomeViewController: UIViewController {
 		homeInteractor.updateTestResults()
 		homeInteractor.requestRisk(userInitiated: false)
 		updateBackgroundColor()
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		guard store.userNeedsToBeInformedAboutHowRiskDetectionWorks else {
+			return
+		}
+		// TODO: Check whether or not we have to display some kind of different alert (eg. the forced update alert).
+		let alert = UIAlertController.localizedHowRiskDetectionWorksAlertController(
+			maximumNumberOfDays: TracingStatusHistory.maxStoredDays
+		)
+		present(alert, animated: true) {
+			self.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = false
+		}
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -246,7 +260,6 @@ final class HomeViewController: UIViewController {
 				delegate: self
 			)
 		}
-//		addToUpdatingSetIfNeeded(vc)
 		exposureDetectionController = vc as? ExposureDetectionViewController
 		present(vc, animated: true)
 	}

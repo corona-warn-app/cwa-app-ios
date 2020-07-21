@@ -48,4 +48,5 @@ final class MockTestStore: Store {
 	var allowRiskChangesNotification: Bool = true
 	var allowTestsStatusNotification: Bool = true
 	var hourlyFetchingEnabled: Bool = true
+	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
 }
