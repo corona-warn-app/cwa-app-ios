@@ -87,7 +87,7 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: - UI Helpers
 
 	/// Adjusts the UI for the given cell, including setting text and adjusting colors.
-	fileprivate func configureUI(for cell: RiskInactiveCollectionViewCell) {
+	private func configureUI(for cell: RiskInactiveCollectionViewCell) {
 		cell.configureTitle(title: title, titleColor: .enaColor(for: .textPrimary1))
 		cell.configureBody(text: body, bodyColor: .enaColor(for: .textPrimary1))
 		cell.configureBackgroundColor(color: .enaColor(for: .background))
@@ -95,7 +95,7 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 	}
 
 	/// Adjusts the UI for the risk views of a given cell.
-	fileprivate func configureRiskViewsUI(for cell: RiskInactiveCollectionViewCell) {
+	private func configureRiskViewsUI(for cell: RiskInactiveCollectionViewCell) {
 		let activateItemTitle = String(format: AppStrings.Home.riskCardLastActiveItemTitle, previousRiskTitle)
 		let dateTitle = String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString)
 

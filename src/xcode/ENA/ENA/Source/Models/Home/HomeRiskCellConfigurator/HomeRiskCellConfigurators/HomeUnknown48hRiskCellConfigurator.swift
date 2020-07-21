@@ -43,53 +43,89 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		)
 	}
 
+	// MARK: - Computed properties.
+
+	var title: String {
+		return isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardUnknownTitle
+	}
+
+	var previousRiskTitle: String {
+		switch previousRiskLevel {
+		case .low?:
+			return AppStrings.Home.riskCardLastActiveItemLowTitle
+		case .increased?:
+			return AppStrings.Home.riskCardLastActiveItemHighTitle
+		default:
+			return AppStrings.Home.riskCardLastActiveItemUnknownTitle
+		}
+	}
+
+	// MARK: - UI Helper methods.
+
+	/// Adjusts the UI for the given cell, including setting text and adjusting colors.
+	private func configureUI(for cell: RiskLevelCollectionViewCell) {
+		cell.configureBackgroundColor(color: .enaColor(for: .riskNeutral))
+		cell.configureTitle(title: title, titleColor: .enaColor(for: .textContrast))
+		cell.configureBody(text: AppStrings.Home.riskCardUnknown48hBody, bodyColor: .enaColor(for: .textContrast), isHidden: isLoading)
+		configureButton(for: cell)
+		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, "\(detectionInterval)")
+		cell.configureDetectionIntervalLabel(text: intervalTitle, isHidden: detectionIntervalLabelHidden)
+	}
+
+	/// Adjusts the UI for the risk views of a given cell.
+	private func configureRiskViewsUI(for cell: RiskLevelCollectionViewCell) {
+		let itemCellConfigurators = setupItemCellConfigurators()
+		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
+	}
+
+	private func setupItemCellConfigurators() -> [HomeRiskViewConfiguratorAny] {
+		if isLoading {
+			return [
+				HomeRiskLoadingItemViewConfigurator(
+					title: AppStrings.Home.riskCardStatusCheckBody,
+					titleColor: .enaColor(for: .textContrast),
+					isLoading: true,
+					color: .enaColor(for: .riskNeutral),
+					separatorColor: .enaColor(for: .hairlineContrast)
+				)
+			]
+		} else {
+			let activateItemTitle = String(format: AppStrings.Home.riskCardLastActiveItemTitle, previousRiskTitle)
+			let dateTitle = String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString)
+
+			return [
+				// Card for the last state of the risk state.
+				HomeRiskImageItemViewConfigurator(
+					title: activateItemTitle,
+					titleColor: .enaColor(for: .textContrast),
+					iconImageName: "Icons_LetzteErmittlung-Light",
+					iconTintColor: .enaColor(for: .textContrast),
+					color: .enaColor(for: .riskNeutral),
+					separatorColor: .enaColor(for: .hairlineContrast)),
+
+				// Card for the last exposure date.
+				HomeRiskImageItemViewConfigurator(
+					title: dateTitle,
+					titleColor: .enaColor(for: .textContrast),
+					iconImageName: "Icons_Aktualisiert",
+					iconTintColor: .enaColor(for: .textContrast),
+					color: .enaColor(for: .riskNeutral),
+					separatorColor: .enaColor(for: .hairlineContrast)
+				)
+			]
+		}
+	}
+
+	// MARK: - Configuration.
+
 	override func configure(cell: RiskLevelCollectionViewCell) {
 		cell.delegate = self
 
-		let title: String = isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardUnknownTitle
-		let titleColor: UIColor = .enaColor(for: .textContrast)
-		cell.configureTitle(title: title, titleColor: titleColor)
+		// Configure the UI.
 
-		let body: String = AppStrings.Home.riskCardUnknown48hBody
-		cell.configureBody(text: body, bodyColor: titleColor, isHidden: isLoading)
+		configureUI(for: cell)
+		configureRiskViewsUI(for: cell)
 
-		let color: UIColor = .enaColor(for: .riskNeutral)
-		let separatorColor: UIColor = .enaColor(for: .hairlineContrast)
-		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
-		if isLoading {
-			let isLoadingItem = HomeRiskLoadingItemViewConfigurator(title: AppStrings.Home.riskCardStatusCheckBody, titleColor: titleColor, isLoading: true, color: color, separatorColor: separatorColor)
-			itemCellConfigurators.append(isLoadingItem)
-		} else {
-
-			let previousRiskTitle: String
-			switch previousRiskLevel {
-			case .low?:
-				previousRiskTitle = AppStrings.Home.riskCardLastActiveItemLowTitle
-			case .increased?:
-				previousRiskTitle = AppStrings.Home.riskCardLastActiveItemHighTitle
-			default:
-				previousRiskTitle = AppStrings.Home.riskCardLastActiveItemUnknownTitle
-			}
-
-			let activateItemTitle = String(format: AppStrings.Home.riskCardLastActiveItemTitle, previousRiskTitle)
-			let iconTintColor: UIColor = titleColor
-			let item1 = HomeRiskImageItemViewConfigurator(title: activateItemTitle, titleColor: titleColor, iconImageName: "Icons_LetzteErmittlung-Light", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
-			let dateTitle = String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString)
-			let item2 = HomeRiskImageItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "Icons_Aktualisiert", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
-			itemCellConfigurators.append(contentsOf: [item1, item2])
-
-		}
-		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
-
-		cell.configureBackgroundColor(color: color)
-
-		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, "\(detectionInterval)")
-		cell.configureDetectionIntervalLabel(
-			text: intervalTitle,
-			isHidden: detectionIntervalLabelHidden
-		)
-
-		configureButton(for: cell)
 		setupAccessibility(cell)
 	}
 
