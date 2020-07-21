@@ -24,14 +24,6 @@ import XCTest
 
 class HomeUnknown48hRiskCellConfiguratorTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
 	func test_unknownRiskLevelCell_shouldHaveEqualHash() {
 		let date = Date()
 		let configurator1 = HomeUnknown48hRiskCellConfigurator(isLoading: false, lastUpdateDate: date, detectionInterval: 0, detectionMode: .manual, manualExposureDetectionState: .possible, previousRiskLevel: .low)
