@@ -65,6 +65,7 @@ final class SimpleTaskScheduler: ENATaskScheduler {
 		SimpleTaskScheduler.log(message: "Registering tasks.")
 		registerTask(with: .exposureNotification, execute: exposureNotificationTask(_:))
 		registerTask(with: .fetchTestResults, execute: fetchTestResultsTask(_:))
+		SimpleTaskScheduler.showNotification(title: "Initialized SimpleTaskScheduler", subtitle: "Success!", body: "You can now put the app in background.")
 	}
 
 	// MARK: - Task registration.
@@ -115,6 +116,7 @@ final class SimpleTaskScheduler: ENATaskScheduler {
 
 	private func exposureNotificationTask(_ task: BGTask) {
 		SimpleTaskScheduler.log(message: "exposureNotificationTask called: \(task). delegate: \(String(describing: delegate))")
+		SimpleTaskScheduler.showNotification(title: "ExposureNotificationTask", subtitle: "fired at \(Date())", body: "\(task)")
 		delegate?.executeFetchTestResults(task: task) { success in
 			task.setTaskCompleted(success: success)
 			SimpleTaskScheduler.log(message: "exposureNotificationTask delegate callback: set task to completed! \(task)")
@@ -124,6 +126,7 @@ final class SimpleTaskScheduler: ENATaskScheduler {
 
 	private func fetchTestResultsTask(_ task: BGTask) {
 		SimpleTaskScheduler.log(message: "fetchTestResultsTask called: \(task). delegate: \(String(describing: delegate))")
+		SimpleTaskScheduler.showNotification(title: "fetchTestResultsTask", subtitle: "fired at \(Date())", body: "\(task)")
 		delegate?.executeFetchTestResults(task: task) { success in
 			task.setTaskCompleted(success: success)
 			SimpleTaskScheduler.log(message: "fetchTestResultsTask delegate callback: set task to completed! \(task)")
@@ -133,7 +136,7 @@ final class SimpleTaskScheduler: ENATaskScheduler {
 
 	// MARK: - Util.
 
-	static func log(message: String) {
+	private static func log(message: String) {
 		let fm = FileManager.default
 		guard
 			let data = ["\(Date())", message, "\n"].joined(separator: " ").data(using: .utf8),
@@ -149,6 +152,34 @@ final class SimpleTaskScheduler: ENATaskScheduler {
 		
 		print(String(bytes: data, encoding: .utf8) ?? "-")
 	}
+
+	private static func showNotification(
+		title: String,
+		subtitle: String,
+		body: String,
+		notificationIdentifier: String = "com.sap.ios.cwa.background-test"
+	) {
+			let content = UNMutableNotificationContent()
+			content.title = title
+			content.subtitle = subtitle
+			content.body = body
+
+			let trigger = UNTimeIntervalNotificationTrigger(
+				timeInterval: 1,
+				repeats: false
+			)
+
+			let request = UNNotificationRequest(
+				identifier: notificationIdentifier,
+				content: content,
+				trigger: trigger
+			)
+
+			UNUserNotificationCenter.current().add(request) { error in
+				guard let error = error else { return }
+				logError(message: "There was an error scheduling the local notification. \(error.localizedDescription)")
+			}
+	}
 }
 
 /// - TODO: Is this really necessary?
@@ -161,4 +192,3 @@ extension SimpleTaskScheduler: ExposureStateUpdating {
 		}*/
 	}
 }
-
