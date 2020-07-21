@@ -316,7 +316,9 @@ extension SceneDelegate: ExposureStateUpdating {
 		riskProvider.requestRisk(userInitiated: false)
 		homeController?.updateExposureState(state)
 		enStateHandler?.updateExposureState(state)
-		taskScheduler.updateExposureState(state)
+
+		// Ignore this for now. This might be a premature optimization.
+		// taskScheduler.updateExposureState(state)
 	}
 }
 

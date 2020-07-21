@@ -81,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var store: Store = SecureStore(subDirectory: "database")
 	
 	private let consumer = RiskConsumer()
-	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
+	let taskScheduler: ENATaskScheduler = SimpleTaskScheduler.shared
 
 	lazy var riskProvider: RiskProvider = {
 		let exposureDetectionInterval = self.store.hourlyFetchingEnabled ? DateComponents(minute: 45) : DateComponents(hour: 24)
@@ -138,7 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	) -> Bool {
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
-		taskScheduler.taskDelegate = self
+		taskScheduler.delegate = self
 
 		riskProvider.observeRisk(consumer)
 
