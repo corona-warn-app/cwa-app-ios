@@ -29,13 +29,48 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		_ detection: ExposureDetection,
 		determineAvailableData completion: @escaping (DaysAndHours?) -> Void
 	) {
+		let group = DispatchGroup()
+
+		var daysAndHours = DaysAndHours(days: [], hours: [])
+		var errors = [Error]()
+
+		// We only want to download hours in case the hourly fetching mode is enabled.
+		// Enabling the hourly fetching mode is only possible for dev/test builds.
+		// Unfortunately this mode cannot be enabled in production due to technical limitations
+		// regarding the exposure notification framework.
+		if store.hourlyFetchingEnabled {
+			group.enter()
+			client.availableHours(day: .formattedToday()) { result in
+				switch result {
+				case let .success(hours):
+					daysAndHours.hours = hours
+				case let .failure(error):
+					errors.append(error)
+				}
+				group.leave()
+			}
+		}
+
+		group.enter()
 		client.availableDays { result in
 			switch result {
 			case let .success(days):
-				completion((days: days, hours: []))
-			case .failure:
-				completion(nil)
+				daysAndHours.days = days
+			case let .failure(error):
+				errors.append(error)
 			}
+			group.leave()
+		}
+
+		group.notify(queue: .main) {
+			guard errors.isEmpty else {
+				logError(
+					message: "Unable to determine available data due to errors:\n \(errors.map { $0.localizedDescription }.joined(separator: "\n"))"
+				)
+				completion(/* we are unable to determine the days and hours */ nil)
+				return
+			}
+			completion(daysAndHours)
 		}
 	}
 
@@ -49,7 +84,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 			localDays: Set(downloadedPackagesStore.allDays()),
 			localHours: Set(downloadedPackagesStore.hours(for: .formattedToday()))
 		)
-		return (
+		return DaysAndHours(
 			days: Array(delta.missingDays),
 			hours: Array(delta.missingHours)
 		)
