@@ -23,11 +23,6 @@ enum ENATaskIdentifier: String, CaseIterable {
 	// only one task identifier is allowed have the .exposure-notification suffix
 	case exposureNotification = "exposure-notification"
 
-	var backgroundTaskScheduleInterval: TimeInterval? {
-		switch self {
-		case .exposureNotification: return nil // Apple schedules this special case regularly per default.
-		}
-	}
 	var backgroundTaskSchedulerIdentifier: String {
 		guard let bundleID = Bundle.main.bundleIdentifier else { return "invalid-task-id!" }
 		return "\(bundleID).\(rawValue)"
@@ -89,21 +84,13 @@ final class SimpleTaskScheduler: ENATaskScheduler {
 			let taskRequest = BGProcessingTaskRequest(identifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
 			taskRequest.requiresNetworkConnectivity = true
 			taskRequest.requiresExternalPower = false
-			taskRequest.earliestBeginDate = earliestBeginDate(for: taskIdentifier)
+			taskRequest.earliestBeginDate = nil
 			SimpleTaskScheduler.log(message: "scheduleTask(with: \(taskIdentifier)) built a task request: \(taskRequest)")
 			try BGTaskScheduler.shared.submit(taskRequest)
 			SimpleTaskScheduler.log(message: "scheduleTask(with: \(taskIdentifier)) submitted a task request: \(taskRequest)")
 		} catch {
 			SimpleTaskScheduler.log(message: "ERROR! scheduleTask(with: \(taskIdentifier)) could NOT submit task request: \(error)")
 		}
-	}
-
-	private func earliestBeginDate(for taskIdentifier: ENATaskIdentifier) -> Date? {
-		guard let interval = taskIdentifier.backgroundTaskScheduleInterval else {
-			return nil
-		}
-
-		return Date(timeIntervalSinceNow: interval)
 	}
 
 	// MARK: - Task execution handlers.
