@@ -157,7 +157,7 @@ final class SimpleTaskScheduler: ENATaskScheduler {
 		title: String,
 		subtitle: String,
 		body: String,
-		notificationIdentifier: String = "com.sap.ios.cwa.background-test"
+		notificationIdentifier: String = "com.sap.ios.cwa.background-test.\(UUID().uuidString)"
 	) {
 			let content = UNMutableNotificationContent()
 			content.title = title
