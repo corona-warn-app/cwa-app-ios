@@ -24,6 +24,7 @@ protocol CoordinatorDelegate: AnyObject {
 	func coordinatorUserDidRequestReset()
 }
 
+///
 class Coordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 
@@ -171,7 +172,7 @@ extension Coordinator: HomeViewControllerDelegate {
 	}
 
 	func showExposureSubmission(with result: TestResult? = nil) {
-		// A strong reference to the coordinator is passed to the exposre submission navigation controller
+		// A strong reference to the coordinator is passed to the exposure submission navigation controller
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.
 		let coordinator = ExposureSubmissionCoordinator(
