@@ -36,6 +36,10 @@ enum AppStrings {
 		static let enError5Description = NSLocalizedString("Common_ENError5_Description", comment: "")
 		static let enError11Description = NSLocalizedString("Common_ENError11_Description", comment: "")
 		static let enError13Description = NSLocalizedString("Common_ENError13_Description", comment: "")
+		static let backgroundFetch_AlertMessage = NSLocalizedString("Common_BackgroundFetch_AlertMessage", comment: "")
+		static let backgroundFetch_OKTitle = NSLocalizedString("Common_BackgroundFetch_OKTitle", comment: "")
+		static let backgroundFetch_SettingsTitle = NSLocalizedString("Common_BackgroundFetch_SettingsTitle", comment: "")
+		static let backgroundFetch_AlertTitle = NSLocalizedString("Common_BackgroundFetch_AlertTitle", comment: "")
 	}
 
 	enum Links {
@@ -219,6 +223,7 @@ enum AppStrings {
 		static let refreshedFormat = NSLocalizedString("ExposureDetection_Refreshed_Format", comment: "")
 		static let refreshedNever = NSLocalizedString("ExposureDetection_Refreshed_Never", comment: "")
 		static let refreshingIn = NSLocalizedString("ExposureDetection_RefreshingIn", comment: "")
+		static let refreshIn = NSLocalizedString("ExposureDetection_RefreshIn", comment: "")
 		static let refresh24h = NSLocalizedString("ExposureDetection_Refresh_24h", comment: "")
 		static let lastRiskLevel = NSLocalizedString("ExposureDetection_LastRiskLevel", comment: "")
 		static let offText = NSLocalizedString("ExposureDetection_OffText", comment: "")
@@ -247,6 +252,7 @@ enum AppStrings {
 		static let explanationTextUnknown = NSLocalizedString("ExposureDetection_Explanation_Text_Unknown", comment: "")
 		static let explanationTextLow = NSLocalizedString("ExposureDetection_Explanation_Text_Low", comment: "")
 		static let explanationTextHigh = NSLocalizedString("ExposureDetection_Explanation_Text_High", comment: "")
+		static let explanationTextHighDaysSinceLastExposure = NSLocalizedString("ExposureDetection_Explanation_Text_High_DaysSinceLastExposure", comment: "")
 
 		static let buttonEnable = NSLocalizedString("ExposureDetection_Button_Enable", comment: "")
 		static let buttonRefresh = NSLocalizedString("ExposureDetection_Button_Refresh", comment: "")
