@@ -146,7 +146,6 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 			completion(withResultFrom(summary: summary, error: error))
 		}
 	}
-
 }
 
 extension DownloadedPackagesStore {
@@ -160,23 +159,5 @@ extension DownloadedPackagesStore {
 		hours.bucketsByHour.forEach { hour, bucket in
 			self.set(hour: hour, day: hours.day, package: bucket)
 		}
-	}
-}
-
-private extension DownloadedPackagesStore {
-	func allPackages(for day: String, onlyHours: Bool) -> [SAPDownloadedPackage] {
-		var packages = [SAPDownloadedPackage]()
-
-		if onlyHours {  // Testing only: Feed last three hours into framework
-			let allHoursForToday = hourlyPackages(for: .formattedToday())
-			packages.append(contentsOf: Array(allHoursForToday.prefix(3)))
-		} else {
-			let fullDays = allDays()
-			packages.append(
-				contentsOf: fullDays.map { package(for: $0) }.compactMap { $0 }
-			)
-		}
-
-		return packages
 	}
 }

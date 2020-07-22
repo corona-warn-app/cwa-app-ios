@@ -28,13 +28,13 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		let availableDataToBeCalled = expectation(description: "availableData called")
 		delegate.availableData = {
 			availableDataToBeCalled.fulfill()
-			return (days: ["2020-05-01"], hours: [])
+			return .init(days: ["2020-05-01"], hours: [])
 		}
 
 		let downloadDeltaToBeCalled = expectation(description: "downloadDelta called")
 		delegate.downloadDelta = { _ in
 			downloadDeltaToBeCalled.fulfill()
-			return (days: ["2020-05-01"], hours: [])
+			return .init(days: ["2020-05-01"], hours: [])
 		}
 
 		let downloadAndStoreToBeCalled = expectation(description: "downloadAndStore called")
