@@ -198,27 +198,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				self.submitExposureCleanup()
 				return
 			}
-
-			var transmissionRiskDefaultVector: [Int] {
-				[5, 6, 8, 8, 8, 5, 3, 1, 1, 1, 1, 1, 1, 1, 1]
-			}
-
-			keys.sort {
-				$0.rollingStartNumber > $1.rollingStartNumber
-			}
-			
-			if keys.count > 14 {
-				keys = Array(keys[0 ..< 14])
-			}
-			
-			let startIndex = 0
-			for i in startIndex...keys.count - 1 {
-				if i + 1 <= transmissionRiskDefaultVector.count - 1 {
-					keys[i].transmissionRiskLevel = UInt8(transmissionRiskDefaultVector[i + 1])
-				} else {
-					keys[i].transmissionRiskLevel = UInt8(1)
-				}
-			}
+			keys.processedForSubmission()
 
 			self.getTANForExposureSubmit(hasConsent: true, completion: { result in
 				switch result {

@@ -118,7 +118,7 @@
 
 "ExposureDetection_Explanation_Text_Low" = "COVID-19 tanısı konan bir kişiyle herhangi bir karşılaşma yaşadığınız günlüğe eklenmediği veya karşılaşmanız yalnızca kısa bir süreyle uzun mesafeli olarak gerçekleştiği için enfeksiyon riskiniz düşüktür.\n\nBu nedenle enfeksiyon riskiniz düşük olarak derecelendirilmiştir.\n\nEnfeksiyon riski, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.";
 
-"ExposureDetection_Explanation_Text_High" = "En son iki gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kaldığınız için enfeksiyon riskiniz daha yüksektir.\n\nBu nedenle enfeksiyon riskiniz artmış olarak derecelendirilmiştir.\nEnfeksiyon riskiniz, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.\nEve gittiğinizde lütfen aile fertleriniz veya ev arkadaşlarınızla yakın temastan kaçının.";
+"ExposureDetection_Explanation_Text_High" = "\n\nBu nedenle enfeksiyon riskiniz artmış olarak derecelendirilmiştir.\nEnfeksiyon riskiniz, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.\nEve gittiğinizde lütfen aile fertleriniz veya ev arkadaşlarınızla yakın temastan kaçının.";
 
 "ExposureDetection_Button_Enable" = "Maruz Kalma Günlüğünü Etkinleştir";
 
