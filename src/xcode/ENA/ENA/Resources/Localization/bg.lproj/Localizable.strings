@@ -19,6 +19,31 @@
 
 "General_BackButtonTitle" = "Назад";
 
+"Common_ENError5_Description" = "Грешка 5: Нещо се обърка. Вашето ниво на риск не може да бъде определено. Работим по намиране на решение за проблема.";
+
+"Common_ENError11_Description" = "Грешка 11: Нещо се обърка. Вашето ниво на риск не може да бъде определено. Моля, рестартирайте устройството си и опитайте отново утре.";
+
+"Common_ENError13_Description" = "Грешка 13: Регистрирането на Вашето излагане на риск днес вече е извършено. Моля, опитайте отново след 24 часа.";
+
+"Common_Alert_Action_moreInfo" = "Научете повече";
+
+"Common_BackgroundFetch_AlertMessage" = "Дезактивирали сте фоновите актуализации за приложението Corona-Warn-App. Моля, активирайте ги, за да използвате автоматичното регистриране на излагания на риск. Ако не го направите, регистрирането на излаганията може да бъде стартирано само ръчно от приложението.\n\nМоже да активирате фоновите актуализации за приложението от настройките на Вашето устройство.";
+
+"Common_BackgroundFetch_SettingsTitle" = "Към настройките за устройството";
+
+"Common_BackgroundFetch_OKTitle" = "Ръчно стартиране на регистрирането на излагания на риск";
+
+"Common_BackgroundFetch_AlertTitle" = "Фоновите актуализации са дезактивирани";
+
+/* General - Links */
+"General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
+
+"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
+
+"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
+
+"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
+
 /* Accessibility */
 "AccessibilityLabel_Close" = "Затваряне";
 
@@ -43,9 +68,11 @@
 
 "ExposureDetection_RefreshingIn" = "Актуализиране след %02d:%02d\U00A0минути";
 
+"ExposureDetection_RefreshIn" = "Актуализиране след %@";
+
 "ExposureDetection_Refresh_24h" = "Актуализиране на всеки 24 часа";
 
-"ExposureDetection_LastRiskLevel" = "Последно регистриране на излагане на риск:\n%@";
+"ExposureDetection_LastRiskLevel" = "Последно регистриране на излагане на риск: %@";
 
 "ExposureDetection_OffText" = "Активирайте регистрирането на излагания на риск, за да разберете какво е нивото Ви на риск днес.";
 
@@ -98,7 +125,7 @@
 "ExposureDetection_Button_Refresh" = "Актуализиране";
 
 /* Exposure Detection Errors */
-"ExposureDetectionError_Alert_Title" = "Нещо се обърка.";
+"ExposureDetectionError_Alert_Title" = "Грешка";
 
 "ExposureDetectionError_Alert_Action_Details" = "Подробна информация";
 
@@ -384,7 +411,7 @@
 
 "ExposureSubmissionResult_CardInvalid" = "Не може да бъде определен резултат";
 
-"ExposureSubmissionResult_CardPending" = "Все още няма наличен резултат от теста Ви";
+"ExposureSubmissionResult_CardPending" = "Все още няма резултат от теста Ви";
 
 "ExposureSubmissionResult_Procedure" = "Как работи:";
 
@@ -484,22 +511,6 @@
 "ExposureSubmissionError_unknown" = "Неизвестна грешка";
 
 "ExposureSubmissionError_defaultError" = "Възникна грешка при предаването на кода";
-
-"ExposureSubmissionError_unsupported" = "Грешка 5: Нещо се обърка. Вашето ниво на риск не може да бъде определено. Работим по намиране на решение за проблема.";
-
-"ExposureSubmissionError_internal" = "Грешка 11: Нещо се обърка. Вашето ниво на риск не може да бъде определено. За повече информация вижте страницата „ЧЗВ“.";
-
-"ExposureSubmissionError_rateLimited" = "Грешка 13: Регистрирането на Вашето излагане на риск днес вече е извършено. Моля, опитайте отново утре.";
-
-"ExposureSubmissionError_moreInfo" = "Научете повече";
-
-"ExposureSubmissionError_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
-
-"ExposureSubmissionError_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
-
-"ExposureSubmissionError_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
-
-"ExposureSubmissionError_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Регистриране на излаганията на риск";
@@ -611,9 +622,9 @@
 
 "Home_Risk_Inactive_NoCalculation_Possible_Body" = "Активирайте регистрирането на излагания на риск, за да разберете какво е нивото Ви на риск днес.";
 
-"Home_Risk_Inactive_Outdated_Results_Body" = "Регистрирането на излагания не е обновявано повече от 24 часа.";
+"Home_Risk_Inactive_Outdated_Results_Body" = "Регистърът на излаганията на риск не е обновяван повече от 24 часа.";
 
-"Home_Risk_Inactive_Activate_Item_Title" = "Последна регистрация на излагане: %@";
+"Home_Risk_Inactive_Activate_Item_Title" = "Последно регистриране на излагане на риск: %@";
 
 "Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Неизвестен риск";
 
@@ -640,14 +651,14 @@
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Извършва се проверка ...";
 
-"Home_Risk_Status_Check_Body" = "Актуалните данни се свалят и проверяват. Това може да отнеме няколко минути.";
+"Home_Risk_Status_Check_Body" = "Извършва се изтегляне и проверка на актуалните данни. Това може да отнеме няколко минути.";
 
 "Home_Risk_Status_Check_Button" = "Актуализиране";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Благодарим Ви!";
 
-"Home_Thank_You_Card_Body" = "Благодарение на Вашата подкрепа, други хора ще бъдат предупредени и ще могат да реагират адекватно.";
+"Home_Thank_You_Card_Body" = "Благодарение на Вашата подкрепа други хора ще бъдат предупредени и ще могат да реагират адекватно.";
 
 "Home_Thank_You_Card_Note_Title" = "Моля, не забравяйте:";
 
@@ -704,9 +715,9 @@
 "Home_AppInformationCard_Version" = "Версия";
 
 /* Home Result Card */
-"Home_resultCard_ResultAvailableTitle" = "Резултатът от Вашия тест е наличен";
+"Home_resultCard_ResultAvailableTitle" = "Резултатът от теста Ви е готов";
 
-"Home_resultCard_ResultUnvailableTitle" = "Все още няма резултат от Вашия тест";
+"Home_resultCard_ResultUnvailableTitle" = "Все още няма резултат от теста Ви";
 
 "Home_resultCard_ShowResultButton" = "Показване на тест";
 
@@ -733,7 +744,7 @@
 
 "App_Information_About_Title" = "Да се преборим с коронавируса заедно";
 
-"App_Information_About_Description" = "Институтът „Роберт Кох“ (RKI) е федералният орган за обществено здравеопазване в Германия. Той е издател на приложението Corona-Warn-App по поръчка на федералното правителство. Приложението представлява дигитално продължение на вече въведените мерки за опазване на общественото здраве: социално дистанциране, поддържане на висока хигиена и носене на маски.";
+"App_Information_About_Description" = "Институтът „Роберт Кох“ (RKI) е федералният орган за обществено здравеопазване в Германия. Той е издател на приложението Corona-Warn-App по поръчка на федералното правителство. Приложението е предназначено да бъде дигитално допълнение на вече въведените мерки за опазване на общественото здраве: социално дистанциране, поддържане на висока хигиена и носене на маски.";
 
 "App_Information_About_Text" = "Всеки, който използва приложението, помага за проследяване и прекъсване на веригите на заразяване. Приложението запазва във Вашето устройство данните за контактите Ви с други хора. Получавате известие, ако сте били в контакт с лица, които впоследствие са били диагностицирани с COVID-19. Вашата самоличност и неприкосновеността на данните Ви са защитени по всяко време.";
 
@@ -812,7 +823,7 @@
 
 "InviteFriends_ShareTitle" = "Да се преборим с коронавируса заедно. Аз ще участвам, а ти?";
 
-"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-englisch";
+"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
 
 "InviteFriends_Illustration_Label" = "Човек споделя приложението Corona-Warn-App с четирима души.";
 

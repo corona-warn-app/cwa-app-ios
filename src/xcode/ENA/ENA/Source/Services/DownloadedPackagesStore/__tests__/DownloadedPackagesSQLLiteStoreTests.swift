@@ -255,15 +255,3 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		)
 	}
 }
-
-private extension FMDatabase {
-	class func inMemory() -> FMDatabase {
-		FMDatabase(path: "file::memory:")
-	}
-}
-
-private extension DownloadedPackagesSQLLiteStore {
-	class func inMemory() -> DownloadedPackagesSQLLiteStore {
-		DownloadedPackagesSQLLiteStore(database: .inMemory())
-	}
-}
