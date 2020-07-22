@@ -19,5 +19,5 @@
 import Foundation
 
 extension HTTPClient.Configuration {
-	static let fake = HTTPClient.Configuration.production
+	static let fake = HTTPClient.Configuration.backendBaseURLs
 }

@@ -21,7 +21,7 @@ extension HTTPClient {
 	struct Configuration {
 		// MARK: Default Instances
 
-		static let production = Configuration(
+		static let backendBaseURLs = Configuration(
 			apiVersion: "v1",
 			country: "DE",
 			endpoints: Configuration.Endpoints(
@@ -39,43 +39,6 @@ extension HTTPClient {
 				)
 			)
 		)
-
-		static func loadFromPlist(dictionaryNameInPList: String) -> Configuration? {
-			let plistDict = Bundle.main.infoDictionary?["BackendURLs"] as? [ String: Any ]
-
-			guard
-				let distributionString = plistDict?["distribution"] as? String,
-				let submissionString = plistDict?["submission"] as? String,
-				let verificationString = plistDict?["verification"] as? String else {
-					return nil
-			}
-
-			guard
-				let distribution = URL(string: distributionString),
-				let submission = URL(string: submissionString),
-				let verification = URL(string: verificationString) else {
-					return nil
-			}
-
-			return Configuration(
-				apiVersion: "v1",
-				country: "DE",
-				endpoints: Configuration.Endpoints(
-					distribution: .init(
-						baseURL: distribution,
-						requiresTrailingSlash: false
-					),
-					submission: .init(
-						baseURL: submission,
-						requiresTrailingSlash: false
-					),
-					verification: .init(
-						baseURL: verification,
-						requiresTrailingSlash: false
-					)
-				)
-			)
-		}
 
 		// MARK: Properties
 

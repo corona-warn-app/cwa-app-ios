@@ -60,7 +60,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Properties
 
 	private var sections: HomeInteractor.SectionConfiguration = []
-	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
+	private var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable>?
 	private var collectionView: UICollectionView! { view as? UICollectionView }
 	private var homeInteractor: HomeInteractor!
 
@@ -81,6 +81,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		setupBackgroundFetchAlert()
 		configureCollectionView()
 		configureDataSource()
 		setupAccessibility()
@@ -118,6 +120,23 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		updateBackgroundColor()
 	}
 
+	/// This method sets up a background fetch alert, and presents it, if needed.
+	/// Check the `createBackgroundFetchAlert` method for more information.
+	private func setupBackgroundFetchAlert() {
+		guard let alert = createBackgroundFetchAlert(
+			status: UIApplication.shared.backgroundRefreshStatus,
+			inLowPowerMode: ProcessInfo.processInfo.isLowPowerModeEnabled,
+			hasSeenAlertBefore: homeInteractor.store.hasSeenBackgroundFetchAlert,
+			store: homeInteractor.store
+			) else { return }
+
+		self.present(
+			alert,
+			animated: true,
+			completion: nil
+		)
+	}
+
 	private func setupAccessibility() {
 		navigationItem.leftBarButtonItem?.customView = UIImageView(image: navigationItem.leftBarButtonItem?.image)
 		navigationItem.leftBarButtonItem?.isAccessibilityElement = true
@@ -146,7 +165,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: homeInteractor.state.exposureManagerState,
 			detectionMode: homeInteractor.state.detectionMode,
-			isLoading: homeInteractor.isRequestRiskRunning,
+			isLoading: homeInteractor.riskProvider.isLoading,
 			risk: homeInteractor.state.risk
 		)
 		exposureDetectionController?.state = state
@@ -165,17 +184,21 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	func showExposureSubmission(with result: TestResult? = nil) {
-		present(
-			AppStoryboard.exposureSubmission.initiateInitial { coder in
-				ExposureSubmissionNavigationController(
-					coder: coder,
-					exposureSubmissionService: self.homeInteractor.exposureSubmissionService,
-					submissionDelegate: self,
-					testResult: result
-				)
-			},
-			animated: true
+		guard let navigationController = self.navigationController else {
+			log(message: "No navigation controller found.", level: .error, file: #file, line: #line, function: #function)
+			return
+		}
+
+		// A strong reference to the coordinator is passed to the exposre submission navigation controller
+		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
+		// which is managed by UIKit.
+		let coordinator = ExposureSubmissionCoordinator(
+			parentNavigationController: navigationController,
+			exposureSubmissionService: homeInteractor.exposureSubmissionService,
+			delegate: self
 		)
+
+		coordinator.start(with: result)
 	}
 
 	func showDeveloperMenu() {
@@ -227,7 +250,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: homeInteractor.state.exposureManagerState,
 			detectionMode: homeInteractor.state.detectionMode,
-			isLoading: homeInteractor.isRequestRiskRunning,
+			isLoading: homeInteractor.riskProvider.isLoading,
 			risk: homeInteractor.state.risk
 		)
 		let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
@@ -329,7 +352,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	private func configureDataSource() {
-		dataSource = UICollectionViewDiffableDataSource<Section, UUID>(collectionView: collectionView) { [unowned self] collectionView, indexPath, _ in
+		dataSource = UICollectionViewDiffableDataSource<Section, AnyHashable>(collectionView: collectionView) { [unowned self] collectionView, indexPath, _ in
 			let configurator = self.sections[indexPath.section].cellConfigurators[indexPath.row]
 			let cell = collectionView.dequeueReusableCell(cellType: configurator.viewAnyType, for: indexPath)
 			cell.unhighlight()
@@ -339,10 +362,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	func applySnapshotFromSections(animatingDifferences: Bool = false) {
-		var snapshot = NSDiffableDataSourceSnapshot<Section, UUID>()
+		var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
 		for section in sections {
 			snapshot.appendSections([section.section])
-			snapshot.appendItems( section.cellConfigurators.map { $0.identifier })
+			snapshot.appendItems( section.cellConfigurators.map { $0.hashValue })
 		}
 		dataSource?.apply(snapshot, animatingDifferences: animatingDifferences)
 	}
@@ -357,6 +380,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		} else {
 			collectionView.backgroundColor = .enaColor(for: .separator)
 		}
+	}
+
+	func cellForItem(at indexPath: IndexPath) -> UICollectionViewCell? {
+		return self.collectionView.cellForItem(at: indexPath)
 	}
 }
 
@@ -402,14 +429,6 @@ extension HomeViewController: UICollectionViewDelegate {
 }
 
 extension HomeViewController: ExposureDetectionViewControllerDelegate {
-	func didStartLoading(exposureDetectionViewController: ExposureDetectionViewController) {
-		homeInteractor.updateAndReloadRiskLoading(isRequestRiskRunning: true)
-	}
-
-	func didFinishLoading(exposureDetectionViewController: ExposureDetectionViewController) {
-		homeInteractor.updateAndReloadRiskLoading(isRequestRiskRunning: false)
-	}
-
 	func exposureDetectionViewController(
 		_: ExposureDetectionViewController,
 		setExposureManagerEnabled enabled: Bool,
@@ -494,8 +513,8 @@ extension HomeViewController: NavigationBarOpacityDelegate {
 	}
 }
 
-extension HomeViewController: ExposureSubmissionNavigationControllerDelegate {
-	func exposureSubmissionNavigationControllerWillDisappear(_ controller: ExposureSubmissionNavigationController) {
+extension HomeViewController: ExposureSubmissionCoordinatorDelegate {
+	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinating) {
 		updateTestResultState()
 	}
 }
