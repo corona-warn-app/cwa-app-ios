@@ -22,12 +22,10 @@ import UIKit
 enum ENATaskIdentifier: String, CaseIterable {
 	// only one task identifier is allowed have the .exposure-notification suffix
 	case exposureNotification = "exposure-notification"
-	case fetchTestResults = "fetch-test-results"
 
 	var backgroundTaskScheduleInterval: TimeInterval? {
 		switch self {
 		case .exposureNotification: return nil // Apple schedules this special case regularly per default.
-		case .fetchTestResults: return 2 * 60 * 60
 		}
 	}
 	var backgroundTaskSchedulerIdentifier: String {
@@ -43,12 +41,11 @@ protocol ENATaskScheduler: class {
 }
 
 protocol ENATaskExecutionDelegate: AnyObject {
-	func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void))
-	func executeFetchTestResults(task: BGTask, completion: @escaping ((Bool) -> Void))
+	func executeExposureNotificationTask(task: BGTask, completion: @escaping ((Bool) -> Void))
 }
 
 /// - NOTE: To simulate the execution of a background task, use the following:
-///         e -l objc -- (void)[[BGTaskScheduler sharedScheduler] _simulateLaunchForTaskWithIdentifier:@"de.rki.coronawarnapp-dev.fetch-test-results"]
+///         e -l objc -- (void)[[BGTaskScheduler sharedScheduler] _simulateLaunchForTaskWithIdentifier:@"de.rki.coronawarnapp-dev.exposure-notification"]
 final class SimpleTaskScheduler: ENATaskScheduler {
 
 	// MARK: - Static.
@@ -64,8 +61,7 @@ final class SimpleTaskScheduler: ENATaskScheduler {
 	private init() {
 		SimpleTaskScheduler.log(message: "Registering tasks.")
 		registerTask(with: .exposureNotification, execute: exposureNotificationTask(_:))
-		registerTask(with: .fetchTestResults, execute: fetchTestResultsTask(_:))
-		SimpleTaskScheduler.showNotification(title: "Initialized SimpleTaskScheduler", subtitle: "Success!", body: "You can now put the app in background.")
+		SimpleTaskScheduler.showNotification(title: "Initialized SimpleTaskScheduler", subtitle: "Success!", body: "You can now put the app in the background.")
 	}
 
 	// MARK: - Task registration.
@@ -86,8 +82,6 @@ final class SimpleTaskScheduler: ENATaskScheduler {
 
 	func scheduleTasks() {
 		scheduleTask(with: .exposureNotification)
-		scheduleTask(with: .fetchTestResults)
-		SimpleTaskScheduler.log(message: "Called scheduleTasks()")
 	}
 
 	private func scheduleTask(with taskIdentifier: ENATaskIdentifier) {
@@ -96,11 +90,11 @@ final class SimpleTaskScheduler: ENATaskScheduler {
 			taskRequest.requiresNetworkConnectivity = true
 			taskRequest.requiresExternalPower = false
 			taskRequest.earliestBeginDate = earliestBeginDate(for: taskIdentifier)
-			SimpleTaskScheduler.log(message: "scheduleTask(with: \(taskIdentifier) built a task request: \(taskRequest)")
+			SimpleTaskScheduler.log(message: "scheduleTask(with: \(taskIdentifier)) built a task request: \(taskRequest)")
 			try BGTaskScheduler.shared.submit(taskRequest)
-			SimpleTaskScheduler.log(message: "scheduleTask(with: \(taskIdentifier) submitted a task request: \(taskRequest)")
+			SimpleTaskScheduler.log(message: "scheduleTask(with: \(taskIdentifier)) submitted a task request: \(taskRequest)")
 		} catch {
-			SimpleTaskScheduler.log(message: "ERROR! scheduleTask(with: \(taskIdentifier) could NOT submit task request: \(error)")
+			SimpleTaskScheduler.log(message: "ERROR! scheduleTask(with: \(taskIdentifier)) could NOT submit task request: \(error)")
 		}
 	}
 
@@ -117,26 +111,17 @@ final class SimpleTaskScheduler: ENATaskScheduler {
 	private func exposureNotificationTask(_ task: BGTask) {
 		SimpleTaskScheduler.log(message: "exposureNotificationTask called: \(task). delegate: \(String(describing: delegate))")
 		SimpleTaskScheduler.showNotification(title: "ExposureNotificationTask", subtitle: "fired at \(Date())", body: "\(task)")
-		delegate?.executeFetchTestResults(task: task) { success in
+		delegate?.executeExposureNotificationTask(task: task) { success in
 			task.setTaskCompleted(success: success)
 			SimpleTaskScheduler.log(message: "exposureNotificationTask delegate callback: set task to completed! \(task)")
+			SimpleTaskScheduler.showNotification(title: "ExposureNotificationTask", subtitle: "done at \(Date())", body: "\(task)")
 			self.scheduleTask(with: .exposureNotification)
-		}
-	}
-
-	private func fetchTestResultsTask(_ task: BGTask) {
-		SimpleTaskScheduler.log(message: "fetchTestResultsTask called: \(task). delegate: \(String(describing: delegate))")
-		SimpleTaskScheduler.showNotification(title: "fetchTestResultsTask", subtitle: "fired at \(Date())", body: "\(task)")
-		delegate?.executeFetchTestResults(task: task) { success in
-			task.setTaskCompleted(success: success)
-			SimpleTaskScheduler.log(message: "fetchTestResultsTask delegate callback: set task to completed! \(task)")
-			self.scheduleTask(with: .fetchTestResults)
 		}
 	}
 
 	// MARK: - Util.
 
-	private static func log(message: String) {
+	static func log(message: String) {
 		let fm = FileManager.default
 		guard
 			let data = ["\(Date())", message, "\n"].joined(separator: " ").data(using: .utf8),
