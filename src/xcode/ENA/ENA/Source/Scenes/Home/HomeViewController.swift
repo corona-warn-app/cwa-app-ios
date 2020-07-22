@@ -28,7 +28,7 @@ protocol HomeViewControllerDelegate: AnyObject {
 	func showWebPage(from viewController: UIViewController, urlString: String)
 	func showAppInformation()
 	func showSettings(enState: ENStateHandler.State)
-	func addToUpdatingSetIfNeeded(_ anyObject: AnyObject?)
+	func addToEnStateUpdateList(_ anyObject: AnyObject?)
 }
 
 final class HomeViewController: UIViewController, RequiresAppDependencies {
@@ -54,7 +54,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				risk: risk
 			), exposureSubmissionService: exposureSubmissionService)
 		navigationItem.largeTitleDisplayMode = .never
-		delegate.addToUpdatingSetIfNeeded(homeInteractor)
+		delegate.addToEnStateUpdateList(homeInteractor)
 	}
 
 	@available(*, unavailable)

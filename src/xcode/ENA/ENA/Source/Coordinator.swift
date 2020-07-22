@@ -41,7 +41,7 @@ class Coordinator: RequiresAppDependencies {
 		)
 	}()
 
-	private var enStateUpdatingSet = NSHashTable<AnyObject>.weakObjects()
+	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
 	init(_ delegate: CoordinatorDelegate, _ rootViewController: UINavigationController) {
 		self.delegate = delegate
@@ -49,7 +49,7 @@ class Coordinator: RequiresAppDependencies {
 	}
 
 	deinit {
-		enStateUpdatingSet.removeAllObjects()
+		enStateUpdateList.removeAllObjects()
 	}
 
 	func showHome(enStateHandler: ENStateHandler, state: SceneDelegate.State) {
@@ -138,7 +138,7 @@ extension Coordinator: HomeViewControllerDelegate {
 					delegate: self
 			)
 		}
-		addToUpdatingSetIfNeeded(vc)
+		addToEnStateUpdateList(vc)
 		rootViewController.pushViewController(vc, animated: true)
 	}
 
@@ -211,15 +211,15 @@ extension Coordinator: HomeViewControllerDelegate {
 				delegate: self
 			)
 		}
-		addToUpdatingSetIfNeeded(vc)
+		addToEnStateUpdateList(vc)
 		settingsController = vc
 		rootViewController.pushViewController(vc, animated: true)
 	}
 
-	func addToUpdatingSetIfNeeded(_ anyObject: AnyObject?) {
+	func addToEnStateUpdateList(_ anyObject: AnyObject?) {
 		if let anyObject = anyObject,
 		   anyObject is ENStateHandlerUpdating {
-			enStateUpdatingSet.add(anyObject)
+			enStateUpdateList.add(anyObject)
 		}
 	}
 }
@@ -271,7 +271,7 @@ extension Coordinator: ENStateHandlerUpdating {
 	}
 
 	private func updateAllState(_ state: ENStateHandler.State) {
-		enStateUpdatingSet.allObjects.forEach { anyObject in
+		enStateUpdateList.allObjects.forEach { anyObject in
 			if let updating = anyObject as? ENStateHandlerUpdating {
 				updating.updateEnState(state)
 			}
