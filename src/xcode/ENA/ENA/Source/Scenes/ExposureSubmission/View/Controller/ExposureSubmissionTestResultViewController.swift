@@ -19,11 +19,27 @@ import Foundation
 import UIKit
 
 class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+
 	// MARK: - Attributes.
 
-	var exposureSubmissionService: ExposureSubmissionService?
 	var testResult: TestResult?
 	var timeStamp: Int64?
+	private(set) weak var coordinator: ExposureSubmissionCoordinating?
+	private(set) weak var exposureSubmissionService: ExposureSubmissionService?
+
+	// MARK: - Initializers.
+
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, exposureSubmissionService: ExposureSubmissionService, testResult: TestResult?) {
+		self.coordinator = coordinator
+		self.exposureSubmissionService = exposureSubmissionService
+		self.testResult = testResult
+		super.init(coder: coder)
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	// MARK: - View Lifecycle methods.
 
@@ -36,16 +52,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
-	}
-
-	override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
-		switch Segue(segue) {
-		case .warnOthers:
-			let destination = segue.destination as? ExposureSubmissionWarnOthersViewController
-			destination?.exposureSubmissionService = exposureSubmissionService
-		default:
-			return
-		}
 	}
 
 	// MARK: - View Setup Helper methods.
@@ -178,16 +184,9 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 				self.present(alert, animated: true, completion: nil)
 				return
 			}
-			performSegue(withIdentifier: Segue.warnOthers, sender: self)
+
+			self.coordinator?.showWarnOthersScreen()
 		}
-	}
-}
-
-// MARK: - Custom Segues.
-
-extension ExposureSubmissionTestResultViewController {
-	enum Segue: String, SegueIdentifier {
-		case warnOthers = "warnOthersSegue"
 	}
 }
 

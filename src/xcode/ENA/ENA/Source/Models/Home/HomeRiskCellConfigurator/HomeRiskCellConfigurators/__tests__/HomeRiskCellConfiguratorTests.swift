@@ -29,13 +29,12 @@ class HomeRiskCellConfiguratorTests: XCTestCase {
         let configurator = HomeLowRiskCellConfigurator(
 			isLoading: false,
 			numberRiskContacts: 0,
-			numberDays: 14,
-			totalDays: 14,
 			lastUpdateDate: Date().addingTimeInterval(-8 * 60 * 60),
 			isButtonHidden: false,
 			detectionMode: .manual,
 			manualExposureDetectionState: .waiting,
-			detectionInterval: detectionInterval
+			detectionInterval: detectionInterval,
+			activeTracing: ActiveTracing(interval: .init(hours: 42))
 		)
 
 		guard let cell = loadCell(ofType: RiskLevelCollectionViewCell.self) else {

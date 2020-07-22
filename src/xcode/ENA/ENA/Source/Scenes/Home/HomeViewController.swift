@@ -23,7 +23,7 @@ protocol HomeViewControllerDelegate: AnyObject {
 }
 
 // swiftlint:disable:next type_body_length
-final class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Creating a Home View Controller
 	init?(
 		coder: NSCoder,
@@ -101,6 +101,20 @@ final class HomeViewController: UIViewController {
 		updateBackgroundColor()
 	}
 
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		guard store.userNeedsToBeInformedAboutHowRiskDetectionWorks else {
+			return
+		}
+		// TODO: Check whether or not we have to display some kind of different alert (eg. the forced update alert).
+		let alert = UIAlertController.localizedHowRiskDetectionWorksAlertController(
+			maximumNumberOfDays: TracingStatusHistory.maxStoredDays
+		)
+		present(alert, animated: true) {
+			self.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = false
+		}
+	}
+
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		updateBackgroundColor()
@@ -170,17 +184,21 @@ final class HomeViewController: UIViewController {
 	}
 
 	func showExposureSubmission(with result: TestResult? = nil) {
-		present(
-			AppStoryboard.exposureSubmission.initiateInitial { coder in
-				ExposureSubmissionNavigationController(
-					coder: coder,
-					exposureSubmissionService: self.homeInteractor.exposureSubmissionService,
-					submissionDelegate: self,
-					testResult: result
-				)
-			},
-			animated: true
+		guard let navigationController = self.navigationController else {
+			log(message: "No navigation controller found.", level: .error, file: #file, line: #line, function: #function)
+			return
+		}
+
+		// A strong reference to the coordinator is passed to the exposre submission navigation controller
+		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
+		// which is managed by UIKit.
+		let coordinator = ExposureSubmissionCoordinator(
+			parentNavigationController: navigationController,
+			exposureSubmissionService: homeInteractor.exposureSubmissionService,
+			delegate: self
 		)
+
+		coordinator.start(with: result)
 	}
 
 	func showDeveloperMenu() {
@@ -242,7 +260,6 @@ final class HomeViewController: UIViewController {
 				delegate: self
 			)
 		}
-//		addToUpdatingSetIfNeeded(vc)
 		exposureDetectionController = vc as? ExposureDetectionViewController
 		present(vc, animated: true)
 	}
@@ -496,8 +513,8 @@ extension HomeViewController: NavigationBarOpacityDelegate {
 	}
 }
 
-extension HomeViewController: ExposureSubmissionNavigationControllerDelegate {
-	func exposureSubmissionNavigationControllerWillDisappear(_ controller: ExposureSubmissionNavigationController) {
+extension HomeViewController: ExposureSubmissionCoordinatorDelegate {
+	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinating) {
 		updateTestResultState()
 	}
 }

@@ -19,25 +19,28 @@ import UIKit
 
 final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	private var numberRiskContacts: Int
-	private var numberDays: Int
-	private var totalDays: Int
+	private var numberDays: Int {
+		activeTracing.inDays
+	}
+	private var totalDays: Int {
+		activeTracing.maximumNumberOfDays
+	}
+	private let activeTracing: ActiveTracing
 
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
 		isLoading: Bool,
 		numberRiskContacts: Int,
-		numberDays: Int,
-		totalDays: Int,
 		lastUpdateDate: Date?,
 		isButtonHidden: Bool,
 		detectionMode: DetectionMode,
 		manualExposureDetectionState: ManualExposureDetectionState?,
-		detectionInterval: Int
+		detectionInterval: Int,
+		activeTracing: ActiveTracing
 	) {
 		self.numberRiskContacts = numberRiskContacts
-		self.numberDays = numberDays
-		self.totalDays = totalDays
+		self.activeTracing = activeTracing
 		super.init(
 			isLoading: isLoading,
 			isButtonEnabled: manualExposureDetectionState == .possible,
@@ -76,15 +79,10 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 					separatorColor: separatorColor
 				)
 			)
-			let numberDaysString = String(numberDays)
-			let totalDaysString = String(totalDays)
-			let saveDays = String(
-				format: AppStrings.Home.riskCardLowSaveDaysItemTitle, numberDaysString, totalDaysString
-			)
-			let progressImage: String = numberDays >= totalDays ? "Icons_TracingCircleFull - Dark" : "Icons_TracingCircle-Dark_Step \(numberDays)"
+			let progressImage: String = numberDays >= totalDays ? "Icons_TracingCircleFull - Dark" : "Icons_TracingCircle-Dark_Step \(activeTracing.inDays)"
 			itemCellConfigurators.append(
 				HomeRiskImageItemViewConfigurator(
-					title: saveDays,
+					title: activeTracing.localizedDuration,
 					titleColor: titleColor,
 					iconImageName: progressImage,
 					iconTintColor: titleColor,
