@@ -19,6 +19,31 @@
 
 "General_BackButtonTitle" = "Înapoi";
 
+"Common_ENError5_Description" = "Eroarea 5: A apărut o problemă. Nivelul dvs. de risc nu poate fi determinat. Lucrăm la soluționarea problemei.";
+
+"Common_ENError11_Description" = "Eroarea 11: A apărut o problemă. Nivelul dvs. de risc nu poate fi determinat. Reporniți dispozitivul dvs. și reîncercați mâine.";
+
+"Common_ENError13_Description" = "Eroarea 13: Înregistrarea în jurnal a expunerilor dvs. pentru astăzi a fost deja efectuată. Reîncercați în 24 de ore.";
+
+"Common_Alert_Action_moreInfo" = "Aflați mai multe";
+
+"Common_BackgroundFetch_AlertMessage" = "Ați dezactivat actualizările în fundal pentru aplicația Corona-Warn. Activați actualizările în fundal pentru a utiliza înregistrarea automată în jurnal a expunerilor. Dacă nu activați actualizările în fundal, puteți porni doar manual în aplicație înregistrarea în jurnal a expunerilor.\n\nPuteți activa actualizările în fundal pentru aplicație în configurările dispozitivului dvs.";
+
+"Common_BackgroundFetch_SettingsTitle" = "Deschideți Configurările dispozitivului";
+
+"Common_BackgroundFetch_OKTitle" = "Porniți manual înregistrarea în jurnal a expunerilor";
+
+"Common_BackgroundFetch_AlertTitle" = "Actualizări în fundal dezactivate";
+
+/* General - Links */
+"General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
+
+"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
+
+"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
+
+"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
+
 /* Accessibility */
 "AccessibilityLabel_Close" = "Închidere";
 
@@ -42,6 +67,8 @@
 "ExposureDetection_Refreshed_Never" = "Necunoscut";
 
 "ExposureDetection_RefreshingIn" = "Actualizare în %02d:%02d\U00A0minute";
+
+"ExposureDetection_RefreshIn" = "Actualizare în %@";
 
 "ExposureDetection_Refresh_24h" = "Actualizată la fiecare 24 de ore";
 
@@ -98,7 +125,7 @@
 "ExposureDetection_Button_Refresh" = "Actualizare";
 
 /* Exposure Detection Errors */
-"ExposureDetectionError_Alert_Title" = "A apărut o problemă.";
+"ExposureDetectionError_Alert_Title" = "Eroare";
 
 "ExposureDetectionError_Alert_Action_Details" = "Detalii";
 
@@ -485,22 +512,6 @@
 
 "ExposureSubmissionError_defaultError" = "Eroare la transmiterea cheii";
 
-"ExposureSubmissionError_unsupported" = "Eroarea 5: A apărut o problemă. Nivelul dvs. de risc nu poate fi determinat. Lucrăm la soluționarea problemei.";
-
-"ExposureSubmissionError_internal" = "Eroarea 11: A apărut o problemă. Nivelul dvs. de risc nu poate fi determinat. Pentru mai multe informații, consultați pagina de întrebări frecvente.";
-
-"ExposureSubmissionError_rateLimited" = "Eroarea 13: Înregistrarea în jurnal a expunerilor dvs. pentru astăzi a fost deja efectuată. Reîncercați mâine.";
-
-"ExposureSubmissionError_moreInfo" = "Aflați mai multe";
-
-"ExposureSubmissionError_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
-
-"ExposureSubmissionError_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
-
-"ExposureSubmissionError_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
-
-"ExposureSubmissionError_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
-
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Înregistrarea în jurnal a expunerilor";
 
@@ -733,7 +744,7 @@
 
 "App_Information_About_Title" = "Să combatem împreună coronavirusul";
 
-"App_Information_About_Description" = "Robert Koch Institute (RKI) este un organism federal de sănătate publică din Germania. RKI a publicat aplicația Corona-Warn în numele Guvernului Federal. Aplicația reprezintă extinderea digitală a măsurilor de sănătate publică deja introduse: distanțarea socială, igiena și purtarea măștii.";
+"App_Information_About_Description" = "Robert Koch Institute (RKI) este un organism federal de sănătate publică din Germania. RKI a publicat aplicația Corona-Warn în numele Guvernului Federal. Aplicația are drept scop să completeze sub formă digitală măsurile de sănătate publică deja introduse: distanțarea socială, igiena și purtarea măștii.";
 
 "App_Information_About_Text" = "Persoanele care utilizează aplicația ajută la urmărirea și întreruperea lanțurilor de infectare. Aplicația salvează local, pe dispozitivul dvs., întâlnirile cu alte persoane. Sunteți notificat dacă ați întâlnit persoane care au fost diagnosticate ulterior cu COVID-19. Identitatea și confidențialitatea dvs. sunt protejate întotdeauna.";
 
@@ -812,7 +823,7 @@
 
 "InviteFriends_ShareTitle" = "Să combatem împreună coronavirusul. Eu vreau. Vrei și tu?";
 
-"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-englisch";
+"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
 
 "InviteFriends_Illustration_Label" = "Un bărbat partajează Corona-Warn-App cu alte patru persoane.";
 
