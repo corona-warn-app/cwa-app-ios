@@ -39,8 +39,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 				defer { successExpectation.fulfill() }
 
 				XCTAssertEqual(daysAndHours?.days, testDaysAndHours.days)
-				// Hours are explicitly returned as empty
-				XCTAssertEqual(daysAndHours?.hours, [])
+				XCTAssertEqual(daysAndHours?.hours, [23])
 			}
 		)
 		waitForExpectations(timeout: 2.0)
