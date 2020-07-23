@@ -26,19 +26,27 @@ final class CoronaWarnURLSessionDelegate: NSObject {
 	/// A dictionary containing a mapping of the host to the SHA256 public key string
 	private let domainPublicKeyHashes: [String: String]
 	/// Whitelist of domains we do not pin the public key for. Currently just the distribution URL
-	private let whitelist: [String]
+	#if ENABLE_WHITELIST
+		private let whitelist: [String]
+	#endif
 
 	// MARK: Creating a Delegate
 	override init() {
 		guard
-			let publicKeyDict = Bundle.main.readPlistDict(name: "PublicKeys"),
-			let hostWhitelist = Bundle.main.readPlistAsArr(name: "HostWhitelist")
+			let publicKeyDict = Bundle.main.readPlistDict(name: "PublicKeys")
 		else {
 			preconditionFailure("Could not load PublicKeys.plist for public key pinning!")
 		}
-
 		domainPublicKeyHashes = publicKeyDict
-		whitelist = hostWhitelist
+
+		#if ENABLE_WHITELIST
+			guard
+				let hostWhitelist = Bundle.main.readPlistAsArr(name: "HostWhitelist")
+				else {
+					preconditionFailure("Could not load HostWhitelist.plist for public key pinning!")
+			}
+			whitelist = hostWhitelist
+		#endif
 	}
 }
 
@@ -50,10 +58,12 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 	) {
 		func reject() { completionHandler(.cancelAuthenticationChallenge, /* credential */ nil) }
 
+		#if ENABLE_WHITELIST
 		guard !checkWhitelist(for: challenge.protectionSpace.host) else {
 			completionHandler(.performDefaultHandling, nil)
 			return
 		}
+		#endif
 
 		// `serverTrust` not nil implies that authenticationMethod == NSURLAuthenticationMethodServerTrust
 		guard
@@ -129,9 +139,11 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 	///
 	/// - parameter host: String host, ex. "apple.com"
 	/// - returns: Bool if the host was found in the list or not. Host strings are treated as regular expressions.
+	#if ENABLE_WHITELIST
 	func checkWhitelist(for host: String) -> Bool {
 		whitelist.contains(where: { host.range(of: $0, options: .regularExpression) != nil })
 	}
+	#endif
 }
 
 // [0] https://developer.apple.com/documentation/security/certificate_key_and_trust_services/trust/evaluating_a_trust_and_parsing_the_result
