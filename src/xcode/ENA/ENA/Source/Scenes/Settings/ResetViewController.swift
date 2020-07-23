@@ -94,16 +94,12 @@ final class ResetViewController: UIViewController {
 		resetButton.setTitle(AppStrings.Reset.resetButton, for: .normal)
 		discardButton.setTitle(AppStrings.Reset.discardButton, for: .normal)
 
-		if let resetButton = resetButton, let titleLabel = resetButton.titleLabel {
-			resetButton.addConstraint(NSLayoutConstraint(item: resetButton, attribute: .height, relatedBy: .equal, toItem: titleLabel, attribute: .height, multiplier: 1, constant: 0))
-		}
-
 		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.AccessibilityLabel.close
-		navigationItem.rightBarButtonItem?.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
+		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 
 		imageView.isAccessibilityElement = true
 		imageView.accessibilityLabel = AppStrings.Reset.imageDescription
-		imageView.accessibilityIdentifier = "AppString.Reset.imageDescription"
+		imageView.accessibilityIdentifier = AccessibilityIdentifiers.Reset.imageDescription
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

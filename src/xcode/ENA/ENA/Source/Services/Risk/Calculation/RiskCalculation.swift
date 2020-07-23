@@ -59,7 +59,7 @@ enum RiskCalculation {
 		summary: CodableExposureDetectionSummary?,
 		configuration: SAP_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
-		numberOfTracingActiveHours: Int, // Get this from the `TracingStatusHistory`
+		activeTracing: ActiveTracing, // Get this from the `TracingStatusHistory`
 		preconditions: ExposureManagerState,
 		providerConfiguration: RiskProvidingConfiguration,
 		currentDate: Date = Date()
@@ -69,7 +69,7 @@ enum RiskCalculation {
 			let appDelegate = UIApplication.shared.delegate as? AppDelegate // TODO: Remove
 			appDelegate?.lastRiskCalculation = ""  // Reset; Append from here on
 			appDelegate?.lastRiskCalculation.append("configuration: \(configuration)\n")
-			appDelegate?.lastRiskCalculation.append("numberOfTracingActiveHours: \(numberOfTracingActiveHours)\n")
+			appDelegate?.lastRiskCalculation.append("numberOfTracingActiveHours: \(activeTracing.inHours)\n")
 			appDelegate?.lastRiskCalculation.append("preconditions: \(preconditions)\n")
 			appDelegate?.lastRiskCalculation.append("currentDate: \(currentDate)\n")
 			appDelegate?.lastRiskCalculation.append("summary: \(String(describing: summary?.description))\n")
@@ -82,7 +82,7 @@ enum RiskCalculation {
 		}
 
 		// Precondition 2 - If tracing is active less than 1 day, risk is .unknownInitial
-		if numberOfTracingActiveHours < minTracingActiveHours, riskLevel < .unknownInitial {
+		if activeTracing.inHours < minTracingActiveHours, riskLevel < .unknownInitial {
 			riskLevel = .unknownInitial
 		}
 
@@ -137,18 +137,19 @@ enum RiskCalculation {
 		summary: CodableExposureDetectionSummary,
 		configuration: SAP_ApplicationConfiguration
 	) -> Double {
-
+		// "Fig" comments below point to figures in the docs: https://github.com/corona-warn-app/cwa-documentation/blob/master/solution_architecture.md#risk-score-calculation
 		let maximumRisk = summary.maximumRiskScoreFullRange
 		let adWeights = configuration.attenuationDuration.weights
 		let attenuationDurationsInMin = summary.configuredAttenuationDurations.map { $0 / Double(60.0) }
 		let attenuationConfig = configuration.attenuationDuration
-
+		// Fig 13 - 2
 		let normRiskScore = Double(maximumRisk) / Double(attenuationConfig.riskScoreNormalizationDivisor)
+		// Fig 13 - 1
 		let weightedAttenuationDurationsLow = attenuationDurationsInMin[0] * adWeights.low
 		let weightedAttenuationDurationsMid = attenuationDurationsInMin[1] * adWeights.mid
 		let weightedAttenuationDurationsHigh = attenuationDurationsInMin[2] * adWeights.high
 		let bucketOffset = Double(attenuationConfig.defaultBucketOffset)
-
+		// Fig 13 - 1
 		let weightedAttenuation = weightedAttenuationDurationsLow + weightedAttenuationDurationsMid + weightedAttenuationDurationsHigh + bucketOffset
 
 		// TODO: Remove
@@ -172,7 +173,7 @@ enum RiskCalculation {
 		summary: CodableExposureDetectionSummary?,
 		configuration: SAP_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
-		numberOfTracingActiveHours: Int,
+		activeTracing: ActiveTracing,
 		preconditions: ExposureManagerState,
 		currentDate: Date = Date(),
 		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
@@ -182,14 +183,17 @@ enum RiskCalculation {
 			summary: summary,
 			configuration: configuration,
 			dateLastExposureDetection: dateLastExposureDetection,
-			numberOfTracingActiveHours: numberOfTracingActiveHours,
+			activeTracing: activeTracing,
 			preconditions: preconditions,
 			providerConfiguration: providerConfiguration
 		) {
 		case .success(let level):
+			let keyCount = summary?.matchedKeyCount ?? 0
+			let daysSinceLastExposure = keyCount > 0 ? summary?.daysSinceLastExposure : nil
 			let details = Risk.Details(
+				daysSinceLastExposure: daysSinceLastExposure,
 				numberOfExposures: Int(summary?.matchedKeyCount ?? 0),
-				numberOfHoursWithActiveTracing: numberOfTracingActiveHours,
+				activeTracing: activeTracing,
 				exposureDetectionDate: dateLastExposureDetection ?? Date()
 			)
 

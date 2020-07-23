@@ -30,20 +30,16 @@ enum TestResult: Int {
 	case invalid = 3
 }
 
-protocol ExposureSubmissionService {
+protocol ExposureSubmissionService: class {
 	typealias ExposureSubmissionHandler = (_ error: ExposureSubmissionError?) -> Void
 	typealias RegistrationHandler = (Result<String, ExposureSubmissionError>) -> Void
 	typealias TestResultHandler = (Result<TestResult, ExposureSubmissionError>) -> Void
 	typealias TANHandler = (Result<String, ExposureSubmissionError>) -> Void
 
-	func submitExposure(with: String, completionHandler: @escaping ExposureSubmissionHandler)
+	func submitExposure(completionHandler: @escaping ExposureSubmissionHandler)
 	func getRegistrationToken(
 		forKey deviceRegistrationKey: DeviceRegistrationKey,
 		completion completeWith: @escaping RegistrationHandler
-	)
-	func getTANForExposureSubmit(
-		hasConsent: Bool,
-		completion completeWith: @escaping TANHandler
 	)
 	func getTestResult(_ completeWith: @escaping TestResultHandler)
 	func hasRegistrationToken() -> Bool
@@ -143,7 +139,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	func getTANForExposureSubmit(
+	private func getTANForExposureSubmit(
 		hasConsent: Bool,
 		completion completeWith: @escaping TANHandler
 	) {
@@ -184,7 +180,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
-	func submitExposure(with tan: String, completionHandler: @escaping ExposureSubmissionHandler) {
+	func submitExposure(completionHandler: @escaping ExposureSubmissionHandler) {
 		log(message: "Started exposure submission...")
 
 		diagnosiskeyRetrieval.accessDiagnosisKeys { keys, error in
@@ -196,40 +192,37 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 			guard var keys = keys, !keys.isEmpty else {
 				completionHandler(.noKeys)
+				// We perform a cleanup in order to set the correct
+				// timestamps, despite not having communicated with the backend,
+				// in order to show the correct screens.
+				self.submitExposureCleanup()
+				return
+			}
+			keys.processedForSubmission()
+
+			self.getTANForExposureSubmit(hasConsent: true, completion: { result in
+				switch result {
+				case let .failure(error):
+					completionHandler(error)
+				case let .success(tan):
+					self.submit(keys, with: tan, completion: completionHandler)
+				}
+			})
+		}
+	}
+
+	/// Helper method that is used to submit keys after a TAN was retrieved.
+	private func submit(_ keys: [ENTemporaryExposureKey], with tan: String, completion: @escaping ExposureSubmissionHandler) {
+		self.client.submit(keys: keys, tan: tan) { error in
+			if let error = error {
+				logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
+				completion(self.parseError(error))
 				return
 			}
 
-			var transmissionRiskDefaultVector: [Int] {
-				[5, 6, 7, 8, 7, 5, 3, 2, 1, 1, 1, 1, 1, 1, 1]
-			}
-
-			keys.sort {
-				$0.rollingStartNumber > $1.rollingStartNumber
-			}
-			
-			if keys.count > 14 {
-				keys = Array(keys[0 ..< 14])
-			}
-			
-			let startIndex = 0
-			for i in startIndex...keys.count - 1 {
-				if i + 1 <= transmissionRiskDefaultVector.count - 1 {
-					keys[i].transmissionRiskLevel = UInt8(transmissionRiskDefaultVector[i + 1])
-				} else {
-					keys[i].transmissionRiskLevel = UInt8(1)
-				}
-			}
-
-			self.client.submit(keys: keys, tan: tan) { error in
-				if let error = error {
-					logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
-					completionHandler(self.parseError(error))
-					return
-				}
-				log(message: "Successfully completed exposure sumbission.")
-				self.submitExposureCleanup()
-				completionHandler(nil)
-			}
+			self.submitExposureCleanup()
+			log(message: "Successfully completed exposure sumbission.")
+			completion(nil)
 		}
 	}
 
@@ -240,61 +233,32 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.registrationToken = nil
 		store.isAllowedToSubmitDiagnosisKeys = false
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
+		log(message: "Exposure submission cleanup.")
 	}
 
 	/// This method attempts to parse all different types of incoming errors, regardless
 	/// whether internal or external, and transform them to an `ExposureSubmissionError`
 	/// used for interpretation in the frontend.
-	// swiftlint:disable:next cyclomatic_complexity
+	/// If the error cannot be parsed to the expected error/failure types `ENError`, `ExposureNotificationError`,
+	/// `ExposureNotificationError`, `SubmissionError`, or `URLSession.Response.Failure`,
+	/// an unknown error is returned. Therefore, if this method returns `.unknown`,
+	/// examine the incoming `Error` closely.
 	private func parseError(_ error: Error) -> ExposureSubmissionError {
+
 		if let enError = error as? ENError {
-			switch enError.code {
-			case .notEnabled:
-				return .enNotEnabled
-			case .notAuthorized:
-				return .notAuthorized
-			default:
-				return .other(enError.localizedDescription)
-			}
+			return enError.toExposureSubmissionError()
 		}
 
 		if let exposureNotificationError = error as? ExposureNotificationError {
-			switch exposureNotificationError {
-			case .exposureNotificationRequired, .exposureNotificationAuthorization, .exposureNotificationUnavailable:
-				return .enNotEnabled
-			case .apiMisuse, .unknown:
-				return .other("ENErrorCodeAPIMisuse")
-			}
+			return exposureNotificationError.toExposureSubmissionError()
 		}
 
 		if let submissionError = error as? SubmissionError {
-			switch submissionError {
-			case .invalidTan:
-				return .invalidTan
-			case let .serverError(code):
-				return .serverError(code)
-			default:
-				return .other(submissionError.localizedDescription)
-			}
+			return submissionError.toExposureSubmissionError()
 		}
 
 		if let urlFailure = error as? URLSession.Response.Failure {
-			switch urlFailure {
-			case let .httpError(wrapped):
-				return .httpError(wrapped.localizedDescription)
-			case .invalidResponse:
-				return .invalidResponse
-			case .teleTanAlreadyUsed:
-				return .teleTanAlreadyUsed
-			case .qRAlreadyUsed:
-				return .qRAlreadyUsed
-			case .regTokenNotExist:
-				return .regTokenNotExist
-			case .noResponse:
-				return .noResponse
-			case let .serverError(code):
-				return .serverError(code)
-			}
+			return urlFailure.toExposureSubmissionError()
 		}
 
 		return .unknown
@@ -327,6 +291,9 @@ enum ExposureSubmissionError: Error, Equatable {
 	case serverError(Int)
 	case unknown
 	case httpError(String)
+	case `internal`
+	case unsupported
+	case rateLimited
 }
 
 extension ExposureSubmissionError: LocalizedError {
@@ -358,6 +325,12 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.ExposureSubmissionError.regTokenNotExist
 		case .noKeys:
 			return AppStrings.ExposureSubmissionError.noKeys
+		case .internal:
+			return AppStrings.Common.enError11Description
+		case .unsupported:
+			return AppStrings.Common.enError5Description
+		case .rateLimited:
+			return AppStrings.Common.enError13Description
 		case let .other(desc):
 			return  "\(AppStrings.ExposureSubmissionError.other)\(desc)\(AppStrings.ExposureSubmissionError.otherend)"
 		case .unknown:

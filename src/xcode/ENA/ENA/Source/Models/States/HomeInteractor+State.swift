@@ -11,16 +11,13 @@ extension HomeInteractor {
 		var enState: ENStateHandler.State
 
 		var risk: Risk?
-		var riskLevel: RiskLevel { risk?.level ?? .unknownInitial }
+		var riskLevel: RiskLevel? { risk?.level }
 		var numberRiskContacts: Int {
 			risk?.details.numberOfExposures ?? 0
 		}
 
 		var daysSinceLastExposure: Int? {
-			guard let date = risk?.details.exposureDetectionDate else {
-				return nil
-			}
-			return Calendar.current.dateComponents([.day], from: date, to: Date()).day
+			risk?.details.daysSinceLastExposure
 		}
 
 		init(detectionMode: DetectionMode, exposureManagerState: ExposureManagerState, enState: ENStateHandler.State, risk: Risk?) {

@@ -39,8 +39,19 @@ class AppNavigationController: UINavigationController {
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		
+
 		scrollViewObserver?.invalidate()
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+
+		if let topViewController = topViewController {
+			// Since we invalidate the observer on `viewWillDisappear()`, we need to establish it again here.
+			// Else the opacity is not set correctly upon returning to this screen.
+			// Ex. this happens when the FAQ page is presented.
+			observeScrollView(of: topViewController)
+		}
 	}
 
 	override func viewDidLayoutSubviews() {
@@ -65,13 +76,7 @@ extension AppNavigationController: UINavigationControllerDelegate {
 			largeTitleBlurEffect = opacityDelegate.preferredLargeTitleBlurEffect
 			largeTitleBackgroundColor = opacityDelegate.preferredLargeTitleBackgroundColor
 
-			if let scrollView = viewController.view as? UIScrollView ?? viewController.view.subviews.first(ofType: UIScrollView.self) {
-				scrollViewObserver = scrollView.observe(\.contentOffset) { [weak self] _, _ in
-					guard let self = self else { return }
-					guard viewController == self.topViewController else { return }
-					self.navigationBar.backgroundAlpha = opacityDelegate.backgroundAlpha
-				}
-			}
+			observeScrollView(of: viewController)
 		}
 
 		let previousNavigationBackgroundAlpha = navigationBar.backgroundAlpha
@@ -103,6 +108,25 @@ extension AppNavigationController: UINavigationControllerDelegate {
 			}
 		})
 	}
+
+	/// If the passed in `UIViewController` is a `NavigationBarOpacityDelegate` and contains a `UIScrollView`,
+	/// register an observer for the `contentOffset` property so that the navigation bar's `backgroundAlpha` is set as the controller scrolls.
+	///
+	/// - parameter viewController: The controller to regsiter the observer for
+	private func observeScrollView(of viewController: UIViewController) {
+		guard
+			let opacityDelegate = viewController as? NavigationBarOpacityDelegate,
+			let scrollView = viewController.scrollView
+		else {
+			return
+		}
+		// We can overwrite the existing observer, since Swift 4 block based observers clean themselves up.
+		scrollViewObserver = scrollView.observe(\.contentOffset) { [weak self] _, _ in
+			guard let self = self else { return }
+			guard viewController == self.topViewController else { return }
+			self.navigationBar.backgroundAlpha = opacityDelegate.backgroundAlpha
+		}
+	}
 }
 
 extension UINavigationBar {
@@ -110,6 +134,12 @@ extension UINavigationBar {
 	var backgroundAlpha: CGFloat {
 		get { backgroundView?.alpha ?? 0 }
 		set { backgroundView?.alpha = newValue }
+	}
+}
+
+private extension UIViewController {
+	var scrollView: UIScrollView? {
+		([view] + view.subviews).first(ofType: UIScrollView.self)
 	}
 }
 

@@ -54,36 +54,23 @@ extension Array where Element == TracingStatusEntry {
 		if lastEntry.on != newEntry.on {
 			copy.append(newEntry)
 		}
-		return copy.pruned()
+		return copy
+	}
+
+	struct PrunedEntries {
+		let relevant: [TracingStatusEntry]
+		let lastIrrelevant: TracingStatusEntry?
 	}
 
 	// MARK: - Prune stale elements older than 14 days
 	/// Clean up `[TracingStatusEntry]` so we do not store entries past the threshold (14 days)
 	///
 	/// - parameter threshold: Max seconds entries can be in the past for. Defaults to 14 days
-	func pruned(with threshold: TimeInterval = Self.maxStoredSeconds) -> TracingStatusHistory {
-		let now = Date()
-
-		// Iterate from end of array until we find a date older than threshold
-		var firstStaleIndex: Int?
-		for (i, element) in enumerated().reversed() {
-			if now.timeIntervalSince(element.date) > threshold {
-				firstStaleIndex = i
-				break
-			}
-		}
-
-		guard let staleIndex = firstStaleIndex else {
-			return self
-		}
-
-		if staleIndex == indices.last {
-			// If the stale element is the most recent history item,
-			// do not prune it
-			return [self[staleIndex]]
-		}
-
-		return Array(self[(staleIndex + 1)...])
+	private func pruned(with threshold: TimeInterval = Self.maxStoredSeconds) -> PrunedEntries {
+		let maxPast = Date().addingTimeInterval(-threshold)
+		let relevantEntries = filter { $0.date > maxPast }
+		let irrelevantEntries = filter { $0.date <= maxPast }
+		return .init(relevant: relevantEntries, lastIrrelevant: irrelevantEntries.last)
 	}
 
 	// MARK: - Check Tracing History for Risk Calculation
@@ -100,40 +87,58 @@ extension Array where Element == TracingStatusEntry {
 		getContinuousEnabledInterval(since: date) > continuousInterval
 	}
 
-	/// Mark returns the count of days that tracing has been enabled
+	/// Mark returns the active tracing info.
 	///
 	/// - parameter since: Date to use as the baseline. Defaults to `Date()`
-	func countEnabledDays(since date: Date = Date()) -> Int {
-		Int(getContinuousEnabledInterval(since: date) / (60 * 60 * 24))
+	/// - parameter maximumNumberOfDays: Maximum number of days we keep in the history.
+	func activeTracing(
+		since date: Date = Date(),
+		maximumNumberOfDays: Int = Self.maxStoredDays
+	) -> ActiveTracing {
+		ActiveTracing(
+			interval: getContinuousEnabledInterval(since: date),
+			maximumNumberOfDays: maximumNumberOfDays
+		)
 	}
 
-	/// Mark returns the count of hours that tracing has been enabled
-	///
-	/// - parameter since: Date to use as the baseline. Defaults to `Date()`
-	func countEnabledHours(since date: Date = Date()) -> Int {
-		Int(getContinuousEnabledInterval(since: date)) / (60 * 60)
-	}
-
-	/// Get the total `TimeInterval` that tracing has been enabled
+	/// Get the total `TimeInterval` that tracing has been enabled.
 	///
 	/// - parameter since: `Date` to use as the baseline. Defaults to `Date()`
 	private func getContinuousEnabledInterval(since: Date = Date()) -> TimeInterval {
+		// In order to have a minimal set of changes for hotfix #1 we hard-code
+		// the precondition (self is pruned) here and have the old, tested code
+		// stay the same in _getContinuousEnabledInterval.
+		let prunedEntries = pruned()
+
+		let intervalForRelevantEntries = prunedEntries.relevant._getContinuousEnabledInterval(since: since)
+
+		let oldestRelevantDate = prunedEntries.relevant.first?.date ?? since
+		if prunedEntries.lastIrrelevant?.on == true {
+			let now = since
+			let earliestPotentialDate = now.addingTimeInterval(-Self.maxStoredSeconds)
+			let delta = oldestRelevantDate.timeIntervalSince(earliestPotentialDate)
+			return intervalForRelevantEntries + delta
+		}
+
+		return intervalForRelevantEntries
+	}
+
+	private func _getContinuousEnabledInterval(since: Date = Date()) -> TimeInterval {
+		// self is pruned
 		guard !isEmpty else {
 			return .zero
 		}
-
 		var prevDate = since
 		// Assume pruned array
-		let sum = reversed().reduce(.zero) { acc, next -> TimeInterval in
+		return reversed().reduce(.zero) { acc, next -> TimeInterval in
 			if next.on {
 				let sum = acc + prevDate.timeIntervalSince(next.date)
 				prevDate = next.date
 				return sum
 			}
+			prevDate = next.date
 			return acc
 		}
-
-		return sum
 	}
 
 	// MARK: - Constants for Tracing
@@ -146,5 +151,4 @@ extension Array where Element == TracingStatusEntry {
 	static let maxStoredDays = 14
 	/// The maximum count of seconds to keep tracing history for
 	static var maxStoredSeconds: TimeInterval { TimeInterval(maxStoredDays * 24 * 60 * 60) }
-
 }

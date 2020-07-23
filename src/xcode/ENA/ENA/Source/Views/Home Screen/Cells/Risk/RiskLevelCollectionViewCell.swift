@@ -25,14 +25,14 @@ protocol RiskLevelCollectionViewCellDelegate: AnyObject {
 final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	// MARK: Properties
 
-	weak var delegate: RiskLevelCollectionViewCellDelegate?
+	var delegate: RiskLevelCollectionViewCellDelegate?
 
 	// MARK: Outlets
 
 	@IBOutlet var titleLabel: ENALabel!
 	@IBOutlet var chevronImageView: UIImageView!
 	@IBOutlet var bodyLabel: ENALabel!
-	@IBOutlet var updateButton: ENACloneButton!
+	@IBOutlet var updateButton: ENAButton!
 	@IBOutlet var detectionIntervalLabel: ENALabel!
 	@IBOutlet var detectionIntervalLabelContainer: UIView!
 

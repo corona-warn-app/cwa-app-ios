@@ -60,7 +60,7 @@ final class RiskCalculationTests: XCTestCase {
 			summary: summaryHigh,
 			configuration: appConfig,
 			dateLastExposureDetection: Date(),
-			numberOfTracingActiveHours: 48,
+			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.invalid),
 			previousRiskLevel: nil,
 			providerConfiguration: config
@@ -87,7 +87,7 @@ final class RiskCalculationTests: XCTestCase {
 				summary: summaryLow,
 				configuration: appConfig,
 				dateLastExposureDetection: Date(),
-				numberOfTracingActiveHours: 0,
+				activeTracing: .init(interval: 0),
 				preconditions: preconditions(.valid),
 				previousRiskLevel: nil,
 				providerConfiguration: config
@@ -100,7 +100,7 @@ final class RiskCalculationTests: XCTestCase {
 			summary: nil,
 			configuration: appConfig,
 			dateLastExposureDetection: Date(),
-			numberOfTracingActiveHours: 48,
+			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.valid),
 			previousRiskLevel: nil,
 			providerConfiguration: config
@@ -123,7 +123,7 @@ final class RiskCalculationTests: XCTestCase {
 			summary: summaryLow,
 			configuration: appConfig,
 			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -2)),
-			numberOfTracingActiveHours: 48,
+			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.valid),
 			previousRiskLevel: nil,
 			providerConfiguration: config
@@ -146,7 +146,7 @@ final class RiskCalculationTests: XCTestCase {
 			summary: nil,
 			configuration: appConfig,
 			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -1)),
-			numberOfTracingActiveHours: 48,
+			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.valid),
 			previousRiskLevel: nil,
 			providerConfiguration: config
@@ -159,7 +159,7 @@ final class RiskCalculationTests: XCTestCase {
 				summary: summaryLow,
 				configuration: appConfig,
 				dateLastExposureDetection: Date().addingTimeInterval(.init(days: -3)),
-				numberOfTracingActiveHours: 48,
+				activeTracing: .init(interval: 48 * 3600),
 				preconditions: preconditions(.valid),
 				previousRiskLevel: nil,
 				providerConfiguration: config
@@ -172,7 +172,7 @@ final class RiskCalculationTests: XCTestCase {
 				summary: summaryLow,
 				configuration: appConfig,
 				dateLastExposureDetection: Date().addingTimeInterval(.init(days: -1)),
-				numberOfTracingActiveHours: 48,
+				activeTracing: .init(interval: 48 * 3600),
 				preconditions: preconditions(.valid),
 				previousRiskLevel: nil,
 				providerConfiguration: config
@@ -195,7 +195,7 @@ final class RiskCalculationTests: XCTestCase {
 			configuration: appConfig,
 			// arbitrary, but within limit
 			dateLastExposureDetection: Date().addingTimeInterval(-3600),
-			numberOfTracingActiveHours: 48,
+			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.valid),
 			previousRiskLevel: nil,
 			providerConfiguration: config
@@ -211,18 +211,23 @@ final class RiskCalculationTests: XCTestCase {
 			detectionMode: .automatic
 		)
 
+		var summary = summaryHigh
+		summary.daysSinceLastExposure = 5
+		summary.matchedKeyCount = 10
+
 		// Test the case where preconditions pass and there is increased risk
 		let risk = RiskCalculation.risk(
-			summary: summaryHigh,
+			summary: summary,
 			configuration: appConfig,
 			// arbitrary, but within limit
 			dateLastExposureDetection: Date().addingTimeInterval(-3600),
-			numberOfTracingActiveHours: 48,
+			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.valid),
 			previousRiskLevel: nil,
 			providerConfiguration: config
 		)
 
+		XCTAssertEqual(risk?.details.daysSinceLastExposure, 5)
 		XCTAssertEqual(risk?.level, .increased)
 	}
 
@@ -243,7 +248,7 @@ final class RiskCalculationTests: XCTestCase {
 			configuration: appConfig,
 			// arbitrary, but within limit
 			dateLastExposureDetection: Date().addingTimeInterval(-3600),
-			numberOfTracingActiveHours: 48,
+			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.valid),
 			previousRiskLevel: nil,
 			providerConfiguration: config
@@ -267,7 +272,7 @@ final class RiskCalculationTests: XCTestCase {
 			configuration: appConfig,
 			// arbitrary, but within limit
 			dateLastExposureDetection: Date().addingTimeInterval(-3600),
-			numberOfTracingActiveHours: 48,
+			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.valid),
 			previousRiskLevel: nil,
 			providerConfiguration: config
@@ -291,7 +296,7 @@ final class RiskCalculationTests: XCTestCase {
 			configuration: appConfig,
 			// arbitrary, but within limit
 			dateLastExposureDetection: Date().addingTimeInterval(-3600),
-			numberOfTracingActiveHours: 48,
+			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.valid),
 			previousRiskLevel: nil,
 			providerConfiguration: config
@@ -317,7 +322,7 @@ final class RiskCalculationTests: XCTestCase {
 			summary: summaryHigh,
 			configuration: appConfig,
 			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -2)),
-			numberOfTracingActiveHours: 48,
+			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.valid),
 			previousRiskLevel: nil,
 			providerConfiguration: config
@@ -339,7 +344,7 @@ final class RiskCalculationTests: XCTestCase {
 			summary: nil,
 			configuration: appConfig,
 			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -2)),
-			numberOfTracingActiveHours: 48,
+			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.valid),
 			previousRiskLevel: nil,
 			providerConfiguration: config
@@ -366,7 +371,7 @@ final class RiskCalculationTests: XCTestCase {
 			configuration: appConfig,
 			// arbitrary, but within limit
 			dateLastExposureDetection: Date().addingTimeInterval(-3600),
-			numberOfTracingActiveHours: 48,
+			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.valid),
 			previousRiskLevel: .low,
 			providerConfiguration: config
@@ -392,7 +397,7 @@ final class RiskCalculationTests: XCTestCase {
 			configuration: appConfig,
 			// arbitrary, but within limit
 			dateLastExposureDetection: Date().addingTimeInterval(-3600),
-			numberOfTracingActiveHours: 48,
+			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.valid),
 			previousRiskLevel: nil,
 			providerConfiguration: config
@@ -416,7 +421,7 @@ final class RiskCalculationTests: XCTestCase {
 			configuration: appConfig,
 			// arbitrary, but within limit
 			dateLastExposureDetection: Date().addingTimeInterval(-3600),
-			numberOfTracingActiveHours: 48,
+			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.valid),
 			previousRiskLevel: .low,
 			providerConfiguration: config
@@ -440,7 +445,7 @@ final class RiskCalculationTests: XCTestCase {
 			summary: summaryLow,
 			configuration: appConfig,
 			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -2)),
-			numberOfTracingActiveHours: 48,
+			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.valid),
 			previousRiskLevel: .low,
 			providerConfiguration: config
@@ -464,7 +469,7 @@ final class RiskCalculationTests: XCTestCase {
 			summary: summaryLow,
 			configuration: appConfig,
 			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -2)),
-			numberOfTracingActiveHours: 48,
+			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.valid),
 			previousRiskLevel: .increased,
 			providerConfiguration: config
@@ -564,11 +569,5 @@ private extension RiskCalculationTests {
 		]
 
 		return config
-	}
-}
-
-private extension TimeInterval {
-	init(days: Int) {
-		self = Double(days * 24 * 60 * 60)
 	}
 }

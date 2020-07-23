@@ -76,6 +76,10 @@ extension AppDelegate: ExposureSummaryProvider {
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+
+	//TODO: Handle it
+	var store: Store = SecureStore(subDirectory: "database")
+	
 	private let consumer = RiskConsumer()
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 
@@ -114,66 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
-
-	let store: Store = {
-		do {
-			let fileManager = FileManager.default
-			let directoryURL = try fileManager
-				.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-				.appendingPathComponent("database")
-
-			if !fileManager.fileExists(atPath: directoryURL.path) {
-				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
-				guard let key = KeychainHelper.generateDatabaseKey() else {
-					fatalError("Creating the Database failed")
-				}
-				return SecureStore(at: directoryURL, key: key)
-			} else {
-				guard let keyData = KeychainHelper.loadFromKeychain(key: "secureStoreDatabaseKey") else {
-					guard let key = KeychainHelper.generateDatabaseKey() else {
-						fatalError("Creating the Database failed")
-					}
-					return SecureStore(at: directoryURL, key: key)
-				}
-				let key = String(decoding: keyData, as: UTF8.self)
-				return SecureStore(at: directoryURL, key: key)
-			}
-		} catch {
-			fatalError("Creating the Database failed")
-		}
-	}()
-
-	lazy var client: HTTPClient = {
-		var configuration: HTTPClient.Configuration
-		#if !RELEASE
-		let store = self.store
-		if
-			let distributionURLString = store.developerDistributionBaseURLOverride,
-			let submissionURLString = store.developerSubmissionBaseURLOverride,
-			let verificationURLString = store.developerVerificationBaseURLOverride,
-			let distributionURL = URL(string: distributionURLString),
-			let verificationURL = URL(string: verificationURLString),
-			let submissionURL = URL(string: submissionURLString) {
-			configuration = HTTPClient.Configuration(
-					apiVersion: "v1",
-					country: "DE",
-					endpoints: HTTPClient.Configuration.Endpoints(
-						distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
-						submission: .init(baseURL: submissionURL, requiresTrailingSlash: false),
-						verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
-					)
-				)
-
-		} else {
-			configuration = HTTPClient.Configuration.loadFromPlist(dictionaryNameInPList: "BackendURLs") ?? .production
-		}
-
-		#else
-		configuration = HTTPClient.Configuration.loadFromPlist(dictionaryNameInPList: "BackendURLs") ?? .production
-		#endif
-		
-		return HTTPClient(configuration: configuration)
-	}()
+	var client = HTTPClient(configuration: .backendBaseURLs)
 
 	// TODO: REMOVE ME
 	var lastRiskCalculation: String = ""
@@ -215,6 +160,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: ENATaskExecutionDelegate {
 	func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void)) {
+
+		let detectionMode = DetectionMode.fromBackgroundStatus()
+		riskProvider.configuration.detectionMode = detectionMode
 
 		riskProvider.requestRisk(userInitiated: false) { risk in
 			// present a notification if the risk score has increased
