@@ -30,7 +30,7 @@ final class ClientMock {
 	///		- submissionError: when set, `submit(_:)` will fail with this error.
 	///		- urlRequestFailure: when set, calls (see above) will fail with this error
 	init(
-		availableDaysAndHours: DaysAndHours = ([], []),
+		availableDaysAndHours: DaysAndHours = DaysAndHours(days: [], hours: []),
 		downloadedPackage: SAPDownloadedPackage? = nil,
 		submissionError: SubmissionError? = nil,
 		urlRequestFailure: Client.Failure? = nil
