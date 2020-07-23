@@ -138,7 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	) -> Bool {
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
-		taskScheduler.taskDelegate = self
+		taskScheduler.delegate = self
 
 		riskProvider.observeRisk(consumer)
 
@@ -159,28 +159,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: ENATaskExecutionDelegate {
-	func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void)) {
 
-		let detectionMode = DetectionMode.fromBackgroundStatus()
-		riskProvider.configuration.detectionMode = detectionMode
+	/// This method executes the background tasks needed for: a) fetching test results and b) performing exposure detection requests
+	func executeENABackgroundTask(task: BGTask, completion: @escaping ((Bool) -> Void)) {
+		executeFetchTestResults(task: task) { fetchTestResultSuccess in
 
-		riskProvider.requestRisk(userInitiated: false) { risk in
-			// present a notification if the risk score has increased
-			if let risk = risk,
-				risk.riskLevelHasChanged {
-				UNUserNotificationCenter.current().presentNotification(
-					title: AppStrings.LocalNotifications.detectExposureTitle,
-					body: AppStrings.LocalNotifications.detectExposureBody,
-					identifier: task.identifier
-				)
+			// NOTE: We are currently fetching the test result first, and then execute
+			// the exposure detection check. Instead of implementing this behaviour in the completion handler,
+			// queues could be used as well. Due to time/resource constraints, we settled for this option.
+			self.executeExposureDetectionRequest(task: task) { exposureDetectionSuccess in
+				completion(fetchTestResultSuccess && exposureDetectionSuccess)
 			}
-			completion(true)
 		}
 	}
 
-	func executeFetchTestResults(task: BGTask, completion: @escaping ((Bool) -> Void)) {
+	/// This method executes a  test result fetch, and if it is successful, and the test result is different from the one that was previously
+	/// part of the app, a local notification is shown.
+	/// NOTE: This method will always return true.
+	private func executeFetchTestResults(task: BGTask, completion: @escaping ((Bool) -> Void)) {
 
-		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
+		exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
 		if store.registrationToken != nil && store.testResultReceivedTimeStamp == nil {
 			self.exposureSubmissionService?.getTestResult { result in
@@ -203,5 +201,27 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			completion(true)
 		}
 
+	}
+
+	/// This method performs a check for the current exposure detection state. Only if the risk level has changed compared to the
+	/// previous state, a local notification is shown.
+	/// NOTE: This method will always return true.
+	private func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void)) {
+
+		let detectionMode = DetectionMode.fromBackgroundStatus()
+		riskProvider.configuration.detectionMode = detectionMode
+
+		riskProvider.requestRisk(userInitiated: false) { risk in
+			// present a notification if the risk score has increased.
+			if let risk = risk,
+				risk.riskLevelHasChanged {
+				UNUserNotificationCenter.current().presentNotification(
+					title: AppStrings.LocalNotifications.detectExposureTitle,
+					body: AppStrings.LocalNotifications.detectExposureBody,
+					identifier: task.identifier
+				)
+			}
+			completion(true)
+		}
 	}
 }
