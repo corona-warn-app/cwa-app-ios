@@ -23,7 +23,7 @@ class CoronaWarnURLSessionDelegateTests: XCTestCase {
 	private let delegate = CoronaWarnURLSessionDelegate()
 
 	// MARK: - Whitelist testing
-
+#if ENABLE_WHITELIST
 	func testWhitelist_HostNotInList() {
 		let hostString = "apple.com"
 		XCTAssertFalse(delegate.checkWhitelist(for: hostString))
@@ -43,6 +43,7 @@ class CoronaWarnURLSessionDelegateTests: XCTestCase {
 		let hostString = "svc90.main.px.t-online.de"
 		XCTAssertTrue(delegate.checkWhitelist(for: hostString))
 	}
+#endif
 
 	// MARK: - Public key retrieval testing
 
