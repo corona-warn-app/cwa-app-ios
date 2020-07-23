@@ -19,6 +19,31 @@
 
 "General_BackButtonTitle" = "Wstecz";
 
+"Common_ENError5_Description" = "Błąd 5: Coś poszło nie tak. Nie można ustalić Twojego poziomu ryzyka. Pracujemy nad rozwiązaniem tego problemu.";
+
+"Common_ENError11_Description" = "Błąd 11: Coś poszło nie tak. Nie można ustalić Twojego poziomu ryzyka. Zrestartuj urządzenie i spróbuj ponownie jutro.";
+
+"Common_ENError13_Description" = "Błąd 13: Rejestrowanie narażenia dla bieżącego dnia zostało już wykonane. Spróbuj ponownie za 24 godziny.";
+
+"Common_Alert_Action_moreInfo" = "Dowiedz się więcej";
+
+"Common_BackgroundFetch_AlertMessage" = "Dezaktywowałeś(-aś) aktualizacje w tle dla aplikacji Corona-Warn-App. Aktywuj aktualizacje w tle, aby korzystać z automatycznego rejestrowania narażenia. Jeśli nie aktywujesz aktualizacji w tle, możliwe będzie tylko ręczne uruchomienie rejestrowania narażenia w aplikacji.\n\nMożesz aktywować aktualizacje w tle dla aplikacji w ustawieniach swojego urządzenia.";
+
+"Common_BackgroundFetch_SettingsTitle" = "Otwórz ustawienia urządzenia";
+
+"Common_BackgroundFetch_OKTitle" = "Uruchom rejestrowanie narażenia ręcznie";
+
+"Common_BackgroundFetch_AlertTitle" = "Aktualizacje w tle dezaktywowane";
+
+/* General - Links */
+"General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
+
+"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
+
+"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
+
+"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
+
 /* Accessibility */
 "AccessibilityLabel_Close" = "Zamknij";
 
@@ -42,6 +67,8 @@
 "ExposureDetection_Refreshed_Never" = "Nieznane";
 
 "ExposureDetection_RefreshingIn" = "Aktualizuj za %02d:%02d\U00A0minut(y)";
+
+"ExposureDetection_RefreshIn" = "Aktualizacja za %@";
 
 "ExposureDetection_Refresh_24h" = "Aktualizacja co 24 godziny";
 
@@ -98,7 +125,7 @@
 "ExposureDetection_Button_Refresh" = "Aktualizuj";
 
 /* Exposure Detection Errors */
-"ExposureDetectionError_Alert_Title" = "Coś poszło nie tak.";
+"ExposureDetectionError_Alert_Title" = "Błąd";
 
 "ExposureDetectionError_Alert_Action_Details" = "Szczegóły";
 
@@ -485,22 +512,6 @@
 
 "ExposureSubmissionError_defaultError" = "Błąd podczas przesyłania klucza";
 
-"ExposureSubmissionError_unsupported" = "Błąd 5: Coś poszło nie tak. Nie można ustalić Twojego poziomu ryzyka. Pracujemy nad rozwiązaniem tego problemu.";
-
-"ExposureSubmissionError_internal" = "Błąd 11: Coś poszło nie tak. Nie można ustalić Twojego poziomu ryzyka. Aby uzyskać więcej informacji, wejdź na naszą stronę Często zadawane pytania.";
-
-"ExposureSubmissionError_rateLimited" = "Błąd 13: Rejestrowanie narażenia dla bieżącego dnia zostało już wykonane. Spróbuj ponownie jutro.";
-
-"ExposureSubmissionError_moreInfo" = "Dowiedz się więcej";
-
-"ExposureSubmissionError_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
-
-"ExposureSubmissionError_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
-
-"ExposureSubmissionError_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
-
-"ExposureSubmissionError_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
-
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Rejestrowanie narażenia";
 
@@ -733,7 +744,7 @@
 
 "App_Information_About_Title" = "Pokonajmy koronawirusa razem";
 
-"App_Information_About_Description" = "Instytut Roberta Kocha (RKI) to niemiecka federalna instytucja zdrowia publicznego. RKI publikuje aplikację Corona-Warn-App w imieniu rządu federalnego. Aplikacja stanowi cyfrowe rozszerzenie już wprowadzonych środków ochrony zdrowia publicznego: zachowanie dystansu społecznego, dbanie o higienę oraz noszenie maseczek.";
+"App_Information_About_Description" = "Instytut Roberta Kocha (RKI) to niemiecka federalna instytucja zdrowia publicznego. RKI publikuje aplikację Corona-Warn-App w imieniu rządu federalnego. Aplikacja ta służy jako cyfrowe uzupełnienie już wprowadzonych środków ochrony zdrowia publicznego, takich jak zachowanie dystansu społecznego, dbanie o higienę oraz noszenie maseczek.";
 
 "App_Information_About_Text" = "Wszystkie osoby korzystające z aplikacji pomagają w śledzeniu i przerwaniu łańcuchów zakażeń. Aplikacja zapisuje kontakty z innymi osobami lokalnie na Twoim urządzeniu. Otrzymasz powiadomienie, jeśli okaże się, że u osób, z którymi miałeś(-aś) kontakt, zdiagnozowano później COVID-19. Twoja tożsamość i prywatność są zawsze chronione.";
 
@@ -812,7 +823,7 @@
 
 "InviteFriends_ShareTitle" = "Wspólna walka z koronawirusem. Ja już biorę udział, a Ty?";
 
-"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-englisch";
+"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
 
 "InviteFriends_Illustration_Label" = "Mężczyzna udostępnia aplikację Corona-Warn czterem innym osobom.";
 
