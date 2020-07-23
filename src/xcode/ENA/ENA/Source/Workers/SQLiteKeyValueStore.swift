@@ -52,7 +52,7 @@ final class SQLiteKeyValueStore {
 		var isSuccess = true
 		databaseQueue?.inDatabase { db in
 			let dbhandle = OpaquePointer(db.sqliteHandle)
-			guard sqlite3_key(dbhandle, key, Int32(key.count)) == SQLITE_OK else {
+			guard CWASQLite.sqlite3_key(dbhandle, key, Int32(key.count)) == SQLITE_OK else {
 				logError(message: "Unable to set Key")
 				isSuccess = false
 				return
