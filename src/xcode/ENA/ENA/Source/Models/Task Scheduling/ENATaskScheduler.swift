@@ -30,7 +30,7 @@ enum ENATaskIdentifier: String, CaseIterable {
 }
 
 protocol ENATaskExecutionDelegate: AnyObject {
-	func executeENABackgroundTasks(task: BGTask, completion: @escaping ((Bool) -> Void))
+	func executeENABackgroundTask(task: BGTask, completion: @escaping ((Bool) -> Void))
 }
 
 /// - NOTE: To simulate the execution of a background task, use the following:
@@ -39,7 +39,7 @@ final class ENATaskScheduler {
 
 	// MARK: - Static.
 
-	static var shared = ENATaskScheduler()
+	static let shared = ENATaskScheduler()
 
 	// MARK: - Attributes.
 
@@ -66,28 +66,24 @@ final class ENATaskScheduler {
 
 	// MARK: - Task scheduling.
 
-	func scheduleTasks() {
-		scheduleTask(with: .exposureNotification)
-	}
-
-	private func scheduleTask(with taskIdentifier: ENATaskIdentifier) {
+	func scheduleTask() {
 		do {
-			let taskRequest = BGProcessingTaskRequest(identifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
+			let taskRequest = BGProcessingTaskRequest(identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier)
 			taskRequest.requiresNetworkConnectivity = true
 			taskRequest.requiresExternalPower = false
 			taskRequest.earliestBeginDate = nil
 			try BGTaskScheduler.shared.submit(taskRequest)
 		} catch {
-			logError(message: "ERROR: scheduleTask(with: \(taskIdentifier)) could NOT submit task request: \(error)")
+			logError(message: "ERROR: scheduleTask() could NOT submit task request: \(error)")
 		}
 	}
 
 	// MARK: - Task execution handlers.
 
 	private func exposureNotificationTask(_ task: BGTask) {
-		delegate?.executeENABackgroundTasks(task: task) { success in
+		delegate?.executeENABackgroundTask(task: task) { success in
 			task.setTaskCompleted(success: success)
-			self.scheduleTask(with: .exposureNotification)
+			self.scheduleTask()
 		}
 	}
 }

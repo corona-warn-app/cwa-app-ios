@@ -97,7 +97,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	func sceneDidEnterBackground(_ scene: UIScene) {
 		showPrivacyProtectionWindow()
-		taskScheduler.scheduleTasks()
+		taskScheduler.scheduleTask()
 	}
 
 	func sceneDidBecomeActive(_: UIScene) {
@@ -316,9 +316,6 @@ extension SceneDelegate: ExposureStateUpdating {
 		riskProvider.requestRisk(userInitiated: false)
 		homeController?.updateExposureState(state)
 		enStateHandler?.updateExposureState(state)
-
-		// Ignore this for now. This might be a premature optimization.
-		// taskScheduler.updateExposureState(state)
 	}
 }
 

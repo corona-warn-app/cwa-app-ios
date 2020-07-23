@@ -161,7 +161,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: ENATaskExecutionDelegate {
 
 	/// This method executes the background tasks needed for: a) fetching test results and b) performing exposure detection requests
-	func executeENABackgroundTasks(task: BGTask, completion: @escaping ((Bool) -> Void)) {
+	func executeENABackgroundTask(task: BGTask, completion: @escaping ((Bool) -> Void)) {
 		executeFetchTestResults(task: task) { fetchTestResultSuccess in
 
 			// NOTE: We are currently fetching the test result first, and then execute
@@ -178,7 +178,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	/// NOTE: This method will always return true.
 	private func executeFetchTestResults(task: BGTask, completion: @escaping ((Bool) -> Void)) {
 
-		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
+		exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
 		if store.registrationToken != nil && store.testResultReceivedTimeStamp == nil {
 			self.exposureSubmissionService?.getTestResult { result in
