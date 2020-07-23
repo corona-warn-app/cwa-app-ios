@@ -47,7 +47,9 @@ class HtmlTextView: UITextView {
 			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textTint)
 		]
 
+		isUserInteractionEnabled = true
 		isEditable = false
+		dataDetectorTypes = [.link, .phoneNumber]
 	}
 }
 
