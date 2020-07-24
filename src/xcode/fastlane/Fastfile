@@ -37,7 +37,7 @@ platform :ios do
       skip_codesigning: true,
       export_method: "ad-hoc",
       skip_package_ipa: true,
-      destination: "platform=iOS Simulator,OS=13.5,name=iPhone 11",
+      destination: "platform=iOS Simulator,OS=13.6,name=iPhone 11",
       scheme: "ENA"
     )
   end
@@ -48,7 +48,7 @@ platform :ios do
       skip_codesigning: true,
       export_method: "ad-hoc",
       skip_package_ipa: true,
-      destination: "platform=iOS Simulator,OS=13.5,name=iPhone 11",
+      destination: "platform=iOS Simulator,OS=13.6,name=iPhone 11",
       scheme: "ENACommunity"
     )
   end
