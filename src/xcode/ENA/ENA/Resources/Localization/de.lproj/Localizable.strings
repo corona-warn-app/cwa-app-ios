@@ -27,9 +27,7 @@
 
 "Common_Alert_Action_moreInfo" = "Mehr Erfahren";
 
-"Common_BackgroundFetch_AlertMessage" = "Sie haben die Hintergrundaktualisierung für die Corona-Warn-App ausgeschaltet. Um die automatische Risiko-Ermittlung zu nutzen, müssen Sie die Hintergrundaktualisierung einschalten. Wenn Sie die Hintergrundaktualisierung nicht einschalten, können Sie Ihre Risiko-Ermittlung nur manuell in der App starten.
-
-Sie können die Hintergrundaktualisierung für die App jederzeit in den Geräteeinstellungen einschalten.";
+"Common_BackgroundFetch_AlertMessage" = "Sie haben die Hintergrundaktualisierung für die Corona-Warn-App ausgeschaltet. Um die automatische Risiko-Ermittlung zu nutzen, müssen Sie die Hintergrundaktualisierung einschalten. Wenn Sie die Hintergrundaktualisierung nicht einschalten, können Sie Ihre Risiko-Ermittlung nur manuell in der App starten.\n\nSie können die Hintergrundaktualisierung für die App jederzeit in den Geräteeinstellungen einschalten.";
 
 "Common_BackgroundFetch_SettingsTitle" = "Geräteeinstellungen öffnen";
 
@@ -38,7 +36,6 @@ Sie können die Hintergrundaktualisierung für die App jederzeit in den Gerätee
 "Common_BackgroundFetch_AlertTitle" = "Hintergrundaktualisierung ausgeschaltet";
 
 /* General - Links */
-
 "General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
 
 "General_moreInfo_URL_EN5" = "https://www.coronawarn.app/de/faq/#ENError5";
@@ -129,23 +126,13 @@ Sie können die Hintergrundaktualisierung für die App jederzeit in den Gerätee
 
 /* Active Tracing Section */
 "ExposureDetection_ActiveTracingSection_Title" = "Ermittlungszeitraum";
+
 "ExposureDetection_ActiveTracingSection_Subtitle" = "Dieser Zeitraum wird berücksichtigt";
 
-/*
- There are two paragraphs in this section. The first one just contains text…
-*/
+/* There are two paragraphs in this section. The first one just contains text… */
 "ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-Ermittlung sollte daher dauerhaft aktiv sein.";
 
-/*
- … the second paragraph contains two columns. On the left there is our active
- tracing indicator. On the right column there is just text that explains what
- the indicator shows.
-
- Parameters:
- - first: total number of relevant days (usually 14).
- - second: the actual number of days with active tracing.
- */
-
+/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Für Ihre Risiko-Ermittlung wird nur der Zeitraum der letzten %1$u Tage betrachtet. In diesem Zeitraum war Ihre Risiko-Ermittlung für eine Gesamtdauer von %2$u Tagen aktiv. Ältere Tage werden automatisch gelöscht, da sie aus Sicht des Infektionsschutzes nicht mehr relevant sind.";
 
 /* Exposure Detection Errors */
@@ -155,20 +142,10 @@ Sie können die Hintergrundaktualisierung für die App jederzeit in den Gerätee
 
 "ExposureDetectionError_Alert_Message" = "Während der Risiko-Ermittlung ist ein Fehler aufgetreten.";
 
-/*
- How Risk Detection Works Alert.
- First introduced due to EXPOSUREAPP-1738.
- The alert only displays a single OK-button. We re-use the localized string
- `Alert_ActionOk` for that.
-*/
-
+/* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Information zur Funktionsweise der Risiko-Ermittlung";
 
-"How_Risk_Detection_Works_Alert_Message" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-Ermittlung sollte daher dauerhaft aktiv sein.
-Für Ihre Risiko-Ermittlung wird nur der Zeitraum der letzten %1$u Tage betrachtet.
-Ältere Tage werden automatisch gelöscht, da sie aus Sicht des Infektionsschutzes nicht mehr relevant sind.
-
-Weitere Informationen finden Sie in den FAQ.";
+"How_Risk_Detection_Works_Alert_Message" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-Ermittlung sollte daher dauerhaft aktiv sein.\nFür Ihre Risiko-Ermittlung wird nur der Zeitraum der letzten %1$u Tage betrachtet.\nÄltere Tage werden automatisch gelöscht, da sie aus Sicht des Infektionsschutzes nicht mehr relevant sind.\n\nWeitere Informationen finden Sie in den FAQ.";
 
 /* Settings */
 "Settings_StatusActive" = "An";
@@ -678,7 +655,8 @@ Weitere Informationen finden Sie in den FAQ.";
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "Risiko-Ermittlung war für %1$u der letzten %2$u Tage aktiv";
+"Home_Risk_Low_SaveDays_Item_Title" = "Risiko-Ermittlung war für %1$u der letzten 14 Tage aktiv";
+
 "Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Risiko-Ermittlung dauerhaft aktiv";
 
 "Home_Risk_Low_Button" = "Aktualisieren";
@@ -784,7 +762,7 @@ Weitere Informationen finden Sie in den FAQ.";
 
 "App_Information_About_Title" = "Gemeinsam Corona bekämpfen";
 
-"App_Information_About_Description" = "Das Robert Koch-Institut (RKI) als zentrale Einrichtung des Bundes im Bereich der Öffentlichen Gesundheit und als nationales Public-Health-Institut veröffentlicht die Corona-Warn-App für die gesamte Bundesregierung. Die App ist die digitale Ergänzung zu Abstandhalten, Hygiene und Alltagsmaske.";
+"App_Information_About_Description" = "Das Robert Koch-Institut (RKI) als zentrale Einrichtung des Bundes im Bereich der Öffentlichen Gesundheit und als nationales Public-Health-Institut veröffentlicht die Corona-Warn-App im Auftrag der Bundesregierung. Die App ist die digitale Ergänzung zu Abstandhalten, Hygiene und Alltagsmaske.";
 
 "App_Information_About_Text" = "Wer sie nutzt, hilft, Infektionsketten schnell nachzuverfolgen und zu durchbrechen. Die App speichert dezentral – auf Ihrem Smartphone – Begegnungen mit anderen. Sie werden informiert, wenn Sie Begegnungen mit nachweislich infizierten Personen hatten. Ihre Privatsphäre bleibt dabei bestens geschützt.";
 
@@ -863,7 +841,7 @@ Weitere Informationen finden Sie in den FAQ.";
 
 "InviteFriends_ShareTitle" = "Gemeinsam Corona bekämpfen. Ich bin dabei. Du auch?";
 
-"InviteFriends_ShareUrl" = "https://www.corona-warn-app.de";
+"InviteFriends_ShareUrl" = "https://www.coronawarn.app/de/";
 
 "InviteFriends_Illustration_Label" = "Ein Mann teilt die Corona-Warn-App mit vier anderen Personen.";
 
@@ -981,11 +959,8 @@ Weitere Informationen finden Sie in den FAQ.";
 
 "ENATanInput_CharacterIndex" = "Zeichen %1$u von %2$u";
 
-/*
- Active Tracing Interval Formatting:
- The following two entries are used together. If tracing was not active (almost) 14 days
- during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise
- `Active_Tracing_Interval_Partially_Active` will be used.
- */
-"Active_Tracing_Interval_Partially_Active" = "Risiko-Ermittlung war für %1$u der letzten %2$u Tage aktiv";
+/* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
+"Active_Tracing_Interval_Partially_Active" = "Risiko-Ermittlung war für %1$u der letzten 14 Tage aktiv";
+
 "Active_Tracing_Interval_Permanently_Active" = "Risiko-Ermittlung dauerhaft aktiv";
+
