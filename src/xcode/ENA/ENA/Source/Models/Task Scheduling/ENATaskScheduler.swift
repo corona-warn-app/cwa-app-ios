@@ -22,14 +22,7 @@ import UIKit
 enum ENATaskIdentifier: String, CaseIterable {
 	// only one task identifier is allowed have the .exposure-notification suffix
 	case exposureNotification = "exposure-notification"
-	case fetchTestResults = "fetch-test-results"
 
-	var backgroundTaskScheduleInterval: TimeInterval? {
-		switch self {
-		case .exposureNotification: return nil
-		case .fetchTestResults: return 2 * 60 * 60
-		}
-	}
 	var backgroundTaskSchedulerIdentifier: String {
 		guard let bundleID = Bundle.main.bundleIdentifier else { return "invalid-task-id!" }
 		return "\(bundleID).\(rawValue)"
@@ -37,100 +30,60 @@ enum ENATaskIdentifier: String, CaseIterable {
 }
 
 protocol ENATaskExecutionDelegate: AnyObject {
-	func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void))
-	func executeFetchTestResults(task: BGTask, completion: @escaping ((Bool) -> Void))
+	func executeENABackgroundTask(task: BGTask, completion: @escaping ((Bool) -> Void))
 }
 
+/// - NOTE: To simulate the execution of a background task, use the following:
+///         e -l objc -- (void)[[BGTaskScheduler sharedScheduler] _simulateLaunchForTaskWithIdentifier:@"de.rki.coronawarnapp-dev.exposure-notification"]
 final class ENATaskScheduler {
+
+	// MARK: - Static.
+
 	static let shared = ENATaskScheduler()
 
+	// MARK: - Attributes.
+
+	weak var delegate: ENATaskExecutionDelegate?
+
+	// MARK: - Initializer.
+
 	private init() {
-		registerTasks()
+		registerTask(with: .exposureNotification, execute: exposureNotificationTask(_:))
 	}
 
-	weak var taskDelegate: ENATaskExecutionDelegate?
-
-	typealias CompletionHandler = (() -> Void)
-
-	private func registerTasks() {
-		registerTask(with: .exposureNotification, taskHandler: executeExposureDetectionRequest(_:))
-		registerTask(with: .fetchTestResults, taskHandler: executeFetchTestResults(_:))
-	}
-
-	private func registerTask(with taskIdentifier: ENATaskIdentifier, taskHandler: @escaping ((BGTask) -> Void)) {
+	// MARK: - Task registration.
+	
+	private func registerTask(with taskIdentifier: ENATaskIdentifier, execute: @escaping ((BGTask) -> Void)) {
 		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
 		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
-			taskHandler(task)
 			task.expirationHandler = {
 				task.setTaskCompleted(success: false)
 			}
+			// Make sure to set expiration handler before doing any work.
+			execute(task)
 		}
 	}
 
-	func scheduleTasks() {
-		scheduleTask(for: .exposureNotification, cancelExisting: true)
-		scheduleTask(for: .fetchTestResults, cancelExisting: true)
-	}
+	// MARK: - Task scheduling.
 
-	func cancelTasks() {
-		BGTaskScheduler.shared.cancelAllTaskRequests()
-	}
-
-	func scheduleTask(for identifier: String) {
-		guard let taskIdentifier = ENATaskIdentifier(rawValue: identifier) else { return }
-		scheduleTask(for: taskIdentifier)
-	}
-
-	func scheduleTask(for taskIdentifier: ENATaskIdentifier, cancelExisting: Bool = false) {
-
-		if cancelExisting {
-			cancelTask(for: taskIdentifier)
-		}
-
-		let taskRequest = BGProcessingTaskRequest(identifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
-		taskRequest.requiresNetworkConnectivity = true
-		taskRequest.requiresExternalPower = false
-		if let interval = taskIdentifier.backgroundTaskScheduleInterval {
-			taskRequest.earliestBeginDate = Date(timeIntervalSinceNow: interval)
-		} else {
-			taskRequest.earliestBeginDate = nil
-		}
-
+	func scheduleTask() {
 		do {
+			let taskRequest = BGProcessingTaskRequest(identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier)
+			taskRequest.requiresNetworkConnectivity = true
+			taskRequest.requiresExternalPower = false
+			taskRequest.earliestBeginDate = nil
 			try BGTaskScheduler.shared.submit(taskRequest)
 		} catch {
-			logError(message: error.localizedDescription)
+			logError(message: "ERROR: scheduleTask() could NOT submit task request: \(error)")
 		}
-
 	}
 
-	func cancelTask(for taskIdentifier: ENATaskIdentifier) {
-		BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
-	}
+	// MARK: - Task execution handlers.
 
-	// Task Handlers:
-	private func executeExposureDetectionRequest(_ task: BGTask) {
-		taskDelegate?.executeExposureDetectionRequest(task: task) { success in
+	private func exposureNotificationTask(_ task: BGTask) {
+		delegate?.executeENABackgroundTask(task: task) { success in
 			task.setTaskCompleted(success: success)
-		}
-		scheduleTask(for: task.identifier)
-	}
-
-	private func executeFetchTestResults(_ task: BGTask) {
-		taskDelegate?.executeFetchTestResults(task: task) { success in
-			task.setTaskCompleted(success: success)
-		}
-		scheduleTask(for: task.identifier)
-	}
-
-}
-
-extension ENATaskScheduler: ExposureStateUpdating {
-	func updateExposureState(_ state: ExposureManagerState) {
-		if state.isGood {
-			scheduleTasks()
-		} else {
-			cancelTasks()
+			self.scheduleTask()
 		}
 	}
 }
