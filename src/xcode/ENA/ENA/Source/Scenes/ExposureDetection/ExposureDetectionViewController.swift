@@ -201,8 +201,11 @@ extension ExposureDetectionViewController {
 			checkButton.setTitle(AppStrings.ExposureDetection.buttonEnable, for: .normal)
 			return
 		}
-		
-		switch state.detectionMode {
+
+		var mode = state.detectionMode
+		if .unknownOutdated == state.risk?.level { mode = .manual }
+
+		switch mode {
 
 		// Automatic mode does not requred additional logic, this is often the default configuration.
 		case .automatic:
