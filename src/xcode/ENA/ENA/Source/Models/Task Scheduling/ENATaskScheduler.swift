@@ -52,7 +52,7 @@ final class ENATaskScheduler {
 	}
 
 	// MARK: - Task registration.
-	
+
 	private func registerTask(with taskIdentifier: ENATaskIdentifier, execute: @escaping ((BGTask) -> Void)) {
 		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
 		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
