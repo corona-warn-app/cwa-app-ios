@@ -166,7 +166,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			),
 			delegate: self
 		)
-		
+
 		guard let enStateHandler = self.enStateHandler else {
 			fatalError("It should not happen.")
 		}
@@ -262,7 +262,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		authorizationStatus: \(ENManager.authorizationStatus)
 		"""
 		log(message: message)
-		
+
 		state.exposureManager = newState
 		updateExposureState(newState)
 	}
