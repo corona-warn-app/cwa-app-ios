@@ -37,7 +37,17 @@ enum WebPageHelper {
 		}
 	}
 
-	static func openSafari(withUrl url: URL, from viewController: UIViewController) {
+	static func open(withUrl url: URL, from viewController: UIViewController) {
+		switch url.scheme {
+		case "tel", "mailto":
+			UIApplication.shared.open(url, options: [:], completionHandler: nil)
+		default:
+			openLink(withUrl: url, from: viewController)
+		}
+
+	}
+
+	static func openLink(withUrl url: URL, from viewController: UIViewController) {
 		let config = SFSafariViewController.Configuration()
 		config.entersReaderIfAvailable = true
 		config.barCollapsingEnabled = true

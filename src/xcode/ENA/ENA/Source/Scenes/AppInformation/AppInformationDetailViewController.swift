@@ -54,10 +54,3 @@ extension AppInformationDetailViewController {
 		case html = "htmlCell"
 	}
 }
-
-extension AppInformationDetailViewController: UITextViewDelegate {
-	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-		UIApplication.shared.open(url, options: [:], completionHandler: nil)
-		return false
-	}
-}

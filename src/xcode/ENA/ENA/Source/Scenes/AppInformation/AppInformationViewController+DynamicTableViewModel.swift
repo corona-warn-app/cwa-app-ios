@@ -64,10 +64,16 @@ private extension DynamicCell {
 		}
 	}
 
-	static func html(url: URL?) -> Self {
+	static func html(url: URL?, isInteractive: Bool = false) -> Self {
 		.identifier(AppInformationDetailViewController.CellReuseIdentifier.html) { viewController, cell, _  in
 			guard let cell = cell as? DynamicTableViewHtmlCell else { return }
 			cell.textView.delegate = viewController as? UITextViewDelegate
+
+			if isInteractive {
+				cell.textView.isUserInteractionEnabled = true
+				cell.textView.dataDetectorTypes = [.link, .phoneNumber]
+			}
+
 			if let url = url {
 				cell.textView.load(from: url)
 			}
@@ -218,7 +224,7 @@ extension AppInformationViewController {
 				.title2(
 					text: AppStrings.AppInformation.privacyTitle,
 					accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.privacyTitle),
-				.html(url: Bundle.main.url(forResource: "privacy-policy", withExtension: "html"))
+				.html(url: Bundle.main.url(forResource: "privacy-policy", withExtension: "html"), isInteractive: true)
 			]
 		)
 	])
@@ -233,7 +239,7 @@ extension AppInformationViewController {
 				.title2(
 					text: AppStrings.AppInformation.termsTitle,
 					accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.termsTitle),
-				.html(url: Bundle.main.url(forResource: "usage", withExtension: "html"))
+				.html(url: Bundle.main.url(forResource: "usage", withExtension: "html"), isInteractive: true)
 			]
 		)
 	])
