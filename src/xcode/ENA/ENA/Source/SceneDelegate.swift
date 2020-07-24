@@ -97,7 +97,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	func sceneDidEnterBackground(_ scene: UIScene) {
 		showPrivacyProtectionWindow()
-		taskScheduler.scheduleTasks()
+		taskScheduler.scheduleTask()
 	}
 
 	func sceneDidBecomeActive(_: UIScene) {
@@ -166,7 +166,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			),
 			delegate: self
 		)
-		
+
 		guard let enStateHandler = self.enStateHandler else {
 			fatalError("It should not happen.")
 		}
@@ -212,32 +212,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	func isOnboardedDidChange(_: NSNotification) {
 		store.isOnboarded ? showHome() : showOnboarding()
 	}
-
-	#if !RELEASE
-	func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-		guard let url = URLContexts.first?.url else {
-			return
-		}
-
-		guard let components = NSURLComponents(
-			url: url,
-			resolvingAgainstBaseURL: true
-		),
-			let query = components.queryItems else {
-			return
-		}
-
-		if let submissionBaseURL = query.valueFor(queryItem: "submissionBaseURL") {
-			store.developerSubmissionBaseURLOverride = submissionBaseURL
-		}
-		if let distributionBaseURL = query.valueFor(queryItem: "distributionBaseURL") {
-			store.developerDistributionBaseURLOverride = distributionBaseURL
-		}
-		if let verificationBaseURL = query.valueFor(queryItem: "verificationBaseURL") {
-			store.developerVerificationBaseURLOverride = verificationBaseURL
-		}
-	}
-	#endif
 
 	private var privacyProtectionWindow: UIWindow?
 }
@@ -288,7 +262,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		authorizationStatus: \(ENManager.authorizationStatus)
 		"""
 		log(message: message)
-		
+
 		state.exposureManager = newState
 		updateExposureState(newState)
 	}
@@ -342,7 +316,6 @@ extension SceneDelegate: ExposureStateUpdating {
 		riskProvider.requestRisk(userInitiated: false)
 		homeController?.updateExposureState(state)
 		enStateHandler?.updateExposureState(state)
-		taskScheduler.updateExposureState(state)
 	}
 }
 
