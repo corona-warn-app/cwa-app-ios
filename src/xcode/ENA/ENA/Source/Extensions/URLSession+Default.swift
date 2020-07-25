@@ -22,7 +22,9 @@ extension URLSession {
 		#if DISABLE_CERTIFICATE_PINNING
 		let coronaWarnURLSessionDelegate: CoronaWarnURLSessionDelegate? = nil
 		#else
-		let coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate()
+		let coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate(
+			localPublicKey: "c3jf+L8VIAFQnJJDM6Mfb4MtI1JnhVS8JwZHMwJj28M="
+		)
 		#endif
 		return URLSession(
 			configuration: .coronaWarnSessionConfiguration(),
