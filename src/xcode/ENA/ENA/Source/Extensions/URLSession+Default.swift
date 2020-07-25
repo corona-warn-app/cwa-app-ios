@@ -24,7 +24,9 @@ extension URLSession {
 		//Community, Debug, TestFlight, UITesting modes
 		let coronaWarnURLSessionDelegate: CoronaWarnURLSessionDelegate? = nil
 		#else
-		let coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate()
+		let coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate(
+			localPublicKey: "c3jf+L8VIAFQnJJDM6Mfb4MtI1JnhVS8JwZHMwJj28M="
+		)
 		#endif
 		return URLSession(
 			configuration: .coronaWarnSessionConfiguration(),
