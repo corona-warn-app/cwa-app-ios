@@ -7,15 +7,6 @@
 		<string>de.rki.coronawarnapp.exposure-notification</string>
 		<string>de.rki.coronawarnapp.fetch-test-results</string>
 	</array>
-	<key>BackendURLs</key>
-	<dict>
-		<key>distribution</key>
-		<string>$(BACKEND_DISTIBUTION_BASE_URL)</string>
-		<key>submission</key>
-		<string>$(BACKEND_SUBMISSION_BASE_URL)</string>
-		<key>verification</key>
-		<string>$(BACKEND_VERIFICATION_BASE_URL)</string>
-	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

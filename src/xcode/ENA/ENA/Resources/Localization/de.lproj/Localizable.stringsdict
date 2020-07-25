@@ -1,6 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ExposureDetection_Explanation_Text_High_DaysSinceLastExposure</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>one</key>
+			<string>Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor einem Tag mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind.</string>
+			<key>other</key>
+			<string>Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor %u Tagen mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind.</string>
+		</dict>
+	</dict>
 	<key>ExposureDetection_Refreshed_Format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -12,14 +29,23 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<!-- XFLD: Plural form for Zero -->
-			<string>Heute, %%1$@&#x00a0;Uhr</string>
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
+			<string>Heute, %%1$@ Uhr</string>
 			<key>one</key>
-			<!-- XFLD: Plural form for One -->
-			<string>Gestern, %%1$@&#x00a0;Uhr</string>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
+			<string>Gestern, %%1$@ Uhr</string>
+			<key>few</key>
+			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
+			<string>%%2$@, %%1$@ Uhr</string>
+			<key>many</key>
+			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
+			<string>%%2$@, %%1$@ Uhr</string>
+			<key>two</key>
+			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
+			<string>%%2$@, %%1$@ Uhr</string>
 			<key>other</key>
-			<!-- XFLD: Plural form for Other -->
-			<string>%%2$@, %%1$@&#x00a0;Uhr</string>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
+			<string>%%2$@, %%1$@ Uhr</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_NumberOfContacts</key>
@@ -33,14 +59,23 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<!-- XFLD: Plural form for Zero -->
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
 			<string>Bisher keine Risiko-Begegnungen</string>
 			<key>one</key>
-			<!-- XFLD: Plural form for One -->
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
 			<string>Eine Risiko-Begegnung</string>
+			<key>few</key>
+			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
+			<string>%u Risiko-Begegnungen</string>
+			<key>many</key>
+			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
+			<string>%u Risiko-Begegnungen</string>
+			<key>two</key>
+			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
+			<string>%u Risiko-Begegnungen</string>
 			<key>other</key>
-			<!-- XFLD: Plural form for Other -->
-			<string>%u&#x00a0;Risiko-Begegnungen</string>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
+			<string>%u Risiko-Begegnungen</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_LastExposure</key>
@@ -54,14 +89,23 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<!-- XFLD: Plural form for Zero -->
-			<string>%u&#x00a0;Tage seit letzter Risiko-Begegnung</string>
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
+			<string>%u Tage seit letzter Risiko-Begegnung</string>
 			<key>one</key>
-			<!-- XFLD: Plural form for One -->
-			<string>%u&#x00a0;Tag seit letzter Risiko-Begegnung</string>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
+			<string>%u Tag seit letzter Risiko-Begegnung</string>
+			<key>few</key>
+			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
+			<string>%u Tage seit letzter Risiko-Begegnung</string>
+			<key>many</key>
+			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
+			<string>%u Tage seit letzter Risiko-Begegnung</string>
+			<key>two</key>
+			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
+			<string>%u Tage seit letzter Risiko-Begegnung</string>
 			<key>other</key>
-			<!-- XFLD: Plural form for Other -->
-			<string>%u&#x00a0;Tage seit letzter Risiko-Begegnung</string>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
+			<string>%u Tage seit letzter Risiko-Begegnung</string>
 		</dict>
 	</dict>
     <key>Home_Risk_Number_Contacts_Item_Title</key>
@@ -75,14 +119,23 @@
             <key>NSStringFormatValueTypeKey</key>
             <string>u</string>
             <key>zero</key>
-			<!-- XFLD: Plural form for Zero -->
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
             <string>Bisher keine Risiko-Begegnung</string>
             <key>one</key>
-			<!-- XFLD: Plural form for One -->
-            <string>%u&#x00a0;Risiko-Begegnung</string>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
+            <string>%u Risiko-Begegnung</string>
+            <key>few</key>
+            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
+            <string>%u Risiko-Begegnungen</string>
+            <key>many</key>
+            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
+            <string>%u Risiko-Begegnungen</string>
+            <key>two</key>
+            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
+            <string>%u Risiko-Begegnungen</string>
             <key>other</key>
-			<!-- XFLD: Plural form for Other -->
-            <string>%u&#x00a0;Risiko-Begegnungen</string>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
+            <string>%u Risiko-Begegnungen</string>
         </dict>
     </dict>
     <key>Home_Risk_Last_Contact_Item_Title</key>
@@ -96,14 +149,23 @@
             <key>NSStringFormatValueTypeKey</key>
             <string>u</string>
             <key>zero</key>
-			<!-- XFLD: Plural form for Zero -->
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
             <string>Weniger als einen Tag seit letzter Risiko-Begegnung</string>
             <key>one</key>
-			<!-- XFLD: Plural form for One -->
-            <string>%u&#x00a0;Tag seit letzter Risiko-Begegnung</string>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
+            <string>%u Tag seit letzter Risiko-Begegnung</string>
+            <key>few</key>
+            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
+            <string>%u Tage seit letzter Risiko-Begegnung</string>
+            <key>many</key>
+            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
+            <string>%u Tage seit letzter Risiko-Begegnung</string>
+            <key>two</key>
+            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
+            <string>%u Tage seit letzter Risiko-Begegnung</string>
             <key>other</key>
-			<!-- XFLD: Plural form for Other -->
-            <string>%u&#x00a0;Tage seit letzter Risiko-Begegnung</string>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
+            <string>%u Tage seit letzter Risiko-Begegnung</string>
         </dict>
     </dict>
     <key>Home_Risk_Status_Counter_Label</key>
@@ -117,14 +179,23 @@
             <key>NSStringFormatValueTypeKey</key>
             <string>u</string>
 			<key>zero</key>
-			<!-- XFLD: Plural form for Zero -->
-            <string>Aktualisierung in %02u:%2$#@seconds@&#x00a0;Sekunden</string>
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
+            <string>Aktualisierung in %02u:%2$#@seconds@ Sekunden</string>
             <key>one</key>
-			<!-- XFLD: Plural form for One -->
-            <string>Aktualisierung in %02u:%2$#@seconds@&#x00a0;Minute</string>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
+            <string>Aktualisierung in %02u:%2$#@seconds@ Minute</string>
+            <key>few</key>
+            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
+            <string>Aktualisierung in %02u:%2$#@seconds@ Minuten</string>
+            <key>many</key>
+            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
+            <string>Aktualisierung in %02u:%2$#@seconds@ Minuten</string>
+            <key>two</key>
+            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
+            <string>Aktualisierung in %02u:%2$#@seconds@ Minuten</string>
             <key>other</key>
-			<!-- XFLD: Plural form for Other -->
-            <string>Aktualisierung in %02u:%2$#@seconds@&#x00a0;Minuten</string>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
+            <string>Aktualisierung in %02u:%2$#@seconds@ Minuten</string>
         </dict>
         <key>seconds</key>
         <dict>
@@ -132,8 +203,23 @@
             <string>NSStringPluralRuleType</string>
             <key>NSStringFormatValueTypeKey</key>
             <string>u</string>
+			<key>one</key>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
+			<string>%02u</string>
+            <key>zero</key>
+            <!-- XFLD: Plural form for Other  Plural form for ZERO. Plural form for ZERO.-->
+            <string>%02u</string>
+            <key>few</key>
+            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
+            <string>%02u</string>
+            <key>many</key>
+            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
+            <string>%02u</string>
+            <key>two</key>
+            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
+            <string>%02u</string>
             <key>other</key>
-			<!-- XFLD: Plural form for Other -->
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
             <string>%02u</string>
         </dict>
     </dict>
@@ -148,14 +234,23 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<!-- XFLD: Plural form for Zero -->
-			<string>Risiko-Ermittlung ist seit weniger als einem&#x00a0;Tag aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
+			<string>Risiko-Ermittlung ist seit weniger als einem Tag aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
 			<key>one</key>
-			<!-- XFLD: Plural form for One -->
-			<string>Risiko-Ermittlung ist seit %u&#x00a0;Tag aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
+			<string>Risiko-Ermittlung ist seit %u Tag aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
+			<key>few</key>
+			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
+			<string>Risiko-Ermittlung ist seit %u Tagen aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
+			<key>many</key>
+			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
+			<string>Risiko-Ermittlung ist seit %u Tagen aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
+			<key>two</key>
+			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
+			<string>Risiko-Ermittlung ist seit %u Tagen aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
 			<key>other</key>
-			<!-- XFLD: Plural form for Other -->
-			<string>Risiko-Ermittlung ist seit %u&#x00a0;Tagen aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
+			<string>Risiko-Ermittlung ist seit %u Tagen aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
 		</dict>
 	</dict>
 </dict>

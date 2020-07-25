@@ -19,6 +19,7 @@ import Foundation
 @testable import ENA
 
 final class MockTestStore: Store {
+	var hasSeenBackgroundFetchAlert: Bool = false
 	var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 	var summary: SummaryMetadata?
 	var tracingStatusHistory: TracingStatusHistory = []

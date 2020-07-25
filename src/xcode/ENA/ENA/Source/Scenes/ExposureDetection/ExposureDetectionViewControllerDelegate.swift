@@ -23,7 +23,4 @@ protocol ExposureDetectionViewControllerDelegate: AnyObject {
 		setExposureManagerEnabled enabled: Bool,
 		completionHandler completion: @escaping (ExposureNotificationError?) -> Void
 	)
-
-	func didStartLoading(exposureDetectionViewController: ExposureDetectionViewController)
-	func didFinishLoading(exposureDetectionViewController: ExposureDetectionViewController)
 }

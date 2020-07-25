@@ -49,7 +49,11 @@ extension SAPDownloadedPackage {
 		)
 	}
 
-	static func makePackage(bin: Data = Data(bytes: [0xA, 0xB, 0xC], count: 3), key: P256.Signing.PrivateKey) throws -> SAPDownloadedPackage {
+	/// Make a SAPDownloadedPackage with the provided data and signing key
+	///
+	/// - important: Both data and key are defaulted, but make sure to pass your own key if you want to test the verification process!
+	///	Accepting the default key is only useful if you just need a package and do not care about signing validation
+	static func makePackage(bin: Data = Data(bytes: [0xA, 0xB, 0xC], count: 3), key: P256.Signing.PrivateKey = P256.Signing.PrivateKey()) throws -> SAPDownloadedPackage {
 		let signature = try makeSignature(data: bin, key: key).asList()
 		return try makePackage(bin: bin, signature: signature)
 	}

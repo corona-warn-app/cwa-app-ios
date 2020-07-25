@@ -1,0 +1,943 @@
+/* General */
+"Alert_TitleGeneral" = "A apărut o eroare.";
+
+"Alert_ActionOk" = "OK";
+
+"Alert_ActionRetry" = "Repetare";
+
+"Alert_ActionCancel" = "Anulare";
+
+"Alert_ActionRemove" = "Eliminare";
+
+"Alert_BluetoothOff_Title" = "Porniți Bluetooth";
+
+"Alert_BluetoothOff_Description" = "Activați Bluetooth-ul în setările sistemului dvs. pentru a utiliza această aplicație.";
+
+"Alert_CancelAction_Later" = "Mai târziu";
+
+"Alert_DefaultAction_OpenSettings" = "Deschideți Configurări";
+
+"General_BackButtonTitle" = "Înapoi";
+
+"Common_ENError5_Description" = "Eroarea 5: A apărut o problemă. Nivelul dvs. de risc nu poate fi determinat. Lucrăm la soluționarea problemei.";
+
+"Common_ENError11_Description" = "Eroarea 11: A apărut o problemă. Nivelul dvs. de risc nu poate fi determinat. Reporniți dispozitivul dvs. și reîncercați mâine.";
+
+"Common_ENError13_Description" = "Eroarea 13: Înregistrarea în jurnal a expunerilor dvs. pentru astăzi a fost deja efectuată. Reîncercați în 24 de ore.";
+
+"Common_Alert_Action_moreInfo" = "Aflați mai multe";
+
+"Common_BackgroundFetch_AlertMessage" = "Ați dezactivat actualizările în fundal pentru aplicația Corona-Warn. Activați actualizările în fundal pentru a utiliza înregistrarea automată în jurnal a expunerilor. Dacă nu activați actualizările în fundal, puteți porni doar manual în aplicație înregistrarea în jurnal a expunerilor.\n\nPuteți activa actualizările în fundal pentru aplicație în configurările dispozitivului dvs.";
+
+"Common_BackgroundFetch_SettingsTitle" = "Deschideți Configurările dispozitivului";
+
+"Common_BackgroundFetch_OKTitle" = "Porniți manual înregistrarea în jurnal a expunerilor";
+
+"Common_BackgroundFetch_AlertTitle" = "Actualizări în fundal dezactivate";
+
+/* General - Links */
+"General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
+
+"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
+
+"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
+
+"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
+
+/* Accessibility */
+"AccessibilityLabel_Close" = "Închidere";
+
+"AccessibilityLabel_PhoneNumber" = "Număr de telefon";
+
+/* Exposure Detection */
+"ExposureDetection_Off" = "Înregistrarea în jurnal a expunerilor a fost oprită";
+
+"ExposureDetection_Outdated" = "Înregistrarea în jurnal a expunerilor nu este posibilă";
+
+"ExposureDetection_Unknown" = "Risc necunoscut";
+
+"ExposureDetection_Low" = "Risc redus";
+
+"ExposureDetection_High" = "Risc mai mare";
+
+"ExposureDetection_NumberOfDaysStored" = "%d din 14 zile activă";
+
+"ExposureDetection_Refreshed" = "Actualizată: %@";
+
+"ExposureDetection_Refreshed_Never" = "Necunoscut";
+
+"ExposureDetection_RefreshingIn" = "Actualizare în %02d:%02d\U00A0minute";
+
+"ExposureDetection_RefreshIn" = "Actualizare în %@";
+
+"ExposureDetection_Refresh_24h" = "Actualizată la fiecare 24 de ore";
+
+"ExposureDetection_LastRiskLevel" = "Ultima înregistrare în jurnal a expunerilor: %@";
+
+"ExposureDetection_OffText" = "Activați înregistrarea în jurnal a expunerilor pentru a evalua astăzi starea riscului.";
+
+"ExposureDetection_OutdatedText" = "Înregistrarea în jurnal a expunerilor dvs. nu a putut fi actualizată timp de peste 48 de ore.";
+
+"ExposureDetection_UnknownText" = "Deoarece nu ați activat un timp suficient de lung înregistrarea în jurnal a expunerilor, nu putem calcula riscul dvs. de infectare.";
+
+"ExposureDetection_LoadingText" = "Datele curente sunt în curs de descărcare și verificare. Aceasta poate dura mai multe minute.";
+
+"ExposureDetection_Behavior_Title" = "Instrucțiuni";
+
+"ExposureDetection_Behavior_Subtitle" = "Iată ce trebuie să faceți";
+
+"ExposureDetection_Guide_Hands" = "Spălați-vă frecvent pe mâini.";
+
+"ExposureDetection_Guide_Mask" = "Purtați o mască facială când întâlniți alte persoane.";
+
+"ExposureDetection_Guide_Distance" = "Păstrați o distanță de cel puțin 1,5 metri față de alte persoane.";
+
+"ExposureDetection_Guide_Sneeze" = "Strănutați sau tușiți în pliul cotului sau într-un șervețel. ";
+
+"ExposureDetection_Guide_Home" = "Dacă este posibil, mergeți acasă și rămâneți în casă.";
+
+"ExposureDetection_Guide_Hotline1" = "Dacă aveți întrebări despre simptome, disponibilitatea testării sau autoizolare, contactați:";
+
+"ExposureDetection_Guide_Hotline2" = "Medicul de familie";
+
+"ExposureDetection_Guide_Hotline3" = "Serviciul general de urgență la numărul de telefon 112";
+
+"ExposureDetection_Guide_Hotline4" = "Direcția de sănătate publică relevantă";
+
+"ExposureDetection_Explanation_Title" = "Risc de infectare";
+
+"ExposureDetection_Explanation_Subtitle_Active" = "Modul în care a fost calculat riscul dvs.";
+
+"ExposureDetection_Explanation_Subtitle_Inactive" = "Modul în care este calculat riscul dvs.";
+
+"ExposureDetection_Explanation_Text_Off" = "Riscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe dispozitivul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.";
+
+"ExposureDetection_Explanation_Text_Outdated" = "Deoarece nu ați activat un timp suficient de lung înregistrarea în jurnal a expunerilor, nu putem calcula riscul dvs. de infectare.\n\nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe dispozitivul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.";
+
+"ExposureDetection_Explanation_Text_Unknown" = "Deoarece nu ați activat un timp suficient de lung înregistrarea în jurnal a expunerilor, nu putem calcula riscul dvs. de infectare.\n\nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe dispozitivul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.";
+
+"ExposureDetection_Explanation_Text_Low" = "Aveți un risc redus de infectare deoarece nu a fost înregistrată nicio întâlnire cu o persoană diagnosticată cu COVID-19 sau întâlnirea a fost limitată la o perioadă scurtă și la o distanță mai mare.\n\nPrin urmare, riscul dvs. de infectare a fost clasificat ca redus.\n\nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe dispozitivul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.";
+
+"ExposureDetection_Explanation_Text_High" = "\n\nPrin urmare, riscul dvs. de infectare a fost clasificat ca fiind crescut.\nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe dispozitivul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.\nCând ajungeți acasă, evitați contactul strâns cu membrii familiei sau cu cei din gospodăria dvs.";
+
+"ExposureDetection_Button_Enable" = "Activați înregistrarea în jurnal a expunerilor";
+
+"ExposureDetection_Button_Refresh" = "Actualizare";
+
+/* Exposure Detection Errors */
+"ExposureDetectionError_Alert_Title" = "Eroare";
+
+"ExposureDetectionError_Alert_Action_Details" = "Detalii";
+
+"ExposureDetectionError_Alert_Message" = "A apărut o eroare în timpul înregistrării în jurnal a expunerilor.";
+
+/* Settings */
+"Settings_StatusActive" = "Pornită";
+
+"Settings_StatusInactive" = "Oprită";
+
+"Settings_StatusEnable" = "Activare";
+
+"Settings_StatusDisable" = "Dezactivare";
+
+"Settings_KontaktProtokollStatusActive" = "Activă";
+
+"Settings_KontaktProtokollStatusInactive" = "Oprită";
+
+"Settings_Tracing_Label" = "Înregistrarea în jurnal a expunerilor";
+
+"Settings_Notification_Label" = "Notificări";
+
+"Settings_Reset_Label" = "Resetați aplicația";
+
+"Settings_Tracing_Description" = "Permiteți generarea și partajarea de ID-uri aleatorii de COVID-19.";
+
+"Settings_Notification_Description" = "Permiteți notificările automate privind starea riscului dvs. de COVID-19.";
+
+"Settings_Reset_Description" = "Ștergeți toate datele dvs. din aplicație.";
+
+"Settings_NavTitle" = "Setări";
+
+/* Noticiation Settings */
+"NotificationSettings_On_Title" = "Doriți să activați notificările privind starea riscului de COVID-19?";
+
+"NotificationSettings_On_SectionTitle" = "Setare";
+
+"NotificationSettings_On_RiskChanges" = "Riscul dvs. de infectare s-a modificat";
+
+"NotificationSettings_On_TestsStatus" = "Starea testului COVID-19";
+
+"NotificationSettings_Off_SectionTitle" = "Setare";
+
+"NotificationSettings_Off_EnableNotifications" = "Notificări";
+
+"NotificationSettings_Off_StatusInactive" = "Oprite";
+
+"NotificationSettings_Off_InfoTitle" = "Activați Notificările";
+
+"NotificationSettings_Off_InfoDescription" = "Pentru a activa notificările, trebuie să permiteți notificările pentru Corona-Warn-App în setările dispozitivului.";
+
+"NotificationSettings_Off_OpenSettings" = "Deschideți Configurări";
+
+"NotificationSettings_NavTitle" = "Notificări";
+
+"NotificationSettings_onImageDescription" = "O femeie primește o notificare de la Corona-Warn-App.";
+
+"NotificationSettings_offImageDescription" = "O femeie nu poate primi notificări de la Corona-Warn-App.";
+
+/* Onboarding */
+"Onboarding_LetsGo_actionText" = "Să începem";
+
+"Onboarding_Continue_actionText" = "Înainte";
+
+"Onboarding_EnableLogging_actionText" = "Înainte";
+
+"Onboarding_Continue_actionTextHint" = "Puteți sări peste acest ecran";
+
+"Onboarding_doNotAllow_actionText" = "Nu permiteți";
+
+"Onboarding_DoNotActivate_actionText" = "Nu activați";
+
+"Onboarding_DeactivateExposureConfirmation_title" = "Aceasta înseamnă că aplicația Corona-Warn nu poate trimite sau primi notificări despre starea riscului dvs. de COVID-19.";
+
+"Onboarding_DeactivateExposureConfirmation_message" = "Puteți oricând dezactiva această caracteristică.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "Un grup de persoane își folosește dispozitivele în oraș.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_title" = "Să combatem împreună coronavirusul";
+
+"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mai multă protecție pentru dvs. și pentru noi toți. Utilizând Corona-Warn-App putem întrerupe mai ușor lanțul de infectare.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Transformați-vă dispozitivul într-un sistem de avertizare la coronavirus. Obțineți un sumar al stării riscului și aflați dacă ați intrat în contact strâns cu persoane diagnosticate cu COVID-19 în ultimele 14 zile. \n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin dispozitivele acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.";
+
+"OnboardingInfo_privacyPage_imageDescription" = "O femeie utilizează Corona-Warn-App pe smartphone. O pictogramă care arată un lacăt pe un fundal în formă de scut simbolizează datele criptate.";
+
+"OnboardingInfo_privacyPage_title" = "Confidențialitatea datelor";
+
+"OnboardingInfo_privacyPage_boldText" = "";
+
+"OnboardingInfo_privacyPage_normalText" = "Vă este păstrată anonimitatea.\nDatele dvs. sunt criptate integral și sunt transmise sub pseudonim.\n\nOrganism responsabil: GDPR, articolul 4, alin. 7:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nConsultați reglementările noastre privind confidențialitatea datelor.\n\nInformații despre confidențialitatea datelor:";
+
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Trei persoane și-au activat pe dispozitiv înregistrarea în jurnal a expunerilor, ceea ce va duce la înregistrarea întâlnirilor lor.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "Cum se activează înregistrarea în jurnal a expunerilor";
+
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Pentru a identifica dacă sunteți supus riscului de infectare, trebuie să activați caracteristica de înregistrare în jurnal a expunerilor.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Înregistrarea în jurnal a expunerilor funcționează astfel: dispozitivul dvs. primește prin Bluetooth ID-uri aleatorii criptate ale altor utilizatori și transmite propriul dvs. ID aleatoriu către dispozitivele acestora. Această caracteristică poate fi oricând dezactivată. \n\nID-urile aleatorii criptate transmit informații doar despre dată, durată și proximitatea față de alte persoane (calculate utilizând intensitatea semnalului). Datele personale, precum numele, adresa și locația nu sunt înregistrate niciodată. Nu se pot identifica persoanele individuale.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Declarație de consimțământ";
+
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "To find out whether you have been in contact with an infected person and whether there is a risk that you yourself have been infected, you need to enable the App’s exposure logging feature. By tapping on the “Turn On” button, you agree to the enabling of the App’s exposure logging feature and the associated data processing.\n\n\nIn order to use the App’s exposure logging feature, you will have to enable the COVID-19 Exposure Logging functionality provided by Apple on your iPhone and grant the Corona-Warn-App permission to use this.\n\nWhen exposure logging is enabled, your iPhone continuously generates and transmits random IDs via Bluetooth, which other Apple and Android smartphones in your vicinity can receive if exposure logging is also enabled on them. Your iPhone, in turn, receives the random IDs of the other smartphones. Your own random IDs and those received from other smartphones are recorded in the exposure log and stored there for 14 days.\n\n\nTo identify your risk of infection, the App loads a list – several times a day or on request – of the random IDs of all users who have told the App that they have been infected with the coronavirus. This list is then compared with the random IDs stored in the exposure log. If the App detects that you may have been in contact with an infected user, it will inform you of this and tell you that there is a risk that you are also infected. In this case, the App is also given access to other data stored in your iPhone’s exposure log (date, duration and Bluetooth signal strength of the contact).\n\nThe Bluetooth signal strength is used to derive the physical distance (the stronger the signal, the smaller the distance). The App then analyses this information in order to assess your likelihood of having been infected with the coronavirus and to give you recommendations for what to do next. This analysis is only performed locally on your iPhone. Apart from you, nobody (not even the RKI) will know whether you have been in contact with an infected person and what risk has been identified for you.\n\nTo withdraw your consent to the exposure logging feature, you can disable the feature using the toggle switch in the App or delete the App. If you decide to use the exposure logging feature again, you can toggle the feature back on or reinstall the App. If you disable the exposure logging feature, the App will no longer check whether you have been in contact with an infected user. If you also wish to stop your device sending and receiving random IDs, you will need to disable COVID-19 Exposure Logging in your iPhone settings. Please note that your own random IDs and those received from other smartphones which are stored in the exposure log will not be deleted in the App. You can only permanently delete the data stored in the exposure log in your iPhone settings.\n\n\nThe App’s privacy notice (including an explanation of the data processing carried out for the exposure logging feature) can be found in the menu under “Data Privacy Information”.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Stare";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateTitle" = "Înregistrarea în jurnal a expunerilor";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateActive" = "Activ";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateStopped" = "Oprit";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "Un diagnostic de test pozitiv criptat este transmis la sistem, iar acesta va avertiza apoi ceilalți utilizatori.";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Dacă sunteți diagnosticat cu COVID-19 …";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… vă rugăm să raportați acest lucru în Corona-Warn-App. Împărtășirea rezultatului testului este voluntară și securizată. Vă rugăm să faceți acest lucru pentru binele celorlalți.";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Notificarea dvs. este criptată în mod securizat și este prelucrată pe un server sigur. Persoanele ale căror ID-uri aleatorii criptate au fost colectate de dispozitivul dvs. vor primi acum o avertizare împreună cu informații despre pașii de urmat.";
+
+"OnboardingInfo_alwaysStayInformedPage_imageDescription" = "O femeie primește o notificare de la Corona-Warn-App.";
+
+"OnboardingInfo_alwaysStayInformedPage_title" = "Primiți avertizări și identificați riscurile";
+
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Aplicația vă poate notifica automat despre starea riscului dvs. și vă poate avertiza despre noi infectări ale persoanelor la care ați fost expus. Permiteți-i acum aplicației să vă notifice.";
+
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "Apoi vă puteți autoizola pentru a-i proteja pe ceilalți și aflați unde puteți face testul.";
+
+/* Exposure Submission */
+"ExposureSubmission_Hotline_Number" = "+498007540002";
+
+"ExposureSubmission_DataPrivacyTitle" = "Confidențialitatea datelor";
+
+"ExposureSubmission_Continue_actionText" = "Înainte";
+
+"ExposureSubmission_DataPrivacyDescription" = "By tapping on “Accept”, you consent to the App querying the status of your coronavirus test and displaying it in the App. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the App’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the App. If you have enabled notifications, you will also receive a notification outside the App telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the App. You can withdraw this consent at any time by deleting your test registration in the App. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy Information”.";
+
+"ExposureSubmissionDataPrivacy_AcceptTitle" = "Accept";
+
+"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Nu accept";
+
+"ExposureSubmission_Submit" = "Introduceți TAN";
+
+"ExposureSubmissionTanEntry_Title" = "Intrare TAN";
+
+"ExposureSubmissionTanEntry_EntryField" = "Câmp de intrare TAN";
+
+"ExposureSubmissionTanEntry_Info" = "Introduceți codul TAN primit:";
+
+"ExposureSubmissionTanEntry_Description" = "Introduceți codul TAN din 10 cifre pe care l-ați primit.";
+
+"ExposureSubmissionTanEntry_Submit" = "Înainte";
+
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Intrare nevalabilă. Verificați intrarea.";
+
+"ExposureSubmissionTanEntry_InvalidError" = "TAN nevalabil. Verificați intrarea.";
+
+"ExposureSubmission_NavTitle" = "Trimitere cheie de pozitivare";
+
+"ExposureSubmissionConfirmation_Title" = "Diagnostic pozitiv";
+
+"ExposureSubmission_GeneralErrorTitle" = "Eroare";
+
+"ExposureSubmission_DispatchTitle" = "Selecție";
+
+"ExposureSubmission_DispatchDescription" = "Ce este aici pentru dvs.?";
+
+"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Document cu cod QR";
+
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Înregistrați-vă testul scanând codul QR al documentului de testare.";
+
+"ExposureSubmissionDispatch_TANButtonTitle" = "TAN";
+
+"ExposureSubmissionDispatch_TANButtonDescription" = "Înregistrați-vă testul introducând manual codul TAN.";
+
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "Solicitare TAN";
+
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Vă rugăm să ne contactați dacă ați fost testat %@.";
+
+"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Pozitiv";
+
+"ExposureSubmissionHotline_Title" = "Solicitare TAN";
+
+"ExposureSubmissionHotline_Description" = "Vă rugăm să aveți la îndemână rezultatul testului (dacă este disponibil) și numărul de telefon pentru a solicita un cod TAN.";
+
+"ExposureSubmissionHotline_SectionTitle" = "Cum funcționează";
+
+"ExposureSubmissionHotline_SectionDescription1" = "Sunați la hotline și solicitați un TAN:";
+
+"ExposureSubmissionHotline_iconAccessibilityLabel1" = "Pasul 1 din 2";
+
+"ExposureSubmissionHotline_iconAccessibilityLabel2" = "Pasul 2 din 2";
+
+"ExposureSubmission_PhoneNumber" = "+49 800 7540002";
+
+"ExposureSubmission_PhoneDetailDescription" = "Limbi: \ngermană, engleză, turcă\n\nProgram de lucru:\nluni - duminică: non-stop\n\nApelul este gratuit.";
+
+"ExposureSubmission_SectionDescription2" = "Înregistrați testul introducând codul TAN în aplicație.";
+
+"ExposureSubmission_CallButtonTitle" = "Apelare";
+
+"ExposureSubmission_TANInputButtonTitle" = "Introduceți TAN";
+
+"ExposureSubmissionHotline_imageDescription" = "Serviciul hotline vă comunică un cod TAN.";
+
+/* Exposure Submission QR Code Scanner */
+"ExposureSubmissionQRScanner_title" = "Scanare cod QR";
+
+"ExposureSubmissionQRScanner_instruction" = "Poziționați cadrul peste codul QR al documentului.";
+
+"ExposureSubmissionQRScanner_notFoundAlertTitle" = "Diagnosticul nu poate fi găsit";
+
+"ExposureSubmissionQRScanner_notFoundAlertText" = "Pentru a facilita citirea codului QR, încercați să aliniați codul QR vertical cu scannerul sau porniți blițul.";
+
+"ExposureSubmissionQRScanner_otherError" = "A apărut o eroare necunoscută.";
+
+"ExposureSubmissionQRScanner_cameraPermissionDenied" = "Permiteți-i aplicației să utilizeze camera pentru a scana codul QR.";
+
+"ExposureSubmissionQRScanner_CameraFlash" = "Bliț cameră";
+
+"ExposureSubmissionQRScanner_CameraFlash_On" = "Pornit";
+
+"ExposureSubmissionQRScanner_CameraFlash_Off" = "Oprit";
+
+"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Pornire bliț cameră";
+
+"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Oprire bliț cameră";
+
+/* Exposure Submission Success */
+"ExposureSubmissionSuccess_Title" = "Vă mulțumim!";
+
+"ExposureSubmissionSuccess_AccImageDescription" = "Toată lumea din grup aclamă deoarece o persoană și-a împărtășit rezultatul testului.";
+
+"ExposureSubmissionSuccess_Button" = "Asta e tot!";
+
+"ExposureSubmissionSuccess_Description" = "Datorită sprijinului dvs., alte persoane pot fi acum avertizate și pot reacționa adecvat.";
+
+"ExposureSubmissionSuccess_subTitle" = "Alte informații:";
+
+"ExposureSubmissionSuccess_listTitle" = "Rețineți:";
+
+"ExposureSubmissionSuccess_listItem1" = "Direcția de sănătate publică vă va contacta în următoarele zile telefonic sau în scris.";
+
+"ExposureSubmissionSuccess_listItem2" = "Sunteți infectat. Izolați-vă de alte persoane.";
+
+"ExposureSubmissionSuccess_listItem2_1" = "Perioada de carantină este de obicei de 14 zile. Observați ce simptome aveți și monitorizați dezvoltarea acestora.";
+
+"ExposureSubmissionSuccess_listItem2_2" = "Direcția de sănătate publică vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 15 minute începând cu două zile înainte de a prezenta simptome.";
+
+"ExposureSubmissionSuccess_listItem2_3" = "Luați în considerare în special persoanele care nu vor fi notificate direct de aplicație dacă nu au un smartphone sau dacă nu și-au instalat aplicația.";
+
+"ExposureSubmissionSuccess_listItem2_4" = "Chiar și când nu mai aveți simptome și vă simțiți din nou bine, tot puteți să fiți contagios. ";
+
+/* Exposure Submission Introduction */
+"ExposureSubmissionIntroduction_Title" = "Informații";
+
+"ExposureSubmissionIntroduction_SubTitle" = "Modul în care funcționează Corona-Warn-App";
+
+"ExposureSubmissionIntroduction_AccImageDescription" = "Un dispozitiv transmite un diagnostic de test pozitiv criptat către sistem.";
+
+"ExposureSubmissionIntroduction_Usage01" = "Pentru ca aplicația să funcționeze bine, ne bazăm pe susținerea persoanelor care au fost diagnosticate cu COVID-19.";
+
+"ExposureSubmissionIntroduction_Usage02" = "Deoarece sunt schimbate doar ID-uri aleatorii criptate, dvs. rămâneți anonim. Puteți continua astfel:";
+
+"ExposureSubmissionIntroduction_ListItem1" = "Dacă există un cod QR în documentul dvs. de testare, îl puteți scana și înregistra testul. Imediat ce rezultatul este disponibil, îl puteți vedea în aplicație.";
+
+"ExposureSubmissionIntroduction_ListItem2" = "Dacă ați fost diagnosticat cu COVID-19, îi puteți notifica pe ceilalți.";
+
+"ExposureSubmissionIntroduction_ListItem3" = "Dacă ați primit un cod TAN pentru un diagnostic pozitiv, îl puteți utiliza pentru a înregistra testul.";
+
+"ExposureSubmissionIntroduction_ListItem4" = "Dacă nu aveți un cod TAN, îl puteți solicita telefonic.";
+
+/* Exposure Submission Result */
+"ExposureSubmissionResult_Title" = "Rezultat test";
+
+"ExposureSubmissionResult_CardSubTitle" = "Diagnosticul dvs.";
+
+"ExposureSubmissionResult_CardTitle" = "SARS-CoV-2";
+
+"ExposureSubmissionResult_CardPositive" = "Pozitiv";
+
+"ExposureSubmissionResult_CardNegative" = "Negativ";
+
+"ExposureSubmissionResult_CardInvalid" = "Evaluarea nu este posibilă";
+
+"ExposureSubmissionResult_CardPending" = "Rezultatul dvs. nu este încă disponibil";
+
+"ExposureSubmissionResult_Procedure" = "Cum funcționează:";
+
+"ExposureSubmissionResult_testAdded" = "Test adăugat cu succes";
+
+"ExposureSubmissionResult_testAddedDesc" = "Testul dvs. a fost stocat în Corona-Warn-App.";
+
+"ExposureSubmissionResult_warnOthers" = "Avertizarea altor persoane";
+
+"ExposureSubmissionResult_warnOthersDesc" = "Partajați ID-urile dvs. aleatorii din ultimele 14 zile pentru a proteja alte persoane și pentru a întrerupe lanțul de infectare.";
+
+"ExposureSubmissionResult_testPositive" = "Diagnostic pozitiv";
+
+"ExposureSubmissionResult_testPositiveDesc" = "Rezultatul testului dvs. a fost verificat ca fiind pozitiv.";
+
+"ExposureSubmissionResult_testNegative" = "Diagnostic negativ";
+
+"ExposureSubmissionResult_testNegativeDesc" = "Rezultatul de laborator nu indică o confirmare a infecției cu coronavirusul SARS-CoV-2.";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_title" = "Alte informații:";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Încă vă simțiți rău? Dacă vă simțiți foarte rău și/sau simptomele dvs. s-au agravat, vă rugăm să contactați medicul dvs. de familie.";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Rămâneți acasă până vă simțiți din nou bine. Dacă v-ați infecta cu coronavirus (SARS-CoV-2) în timp ce organismul dvs. este slăbit din cauza unei alte infecții, aceasta ar putea duce la o boală gravă.";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Nu mergeți la serviciu dacă nu vă simțiți bine pentru a nu expune la risc alte persoane.";
+
+"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Dacă simptomele dvs. se agravează, se poate să aveți nevoie de un test SARS-CoV-2 suplimentar.";
+
+"ExposureSubmissionResult_testInvalid" = "Testul are erori";
+
+"ExposureSubmissionResult_testInvalidDesc" = "A apărut o problemă la evaluarea testului dvs. Contactați direcția de sănătate publică pentru a afla pașii următori.";
+
+"ExposureSubmissionResult_testPending" = "Rezultatul testului nu este încă disponibil";
+
+"ExposureSubmissionResult_testPendingDesc" = "Rezultatul testului dvs. nu este încă disponibil.";
+
+"ExposureSubmissionResult_testRemove" = "Ștergere test";
+
+"ExposureSubmissionResult_testRemoveDesc" = "Ștergeți testul din Corona-Warn-App pentru a salva un nou cod de test aici dacă este necesar.";
+
+"ExposureSubmissionResult_continueButton" = "Înainte";
+
+"ExposureSubmissionResult_deleteButton" = "Ștergere test";
+
+"ExposureSubmissionResult_refreshButton" = "Actualizare";
+
+"ExposureSubmissionWarnOthers_title" = "Avertizarea altor persoane";
+
+"ExposureSubmissionWarnOthers_AccImageDescription" = "Un dispozitiv transmite un diagnostic de test pozitiv criptat către sistem.";
+
+"ExposureSubmissionWarnOthers_continueButton" = "Înainte";
+
+"ExposureSubmissionWarnOthers_sectionTitle" = "Să ne ajutăm împreună!";
+
+"ExposureSubmissionWarnOthers_description" = "Apoi, puteți să vă asigurați că aplicația Corona-Warn vă partajează cu alte persoane ID-urile aleatorii din ultimele 14 zile. Prin aceasta, puteți avertiza și alte persoane și puteți contribui la întreruperea lanțului de infectare\n\nPentru că sunt transmise doar ID-uri aleatorii impersonale, identitatea dvs. va rămâne anonimă.";
+
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping on “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the exposure logging feature can be automatically notified that they may have been exposed to a risk of infection. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person.\n\nTransmitting your test result via the App is voluntary. You will not be penalised if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected.\n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out on the basis of the consent prior to the withdrawal. Further information can be found in the menu under “Data Privacy Information”.";
+
+"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Confidențialitatea datelor";
+
+"ExposureSubmissionResult_RemoveAlert_Title" = "Ștergeți testul?";
+
+"ExposureSubmissionResult_RemoveAlert_Text" = "Testul va fi șters definitiv din Corona-Warn-App și nu mai poate fi adăugat din nou. Această procedură nu poate fi anulată.";
+
+"ExposureSubmissionResult_RegistrationDateUnknown" = "Data înregistrării este necunoscută";
+
+"ExposureSubmissionResult_RegistrationDate" = "Înregistrat la ";
+
+/* Exposure Submission */
+"ExposureSubmissionError_NoKeys" = "Nu este disponibilă nicio cheie de pozitivare. Reîncercați mâine.";
+
+"ExposureSubmissionError_InvalidTan" = "Codul TAN generat este nevalabil pentru transmitere. Contactați hotline-ul tehnic accesând Informații aplicație -> Hotline tehnic.";
+
+"ExposureSubmissionError_EnNotEnabled" = "Înregistrarea în jurnal a expunerilor nu este activă.";
+
+"ExposureSubmissionError_NoRegistrationToken" = "Niciun token de înregistrare nu a putut fi găsit pe dispozitiv.";
+
+"ExposureSubmissionError_InvalidResponse" = "Răspunsul nu poate fi prelucrat.";
+
+"ExposureSubmissionError_NoResponse" = "Răspunsul nu are conținut.";
+
+"ExposureSubmissionError_QRAlreadyUsed" = "Codul QR a fost deja utilizat. Contactați hotline-ul tehnic accesând Informații aplicație -> Hotline tehnic.";
+
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "Codul TAN este nevalabil sau a fost deja utilizat. Reîncercați sau contactați hotline-ul tehnic accesând Informații aplicație -> Hotline tehnic.";
+
+"ExposureSubmissionError_RegTokenNotExist" = "Un cod TAN de transmis nu poate fi generat. Contactați hotline-ul tehnic accesând Informații aplicație -> Hotline tehnic.";
+
+"ExposureSubmissionError_other" = "A apărut o eroare de conexiune. Cod de eroare pentru asistența tehnică:";
+
+"ExposureSubmissionError_otherend" = "Reîncercați.";
+
+"ExposureSubmissionError_httpError" = "Conexiunea nu poate fi stabilită.";
+
+"ExposureSubmissionError_declined" = "Vă rugăm să eliberați ID-urile dvs. aleatorii pentru a avertiza alte persoane.";
+
+"ExposureSubmissionError_unknown" = "Eroare necunoscută";
+
+"ExposureSubmissionError_defaultError" = "Eroare la transmiterea cheii";
+
+/* Tracing Enable/Disable Settings */
+"ExposureNotificationSetting_TracingSettingTitle" = "Înregistrarea în jurnal a expunerilor";
+
+"ExposureNotificationSetting_EnableTracing" = "Înregistrarea în jurnal a expunerilor";
+
+"ExposureNotificationSetting_Tracing_Limited" = "Restricționată";
+
+"ExposureNotificationSetting_Tracing_Deactivated" = "Dezactivată";
+
+"ExposureNotificationSetting_ActionCell_Header" = "Setare";
+
+"ExposureNotificationSetting_DescriptionTitle_Inactive" = "Activați înregistrarea în jurnal a expunerilor";
+
+"ExposureNotificationSetting_DescriptionTitle" = "Modul în care funcționează înregistrarea în jurnal a expunerilor";
+
+"ExposureNotificationSetting_DescriptionText1" = "Pentru a identifica dacă sunteți supus riscului de infectare, trebuie să activați caracteristica de înregistrare în jurnal a expunerilor.";
+
+"ExposureNotificationSetting_DescriptionText2" = "Înregistrarea în jurnal a expunerilor funcționează astfel: dispozitivul dvs. primește prin Bluetooth ID-uri aleatorii criptate ale altor utilizatori și transmite propriul dvs. ID aleatoriu către dispozitivele acestora. Această caracteristică poate fi oricând dezactivată.";
+
+"ExposureNotificationSetting_DescriptionText3" = "ID-urile aleatorii criptate transmit informații doar despre dată, durată și proximitatea față de alte persoane (utilizând intensitatea semnalului). Datele personale, precum numele, adresa și locația nu sunt înregistrate niciodată. Nu se pot identifica persoanele individuale.";
+
+"ExposureNotificationSetting_Activate_Bluetooth" = "Porniți Bluetooth";
+
+"ExposureNotificationSetting_Bluetooth_Description" = "Bluetooth-ul trebuie să fie pornit pentru ca înregistrarea în jurnal a expunerilor să poate înregistra întâlnirile. Porniți Bluetooth-ul în setările dispozitivului.";
+
+"ExposureNotificationSetting_Activate_Internet" = "Deschideți conexiunea la internet";
+
+"ExposureNotificationSetting_Internet_Description" = "Înregistrarea în jurnal a expunerilor necesită conexiunea la internet pentru a calcula expunerile. Porniți rețeaua WIFI sau datele celulare din setările dispozitivului dvs.";
+
+"ExposureNotificationSetting_Detail_Action_Button" = "Deschideți Configurările dispozitivului";
+
+"ExposureNotificationSetting_Activate_OSENSetting" = "Activați Înregistrarea în jurnal a expunerilor la COVID-19 și Notificări";
+
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Pentru înregistrarea în jurnal a expunerilor, trebuie activate înregistrarea în jurnal a expunerilor la COVID-19 și notificările în setările sistemului, pentru ca să poată fi înregistrate întâlnirile. Vă rugăm să activați „Înregistrarea în jurnal a expunerilor la COVID-19 și Notificări” în setările sistemului dvs.";
+
+"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Activați Înregistrarea în jurnal a expunerilor la COVID-19 și Notificări";
+
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Pentru înregistrarea în jurnal a expunerilor, trebuie activate înregistrarea în jurnal a expunerilor la COVID-19 și notificările în setările sistemului, pentru ca să poată fi înregistrate întâlnirile. Vă rugăm să activați „Înregistrarea în jurnal a expunerilor la COVID-19 și Notificări” în setările sistemului dvs.";
+
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Autorizație necesară";
+
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Confirmați utilizarea înregistrării în jurnal a expunerilor la COVID-19.";
+
+"ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Autorizație";
+
+"ExposureNotificationSetting_AccLabel_Enabled" = "Trei persoane și-au activat pe dispozitiv înregistrarea în jurnal a expunerilor, ceea ce va duce la înregistrarea întâlnirilor lor.";
+
+"ExposureNotificationSetting_AccLabel_Disabled" = "O persoană și-a dezactivat de pe smartphone înregistrarea în jurnal a expunerilor și, prin urmare, întâlnirea cu alte două persoane nu este înregistrată.";
+
+"ExposureNotificationSetting_AccLabel_BluetoothOff" = "O persoană și-a oprit Bluetooth-ul pe smartphone și, prin urmare, întâlnirea cu alte două persoane nu este înregistrată.";
+
+"ExposureNotificationSetting_AccLabel_InternetOff" = "O persoană și-a oprit conexiunea la internet pe smartphone și, prin urmare, nu este posibilă identificarea ultimelor întâlniri ale acesteia.";
+
+"ExposureNotificationSetting_Activate_Action" = "Accept";
+
+"ExposureNotificationSetting_Dismiss_Action" = "Anulare";
+
+"ExposureNotificationSetting_GeneralError_Title" = "Eroare";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Aflați mai multe";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.coronawarn.app/en/faq/";
+
+"ExposureNotificationSetting_AuthenticationError" = "A apărut o eroare la activarea caracteristicii de înregistrare în jurnal a expunerilor. Verificați dacă ați activat jurnalul de expuneri la COVID-19 în setările dvs.";
+
+"ExposureNotificationSetting_exposureNotification_Required" = "A apărut o eroare la activarea caracteristicii de înregistrare în jurnal a expunerilor. Verificați dacă este activată caracteristica de notificare a expunerii la risc în setările pentru aplicație.";
+
+"ExposureNotificationSetting_exposureNotification_unavailable" = "A apărut o eroare la activarea caracteristicii de înregistrare în jurnal a expunerilor. Verificați dacă această aplicație este selectată ca aplicație activă pentru înregistrarea în jurnal a expunerilor la COVID-19 în setările dvs. Pentru mai multe informații, vizitați pagina noastră de întrebări frecvente.";
+
+"ExposureNotificationSetting_unknownError" = "A apărut o eroare necunoscută. Pentru mai multe informații, vizitați pagina noastră de întrebări frecvente.";
+
+"ExposureNotificationSetting_apiMisuse" = "A apărut o eroare internă la activarea caracteristicii de înregistrare în jurnal a expunerilor. Pentru mai multe informații, vizitați pagina noastră de întrebări frecvente și reîncercați mai târziu.";
+
+/* Home Navigation Bar */
+"Home_LeftBarButton_description" = "Logoul Corona-Warn-App";
+
+"Home_RightBarButton_description" = "Informații";
+
+/* Home Active card */
+"Home_Activate_Card_On_Title" = "Înregistrarea în jurnal a expunerilor este activă";
+
+"Home_Activate_Card_Off_Title" = "Înregistrarea în jurnal a expunerilor a fost oprită";
+
+"Home_Activate_Card_Bluetooth_Off_Title" = "Bluetooth oprit";
+
+"Home_Activate_Card_Internet_Off_Title" = "Fără conexiune la internet";
+
+/* Home common card */
+"Home_Risk_Date_Item_Title" = "Actualizată: %@";
+
+"Home_Risk_No_Date_Title" = "Necunoscut";
+
+"Home_Risk_Period_Update_Title" = "Actualizată la fiecare %@\U00A0ore";
+
+"Home_Risk_Period_Disabled_Button_Title" = "Actualizată la fiecare %@\U00A0ore";
+
+/* Home Unknown card */
+"Home_Risk_Unknown_Title" = "Risc necunoscut";
+
+"Home_RiskCard_Unknown_Item_Title" = "Deoarece nu ați avut activată un timp suficient de lung înregistrarea în jurnal a expunerilor, nu putem calcula riscul dvs. de infectare.";
+
+"Home_RiskCard_Unknown_Button" = "Actualizare";
+
+/* Home Inactive card */
+"Home_Risk_Inactive_NoCalculation_Possible_Title" = "Înregistrarea în jurnal a expunerilor a fost oprită";
+
+"Home_Risk_Inactive_Outdated_Results_Title" = "Înregistrarea în jurnal a expunerilor nu este posibilă";
+
+"Home_Risk_Inactive_NoCalculation_Possible_Body" = "Activați înregistrarea în jurnal a expunerilor pentru a evalua astăzi starea riscului.";
+
+"Home_Risk_Inactive_Outdated_Results_Body" = "Înregistrarea în jurnal a expunerilor dvs. nu a putut fi actualizată timp de peste 24 de ore.";
+
+"Home_Risk_Inactive_Activate_Item_Title" = "Ultima înregistrare în jurnal a expunerilor: %@";
+
+"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Risc necunoscut";
+
+"Home_Risk_Inactive_Activate_Item_Low_Title" = "Risc redus";
+
+"Home_Risk_Inactive_Activate_Item_High_Title" = "Risc mai mare";
+
+"Home_Risk_Inactive_NoCalculation_Possible_Button" = "Activați înregistrarea în jurnal a expunerilor";
+
+"Home_Risk_Inactive_Outdated_Results_Button" = "Activați înregistrarea în jurnal a expunerilor";
+
+/* Home Low card */
+"Home_Risk_Low_Title" = "Risc redus";
+
+"Home_Risk_Low_SaveDays_Item_Title" = "%@ din %@ zile activă";
+
+"Home_Risk_Low_Button" = "Actualizare";
+
+/* Home High card */
+"Home_Risk_High_Title" = "Risc mai mare";
+
+"Home_Risk_High_Button" = "Actualizare";
+
+/* Home Status Check */
+"Home_Risk_Status_Check_Title" = "Verificarea este în curs…";
+
+"Home_Risk_Status_Check_Body" = "Datele curente sunt în curs de descărcare și verificare. Aceasta poate dura mai multe minute.";
+
+"Home_Risk_Status_Check_Button" = "Actualizare";
+
+/* Home Thank you card */
+"Home_Thank_You_Card_Title" = "Vă mulțumim!";
+
+"Home_Thank_You_Card_Body" = "Datorită sprijinului dvs., alte persoane pot fi acum avertizate și pot reacționa adecvat.";
+
+"Home_Thank_You_Card_Note_Title" = "Rețineți:";
+
+"Home_Thank_You_Card_Phone_Item_Title" = "Direcția de sănătate publică vă va contacta în următoarele zile telefonic sau în scris.";
+
+"Home_Thank_You_Card_Home_Item_Title" = "Sunteți infectat. Izolați-vă de alte persoane.";
+
+"Home_Thank_You_Card_Further_Info_Item_Title" = "Alte informații:";
+
+"Home_Thank_You_Card_14Days_Item_Title" = "Perioada de carantină este de obicei de 14 zile. Observați ce simptome aveți și monitorizați dezvoltarea acestora.";
+
+"Home_Thank_You_Card_Contacts_Item_Title" = "Direcția de sănătate publică vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 15 minute începând cu două zile înainte de a prezenta simptome.";
+
+"Home_Thank_You_Card_App_Item_Title" = "Luați în considerare în special persoanele care nu vor fi notificate direct de aplicație dacă nu au un smartphone sau dacă nu și-au instalat aplicația.";
+
+"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Chiar și când nu mai aveți simptome și vă simțiți din nou bine, tot puteți să fiți contagios. ";
+
+/* Home Finding positive */
+"Home_Finding_Positive_Card_Title" = "Diagnostic pozitiv";
+
+"Home_Finding_Positive_Card_Status_Title" = "Pozitiv la SARS-CoV-2";
+
+"Home_Finding_Positive_Card_Status_Subtitle" = "Ați fost diagnosticat cu virusul SARS-CoV-2.";
+
+"Home_Finding_Positive_Card_Note_Title" = "Rețineți:";
+
+"Home_Finding_Positive_Card_Phone_Item_Title" = "Direcția de sănătate publică vă va contacta în următoarele zile telefonic sau în scris.";
+
+"Home_Finding_Positive_Card_Home_Item_Title" = "Sunteți infectat. Izolați-vă de alte persoane.";
+
+"Home_Finding_Positive_Card_Share_Item_Title" = "Partajați ID-ul dvs. aleatoriu pentru a-i avertiza și pe alții.";
+
+"Home_Finding_Positive_Card_Button" = "Înainte";
+
+/* Home Submit card */
+"Home_SubmitCard_Title" = "Ați fost testat?";
+
+"Home_SubmitCard_Body" = "Ajutați la întreruperea lanțului de infectare prin notificarea altor persoane.";
+
+"Home_SubmitCard_Button" = "Aflați mai multe și Ajutor";
+
+"Home_InfoCard_ShareTitle" = "Partajați Corona-Warn-App";
+
+"Home_InfoCard_ShareBody" = "Cu cât aplicația este utilizată de mai multe persoane, cu atât mai repede putem întrerupe lanțul de infectare. Invitați-vă familia și prietenii să descarce aplicația.";
+
+"Home_InfoCard_AboutTitle" = "Întrebări frecvente";
+
+"Home_InfoCard_AboutBody" = "Aici puteți găsi răspunsuri la întrebările frecvente legate de aplicația Corona-Warn. Veți fi redirecționat către un site web extern.";
+
+"Home_SettingsCard_Title" = "Setări";
+
+"Home_AppInformationCard_Title" = "Informații despre aplicație";
+
+"Home_AppInformationCard_Version" = "Versiune";
+
+/* Home Result Card */
+"Home_resultCard_ResultAvailableTitle" = "Rezultatul dvs. este disponibil";
+
+"Home_resultCard_ResultUnvailableTitle" = "Rezultatul dvs. nu este încă disponibil";
+
+"Home_resultCard_ShowResultButton" = "Afișare test";
+
+"Home_resultCard_LoadingBody" = "Datele curente sunt în curs de descărcare.\nAceasta poate dura mai multe minute.";
+
+"Home_resultCard_LoadingTitle" = "Actualizarea este în desfășurare...";
+
+"Home_resultCard_NegativeTitle" = "Diagnostic negativ";
+
+"Home_resultCard_NegativeDesc" = "Ați fost diagnosticat negativ la SARS-CoV-2.";
+
+"Home_resultCard_PendingDesc" = "Evaluarea testului dvs. nu este încă finalizată.";
+
+"Home_resultCard_InvalidTitle" = "Test nevalid";
+
+"Home_resultCard_InvalidDesc" = "Testul dvs. nu poate fi evaluat.";
+
+"Home_resultCard_LoadingErrorTitle" = "Rezultatul testului dvs. nu poate fi încărcat.";
+
+/* App Information - About */
+"App_Information_About_Navigation" = "Despre aplicație";
+
+"App_Information_About_ImageDescription" = "";
+
+"App_Information_About_Title" = "Să combatem împreună coronavirusul";
+
+"App_Information_About_Description" = "Robert Koch Institute (RKI) este un organism federal de sănătate publică din Germania. RKI a publicat aplicația Corona-Warn în numele Guvernului Federal. Aplicația are drept scop să completeze sub formă digitală măsurile de sănătate publică deja introduse: distanțarea socială, igiena și purtarea măștii.";
+
+"App_Information_About_Text" = "Persoanele care utilizează aplicația ajută la urmărirea și întreruperea lanțurilor de infectare. Aplicația salvează local, pe dispozitivul dvs., întâlnirile cu alte persoane. Sunteți notificat dacă ați întâlnit persoane care au fost diagnosticate ulterior cu COVID-19. Identitatea și confidențialitatea dvs. sunt protejate întotdeauna.";
+
+/* App Information - FAQ */
+"App_Information_FAQ_Navigation" = "Întrebări frecvente";
+
+/* App Information - Contact */
+"App_Information_Contact_Navigation" = "Hotline tehnic";
+
+"App_Information_Contact_ImageDescription" = "Un bărbat poartă căști în timpul unei convorbiri telefonice.";
+
+"App_Information_Contact_Title" = "Cum vă putem ajuta?";
+
+"App_Information_Contact_Description" = "Pentru întrebări tehnice despre aplicația Corona-Warn, contactați hotline-ul.";
+
+"App_Information_Contact_Hotline_Title" = "Hotline tehnic";
+
+"App_Information_Contact_Hotline_Text" = "+49 800 7540001";
+
+"App_Information_Contact_Hotline_Number" = "+498007540001";
+
+"App_Information_Contact_Hotline_Description" = "Serviciul clienți vă stă la dispoziție.";
+
+"App_Information_Contact_Hotline_Terms" = "Limbi: germană, engleză, turcă\n\nProgram de lucru:\nluni - sâmbătă: 07:00 - 22:00\n(exceptând sărbătorile legale)\n\nApelul este gratuit.";
+
+/* App Information - Imprint */
+"App_Information_Imprint_Navigation" = "Informații de contact";
+
+"App_Information_Imprint_ImageDescription" = "O mână ține un smartphone pe al cărui ecran este afișat un corp mare de text. Lângă text există un simbol de secțiune, reprezentând informațiile de contact.";
+
+"App_Information_Imprint_Section1_Title" = "Publicată de";
+
+"App_Information_Imprint_Section1_Text" = "(responsabilă în conformitate cu § 5, alin. 1 TMG, § 55 alin. 1 RStV, DS-GVO, BDSG)";
+
+"App_Information_Imprint_Section2_Title" = "Robert Koch Institute";
+
+"App_Information_Imprint_Section2_Text" = "Nordufer 20\n13353 Berlin\nreprezentată de președintele său";
+
+"App_Information_Imprint_Section3_Title" = "Contact";
+
+"App_Information_Imprint_Section3_Text" = "E-mail: CoronaWarnApp@rki.de\nTelefon: +49 30 18754 5100";
+
+"App_Information_Imprint_Section4_Title" = "Număr de înregistrare în scop de TVA";
+
+"App_Information_Imprint_Section4_Text" = "DE 165 893 430";
+
+/* App Information - Legal */
+"App_Information_Legal_Navigation" = "Mențiuni legale";
+
+/* App Information - Privacy */
+"App_Information_Privacy_Navigation" = "Confidențialitatea datelor";
+
+"App_Information_Legal_ImageDescription" = "O mână ține un smartphone pe al cărui ecran este afișat un corp mare de text. Lângă text este afișat un cântar care simbolizează mențiunile legale.";
+
+"App_Information_Privacy_Title" = "Confidențialitatea datelor";
+
+"App_Information_Privacy_Description" = "Vă este păstrată anonimitatea.\nDatele dvs. sunt criptate integral și sunt transmise sub pseudonim.";
+
+/* App Information - Terms */
+"App_Information_Terms_Navigation" = "Condiții de utilizare";
+
+"App_Information_Terms_ImageDescription" = "O mână ține un smartphone pe al cărui ecran este afișat un corp mare de text. Lângă text apare o bifă care simbolizează acceptarea condițiilor de utilizare.";
+
+"App_Information_Terms_Title" = "Condiții de utilizare";
+
+/* Invite Friends */
+"InviteFriends_NavTitle" = "Partajare";
+
+"InviteFriends_Subtitle" = "Partajați Corona-Warn-App";
+
+"InviteFriends_Title" = "Să combatem împreună coronavirusul";
+
+"InviteFriends_Description" = "Cu cât aplicația este utilizată de mai multe persoane, cu atât mai repede putem întrerupe lanțul de infectare. Invitați-vă familia și prietenii să descarce aplicația.";
+
+"InviteFriends_Button" = "Trimiteți linkul de descărcare";
+
+"InviteFriends_ShareTitle" = "Să combatem împreună coronavirusul. Eu vreau. Vrei și tu?";
+
+"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
+
+"InviteFriends_Illustration_Label" = "Un bărbat partajează Corona-Warn-App cu alte patru persoane.";
+
+/* Reset View */
+"Reset_NavTitle" = "Resetare";
+
+"Reset_Header1" = "Sigur doriți să resetați aplicația?";
+
+"Reset_Descrition1" = "Nu veți mai fi notificat cu privire la expunerile dvs. și nu-i veți mai putea avertiza pe ceilalți utilizatori.";
+
+"Reset_Button" = "Resetați aplicația";
+
+"Reset_Discard" = "Anulare";
+
+"Reset_InfoTitle" = "Ștergeți jurnalul de expuneri";
+
+"Reset_InfoDescription" = "Jurnalul de expuneri trebuie șters separat din setările dispozitivului.";
+
+"Reset_Subtitle" = "Resetați aplicația";
+
+"Reset_ImageDescription" = "O mână ține un smartphone pe care este afișat un simbol care indică resetarea aplicației.";
+
+"Reset_ConfirmDialog_Title" = "Resetați aplicația";
+
+"Reset_ConfirmDialog_Description" = "Nu veți mai fi notificat cu privire la expunerile dvs. și nu-i veți mai putea avertiza pe ceilalți utilizatori. Această procedură nu poate fi anulată.";
+
+"Reset_ConfirmDialog_Cancel" = "Anulare";
+
+"Reset_ConfirmDialog_Confirm" = "Resetare";
+
+/* Safari */
+"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";
+
+/* Local Notifications */
+"local_notifications_ignore" = "Ignorare";
+
+"local_notifications_detectexposure_title" = "Corona-Warn-App";
+
+"local_notifications_detectexposure_body" = "Aveți mesaje noi de la aplicația Corona-Warn.";
+
+"local_notifications_testresults_title" = "Corona-Warn-App";
+
+"local_notifications_testresults_body" = "Aveți mesaje noi de la aplicația Corona-Warn.";
+
+/* Risk Legend */
+"RiskLegend_Title" = "Sumar";
+
+"RiskLegend_Subtitle" = "Funcții și concepte importante";
+
+"RiskLegend_Legend1_Title" = "Înregistrarea în jurnal a expunerilor";
+
+"RiskLegend_Legend1_Text" = "Înregistrarea în jurnal a expunerilor este una dintre cele trei caracteristici centrale ale aplicației. Când o activați, sunt înregistrate întâlnirile cu dispozitivele altor persoane. Nu trebuie să faceți nimic altceva.";
+
+"RiskLegend_Legend2_Title" = "Risc de infectare";
+
+"RiskLegend_Legend2_Text" = "Dacă în ultimele 14 zile ați intrat în contact cu o persoană care a fost diagnosticată cu COVID-19, aplicația calculează riscul dvs. personal de infectare. Face aceasta măsurând durata și proximitatea expunerii.";
+
+"RiskLegend_Legend2_RiskLevels" = "Poate fi afișată următoarea stare a riscului:";
+
+"RiskLegend_Legend2_High" = "Risc mai mare";
+
+"RiskLegend_Legend2_High_Color" = "Roșu";
+
+"RiskLegend_Legend2_Low" = "Risc redus";
+
+"RiskLegend_Legend2_Low_Color" = "Verde";
+
+"RiskLegend_Legend2_Unknown" = "Risc necunoscut";
+
+"RiskLegend_Legend2_Unknown_Color" = "Gri";
+
+"RiskLegend_Legend3_Title" = "Notificarea altor utilizatori";
+
+"RiskLegend_Legend3_Text" = "O altă caracteristică centrală este înregistrarea testului și regăsirea rezultatului. Dacă sunteți diagnosticat cu COVID-19, îi puteți notifica pe ceilalți și puteți întrerupe lanțul de infectare.";
+
+"RiskLegend_Definitions_Title" = "Definiții ale termenilor";
+
+"RiskLegend_Store_Title" = "Jurnal de expuneri";
+
+"RiskLegend_Store_Text" = "Lista de ID-uri aleatorii primite și temporare, salvate temporar în spațiul de stocare al sistemului de operare. Lista este citită când sunt verificate expunerile. Toate ID-urile aleatorii sunt șterse automat după 14 zile.";
+
+"RiskLegend_Check_Title" = "Verificarea expunerii";
+
+"RiskLegend_Check_Text" = "Datele jurnalului de expuneri sunt regăsite și sincronizate cu infectările raportate de alți utilizatori. Verificarea expunerii este efectuată automat, aproximativ la fiecare două ore.";
+
+"RiskLegend_Contact_Title" = "Expuneri";
+
+"RiskLegend_Contact_Text" = "Întâlniri de o durată mai lungă și în strânsă proximitate cu persoane diagnosticare cu COVID-19.";
+
+"RiskLegend_Notification_Title" = "Notificarea de expunere";
+
+"RiskLegend_Notification_Text" = "Afișarea expunerilor în Corona-Warn-App.";
+
+"RiskLegend_Random_Title" = "ID-uri aleatorii";
+
+"RiskLegend_Random_Text" = "ID-urile aleatorii sunt combinații de cifre și litere generate aleatoriu. Acestea sunt schimbate între dispozitivele aflate în proximitate strânsă. ID-urile aleatorii nu pot fi urmărite până la o persoană anume și sunt șterse automat după 14 zile. Persoanele diagnosticate cu COVID-19 pot opta să partajeze ID-urile aleatorii din ultimele 14 zile cu alți utilizatori ai aplicației.";
+
+"RiskLegend_Image1_AccLabel" = "Un dispozitiv arată conținut numerotat diferit.";
+
+/* Update Message */
+"Update_Message_Title" = "Actualizare disponibilă";
+
+"Update_Message_Text" = "Este disponibilă o actualizare a aplicației Corona-Warn.";
+
+"Update_Message_Text_Force" = "Rețineți că puteți utiliza din nou Corona-Warn-App doar după ce ați instalat ultima actualizare.";
+
+"Update_Message_Action_Update" = "Actualizare";
+
+"Update_Message_Action_Later" = "Mai târziu";
+
+/* ENATanInput */
+"ENATanInput_Empty" = "Gol";
+
+"ENATanInput_InvalidCharacter" = "Caracter nevalabil\n\n%@";
+
+"ENATanInput_CharacterIndex" = "Caracterul %1$u din %2$u";
+

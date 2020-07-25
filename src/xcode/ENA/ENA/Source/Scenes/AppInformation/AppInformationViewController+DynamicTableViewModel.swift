@@ -56,8 +56,8 @@ private extension DynamicCell {
 		}
 	}
 
-	static func bodyWithoutTopInset(text: String, accessibilityIdentifier: String?) -> Self {
-		.body(text: text, accessibilityIdentifier: accessibilityIdentifier) { _, cell, _ in
+	static func bodyWithoutTopInset(text: String, style: TextCellStyle = .label, accessibilityIdentifier: String?) -> Self {
+		.body(text: text, style: style, accessibilityIdentifier: accessibilityIdentifier) { _, cell, _ in
 			cell.contentView.preservesSuperviewLayoutMargins = false
 			cell.contentView.layoutMargins.top = 0
 			cell.accessibilityIdentifier = accessibilityIdentifier
@@ -185,18 +185,22 @@ extension AppInformationViewController {
 						  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection1Title,
 						  accessibilityTraits: .header),
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection1Text,
+									 style: .textView([]),
 									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection1Text),
 				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection2Title,
 											accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection2Title),
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection2Text,
+									 style: .textView([]),
 									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection2Text),
 				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection3Title,
 											accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Title),
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection3Text,
+									 style: .textView(.all),
 									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Text),
 				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection4Title,
 											accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Title),
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection4Text,
+									 style: .textView([]),
 									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Text)
 			]
 		)
