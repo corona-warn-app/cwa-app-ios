@@ -97,7 +97,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	func sceneDidEnterBackground(_ scene: UIScene) {
 		showPrivacyProtectionWindow()
-		taskScheduler.scheduleTasks()
+		taskScheduler.scheduleTask()
 	}
 
 	func sceneDidBecomeActive(_: UIScene) {
@@ -166,7 +166,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			),
 			delegate: self
 		)
-		
+
 		guard let enStateHandler = self.enStateHandler else {
 			fatalError("It should not happen.")
 		}
@@ -262,7 +262,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		authorizationStatus: \(ENManager.authorizationStatus)
 		"""
 		log(message: message)
-		
+
 		state.exposureManager = newState
 		updateExposureState(newState)
 	}
@@ -316,7 +316,6 @@ extension SceneDelegate: ExposureStateUpdating {
 		riskProvider.requestRisk(userInitiated: false)
 		homeController?.updateExposureState(state)
 		enStateHandler?.updateExposureState(state)
-		taskScheduler.updateExposureState(state)
 	}
 }
 
