@@ -118,11 +118,22 @@
 
 "ExposureDetection_Explanation_Text_Low" = "Masz niskie ryzyko zakażenia, ponieważ nie zarejestrowano kontaktu z osobą, u której zdiagnozowano COVID-19, lub ponieważ Twój kontakt trwał krótko przy zachowaniu odpowiednio dużej odległości.\n\nDlatego Twoje ryzyko zakażenia zostało ocenione jako niskie.\n\nRyzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość) lokalnie w urządzeniu. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.";
 
-"ExposureDetection_Explanation_Text_High" = "\n\nDlatego Twoje ryzyko zakażenia zostało ocenione jako podwyższone.\nRyzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie w urządzeniu. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.\nPo powrocie do domu unikaj również bliskiego kontaktu z członkami rodziny lub gospodarstwa domowego.";
+"ExposureDetection_Explanation_Text_High" = "Dlatego Twoje ryzyko zakażenia zostało ocenione jako podwyższone.\nRyzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie w urządzeniu. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.\nPo powrocie do domu unikaj również bliskiego kontaktu z członkami rodziny lub gospodarstwa domowego.";
 
 "ExposureDetection_Button_Enable" = "Aktywuj rejestrowanie narażenia";
 
 "ExposureDetection_Button_Refresh" = "Aktualizuj";
+
+/* Active Tracing Section */
+"ExposureDetection_ActiveTracingSection_Title" = "Okres zarejestrowany";
+
+"ExposureDetection_ActiveTracingSection_Subtitle" = "Ten okres jest uwzględniony w obliczeniu.";
+
+/* There are two paragraphs in this section. The first one just contains text… */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna.";
+
+/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Rejestrowanie narażenia obejmuje ostatnie %1$u dni. W tym czasie funkcja rejestrowania w Twoim urządzeniu była aktywna przez %2$u dni. Aplikacja automatycznie usuwa starsze rejestry, ponieważ nie są one już istotne dla zapobiegania zakażeniom.";
 
 /* Exposure Detection Errors */
 "ExposureDetectionError_Alert_Title" = "Błąd";
@@ -130,6 +141,11 @@
 "ExposureDetectionError_Alert_Action_Details" = "Szczegóły";
 
 "ExposureDetectionError_Alert_Message" = "Podczas rejestrowania narażenia wystąpił błąd.";
+
+/* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
+"How_Risk_Detection_Works_Alert_Title" = "Informacje o funkcjonalności rejestrowania narażenia";
+
+"How_Risk_Detection_Works_Alert_Message" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna.\nRejestrowanie narażenia obejmuje ostatnie %1$u dni.\nAplikacja automatycznie usuwa starsze rejestry, ponieważ nie są one już istotne dla zapobiegania zakażeniom.\n\nWięcej informacji znajduje się na naszej stronie Często zadawane pytania.";
 
 /* Settings */
 "Settings_StatusActive" = "Wł.";
@@ -639,7 +655,9 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niskie ryzyko";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "%@ aktywne(-ych) z %@ dni";
+"Home_Risk_Low_SaveDays_Item_Title" = "Rejestrowanie narażenia było aktywne przez %1$u z ostatnich 14 dni.";
+
+"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Rejestrowanie narażenia stale aktywne";
 
 "Home_Risk_Low_Button" = "Aktualizuj";
 
@@ -823,7 +841,7 @@
 
 "InviteFriends_ShareTitle" = "Wspólna walka z koronawirusem. Ja już biorę udział, a Ty?";
 
-"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
+"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-englisch";
 
 "InviteFriends_Illustration_Label" = "Mężczyzna udostępnia aplikację Corona-Warn czterem innym osobom.";
 
@@ -940,4 +958,9 @@
 "ENATanInput_InvalidCharacter" = "Nieprawidłowy znak\n\n%@";
 
 "ENATanInput_CharacterIndex" = "Znak %1$u z %2$u";
+
+/* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
+"Active_Tracing_Interval_Partially_Active" = "Rejestrowanie narażenia było aktywne przez %1$u z ostatnich 14 dni.";
+
+"Active_Tracing_Interval_Permanently_Active" = "Rejestrowanie narażenia stale aktywne";
 
