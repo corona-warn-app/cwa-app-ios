@@ -118,7 +118,7 @@
 
 "ExposureDetection_Explanation_Text_Low" = "You have a low risk of infection since no encounter with a person diagnosed with COVID-19 has been logged, or your encounter was restricted to a short time and at a greater distance.\n\nTherefore, your risk of infection has been ranked as low.\n\nThe risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.";
 
-"ExposureDetection_Explanation_Text_High" = "\n\nTherefore, your risk of infection has been ranked as increased.\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.\nWhen you get home, please also avoid close contact with members of your family or household.";
+"ExposureDetection_Explanation_Text_High" = "Therefore, your risk of infection has been ranked as increased.\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.\nWhen you get home, please also avoid close contact with members of your family or household.";
 
 "ExposureDetection_Button_Enable" = "Activate Exposure Logging";
 
@@ -841,7 +841,7 @@
 
 "InviteFriends_ShareTitle" = "Fighting coronavirus together. I'm in on this, you too?";
 
-"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
+"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-englisch";
 
 "InviteFriends_Illustration_Label" = "A man shares the Corona-Warn-App with four other persons.";
 
@@ -960,7 +960,7 @@
 "ENATanInput_CharacterIndex" = "Character %1$u of %2$u";
 
 /* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
-"Active_Tracing_Interval_Partially_Active" = "Exposure logging was active for %1$u of the past %2$u days.";
+"Active_Tracing_Interval_Partially_Active" = "Exposure logging was active for %1$u of the past 14 days.";
 
 "Active_Tracing_Interval_Permanently_Active" = "Exposure logging permanently active";
 
