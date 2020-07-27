@@ -112,4 +112,4 @@ workflows:
             filters:
               branches:
                 only:
-                  - /staging\/.*/
+                  - /rc\/.*/
