@@ -608,14 +608,33 @@
 
 "Home_Risk_Period_Disabled_Button_Title" = "Обновление только каждые %@\U00A0ч";
 
-/* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Неизвестный риск";
 
+"Home_Risk_Last_Activate_Item_Title" = "Последнее определение контакта: %@";
+
+"Home_Risk_Last_Activate_Item_Unknown_Title" = "Неизвестный риск";
+
+"Home_Risk_Last_Activate_Item_Low_Title" = "Низкий риск";
+
+"Home_Risk_Last_Activate_Item_High_Title" = "Повышенный риск";
+
+"Home_RiskCard_Update_Button" = "Обновить";
+
+/* Home Unknown card */
+"Home_RiskCard_Unknown_Item_Title" = "С момента включения определения контакта не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.";
 "Home_RiskCard_Unknown_Item_Title" = "С момента включения определения риска не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.";
 
-"Home_RiskCard_Unknown_Button" = "Обновить";
+/* Home Unknown 48 card */
+"Home_RiskCard_Unknown48h_Body" = "Ihre Risiko-Berechnung wurde seit mehr als 48 Stunden nicht aktualisiert. Bitte aktualisieren Sie die Berechnung.";
 
 /* Home Inactive card */
+"Home_Risk_Inactive_NoCalculation_Possible_Title" = "Определение контакта остановлено";
+
+"Home_Risk_Inactive_Outdated_Results_Title" = "Определение контакта невозможно";
+
+"Home_Risk_Inactive_NoCalculation_Possible_Body" = "Активируйте определение контакта, чтобы оценить Ваш статус риска сегодня.";
+
+"Home_Risk_Inactive_Outdated_Results_Body" = "Не удается обновить определение контакта более 24 часов.";
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "Определение риска остановлено";
 
 "Home_Risk_Inactive_Outdated_Results_Title" = "Определение риска невозможно";
@@ -641,19 +660,13 @@
 
 "Home_Risk_Low_SaveDays_Item_Title" = "Дней активности: %@ из %@";
 
-"Home_Risk_Low_Button" = "Обновить";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Повышенный риск";
-
-"Home_Risk_High_Button" = "Обновить";
 
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Проверка выполняется...";
 
 "Home_Risk_Status_Check_Body" = "Текущие данные выгружаются и проверяются. Это может занять несколько минут.";
-
-"Home_Risk_Status_Check_Button" = "Обновить";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Спасибо!";
