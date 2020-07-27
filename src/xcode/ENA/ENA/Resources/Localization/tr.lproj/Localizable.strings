@@ -124,12 +124,48 @@
 
 "ExposureDetection_Button_Refresh" = "Güncelle";
 
+/* Active Tracing Section */
+"ExposureDetection_ActiveTracingSection_Title" = "Dönem günlüğe kaydedildi";
+"ExposureDetection_ActiveTracingSection_Subtitle" = "Bu dönem hesaplamaya dahil edildi";
+
+/*
+ There are two paragraphs in this section. The first one just contains text…
+ */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir.";
+
+/*
+ … the second paragraph contains two columns. On the left there is our active
+ tracing indicator. On the right column there is just text that explains what
+ the indicator shows.
+
+ Parameters:
+ - first: total number of relevant days (usually 14).
+ - second: the actual number of days with active tracing.
+ */
+
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Maruz kalma günlüğü son %1$u günü kapsar. Bu süre boyunca cihazınızdaki günlüğe kaydetme özelliği %2$u gün etkindi. Uygulama, enfeksiyondan korunma için artık ilgili olmadığından daha eski kayıtları otomatik olarak siler.";
+
 /* Exposure Detection Errors */
 "ExposureDetectionError_Alert_Title" = "Hata";
 
 "ExposureDetectionError_Alert_Action_Details" = "Ayrıntılar";
 
 "ExposureDetectionError_Alert_Message" = "Maruz kalma günlüğü sırasında bir hata oluştu.";
+
+/*
+ How Risk Detection Works Alert.
+ First introduced due to EXPOSUREAPP-1738.
+ The alert only displays a single OK-button. We re-use the localized string
+ `Alert_ActionOk` for that.
+ */
+
+"How_Risk_Detection_Works_Alert_Title" = "Maruz kalma işlevi hakkında bilgi";
+
+"How_Risk_Detection_Works_Alert_Message" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir.
+Maruz kalma günlüğü son %1$u günü kapsar.
+Uygulama, enfeksiyondan korunma için artık ilgili olmadığından daha eski kayıtları otomatik olarak siler.
+
+Daha fazla bilgi için lütfen SSS sayfamıza bakın.";
 
 /* Settings */
 "Settings_StatusActive" = "Açık";
