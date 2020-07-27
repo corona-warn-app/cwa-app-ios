@@ -126,24 +126,14 @@
 
 /* Active Tracing Section */
 "ExposureDetection_ActiveTracingSection_Title" = "Period logged";
-"ExposureDetection_ActiveTracingSection_Subtitle" = "This period is included in the calculation";
 
-/*
- There are two paragraphs in this section. The first one just contains text…
- */
+"ExposureDetection_ActiveTracingSection_Subtitle" = "This period is included in the calculation.";
+
+/* There are two paragraphs in this section. The first one just contains text… */
 "ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently.";
 
-/*
- … the second paragraph contains two columns. On the left there is our active
- tracing indicator. On the right column there is just text that explains what
- the indicator shows.
-
- Parameters:
- - first: total number of relevant days (usually 14).
- - second: the actual number of days with active tracing.
- */
-
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Exposure logging covers the last %1$u days. During this time, the logging feature on your device was active for %2$u days. The app automatically deletes older logs, as these are no longer relevant for infection prevention.";
+/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Exposure logging covers the past %1$u days. During this time, the logging feature on your device was active for %2$u days. The app automatically deletes older logs, as these are no longer relevant for infection prevention.";
 
 /* Exposure Detection Errors */
 "ExposureDetectionError_Alert_Title" = "Error";
@@ -152,20 +142,10 @@
 
 "ExposureDetectionError_Alert_Message" = "An error occurred during exposure logging.";
 
-/*
- How Risk Detection Works Alert.
- First introduced due to EXPOSUREAPP-1738.
- The alert only displays a single OK-button. We re-use the localized string
- `Alert_ActionOk` for that.
- */
-
+/* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Information about exposure logging functionality";
 
-"How_Risk_Detection_Works_Alert_Message" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently.
-Exposure logging covers the last %1$u days.
-The app automatically deletes older logs, as these are no longer relevant for infection prevention.
-
-For further information, please see our FAQ page.";
+"How_Risk_Detection_Works_Alert_Message" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently.\nExposure logging covers the past %1$u days.\nThe app automatically deletes older logs, as these are no longer relevant for infection prevention.\n\nFor further information, please see our FAQ page.";
 
 /* Settings */
 "Settings_StatusActive" = "On";
@@ -675,8 +655,9 @@ For further information, please see our FAQ page.";
 /* Home Low card */
 "Home_Risk_Low_Title" = "Low Risk";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "Risk detection was active for %u of %u days";
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Risk detection permanently active";
+"Home_Risk_Low_SaveDays_Item_Title" = "Exposure logging was active for %1$u of the past 14 days.";
+
+"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Exposure logging permanently active";
 
 "Home_Risk_Low_Button" = "Update";
 
@@ -978,11 +959,8 @@ For further information, please see our FAQ page.";
 
 "ENATanInput_CharacterIndex" = "Character %1$u of %2$u";
 
-/*
- Active Tracing Interval Formatting:
- The following two entries are used together. If tracing was not active (almost) 14 days
- during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise
- `Active_Tracing_Interval_Partially_Active` will be used.
- */
-"Active_Tracing_Interval_Partially_Active" = "Exposure logging was active for %1$u of the last %2$u days.";
+/* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
+"Active_Tracing_Interval_Partially_Active" = "Exposure logging was active for %1$u of the past %2$u days.";
+
 "Active_Tracing_Interval_Permanently_Active" = "Exposure logging permanently active";
+

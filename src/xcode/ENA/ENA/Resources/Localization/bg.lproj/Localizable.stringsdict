@@ -13,9 +13,23 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>one</key>
-			<string>You have an increased risk of infection because you were last exposed one day ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+			<!--Plural form for ONE. Plural form for ONE.-->
+			<string>Вашето ниво на риск от заразяване е високо, защото сте имали продължителен и близък контакт с лице, диагностицирано с COVID-19, преди един ден.</string>
+			<key>zero</key>
+			<!-- Plural form for ZERO. Plural form for ZERO.-->
+			<string>Вашето ниво на риск от заразяване е високо, защото сте имали продължителен и близък контакт с лице, диагностицирано с COVID-19, преди %u дни.</string>
+			<key>few</key>
+			<!-- Plural form for FEW. Plural form for FEW.-->
+			<string>Вашето ниво на риск от заразяване е високо, защото сте имали продължителен и близък контакт с лице, диагностицирано с COVID-19, преди %u дни.</string>
+			<key>many</key>
+			<!-- Plural form for MANY. Plural form for MANY.-->
+			<string>Вашето ниво на риск от заразяване е високо, защото сте имали продължителен и близък контакт с лице, диагностицирано с COVID-19, преди %u дни.</string>
+			<key>two</key>
+			<!-- Plural form for TWO. Plural form for TWO.-->
+			<string>Вашето ниво на риск от заразяване е високо, защото сте имали продължителен и близък контакт с лице, диагностицирано с COVID-19, преди %u дни.</string>
 			<key>other</key>
-			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+			<!--Plural form for OTHER. Plural form for OTHER.-->
+			<string>Вашето ниво на риск от заразяване е високо, защото сте имали продължителен и близък контакт с лице, диагностицирано с COVID-19, преди %u дни.</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_Refreshed_Format</key>
@@ -29,22 +43,22 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
 			<string>Днес, %%1$@</string>
 			<key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
 			<string>Вчера, %%1$@</string>
 			<key>few</key>
-			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
+			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
 			<string>%%2$@, %%1$@</string>
 			<key>many</key>
-			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
+			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
 			<string>%%2$@, %%1$@</string>
 			<key>two</key>
-			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
+			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
 			<string>%%2$@, %%1$@</string>
 			<key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
 			<string>%%2$@, %%1$@</string>
 		</dict>
 	</dict>
@@ -59,22 +73,22 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
 			<string>До момента няма излагане на риск</string>
 			<key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
 			<string>Едно излагане на риск</string>
 			<key>few</key>
-			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
+			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
 			<string>%u излагания на риск</string>
 			<key>many</key>
-			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
+			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
 			<string>%u излагания на риск</string>
 			<key>two</key>
-			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
+			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
 			<string>%u излагания на риск</string>
 			<key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
 			<string>%u излагания на риск</string>
 		</dict>
 	</dict>
@@ -89,22 +103,22 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
 			<string>%u дни от последното излагане на риск</string>
 			<key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
 			<string>%u ден от последното излагане на риск</string>
 			<key>few</key>
-			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
+			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
 			<string>%u дни от последното излагане на риск</string>
 			<key>many</key>
-			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
+			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
 			<string>%u дни от последното излагане на риск</string>
 			<key>two</key>
-			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
+			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
 			<string>%u дни от последното излагане на риск</string>
 			<key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
 			<string>%u дни от последното излагане на риск</string>
 		</dict>
 	</dict>
@@ -119,22 +133,22 @@
             <key>NSStringFormatValueTypeKey</key>
             <string>u</string>
             <key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
             <string>До момента няма излагане на риск</string>
             <key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
             <string>%u излагане на риск</string>
             <key>few</key>
-            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
+            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
             <string>%u излагания на риск</string>
             <key>many</key>
-            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
+            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
             <string>%u излагания на риск</string>
             <key>two</key>
-            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
+            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
             <string>%u излагания на риск</string>
             <key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
             <string>%u излагания на риск</string>
         </dict>
     </dict>
@@ -149,22 +163,22 @@
             <key>NSStringFormatValueTypeKey</key>
             <string>u</string>
             <key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
             <string>По-малко от един ден от последното излагане на риск</string>
             <key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
             <string>%u ден от последното излагане на риск</string>
             <key>few</key>
-            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
+            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
             <string>%u дни от последното излагане на риск</string>
             <key>many</key>
-            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
+            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
             <string>%u дни от последното излагане на риск</string>
             <key>two</key>
-            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
+            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
             <string>%u дни от последното излагане на риск</string>
             <key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
             <string>%u дни от последното излагане на риск</string>
         </dict>
     </dict>
@@ -179,22 +193,22 @@
             <key>NSStringFormatValueTypeKey</key>
             <string>u</string>
 			<key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
             <string>Актуализиране след %02u:%2$#@seconds@ секунди</string>
             <key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
             <string>Актуализиране след %02u:%2$#@seconds@ минута</string>
             <key>few</key>
-            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
+            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
             <string>Актуализиране след %02u:%2$#@seconds@ минути</string>
             <key>many</key>
-            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
+            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
             <string>Актуализиране след %02u:%2$#@seconds@ минути</string>
             <key>two</key>
-            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
+            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
             <string>Актуализиране след %02u:%2$#@seconds@ минути</string>
             <key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
             <string>Актуализиране след %02u:%2$#@seconds@ минути</string>
         </dict>
         <key>seconds</key>
@@ -204,22 +218,22 @@
             <key>NSStringFormatValueTypeKey</key>
             <string>u</string>
 			<key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
 			<string>%02u</string>
             <key>zero</key>
-            <!-- XFLD: Plural form for Other  Plural form for ZERO. Plural form for ZERO.-->
+            <!-- XFLD: Plural form for Other  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
             <string>%02u</string>
             <key>few</key>
-            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
+            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
             <string>%02u</string>
             <key>many</key>
-            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
+            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
             <string>%02u</string>
             <key>two</key>
-            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
+            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
             <string>%02u</string>
             <key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
             <string>%02u</string>
         </dict>
     </dict>
@@ -234,22 +248,22 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
 			<string>Регистрирането на излаганията на риск е активно от по-малко от един ден. Проверката за излагане на риск може да бъде надеждна само ако регистрирането е постоянно активирано.</string>
 			<key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
 			<string>Регистрирането на излаганията на риск е активно от %u ден. Проверката за излагане на риск може да бъде надеждна само ако регистрирането е постоянно активирано.</string>
 			<key>few</key>
-			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
+			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
 			<string>Регистрирането на излаганията на риск е активно от %u дни. Проверката за излагане на риск може да бъде надеждна само ако регистрирането е постоянно активирано.</string>
 			<key>many</key>
-			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
+			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
 			<string>Регистрирането на излаганията на риск е активно от %u дни. Проверката за излагане на риск може да бъде надеждна само ако регистрирането е постоянно активирано.</string>
 			<key>two</key>
-			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
+			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
 			<string>Регистрирането на излаганията на риск е активно от %u дни. Проверката за излагане на риск може да бъде надеждна само ако регистрирането е постоянно активирано.</string>
 			<key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
 			<string>Регистрирането на излаганията на риск е активно от %u дни. Проверката за излагане на риск може да бъде надеждна само ако регистрирането е постоянно активирано.</string>
 		</dict>
 	</dict>
