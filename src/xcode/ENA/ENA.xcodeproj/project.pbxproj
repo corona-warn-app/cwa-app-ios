@@ -16,7 +16,6 @@
 		016146912487A43E00660992 /* WebPageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016146902487A43E00660992 /* WebPageHelper.swift */; };
 		01678E9C249A5F08003B048B /* testStore.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 01678E9A249A521F003B048B /* testStore.sqlite */; };
 		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
-		01E25C7024A3B52F007E33F8 /* Info_Testflight.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01E25C6F24A3B52F007E33F8 /* Info_Testflight.plist */; };
 		01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5F7212487B9C000229720 /* AppInformationViewController.swift */; };
 		0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */; };
 		0DD260FF248D549B007C3B2C /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD260FE248D549B007C3B2C /* KeychainHelper.swift */; };
@@ -78,11 +77,11 @@
 		514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */; };
 		514EE99D246D4CFB00DE4884 /* TableViewCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */; };
 		515BBDEB2484F8E500CDB674 /* HomeThankYouRiskCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BBDEA2484F8E500CDB674 /* HomeThankYouRiskCellConfigurator.swift */; };
-		516E430224B89AED0008CC30 /* CoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E430124B89AED0008CC30 /* CoordinatorTests.swift */; };
 		516E42CB24B760F50008CC30 /* HomeRiskLevelCellConfiguratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E42C924B760EC0008CC30 /* HomeRiskLevelCellConfiguratorTests.swift */; };
 		516E42FB24B7739F0008CC30 /* HomeUnknownRiskCellConfiguratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E42FA24B7739F0008CC30 /* HomeUnknownRiskCellConfiguratorTests.swift */; };
 		516E42FE24B7773E0008CC30 /* HomeLowRiskCellConfiguratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E42FC24B776A90008CC30 /* HomeLowRiskCellConfiguratorTests.swift */; };
 		516E430024B777B20008CC30 /* HomeHighRiskCellConfiguratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E42FF24B777B20008CC30 /* HomeHighRiskCellConfiguratorTests.swift */; };
+		516E430224B89AED0008CC30 /* CoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E430124B89AED0008CC30 /* CoordinatorTests.swift */; };
 		51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895EDB245E16CD0085DA38 /* ENAColor.swift */; };
 		518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518A69FA24687D5800444E66 /* RiskLevel.swift */; };
 		51B5B414246DF07300DC5D3E /* RiskImageItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51B5B413246DF07300DC5D3E /* RiskImageItemView.xib */; };
@@ -234,8 +233,8 @@
 		A328426324910552006B1F09 /* ExposureSubmissionSuccessViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328426224910552006B1F09 /* ExposureSubmissionSuccessViewControllerTests.swift */; };
 		A32842652491136E006B1F09 /* ExposureSubmissionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */; };
 		A32842672492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842662492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift */; };
-		A3483B0B24C5EFA40037855F /* MockExposureDetectionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3483B0A24C5EFA40037855F /* MockExposureDetectionViewControllerDelegate.swift */; };
 		A32CA72F24B6F2E300B1A994 /* HomeRiskCellConfiguratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32CA72E24B6F2E300B1A994 /* HomeRiskCellConfiguratorTests.swift */; };
+		A3483B0B24C5EFA40037855F /* MockExposureDetectionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3483B0A24C5EFA40037855F /* MockExposureDetectionViewControllerDelegate.swift */; };
 		A36D07B92486D61C00E46F96 /* HomeCardCellButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D07B82486D61C00E46F96 /* HomeCardCellButtonDelegate.swift */; };
 		A36FACC424C5EA1500DED947 /* ExposureDetectionViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36FACC324C5EA1500DED947 /* ExposureDetectionViewControllerTests.swift */; };
 		A372DA3B24BDA075003248BB /* ExposureSubmissionCoordinating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372DA3A24BDA075003248BB /* ExposureSubmissionCoordinating.swift */; };
@@ -496,11 +495,11 @@
 		514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellConfigurator.swift; sourceTree = "<group>"; };
 		514EE99F246D4DF800DE4884 /* HomeRiskImageItemViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskImageItemViewConfigurator.swift; sourceTree = "<group>"; };
 		515BBDEA2484F8E500CDB674 /* HomeThankYouRiskCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeThankYouRiskCellConfigurator.swift; sourceTree = "<group>"; };
-		516E430124B89AED0008CC30 /* CoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorTests.swift; sourceTree = "<group>"; };
 		516E42C924B760EC0008CC30 /* HomeRiskLevelCellConfiguratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskLevelCellConfiguratorTests.swift; sourceTree = "<group>"; };
 		516E42FA24B7739F0008CC30 /* HomeUnknownRiskCellConfiguratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUnknownRiskCellConfiguratorTests.swift; sourceTree = "<group>"; };
 		516E42FC24B776A90008CC30 /* HomeLowRiskCellConfiguratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLowRiskCellConfiguratorTests.swift; sourceTree = "<group>"; };
 		516E42FF24B777B20008CC30 /* HomeHighRiskCellConfiguratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHighRiskCellConfiguratorTests.swift; sourceTree = "<group>"; };
+		516E430124B89AED0008CC30 /* CoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorTests.swift; sourceTree = "<group>"; };
 		51895EDB245E16CD0085DA38 /* ENAColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAColor.swift; sourceTree = "<group>"; };
 		518A69FA24687D5800444E66 /* RiskLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevel.swift; sourceTree = "<group>"; };
 		51B5B413246DF07300DC5D3E /* RiskImageItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RiskImageItemView.xib; sourceTree = "<group>"; };
@@ -672,8 +671,8 @@
 		A328426224910552006B1F09 /* ExposureSubmissionSuccessViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSuccessViewControllerTests.swift; sourceTree = "<group>"; };
 		A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionUITests.swift; sourceTree = "<group>"; };
 		A32842662492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureSubmissionNavigationControllerChild.swift; sourceTree = "<group>"; };
-		A3483B0A24C5EFA40037855F /* MockExposureDetectionViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureDetectionViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A32CA72E24B6F2E300B1A994 /* HomeRiskCellConfiguratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskCellConfiguratorTests.swift; sourceTree = "<group>"; };
+		A3483B0A24C5EFA40037855F /* MockExposureDetectionViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureDetectionViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A36D07B82486D61C00E46F96 /* HomeCardCellButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCardCellButtonDelegate.swift; sourceTree = "<group>"; };
 		A36FACC324C5EA1500DED947 /* ExposureDetectionViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewControllerTests.swift; sourceTree = "<group>"; };
 		A372DA3A24BDA075003248BB /* ExposureSubmissionCoordinating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCoordinating.swift; sourceTree = "<group>"; };
@@ -1587,15 +1586,6 @@
 			path = "Mock Objects";
 			sourceTree = "<group>";
 		};
-		A36FACC224C5E9FC00DED947 /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				A36FACC324C5EA1500DED947 /* ExposureDetectionViewControllerTests.swift */,
-				A3483B0A24C5EFA40037855F /* MockExposureDetectionViewControllerDelegate.swift */,
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
 		A32CA72D24B6F28700B1A994 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -1605,6 +1595,15 @@
 				51F1255E24BEFB7A00126C86 /* HomeUnknown48hRiskCellConfiguratorTests.swift */,
 				516E42FC24B776A90008CC30 /* HomeLowRiskCellConfiguratorTests.swift */,
 				516E42FF24B777B20008CC30 /* HomeHighRiskCellConfiguratorTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		A36FACC224C5E9FC00DED947 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				A36FACC324C5EA1500DED947 /* ExposureDetectionViewControllerTests.swift */,
+				A3483B0A24C5EFA40037855F /* MockExposureDetectionViewControllerDelegate.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -2324,7 +2323,6 @@
 				51C7790C24867F16004582F8 /* RiskListItemView.xib in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				A328424D248B91E0006B1F09 /* HomeTestResultLoadingCell.xib in Resources */,
-				01E25C7024A3B52F007E33F8 /* Info_Testflight.plist in Resources */,
 				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				51CE1B85246078B6002CF42A /* ActivateCollectionViewCell.xib in Resources */,
@@ -2922,7 +2920,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2938,7 +2936,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -3078,7 +3076,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -3089,7 +3087,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -3228,7 +3226,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -3243,7 +3241,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -3444,7 +3442,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -3459,7 +3457,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -3469,7 +3467,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -3485,7 +3483,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -3495,7 +3493,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
