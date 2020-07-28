@@ -25,7 +25,6 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	private var totalDays: Int {
 		activeTracing.maximumNumberOfDays
 	}
-	private let detectionInterval: Int
 	private let activeTracing: ActiveTracing
 
 	// MARK: Creating a Home Risk Cell Configurator
@@ -41,14 +40,14 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		activeTracing: ActiveTracing
 	) {
 		self.numberRiskContacts = numberRiskContacts
-		self.detectionInterval = detectionInterval
 		self.activeTracing = activeTracing
 		super.init(
 			isLoading: isLoading,
 			isButtonEnabled: manualExposureDetectionState == .possible,
 			isButtonHidden: isButtonHidden,
 			detectionIntervalLabelHidden: detectionMode != .automatic,
-			lastUpdateDate: lastUpdateDate
+			lastUpdateDate: lastUpdateDate,
+			detectionInterval: detectionInterval
 		)
 	}
 
@@ -117,23 +116,6 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		setupAccessibility(cell)
 	}
 
-	override func configureButton(for cell: RiskLevelCollectionViewCell) {
-		super.configureButton(for: cell)
-		cell.configureUpdateButton(
-			title: buttonTitle,
-			isEnabled: isButtonEnabled,
-			isHidden: isButtonHidden,
-			accessibilityIdentifier: AccessibilityIdentifiers.Home.riskCardIntervalUpdateTitle
-		)
-	}
-
-	private var buttonTitle: String {
-		if isLoading { return AppStrings.Home.riskCardStatusCheckButton }
-		if isButtonEnabled { return AppStrings.Home.riskCardLowButton }
-		if let timeUntilUpdate = timeUntilUpdate { return String(format: AppStrings.ExposureDetection.refreshIn, timeUntilUpdate) }
-		return String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, "\(detectionInterval)")
-	}
-	
 	// MARK: Hashable
 
 	override func hash(into hasher: inout Swift.Hasher) {
@@ -141,7 +123,6 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		hasher.combine(numberRiskContacts)
 		hasher.combine(numberDays)
 		hasher.combine(totalDays)
-		hasher.combine(detectionInterval)
 	}
 
 	static func == (lhs: HomeLowRiskCellConfigurator, rhs: HomeLowRiskCellConfigurator) -> Bool {

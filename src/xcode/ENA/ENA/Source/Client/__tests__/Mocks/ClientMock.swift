@@ -19,16 +19,34 @@
 import ExposureNotification
 
 final class ClientMock {
-
+	
 	// MARK: - Creating a Mock Client.
 
-	init(submissionError: SubmissionError? = nil) {
+	/// Creates a mock `Client` implementation.
+	///
+	/// - parameters:
+	///		- availableDaysAndHours: return this value when the `availableDays(_:)` or `availableHours(_:)` is called, or an error if `urlRequestFailure` is passed.
+	///		- downloadedPackage: return this value when `fetchDay(_:)` or `fetchHour(_:)` is called, or an error if `urlRequestFailure` is passed.
+	///		- submissionError: when set, `submit(_:)` will fail with this error.
+	///		- urlRequestFailure: when set, calls (see above) will fail with this error
+	init(
+		availableDaysAndHours: DaysAndHours = ([], []),
+		downloadedPackage: SAPDownloadedPackage? = nil,
+		submissionError: SubmissionError? = nil,
+		urlRequestFailure: Client.Failure? = nil
+	) {
+		self.availableDaysAndHours = availableDaysAndHours
+		self.downloadedPackage = downloadedPackage
 		self.submissionError = submissionError
+		self.urlRequestFailure = urlRequestFailure
 	}
 
 	// MARK: - Properties.
 	
 	let submissionError: SubmissionError?
+	let urlRequestFailure: Client.Failure?
+	let availableDaysAndHours: DaysAndHours
+	let downloadedPackage: SAPDownloadedPackage?
 
 	// MARK: - Configurable Mock Callbacks.
 
@@ -42,16 +60,36 @@ extension ClientMock: Client {
 	}
 
 	func availableDays(completion: @escaping AvailableDaysCompletionHandler) {
-		completion(.success([]))
+		if let failure = urlRequestFailure {
+			completion(.failure(failure))
+			return
+		}
+		completion(.success(availableDaysAndHours.days))
 	}
 
 	func availableHours(day: String, completion: @escaping AvailableHoursCompletionHandler) {
-		completion(.success([]))
+		if let failure = urlRequestFailure {
+			completion(.failure(failure))
+			return
+		}
+		completion(.success(availableDaysAndHours.hours))
 	}
 
-	func fetchDay(_: String, completion: @escaping DayCompletionHandler) {}
+	func fetchDay(_: String, completion: @escaping DayCompletionHandler) {
+		if let failure = urlRequestFailure {
+			completion(.failure(failure))
+			return
+		}
+		completion(.success(downloadedPackage ?? SAPDownloadedPackage(keysBin: Data(), signature: Data())))
+	}
 
-	func fetchHour(_: Int, day: String, completion: @escaping HourCompletionHandler) {}
+	func fetchHour(_: Int, day: String, completion: @escaping HourCompletionHandler) {
+		if let failure = urlRequestFailure {
+			completion(.failure(failure))
+			return
+		}
+		completion(.success(downloadedPackage ?? SAPDownloadedPackage(keysBin: Data(), signature: Data())))
+	}
 
 	func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler) {
 		completion(ENExposureConfiguration())

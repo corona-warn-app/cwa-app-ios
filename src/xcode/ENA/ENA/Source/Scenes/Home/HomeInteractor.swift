@@ -29,10 +29,12 @@ final class HomeInteractor: RequiresAppDependencies {
 
 	init(
 		homeViewController: HomeViewController,
-		state: State
+		state: State,
+		exposureSubmissionService: ExposureSubmissionService
 	) {
 		self.homeViewController = homeViewController
 		self.state = state
+		self.exposureSubmissionService = exposureSubmissionService
 		observeRisk()
 	}
 
@@ -46,13 +48,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	}
 
 	private unowned var homeViewController: HomeViewController
-	lazy var exposureSubmissionService: ExposureSubmissionService = {
-		ExposureSubmissionServiceFactory.create(
-			diagnosiskeyRetrieval: self.exposureManager,
-			client: self.client,
-			store: self.store
-		)
-	}()
+	private let exposureSubmissionService: ExposureSubmissionService
 	var enStateHandler: ENStateHandler?
 
 	private var detectionMode: DetectionMode { state.detectionMode }
@@ -242,7 +238,7 @@ extension HomeInteractor {
 				lastUpdateDate: dateLastExposureDetection,
 				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
 				detectionMode: detectionMode,
-				validityDuration: detectionInterval
+				detectionInterval: detectionInterval
 			)
 		case .none:
 			riskLevelConfigurator = nil
