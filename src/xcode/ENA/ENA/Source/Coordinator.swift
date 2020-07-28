@@ -203,7 +203,7 @@ extension Coordinator: HomeViewControllerDelegate {
 	}
 
 	func showWebPage(from viewController: UIViewController, urlString: String) {
-		WebPageHelper.showWebPage(from: viewController, urlString: urlString)
+		LinkHelper.showWebPage(from: viewController, urlString: urlString)
 	}
 
 	func showAppInformation() {
