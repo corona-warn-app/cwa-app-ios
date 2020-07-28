@@ -44,7 +44,6 @@ enum LinkHelper {
 		default:
 			openLink(withUrl: url, from: viewController)
 		}
-
 	}
 
 	static func openLink(withUrl url: URL, from viewController: UIViewController) {
