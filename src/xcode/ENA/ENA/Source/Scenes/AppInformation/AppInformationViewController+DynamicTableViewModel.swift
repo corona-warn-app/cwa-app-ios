@@ -64,15 +64,13 @@ private extension DynamicCell {
 		}
 	}
 
-	static func html(url: URL?, isInteractive: Bool = false) -> Self {
+	/// Creates a cell that renders a view of a .html file with interactive texts, such as mail links, phone numbers, and web addresses.
+	static func html(url: URL?) -> Self {
 		.identifier(AppInformationDetailViewController.CellReuseIdentifier.html) { viewController, cell, _  in
 			guard let cell = cell as? DynamicTableViewHtmlCell else { return }
 			cell.textView.delegate = viewController as? UITextViewDelegate
-
-			if isInteractive {
-				cell.textView.isUserInteractionEnabled = true
-				cell.textView.dataDetectorTypes = [.link, .phoneNumber]
-			}
+			cell.textView.isUserInteractionEnabled = true
+			cell.textView.dataDetectorTypes = [.link, .phoneNumber]
 
 			if let url = url {
 				cell.textView.load(from: url)
@@ -84,7 +82,7 @@ private extension DynamicCell {
 private extension DynamicAction {
 	static var safari: Self {
 		.execute { viewController in
-			WebPageHelper.showWebPage(from: viewController, urlString: AppStrings.SafariView.targetURL)
+			LinkHelper.showWebPage(from: viewController, urlString: AppStrings.SafariView.targetURL)
 		}
 	}
 
@@ -224,7 +222,7 @@ extension AppInformationViewController {
 				.title2(
 					text: AppStrings.AppInformation.privacyTitle,
 					accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.privacyTitle),
-				.html(url: Bundle.main.url(forResource: "privacy-policy", withExtension: "html"), isInteractive: true)
+				.html(url: Bundle.main.url(forResource: "privacy-policy", withExtension: "html"))
 			]
 		)
 	])
@@ -239,7 +237,7 @@ extension AppInformationViewController {
 				.title2(
 					text: AppStrings.AppInformation.termsTitle,
 					accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.termsTitle),
-				.html(url: Bundle.main.url(forResource: "usage", withExtension: "html"), isInteractive: true)
+				.html(url: Bundle.main.url(forResource: "usage", withExtension: "html"))
 			]
 		)
 	])

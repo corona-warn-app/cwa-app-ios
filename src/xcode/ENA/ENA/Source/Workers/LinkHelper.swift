@@ -20,7 +20,7 @@ import Foundation
 import SafariServices
 import UIKit
 
-enum WebPageHelper {
+enum LinkHelper {
 	static func showWebPage(from viewController: UIViewController, urlString: String) {
 		if let url = URL(string: urlString) {
 			let config = SFSafariViewController.Configuration()

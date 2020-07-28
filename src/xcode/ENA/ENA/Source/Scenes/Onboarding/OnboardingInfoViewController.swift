@@ -372,7 +372,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 extension OnboardingInfoViewController: UITextViewDelegate {
 	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-		WebPageHelper.open(withUrl: url, from: self)
+		LinkHelper.open(withUrl: url, from: self)
 		return false
 	}
 }
