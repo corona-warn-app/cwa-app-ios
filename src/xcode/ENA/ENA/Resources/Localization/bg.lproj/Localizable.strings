@@ -498,6 +498,9 @@
 "ExposureSubmissionResult_RegistrationDate" = "Регистрирано на ";
 
 /* Exposure Submission */
+
+"ExposureSubmissionError_ErrorPrefix" = "A technical error ocurred while transmitting your data. Please contact the hotline. You can find the number under App Information.";
+
 "ExposureSubmissionError_NoKeys" = "Няма наличен диагностичен код. Опитайте отново утре.";
 
 "ExposureSubmissionError_InvalidTan" = "Генерираният ТАН код е невалиден. Моля, обадете се на горещата линия за технически въпроси от раздел „Информация за приложението“.";

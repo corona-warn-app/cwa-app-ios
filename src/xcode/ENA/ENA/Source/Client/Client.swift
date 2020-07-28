@@ -115,11 +115,11 @@ extension SubmissionError: LocalizedError {
 		case let .serverError(code):
 			return "\(AppStrings.ExposureSubmissionError.other)\(code)\(AppStrings.ExposureSubmissionError.otherend)"
 		case .invalidPayloadOrHeaders:
-			return AppStrings.ExposureSubmissionError.invalidPayloadOrHeaders
+			return "Received an invalid payload or headers."
 		case .invalidTan:
 			return AppStrings.ExposureSubmissionError.invalidTan
 		case .requestCouldNotBeBuilt:
-			return AppStrings.ExposureSubmissionError.requestCouldNotBeBuilt
+			return "The submission request could not be built correctly."
 		case let .simpleError(errorString):
 			return errorString
 		case let .other(error):

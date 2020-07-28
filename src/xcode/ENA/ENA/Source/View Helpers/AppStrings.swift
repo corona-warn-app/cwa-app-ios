@@ -207,8 +207,7 @@ enum AppStrings {
 		static let unknown = NSLocalizedString("ExposureSubmissionError_unknown", comment: "")
 		static let defaultError = NSLocalizedString("ExposureSubmissionError_defaultError", comment: "")
 		static let noConfiguration = NSLocalizedString("No Exposure Configuration available", comment: "")
-		static let invalidPayloadOrHeaders = NSLocalizedString("ExposureSubmissionError_InvalidPayloadOrHeaders", comment: "")
-		static let requestCouldNotBeBuilt = NSLocalizedString("ExposureSubmissionError_RequestCouldNotBeBuilt", comment: "")
+		static let errorPrefix = NSLocalizedString("ExposureSubmissionError_ErrorPrefix", comment: "")
 	}
 
 	enum ExposureDetection {

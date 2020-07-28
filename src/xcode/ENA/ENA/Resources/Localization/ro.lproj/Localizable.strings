@@ -498,6 +498,9 @@
 "ExposureSubmissionResult_RegistrationDate" = "Înregistrat la ";
 
 /* Exposure Submission */
+
+"ExposureSubmissionError_ErrorPrefix" = "A technical error ocurred while transmitting your data. Please contact the hotline. You can find the number under App Information.";
+
 "ExposureSubmissionError_NoKeys" = "Nu este disponibilă nicio cheie de pozitivare. Reîncercați mâine.";
 
 "ExposureSubmissionError_InvalidTan" = "Codul TAN generat este nevalabil pentru transmitere. Contactați hotline-ul tehnic accesând Informații aplicație -> Hotline tehnic.";

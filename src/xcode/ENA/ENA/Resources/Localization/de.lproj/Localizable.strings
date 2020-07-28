@@ -499,9 +499,7 @@
 
 /* Exposure Submission */
 
-"ExposureSubmissionError_InvalidPayloadOrHeaders" = "Invalide Payload oder Header erhalten.";
-
-"ExposureSubmissionError_RequestCouldNotBeBuilt" = "Die Submission Request konnte nicht korrekt gebaut werden.";
+"ExposureSubmissionError_ErrorPrefix" = "Es ist einen technischer Fehler bei der Übertragung Ihrer Daten aufgetreten. Wenden Sie sich bitte an die technische Hotline. Die Nummer finden Sie unter App-Informationen.";
 
 "ExposureSubmissionError_NoKeys" = "Keine Positivkennung verfügbar. Bitte versuchen Sie es morgen erneut.";
 

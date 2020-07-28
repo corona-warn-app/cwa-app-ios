@@ -334,9 +334,9 @@ extension ExposureSubmissionError: LocalizedError {
 		case .rateLimited:
 			return AppStrings.Common.enError13Description
 		case .invalidPayloadOrHeaders:
-			return AppStrings.ExposureSubmissionError.invalidPayloadOrHeaders
+			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
 		case .requestCouldNotBeBuilt:
-			return AppStrings.ExposureSubmissionError.requestCouldNotBeBuilt
+			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
 		case let .other(desc):
 			return  "\(AppStrings.ExposureSubmissionError.other)\(desc)\(AppStrings.ExposureSubmissionError.otherend)"
 		case .unknown:

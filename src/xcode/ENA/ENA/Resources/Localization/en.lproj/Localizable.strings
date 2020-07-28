@@ -499,9 +499,7 @@
 
 /* Exposure Submission */
 
-"ExposureSubmissionError_InvalidPayloadOrHeaders" = "Received an invalid Payload or headers.";
-
-"ExposureSubmissionError_RequestCouldNotBeBuilt" = "The Submission Request could not be built correctly.";
+"ExposureSubmissionError_ErrorPrefix" = "A technical error ocurred while transmitting your data. Please contact the hotline. You can find the number under App Information.";
 
 "ExposureSubmissionError_NoKeys" = "No diagnosis key is available. Please try again tomorrow.";
 
