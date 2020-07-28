@@ -23,13 +23,7 @@ import UIKit
 enum LinkHelper {
 	static func showWebPage(from viewController: UIViewController, urlString: String) {
 		if let url = URL(string: urlString) {
-			let config = SFSafariViewController.Configuration()
-			config.entersReaderIfAvailable = true
-			config.barCollapsingEnabled = true
-
-			let vc = SFSafariViewController(url: url, configuration: config)
-			vc.preferredControlTintColor = .enaColor(for: .tint)
-			viewController.present(vc, animated: true)
+			openLink(withUrl: url, from: viewController)
 		} else {
 			let error = "\(urlString) is no valid URL"
 			logError(message: error)
