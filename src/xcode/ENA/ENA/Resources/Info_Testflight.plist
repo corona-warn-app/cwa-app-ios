@@ -4,8 +4,8 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>de.rki.coronawarnapp.exposure-notification</string>
-		<string>de.rki.coronawarnapp.fetch-test-results</string>
+		<string>$(PRODUCT_BUNDLE_IDENTIFIER).exposure-notification</string>
+		<string>$(PRODUCT_BUNDLE_IDENTIFIER).fetch-test-results</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
