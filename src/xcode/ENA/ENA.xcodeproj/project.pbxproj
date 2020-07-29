@@ -13,7 +13,7 @@
 		015692E424B48C3F0033F35E /* TimeInterval+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015692E324B48C3F0033F35E /* TimeInterval+Convenience.swift */; };
 		0159E6C1247829BA00894A89 /* temporary_exposure_key_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0159E6BF247829BA00894A89 /* temporary_exposure_key_export.pb.swift */; };
 		0159E6C2247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0159E6C0247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift */; };
-		016146912487A43E00660992 /* WebPageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016146902487A43E00660992 /* WebPageHelper.swift */; };
+		016146912487A43E00660992 /* LinkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016146902487A43E00660992 /* LinkHelper.swift */; };
 		01678E9C249A5F08003B048B /* testStore.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 01678E9A249A521F003B048B /* testStore.sqlite */; };
 		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
 		01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5F7212487B9C000229720 /* AppInformationViewController.swift */; };
@@ -426,7 +426,7 @@
 		015692E324B48C3F0033F35E /* TimeInterval+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "TimeInterval+Convenience.swift"; sourceTree = "<group>"; };
 		0159E6BF247829BA00894A89 /* temporary_exposure_key_export.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = temporary_exposure_key_export.pb.swift; path = ../../../gen/output/temporary_exposure_key_export.pb.swift; sourceTree = "<group>"; };
 		0159E6C0247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = temporary_exposure_key_signature_list.pb.swift; path = ../../../gen/output/temporary_exposure_key_signature_list.pb.swift; sourceTree = "<group>"; };
-		016146902487A43E00660992 /* WebPageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageHelper.swift; sourceTree = "<group>"; };
+		016146902487A43E00660992 /* LinkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkHelper.swift; sourceTree = "<group>"; };
 		01678E9A249A521F003B048B /* testStore.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = testStore.sqlite; sourceTree = "<group>"; };
 		01D3ECFF2490230400551E65 /* StoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StoreTests.swift; sourceTree = "<group>"; };
 		01E25C6F24A3B52F007E33F8 /* Info_Testflight.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_Testflight.plist; sourceTree = "<group>"; };
@@ -1157,7 +1157,7 @@
 				B1CD333B24865A7D00B06E9B /* TracingStatusHistory.swift */,
 				A3FF84EB247BFAF00053E947 /* Hasher.swift */,
 				0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */,
-				016146902487A43E00660992 /* WebPageHelper.swift */,
+				016146902487A43E00660992 /* LinkHelper.swift */,
 				A128F058248B459F00EC7F6C /* PublicKeyStore.swift */,
 			);
 			path = Workers;
@@ -2499,7 +2499,7 @@
 				51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */,
 				B1FE13EB24891CFA00D012E5 /* RiskProvider.swift in Sources */,
 				B143DBDF2477F292000A29E8 /* ExposureNotificationSettingViewController.swift in Sources */,
-				016146912487A43E00660992 /* WebPageHelper.swift in Sources */,
+				016146912487A43E00660992 /* LinkHelper.swift in Sources */,
 				51D420B924583B8300AD70CA /* UIViewController+AppStoryboard.swift in Sources */,
 				71B804542485273C00D53506 /* RiskLegendDotBodyCell.swift in Sources */,
 				EE22DB8A247FB43A001B0A71 /* ImageTableViewCell.swift in Sources */,
