@@ -50,7 +50,9 @@ protocol Client {
 	/// Gets the registration token
 	func getRegistrationToken(
 		forKey key: String,
-		withType type: String, completion completeWith: @escaping RegistrationHandler
+		withType type: String,
+		isFake: Bool,
+		completion completeWith: @escaping RegistrationHandler
 	)
 
 	// getTestResultForDevice
@@ -63,6 +65,7 @@ protocol Client {
 	// getTANForDevice
 	func getTANForExposureSubmit(
 		forDevice registrationToken: String,
+		isFake: Bool,
 		completion completeWith: @escaping TANHandler
 	)
 

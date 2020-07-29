@@ -101,7 +101,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			return
 		}
 
-		client.getTestResult(forDevice: registrationToken) { result in
+		client.getTestResult(forDevice: registrationToken, isFake: false) { result in
 			switch result {
 			case let .failure(error):
 				completeWith(.failure(self.parseError(error)))
@@ -125,7 +125,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		completion completeWith: @escaping RegistrationHandler
 	) {
 		let (key, type) = getKeyAndType(for: deviceRegistrationKey)
-		client.getRegistrationToken(forKey: key, withType: type) { result in
+		client.getRegistrationToken(forKey: key, withType: type, isFake: false) { result in
 			switch result {
 			case let .failure(error):
 				completeWith(.failure(self.parseError(error)))
@@ -156,7 +156,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			return
 		}
 
-		client.getTANForExposureSubmit(forDevice: token) { result in
+		client.getTANForExposureSubmit(forDevice: token, isFake: false) { result in
 			switch result {
 			case let .failure(error):
 				completeWith(.failure(self.parseError(error)))

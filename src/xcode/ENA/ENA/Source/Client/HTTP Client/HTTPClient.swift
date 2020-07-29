@@ -234,114 +234,113 @@ final class HTTPClient: Client {
 		}
 	}
 
-	func getTANForExposureSubmit(forDevice registrationToken: String, completion completeWith: @escaping TANHandler) {
-		let url = configuration.tanRetrievalURL
+	func getTANForExposureSubmit(forDevice registrationToken: String, isFake: Bool, completion completeWith: @escaping TANHandler) {
 
-		let bodyValues = ["registrationToken": registrationToken]
-		do {
-			let encoder = JSONEncoder()
-			encoder.outputFormatting = .prettyPrinted
+		// TODO: Make this another error case for URLFailure
+		guard
+			let tanForExposureSubmitRequest = try? URLRequest.getTanForExposureSubmitRequest(
+				configuration: configuration,
+				registrationToken: registrationToken,
+				headerValue: isFake ? 1 : 0
+			) else {
+				completeWith(.failure(.invalidResponse))
+				return
+		}
 
-			let data = try encoder.encode(bodyValues)
+		session.response(for: tanForExposureSubmitRequest) { result in
+			switch result {
+			case let .success(response):
 
-			session.POST(url, data) { result in
-				switch result {
-				case let .success(response):
-
-					if response.statusCode == 400 {
-						completeWith(.failure(.regTokenNotExist))
-						return
-					}
-					guard response.hasAcceptableStatusCode else {
-						completeWith(.failure(.serverError(response.statusCode)))
-						return
-					}
-					guard let tanResponseData = response.body else {
-						completeWith(.failure(.invalidResponse))
-						logError(message: "Failed to get TAN")
-						logError(message: String(response.statusCode))
-						return
-					}
-					do {
-						let response = try JSONDecoder().decode(
-							Model.GetTANForExposureSubmitResponse.self,
-							from: tanResponseData
-						)
-						guard let tan = response.tan else {
-							logError(message: "Failed to get TAN because of invalid response payload structure")
-							completeWith(.failure(.invalidResponse))
-							return
-						}
-						completeWith(.success(tan))
-					} catch _ {
+				if response.statusCode == 400 {
+					completeWith(.failure(.regTokenNotExist))
+					return
+				}
+				guard response.hasAcceptableStatusCode else {
+					completeWith(.failure(.serverError(response.statusCode)))
+					return
+				}
+				guard let tanResponseData = response.body else {
+					completeWith(.failure(.invalidResponse))
+					logError(message: "Failed to get TAN")
+					logError(message: String(response.statusCode))
+					return
+				}
+				do {
+					let response = try JSONDecoder().decode(
+						Model.GetTANForExposureSubmitResponse.self,
+						from: tanResponseData
+					)
+					guard let tan = response.tan else {
 						logError(message: "Failed to get TAN because of invalid response payload structure")
 						completeWith(.failure(.invalidResponse))
+						return
 					}
-				case let .failure(error):
-					completeWith(.failure(error))
-					logError(message: "Failed to get TAN due to error: \(error).")
+					completeWith(.success(tan))
+				} catch _ {
+					logError(message: "Failed to get TAN because of invalid response payload structure")
+					completeWith(.failure(.invalidResponse))
 				}
+			case let .failure(error):
+				completeWith(.failure(error))
+				logError(message: "Failed to get TAN due to error: \(error).")
 			}
-		} catch {
-			completeWith(.failure(.invalidResponse))
-			return
 		}
 	}
 
-	func getRegistrationToken(forKey key: String, withType type: String, completion completeWith: @escaping RegistrationHandler) {
-		let url = configuration.registrationURL
+	func getRegistrationToken(forKey key: String, withType type: String, isFake: Bool, completion completeWith: @escaping RegistrationHandler) {
 
-		let bodyValues = ["key": key, "keyType": type]
-		do {
-			let encoder = JSONEncoder()
-			encoder.outputFormatting = .prettyPrinted
+		// TODO: Make this another error case for URLFailure
+		guard
+			let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
+				configuration: configuration,
+				key: key,
+				type: type,
+				headerValue: isFake ? 1 : 0
+			) else {
+				completeWith(.failure(.invalidResponse))
+				return
+		}
 
-			let data = try encoder.encode(bodyValues)
+		session.response(for: registrationTokenRequest) { result in
+			switch result {
+			case let .success(response):
+				if response.statusCode == 400 {
+					if type == "TELETAN" {
+						completeWith(.failure(.teleTanAlreadyUsed))
+					} else {
+						completeWith(.failure(.qRAlreadyUsed))
+					}
+					return
+				}
+				guard response.hasAcceptableStatusCode else {
+					completeWith(.failure(.serverError(response.statusCode)))
+					return
+				}
+				guard let registerResponseData = response.body else {
+					completeWith(.failure(.invalidResponse))
+					logError(message: "Failed to register Device with invalid response")
+					return
+				}
 
-			session.POST(url, data) { result in
-				switch result {
-				case let .success(response):
-					if response.statusCode == 400 {
-						if type == "TELETAN" {
-							completeWith(.failure(.teleTanAlreadyUsed))
-						} else {
-							completeWith(.failure(.qRAlreadyUsed))
-						}
-						return
-					}
-					guard response.hasAcceptableStatusCode else {
-						completeWith(.failure(.serverError(response.statusCode)))
-						return
-					}
-					guard let registerResponseData = response.body else {
-						completeWith(.failure(.invalidResponse))
-						logError(message: "Failed to register Device with invalid response")
-						return
-					}
-	
-					do {
-						let response = try JSONDecoder().decode(
-							Model.GetRegistrationTokenResponse.self,
-							from: registerResponseData
-						)
-						guard let registrationToken = response.registrationToken else {
-							logError(message: "Failed to register Device with invalid response payload structure")
-							completeWith(.failure(.invalidResponse))
-							return
-						}
-						completeWith(.success(registrationToken))
-					} catch _ {
+				do {
+					let response = try JSONDecoder().decode(
+						Model.GetRegistrationTokenResponse.self,
+						from: registerResponseData
+					)
+					guard let registrationToken = response.registrationToken else {
 						logError(message: "Failed to register Device with invalid response payload structure")
 						completeWith(.failure(.invalidResponse))
+						return
 					}
-				case let .failure(error):
-					completeWith(.failure(error))
-					logError(message: "Failed to registerDevices due to error: \(error).")
+					completeWith(.success(registrationToken))
+				} catch _ {
+					logError(message: "Failed to register Device with invalid response payload structure")
+					completeWith(.failure(.invalidResponse))
 				}
+			case let .failure(error):
+				completeWith(.failure(error))
+				logError(message: "Failed to registerDevices due to error: \(error).")
 			}
-		} catch {
-			completeWith(.failure(.invalidResponse))
-			return
 		}
 	}
 
@@ -486,6 +485,67 @@ private extension URLRequest {
 		let encoder = JSONEncoder()
 		encoder.outputFormatting = .prettyPrinted
 		request.httpBody = try encoder.encode(["registrationToken": registrationToken])
+
+		return request
+	}
+
+	static func getTanForExposureSubmitRequest(
+		configuration: HTTPClient.Configuration,
+		registrationToken: String,
+		headerValue: Int
+	) throws -> URLRequest {
+
+		var request = URLRequest(url: configuration.tanRetrievalURL)
+
+		request.setValue(
+			"\(headerValue)",
+			// Requests with a value of "0" will be fully processed.
+			// Any other value indicates that this request shall be
+			// handled as a fake request." ,
+			forHTTPHeaderField: "cwa-fake"
+		)
+
+		request.setValue(
+			"application/x-protobuf",
+			forHTTPHeaderField: "Content-Type"
+		)
+
+		request.httpMethod = "POST"
+
+		let encoder = JSONEncoder()
+		encoder.outputFormatting = .prettyPrinted
+		request.httpBody = try encoder.encode(["registrationToken": registrationToken])
+
+		return request
+	}
+
+	static func getRegistrationTokenRequest(
+		configuration: HTTPClient.Configuration,
+		key: String,
+		type: String,
+		headerValue: Int
+	) throws -> URLRequest {
+
+		var request = URLRequest(url: configuration.registrationURL)
+
+		request.setValue(
+			"\(headerValue)",
+			// Requests with a value of "0" will be fully processed.
+			// Any other value indicates that this request shall be
+			// handled as a fake request." ,
+			forHTTPHeaderField: "cwa-fake"
+		)
+
+		request.setValue(
+			"application/x-protobuf",
+			forHTTPHeaderField: "Content-Type"
+		)
+
+		request.httpMethod = "POST"
+
+		let encoder = JSONEncoder()
+		encoder.outputFormatting = .prettyPrinted
+		request.httpBody = try encoder.encode(["key": key, "keyType": type])
 
 		return request
 	}
