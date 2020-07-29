@@ -56,6 +56,7 @@ protocol Client {
 	// getTestResultForDevice
 	func getTestResult(
 		forDevice registrationToken: String,
+		isFake: Bool,
 		completion completeWith: @escaping TestResultHandler
 	)
 

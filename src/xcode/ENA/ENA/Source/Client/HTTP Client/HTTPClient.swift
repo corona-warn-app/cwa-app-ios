@@ -187,51 +187,50 @@ final class HTTPClient: Client {
 		}
 	}
 
-	func getTestResult(forDevice registrationToken: String, completion completeWith: @escaping TestResultHandler) {
-		let url = configuration.testResultURL
+	func getTestResult(forDevice registrationToken: String, isFake: Bool, completion completeWith: @escaping TestResultHandler) {
 
-		let bodyValues = ["registrationToken": registrationToken]
-		do {
-			let encoder = JSONEncoder()
-			encoder.outputFormatting = .prettyPrinted
+		// TODO: Make this another error case for URLFailure
+		guard
+			let testResultRequest = try? URLRequest.getTestResultRequest(
+				configuration: configuration,
+				registrationToken: registrationToken,
+				headerValue: isFake ? 1 : 0
+			) else {
+				completeWith(.failure(.invalidResponse))
+				return
+		}
 
-			let data = try encoder.encode(bodyValues)
-
-			session.POST(url, data) { result in
-				switch result {
-				case let .success(response):
-					guard response.hasAcceptableStatusCode else {
-						completeWith(.failure(.serverError(response.statusCode)))
-						return
-					}
-					guard let testResultResponseData = response.body else {
-						completeWith(.failure(.invalidResponse))
-						logError(message: "Failed to register Device with invalid response")
-						return
-					}
-					do {
-						let response = try JSONDecoder().decode(
-							Model.FetchTestResultResponse.self,
-							from: testResultResponseData
-						)
-						guard let testResult = response.testResult else {
-							logError(message: "Failed to register Device with invalid response payload structure")
-							completeWith(.failure(.invalidResponse))
-							return
-						}
-						completeWith(.success(testResult))
-					} catch {
-						logError(message: "Failed to get test result with invalid response payload structure")
-						completeWith(.failure(.invalidResponse))
-					}
-				case let .failure(error):
-					completeWith(.failure(error))
-					logError(message: "Failed to get test result due to error: \(error).")
+		session.response(for: testResultRequest) { result in
+			switch result {
+			case let .success(response):
+				guard response.hasAcceptableStatusCode else {
+					completeWith(.failure(.serverError(response.statusCode)))
+					return
 				}
+				guard let testResultResponseData = response.body else {
+					completeWith(.failure(.invalidResponse))
+					logError(message: "Failed to register Device with invalid response")
+					return
+				}
+				do {
+					let response = try JSONDecoder().decode(
+						Model.FetchTestResultResponse.self,
+						from: testResultResponseData
+					)
+					guard let testResult = response.testResult else {
+						logError(message: "Failed to register Device with invalid response payload structure")
+						completeWith(.failure(.invalidResponse))
+						return
+					}
+					completeWith(.success(testResult))
+				} catch {
+					logError(message: "Failed to get test result with invalid response payload structure")
+					completeWith(.failure(.invalidResponse))
+				}
+			case let .failure(error):
+				completeWith(.failure(error))
+				logError(message: "Failed to get test result due to error: \(error).")
 			}
-		} catch {
-			completeWith(.failure(.invalidResponse))
-			return
 		}
 	}
 
@@ -457,6 +456,36 @@ private extension URLRequest {
 
 		request.httpMethod = "POST"
 		request.httpBody = payloadData
+
+		return request
+	}
+
+	static func getTestResultRequest(
+		configuration: HTTPClient.Configuration,
+		registrationToken: String,
+		headerValue: Int
+	) throws -> URLRequest {
+
+		var request = URLRequest(url: configuration.testResultURL)
+
+		request.setValue(
+			"\(headerValue)",
+			// Requests with a value of "0" will be fully processed.
+			// Any other value indicates that this request shall be
+			// handled as a fake request." ,
+			forHTTPHeaderField: "cwa-fake"
+		)
+
+		request.setValue(
+			"application/x-protobuf",
+			forHTTPHeaderField: "Content-Type"
+		)
+
+		request.httpMethod = "POST"
+
+		let encoder = JSONEncoder()
+		encoder.outputFormatting = .prettyPrinted
+		request.httpBody = try encoder.encode(["registrationToken": registrationToken])
 
 		return request
 	}
