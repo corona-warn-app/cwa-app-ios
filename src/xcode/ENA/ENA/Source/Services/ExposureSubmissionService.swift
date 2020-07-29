@@ -213,7 +213,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	/// Helper method that is used to submit keys after a TAN was retrieved.
 	private func submit(_ keys: [ENTemporaryExposureKey], with tan: String, completion: @escaping ExposureSubmissionHandler) {
-		self.client.submit(keys: keys, tan: tan) { error in
+		self.client.submit(keys: keys, tan: tan, isFake: false) { error in
 			if let error = error {
 				logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
 				completion(self.parseError(error))

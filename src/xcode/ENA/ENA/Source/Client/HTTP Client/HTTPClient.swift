@@ -90,12 +90,14 @@ final class HTTPClient: Client {
 	func submit(
 		keys: [ENTemporaryExposureKey],
 		tan: String,
+		isFake: Bool,
 		completion: @escaping SubmitKeysCompletionHandler
 	) {
 		guard let request = try? URLRequest.submitKeysRequest(
 			configuration: configuration,
 			tan: tan,
-			keys: keys
+			keys: keys,
+			headerValue: isFake ? 1 : 0
 		) else {
 			completion(.requestCouldNotBeBuilt)
 			return
@@ -424,7 +426,8 @@ private extension URLRequest {
 	static func submitKeysRequest(
 		configuration: HTTPClient.Configuration,
 		tan: String,
-		keys: [ENTemporaryExposureKey]
+		keys: [ENTemporaryExposureKey],
+		headerValue: Int
 	) throws -> URLRequest {
 		let payload = SAP_SubmissionPayload.with {
 			$0.keys = keys.compactMap { $0.sapKey }
@@ -441,7 +444,7 @@ private extension URLRequest {
 		)
 
 		request.setValue(
-			"0",
+			"\(headerValue)",
 			// Requests with a value of "0" will be fully processed.
 			// Any other value indicates that this request shall be
 			// handled as a fake request." ,

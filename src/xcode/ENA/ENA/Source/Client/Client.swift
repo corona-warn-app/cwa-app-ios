@@ -100,6 +100,7 @@ protocol Client {
 	func submit(
 		keys: [ENTemporaryExposureKey],
 		tan: String,
+		isFake: Bool,
 		completion: @escaping SubmitKeysCompletionHandler
 	)
 }
