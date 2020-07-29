@@ -50,13 +50,6 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 				icon: UIImage(named: "Icons_Bluetooth_aus"),
 				accessibilityIdentifier: AccessibilityIdentifiers.Home.activateCardBluetoothOffTitle
 			)
-
-		case .internetOff:
-			cell.configure(
-				title: AppStrings.Home.activateCardInternetOffTitle,
-				icon: UIImage(named: "Icons_Internet_aus"),
-				accessibilityIdentifier: AccessibilityIdentifiers.Home.activateCardInternetOffTitle
-			)
 		}
 	}
 

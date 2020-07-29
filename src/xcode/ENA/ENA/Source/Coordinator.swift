@@ -18,7 +18,6 @@
 //
 
 import UIKit
-import Connectivity
 
 /**
 	A delegate protocol for reseting the state of the app, when Reset functionality is used.
