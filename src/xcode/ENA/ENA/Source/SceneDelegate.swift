@@ -143,9 +143,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	private func presentHomeVC() {
-		// TODO: MARC!!
-		// Connectivity.urlSessionConfiguration.timeoutIntervalForRequest = 15.0
-		// Connectivity.urlSessionConfiguration.timeoutIntervalForResource = 15.0
 		enStateHandler = ENStateHandler(
 			initialExposureManagerState: exposureManager.preconditions(),
 			delegate: self
