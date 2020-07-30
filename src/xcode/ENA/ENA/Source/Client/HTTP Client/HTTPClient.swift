@@ -210,24 +210,23 @@ final class HTTPClient: Client {
 						return
 					}
 					do {
-						let decoder = JSONDecoder()
-						let responseDictionary = try decoder.decode(
-							[String: Int].self,
+						let response = try JSONDecoder().decode(
+							FetchTestResultResponse.self,
 							from: testResultResponseData
 						)
-						guard let testResult = responseDictionary["testResult"] else {
+						guard let testResult = response.testResult else {
 							logError(message: "Failed to register Device with invalid response payload structure")
 							completeWith(.failure(.invalidResponse))
 							return
 						}
 						completeWith(.success(testResult))
 					} catch {
-						logError(message: "Failed to register Device with invalid response payload structure")
+						logError(message: "Failed to get test result with invalid response payload structure")
 						completeWith(.failure(.invalidResponse))
 					}
 				case let .failure(error):
 					completeWith(.failure(error))
-					logError(message: "Failed to registerDevices due to error: \(error).")
+					logError(message: "Failed to get test result due to error: \(error).")
 				}
 			}
 		} catch {
@@ -265,12 +264,11 @@ final class HTTPClient: Client {
 						return
 					}
 					do {
-						let decoder = JSONDecoder()
-						let responseDictionary = try decoder.decode(
-							[String: String].self,
+						let response = try JSONDecoder().decode(
+							GetTANForExposureSubmitResponse.self,
 							from: tanResponseData
 						)
-						guard let tan = responseDictionary["tan"] else {
+						guard let tan = response.tan else {
 							logError(message: "Failed to get TAN because of invalid response payload structure")
 							completeWith(.failure(.invalidResponse))
 							return
@@ -323,12 +321,11 @@ final class HTTPClient: Client {
 					}
 	
 					do {
-						let decoder = JSONDecoder()
-						let responseDictionary = try decoder.decode(
-							[String: String].self,
+						let response = try JSONDecoder().decode(
+							GetRegistrationTokenResponse.self,
 							from: registerResponseData
 						)
-						guard let registrationToken = responseDictionary["registrationToken"] else {
+						guard let registrationToken = response.registrationToken else {
 							logError(message: "Failed to register Device with invalid response payload structure")
 							completeWith(.failure(.invalidResponse))
 							return
@@ -405,6 +402,20 @@ final class HTTPClient: Client {
 }
 
 // MARK: Extensions
+
+private extension HTTPClient {
+	struct FetchTestResultResponse: Codable {
+		let testResult: Int?
+	}
+
+	struct GetRegistrationTokenResponse: Codable {
+		let registrationToken: String?
+	}
+
+	struct GetTANForExposureSubmitResponse: Codable {
+		let tan: String?
+	}
+}
 
 private extension URLRequest {
 	static func submitKeysRequest(
