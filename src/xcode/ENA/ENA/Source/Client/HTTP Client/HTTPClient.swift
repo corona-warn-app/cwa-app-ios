@@ -499,6 +499,6 @@ private extension SAP_RiskScoreParameters.DurationRiskParameter {
 
 private extension SAP_RiskScoreParameters.AttenuationRiskParameter {
 	var asArray: [NSNumber] {
-		[gt73Dbm, gt63Le73Dbm, gt51Le63Dbm, gt33Le51Dbm, gt27Le33Dbm, gt15Le27Dbm, gt10Le15Dbm, lt10Dbm].map { $0.asNumber }
+		[gt73Dbm, gt63Le73Dbm, gt51Le63Dbm, gt33Le51Dbm, gt27Le33Dbm, gt15Le27Dbm, gt10Le15Dbm, le10Dbm].map { $0.asNumber }
 	}
 }
