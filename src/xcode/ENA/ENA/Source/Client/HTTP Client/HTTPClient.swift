@@ -103,7 +103,7 @@ final class HTTPClient: Client {
 			return
 		}
 
-		session.response(for: request) { result in
+		session.response(for: request, isFake: isFake) { result in
 			switch result {
 			case let .success(response):
 				switch response.statusCode {
@@ -202,7 +202,7 @@ final class HTTPClient: Client {
 				return
 		}
 
-		session.response(for: testResultRequest) { result in
+		session.response(for: testResultRequest, isFake: isFake) { result in
 			switch result {
 			case let .success(response):
 				guard response.hasAcceptableStatusCode else {
@@ -249,7 +249,7 @@ final class HTTPClient: Client {
 				return
 		}
 
-		session.response(for: tanForExposureSubmitRequest) { result in
+		session.response(for: tanForExposureSubmitRequest, isFake: isFake) { result in
 			switch result {
 			case let .success(response):
 
@@ -303,7 +303,7 @@ final class HTTPClient: Client {
 				return
 		}
 
-		session.response(for: registrationTokenRequest) { result in
+		session.response(for: registrationTokenRequest, isFake: isFake) { result in
 			switch result {
 			case let .success(response):
 				if response.statusCode == 400 {
