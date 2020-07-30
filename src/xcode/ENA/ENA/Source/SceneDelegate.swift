@@ -26,11 +26,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	var window: UIWindow?
 
 	private lazy var navigationController: UINavigationController = AppNavigationController()
-	private var homeController: HomeViewController?
+	private lazy var coordinator = Coordinator(self, navigationController)
 
 	var state: State = State(exposureManager: .init(), detectionMode: currentDetectionMode, risk: nil) {
 		didSet {
-			homeController?.updateState(
+			coordinator.updateState(
 				detectionMode: state.detectionMode,
 				exposureManagerState: state.exposureManager,
 				risk: state.risk)
@@ -38,19 +38,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(client: self.client, store: self.store)
-
-	#if !RELEASE
-	private var developerMenu: DMDeveloperMenu?
-	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
-		developerMenu = DMDeveloperMenu(
-			presentingViewController: controller,
-			client: client,
-			store: store,
-			exposureManager: exposureManager
-		)
-		developerMenu?.enableIfAllowed()
-	}
-	#endif
 
 	private var enStateHandler: ENStateHandler?
 
@@ -166,46 +153,16 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			),
 			delegate: self
 		)
-		
+
 		guard let enStateHandler = self.enStateHandler else {
 			fatalError("It should not happen.")
 		}
 
-		let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
-			HomeViewController(
-				coder: coder,
-				delegate: self,
-				detectionMode: self.state.detectionMode,
-				exposureManagerState: self.state.exposureManager,
-				initialEnState: enStateHandler.state,
-				risk: self.state.risk
-			)
-		}
-
-		homeController = vc // strong ref needed
-		UIView.transition(with: navigationController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
-			self.navigationController.setViewControllers([vc], animated: false)
-		})
-		#if !RELEASE
-		enableDeveloperMenuIfAllowed(in: vc)
-		#endif
+		coordinator.showHome(enStateHandler: enStateHandler, state: state)
 	}
 
 	private func showOnboarding() {
-		navigationController.navigationBar.prefersLargeTitles = false
-		navigationController.setViewControllers(
-			[
-				AppStoryboard.onboarding.initiateInitial { [unowned self] coder in
-					OnboardingInfoViewController(
-						coder: coder,
-						pageType: .togetherAgainstCoronaPage,
-						exposureManager: self.exposureManager,
-						store: self.store
-					)
-				}
-			],
-			animated: false
-		)
+		coordinator.showOnboarding()
 	}
 
 	@objc
@@ -262,15 +219,15 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		authorizationStatus: \(ENManager.authorizationStatus)
 		"""
 		log(message: message)
-		
+
 		state.exposureManager = newState
 		updateExposureState(newState)
 	}
 }
 
-extension SceneDelegate: HomeViewControllerDelegate {
+extension SceneDelegate: CoordinatorDelegate {
 	/// Resets all stores and notifies the Onboarding.
-	func homeViewControllerUserDidRequestReset(_: HomeViewController) {
+	func coordinatorUserDidRequestReset() {
 		let newKey = KeychainHelper.generateDatabaseKey()
 		store.clearAll(key: newKey)
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
@@ -314,7 +271,7 @@ extension SceneDelegate: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
 		riskProvider.exposureManagerState = state
 		riskProvider.requestRisk(userInitiated: false)
-		homeController?.updateExposureState(state)
+		coordinator.updateExposureState(state)
 		enStateHandler?.updateExposureState(state)
 	}
 }
@@ -322,7 +279,7 @@ extension SceneDelegate: ExposureStateUpdating {
 extension SceneDelegate: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		log(message: "SceneDelegate got EnState update: \(state)")
-		homeController?.updateEnState(state)
+		coordinator.updateEnState(state)
 	}
 }
 

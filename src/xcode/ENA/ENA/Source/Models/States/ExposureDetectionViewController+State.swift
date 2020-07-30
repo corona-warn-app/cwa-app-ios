@@ -32,7 +32,19 @@ extension ExposureDetectionViewController {
 		var riskLevel: RiskLevel {
 			risk?.level ?? .unknownInitial
 		}
-		var actualRiskText: String { riskLevel.text }
+
+		let previousRiskLevel: EitherLowOrIncreasedRiskLevel?
+
+		var actualRiskText: String {
+			switch previousRiskLevel {
+			case .low:
+				return AppStrings.ExposureDetection.low
+			case .increased:
+				return AppStrings.ExposureDetection.high
+			default:
+				return AppStrings.ExposureDetection.unknown
+			}
+		}
 
 		var riskText: String {
 			 isTracingEnabled ? riskLevel.text : AppStrings.ExposureDetection.off

@@ -22,31 +22,11 @@ import CommonCrypto
 import CryptoKit
 
 final class CoronaWarnURLSessionDelegate: NSObject {
-	// MARK: Known Public Key Storage
-	/// A dictionary containing a mapping of the host to the SHA256 public key string
-	private let domainPublicKeyHashes: [String: String]
-	/// Whitelist of domains we do not pin the public key for. Currently just the distribution URL
-	#if ENABLE_WHITELIST
-		private let whitelist: [String]
-	#endif
+	private let localPublicKey: String
 
 	// MARK: Creating a Delegate
-	override init() {
-		guard
-			let publicKeyDict = Bundle.main.readPlistDict(name: "PublicKeys")
-		else {
-			preconditionFailure("Could not load PublicKeys.plist for public key pinning!")
-		}
-		domainPublicKeyHashes = publicKeyDict
-
-		#if ENABLE_WHITELIST
-			guard
-				let hostWhitelist = Bundle.main.readPlistAsArr(name: "HostWhitelist")
-				else {
-					preconditionFailure("Could not load HostWhitelist.plist for public key pinning!")
-			}
-			whitelist = hostWhitelist
-		#endif
+	init(localPublicKey: String) {
+		self.localPublicKey = localPublicKey
 	}
 }
 
@@ -58,23 +38,16 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 	) {
 		func reject() { completionHandler(.cancelAuthenticationChallenge, /* credential */ nil) }
 
-		#if ENABLE_WHITELIST
-		guard !checkWhitelist(for: challenge.protectionSpace.host) else {
-			completionHandler(.performDefaultHandling, nil)
-			return
-		}
-		#endif
-
 		// `serverTrust` not nil implies that authenticationMethod == NSURLAuthenticationMethodServerTrust
 		guard
-			let trust = challenge.protectionSpace.serverTrust,
-			let localPublicKey = key(for: challenge.protectionSpace.host),
-			!localPublicKey.isEmpty
+			let trust = challenge.protectionSpace.serverTrust
 		else {
 			// Reject all requests that we do not have a public key to pin for
 			reject()
 			return
 		}
+
+		let localPublicKey = self.localPublicKey
 
 		// We discard the returned status code (OSStatus) because this is also how
 		// Apple is doing it in their official sample code – see [0] for more info.
@@ -125,25 +98,6 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 			accept()
 		}
 	}
-
-	/// Query the well-known host:key dictionary for the public key of the specfied host
-	///
-	/// - parameter host: String host, ex. "apple.com"
-	/// - returns: SHA256 hash of the public key as defined in the plist
-	/// - note: Does a contains substring check, does not match exactly.
-	func key(for host: String) -> String? {
-		domainPublicKeyHashes.first(where: { host.contains($0.key) })?.value
-	}
-
-	/// Check the array of whitelisted hosts for who public key pinning should not occur.
-	///
-	/// - parameter host: String host, ex. "apple.com"
-	/// - returns: Bool if the host was found in the list or not. Host strings are treated as regular expressions.
-	#if ENABLE_WHITELIST
-	func checkWhitelist(for host: String) -> Bool {
-		whitelist.contains(where: { host.range(of: $0, options: .regularExpression) != nil })
-	}
-	#endif
 }
 
 // [0] https://developer.apple.com/documentation/security/certificate_key_and_trust_services/trust/evaluating_a_trust_and_parsing_the_result
