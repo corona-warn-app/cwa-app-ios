@@ -180,7 +180,7 @@ final class DMViewController: UITableViewController {
 			// it may be required to change the tan to something else.
 			self.client.submit(
 				keys: _keys,
-				tan: "235b56ff-fd57-465a-8203-31456e58f06f"
+				tan: "235b56ff-fd57-465a-8203-31456e58f06f", isFake: false
 			) { submitError in
 				print("submitError: \(submitError?.localizedDescription ?? "")")
 				return
@@ -212,7 +212,7 @@ extension DMViewController: DMQRCodeScanViewControllerDelegate {
 	func debugCodeScanViewController(_: DMQRCodeScanViewController, didScan diagnosisKey: SAP_TemporaryExposureKey) {
 		client.submit(
 			keys: [diagnosisKey.temporaryExposureKey],
-			tan: "not needed"
+			tan: "not needed", isFake: false
 		) { [weak self] _ in
 			guard let self = self else { return }
 			self.resetAndFetchKeys()
