@@ -411,29 +411,30 @@ enum AppStrings {
 		static let riskCardInactiveOutdatedResultsTitle = NSLocalizedString("Home_Risk_Inactive_Outdated_Results_Title", comment: "")
 		static let riskCardInactiveNoCalculationPossibleBody = NSLocalizedString("Home_Risk_Inactive_NoCalculation_Possible_Body", comment: "")
 		static let riskCardInactiveOutdatedResultsBody = NSLocalizedString("Home_Risk_Inactive_Outdated_Results_Body", comment: "")
-		static let riskCardInactiveActivateItemTitle = NSLocalizedString("Home_Risk_Inactive_Activate_Item_Title", comment: "")
-		static let riskCardInactiveActiveItemUnknownTitle = NSLocalizedString("Home_Risk_Inactive_Activate_Item_Unknown_Title", comment: "")
-		static let riskCardInactiveActiveItemLowTitle = NSLocalizedString("Home_Risk_Inactive_Activate_Item_Low_Title", comment: "")
-		static let riskCardInactiveActiveItemHighTitle = NSLocalizedString("Home_Risk_Inactive_Activate_Item_High_Title", comment: "")
 		static let riskCardInactiveNoCalculationPossibleButton = NSLocalizedString("Home_Risk_Inactive_NoCalculation_Possible_Button", comment: "")
 		static let riskCardInactiveOutdatedResultsButton = NSLocalizedString("Home_Risk_Inactive_Outdated_Results_Button", comment: "")
 
 		// Common
-
 		static let riskCardDateItemTitle = NSLocalizedString("Home_Risk_Date_Item_Title", comment: "")
 		static let riskCardNoDateTitle = NSLocalizedString("Home_Risk_No_Date_Title", comment: "")
 		static let riskCardIntervalUpdateTitle = NSLocalizedString("Home_Risk_Period_Update_Title", comment: "")
 		static let riskCardIntervalDisabledButtonTitle = NSLocalizedString("Home_Risk_Period_Disabled_Button_Title", comment: "")
 		static let riskCardNumberContactsItemTitle = NSLocalizedString("Home_Risk_Number_Contacts_Item_Title", comment: "")
 		static let riskCardLastContactItemTitle = NSLocalizedString("Home_Risk_Last_Contact_Item_Title", comment: "")
+		static let riskCardUnknownTitle = NSLocalizedString("Home_Risk_Unknown_Title", comment: "")
+		static let riskCardLastActiveItemTitle = NSLocalizedString("Home_Risk_Last_Activate_Item_Title", comment: "")
+		static let riskCardLastActiveItemUnknownTitle = NSLocalizedString("Home_Risk_Last_Activate_Item_Unknown_Title", comment: "")
+		static let riskCardLastActiveItemLowTitle = NSLocalizedString("Home_Risk_Last_Activate_Item_Low_Title", comment: "")
+		static let riskCardLastActiveItemHighTitle = NSLocalizedString("Home_Risk_Last_Activate_Item_High_Title", comment: "")
+		static let riskCardUpdateButton = NSLocalizedString("Home_RiskCard_Update_Button", comment: "")
 
 		// Unknown Card
-		static let riskCardUnknownTitle = NSLocalizedString("Home_Risk_Unknown_Title", comment: "")
 		static let riskCardUnknownItemTitle = NSLocalizedString("Home_RiskCard_Unknown_Item_Title", comment: "")
-		static let riskCardUnknownButton = NSLocalizedString("Home_RiskCard_Unknown_Button", comment: "")
+
+		// Unknown Card 48h
+		static let riskCardUnknown48hBody = NSLocalizedString("Home_RiskCard_Unknown48h_Body", comment: "")
 
 		// Low Card
-
 		static let riskCardLowTitle = NSLocalizedString("Home_Risk_Low_Title", comment: "")
 		static let riskCardLowSaveDaysItemTitle = NSLocalizedString("Home_Risk_Low_SaveDays_Item_Title", comment: "")
 		static let riskCardLowSaveDaysItemTitle_PermanentlyActive = NSLocalizedString("Home_Risk_Low_SaveDays_Item_Title__Permanently_Active", comment: "")
@@ -442,11 +443,9 @@ enum AppStrings {
 
 		// High Card
 		static let riskCardHighTitle = NSLocalizedString("Home_Risk_High_Title", comment: "")
-		static let riskCardHighButton = NSLocalizedString("Home_Risk_High_Button", comment: "")
 
 		static let riskCardStatusCheckTitle = NSLocalizedString("Home_Risk_Status_Check_Title", comment: "")
 		static let riskCardStatusCheckBody = NSLocalizedString("Home_Risk_Status_Check_Body", comment: "")
-		static let riskCardStatusCheckButton = NSLocalizedString("Home_Risk_Status_Check_Button", comment: "")
 
 		// Thank you card
 		static let thankYouCardTitle = NSLocalizedString("Home_Thank_You_Card_Title", comment: "")

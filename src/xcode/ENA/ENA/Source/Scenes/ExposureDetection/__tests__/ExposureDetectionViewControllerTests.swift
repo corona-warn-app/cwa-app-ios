@@ -52,7 +52,8 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 							activeTracing: .init(interval: 14 * 86400),
 							exposureDetectionDate: nil
 						),
-						riskLevelHasChanged: false)
+						riskLevelHasChanged: false),
+						previousRiskLevel: nil
 		)
 
 		guard let vc = createVC(with: state) else { return }

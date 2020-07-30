@@ -20,7 +20,6 @@ import UIKit
 final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	private var numberRiskContacts: Int
 	private var daysSinceLastExposure: Int?
-	private let validityDuration: Int
 
 	// MARK: Creating a Home Risk Cell Configurator
 
@@ -31,17 +30,17 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		lastUpdateDate: Date?,
 		manualExposureDetectionState: ManualExposureDetectionState?,
 		detectionMode: DetectionMode,
-		validityDuration: Int
+		detectionInterval: Int
 	) {
 		self.numberRiskContacts = numberRiskContacts
 		self.daysSinceLastExposure = daysSinceLastExposure
-		self.validityDuration = validityDuration
 		super.init(
 			isLoading: isLoading,
 			isButtonEnabled: manualExposureDetectionState == .possible,
 			isButtonHidden: detectionMode == .automatic,
 			detectionIntervalLabelHidden: detectionMode != .automatic,
-			lastUpdateDate: lastUpdateDate
+			lastUpdateDate: lastUpdateDate,
+			detectionInterval: detectionInterval
 		)
 	}
 
@@ -74,7 +73,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
 		cell.configureBackgroundColor(color: color)
 
-		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, "\(validityDuration)")
+		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, "\(detectionInterval)")
 		cell.configureDetectionIntervalLabel(
 			text: intervalTitle,
 			isHidden: detectionIntervalLabelHidden
@@ -85,30 +84,12 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		setupAccessibility(cell)
 	}
 
-	override func configureButton(for cell: RiskLevelCollectionViewCell) {
-		super.configureButton(for: cell)
-		cell.configureUpdateButton(
-			title: buttonTitle,
-			isEnabled: isButtonEnabled,
-			isHidden: isButtonHidden,
-			accessibilityIdentifier: AccessibilityIdentifiers.Home.riskCardIntervalUpdateTitle
-		)
-	}
-
-	private var buttonTitle: String {
-		if isLoading { return AppStrings.Home.riskCardStatusCheckButton }
-		if isButtonEnabled { return AppStrings.Home.riskCardHighButton }
-		if let timeUntilUpdate = timeUntilUpdate { return String(format: AppStrings.ExposureDetection.refreshIn, timeUntilUpdate) }
-		return String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, "\(validityDuration)")
-	}
-
 	// MARK: Hashable
 
 	override func hash(into hasher: inout Swift.Hasher) {
 		super.hash(into: &hasher)
 		hasher.combine(numberRiskContacts)
 		hasher.combine(daysSinceLastExposure)
-		hasher.combine(validityDuration)
 	}
 
 	static func == (lhs: HomeHighRiskCellConfigurator, rhs: HomeHighRiskCellConfigurator) -> Bool {
@@ -119,6 +100,6 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		lhs.lastUpdateDate == rhs.lastUpdateDate &&
 		lhs.numberRiskContacts == rhs.numberRiskContacts &&
 		lhs.daysSinceLastExposure == rhs.daysSinceLastExposure &&
-		lhs.validityDuration == rhs.validityDuration
+		lhs.detectionInterval == rhs.detectionInterval
 	}
 }

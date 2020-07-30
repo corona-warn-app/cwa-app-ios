@@ -126,23 +126,13 @@
 
 /* Active Tracing Section */
 "ExposureDetection_ActiveTracingSection_Title" = "Dönem günlüğe kaydedildi";
-"ExposureDetection_ActiveTracingSection_Subtitle" = "Bu dönem hesaplamaya dahil edildi";
 
-/*
- There are two paragraphs in this section. The first one just contains text…
- */
+"ExposureDetection_ActiveTracingSection_Subtitle" = "Bu dönem hesaplamaya dahil edildi.";
+
+/* There are two paragraphs in this section. The first one just contains text… */
 "ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir.";
 
-/*
- … the second paragraph contains two columns. On the left there is our active
- tracing indicator. On the right column there is just text that explains what
- the indicator shows.
-
- Parameters:
- - first: total number of relevant days (usually 14).
- - second: the actual number of days with active tracing.
- */
-
+/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Maruz kalma günlüğü son %1$u günü kapsar. Bu süre boyunca cihazınızdaki günlüğe kaydetme özelliği %2$u gün etkindi. Uygulama, enfeksiyondan korunma için artık ilgili olmadığından daha eski kayıtları otomatik olarak siler.";
 
 /* Exposure Detection Errors */
@@ -152,20 +142,10 @@
 
 "ExposureDetectionError_Alert_Message" = "Maruz kalma günlüğü sırasında bir hata oluştu.";
 
-/*
- How Risk Detection Works Alert.
- First introduced due to EXPOSUREAPP-1738.
- The alert only displays a single OK-button. We re-use the localized string
- `Alert_ActionOk` for that.
- */
+/* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
+"How_Risk_Detection_Works_Alert_Title" = "Maruz kalma günlüğü işlevi hakkında bilgi";
 
-"How_Risk_Detection_Works_Alert_Title" = "Maruz kalma işlevi hakkında bilgi";
-
-"How_Risk_Detection_Works_Alert_Message" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir.
-Maruz kalma günlüğü son %1$u günü kapsar.
-Uygulama, enfeksiyondan korunma için artık ilgili olmadığından daha eski kayıtları otomatik olarak siler.
-
-Daha fazla bilgi için lütfen SSS sayfamıza bakın.";
+"How_Risk_Detection_Works_Alert_Message" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir.\nMaruz kalma günlüğü son %1$u günü kapsar.\nUygulama, enfeksiyondan korunma için artık ilgili olmadığından daha eski kayıtları otomatik olarak siler.\n\nDaha fazla bilgi için lütfen SSS sayfamıza bakın.";
 
 /* Settings */
 "Settings_StatusActive" = "Açık";
@@ -644,12 +624,24 @@ Daha fazla bilgi için lütfen SSS sayfamıza bakın.";
 
 "Home_Risk_Period_Disabled_Button_Title" = "Yalnızca %@\U00A0hours aralıkla güncellenir";
 
-/* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Bilinmeyen Risk";
 
+"Home_Risk_Last_Activate_Item_Title" = "Son maruz kalma günlüğü: %@";
+
+"Home_Risk_Last_Activate_Item_Unknown_Title" = "Bilinmeyen Risk";
+
+"Home_Risk_Last_Activate_Item_Low_Title" = "Düşük Risk";
+
+"Home_Risk_Last_Activate_Item_High_Title" = "Daha Yüksek Risk";
+
+"Home_RiskCard_Update_Button" = "Güncelle";
+
+/* Home Unknown card */
+"Home_RiskCard_Unknown_Item_Title" = "Maruz kalma günlüğünün uzun süredir açık olmadığı için enfeksiyon riskinizi hesaplayamıyoruz.";
 "Home_RiskCard_Unknown_Item_Title" = "Maruz kalma günlüğü uzun süredir açık olmadığı için enfeksiyon riskinizi hesaplayamıyoruz.";
 
-"Home_RiskCard_Unknown_Button" = "Güncelle";
+/* Home Unknown 48 card */
+"Home_RiskCard_Unknown48h_Body" = "Ihre Risiko-Berechnung wurde seit mehr als 48 Stunden nicht aktualisiert. Bitte aktualisieren Sie die Berechnung.";
 
 /* Home Inactive card */
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "Maruz kalma günlüğü durduruldu";
@@ -660,14 +652,6 @@ Daha fazla bilgi için lütfen SSS sayfamıza bakın.";
 
 "Home_Risk_Inactive_Outdated_Results_Body" = "Maruz kalma günlüğünüz 24 saatten uzun süre için güncellenemedi.";
 
-"Home_Risk_Inactive_Activate_Item_Title" = "Son maruz kalma günlüğü: %@";
-
-"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Bilinmeyen Risk";
-
-"Home_Risk_Inactive_Activate_Item_Low_Title" = "Düşük Risk";
-
-"Home_Risk_Inactive_Activate_Item_High_Title" = "Daha Yüksek Risk";
-
 "Home_Risk_Inactive_NoCalculation_Possible_Button" = "Maruz Kalma Günlüğünü Etkinleştir";
 
 "Home_Risk_Inactive_Outdated_Results_Button" = "Maruz Kalma Günlüğünü Etkinleştir";
@@ -675,21 +659,17 @@ Daha fazla bilgi için lütfen SSS sayfamıza bakın.";
 /* Home Low card */
 "Home_Risk_Low_Title" = "Düşük Risk";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "%@ / %@ gündür etkin";
+"Home_Risk_Low_SaveDays_Item_Title" = "Maruz kalma günlüğü son 14 günde %1$u etkindi.";
 
-"Home_Risk_Low_Button" = "Güncelle";
+"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Maruz kalma günlüğü sürekli etkin";
 
 /* Home High card */
 "Home_Risk_High_Title" = "Daha Yüksek Risk";
-
-"Home_Risk_High_Button" = "Güncelle";
 
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Kontrol devam ediyor …";
 
 "Home_Risk_Status_Check_Body" = "Güncel veriler indiriliyor ve kaydediliyor. Bu işlem birkaç dakika sürebilir.";
-
-"Home_Risk_Status_Check_Button" = "Güncelle";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Teşekkür ederiz!";
@@ -977,11 +957,8 @@ Daha fazla bilgi için lütfen SSS sayfamıza bakın.";
 
 "ENATanInput_CharacterIndex" = "%1$u/%2$u karakter";
 
-/*
- Active Tracing Interval Formatting:
- The following two entries are used together. If tracing was not active (almost) 14 days
- during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise
- `Active_Tracing_Interval_Partially_Active` will be used.
- */
-"Active_Tracing_Interval_Partially_Active" = "Maruz kalma günlüğü son %2$u günde %1$u gün etkindi.";
+/* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
+"Active_Tracing_Interval_Partially_Active" = "Maruz kalma günlüğü son %2$u günde %1$u etkindi.";
+
 "Active_Tracing_Interval_Permanently_Active" = "Maruz kalma günlüğü sürekli etkin";
+
