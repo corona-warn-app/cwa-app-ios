@@ -76,7 +76,7 @@
 
 "ExposureDetection_OffText" = "Activate exposure logging to evaluate your risk status today.";
 
-"ExposureDetection_OutdatedText" = "Your exposure logging could not be updated for more than 48 hours.";
+"ExposureDetection_OutdatedText" = "Your exposure logging has not been updated for more than 48 hours. Please update the calculation.";
 
 "ExposureDetection_UnknownText" = "Since you have not activated exposure logging for long enough, we cannot calculate your risk of infection.";
 
@@ -218,7 +218,7 @@
 
 "Onboarding_DeactivateExposureConfirmation_message" = "You can deactivate this feature at any time.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "A group of people are all using their devices in town.";
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "A group of persons use their devices around town.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_title" = "Let's fight coronavirus together";
 
@@ -240,7 +240,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To identify whether you are at risk of infection, you must activate the exposure logging feature.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Exposure logging works by your device receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. This feature can be deactivated at any time. \n\nEncrypted random IDs only pass information about date, duration, and proximity (calculated using signal strength) to other people. Personal data such as name, address, and location is never recorded. Individuals cannot be identified.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Exposure logging works by your device receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. This feature can be disabled at any time. \n\nEncrypted random IDs only pass information about date, duration, and proximity to other persons (calculated by signal strength). Personal data such as name, address, and location is never recorded. Individuals cannot be identified.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Declaration of Consent";
 
@@ -547,7 +547,7 @@
 
 "ExposureNotificationSetting_DescriptionText2" = "Exposure logging works by your device receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. This feature can be deactivated at any time.";
 
-"ExposureNotificationSetting_DescriptionText3" = "The encrypted random IDs only pass information about date, duration and proximity (using signal strength) to other people. Personal data such as name, address, or location is never recorded. Individuals cannot be identified.";
+"ExposureNotificationSetting_DescriptionText3" = "The encrypted random IDs only pass information about date, duration and proximity to other persons (calculated by signal strength). Personal data such as name, address, location is never recorded. Individuals cannot be identified.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Turn on Bluetooth";
 
@@ -640,7 +640,7 @@
 "Home_RiskCard_Unknown_Item_Title" = "Since you have not had exposure logging turned on for long enough, we cannot calculate your risk of infection.";
 
 /* Home Unknown 48 card */
-"Home_RiskCard_Unknown48h_Body" = "Ihre Risiko-Berechnung wurde seit mehr als 48 Stunden nicht aktualisiert. Bitte aktualisieren Sie die Berechnung.";
+"Home_RiskCard_Unknown48h_Body" = "Your exposure logging has not been updated for more than 48 hours. Please update the calculation.";
 
 /* Home Inactive card */
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "Exposure logging stopped";

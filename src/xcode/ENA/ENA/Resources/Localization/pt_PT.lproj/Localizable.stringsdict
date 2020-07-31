@@ -13,22 +13,22 @@
 			<string>u</string>
 			<key>one</key>
 			<!--Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-			<string>Masz podwyższone ryzyko zakażenia, ponieważ jeden dzień temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
+			<string>Tem um risco de infeção mais elevado porque, há um dia, teve um encontro com uma pessoa diagnosticada com COVID-19 durante um período de tempo mais longo e com grande proximidade.</string>
 			<key>zero</key>
 			<!-- Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-			<string>Masz podwyższone ryzyko zakażenia, ponieważ %u dni temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
+			<string>Tem um risco de infeção mais elevado porque, há %u dias, teve um encontro com uma pessoa diagnosticada com COVID-19 durante um período de tempo mais longo e com grande proximidade.</string>
 			<key>few</key>
 			<!-- Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-			<string>Masz podwyższone ryzyko zakażenia, ponieważ %u dni temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
+			<string>Tem um risco de infeção mais elevado porque, há %u dias, teve um encontro com uma pessoa diagnosticada com COVID-19 durante um período de tempo mais longo e com grande proximidade.</string>
 			<key>many</key>
 			<!-- Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-			<string>Masz podwyższone ryzyko zakażenia, ponieważ %u dni temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
+			<string>Tem um risco de infeção mais elevado porque, há %u dias, teve um encontro com uma pessoa diagnosticada com COVID-19 durante um período de tempo mais longo e com grande proximidade.</string>
 			<key>two</key>
 			<!-- Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-			<string>Masz podwyższone ryzyko zakażenia, ponieważ %u dni temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
+			<string>Tem um risco de infeção mais elevado porque, há %u dias, teve um encontro com uma pessoa diagnosticada com COVID-19 durante um período de tempo mais longo e com grande proximidade.</string>
 			<key>other</key>
 			<!--Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-			<string>Masz podwyższone ryzyko zakażenia, ponieważ %u dni temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
+			<string>Tem um risco de infeção mais elevado porque, há %u dias, teve um encontro com uma pessoa diagnosticada com COVID-19 durante um período de tempo mais longo e com grande proximidade.</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_Refreshed_Format</key>
@@ -43,10 +43,10 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-			<string>Dzisiaj, %%1$@</string>
+			<string>Hoje, %%1$@</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-			<string>Wczoraj, %%1$@</string>
+			<string>Ontem, %%1$@</string>
 			<key>few</key>
 			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
 			<string>%%2$@, %%1$@</string>
@@ -73,22 +73,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-			<string>Brak narażenia do tej pory</string>
+			<string>Nenhuma exposição até ao momento</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-			<string>Jedno narażenie</string>
+			<string>Uma exposição</string>
 			<key>few</key>
 			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-			<string>%u narażenia</string>
+			<string>%u exposições</string>
 			<key>many</key>
 			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-			<string>%u narażeń</string>
+			<string>%u exposições</string>
 			<key>two</key>
 			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-			<string>%u narażenia</string>
+			<string>%u exposições</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-			<string>%u narażenia</string>
+			<string>%u exposições</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_LastExposure</key>
@@ -103,22 +103,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-			<string>%u dni od ostatniego narażenia</string>
+			<string>%u dias desde a última exposição</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-			<string>%u dzień od ostatniego narażenia</string>
+			<string>%u dia desde a última exposição</string>
 			<key>few</key>
 			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-			<string>%u dni od ostatniego narażenia</string>
+			<string>%u dias desde a última exposição</string>
 			<key>many</key>
 			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-			<string>%u dni od ostatniego narażenia</string>
+			<string>%u dias desde a última exposição</string>
 			<key>two</key>
 			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-			<string>%u dni od ostatniego narażenia</string>
+			<string>%u dias desde a última exposição</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-			<string>%u dnia od ostatniego narażenia</string>
+			<string>%u dias desde a última exposição</string>
 		</dict>
 	</dict>
     <key>Home_Risk_Number_Contacts_Item_Title</key>
@@ -133,22 +133,22 @@
             <string>u</string>
             <key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-            <string>Brak narażenia do tej pory</string>
+            <string>Nenhuma exposição até ao momento</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-            <string>%u narażenie z niskim ryzykiem</string>
+            <string>%u exposição com risco baixo</string>
             <key>few</key>
             <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-            <string>%u narażenia z niskim ryzykiem</string>
+            <string>%u exposições com risco baixo</string>
             <key>many</key>
             <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-            <string>%u narażeń z niskim ryzykiem</string>
+            <string>%u exposições com risco baixo</string>
             <key>two</key>
             <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-            <string>%u narażenia z niskim ryzykiem</string>
+            <string>%u exposições com risco baixo</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-            <string>%u narażenia z niskim ryzykiem</string>
+            <string>%u exposições com risco baixo</string>
         </dict>
     </dict>
     <key>Home_Risk_Last_Contact_Item_Title</key>
@@ -163,22 +163,22 @@
             <string>u</string>
             <key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-            <string>Mniej niż jeden dzień od ostatniego narażenia</string>
+            <string>Menos de um dia desde a última exposição</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-            <string>%u dzień od ostatniego narażenia</string>
+            <string>%u dia desde a última exposição</string>
             <key>few</key>
             <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-            <string>%u dni od ostatniego narażenia</string>
+            <string>%u dias desde a última exposição</string>
             <key>many</key>
             <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-            <string>%u dni od ostatniego narażenia</string>
+            <string>%u dias desde a última exposição</string>
             <key>two</key>
             <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-            <string>%u dni od ostatniego narażenia</string>
+            <string>%u dias desde a última exposição</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-            <string>%u dnia od ostatniego narażenia</string>
+            <string>%u dias desde a última exposição</string>
         </dict>
     </dict>
     <key>Home_Risk_Status_Counter_Label</key>
@@ -193,22 +193,22 @@
             <string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-            <string>Aktualizacja za %02u:%2$#@sekund@ sekund</string>
+            <string>Atualização dentro de %02u:%2$#@seconds@ segundos</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-            <string>Aktualizacja za %02u:%2$#@sekundę@ minutę</string>
+            <string>Atualização dentro de %02u:%2$#@seconds@ minuto</string>
             <key>few</key>
             <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-            <string>Aktualizacja za %02u:%2$#@sekundy@ minuty</string>
+            <string>Atualização dentro de %02u:%2$#@seconds@ minutos</string>
             <key>many</key>
             <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-            <string>Aktualizacja za %02u:%2$#@sekund@ minut</string>
+            <string>Atualização dentro de %02u:%2$#@seconds@ minutos</string>
             <key>two</key>
             <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-            <string>Aktualizacja za %02u:%2$#@sekundy@ minuty</string>
+            <string>Atualização dentro de %02u:%2$#@seconds@ minutos</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-            <string>Aktualizacja za %02u:%2$#@sekundy@ minuty</string>
+            <string>Atualização dentro de %02u:%2$#@seconds@ minutos</string>
         </dict>
         <key>seconds</key>
         <dict>
@@ -248,24 +248,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-			<string>Rejestrowanie narażenia jest aktywne krócej niż jeden dzień.
-Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
+			<string>O registo de exposição está ativo há menos de um dia. Uma verificação de exposição só pode ser fiável se o registo de exposição estiver permanentemente ativado.</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-			<string>Rejestrowanie narażenia jest aktywne od %u dnia.
-Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
+			<string>O registo de exposição está ativo há %u dia. Uma verificação de exposição só pode ser fiável se o registo de exposição estiver permanentemente ativado.</string>
 			<key>few</key>
 			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-			<string>Rejestrowanie narażenia jest aktywne od %u dni. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
+			<string>O registo de exposição está ativo há %u dias. Uma verificação de exposição só pode ser fiável se o registo de exposição estiver permanentemente ativado.</string>
 			<key>many</key>
 			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-			<string>Rejestrowanie narażenia jest aktywne od %u dni. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
+			<string>O registo de exposição está ativo há %u dias. Uma verificação de exposição só pode ser fiável se o registo de exposição estiver permanentemente ativado.</string>
 			<key>two</key>
 			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-			<string>Rejestrowanie narażenia jest aktywne od %u dni. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
+			<string>O registo de exposição está ativo há %u dias. Uma verificação de exposição só pode ser fiável se o registo de exposição estiver permanentemente ativado.</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-			<string>Rejestrowanie narażenia jest aktywne od %u dnia. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
+			<string>O registo de exposição está ativo há %u dias. Uma verificação de exposição só pode ser fiável se o registo de exposição estiver permanentemente ativado.</string>
 		</dict>
 	</dict>
 </dict>

@@ -76,7 +76,7 @@
 
 "ExposureDetection_OffText" = "Активируйте определение риска, чтобы оценить Ваш статус риска сегодня.";
 
-"ExposureDetection_OutdatedText" = "Не удается обновить определение риска более 48 часов.";
+"ExposureDetection_OutdatedText" = "Вы не обновляли определение риска более 48 часов. Обновите расчет.";
 
 "ExposureDetection_UnknownText" = "С момента активации определения риска не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.";
 
@@ -118,11 +118,22 @@
 
 "ExposureDetection_Explanation_Text_Low" = "У Вас низкий риск заражения, поскольку не зарегистрировано контактов с лицами с положительным тестом на COVID-19 или контакты были кратковременными и на большом расстоянии.\n\nПоэтому Ваш риск заражения был оценен как низкий.\n\nРиск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
 
-"ExposureDetection_Explanation_Text_High" = "\n\nПоэтому ваш риск заражения был оценен как повышенный.\nРиск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.\nПо возвращении домой избегайте близкого контакта с членами вашей семьи.";
+"ExposureDetection_Explanation_Text_High" = "Поэтому ваш риск заражения был оценен как повышенный.\nРиск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.\nПо возвращении домой избегайте близкого контакта с членами вашей семьи.";
 
 "ExposureDetection_Button_Enable" = "Активировать определение риска";
 
 "ExposureDetection_Button_Refresh" = "Обновить";
+
+/* Active Tracing Section */
+"ExposureDetection_ActiveTracingSection_Title" = "Период нахождения в системе";
+
+"ExposureDetection_ActiveTracingSection_Subtitle" = "Этот период включен в расчет.";
+
+/* There are two paragraphs in this section. The first one just contains text… */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Ваш риск заражения можно рассчитать только для периодов активного определения риска, поэтому функция определения должна быть постоянно активной.";
+
+/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Определение риска охватывает последние %1$u дн. В течение этого времени функция определения на Вашем устройстве была активна %2$u дн. Приложение автоматически удаляет старые журналы, как только они теряют значение для предотвращения заражения.";
 
 /* Exposure Detection Errors */
 "ExposureDetectionError_Alert_Title" = "Ошибка";
@@ -130,6 +141,11 @@
 "ExposureDetectionError_Alert_Action_Details" = "Сведения";
 
 "ExposureDetectionError_Alert_Message" = "Ошибка при определении риска.";
+
+/* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
+"How_Risk_Detection_Works_Alert_Title" = "Информация о функции определения риска";
+
+"How_Risk_Detection_Works_Alert_Message" = "Ваш риск заражения можно рассчитать только для периодов с активным определением риска, поэтому функция определения риска должна быть постоянно включена.\nОпределение риска охватывает последние %1$u дн.\nПриложение автоматически удалит старые журналы, как только они потеряют значение для предотвращения заражения.\n\nПодробнее см. страницу часто задаваемых вопросов.";
 
 /* Settings */
 "Settings_StatusActive" = "Вкл.";
@@ -224,7 +240,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Чтобы узнать, есть ли у Вас риск заражения, нужно активировать функцию определения риска.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Для определения риска Ваше устройство получает по Bluetooth зашифрованные случайные идентификаторы других пользователей и передает Ваш случайный идентификатор на их устройства. Эту функцию можно деактивировать в любое время.\n\nЗашифрованные случайные идентификаторы передают другим людям только информацию о дате, продолжительности и близости (рассчитанной по силе сигнала) контакта. Персональные данные, такие как имя, адрес или местоположение, никогда не регистрируются. Идентификация лица невозможна.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Для определения риска Ваше устройство получает по Bluetooth зашифрованные случайные идентификаторы других пользователей и передает Ваш случайный идентификатор на их устройства. Эту функцию можно отключить в любое время.\n\nЗашифрованные случайные идентификаторы передают другим людям только информацию о дате, продолжительности и близости контакта с другими лицами (рассчитанных по силе сигнала). Персональные данные, такие как имя, адрес или местоположение, никогда не регистрируются. Идентификация лица невозможна.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Заявление о согласии";
 
@@ -531,7 +547,7 @@
 
 "ExposureNotificationSetting_DescriptionText2" = "Для определения риска Ваше устройство получает по Bluetooth зашифрованные случайные идентификаторы других пользователей и передает Ваш случайный идентификатор на их устройства. Эту функцию можно деактивировать в любое время.";
 
-"ExposureNotificationSetting_DescriptionText3" = "Зашифрованные случайные идентификаторы передают другим людям только информацию о дате, продолжительности и близости (по силе сигнала) контакта. Персональные данные, такие как имя, адрес или местоположение, никогда не регистрируются. Идентификация лица невозможна.";
+"ExposureNotificationSetting_DescriptionText3" = "Зашифрованные случайные идентификаторы передают другим людям только информацию о дате, продолжительности и близости контакта с другими лицами (по силе сигнала). Персональные данные, такие как имя, адрес или местоположение, никогда не регистрируются. Идентификация лица невозможна.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Включить Bluetooth";
 
@@ -610,7 +626,7 @@
 
 "Home_Risk_Unknown_Title" = "Неизвестный риск";
 
-"Home_Risk_Last_Activate_Item_Title" = "Последнее определение контакта: %@";
+"Home_Risk_Last_Activate_Item_Title" = "Последнее определение риска: %@";
 
 "Home_Risk_Last_Activate_Item_Unknown_Title" = "Неизвестный риск";
 
@@ -621,20 +637,12 @@
 "Home_RiskCard_Update_Button" = "Обновить";
 
 /* Home Unknown card */
-"Home_RiskCard_Unknown_Item_Title" = "С момента включения определения контакта не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.";
 "Home_RiskCard_Unknown_Item_Title" = "С момента включения определения риска не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.";
 
 /* Home Unknown 48 card */
-"Home_RiskCard_Unknown48h_Body" = "Ihre Risiko-Berechnung wurde seit mehr als 48 Stunden nicht aktualisiert. Bitte aktualisieren Sie die Berechnung.";
+"Home_RiskCard_Unknown48h_Body" = "Вы не обновляли определение риска более 48 часов. Обновите расчет.";
 
 /* Home Inactive card */
-"Home_Risk_Inactive_NoCalculation_Possible_Title" = "Определение контакта остановлено";
-
-"Home_Risk_Inactive_Outdated_Results_Title" = "Определение контакта невозможно";
-
-"Home_Risk_Inactive_NoCalculation_Possible_Body" = "Активируйте определение контакта, чтобы оценить Ваш статус риска сегодня.";
-
-"Home_Risk_Inactive_Outdated_Results_Body" = "Не удается обновить определение контакта более 24 часов.";
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "Определение риска остановлено";
 
 "Home_Risk_Inactive_Outdated_Results_Title" = "Определение риска невозможно";
@@ -643,14 +651,6 @@
 
 "Home_Risk_Inactive_Outdated_Results_Body" = "Не удается обновить определение риска более 24 часов.";
 
-"Home_Risk_Inactive_Activate_Item_Title" = "Последнее определение риска: %@";
-
-"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Неизвестный риск";
-
-"Home_Risk_Inactive_Activate_Item_Low_Title" = "Низкий риск";
-
-"Home_Risk_Inactive_Activate_Item_High_Title" = "Повышенный риск";
-
 "Home_Risk_Inactive_NoCalculation_Possible_Button" = "Активировать определение риска";
 
 "Home_Risk_Inactive_Outdated_Results_Button" = "Активировать определение риска";
@@ -658,7 +658,9 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Низкий риск";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "Дней активности: %@ из %@";
+"Home_Risk_Low_SaveDays_Item_Title" = "Определение риска активно %1$u из 14 прошедших дней.";
+
+"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Определение риска постоянно активно.";
 
 /* Home High card */
 "Home_Risk_High_Title" = "Повышенный риск";
@@ -836,7 +838,7 @@
 
 "InviteFriends_ShareTitle" = "Победим коронавирус вместе.\nЯ участвую, а ты?";
 
-"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
+"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-englisch";
 
 "InviteFriends_Illustration_Label" = "Человек делится приложением Corona-Warn-App с четырьмя другими людьми.";
 
@@ -953,4 +955,9 @@
 "ENATanInput_InvalidCharacter" = "Недопустимый символ\n\n%@";
 
 "ENATanInput_CharacterIndex" = "Символ %1$u из %2$u";
+
+/* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
+"Active_Tracing_Interval_Partially_Active" = "Определение риска активно %1$u из 14 прошедших дней.";
+
+"Active_Tracing_Interval_Permanently_Active" = "Определение риска постоянно активно.";
 
