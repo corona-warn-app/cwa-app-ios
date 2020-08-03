@@ -154,20 +154,22 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		// TODO: Remove this code.
 		let registrationToken = "adkljfalksdjhfalksd"
 
-		self._getTestResult(registrationToken) { result in
+		_getTestResult(registrationToken) { result in
 			completeWith(result)
+
+			// Fake request handling.
 			self._getTANForExposureSubmit(hasConsent: true, isFake: true) { _ in
+				// TODO: Use bogus keys.
 				self._submit([], with: "", isFake: true) { _ in }
 			}
 		}
 	}
 
-	/// Stores the provided key, retrieves the registration token and deletes the key.
-	func getRegistrationToken(
-		forKey deviceRegistrationKey: DeviceRegistrationKey,
-		completion completeWith: @escaping RegistrationHandler
+	private func _getRegistrationToken(
+		_ key: String,
+		_ type: String,
+		_ completeWith: @escaping RegistrationHandler
 	) {
-		let (key, type) = getKeyAndType(for: deviceRegistrationKey)
 		client.getRegistrationToken(forKey: key, withType: type, isFake: false) { result in
 			switch result {
 			case let .failure(error):
@@ -178,6 +180,24 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				self.store.devicePairingSuccessfulTimestamp = Int64(Date().timeIntervalSince1970)
 				self.store.devicePairingConsentAccept = true
 				completeWith(.success(registrationToken))
+			}
+		}
+	}
+
+	/// Stores the provided key, retrieves the registration token and deletes the key.
+	func getRegistrationToken(
+		forKey deviceRegistrationKey: DeviceRegistrationKey,
+		completion completeWith: @escaping RegistrationHandler
+	) {
+		let (key, type) = getKeyAndType(for: deviceRegistrationKey)
+
+		_getRegistrationToken(key, type) { result in
+			completeWith(result)
+
+			// Fake request handling.
+			self._getTANForExposureSubmit(hasConsent: true, isFake: true) { _ in
+				// TODO: Use bogus keys.
+				self._submit([], with: "", isFake: true) { _ in }
 			}
 		}
 	}
