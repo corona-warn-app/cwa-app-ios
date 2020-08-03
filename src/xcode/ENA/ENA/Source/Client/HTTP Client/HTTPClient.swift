@@ -90,7 +90,7 @@ final class HTTPClient: Client {
 	func submit(
 		keys: [ENTemporaryExposureKey],
 		tan: String,
-		isFake: Bool,
+		isFake: Bool = false,
 		completion: @escaping SubmitKeysCompletionHandler
 	) {
 		guard let request = try? URLRequest.submitKeysRequest(
@@ -189,7 +189,7 @@ final class HTTPClient: Client {
 		}
 	}
 
-	func getTestResult(forDevice registrationToken: String, isFake: Bool, completion completeWith: @escaping TestResultHandler) {
+	func getTestResult(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TestResultHandler) {
 
 		// TODO: Make this another error case for URLFailure
 		guard
@@ -236,7 +236,7 @@ final class HTTPClient: Client {
 		}
 	}
 
-	func getTANForExposureSubmit(forDevice registrationToken: String, isFake: Bool, completion completeWith: @escaping TANHandler) {
+	func getTANForExposureSubmit(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TANHandler) {
 
 		// TODO: Make this another error case for URLFailure
 		guard
@@ -289,7 +289,7 @@ final class HTTPClient: Client {
 		}
 	}
 
-	func getRegistrationToken(forKey key: String, withType type: String, isFake: Bool, completion completeWith: @escaping RegistrationHandler) {
+	func getRegistrationToken(forKey key: String, withType type: String, isFake: Bool = false, completion completeWith: @escaping RegistrationHandler) {
 
 		// TODO: Make this another error case for URLFailure
 		guard

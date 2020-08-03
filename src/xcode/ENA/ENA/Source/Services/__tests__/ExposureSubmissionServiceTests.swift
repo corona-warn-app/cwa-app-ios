@@ -206,7 +206,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		store.registrationToken = "dummyRegistrationToken"
 
 		let client = ClientMock()
-		client.onGetTestResult = { _, completeWith in
+		client.onGetTestResult = { _, _, completeWith in
 			let unknownTestResultValue = 4
 			completeWith(.success(unknownTestResultValue))
 		}
@@ -227,6 +227,52 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			case .success:
 				XCTFail("This test should intentionally produce an unknown test result that cannot be parsed.")
 			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	// MARK: Plausible deniability tests.
+
+	func test_getTestResultPlaybook() {
+		// Track the execution order.
+		var count = 0
+		let expectation = self.expectation(description: "execute all requests")
+		expectation.expectedFulfillmentCount = 3
+
+		// Initialize.
+
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let store = MockTestStore()
+		let client = ClientMock()
+		store.registrationToken = "dummyRegistrationToken"
+
+		client.onGetTestResult = { _, isFake, completion in
+			expectation.fulfill()
+			XCTAssertFalse(isFake)
+			XCTAssertEqual(count, 0)
+			count += 1
+			let testResult = 0
+			completion(.success(testResult))
+		}
+
+		client.onGetTANForExposureSubmit = { _, isFake, completion in
+			expectation.fulfill()
+			XCTAssert(isFake)
+			XCTAssertEqual(count, 1)
+			count += 1
+		}
+
+		client.onSubmit = { _, _, isFake, completion in
+			expectation.fulfill()
+			XCTAssert(isFake)
+			XCTAssertEqual(count, 2)
+			count += 1
+		}
+
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+		service.getTestResult { _ in
+			expectation.fulfill()
 		}
 
 		waitForExpectations(timeout: .short)
