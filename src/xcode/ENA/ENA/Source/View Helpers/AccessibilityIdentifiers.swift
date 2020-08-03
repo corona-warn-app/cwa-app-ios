@@ -143,6 +143,8 @@ enum AccessibilityIdentifiers {
 		static let explanationTextUnknown = "AppStrings.ExposureDetection.explanationTextUnknown"
 		static let explanationTextLow = "AppStrings.ExposureDetection.explanationTextLow"
 		static let explanationTextHigh = "AppStrings.ExposureDetection.explanationTextHigh"
+
+		static let activeTracingSectionText = "AppStrings.ExposureDetection.activeTracingSection"
 	}
 
 	enum ExposureSubmissionDispatch {

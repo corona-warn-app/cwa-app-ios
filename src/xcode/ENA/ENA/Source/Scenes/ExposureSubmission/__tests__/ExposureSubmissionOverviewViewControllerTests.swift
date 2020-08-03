@@ -30,16 +30,18 @@ final class ExposureSubmissionOverviewViewControllerTests: XCTestCase {
 
 	var service: MockExposureSubmissionService!
 	var qrScannerViewController: MockExposureSubmissionQRScannerViewController!
+	var coordinator: MockExposureSubmissionCoordinator!
 
 	override func setUp() {
 		super.setUp()
 		service = MockExposureSubmissionService()
 		qrScannerViewController = MockExposureSubmissionQRScannerViewController()
+		coordinator = MockExposureSubmissionCoordinator()
 	}
 
 	func testQRCodeScanSuccess() {
 		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionOverviewViewController.self) { coder in
-			ExposureSubmissionOverviewViewController(coder: coder, service: self.service)
+			ExposureSubmissionOverviewViewController(coder: coder, coordinator: self.coordinator, exposureSubmissionService: self.service)
 		}
 
 		let expectation = self.expectation(description: "Call getRegistration service method.")
@@ -56,7 +58,7 @@ final class ExposureSubmissionOverviewViewControllerTests: XCTestCase {
 
 	func testQRCodeSanitization() {
 		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionOverviewViewController.self) { coder in
-			ExposureSubmissionOverviewViewController(coder: coder, service: self.service)
+			ExposureSubmissionOverviewViewController(coder: coder, coordinator: self.coordinator, exposureSubmissionService: self.service)
 		}
 
 		// Empty.

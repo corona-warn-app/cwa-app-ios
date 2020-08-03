@@ -84,7 +84,7 @@ extension ExposureNotificationSettingViewController {
 	}
 
 	private func handleEnableError(_ error: ExposureNotificationError, alert: Bool) {
-		let faqAction = UIAlertAction(title: AppStrings.ExposureNotificationError.learnMoreActionTitle, style: .default, handler: { _ in WebPageHelper.showWebPage(from: self, urlString: AppStrings.ExposureNotificationError.learnMoreURL) })
+		let faqAction = UIAlertAction(title: AppStrings.ExposureNotificationError.learnMoreActionTitle, style: .default, handler: { _ in LinkHelper.showWebPage(from: self, urlString: AppStrings.ExposureNotificationError.learnMoreURL) })
 		var errorMessage = ""
 		switch error {
 		case .exposureNotificationAuthorization:
@@ -213,11 +213,21 @@ extension ExposureNotificationSettingViewController {
 						let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
 							(UIColor.enaColor(for: .tint), UIColor.enaColor(for: .hairline)) :
 							(UIColor.enaColor(for: .textPrimary2), UIColor.enaColor(for: .hairline))
+						let activeTracing = store.tracingStatusHistory.activeTracing()
+						let text = [
+							activeTracing.exposureDetectionActiveTracingSectionTextParagraph0,
+							activeTracing.exposureDetectionActiveTracingSectionTextParagraph1]
+							.joined(separator: "\n\n")
 
-						let numberOfDaysWithActiveTracing = store.tracingStatusHistory.activeTracing().inDays
+						let numberOfDaysWithActiveTracing = activeTracing.inDays
+						let title = NSLocalizedString("ExposureDetection_ActiveTracingSection_Title", comment: "")
+						let subtitle = NSLocalizedString("ExposureDetection_ActiveTracingSection_Subtitle", comment: "")
+
 						tracingCell.configure(
 							progress: CGFloat(numberOfDaysWithActiveTracing),
-							text: String(format: AppStrings.ExposureNotificationSetting.tracingHistoryDescription, numberOfDaysWithActiveTracing),
+							title: title,
+							subtitle: subtitle,
+							text: text,
 							colorConfigurationTuple: colorConfig
 						)
 						return tracingCell

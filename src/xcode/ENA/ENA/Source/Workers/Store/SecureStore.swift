@@ -22,12 +22,10 @@ import Foundation
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
 final class SecureStore: Store {
-
-
 	private let directoryURL: URL
 	private let kvStore: SQLiteKeyValueStore
 
-	init (at directoryURL: URL, key: String) {
+	init(at directoryURL: URL, key: String) {
 		self.directoryURL = directoryURL
 		self.kvStore = SQLiteKeyValueStore(with: directoryURL, key: key)
 	}
@@ -39,7 +37,6 @@ final class SecureStore: Store {
 	func clearAll(key: String?) {
 		kvStore.clearAll(key: key)
 	}
-
 	
 	var testResultReceivedTimeStamp: Int64? {
 		get { kvStore["testResultReceivedTimeStamp"] as Int64? }
@@ -186,6 +183,11 @@ final class SecureStore: Store {
 			return EitherLowOrIncreasedRiskLevel(rawValue: value)
 		}
 		set { kvStore["previousRiskLevel"] = newValue?.rawValue }
+	}
+
+	var userNeedsToBeInformedAboutHowRiskDetectionWorks: Bool {
+		get { kvStore["userNeedsToBeInformedAboutHowRiskDetectionWorks"] as Bool? ?? true }
+		set { kvStore["userNeedsToBeInformedAboutHowRiskDetectionWorks"] = newValue }
 	}
 }
 

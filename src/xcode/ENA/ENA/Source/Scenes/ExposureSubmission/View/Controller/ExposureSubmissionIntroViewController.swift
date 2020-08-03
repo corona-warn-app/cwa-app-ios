@@ -20,8 +20,20 @@ import UIKit
 class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 
 	// MARK: - Attributes.
-	
-	private var exposureSubmissionService: ExposureSubmissionService?
+
+	private(set) weak var coordinator: ExposureSubmissionCoordinating?
+
+	// MARK: - Initializers.
+
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating) {
+		super.init(coder: coder)
+		self.coordinator = coordinator
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	// MARK: - View lifecycle methods.
 
@@ -62,11 +74,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 	// MARK: - ENANavigationControllerWithFooterChild methods.
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		let service = (navigationController as? ExposureSubmissionNavigationController)?.exposureSubmissionService
-		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionOverviewViewController.self) { coder in
-			ExposureSubmissionOverviewViewController(coder: coder, service: service)
-		}
-		navigationController.pushViewController(vc, animated: true)
+		coordinator?.showOverviewScreen()
 	}
 }
 

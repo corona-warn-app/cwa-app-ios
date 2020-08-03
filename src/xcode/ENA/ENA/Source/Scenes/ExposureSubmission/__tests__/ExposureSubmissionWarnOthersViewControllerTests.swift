@@ -31,15 +31,14 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 	}
 
 	private func createVC() -> ExposureSubmissionWarnOthersViewController {
-		return AppStoryboard.exposureSubmission.initiate(
-			viewControllerType: ExposureSubmissionWarnOthersViewController.self
-		)
+		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnOthersViewController.self) { coder -> UIViewController? in
+			ExposureSubmissionWarnOthersViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator(), exposureSubmissionService: self.service)
+		}
 	}
 
 	func testSuccessfulSubmit() {
 		let vc = createVC()
 		_ = vc.view
-		vc.exposureSubmissionService = service
 
 		let expectSubmitExposure = self.expectation(description: "Call submitExposure")
 		service.submitExposureCallback = {  completion in

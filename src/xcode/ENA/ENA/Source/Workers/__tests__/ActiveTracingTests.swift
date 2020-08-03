@@ -21,7 +21,7 @@ import XCTest
 @testable import ENA
 
 final class ActiveTracingTests: XCTestCase {
-    func testOneHour() {
+	func testOneHour() {
 		let activeTracing = _activeTracing(interval: 3600)
 		XCTAssertEqual(activeTracing.interval, 3600, accuracy: .high)
 		XCTAssertEqual(activeTracing.inDays, 0)
@@ -76,6 +76,31 @@ final class ActiveTracingTests: XCTestCase {
 		XCTAssertEqual(
 			_activeTracing(interval: 3600.0 * (24 * 10 + 12.5)).inDays,
 			11
+		)
+	}
+
+	func testLocalizedLowRiskLevelHomeScreenText() {
+		XCTAssertEqual(
+			_activeTracing(interval: 0).localizedDuration,
+			"Risiko-Ermittlung war für 0 der letzten 14 Tage aktiv"
+		)
+
+		// 13 hours = 1 day
+		XCTAssertEqual(
+			_activeTracing(interval: 3_600 * 13).localizedDuration,
+			"Risiko-Ermittlung war für 1 der letzten 14 Tage aktiv"
+		)
+
+		// 14 days yields different text
+		XCTAssertEqual(
+			_activeTracing(interval: 3_600 * 24 * 14).localizedDuration,
+			"Risiko-Ermittlung dauerhaft aktiv"
+		)
+
+		// 14+ days yields different text
+		XCTAssertEqual(
+			_activeTracing(interval: 3_600 * 24 * 15).localizedDuration,
+			"Risiko-Ermittlung dauerhaft aktiv"
 		)
 	}
 }

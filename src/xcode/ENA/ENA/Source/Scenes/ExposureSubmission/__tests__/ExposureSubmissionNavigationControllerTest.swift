@@ -23,12 +23,16 @@ import XCTest
 final class ExposureSubmissionNavigationControllerTest: XCTestCase {
 
 	private func createVC() -> ExposureSubmissionNavigationController {
+		// rootVC needs to be a ENANavigationControllerWithFooterChild to support buttons.
+		let rootVC = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionIntroViewController.self) { coder -> UIViewController? in
+			return ExposureSubmissionIntroViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator())
+		}
+
 		return AppStoryboard.exposureSubmission.initiateInitial { coder in
 			ExposureSubmissionNavigationController(
 				coder: coder,
-				exposureSubmissionService: MockExposureSubmissionService(),
-				submissionDelegate: nil,
-				testResult: nil
+				coordinator: MockExposureSubmissionCoordinator(),
+				rootViewController: rootVC
 			)
 		}
 	}
@@ -90,9 +94,5 @@ final class ExposureSubmissionNavigationControllerTest: XCTestCase {
 		vc.footerView.primaryButton.sendActions(for: .touchUpInside)
 
 		waitForExpectations(timeout: .short)
-	}
-
-	func testExposureSubmissionService() {
-		XCTAssertNotNil(createVC().exposureSubmissionService)
 	}
 }

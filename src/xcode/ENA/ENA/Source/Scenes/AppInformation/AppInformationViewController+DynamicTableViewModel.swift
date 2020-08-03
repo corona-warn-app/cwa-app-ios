@@ -56,18 +56,22 @@ private extension DynamicCell {
 		}
 	}
 
-	static func bodyWithoutTopInset(text: String, accessibilityIdentifier: String?) -> Self {
-		.body(text: text, accessibilityIdentifier: accessibilityIdentifier) { _, cell, _ in
+	static func bodyWithoutTopInset(text: String, style: TextCellStyle = .label, accessibilityIdentifier: String?) -> Self {
+		.body(text: text, style: style, accessibilityIdentifier: accessibilityIdentifier) { _, cell, _ in
 			cell.contentView.preservesSuperviewLayoutMargins = false
 			cell.contentView.layoutMargins.top = 0
 			cell.accessibilityIdentifier = accessibilityIdentifier
 		}
 	}
 
+	/// Creates a cell that renders a view of a .html file with interactive texts, such as mail links, phone numbers, and web addresses.
 	static func html(url: URL?) -> Self {
 		.identifier(AppInformationDetailViewController.CellReuseIdentifier.html) { viewController, cell, _  in
 			guard let cell = cell as? DynamicTableViewHtmlCell else { return }
 			cell.textView.delegate = viewController as? UITextViewDelegate
+			cell.textView.isUserInteractionEnabled = true
+			cell.textView.dataDetectorTypes = [.link, .phoneNumber]
+
 			if let url = url {
 				cell.textView.load(from: url)
 			}
@@ -78,7 +82,7 @@ private extension DynamicCell {
 private extension DynamicAction {
 	static var safari: Self {
 		.execute { viewController in
-			WebPageHelper.showWebPage(from: viewController, urlString: AppStrings.SafariView.targetURL)
+			LinkHelper.showWebPage(from: viewController, urlString: AppStrings.SafariView.targetURL)
 		}
 	}
 
@@ -185,18 +189,22 @@ extension AppInformationViewController {
 						  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection1Title,
 						  accessibilityTraits: .header),
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection1Text,
+									 style: .textView([]),
 									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection1Text),
 				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection2Title,
 											accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection2Title),
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection2Text,
+									 style: .textView([]),
 									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection2Text),
 				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection3Title,
 											accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Title),
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection3Text,
+									 style: .textView(.all),
 									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Text),
 				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection4Title,
 											accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Title),
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection4Text,
+									 style: .textView([]),
 									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Text)
 			]
 		)

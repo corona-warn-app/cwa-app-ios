@@ -29,10 +29,13 @@ final class HomeInteractor: RequiresAppDependencies {
 
 	init(
 		homeViewController: HomeViewController,
-		state: State
+		state: State,
+		exposureSubmissionService: ExposureSubmissionService
 	) {
 		self.homeViewController = homeViewController
 		self.state = state
+		self.exposureSubmissionService = exposureSubmissionService
+		observeRisk()
 	}
 
 	// MARK: Properties
@@ -45,13 +48,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	}
 
 	private unowned var homeViewController: HomeViewController
-	lazy var exposureSubmissionService: ExposureSubmissionService = {
-		ExposureSubmissionServiceFactory.create(
-			diagnosiskeyRetrieval: self.exposureManager,
-			client: self.client,
-			store: self.store
-		)
-	}()
+	private let exposureSubmissionService: ExposureSubmissionService
 	var enStateHandler: ENStateHandler?
 
 	private var detectionMode: DetectionMode { state.detectionMode }
@@ -64,6 +61,13 @@ final class HomeInteractor: RequiresAppDependencies {
 	private var countdownTimer: CountdownTimer?
 
 	private(set) var testResult: TestResult?
+
+	private lazy var isRequestRiskRunning = riskProvider.isLoading
+	private let riskConsumer = RiskConsumer()
+
+	deinit {
+		riskProvider.removeRisk(riskConsumer)
+	}
 
 	private func updateActiveCell() {
 		guard let indexPath = indexPathForActiveCell() else { return }
@@ -89,7 +93,13 @@ final class HomeInteractor: RequiresAppDependencies {
 		homeViewController.reloadCell(at: indexPath)
 	}
 
-	private(set) var isRequestRiskRunning = false
+	private func observeRisk() {
+		riskConsumer.didChangeLoadingStatus = { isLoading in
+			self.updateAndReloadRiskLoading(isRequestRiskRunning: isLoading)
+		}
+
+		riskProvider.observeRisk(riskConsumer)
+	}
 
 	func updateAndReloadRiskLoading(isRequestRiskRunning: Bool) {
 		self.isRequestRiskRunning = isRequestRiskRunning
@@ -98,16 +108,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	}
 
 	func requestRisk(userInitiated: Bool) {
-
-		if userInitiated {
-			updateAndReloadRiskLoading(isRequestRiskRunning: true)
-			riskProvider.requestRisk(userInitiated: userInitiated) { _ in
-				self.updateAndReloadRiskLoading(isRequestRiskRunning: false)
-			}
-		} else {
-			riskProvider.requestRisk(userInitiated: userInitiated)
-		}
-
+		riskProvider.requestRisk(userInitiated: userInitiated)
 	}
 
 	func buildSections() {
@@ -197,7 +198,7 @@ extension HomeInteractor {
 		switch riskLevel {
 		case .unknownInitial:
 			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
-				isLoading: false,
+				isLoading: isRequestRiskRunning,
 				lastUpdateDate: nil,
 				detectionInterval: detectionInterval,
 				detectionMode: detectionMode,
@@ -210,34 +211,36 @@ extension HomeInteractor {
 				lastUpdateDate: dateLastExposureDetection
 			)
 			inactiveConfigurator?.activeAction = inActiveCellActionHandler
-
 		case .unknownOutdated:
-			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
-				inactiveType: .outdatedResults,
-				previousRiskLevel: store.previousRiskLevel,
-				lastUpdateDate: dateLastExposureDetection
-			)
+			riskLevelConfigurator = HomeUnknown48hRiskCellConfigurator(
+				isLoading: isRequestRiskRunning,
+				lastUpdateDate: dateLastExposureDetection,
+				detectionInterval: detectionInterval,
+				detectionMode: detectionMode,
+				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
+				previousRiskLevel: store.previousRiskLevel)
 			inactiveConfigurator?.activeAction = inActiveCellActionHandler
-			
 		case .low:
+			let activeTracing = risk?.details.activeTracing ?? .init(interval: 0)
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(
+				isLoading: isRequestRiskRunning,
 				numberRiskContacts: state.numberRiskContacts,
-				numberDays: state.risk?.details.numberOfDaysWithActiveTracing ?? 0,
-				totalDays: 14,
 				lastUpdateDate: dateLastExposureDetection,
 				isButtonHidden: detectionIsAutomatic,
 				detectionMode: detectionMode,
 				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
-				detectionInterval: detectionInterval
+				detectionInterval: detectionInterval,
+				activeTracing: activeTracing
 			)
 		case .increased:
 			riskLevelConfigurator = HomeHighRiskCellConfigurator(
+				isLoading: isRequestRiskRunning,
 				numberRiskContacts: state.numberRiskContacts,
 				daysSinceLastExposure: state.daysSinceLastExposure,
 				lastUpdateDate: dateLastExposureDetection,
 				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
 				detectionMode: detectionMode,
-				validityDuration: detectionInterval
+				detectionInterval: detectionInterval
 			)
 		case .none:
 			riskLevelConfigurator = nil

@@ -1,9 +1,25 @@
 # Changelog
 
+## v1.1.1 (20/07/2020)
+#### Bug Fixes
+
+- Fix i18n issues [#913](https://github.com/corona-warn-app/cwa-app-ios/pull/913), [#915](https://github.com/corona-warn-app/cwa-app-ios/pull/915)
+
+#### New features
+
+-  Translation for turkish added [#773](https://github.com/corona-warn-app/cwa-app-ios/pull/773), [#829](https://github.com/corona-warn-app/cwa-app-ios/pull/829), [#925](https://github.com/corona-warn-app/cwa-app-ios/pull/925)
+
+#### Enhancements
+
+- Risk calculation explainer [#908](https://github.com/corona-warn-app/cwa-app-ios/pull/908)
+
+---
+
 ## v1.0.7 (11/07/2020)
 #### Bug fixes
 
-Remove check that prevented from feeding the correct amount of files [#893](https://github.com/corona-warn-app/cwa-app-ios/pull/893)
+-  Remove check that prevented from feeding the correct amount of files [#893](https://github.com/corona-warn-app/cwa-app-ios/pull/893)
+
 ---
 
 ## v1.0.6 (10/07/2020)

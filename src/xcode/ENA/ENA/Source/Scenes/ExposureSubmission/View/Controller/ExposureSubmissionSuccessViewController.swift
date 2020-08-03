@@ -19,7 +19,24 @@ import Foundation
 import UIKit
 
 final class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
-	// MARK: UIViewController
+
+	// MARK: - Attributes.
+
+	private(set) weak var coordinator: ExposureSubmissionCoordinating?
+
+	// MARK: - Initializers.
+
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating) {
+		self.coordinator = coordinator
+		super.init(coder: coder)
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	// MARK: - UIViewController.
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -44,7 +61,7 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController,
 
 extension ExposureSubmissionSuccessViewController {
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		dismiss(animated: true, completion: nil)
+		coordinator?.dismiss()
 	}
 }
 

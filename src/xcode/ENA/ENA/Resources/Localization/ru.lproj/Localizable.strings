@@ -5,7 +5,7 @@
 
 "Alert_ActionRetry" = "Повторить";
 
-"Alert_ActionCancel" = "Отмена";
+"Alert_ActionCancel" = "Отменить";
 
 "Alert_ActionRemove" = "Удалить";
 
@@ -19,15 +19,30 @@
 
 "General_BackButtonTitle" = "Назад";
 
-"Common_BackgroundFetch_AlertMessage" = "You have disabled background fetching for the Corona-Warn-App. To use automatic risk detection, you must activate the background fetching. If you do not activate background fetching, you can still start the risk detection manually.
+"Common_ENError5_Description" = "Ошибка 5: что-то пошло не так. Невозможно определить Ваш уровень риска. Мы работаем над решением проблемы.";
 
-You can switch on background fetching for the app at any time in the device settings.";
+"Common_ENError11_Description" = "Ошибка 11: произошла ошибка. Ваш уровень риска определить невозможно. Перезапустите свое устройство и завтра попытайтесь еще раз.";
 
-"Common_BackgroundFetch_SettingsTitle" = "Open Settings";
+"Common_ENError13_Description" = "Ошибка 13: на сегодня определение риска уже выполнено. Повторите попытку через 24 часа.";
 
-"Common_BackgroundFetch_OKTitle" = "Start Risk Detection Manually";
+"Common_Alert_Action_moreInfo" = "Узнать больше";
 
-"Common_BackgroundFetch_AlertTitle" = "Background Fetching Disabled";
+"Common_BackgroundFetch_AlertMessage" = "Вы отключили обновление приложения Corona-Warn-App в фоновом режиме. Включите обновление в фоновом режиме для использования автоматического определения риска. При отключенном обновлении в фоновом режиме определение риска можно запустить только вручную.\n\nАктивировать обновление в фоновом режиме можно в настройках своего устройства.";
+
+"Common_BackgroundFetch_SettingsTitle" = "Открыть настройки устройства";
+
+"Common_BackgroundFetch_OKTitle" = "Запустить определение риска вручную";
+
+"Common_BackgroundFetch_AlertTitle" = "Обновление в фоновом режиме отключено";
+
+/* General - Links */
+"General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
+
+"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
+
+"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
+
+"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
 
 /* Accessibility */
 "AccessibilityLabel_Close" = "Закрыть";
@@ -35,9 +50,9 @@ You can switch on background fetching for the app at any time in the device sett
 "AccessibilityLabel_PhoneNumber" = "Номер телефона";
 
 /* Exposure Detection */
-"ExposureDetection_Off" = "Определение контакта остановлено";
+"ExposureDetection_Off" = "Определение риска остановлено";
 
-"ExposureDetection_Outdated" = "Определение контакта невозможно";
+"ExposureDetection_Outdated" = "Определение риска невозможно";
 
 "ExposureDetection_Unknown" = "Неизвестный риск";
 
@@ -53,15 +68,17 @@ You can switch on background fetching for the app at any time in the device sett
 
 "ExposureDetection_RefreshingIn" = "Обновление через %02d:%02d\U00A0мин";
 
+"ExposureDetection_RefreshIn" = "Обновление через %@";
+
 "ExposureDetection_Refresh_24h" = "Обновление каждые 24 ч";
 
-"ExposureDetection_LastRiskLevel" = "Последнее определение контакта: %@";
+"ExposureDetection_LastRiskLevel" = "Последнее определение риска: %@";
 
-"ExposureDetection_OffText" = "Активируйте определение контакта, чтобы оценить Ваш статус риска сегодня.";
+"ExposureDetection_OffText" = "Активируйте определение риска, чтобы оценить Ваш статус риска сегодня.";
 
-"ExposureDetection_OutdatedText" = "Не удается обновить определение контакта более 48 часов.";
+"ExposureDetection_OutdatedText" = "Не удается обновить определение риска более 48 часов.";
 
-"ExposureDetection_UnknownText" = "С момента активации определения контакта не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.";
+"ExposureDetection_UnknownText" = "С момента активации определения риска не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.";
 
 "ExposureDetection_LoadingText" = "Текущие данные выгружаются и проверяются. Это может занять несколько минут.";
 
@@ -93,26 +110,26 @@ You can switch on background fetching for the app at any time in the device sett
 
 "ExposureDetection_Explanation_Subtitle_Inactive" = "Вот как рассчитывается Ваш риск";
 
-"ExposureDetection_Explanation_Text_Off" = "Ваш риск заражения рассчитывается по локальным данным определения контакта  (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
+"ExposureDetection_Explanation_Text_Off" = "Ваш риск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
 
-"ExposureDetection_Explanation_Text_Outdated" = "С момента активации определения контакта не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.\n\nВаш риск заражения рассчитывается по локальным данным определения контакта  (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
+"ExposureDetection_Explanation_Text_Outdated" = "С момента активации определения риска не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.\n\nВаш риск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
 
-"ExposureDetection_Explanation_Text_Unknown" = "С момента активации определения контакта не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.\n\nВаш риск заражения рассчитывается по локальным данным определения контакта  (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
+"ExposureDetection_Explanation_Text_Unknown" = "С момента активации определения риска не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.\n\nВаш риск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
 
-"ExposureDetection_Explanation_Text_Low" = "У Вас низкий риск заражения, поскольку не зарегистрировано контактов с лицами с положительным тестом на COVID-19 или контакты были кратковременными и на большом расстоянии.\n\nПоэтому Ваш риск заражения был оценен как низкий.\n\nРиск заражения рассчитывается по локальным данным определения контакта  (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
+"ExposureDetection_Explanation_Text_Low" = "У Вас низкий риск заражения, поскольку не зарегистрировано контактов с лицами с положительным тестом на COVID-19 или контакты были кратковременными и на большом расстоянии.\n\nПоэтому Ваш риск заражения был оценен как низкий.\n\nРиск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
 
-"ExposureDetection_Explanation_Text_High" = "У Вас повышенный риск заражения, поскольку два дня назад Вы имели продолжительный близкий контакт минимум с одним лицом с положительным тестом на COVID-19.\n\nПоэтому ваш риск заражения был оценен как повышенный.\nРиск заражения рассчитывается по локальным данным определения контакта  (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.\nПо возвращении домой избегайте близкого контакта с членами вашей семьи.";
+"ExposureDetection_Explanation_Text_High" = "\n\nПоэтому ваш риск заражения был оценен как повышенный.\nРиск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.\nПо возвращении домой избегайте близкого контакта с членами вашей семьи.";
 
-"ExposureDetection_Button_Enable" = "Активировать определение контакта";
+"ExposureDetection_Button_Enable" = "Активировать определение риска";
 
 "ExposureDetection_Button_Refresh" = "Обновить";
 
 /* Exposure Detection Errors */
-"ExposureDetectionError_Alert_Title" = "Что-то пошло не так.";
+"ExposureDetectionError_Alert_Title" = "Ошибка";
 
 "ExposureDetectionError_Alert_Action_Details" = "Сведения";
 
-"ExposureDetectionError_Alert_Message" = "Ошибка при определении контакта.";
+"ExposureDetectionError_Alert_Message" = "Ошибка при определении риска.";
 
 /* Settings */
 "Settings_StatusActive" = "Вкл.";
@@ -127,7 +144,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "Settings_KontaktProtokollStatusInactive" = "Остановлено";
 
-"Settings_Tracing_Label" = "Определение контакта";
+"Settings_Tracing_Label" = "Определение риска";
 
 "Settings_Notification_Label" = "Уведомления";
 
@@ -164,14 +181,18 @@ You can switch on background fetching for the app at any time in the device sett
 
 "NotificationSettings_NavTitle" = "Уведомления";
 
+"NotificationSettings_onImageDescription" = "Женщина получает уведомление от приложения Corona-Warn-App.";
+
+"NotificationSettings_offImageDescription" = "Женщина не может получать уведомления от приложения Corona-Warn-App.";
+
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "Давайте начнем";
 
 "Onboarding_Continue_actionText" = "Дальше";
 
-"Onboarding_Continue_actionTextHint" = "Вы можете пропустить этот экран";
+"Onboarding_EnableLogging_actionText" = "Дальше";
 
-"Onboarding_EnableLogging_actionText" = "Активировать определение контакта";
+"Onboarding_Continue_actionTextHint" = "Вы можете пропустить этот экран";
 
 "Onboarding_doNotAllow_actionText" = "Не разрешать";
 
@@ -189,7 +210,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Сделайте из Вашего устройства систему  предупреждения о коронавирусе. Просматривайте Ваш статус риска и определяйте, были ли у Вас близкие контакты с лицами с положительным тестом на COVID-19 за последние 14 дней.\n\nКонтакты людей регистрируются в приложении путем обмена зашифрованными случайными идентификаторами между  устройствами без доступа к каким-либо персональным данным.";
 
-"OnboardingInfo_privacyPage_imageDescription" = "На устройстве одной женщины установлено приложение Corona-Warn-App. Значок замка на щите указывает на шифрование данных.";
+"OnboardingInfo_privacyPage_imageDescription" = "На смартфоне одной женщины установлено приложение Corona-Warn-App. Значок замка на фоне щита указывает на шифрование данных.";
 
 "OnboardingInfo_privacyPage_title" = "Конфиденциальность данных";
 
@@ -197,17 +218,25 @@ You can switch on background fetching for the app at any time in the device sett
 
 "OnboardingInfo_privacyPage_normalText" = "Ваша анонимность сохраняется. Ваши данные полностью шифруются и передаются под псевдонимом.\n\nОтветственность: GDPR, статья 4, п. 7:\n\nИнститут Роберта Коха\nNordufer 20\n13353 Berlin (Германия)\nОзнакомьтесь с нашим заявлением о конфиденциальности данных.\n\nИнформация о конфиденциальности данных:";
 
-"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Три человека активировали определение контакта на своих устройствах, то есть их контакты друг с другом будут регистрироваться.";
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Три человека активировали определение риска на своих устройствах, то есть их контакты друг с другом будут регистрироваться.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_title" = "Активация определения контакта";
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "Как активировать определение риска";
 
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Чтобы узнать, есть ли у Вас риск заражения, нужно активировать функцию определения контакта.";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Чтобы узнать, есть ли у Вас риск заражения, нужно активировать функцию определения риска.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Для определения контакта Ваше устройство получает по Bluetooth зашифрованные случайные идентификаторы других пользователей и передает Ваш случайный идентификатор на их устройства. Эту функцию можно деактивировать в любое время.\n\nЗашифрованные случайные идентификаторы передают другим людям только информацию о дате, продолжительности и близости (рассчитанной по силе сигнала) контакта. Персональные данные, такие как имя, адрес или местоположение, никогда не регистрируются. Идентификация лица невозможна.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Для определения риска Ваше устройство получает по Bluetooth зашифрованные случайные идентификаторы других пользователей и передает Ваш случайный идентификатор на их устройства. Эту функцию можно деактивировать в любое время.\n\nЗашифрованные случайные идентификаторы передают другим людям только информацию о дате, продолжительности и близости (рассчитанной по силе сигнала) контакта. Персональные данные, такие как имя, адрес или местоположение, никогда не регистрируются. Идентификация лица невозможна.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Заявление о согласии";
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Чтобы узнать, контактировали ли Вы с инфицированным лицом и есть ли у Вас риск заражения, нужно активировать функцию определения контакта в приложении. Нажимая кнопку \"Включить\", Вы соглашаетесь на активацию функции определения контакта и соответствующую обработку данных.\n\nЧтобы использовать определение контакта в приложении, нужно активировать функцию COVID-19 Exposure Logging от Apple на Вашем iPhone и предоставить приложению Corona-Warn-App разрешение на доступ к ней.\n\nКогда определение контакта активировано, Ваш iPhone постоянно генерирует и передает по Bluetooth случайные идентификаторы, которые другие смартфоны Apple и Android поблизости могут получать, если на них также активировано определение контакта. Ваш iPhone, в свою очередь, получает случайные идентификаторы с других смартфонов. Ваши случайные идентификаторы и идентификаторы, полученные с других смартфонов, регистрируются в журнале контактов и хранятся там в течение 14 дней.\n\nДля определения Вашего риска заражения приложение загружает список (несколько раз в день или по запросу) случайных идентификаторов всех пользователей, которые указали в приложении, что заражены коронавирусом. Этот список далее сопоставляется со случайными идентификаторами, сохраненными в журнале контактов. Если приложение обнаруживает вероятный контакт с инфицированным пользователем, оно уведомляет Вас об этом и о возможном риске заражения. В таком случае приложение также получает доступ к другим данным, сохраненным в журнале контактов на Вашем iPhone (дата и продолжительность контакта и сила сигнала Bluetooth).\n\nСила сигнала Bluetooth позволяет определить физическое расстояние (чем сильнее сигнал, тем меньше расстояние). Приложение анализирует эту информацию для оценки вероятности Вашего заражения коронавирусом и предложения рекомендуемых действий. Этот анализ выполняется только локально на Вашем смартфоне. Кроме Вас, никто (даже Институт Роберта Коха) не узнает, контактировали ли Вы с инфицированным лицом и каков ваш рассчитанный риск.\n\nЧтобы отозвать свое согласие на определение контакта, деактивируйте функцию с помощью переключателя в приложении или удалите приложение. Чтобы снова активировать определение контакта, включите функцию или опять установите приложение. Если функция определения контакта деактивирована, приложение не проверяет наличие контактов с инфицированными пользователями. Чтобы запретить устройству отправку и получение случайных идентификаторов, деактивируйте функцию COVID-19 Exposure Logging в настройках Вашего iPhone. Обратите внимание, что Ваши случайные идентификаторы и идентификаторы, полученные с других смартфонов и сохраненные в журнале контактов, не будут удалены из приложения. Вы можете безвозвратно удалить данные, сохраненные в журнале контактов, только в настройках iPhone.\n\nЗаявление о конфиденциальности для приложения (включая пояснение касательно обработки данных, выполняемой функцией определения контакта) находится в меню под пунктом \"Информация о конфиденциальности данных\".";
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Чтобы узнать, был ли у Вас контакт с инфицированным лицом и есть ли риск заражения, Вам необходимо активировать в Приложении функцию «Определение риска». Вы даете свое согласие на активацию определения риска и соответствующую обработку данных, нажав «Активировать определение риска».\n\n\nДля использования функции определения риска Вам также необходимо активировать на своем iPhone разработанную компанией Apple функцию отслеживания контактов „Ведение журнала контактов с COVID-19“ и дать допуск к приложению Corona-Warn-Ap.\n\nПри активации функции отслеживания контактов Ваш iPhone автоматически генерирует и посылает через Bluetooth случайные коды, которые могут быть получены другими смартфонами Apple и Android вблизи от Вас, в которых также активирована функция отслеживания контактов. В свою очередь, Ваш iPhone получает случайные коды других смартфонов. Ваши собственные и полученные с других смартфонов случайные коды хранятся в течение 14 дней в пункте меню «Ведение журнала контактов с COVID-19».\n\n\nДля определения Вашего риска заражения Приложение загружает в течение дня, неоднократно или по запросу, список случайных кодов всех пользователей, которые сообщили через Приложение о своем подтвержденном диагнозе. Затем данный список сравнивается со списком случайных кодов, сохраненных в пункте меню «Ведение журнала контактов с COVID-19». Если при этом Приложение зафиксирует возможный контакт с инфицированным пользователем, Приложение уведомит Вас о контакте с инфицированным лицом и о риске заражения. В этом случае Приложение получит доступ к остальным данным, сохраненным в пункте меню «Ведение журнала контактов с COVID-19» Вашего iPhone (дата, длительность контакта и сила сигнала Bluetooth).\n\nСила сигнала Bluetooth помогает определить расстояние (чем сильнее сигнал, тем меньше расстояние). Приложение обрабатывает эти данные для того, чтобы определить для Вас риск заражения коронавирусом и предоставить Вам рекомендации для дальнейших действий. Данная обработка данных осуществляется исключительно локально на Вашем iPhone. Никто (в том числе ИРК), кроме Вас, не узнает о том, находились ли Вы в контакте с инфицированным лицом и каким был результат определения риска заражения.\n\nЧтобы отозвать свое согласие на определение риска, Вы можете деактивировать эту функцию в Приложении, нажав на ползунок, или удалить Приложение. Если Вы хотите снова использовать определение степени риска, активируйте заново ползунок или снова установите Приложение. При отключении функции определения риска Приложение больше не проверяет, был ли у Вас контакт с инфицированным пользователем. Чтобы остановить отправку и получение случайных кодов, Вам необходимо отключить в настройках Вашего iPhone функцию «Ведение журнала контактов с COVID-19». Обратите внимание, что Ваши и сторонние случайные коды, сохраненные в пункте меню «Ведение журнала контактов с COVID-19», не удаляются в Приложении. Сохраненные данные в пункте меню «Ведение журнала контактов с COVID-19» Вы можете удалить на долгосрочный период только в настройках Вашего iPhone.\n\nПолитика конфиденциальности Приложения (в том числе информация об обработке данных для определения степени риска) доступна в пункте меню «Информация о конфиденциальности данных».";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Статус";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateTitle" = "Определение риска";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateActive" = "Активно";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateStopped" = "Остановлено";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "Зашифрованная информация о положительном тесте передается в систему, и другим пользователям отправляются предупреждения.";
 
@@ -217,7 +246,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ваше уведомление шифруется для защиты и обрабатывается на безопасном сервере. Людям, от которых Ваше устройство получило зашифрованные случайные идентификаторы, отправляется предупреждение вместе с рекомендуемыми действиями.";
 
-"OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Одна женщина получает уведомление от приложения Corona-Warn-App.";
+"OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Женщина получает уведомление от приложения Corona-Warn-App.";
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "Получение предупреждений и определение риска";
 
@@ -232,7 +261,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "ExposureSubmission_Continue_actionText" = "Дальше";
 
-"ExposureSubmission_DataPrivacyDescription" = "Нажимая \"Принимаю\", Вы соглашаетесь на запрос статуса вашего теста на коронавирус и его отображение в приложении. Эта функция доступна, если Вы получили QR-код и разрешили передачу результата теста в серверную систему приложения. Как только лаборатория сохранит Ваш результат теста на сервере, Вы увидите его в приложении. Если активированы уведомления, Вам также будет отправлено внешнее уведомление о получении результата теста. Однако для конфиденциальности сам результат отображается только в приложении. Чтобы отозвать это согласие, удалите регистрацию теста в приложении. Отзыв согласия не влияет на законность обработки данных до такого отзыва. Подробнее см. в меню под пунктом \"Информация о конфиденциальности данных\".";
+"ExposureSubmission_DataPrivacyDescription" = "Нажав на «Принимаю», Вы соглашаетесь с тем, что Приложение вправе узнавать о статусе Вашего теста на коронавирус и высвечивать его в Приложении. Эта функция доступна, если Вы получили QR-код и дали свое согласие на передачу результатов теста в серверную систему Приложения. После того как тестирующая лаборатория разместит результаты теста на сервере, Вы сможете увидеть их в Приложении. Если Вы активировали уведомления, Вас проинформируют о получении результатов теста и вне Приложения. Сам же результат теста, тем не менее, в целях обеспечения конфиденциальности будет показан только в Приложении. Вы можете в любое время отозвать данное согласие, удалив в Приложении регистрирование теста. Отзыв согласия не затрагивает правомерность обработки, осуществлявшейся до него. Дальнейшую информацию см. в пункте меню «Информация о конфиденциальности данных».";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Принимаю";
 
@@ -440,7 +469,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "ExposureSubmissionWarnOthers_description" = "Далее Вы можете разрешить приложению Corona-Warn-App предоставление ваших случайных идентификаторов за последние 14 дней другим людям. Так Вы предупредите их и поможете остановить передачу инфекции.\n\nПоскольку передаются только обезличенные случайные идентификаторы, Ваша анонимность сохраняется.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Нажимая \"Принимаю\", Вы соглашаетесь на отправку Вашего положительного результата теста в серверную систему приложения вместе с Вашими случайными идентификаторами за последние 14 дней. Другие пользователи приложения с активной функцией определения контакта получат автоматические уведомления в случае вероятного риска заражения. Передаваемые случайные идентификаторы не содержат информации, по которой можно было бы Вас идентифицировать.\n\nПередача результатов теста через приложение является добровольной. Штрафы за отказ от передачи не предусмотрены. Поскольку отслеживание использования приложения невозможно, никто, кроме Вас, не узнает о вашем инфицировании.\n\nЧтобы отозвать Ваше согласие, удалите приложение. Отзыв согласия не влияет на законность обработки данных до такого отзыва. Подробнее см. в меню под пунктом \"Информация о конфиденциальности данных\".";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Нажав на «Принимаю», Вы выражаете свое согласие на передачу Приложением положительного результата Вашего теста вместе с Вашими случайными кодами за последние 14 дней в серверную систему Приложения, чтобы другие пользователи Приложения с активированной функцией определения риска были автоматически проинформированы о том, что они могли быть подвержены риску заражения. Передаваемые случайные коды не содержат никакой информации, которая бы раскрыла Вашу личность.\n\nПередача Вашего результата теста через Приложение является добровольной. Если Вы не передадите результат своего теста, никакого наказания не последует. Ввиду того, что невозможно проследить и проконтролировать, пользуетесь ли Вы Приложением и как Вы это делаете, никто, кроме Вас, не будет знать, передали ли Вы информацию об инфицировании.\n\nВы можете в любое время отозвать свое согласие, удалив Приложение. Отзыв согласия не затрагивает правомерность обработки, осуществлявшейся до момента отзыва. Дальнейшую информацию см. в пункте меню «Информация о конфиденциальности данных».";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Конфиденциальность данных";
 
@@ -457,7 +486,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "ExposureSubmissionError_InvalidTan" = "Сгенерированный TAN недействителен для отправки. Обратитесь на горячую линию по техническим вопросам по пути: Информация о приложении -> Горячая линия по техническим вопросам.";
 
-"ExposureSubmissionError_EnNotEnabled" = "Определение контакта неактивно.";
+"ExposureSubmissionError_EnNotEnabled" = "Определение риска неактивно.";
 
 "ExposureSubmissionError_NoRegistrationToken" = "Токен регистрации не найден на устройстве.";
 
@@ -484,9 +513,9 @@ You can switch on background fetching for the app at any time in the device sett
 "ExposureSubmissionError_defaultError" = "Ошибка при передаче ключа";
 
 /* Tracing Enable/Disable Settings */
-"ExposureNotificationSetting_TracingSettingTitle" = "Определение контакта";
+"ExposureNotificationSetting_TracingSettingTitle" = "Определение риска";
 
-"ExposureNotificationSetting_EnableTracing" = "Определение контакта";
+"ExposureNotificationSetting_EnableTracing" = "Определение риска";
 
 "ExposureNotificationSetting_Tracing_Limited" = "Ограничено";
 
@@ -494,51 +523,67 @@ You can switch on background fetching for the app at any time in the device sett
 
 "ExposureNotificationSetting_ActionCell_Header" = "Настройка";
 
-"ExposureNotificationSetting_DescriptionTitle_Inactive" = "Активировать определение контакта";
+"ExposureNotificationSetting_DescriptionTitle_Inactive" = "Активировать определение риска";
 
-"ExposureNotificationSetting_DescriptionTitle" = "Вот как работает определение контакта";
+"ExposureNotificationSetting_DescriptionTitle" = "Вот как работает определение риска";
 
-"ExposureNotificationSetting_DescriptionText1" = "Чтобы узнать, есть ли у Вас риск заражения, нужно активировать функцию определения контакта .";
+"ExposureNotificationSetting_DescriptionText1" = "Чтобы узнать, есть ли у Вас риск заражения, нужно активировать функцию определения риска.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Для определения контакта Ваше устройство получает по Bluetooth зашифрованные случайные идентификаторы других пользователей и передает Ваш случайный идентификатор на их устройства. Эту функцию можно деактивировать в любое время.";
+"ExposureNotificationSetting_DescriptionText2" = "Для определения риска Ваше устройство получает по Bluetooth зашифрованные случайные идентификаторы других пользователей и передает Ваш случайный идентификатор на их устройства. Эту функцию можно деактивировать в любое время.";
 
 "ExposureNotificationSetting_DescriptionText3" = "Зашифрованные случайные идентификаторы передают другим людям только информацию о дате, продолжительности и близости (по силе сигнала) контакта. Персональные данные, такие как имя, адрес или местоположение, никогда не регистрируются. Идентификация лица невозможна.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Включить Bluetooth";
 
-"ExposureNotificationSetting_Bluetooth_Description" = "Bluetooth нужно включить для регистрации контактов функцией определения контакта. Включите Bluetooth в настройках вашего устройства.";
+"ExposureNotificationSetting_Bluetooth_Description" = "Bluetooth нужно включить для регистрации контактов функцией определения риска. Включите Bluetooth в настройках вашего устройства.";
 
 "ExposureNotificationSetting_Activate_Internet" = "Установить соединение с Интернетом";
 
-"ExposureNotificationSetting_Internet_Description" = "Для расчета контактов функцией определения контакта требуется соединение с Интернетом. Включите Wi-Fi или мобильные данные в настройках устройства.";
+"ExposureNotificationSetting_Internet_Description" = "Для расчета контактов функцией определения риска требуется соединение с Интернетом. Включите Wi-Fi или мобильные данные в настройках устройства.";
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Открыть настройки устройства";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "Активировать определение контакта с COVID-19 и уведомления";
+"ExposureNotificationSetting_Activate_OSENSetting" = "Активировать ведение журнала контактов с COVID-19 и уведомления";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Для определения контакта необходимо активировать определение контакта с COVID-19 и уведомления в настройках системы. Активируйте определение контакта с COVID-19 и уведомления в настройках вашей системы.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Для определения риска необходимо активировать ведение журнала контактов с COVID-19 и уведомления в настройках системы. Активируйте ведение журнала контактов с COVID-19 и уведомления в настройках вашей системы.";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Активировать определение контакта с инфицированными COVID-19 и уведомления";
+"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Активировать ведение журнала контактов с COVID-19 и уведомления";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Для определения контакта необходимо активировать определение контакта с COVID-19 и уведомления в настройках системы. Активируйте определение контакта с COVID-19 и уведомления в настройках вашей системы.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Для определения риска необходимо активировать ведение журнала контактов с COVID-19 и уведомления в настройках системы. Активируйте ведение журнала контактов с COVID-19 и уведомления в настройках вашей системы.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Требуется авторизация";
 
-"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Подтвердите использование определения контакта с COVID-19.";
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Подтвердите использование журнала контактов с COVID-19 .";
 
 "ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Авторизация";
 
-"ExposureNotificationSetting_AccLabel_Enabled" = "Три человека активировали определение контакта на своих устройствах, то есть их контакты друг с другом будут регистрироваться.";
+"ExposureNotificationSetting_AccLabel_Enabled" = "Три человека активировали определение риска на своих устройствах, то есть их контакты друг с другом будут регистрироваться.";
 
-"ExposureNotificationSetting_AccLabel_Disabled" = "Один человек деактивировал определение контакта на своем устройстве, то есть его контакты с двумя другими людьми не будут регистрироваться.";
+"ExposureNotificationSetting_AccLabel_Disabled" = "Человек деактивировал определение риска на своем смартфоне, то есть его контакты с двумя другими людьми не будут регистрироваться.";
 
-"ExposureNotificationSetting_AccLabel_BluetoothOff" = "Один человек выключил Bluetooth на своем устройстве, то есть его контакты с двумя другими людьми не будут регистрироваться.";
+"ExposureNotificationSetting_AccLabel_BluetoothOff" = "Человек выключил Bluetooth на своем смартфоне, то есть его контакты с двумя другими людьми не будут регистрироваться.";
 
-"ExposureNotificationSetting_AccLabel_InternetOff" = "Один человек отключил соединение с Интернетом на своем устройстве, поэтому определить его последние контакты не удалось.";
+"ExposureNotificationSetting_AccLabel_InternetOff" = "Человек отключил соединение с Интернетом на своем смартфоне, поэтому определить его последние контакты не удалось.";
 
 "ExposureNotificationSetting_Activate_Action" = "Принимаю";
 
-"ExposureNotificationSetting_Dismiss_Action" = "Отмена";
+"ExposureNotificationSetting_Dismiss_Action" = "Отменить";
+
+"ExposureNotificationSetting_GeneralError_Title" = "Ошибка";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Узнать больше";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.coronawarn.app/en/faq/";
+
+"ExposureNotificationSetting_AuthenticationError" = "Ошибка активации функции определения риска: проверьте, активировали ли Вы в настройках ведение журнала контактов COVID-19.";
+
+"ExposureNotificationSetting_exposureNotification_Required" = "Ошибка активации функции определения риска: проверьте, активировали ли Вы в настройках приложения уведомление о ведении журнала контактов COVID-19.";
+
+"ExposureNotificationSetting_exposureNotification_unavailable" = "Ошибка активации функции определения риска: проверьте, выбрали ли Вы это приложение как активное приложение для ведения журнала контактов COVID-19. Подробнее см. раздел часто задаваемых вопросов.";
+
+"ExposureNotificationSetting_unknownError" = "Обнаружена неизвестная ошибка: подробнее см. раздел часто задаваемых вопросов.";
+
+"ExposureNotificationSetting_apiMisuse" = "Внутренняя ошибка активации функции определения риска: подробнее см. раздел часто задаваемых вопросов.";
 
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Логотип Corona-Warn-App";
@@ -546,9 +591,9 @@ You can switch on background fetching for the app at any time in the device sett
 "Home_RightBarButton_description" = "Информация";
 
 /* Home Active card */
-"Home_Activate_Card_On_Title" = "Определение контакта активно";
+"Home_Activate_Card_On_Title" = "Определение риска активно";
 
-"Home_Activate_Card_Off_Title" = "Определение контакта остановлено";
+"Home_Activate_Card_Off_Title" = "Определение риска остановлено";
 
 "Home_Activate_Card_Bluetooth_Off_Title" = "Bluetooth выключен";
 
@@ -563,12 +608,24 @@ You can switch on background fetching for the app at any time in the device sett
 
 "Home_Risk_Period_Disabled_Button_Title" = "Обновление только каждые %@\U00A0ч";
 
-/* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Неизвестный риск";
 
-"Home_RiskCard_Unknown_Item_Title" = "С момента включения определения контакта не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.";
+"Home_Risk_Last_Activate_Item_Title" = "Последнее определение контакта: %@";
 
-"Home_RiskCard_Unknown_Button" = "Обновить";
+"Home_Risk_Last_Activate_Item_Unknown_Title" = "Неизвестный риск";
+
+"Home_Risk_Last_Activate_Item_Low_Title" = "Низкий риск";
+
+"Home_Risk_Last_Activate_Item_High_Title" = "Повышенный риск";
+
+"Home_RiskCard_Update_Button" = "Обновить";
+
+/* Home Unknown card */
+"Home_RiskCard_Unknown_Item_Title" = "С момента включения определения контакта не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.";
+"Home_RiskCard_Unknown_Item_Title" = "С момента включения определения риска не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.";
+
+/* Home Unknown 48 card */
+"Home_RiskCard_Unknown48h_Body" = "Ihre Risiko-Berechnung wurde seit mehr als 48 Stunden nicht aktualisiert. Bitte aktualisieren Sie die Berechnung.";
 
 /* Home Inactive card */
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "Определение контакта остановлено";
@@ -578,8 +635,15 @@ You can switch on background fetching for the app at any time in the device sett
 "Home_Risk_Inactive_NoCalculation_Possible_Body" = "Активируйте определение контакта, чтобы оценить Ваш статус риска сегодня.";
 
 "Home_Risk_Inactive_Outdated_Results_Body" = "Не удается обновить определение контакта более 24 часов.";
+"Home_Risk_Inactive_NoCalculation_Possible_Title" = "Определение риска остановлено";
 
-"Home_Risk_Inactive_Activate_Item_Title" = "Последнее определение контакта: %@";
+"Home_Risk_Inactive_Outdated_Results_Title" = "Определение риска невозможно";
+
+"Home_Risk_Inactive_NoCalculation_Possible_Body" = "Активируйте определение риска, чтобы оценить Ваш статус риска сегодня.";
+
+"Home_Risk_Inactive_Outdated_Results_Body" = "Не удается обновить определение риска более 24 часов.";
+
+"Home_Risk_Inactive_Activate_Item_Title" = "Последнее определение риска: %@";
 
 "Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Неизвестный риск";
 
@@ -587,28 +651,22 @@ You can switch on background fetching for the app at any time in the device sett
 
 "Home_Risk_Inactive_Activate_Item_High_Title" = "Повышенный риск";
 
-"Home_Risk_Inactive_NoCalculation_Possible_Button" = "Активировать определение контакта";
+"Home_Risk_Inactive_NoCalculation_Possible_Button" = "Активировать определение риска";
 
-"Home_Risk_Inactive_Outdated_Results_Button" = "Активировать определение контакта";
+"Home_Risk_Inactive_Outdated_Results_Button" = "Активировать определение риска";
 
 /* Home Low card */
 "Home_Risk_Low_Title" = "Низкий риск";
 
 "Home_Risk_Low_SaveDays_Item_Title" = "Дней активности: %@ из %@";
 
-"Home_Risk_Low_Button" = "Обновить";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Повышенный риск";
-
-"Home_Risk_High_Button" = "Обновить";
 
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Проверка выполняется...";
 
 "Home_Risk_Status_Check_Body" = "Текущие данные выгружаются и проверяются. Это может занять несколько минут.";
-
-"Home_Risk_Status_Check_Button" = "Обновить";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Спасибо!";
@@ -699,7 +757,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "App_Information_About_Title" = "Давайте победим коронавирус вместе";
 
-"App_Information_About_Description" = "Институт Роберта Коха (RKI) — это центральный федеральный институт Германии в области здравоохранения. RKI выпустил приложение Corona-Warn-App для федерального правительства. Приложение стало цифровым дополнением к уже принятым санитарным мерам: социальной дистанции, гигиене и ношению защитных масок.";
+"App_Information_About_Description" = "Институт Роберта Коха (РКИ) — это центральный федеральный институт Германии в области здравоохранения. По поручению федерального правительства РКИ выпустил приложение Corona-Warn-App. Приложение задумано как цифровое дополнение к уже принятым санитарным мерам: социальной дистанции, гигиене и ношению защитных масок.";
 
 "App_Information_About_Text" = "Каждый пользователь приложения помогает отслеживать и останавливать передачу инфекции. Приложение регистрирует контакты с другими людьми локально на вашем устройстве. Вы получаете уведомления о контактах с людьми, которые впоследствии получили положительный результат теста на COVID-19. Ваши персональные данные и конфиденциальность надежно защищены.";
 
@@ -709,7 +767,7 @@ You can switch on background fetching for the app at any time in the device sett
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "Горячая линия по техническим вопросам";
 
-"App_Information_Contact_ImageDescription" = "Один человек совершает звонок с использованием гарнитуры.";
+"App_Information_Contact_ImageDescription" = "Человек совершает телефонный звонок с использованием гарнитуры.";
 
 "App_Information_Contact_Title" = "Чем мы можем Вам помочь?";
 
@@ -728,7 +786,7 @@ You can switch on background fetching for the app at any time in the device sett
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Правовая информация";
 
-"App_Information_Imprint_ImageDescription" = "Один человек держит устройство с длинным текстом на экране. Рядом с текстом отображается значок параграфа, представляющий правовую информацию.";
+"App_Information_Imprint_ImageDescription" = "Рука держит смартфон с длинным текстом на экране. Рядом с текстом отображается значок параграфа, представляющий правовую информацию.";
 
 "App_Information_Imprint_Section1_Title" = "Опубликовано";
 
@@ -752,7 +810,7 @@ You can switch on background fetching for the app at any time in the device sett
 /* App Information - Privacy */
 "App_Information_Privacy_Navigation" = "Конфиденциальность данных";
 
-"App_Information_Legal_ImageDescription" = "Один человек держит устройство с длинным текстом на экране. Рядом с текстом отображается значок весов, представляющий правовые уведомления.";
+"App_Information_Legal_ImageDescription" = "Рука держит смартфон с длинным текстом на экране. Рядом с текстом отображается значок весов, представляющий правовые уведомления.";
 
 "App_Information_Privacy_Title" = "Конфиденциальность данных";
 
@@ -761,7 +819,7 @@ You can switch on background fetching for the app at any time in the device sett
 /* App Information - Terms */
 "App_Information_Terms_Navigation" = "Условия использования";
 
-"App_Information_Terms_ImageDescription" = "Один человек держит устройство с длинным текстом на экране. Рядом с текстом отображается галочка, которую нужно установить для принятия условий использования.";
+"App_Information_Terms_ImageDescription" = "Рука держит смартфон с длинным текстом на экране. Рядом с текстом отображается галочка, символизирующая принятия условий использования.";
 
 "App_Information_Terms_Title" = "Условия использования";
 
@@ -791,7 +849,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "Reset_Button" = "Сбросить приложение";
 
-"Reset_Discard" = "Отмена";
+"Reset_Discard" = "Отменить";
 
 "Reset_InfoTitle" = "Удалить журнал \nконтактов";
 
@@ -799,13 +857,13 @@ You can switch on background fetching for the app at any time in the device sett
 
 "Reset_Subtitle" = "Сбросить приложение";
 
-"Reset_ImageDescription" = "Один человек держит устройство, на котором отображается значок выполняемого сброса приложения.";
+"Reset_ImageDescription" = "Рука держит смартфон, на котором отображается значок выполняемого сброса приложения.";
 
 "Reset_ConfirmDialog_Title" = "Сбросить приложение";
 
 "Reset_ConfirmDialog_Description" = "Вы больше не будете получать уведомления о контактах и не сможете предупреждать других пользователей. Это действие нельзя отменить.";
 
-"Reset_ConfirmDialog_Cancel" = "Отмена";
+"Reset_ConfirmDialog_Cancel" = "Отменить";
 
 "Reset_ConfirmDialog_Confirm" = "Сброс";
 
@@ -828,9 +886,9 @@ You can switch on background fetching for the app at any time in the device sett
 
 "RiskLegend_Subtitle" = "Важные функции и концепции";
 
-"RiskLegend_Legend1_Title" = "Определение контакта";
+"RiskLegend_Legend1_Title" = "Определение риска";
 
-"RiskLegend_Legend1_Text" = "Определение контакта - одна из трех основных функций приложения. Когда она активирована, регистрируются контакты с устройствами других людей. Вам не нужно ничего делать.";
+"RiskLegend_Legend1_Text" = "Определение риска - одна из трех основных функций приложения. Когда она активирована, регистрируются контакты с устройствами других людей. Вам не нужно ничего делать.";
 
 "RiskLegend_Legend2_Title" = "Риск заражения";
 
@@ -895,3 +953,4 @@ You can switch on background fetching for the app at any time in the device sett
 "ENATanInput_InvalidCharacter" = "Недопустимый символ\n\n%@";
 
 "ENATanInput_CharacterIndex" = "Символ %1$u из %2$u";
+

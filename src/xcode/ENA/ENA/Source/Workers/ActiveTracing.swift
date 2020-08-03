@@ -18,6 +18,7 @@
 //
 
 import Foundation
+import UIKit
 
 private extension TimeInterval {
 	static let SEC_PER_HOUR: TimeInterval = 3600.0
@@ -41,6 +42,27 @@ struct ActiveTracing {
 	}
 	
 	var inDays: Int {
-		Int((interval / TimeInterval.SEC_PER_DAY).rounded(.toNearestOrAwayFromZero))
+		min(Int((interval / TimeInterval.SEC_PER_DAY).rounded(.toNearestOrAwayFromZero)), maximumNumberOfDays)
+	}
+}
+
+extension ActiveTracing {
+	// There is a special case for the localized text that should be displayed on the home screen
+	// when there is a low risk level.
+	var localizedDuration: String {
+		switch inDays {
+		case maximumNumberOfDays:
+			// We will return the following in case tracing has been active for 14+ days
+			// and the current risk level is `low`.
+			// Yields something like: "Risk detection was permanently active"
+			return NSLocalizedString("Active_Tracing_Interval_Permanently_Active", comment: "")
+		default:
+			// Yields something like: "Risk detection was active for 4 out of 14 days"
+			return String(
+				format: NSLocalizedString("Active_Tracing_Interval_Partially_Active", comment: ""),
+				inDays,
+				maximumNumberOfDays
+			)
+		}
 	}
 }

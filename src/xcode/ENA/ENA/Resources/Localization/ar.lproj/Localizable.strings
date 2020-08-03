@@ -19,15 +19,30 @@
 
 "General_BackButtonTitle" = "الخلف";
 
-"Common_BackgroundFetch_AlertMessage" = "You have disabled background fetching for the Corona-Warn-App. To use automatic risk detection, you must activate the background fetching. If you do not activate background fetching, you can still start the risk detection manually.
+"Common_ENError5_Description" = "الخطأ 5: حدث خطأ ما. لا يمكن تحديد مستوى الخطر الواقع عليك، ونحن بصدد الوصول إلى حل للمشكلة.";
 
-You can switch on background fetching for the app at any time in the device settings.";
+"Common_ENError11_Description" = "الخطأ 11: حدث خطأ ما. لا يمكن تحديد مستوى الخطر الواقع عليك. الرجاء إعادة تشغيل جهازك ثم المحاولة مرة أخرى غدًا.";
 
-"Common_BackgroundFetch_SettingsTitle" = "Open Settings";
+"Common_ENError13_Description" = "الخطأ 13: تم تنفيذ تسجيل المخالطة لهذا اليوم بالفعل. يرجى إعادة المحاولة في غضون 24 ساعة.";
 
-"Common_BackgroundFetch_OKTitle" = "Start Risk Detection Manually";
+"Common_Alert_Action_moreInfo" = "العثور على المزيد";
 
-"Common_BackgroundFetch_AlertTitle" = "Background Fetching Disabled";
+"Common_BackgroundFetch_AlertMessage" = "قمت بإلغاء تنشيط تحديثات في الخلفية لتطبيق Corona-Warn-App. الرجاء تنشيط تحديثات في الخلفية لاستخدام تسجيل المخالطة التلقائي. إذا لم تقم بتنشيط تحديثات في الخلفية، فيمكنك فقط بدء تسجيل المخالطة يدويًا في التطبيق.\n\nيمكنك تنشيط تحديثات في الخلفية للتطبيق في إعدادات الجهاز لديك.";
+
+"Common_BackgroundFetch_SettingsTitle" = "فتح إعدادات الجهاز";
+
+"Common_BackgroundFetch_OKTitle" = "بدء تسجيل المخالطة يدويًا";
+
+"Common_BackgroundFetch_AlertTitle" = "تحديثات في الخلفية مُلغى تنشيطها";
+
+/* General - Links */
+"General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
+
+"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
+
+"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
+
+"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
 
 /* Accessibility */
 "AccessibilityLabel_Close" = "إغلاق";
@@ -53,11 +68,13 @@ You can switch on background fetching for the app at any time in the device sett
 
 "ExposureDetection_RefreshingIn" = "التحديث في %02d:%02d من الدقائق";
 
+"ExposureDetection_RefreshIn" = "تحديث في %@";
+
 "ExposureDetection_Refresh_24h" = "يتم التحديث كل 24 ساعة";
 
 "ExposureDetection_LastRiskLevel" = "آخر تسجيل للمخالطة: %@";
 
-"ExposureDetection_OffText" = "قم بتنشيط تسجيل المخالطة لتقييم حالة الخطر لديك اليوم.";
+"ExposureDetection_OffText" = "قم بتنشيط تسجيل المخالطة لتقييم مستوى الخطر اليوم.";
 
 "ExposureDetection_OutdatedText" = "تعذر تحديث تسجيل المخالطة لأكثر من 48 ساعة.";
 
@@ -85,7 +102,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "ExposureDetection_Guide_Hotline3" = "خدمة الطوارئ الطبية العامة على الهاتف رقم 116117";
 
-"ExposureDetection_Guide_Hotline4" = "سلطة الصحة العامة";
+"ExposureDetection_Guide_Hotline4" = "دائرة الصحة العامة";
 
 "ExposureDetection_Explanation_Title" = "خطر العدوى";
 
@@ -101,14 +118,14 @@ You can switch on background fetching for the app at any time in the device sett
 
 "ExposureDetection_Explanation_Text_Low" = "خطر العدوى لديك منخفض نظرًا لعدم تسجيل أي تجمُّع مع شخص مصاب بمرض كوفيد-19 أو تم تقييد تجمُّعك لفترة قصيرة وعلى مسافة أكبر.\n\nوبالتالي، تم تصنيف خطر العدوى على أنه منخفض.\n\nيتم تقدير خطر العدوى من بيانات تسجيل المخالطة (المدة ومدى الاقتراب) محليًا على جهازك. ولا يمكن الاطلاع على خطر العدوى من جانب أي شخص آخر أو تمريره إليه.";
 
-"ExposureDetection_Explanation_Text_High" = "خطر العدوى لديك مرتفع نظرًا لأنك خالطت شخصًا واحدًا على الأقل مصابًا بمرض كوفيد-19، منذ يومين على مدى فترة زمنية أطول ومن مسافة قريبة جدًا.\n\nوبالتالي، تم تصنيف خطر العدوى على أنه مرتفع.\nيتم تقدير خطر العدوى من بيانات تسجيل المخالطة (المدة ومدى الاقتراب) محليًا على جهازك. ولا يمكن الاطلاع على خطر العدوى من جانب أي شخص آخر أو تمريره إليه.\nعند العودة إلى المنزل، يرجى تجنب التعامل عن قرب مع أفراد أسرتك أو عائلتك.";
+"ExposureDetection_Explanation_Text_High" = "\n\nTherefore, your risk of infection has been ranked as increased.\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.\nWhen you get home, please also avoid close contact with members of your family or household.";
 
 "ExposureDetection_Button_Enable" = "تنشيط تسجيل المخالطة";
 
 "ExposureDetection_Button_Refresh" = "تحديث";
 
 /* Exposure Detection Errors */
-"ExposureDetectionError_Alert_Title" = "حدث خطأ ما.";
+"ExposureDetectionError_Alert_Title" = "خطأ";
 
 "ExposureDetectionError_Alert_Action_Details" = "التفاصيل";
 
@@ -135,14 +152,14 @@ You can switch on background fetching for the app at any time in the device sett
 
 "Settings_Tracing_Description" = "السماح بإنشاء معرفات عشوائية لمرض كوفيد-19 ومشاركتها.";
 
-"Settings_Notification_Description" = "السماح بالإشعارات التلقائية لحالة خطر مرض كوفيد-19 لديك.";
+"Settings_Notification_Description" = "السماح بالإشعارات التلقائية لمستوى خطر مرض كوفيد-19.";
 
 "Settings_Reset_Description" = "حذف كل البيانات في التطبيق.";
 
 "Settings_NavTitle" = "الإعدادات";
 
 /* Noticiation Settings */
-"NotificationSettings_On_Title" = "هل تريد تنشيط إشعارات حالة خطر مرض كوفيد-19 الخاصة بك؟";
+"NotificationSettings_On_Title" = "هل تريد تنشيط إشعارات مستوى خطر مرض كوفيد-19؟";
 
 "NotificationSettings_On_SectionTitle" = "الإعداد";
 
@@ -164,16 +181,16 @@ You can switch on background fetching for the app at any time in the device sett
 
 "NotificationSettings_NavTitle" = "الإشعارات";
 
-"NotificationSettings_onImageDescription" = "Eine Frau erhält eine Mitteilung von ihrer Corona-Warn-App.";
+"NotificationSettings_onImageDescription" = "سيدة تتلقى إشعارًا من تطبيق Corona-Warn-App.";
 
-"NotificationSettings_offImageDescription" = "Eine Frau kann keine Mitteilungen von ihrer Corona-Warn-App erhalten.";
+"NotificationSettings_offImageDescription" = "سيدة لا يمكنها تلقي إشعارات من تطبيق Corona-Warn-App.";
 
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "لنبدأ";
 
 "Onboarding_Continue_actionText" = "التالي";
 
-"Onboarding_EnableLogging_actionText" = "تنشيط تسجيل المخالطة";
+"Onboarding_EnableLogging_actionText" = "التالي";
 
 "Onboarding_Continue_actionTextHint" = "يمكنك تخطي هذه الشاشة";
 
@@ -181,7 +198,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "Onboarding_DoNotActivate_actionText" = "عدم التنشيط";
 
-"Onboarding_DeactivateExposureConfirmation_title" = "هذا يعني أن تطبيق Corona-Warn-App لا يمكنه إرسال أو استلام إشعارات بخصوص حالة الخطر لمرض كوفيد-19 لديك.";
+"Onboarding_DeactivateExposureConfirmation_title" = "هذا يعني أن تطبيق Corona-Warn-App لا يمكنه إرسال أو تلقي إشعارات بخصوص مستوى خطر مرض كوفيد-19.";
 
 "Onboarding_DeactivateExposureConfirmation_message" = "يمكنك إلغاء تنشيط هذه الميزة في أي وقت.";
 
@@ -191,7 +208,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "مزيد من الحماية لك ولنا جميعًا. يمكننا كسر سلاسل العدوى أسرع بكثير من خلال استخدام تطبيق Corona-Warn-App.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "قم بتحويل جهازك إلى نظام تحذير من كورونا. ألقِ نظرة عامة على حالة الخطر الواقع عليك، وتعرف على إذا ما كنت قد تواصلت عن قرب مع أشخاص مصابين بمرض كوفيد-19 في آخر 14 يومًا.\n\nيسجل التطبيق التجمُّعات بين الأفراد من خلال تبادل المعرفات العشوائية المشفرة لأجهزتهم، دون الوصول إلى أي بيانات شخصية.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "قم بتحويل جهازك إلى نظام تحذير من كورونا. ألقِ نظرة عامة على مستوى الخطر الواقع عليك، وتعرف على إذا ما كنت قد تواصلت عن قرب مع أشخاص مصابين بمرض كوفيد-19 في آخر 14 يومًا.\n\nيسجل التطبيق التجمُّعات بين الأفراد من خلال تبادل المعرفات العشوائية المشفرة لأجهزتهم، دون الوصول إلى أي بيانات شخصية.";
 
 "OnboardingInfo_privacyPage_imageDescription" = "سيدة تستخدم تطبيق Corona-Warn-App على هاتفها الذكي. تشير أيقونة القفل الموجودة بخلفية الشاشة إلى بيانات مشفرة.";
 
@@ -211,15 +228,15 @@ You can switch on background fetching for the app at any time in the device sett
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "إقرار الموافقة";
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "لمعرفة ما إذا كنت قد تواصلت مع شخص مصاب وما إذا كان هناك خطر في تعرضك للإصابة، يجب عليك تمكين ميزة تسجيل المخالطة في التطبيق. من خلال النقر فوق زر \"تشغيل\"، توافق على تمكين ميزة تسجيل المخالطة في التطبيق وما يرتبط بها من معالجة للبيانات.\n\n\nلاستخدام ميزة تسجيل المخالطة في التطبيق، سيتعين عليك تمكين وظيفة تسجيل المخالطة لمرض كوفيد-19 المقدمة من شركة Apple على هاتف iPhone لديك ومنح تطبيق Corona-Warn-App الإذن باستخدام هذه الميزة.\n\nعند تمكين تسجيل المخالطة، ينشئ هاتف iPhone المعرفات العشوائية ويرسلها عبر Bluetooth باستمرار، ويمكن لهواتف Apple وAndroid الذكية الأخرى الموجودة في منطقتك تلقيها إذا تم تمكين تسجيل المخالطة عليها أيضًا. وبدوره، يتلقى هاتف iPhone لديك المعرفات العشوائية للهواتف الذكية الأخرى، ويتم تسجيل معرفاتك العشوائية وتلك المتلقاة من الهواتف الذكية الأخرى في سجل المخالطة وتخزينها فيه لمدة 14 يومًا.\n\n\nلمعرفة خطر العدوى عليك، يقوم التطبيق، عدة مرات في اليوم أو حسب الطلب، بتحميل قائمة بالمعرفات العشوائية لكل المستخدمين الذين أخطروا التطبيق بأنهم مصابون بفيروس كورونا. وتتم مقارنة هذه القائمة، بعد ذلك، بالمعرفات العشوائية المخزنة في سجل المخالطة. في حالة اكتشاف التطبيق أنك قد تواصلت مع مستخدم مصاب، فسيخطرك بذلك ويخبرك بوجود خطر تعرضك للإصابة أيضًا. في هذه الحالة، يتم أيضًا منح التطبيق حق الوصول إلى البيانات الأخرى المسجلة في سجل المخالطة بهاتف iPhone لديك (تاريخ التواصل ومدته وقوة إشارة Bluetooth الخاصة به).\n\nتُستخدم قوة إشارة Bluetooth لاستنتاج بُعد المسافة (كلما زادت قوة الإشارة، كانت المسافة أقصر). وبعد ذلك، يحلل التطبيق هذه المعلومات من أجل تقييم احتمالية إصابتك بفيروس كورونا ولتقديم التوصيات إليك بشأن ما يجب فعله بعد ذلك. يتم إجراء هذا التحليل فقط محليًا على هاتف iPhone لديك. وبخلافك أنت، لن يعرف أي شخص (ولا حتى معهد روبرت كوخ) ما إذا كنت قد تواصلت مع شخص مصاب والخطر الذي تم تحديده لك.\n\nلسحب موافقتك على استخدام ميزة تسجيل المخالطة، يمكنك تعطيل الميزة باستخدام زر التبديل في التطبيق أو حذف التطبيق. وإذا قررت استخدام الميزة مرة أخرى، يمكنك تشغيل الميزة مرة أخرى أو إعادة تثبيت التطبيق. إذا قمت بتعطيل ميزة تسجيل المخالطة، فلن يتحقق التطبيق بعد ذلك مما إذا كنت قد تواصلت مع مستخدم مصاب. وإذا كنت ترغب أيضًا في إيقاف إرسال جهازك للمعرفات العشوائية وتلقيها، يتعين عليك تعطيل ميزة تسجيل المخالطة لمرض كوفيد-19 في إعدادات هاتف iPhone لديك. الرجاء ملاحظة أنه لن يتم حذف معرفاتك العشوائية وتلك المتلقاة من الهواتف الذكية الأخرى المخزنة في سجل المخالطة من التطبيق. يمكنك فقط حذف البيانات المخزنة في سجل المخالطة في إعدادات هاتف iPhone نهائيًا.\n\n\nيمكنك العثور على إشعار خصوصية التطبيق (بما فيه توضيح لمعالجة البيانات المنفَّذة لميزة تسجيل المخالطة) في القائمة ضمن \"معلومات خصوصية البيانات\".";
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "لمعرفة ما إذا كنت قد خالطت شخصًا مصابًا بالعدوى، وما إذا كان هناك خطر عدوى بالنسبة لك، يتعين عليك تنشيط خاصية تسجيل المخالطة الموجودة في التطبيق. الموافقة على تنشيط خاصية تسجيل المخالطة، ومعالجة البيانات في هذا السياق، يكون بالنقر على زر \"تمكين\".\n\n\nلكي يمكنك استخدام خاصية تسجيل المخالطة، يتعين عليك أيضًا تنشيط خاصية تسجيل المخالطات المتاحة من أبل على هاتف iPhone خاصتك \"تسجيل مخالطة المصابين بمرض كوفيد-19\"، ومنح اذن لتطبيق Corona-Warn-App. لاستخدامها.\n\nعند تنشيط خاصية تسجيل المخالطات يتولى هاتف iPhone خاصتك إنشاء وإرسال أرقام تعريف عشوائية عبر Bluetooth بصفة مستمرة، والتي يمكن استقبالها في محيطك من هواتف أبل وأندرويد الذكية الأخرى، التي تكون فيها خاصية تسجيل المخالطات منشطة بالمثل. والعكس صحيح، حيث يستقبل هاتف iPhone خاصتك المعرفات العشوائية من الهواتف الذكية الأخرى. يتم تسجيل أرقام تعريفك العشوائية والمعرفات العشوائية المستقبلة من الهواتف الذكية الأخرى في سجل المخالطة، وتخزن هناك لمدة 14 يومًا.\n\n\nللتعرف على خطر العدوى بالنسبة لك، يستدعي التطبيق عدة مرات يوميًا -أو عند الرغبة- قائمةً بالمعرفات العشوائية لكافة المستخدمين الذين سجلوا إصابتهم بفيروس كورونا في التطبيق. يتم مقارنة هذه القائمة بعد ذلك مع المعرفات العشوائية المخزنة في سجل المخالطة. وعندما يتأكد التطبيق من أنك ربما خالطت مستخدمًا مصابًا بالعدوى، يخطرك التطبيق بأنك خالطت شخصًا مصابًا، وأنه من المحتمل تعرضك لخطر العدوى. في هذه الحالة يحصل التطبيق أيضًا على إذن بالوصول إلى بيانات إضافية مخزنة في سجل المخالطة لهاتف iPhone خاصتك (التاريخ، والمدة، وقوة إشارة Bluetooth عند المخالطة).\n\nيُستدل على البُعد المكاني من قوة إشارة Bluetooth (كلما كانت الإشارة أقوى، كانت المسافة أقل). ثم يقيّم التطبيق هذه البيانات، من أجل تقييم احتمالية إصابتك بفيروس كورونا، وتقديم التوصيات لك بشأن ما يجب القيام به بعد ذلك. يتم إجراء هذا التقييم حصريًا على هاتف iPhone خاصتك. لا يعرف أحدٌ سواك (بما في ذلك معهد روبرت كوخ أيضًا) ما إذا كنت قد خالطت شخصًا مصابًا، وما إذا كان الأمر ينطوي على خطر إصابتك.\n\nلإلغاء موافقتك على خاصية تسجيل المخالطة، يمكنك إلغاء تنشيط الخاصية عبر الشريط الانزلاقي داخل التطبيق أو حذف التطبيق. وإذا كنت ترغب في استخدام خاصية تسجيل المخالطة مجددًا، فيمكنك إعادة تنشيط الشريط الانزلاقي أو تثبيت التطبيق من جديد. عند إلغاء خاصية تسجيل المخالطة، لن يفحص التطبيق ما إذا كنت قد خالطت مستخدمًا مصابًا أم لا. أيضًا لكي توقف إرسال المعرفات العشوائية واستقبالها، يتعين عليك إلغاء تنشيط تسجيل مخالطة المصابين بمرض كوفيد-19 في إعدادات هاتف iPhone خاصتك. يرجى الانتباه إلى أن رموز التعريف العشوائية الخاصة بك وتلك المستلمة من الهواتف الذكية الاخرى والمخزنة في سجل المخالطة لن يتم حذفها من التطبيق. لا يمكنك حذف البيانات المخزنة في سجل المخالطة حذفًا نهائيًا إلا من خلال إعدادات هاتف iPhone خاصتك.\n\n\nتجد تعليمات التطبيق الخاصة بحماية البيانات (بما في ذلك المعلومات حول معالجة البيانات لتسجيل المخالطة) تحت بند القائمة \"معلومات خصوصية البيانات\".";
 
-"OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Status";
+"OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "الحالة";
 
-"OnboardingInfo_enableLoggingOfContactsPage_stateTitle" = "Risiko-Ermittlung";
+"OnboardingInfo_enableLoggingOfContactsPage_stateTitle" = "تسجيل المخالطة";
 
-"OnboardingInfo_enableLoggingOfContactsPage_stateActive" = "Aktiv";
+"OnboardingInfo_enableLoggingOfContactsPage_stateActive" = "نشط";
 
-"OnboardingInfo_enableLoggingOfContactsPage_stateStopped" = "Gestoppt";
+"OnboardingInfo_enableLoggingOfContactsPage_stateStopped" = "موقوف";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "يتم إرسال تشخيص اختبار إيجابي مشفرًا إلى النظام؛ مما سينتج عنه تحذير المستخدمين الآخرين.";
 
@@ -233,7 +250,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "استلام التحذيرات وتحديد الأخطار";
 
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "يمكن للتطبيق إشعارك تلقائيًا بحالة الخطر الواقع عليك وتحذيرك من حالات العدوى الجديدة من الأشخاص الذين خالطتهم. اسمح للتطبيق الآن بإشعارك.";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "يمكن للتطبيق إشعارك تلقائيًا بمستوى الخطر الواقع عليك وتحذيرك من حالات العدوى الجديدة من الأشخاص الذين خالطتهم. اسمح للتطبيق الآن بإشعارك.";
 
 "OnboardingInfo_alwaysStayInformedPage_normalText" = "ويمكنك بعد ذلك عزل نفسك ذاتيًا لحماية الآخرين ومعرفة مكان إجراء الاختبار.";
 
@@ -244,7 +261,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "ExposureSubmission_Continue_actionText" = "التالي";
 
-"ExposureSubmission_DataPrivacyDescription" = "بالنقر على \"قبول\"، فإنك توافق على قيام التطبيق بالاستعلام عن حالة اختبار فيروس كورونا الخاص بك وعرضها في التطبيق. تتوفر هذه الميزة لك إذا استلمت رمز استجابة سريعة (QR) ووافقت على إرسال نتيجة اختبارك إلى نظام خادم التطبيق. وبمجرد قيام معمل الاختبار بتخزين نتيجة اختبارك على الخادم، ستتمكن من رؤية النتيجة في التطبيق. وإذا قمت بتمكين الإشعارات، فستتلقى أيضًا إشعارًا خارج التطبيق يخبرك باستلام نتيجة اختبارك. وبالرغم من ذلك، سيتم عرض نتيجة الاختبار نفسها في التطبيق فقط وذلك لأسباب تتعلق بالخصوصية. يمكنك سحب هذه الموافقة في أي وقت من خلال حذف تسجيل اختبارك في التطبيق. لن يؤثر سحب موافقتك على مشروعية المعالجة قبل سحبها. يمكنك العثور على مزيد من المعلومات في القائمة ضمن \"معلومات خصوصية البيانات\".";
+"ExposureSubmission_DataPrivacyDescription" = "بالنقر على \"قبول\"، فإنك توافق على السماح للتطبيق بالاستعلام عن حالة فحص فيروس كورونا خاصتك، وعرض الحالة في التطبيق. تتاح لك هذه الخاصية عندما تتلقى رمز استجابة سريعة (QR) وتوافق على السماح بإرسال نتيجة الاختبار إلى نظام السيرفر الخاص بالتطبيق. بمجرد أن يودع معمل الفحوصات نتيجة اختبارك على السيرفر، يمكنك الاطلاع على النتيجة في التطبيق. وإذا كنت قد نشطت خاصية الإشعارات، فستتلقى إشعارًا أيضًا خارج التطبيق بظهور نتيجة الاختبار. نتيجة الاختبار نفسها لا تظهر إلا في التطبيق لأسباب متعلقة بحماية البيانات. يمكنك إلغاء هذه الموافقة في أي وقت عن طريق حذف تسجيل الاختبار في التطبيق. عند إلغاء الموافقة، تظل مشروعية المعالجة حتى تاريخ الإلغاء قائمةً. تجد المزيد من المعلومات تحت بند القائمة \"معلومات خصوصية البيانات\".";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "قبول";
 
@@ -350,13 +367,13 @@ You can switch on background fetching for the app at any time in the device sett
 
 "ExposureSubmissionSuccess_listTitle" = "يُرجى ملاحظة ما يلي:";
 
-"ExposureSubmissionSuccess_listItem1" = "ستتواصل معك سلطة الصحة العامة خلال الأيام القليلة القادمة بالهاتف أو بخطاب.";
+"ExposureSubmissionSuccess_listItem1" = "ستتواصل معك دائرة الصحة العامة خلال الأيام القليلة القادمة بالهاتف أو بخطاب.";
 
 "ExposureSubmissionSuccess_listItem2" = "أنت معدٍ. اعزل نفسك عن الأشخاص الآخرين.";
 
 "ExposureSubmissionSuccess_listItem2_1" = "فترة الحجر الصحي عادة ما تكون 14 يومًا. الرجاء ملاحظة أعراضك ومراقبة مدى تطورها.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "ستطالبك سلطة الصحة العامة بإنشاء قائمة بالأشخاص الذين تواصلت معهم. يجب أن يتضمن ذلك كل الأشخاص الذين تواصلت معهم عن قرب (أقل من مترين، محادثة وجهًا لوجه) لمدة تزيد عن 15 دقيقة في اليومين السابقين لتطور الأعراض.";
+"ExposureSubmissionSuccess_listItem2_2" = "ستطالبك دائرة الصحة العامة بإنشاء قائمة بالأشخاص الذين تواصلت معهم. يجب أن يتضمن ذلك كل الأشخاص الذين تواصلت معهم عن قرب (أقل من مترين، محادثة وجهًا لوجه) لمدة تزيد عن 15 دقيقة في اليومين السابقين لتطور الأعراض.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "الرجاء التفكير بصفة خاصة في الأشخاص الذين لن يتم إشعارهم مباشرة من خلال التطبيق نظرًا لعدم امتلاكهم هاتف ذكي أو عدم قيامهم بتثبيت التطبيق.";
 
@@ -426,7 +443,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "ExposureSubmissionResult_testInvalid" = "الاختبار به أخطاء";
 
-"ExposureSubmissionResult_testInvalidDesc" = "هناك مشكلة في تقييم اختبارك. الرجاء الاتصال بسلطة الصحة العامة لمعرفة كيفية المتابعة.";
+"ExposureSubmissionResult_testInvalidDesc" = "هناك مشكلة في تقييم اختبارك. الرجاء الاتصال بدائرة الصحة العامة لمعرفة كيفية المتابعة.";
 
 "ExposureSubmissionResult_testPending" = "نتيجة الاختبار غير متوفرة حتى الآن";
 
@@ -452,7 +469,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "ExposureSubmissionWarnOthers_description" = "يمكنك لاحقًا التأكد من مشاركة تطبيق Corona-Warn-App لمعرفاتك العشوائية في آخر 14 يومًا مع الآخرين. ومن خلال القيام بذلك، يمكنك تحذير الأشخاص الآخرين والمساعدة على كسر سلسلة العدوى.\n\nستظل هويتك مجهولة حيث يتم إرسال المعرفات العشوائية غير الشخصية فقط.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "بالنقر على \"قبول\"، فإنك تقبل قيام التطبيق بإرسال نتيجة اختبارك الإيجابية إلى نظام خادم التطبيق مرفوقة بالمعرفات العشوائية من آخر 14 يومًا وبالتالي يمكن إشعار مستخدمي التطبيق الآخرين الذين قاموا بتمكين ميزة تسجيل المخالطة، تلقائيًا بأنهم قد يكونون عُرضة لخطر العدوى. لا تحتوي المعرفات العشوائية المرسلة لهذا الغرض على أي معلومات من شأنها أن تسمح بأي استنتاجات حول هويتك أو شخصك.\n\nإرسال نتيجة اختبارك عبر التطبيق أمر اختياري. لن تتم معاقبتك في حالة عدم إرسال نتيجة الاختبار. ونظرًا لعدم إمكانية التتبع أو التحقق مما إذا كنت تستخدم التطبيق وكيفية استخدامه، لن يطلع أي شخص بخلافك على ما إذا كنت أرسلت المعلومات بشأن إصابتك.\n\nويمكنك سحب موافقتك في أي وقت من خلال حذف التطبيق. جدير بالذكر أن سحب موافقتك لن يؤثر على مشروعية المعالجة المنفذة على أساس الموافقة قبل السحب. كما يمكن العثور على مزيد من المعلومات في القائمة ضمن \"معلومات خصوصية البيانات\".";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "بالنقر على \"قبول\"، فإنك توافق على أن يرسل التطبيق نتيجة اختبارك الإيجابية مع أرقام تعريفك العشوائية لآخر 14 يومًا إلى نظام سيرفر التطبيق، حتى يتسنى إخطار غيرك من مستخدمي التطبيق المنشطين لخاصية تسجيل المخالطة أوتوماتيكيًا باحتمالية تعرضهم لخطر العدوى. لا تتضمن المعرفات العشوائية المتداولة أية بيانات تسمح بثغرات يمكن التعرف من خلالها على هويتك أو شخصك.\n\nنشر نتيجة اختبارك عبر التطبيق خطوة اختيارية. إذا لم تنشر نتيجة اختبارك، لن تترتب عليك أية أضرار؛ لأنه لا يمكن لأحد سواك معرفة أو مراقبة ما إذا كنت تستخدم التطبيق، وكيف تستخدمه، وما إذا كنت نشرت إصابتك بالعدوى أم لا.\n\nيمكنك إلغاء موافقتك في أي وقت عن طريق حذف التطبيق. عند إلغاء الموافقة، تظل مشروعية المعالجة بدايةً من الموافقة حتى تاريخ الإلغاء قائمةً. تجد المزيد من المعلومات تحت بند القائمة \"معلومات خصوصية البيانات\".\n";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "خصوصية البيانات";
 
@@ -552,6 +569,22 @@ You can switch on background fetching for the app at any time in the device sett
 
 "ExposureNotificationSetting_Dismiss_Action" = "إلغاء";
 
+"ExposureNotificationSetting_GeneralError_Title" = "خطأ";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_Action" = "العثور على المزيد";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.coronawarn.app/en/faq/";
+
+"ExposureNotificationSetting_AuthenticationError" = "حدث خطأ أثناء تنشيط ميزة تسجيل المخالطة. يرجى التحقق من تنشيط سجل المخالطة لمرض كوفيد-19 في إعداداتك.";
+
+"ExposureNotificationSetting_exposureNotification_Required" = "حدث خطأ أثناء تنشيط ميزة تسجيل المخالطة. يرجى التحقق من تنشيط ميزة إشعار المخالطة لمرض كوفيد-19 في إعداداتك للتطبيق.";
+
+"ExposureNotificationSetting_exposureNotification_unavailable" = "حدث خطأ أثناء تنشيط ميزة تسجيل المخالطة. يرجى التحقق من تحديد هذا التطبيق على أنه التطبيق النشط لتسجيل المخالطة لمرض كوفيد-19 في إعداداتك. لمزيد من المعلومات، تفضل بزيارة صفحة الأسئلة المتكررة لدينا.";
+
+"ExposureNotificationSetting_unknownError" = "حدث خطأ غير معروف. لمزيد من المعلومات، تفضل بزيارة صفحة الأسئلة المتكررة لدينا.";
+
+"ExposureNotificationSetting_apiMisuse" = "حدث خطأ داخلي أثناء تنشيط ميزة تسجيل المخالطة. لمزيد من المعلومات، تفضل بزيارة صفحة الأسئلة المتكررة لدينا، ثم أعد المحاولة لاحقًا.";
+
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "شعار تطبيق Corona-Warn-App";
 
@@ -575,29 +608,32 @@ You can switch on background fetching for the app at any time in the device sett
 
 "Home_Risk_Period_Disabled_Button_Title" = "يتم التحديث فقط كل %@ من الساعات";
 
-/* Home Unknown card */
 "Home_Risk_Unknown_Title" = "خطر غير معروف";
 
+"Home_Risk_Last_Activate_Item_Title" = "آخر تسجيل للمخالطة: %@";
+
+"Home_Risk_Last_Activate_Item_Unknown_Title" = "خطر غير معروف";
+
+"Home_Risk_Last_Activate_Item_Low_Title" = "خطر منخفض";
+
+"Home_Risk_Last_Activate_Item_High_Title" = "خطر أعلى";
+
+"Home_RiskCard_Update_Button" = "تحديث";
+
+/* Home Unknown card */
 "Home_RiskCard_Unknown_Item_Title" = "تعذر علينا تقدير خطر العدوى نظرًا لعدم قيامك بتشغيل تسجيل المخالطة لفترة طويلة بما فيه الكفاية.";
 
-"Home_RiskCard_Unknown_Button" = "تحديث";
+/* Home Unknown 48 card */
+"Home_RiskCard_Unknown48h_Body" = "Ihre Risiko-Berechnung wurde seit mehr als 48 Stunden nicht aktualisiert. Bitte aktualisieren Sie die Berechnung.";
 
 /* Home Inactive card */
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "تسجيل المخالطة توقف";
 
 "Home_Risk_Inactive_Outdated_Results_Title" = "تسجيل المخالطة غير ممكن";
 
-"Home_Risk_Inactive_NoCalculation_Possible_Body" = "قم بتنشيط تسجيل المخالطة لتقييم حالة الخطر لديك اليوم.";
+"Home_Risk_Inactive_NoCalculation_Possible_Body" = "قم بتنشيط تسجيل المخالطة لتقييم مستوى الخطر اليوم.";
 
 "Home_Risk_Inactive_Outdated_Results_Body" = "تعذر تحديث تسجيل المخالطة لأكثر من 24 ساعة.";
-
-"Home_Risk_Inactive_Activate_Item_Title" = "آخر تسجيل للمخالطة: %@";
-
-"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "خطر غير معروف";
-
-"Home_Risk_Inactive_Activate_Item_Low_Title" = "خطر منخفض";
-
-"Home_Risk_Inactive_Activate_Item_High_Title" = "خطر أعلى";
 
 "Home_Risk_Inactive_NoCalculation_Possible_Button" = "تنشيط تسجيل المخالطة";
 
@@ -608,19 +644,13 @@ You can switch on background fetching for the app at any time in the device sett
 
 "Home_Risk_Low_SaveDays_Item_Title" = "%@ من %@ من الأيام نشط";
 
-"Home_Risk_Low_Button" = "تحديث";
-
 /* Home High card */
 "Home_Risk_High_Title" = "خطر أعلى";
-
-"Home_Risk_High_Button" = "تحديث";
 
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "الفحص قيد التشغيل...";
 
 "Home_Risk_Status_Check_Body" = "يتم تنزيل البيانات الحالية وفحصها. قد يستغرق هذا عدة دقائق.";
-
-"Home_Risk_Status_Check_Button" = "تحديث";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "شكرًا جزيلًا!";
@@ -629,7 +659,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "Home_Thank_You_Card_Note_Title" = "يُرجى ملاحظة ما يلي:";
 
-"Home_Thank_You_Card_Phone_Item_Title" = "ستتواصل معك سلطة الصحة العامة خلال الأيام القليلة القادمة بالهاتف أو بخطاب.";
+"Home_Thank_You_Card_Phone_Item_Title" = "ستتواصل معك دائرة الصحة العامة خلال الأيام القليلة القادمة بالهاتف أو بخطاب.";
 
 "Home_Thank_You_Card_Home_Item_Title" = "أنت معدٍ. اعزل نفسك عن الأشخاص الآخرين.";
 
@@ -637,7 +667,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "Home_Thank_You_Card_14Days_Item_Title" = "فترة الحجر الصحي عادة ما تكون 14 يومًا. الرجاء ملاحظة أعراضك ومراقبة مدى تطورها.";
 
-"Home_Thank_You_Card_Contacts_Item_Title" = "ستطالبك سلطة الصحة العامة بإنشاء قائمة بالأشخاص الذين تواصلت معهم. يجب أن يتضمن ذلك كل الأشخاص الذين تواصلت معهم عن قرب (أقل من مترين، محادثة وجهًا لوجه) لمدة تزيد عن 15 دقيقة في اليومين السابقين لتطور الأعراض.";
+"Home_Thank_You_Card_Contacts_Item_Title" = "ستطالبك دائرة الصحة العامة بإنشاء قائمة بالأشخاص الذين تواصلت معهم. يجب أن يتضمن ذلك كل الأشخاص الذين تواصلت معهم عن قرب (أقل من مترين، محادثة وجهًا لوجه) لمدة تزيد عن 15 دقيقة في اليومين السابقين لتطور الأعراض.";
 
 "Home_Thank_You_Card_App_Item_Title" = "الرجاء التفكير بصفة خاصة في الأشخاص الذين لن يتم إشعارهم مباشرة من خلال التطبيق نظرًا لعدم امتلاكهم هاتف ذكي أو عدم قيامهم بتثبيت التطبيق.";
 
@@ -652,7 +682,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "Home_Finding_Positive_Card_Note_Title" = "يُرجى ملاحظة ما يلي:";
 
-"Home_Finding_Positive_Card_Phone_Item_Title" = "ستتواصل معك سلطة الصحة العامة خلال الأيام القليلة القادمة بالهاتف أو بخطاب.";
+"Home_Finding_Positive_Card_Phone_Item_Title" = "ستتواصل معك دائرة الصحة العامة خلال الأيام القليلة القادمة بالهاتف أو بخطاب.";
 
 "Home_Finding_Positive_Card_Home_Item_Title" = "أنت معدٍ. اعزل نفسك عن الأشخاص الآخرين.";
 
@@ -711,7 +741,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "App_Information_About_Title" = "لنكافح فيروس كورونا معًا";
 
-"App_Information_About_Description" = "معهد روبرت كوخ (RKI) هو هيئة مركزية ألمانية معنية بالصحة العامة في الولايات الاتحادية الألمانية. ينشر المعهد تطبيق Corona-Warn-App لصالح الحكومة الاتحادية. ويمثل التطبيق الامتداد الرقمي لإجراءات الصحة العامة المنفَّذة بالفعل: التباعد الاجتماعي والنظافة الشخصية واستخدام أقنعة الوجه.";
+"App_Information_About_Description" = "معهد روبرت كوخ (RKI) هو الهيئة الصحية الاتحادية العامة في ألمانيا. ينشر المعهد تطبيق Corona-Warn-App بالنيابة عن الحكومة الاتحادية، والتطبيق مصمم كامتداد رقمي لإجراءات الصحة العامة المنفَّذة بالفعل: التباعد الاجتماعي والنظافة الشخصية واستخدام أقنعة الوجه.";
 
 "App_Information_About_Text" = "يمكن لأي شخص يستخدم التطبيق تتبع سلسلة العدوى وكسرها. يحفظ التطبيق التجمُّعات مع الأشخاص الآخرين محليًا على جهازك. ويتم إشعارك عند تجمُّعك مع أشخاص تم تشخيصهم مؤخرًا على أنهم مصابون بمرض كوفيد-19، علمًا أن هويتك وخصوصيتك محميتان دائمًا.";
 
@@ -848,7 +878,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "RiskLegend_Legend2_Text" = "إذا تعاملت خلال آخر 14 يومًا مع شخص مصاب بمرض كوفيد-19، فسيُقدِّر التطبيق خطر العدوى لك؛ وذلك من خلال قياس مدة المخالطة ومدى اقترابك من المصاب.";
 
-"RiskLegend_Legend2_RiskLevels" = "قد تظهر لك إحدى حالات الخطر التالية:";
+"RiskLegend_Legend2_RiskLevels" = "قد يظهر لك مستوى الخطر التالي:";
 
 "RiskLegend_Legend2_High" = "خطر أعلى";
 
@@ -870,7 +900,7 @@ You can switch on background fetching for the app at any time in the device sett
 
 "RiskLegend_Store_Title" = "سجل المخالطة";
 
-"RiskLegend_Store_Text" = "قائمة بمعرفات عشوائية مؤقتة مستلَمة تُحفَظ مؤقتًا في مخزن نظام التشغيل. تتم قراءة هذه القائمة عند التحقق من المخالطات. وتُحذَف جميع المعرفات العشوائية تلقائيًا بعد 14 يومًا.";
+"RiskLegend_Store_Text" = "قائمة بمعرفات عشوائية مؤقتة مستلَمة تُحفَظ مؤقتًا في ذاكرة تخزين التشغيل. تُقرأ هذه القائمة عند التحقق من المخالطات، وتُحذَف جميع المعرفات العشوائية تلقائيًا بعد 14 يومًا.";
 
 "RiskLegend_Check_Title" = "التحقق من المخالطة";
 
