@@ -90,6 +90,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	func sceneDidBecomeActive(_: UIScene) {
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
+		(UIApplication.shared.delegate as? AppDelegate)?.executeFakeRequestOnAppLaunch()
 	}
 
 	// MARK: Helper

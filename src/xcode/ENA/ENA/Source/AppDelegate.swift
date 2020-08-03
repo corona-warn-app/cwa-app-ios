@@ -245,4 +245,15 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			store.lastBackgroundFakeRequest = now
 		}
 	}
+
+	func executeFakeRequestOnAppLaunch() {
+		// Execute a fake request 1 in 100 times while we are running in foreground.
+		guard
+			UIApplication.shared.applicationState == .active,
+			Int.random(in: 0...100) == 6
+		else { return }
+
+		let service = exposureSubmissionService ?? ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
+		service.fakeRequest()
+	}
 }
