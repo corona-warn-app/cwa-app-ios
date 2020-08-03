@@ -189,6 +189,12 @@ final class SecureStore: Store {
 		get { kvStore["userNeedsToBeInformedAboutHowRiskDetectionWorks"] as Bool? ?? true }
 		set { kvStore["userNeedsToBeInformedAboutHowRiskDetectionWorks"] = newValue }
 	}
+
+	var lastBackgroundFakeRequest: Date {
+		get { kvStore["lastBackgroundFakeRequest"] as Date? ?? Date() }
+		set { kvStore["lastBackgroundFakeRequest"] = newValue }
+	}
+
 }
 
 

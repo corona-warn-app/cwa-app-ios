@@ -168,6 +168,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			// the exposure detection check. Instead of implementing this behaviour in the completion handler,
 			// queues could be used as well. Due to time/resource constraints, we settled for this option.
 			self.executeExposureDetectionRequest(task: task) { exposureDetectionSuccess in
+				self.executeFakeRequests()
 				completion(fetchTestResultSuccess && exposureDetectionSuccess)
 			}
 		}
@@ -222,6 +223,26 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				)
 			}
 			completion(true)
+		}
+	}
+
+	// MARK: - Plausible deniability.
+
+	var minHoursToNextBackgroundExecution: Double { 4 }
+	var maxHoursToNextBackgroundExecution: Double { 12 }
+
+	/// Trigger a fake playbook to enable plausible deniability.
+	private func executeFakeRequests() {
+		let service = exposureSubmissionService ?? ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
+		guard store.isAllowedToSubmitDiagnosisKeys else { return }
+
+		// Time interval until we want to resend a fake request from the background.
+		let offset = Double.random(in: minHoursToNextBackgroundExecution...maxHoursToNextBackgroundExecution) * 60
+		let now = Date()
+
+		if store.lastBackgroundFakeRequest.addingTimeInterval(offset) > now {
+			service.fakeRequest()
+			store.lastBackgroundFakeRequest = now
 		}
 	}
 }
