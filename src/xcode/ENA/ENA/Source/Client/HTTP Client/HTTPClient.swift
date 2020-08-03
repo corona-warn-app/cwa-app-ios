@@ -485,9 +485,10 @@ private extension URLRequest {
 
 		request.httpMethod = "POST"
 
-		let encoder = JSONEncoder()
-		encoder.outputFormatting = .prettyPrinted
-		request.httpBody = try encoder.encode(["registrationToken": registrationToken])
+		// Add body padding to request.
+		let originalBody = ["registrationToken": registrationToken]
+		let paddedData = try getPaddedRequestBody(for: originalBody)
+		request.httpBody = paddedData
 
 		return request
 	}
@@ -515,9 +516,10 @@ private extension URLRequest {
 
 		request.httpMethod = "POST"
 
-		let encoder = JSONEncoder()
-		encoder.outputFormatting = .prettyPrinted
-		request.httpBody = try encoder.encode(["registrationToken": registrationToken])
+		// Add body padding to request.
+		let originalBody = ["registrationToken": registrationToken]
+		let paddedData = try getPaddedRequestBody(for: originalBody)
+		request.httpBody = paddedData
 
 		return request
 	}
@@ -546,11 +548,30 @@ private extension URLRequest {
 
 		request.httpMethod = "POST"
 
-		let encoder = JSONEncoder()
-		encoder.outputFormatting = .prettyPrinted
-		request.httpBody = try encoder.encode(["key": key, "keyType": type])
+		// Add body padding to request.
+		let originalBody = ["key": key, "keyType": type]
+		let paddedData = try getPaddedRequestBody(for: originalBody)
+		request.httpBody = paddedData
 
 		return request
+	}
+
+	// MARK: - Helper methods for adding padding to the requests.
+
+	// TODO: Move this constant somewhere else.
+	static let maxRequestPayloadSize = 1000
+
+	// TODO: Move me somewhere else.
+	// TODO: Add documentation.
+	static private func getPaddedRequestBody(for originalBody: [String: String]) throws -> Data {
+		let encoder = JSONEncoder()
+		var paddedBody = originalBody
+		paddedBody["requestPadding"] = ""
+		let paddedData = try encoder.encode(paddedBody)
+		let paddingSize = maxRequestPayloadSize - paddedData.count
+		let padding = String.getRandomString(of: paddingSize)
+		paddedBody["requestPadding"] = padding
+		return try encoder.encode(paddedBody)
 	}
 }
 
