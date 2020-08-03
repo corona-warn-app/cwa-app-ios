@@ -53,7 +53,7 @@ enum AppStrings {
 		static let close = NSLocalizedString("AccessibilityLabel_Close", comment: "")
 		static let phoneNumber = NSLocalizedString("AccessibilityLabel_PhoneNumber", comment: "")
 	}
-	
+
 	enum ExposureSubmission {
 		static let generalErrorTitle = NSLocalizedString("ExposureSubmission_GeneralErrorTitle", comment: "")
 		static let dataPrivacyTitle = NSLocalizedString("ExposureSubmission_DataPrivacyTitle", comment: "")
@@ -64,7 +64,7 @@ enum AppStrings {
 
 		static let hotlineNumber = NSLocalizedString("ExposureSubmission_Hotline_Number", comment: "")
 	}
-	
+
 	enum ExposureSubmissionTanEntry {
 		static let title = NSLocalizedString("ExposureSubmissionTanEntry_Title", comment: "")
 		static let textField = NSLocalizedString("ExposureSubmissionTanEntry_EntryField", comment: "")
@@ -304,7 +304,7 @@ enum AppStrings {
 		static let onImageDescription = NSLocalizedString("NotificationSettings_onImageDescription", comment: "")
 		static let offImageDescription = NSLocalizedString("NotificationSettings_offImageDescription", comment: "")
 	}
-	
+
 	enum Onboarding {
 		static let onboardingLetsGo = NSLocalizedString("Onboarding_LetsGo_actionText", comment: "")
 		static let onboardingContinue = NSLocalizedString("Onboarding_Continue_actionText", comment: "")
@@ -424,7 +424,6 @@ enum AppStrings {
 		static let riskCardNoDateTitle = NSLocalizedString("Home_Risk_No_Date_Title", comment: "")
 		static let riskCardIntervalUpdateTitle = NSLocalizedString("Home_Risk_Period_Update_Title", comment: "")
 		static let riskCardIntervalDisabledButtonTitle = NSLocalizedString("Home_Risk_Period_Disabled_Button_Title", comment: "")
-		static let riskCardNumberContactsItemTitle = NSLocalizedString("Home_Risk_Number_Contacts_Item_Title", comment: "")
 		static let riskCardLastContactItemTitle = NSLocalizedString("Home_Risk_Last_Contact_Item_Title", comment: "")
 
 		// Unknown Card
@@ -435,15 +434,15 @@ enum AppStrings {
 		// Low Card
 
 		static let riskCardLowTitle = NSLocalizedString("Home_Risk_Low_Title", comment: "")
+		static let riskCardLowNumberContactsItemTitle = NSLocalizedString("Home_Risk_Low_Number_Contacts_Item_Title", comment: "")
 		static let riskCardLowSaveDaysItemTitle = NSLocalizedString("Home_Risk_Low_SaveDays_Item_Title", comment: "")
 		static let riskCardLowSaveDaysItemTitle_PermanentlyActive = NSLocalizedString("Home_Risk_Low_SaveDays_Item_Title__Permanently_Active", comment: "")
-
 		static let riskCardLowButton = NSLocalizedString("Home_Risk_Low_Button", comment: "")
 
 		// High Card
 		static let riskCardHighTitle = NSLocalizedString("Home_Risk_High_Title", comment: "")
 		static let riskCardHighButton = NSLocalizedString("Home_Risk_High_Button", comment: "")
-
+		static let riskCardHighNumberContactsItemTitle = NSLocalizedString("Home_Risk_High_Number_Contacts_Item_Title", comment: "")
 		static let riskCardStatusCheckTitle = NSLocalizedString("Home_Risk_Status_Check_Title", comment: "")
 		static let riskCardStatusCheckBody = NSLocalizedString("Home_Risk_Status_Check_Body", comment: "")
 		static let riskCardStatusCheckButton = NSLocalizedString("Home_Risk_Status_Check_Button", comment: "")
@@ -497,7 +496,7 @@ enum AppStrings {
 		static let resultCardInvalidDesc = NSLocalizedString("Home_resultCard_InvalidDesc", comment: "")
 		static let resultCardLoadingErrorTitle = NSLocalizedString("Home_resultCard_LoadingErrorTitle", comment: "")
 	}
-	
+
 	enum InviteFriends {
 		static let title = NSLocalizedString("InviteFriends_Title", comment: "")
 		static let description = NSLocalizedString("InviteFriends_Description", comment: "")

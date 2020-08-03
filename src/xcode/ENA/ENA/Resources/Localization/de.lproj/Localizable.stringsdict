@@ -108,7 +108,7 @@
 			<string>%u Tage seit letzter Risiko-Begegnung</string>
 		</dict>
 	</dict>
-    <key>Home_Risk_Number_Contacts_Item_Title</key>
+    <key>Home_Risk_Low_Number_Contacts_Item_Title</key>
     <dict>
         <key>NSStringLocalizedFormatKey</key>
         <string>%#@VARIABLE@</string>
