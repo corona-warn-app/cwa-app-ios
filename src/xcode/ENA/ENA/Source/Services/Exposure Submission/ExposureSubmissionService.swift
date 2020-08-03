@@ -54,10 +54,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	private func _getTestResult(
 		_ registrationToken: String,
-		isFake: Bool = false,
 		_ completeWith: @escaping ENAExposureSubmissionService.TestResultHandler
 	) {
-		client.getTestResult(forDevice: registrationToken, isFake: isFake) { result in
+		client.getTestResult(forDevice: registrationToken, isFake: false) { result in
 
 			switch result {
 			case let .failure(error):
@@ -75,9 +74,17 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
+	private func _fakeGetTestResult(
+		_ completeWith: @escaping ENAExposureSubmissionService.TestResultHandler
+	) {
+		// Fill out bogus data.
+		client.getTestResult(forDevice: "", isFake: true) { _ in
+			completeWith(.failure(.fakeResponse))
+		}
+	}
+
 	private func _getTANForExposureSubmit(
 		hasConsent: Bool,
-		isFake: Bool = false,
 		completion completeWith: @escaping TANHandler
 	) {
 		// alert+ store consent+ clientrequest
@@ -88,12 +95,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			return
 		}
 
-		guard let token = getToken(isFake: isFake) else {
+		guard let token = getToken(isFake: false) else {
 			completeWith(.failure(.noRegistrationToken))
 			return
 		}
 
-		client.getTANForExposureSubmit(forDevice: token, isFake: isFake) { result in
+		client.getTANForExposureSubmit(forDevice: token, isFake: false) { result in
 			switch result {
 			case let .failure(error):
 				completeWith(.failure(self.parseError(error)))
@@ -104,29 +111,44 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
+	private func _fakeGetTANForExposureSubmit(completion completeWith: @escaping TANHandler) {
+		// TODO: Fill out with bogus data.
+		client.getTANForExposureSubmit(forDevice: "", isFake: true) { _ in
+			completeWith(.failure(.fakeResponse))
+		}
+	}
+
 	private func _submitExposure(
 		_ keys: [ENTemporaryExposureKey],
-		isFake: Bool = false,
 		completionHandler: @escaping ExposureSubmissionHandler
 	) {
-		self._getTANForExposureSubmit(hasConsent: true, isFake: isFake, completion: { result in
+		self._getTANForExposureSubmit(hasConsent: true, completion: { result in
 			switch result {
 			case let .failure(error):
 				completionHandler(error)
 			case let .success(tan):
-				self._submit(keys, with: tan, isFake: isFake, completion: completionHandler)
+				self._submit(keys, with: tan, completion: completionHandler)
 			}
 		})
+	}
+
+	private func _fakeSubmitExposure(
+		completionHandler: ExposureSubmissionHandler? = nil
+	) {
+		self._fakeGetTANForExposureSubmit { _ in
+			self._fakeSubmit { _ in
+				completionHandler?(.fakeResponse)
+			}
+		}
 	}
 
 	/// Helper method that is used to submit keys after a TAN was retrieved.
 	private func _submit(
 		_ keys: [ENTemporaryExposureKey],
 		with tan: String,
-		isFake: Bool = false,
 		completion: @escaping ExposureSubmissionHandler) {
 
-		self.client.submit(keys: keys, tan: tan, isFake: isFake) { error in
+		self.client.submit(keys: keys, tan: tan, isFake: false) { error in
 
 			if let error = error {
 				logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
@@ -140,28 +162,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	// MARK: - Public API for accessing the service methods needed for Exposure Submission.
-
-	/// This method gets the test result based on the registrationToken that was previously
-	/// received, either from the TAN or QR Code flow. After successful completion,
-	/// the timestamp of the last received test is updated.
-	func getTestResult(_ completeWith: @escaping TestResultHandler) {
-		/* guard let registrationToken = store.registrationToken else {
-			completeWith(.failure(.noRegistrationToken))
-			return
-		} */
-
-		// TODO: Remove this code.
-		let registrationToken = "adkljfalksdjhfalksd"
-
-		_getTestResult(registrationToken) { result in
-			completeWith(result)
-
-			// Fake request handling.
-			self._getTANForExposureSubmit(hasConsent: true, isFake: true) { _ in
-				// TODO: Use bogus keys.
-				self._submit([], with: "", isFake: true) { _ in }
-			}
+	private func _fakeSubmit(completion: @escaping ExposureSubmissionHandler) {
+		// TODO: Fill with bogus data
+		self.client.submit(keys: [], tan: "", isFake: true) { _ in
+			completion(.fakeResponse)
 		}
 	}
 
@@ -184,6 +188,34 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
+	private func _fakeGetRegistrationToken(_ completeWith: @escaping RegistrationHandler) {
+		client.getRegistrationToken(forKey: "", withType: "", isFake: true) { _ in
+			completeWith(.failure(.fakeResponse))
+		}
+	}
+
+	// MARK: - Public API for accessing the service methods needed for Exposure Submission.
+
+	/// This method gets the test result based on the registrationToken that was previously
+	/// received, either from the TAN or QR Code flow. After successful completion,
+	/// the timestamp of the last received test is updated.
+	func getTestResult(_ completeWith: @escaping TestResultHandler) {
+		/* guard let registrationToken = store.registrationToken else {
+			completeWith(.failure(.noRegistrationToken))
+			return
+		} */
+
+		// TODO: Remove this code.
+		let registrationToken = "adkljfalksdjhfalksd"
+
+		_getTestResult(registrationToken) { result in
+			completeWith(result)
+
+			// Fake requests.
+			self._fakeSubmitExposure()
+		}
+	}
+
 	/// Stores the provided key, retrieves the registration token and deletes the key.
 	func getRegistrationToken(
 		forKey deviceRegistrationKey: DeviceRegistrationKey,
@@ -194,11 +226,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		_getRegistrationToken(key, type) { result in
 			completeWith(result)
 
-			// Fake request handling.
-			self._getTANForExposureSubmit(hasConsent: true, isFake: true) { _ in
-				// TODO: Use bogus keys.
-				self._submit([], with: "", isFake: true) { _ in }
-			}
+			// Fake requests.
+			self._fakeSubmitExposure()
 		}
 	}
 
@@ -224,7 +253,18 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			}
 			keys.processedForSubmission()
 
-			self._submitExposure(keys, completionHandler: completionHandler)
+			// Request needs to be prepended by the fake request.
+			self._fakeGetRegistrationToken { _ in
+				self._submitExposure(keys, completionHandler: completionHandler)
+			}
+		}
+	}
+
+	/// TODO: Refine comment.
+	/// This method is called randomly sometimes in the foreground and from the background.
+	func fakeRequest() {
+		_fakeGetRegistrationToken { _ in
+			self._fakeSubmitExposure()
 		}
 	}
 
