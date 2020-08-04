@@ -259,9 +259,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	/// TODO: Refine comment.
 	/// This method is called randomly sometimes in the foreground and from the background.
-	func fakeRequest() {
+	func fakeRequest(completionHandler: ExposureSubmissionHandler? = nil) {
 		_fakeGetRegistrationToken { _ in
-			self._fakeSubmitExposure()
+			self._fakeSubmitExposure { _ in
+				completionHandler?(.fakeResponse)
+			}
 		}
 	}
 

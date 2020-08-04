@@ -30,12 +30,14 @@ final class DMDeveloperMenu {
 		presentingViewController: UIViewController,
 		client: Client,
 		store: Store,
-		exposureManager: ExposureManager
+		exposureManager: ExposureManager,
+		exposureSubmissionService: ExposureSubmissionService
 	) {
 		self.client = client
 		self.presentingViewController = presentingViewController
 		self.store = store
 		self.exposureManager = exposureManager
+		self.exposureSubmissionService = exposureSubmissionService
 	}
 
 	// MARK: Properties
@@ -44,6 +46,7 @@ final class DMDeveloperMenu {
 	private let client: Client
 	private let store: Store
 	private let exposureManager: ExposureManager
+	private let exposureSubmissionService: ExposureSubmissionService
 
 	// MARK: Interacting with the developer menu
 
@@ -64,7 +67,8 @@ final class DMDeveloperMenu {
 		let vc = DMViewController(
 			client: client,
 			store: store,
-			exposureManager: exposureManager
+			exposureManager: exposureManager,
+			exposureSubmissionService: exposureSubmissionService
 		)
 		let navigationController = UINavigationController(
 			rootViewController: vc

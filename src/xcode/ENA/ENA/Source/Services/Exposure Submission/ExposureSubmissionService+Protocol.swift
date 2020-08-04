@@ -37,5 +37,5 @@ protocol ExposureSubmissionService: class {
 	var devicePairingSuccessfulTimestamp: Int64? { get }
 	func preconditions() -> ExposureManagerState
 	func acceptPairing()
-	func fakeRequest()
+	func fakeRequest(completionHandler: ExposureSubmissionHandler?)
 }

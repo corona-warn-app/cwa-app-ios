@@ -23,10 +23,16 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 
 	// MARK: Creating a Configuration View Controller
 
-	init(distributionURL: String?, submissionURL: String?, verificationURL: String?) {
+	init(distributionURL: String?,
+		 submissionURL: String?,
+		 verificationURL: String?,
+		 exposureSubmissionService: ExposureSubmissionService
+	) {
 		self.distributionURL = distributionURL
 		self.submissionURL = submissionURL
 		self.verificationURL = verificationURL
+		self.exposureSubmissionService = exposureSubmissionService
+
 		super.init(style: .plain)
 		title = "⚙️ Configuration"
 	}
@@ -41,6 +47,7 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 	private let distributionURL: String?
 	private let submissionURL: String?
 	private let verificationURL: String?
+	private let exposureSubmissionService: ExposureSubmissionService
 
 	// MARK: UIViewController
 
@@ -77,6 +84,10 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 		case 3:
 			title = "Last Risk Calculation"
 			subtitle = lastRiskCalculation
+		case 4:
+			title = "Fake Request"
+			subtitle = ""
+			addSendFakeRequestButton(cell)
 		default:
 			title = nil
 			subtitle = nil
@@ -88,7 +99,7 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 	}
 
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-		4
+		5
 	}
 
 	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -123,6 +134,33 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 	@objc
 	func changeHourlyFetching(_ toggle: UISwitch) {
 		store.hourlyFetchingEnabled = toggle.isOn
+	}
+
+	// MARK: - Helper methods for adding the fake request button.
+
+	fileprivate func addSendFakeRequestButton(_ cell: UITableViewCell) {
+		let button = ENAButton(type: .roundedRect)
+		cell.contentView.addSubview(button)
+		let margin = cell.contentView.layoutMarginsGuide
+		button.translatesAutoresizingMaskIntoConstraints = false
+		button.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+		button.leadingAnchor.constraint(equalTo: cell.textLabel!.trailingAnchor, constant: 20).isActive = true
+		button.trailingAnchor.constraint(equalTo: margin.trailingAnchor).isActive = true
+		button.topAnchor.constraint(equalTo: margin.topAnchor).isActive = true
+		button.bottomAnchor.constraint(equalTo: margin.bottomAnchor).isActive = true
+		button.setTitle("Send", for: .normal)
+		button.addTarget(self, action: #selector(sendFakeRequest(_:)), for: .touchUpInside)
+	}
+
+	@objc
+	func sendFakeRequest(_ button: ENAButton) {
+		button.isLoading = true
+		exposureSubmissionService.fakeRequest { _ in
+			let alert = self.setupErrorAlert(title: "Info", message: "Fake request was sent.")
+			self.present(alert, animated: true) {
+				button.isLoading = false
+			}
+		}
 	}
 }
 

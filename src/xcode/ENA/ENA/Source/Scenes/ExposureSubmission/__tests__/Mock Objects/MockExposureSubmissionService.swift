@@ -58,8 +58,8 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 		deleteTestCallback?()
 	}
 
-	func fakeRequest() {
-		// TODO: Implement me.
+	func fakeRequest(completionHandler: ExposureSubmissionHandler?) {
+		// TODO: implement me.
 	}
 
 	var devicePairingConsentAcceptTimestamp: Int64?
