@@ -76,7 +76,7 @@
 
 "ExposureDetection_OffText" = "Aktivieren Sie die Risiko-Ermittlung, um Ihren heutigen Risikostatus zu berechnen.";
 
-"ExposureDetection_OutdatedText" = "Ihre Risiko-Ermittlung konnte seit mehr als 48 Stunden nicht aktualisiert werden.";
+"ExposureDetection_OutdatedText" = "Ihre Risiko-Berechnung wurde seit mehr als 48 Stunden nicht aktualisiert. Bitte aktualisieren Sie die Berechnung.";
 
 "ExposureDetection_UnknownText" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
 

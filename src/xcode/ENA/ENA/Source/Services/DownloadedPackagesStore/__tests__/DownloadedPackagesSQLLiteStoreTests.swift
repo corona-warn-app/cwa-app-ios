@@ -161,4 +161,97 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		try store.deleteOutdatedDays(now: "2020-06-07")
 		XCTAssertEqual(store.allDays().count, 7)
 	}
+
+	func testGettingAllPackages() {
+		store.open()
+
+		let today = String.formattedToday()
+
+		XCTAssertTrue(
+			store.allPackages(
+				for: "2020-06-07",
+				onlyHours: false
+			).isEmpty
+		)
+
+		XCTAssertTrue(
+			store.allPackages(
+				for: "2020-06-07",
+				onlyHours: true
+			).isEmpty
+		)
+
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
+
+		let package = SAPDownloadedPackage(
+			keysBin: keysBin,
+			signature: signature
+		)
+
+		// Add a single day day
+		store.set(day: today, package: package)
+
+		XCTAssertEqual(
+			store.allPackages(
+				for: today,
+				onlyHours: false
+			).count,
+			1
+		)
+
+		XCTAssertTrue(
+			store.allPackages(
+				for: today,
+				onlyHours: true
+			).isEmpty
+		)
+
+		// Add a single hour at a different date
+		store.set(hour: 12, day: today, package: package)
+		XCTAssertEqual(
+			store.allPackages(
+				for: today,
+				onlyHours: false
+			).count,
+			1
+		)
+
+		XCTAssertEqual(
+			store.allPackages(
+				for: today,
+				onlyHours: true
+			).count,
+			1
+		)
+
+		XCTAssertEqual(
+			store.allPackages(
+				for: today,
+				onlyHours: false
+			).count,
+			1
+		)
+
+		XCTAssertEqual(
+			store.allPackages(
+				for: today,
+				onlyHours: true
+			).count,
+			1
+		)
+
+		// Test that hours are capped at three in total
+		store.set(hour: 13, day: today, package: package)
+		store.set(hour: 14, day: today, package: package)
+		store.set(hour: 15, day: today, package: package)
+
+		XCTAssertEqual(
+			store.allPackages(
+				for: today,
+				onlyHours: true
+			).count,
+			3
+		)
+	}
 }
