@@ -430,6 +430,7 @@ private extension URLRequest {
 		headerValue: Int
 	) throws -> URLRequest {
 		let payload = SAP_SubmissionPayload.with {
+			$0.padding = self.getSubmissionPadding(for: keys)
 			$0.keys = keys.compactMap { $0.sapKey }
 		}
 		let payloadData = try payload.serializedData()
@@ -576,20 +577,34 @@ private extension URLRequest {
 
 	// MARK: - Helper methods for adding padding to the requests.
 
-	// TODO: Move this constant somewhere else.
-	static let maxRequestPayloadSize = 1000
+	/// This method recreates the request body with a padding that consists of a random string.
+	/// The entire request body must not be bigger than `maxRequestPayloadSize`.
+	/// Note that this method is _not_ used for the key submission step, as this needs a different handling.
+	/// Please check `getSubmissionPadding()` for this case.
+	private static func getPaddedRequestBody(for originalBody: [String: String]) throws -> Data {
+		// This is the maximum size of bytes the request body should have.
+		let maxRequestPayloadSize = 1000
 
-	// TODO: Move me somewhere else.
-	// TODO: Add documentation.
-	static private func getPaddedRequestBody(for originalBody: [String: String]) throws -> Data {
-		let encoder = JSONEncoder()
+		// Copying in order to not use inout parameters.
 		var paddedBody = originalBody
 		paddedBody["requestPadding"] = ""
-		let paddedData = try encoder.encode(paddedBody)
+		let paddedData = try JSONEncoder().encode(paddedBody)
 		let paddingSize = maxRequestPayloadSize - paddedData.count
 		let padding = String.getRandomString(of: paddingSize)
 		paddedBody["requestPadding"] = padding
-		return try encoder.encode(paddedBody)
+		return try JSONEncoder().encode(paddedBody)
+	}
+
+	/// This method recreates the request body of the submit keys request with a padding that fills up to resemble
+	/// a request with 14 +`n` keys. Note that the `n`parameter is currently set to 0, but can change in the future
+	/// when there will be support for 15 keys.
+	private static func getSubmissionPadding(for keys: [ENTemporaryExposureKey]) -> Data {
+		// This parameter denotes how many keys 14 + n have to be padded.
+		let n = 0
+		let paddedKeysAmount = 14 + n - keys.count
+		guard paddedKeysAmount > 0 else { return Data() }
+		guard let data = (String.getRandomString(of: 28 * paddedKeysAmount)).data(using: .ascii) else { return Data() }
+		return data
 	}
 }
 
