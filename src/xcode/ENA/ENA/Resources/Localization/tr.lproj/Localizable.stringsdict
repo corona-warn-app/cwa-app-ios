@@ -13,22 +13,22 @@
 			<string>u</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>COVID-19 tanısı konmuş bir kişiyle bir gün önce daha uzun süreyle ve yakın mesafede karşılaştığınız için enfeksiyon riskiniz daha yüksek.</string>
+			<string>En son bir gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 			<key>zero</key>
 			<!-- Plural form for ZERO.-->
-			<string>COVID-19 tanısı konmuş bir kişiyle %u gün önce daha uzun süreyle ve yakın mesafede karşılaştığınız için enfeksiyon riskiniz daha yüksek.</string>
+			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 			<key>few</key>
 			<!-- Plural form for FEW.-->
-			<string>COVID-19 tanısı konmuş bir kişiyle %u gün önce daha uzun süreyle ve yakın mesafede karşılaştığınız için enfeksiyon riskiniz daha yüksek.</string>
+			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 			<key>many</key>
 			<!-- Plural form for MANY.-->
-			<string>COVID-19 tanısı konmuş bir kişiyle %u gün önce daha uzun süreyle ve yakın mesafede karşılaştığınız için enfeksiyon riskiniz daha yüksek.</string>
+			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 			<key>two</key>
 			<!-- Plural form for TWO.-->
-			<string>COVID-19 tanısı konmuş bir kişiyle %u gün önce daha uzun süreyle ve yakın mesafede karşılaştığınız için enfeksiyon riskiniz daha yüksek.</string>
+			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>COVID-19 tanısı konmuş bir kişiyle %u gün önce daha uzun süreyle ve yakın mesafede karşılaştığınız için enfeksiyon riskiniz daha yüksek.</string>
+			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_Refreshed_Format</key>
@@ -136,19 +136,19 @@
             <string>Şu ana dek hiçbir maruz kalma yok</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-            <string>%u maruz kalma</string>
+            <string>%u kez düşük riskli maruz kalma</string>
             <key>few</key>
             <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-            <string>%u maruz kalma</string>
+            <string>%u kez düşük riskli maruz kalma</string>
             <key>many</key>
             <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-            <string>%u maruz kalma</string>
+            <string>%u kez düşük riskli maruz kalma</string>
             <key>two</key>
             <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-            <string>%u maruz kalma</string>
+            <string>%u kez düşük riskli maruz kalma</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-            <string>%u maruz kalma</string>
+            <string>%u kez düşük riskli maruz kalma</string>
         </dict>
     </dict>
     <key>Home_Risk_High_Number_Contacts_Item_Title</key>
@@ -162,7 +162,7 @@
             <key>NSStringFormatValueTypeKey</key>
             <string>u</string>
             <key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
             <string>Şu ana dek hiçbir maruz kalma yok</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
