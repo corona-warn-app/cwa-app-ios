@@ -28,6 +28,8 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	var isButtonHidden: Bool
 	var detectionIntervalLabelHidden: Bool
 	var lastUpdateDate: Date?
+	
+	var detectionInterval: Int
 	var timeUntilUpdate: String?
 
 	private static let lastUpdateDateFormatter: DateFormatter = {
@@ -46,6 +48,13 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		}
 	}
 
+	private var buttonTitle: String {
+		if isLoading { return AppStrings.Home.riskCardUpdateButton }
+		if isButtonEnabled { return AppStrings.Home.riskCardUpdateButton }
+		if let timeUntilUpdate = timeUntilUpdate { return String(format: AppStrings.ExposureDetection.refreshIn, timeUntilUpdate) }
+		return String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, "\(detectionInterval)")
+	}
+
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
@@ -53,13 +62,15 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		isButtonEnabled: Bool,
 		isButtonHidden: Bool,
 		detectionIntervalLabelHidden: Bool,
-		lastUpdateDate: Date?
+		lastUpdateDate: Date?,
+		detectionInterval: Int
 	) {
 		self.isLoading = isLoading
 		self.isButtonEnabled = isButtonEnabled
 		self.isButtonHidden = isButtonHidden
 		self.detectionIntervalLabelHidden = detectionIntervalLabelHidden
 		self.lastUpdateDate = lastUpdateDate
+		self.detectionInterval = detectionInterval
 	}
 
 	// MARK: Loading
@@ -111,6 +122,17 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		cell.updateButton.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.updateButton
 	}
 
+	/// Convenience method that can be overwritten to configure the button without running the full configure(_:) method.
+	/// This is handy when very frequent updates such as the update countdown are applied to the button.
+	func configureButton(for cell: RiskLevelCollectionViewCell) {
+		cell.configureUpdateButton(
+			title: buttonTitle,
+			isEnabled: isButtonEnabled,
+			isHidden: isButtonHidden,
+			accessibilityIdentifier: AccessibilityIdentifiers.Home.riskCardIntervalUpdateTitle
+		)
+	}
+
 	// MARK: Hashable
 
 	func hash(into hasher: inout Swift.Hasher) {
@@ -119,6 +141,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		hasher.combine(isButtonHidden)
 		hasher.combine(detectionIntervalLabelHidden)
 		hasher.combine(lastUpdateDate)
+		hasher.combine(detectionInterval)
 	}
 
 	static func == (lhs: HomeRiskLevelCellConfigurator, rhs: HomeRiskLevelCellConfigurator) -> Bool {
@@ -126,13 +149,8 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		lhs.isButtonEnabled == rhs.isButtonEnabled &&
 		lhs.isButtonHidden == rhs.isButtonHidden &&
 		lhs.detectionIntervalLabelHidden == rhs.detectionIntervalLabelHidden &&
-		lhs.lastUpdateDate == rhs.lastUpdateDate
-	}
-
-	/// Convenience method that can be overwritten to configure the button without running the full configure(_:) method.
-	/// This is handy when very frequent updates such as the update countdown are applied to the button.
-	func configureButton(for cell: RiskLevelCollectionViewCell) {
-		// Intentionally left blank.
+		lhs.lastUpdateDate == rhs.lastUpdateDate &&
+		lhs.detectionInterval == rhs.detectionInterval
 	}
 }
 
