@@ -13,22 +13,22 @@
 			<string>u</string>
 			<key>one</key>
 			<!--Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-			<string>Aveți un risc de infectare crescut deoarece ați avut o întâlnire cu o persoană diagnosticată cu COVID-19, pentru o perioadă mai lungă de timp și în strânsă proximitate, în urmă cu o zi.</string>
+			<string>Aveți un risc crescut de infectare deoarece ați fost expus ultima dată acum o zi pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.</string>
 			<key>zero</key>
 			<!-- Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-			<string>Aveți un risc de infectare crescut deoarece ați avut o întâlnire cu o persoană diagnosticată cu COVID-19, pentru o perioadă mai lungă de timp și în strânsă proximitate, în urmă cu %u zile.</string>
+			<string>Aveți un risc crescut de infectare deoarece ați fost expus ultima dată acum %u zile pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.</string>
 			<key>few</key>
 			<!-- Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-			<string>Aveți un risc de infectare crescut deoarece ați avut o întâlnire cu o persoană diagnosticată cu COVID-19, pentru o perioadă mai lungă de timp și în strânsă proximitate, în urmă cu %u zile.</string>
+			<string>Aveți un risc crescut de infectare deoarece ați fost expus ultima dată acum %u zile pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.</string>
 			<key>many</key>
 			<!-- Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-			<string>Aveți un risc de infectare crescut deoarece ați avut o întâlnire cu o persoană diagnosticată cu COVID-19, pentru o perioadă mai lungă de timp și în strânsă proximitate, în urmă cu %u zile.</string>
+			<string>Aveți un risc crescut de infectare deoarece ați fost expus ultima dată acum %u zile pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.</string>
 			<key>two</key>
 			<!-- Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-			<string>Aveți un risc de infectare crescut deoarece ați avut o întâlnire cu o persoană diagnosticată cu COVID-19, pentru o perioadă mai lungă de timp și în strânsă proximitate, în urmă cu %u zile.</string>
+			<string>Aveți un risc crescut de infectare deoarece ați fost expus ultima dată acum %u zile pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.</string>
 			<key>other</key>
 			<!--Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-			<string>Aveți un risc de infectare crescut deoarece ați avut o întâlnire cu o persoană diagnosticată cu COVID-19, pentru o perioadă mai lungă de timp și în strânsă proximitate, în urmă cu %u de zile.</string>
+			<string>Aveți un risc crescut de infectare deoarece ați fost expus ultima dată acum %u de zile pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_Refreshed_Format</key>

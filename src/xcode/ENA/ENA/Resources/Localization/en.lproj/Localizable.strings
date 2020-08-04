@@ -58,7 +58,7 @@
 
 "ExposureDetection_Low" = "Low Risk";
 
-"ExposureDetection_High" = "Higher Risk";
+"ExposureDetection_High" = "Increased Risk";
 
 "ExposureDetection_NumberOfDaysStored" = "%d of 14 days active";
 
@@ -632,7 +632,7 @@
 
 "Home_Risk_Last_Activate_Item_Low_Title" = "Low Risk";
 
-"Home_Risk_Last_Activate_Item_High_Title" = "Higher Risk";
+"Home_Risk_Last_Activate_Item_High_Title" = "Increased Risk";
 
 "Home_RiskCard_Update_Button" = "Update";
 
@@ -663,7 +663,7 @@
 "Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Exposure logging permanently active";
 
 /* Home High card */
-"Home_Risk_High_Title" = "Higher Risk";
+"Home_Risk_High_Title" = "Increased Risk";
 
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Check is running …";
@@ -898,7 +898,7 @@
 
 "RiskLegend_Legend2_RiskLevels" = "The following risk status can be shown:";
 
-"RiskLegend_Legend2_High" = "Higher Risk";
+"RiskLegend_Legend2_High" = "Increased Risk";
 
 "RiskLegend_Legend2_High_Color" = "Red";
 
@@ -926,7 +926,7 @@
 
 "RiskLegend_Contact_Title" = "Exposures";
 
-"RiskLegend_Contact_Text" = "Encounters over a longer duration and close proximity to people diagnosed with COVID-19.";
+"RiskLegend_Contact_Text" = "Encounters over an extended period and in close proximity to a person diagnosed with COVID-19.";
 
 "RiskLegend_Notification_Title" = "Exposure Notification";
 

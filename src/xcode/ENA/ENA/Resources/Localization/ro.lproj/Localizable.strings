@@ -58,7 +58,7 @@
 
 "ExposureDetection_Low" = "Risc redus";
 
-"ExposureDetection_High" = "Risc mai mare";
+"ExposureDetection_High" = "Risc crescut";
 
 "ExposureDetection_NumberOfDaysStored" = "%d din 14 zile activă";
 
@@ -632,7 +632,7 @@
 
 "Home_Risk_Last_Activate_Item_Low_Title" = "Risc redus";
 
-"Home_Risk_Last_Activate_Item_High_Title" = "Risc mai mare";
+"Home_Risk_Last_Activate_Item_High_Title" = "Risc crescut";
 
 "Home_RiskCard_Update_Button" = "Actualizare";
 
@@ -663,7 +663,7 @@
 "Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Înregistrarea în jurnal a expunerilor este permanent activă";
 
 /* Home High card */
-"Home_Risk_High_Title" = "Risc mai mare";
+"Home_Risk_High_Title" = "Risc crescut";
 
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Verificarea este în curs…";
@@ -898,7 +898,7 @@
 
 "RiskLegend_Legend2_RiskLevels" = "Poate fi afișată următoarea stare a riscului:";
 
-"RiskLegend_Legend2_High" = "Risc mai mare";
+"RiskLegend_Legend2_High" = "Risc crescut";
 
 "RiskLegend_Legend2_High_Color" = "Roșu";
 
@@ -926,7 +926,7 @@
 
 "RiskLegend_Contact_Title" = "Expuneri";
 
-"RiskLegend_Contact_Text" = "Întâlniri de o durată mai lungă și în strânsă proximitate cu persoane diagnosticate cu COVID-19.";
+"RiskLegend_Contact_Text" = "Întâlniri de o durată lungă și în strânsă proximitate cu o persoană diagnosticată cu COVID-19.";
 
 "RiskLegend_Notification_Title" = "Notificarea de expunere";
 

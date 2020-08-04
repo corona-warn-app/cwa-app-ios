@@ -13,22 +13,22 @@
 			<string>u</string>
 			<key>one</key>
 			<!--Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-			<string>You have a higher risk of infection because you last encountered a person diagnosed with COVID-19 for a longer period of time and in close proximity a day ago.</string>
+			<string>You have an increased risk of infection because you were last exposed a day ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
 			<key>zero</key>
 			<!-- Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-			<string>You have a higher risk of infection because you last encountered a person diagnosed with COVID-19 for a longer period of time and in close proximity %u days ago.</string>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
 			<key>few</key>
 			<!-- Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-			<string>You have a higher risk of infection because you last encountered a person diagnosed with COVID-19 for a longer period of time and in close proximity %u days ago.</string>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
 			<key>many</key>
 			<!-- Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-			<string>You have a higher risk of infection because you last encountered a person diagnosed with COVID-19 for a longer period of time and in close proximity %u days ago.</string>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
 			<key>two</key>
 			<!-- Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-			<string>You have a higher risk of infection because you last encountered a person diagnosed with COVID-19 for a longer period of time and in close proximity %u days ago.</string>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
 			<key>other</key>
 			<!--Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-			<string>You have a higher risk of infection because you last encountered a person diagnosed with COVID-19 for a longer period of time and in close proximity %u days ago.</string>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_Refreshed_Format</key>

@@ -926,7 +926,7 @@
 
 "RiskLegend_Contact_Title" = "Контакты";
 
-"RiskLegend_Contact_Text" = "Продолжительные и близкие контакты с лицами с положительным тестом на COVID-19.";
+"RiskLegend_Contact_Text" = "Продолжительные и близкие контакты с лицом, у которого диагностирован COVID-19.";
 
 "RiskLegend_Notification_Title" = "Уведомление о контакте";
 

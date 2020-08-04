@@ -13,22 +13,22 @@
 			<string>u</string>
 			<key>one</key>
 			<!--Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-			<string>COVID-19 tanısı konmuş bir kişiyle bir gün önce daha uzun süreyle ve yakın mesafede karşılaştığınız için enfeksiyon riskiniz daha yüksek.</string>
+			<string>En son bir gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 			<key>zero</key>
 			<!-- Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-			<string>COVID-19 tanısı konmuş bir kişiyle %u gün önce daha uzun süreyle ve yakın mesafede karşılaştığınız için enfeksiyon riskiniz daha yüksek.</string>
+			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 			<key>few</key>
 			<!-- Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-			<string>COVID-19 tanısı konmuş bir kişiyle %u gün önce daha uzun süreyle ve yakın mesafede karşılaştığınız için enfeksiyon riskiniz daha yüksek.</string>
+			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 			<key>many</key>
 			<!-- Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-			<string>COVID-19 tanısı konmuş bir kişiyle %u gün önce daha uzun süreyle ve yakın mesafede karşılaştığınız için enfeksiyon riskiniz daha yüksek.</string>
+			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 			<key>two</key>
 			<!-- Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-			<string>COVID-19 tanısı konmuş bir kişiyle %u gün önce daha uzun süreyle ve yakın mesafede karşılaştığınız için enfeksiyon riskiniz daha yüksek.</string>
+			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 			<key>other</key>
 			<!--Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-			<string>COVID-19 tanısı konmuş bir kişiyle %u gün önce daha uzun süreyle ve yakın mesafede karşılaştığınız için enfeksiyon riskiniz daha yüksek.</string>
+			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_Refreshed_Format</key>
