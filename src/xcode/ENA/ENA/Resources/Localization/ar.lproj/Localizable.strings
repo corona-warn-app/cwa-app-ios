@@ -118,7 +118,7 @@
 
 "ExposureDetection_Explanation_Text_Low" = "خطر العدوى لديك منخفض نظرًا لعدم تسجيل أي تجمُّع مع شخص مصاب بمرض كوفيد-19 أو تم تقييد تجمُّعك لفترة قصيرة وعلى مسافة أكبر.\n\nوبالتالي، تم تصنيف خطر العدوى على أنه منخفض.\n\nيتم تقدير خطر العدوى من بيانات تسجيل المخالطة (المدة ومدى الاقتراب) محليًا على جهازك. ولا يمكن الاطلاع على خطر العدوى من جانب أي شخص آخر أو تمريره إليه.";
 
-"ExposureDetection_Explanation_Text_High" = "خطر العدوى لديك مرتفع نظرًا لأنك خالطت شخصًا واحدًا على الأقل مصابًا بمرض كوفيد-19، منذ يومين على مدى فترة زمنية أطول ومن مسافة قريبة جدًا.\n\nوبالتالي، تم تصنيف خطر العدوى على أنه مرتفع.\nيتم تقدير خطر العدوى من بيانات تسجيل المخالطة (المدة ومدى الاقتراب) محليًا على جهازك. ولا يمكن الاطلاع على خطر العدوى من جانب أي شخص آخر أو تمريره إليه.\nعند العودة إلى المنزل، يرجى تجنب التعامل عن قرب مع أفراد أسرتك أو عائلتك.";
+"ExposureDetection_Explanation_Text_High" = "\n\nTherefore, your risk of infection has been ranked as increased.\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.\nWhen you get home, please also avoid close contact with members of your family or household.";
 
 "ExposureDetection_Button_Enable" = "تنشيط تسجيل المخالطة";
 
@@ -608,12 +608,23 @@
 
 "Home_Risk_Period_Disabled_Button_Title" = "يتم التحديث فقط كل %@ من الساعات";
 
-/* Home Unknown card */
 "Home_Risk_Unknown_Title" = "خطر غير معروف";
 
+"Home_Risk_Last_Activate_Item_Title" = "آخر تسجيل للمخالطة: %@";
+
+"Home_Risk_Last_Activate_Item_Unknown_Title" = "خطر غير معروف";
+
+"Home_Risk_Last_Activate_Item_Low_Title" = "خطر منخفض";
+
+"Home_Risk_Last_Activate_Item_High_Title" = "خطر أعلى";
+
+"Home_RiskCard_Update_Button" = "تحديث";
+
+/* Home Unknown card */
 "Home_RiskCard_Unknown_Item_Title" = "تعذر علينا تقدير خطر العدوى نظرًا لعدم قيامك بتشغيل تسجيل المخالطة لفترة طويلة بما فيه الكفاية.";
 
-"Home_RiskCard_Unknown_Button" = "تحديث";
+/* Home Unknown 48 card */
+"Home_RiskCard_Unknown48h_Body" = "Ihre Risiko-Berechnung wurde seit mehr als 48 Stunden nicht aktualisiert. Bitte aktualisieren Sie die Berechnung.";
 
 /* Home Inactive card */
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "تسجيل المخالطة توقف";
@@ -624,14 +635,6 @@
 
 "Home_Risk_Inactive_Outdated_Results_Body" = "تعذر تحديث تسجيل المخالطة لأكثر من 24 ساعة.";
 
-"Home_Risk_Inactive_Activate_Item_Title" = "آخر تسجيل للمخالطة: %@";
-
-"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "خطر غير معروف";
-
-"Home_Risk_Inactive_Activate_Item_Low_Title" = "خطر منخفض";
-
-"Home_Risk_Inactive_Activate_Item_High_Title" = "خطر أعلى";
-
 "Home_Risk_Inactive_NoCalculation_Possible_Button" = "تنشيط تسجيل المخالطة";
 
 "Home_Risk_Inactive_Outdated_Results_Button" = "تنشيط تسجيل المخالطة";
@@ -641,19 +644,13 @@
 
 "Home_Risk_Low_SaveDays_Item_Title" = "%@ من %@ من الأيام نشط";
 
-"Home_Risk_Low_Button" = "تحديث";
-
 /* Home High card */
 "Home_Risk_High_Title" = "خطر أعلى";
-
-"Home_Risk_High_Button" = "تحديث";
 
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "الفحص قيد التشغيل...";
 
 "Home_Risk_Status_Check_Body" = "يتم تنزيل البيانات الحالية وفحصها. قد يستغرق هذا عدة دقائق.";
-
-"Home_Risk_Status_Check_Button" = "تحديث";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "شكرًا جزيلًا!";

@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     macos:
-      xcode: 11.5.0
+      xcode: 11.6.0
     shell: zsh
 
     steps:
@@ -16,7 +16,7 @@ jobs:
           command: cd src/xcode && bundle exec fastlane build
   test:
     macos:
-      xcode: 11.5.0
+      xcode: 11.6.0
     shell: zsh
     steps:
       - run:
@@ -71,7 +71,7 @@ jobs:
 
   grab-screenshots:
     macos:
-      xcode: 11.5.0
+      xcode: 11.6.0
     steps:
       - checkout
       - run: cd src/xcode && bundle install
@@ -112,4 +112,4 @@ workflows:
             filters:
               branches:
                 only:
-                  - staging
+                  - /rc\/.*/

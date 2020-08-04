@@ -118,11 +118,22 @@
 
 "ExposureDetection_Explanation_Text_Low" = "Aveți un risc redus de infectare deoarece nu a fost înregistrată nicio întâlnire cu o persoană diagnosticată cu COVID-19 sau întâlnirea a fost limitată la o perioadă scurtă și la o distanță mai mare.\n\nPrin urmare, riscul dvs. de infectare a fost clasificat ca redus.\n\nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe dispozitivul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.";
 
-"ExposureDetection_Explanation_Text_High" = "Aveți un risc crescut de infectare deoarece ați fost expus ultima dată acum două zile pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.\n\nPrin urmare, riscul dvs. de infectare a fost clasificat ca fiind crescut.\nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe dispozitivul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.\nCând ajungeți acasă, evitați contactul strâns cu membrii familiei sau cu cei din gospodăria dvs.";
+"ExposureDetection_Explanation_Text_High" = "\n\nPrin urmare, riscul dvs. de infectare a fost clasificat ca fiind crescut.\nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe dispozitivul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.\nCând ajungeți acasă, evitați contactul strâns cu membrii familiei sau cu cei din gospodăria dvs.";
 
 "ExposureDetection_Button_Enable" = "Activați înregistrarea în jurnal a expunerilor";
 
 "ExposureDetection_Button_Refresh" = "Actualizare";
+
+/* Active Tracing Section */
+"ExposureDetection_ActiveTracingSection_Title" = "Perioada înregistrată";
+
+"ExposureDetection_ActiveTracingSection_Subtitle" = "Această perioadă este inclusă în calcul.";
+
+/* There are two paragraphs in this section. The first one just contains text… */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă.";
+
+/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Înregistrarea în jurnal a expunerilor acoperă ultimele %1$u zile. În această perioadă, caracteristica de înregistrare în jurnal de pe dispozitivul dvs. a fost activă timp de %2$u zile. Aplicația șterge automat înregistrările mai vechi din jurnal, întrucât acestea nu mai sunt relevante pentru prevenirea infectării.";
 
 /* Exposure Detection Errors */
 "ExposureDetectionError_Alert_Title" = "Eroare";
@@ -130,6 +141,11 @@
 "ExposureDetectionError_Alert_Action_Details" = "Detalii";
 
 "ExposureDetectionError_Alert_Message" = "A apărut o eroare în timpul înregistrării în jurnal a expunerilor.";
+
+/* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
+"How_Risk_Detection_Works_Alert_Title" = "Informații despre funcționalitatea de înregistrare în jurnal a expunerilor";
+
+"How_Risk_Detection_Works_Alert_Message" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă.\nÎnregistrarea în jurnal a expunerilor acoperă ultimele %1$u zile.\nAplicația șterge automat înregistrările mai vechi din jurnal, întrucât acestea nu mai sunt relevante pentru prevenirea infectării.\n\nPentru mai multe informații, consultați pagina noastră de întrebări frecvente.";
 
 /* Settings */
 "Settings_StatusActive" = "Pornită";
@@ -639,7 +655,9 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Risc redus";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "%@ din %@ zile activă";
+"Home_Risk_Low_SaveDays_Item_Title" = "În ultimele 14 zile, înregistrarea în jurnal a expunerilor a fost activă timp de %1$u zile.";
+
+"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Înregistrarea în jurnal a expunerilor este permanent activă";
 
 "Home_Risk_Low_Button" = "Actualizare";
 
@@ -940,4 +958,9 @@
 "ENATanInput_InvalidCharacter" = "Caracter nevalabil\n\n%@";
 
 "ENATanInput_CharacterIndex" = "Caracterul %1$u din %2$u";
+
+/* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
+"Active_Tracing_Interval_Partially_Active" = "În ultimele 14 zile, înregistrarea în jurnal a expunerilor a fost activă timp de %1$u zile.";
+
+"Active_Tracing_Interval_Permanently_Active" = "Înregistrarea în jurnal a expunerilor este permanent activă";
 

@@ -118,11 +118,22 @@
 
 "ExposureDetection_Explanation_Text_Low" = "Вашето ниво на риск от заразяване е ниско, защото нямате регистрирани контакти с лица, които впоследствие са били диагностицирани с COVID-19, или ако сте имали такива, те са били краткотрайни и от по-голямо разстояние.\n\nТова е причината да определим Вашия риск от заразяване като нисък.\n\nРискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани на вашето локално устройство. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.";
 
-"ExposureDetection_Explanation_Text_High" = "Вашето ниво на риск от заразяване е повишено, тъй като преди два дни сте имали по-продължителен контакт от близко разстояние с поне едно лице, диагностицирано с COVID-19.\n\nТова е причината да определим Вашия риск от заразяване като повишен.\nРискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани на вашето локално устройство. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.\nКогато се приберете у дома, избягвайте близките контакти с членовете на домакинството си.";
+"ExposureDetection_Explanation_Text_High" = "\n\nТова е причината да определим Вашия риск от заразяване като повишен.\nРискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани на вашето локално устройство. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.\nКогато се приберете у дома, избягвайте близките контакти с членовете на домакинството си.";
 
 "ExposureDetection_Button_Enable" = "Активиране на регистрирането на излагания на риск";
 
 "ExposureDetection_Button_Refresh" = "Актуализиране";
+
+/* Active Tracing Section */
+"ExposureDetection_ActiveTracingSection_Title" = "Период на регистриране";
+
+"ExposureDetection_ActiveTracingSection_Subtitle" = "Този период се включва в изчислението.";
+
+/* There are two paragraphs in this section. The first one just contains text… */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Вашият риск от заразяване може да се изчисли само за периодите, в които регистрирането на излагания на риск е било активно. Затова тази функция трябва да бъде активирана постоянно.";
+
+/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Регистрирането на излагания на риск покрива последните %1$u дни. За този период от време функцията е била активирана на Вашето устройство в продължение на %2$u дни. Приложението изтрива автоматично по-старите регистри, тъй като те вече не могат да служат за предотвратяване на заразяването.";
 
 /* Exposure Detection Errors */
 "ExposureDetectionError_Alert_Title" = "Грешка";
@@ -130,6 +141,11 @@
 "ExposureDetectionError_Alert_Action_Details" = "Подробна информация";
 
 "ExposureDetectionError_Alert_Message" = "Възникна грешка при регистриране на излаганията на риск.";
+
+/* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
+"How_Risk_Detection_Works_Alert_Title" = "Информация относно функционалността за регистриране на излагания на риск";
+
+"How_Risk_Detection_Works_Alert_Message" = "Вашият риск от заразяване може да бъде изчислен само за периодите, през които е било активно регистрирането на излаганията на риск. Затова тази функция трябва да бъде активна непрекъснато.\nРегистрирането на излагания на риск покрива последните %1$u дни.\nПриложението изтрива автоматично по-старите регистри, тъй като те вече не могат да служат за предотвратяване на заразяването.\n\nЗа повече информация вижте страницата „ЧЗВ“.";
 
 /* Settings */
 "Settings_StatusActive" = "Включено";
@@ -639,7 +655,9 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Нисък риск";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "%@ от %@ дни активност";
+"Home_Risk_Low_SaveDays_Item_Title" = "Регистрирането на излагания на риск беше активно през %1$u от изминалите 14 дни.";
+
+"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Няма прекъсване на регистрирането на излагания на риск";
 
 "Home_Risk_Low_Button" = "Актуализиране";
 
@@ -940,4 +958,9 @@
 "ENATanInput_InvalidCharacter" = "Невалиден символ\n\n%@";
 
 "ENATanInput_CharacterIndex" = "Символ %1$u от %2$u";
+
+/* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
+"Active_Tracing_Interval_Partially_Active" = "Регистрирането на излагания на риск беше активно през %1$u от изминалите 14 дни.";
+
+"Active_Tracing_Interval_Permanently_Active" = "Няма прекъсване на регистрирането на излагания на риск";
 

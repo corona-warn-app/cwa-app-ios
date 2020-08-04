@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,25 +15,14 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
-import Foundation
+#import <Foundation/Foundation.h>
 
-extension URLSession {
-	class func coronaWarnSession() -> URLSession {
-		#if DISABLE_CERTIFICATE_PINNING
-		//Disable certificate pinning while app is running on:
-		//Community, Debug, TestFlight, UITesting modes
-		let coronaWarnURLSessionDelegate: CoronaWarnURLSessionDelegate? = nil
-		#else
-		let coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate(
-			localPublicKey: "c3jf+L8VIAFQnJJDM6Mfb4MtI1JnhVS8JwZHMwJj28M="
-		)
-		#endif
-		return URLSession(
-			configuration: .coronaWarnSessionConfiguration(),
-			delegate: coronaWarnURLSessionDelegate,
-			delegateQueue: .main
-		)
-		
-	}
-}
+//! Project version number for CWASQLite.
+FOUNDATION_EXPORT double CWASQLiteVersionNumber;
+
+//! Project version string for CWASQLite.
+FOUNDATION_EXPORT const unsigned char CWASQLiteVersionString[];
+
+#import <CWASQLite/sqlite3.h>

@@ -29,10 +29,12 @@ final class HomeInteractor: RequiresAppDependencies {
 
 	init(
 		homeViewController: HomeViewController,
-		state: State
+		state: State,
+		exposureSubmissionService: ExposureSubmissionService
 	) {
 		self.homeViewController = homeViewController
 		self.state = state
+		self.exposureSubmissionService = exposureSubmissionService
 		observeRisk()
 	}
 
@@ -46,13 +48,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	}
 
 	private unowned var homeViewController: HomeViewController
-	lazy var exposureSubmissionService: ExposureSubmissionService = {
-		ExposureSubmissionServiceFactory.create(
-			diagnosiskeyRetrieval: self.exposureManager,
-			client: self.client,
-			store: self.store
-		)
-	}()
+	private let exposureSubmissionService: ExposureSubmissionService
 	var enStateHandler: ENStateHandler?
 
 	private var detectionMode: DetectionMode { state.detectionMode }
@@ -216,11 +212,13 @@ extension HomeInteractor {
 			)
 			inactiveConfigurator?.activeAction = inActiveCellActionHandler
 		case .unknownOutdated:
-			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
-				inactiveType: .outdatedResults,
-				previousRiskLevel: store.previousRiskLevel,
-				lastUpdateDate: dateLastExposureDetection
-			)
+			riskLevelConfigurator = HomeUnknown48hRiskCellConfigurator(
+				isLoading: isRequestRiskRunning,
+				lastUpdateDate: dateLastExposureDetection,
+				detectionInterval: detectionInterval,
+				detectionMode: detectionMode,
+				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
+				previousRiskLevel: store.previousRiskLevel)
 			inactiveConfigurator?.activeAction = inActiveCellActionHandler
 		case .low:
 			let activeTracing = risk?.details.activeTracing ?? .init(interval: 0)
@@ -242,7 +240,7 @@ extension HomeInteractor {
 				lastUpdateDate: dateLastExposureDetection,
 				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
 				detectionMode: detectionMode,
-				validityDuration: detectionInterval
+				detectionInterval: detectionInterval
 			)
 		case .none:
 			riskLevelConfigurator = nil
