@@ -478,6 +478,12 @@ private extension URLRequest {
 			forHTTPHeaderField: "cwa-fake"
 		)
 
+		// Add header padding.
+		request.setValue(
+			String.getRandomString(of: 7),
+			forHTTPHeaderField: "cwa-header-padding"
+		)
+
 		request.setValue(
 			"application/x-protobuf",
 			forHTTPHeaderField: "Content-Type"
@@ -507,6 +513,12 @@ private extension URLRequest {
 			// Any other value indicates that this request shall be
 			// handled as a fake request." ,
 			forHTTPHeaderField: "cwa-fake"
+		)
+
+		// Add header padding.
+		request.setValue(
+			String.getRandomString(of: 14),
+			forHTTPHeaderField: "cwa-header-padding"
 		)
 
 		request.setValue(
@@ -539,6 +551,12 @@ private extension URLRequest {
 			// Any other value indicates that this request shall be
 			// handled as a fake request." ,
 			forHTTPHeaderField: "cwa-fake"
+		)
+
+		// Add header padding.
+		request.setValue(
+			"",
+			forHTTPHeaderField: "cwa-header-padding"
 		)
 
 		request.setValue(
