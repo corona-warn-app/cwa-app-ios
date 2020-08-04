@@ -45,6 +45,7 @@
 		2F80CFD9247ED988000F06AF /* ExposureSubmissionIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */; };
 		2F80CFDB247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */; };
 		2F96739B24AB70FA008E3147 /* ExposureSubmissionParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F96739A24AB70FA008E3147 /* ExposureSubmissionParsable.swift */; };
+		2FA968CE24D8560B008EE367 /* String+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA968CD24D8560B008EE367 /* String+Random.swift */; };
 		2FA9E39324D2F2920030561C /* ExposureSubmission+TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA9E39224D2F2920030561C /* ExposureSubmission+TestResult.swift */; };
 		2FA9E39524D2F2B00030561C /* ExposureSubmission+DeviceRegistrationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA9E39424D2F2B00030561C /* ExposureSubmission+DeviceRegistrationKey.swift */; };
 		2FA9E39724D2F3C70030561C /* ExposureSubmissionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA9E39624D2F3C60030561C /* ExposureSubmissionError.swift */; };
@@ -465,6 +466,7 @@
 		2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionIntroViewController.swift; sourceTree = "<group>"; };
 		2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionHotlineViewController.swift; sourceTree = "<group>"; };
 		2F96739A24AB70FA008E3147 /* ExposureSubmissionParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionParsable.swift; sourceTree = "<group>"; };
+		2FA968CD24D8560B008EE367 /* String+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
 		2FA9E39224D2F2920030561C /* ExposureSubmission+TestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExposureSubmission+TestResult.swift"; sourceTree = "<group>"; };
 		2FA9E39424D2F2B00030561C /* ExposureSubmission+DeviceRegistrationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExposureSubmission+DeviceRegistrationKey.swift"; sourceTree = "<group>"; };
 		2FA9E39624D2F3C60030561C /* ExposureSubmissionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionError.swift; sourceTree = "<group>"; };
@@ -1215,6 +1217,7 @@
 				A1BABD0A24A57BA0000ED515 /* ENTemporaryExposureKey+Processing.swift */,
 				2F96739A24AB70FA008E3147 /* ExposureSubmissionParsable.swift */,
 				2FC0357024B5B70700E234AC /* Error+FAQUrl.swift */,
+				2FA968CD24D8560B008EE367 /* String+Random.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2585,6 +2588,7 @@
 				B1BD9E7E24898A2300BD3930 /* ExposureDetectionViewController+DynamicTableViewModel.swift in Sources */,
 				0159E6C1247829BA00894A89 /* temporary_exposure_key_export.pb.swift in Sources */,
 				71FE1C80247AC2B500851FEB /* ExposureSubmissionNavigationController.swift in Sources */,
+				2FA968CE24D8560B008EE367 /* String+Random.swift in Sources */,
 				CD99A3C7246155C300BF12AF /* Logger.swift in Sources */,
 				2F96739B24AB70FA008E3147 /* ExposureSubmissionParsable.swift in Sources */,
 				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
