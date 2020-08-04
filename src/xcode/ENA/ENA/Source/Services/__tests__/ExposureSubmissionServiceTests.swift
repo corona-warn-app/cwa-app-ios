@@ -19,6 +19,7 @@
 import ExposureNotification
 import XCTest
 
+// swiftlint:disable:next type_body_length
 class ExposureSubmissionServiceTests: XCTestCase {
 	let expectationsTimeout: TimeInterval = 2
 	let keys = [ENTemporaryExposureKey()]
@@ -235,10 +236,12 @@ class ExposureSubmissionServiceTests: XCTestCase {
 	// MARK: Plausible deniability tests.
 
 	func test_getTestResultPlaybook() {
-		// Track the execution order.
+
+		// Counter to track the execution order.
 		var count = 0
-		let expectation = self.expectation(description: "execute all requests")
-		expectation.expectedFulfillmentCount = 3
+
+		let expectation = self.expectation(description: "execute all callbacks")
+		expectation.expectedFulfillmentCount = 4
 
 		// Initialize.
 
@@ -261,6 +264,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			XCTAssert(isFake)
 			XCTAssertEqual(count, 1)
 			count += 1
+			completion(.failure(.fakeResponse))
 		}
 
 		client.onSubmit = { _, _, isFake, completion in
@@ -268,12 +272,166 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			XCTAssert(isFake)
 			XCTAssertEqual(count, 2)
 			count += 1
+			completion(nil)
 		}
+
+		// Run test.
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
 		service.getTestResult { _ in
 			expectation.fulfill()
 		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_getRegistrationTokenPlaybook() {
+
+		// Counter to track the execution order.
+		var count = 0
+
+		let expectation = self.expectation(description: "execute all callbacks")
+		expectation.expectedFulfillmentCount = 4
+
+		// Initialize.
+
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let store = MockTestStore()
+		let client = ClientMock()
+
+		client.onGetRegistrationToken = { _, _, isFake, completion in
+			expectation.fulfill()
+			XCTAssertFalse(isFake)
+			XCTAssertEqual(count, 0)
+			count += 1
+			let registrationToken = "dummyRegToken"
+			completion(.success(registrationToken))
+		}
+
+		client.onGetTANForExposureSubmit = { _, isFake, completion in
+			expectation.fulfill()
+			XCTAssert(isFake)
+			XCTAssertEqual(count, 1)
+			count += 1
+			completion(.failure(.fakeResponse))
+		}
+
+		client.onSubmit = { _, _, isFake, completion in
+			expectation.fulfill()
+			XCTAssert(isFake)
+			XCTAssertEqual(count, 2)
+			count += 1
+			completion(nil)
+		}
+
+		// Run test.
+
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+		service.getRegistrationToken(forKey: .guid("test-key")) { _ in
+			expectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_submitExposurePlaybook() {
+		// Counter to track the execution order.
+		var count = 0
+
+		let expectation = self.expectation(description: "execute all callbacks")
+		expectation.expectedFulfillmentCount = 4
+
+		// Initialize.
+
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let store = MockTestStore()
+		store.registrationToken = "dummyRegToken"
+		let client = ClientMock()
+
+		client.onGetRegistrationToken = { _, _, isFake, completion in
+			expectation.fulfill()
+			XCTAssert(isFake)
+			XCTAssertEqual(count, 0)
+			count += 1
+			completion(.failure(.fakeResponse))
+		}
+
+		client.onGetTANForExposureSubmit = { _, isFake, completion in
+			expectation.fulfill()
+			XCTAssertFalse(isFake)
+			XCTAssertEqual(count, 1)
+			count += 1
+			completion(.success("dummyTan"))
+		}
+
+		client.onSubmit = { _, _, isFake, completion in
+			expectation.fulfill()
+			XCTAssertFalse(isFake)
+			XCTAssertEqual(count, 2)
+			count += 1
+			completion(nil)
+		}
+
+		// Run test.
+
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+		service.submitExposure { error in
+			expectation.fulfill()
+			XCTAssertNil(error)
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_fakeRequest() {
+		// Counter to track the execution order.
+		var count = 0
+
+		let expectation = self.expectation(description: "execute all callbacks")
+		expectation.expectedFulfillmentCount = 3
+
+		// Initialize.
+
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let store = MockTestStore()
+		let client = ClientMock()
+
+		client.onGetRegistrationToken = { _, _, isFake, completion in
+			expectation.fulfill()
+			XCTAssert(isFake)
+			XCTAssertEqual(count, 0)
+			count += 1
+			completion(.failure(.fakeResponse))
+		}
+
+		client.onGetRegistrationToken = { _, _, isFake, completion in
+			expectation.fulfill()
+			XCTAssert(isFake)
+			XCTAssertEqual(count, 0)
+			count += 1
+			completion(.failure(.fakeResponse))
+		}
+
+		client.onGetTANForExposureSubmit = { _, isFake, completion in
+			expectation.fulfill()
+			XCTAssert(isFake)
+			XCTAssertEqual(count, 1)
+			count += 1
+			completion(.failure(.fakeResponse))
+		}
+
+		client.onSubmit = { _, _, isFake, completion in
+			expectation.fulfill()
+			XCTAssert(isFake)
+			XCTAssertEqual(count, 2)
+			count += 1
+			completion(nil)
+		}
+
+		// Run test.
+
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+		service.fakeRequest()
 
 		waitForExpectations(timeout: .short)
 	}
