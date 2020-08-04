@@ -230,17 +230,31 @@ extension AppDelegate: ENATaskExecutionDelegate {
 
 	var minHoursToNextBackgroundExecution: Double { 4 }
 	var maxHoursToNextBackgroundExecution: Double { 12 }
+	var numberOfDaysToRunPlaybook: Double { 16 }
+	var minNumberOfSequentialPlaybooks: Int { 1 }
+	var maxNumberOfSequentialPlaybooks: Int { 2 }
+	var minDelayBetweenSequentialPlaybooks: TimeInterval { 5 }
+	var maxDelayBetweenSequentialPlaybooks: TimeInterval { 20 }
 
 	/// Trigger a fake playbook to enable plausible deniability.
 	private func executeFakeRequests() {
 		let service = exposureSubmissionService ?? ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 		guard store.isAllowedToSubmitDiagnosisKeys else { return }
 
+		// Initialize firstPlaybookExecution date during the first run regardless of actual execution.
+		if store.firstPlaybookExecution == nil {
+			store.firstPlaybookExecution = Date()
+		}
+
 		// Time interval until we want to resend a fake request from the background.
 		let offset = Double.random(in: minHoursToNextBackgroundExecution...maxHoursToNextBackgroundExecution) * 60
 		let now = Date()
 
-		if store.lastBackgroundFakeRequest.addingTimeInterval(offset) > now {
+		if
+			let firstPlaybookExecution = store.firstPlaybookExecution,
+			firstPlaybookExecution.addingTimeInterval(numberOfDaysToRunPlaybook * 86_400) > now,
+			store.lastBackgroundFakeRequest.addingTimeInterval(offset) > now
+		{
 			service.fakeRequest()
 			store.lastBackgroundFakeRequest = now
 		}
