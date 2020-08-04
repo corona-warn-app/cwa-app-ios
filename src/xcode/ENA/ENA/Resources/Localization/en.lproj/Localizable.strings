@@ -118,7 +118,7 @@
 
 "ExposureDetection_Explanation_Text_Low" = "You have a low risk of infection since no encounter with a person diagnosed with COVID-19 has been logged, or your encounter was restricted to a short time and at a greater distance.\n\nTherefore, your risk of infection has been ranked as low.\n\nThe risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.";
 
-"ExposureDetection_Explanation_Text_High" = "\n\nTherefore, your risk of infection has been ranked as increased.\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.\nWhen you get home, please also avoid close contact with members of your family or household.";
+"ExposureDetection_Explanation_Text_High" = "Therefore, your risk of infection has been ranked as increased.\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.\nWhen you get home, please also avoid close contact with members of your family or household.";
 
 "ExposureDetection_Button_Enable" = "Activate Exposure Logging";
 
@@ -624,12 +624,23 @@
 
 "Home_Risk_Period_Disabled_Button_Title" = "Updated only every %@\U00A0hours";
 
-/* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Unknown Risk";
 
+"Home_Risk_Last_Activate_Item_Title" = "Last exposure logging: %@";
+
+"Home_Risk_Last_Activate_Item_Unknown_Title" = "Unknown Risk";
+
+"Home_Risk_Last_Activate_Item_Low_Title" = "Low Risk";
+
+"Home_Risk_Last_Activate_Item_High_Title" = "Higher Risk";
+
+"Home_RiskCard_Update_Button" = "Update";
+
+/* Home Unknown card */
 "Home_RiskCard_Unknown_Item_Title" = "Since you have not had exposure logging turned on for long enough, we cannot calculate your risk of infection.";
 
-"Home_RiskCard_Unknown_Button" = "Update";
+/* Home Unknown 48 card */
+"Home_RiskCard_Unknown48h_Body" = "Ihre Risiko-Berechnung wurde seit mehr als 48 Stunden nicht aktualisiert. Bitte aktualisieren Sie die Berechnung.";
 
 /* Home Inactive card */
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "Exposure logging stopped";
@@ -639,14 +650,6 @@
 "Home_Risk_Inactive_NoCalculation_Possible_Body" = "Activate exposure logging to evaluate your risk status today.";
 
 "Home_Risk_Inactive_Outdated_Results_Body" = "Your exposure logging could not be updated for more than 24 hours.";
-
-"Home_Risk_Inactive_Activate_Item_Title" = "Last exposure logging: %@";
-
-"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Unknown Risk";
-
-"Home_Risk_Inactive_Activate_Item_Low_Title" = "Low Risk";
-
-"Home_Risk_Inactive_Activate_Item_High_Title" = "Higher Risk";
 
 "Home_Risk_Inactive_NoCalculation_Possible_Button" = "Activate Exposure Logging";
 
@@ -659,19 +662,13 @@
 
 "Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Exposure logging permanently active";
 
-"Home_Risk_Low_Button" = "Update";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Higher Risk";
-
-"Home_Risk_High_Button" = "Update";
 
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Check is running …";
 
 "Home_Risk_Status_Check_Body" = "Current data is being downloaded and checked. This can take several minutes.";
-
-"Home_Risk_Status_Check_Button" = "Update";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Thank you!";
@@ -841,7 +838,7 @@
 
 "InviteFriends_ShareTitle" = "Fighting coronavirus together. I'm in on this, you too?";
 
-"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
+"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-englisch";
 
 "InviteFriends_Illustration_Label" = "A man shares the Corona-Warn-App with four other persons.";
 
@@ -960,7 +957,7 @@
 "ENATanInput_CharacterIndex" = "Character %1$u of %2$u";
 
 /* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
-"Active_Tracing_Interval_Partially_Active" = "Exposure logging was active for %1$u of the past %2$u days.";
+"Active_Tracing_Interval_Partially_Active" = "Exposure logging was active for %1$u of the past 14 days.";
 
 "Active_Tracing_Interval_Permanently_Active" = "Exposure logging permanently active";
 

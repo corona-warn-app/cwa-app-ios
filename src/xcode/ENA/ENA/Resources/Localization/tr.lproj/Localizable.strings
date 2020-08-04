@@ -624,12 +624,24 @@
 
 "Home_Risk_Period_Disabled_Button_Title" = "Yalnızca %@\U00A0hours aralıkla güncellenir";
 
-/* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Bilinmeyen Risk";
 
+"Home_Risk_Last_Activate_Item_Title" = "Son maruz kalma günlüğü: %@";
+
+"Home_Risk_Last_Activate_Item_Unknown_Title" = "Bilinmeyen Risk";
+
+"Home_Risk_Last_Activate_Item_Low_Title" = "Düşük Risk";
+
+"Home_Risk_Last_Activate_Item_High_Title" = "Daha Yüksek Risk";
+
+"Home_RiskCard_Update_Button" = "Güncelle";
+
+/* Home Unknown card */
+"Home_RiskCard_Unknown_Item_Title" = "Maruz kalma günlüğünün uzun süredir açık olmadığı için enfeksiyon riskinizi hesaplayamıyoruz.";
 "Home_RiskCard_Unknown_Item_Title" = "Maruz kalma günlüğü uzun süredir açık olmadığı için enfeksiyon riskinizi hesaplayamıyoruz.";
 
-"Home_RiskCard_Unknown_Button" = "Güncelle";
+/* Home Unknown 48 card */
+"Home_RiskCard_Unknown48h_Body" = "Ihre Risiko-Berechnung wurde seit mehr als 48 Stunden nicht aktualisiert. Bitte aktualisieren Sie die Berechnung.";
 
 /* Home Inactive card */
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "Maruz kalma günlüğü durduruldu";
@@ -639,14 +651,6 @@
 "Home_Risk_Inactive_NoCalculation_Possible_Body" = "Bugünkü risk durumunuzu değerlendirmek için maruz kalma günlüğünü etkinleştirin.";
 
 "Home_Risk_Inactive_Outdated_Results_Body" = "Maruz kalma günlüğünüz 24 saatten uzun süre için güncellenemedi.";
-
-"Home_Risk_Inactive_Activate_Item_Title" = "Son maruz kalma günlüğü: %@";
-
-"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Bilinmeyen Risk";
-
-"Home_Risk_Inactive_Activate_Item_Low_Title" = "Düşük Risk";
-
-"Home_Risk_Inactive_Activate_Item_High_Title" = "Daha Yüksek Risk";
 
 "Home_Risk_Inactive_NoCalculation_Possible_Button" = "Maruz Kalma Günlüğünü Etkinleştir";
 
@@ -659,19 +663,13 @@
 
 "Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Maruz kalma günlüğü sürekli etkin";
 
-"Home_Risk_Low_Button" = "Güncelle";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Daha Yüksek Risk";
-
-"Home_Risk_High_Button" = "Güncelle";
 
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Kontrol devam ediyor …";
 
 "Home_Risk_Status_Check_Body" = "Güncel veriler indiriliyor ve kaydediliyor. Bu işlem birkaç dakika sürebilir.";
-
-"Home_Risk_Status_Check_Button" = "Güncelle";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Teşekkür ederiz!";

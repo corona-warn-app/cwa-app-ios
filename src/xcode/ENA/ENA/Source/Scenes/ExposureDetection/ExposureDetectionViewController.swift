@@ -171,7 +171,7 @@ extension ExposureDetectionViewController {
 	}
 
 	private func updateCloseButton() {
-		if state.isTracingEnabled && state.riskLevel != .unknownOutdated && state.riskLevel != .inactive {
+		if state.isTracingEnabled && state.riskLevel != .inactive {
 			closeButton.setImage(UIImage(named: "Icons - Close - Contrast"), for: .normal)
 			closeButton.setImage(UIImage(named: "Icons - Close - Tap - Contrast"), for: .highlighted)
 		} else {
@@ -181,9 +181,9 @@ extension ExposureDetectionViewController {
 	}
 
 	private func updateHeader() {
-		headerView.backgroundColor = state.riskTintColor
+		headerView.backgroundColor = state.riskBackgroundColor
 		titleLabel.text = state.riskText
-		titleLabel.textColor = state.riskContrastColor
+		titleLabel.textColor = state.riskContrastTextColor
 	}
 
 	private func updateTableView() {
@@ -201,8 +201,11 @@ extension ExposureDetectionViewController {
 			checkButton.setTitle(AppStrings.ExposureDetection.buttonEnable, for: .normal)
 			return
 		}
-		
-		switch state.detectionMode {
+
+		var mode = state.detectionMode
+		if .unknownOutdated == state.risk?.level { mode = .manual }
+
+		switch mode {
 
 		// Automatic mode does not requred additional logic, this is often the default configuration.
 		case .automatic:

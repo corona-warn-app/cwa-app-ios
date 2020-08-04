@@ -17,27 +17,17 @@
 // under the License.
 //
 
-import Foundation
-import UIKit
+import XCTest
+@testable import ENA
 
-enum DetectionMode {
-	case automatic
-	case manual
+final class DetectionModeTests: XCTestCase {
+    func testThatDefaultModeIsManual() {
+		XCTAssertEqual(DetectionMode.default, .manual)
+    }
 
-	static let `default` = DetectionMode.manual
-}
-
-extension DetectionMode {
-	static func fromBackgroundStatus(
-		_ backgroundStatus: UIBackgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
-	) -> DetectionMode {
-		switch backgroundStatus {
-		case .restricted, .denied:
-			return .manual
-		case .available:
-			return .automatic
-		default:
-			return .manual
-		}
+	func testThatDetectionModeCanBeCreatedFromTheBackgroundRefreshStatus() {
+		XCTAssertEqual(DetectionMode.fromBackgroundStatus(.available), .automatic)
+		XCTAssertEqual(DetectionMode.fromBackgroundStatus(.denied), .manual)
+		XCTAssertEqual(DetectionMode.fromBackgroundStatus(.restricted), .manual)
 	}
 }

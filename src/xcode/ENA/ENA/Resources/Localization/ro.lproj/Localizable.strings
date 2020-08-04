@@ -664,8 +664,6 @@
 /* Home High card */
 "Home_Risk_High_Title" = "Risc mai mare";
 
-"Home_Risk_High_Button" = "Actualizare";
-
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Verificarea este în curs…";
 
