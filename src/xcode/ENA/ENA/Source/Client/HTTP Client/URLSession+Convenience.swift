@@ -47,7 +47,7 @@ extension URLSession {
 	// - if there is either no HTTP body and/or HTTPURLResponse it aborts
 	func response(
 		for request: URLRequest,
-		isFake: Bool,
+		isFake: Bool = false,
 		completion: @escaping Completion
 	) {
 		dataTask(with: request) { data, response, error in

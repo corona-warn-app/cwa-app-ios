@@ -200,13 +200,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// received, either from the TAN or QR Code flow. After successful completion,
 	/// the timestamp of the last received test is updated.
 	func getTestResult(_ completeWith: @escaping TestResultHandler) {
-		/* guard let registrationToken = store.registrationToken else {
+		guard let registrationToken = store.registrationToken else {
 			completeWith(.failure(.noRegistrationToken))
 			return
-		} */
-
-		// TODO: Remove this code.
-		let registrationToken = "adkljfalksdjhfalksd"
+		}
 
 		_getTestResult(registrationToken) { result in
 			completeWith(result)
