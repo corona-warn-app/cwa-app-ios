@@ -233,12 +233,11 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	var numberOfDaysToRunPlaybook: Double { 16 }
 	var minNumberOfSequentialPlaybooks: Int { 1 }
 	var maxNumberOfSequentialPlaybooks: Int { 2 }
-	var minDelayBetweenSequentialPlaybooks: TimeInterval { 5 }
-	var maxDelayBetweenSequentialPlaybooks: TimeInterval { 20 }
+	var minDelayBetweenSequentialPlaybooks: Int { 5 } // seconds
+	var maxDelayBetweenSequentialPlaybooks: Int { 20 } // seconds
 
 	/// Trigger a fake playbook to enable plausible deniability.
 	private func executeFakeRequests() {
-		let service = exposureSubmissionService ?? ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 		guard store.isAllowedToSubmitDiagnosisKeys else { return }
 
 		// Initialize firstPlaybookExecution date during the first run regardless of actual execution.
@@ -255,7 +254,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			firstPlaybookExecution.addingTimeInterval(numberOfDaysToRunPlaybook * 86_400) > now,
 			store.lastBackgroundFakeRequest.addingTimeInterval(offset) > now
 		{
-			service.fakeRequest()
+			sendFakeRequest()
 			store.lastBackgroundFakeRequest = now
 		}
 	}
@@ -267,7 +266,18 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			Int.random(in: 0...100) == 6
 		else { return }
 
+		sendFakeRequest()
+	}
+
+	/// Triggers one or more fake requests over a time interval of multiple seconds.
+	private func sendFakeRequest() {
 		let service = exposureSubmissionService ?? ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
-		service.fakeRequest()
+
+		for i in 0..<Int.random(in: minNumberOfSequentialPlaybooks...maxNumberOfSequentialPlaybooks) {
+			let delay = Int.random(in: minDelayBetweenSequentialPlaybooks...maxDelayBetweenSequentialPlaybooks)
+			DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(i * delay)) {
+				service.fakeRequest()
+			}
+		}
 	}
 }
