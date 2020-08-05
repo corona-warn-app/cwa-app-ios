@@ -60,7 +60,7 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 	}
 
 	deinit {
-		riskProvider.removeRisk(consumer)
+		riskProvider.removeRiskConsumer(consumer)
 	}
 }
 

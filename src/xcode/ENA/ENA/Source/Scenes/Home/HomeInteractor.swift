@@ -66,7 +66,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	private let riskConsumer = RiskConsumer()
 
 	deinit {
-		riskProvider.removeRisk(riskConsumer)
+		riskProvider.removeRiskConsumer(riskConsumer)
 	}
 
 	private func updateActiveCell() {
