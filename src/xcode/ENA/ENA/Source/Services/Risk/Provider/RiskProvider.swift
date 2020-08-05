@@ -117,7 +117,11 @@ extension RiskProvider: RiskProviding {
 			lastExposureDetectionDate: store.summary?.date)
 	}
 
+
+
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
+	/// - Parameter userInitiated: If true, it's called by user, if false, called by task scheduler
+	/// - Parameter completion: It is an optional value, if it is set to nil, the attachted RiskConsumers will be notified once the risk calculation is done.
 	func requestRisk(userInitiated: Bool, completion: Completion? = nil) {
 		queue.async {
 			self._requestRiskLevel(userInitiated: userInitiated, completion: completion)
@@ -240,7 +244,6 @@ extension RiskProvider: RiskProviding {
 		// fetching the configuration from the backend.
 		// However in some precondition cases we can return early, mainly:
 		// 1. The exposureManagerState is bad (turned off, not authorized, etc.)
-		// 2. Tracing has not been active for at least 24 hours
 		guard exposureManagerState.isGood else {
 			completeOnTargetQueue(
 				risk: Risk(
@@ -252,6 +255,7 @@ extension RiskProvider: RiskProviding {
 			return
 		}
 
+		// 2. Tracing has not been active for at least 24 hours
 		guard numberOfEnabledHours >= TracingStatusHistory.minimumActiveHours else {
 			completeOnTargetQueue(
 				risk: Risk(
