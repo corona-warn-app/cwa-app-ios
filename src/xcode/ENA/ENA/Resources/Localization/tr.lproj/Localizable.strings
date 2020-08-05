@@ -76,7 +76,7 @@
 
 "ExposureDetection_OffText" = "Bugünkü risk durumunuzu değerlendirmek için maruz kalma günlüğünü etkinleştirin.";
 
-"ExposureDetection_OutdatedText" = "Maruz kalma günlüğünüz 48 saatten uzun süre için güncellenemedi.";
+"ExposureDetection_OutdatedText" = "Maruz kalma günlüğü 48 saatten uzun süredir güncellenmedi. Lütfen hesaplamayı güncelleyin.";
 
 "ExposureDetection_UnknownText" = "Maruz kalma günlüğünü uzun süredir etkinleştirmediğiniz için enfeksiyon riskinizi hesaplayamıyoruz.";
 
@@ -92,7 +92,7 @@
 
 "ExposureDetection_Guide_Distance" = "Diğer insanlarla aranızda en az 1,5 metre mesafeyi koruyun.";
 
-"ExposureDetection_Guide_Sneeze" = "Öksürürken ya da hapşırırken dirseğinizin iç kısmına dönün veya bir mendil kullanın. ";
+"ExposureDetection_Guide_Sneeze" = "Öksürürken ya da hapşırırken dirseğinizin iç kısmına dönün veya bir mendil kullanın.";
 
 "ExposureDetection_Guide_Home" = "Mümkünse lütfen eve gidin ve evde kalın.";
 
@@ -118,7 +118,7 @@
 
 "ExposureDetection_Explanation_Text_Low" = "COVID-19 tanısı konan bir kişiyle herhangi bir karşılaşma yaşadığınız günlüğe eklenmediği veya karşılaşmanız yalnızca kısa bir süreyle uzun mesafeli olarak gerçekleştiği için enfeksiyon riskiniz düşüktür.\n\nBu nedenle enfeksiyon riskiniz düşük olarak derecelendirilmiştir.\n\nEnfeksiyon riski, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.";
 
-"ExposureDetection_Explanation_Text_High" = "\n\nBu nedenle enfeksiyon riskiniz artmış olarak derecelendirilmiştir.\nEnfeksiyon riskiniz, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.\nEve gittiğinizde lütfen aile fertleriniz veya ev arkadaşlarınızla yakın temastan kaçının.";
+"ExposureDetection_Explanation_Text_High" = "Bu nedenle enfeksiyon riskiniz artmış olarak derecelendirilmiştir.\nEnfeksiyon riskiniz, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.\nEve gittiğinizde lütfen aile fertleriniz veya ev arkadaşlarınızla yakın temastan kaçının.";
 
 "ExposureDetection_Button_Enable" = "Maruz Kalma Günlüğünü Etkinleştir";
 
@@ -240,7 +240,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Enfeksiyon riski taşıyıp taşımadığınızı belirlemek için maruz kalma günlüğü özelliğini etkinleştirmeniz gerekir.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Maruz kalma günlüğü, cihazınızın Bluetooth üzerinden diğer kullanıcıların şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimliği diğer kullanıcıların cihazlarına aktarmasıyla çalışır. Bu özellik dilediğiniz zaman devre dışı bırakılabilir. \n\nŞifrelenmiş rastgele kimlikler yalnızca tarih, süre ve yakınlık (sinyal gücü kullanılarak hesaplanır) hakkındaki bilgileri aktarır. Ad, adres, konum gibi kişisel veriler asla kaydedilmez. Kişilerin kimliği belirlenemez.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Maruz kalma günlüğü, cihazınızın Bluetooth üzerinden diğer kullanıcıların şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimliği diğer kullanıcıların cihazlarına aktarmasıyla çalışır. Bu özellik dilediğiniz zaman devre dışı bırakılabilir. \n\nŞifrelenmiş rastgele kimliklerde diğer kişilere yalnızca tarih, süre ve yakınlık bilgileri (sinyal gücüne göre hesaplanır) gönderilir. Ad, adres ve konum gibi kişisel veriler hiçbir durumda kaydedilmez. Kişilerin kimlikleri belirlenemez.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Kabul Beyanı";
 
@@ -264,7 +264,7 @@
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Bir kadın Corona-Warn-App uygulamasından bildirim alıyor.";
 
-"OnboardingInfo_alwaysStayInformedPage_title" = "Uyarıları Alma ve Riskleri Belirleme ";
+"OnboardingInfo_alwaysStayInformedPage_title" = "Uyarıları Alma ve Riskleri Belirleme";
 
 "OnboardingInfo_alwaysStayInformedPage_boldText" = "Uygulama, risk durumunuz hakkında otomatik olarak bildirimler verebilir ve maruz kalma yaşadığınız kişilerin yeni enfeksiyonları hakkında sizi uyarabilir. Uygulamanın size bildirim göndermesine izin verin.";
 
@@ -393,7 +393,7 @@
 
 "ExposureSubmissionSuccess_listItem2_3" = "Lütfen özellikle akıllı telefonu olmadığı veya uygulamayı yüklemediği için doğrudan uygulamanın uyarmayacağı kişileri göz önünde bulundurun.";
 
-"ExposureSubmissionSuccess_listItem2_4" = "Hiçbir belirtiniz kalmasa ve kendinizi iyi hissetseniz dahi yine de hastalığı bulaştırabilirsiniz. ";
+"ExposureSubmissionSuccess_listItem2_4" = "Hiçbir belirtiniz kalmasa ve kendinizi iyi hissetseniz dahi yine de hastalığı bulaştırabilirsiniz.";
 
 /* Exposure Submission Introduction */
 "ExposureSubmissionIntroduction_Title" = "Bilgi";
@@ -406,9 +406,9 @@
 
 "ExposureSubmissionIntroduction_Usage02" = "Yalnızca şifrelenmiş rastgele kimlikler gönderilip alındığından kimliğiniz gizli tutulur. Şu şekilde devam edebilirsiniz:";
 
-"ExposureSubmissionIntroduction_ListItem1" = "Test belgenizde bir QR kod varsa bu kodu tarayıp testi kaydedebilirsiniz. Sonuç çıkar çıkmaz sonucu uygulamada görüntüleyebilirsiniz. ";
+"ExposureSubmissionIntroduction_ListItem1" = "Test belgenizde bir QR kod varsa bu kodu tarayıp testi kaydedebilirsiniz. Sonuç çıkar çıkmaz sonucu uygulamada görüntüleyebilirsiniz.";
 
-"ExposureSubmissionIntroduction_ListItem2" = "Size COVID-19 tanısı konduysa diğer insanları bilgilendirebilirsiniz.";
+"ExposureSubmissionIntroduction_ListItem2" = "Size COVID-19 tanısı konduysa diğer insanları uyarabilirsiniz.";
 
 "ExposureSubmissionIntroduction_ListItem3" = "Pozitif tanı için TAN verildiyse bunu kullanarak testi kaydedebilirsiniz.";
 
@@ -459,7 +459,7 @@
 
 "ExposureSubmissionResult_testInvalid" = "Testte hata var";
 
-"ExposureSubmissionResult_testInvalidDesc" = "Testinizi değerlendirirken bir problem oluştu. Lütfen sonraki adımlarınız için kamu sağlığı yetkilisi ile görüşün. ";
+"ExposureSubmissionResult_testInvalidDesc" = "Testinizi değerlendirirken bir problem oluştu. Lütfen sonraki adımlarınız için kamu sağlığı yetkilisi ile görüşün.";
 
 "ExposureSubmissionResult_testPending" = "Test sonucu henüz çıkmadı";
 
@@ -491,11 +491,11 @@
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test silinsin mi?";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Test kalıcı olarak Corona-Warn-App'ten silinir ve tekrar eklenemez. Bu işlem geri alınamaz. ";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Test kalıcı olarak Corona-Warn-App'ten silinir ve tekrar eklenemez. Bu işlem geri alınamaz.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Kayıt tarihi bilinmiyor";
 
-"ExposureSubmissionResult_RegistrationDate" = "Kayıt tarihi: ";
+"ExposureSubmissionResult_RegistrationDate" = "Kayıt tarihi:";
 
 /* Exposure Submission */
 "ExposureSubmissionError_NoKeys" = "Tanı anahtarı yok. Lütfen yarın tekrar deneyin.";
@@ -547,7 +547,7 @@
 
 "ExposureNotificationSetting_DescriptionText2" = "Maruz kalma günlüğü, cihazınızın Bluetooth üzerinden diğer kullanıcıların şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimliği diğer kullanıcıların cihazlarına aktarmasıyla çalışır. Bu özellik dilediğiniz zaman devre dışı bırakılabilir.";
 
-"ExposureNotificationSetting_DescriptionText3" = "Şifrelenmiş rastgele kimlikler yalnızca tarih, süre ve yakınlık (sinyal gücünü kullanarak) hakkındaki bilgileri aktarır. Ad, adres veya konum gibi kişisel veriler asla kaydedilmez. Kişilerin kimliği belirlenemez.";
+"ExposureNotificationSetting_DescriptionText3" = "Şifrelenmiş rastgele kimliklerde diğer kişilere yalnızca tarih, süre ve yakınlık bilgileri (sinyal gücüne göre hesaplanır) gönderilir. Ad, adres ve konum gibi kişisel veriler hiçbir durumda kaydedilmez. Kişilerin kimlikleri belirlenemez.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Bluetooth'u aç";
 
@@ -637,11 +637,10 @@
 "Home_RiskCard_Update_Button" = "Güncelle";
 
 /* Home Unknown card */
-"Home_RiskCard_Unknown_Item_Title" = "Maruz kalma günlüğünün uzun süredir açık olmadığı için enfeksiyon riskinizi hesaplayamıyoruz.";
 "Home_RiskCard_Unknown_Item_Title" = "Maruz kalma günlüğü uzun süredir açık olmadığı için enfeksiyon riskinizi hesaplayamıyoruz.";
 
 /* Home Unknown 48 card */
-"Home_RiskCard_Unknown48h_Body" = "Ihre Risiko-Berechnung wurde seit mehr als 48 Stunden nicht aktualisiert. Bitte aktualisieren Sie die Berechnung.";
+"Home_RiskCard_Unknown48h_Body" = "Maruz kalma günlüğü 48 saatten uzun süredir güncellenmedi. Lütfen hesaplamayı güncelleyin.";
 
 /* Home Inactive card */
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "Maruz kalma günlüğü durduruldu";
@@ -659,7 +658,7 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Düşük Risk";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "Maruz kalma günlüğü son 14 günde %1$u etkindi.";
+"Home_Risk_Low_SaveDays_Item_Title" = "Maruz kalma günlüğü son 14 günde %1$u gün etkindi.";
 
 "Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Maruz kalma günlüğü sürekli etkin";
 
@@ -690,7 +689,7 @@
 
 "Home_Thank_You_Card_App_Item_Title" = "Lütfen özellikle akıllı telefonu olmadığı veya uygulamayı yüklemediği için doğrudan uygulamanın uyarmayacağı kişileri göz önünde bulundurun.";
 
-"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Hiçbir belirtiniz kalmasa ve kendinizi iyi hissetseniz dahi yine de hastalığı bulaştırabilirsiniz. ";
+"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Hiçbir belirtiniz kalmasa ve kendinizi iyi hissetseniz dahi yine de hastalığı bulaştırabilirsiniz.";
 
 /* Home Finding positive */
 "Home_Finding_Positive_Card_Title" = "Pozitif Tanı";
@@ -839,7 +838,7 @@
 
 "InviteFriends_ShareTitle" = "Koronavirüs ile birlikte mücadele edelim. Ben katıldım, peki ya sen?";
 
-"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
+"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-tuerkisch";
 
 "InviteFriends_Illustration_Label" = "Bir erkek, Corona-Warn-App'i dört farklı kişi ile paylaşıyor.";
 
@@ -958,7 +957,7 @@
 "ENATanInput_CharacterIndex" = "%1$u/%2$u karakter";
 
 /* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
-"Active_Tracing_Interval_Partially_Active" = "Maruz kalma günlüğü son %2$u günde %1$u etkindi.";
+"Active_Tracing_Interval_Partially_Active" = "Maruz kalma günlüğü son 14 günde %1$u gün etkindi.";
 
 "Active_Tracing_Interval_Permanently_Active" = "Maruz kalma günlüğü sürekli etkin";
 
