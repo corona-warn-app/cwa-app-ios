@@ -50,7 +50,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.store = store
 	}
 
-	// MARK: - Convenience methods with support for fake requests, in order to support plausible deniability.
+	// MARK: - Private methods for handling the API calls.
 
 	private func _getTestResult(
 		_ registrationToken: String,
@@ -74,21 +74,25 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	private func _fakeGetTestResult(
-		_ completeWith: @escaping ENAExposureSubmissionService.TestResultHandler
-	) {
-		// Fill out bogus data.
-		client.getTestResult(forDevice: "", isFake: true) { _ in
-			completeWith(.failure(.fakeResponse))
-		}
-	}
-
+	/// Helper method that handles only gets the submission tan. Use this only if you really just want to do the
+	/// part of the submission flow in which the tan is gotten for the submission
+	/// For more information, please check _submitExposure().
 	private func _getTANForExposureSubmit(
 		hasConsent: Bool,
 		completion completeWith: @escaping TANHandler
 	) {
 		// alert+ store consent+ clientrequest
 		store.devicePairingConsentAccept = hasConsent
+
+		// It might happen that the _getTANForExposureSubmit() returns successfully, but the _submit() method returns an error.
+		// In this case, if we retry _submitExposure() we will have the issue that we will again ask for the one-time TAN
+		// with _getTANForExposureSubmit() and thus get an error. In order to circumvent this, if _getTANForExposureSubmit()
+		// succeeds it will write into the store. Therefore, we break out of this method if this was already set.
+		if store.tan != nil {
+			// swiftlint:disable force_unwrapping
+			completeWith(.success(store.tan!))
+			return
+		}
 
 		if !store.devicePairingConsentAccept {
 			completeWith(.failure(.noConsent))
@@ -111,13 +115,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	private func _fakeGetTANForExposureSubmit(completion completeWith: @escaping TANHandler) {
-		// TODO: Fill out with bogus data.
-		client.getTANForExposureSubmit(forDevice: "", isFake: true) { _ in
-			completeWith(.failure(.fakeResponse))
-		}
-	}
-
+	/// This method does two API calls in one step - firstly, it gets the submission TAN, and then it submits the keys.
+	/// For details, check the methods `_submit()` and `_getTANForExposureSubmit()` specifically.
 	private func _submitExposure(
 		_ keys: [ENTemporaryExposureKey],
 		completionHandler: @escaping ExposureSubmissionHandler
@@ -132,40 +131,23 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		})
 	}
 
-	private func _fakeSubmitExposure(
-		completionHandler: ExposureSubmissionHandler? = nil
-	) {
-		self._fakeGetTANForExposureSubmit { _ in
-			self._fakeSubmit { _ in
-				completionHandler?(.fakeResponse)
-			}
-		}
-	}
-
-	/// Helper method that is used to submit keys after a TAN was retrieved.
+	/// Helper method that handles only the submission of the keys. Use this only if you really just want to do the
+	/// part of the submission flow in which the keys are submitted.
+	/// For more information, please check _submitExposure().
 	private func _submit(
 		_ keys: [ENTemporaryExposureKey],
 		with tan: String,
-		completion: @escaping ExposureSubmissionHandler) {
-
+		completion: @escaping ExposureSubmissionHandler
+	) {
 		self.client.submit(keys: keys, tan: tan, isFake: false) { error in
-
 			if let error = error {
 				logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
 				completion(self.parseError(error))
 				return
 			}
-
 			self.submitExposureCleanup()
 			log(message: "Successfully completed exposure sumbission.")
 			completion(nil)
-		}
-	}
-
-	private func _fakeSubmit(completion: @escaping ExposureSubmissionHandler) {
-		// TODO: Fill with bogus data
-		self.client.submit(keys: [], tan: "", isFake: true) { _ in
-			completion(.fakeResponse)
 		}
 	}
 
@@ -188,17 +170,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	private func _fakeGetRegistrationToken(_ completeWith: @escaping RegistrationHandler) {
-		client.getRegistrationToken(forKey: "", withType: "", isFake: true) { _ in
-			completeWith(.failure(.fakeResponse))
-		}
-	}
-
 	// MARK: - Public API for accessing the service methods needed for Exposure Submission.
 
 	/// This method gets the test result based on the registrationToken that was previously
 	/// received, either from the TAN or QR Code flow. After successful completion,
 	/// the timestamp of the last received test is updated.
+	/// __Extension for plausible deniability__:
 	func getTestResult(_ completeWith: @escaping TestResultHandler) {
 		guard let registrationToken = store.registrationToken else {
 			completeWith(.failure(.noRegistrationToken))
@@ -257,16 +234,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	/// TODO: Refine comment.
-	/// This method is called randomly sometimes in the foreground and from the background.
-	func fakeRequest(completionHandler: ExposureSubmissionHandler? = nil) {
-		_fakeGetRegistrationToken { _ in
-			self._fakeSubmitExposure { _ in
-				completionHandler?(.fakeResponse)
-			}
-		}
-	}
-
 	// MARK: - Helper methods.
 
 	func hasRegistrationToken() -> Bool {
@@ -309,6 +276,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private func submitExposureCleanup() {
 		store.registrationToken = nil
 		store.isAllowedToSubmitDiagnosisKeys = false
+		store.tan = nil
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
 		log(message: "Exposure submission cleanup.")
 	}
@@ -320,5 +288,60 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	func acceptPairing() {
 		devicePairingConsentAccept = true
 		devicePairingConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
+	}
+}
+
+// MARK: - Fake requests.
+
+extension ENAExposureSubmissionService {
+
+	private func _fakeGetTestResult(
+		_ completeWith: @escaping ENAExposureSubmissionService.TestResultHandler
+	) {
+		// TODO: Fill out bogus data.
+		client.getTestResult(forDevice: "", isFake: true) { _ in
+			completeWith(.failure(.fakeResponse))
+		}
+	}
+
+	private func _fakeGetTANForExposureSubmit(completion completeWith: @escaping TANHandler) {
+		// TODO: Fill out with bogus data.
+		client.getTANForExposureSubmit(forDevice: "", isFake: true) { _ in
+			completeWith(.failure(.fakeResponse))
+		}
+	}
+
+	private func _fakeSubmitExposure(
+		completionHandler: ExposureSubmissionHandler? = nil
+	) {
+		self._fakeGetTANForExposureSubmit { _ in
+			self._fakeSubmit { _ in
+				completionHandler?(.fakeResponse)
+			}
+		}
+	}
+
+	private func _fakeSubmit(completion: @escaping ExposureSubmissionHandler) {
+		// TODO: Fill with bogus data.
+		self.client.submit(keys: [], tan: "", isFake: true) { _ in
+			completion(.fakeResponse)
+		}
+	}
+
+	private func _fakeGetRegistrationToken(_ completeWith: @escaping RegistrationHandler) {
+		// TODO: Fill with bogus data.
+		client.getRegistrationToken(forKey: "", withType: "", isFake: true) { _ in
+			completeWith(.failure(.fakeResponse))
+		}
+	}
+
+	/// This method is called randomly sometimes in the foreground and from the background.
+	/// Note that this method fulfills the 
+	func fakeRequest(completionHandler: ExposureSubmissionHandler? = nil) {
+		_fakeGetRegistrationToken { _ in
+			self._fakeSubmitExposure { _ in
+				completionHandler?(.fakeResponse)
+			}
+		}
 	}
 }

@@ -45,6 +45,8 @@ extension URLSession {
 	// It does some additional checks - purely for convenience:
 	// - if there is an error it aborts
 	// - if there is either no HTTP body and/or HTTPURLResponse it aborts
+	// Note that, if we send out a fake request, we omit
+	// the response and give back a fakeResponse failure.
 	func response(
 		for request: URLRequest,
 		isFake: Bool = false,
