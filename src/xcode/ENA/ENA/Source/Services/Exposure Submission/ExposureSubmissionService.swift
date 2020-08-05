@@ -336,7 +336,8 @@ extension ENAExposureSubmissionService {
 	}
 
 	/// This method is called randomly sometimes in the foreground and from the background.
-	/// Note that this method fulfills the 
+	/// It represents the full-fledged dummy request needed to realize plausible deniability.
+	/// Nothing called in this method is considered a "real" request.
 	func fakeRequest(completionHandler: ExposureSubmissionHandler? = nil) {
 		_fakeGetRegistrationToken { _ in
 			self._fakeSubmitExposure { _ in
