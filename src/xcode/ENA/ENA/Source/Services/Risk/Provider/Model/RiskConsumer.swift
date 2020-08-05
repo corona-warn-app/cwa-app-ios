@@ -18,6 +18,12 @@
 //
 
 import Foundation
+import UIKit
+
+/**
+An instance of RiskConsumer is an object which is interesting in the result of risk calculation.
+One **RiskProvider** can have more **RiskConsumer** which means one RiskProvider can offer more calculation results for more RiskConsumers
+*/
 
 final class RiskConsumer: NSObject {
 	// MARK: Creating a Consumer

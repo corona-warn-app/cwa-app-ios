@@ -26,11 +26,45 @@ protocol ExposureSummaryProvider: AnyObject {
 	func detectExposure(completion: @escaping Completion)
 }
 
+/**
+A RiskProvider is a **Publisher** providing risk calculation results to its **subscribers** (`RiskConsumer`)
+To obtain an instance of the `RiskProvider`, your class needs to implement the protocol `RequiresAppDependencies` that has the default implementation offer the single instance of `RiskProvider`.
+
+~~~
+class MyVc : UIViewController, RequiresAppDependencies{
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		let riskProvider = self.riskProvider
+	}
+}
+~~~
+
+To get the result of risk calculation, you need the following steps:
+~~~
+// 1. Create an instance of RiskConsumer
+let riskConsumer = RiskConsumer()
+
+// 2. Attach the callback block to handle the result
+riskConsumer.didCalculateRisk = {risk in
+    // bla bla bla
+}
+
+// 3. Obtain the instance of RiskProvider and attach the RiskConsumer to the RiskProvider
+riskProvider.observeRisk(riskConsumer)
+
+// 4. Ask for the result
+riskProvider.requestRisk(userInitiated: true)
+
+// 5. If you need the consumer, you should call the `removeRiskConsumer` which avoid the reference cycle
+riskProvider.removeRiskConsumer(riskConsumer)
+~~~
+
+*/
 final class RiskProvider {
 
-	private let queue = DispatchQueue(label: "com.sap.RiskProvider")
+	private let queue = DispatchQueue(label: "com.sap.RiskProvider.request")
 	private let targetQueue: DispatchQueue
-	private var consumersQueue = DispatchQueue(label: "com.sap.RiskProvider")
+	private var consumersQueue = DispatchQueue(label: "com.sap.RiskProvider.consumer")
 
 	private var _consumers: [RiskConsumer] = []
 	private var consumers: [RiskConsumer] {
@@ -77,7 +111,7 @@ extension RiskProvider: RiskProviding {
 		consumers.append(consumer)
 	}
 
-	func removeRisk(_ consumer: RiskConsumer) {
+	func removeRiskConsumer(_ consumer: RiskConsumer) {
 		consumers.removeAll(where: { $0 === consumer })
 	}
 
