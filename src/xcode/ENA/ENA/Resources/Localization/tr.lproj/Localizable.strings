@@ -92,7 +92,7 @@
 
 "ExposureDetection_Guide_Distance" = "Diğer insanlarla aranızda en az 1,5 metre mesafeyi koruyun.";
 
-"ExposureDetection_Guide_Sneeze" = "Öksürürken ya da hapşırırken dirseğinizin iç kısmına dönün veya bir mendil kullanın. ";
+"ExposureDetection_Guide_Sneeze" = "Öksürürken ya da hapşırırken dirseğinizin iç kısmına dönün veya bir mendil kullanın.";
 
 "ExposureDetection_Guide_Home" = "Mümkünse lütfen eve gidin ve evde kalın.";
 
@@ -264,7 +264,7 @@
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Bir kadın Corona-Warn-App uygulamasından bildirim alıyor.";
 
-"OnboardingInfo_alwaysStayInformedPage_title" = "Uyarıları Alma ve Riskleri Belirleme ";
+"OnboardingInfo_alwaysStayInformedPage_title" = "Uyarıları Alma ve Riskleri Belirleme";
 
 "OnboardingInfo_alwaysStayInformedPage_boldText" = "Uygulama, risk durumunuz hakkında otomatik olarak bildirimler verebilir ve maruz kalma yaşadığınız kişilerin yeni enfeksiyonları hakkında sizi uyarabilir. Uygulamanın size bildirim göndermesine izin verin.";
 
@@ -393,7 +393,7 @@
 
 "ExposureSubmissionSuccess_listItem2_3" = "Lütfen özellikle akıllı telefonu olmadığı veya uygulamayı yüklemediği için doğrudan uygulamanın uyarmayacağı kişileri göz önünde bulundurun.";
 
-"ExposureSubmissionSuccess_listItem2_4" = "Hiçbir belirtiniz kalmasa ve kendinizi iyi hissetseniz dahi yine de hastalığı bulaştırabilirsiniz. ";
+"ExposureSubmissionSuccess_listItem2_4" = "Hiçbir belirtiniz kalmasa ve kendinizi iyi hissetseniz dahi yine de hastalığı bulaştırabilirsiniz.";
 
 /* Exposure Submission Introduction */
 "ExposureSubmissionIntroduction_Title" = "Bilgi";
@@ -406,9 +406,9 @@
 
 "ExposureSubmissionIntroduction_Usage02" = "Yalnızca şifrelenmiş rastgele kimlikler gönderilip alındığından kimliğiniz gizli tutulur. Şu şekilde devam edebilirsiniz:";
 
-"ExposureSubmissionIntroduction_ListItem1" = "Test belgenizde bir QR kod varsa bu kodu tarayıp testi kaydedebilirsiniz. Sonuç çıkar çıkmaz sonucu uygulamada görüntüleyebilirsiniz. ";
+"ExposureSubmissionIntroduction_ListItem1" = "Test belgenizde bir QR kod varsa bu kodu tarayıp testi kaydedebilirsiniz. Sonuç çıkar çıkmaz sonucu uygulamada görüntüleyebilirsiniz.";
 
-"ExposureSubmissionIntroduction_ListItem2" = "Size COVID-19 tanısı konduysa diğer insanları bilgilendirebilirsiniz.";
+"ExposureSubmissionIntroduction_ListItem2" = "Size COVID-19 tanısı konduysa diğer insanları uyarabilirsiniz.";
 
 "ExposureSubmissionIntroduction_ListItem3" = "Pozitif tanı için TAN verildiyse bunu kullanarak testi kaydedebilirsiniz.";
 
@@ -459,7 +459,7 @@
 
 "ExposureSubmissionResult_testInvalid" = "Testte hata var";
 
-"ExposureSubmissionResult_testInvalidDesc" = "Testinizi değerlendirirken bir problem oluştu. Lütfen sonraki adımlarınız için kamu sağlığı yetkilisi ile görüşün. ";
+"ExposureSubmissionResult_testInvalidDesc" = "Testinizi değerlendirirken bir problem oluştu. Lütfen sonraki adımlarınız için kamu sağlığı yetkilisi ile görüşün.";
 
 "ExposureSubmissionResult_testPending" = "Test sonucu henüz çıkmadı";
 
@@ -491,11 +491,11 @@
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test silinsin mi?";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Test kalıcı olarak Corona-Warn-App'ten silinir ve tekrar eklenemez. Bu işlem geri alınamaz. ";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Test kalıcı olarak Corona-Warn-App'ten silinir ve tekrar eklenemez. Bu işlem geri alınamaz.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Kayıt tarihi bilinmiyor";
 
-"ExposureSubmissionResult_RegistrationDate" = "Kayıt tarihi: ";
+"ExposureSubmissionResult_RegistrationDate" = "Kayıt tarihi:";
 
 /* Exposure Submission */
 "ExposureSubmissionError_NoKeys" = "Tanı anahtarı yok. Lütfen yarın tekrar deneyin.";
@@ -689,7 +689,7 @@
 
 "Home_Thank_You_Card_App_Item_Title" = "Lütfen özellikle akıllı telefonu olmadığı veya uygulamayı yüklemediği için doğrudan uygulamanın uyarmayacağı kişileri göz önünde bulundurun.";
 
-"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Hiçbir belirtiniz kalmasa ve kendinizi iyi hissetseniz dahi yine de hastalığı bulaştırabilirsiniz. ";
+"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Hiçbir belirtiniz kalmasa ve kendinizi iyi hissetseniz dahi yine de hastalığı bulaştırabilirsiniz.";
 
 /* Home Finding positive */
 "Home_Finding_Positive_Card_Title" = "Pozitif Tanı";

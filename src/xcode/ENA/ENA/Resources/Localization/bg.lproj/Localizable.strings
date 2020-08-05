@@ -218,7 +218,7 @@
 
 "Onboarding_DeactivateExposureConfirmation_message" = "Тази настройка може да се промени по всяко време.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "Група лица използват устройствата си, придвижвайки се из града.";
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "Група хора използват телефоните си, придвижвайки се из града.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_title" = "Да се преборим с коронавируса заедно";
 
@@ -266,7 +266,7 @@
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "Предупреждения и рискове";
 
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "Приложението може да Ви уведомява автоматично за Вашия статус на риск от заразяване и да Ви предупреждава за нови заразявания на хора, с които сте били в контакт. Позволете на приложението да Ви изпраща известия. ";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Приложението може да Ви уведомява автоматично за Вашия статус на риск от заразяване и да Ви предупреждава за нови заразявания на хора, с които сте били в контакт. Позволете на приложението да Ви изпраща известия.";
 
 "OnboardingInfo_alwaysStayInformedPage_normalText" = "След това може да се самоизолирате, за да защитите околните и да разберете къде може да се тествате.";
 
@@ -327,7 +327,7 @@
 
 "ExposureSubmissionHotline_Description" = "За да заявите ТАН код, подгответе резултата от своя тест (ако е наличен) и телефонния си номер.";
 
-"ExposureSubmissionHotline_SectionTitle" = "Как работи";
+"ExposureSubmissionHotline_SectionTitle" = "Как работи:";
 
 "ExposureSubmissionHotline_SectionDescription1" = "Обадете се на горещата линия и поискайте ТАН код:";
 
@@ -393,7 +393,7 @@
 
 "ExposureSubmissionSuccess_listItem2_3" = "Моля, обърнете особено внимание на хората, които няма да бъдат уведомени директно чрез приложението, тъй като нямат смартфон или не са инсталирали приложението.";
 
-"ExposureSubmissionSuccess_listItem2_4" = "Може все още да сте носител на заразата дори ако вече не проявявате симптоми и отново се чувствате добре. ";
+"ExposureSubmissionSuccess_listItem2_4" = "Може все още да сте носител на заразата дори ако вече не проявявате симптоми и отново се чувствате добре.";
 
 /* Exposure Submission Introduction */
 "ExposureSubmissionIntroduction_Title" = "Информация";
@@ -406,9 +406,9 @@
 
 "ExposureSubmissionIntroduction_Usage02" = "Анонимността Ви се запазва, тъй като се разменят само криптирани случайни ИД кодове. Може да предприемете следните стъпки:";
 
-"ExposureSubmissionIntroduction_ListItem1" = "Ако в документа с резултата от теста Ви има QR код, можете да го сканирате и да регистрирате теста си. В момента, в който резултатът бъде готов, ще можете да го видите в приложението. ";
+"ExposureSubmissionIntroduction_ListItem1" = "Ако в документа с резултата от теста Ви има QR код, можете да го сканирате и да регистрирате теста си. В момента, в който резултатът бъде готов, ще можете да го видите в приложението.";
 
-"ExposureSubmissionIntroduction_ListItem2" = "Ако Ви е поставена диагноза COVID-19, можете да уведомите останалите потребители.";
+"ExposureSubmissionIntroduction_ListItem2" = "Ако Ви е поставена диагноза COVID-19, можете да предупредите останалите потребители.";
 
 "ExposureSubmissionIntroduction_ListItem3" = "Ако Ви е предоставен ТАН код за положителен резултат, може да го използвате, за да регистрирате теста.";
 
@@ -491,11 +491,11 @@
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Да се изтрие ли тестът?";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Тестът ще бъде изтрит безвъзвратно от приложението Corona-Warn-App и няма да може да бъде добавен отново. Действието не може да бъде отменено. ";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Тестът ще бъде изтрит безвъзвратно от приложението Corona-Warn-App и няма да може да бъде добавен отново. Действието не може да бъде отменено.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Датата на регистрация е неизвестна";
 
-"ExposureSubmissionResult_RegistrationDate" = "Регистрирано на ";
+"ExposureSubmissionResult_RegistrationDate" = "Регистрирано на";
 
 /* Exposure Submission */
 "ExposureSubmissionError_NoKeys" = "Няма наличен диагностичен код. Опитайте отново утре.";
@@ -689,7 +689,7 @@
 
 "Home_Thank_You_Card_App_Item_Title" = "Моля, обърнете особено внимание на хората, които няма да бъдат уведомени директно чрез приложението, тъй като нямат смартфон или не са инсталирали приложението.";
 
-"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Може все още да сте носител на заразата дори ако вече не проявявате симптоми и отново се чувствате добре. ";
+"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Може все още да сте носител на заразата дори ако вече не проявявате симптоми и отново се чувствате добре.";
 
 /* Home Finding positive */
 "Home_Finding_Positive_Card_Title" = "Положителен резултат";
@@ -908,7 +908,7 @@
 
 "RiskLegend_Legend2_Unknown" = "Неизвестен риск";
 
-"RiskLegend_Legend2_Unknown_Color" = "Сиво";
+"RiskLegend_Legend2_Unknown_Color" = "Сив";
 
 "RiskLegend_Legend3_Title" = "Уведомяване на други потребители";
 
@@ -936,7 +936,7 @@
 
 "RiskLegend_Random_Text" = "Случайните идентификатори са произволно генерирани комбинации от цифри и букви, които устройствата си разменят, когато са в близост едно до друго. Идентифицирането на конкретни лица посредством проследяването им е невъзможно. Освен това те се изтриват автоматично след 14 дни. Лицата, диагностицирани с COVID-19, могат да споделят с останалите потребители на приложението своите случайни идентификатори, генерирани през последните 14 дни.";
 
-"RiskLegend_Image1_AccLabel" = "На екрана на устройство се вижда съдържание под номера от 1 до 3.";
+"RiskLegend_Image1_AccLabel" = "На екрана на устройство се вижда съдържание с номера.";
 
 /* Update Message */
 "Update_Message_Title" = "Има налична актуализация";

@@ -92,7 +92,7 @@
 
 "ExposureDetection_Guide_Distance" = "Păstrați o distanță de cel puțin 1,5 metri față de alte persoane.";
 
-"ExposureDetection_Guide_Sneeze" = "Strănutați sau tușiți în pliul cotului sau într-un șervețel. ";
+"ExposureDetection_Guide_Sneeze" = "Strănutați sau tușiți în pliul cotului sau într-un șervețel.";
 
 "ExposureDetection_Guide_Home" = "Dacă este posibil, mergeți acasă și rămâneți în casă.";
 
@@ -218,7 +218,7 @@
 
 "Onboarding_DeactivateExposureConfirmation_message" = "Puteți oricând dezactiva această caracteristică.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "Un grup de persoane își utilizează dispozitivele prin oraș.";
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "Un grup de persoane își folosește dispozitivele în oraș.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_title" = "Să combatem împreună COVID-19";
 
@@ -327,7 +327,7 @@
 
 "ExposureSubmissionHotline_Description" = "Vă rugăm să aveți la îndemână rezultatul testului (dacă este disponibil) și numărul de telefon pentru a solicita un cod TAN.";
 
-"ExposureSubmissionHotline_SectionTitle" = "Cum funcționează";
+"ExposureSubmissionHotline_SectionTitle" = "Cum funcționează:";
 
 "ExposureSubmissionHotline_SectionDescription1" = "Sunați la hotline și solicitați un TAN:";
 
@@ -393,7 +393,7 @@
 
 "ExposureSubmissionSuccess_listItem2_3" = "Luați în considerare în special persoanele care nu vor fi notificate direct de aplicație dacă nu au un smartphone sau dacă nu și-au instalat aplicația.";
 
-"ExposureSubmissionSuccess_listItem2_4" = "Chiar și când nu mai aveți simptome și vă simțiți din nou bine, tot puteți să fiți contagios. ";
+"ExposureSubmissionSuccess_listItem2_4" = "Chiar și când nu mai aveți simptome și vă simțiți din nou bine, tot puteți să fiți contagios.";
 
 /* Exposure Submission Introduction */
 "ExposureSubmissionIntroduction_Title" = "Informații";
@@ -408,7 +408,7 @@
 
 "ExposureSubmissionIntroduction_ListItem1" = "Dacă există un cod QR în documentul dvs. de testare, îl puteți scana și înregistra testul. Imediat ce rezultatul este disponibil, îl puteți vedea în aplicație.";
 
-"ExposureSubmissionIntroduction_ListItem2" = "Dacă ați fost diagnosticat cu COVID-19, îi puteți notifica pe ceilalți.";
+"ExposureSubmissionIntroduction_ListItem2" = "Dacă ați fost diagnosticat cu COVID-19, îi puteți avertiza pe ceilalți.";
 
 "ExposureSubmissionIntroduction_ListItem3" = "Dacă ați primit un cod TAN pentru un diagnostic pozitiv, îl puteți utiliza pentru a înregistra testul.";
 
@@ -495,7 +495,7 @@
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Data înregistrării este necunoscută";
 
-"ExposureSubmissionResult_RegistrationDate" = "Înregistrat la ";
+"ExposureSubmissionResult_RegistrationDate" = "Înregistrat la";
 
 /* Exposure Submission */
 "ExposureSubmissionError_NoKeys" = "Nu este disponibilă nicio cheie de pozitivare. Reîncercați mâine.";
@@ -665,7 +665,6 @@
 /* Home High card */
 "Home_Risk_High_Title" = "Risc crescut";
 
-
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Verificarea este în curs…";
 
@@ -690,7 +689,7 @@
 
 "Home_Thank_You_Card_App_Item_Title" = "Luați în considerare în special persoanele care nu vor fi notificate direct de aplicație dacă nu au un smartphone sau dacă nu și-au instalat aplicația.";
 
-"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Chiar și când nu mai aveți simptome și vă simțiți din nou bine, tot puteți să fiți contagios. ";
+"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Chiar și când nu mai aveți simptome și vă simțiți din nou bine, tot puteți să fiți contagios.";
 
 /* Home Finding positive */
 "Home_Finding_Positive_Card_Title" = "Diagnostic pozitiv";

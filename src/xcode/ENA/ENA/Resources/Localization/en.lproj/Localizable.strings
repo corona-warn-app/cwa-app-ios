@@ -92,7 +92,7 @@
 
 "ExposureDetection_Guide_Distance" = "Keep at least 1.5 meters distance from other people.";
 
-"ExposureDetection_Guide_Sneeze" = "Sneeze or cough into your elbow or a tissue. ";
+"ExposureDetection_Guide_Sneeze" = "Sneeze or cough into your elbow or a tissue.";
 
 "ExposureDetection_Guide_Home" = "If possible, please go home and stay at home.";
 
@@ -218,7 +218,7 @@
 
 "Onboarding_DeactivateExposureConfirmation_message" = "You can deactivate this feature at any time.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "A group of persons use their devices around town.";
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "A group of people are all using their devices in town.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_title" = "Let's fight coronavirus together";
 
@@ -234,7 +234,7 @@
 
 "OnboardingInfo_privacyPage_normalText" = "You will remain anonymous.\nYour data is fully encrypted and transmitted under a pseudonym.\n\nResponsible body: GDPR, article 4, para. 7:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nPlease read our data privacy regulations.\n\nData privacy information:";
 
-"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Three people have activated exposure logging on their devices, which will log their encounters with each other.";
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Three persons have activated exposure logging on their devices, which will log their encounters with each other.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "How to Enable Exposure Logging";
 
@@ -260,13 +260,13 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… please report this in the Corona-Warn-App. Sharing your test results is voluntary and secure. Please do this for the sake of everyone's health.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your notification is encrypted securely and processed on a secure server. People whose encrypted random IDs your device has collected, will now receive a warning along with information about what they should now do.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your notification is encrypted securely and processed on a secure server. Persons whose encrypted random IDs your device has collected will now receive a warning along with information about what they should now do.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "A woman receives a notification from her Corona-Warn-App.";
 
-"OnboardingInfo_alwaysStayInformedPage_title" = "Receive Warnings and Identify Risks ";
+"OnboardingInfo_alwaysStayInformedPage_title" = "Receive Warnings and Identify Risks";
 
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "The app can notify you automatically about your risk status and warn you about new infections of people you have been exposed to. Allow the app now to notify you. ";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "The app can notify you automatically about your risk status and warn you about new infections of people you have been exposed to. Allow the app now to notify you.";
 
 "OnboardingInfo_alwaysStayInformedPage_normalText" = "You can then self-isolate to protect others and find out where you can get tested.";
 
@@ -327,7 +327,7 @@
 
 "ExposureSubmissionHotline_Description" = "Please keep your test result (if available) and your phone number ready to request a TAN.";
 
-"ExposureSubmissionHotline_SectionTitle" = "How this works";
+"ExposureSubmissionHotline_SectionTitle" = "How this works:";
 
 "ExposureSubmissionHotline_SectionDescription1" = "Call the hotline and request a TAN:";
 
@@ -393,7 +393,7 @@
 
 "ExposureSubmissionSuccess_listItem2_3" = "Please particularly consider people who will not be notified directly by the app since they don't own a smartphone, or haven't installed the app.";
 
-"ExposureSubmissionSuccess_listItem2_4" = "Even when you no longer have any symptoms and you feel well again, you could still be infectious. ";
+"ExposureSubmissionSuccess_listItem2_4" = "Even when you no longer have any symptoms and you feel well again, you could still be infectious.";
 
 /* Exposure Submission Introduction */
 "ExposureSubmissionIntroduction_Title" = "Information";
@@ -406,9 +406,9 @@
 
 "ExposureSubmissionIntroduction_Usage02" = "Since only encrypted random IDs are exchanged, you remain anonymous. You can now proceed as follows:";
 
-"ExposureSubmissionIntroduction_ListItem1" = "If there is a QR code in your test document, you can scan this and register the test. As soon as the result is available, you can view it in the app. ";
+"ExposureSubmissionIntroduction_ListItem1" = "If there is a QR code in your test document, you can scan this and register the test. As soon as the result is available, you can view it in the app.";
 
-"ExposureSubmissionIntroduction_ListItem2" = "If you have been diagnosed with COVID-19, you can notify others.";
+"ExposureSubmissionIntroduction_ListItem2" = "If you have been diagnosed with COVID-19, you can warn others.";
 
 "ExposureSubmissionIntroduction_ListItem3" = "If you were given a TAN for a positive diagnosis, you can use this to register the test.";
 
@@ -459,7 +459,7 @@
 
 "ExposureSubmissionResult_testInvalid" = "Test has errors";
 
-"ExposureSubmissionResult_testInvalidDesc" = "There was a problem evaluating your test. Please contact the public health authority to find out how to proceed. ";
+"ExposureSubmissionResult_testInvalidDesc" = "There was a problem evaluating your test. Please contact the public health authority to find out how to proceed.";
 
 "ExposureSubmissionResult_testPending" = "Test result is not yet available";
 
@@ -491,11 +491,11 @@
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Delete the test?";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "The test will be permanently deleted from the Corona-Warn-App and cannot be added again. This procedure cannot be undone. ";
+"ExposureSubmissionResult_RemoveAlert_Text" = "The test will be permanently deleted from the Corona-Warn-App and cannot be added again. This procedure cannot be undone.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registration date unknown";
 
-"ExposureSubmissionResult_RegistrationDate" = "Registered on ";
+"ExposureSubmissionResult_RegistrationDate" = "Registered on";
 
 /* Exposure Submission */
 "ExposureSubmissionError_NoKeys" = "No diagnosis key is available. Please try again tomorrow.";
@@ -559,7 +559,7 @@
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Open Device Settings";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "Enable COVID-19 Exposure Logging and Notifications";
+"ExposureNotificationSetting_Activate_OSENSetting" = "Enable COVID-19 Exposure Logging and Notifications ";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "For exposure logging, COVID-19 exposure logging and notifications must be activated in the system settings so that encounters can be logged. Please enable “COVID-19 Exposure Logging and Notifications” in your system settings.";
 
@@ -573,7 +573,7 @@
 
 "ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Authorization";
 
-"ExposureNotificationSetting_AccLabel_Enabled" = "Three people have activated exposure logging on their devices, which will log their encounters with each other.";
+"ExposureNotificationSetting_AccLabel_Enabled" = "Three persons have activated exposure logging on their devices, which will log their encounters with each other.";
 
 "ExposureNotificationSetting_AccLabel_Disabled" = "A person has deactivated exposure logging on their smartphone, so an encounter with two other persons is not logged.";
 
@@ -689,7 +689,7 @@
 
 "Home_Thank_You_Card_App_Item_Title" = "Please particularly consider people who will not be notified directly by the app since they don't own a smartphone, or haven't installed the app.";
 
-"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Even when you no longer have any symptoms and you feel well again, you could still be infectious. ";
+"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Even when you no longer have any symptoms and you feel well again, you could still be infectious.";
 
 /* Home Finding positive */
 "Home_Finding_Positive_Card_Title" = "Positive Diagnosis";
@@ -908,7 +908,7 @@
 
 "RiskLegend_Legend2_Unknown" = "Unknown Risk";
 
-"RiskLegend_Legend2_Unknown_Color" = "Grey";
+"RiskLegend_Legend2_Unknown_Color" = "Gray";
 
 "RiskLegend_Legend3_Title" = "Notifying Other Users";
 
@@ -936,7 +936,7 @@
 
 "RiskLegend_Random_Text" = "Random IDs are combinations of digits and letters generated randomly. They are exchanged between devices in close proximity. Random IDs cannot be traced to a specific person and are automatically deleted after 14 days. Persons diagnosed with COVID-19 can opt to share their random IDs of up to the last 14 days with other app users.";
 
-"RiskLegend_Image1_AccLabel" = "A device is showing different numbered contents.";
+"RiskLegend_Image1_AccLabel" = "A device shows various numbered content.";
 
 /* Update Message */
 "Update_Message_Title" = "Update available";

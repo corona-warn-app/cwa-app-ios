@@ -260,7 +260,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "…Укажите это в приложении Corona-Warn-App. Предоставление результата Вашего теста является добровольным и безопасным. Просим Вас об этом ради здоровья других людей.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ваше уведомление шифруется для защиты и обрабатывается на безопасном сервере. Людям, от которых Ваше устройство получило зашифрованные случайные идентификаторы, отправляется предупреждение вместе с рекомендуемыми действиями.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ваше уведомление защищено шифрованием и обрабатывается на безопасном сервере. Лицам, от которых Ваше устройство получило зашифрованные случайные идентификаторы, отправляется предупреждение вместе с рекомендуемыми действиями.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Женщина получает уведомление от приложения Corona-Warn-App.";
 
@@ -327,7 +327,7 @@
 
 "ExposureSubmissionHotline_Description" = "Для запроса TAN просим Вас подготовить результат теста (если есть) и Ваш номер телефона.";
 
-"ExposureSubmissionHotline_SectionTitle" = "Как это работает";
+"ExposureSubmissionHotline_SectionTitle" = "Как это работает:";
 
 "ExposureSubmissionHotline_SectionDescription1" = "Позвоните на горячую линию и запросите TAN:";
 
@@ -495,7 +495,7 @@
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Дата регистрации неизвестна";
 
-"ExposureSubmissionResult_RegistrationDate" = "Дата регистрации ";
+"ExposureSubmissionResult_RegistrationDate" = "Дата регистрации";
 
 /* Exposure Submission */
 "ExposureSubmissionError_NoKeys" = "Код диагноза недоступен. Повторите попытку завтра.";
@@ -559,7 +559,7 @@
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Открыть настройки устройства";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "Активировать ведение журнала контактов с COVID-19 и уведомления";
+"ExposureNotificationSetting_Activate_OSENSetting" = "Активировать определение контакта с COVID-19 и уведомления";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Для определения риска необходимо активировать ведение журнала контактов с COVID-19 и уведомления в настройках системы. Активируйте ведение журнала контактов с COVID-19 и уведомления в настройках вашей системы.";
 
@@ -936,7 +936,7 @@
 
 "RiskLegend_Random_Text" = "Случайные идентификаторы представляют собой комбинации цифр и букв, генерируемые произвольно. Они передаются между устройствами в непосредственной близости. По случайным идентификаторам нельзя отследить конкретных лиц. Они автоматически удаляются через 14 дней. Лица с положительным тестом на COVID-19 могут по желанию поделиться своими случайными идентификаторами за срок до 14 дней с другими пользователями приложения.";
 
-"RiskLegend_Image1_AccLabel" = "Устройство отображает различные пронумерованные сведения.";
+"RiskLegend_Image1_AccLabel" = "Устройство отображает разный числовой контент.";
 
 /* Update Message */
 "Update_Message_Title" = "Доступно обновление";
