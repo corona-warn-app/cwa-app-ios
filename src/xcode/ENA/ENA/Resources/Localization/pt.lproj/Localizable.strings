@@ -1,0 +1,963 @@
+/* General */
+"Alert_TitleGeneral" = "Ocorreu um erro.";
+
+"Alert_ActionOk" = "OK";
+
+"Alert_ActionRetry" = "Repetir";
+
+"Alert_ActionCancel" = "Cancelar";
+
+"Alert_ActionRemove" = "Remover";
+
+"Alert_BluetoothOff_Title" = "Ligar o Bluetooth";
+
+"Alert_BluetoothOff_Description" = "Ative o Bluetooth nas definições do seu sistema para utilizar esta aplicação.";
+
+"Alert_CancelAction_Later" = "Mais tarde";
+
+"Alert_DefaultAction_OpenSettings" = "Abrir Definições";
+
+"General_BackButtonTitle" = "Voltar";
+
+"Common_ENError5_Description" = "Erro 5: Algo correu mal. Não é possível determinar o seu nível de risco. Estamos a tentar encontrar uma solução para o problema.";
+
+"Common_ENError11_Description" = "Erro 11: Algo correu mal. Não é possível determinar o seu nível de risco. Reinicie o seu dispositivo e tente novamente amanhã.";
+
+"Common_ENError13_Description" = "Erro 13: O seu registo de exposição de hoje já foi executado. Tente novamente dentro de 24 horas.";
+
+"Common_Alert_Action_moreInfo" = "Saber mais";
+
+"Common_BackgroundFetch_AlertMessage" = "Desativou as atualizações em segundo plano da Corona-Warn-App. Ative as atualizações em segundo plano para utilizar o registo de exposição automático. Se não ativar as atualizações em segundo plano, só poderá iniciar manualmente o registo de exposição na aplicação.\n\nPode ativar as atualizações em segundo plano para a aplicação nas definições do seu dispositivo.";
+
+"Common_BackgroundFetch_SettingsTitle" = "Abrir as definições do dispositivo";
+
+"Common_BackgroundFetch_OKTitle" = "Iniciar manualmente o registo de exposição";
+
+"Common_BackgroundFetch_AlertTitle" = "Atualizações em segundo plano";
+
+/* General - Links */
+"General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
+
+"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
+
+"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
+
+"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
+
+/* Accessibility */
+"AccessibilityLabel_Close" = "Fechar";
+
+"AccessibilityLabel_PhoneNumber" = "Número de telefone";
+
+/* Exposure Detection */
+"ExposureDetection_Off" = "Registo de exposição parado";
+
+"ExposureDetection_Outdated" = "O registo de exposição não é possível";
+
+"ExposureDetection_Unknown" = "Risco desconhecido";
+
+"ExposureDetection_Low" = "Risco baixo";
+
+"ExposureDetection_High" = "Risco mais elevado";
+
+"ExposureDetection_NumberOfDaysStored" = "Ativo durante %d de 14 dias";
+
+"ExposureDetection_Refreshed" = "Atualizado: %@";
+
+"ExposureDetection_Refreshed_Never" = "Desconhecido";
+
+"ExposureDetection_RefreshingIn" = "Atualizar dentro de %02d:%02d\U00A0minutes";
+
+"ExposureDetection_RefreshIn" = "Atualizar dentro de %@";
+
+"ExposureDetection_Refresh_24h" = "Atualizado a cada 24 horas";
+
+"ExposureDetection_LastRiskLevel" = "Último registo de exposição: %@";
+
+"ExposureDetection_OffText" = "Ativar registo de exposição para avaliar o seu estado de risco para hoje.";
+
+"ExposureDetection_OutdatedText" = "O seu registo de exposição não é atualizado há mais de 48 horas. Atualize o cálculo.";
+
+"ExposureDetection_UnknownText" = "Uma vez que não tem o registo de exposição ativado há tempo suficiente, não é possível calcular o seu risco de infeção.";
+
+"ExposureDetection_LoadingText" = "Estão a ser descarregados e verificados dados atuais. Este processo pode demorar vários minutos.";
+
+"ExposureDetection_Behavior_Title" = "Diretrizes";
+
+"ExposureDetection_Behavior_Subtitle" = "Isto é o que deve fazer";
+
+"ExposureDetection_Guide_Hands" = "Lave as mãos com regularidade.";
+
+"ExposureDetection_Guide_Mask" = "Use uma máscara facial quando encontrar outras pessoas.";
+
+"ExposureDetection_Guide_Distance" = "Mantenha uma distância mínima de 1,5 metros relativamente às outras pessoas.";
+
+"ExposureDetection_Guide_Sneeze" = "Espirre ou tussa para a curva do cotovelo ou para um lenço de papel.";
+
+"ExposureDetection_Guide_Home" = "Se possível, vá para casa e fique em casa.";
+
+"ExposureDetection_Guide_Hotline1" = "Se tiver dúvidas sobre sintomas, disponibilidade de testes ou autoisolamento, contacte uma das seguintes entidades:";
+
+"ExposureDetection_Guide_Hotline2" = "O seu médico de família";
+
+"ExposureDetection_Guide_Hotline3" = "Serviço de emergência médica geral através do número de telefone 116117";
+
+"ExposureDetection_Guide_Hotline4" = "A autoridade local de saúde pública";
+
+"ExposureDetection_Explanation_Title" = "Risco de infeção";
+
+"ExposureDetection_Explanation_Subtitle_Active" = "Esta é a forma como o seu risco foi calculado";
+
+"ExposureDetection_Explanation_Subtitle_Inactive" = "Esta é a forma como o seu risco é calculado";
+
+"ExposureDetection_Explanation_Text_Off" = "O seu risco de infeção é calculado com base nos dados de registo de exposição (duração e proximidade) locais no seu dispositivo. O seu risco de infeção não é visível nem transmissível a qualquer outra pessoa.";
+
+"ExposureDetection_Explanation_Text_Outdated" = "Uma vez que não tem o registo de exposição ativado há tempo suficiente, não é possível calcular o seu risco de infeção.\n\nO seu risco de infeção é calculado localmente com base nos dados de registo de exposição (duração e proximidade) no seu dispositivo. O seu risco de infeção não é visível nem transmissível a qualquer outra pessoa.";
+
+"ExposureDetection_Explanation_Text_Unknown" = "Uma vez que não tem o registo de exposição ativado há tempo suficiente, não é possível calcular o seu risco de infeção.\n\nO seu risco de infeção é calculado localmente com base nos dados de registo de exposição (duração e proximidade) no seu dispositivo. O seu risco de infeção não é visível nem transmissível a qualquer outra pessoa.";
+
+"ExposureDetection_Explanation_Text_Low" = "Tem um risco baixo de infeção porque não foi registado qualquer encontro com uma pessoa diagnosticada com COVID-19, ou porque o seu encontro foi limitado a um curto período e ocorreu a uma maior distância.\n\nPor isso, o seu risco de infeção foi classificado como baixo.\n\nO risco de infeção é calculado localmente com base nos dados de registo de exposição (duração e proximidade) no seu dispositivo. O seu risco de infeção não é visível nem transmissível a qualquer outra pessoa.";
+
+"ExposureDetection_Explanation_Text_High" = "Por isso, o seu risco de infeção foi classificado como aumentado.\nO seu risco de infeção é calculado localmente com base nos dados de registo de exposição (duração e proximidade) no seu dispositivo. O seu risco de infeção não é visível nem transmissível a qualquer outra pessoa.\nQuando chegar a casa, evite também qualquer contacto próximo com membros da sua família ou agregado familiar.";
+
+"ExposureDetection_Button_Enable" = "Ativar registo de exposição";
+
+"ExposureDetection_Button_Refresh" = "Atualizar";
+
+/* Active Tracing Section */
+"ExposureDetection_ActiveTracingSection_Title" = "Período registado";
+
+"ExposureDetection_ActiveTracingSection_Subtitle" = "Este período é incluído no cálculo.";
+
+/* There are two paragraphs in this section. The first one just contains text… */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "O seu risco de infeção pode ser calculado apenas para períodos durante os quais o registo de exposição esteve ativo. A função de registo deve, por isso, estar permanentemente ativa.";
+
+/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "O registo de exposição abrange os últimos %1$u dias. Durante este período, a função de registo do seu dispositivo esteve ativa durante %2$u dias. A aplicação elimina automaticamente os registos mais antigos, porque os mesmos já não são relevantes para a prevenção da infeção.";
+
+/* Exposure Detection Errors */
+"ExposureDetectionError_Alert_Title" = "Erro";
+
+"ExposureDetectionError_Alert_Action_Details" = "Detalhes";
+
+"ExposureDetectionError_Alert_Message" = "Ocorreu um erro durante o registo de exposição.";
+
+/* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
+"How_Risk_Detection_Works_Alert_Title" = "Informação sobre a funcionalidade de registo de exposição";
+
+"How_Risk_Detection_Works_Alert_Message" = "O seu risco de infeção pode ser calculado apenas para períodos durante os quais o registo de exposição esteve ativo. A função de registo deve, por isso, estar permanentemente ativa.\nO registo de exposição abrange os últimos %1$u dias.\n A aplicação elimina automaticamente os registos mais antigos, porque os mesmos já não são relevantes para a prevenção da infeção.\n\nPara obter mais informações, consulte a nossa página de perguntas frequentes.";
+
+/* Settings */
+"Settings_StatusActive" = "Ligado";
+
+"Settings_StatusInactive" = "Desligado";
+
+"Settings_StatusEnable" = "Ativar";
+
+"Settings_StatusDisable" = "Desativar";
+
+"Settings_KontaktProtokollStatusActive" = "Ativo";
+
+"Settings_KontaktProtokollStatusInactive" = "Parado";
+
+"Settings_Tracing_Label" = "Registo de exposição";
+
+"Settings_Notification_Label" = "Notificações";
+
+"Settings_Reset_Label" = "Reinicializar a aplicação";
+
+"Settings_Tracing_Description" = "Permita que os IDs aleatórios da COVID-19 sejam gerados e partilhados.";
+
+"Settings_Notification_Description" = "Permita notificações automáticas sobre o seu estado de risco relativo à COVID-19.";
+
+"Settings_Reset_Description" = "Elimine todos os seus dados na aplicação.";
+
+"Settings_NavTitle" = "Definições";
+
+/* Noticiation Settings */
+"NotificationSettings_On_Title" = "Pretende ativar notificações sobre o seu estado de risco relativo à COVID-19?";
+
+"NotificationSettings_On_SectionTitle" = "Definição";
+
+"NotificationSettings_On_RiskChanges" = "O seu risco de infeção mudou";
+
+"NotificationSettings_On_TestsStatus" = "Estado do seu teste para a COVID-19";
+
+"NotificationSettings_Off_SectionTitle" = "Definição";
+
+"NotificationSettings_Off_EnableNotifications" = "Notificações";
+
+"NotificationSettings_Off_StatusInactive" = "Desligado";
+
+"NotificationSettings_Off_InfoTitle" = "Ativar notificações";
+
+"NotificationSettings_Off_InfoDescription" = "Para ativar as notificações, tem de permitir notificações da Corona-Warn-App, nas definições do seu dispositivo.";
+
+"NotificationSettings_Off_OpenSettings" = "Abrir Definições";
+
+"NotificationSettings_NavTitle" = "Notificações";
+
+"NotificationSettings_onImageDescription" = "Uma mulher recebe uma notificação da sua Corona-Warn-App.";
+
+"NotificationSettings_offImageDescription" = "Uma mulher não consegue receber notificações da sua Corona-Warn-App.";
+
+/* Onboarding */
+"Onboarding_LetsGo_actionText" = "Vamos começar";
+
+"Onboarding_Continue_actionText" = "Seguinte";
+
+"Onboarding_EnableLogging_actionText" = "Seguinte";
+
+"Onboarding_Continue_actionTextHint" = "Pode ignorar este ecrã";
+
+"Onboarding_doNotAllow_actionText" = "Não permitir";
+
+"Onboarding_DoNotActivate_actionText" = "Não ativar";
+
+"Onboarding_DeactivateExposureConfirmation_title" = "Isto significa que a Corona-Warn-App não pode enviar nem receber notificações sobre o seu estado de risco relativo à COVID-19.";
+
+"Onboarding_DeactivateExposureConfirmation_message" = "Pode desativar esta função a qualquer momento.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "Um grupo de pessoas utilizam os seus dispositivos na cidade.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_title" = "Vamos lutar juntos contra o coronavírus";
+
+"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mais proteção para si e para todos nós. Ao utilizarmos a Corona-Warn-App, podemos quebrar as cadeias de infeção muito mais rapidamente.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Transforme o seu dispositivo num sistema de notificação do coronavírus. Receba uma visão geral do seu estado de risco e descubra se, nos últimos 14 dias, esteve em contacto próximo com pessoas diagnosticadas com COVID-19. \n\nA aplicação regista encontros entre indivíduos através da troca de ID aleatórios encriptados entre dispositivos e sem aceder a quaisquer dados pessoais.";
+
+"OnboardingInfo_privacyPage_imageDescription" = "Uma mulher utiliza a Corona-Warn-App no seu smartphone. Um ícone com um cadeado no fundo de um escudo simboliza dados encriptados.";
+
+"OnboardingInfo_privacyPage_title" = "Privacidade de dados";
+
+"OnboardingInfo_privacyPage_boldText" = "";
+
+"OnboardingInfo_privacyPage_normalText" = "O seu anonimato está garantido.\nOs seus dados são totalmente encriptados e transmitidos sob um pseudónimo.\n\nÓrgão responsável: RGPD, artigo 4, parágrafo 7:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlim\nLeia os nossos regulamentos sobre privacidade de dados.\n\nInformações sobre privacidade de dados:";
+
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Três pessoas ativaram o registo de exposição nos seus dispositivos, que registarão os seus encontros uns com os outros.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "Como ativar o registo de exposição";
+
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Para identificar se corre risco de infeção, terá de ativar a função de registo de exposição.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "O registo de exposição funciona através da receção, por parte do seu dispositivo, através de Bluetooth, de IDs aleatórios encriptados de outros utilizadores e da transmissão do seu próprio ID aleatório para os dispositivos desses utilizadores. Esta função pode ser desativada a qualquer momento. \n\nOs IDs aleatórios encriptados só transmitem informações sobre data, duração e proximidade de outras pessoas (calculados com base na potência do sinal). Dados pessoais como nome, endereço e localização nunca são registados. Não é possível identificar indivíduos.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Declaração de consentimento";
+
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Para descobrir se esteve em contacto com uma pessoa infetada e se existe risco de ter sido infetado, terá de ativar a função de registo de exposição da Aplicação. Ao tocar no botão \"Ligar\", estará a concordar com a ativação da função de registo de exposição da Aplicação e com o processamento de dados associado.\n\n\nPara utilizar a função de registo de exposição da Aplicação, terá de ativar no seu iPhone a funcionalidade de Notificações de Exposição à COVID-19, fornecida pela Apple, e conceder permissão à Corona-Warn-App para a utilizar.\n\nQuando o registo de exposição é permitido, o seu iPhone gera e transmite continuamente IDs aleatórios através de Bluetooth, que outros smarphones Apple e Android próximos de si podem receber, se também tiverem o registo de exposição ativado. Por sua vez, o seu iPhone recebe os IDs aleatórios de outros smartphones. Os seus próprios IDs aleatórios e os recebidos de outros smartphones são registados no registo de exposição e armazenados durante 14 dias.\n\n\nPara identificar o seu risco de infeção, a Aplicação carrega uma lista – várias vezes por dia ou a pedido – dos IDs aleatórios de todos os utilizadores que informaram a Aplicação de que foram infetados com o coronavírus. Esta lista é depois comparada com os IDs aleatórios armazenados no registo de exposição. Se a Aplicação detetar que pode ter estado em contacto com um utilizador infetado, informá-lo-á desse facto e dir-lhe-á que existe um risco de que também tenha sido infetado. Nesse caso, a Aplicação também terá acesso a outros dados armazenados no registo de exposição do seu iPhone (data, duração e potência do sinal de Bluetooth do contacto).\n\nA potência do sinal de Bluetooth é utilizada para derivar a distância física (quanto mais forte o sinal, menor a distância). A Aplicação analisa depois esta informação para avaliar a probabilidade de ter sido infetado com o coronavírus e para lhe fazer recomendações sobre o que deve fazer a seguir. Esta análise só é realizada localmente no seu iPhone. Além de si, ninguém (nem mesmo o Robert Koch Institute) saberá alguma vez se esteve em contacto com uma pessoa infetada e qual o risco que foi identificado para si.\n\nPara retirar o seu consentimento para a função de registo de exposição, pode desativar a função utilizando o comutador na Aplicação ou eliminando a Aplicação. Se decidir utilizar novamente a função de registo de exposição, poderá voltar a ativar a função ou reinstalar a Aplicação. Se desativar a função de registo de exposição, a Aplicação deixará de verificar se esteve em contacto com um utilizador infetado. Se também quiser impedir o seu dispositivo de enviar e receber IDs aleatórios, terá de desativar a funcionalidade de Notificação de Exposição à COVID-19, nas definições do seu iPhone. Tenha em conta que os seus próprios IDs aleatórios e os recebidos de outros smartphones, que se encontram armazenados no registo de exposição, não serão eliminados na Aplicação. Só conseguirá eliminar permanentemente os dados armazenados no registo de exposição, nas definições do seu iPhone.\n\n\nO aviso de privacidade da Aplicação (incluindo uma explicação sobre o processamento de dados realizado para a função de registo de exposição), pode ser encontrado no menu de \"Informações sobre privacidade de dados\".";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Estado";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateTitle" = "Registo de exposição";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateActive" = "Ativo";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateStopped" = "Parado";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "Um diagnóstico de teste positivo é transmitido ao sistema, que agora avisará outros utilizadores.";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Se for diagnosticado com COVID-19…";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… reporte esse facto na Corona-Warn-App. A partilha dos resultados do seu teste é voluntária e segura. Faça-o em nome da saúde de todos.";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "A sua notificação é encriptada de forma segura e processada num servidor seguro. As pessoas cujos IDs aleatórios encriptados foram recolhidos pelo seu dispositivo, receberão um aviso com informações sobre o que devem fazer.";
+
+"OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Uma mulher recebe uma notificação da sua Corona-Warn-App.";
+
+"OnboardingInfo_alwaysStayInformedPage_title" = "Receber avisos e identificar riscos";
+
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "A aplicação pode notificá-lo automaticamente sobre o seu estado de risco e avisá-lo sobre novas infeções de pessoas a quem tenha estado exposto. Permita agora que a aplicação o notifique.";
+
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "Poderá então autoisolar-se para proteger os outros e descobrir onde pode realizar o teste.";
+
+/* Exposure Submission */
+"ExposureSubmission_Hotline_Number" = "+498007540002";
+
+"ExposureSubmission_DataPrivacyTitle" = "Privacidade de dados";
+
+"ExposureSubmission_Continue_actionText" = "Seguinte";
+
+"ExposureSubmission_DataPrivacyDescription" = "Ao tocar em \"Aceitar\", está a consentir que a Aplicação consulte o estado seu teste ao coronavírus e o apresente na aplicação. Esta função estará disponível para si, se tiver recebido um código QR e tiver consentido que o resultado do seu teste seja transmitido para o sistema do servidor da Aplicação. Logo que o laboratório de testes tenha armazenado o resultado do seu teste no servidor, conseguirá ver o resultado na Aplicação. Se tiver ativado as notificações, também receberá uma notificação fora da Aplicação, a informá-lo de que o resultado do seu teste foi recebido. No entanto, por motivos de privacidade, o resultado do teste propriamente dito só será apresentado na Aplicação. Pode retirar este consentimento a qualquer momento, eliminando o registo do seu teste na Aplicação. A retirada do seu consentimento não afetará a legitimidade do processamento antes da retirada. Pode encontrar mais informações no menu de \"Informações sobre privacidade de dados\".";
+
+"ExposureSubmissionDataPrivacy_AcceptTitle" = "Aceitar";
+
+"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Não aceitar";
+
+"ExposureSubmission_Submit" = "Introduzir o TAN";
+
+"ExposureSubmissionTanEntry_Title" = "Introdução do TAN";
+
+"ExposureSubmissionTanEntry_EntryField" = "Campo de introdução do TAN";
+
+"ExposureSubmissionTanEntry_Info" = "Introduza o TAN que lhe foi fornecido:";
+
+"ExposureSubmissionTanEntry_Description" = "Introduza o TAN de 10 dígitos que lhe foi fornecido.";
+
+"ExposureSubmissionTanEntry_Submit" = "Seguinte";
+
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Entrada inválida, confira a sua entrada.";
+
+"ExposureSubmissionTanEntry_InvalidError" = "TAN inválido, confira a sua entrada.";
+
+"ExposureSubmission_NavTitle" = "Enviar chave de diagnóstico";
+
+"ExposureSubmissionConfirmation_Title" = "Diagnóstico positivo";
+
+"ExposureSubmission_GeneralErrorTitle" = "Erro";
+
+"ExposureSubmission_DispatchTitle" = "Seleção";
+
+"ExposureSubmission_DispatchDescription" = "O que há aqui para si?";
+
+"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Documento com código QR";
+
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registe o seu teste digitalizando o código QR do seu documento de teste.";
+
+"ExposureSubmissionDispatch_TANButtonTitle" = "TAN";
+
+"ExposureSubmissionDispatch_TANButtonDescription" = "Registe o seu teste introduzindo manualmente o seu TAN.";
+
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "Pedir TAN";
+
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Contacte-nos por telefone se tiver recebido um resultado de teste %@.";
+
+"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Positivo";
+
+"ExposureSubmissionHotline_Title" = "Pedir TAN";
+
+"ExposureSubmissionHotline_Description" = "Para pedir um TAN, tenha à mão o resultado do seu teste (se disponível) e o seu número de telefone.";
+
+"ExposureSubmissionHotline_SectionTitle" = "Como funciona";
+
+"ExposureSubmissionHotline_SectionDescription1" = "Ligar para a linha direta e pedir um TAN:";
+
+"ExposureSubmissionHotline_iconAccessibilityLabel1" = "Passo 1 de 2";
+
+"ExposureSubmissionHotline_iconAccessibilityLabel2" = "Passo 2 de 2";
+
+"ExposureSubmission_PhoneNumber" = "+49 800 7540002";
+
+"ExposureSubmission_PhoneDetailDescription" = "Idiomas: \nAlemão, Inglês, Turco\n\nHorário de atendimento:\nDe 2ª-feira a sábado: 24 horas\n\nA chamada é gratuita.";
+
+"ExposureSubmission_SectionDescription2" = "Registe o teste através da introdução do TAN na aplicação.";
+
+"ExposureSubmission_CallButtonTitle" = "Ligar";
+
+"ExposureSubmission_TANInputButtonTitle" = "Introduzir o TAN";
+
+"ExposureSubmissionHotline_imageDescription" = "A linha direta comunica um TAN.";
+
+/* Exposure Submission QR Code Scanner */
+"ExposureSubmissionQRScanner_title" = "Digitalização de código QR";
+
+"ExposureSubmissionQRScanner_instruction" = "Coloque a moldura sobre o código QR do seu documento.";
+
+"ExposureSubmissionQRScanner_notFoundAlertTitle" = "Não é possível encontrar o diagnóstico";
+
+"ExposureSubmissionQRScanner_notFoundAlertText" = "Para facilitar a leitura do código QR, tente alinhar o código QR verticalmente com o digitalizador, ou desligue o flash.";
+
+"ExposureSubmissionQRScanner_otherError" = "Ocorreu um erro desconhecido.";
+
+"ExposureSubmissionQRScanner_cameraPermissionDenied" = "Permite que a aplicação utilize a câmara para digitalizar o código QR.";
+
+"ExposureSubmissionQRScanner_CameraFlash" = "Flash da câmara";
+
+"ExposureSubmissionQRScanner_CameraFlash_On" = "Ligado";
+
+"ExposureSubmissionQRScanner_CameraFlash_Off" = "Desligado";
+
+"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Ligar o flash da câmara";
+
+"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Desligar o flash da câmara";
+
+/* Exposure Submission Success */
+"ExposureSubmissionSuccess_Title" = "Obrigado!";
+
+"ExposureSubmissionSuccess_AccImageDescription" = "Todos os membros do grupo festejam porque alguém partilhou o resultado do respetivo teste.";
+
+"ExposureSubmissionSuccess_Button" = "E pronto!";
+
+"ExposureSubmissionSuccess_Description" = "Graças ao seu apoio, outras pessoas podem agora ser avisadas e reagir em conformidade.";
+
+"ExposureSubmissionSuccess_subTitle" = "Outras informações:";
+
+"ExposureSubmissionSuccess_listTitle" = "Tenha em conta:";
+
+"ExposureSubmissionSuccess_listItem1" = "A autoridade de saúde pública irá contactá-lo nos próximos dias por telefone ou por carta.";
+
+"ExposureSubmissionSuccess_listItem2" = "Está num estado infecioso. Isole-se das outras pessoas.";
+
+"ExposureSubmissionSuccess_listItem2_1" = "Habitualmente, o seu período de quarentena será de 14 dias. Observe os seus sintomas e monitorize a respetiva evolução.";
+
+"ExposureSubmissionSuccess_listItem2_2" = "A sua autoridade de saúde pública vai pedir-lhe que crie uma lista das pessoas com quem teve contacto. Essa lista deve incluir todas as pessoas com quem teve contacto próximo (a menos de 2 metros de distância, conversa cara-a-cara) durante mais de 15 minutos, nos dois dias anteriores ao aparecimento dos sintomas.";
+
+"ExposureSubmissionSuccess_listItem2_3" = "Tenha especialmente em conta as pessoas que não serão notificadas diretamente pela aplicação, por tão terem um smartphone ou por não terem instalado a aplicação.";
+
+"ExposureSubmissionSuccess_listItem2_4" = "Ainda que já não tenha sintomas e se sinta novamente bem, pode continuar a ser infecioso. ";
+
+/* Exposure Submission Introduction */
+"ExposureSubmissionIntroduction_Title" = "Informação";
+
+"ExposureSubmissionIntroduction_SubTitle" = "É assim que funciona a Corona-Warn-App";
+
+"ExposureSubmissionIntroduction_AccImageDescription" = "Um dispositivo transmite ao sistema um diagnóstico de teste positivo encriptado.";
+
+"ExposureSubmissionIntroduction_Usage01" = "Para a aplicação funcionar bem, dependemos do apoio de pessoas que foram diagnosticadas com COVID-19.";
+
+"ExposureSubmissionIntroduction_Usage02" = "Uma vez que apenas são trocados IDs aleatórios encriptados, o seu anonimato está garantido. Pode agora proceder da seguinte forma:";
+
+"ExposureSubmissionIntroduction_ListItem1" = "Se existir um código QR no documento do seu teste, pode digitalizá-lo e registar o teste. Logo que o resultado do teste esteja disponível, poderá visualizá-lo na aplicação. ";
+
+"ExposureSubmissionIntroduction_ListItem2" = "Se tiver sido diagnosticado com COVID-19, poderá notificar outros.";
+
+"ExposureSubmissionIntroduction_ListItem3" = "Se recebeu um TAN relativo a um diagnóstico positivo, poderá utilizá-lo para registar o teste.";
+
+"ExposureSubmissionIntroduction_ListItem4" = "Se não tiver um TAN, pode pedir um por telefone.";
+
+/* Exposure Submission Result */
+"ExposureSubmissionResult_Title" = "Resultado do teste";
+
+"ExposureSubmissionResult_CardSubTitle" = "O seu diagnóstico";
+
+"ExposureSubmissionResult_CardTitle" = "SARS-CoV-2";
+
+"ExposureSubmissionResult_CardPositive" = "Positivo";
+
+"ExposureSubmissionResult_CardNegative" = "Negativo";
+
+"ExposureSubmissionResult_CardInvalid" = "A avaliação não é possível";
+
+"ExposureSubmissionResult_CardPending" = "O seu resultado ainda não está disponível";
+
+"ExposureSubmissionResult_Procedure" = "Como funciona:";
+
+"ExposureSubmissionResult_testAdded" = "Teste adicionado com sucesso";
+
+"ExposureSubmissionResult_testAddedDesc" = "O seu teste foi armazenado na Corona-Warn-App.";
+
+"ExposureSubmissionResult_warnOthers" = "Avisar os outros";
+
+"ExposureSubmissionResult_warnOthersDesc" = "Partilhe os seus IDs aleatórios dos últimos 14 dias para proteger os outros e quebrar a cadeia de infeção.";
+
+"ExposureSubmissionResult_testPositive" = "Diagnóstico positivo";
+
+"ExposureSubmissionResult_testPositiveDesc" = "O resultado do seu teste foi verificado como positivo.";
+
+"ExposureSubmissionResult_testNegative" = "Diagnóstico negativo";
+
+"ExposureSubmissionResult_testNegativeDesc" = "O resultado do laboratório indica que não se verifica que tenha o coronavírus SARS-CoV-2.";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_title" = "Outras informações:";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Ainda não se sente bem? Se estiver a sentir-se muito mal e/ou se os seus sintomas se agravaram, contacte o seu médico de família.";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Permaneça em casa até se sentir bem novamente. Caso seja infetado com coronavírus (SARS-CoV-2) enquanto estiver enfraquecido devido a outra infeção, isso pode provocar doença grave.";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Não vá trabalhar se não se sentir bem para garantir que não coloca outras pessoas em risco.";
+
+"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Se os seus sintomas se agravarem, poderá precisar de realizar outro teste de SARS-CoV-2.";
+
+"ExposureSubmissionResult_testInvalid" = "O teste tem erros";
+
+"ExposureSubmissionResult_testInvalidDesc" = "Ocorreu um problema ao avaliar o seu teste. Contacte a autoridade de saúde pública para saber como deve proceder. ";
+
+"ExposureSubmissionResult_testPending" = "O resultado do teste ainda não está disponível";
+
+"ExposureSubmissionResult_testPendingDesc" = "O resultado do seu teste ainda não está disponível.";
+
+"ExposureSubmissionResult_testRemove" = "Eliminar teste";
+
+"ExposureSubmissionResult_testRemoveDesc" = "Elimine o teste da Corona-Warn-App, para poder guardar aqui um novo teste, caso seja necessário.";
+
+"ExposureSubmissionResult_continueButton" = "Seguinte";
+
+"ExposureSubmissionResult_deleteButton" = "Eliminar teste";
+
+"ExposureSubmissionResult_refreshButton" = "Atualizar";
+
+"ExposureSubmissionWarnOthers_title" = "Avisar os outros";
+
+"ExposureSubmissionWarnOthers_AccImageDescription" = "Um dispositivo transmite ao sistema um diagnóstico de teste positivo encriptado.";
+
+"ExposureSubmissionWarnOthers_continueButton" = "Seguinte";
+
+"ExposureSubmissionWarnOthers_sectionTitle" = "Ajude-nos!";
+
+"ExposureSubmissionWarnOthers_description" = "A seguir, pode certificar-se de que a Corona-Warn-App partilha os seus IDs aleatórios dos últimos 14 dias com outros. Ao fazer isso, pode avisar outras pessoas e ajudar a quebrar a cadeia de infeção.\n\nComo só são transmitidos IDs aleatórios impessoais, a sua identidade permanecerá anónima.";
+
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Ao tocar em \"Aceitar\", está a consentir que a Aplicação envie o resultado positivo do seu teste para o sistema do servidor da Aplicação, em conjunto com os seus IDs aleatórios dos últimos 14 dias, para que outros utilizadores da Aplicação que tenham ativado a função de registo de exposição possam ser automaticamente notificados de que podem ter estado expostos a um risco de infeção. Os IDs aleatórios transmitidos para este efeito não contêm qualquer informação que permita tirar conclusões sobre a sua identidade ou a sua pessoa. \n\nA transmissão do resultado do seu teste através da Aplicação é voluntária. Não será penalizado se não transmitir o resultado do seu teste. Uma vez que não é possível rastrear ou verificar se e como utiliza a Aplicação, ninguém além de si saberá se transmitiu a informação de que está infetado.\n\nPode retirar o seu consentimento a qualquer momento, eliminando a Aplicação. Esta retirada do seu consentimento não afetará a legitimidade do processamento realizado com base no consentimento anterior à retirada. Pode encontrar mais informações no menu de \"Informações sobre privacidade de dados\".";
+
+"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Privacidade de dados";
+
+"ExposureSubmissionResult_RemoveAlert_Title" = "Eliminar o teste?";
+
+"ExposureSubmissionResult_RemoveAlert_Text" = "O teste será permanentemente eliminado da Corona-Warn-App e não poderá ser novamente adicionado. Este procedimento é irreversível. ";
+
+"ExposureSubmissionResult_RegistrationDateUnknown" = "Data de registo desconhecida";
+
+"ExposureSubmissionResult_RegistrationDate" = "Registado em ";
+
+/* Exposure Submission */
+"ExposureSubmissionError_NoKeys" = "Nenhuma chave de diagnóstico disponível. Tente novamente amanhã.";
+
+"ExposureSubmissionError_InvalidTan" = "O TAN gerado é inválido para envio. Contacte a linha direta técnica através de Informação sobre a aplicação -> Linha direta técnica.";
+
+"ExposureSubmissionError_EnNotEnabled" = "O registo de exposição não está ativo.";
+
+"ExposureSubmissionError_NoRegistrationToken" = "Nenhum token de registo encontrado no dispositivo.";
+
+"ExposureSubmissionError_InvalidResponse" = "Não é possível processar a resposta.";
+
+"ExposureSubmissionError_NoResponse" = "A resposta não tem conteúdo.";
+
+"ExposureSubmissionError_QRAlreadyUsed" = "O código QR já foi utilizado. Contacte a linha direta técnica através de Informação sobre a aplicação -> Linha direta técnica.";
+
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "O TAN é inválido ou já foi utilizado. Tente novamente ou contacte a linha direta técnica através de Informação sobre a aplicação -> Linha direta técnica.";
+
+"ExposureSubmissionError_RegTokenNotExist" = "Não é possível gerar um TAN para envio. Contacte a linha direta técnica através de Informação sobre a aplicação -> Linha direta técnica.";
+
+"ExposureSubmissionError_other" = "Ocorreu um erro de ligação. Código do erro para o apoio técnico: ";
+
+"ExposureSubmissionError_otherend" = "Tente novamente.";
+
+"ExposureSubmissionError_httpError" = "Não é possível estabelecer a ligação.";
+
+"ExposureSubmissionError_declined" = "Liberte os seus IDs aleatórios para avisar as outras pessoas.";
+
+"ExposureSubmissionError_unknown" = "Erro desconhecido";
+
+"ExposureSubmissionError_defaultError" = "Erro durante a transmissão da chave";
+
+/* Tracing Enable/Disable Settings */
+"ExposureNotificationSetting_TracingSettingTitle" = "Registo de exposição";
+
+"ExposureNotificationSetting_EnableTracing" = "Registo de exposição";
+
+"ExposureNotificationSetting_Tracing_Limited" = "Restrito";
+
+"ExposureNotificationSetting_Tracing_Deactivated" = "Desativado";
+
+"ExposureNotificationSetting_ActionCell_Header" = "Definição";
+
+"ExposureNotificationSetting_DescriptionTitle_Inactive" = "Ativar registo de exposição";
+
+"ExposureNotificationSetting_DescriptionTitle" = "É assim que funciona o seu registo de exposição";
+
+"ExposureNotificationSetting_DescriptionText1" = "Para identificar se corre risco de infeção, terá de ativar a função de registo de exposição.";
+
+"ExposureNotificationSetting_DescriptionText2" = "O registo de exposição funciona através da receção, por parte do seu dispositivo, através de Bluetooth, de IDs aleatórios encriptados de outros utilizadores e da transmissão do seu próprio ID aleatório para os dispositivos desses utilizadores. Esta função pode ser desativada a qualquer momento.";
+
+"ExposureNotificationSetting_DescriptionText3" = "Os IDs aleatórios encriptados só transmitem informações sobre data, duração e proximidade de outras pessoas (calculados com base na potência do sinal). Dados pessoais como nome, endereço e localização nunca são registados. Não é possível identificar indivíduos.";
+
+"ExposureNotificationSetting_Activate_Bluetooth" = "Ligar o Bluetooth";
+
+"ExposureNotificationSetting_Bluetooth_Description" = "O Bluetooth tem de estar ligado para o registo de exposição, de modo a registar encontros. Ligue o Bluetooth nas definições do seu dispositivo.";
+
+"ExposureNotificationSetting_Activate_Internet" = "Abrir ligação à Internet";
+
+"ExposureNotificationSetting_Internet_Description" = "O registo de exposição precisa de uma ligação à Internet para calcular as exposições. Ligue o WI-FI ou os dados móveis nas definições do seu dispositivo.";
+
+"ExposureNotificationSetting_Detail_Action_Button" = "Abrir as definições do dispositivo";
+
+"ExposureNotificationSetting_Activate_OSENSetting" = "Ativar o registo de exposição e as notificações de COVID-19";
+
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Para o registo de exposição, é necessário ativar o registo de exposição e as notificações de COVID-19 nas definições do sistema, para que seja possível registar os encontros. Ative \"Registo de exposição e notificações de COVID-19\" nas definições do seu sistema.";
+
+"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Ativar o registo de exposição e as notificações de COVID-19";
+
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Para o registo de exposição, é necessário ativar o registo de exposição e as notificações de COVID-19 nas definições do sistema, para que seja possível registar os encontros. Ative \"Registo de exposição e notificações de COVID-19\" nas definições do seu sistema.";
+
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Autorização necessária";
+
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Confirme a utilização do registo de exposição à COVID-19.";
+
+"ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Autorização";
+
+"ExposureNotificationSetting_AccLabel_Enabled" = "Três pessoas ativaram o registo de exposição nos seus dispositivos, que registarão os seus encontros uns com os outros.";
+
+"ExposureNotificationSetting_AccLabel_Disabled" = "Uma pessoa desativou o registo de exposição no seu smartphone, pelo que um encontro com outras duas pessoas não será registado.";
+
+"ExposureNotificationSetting_AccLabel_BluetoothOff" = "Uma pessoa desligou o Bluetooth no seu smartphone, pelo que um encontro com outras duas pessoas não será registado.";
+
+"ExposureNotificationSetting_AccLabel_InternetOff" = "Uma pessoa desligou a ligação à Internet no seu smartphone, pelo que não é possível identificar os seus últimos encontros.";
+
+"ExposureNotificationSetting_Activate_Action" = "Aceitar";
+
+"ExposureNotificationSetting_Dismiss_Action" = "Cancelar";
+
+"ExposureNotificationSetting_GeneralError_Title" = "Erro";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Saber mais";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.coronawarn.app/en/faq/";
+
+"ExposureNotificationSetting_AuthenticationError" = "Ocorreu um erro ao ativar a função de registo de exposição. Verifique se ativou o registo de exposição à COVID-19 nas suas definições.";
+
+"ExposureNotificationSetting_exposureNotification_Required" = "Ocorreu um erro ao ativar a função de registo de exposição. Verifique se a função de notificação de exposição à COVID-19 nas suas definições está ativada para a aplicação.";
+
+"ExposureNotificationSetting_exposureNotification_unavailable" = "Ocorreu um erro ao ativar a função de registo de exposição. Verifique se esta aplicação está selecionada como a aplicação ativa para o registo de exposição à COVID-19 nas suas definições. Para obter mais informações, visite a nossa página de perguntas frequentes.";
+
+"ExposureNotificationSetting_unknownError" = "Ocorreu um erro desconhecido. Para obter mais informações, visite a nossa página de perguntas frequentes.";
+
+"ExposureNotificationSetting_apiMisuse" = "Ocorreu um erro interno ao ativar a função de registo de exposição. Para obter mais informações, visite a nossa página de perguntas frequentes e tente novamente mais tarde.";
+
+/* Home Navigation Bar */
+"Home_LeftBarButton_description" = "Logótipo da Corona-Warn-App";
+
+"Home_RightBarButton_description" = "Informação";
+
+/* Home Active card */
+"Home_Activate_Card_On_Title" = "Registo de exposição ativo";
+
+"Home_Activate_Card_Off_Title" = "Registo de exposição parado";
+
+"Home_Activate_Card_Bluetooth_Off_Title" = "Bluetooth desligado";
+
+"Home_Activate_Card_Internet_Off_Title" = "Sem ligação à Internet";
+
+/* Home common card */
+"Home_Risk_Date_Item_Title" = "Atualizado: %@";
+
+"Home_Risk_No_Date_Title" = "Desconhecido";
+
+"Home_Risk_Period_Update_Title" = "Atualizado a cada %@\U00A0hours";
+
+"Home_Risk_Period_Disabled_Button_Title" = "Atualizado apenas a cada %@\U00A0hours";
+
+"Home_Risk_Unknown_Title" = "Risco desconhecido";
+
+"Home_Risk_Last_Activate_Item_Title" = "Último registo de exposição: %@";
+
+"Home_Risk_Last_Activate_Item_Unknown_Title" = "Risco desconhecido";
+
+"Home_Risk_Last_Activate_Item_Low_Title" = "Risco baixo";
+
+"Home_Risk_Last_Activate_Item_High_Title" = "Risco mais elevado";
+
+"Home_RiskCard_Update_Button" = "Atualizar";
+
+/* Home Unknown card */
+"Home_RiskCard_Unknown_Item_Title" = "Uma vez que não tem o registo de exposição ligado há tempo suficiente, não é possível calcular o seu risco de infeção.";
+
+/* Home Unknown 48 card */
+"Home_RiskCard_Unknown48h_Body" = "O seu registo de exposição não é atualizado há mais de 48 horas. Atualize o cálculo.";
+
+/* Home Inactive card */
+"Home_Risk_Inactive_NoCalculation_Possible_Title" = "Registo de exposição parado";
+
+"Home_Risk_Inactive_Outdated_Results_Title" = "O registo de exposição não é possível";
+
+"Home_Risk_Inactive_NoCalculation_Possible_Body" = "Ativar registo de exposição para avaliar o seu estado de risco para hoje.";
+
+"Home_Risk_Inactive_Outdated_Results_Body" = "Há mais de 24 horas que não é possível atualizar o seu registo de exposição.";
+
+"Home_Risk_Inactive_NoCalculation_Possible_Button" = "Ativar registo de exposição";
+
+"Home_Risk_Inactive_Outdated_Results_Button" = "Ativar registo de exposição";
+
+/* Home Low card */
+"Home_Risk_Low_Title" = "Risco baixo";
+
+"Home_Risk_Low_SaveDays_Item_Title" = "O registo de exposição esteve ativo durante %1$u dos últimos 14 dias.";
+
+"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Registo de exposição permanentemente ativo";
+
+/* Home High card */
+"Home_Risk_High_Title" = "Risco mais elevado";
+
+/* Home Status Check */
+"Home_Risk_Status_Check_Title" = "Verificação em execução…";
+
+"Home_Risk_Status_Check_Body" = "Estão a ser descarregados e verificados dados atuais. Este processo pode demorar vários minutos.";
+
+/* Home Thank you card */
+"Home_Thank_You_Card_Title" = "Obrigado!";
+
+"Home_Thank_You_Card_Body" = "Graças ao seu apoio, outras pessoas podem agora ser avisadas e reagir em conformidade.";
+
+"Home_Thank_You_Card_Note_Title" = "Tenha em conta:";
+
+"Home_Thank_You_Card_Phone_Item_Title" = "A autoridade de saúde pública irá contactá-lo nos próximos dias por telefone ou por carta.";
+
+"Home_Thank_You_Card_Home_Item_Title" = "Está num estado infecioso. Isole-se das outras pessoas.";
+
+"Home_Thank_You_Card_Further_Info_Item_Title" = "Outras informações:";
+
+"Home_Thank_You_Card_14Days_Item_Title" = "Habitualmente, o seu período de quarentena será de 14 dias. Observe os seus sintomas e monitorize a respetiva evolução.";
+
+"Home_Thank_You_Card_Contacts_Item_Title" = "A sua autoridade de saúde pública vai pedir-lhe que crie uma lista das pessoas com quem teve contacto. Essa lista deve incluir todas as pessoas com quem teve contacto próximo (a menos de 2 metros de distância, conversa cara-a-cara) durante mais de 15 minutos, nos dois dias anteriores ao aparecimento dos sintomas.";
+
+"Home_Thank_You_Card_App_Item_Title" = "Tenha especialmente em conta as pessoas que não serão notificadas diretamente pela aplicação, por tão terem um smartphone ou por não terem instalado a aplicação.";
+
+"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Ainda que já não tenha sintomas e se sinta novamente bem, pode continuar a ser infecioso. ";
+
+/* Home Finding positive */
+"Home_Finding_Positive_Card_Title" = "Diagnóstico positivo";
+
+"Home_Finding_Positive_Card_Status_Title" = "SARS-CoV-2 positivo";
+
+"Home_Finding_Positive_Card_Status_Subtitle" = "Foi diagnosticado com o vírus SARS-CoV-2.";
+
+"Home_Finding_Positive_Card_Note_Title" = "Tenha em conta:";
+
+"Home_Finding_Positive_Card_Phone_Item_Title" = "A autoridade de saúde pública irá contactá-lo nos próximos dias por telefone ou por carta.";
+
+"Home_Finding_Positive_Card_Home_Item_Title" = "Está num estado infecioso. Isole-se das outras pessoas.";
+
+"Home_Finding_Positive_Card_Share_Item_Title" = "Partilhe os seus IDs aleatórios para que outros possam ser avisados.";
+
+"Home_Finding_Positive_Card_Button" = "Seguinte";
+
+/* Home Submit card */
+"Home_SubmitCard_Title" = "Realizou o teste?";
+
+"Home_SubmitCard_Body" = "Ajude a quebrar a cadeia de infeção notificando os outros.";
+
+"Home_SubmitCard_Button" = "Saber mais e Ajuda";
+
+"Home_InfoCard_ShareTitle" = "Partilhe a Corona-Warn-App";
+
+"Home_InfoCard_ShareBody" = "Quantas mais pessoas utilizarem a aplicação, mais rapidamente conseguiremos quebrar a cadeia de infeção. Convide os seus familiares e amigos a descarregarem a aplicação.";
+
+"Home_InfoCard_AboutTitle" = "Perguntas frequentes";
+
+"Home_InfoCard_AboutBody" = "Aqui, pode encontrar respostas para as perguntas mais frequentes sobre a Corona-Warn-App. Será encaminhado para um website externo.";
+
+"Home_SettingsCard_Title" = "Definições";
+
+"Home_AppInformationCard_Title" = "Informação sobre a aplicação";
+
+"Home_AppInformationCard_Version" = "Versão";
+
+/* Home Result Card */
+"Home_resultCard_ResultAvailableTitle" = "O seu resultado está disponível";
+
+"Home_resultCard_ResultUnvailableTitle" = "O seu resultado ainda não está disponível";
+
+"Home_resultCard_ShowResultButton" = "Apresentar teste";
+
+"Home_resultCard_LoadingBody" = "Estão a ser descarregados dados atuais.\nEste processo pode demorar vários minutos.";
+
+"Home_resultCard_LoadingTitle" = "Atualização em curso…";
+
+"Home_resultCard_NegativeTitle" = "Diagnóstico negativo";
+
+"Home_resultCard_NegativeDesc" = "Tem um diagnóstico negativo de SARS-CoV-2.";
+
+"Home_resultCard_PendingDesc" = "A avaliação do seu teste ainda não está concluída.";
+
+"Home_resultCard_InvalidTitle" = "Teste inválido";
+
+"Home_resultCard_InvalidDesc" = "Não é possível avaliar o seu teste.";
+
+"Home_resultCard_LoadingErrorTitle" = "Não é possível carregar o resultado do seu teste.";
+
+/* App Information - About */
+"App_Information_About_Navigation" = "Sobre a aplicação";
+
+"App_Information_About_ImageDescription" = "";
+
+"App_Information_About_Title" = "Vamos lutar juntos contra o coronavírus";
+
+"App_Information_About_Description" = "Robert Koch Institute (RKI) é a autoridade de saúde pública federal da Alemanha. O RKI lançou a Corona-Warn-App em nome do Governo Federal. A aplicação é um complemento digital às medidas de saúde pública já implementadas: distanciamento social, higiene e máscaras faciais.";
+
+"App_Information_About_Text" = "Quem utilizar a aplicação estará a ajudar a rastrear e quebrar cadeias de infeção. A aplicação guarda, localmente no seu dispositivo, os encontros com outras pessoas. Será notificado se tiver encontrado pessoas que vieram a ser diagnosticadas com COVID-19. As suas identidade e privacidade estão sempre protegidas.";
+
+/* App Information - FAQ */
+"App_Information_FAQ_Navigation" = "Perguntas frequentes";
+
+/* App Information - Contact */
+"App_Information_Contact_Navigation" = "Linha direta técnica";
+
+"App_Information_Contact_ImageDescription" = "Um homem faz uma chamada telefónica através de um auricular.";
+
+"App_Information_Contact_Title" = "Como podemos ajudar?";
+
+"App_Information_Contact_Description" = "Para esclarecer dúvidas técnicas sobre a Corona-Warn-App, contacte a nossa linha direta.";
+
+"App_Information_Contact_Hotline_Title" = "Linha direta técnica";
+
+"App_Information_Contact_Hotline_Text" = "+49 800 7540001";
+
+"App_Information_Contact_Hotline_Number" = "+498007540001";
+
+"App_Information_Contact_Hotline_Description" = "O nosso apoio ao cliente está disponível para ajudar.";
+
+"App_Information_Contact_Hotline_Terms" = "Idiomas: Alemão, Inglês, Turco\n\nHorário de atendimento:\nDe 2ª-feira a sábado: 7:00 - 22:00\n(exceto feriados nacionais)\n\nA chamada é gratuita.";
+
+/* App Information - Imprint */
+"App_Information_Imprint_Navigation" = "Impressão";
+
+"App_Information_Imprint_ImageDescription" = "Uma mão segura um smartphone que apresenta um texto extenso no ecrã. Junto ao texto, está um símbolo de secção que representa a impressão.";
+
+"App_Information_Imprint_Section1_Title" = "Publicado por";
+
+"App_Information_Imprint_Section1_Text" = "(responsável de acordo com § 5, para. 1 TMG, § 55 para. 1 RStV, DS-GVO, BDSG)";
+
+"App_Information_Imprint_Section2_Title" = "Robert Koch Institute";
+
+"App_Information_Imprint_Section2_Text" = "Nordufer 20\n13353 Berlim\nrepresentado pelo respetivo presidente";
+
+"App_Information_Imprint_Section3_Title" = "Contacto";
+
+"App_Information_Imprint_Section3_Text" = "E-mail: CoronaWarnApp@rki.de\nTelefone: +49 30 18754 5100";
+
+"App_Information_Imprint_Section4_Title" = "Nº de identificação do IVA";
+
+"App_Information_Imprint_Section4_Text" = "DE 165 893 430";
+
+/* App Information - Legal */
+"App_Information_Legal_Navigation" = "Avisos legais";
+
+/* App Information - Privacy */
+"App_Information_Privacy_Navigation" = "Privacidade de dados";
+
+"App_Information_Legal_ImageDescription" = "Uma mão segura um smartphone que apresenta um texto extenso no ecrã. Junto ao texto, está uma balança que simboliza os avisos legais.";
+
+"App_Information_Privacy_Title" = "Privacidade de dados";
+
+"App_Information_Privacy_Description" = "O seu anonimato está garantido.\nOs seus dados são totalmente encriptados e transmitidos sob um pseudónimo.";
+
+/* App Information - Terms */
+"App_Information_Terms_Navigation" = "Condições de utilização";
+
+"App_Information_Terms_ImageDescription" = "Uma mão segura um smartphone que apresenta um texto extenso no ecrã. Junto ao texto, está uma marca de verificação que simboliza que as condições de utilização têm de ser aceites.";
+
+"App_Information_Terms_Title" = "Condições de utilização";
+
+/* Invite Friends */
+"InviteFriends_NavTitle" = "Partilhar";
+
+"InviteFriends_Subtitle" = "Partilhe a Corona-Warn-App";
+
+"InviteFriends_Title" = "Vamos lutar juntos contra o coronavírus";
+
+"InviteFriends_Description" = "Quantas mais pessoas utilizarem a aplicação, mais rapidamente conseguiremos quebrar a cadeia de infeção. Convide os seus familiares e amigos a descarregarem a aplicação.";
+
+"InviteFriends_Button" = "Enviar ligação para descarregamento";
+
+"InviteFriends_ShareTitle" = "Vamos lutar juntos contra o coronavírus. Contem comigo; podemos contar consigo?";
+
+"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-englisch";
+
+"InviteFriends_Illustration_Label" = "Um homem partilha a Corona-Warn-App com mais quatro pessoas.";
+
+/* Reset View */
+"Reset_NavTitle" = "Reinicializar";
+
+"Reset_Header1" = "Tem a certeza de que pretende reinicializar a aplicação?";
+
+"Reset_Descrition1" = "Já não será notificado sobre as suas exposições e deixará de conseguir avisar outros utilizadores.";
+
+"Reset_Button" = "Reinicializar a aplicação";
+
+"Reset_Discard" = "Cancelar";
+
+"Reset_InfoTitle" = "Eliminar registo de exposição";
+
+"Reset_InfoDescription" = "O registo de exposição tem de ser eliminado separadamente, nas definições do seu dispositivo.";
+
+"Reset_Subtitle" = "Reinicializar a aplicação";
+
+"Reset_ImageDescription" = "Uma mão segura um smartphone que apresenta um símbolo que indica que a aplicação está a ser reinicializada.";
+
+"Reset_ConfirmDialog_Title" = "Reinicializar a aplicação";
+
+"Reset_ConfirmDialog_Description" = "Já não será notificado sobre as suas exposições e deixará de conseguir avisar outros utilizadores. Este procedimento é irreversível.";
+
+"Reset_ConfirmDialog_Cancel" = "Cancelar";
+
+"Reset_ConfirmDialog_Confirm" = "Reinicializar";
+
+/* Safari */
+"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";
+
+/* Local Notifications */
+"local_notifications_ignore" = "Ignorar";
+
+"local_notifications_detectexposure_title" = "Corona-Warn-App";
+
+"local_notifications_detectexposure_body" = "Tem novas mensagens da sua Corona-Warn-App.";
+
+"local_notifications_testresults_title" = "Corona-Warn-App";
+
+"local_notifications_testresults_body" = "Tem novas mensagens da sua Corona-Warn-App.";
+
+/* Risk Legend */
+"RiskLegend_Title" = "Síntese";
+
+"RiskLegend_Subtitle" = "Funções e conceitos importantes";
+
+"RiskLegend_Legend1_Title" = "Registo de exposição";
+
+"RiskLegend_Legend1_Text" = "O registo de exposição é umas das três funções centrais da aplicação. Quando o ativar, ficarão registados os encontros com os dispositivos de outras pessoas. Não precisará de fazer mais nada.";
+
+"RiskLegend_Legend2_Title" = "Risco de infeção";
+
+"RiskLegend_Legend2_Text" = "Se, nos últimos 14 dias, tiver entrado em contacto com uma pessoa que tenha sido diagnosticada com COVID-19, a aplicação calculará o seu risco pessoal de infeção. Fá-lo através da medição da duração e da proximidade da exposição.";
+
+"RiskLegend_Legend2_RiskLevels" = "Podem ser apresentados os seguintes estados de risco:";
+
+"RiskLegend_Legend2_High" = "Risco mais elevado";
+
+"RiskLegend_Legend2_High_Color" = "Vermelho";
+
+"RiskLegend_Legend2_Low" = "Risco baixo";
+
+"RiskLegend_Legend2_Low_Color" = "Verde";
+
+"RiskLegend_Legend2_Unknown" = "Risco desconhecido";
+
+"RiskLegend_Legend2_Unknown_Color" = "Cinzento";
+
+"RiskLegend_Legend3_Title" = "Notificação de outros utilizadores";
+
+"RiskLegend_Legend3_Text" = "Outra função central é o registo do seu teste e a obtenção do resultado. Se for diagnosticado com COVID-19, poderá notificar os outros e quebrar a cadeia de infeção.";
+
+"RiskLegend_Definitions_Title" = "Definição de termos";
+
+"RiskLegend_Store_Title" = "Registo de exposição";
+
+"RiskLegend_Store_Text" = "Lista de IDs aleatórios recebidos e temporários, guardados temporariamente no armazenamento do sistema operativo. Esta lista é lida quando as exposições são verificadas. Todos os IDs aleatórios são automaticamente eliminados após 14 dias.";
+
+"RiskLegend_Check_Title" = "Verificação de exposição";
+
+"RiskLegend_Check_Text" = "Os dados de registo de exposição são obtidos e sincronizados com infeções reportadas de outros utilizadores. A verificação de exposição é realizada automaticamente a cada duas horas, aproximadamente.";
+
+"RiskLegend_Contact_Title" = "Exposições";
+
+"RiskLegend_Contact_Text" = "Encontros com uma duração mais longa e em grande proximidade com pessoas diagnosticadas com COVID-19.";
+
+"RiskLegend_Notification_Title" = "Notificação de exposição";
+
+"RiskLegend_Notification_Text" = "A apresentação de exposições na Corona-Warn-App.";
+
+"RiskLegend_Random_Title" = "IDs aleatórios";
+
+"RiskLegend_Random_Text" = "Os IDs aleatórios são combinações de dígitos e letras gerados aleatoriamente. São trocados entre dispositivos que se encontram em grande proximidade. Os IDs aleatórios não podem ser associados a uma pessoa específica e são automaticamente eliminados após 14 dias. As pessoas diagnosticadas com COVID-19 podem optar por partilhar os seus IDs aleatórios até aos últimos 14 dias com outros utilizadores da aplicação.";
+
+"RiskLegend_Image1_AccLabel" = "Um dispositivo apresenta conteúdo diverso numerado.";
+
+/* Update Message */
+"Update_Message_Title" = "Atualização disponível";
+
+"Update_Message_Text" = "Está disponível uma atualização para a Corona-Warn-App.";
+
+"Update_Message_Text_Force" = "Tenha em conta que só pode usar novamente a Corona-Warn-App quando tiver instalado a atualização mais recente.";
+
+"Update_Message_Action_Update" = "Atualizar";
+
+"Update_Message_Action_Later" = "Mais tarde";
+
+/* ENATanInput */
+"ENATanInput_Empty" = "Em branco";
+
+"ENATanInput_InvalidCharacter" = "Caráter inválido\n\n%@";
+
+"ENATanInput_CharacterIndex" = "Caráter %1$u de %2$u";
+
+/* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
+"Active_Tracing_Interval_Partially_Active" = "O registo de exposição esteve ativo durante %1$u dos últimos 14 dias.";
+
+"Active_Tracing_Interval_Permanently_Active" = "Registo de exposição permanentemente ativo";
+
