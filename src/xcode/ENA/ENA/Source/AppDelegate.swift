@@ -34,7 +34,7 @@ extension AppDelegate: CoronaWarnAppDelegate {
 	// required - otherwise app will crash because cast will fails
 }
 
-extension AppDelegate: ExposureSummaryProvider {
+extension AppDelegate: ExposureSummaryProviding {
 	func detectExposure(completion: @escaping (ENExposureDetectionSummary?) -> Void) {
 		exposureDetection = ExposureDetection(delegate: exposureDetectionExecutor)
 		exposureDetection?.start { result in

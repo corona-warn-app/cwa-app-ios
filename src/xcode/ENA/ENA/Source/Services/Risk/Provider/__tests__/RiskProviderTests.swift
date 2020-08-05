@@ -23,8 +23,8 @@ import ExposureNotification
 
 private final class Summary: ENExposureDetectionSummary {}
 
-private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
-	var onDetectExposure: ((ExposureSummaryProvider.Completion) -> Void)?
+private final class ExposureSummaryProviderMock: ExposureSummaryProviding {
+	var onDetectExposure: ((ExposureSummaryProviding.Completion) -> Void)?
 
 	func detectExposure(completion: (ENExposureDetectionSummary?) -> Void) {
 		onDetectExposure?(completion)

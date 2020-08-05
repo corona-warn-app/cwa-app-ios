@@ -21,10 +21,6 @@ import Foundation
 import ExposureNotification
 import UIKit
 
-protocol ExposureSummaryProvider: AnyObject {
-	typealias Completion = (ENExposureDetectionSummary?) -> Void
-	func detectExposure(completion: @escaping Completion)
-}
 
 /**
 A RiskProvider is a **Publisher** providing risk calculation results to its **subscribers** (`RiskConsumer`)
@@ -76,7 +72,7 @@ final class RiskProvider {
 	init(
 		configuration: RiskProvidingConfiguration,
 		store: Store,
-		exposureSummaryProvider: ExposureSummaryProvider,
+		exposureSummaryProvider: ExposureSummaryProviding,
 		appConfigurationProvider: AppConfigurationProviding,
 		exposureManagerState: ExposureManagerState,
 		targetQueue: DispatchQueue = .main
@@ -91,7 +87,7 @@ final class RiskProvider {
 
 	// MARK: Properties
 	private let store: Store
-	private let exposureSummaryProvider: ExposureSummaryProvider
+	private let exposureSummaryProvider: ExposureSummaryProviding
 	private let appConfigurationProvider: AppConfigurationProviding
 	var exposureManagerState: ExposureManagerState
 	var configuration: RiskProvidingConfiguration
