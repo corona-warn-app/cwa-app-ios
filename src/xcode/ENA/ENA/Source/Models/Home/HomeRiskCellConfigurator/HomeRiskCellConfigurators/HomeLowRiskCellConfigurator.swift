@@ -68,7 +68,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			let isLoadingItem = HomeRiskLoadingItemViewConfigurator(title: AppStrings.Home.riskCardStatusCheckBody, titleColor: titleColor, isLoading: true, color: color, separatorColor: separatorColor)
 			itemCellConfigurators.append(isLoadingItem)
 		} else {
-			let numberContactsTitle = String(format: AppStrings.Home.riskCardNumberContactsItemTitle, numberRiskContacts)
+			let numberContactsTitle = String(format: AppStrings.Home.riskCardLowNumberContactsItemTitle, numberRiskContacts)
 			itemCellConfigurators.append(
 				HomeRiskImageItemViewConfigurator(
 					title: numberContactsTitle,
