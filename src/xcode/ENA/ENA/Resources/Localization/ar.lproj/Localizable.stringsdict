@@ -108,7 +108,37 @@
 			<string>%u من الأيام منذ آخر مخالطة</string>
 		</dict>
 	</dict>
-    <key>Home_Risk_Number_Contacts_Item_Title</key>
+    <key>Home_Risk_Low_Number_Contacts_Item_Title</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@VARIABLE@</string>
+        <key>VARIABLE</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>zero</key>
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
+            <string>لا توجد مخالطة حتى الآن</string>
+            <key>one</key>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
+            <string>%u مخالطة</string>
+            <key>few</key>
+            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
+            <string>%u من المخالطات</string>
+            <key>many</key>
+            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
+            <string>%u من المخالطات</string>
+            <key>two</key>
+            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
+            <string>%u مخالطة</string>
+            <key>other</key>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
+            <string>%u من المخالطات</string>
+        </dict>
+    </dict>
+    <key>Home_Risk_High_Number_Contacts_Item_Title</key>
     <dict>
         <key>NSStringLocalizedFormatKey</key>
         <string>%#@VARIABLE@</string>

@@ -664,8 +664,6 @@
 /* Home High card */
 "Home_Risk_High_Title" = "Повишен риск";
 
-"Home_Risk_High_Button" = "Актуализиране";
-
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Извършва се проверка ...";
 
