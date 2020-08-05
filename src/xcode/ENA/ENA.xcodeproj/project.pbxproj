@@ -239,6 +239,7 @@
 		A328426324910552006B1F09 /* ExposureSubmissionSuccessViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328426224910552006B1F09 /* ExposureSubmissionSuccessViewControllerTests.swift */; };
 		A32842652491136E006B1F09 /* ExposureSubmissionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */; };
 		A32842672492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842662492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift */; };
+		A32C046524D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32C046424D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift */; };
 		A32CA72F24B6F2E300B1A994 /* HomeRiskCellConfiguratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32CA72E24B6F2E300B1A994 /* HomeRiskCellConfiguratorTests.swift */; };
 		A3483B0B24C5EFA40037855F /* MockExposureDetectionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3483B0A24C5EFA40037855F /* MockExposureDetectionViewControllerDelegate.swift */; };
 		A36D07B92486D61C00E46F96 /* HomeCardCellButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D07B82486D61C00E46F96 /* HomeCardCellButtonDelegate.swift */; };
@@ -683,6 +684,7 @@
 		A328426224910552006B1F09 /* ExposureSubmissionSuccessViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSuccessViewControllerTests.swift; sourceTree = "<group>"; };
 		A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionUITests.swift; sourceTree = "<group>"; };
 		A32842662492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureSubmissionNavigationControllerChild.swift; sourceTree = "<group>"; };
+		A32C046424D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+PlausibeDeniabilityTests.swift"; sourceTree = "<group>"; };
 		A32CA72E24B6F2E300B1A994 /* HomeRiskCellConfiguratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskCellConfiguratorTests.swift; sourceTree = "<group>"; };
 		A3483B0A24C5EFA40037855F /* MockExposureDetectionViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureDetectionViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A36D07B82486D61C00E46F96 /* HomeCardCellButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCardCellButtonDelegate.swift; sourceTree = "<group>"; };
@@ -1998,6 +2000,7 @@
 				A1E419502495A6EA0016E52A /* HTTPClient+TANForExposureSubmitTests.swift */,
 				A1877CA9248F247D006FEFC0 /* SAPDownloadedPackageTests.swift */,
 				B1EAEC8D247118CB003BE9A2 /* URLSession+ConvenienceTests.swift */,
+				A32C046424D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -2677,6 +2680,7 @@
 				015692E424B48C3F0033F35E /* TimeInterval+Convenience.swift in Sources */,
 				516E42FE24B7773E0008CC30 /* HomeLowRiskCellConfiguratorTests.swift in Sources */,
 				B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */,
+				A32C046524D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift in Sources */,
 				A372DA4224BF3E29003248BB /* MockExposureSubmissionCoordinator.swift in Sources */,
 				A1E419582495A8F90016E52A /* HTTPClient+RegistrationTokenTests.swift in Sources */,
 				A1E419552495A8060016E52A /* HTTPClient+GetTestResultTests.swift in Sources */,
