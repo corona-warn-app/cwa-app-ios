@@ -233,6 +233,46 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	/// The submit exposure flow consists of two steps:
+	/// 1. Getting a submission tan
+	/// 2. Submitting the keys
+	/// In this test, we make the 2. step fail and retry the full submission. The test makes sure that we do not burn the tan when the second step fails.
+	func test_partialSubmissionFailure() {
+		let tan = "dummyTan"
+		let registrationToken = "dummyRegistrationToken"
+
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let store = MockTestStore()
+		store.registrationToken = registrationToken
+
+		let client = ClientMock()
+		client.onGetTANForExposureSubmit = { _, _, completion in completion(.success(tan)) }
+
+		// Force submission error.
+		client.onSubmit = { _, _, _, completion in completion(.serverError(500)) }
+
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+		let expectation = self.expectation(description: "all callbacks called")
+		expectation.expectedFulfillmentCount = 2
+
+		// Execute test.
+
+		service.submitExposure { result in
+			expectation.fulfill()
+			XCTAssertNotNil(result)
+
+			// Retry.
+			client.onSubmit = { _, _, _, completion in completion(nil) }
+			client.onGetTANForExposureSubmit = { _, _, _ in XCTFail("Should not call server but use tan from local store.") }
+			service.submitExposure { result in
+				expectation.fulfill()
+				XCTAssertNil(result)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
 	// MARK: Plausible deniability tests.
 
 	func test_getTestResultPlaybook() {
