@@ -195,6 +195,11 @@ final class SecureStore: Store {
 		set { kvStore["lastBackgroundFakeRequest"] = newValue }
 	}
 
+	var firstPlaybookExecution: Date? {
+		get { kvStore["firstPlaybookExecution"] as Date? }
+		set { kvStore["firstPlaybookExecution"] = newValue }
+	}
+
 }
 
 

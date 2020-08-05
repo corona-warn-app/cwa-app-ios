@@ -19,6 +19,7 @@ import Foundation
 @testable import ENA
 
 final class MockTestStore: Store {
+	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
 	var previousRiskLevel: EitherLowOrIncreasedRiskLevel?

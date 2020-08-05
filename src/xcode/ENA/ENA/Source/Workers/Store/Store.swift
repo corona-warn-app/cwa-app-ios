@@ -97,5 +97,8 @@ protocol Store: AnyObject {
 	/// Time when the app sent the last background fake request.
 	var lastBackgroundFakeRequest: Date { get set }
 
+	/// The time when the playbook was executed in background.
+	var firstPlaybookExecution: Date? { get set }
+
 	func clearAll(key: String?)
 }

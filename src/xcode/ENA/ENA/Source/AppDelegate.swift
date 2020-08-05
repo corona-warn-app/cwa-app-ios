@@ -230,18 +230,31 @@ extension AppDelegate: ENATaskExecutionDelegate {
 
 	var minHoursToNextBackgroundExecution: Double { 4 }
 	var maxHoursToNextBackgroundExecution: Double { 12 }
+	var numberOfDaysToRunPlaybook: Double { 16 }
+	var minNumberOfSequentialPlaybooks: Int { 1 }
+	var maxNumberOfSequentialPlaybooks: Int { 2 }
+	var minDelayBetweenSequentialPlaybooks: Int { 5 } // seconds
+	var maxDelayBetweenSequentialPlaybooks: Int { 20 } // seconds
 
 	/// Trigger a fake playbook to enable plausible deniability.
 	private func executeFakeRequests() {
-		let service = exposureSubmissionService ?? ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 		guard store.isAllowedToSubmitDiagnosisKeys else { return }
+
+		// Initialize firstPlaybookExecution date during the first run regardless of actual execution.
+		if store.firstPlaybookExecution == nil {
+			store.firstPlaybookExecution = Date()
+		}
 
 		// Time interval until we want to resend a fake request from the background.
 		let offset = Double.random(in: minHoursToNextBackgroundExecution...maxHoursToNextBackgroundExecution) * 60
 		let now = Date()
 
-		if store.lastBackgroundFakeRequest.addingTimeInterval(offset) > now {
-			service.fakeRequest()
+		if
+			let firstPlaybookExecution = store.firstPlaybookExecution,
+			firstPlaybookExecution.addingTimeInterval(numberOfDaysToRunPlaybook * 86_400) > now,
+			store.lastBackgroundFakeRequest.addingTimeInterval(offset) > now
+		{
+			sendFakeRequest()
 			store.lastBackgroundFakeRequest = now
 		}
 	}
@@ -253,7 +266,18 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			Int.random(in: 0...100) == 6
 		else { return }
 
+		sendFakeRequest()
+	}
+
+	/// Triggers one or more fake requests over a time interval of multiple seconds.
+	private func sendFakeRequest() {
 		let service = exposureSubmissionService ?? ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
-		service.fakeRequest()
+
+		for i in 0..<Int.random(in: minNumberOfSequentialPlaybooks...maxNumberOfSequentialPlaybooks) {
+			let delay = Int.random(in: minDelayBetweenSequentialPlaybooks...maxDelayBetweenSequentialPlaybooks)
+			DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(i * delay)) {
+				service.fakeRequest()
+			}
+		}
 	}
 }
