@@ -306,20 +306,21 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 extension ENAExposureSubmissionService {
 
+	/// This method represents a dummy method that is sent to the verification server.
 	private func _fakeVerificationServerRequest(completion completeWith: @escaping TANHandler) {
 		client.getTANForExposureSubmit(forDevice: ENAExposureSubmissionService.fakeRegistrationToken, isFake: true) { _ in
 			completeWith(.failure(.fakeResponse))
 		}
 	}
 
+	/// This method represents a dummy method that is sent to the submission server.
 	private func _fakeSubmissionServerRequest(completion: @escaping ExposureSubmissionHandler) {
 		self.client.submit(keys: [], tan: ENAExposureSubmissionService.fakeSubmissionTan, isFake: true) { _ in
 			completion(.fakeResponse)
 		}
 	}
 
-	// TODO: Add comment.
-	// Convenience method.
+	/// This method is convenience for sending a V + S request pattern.
 	private func _fakeVerificationAndSubmissionServerRequest(completionHandler: ExposureSubmissionHandler? = nil) {
 		self._fakeVerificationServerRequest { _ in
 			self._fakeSubmissionServerRequest { _ in
