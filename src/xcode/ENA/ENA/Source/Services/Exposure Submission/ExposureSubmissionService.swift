@@ -20,6 +20,11 @@ import Foundation
 
 class ENAExposureSubmissionService: ExposureSubmissionService {
 
+	// MARK: - Static properties.
+
+	static let fakeRegistrationToken = "11111111-2222-4444-8888-161616161616"
+	static var fakeSubmissionTan: String { return UUID().uuidString }
+
 	// MARK: - Properties.
 
 	let diagnosiskeyRetrieval: DiagnosisKeysRetrieval
@@ -260,8 +265,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	}
 
 	private func getToken(isFake: Bool) -> String? {
-		// TODO: change bogus registration token.
-		if isFake { return "aksdjfhalksjdfhlasdjkf" }
+		if isFake { return ENAExposureSubmissionService.fakeRegistrationToken }
 		guard let token = store.registrationToken else { return nil }
 		return token
 	}
@@ -303,15 +307,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 extension ENAExposureSubmissionService {
 
 	private func _fakeVerificationServerRequest(completion completeWith: @escaping TANHandler) {
-		// TODO: Fill out with bogus data.
-		client.getTANForExposureSubmit(forDevice: "", isFake: true) { _ in
+		client.getTANForExposureSubmit(forDevice: ENAExposureSubmissionService.fakeRegistrationToken, isFake: true) { _ in
 			completeWith(.failure(.fakeResponse))
 		}
 	}
 
 	private func _fakeSubmissionServerRequest(completion: @escaping ExposureSubmissionHandler) {
-		// TODO: Fill with bogus data.
-		self.client.submit(keys: [], tan: "", isFake: true) { _ in
+		self.client.submit(keys: [], tan: ENAExposureSubmissionService.fakeSubmissionTan, isFake: true) { _ in
 			completion(.fakeResponse)
 		}
 	}

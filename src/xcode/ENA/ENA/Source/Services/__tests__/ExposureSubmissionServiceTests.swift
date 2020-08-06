@@ -458,4 +458,12 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		waitForExpectations(timeout: .short)
 	}
+
+	/// The fake registration token needs to comply to a format that is checked by the server.
+	func test_fakeRegistrationTokenFormat() {
+		let str = ENAExposureSubmissionService.fakeRegistrationToken
+		let pattern = #"^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}$"#
+		let regex = try? NSRegularExpression(pattern: pattern, options: [])
+		XCTAssertNotNil(regex?.firstMatch(in: str, options: [], range: .init(location: 0, length: str.count)))
+	}
 }
