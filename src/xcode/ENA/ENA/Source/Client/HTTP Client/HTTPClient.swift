@@ -481,7 +481,7 @@ private extension URLRequest {
 		)
 
 		request.setValue(
-			"application/x-protobuf",
+			"application/json",
 			forHTTPHeaderField: "Content-Type"
 		)
 
@@ -518,7 +518,7 @@ private extension URLRequest {
 		)
 
 		request.setValue(
-			"application/x-protobuf",
+			"application/json",
 			forHTTPHeaderField: "Content-Type"
 		)
 
@@ -556,7 +556,7 @@ private extension URLRequest {
 		)
 
 		request.setValue(
-			"application/x-protobuf",
+			"application/json",
 			forHTTPHeaderField: "Content-Type"
 		)
 

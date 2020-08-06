@@ -79,7 +79,7 @@ final class SecureStore: Store {
 	}
 
 	var tan: String? {
-		get { kvStore["tan"] as String? ?? "" }
+		get { kvStore["tan"] as String? }
 		set { kvStore["tan"] = newValue }
 	}
 
