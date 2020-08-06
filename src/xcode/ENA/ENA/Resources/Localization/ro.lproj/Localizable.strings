@@ -960,7 +960,7 @@
 "ENATanInput_CharacterIndex" = "Caracterul %1$u din %2$u";
 
 /* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
-"Active_Tracing_Interval_Partially_Active" = "În ultimele %1$u zile, înregistrarea în jurnal a expunerilor a fost activă timp de %2$u zile.";
+"Active_Tracing_Interval_Partially_Active" = "În ultimele %2$u zile, înregistrarea în jurnal a expunerilor a fost activă timp de %1$u zile.";
 
 "Active_Tracing_Interval_Permanently_Active" = "Înregistrarea în jurnal a expunerilor este permanent activă";
 
