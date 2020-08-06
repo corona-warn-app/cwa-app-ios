@@ -60,6 +60,7 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 		tableView.sectionFooterHeight = UITableView.automaticDimension
 		tableView.estimatedSectionFooterHeight = 20
 		tableView.tableFooterView = UIView()
+		tableView.register(DMFakeRequestCell.self, forCellReuseIdentifier: DMFakeRequestCell.reuseIdentifier)
 	}
 
 	// MARK: UITableViewController
@@ -68,7 +69,7 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 		_ tableView: UITableView,
 		cellForRowAt indexPath: IndexPath
 	) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: DMConfigurationCell.reuseIdentifier, for: indexPath)
+		var cell = tableView.dequeueReusableCell(withIdentifier: DMConfigurationCell.reuseIdentifier, for: indexPath)
 		let title: String?
 		let subtitle: String?
 		switch indexPath.row {
@@ -87,7 +88,14 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 		case 4:
 			title = "Fake Request"
 			subtitle = ""
-			addSendFakeRequestButton(cell)
+			if
+				let fakeRequestCell = tableView.dequeueReusableCell(
+					withIdentifier: DMFakeRequestCell.reuseIdentifier,
+					for: indexPath
+					) as? DMFakeRequestCell {
+				fakeRequestCell.addButtonAction(target: self, action: #selector(sendFakeRequest(_:)))
+				cell = fakeRequestCell
+			}
 		default:
 			title = nil
 			subtitle = nil
@@ -138,20 +146,6 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 
 	// MARK: - Helper methods for adding the fake request button.
 
-	fileprivate func addSendFakeRequestButton(_ cell: UITableViewCell) {
-		let button = ENAButton(type: .roundedRect)
-		cell.contentView.addSubview(button)
-		let margin = cell.contentView.layoutMarginsGuide
-		button.translatesAutoresizingMaskIntoConstraints = false
-		button.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
-		button.leadingAnchor.constraint(equalTo: cell.textLabel!.trailingAnchor, constant: 20).isActive = true
-		button.trailingAnchor.constraint(equalTo: margin.trailingAnchor).isActive = true
-		button.topAnchor.constraint(equalTo: margin.topAnchor).isActive = true
-		button.bottomAnchor.constraint(equalTo: margin.bottomAnchor).isActive = true
-		button.setTitle("Send", for: .normal)
-		button.addTarget(self, action: #selector(sendFakeRequest(_:)), for: .touchUpInside)
-	}
-
 	@objc
 	func sendFakeRequest(_ button: ENAButton) {
 		button.isLoading = true
@@ -161,18 +155,6 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 				button.isLoading = false
 			}
 		}
-	}
-}
-
-private class DMConfigurationCell: UITableViewCell {
-	static var reuseIdentifier = "DMConfigurationCell"
-	override init(style _: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-		super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-	}
-
-	@available(*, unavailable)
-	required init?(coder _: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
 	}
 }
 
