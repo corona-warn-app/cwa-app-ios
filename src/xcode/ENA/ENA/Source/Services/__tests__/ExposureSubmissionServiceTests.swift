@@ -263,7 +263,10 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 			// Retry.
 			client.onSubmit = { _, _, _, completion in completion(nil) }
-			client.onGetTANForExposureSubmit = { _, _, _ in XCTFail("Should not call server but use tan from local store.") }
+			client.onGetTANForExposureSubmit = { _, isFake, completion in
+				XCTAssert(isFake, "When executing the real request, instead of using the stored TAN, we have made a request to the server.")
+				completion(.failure(.fakeResponse))
+			}
 			service.submitExposure { result in
 				expectation.fulfill()
 				XCTAssertNil(result)
@@ -388,20 +391,17 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		store.registrationToken = "dummyRegToken"
 		let client = ClientMock()
 
-		client.onGetRegistrationToken = { _, _, isFake, completion in
-			expectation.fulfill()
-			XCTAssert(isFake)
-			XCTAssertEqual(count, 0)
-			count += 1
-			completion(.failure(.fakeResponse))
-		}
-
 		client.onGetTANForExposureSubmit = { _, isFake, completion in
 			expectation.fulfill()
-			XCTAssertFalse(isFake)
-			XCTAssertEqual(count, 1)
-			count += 1
-			completion(.success("dummyTan"))
+			if isFake {
+				XCTAssertEqual(count, 0)
+				count += 1
+				completion(.failure(.fakeResponse))
+			} else {
+				XCTAssertEqual(count, 1)
+				count += 1
+				completion(.success("dummyTan"))
+			}
 		}
 
 		client.onSubmit = { _, _, isFake, completion in
@@ -436,26 +436,9 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let store = MockTestStore()
 		let client = ClientMock()
 
-		client.onGetRegistrationToken = { _, _, isFake, completion in
-			expectation.fulfill()
-			XCTAssert(isFake)
-			XCTAssertEqual(count, 0)
-			count += 1
-			completion(.failure(.fakeResponse))
-		}
-
-		client.onGetRegistrationToken = { _, _, isFake, completion in
-			expectation.fulfill()
-			XCTAssert(isFake)
-			XCTAssertEqual(count, 0)
-			count += 1
-			completion(.failure(.fakeResponse))
-		}
-
 		client.onGetTANForExposureSubmit = { _, isFake, completion in
 			expectation.fulfill()
 			XCTAssert(isFake)
-			XCTAssertEqual(count, 1)
 			count += 1
 			completion(.failure(.fakeResponse))
 		}
