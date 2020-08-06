@@ -1,13 +1,43 @@
 # Changelog
 
-## 1.0.4 (03/07/2020)
-#### Bug fixes
--  Fixed number of active days [#841](https://github.com/corona-warn-app/cwa-app-ios/pull/841)
+## v1.1.1 (20/07/2020)
+#### Bug Fixes
+
+- Fix i18n issues [#913](https://github.com/corona-warn-app/cwa-app-ios/pull/913), [#915](https://github.com/corona-warn-app/cwa-app-ios/pull/915)
+
+#### New features
+
+-  Translation for turkish added [#773](https://github.com/corona-warn-app/cwa-app-ios/pull/773), [#829](https://github.com/corona-warn-app/cwa-app-ios/pull/829), [#925](https://github.com/corona-warn-app/cwa-app-ios/pull/925)
+
+#### Enhancements
+
+- Risk calculation explainer [#908](https://github.com/corona-warn-app/cwa-app-ios/pull/908)
+
 ---
 
-## v1.0.5-dev (02/07/2020)
+## v1.0.7 (11/07/2020)
 #### Bug fixes
 
+-  Remove check that prevented from feeding the correct amount of files [#893](https://github.com/corona-warn-app/cwa-app-ios/pull/893)
+
+---
+
+## v1.0.6 (10/07/2020)
+#### Bug fixes
+
+-  Fix text on risk detail page [#879](https://github.com/corona-warn-app/cwa-app-ios/pull/879)
+
+---
+
+## v1.0.5 (09/07/2020)
+#### Bug fixes
+-  Home Screen Risk Cell Update on App start + Risk Calc Refinements [#874](https://github.com/corona-warn-app/cwa-app-ios/pull/874)
+-  Fixed wrong implementation of shouldPerformExposureDetection [#869](https://github.com/corona-warn-app/cwa-app-ios/pull/869)
+-  Risk Calculation Errors - Alert Refinement  [#868](https://github.com/corona-warn-app/cwa-app-ios/pull/868)
+-  Error 13 mitigations [#863](https://github.com/corona-warn-app/cwa-app-ios/pull/863)
+-  Fixes wrong days with tracing info on home screen [#849](https://github.com/corona-warn-app/cwa-app-ios/pull/849)
+-  Exposure Submission Flow - Error Alert adjustments [#843](https://github.com/corona-warn-app/cwa-app-ios/pull/843)
+-  Integrate new localized errors for exposurenotification settings [#840](https://github.com/corona-warn-app/cwa-app-ios/pull/840)
 -  Fixed deadlock when clicking on risk cell (closes #747) [#746](https://github.com/corona-warn-app/cwa-app-ios/pull/746)
 -  Nutzung Chapter 7 link (de) updated [#779](https://github.com/corona-warn-app/cwa-app-ios/pull/779)
 -  Remove invite friends footer translucency [#751](https://github.com/corona-warn-app/cwa-app-ios/pull/751)
@@ -27,25 +57,24 @@
 -  Remove error when submitting 0 keys [#800](https://github.com/corona-warn-app/cwa-app-ios/pull/800)
 -  Mitteilungen - image not focusable with voice over (closes 1427) [#725](https://github.com/corona-warn-app/cwa-app-ios/pull/725)
 -  Onboarding - Risikoermittlung - logic flaw (EXPOSUREAPP-1475) [#517](https://github.com/corona-warn-app/cwa-app-ios/pull/517)
-
-#### New features
-
--  ENAButton activity indicator for submission flow [#753](https://github.com/corona-warn-app/cwa-app-ios/pull/753)
--  ENAButton accessibility [#752](https://github.com/corona-warn-app/cwa-app-ios/pull/752)
--  Translation for turkish added [#773](https://github.com/corona-warn-app/cwa-app-ios/pull/773), [#829](https://github.com/corona-warn-app/cwa-app-ios/pull/829)
+-  Localization: Use localized "OK" for error alerts [#662](https://github.com/corona-warn-app/cwa-app-ios/pull/662)
+-  Fix: Minor mistakes in de localization [#664](https://github.com/corona-warn-app/cwa-app-ios/pull/664)
+-  Fixed typo in first screen (de) [#657](https://github.com/corona-warn-app/cwa-app-ios/pull/657)
 
 #### Enhancements
 
 -  Added the missing localizations for the alerts. [#672](https://github.com/corona-warn-app/cwa-app-ios/pull/672)
 -  Update ExposureSubmissionService.swift [#608](https://github.com/corona-warn-app/cwa-app-ios/pull/608)
 -  Call requestRisk on sceneWillEnterForeground [#607](https://github.com/corona-warn-app/cwa-app-ios/pull/607)
+-  ENAButton activity indicator for submission flow [#753](https://github.com/corona-warn-app/cwa-app-ios/pull/753)
+-  ENAButton accessibility [#752](https://github.com/corona-warn-app/cwa-app-ios/pull/752)
+-  Translation Changes in DE & EN [#786](https://github.com/corona-warn-app/cwa-app-ios/pull/786), [#743](https://github.com/corona-warn-app/cwa-app-ios/pull/743)
+-  Improve submission handling [#609](https://github.com/corona-warn-app/cwa-app-ios/pull/609)
 
 #### Others
 
 -  Refactor Error Handling in Exposure Submission [#808](https://github.com/corona-warn-app/cwa-app-ios/pull/808)
--  Translation Changes in DE & EN [#786](https://github.com/corona-warn-app/cwa-app-ios/pull/786)
 -  Split background tasks on develop branch [#728](https://github.com/corona-warn-app/cwa-app-ios/pull/728)
--  Translation [#743](https://github.com/corona-warn-app/cwa-app-ios/pull/743)
 -  Marked the "not implemented" initializers as "unavailable" (closes #681) [#682](https://github.com/corona-warn-app/cwa-app-ios/pull/682)
 -  DetectionMode adjustments [#685](https://github.com/corona-warn-app/cwa-app-ios/pull/685)
 -  Move all AccessibilityIdentifiers to central file (closes #707) [#713](https://github.com/corona-warn-app/cwa-app-ios/pull/713)
@@ -53,14 +82,16 @@
 -  Removed dead code [#589](https://github.com/corona-warn-app/cwa-app-ios/pull/589)
 -  Removed unused code, added tests, slight api improvements [#586](https://github.com/corona-warn-app/cwa-app-ios/pull/586)
 -  KeyValue Store. [#541](https://github.com/corona-warn-app/cwa-app-ios/pull/541)
--  Localization: Use localized "OK" for error alerts [#662](https://github.com/corona-warn-app/cwa-app-ios/pull/662)
--  Fix: Minor mistakes in de localization [#664](https://github.com/corona-warn-app/cwa-app-ios/pull/664)
--  Improve submission handling [#609](https://github.com/corona-warn-app/cwa-app-ios/pull/609)
 -  Test/exposure submission ui tests [#603](https://github.com/corona-warn-app/cwa-app-ios/pull/603)
--  Fixed typo in first screen (de) [#657](https://github.com/corona-warn-app/cwa-app-ios/pull/657)
 -  Add tests for DynamicTableViewSpaceCell [#490](https://github.com/corona-warn-app/cwa-app-ios/pull/490)
 -  Minor improvements [#654](https://github.com/corona-warn-app/cwa-app-ios/pull/654)
 -  More HTTPClient Tests + (Small) Signature Verification Refactor [#605](https://github.com/corona-warn-app/cwa-app-ios/pull/605)
+
+---
+
+## 1.0.4 (03/07/2020)
+#### Bug fixes
+-  Fixed number of active days [#841](https://github.com/corona-warn-app/cwa-app-ios/pull/841)
 
 ---
 

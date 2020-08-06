@@ -118,39 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
-
-
-	lazy var client: HTTPClient = {
-		var configuration: HTTPClient.Configuration
-		#if !RELEASE
-		let store = self.store
-		if
-			let distributionURLString = store.developerDistributionBaseURLOverride,
-			let submissionURLString = store.developerSubmissionBaseURLOverride,
-			let verificationURLString = store.developerVerificationBaseURLOverride,
-			let distributionURL = URL(string: distributionURLString),
-			let verificationURL = URL(string: verificationURLString),
-			let submissionURL = URL(string: submissionURLString) {
-			configuration = HTTPClient.Configuration(
-					apiVersion: "v1",
-					country: "DE",
-					endpoints: HTTPClient.Configuration.Endpoints(
-						distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
-						submission: .init(baseURL: submissionURL, requiresTrailingSlash: false),
-						verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
-					)
-				)
-
-		} else {
-			configuration = HTTPClient.Configuration.loadFromPlist(dictionaryNameInPList: "BackendURLs") ?? .production
-		}
-
-		#else
-		configuration = HTTPClient.Configuration.loadFromPlist(dictionaryNameInPList: "BackendURLs") ?? .production
-		#endif
-		
-		return HTTPClient(configuration: configuration)
-	}()
+	var client = HTTPClient(configuration: .backendBaseURLs)
 
 	// TODO: REMOVE ME
 	var lastRiskCalculation: String = ""

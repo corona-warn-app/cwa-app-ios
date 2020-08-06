@@ -38,7 +38,7 @@
                                                         <rect key="frame" x="0.0" y="36.5" width="382" height="617.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFa-H0-7iG" customClass="ENATanInput" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="284" width="382" height="50"/>
+                                                                <rect key="frame" x="0.0" y="285.5" width="382" height="46.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" priority="250" constant="50" placeholder="YES" id="GoX-aD-BHg"/>
                                                                 </constraints>
@@ -191,7 +191,7 @@
         <!--Exposure SubmissionQR Scanner Navigation Controller-->
         <scene sceneID="HrB-NV-jDk">
             <objects>
-                <navigationController modalPresentationStyle="fullScreen" interfaceStyle="dark" id="BYY-Kq-aHb" customClass="ExposureSubmissionQRScannerNavigationController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ExposureSubmissionQRScannerNavigationController" modalPresentationStyle="fullScreen" interfaceStyle="dark" id="BYY-Kq-aHb" customClass="ExposureSubmissionQRScannerNavigationController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="aXv-uE-SC5"/>
                     <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iPc-CN-Pgt">
@@ -230,7 +230,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="999" text="Positionieren Sie den Rahmen über dem QR Code Ihres Dokuments" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTI-P6-3Zh" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="52" y="149.5" width="310.5" height="42.5"/>
+                                <rect key="frame" x="52" y="151" width="310.5" height="41"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" name="ENA Text Contrast Color"/>
                                 <nil key="highlightedColor"/>
@@ -408,10 +408,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="5YR-5A-F8h"/>
+        <segue reference="HlT-ix-3R2"/>
         <segue reference="7vS-vS-v87"/>
-        <segue reference="n8Y-d3-Pny"/>
-        <segue reference="TMI-YH-9ne"/>
+        <segue reference="4QH-h7-ntj"/>
+        <segue reference="zPx-Mo-iVD"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bolt" catalog="system" width="101" height="128"/>

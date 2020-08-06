@@ -22,10 +22,10 @@ protocol CollectionViewCellConfiguratorAny: AnyObject {
 
 	func configureAny(cell: UICollectionViewCell)
 
-	var identifier: UUID { get }
+	var hashValue: AnyHashable { get }
 }
 
-protocol CollectionViewCellConfigurator: CollectionViewCellConfiguratorAny {
+protocol CollectionViewCellConfigurator: CollectionViewCellConfiguratorAny, Hashable {
 	associatedtype CellType: UICollectionViewCell
 	func configure(cell: CellType)
 }
@@ -43,5 +43,9 @@ extension CollectionViewCellConfigurator {
 			logError(message: error)
 			fatalError(error)
 		}
+	}
+
+	var hashValue: AnyHashable {
+		self
 	}
 }

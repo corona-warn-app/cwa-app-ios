@@ -21,7 +21,6 @@ import Foundation
 import UIKit
 
 class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
-	var identifier = UUID()
 
 	var testResult: TestResult?
 
@@ -86,6 +85,16 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 			tintColor: .enaColor(for: .textPrimary2),
 			accessibilityIdentifier: AccessibilityIdentifiers.Home.resultCardShowResultButton
 		)
+	}
+
+	// MARK: Hashable
+
+	func hash(into hasher: inout Swift.Hasher) {
+		hasher.combine(testResult)
+	}
+
+	static func == (lhs: HomeTestResultCellConfigurator, rhs: HomeTestResultCellConfigurator) -> Bool {
+		lhs.testResult == rhs.testResult
 	}
 }
 

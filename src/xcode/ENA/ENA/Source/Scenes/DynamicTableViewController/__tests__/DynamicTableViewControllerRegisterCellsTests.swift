@@ -56,7 +56,7 @@ extension DynamicTableViewControllerRegisterCellsTests {
 		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
 		
 		// dequeue cell
-		let reuseIdentifier = DynamicCell.CellReuseIdentifier.dynamicTypeText.rawValue
+		let reuseIdentifier = DynamicCell.CellReuseIdentifier.dynamicTypeLabel.rawValue
 		let cell = sut.tableView.dequeueReusableCell(
 			withIdentifier: reuseIdentifier,
 			for: IndexPath(row: 0, section: 0)
@@ -93,5 +93,20 @@ extension DynamicTableViewControllerRegisterCellsTests {
 		)
 		// assert type
 		XCTAssertTrue(cell is DynamicTableViewIconCell)
+	}
+
+	func testViewDidLoad_registersTextViewCell() {
+		// setup view model
+		let sections = [DynamicSection.section(cells: [.dynamicType(text: "Foo")])]
+		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
+
+		// dequeue cell
+		let reuseIdentifier = DynamicCell.CellReuseIdentifier.dynamicTypeTextView.rawValue
+		let cell = sut.tableView.dequeueReusableCell(
+			withIdentifier: reuseIdentifier,
+			for: IndexPath(row: 0, section: 0)
+		)
+		// assert type
+		XCTAssertTrue(cell is DynamicTableViewTextViewCell)
 	}
 }

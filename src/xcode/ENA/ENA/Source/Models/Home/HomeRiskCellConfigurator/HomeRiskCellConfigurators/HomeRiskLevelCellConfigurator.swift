@@ -21,7 +21,6 @@ import UIKit
 class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 
 	// MARK: Properties
-	let identifier = UUID()
 	var buttonAction: (() -> Void)?
 
 	var isLoading: Bool
@@ -29,6 +28,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	var isButtonHidden: Bool
 	var detectionIntervalLabelHidden: Bool
 	var lastUpdateDate: Date?
+	var timeUntilUpdate: String?
 
 	private static let lastUpdateDateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
@@ -109,7 +109,30 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		cell.bodyLabel.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.bodyLabel
 		cell.detectionIntervalLabel.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.detectionIntervalLabel
 		cell.updateButton.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.updateButton
+	}
 
+	// MARK: Hashable
+
+	func hash(into hasher: inout Swift.Hasher) {
+		hasher.combine(isLoading)
+		hasher.combine(isButtonEnabled)
+		hasher.combine(isButtonHidden)
+		hasher.combine(detectionIntervalLabelHidden)
+		hasher.combine(lastUpdateDate)
+	}
+
+	static func == (lhs: HomeRiskLevelCellConfigurator, rhs: HomeRiskLevelCellConfigurator) -> Bool {
+		lhs.isLoading == rhs.isLoading &&
+		lhs.isButtonEnabled == rhs.isButtonEnabled &&
+		lhs.isButtonHidden == rhs.isButtonHidden &&
+		lhs.detectionIntervalLabelHidden == rhs.detectionIntervalLabelHidden &&
+		lhs.lastUpdateDate == rhs.lastUpdateDate
+	}
+
+	/// Convenience method that can be overwritten to configure the button without running the full configure(_:) method.
+	/// This is handy when very frequent updates such as the update countdown are applied to the button.
+	func configureButton(for cell: RiskLevelCollectionViewCell) {
+		// Intentionally left blank.
 	}
 }
 

@@ -123,6 +123,11 @@ final class SecureStore: Store {
 		set { kvStore["hasSeenSubmissionExposureTutorial"] = newValue }
 	}
 
+	var hasSeenBackgroundFetchAlert: Bool {
+		get { kvStore["hasSeenBackgroundFetchAlert"] as Bool? ?? false }
+		set { kvStore["hasSeenBackgroundFetchAlert"] = newValue }
+	}
+
 	var developerSubmissionBaseURLOverride: String? {
 		get { kvStore["developerSubmissionBaseURLOverride"] as String? ?? nil }
 		set { kvStore["developerSubmissionBaseURLOverride"] = newValue }

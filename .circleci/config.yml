@@ -82,7 +82,7 @@ jobs:
           path: src/xcode/screenshots
   testflight-release:
     macos:
-      xcode: 11.5.0
+      xcode: 11.6.0
     shell: zsh
     steps:
       - checkout

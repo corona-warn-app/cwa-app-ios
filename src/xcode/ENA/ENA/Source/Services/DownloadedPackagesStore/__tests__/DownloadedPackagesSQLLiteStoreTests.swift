@@ -162,15 +162,3 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertEqual(store.allDays().count, 7)
 	}
 }
-
-private extension FMDatabase {
-	class func inMemory() -> FMDatabase {
-		FMDatabase(path: "file::memory:")
-	}
-}
-
-private extension DownloadedPackagesSQLLiteStore {
-	class func inMemory() -> DownloadedPackagesSQLLiteStore {
-		DownloadedPackagesSQLLiteStore(database: .inMemory())
-	}
-}

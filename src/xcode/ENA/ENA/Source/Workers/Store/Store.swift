@@ -61,6 +61,9 @@ protocol Store: AnyObject {
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
 
+	/// A boolean flag that indicates whether the user has seen the background fetch disabled alert.
+	var hasSeenBackgroundFetchAlert: Bool { get set }
+
 	// Timestamp that represents the date at which
 	// the user has received a test reult.
 	var testResultReceivedTimeStamp: Int64? { get set }
