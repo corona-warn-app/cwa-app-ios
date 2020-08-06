@@ -578,7 +578,7 @@ private extension URLRequest {
 	/// Please check `getSubmissionPadding()` for this case.
 	private static func getPaddedRequestBody(for originalBody: [String: String]) throws -> Data {
 		// This is the maximum size of bytes the request body should have.
-		let maxRequestPayloadSize = 1000
+		let maxRequestPayloadSize = 250
 
 		// Copying in order to not use inout parameters.
 		var paddedBody = originalBody

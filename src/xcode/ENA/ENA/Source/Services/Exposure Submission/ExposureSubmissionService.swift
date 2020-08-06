@@ -186,7 +186,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			completeWith(result)
 
 			// Fake requests.
-			self._fakeSubmitExposure()
+			self._fakeVerificationAndSubmissionServerRequest()
 		}
 	}
 
@@ -201,7 +201,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			completeWith(result)
 
 			// Fake requests.
-			self._fakeSubmitExposure()
+			self._fakeVerificationAndSubmissionServerRequest()
 		}
 	}
 
@@ -228,9 +228,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			keys.processedForSubmission()
 
 			// Request needs to be prepended by the fake request.
-			self._fakeGetRegistrationToken { _ in
+			self._fakeVerificationServerRequest(completion: { _ in
 				self._submitExposure(keys, completionHandler: completionHandler)
-			}
+			})
 		}
 	}
 
@@ -295,54 +295,39 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 extension ENAExposureSubmissionService {
 
-	private func _fakeGetTestResult(
-		_ completeWith: @escaping ENAExposureSubmissionService.TestResultHandler
-	) {
-		// TODO: Fill out bogus data.
-		client.getTestResult(forDevice: "", isFake: true) { _ in
-			completeWith(.failure(.fakeResponse))
-		}
-	}
-
-	private func _fakeGetTANForExposureSubmit(completion completeWith: @escaping TANHandler) {
+	private func _fakeVerificationServerRequest(completion completeWith: @escaping TANHandler) {
 		// TODO: Fill out with bogus data.
 		client.getTANForExposureSubmit(forDevice: "", isFake: true) { _ in
 			completeWith(.failure(.fakeResponse))
 		}
 	}
 
-	private func _fakeSubmitExposure(
-		completionHandler: ExposureSubmissionHandler? = nil
-	) {
-		self._fakeGetTANForExposureSubmit { _ in
-			self._fakeSubmit { _ in
-				completionHandler?(.fakeResponse)
-			}
-		}
-	}
-
-	private func _fakeSubmit(completion: @escaping ExposureSubmissionHandler) {
+	private func _fakeSubmissionServerRequest(completion: @escaping ExposureSubmissionHandler) {
 		// TODO: Fill with bogus data.
 		self.client.submit(keys: [], tan: "", isFake: true) { _ in
 			completion(.fakeResponse)
 		}
 	}
 
-	private func _fakeGetRegistrationToken(_ completeWith: @escaping RegistrationHandler) {
-		// TODO: Fill with bogus data.
-		client.getRegistrationToken(forKey: "", withType: "", isFake: true) { _ in
-			completeWith(.failure(.fakeResponse))
+	// TODO: Add comment.
+	// Convenience method.
+	private func _fakeVerificationAndSubmissionServerRequest(completionHandler: ExposureSubmissionHandler? = nil) {
+		self._fakeVerificationServerRequest { _ in
+			self._fakeSubmissionServerRequest { _ in
+				completionHandler?(.fakeResponse)
+			}
 		}
 	}
 
 	/// This method is called randomly sometimes in the foreground and from the background.
 	/// It represents the full-fledged dummy request needed to realize plausible deniability.
-	/// Nothing called in this method is considered a "real" request.
 	func fakeRequest(completionHandler: ExposureSubmissionHandler? = nil) {
-		_fakeGetRegistrationToken { _ in
-			self._fakeSubmitExposure { _ in
-				completionHandler?(.fakeResponse)
-			}
+		_fakeVerificationServerRequest { _ in
+			self._fakeVerificationServerRequest(completion: { _ in
+				self._fakeSubmissionServerRequest(completion: { _ in
+					completionHandler?(.fakeResponse)
+				})
+			})
 		}
 	}
 }

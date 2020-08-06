@@ -33,7 +33,7 @@ class HTTPClientPlausibleDeniabilityTests: XCTestCase {
 		expectation.expectedFulfillmentCount = 4
 		let session = MockUrlSession(data: nil, nextResponse: nil, error: nil) { request in
 			expectation.fulfill()
-			XCTAssertEqual(request.httpBody?.count, 1000)
+			XCTAssertEqual(request.httpBody?.count, 250)
 		}
 
 		let stack = MockNetworkStack(mockSession: session)
@@ -54,7 +54,7 @@ class HTTPClientPlausibleDeniabilityTests: XCTestCase {
 		expectation.expectedFulfillmentCount = 4
 		let session = MockUrlSession(data: nil, nextResponse: nil, error: nil) { request in
 			expectation.fulfill()
-			XCTAssertEqual(request.httpBody?.count, 1000)
+			XCTAssertEqual(request.httpBody?.count, 250)
 		}
 
 		let stack = MockNetworkStack(mockSession: session)
@@ -76,7 +76,7 @@ class HTTPClientPlausibleDeniabilityTests: XCTestCase {
 		expectation.expectedFulfillmentCount = 4
 		let session = MockUrlSession(data: nil, nextResponse: nil, error: nil) { request in
 			expectation.fulfill()
-			XCTAssertEqual(request.httpBody?.count, 1000)
+			XCTAssertEqual(request.httpBody?.count, 250)
 		}
 
 		let stack = MockNetworkStack(mockSession: session)
