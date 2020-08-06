@@ -216,11 +216,11 @@ final class HTTPClient: Client {
 				}
 				do {
 					let response = try JSONDecoder().decode(
-						Model.FetchTestResultResponse.self,
+						FetchTestResultResponse.self,
 						from: testResultResponseData
 					)
 					guard let testResult = response.testResult else {
-						logError(message: "Failed to register Device with invalid response payload structure")
+						logError(message: "Failed to get test result with invalid response payload structure")
 						completeWith(.failure(.invalidResponse))
 						return
 					}
@@ -269,7 +269,7 @@ final class HTTPClient: Client {
 				}
 				do {
 					let response = try JSONDecoder().decode(
-						Model.GetTANForExposureSubmitResponse.self,
+						GetTANForExposureSubmitResponse.self,
 						from: tanResponseData
 					)
 					guard let tan = response.tan else {
@@ -326,7 +326,7 @@ final class HTTPClient: Client {
 
 				do {
 					let response = try JSONDecoder().decode(
-						Model.GetRegistrationTokenResponse.self,
+						GetRegistrationTokenResponse.self,
 						from: registerResponseData
 					)
 					guard let registrationToken = response.registrationToken else {
@@ -404,21 +404,16 @@ final class HTTPClient: Client {
 // MARK: Extensions
 
 private extension HTTPClient {
-	enum Model {
-		// swiftlint:disable:next nesting
-		struct FetchTestResultResponse: Codable {
-			let testResult: Int?
-		}
+	struct FetchTestResultResponse: Codable {
+		let testResult: Int?
+	}
 
-		// swiftlint:disable:next nesting
-		struct GetRegistrationTokenResponse: Codable {
-			let registrationToken: String?
-		}
-		
-		// swiftlint:disable:next nesting
-		struct GetTANForExposureSubmitResponse: Codable {
-			let tan: String?
-		}
+	struct GetRegistrationTokenResponse: Codable {
+		let registrationToken: String?
+	}
+
+	struct GetTANForExposureSubmitResponse: Codable {
+		let tan: String?
 	}
 }
 

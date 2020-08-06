@@ -160,7 +160,8 @@ extension Coordinator: HomeViewControllerDelegate {
 			exposureManagerState: state.exposureManagerState,
 			detectionMode: state.detectionMode,
 			isLoading: isRequestRiskRunning,
-			risk: state.risk
+			risk: state.risk,
+			previousRiskLevel: store.previousRiskLevel
 		)
 		let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
 			ExposureDetectionViewController(
@@ -178,7 +179,8 @@ extension Coordinator: HomeViewControllerDelegate {
 			exposureManagerState: state.exposureManagerState,
 			detectionMode: state.detectionMode,
 			isLoading: isRequestRiskRunning,
-			risk: state.risk
+			risk: state.risk,
+			previousRiskLevel: store.previousRiskLevel
 		)
 		exposureDetectionController?.state = state
 	}

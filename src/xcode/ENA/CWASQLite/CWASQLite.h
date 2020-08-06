@@ -17,27 +17,12 @@
 // under the License.
 //
 
-import Foundation
-import UIKit
+#import <Foundation/Foundation.h>
 
-enum DetectionMode {
-	case automatic
-	case manual
+//! Project version number for CWASQLite.
+FOUNDATION_EXPORT double CWASQLiteVersionNumber;
 
-	static let `default` = DetectionMode.manual
-}
+//! Project version string for CWASQLite.
+FOUNDATION_EXPORT const unsigned char CWASQLiteVersionString[];
 
-extension DetectionMode {
-	static func fromBackgroundStatus(
-		_ backgroundStatus: UIBackgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
-	) -> DetectionMode {
-		switch backgroundStatus {
-		case .restricted, .denied:
-			return .manual
-		case .available:
-			return .automatic
-		default:
-			return .manual
-		}
-	}
-}
+#import <CWASQLite/sqlite3.h>

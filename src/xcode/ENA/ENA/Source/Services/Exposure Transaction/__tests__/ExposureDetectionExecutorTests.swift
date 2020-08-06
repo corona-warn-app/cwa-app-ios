@@ -29,7 +29,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 	func testDetermineAvailableData_Success() throws {
 		// Test the case where the exector is asked to download the days and hours,
 		// and the client returns valid data. Returned DaysAndHours should be non-nil
-		let testDaysAndHours = (days: ["Hello"], hours: [23])
+		let testDaysAndHours = DaysAndHours(days: ["Hello"], hours: [23])
 		let sut = ExposureDetectionExecutor.makeWith(client: ClientMock(availableDaysAndHours: testDaysAndHours))
 		let successExpectation = expectation(description: "Expect that the completion handler is called!")
 
@@ -39,8 +39,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 				defer { successExpectation.fulfill() }
 
 				XCTAssertEqual(daysAndHours?.days, testDaysAndHours.days)
-				// Hours are explicitly returned as empty
-				XCTAssertEqual(daysAndHours?.hours, [])
+				XCTAssertEqual(daysAndHours?.hours, [23])
 			}
 		)
 		waitForExpectations(timeout: 2.0)
@@ -75,8 +74,8 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let todayString = startOfToday.formatted
 		let yesterdayString = try XCTUnwrap(cal.date(byAdding: DateComponents(day: -1), to: startOfToday)?.formatted)
 
-		let remoteDaysAndHours: DaysAndHours = ([yesterdayString, todayString], [])
-		let localDaysAndHours: DaysAndHours = ([yesterdayString], [])
+		let remoteDaysAndHours: DaysAndHours = DaysAndHours(days: [yesterdayString, todayString], hours: [])
+		let localDaysAndHours: DaysAndHours = DaysAndHours(days: [yesterdayString], hours: [])
 
 		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
 		downloadedPackageStore.set(day: localDaysAndHours.days[0], package: try .makePackage())
@@ -100,7 +99,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 
 		_ = sut.exposureDetection(
 			ExposureDetection(delegate: sut),
-			downloadDeltaFor: (["Hello"], [])
+			downloadDeltaFor: DaysAndHours(days: ["Hello"], hours: [])
 		)
 		XCTAssert(downloadedPackageStore.allDays().isEmpty, "The store should be empty after being pruned!")
 	}
@@ -111,7 +110,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		// Test the case where the exector is asked to store the latest DaysAndHours delta,
 		// and the server has new data. We expect that the package store contains this new data.
 		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
-		let testDaysAndHours: DaysAndHours = (days: ["2020-01-01"], hours: [])
+		let testDaysAndHours = DaysAndHours(days: ["2020-01-01"], hours: [])
 		let testPackage = try SAPDownloadedPackage.makePackage()
 		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
 
