@@ -121,7 +121,7 @@ extension RiskProvider: RiskProviding {
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
 	/// - Parameter userInitiated: If true, it's called by user, if false, called by task scheduler
-	/// - Parameter completion: It is an optional value, if it is set to nil, the attachted RiskConsumers will be notified once the risk calculation is done.
+	/// - Parameter completion: It is an optional value, if it is set to nil, the attached RiskConsumers will be notified once the risk calculation is done.
 	func requestRisk(userInitiated: Bool, completion: Completion? = nil) {
 		queue.async {
 			self._requestRiskLevel(userInitiated: userInitiated, completion: completion)
