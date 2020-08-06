@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,27 +15,15 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
+#if !RELEASE
 
 import Foundation
 
-extension URLSession {
-	class func coronaWarnSession() -> URLSession {
-		#if DISABLE_CERTIFICATE_PINNING
-		//Disable certificate pinning while app is running on:
-		//Community, Debug, TestFlight, UITesting modes
-		let coronaWarnURLSessionDelegate: CoronaWarnURLSessionDelegate? = nil
-		#else
-//		let coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate(
-//			localPublicKey: "c3jf+L8VIAFQnJJDM6Mfb4MtI1JnhVS8JwZHMwJj28M="
-//		)
-		let coronaWarnURLSessionDelegate: CoronaWarnURLSessionDelegate? = nil
-
-		#endif
-		return URLSession(
-			configuration: .coronaWarnSessionConfiguration(),
-			delegate: coronaWarnURLSessionDelegate,
-			delegateQueue: .main
-		)
-		
+extension SAP_TemporaryExposureKey: Comparable {
+	static func < (lhs: SAP_TemporaryExposureKey, rhs: SAP_TemporaryExposureKey) -> Bool {
+		lhs.rollingStartIntervalNumber > rhs.rollingStartIntervalNumber
 	}
 }
+
+#endif

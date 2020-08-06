@@ -21,6 +21,11 @@ import Foundation
 struct DaysAndHours {
 	var days: [String]
 	var hours: [Int]
+
+	static let none = DaysAndHours(
+		days: [],
+		hours: []
+	)
 }
 
 /// Methods required to move an exposure detection transaction forward and for consuming

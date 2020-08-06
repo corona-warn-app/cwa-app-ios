@@ -43,86 +43,130 @@ final class DMSubmissionStateViewController: UITableViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: UIViewController
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		tableView.registerKeyCell()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		navigationController?.setToolbarHidden(false, animated: animated)
+		setToolbarItems(
+			[
+
+				UIBarButtonItem(
+					barButtonSystemItem: .flexibleSpace,
+					target: nil,
+					action: nil
+				),
+				UIBarButtonItem(
+					title: "Start Test",
+					style: .plain,
+					target: self,
+					action: #selector(performCheck)
+				),
+				UIBarButtonItem(
+					barButtonSystemItem: .flexibleSpace,
+					target: nil,
+					action: nil
+				)
+
+			],
+			animated: animated
+		)
+		super.viewWillAppear(animated)
+	}
+
 	// MARK: Properties
 
 	private weak var delegate: DMSubmissionStateViewControllerDelegate?
 	private let client: Client
+	private var checkResult = DMSubmittedKeysCheckResult(missingKeys: [], foundKeys: [])
 
 	// MARK: UIViewController
 
-	override func viewWillAppear(_: Bool) {
-		navigationItem.rightBarButtonItem = UIBarButtonItem(
-			title: "Check",
-			style: .plain,
-			target: self,
-			action: #selector(performCheck)
-		)
-	}
 
 	@objc
 	func performCheck() {
-		let group = DispatchGroup()
-
-		var allPackages = [SAPDownloadedPackage]()
-
-		group.enter()
-		client.availableDays { result in
-			switch result {
-			case let .success(days):
-				self.client.fetchDays(days) { daysResult in
-					allPackages.append(contentsOf: Array(daysResult.bucketsByDay.values))
-					group.leave()
-				}
-			case .failure:
-				group.leave()
-			}
-		}
-
-		var localKeys = [ENTemporaryExposureKey]()
-
-		group.enter()
-		delegate?.submissionStateViewController(self) { keys, error in
-			precondition(Thread.isMainThread)
-			defer { group.leave() }
-
+		delegate?.submissionStateViewController(self, getDiagnosisKeys: { localKeys, error in
 			if let error = error {
-				self.present(
-					UIAlertController(
-						title: "Failed to get local diagnosis keys",
-						message: error.localizedDescription,
-						preferredStyle: .alert
-					),
-					animated: true
-				)
-				return
+				fatalError("err: \(error.localizedDescription)")
 			}
-			localKeys = keys ?? []
+			guard let localKeys = localKeys else {
+				fatalError("err")
+			}
+			print(localKeys)
+			self.client.fetchAllKeys { downloadedPackages in
+				print(downloadedPackages)
+				let allPackages = downloadedPackages.allKeyPackages
+				let allRemoteKeys = Array(allPackages
+					.compactMap { try? $0.keys() }
+					.joined()
+				)
+
+				var foundKeys = [ENTemporaryExposureKey]()
+				var missingKeys = [ENTemporaryExposureKey]()
+
+
+				for localKey in localKeys {
+					let found = allRemoteKeys.containsKey(localKey)
+					if found {
+						foundKeys.append(localKey)
+					} else {
+						missingKeys.append(localKey)
+					}
+				}
+				self.checkResult = .init(
+					missingKeys: missingKeys,
+					foundKeys: foundKeys
+				)
+				self.tableView.reloadData()
+			}
+		})
+
+	}
+	override func numberOfSections(in tableView: UITableView) -> Int {
+		2
+	}
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		switch section {
+		case 0:
+			return "Missing Keys \(checkResult.missingKeys.count)"
+		case 1:
+			return "Found Keys \(checkResult.foundKeys.count)"
+		default: fatalError("fail")
+		}
+	}
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		switch section {
+		case 0:
+			return checkResult.missingKeys.count
+		case 1:
+			return checkResult.foundKeys.count
+		default: fatalError("fail")
+		}
+	}
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableKeyCell(for: indexPath)
+		let key: ENTemporaryExposureKey
+		let row = indexPath.row
+		switch indexPath.section {
+		case 0:
+			key = checkResult.missingKeys[row]
+		case 1:
+			key = checkResult.foundKeys[row]
+		default: fatalError("fail")
 		}
 
-		group.notify(queue: .main) {
-			var remoteKeys = [Apple_TemporaryExposureKey]()
-			do {
-				for package in allPackages {
-					remoteKeys.append(contentsOf: try package.keys())
-				}
-			} catch {
-				logError(message: "Failed to get keys from package due to: \(error)")
-			}
-			let localKeysFoundRemotly = localKeys.filter { remoteKeys.containsKey($0) }
-			let foundOwnKey = localKeysFoundRemotly.isEmpty == false
-			let allLocalKeysFoundRemotly = localKeys.count == localKeysFoundRemotly.count
-			let resultAlert = UIAlertController(
-				title: "Results",
-				message:
-				"""
-				# of local keys found remotly: \(localKeysFoundRemotly.count)
-				found at least one key: \(foundOwnKey)
-				found all keys: \(allLocalKeysFoundRemotly)
-				""",
-				preferredStyle: .actionSheet
+		cell.configure(
+			with: DMKeyCell.Model(
+				keyData: key.keyData,
+				rollingStartIntervalNumber: Int32(key.rollingStartNumber),
+				transmissionRiskLevel: Int32(key.transmissionRiskLevel)
 			)
-			self.present(resultAlert, animated: true, completion: nil)
-		}
+		)
+		return cell
 	}
 }
 
@@ -156,6 +200,61 @@ private extension Array where Element == Apple_TemporaryExposureKey {
 			appleKey.keyData == key.keyData
 		}
 	}
+}
+
+extension Client {
+	typealias AvailableDaysAndHoursCompletion = (DaysAndHours) -> Void
+	func availableDaysAndHours(
+		completion completeWith: @escaping AvailableDaysAndHoursCompletion
+	) {
+		let group = DispatchGroup()
+
+		var daysAndHours: DaysAndHours = .none
+
+		group.enter()
+		availableDays { result in
+			switch result {
+			case let .success(days):
+				daysAndHours.days = days
+			case .failure:
+				print("Fail")
+			}
+			group.leave()
+		}
+
+		group.enter()
+		availableHours(day: .formattedToday()) { result in
+			switch result {
+			case let .success(hours):
+				daysAndHours.hours = hours
+			case .failure:
+				print("Fail")
+			}
+			group.leave()
+		}
+
+		group.notify(queue: .main) {
+			completeWith(daysAndHours)
+		}
+	}
+
+	func fetchAllKeys(
+		completion completeWith: @escaping DaysAndHoursCompletionHandler
+	) {
+		availableDaysAndHours { daysAndHours in
+			self.fetchDays(
+				daysAndHours.days,
+				hours: daysAndHours.hours,
+				of: .formattedToday(),
+				completion: completeWith
+			)
+		}
+	}
+}
+
+struct DMSubmittedKeysCheckResult {
+	let missingKeys: [ENTemporaryExposureKey]
+	let foundKeys: [ENTemporaryExposureKey]
 }
 
 #endif

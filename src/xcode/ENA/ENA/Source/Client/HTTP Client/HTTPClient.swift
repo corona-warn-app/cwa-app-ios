@@ -58,11 +58,11 @@ final class HTTPClient: Client {
 				}
 
 				// Configuration File Signature must be checked by the application since it is not verified by the operating system
-				guard self.packageVerifier(package) else {
-					logError(message: "Failed to verify app config signature")
-					completion(nil)
-					return
-				}
+//				guard self.packageVerifier(package) else {
+//					logError(message: "Failed to verify app config signature")
+//					completion(nil)
+//					return
+//				}
 				completion(try? SAP_ApplicationConfiguration(serializedData: package.bin))
 			case .failure:
 				completion(nil)
@@ -102,6 +102,10 @@ final class HTTPClient: Client {
 		}
 
 		session.response(for: request) { result in
+			#if !RELEASE
+			UserDefaults.standard.dmLastSubmissionRequest = request.httpBody
+			#endif
+			
 			switch result {
 			case let .success(response):
 				switch response.statusCode {
