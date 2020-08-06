@@ -176,6 +176,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// received, either from the TAN or QR Code flow. After successful completion,
 	/// the timestamp of the last received test is updated.
 	/// __Extension for plausible deniability__:
+	/// We append two fake requests to this request in order to fulfill the V+V+S sequence. (This means, we
+	/// always send three requests, regardless which API call we do. The first two have to go to the verification server,
+	/// and the last one goes to the submission server.)
 	func getTestResult(_ completeWith: @escaping TestResultHandler) {
 		guard let registrationToken = store.registrationToken else {
 			completeWith(.failure(.noRegistrationToken))
@@ -191,6 +194,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	}
 
 	/// Stores the provided key, retrieves the registration token and deletes the key.
+	/// __Extension for plausible deniability__:
+	/// We append two fake requests to this request in order to fulfill the V+V+S sequence. Please kindly check `getTestResult` for more information.
 	func getRegistrationToken(
 		forKey deviceRegistrationKey: DeviceRegistrationKey,
 		completion completeWith: @escaping RegistrationHandler
@@ -207,6 +212,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
+	/// __Extension for plausible deniability__:
+	/// We prepend a fake request in order to guarantee the V+V+S sequence. Please kindly check `getTestResult` for more information.
 	func submitExposure(completionHandler: @escaping ExposureSubmissionHandler) {
 		log(message: "Started exposure submission...")
 
