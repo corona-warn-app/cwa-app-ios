@@ -1,5 +1,49 @@
 # Changelog
 
+## v1.2.0 (03/08/2020)
+
+#### Bug fixes
+-  Fix text of high risk information [#994](https://github.com/corona-warn-app/cwa-app-ios/pull/994)
+-  Fix AppNavigationController navigation bar transparency [#926](https://github.com/corona-warn-app/cwa-app-ios/pull/926)
+-  Test result screen button state fix [#870](https://github.com/corona-warn-app/cwa-app-ios/pull/870)
+-  Make risk encounter detail text show amount of days since last exposure [#923](https://github.com/corona-warn-app/cwa-app-ios/pull/923)
+-  Display underline in ENATanInput when character is invalid [#884](https://github.com/corona-warn-app/cwa-app-ios/pull/884)
+-  Make activate cell support voice over [#904](https://github.com/corona-warn-app/cwa-app-ios/pull/904)
+-  Fix blank Data Privacy page after 5 minutes without user interaction [#825](https://github.com/corona-warn-app/cwa-app-ios/pull/825)
+-  Updating of home cells  [#822](https://github.com/corona-warn-app/cwa-app-ios/pull/822)
+-  Bring back lost translation keys for Turkish and English[#935](https://github.com/corona-warn-app/cwa-app-ios/pull/935)
+
+#### New features
+
+-  Translation update and integrate three new languages (Romanian, Bulgarian and Polish) [#905](https://github.com/corona-warn-app/cwa-app-ios/pull/905), [#933](https://github.com/corona-warn-app/cwa-app-ios/pull/933), [#961](https://github.com/corona-warn-app/cwa-app-ios/pull/961), [#1006](https://github.com/corona-warn-app/cwa-app-ios/pull/1006)
+-  Add interactivity to links in App Settings Imprint (Legal) Screen [#833](https://github.com/corona-warn-app/cwa-app-ios/pull/833)
+-  Loading state  for risk cell [#873](https://github.com/corona-warn-app/cwa-app-ios/pull/873)
+-  Tracing Status Animation [#821](https://github.com/corona-warn-app/cwa-app-ios/pull/821)
+-  Certificate pinning for download server [#930](https://github.com/corona-warn-app/cwa-app-ios/pull/930), [#951](https://github.com/corona-warn-app/cwa-app-ios/pull/951)
+
+#### Enhancements
+
+-  Improved wording for exposures [#979](https://github.com/corona-warn-app/cwa-app-ios/pull/979)
+-  Translation updates [#931](https://github.com/corona-warn-app/cwa-app-ios/pull/931)
+-  Force tan input field to be ordered left-to-right even for RTL languages [#919](https://github.com/corona-warn-app/cwa-app-ios/pull/919)
+-  Background Fetching Disabled alert [#883](https://github.com/corona-warn-app/cwa-app-ios/pull/883)
+-  Make configurators hashable [#859](https://github.com/corona-warn-app/cwa-app-ios/pull/859)
+-  Add home screen risk cell update button countdown [#866](https://github.com/corona-warn-app/cwa-app-ios/pull/866)
+-  ExposureDetectionViewController refresh countdown [#838](https://github.com/corona-warn-app/cwa-app-ios/pull/838)
+
+#### Others
+
+-  Exposure submission coordinator [#910](https://github.com/corona-warn-app/cwa-app-ios/pull/910)
+-  Remove backend urls from settings [#875](https://github.com/corona-warn-app/cwa-app-ios/pull/875)
+
+---
+
+## v1.1.2 (24/07/2020)
+#### Enhancements
+-  Improve background task scheduling #946
+
+---
+
 ## v1.1.1 (20/07/2020)
 #### Bug Fixes
 
