@@ -461,6 +461,10 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Gesundheitsamt, um Informationen zum weiteren Vorgehen zu erhalten.";
 
+"ExposureSubmissionResult_testRedeemed" = "Test fehlerhaft";
+
+"ExposureSubmissionResult_testRedeemedDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Ihr QR Code ist bereits abgelaufen.";
+
 "ExposureSubmissionResult_testPending" = "Testergebnis noch nicht verfügbar";
 
 "ExposureSubmissionResult_testPendingDesc" = "Ihr Testergebnis steht noch nicht zur Verfügung.";

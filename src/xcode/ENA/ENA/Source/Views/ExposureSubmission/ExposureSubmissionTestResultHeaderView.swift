@@ -74,7 +74,7 @@ private extension TestResult {
 		switch self {
 		case .positive: return .enaColor(for: .riskHigh)
 		case .negative: return .enaColor(for: .riskLow)
-		case .invalid: return .enaColor(for: .riskNeutral)
+		case .invalid, .redeemed: return .enaColor(for: .riskNeutral)
 		case .pending: return .enaColor(for: .riskNeutral)
 		}
 	}
@@ -83,7 +83,7 @@ private extension TestResult {
 		switch self {
 		case .positive: return UIImage(named: "Illu_Submission_PositivTestErgebnis")
 		case .negative: return UIImage(named: "Illu_Submission_NegativesTestErgebnis")
-		case .invalid: return UIImage(named: "Illu_Submission_FehlerhaftesTestErgebnis")
+		case .invalid, .redeemed: return UIImage(named: "Illu_Submission_FehlerhaftesTestErgebnis")
 		case .pending: return UIImage(named: "Illu_Submission_PendingTestErgebnis")
 		}
 	}
@@ -94,6 +94,7 @@ private extension TestResult {
 		case .negative: return "\(AppStrings.ExposureSubmissionResult.card_title)\n\(AppStrings.ExposureSubmissionResult.card_negative)"
 		case .invalid: return AppStrings.ExposureSubmissionResult.card_invalid
 		case .pending: return AppStrings.ExposureSubmissionResult.card_pending
+		case .redeemed: return AppStrings.ExposureSubmissionResult.card_invalid
 		}
 	}
 }
