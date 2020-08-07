@@ -110,7 +110,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		consumer.didCalculateRisk = { risk in
-			print("new risk: \(risk)")
+			// intentionally left blank
 		}
 	}
 
@@ -167,15 +167,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 				delegate: self
 			)
 		case .backendConfiguration:
-			guard let client = client as? HTTPClient else {
-				logError(message: "the developer menu only supports apps using a real http client")
-				return
-			}
-			vc = DMBackendConfigurationViewController(
-				distributionURL: client.configuration.endpoints.distribution.baseURL.absoluteString,
-				submissionURL: client.configuration.endpoints.submission.baseURL.absoluteString,
-				verificationURL: client.configuration.endpoints.verification.baseURL.absoluteString
-			)
+			vc = makeBackendConfigurationViewController()
 		case .tracingHistory:
 			vc = DMTracingHistoryViewController(tracingHistory: store.tracingStatusHistory)
 		case .store:
@@ -183,8 +175,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .lastSubmissionRequest:
 			vc = DMLastSubmissionRequestViewController(lastSubmissionRequest: UserDefaults.standard.dmLastSubmissionRequest)
 		case .lastRiskCalculation:
-			let appDelegate = UIApplication.shared.delegate as? AppDelegate
-			vc = DMLastRiskCalculationViewController(lastRisk: appDelegate?.lastRiskCalculation)
+			vc = DMLastRiskCalculationViewController(lastRisk: (UIApplication.shared.delegate as? AppDelegate)?.lastRiskCalculation)
 		case .settings:
 			vc = DMSettingsViewController(store: store)
 		case .errorLog:
@@ -196,30 +187,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = nil
 		case .manuallyRequestRisk:
 			vc = nil
-			let alert = UIAlertController(
-				title: "Manually request risk?",
-				message: "⚠️⚠️⚠️ WARNING ⚠️⚠️⚠️\n\nManually requesting the current risk works by purging the cache. This actually deletes the last calculated risk (among other things) from the store. Do you want to manually request your current risk?",
-				preferredStyle: .alert
-			)
-			alert.addAction(
-				UIAlertAction(
-					title: "Cancel",
-					style: .cancel
-				) { _ in
-					alert.dismiss(animated: true, completion: nil)
-				}
-			)
-
-			alert.addAction(
-				UIAlertAction(
-					title: "Purge Cache and request Risk",
-					style: .destructive
-				) { _ in
-					self.store.summary = nil
-					self.riskProvider.requestRisk(userInitiated: true)
-				}
-			)
-			present(alert, animated: true, completion: nil)
+			manuallyRequestRisk()
 		}
 		
 		if let vc = vc {
@@ -228,6 +196,45 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 				animated: true
 			)
 		}
+	}
+
+
+	private func makeBackendConfigurationViewController() -> DMBackendConfigurationViewController {
+		guard let client = client as? HTTPClient else {
+			fatalError("the developer menu only supports apps using a real http client")
+		}
+		return DMBackendConfigurationViewController(
+			distributionURL: client.configuration.endpoints.distribution.baseURL.absoluteString,
+			submissionURL: client.configuration.endpoints.submission.baseURL.absoluteString,
+			verificationURL: client.configuration.endpoints.verification.baseURL.absoluteString
+		)
+	}
+
+	private func manuallyRequestRisk() {
+		let alert = UIAlertController(
+			title: "Manually request risk?",
+			message: "⚠️⚠️⚠️ WARNING ⚠️⚠️⚠️\n\nManually requesting the current risk works by purging the cache. This actually deletes the last calculated risk (among other things) from the store. Do you want to manually request your current risk?",
+			preferredStyle: .alert
+		)
+		alert.addAction(
+			UIAlertAction(
+				title: "Cancel",
+				style: .cancel
+			) { _ in
+				alert.dismiss(animated: true, completion: nil)
+			}
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: "Purge Cache and request Risk",
+				style: .destructive
+			) { _ in
+				self.store.summary = nil
+				self.riskProvider.requestRisk(userInitiated: true)
+			}
+		)
+		present(alert, animated: true, completion: nil)
 	}
 }
 

@@ -38,8 +38,6 @@ final class HTTPClient: Client {
 
 	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
 		session.GET(configuration.configurationURL) { [weak self] result in
-			guard let self = self else { return }
-
 			switch result {
 			case let .success(response):
 				guard let data = response.body else {
@@ -56,6 +54,8 @@ final class HTTPClient: Client {
 					completion(nil)
 					return
 				}
+
+				guard let self = self else { return }
 
 				// Configuration File Signature must be checked by the application since it is not verified by the operating system
 				guard self.packageVerifier(package) else {
