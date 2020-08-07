@@ -28,6 +28,7 @@ enum TestResult: Int {
 	case negative = 1
 	case positive = 2
 	case invalid = 3
+	case redeemed = 4
 }
 
 protocol ExposureSubmissionService: class {
