@@ -76,7 +76,7 @@
 
 "ExposureDetection_OffText" = "قم بتنشيط تسجيل المخالطة لتقييم مستوى الخطر اليوم.";
 
-"ExposureDetection_OutdatedText" = "تعذر تحديث تسجيل المخالطة لأكثر من 48 ساعة.";
+"ExposureDetection_OutdatedText" = "لم يتم تحديث تسجيل المخالطة لمدة تزيد عن 48 ساعة. يرجى تحديث الاحتساب.";
 
 "ExposureDetection_UnknownText" = "لا يمكننا تقدير خطر العدوى نظرًا لعدم قيامك بتنشيط تسجيل المخالطة لفترة طويلة بما يكفي.";
 
@@ -118,11 +118,22 @@
 
 "ExposureDetection_Explanation_Text_Low" = "خطر العدوى لديك منخفض نظرًا لعدم تسجيل أي تجمُّع مع شخص مصاب بمرض كوفيد-19 أو تم تقييد تجمُّعك لفترة قصيرة وعلى مسافة أكبر.\n\nوبالتالي، تم تصنيف خطر العدوى على أنه منخفض.\n\nيتم تقدير خطر العدوى من بيانات تسجيل المخالطة (المدة ومدى الاقتراب) محليًا على جهازك. ولا يمكن الاطلاع على خطر العدوى من جانب أي شخص آخر أو تمريره إليه.";
 
-"ExposureDetection_Explanation_Text_High" = "\n\nTherefore, your risk of infection has been ranked as increased.\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.\nWhen you get home, please also avoid close contact with members of your family or household.";
+"ExposureDetection_Explanation_Text_High" = "وبالتالي، تم تصنيف خطر العدوى بالنسبة إليك على أنه مرتفع.\nيتم تقدير خطر العدوى من بيانات تسجيل المخالطة (المدة ومدى الاقتراب) محليًا على جهازك. ولا يمكن الاطلاع على خطر العدوى من جانب أي شخص آخر أو تمريره إليه.\nعند العودة إلى المنزل، يرجى تجنب التعامل عن قرب مع أفراد أسرتك أو عائلتك.";
 
 "ExposureDetection_Button_Enable" = "تنشيط تسجيل المخالطة";
 
 "ExposureDetection_Button_Refresh" = "تحديث";
+
+/* Active Tracing Section */
+"ExposureDetection_ActiveTracingSection_Title" = "تم تسجيل الفترة";
+
+"ExposureDetection_ActiveTracingSection_Subtitle" = "هذه الفترة مضمَّنة في الاحتساب.";
+
+/* There are two paragraphs in this section. The first one just contains text… */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "يمكن تقدير خطر العدوى بالنسبة إليك فقط للفترات التي كان خلالها تسجيل المخالطة نشطًا. وبالتالي يجب أن تظل ميزة التسجيل نشطة دائمًا.";
+
+/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "يشمل تسجيل المخالطة %1$u من الأيام الماضية. وأثناء هذه الفترة كانت ميزة التسجيل على جهازك نشطة لمدة %2$u من الأيام. يقوم التطبيق تلقائيًا بحذف السجلات الأقدم، مثل تلك التي لم تعد ذات صلة بمنع العدوى.";
 
 /* Exposure Detection Errors */
 "ExposureDetectionError_Alert_Title" = "خطأ";
@@ -130,6 +141,11 @@
 "ExposureDetectionError_Alert_Action_Details" = "التفاصيل";
 
 "ExposureDetectionError_Alert_Message" = "حدث خطأ ما أثناء تسجيل المخالطة.";
+
+/* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
+"How_Risk_Detection_Works_Alert_Title" = "معلومات حول وظيفة تسجيل المخالطة";
+
+"How_Risk_Detection_Works_Alert_Message" = "يمكن تقدير خطر العدوى بالنسبة إليك فقط للفترات التي كان خلالها تسجيل المخالطة نشطًا. وبالتالي يجب أن تظل ميزة التسجيل نشطة دائمًا.\nيشمل تسجيل المخالطة %1$u من الأيام الماضية.\nيقوم التطبيق تلقائيًا بحذف السجلات الأقدم، مثل تلك التي لم تعد ذات صلة بمنع العدوى.\n\nللحصول على مزيد من المعلومات، الرجاء الاطلاع على صفحة الأسئلة المتكررة.";
 
 /* Settings */
 "Settings_StatusActive" = "تشغيل";
@@ -202,7 +218,7 @@
 
 "Onboarding_DeactivateExposureConfirmation_message" = "يمكنك إلغاء تنشيط هذه الميزة في أي وقت.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "مجموعة أشخاص يستخدمون أجهزتهم في المدينة جميعًا.";
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "مجموعة أشخاص يستخدمون أجهزتهم حول المدينة.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_title" = "لنكافح فيروس كورونا معًا";
 
@@ -224,7 +240,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "لتحديد ما إذا كنت معرضًا لخطر العدوى، يجب عليك تنشيط ميزة تسجيل المخالطة.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "يعمل تسجيل المخالطة من خلال تلقي جهازك، عبر Bluetooth، المعرفات العشوائية المشفرة لمستخدمين آخرين وتمرير معرفك العشوائي إلى أجهزتهم. ويمكن إلغاء تنشيط هذه الميزة في أي وقت.\n\nلا تمرر المعرفات العشوائية المشفرة إلا معلومات حول التاريخ والمدة ومدى الاقتراب (يتم التقدير باستخدام قوة الإشارة) إلى الأشخاص الآخرين. ولا يتم أبدًا تسجيل البيانات الشخصية، مثل الاسم والعنوان والموقع، كما لا يمكن تحديد هوية الأفراد.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "يعمل تسجيل المخالطة من خلال تلقي جهازك، عبر Bluetooth، المعرفات العشوائية المشفرة لمستخدمين آخرين وتمرير معرفك العشوائي إلى أجهزتهم. ويمكن تعطيل هذه الميزة في أي وقت.\n\nلا تمرر المعرفات العشوائية المشفرة إلا معلومات حول التاريخ والمدة ومدى الاقتراب من الأشخاص الآخرين (يتم التقدير باستخدام قوة الإشارة). ولا يتم أبدًا تسجيل البيانات الشخصية، مثل الاسم والعنوان والموقع، كما لا يمكن تحديد هوية الأفراد.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "إقرار الموافقة";
 
@@ -445,6 +461,10 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "هناك مشكلة في تقييم اختبارك. الرجاء الاتصال بدائرة الصحة العامة لمعرفة كيفية المتابعة.";
 
+"ExposureSubmissionResult_testRedeemed" = "Test has errors";
+
+"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR Code has already expired.";
+
 "ExposureSubmissionResult_testPending" = "نتيجة الاختبار غير متوفرة حتى الآن";
 
 "ExposureSubmissionResult_testPendingDesc" = "نتيجة اختبارك غير متوفرة حتى الآن.";
@@ -469,7 +489,7 @@
 
 "ExposureSubmissionWarnOthers_description" = "يمكنك لاحقًا التأكد من مشاركة تطبيق Corona-Warn-App لمعرفاتك العشوائية في آخر 14 يومًا مع الآخرين. ومن خلال القيام بذلك، يمكنك تحذير الأشخاص الآخرين والمساعدة على كسر سلسلة العدوى.\n\nستظل هويتك مجهولة حيث يتم إرسال المعرفات العشوائية غير الشخصية فقط.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "بالنقر على \"قبول\"، فإنك توافق على أن يرسل التطبيق نتيجة اختبارك الإيجابية مع أرقام تعريفك العشوائية لآخر 14 يومًا إلى نظام سيرفر التطبيق، حتى يتسنى إخطار غيرك من مستخدمي التطبيق المنشطين لخاصية تسجيل المخالطة أوتوماتيكيًا باحتمالية تعرضهم لخطر العدوى. لا تتضمن المعرفات العشوائية المتداولة أية بيانات تسمح بثغرات يمكن التعرف من خلالها على هويتك أو شخصك.\n\nنشر نتيجة اختبارك عبر التطبيق خطوة اختيارية. إذا لم تنشر نتيجة اختبارك، لن تترتب عليك أية أضرار؛ لأنه لا يمكن لأحد سواك معرفة أو مراقبة ما إذا كنت تستخدم التطبيق، وكيف تستخدمه، وما إذا كنت نشرت إصابتك بالعدوى أم لا.\n\nيمكنك إلغاء موافقتك في أي وقت عن طريق حذف التطبيق. عند إلغاء الموافقة، تظل مشروعية المعالجة بدايةً من الموافقة حتى تاريخ الإلغاء قائمةً. تجد المزيد من المعلومات تحت بند القائمة \"معلومات خصوصية البيانات\".\n";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "بالنقر على \"قبول\"، فإنك توافق على أن يرسل التطبيق نتيجة اختبارك الإيجابية مع أرقام تعريفك العشوائية لآخر 14 يومًا إلى نظام سيرفر التطبيق، حتى يتسنى إخطار غيرك من مستخدمي التطبيق المنشطين لخاصية تسجيل المخالطة أوتوماتيكيًا باحتمالية تعرضهم لخطر العدوى. لا تتضمن المعرفات العشوائية المتداولة أية بيانات تسمح بثغرات يمكن التعرف من خلالها على هويتك أو شخصك.\n\nنشر نتيجة اختبارك عبر التطبيق خطوة اختيارية. إذا لم تنشر نتيجة اختبارك، لن تترتب عليك أية أضرار؛ لأنه لا يمكن لأحد سواك معرفة أو مراقبة ما إذا كنت تستخدم التطبيق، وكيف تستخدمه، وما إذا كنت نشرت إصابتك بالعدوى أم لا.\n\nيمكنك إلغاء موافقتك في أي وقت عن طريق حذف التطبيق. عند إلغاء الموافقة، تظل مشروعية المعالجة بدايةً من الموافقة حتى تاريخ الإلغاء قائمةً. تجد المزيد من المعلومات تحت بند القائمة \"معلومات خصوصية البيانات\".";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "خصوصية البيانات";
 
@@ -531,7 +551,7 @@
 
 "ExposureNotificationSetting_DescriptionText2" = "يعمل تسجيل المخالطة من خلال تلقي جهازك، عبر Bluetooth، المعرفات العشوائية المشفرة لمستخدمين آخرين وتمرير معرفك العشوائي إلى أجهزتهم. ويمكن إلغاء تنشيط هذه الميزة في أي وقت.";
 
-"ExposureNotificationSetting_DescriptionText3" = "لا تمرر المعرفات العشوائية المشفرة إلا معلومات حول التاريخ والمدة ومدى الاقتراب (باستخدام قوة الإشارة) إلى الأشخاص الآخرين. ولا يتم أبدًا تسجيل البيانات الشخصية مثل الاسم والعنوان والموقع، كما لا يمكن تحديد هوية الأفراد.";
+"ExposureNotificationSetting_DescriptionText3" = "لا تمرر المعرفات العشوائية المشفرة إلا معلومات حول التاريخ والمدة ومدى الاقتراب من الأشخاص الآخرين (يتم التقديم باستخدام قوة الإشارة). ولا يتم أبدًا تسجيل البيانات الشخصية، مثل الاسم والعنوان والموقع، كما لا يمكن تحديد هوية الأفراد.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "تشغيل Bluetooth";
 
@@ -624,7 +644,7 @@
 "Home_RiskCard_Unknown_Item_Title" = "تعذر علينا تقدير خطر العدوى نظرًا لعدم قيامك بتشغيل تسجيل المخالطة لفترة طويلة بما فيه الكفاية.";
 
 /* Home Unknown 48 card */
-"Home_RiskCard_Unknown48h_Body" = "Ihre Risiko-Berechnung wurde seit mehr als 48 Stunden nicht aktualisiert. Bitte aktualisieren Sie die Berechnung.";
+"Home_RiskCard_Unknown48h_Body" = "لم يتم تحديث تسجيل المخالطة لمدة تزيد عن 48 ساعة. يرجى تحديث الاحتساب.";
 
 /* Home Inactive card */
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "تسجيل المخالطة توقف";
@@ -642,7 +662,9 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "خطر منخفض";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "%@ من %@ من الأيام نشط";
+"Home_Risk_Low_SaveDays_Item_Title" = "تسجيل المخالطة كان نشطًا لمدة %1$u من الأربعة عشر يومًا الماضية.";
+
+"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "تسجيل المخالطة نشط دائمًا";
 
 /* Home High card */
 "Home_Risk_High_Title" = "خطر أعلى";
@@ -820,7 +842,7 @@
 
 "InviteFriends_ShareTitle" = "مكافحة فيروس كورونا معًا. أنا مشارك في هذا، هل ستشارك أيضًا؟";
 
-"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
+"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-arabisch";
 
 "InviteFriends_Illustration_Label" = "رجل يشارك تطبيق Corona-Warn-App مع أربعة أشخاص آخرين.";
 
@@ -937,4 +959,9 @@
 "ENATanInput_InvalidCharacter" = "حرف غير صالح\n\n%@";
 
 "ENATanInput_CharacterIndex" = "الحرف %1$u من %2$u";
+
+/* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
+"Active_Tracing_Interval_Partially_Active" = "تسجيل المخالطة كان نشطًا لمدة %1$u من الأربعة عشر يومًا الماضية.";
+
+"Active_Tracing_Interval_Permanently_Active" = "تسجيل المخالطة نشط دائمًا";
 

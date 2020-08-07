@@ -27,11 +27,13 @@ final class DMViewController: UITableViewController {
 	init(
 		client: Client,
 		store: Store,
-		exposureManager: ExposureManager
+		exposureManager: ExposureManager,
+		exposureSubmissionService: ExposureSubmissionService
 	) {
 		self.client = client
 		self.store = store
 		self.exposureManager = exposureManager
+		self.exposureSubmissionService = exposureSubmissionService
 		super.init(style: .plain)
 		title = "👩🏾‍💻🧑‍💻"
 	}
@@ -46,6 +48,7 @@ final class DMViewController: UITableViewController {
 	private let client: Client
 	private let store: Store
 	private let exposureManager: ExposureManager
+	private let exposureSubmissionService: ExposureSubmissionService
 	private var keys = [SAP_TemporaryExposureKey]() {
 		didSet {
 			keys = self.keys.sorted()
@@ -105,7 +108,8 @@ final class DMViewController: UITableViewController {
 		let viewController = DMConfigurationViewController(
 			distributionURL: client.configuration.endpoints.distribution.baseURL.absoluteString,
 			submissionURL: client.configuration.endpoints.submission.baseURL.absoluteString,
-			verificationURL: client.configuration.endpoints.verification.baseURL.absoluteString
+			verificationURL: client.configuration.endpoints.verification.baseURL.absoluteString,
+			exposureSubmissionService: exposureSubmissionService
 		)
 		navigationController?.pushViewController(viewController, animated: true)
 	}
@@ -180,7 +184,7 @@ final class DMViewController: UITableViewController {
 			// it may be required to change the tan to something else.
 			self.client.submit(
 				keys: _keys,
-				tan: "235b56ff-fd57-465a-8203-31456e58f06f"
+				tan: "235b56ff-fd57-465a-8203-31456e58f06f", isFake: false
 			) { submitError in
 				print("submitError: \(submitError?.localizedDescription ?? "")")
 				return
@@ -212,7 +216,7 @@ extension DMViewController: DMQRCodeScanViewControllerDelegate {
 	func debugCodeScanViewController(_: DMQRCodeScanViewController, didScan diagnosisKey: SAP_TemporaryExposureKey) {
 		client.submit(
 			keys: [diagnosisKey.temporaryExposureKey],
-			tan: "not needed"
+			tan: "not needed", isFake: false
 		) { [weak self] _ in
 			guard let self = self else { return }
 			self.resetAndFetchKeys()

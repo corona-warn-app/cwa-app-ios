@@ -7,7 +7,7 @@
 
 "Alert_ActionCancel" = "Отказ";
 
-"Alert_ActionRemove" = "Премахване";
+"Alert_ActionRemove" = "Изтриване";
 
 "Alert_BluetoothOff_Title" = "Включете функцията Bluetooth";
 
@@ -76,7 +76,7 @@
 
 "ExposureDetection_OffText" = "Активирайте регистрирането на излагания на риск, за да разберете какво е нивото Ви на риск днес.";
 
-"ExposureDetection_OutdatedText" = "Регистърът на излаганията на риск не е обновяван повече от 48 часа.";
+"ExposureDetection_OutdatedText" = "Регистрираните излагания не са актуализирани повече от 48 часа. Моля, актуализирайте изчислението.";
 
 "ExposureDetection_UnknownText" = "Тъй като регистрирането на излагания на риск не е било активно достатъчно дълго, не можем да изчислим Вашия риск от заразяване.";
 
@@ -100,9 +100,9 @@
 
 "ExposureDetection_Guide_Hotline2" = "Вашия личен лекар";
 
-"ExposureDetection_Guide_Hotline3" = "Общата служба за медицинска помощ на телефон 116117";
+"ExposureDetection_Guide_Hotline3" = "Службата за спешна медицинска помощ на телефон 116117";
 
-"ExposureDetection_Guide_Hotline4" = "Органите за обществено здравеопазване";
+"ExposureDetection_Guide_Hotline4" = "Местна служба за обществено здравеопазване";
 
 "ExposureDetection_Explanation_Title" = "Риск от заразяване";
 
@@ -118,7 +118,7 @@
 
 "ExposureDetection_Explanation_Text_Low" = "Вашето ниво на риск от заразяване е ниско, защото нямате регистрирани контакти с лица, които впоследствие са били диагностицирани с COVID-19, или ако сте имали такива, те са били краткотрайни и от по-голямо разстояние.\n\nТова е причината да определим Вашия риск от заразяване като нисък.\n\nРискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани на вашето локално устройство. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.";
 
-"ExposureDetection_Explanation_Text_High" = "\n\nТова е причината да определим Вашия риск от заразяване като повишен.\nРискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани на вашето локално устройство. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.\nКогато се приберете у дома, избягвайте близките контакти с членовете на домакинството си.";
+"ExposureDetection_Explanation_Text_High" = "Това е причината да определим Вашия риск от заразяване като повишен.\nРискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани на вашето локално устройство. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.\nКогато се приберете у дома, избягвайте близките контакти с членовете на домакинството си.";
 
 "ExposureDetection_Button_Enable" = "Активиране на регистрирането на излагания на риск";
 
@@ -133,7 +133,7 @@
 "ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Вашият риск от заразяване може да се изчисли само за периодите, в които регистрирането на излагания на риск е било активно. Затова тази функция трябва да бъде активирана постоянно.";
 
 /* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Регистрирането на излагания на риск покрива последните %1$u дни. За този период от време функцията е била активирана на Вашето устройство в продължение на %2$u дни. Приложението изтрива автоматично по-старите регистри, тъй като те вече не могат да служат за предотвратяване на заразяването.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Регистрирането на излагания на риск покрива последните %1$u дни. За този период от време функцията е била активна на Вашето устройство в продължение на %2$u дни. Приложението изтрива автоматично по-старите регистри, тъй като те вече не могат да служат за предотвратяване на заразяването.";
 
 /* Exposure Detection Errors */
 "ExposureDetectionError_Alert_Title" = "Грешка";
@@ -228,7 +228,7 @@
 
 "OnboardingInfo_privacyPage_imageDescription" = "Жена използва приложението Corona-Warn-App на смартфона си. Икона, изобразяваща катинар на фона на щит символизира криптирането на данните.";
 
-"OnboardingInfo_privacyPage_title" = "Неприкосновеност на данните";
+"OnboardingInfo_privacyPage_title" = "Поверителност";
 
 "OnboardingInfo_privacyPage_boldText" = "";
 
@@ -240,9 +240,9 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "За да установите дали за Вас съществува риск от заразяване, трябва да активирате функцията за регистриране на излагания на риск.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Регистрирането на излагания на риск се извършва с помощта на Bluetooth връзка, при която Вашето устройство получава криптираните случайни ИД кодове на други потребители и изпраща до техните устройства Вашите случайни ИД кодове. Функцията може да бъде дезактивирана по всяко време. \n\nКриптираните случайни ИД кодове предават само информация за дата, продължителност и близост на контакта с други лица (изчислена чрез силата на сигнала). Лични данни от типа на име, адрес и местоположение не се записват и идентифицирането на лицата е невъзможно.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Регистрирането на излагания на риск се извършва с помощта на Bluetooth връзка, при която Вашето устройство получава криптираните случайни идентификатори на други потребители и изпраща до техните устройства Вашите случайни идентификатори. Функцията може да бъде дезактивирана по всяко време. \n\nКриптираните случайни ИД кодове предават само информация за дата, продължителност и близост на контакта с други лица (изчислена чрез силата на сигнала). Лични данни от типа на име, адрес и местоположение не се записват и идентифицирането на лицата е невъзможно.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Декларация за съгласие";
+"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Поверителност";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "To find out whether you have been in contact with an infected person and whether there is a risk that you yourself have been infected, you need to enable the App’s exposure logging feature. By tapping on the “Turn On” button, you agree to the enabling of the App’s exposure logging feature and the associated data processing.\n\n\nIn order to use the App’s exposure logging feature, you will have to enable the COVID-19 Exposure Logging functionality provided by Apple on your iPhone and grant the Corona-Warn-App permission to use this.\n\nWhen exposure logging is enabled, your iPhone continuously generates and transmits random IDs via Bluetooth, which other Apple and Android smartphones in your vicinity can receive if exposure logging is also enabled on them. Your iPhone, in turn, receives the random IDs of the other smartphones. Your own random IDs and those received from other smartphones are recorded in the exposure log and stored there for 14 days.\n\n\nTo identify your risk of infection, the App loads a list – several times a day or on request – of the random IDs of all users who have told the App that they have been infected with the coronavirus. This list is then compared with the random IDs stored in the exposure log. If the App detects that you may have been in contact with an infected user, it will inform you of this and tell you that there is a risk that you are also infected. In this case, the App is also given access to other data stored in your iPhone’s exposure log (date, duration and Bluetooth signal strength of the contact).\n\nThe Bluetooth signal strength is used to derive the physical distance (the stronger the signal, the smaller the distance). The App then analyses this information in order to assess your likelihood of having been infected with the coronavirus and to give you recommendations for what to do next. This analysis is only performed locally on your iPhone. Apart from you, nobody (not even the RKI) will know whether you have been in contact with an infected person and what risk has been identified for you.\n\nTo withdraw your consent to the exposure logging feature, you can disable the feature using the toggle switch in the App or delete the App. If you decide to use the exposure logging feature again, you can toggle the feature back on or reinstall the App. If you disable the exposure logging feature, the App will no longer check whether you have been in contact with an infected user. If you also wish to stop your device sending and receiving random IDs, you will need to disable COVID-19 Exposure Logging in your iPhone settings. Please note that your own random IDs and those received from other smartphones which are stored in the exposure log will not be deleted in the App. You can only permanently delete the data stored in the exposure log in your iPhone settings.\n\n\nThe App’s privacy notice (including an explanation of the data processing carried out for the exposure logging feature) can be found in the menu under “Data Privacy Information”.";
 
@@ -264,16 +264,16 @@
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Жена, която получава известие от приложението Corona-Warn-App.";
 
-"OnboardingInfo_alwaysStayInformedPage_title" = "Получаване на предупреждения и идентифициране на рискове ";
+"OnboardingInfo_alwaysStayInformedPage_title" = "Предупреждения и рискове";
 
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "Приложението може да Ви уведомява автоматично за Вашия статус на риск от заразяване и да Ви предупреждава за нови заразявания на хора, с които сте били в контакт. Позволете на приложението да Ви изпраща известия. ";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Приложението може да Ви уведомява автоматично за Вашия статус на риск от заразяване и да Ви предупреждава за нови заразявания на хора, с които сте били в контакт. Позволете на приложението да Ви изпраща известия.";
 
 "OnboardingInfo_alwaysStayInformedPage_normalText" = "След това може да се самоизолирате, за да защитите околните и да разберете къде може да се тествате.";
 
 /* Exposure Submission */
 "ExposureSubmission_Hotline_Number" = "+498007540002";
 
-"ExposureSubmission_DataPrivacyTitle" = "Неприкосновеност на данните";
+"ExposureSubmission_DataPrivacyTitle" = "Поверителност";
 
 "ExposureSubmission_Continue_actionText" = "Напред";
 
@@ -289,9 +289,9 @@
 
 "ExposureSubmissionTanEntry_EntryField" = "Поле за въвеждане на ТАН код";
 
-"ExposureSubmissionTanEntry_Info" = "Моля, въведете ТАН кода, който Ви бе предоставен:";
+"ExposureSubmissionTanEntry_Info" = "Моля, въведете предоставения Ви ТАН код:";
 
-"ExposureSubmissionTanEntry_Description" = "Моля, въведете 10-цифрения ТАН код, който Ви бе предоставен.";
+"ExposureSubmissionTanEntry_Description" = "Моля, въведете предоставения Ви 10-цифрен ТАН код.";
 
 "ExposureSubmissionTanEntry_Submit" = "Напред";
 
@@ -325,9 +325,9 @@
 
 "ExposureSubmissionHotline_Title" = "Заявка за ТАН код";
 
-"ExposureSubmissionHotline_Description" = "Моля, запазете резултата от своя тест (ако е наличен) и се подгответе да заявите ТАН код.";
+"ExposureSubmissionHotline_Description" = "За да заявите ТАН код, подгответе резултата от своя тест (ако е наличен) и телефонния си номер.";
 
-"ExposureSubmissionHotline_SectionTitle" = "Как работи";
+"ExposureSubmissionHotline_SectionTitle" = "Как работи:";
 
 "ExposureSubmissionHotline_SectionDescription1" = "Обадете се на горещата линия и поискайте ТАН код:";
 
@@ -383,17 +383,17 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Моля, не забравяйте:";
 
-"ExposureSubmissionSuccess_listItem1" = "От органа за обществено здравеопазване ще се свържат с Вас в следващите няколко дни по телефон или с писмо.";
+"ExposureSubmissionSuccess_listItem1" = "От службата за обществено здравеопазване (Gesundheitsamt) ще се свържат с Вас в следващите няколко дни по телефон или с писмо.";
 
 "ExposureSubmissionSuccess_listItem2" = "Вие сте носител на заразата. Необходимо е да се самоизолирате.";
 
 "ExposureSubmissionSuccess_listItem2_1" = "Периодът, в който трябва да сте под карантина, е 14 дни. Наблюдавайте своите симптоми и тяхното развитие.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "Органът за обществено здравеопазване ще изиска от Вас да съставите списък на Вашите контактни лица. Той трябва да включва всички лица, с които сте били в близък контакт (на разстояние под 2 метра или при разговор лице в лице) в продължение на повече от 15 минути през последните два дни, преди да развиете симптоми.";
+"ExposureSubmissionSuccess_listItem2_2" = "Службата за обществено здравеопазване (Gesundheitsamt) ще изиска от Вас да съставите списък на Вашите контактни лица. Той трябва да включва всички лица, с които сте били в близък контакт (на разстояние под 2 метра или при разговор лице в лице) в продължение на повече от 15 минути през последните два дни, преди да развиете симптоми.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Моля, обърнете особено внимание на хората, които няма да бъдат уведомени директно чрез приложението, тъй като нямат смартфон или не са инсталирали приложението.";
 
-"ExposureSubmissionSuccess_listItem2_4" = "Може все още да сте носител на заразата дори ако вече не проявявате симптоми и отново се чувствате добре. ";
+"ExposureSubmissionSuccess_listItem2_4" = "Може все още да сте носител на заразата дори ако вече не проявявате симптоми и отново се чувствате добре.";
 
 /* Exposure Submission Introduction */
 "ExposureSubmissionIntroduction_Title" = "Информация";
@@ -406,16 +406,16 @@
 
 "ExposureSubmissionIntroduction_Usage02" = "Анонимността Ви се запазва, тъй като се разменят само криптирани случайни ИД кодове. Може да предприемете следните стъпки:";
 
-"ExposureSubmissionIntroduction_ListItem1" = "Ако в документа с резултата от теста Ви има QR код, можете да го сканирате и да регистрирате теста си. В момента, в който резултатът бъде готов, ще можете да го видите в приложението. ";
+"ExposureSubmissionIntroduction_ListItem1" = "Ако в документа с резултата от теста Ви има QR код, можете да го сканирате и да регистрирате теста си. В момента, в който резултатът бъде готов, ще можете да го видите в приложението.";
 
-"ExposureSubmissionIntroduction_ListItem2" = "Ако Ви е поставена диагноза COVID-19, можете да уведомите останалите потребители.";
+"ExposureSubmissionIntroduction_ListItem2" = "Ако Ви е поставена диагноза COVID-19, можете да предупредите останалите потребители.";
 
 "ExposureSubmissionIntroduction_ListItem3" = "Ако Ви е предоставен ТАН код за положителен резултат, може да го използвате, за да регистрирате теста.";
 
 "ExposureSubmissionIntroduction_ListItem4" = "Ако не разполагате с ТАН код, по телефона може да заявите да Ви бъде предоставен такъв.";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_Title" = "Резултат от тест";
+"ExposureSubmissionResult_Title" = "Резултат от теста";
 
 "ExposureSubmissionResult_CardSubTitle" = "Вашата диагноза";
 
@@ -435,7 +435,7 @@
 
 "ExposureSubmissionResult_testAddedDesc" = "Вашият тест е запазен в приложението Corona-Warn-App.";
 
-"ExposureSubmissionResult_warnOthers" = "Предупреждаване на останалите потребители";
+"ExposureSubmissionResult_warnOthers" = "Предупредете другите";
 
 "ExposureSubmissionResult_warnOthersDesc" = "Споделете своите случайни ИД кодове от последните 14 дни, за да помогнете за защитата на други хора и прекъсването на веригата на заразяване.";
 
@@ -459,9 +459,13 @@
 
 "ExposureSubmissionResult_testInvalid" = "Възникнаха грешки при тестването";
 
-"ExposureSubmissionResult_testInvalidDesc" = "Възникна проблем при определянето на резултата от Вашия тест. Моля, свържете се с органа за обществено здравеопазване, за да получите информация какво трябва да направите. ";
+"ExposureSubmissionResult_testInvalidDesc" = "Възникна проблем при определянето на резултата от Вашия тест.Моля, свържете се с местната служба за обществено здравеопазване (Gesundheitsamt), за да получите информация какво можете да направите.";
 
-"ExposureSubmissionResult_testPending" = "Все още няма наличен резултат от тест";
+"ExposureSubmissionResult_testRedeemed" = "Test has errors";
+
+"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR Code has already expired.";
+
+"ExposureSubmissionResult_testPending" = "Все още няма резултат от теста";
 
 "ExposureSubmissionResult_testPendingDesc" = "Все още няма резултат от Вашия тест.";
 
@@ -475,7 +479,7 @@
 
 "ExposureSubmissionResult_refreshButton" = "Актуализиране";
 
-"ExposureSubmissionWarnOthers_title" = "Предупреждаване на останалите потребители";
+"ExposureSubmissionWarnOthers_title" = "Предупредете другите";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "Устройство предава на системата информация за положителен резултат от тест.";
 
@@ -483,19 +487,19 @@
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Моля, помогнете на всички нас!";
 
-"ExposureSubmissionWarnOthers_description" = "Като следваща стъпка може да позволите на Corona-Warn-App да сподели Вашите случайни ИД кодове за последните 14 дни с останалите потребители. По този начин може да предупредите други хора и да помогнете за прекъсване на веригата на заразяване.\n\nАнонимността Ви се запазва, тъй като се изпращат само случайни ИД кодове, които не Ви идентифицират.";
+"ExposureSubmissionWarnOthers_description" = "Като следваща стъпка може да позволите на Corona-Warn-App да сподели Вашите случайни ИД кодове за последните 14 дни с останалите потребители. По този начин може да предупредите други хора и да помогнете за прекъсване на веригата на заразяване.\n\nТъй като се разменят само случайни идентификатори, несъдържащи лични данни, анонимността Ви е гарантирана.";
 
 "ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping on “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the exposure logging feature can be automatically notified that they may have been exposed to a risk of infection. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person.\n\nTransmitting your test result via the App is voluntary. You will not be penalised if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected.\n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out on the basis of the consent prior to the withdrawal. Further information can be found in the menu under “Data Privacy Information”.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Неприкосновеност на данните";
+"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Поверителност";
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Да се изтрие ли тестът?";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Тестът ще бъде изтрит безвъзвратно от приложението Corona-Warn-App и няма да може да бъде добавен отново. Действието не може да бъде отменено. ";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Тестът ще бъде изтрит безвъзвратно от приложението Corona-Warn-App и няма да може да бъде добавен отново. Действието не може да бъде отменено.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Датата на регистрация е неизвестна";
 
-"ExposureSubmissionResult_RegistrationDate" = "Регистрирано на ";
+"ExposureSubmissionResult_RegistrationDate" = "Регистрирано на";
 
 /* Exposure Submission */
 "ExposureSubmissionError_NoKeys" = "Няма наличен диагностичен код. Опитайте отново утре.";
@@ -529,7 +533,7 @@
 "ExposureSubmissionError_defaultError" = "Възникна грешка при предаването на кода";
 
 /* Tracing Enable/Disable Settings */
-"ExposureNotificationSetting_TracingSettingTitle" = "Регистриране на излаганията на риск";
+"ExposureNotificationSetting_TracingSettingTitle" = "Регистър на рисковете";
 
 "ExposureNotificationSetting_EnableTracing" = "Регистриране на излаганията на риск";
 
@@ -547,7 +551,7 @@
 
 "ExposureNotificationSetting_DescriptionText2" = "Регистрирането на излагания на риск се извършва с помощта на Bluetooth връзка, при която Вашето устройство получава криптираните случайни ИД кодове на други потребители и изпраща до техните устройства Вашите случайни ИД кодове. Функцията може да бъде дезактивирана по всяко време.";
 
-"ExposureNotificationSetting_DescriptionText3" = "Криптираните случайни ИД кодове предават само информация за дата, продължителност и близост на контакта с други лица (посредством силата на сигнала). Лични данни от типа на име, адрес или местоположение не се записват и идентифицирането на лицата е невъзможно.";
+"ExposureNotificationSetting_DescriptionText3" = "Криптираните случайни ИД кодове предават само информация за дата, продължителност и близост до другите лица (изчислена посредством силата на сигнала). Лични данни от типа на име, адрес и местоположение не се записват и идентифицирането на лицата е невъзможно.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Включете функцията Bluetooth";
 
@@ -559,7 +563,7 @@
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Към настройките за устройството";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "Активиране на регистрирането на излагания на риск от заразяване с COVID-19 и свързаните с това известия";
+"ExposureNotificationSetting_Activate_OSENSetting" = "Активиране на регистрирането на излагания на риск от заразяване с COVID-19 и свързаните с това известия ";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Моля, уверете се, че функцията за регистриране на излагания на риск от заразяване с COVID-19 и свързаните с това известия е активирана във Вашите системните настройки.";
 
@@ -622,14 +626,25 @@
 
 "Home_Risk_Period_Update_Title" = "Актуализира се на всеки %@\U00A0часа";
 
-"Home_Risk_Period_Disabled_Button_Title" = "Актуализира се на всеки %@\U00A0часа";
+"Home_Risk_Period_Disabled_Button_Title" = "Актуализира се едва на всеки %@\U00A0часа";
 
-/* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Неизвестен риск";
 
+"Home_Risk_Last_Activate_Item_Title" = "Последно регистриране на излагане на риск: %@";
+
+"Home_Risk_Last_Activate_Item_Unknown_Title" = "Неизвестен риск";
+
+"Home_Risk_Last_Activate_Item_Low_Title" = "Нисък риск";
+
+"Home_Risk_Last_Activate_Item_High_Title" = "Повишен риск";
+
+"Home_RiskCard_Update_Button" = "Актуализиране";
+
+/* Home Unknown card */
 "Home_RiskCard_Unknown_Item_Title" = "Тъй като регистрирането на излагания не риск не е било активно достатъчно дълго, не можем да изчислим Вашия риск от заразяване.";
 
-"Home_RiskCard_Unknown_Button" = "Актуализиране";
+/* Home Unknown 48 card */
+"Home_RiskCard_Unknown48h_Body" = "Регистрирането на излаганията не е актуализирано повече от 48 часа. Моля, актуализирайте изчислението.";
 
 /* Home Inactive card */
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "В момента не се извършва регистриране на излагания на риск";
@@ -640,14 +655,6 @@
 
 "Home_Risk_Inactive_Outdated_Results_Body" = "Регистърът на излаганията на риск не е обновяван повече от 24 часа.";
 
-"Home_Risk_Inactive_Activate_Item_Title" = "Последно регистриране на излагане на риск: %@";
-
-"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Неизвестен риск";
-
-"Home_Risk_Inactive_Activate_Item_Low_Title" = "Нисък риск";
-
-"Home_Risk_Inactive_Activate_Item_High_Title" = "Повишен риск";
-
 "Home_Risk_Inactive_NoCalculation_Possible_Button" = "Активиране на регистрирането на излагания на риск";
 
 "Home_Risk_Inactive_Outdated_Results_Button" = "Активиране на регистрирането на излагания на риск";
@@ -655,23 +662,17 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Нисък риск";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "Регистрирането на излагания на риск беше активно през %1$u от изминалите 14 дни.";
+"Home_Risk_Low_SaveDays_Item_Title" = "Регистрирането на излагания на риск беше активно през %1$u от изминалите %2$u дни.";
 
 "Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Няма прекъсване на регистрирането на излагания на риск";
 
-"Home_Risk_Low_Button" = "Актуализиране";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Повишен риск";
-
-"Home_Risk_High_Button" = "Актуализиране";
 
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Извършва се проверка ...";
 
 "Home_Risk_Status_Check_Body" = "Извършва се изтегляне и проверка на актуалните данни. Това може да отнеме няколко минути.";
-
-"Home_Risk_Status_Check_Button" = "Актуализиране";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Благодарим Ви!";
@@ -680,7 +681,7 @@
 
 "Home_Thank_You_Card_Note_Title" = "Моля, не забравяйте:";
 
-"Home_Thank_You_Card_Phone_Item_Title" = "От органа за обществено здравеопазване ще се свържат с Вас в следващите няколко дни по телефон или с писмо.";
+"Home_Thank_You_Card_Phone_Item_Title" = "От службата за обществено здравеопазване (Gesundheitsamt) ще се свържат с Вас в следващите няколко дни по телефон или с писмо.";
 
 "Home_Thank_You_Card_Home_Item_Title" = "Вие сте носител на заразата. Необходимо е да се самоизолирате.";
 
@@ -688,11 +689,11 @@
 
 "Home_Thank_You_Card_14Days_Item_Title" = "Периодът, в който трябва да сте под карантина, е 14 дни. Наблюдавайте своите симптоми и тяхното развитие.";
 
-"Home_Thank_You_Card_Contacts_Item_Title" = "Органът за обществено здравеопазване ще изиска от Вас да съставите списък на Вашите контактни лица. Той трябва да включва всички лица, с които сте били в близък контакт (на разстояние под 2 метра или при разговор лице в лице) в продължение на повече от 15 минути през последните два дни, преди да развиете симптоми.";
+"Home_Thank_You_Card_Contacts_Item_Title" = "Службата за обществено здравеопазване (Gesundheitsamt) ще изиска от Вас да съставите списък на Вашите контактни лица. Той трябва да включва всички лица, с които сте били в близък контакт (на разстояние под 2 метра или при разговор лице в лице) в продължение на повече от 15 минути през последните два дни, преди да развиете симптоми.";
 
 "Home_Thank_You_Card_App_Item_Title" = "Моля, обърнете особено внимание на хората, които няма да бъдат уведомени директно чрез приложението, тъй като нямат смартфон или не са инсталирали приложението.";
 
-"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Може все още да сте носител на заразата дори ако вече не проявявате симптоми и отново се чувствате добре. ";
+"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Може все още да сте носител на заразата дори ако вече не проявявате симптоми и отново се чувствате добре.";
 
 /* Home Finding positive */
 "Home_Finding_Positive_Card_Title" = "Положителен резултат";
@@ -703,7 +704,7 @@
 
 "Home_Finding_Positive_Card_Note_Title" = "Моля, не забравяйте:";
 
-"Home_Finding_Positive_Card_Phone_Item_Title" = "От органа за обществено здравеопазване ще се свържат с Вас в следващите няколко дни по телефон или с писмо.";
+"Home_Finding_Positive_Card_Phone_Item_Title" = "От службата за обществено здравеопазване (Gesundheitsamt) ще се свържат с Вас в следващите няколко дни по телефон или с писмо.";
 
 "Home_Finding_Positive_Card_Home_Item_Title" = "Вие сте носител на заразата. Необходимо е да се самоизолирате.";
 
@@ -728,7 +729,7 @@
 
 "Home_SettingsCard_Title" = "Настройки";
 
-"Home_AppInformationCard_Title" = "Информация за приложението";
+"Home_AppInformationCard_Title" = "За приложението";
 
 "Home_AppInformationCard_Version" = "Версия";
 
@@ -756,13 +757,13 @@
 "Home_resultCard_LoadingErrorTitle" = "Резултатът от Вашия тест не може да бъде зареден.";
 
 /* App Information - About */
-"App_Information_About_Navigation" = "Относно приложението";
+"App_Information_About_Navigation" = "За приложението";
 
 "App_Information_About_ImageDescription" = "";
 
 "App_Information_About_Title" = "Да се преборим с коронавируса заедно";
 
-"App_Information_About_Description" = "Институтът „Роберт Кох“ (RKI) е федералният орган за обществено здравеопазване в Германия. Той е издател на приложението Corona-Warn-App по поръчка на федералното правителство. Приложението е предназначено да бъде дигитално допълнение на вече въведените мерки за опазване на общественото здраве: социално дистанциране, поддържане на висока хигиена и носене на маски.";
+"App_Information_About_Description" = "Институтът „Роберт Кох“ (RKI) е федералният орган за обществено здравеопазване в Германия. Той е издател на приложението Corona-Warn-App по поръчка на федералното правителство. Приложението представлява дигитално продължение на вече въведените мерки за опазване на общественото здраве: социално дистанциране, поддържане на висока хигиена и носене на маски.";
 
 "App_Information_About_Text" = "Всеки, който използва приложението, помага за проследяване и прекъсване на веригите на заразяване. Приложението запазва във Вашето устройство данните за контактите Ви с други хора. Получавате известие, ако сте били в контакт с лица, които впоследствие са били диагностицирани с COVID-19. Вашата самоличност и неприкосновеността на данните Ви са защитени по всяко време.";
 
@@ -770,7 +771,7 @@
 "App_Information_FAQ_Navigation" = "ЧЗВ";
 
 /* App Information - Contact */
-"App_Information_Contact_Navigation" = "Гореща линия за технически въпроси";
+"App_Information_Contact_Navigation" = "Технически въпроси";
 
 "App_Information_Contact_ImageDescription" = "Мъж със слушалки провежда телефонен разговор.";
 
@@ -778,7 +779,7 @@
 
 "App_Information_Contact_Description" = "Моля, използвайте нашата гореща линия за технически въпроси относно приложението Corona-Warn-App.";
 
-"App_Information_Contact_Hotline_Title" = "Гореща линия за технически въпроси";
+"App_Information_Contact_Hotline_Title" = "Технически въпроси";
 
 "App_Information_Contact_Hotline_Text" = "+49 800 7540001";
 
@@ -786,7 +787,7 @@
 
 "App_Information_Contact_Hotline_Description" = "Нашият екип за обслужване на клиенти е готов да Ви помогне.";
 
-"App_Information_Contact_Hotline_Terms" = "Езици: немски, английски, турски\n\nРаботно време:\nпонеделник до неделя: 7:00 - 22:00\n(с изключение на национални празници)\n\nОбаждането е безплатно.";
+"App_Information_Contact_Hotline_Terms" = "Езици: немски, английски, турски\n\nРаботно време:\nпонеделник до събота: 7:00 - 22:00\n(с изключение на национални празници)\n\nОбаждането е безплатно.";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "За издателя";
@@ -799,7 +800,7 @@
 
 "App_Information_Imprint_Section2_Title" = "Robert Koch Institute";
 
-"App_Information_Imprint_Section2_Text" = "Nordufer 20\n13353 Berlin\nпредставляван от своя президент";
+"App_Information_Imprint_Section2_Text" = "Nordufer 20\n13353 Berlin\nпредставляван от своя директор";
 
 "App_Information_Imprint_Section3_Title" = "Контакт";
 
@@ -813,11 +814,11 @@
 "App_Information_Legal_Navigation" = "Правна информация";
 
 /* App Information - Privacy */
-"App_Information_Privacy_Navigation" = "Неприкосновеност на данните";
+"App_Information_Privacy_Navigation" = "Поверителност";
 
 "App_Information_Legal_ImageDescription" = "Ръка държи смартфон, на чийто екран се вижда голямо количество текст, а до нея има изображение на везна, която символизира правната информация.";
 
-"App_Information_Privacy_Title" = "Неприкосновеност на данните";
+"App_Information_Privacy_Title" = "Поверителност";
 
 "App_Information_Privacy_Description" = "Анонимността Ви се запазва.\nВашите данни се криптират изцяло и се изпращат посредством псевдоним.";
 
@@ -841,7 +842,7 @@
 
 "InviteFriends_ShareTitle" = "Да се преборим с коронавируса заедно. Аз ще участвам, а ти?";
 
-"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
+"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-englisch";
 
 "InviteFriends_Illustration_Label" = "Човек споделя приложението Corona-Warn-App с четирима души.";
 
@@ -911,7 +912,7 @@
 
 "RiskLegend_Legend2_Unknown" = "Неизвестен риск";
 
-"RiskLegend_Legend2_Unknown_Color" = "Сиво";
+"RiskLegend_Legend2_Unknown_Color" = "Сив";
 
 "RiskLegend_Legend3_Title" = "Уведомяване на други потребители";
 
@@ -929,7 +930,7 @@
 
 "RiskLegend_Contact_Title" = "Излагания на риск";
 
-"RiskLegend_Contact_Text" = "Контакти с по-голяма продължителност и близост до лица, диагностицирани с COVID-19.";
+"RiskLegend_Contact_Text" = "Продължителни и близки контакти с лица, диагностицирани с COVID-19.";
 
 "RiskLegend_Notification_Title" = "Известия за излагане на риск";
 
@@ -939,7 +940,7 @@
 
 "RiskLegend_Random_Text" = "Случайните идентификатори са произволно генерирани комбинации от цифри и букви, които устройствата си разменят, когато са в близост едно до друго. Идентифицирането на конкретни лица посредством проследяването им е невъзможно. Освен това те се изтриват автоматично след 14 дни. Лицата, диагностицирани с COVID-19, могат да споделят с останалите потребители на приложението своите случайни идентификатори, генерирани през последните 14 дни.";
 
-"RiskLegend_Image1_AccLabel" = "На екрана на устройство се вижда съдържание под номера от 1 до 3.";
+"RiskLegend_Image1_AccLabel" = "На екрана на устройство се вижда съдържание с номера.";
 
 /* Update Message */
 "Update_Message_Title" = "Има налична актуализация";
@@ -960,7 +961,7 @@
 "ENATanInput_CharacterIndex" = "Символ %1$u от %2$u";
 
 /* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
-"Active_Tracing_Interval_Partially_Active" = "Регистрирането на излагания на риск беше активно през %1$u от изминалите 14 дни.";
+"Active_Tracing_Interval_Partially_Active" = "Регистрирането на излагания на риск беше активно през %1$u от изминалите %2$u дни.";
 
 "Active_Tracing_Interval_Permanently_Active" = "Няма прекъсване на регистрирането на излагания на риск";
 

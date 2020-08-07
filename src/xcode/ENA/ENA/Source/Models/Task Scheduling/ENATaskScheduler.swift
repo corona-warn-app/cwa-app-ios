@@ -35,6 +35,8 @@ protocol ENATaskExecutionDelegate: AnyObject {
 
 /// - NOTE: To simulate the execution of a background task, use the following:
 ///         e -l objc -- (void)[[BGTaskScheduler sharedScheduler] _simulateLaunchForTaskWithIdentifier:@"de.rki.coronawarnapp-dev.exposure-notification"]
+///         To simulate the expiration of a background task, use the following:
+///         e -l objc -- (void)[[BGTaskScheduler sharedScheduler] _simulateExpirationForTaskWithIdentifier:@"de.rki.coronawarnapp-dev.exposure-notification"]
 final class ENATaskScheduler {
 
 	// MARK: - Static.
@@ -56,7 +58,10 @@ final class ENATaskScheduler {
 	private func registerTask(with taskIdentifier: ENATaskIdentifier, execute: @escaping ((BGTask) -> Void)) {
 		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
 		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
+			self.scheduleTask()
 			task.expirationHandler = {
+				logError(message: "ERROR: Task has expired.")
+				self.scheduleTask()
 				task.setTaskCompleted(success: false)
 			}
 			// Make sure to set expiration handler before doing any work.
@@ -83,7 +88,6 @@ final class ENATaskScheduler {
 	private func exposureNotificationTask(_ task: BGTask) {
 		delegate?.executeENABackgroundTask(task: task) { success in
 			task.setTaskCompleted(success: success)
-			self.scheduleTask()
 		}
 	}
 }

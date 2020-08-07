@@ -22,14 +22,14 @@ extension URLSession {
 
 	// This method executes HTTP GET requests.
 	func GET(_ url: URL, completion: @escaping Completion) {
-		response(for: URLRequest(url: url), completion: completion)
+		response(for: URLRequest(url: url), isFake: false, completion: completion)
 	}
 
 	// This method executes HTTP POST requests.
 	func POST(_ url: URL, completion: @escaping Completion) {
 		var request = URLRequest(url: url)
 		request.httpMethod = "POST"
-		response(for: request, completion: completion)
+		response(for: request, isFake: false, completion: completion)
 	}
 
 	// This method executes HTTP POST with HTTP BODY requests.
@@ -38,18 +38,26 @@ extension URLSession {
 		request.httpMethod = "POST"
 		request.httpBody = body
 		request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-		response(for: request, completion: completion)
+		response(for: request, isFake: false, completion: completion)
 	}
 
 	// This method executes HTTP requests.
 	// It does some additional checks - purely for convenience:
 	// - if there is an error it aborts
 	// - if there is either no HTTP body and/or HTTPURLResponse it aborts
+	// Note that, if we send out a fake request, we omit
+	// the response and give back a fakeResponse failure.
 	func response(
 		for request: URLRequest,
+		isFake: Bool = false,
 		completion: @escaping Completion
 	) {
 		dataTask(with: request) { data, response, error in
+			guard !isFake else {
+				completion(.failure(.fakeResponse))
+				return
+			}
+
 			if let error = error {
 				completion(.failure(.httpError(error)))
 				return
@@ -101,6 +109,7 @@ extension URLSession.Response {
 		case regTokenNotExist
 		case invalidResponse
 		case serverError(Int)
+		case fakeResponse
 	}
 
 	typealias Completion = (Result<URLSession.Response, Failure>) -> Void
