@@ -27,9 +27,20 @@ struct SAP_SubmissionPayload {
 
   var keys: [SAP_TemporaryExposureKey] = []
 
+  var padding: Data {
+    get {return _padding ?? SwiftProtobuf.Internal.emptyData}
+    set {_padding = newValue}
+  }
+  /// Returns true if `padding` has been explicitly set.
+  var hasPadding: Bool {return self._padding != nil}
+  /// Clears the value of `padding`. Subsequent reads from it will return its default value.
+  mutating func clearPadding() {self._padding = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+
+  fileprivate var _padding: Data? = nil
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -40,12 +51,14 @@ extension SAP_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   static let protoMessageName: String = _protobuf_package + ".SubmissionPayload"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "keys"),
+    2: .same(proto: "padding"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeRepeatedMessageField(value: &self.keys)
+      case 2: try decoder.decodeSingularBytesField(value: &self._padding)
       default: break
       }
     }
@@ -55,11 +68,15 @@ extension SAP_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     if !self.keys.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.keys, fieldNumber: 1)
     }
+    if let v = self._padding {
+      try visitor.visitSingularBytesField(value: v, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: SAP_SubmissionPayload, rhs: SAP_SubmissionPayload) -> Bool {
     if lhs.keys != rhs.keys {return false}
+    if lhs._padding != rhs._padding {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

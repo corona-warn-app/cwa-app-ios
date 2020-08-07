@@ -116,7 +116,8 @@ class Coordinator: RequiresAppDependencies {
 			presentingViewController: controller,
 			client: client,
 			store: store,
-			exposureManager: exposureManager
+			exposureManager: exposureManager,
+			exposureSubmissionService: exposureSubmissionService
 		)
 		developerMenu?.enableIfAllowed()
 	}
