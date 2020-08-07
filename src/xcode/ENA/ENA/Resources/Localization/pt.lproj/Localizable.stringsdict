@@ -12,23 +12,23 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>En son bir gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
+			<!--Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+			<string>Tem um risco de infeção mais elevado porque, há um dia, teve um encontro com uma pessoa diagnosticada com COVID-19 durante um período de tempo mais longo e com grande proximidade.</string>
 			<key>zero</key>
-			<!-- Plural form for ZERO.-->
-			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
+			<!-- Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+			<string>Tem um risco de infeção mais elevado porque, há %u dias, teve um encontro com uma pessoa diagnosticada com COVID-19 durante um período de tempo mais longo e com grande proximidade.</string>
 			<key>few</key>
-			<!-- Plural form for FEW.-->
-			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
+			<!-- Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+			<string>Tem um risco de infeção mais elevado porque, há %u dias, teve um encontro com uma pessoa diagnosticada com COVID-19 durante um período de tempo mais longo e com grande proximidade.</string>
 			<key>many</key>
-			<!-- Plural form for MANY.-->
-			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
+			<!-- Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+			<string>Tem um risco de infeção mais elevado porque, há %u dias, teve um encontro com uma pessoa diagnosticada com COVID-19 durante um período de tempo mais longo e com grande proximidade.</string>
 			<key>two</key>
-			<!-- Plural form for TWO.-->
-			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
+			<!-- Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+			<string>Tem um risco de infeção mais elevado porque, há %u dias, teve um encontro com uma pessoa diagnosticada com COVID-19 durante um período de tempo mais longo e com grande proximidade.</string>
 			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
+			<!--Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+			<string>Tem um risco de infeção mais elevado porque, há %u dias, teve um encontro com uma pessoa diagnosticada com COVID-19 durante um período de tempo mais longo e com grande proximidade.</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_Refreshed_Format</key>
@@ -43,10 +43,10 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-			<string>Bugün, %%1$@</string>
+			<string>Hoje, %%1$@</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-			<string>Dün, %%1$@</string>
+			<string>Ontem, %%1$@</string>
 			<key>few</key>
 			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
 			<string>%%2$@, %%1$@</string>
@@ -73,22 +73,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-			<string>Şu ana dek hiçbir maruz kalma yok</string>
+			<string>Nenhuma exposição até ao momento</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-			<string>Bir maruz kalma</string>
+			<string>Uma exposição</string>
 			<key>few</key>
 			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-			<string>%u maruz kalma</string>
+			<string>%u exposições</string>
 			<key>many</key>
 			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-			<string>%u maruz kalma</string>
+			<string>%u exposições</string>
 			<key>two</key>
 			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-			<string>%u maruz kalma</string>
+			<string>%u exposições</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-			<string>%u maruz kalma</string>
+			<string>%u exposições</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_LastExposure</key>
@@ -103,55 +103,25 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
+			<string>%u dias desde a última exposição</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
+			<string>%u dia desde a última exposição</string>
 			<key>few</key>
 			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
+			<string>%u dias desde a última exposição</string>
 			<key>many</key>
 			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
+			<string>%u dias desde a última exposição</string>
 			<key>two</key>
 			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
+			<string>%u dias desde a última exposição</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
+			<string>%u dias desde a última exposição</string>
 		</dict>
 	</dict>
-    <key>Home_Risk_Low_Number_Contacts_Item_Title</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@VARIABLE@</string>
-        <key>VARIABLE</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>u</string>
-            <key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-            <string>Şu ana dek hiçbir maruz kalma yok</string>
-            <key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-            <string>%u kez düşük riskli maruz kalma</string>
-            <key>few</key>
-            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-            <string>%u kez düşük riskli maruz kalma</string>
-            <key>many</key>
-            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-            <string>%u kez düşük riskli maruz kalma</string>
-            <key>two</key>
-            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-            <string>%u kez düşük riskli maruz kalma</string>
-            <key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-            <string>%u kez düşük riskli maruz kalma</string>
-        </dict>
-    </dict>
-    <key>Home_Risk_High_Number_Contacts_Item_Title</key>
+    <key>Home_Risk_Number_Contacts_Item_Title</key>
     <dict>
         <key>NSStringLocalizedFormatKey</key>
         <string>%#@VARIABLE@</string>
@@ -163,22 +133,22 @@
             <string>u</string>
             <key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-            <string>Şu ana dek hiçbir maruz kalma yok</string>
+            <string>Nenhuma exposição até ao momento</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-            <string>%u kez düşük riskli maruz kalma</string>
+            <string>%u exposição com risco baixo</string>
             <key>few</key>
             <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-            <string>%u kez düşük riskli maruz kalma</string>
+            <string>%u exposições com risco baixo</string>
             <key>many</key>
             <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-            <string>%u kez düşük riskli maruz kalma</string>
+            <string>%u exposições com risco baixo</string>
             <key>two</key>
             <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-            <string>%u kez düşük riskli maruz kalma</string>
+            <string>%u exposições com risco baixo</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-            <string>%u kez düşük riskli maruz kalma</string>
+            <string>%u exposições com risco baixo</string>
         </dict>
     </dict>
     <key>Home_Risk_Last_Contact_Item_Title</key>
@@ -193,22 +163,22 @@
             <string>u</string>
             <key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-            <string>Son maruz kalmanın üzerinden bir günden az süre geçti</string>
+            <string>Menos de um dia desde a última exposição</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-            <string>Son maruz kalmanın üzerinden %u gün geçti</string>
+            <string>%u dia desde a última exposição</string>
             <key>few</key>
             <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-            <string>Son maruz kalmanın üzerinden %u gün geçti</string>
+            <string>%u dias desde a última exposição</string>
             <key>many</key>
             <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-            <string>Son maruz kalmanın üzerinden %u gün geçti</string>
+            <string>%u dias desde a última exposição</string>
             <key>two</key>
             <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-            <string>Son maruz kalmanın üzerinden %u gün geçti</string>
+            <string>%u dias desde a última exposição</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-            <string>Son maruz kalmanın üzerinden %u gün geçti</string>
+            <string>%u dias desde a última exposição</string>
         </dict>
     </dict>
     <key>Home_Risk_Status_Counter_Label</key>
@@ -223,22 +193,22 @@
             <string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-            <string>%02u:%2$#@seconds@ saniye içinde güncelle</string>
+            <string>Atualização dentro de %02u:%2$#@seconds@ segundos</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-            <string>%02u:%2$#@seconds@ dakika içinde güncelle</string>
+            <string>Atualização dentro de %02u:%2$#@seconds@ minuto</string>
             <key>few</key>
             <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-            <string>%02u:%2$#@seconds@ dakika içinde güncelle</string>
+            <string>Atualização dentro de %02u:%2$#@seconds@ minutos</string>
             <key>many</key>
             <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-            <string>%02u:%2$#@seconds@ dakika içinde güncelle</string>
+            <string>Atualização dentro de %02u:%2$#@seconds@ minutos</string>
             <key>two</key>
             <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-            <string>%02u:%2$#@seconds@ dakika içinde güncelle</string>
+            <string>Atualização dentro de %02u:%2$#@seconds@ minutos</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-            <string>%02u:%2$#@seconds@ dakika içinde güncelle</string>
+            <string>Atualização dentro de %02u:%2$#@seconds@ minutos</string>
         </dict>
         <key>seconds</key>
         <dict>
@@ -278,22 +248,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-			<string>Maruz kalma günlüğü bir günden az süredir etkin. Maruz kalma denetimi yalnızca maruz kalma günlüğünün kalıcı olarak etkinleştirilmesi durumunda güvenilir olabilir.</string>
+			<string>O registo de exposição está ativo há menos de um dia. Uma verificação de exposição só pode ser fiável se o registo de exposição estiver permanentemente ativado.</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-			<string>Maruz kalma günlüğü %u gündür etkin. Maruz kalma denetimi yalnızca maruz kalma günlüğünün kalıcı olarak etkinleştirilmesi durumunda güvenilir olabilir.</string>
+			<string>O registo de exposição está ativo há %u dia. Uma verificação de exposição só pode ser fiável se o registo de exposição estiver permanentemente ativado.</string>
 			<key>few</key>
 			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-			<string>Maruz kalma günlüğü %u gündür etkin. Maruz kalma denetimi yalnızca maruz kalma günlüğünün kalıcı olarak etkinleştirilmesi durumunda güvenilir olabilir.</string>
+			<string>O registo de exposição está ativo há %u dias. Uma verificação de exposição só pode ser fiável se o registo de exposição estiver permanentemente ativado.</string>
 			<key>many</key>
 			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-			<string>Maruz kalma günlüğü %u gündür etkin. Maruz kalma denetimi yalnızca maruz kalma günlüğünün kalıcı olarak etkinleştirilmesi durumunda güvenilir olabilir.</string>
+			<string>O registo de exposição está ativo há %u dias. Uma verificação de exposição só pode ser fiável se o registo de exposição estiver permanentemente ativado.</string>
 			<key>two</key>
 			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-			<string>Maruz kalma günlüğü %u gündür etkin. Maruz kalma denetimi yalnızca maruz kalma günlüğünün kalıcı olarak etkinleştirilmesi durumunda güvenilir olabilir.</string>
+			<string>O registo de exposição está ativo há %u dias. Uma verificação de exposição só pode ser fiável se o registo de exposição estiver permanentemente ativado.</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-			<string>Maruz kalma günlüğü %u gündür etkin. Maruz kalma denetimi yalnızca maruz kalma günlüğünün kalıcı olarak etkinleştirilmesi durumunda güvenilir olabilir.</string>
+			<string>O registo de exposição está ativo há %u dias. Uma verificação de exposição só pode ser fiável se o registo de exposição estiver permanentemente ativado.</string>
 		</dict>
 	</dict>
 </dict>
