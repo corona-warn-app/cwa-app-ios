@@ -191,7 +191,6 @@ final class HTTPClient: Client {
 
 	func getTestResult(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TestResultHandler) {
 
-		// TODO: Make this another error case for URLFailure
 		guard
 			let testResultRequest = try? URLRequest.getTestResultRequest(
 				configuration: configuration,
@@ -238,7 +237,6 @@ final class HTTPClient: Client {
 
 	func getTANForExposureSubmit(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TANHandler) {
 
-		// TODO: Make this another error case for URLFailure
 		guard
 			let tanForExposureSubmitRequest = try? URLRequest.getTanForExposureSubmitRequest(
 				configuration: configuration,
@@ -291,7 +289,6 @@ final class HTTPClient: Client {
 
 	func getRegistrationToken(forKey key: String, withType type: String, isFake: Bool = false, completion completeWith: @escaping RegistrationHandler) {
 
-		// TODO: Make this another error case for URLFailure
 		guard
 			let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
 				configuration: configuration,
