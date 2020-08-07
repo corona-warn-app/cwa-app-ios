@@ -82,11 +82,8 @@ class Coordinator: RequiresAppDependencies {
 			self.rootViewController.setViewControllers([homeController], animated: false)
 			#if !RELEASE
 			self.enableDeveloperMenuIfAllowed(in: homeController)
-			self.developerMenu?.showDeveloperMenu()
 			#endif
 		})
-
-
 	}
 
 	func showOnboarding() {
