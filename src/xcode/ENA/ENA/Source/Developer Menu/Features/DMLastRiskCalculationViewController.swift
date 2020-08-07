@@ -72,9 +72,9 @@ class DMLastRiskCalculationViewController: UIViewController {
 
 	@objc
 	func exportRequest() {
-//		let activityViewController = UIActivityViewController(activityItems: [lastSubmissionRequest ?? Data()], applicationActivities: nil)
-//		activityViewController.modalTransitionStyle = .coverVertical
-//		present(activityViewController, animated: true, completion: nil)
+		let activityViewController = UIActivityViewController(activityItems: [lastRisk], applicationActivities: nil)
+		activityViewController.modalTransitionStyle = .coverVertical
+		present(activityViewController, animated: true, completion: nil)
 	}
 }
 
