@@ -23,10 +23,17 @@ final class DMBackendConfigurationViewController: UITableViewController, Require
 
 	// MARK: Creating a Configuration View Controller
 
-	init(distributionURL: String?, submissionURL: String?, verificationURL: String?) {
+	init(
+		distributionURL: String?,
+		submissionURL: String?,
+		verificationURL: String?,
+		exposureSubmissionService: ExposureSubmissionService
+	) {
 		self.distributionURL = distributionURL
 		self.submissionURL = submissionURL
 		self.verificationURL = verificationURL
+		self.exposureSubmissionService = exposureSubmissionService
+
 		super.init(style: .plain)
 		title = "⚙️ Configuration"
 	}
@@ -41,6 +48,7 @@ final class DMBackendConfigurationViewController: UITableViewController, Require
 	private let distributionURL: String?
 	private let submissionURL: String?
 	private let verificationURL: String?
+	private let exposureSubmissionService: ExposureSubmissionService
 
 	// MARK: UIViewController
 
@@ -50,6 +58,7 @@ final class DMBackendConfigurationViewController: UITableViewController, Require
 			DMConfigurationCell.self,
 			forCellReuseIdentifier: DMConfigurationCell.reuseIdentifier
 		)
+		tableView.register(DMFakeRequestCell.self, forCellReuseIdentifier: DMFakeRequestCell.reuseIdentifier)
 	}
 
 	// MARK: UITableViewController
@@ -71,9 +80,6 @@ final class DMBackendConfigurationViewController: UITableViewController, Require
 		case 2:
 			title = "Verification URL"
 			subtitle = verificationURL ?? "<none>"
-		case 3:
-			title = "Last Risk Calculation"
-			subtitle = lastRiskCalculation
 		default:
 			title = nil
 			subtitle = nil
@@ -86,18 +92,6 @@ final class DMBackendConfigurationViewController: UITableViewController, Require
 
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
 		3
-	}
-}
-
-private class DMConfigurationCell: UITableViewCell {
-	static var reuseIdentifier = "DMConfigurationCell"
-	override init(style _: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-		super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-	}
-
-	@available(*, unavailable)
-	required init?(coder _: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
 	}
 }
 

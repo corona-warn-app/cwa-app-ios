@@ -34,7 +34,7 @@ class MockUrlSession: URLSession {
 	let data: Data?
 	let nextResponse: URLResponse?
 	let error: Error?
-	let onURLRequestObserver: URLRequestObserver?
+	var onURLRequestObserver: URLRequestObserver?
 
 	init(
 		data: Data?,

@@ -87,10 +87,10 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 
 	init(
 		client: Client,
-		store: Store,
-		exposureManager: ExposureManager
+		exposureSubmissionService: ExposureSubmissionService
 	) {
 		self.client = client
+		self.exposureSubmissionService = exposureSubmissionService
 		super.init(style: .plain)
 		title = "👩🏾‍💻 Developer Menu 🧑‍💻"
 	}
@@ -104,6 +104,12 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 
 	private let client: Client
 	private let consumer = RiskConsumer()
+	private let exposureSubmissionService: ExposureSubmissionService
+	private var keys = [SAP_TemporaryExposureKey]() {
+		didSet {
+			keys = self.keys.sorted()
+		}
+	}
 
 	// MARK: UIViewController
 
@@ -182,6 +188,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMErrorsViewController()
 		case .sendFakeRequest:
 			vc = nil
+			sendFakeRequest()
 		case .purgeRegistrationToken:
 			clearRegToken()
 			vc = nil
@@ -198,6 +205,13 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		}
 	}
 
+	@objc
+	private func sendFakeRequest() {
+		exposureSubmissionService.fakeRequest { _ in
+			let alert = self.setupErrorAlert(title: "Info", message: "Fake request was sent.")
+			self.present(alert, animated: true) {}
+		}
+	}
 
 	private func makeBackendConfigurationViewController() -> DMBackendConfigurationViewController {
 		guard let client = client as? HTTPClient else {
@@ -206,7 +220,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		return DMBackendConfigurationViewController(
 			distributionURL: client.configuration.endpoints.distribution.baseURL.absoluteString,
 			submissionURL: client.configuration.endpoints.submission.baseURL.absoluteString,
-			verificationURL: client.configuration.endpoints.verification.baseURL.absoluteString
+			verificationURL: client.configuration.endpoints.verification.baseURL.absoluteString,
+			exposureSubmissionService: exposureSubmissionService
 		)
 	}
 
