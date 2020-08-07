@@ -168,8 +168,9 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			// the exposure detection check. Instead of implementing this behaviour in the completion handler,
 			// queues could be used as well. Due to time/resource constraints, we settled for this option.
 			self.executeExposureDetectionRequest(task: task) { exposureDetectionSuccess in
-				self.executeFakeRequests()
-				completion(fetchTestResultSuccess && exposureDetectionSuccess)
+				self.executeFakeRequests() {
+					completion(fetchTestResultSuccess && exposureDetectionSuccess)
+				}
 			}
 		}
 	}
@@ -237,8 +238,11 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	var maxDelayBetweenSequentialPlaybooks: Int { 10 } // seconds
 
 	/// Trigger a fake playbook to enable plausible deniability.
-	private func executeFakeRequests() {
-		guard store.isAllowedToSubmitDiagnosisKeys else { return }
+	private func executeFakeRequests(_ completion: (() -> Void)? = nil) {
+		guard store.isAllowedToSubmitDiagnosisKeys else {
+			completion?()
+			return
+		}
 
 		// Initialize firstPlaybookExecution date during the first run regardless of actual execution.
 		if store.firstPlaybookExecution == nil {
@@ -254,8 +258,12 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			firstPlaybookExecution.addingTimeInterval(numberOfDaysToRunPlaybook * 86_400) > now,
 			store.lastBackgroundFakeRequest.addingTimeInterval(offset) > now
 		{
-			sendFakeRequest()
-			store.lastBackgroundFakeRequest = now
+			sendFakeRequest {
+				self.store.lastBackgroundFakeRequest = now
+				completion?()
+			}
+		} else {
+			completion?()
 		}
 	}
 
@@ -270,14 +278,24 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	}
 
 	/// Triggers one or more fake requests over a time interval of multiple seconds.
-	private func sendFakeRequest() {
+	/// - Parameters:
+	///   - completion: called after all requests were triggered. Currently, only required when running in background mode to avoid terminating before the requests were made.
+	private func sendFakeRequest(_ completion: (() -> Void)? = nil) {
 		let service = exposureSubmissionService ?? ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
+		let group = DispatchGroup()
 
 		for i in 0..<Int.random(in: minNumberOfSequentialPlaybooks...maxNumberOfSequentialPlaybooks) {
 			let delay = Int.random(in: minDelayBetweenSequentialPlaybooks...maxDelayBetweenSequentialPlaybooks)
+			group.enter()
 			DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(i * delay)) {
 				service.fakeRequest()
+				group.leave()
 			}
+		}
+
+		// Wait for all fake request to finish and call completion handler.
+		group.notify(queue: .global()) {
+			completion?()
 		}
 	}
 }
