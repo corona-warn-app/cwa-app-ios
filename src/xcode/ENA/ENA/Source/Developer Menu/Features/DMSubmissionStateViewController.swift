@@ -83,8 +83,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 	private var checkResult = DMSubmittedKeysCheckResult(missingKeys: [], foundKeys: [])
 
 	// MARK: UIViewController
-
-
+	
 	@objc
 	func performCheck() {
 		delegate?.submissionStateViewController(self, getDiagnosisKeys: { localKeys, error in
@@ -122,11 +121,12 @@ final class DMSubmissionStateViewController: UITableViewController {
 				self.tableView.reloadData()
 			}
 		})
-
 	}
+
 	override func numberOfSections(in tableView: UITableView) -> Int {
 		2
 	}
+
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch section {
 		case 0:
@@ -136,6 +136,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 		default: fatalError("fail")
 		}
 	}
+
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		switch section {
 		case 0:
@@ -145,6 +146,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 		default: fatalError("fail")
 		}
 	}
+
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableKeyCell(for: indexPath)
 		let key: ENTemporaryExposureKey

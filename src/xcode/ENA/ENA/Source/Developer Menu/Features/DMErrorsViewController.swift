@@ -52,7 +52,6 @@ class DMErrorsViewController: UIViewController {
 			action: #selector(exportRequest)
 		)
 
-		//		exportItem.isEnabled = lastSubmissionRequest != nil
 		setToolbarItems(
 			[
 				UIBarButtonItem(

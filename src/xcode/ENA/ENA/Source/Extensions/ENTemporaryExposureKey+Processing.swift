@@ -49,7 +49,7 @@ extension Array where Element: ENTemporaryExposureKey {
 			$0.rollingStartNumber > $1.rollingStartNumber
 		}
 
-		self = Array(self.prefix(maxKeyCount))
+		self = Array(prefix(maxKeyCount))
 		for (key, vectorElement) in zip(self, transmissionRiskDefaultVector.dropFirst()) {
 			key.transmissionRiskLevel = vectorElement
 		}

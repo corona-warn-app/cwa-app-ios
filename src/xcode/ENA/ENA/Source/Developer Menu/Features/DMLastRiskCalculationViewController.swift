@@ -50,7 +50,6 @@ class DMLastRiskCalculationViewController: UIViewController {
 			target: self,
 			action: #selector(exportRequest)
 		)
-//		exportItem.isEnabled = lastSubmissionRequest != nil
 		setToolbarItems(
 			[
 
