@@ -22,7 +22,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Static properties.
 
-	static let fakeRegistrationToken = "11111111-2222-4444-8888-161616161616"
+	static let fakeRegistrationToken = "63b4d3ff-e0de-4bd4-90c1-17c2bb683a2f"
 	static var fakeSubmissionTan: String { return UUID().uuidString }
 
 	// MARK: - Properties.
