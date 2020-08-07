@@ -16,6 +16,7 @@ if ! hash protoc 2>/dev/null; then
 fi
 mkdir -p ../../src/xcode/gen/output
 protoc \
+     --experimental_allow_proto3_optional \
      --swift_out=../../src/xcode/gen/output \
      ./app_config.proto \
      ./app_config_attenuation_duration.proto \

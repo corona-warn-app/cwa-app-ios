@@ -23,10 +23,16 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 
 	// MARK: Creating a Configuration View Controller
 
-	init(distributionURL: String?, submissionURL: String?, verificationURL: String?) {
+	init(distributionURL: String?,
+		 submissionURL: String?,
+		 verificationURL: String?,
+		 exposureSubmissionService: ExposureSubmissionService
+	) {
 		self.distributionURL = distributionURL
 		self.submissionURL = submissionURL
 		self.verificationURL = verificationURL
+		self.exposureSubmissionService = exposureSubmissionService
+
 		super.init(style: .plain)
 		title = "⚙️ Configuration"
 	}
@@ -41,6 +47,7 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 	private let distributionURL: String?
 	private let submissionURL: String?
 	private let verificationURL: String?
+	private let exposureSubmissionService: ExposureSubmissionService
 
 	// MARK: UIViewController
 
@@ -53,6 +60,7 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 		tableView.sectionFooterHeight = UITableView.automaticDimension
 		tableView.estimatedSectionFooterHeight = 20
 		tableView.tableFooterView = UIView()
+		tableView.register(DMFakeRequestCell.self, forCellReuseIdentifier: DMFakeRequestCell.reuseIdentifier)
 	}
 
 	// MARK: UITableViewController
@@ -61,7 +69,7 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 		_ tableView: UITableView,
 		cellForRowAt indexPath: IndexPath
 	) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: DMConfigurationCell.reuseIdentifier, for: indexPath)
+		var cell = tableView.dequeueReusableCell(withIdentifier: DMConfigurationCell.reuseIdentifier, for: indexPath)
 		let title: String?
 		let subtitle: String?
 		switch indexPath.row {
@@ -77,6 +85,17 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 		case 3:
 			title = "Last Risk Calculation"
 			subtitle = lastRiskCalculation
+		case 4:
+			title = "Fake Request"
+			subtitle = ""
+			if
+				let fakeRequestCell = tableView.dequeueReusableCell(
+					withIdentifier: DMFakeRequestCell.reuseIdentifier,
+					for: indexPath
+					) as? DMFakeRequestCell {
+				fakeRequestCell.addButtonAction(target: self, action: #selector(sendFakeRequest(_:)))
+				cell = fakeRequestCell
+			}
 		default:
 			title = nil
 			subtitle = nil
@@ -88,7 +107,7 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 	}
 
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-		4
+		5
 	}
 
 	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -124,17 +143,18 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 	func changeHourlyFetching(_ toggle: UISwitch) {
 		store.hourlyFetchingEnabled = toggle.isOn
 	}
-}
 
-private class DMConfigurationCell: UITableViewCell {
-	static var reuseIdentifier = "DMConfigurationCell"
-	override init(style _: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-		super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-	}
+	// MARK: - Helper methods for adding the fake request button.
 
-	@available(*, unavailable)
-	required init?(coder _: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+	@objc
+	func sendFakeRequest(_ button: ENAButton) {
+		button.isLoading = true
+		exposureSubmissionService.fakeRequest { _ in
+			let alert = self.setupErrorAlert(title: "Info", message: "Fake request was sent.")
+			self.present(alert, animated: true) {
+				button.isLoading = false
+			}
+		}
 	}
 }
 

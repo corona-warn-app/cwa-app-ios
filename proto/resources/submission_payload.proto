@@ -5,4 +5,5 @@ package SAP;
 
 message SubmissionPayload {
   repeated SAP.TemporaryExposureKey keys = 1;
+  optional bytes padding = 2;
 }
