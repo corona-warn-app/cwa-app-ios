@@ -68,11 +68,11 @@ extension AppDelegate {
 	func executeFakeRequestOnAppLaunch() {
 		// Execute a fake request 1 in 100 times while we are running in foreground.
 		// We therefore define a magic number and only send a fake request when
-		// our random number from [0, 100) matches the magic number.
+		// our random number from [1, 100] matches the magic number.
 		let magicNumber = 6
 		guard
 			UIApplication.shared.applicationState == .active,
-			Int.random(in: 0...100) == magicNumber
+			Int.random(in: 1...100) == magicNumber
 		else { return }
 
 		sendFakeRequest()
