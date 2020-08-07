@@ -31,6 +31,8 @@ enum DMMenuItem: Int, CaseIterable {
 	case errorLog
 	case purgeRegistrationToken
 	case sendFakeRequest
+	case store
+	case tracingHistory
 }
 
 extension DMMenuItem {
@@ -57,6 +59,8 @@ extension DMMenuItem {
 		case .errorLog: return "Error Log"
 		case .purgeRegistrationToken: return "Purge Registration Token"
 		case .sendFakeRequest: return "Send fake Request"
+		case .store: return "Store Contents"
+		case .tracingHistory: return "Tracing History"
 		}
 	}
 	var subtitle: String {
@@ -71,6 +75,8 @@ extension DMMenuItem {
 		case .errorLog: return "View all errors logged by the app"
 		case .purgeRegistrationToken: return "Purge Registration Token"
 		case .sendFakeRequest: return "Sends a fake request for testing plausible deniability"
+		case .store: return "See the contents of the encrypted store used by the app"
+		case .tracingHistory: return "See when tracing was active"
 		}
 	}
 }
@@ -165,11 +171,15 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 				logError(message: "the developer menu only supports apps using a real http client")
 				return
 			}
-			vc = DMConfigurationViewController(
+			vc = DMBackendConfigurationViewController(
 				distributionURL: client.configuration.endpoints.distribution.baseURL.absoluteString,
 				submissionURL: client.configuration.endpoints.submission.baseURL.absoluteString,
 				verificationURL: client.configuration.endpoints.verification.baseURL.absoluteString
 			)
+		case .tracingHistory:
+			vc = DMTracingHistoryViewController(tracingHistory: store.tracingStatusHistory)
+		case .store:
+			vc = DMStoreViewController(store: store)
 		case .lastSubmissionRequest:
 			vc = DMLastSubmissionRequestViewController(lastSubmissionRequest: UserDefaults.standard.dmLastSubmissionRequest)
 		case .lastRiskCalculation:
@@ -186,25 +196,38 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = nil
 		case .manuallyRequestRisk:
 			vc = nil
-			let alert = UIAlertController(title: "Manually request risk?", message: "⚠️⚠️⚠️ WARNING ⚠️⚠️⚠️\n\nManually requesting the current risk works by purging the cache. This actually deletes the last calculated risk (among other things) from the store. Do you want to manually request your current risk?", preferredStyle: .alert)
-			alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
-				alert.dismiss(animated: true, completion: nil)
-			}))
-			alert.addAction(UIAlertAction(title: "Purge Cache and request Risk", style: .destructive, handler: { _ in
-				print("do it ")
-				self.store.summary = nil
-				self.riskProvider.requestRisk(userInitiated: true)
+			let alert = UIAlertController(
+				title: "Manually request risk?",
+				message: "⚠️⚠️⚠️ WARNING ⚠️⚠️⚠️\n\nManually requesting the current risk works by purging the cache. This actually deletes the last calculated risk (among other things) from the store. Do you want to manually request your current risk?",
+				preferredStyle: .alert
+			)
+			alert.addAction(
+				UIAlertAction(
+					title: "Cancel",
+					style: .cancel
+				) { _ in
+					alert.dismiss(animated: true, completion: nil)
+				}
+			)
 
-			}))
+			alert.addAction(
+				UIAlertAction(
+					title: "Purge Cache and request Risk",
+					style: .destructive
+				) { _ in
+					self.store.summary = nil
+					self.riskProvider.requestRisk(userInitiated: true)
+				}
+			)
 			present(alert, animated: true, completion: nil)
 		}
+		
 		if let vc = vc {
 			navigationController?.pushViewController(
 				vc,
 				animated: true
 			)
 		}
-
 	}
 }
 

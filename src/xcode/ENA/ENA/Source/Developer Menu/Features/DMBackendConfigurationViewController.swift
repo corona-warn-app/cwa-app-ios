@@ -19,7 +19,7 @@
 
 import UIKit
 
-final class DMConfigurationViewController: UITableViewController, RequiresAppDependencies {
+final class DMBackendConfigurationViewController: UITableViewController, RequiresAppDependencies {
 
 	// MARK: Creating a Configuration View Controller
 
@@ -50,9 +50,6 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 			DMConfigurationCell.self,
 			forCellReuseIdentifier: DMConfigurationCell.reuseIdentifier
 		)
-		tableView.sectionFooterHeight = UITableView.automaticDimension
-		tableView.estimatedSectionFooterHeight = 20
-		tableView.tableFooterView = UIView()
 	}
 
 	// MARK: UITableViewController
@@ -88,41 +85,7 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 	}
 
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-		4
-	}
-
-	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-		let footerView = UIView()
-		footerView.backgroundColor = .enaColor(for: .background)
-
-		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.text = "Hourly Fetching:"
-		label.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 15, weight: .regular)
-		label.textColor = .enaColor(for: .textPrimary1)
-
-		footerView.addSubview(label)
-		label.leadingAnchor.constraint(equalTo: footerView.leadingAnchor, constant: 15).isActive = true
-		label.centerXAnchor.constraint(equalTo: footerView.centerXAnchor).isActive = true
-		label.centerYAnchor.constraint(equalTo: footerView.centerYAnchor).isActive = true
-
-		let toggle = UISwitch()
-		toggle.translatesAutoresizingMaskIntoConstraints = false
-		toggle.isOn = store.hourlyFetchingEnabled
-		toggle.addTarget(self, action: #selector(self.changeHourlyFetching), for: .valueChanged)
-
-		footerView.addSubview(toggle)
-		toggle.centerXAnchor.constraint(equalTo: footerView.centerXAnchor).isActive = true
-		toggle.centerYAnchor.constraint(equalTo: footerView.centerYAnchor).isActive = true
-
-		footerView.sizeToFit()
-
-		return footerView
-	}
-
-	@objc
-	func changeHourlyFetching(_ toggle: UISwitch) {
-		store.hourlyFetchingEnabled = toggle.isOn
+		3
 	}
 }
 

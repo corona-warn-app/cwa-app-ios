@@ -54,7 +54,6 @@ final class DMSubmissionStateViewController: UITableViewController {
 		navigationController?.setToolbarHidden(false, animated: animated)
 		setToolbarItems(
 			[
-
 				UIBarButtonItem(
 					barButtonSystemItem: .flexibleSpace,
 					target: nil,
@@ -71,7 +70,6 @@ final class DMSubmissionStateViewController: UITableViewController {
 					target: nil,
 					action: nil
 				)
-
 			],
 			animated: animated
 		)

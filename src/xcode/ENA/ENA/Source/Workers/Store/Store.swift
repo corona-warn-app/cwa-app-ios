@@ -21,6 +21,12 @@ import ExposureNotification
 enum EitherLowOrIncreasedRiskLevel: Int {
 	case low = 0
 	case increased = 1_000 // so that increased > low + we have enough reserved values
+	var description: String {
+		switch self {
+		case .low: return "low"
+		case .increased: return "increased"
+		}
+	}
 }
 
 extension EitherLowOrIncreasedRiskLevel {
