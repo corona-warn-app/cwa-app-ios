@@ -80,7 +80,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		case .positive:
 			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.continueButton
 			navigationFooterItem?.isSecondaryButtonHidden = true
-		case .negative, .invalid:
+		case .negative, .invalid, .redeemed:
 			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
 			navigationFooterItem?.isSecondaryButtonHidden = true
 		case .pending:
@@ -215,7 +215,7 @@ extension ExposureSubmissionTestResultViewController {
 		switch result {
 		case .positive:
 			showWarnOthers()
-		case .negative, .invalid:
+		case .negative, .invalid, .redeemed:
 			deleteTest()
 		case .pending:
 			refreshTest()
@@ -255,6 +255,8 @@ private extension ExposureSubmissionTestResultViewController {
 			return invalidTestResultSection()
 		case .pending:
 			return pendingTestResultSection()
+		case .redeemed:
+			return redeemedTestResultSection()
 		}
 	}
 
@@ -364,6 +366,43 @@ private extension ExposureSubmissionTestResultViewController {
 				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testInvalid,
 					description: AppStrings.ExposureSubmissionResult.testInvalidDesc,
+					icon: UIImage(named: "Icons_Grey_Error"),
+					hairline: .topAttached
+				),
+
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.testRemove,
+					description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
+					icon: UIImage(named: "Icons_Grey_Entfernen"),
+					hairline: .none
+				)
+			]
+		)
+	}
+
+	private func redeemedTestResultSection() -> DynamicSection {
+		.section(
+			header: .identifier(
+				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+				configure: { view, _ in
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid, timeStamp: self.timeStamp)
+				}
+			),
+			separators: false,
+			cells: [
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
+
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.testAdded,
+					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					icon: UIImage(named: "Icons_Grey_Check"),
+					hairline: .iconAttached
+				),
+
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.testRedeemed,
+					description: AppStrings.ExposureSubmissionResult.testRedeemedDesc,
 					icon: UIImage(named: "Icons_Grey_Error"),
 					hairline: .topAttached
 				),

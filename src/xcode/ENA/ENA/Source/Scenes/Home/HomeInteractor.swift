@@ -409,11 +409,23 @@ extension HomeInteractor {
 				)
 
 			case .success(let result):
-				let requestTime = Date().timeIntervalSince(requestStart)
-				let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
-				DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-					self?.testResult = result
-					self?.reloadTestResult(with: result)
+				switch result {
+				case .redeemed:
+					self?.homeViewController.alertError(
+						message: AppStrings.ExposureSubmissionResult.testRedeemedDesc,
+						title: AppStrings.Home.resultCardLoadingErrorTitle,
+						completion: {
+							self?.testResult = .redeemed
+							self?.reloadTestResult(with: .invalid)
+						}
+					)
+				default:
+					let requestTime = Date().timeIntervalSince(requestStart)
+					let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
+					DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+						self?.testResult = result
+						self?.reloadTestResult(with: result)
+					}
 				}
 			}
 		}

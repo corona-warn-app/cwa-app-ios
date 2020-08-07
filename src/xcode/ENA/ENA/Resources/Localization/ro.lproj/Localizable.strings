@@ -461,6 +461,10 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "A apărut o problemă la evaluarea testului dvs. Contactați direcția de sănătate publică pentru a afla pașii următori.";
 
+"ExposureSubmissionResult_testRedeemed" = "Test has errors";
+
+"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR Code has already expired.";
+
 "ExposureSubmissionResult_testPending" = "Rezultatul testului nu este încă disponibil";
 
 "ExposureSubmissionResult_testPendingDesc" = "Rezultatul testului dvs. nu este încă disponibil.";

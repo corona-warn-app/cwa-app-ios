@@ -466,6 +466,10 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "При анализе вашего теста возникла проблема. Обратитесь в местный орган здравоохранения за дальнейшими рекомендациями.";
 
+"ExposureSubmissionResult_testRedeemed" = "Test has errors";
+
+"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR Code has already expired.";
+
 "ExposureSubmissionResult_testPending" = "Результат теста еще не доступен";
 
 "ExposureSubmissionResult_testPendingDesc" = "Ваш результат теста еще не доступен.";
