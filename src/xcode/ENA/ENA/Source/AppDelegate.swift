@@ -232,9 +232,9 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	var maxHoursToNextBackgroundExecution: Double { 12 }
 	var numberOfDaysToRunPlaybook: Double { 16 }
 	var minNumberOfSequentialPlaybooks: Int { 1 }
-	var maxNumberOfSequentialPlaybooks: Int { 2 }
+	var maxNumberOfSequentialPlaybooks: Int { 4 }
 	var minDelayBetweenSequentialPlaybooks: Int { 5 } // seconds
-	var maxDelayBetweenSequentialPlaybooks: Int { 20 } // seconds
+	var maxDelayBetweenSequentialPlaybooks: Int { 10 } // seconds
 
 	/// Trigger a fake playbook to enable plausible deniability.
 	private func executeFakeRequests() {
