@@ -447,6 +447,13 @@ private extension URLRequest {
 			forHTTPHeaderField: "cwa-fake"
 		)
 
+		// Add header padding for the GUID, in case it is
+		// a fake request, otherwise leave empty.
+		request.setValue(
+			headerValue == 0 ? "" : String.getRandomString(of: 36),
+			forHTTPHeaderField: "cwa-header-padding"
+		)
+
 		request.setValue(
 			"application/x-protobuf",
 			forHTTPHeaderField: "Content-Type"
