@@ -115,6 +115,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				completeWith(.failure(self.parseError(error)))
 			case let .success(tan):
 				self.store.tan = tan
+				self.store.isAllowedToPerformBackgroundFakeRequests = true
 				completeWith(.success(tan))
 			}
 		}
