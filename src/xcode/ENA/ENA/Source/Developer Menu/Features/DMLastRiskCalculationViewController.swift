@@ -21,7 +21,9 @@
 
 import UIKit
 
-class DMLastRiskCalculationViewController: UIViewController {
+/// A view controller that displays the last performed risk calculation details.
+final class DMLastRiskCalculationViewController: UIViewController {
+	// MARK: Creating a last risk calculcation view controller
 	init(lastRisk: String?) {
 		self.lastRisk = lastRisk
 		super.init(nibName: nil, bundle: nil)
@@ -32,23 +34,21 @@ class DMLastRiskCalculationViewController: UIViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: UIViewController
 	override func loadView() {
 		view = textView
 		view.backgroundColor = .white
 	}
 
-	private let lastRisk: String?
-	private let textView = UITextView()
-
 	override func viewWillAppear(_ animated: Bool) {
 		textView.attributedText = NSAttributedString(string: lastRisk ?? "")
-		
+
 		navigationController?.setToolbarHidden(false, animated: animated)
 		let exportItem = UIBarButtonItem(
 			title: "Export",
 			style: .plain,
 			target: self,
-			action: #selector(exportRequest)
+			action: #selector(exportRiskCalculation)
 		)
 		setToolbarItems(
 			[
@@ -70,13 +70,17 @@ class DMLastRiskCalculationViewController: UIViewController {
 		super.viewWillAppear(animated)
 	}
 
+	// MARK: Properties
+	private let lastRisk: String?
+	/// A text view displaying the last risk calculation.
+	private let textView = UITextView()
+
 	@objc
-	func exportRequest() {
-		let activityViewController = UIActivityViewController(activityItems: [lastRisk], applicationActivities: nil)
+	func exportRiskCalculation() {
+		let activityViewController = UIActivityViewController(activityItems: [lastRisk ?? ""], applicationActivities: nil)
 		activityViewController.modalTransitionStyle = .coverVertical
 		present(activityViewController, animated: true, completion: nil)
 	}
 }
-
 
 #endif

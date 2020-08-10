@@ -21,7 +21,9 @@
 
 import UIKit
 
-class DMErrorsViewController: UIViewController {
+/// A view controller that displays all errors that are usually logged via `logError(…)`.
+final class DMErrorsViewController: UIViewController {
+	// MARK: Creating an Errors View Controller
 	init() {
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -31,14 +33,10 @@ class DMErrorsViewController: UIViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: UIViewController
 	override func loadView() {
 		view = textView
 		view.backgroundColor = .white
-	}
-
-	private let textView = UITextView()
-	private var errorMessages: String {
-		UserDefaults.standard.dmErrorMessages.map { "❌ \($0)" }.joined(separator: "\n\n\n")
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -49,7 +47,7 @@ class DMErrorsViewController: UIViewController {
 			title: "Export",
 			style: .plain,
 			target: self,
-			action: #selector(exportRequest)
+			action: #selector(exportErrorLog)
 		)
 
 		setToolbarItems(
@@ -70,9 +68,17 @@ class DMErrorsViewController: UIViewController {
 		)
 		super.viewWillAppear(animated)
 	}
-	
+
+	// MARK: Properties
+	/// Text view that displays the error messages.
+	private let textView = UITextView()
+	private var errorMessages: String {
+		UserDefaults.standard.dmErrorMessages.map { "❌ \($0)" }.joined(separator: "\n\n\n")
+	}
+
+	// MAKR: Exporting the error messages
 	@objc
-	func exportRequest() {
+	func exportErrorLog() {
 		let activityViewController = UIActivityViewController(activityItems: [errorMessages], applicationActivities: nil)
 		activityViewController.modalTransitionStyle = .coverVertical
 		present(activityViewController, animated: true, completion: nil)

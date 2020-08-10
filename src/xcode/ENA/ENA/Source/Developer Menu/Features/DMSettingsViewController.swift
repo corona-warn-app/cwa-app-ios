@@ -21,7 +21,9 @@
 
 import UIKit
 
+/// A view controller that displays developer related settings.
 final class DMSettingsViewController: UITableViewController {
+	// MARK: Creating a settings view controller
 	init(store: Store) {
 		self.store = store
 		super.init(style: .plain)
@@ -32,8 +34,10 @@ final class DMSettingsViewController: UITableViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: Properties
 	private let store: Store
 
+	// MARK: UIViewController
 	override func viewWillAppear(_ animated: Bool) {
 		navigationController?.setToolbarHidden(true, animated: animated)
 		super.viewWillAppear(animated)
@@ -75,31 +79,34 @@ final class DMSettingsViewController: UITableViewController {
 }
 
 private class DMOnOffCell: UITableViewCell {
-
+	// MARK: Types and Contants
 	typealias DMOnOffDidChange = (Bool) -> Void
 	private static let onOffNoOp: DMOnOffDidChange = { _ in }
 
+	// MARK: Creating an OnOffCell
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: .subtitle, reuseIdentifier: "DMOnOffCell")
 		accessoryView = `switch`
 		`switch`.addTarget(self, action: #selector(_takeOnOffValueFromSwitch(_:)), for: UIControl.Event.valueChanged)
 	}
 
-	private let `switch` = UISwitch()
-
-	var onOffDidChange: DMOnOffDidChange = onOffNoOp
-
 	@available(*, unavailable)
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: Properties
+	private let `switch` = UISwitch()
+	var onOffDidChange: DMOnOffDidChange = onOffNoOp
+
+	// MARK: Configure the Cell
 	func configure(with model: Model) {
 		`switch`.isOn = model.isOn
 		textLabel?.text = model.title
 		detailTextLabel?.text = model.subtitle
 	}
 
+	// MARK: UITableViewCell
 	override func prepareForReuse() {
 		super.prepareForReuse()
 		onOffDidChange = type(of: self).onOffNoOp
@@ -111,7 +118,9 @@ private class DMOnOffCell: UITableViewCell {
 	}
 }
 
+
 private extension DMOnOffCell {
+	/// The model used to configure the cell.
 	struct Model {
 		let title: String
 		let subtitle: String

@@ -21,7 +21,9 @@
 
 import UIKit
 
+/// A view controller that displays parts of what is stored in `Store`.
 final class DMStoreViewController: UITableViewController {
+	// MARK: Creating a Store view controller.
 	init(store: Store) {
 		self.store = store
 		super.init(style: .plain)
@@ -32,6 +34,7 @@ final class DMStoreViewController: UITableViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: Properties
 	private let store: Store
 	private lazy var items: [DMStoreItem] = {
 		[
@@ -56,6 +59,7 @@ final class DMStoreViewController: UITableViewController {
 		]
 	}()
 
+	// MARK: UIViewController
 	override func viewWillAppear(_ animated: Bool) {
 		navigationController?.setToolbarHidden(true, animated: animated)
 		super.viewWillAppear(animated)
@@ -79,9 +83,12 @@ final class DMStoreViewController: UITableViewController {
 	}
 }
 
-final class DMStoreItem {
+/// A model object for one row in the table.
+private final class DMStoreItem {
+	// MARK: Types
 	typealias DMStoreItemBuildValue = (Store) -> String
 
+	// MARK: Creating a store item.
 	init(
 		attribute: String,
 		buildValue: @escaping DMStoreItemBuildValue
@@ -90,6 +97,7 @@ final class DMStoreItem {
 		self.attribute = attribute
 	}
 
+	// MARK: Properties
 	fileprivate let attribute: String
 	fileprivate let buildValue: DMStoreItemBuildValue
 }

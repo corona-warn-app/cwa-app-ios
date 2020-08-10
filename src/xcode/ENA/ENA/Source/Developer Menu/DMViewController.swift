@@ -20,71 +20,9 @@
 import ExposureNotification
 import UIKit
 
-enum DMMenuItem: Int, CaseIterable {
-	case keys = 0
-	case checkSubmittedKeys
-	case backendConfiguration
-	case lastSubmissionRequest
-	case lastRiskCalculation
-	case settings
-	case manuallyRequestRisk
-	case errorLog
-	case purgeRegistrationToken
-	case sendFakeRequest
-	case store
-	case tracingHistory
-}
-
-extension DMMenuItem {
-	init?(indexPath: IndexPath) {
-		self.init(rawValue: indexPath.row)
-	}
-
-	static func existingFromIndexPath(_ indexPath: IndexPath) -> DMMenuItem {
-		guard let item = self.init(indexPath: indexPath) else {
-			fatalError("Requested a menu item for an invalid index path. This is a programmer error.")
-		}
-		return item
-	}
-
-	var title: String {
-		switch self {
-		case .keys: return "Keys"
-		case .checkSubmittedKeys: return "Check submitted Keys"
-		case .backendConfiguration: return "Backend Configuration"
-		case .lastSubmissionRequest: return "Last Submission Request"
-		case .lastRiskCalculation: return "Last Risk Calculation"
-		case .settings: return "Developer Settings"
-		case .manuallyRequestRisk: return "Manually Request Risk"
-		case .errorLog: return "Error Log"
-		case .purgeRegistrationToken: return "Purge Registration Token"
-		case .sendFakeRequest: return "Send fake Request"
-		case .store: return "Store Contents"
-		case .tracingHistory: return "Tracing History"
-		}
-	}
-	var subtitle: String {
-		switch self {
-		case .keys: return "View local Keys & generate test Keys"
-		case .checkSubmittedKeys: return "Check the state of your local keys"
-		case .backendConfiguration: return "See the current backend configuration"
-		case .lastSubmissionRequest: return "Export the last executed submission request"
-		case .lastRiskCalculation: return "View and export the last executed risk calculation"
-		case .settings: return "Adjust the Developer Settings (e.g: hourly mode)"
-		case .manuallyRequestRisk: return "Manually requests the current risk"
-		case .errorLog: return "View all errors logged by the app"
-		case .purgeRegistrationToken: return "Purge Registration Token"
-		case .sendFakeRequest: return "Sends a fake request for testing plausible deniability"
-		case .store: return "See the contents of the encrypted store used by the app"
-		case .tracingHistory: return "See when tracing was active"
-		}
-	}
-}
-
 /// The root view controller of the developer menu.
 final class DMViewController: UITableViewController, RequiresAppDependencies {
 	// MARK: Creating a developer menu view controller
-
 	init(
 		client: Client,
 		exposureSubmissionService: ExposureSubmissionService
@@ -101,7 +39,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	}
 
 	// MARK: Properties
-
 	private let client: Client
 	private let consumer = RiskConsumer()
 	private let exposureSubmissionService: ExposureSubmissionService
@@ -112,7 +49,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	}
 
 	// MARK: UIViewController
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		consumer.didCalculateRisk = { risk in
@@ -122,7 +58,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 
 	// MARK: Clear Registration Token of Submission
 	@objc
-	private func clearRegToken() {
+	private func clearRegistrationToken() {
 		store.registrationToken = nil
 		let alert = UIAlertController(
 			title: "Token Deleted",
@@ -190,7 +126,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = nil
 			sendFakeRequest()
 		case .purgeRegistrationToken:
-			clearRegToken()
+			clearRegistrationToken()
 			vc = nil
 		case .manuallyRequestRisk:
 			vc = nil
@@ -205,6 +141,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		}
 	}
 
+	// MARK: Performing developer menu related tasks
 	@objc
 	private func sendFakeRequest() {
 		exposureSubmissionService.fakeRequest { _ in

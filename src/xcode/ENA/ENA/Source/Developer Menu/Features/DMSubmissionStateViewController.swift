@@ -182,7 +182,7 @@ private extension Data {
 	}
 }
 
-extension SAPDownloadedPackage {
+private extension SAPDownloadedPackage {
 	var binProtobufData: Data {
 		bin.withoutBinHeader
 	}
@@ -202,7 +202,7 @@ private extension Array where Element == Apple_TemporaryExposureKey {
 	}
 }
 
-extension Client {
+private extension Client {
 	typealias AvailableDaysAndHoursCompletion = (DaysAndHours) -> Void
 	func availableDaysAndHours(
 		completion completeWith: @escaping AvailableDaysAndHoursCompletion
@@ -252,7 +252,7 @@ extension Client {
 	}
 }
 
-struct DMSubmittedKeysCheckResult {
+private struct DMSubmittedKeysCheckResult {
 	let missingKeys: [ENTemporaryExposureKey]
 	let foundKeys: [ENTemporaryExposureKey]
 }
