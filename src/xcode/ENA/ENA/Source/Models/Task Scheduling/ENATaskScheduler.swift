@@ -78,6 +78,7 @@ final class ENATaskScheduler {
 
 	func scheduleTask() {
 		do {
+			deadmanNotification()
 			let taskRequest = BGProcessingTaskRequest(identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier)
 			taskRequest.requiresNetworkConnectivity = true
 			taskRequest.requiresExternalPower = false
@@ -95,4 +96,37 @@ final class ENATaskScheduler {
 			task.setTaskCompleted(success: success)
 		}
 	}
+
+	// MARK: - Deadman notifications.
+
+	/// Schedules a local notification to fire 36 hours from now.
+	private func deadmanNotification() {
+		let notificationCenter = UNUserNotificationCenter.current()
+
+		let content = UNMutableNotificationContent()
+		content.title = AppStrings.Common.deadman_AlertTitle
+		content.body = AppStrings.Common.deadman_AlertBody
+		content.sound = .default
+
+		let trigger = UNTimeIntervalNotificationTrigger(
+			timeInterval: 36 * 60 * 60,
+			repeats: false
+		)
+
+		let request = UNNotificationRequest(
+			identifier: "cwa-deadman",
+			content: content,
+			trigger: trigger
+		)
+
+		notificationCenter.add(request) { error in
+		   if error != nil {
+			  logError(message: "Deadman notification could not be scheduled.")
+		   }
+		}
+	}
+
 }
+
+
+

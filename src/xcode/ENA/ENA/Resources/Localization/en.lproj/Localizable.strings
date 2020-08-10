@@ -35,6 +35,10 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Background updates deactivated";
 
+"Common_Deadman_AlertTitle" = "Corona-Warn-App";
+
+"Common_Deadman_AlertBody" = "Bitte denken Sie daran, die Corona-Warn-App regelmäßig zu öffnen. So sind Sie stets über Ihr aktuelles Infektionsrisiko informiert.";
+
 /* General - Links */
 "General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
 
