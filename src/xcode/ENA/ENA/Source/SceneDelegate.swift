@@ -18,6 +18,7 @@
 import BackgroundTasks
 import ExposureNotification
 import UIKit
+import Connectivity
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDependencies {
 	// MARK: Properties
@@ -144,8 +145,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	private func presentHomeVC() {
+		Connectivity.urlSessionConfiguration.timeoutIntervalForRequest = 15.0
+		Connectivity.urlSessionConfiguration.timeoutIntervalForResource = 15.0
 		enStateHandler = ENStateHandler(
 			initialExposureManagerState: exposureManager.preconditions(),
+			reachabilityService: ConnectivityReachabilityService(
+				connectivityURLs: [client.configuration.configurationURL]
+			),
 			delegate: self
 		)
 

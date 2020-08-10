@@ -34,17 +34,45 @@ final class ENStateHandler {
 	var state: ENStateHandler.State {
 		currentState
 	}
-
+	
+	private let reachabilityService: ReachabilityService
 	private weak var delegate: ENStateHandlerUpdating?
+	private var internetOff = false
 	private var latestExposureManagerState: ExposureManagerState
 	
 	init(
 		initialExposureManagerState: ExposureManagerState,
+		reachabilityService: ReachabilityService,
 		delegate: ENStateHandlerUpdating
 	) {
+		self.reachabilityService = reachabilityService
 		self.delegate = delegate
 		self.latestExposureManagerState = initialExposureManagerState
 		self.currentState = determineCurrentState(from: latestExposureManagerState)
+		self.reachabilityService.observe(on: self) { [weak self] reachabilityState in
+			self?.internet(reachabilityState == .connected)
+		}
+	}
+
+	private func internet(_ isReachable: Bool) {
+		if !isReachable {
+			internetOff = true
+		} else {
+			internetOff = false
+		}
+
+		switch currentState {
+		case .disabled, .bluetoothOff, .restricted, .notAuthorized, .unknown:
+			return
+		case .enabled:
+			if !isReachable {
+				currentState = .internetOff
+			}
+		case .internetOff:
+			currentState = determineCurrentState(from: latestExposureManagerState)
+		case .none:
+			fatalError("Unexpected state found in ENState Handler")
+		}
 	}
 
 	private func stateDidChange() {
@@ -58,6 +86,9 @@ final class ENStateHandler {
 
 		switch enManagerState.status {
 		case .active:
+			guard !internetOff else {
+				return .internetOff
+			}
 			return .enabled
 		case .bluetoothOff:
 			guard !enManagerState.enabled == false else {
