@@ -200,6 +200,11 @@ final class SecureStore: Store {
 		set { kvStore["firstPlaybookExecution"] = newValue }
 	}
 
+	var isAllowedToPerformBackgroundFakeRequests: Bool {
+		get { kvStore["shouldPerformBackgroundFakeRequests"] as Bool? ?? false }
+		set { kvStore["shouldPerformBackgroundFakeRequests"] = newValue }
+	}
+
 }
 
 
