@@ -83,6 +83,10 @@ private class DMOnOffCell: UITableViewCell {
 	typealias DMOnOffDidChange = (Bool) -> Void
 	private static let onOffNoOp: DMOnOffDidChange = { _ in }
 
+	// MARK: Properties
+	private let `switch` = UISwitch()
+	var onOffDidChange: DMOnOffDidChange = onOffNoOp
+
 	// MARK: Creating an OnOffCell
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: .subtitle, reuseIdentifier: "DMOnOffCell")
@@ -94,10 +98,6 @@ private class DMOnOffCell: UITableViewCell {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-
-	// MARK: Properties
-	private let `switch` = UISwitch()
-	var onOffDidChange: DMOnOffDidChange = onOffNoOp
 
 	// MARK: Configure the Cell
 	func configure(with model: Model) {
