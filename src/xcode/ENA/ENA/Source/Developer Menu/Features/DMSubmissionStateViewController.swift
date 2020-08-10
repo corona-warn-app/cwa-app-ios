@@ -91,9 +91,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 			guard let localKeys = localKeys else {
 				fatalError("unable to get local diagnosis keys")
 			}
-			print(localKeys)
 			self.client.fetchAllKeys { downloadedPackages in
-				print(downloadedPackages)
 				let allPackages = downloadedPackages.allKeyPackages
 				let allRemoteKeys = Array(allPackages
 					.compactMap { try? $0.keys() }
