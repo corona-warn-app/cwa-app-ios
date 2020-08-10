@@ -462,6 +462,10 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "Wystąpił problem z ustaleniem wyniku Twojego testu. Skontaktuj się z organem ds. zdrowia publicznego, aby dowiedzieć się, jak dalej postępować.";
 
+"ExposureSubmissionResult_testRedeemed" = "Test has errors";
+
+"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR Code has already expired.";
+
 "ExposureSubmissionResult_testPending" = "Wynik testu nie jest jeszcze dostępny";
 
 "ExposureSubmissionResult_testPendingDesc" = "Twój wynik testu nie jest jeszcze dostępny.";
@@ -499,8 +503,6 @@
 "ExposureSubmissionResult_RegistrationDate" = "Zarejestrowano dnia";
 
 /* Exposure Submission */
-
-"ExposureSubmissionError_ErrorPrefix" = "A technical error ocurred while transmitting your data. Please contact the hotline. You can find the number under App Information.";
 
 "ExposureSubmissionError_NoKeys" = "Klucz diagnozy jest niedostępny. Spróbuj ponownie jutro.";
 

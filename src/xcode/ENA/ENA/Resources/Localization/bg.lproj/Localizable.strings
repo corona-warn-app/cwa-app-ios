@@ -461,6 +461,10 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "Възникна проблем при определянето на резултата от Вашия тест.Моля, свържете се с местната служба за обществено здравеопазване (Gesundheitsamt), за да получите информация какво можете да направите.";
 
+"ExposureSubmissionResult_testRedeemed" = "Test has errors";
+
+"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR Code has already expired.";
+
 "ExposureSubmissionResult_testPending" = "Все още няма резултат от теста";
 
 "ExposureSubmissionResult_testPendingDesc" = "Все още няма резултат от Вашия тест.";
@@ -498,8 +502,6 @@
 "ExposureSubmissionResult_RegistrationDate" = "Регистрирано на";
 
 /* Exposure Submission */
-
-"ExposureSubmissionError_ErrorPrefix" = "A technical error ocurred while transmitting your data. Please contact the hotline. You can find the number under App Information.";
 
 "ExposureSubmissionError_NoKeys" = "Няма наличен диагностичен код. Опитайте отново утре.";
 

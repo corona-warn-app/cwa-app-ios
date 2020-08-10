@@ -461,6 +461,10 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "There was a problem evaluating your test. Please contact the public health authority to find out how to proceed.";
 
+"ExposureSubmissionResult_testRedeemed" = "Test has errors";
+
+"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR Code has already expired.";
+
 "ExposureSubmissionResult_testPending" = "Test result is not yet available";
 
 "ExposureSubmissionResult_testPendingDesc" = "Your test result is not yet available.";
@@ -498,8 +502,6 @@
 "ExposureSubmissionResult_RegistrationDate" = "Registered on";
 
 /* Exposure Submission */
-
-"ExposureSubmissionError_ErrorPrefix" = "A technical error ocurred while transmitting your data. Please contact the hotline. You can find the number under App Information.";
 
 "ExposureSubmissionError_NoKeys" = "No diagnosis key is available. Please try again tomorrow.";
 

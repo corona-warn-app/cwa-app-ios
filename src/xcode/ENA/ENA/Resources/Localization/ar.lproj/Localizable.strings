@@ -461,6 +461,10 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "هناك مشكلة في تقييم اختبارك. الرجاء الاتصال بدائرة الصحة العامة لمعرفة كيفية المتابعة.";
 
+"ExposureSubmissionResult_testRedeemed" = "Test has errors";
+
+"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR Code has already expired.";
+
 "ExposureSubmissionResult_testPending" = "نتيجة الاختبار غير متوفرة حتى الآن";
 
 "ExposureSubmissionResult_testPendingDesc" = "نتيجة اختبارك غير متوفرة حتى الآن.";
@@ -498,8 +502,6 @@
 "ExposureSubmissionResult_RegistrationDate" = "تاريخ التسجيل";
 
 /* Exposure Submission */
-
-"ExposureSubmissionError_ErrorPrefix" = "A technical error ocurred while transmitting your data. Please contact the hotline. You can find the number under App Information.";
 
 "ExposureSubmissionError_NoKeys" = "لا يتوفر أي مفتاح تشخيص. الرجاء المحاولة مرة أخرى غدًا.";
 

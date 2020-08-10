@@ -461,6 +461,10 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "Testinizi değerlendirirken bir problem oluştu. Lütfen sonraki adımlarınız için kamu sağlığı yetkilisi ile görüşün.";
 
+"ExposureSubmissionResult_testRedeemed" = "Test has errors";
+
+"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR Code has already expired.";
+
 "ExposureSubmissionResult_testPending" = "Test sonucu henüz çıkmadı";
 
 "ExposureSubmissionResult_testPendingDesc" = "Test sonucunuz henüz çıkmadı.";
@@ -498,8 +502,6 @@
 "ExposureSubmissionResult_RegistrationDate" = "Kayıt tarihi:";
 
 /* Exposure Submission */
-
-"ExposureSubmissionError_ErrorPrefix" = "A technical error ocurred while transmitting your data. Please contact the hotline. You can find the number under App Information.";
 
 "ExposureSubmissionError_NoKeys" = "Tanı anahtarı yok. Lütfen yarın tekrar deneyin.";
 
