@@ -30,7 +30,7 @@ enum ENATaskIdentifier: String, CaseIterable {
 }
 
 protocol ENATaskExecutionDelegate: AnyObject {
-	func executeENABackgroundTask(task: BGTask, completion: @escaping ((Bool) -> Void))
+	func executeENABackgroundTask(completion: @escaping ((Bool) -> Void))
 }
 
 /// - NOTE: To simulate the execution of a background task, use the following:
@@ -59,13 +59,18 @@ final class ENATaskScheduler {
 		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
 		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
 			self.scheduleTask()
+			let backgroundTask = DispatchWorkItem {
+				execute(task)
+			}
+
 			task.expirationHandler = {
-				logError(message: "ERROR: Task has expired.")
 				self.scheduleTask()
+				backgroundTask.cancel()
+				logError(message: "Task has expired.")
 				task.setTaskCompleted(success: false)
 			}
-			// Make sure to set expiration handler before doing any work.
-			execute(task)
+
+			DispatchQueue.global().async(execute: backgroundTask)
 		}
 	}
 
@@ -86,7 +91,7 @@ final class ENATaskScheduler {
 	// MARK: - Task execution handlers.
 
 	private func exposureNotificationTask(_ task: BGTask) {
-		delegate?.executeENABackgroundTask(task: task) { success in
+		delegate?.executeENABackgroundTask { success in
 			task.setTaskCompleted(success: success)
 		}
 	}
