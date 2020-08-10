@@ -29,6 +29,7 @@ protocol DMSubmissionStateViewControllerDelegate: AnyObject {
 
 /// This controller allows you to check if a previous submission of keys successfully ended up in the backend.
 final class DMSubmissionStateViewController: UITableViewController {
+	// MARK: Creating a submission state view controller
 	init(
 		client: Client,
 		delegate: DMSubmissionStateViewControllerDelegate
@@ -44,7 +45,6 @@ final class DMSubmissionStateViewController: UITableViewController {
 	}
 
 	// MARK: UIViewController
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		tableView.registerKeyCell()
@@ -77,21 +77,19 @@ final class DMSubmissionStateViewController: UITableViewController {
 	}
 
 	// MARK: Properties
-
 	private weak var delegate: DMSubmissionStateViewControllerDelegate?
 	private let client: Client
 	private var checkResult = DMSubmittedKeysCheckResult(missingKeys: [], foundKeys: [])
 
 	// MARK: UIViewController
-	
 	@objc
 	func performCheck() {
 		delegate?.submissionStateViewController(self, getDiagnosisKeys: { localKeys, error in
 			if let error = error {
-				fatalError("err: \(error.localizedDescription)")
+				fatalError("unable to get DiagnosisKeys: \(error.localizedDescription)")
 			}
 			guard let localKeys = localKeys else {
-				fatalError("err")
+				fatalError("unable to get local diagnosis keys")
 			}
 			print(localKeys)
 			self.client.fetchAllKeys { downloadedPackages in
@@ -133,7 +131,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 			return "Missing Keys \(checkResult.missingKeys.count)"
 		case 1:
 			return "Found Keys \(checkResult.foundKeys.count)"
-		default: fatalError("fail")
+		default: fatalError("invalid state")
 		}
 	}
 
@@ -143,7 +141,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 			return checkResult.missingKeys.count
 		case 1:
 			return checkResult.foundKeys.count
-		default: fatalError("fail")
+		default: fatalError("invalid state")
 		}
 	}
 
@@ -156,7 +154,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 			key = checkResult.missingKeys[row]
 		case 1:
 			key = checkResult.foundKeys[row]
-		default: fatalError("fail")
+		default: fatalError("invalid state")
 		}
 
 		cell.configure(
@@ -213,22 +211,16 @@ private extension Client {
 
 		group.enter()
 		availableDays { result in
-			switch result {
-			case let .success(days):
+			if case let .success(days) = result {
 				daysAndHours.days = days
-			case .failure:
-				print("Fail")
 			}
 			group.leave()
 		}
 
 		group.enter()
 		availableHours(day: .formattedToday()) { result in
-			switch result {
-			case let .success(hours):
+			if case let .success(hours) = result {
 				daysAndHours.hours = hours
-			case .failure:
-				print("Fail")
 			}
 			group.leave()
 		}

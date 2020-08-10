@@ -42,7 +42,6 @@ final class DMLastRiskCalculationViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		textView.attributedText = NSAttributedString(string: lastRisk ?? "")
-
 		navigationController?.setToolbarHidden(false, animated: animated)
 		let exportItem = UIBarButtonItem(
 			title: "Export",
@@ -50,6 +49,7 @@ final class DMLastRiskCalculationViewController: UIViewController {
 			target: self,
 			action: #selector(exportRiskCalculation)
 		)
+		exportItem.isEnabled = lastRisk != nil
 		setToolbarItems(
 			[
 
