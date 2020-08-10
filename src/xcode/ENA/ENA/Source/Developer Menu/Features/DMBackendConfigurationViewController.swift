@@ -58,7 +58,6 @@ final class DMBackendConfigurationViewController: UITableViewController, Require
 			DMConfigurationCell.self,
 			forCellReuseIdentifier: DMConfigurationCell.reuseIdentifier
 		)
-		tableView.register(DMFakeRequestCell.self, forCellReuseIdentifier: DMFakeRequestCell.reuseIdentifier)
 	}
 
 	// MARK: UITableViewController
