@@ -115,7 +115,8 @@ class Coordinator: RequiresAppDependencies {
 			presentingViewController: controller,
 			client: client,
 			store: store,
-			exposureManager: exposureManager
+			exposureManager: exposureManager,
+			exposureSubmissionService: exposureSubmissionService
 		)
 		developerMenu?.enableIfAllowed()
 	}
@@ -158,7 +159,8 @@ extension Coordinator: HomeViewControllerDelegate {
 			exposureManagerState: state.exposureManagerState,
 			detectionMode: state.detectionMode,
 			isLoading: isRequestRiskRunning,
-			risk: state.risk
+			risk: state.risk,
+			previousRiskLevel: store.previousRiskLevel
 		)
 		let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
 			ExposureDetectionViewController(
@@ -176,7 +178,8 @@ extension Coordinator: HomeViewControllerDelegate {
 			exposureManagerState: state.exposureManagerState,
 			detectionMode: state.detectionMode,
 			isLoading: isRequestRiskRunning,
-			risk: state.risk
+			risk: state.risk,
+			previousRiskLevel: store.previousRiskLevel
 		)
 		exposureDetectionController?.state = state
 	}
