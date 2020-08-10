@@ -72,12 +72,6 @@ class ImageTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 				AppStrings.ExposureNotificationSetting.accLabelBluetoothOff,
 				"AppStrings.ExposureNotificationSetting.accLabelBluetoothOff"
 			)
-		case .internetOff:
-			return .init(
-				UIImage(named: "Illu_Internet_Off"),
-				AppStrings.ExposureNotificationSetting.accLabelInternetOff,
-				"AppStrings.ExposureNotificationSetting.accLabelInternetOff"
-			)
 		}
 	}
 }

@@ -12,8 +12,6 @@ extension ENStateHandler {
 		case disabled
 		/// Bluetooth is off.
 		case bluetoothOff
-		/// Internet is off.
-		case internetOff
 		/// Restricted Mode due to parental controls.
 		case restricted
 		///Not authorized. The user declined consent in onboarding.
