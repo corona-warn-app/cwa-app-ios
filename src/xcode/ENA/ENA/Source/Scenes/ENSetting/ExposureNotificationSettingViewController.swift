@@ -232,7 +232,7 @@ extension ExposureNotificationSettingViewController {
 						)
 						return tracingCell
 					}
-				case .bluetoothOff, .internetOff, .restricted, .notAuthorized, .unknown:
+				case .bluetoothOff, .restricted, .notAuthorized, .unknown:
 					if let cell = cell as? ActionCell {
 						cell.configure(for: enState, delegate: self)
 					}
