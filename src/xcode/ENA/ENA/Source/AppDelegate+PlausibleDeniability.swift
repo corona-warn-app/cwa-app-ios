@@ -37,7 +37,7 @@ extension AppDelegate {
 
 	/// Trigger a fake playbook to enable plausible deniability.
 	func executeFakeRequests(_ completion: (() -> Void)? = nil) {
-		guard store.isAllowedToSubmitDiagnosisKeys else {
+		guard store.isAllowedToPerformBackgroundFakeRequests else {
 			completion?()
 			return
 		}

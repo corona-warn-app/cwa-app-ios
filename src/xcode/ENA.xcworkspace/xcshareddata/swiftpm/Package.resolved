@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "Connectivity",
-        "repositoryURL": "https://github.com/rwbutler/Connectivity",
-        "state": {
-          "branch": null,
-          "revision": "7b0215b0bf9f24dc0eb758ea1c47f06f33831e7a",
-          "version": "3.3.4"
-        }
-      },
-      {
         "package": "FMDB",
         "repositoryURL": "https://github.com/ccgus/fmdb.git",
         "state": {
