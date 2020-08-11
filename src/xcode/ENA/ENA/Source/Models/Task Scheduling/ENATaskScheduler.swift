@@ -78,7 +78,6 @@ final class ENATaskScheduler {
 
 	func scheduleTask() {
 		do {
-			deadmanNotification()
 			let taskRequest = BGProcessingTaskRequest(identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier)
 			taskRequest.requiresNetworkConnectivity = true
 			taskRequest.requiresExternalPower = false
@@ -100,7 +99,10 @@ final class ENATaskScheduler {
 	// MARK: - Deadman notifications.
 
 	/// Schedules a local notification to fire 36 hours from now.
-	private func deadmanNotification() {
+	/// In case the background execution fails or the user forgets to update their risk level manually,
+	/// there will be a backup notification for the user to be notified to open the app. If everything runs smoothly,
+	/// the current notification will always be moved to the future, thus never firing.
+	static func deadmanNotification() {
 		let notificationCenter = UNUserNotificationCenter.current()
 
 		let content = UNMutableNotificationContent()
