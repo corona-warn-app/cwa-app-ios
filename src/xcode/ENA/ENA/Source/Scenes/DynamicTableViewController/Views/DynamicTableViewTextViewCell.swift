@@ -94,15 +94,14 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 	}
 
 	func configureAsLink(placeholder: String, urlString: String) {
-		let textAttributes = [ NSAttributedString.Key.font: UIFont.enaFont(for: .body).scaledFont(size: 17, weight: .regular)]
-		let attributedString = NSMutableAttributedString(string: placeholder, attributes: textAttributes)
 		guard let url = URL(string: urlString) else {
 			return
 		}
-
-		attributedString.setAttributes([.link: url], range: NSMakeRange(0, placeholder.count))
+		let textAttributes: [NSAttributedString.Key : Any] = [.font: UIFont.enaFont(for: .body).scaledFont(size: 17, weight: .regular), .link: url]
+		let attributedString = NSMutableAttributedString(string: placeholder, attributes: textAttributes)
 
 		self.textView.attributedText = attributedString
+		self.textView.adjustsFontForContentSizeCategory = true
 		self.textView.isUserInteractionEnabled = true
 		self.textView.isEditable = false
 	}
