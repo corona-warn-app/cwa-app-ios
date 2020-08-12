@@ -91,8 +91,6 @@ extension RiskProvider: RiskProviding {
 	func requestRisk(userInitiated: Bool, completion: Completion? = nil) {
 		queue.async {
 			self._requestRiskLevel(userInitiated: userInitiated, completion: completion)
-			// Always schedule a backup notification to fire 36 hours in advance.
-			ENATaskScheduler.deadmanNotification()
 		}
 	}
 
