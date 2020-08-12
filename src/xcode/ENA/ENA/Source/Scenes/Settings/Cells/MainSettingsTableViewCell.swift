@@ -47,9 +47,10 @@ class MainSettingsTableViewCell: UITableViewCell {
 		setLayoutConstraints()
 	}
 
-	func configure(model: SettingsViewModel.Main) {
+	func configure(model: SettingsViewModel.CellModel) {
 		iconImageView.image = UIImage(named: model.icon)
 		stateLabel.text = model.state ?? model.stateInactive
+		accessibilityIdentifier = model.accessibilityIdentifier
 
 		updateDescriptionLabel(model.description)
 		updateLayoutConstraints()

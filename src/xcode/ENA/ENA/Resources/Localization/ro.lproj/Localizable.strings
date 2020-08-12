@@ -148,9 +148,9 @@
 "How_Risk_Detection_Works_Alert_Message" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă.\nÎnregistrarea în jurnal a expunerilor acoperă ultimele %1$u zile.\nAplicația șterge automat înregistrările mai vechi din jurnal, întrucât acestea nu mai sunt relevante pentru prevenirea infectării.\n\nPentru mai multe informații, consultați pagina noastră de întrebări frecvente.";
 
 /* Settings */
-"Settings_StatusActive" = "Pornite";
+"Settings_Notification_StatusActive" = "Pornite";
 
-"Settings_StatusInactive" = "Oprite";
+"Settings_Notification_StatusInactive" = "Oprite";
 
 "Settings_StatusEnable" = "Activare";
 

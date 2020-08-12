@@ -273,15 +273,20 @@ enum AppStrings {
 		static let statusEnable = NSLocalizedString("Settings_StatusEnable", comment: "")
 		static let statusDisable = NSLocalizedString("Settings_StatusDisable", comment: "")
 
-		static let notificationStatusActive = NSLocalizedString("Settings_StatusActive", comment: "")
-		static let notificationStatusInactive = NSLocalizedString("Settings_StatusInactive", comment: "")
+		static let notificationStatusActive = NSLocalizedString("Settings_Notification_StatusActive", comment: "")
+		static let notificationStatusInactive = NSLocalizedString("Settings_Notification_StatusInactive", comment: "")
+		
+		static let backgroundAppRefreshStatusActive = NSLocalizedString("Settings_BackgroundAppRefresh_StatusActive", comment: "")
+		static let backgroundAppRefreshStatusInactive = NSLocalizedString("Settings_BackgroundAppRefresh_StatusInactive", comment: "")
 
 		static let tracingLabel = NSLocalizedString("Settings_Tracing_Label", comment: "")
 		static let notificationLabel = NSLocalizedString("Settings_Notification_Label", comment: "")
+		static let backgroundAppRefreshLabel = NSLocalizedString("Settings_BackgroundAppRefresh_Label", comment: "")
 		static let resetLabel = NSLocalizedString("Settings_Reset_Label", comment: "")
 
 		static let tracingDescription = NSLocalizedString("Settings_Tracing_Description", comment: "")
 		static let notificationDescription = NSLocalizedString("Settings_Notification_Description", comment: "")
+		static let backgroundAppRefreshDescription = NSLocalizedString("Settings_BackgroundAppRefresh_Description", comment: "")
 		static let resetDescription = NSLocalizedString("Settings_Reset_Description", comment: "")
 
 		static let navigationBarTitle = NSLocalizedString("Settings_NavTitle", comment: "")

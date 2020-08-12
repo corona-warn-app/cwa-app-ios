@@ -19,24 +19,14 @@ import Foundation
 
 final class SettingsViewModel {
 	// MARK: Properties
-	var tracing: Main
-	var notifications: Main
-	var reset: String
-
-	// MARK: Creating a Settings View Model
-	init(
-		tracing: Main = .tracing,
-		notifications: Main = .notifications,
-		reset: String = AppStrings.Settings.resetLabel
-	) {
-		self.tracing = tracing
-		self.notifications = notifications
-		self.reset = reset
-	}
+	var tracing: CellModel = .tracing
+	var notifications: CellModel = .notifications
+	var backgroundAppRefresh: CellModel = .backgroundAppRefresh
+	var reset: String = AppStrings.Settings.resetLabel
 }
 
 extension SettingsViewModel {
-	struct Main {
+	struct CellModel {
 		let icon: String
 		let description: String
 		var state: String?
@@ -46,8 +36,8 @@ extension SettingsViewModel {
 	}
 }
 
-extension SettingsViewModel.Main {
-	static let tracing = SettingsViewModel.Main(
+extension SettingsViewModel.CellModel {
+	static let tracing = SettingsViewModel.CellModel(
 		icon: "Icons_Settings_Risikoermittlung",
 		description: AppStrings.Settings.tracingLabel,
 		stateActive: AppStrings.Settings.trackingStatusActive,
@@ -55,12 +45,20 @@ extension SettingsViewModel.Main {
 		accessibilityIdentifier: AccessibilityIdentifiers.Settings.tracingLabel
 	)
 
-	static let notifications = SettingsViewModel.Main(
+	static let notifications = SettingsViewModel.CellModel(
 		icon: "Icons_Settings_Mitteilungen",
 		description: AppStrings.Settings.notificationLabel,
 		stateActive: AppStrings.Settings.notificationStatusActive,
 		stateInactive: AppStrings.Settings.notificationStatusInactive,
 		accessibilityIdentifier: AccessibilityIdentifiers.Settings.notificationLabel
+	)
+	
+	static let backgroundAppRefresh = SettingsViewModel.CellModel(
+		icon: "Icons_Settings_Hintergrundaktualisierung",
+		description: AppStrings.Settings.backgroundAppRefreshLabel,
+		stateActive: AppStrings.Settings.backgroundAppRefreshStatusActive,
+		stateInactive: AppStrings.Settings.backgroundAppRefreshStatusInactive,
+		accessibilityIdentifier: AccessibilityIdentifiers.Settings.backgroundAppRefreshLabel
 	)
 
 	mutating func setState(state newState: Bool) {

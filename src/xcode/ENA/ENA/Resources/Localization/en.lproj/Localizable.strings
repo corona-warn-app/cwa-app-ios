@@ -148,9 +148,9 @@
 "How_Risk_Detection_Works_Alert_Message" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently.\nExposure logging covers the past %1$u days.\nThe app automatically deletes older logs, as these are no longer relevant for infection prevention.\n\nFor further information, please see our FAQ page.";
 
 /* Settings */
-"Settings_StatusActive" = "On";
+"Settings_Notification_StatusActive" = "On";
 
-"Settings_StatusInactive" = "Off";
+"Settings_Notification_StatusInactive" = "Off";
 
 "Settings_StatusEnable" = "Activate";
 

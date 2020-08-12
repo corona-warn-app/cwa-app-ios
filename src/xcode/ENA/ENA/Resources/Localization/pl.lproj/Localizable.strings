@@ -148,9 +148,9 @@
 "How_Risk_Detection_Works_Alert_Message" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna.\nRejestrowanie narażenia obejmuje ostatnie %1$u dni.\nAplikacja automatycznie usuwa starsze dzienniki, ponieważ nie są one już istotne dla zapobiegania zakażeniom.\n\nWięcej informacji znajduje się na naszej stronie „Często zadawane pytania”.";
 
 /* Settings */
-"Settings_StatusActive" = "Wł.";
+"Settings_Notification_StatusActive" = "Wł.";
 
-"Settings_StatusInactive" = "Wył.";
+"Settings_Notification_StatusInactive" = "Wył.";
 
 "Settings_StatusEnable" = "Aktywuj";
 
