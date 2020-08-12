@@ -93,16 +93,16 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 		textView.dataDetectorTypes = dataDetectorTypes
 	}
 
-	func configureAsLink(placeholder: String, urlString: String) {
+	func configureAsLink(placeholder: String, urlString: String, size: CGFloat = 17, weight: UIFont.Weight = .regular, style: UIFont.TextStyle = .body) {
 		guard let url = URL(string: urlString) else {
 			return
 		}
-		let textAttributes: [NSAttributedString.Key : Any] = [.font: UIFont.enaFont(for: .body).scaledFont(size: 17, weight: .regular), .link: url]
+		let textAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: style).scaledFont(size: size, weight: weight), .link: url]
 		let attributedString = NSMutableAttributedString(string: placeholder, attributes: textAttributes)
 
 		self.textView.attributedText = attributedString
-		self.textView.adjustsFontForContentSizeCategory = true
 		self.textView.isUserInteractionEnabled = true
 		self.textView.isEditable = false
+		self.textView.adjustsFontForContentSizeCategory = true
 	}
 }
