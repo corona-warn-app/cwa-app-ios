@@ -40,8 +40,10 @@ final class HomeInteractor: RequiresAppDependencies {
 	var state: State {
 		didSet {
 			homeViewController.setStateOfChildViewControllers()
-			scheduleCountdownTimer()
+			// `buildSections()` has to be called prior to `scheduleCountdownTimer()`
+			// because `scheduleCountdownTimer()` relies on the sections to be already built.
 			buildSections()
+			scheduleCountdownTimer()
 		}
 	}
 
@@ -175,6 +177,10 @@ extension HomeInteractor {
 	}
 
 	func reloadActionSection() {
+		precondition(
+			!sections.isEmpty,
+			"Serious programmer error: reloadActionSection() was called without calling buildSections() first."
+		)
 		sections[0] = setupActionSectionDefinition()
 		homeViewController.reloadData(animatingDifferences: false)
 	}
