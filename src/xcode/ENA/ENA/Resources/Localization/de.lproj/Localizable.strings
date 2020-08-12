@@ -35,9 +35,9 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Hintergrundaktualisierung ausgeschaltet";
 
-"Common_Deadman_AlertTitle" = "Risiko-Ermittlung aktualisieren";
+"Common_Deadman_AlertTitle" = "Ihr Risikostatus";
 
-"Common_Deadman_AlertBody" = "Bitte öffnen Sie die Corona-Warn-App, um die Risiko-Ermittlung zu aktualisieren.";
+"Common_Deadman_AlertBody" = "Bitte denken Sie daran, die Corona-Warn-App regelmäßig zu öffnen, um Ihren Risikostatus zu überprüfen.";
 
 /* General - Links */
 "General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
