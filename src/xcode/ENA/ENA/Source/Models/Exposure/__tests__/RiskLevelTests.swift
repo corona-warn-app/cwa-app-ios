@@ -33,23 +33,60 @@ final class RiskLevelTests: XCTestCase {
 	5. .unknownInitial overrides .low AND .unknownOutdated
 	*/
 
-	func testRiskLevelCompare_ExceptionCase() {
-		XCTAssert(RiskLevel.unknownOutdated < RiskLevel.increased)
+	func testRiskLevelCompareLow() {
+		// swiftlint:disable:next identical_operands
+		XCTAssertFalse(RiskLevel.low < RiskLevel.low)
+		XCTAssert(RiskLevel.low < RiskLevel.unknownOutdated)
+		XCTAssert(RiskLevel.low < RiskLevel.unknownInitial)
+		XCTAssert(RiskLevel.low < RiskLevel.increased)
+		XCTAssert(RiskLevel.low < RiskLevel.inactive)
 	}
 
-	func testRiskLevelCompare_BaseCases() {
-		// Unfortunately we cannot simply shuffle and sort all cases, as our exception case will make it fail.
-		// Let's test our rules individually
+	func testRiskLevelCompareUnknownOutdated() {
+		XCTAssertFalse(RiskLevel.unknownOutdated < RiskLevel.low)
+		// swiftlint:disable:next identical_operands
+		XCTAssertFalse(RiskLevel.unknownOutdated < RiskLevel.unknownOutdated)
+		XCTAssert(RiskLevel.unknownOutdated < RiskLevel.unknownInitial)
+		XCTAssert(RiskLevel.unknownOutdated < RiskLevel.increased)
+		XCTAssert(RiskLevel.unknownOutdated < RiskLevel.inactive)
+	}
+
+	func testRiskLevelCompareUnknownInitial() {
+		XCTAssertFalse(RiskLevel.unknownInitial < RiskLevel.low)
+		XCTAssertFalse(RiskLevel.unknownInitial < RiskLevel.unknownOutdated)
+		// swiftlint:disable:next identical_operands
+		XCTAssertFalse(RiskLevel.unknownInitial < RiskLevel.unknownInitial)
+		XCTAssert(RiskLevel.unknownInitial < RiskLevel.increased)
+		XCTAssert(RiskLevel.unknownInitial < RiskLevel.inactive)
+	}
+
+	func testRiskLevelCompareIncreased() {
+		XCTAssertFalse(RiskLevel.increased < RiskLevel.low)
+		XCTAssertFalse(RiskLevel.increased < RiskLevel.unknownOutdated)
+		XCTAssertFalse(RiskLevel.increased < RiskLevel.unknownInitial)
+		// swiftlint:disable:next identical_operands
+		XCTAssertFalse(RiskLevel.increased < RiskLevel.increased)
+		XCTAssert(RiskLevel.increased < RiskLevel.inactive)
+	}
+
+	func testRiskLevelCompareInactive() {
+		XCTAssertFalse(RiskLevel.inactive < RiskLevel.low)
+		XCTAssertFalse(RiskLevel.inactive < RiskLevel.unknownOutdated)
+		XCTAssertFalse(RiskLevel.inactive < RiskLevel.unknownInitial)
+		XCTAssertFalse(RiskLevel.inactive < RiskLevel.increased)
+		// swiftlint:disable:next identical_operands
+		XCTAssertFalse(RiskLevel.inactive < RiskLevel.inactive)
+	}
+
+	func testRiskLevelCompareLowLeast() {
 		RiskLevel.allCases.dropFirst().forEach {
 			XCTAssert(RiskLevel.low < $0)
 		}
+	}
 
+	func testRiskLevelCompareInactiveHighest() {
 		RiskLevel.allCases.dropLast().forEach {
 			XCTAssert(RiskLevel.inactive > $0)
 		}
-
-		XCTAssert(RiskLevel.increased > RiskLevel.unknownOutdated)
-		XCTAssert(RiskLevel.unknownOutdated > RiskLevel.increased)
-		XCTAssert(RiskLevel.unknownInitial > RiskLevel.unknownOutdated)
 	}
 }
