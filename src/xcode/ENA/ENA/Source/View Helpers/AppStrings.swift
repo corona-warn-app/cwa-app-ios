@@ -213,16 +213,13 @@ enum AppStrings {
 
 	enum ExposureDetection {
 		static let off = NSLocalizedString("ExposureDetection_Off", comment: "")
-		static let outdated = NSLocalizedString("ExposureDetection_Outdated", comment: "")
 		static let unknown = NSLocalizedString("ExposureDetection_Unknown", comment: "")
 		static let low = NSLocalizedString("ExposureDetection_Low", comment: "")
 		static let high = NSLocalizedString("ExposureDetection_High", comment: "")
 
 		static let numberOfContacts = NSLocalizedString("ExposureDetection_NumberOfContacts", comment: "")
 		static let lastExposure = NSLocalizedString("ExposureDetection_LastExposure", comment: "")
-		static let numberOfDaysStored = NSLocalizedString("ExposureDetection_NumberOfDaysStored", comment: "")
 		static let refreshed = NSLocalizedString("ExposureDetection_Refreshed", comment: "")
-		static let refreshedFormat = NSLocalizedString("ExposureDetection_Refreshed_Format", comment: "")
 		static let refreshedNever = NSLocalizedString("ExposureDetection_Refreshed_Never", comment: "")
 		static let refreshingIn = NSLocalizedString("ExposureDetection_RefreshingIn", comment: "")
 		static let refreshIn = NSLocalizedString("ExposureDetection_RefreshIn", comment: "")

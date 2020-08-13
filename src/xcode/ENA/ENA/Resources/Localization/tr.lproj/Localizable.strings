@@ -52,15 +52,11 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "Maruz kalma günlüğü durduruldu";
 
-"ExposureDetection_Outdated" = "Maruz kalma günlüğü oluşturulamıyor";
-
 "ExposureDetection_Unknown" = "Bilinmeyen Risk";
 
 "ExposureDetection_Low" = "Düşük Risk";
 
 "ExposureDetection_High" = "Daha Yüksek Risk";
-
-"ExposureDetection_NumberOfDaysStored" = "%d/14 gündür etkin";
 
 "ExposureDetection_Refreshed" = "Güncelleme: %@";
 
