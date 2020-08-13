@@ -243,7 +243,7 @@
                         <outlet property="ignoreButton" destination="Clc-Yy-2ht" id="i67-q6-JoV"/>
                         <outlet property="imageView" destination="mfP-Vw-3SQ" id="SAq-8U-IOS"/>
                         <outlet property="innerStackView" destination="mqn-eD-7XN" id="Nut-P9-iLI"/>
-                        <outlet property="linkLabel" destination="wvn-bs-pF6" id="99G-xy-DSM"/>
+                        <outlet property="linkTextView" destination="wvn-bs-pF6" id="99G-xy-DSM"/>
                         <outlet property="nextButton" destination="XjZ-ed-ItP" id="M6T-Jt-59B"/>
                         <outlet property="scrollView" destination="1HX-Yf-LyV" id="UsC-cr-Xe3"/>
                         <outlet property="stackView" destination="2eY-pe-EqA" id="WbR-dJ-Jp8"/>

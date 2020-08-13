@@ -72,7 +72,7 @@ final class OnboardingInfoViewController: UIViewController {
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var boldLabel: UILabel!
 	@IBOutlet var textLabel: UILabel!
-	@IBOutlet var linkLabel: UITextView!
+	@IBOutlet var linkTextView: UITextView!
 	@IBOutlet var nextButton: ENAButton!
 	@IBOutlet var ignoreButton: ENAButton!
 
@@ -168,17 +168,21 @@ final class OnboardingInfoViewController: UIViewController {
 		textLabel.text = onboardingInfo.text
 		textLabel.isHidden = onboardingInfo.text.isEmpty
 
-		let textAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 15, weight: .regular), .link: onboardingInfo.link]
+		let language = Bundle.main.preferredLocalizations.first! as NSString
+		if language == "de" {
+			let textAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 15, weight: .regular), .link: onboardingInfo.link]
 
-		let attributedString = NSMutableAttributedString(string: onboardingInfo.linkDisplayText, attributes: textAttributes)
-				
-		linkLabel.attributedText = attributedString
-		linkLabel.isEditable = true
-		linkLabel.isScrollEnabled = false
-		linkLabel.dataDetectorTypes = UIDataDetectorTypes.all
-		linkLabel.isHidden = onboardingInfo.link.isEmpty
-		linkLabel.isUserInteractionEnabled = true
-		linkLabel.adjustsFontForContentSizeCategory = true
+			let attributedString = NSMutableAttributedString(string: onboardingInfo.linkDisplayText, attributes: textAttributes)
+					
+			linkTextView.attributedText = attributedString
+			linkTextView.dataDetectorTypes = UIDataDetectorTypes.all
+			linkTextView.isScrollEnabled = false
+			linkTextView.isHidden = onboardingInfo.link.isEmpty
+			linkTextView.isUserInteractionEnabled = true
+			linkTextView.adjustsFontForContentSizeCategory = true
+		} else {
+			linkTextView.isHidden = true
+		}
 
 		nextButton.setTitle(onboardingInfo.actionText, for: .normal)
 		nextButton.isHidden = onboardingInfo.actionText.isEmpty
@@ -220,7 +224,7 @@ final class OnboardingInfoViewController: UIViewController {
 		titleLabel.isAccessibilityElement = true
 		boldLabel.isAccessibilityElement = true
 		textLabel.isAccessibilityElement = true
-		linkLabel.isAccessibilityElement = true
+		linkTextView.isAccessibilityElement = true
 		nextButton.isAccessibilityElement = true
 		ignoreButton.isAccessibilityElement = true
 
