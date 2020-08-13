@@ -180,6 +180,8 @@ final class OnboardingInfoViewController: UIViewController {
 			linkTextView.isHidden = onboardingInfo.link.isEmpty
 			linkTextView.isUserInteractionEnabled = true
 			linkTextView.adjustsFontForContentSizeCategory = true
+			linkTextView.textContainerInset = .zero
+			linkTextView.textContainer.lineFragmentPadding = .zero
 		} else {
 			linkTextView.isHidden = true
 		}
