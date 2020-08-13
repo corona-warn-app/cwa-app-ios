@@ -16,6 +16,10 @@
 	<string>de.rki.coronawarnapp</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>ENDeveloperRegion</key>
+	<string>DE</string>
+	<key>ENAPIVersion</key>
+	<integer>1</integer>
 	<key>CFBundleName</key>
 	<string>CoronaWarn</string>
 	<key>CFBundlePackageType</key>

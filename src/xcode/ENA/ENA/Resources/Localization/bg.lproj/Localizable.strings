@@ -52,15 +52,11 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "В момента не се извършва регистриране на излагания на риск";
 
-"ExposureDetection_Outdated" = "Невъзможно регистриране на излагания на риск";
-
 "ExposureDetection_Unknown" = "Неизвестен риск";
 
 "ExposureDetection_Low" = "Нисък риск";
 
 "ExposureDetection_High" = "Повишен риск";
-
-"ExposureDetection_NumberOfDaysStored" = "%d от 14 дни активност";
 
 "ExposureDetection_Refreshed" = "Актуализирано: %@";
 
@@ -662,10 +658,6 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Нисък риск";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "Регистрирането на излагания на риск беше активно през %1$u от изминалите %2$u дни.";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Няма прекъсване на регистрирането на излагания на риск";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Повишен риск";
 
@@ -804,11 +796,15 @@
 
 "App_Information_Imprint_Section3_Title" = "Контакт";
 
-"App_Information_Imprint_Section3_Text" = "Имейл: CoronaWarnApp@rki.de\nТелефон: +49 30 18754 5100";
+"App_Information_Imprint_Section3_Text" = "Имейл: CoronaWarnApp@rki.de";
 
 "App_Information_Imprint_Section4_Title" = "Идентификационен номер за ДДС";
 
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
+
+"App_Information_Contact_Form_Title" = "Contact Form";
+
+"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Правна информация";

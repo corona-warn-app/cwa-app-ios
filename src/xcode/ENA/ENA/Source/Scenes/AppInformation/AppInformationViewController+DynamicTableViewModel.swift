@@ -203,6 +203,8 @@ extension AppInformationViewController {
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection3Text,
 									 style: .textView(.all),
 									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Text),
+				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSectionContactFormLink, style: .linkTextView(AppStrings.AppInformation.imprintSectionContactFormTitle),
+									 accessibilityIdentifier: AppStrings.AppInformation.imprintSectionContactFormTitle),
 				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection4Title,
 											accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Title),
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection4Text,
