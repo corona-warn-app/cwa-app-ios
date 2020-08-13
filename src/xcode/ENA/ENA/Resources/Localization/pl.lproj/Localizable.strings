@@ -662,10 +662,6 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niskie ryzyko";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "Rejestrowanie narażenia było aktywne przez %1$u z ostatnich %2$u dni.";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Rejestrowanie narażenia stale aktywne";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Podwyższone ryzyko";
 

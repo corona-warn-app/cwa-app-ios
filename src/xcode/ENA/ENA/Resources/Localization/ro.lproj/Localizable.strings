@@ -670,10 +670,6 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Risc redus";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "În ultimele %1$u zile, înregistrarea în jurnal a expunerilor a fost activă timp de %2$u zile.";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Înregistrarea în jurnal a expunerilor este permanent activă";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Risc crescut";
 
