@@ -52,15 +52,11 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "Risiko-Ermittlung gestoppt";
 
-"ExposureDetection_Outdated" = "Risiko-Ermittlung nicht möglich";
-
 "ExposureDetection_Unknown" = "Unbekanntes Risiko";
 
 "ExposureDetection_Low" = "Niedriges Risiko";
 
 "ExposureDetection_High" = "Erhöhtes Risiko";
-
-"ExposureDetection_NumberOfDaysStored" = "%d von 14 Tagen aktiv";
 
 "ExposureDetection_Refreshed" = "Aktualisiert: %@";
 
@@ -661,10 +657,6 @@
 
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
-
-"Home_Risk_Low_SaveDays_Item_Title" = "Risiko-Ermittlung war für %1$u der letzten 14 Tage aktiv";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Risiko-Ermittlung dauerhaft aktiv";
 
 /* Home High card */
 "Home_Risk_High_Title" = "Erhöhtes Risiko";
