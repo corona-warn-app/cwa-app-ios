@@ -1,6 +1,7 @@
 syntax = "proto3";
 import "app_config_attenuation_duration.proto";
 import "app_config_app_version_config.proto";
+import "app_features.proto";
 
 package SAP;
 
@@ -15,6 +16,8 @@ message ApplicationConfiguration {
     AttenuationDuration attenuationDuration = 4;
 
     ApplicationVersionConfiguration appVersion = 5;
+
+    AppFeatures appfeatures = 6;
 }
 
 message RiskScoreParameters {

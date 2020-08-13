@@ -18,6 +18,7 @@ mkdir -p ../../src/xcode/gen/output
 protoc \
      --experimental_allow_proto3_optional \
      --swift_out=../../src/xcode/gen/output \
+     ./app_features.proto \
      ./app_config.proto \
      ./app_config_attenuation_duration.proto \
      ./app_config_app_version_config.proto \

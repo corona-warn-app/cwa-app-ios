@@ -1,0 +1,11 @@
+syntax = "proto3";
+package SAP;
+
+message AppFeatures {
+	repeated AppFeature appFeatures = 1;
+}
+
+message AppFeature {
+	string label = 1;
+	int32 active = 2;
+}

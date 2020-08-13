@@ -131,6 +131,15 @@ struct SAP_ApplicationConfiguration {
   /// Clears the value of `appVersion`. Subsequent reads from it will return its default value.
   mutating func clearAppVersion() {self._appVersion = nil}
 
+  var appfeatures: SAP_AppFeatures {
+    get {return _appfeatures ?? SAP_AppFeatures()}
+    set {_appfeatures = newValue}
+  }
+  /// Returns true if `appfeatures` has been explicitly set.
+  var hasAppfeatures: Bool {return self._appfeatures != nil}
+  /// Clears the value of `appfeatures`. Subsequent reads from it will return its default value.
+  mutating func clearAppfeatures() {self._appfeatures = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -139,6 +148,7 @@ struct SAP_ApplicationConfiguration {
   fileprivate var _exposureConfig: SAP_RiskScoreParameters? = nil
   fileprivate var _attenuationDuration: SAP_AttenuationDuration? = nil
   fileprivate var _appVersion: SAP_ApplicationVersionConfiguration? = nil
+  fileprivate var _appfeatures: SAP_AppFeatures? = nil
 }
 
 struct SAP_RiskScoreParameters {
@@ -385,6 +395,7 @@ extension SAP_ApplicationConfiguration: SwiftProtobuf.Message, SwiftProtobuf._Me
     3: .same(proto: "exposureConfig"),
     4: .same(proto: "attenuationDuration"),
     5: .same(proto: "appVersion"),
+    6: .same(proto: "appfeatures"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -395,6 +406,7 @@ extension SAP_ApplicationConfiguration: SwiftProtobuf.Message, SwiftProtobuf._Me
       case 3: try decoder.decodeSingularMessageField(value: &self._exposureConfig)
       case 4: try decoder.decodeSingularMessageField(value: &self._attenuationDuration)
       case 5: try decoder.decodeSingularMessageField(value: &self._appVersion)
+      case 6: try decoder.decodeSingularMessageField(value: &self._appfeatures)
       default: break
       }
     }
@@ -416,6 +428,9 @@ extension SAP_ApplicationConfiguration: SwiftProtobuf.Message, SwiftProtobuf._Me
     if let v = self._appVersion {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
     }
+    if let v = self._appfeatures {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -425,6 +440,7 @@ extension SAP_ApplicationConfiguration: SwiftProtobuf.Message, SwiftProtobuf._Me
     if lhs._exposureConfig != rhs._exposureConfig {return false}
     if lhs._attenuationDuration != rhs._attenuationDuration {return false}
     if lhs._appVersion != rhs._appVersion {return false}
+    if lhs._appfeatures != rhs._appfeatures {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
