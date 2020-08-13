@@ -46,6 +46,22 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 		actuallyDownloadAppConfiguration(completion: completion)
 	}
 
+	/// Helper method that allows to fetch the app configuration synchronously.
+	/// - NOTE: This implementation blocks up to 3 seconds and returns nil when no configuration could be retrieved.
+	func synchronousAppConfiguration() -> SAP_ApplicationConfiguration? {
+		var configuration: SAP_ApplicationConfiguration?
+
+		let group = DispatchGroup()
+		group.enter()
+		appConfiguration {
+			configuration = $0
+			group.leave()
+		}
+
+		_ = group.wait(timeout: .now() + .seconds(3))
+		return configuration
+	}
+
 	private func actuallyDownloadAppConfiguration(completion: @escaping Completion) {
 		client.appConfiguration { [weak self] appConfiguration in
 			guard let appConfiguration = appConfiguration else {

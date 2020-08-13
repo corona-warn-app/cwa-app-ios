@@ -35,6 +35,7 @@ final class HTTPClient: Client {
 	let configuration: Configuration
 	private let session: URLSession
 	private let packageVerifier: SAPDownloadedPackage.Verification
+	private lazy var cachedAppConfiguration = CachedAppConfiguration(client: self)
 
 	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
 		session.GET(configuration.configurationURL) { [weak self] result in
@@ -93,6 +94,12 @@ final class HTTPClient: Client {
 		isFake: Bool = false,
 		completion: @escaping SubmitKeysCompletionHandler
 	) {
+
+		guard isPlausibleDeniabilityActive(isFake) else {
+			completion(.other(URLSession.Response.Failure.fakeResponse))
+			return
+		}
+
 		guard let request = try? URLRequest.submitKeysRequest(
 			configuration: configuration,
 			tan: tan,
@@ -191,6 +198,11 @@ final class HTTPClient: Client {
 
 	func getTestResult(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TestResultHandler) {
 
+		guard isPlausibleDeniabilityActive(isFake) else {
+			completeWith(.failure(.fakeResponse))
+			return
+		}
+
 		guard
 			let testResultRequest = try? URLRequest.getTestResultRequest(
 				configuration: configuration,
@@ -236,6 +248,11 @@ final class HTTPClient: Client {
 	}
 
 	func getTANForExposureSubmit(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TANHandler) {
+
+		guard isPlausibleDeniabilityActive(isFake) else {
+			completeWith(.failure(.fakeResponse))
+			return
+		}
 
 		guard
 			let tanForExposureSubmitRequest = try? URLRequest.getTanForExposureSubmitRequest(
@@ -288,6 +305,11 @@ final class HTTPClient: Client {
 	}
 
 	func getRegistrationToken(forKey key: String, withType type: String, isFake: Bool = false, completion completeWith: @escaping RegistrationHandler) {
+
+		guard isPlausibleDeniabilityActive(isFake) else {
+			completeWith(.failure(.fakeResponse))
+			return
+		}
 
 		guard
 			let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
@@ -395,6 +417,16 @@ final class HTTPClient: Client {
 				logError(message: "failed to get day: \(error)")
 			}
 		}
+	}
+
+	// MARK: - Helper methods.
+
+	private func isPlausibleDeniabilityActive(_ isFake: Bool) -> Bool {
+		// Never stop requests that are NOT fake.
+		guard isFake else { return true }
+		// Per default, assume that plausible deniability related fake requests should always be performed.
+		guard let configuration = cachedAppConfiguration.synchronousAppConfiguration() else { return true }
+		return configuration.appfeatures.isPlausibleDeniabilityActive
 	}
 }
 
@@ -645,5 +677,11 @@ private extension SAP_RiskScoreParameters.DurationRiskParameter {
 private extension SAP_RiskScoreParameters.AttenuationRiskParameter {
 	var asArray: [NSNumber] {
 		[gt73Dbm, gt63Le73Dbm, gt51Le63Dbm, gt33Le51Dbm, gt27Le33Dbm, gt15Le27Dbm, gt10Le15Dbm, le10Dbm].map { $0.asNumber }
+	}
+}
+
+private extension SAP_AppFeatures {
+	var isPlausibleDeniabilityActive: Bool {
+		return self.appFeatures.filter { $0.label == "isPlausibleDeniabilityActive" }.first?.active == 1
 	}
 }
