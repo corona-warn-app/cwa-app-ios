@@ -37,6 +37,12 @@ final class HTTPClient: Client {
 	private let packageVerifier: SAPDownloadedPackage.Verification
 	private lazy var cachedAppConfiguration = CachedAppConfiguration(client: self)
 
+	// MARK: Computed properties.
+	private var isPlausibleDeniabilityActive: Bool {
+		guard let configuration = cachedAppConfiguration.synchronousAppConfiguration() else { return true }
+		return configuration.appfeatures.isPlausibleDeniabilityActive
+	}
+
 	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
 		session.GET(configuration.configurationURL) { [weak self] result in
 			guard let self = self else { return }
@@ -95,7 +101,7 @@ final class HTTPClient: Client {
 		completion: @escaping SubmitKeysCompletionHandler
 	) {
 
-		guard isPlausibleDeniabilityActive(isFake) else {
+		guard isAllowedToSendRequest(isFake) else {
 			completion(.other(URLSession.Response.Failure.fakeResponse))
 			return
 		}
@@ -198,7 +204,7 @@ final class HTTPClient: Client {
 
 	func getTestResult(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TestResultHandler) {
 
-		guard isPlausibleDeniabilityActive(isFake) else {
+		guard isAllowedToSendRequest(isFake) else {
 			completeWith(.failure(.fakeResponse))
 			return
 		}
@@ -249,7 +255,7 @@ final class HTTPClient: Client {
 
 	func getTANForExposureSubmit(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TANHandler) {
 
-		guard isPlausibleDeniabilityActive(isFake) else {
+		guard isAllowedToSendRequest(isFake) else {
 			completeWith(.failure(.fakeResponse))
 			return
 		}
@@ -306,7 +312,7 @@ final class HTTPClient: Client {
 
 	func getRegistrationToken(forKey key: String, withType type: String, isFake: Bool = false, completion completeWith: @escaping RegistrationHandler) {
 
-		guard isPlausibleDeniabilityActive(isFake) else {
+		guard isAllowedToSendRequest(isFake) else {
 			completeWith(.failure(.fakeResponse))
 			return
 		}
@@ -419,14 +425,13 @@ final class HTTPClient: Client {
 		}
 	}
 
-	// MARK: - Helper methods.
+	// MARK: - Helper methods for plausible deniability switch.
 
-	private func isPlausibleDeniabilityActive(_ isFake: Bool) -> Bool {
+	private func isAllowedToSendRequest(_ isFake: Bool) -> Bool {
 		// Never stop requests that are NOT fake.
 		guard isFake else { return true }
 		// Per default, assume that plausible deniability related fake requests should always be performed.
-		guard let configuration = cachedAppConfiguration.synchronousAppConfiguration() else { return true }
-		return configuration.appfeatures.isPlausibleDeniabilityActive
+		return isPlausibleDeniabilityActive
 	}
 }
 
