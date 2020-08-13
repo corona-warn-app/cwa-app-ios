@@ -96,7 +96,7 @@
 
 "ExposureDetection_Guide_Hotline2" = "Вашия личен лекар";
 
-"ExposureDetection_Guide_Hotline3" = "Службата за спешна медицинска помощ на телефон 116117";
+"ExposureDetection_Guide_Hotline3" = "Общата служба за медицинска помощ на телефон 116117";
 
 "ExposureDetection_Guide_Hotline4" = "Местна служба за обществено здравеопазване";
 
@@ -321,7 +321,7 @@
 
 "ExposureSubmissionHotline_Title" = "Заявка за ТАН код";
 
-"ExposureSubmissionHotline_Description" = "За да заявите ТАН код, подгответе резултата от своя тест (ако е наличен) и телефонния си номер.";
+"ExposureSubmissionHotline_Description" = "За да заявите ТАН код, подгответе резултата от своя тест (ако е наличен) и телефонния си номер.\n\nГорещата телефонна линия поддържа услугите Tess Relay за хора с нарушения на слуха.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Как работи:";
 
@@ -411,7 +411,7 @@
 "ExposureSubmissionIntroduction_ListItem4" = "Ако не разполагате с ТАН код, по телефона може да заявите да Ви бъде предоставен такъв.";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_Title" = "Резултат от теста";
+"ExposureSubmissionResult_Title" = "Резултат от тест";
 
 "ExposureSubmissionResult_CardSubTitle" = "Вашата диагноза";
 
@@ -457,9 +457,9 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "Възникна проблем при определянето на резултата от Вашия тест.Моля, свържете се с местната служба за обществено здравеопазване (Gesundheitsamt), за да получите информация какво можете да направите.";
 
-"ExposureSubmissionResult_testRedeemed" = "Test has errors";
+"ExposureSubmissionResult_testRedeemed" = "Грешки в теста";
 
-"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR Code has already expired.";
+"ExposureSubmissionResult_testRedeemedDesc" = "Възникнаха грешки при проверката на Вашия тест. Този QR код вече е изтекъл.";
 
 "ExposureSubmissionResult_testPending" = "Все още няма резултат от теста";
 
@@ -483,7 +483,7 @@
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Моля, помогнете на всички нас!";
 
-"ExposureSubmissionWarnOthers_description" = "Като следваща стъпка може да позволите на Corona-Warn-App да сподели Вашите случайни ИД кодове за последните 14 дни с останалите потребители. По този начин може да предупредите други хора и да помогнете за прекъсване на веригата на заразяване.\n\nТъй като се разменят само случайни идентификатори, несъдържащи лични данни, анонимността Ви е гарантирана.";
+"ExposureSubmissionWarnOthers_description" = "Като следваща стъпка може да позволите на Corona-Warn-App да сподели Вашите случайни ИД кодове за последните 14 дни с останалите потребители. По този начин може да предупредите други хора и да помогнете за прекъсване на веригата на заразяване.\n\nАнонимността Ви се запазва, тъй като се изпращат само случайни ИД кодове, които не Ви идентифицират.";
 
 "ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping on “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the exposure logging feature can be automatically notified that they may have been exposed to a risk of infection. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person.\n\nTransmitting your test result via the App is voluntary. You will not be penalised if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected.\n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out on the basis of the consent prior to the withdrawal. Further information can be found in the menu under “Data Privacy Information”.";
 
@@ -559,7 +559,7 @@
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Към настройките за устройството";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "Активиране на регистрирането на излагания на риск от заразяване с COVID-19 и свързаните с това известия ";
+"ExposureNotificationSetting_Activate_OSENSetting" = "Активиране на регистрирането на излагания на риск от заразяване с COVID-19 и свързаните с това известия";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Моля, уверете се, че функцията за регистриране на излагания на риск от заразяване с COVID-19 и свързаните с това известия е активирана във Вашите системните настройки.";
 
@@ -622,7 +622,7 @@
 
 "Home_Risk_Period_Update_Title" = "Актуализира се на всеки %@\U00A0часа";
 
-"Home_Risk_Period_Disabled_Button_Title" = "Актуализира се едва на всеки %@\U00A0часа";
+"Home_Risk_Period_Disabled_Button_Title" = "Актуализира се на всеки %@\U00A0часа";
 
 "Home_Risk_Unknown_Title" = "Неизвестен риск";
 
@@ -755,7 +755,7 @@
 
 "App_Information_About_Title" = "Да се преборим с коронавируса заедно";
 
-"App_Information_About_Description" = "Институтът „Роберт Кох“ (RKI) е федералният орган за обществено здравеопазване в Германия. Той е издател на приложението Corona-Warn-App по поръчка на федералното правителство. Приложението представлява дигитално продължение на вече въведените мерки за опазване на общественото здраве: социално дистанциране, поддържане на висока хигиена и носене на маски.";
+"App_Information_About_Description" = "Институтът „Роберт Кох“ (RKI) е федералната служба за обществено здравеопазване в Германия. Той е издател на приложението Corona-Warn-App по поръчка на федералното правителство. Приложението е предназначено да бъде дигитално допълнение на вече въведените мерки за опазване на общественото здраве: социално дистанциране, поддържане на висока хигиена и носене на маски.";
 
 "App_Information_About_Text" = "Всеки, който използва приложението, помага за проследяване и прекъсване на веригите на заразяване. Приложението запазва във Вашето устройство данните за контактите Ви с други хора. Получавате известие, ако сте били в контакт с лица, които впоследствие са били диагностицирани с COVID-19. Вашата самоличност и неприкосновеността на данните Ви са защитени по всяко време.";
 
@@ -779,7 +779,7 @@
 
 "App_Information_Contact_Hotline_Description" = "Нашият екип за обслужване на клиенти е готов да Ви помогне.";
 
-"App_Information_Contact_Hotline_Terms" = "Езици: немски, английски, турски\n\nРаботно време:\nпонеделник до събота: 7:00 - 22:00\n(с изключение на национални празници)\n\nОбаждането е безплатно.";
+"App_Information_Contact_Hotline_Terms" = "Езици: немски, английски, турски\n\nРаботно време:\nпонеделник до неделя: 7:00 - 22:00\n(с изключение на национални празници)\n\nОбаждането е безплатно.";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "За издателя";
@@ -802,7 +802,7 @@
 
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
 
-"App_Information_Contact_Form_Title" = "Contact Form";
+"App_Information_Contact_Form_Title" = "Формуляр за контакт";
 
 "App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
 
@@ -957,7 +957,7 @@
 "ENATanInput_CharacterIndex" = "Символ %1$u от %2$u";
 
 /* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
-"Active_Tracing_Interval_Partially_Active" = "Регистрирането на излагания на риск беше активно през %1$u от изминалите %2$u дни.";
+"Active_Tracing_Interval_Partially_Active" = "Регистрирането на излагания на риск е било активно през %1$u от изминалите 14 дни.";
 
 "Active_Tracing_Interval_Permanently_Active" = "Няма прекъсване на регистрирането на излагания на риск";
 

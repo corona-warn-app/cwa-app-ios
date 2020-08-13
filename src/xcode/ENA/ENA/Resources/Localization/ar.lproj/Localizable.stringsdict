@@ -13,52 +13,22 @@
 			<string>u</string>
 			<key>one</key>
 			<!--Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-			<string>لديك خطر أعلى للعدوى بسبب تجمَّعك مؤخرًا مع شخص مصاب بمرض كوفيد-19 على مدى فترة زمنية أطول ومن مسافة قريبة جدًا منذ يوم.</string>
+			<string>خطر العدوى لديك مرتفع لأنك خالطت مؤخرًا شخصًا واحدًا على الأقل مُصاب بمرض كوفيد-19 منذ يوم لفترة زمنية أطول وعن قرب.</string>
 			<key>zero</key>
 			<!-- Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-			<string>لديك خطر أعلى للعدوى بسبب تجمَّعك مؤخرًا مع شخص مصاب بمرض كوفيد-19 على مدى فترة زمنية أطول ومن مسافة قريبة جدًا منذ %u من الأيام.</string>
+			<string>خطر العدوى لديك مرتفع لأنك خالطت مؤخرًا شخصًا واحدًا على الأقل مُصاب بمرض كوفيد-19 منذ %u من الأيام لفترة زمنية أطول وعن قرب.</string>
 			<key>few</key>
 			<!-- Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-			<string>لديك خطر أعلى للعدوى بسبب تجمَّعك مؤخرًا مع شخص مصاب بمرض كوفيد-19 على مدى فترة زمنية أطول ومن مسافة قريبة جدًا منذ %u من الأيام.</string>
+			<string>خطر العدوى لديك مرتفع لأنك خالطت مؤخرًا شخصًا واحدًا على الأقل مُصاب بمرض كوفيد-19 منذ %u من الأيام لفترة زمنية أطول وعن قرب.</string>
 			<key>many</key>
 			<!-- Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-			<string>لديك خطر أعلى للعدوى بسبب تجمَّعك مؤخرًا مع شخص مصاب بمرض كوفيد-19 على مدى فترة زمنية أطول ومن مسافة قريبة جدًا منذ %u من الأيام.</string>
+			<string>خطر العدوى لديك مرتفع لأنك خالطت مؤخرًا شخصًا واحدًا على الأقل مُصاب بمرض كوفيد-19 منذ %u من الأيام لفترة زمنية أطول وعن قرب.</string>
 			<key>two</key>
 			<!-- Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-			<string>لديك خطر أعلى للعدوى بسبب تجمَّعك مؤخرًا مع شخص مصاب بمرض كوفيد-19 على مدى فترة زمنية أطول ومن مسافة قريبة جدًا منذ %u من الأيام.</string>
+			<string>خطر العدوى لديك مرتفع لأنك خالطت مؤخرًا شخصًا واحدًا على الأقل مُصاب بمرض كوفيد-19 منذ %u من الأيام لفترة زمنية أطول وعن قرب.</string>
 			<key>other</key>
 			<!--Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-			<string>لديك خطر أعلى للعدوى بسبب تجمَّعك مؤخرًا مع شخص مصاب بمرض كوفيد-19 على مدى فترة زمنية أطول ومن مسافة قريبة جدًا منذ %u من الأيام.</string>
-		</dict>
-	</dict>
-	<key>ExposureDetection_Refreshed_Format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-			<string>اليوم، %%1$@</string>
-			<key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-			<string>الأمس، %%1$@</string>
-			<key>few</key>
-			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-			<string>%%2$@، %%1$@</string>
-			<key>many</key>
-			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-			<string>%%2$@، %%1$@</string>
-			<key>two</key>
-			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-			<string>%%2$@، %%1$@</string>
-			<key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-			<string>%%2$@، %%1$@</string>
+			<string>خطر العدوى لديك مرتفع لأنك خالطت مؤخرًا شخصًا واحدًا على الأقل مُصاب بمرض كوفيد-19 منذ %u من الأيام لفترة زمنية أطول وعن قرب.</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_NumberOfContacts</key>
@@ -132,36 +102,6 @@
             <key>NSStringFormatValueTypeKey</key>
             <string>u</string>
             <key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO.-->
-            <string>لا توجد مخالطة حتى الآن</string>
-            <key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE.-->
-            <string>%u مخالطة</string>
-            <key>few</key>
-            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW.-->
-            <string>%u من المخالطات</string>
-            <key>many</key>
-            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY.-->
-            <string>%u من المخالطات</string>
-            <key>two</key>
-            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO.-->
-            <string>%u مخالطة</string>
-            <key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER.-->
-            <string>%u من المخالطات</string>
-        </dict>
-    </dict>
-    <key>Home_Risk_High_Number_Contacts_Item_Title</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@VARIABLE@</string>
-        <key>VARIABLE</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>u</string>
-            <key>zero</key>
 			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
             <string>لا توجد مخالطة حتى الآن</string>
             <key>one</key>
@@ -179,6 +119,36 @@
             <key>other</key>
 			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
             <string>%u من المخالطات بخطر منخفض</string>
+        </dict>
+    </dict>
+    <key>Home_Risk_High_Number_Contacts_Item_Title</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@VARIABLE@</string>
+        <key>VARIABLE</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>zero</key>
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+            <string>لا توجد مخالطة حتى الآن</string>
+            <key>one</key>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+            <string>%u مخالطة</string>
+            <key>few</key>
+            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+            <string>%u من المخالطات</string>
+            <key>many</key>
+            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+            <string>%u من المخالطات</string>
+            <key>two</key>
+            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+            <string>%u من المخالطات</string>
+            <key>other</key>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+            <string>%u من المخالطات</string>
         </dict>
     </dict>
     <key>Home_Risk_Last_Contact_Item_Title</key>
