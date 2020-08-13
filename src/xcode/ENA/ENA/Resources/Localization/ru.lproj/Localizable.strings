@@ -52,15 +52,11 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "Определение риска остановлено";
 
-"ExposureDetection_Outdated" = "Определение риска невозможно";
-
 "ExposureDetection_Unknown" = "Неизвестный риск";
 
 "ExposureDetection_Low" = "Низкий риск";
 
 "ExposureDetection_High" = "Повышенный риск";
-
-"ExposureDetection_NumberOfDaysStored" = "Дней активности: %d из 14";
 
 "ExposureDetection_Refreshed" = "Обновлено: %@";
 
@@ -662,10 +658,6 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Низкий риск";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "Определение риска активно %1$u из 14 прошедших дней.";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Определение риска постоянно активно.";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Повышенный риск";
 
@@ -804,11 +796,15 @@
 
 "App_Information_Imprint_Section3_Title" = "Контакты";
 
-"App_Information_Imprint_Section3_Text" = "Эл. почта: CoronaWarnApp@rki.de\nТел.: +49 30 18754 5100";
+"App_Information_Imprint_Section3_Text" = "E-mail: CoronaWarnApp@rki.de";
 
 "App_Information_Imprint_Section4_Title" = "ИНН";
 
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
+
+"App_Information_Contact_Form_Title" = "Форма контакта";
+
+"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Правовые положения";

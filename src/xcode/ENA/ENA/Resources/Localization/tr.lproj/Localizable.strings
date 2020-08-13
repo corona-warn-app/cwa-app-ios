@@ -52,15 +52,11 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "Maruz kalma günlüğü durduruldu";
 
-"ExposureDetection_Outdated" = "Maruz kalma günlüğü oluşturulamıyor";
-
 "ExposureDetection_Unknown" = "Bilinmeyen Risk";
 
 "ExposureDetection_Low" = "Düşük Risk";
 
 "ExposureDetection_High" = "Daha Yüksek Risk";
-
-"ExposureDetection_NumberOfDaysStored" = "%d/14 gündür etkin";
 
 "ExposureDetection_Refreshed" = "Güncelleme: %@";
 
@@ -662,10 +658,6 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Düşük Risk";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "Maruz kalma günlüğü son 14 günde %1$u gün etkindi.";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Maruz kalma günlüğü sürekli etkin";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Daha Yüksek Risk";
 
@@ -804,11 +796,15 @@
 
 "App_Information_Imprint_Section3_Title" = "İletişim";
 
-"App_Information_Imprint_Section3_Text" = "E-posta: CoronaWarnApp@rki.de\nTelefon: +49 30 18754 5100";
+"App_Information_Imprint_Section3_Text" = "E-posta: CoronaWarnApp@rki.de";
 
 "App_Information_Imprint_Section4_Title" = "KDV numarası";
 
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
+
+"App_Information_Contact_Form_Title" = "İletişim Formu";
+
+"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Yasal Bildirimler";

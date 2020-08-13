@@ -31,36 +31,6 @@
 			<string>У Вас повышенный риск заражения, поскольку %u дня назад у Вас был продолжительный близкий контакт минимум с одним лицом с положительным тестом на COVID-19.</string>
 		</dict>
 	</dict>
-	<key>ExposureDetection_Refreshed_Format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-			<string>Сегодня, %%1$@</string>
-			<key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-			<string>Вчера, %%1$@</string>
-			<key>few</key>
-			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-			<string>%%2$@, %%1$@</string>
-			<key>many</key>
-			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-			<string>%%2$@, %%1$@</string>
-			<key>two</key>
-			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-			<string>%%2$@, %%1$@</string>
-			<key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-			<string>%%2$@, %%1$@</string>
-		</dict>
-	</dict>
 	<key>ExposureDetection_NumberOfContacts</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

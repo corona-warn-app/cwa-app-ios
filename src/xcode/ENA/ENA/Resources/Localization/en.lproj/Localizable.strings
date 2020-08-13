@@ -52,15 +52,11 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "Exposure logging stopped";
 
-"ExposureDetection_Outdated" = "Exposure logging is not possible";
-
 "ExposureDetection_Unknown" = "Unknown Risk";
 
 "ExposureDetection_Low" = "Low Risk";
 
 "ExposureDetection_High" = "Increased Risk";
-
-"ExposureDetection_NumberOfDaysStored" = "%d of 14 days active";
 
 "ExposureDetection_Refreshed" = "Updated: %@";
 
@@ -662,10 +658,6 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Low Risk";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "Exposure logging was active for %1$u of the past 14 days.";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Exposure logging permanently active";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Increased Risk";
 
@@ -804,11 +796,15 @@
 
 "App_Information_Imprint_Section3_Title" = "Contact";
 
-"App_Information_Imprint_Section3_Text" = "E-Mail: CoronaWarnApp@rki.de\nTelephone: +49 30 18754 5100";
+"App_Information_Imprint_Section3_Text" = "E-mail: CoronaWarnApp@rki.de";
 
 "App_Information_Imprint_Section4_Title" = "VAT identification number";
 
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
+
+"App_Information_Contact_Form_Title" = "Contact Form";
+
+"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Legal Notices";

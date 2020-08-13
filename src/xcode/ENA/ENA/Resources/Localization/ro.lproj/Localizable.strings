@@ -52,15 +52,11 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "Înregistrarea în jurnal a expunerilor a fost oprită";
 
-"ExposureDetection_Outdated" = "Înregistrarea în jurnal a expunerilor nu este posibilă";
-
 "ExposureDetection_Unknown" = "Risc necunoscut";
 
 "ExposureDetection_Low" = "Risc redus";
 
 "ExposureDetection_High" = "Risc crescut";
-
-"ExposureDetection_NumberOfDaysStored" = "%d din 14 zile activă";
 
 "ExposureDetection_Refreshed" = "Actualizată: %@";
 
@@ -662,10 +658,6 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Risc redus";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "În ultimele 14 zile, înregistrarea în jurnal a expunerilor a fost activă timp de %1$u zile.";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Înregistrarea în jurnal a expunerilor este permanent activă";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Risc crescut";
 
@@ -804,11 +796,15 @@
 
 "App_Information_Imprint_Section3_Title" = "Contact";
 
-"App_Information_Imprint_Section3_Text" = "E-mail: CoronaWarnApp@rki.de\nTelefon: +49 30 18754 5100";
+"App_Information_Imprint_Section3_Text" = "E-mail: CoronaWarnApp@rki.de";
 
 "App_Information_Imprint_Section4_Title" = "Număr de înregistrare în scop de TVA";
 
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
+
+"App_Information_Contact_Form_Title" = "Formular de contact";
+
+"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Mențiuni legale";
