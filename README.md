@@ -65,16 +65,6 @@ cd src/xcode && bundle exec fastlane build_community
 cd src/xcode && bundle exec fastlane test
 ```
 
-### Run
-
-1. Run the server locally
-
-   If you have Docker installed locally, the overall cwa-server setup can be easily built and run (incl. dependencies) by 'docker-compose up'. More information at: https://github.com/corona-warn-app/cwa-server
-2. Configure the URL scheme
-  * On your device, store a deep link that has the following structure:
-    `corona-warn-app://configure?distributionBaseURL=https://fix.me/&submissionBaseURL=https://fix.me&verificationBaseURL=https://fix.me`
-  * Tap on the link and then relaunch the app because the changes will only be effective in a new session. You can validate the configuration in the developer menu (triple-tap somewhere in the homescreen and click on the settings icon in the toolbar).
-
 ## Architecture & Documentation
 
 The full documentation for the Corona-Warn-App is in the [cwa-documentation](https://github.com/corona-warn-app/cwa-documentation) repository. The documentation repository contains technical documents, architecture information, UI/UX specifications, and whitepapers related to this implementation.

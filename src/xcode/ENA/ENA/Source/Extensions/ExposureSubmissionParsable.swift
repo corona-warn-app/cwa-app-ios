@@ -101,6 +101,8 @@ extension URLSession.Response.Failure: ExposureSubmissionErrorTransformable {
 			return .noResponse
 		case let .serverError(code):
 			return .serverError(code)
+		case .fakeResponse:
+			return .fakeResponse
 		}
 	}
 }

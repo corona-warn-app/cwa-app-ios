@@ -79,7 +79,7 @@ final class SecureStore: Store {
 	}
 
 	var tan: String? {
-		get { kvStore["tan"] as String? ?? "" }
+		get { kvStore["tan"] as String? }
 		set { kvStore["tan"] = newValue }
 	}
 
@@ -189,6 +189,22 @@ final class SecureStore: Store {
 		get { kvStore["userNeedsToBeInformedAboutHowRiskDetectionWorks"] as Bool? ?? true }
 		set { kvStore["userNeedsToBeInformedAboutHowRiskDetectionWorks"] = newValue }
 	}
+
+	var lastBackgroundFakeRequest: Date {
+		get { kvStore["lastBackgroundFakeRequest"] as Date? ?? Date() }
+		set { kvStore["lastBackgroundFakeRequest"] = newValue }
+	}
+
+	var firstPlaybookExecution: Date? {
+		get { kvStore["firstPlaybookExecution"] as Date? }
+		set { kvStore["firstPlaybookExecution"] = newValue }
+	}
+
+	var isAllowedToPerformBackgroundFakeRequests: Bool {
+		get { kvStore["shouldPerformBackgroundFakeRequests"] as Bool? ?? false }
+		set { kvStore["shouldPerformBackgroundFakeRequests"] = newValue }
+	}
+
 }
 
 
