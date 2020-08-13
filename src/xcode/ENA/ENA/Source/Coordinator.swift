@@ -77,14 +77,12 @@ class Coordinator: RequiresAppDependencies {
 		}
 
 		self.homeController = homeController
-
 		UIView.transition(with: rootViewController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
 			self.rootViewController.setViewControllers([homeController], animated: false)
+			#if !RELEASE
+			self.enableDeveloperMenuIfAllowed(in: homeController)
+			#endif
 		})
-
-		#if !RELEASE
-		enableDeveloperMenuIfAllowed(in: homeController)
-		#endif
 	}
 
 	func showOnboarding() {
@@ -111,11 +109,13 @@ class Coordinator: RequiresAppDependencies {
 	#if !RELEASE
 	private var developerMenu: DMDeveloperMenu?
 	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
+
 		developerMenu = DMDeveloperMenu(
 			presentingViewController: controller,
 			client: client,
 			store: store,
 			exposureManager: exposureManager,
+			developerStore: UserDefaults.standard,
 			exposureSubmissionService: exposureSubmissionService
 		)
 		developerMenu?.enableIfAllowed()
