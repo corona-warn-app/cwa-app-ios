@@ -150,7 +150,9 @@ extension AppInformationViewController {
 				.headline(text: AppStrings.AppInformation.aboutDescription,
 						  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutDescription),
 				.subheadline(text: AppStrings.AppInformation.aboutText,
-							 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutText)
+							 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutText),
+				.subheadline(text: AppStrings.AppInformation.aboutLink,
+							 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutLink)
 			]
 		)
 	])
