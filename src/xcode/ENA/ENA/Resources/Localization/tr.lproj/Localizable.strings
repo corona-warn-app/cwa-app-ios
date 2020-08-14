@@ -498,6 +498,7 @@
 "ExposureSubmissionResult_RegistrationDate" = "Kayıt tarihi:";
 
 /* Exposure Submission */
+
 "ExposureSubmissionError_NoKeys" = "Tanı anahtarı yok. Lütfen yarın tekrar deneyin.";
 
 "ExposureSubmissionError_InvalidTan" = "Oluşturulan TAN, gönderme işlemi için geçersiz. Lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";

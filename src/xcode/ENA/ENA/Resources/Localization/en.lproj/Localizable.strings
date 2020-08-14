@@ -498,6 +498,7 @@
 "ExposureSubmissionResult_RegistrationDate" = "Registered on";
 
 /* Exposure Submission */
+
 "ExposureSubmissionError_NoKeys" = "No diagnosis key is available. Please try again tomorrow.";
 
 "ExposureSubmissionError_InvalidTan" = "The generated TAN is invalid for submission. Please contact the technical hotline via App Information -> Technical Hotline.";

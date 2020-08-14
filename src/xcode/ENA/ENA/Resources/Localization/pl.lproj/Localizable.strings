@@ -267,6 +267,7 @@
 "OnboardingInfo_alwaysStayInformedPage_normalText" = "Możesz wówczas odizolować się, aby chronić innych, i dowiedzieć się, gdzie wykonać test.";
 
 /* Exposure Submission */
+
 "ExposureSubmission_Hotline_Number" = "+498007540002";
 
 "ExposureSubmission_DataPrivacyTitle" = "Prywatność danych";
@@ -498,6 +499,7 @@
 "ExposureSubmissionResult_RegistrationDate" = "Zarejestrowano dnia";
 
 /* Exposure Submission */
+
 "ExposureSubmissionError_NoKeys" = "Klucz diagnozy jest niedostępny. Spróbuj ponownie jutro.";
 
 "ExposureSubmissionError_InvalidTan" = "Wygenerowany numer TAN jest nieprawidłowy i nie można go przesłać. Skontaktuj się z techniczną infolinią, wybierając opcje: Informacje o aplikacji -> Infolinia techniczna.";

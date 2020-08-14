@@ -498,6 +498,7 @@
 "ExposureSubmissionResult_RegistrationDate" = "Дата регистрации";
 
 /* Exposure Submission */
+
 "ExposureSubmissionError_NoKeys" = "Код диагноза недоступен. Повторите попытку завтра.";
 
 "ExposureSubmissionError_InvalidTan" = "Сгенерированный TAN недействителен для отправки. Обратитесь на горячую линию по техническим вопросам по пути: Информация о приложении -> Горячая линия по техническим вопросам.";
