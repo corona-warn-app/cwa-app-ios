@@ -13,68 +13,26 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>one</key>
+			<!--Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
 			<string>En son bir gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 			<key>zero</key>
+			<!-- Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
 			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 			<key>few</key>
+			<!-- Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
 			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 			<key>many</key>
+			<!-- Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
 			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 			<key>two</key>
+			<!-- Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
 			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 			<key>other</key>
+			<!--Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
 			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_NumberOfContacts</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<string>Şu ana dek hiçbir maruz kalma yok</string>
-			<key>one</key>
-			<string>Bir maruz kalma</string>
-			<key>few</key>
-			<string>%u maruz kalma</string>
-			<key>many</key>
-			<string>%u maruz kalma</string>
-			<key>two</key>
-			<string>%u maruz kalma</string>
-			<key>other</key>
-			<string>%u maruz kalma</string>
-		</dict>
-	</dict>
-	<key>ExposureDetection_LastExposure</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
-			<key>one</key>
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
-			<key>few</key>
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
-			<key>many</key>
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
-			<key>two</key>
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
-			<key>other</key>
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
-		</dict>
-	</dict>
-	<key>Home_Risk_Low_Number_Contacts_Item_Title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@VARIABLE@</string>
@@ -146,16 +104,106 @@
 			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
 		</dict>
 	</dict>
-	<key>Home_Risk_Status_Counter_Label</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@minutes@%#</string>
-		<key>minutes</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
+    <key>Home_Risk_Low_Number_Contacts_Item_Title</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@VARIABLE@</string>
+        <key>VARIABLE</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>zero</key>
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+            <string>Şu ana dek hiçbir maruz kalma yok</string>
+            <key>one</key>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+            <string>%u kez düşük riskli maruz kalma</string>
+            <key>few</key>
+            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+            <string>%u kez düşük riskli maruz kalma</string>
+            <key>many</key>
+            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+            <string>%u kez düşük riskli maruz kalma</string>
+            <key>two</key>
+            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+            <string>%u kez düşük riskli maruz kalma</string>
+            <key>other</key>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+            <string>%u kez düşük riskli maruz kalma</string>
+        </dict>
+    </dict>
+    <key>Home_Risk_High_Number_Contacts_Item_Title</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@VARIABLE@</string>
+        <key>VARIABLE</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>zero</key>
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+            <string>Şu ana dek hiçbir maruz kalma yok</string>
+            <key>one</key>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+            <string>%u maruz kalma</string>
+            <key>few</key>
+            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+            <string>%u maruz kalma</string>
+            <key>many</key>
+            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+            <string>%u maruz kalma</string>
+            <key>two</key>
+            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+            <string>%u maruz kalma</string>
+            <key>other</key>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+            <string>%u maruz kalma</string>
+        </dict>
+    </dict>
+    <key>Home_Risk_Last_Contact_Item_Title</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@VARIABLE@</string>
+        <key>VARIABLE</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>zero</key>
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+            <string>Son maruz kalmanın üzerinden bir günden az süre geçti</string>
+            <key>one</key>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+            <string>Son maruz kalmanın üzerinden %u gün geçti</string>
+            <key>few</key>
+            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+            <string>Son maruz kalmanın üzerinden %u gün geçti</string>
+            <key>many</key>
+            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+            <string>Son maruz kalmanın üzerinden %u gün geçti</string>
+            <key>two</key>
+            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+            <string>Son maruz kalmanın üzerinden %u gün geçti</string>
+            <key>other</key>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+            <string>Son maruz kalmanın üzerinden %u gün geçti</string>
+        </dict>
+    </dict>
+    <key>Home_Risk_Status_Counter_Label</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@minutes@%#</string>
+        <key>minutes</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
 			<key>zero</key>
 			<string>%02u:%2$#@seconds@ saniye içinde güncelle</string>
 			<key>one</key>

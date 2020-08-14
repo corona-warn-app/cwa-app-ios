@@ -321,7 +321,7 @@
 
 "ExposureSubmissionHotline_Title" = "Request TAN";
 
-"ExposureSubmissionHotline_Description" = "Please keep your test result (if available) and your phone number ready to request a TAN.";
+"ExposureSubmissionHotline_Description" = "Please keep your test result (if available) and your phone number ready to request a TAN.\n\nThe hotline supports Tess Relay services for people with hearing impairments.";
 
 "ExposureSubmissionHotline_SectionTitle" = "How this works:";
 
@@ -459,7 +459,7 @@
 
 "ExposureSubmissionResult_testRedeemed" = "Test has errors";
 
-"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR Code has already expired.";
+"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR code has already expired.";
 
 "ExposureSubmissionResult_testPending" = "Test result is not yet available";
 
@@ -651,14 +651,6 @@
 
 "Home_Risk_Inactive_Outdated_Results_Body" = "Your exposure logging could not be updated for more than 24 hours.";
 
-"Home_Risk_Inactive_Activate_Item_Title" = "Last exposure logging: %@";
-
-"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Unknown Risk";
-
-"Home_Risk_Inactive_Activate_Item_Low_Title" = "Low Risk";
-
-"Home_Risk_Inactive_Activate_Item_High_Title" = "Increased Risk";
-
 "Home_Risk_Inactive_NoCalculation_Possible_Button" = "Activate Exposure Logging";
 
 "Home_Risk_Inactive_Outdated_Results_Button" = "Activate Exposure Logging";
@@ -668,8 +660,6 @@
 
 /* Home High card */
 "Home_Risk_High_Title" = "Increased Risk";
-
-"Home_Risk_High_Button" = "Update";
 
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Check is running …";
@@ -765,7 +755,7 @@
 
 "App_Information_About_Title" = "Let's fight coronavirus together";
 
-"App_Information_About_Description" = "Robert Koch Institute (RKI) is Germany’s federal public health body. The RKI publishes the Corona-Warn-App in the name of the Federal Government. The app represents the digital extension of public health measures already introduced: social distancing, hygiene, and face masks.";
+"App_Information_About_Description" = "Robert Koch Institute (RKI) is Germany’s federal public health body. The RKI publishes the Corona-Warn-App on behalf of the Federal Government. The app is intended as a digital complement to public health measures already introduced: social distancing, hygiene, and face masks.";
 
 "App_Information_About_Text" = "Whoever uses the app helps to trace and break chains of infection. The app saves encounters with other people locally on your device. You are notified if you have encountered people who were later diagnosed with COVID-19. Your identity and privacy are always protected.";
 
