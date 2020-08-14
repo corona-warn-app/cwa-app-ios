@@ -321,7 +321,7 @@
 
 "ExposureSubmissionHotline_Title" = "TAN Talebi";
 
-"ExposureSubmissionHotline_Description" = "TAN talebinde bulunmak için lütfen test sonucunuzu (varsa) ve telefon numaranızı hazır tutun.";
+"ExposureSubmissionHotline_Description" = "TAN talebinde bulunmak için lütfen test sonucunuzu (varsa) ve telefon numaranızı hazır tutun.\n\nYardım hattı, işitme engeli bulunan kişiler için Tess Relay hizmetlerini destekler.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Nasıl çalışır?";
 
@@ -457,9 +457,9 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "Testinizi değerlendirirken bir problem oluştu. Lütfen sonraki adımlarınız için kamu sağlığı yetkilisi ile görüşün.";
 
-"ExposureSubmissionResult_testRedeemed" = "Test has errors";
+"ExposureSubmissionResult_testRedeemed" = "Testte hata var";
 
-"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR Code has already expired.";
+"ExposureSubmissionResult_testRedeemedDesc" = "Testinizi değerlendirirken bir problem oluştu. QR kodunuzun süresi dolmuş.";
 
 "ExposureSubmissionResult_testPending" = "Test sonucu henüz çıkmadı";
 
@@ -498,6 +498,7 @@
 "ExposureSubmissionResult_RegistrationDate" = "Kayıt tarihi:";
 
 /* Exposure Submission */
+
 "ExposureSubmissionError_NoKeys" = "Tanı anahtarı yok. Lütfen yarın tekrar deneyin.";
 
 "ExposureSubmissionError_InvalidTan" = "Oluşturulan TAN, gönderme işlemi için geçersiz. Lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
@@ -559,7 +560,7 @@
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Cihaz Ayarlarını Aç";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "COVID-19'a Maruz Kalma Günlüğünü ve Bildirimleri Etkinleştir ";
+"ExposureNotificationSetting_Activate_OSENSetting" = "COVID-19'a Maruz Kalma Günlüğünü ve Bildirimleri Etkinleştir";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Maruz kalma günlüğünde, karşılaşmaların günlüğe kaydedilebilmesi için sistem ayarlarında COVID-19'a maruz kalma günlüğü ve bildirimlerin etkinleştirilmesi gerekir. Lütfen sistem ayarlarında \"COVID-19'a Maruz Kalma Günlüğü ve Bildirimler\" özelliğini etkinleştirin.";
 
@@ -755,7 +756,7 @@
 
 "App_Information_About_Title" = "Koronavirüs ile birlikte mücadele edelim";
 
-"App_Information_About_Description" = "Robert Koch Institute (RKI), Almanya'nın federal kamu sağlığı kurumudur. RKI, Federal Hükûmet adına Corona-Warn-App uygulamasını yayınlamaktadır. Uygulama, daha önce açıklanan kamu sağlığı önlemlerine ilişkin dijital bir uzantı niteliğindedir: sosyal mesafe, hijyen uygulamaları ve yüz maskeleri.";
+"App_Information_About_Description" = "Robert Koch Institute (RKI), Almanya'nın federal kamu sağlığı kurumudur. RKI, Federal Hükûmet adına Corona-Warn-App uygulamasını yayınlamaktadır. Uygulama, daha önce açıklanan kamu sağlığı önlemlerine ilişkin dijital bir tamamlayıcı niteliğindedir: sosyal mesafe, hijyen uygulamaları ve yüz maskeleri.";
 
 "App_Information_About_Text" = "Uygulamayı kullanan herkes, enfeksiyon zincirlerinin takip edilmesine ve kırılmasına yardımcı olur. Uygulama, diğer kişilerle karşılaşmaları cihazınızda yerel olarak kaydeder. Daha sonra COVID-19 tanısı konan kişilerle karşılaşmışsanız size bildirim gönderilir. Kimliğiniz ve gizliliğiniz daima koruma altındadır.";
 
@@ -802,7 +803,7 @@
 
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
 
-"App_Information_Contact_Form_Title" = "Contact Form";
+"App_Information_Contact_Form_Title" = "İletişim Formu";
 
 "App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
 
@@ -957,7 +958,7 @@
 "ENATanInput_CharacterIndex" = "%1$u/%2$u karakter";
 
 /* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
-"Active_Tracing_Interval_Partially_Active" = "Maruz kalma günlüğü son %2$u günde %1$u gün etkindi.";
+"Active_Tracing_Interval_Partially_Active" = "Maruz kalma günlüğü son 14 günde %1$u gün etkindi.";
 
 "Active_Tracing_Interval_Permanently_Active" = "Maruz kalma günlüğü sürekli etkin";
 
