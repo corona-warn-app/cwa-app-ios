@@ -82,7 +82,7 @@
 
 "ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig";
 
-"ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig.";
+"ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig mit Seife für 20 Sekunden.";
 
 "ExposureDetection_Guide_Mask" = "Tragen Sie einen Mund-Nasen-Schutz bei Begegnungen mit anderen Personen.";
 
@@ -455,7 +455,7 @@
 
 "ExposureSubmissionResult_testInvalid" = "Test fehlerhaft";
 
-"ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Gesundheitsamt, um Informationen zum weiteren Vorgehen zu erhalten.";
+"ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Testcenter oder das zuständige Labor, um Information zum weiteren Vorgehen zu erhalten.";
 
 "ExposureSubmissionResult_testRedeemed" = "Test fehlerhaft";
 
