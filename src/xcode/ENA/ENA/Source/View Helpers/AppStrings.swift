@@ -214,16 +214,13 @@ enum AppStrings {
 
 	enum ExposureDetection {
 		static let off = NSLocalizedString("ExposureDetection_Off", comment: "")
-		static let outdated = NSLocalizedString("ExposureDetection_Outdated", comment: "")
 		static let unknown = NSLocalizedString("ExposureDetection_Unknown", comment: "")
 		static let low = NSLocalizedString("ExposureDetection_Low", comment: "")
 		static let high = NSLocalizedString("ExposureDetection_High", comment: "")
 
 		static let numberOfContacts = NSLocalizedString("ExposureDetection_NumberOfContacts", comment: "")
 		static let lastExposure = NSLocalizedString("ExposureDetection_LastExposure", comment: "")
-		static let numberOfDaysStored = NSLocalizedString("ExposureDetection_NumberOfDaysStored", comment: "")
 		static let refreshed = NSLocalizedString("ExposureDetection_Refreshed", comment: "")
-		static let refreshedFormat = NSLocalizedString("ExposureDetection_Refreshed_Format", comment: "")
 		static let refreshedNever = NSLocalizedString("ExposureDetection_Refreshed_Never", comment: "")
 		static let refreshingIn = NSLocalizedString("ExposureDetection_RefreshingIn", comment: "")
 		static let refreshIn = NSLocalizedString("ExposureDetection_RefreshIn", comment: "")
@@ -439,8 +436,6 @@ enum AppStrings {
 		// Low Card
 		static let riskCardLowTitle = NSLocalizedString("Home_Risk_Low_Title", comment: "")
 		static let riskCardLowNumberContactsItemTitle = NSLocalizedString("Home_Risk_Low_Number_Contacts_Item_Title", comment: "")
-		static let riskCardLowSaveDaysItemTitle = NSLocalizedString("Home_Risk_Low_SaveDays_Item_Title", comment: "")
-		static let riskCardLowSaveDaysItemTitle_PermanentlyActive = NSLocalizedString("Home_Risk_Low_SaveDays_Item_Title__Permanently_Active", comment: "")
 		static let riskCardLowButton = NSLocalizedString("Home_Risk_Low_Button", comment: "")
 
 		// High Card
@@ -605,6 +600,8 @@ enum AppStrings {
 		static let imprintSection3Text = NSLocalizedString("App_Information_Imprint_Section3_Text", comment: "")
 		static let imprintSection4Title = NSLocalizedString("App_Information_Imprint_Section4_Title", comment: "")
 		static let imprintSection4Text = NSLocalizedString("App_Information_Imprint_Section4_Text", comment: "")
+		static let imprintSectionContactFormTitle = NSLocalizedString("App_Information_Contact_Form_Title", comment: "")
+		static let imprintSectionContactFormLink = NSLocalizedString("App_Information_Contact_Form_Link", comment: "")
 
 		static let legalNavigation = NSLocalizedString("App_Information_Legal_Navigation", comment: "")
 		static let legalImageDescription = NSLocalizedString("App_Information_Legal_ImageDescription", comment: "")
