@@ -19,24 +19,24 @@
 
 import UIKit
 
-struct InfoBoxViewModel {
-
-	struct InstructionStep {
-		let icon: UIImage?
-		let text: String
+extension UIScrollView {
+	func screenshot() -> UIImage? {
+		UIGraphicsBeginImageContext(contentSize)
+		
+		let savedContentOffset = contentOffset
+		let savedFrame = frame
+		
+		contentOffset = CGPoint.zero
+		frame = CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height)
+		
+		layer.render(in: UIGraphicsGetCurrentContext()!)
+		let image = UIGraphicsGetImageFromCurrentImageContext()
+		
+		contentOffset = savedContentOffset
+		frame = savedFrame
+		
+		UIGraphicsEndImageContext()
+		
+		return image
 	}
-	
-	struct Instruction {
-		let title: String
-		let steps: [InstructionStep]
-	}
-	
-	let instructions: [Instruction]
-	let titleText: String
-	let descriptionText: String
-	let settingsText: String
-	let shareText: String
-	let settingsAction: () -> Void
-	let shareAction: () -> Void
-
 }

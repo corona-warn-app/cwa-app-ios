@@ -22,6 +22,22 @@ import Combine
 
 class BackgroundAppRefreshViewController: UIViewController {
 
+	// MARK: - Init
+	
+	required init?(coder: NSCoder) {
+		viewModel = BackgroundAppRefreshViewModel(
+			onOpenSettings: {
+				if let settingsUrl = URL(string: UIApplication.openSettingsURLString),
+					UIApplication.shared.canOpenURL(settingsUrl) {
+					UIApplication.shared.open(settingsUrl, completionHandler: nil)
+				}
+		},
+			onShare: { }
+		)
+		super.init(coder: coder)
+
+	}
+	
 	// MARK: - Overrides
 	
 	override func viewDidLoad() {
@@ -29,9 +45,18 @@ class BackgroundAppRefreshViewController: UIViewController {
 		setupBindings()
 	}
 	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		if let image = contentScrollView.screenshot() {
+			let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+			present(activityViewController, animated: true, completion: nil)
+		}
+
+	}
+	
 	// MARK: - Private
 
-	private let viewModel = BackgroundAppRefreshViewModel(onOpenSettings: {}, onOpenAppSettings: {})
+	private let viewModel: BackgroundAppRefreshViewModel
     private var subscriptions = Set<AnyCancellable>()
 	private let infoBox = InfoBoxView()
 	
@@ -42,6 +67,7 @@ class BackgroundAppRefreshViewController: UIViewController {
 	@IBOutlet private weak var backgroundAppRefreshStatusLabel: ENALabel!
 	@IBOutlet private weak var imageView: UIImageView!
 	@IBOutlet private weak var contentStackView: UIStackView!
+	@IBOutlet private weak var contentScrollView: UIScrollView!
 	
 	private func setupView() {
 		title = viewModel.title

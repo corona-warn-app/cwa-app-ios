@@ -40,6 +40,11 @@ class InfoBoxView: UIView {
 	func update(with viewModel: InfoBoxViewModel) {
 		infoBoxTitle.text = viewModel.titleText
 		infoBoxText.text = viewModel.descriptionText
+		shareButton.setTitle(viewModel.shareText, for: .normal)
+		settingsButton.setTitle(viewModel.settingsText, for: .normal)
+		
+		settingsAction = viewModel.settingsAction
+		shareAction = viewModel.shareAction
 
 		instructionsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
@@ -80,9 +85,10 @@ class InfoBoxView: UIView {
 
 				NSLayoutConstraint.activate([
 					stepLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 16),
-					stepLabel.firstBaselineAnchor.constraint(equalTo: iconImageView.firstBaselineAnchor),
+//					stepLabel.firstBaselineAnchor.constraint(equalTo: iconImageView.firstBaselineAnchor),
 					stepLabel.topAnchor.constraint(greaterThanOrEqualTo: containerView.topAnchor),
-					stepLabel.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor)
+					stepLabel.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor),
+					stepLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
 				])
 			}
 		}
@@ -93,7 +99,12 @@ class InfoBoxView: UIView {
 	@IBOutlet private weak var infoBoxTitle: ENALabel!
 	@IBOutlet private weak var infoBoxText: ENALabel!
 	@IBOutlet private weak var instructionsStackView: UIStackView!
-
+	@IBOutlet private weak var settingsButton: UIButton!
+	@IBOutlet private weak var shareButton: UIButton!
+	
+	private var shareAction: () -> Void = { }
+	private var settingsAction: () -> Void = { }
+	
 	private func loadViewFromNib() {
 		let nib = UINib(nibName: "InfoBoxView", bundle: nil)
 		guard let view = nib.instantiate(withOwner: self, options: nil).first as? UIView else {
@@ -109,6 +120,14 @@ class InfoBoxView: UIView {
 			view.bottomAnchor.constraint(equalTo: bottomAnchor),
 			view.leadingAnchor.constraint(equalTo: leadingAnchor)
 		])
+	}
+	
+	@IBAction private func onShare() {
+		shareAction()
+	}
+	
+	@IBAction private func onSettings() {
+		settingsAction()
 	}
 
 }

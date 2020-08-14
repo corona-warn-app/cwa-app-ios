@@ -30,9 +30,9 @@ class BackgroundAppRefreshViewModel {
 	
 	// MARK: - Init
 
-	init(onOpenSettings: @escaping () -> Void, onOpenAppSettings: @escaping () -> Void) {
+	init(onOpenSettings: @escaping () -> Void, onShare: @escaping () -> Void) {
 		self.onOpenSettings = onOpenSettings
-		self.onOpenAppSettings = onOpenAppSettings
+		self.onShare = onShare
 		backgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
 		lowPowerModeEnabled = ProcessInfo.processInfo.isLowPowerModeEnabled
 		observeBackgroundAppRefresh()
@@ -65,7 +65,7 @@ class BackgroundAppRefreshViewModel {
 	// MARK: - Private
 	
 	private let onOpenSettings: () -> Void
-	private let onOpenAppSettings: () -> Void
+	private let onShare: () -> Void
     private var subscriptions = Set<AnyCancellable>()
 
 	private var backgroundRefreshStatus: UIBackgroundRefreshStatus {
@@ -93,7 +93,15 @@ class BackgroundAppRefreshViewModel {
 				backgroundAppRefreshStatusText = "Aus"
 				image = UIImage(named: "Illu_Hintergrundaktualisierung_Aus")
 				infoBoxText = "TOLL NUR AUS"
-				infoBoxViewModel = .init(instructions: infoBoxInstructionsForOff, titleText: infoBoxTitle, descriptionText: infoBoxDescriptionOff)
+				infoBoxViewModel = .init(
+					instructions: infoBoxInstructionsForOff,
+					titleText: infoBoxTitle,
+					descriptionText: infoBoxDescriptionOff,
+					settingsText: "HUR DUR",
+					shareText: "SHARE SHARE",
+					settingsAction: onOpenSettings,
+					shareAction: onShare
+				)
 			case .offInPowerSaving:
 				showInfoBox = true
 				backgroundAppRefreshStatusText = "Aus"
@@ -102,7 +110,11 @@ class BackgroundAppRefreshViewModel {
 				infoBoxViewModel = .init(
 					instructions: infoBoxInstructionsForOff + infoBoxInstructionLowPowerMode,
 					titleText: infoBoxTitle,
-					descriptionText: infoBoxDescriptionOff + "\n\n" + infoBoxDescriptionLowPowerMode
+					descriptionText: infoBoxDescriptionOff + "\n\n" + infoBoxDescriptionLowPowerMode,
+					settingsText: "HUR DUR",
+					shareText: "SHARE SHARE",
+					settingsAction: onOpenSettings,
+					shareAction: onShare
 				)
 			}
 		}
