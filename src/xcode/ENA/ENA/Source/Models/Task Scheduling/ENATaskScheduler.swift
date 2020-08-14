@@ -107,8 +107,8 @@ final class ENATaskScheduler {
 		let notificationCenter = UNUserNotificationCenter.current()
 
 		let content = UNMutableNotificationContent()
-		content.title = AppStrings.Common.deadman_AlertTitle
-		content.body = AppStrings.Common.deadman_AlertBody
+		content.title = AppStrings.Common.deadmanAlertTitle
+		content.body = AppStrings.Common.deadmanAlertBody
 		content.sound = .default
 
 		let trigger = UNTimeIntervalNotificationTrigger(
@@ -116,8 +116,14 @@ final class ENATaskScheduler {
 			repeats: false
 		)
 
+		// bundleIdentifier is defined in Info.plist and can never be nil!
+		guard let bundleID = Bundle.main.bundleIdentifier else {
+			logError(message: "Could not access bundle identifier")
+			return
+		}
+
 		let request = UNNotificationRequest(
-			identifier: "cwa-deadman",
+			identifier: bundleID + ".notifications.cwa-deadman",
 			content: content,
 			trigger: trigger
 		)

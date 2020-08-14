@@ -23,7 +23,13 @@ import UIKit
 
 extension AppDelegate: ENATaskExecutionDelegate {
 
-	/// This method executes the background tasks needed for: a) fetching test results and b) performing exposure detection requests
+	/// This method executes the background tasks needed for fetching test results, performing exposure detection
+	/// and executing plausible deniability fake requests.
+	///
+	/// - NOTE: The method explicitly ignores the outcomes of all subtasks (success/failure) and will _always_
+	///         call completion(true) when the subtasks finished regardless of their individual results.
+	///         This will set the background task state to _completed_. We only mark the task as incomplete
+	///         when the OS calls the expiration handler before all tasks were able to finish.
 	func executeENABackgroundTask(completion: @escaping ((Bool) -> Void)) {
 		let group = DispatchGroup()
 
