@@ -22,23 +22,87 @@ import UIKit
 class InfoBoxView: UIView {
 
 	// MARK: - Init
+
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		initSubViews()
+
+		loadViewFromNib()
 	}
 	
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
-		initSubViews()
+
+		loadViewFromNib()
 	}
 	
-	private func initSubViews() {
+	// MARK: - Internal
+	
+	func update(with viewModel: InfoBoxViewModel) {
+		infoBoxTitle.text = viewModel.titleText
+		infoBoxText.text = viewModel.descriptionText
+
+		instructionsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+
+		for instruction in viewModel.instructions {
+			let titleLabel = ENALabel()
+			titleLabel.text = instruction.title
+			titleLabel.numberOfLines = 0
+			titleLabel.style = .headline
+
+			instructionsStackView.addArrangedSubview(titleLabel)
+
+			for index in 0..<instruction.steps.count {
+				let step = instruction.steps[index]
+
+				let containerView = UIView()
+				instructionsStackView.addArrangedSubview(containerView)
+
+				let iconImageView = UIImageView(image: step.icon)
+
+				containerView.addSubview(iconImageView)
+				iconImageView.translatesAutoresizingMaskIntoConstraints = false
+
+				NSLayoutConstraint.activate([
+					iconImageView.widthAnchor.constraint(equalToConstant: 28),
+					iconImageView.heightAnchor.constraint(equalToConstant: 28),
+					iconImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+					iconImageView.topAnchor.constraint(greaterThanOrEqualTo: containerView.topAnchor),
+					iconImageView.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor)
+				])
+
+				let stepLabel = ENALabel()
+				stepLabel.text = "\(index + 1). \(step.text)"
+				stepLabel.numberOfLines = 0
+				stepLabel.style = .headline
+
+				containerView.addSubview(stepLabel)
+				stepLabel.translatesAutoresizingMaskIntoConstraints = false
+
+				NSLayoutConstraint.activate([
+					stepLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 16),
+					stepLabel.firstBaselineAnchor.constraint(equalTo: iconImageView.firstBaselineAnchor),
+					stepLabel.topAnchor.constraint(greaterThanOrEqualTo: containerView.topAnchor),
+					stepLabel.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor)
+				])
+			}
+		}
+	}
+	
+	// MARK: - Private
+
+	@IBOutlet private weak var infoBoxTitle: ENALabel!
+	@IBOutlet private weak var infoBoxText: ENALabel!
+	@IBOutlet private weak var instructionsStackView: UIStackView!
+
+	private func loadViewFromNib() {
 		let nib = UINib(nibName: "InfoBoxView", bundle: nil)
 		guard let view = nib.instantiate(withOwner: self, options: nil).first as? UIView else {
 			return
 		}
+
 		addSubview(view)
 		view.translatesAutoresizingMaskIntoConstraints = false
+
 		NSLayoutConstraint.activate([
 			view.topAnchor.constraint(equalTo: topAnchor),
 			view.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -46,23 +110,5 @@ class InfoBoxView: UIView {
 			view.leadingAnchor.constraint(equalTo: leadingAnchor)
 		])
 	}
-	
-	// MARK: - Overrides
-	
-	// MARK: - Protocol <#Name#>
-	
-	// MARK: - Public
-	
-	// MARK: - Internal
-	
-	func update(with viewModel: InfoBoxViewModel) {
-		instructionsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-		infoBoxTitle.text = viewModel.titleText
-		infoBoxText.text = viewModel.descriptionText
-	}
-	
-	// MARK: - Private
-	@IBOutlet private weak var infoBoxTitle: ENALabel!
-	@IBOutlet private weak var infoBoxText: ENALabel!
-	@IBOutlet private weak var instructionsStackView: UIStackView!
+
 }

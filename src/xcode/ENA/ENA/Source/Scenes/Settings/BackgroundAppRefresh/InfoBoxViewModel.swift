@@ -20,6 +20,7 @@
 import UIKit
 
 struct InfoBoxViewModel {
+
 	struct InstructionStep {
 		let icon: UIImage?
 		let text: String
@@ -33,4 +34,5 @@ struct InfoBoxViewModel {
 	let instructions: [Instruction]
 	let titleText: String
 	let descriptionText: String
+
 }

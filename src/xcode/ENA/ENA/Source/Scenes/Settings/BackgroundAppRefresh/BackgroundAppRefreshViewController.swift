@@ -22,24 +22,18 @@ import Combine
 
 class BackgroundAppRefreshViewController: UIViewController {
 
-	// MARK: - Init
-	
 	// MARK: - Overrides
 	
 	override func viewDidLoad() {
 		setupView()
 		setupBindings()
 	}
-		
-	// MARK: - Public
-	
-	// MARK: - Internal
 	
 	// MARK: - Private
+
 	private let viewModel = BackgroundAppRefreshViewModel(onOpenSettings: {}, onOpenAppSettings: {})
     private var subscriptions = Set<AnyCancellable>()
 	private let infoBox = InfoBoxView()
-
 	
 	@IBOutlet private weak var subTitleLabel: ENALabel!
 	@IBOutlet private weak var descriptionLabel: ENALabel!

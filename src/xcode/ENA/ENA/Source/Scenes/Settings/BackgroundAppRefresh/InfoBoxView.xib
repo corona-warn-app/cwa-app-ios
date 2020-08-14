@@ -24,7 +24,7 @@
                     <rect key="frame" x="16" y="16" width="382" height="772"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ufj-pQ-XcM" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="16" y="9" width="306" height="20.5"/>
+                            <rect key="frame" x="16" y="9" width="306" height="26.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -48,7 +48,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="200" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5fd-4R-3SA">
+                        <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="200" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="5fd-4R-3SA">
                             <rect key="frame" x="16" y="556" width="350" height="200"/>
                         </stackView>
                     </subviews>
