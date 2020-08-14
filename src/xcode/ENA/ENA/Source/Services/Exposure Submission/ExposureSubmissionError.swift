@@ -40,6 +40,8 @@ enum ExposureSubmissionError: Error, Equatable {
 	case unsupported
 	case rateLimited
 	case fakeResponse
+	case invalidPayloadOrHeaders
+	case requestCouldNotBeBuilt
 }
 
 extension ExposureSubmissionError: LocalizedError {
@@ -83,6 +85,10 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.ExposureSubmissionError.unknown
 		case .fakeResponse:
 			return "Fake request received."
+		case .invalidPayloadOrHeaders:
+			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
+		case .requestCouldNotBeBuilt:
+			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
 		default:
 			logError(message: "\(self)")
 			return AppStrings.ExposureSubmissionError.defaultError
