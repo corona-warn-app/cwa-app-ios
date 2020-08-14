@@ -151,7 +151,7 @@ extension AppInformationViewController {
 						  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutDescription),
 				.subheadline(text: AppStrings.AppInformation.aboutText,
 							 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutText),
-				.bodyWithoutTopInset(text: AppStrings.AppInformation.aboutLink, style: .linkTextView(AppStrings.AppInformation.aboutLinkText), accessibilityIdentifier: AppStrings.AppInformation.aboutLinkText)
+				.bodyWithoutTopInset(text: AppStrings.AppInformation.aboutLink, style: .linkTextView(AppStrings.AppInformation.aboutLinkText, .subheadline), accessibilityIdentifier: AppStrings.AppInformation.aboutLinkText)
 			]
 		)
 	])
