@@ -234,6 +234,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+<<<<<<< HEAD
 	func testCorrectErrorForRequestCouldNotBeBuilt() {
 
 		// Initialize.
@@ -250,32 +251,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		service.submitExposure { error in
 			expectation.fulfill()
 			XCTAssertEqual(error?.localizedDescription, controlTest)
-		}
-
-		waitForExpectations(timeout: .short)
-	}
-
-	func testCorrectErrorForInvalidPayloadOrHeaders() {
-
-		// Initialize.
-		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
-		let store = MockTestStore()
-		store.registrationToken = "dummyRegistrationToken"
-		let expectation = self.expectation(description: "Correct error description received.")
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
-
-		// Execute test.
-		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
-
-		service.submitExposure { error in
-			expectation.fulfill()
-			XCTAssertEqual(error?.localizedDescription, controlTest)
-		}
-
-		waitForExpectations(timeout: .short)
-	}
-
+=======
 	/// The submit exposure flow consists of two steps:
 	/// 1. Getting a submission tan
 	/// 2. Submitting the keys
@@ -314,11 +290,34 @@ class ExposureSubmissionServiceTests: XCTestCase {
 				expectation.fulfill()
 				XCTAssertNil(result)
 			}
+>>>>>>> a2217bc915d63df78613d62ff950626c54f89611
 		}
 
 		waitForExpectations(timeout: .short)
 	}
 
+<<<<<<< HEAD
+	func testCorrectErrorForInvalidPayloadOrHeaders() {
+
+		// Initialize.
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
+		let store = MockTestStore()
+		store.registrationToken = "dummyRegistrationToken"
+		let expectation = self.expectation(description: "Correct error description received.")
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+
+		// Execute test.
+		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
+
+		service.submitExposure { error in
+			expectation.fulfill()
+			XCTAssertEqual(error?.localizedDescription, controlTest)
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+=======
 	// MARK: Plausible deniability tests.
 
 	func test_getTestResultPlaybook() {
@@ -509,4 +508,5 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let regex = try? NSRegularExpression(pattern: pattern, options: [])
 		XCTAssertNotNil(regex?.firstMatch(in: str, options: [], range: .init(location: 0, length: str.count)))
 	}
+>>>>>>> a2217bc915d63df78613d62ff950626c54f89611
 }
