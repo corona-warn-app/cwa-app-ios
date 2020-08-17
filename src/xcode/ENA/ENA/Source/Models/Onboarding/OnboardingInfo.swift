@@ -49,7 +49,7 @@ extension OnboardingInfo {
 			boldText: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_normalText,
 			link: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_Link,
-			linkDisplayText: AppStrings.Onboarding.OnboardingInfo_togetherAgainstCoronaPage_LinkText,
+			linkDisplayText: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_LinkText,
 			actionText: AppStrings.Onboarding.onboardingLetsGo,
 			ignoreText: "",
 			titleAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title,
