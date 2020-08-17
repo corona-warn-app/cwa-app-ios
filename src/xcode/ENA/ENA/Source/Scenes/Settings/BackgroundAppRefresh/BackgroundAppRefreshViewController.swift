@@ -25,17 +25,22 @@ class BackgroundAppRefreshViewController: UIViewController {
 	// MARK: - Init
 	
 	required init?(coder: NSCoder) {
+		super.init(coder: coder)
+
 		viewModel = BackgroundAppRefreshViewModel(
 			onOpenSettings: {
 				if let settingsUrl = URL(string: UIApplication.openSettingsURLString),
 					UIApplication.shared.canOpenURL(settingsUrl) {
 					UIApplication.shared.open(settingsUrl, completionHandler: nil)
 				}
-		},
-			onShare: { }
+			},
+			onShare: { [weak self] in
+				if let pdf = self?.contentView.asPDF {
+					let activityViewController = UIActivityViewController(activityItems: [pdf], applicationActivities: nil)
+					self?.present(activityViewController, animated: true, completion: nil)
+				}
+			}
 		)
-		super.init(coder: coder)
-
 	}
 	
 	// MARK: - Overrides
@@ -45,18 +50,9 @@ class BackgroundAppRefreshViewController: UIViewController {
 		setupBindings()
 	}
 	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		if let image = contentScrollView.screenshot() {
-			let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-			present(activityViewController, animated: true, completion: nil)
-		}
-
-	}
-	
 	// MARK: - Private
 
-	private let viewModel: BackgroundAppRefreshViewModel
+	private var viewModel: BackgroundAppRefreshViewModel!
     private var subscriptions = Set<AnyCancellable>()
 	private let infoBox = InfoBoxView()
 	
@@ -67,6 +63,7 @@ class BackgroundAppRefreshViewController: UIViewController {
 	@IBOutlet private weak var backgroundAppRefreshStatusLabel: ENALabel!
 	@IBOutlet private weak var imageView: UIImageView!
 	@IBOutlet private weak var contentStackView: UIStackView!
+	@IBOutlet private weak var contentView: UIView!
 	@IBOutlet private weak var contentScrollView: UIScrollView!
 	
 	private func setupView() {

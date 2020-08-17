@@ -19,24 +19,20 @@
 
 import UIKit
 
-extension UIScrollView {
-	func screenshot() -> UIImage? {
-		UIGraphicsBeginImageContext(contentSize)
-		
-		let savedContentOffset = contentOffset
-		let savedFrame = frame
-		
-		contentOffset = CGPoint.zero
-		frame = CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height)
-		
-		layer.render(in: UIGraphicsGetCurrentContext()!)
-		let image = UIGraphicsGetImageFromCurrentImageContext()
-		
-		contentOffset = savedContentOffset
-		frame = savedFrame
-		
-		UIGraphicsEndImageContext()
-		
-		return image
+extension UIView {
+
+	var asPDF: NSData {
+		let pageDimensions = bounds
+		let outputData = NSMutableData()
+
+		UIGraphicsBeginPDFContextToData(outputData, pageDimensions, nil)
+		if let context = UIGraphicsGetCurrentContext() {
+			UIGraphicsBeginPDFPage()
+			layer.render(in: context)
+		}
+		UIGraphicsEndPDFContext()
+
+		return outputData
 	}
+
 }

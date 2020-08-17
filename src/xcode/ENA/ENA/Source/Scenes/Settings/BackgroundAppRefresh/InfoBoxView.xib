@@ -23,10 +23,10 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hOt-m3-pCZ" userLabel="GrayArea">
-                    <rect key="frame" x="16" y="16" width="382" height="780"/>
+                    <rect key="frame" x="16" y="16" width="382" height="740"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ufj-pQ-XcM" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="16" y="9" width="306" height="20.5"/>
+                            <rect key="frame" x="16" y="9" width="306" height="26.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -42,7 +42,7 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xz6-s9-cbH" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="16" y="527.5" width="350" height="20.5"/>
+                            <rect key="frame" x="16" y="487.5" width="350" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -51,7 +51,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="200" axis="vertical" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="5fd-4R-3SA">
-                            <rect key="frame" x="16" y="564" width="350" height="200"/>
+                            <rect key="frame" x="16" y="524" width="350" height="200"/>
                         </stackView>
                     </subviews>
                     <color key="backgroundColor" name="ENA Separator Color"/>
@@ -77,14 +77,14 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3n-FV-E0G" userLabel="Settings" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                    <rect key="frame" x="16" y="812" width="382" height="30"/>
+                    <rect key="frame" x="16" y="772" width="382" height="50"/>
                     <state key="normal" title="Settings"/>
                     <connections>
                         <action selector="onSettings" destination="-1" eventType="touchUpInside" id="zXc-FI-AZv"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCK-6F-VwA" userLabel="Share" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                    <rect key="frame" x="16" y="850" width="382" height="30"/>
+                    <rect key="frame" x="16" y="830" width="382" height="50"/>
                     <state key="normal" title="Share"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isTransparent" value="YES"/>
