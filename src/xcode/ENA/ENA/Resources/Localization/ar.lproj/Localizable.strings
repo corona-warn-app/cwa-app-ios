@@ -52,21 +52,17 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "تسجيل المخالطة توقف";
 
-"ExposureDetection_Outdated" = "تسجيل المخالطة غير ممكن";
-
 "ExposureDetection_Unknown" = "خطر غير معروف";
 
 "ExposureDetection_Low" = "خطر منخفض";
 
-"ExposureDetection_High" = "خطر أعلى";
-
-"ExposureDetection_NumberOfDaysStored" = "%d من 14 يومًا نشط";
+"ExposureDetection_High" = "خطر مرتفع";
 
 "ExposureDetection_Refreshed" = "تم التحديث: %@";
 
 "ExposureDetection_Refreshed_Never" = "غير معروف";
 
-"ExposureDetection_RefreshingIn" = "التحديث في %02d:%02d من الدقائق";
+"ExposureDetection_RefreshingIn" = "التحديث في %02d:%02d\U00A0 من الدقائق";
 
 "ExposureDetection_RefreshIn" = "تحديث في %@";
 
@@ -218,7 +214,7 @@
 
 "Onboarding_DeactivateExposureConfirmation_message" = "يمكنك إلغاء تنشيط هذه الميزة في أي وقت.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "مجموعة أشخاص يستخدمون أجهزتهم حول المدينة.";
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "مجموعة أشخاص يستخدمون أجهزتهم في المدينة جميعًا.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_title" = "لنكافح فيروس كورونا معًا";
 
@@ -260,7 +256,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "...يُرجى الإبلاغ عن هذا في تطبيق Corona-Warn-App. مشاركة نتائج اختبارك أمر اختياري وآمن. يُرجى القيام بهذا من أجل صحة الجميع.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "يتم تشفير إشعارك ومعالجته بصورة آمنة على خادم آمن. يتلقى الأشخاص الذين قام جهازك بتجميع معرفاتهم العشوائية، الآن تحذيرًا مصحوبًا بمعلومات حول ما يجب عليهم القيام به الآن.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "يتم تشفير إشعارك ومعالجته بصورة آمنة على خادم آمن. الآن، سيتلقى الأشخاص الذين قام جهازك بتجميع معرفاتهم العشوائية المشفرة تحذيرًا مصحوبًا بمعلومات حول ما يجب عليهم فعله على الفور.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "سيدة تتلقى إشعارًا من تطبيق Corona-Warn-App.";
 
@@ -325,9 +321,9 @@
 
 "ExposureSubmissionHotline_Title" = "طلب رقم المعاملة (TAN)";
 
-"ExposureSubmissionHotline_Description" = "يُرجى تجهيز نتيجة اختبارك (إن وُجدت) ورقم هاتفك لطلب رقم المعاملة (TAN).";
+"ExposureSubmissionHotline_Description" = "يُرجى الاحتفاظ بنتيجة اختبارك (إن وُجدت) وجهز رقم هاتفك لطلب رقم المعاملة (TAN).\n\nيُدعم الخط الساخن خدمات Tess Relay للأشخاص الذين يُعانون من ضعف السمع.";
 
-"ExposureSubmissionHotline_SectionTitle" = "كيف يعمل ذلك";
+"ExposureSubmissionHotline_SectionTitle" = "كيف يعمل ذلك:";
 
 "ExposureSubmissionHotline_SectionDescription1" = "اتصل بالخط الساخن واطلب رقم المعاملة (TAN):";
 
@@ -461,9 +457,9 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "هناك مشكلة في تقييم اختبارك. الرجاء الاتصال بدائرة الصحة العامة لمعرفة كيفية المتابعة.";
 
-"ExposureSubmissionResult_testRedeemed" = "Test has errors";
+"ExposureSubmissionResult_testRedeemed" = "الاختبار به أخطاء";
 
-"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR Code has already expired.";
+"ExposureSubmissionResult_testRedeemedDesc" = "هناك مشكلة في تقييم اختبارك، حيث انتهت صلاحية رمز الاستجابة السريعة (QR).";
 
 "ExposureSubmissionResult_testPending" = "نتيجة الاختبار غير متوفرة حتى الآن";
 
@@ -502,6 +498,7 @@
 "ExposureSubmissionResult_RegistrationDate" = "تاريخ التسجيل";
 
 /* Exposure Submission */
+
 "ExposureSubmissionError_NoKeys" = "لا يتوفر أي مفتاح تشخيص. الرجاء المحاولة مرة أخرى غدًا.";
 
 "ExposureSubmissionError_InvalidTan" = "رقم المعاملة (TAN) غير صالح للتقديم. الرجاء الاتصال بالخط الساخن الفني عبر معلومات التطبيق -> الخط الساخن الفني.";
@@ -624,7 +621,7 @@
 
 "Home_Risk_No_Date_Title" = "غير معروف";
 
-"Home_Risk_Period_Update_Title" = "يتم التحديث كل %@ من الساعات";
+"Home_Risk_Period_Update_Title" = "يتم التحديث كل %@\U00A0 من الساعات";
 
 "Home_Risk_Period_Disabled_Button_Title" = "يتم التحديث فقط كل %@ من الساعات";
 
@@ -636,7 +633,7 @@
 
 "Home_Risk_Last_Activate_Item_Low_Title" = "خطر منخفض";
 
-"Home_Risk_Last_Activate_Item_High_Title" = "خطر أعلى";
+"Home_Risk_Last_Activate_Item_High_Title" = "خطر مرتفع";
 
 "Home_RiskCard_Update_Button" = "تحديث";
 
@@ -662,12 +659,8 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "خطر منخفض";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "تسجيل المخالطة كان نشطًا لمدة %1$u من الأربعة عشر يومًا الماضية.";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "تسجيل المخالطة نشط دائمًا";
-
 /* Home High card */
-"Home_Risk_High_Title" = "خطر أعلى";
+"Home_Risk_High_Title" = "خطر مرتفع";
 
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "الفحص قيد التشغيل...";
@@ -804,11 +797,15 @@
 
 "App_Information_Imprint_Section3_Title" = "الاتصال";
 
-"App_Information_Imprint_Section3_Text" = "البريد الإلكتروني: CoronaWarnApp@rki.de\nالهاتف: ‎+49 30 18754 5100";
+"App_Information_Imprint_Section3_Text" = "البريد الإلكتروني: CoronaWarnApp@rki.de";
 
 "App_Information_Imprint_Section4_Title" = "رقم تعريف ضريبة القيمة المضافة";
 
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
+
+"App_Information_Contact_Form_Title" = "نموذج الاتصال";
+
+"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "الإخطارات القانونية";
@@ -902,7 +899,7 @@
 
 "RiskLegend_Legend2_RiskLevels" = "قد يظهر لك مستوى الخطر التالي:";
 
-"RiskLegend_Legend2_High" = "خطر أعلى";
+"RiskLegend_Legend2_High" = "خطر مرتفع";
 
 "RiskLegend_Legend2_High_Color" = "أحمر";
 
@@ -930,7 +927,7 @@
 
 "RiskLegend_Contact_Title" = "المخالطات";
 
-"RiskLegend_Contact_Text" = "التجمُّعات لمدة أطول وعن قرب مع أشخاص مصابين بمرض كوفيد-19.";
+"RiskLegend_Contact_Text" = "التجمُّعات لمدة طويلة ومن مسافة قريبة جدًا مع أشخاص مصابين بمرض كوفيد-19.";
 
 "RiskLegend_Notification_Title" = "إشعار المخالطة";
 
