@@ -75,7 +75,7 @@ extension AppDelegate {
 	func executeFakeRequestOnAppLaunch(probability p: Double) -> Bool {
 		assert(p <= 1, "p should be lower than or equal 1.0")
 		assert(p >= 0, "p should be greater than or equal 0.0")
-		if Double.random(in: 0...1) <= p {
+		if Double.random(in: 0.0.nextUp...1) <= p {
 			sendFakeRequest()
 			return true
 		}
