@@ -67,11 +67,19 @@ extension AppDelegate {
 		}
 	}
 
-	func executeFakeRequestOnAppLaunch() {
-		// Disabled on purpose as of business decision per 2020-08-14
-		return
 
-		//sendFakeRequest()
+	/// Randomly execute a fake request
+	/// - Parameter propability: the probability p to execute a fake request. Accepting values between 0 and 1.
+	/// - Returns: Bool to indicate wether the fake request has been sent
+	@discardableResult
+	func executeFakeRequestOnAppLaunch(propability p: Double) -> Bool {
+		assert(p <= 1, "p should be lighter than or equal 1.0")
+		assert(p >= 0, "p should be greater than or equal 0.0")
+		if Double.random(in: 0...1) <= p {
+			sendFakeRequest()
+			return true
+		}
+		return false
 	}
 
 	/// Triggers one or more fake requests over a time interval of multiple seconds.
