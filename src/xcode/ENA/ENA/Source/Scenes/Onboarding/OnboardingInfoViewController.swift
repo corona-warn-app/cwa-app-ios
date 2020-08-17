@@ -168,7 +168,7 @@ final class OnboardingInfoViewController: UIViewController {
 		textLabel.text = onboardingInfo.text
 		textLabel.isHidden = onboardingInfo.text.isEmpty
 
-		let language = Bundle.main.preferredLocalizations.first! as NSString
+		let language = Bundle.main.preferredLocalizations.first ?? ""
 		if language == "de" {
 			let textAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 15, weight: .regular), .link: onboardingInfo.link]
 
