@@ -18,6 +18,10 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>CoronaWarn</string>
+	<key>ENDeveloperRegion</key>
+	<string>DE</string>
+	<key>ENAPIVersion</key>
+	<integer>1</integer>
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
