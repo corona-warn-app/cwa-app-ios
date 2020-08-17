@@ -53,18 +53,7 @@ enum RiskLevel: Int, CaseIterable {
 }
 
 extension RiskLevel: Comparable {
-	/// - attention: Might not produce valid results when sorting Collections  of RiskLevels, because of the exception case which overrides the normal rawValue compare!
 	static func < (lhs: RiskLevel, rhs: RiskLevel) -> Bool {
-		// Generally we compare the raw values, but there is one exception:
-		// .increased should override .unknownOutdated
-		switch (lhs, rhs) {
-		case (.unknownOutdated, .increased):
-			return true
-		// .increased should override .unknownInitial
-		case (.unknownInitial, .increased):
-				return true
-		default:
-		return lhs.rawValue < rhs.rawValue
-		}
+		lhs.rawValue < rhs.rawValue
 	}
 }
