@@ -25,13 +25,15 @@ import UIKit
 extension AppDelegate {
 
 	private enum Constants {
-		static let minHoursToNextBackgroundExecution = 4.0
-		static let maxHoursToNextBackgroundExecution = 12.0
-		static let numberOfDaysToRunPlaybook = 16.0
-		static let minNumberOfSequentialPlaybooks = 1
-		static let maxNumberOfSequentialPlaybooks = 4
-		static let minDelayBetweenSequentialPlaybooks = 5 // seconds
-		static let maxDelayBetweenSequentialPlaybooks = 10 // seconds
+		static let minHoursToNextBackgroundExecution = 0.0
+		static let maxHoursToNextBackgroundExecution = 0.0
+		static let numberOfDaysToRunPlaybook = 0.0
+		static let minNumberOfSequentialPlaybooks = 0
+		static let maxNumberOfSequentialPlaybooks = 0
+		/// In seconds
+		static let minDelayBetweenSequentialPlaybooks = 0
+		/// In seconds
+		static let maxDelayBetweenSequentialPlaybooks = 0
 		static let secondsPerDay = 86_400.0
 	}
 
@@ -66,16 +68,10 @@ extension AppDelegate {
 	}
 
 	func executeFakeRequestOnAppLaunch() {
-		// Execute a fake request 1 in 100 times while we are running in foreground.
-		// We therefore define a magic number and only send a fake request when
-		// our random number from [1, 100] matches the magic number.
-		let magicNumber = 6
-		guard
-			UIApplication.shared.applicationState == .active,
-			Int.random(in: 1...100) == magicNumber
-		else { return }
+		// Disabled on purpose as of business decision per 2020-08-14
+		return
 
-		sendFakeRequest()
+		//sendFakeRequest()
 	}
 
 	/// Triggers one or more fake requests over a time interval of multiple seconds.
