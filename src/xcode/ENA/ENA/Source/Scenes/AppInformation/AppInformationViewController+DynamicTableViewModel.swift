@@ -248,8 +248,7 @@ extension AppInformationViewController {
 
 // return a link if language is German; else return an empty string
 private func germanLinkText() -> String {
-	let language = Bundle.main.preferredLocalizations.first ?? ""
-	if language == "de" {
+      if Bundle.main.preferredLocalizations.first == "de" {
 		return AppStrings.AppInformation.aboutLink
 	} else {
 		return ""
