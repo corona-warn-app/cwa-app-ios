@@ -90,7 +90,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
 		// explicitely disabled as per #EXPOSUREAPP-2214
-		(UIApplication.shared.delegate as? AppDelegate)?.executeFakeRequestOnAppLaunch(propability: 0.0)
+		(UIApplication.shared.delegate as? AppDelegate)?.executeFakeRequestOnAppLaunch(probability: 0.0)
 	}
 
 	// MARK: Helper
