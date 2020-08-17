@@ -33,10 +33,6 @@ enum RiskLevel: Int, CaseIterable {
 	
 	/// Low risk
 	case low = 0
-	/// Increased risk
-	///
-	/// - important: Should overrule `.unknownOutdated`, and `.unknownInitial`
-	case increased
 	/// Unknown risk  last calculation more than 24 hours old
 	///
 	/// Will be shown when the last calculation is more than 24 hours old - until the calculation is run again
@@ -46,6 +42,10 @@ enum RiskLevel: Int, CaseIterable {
 	///
 	/// - important: Overrules `.low` and `.unknownOutdated`
 	case unknownInitial
+	/// Increased risk
+	///
+	/// - important: Should overrule `.unknownOutdated`, and `.unknownInitial`
+	case increased
 	/// No calculation possible - tracing is inactive
 	///
 	/// - important: Should always be displayed, even if a different risk level has been calculated. It should override all other levels!
