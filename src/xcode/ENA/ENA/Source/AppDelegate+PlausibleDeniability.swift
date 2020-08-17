@@ -72,7 +72,7 @@ extension AppDelegate {
 	/// - Parameter propability: the probability p to execute a fake request. Accepting values between 0 and 1.
 	/// - Returns: Bool to indicate wether the fake request has been sent
 	@discardableResult
-	func executeFakeRequestOnAppLaunch(propability p: Double) -> Bool {
+	func executeFakeRequestOnAppLaunch(probability p: Double) -> Bool {
 		assert(p <= 1, "p should be lighter than or equal 1.0")
 		assert(p >= 0, "p should be greater than or equal 0.0")
 		if Double.random(in: 0...1) <= p {
