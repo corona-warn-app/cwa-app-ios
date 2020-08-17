@@ -52,15 +52,11 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "Exposure logging stopped";
 
-"ExposureDetection_Outdated" = "Exposure logging is not possible";
-
 "ExposureDetection_Unknown" = "Unknown Risk";
 
 "ExposureDetection_Low" = "Low Risk";
 
 "ExposureDetection_High" = "Increased Risk";
-
-"ExposureDetection_NumberOfDaysStored" = "%d of 14 days active";
 
 "ExposureDetection_Refreshed" = "Updated: %@";
 
@@ -325,7 +321,7 @@
 
 "ExposureSubmissionHotline_Title" = "Request TAN";
 
-"ExposureSubmissionHotline_Description" = "Please keep your test result (if available) and your phone number ready to request a TAN.";
+"ExposureSubmissionHotline_Description" = "Please keep your test result (if available) and your phone number ready to request a TAN.\n\nThe hotline supports Tess Relay services for people with hearing impairments.";
 
 "ExposureSubmissionHotline_SectionTitle" = "How this works:";
 
@@ -463,7 +459,7 @@
 
 "ExposureSubmissionResult_testRedeemed" = "Test has errors";
 
-"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR Code has already expired.";
+"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR code has already expired.";
 
 "ExposureSubmissionResult_testPending" = "Test result is not yet available";
 
@@ -502,6 +498,7 @@
 "ExposureSubmissionResult_RegistrationDate" = "Registered on";
 
 /* Exposure Submission */
+
 "ExposureSubmissionError_NoKeys" = "No diagnosis key is available. Please try again tomorrow.";
 
 "ExposureSubmissionError_InvalidTan" = "The generated TAN is invalid for submission. Please contact the technical hotline via App Information -> Technical Hotline.";
@@ -655,14 +652,6 @@
 
 "Home_Risk_Inactive_Outdated_Results_Body" = "Your exposure logging could not be updated for more than 24 hours.";
 
-"Home_Risk_Inactive_Activate_Item_Title" = "Last exposure logging: %@";
-
-"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Unknown Risk";
-
-"Home_Risk_Inactive_Activate_Item_Low_Title" = "Low Risk";
-
-"Home_Risk_Inactive_Activate_Item_High_Title" = "Increased Risk";
-
 "Home_Risk_Inactive_NoCalculation_Possible_Button" = "Activate Exposure Logging";
 
 "Home_Risk_Inactive_Outdated_Results_Button" = "Activate Exposure Logging";
@@ -670,14 +659,8 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Low Risk";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "Exposure logging was active for %1$u of the past %2$u days.";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Exposure logging permanently active";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Increased Risk";
-
-"Home_Risk_High_Button" = "Update";
 
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Check is running …";
@@ -773,7 +756,7 @@
 
 "App_Information_About_Title" = "Let's fight coronavirus together";
 
-"App_Information_About_Description" = "Robert Koch Institute (RKI) is Germany’s federal public health body. The RKI publishes the Corona-Warn-App in the name of the Federal Government. The app represents the digital extension of public health measures already introduced: social distancing, hygiene, and face masks.";
+"App_Information_About_Description" = "Robert Koch Institute (RKI) is Germany’s federal public health body. The RKI publishes the Corona-Warn-App on behalf of the Federal Government. The app is intended as a digital complement to public health measures already introduced: social distancing, hygiene, and face masks.";
 
 "App_Information_About_Text" = "Whoever uses the app helps to trace and break chains of infection. The app saves encounters with other people locally on your device. You are notified if you have encountered people who were later diagnosed with COVID-19. Your identity and privacy are always protected.";
 
@@ -814,11 +797,15 @@
 
 "App_Information_Imprint_Section3_Title" = "Contact";
 
-"App_Information_Imprint_Section3_Text" = "E-Mail: CoronaWarnApp@rki.de\nTelephone: +49 30 18754 5100";
+"App_Information_Imprint_Section3_Text" = "E-Mail: CoronaWarnApp@rki.de";
 
 "App_Information_Imprint_Section4_Title" = "VAT identification number";
 
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
+
+"App_Information_Contact_Form_Title" = "Contact Form";
+
+"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Legal Notices";

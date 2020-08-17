@@ -35,6 +35,10 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Hintergrundaktualisierung ausgeschaltet";
 
+"Common_Deadman_AlertTitle" = "Ihr Risikostatus";
+
+"Common_Deadman_AlertBody" = "Bitte denken Sie daran, die Corona-Warn-App regelmäßig zu öffnen, um Ihren Risikostatus zu überprüfen.";
+
 /* General - Links */
 "General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
 
@@ -52,15 +56,11 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "Risiko-Ermittlung gestoppt";
 
-"ExposureDetection_Outdated" = "Risiko-Ermittlung nicht möglich";
-
 "ExposureDetection_Unknown" = "Unbekanntes Risiko";
 
 "ExposureDetection_Low" = "Niedriges Risiko";
 
 "ExposureDetection_High" = "Erhöhtes Risiko";
-
-"ExposureDetection_NumberOfDaysStored" = "%d von 14 Tagen aktiv";
 
 "ExposureDetection_Refreshed" = "Aktualisiert: %@";
 
@@ -86,7 +86,7 @@
 
 "ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig";
 
-"ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig.";
+"ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig mit Seife für 20 Sekunden.";
 
 "ExposureDetection_Guide_Mask" = "Tragen Sie einen Mund-Nasen-Schutz bei Begegnungen mit anderen Personen.";
 
@@ -459,7 +459,7 @@
 
 "ExposureSubmissionResult_testInvalid" = "Test fehlerhaft";
 
-"ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Gesundheitsamt, um Informationen zum weiteren Vorgehen zu erhalten.";
+"ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Testcenter oder das zuständige Labor, um Information zum weiteren Vorgehen zu erhalten.";
 
 "ExposureSubmissionResult_testRedeemed" = "Test fehlerhaft";
 
@@ -502,6 +502,9 @@
 "ExposureSubmissionResult_RegistrationDate" = "Registriert am";
 
 /* Exposure Submission */
+
+"ExposureSubmissionError_ErrorPrefix" = "Es ist einen technischer Fehler bei der Übertragung Ihrer Daten aufgetreten. Wenden Sie sich bitte an die technische Hotline. Die Nummer finden Sie unter App-Informationen.";
+
 "ExposureSubmissionError_NoKeys" = "Keine Positivkennung verfügbar. Bitte versuchen Sie es morgen erneut.";
 
 "ExposureSubmissionError_InvalidTan" = "Die erzeugte Übermittlungs-TAN ist ungültig. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
@@ -662,10 +665,6 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "Risiko-Ermittlung war für %1$u der letzten 14 Tage aktiv";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Risiko-Ermittlung dauerhaft aktiv";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Erhöhtes Risiko";
 
@@ -804,11 +803,15 @@
 
 "App_Information_Imprint_Section3_Title" = "Kontakt";
 
-"App_Information_Imprint_Section3_Text" = "E-Mail: CoronaWarnApp@rki.de\nTelefon: +49 30 18754 5100";
+"App_Information_Imprint_Section3_Text" = "E-Mail: CoronaWarnApp@rki.de";
 
 "App_Information_Imprint_Section4_Title" = "Umsatzsteueridentifikationsnummer";
 
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
+
+"App_Information_Contact_Form_Title" = "Kontaktformular";
+
+"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Rechtliche Hinweise";

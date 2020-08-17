@@ -70,9 +70,8 @@ class CoordinatorTests: XCTestCase {
     }
 
 	func test_coordinator_shouldShowHome() {
-		let service = MockReachabilityService()
 		let delegate = MockStateHandlerObserverDelegate()
-		let enStateHandler = ENStateHandler(initialExposureManagerState: .init(), reachabilityService: service, delegate: delegate)
+		let enStateHandler = ENStateHandler(initialExposureManagerState: .init(), delegate: delegate)
 		coordinator.showHome(enStateHandler: enStateHandler, state: .init(exposureManager: .init(), detectionMode: .automatic, risk: nil))
 		let setViewControllersWasCalled = coordinator.mockNavigationController.setViewControllersWasCalled
 		XCTAssertTrue(setViewControllersWasCalled)
