@@ -52,15 +52,11 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "Определение риска остановлено";
 
-"ExposureDetection_Outdated" = "Определение риска невозможно";
-
 "ExposureDetection_Unknown" = "Неизвестный риск";
 
 "ExposureDetection_Low" = "Низкий риск";
 
 "ExposureDetection_High" = "Повышенный риск";
-
-"ExposureDetection_NumberOfDaysStored" = "Дней активности: %d из 14";
 
 "ExposureDetection_Refreshed" = "Обновлено: %@";
 
@@ -70,7 +66,7 @@
 
 "ExposureDetection_RefreshIn" = "Обновление через %@";
 
-"ExposureDetection_Refresh_24h" = "Обновление каждые 24 часа";
+"ExposureDetection_Refresh_24h" = "Обновление каждые 24 ч";
 
 "ExposureDetection_LastRiskLevel" = "Последнее определение риска: %@";
 
@@ -110,7 +106,7 @@
 
 "ExposureDetection_Explanation_Subtitle_Inactive" = "Вот как рассчитывается Ваш риск";
 
-"ExposureDetection_Explanation_Text_Off" = "Риск заражения рассчитывается на Вашем устройстве по локальным данным определения риска (продолжительности и близости). Данные риска заражения не показываются и не передаются другим лицам.";
+"ExposureDetection_Explanation_Text_Off" = "Ваш риск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
 
 "ExposureDetection_Explanation_Text_Outdated" = "С момента активации определения риска не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.\n\nВаш риск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
 
@@ -138,14 +134,9 @@
 /* Exposure Detection Errors */
 "ExposureDetectionError_Alert_Title" = "Ошибка";
 
-"ExposureDetectionError_Alert_Action_Details" = "Подробная информация";
+"ExposureDetectionError_Alert_Action_Details" = "Сведения";
 
-"ExposureDetectionError_Alert_Message" = "Обнаружена ошибка при определении риска.";
-
-/* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
-"How_Risk_Detection_Works_Alert_Title" = "Информация о функции определения риска";
-
-"How_Risk_Detection_Works_Alert_Message" = "Ваш риск заражения можно рассчитать только для периодов с активным определением риска, поэтому функция определения риска должна быть постоянно включена.\nОпределение риска охватывает последние %1$u дн.\nПриложение автоматически удалит старые журналы, как только они потеряют значение для предотвращения заражения.\n\nПодробнее см. страницу часто задаваемых вопросов.";
+"ExposureDetectionError_Alert_Message" = "Ошибка при определении риска.";
 
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Информация о функции определения риска";
@@ -171,7 +162,7 @@
 
 "Settings_Reset_Label" = "Сбросить приложение";
 
-"Settings_Tracing_Description" = "Разрешить генерацию и предоставление случайных идентификаторов COVID-19";
+"Settings_Tracing_Description" = "Разрешите генерацию и предоставление случайных идентификаторов COVID-19.";
 
 "Settings_Notification_Description" = "Разрешите автоматические уведомления о Вашем статусе риска заражения COVID-19.";
 
@@ -229,7 +220,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Более надежная защита для Вас и для всех нас. Приложение Corona-Warn-App поможет быстрее остановить передачу инфекции.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Сделайте свое устройство системой предупреждения о коронавирусе. Получайте информацию о своем статусе риска и определяйте, были ли у Вас за последние 14 дней близкие контакты с лицами с положительным тестом на COVID-19.\n\nКонтакты регистрируются в приложении путем обмена зашифрованными случайными идентификаторами между устройствами без доступа к каким-либо персональным данным.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Сделайте из Вашего устройства систему  предупреждения о коронавирусе. Просматривайте Ваш статус риска и определяйте, были ли у Вас близкие контакты с лицами с положительным тестом на COVID-19 за последние 14 дней.\n\nКонтакты людей регистрируются в приложении путем обмена зашифрованными случайными идентификаторами между  устройствами без доступа к каким-либо персональным данным.";
 
 "OnboardingInfo_privacyPage_imageDescription" = "На смартфоне одной женщины установлено приложение Corona-Warn-App. Значок замка на фоне щита указывает на шифрование данных.";
 
@@ -330,7 +321,7 @@
 
 "ExposureSubmissionHotline_Title" = "Запросить TAN";
 
-"ExposureSubmissionHotline_Description" = "Для запроса TAN просим Вас подготовить результат теста (если есть) и Ваш номер телефона.";
+"ExposureSubmissionHotline_Description" = "Для запроса TAN просим Вас подготовить результат теста (если есть) и Ваш номер телефона.\n\nГорячая линия поддерживает оказание услуг Tess Relay для слабослышащих людей.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Как это работает:";
 
@@ -466,9 +457,9 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "При анализе вашего теста возникла проблема. Обратитесь в местный орган здравоохранения за дальнейшими рекомендациями.";
 
-"ExposureSubmissionResult_testRedeemed" = "Test has errors";
+"ExposureSubmissionResult_testRedeemed" = "В тесте есть ошибки";
 
-"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR Code has already expired.";
+"ExposureSubmissionResult_testRedeemedDesc" = "Обнаружена проблема при анализе вашего теста. Ваш QR-код уже просрочен.";
 
 "ExposureSubmissionResult_testPending" = "Результат теста еще не доступен";
 
@@ -507,6 +498,7 @@
 "ExposureSubmissionResult_RegistrationDate" = "Дата регистрации";
 
 /* Exposure Submission */
+
 "ExposureSubmissionError_NoKeys" = "Код диагноза недоступен. Повторите попытку завтра.";
 
 "ExposureSubmissionError_InvalidTan" = "Сгенерированный TAN недействителен для отправки. Обратитесь на горячую линию по техническим вопросам по пути: Информация о приложении -> Горячая линия по техническим вопросам.";
@@ -568,7 +560,7 @@
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Открыть настройки устройства";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "Активировать определение контакта с COVID-19 и уведомления ";
+"ExposureNotificationSetting_Activate_OSENSetting" = "Активировать определение контакта с COVID-19 и уведомления";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Для определения риска необходимо активировать ведение журнала контактов с COVID-19 и уведомления в настройках системы. Активируйте ведение журнала контактов с COVID-19 и уведомления в настройках вашей системы.";
 
@@ -578,7 +570,7 @@
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Требуется авторизация";
 
-"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Подтвердите использование журнала контактов с COVID-19.";
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Подтвердите использование журнала контактов с COVID-19 .";
 
 "ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Авторизация";
 
@@ -666,12 +658,6 @@
 
 /* Home Low card */
 "Home_Risk_Low_Title" = "Низкий риск";
-
-"Home_Risk_Low_SaveDays_Item_Title" = "Определение риска было активно %1$u из %2$u прошедш. дн.";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Определение риска постоянно активно.";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Определение риска постоянно активно.";
 
 /* Home High card */
 "Home_Risk_High_Title" = "Повышенный риск";
@@ -770,7 +756,7 @@
 
 "App_Information_About_Title" = "Давайте победим коронавирус вместе";
 
-"App_Information_About_Description" = "Институт Роберта Коха (РКИ) — это центральный федеральный институт Германии в области здравоохранения. По запросу федерального правительства РКИ выпустил приложение Corona-Warn-App. Приложение стало цифровым дополнением к уже принятым санитарным мерам: социальной дистанции, гигиене и ношению защитных масок.";
+"App_Information_About_Description" = "Институт Роберта Коха (РКИ) — это центральный федеральный институт Германии в области здравоохранения. По поручению федерального правительства РКИ выпустил приложение Corona-Warn-App. Приложение задумано как цифровое дополнение к уже принятым санитарным мерам: социальной дистанции, гигиене и ношению защитных масок.";
 
 "App_Information_About_Text" = "Каждый пользователь приложения помогает отслеживать и останавливать передачу инфекции. Приложение регистрирует контакты с другими людьми локально на вашем устройстве. Вы получаете уведомления о контактах с людьми, которые впоследствии получили положительный результат теста на COVID-19. Ваши персональные данные и конфиденциальность надежно защищены.";
 
@@ -794,7 +780,7 @@
 
 "App_Information_Contact_Hotline_Description" = "Наша служба поддержки всегда готова помочь.";
 
-"App_Information_Contact_Hotline_Terms" = "Языки: немецкий, английский, турецкий\n\nЧасы работы:\nПонедельник – суббота, 7:00-22:00\n(кроме государственных праздников)\n\nВсе звонки бесплатны.";
+"App_Information_Contact_Hotline_Terms" = "Языки: немецкий, английский, турецкий\n\nЧасы работы:\nпн-сб, 7:00-22:00\n(кроме государственных праздников)\n\nВсе звонки бесплатны.";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Правовая информация";
@@ -811,11 +797,15 @@
 
 "App_Information_Imprint_Section3_Title" = "Контакты";
 
-"App_Information_Imprint_Section3_Text" = "Эл. почта: CoronaWarnApp@rki.de\nТел.: +49 30 18754 5100";
+"App_Information_Imprint_Section3_Text" = "E-mail: CoronaWarnApp@rki.de";
 
 "App_Information_Imprint_Section4_Title" = "ИНН";
 
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
+
+"App_Information_Contact_Form_Title" = "Форма контакта";
+
+"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Правовые положения";
@@ -854,7 +844,7 @@
 "InviteFriends_Illustration_Label" = "Человек делится приложением Corona-Warn-App с четырьмя другими людьми.";
 
 /* Reset View */
-"Reset_NavTitle" = "Сбросить";
+"Reset_NavTitle" = "Сброс";
 
 "Reset_Header1" = "Действительно сбросить приложение?";
 
@@ -878,7 +868,7 @@
 
 "Reset_ConfirmDialog_Cancel" = "Отменить";
 
-"Reset_ConfirmDialog_Confirm" = "Сбросить";
+"Reset_ConfirmDialog_Confirm" = "Сброс";
 
 /* Safari */
 "safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";
@@ -968,7 +958,7 @@
 "ENATanInput_CharacterIndex" = "Символ %1$u из %2$u";
 
 /* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
-"Active_Tracing_Interval_Partially_Active" = "Определение риска было активно %1$u из %2$u прошедш. дн.";
+"Active_Tracing_Interval_Partially_Active" = "Определение риска активно %1$u из 14 прошедших дней.";
 
 "Active_Tracing_Interval_Permanently_Active" = "Определение риска постоянно активно.";
 
