@@ -29,6 +29,8 @@ struct OnboardingInfo {
 	var stateDeactivated: String?
 	var boldText: String
 	var text: String
+	var link: String
+	var linkDisplayText: String
 	var actionText: String
 	var ignoreText: String
 	var titleAccessibilityIdentifier: String?
@@ -46,6 +48,8 @@ extension OnboardingInfo {
 			showState: false,
 			boldText: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_normalText,
+			link: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_link,
+			linkDisplayText: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_linkText,
 			actionText: AppStrings.Onboarding.onboardingLetsGo,
 			ignoreText: "",
 			titleAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title,
@@ -62,6 +66,8 @@ extension OnboardingInfo {
 			showState: false,
 			boldText: AppStrings.Onboarding.onboardingInfo_privacyPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_privacyPage_normalText,
+			link: "",
+			linkDisplayText: "",
 			actionText: AppStrings.Onboarding.onboardingContinue,
 			ignoreText: "",
 			titleAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_privacyPage_title,
@@ -82,6 +88,8 @@ extension OnboardingInfo {
 			stateDeactivated: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_stateDeactivated,
 			boldText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText,
+			link: "",
+			linkDisplayText: "",
 			actionText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button,
 			ignoreText: AppStrings.Onboarding.onboardingDoNotActivate,
 			titleAccessibilityIdentifier:
@@ -98,6 +106,8 @@ extension OnboardingInfo {
 			showState: false,
 			boldText: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_normalText,
+			link: "",
+			linkDisplayText: "",
 			actionText: AppStrings.Onboarding.onboardingContinue,
 			ignoreText: "",
 			titleAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_title,
@@ -113,6 +123,8 @@ extension OnboardingInfo {
 			showState: false,
 			boldText: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_normalText,
+			link: "",
+			linkDisplayText: "",
 			actionText: AppStrings.Onboarding.onboardingContinue,
 			ignoreText: AppStrings.Onboarding.onboardingDoNotAllow,
 			titleAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_alwaysStayInformedPage_title,
