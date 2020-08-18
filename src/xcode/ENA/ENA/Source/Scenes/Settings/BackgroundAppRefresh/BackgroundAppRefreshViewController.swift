@@ -76,13 +76,13 @@ class BackgroundAppRefreshViewController: UIViewController {
 	
 	private func setupBindings() {
 		subscriptions = [
-			viewModel.$backgroundAppRefreshStatusText.sink { [weak self] in
+			viewModel.$backgroundAppRefreshStatusText.receive(on: RunLoop.main).sink { [weak self] in
 				self?.backgroundAppRefreshStatusLabel.text = $0
 			},
-			viewModel.$image.sink { [weak self] in
+			viewModel.$image.receive(on: RunLoop.main).sink { [weak self] in
 					self?.imageView.image = $0
 			},
-			viewModel.$infoBoxViewModel.sink { [weak self] in
+			viewModel.$infoBoxViewModel.receive(on: RunLoop.main).sink { [weak self] in
 				self?.updateInfoxBox(with: $0)
 			}
 		]

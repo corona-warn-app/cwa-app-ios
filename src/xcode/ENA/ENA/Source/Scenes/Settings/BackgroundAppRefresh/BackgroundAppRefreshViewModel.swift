@@ -110,7 +110,7 @@ class BackgroundAppRefreshViewModel {
 				infoBoxViewModel = .init(
 					instructions: infoBoxInstructionsForOff + infoBoxInstructionLowPowerMode,
 					titleText: infoBoxTitle,
-					descriptionText: infoBoxDescriptionOff + "\n\n" + infoBoxDescriptionLowPowerMode,
+					descriptionText: infoBoxDescriptionLowPowerMode + "\n\n" + infoBoxDescriptionOff,
 					settingsText: "HUR DUR",
 					shareText: "SHARE SHARE",
 					settingsAction: onOpenSettings,
