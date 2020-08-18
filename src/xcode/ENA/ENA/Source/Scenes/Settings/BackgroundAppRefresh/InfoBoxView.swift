@@ -71,12 +71,26 @@ class InfoBoxView: UIView {
 					iconImageView.widthAnchor.constraint(equalToConstant: 28),
 					iconImageView.heightAnchor.constraint(equalToConstant: 28),
 					iconImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-					iconImageView.topAnchor.constraint(greaterThanOrEqualTo: containerView.topAnchor),
-					iconImageView.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor)
+					iconImageView.topAnchor.constraint(greaterThanOrEqualTo: containerView.topAnchor)
+				])
+
+				let enumerationLabel = ENALabel()
+				enumerationLabel.text = "\(index + 1)."
+				enumerationLabel.numberOfLines = 1
+				enumerationLabel.style = .headline
+				enumerationLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+				containerView.addSubview(enumerationLabel)
+				enumerationLabel.translatesAutoresizingMaskIntoConstraints = false
+
+				NSLayoutConstraint.activate([
+					enumerationLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 16),
+					enumerationLabel.topAnchor.constraint(greaterThanOrEqualTo: containerView.topAnchor),
+					enumerationLabel.centerYAnchor.constraint(equalTo: iconImageView.centerYAnchor)
 				])
 
 				let stepLabel = ENALabel()
-				stepLabel.text = "\(index + 1). \(step.text)"
+				stepLabel.text = step.text
 				stepLabel.numberOfLines = 0
 				stepLabel.style = .headline
 
@@ -84,11 +98,10 @@ class InfoBoxView: UIView {
 				stepLabel.translatesAutoresizingMaskIntoConstraints = false
 
 				NSLayoutConstraint.activate([
-					stepLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 16),
-//					stepLabel.firstBaselineAnchor.constraint(equalTo: iconImageView.firstBaselineAnchor),
-					stepLabel.topAnchor.constraint(greaterThanOrEqualTo: containerView.topAnchor),
+					stepLabel.leadingAnchor.constraint(equalTo: enumerationLabel.trailingAnchor, constant: 10),
+					stepLabel.firstBaselineAnchor.constraint(equalTo: enumerationLabel.firstBaselineAnchor),
 					stepLabel.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor),
-					stepLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
+					stepLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
 				])
 			}
 		}
