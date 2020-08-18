@@ -26,9 +26,12 @@ enum RiskLevel: Int, CaseIterable {
 	RiskLevels are ordered according to these rules:
 	1. .low is least
 	2. .inactive is highest
-	3. .increased overrides .unknownOutdated
+	3. .increased overrides .unknownInitial & .low
 	4. .unknownOutdated overrides .low AND .increased
 	5. .unknownInitial overrides .low AND .unknownOutdated
+	
+	Generally, comparing raw values of the below enum is sufficient to ensure the correct hierarchy, but there is one exception:
+	.unknownOutdated should override .increased - in order to ensure that the user always updates the exposure detection.
 	*/
 	
 	/// Low risk
@@ -44,7 +47,7 @@ enum RiskLevel: Int, CaseIterable {
 	case unknownInitial
 	/// Increased risk
 	///
-	/// - important: Should overrule `.unknownOutdated`, and `.unknownInitial`
+	/// - important: Should overrule `.low`, and `.unknownInitial`
 	case increased
 	/// No calculation possible - tracing is inactive
 	///
