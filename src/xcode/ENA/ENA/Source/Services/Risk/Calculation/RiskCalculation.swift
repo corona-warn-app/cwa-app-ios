@@ -90,7 +90,7 @@ enum RiskCalculation {
 
 		var riskLevels: [RiskLevel] = [.low]
 
-		// returns RiskLevel with higher priprity
+		// returns RiskLevel with higher priority
 		var riskLevel: RiskLevel {
 			riskLevels.max() ?? .inactive
 		}
