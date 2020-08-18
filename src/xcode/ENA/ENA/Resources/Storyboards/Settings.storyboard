@@ -827,6 +827,7 @@
                     <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="ZI5-dN-puf"/>
                     <connections>
                         <outlet property="backgroundAppRefreshStatusLabel" destination="OtP-hP-9Zd" id="0ke-V0-3I6"/>
+                        <outlet property="backgroundAppRefreshStatusStackView" destination="ZMf-VB-9kD" id="9Rj-8g-R84"/>
                         <outlet property="backgroundAppRefreshTitleLabel" destination="obg-bW-K4m" id="qhq-av-MFL"/>
                         <outlet property="contentScrollView" destination="7BX-iu-0L2" id="f6o-nM-yVl"/>
                         <outlet property="contentStackView" destination="1me-YL-aN7" id="NwW-bB-eJl"/>

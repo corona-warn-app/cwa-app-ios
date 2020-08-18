@@ -61,6 +61,7 @@ class BackgroundAppRefreshViewController: UIViewController {
 	@IBOutlet private weak var settingsHeaderLabel: ENALabel!
 	@IBOutlet private weak var backgroundAppRefreshTitleLabel: ENALabel!
 	@IBOutlet private weak var backgroundAppRefreshStatusLabel: ENALabel!
+	@IBOutlet private weak var backgroundAppRefreshStatusStackView: UIStackView!
 	@IBOutlet private weak var imageView: UIImageView!
 	@IBOutlet private weak var contentStackView: UIStackView!
 	@IBOutlet private weak var contentView: UIView!
@@ -72,12 +73,15 @@ class BackgroundAppRefreshViewController: UIViewController {
 		descriptionLabel.text = viewModel.description
 		settingsHeaderLabel.text = viewModel.settingsHeaderTitle
 		backgroundAppRefreshTitleLabel.text = viewModel.backgroundAppRefreshTitle
+
+		backgroundAppRefreshStatusStackView.isAccessibilityElement = true
 	}
 	
 	private func setupBindings() {
 		subscriptions = [
 			viewModel.$backgroundAppRefreshStatusText.receive(on: RunLoop.main).sink { [weak self] in
 				self?.backgroundAppRefreshStatusLabel.text = $0
+				self?.backgroundAppRefreshStatusStackView.accessibilityLabel = self?.viewModel.backgroundAppRefreshStatusAccessibilityLabel
 			},
 			viewModel.$image.receive(on: RunLoop.main).sink { [weak self] in
 					self?.imageView.image = $0
