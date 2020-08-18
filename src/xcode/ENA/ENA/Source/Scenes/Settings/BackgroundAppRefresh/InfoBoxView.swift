@@ -57,52 +57,7 @@ class InfoBoxView: UIView {
 			instructionsStackView.addArrangedSubview(titleLabel)
 
 			for index in 0..<instruction.steps.count {
-				let step = instruction.steps[index]
-
-				let containerView = UIView()
-				instructionsStackView.addArrangedSubview(containerView)
-
-				let iconImageView = UIImageView(image: step.icon)
-
-				containerView.addSubview(iconImageView)
-				iconImageView.translatesAutoresizingMaskIntoConstraints = false
-
-				NSLayoutConstraint.activate([
-					iconImageView.widthAnchor.constraint(equalToConstant: 28),
-					iconImageView.heightAnchor.constraint(equalToConstant: 28),
-					iconImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-					iconImageView.topAnchor.constraint(greaterThanOrEqualTo: containerView.topAnchor)
-				])
-
-				let enumerationLabel = ENALabel()
-				enumerationLabel.text = "\(index + 1)."
-				enumerationLabel.numberOfLines = 1
-				enumerationLabel.style = .headline
-				enumerationLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-
-				containerView.addSubview(enumerationLabel)
-				enumerationLabel.translatesAutoresizingMaskIntoConstraints = false
-
-				NSLayoutConstraint.activate([
-					enumerationLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 16),
-					enumerationLabel.topAnchor.constraint(greaterThanOrEqualTo: containerView.topAnchor),
-					enumerationLabel.centerYAnchor.constraint(equalTo: iconImageView.centerYAnchor)
-				])
-
-				let stepLabel = ENALabel()
-				stepLabel.text = step.text
-				stepLabel.numberOfLines = 0
-				stepLabel.style = .headline
-
-				containerView.addSubview(stepLabel)
-				stepLabel.translatesAutoresizingMaskIntoConstraints = false
-
-				NSLayoutConstraint.activate([
-					stepLabel.leadingAnchor.constraint(equalTo: enumerationLabel.trailingAnchor, constant: 10),
-					stepLabel.firstBaselineAnchor.constraint(equalTo: enumerationLabel.firstBaselineAnchor),
-					stepLabel.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor),
-					stepLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
-				])
+				instructionsStackView.addArrangedSubview(createView(for: instruction.steps[index], index: index))
 			}
 		}
 	}
@@ -133,6 +88,55 @@ class InfoBoxView: UIView {
 			view.bottomAnchor.constraint(equalTo: bottomAnchor),
 			view.leadingAnchor.constraint(equalTo: leadingAnchor)
 		])
+	}
+	
+	private func createView(for step: InfoBoxViewModel.InstructionStep, index: Int) -> UIView {
+		
+		let containerView = UIView()
+
+		let iconImageView = UIImageView(image: step.icon)
+
+		containerView.addSubview(iconImageView)
+		iconImageView.translatesAutoresizingMaskIntoConstraints = false
+
+		NSLayoutConstraint.activate([
+			iconImageView.widthAnchor.constraint(equalToConstant: 28),
+			iconImageView.heightAnchor.constraint(equalToConstant: 28),
+			iconImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+			iconImageView.topAnchor.constraint(greaterThanOrEqualTo: containerView.topAnchor)
+		])
+
+		let enumerationLabel = ENALabel()
+		enumerationLabel.text = "\(index + 1)."
+		enumerationLabel.numberOfLines = 1
+		enumerationLabel.style = .headline
+		enumerationLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+		containerView.addSubview(enumerationLabel)
+		enumerationLabel.translatesAutoresizingMaskIntoConstraints = false
+
+		NSLayoutConstraint.activate([
+			enumerationLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 16),
+			enumerationLabel.topAnchor.constraint(greaterThanOrEqualTo: containerView.topAnchor),
+			enumerationLabel.centerYAnchor.constraint(equalTo: iconImageView.centerYAnchor)
+		])
+
+		let stepLabel = ENALabel()
+		stepLabel.text = step.text
+		stepLabel.numberOfLines = 0
+		stepLabel.style = .headline
+
+		containerView.addSubview(stepLabel)
+		stepLabel.translatesAutoresizingMaskIntoConstraints = false
+
+		NSLayoutConstraint.activate([
+			stepLabel.leadingAnchor.constraint(equalTo: enumerationLabel.trailingAnchor, constant: 10),
+			stepLabel.firstBaselineAnchor.constraint(equalTo: enumerationLabel.firstBaselineAnchor),
+			stepLabel.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor),
+			stepLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
+		])
+		
+		return containerView
 	}
 	
 	@IBAction private func onShare() {
