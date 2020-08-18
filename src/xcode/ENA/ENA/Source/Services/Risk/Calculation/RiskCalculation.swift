@@ -79,7 +79,7 @@ enum RiskCalculation {
 		let isInactive = !preconditions.isGood
 
 		// Precondition 2 - If tracing is active less than 1 day, risk is .unknownInitial
-		let isTracingActiveLess1day = activeTracing.inHours < minTracingActiveHours
+		let isTracingActiveLess1Day = activeTracing.inHours < minTracingActiveHours
 
 		// Precondition 3 - Risk is unknownInitial if summary is not present
 		let isNoSummary = summary == nil
