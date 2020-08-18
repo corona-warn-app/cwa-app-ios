@@ -41,7 +41,6 @@ class BackgroundAppRefreshViewModel {
 	}
 	
 	// MARK: - Internal
-
 	let title = "Hintergrundaktualisierung"
 	let subTitle = "Corona-Warn-App im Hintergrund ausführen"
 	let description = """
@@ -50,13 +49,9 @@ class BackgroundAppRefreshViewModel {
 	Es fallen hierbei keine zusätzliche Kosten für die Datenübertragung im Mobilfunknetz an.
 	"""
 	
-	let settingsHeader = "Einstellung"
+	let settingsHeaderTitle = "Einstellung"
 	let backgroundAppRefreshTitle = "Hintergrundaktivität"
-	let infoBoxTitle = "Hintergrundaktualisierung einschalten"
-	let infoBoxDescriptionOff = "Die Hintergrundaktualisierung müssen Sie sowohl in den allgemeinen Einstellungen Ihres iPhones als auch in den Einstellungen der Corona-Warn-App einschalten."
-	let infoBoxDescriptionLowPowerMode = "Beachten Sie bitte, dass für das Einschalten der Hintergrundaktualisierung der Stromsparmodus ausgeschaltet sein muss."
-	let infoBoxTitleImage = UIImage(named: "Icons_iOS_Hintergrundaktualisierung_Aus")
-	@Published var infoBoxText: String = ""
+
 	@Published var backgroundAppRefreshStatusText: String = ""
 	@Published var image: UIImage?
 	@Published var showInfoBox: Bool = false
@@ -67,6 +62,13 @@ class BackgroundAppRefreshViewModel {
 	private let onOpenSettings: () -> Void
 	private let onShare: () -> Void
     private var subscriptions = Set<AnyCancellable>()
+
+	private let infoBoxTitle = "Hintergrundaktualisierung einschalten"
+	private let infoBoxDescriptionOff = "Die Hintergrundaktualisierung müssen Sie sowohl in den allgemeinen Einstellungen Ihres iPhones als auch in den Einstellungen der Corona-Warn-App einschalten."
+	private let infoBoxDescriptionLowPowerMode = "Beachten Sie bitte, dass für das Einschalten der Hintergrundaktualisierung der Stromsparmodus ausgeschaltet sein muss."
+	private let infoBoxTitleImage = UIImage(named: "Icons_iOS_Hintergrundaktualisierung_Aus")
+	private let buttonTextShare = "Anleitung teilen"
+	private let buttonTextSettings = "Einstellungen öffnen"
 
 	private var backgroundRefreshStatus: UIBackgroundRefreshStatus {
 		didSet {
@@ -86,19 +88,17 @@ class BackgroundAppRefreshViewModel {
 			case .on:
 				backgroundAppRefreshStatusText = "An"
 				image = UIImage(named: "Illu_Hintergrundaktualisierung_An")
-				infoBoxText = ""
 				infoBoxViewModel = nil
 			case .off:
 				showInfoBox = true
 				backgroundAppRefreshStatusText = "Aus"
 				image = UIImage(named: "Illu_Hintergrundaktualisierung_Aus")
-				infoBoxText = "TOLL NUR AUS"
 				infoBoxViewModel = .init(
 					instructions: infoBoxInstructionsForOff,
 					titleText: infoBoxTitle,
 					descriptionText: infoBoxDescriptionOff,
-					settingsText: "HUR DUR",
-					shareText: "SHARE SHARE",
+					settingsText: buttonTextSettings,
+					shareText: buttonTextShare,
 					settingsAction: onOpenSettings,
 					shareAction: onShare
 				)
@@ -106,13 +106,12 @@ class BackgroundAppRefreshViewModel {
 				showInfoBox = true
 				backgroundAppRefreshStatusText = "Aus"
 				image = UIImage(named: "Illu_Hintergrundaktualisierung_Aus")
-				infoBoxText = "DOOF STROM AUCH WEG"
 				infoBoxViewModel = .init(
-					instructions: infoBoxInstructionsForOff + infoBoxInstructionLowPowerMode,
+					instructions: infoBoxInstructionLowPowerMode + infoBoxInstructionsForOff,
 					titleText: infoBoxTitle,
-					descriptionText: infoBoxDescriptionLowPowerMode + "\n\n" + infoBoxDescriptionOff,
-					settingsText: "HUR DUR",
-					shareText: "SHARE SHARE",
+					descriptionText: infoBoxDescriptionOff + "\n\n" + infoBoxDescriptionLowPowerMode,
+					settingsText: buttonTextSettings,
+					shareText: buttonTextShare,
 					settingsAction: onOpenSettings,
 					shareAction: onShare
 				)

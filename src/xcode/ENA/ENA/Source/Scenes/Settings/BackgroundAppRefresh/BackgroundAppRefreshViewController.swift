@@ -70,7 +70,7 @@ class BackgroundAppRefreshViewController: UIViewController {
 		title = viewModel.title
 		subTitleLabel.text = viewModel.subTitle
 		descriptionLabel.text = viewModel.description
-		settingsHeaderLabel.text = viewModel.settingsHeader
+		settingsHeaderLabel.text = viewModel.settingsHeaderTitle
 		backgroundAppRefreshTitleLabel.text = viewModel.backgroundAppRefreshTitle
 	}
 	
