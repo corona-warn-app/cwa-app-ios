@@ -84,7 +84,7 @@ enum RiskCalculation {
 		// Precondition 3 - Risk is unknownInitial if summary is not present
 		let isNoSummary = summary == nil
 
-		let isUnknownInitial = isTracingActiveLess1day || isNoSummary
+		let isUnknownInitial = isTracingActiveLess1Day || isNoSummary
 
 		let isUnknownOutdated = !providerConfiguration.exposureDetectionIsValid(lastExposureDetectionDate: dateLastExposureDetection ?? .distantPast)
 
