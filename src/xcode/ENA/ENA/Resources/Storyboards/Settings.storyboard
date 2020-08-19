@@ -822,7 +822,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" name="ENA Background Color"/>
                         <constraints>
                             <constraint firstItem="7BX-iu-0L2" firstAttribute="leading" secondItem="GFI-82-8Zi" secondAttribute="leading" id="OFK-eg-rQo"/>
                             <constraint firstItem="7BX-iu-0L2" firstAttribute="top" secondItem="7KQ-xI-p77" secondAttribute="top" id="iES-of-7Ah"/>
