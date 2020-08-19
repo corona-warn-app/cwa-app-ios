@@ -339,13 +339,62 @@ final class RiskCalculationTests: XCTestCase {
 			detectionMode: .automatic
 		)
 
-		// Test case where last exposure summary was gotten less then 1 day,
+		// Test case where last exposure summary was gotten less then 1 day
+		// Active tracing is more then 24h
 		// But the risk is increased
 		let risk = RiskCalculation.risk(
 			summary: summaryHigh,
 			configuration: appConfig,
 			dateLastExposureDetection: Date().addingTimeInterval(.init(hours: -23)),
 			activeTracing: .init(interval: 48 * 3600),
+			preconditions: preconditions(.valid),
+			previousRiskLevel: nil,
+			providerConfiguration: config
+		)
+
+		XCTAssertEqual(risk?.level, .increased)
+		XCTAssertTrue(risk?.riskLevelHasChanged == false)
+	}
+
+	func testCalculateRisk_IncreasedOverridesUnknownOutdated2() {
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: .init(day: 1),
+			exposureDetectionInterval: .init(day: 1),
+			detectionMode: .automatic
+		)
+
+		// Test case where last exposure summary was gotten more then 1 day
+		// Active tracing is less then 24h
+		// But the risk is increased
+		let risk = RiskCalculation.risk(
+			summary: summaryHigh,
+			configuration: appConfig,
+			dateLastExposureDetection: Date().addingTimeInterval(.init(hours: -25)),
+			activeTracing: .init(interval: 2 * 3600),
+			preconditions: preconditions(.valid),
+			previousRiskLevel: nil,
+			providerConfiguration: config
+		)
+
+		XCTAssertEqual(risk?.level, .increased)
+		XCTAssertTrue(risk?.riskLevelHasChanged == false)
+	}
+
+	func testCalculateRisk_IncreasedOverridesUnknownOutdated3() {
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: .init(day: 1),
+			exposureDetectionInterval: .init(day: 1),
+			detectionMode: .automatic
+		)
+
+		// Test case where last exposure summary was gotten less then 1 day
+		// Active tracing is less then 24h
+		// But the risk is increased
+		let risk = RiskCalculation.risk(
+			summary: summaryHigh,
+			configuration: appConfig,
+			dateLastExposureDetection: Date().addingTimeInterval(.init(hours: -23)),
+			activeTracing: .init(interval: 2 * 3600),
 			preconditions: preconditions(.valid),
 			previousRiskLevel: nil,
 			providerConfiguration: config
