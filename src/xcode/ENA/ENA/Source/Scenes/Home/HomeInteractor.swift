@@ -233,7 +233,6 @@ extension HomeInteractor {
 					detectionMode: detectionMode,
 					manualExposureDetectionState: riskProvider.manualExposureDetectionState,
 					previousRiskLevel: store.previousRiskLevel)
-				inactiveConfigurator?.activeAction = inActiveCellActionHandler
 			}
 		case .low:
 			let activeTracing = risk?.details.activeTracing ?? .init(interval: 0)
