@@ -150,7 +150,8 @@ extension AppInformationViewController {
 				.headline(text: AppStrings.AppInformation.aboutDescription,
 						  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutDescription),
 				.subheadline(text: AppStrings.AppInformation.aboutText,
-							 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutText)
+							 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutText),
+				.bodyWithoutTopInset(text: germanLinkText(), style: .linkTextView(AppStrings.AppInformation.aboutLinkText, .subheadline), accessibilityIdentifier: AppStrings.AppInformation.aboutLinkText)
 			]
 		)
 	])
@@ -243,4 +244,13 @@ extension AppInformationViewController {
 			]
 		)
 	])
+}
+
+// return a link if language is German; else return an empty string
+private func germanLinkText() -> String {
+	if Bundle.main.preferredLocalizations.first == "de" {
+		return AppStrings.AppInformation.aboutLink
+	} else {
+		return ""
+	}
 }

@@ -35,6 +35,10 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Arka plan güncellemeleri devre dışı bırakıldı";
 
+"Common_Deadman_AlertTitle" = "Risk Durumunuz";
+
+"Common_Deadman_AlertBody" = "Risk durumunuzu kontrol etmek için lütfen Corona-Warn-App'i düzenli olarak açmayı unutmayın.";
+
 /* General - Links */
 "General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
 
@@ -82,7 +86,7 @@
 
 "ExposureDetection_Behavior_Subtitle" = "Yapmanız gerekenler";
 
-"ExposureDetection_Guide_Hands" = "Ellerinizi düzenli olarak yıkayın.";
+"ExposureDetection_Guide_Hands" = "Ellerinizi düzenli olarak 20 saniye sabunla yıkayın.";
 
 "ExposureDetection_Guide_Mask" = "Diğer insanlarla karşılaştığınızda yüz maskesi takın.";
 
@@ -222,6 +226,10 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Cihazınızı koronavirüs uyarı sistemine dönüştürün. Risk durumunuza ilişkin genel bir bakış elde edin ve son 14 gün içinde COVID-19 tanısı konan herhangi biri ile yakın temasa geçip geçmediğinizi öğrenin. \n\nUygulama, şifrelenmiş rastgele kimlikleri kullanıcıların cihazları arasında paylaşarak maruz kalma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.";
 
+"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Basitleştirilmiş Dilde ve İşaret Dilinde Uygulama Bilgileri";
+
 "OnboardingInfo_privacyPage_imageDescription" = "Bir kadın akıllı telefonunda Corona-Warn-App'i kullanıyor. Kılıfın arka planındaki kilit, şifrelenmiş verilerin simgesidir.";
 
 "OnboardingInfo_privacyPage_title" = "Veri Gizliliği";
@@ -321,7 +329,7 @@
 
 "ExposureSubmissionHotline_Title" = "TAN Talebi";
 
-"ExposureSubmissionHotline_Description" = "TAN talebinde bulunmak için lütfen test sonucunuzu (varsa) ve telefon numaranızı hazır tutun.\n\nYardım hattı, işitme engeli bulunan kişiler için Tess Relay hizmetlerini destekler.";
+"ExposureSubmissionHotline_Description" = "TAN talebinde bulunmak için lütfen test sonucunuzu (varsa) ve telefon numaranızı hazır tutun.\n\nİşitme engeli bulunan kişiler yardım hattı ile iletişime geçmek için Tess Relay hizmetlerini (Almanca yazı dili ile işaret dili arasında tercüme) kullanabilir. Yazılımı App Store/Google Play'den indirebilirsiniz.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Nasıl çalışır?";
 
@@ -455,7 +463,7 @@
 
 "ExposureSubmissionResult_testInvalid" = "Testte hata var";
 
-"ExposureSubmissionResult_testInvalidDesc" = "Testinizi değerlendirirken bir problem oluştu. Lütfen sonraki adımlarınız için kamu sağlığı yetkilisi ile görüşün.";
+"ExposureSubmissionResult_testInvalidDesc" = "Testinizi değerlendirirken bir problem oluştu. Lütfen sonraki adımlarınız için test merkezi veya laboratuvar ile görüşün.";
 
 "ExposureSubmissionResult_testRedeemed" = "Testte hata var";
 
@@ -489,15 +497,16 @@
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Veri Gizliliği";
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "Test silinsin mi?";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Test yalnızca bir kez taranabilir.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Test kalıcı olarak Corona-Warn-App'ten silinir ve tekrar eklenemez. Bu işlem geri alınamaz.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Testi silerseniz test sonucunuzu alamazsınız. Test sonucunuzu uygulamadan bağımsız olarak test merkezinden veya laboratuvardan alırsınız. COVID-19 tanısı alırsanız kamu sağlığı yetkilisi tarafından bilgilendirileceksiniz.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Kayıt tarihi bilinmiyor";
 
 "ExposureSubmissionResult_RegistrationDate" = "Kayıt tarihi:";
 
 /* Exposure Submission */
+"ExposureSubmissionError_ErrorPrefix" = "Verilerinizi gönderirken teknik hata oluştu. Lütfen teknik yardım hattı ile iletişime geçin. Telefon numarasını Uygulama Bilgileri bölümünde bulabilirsiniz.";
 
 "ExposureSubmissionError_NoKeys" = "Tanı anahtarı yok. Lütfen yarın tekrar deneyin.";
 
@@ -511,7 +520,7 @@
 
 "ExposureSubmissionError_NoResponse" = "Yanıtın içeriği yok.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "QR kod zaten kullanılmış. Lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
+"ExposureSubmissionError_QRAlreadyUsed" = "QR kod yanlış veya başka bir akıllı telefona zaten kaydedilmiş. QR kod geçerli olsun veya olmasın test sonucunuzu test merkezinden veya laboratuvardan alacaksınız. COVID-19 tanısı alırsanız kamu sağlığı yetkilisi tarafından bilgilendirileceksiniz.";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "TAN geçersiz veya zaten kullanılmış. Lütfen tekrar deneyin veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
 
@@ -759,6 +768,10 @@
 "App_Information_About_Description" = "Robert Koch Institute (RKI), Almanya'nın federal kamu sağlığı kurumudur. RKI, Federal Hükûmet adına Corona-Warn-App uygulamasını yayınlamaktadır. Uygulama, daha önce açıklanan kamu sağlığı önlemlerine ilişkin dijital bir tamamlayıcı niteliğindedir: sosyal mesafe, hijyen uygulamaları ve yüz maskeleri.";
 
 "App_Information_About_Text" = "Uygulamayı kullanan herkes, enfeksiyon zincirlerinin takip edilmesine ve kırılmasına yardımcı olur. Uygulama, diğer kişilerle karşılaşmaları cihazınızda yerel olarak kaydeder. Daha sonra COVID-19 tanısı konan kişilerle karşılaşmışsanız size bildirim gönderilir. Kimliğiniz ve gizliliğiniz daima koruma altındadır.";
+
+"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"App_Information_About_LinkText" = "Basitleştirilmiş Dilde ve İşaret Dilinde Uygulama Bilgileri";
 
 /* App Information - FAQ */
 "App_Information_FAQ_Navigation" = "SSS";
