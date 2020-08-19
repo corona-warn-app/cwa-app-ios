@@ -309,7 +309,7 @@ final class RiskCalculationTests: XCTestCase {
 
 	// There is a certain order to risk levels, and some override others. This is tested below.
 
-	func testCalculateRisk_IncreasedOverridesUnknownOutdated() {
+	func testCalculateRisk_UnknownOutdatedOverridesIncreased() {
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: .init(day: 1),
 			exposureDetectionInterval: .init(day: 1),
@@ -328,7 +328,7 @@ final class RiskCalculationTests: XCTestCase {
 			providerConfiguration: config
 		)
 
-		XCTAssertEqual(risk?.level, .increased)
+		XCTAssertEqual(risk?.level, .unknownOutdated)
 		XCTAssertTrue(risk?.riskLevelHasChanged == false)
 	}
 

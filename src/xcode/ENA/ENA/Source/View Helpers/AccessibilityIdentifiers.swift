@@ -115,6 +115,8 @@ enum AccessibilityIdentifiers {
 		static let aboutTitle = "AppStrings.AppInformation.aboutTitle"
 		static let aboutDescription = "AppStrings.AppInformation.aboutDescription"
 		static let aboutText = "AppStrings.AppInformation.aboutText"
+		static let aboutLink = "AppStrings.AppInformation.aboutLink"
+		static let aboutLinkText = "AppStrings.AppInformation.aboutLinkText"
 		static let contactImageDescription = "AppStrings.AppInformation.contactImageDescription"
 		static let contactTitle = "AppStrings.AppInformation.contactTitle"
 		static let contactDescription = "AppStrings.AppInformation.contactDescription"
