@@ -20,6 +20,18 @@
 import UIKit
 import Combine
 
+protocol LowPowerModeStatusProviding {
+	var isLowPowerModeEnabled: Bool { get }
+}
+
+extension ProcessInfo: LowPowerModeStatusProviding { }
+
+protocol BackgroundRefreshStatusProviding {
+	var backgroundRefreshStatus: UIBackgroundRefreshStatus { get }
+}
+
+extension UIApplication: BackgroundRefreshStatusProviding { }
+
 class BackgroundAppRefreshViewModel {
 
 	enum CombinedBackgroundAppRefreshStatus {
@@ -30,27 +42,32 @@ class BackgroundAppRefreshViewModel {
 	
 	// MARK: - Init
 
-	init(onOpenSettings: @escaping () -> Void, onShare: @escaping () -> Void) {
+	init(
+		backgroundRefreshStatusProvider: BackgroundRefreshStatusProviding = UIApplication.shared,
+		lowPowerModeStatusProvider: LowPowerModeStatusProviding = ProcessInfo.processInfo,
+		onOpenSettings: @escaping () -> Void,
+		onShare: @escaping () -> Void
+	) {
+		self.backgroundRefreshStatusProvider = backgroundRefreshStatusProvider
+		self.lowPowerModeStatusProvider = lowPowerModeStatusProvider
 		self.onOpenSettings = onOpenSettings
 		self.onShare = onShare
-		backgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
-		lowPowerModeEnabled = ProcessInfo.processInfo.isLowPowerModeEnabled
+
+		backgroundRefreshStatus = backgroundRefreshStatusProvider.backgroundRefreshStatus
+		lowPowerModeEnabled = lowPowerModeStatusProvider.isLowPowerModeEnabled
 		observeBackgroundAppRefresh()
 		observeLowPowerMode()
 		calculateCombinedBackgroundStatus()
 	}
 	
 	// MARK: - Internal
-	let title = "Hintergrundaktualisierung"
-	let subTitle = "Corona-Warn-App im Hintergrund ausführen"
-	let description = """
-	Bei eingeschalteter Hintergrundaktualisierung ermittelt die Corona-Warn-App Ihren Risikostatus automatisch.
-	Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufrufen, um Ihren Risikostatus zu aktualisieren.
-	Es fallen hierbei keine zusätzliche Kosten für die Datenübertragung im Mobilfunknetz an.
-	"""
+
+	let title = AppStrings.BackgroundAppRefreshSettings.title
+	let subTitle = AppStrings.BackgroundAppRefreshSettings.subtitle
+	let description = AppStrings.BackgroundAppRefreshSettings.description
 	
-	let settingsHeaderTitle = "Einstellung"
-	let backgroundAppRefreshTitle = "Hintergrundaktivität"
+	let settingsHeaderTitle = AppStrings.BackgroundAppRefreshSettings.Status.header.uppercased()
+	let backgroundAppRefreshTitle = AppStrings.BackgroundAppRefreshSettings.Status.title
 
 	@Published var backgroundAppRefreshStatusText: String = ""
 	@Published var image: UIImage?
@@ -62,17 +79,20 @@ class BackgroundAppRefreshViewModel {
 	}
 
 	// MARK: - Private
-	
+
+	private let backgroundRefreshStatusProvider: BackgroundRefreshStatusProviding
+	private let lowPowerModeStatusProvider: LowPowerModeStatusProviding
 	private let onOpenSettings: () -> Void
 	private let onShare: () -> Void
+
     private var subscriptions = Set<AnyCancellable>()
 
-	private let infoBoxTitle = "Hintergrundaktualisierung einschalten"
-	private let infoBoxDescriptionOff = "Die Hintergrundaktualisierung müssen Sie sowohl in den allgemeinen Einstellungen Ihres iPhones als auch in den Einstellungen der Corona-Warn-App einschalten."
-	private let infoBoxDescriptionLowPowerMode = "Beachten Sie bitte, dass für das Einschalten der Hintergrundaktualisierung der Stromsparmodus ausgeschaltet sein muss."
+	private let infoBoxTitle = AppStrings.BackgroundAppRefreshSettings.InfoBox.title
+	private let infoBoxDescriptionOff = AppStrings.BackgroundAppRefreshSettings.InfoBox.description
+	private let infoBoxDescriptionLowPowerMode = AppStrings.BackgroundAppRefreshSettings.InfoBox.lowPowerModeDescription
 	private let infoBoxTitleImage = UIImage(named: "Icons_iOS_Hintergrundaktualisierung_Aus")
-	private let buttonTextShare = "Anleitung teilen"
-	private let buttonTextSettings = "Einstellungen öffnen"
+	private let buttonTextShare = AppStrings.BackgroundAppRefreshSettings.shareButtonTitle
+	private let buttonTextSettings = AppStrings.BackgroundAppRefreshSettings.openSettingsButtonTitle
 
 	private var backgroundRefreshStatus: UIBackgroundRefreshStatus {
 		didSet {
@@ -90,12 +110,12 @@ class BackgroundAppRefreshViewModel {
 		didSet {
 			switch combinedBackgroundAppRefreshStatus {
 			case .on:
-				backgroundAppRefreshStatusText = "An"
+				backgroundAppRefreshStatusText = AppStrings.BackgroundAppRefreshSettings.Status.on
 				image = UIImage(named: "Illu_Hintergrundaktualisierung_An")
 				infoBoxViewModel = nil
 			case .off:
 				showInfoBox = true
-				backgroundAppRefreshStatusText = "Aus"
+				backgroundAppRefreshStatusText = AppStrings.BackgroundAppRefreshSettings.Status.off
 				image = UIImage(named: "Illu_Hintergrundaktualisierung_Aus")
 				infoBoxViewModel = .init(
 					instructions: infoBoxInstructionsForOff,
@@ -108,7 +128,7 @@ class BackgroundAppRefreshViewModel {
 				)
 			case .offInPowerSaving:
 				showInfoBox = true
-				backgroundAppRefreshStatusText = "Aus"
+				backgroundAppRefreshStatusText = AppStrings.BackgroundAppRefreshSettings.Status.off
 				image = UIImage(named: "Illu_Hintergrundaktualisierung_Aus")
 				infoBoxViewModel = .init(
 					instructions: infoBoxInstructionLowPowerMode + infoBoxInstructionsForOff,
@@ -125,39 +145,52 @@ class BackgroundAppRefreshViewModel {
 	
 	private var infoBoxInstructionsForOff: [InfoBoxViewModel.Instruction] {
 		[
-			.init(title: "Hintergrundakualisierung allgemein einschalten", steps: [
-				.init(icon: UIImage(named: "Icons_iOS_Settings"), text: "Öffnen Sie Einstellungen."),
-				.init(icon: UIImage(named: "Icons_iOS_Einstellungen"), text: "Öffnen Sie Allgemein."),
-				.init(icon: nil, text: "Öffnen Sie Hintergrundaktualisierung."),
-				.init(icon: nil, text: "Wählen Sie entweder WLAN oder WLAN & Mobile Daten.")
-			]),
-			.init(title: "Hintergrundaktualisierung für die Corona-Warn-App einschalten", steps: [
-				.init(icon: UIImage(named: "Icons_iOS_Settings"), text: "Öffnen Sie Einstellungen."),
-				.init(icon: UIImage(named: "Icons_CWAAppIcon"), text: "Öffnen Sie die Corona-Warn-App Einstellung."),
-				.init(icon: UIImage(named: "Icons_iOS_Einstellungen"), text: "Schalten Sie Hintergrundaktualisierung ein.")
-			])
+			.init(
+				title: AppStrings.BackgroundAppRefreshSettings.InfoBox.SystemBackgroundRefreshInstruction.title,
+				steps: [
+					.init(icon: UIImage(named: "Icons_iOS_Settings"), text: AppStrings.BackgroundAppRefreshSettings.InfoBox.SystemBackgroundRefreshInstruction.step1),
+					.init(icon: UIImage(named: "Icons_iOS_Einstellungen"), text: AppStrings.BackgroundAppRefreshSettings.InfoBox.SystemBackgroundRefreshInstruction.step2),
+					.init(icon: nil, text: AppStrings.BackgroundAppRefreshSettings.InfoBox.SystemBackgroundRefreshInstruction.step3),
+					.init(icon: nil, text: AppStrings.BackgroundAppRefreshSettings.InfoBox.SystemBackgroundRefreshInstruction.step4)
+				]
+			),
+			.init(
+				title: AppStrings.BackgroundAppRefreshSettings.InfoBox.AppBackgroundRefreshInstruction.title,
+				steps: [
+					.init(icon: UIImage(named: "Icons_iOS_Settings"), text: AppStrings.BackgroundAppRefreshSettings.InfoBox.AppBackgroundRefreshInstruction.step1),
+					.init(icon: UIImage(named: "Icons_CWAAppIcon"), text: AppStrings.BackgroundAppRefreshSettings.InfoBox.AppBackgroundRefreshInstruction.step2),
+					.init(icon: UIImage(named: "Icons_iOS_Einstellungen"), text: AppStrings.BackgroundAppRefreshSettings.InfoBox.AppBackgroundRefreshInstruction.step3)
+				]
+			)
 		]
 	}
 	
 	private var infoBoxInstructionLowPowerMode: [InfoBoxViewModel.Instruction] {
 		[
-			.init(title: "Stromsparmodus ausschalten", steps: [
-				.init(icon: UIImage(named: "Icons_iOS_Settings"), text: "Öffnen Sie Einstellungen."),
-				.init(icon: UIImage(named: "Icons_Energie"), text: "Öffnen Sie Batterie."),
-				.init(icon: UIImage(named: "Icons_iOS_Einstellungen"), text: "Schalten Sie den Stromsparmodus aus.")
-			])
+			.init(
+				title: AppStrings.BackgroundAppRefreshSettings.InfoBox.LowPowerModeInstruction.title,
+				steps: [
+					.init(icon: UIImage(named: "Icons_iOS_Settings"), text: AppStrings.BackgroundAppRefreshSettings.InfoBox.LowPowerModeInstruction.step1),
+					.init(icon: UIImage(named: "Icons_Energie"), text: AppStrings.BackgroundAppRefreshSettings.InfoBox.LowPowerModeInstruction.step2),
+					.init(icon: UIImage(named: "Icons_iOS_Einstellungen"), text: AppStrings.BackgroundAppRefreshSettings.InfoBox.LowPowerModeInstruction.step3)
+				]
+			)
 		]
 	}
 
 	private func observeBackgroundAppRefresh() {
 		NotificationCenter.default.publisher(for: UIApplication.backgroundRefreshStatusDidChangeNotification).sink { [weak self] _ in
-			self?.backgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
+			guard let self = self else { return }
+
+			self.backgroundRefreshStatus = self.backgroundRefreshStatusProvider.backgroundRefreshStatus
 		}.store(in: &subscriptions)
 	}
 	
 	private func observeLowPowerMode() {
 		NotificationCenter.default.publisher(for: Notification.Name.NSProcessInfoPowerStateDidChange).sink { [weak self] _ in
-			self?.lowPowerModeEnabled = ProcessInfo.processInfo.isLowPowerModeEnabled
+			guard let self = self else { return }
+
+			self.lowPowerModeEnabled = self.lowPowerModeStatusProvider.isLowPowerModeEnabled
 		}.store(in: &subscriptions)
 	}
 
