@@ -209,6 +209,61 @@
 
 "NotificationSettings_offImageDescription" = "Eine Frau kann keine Mitteilungen von ihrer Corona-Warn-App erhalten.";
 
+/* Background App Referesh Settings */
+
+"BackgroundAppRefreshSettings_Title" = "Hintergrundaktualisierung";
+
+"BackgroundAppRefreshSettings_Subtitle" = "Risikostatus im Hintergrund aktualisieren";
+
+"BackgroundAppRefreshSettings_Description" = "Bei eingeschalteter Hintergrundaktualisierung ermittelt die Corona-Warn-App Ihren Risikostatus automatisch.
+Es fallen hierbei keine zusätzliche Kosten für die Datenübertragung im Mobilfunknetz an.
+Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufrufen, um Ihren Risikostatus zu aktualisieren.";
+
+"BackgroundAppRefreshSettings_Status_Header" = "Einstellung";
+
+"BackgroundAppRefreshSettings_Status_Title" = "Hintergrundaktualisierung";
+
+"BackgroundAppRefreshSettings_Status_On" = "An";
+
+"BackgroundAppRefreshSettings_Status_Off" = "Aus";
+
+"BackgroundAppRefreshSettings_InfoBox_Title" = "Hintergrundaktualisierung einschalten";
+
+"BackgroundAppRefreshSettings_InfoBox_Description" = "Die Hintergrundaktualisierung müssen Sie sowohl in den allgemeinen Einstellungen Ihres iPhones als auch in den Einstellungen der Corona-Warn-App einschalten.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Beachten Sie bitte, dass für das Einschalten der Hintergrundaktualisierung der Stromsparmodus ausgeschaltet sein muss.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Stromsparmodus ausschalten";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Öffnen Sie Einstellungen.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2" = "Öffnen Sie Batterie.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3" = "Schalten Sie den Stromsparmodus aus.";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title" = "Hintergrundaktualisierung allgemein einschalten";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1" = "Öffnen Sie Einstellungen.";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2" = "Öffnen Sie Allgemein.";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3" = "Öffnen Sie Hintergrundaktualisierung.";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4" = "Wählen Sie entweder WLAN oder WLAN & Mobile Daten.";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title" = "Hintergrundaktualisierung für die Corona-Warn-App einschalten";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Öffnen Sie Einstellungen.";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Öffnen Sie die Corona-Warn-App Einstellungen.";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Schalten Sie die Hintergrundaktualisierung ein.";
+
+"BackgroundAppRefreshSettings_OpenSettingsButton_Title" = "Einstellungen öffnen";
+
+"BackgroundAppRefreshSettings_ShareButton_Title" = "Anleitung teilen";
+
+
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "Los geht’s";
 

@@ -312,6 +312,50 @@ enum AppStrings {
 		static let offImageDescription = NSLocalizedString("NotificationSettings_offImageDescription", comment: "")
 	}
 
+	enum BackgroundAppRefreshSettings {
+		static let title = NSLocalizedString("BackgroundAppRefreshSettings_Title", comment: "")
+		static let subtitle = NSLocalizedString("BackgroundAppRefreshSettings_Subtitle", comment: "")
+		static let description = NSLocalizedString("BackgroundAppRefreshSettings_Description", comment: "")
+
+		enum Status {
+			static let header = NSLocalizedString("BackgroundAppRefreshSettings_Status_Header", comment: "")
+			static let title = NSLocalizedString("BackgroundAppRefreshSettings_Status_Title", comment: "")
+			static let on = NSLocalizedString("BackgroundAppRefreshSettings_Status_On", comment: "")
+			static let off = NSLocalizedString("BackgroundAppRefreshSettings_Status_Off", comment: "")
+		}
+
+		enum InfoBox {
+			static let title = NSLocalizedString("BackgroundAppRefreshSettings_InfoBox_Title", comment: "")
+			static let description = NSLocalizedString("BackgroundAppRefreshSettings_InfoBox_Description", comment: "")
+			static let lowPowerModeDescription = NSLocalizedString("BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description", comment: "")
+
+			enum LowPowerModeInstruction {
+				static let title = NSLocalizedString("BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title", comment: "")
+				static let step1 = NSLocalizedString("BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1", comment: "")
+				static let step2 = NSLocalizedString("BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2", comment: "")
+				static let step3 = NSLocalizedString("BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3", comment: "")
+			}
+
+			enum SystemBackgroundRefreshInstruction {
+				static let title = NSLocalizedString("BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title", comment: "")
+				static let step1 = NSLocalizedString("BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1", comment: "")
+				static let step2 = NSLocalizedString("BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2", comment: "")
+				static let step3 = NSLocalizedString("BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3", comment: "")
+				static let step4 = NSLocalizedString("BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4", comment: "")
+			}
+
+			enum AppBackgroundRefreshInstruction {
+				static let title = NSLocalizedString("BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title", comment: "")
+				static let step1 = NSLocalizedString("BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1", comment: "")
+				static let step2 = NSLocalizedString("BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2", comment: "")
+				static let step3 = NSLocalizedString("BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3", comment: "")
+			}
+		}
+
+		static let openSettingsButtonTitle = NSLocalizedString("BackgroundAppRefreshSettings_OpenSettingsButton_Title", comment: "")
+		static let shareButtonTitle = NSLocalizedString("BackgroundAppRefreshSettings_ShareButton_Title", comment: "")
+	}
+
 	enum Onboarding {
 		static let onboardingLetsGo = NSLocalizedString("Onboarding_LetsGo_actionText", comment: "")
 		static let onboardingContinue = NSLocalizedString("Onboarding_Continue_actionText", comment: "")
