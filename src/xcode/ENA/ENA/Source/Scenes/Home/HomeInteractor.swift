@@ -19,8 +19,6 @@ import ExposureNotification
 import Foundation
 import UIKit
 
-// swiftlint:disable file_length
-
 final class HomeInteractor: RequiresAppDependencies {
 	typealias SectionDefinition = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
 	typealias SectionConfiguration = [SectionDefinition]

@@ -22,7 +22,7 @@ import Foundation
 extension String {
 	/// This method generates a random string containing the lowercase english alphabet letters a-z,
 	/// given a specific size.
-	static public func getRandomString(of size: Int) -> String {
+	public static func getRandomString(of size: Int) -> String {
 		let letters = "abcdefghijklmnopqrstuvwxyz"
 		var rand = ""
 		for _ in 0..<size {
