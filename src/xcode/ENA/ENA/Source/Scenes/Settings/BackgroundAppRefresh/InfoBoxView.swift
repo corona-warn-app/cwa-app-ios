@@ -34,6 +34,12 @@ class InfoBoxView: UIView {
 
 		loadViewFromNib()
 	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateConstraintsForCurrentTraitCollection()
+	}
 	
 	// MARK: - Internal
 	
@@ -47,6 +53,8 @@ class InfoBoxView: UIView {
 		shareAction = viewModel.shareAction
 
 		instructionsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+		nonAccessibilityConstraints.removeAll()
+		accessibilityConstraints.removeAll()
 
 		for instruction in viewModel.instructions {
 			let titleLabel = ENALabel()
@@ -57,9 +65,11 @@ class InfoBoxView: UIView {
 			instructionsStackView.addArrangedSubview(titleLabel)
 
 			for index in 0..<instruction.steps.count {
-				instructionsStackView.addArrangedSubview(createView(for: instruction.steps[index], index: index))
+				instructionsStackView.addArrangedSubview(view(for: instruction.steps[index], index: index))
 			}
 		}
+
+		updateConstraintsForCurrentTraitCollection()
 	}
 	
 	// MARK: - Private
@@ -69,6 +79,9 @@ class InfoBoxView: UIView {
 	@IBOutlet private weak var instructionsStackView: UIStackView!
 	@IBOutlet private weak var settingsButton: UIButton!
 	@IBOutlet private weak var shareButton: UIButton!
+
+	private var nonAccessibilityConstraints = [NSLayoutConstraint]()
+	private var accessibilityConstraints = [NSLayoutConstraint]()
 	
 	private var shareAction: () -> Void = { }
 	private var settingsAction: () -> Void = { }
@@ -90,9 +103,10 @@ class InfoBoxView: UIView {
 		])
 	}
 	
-	private func createView(for step: InfoBoxViewModel.InstructionStep, index: Int) -> UIView {
-		
+	private func view(for step: InfoBoxViewModel.InstructionStep, index: Int) -> UIView {
 		let containerView = UIView()
+		containerView.isAccessibilityElement = true
+		containerView.accessibilityLabel = "\(index + 1). \(step.text)"
 
 		let iconImageView = UIImageView(image: step.icon)
 
@@ -129,14 +143,32 @@ class InfoBoxView: UIView {
 		containerView.addSubview(stepLabel)
 		stepLabel.translatesAutoresizingMaskIntoConstraints = false
 
-		NSLayoutConstraint.activate([
+		nonAccessibilityConstraints.append(contentsOf: [
 			stepLabel.leadingAnchor.constraint(equalTo: enumerationLabel.trailingAnchor, constant: 10),
-			stepLabel.firstBaselineAnchor.constraint(equalTo: enumerationLabel.firstBaselineAnchor),
+			stepLabel.firstBaselineAnchor.constraint(equalTo: enumerationLabel.firstBaselineAnchor)
+		])
+
+		accessibilityConstraints.append(contentsOf: [
+			stepLabel.topAnchor.constraint(equalTo: enumerationLabel.bottomAnchor, constant: 8),
+			stepLabel.leadingAnchor.constraint(equalTo: iconImageView.leadingAnchor)
+		])
+
+		NSLayoutConstraint.activate([
 			stepLabel.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor),
 			stepLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
 		])
 		
 		return containerView
+	}
+
+	private func updateConstraintsForCurrentTraitCollection() {
+		if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+			NSLayoutConstraint.deactivate(nonAccessibilityConstraints)
+			NSLayoutConstraint.activate(accessibilityConstraints)
+		} else {
+			NSLayoutConstraint.deactivate(accessibilityConstraints)
+			NSLayoutConstraint.activate(nonAccessibilityConstraints)
+		}
 	}
 	
 	@IBAction private func onShare() {

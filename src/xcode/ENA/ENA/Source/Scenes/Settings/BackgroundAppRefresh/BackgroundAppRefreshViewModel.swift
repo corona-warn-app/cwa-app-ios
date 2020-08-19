@@ -57,6 +57,10 @@ class BackgroundAppRefreshViewModel {
 	@Published var showInfoBox: Bool = false
 	@Published var infoBoxViewModel: InfoBoxViewModel?
 
+	var backgroundAppRefreshStatusAccessibilityLabel: String {
+		return backgroundAppRefreshTitle + " " + backgroundAppRefreshStatusText
+	}
+
 	// MARK: - Private
 	
 	private let onOpenSettings: () -> Void
