@@ -57,7 +57,7 @@ class MainSettingsTableViewCell: UITableViewCell {
 	}
 
 	private func setLayoutConstraints() {
-		regularConstraints = [imageContainerCenterConstraint, descriptionLabelTrailingConstraint, descriptionLabelBottom, stateLabelLeading, stateLabelTop, disclosureIndicatorLeading]
+		regularConstraints = [imageContainerFirstBaselineConstraint, descriptionLabelTrailingConstraint, descriptionLabelBottom, stateLabelLeading, stateLabelTop, disclosureIndicatorLeading]
 
 		let labelHalfCapHeight = descriptionLabel.font.capHeight / 2
 		imageContainerFirstBaselineConstraint.constant = labelHalfCapHeight
