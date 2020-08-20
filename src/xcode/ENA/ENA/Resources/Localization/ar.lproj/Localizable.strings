@@ -35,6 +35,10 @@
 
 "Common_BackgroundFetch_AlertTitle" = "تحديثات في الخلفية مُلغى تنشيطها";
 
+"Common_Deadman_AlertTitle" = "مستوى الخطر";
+
+"Common_Deadman_AlertBody" = "يُرجى تذكر فتح تطبيق Corona-Warn-App بانتظام للتحقق من مستوى الخطر لديك.";
+
 /* General - Links */
 "General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
 
@@ -82,7 +86,7 @@
 
 "ExposureDetection_Behavior_Subtitle" = "أمور يجب عليك الالتزام بها";
 
-"ExposureDetection_Guide_Hands" = "اغسل يديك بانتظام.";
+"ExposureDetection_Guide_Hands" = "اغسل يديك بانتظام بالصابون لمدة 20 ثانية.";
 
 "ExposureDetection_Guide_Mask" = "ارتدِ قناع الوجه عند التجمُّع مع أشخاص آخرين.";
 
@@ -222,6 +226,10 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "قم بتحويل جهازك إلى نظام تحذير من كورونا. ألقِ نظرة عامة على مستوى الخطر الواقع عليك، وتعرف على إذا ما كنت قد تواصلت عن قرب مع أشخاص مصابين بمرض كوفيد-19 في آخر 14 يومًا.\n\nيسجل التطبيق التجمُّعات بين الأفراد من خلال تبادل المعرفات العشوائية المشفرة لأجهزتهم، دون الوصول إلى أي بيانات شخصية.";
 
+"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"OnboardingInfo_togetherAgainstCoronaPage_linkText" = "معلومات التطبيق بلغة مبسطة ولغة الإشارة";
+
 "OnboardingInfo_privacyPage_imageDescription" = "سيدة تستخدم تطبيق Corona-Warn-App على هاتفها الذكي. تشير أيقونة القفل الموجودة بخلفية الشاشة إلى بيانات مشفرة.";
 
 "OnboardingInfo_privacyPage_title" = "خصوصية البيانات";
@@ -321,7 +329,7 @@
 
 "ExposureSubmissionHotline_Title" = "طلب رقم المعاملة (TAN)";
 
-"ExposureSubmissionHotline_Description" = "يُرجى الاحتفاظ بنتيجة اختبارك (إن وُجدت) وجهز رقم هاتفك لطلب رقم المعاملة (TAN).\n\nيُدعم الخط الساخن خدمات Tess Relay للأشخاص الذين يُعانون من ضعف السمع.";
+"ExposureSubmissionHotline_Description" = "يُرجى الاحتفاظ بنتيجة اختبارك (إن وُجدت) وجهز رقم هاتفك لطلب رقم المعاملة (TAN).\n\nيُدعم الخط الساخن خدمات Tess Relay للأشخاص الذين يُعانون من ضعف السمع.(الترجمة بين اللغة الألمانية المكتوبة ولغة الإشارة) للاتصال بالخط الساخن للهاتف. يمكنك تنزيل البرنامج من App Store / Google Play.";
 
 "ExposureSubmissionHotline_SectionTitle" = "كيف يعمل ذلك:";
 
@@ -455,7 +463,7 @@
 
 "ExposureSubmissionResult_testInvalid" = "الاختبار به أخطاء";
 
-"ExposureSubmissionResult_testInvalidDesc" = "هناك مشكلة في تقييم اختبارك. الرجاء الاتصال بدائرة الصحة العامة لمعرفة كيفية المتابعة.";
+"ExposureSubmissionResult_testInvalidDesc" = "هناك مشكلة في تقييم اختبارك. الرجاء الاتصال بمركز الاختبار أو المعمل لمعرفة كيفية المتابعة.";
 
 "ExposureSubmissionResult_testRedeemed" = "الاختبار به أخطاء";
 
@@ -489,15 +497,16 @@
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "خصوصية البيانات";
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "حذف الاختبار؟";
+"ExposureSubmissionResult_RemoveAlert_Title" = "يمكن مسح الاختبار ضوئيًا مرة واحدة فقط.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "سيتم حذف الاختبار نهائيًا من تطبيق Corona-Warn-App ولا يمكن إضافته مرة أخرى. ولا يمكن التراجع عن هذا الإجراء.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "إذا قمت بحذف الاختبار، فلن تتمكن من استرجاع نتيجة الاختبار الخاصة بك. تتلقى نتيجة الاختبار الخاصة بك من مركز الاختبار أو المختبر، بغض النظر عن التطبيق. إذا تمت إصابتك بمرض كوفيد-19، فسيتم إعلامك من قبل دائرة الصحة العامة.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "تاريخ التسجيل غير معروف";
 
 "ExposureSubmissionResult_RegistrationDate" = "تاريخ التسجيل";
 
 /* Exposure Submission */
+"ExposureSubmissionError_ErrorPrefix" = "حدث خطأ تقني أثناء إرسال البيانات الخاصة بك. يُرجى الاتصال بالخط الساخن الفني. ستجد رقم الهاتف ضمن معلومات التطبيق.";
 
 "ExposureSubmissionError_NoKeys" = "لا يتوفر أي مفتاح تشخيص. الرجاء المحاولة مرة أخرى غدًا.";
 
@@ -511,7 +520,7 @@
 
 "ExposureSubmissionError_NoResponse" = "لا يحتوي الاستجابة على أي محتوى.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "رمز الاستجابة السريعة (QR) مستخدم بالفعل. الرجاء الاتصال بالخط الساخن الفني عبر معلومات التطبيق -> الخط الساخن الفني.";
+"ExposureSubmissionError_QRAlreadyUsed" = "رمز الاستجابة السريعة (QR) غير صالح أو تم تسجيله بالفعل على هاتف ذكي آخر. ستتلقى نتيجة الاختبار من مركز الاختبار أو المختبر بغض النظر عن صلاحية رمز الاستجابة السريعة (QR). إذا تمت إصابتك بمرض كوفيد-19، فسيتم إعلامك من قبل دائرة الصحة العامة.";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "رقم المعاملة (TAN) غير صالح أو مستخدم بالفعل. الرجاء المحاولة مرة أخرى أو الاتصال بالخط الساخن الفني عبر معلومات التطبيق -> الخط الساخن الفني.";
 
@@ -759,6 +768,10 @@
 "App_Information_About_Description" = "معهد روبرت كوخ (RKI) هو الهيئة الصحية الاتحادية العامة في ألمانيا. ينشر المعهد تطبيق Corona-Warn-App بالنيابة عن الحكومة الاتحادية، والتطبيق مصمم كامتداد رقمي لإجراءات الصحة العامة المنفَّذة بالفعل: التباعد الاجتماعي والنظافة الشخصية واستخدام أقنعة الوجه.";
 
 "App_Information_About_Text" = "يمكن لأي شخص يستخدم التطبيق تتبع سلسلة العدوى وكسرها. يحفظ التطبيق التجمُّعات مع الأشخاص الآخرين محليًا على جهازك. ويتم إشعارك عند تجمُّعك مع أشخاص تم تشخيصهم مؤخرًا على أنهم مصابون بمرض كوفيد-19، علمًا أن هويتك وخصوصيتك محميتان دائمًا.";
+
+"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"App_Information_About_LinkText" = "معلومات التطبيق بلغة مبسطة ولغة الإشارة";
 
 /* App Information - FAQ */
 "App_Information_FAQ_Navigation" = "الأسئلة المتكررة";
