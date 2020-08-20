@@ -99,7 +99,9 @@ enum AccessibilityIdentifiers {
 	enum Settings {
 		static let tracingLabel = "AppStrings.Settings.tracingLabel"
 		static let notificationLabel = "AppStrings.Settings.notificationLabel"
+		static let backgroundAppRefreshLabel = "AppStrings.Settings.backgroundAppRefreshLabel"
 		static let resetLabel = "AppStrings.Settings.resetLabel"
+		static let backgroundAppRefreshImageDescription = "AppStrings.Settings.backgroundAppRefreshImageDescription"
 	}
 
 	enum AppInformation {

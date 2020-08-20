@@ -148,9 +148,9 @@
 "How_Risk_Detection_Works_Alert_Message" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir.\nMaruz kalma günlüğü son %1$u günü kapsar.\nUygulama, enfeksiyondan korunma için artık ilgili olmadığından daha eski kayıtları otomatik olarak siler.\n\nDaha fazla bilgi için lütfen SSS sayfamıza bakın.";
 
 /* Settings */
-"Settings_StatusActive" = "Açık";
+"Settings_Notification_StatusActive" = "Açık";
 
-"Settings_StatusInactive" = "Kapalı";
+"Settings_Notification_StatusInactive" = "Kapalı";
 
 "Settings_StatusEnable" = "Etkinleştir";
 
