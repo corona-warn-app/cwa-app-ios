@@ -91,9 +91,9 @@ class InfoBoxView: UIView {
 		guard let view = nib.instantiate(withOwner: self, options: nil).first as? UIView else {
 			return
 		}
-
-		addSubview(view)
+		
 		view.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(view)
 
 		NSLayoutConstraint.activate([
 			view.topAnchor.constraint(equalTo: topAnchor),
@@ -110,8 +110,8 @@ class InfoBoxView: UIView {
 
 		let iconImageView = UIImageView(image: step.icon)
 
-		containerView.addSubview(iconImageView)
 		iconImageView.translatesAutoresizingMaskIntoConstraints = false
+		containerView.addSubview(iconImageView)
 
 		NSLayoutConstraint.activate([
 			iconImageView.widthAnchor.constraint(equalToConstant: 28),
@@ -126,8 +126,8 @@ class InfoBoxView: UIView {
 		enumerationLabel.style = .headline
 		enumerationLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
-		containerView.addSubview(enumerationLabel)
 		enumerationLabel.translatesAutoresizingMaskIntoConstraints = false
+		containerView.addSubview(enumerationLabel)
 
 		NSLayoutConstraint.activate([
 			enumerationLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 16),
@@ -140,8 +140,8 @@ class InfoBoxView: UIView {
 		stepLabel.numberOfLines = 0
 		stepLabel.style = .headline
 
-		containerView.addSubview(stepLabel)
 		stepLabel.translatesAutoresizingMaskIntoConstraints = false
+		containerView.addSubview(stepLabel)
 
 		nonAccessibilityConstraints.append(contentsOf: [
 			stepLabel.leadingAnchor.constraint(equalTo: enumerationLabel.trailingAnchor, constant: 10),
