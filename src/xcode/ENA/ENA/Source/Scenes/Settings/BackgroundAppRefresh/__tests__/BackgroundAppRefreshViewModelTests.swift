@@ -34,7 +34,6 @@ class BackgroundAppRefreshViewModelTests: XCTestCase {
 
 		XCTAssertEqual(viewModel.backgroundAppRefreshStatusText, AppStrings.BackgroundAppRefreshSettings.Status.on)
 		XCTAssertEqual(viewModel.image, UIImage(named: "Illu_Hintergrundaktualisierung_An"))
-		XCTAssertFalse(viewModel.showInfoBox)
 		XCTAssertNil(viewModel.infoBoxViewModel)
 		XCTAssertEqual(viewModel.backgroundAppRefreshStatusAccessibilityLabel, "\(AppStrings.BackgroundAppRefreshSettings.Status.title) \(AppStrings.BackgroundAppRefreshSettings.Status.on)")
 		XCTAssertEqual(viewModel.backgroundAppRefreshStatusImageAccessibilityLabel, AppStrings.BackgroundAppRefreshSettings.onImageDescription)
@@ -57,7 +56,6 @@ class BackgroundAppRefreshViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.backgroundAppRefreshStatusText, AppStrings.BackgroundAppRefreshSettings.Status.off)
 		XCTAssertEqual(viewModel.image, UIImage(named: "Illu_Hintergrundaktualisierung_Aus"))
 
-		XCTAssertTrue(viewModel.showInfoBox)
 		XCTAssertNotNil(viewModel.infoBoxViewModel)
 		XCTAssertEqual(viewModel.infoBoxViewModel?.instructions.count, 2)
 		XCTAssertEqual(viewModel.infoBoxViewModel?.instructions[0].steps.count, 4)
@@ -89,7 +87,6 @@ class BackgroundAppRefreshViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.backgroundAppRefreshStatusText, AppStrings.BackgroundAppRefreshSettings.Status.off)
 		XCTAssertEqual(viewModel.image, UIImage(named: "Illu_Hintergrundaktualisierung_Aus"))
 
-		XCTAssertTrue(viewModel.showInfoBox)
 		XCTAssertNotNil(viewModel.infoBoxViewModel)
 		XCTAssertEqual(viewModel.infoBoxViewModel?.instructions.count, 3)
 		XCTAssertEqual(viewModel.infoBoxViewModel?.instructions[0].steps.count, 3)
