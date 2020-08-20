@@ -104,7 +104,7 @@ class BackgroundAppRefreshViewController: UIViewController {
 	
 	private func updateInfoxBox(with viewModel: InfoBoxViewModel?) {
 		if let viewModel = viewModel {
-			if !contentStackView.arrangedSubviews.contains(infoBox) { contentStackView.addArrangedSubview(infoBox) }
+			if infoBox.superview == nil { contentStackView.addArrangedSubview(infoBox) }
 			infoBox.update(with: viewModel)
 		} else {
 			infoBox.removeFromSuperview()
