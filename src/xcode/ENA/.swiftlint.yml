@@ -229,7 +229,7 @@ vertical_whitespace:
   
 file_length:
   warning: 600
-  error: 1200
+  error: 700
   
 function_body_length:
   warning: 100
