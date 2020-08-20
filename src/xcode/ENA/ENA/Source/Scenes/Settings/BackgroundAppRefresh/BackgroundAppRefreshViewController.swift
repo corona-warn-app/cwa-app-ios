@@ -75,6 +75,8 @@ class BackgroundAppRefreshViewController: UIViewController {
 		backgroundAppRefreshTitleLabel.text = viewModel.backgroundAppRefreshTitle
 
 		backgroundAppRefreshStatusStackView.isAccessibilityElement = true
+		
+		imageView.accessibilityIdentifier = AccessibilityIdentifiers.Settings.backgroundAppRefreshImageDescription
 	}
 	
 	private func setupBindings() {

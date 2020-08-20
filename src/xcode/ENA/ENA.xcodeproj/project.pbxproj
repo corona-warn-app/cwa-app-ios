@@ -379,6 +379,7 @@
 		CDD87C56247556DE007CE6CA /* MainSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD87C54247556DE007CE6CA /* MainSettingsTableViewCell.swift */; };
 		CDF27BD3246ADBA70044D32B /* ExposureSubmissionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF27BD2246ADBA70044D32B /* ExposureSubmissionServiceTests.swift */; };
 		CDF27BD5246ADBF30044D32B /* HTTPClient+DaysAndHoursTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF27BD4246ADBF30044D32B /* HTTPClient+DaysAndHoursTests.swift */; };
+		EB11B02A24EE7CA500143A95 /* ENAUITestsSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB11B02924EE7CA500143A95 /* ENAUITestsSettings.swift */; };
 		EB2394A024E5492900E71225 /* BackgroundAppRefreshViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23949F24E5492900E71225 /* BackgroundAppRefreshViewModel.swift */; };
 		EB7057D724E6BACA002235B4 /* InfoBoxView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB7057D624E6BACA002235B4 /* InfoBoxView.xib */; };
 		EB7D205424E6A3320089264C /* InfoBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7D205324E6A3320089264C /* InfoBoxView.swift */; };
@@ -834,6 +835,7 @@
 		CDD87C5C247559E3007CE6CA /* LabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTableViewCell.swift; sourceTree = "<group>"; };
 		CDF27BD2246ADBA70044D32B /* ExposureSubmissionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionServiceTests.swift; sourceTree = "<group>"; };
 		CDF27BD4246ADBF30044D32B /* HTTPClient+DaysAndHoursTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+DaysAndHoursTests.swift"; sourceTree = "<group>"; };
+		EB11B02924EE7CA500143A95 /* ENAUITestsSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsSettings.swift; sourceTree = "<group>"; };
 		EB23949F24E5492900E71225 /* BackgroundAppRefreshViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAppRefreshViewModel.swift; sourceTree = "<group>"; };
 		EB7057D624E6BACA002235B4 /* InfoBoxView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoBoxView.xib; sourceTree = "<group>"; };
 		EB7D205324E6A3320089264C /* InfoBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBoxView.swift; sourceTree = "<group>"; };
@@ -1526,6 +1528,7 @@
 				130CB19A246D92F800ADE602 /* Onboarding */,
 				134F0DB8247578FF00D88934 /* Home */,
 				13E5046A248E3CE60086641C /* AppInformation */,
+				EB11B02824EE7C7D00143A95 /* Settings */,
 				85D7596324570491008175F0 /* ENAUITests.swift */,
 				134F0F2B2475793400D88934 /* SnapshotHelper.swift */,
 				A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */,
@@ -2209,6 +2212,14 @@
 				CDD87C5C247559E3007CE6CA /* LabelTableViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		EB11B02824EE7C7D00143A95 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				EB11B02924EE7CA500143A95 /* ENAUITestsSettings.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		EB41DC0624E53D3F0029C6F7 /* BackgroundAppRefresh */ = {
@@ -2932,6 +2943,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				134F0DBC247578FF00D88934 /* ENAUITestsHome.swift in Sources */,
+				EB11B02A24EE7CA500143A95 /* ENAUITestsSettings.swift in Sources */,
 				134F0DBD247578FF00D88934 /* ENAUITests-Extensions.swift in Sources */,
 				A32842652491136E006B1F09 /* ExposureSubmissionUITests.swift in Sources */,
 				85D7596424570491008175F0 /* ENAUITests.swift in Sources */,
