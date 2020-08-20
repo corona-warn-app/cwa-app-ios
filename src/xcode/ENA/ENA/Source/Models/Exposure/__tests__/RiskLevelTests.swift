@@ -55,13 +55,10 @@ final class RiskLevelTests: XCTestCase {
 	func testRiskLevelCompareUnknownOutdated() {
 		// swiftlint:disable:next identical_operands
 		XCTAssertFalse(RiskLevel.unknownOutdated < RiskLevel.unknownOutdated)
-		
+		XCTAssert(RiskLevel.unknownOutdated > RiskLevel.low)
 		XCTAssert(RiskLevel.unknownOutdated < RiskLevel.unknownInitial)
 		XCTAssert(RiskLevel.unknownOutdated < RiskLevel.inactive)
-		
-		// Exception case: .unknownOutdated overrules .increased
-		XCTAssert(RiskLevel.unknownOutdated > RiskLevel.increased)
-		XCTAssert(RiskLevel.unknownOutdated > RiskLevel.low)
+		XCTAssert(RiskLevel.unknownOutdated < RiskLevel.increased)
 	}
 
 	func testRiskLevelCompareUnknownInitial() {
@@ -76,12 +73,9 @@ final class RiskLevelTests: XCTestCase {
 	func testRiskLevelCompareIncreased() {
 		// swiftlint:disable:next identical_operands
 		XCTAssertFalse(RiskLevel.increased < RiskLevel.increased)
-		
 		XCTAssert(RiskLevel.increased > RiskLevel.low)
 		XCTAssert(RiskLevel.increased > RiskLevel.unknownInitial)
-		
-		// Exception case: .unknownOutdated overrides .increased
-		XCTAssert(RiskLevel.increased < RiskLevel.unknownOutdated)
+		XCTAssert(RiskLevel.increased > RiskLevel.unknownOutdated)
 		XCTAssert(RiskLevel.increased < RiskLevel.inactive)
 
 	}
