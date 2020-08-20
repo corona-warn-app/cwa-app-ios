@@ -46,6 +46,7 @@ class BackgroundAppRefreshViewController: UIViewController {
 	// MARK: - Overrides
 	
 	override func viewDidLoad() {
+		super.viewDidLoad()
 		setupView()
 		setupBindings()
 	}
