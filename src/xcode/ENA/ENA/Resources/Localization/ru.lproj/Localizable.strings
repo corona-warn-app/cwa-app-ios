@@ -35,6 +35,10 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Обновление в фоновом режиме отключено";
 
+"Common_Deadman_AlertTitle" = "Ваш статус риска";
+
+"Common_Deadman_AlertBody" = "Не забудьте регулярно открывать приложение Corona-Warn-AppЧтобы проверить свой статус риска.";
+
 /* General - Links */
 "General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
 
@@ -82,7 +86,7 @@
 
 "ExposureDetection_Behavior_Subtitle" = "Вот что Вам нужно сделать";
 
-"ExposureDetection_Guide_Hands" = "Регулярно мойте руки.";
+"ExposureDetection_Guide_Hands" = "Регулярно мойте руки с мылом не менее 20 секунд.";
 
 "ExposureDetection_Guide_Mask" = "Носите защитную маску при контактах с другими людьми.";
 
@@ -222,6 +226,10 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Сделайте из Вашего устройства систему  предупреждения о коронавирусе. Просматривайте Ваш статус риска и определяйте, были ли у Вас близкие контакты с лицами с положительным тестом на COVID-19 за последние 14 дней.\n\nКонтакты людей регистрируются в приложении путем обмена зашифрованными случайными идентификаторами между  устройствами без доступа к каким-либо персональным данным.";
 
+"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Информация о приложении простым языком и на языке жестов";
+
 "OnboardingInfo_privacyPage_imageDescription" = "На смартфоне одной женщины установлено приложение Corona-Warn-App. Значок замка на фоне щита указывает на шифрование данных.";
 
 "OnboardingInfo_privacyPage_title" = "Конфиденциальность данных";
@@ -321,7 +329,7 @@
 
 "ExposureSubmissionHotline_Title" = "Запросить TAN";
 
-"ExposureSubmissionHotline_Description" = "Для запроса TAN просим Вас подготовить результат теста (если есть) и Ваш номер телефона.\n\nГорячая линия поддерживает оказание услуг Tess Relay для слабослышащих людей.";
+"ExposureSubmissionHotline_Description" = "Для запроса TAN просим Вас подготовить результат теста (если есть) и Ваш номер телефона.\n\nЧтобы обратиться на горячую линию по телефону, слабослышащие могут использовать услуги Tess Relay (перевод с немецкого письменного языка на язык жестов и обратно). ПО можно выгрузить с App Store/Google Play.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Как это работает:";
 
@@ -455,7 +463,7 @@
 
 "ExposureSubmissionResult_testInvalid" = "В тесте есть ошибки";
 
-"ExposureSubmissionResult_testInvalidDesc" = "При анализе вашего теста возникла проблема. Обратитесь в местный орган здравоохранения за дальнейшими рекомендациями.";
+"ExposureSubmissionResult_testInvalidDesc" = "При анализе вашего теста возникла проблема. Обратитесь в центр тестирования или выполнявшую тест лабораторию за дальнейшими рекомендациями.";
 
 "ExposureSubmissionResult_testRedeemed" = "В тесте есть ошибки";
 
@@ -489,15 +497,16 @@
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Конфиденциальность данных";
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "Удалить тест?";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Тест можно отсканировать только один раз.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Тест будет безвозвратно удален из приложения Corona-Warn-App без возможности повторного добавления. Это действие нельзя отменить.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "После удаления теста вы не сможете запросить результат тестирования. Вы получите результат теста из центра тестирования или выполнившей тест лаборатории вне зависимости от приложения. Если у вас диагностирован COVID-19, вы получите уведомление от соответствующего органа здравоохранения.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Дата регистрации неизвестна";
 
 "ExposureSubmissionResult_RegistrationDate" = "Дата регистрации";
 
 /* Exposure Submission */
+"ExposureSubmissionError_ErrorPrefix" = "При отправке данных обнаружена техническая ошибка. Обратитесь в службу технической поддержки. Номер телефона вы найдете в разделе информации о приложении.";
 
 "ExposureSubmissionError_NoKeys" = "Код диагноза недоступен. Повторите попытку завтра.";
 
@@ -511,7 +520,7 @@
 
 "ExposureSubmissionError_NoResponse" = "Ответ не имеет содержимого.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "QR-код уже использовался. Обратитесь на горячую линию по техническим вопросам по пути: Информация о приложении -> Горячая линия по техническим вопросам.";
+"ExposureSubmissionError_QRAlreadyUsed" = "QR-код недействительный или уже зарегистрирован на другом смартфоне. Повторите попытку. Вы получите результат теста из центра тестирования или выполнившей тест лаборатории вне зависимости от действительности QR-кода. Если у вас диагностирован COVID-19, вы получите уведомление от соответствующего органа здравоохранения.";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "TAN недействителен или уже использовался. Повторите попытку или обратитесь на горячую линию по техническим вопросам по пути: Информация о приложении -> Горячая линия по техническим вопросам.";
 
@@ -759,6 +768,10 @@
 "App_Information_About_Description" = "Институт Роберта Коха (РКИ) — это центральный федеральный институт Германии в области здравоохранения. По поручению федерального правительства РКИ выпустил приложение Corona-Warn-App. Приложение задумано как цифровое дополнение к уже принятым санитарным мерам: социальной дистанции, гигиене и ношению защитных масок.";
 
 "App_Information_About_Text" = "Каждый пользователь приложения помогает отслеживать и останавливать передачу инфекции. Приложение регистрирует контакты с другими людьми локально на вашем устройстве. Вы получаете уведомления о контактах с людьми, которые впоследствии получили положительный результат теста на COVID-19. Ваши персональные данные и конфиденциальность надежно защищены.";
+
+"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"App_Information_About_LinkText" = "Информация о приложении простым языком и на языке жестов";
 
 /* App Information - FAQ */
 "App_Information_FAQ_Navigation" = "Часто задаваемые вопросы";

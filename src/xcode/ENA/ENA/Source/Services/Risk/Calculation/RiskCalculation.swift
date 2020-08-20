@@ -64,7 +64,6 @@ enum RiskCalculation {
 		providerConfiguration: RiskProvidingConfiguration,
 		currentDate: Date = Date()
 	) -> Result<RiskLevel, RiskLevelCalculationError> {
-		var riskLevel = RiskLevel.low
 		DispatchQueue.main.async {
 			let appDelegate = UIApplication.shared.delegate as? AppDelegate // TODO: Remove
 			appDelegate?.lastRiskCalculation = ""  // Reset; Append from here on
@@ -75,33 +74,34 @@ enum RiskCalculation {
 			appDelegate?.lastRiskCalculation.append("summary: \(String(describing: summary?.description))\n")
 		}
 
+		//
 		// Precondition 1 - Exposure Notifications must be turned on
-		guard preconditions.isGood else {
-			// This overrides all other levels
-			return .success(.inactive)
-		}
+		let isInactive = !preconditions.isGood
 
 		// Precondition 2 - If tracing is active less than 1 day, risk is .unknownInitial
-		if activeTracing.inHours < minTracingActiveHours, riskLevel < .unknownInitial {
-			riskLevel = .unknownInitial
-		}
+		let isTracingActiveLess1Day = activeTracing.inHours < minTracingActiveHours
 
 		// Precondition 3 - Risk is unknownInitial if summary is not present
-		if summary == nil, riskLevel < .unknownInitial {
-			riskLevel = .unknownInitial
+		let isNoSummary = summary == nil
+
+		let isUnknownInitial = isTracingActiveLess1Day || isNoSummary
+
+		let isUnknownOutdated = !providerConfiguration.exposureDetectionIsValid(lastExposureDetectionDate: dateLastExposureDetection ?? .distantPast)
+
+		var riskLevels: [RiskLevel] = [.low]
+
+		// returns RiskLevel with higher priority
+		var riskLevel: RiskLevel {
+			riskLevels.max() ?? .inactive
 		}
 
-		if
-			!providerConfiguration.exposureDetectionIsValid(lastExposureDetectionDate: dateLastExposureDetection ?? .distantPast),
-			riskLevel < .unknownOutdated {
-			// The last exposure detection is not valid since it occurred too far in the past
-			riskLevel = .unknownOutdated
-		}
+		if isInactive { riskLevels.append(.inactive) }
+		if isUnknownOutdated { riskLevels.append(.unknownOutdated) }
+		if isUnknownInitial { riskLevels.append(.unknownInitial) }
 
-		guard let summary = summary else {
-			return .success(riskLevel)
-		}
+		guard let summary = summary else { return .success(riskLevel) }
 
+		// Calculation low & increased risk levels
 		let riskScoreClasses = configuration.riskScoreClasses
 		let riskClasses = riskScoreClasses.riskClasses
 
@@ -117,18 +117,28 @@ enum RiskCalculation {
 
 		let riskScore = calculateRawRisk(summary: summary, configuration: configuration)
 
+		var isLow = false
+		var isIncreased = false
+
 		if riskRangeLow.contains(riskScore) {
-			let calculatedRiskLevel = RiskLevel.low
-			// Only use the calculated risk level if it is of a higher priority than the
-			riskLevel = calculatedRiskLevel > riskLevel ? calculatedRiskLevel : riskLevel
+			isLow = true
 		} else if riskRangeHigh.contains(riskScore) {
-			let calculatedRiskLevel = RiskLevel.increased
-			riskLevel = calculatedRiskLevel > riskLevel ? calculatedRiskLevel : riskLevel
+			isIncreased = true
 		} else {
 			return .failure(.riskOutsideRange)
 		}
 
-		return .success(riskLevel)
+		if isLow { riskLevels.append(.low) }
+		if isIncreased { riskLevels.append(.increased) }
+
+		// Depending on different conditions we return riskLevel
+		let state = (isUnknownOutdated, isIncreased, isUnknownInitial)
+		switch state {
+		case (true, true, false):
+			return .success(.unknownOutdated)
+		case (_, _, _):
+			return .success(riskLevel)
+		}
 	}
 
 	/// Performs the raw risk calculation without checking any preconditions

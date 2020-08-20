@@ -216,14 +216,22 @@ extension HomeInteractor {
 			)
 			inactiveConfigurator?.activeAction = inActiveCellActionHandler
 		case .unknownOutdated:
-			riskLevelConfigurator = HomeUnknown48hRiskCellConfigurator(
-				isLoading: isRequestRiskRunning,
-				lastUpdateDate: dateLastExposureDetection,
-				detectionInterval: detectionInterval,
-				detectionMode: detectionMode,
-				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
-				previousRiskLevel: store.previousRiskLevel)
-			inactiveConfigurator?.activeAction = inActiveCellActionHandler
+			if detectionMode == .automatic {
+				inactiveConfigurator = HomeInactiveRiskCellConfigurator(
+					inactiveType: .outdatedResults,
+					previousRiskLevel: store.previousRiskLevel,
+					lastUpdateDate: dateLastExposureDetection
+				)
+				inactiveConfigurator?.activeAction = inActiveCellActionHandler
+			} else {
+				riskLevelConfigurator = HomeUnknown48hRiskCellConfigurator(
+					isLoading: isRequestRiskRunning,
+					lastUpdateDate: dateLastExposureDetection,
+					detectionInterval: detectionInterval,
+					detectionMode: detectionMode,
+					manualExposureDetectionState: riskProvider.manualExposureDetectionState,
+					previousRiskLevel: store.previousRiskLevel)
+			}
 		case .low:
 			let activeTracing = risk?.details.activeTracing ?? .init(interval: 0)
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(
