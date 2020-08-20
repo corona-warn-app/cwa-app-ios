@@ -176,7 +176,7 @@
 
 "Settings_Notification_Description" = "Erlauben Sie automatische Mitteilungen zu Ihrem COVID-19-Risikostatus.";
 
-"Settings_BackgroundAppRefresh_Description" = "Erlauben Sie automatische Aktualisierung Ihres Risikostatus.";
+"Settings_BackgroundAppRefresh_Description" = "Erlauben Sie die automatische Aktualisierung Ihres Risikostatus.";
 
 "Settings_Reset_Description" = "Löschen Sie alle Ihre Daten in der App.";
 
