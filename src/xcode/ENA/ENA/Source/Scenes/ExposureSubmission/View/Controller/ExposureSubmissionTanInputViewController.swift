@@ -109,7 +109,8 @@ extension ExposureSubmissionTanInputViewController {
 						self.navigationFooterItem?.isPrimaryButtonLoading = false
 						self.navigationFooterItem?.isPrimaryButtonEnabled = true
 						self.tanInput.becomeFirstResponder()
-				})
+					}
+				)
 				self.present(alert, animated: true, completion: nil)
 
 			case .success:

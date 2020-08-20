@@ -76,7 +76,6 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 		}
 	}
 
-	// swiftlint:disable:next function_body_length
 	func set(
 		day: String,
 		package: SAPDownloadedPackage
