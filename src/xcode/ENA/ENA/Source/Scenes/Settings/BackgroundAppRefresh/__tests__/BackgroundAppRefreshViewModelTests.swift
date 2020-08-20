@@ -21,6 +21,7 @@ import XCTest
 import Combine
 @testable import ENA
 
+// swiftlint:disable:next type_body_length
 class BackgroundAppRefreshViewModelTests: XCTestCase {
 
     func testBackgroundRefreshStatusAvailableLowPowerModeDisabled() {
@@ -36,6 +37,7 @@ class BackgroundAppRefreshViewModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.showInfoBox)
 		XCTAssertNil(viewModel.infoBoxViewModel)
 		XCTAssertEqual(viewModel.backgroundAppRefreshStatusAccessibilityLabel, "\(AppStrings.BackgroundAppRefreshSettings.Status.title) \(AppStrings.BackgroundAppRefreshSettings.Status.on)")
+		XCTAssertEqual(viewModel.backgroundAppRefreshStatusImageAccessibilityLabel, AppStrings.BackgroundAppRefreshSettings.onImageDescription)
     }
 
 	func testBackgroundRefreshStatusDeniedLowPowerModeDisabled() {
@@ -67,6 +69,7 @@ class BackgroundAppRefreshViewModelTests: XCTestCase {
 		wait(for: [onOpenSettingsExpectation, onShareExpectation], timeout: 3.0)
 
 		XCTAssertEqual(viewModel.backgroundAppRefreshStatusAccessibilityLabel, "\(AppStrings.BackgroundAppRefreshSettings.Status.title) \(AppStrings.BackgroundAppRefreshSettings.Status.off)")
+		XCTAssertEqual(viewModel.backgroundAppRefreshStatusImageAccessibilityLabel, AppStrings.BackgroundAppRefreshSettings.offImageDescription)
     }
 
 	func testBackgroundRefreshStatusDeniedLowPowerModeEnabled() {
@@ -99,6 +102,7 @@ class BackgroundAppRefreshViewModelTests: XCTestCase {
 		wait(for: [onOpenSettingsExpectation, onShareExpectation], timeout: 3.0)
 
 		XCTAssertEqual(viewModel.backgroundAppRefreshStatusAccessibilityLabel, "\(AppStrings.BackgroundAppRefreshSettings.Status.title) \(AppStrings.BackgroundAppRefreshSettings.Status.off)")
+		XCTAssertEqual(viewModel.backgroundAppRefreshStatusImageAccessibilityLabel, AppStrings.BackgroundAppRefreshSettings.offImageDescription)
     }
 
     func testBackgroundRefreshStatusTextChangeForBackgroundRefreshStatusChangeFromAvailableToDeniedWithLowPowerModeDisabled() {
@@ -151,6 +155,38 @@ class BackgroundAppRefreshViewModelTests: XCTestCase {
 
 		var receivedValues = [String]()
 		let subscription = viewModel.$backgroundAppRefreshStatusAccessibilityLabel.receive(on: RunLoop.main).sink {
+			receivedValues.append($0)
+			expectation.fulfill()
+		}
+
+		mockBackgroundRefreshStatusProvider.backgroundRefreshStatus = .denied
+		NotificationCenter.default.post(name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
+
+		wait(for: [expectation], timeout: 3.0)
+
+		subscription.cancel()
+
+		XCTAssertEqual(receivedValues, expectedValues)
+    }
+	
+    func testBackgroundRefreshStatusImageAccessibilityLabelChangeForBackgroundRefreshStatusChangeFromAvailableToDeniedWithLowPowerModeDisabled() {
+		let mockBackgroundRefreshStatusProvider = MockBackgroundRefreshStatusProvider(backgroundRefreshStatus: .available)
+		let viewModel = BackgroundAppRefreshViewModel(
+			backgroundRefreshStatusProvider: mockBackgroundRefreshStatusProvider,
+			lowPowerModeStatusProvider: MockLowPowerModeStatusProvider(isLowPowerModeEnabled: false),
+			onOpenSettings: {},
+			onShare: {}
+		)
+
+		let expectedValues = [
+			AppStrings.BackgroundAppRefreshSettings.onImageDescription,
+			AppStrings.BackgroundAppRefreshSettings.offImageDescription
+		]
+		let expectation = XCTestExpectation(description: "backgroundAppRefreshStatusImageAccessibilityLabel changed")
+		expectation.expectedFulfillmentCount = expectedValues.count
+
+		var receivedValues = [String]()
+		let subscription = viewModel.$backgroundAppRefreshStatusImageAccessibilityLabel.receive(on: RunLoop.main).sink {
 			receivedValues.append($0)
 			expectation.fulfill()
 		}

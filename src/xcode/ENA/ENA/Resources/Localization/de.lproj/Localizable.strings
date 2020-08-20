@@ -213,6 +213,10 @@
 
 "BackgroundAppRefreshSettings_Title" = "Hintergrundaktualisierung";
 
+"BackgroundAppRefreshSettings_Image_Description_On" = "Ein Mensch hält ein Smartphone mit eingeschalteter Hintergrundaktualisierung in der Hand.";
+
+"BackgroundAppRefreshSettings_Image_Description_Off" = "Ein Mensch hält ein Smartphone mit ausgeschalteter Hintergrundaktualisierung in der Hand.";
+
 "BackgroundAppRefreshSettings_Subtitle" = "Risikostatus im Hintergrund aktualisieren";
 
 "BackgroundAppRefreshSettings_Description" = "Bei eingeschalteter Hintergrundaktualisierung ermittelt die Corona-Warn-App Ihren Risikostatus automatisch.

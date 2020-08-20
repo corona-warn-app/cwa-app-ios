@@ -316,7 +316,9 @@ enum AppStrings {
 		static let title = NSLocalizedString("BackgroundAppRefreshSettings_Title", comment: "")
 		static let subtitle = NSLocalizedString("BackgroundAppRefreshSettings_Subtitle", comment: "")
 		static let description = NSLocalizedString("BackgroundAppRefreshSettings_Description", comment: "")
-
+		static let onImageDescription = NSLocalizedString("BackgroundAppRefreshSettings_Image_Description_On", comment: "")
+		static let offImageDescription = NSLocalizedString("BackgroundAppRefreshSettings_Image_Description_Off", comment: "")
+		
 		enum Status {
 			static let header = NSLocalizedString("BackgroundAppRefreshSettings_Status_Header", comment: "")
 			static let title = NSLocalizedString("BackgroundAppRefreshSettings_Status_Title", comment: "")

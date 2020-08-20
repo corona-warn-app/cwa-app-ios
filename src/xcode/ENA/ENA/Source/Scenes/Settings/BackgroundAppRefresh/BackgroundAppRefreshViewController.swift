@@ -76,6 +76,7 @@ class BackgroundAppRefreshViewController: UIViewController {
 
 		backgroundAppRefreshStatusStackView.isAccessibilityElement = true
 		
+		imageView.isAccessibilityElement = true
 		imageView.accessibilityIdentifier = AccessibilityIdentifiers.Settings.backgroundAppRefreshImageDescription
 	}
 	
@@ -86,6 +87,9 @@ class BackgroundAppRefreshViewController: UIViewController {
 			},
 			viewModel.$backgroundAppRefreshStatusAccessibilityLabel.receive(on: RunLoop.main).sink { [weak self] in
 				self?.backgroundAppRefreshStatusStackView.accessibilityLabel = $0
+			},
+			viewModel.$backgroundAppRefreshStatusImageAccessibilityLabel.receive(on: RunLoop.main).sink { [weak self] in
+				self?.imageView.accessibilityLabel = $0
 			},
 			viewModel.$image.receive(on: RunLoop.main).sink { [weak self] in
 					self?.imageView.image = $0

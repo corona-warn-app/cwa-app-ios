@@ -71,6 +71,7 @@ class BackgroundAppRefreshViewModel {
 
 	@Published var backgroundAppRefreshStatusText: String = ""
 	@Published var backgroundAppRefreshStatusAccessibilityLabel: String = ""
+	@Published var backgroundAppRefreshStatusImageAccessibilityLabel: String = ""
 	@Published var image: UIImage?
 	@Published var showInfoBox: Bool = false
 	@Published var infoBoxViewModel: InfoBoxViewModel?
@@ -109,11 +110,13 @@ class BackgroundAppRefreshViewModel {
 			switch combinedBackgroundAppRefreshStatus {
 			case .on:
 				backgroundAppRefreshStatusText = AppStrings.BackgroundAppRefreshSettings.Status.on
+				backgroundAppRefreshStatusImageAccessibilityLabel = AppStrings.BackgroundAppRefreshSettings.onImageDescription
 				image = UIImage(named: "Illu_Hintergrundaktualisierung_An")
 				infoBoxViewModel = nil
 			case .off:
 				showInfoBox = true
 				backgroundAppRefreshStatusText = AppStrings.BackgroundAppRefreshSettings.Status.off
+				backgroundAppRefreshStatusImageAccessibilityLabel = AppStrings.BackgroundAppRefreshSettings.offImageDescription
 				image = UIImage(named: "Illu_Hintergrundaktualisierung_Aus")
 				infoBoxViewModel = .init(
 					instructions: infoBoxInstructionsForOff,
@@ -127,6 +130,7 @@ class BackgroundAppRefreshViewModel {
 			case .offInPowerSaving:
 				showInfoBox = true
 				backgroundAppRefreshStatusText = AppStrings.BackgroundAppRefreshSettings.Status.off
+				backgroundAppRefreshStatusImageAccessibilityLabel = AppStrings.BackgroundAppRefreshSettings.offImageDescription
 				image = UIImage(named: "Illu_Hintergrundaktualisierung_Aus")
 				infoBoxViewModel = .init(
 					instructions: infoBoxInstructionLowPowerMode + infoBoxInstructionsForOff,
