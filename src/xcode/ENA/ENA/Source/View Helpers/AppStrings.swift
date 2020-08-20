@@ -626,4 +626,5 @@ enum AppStrings {
 		static let invalidCharacter = NSLocalizedString("ENATanInput_InvalidCharacter", comment: "")
 		static let characterIndex = NSLocalizedString("ENATanInput_CharacterIndex", comment: "")
 	}
+	// swiftlint:disable:next file_length
 }
