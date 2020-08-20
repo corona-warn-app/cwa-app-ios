@@ -70,13 +70,11 @@ class BackgroundAppRefreshViewModel {
 	let backgroundAppRefreshTitle = AppStrings.BackgroundAppRefreshSettings.Status.title
 
 	@Published var backgroundAppRefreshStatusText: String = ""
+	@Published var backgroundAppRefreshStatusAccessibilityLabel: String = ""
 	@Published var image: UIImage?
 	@Published var showInfoBox: Bool = false
 	@Published var infoBoxViewModel: InfoBoxViewModel?
 
-	var backgroundAppRefreshStatusAccessibilityLabel: String {
-		return backgroundAppRefreshTitle + " " + backgroundAppRefreshStatusText
-	}
 
 	// MARK: - Private
 
@@ -140,6 +138,8 @@ class BackgroundAppRefreshViewModel {
 					shareAction: onShare
 				)
 			}
+
+			backgroundAppRefreshStatusAccessibilityLabel = backgroundAppRefreshTitle + " " + backgroundAppRefreshStatusText
 		}
 	}
 	

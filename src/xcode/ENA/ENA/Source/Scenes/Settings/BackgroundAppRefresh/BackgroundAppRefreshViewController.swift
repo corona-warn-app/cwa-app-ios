@@ -81,7 +81,9 @@ class BackgroundAppRefreshViewController: UIViewController {
 		subscriptions = [
 			viewModel.$backgroundAppRefreshStatusText.receive(on: RunLoop.main).sink { [weak self] in
 				self?.backgroundAppRefreshStatusLabel.text = $0
-				self?.backgroundAppRefreshStatusStackView.accessibilityLabel = self?.viewModel.backgroundAppRefreshStatusAccessibilityLabel
+			},
+			viewModel.$backgroundAppRefreshStatusAccessibilityLabel.receive(on: RunLoop.main).sink { [weak self] in
+				self?.backgroundAppRefreshStatusStackView.accessibilityLabel = $0
 			},
 			viewModel.$image.receive(on: RunLoop.main).sink { [weak self] in
 					self?.imageView.image = $0
