@@ -65,9 +65,13 @@ final class AppUpdateCheckHelper {
 	}
 
 	private func setObserver(vc: UIViewController?, alertType: UpdateAlertType) {
-		guard self.applicationDidBecomeActiveObserver == nil else { return }
-		self.applicationDidBecomeActiveObserver = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] _ in
+		guard applicationDidBecomeActiveObserver == nil else { return }
+		applicationDidBecomeActiveObserver = NotificationCenter.default.addObserver(forName: UIScene.didActivateNotification, object: nil, queue: nil) { [weak self] _ in
 			guard let self = self else { return }
+			let alreadyPresentingSomething = vc?.presentedViewController != nil
+			guard alreadyPresentingSomething == false else {
+				return
+			}
 			guard let alert = self.createAlert(alertType, vc: vc) else {
 				return
 			}
@@ -83,9 +87,7 @@ final class AppUpdateCheckHelper {
 	func createAlert(_ type: UpdateAlertType, vc: UIViewController?) -> UIAlertController? {
 		let alert = UIAlertController(title: AppStrings.UpdateMessage.title, message: AppStrings.UpdateMessage.text, preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: NSLocalizedString(AppStrings.UpdateMessage.actionUpdate, comment: ""), style: .cancel, handler: { _ in
-			guard let url: URL = URL(string: "itms-apps://itunes.apple.com/app/apple-store/") else {
-				return
-			}
+			 let url = URL(staticString: "https://apps.apple.com/de/app/corona-warn-app/id1512595757?mt=8")
 			UIApplication.shared.open(url, options: [:], completionHandler: nil)
 		}))
 		switch type {

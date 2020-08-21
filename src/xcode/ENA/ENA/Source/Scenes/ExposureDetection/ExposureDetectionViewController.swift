@@ -20,10 +20,13 @@ import Foundation
 import UIKit
 
 final class ExposureDetectionViewController: DynamicTableViewController, RequiresAppDependencies {
-	// MARK: Properties
+	// MARK: - Properties.
 
-	@IBOutlet var closeControl: UIControl!
-	@IBOutlet var closeImage: UIImageView!
+	private var countdown: CountdownTimer?
+
+	// MARK: - IB Outlets.
+
+	@IBOutlet var closeButton: UIButton!
 	@IBOutlet var headerView: UIView!
 	@IBOutlet var titleViewBottomConstraint: NSLayoutConstraint!
 	@IBOutlet var titleLabel: UILabel!
@@ -39,7 +42,7 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 
 	private let consumer = RiskConsumer()
 
-	// MARK: Creating an Exposure Detection View Controller
+	// MARK: - Creating an Exposure Detection View Controller.
 
 	init?(
 		coder: NSCoder,
@@ -51,8 +54,13 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 		super.init(coder: coder)
 	}
 
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has intentionally not been implemented")
+	}
+
+	deinit {
+		riskProvider.removeRisk(consumer)
 	}
 }
 
@@ -62,14 +70,17 @@ extension ExposureDetectionViewController {
 
 		titleLabel.accessibilityTraits = .header
 
-    closeControl.isAccessibilityElement = true
-		closeControl.accessibilityTraits = .button
-		closeControl.accessibilityLabel = AppStrings.AccessibilityLabel.close
-		closeControl.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
+		closeButton.isAccessibilityElement = true
+		closeButton.accessibilityTraits = .button
+		closeButton.accessibilityLabel = AppStrings.AccessibilityLabel.close
+		closeButton.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 
 		consumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk
 			self?.updateUI()
+		}
+		consumer.didChangeLoadingStatus = { [weak self] isLoading in
+			self?.state.isLoading = isLoading
 		}
 
 		riskProvider.observeRisk(consumer)
@@ -84,11 +95,12 @@ extension ExposureDetectionViewController {
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 
-		switch state.detectionMode {
-		case .automatic:
+		if footerView.isHidden {
 			tableView.contentInset.bottom = 0
-		case .manual:
-			tableView.contentInset.bottom = footerView.frame.height
+			tableView.verticalScrollIndicatorInsets.bottom = 0
+		} else {
+			tableView.contentInset.bottom = footerView.frame.height - tableView.safeAreaInsets.bottom
+			tableView.verticalScrollIndicatorInsets.bottom = tableView.contentInset.bottom
 		}
 	}
 
@@ -107,8 +119,6 @@ extension ExposureDetectionViewController {
 
 		return cell
 	}
-
-
 }
 
 extension ExposureDetectionViewController {
@@ -131,16 +141,13 @@ private extension ExposureDetectionViewController {
 	@IBAction private func tappedBottomButton() {
 		guard state.isTracingEnabled else {
 			delegate?.exposureDetectionViewController(self, setExposureManagerEnabled: true) { error in
-				self.alertError(message: error?.localizedDescription, title: AppStrings.Common.alertTitleGeneral)
+				if let error = error {
+					self.alertError(message: error.localizedDescription, title: AppStrings.Common.alertTitleGeneral)
+				}
 			}
 			return
 		}
-		state.isLoading = true
-		self.delegate?.didStartLoading(exposureDetectionViewController: self)
-		riskProvider.requestRisk(userInitiated: true) { _ in
-			self.state.isLoading = false
-			self.delegate?.didFinishLoading(exposureDetectionViewController: self)
-		}
+		riskProvider.requestRisk(userInitiated: true)
 	}
 }
 
@@ -164,39 +171,107 @@ extension ExposureDetectionViewController {
 	}
 
 	private func updateCloseButton() {
-		if state.isTracingEnabled && state.riskLevel != .unknownOutdated {
-			closeImage.image = UIImage(named: "Icons - Close - Contrast")
+		if state.isTracingEnabled && state.riskLevel != .inactive {
+			closeButton.setImage(UIImage(named: "Icons - Close - Contrast"), for: .normal)
+			closeButton.setImage(UIImage(named: "Icons - Close - Tap - Contrast"), for: .highlighted)
 		} else {
-			closeImage.image = UIImage(named: "Icons - Close")
+			closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)
+			closeButton.setImage(UIImage(named: "Icons - Close - Tap"), for: .highlighted)
 		}
 	}
 
 	private func updateHeader() {
-		headerView.backgroundColor = state.riskTintColor
+		headerView.backgroundColor = state.riskBackgroundColor
 		titleLabel.text = state.riskText
-		titleLabel.textColor = state.riskContrastColor
+		titleLabel.textColor = state.riskContrastTextColor
 	}
 
 	private func updateTableView() {
 		tableView.reloadData()
 	}
 
-	private func updateCheckButton() {
+	/// This methods configures the update button to either allow the direct update of the current risk score
+	/// or to display a countdown and deactivate the button until it is possible to update again.
+	/// - Parameters:
+	///   - time: formatted time string <hh:mm:ss>  that is displayed as remaining time.
+	private func updateCheckButton(_ time: String? = nil) {
 		if !state.isTracingEnabled {
 			footerView.isHidden = false
 			checkButton.isEnabled = true
 			checkButton.setTitle(AppStrings.ExposureDetection.buttonEnable, for: .normal)
 			return
 		}
-		
-		switch state.detectionMode {
+
+		var mode = state.detectionMode
+		if .unknownOutdated == state.risk?.level { mode = .manual }
+
+		switch mode {
+
+		// Automatic mode does not requred additional logic, this is often the default configuration.
 		case .automatic:
 			footerView.isHidden = true
 			checkButton.isEnabled = true
+
+		// In manual mode we show a countdown when the button cannot be clicked.
 		case .manual:
 			footerView.isHidden = false
-			checkButton.setTitle(AppStrings.ExposureDetection.buttonRefresh, for: .normal)
-			checkButton.isEnabled = riskProvider.manualExposureDetectionState == .possible
+
+			let nextRefresh = riskProvider.nextExposureDetectionDate()
+			let now = Date()
+
+			// If there is not countdown and the next possible refresh date is in the future,
+			// we schedule a new timer.
+			if nextRefresh > now, countdown == nil {
+				scheduleCountdownTimer(to: nextRefresh)
+
+			// Make sure to schedule new countdown if the next refresh time has changed.
+			} else if let countdown = countdown, countdown.end != nextRefresh {
+				scheduleCountdownTimer(to: nextRefresh)
+
+			// Update time label as long as the next possible refresh date is in the future.
+			} else if nextRefresh - 1 > now {
+				showCountdownButton(with: time)
+
+			// By default, we show the active refresh button. This should always be the
+			// case when the countdown reaches zero and .done() is called or when we were
+			// allowed to update the risk from the very beginning.
+			} else {
+				showActiveRefreshButton()
+			}
 		}
+	}
+
+	private func scheduleCountdownTimer(to end: Date) {
+		countdown?.invalidate()
+		countdown = CountdownTimer(countdownTo: end)
+		countdown?.delegate = self
+		countdown?.start()
+	}
+
+	private func showActiveRefreshButton() {
+		self.checkButton.setTitle(AppStrings.ExposureDetection.buttonRefresh, for: .normal)
+		// Double check that the risk provider allows updating to not expose an enable checkButton by accident.
+		self.checkButton.isEnabled = riskProvider.manualExposureDetectionState == .possible
+	}
+
+	private func showCountdownButton(with time: String? = nil) {
+		guard let time = time else { return }
+		UIView.performWithoutAnimation {
+			self.checkButton.setTitle(String(format: AppStrings.ExposureDetection.refreshIn, time), for: .normal)
+			self.checkButton.isEnabled = false
+		}
+	}
+}
+
+// MARK: - CountdownTimerDelegate methods.
+
+extension ExposureDetectionViewController: CountdownTimerDelegate {
+
+	func countdownTimer(_ timer: CountdownTimer, didUpdate time: String) {
+		self.updateCheckButton(time)
+	}
+
+	func countdownTimer(_ timer: CountdownTimer, didEnd done: Bool) {
+		self.updateCheckButton()
 	}
 }

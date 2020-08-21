@@ -1,0 +1,5 @@
+- gen/output
+- .*\.c
+- .*\.h
+- .*\*objc
+- ena/ena/source/services/__tests__

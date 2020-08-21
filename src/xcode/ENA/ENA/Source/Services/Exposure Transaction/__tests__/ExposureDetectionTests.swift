@@ -21,20 +21,19 @@ import XCTest
 @testable import ENA
 import ExposureNotification
 final class ExposureDetectionTransactionTests: XCTestCase {
-	// swiftlint:disable:next function_body_length
     func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {
 		let delegate = ExposureDetectionDelegateMock()
 
 		let availableDataToBeCalled = expectation(description: "availableData called")
 		delegate.availableData = {
 			availableDataToBeCalled.fulfill()
-			return (days: ["2020-05-01"], hours: [])
+			return .init(days: ["2020-05-01"], hours: [])
 		}
 
 		let downloadDeltaToBeCalled = expectation(description: "downloadDelta called")
 		delegate.downloadDelta = { _ in
 			downloadDeltaToBeCalled.fulfill()
-			return (days: ["2020-05-01"], hours: [])
+			return .init(days: ["2020-05-01"], hours: [])
 		}
 
 		let downloadAndStoreToBeCalled = expectation(description: "downloadAndStore called")

@@ -1,0 +1,14 @@
+
+app_identifier("de.rki.coronawarnapp-dev")
+
+username("cwa.technical-user@sap.com")
+
+automatic_release(true)
+
+overwrite_screenshots(false)
+
+skip_screenshots(true)
+
+skip_metadata(true)
+
+team_id("523TP53AQF")

@@ -49,6 +49,7 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 		super.init(coder: coder)
 	}
 
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -83,35 +84,24 @@ extension ExposureNotificationSettingViewController {
 	}
 
 	private func handleEnableError(_ error: ExposureNotificationError, alert: Bool) {
+		let faqAction = UIAlertAction(title: AppStrings.ExposureNotificationError.learnMoreActionTitle, style: .default, handler: { _ in LinkHelper.showWebPage(from: self, urlString: AppStrings.ExposureNotificationError.learnMoreURL) })
+		var errorMessage = ""
 		switch error {
 		case .exposureNotificationAuthorization:
-			logError(message: "Failed to enable exposureNotificationAuthorization")
-			if alert {
-				alertError(message: "Failed to enable: exposureNotificationAuthorization", title: "Error")
-			}
+			errorMessage = AppStrings.ExposureNotificationError.enAuthorizationError
 		case .exposureNotificationRequired:
-			logError(message: "Failed to enable")
-			if alert {
-				alertError(message: "exposureNotificationAuthorization", title: "Error")
-			}
+			errorMessage = AppStrings.ExposureNotificationError.enActivationRequiredError
 		case .exposureNotificationUnavailable:
-			logError(message: "Failed to enable")
-			if alert {
-				alertError(message: "ExposureNotification is not available due to the system policy", title: "Error")
-			}
-		case .apiMisuse:
-			logError(message: "APIMisuse")
-			// This error should not happen as we toggle the enabled status on off - we can not enable without disabling first
-			if alert {
-				alertError(message: "ExposureNotification is already enabled", title: "Note")
-			}
+			errorMessage = AppStrings.ExposureNotificationError.enUnavailableError
 		case .unknown(let message):
-			logError(message: "unknown")
-			if alert {
-				alertError(message: "Cannot enable the notification. The reason is \(message)", title: "Error")
-			}
-
+			errorMessage = AppStrings.ExposureNotificationError.enUnknownError + message
+		case .apiMisuse:
+			errorMessage = AppStrings.ExposureNotificationError.apiMisuse
 		}
+		if alert {
+			alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [faqAction])
+		}
+		logError(message: error.localizedDescription + " with message: " + errorMessage, level: .error)
 		if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
 			mySceneDelegate.requestUpdatedExposureState()
 		}
@@ -223,16 +213,26 @@ extension ExposureNotificationSettingViewController {
 						let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
 							(UIColor.enaColor(for: .tint), UIColor.enaColor(for: .hairline)) :
 							(UIColor.enaColor(for: .textPrimary2), UIColor.enaColor(for: .hairline))
+						let activeTracing = store.tracingStatusHistory.activeTracing()
+						let text = [
+							activeTracing.exposureDetectionActiveTracingSectionTextParagraph0,
+							activeTracing.exposureDetectionActiveTracingSectionTextParagraph1]
+							.joined(separator: "\n\n")
 
-						let numberRiskContacts = store.tracingStatusHistory.countEnabledDays()
+						let numberOfDaysWithActiveTracing = activeTracing.inDays
+						let title = NSLocalizedString("ExposureDetection_ActiveTracingSection_Title", comment: "")
+						let subtitle = NSLocalizedString("ExposureDetection_ActiveTracingSection_Subtitle", comment: "")
+
 						tracingCell.configure(
-							progress: CGFloat(numberRiskContacts),
-							text: String(format: AppStrings.ExposureNotificationSetting.tracingHistoryDescription, numberRiskContacts),
+							progress: CGFloat(numberOfDaysWithActiveTracing),
+							title: title,
+							subtitle: subtitle,
+							text: text,
 							colorConfigurationTuple: colorConfig
 						)
 						return tracingCell
 					}
-				case .bluetoothOff, .internetOff, .restricted, .notAuthorized, .unknown:
+				case .bluetoothOff, .restricted, .notAuthorized, .unknown:
 					if let cell = cell as? ActionCell {
 						cell.configure(for: enState, delegate: self)
 					}

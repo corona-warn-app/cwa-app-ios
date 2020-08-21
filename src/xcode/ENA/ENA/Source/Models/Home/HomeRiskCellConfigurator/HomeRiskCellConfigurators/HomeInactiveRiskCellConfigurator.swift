@@ -19,17 +19,15 @@ import UIKit
 
 final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
-	let identifier = UUID()
-
 	private var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 	private var lastUpdateDate: Date?
 
-	enum IncativeType {
+	enum InactiveType {
 		case noCalculationPossible
 		case outdatedResults
 	}
 
-	var incativeType: IncativeType = .noCalculationPossible
+	var inactiveType: InactiveType = .noCalculationPossible
 
 	var activeAction: (() -> Void)?
 
@@ -52,57 +50,79 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
-		incativeType: IncativeType,
+		inactiveType: InactiveType,
 		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
 		lastUpdateDate: Date?
 	) {
-		self.incativeType = incativeType
+		self.inactiveType = inactiveType
 		self.previousRiskLevel = previousRiskLevel
 		self.lastUpdateDate = lastUpdateDate
 	}
 
-	// MARK: Configuration
+	// MARK: - Computed properties.
 
-	func configure(cell: RiskInactiveCollectionViewCell) {
-		cell.delegate = self
+	var title: String {
+		return inactiveType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleTitle : AppStrings.Home.riskCardInactiveOutdatedResultsTitle
+	}
 
-		let title: String = incativeType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleTitle : AppStrings.Home.riskCardInactiveOutdatedResultsTitle
-		let titleColor: UIColor = .enaColor(for: .textPrimary1)
-		cell.configureTitle(title: title, titleColor: titleColor)
+	var body: String {
+		return inactiveType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleBody : AppStrings.Home.riskCardInactiveOutdatedResultsBody
+	}
 
-		let bodyText: String = incativeType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleBody : AppStrings.Home.riskCardInactiveOutdatedResultsBody
-		cell.configureBody(text: bodyText, bodyColor: titleColor)
-
-		let color: UIColor = .enaColor(for: .background)
-		let separatorColor: UIColor = .enaColor(for: .hairline)
-		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
-
-		let previousRiskTitle: String
+	var previousRiskTitle: String {
 		switch previousRiskLevel {
 		case .low?:
-			previousRiskTitle = AppStrings.Home.riskCardInactiveActiveItemLowTitle
+			return AppStrings.Home.riskCardLastActiveItemLowTitle
 		case .increased?:
-			previousRiskTitle = AppStrings.Home.riskCardInactiveActiveItemHighTitle
+			return AppStrings.Home.riskCardLastActiveItemHighTitle
 		default:
-			previousRiskTitle = AppStrings.Home.riskCardInactiveActiveItemUnknownTitle
+			return AppStrings.Home.riskCardLastActiveItemUnknownTitle
 		}
+	}
 
-		let activateItemTitle = String(format: AppStrings.Home.riskCardInactiveActivateItemTitle, previousRiskTitle)
-		let iconTintColor: UIColor = .enaColor(for: .riskNeutral)
-		let item1 = HomeRiskImageItemViewConfigurator(title: activateItemTitle, titleColor: titleColor, iconImageName: "Icons_LetzteErmittlung-Light", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
+	var buttonTitle: String {
+		return inactiveType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleButton : AppStrings.Home.riskCardInactiveOutdatedResultsButton
+	}
+
+	// MARK: - UI Helpers
+
+	/// Adjusts the UI for the given cell, including setting text and adjusting colors.
+	private func configureUI(for cell: RiskInactiveCollectionViewCell) {
+		cell.configureTitle(title: title, titleColor: .enaColor(for: .textPrimary1))
+		cell.configureBody(text: body, bodyColor: .enaColor(for: .textPrimary1))
+		cell.configureBackgroundColor(color: .enaColor(for: .background))
+		cell.configureActiveButton(title: buttonTitle)
+	}
+
+	/// Adjusts the UI for the risk views of a given cell.
+	private func configureRiskViewsUI(for cell: RiskInactiveCollectionViewCell) {
+		let activateItemTitle = String(format: AppStrings.Home.riskCardLastActiveItemTitle, previousRiskTitle)
 		let dateTitle = String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString)
-		let item2 = HomeRiskImageItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "Icons_Aktualisiert", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
-		itemCellConfigurators.append(contentsOf: [item1, item2])
+
+		let itemCellConfigurators = [
+			// Card for the last state of the risk state.
+			HomeRiskImageItemViewConfigurator(
+				title: activateItemTitle,
+				titleColor: .enaColor(for: .textPrimary1),
+				iconImageName: "Icons_LetzteErmittlung-Light",
+				iconTintColor: .enaColor(for: .riskNeutral),
+				color: .enaColor(for: .background),
+				separatorColor: .enaColor(for: .hairline)
+			),
+
+			// Card for the last exposure date.
+			HomeRiskImageItemViewConfigurator(
+				title: dateTitle,
+				titleColor: .enaColor(for: .textPrimary1),
+				iconImageName: "Icons_Aktualisiert",
+				iconTintColor: .enaColor(for: .riskNeutral),
+				color: .enaColor(for: .background),
+				separatorColor: .enaColor(for: .hairline)
+			)
+
+		]
 
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
-		cell.configureBackgroundColor(color: color)
-
-		let buttonTitle: String = incativeType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleButton : AppStrings.Home.riskCardInactiveOutdatedResultsButton
-
-		cell.configureActiveButton(title: buttonTitle)
-
-		setupAccessibility(cell)
-
 	}
 
 	func setupAccessibility(_ cell: RiskInactiveCollectionViewCell) {
@@ -119,6 +139,35 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		cell.topContainer.accessibilityTraits = [.button, .header]
 	}
 
+	// MARK: - Configuration.
+
+	func configure(cell: RiskInactiveCollectionViewCell) {
+
+		cell.delegate = self
+
+		// Configuring the UI.
+
+		configureUI(for: cell)
+		configureRiskViewsUI(for: cell)
+
+		setupAccessibility(cell)
+
+	}
+
+	// MARK: Hashable
+
+	func hash(into hasher: inout Swift.Hasher) {
+		hasher.combine(inactiveType)
+		hasher.combine(previousRiskLevel)
+		hasher.combine(lastUpdateDate)
+	}
+
+	static func == (lhs: HomeInactiveRiskCellConfigurator, rhs: HomeInactiveRiskCellConfigurator) -> Bool {
+		lhs.inactiveType == rhs.inactiveType &&
+		lhs.previousRiskLevel == rhs.previousRiskLevel &&
+		lhs.lastUpdateDate == rhs.lastUpdateDate
+	}
+	
 }
 
 extension HomeInactiveRiskCellConfigurator: RiskInactiveCollectionViewCellDelegate {

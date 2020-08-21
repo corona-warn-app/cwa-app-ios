@@ -45,10 +45,11 @@ class ExposureSubmissionStepCell: UITableViewCell {
 		titleLabel.textColor = .enaColor(for: .textPrimary1)
 	}
 
-	func configure(title: String, description: String?, icon: UIImage?, hairline: Hairline, bottomSpacing: Spacing) {
+	func configure(title: String, description: String?, icon: UIImage?, iconTint: UIColor?, hairline: Hairline, bottomSpacing: Spacing) {
 		titleLabel.text = title
 		descriptionLabel.text = description
 		iconView.image = icon
+		iconView.tintColor = iconTint ?? self.tintColor
 
 		descriptionLabel.isHidden = (nil == description)
 
@@ -57,8 +58,8 @@ class ExposureSubmissionStepCell: UITableViewCell {
 		contentView.layoutMargins.bottom = bottomSpacing.rawValue
 	}
 
-	func configure(style: ENAFont, color: UIColor = .enaColor(for: .textPrimary1), title: String, icon: UIImage?, hairline: Hairline, bottomSpacing: Spacing) {
-		configure(title: title, description: nil, icon: icon, hairline: hairline, bottomSpacing: bottomSpacing)
+	func configure(style: ENAFont, color: UIColor = .enaColor(for: .textPrimary1), title: String, icon: UIImage?, iconTint: UIColor?, hairline: Hairline, bottomSpacing: Spacing) {
+		configure(title: title, description: nil, icon: icon, iconTint: iconTint, hairline: hairline, bottomSpacing: bottomSpacing)
 
 		titleLabel.style = style.labelStyle
 		titleLabel.textColor = color
@@ -66,7 +67,7 @@ class ExposureSubmissionStepCell: UITableViewCell {
 
 
 	func configure(bulletPoint title: String, hairline: Hairline, bottomSpacing: Spacing) {
-		configure(style: .body, title: title, icon: UIImage(named: "Icons_Dark_Dot"), hairline: hairline, bottomSpacing: bottomSpacing)
+		configure(style: .body, title: title, icon: UIImage(named: "Icons_Dark_Dot"), iconTint: nil, hairline: hairline, bottomSpacing: bottomSpacing)
 	}
 
 	private func applyHairline(_ hairline: Hairline) {

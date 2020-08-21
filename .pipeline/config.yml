@@ -32,3 +32,10 @@ steps:
     protecodeServerUrl: 'https://protecode.c.eu-de-2.cloud.sap'
     protecodeGroup: 1071
     protecodeTimeoutMinutes: 80
+  # Configuration for WhiteSource Scan
+  executeWhitesourceScan:
+    whitesourceUserTokenCredentialsId: 'ux-mcoe-whitesource'
+    whitesourceProductName: 'DIST - MOB CORONA-WARN IOS 1.0'
+    whitesourceProductToken: '04245b8552354b76b17fe19aa4ce479d77b9180a2b3247f7b3727798eb86f764'
+    scanType: 'unifiedAgent'
+    configFilePath: './wss-unified-agent.config'

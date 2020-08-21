@@ -20,6 +20,7 @@ import Foundation
 class NotificationSettingsViewModel {
 	let notificationsOn: Bool
 	let image: String
+	let imageDescription: String
 	let title: String?
 	let sections: [Section]
 	let openSettings: OpenSettings?
@@ -27,12 +28,16 @@ class NotificationSettingsViewModel {
 	private init(
 		notificationsOn: Bool,
 		image: String,
+		imageDescription: String,
 		title: String?,
 		sections: [Section],
-		openSettings: OpenSettings?
+		openSettings: OpenSettings?,
+		accessibilityLabel: String?,
+		accessibilityIdentifier: String?
 	) {
 		self.notificationsOn = notificationsOn
 		self.image = image
+		self.imageDescription = imageDescription
 		self.title = title
 		self.sections = sections
 		self.openSettings = openSettings
@@ -42,6 +47,7 @@ class NotificationSettingsViewModel {
 		NotificationSettingsViewModel(
 			notificationsOn: true,
 			image: "Illu_Mitteilungen_On",
+			imageDescription: AppStrings.NotificationSettings.onImageDescription,
 			title: AppStrings.NotificationSettings.onTitle,
 			sections: [
 				.settingsOn(
@@ -50,17 +56,21 @@ class NotificationSettingsViewModel {
 						.riskChanges(.init(
 							description: AppStrings.NotificationSettings.riskChanges,
 							state: store.allowRiskChangesNotification,
-							updateState: { store.allowRiskChangesNotification = $0 }
+							updateState: { store.allowRiskChangesNotification = $0 },
+							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.riskChanges
 						)),
 						.testsStatus(.init(
 							description: AppStrings.NotificationSettings.testsStatus,
 							state: store.allowTestsStatusNotification,
-							updateState: { store.allowTestsStatusNotification = $0 }
+							updateState: { store.allowTestsStatusNotification = $0 },
+							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.testsStatus
 						))
 					]
 				)
 			],
-			openSettings: nil
+			openSettings: nil,
+			accessibilityLabel: AppStrings.NotificationSettings.onTitle,
+			accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.onTitle
 		)
 	}
 
@@ -68,6 +78,7 @@ class NotificationSettingsViewModel {
 		NotificationSettingsViewModel(
 			notificationsOn: false,
 			image: "Illu_Mitteilungen_Off",
+			imageDescription: AppStrings.NotificationSettings.offImageDescription,
 			title: nil,
 			sections: [
 				.settingsOff(
@@ -85,7 +96,9 @@ class NotificationSettingsViewModel {
 				icon: "Icons_iOS_Mitteilungen",
 				description: AppStrings.NotificationSettings.infoDescription,
 				openSettings: AppStrings.NotificationSettings.openSettings
-			)
+			),
+			accessibilityLabel: nil,
+			accessibilityIdentifier: nil
 		)
 	}
 }
@@ -108,6 +121,8 @@ extension NotificationSettingsViewModel {
 		}
 
 		let updateState: (Bool) -> Void
+		let accessibilityIdentifier: String?
+
 	}
 
 	struct SettingsOffItem {

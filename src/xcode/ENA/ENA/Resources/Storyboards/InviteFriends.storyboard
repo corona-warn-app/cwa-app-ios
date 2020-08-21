@@ -79,7 +79,7 @@
                                     <constraint firstAttribute="bottom" secondItem="pbz-HJ-LCy" secondAttribute="bottom" id="qKz-3Z-mm2"/>
                                 </constraints>
                             </scrollView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kHT-UJ-ZvZ">
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kHT-UJ-ZvZ" customClass="ENAFooterView" customModule="ENA" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="796" width="414" height="100"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="eEM-cU-aNg">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>

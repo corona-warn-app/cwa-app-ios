@@ -24,31 +24,7 @@ protocol RiskProviding: AnyObject {
 
 	func observeRisk(_ consumer: RiskConsumer)
 	func requestRisk(userInitiated: Bool, completion: Completion?)
+	func nextExposureDetectionDate() -> Date
 
 	var configuration: RiskProvidingConfiguration { get set }
-	func nextExposureDetectionDate() -> Date
-}
-
-enum ManualExposureDetectionState {
-	case possible
-	case waiting
-}
-
-final class RiskConsumer: NSObject {
-	// MARK: Creating a Consumer
-	init(targetQueue: DispatchQueue = .main) {
-		self.targetQueue = targetQueue
-	}
-
-	// MARK: Properties
-	let targetQueue: DispatchQueue
-
-	/// Called when the risk level changed
-	var didCalculateRisk: ((Risk) -> Void)?
-
-	/// Called when the risk level changed
-	var manualExposureDetectionStateDidChange: ((ManualExposureDetectionState) -> Void)?
-
-	/// Called when the date of the next exposure detection changed
-	var nextExposureDetectionDateDidChange: ((Date) -> Void)?
 }

@@ -26,36 +26,40 @@ extension TimeInterval {
 	static let long = 3.0
 }
 
-class ExposureSubmissionOverviewViewControllerTests: XCTestCase {
+final class ExposureSubmissionOverviewViewControllerTests: XCTestCase {
 
 	var service: MockExposureSubmissionService!
 	var qrScannerViewController: MockExposureSubmissionQRScannerViewController!
+	var coordinator: MockExposureSubmissionCoordinator!
 
 	override func setUp() {
 		super.setUp()
 		service = MockExposureSubmissionService()
 		qrScannerViewController = MockExposureSubmissionQRScannerViewController()
+		coordinator = MockExposureSubmissionCoordinator()
 	}
 
 	func testQRCodeScanSuccess() {
-		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionOverviewViewController.self)
-		vc.service = service
+		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionOverviewViewController.self) { coder in
+			ExposureSubmissionOverviewViewController(coder: coder, coordinator: self.coordinator, exposureSubmissionService: self.service)
+		}
 
 		let expectation = self.expectation(description: "Call getRegistration service method.")
 		service.getRegistrationTokenCallback = { deviceRegistrationKey, completion in
-			expectation.fulfill()
 			completion(.success(""))
+			expectation.fulfill()
 		}
 
 		qrScannerViewController.dismissCallback = { _, callback in callback?() }
 
-		let scanResult = "https://example.org/?50C707FB-2DC4-4252-9C21-7B0DF0F30ED5"
-		vc.qrScanner(qrScannerViewController, didScan: scanResult)
+		vc.qrScanner(qrScannerViewController, didScan: "https://example.org/?50C707FB-2DC4-4252-9C21-7B0DF0F30ED5")
 		waitForExpectations(timeout: .short)
 	}
 
 	func testQRCodeSanitization() {
-		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionOverviewViewController.self)
+		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionOverviewViewController.self) { coder in
+			ExposureSubmissionOverviewViewController(coder: coder, coordinator: self.coordinator, exposureSubmissionService: self.service)
+		}
 
 		// Empty.
 		var result = vc.sanitizeAndExtractGuid("")

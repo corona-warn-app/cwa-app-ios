@@ -40,10 +40,10 @@ class DescriptionTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		label3.isAccessibilityElement = true
 
 		titleLabel.accessibilityIdentifier = (riskDetectionState == .disabled) ?
-			"AppStrings.ExposureNotificationSetting.descriptionTitleInactive" : "AppStrings.ExposureNotificationSetting.descriptionTitle"
-		label1.accessibilityIdentifier = "AppStrings.ExposureNotificationSetting.descriptionText1"
-		label2.accessibilityIdentifier = "AppStrings.ExposureNotificationSetting.descriptionText2"
-		label3.accessibilityIdentifier = "AppStrings.ExposureNotificationSetting.descriptionText3"
+			AccessibilityIdentifiers.ExposureNotificationSetting.descriptionTitleInactive : AccessibilityIdentifiers.ExposureNotificationSetting.descriptionTitle
+		label1.accessibilityIdentifier = AccessibilityIdentifiers.ExposureNotificationSetting.descriptionText1
+		label2.accessibilityIdentifier = AccessibilityIdentifiers.ExposureNotificationSetting.descriptionText2
+		label3.accessibilityIdentifier = AccessibilityIdentifiers.ExposureNotificationSetting.descriptionText3
 
 		titleLabel.accessibilityTraits = .header
 		label1.accessibilityTraits = .staticText

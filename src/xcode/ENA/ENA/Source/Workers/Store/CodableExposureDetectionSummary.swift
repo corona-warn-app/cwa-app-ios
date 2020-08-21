@@ -21,8 +21,8 @@ import Foundation
 import ExposureNotification
 
 struct CodableExposureDetectionSummary: Codable {
-	let daysSinceLastExposure: Int
-	let matchedKeyCount: UInt64
+	var daysSinceLastExposure: Int
+	var matchedKeyCount: UInt64
 	let maximumRiskScore: ENRiskScore
 	let maximumRiskScoreFullRange: Int
 	/// An array that contains the duration, in seconds, at certain attenuations, using an aggregated maximum exposures of 30 minutes.

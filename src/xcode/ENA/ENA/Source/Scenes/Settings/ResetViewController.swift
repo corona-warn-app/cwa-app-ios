@@ -38,8 +38,30 @@ final class ResetViewController: UIViewController {
 	weak var delegate: ResetDelegate?
 
 	@IBAction func resetData(_: Any) {
-		delegate?.reset()
-		dismiss(animated: true, completion: nil)
+		let alertController = UIAlertController(
+			title: AppStrings.Reset.confirmDialogTitle,
+			message: AppStrings.Reset.confirmDialogDescription,
+			preferredStyle: .alert
+		)
+
+		let delete = UIAlertAction(
+			title: AppStrings.Reset.confirmDialogConfirm,
+			style: .destructive,
+			handler: { _ in
+				self.delegate?.reset()
+				self.dismiss(animated: true, completion: nil)
+			}
+		)
+
+		let cancel = UIAlertAction(
+			title: AppStrings.Reset.confirmDialogCancel,
+			style: .cancel
+		)
+
+		alertController.addAction(delete)
+		alertController.addAction(cancel)
+
+		present(alertController, animated: true, completion: nil)
 	}
 
 	override func viewDidLoad() {
@@ -72,16 +94,12 @@ final class ResetViewController: UIViewController {
 		resetButton.setTitle(AppStrings.Reset.resetButton, for: .normal)
 		discardButton.setTitle(AppStrings.Reset.discardButton, for: .normal)
 
-		if let resetButton = resetButton, let titleLabel = resetButton.titleLabel {
-			resetButton.addConstraint(NSLayoutConstraint(item: resetButton, attribute: .height, relatedBy: .equal, toItem: titleLabel, attribute: .height, multiplier: 1, constant: 0))
-		}
-
 		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.AccessibilityLabel.close
-		navigationItem.rightBarButtonItem?.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
+		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 
 		imageView.isAccessibilityElement = true
 		imageView.accessibilityLabel = AppStrings.Reset.imageDescription
-		imageView.accessibilityIdentifier = "AppString.Reset.imageDescription"
+		imageView.accessibilityIdentifier = AccessibilityIdentifiers.Reset.imageDescription
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

@@ -42,8 +42,9 @@ final class SettingsViewController: UITableViewController {
 	let tracingSegue = "showTracing"
 	let notificationsSegue = "showNotifications"
 	let resetSegue = "showReset"
+	let backgroundAppRefreshSegue = "showBackgroundAppRefresh"
 
-	let settingsViewModel = SettingsViewModel.model
+	let settingsViewModel = SettingsViewModel()
 	var enState: ENStateHandler.State
 
 
@@ -54,6 +55,7 @@ final class SettingsViewController: UITableViewController {
 		super.init(coder: coder)
 	}
 
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -63,12 +65,9 @@ final class SettingsViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		tableView.delegate = self
-		tableView.dataSource = self
 		tableView.separatorColor = .enaColor(for: .hairline)
 
 		navigationItem.title = AppStrings.Settings.navigationBarTitle
-		navigationController?.navigationBar.prefersLargeTitles = true
 
 		setupView()
 	}
@@ -77,7 +76,7 @@ final class SettingsViewController: UITableViewController {
 		super.viewWillAppear(animated)
 
 		checkTracingStatus()
-		notificationSettings()
+		checkNotificationSettings()
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
@@ -102,17 +101,24 @@ final class SettingsViewController: UITableViewController {
 	func createNotificationSettingsViewController(coder: NSCoder) -> NotificationSettingsViewController? {
 		NotificationSettingsViewController(coder: coder, store: store)
 	}
+	
+	@IBSegueAction
+	func createBackgroundAppRefreshViewController(coder: NSCoder) -> BackgroundAppRefreshViewController? {
+		BackgroundAppRefreshViewController(coder: coder)
+	}
 
 	@objc
 	private func willEnterForeground() {
 		checkTracingStatus()
-		notificationSettings()
+		checkNotificationSettings()
+		checkBackgroundAppRefresh()
 	}
 
 	private func setupView() {
 
 		checkTracingStatus()
-		notificationSettings()
+		checkNotificationSettings()
+		checkBackgroundAppRefresh()
 
 		NotificationCenter.default.addObserver(
 			self,
@@ -134,19 +140,14 @@ final class SettingsViewController: UITableViewController {
 		}
 	}
 
-	private func notificationSettings() {
+	private func checkNotificationSettings() {
 		let currentCenter = UNUserNotificationCenter.current()
 
-		currentCenter.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
+		currentCenter.getNotificationSettings { [weak self] settings in
 			guard let self = self else { return }
 
-			if let error = error {
-				log(message: "Error while requesting notifications permissions: \(error.localizedDescription)")
-				self.settingsViewModel.notifications.setState(state: false)
-				return
-			}
-
-			if granted && (self.store.allowRiskChangesNotification || self.store.allowTestsStatusNotification) {
+			if (settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional)
+				&& (self.store.allowRiskChangesNotification || self.store.allowTestsStatusNotification) {
 				self.settingsViewModel.notifications.setState(state: true)
 			} else {
 				self.settingsViewModel.notifications.setState(state: false)
@@ -156,6 +157,12 @@ final class SettingsViewController: UITableViewController {
 				self.tableView.reloadData()
 			}
 		}
+	}
+	
+	private func checkBackgroundAppRefresh() {
+		self.settingsViewModel.backgroundAppRefresh.setState(
+			state: UIApplication.shared.backgroundRefreshStatus == .available
+		)
 	}
 
 	private func setExposureManagerEnabled(_ enabled: Bool, then: @escaping SettingsViewControllerDelegate.Completion) {
@@ -174,19 +181,12 @@ extension SettingsViewController {
 		1
 	}
 
-	override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		let section = Sections.allCases[section]
-
-		switch section {
-		case .reset:
-			return 40
-		case .tracing, .notifications:
-			return 20
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		switch Sections.allCases[section] {
+		case .tracing: return 32
+		case .reset: return 48
+		default: return UITableView.automaticDimension
 		}
-	}
-
-	override func tableView(_: UITableView, viewForHeaderInSection _: Int) -> UIView? {
-		UIView()
 	}
 
 	override func tableView(_: UITableView, titleForFooterInSection section: Int) -> String? {
@@ -199,6 +199,8 @@ extension SettingsViewController {
 			return AppStrings.Settings.notificationDescription
 		case .reset:
 			return AppStrings.Settings.resetDescription
+		case .backgroundAppRefresh:
+			return AppStrings.Settings.backgroundAppRefreshDescription
 		}
 	}
 
@@ -210,7 +212,7 @@ extension SettingsViewController {
 		switch section {
 		case .reset:
 			footerView.textLabel?.textAlignment = .center
-		case .tracing, .notifications:
+		case .tracing, .notifications, .backgroundAppRefresh:
 			footerView.textLabel?.textAlignment = .left
 		}
 	}
@@ -223,10 +225,10 @@ extension SettingsViewController {
 		switch section {
 		case .tracing:
 			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.tracing)
-			cell.accessibilityIdentifier = "AppStrings.Settings.tracingLabel"
 		case .notifications:
 			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.notifications)
-			cell.accessibilityIdentifier = "AppStrings.Settings.notificationLabel"
+		case .backgroundAppRefresh:
+			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.backgroundAppRefresh)
 		case .reset:
 			guard let labelCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.reset.rawValue, for: indexPath) as? LabelTableViewCell else {
 				fatalError("No cell for reuse identifier.")
@@ -235,7 +237,7 @@ extension SettingsViewController {
 			labelCell.titleLabel.text = settingsViewModel.reset
 
 			cell = labelCell
-			cell.accessibilityIdentifier = "AppStrings.Settings.resetLabel"
+			cell.accessibilityIdentifier = AccessibilityIdentifiers.Settings.resetLabel
 		}
 
 		cell.isAccessibilityElement = true
@@ -244,7 +246,7 @@ extension SettingsViewController {
 		return cell
 	}
 
-	func configureMainCell(indexPath: IndexPath, model: SettingsViewModel.Main) -> MainSettingsTableViewCell {
+	func configureMainCell(indexPath: IndexPath, model: SettingsViewModel.CellModel) -> MainSettingsTableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.main.rawValue, for: indexPath) as? MainSettingsTableViewCell else {
 			fatalError("No cell for reuse identifier.")
 		}
@@ -264,6 +266,8 @@ extension SettingsViewController {
 			performSegue(withIdentifier: notificationsSegue, sender: nil)
 		case .reset:
 			performSegue(withIdentifier: resetSegue, sender: nil)
+		case .backgroundAppRefresh:
+			performSegue(withIdentifier: backgroundAppRefreshSegue, sender: nil)
 		}
 
 		tableView.deselectRow(at: indexPath, animated: false)
@@ -274,6 +278,7 @@ private extension SettingsViewController {
 	enum Sections: CaseIterable {
 		case tracing
 		case notifications
+		case backgroundAppRefresh
 		case reset
 	}
 

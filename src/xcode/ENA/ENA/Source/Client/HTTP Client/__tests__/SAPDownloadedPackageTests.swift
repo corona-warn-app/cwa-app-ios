@@ -25,24 +25,26 @@ final class SAPDownloadedPackageTests: XCTestCase {
 	private lazy var signingKey = P256.Signing.PrivateKey()
 	private lazy var publicKey = signingKey.publicKey
 	private let defaultBundleId = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
+	private lazy var mockKeyProvider: PublicKeyProviding = { _ in return self.publicKey }
+	private lazy var verifier = SAPDownloadedPackage.Verifier(key: mockKeyProvider)
 
 	// MARK: Signature Verification Tests
 
 	func testVerifySignature_SingleSignature() throws {
 		// Test the package signature verification process
-		let package = try makePackage()
-		XCTAssertTrue(package.verifySignature(with: MockKeyStore(keys: [defaultBundleId: publicKey])))
+		let package = try SAPDownloadedPackage.makePackage(key: signingKey)
+		XCTAssertTrue(verifier(package))
 	}
 
 	func testVerifySignature_RejectModifiedBin() throws {
 		// Test the package signature verification process - rejecting when the signature does not match
 		let bytes = [0xA, 0xB, 0xC, 0xD]
 		// The bin and signature were  made for different data sets
-		let package = try makePackage(bin: Data(bytes: bytes, count: 4),
-									  signature: try makeSignature(data: Data(bytes: bytes, count: 3)).asList() //swiftlint:disable:this vertical_parameter_alignment_on_call
+		let package = try SAPDownloadedPackage.makePackage(bin: Data(bytes: bytes, count: 4),
+														   signature: try SAPDownloadedPackage.makeSignature(data: Data(bytes: bytes, count: 3), key: signingKey).asList() //swiftlint:disable:this vertical_parameter_alignment_on_call
 		)
 
-		XCTAssertFalse(package.verifySignature(with: MockKeyStore(keys: [defaultBundleId: publicKey])))
+		XCTAssertFalse(verifier(package))
 	}
 
 	func testVerifySignature_RejectCorruptSignature() throws {
@@ -52,7 +54,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 			signature: Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 4)
 		)
 
-		XCTAssertFalse(package.verifySignature(with: MockKeyStore(keys: [defaultBundleId: publicKey])))
+		XCTAssertFalse(verifier(package))
 	}
 
 	func testVerifySignature_OneKeyMatchesBundleId() throws {
@@ -60,30 +62,30 @@ final class SAPDownloadedPackageTests: XCTestCase {
 		// As long as there is one valid signature for the bin data, it should pass
 		let data = Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 4)
 		let signatures = [
-			try makeSignature(data: data, bundleId: "hello"),
-			try makeSignature(data: data)
+			try SAPDownloadedPackage.makeSignature(data: data, key: signingKey, bundleId: "hello"),
+			try SAPDownloadedPackage.makeSignature(data: data, key: signingKey)
 		].asList()
 
-		let package = try makePackage(bin: data, signature: signatures)
+		let package = try SAPDownloadedPackage.makePackage(bin: data, signature: signatures)
 		// When no public key to sign is found, the verification should fail
-		XCTAssertTrue(package.verifySignature(with: MockKeyStore(keys: [defaultBundleId: publicKey])))
+		XCTAssertTrue(verifier(package))
 	}
 
 	func testVerifySignature_OneSignatureFails() throws {
 		// Test the case where there are multiple signatures, and one is invalid
 		// As long as one is valid, we should still pass.
 		let data = Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 4)
-		var invalidSignature = try makeSignature(data: data)
+		var invalidSignature = try SAPDownloadedPackage.makeSignature(data: data, key: signingKey)
 		invalidSignature.signature.append(Data(bytes: [0xE], count: 1))
 
 		let signatures = [
 			invalidSignature,
-			try makeSignature(data: data)
+			try SAPDownloadedPackage.makeSignature(data: data, key: signingKey)
 		].asList()
 
-		let package = try makePackage(bin: data, signature: signatures)
-		// When no public key to sign is found, the verification should fail
-		XCTAssertTrue(package.verifySignature(with: MockKeyStore(keys: [defaultBundleId: publicKey])))
+		let package = try SAPDownloadedPackage.makePackage(bin: data, signature: signatures)
+		// Only one signature is necessary to pass the check
+		XCTAssertTrue(verifier(package))
 	}
 
 	// MARK: - Init from ZIP Tests
@@ -145,68 +147,5 @@ final class SAPDownloadedPackageTests: XCTestCase {
 
 	func testInitFromZIP_extractFailed() throws {
 		XCTAssertNil(SAPDownloadedPackage(compressedData: Data()))
-	}
-}
-
-// MARK: - Helpers
-
-private extension SAPDownloadedPackageTests {
-
-	/// - note: Will SHA256 hash the data
-	func makeSignature(data: Data, bundleId: String = "de.rki.coronawarnapp") throws -> SAP_TEKSignature {
-		var signature = SAP_TEKSignature()
-		signature.signature = try signingKey.signature(for: data).derRepresentation
-		signature.signatureInfo = makeSignatureInfo(bundleId: bundleId)
-
-		return signature
-	}
-
-	func makeSignatureInfo(bundleId: String = "de.rki.coronawarnapp") -> SAP_SignatureInfo {
-		var info = SAP_SignatureInfo()
-		info.appBundleID = bundleId
-
-		return info
-	}
-
-	func makePackage(bin: Data, signature: SAP_TEKSignatureList) throws -> SAPDownloadedPackage {
-		return SAPDownloadedPackage(
-			keysBin: bin,
-			signature: try signature.serializedData()
-		)
-	}
-
-	func makePackage(bin: Data = Data(bytes: [0xA, 0xB, 0xC], count: 3)) throws -> SAPDownloadedPackage {
-		let signature = try makeSignature(data: bin).asList()
-		return try makePackage(bin: bin, signature: signature)
-	}
-}
-
-private extension SAP_TEKSignature {
-	func asList() -> SAP_TEKSignatureList {
-		var signatureList = SAP_TEKSignatureList()
-		signatureList.signatures = [self]
-
-		return signatureList
-	}
-}
-
-private extension Array where Element == SAP_TEKSignature {
-	func asList() -> SAP_TEKSignatureList {
-		var signatureList = SAP_TEKSignatureList()
-		signatureList.signatures = self
-
-		return signatureList
-	}
-}
-
-private struct MockKeyStore: PublicKeyStore {
-	let keys: [String: P256.Signing.PublicKey]
-
-	func publicKey(for bundleID: String) throws -> P256.Signing.PublicKey {
-		guard let key = keys[bundleID] else {
-			throw KeyError.environmentError
-		}
-
-		return key
 	}
 }

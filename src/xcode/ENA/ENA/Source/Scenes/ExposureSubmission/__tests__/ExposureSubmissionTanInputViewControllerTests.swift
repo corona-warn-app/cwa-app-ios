@@ -30,13 +30,14 @@ class ExposureSubmissionTanInputViewControllerTests: XCTestCase {
 	}
 
 	private func createVC() -> ExposureSubmissionTanInputViewController {
-		return AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTanInputViewController.self)
+		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTanInputViewController.self) { coder -> UIViewController? in
+			ExposureSubmissionTanInputViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator(), exposureSubmissionService: self.service)
+		}
 	}
 
 	func testTanInputSuccess() {
 		let vc = createVC()
 		_ = vc.view
-		vc.exposureSubmissionService = service
 
 		let expectation = self.expectation(description: "Call getRegistration service method.")
 		service.getRegistrationTokenCallback = { deviceRegistrationKey, completion in
@@ -46,7 +47,7 @@ class ExposureSubmissionTanInputViewControllerTests: XCTestCase {
 
 		vc.tanInput.insertText("234567893D")
 		if vc.tanInput.isEnabled {
-			vc.didTapButton()
+			_ = vc.enaTanInputDidTapReturn(vc.tanInput)
 		}
 		
 		waitForExpectations(timeout: .short)

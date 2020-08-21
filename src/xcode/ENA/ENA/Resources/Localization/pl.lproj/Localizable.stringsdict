@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ExposureDetection_Explanation_Text_High_DaysSinceLastExposure</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>one</key>
+			<!--Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+			<string>Masz podwyższone ryzyko zakażenia, ponieważ jeden dzień temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
+			<key>zero</key>
+			<!-- Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+			<string>Masz podwyższone ryzyko zakażenia, ponieważ %u dni temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
+			<key>few</key>
+			<!-- Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+			<string>Masz podwyższone ryzyko zakażenia, ponieważ %u dni temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
+			<key>many</key>
+			<!-- Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+			<string>Masz podwyższone ryzyko zakażenia, ponieważ %u dni temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
+			<key>two</key>
+			<!-- Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+			<string>Masz podwyższone ryzyko zakażenia, ponieważ %u dni temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
+			<key>other</key>
+			<!--Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+			<string>Masz podwyższone ryzyko zakażenia, ponieważ %u dni temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_NumberOfContacts</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+			<string>Brak narażenia do tej pory</string>
+			<key>one</key>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+			<string>Jedno narażenie</string>
+			<key>few</key>
+			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+			<string>%u narażenia</string>
+			<key>many</key>
+			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+			<string>%u narażeń</string>
+			<key>two</key>
+			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+			<string>%u narażenia</string>
+			<key>other</key>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+			<string>%u narażenia</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_Last_Contact_Item_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+			<string>%u dni od ostatniego narażenia</string>
+			<key>one</key>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+			<string>%u dzień od ostatniego narażenia</string>
+			<key>few</key>
+			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+			<string>%u dni od ostatniego narażenia</string>
+			<key>many</key>
+			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+			<string>%u dni od ostatniego narażenia</string>
+			<key>two</key>
+			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+			<string>%u dni od ostatniego narażenia</string>
+			<key>other</key>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+			<string>%u dnia od ostatniego narażenia</string>
+		</dict>
+	</dict>
+    <key>Home_Risk_Low_Number_Contacts_Item_Title</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@VARIABLE@</string>
+        <key>VARIABLE</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>zero</key>
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+            <string>Brak narażenia do tej pory</string>
+            <key>one</key>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+            <string>%u narażenie z niskim ryzykiem</string>
+            <key>few</key>
+            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+            <string>%u narażenia z niskim ryzykiem</string>
+            <key>many</key>
+            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+            <string>%u narażeń z niskim ryzykiem</string>
+            <key>two</key>
+            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+            <string>%u narażenia z niskim ryzykiem</string>
+            <key>other</key>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+            <string>%u narażenia z niskim ryzykiem</string>
+        </dict>
+    </dict>
+    <key>Home_Risk_High_Number_Contacts_Item_Title</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@VARIABLE@</string>
+        <key>VARIABLE</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>zero</key>
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+            <string>Brak narażenia do tej pory</string>
+            <key>one</key>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+            <string>%u narażenie</string>
+            <key>few</key>
+            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+            <string>%u narażenia</string>
+            <key>many</key>
+            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+            <string>%u narażeń</string>
+            <key>two</key>
+            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+            <string>%u narażenia</string>
+            <key>other</key>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+            <string>%u narażenia</string>
+        </dict>
+    </dict>
+    <key>Home_Risk_Last_Contact_Item_Title</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@VARIABLE@</string>
+        <key>VARIABLE</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>zero</key>
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+            <string>Mniej niż jeden dzień od ostatniego narażenia</string>
+            <key>one</key>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+            <string>%u dzień od ostatniego narażenia</string>
+            <key>few</key>
+            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+            <string>%u dni od ostatniego narażenia</string>
+            <key>many</key>
+            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+            <string>%u dni od ostatniego narażenia</string>
+            <key>two</key>
+            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+            <string>%u dni od ostatniego narażenia</string>
+            <key>other</key>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+            <string>%u dnia od ostatniego narażenia</string>
+        </dict>
+    </dict>
+    <key>Home_Risk_Status_Counter_Label</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@minutes@%#</string>
+        <key>minutes</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+			<key>zero</key>
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+            <string>Aktualizacja za %02u:%2$#@sekund@ sekund</string>
+            <key>one</key>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+            <string>Aktualizacja za %02u:%2$#@sekundę@ minutę</string>
+            <key>few</key>
+            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+            <string>Aktualizacja za %02u:%2$#@sekundy@ minuty</string>
+            <key>many</key>
+            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+            <string>Aktualizacja za %02u:%2$#@sekund@ minut</string>
+            <key>two</key>
+            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+            <string>Aktualizacja za %02u:%2$#@sekundy@ minuty</string>
+            <key>other</key>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+            <string>Aktualizacja za %02u:%2$#@sekundy@ minuty</string>
+        </dict>
+        <key>seconds</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+			<key>one</key>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+			<string>%02u</string>
+            <key>zero</key>
+            <!-- XFLD: Plural form for Other  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+            <string>%02u</string>
+            <key>few</key>
+            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+            <string>%02u</string>
+            <key>many</key>
+            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+            <string>%02u</string>
+            <key>two</key>
+            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+            <string>%02u</string>
+            <key>other</key>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+            <string>%02u</string>
+        </dict>
+    </dict>
+	<key>ENSetting_Tracing_History</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+			<string>Rejestrowanie narażenia jest aktywne krócej niż jeden dzień. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
+			<key>one</key>
+			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+			<string>Rejestrowanie narażenia jest aktywne od %u dnia. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
+			<key>few</key>
+			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+			<string>Rejestrowanie narażenia jest aktywne od %u dni. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
+			<key>many</key>
+			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+			<string>Rejestrowanie narażenia jest aktywne od %u dni. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
+			<key>two</key>
+			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+			<string>Rejestrowanie narażenia jest aktywne od %u dni. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
+			<key>other</key>
+			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+			<string>Rejestrowanie narażenia jest aktywne od %u dnia. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

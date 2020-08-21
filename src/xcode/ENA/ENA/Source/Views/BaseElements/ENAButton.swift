@@ -24,11 +24,13 @@ class ENAButton: DynamicTypeButton {
 
 	@IBInspectable var isTransparent: Bool = false { didSet { applyStyle() } }
 	@IBInspectable var isInverted: Bool = false { didSet { applyStyle() } }
+	@IBInspectable var isLoading: Bool = false { didSet { applyStyle() } }
 
 	override var isEnabled: Bool { didSet { applyStyle() } }
 	override var isHighlighted: Bool { didSet { applyHighlight() } }
 
 	private var highlightView: UIView!
+	private weak var activityIndicator: UIActivityIndicatorView?
 
 	override var intrinsicContentSize: CGSize {
 		var size = super.intrinsicContentSize
@@ -65,12 +67,10 @@ class ENAButton: DynamicTypeButton {
 		cornerRadius = 8
 
 		contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-		let heightConstraint = heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
-		// TODO temporary fix for auto layout warnings on home screen
-		heightConstraint.priority = .init(999)
-		heightConstraint.isActive = true
 
 		titleLabel?.font = .preferredFont(forTextStyle: .body)
+		titleLabel?.textAlignment = .center
+		titleLabel?.lineBreakMode = .byWordWrapping
 		dynamicTypeSize = 17
 		dynamicTypeWeight = "semibold"
 
@@ -82,6 +82,18 @@ class ENAButton: DynamicTypeButton {
 
 		applyStyle()
 		applyHighlight()
+		applySizeConstraint()
+	}
+
+	private func applySizeConstraint() {
+		let heightConstraint = heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
+		heightConstraint.priority = .defaultHigh
+		heightConstraint.isActive = true
+
+		if let titleLabel = titleLabel {
+			widthAnchor.constraint(greaterThanOrEqualTo: titleLabel.widthAnchor, constant: contentEdgeInsets.left + contentEdgeInsets.right).isActive = true
+			heightAnchor.constraint(equalTo: titleLabel.heightAnchor, constant: contentEdgeInsets.top + contentEdgeInsets.bottom).isActive = true
+		}
 	}
 
 	private func applyStyle() {
@@ -94,12 +106,16 @@ class ENAButton: DynamicTypeButton {
 			style = .emphasized(color: color)
 		}
 
+		applyActivityIndicator()
+
 		if isEnabled {
 			backgroundColor = style.backgroundColor
 			setTitleColor(style.foregroundColor, for: .normal)
+			activityIndicator?.color = style.foregroundColor
 		} else {
 			backgroundColor = style.disabledBackgroundColor
 			setTitleColor(style.disabledForegroundColor.withAlphaComponent(0.5), for: .disabled)
+			activityIndicator?.color = style.disabledForegroundColor.withAlphaComponent(0.5)
 		}
 
 		highlightView?.backgroundColor = style.highlightColor
@@ -107,6 +123,58 @@ class ENAButton: DynamicTypeButton {
 
 	private func applyHighlight() {
 		highlightView.isHidden = !isHighlighted
+	}
+
+	private func applyActivityIndicator() {
+		guard isLoading else {
+			activityIndicator?.removeFromSuperview()
+			titleLabel?.invalidateIntrinsicContentSize()
+			return
+		}
+
+		guard nil == activityIndicator else { return }
+
+		let activityIndicator = UIActivityIndicatorView(style: traitCollection.preferredContentSizeCategory >= .accessibilityExtraLarge ? .large : .medium)
+		activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+		activityIndicator.isUserInteractionEnabled = false
+
+		addSubview(activityIndicator)
+
+		if let title = titleLabel {
+			title.leadingAnchor.constraint(equalTo: activityIndicator.trailingAnchor, constant: 8).isActive = true
+			activityIndicator.leadingAnchor.constraint(greaterThanOrEqualTo: self.leadingAnchor, constant: 8).isActive = true
+			activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+		} else {
+			activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+			activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+			activityIndicator.leadingAnchor.constraint(greaterThanOrEqualTo: self.leadingAnchor, constant: 8).isActive = true
+			self.trailingAnchor.constraint(greaterThanOrEqualTo: activityIndicator.trailingAnchor, constant: 8).isActive = true
+		}
+
+		updateActivityIndicatorStyle()
+
+		activityIndicator.startAnimating()
+
+		self.activityIndicator = activityIndicator
+
+		UIView.performWithoutAnimation {
+			self.setNeedsLayout()
+			self.layoutIfNeeded()
+		}
+	}
+
+	private func updateActivityIndicatorStyle() {
+		if traitCollection.preferredContentSizeCategory >= .accessibilityExtraLarge {
+			activityIndicator?.style = .large
+		} else {
+			activityIndicator?.style = .medium
+		}
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateActivityIndicatorStyle()
 	}
 }
 

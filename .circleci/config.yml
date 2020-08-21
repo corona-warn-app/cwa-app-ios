@@ -3,28 +3,27 @@ version: 2.1
 jobs:
   build:
     macos:
-      xcode: 11.5.0
+      xcode: 11.6.0
     shell: zsh
 
     steps:
       - checkout
       - run:
           name: Install dependencies
-          command: brew install swiftlint && cd src/xcode && bundle install
+          command: cd src/xcode && bundle install
       - run:
           name: Build
           command: cd src/xcode && bundle exec fastlane build
   test:
     macos:
-      xcode: 11.5.0
+      xcode: 11.6.0
     shell: zsh
     steps:
       - run:
-          name: Abort if no pull request
+          name: Skip this job for non-PRs and when not on development
           command: |
-            if [ -z "${CIRCLE_PULL_REQUEST}" ]; then
-              circleci-agent step halt
-            fi
+            testedBranches=(staging develop)
+            [[ ${testedBranches[(r)$CIRCLE_BRANCH]} == $CIRCLE_BRANCH || -v CIRCLE_PULL_REQUEST ]] && true || circleci step halt
       - checkout
       - run:
           name: Install dependencies
@@ -32,29 +31,47 @@ jobs:
       - run:
           name: Tests
           command: cd src/xcode && bundle exec fastlane test
-#      - run:
-#          name: Convert coverage information to SonarCloud format
-#          command: |
-#            ./scripts/xcov_to_sonarqube_generic.sh src/xcode/fastlane/test_output/*.xccovarchive/ > src/xcode/fastlane/test_output/coverage.xml
-#            sed -i "" 's|/Users/distiller/project/||' src/xcode/fastlane/test_output/coverage.xml
-#      - run:
-#          name: Fix SwiftLint output for SonarCloud
-#          command: |
-#                mv src/xcode/swiftlint.result.json src/xcode/swiftlint.result.original.json
-#                cat src/xcode/swiftlint.result.original.json | jq '.["issues"]' > src/xcode/swiftlint.result.json
-#      - sonarcloud/scan:
-#          os: macosx
-#          version: 4.3.0.2102
+      - restore_cache:
+          key: sonar-cloud-v2
+      - run:
+          name: Convert coverage information to SonarCloud format
+          command: |
+            ./scripts/xcov_to_sonar.sh src/xcode/fastlane/test_output/action_0.xccovarchive/ $CIRCLE_WORKING_DIRECTORY/ src/xcode/fastlane/test_output/coverage.xml
+      - run:
+          name: Fix SwiftLint output for SonarCloud
+          command: |
+            ./scripts/fix_swiftlint_output.sh src/xcode/swiftlint.result.json
       - store_test_results:
           path: src/xcode/fastlane/test_output
       - store_artifacts:
           path: src/xcode/fastlane/test_output
       - store_artifacts:
           path: src/xcode/swiftlint.result.json
+      - run:
+          name: Skip SonarCloud for external Pull Requests
+          command: '[[ -v CIRCLE_PR_REPONAME ]] && circleci-agent step halt || true'
+      - run:
+          name: Install and run sonar-scanner
+          command: |
+            SCANNER=sonar-scanner-cli-4.3.0.2102-macosx
+            SCANNERDIR=~/sonar/sonar-scanner-4.3.0.2102-macosx
+            if [[ ! -x "$SCANNERDIR/bin/sonar-scanner" ]]; then
+              curl -Ol https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/$SCANNER.zip
+              unzip -qq -o $SCANNER.zip -d ~/sonar/
+            fi
+            chmod +x $SCANNERDIR/bin/sonar-scanner
+            chmod +x $SCANNERDIR/jre/bin/java
+            $SCANNERDIR/bin/sonar-scanner
+          environment:
+            SONARQUBE_SCANNER_PARAMS: '{"sonar.host.url":"https://sonarcloud.io"}'
+      - save_cache:
+          key: sonar-cloud-v2
+          paths:
+            - ~/sonar/
 
   grab-screenshots:
     macos:
-      xcode: 11.5.0
+      xcode: 11.6.0
     steps:
       - checkout
       - run: cd src/xcode && bundle install
@@ -63,12 +80,25 @@ jobs:
           command: cd src/xcode && bundle exec fastlane snapshot
       - store_artifacts:
           path: src/xcode/screenshots
+  testflight-release:
+    macos:
+      xcode: 11.6.0
+    shell: zsh
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: cd src/xcode && bundle install
+      - run: ./scripts/switch_to_dev_env.sh
+      - run:
+          name: fastlane
+          command: cd src/xcode && bundle exec fastlane betaRelease --env TestFlight
 
-#orbs:
-#  sonarcloud: tkowark/sonarcloud3@0.1.0
 workflows:
-    # Run everytime
-    default:
+    test-and-scan:
+      jobs:
+        - test
+    build:
       jobs:
         - build
         - grab-screenshots:
@@ -76,9 +106,10 @@ workflows:
               branches:
                 only:
                   - master
-    # Run only on pull requests
-    pull_request:
+    betaRelease:
       jobs:
-        - test
- #       - test:
- #          context: SonarCloud
+        - testflight-release:
+            filters:
+              branches:
+                only:
+                  - /rc\/.*/

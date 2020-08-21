@@ -26,12 +26,12 @@ class MockExposureSubmissionNavigationControllerChild: UIViewController {
 	var didTapSecondButtonCallback: (() -> Void)?
 }
 
-extension MockExposureSubmissionNavigationControllerChild: ExposureSubmissionNavigationControllerChild {
-	func didTapButton() {
+extension MockExposureSubmissionNavigationControllerChild: ENANavigationControllerWithFooterChild {
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		didTapButtonCallback?()
 	}
 
-	func didTapSecondButton() {
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
 		didTapSecondButtonCallback?()
 	}
 }

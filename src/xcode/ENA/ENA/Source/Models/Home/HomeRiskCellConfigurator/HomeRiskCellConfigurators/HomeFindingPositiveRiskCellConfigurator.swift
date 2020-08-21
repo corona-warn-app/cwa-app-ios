@@ -21,8 +21,6 @@ import UIKit
 
 final class HomeFindingPositiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
-	let identifier = UUID()
-
 	var nextAction: (() -> Void)?
 
 	// MARK: Configuration
@@ -81,6 +79,16 @@ final class HomeFindingPositiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		cell.topContainer.accessibilityTraits = [.button, .header]
 	}
 
+	// MARK: Hashable
+
+	func hash(into hasher: inout Swift.Hasher) {
+		// this class has no stored properties, that's why hash function is empty here
+	}
+
+	static func == (lhs: HomeFindingPositiveRiskCellConfigurator, rhs: HomeFindingPositiveRiskCellConfigurator) -> Bool {
+		// instances of this class have no differences between each other
+		true
+	}
 }
 
 extension HomeFindingPositiveRiskCellConfigurator: RiskFindingPositiveCollectionViewCellDelegate {

@@ -117,11 +117,13 @@ extension ENATanInput {
 }
 
 extension ENATanInput {
+	@discardableResult
 	override func becomeFirstResponder() -> Bool {
 		delegate?.enaTanInputDidBeginEditing?(self)
 		return super.becomeFirstResponder()
 	}
 
+	@discardableResult
 	override func resignFirstResponder() -> Bool {
 		delegate?.enaTanInputDidEndEditing?(self)
 		return super.resignFirstResponder()
@@ -150,6 +152,9 @@ extension ENATanInput {
 
 		stackView.isUserInteractionEnabled = false
 		stackView.alignment = .fill
+
+		// Enfore left-to-right semantics for RTL languages such as Arabic.
+		stackView.semanticContentAttribute = .forceLeftToRight
 
 		// Generate character groups
 		for (index, numberOfDigitsInGroup) in digitGroups.enumerated() {
@@ -189,6 +194,9 @@ extension ENATanInput {
 		stackView.axis = .horizontal
 		stackView.alignment = .fill
 		stackView.distribution = .fill
+
+		// Enfore left-to-right semantics for RTL languages such as Arabic.
+		stackView.semanticContentAttribute = .forceLeftToRight
 
 		for _ in 0..<count { stackView.addArrangedSubview(createLabel()) }
 		if hasDash { stackView.addArrangedSubview(createDash()) }
@@ -318,6 +326,7 @@ private class ENATanInputLabel: UILabel {
 	var validColor: UIColor?
 	var invalidColor: UIColor?
 
+	var isEmpty: Bool { false != text?.isEmpty }
 	var isValid: Bool = true { didSet { setNeedsDisplay() ; updateAccessibilityLabel() } }
 
 	override var text: String? { didSet { updateAccessibilityLabel() } }
@@ -344,12 +353,14 @@ private class ENATanInputLabel: UILabel {
 
 		self.textColor = textColor
 
-		guard let context = UIGraphicsGetCurrentContext() else { return }
-		context.setLineWidth(lineWidth)
-		context.setStrokeColor(lineColor.cgColor)
-		context.move(to: CGPoint(x: 0, y: bounds.height - lineWidth / 2))
-		context.addLine(to: CGPoint(x: bounds.width, y: bounds.height - lineWidth / 2))
-		context.strokePath()
+		if isEmpty || !isValid {
+			guard let context = UIGraphicsGetCurrentContext() else { return }
+			context.setLineWidth(lineWidth)
+			context.setStrokeColor(lineColor.cgColor)
+			context.move(to: CGPoint(x: 0, y: bounds.height - lineWidth / 2))
+			context.addLine(to: CGPoint(x: bounds.width, y: bounds.height - lineWidth / 2))
+			context.strokePath()
+		}
 	}
 
 	override func drawText(in rect: CGRect) {
@@ -365,7 +376,8 @@ private class ENATanInputLabel: UILabel {
 	}
 
 	private func updateAccessibilityLabel() {
-		accessibilityLabel = (text?.isEmpty ?? true) ? AppStrings.ENATanInput.empty : text
+		accessibilityLabel = AppStrings.ExposureSubmissionTanEntry.textField
+		accessibilityValue = (text?.isEmpty ?? true) ? AppStrings.ENATanInput.empty : text
 
 		if !isValid {
 			accessibilityLabel = String(format: AppStrings.ENATanInput.invalidCharacter, accessibilityLabel ?? "")

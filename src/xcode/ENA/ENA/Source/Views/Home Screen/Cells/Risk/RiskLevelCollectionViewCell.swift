@@ -32,37 +32,16 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var titleLabel: ENALabel!
 	@IBOutlet var chevronImageView: UIImageView!
 	@IBOutlet var bodyLabel: ENALabel!
-	@IBOutlet var updateButton: ENACloneButton!
+	@IBOutlet var updateButton: ENAButton!
 	@IBOutlet var detectionIntervalLabel: ENALabel!
 	@IBOutlet var detectionIntervalLabelContainer: UIView!
 
 	@IBOutlet var viewContainer: UIView!
-	@IBOutlet var topContainer: UIView!
+	@IBOutlet var topContainer: UIStackView!
 	@IBOutlet var stackView: UIStackView!
 	@IBOutlet var riskViewStackView: UIStackView!
 
 	// MARK: Nib Loading
-
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		constructStackView()
-		constructCounterLabelContainer()
-		topContainer.layoutMargins = .zero
-	}
-
-	private func constructStackView() {
-		let containerInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
-		stackView.layoutMargins = containerInsets
-		stackView.isLayoutMarginsRelativeArrangement = true
-	}
-
-	private func constructCounterLabelContainer() {
-		detectionIntervalLabelContainer.layer.cornerRadius = 18.0
-		detectionIntervalLabelContainer.layer.masksToBounds = true
-		detectionIntervalLabelContainer.layoutMargins = .init(top: 9.0, left: 16.0, bottom: 9.0, right: 16.0)
-		detectionIntervalLabelContainer.backgroundColor = UIColor.black.withAlphaComponent(0.12)
-		detectionIntervalLabel.textColor = .enaColor(for: .textContrast)
-	}
 
 	// Ignore touches on the button when it's disabled
 	override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {

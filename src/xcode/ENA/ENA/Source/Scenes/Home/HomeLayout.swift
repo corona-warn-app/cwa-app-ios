@@ -22,6 +22,9 @@ protocol HomeLayoutDelegate: AnyObject {
 }
 
 extension UICollectionViewLayout {
+	static let topInset: CGFloat = 32.0
+	static let bottomBackgroundOverflowHeight: CGFloat = UIScreen.main.bounds.height
+
 	class func homeLayout(delegate: HomeLayoutDelegate) -> UICollectionViewLayout {
 		let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
 			guard let homeSection = delegate.homeLayoutSection(for: sectionIndex) else { return nil }
@@ -30,7 +33,6 @@ extension UICollectionViewLayout {
 		}
 
 		let config = UICollectionViewCompositionalLayoutConfiguration()
-		config.interSectionSpacing = 32.0
 
 		let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: config)
 		layout.register(SectionSystemBackgroundDecorationView.self, forDecorationViewOfKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
@@ -57,11 +59,8 @@ extension UICollectionViewLayout {
 		let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 
 		let section = NSCollectionLayoutSection(group: group)
-		section.contentInsets = .init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0)
+		section.contentInsets = .init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0)
 		section.interGroupSpacing = 32.0
-
-		let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
-		section.decorationItems = [sectionBackgroundDecoration]
 
 		return section
 	}
@@ -75,6 +74,9 @@ extension UICollectionViewLayout {
 
 		let section = NSCollectionLayoutSection(group: group)
 
+		let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
+		section.decorationItems = [sectionBackgroundDecoration]
+
 		return section
 	}
 
@@ -86,6 +88,10 @@ extension UICollectionViewLayout {
 		let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 
 		let section = NSCollectionLayoutSection(group: group)
+		section.contentInsets = .init(top: 32.0, leading: 0.0, bottom: 32.0 + bottomBackgroundOverflowHeight, trailing: 0.0)
+
+		let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
+		section.decorationItems = [sectionBackgroundDecoration]
 
 		return section
 	}

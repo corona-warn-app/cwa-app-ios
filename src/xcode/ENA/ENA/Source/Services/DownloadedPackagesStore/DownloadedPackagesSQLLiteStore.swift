@@ -19,6 +19,12 @@ import FMDB
 import Foundation
 
 final class DownloadedPackagesSQLLiteStore {
+	struct StoreError: Error {
+		init(_ message: String) {
+			self.message = message
+		}
+		let message: String
+	}
 	// MARK: Creating a Store
 
 	init(database: FMDatabase) {
@@ -41,7 +47,6 @@ final class DownloadedPackagesSQLLiteStore {
 extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 	func open() {
 		_ = queue.sync {
-
 			self.database.open()
 			self.database.executeStatements(
 			"""
@@ -71,7 +76,6 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 		}
 	}
 
-	// swiftlint:disable:next function_body_length
 	func set(
 		day: String,
 		package: SAPDownloadedPackage
@@ -169,6 +173,22 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 				"hour": hour
 			]
 			self.database.executeUpdate(sql, withParameterDictionary: parameters)
+		}
+	}
+
+	func deleteOutdatedDays(now: String) throws {
+		let success: Bool = queue.sync {
+			let sql = """
+			DELETE
+				FROM
+					Z_DOWNLOADED_PACKAGE
+				WHERE
+					Z_DAY <= Date(:now, '-14 days');
+			"""
+			return self.database.executeUpdate(sql, withParameterDictionary: ["now": now])
+		}
+		guard success else {
+			throw StoreError(self.database.lastErrorMessage())
 		}
 	}
 
@@ -282,7 +302,6 @@ private extension FMResultSet {
 		return SAPDownloadedPackage(keysBin: bin, signature: signature)
 	}
 }
-
 
 extension DownloadedPackagesSQLLiteStore {
 	convenience init(fileName: String) {

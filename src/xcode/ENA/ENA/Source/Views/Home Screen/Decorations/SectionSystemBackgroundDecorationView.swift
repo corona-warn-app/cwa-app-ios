@@ -18,16 +18,13 @@
 import UIKit
 
 class SectionSystemBackgroundDecorationView: UICollectionReusableView {
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		configure(with: .enaColor(for: .separator))
-	}
-
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	private func configure(with color: UIColor?) {
-		backgroundColor = color
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		backgroundColor = .enaColor(for: .separator)
 	}
 }
