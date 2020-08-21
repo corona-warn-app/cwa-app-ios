@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,16 +15,17 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
-import Foundation
 import UIKit
 
-class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
-	
+class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableViewController, ExposureSubmittableViewController {
+
 	// MARK: - Init
 
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating) {
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, exposureSubmissionService: ExposureSubmissionService) {
 		self.coordinator = coordinator
+		self.exposureSubmissionService = exposureSubmissionService
 
 		super.init(coder: coder)
 	}
@@ -44,18 +46,19 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		coordinator?.showWarnEuropeScreen()
+		startSubmitProcess()
 	}
 
 	// MARK: - Internal
 
+	private(set) weak var exposureSubmissionService: ExposureSubmissionService?
 	private(set) weak var coordinator: ExposureSubmissionCoordinating?
 
 	// MARK: - Private
 
 	private func setupView() {
-		navigationItem.title = AppStrings.ExposureSubmissionWarnOthers.title
-		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionWarnOthers.continueButton
+		navigationItem.title = AppStrings.ExposureSubmissionWarnEuropeCountrySelection.title
+		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionWarnEuropeCountrySelection.continueButton
 
 		setupTableView()
 	}
@@ -76,35 +79,23 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 		DynamicTableViewModel.with {
 			$0.add(
 				.section(
-					header: .image(
-						UIImage(named: "Illu_Submission_AndereWarnen"),
-						accessibilityLabel: AppStrings.ExposureSubmissionWarnOthers.accImageDescription,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription,
-						height: 250
-					),
+					header: .none,
 					cells: [
-						.title2(
-							text: AppStrings.ExposureSubmissionWarnOthers.sectionTitle,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.sectionTitle
+						.headline(
+							text: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.description1,
+							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnEuropeCountrySelection.description1
 						),
 						.body(
-							text: AppStrings.ExposureSubmissionWarnOthers.description,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.description
+							text: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.description2,
+							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnEuropeCountrySelection.description2
 						),
-						.custom(
-							withIdentifier: CustomCellReuseIdentifiers.roundedCell,
-							configure: { _, cell, _ in
-								guard let cell = cell as? DynamicTableViewRoundedCell else { return }
-
-								cell.configure(
-									title: NSMutableAttributedString(
-										string: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyTitle
-									),
-									body: NSMutableAttributedString(
-										string: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyDescription
-									)
-								)
-							}
+						.title2(
+							text: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.noteTitle,
+							accessibilityIdentifier: nil
+						),
+						.body(
+							text: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.noteDescription,
+							accessibilityIdentifier: nil
 						)
 					]
 				)
@@ -116,7 +107,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 // MARK: - Cell reuse identifiers.
 
-extension ExposureSubmissionWarnOthersViewController {
+extension ExposureSubmissionWarnEuropeCountrySelectionViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case roundedCell
 	}

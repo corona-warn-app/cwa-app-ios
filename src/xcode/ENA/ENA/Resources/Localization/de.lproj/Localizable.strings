@@ -564,6 +564,54 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Datenschutz";
 
+"ExposureSubmissionWarnEuropeConsent_title" = "!!! Europaweit warnen";
+
+"ExposureSubmissionWarnEuropeConsent_imageDescription" = "!!! ";
+
+"ExposureSubmissionWarnEuropeConsent_continueButton" = "!!! Weiter";
+
+"ExposureSubmissionWarnEuropeConsent_sectionTitle" = "!!! Bitte aktivieren Sie zusätzlich die europaweite Datenübermittlung, damit Menschen in anderen Ländern auch gewarnt werden können.";
+
+"ExposureSubmissionWarnEuropeConsent_toggleTitle" = "!!! Europaweite Datenübermittlung";
+
+"ExposureSubmissionWarnEuropeConsent_consentTitle" = "!!! Einwilligungserklärung";
+
+"ExposureSubmissionWarnEuropeConsent_consentDescription" = "!!! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla non enim quam. Curabitur at nunc lorem. Proin gravida erat eu sem molestie elementum. Integer faucibus nibh ut magna malesuada luctus. Sed et nunc est. Integer non mauris nec libero iaculis laoreet. Nunc porttitor cursus lorem in bibendum. Aenean ultrices posuere rhoncus. Aenean et mauris id ipsum convallis elementum quis non erat. Donec non arcu id tellus vehicula suscipit. Vivamus velit ipsum, malesuada in tristique ac, fermentum ut odio. Sed maximus accumsan accumsan. Nam vehicula nisl est, eu tristique justo interdum ut.
+
+Morbi vitae lacus at nunc pharetra sagittis. Mauris sit amet ornare massa. Maecenas feugiat odio sit amet egestas fringilla. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque ornare eleifend felis eu aliquam. Maecenas faucibus nisl eget ultricies ullamcorper. Aenean ut tortor risus. Vestibulum eros ante, blandit eget luctus nec, gravida ac mi. Curabitur pharetra dictum laoreet. Maecenas vel bibendum lectus. Nullam aliquam leo sit amet accumsan volutpat. In et vulputate diam. Nulla sodales viverra magna nec malesuada. Cras odio felis, tincidunt eu dolor vitae, fringilla bibendum elit.";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_title" = "!!! Europaweit warnen";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_continueButton" = "!!! Weiter";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_description1" = "!!! Haben Sie sich in den letzten 14 Tagen außerhalb von Deutschland aufgehalten?";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_description2" = "!!! Ihre Angabe ist freiwillig und hilft dabei, Andere zielgerecht zu warnen.";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionYes" = "!!! Ja";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNo" = "!!! Nein";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "!!! Keine Angabe";
+
+"ExposureSubmissionWarnEuropeCountrySelection_title" = "!!! Europaweit warnen";
+
+"ExposureSubmissionWarnEuropeCountrySelection_continueButton" = "!!! Weiter";
+
+"ExposureSubmissionWarnEuropeCountrySelection_description1" = "!!! In welchen Ländern haben Sie sich in den letzten 14 Tagen aufgehalten?";
+
+"ExposureSubmissionWarnEuropeCountrySelection_description2" = "!!! Ihre Angabe ist freiwillig und hilft dabei, Andere zielgerecht zu warnen.";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionCountrySelection" = "!!! Ich war in folgenden Ländern";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries" = "!!! Andere Länder";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "!!! Keine Angabe";
+
+"ExposureSubmissionWarnEuropeCountrySelection_noteTitle" = "!!! Hinweis";
+
+"ExposureSubmissionWarnEuropeCountrySelection_noteDescription" = "!!! Die Liste der verfügbaren Länder wird stetig erweitert. Lorem Ipsum …";
+
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test kann nur einmal gescannt werden";
 
 "ExposureSubmissionResult_RemoveAlert_Text" = "Wenn Sie den Test entfernen, können Sie Ihr Testergebnis nicht mehr abrufen. Ihr Testergebnis bekommen Sie vom Testcenter oder Labor, unabhängig von der App. Wenn Ihr Test positiv ausfällt, bekommen Sie vom Gesundheitsamt eine Mitteilung.";

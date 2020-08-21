@@ -179,6 +179,38 @@ enum AppStrings {
 		static let dataPrivacyTitle = NSLocalizedString("ExposureSubmissionWarnOthers_dataPrivacyTitle", comment: "")
 	}
 
+	enum ExposureSubmissionWarnEuropeConsent {
+		static let title = NSLocalizedString("ExposureSubmissionWarnEuropeConsent_title", comment: "")
+		static let imageDescription = NSLocalizedString("ExposureSubmissionWarnEuropeConsent_imageDescription", comment: "")
+		static let continueButton = NSLocalizedString("ExposureSubmissionWarnEuropeConsent_continueButton", comment: "")
+		static let sectionTitle = NSLocalizedString("ExposureSubmissionWarnEuropeConsent_sectionTitle", comment: "")
+		static let toggleTitle = NSLocalizedString("ExposureSubmissionWarnEuropeConsent_toggleTitle", comment: "")
+		static let consentTitle = NSLocalizedString("ExposureSubmissionWarnEuropeConsent_consentTitle", comment: "")
+		static let consentDescription = NSLocalizedString("ExposureSubmissionWarnEuropeConsent_consentDescription", comment: "")
+	}
+
+	enum ExposureSubmissionWarnEuropeTravelConfirmation {
+		static let title = NSLocalizedString("ExposureSubmissionWarnEuropeTravelConfirmation_title", comment: "")
+		static let continueButton = NSLocalizedString("ExposureSubmissionWarnEuropeTravelConfirmation_continueButton", comment: "")
+		static let description1 = NSLocalizedString("ExposureSubmissionWarnEuropeTravelConfirmation_description1", comment: "")
+		static let description2 = NSLocalizedString("ExposureSubmissionWarnEuropeTravelConfirmation_description2", comment: "")
+		static let answerOptionYes = NSLocalizedString("ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionYes", comment: "")
+		static let answerOptionNo = NSLocalizedString("ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNo", comment: "")
+		static let answerOptionNone = NSLocalizedString("ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone", comment: "")
+	}
+
+	enum ExposureSubmissionWarnEuropeCountrySelection {
+		static let title = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_title", comment: "")
+		static let continueButton = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_continueButton", comment: "")
+		static let description1 = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_description1", comment: "")
+		static let description2 = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_description2", comment: "")
+		static let answerOptionCountrySelection = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_answerOptionCountrySelection", comment: "")
+		static let answerOptionOtherCountries = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries", comment: "")
+		static let answerOptionNone = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone", comment: "")
+		static let noteTitle = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_noteTitle", comment: "")
+		static let noteDescription = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_noteDescription", comment: "")
+	}
+
 	enum ExposureSubmissionSuccess {
 		static let title = NSLocalizedString("ExposureSubmissionSuccess_Title", comment: "")
 		static let accImageDescription = NSLocalizedString("ExposureSubmissionSuccess_AccImageDescription", comment: "")

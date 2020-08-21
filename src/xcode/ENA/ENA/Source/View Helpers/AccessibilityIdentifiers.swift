@@ -188,6 +188,21 @@ enum AccessibilityIdentifiers {
 		static let description = "AppStrings.ExposureSubmissionWarnOthers.description"
 	}
 
+	enum ExposureSubmissionWarnEuropeConsent {
+		static let imageDescription = "AppStrings.ExposureSubmissionWarnEuropeConsent.imageDescription"
+		static let sectionTitle = "AppStrings.ExposureSubmissionWarnEuropeConsent.sectionTitle"
+	}
+
+	enum ExposureSubmissionWarnEuropeTravelConfirmation {
+		static let description1 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description1"
+		static let description2 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description2"
+	}
+
+	enum ExposureSubmissionWarnEuropeCountrySelection {
+		static let description1 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description1"
+		static let description2 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description2"
+	}
+
 	enum ExposureSubmission {
 		static let continueText = "AppStrings.ExposureSubmission.continueText"
 	}

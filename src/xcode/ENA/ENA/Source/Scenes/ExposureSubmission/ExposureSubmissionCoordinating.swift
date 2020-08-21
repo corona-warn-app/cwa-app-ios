@@ -46,7 +46,11 @@ protocol ExposureSubmissionCoordinating: class {
 	func showTanScreen()
 	func showQRScreen(qrScannerDelegate: ExposureSubmissionQRScannerDelegate)
 	func showWarnOthersScreen()
+	func showWarnEuropeScreen()
+	func showWarnEuropeTravelConfirmationScreen()
+	func showWarnEuropeCountrySelectionScreen()
 	func showThankYouScreen()
+
 }
 
 /// This delegate allows a class to be notified for life-cycle events of the coordinator.
@@ -81,6 +85,7 @@ class ExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
 		self.exposureSubmissionService = exposureSubmissionService
 		self.delegate = delegate
 	}
+
 }
 
 // MARK: - Navigation.
@@ -153,6 +158,7 @@ extension ExposureSubmissionCoordinator {
 		let vc = createHotlineViewController()
 		push(vc)
 	}
+
 	func showTanScreen() {
 		let vc = createTanInputViewController()
 		push(vc)
@@ -168,10 +174,26 @@ extension ExposureSubmissionCoordinator {
 		push(vc)
 	}
 
+	func showWarnEuropeScreen() {
+		let vc = createWarnEuropeConsentViewController()
+		push(vc)
+	}
+
+	func showWarnEuropeTravelConfirmationScreen() {
+		let vc = createWarnEuropeTravelConfirmationViewController()
+		push(vc)
+	}
+
+	func showWarnEuropeCountrySelectionScreen() {
+		let vc = createWarnEuropeCountrySelectionViewController()
+		push(vc)
+	}
+
 	func showThankYouScreen() {
 		let vc = createSuccessViewController()
 		push(vc)
 	}
+
 }
 
 // MARK: - Creation.
@@ -230,7 +252,25 @@ extension ExposureSubmissionCoordinator {
 
 	private func createWarnOthersViewController() -> ExposureSubmissionWarnOthersViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnOthersViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionWarnOthersViewController(coder: coder, coordinator: self, exposureSubmissionService: self.exposureSubmissionService)
+			ExposureSubmissionWarnOthersViewController(coder: coder, coordinator: self)
+		}
+	}
+
+	private func createWarnEuropeConsentViewController() -> ExposureSubmissionWarnEuropeConsentViewController {
+		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnEuropeConsentViewController.self) { coder -> UIViewController? in
+			ExposureSubmissionWarnEuropeConsentViewController(coder: coder, coordinator: self, exposureSubmissionService: self.exposureSubmissionService)
+		}
+	}
+
+	private func createWarnEuropeTravelConfirmationViewController() -> ExposureSubmissionWarnEuropeTravelConfirmationViewController {
+		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnEuropeTravelConfirmationViewController.self) { coder -> UIViewController? in
+			ExposureSubmissionWarnEuropeTravelConfirmationViewController(coder: coder, coordinator: self, exposureSubmissionService: self.exposureSubmissionService)
+		}
+	}
+
+	private func createWarnEuropeCountrySelectionViewController() -> ExposureSubmissionWarnEuropeCountrySelectionViewController {
+		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnEuropeCountrySelectionViewController.self) { coder -> UIViewController? in
+			ExposureSubmissionWarnEuropeCountrySelectionViewController(coder: coder, coordinator: self, exposureSubmissionService: self.exposureSubmissionService)
 		}
 	}
 
@@ -239,4 +279,5 @@ extension ExposureSubmissionCoordinator {
 			ExposureSubmissionSuccessViewController(coder: coder, coordinator: self)
 		}
 	}
+
 }

@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,16 +15,17 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
-import Foundation
 import UIKit
 
-class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
-	
+class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewController, ExposureSubmittableViewController {
+
 	// MARK: - Init
 
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating) {
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, exposureSubmissionService: ExposureSubmissionService) {
 		self.coordinator = coordinator
+		self.exposureSubmissionService = exposureSubmissionService
 
 		super.init(coder: coder)
 	}
@@ -44,18 +46,21 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		coordinator?.showWarnEuropeScreen()
+		// startSubmitProcess()
+
+		coordinator?.showWarnEuropeTravelConfirmationScreen()
 	}
 
 	// MARK: - Internal
 
+	private(set) weak var exposureSubmissionService: ExposureSubmissionService?
 	private(set) weak var coordinator: ExposureSubmissionCoordinating?
 
 	// MARK: - Private
 
 	private func setupView() {
-		navigationItem.title = AppStrings.ExposureSubmissionWarnOthers.title
-		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionWarnOthers.continueButton
+		navigationItem.title = AppStrings.ExposureSubmissionWarnEuropeConsent.title
+		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionWarnEuropeConsent.continueButton
 
 		setupTableView()
 	}
@@ -77,19 +82,15 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 			$0.add(
 				.section(
 					header: .image(
-						UIImage(named: "Illu_Submission_AndereWarnen"),
-						accessibilityLabel: AppStrings.ExposureSubmissionWarnOthers.accImageDescription,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription,
+						UIImage(named: "Illu_Submission_EuropaweitWarnen"),
+						accessibilityLabel: AppStrings.ExposureSubmissionWarnEuropeConsent.imageDescription,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnEuropeConsent.imageDescription,
 						height: 250
 					),
 					cells: [
 						.title2(
-							text: AppStrings.ExposureSubmissionWarnOthers.sectionTitle,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.sectionTitle
-						),
-						.body(
-							text: AppStrings.ExposureSubmissionWarnOthers.description,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.description
+							text: AppStrings.ExposureSubmissionWarnEuropeConsent.sectionTitle,
+							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnEuropeConsent.sectionTitle
 						),
 						.custom(
 							withIdentifier: CustomCellReuseIdentifiers.roundedCell,
@@ -98,10 +99,10 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 								cell.configure(
 									title: NSMutableAttributedString(
-										string: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyTitle
+										string: AppStrings.ExposureSubmissionWarnEuropeConsent.consentTitle
 									),
 									body: NSMutableAttributedString(
-										string: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyDescription
+										string: AppStrings.ExposureSubmissionWarnEuropeConsent.consentDescription
 									)
 								)
 							}
@@ -116,7 +117,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 // MARK: - Cell reuse identifiers.
 
-extension ExposureSubmissionWarnOthersViewController {
+extension ExposureSubmissionWarnEuropeConsentViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case roundedCell
 	}
