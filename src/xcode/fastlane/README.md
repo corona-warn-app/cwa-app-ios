@@ -41,6 +41,11 @@ Run tests
 fastlane ios betaRelease
 ```
 Build and upload for testing
+### ios updateDocs
+```
+fastlane ios updateDocs
+```
+Update GitHub Pages
 
 ----
 
