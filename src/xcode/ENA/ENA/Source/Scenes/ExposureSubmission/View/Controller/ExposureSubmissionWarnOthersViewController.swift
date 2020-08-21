@@ -161,20 +161,24 @@ private extension ExposureSubmissionWarnOthersViewController {
 									),
 									body: NSMutableAttributedString(
 										string: AppStrings.ExposureSubmissionWarnOthers.consentUnderagesText
-									)
+									),
+									textStyle: .textContrast,
+									backgroundStyle: .riskNeutral
 									)
 
 						}),
 						.custom(withIdentifier: CustomCellReuseIdentifiers.roundedCell,
 								configure: { _, cell, _ in
-									guard let cell = cell as? DynamicTableViewRoundedCell else { return }
-									cell.configure(
+									guard let cell1 = cell as? DynamicTableViewRoundedCell else { return }
+									cell1.configure(
 										title: NSMutableAttributedString(
 											string: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyTitle
 										),
 										body: NSMutableAttributedString(
 											string: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyDescription
-										)
+										),
+										textStyle: .textPrimary1,
+										backgroundStyle: .separator
 									)
 						})
 					]
