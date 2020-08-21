@@ -2350,7 +2350,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 85D7596824570491008175F0 /* Build configuration list for PBXNativeTarget "ENA" */;
 			buildPhases = (
-				352F25A024EFC6AB00ACDFF3 /* Add Local Settings */,
 				71AFBD9324642AF500F91006 /* SwiftLint */,
 				85D759372457048F008175F0 /* Sources */,
 				85D759382457048F008175F0 /* Frameworks */,
@@ -2557,25 +2556,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		352F25A024EFC6AB00ACDFF3 /* Add Local Settings */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Add Local Settings";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "LOCAL_SETTINGS=${SOURCE_ROOT}/ENA/LocalSettings.swift\n\n# if not present create a new LocalSettings file from defaults\nif [ ! -f ${LOCAL_SETTINGS} ]; then\n    cp ${SOURCE_ROOT}/ENA/LocalSettings.default.swift ${LOCAL_SETTINGS}\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		71AFBD9324642AF500F91006 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
