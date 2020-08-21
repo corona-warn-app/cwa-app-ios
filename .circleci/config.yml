@@ -117,7 +117,7 @@ workflows:
             filters:
               branches:
                 only:
-                  - master
+                  - develop
         - grab-screenshots:
             filters:
               branches:
