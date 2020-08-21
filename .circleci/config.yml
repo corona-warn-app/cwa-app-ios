@@ -113,7 +113,7 @@ workflows:
     build:
       jobs:
         - build
-        - update-docs
+        - update-docs:
             filters:
               branches:
                 only:
