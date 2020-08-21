@@ -24,6 +24,7 @@ platform :ios do
 
   before_all do
     setup_circle_ci
+    xcversion(version: "11.6")
   end
 
   desc "Update license file"
