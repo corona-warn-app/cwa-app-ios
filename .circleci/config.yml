@@ -94,8 +94,9 @@ jobs:
           name: fastlane
           command: cd src/xcode && bundle exec fastlane betaRelease --env TestFlight
     update-docs:
-      - maxos:
+      macos:
         xcode: 11.6.0
+      shell: zsh
       steps:
         - checkout
         - add_ssh_keys:
