@@ -785,7 +785,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Home Submit card */
 "Home_SubmitCard_Title" = "Wurden Sie getestet?";
 
-"Home_SubmitCard_Body" = "Helfen Sie mit, die Infektionskette zu durchbrechen und informieren Sie andere.";
+"Home_SubmitCard_Body" = "Helfen Sie mit, die Infektionskette zu durchbrechen, und informieren Sie andere.";
 
 "Home_SubmitCard_Button" = "Informieren & helfen";
 
