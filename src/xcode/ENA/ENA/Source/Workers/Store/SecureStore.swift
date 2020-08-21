@@ -22,12 +22,10 @@ import Foundation
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
 final class SecureStore: Store {
-
-
 	private let directoryURL: URL
 	private let kvStore: SQLiteKeyValueStore
 
-	init (at directoryURL: URL, key: String) {
+	init(at directoryURL: URL, key: String) {
 		self.directoryURL = directoryURL
 		self.kvStore = SQLiteKeyValueStore(with: directoryURL, key: key)
 	}
@@ -39,7 +37,6 @@ final class SecureStore: Store {
 	func clearAll(key: String?) {
 		kvStore.clearAll(key: key)
 	}
-
 	
 	var testResultReceivedTimeStamp: Int64? {
 		get { kvStore["testResultReceivedTimeStamp"] as Int64? }
@@ -82,7 +79,7 @@ final class SecureStore: Store {
 	}
 
 	var tan: String? {
-		get { kvStore["tan"] as String? ?? "" }
+		get { kvStore["tan"] as String? }
 		set { kvStore["tan"] = newValue }
 	}
 
@@ -124,6 +121,11 @@ final class SecureStore: Store {
 	var hasSeenSubmissionExposureTutorial: Bool {
 		get { kvStore["hasSeenSubmissionExposureTutorial"] as Bool? ?? false }
 		set { kvStore["hasSeenSubmissionExposureTutorial"] = newValue }
+	}
+
+	var hasSeenBackgroundFetchAlert: Bool {
+		get { kvStore["hasSeenBackgroundFetchAlert"] as Bool? ?? false }
+		set { kvStore["hasSeenBackgroundFetchAlert"] = newValue }
 	}
 
 	var developerSubmissionBaseURLOverride: String? {
@@ -182,6 +184,27 @@ final class SecureStore: Store {
 		}
 		set { kvStore["previousRiskLevel"] = newValue?.rawValue }
 	}
+
+	var userNeedsToBeInformedAboutHowRiskDetectionWorks: Bool {
+		get { kvStore["userNeedsToBeInformedAboutHowRiskDetectionWorks"] as Bool? ?? true }
+		set { kvStore["userNeedsToBeInformedAboutHowRiskDetectionWorks"] = newValue }
+	}
+
+	var lastBackgroundFakeRequest: Date {
+		get { kvStore["lastBackgroundFakeRequest"] as Date? ?? Date() }
+		set { kvStore["lastBackgroundFakeRequest"] = newValue }
+	}
+
+	var firstPlaybookExecution: Date? {
+		get { kvStore["firstPlaybookExecution"] as Date? }
+		set { kvStore["firstPlaybookExecution"] = newValue }
+	}
+
+	var isAllowedToPerformBackgroundFakeRequests: Bool {
+		get { kvStore["shouldPerformBackgroundFakeRequests"] as Bool? ?? false }
+		set { kvStore["shouldPerformBackgroundFakeRequests"] = newValue }
+	}
+
 }
 
 

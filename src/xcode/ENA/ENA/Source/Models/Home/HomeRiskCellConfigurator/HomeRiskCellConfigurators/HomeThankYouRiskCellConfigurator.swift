@@ -20,9 +20,7 @@
 import UIKit
 
 final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
-
-	let identifier = UUID()
-
+	
 	// MARK: Configuration
 
 	func configure(cell: RiskThankYouCollectionViewCell) {
@@ -79,4 +77,14 @@ final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
 		cell.titleLabel.accessibilityTraits = .header
 	}
 
+	// MARK: Hashable
+
+	func hash(into hasher: inout Swift.Hasher) {
+		// this class has no stored properties, that's why hash function is empty here
+	}
+
+	static func == (lhs: HomeThankYouRiskCellConfigurator, rhs: HomeThankYouRiskCellConfigurator) -> Bool {
+		// instances of this class have no differences between each other
+		true
+	}
 }

@@ -52,10 +52,6 @@ class ActionDetailTableViewCell: UITableViewCell, ActionCell {
 			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateBluetooth
 			descriptionLabel.text = AppStrings.ExposureNotificationSetting.bluetoothDescription
 			iconImageView2.isHidden = true
-		case .internetOff:
-			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateInternet
-			descriptionLabel.text = AppStrings.ExposureNotificationSetting.internetDescription
-			iconImageView2.isHidden = false
 		case .restricted:
 			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateParentalControlENSetting
 			descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateParentalControlENSettingDescription
@@ -84,8 +80,6 @@ class ActionDetailTableViewCell: UITableViewCell, ActionCell {
 			return (nil, nil)
 		case .bluetoothOff:
 			return (UIImage(named: "Icons_Bluetooth"), nil)
-		case .internetOff:
-			return (UIImage(named: "Icons_MobileDaten"), UIImage(named: "Icons_iOS_Wifi"))
 		case .restricted, .notAuthorized, .unknown:
 			return (UIImage(named: "Icons_iOS_Settings"), nil)
 		}

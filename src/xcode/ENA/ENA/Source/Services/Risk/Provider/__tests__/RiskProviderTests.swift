@@ -56,6 +56,7 @@ final class RiskProviderTests: XCTestCase {
 			// swiftlint:disable:next force_unwrapping
 			date: lastExposureDetectionDate!
 		)
+		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
@@ -84,13 +85,75 @@ final class RiskProviderTests: XCTestCase {
 		sut.observeRisk(consumer)
 		sut.requestRisk(userInitiated: false)
 		waitForExpectations(timeout: 1.0)
-    }
+	}
 
-    func testThatDetectionIsRequested() throws {
+	func testExposureDetectionIsNotExecutedIfTracingHasNotBeenEnabledLongEnough() throws {
+		let duration = DateComponents(day: 1)
+
+		let calendar = Calendar.current
+
+		let lastExposureDetectionDate = calendar.date(
+			byAdding: .day,
+			value: -3,
+			to: Date(),
+			wrappingComponents: false
+		)
+
+		let store = MockTestStore()
+		store.summary = SummaryMetadata(
+			summary: CodableExposureDetectionSummary(
+				daysSinceLastExposure: 0,
+				matchedKeyCount: 0,
+				maximumRiskScore: 0,
+				attenuationDurations: [],
+				maximumRiskScoreFullRange: 0
+			),
+			// swiftlint:disable:next force_unwrapping
+			date: lastExposureDetectionDate!
+		)
+		// Tracing was only active for one hour, there is not enough data to calculate risk,
+		// and we might get a rate limit error (ex. user reinstalls the app - losing tracing history - and risk is requested again)
+		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(hours: -1)))]
+
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: duration,
+			exposureDetectionInterval: duration,
+			detectionMode: .automatic
+		)
+		let exposureSummaryProvider = ExposureSummaryProviderMock()
+
+		let expectThatSummaryIsRequested = expectation(description: "expectThatSummaryIsRequested")
+		exposureSummaryProvider.onDetectExposure = { completion in
+			expectThatSummaryIsRequested.fulfill()
+			completion(.init())
+		}
+		expectThatSummaryIsRequested.isInverted = true
+
+		let sut = RiskProvider(
+			configuration: config,
+			store: store,
+			exposureSummaryProvider: exposureSummaryProvider,
+			appConfigurationProvider: CachedAppConfiguration(client: ClientMock(submissionError: nil)),
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
+		)
+
+		let consumer = RiskConsumer()
+
+		sut.observeRisk(consumer)
+		let expectThatRiskIsReturned = expectation(description: "expectThatRiskIsReturned")
+		sut.requestRisk(userInitiated: false) { risk in
+			expectThatRiskIsReturned.fulfill()
+			XCTAssertEqual(risk?.level, .unknownInitial, "Tracing was active for < 24 hours but risk is not .unknownInitial")
+		}
+		waitForExpectations(timeout: 1.0)
+	}
+
+	func testThatDetectionIsRequested() throws {
 		let duration = DateComponents(day: 1)
 
 		let store = MockTestStore()
 		store.summary = nil
+		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
@@ -136,5 +199,5 @@ final class RiskProviderTests: XCTestCase {
 		sut.observeRisk(consumer)
 		sut.requestRisk(userInitiated: true)
 		wait(for: [detectionRequested, didCalculateRiskCalled], timeout: 1.0, enforceOrder: true)
-    }
+	}
 }

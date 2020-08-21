@@ -314,7 +314,7 @@ struct SAP_RiskScoreParameters {
     var gt10Le15Dbm: SAP_RiskLevel = .invalid
 
     /// A <= 10 dBm, highest risk
-    var lt10Dbm: SAP_RiskLevel = .invalid
+    var le10Dbm: SAP_RiskLevel = .invalid
 
     var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -724,7 +724,7 @@ extension SAP_RiskScoreParameters.AttenuationRiskParameter: SwiftProtobuf.Messag
     5: .standard(proto: "gt_27_le_33_dbm"),
     6: .standard(proto: "gt_15_le_27_dbm"),
     7: .standard(proto: "gt_10_le_15_dbm"),
-    8: .standard(proto: "lt_10_dbm"),
+    8: .standard(proto: "le_10_dbm"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -737,7 +737,7 @@ extension SAP_RiskScoreParameters.AttenuationRiskParameter: SwiftProtobuf.Messag
       case 5: try decoder.decodeSingularEnumField(value: &self.gt27Le33Dbm)
       case 6: try decoder.decodeSingularEnumField(value: &self.gt15Le27Dbm)
       case 7: try decoder.decodeSingularEnumField(value: &self.gt10Le15Dbm)
-      case 8: try decoder.decodeSingularEnumField(value: &self.lt10Dbm)
+      case 8: try decoder.decodeSingularEnumField(value: &self.le10Dbm)
       default: break
       }
     }
@@ -765,8 +765,8 @@ extension SAP_RiskScoreParameters.AttenuationRiskParameter: SwiftProtobuf.Messag
     if self.gt10Le15Dbm != .invalid {
       try visitor.visitSingularEnumField(value: self.gt10Le15Dbm, fieldNumber: 7)
     }
-    if self.lt10Dbm != .invalid {
-      try visitor.visitSingularEnumField(value: self.lt10Dbm, fieldNumber: 8)
+    if self.le10Dbm != .invalid {
+      try visitor.visitSingularEnumField(value: self.le10Dbm, fieldNumber: 8)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -779,7 +779,7 @@ extension SAP_RiskScoreParameters.AttenuationRiskParameter: SwiftProtobuf.Messag
     if lhs.gt27Le33Dbm != rhs.gt27Le33Dbm {return false}
     if lhs.gt15Le27Dbm != rhs.gt15Le27Dbm {return false}
     if lhs.gt10Le15Dbm != rhs.gt10Le15Dbm {return false}
-    if lhs.lt10Dbm != rhs.lt10Dbm {return false}
+    if lhs.le10Dbm != rhs.le10Dbm {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

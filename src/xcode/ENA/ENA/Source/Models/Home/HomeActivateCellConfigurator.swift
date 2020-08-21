@@ -19,8 +19,6 @@ import UIKit
 
 final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 
-	let identifier = UUID()
-	
 	private var state: ENStateHandler.State
 
 	init(state: ENStateHandler.State) {
@@ -30,32 +28,41 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 	// MARK: Configuring a Cell
 
 	func configure(cell: ActivateCollectionViewCell) {
-		var iconImage: UIImage?
-		cell.iconImageView.image?.withRenderingMode(.alwaysTemplate)
-
 		switch state {
 		case .enabled:
-			iconImage = UIImage(named: "Icons_Risikoermittlung")
-			cell.titleLabel.text = AppStrings.Home.activateCardOnTitle
-			cell.accessibilityIdentifier = AccessibilityIdentifiers.Home.activateCardOnTitle
+			cell.configure(
+				title: AppStrings.Home.activateCardOnTitle,
+				icon: UIImage(named: "Icons_Risikoermittlung_25"),
+				animationImages: (0...60).compactMap({ UIImage(named: String(format: "Icons_Risikoermittlung_%02d", $0)) }),
+				accessibilityIdentifier: AccessibilityIdentifiers.Home.activateCardOnTitle
+			)
+
 		case .disabled, .restricted, .notAuthorized, .unknown:
-			iconImage = UIImage(named: "Icons_Risikoermittlung_gestoppt")
-			cell.titleLabel.text = AppStrings.Home.activateCardOffTitle
-			cell.accessibilityIdentifier = AccessibilityIdentifiers.Home.activateCardOffTitle
+			cell.configure(
+				title: AppStrings.Home.activateCardOffTitle,
+				icon: UIImage(named: "Icons_Risikoermittlung_gestoppt"),
+				accessibilityIdentifier: AccessibilityIdentifiers.Home.activateCardOffTitle
+			)
+
 		case .bluetoothOff:
-			iconImage = UIImage(named: "Icons_Bluetooth_aus")
-			cell.titleLabel.text = AppStrings.Home.activateCardBluetoothOffTitle
-			cell.accessibilityIdentifier = AccessibilityIdentifiers.Home.activateCardBluetoothOffTitle
-		case .internetOff:
-			iconImage = UIImage(named: "Icons_Internet_aus")
-			cell.titleLabel.text = AppStrings.Home.activateCardInternetOffTitle
-			cell.accessibilityIdentifier = AccessibilityIdentifiers.Home.activateCardInternetOffTitle
+			cell.configure(
+				title: AppStrings.Home.activateCardBluetoothOffTitle,
+				icon: UIImage(named: "Icons_Bluetooth_aus"),
+				accessibilityIdentifier: AccessibilityIdentifiers.Home.activateCardBluetoothOffTitle
+			)
 		}
-
-		cell.iconImageView.image = iconImage
-
-		cell.accessibilityLabel = cell.titleLabel.text ?? ""
 	}
+
+	// MARK: Hashable
+	
+	func hash(into hasher: inout Swift.Hasher) {
+		hasher.combine(state)
+	}
+
+	static func == (lhs: HomeActivateCellConfigurator, rhs: HomeActivateCellConfigurator) -> Bool {
+		lhs.state == rhs.state
+	}
+
 }
 
 extension HomeActivateCellConfigurator: ENStateHandlerUpdating {

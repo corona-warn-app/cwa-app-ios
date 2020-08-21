@@ -20,9 +20,6 @@ import UIKit
 final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	// MARK: Configuration
 
-	// This interval is 24
-	private let detectionInterval: Int
-
 	// MARK: Creating a unknown Risk cell
 	init(
 		isLoading: Bool,
@@ -31,21 +28,20 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		detectionMode: DetectionMode,
 		manualExposureDetectionState: ManualExposureDetectionState?
 	) {
-		self.detectionInterval = detectionInterval
-
 		super.init(
 			isLoading: isLoading,
 			isButtonEnabled: manualExposureDetectionState == .possible,
 			isButtonHidden: detectionMode == .automatic,
 			detectionIntervalLabelHidden: detectionMode != .automatic,
-			lastUpdateDate: lastUpdateDate
+			lastUpdateDate: lastUpdateDate,
+			detectionInterval: detectionInterval
 		)
 	}
 
 	override func configure(cell: RiskLevelCollectionViewCell) {
 		cell.delegate = self
-
 		let title: String = isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardUnknownTitle
+		
 		let titleColor: UIColor = .enaColor(for: .textContrast)
 		cell.configureTitle(title: title, titleColor: titleColor)
 		cell.configureBody(text: "", bodyColor: titleColor, isHidden: true)
@@ -64,28 +60,28 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 		cell.configureBackgroundColor(color: color)
 
-
-		let intervalString = "\(detectionInterval)"
-		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, intervalString)
+		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, "\(detectionInterval)")
 		cell.configureDetectionIntervalLabel(
 			text: intervalTitle,
 			isHidden: detectionIntervalLabelHidden
 		)
 
-		let buttonTitle: String
-		if isLoading {
-			buttonTitle = AppStrings.Home.riskCardStatusCheckButton
-		} else {
-			let intervalDisabledButtonTitle = String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, intervalString)
-			buttonTitle = isButtonEnabled ? AppStrings.Home.riskCardUnknownButton : intervalDisabledButtonTitle
-		}
-		cell.configureUpdateButton(
-			title: buttonTitle,
-			isEnabled: isButtonEnabled,
-			isHidden: isButtonHidden,
-			accessibilityIdentifier: AccessibilityIdentifiers.Home.riskCardIntervalUpdateTitle
-		)
-
+		configureButton(for: cell)
 		setupAccessibility(cell)
+	}
+
+	// MARK: Hashable
+
+	override func hash(into hasher: inout Swift.Hasher) {
+		super.hash(into: &hasher)
+	}
+
+	static func == (lhs: HomeUnknownRiskCellConfigurator, rhs: HomeUnknownRiskCellConfigurator) -> Bool {
+		lhs.isLoading == rhs.isLoading &&
+		lhs.isButtonEnabled == rhs.isButtonEnabled &&
+		lhs.isButtonHidden == rhs.isButtonHidden &&
+		lhs.detectionIntervalLabelHidden == rhs.detectionIntervalLabelHidden &&
+		lhs.lastUpdateDate == rhs.lastUpdateDate &&
+		lhs.detectionInterval == rhs.detectionInterval
 	}
 }

@@ -121,7 +121,7 @@ final class TracingStatusHistoryTests: XCTestCase {
 
 		history = history.consumingState(goodState, date)
 
-		XCTAssertEqual(history.countEnabledDays(), 14)
+		XCTAssertEqual(history.activeTracing().inDays, 14)
 	}
 
 	func testIfTracingActiveForThresholdDuration_EnabledClosePast() throws {
@@ -176,7 +176,7 @@ final class TracingStatusHistoryTests: XCTestCase {
 
 		history = history.consumingState(goodState, Date().addingTimeInterval(.init(days: -10)))
 
-		XCTAssertEqual(history.countEnabledDays(), 10)
+		XCTAssertEqual(history.activeTracing().inDays, 10)
 	}
 
 	func testEnabledDaysCount_EnabledRecently() throws {
@@ -185,7 +185,7 @@ final class TracingStatusHistoryTests: XCTestCase {
 
 		history = history.consumingState(goodState, Date().addingTimeInterval(-10))
 
-		XCTAssertEqual(history.countEnabledDays(), 0)
+		XCTAssertEqual(history.activeTracing().inDays, 0)
 	}
 
 	func testEnabledHoursCount_EnabledRecently() throws {
@@ -193,8 +193,12 @@ final class TracingStatusHistoryTests: XCTestCase {
 		let goodState = ExposureManagerState(authorized: true, enabled: true, status: .active)
 
 		history = history.consumingState(goodState, Date().addingTimeInterval(-5400))
+
+		let activeTracing = history.activeTracing()
+
+		XCTAssertEqual(activeTracing.interval, 5400, accuracy: 0.1)
 		// Enabled for 1.5 hours should only count as 1 enabled hour (truncating)
-		XCTAssertEqual(history.countEnabledHours(), 1)
+		XCTAssertEqual(activeTracing.inHours, 1)
 	}
 
 	func testEnabledHoursCount_WithTheFirstEntryBeingInDistantPast() throws {
@@ -207,8 +211,11 @@ final class TracingStatusHistoryTests: XCTestCase {
 		history = history.consumingState(goodState, now.addingTimeInterval(.init(days: -100)))
 		history = history.consumingState(badState, now.addingTimeInterval(.init(days: -10)))	// stop being active after 4 days
 
-		XCTAssertEqual(history.countEnabledHours(since: now), 96)
-		XCTAssertEqual(history.countEnabledDays(since: now), 4)
+		let activeTracing = history.activeTracing(since: now)
+
+		XCTAssertEqual(activeTracing.interval, 96 * 3600, accuracy: 0.1)
+		XCTAssertEqual(activeTracing.inDays, 4)
+		XCTAssertEqual(activeTracing.inHours, 96)
 	}
 
 
@@ -224,8 +231,10 @@ final class TracingStatusHistoryTests: XCTestCase {
 		history = history.consumingState(goodState, now.addingTimeInterval(.init(days: -1))) // inactive for 9 days
 		history = history.consumingState(badState, now.addingTimeInterval(.init(hours: -1)))	// active for 23 hours
 
-		XCTAssertEqual(history.countEnabledHours(since: now), 24 * 4 + 23)
-		XCTAssertEqual(history.countEnabledDays(since: now), 5)
+		let activeTracing = history.activeTracing(since: now)
+		XCTAssertEqual(activeTracing.interval, (24 * 4 + 23) * 3600, accuracy: 0.1)
+		XCTAssertEqual(activeTracing.inHours, 24 * 4 + 23)
+		XCTAssertEqual(activeTracing.inDays, 5)
 	}
 
 	func testGetEnabledInterval_Accumulator_Good() {
@@ -236,8 +245,10 @@ final class TracingStatusHistoryTests: XCTestCase {
 			.init(on: true, date: now.addingTimeInterval(.init(days: -5)))
 		]
 
-		XCTAssertEqual(history.countEnabledHours(since: now), 24 * 10)
-		XCTAssertEqual(history.countEnabledDays(since: now), 10)
+		let activeTracing = history.activeTracing(since: now)
+
+		XCTAssertEqual(activeTracing.interval, 24 * 10 * 3600, accuracy: 0.1)
+		XCTAssertEqual(activeTracing.inDays, 10)
 	}
 
 	func testGetEnabledInterval_Accumulator_Good_2() {
@@ -250,8 +261,10 @@ final class TracingStatusHistoryTests: XCTestCase {
 			.init(on: true, date: now.addingTimeInterval(.init(days: -1)))
 		]
 
-		XCTAssertEqual(history.countEnabledHours(since: now), 24 * 10)
-		XCTAssertEqual(history.countEnabledDays(since: now), 10)
+		let activeTracing = history.activeTracing(since: now)
+
+		XCTAssertEqual(activeTracing.interval, 24 * 10 * 3600, accuracy: 0.1)
+		XCTAssertEqual(activeTracing.inDays, 10)
 	}
 
 	func testGetEnabledInterval_Accumulator_Good_3() {
@@ -264,8 +277,10 @@ final class TracingStatusHistoryTests: XCTestCase {
 			// Active for 2 more days
 		]
 
-		XCTAssertEqual(history.countEnabledHours(since: now), 24 * 7)
-		XCTAssertEqual(history.countEnabledDays(since: now), 7)
+		let activeTracing = history.activeTracing(since: now)
+
+		XCTAssertEqual(activeTracing.interval, 24 * 7 * 3600, accuracy: 0.1)
+		XCTAssertEqual(activeTracing.inDays, 7)
 	}
 
 	func testGetEnabledInterval_Accumulator_Bad() {
@@ -277,8 +292,10 @@ final class TracingStatusHistoryTests: XCTestCase {
 			.init(on: true, date: now.addingTimeInterval(.init(days: -2)))
 		]
 
-		XCTAssertEqual(history.countEnabledHours(since: now), 24 * 2)
-		XCTAssertEqual(history.countEnabledDays(since: now), 2)
+		let activeTracing = history.activeTracing(since: now)
+
+		XCTAssertEqual(activeTracing.interval, 24 * 2 * 3600, accuracy: 0.1)
+		XCTAssertEqual(activeTracing.inDays, 2)
 	}
 
 	func testNumberOfDays_Rounding() {
@@ -288,26 +305,16 @@ final class TracingStatusHistoryTests: XCTestCase {
 			.init(on: true, date: now.addingTimeInterval(.init(hours: -((24 * 5) + 4))))
 		]
 
-		XCTAssertEqual(history.countEnabledDays(since: now), 5)
+		XCTAssertEqual(history.activeTracing(since: now).inDays, 5)
 
 		history = [
 			.init(on: true, date: now.addingTimeInterval(.init(hours: -((24 * 5) + 13))))
 		]
-		XCTAssertEqual(history.countEnabledDays(since: now), 6)
+		XCTAssertEqual(history.activeTracing(since: now).inDays, 6)
 
 		history = [
 			.init(on: true, date: now.addingTimeInterval(.init(hours: -((24 * 5) + 0))))
 		]
-		XCTAssertEqual(history.countEnabledDays(since: now), 5)
-	}
-}
-
-private extension TimeInterval {
-	init(hours: Int) {
-		self = Double(hours * 60 * 60)
-	}
-
-	init(days: Int) {
-		self = Double(days * 24 * 60 * 60)
+		XCTAssertEqual(history.activeTracing(since: now).inDays, 5)
 	}
 }

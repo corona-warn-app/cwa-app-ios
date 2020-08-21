@@ -11,7 +11,7 @@ extension HomeInteractor {
 		var enState: ENStateHandler.State
 
 		var risk: Risk?
-		var riskLevel: RiskLevel { risk?.level ?? .unknownInitial }
+		var riskLevel: RiskLevel? { risk?.level }
 		var numberRiskContacts: Int {
 			risk?.details.numberOfExposures ?? 0
 		}

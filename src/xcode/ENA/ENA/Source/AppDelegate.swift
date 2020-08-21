@@ -114,43 +114,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	#endif
 
 	private var exposureDetection: ExposureDetection?
-	private var exposureSubmissionService: ENAExposureSubmissionService?
+	private(set) var exposureSubmissionService: ENAExposureSubmissionService?
 
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
-
-
-	lazy var client: HTTPClient = {
-		var configuration: HTTPClient.Configuration
-		#if !RELEASE
-		let store = self.store
-		if
-			let distributionURLString = store.developerDistributionBaseURLOverride,
-			let submissionURLString = store.developerSubmissionBaseURLOverride,
-			let verificationURLString = store.developerVerificationBaseURLOverride,
-			let distributionURL = URL(string: distributionURLString),
-			let verificationURL = URL(string: verificationURLString),
-			let submissionURL = URL(string: submissionURLString) {
-			configuration = HTTPClient.Configuration(
-					apiVersion: "v1",
-					country: "DE",
-					endpoints: HTTPClient.Configuration.Endpoints(
-						distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
-						submission: .init(baseURL: submissionURL, requiresTrailingSlash: false),
-						verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
-					)
-				)
-
-		} else {
-			configuration = HTTPClient.Configuration.loadFromPlist(dictionaryNameInPList: "BackendURLs") ?? .production
-		}
-
-		#else
-		configuration = HTTPClient.Configuration.loadFromPlist(dictionaryNameInPList: "BackendURLs") ?? .production
-		#endif
-		
-		return HTTPClient(configuration: configuration)
-	}()
+	var client = HTTPClient(configuration: .backendBaseURLs)
 
 	// TODO: REMOVE ME
 	var lastRiskCalculation: String = ""
@@ -170,7 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	) -> Bool {
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
-		taskScheduler.taskDelegate = self
+		taskScheduler.delegate = self
 
 		riskProvider.observeRisk(consumer)
 
@@ -188,52 +156,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func application(_: UIApplication, didDiscardSceneSessions _: Set<UISceneSession>) {}
-}
-
-extension AppDelegate: ENATaskExecutionDelegate {
-	func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void)) {
-
-		let detectionMode = DetectionMode.fromBackgroundStatus()
-		riskProvider.configuration.detectionMode = detectionMode
-
-		riskProvider.requestRisk(userInitiated: false) { risk in
-			// present a notification if the risk score has increased
-			if let risk = risk,
-				risk.riskLevelHasChanged {
-				UNUserNotificationCenter.current().presentNotification(
-					title: AppStrings.LocalNotifications.detectExposureTitle,
-					body: AppStrings.LocalNotifications.detectExposureBody,
-					identifier: task.identifier
-				)
-			}
-			completion(true)
-		}
-	}
-
-	func executeFetchTestResults(task: BGTask, completion: @escaping ((Bool) -> Void)) {
-
-		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
-
-		if store.registrationToken != nil && store.testResultReceivedTimeStamp == nil {
-			self.exposureSubmissionService?.getTestResult { result in
-				switch result {
-				case .failure(let error):
-					logError(message: error.localizedDescription)
-				case .success(let testResult):
-					if testResult != .pending {
-						UNUserNotificationCenter.current().presentNotification(
-							title: AppStrings.LocalNotifications.testResultsTitle,
-							body: AppStrings.LocalNotifications.testResultsBody,
-							identifier: task.identifier
-						)
-					}
-				}
-
-				completion(true)
-			}
-		} else {
-			completion(true)
-		}
-
-	}
 }

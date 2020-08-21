@@ -35,6 +35,13 @@ protocol ExposureSubmissionErrorTransformable {
 extension ENError: ExposureSubmissionErrorTransformable {
 	func toExposureSubmissionError() -> ExposureSubmissionError {
 		switch code {
+
+		case .unsupported:
+			return .unsupported
+		case .internal:
+			return .internal
+		case .rateLimited:
+			return .rateLimited
 		case .notEnabled:
 			return .enNotEnabled
 		case .notAuthorized:
@@ -67,6 +74,10 @@ extension SubmissionError: ExposureSubmissionErrorTransformable {
 		switch self {
 		case .invalidTan:
 			return .invalidTan
+		case .invalidPayloadOrHeaders:
+			return .invalidPayloadOrHeaders
+		case .requestCouldNotBeBuilt:
+			return .requestCouldNotBeBuilt
 		case let .serverError(code):
 			return .serverError(code)
 		default:
@@ -94,6 +105,8 @@ extension URLSession.Response.Failure: ExposureSubmissionErrorTransformable {
 			return .noResponse
 		case let .serverError(code):
 			return .serverError(code)
+		case .fakeResponse:
+			return .fakeResponse
 		}
 	}
 }

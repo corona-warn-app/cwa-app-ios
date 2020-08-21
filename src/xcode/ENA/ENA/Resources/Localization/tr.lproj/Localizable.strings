@@ -19,6 +19,35 @@
 
 "General_BackButtonTitle" = "Geri";
 
+"Common_ENError5_Description" = "Hata 5: Bir sorun oluştu. Risk düzeyiniz belirlenemiyor. Problemi çözmeye çalışıyoruz.";
+
+"Common_ENError11_Description" = "Hata 11: Bir sorun oluştu. Risk düzeyiniz belirlenemiyor. Lütfen cihazınızı yeniden başlatın ve yarın tekrar deneyin.";
+
+"Common_ENError13_Description" = "Hata 13: Bugünkü maruz kalma günlüğünüz zaten çıkarıldı. Lütfen 24 saat içinde tekrar deneyin.";
+
+"Common_Alert_Action_moreInfo" = "Daha fazla bilgi edinin";
+
+"Common_BackgroundFetch_AlertMessage" = "Corona-Warn-App için arka plan güncellemelerini devre dışı bıraktınız. Otomatik maruz kalma günlüğü özelliğini kullanmak için lütfen arka plan güncellemelerini etkinleştirin. Arka plan güncellemelerini etkinleştirmezseniz maruz kalma günlüğü özelliğini yalnızca uygulamadan manüel olarak başlatabilirsiniz.\n\nUygulamanın arka plan güncellemelerini cihazınızın ayarlarından etkinleştirebilirsiniz.";
+
+"Common_BackgroundFetch_SettingsTitle" = "Cihaz Ayarlarını Aç";
+
+"Common_BackgroundFetch_OKTitle" = "Maruz Kalma Günlüğünü Manüel Olarak Başlat";
+
+"Common_BackgroundFetch_AlertTitle" = "Arka plan güncellemeleri devre dışı bırakıldı";
+
+"Common_Deadman_AlertTitle" = "Risk Durumunuz";
+
+"Common_Deadman_AlertBody" = "Risk durumunuzu kontrol etmek için lütfen Corona-Warn-App'i düzenli olarak açmayı unutmayın.";
+
+/* General - Links */
+"General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
+
+"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
+
+"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
+
+"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
+
 /* Accessibility */
 "AccessibilityLabel_Close" = "Kapat";
 
@@ -27,15 +56,11 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "Maruz kalma günlüğü durduruldu";
 
-"ExposureDetection_Outdated" = "Maruz kalma günlüğü oluşturulamıyor";
-
 "ExposureDetection_Unknown" = "Bilinmeyen Risk";
 
 "ExposureDetection_Low" = "Düşük Risk";
 
 "ExposureDetection_High" = "Daha Yüksek Risk";
-
-"ExposureDetection_NumberOfDaysStored" = "%d/14 gündür etkin";
 
 "ExposureDetection_Refreshed" = "Güncelleme: %@";
 
@@ -43,29 +68,31 @@
 
 "ExposureDetection_RefreshingIn" = "%02d:%02d\U00A0minutes içinde güncelle";
 
+"ExposureDetection_RefreshIn" = "%@ içinde güncelle";
+
 "ExposureDetection_Refresh_24h" = "24 saatlik aralıklarla güncellenir";
 
 "ExposureDetection_LastRiskLevel" = "Son maruz kalma günlüğü: %@";
 
 "ExposureDetection_OffText" = "Bugünkü risk durumunuzu değerlendirmek için maruz kalma günlüğünü etkinleştirin.";
 
-"ExposureDetection_OutdatedText" = "Maruz kalma günlüğünüz 48 saatten uzun süre için güncellenemedi.";
+"ExposureDetection_OutdatedText" = "Maruz kalma günlüğü 48 saatten uzun süredir güncellenmedi. Lütfen hesaplamayı güncelleyin.";
 
 "ExposureDetection_UnknownText" = "Maruz kalma günlüğünü uzun süredir etkinleştirmediğiniz için enfeksiyon riskinizi hesaplayamıyoruz.";
 
 "ExposureDetection_LoadingText" = "Güncel veriler indiriliyor ve kaydediliyor. Bu işlem birkaç dakika sürebilir.";
 
-"ExposureDetection_Behavior_Title" = "Yönergeler";
+"ExposureDetection_Behavior_Title" = "Talimatlar";
 
 "ExposureDetection_Behavior_Subtitle" = "Yapmanız gerekenler";
 
-"ExposureDetection_Guide_Hands" = "Ellerinizi düzenli olarak yıkayın.";
+"ExposureDetection_Guide_Hands" = "Ellerinizi düzenli olarak 20 saniye sabunla yıkayın.";
 
 "ExposureDetection_Guide_Mask" = "Diğer insanlarla karşılaştığınızda yüz maskesi takın.";
 
 "ExposureDetection_Guide_Distance" = "Diğer insanlarla aranızda en az 1,5 metre mesafeyi koruyun.";
 
-"ExposureDetection_Guide_Sneeze" = "Öksürürken ya da hapşırırken dirseğinizin iç kısmına dönün veya bir mendil kullanın. ";
+"ExposureDetection_Guide_Sneeze" = "Öksürürken ya da hapşırırken dirseğinizin iç kısmına dönün veya bir mendil kullanın.";
 
 "ExposureDetection_Guide_Home" = "Mümkünse lütfen eve gidin ve evde kalın.";
 
@@ -91,23 +118,39 @@
 
 "ExposureDetection_Explanation_Text_Low" = "COVID-19 tanısı konan bir kişiyle herhangi bir karşılaşma yaşadığınız günlüğe eklenmediği veya karşılaşmanız yalnızca kısa bir süreyle uzun mesafeli olarak gerçekleştiği için enfeksiyon riskiniz düşüktür.\n\nBu nedenle enfeksiyon riskiniz düşük olarak derecelendirilmiştir.\n\nEnfeksiyon riski, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.";
 
-"ExposureDetection_Explanation_Text_High" = "En son iki gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kaldığınız için enfeksiyon riskiniz daha yüksektir.\n\nBu nedenle enfeksiyon riskiniz artmış olarak derecelendirilmiştir.\nEnfeksiyon riskiniz, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.\nEve gittiğinizde lütfen aile fertleriniz veya ev arkadaşlarınızla yakın temastan kaçının.";
+"ExposureDetection_Explanation_Text_High" = "Bu nedenle enfeksiyon riskiniz artmış olarak derecelendirilmiştir.\nEnfeksiyon riskiniz, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.\nEve gittiğinizde lütfen aile fertleriniz veya ev arkadaşlarınızla yakın temastan kaçının.";
 
 "ExposureDetection_Button_Enable" = "Maruz Kalma Günlüğünü Etkinleştir";
 
 "ExposureDetection_Button_Refresh" = "Güncelle";
 
+/* Active Tracing Section */
+"ExposureDetection_ActiveTracingSection_Title" = "Dönem günlüğe kaydedildi";
+
+"ExposureDetection_ActiveTracingSection_Subtitle" = "Bu dönem hesaplamaya dahil edildi.";
+
+/* There are two paragraphs in this section. The first one just contains text… */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir.";
+
+/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Maruz kalma günlüğü son %1$u günü kapsar. Bu süre boyunca cihazınızdaki günlüğe kaydetme özelliği %2$u gün etkindi. Uygulama, enfeksiyondan korunma için artık ilgili olmadığından daha eski kayıtları otomatik olarak siler.";
+
 /* Exposure Detection Errors */
-"ExposureDetectionError_Alert_Title" = "Bir sorun oluştu.";
+"ExposureDetectionError_Alert_Title" = "Hata";
 
 "ExposureDetectionError_Alert_Action_Details" = "Ayrıntılar";
 
 "ExposureDetectionError_Alert_Message" = "Maruz kalma günlüğü sırasında bir hata oluştu.";
 
-/* Settings */
-"Settings_StatusActive" = "Açık";
+/* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
+"How_Risk_Detection_Works_Alert_Title" = "Maruz kalma günlüğü işlevi hakkında bilgi";
 
-"Settings_StatusInactive" = "Kapalı";
+"How_Risk_Detection_Works_Alert_Message" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir.\nMaruz kalma günlüğü son %1$u günü kapsar.\nUygulama, enfeksiyondan korunma için artık ilgili olmadığından daha eski kayıtları otomatik olarak siler.\n\nDaha fazla bilgi için lütfen SSS sayfamıza bakın.";
+
+/* Settings */
+"Settings_Notification_StatusActive" = "Açık";
+
+"Settings_Notification_StatusInactive" = "Kapalı";
 
 "Settings_StatusEnable" = "Etkinleştir";
 
@@ -154,14 +197,18 @@
 
 "NotificationSettings_NavTitle" = "Bildirimler";
 
+"NotificationSettings_onImageDescription" = "Bir kadın Corona-Warn-App uygulamasından bildirim alıyor.";
+
+"NotificationSettings_offImageDescription" = "Bir kadın Corona-Warn-App uygulamasından bildirim alamıyor.";
+
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "Haydi başlayalım";
 
 "Onboarding_Continue_actionText" = "Sonraki";
 
-"Onboarding_Continue_actionTextHint" = "Bu ekranı atlayabilirsiniz";
+"Onboarding_EnableLogging_actionText" = "Sonraki";
 
-"Onboarding_EnableLogging_actionText" = "Maruz Kalma Günlüğünü Etkinleştir";
+"Onboarding_Continue_actionTextHint" = "Bu ekranı atlayabilirsiniz";
 
 "Onboarding_doNotAllow_actionText" = "İzin Verme";
 
@@ -179,7 +226,11 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Cihazınızı koronavirüs uyarı sistemine dönüştürün. Risk durumunuza ilişkin genel bir bakış elde edin ve son 14 gün içinde COVID-19 tanısı konan herhangi biri ile yakın temasa geçip geçmediğinizi öğrenin. \n\nUygulama, şifrelenmiş rastgele kimlikleri kullanıcıların cihazları arasında paylaşarak maruz kalma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.";
 
-"OnboardingInfo_privacyPage_imageDescription" = "Bir kadın cihazında Corona-Warn-App'i kullanıyor. Kılıftaki kilit, şifrelenmiş verilerin sembolüdür.";
+"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Basitleştirilmiş Dilde ve İşaret Dilinde Uygulama Bilgileri";
+
+"OnboardingInfo_privacyPage_imageDescription" = "Bir kadın akıllı telefonunda Corona-Warn-App'i kullanıyor. Kılıfın arka planındaki kilit, şifrelenmiş verilerin simgesidir.";
 
 "OnboardingInfo_privacyPage_title" = "Veri Gizliliği";
 
@@ -193,11 +244,19 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Enfeksiyon riski taşıyıp taşımadığınızı belirlemek için maruz kalma günlüğü özelliğini etkinleştirmeniz gerekir.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Maruz kalma günlüğü, cihazınızın Bluetooth üzerinden diğer kullanıcıların şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimliği diğer kullanıcıların cihazlarına aktarmasıyla çalışır. Bu özellik dilediğiniz zaman devre dışı bırakılabilir. \n\nŞifrelenmiş rastgele kimlikler yalnızca tarih, süre ve yakınlık (sinyal gücü kullanılarak hesaplanır) hakkındaki bilgileri aktarır. Ad, adres, konum gibi kişisel veriler asla kaydedilmez. Kişilerin kimliği belirlenemez.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Maruz kalma günlüğü, cihazınızın Bluetooth üzerinden diğer kullanıcıların şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimliği diğer kullanıcıların cihazlarına aktarmasıyla çalışır. Bu özellik dilediğiniz zaman devre dışı bırakılabilir. \n\nŞifrelenmiş rastgele kimliklerde diğer kişilere yalnızca tarih, süre ve yakınlık bilgileri (sinyal gücüne göre hesaplanır) gönderilir. Ad, adres ve konum gibi kişisel veriler hiçbir durumda kaydedilmez. Kişilerin kimlikleri belirlenemez.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Kabul Beyanı";
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Enfekte olan biriyle temas halinde olup olmadığınızı ve sizin de enfeksiyon riski altında olup olmadığınızı öğrenmek için Uygulamanın maruz kalma günlüğü özelliğini etkinleştirmeniz gerekir. \"Aç\" düğmesine dokunarak Uygulamanın maruz kalma günlüğü özelliğini etkinleştirmeyi ve ilişkili verilerin işlenmesini kabul edersiniz.\n\nUygulamanın maruz kalma günlüğü özelliğini kullanmak için iPhone'unuzda Apple tarafından sunulan COVID-19'a Maruz Kalma Günlüğü işlevini etkinleştirmeniz ve Corona-Warn-App'e bu işlevi kullanma izni vermeniz gerekecektir.\n\nMaruz kalma günlüğü etkinleştirildiğinde iPhone'ununuz sürekli olarak rastgele kimlikler oluşturur ve bu rastgele kimlikleri maruz kalma günlüğü etkinleştirilmiş olan yakınınızdaki diğer Apple ve Android akıllı telefonlara Bluetooth üzerinden aktarır. Bunun karşılığında iPhone'unuz diğer akıllı telefonların rastgele kimliklerini alır. Size ait olan ve diğer akıllı telefonlardan alınan rastgele kimlikler, maruz kalma günlüğüne kaydedilir ve 14 gün süreyle burada saklanır.\n\nUygulama, enfeksiyon riskinizi belirlemek için koronavirüs enfeksiyonu olduğunu Uygulamada belirten tüm kullanıcıların rastgele kimliklerinin listesini (günde birkaç kez veya talep üzerine) yükler. Ardından bu liste maruz kalma günlüğünde tutulan rastgele kimliklerle karşılaştırılır. Uygulama, enfekte olan bir kullanıcı ile temas halinde olabileceğinizi saptadığında bu konuda bilgilendirilirsiniz ve sizin de enfeksiyon riski taşıdığınız belirtilir. Bu durumda Uygulama, iPhone'unuzun maruz kalma günlüğünde tutulan diğer verilere (tarih, süre ve temas sırasındaki Bluetooth sinyalinin gücü) erişir.\n\nBluetooth sinyali gücü, fiziksel mesafenin belirlenmesi için kullanılır (sinyal ne kadar güçlü olursa mesafe o kadar kısa olur). Ardından Uygulama, koronavirüs enfeksiyonu olasılığınızı değerlendirmek ve sonraki adımlara yönelik öneriler sunmak üzere bu bilgileri analiz eder. Bu analiz iPhone'unuzda yalnızca yerel olarak gerçekleştirilir. Sizin dışınızda hiç kimse (RKI bile) enfekte olan biriyle temas ettiğinizi ve sizin için belirlenen riski bilmez.\n\nMaruz kalma günlüğü özelliğine verdiğiniz onayı geri çekmek için Uygulamadaki düğmeyi kullanarak veya Uygulamayı silerek özelliği devre dışı bırakabilirsiniz. Maruz kalma günlüğü özelliğini yeniden kullanmaya karar verirseniz özelliği geri açabilir veya Uygulamayı yeniden yükleyebilirsiniz. Maruz kalma günlüğü özelliğini devre dışı bırakırsanız Uygulama artık enfekte olan bir kullanıcı ile temas halinde olup olmadığınızı kontrol etmez. Cihazınızın rastgele kimlik göndermesini ve almasını durdurmak isterseniz de iPhone'unuzun ayarlarında COVID-19'a Maruz Kalma Günlüğü özelliğini devre dışı bırakmanız gerekir. Size ait olan ve diğer akıllı telefonlardan alınan maruz kalma günlüğündeki rastgele kimliklerin Uygulamada silinmeyeceğini unutmayın. iPhone'unuzun ayarlarında yalnızca maruz kalma günlüğünde tutulan verileri kalıcı olarak silebilirsiniz.\n\nUygulamanın gizlilik bildirimini (maruz kalma günlüğü özelliği için gerçekleştirilen veri işlemeye ilişkin açıklama dahil) menüde \"Veri Gizliliği Bilgileri\" başlığında bulabilirsiniz.";
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Enfekte olan biriyle temas halinde olup olmadığınızı ve sizin de enfeksiyon riski altında olup olmadığınızı öğrenmek için Uygulamanın maruz kalma günlüğü özelliğini etkinleştirmeniz gerekir. \"Aç\" düğmesine dokunarak Uygulamanın maruz kalma günlüğü özelliğini etkinleştirmeyi ve ilişkili verilerin işlenmesini kabul edersiniz.\n\nUygulamanın maruz kalma günlüğü özelliğini kullanmak için iPhone'unuzda Apple tarafından sunulan COVID-19'a Maruz Kalma Günlüğü işlevini etkinleştirmeniz ve Corona-Warn-App'e bu işlevi kullanma izni vermeniz gerekecektir.\n\nMaruz kalma günlüğü etkinleştirildiğinde iPhone'ununuz sürekli olarak rastgele kimlikler oluşturur ve bu rastgele kimlikleri maruz kalma günlüğü etkinleştirilmiş olan yakınınızdaki diğer Apple ve Android akıllı telefonlara Bluetooth üzerinden aktarır. Bunun karşılığında iPhone'unuz diğer akıllı telefonların rastgele kimliklerini alır. Size ait olan ve diğer akıllı telefonlardan alınan rastgele kimlikler, maruz kalma günlüğüne kaydedilir ve 14 gün süreyle burada saklanır.\n\nUygulama, enfeksiyon riskinizi belirlemek için koronavirüs enfeksiyonu olduğunu Uygulamada belirten tüm kullanıcıların rastgele kimliklerinin listesini (günde birkaç kez veya talep üzerine) yükler. Ardından bu liste maruz kalma günlüğünde tutulan rastgele kimliklerle karşılaştırılır. Uygulama, enfekte olan bir kullanıcı ile temas halinde olabileceğinizi saptadığında bu konuda bilgilendirilirsiniz ve sizin de enfeksiyon riski taşıdığınız belirtilir. Bu durumda Uygulama, iPhone'unuzun maruz kalma günlüğünde tutulan diğer verilere (tarih, süre ve temas sırasındaki Bluetooth sinyalinin gücü) erişir.\n\nBluetooth sinyal gücü, fiziksel mesafenin belirlenmesi için kullanılır (sinyal ne kadar güçlü olursa mesafe o kadar kısa olur). Ardından Uygulama, koronavirüs enfeksiyonu olasılığınızı değerlendirmek ve sonraki adımlara yönelik öneriler sunmak üzere bu bilgileri analiz eder. Bu analiz iPhone'unuzda yalnızca yerel olarak gerçekleştirilir. Sizin dışınızda hiç kimse (RKI bile) enfekte olan biriyle temas ettiğinizi ve sizin için belirlenen riski bilmez.\n\nMaruz kalma günlüğü özelliğine verdiğiniz onayı geri çekmek için Uygulamadaki düğmeyi kullanarak veya Uygulamayı silerek özelliği devre dışı bırakabilirsiniz. Maruz kalma günlüğü özelliğini yeniden kullanmaya karar verirseniz özelliği geri açabilir veya Uygulamayı yeniden yükleyebilirsiniz. Maruz kalma günlüğü özelliğini devre dışı bırakırsanız Uygulama artık enfekte olan bir kullanıcı ile temas halinde olup olmadığınızı kontrol etmez. Cihazınızın rastgele kimlik göndermesini ve almasını durdurmak isterseniz de iPhone'unuzun ayarlarında COVID-19'a Maruz Kalma Günlüğü özelliğini devre dışı bırakmanız gerekir. Size ait olan ve diğer akıllı telefonlardan alınan maruz kalma günlüğündeki rastgele kimliklerin Uygulamada silinmeyeceğini unutmayın. iPhone'unuzun ayarlarında yalnızca maruz kalma günlüğünde tutulan verileri kalıcı olarak silebilirsiniz.\n\nUygulamanın gizlilik bildirimini (maruz kalma günlüğü özelliği için gerçekleştirilen veri işlemeye ilişkin açıklama dahil) menüde \"Veri Gizliliği Bilgileri\" başlığında bulabilirsiniz.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Durum";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateTitle" = "Maruz Kalma Günlüğü";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateActive" = "Etkin";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateStopped" = "Durduruldu";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "Şifrelenmiş bir pozitif test tanısı sisteme aktarılır ve diğer kullanıcılar uyarılır.";
 
@@ -209,7 +268,7 @@
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Bir kadın Corona-Warn-App uygulamasından bildirim alıyor.";
 
-"OnboardingInfo_alwaysStayInformedPage_title" = "Uyarıları Alma ve Riskleri Belirleme ";
+"OnboardingInfo_alwaysStayInformedPage_title" = "Uyarıları Alma ve Riskleri Belirleme";
 
 "OnboardingInfo_alwaysStayInformedPage_boldText" = "Uygulama, risk durumunuz hakkında otomatik olarak bildirimler verebilir ve maruz kalma yaşadığınız kişilerin yeni enfeksiyonları hakkında sizi uyarabilir. Uygulamanın size bildirim göndermesine izin verin.";
 
@@ -270,7 +329,7 @@
 
 "ExposureSubmissionHotline_Title" = "TAN Talebi";
 
-"ExposureSubmissionHotline_Description" = "TAN talebinde bulunmak için lütfen test sonucunuzu (varsa) ve telefon numaranızı hazır tutun.";
+"ExposureSubmissionHotline_Description" = "TAN talebinde bulunmak için lütfen test sonucunuzu (varsa) ve telefon numaranızı hazır tutun.\n\nİşitme engeli bulunan kişiler yardım hattı ile iletişime geçmek için Tess Relay hizmetlerini (Almanca yazı dili ile işaret dili arasında tercüme) kullanabilir. Yazılımı App Store/Google Play'den indirebilirsiniz.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Nasıl çalışır?";
 
@@ -338,7 +397,7 @@
 
 "ExposureSubmissionSuccess_listItem2_3" = "Lütfen özellikle akıllı telefonu olmadığı veya uygulamayı yüklemediği için doğrudan uygulamanın uyarmayacağı kişileri göz önünde bulundurun.";
 
-"ExposureSubmissionSuccess_listItem2_4" = "Hiçbir belirtiniz kalmasa ve kendinizi iyi hissetseniz dahi yine de hastalığı bulaştırabilirsiniz. ";
+"ExposureSubmissionSuccess_listItem2_4" = "Hiçbir belirtiniz kalmasa ve kendinizi iyi hissetseniz dahi yine de hastalığı bulaştırabilirsiniz.";
 
 /* Exposure Submission Introduction */
 "ExposureSubmissionIntroduction_Title" = "Bilgi";
@@ -351,9 +410,9 @@
 
 "ExposureSubmissionIntroduction_Usage02" = "Yalnızca şifrelenmiş rastgele kimlikler gönderilip alındığından kimliğiniz gizli tutulur. Şu şekilde devam edebilirsiniz:";
 
-"ExposureSubmissionIntroduction_ListItem1" = "Test belgenizde bir QR kod varsa bu kodu tarayıp testi kaydedebilirsiniz. Sonuç çıkar çıkmaz sonucu uygulamada görüntüleyebilirsiniz. ";
+"ExposureSubmissionIntroduction_ListItem1" = "Test belgenizde bir QR kod varsa bu kodu tarayıp testi kaydedebilirsiniz. Sonuç çıkar çıkmaz sonucu uygulamada görüntüleyebilirsiniz.";
 
-"ExposureSubmissionIntroduction_ListItem2" = "Size COVID-19 tanısı konduysa diğer insanları bilgilendirebilirsiniz.";
+"ExposureSubmissionIntroduction_ListItem2" = "Size COVID-19 tanısı konduysa diğer insanları uyarabilirsiniz.";
 
 "ExposureSubmissionIntroduction_ListItem3" = "Pozitif tanı için TAN verildiyse bunu kullanarak testi kaydedebilirsiniz.";
 
@@ -404,7 +463,11 @@
 
 "ExposureSubmissionResult_testInvalid" = "Testte hata var";
 
-"ExposureSubmissionResult_testInvalidDesc" = "Testinizi değerlendirirken bir problem oluştu. Lütfen sonraki adımlarınız için kamu sağlığı yetkilisi ile görüşün. ";
+"ExposureSubmissionResult_testInvalidDesc" = "Testinizi değerlendirirken bir problem oluştu. Lütfen sonraki adımlarınız için test merkezi veya laboratuvar ile görüşün.";
+
+"ExposureSubmissionResult_testRedeemed" = "Testte hata var";
+
+"ExposureSubmissionResult_testRedeemedDesc" = "Testinizi değerlendirirken bir problem oluştu. QR kodunuzun süresi dolmuş.";
 
 "ExposureSubmissionResult_testPending" = "Test sonucu henüz çıkmadı";
 
@@ -428,21 +491,23 @@
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Lütfen hepimize yardımcı olun!";
 
-"ExposureSubmissionWarnOthers_description" = "Ardından Corona-Warn-App'in son 14 güne ait rastgele kimliklerinizi diğer kullanıcılarla paylaşmasını sağlayabilirsiniz. Bu sayede diğer kullanıcıları uyarabilir ve enfeksiyon zincirini kırabilirsiniz.\n\nYalnızca kişisel olmayan rastgele kimlikler aktarıldığından kimliğiniz gizli kalacaktır.";
+"ExposureSubmissionWarnOthers_description" = "Corona-Warn-App'in son 14 güne ait rastgele kimliklerinizi diğer kullanıcılarla paylaşmasını sağlayabilirsiniz. Bu sayede diğer kullanıcıları uyarabilir ve enfeksiyon zincirini kırabilirsiniz.\n\nYalnızca kişisel olmayan rastgele kimlikler aktarıldığından kimliğiniz gizli kalacaktır.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "\"Kabul Et\" seçeneğine dokunduğunuzda, Uygulamanın maruz kalma günlüğü özelliğini etkinleştiren diğer kullanıcılarını enfeksiyon riskine maruz kalmış olabilecekleri konusunda otomatik olarak bilgilendirmesi için Uygulamanın pozitif test sonucunuzu son 14 güne ait rastgele kimliklerinizle birlikte Uygulamanın sunucu sistemine göndermesine onay verirsiniz. Bu amaçla aktarılan rastgele kimlikler, kimliğinizi belirlemek üzere kullanılabilecek hiçbir bilgi içermez.\n\nTest sonucunuzu Uygulama üzerinden aktarma seçeneği gönüllülük esasına dayalıdır. Test sonucunuzu aktarmamanız halinde hiçbir cezai işlemle karşılaşmayacaksınız. Uygulamayı kullanıp kullanmadığınızı ve nasıl kullandığınızı takip etmek ya da kontrol etmek mümkün olmadığından enfekte olduğunuz bilgisini aktardığınızı yalnızca siz bilirsiniz.\n\nUygulamayı silerek dilediğiniz zaman bu onayı geri çekebilirsiniz. Onayınızı geri çekmeniz, onayınızı geri çekmeden önce testi işlemenin hukuki niteliğini etkilemeyecektir. Menüde \"Veri Gizliliği Bilgileri\" başlığında daha fazla bilgiye erişebilirsiniz.";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "\"Kabul et\" seçeneğine dokunduğunuzda, Uygulamanın pozitif test sonucunuzu son 14 güne ait rastgele kimliklerinizle birlikte uygulamanın sunucu sistemine göndermesine izin vermiş olursunuz, bu sayede maruz kalma günlüğünü etkinleştirmiş olan diğer Uygulama kullanıcıları otomatik şekilde bilgilendirilebilir. İletilen rastgele kimlikler, kimliğiniz ya da kişiliğinize ilişkin sonuç çıkartacak hiçbir bilgi içermez. \n\nTest sonucunuzun Uygulama aracılığıyla iletilmesi, isteğe bağlıdır. Test sonucunuzu iletmezseniz size hiçbir dezavantajı olmaz. Uygulamayı kullanıp kullanmadığınızı ve nasıl kullandığınızı anlayamadığımız ve kontrol edemediğimiz için enfeksiyonu bulaştırıp bulaştırmadığınızı sizden başka kimse öğrenemez.\n\nUygulamayı silerek, onayınızı dilediğinizde geri alabilirsiniz. Onayın geri alınmasıyla, geri almaya kadar yapılmış veri işlemelerin hukuka uygunlukları bu durumdan etkilenmez. \"Veri Gizliliği Bilgileri\" menüsünden diğer bilgilere ulaşabilirsiniz.";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Veri Gizliliği";
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "Test silinsin mi?";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Test yalnızca bir kez taranabilir.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Test kalıcı olarak Corona-Warn-App'ten silinir ve tekrar eklenemez. Bu işlem geri alınamaz. ";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Testi silerseniz test sonucunuzu alamazsınız. Test sonucunuzu uygulamadan bağımsız olarak test merkezinden veya laboratuvardan alırsınız. COVID-19 tanısı alırsanız kamu sağlığı yetkilisi tarafından bilgilendirileceksiniz.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Kayıt tarihi bilinmiyor";
 
-"ExposureSubmissionResult_RegistrationDate" = "Kayıt tarihi: ";
+"ExposureSubmissionResult_RegistrationDate" = "Kayıt tarihi:";
 
 /* Exposure Submission */
+"ExposureSubmissionError_ErrorPrefix" = "Verilerinizi gönderirken teknik hata oluştu. Lütfen teknik yardım hattı ile iletişime geçin. Telefon numarasını Uygulama Bilgileri bölümünde bulabilirsiniz.";
+
 "ExposureSubmissionError_NoKeys" = "Tanı anahtarı yok. Lütfen yarın tekrar deneyin.";
 
 "ExposureSubmissionError_InvalidTan" = "Oluşturulan TAN, gönderme işlemi için geçersiz. Lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
@@ -455,7 +520,7 @@
 
 "ExposureSubmissionError_NoResponse" = "Yanıtın içeriği yok.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "QR kod zaten kullanılmış. Lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
+"ExposureSubmissionError_QRAlreadyUsed" = "QR kod yanlış veya başka bir akıllı telefona zaten kaydedilmiş. QR kod geçerli olsun veya olmasın test sonucunuzu test merkezinden veya laboratuvardan alacaksınız. COVID-19 tanısı alırsanız kamu sağlığı yetkilisi tarafından bilgilendirileceksiniz.";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "TAN geçersiz veya zaten kullanılmış. Lütfen tekrar deneyin veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
 
@@ -492,7 +557,7 @@
 
 "ExposureNotificationSetting_DescriptionText2" = "Maruz kalma günlüğü, cihazınızın Bluetooth üzerinden diğer kullanıcıların şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimliği diğer kullanıcıların cihazlarına aktarmasıyla çalışır. Bu özellik dilediğiniz zaman devre dışı bırakılabilir.";
 
-"ExposureNotificationSetting_DescriptionText3" = "Şifrelenmiş rastgele kimlikler yalnızca tarih, süre ve yakınlık (sinyal gücünü kullanarak) hakkındaki bilgileri aktarır. Ad, adres veya konum gibi kişisel veriler asla kaydedilmez. Kişilerin kimliği belirlenemez.";
+"ExposureNotificationSetting_DescriptionText3" = "Şifrelenmiş rastgele kimliklerde diğer kişilere yalnızca tarih, süre ve yakınlık bilgileri (sinyal gücüne göre hesaplanır) gönderilir. Ad, adres ve konum gibi kişisel veriler hiçbir durumda kaydedilmez. Kişilerin kimlikleri belirlenemez.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Bluetooth'u aç";
 
@@ -520,15 +585,31 @@
 
 "ExposureNotificationSetting_AccLabel_Enabled" = "Üç kişi cihazlarında maruz kalma günlüğünü etkinleştirdi ve birbirleri ile karşılaşmaları günlüğe kaydedilecektir.";
 
-"ExposureNotificationSetting_AccLabel_Disabled" = "Bir kişi cihazında maruz kalma günlüğünü devre dışı bıraktı. Bu nedenle iki diğer kişi ile karşılaşma günlüğe kaydedilmez.";
+"ExposureNotificationSetting_AccLabel_Disabled" = "Bir kişi akıllı telefonunda maruz kalma günlüğünü devre dışı bıraktı. Bu nedenle iki diğer kişi ile karşılaşma günlüğe kaydedilmez.";
 
-"ExposureNotificationSetting_AccLabel_BluetoothOff" = "Bir kişi cihazında Bluetooth'u kapattı. Bu nedenle iki diğer kişi ile karşılaşma günlüğe kaydedilmez.";
+"ExposureNotificationSetting_AccLabel_BluetoothOff" = "Bir kişi akıllı telefonunda Bluetooth'u kapattı. Bu nedenle iki diğer kişi ile karşılaşma günlüğe kaydedilmez.";
 
-"ExposureNotificationSetting_AccLabel_InternetOff" = "Bir kişi cihazında İnternet bağlantısını kapattı. Bu nedenle son karşılaşmalar belirlenemedi.";
+"ExposureNotificationSetting_AccLabel_InternetOff" = "Bir kişi akıllı telefonunda İnternet bağlantısını kapattı. Bu nedenle son karşılaşmaları belirlenemez.";
 
 "ExposureNotificationSetting_Activate_Action" = "Kabul Et";
 
 "ExposureNotificationSetting_Dismiss_Action" = "İptal";
+
+"ExposureNotificationSetting_GeneralError_Title" = "Hata";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Daha fazla bilgi edinin";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.coronawarn.app/en/faq/";
+
+"ExposureNotificationSetting_AuthenticationError" = "Maruz kalma günlüğü özelliğini etkinleştirirken bir hata oluştu. Lütfen ayarlarınızda COVID-19 maruz kalma günlüğünü etkinleştirip etkinleştirmediğinizi kontrol edin.";
+
+"ExposureNotificationSetting_exposureNotification_Required" = "Maruz kalma günlüğü özelliğini etkinleştirirken bir hata oluştu. Lütfen ayarlarınızda COVID-19 maruz kalma bildirimi özelliğini uygulama için etkinleştirip etkinleştirmediğinizi kontrol edin.";
+
+"ExposureNotificationSetting_exposureNotification_unavailable" = "Maruz kalma günlüğü özelliğini etkinleştirirken bir hata oluştu. Lütfen ayarlarınızda COVID-19 maruz kalma günlüğü için etkin uygulama olarak bu uygulamanın seçili olup olmadığını kontrol edin. Daha fazla bilgi için SSS sayfamızı ziyaret edin.";
+
+"ExposureNotificationSetting_unknownError" = "Bilinmeyen bir hata oluştu. Daha fazla bilgi için SSS sayfamızı ziyaret edin.";
+
+"ExposureNotificationSetting_apiMisuse" = "Maruz kalma günlüğü özelliğini etkinleştirirken dahili hata oluştu. Daha fazla bilgi için SSS sayfamızı ziyaret edin ve daha sonra tekrar deneyin.";
 
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App logosu";
@@ -553,12 +634,23 @@
 
 "Home_Risk_Period_Disabled_Button_Title" = "Yalnızca %@\U00A0hours aralıkla güncellenir";
 
-/* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Bilinmeyen Risk";
 
-"Home_RiskCard_Unknown_Item_Title" = "Maruz kalma günlüğünün uzun süredir açık olmadığı için enfeksiyon riskinizi hesaplayamıyoruz.";
+"Home_Risk_Last_Activate_Item_Title" = "Son maruz kalma günlüğü: %@";
 
-"Home_RiskCard_Unknown_Button" = "Güncelle";
+"Home_Risk_Last_Activate_Item_Unknown_Title" = "Bilinmeyen Risk";
+
+"Home_Risk_Last_Activate_Item_Low_Title" = "Düşük Risk";
+
+"Home_Risk_Last_Activate_Item_High_Title" = "Daha Yüksek Risk";
+
+"Home_RiskCard_Update_Button" = "Güncelle";
+
+/* Home Unknown card */
+"Home_RiskCard_Unknown_Item_Title" = "Maruz kalma günlüğü uzun süredir açık olmadığı için enfeksiyon riskinizi hesaplayamıyoruz.";
+
+/* Home Unknown 48 card */
+"Home_RiskCard_Unknown48h_Body" = "Maruz kalma günlüğü 48 saatten uzun süredir güncellenmedi. Lütfen hesaplamayı güncelleyin.";
 
 /* Home Inactive card */
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "Maruz kalma günlüğü durduruldu";
@@ -569,14 +661,6 @@
 
 "Home_Risk_Inactive_Outdated_Results_Body" = "Maruz kalma günlüğünüz 24 saatten uzun süre için güncellenemedi.";
 
-"Home_Risk_Inactive_Activate_Item_Title" = "Son maruz kalma günlüğü: %@";
-
-"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Bilinmeyen Risk";
-
-"Home_Risk_Inactive_Activate_Item_Low_Title" = "Düşük Risk";
-
-"Home_Risk_Inactive_Activate_Item_High_Title" = "Daha Yüksek Risk";
-
 "Home_Risk_Inactive_NoCalculation_Possible_Button" = "Maruz Kalma Günlüğünü Etkinleştir";
 
 "Home_Risk_Inactive_Outdated_Results_Button" = "Maruz Kalma Günlüğünü Etkinleştir";
@@ -584,21 +668,13 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Düşük Risk";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "%@ / %@ gündür etkin";
-
-"Home_Risk_Low_Button" = "Güncelle";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Daha Yüksek Risk";
-
-"Home_Risk_High_Button" = "Güncelle";
 
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Kontrol devam ediyor …";
 
 "Home_Risk_Status_Check_Body" = "Güncel veriler indiriliyor ve kaydediliyor. Bu işlem birkaç dakika sürebilir.";
-
-"Home_Risk_Status_Check_Button" = "Güncelle";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Teşekkür ederiz!";
@@ -619,7 +695,7 @@
 
 "Home_Thank_You_Card_App_Item_Title" = "Lütfen özellikle akıllı telefonu olmadığı veya uygulamayı yüklemediği için doğrudan uygulamanın uyarmayacağı kişileri göz önünde bulundurun.";
 
-"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Hiçbir belirtiniz kalmasa ve kendinizi iyi hissetseniz dahi yine de hastalığı bulaştırabilirsiniz. ";
+"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Hiçbir belirtiniz kalmasa ve kendinizi iyi hissetseniz dahi yine de hastalığı bulaştırabilirsiniz.";
 
 /* Home Finding positive */
 "Home_Finding_Positive_Card_Title" = "Pozitif Tanı";
@@ -689,9 +765,13 @@
 
 "App_Information_About_Title" = "Koronavirüs ile birlikte mücadele edelim";
 
-"App_Information_About_Description" = "Robert Koch Institute (RKI), Almanya Federal Cumhuriyeti'nde kamu sağlığı alanında merkezi kurumdur. RKI, federal hükûmet için Corona-Warn-App uygulamasını yayınlamaktadır. Uygulama, daha önce açıklanan kamu sağlığı önlemlerine ilişkin dijital bir uzantı niteliğindedir: sosyal mesafe, hijyen uygulamaları ve yüz maskeleri.";
+"App_Information_About_Description" = "Robert Koch Institute (RKI), Almanya'nın federal kamu sağlığı kurumudur. RKI, Federal Hükûmet adına Corona-Warn-App uygulamasını yayınlamaktadır. Uygulama, daha önce açıklanan kamu sağlığı önlemlerine ilişkin dijital bir tamamlayıcı niteliğindedir: sosyal mesafe, hijyen uygulamaları ve yüz maskeleri.";
 
 "App_Information_About_Text" = "Uygulamayı kullanan herkes, enfeksiyon zincirlerinin takip edilmesine ve kırılmasına yardımcı olur. Uygulama, diğer kişilerle karşılaşmaları cihazınızda yerel olarak kaydeder. Daha sonra COVID-19 tanısı konan kişilerle karşılaşmışsanız size bildirim gönderilir. Kimliğiniz ve gizliliğiniz daima koruma altındadır.";
+
+"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"App_Information_About_LinkText" = "Basitleştirilmiş Dilde ve İşaret Dilinde Uygulama Bilgileri";
 
 /* App Information - FAQ */
 "App_Information_FAQ_Navigation" = "SSS";
@@ -718,7 +798,7 @@
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Baskı";
 
-"App_Information_Imprint_ImageDescription" = "Bir kişi ekranında uzun bir metin olan bir cihaz tutuyor. Metnin yanında baskıyı belirten bir bölüm sembolü bulunuyor.";
+"App_Information_Imprint_ImageDescription" = "Bir kişi ekranında uzun bir metin olan bir akıllı telefon tutuyor. Metnin yanında baskıyı temsil eden bir bölüm bulunuyor.";
 
 "App_Information_Imprint_Section1_Title" = "Yayınlayan";
 
@@ -730,11 +810,15 @@
 
 "App_Information_Imprint_Section3_Title" = "İletişim";
 
-"App_Information_Imprint_Section3_Text" = "E-posta: CoronaWarnApp@rki.de\nTelefon: +49 30 18754 5100";
+"App_Information_Imprint_Section3_Text" = "E-posta: CoronaWarnApp@rki.de";
 
 "App_Information_Imprint_Section4_Title" = "KDV numarası";
 
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
+
+"App_Information_Contact_Form_Title" = "İletişim Formu";
+
+"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Yasal Bildirimler";
@@ -742,7 +826,7 @@
 /* App Information - Privacy */
 "App_Information_Privacy_Navigation" = "Veri Gizliliği";
 
-"App_Information_Legal_ImageDescription" = "Bir kişi ekranında uzun bir metin olan bir cihaz tutuyor. Metnin yanında yasal bildirimlerin sembolü olarak bir terazi bulunuyor";
+"App_Information_Legal_ImageDescription" = "Bir kişi ekranında uzun bir metin olan bir akıllı telefon tutuyor. Metnin yanında yasal bildirimleri belirten bir terazi bulunuyor.";
 
 "App_Information_Privacy_Title" = "Veri Gizliliği";
 
@@ -751,7 +835,7 @@
 /* App Information - Terms */
 "App_Information_Terms_Navigation" = "Kullanım Koşulları";
 
-"App_Information_Terms_ImageDescription" = "Bir kişi ekranında uzun bir metin olan bir cihaz tutuyor. Metnin yanında kullanım koşullarını kabul ettiğini belirten bir sembol olarak tik işareti bulunuyor.";
+"App_Information_Terms_ImageDescription" = "Bir kişi ekranında uzun bir metin olan bir akıllı telefon tutuyor. Metnin yanında kullanım koşullarının kabul edildiğini belirten bir sembol olarak tik işareti bulunuyor.";
 
 "App_Information_Terms_Title" = "Kullanım Koşulları";
 
@@ -768,7 +852,7 @@
 
 "InviteFriends_ShareTitle" = "Koronavirüs ile birlikte mücadele edelim. Ben katıldım, peki ya sen?";
 
-"InviteFriends_ShareUrl" = "https://www.corona-warn-app.de";
+"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-tuerkisch";
 
 "InviteFriends_Illustration_Label" = "Bir erkek, Corona-Warn-App'i dört farklı kişi ile paylaşıyor.";
 
@@ -789,7 +873,7 @@
 
 "Reset_Subtitle" = "Uygulamayı Sıfırla";
 
-"Reset_ImageDescription" = "Bir kişi, uygulamanın sıfırlandığını gösteren sembolün bulunduğu bir cihaz tutuyor.";
+"Reset_ImageDescription" = "Bir kişi, uygulamanın sıfırlandığını gösteren sembolün bulunduğu bir akıllı telefon tutuyor.";
 
 "Reset_ConfirmDialog_Title" = "Uygulamayı Sıfırla";
 
@@ -800,7 +884,7 @@
 "Reset_ConfirmDialog_Confirm" = "Sıfırla";
 
 /* Safari */
-"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-tuerkisch";
+"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";
 
 /* Local Notifications */
 "local_notifications_ignore" = "Yok Say";
@@ -885,4 +969,9 @@
 "ENATanInput_InvalidCharacter" = "Geçersiz Karakter\n\n%@";
 
 "ENATanInput_CharacterIndex" = "%1$u/%2$u karakter";
+
+/* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
+"Active_Tracing_Interval_Partially_Active" = "Maruz kalma günlüğü son 14 günde %1$u gün etkindi.";
+
+"Active_Tracing_Interval_Permanently_Active" = "Maruz kalma günlüğü sürekli etkin";
 

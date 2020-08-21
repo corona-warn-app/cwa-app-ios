@@ -18,7 +18,15 @@
 import ExposureNotification
 import Foundation
 
-typealias DaysAndHours = (days: [String], hours: [Int])
+struct DaysAndHours {
+	var days: [String]
+	var hours: [Int]
+
+	static let none = DaysAndHours(
+		days: [],
+		hours: []
+	)
+}
 
 /// Methods required to move an exposure detection transaction forward and for consuming
 /// the results of a transaction.

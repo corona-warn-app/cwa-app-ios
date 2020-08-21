@@ -19,6 +19,10 @@ import Foundation
 @testable import ENA
 
 final class MockTestStore: Store {
+	var isAllowedToPerformBackgroundFakeRequests = false
+	var firstPlaybookExecution: Date?
+	var lastBackgroundFakeRequest: Date = .init()
+	var hasSeenBackgroundFetchAlert: Bool = false
 	var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 	var summary: SummaryMetadata?
 	var tracingStatusHistory: TracingStatusHistory = []
@@ -47,4 +51,5 @@ final class MockTestStore: Store {
 	var allowRiskChangesNotification: Bool = true
 	var allowTestsStatusNotification: Bool = true
 	var hourlyFetchingEnabled: Bool = true
+	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
 }
