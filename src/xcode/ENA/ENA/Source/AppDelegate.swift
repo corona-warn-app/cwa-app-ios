@@ -157,4 +157,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_: UIApplication, didDiscardSceneSessions _: Set<UISceneSession>) {}
 }
-
