@@ -155,8 +155,8 @@ private extension ExposureSubmissionWarnOthersViewController {
 							  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.description),
 						.custom(withIdentifier: CustomCellReuseIdentifiers.roundedCell,
 								configure: { _, cell, _ in
-									guard let cell0 = cell as? DynamicTableViewRoundedCell else { return }
-									cell0.configure(title: NSMutableAttributedString(
+									guard let appUsagesOver16Cell = cell as? DynamicTableViewRoundedCell else { return }
+									appUsagesOver16Cell.configure(title: NSMutableAttributedString(
 										string: AppStrings.ExposureSubmissionWarnOthers.consentUnderagesTitle
 									),
 									body: NSMutableAttributedString(
@@ -169,8 +169,8 @@ private extension ExposureSubmissionWarnOthersViewController {
 						}),
 						.custom(withIdentifier: CustomCellReuseIdentifiers.roundedCell,
 								configure: { _, cell, _ in
-									guard let cell1 = cell as? DynamicTableViewRoundedCell else { return }
-									cell1.configure(
+									guard let privacyStatementCell = cell as? DynamicTableViewRoundedCell else { return }
+									privacyStatementCell.configure(
 										title: NSMutableAttributedString(
 											string: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyTitle
 										),
@@ -193,6 +193,5 @@ private extension ExposureSubmissionWarnOthersViewController {
 extension ExposureSubmissionWarnOthersViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case roundedCell
-		case anotherRoundedCell
 	}
 }
