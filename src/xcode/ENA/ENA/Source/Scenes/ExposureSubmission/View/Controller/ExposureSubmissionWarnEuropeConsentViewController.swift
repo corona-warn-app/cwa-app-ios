@@ -18,6 +18,7 @@
 //
 
 import UIKit
+import Combine
 
 class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewController, ExposureSubmittableViewController {
 
@@ -46,9 +47,11 @@ class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewControl
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		// startSubmitProcess()
-
-		coordinator?.showWarnEuropeTravelConfirmationScreen()
+		if consentGiven {
+			coordinator?.showWarnEuropeTravelConfirmationScreen()
+		} else {
+			startSubmitProcess()
+		}
 	}
 
 	// MARK: - Internal
@@ -57,6 +60,9 @@ class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewControl
 	private(set) weak var coordinator: ExposureSubmissionCoordinating?
 
 	// MARK: - Private
+
+	@Published var consentGiven: Bool = false
+	private var consentSubscription: AnyCancellable?
 
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionWarnEuropeConsent.title
@@ -91,7 +97,44 @@ class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewControl
 						.title2(
 							text: AppStrings.ExposureSubmissionWarnEuropeConsent.sectionTitle,
 							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnEuropeConsent.sectionTitle
-						),
+						)
+					]
+				)
+			)
+			$0.add(
+				.section(
+					header: .space(height: 20),
+					footer: .space(height: 20),
+					separators: true,
+					cells: [
+						.icon(
+							UIImage(systemName: "flag", withConfiguration: UIImage.SymbolConfiguration(weight: .regular)),
+							text: AppStrings.ExposureSubmissionWarnEuropeConsent.toggleTitle,
+							action: .execute { [weak self] _ in
+								self?.consentGiven.toggle()
+							},
+							configure: { [weak self] _, cell, _ in
+								guard let self = self, let cell = cell as? DynamicTableViewIconCell else { return }
+
+								let consentSwitch = UISwitch()
+								consentSwitch.isOn = self.consentGiven
+								cell.accessoryView = consentSwitch
+
+								consentSwitch.addTarget(self, action: #selector(self.switchToggled(_:)), for: .valueChanged)
+
+								self.consentSubscription = self.$consentGiven.sink { consentGiven in
+									DispatchQueue.main.async {
+										consentSwitch.setOn(consentGiven, animated: true)
+									}
+								}
+							}
+						)
+					]
+				)
+			)
+			$0.add(
+				.section(
+					cells: [
 						.custom(
 							withIdentifier: CustomCellReuseIdentifiers.roundedCell,
 							configure: { _, cell, _ in
@@ -111,6 +154,11 @@ class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewControl
 				)
 			)
 		}
+	}
+
+	@objc
+	func switchToggled(_ sender: UISwitch) {
+		self.consentGiven = sender.isOn
 	}
 
 }
