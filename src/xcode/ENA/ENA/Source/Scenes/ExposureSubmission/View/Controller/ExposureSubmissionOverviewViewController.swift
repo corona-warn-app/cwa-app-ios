@@ -63,21 +63,6 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 
 	// MARK: - Helpers.
 
-	private func fetchResult() {
-		startSpinner()
-		service?.getTestResult { result in
-			self.stopSpinner()
-			switch result {
-			case let .failure(error):
-				logError(message: "An error occurred during result fetching: \(error)", level: .error)
-				let alert = self.setupErrorAlert(message: error.localizedDescription)
-				self.present(alert, animated: true, completion: nil)
-			case let .success(testResult):
-				self.coordinator?.showTestResultScreen(with: testResult)
-			}
-		}
-	}
-
 	/// Shows the data privacy disclaimer and only lets the
 	/// user scan a QR code after accepting.
 	func showDisclaimer() {
@@ -148,17 +133,16 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 
 		// Found QR Code, deactivate scanning.
 		dismissQRCodeScannerView(vc, completion: {
-			self.startSpinner()
-			self.getRegistrationToken(forKey: .guid(guid))
+			self.getTestResults(forKey: .guid(guid))
 		})
 	}
 
-	private func getRegistrationToken(forKey: DeviceRegistrationKey) {
-		service?.getRegistrationToken(forKey: forKey, completion: { result in
+	private func getTestResults(forKey key: DeviceRegistrationKey) {
+		self.startSpinner()
+		service?.getTestResult(forKey: key, useStoredRegistration: false, completion: { result in
 			self.stopSpinner()
 			switch result {
 			case let .failure(error):
-
 				// Note: In the case the QR Code was already used, retrying will result
 				// in an endless loop.
 				if case .qRAlreadyUsed = error {
@@ -166,29 +150,21 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 					self.present(alert, animated: true, completion: nil)
 					return
 				}
-
-				logError(message: "Error while getting registration token: \(error)", level: .error)
+				
+				logError(message: "An error occurred during result fetching: \(error)", level: .error)
 
 				let alert = self.setupErrorAlert(
 					message: error.localizedDescription,
 					secondaryActionTitle: AppStrings.Common.alertActionRetry,
 					secondaryActionCompletion: {
-						self.startSpinner()
-						self.getRegistrationToken(forKey: forKey)
+						self.getTestResults(forKey: key)
 					}
 				)
 				self.present(alert, animated: true, completion: nil)
-
-			case let .success(token):
-				log(
-					message: "Received registration token: \(token)",
-					file: #file,
-					line: #line,
-					function: #function
-				)
-				self.fetchResult()
+			case let .success(testResult):
+				self.coordinator?.showTestResultScreen(with: testResult)
 			}
-        })
+		})
 	}
 
 	/// Sanitize the input string and assert that:

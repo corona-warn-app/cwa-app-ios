@@ -50,6 +50,10 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 		getTestResultCallback?(completeWith)
 	}
 
+	func getTestResult(forKey deviceRegistrationKey: DeviceRegistrationKey, useStoredRegistration: Bool, completion: @escaping TestResultHandler) {
+		getTestResultCallback?(completion)
+	}
+
 	func hasRegistrationToken() -> Bool {
 		return hasRegistrationTokenCallback?() ?? false
 	}

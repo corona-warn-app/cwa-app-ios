@@ -199,6 +199,30 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
+	func getTestResult(forKey deviceRegistrationKey: DeviceRegistrationKey, useStoredRegistration: Bool = true, completion: @escaping TestResultHandler) {
+		if useStoredRegistration {
+			getTestResult(completion)
+		} else {
+			let (key, type) = getKeyAndType(for: deviceRegistrationKey)
+			_getRegistrationToken(key, type) { result in
+				switch result {
+				case .failure(let error):
+					completion(.failure(error))
+
+					// Fake requests.
+					self._fakeVerificationAndSubmissionServerRequest()
+				case .success(let token):
+					self._getTestResult(token) { testResult in
+						completion(testResult)
+					}
+
+					// Fake request.
+					self._fakeSubmissionServerRequest { _ in /* no op */ }
+				}
+			}
+		}
+	}
+
 	/// Stores the provided key, retrieves the registration token and deletes the key.
 	/// __Extension for plausible deniability__:
 	/// We append two fake requests to this request in order to fulfill the V+V+S sequence. Please kindly check `getTestResult` for more information.
