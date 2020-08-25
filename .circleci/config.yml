@@ -117,7 +117,7 @@ workflows:
             filters:
               branches:
                 only:
-                  - develop
+                  - admin/integrate-jazzy
         - grab-screenshots:
             filters:
               branches:
