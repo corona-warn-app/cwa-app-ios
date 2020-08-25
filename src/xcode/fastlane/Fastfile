@@ -113,7 +113,7 @@ platform :ios do
     #   sh("git" "config" "user.name" "\"ci-build\"")
     # end
 
-    Create docs
+    # Create docs
     jazzy(
      config: ".jazzy.yaml"
     )
