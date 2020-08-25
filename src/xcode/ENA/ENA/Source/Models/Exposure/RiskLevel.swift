@@ -21,7 +21,7 @@ import Foundation
 /// Exposure Risk level
 ///
 /// - important: Due to exception case, `CaseIterable` `allCases` does not produce a correctly sorted collection!
-enum RiskLevel: Int, CaseIterable {
+enum RiskLevel: Int, CaseIterable, Equatable {
 	/*
 	RiskLevels are ordered according to these rules:
 	1. .low is least
