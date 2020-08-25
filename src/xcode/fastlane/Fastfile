@@ -108,15 +108,15 @@ platform :ios do
 
   desc "Update GitHub Pages"
   lane :updateDocs do
-    if is_ci?
-      sh("git" "config" "user.email" "\"cwa.technical-user@sap.com\"")
-      sh("git" "config" "user.name" "\"ci-build\"")
-    end
+    # if is_ci?
+    #   sh("git" "config" "user.email" "\"cwa.technical-user@sap.com\"")
+    #   sh("git" "config" "user.name" "\"ci-build\"")
+    # end
 
-    # Create docs
-    #jazzy(
-    #  config: ".jazzy.yaml"
-    #)
+    Create docs
+    jazzy(
+     config: ".jazzy.yaml"
+    )
 
     # Deploy to gh pages
     sh("npm install -g --silent gh-pages@2.0.1")
