@@ -8,6 +8,7 @@ min_acl: internal
 hide_documentation_coverage: true
 documentation: Extra/*.md
 abstract: Sections/*.md
+exclude: "*pb*"
 theme: jony
 use_safe_filenames: true
 separate_global_declarations: true
