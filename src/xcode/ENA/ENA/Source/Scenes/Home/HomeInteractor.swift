@@ -39,11 +39,13 @@ final class HomeInteractor: RequiresAppDependencies {
 	// MARK: Properties
 	var state: State {
 		didSet {
-			homeViewController.setStateOfChildViewControllers()
-			// `buildSections()` has to be called prior to `scheduleCountdownTimer()`
-			// because `scheduleCountdownTimer()` relies on the sections to be already built.
-			buildSections()
-			scheduleCountdownTimer()
+			if state != oldValue {
+				homeViewController.setStateOfChildViewControllers()
+				// `buildSections()` has to be called prior to `scheduleCountdownTimer()`
+				// because `scheduleCountdownTimer()` relies on the sections to be already built.
+				buildSections()
+				scheduleCountdownTimer()
+			}
 		}
 	}
 
