@@ -5,7 +5,7 @@
 
 import Foundation
 extension ENStateHandler {
-	enum State {
+	enum State: Equatable {
 		/// Exposure Notification is enabled.
 		case enabled
 		/// Exposure Notification is disabled.
