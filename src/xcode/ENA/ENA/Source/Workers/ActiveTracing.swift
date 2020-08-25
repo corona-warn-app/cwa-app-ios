@@ -25,7 +25,7 @@ private extension TimeInterval {
 	static let SEC_PER_DAY = SEC_PER_HOUR * 24.0
 }
 
-struct ActiveTracing {
+struct ActiveTracing: Equatable {
 	let interval: TimeInterval
 	let maximumNumberOfDays: Int
 
