@@ -152,6 +152,10 @@
 
 "Settings_Notification_StatusInactive" = "Oprite";
 
+"Settings_BackgroundAppRefresh_StatusActive" = "Pornite";
+
+"Settings_BackgroundAppRefresh_StatusInactive" = "Oprite";
+
 "Settings_StatusEnable" = "Activare";
 
 "Settings_StatusDisable" = "Dezactivare";
@@ -164,11 +168,15 @@
 
 "Settings_Notification_Label" = "Notificări";
 
+"Settings_BackgroundAppRefresh_Label" = "Actualizări în fundal";
+
 "Settings_Reset_Label" = "Resetați aplicația";
 
 "Settings_Tracing_Description" = "Permiteți generarea și trimiterea de ID-uri aleatorii de COVID-19.";
 
 "Settings_Notification_Description" = "Permiteți notificările automate privind starea riscului dvs. de infectare cu COVID-19.";
+
+"Settings_BackgroundAppRefresh_Description" = "Permiteți actualizările automate privind starea riscului dvs.";
 
 "Settings_Reset_Description" = "Ștergeți toate datele dvs. din aplicație.";
 
@@ -200,6 +208,61 @@
 "NotificationSettings_onImageDescription" = "O femeie primește o notificare de la Corona-Warn-App.";
 
 "NotificationSettings_offImageDescription" = "O femeie nu poate primi notificări de la Corona-Warn-App.";
+
+/* Background App Referesh Settings */
+"BackgroundAppRefreshSettings_Title" = "Actualizări în fundal";
+
+"BackgroundAppRefreshSettings_Image_Description_On" = "O persoană ține în mână un smartphone care are actualizările în fundal activate.";
+
+"BackgroundAppRefreshSettings_Image_Description_Off" = "O persoană ține în mână un smartphone care are actualizările în fundal dezactivate.";
+
+"BackgroundAppRefreshSettings_Subtitle" = "Actualizare în fundal a stării de risc";
+
+"BackgroundAppRefreshSettings_Description" = "Când sunt activate actualizările în fundal, aplicația Corona-Warn determină automat starea riscului dvs.\nNu se aplică costuri suplimentare pentru transferul de date în rețeaua mobilă.\nDacă sunt dezactivate actualizările în fundal, va trebui să deschideți manual aplicația în fiecare zi pentru a actualiza starea riscului dvs.";
+
+"BackgroundAppRefreshSettings_Status_Header" = "Setare";
+
+"BackgroundAppRefreshSettings_Status_Title" = "Împrospătarea aplicației în fundal";
+
+"BackgroundAppRefreshSettings_Status_On" = "Pornită";
+
+"BackgroundAppRefreshSettings_Status_Off" = "Oprită";
+
+"BackgroundAppRefreshSettings_InfoBox_Title" = "Activarea împrospătării aplicației în fundal";
+
+"BackgroundAppRefreshSettings_InfoBox_Description" = "Trebuie să activați împrospătarea aplicației în fundal atât în setările generale ale iPhone-ului, cât și în setările aplicației Corona-Warn.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Rețineți că trebuie să fie dezactivat modul de consum redus pentru a putea activa împrospătarea aplicației în fundal.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Dezactivare Mod consum redus";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Deschideți Configurări";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2" = "Deschideți Baterie";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3" = "Dezactivați mod consum redus";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title" = "Activarea împrospătării aplicației în fundal în General";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1" = "Deschideți Configurări";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2" = "Deschideți General";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3" = "Deschideți Împrospătarea aplicației în fundal";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4" = "Selectați Wi-Fi sau Wi-Fi și date celulare";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title" = "Activarea împrospătării aplicației în fundal pentru Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Deschideți Configurări";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Deschideți setările pentru Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Activați împrospătarea aplicației în fundal";
+
+"BackgroundAppRefreshSettings_OpenSettingsButton_Title" = "Deschideți Configurări";
+
+"BackgroundAppRefreshSettings_ShareButton_Title" = "Partajați instrucțiuni";
 
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "Să începem";

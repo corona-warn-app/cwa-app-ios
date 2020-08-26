@@ -152,6 +152,10 @@
 
 "Settings_Notification_StatusInactive" = "Wył.";
 
+"Settings_BackgroundAppRefresh_StatusActive" = "Wł.";
+
+"Settings_BackgroundAppRefresh_StatusInactive" = "Wył.";
+
 "Settings_StatusEnable" = "Aktywuj";
 
 "Settings_StatusDisable" = "Dezaktywuj";
@@ -164,11 +168,15 @@
 
 "Settings_Notification_Label" = "Powiadomienia";
 
+"Settings_BackgroundAppRefresh_Label" = "Aktualizacje w tle";
+
 "Settings_Reset_Label" = "Resetuj aplikację";
 
 "Settings_Tracing_Description" = "Zezwól na generowanie i udostępnianie losowych identyfikatorów COVID-19.";
 
 "Settings_Notification_Description" = "Zezwól na automatyczne powiadomienia o statusie ryzyka COVID-19";
+
+"Settings_BackgroundAppRefresh_Description" = "Zezwól na automatyczne aktualizacje statusu ryzyka.";
 
 "Settings_Reset_Description" = "Usuń wszystkie swoje dane z aplikacji.";
 
@@ -200,6 +208,61 @@
 "NotificationSettings_onImageDescription" = "Kobieta otrzymuje powiadomienie od swojej aplikacji Corona-Warn-App.";
 
 "NotificationSettings_offImageDescription" = "Kobieta nie może otrzymywać powiadomień od swojej aplikacji Corona-Warn-App.";
+
+/* Background App Referesh Settings */
+"BackgroundAppRefreshSettings_Title" = "Aktualizacje w tle";
+
+"BackgroundAppRefreshSettings_Image_Description_On" = "Osoba trzyma w dłoni smartfon z aktywowanymi aktualizacjami w tle.";
+
+"BackgroundAppRefreshSettings_Image_Description_Off" = "Osoba trzyma w dłoni smartfon z dezaktywowanymi aktualizacjami w tle.";
+
+"BackgroundAppRefreshSettings_Subtitle" = "Aktualizuj status ryzyka w tle";
+
+"BackgroundAppRefreshSettings_Description" = "Gdy aktualizacje w tle są aktywowane, Corona-Warn-App ustala Twój status ryzyka automatycznie.\nNie są naliczane dodatkowe koszty za transfer danych w sieci mobilnej.\nJeśli aktualizacje w tle są dezaktywowane, konieczne jest codzienne ręczne otwieranie aplikacji w celu aktualizacji statusu ryzyka.";
+
+"BackgroundAppRefreshSettings_Status_Header" = "Ustawienie";
+
+"BackgroundAppRefreshSettings_Status_Title" = "Odświeżanie aplikacji w tle";
+
+"BackgroundAppRefreshSettings_Status_On" = "Wł.";
+
+"BackgroundAppRefreshSettings_Status_Off" = "Wył.";
+
+"BackgroundAppRefreshSettings_InfoBox_Title" = "Aktywuj odświeżanie aplikacji w tle";
+
+"BackgroundAppRefreshSettings_InfoBox_Description" = "Musisz aktywować odświeżanie aplikacji w tle zarówno w ustawieniach ogólnych iPhone'a, jak i w ustawieniach Corona-Warn-App.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Pamiętaj, że aby można było aktywować odświeżanie aplikacji w tle, tryb niskiego zasilania musi być dezaktywowany.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Dezaktywuj tryb niskiego zasilania";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Otwórz opcję Ustawienia";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2" = "Otwórz opcję Bateria";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3" = "Dezaktywuj tryb niskiego zasilania";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title" = "Aktywuj odświeżanie aplikacji w tle w opcji Ogólne";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1" = "Otwórz opcję Ustawienia";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2" = "Otwórz opcję Ogólne";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3" = "Otwórz Odświeżanie aplikacji w tle";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4" = "Wybierz sieć Wi-Fi lub sieć Wi-Fi i dane komórkowe";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title" = "Aktywuj odświeżanie aplikacji w tle dla Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Otwórz opcję Ustawienia";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Otwórz ustawienia dla Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Aktywuj odświeżanie aplikacji w tle";
+
+"BackgroundAppRefreshSettings_OpenSettingsButton_Title" = "Otwórz opcję Ustawienia";
+
+"BackgroundAppRefreshSettings_ShareButton_Title" = "Instrukcje udostępniania";
 
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "Zaczynamy";

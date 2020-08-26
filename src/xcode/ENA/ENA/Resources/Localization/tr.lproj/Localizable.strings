@@ -152,6 +152,10 @@
 
 "Settings_Notification_StatusInactive" = "Kapalı";
 
+"Settings_BackgroundAppRefresh_StatusActive" = "Açık";
+
+"Settings_BackgroundAppRefresh_StatusInactive" = "Kapalı";
+
 "Settings_StatusEnable" = "Etkinleştir";
 
 "Settings_StatusDisable" = "Devre dışı bırak";
@@ -164,11 +168,15 @@
 
 "Settings_Notification_Label" = "Bildirimler";
 
+"Settings_BackgroundAppRefresh_Label" = "Arka Plan Güncellemeleri";
+
 "Settings_Reset_Label" = "Uygulamayı Sıfırla";
 
 "Settings_Tracing_Description" = "COVID-19 rastgele kimliklerinin oluşturulmasına ve paylaşılmasına izin verin.";
 
 "Settings_Notification_Description" = "COVID-19 risk durumunuz ile ilgili otomatik bildirimlere izin verin.";
+
+"Settings_BackgroundAppRefresh_Description" = "Risk durumunuz ile ilgili otomatik güncellemelere izin verin.";
 
 "Settings_Reset_Description" = "Uygulamadaki tüm verilerinizi silin.";
 
@@ -200,6 +208,61 @@
 "NotificationSettings_onImageDescription" = "Bir kadın Corona-Warn-App uygulamasından bildirim alıyor.";
 
 "NotificationSettings_offImageDescription" = "Bir kadın Corona-Warn-App uygulamasından bildirim alamıyor.";
+
+/* Background App Referesh Settings */
+"BackgroundAppRefreshSettings_Title" = "Arka Plan Güncellemeleri";
+
+"BackgroundAppRefreshSettings_Image_Description_On" = "Bir kişi elinde, arka plan güncellemeleri etkinleştirilmiş bir akıllı telefon tutuyor.";
+
+"BackgroundAppRefreshSettings_Image_Description_Off" = "Bir kişi elinde, arka plan güncellemeleri devre dışı bırakılmış bir akıllı telefon tutuyor.";
+
+"BackgroundAppRefreshSettings_Subtitle" = "Risk Durumunu Arka Planda Güncelle";
+
+"BackgroundAppRefreshSettings_Description" = "Arka plan güncellemeleri etkinleştirildiğinde Corona-Warn-App risk durumunuzu otomatik olarak belirler.\nMobil ağda veri aktarımı için ek ücret alınmaz.\nArka plan güncellemeleri devre dışı bırakılırsa risk durumunuzu güncellemek için uygulamayı her gün manuel olarak açmanız gerekir.";
+
+"BackgroundAppRefreshSettings_Status_Header" = "Ayar";
+
+"BackgroundAppRefreshSettings_Status_Title" = "Arka Planda Uygulamayı Yenileme";
+
+"BackgroundAppRefreshSettings_Status_On" = "Açık";
+
+"BackgroundAppRefreshSettings_Status_Off" = "Kapalı";
+
+"BackgroundAppRefreshSettings_InfoBox_Title" = "Arka Planda Uygulamayı Yenilemeyi Etkinleştir";
+
+"BackgroundAppRefreshSettings_InfoBox_Description" = "Arka planda uygulamayı yenileme özelliğini hem iPhone'unuzun genel ayarlar bölümünde hem de Corona-Warn-App'in ayarlar bölümünde etkinleştirmeniz gerekir.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Arka planda uygulamayı yenileme özelliğini etkinleştirmek için lütfen düşük güç modunun devre dışı bırakılması gerektiğini unutmayın.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Düşük Güç Modunu Devre Dışı Bırak";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Ayarları açın";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2" = "Pili açın";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3" = "Düşük Güç Modunu Devre Dışı Bırakın";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title" = "Genel Ayarlarda Arka Planda Uygulamayı Yenilemeyi Etkinleştir";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1" = "Ayarları açın";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2" = "Geneli açın";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3" = "Arka Planda Uygulamayı Yenilemeyi açın";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4" = "Wi-Fi veya Wi-Fi ve Hücresel Veri seçeneğini belirleyin";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title" = "Corona-Warn-App için Arka Planda Uygulamayı Yenilemeyi Etkinleştir";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Ayarları açın";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Corona-Warn-App ayaralarını açın";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Arka Planda Uygulamayı Yenilemeyi Etkinleştir";
+
+"BackgroundAppRefreshSettings_OpenSettingsButton_Title" = "Ayarları açın";
+
+"BackgroundAppRefreshSettings_ShareButton_Title" = "Talimatları Paylaş";
 
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "Haydi başlayalım";

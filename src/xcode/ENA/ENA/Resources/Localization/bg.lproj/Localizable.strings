@@ -152,6 +152,10 @@
 
 "Settings_Notification_StatusInactive" = "Изключено";
 
+"Settings_BackgroundAppRefresh_StatusActive" = "Включено";
+
+"Settings_BackgroundAppRefresh_StatusInactive" = "Изключено";
+
 "Settings_StatusEnable" = "Активиране";
 
 "Settings_StatusDisable" = "Дезактивиране";
@@ -164,11 +168,15 @@
 
 "Settings_Notification_Label" = "Известия";
 
+"Settings_BackgroundAppRefresh_Label" = "Актуализации във фонов режим";
+
 "Settings_Reset_Label" = "Изчистване на данните в приложението";
 
 "Settings_Tracing_Description" = "Разрешаване на генерирането и споделянето на случайни ИД кодове за COVID-19";
 
 "Settings_Notification_Description" = "Разрешаване на автоматични известия за Вашия статус на риск от заразяване с COVID-19.";
+
+"Settings_BackgroundAppRefresh_Description" = "Разрешаване на автоматични актуализации за Вашия статус на риск.";
 
 "Settings_Reset_Description" = "Изтрийте всички свои данни в приложението.";
 
@@ -200,6 +208,61 @@
 "NotificationSettings_onImageDescription" = "Жена, която получава известие от приложението Corona-Warn-App.";
 
 "NotificationSettings_offImageDescription" = "Жена, която не може да получава известия от приложението Corona-Warn-App.";
+
+/* Background App Referesh Settings */
+"BackgroundAppRefreshSettings_Title" = "Фонови актуализации";
+
+"BackgroundAppRefreshSettings_Image_Description_On" = "Човек държи в ръка смартфон с активирани фонови актуализации.";
+
+"BackgroundAppRefreshSettings_Image_Description_Off" = "Човек държи в ръка смартфон с дезактивирани фонови актуализации.";
+
+"BackgroundAppRefreshSettings_Subtitle" = "Актуализация на статус на риск във фонов режим";
+
+"BackgroundAppRefreshSettings_Description" = "Когато фоновите актуализации за активирани, приложението Corona-Warn-App определя Вашия статус на риск автоматично.\nНе се начисляват допълнителни такси за предаването на данните в мобилната мрежа.\nАко фоновите актуализации са дезактивирани, ще трябва да отваряте приложението всеки ден, за да актуализирате своя статус на риск.";
+
+"BackgroundAppRefreshSettings_Status_Header" = "Настройка";
+
+"BackgroundAppRefreshSettings_Status_Title" = "Фоново опресняване на приложението";
+
+"BackgroundAppRefreshSettings_Status_On" = "Включено";
+
+"BackgroundAppRefreshSettings_Status_Off" = "Изключено";
+
+"BackgroundAppRefreshSettings_InfoBox_Title" = "Активиране на фоново опресняване на приложението";
+
+"BackgroundAppRefreshSettings_InfoBox_Description" = "Трябва да активирате фоновото опресняване на приложението както в общите настройки на своя iPhone, така и в настройките на приложението Corona-Warn-App.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Имайте предвид, че за да активирате фоновото опресняване на приложението, енергоспестяващият режим трябва да е дезактивиран.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Дезактивиране на енергоспестяващия режим";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Отворете менюто за настройки";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2" = "Отворете раздел „Батерия“";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3" = "Дезактивирайте енергоспестяващия режим";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title" = "Общо активиране на фоновото опресняване на приложението";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1" = "Отворете менюто за настройки";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2" = "Отворете раздел „Общи“";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3" = "Отворете „Фоново опресняване на приложението”";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4" = "Изберете „Wi-Fi“ или „Wi-Fi и мобилни данни”";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title" = "Активиране на фоновото опресняване на приложението за Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Отворете менюто за настройки";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Отворете настройките за приложението Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Активирайте фоновото опресняване на приложението";
+
+"BackgroundAppRefreshSettings_OpenSettingsButton_Title" = "Отворете менюто за настройки";
+
+"BackgroundAppRefreshSettings_ShareButton_Title" = "Инструкции за споделяне";
 
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "Първи стъпки";
