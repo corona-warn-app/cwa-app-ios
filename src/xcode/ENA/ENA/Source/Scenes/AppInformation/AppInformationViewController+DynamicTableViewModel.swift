@@ -179,39 +179,43 @@ extension AppInformationViewController {
 		)
 	])
 
-	private static let imprintModel = DynamicTableViewModel([
-		.section(
-			header: .image(UIImage(named: "Illu_Appinfo_Impressum"),
-						   accessibilityLabel: AppStrings.AppInformation.imprintImageDescription,
-						   accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintImageDescription,
-						   height: 230),
-			cells: [
-				.headline(text: AppStrings.AppInformation.imprintSection1Title,
-						  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection1Title,
-						  accessibilityTraits: .header),
-				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection1Text,
-									 style: .textView([]),
-									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection1Text),
-				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection2Title,
-											accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection2Title),
-				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection2Text,
-									 style: .textView([]),
-									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection2Text),
-				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection3Title,
-											accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Title),
-				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection3Text,
-									 style: .textView(.all),
-									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Text),
-				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSectionContactFormLink, style: .linkTextView(AppStrings.AppInformation.imprintSectionContactFormTitle),
-									 accessibilityIdentifier: AppStrings.AppInformation.imprintSectionContactFormTitle),
-				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection4Title,
-											accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Title),
-				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection4Text,
-									 style: .textView([]),
-									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Text)
-			]
-		)
-	])
+	private static func contactForms() -> [DynamicCell] {
+		let form: DynamicCell = .bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSectionContactFormLink, style: .linkTextView(AppStrings.AppInformation.imprintSectionContactFormTitle), accessibilityIdentifier: AppStrings.AppInformation.imprintSectionContactFormTitle)
+		guard let localization = Bundle.main.preferredLocalizations.first else { return [form] }
+		if localization == "en" || localization == "de" { return [form] }
+		let englishForm: DynamicCell = .bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSectionContactFormLink, style: .linkTextView(AppStrings.AppInformation.imprintSectionContactFormTitle), accessibilityIdentifier: AppStrings.AppInformation.imprintSectionContactFormTitle)
+		let germanForm: DynamicCell = .bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSectionContactFormLink, style: .linkTextView(AppStrings.AppInformation.imprintSectionContactFormTitle), accessibilityIdentifier: AppStrings.AppInformation.imprintSectionContactFormTitle)
+		return [englishForm, germanForm]
+	}
+
+	private static let imprintModel: DynamicTableViewModel = {
+		var cells: [DynamicCell] = [
+			.headline(text: AppStrings.AppInformation.imprintSection1Title,
+					  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection1Title,
+					  accessibilityTraits: .header),
+			.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection1Text,
+								 style: .textView([]),
+								 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection1Text),
+			.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection2Title,
+										accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection2Title),
+			.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection2Text,
+								 style: .textView([]),
+								 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection2Text),
+			.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection3Title,
+										accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Title),
+			.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection3Text,
+								 style: .textView(.all),
+								 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Text)]
+		cells.append(contentsOf: contactForms())
+		cells.append(contentsOf: [
+						.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection4Title,
+													accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Title),
+						.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection4Text,
+											 style: .textView([]),
+											 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Text)])
+		let header: DynamicHeader = .image(UIImage(named: "Illu_Appinfo_Impressum"), accessibilityLabel: AppStrings.AppInformation.imprintImageDescription, accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintImageDescription, height: 230)
+		return DynamicTableViewModel([.section(header: header, cells: cells)])
+	}()
 
 	private static let privacyModel = DynamicTableViewModel([
 		.section(
