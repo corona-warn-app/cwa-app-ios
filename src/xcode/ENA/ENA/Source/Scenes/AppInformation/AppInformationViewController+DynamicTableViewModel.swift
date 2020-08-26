@@ -183,8 +183,10 @@ extension AppInformationViewController {
 		let form: DynamicCell = .bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSectionContactFormLink, style: .linkTextView(AppStrings.AppInformation.imprintSectionContactFormTitle), accessibilityIdentifier: AppStrings.AppInformation.imprintSectionContactFormTitle)
 		guard let localization = Bundle.main.preferredLocalizations.first else { return [form] }
 		if localization == "en" || localization == "de" { return [form] }
-		let englishForm: DynamicCell = .bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSectionContactFormLink, style: .linkTextView(AppStrings.AppInformation.imprintSectionContactFormTitle), accessibilityIdentifier: AppStrings.AppInformation.imprintSectionContactFormTitle)
-		let germanForm: DynamicCell = .bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSectionContactFormLink, style: .linkTextView(AppStrings.AppInformation.imprintSectionContactFormTitle), accessibilityIdentifier: AppStrings.AppInformation.imprintSectionContactFormTitle)
+		let englishTitle: String = AppStrings.AppInformation.imprintSectionContactFormTitle + " " + "(English)"
+		let germanTitle: String = AppStrings.AppInformation.imprintSectionContactFormTitle + " " + "(German)"
+		let englishForm: DynamicCell = .bodyWithoutTopInset(text: englishContactFormLink, style: .linkTextView(englishTitle), accessibilityIdentifier: englishTitle)
+		let germanForm: DynamicCell = .bodyWithoutTopInset(text: germanContactFormLink, style: .linkTextView(germanTitle), accessibilityIdentifier: germanTitle)
 		return [englishForm, germanForm]
 	}
 
