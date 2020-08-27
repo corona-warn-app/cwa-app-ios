@@ -207,8 +207,6 @@ enum AppStrings {
 		static let answerOptionCountrySelection = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_answerOptionCountrySelection", comment: "")
 		static let answerOptionOtherCountries = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries", comment: "")
 		static let answerOptionNone = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone", comment: "")
-		static let noteTitle = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_noteTitle", comment: "")
-		static let noteDescription = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_noteDescription", comment: "")
 	}
 
 	enum ExposureSubmissionSuccess {

@@ -116,7 +116,6 @@ class ExposureSubmissionUITests: XCTestCase {
 	}
 
 	func test_SubmitTAN() {
-
 		// Setup service mocks.
 		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
 		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
@@ -161,7 +160,6 @@ class ExposureSubmissionUITests: XCTestCase {
 		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 
 		XCTAssert(app.navigationBars["ENA.ExposureSubmissionSuccessView"].waitForExistence(timeout: .medium))
-
 	}
 }
 

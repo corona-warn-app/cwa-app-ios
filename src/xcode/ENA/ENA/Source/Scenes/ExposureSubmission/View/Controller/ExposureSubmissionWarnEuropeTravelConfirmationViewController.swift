@@ -18,8 +18,13 @@
 //
 
 import UIKit
+import Combine
 
 class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTableViewController, ExposureSubmittableViewController {
+
+	enum TravelOption {
+		case yes, no, preferNotToSay
+	}
 
 	// MARK: - Init
 
@@ -46,9 +51,11 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		// startSubmitProcess()
-
-		coordinator?.showWarnEuropeCountrySelectionScreen()
+		if selectedTravelOption == .yes {
+			coordinator?.showWarnEuropeCountrySelectionScreen()
+		} else {
+			startSubmitProcess()
+		}
 	}
 
 	// MARK: - Internal
@@ -58,11 +65,37 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 
 	// MARK: - Private
 
+	@Published private var selectedTravelOption: TravelOption?
+
+	private var optionGroupSelection: OptionGroup.Selection? {
+		didSet {
+			guard case let .option(index: index) = optionGroupSelection else { return }
+
+			switch index {
+			case 0:
+				selectedTravelOption = .yes
+			case 1:
+				selectedTravelOption = .no
+			case 2:
+				selectedTravelOption = .preferNotToSay
+			default:
+				break
+			}
+		}
+	}
+
+	private var travelOptionSubscription: AnyCancellable?
+	private var selectionSubscription: AnyCancellable?
+
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.title
 		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.continueButton
 
 		setupTableView()
+
+		travelOptionSubscription = $selectedTravelOption.receive(on: RunLoop.main).sink {
+			self.navigationFooterItem?.isPrimaryButtonEnabled = $0 != nil
+		}
 	}
 
 	private func setupTableView() {
@@ -70,8 +103,8 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 		tableView.dataSource = self
 
 		tableView.register(
-			DynamicTableViewRoundedCell.self,
-			forCellReuseIdentifier: CustomCellReuseIdentifiers.roundedCell.rawValue
+			DynamicTableViewOptionGroupCell.self,
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.optionGroupCell.rawValue
 		)
 
 		dynamicTableViewModel = dynamicTableViewModel()
@@ -86,6 +119,25 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 						.headline(
 							text: AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description1,
 							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnEuropeTravelConfirmation.description1
+						),
+						.custom(
+							withIdentifier: CustomCellReuseIdentifiers.optionGroupCell,
+							configure: { [weak self] _, cell, _ in
+								guard let cell = cell as? DynamicTableViewOptionGroupCell else { return }
+
+								cell.configure(
+									options: [
+										.option(title: AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionYes),
+										.option(title: AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionNo),
+										.option(title: AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionNone)
+									],
+									initialSelection: self?.optionGroupSelection
+								)
+
+								self?.selectionSubscription = cell.$selection.sink {
+									self?.optionGroupSelection = $0
+								}
+							}
 						),
 						.body(
 							text: AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description2,
@@ -103,6 +155,6 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 
 extension ExposureSubmissionWarnEuropeTravelConfirmationViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case roundedCell
+		case optionGroupCell
 	}
 }
