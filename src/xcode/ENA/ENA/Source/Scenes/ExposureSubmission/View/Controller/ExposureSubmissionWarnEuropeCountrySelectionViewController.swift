@@ -88,14 +88,6 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 						.body(
 							text: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.description2,
 							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnEuropeCountrySelection.description2
-						),
-						.title2(
-							text: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.noteTitle,
-							accessibilityIdentifier: nil
-						),
-						.body(
-							text: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.noteDescription,
-							accessibilityIdentifier: nil
 						)
 					]
 				)

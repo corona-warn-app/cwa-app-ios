@@ -586,7 +586,7 @@ Morbi vitae lacus at nunc pharetra sagittis. Mauris sit amet ornare massa. Maece
 
 "ExposureSubmissionWarnEuropeTravelConfirmation_description1" = "!!! Haben Sie sich in den letzten 14 Tagen außerhalb von Deutschland aufgehalten?";
 
-"ExposureSubmissionWarnEuropeTravelConfirmation_description2" = "!!! Ihre Angabe ist freiwillig und hilft dabei, Andere zielgerecht zu warnen.";
+"ExposureSubmissionWarnEuropeTravelConfirmation_description2" = "!!! Ihre Angabe dient lediglich der Optimierung des Datenvolumens.";
 
 "ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionYes" = "!!! Ja";
 
@@ -600,17 +600,15 @@ Morbi vitae lacus at nunc pharetra sagittis. Mauris sit amet ornare massa. Maece
 
 "ExposureSubmissionWarnEuropeCountrySelection_description1" = "!!! In welchen Ländern haben Sie sich in den letzten 14 Tagen aufgehalten?";
 
-"ExposureSubmissionWarnEuropeCountrySelection_description2" = "!!! Ihre Angabe ist freiwillig und hilft dabei, Andere zielgerecht zu warnen.";
+"ExposureSubmissionWarnEuropeCountrySelection_description2" = "!!! Ihre Angabe dient lediglich der Optimierung des Datenvolumens.
+
+Die Auflistung enthält alle aktuell teilnehmenden Länder und wird stetig erweitert.";
 
 "ExposureSubmissionWarnEuropeCountrySelection_answerOptionCountrySelection" = "!!! Ich war in folgenden Ländern";
 
 "ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries" = "!!! Andere Länder";
 
 "ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "!!! Keine Angabe";
-
-"ExposureSubmissionWarnEuropeCountrySelection_noteTitle" = "!!! Hinweis";
-
-"ExposureSubmissionWarnEuropeCountrySelection_noteDescription" = "!!! Die Liste der verfügbaren Länder wird stetig erweitert. Lorem Ipsum …";
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test kann nur einmal gescannt werden";
 
