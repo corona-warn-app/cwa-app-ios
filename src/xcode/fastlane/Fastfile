@@ -105,4 +105,29 @@ platform :ios do
     )
   end
 
+  desc "Ad hoc distribution"
+  lane :adHocDistribution do
+    match(
+      readonly: true,
+      type: "adhoc"
+    )
+
+    build_ios_app(
+      scheme: "ENA",
+      configuration: "AdHoc",
+      export_method: "ad-hoc",
+      clean: true
+    )
+
+    appcenter_upload(
+      api_token: ENV["MS_APP_CENTER_TOKEN"],
+      owner_name: "Corona-Warn-App",
+      owner_type: "organization",
+      app_name: "Corona-Warn-App",
+      file: "ENA.ipa"
+    )
+
+  end
+
+
 end

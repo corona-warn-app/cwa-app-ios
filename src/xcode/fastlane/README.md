@@ -41,6 +41,11 @@ Run tests
 fastlane ios betaRelease
 ```
 Build and upload for testing
+### ios adHocDistribution
+```
+fastlane ios adHocDistribution
+```
+Ad-hoc distribution
 
 ----
 
