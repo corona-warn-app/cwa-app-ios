@@ -26,15 +26,15 @@ extension HTTPClient {
 			country: "DE",
 			endpoints: Configuration.Endpoints(
 				distribution: .init(
-					baseURL: URL(staticString: "https://svc90.main.px.t-online.de"),
+					baseURL: URL(staticString: Hosts.distributionURLString),
 					requiresTrailingSlash: false
 				),
 				submission: .init(
-					baseURL: URL(staticString: "https://submission.coronawarn.app"),
+					baseURL: URL(staticString: Hosts.submissionURLString),
 					requiresTrailingSlash: false
 				),
 				verification: .init(
-					baseURL: URL(staticString: "https://verification.coronawarn.app"),
+					baseURL: URL(staticString: Hosts.verificationURLString),
 					requiresTrailingSlash: false
 				)
 			)

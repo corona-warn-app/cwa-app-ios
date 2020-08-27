@@ -21,13 +21,13 @@ import UIKit
 
 extension OnboardingInfoViewController {
 
-	func addPanel(title: String, body: String) {
+	func addPanel(title: String, body: String, textStyle: ENAColor = .textPrimary1, backgroundStyle: ENAColor = .separator) {
 
 		let titleLabel = ENALabel()
 		titleLabel.style = .headline
 		titleLabel.text = title
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
-		titleLabel.textColor = .enaColor(for: .textPrimary1)
+		titleLabel.textColor = .enaColor(for: textStyle)
 		titleLabel.lineBreakMode = .byWordWrapping
 		titleLabel.numberOfLines = 0
 
@@ -35,7 +35,7 @@ extension OnboardingInfoViewController {
 		textLabel.style = .body
 		textLabel.text = body
 		textLabel.translatesAutoresizingMaskIntoConstraints = false
-		textLabel.textColor = .enaColor(for: .textPrimary1)
+		textLabel.textColor = .enaColor(for: textStyle)
 		textLabel.lineBreakMode = .byWordWrapping
 		textLabel.numberOfLines = 0
 
@@ -49,7 +49,7 @@ extension OnboardingInfoViewController {
 		let containerView = UIView()
 		containerView.addSubview(labelStackView)
 		containerView.layer.cornerRadius = 14.0
-		containerView.backgroundColor = .enaColor(for: .separator)
+		containerView.backgroundColor = .enaColor(for: backgroundStyle)
 		containerView.layoutMargins = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
 		stackView.addArrangedSubview(containerView)
 
