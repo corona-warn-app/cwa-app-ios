@@ -18,8 +18,14 @@
 //
 
 import UIKit
+import Combine
 
 class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableViewController, ExposureSubmittableViewController {
+
+	enum CountrySelectionOption {
+		case visitedCountries([String])
+		case preferNotToSay
+	}
 
 	// MARK: - Init
 
@@ -56,11 +62,37 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 
 	// MARK: - Private
 
+	private let availableCountries = ["IT", "ES", "NL", "CZ", "AT", "DK", "IE", "LV", "EE"]
+
+	@Published private var selectedCountrySelectionOption: CountrySelectionOption?
+
+	private var optionGroupSelection: OptionGroup.Selection? {
+		didSet {
+			switch optionGroupSelection {
+			case .multipleChoiceOption(index: 0, selectedChoices: let selectedCountries):
+				selectedCountrySelectionOption = .visitedCountries(selectedCountries.map { availableCountries[$0] })
+			case .option(index: 1):
+				selectedCountrySelectionOption = .preferNotToSay
+			case .none:
+				selectedCountrySelectionOption = nil
+			default:
+				break
+			}
+		}
+	}
+
+	private var countrySelectionButtonStateSubscription: AnyCancellable?
+	private var optionGroupSelectionSubscription: AnyCancellable?
+
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionWarnEuropeCountrySelection.title
 		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionWarnEuropeCountrySelection.continueButton
 
 		setupTableView()
+
+		countrySelectionButtonStateSubscription = $selectedCountrySelectionOption.receive(on: RunLoop.main).sink {
+			self.navigationFooterItem?.isPrimaryButtonEnabled = $0 != nil
+		}
 	}
 
 	private func setupTableView() {
@@ -68,8 +100,8 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 		tableView.dataSource = self
 
 		tableView.register(
-			DynamicTableViewRoundedCell.self,
-			forCellReuseIdentifier: CustomCellReuseIdentifiers.roundedCell.rawValue
+			DynamicTableViewOptionGroupCell.self,
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.optionGroupCell.rawValue
 		)
 
 		dynamicTableViewModel = dynamicTableViewModel()
@@ -84,6 +116,29 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 						.headline(
 							text: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.description1,
 							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnEuropeCountrySelection.description1
+						),
+						.custom(
+							withIdentifier: CustomCellReuseIdentifiers.optionGroupCell,
+							configure: { [weak self] _, cell, _ in
+								guard let self = self, let cell = cell as? DynamicTableViewOptionGroupCell else { return }
+
+								cell.configure(
+									options: [
+										.multipleChoiceOption(
+											title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionCountrySelection,
+											choices: self.availableCountries.map { (iconImage: nil, title: $0) }
+										),
+										.option(
+											title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionNone
+										)
+									],
+									initialSelection: self.optionGroupSelection
+								)
+
+								self.optionGroupSelectionSubscription = cell.$selection.sink {
+									self.optionGroupSelection = $0
+								}
+							}
 						),
 						.body(
 							text: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.description2,
@@ -101,6 +156,6 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 
 extension ExposureSubmissionWarnEuropeCountrySelectionViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case roundedCell
+		case optionGroupCell
 	}
 }

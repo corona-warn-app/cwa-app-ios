@@ -24,14 +24,20 @@ class OptionGroup: UIView {
 
 	enum Option {
 		case option(title: String)
-		case multipleChoice([(icon: UIImage, title: String)], initiallySelectedChoices: [Int])
-//		case datePicker(title: String, initiallySelectedDaysFromToday: Int)
+		case multipleChoiceOption(title: String, choices: [(iconImage: UIImage?, title: String)])
+//		case datePickerOption(title: String, initiallySelectedDaysFromToday: Int)
+	}
+
+	enum OptionViewType {
+		case option(OptionView)
+		case multipleChoiceOption(MultipleChoiceOptionView)
+//		case datePickerOption(title: String, initiallySelectedDaysFromToday: Int)
 	}
 
 	enum Selection {
 		case option(index: Int)
-		case multipleChoice(index: Int, selectedChoices: [Int])
-//		case datePicker(index: Int, selectedDaysFromToday: Int)
+		case multipleChoiceOption(index: Int, selectedChoices: Set<Int>)
+//		case datePickerOption(index: Int, selectedDaysFromToday: Int)
 	}
 
 	// MARK: - Init
@@ -62,11 +68,13 @@ class OptionGroup: UIView {
 	// MARK: - Private
 
 	private var options: [OptionGroup.Option]
-	private var optionViews: [UIControl] = []
+	private var optionViews: [OptionViewType] = []
 
-	private var contentStackView = UIStackView()
+	private let contentStackView = UIStackView()
 
-	func setUp() {
+	private var selectionSubscription: AnyCancellable?
+
+	private func setUp() {
 		contentStackView.axis = .vertical
 		contentStackView.spacing = 14
 
@@ -83,21 +91,78 @@ class OptionGroup: UIView {
 		for optionIndex in 0..<options.count {
 			let option = options[optionIndex]
 
-			let optionView: UIControl
 			switch option {
 			case .option(title: let title):
-				optionView = OptionView(title: title, onTap: {
-					self.selection = .option(index: optionIndex)
-					for viewIndex in 0..<self.optionViews.count {
-						self.optionViews[viewIndex].isSelected = viewIndex == optionIndex
+				let view = optionView(title: title, index: optionIndex)
+				optionViews.append(.option(view))
+				contentStackView.addArrangedSubview(view)
+			case let .multipleChoiceOption(title: title, choices: choices):
+				let view = multipleChoiceOptionView(title: title, choices: choices, index: optionIndex)
+				optionViews.append(.multipleChoiceOption(view))
+				contentStackView.addArrangedSubview(view)
+			}
+		}
+
+		selectionSubscription = $selection.sink { [weak self] selection in
+			DispatchQueue.main.async {
+				self?.updateOptionViews(for: selection)
+			}
+		}
+	}
+
+	private func optionView(title: String, index: Int) -> OptionView {
+		return OptionView(
+			title: title,
+			onTap: { [weak self] in
+				self?.selection = .option(index: index)
+			}
+		)
+	}
+
+	private func multipleChoiceOptionView(title: String, choices: [(iconImage: UIImage?, title: String)], index: Int) -> MultipleChoiceOptionView {
+		return MultipleChoiceOptionView(
+			title: title,
+			choices: choices,
+			onTapOnChoice: { [weak self] choiceIndex in
+				var newSelectedChoices = Set<Int>()
+				if case .multipleChoiceOption(index: index, selectedChoices: let previouslySelectedChoices) = self?.selection {
+					newSelectedChoices = previouslySelectedChoices
+
+					if previouslySelectedChoices.contains(choiceIndex) {
+						newSelectedChoices.remove(choiceIndex)
+					} else {
+						newSelectedChoices.insert(choiceIndex)
 					}
-				})
-			default:
-				optionView = OptionView(title: "", onTap: {})
+				} else {
+					newSelectedChoices = [choiceIndex]
+				}
+
+				self?.selection = newSelectedChoices.isEmpty ? nil : .multipleChoiceOption(index: index, selectedChoices: newSelectedChoices)
+			}
+		)
+	}
+
+	private func deselectAll() {
+		for viewIndex in 0..<self.optionViews.count {
+			switch optionViews[viewIndex] {
+			case .option(let view):
+				view.isSelected = false
+			case .multipleChoiceOption(let view):
+				view.selectedChoices = []
 			}
 
-			contentStackView.addArrangedSubview(optionView)
-			optionViews.append(optionView)
+		}
+	}
+
+	private func updateOptionViews(for selection: Selection?) {
+		deselectAll()
+
+		if case let .option(index: index) = selection, case let .option(view) = optionViews[index] {
+			view.isSelected = true
+		}
+
+		if case let .multipleChoiceOption(index: index, selectedChoices: selectedChoices) = selection, case let .multipleChoiceOption(view) = optionViews[index] {
+			view.selectedChoices = selectedChoices
 		}
 	}
 
