@@ -21,12 +21,12 @@ import FMDB
 protocol DownloadedPackagesStore: AnyObject {
 	func open()
 	func close()
-	func set(day: String, package: SAPDownloadedPackage)
-	func set(hour: Int, day: String, package: SAPDownloadedPackage)
-	func package(for day: String) -> SAPDownloadedPackage?
-	func hourlyPackages(for day: String) -> [SAPDownloadedPackage]
-	func allDays() -> [String] // 2020-05-30
-	func hours(for day: String) -> [Int]
+	func set(country: String, day: String, package: SAPDownloadedPackage)
+	func set(country: String, hour: Int, day: String, package: SAPDownloadedPackage)
+	func package(for day: String, country: String) -> SAPDownloadedPackage?
+	func hourlyPackages(for day: String, country: String) -> [SAPDownloadedPackage]
+	func allDays(country: String) -> [String] // 2020-05-30
+	func hours(for day: String, country: String) -> [Int]
 	func reset()
 	func deleteOutdatedDays(now: String) throws
 }
@@ -35,17 +35,18 @@ protocol DownloadedPackagesStore: AnyObject {
 extension DownloadedPackagesStore {
 	func allPackages(
 		for day: String,
+		country: String,
 		onlyHours: Bool
 	) -> [SAPDownloadedPackage] {
 		var packages = [SAPDownloadedPackage]()
 
 		if onlyHours {  // Testing only: Feed last three hours into framework
-			let allHoursForToday = hourlyPackages(for: .formattedToday())
+			let allHoursForToday = hourlyPackages(for: .formattedToday(), country: country)
 			packages.append(contentsOf: Array(allHoursForToday.prefix(3)))
 		} else {
-			let fullDays = allDays()
+			let fullDays = allDays(country: country)
 			packages.append(
-				contentsOf: fullDays.map { package(for: $0) }.compactMap { $0 }
+				contentsOf: fullDays.map { package(for: $0, country: country) }.compactMap { $0 }
 			)
 		}
 
