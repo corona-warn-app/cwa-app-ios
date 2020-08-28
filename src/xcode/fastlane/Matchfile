@@ -12,4 +12,6 @@ username("cwa.technical-user@sap.com") # Apple Developer Portal username
 
 team_id("523TP53AQF")
 
+force_for_new_devices(true)
+
 # The docs are available on https://docs.fastlane.tools/actions/match

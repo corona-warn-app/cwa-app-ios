@@ -108,7 +108,7 @@ platform :ios do
   desc "Ad hoc distribution"
   lane :adHocDistribution do
     match(
-      readonly: true,
+      readonly: false,
       type: "adhoc"
     )
 

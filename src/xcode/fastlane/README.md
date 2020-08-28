@@ -45,7 +45,7 @@ Build and upload for testing
 ```
 fastlane ios adHocDistribution
 ```
-Ad-hoc distribution
+Ad hoc distribution
 
 ----
 
