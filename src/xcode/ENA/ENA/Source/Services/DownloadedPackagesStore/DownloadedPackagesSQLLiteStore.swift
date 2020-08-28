@@ -60,7 +60,7 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 			        Z_SIGNATURE BLOB NOT NULL,
 			        Z_DAY TEXT NOT NULL,
 			        Z_HOUR INTEGER,
-					Z_COUNTRY STRING,
+					Z_COUNTRY STRING NOT NULL,
 			        PRIMARY KEY (
 						Z_COUNTRY,
 			            Z_DAY,
