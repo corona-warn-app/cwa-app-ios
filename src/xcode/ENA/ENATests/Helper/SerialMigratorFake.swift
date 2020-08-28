@@ -18,17 +18,7 @@
 //
 
 @testable import ENA
-import Foundation
-import FMDB
 
-extension FMDatabase {
-	class func inMemory() -> FMDatabase {
-		FMDatabase(path: "file::memory:")
-	}
-}
-
-extension DownloadedPackagesSQLLiteStore {
-	class func inMemory() -> DownloadedPackagesSQLLiteStore {
-		DownloadedPackagesSQLLiteStore(database: .inMemory(), migrator: SerialMigratorFake())
-	}
+class SerialMigratorFake: SerialMigratorProtocol {
+	func migrate() { }
 }

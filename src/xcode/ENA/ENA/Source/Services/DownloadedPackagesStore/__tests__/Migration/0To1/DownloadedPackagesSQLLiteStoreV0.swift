@@ -18,7 +18,22 @@
 import FMDB
 import Foundation
 
-final class DownloadedPackagesSQLLiteStore {
+@testable import ENA
+
+protocol DownloadedPackagesStoreV0: AnyObject {
+	func open()
+	func close()
+	func set(day: String, package: SAPDownloadedPackage)
+	func set(hour: Int, day: String, package: SAPDownloadedPackage)
+	func package(for day: String) -> SAPDownloadedPackage?
+	func hourlyPackages(for day: String) -> [SAPDownloadedPackage]
+	func allDays() -> [String] // 2020-05-30
+	func hours(for day: String) -> [Int]
+	func reset()
+	func deleteOutdatedDays(now: String) throws
+}
+
+final class DownloadedPackagesSQLLiteStoreV0 {
 	struct StoreError: Error {
 		init(_ message: String) {
 			self.message = message
@@ -27,9 +42,8 @@ final class DownloadedPackagesSQLLiteStore {
 	}
 	// MARK: Creating a Store
 
-	init(database: FMDatabase, migrator: SerialMigratorProtocol) {
+	init(database: FMDatabase) {
 		self.database = database
-		self.migrator = migrator
 	}
 
 	private func _beginTransaction() {
@@ -43,14 +57,13 @@ final class DownloadedPackagesSQLLiteStore {
 	// MARK: Properties
 	private let queue = DispatchQueue(label: "com.sap.DownloadedPackagesSQLLiteStore")
 	private let database: FMDatabase
-	private let migrator: SerialMigratorProtocol
 }
 
-extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
+extension DownloadedPackagesSQLLiteStoreV0: DownloadedPackagesStoreV0 {
 	func open() {
 		_ = queue.sync {
 			self.database.open()
-			let success = self.database.executeStatements(
+			self.database.executeStatements(
 			"""
 			    PRAGMA locking_mode=EXCLUSIVE;
 			    PRAGMA auto_vacuum=2;
@@ -62,19 +75,13 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 			        Z_SIGNATURE BLOB NOT NULL,
 			        Z_DAY TEXT NOT NULL,
 			        Z_HOUR INTEGER,
-					Z_COUNTRY STRING NOT NULL,
 			        PRIMARY KEY (
-						Z_COUNTRY,
 			            Z_DAY,
 			            Z_HOUR
 			        )
 			    );
 			"""
-			)
-
-			if !success {
-				self.migrator.migrate()
-			}
+		)
 		}
 	}
 
@@ -84,8 +91,8 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 		}
 	}
 
+	// swiftlint:disable:next function_body_length
 	func set(
-		country: String,
 		day: String,
 		package: SAPDownloadedPackage
 	) {
@@ -94,15 +101,11 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 				"""
 				    DELETE FROM Z_DOWNLOADED_PACKAGE
 				    WHERE
-						Z_COUNTRY = :country AND
 				        Z_DAY = :day AND
 				        Z_HOUR IS NOT NULL
 				    ;
 				""",
-				withParameterDictionary: [
-					"country": country,
-					"day": day
-				]
+				withParameterDictionary: ["day": day]
 			)
 		}
 		func insertDay() -> Bool {
@@ -113,18 +116,15 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 				            Z_BIN,
 				            Z_SIGNATURE,
 				            Z_DAY,
-				            Z_HOUR,
-							Z_COUNTRY
+				            Z_HOUR
 				        )
 				        VALUES (
 				            :bin,
 				            :signature,
 				            :day,
-				            NULL,
-							:country
+				            NULL
 				        )
 				        ON CONFLICT (
-							Z_COUNTRY,
 				            Z_DAY,
 				            Z_HOUR
 				        )
@@ -136,8 +136,7 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 				withParameterDictionary: [
 					"bin": package.bin,
 					"signature": package.signature,
-					"day": day,
-					"country": country
+					"day": day
 				]
 			)
 		}
@@ -159,30 +158,22 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 
 	}
 
-	func set(
-		country: String,
-		hour: Int,
-		day: String,
-		package: SAPDownloadedPackage
-	) {
+	func set(hour: Int, day: String, package: SAPDownloadedPackage) {
 		queue.sync {
 			let sql = """
 				INSERT INTO Z_DOWNLOADED_PACKAGE(
 					Z_BIN,
 					Z_SIGNATURE,
 					Z_DAY,
-					Z_HOUR,
-					Z_COUNTRY
+					Z_HOUR
 				)
 				VALUES (
 					:bin,
 					:signature,
 					:day,
-					:hour,
-					:country
+					:hour
 				)
 				ON CONFLICT(
-					Z_COUNTRY,
 					Z_DAY,
 					Z_HOUR
 				)
@@ -195,8 +186,7 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 				"bin": package.bin,
 				"signature": package.signature,
 				"day": day,
-				"hour": hour,
-				"country": country
+				"hour": hour
 			]
 			self.database.executeUpdate(sql, withParameterDictionary: parameters)
 		}
@@ -218,7 +208,7 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 		}
 	}
 
-	func package(for day: String, country: String) -> SAPDownloadedPackage? {
+	func package(for day: String) -> SAPDownloadedPackage? {
 		queue.sync {
 			let sql = """
 				SELECT
@@ -226,18 +216,11 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 					Z_SIGNATURE
 				FROM Z_DOWNLOADED_PACKAGE
 				WHERE
-					Z_COUNTRY = :country AND
 					Z_DAY = :day AND
 					Z_HOUR IS NULL
 				;
 			"""
-
-			let parameters: [String: Any] = [
-				"day": day,
-				"country": country
-			]
-
-			guard let result = self.database.execute(query: sql, parameters: parameters) else {
+			guard let result = self.database.execute(query: sql, parameters: ["day": day]) else {
 				return nil
 			}
 
@@ -249,29 +232,10 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 		}
 	}
 
-	func hourlyPackages(for day: String, country: String) -> [SAPDownloadedPackage] {
+	func hourlyPackages(for day: String) -> [SAPDownloadedPackage] {
 		queue.sync {
-			let sql = """
-				SELECT
-					Z_BIN,
-					Z_SIGNATURE,
-					Z_HOUR
-				FROM Z_DOWNLOADED_PACKAGE
-				WHERE
-					Z_COUNTRY = :country AND
-					Z_DAY = :day AND
-					Z_HOUR IS NOT NULL
-				ORDER BY
-					Z_HOUR DESC
-				;
-			"""
-
-			let parameters: [String: Any] = [
-				"day": day,
-				"country": country
-			]
-
-			guard let result = self.database.execute(query: sql, parameters: parameters) else {
+			let sql = "SELECT Z_BIN, Z_SIGNATURE, Z_HOUR FROM Z_DOWNLOADED_PACKAGE WHERE Z_DAY = :day AND Z_HOUR IS NOT NULL ORDER BY Z_HOUR DESC;"
+			guard let result = self.database.execute(query: sql, parameters: ["day": day]) else {
 				return []
 			}
 			defer { result.close() }
@@ -281,24 +245,10 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 		}
 	}
 
-	func allDays(country: String) -> [String] {
+	func allDays() -> [String] {
 		queue.sync {
-			let sql = """
-				SELECT
-					Z_DAY
-				FROM
-					Z_DOWNLOADED_PACKAGE
-				WHERE
-					Z_COUNTRY = :country AND
-					Z_HOUR IS NULL
-				;
-			"""
-
-			let parameters: [String: Any] = [
-				"country": country
-			]
-
-			guard let result = self.database.execute(query: sql, parameters: parameters) else {
+			let sql = "SELECT Z_DAY FROM Z_DOWNLOADED_PACKAGE WHERE Z_HOUR IS NULL;"
+			guard let result = self.database.execute(query: sql) else {
 				return []
 			}
 			defer { result.close() }
@@ -308,7 +258,7 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 		}
 	}
 
-	func hours(for day: String, country: String) -> [Int] {
+	func hours(for day: String) -> [Int] {
 		let sql =
 			"""
 			    SELECT
@@ -316,19 +266,11 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 			    FROM
 			        Z_DOWNLOADED_PACKAGE
 			    WHERE
-			        Z_HOUR IS NOT NULL AND
-					Z_DAY = :day AND
-					Z_COUNTRY = :country
+			        Z_HOUR IS NOT NULL AND Z_DAY = :day
 			    ;
 			"""
-
-		let parameters: [String: Any] = [
-			"day": day,
-			"country": country
-		]
-
 		return queue.sync {
-			guard let result = self.database.execute(query: sql, parameters: parameters) else {
+			guard let result = self.database.execute(query: sql, parameters: ["day": day]) else {
 				return []
 			}
 			defer { result.close() }
@@ -377,7 +319,7 @@ private extension FMResultSet {
 	}
 }
 
-extension DownloadedPackagesSQLLiteStore {
+extension DownloadedPackagesSQLLiteStoreV0 {
 	convenience init(fileName: String) {
 
 		let fileManager = FileManager()
@@ -389,11 +331,7 @@ extension DownloadedPackagesSQLLiteStore {
 				.appendingPathExtension("sqlite3")
 
 		let db = FMDatabase(url: storeURL)
-
-		let latestDBVersion = 1
-		let migration0To1 = Migration0To1(database: db)
-		let migrator = SerialMigrator(latestVersion: latestDBVersion, database: db, migrations: [migration0To1])
-		self.init(database: db, migrator: migrator)
+		self.init(database: db)
 		self.open()
 	}
 }

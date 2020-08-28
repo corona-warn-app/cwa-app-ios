@@ -19,7 +19,11 @@
 
 import FMDB
 
-class SerialMigrator {
+protocol SerialMigratorProtocol {
+	func migrate()
+}
+
+class SerialMigrator: SerialMigratorProtocol {
 
 	private let latestVersion: Int
 	private let database: FMDatabase

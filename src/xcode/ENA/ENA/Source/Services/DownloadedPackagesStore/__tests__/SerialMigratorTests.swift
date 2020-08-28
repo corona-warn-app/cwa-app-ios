@@ -29,9 +29,9 @@ class MigrationStub: Migration {
 		self.migration = migration
 	}
 
-	func execute(success: () -> Void) {
+	func execute(completed: (Bool) -> Void) {
 		migration()
-		success()
+		completed(true)
 	}
 }
 
