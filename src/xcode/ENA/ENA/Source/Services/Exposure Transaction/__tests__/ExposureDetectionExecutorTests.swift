@@ -78,7 +78,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let localDaysAndHours: DaysAndHours = DaysAndHours(days: [yesterdayString], hours: [])
 
 		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
-		downloadedPackageStore.set(day: localDaysAndHours.days[0], package: try .makePackage())
+		downloadedPackageStore.set(country: "DE", day: localDaysAndHours.days[0], package: try .makePackage())
 
 		let sut = ExposureDetectionExecutor.makeWith(packageStore: downloadedPackageStore)
 
@@ -93,7 +93,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		// Test the case where the exector is asked to download the latest DaysAndHours delta,
 		// and the server has new data. We expect that the downloaded package store is pruned of old entries
 		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
-		downloadedPackageStore.set(day: Date.distantPast.formatted, package: try SAPDownloadedPackage.makePackage())
+		downloadedPackageStore.set(country: "DE", day: Date.distantPast.formatted, package: try SAPDownloadedPackage.makePackage())
 
 		let sut = ExposureDetectionExecutor.makeWith(packageStore: downloadedPackageStore)
 
@@ -101,7 +101,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 			ExposureDetection(delegate: sut),
 			downloadDeltaFor: DaysAndHours(days: ["Hello"], hours: [])
 		)
-		XCTAssert(downloadedPackageStore.allDays().isEmpty, "The store should be empty after being pruned!")
+		XCTAssert(downloadedPackageStore.allDays(country: "DE").isEmpty, "The store should be empty after being pruned!")
 	}
 
 	// MARK: - Store Delta Tests
@@ -127,7 +127,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 				defer { completionExpectation.fulfill() }
 				XCTAssertNil(error)
 
-				guard let storedPackage = downloadedPackageStore.package(for: "2020-01-01") else {
+				guard let storedPackage = downloadedPackageStore.package(for: "2020-01-01", country: "DE") else {
 					// We can't XCUnwrap here as completion handler closure cannot throw
 					XCTFail("Package store did not contain downloaded delta package!")
 					return
@@ -200,9 +200,9 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 
 		let todayString = Calendar.gregorianUTC.startOfDay(for: Date()).formatted
 		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
-		try downloadedPackageStore.set(day: todayString, package: .makePackage())
+		try downloadedPackageStore.set(country: "DE", day: todayString, package: .makePackage())
 		// Below package is stored but should not be written to disk as hourly fetching is disabled
-		try downloadedPackageStore.set(hour: 3, day: todayString, package: .makePackage())
+		try downloadedPackageStore.set(country: "DE", hour: 3, day: todayString, package: .makePackage())
 		let store = MockTestStore()
 		store.hourlyFetchingEnabled = false
 
@@ -246,9 +246,9 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let todayString = Calendar.gregorianUTC.startOfDay(for: Date()).formatted
 		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
 		// Below package is stored but should not be written to disk as hourly fetching is enabled
-		try downloadedPackageStore.set(day: todayString, package: .makePackage())
-		try downloadedPackageStore.set(hour: 3, day: todayString, package: .makePackage())
-		try downloadedPackageStore.set(hour: 4, day: todayString, package: .makePackage())
+		try downloadedPackageStore.set(country: "DE", day: todayString, package: .makePackage())
+		try downloadedPackageStore.set(country: "DE", hour: 3, day: todayString, package: .makePackage())
+		try downloadedPackageStore.set(country: "DE", hour: 4, day: todayString, package: .makePackage())
 		let sut = ExposureDetectionExecutor.makeWith(packageStore: downloadedPackageStore)
 
 		let result = sut.exposureDetectionWriteDownloadedPackages(

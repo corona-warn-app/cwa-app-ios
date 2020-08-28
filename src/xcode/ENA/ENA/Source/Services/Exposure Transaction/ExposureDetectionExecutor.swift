@@ -81,8 +81,8 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		let delta = DeltaCalculationResult(
 			remoteDays: Set(remote.days),
 			remoteHours: Set(remote.hours),
-			localDays: Set(downloadedPackagesStore.allDays()),
-			localHours: Set(downloadedPackagesStore.hours(for: .formattedToday()))
+			localDays: Set(downloadedPackagesStore.allDays(country: "DE")),
+			localHours: Set(downloadedPackagesStore.hours(for: .formattedToday(), country: "DE"))
 		)
 		return DaysAndHours(
 			days: Array(delta.missingDays),
@@ -112,7 +112,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		let rootDir = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		do {
 			try fileManager.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
-			let packages = downloadedPackagesStore.allPackages(for: .formattedToday(), onlyHours: store.hourlyFetchingEnabled)
+			let packages = downloadedPackagesStore.allPackages(for: .formattedToday(), country: "DE", onlyHours: store.hourlyFetchingEnabled)
 			let writer = AppleFilesWriter(rootDir: rootDir, keyPackages: packages)
 			return writer.writeAllPackages()
 		} catch {
@@ -152,12 +152,12 @@ extension DownloadedPackagesStore {
 	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours) {
 		let days = daysAndHours.days
 		days.bucketsByDay.forEach { day, bucket in
-			self.set(day: day, package: bucket)
+			self.set(country: "DE", day: day, package: bucket)
 		}
 
 		let hours = daysAndHours.hours
 		hours.bucketsByHour.forEach { hour, bucket in
-			self.set(hour: hour, day: hours.day, package: bucket)
+			self.set(country: "DE", hour: hour, day: hours.day, package: bucket)
 		}
 	}
 }
