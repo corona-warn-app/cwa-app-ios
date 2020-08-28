@@ -51,7 +51,7 @@ class OptionView: UIControl {
 			layer.borderWidth = isSelected ? 2 : 1
 			layer.borderColor = isSelected ? UIColor.enaColor(for: .buttonPrimary).cgColor : UIColor.enaColor(for: .hairline).cgColor
 
-			checkmarkImageView.image = isSelected ? UIImage(named: "Icons_Option_Checked") : UIImage(named: "Icons_Option_Unchecked")
+			checkmarkImageView.image = isSelected ? UIImage(named: "Checkmark_Selected") : UIImage(named: "Checkmark_Unselected")
 		}
 	}
 
@@ -61,15 +61,13 @@ class OptionView: UIControl {
 		onTap()
 	}
 
-	// MARK: - Internal
-
-	var onTap: () -> Void
-
 	// MARK: - Private
 
-	var checkmarkImageView = UIImageView()
+	private let onTap: () -> Void
 
-	func setUp(title: String) {
+	private let checkmarkImageView = UIImageView()
+
+	private func setUp(title: String) {
 		backgroundColor = UIColor.enaColor(for: .background)
 
 		layer.cornerRadius = 10

@@ -22,7 +22,7 @@ import Combine
 
 class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTableViewController, ExposureSubmittableViewController {
 
-	enum TravelOption {
+	enum TravelConfirmationOption {
 		case yes, no, preferNotToSay
 	}
 
@@ -51,7 +51,7 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		if selectedTravelOption == .yes {
+		if selectedTravelConfirmationOption == .yes {
 			coordinator?.showWarnEuropeCountrySelectionScreen()
 		} else {
 			startSubmitProcess()
@@ -65,7 +65,7 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 
 	// MARK: - Private
 
-	@Published private var selectedTravelOption: TravelOption?
+	@Published private var selectedTravelConfirmationOption: TravelConfirmationOption?
 
 	private var optionGroupSelection: OptionGroup.Selection? {
 		didSet {
@@ -73,19 +73,19 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 
 			switch index {
 			case 0:
-				selectedTravelOption = .yes
+				selectedTravelConfirmationOption = .yes
 			case 1:
-				selectedTravelOption = .no
+				selectedTravelConfirmationOption = .no
 			case 2:
-				selectedTravelOption = .preferNotToSay
+				selectedTravelConfirmationOption = .preferNotToSay
 			default:
 				break
 			}
 		}
 	}
 
-	private var travelOptionSubscription: AnyCancellable?
-	private var selectionSubscription: AnyCancellable?
+	private var travelOptionConfirmationButtonStateSubscription: AnyCancellable?
+	private var optionGroupSelectionSubscription: AnyCancellable?
 
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.title
@@ -93,7 +93,7 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 
 		setupTableView()
 
-		travelOptionSubscription = $selectedTravelOption.receive(on: RunLoop.main).sink {
+		travelOptionConfirmationButtonStateSubscription = $selectedTravelConfirmationOption.receive(on: RunLoop.main).sink {
 			self.navigationFooterItem?.isPrimaryButtonEnabled = $0 != nil
 		}
 	}
@@ -134,7 +134,7 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 									initialSelection: self?.optionGroupSelection
 								)
 
-								self?.selectionSubscription = cell.$selection.sink {
+								self?.optionGroupSelectionSubscription = cell.$selection.sink {
 									self?.optionGroupSelection = $0
 								}
 							}

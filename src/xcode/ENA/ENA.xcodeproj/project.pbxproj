@@ -21,6 +21,8 @@
 		01B7232424F812500064C0EB /* DynamicTableViewOptionGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B7232324F812500064C0EB /* DynamicTableViewOptionGroupCell.swift */; };
 		01B7232724F812BC0064C0EB /* OptionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B7232624F812BC0064C0EB /* OptionGroup.swift */; };
 		01B7232924F812DF0064C0EB /* OptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B7232824F812DF0064C0EB /* OptionView.swift */; };
+		01B7232B24F815B00064C0EB /* MultipleChoiceOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B7232A24F815B00064C0EB /* MultipleChoiceOptionView.swift */; };
+		01B7232D24F8E0260064C0EB /* MultipleChoiceChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B7232C24F8E0260064C0EB /* MultipleChoiceChoiceView.swift */; };
 		01D16C5E24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C5D24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift */; };
 		01D16C6024ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C5F24ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift */; };
 		01D16C6224ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C6124ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift */; };
@@ -469,6 +471,8 @@
 		01B7232324F812500064C0EB /* DynamicTableViewOptionGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewOptionGroupCell.swift; sourceTree = "<group>"; };
 		01B7232624F812BC0064C0EB /* OptionGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionGroup.swift; sourceTree = "<group>"; };
 		01B7232824F812DF0064C0EB /* OptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionView.swift; sourceTree = "<group>"; };
+		01B7232A24F815B00064C0EB /* MultipleChoiceOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceOptionView.swift; sourceTree = "<group>"; };
+		01B7232C24F8E0260064C0EB /* MultipleChoiceChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceChoiceView.swift; sourceTree = "<group>"; };
 		01D16C5D24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAppRefreshViewModelTests.swift; sourceTree = "<group>"; };
 		01D16C5F24ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBackgroundRefreshStatusProvider.swift; sourceTree = "<group>"; };
 		01D16C6124ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLowPowerModeStatusProvider.swift; sourceTree = "<group>"; };
@@ -955,6 +959,8 @@
 			children = (
 				01B7232624F812BC0064C0EB /* OptionGroup.swift */,
 				01B7232824F812DF0064C0EB /* OptionView.swift */,
+				01B7232A24F815B00064C0EB /* MultipleChoiceOptionView.swift */,
+				01B7232C24F8E0260064C0EB /* MultipleChoiceChoiceView.swift */,
 			);
 			path = OptionGroup;
 			sourceTree = "<group>";
@@ -1738,10 +1744,10 @@
 				2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */,
 				A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */,
 				01D16C6324EFA903007DB387 /* ExposureSubmissionWarnEuropeConsentViewController.swift */,
-				71FE1C73247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift */,
 				01D16C6524EFA91F007DB387 /* ExposureSubmissionWarnEuropeTravelConfirmationViewController.swift */,
 				01D16C6724EFA93D007DB387 /* ExposureSubmissionWarnEuropeCountrySelectionViewController.swift */,
 				01D16C6924EFD38A007DB387 /* ExposureSubmittableViewController.swift */,
+				71FE1C73247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2743,6 +2749,7 @@
 				B153096A24706F1000A4A1BD /* URLSession+Default.swift in Sources */,
 				2FF1D62E2487850200381FFB /* NSMutableAttributedString+Generation.swift in Sources */,
 				51CE1B4C246016D1002CF42A /* UICollectionReusableView+Identifier.swift in Sources */,
+				01B7232D24F8E0260064C0EB /* MultipleChoiceChoiceView.swift in Sources */,
 				710224EA248FA67F000C5DEF /* HomeTestResultCollectionViewCell.swift in Sources */,
 				013DC102245DAC4E00EE58B0 /* Store.swift in Sources */,
 				B1FE13EF24891D0C00D012E5 /* RiskProvidingConfiguration.swift in Sources */,
@@ -2828,6 +2835,7 @@
 				B18755D124DC45CA00A9202E /* DMStoreViewController.swift in Sources */,
 				B184A383248FFCE2007180F6 /* CodableExposureDetectionSummary.swift in Sources */,
 				B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */,
+				01B7232B24F815B00064C0EB /* MultipleChoiceOptionView.swift in Sources */,
 				A1C683FC24AEC9EE00B90D12 /* DynamicTableViewTextCell.swift in Sources */,
 				710224F624910661000C5DEF /* ExposureSubmissionDynamicCell.swift in Sources */,
 				EEF1067A246EBF8B009DFB4E /* ResetViewController.swift in Sources */,
