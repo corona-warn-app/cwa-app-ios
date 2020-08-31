@@ -89,7 +89,7 @@ platform :ios do
   desc "Build and upload for testing"
   lane :betaRelease do
     match(
-      readonly: true
+      type: "appstore"
     )
 
     build_ios_app(
@@ -103,6 +103,28 @@ platform :ios do
       apple_id: "1515713549",
       skip_waiting_for_build_processing: true,
       skip_submission: true,  # only upload
+    )
+  end
+
+  desc "Ad hoc distribution"
+  lane :adHocDistribution do
+    match(
+      type: "adhoc"
+    )
+
+    build_ios_app(
+      scheme: "ENA",
+      configuration: "AdHoc",
+      export_method: "ad-hoc",
+      clean: true
+    )
+
+    appcenter_upload(
+      api_token: ENV["MS_APP_CENTER_TOKEN"],
+      owner_name: "Corona-Warn-App",
+      owner_type: "organization",
+      app_name: "Corona-Warn-App",
+      file: "ENA.ipa"
     )
   end
 
