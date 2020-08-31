@@ -11,6 +11,6 @@ message SubmissionPayload {
   optional bytes padding = 2;
   repeated string visitedCountries = 3;
   optional string origin = 4;
-  optional ReportType reportType = 5 [default = CONFIRMED_CLINICAL_DIAGNOSIS];
+  optional SAP.ReportType reportType = 5 [default = CONFIRMED_CLINICAL_DIAGNOSIS];
   optional bool consentToFederation = 6;
 }

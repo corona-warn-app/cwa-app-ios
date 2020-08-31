@@ -7,6 +7,9 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/apple/swift-protobuf/
 
+/// Explicit usage of proto2 because version 3 does not support custom default values
+/// https://stackoverflow.com/questions/33222551/why-are-there-no-custom-default-values-in-proto3
+
 import Foundation
 import SwiftProtobuf
 
