@@ -32,11 +32,15 @@ protocol Client {
 	typealias DayCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
 	typealias HourCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
 	typealias AppConfigurationCompletion = (SAP_ApplicationConfiguration?) -> Void
+	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
 
 	// MARK: Interacting with a Client
 
 	/// Gets the app configuration
 	func appConfiguration(completion: @escaping AppConfigurationCompletion)
+
+	/// Gets the list of available countries for key submission.
+	func supportedCountries(completion: @escaping CountryFetchCompletion)
 
 	/// Determines days that can be downloaded.
 	func availableDays(completion: @escaping AvailableDaysCompletionHandler)

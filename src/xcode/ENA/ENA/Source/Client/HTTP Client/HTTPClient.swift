@@ -87,6 +87,18 @@ final class HTTPClient: Client {
 		}
 	}
 
+	func supportedCountries(completion: @escaping CountryFetchCompletion) {
+		appConfiguration { config in
+			guard let config = config else {
+				// the previous call needs a refactoring to return a proper reason WHY this may result in no configuration
+				completion(.failure(.invalidResponse))
+				return
+			}
+			let countries = config.supportedCountries.compactMap { Country(countryCode: $0) }
+			completion(.success(countries))
+		}
+	}
+
 	func submit(
 		keys: [ENTemporaryExposureKey],
 		tan: String,

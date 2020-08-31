@@ -131,6 +131,17 @@ struct SAP_ApplicationConfiguration {
   /// Clears the value of `appVersion`. Subsequent reads from it will return its default value.
   mutating func clearAppVersion() {self._appVersion = nil}
 
+  var appFeatures: SAP_AppFeatures {
+    get {return _appFeatures ?? SAP_AppFeatures()}
+    set {_appFeatures = newValue}
+  }
+  /// Returns true if `appFeatures` has been explicitly set.
+  var hasAppFeatures: Bool {return self._appFeatures != nil}
+  /// Clears the value of `appFeatures`. Subsequent reads from it will return its default value.
+  mutating func clearAppFeatures() {self._appFeatures = nil}
+
+  var supportedCountries: [String] = []
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -139,6 +150,7 @@ struct SAP_ApplicationConfiguration {
   fileprivate var _exposureConfig: SAP_RiskScoreParameters? = nil
   fileprivate var _attenuationDuration: SAP_AttenuationDuration? = nil
   fileprivate var _appVersion: SAP_ApplicationVersionConfiguration? = nil
+  fileprivate var _appFeatures: SAP_AppFeatures? = nil
 }
 
 struct SAP_RiskScoreParameters {
@@ -359,6 +371,32 @@ struct SAP_RiskScoreClass {
   init() {}
 }
 
+struct SAP_AppFeatures {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var appFeatures: [SAP_AppFeature] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct SAP_AppFeature {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var label: String = String()
+
+  var value: Int32 = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP"
@@ -385,6 +423,8 @@ extension SAP_ApplicationConfiguration: SwiftProtobuf.Message, SwiftProtobuf._Me
     3: .same(proto: "exposureConfig"),
     4: .same(proto: "attenuationDuration"),
     5: .same(proto: "appVersion"),
+    6: .same(proto: "appFeatures"),
+    7: .same(proto: "supportedCountries"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -395,6 +435,8 @@ extension SAP_ApplicationConfiguration: SwiftProtobuf.Message, SwiftProtobuf._Me
       case 3: try decoder.decodeSingularMessageField(value: &self._exposureConfig)
       case 4: try decoder.decodeSingularMessageField(value: &self._attenuationDuration)
       case 5: try decoder.decodeSingularMessageField(value: &self._appVersion)
+      case 6: try decoder.decodeSingularMessageField(value: &self._appFeatures)
+      case 7: try decoder.decodeRepeatedStringField(value: &self.supportedCountries)
       default: break
       }
     }
@@ -416,6 +458,12 @@ extension SAP_ApplicationConfiguration: SwiftProtobuf.Message, SwiftProtobuf._Me
     if let v = self._appVersion {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
     }
+    if let v = self._appFeatures {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    }
+    if !self.supportedCountries.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.supportedCountries, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -425,6 +473,8 @@ extension SAP_ApplicationConfiguration: SwiftProtobuf.Message, SwiftProtobuf._Me
     if lhs._exposureConfig != rhs._exposureConfig {return false}
     if lhs._attenuationDuration != rhs._attenuationDuration {return false}
     if lhs._appVersion != rhs._appVersion {return false}
+    if lhs._appFeatures != rhs._appFeatures {return false}
+    if lhs.supportedCountries != rhs.supportedCountries {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -856,6 +906,70 @@ extension SAP_RiskScoreClass: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     if lhs.min != rhs.min {return false}
     if lhs.max != rhs.max {return false}
     if lhs.url != rhs.url {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SAP_AppFeatures: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".AppFeatures"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "app_features"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.appFeatures)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.appFeatures.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.appFeatures, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: SAP_AppFeatures, rhs: SAP_AppFeatures) -> Bool {
+    if lhs.appFeatures != rhs.appFeatures {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SAP_AppFeature: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".AppFeature"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "label"),
+    2: .same(proto: "value"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.label)
+      case 2: try decoder.decodeSingularInt32Field(value: &self.value)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.label.isEmpty {
+      try visitor.visitSingularStringField(value: self.label, fieldNumber: 1)
+    }
+    if self.value != 0 {
+      try visitor.visitSingularInt32Field(value: self.value, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: SAP_AppFeature, rhs: SAP_AppFeature) -> Bool {
+    if lhs.label != rhs.label {return false}
+    if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

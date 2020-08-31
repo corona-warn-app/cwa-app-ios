@@ -22,7 +22,7 @@ final class ClientMock {
 	
 	// MARK: - Creating a Mock Client.
 
-	/// Creates a mock `Client` implementation.
+	/// Creates a mock `Client` implementation wit given default values.
 	///
 	/// - parameters:
 	///		- availableDaysAndHours: return this value when the `availableDays(_:)` or `availableHours(_:)` is called, or an error if `urlRequestFailure` is passed.
@@ -41,12 +41,19 @@ final class ClientMock {
 		self.urlRequestFailure = urlRequestFailure
 	}
 
+	init() {}
+
 	// MARK: - Properties.
 	
-	let submissionError: SubmissionError?
-	let urlRequestFailure: Client.Failure?
-	let availableDaysAndHours: DaysAndHours
-	let downloadedPackage: SAPDownloadedPackage?
+	var submissionError: SubmissionError?
+	var urlRequestFailure: Client.Failure?
+	var availableDaysAndHours: DaysAndHours = DaysAndHours(days: [], hours: [])
+	var downloadedPackage: SAPDownloadedPackage?
+	lazy var supportedCountries: [Country] = {
+		// provide a default list of some countries
+		let codes = ["DE", "IT", "ES", "PL", "NL", "BE", "CZ", "AT", "DK", "IE", "LT", "LV", "EE"]
+		return codes.compactMap({ Country(countryCode: $0) })
+	}()
 
 	// MARK: - Configurable Mock Callbacks.
 
@@ -68,6 +75,14 @@ extension ClientMock: Client {
 			return
 		}
 		completion(.success(availableDaysAndHours.days))
+	}
+
+	func supportedCountries(completion: @escaping CountryFetchCompletion) {
+		if let failure = urlRequestFailure {
+			completion(.failure(failure))
+			return
+		}
+		completion(.success(supportedCountries))
 	}
 
 	func availableHours(day: String, completion: @escaping AvailableHoursCompletionHandler) {
