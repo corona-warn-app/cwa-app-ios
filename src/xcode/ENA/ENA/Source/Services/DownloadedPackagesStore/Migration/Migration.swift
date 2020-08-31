@@ -18,5 +18,5 @@
 //
 
 protocol Migration {
-	func execute(success: () -> Void)
+	func execute(completed: (Bool) -> Void)
 }

@@ -39,9 +39,13 @@ class SerialMigrator {
 		if database.userVersion < latestVersion {
 			let userVersion = Int(database.userVersion)
 
-			migrations[userVersion].execute { [weak self] in
-				self?.database.userVersion += 1
-				migrate()
+			migrations[userVersion].execute { [weak self] success in
+				if success {
+					self?.database.userVersion += 1
+					migrate()
+				} else {
+					logError(message: "Migration failed to version \(database.userVersion += 1)")
+				}
 			}
 		} else {
 			return

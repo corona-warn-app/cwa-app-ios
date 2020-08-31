@@ -27,8 +27,9 @@ final class DownloadedPackagesSQLLiteStore {
 	}
 	// MARK: Creating a Store
 
-	init(database: FMDatabase) {
+	init(database: FMDatabase, migrator: SerialMigrator) {
 		self.database = database
+		self.migrator = migrator
 	}
 
 	private func _beginTransaction() {
@@ -42,13 +43,14 @@ final class DownloadedPackagesSQLLiteStore {
 	// MARK: Properties
 	private let queue = DispatchQueue(label: "com.sap.DownloadedPackagesSQLLiteStore")
 	private let database: FMDatabase
+	private let migrator: SerialMigrator
 }
 
 extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 	func open() {
 		_ = queue.sync {
 			self.database.open()
-			self.database.executeStatements(
+			let success = self.database.executeStatements(
 			"""
 			    PRAGMA locking_mode=EXCLUSIVE;
 			    PRAGMA auto_vacuum=2;
@@ -68,7 +70,11 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 			        )
 			    );
 			"""
-		)
+			)
+
+			if !success {
+				self.migrator.migrate()
+			}
 		}
 	}
 

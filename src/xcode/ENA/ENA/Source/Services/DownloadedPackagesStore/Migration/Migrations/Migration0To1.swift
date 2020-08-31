@@ -27,7 +27,20 @@ class Migration0To1: Migration {
 		self.database = database
 	}
 
-	func execute(success: () -> Void) {
-		success()
+	func execute(completed: (Bool) -> Void) {
+		let sql = """
+			BEGIN TRANSACTION;
+
+			ALTER TABLE Z_SOME_TABLE
+			ADD Z_COUNTRY INTEGER;
+
+			UPDATE Z_SOME_TABLE
+			SET Z_COUNTRY = "DE";
+
+			COMMIT;
+		"""
+
+		let success = database.executeStatements(sql)
+		completed(success)
 	}
 }
