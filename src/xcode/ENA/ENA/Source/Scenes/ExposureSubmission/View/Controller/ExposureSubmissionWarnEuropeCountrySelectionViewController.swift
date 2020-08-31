@@ -23,15 +23,21 @@ import Combine
 class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableViewController, ExposureSubmittableViewController {
 
 	enum CountrySelectionOption {
-		case visitedCountries([String])
+		case visitedCountries([Country])
 		case preferNotToSay
 	}
 
 	// MARK: - Init
 
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, exposureSubmissionService: ExposureSubmissionService) {
+	init?(
+		coder: NSCoder,
+		coordinator: ExposureSubmissionCoordinating,
+		exposureSubmissionService: ExposureSubmissionService,
+		availableCountries: [Country] = ["IT", "ES", "NL", "CZ", "AT", "DK", "IE", "LV", "EE"].compactMap { Country(countryCode: $0) }
+	) {
 		self.coordinator = coordinator
 		self.exposureSubmissionService = exposureSubmissionService
+		self.availableCountries = availableCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
 
 		super.init(coder: coder)
 	}
@@ -62,7 +68,7 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 
 	// MARK: - Private
 
-	private let availableCountries = ["IT", "ES", "NL", "CZ", "AT", "DK", "IE", "LV", "EE"]
+	private let availableCountries: [Country]
 
 	@Published private var selectedCountrySelectionOption: CountrySelectionOption?
 
@@ -126,7 +132,7 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 									options: [
 										.multipleChoiceOption(
 											title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionCountrySelection,
-											choices: self.availableCountries.map { (iconImage: nil, title: $0) }
+											choices: self.availableCountries.map { (iconImage: $0.flag, title: $0.localizedName) }
 										),
 										.option(
 											title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionNone
