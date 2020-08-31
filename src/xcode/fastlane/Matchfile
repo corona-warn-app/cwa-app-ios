@@ -2,8 +2,6 @@ git_url("git@github.com:corona-warn-app/cwa-certificates.git")
 
 storage_mode("git")
 
-type("appstore") # The default type, can be: appstore, adhoc, enterprise or development
-
 app_identifier(["de.rki.coronawarnapp-dev"])  #, "de.rki.coronawarnapp"
 
 template_name("Exposure Notification for 523TP53AQF (Distribution) iOS Dist")  # Entitlement name

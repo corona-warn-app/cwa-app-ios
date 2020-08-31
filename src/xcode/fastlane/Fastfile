@@ -88,7 +88,7 @@ platform :ios do
   desc "Build and upload for testing"
   lane :betaRelease do
     match(
-      readonly: true
+      type: "appstore"
     )
 
     build_ios_app(
@@ -108,7 +108,6 @@ platform :ios do
   desc "Ad hoc distribution"
   lane :adHocDistribution do
     match(
-      readonly: false,
       type: "adhoc"
     )
 
@@ -126,7 +125,6 @@ platform :ios do
       app_name: "Corona-Warn-App",
       file: "ENA.ipa"
     )
-
   end
 
 
