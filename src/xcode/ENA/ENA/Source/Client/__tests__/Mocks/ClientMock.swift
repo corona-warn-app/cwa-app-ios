@@ -82,7 +82,7 @@ extension ClientMock: Client {
 			completion(.failure(failure))
 			return
 		}
-		completion(.success(availableCountries))
+		completion(.success(supportedCountries))
 	}
 
 	func availableHours(day: String, completion: @escaping AvailableHoursCompletionHandler) {
