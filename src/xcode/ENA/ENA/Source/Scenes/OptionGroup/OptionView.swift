@@ -48,10 +48,7 @@ class OptionView: UIControl {
 
 	override var isSelected: Bool {
 		didSet {
-			layer.borderWidth = isSelected ? 2 : 1
-			layer.borderColor = isSelected ? UIColor.enaColor(for: .buttonPrimary).cgColor : UIColor.enaColor(for: .hairline).cgColor
-
-			checkmarkImageView.image = isSelected ? UIImage(named: "Checkmark_Selected") : UIImage(named: "Checkmark_Unselected")
+			updateForSelectionState()
 		}
 	}
 
@@ -59,6 +56,12 @@ class OptionView: UIControl {
 		super.endTracking(touch, with: event)
 
 		onTap()
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateForSelectionState()
 	}
 
 	// MARK: - Private
@@ -83,6 +86,7 @@ class OptionView: UIControl {
 		addSubview(checkmarkImageView)
 
 		let label = ENALabel()
+		label.numberOfLines = 0
 		label.style = .headline
 		label.text = title
 
@@ -93,12 +97,19 @@ class OptionView: UIControl {
 			label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
 			label.topAnchor.constraint(equalTo: topAnchor, constant: 33),
 			label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -33),
-			checkmarkImageView.trailingAnchor.constraint(greaterThanOrEqualTo: label.leadingAnchor, constant: 16),
+			checkmarkImageView.leadingAnchor.constraint(greaterThanOrEqualTo: label.trailingAnchor, constant: 16),
 			checkmarkImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
 			checkmarkImageView.widthAnchor.constraint(equalToConstant: 22),
 			checkmarkImageView.heightAnchor.constraint(equalToConstant: 22),
 			checkmarkImageView.centerYAnchor.constraint(equalTo: label.centerYAnchor)
 		])
+	}
+
+	private func updateForSelectionState() {
+		layer.borderWidth = isSelected ? 2 : 1
+		layer.borderColor = isSelected ? UIColor.enaColor(for: .buttonPrimary).cgColor : UIColor.enaColor(for: .hairline).cgColor
+
+		checkmarkImageView.image = isSelected ? UIImage(named: "Checkmark_Selected") : UIImage(named: "Checkmark_Unselected")
 	}
 
 }

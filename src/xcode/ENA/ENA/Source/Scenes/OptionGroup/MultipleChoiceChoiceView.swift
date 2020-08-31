@@ -69,6 +69,7 @@ class MultipleChoiceChoiceView: UIControl {
 
 		let contentStackView = UIStackView()
 		contentStackView.axis = .horizontal
+		contentStackView.alignment = .center
 		contentStackView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(contentStackView)
 
@@ -97,6 +98,7 @@ class MultipleChoiceChoiceView: UIControl {
 		}
 
 		let label = ENALabel()
+		label.numberOfLines = 0
 		label.text = title
 
 		contentStackView.addArrangedSubview(label)

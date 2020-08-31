@@ -132,6 +132,7 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 											title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionNone
 										)
 									],
+									// The current selection needs to be provided in case the cell is recreated after leaving and reentering the screen
 									initialSelection: self.optionGroupSelection
 								)
 
