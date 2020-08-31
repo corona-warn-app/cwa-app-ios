@@ -44,8 +44,8 @@ class SerialMigratorTests: XCTestCase {
 		let serialMigrator = SerialMigrator(latestVersion: 0, database: database, migrations: [])
 		serialMigrator.migrate()
 
-		XCTAssertEqual(numberOfRows(in: database), 1)
-		XCTAssertEqual(numberOfColumns(in: database), 2)
+		XCTAssertEqual(database.numberOfRows(for: "Z_SOME_TABLE"), 1)
+		XCTAssertEqual(database.numberOfColumns(for: "Z_SOME_TABLE"), 2)
 	}
 
 	func testSerialMigratorWithOneMigration() {
@@ -64,8 +64,8 @@ class SerialMigratorTests: XCTestCase {
 
 		waitForExpectations(timeout: 3.0)
 
-		XCTAssertEqual(numberOfRows(in: database), 1)
-		XCTAssertEqual(numberOfColumns(in: database), 3)
+		XCTAssertEqual(database.numberOfRows(for: "Z_SOME_TABLE"), 1)
+		XCTAssertEqual(database.numberOfColumns(for: "Z_SOME_TABLE"), 3)
 	}
 
 	func testSerialMigratorWithSeveralMigrations() {
@@ -76,23 +76,48 @@ class SerialMigratorTests: XCTestCase {
 		migrationExpectation.expectedFulfillmentCount = 2
 		migrationExpectation.assertForOverFulfill = true
 
-		let migration1 = MigrationStub { [weak self] in
+		let migration0To1 = MigrationStub { [weak self] in
 			self?.addDummyColumn(to: database, name: "Z_SOME_COLUMN_1")
 			migrationExpectation.fulfill()
 		}
 
-		let migration2 = MigrationStub { [weak self] in
+		let migration1To2 = MigrationStub { [weak self] in
 			self?.addDummyColumn(to: database, name: "Z_SOME_COLUMN_2")
 			migrationExpectation.fulfill()
 		}
 
-		let serialMigrator = SerialMigrator(latestVersion: 2, database: database, migrations: [migration1, migration2])
+		let serialMigrator = SerialMigrator(latestVersion: 2, database: database, migrations: [migration0To1, migration1To2])
 		serialMigrator.migrate()
 
 		waitForExpectations(timeout: 3.0)
 
-		XCTAssertEqual(numberOfRows(in: database), 1)
-		XCTAssertEqual(numberOfColumns(in: database), 4)
+		XCTAssertEqual(database.numberOfRows(for: "Z_SOME_TABLE"), 1)
+		XCTAssertEqual(database.numberOfColumns(for: "Z_SOME_TABLE"), 4)
+	}
+
+	func testSerialMigratorWithSeveralMigrationsExecutingOnlyCurrentMigration() {
+		let database = makeDataBase()
+		insertDummyData(to: database)
+		database.userVersion = 1
+
+		let migration0To1 = MigrationStub {
+			XCTFail("This migration should not be executed, because userVersion is 1.")
+		}
+
+		let migrationExpectation = expectation(description: "Migration was called.")
+
+		let migration1To2 = MigrationStub { [weak self] in
+			self?.addDummyColumn(to: database, name: "Z_SOME_COLUMN_1")
+			migrationExpectation.fulfill()
+		}
+
+		let serialMigrator = SerialMigrator(latestVersion: 2, database: database, migrations: [migration0To1, migration1To2])
+		serialMigrator.migrate()
+
+		waitForExpectations(timeout: 3.0)
+
+		XCTAssertEqual(database.numberOfRows(for: "Z_SOME_TABLE"), 1)
+		XCTAssertEqual(database.numberOfColumns(for: "Z_SOME_TABLE"), 3)
 	}
 
 	func makeDataBase() -> FMDatabase {
@@ -132,8 +157,7 @@ class SerialMigratorTests: XCTestCase {
 			"someKey": 0,
 			"someValue": 42
 		]
-		let result = database.executeUpdate(sql, withParameterDictionary: parameters)
-		print(result)
+		database.executeUpdate(sql, withParameterDictionary: parameters)
 	}
 
 	func addDummyColumn(to database: FMDatabase, name: String) {
@@ -148,45 +172,6 @@ class SerialMigratorTests: XCTestCase {
 
 			COMMIT;
 		"""
-		let result = database.executeStatements(sql)
-		print(result)
-	}
-
-	func numberOfRows(in database: FMDatabase) -> Int {
-		let sql =
-			"""
-			SELECT
-				*
-			FROM
-				Z_SOME_TABLE
-			;
-			"""
-
-		guard let result = database.executeQuery(sql, withParameterDictionary: nil) else {
-			return 0
-		}
-
-		var numberOfRows = 0
-		while result.next() {
-			numberOfRows += 1
-		}
-		result.close()
-		return numberOfRows
-	}
-
-	func numberOfColumns(in database: FMDatabase) -> Int {
-		let sql =
-			"""
-			SELECT
-				*
-			FROM
-				Z_SOME_TABLE
-			;
-			"""
-
-		guard let result = database.executeQuery(sql, withParameterDictionary: nil) else {
-			return 0
-		}
-		return Int(result.columnCount)
+		database.executeStatements(sql)
 	}
 }

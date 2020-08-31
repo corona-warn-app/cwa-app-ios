@@ -27,9 +27,14 @@ final class DownloadedPackagesSQLLiteStore {
 	}
 	// MARK: Creating a Store
 
-	init(database: FMDatabase, migrator: SerialMigratorProtocol) {
+	init(
+		database: FMDatabase,
+		migrator: SerialMigratorProtocol,
+		latestVersion: Int
+	) {
 		self.database = database
 		self.migrator = migrator
+		self.latestVersion = latestVersion
 	}
 
 	private func _beginTransaction() {
@@ -41,6 +46,7 @@ final class DownloadedPackagesSQLLiteStore {
 	}
 
 	// MARK: Properties
+	private let latestVersion: Int
 	private let queue = DispatchQueue(label: "com.sap.DownloadedPackagesSQLLiteStore")
 	private let database: FMDatabase
 	private let migrator: SerialMigratorProtocol
@@ -50,30 +56,32 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 	func open() {
 		_ = queue.sync {
 			self.database.open()
-			let success = self.database.executeStatements(
-			"""
-			    PRAGMA locking_mode=EXCLUSIVE;
-			    PRAGMA auto_vacuum=2;
-			    PRAGMA journal_mode=WAL;
 
-			    CREATE TABLE IF NOT EXISTS
-			        Z_DOWNLOADED_PACKAGE (
-			        Z_BIN BLOB NOT NULL,
-			        Z_SIGNATURE BLOB NOT NULL,
-			        Z_DAY TEXT NOT NULL,
-			        Z_HOUR INTEGER,
-					Z_COUNTRY STRING NOT NULL,
-			        PRIMARY KEY (
-						Z_COUNTRY,
-			            Z_DAY,
-			            Z_HOUR
-			        )
-			    );
-			"""
-			)
-
-			if !success {
+			if self.database.tableExists("Z_DOWNLOADED_PACKAGE") {
 				self.migrator.migrate()
+			} else {
+				self.database.executeStatements(
+				"""
+					PRAGMA locking_mode=EXCLUSIVE;
+					PRAGMA auto_vacuum=2;
+					PRAGMA journal_mode=WAL;
+
+					CREATE TABLE
+						Z_DOWNLOADED_PACKAGE (
+						Z_BIN BLOB NOT NULL,
+						Z_SIGNATURE BLOB NOT NULL,
+						Z_DAY TEXT NOT NULL,
+						Z_HOUR INTEGER,
+						Z_COUNTRY STRING NOT NULL,
+						PRIMARY KEY (
+							Z_COUNTRY,
+							Z_DAY,
+							Z_HOUR
+						)
+					);
+				"""
+				)
+				self.database.userVersion = UInt32(self.latestVersion)
 			}
 		}
 	}
@@ -393,7 +401,7 @@ extension DownloadedPackagesSQLLiteStore {
 		let latestDBVersion = 1
 		let migration0To1 = Migration0To1(database: db)
 		let migrator = SerialMigrator(latestVersion: latestDBVersion, database: db, migrations: [migration0To1])
-		self.init(database: db, migrator: migrator)
+		self.init(database: db, migrator: migrator, latestVersion: latestDBVersion)
 		self.open()
 	}
 }
