@@ -24,6 +24,7 @@ platform :ios do
 
   before_all do
     setup_circle_ci
+    xcversion(version: "11.6")
   end
 
   desc "Update license file"
@@ -127,5 +128,18 @@ platform :ios do
     )
   end
 
+  desc "Update GitHub Pages"
+  lane :updateDocs do
+
+    # Create docs
+    jazzy(
+     config: ".jazzy.yaml"
+    )
+
+    # Deploy to gh pages
+    sh("npm install -g --silent gh-pages@2.0.1")
+    sh("gh-pages --dist ../../../docs/swift-doc")
+
+  end
 
 end

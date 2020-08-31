@@ -46,6 +46,11 @@ Build and upload for testing
 fastlane ios adHocDistribution
 ```
 Ad hoc distribution
+### ios updateDocs
+```
+fastlane ios updateDocs
+```
+Update GitHub Pages
 
 ----
 
