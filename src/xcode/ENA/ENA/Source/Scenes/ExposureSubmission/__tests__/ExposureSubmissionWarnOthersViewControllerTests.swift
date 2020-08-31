@@ -97,4 +97,29 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 		XCTAssert(url?.absoluteString == AppStrings.Links.appFaqENError13)
 	}
 
+	func testCellsOnScreen() {
+		let vc = createVC()
+		_ = vc.view
+
+		let section = vc.dynamicTableViewModel.section(0)
+		let cells = section.cells
+		XCTAssert(cells.count == 4)
+		
+		let firstItem = cells[0]
+		var id = firstItem.cellReuseIdentifier
+		XCTAssert(id.rawValue == "labelCell")
+		
+		let secondItem = cells[1]
+		id = secondItem.cellReuseIdentifier
+		XCTAssert(id.rawValue == "labelCell")
+
+		let thirdItem = cells[2]
+		id = thirdItem.cellReuseIdentifier
+		XCTAssert(id.rawValue == "roundedCell")
+
+		let fourthItem = cells[3]
+		id = fourthItem.cellReuseIdentifier
+		XCTAssert(id.rawValue == "roundedCell")
+
+	}
 }

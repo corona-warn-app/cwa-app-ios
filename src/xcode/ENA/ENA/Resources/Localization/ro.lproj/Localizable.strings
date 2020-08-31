@@ -35,6 +35,10 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Actualizări în fundal dezactivate";
 
+"Common_Deadman_AlertTitle" = "Starea riscului dvs.";
+
+"Common_Deadman_AlertBody" = "Nu uitați să deschideți frecvent aplicația Corona-Warn pentru a verifica starea riscului dvs.";
+
 /* General - Links */
 "General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
 
@@ -82,7 +86,7 @@
 
 "ExposureDetection_Behavior_Subtitle" = "Iată ce trebuie să faceți";
 
-"ExposureDetection_Guide_Hands" = "Spălați-vă frecvent pe mâini.";
+"ExposureDetection_Guide_Hands" = "Spălați-vă frecvent pe mâini cu săpun timp de 20 de secunde.";
 
 "ExposureDetection_Guide_Mask" = "Purtați o mască facială când întâlniți alte persoane.";
 
@@ -144,9 +148,9 @@
 "How_Risk_Detection_Works_Alert_Message" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă.\nÎnregistrarea în jurnal a expunerilor acoperă ultimele %1$u zile.\nAplicația șterge automat înregistrările mai vechi din jurnal, întrucât acestea nu mai sunt relevante pentru prevenirea infectării.\n\nPentru mai multe informații, consultați pagina noastră de întrebări frecvente.";
 
 /* Settings */
-"Settings_StatusActive" = "Pornite";
+"Settings_Notification_StatusActive" = "Pornite";
 
-"Settings_StatusInactive" = "Oprite";
+"Settings_Notification_StatusInactive" = "Oprite";
 
 "Settings_StatusEnable" = "Activare";
 
@@ -221,6 +225,10 @@
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mai multă protecție pentru dvs. și pentru noi toți. Utilizând Corona-Warn-App putem întrerupe mai ușor lanțul de infectare.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Transformați-vă dispozitivul într-un sistem de avertizare împotriva coronavirusului. Obțineți un sumar al stării de risc și aflați dacă ați intrat în contact strâns cu persoane diagnosticate cu COVID-19 în ultimele 14 zile. \n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin dispozitivele acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informații despre aplicație în limbaj simplificat și în limbajul semnelor";
 
 "OnboardingInfo_privacyPage_imageDescription" = "O femeie utilizează Corona-Warn-App pe smartphone. O pictogramă care arată un lacăt pe un fundal în formă de scut simbolizează datele criptate.";
 
@@ -321,7 +329,7 @@
 
 "ExposureSubmissionHotline_Title" = "Solicitare TAN";
 
-"ExposureSubmissionHotline_Description" = "Vă rugăm să aveți la îndemână rezultatul testului (dacă este disponibil) și numărul dvs. de telefon pentru a solicita un cod TAN.\n\nHotline-ul acceptă serviciile Tess Relay pentru persoanele cu deficiențe de auz.";
+"ExposureSubmissionHotline_Description" = "Vă rugăm să aveți la îndemână rezultatul testului (dacă este disponibil) și numărul dvs. de telefon pentru a solicita un cod TAN.\n\nPersoanele cu deficiențe de auz pot utiliza serviciile Tess Relay (interpretare între limba germană scrisă și limbajul semnelor) pentru a contacta hotline-ul telefonic. Puteți descărca software-ul din App Store/Google Play.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Cum funcționează:";
 
@@ -455,7 +463,7 @@
 
 "ExposureSubmissionResult_testInvalid" = "Testul are erori";
 
-"ExposureSubmissionResult_testInvalidDesc" = "A apărut o problemă la evaluarea testului dvs. Contactați direcția de sănătate publică pentru a afla pașii următori.";
+"ExposureSubmissionResult_testInvalidDesc" = "A apărut o problemă la evaluarea testului dvs. Contactați centrul sau laboratorul de testare implicat pentru a afla pașii următori.";
 
 "ExposureSubmissionResult_testRedeemed" = "Testul are erori";
 
@@ -489,15 +497,16 @@
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Confidențialitatea datelor";
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "Ștergeți testul?";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Testul poate fi scanat o singură dată.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Testul va fi șters definitiv din Corona-Warn-App și nu mai poate fi adăugat din nou. Această procedură nu poate fi anulată.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Dacă ștergeți testul, nu veți mai putea afla rezultatul testului dvs. Primiți rezultatul testului dvs. de la centrul sau laboratorul de testare, independent de aplicație. Dacă sunteți diagnosticat cu COVID-19, veți fi notificat de direcția de sănătate publică.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Data înregistrării este necunoscută";
 
 "ExposureSubmissionResult_RegistrationDate" = "Înregistrat la";
 
 /* Exposure Submission */
+"ExposureSubmissionError_ErrorPrefix" = "A apărut o eroare tehnică la trimiterea datelor dvs. Contactaţi hotline-ul tehnic. Veți găsi numărul de telefon accesând Informații aplicație.";
 
 "ExposureSubmissionError_NoKeys" = "Nu este disponibilă nicio cheie de pozitivare. Reîncercați mâine.";
 
@@ -511,7 +520,7 @@
 
 "ExposureSubmissionError_NoResponse" = "Răspunsul nu are conținut.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "Codul QR a fost deja utilizat. Contactați hotline-ul tehnic accesând Informații aplicație -> Hotline tehnic.";
+"ExposureSubmissionError_QRAlreadyUsed" = "Codul QR este nevalabil sau a fost deja înregistrat pe un alt smartphone. Veți primi rezultatul testului dvs. de la centrul sau laboratorul de testare, indiferent de valabilitatea codului QR. Dacă sunteți diagnosticat cu COVID-19, veți fi notificat de direcția de sănătate publică.";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "Codul TAN este nevalabil sau a fost deja utilizat. Reîncercați sau contactați hotline-ul tehnic accesând Informații aplicație -> Hotline tehnic.";
 
@@ -759,6 +768,10 @@
 "App_Information_About_Description" = "Robert Koch Institute (RKI) este un organism federal de sănătate publică din Germania. RKI a publicat aplicația Corona-Warn în numele Guvernului Federal. Aplicația are drept scop să completeze sub formă digitală măsurile de sănătate publică deja introduse: distanțarea socială, igiena și purtarea măștii.";
 
 "App_Information_About_Text" = "Persoanele care utilizează aplicația ajută la urmărirea și întreruperea lanțurilor de infectare. Aplicația salvează local, pe dispozitivul dvs., întâlnirile cu alte persoane. Sunteți notificat dacă ați întâlnit persoane care au fost diagnosticate ulterior cu COVID-19. Identitatea și confidențialitatea dvs. sunt protejate întotdeauna.";
+
+"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"App_Information_About_LinkText" = "Informații despre aplicație în limbaj simplificat și în limbajul semnelor";
 
 /* App Information - FAQ */
 "App_Information_FAQ_Navigation" = "Întrebări frecvente";

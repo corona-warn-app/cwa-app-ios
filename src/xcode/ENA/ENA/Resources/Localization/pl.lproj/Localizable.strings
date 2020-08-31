@@ -35,6 +35,10 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Aktualizacje w tle dezaktywowane";
 
+"Common_Deadman_AlertTitle" = "Twój status ryzyka";
+
+"Common_Deadman_AlertBody" = "Pamiętaj, aby regularnie otwierać aplikację Corona-Warn-App w celu sprawdzenia swojego statusu ryzyka.";
+
 /* General - Links */
 "General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
 
@@ -82,7 +86,7 @@
 
 "ExposureDetection_Behavior_Subtitle" = "Zalecenia";
 
-"ExposureDetection_Guide_Hands" = "Regularnie myj ręce.";
+"ExposureDetection_Guide_Hands" = "Regularnie myj ręce mydłem przez 20 sekund.";
 
 "ExposureDetection_Guide_Mask" = "Załóż maseczkę na twarz, mając kontakt z innymi osobami.";
 
@@ -144,9 +148,9 @@
 "How_Risk_Detection_Works_Alert_Message" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna.\nRejestrowanie narażenia obejmuje ostatnie %1$u dni.\nAplikacja automatycznie usuwa starsze dzienniki, ponieważ nie są one już istotne dla zapobiegania zakażeniom.\n\nWięcej informacji znajduje się na naszej stronie Często zadawane pytania.";
 
 /* Settings */
-"Settings_StatusActive" = "Wł.";
+"Settings_Notification_StatusActive" = "Wł.";
 
-"Settings_StatusInactive" = "Wył.";
+"Settings_Notification_StatusInactive" = "Wył.";
 
 "Settings_StatusEnable" = "Aktywuj";
 
@@ -222,6 +226,10 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Zmień swoje urządzenie w system ostrzegania przed koronawirusem. Zapoznaj się ze swoim statusem ryzyka i dowiedz się, czy miałeś(-aś) bliski kontakt z osobą, u której w ciągu ostatnich 14 dni zdiagnozowano COVID-19. \n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich urządzeniami bez uzyskiwania dostępu do danych osobowych.";
 
+"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informacja o aplikacji w języku uproszczonym i języku migowym";
+
 "OnboardingInfo_privacyPage_imageDescription" = "Kobieta używa Corona-Warn-App na swoim smartfonie. Ikona przedstawiająca kłódkę na tle tarczy symbolizuje zaszyfrowane dane.";
 
 "OnboardingInfo_privacyPage_title" = "Prywatność danych";
@@ -267,7 +275,6 @@
 "OnboardingInfo_alwaysStayInformedPage_normalText" = "Możesz wówczas odizolować się, aby chronić innych, i dowiedzieć się, gdzie wykonać test.";
 
 /* Exposure Submission */
-
 "ExposureSubmission_Hotline_Number" = "+498007540002";
 
 "ExposureSubmission_DataPrivacyTitle" = "Prywatność danych";
@@ -322,7 +329,7 @@
 
 "ExposureSubmissionHotline_Title" = "Poproś o TAN";
 
-"ExposureSubmissionHotline_Description" = "Przygotuj wynik testu (jeśli jest dostępny) oraz numer telefonu, pod którym można poprosić o numer TAN.\n\nInfolinia oferuje usługi Tess Relay osobom niedosłyszącym.";
+"ExposureSubmissionHotline_Description" = "Przygotuj wynik testu (jeśli jest dostępny) oraz numer telefonu, aby poprosić o numer TAN.\n\nOsoby niedosłyszące mogą skorzystać z usług Tess Relay (tłumaczenie z pisanego języka niemieckiego na język migowy i odwrotnie) w celu skontaktowania się z infolinią. To oprogramowanie można pobrać z App Store/Google Play.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Jak to działa:";
 
@@ -456,7 +463,7 @@
 
 "ExposureSubmissionResult_testInvalid" = "Test zawiera błędy";
 
-"ExposureSubmissionResult_testInvalidDesc" = "Wystąpił problem z ustaleniem wyniku Twojego testu. Skontaktuj się z organem ds. zdrowia publicznego, aby dowiedzieć się, jak dalej postępować.";
+"ExposureSubmissionResult_testInvalidDesc" = "Wystąpił problem z ustaleniem wyniku Twojego testu. Skontaktuj się z odpowiednim ośrodkiem wykonującym testy laboratorium, aby dowiedzieć się, jak dalej postępować.";
 
 "ExposureSubmissionResult_testRedeemed" = "Test zawiera błędy";
 
@@ -490,15 +497,16 @@
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Prywatność danych";
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "Usunąć test?";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Test może być zeskanowany tylko raz.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Test zostanie trwale usunięty z Corona-Warn-App i jego ponownie dodanie nie będzie możliwe. Tej procedury nie można cofnąć.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Jeśli usuniesz test, nie będziesz mieć możliwości pobrania wyniku swojego testu. Otrzymasz wynik swojego testu z ośrodka wykonującego testy lub laboratorium, niezależnie od aplikacji. W przypadku zdiagnozowania u Ciebie COVID-19 otrzymasz powiadomienie z organu ds. zdrowia publicznego.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Data rejestracji nieznana";
 
 "ExposureSubmissionResult_RegistrationDate" = "Zarejestrowano dnia";
 
 /* Exposure Submission */
+"ExposureSubmissionError_ErrorPrefix" = "Podczas wysyłania Twoim danych pojawił się błąd techniczny. Skontaktuj się z infolinią techniczną. Numer telefonu znajdziesz w sekcji Informacje o aplikacji.";
 
 "ExposureSubmissionError_NoKeys" = "Klucz diagnozy jest niedostępny. Spróbuj ponownie jutro.";
 
@@ -512,7 +520,7 @@
 
 "ExposureSubmissionError_NoResponse" = "Odpowiedź nie zawiera żadnej treści.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "Kod QR jest nieprawidłowy lub był już używany. Spróbuj ponownie lub skontaktuj się z techniczną infolinią, wybierając opcje: Informacje o aplikacji -> Infolinia techniczna.";
+"ExposureSubmissionError_QRAlreadyUsed" = "Kod QR jest niepoprawny lub został już zarejestrowany na innym smartfonie. Otrzymasz swój wynik testu z ośrodka wykonującego testy lub laboratorium niezależnie od ważności kodu QR. W przypadku zdiagnozowania u Ciebie COVID-19 otrzymasz powiadomienie z organu ds. zdrowia publicznego.";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "Numer TAN jest nieprawidłowy lub był już używany. Spróbuj ponownie lub skontaktuj się z techniczną infolinią, wybierając opcje: Informacje o aplikacji -> Infolinia techniczna.";
 
@@ -760,6 +768,10 @@
 "App_Information_About_Description" = "Instytut Roberta Kocha (RKI) to niemiecka federalna instytucja zdrowia publicznego. RKI publikuje aplikację Corona-Warn-App w imieniu rządu federalnego. Aplikacja ta służy jako cyfrowe uzupełnienie już wprowadzonych środków ochrony zdrowia publicznego, takich jak zachowanie dystansu społecznego, dbanie o higienę oraz noszenie maseczek.";
 
 "App_Information_About_Text" = "Wszystkie osoby korzystające z aplikacji pomagają w śledzeniu i przerwaniu łańcuchów zakażeń. Aplikacja zapisuje kontakty z innymi osobami lokalnie na Twoim urządzeniu. Otrzymasz powiadomienie, jeśli okaże się, że u osób, z którymi miałeś(-aś) kontakt, zdiagnozowano później COVID-19. Twoja tożsamość i prywatność są zawsze chronione.";
+
+"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"App_Information_About_LinkText" = "Informacja o aplikacji w języku uproszczonym i języku migowym";
 
 /* App Information - FAQ */
 "App_Information_FAQ_Navigation" = "Często zadawane pytania";

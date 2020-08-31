@@ -35,6 +35,10 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Hintergrundaktualisierung ausgeschaltet";
 
+"Common_Deadman_AlertTitle" = "Ihr Risikostatus";
+
+"Common_Deadman_AlertBody" = "Bitte denken Sie daran, die Corona-Warn-App regelmäßig zu öffnen, um Ihren Risikostatus zu überprüfen.";
+
 /* General - Links */
 "General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
 
@@ -144,9 +148,13 @@
 "How_Risk_Detection_Works_Alert_Message" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-Ermittlung sollte daher dauerhaft aktiv sein.\nFür Ihre Risiko-Ermittlung wird nur der Zeitraum der letzten %1$u Tage betrachtet.\nÄltere Tage werden automatisch gelöscht, da sie aus Sicht des Infektionsschutzes nicht mehr relevant sind.\n\nWeitere Informationen finden Sie in den FAQ.";
 
 /* Settings */
-"Settings_StatusActive" = "An";
+"Settings_Notification_StatusActive" = "An";
 
-"Settings_StatusInactive" = "Aus";
+"Settings_Notification_StatusInactive" = "Aus";
+
+"Settings_BackgroundAppRefresh_StatusActive" = "An";
+
+"Settings_BackgroundAppRefresh_StatusInactive" = "Aus";
 
 "Settings_StatusEnable" = "Aktivieren";
 
@@ -160,11 +168,15 @@
 
 "Settings_Notification_Label" = "Mitteilungen";
 
+"Settings_BackgroundAppRefresh_Label" = "Hintergrundaktualisierung";
+
 "Settings_Reset_Label" = "Anwendung zurücksetzen";
 
 "Settings_Tracing_Description" = "Erlauben Sie die Aufzeichnung und Weitergabe von COVID-19-Zufallscodes.";
 
 "Settings_Notification_Description" = "Erlauben Sie automatische Mitteilungen zu Ihrem COVID-19-Risikostatus.";
+
+"Settings_BackgroundAppRefresh_Description" = "Erlauben Sie die automatische Aktualisierung Ihres Risikostatus.";
 
 "Settings_Reset_Description" = "Löschen Sie alle Ihre Daten in der App.";
 
@@ -197,6 +209,65 @@
 
 "NotificationSettings_offImageDescription" = "Eine Frau kann keine Mitteilungen von ihrer Corona-Warn-App erhalten.";
 
+/* Background App Referesh Settings */
+
+"BackgroundAppRefreshSettings_Title" = "Hintergrundaktualisierung";
+
+"BackgroundAppRefreshSettings_Image_Description_On" = "Ein Mensch hält ein Smartphone mit eingeschalteter Hintergrundaktualisierung in der Hand.";
+
+"BackgroundAppRefreshSettings_Image_Description_Off" = "Ein Mensch hält ein Smartphone mit ausgeschalteter Hintergrundaktualisierung in der Hand.";
+
+"BackgroundAppRefreshSettings_Subtitle" = "Risikostatus im Hintergrund aktualisieren";
+
+"BackgroundAppRefreshSettings_Description" = "Bei eingeschalteter Hintergrundaktualisierung ermittelt die Corona-Warn-App Ihren Risikostatus automatisch.
+Es fallen hierbei keine zusätzliche Kosten für die Datenübertragung im Mobilfunknetz an.
+Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufrufen, um Ihren Risikostatus zu aktualisieren.";
+
+"BackgroundAppRefreshSettings_Status_Header" = "Einstellung";
+
+"BackgroundAppRefreshSettings_Status_Title" = "Hintergrundaktualisierung";
+
+"BackgroundAppRefreshSettings_Status_On" = "An";
+
+"BackgroundAppRefreshSettings_Status_Off" = "Aus";
+
+"BackgroundAppRefreshSettings_InfoBox_Title" = "Hintergrundaktualisierung einschalten";
+
+"BackgroundAppRefreshSettings_InfoBox_Description" = "Die Hintergrundaktualisierung müssen Sie sowohl in den allgemeinen Einstellungen Ihres iPhones als auch in den Einstellungen der Corona-Warn-App einschalten.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Beachten Sie bitte, dass für das Einschalten der Hintergrundaktualisierung der Stromsparmodus ausgeschaltet sein muss.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Stromsparmodus ausschalten";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Öffnen Sie Einstellungen.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2" = "Öffnen Sie Batterie.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3" = "Schalten Sie den Stromsparmodus aus.";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title" = "Hintergrundaktualisierung allgemein einschalten";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1" = "Öffnen Sie Einstellungen.";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2" = "Öffnen Sie Allgemein.";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3" = "Öffnen Sie Hintergrundaktualisierung.";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4" = "Wählen Sie entweder WLAN oder WLAN & Mobile Daten.";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title" = "Hintergrundaktualisierung für die Corona-Warn-App einschalten";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Öffnen Sie Einstellungen.";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Öffnen Sie die Corona-Warn-App Einstellungen.";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Schalten Sie die Hintergrundaktualisierung ein.";
+
+"BackgroundAppRefreshSettings_OpenSettingsButton_Title" = "Einstellungen öffnen";
+
+"BackgroundAppRefreshSettings_ShareButton_Title" = "Anleitung teilen";
+
+
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "Los geht’s";
 
@@ -222,6 +293,10 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in Ihrer Nähe waren.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufallscodes austauschen. Und zwar ohne dabei auf persönliche Daten zuzugreifen.";
 
+"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informationen zur App in leichter Sprache und Gebärdensprache";
+
 "OnboardingInfo_privacyPage_imageDescription" = "Eine Frau mit einem Handy benutzt die Corona-Warn-App, ein Vorhängeschloss auf einem Schild steht als Symbol für verschlüsselte Daten.";
 
 "OnboardingInfo_privacyPage_title" = "Datenschutz";
@@ -237,6 +312,10 @@
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr Handy per Bluetooth verschlüsselte Zufallscodes anderer Nutzerinnen und Nutzer empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.\n\nDie verschlüsselten Zufallscodes geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Konkrete Rückschlüsse auf Personen sind nicht möglich.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "App Nutzung ab 16 Jahren";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "Die App Nutzung ist ab 16 Jahren gestattet und richtet sich an Personen, die sich in Deutschland aufhalten.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Einwilligungserklärung";
 
@@ -321,7 +400,7 @@
 
 "ExposureSubmissionHotline_Title" = "TAN anfragen";
 
-"ExposureSubmissionHotline_Description" = "Bitte halten Sie zur TAN-Abfrage Ihren Befundbrief (sofern vorhanden) und Ihre Telefonnummer bereit.\n\nDie Hotline unterstützt Tess-Relay-Dienste für Menschen mit unterschiedlich ausgeprägten Hörschädigungen.";
+"ExposureSubmissionHotline_Description" = "Bitte halten Sie zur TAN-Abfrage Ihren Befundbrief (sofern vorhanden) und Ihre Telefonnummer bereit.\n\nGehörlose, schwerhörige und spätertaubte Menschen können zur telefonischen Kontaktaufnahme die Tess-Relay-Dienste (Dolmetschen in Gebärdensprache und deutscher Schriftsprache) nutzen. Die Software können Sie in Ihrem App Store / Play Store herunterladen.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Info zum Ablauf:";
 
@@ -489,9 +568,13 @@
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Datenschutz";
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "Test entfernen?";
+"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "App Nutzung ab 16 Jahren";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Der Test wird endgültig aus der Corona-Warn-App entfernt und kann nicht wieder hinzugefügt werden. Dieser Vorgang kann nicht widerrufen werden.";
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "Die App Nutzung ist ab 16 Jahren gestattet und richtet sich an Personen, die sich in Deutschland aufhalten.";
+
+"ExposureSubmissionResult_RemoveAlert_Title" = "Test kann nur einmal gescannt werden";
+
+"ExposureSubmissionResult_RemoveAlert_Text" = "Wenn Sie den Test entfernen, können Sie Ihr Testergebnis nicht mehr abrufen. Ihr Testergebnis bekommen Sie vom Testcenter oder Labor, unabhängig von der App. Wenn Ihr Test positiv ausfällt, bekommen Sie vom Gesundheitsamt eine Mitteilung.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registrierungsdatum unbekannt";
 
@@ -513,7 +596,7 @@
 
 "ExposureSubmissionError_NoResponse" = "Die Antwort enthält keinen Inhalt.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "Der QR-Code wurde bereits verwendet. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
+"ExposureSubmissionError_QRAlreadyUsed" = "Der QR-Code ist ungültig oder wurde bereits auf einem Smartphone registriert. Ihr Testergebnis bekommen Sie vom Testcenter oder Labor, unabhängig von der Gültigkeit des QR-Codes. Wenn Ihr Test positiv ausfällt, bekommen Sie vom Gesundheitsamt eine Mitteilung.";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde bereits verwendet. Bitte versuchen Sie es erneut oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
@@ -710,7 +793,7 @@
 /* Home Submit card */
 "Home_SubmitCard_Title" = "Wurden Sie getestet?";
 
-"Home_SubmitCard_Body" = "Helfen Sie mit, die Infektionskette zu durchbrechen und informieren Sie andere.";
+"Home_SubmitCard_Body" = "Helfen Sie mit, die Infektionskette zu durchbrechen, und informieren Sie andere.";
 
 "Home_SubmitCard_Button" = "Informieren & helfen";
 
@@ -761,6 +844,10 @@
 "App_Information_About_Description" = "Das Robert Koch-Institut (RKI) als zentrale Einrichtung des Bundes im Bereich der Öffentlichen Gesundheit und als nationales Public-Health-Institut veröffentlicht die Corona-Warn-App im Auftrag der Bundesregierung. Die App ist die digitale Ergänzung zu Abstandhalten, Hygiene und Alltagsmaske.";
 
 "App_Information_About_Text" = "Wer sie nutzt, hilft, Infektionsketten schnell nachzuverfolgen und zu durchbrechen. Die App speichert dezentral – auf Ihrem Smartphone – Begegnungen mit anderen. Sie werden informiert, wenn Sie Begegnungen mit nachweislich infizierten Personen hatten. Ihre Privatsphäre bleibt dabei bestens geschützt.";
+
+"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"App_Information_About_LinkText" = "Informationen zur App in leichter Sprache und Gebärdensprache";
 
 /* App Information - FAQ */
 "App_Information_FAQ_Navigation" = "Häufige Fragen";

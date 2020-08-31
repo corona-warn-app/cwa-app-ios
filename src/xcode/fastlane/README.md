@@ -12,7 +12,7 @@ Install _fastlane_ using
 ```
 [sudo] gem install fastlane -NV
 ```
-or alternatively using `brew cask install fastlane`
+or alternatively using `brew install fastlane`
 
 # Available Actions
 ## iOS
@@ -41,6 +41,16 @@ Run tests
 fastlane ios betaRelease
 ```
 Build and upload for testing
+### ios adHocDistribution
+```
+fastlane ios adHocDistribution
+```
+Ad hoc distribution
+### ios updateDocs
+```
+fastlane ios updateDocs
+```
+Update GitHub Pages
 
 ----
 

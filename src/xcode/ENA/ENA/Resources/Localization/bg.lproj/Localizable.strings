@@ -35,6 +35,10 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Фоновите актуализации са дезактивирани";
 
+"Common_Deadman_AlertTitle" = "Вашият статус на риск";
+
+"Common_Deadman_AlertBody" = "Моля, не забравяйте да отваряте приложението Corona-Warn-App редовно, за да проверявате статуса си на риск.";
+
 /* General - Links */
 "General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
 
@@ -82,7 +86,7 @@
 
 "ExposureDetection_Behavior_Subtitle" = "Ето какво трябва да направите";
 
-"ExposureDetection_Guide_Hands" = "Мийте ръцете си редовно.";
+"ExposureDetection_Guide_Hands" = "Мийте редовно ръцете си със сапун в продължение на 20 сек.";
 
 "ExposureDetection_Guide_Mask" = "Носете маска при контакт с други хора.";
 
@@ -144,9 +148,9 @@
 "How_Risk_Detection_Works_Alert_Message" = "Вашият риск от заразяване може да бъде изчислен само за периодите, през които е било активно регистрирането на излаганията на риск. Затова тази функция трябва да бъде активна непрекъснато.\nРегистрирането на излагания на риск покрива последните %1$u дни.\nПриложението изтрива автоматично по-старите регистри, тъй като те вече не могат да служат за предотвратяване на заразяването.\n\nЗа повече информация вижте страницата „ЧЗВ“.";
 
 /* Settings */
-"Settings_StatusActive" = "Включено";
+"Settings_Notification_StatusActive" = "Включено";
 
-"Settings_StatusInactive" = "Изключено";
+"Settings_Notification_StatusInactive" = "Изключено";
 
 "Settings_StatusEnable" = "Активиране";
 
@@ -221,6 +225,10 @@
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Повече защита за Вас и за всички нас. С помощта на приложението Corona-Warn-App можем да прекъснем веригите на заразяване много по-бързо.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Превърнете устройството си в предупредителна система за коронавирус. Вижте своя статус на риск от заразяване и разберете дали сте били в контакт в хора, диагностицирани с COVID-19 през последните 14 дни.\n\nПриложението регистрира контакти на лица посредством обмяна на криптирани случайни ИД между устройствата им, без да осъществява достъп до каквито и да било лични данни.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Информация за приложението на опростен и жестомимичен език.";
 
 "OnboardingInfo_privacyPage_imageDescription" = "Жена използва приложението Corona-Warn-App на смартфона си. Икона, изобразяваща катинар на фона на щит символизира криптирането на данните.";
 
@@ -321,7 +329,7 @@
 
 "ExposureSubmissionHotline_Title" = "Заявка за ТАН код";
 
-"ExposureSubmissionHotline_Description" = "За да заявите ТАН код, подгответе резултата от своя тест (ако е наличен) и телефонния си номер.\n\nГорещата телефонна линия поддържа услугите Tess Relay за хора с нарушения на слуха.";
+"ExposureSubmissionHotline_Description" = "За да заявите ТАН код, подгответе резултата от своя тест (ако е наличен) и телефонния си номер.\n\nЛицата със слухови нарушения могат да използват релейните услуги Tess (за превод между писмен немски и жестомимичен език), за да се обаждат на горещата телефонна линия. Може да изтеглите приложението от App Store/Google Play.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Как работи:";
 
@@ -455,7 +463,7 @@
 
 "ExposureSubmissionResult_testInvalid" = "Възникнаха грешки при тестването";
 
-"ExposureSubmissionResult_testInvalidDesc" = "Възникна проблем при определянето на резултата от Вашия тест.Моля, свържете се с местната служба за обществено здравеопазване (Gesundheitsamt), за да получите информация какво можете да направите.";
+"ExposureSubmissionResult_testInvalidDesc" = "Възникна проблем при определянето на резултата от Вашия тест.Моля, свържете се със съответния център за тестване или лаборатория, за да получите информация какво можете да направите.";
 
 "ExposureSubmissionResult_testRedeemed" = "Грешки в теста";
 
@@ -489,15 +497,16 @@
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Поверителност";
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "Да се изтрие ли тестът?";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Тестът може да се сканира само веднъж.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Тестът ще бъде изтрит безвъзвратно от приложението Corona-Warn-App и няма да може да бъде добавен отново. Действието не може да бъде отменено.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Ако изтриете теста, повече няма да можете да извлечете данните за резултата си. Ще получите резултата си от център за тестване или лаборатория, независимо от приложението. Ако Ви бъде поставена диагноза COVID-19, службата за обществено осигуряване ще Ви уведоми за това.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Датата на регистрация е неизвестна";
 
 "ExposureSubmissionResult_RegistrationDate" = "Регистрирано на";
 
 /* Exposure Submission */
+"ExposureSubmissionError_ErrorPrefix" = "Възникна техническа грешка при изпращането на данните Ви. Моля, обадете се на горещата линия за технически въпроси. Може да намерите телефонния номер в раздел “За приложението”.";
 
 "ExposureSubmissionError_NoKeys" = "Няма наличен диагностичен код. Опитайте отново утре.";
 
@@ -511,7 +520,7 @@
 
 "ExposureSubmissionError_NoResponse" = "Съдържанието на отговора е празно.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "QR кодът вече е използван. Моля, обадете ie на горещата линия за технически въпроси, която може да намерите в раздел „Информация за приложението“.";
+"ExposureSubmissionError_QRAlreadyUsed" = "QR кодът е невалиден или вече е регистриран на друг смартфон. Ще получите резултата си от център за тестване или лаборатория, независимо от валидността на QR кода. Ако Ви бъде поставена диагноза COVID-19, службата за обществено осигуряване ще Ви уведоми за това.";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "ТАН кодът е невалиден или вече е използван. Моля, опитайте отново или се обадете на горещата линия за технически въпроси, която може да намерите в раздел „Информация за приложението“.";
 
@@ -759,6 +768,10 @@
 "App_Information_About_Description" = "Институтът „Роберт Кох“ (RKI) е федералната служба за обществено здравеопазване в Германия. Той е издател на приложението Corona-Warn-App по поръчка на федералното правителство. Приложението е предназначено да бъде дигитално допълнение на вече въведените мерки за опазване на общественото здраве: социално дистанциране, поддържане на висока хигиена и носене на маски.";
 
 "App_Information_About_Text" = "Всеки, който използва приложението, помага за проследяване и прекъсване на веригите на заразяване. Приложението запазва във Вашето устройство данните за контактите Ви с други хора. Получавате известие, ако сте били в контакт с лица, които впоследствие са били диагностицирани с COVID-19. Вашата самоличност и неприкосновеността на данните Ви са защитени по всяко време.";
+
+"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"App_Information_About_LinkText" = "Информация за приложението на опростен и жестомимичен език.";
 
 /* App Information - FAQ */
 "App_Information_FAQ_Navigation" = "ЧЗВ";

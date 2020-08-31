@@ -53,7 +53,7 @@ extension DynamicCell {
 		/// Useful for automatic link, phone #, etc. recognization
 		case textView(UIDataDetectorTypes)
 
-		case linkTextView(String)
+		case linkTextView(String, ENAFont = .body)
 
 		var reuseIdentifier: CellReuseIdentifier {
 			switch self {
@@ -99,9 +99,9 @@ extension DynamicCell {
 				cell.configureTextView(dataDetectorTypes: dataDetectorTypes)
 			}
 
-			if case .linkTextView(let placeHolder) = cellStyle,
+			if case .linkTextView(let placeHolder, let font) = cellStyle,
 				let cell = cell as? DynamicTableViewTextViewCell {
-				cell.configureAsLink(placeholder: placeHolder, urlString: text)
+				cell.configureAsLink(placeholder: placeHolder, urlString: text, font: font)
 			}
 
 			configure?(viewController, cell, indexPath)

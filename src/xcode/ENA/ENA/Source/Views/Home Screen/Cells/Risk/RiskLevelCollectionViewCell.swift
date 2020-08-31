@@ -25,7 +25,7 @@ protocol RiskLevelCollectionViewCellDelegate: AnyObject {
 final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	// MARK: Properties
 
-	var delegate: RiskLevelCollectionViewCellDelegate?
+	weak var delegate: RiskLevelCollectionViewCellDelegate?
 
 	// MARK: Outlets
 

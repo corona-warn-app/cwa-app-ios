@@ -86,11 +86,14 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			message: AppStrings.ExposureSubmission.dataPrivacyDisclaimer,
 			preferredStyle: .alert
 		)
-		let acceptAction = UIAlertAction(title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle,
-										 style: .default, handler: { _ in
-											self.service?.acceptPairing()
-											self.coordinator?.showQRScreen(qrScannerDelegate: self)
-		})
+		let acceptAction = UIAlertAction(
+			title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle,
+			style: .default,
+			handler: { _ in
+				self.service?.acceptPairing()
+				self.coordinator?.showQRScreen(qrScannerDelegate: self)
+			}
+		)
 		alert.addAction(acceptAction)
 
 		alert.addAction(.init(title: AppStrings.ExposureSubmission.dataPrivacyDontAcceptTitle,

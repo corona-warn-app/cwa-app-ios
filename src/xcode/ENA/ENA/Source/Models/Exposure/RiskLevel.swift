@@ -19,52 +19,38 @@ import ExposureNotification
 import Foundation
 
 /// Exposure Risk level
-///
-/// - important: Due to exception case, `CaseIterable` `allCases` does not produce a correctly sorted collection!
-enum RiskLevel: Int, CaseIterable {
+enum RiskLevel: Int, CaseIterable, Equatable {
 	/*
-	RiskLevels are ordered according to these rules:
-	1. .low is least
-	2. .inactive is highest
-	3. .increased overrides .unknownOutdated
-	4. .unknownOutdated overrides .low AND .increased
-	5. .unknownInitial overrides .low AND .unknownOutdated
+	Generally, the risk level hiearchy is as the raw values in the enum cases state. .low is lowest and .inactive highest.
+	The risk calculation itself takes multiple parameters into account, for example how long tracing has been active for,
+	and the date of the last exposure detection.
+	
+	There is one special situation where the hierarchy defined below is not followed. Assume:
+	- Last exposure detection is more than 48 hours old -> .unknownOutdated applies
+	- Summary & AppConfig resolve to .increased risk
+	- Tracing has been active for more than 24 hours
+	
+	According to the hierarchy we should return .increased risk. In this case however .unknownOutdated should be returned!
 	*/
 	
 	/// Low risk
 	case low = 0
-	/// Increased risk
-	///
-	/// - important: Should overrule `.unknownOutdated`, and `.unknownInitial`
-	case increased
 	/// Unknown risk  last calculation more than 24 hours old
 	///
 	/// Will be shown when the last calculation is more than 24 hours old - until the calculation is run again
-	/// - important: Overrules `.increased` and `low`
 	case unknownOutdated
-	/// Unknown risk - no calculation has been performed yet
-	///
-	/// - important: Overrules `.low` and `.unknownOutdated`
+	/// Unknown risk - no calculation has been performed yet or tracing has been active for less than 24h
 	case unknownInitial
+	/// Increased risk
+	case increased
 	/// No calculation possible - tracing is inactive
 	///
-	/// - important: Should always be displayed, even if a different risk level has been calculated. It should override all other levels!
+	/// - important: Should always be displayed, even if a different risk level has been calculated. It overrides all other levels!
 	case inactive
 }
 
 extension RiskLevel: Comparable {
-	/// - attention: Might not produce valid results when sorting Collections  of RiskLevels, because of the exception case which overrides the normal rawValue compare!
 	static func < (lhs: RiskLevel, rhs: RiskLevel) -> Bool {
-		// Generally we compare the raw values, but there is one exception:
-		// .increased should override .unknownOutdated
-		switch (lhs, rhs) {
-		case (.unknownOutdated, .increased):
-			return true
-		// .increased should override .unknownInitial
-		case (.unknownInitial, .increased):
-				return true
-		default:
-		return lhs.rawValue < rhs.rawValue
-		}
+		lhs.rawValue < rhs.rawValue
 	}
 }

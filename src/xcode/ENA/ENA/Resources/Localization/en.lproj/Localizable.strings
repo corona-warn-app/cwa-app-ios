@@ -35,6 +35,10 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Background updates deactivated";
 
+"Common_Deadman_AlertTitle" = "Your Risk Status";
+
+"Common_Deadman_AlertBody" = "Please remember to open the Corona-Warn-App regularly to check your risk status.";
+
 /* General - Links */
 "General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
 
@@ -82,7 +86,7 @@
 
 "ExposureDetection_Behavior_Subtitle" = "This is what you should do";
 
-"ExposureDetection_Guide_Hands" = "Wash your hands regularly.";
+"ExposureDetection_Guide_Hands" = "Wash your hands regularly, with soap, for 20 seconds.";
 
 "ExposureDetection_Guide_Mask" = "Wear a face mask when you encounter other people.";
 
@@ -144,9 +148,9 @@
 "How_Risk_Detection_Works_Alert_Message" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently.\nExposure logging covers the past %1$u days.\nThe app automatically deletes older logs, as these are no longer relevant for infection prevention.\n\nFor further information, please see our FAQ page.";
 
 /* Settings */
-"Settings_StatusActive" = "On";
+"Settings_Notification_StatusActive" = "On";
 
-"Settings_StatusInactive" = "Off";
+"Settings_Notification_StatusInactive" = "Off";
 
 "Settings_StatusEnable" = "Activate";
 
@@ -221,6 +225,10 @@
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "More protection for you and for us all. By using the Corona-Warn-App we can break infection chains much quicker.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a corona warning system. Get an overview of your risk status and find out whether you've had close contact with people diagnosed with COVID-19 in the last 14 days. \n\nThe app logs encounters between individuals by their devices exchanging encrypted random IDs, and without accessing any personal data.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"OnboardingInfo_togetherAgainstCoronaPage_linkText" = "App Information in Simplified Language and Sign Language";
 
 "OnboardingInfo_privacyPage_imageDescription" = "A woman uses the Corona-Warn-App on her smartphone. An icon showing a padlock on the background of a shield symbolizes encrypted data.";
 
@@ -321,7 +329,7 @@
 
 "ExposureSubmissionHotline_Title" = "Request TAN";
 
-"ExposureSubmissionHotline_Description" = "Please keep your test result (if available) and your phone number ready to request a TAN.\n\nThe hotline supports Tess Relay services for people with hearing impairments.";
+"ExposureSubmissionHotline_Description" = "Please keep your test result (if available) and your phone number ready to request a TAN.\n\nPeople with hearing impairments can use Tess Relay services (interpreting between German written language and sign language) to contact the phone hotline. You can download the software from the App Store/Google Play.";
 
 "ExposureSubmissionHotline_SectionTitle" = "How this works:";
 
@@ -455,7 +463,7 @@
 
 "ExposureSubmissionResult_testInvalid" = "Test has errors";
 
-"ExposureSubmissionResult_testInvalidDesc" = "There was a problem evaluating your test. Please contact the public health authority to find out how to proceed.";
+"ExposureSubmissionResult_testInvalidDesc" = "There was a problem evaluating your test. Please contact the test center or laboratory involved to find out how to proceed.";
 
 "ExposureSubmissionResult_testRedeemed" = "Test has errors";
 
@@ -489,15 +497,16 @@
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Data Privacy";
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "Delete the test?";
+"ExposureSubmissionResult_RemoveAlert_Title" = "The test can only be scanned once.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "The test will be permanently deleted from the Corona-Warn-App and cannot be added again. This procedure cannot be undone.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "If you delete the test, you can no longer retrieve your test result. You receive your test result from the test center or laboratory, independently of the app. If you are diagnosed with COVID-19, you will be notified by the public health authority.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registration date unknown";
 
 "ExposureSubmissionResult_RegistrationDate" = "Registered on";
 
 /* Exposure Submission */
+"ExposureSubmissionError_ErrorPrefix" = "A technical error occurred while sending your data. Please contact the technical hotline. You will find the phone number under App Information.";
 
 "ExposureSubmissionError_NoKeys" = "No diagnosis key is available. Please try again tomorrow.";
 
@@ -511,7 +520,7 @@
 
 "ExposureSubmissionError_NoResponse" = "The response has no content.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "The QR code has been used already. Please contact the technical hotline via App Information -> Technical Hotline.";
+"ExposureSubmissionError_QRAlreadyUsed" = "The QR code is invalid or has been registered on another smartphone already. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with COVID-19, you will be notified by the public health authority.";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "The TAN is invalid or has been used already. Please try again or contact the technical hotline via App Information -> Technical Hotline.";
 
@@ -760,6 +769,10 @@
 
 "App_Information_About_Text" = "Whoever uses the app helps to trace and break chains of infection. The app saves encounters with other people locally on your device. You are notified if you have encountered people who were later diagnosed with COVID-19. Your identity and privacy are always protected.";
 
+"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"App_Information_About_LinkText" = "App Information in Simplified Language and Sign Language";
+
 /* App Information - FAQ */
 "App_Information_FAQ_Navigation" = "FAQ";
 
@@ -797,7 +810,7 @@
 
 "App_Information_Imprint_Section3_Title" = "Contact";
 
-"App_Information_Imprint_Section3_Text" = "E-Mail: CoronaWarnApp@rki.de";
+"App_Information_Imprint_Section3_Text" = "E-mail: CoronaWarnApp@rki.de";
 
 "App_Information_Imprint_Section4_Title" = "VAT identification number";
 
