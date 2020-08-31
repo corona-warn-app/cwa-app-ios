@@ -42,12 +42,19 @@ class MultipleChoiceOptionView: UIView {
 
 		setUp(title: title)
 	}
+	// MARK: - Overrides
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateForSelectionState()
+	}
 
 	// MARK: - Internal
 
 	var selectedChoices: Set<Int> = [] {
 		didSet {
-			updateForSelectedChoices()
+			updateForSelectionState()
 		}
 	}
 
@@ -84,6 +91,7 @@ class MultipleChoiceOptionView: UIView {
 		])
 
 		let titleLabel = ENALabel()
+		titleLabel.numberOfLines = 0
 		titleLabel.style = .headline
 		titleLabel.text = title
 
@@ -106,17 +114,17 @@ class MultipleChoiceOptionView: UIView {
 
 			if choiceIndex != choices.count - 1 {
 				let separatorView = UIView()
-				separatorView.backgroundColor = UIColor.enaColor(for: .separator)
+				separatorView.backgroundColor = UIColor.enaColor(for: .hairline)
 				separatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
 
 				contentStackView.addArrangedSubview(separatorView)
 			}
 		}
 
-		updateForSelectedChoices()
+		updateForSelectionState()
 	}
 
-	private func updateForSelectedChoices() {
+	private func updateForSelectionState() {
 		for choiceIndex in 0..<choices.count {
 			choiceViews[choiceIndex].isSelected = selectedChoices.contains(choiceIndex)
 		}
