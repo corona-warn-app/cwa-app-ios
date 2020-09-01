@@ -41,7 +41,11 @@ struct Country: Equatable {
 
 		id = countryCode
 		localizedName = name
-		// swiftlint:disable:next force_unwrapping
 		flag = UIImage(named: "flag.\(countryCode.lowercased())")
+	}
+
+	static func defaultCountry() -> Country {
+		// swiftlint:disable:next force_unwrapping
+		return Country(countryCode: "DE")!
 	}
 }
