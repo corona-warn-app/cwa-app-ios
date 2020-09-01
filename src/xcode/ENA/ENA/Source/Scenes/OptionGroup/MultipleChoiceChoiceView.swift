@@ -40,15 +40,13 @@ class MultipleChoiceChoiceView: UIControl {
 		super.init(frame: .zero)
 
 		setUp(iconImage: iconImage, title: title)
-
-		isSelected = false
 	}
 
 	// MARK: - Overrides
 
 	override var isSelected: Bool {
 		didSet {
-			checkmarkImageView.image = isSelected ? UIImage(named: "Checkmark_Selected") : UIImage(named: "Checkmark_Unselected")
+			updateForSelectionState()
 		}
 	}
 
@@ -107,11 +105,22 @@ class MultipleChoiceChoiceView: UIControl {
 
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
 		addGestureRecognizer(tapGestureRecognizer)
+
+		isSelected = false
+
+		isAccessibilityElement = true
+		accessibilityLabel = title
 	}
 
 	@objc
 	private func viewTapped() {
 		onTap()
+	}
+
+	private func updateForSelectionState() {
+		checkmarkImageView.image = isSelected ? UIImage(named: "Checkmark_Selected") : UIImage(named: "Checkmark_Unselected")
+
+		accessibilityTraits = isSelected ? [.button, .selected] : [.button]
 	}
 
 }

@@ -121,6 +121,8 @@ class MultipleChoiceOptionView: UIView {
 			}
 		}
 
+		accessibilityElements = [titleLabel] + choiceViews
+
 		updateForSelectionState()
 	}
 

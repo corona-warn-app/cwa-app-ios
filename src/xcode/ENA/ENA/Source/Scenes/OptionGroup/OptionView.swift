@@ -102,6 +102,9 @@ class OptionView: UIControl {
 			checkmarkImageView.heightAnchor.constraint(equalToConstant: 22),
 			checkmarkImageView.centerYAnchor.constraint(equalTo: label.centerYAnchor)
 		])
+
+		isAccessibilityElement = true
+		accessibilityLabel = title
 	}
 
 	private func updateForSelectionState() {
@@ -109,6 +112,8 @@ class OptionView: UIControl {
 		layer.borderColor = isSelected ? UIColor.enaColor(for: .buttonPrimary).cgColor : UIColor.enaColor(for: .hairline).cgColor
 
 		checkmarkImageView.image = isSelected ? UIImage(named: "Checkmark_Selected") : UIImage(named: "Checkmark_Unselected")
+
+		accessibilityTraits = isSelected ? [.button, .selected] : [.button]
 	}
 
 }

@@ -85,6 +85,8 @@ class OptionGroupView: UIView {
 				self?.updateOptionViews(for: selection)
 			}
 		}
+
+		isAccessibilityElement = false
 	}
 
 	private func optionView(title: String, index: Int) -> OptionView {
