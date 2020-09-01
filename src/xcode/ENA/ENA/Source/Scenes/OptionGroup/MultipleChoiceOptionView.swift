@@ -72,7 +72,6 @@ class MultipleChoiceOptionView: UIView {
 
 		layer.cornerRadius = 10
 
-		layer.shadowColor = UIColor.enaColor(for: .shadow).cgColor
 		layer.shadowOffset = CGSize(width: 0, height: 2)
 		layer.shadowRadius = 2
 		layer.shadowOpacity = 1
@@ -131,6 +130,8 @@ class MultipleChoiceOptionView: UIView {
 		for choiceIndex in 0..<choices.count {
 			choiceViews[choiceIndex].isSelected = selectedChoices.contains(choiceIndex)
 		}
+
+		layer.shadowColor = UIColor.enaColor(for: .shadow).cgColor
 
 		let isSelected = !selectedChoices.isEmpty
 		layer.borderWidth = isSelected ? 2 : 1

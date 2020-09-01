@@ -40,7 +40,6 @@ class OptionView: UIControl {
 		super.init(frame: .zero)
 
 		setUp(title: title)
-		isSelected = false
 	}
 
 	// MARK: - Overrides
@@ -75,7 +74,6 @@ class OptionView: UIControl {
 
 		layer.cornerRadius = 10
 
-		layer.shadowColor = UIColor.enaColor(for: .shadow).cgColor
 		layer.shadowOffset = CGSize(width: 0, height: 2)
 		layer.shadowRadius = 2
 		layer.shadowOpacity = 1
@@ -103,11 +101,15 @@ class OptionView: UIControl {
 			checkmarkImageView.centerYAnchor.constraint(equalTo: label.centerYAnchor)
 		])
 
+		updateForSelectionState()
+
 		isAccessibilityElement = true
 		accessibilityLabel = title
 	}
 
 	private func updateForSelectionState() {
+		layer.shadowColor = UIColor.enaColor(for: .shadow).cgColor
+		
 		layer.borderWidth = isSelected ? 2 : 1
 		layer.borderColor = isSelected ? UIColor.enaColor(for: .buttonPrimary).cgColor : UIColor.enaColor(for: .hairline).cgColor
 
