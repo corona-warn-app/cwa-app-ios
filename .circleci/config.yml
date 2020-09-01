@@ -91,8 +91,26 @@ jobs:
           command: cd src/xcode && bundle install
       - run: ./scripts/switch_to_dev_env.sh
       - run:
-          name: fastlane
+          name: fastlane testflight
           command: cd src/xcode && bundle exec fastlane betaRelease --env TestFlight
+      - run:
+          name: fastlane appcenter
+          command: cd src/xcode && bundle exec fastlane adHocDistribution
+  update-docs:
+    macos:
+      xcode: 11.6.0
+    shell: zsh
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: cd src/xcode && bundle install
+      - add_ssh_keys:
+          fingerprints:
+            - "2c:ea:55:72:82:d9:8a:35:02:ac:25:a6:39:3c:e4:23"
+      - run:
+          name: Run lane for doc update
+          command: cd src/xcode && bundle exec fastlane updateDocs
 
 workflows:
     test-and-scan:
@@ -101,6 +119,11 @@ workflows:
     build:
       jobs:
         - build
+        - update-docs:
+            filters:
+              branches:
+                only:
+                  - develop
         - grab-screenshots:
             filters:
               branches:

@@ -24,6 +24,7 @@ platform :ios do
 
   before_all do
     setup_circle_ci
+    xcversion(version: "11.6")
   end
 
   desc "Update license file"
@@ -88,7 +89,7 @@ platform :ios do
   desc "Build and upload for testing"
   lane :betaRelease do
     match(
-      readonly: true
+      type: "appstore"
     )
 
     build_ios_app(
@@ -103,6 +104,42 @@ platform :ios do
       skip_waiting_for_build_processing: true,
       skip_submission: true,  # only upload
     )
+  end
+
+  desc "Ad hoc distribution"
+  lane :adHocDistribution do
+    match(
+      type: "adhoc"
+    )
+
+    build_ios_app(
+      scheme: "ENA",
+      configuration: "AdHoc",
+      export_method: "ad-hoc",
+      clean: true
+    )
+
+    appcenter_upload(
+      api_token: ENV["MS_APP_CENTER_TOKEN"],
+      owner_name: "Corona-Warn-App",
+      owner_type: "organization",
+      app_name: "Corona-Warn-App",
+      file: "ENA.ipa"
+    )
+  end
+
+  desc "Update GitHub Pages"
+  lane :updateDocs do
+
+    # Create docs
+    jazzy(
+     config: ".jazzy.yaml"
+    )
+
+    # Deploy to gh pages
+    sh("npm install -g --silent gh-pages@2.0.1")
+    sh("gh-pages --dist ../../../docs/swift-doc")
+
   end
 
 end
