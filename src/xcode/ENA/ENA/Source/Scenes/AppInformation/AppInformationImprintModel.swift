@@ -1,15 +1,25 @@
 //
-//  AppInformationImprintModel.swift
-//  ENA
+// Corona-Warn-App
 //
-//  Created by Vogel, Andreas on 01.09.20.
-//  Copyright © 2020 SAP SE. All rights reserved.
+// SAP SE and all other contributors
+// copyright owners license this file to you under the Apache
+// License, Version 2.0 (the "License"); you may not use this
+// file except in compliance with the License.
+// You may obtain a copy of the License at
 //
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
 
 import Foundation
 import UIKit
 
-class appInformationImprintModel {
+class AppInformationImprintModel {
 	
 	static let englishContactFormLink = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html"
 	static let germanContactFormLink = "https://www.rki.de/SharedDocs/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html"
@@ -45,7 +55,7 @@ class appInformationImprintModel {
 			.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection3Text,
 								 style: .textView(.all),
 								 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Text)]
-		cells.append(contentsOf: appInformationImprintModel.contactForms())
+		cells.append(contentsOf: AppInformationImprintModel.contactForms())
 		cells.append(contentsOf: [
 						.imprintHeadlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection4Title,
 													accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Title),
