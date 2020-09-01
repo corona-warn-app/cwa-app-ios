@@ -521,7 +521,9 @@
 
 "ExposureSubmissionError_NoResponse" = "Die Antwort enthält keinen Inhalt.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "Der QR-Code ist ungültig oder wurde bereits auf einem Smartphone registriert. Ihr Testergebnis bekommen Sie vom Testcenter oder Labor, unabhängig von der Gültigkeit des QR-Codes. Wenn Ihr Test positiv ausfällt, bekommen Sie vom Gesundheitsamt eine Mitteilung.";
+"ExposureSubmissionError_QRAlreadyUsed" = "Der QR-Code ist ungültig oder wurde bereits auf einem Smartphone registriert. Ihr Testergebnis bekommen Sie vom Testcenter oder Labor, unabhängig von der Gültigkeit des QR-Codes. Bei einem positiven Testergebnis wird auch das zuständige Gesundheitsamt auf dem gesetzlich vorgeschriebenen Weg informiert und sich an Sie wenden.";
+
+"ExposureSubmissionError_QRAlreadyUsed_Title" = "QR-Code ist ungültig";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde bereits verwendet. Bitte versuchen Sie es erneut oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
