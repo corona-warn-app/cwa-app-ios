@@ -34,4 +34,10 @@ class CountryTests: XCTestCase {
 			XCTAssertNotNil(country.flag)
 		}
     }
+
+	func testDefaultCountry() throws {
+		XCTAssertNoThrow(Country.defaultCountry(), "")
+		let country = Country.defaultCountry()
+		XCTAssertEqual(country.id, "DE", "assuming Germany/DE to be default")
+	}
 }
