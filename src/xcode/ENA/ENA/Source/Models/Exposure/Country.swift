@@ -37,11 +37,37 @@ struct Country: Equatable {
 	/// - Parameter countryCode: An [ISO 3166 (Alpha-2)](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) country two-digit code. Examples: "DE", "FR"
 	init?(countryCode: String) {
 		// Check if this is a valid country
-		guard let name = Locale.current.localizedString(forRegionCode: countryCode) else { return nil }
+		guard let name = Locale.current.regionName(forCountryCode: countryCode) else { return nil }
 
 		id = countryCode
 		localizedName = name
-		// swiftlint:disable:next force_unwrapping
 		flag = UIImage(named: "flag.\(countryCode.lowercased())")
+	}
+
+	static func defaultCountry() -> Country {
+		// swiftlint:disable:next force_unwrapping
+		return Country(countryCode: "DE")!
+	}
+}
+
+extension Locale {
+	func regionName(forCountryCode code: String) -> String? {
+		var identifier: String
+		// quick solution for the EU scenario
+		switch code.lowercased() {
+		case "el":
+			identifier = "gr"
+		case "no":
+			identifier = "nb_NO"
+		default:
+			identifier = code
+		}
+		let target = Locale(identifier: identifier)
+		
+		// catch cases where multiple languages per region might appear, e.g. Norway
+		guard let regionCode = target.identifier.components(separatedBy: "_").last else {
+			return nil
+		}
+		return localizedString(forRegionCode: regionCode)
 	}
 }

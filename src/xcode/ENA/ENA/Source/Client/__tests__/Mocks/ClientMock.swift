@@ -46,6 +46,7 @@ final class ClientMock {
 	// MARK: - Properties.
 	
 	var submissionError: SubmissionError?
+	var submissionResponse: KeySubmissionResponse?
 	var urlRequestFailure: Client.Failure?
 	var availableDaysAndHours: DaysAndHours = DaysAndHours(days: [], hours: [])
 	var downloadedPackage: SAPDownloadedPackage?
@@ -60,6 +61,7 @@ final class ClientMock {
 	var onAppConfiguration: (AppConfigurationCompletion) -> Void = { $0(nil) }
 	var onGetTestResult: ((String, Bool, TestResultHandler) -> Void)?
 	var onSubmit: (([ENTemporaryExposureKey], String, Bool, @escaping SubmitKeysCompletionHandler) -> Void)?
+	var onSubmitCountries: (([ENTemporaryExposureKey], [Country], String, Bool, @escaping KeySubmissionResponse) -> Void)?
 	var onGetRegistrationToken: ((String, String, Bool, @escaping RegistrationHandler) -> Void)?
 	var onGetTANForExposureSubmit: ((String, Bool, @escaping TANHandler) -> Void)?
 }
@@ -120,6 +122,14 @@ extension ClientMock: Client {
 		}
 
 		onSubmit(keys, tan, isFake, completion)
+	}
+
+	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
+		guard let onSubmitCountries = self.onSubmitCountries else {
+			completion(.failure(Failure.fakeResponse))
+			return
+		}
+		onSubmitCountries(payload.exposureKeys, payload.visitedCountries, payload.tan, isFake, completion)
 	}
 
 	func getRegistrationToken(forKey: String, withType: String, isFake: Bool, completion completeWith: @escaping RegistrationHandler) {

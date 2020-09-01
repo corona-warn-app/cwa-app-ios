@@ -105,12 +105,8 @@ final class HTTPClient: Client {
 		isFake: Bool = false,
 		completion: @escaping SubmitKeysCompletionHandler
 	) {
-		guard let request = try? URLRequest.submitKeysRequest(
-			configuration: configuration,
-			tan: tan,
-			keys: keys,
-			headerValue: isFake ? 1 : 0
-		) else {
+		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [Country.defaultCountry()], tan: tan)
+		guard let request = try? URLRequest.keySubmissionRequest(configuration: configuration, payload: payload, isFake: isFake) else {
 			completion(.requestCouldNotBeBuilt)
 			return
 		}
@@ -133,6 +129,11 @@ final class HTTPClient: Client {
 				completion(.other(error))
 			}
 		}
+	}
+
+	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
+		#warning("TODO")
+		preconditionFailure("not implemented")
 	}
 
 	func availableDays(
@@ -431,29 +432,29 @@ private extension HTTPClient {
 }
 
 private extension URLRequest {
-	static func submitKeysRequest(
-		configuration: HTTPClient.Configuration,
-		tan: String,
-		keys: [ENTemporaryExposureKey],
-		headerValue: Int
-	) throws -> URLRequest {
-		let payload = SAP_SubmissionPayload.with {
-			$0.padding = self.getSubmissionPadding(for: keys)
-			$0.keys = keys.compactMap { $0.sapKey }
-		}
-		let payloadData = try payload.serializedData()
-		let url = configuration.submissionURL
 
+	static func keySubmissionRequest(configuration: HTTPClient.Configuration,
+									 payload: CountrySubmissionPayload,
+									 isFake: Bool) throws -> URLRequest {
+		// construct the request
+		let submPayload = SAP_SubmissionPayload.with {
+			$0.padding = self.getSubmissionPadding(for: payload.exposureKeys)
+			$0.keys = payload.exposureKeys.compactMap { $0.sapKey }
+			$0.visitedCountries = payload.visitedCountries.map { $0.id }
+		}
+		let payloadData = try submPayload.serializedData()
+		let url = configuration.submissionURL
 		var request = URLRequest(url: url)
 
+		// headers
 		request.setValue(
-			tan,
+			payload.tan,
 			// TAN code associated with this diagnosis key submission.
 			forHTTPHeaderField: "cwa-authorization"
 		)
 
 		request.setValue(
-			"\(headerValue)",
+			isFake ? "1" : "0",
 			// Requests with a value of "0" will be fully processed.
 			// Any other value indicates that this request shall be
 			// handled as a fake request." ,
@@ -463,7 +464,7 @@ private extension URLRequest {
 		// Add header padding for the GUID, in case it is
 		// a fake request, otherwise leave empty.
 		request.setValue(
-			headerValue == 0 ? "" : String.getRandomString(of: 36),
+			isFake ? String.getRandomString(of: 36) : "",
 			forHTTPHeaderField: "cwa-header-padding"
 		)
 
