@@ -350,6 +350,7 @@
 		B1D8CB2724DD44C6008C6010 /* DMTracingHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D8CB2524DD4371008C6010 /* DMTracingHistoryViewController.swift */; };
 		B1DDDABC247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DDDABB247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift */; };
 		B1DDDABE24713BAD00A07175 /* SAPDownloadedPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A9E710246D782F0024CC12 /* SAPDownloadedPackage.swift */; };
+		B1E23B8824FE80EF006BCDA6 /* CancellationTokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E23B8724FE80EF006BCDA6 /* CancellationTokenTests.swift */; };
 		B1E8C99D2479D4E7006DC678 /* DMSubmissionStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E8C99C2479D4E7006DC678 /* DMSubmissionStateViewController.swift */; };
 		B1EAEC8B24711884003BE9A2 /* URLSession+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EAEC8A24711884003BE9A2 /* URLSession+Convenience.swift */; };
 		B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EAEC8D247118CB003BE9A2 /* URLSession+ConvenienceTests.swift */; };
@@ -804,6 +805,7 @@
 		B1D7D68A24766D2100E4DA5D /* apple_export.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = apple_export.pb.swift; path = ../../../gen/output/apple_export.pb.swift; sourceTree = "<group>"; };
 		B1D8CB2524DD4371008C6010 /* DMTracingHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMTracingHistoryViewController.swift; sourceTree = "<group>"; };
 		B1DDDABB247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientConfigurationEndpointTests.swift; sourceTree = "<group>"; };
+		B1E23B8724FE80EF006BCDA6 /* CancellationTokenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellationTokenTests.swift; sourceTree = "<group>"; };
 		B1E8C99C2479D4E7006DC678 /* DMSubmissionStateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMSubmissionStateViewController.swift; sourceTree = "<group>"; };
 		B1EAEC8A24711884003BE9A2 /* URLSession+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Convenience.swift"; sourceTree = "<group>"; };
 		B1EAEC8D247118CB003BE9A2 /* URLSession+ConvenienceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+ConvenienceTests.swift"; sourceTree = "<group>"; };
@@ -2040,6 +2042,7 @@
 			isa = PBXGroup;
 			children = (
 				B1AC51D524CED8820087C35B /* DetectionModeTests.swift */,
+				B1E23B8724FE80EF006BCDA6 /* CancellationTokenTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -2856,6 +2859,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1BABD0924A57B88000ED515 /* TemporaryExposureKeyMock.swift in Sources */,
+				B1E23B8824FE80EF006BCDA6 /* CancellationTokenTests.swift in Sources */,
 				A1E41949249548770016E52A /* HTTPClient+SubmitTests.swift in Sources */,
 				A1E41941249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift in Sources */,
 				015692E424B48C3F0033F35E /* TimeInterval+Convenience.swift in Sources */,
