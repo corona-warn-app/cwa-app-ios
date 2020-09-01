@@ -64,8 +64,12 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 			signature: signature
 		)
 		store.set(country: "DE", hour: 9, day: "2020-06-12", package: package)
-		let hourlyPackages = store.hourlyPackages(for: "2020-06-12", country: "DE")
-		XCTAssertFalse(hourlyPackages.isEmpty)
+		let hourlyPackagesDE = store.hourlyPackages(for: "2020-06-12", country: "DE")
+		XCTAssertFalse(hourlyPackagesDE.isEmpty)
+
+		store.set(country: "IT", hour: 9, day: "2020-06-12", package: package)
+		let hourlyPackagesIT = store.hourlyPackages(for: "2020-06-12", country: "IT")
+		XCTAssertFalse(hourlyPackagesIT.isEmpty)
 	}
 
 	// Add a package for a given hour on a given day, try to get it and assert that it matches whatever we put inside
@@ -86,15 +90,22 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		store.set(country: "DE", hour: 2, day: "2020-06-12", package: package)
 		store.set(country: "DE", hour: 3, day: "2020-06-12", package: package)
 		store.set(country: "DE", hour: 4, day: "2020-06-12", package: package)
+		store.set(country: "IT", hour: 1, day: "2020-06-12", package: package)
+		store.set(country: "IT", hour: 2, day: "2020-06-12", package: package)
 
 		// Assert that hours exist
+		let hourlyPackagesDE = store.hourlyPackages(for: "2020-06-12", country: "DE")
+		XCTAssertEqual(hourlyPackagesDE.count, 4)
 
-		let hourlyPackages = store.hourlyPackages(for: "2020-06-12", country: "DE")
-		XCTAssertEqual(hourlyPackages.count, 4)
+		let hourlyPackagesIT = store.hourlyPackages(for: "2020-06-12", country: "IT")
+		XCTAssertEqual(hourlyPackagesIT.count, 2)
 
 		// Now add a full day
 		store.set(country: "DE", day: "2020-06-12", package: package)
 		XCTAssertTrue(store.hourlyPackages(for: "2020-06-12", country: "DE").isEmpty)
+
+		store.set(country: "IT", day: "2020-06-12", package: package)
+		XCTAssertTrue(store.hourlyPackages(for: "2020-06-12", country: "IT").isEmpty)
 	}
 
 	func testWeOnlyGet14DaysAfterPruning() throws {
@@ -110,9 +121,11 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 
 		// Add days
 		store.set(country: "DE", day: "2020-06-01", package: package)
+		store.set(country: "IT", day: "2020-06-01", package: package)
 		store.set(country: "DE", day: "2020-06-02", package: package)
 		store.set(country: "DE", day: "2020-06-03", package: package)
-		store.set(country: "DE", day: "2020-06-04", package: package)
+		store.set(country: "DE", day: "2020-06-05", package: package)
+		store.set(country: "IT", day: "2020-06-05", package: package)
 		store.set(country: "DE", day: "2020-06-05", package: package)
 		store.set(country: "DE", day: "2020-06-06", package: package)
 		store.set(country: "DE", day: "2020-06-07", package: package)
@@ -127,14 +140,19 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		store.set(country: "DE", day: "2020-06-16", package: package)
 		store.set(country: "DE", day: "2020-06-17", package: package)
 		store.set(country: "DE", day: "2020-06-18", package: package)
+		store.set(country: "IT", day: "2020-06-18", package: package)
 		store.set(country: "DE", day: "2020-06-19", package: package)
+		store.set(country: "IT", day: "2020-06-19", package: package)
 		store.set(country: "DE", day: "2020-06-20", package: package)
+		store.set(country: "IT", day: "2020-06-20", package: package)
 
 		// Assert that we only get 14 packages
 
 		XCTAssertEqual(store.allDays(country: "DE").count, 20)
+		XCTAssertEqual(store.allDays(country: "IT").count, 5)
 		try store.deleteOutdatedDays(now: "2020-06-20")
 		XCTAssertEqual(store.allDays(country: "DE").count, 14)
+		XCTAssertEqual(store.allDays(country: "IT").count, 3)
 	}
 
 	func testGetLessThan14DaysAfterPruning() throws {
@@ -152,16 +170,20 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		store.set(country: "DE", day: "2020-06-01", package: package)
 		store.set(country: "DE", day: "2020-06-02", package: package)
 		store.set(country: "DE", day: "2020-06-03", package: package)
+		store.set(country: "IT", day: "2020-06-03", package: package)
 		store.set(country: "DE", day: "2020-06-04", package: package)
 		store.set(country: "DE", day: "2020-06-05", package: package)
 		store.set(country: "DE", day: "2020-06-06", package: package)
+		store.set(country: "IT", day: "2020-06-06", package: package)
 		store.set(country: "DE", day: "2020-06-07", package: package)
 
 		// Assert that we only get 7 packages
 
 		XCTAssertEqual(store.allDays(country: "DE").count, 7)
+		XCTAssertEqual(store.allDays(country: "IT").count, 2)
 		try store.deleteOutdatedDays(now: "2020-06-07")
 		XCTAssertEqual(store.allDays(country: "DE").count, 7)
+		XCTAssertEqual(store.allDays(country: "IT").count, 2)
 	}
 
 	func testGettingAllPackages() {
@@ -195,6 +217,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 
 		// Add a single day day
 		store.set(country: "DE", day: today, package: package)
+		store.set(country: "IT", day: today, package: package)
 
 		XCTAssertEqual(
 			store.allPackages(
@@ -213,8 +236,27 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 			).isEmpty
 		)
 
+		XCTAssertEqual(
+			store.allPackages(
+				for: today,
+				country: "IT",
+				onlyHours: false
+			).count,
+			1
+		)
+
+		XCTAssertTrue(
+			store.allPackages(
+				for: today,
+				country: "IT",
+				onlyHours: true
+			).isEmpty
+		)
+
 		// Add a single hour at a different date
 		store.set(country: "DE", hour: 12, day: today, package: package)
+		store.set(country: "IT", hour: 12, day: today, package: package)
+
 		XCTAssertEqual(
 			store.allPackages(
 				for: today,
@@ -236,7 +278,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertEqual(
 			store.allPackages(
 				for: today,
-				country: "DE",
+				country: "IT",
 				onlyHours: false
 			).count,
 			1
@@ -245,7 +287,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertEqual(
 			store.allPackages(
 				for: today,
-				country: "DE",
+				country: "IT",
 				onlyHours: true
 			).count,
 			1
@@ -255,11 +297,23 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		store.set(country: "DE", hour: 13, day: today, package: package)
 		store.set(country: "DE", hour: 14, day: today, package: package)
 		store.set(country: "DE", hour: 15, day: today, package: package)
+		store.set(country: "IT", hour: 13, day: today, package: package)
+		store.set(country: "IT", hour: 14, day: today, package: package)
+		store.set(country: "IT", hour: 15, day: today, package: package)
 
 		XCTAssertEqual(
 			store.allPackages(
 				for: today,
 				country: "DE",
+				onlyHours: true
+			).count,
+			3
+		)
+
+		XCTAssertEqual(
+			store.allPackages(
+				for: today,
+				country: "IT",
 				onlyHours: true
 			).count,
 			3
