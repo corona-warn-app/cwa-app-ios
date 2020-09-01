@@ -33,7 +33,7 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 		coder: NSCoder,
 		coordinator: ExposureSubmissionCoordinating,
 		exposureSubmissionService: ExposureSubmissionService,
-		availableCountries: [Country] = ["IT", "ES", "NL", "CZ", "AT", "DK", "IE", "LV", "EE"].compactMap { Country(countryCode: $0) }
+		availableCountries: [Country] = ["DE", "UK", "FR", "IT", "ES", "PL", "RO", "NL", "BE", "CZ", "EL", "SE", "PT", "HU", "AT", "CH", "BG", "DK", "FI", "SK", "NO", "IE", "HR", "SI", "LT", "LV", "EE", "CY", "LU", "MT", "IS", "LI"].compactMap { Country(countryCode: $0) }
 	) {
 		self.coordinator = coordinator
 		self.exposureSubmissionService = exposureSubmissionService
@@ -75,14 +75,16 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 	private var optionGroupSelection: OptionGroup.Selection? {
 		didSet {
 			switch optionGroupSelection {
-			case .multipleChoiceOption(index: 0, selectedChoices: let selectedCountries):
-				selectedCountrySelectionOption = .visitedCountries(selectedCountries.map { availableCountries[$0] })
+			case .multipleChoiceOption(index: 0, selectedChoices: let selectedCountryIndices):
+				// Filtering out "Other countries" option
+				let filteredCountryIndices = selectedCountryIndices.filter { $0 != availableCountries.count }
+				selectedCountrySelectionOption = .visitedCountries(filteredCountryIndices.map { availableCountries[$0] })
 			case .option(index: 1):
 				selectedCountrySelectionOption = .preferNotToSay
 			case .none:
 				selectedCountrySelectionOption = nil
 			default:
-				break
+				fatalError("This selection has not yet been handled.")
 			}
 		}
 	}
@@ -133,6 +135,7 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 										.multipleChoiceOption(
 											title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionCountrySelection,
 											choices: self.availableCountries.map { (iconImage: $0.flag, title: $0.localizedName) }
+												+ [(iconImage: nil, title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionOtherCountries)]
 										),
 										.option(
 											title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionNone

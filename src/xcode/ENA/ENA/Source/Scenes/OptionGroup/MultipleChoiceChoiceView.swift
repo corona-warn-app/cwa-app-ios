@@ -87,6 +87,7 @@ class MultipleChoiceChoiceView: UIControl {
 
 		if let iconImage = iconImage {
 			let iconImageView = UIImageView(image: iconImage)
+			iconImageView.contentMode = .scaleAspectFit
 
 			NSLayoutConstraint.activate([
 				iconImageView.widthAnchor.constraint(equalToConstant: 24),
@@ -100,6 +101,7 @@ class MultipleChoiceChoiceView: UIControl {
 		let label = ENALabel()
 		label.numberOfLines = 0
 		label.text = title
+		label.style = .body
 
 		contentStackView.addArrangedSubview(label)
 
