@@ -27,11 +27,29 @@ class AppInformationImprintTest: XCTestCase {
 		
 		let dynamicTable = appInformationImprintModel.dynamicTable
 		XCTAssertTrue(dynamicTable.numberOfSection == 1)
-
+		
 		let section = appInformationImprintModel.dynamicTable.section(0)
 		XCTAssertNotNil(section)
 		let numberOfCells = section.cells.count
-		XCTAssertTrue(numberOfCells == 9)
+		
+		let localization = Bundle.main.preferredLocalizations.first
+		if localization == "en" || localization == "de" {
+			XCTAssertTrue(numberOfCells == 9) //DE EN
+		} else {
+			XCTAssertTrue(numberOfCells == 10)//else
+		}
 
+	}
+	
+	func testContactForm() {
+		let cellCollection = appInformationImprintModel.contactForms()
+		let numberOfCells = cellCollection.count
+		
+		let localization = Bundle.main.preferredLocalizations.first
+		if localization == "en" || localization == "de" {
+			XCTAssertTrue(numberOfCells == 1) //DE EN
+		} else {
+			XCTAssertTrue(numberOfCells == 2) //else
+		}
 	}
 }
