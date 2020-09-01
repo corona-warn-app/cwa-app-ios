@@ -40,7 +40,6 @@ class OptionView: UIControl {
 		super.init(frame: .zero)
 
 		setUp(title: title)
-
 		isSelected = false
 	}
 

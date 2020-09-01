@@ -32,36 +32,37 @@ class DynamicTableViewOptionGroupCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	@Published private(set) var selection: OptionGroup.Selection?
+	@Published private(set) var selection: OptionGroupViewModel.Selection?
 
-	func configure(options: [OptionGroup.Option], initialSelection: OptionGroup.Selection? = nil) {
-		if optionGroup != nil {
-			optionGroup.removeFromSuperview()
+	func configure(options: [OptionGroupViewModel.Option], initialSelection: OptionGroupViewModel.Selection? = nil) {
+		if optionGroupView != nil {
+			optionGroupView.removeFromSuperview()
 		}
 
-		optionGroup = OptionGroup(options: options, initialSelection: initialSelection)
+		let viewModel = OptionGroupViewModel(options: options, initialSelection: initialSelection)
+		optionGroupView = OptionGroupView(viewModel: viewModel)
 		setUp()
 
-		selectionSubscription = optionGroup.$selection.assign(to: \.selection, on: self)
+		selectionSubscription = viewModel.$selection.assign(to: \.selection, on: self)
 	}
 
 	// MARK: - Private
 
-	private var optionGroup: OptionGroup!
+	private var optionGroupView: OptionGroupView!
 	private var selectionSubscription: AnyCancellable?
 
 	private func setUp() {
 		selectionStyle = .none
 		backgroundColor = .enaColor(for: .background)
 
-		optionGroup.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(optionGroup)
+		optionGroupView.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(optionGroupView)
 
 		NSLayoutConstraint.activate([
-			optionGroup.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-			optionGroup.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-			optionGroup.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-			optionGroup.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+			optionGroupView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+			optionGroupView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+			optionGroupView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+			optionGroupView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
 		])
 	}
 

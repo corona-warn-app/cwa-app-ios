@@ -20,25 +20,7 @@
 import UIKit
 import Combine
 
-class OptionGroup: UIView {
-
-	enum Option {
-		case option(title: String)
-		case multipleChoiceOption(title: String, choices: [(iconImage: UIImage?, title: String)])
-//		case datePickerOption(title: String, initiallySelectedDaysFromToday: Int)
-	}
-
-	enum OptionViewType {
-		case option(OptionView)
-		case multipleChoiceOption(MultipleChoiceOptionView)
-//		case datePickerOption(title: String, initiallySelectedDaysFromToday: Int)
-	}
-
-	enum Selection {
-		case option(index: Int)
-		case multipleChoiceOption(index: Int, selectedChoices: Set<Int>)
-//		case datePickerOption(index: Int, selectedDaysFromToday: Int)
-	}
+class OptionGroupView: UIView {
 
 	// MARK: - Init
 
@@ -52,25 +34,20 @@ class OptionGroup: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	init(options: [Option], initialSelection: Selection? = nil) {
-		self.options = options
-		self.selection = initialSelection
+	init(viewModel: OptionGroupViewModel) {
+		self.viewModel = viewModel
 
 		super.init(frame: .zero)
 
 		setUp()
 	}
 
-	// MARK: - Internal
-
-	@Published private(set) var selection: Selection?
-
 	// MARK: - Private
 
-	private var options: [OptionGroup.Option]
-	private var optionViews: [OptionViewType] = []
+	private let viewModel: OptionGroupViewModel
 
 	private let contentStackView = UIStackView()
+	private var optionViews: [OptionGroupViewModel.OptionViewType] = []
 
 	private var selectionSubscription: AnyCancellable?
 
@@ -88,8 +65,8 @@ class OptionGroup: UIView {
 			contentStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
 		])
 
-		for optionIndex in 0..<options.count {
-			let option = options[optionIndex]
+		for optionIndex in 0..<viewModel.options.count {
+			let option = viewModel.options[optionIndex]
 
 			switch option {
 			case .option(title: let title):
@@ -103,7 +80,7 @@ class OptionGroup: UIView {
 			}
 		}
 
-		selectionSubscription = $selection.sink { [weak self] selection in
+		selectionSubscription = viewModel.$selection.sink { [weak self] selection in
 			DispatchQueue.main.async {
 				self?.updateOptionViews(for: selection)
 			}
@@ -114,7 +91,7 @@ class OptionGroup: UIView {
 		return OptionView(
 			title: title,
 			onTap: { [weak self] in
-				self?.selection = .option(index: index)
+				self?.viewModel.optionTapped(index: index)
 			}
 		)
 	}
@@ -124,25 +101,12 @@ class OptionGroup: UIView {
 			title: title,
 			choices: choices,
 			onTapOnChoice: { [weak self] choiceIndex in
-				var newSelectedChoices = Set<Int>()
-				if case .multipleChoiceOption(index: index, selectedChoices: let previouslySelectedChoices) = self?.selection {
-					newSelectedChoices = previouslySelectedChoices
-
-					if previouslySelectedChoices.contains(choiceIndex) {
-						newSelectedChoices.remove(choiceIndex)
-					} else {
-						newSelectedChoices.insert(choiceIndex)
-					}
-				} else {
-					newSelectedChoices = [choiceIndex]
-				}
-
-				self?.selection = newSelectedChoices.isEmpty ? nil : .multipleChoiceOption(index: index, selectedChoices: newSelectedChoices)
+				self?.viewModel.multiopleChoiceOptionTapped(index: index, choiceIndex: choiceIndex)
 			}
 		)
 	}
 
-	private func deselectAll() {
+	private func deselectAllViews() {
 		for viewIndex in 0..<self.optionViews.count {
 			switch optionViews[viewIndex] {
 			case .option(let view):
@@ -154,8 +118,8 @@ class OptionGroup: UIView {
 		}
 	}
 
-	private func updateOptionViews(for selection: Selection?) {
-		deselectAll()
+	private func updateOptionViews(for selection: OptionGroupViewModel.Selection?) {
+		deselectAllViews()
 
 		if case let .option(index: index) = selection, case let .option(view) = optionViews[index] {
 			view.isSelected = true

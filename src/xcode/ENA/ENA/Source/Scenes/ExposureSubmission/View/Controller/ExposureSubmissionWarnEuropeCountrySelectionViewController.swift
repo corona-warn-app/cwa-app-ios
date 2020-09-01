@@ -72,7 +72,7 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 
 	@Published private var selectedCountrySelectionOption: CountrySelectionOption?
 
-	private var optionGroupSelection: OptionGroup.Selection? {
+	private var optionGroupSelection: OptionGroupViewModel.Selection? {
 		didSet {
 			switch optionGroupSelection {
 			case .multipleChoiceOption(index: 0, selectedChoices: let selectedCountryIndices):

@@ -67,7 +67,7 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 
 	@Published private var selectedTravelConfirmationOption: TravelConfirmationOption?
 
-	private var optionGroupSelection: OptionGroup.Selection? {
+	private var optionGroupSelection: OptionGroupViewModel.Selection? {
 		didSet {
 			guard case let .option(index: index) = optionGroupSelection else { return }
 
