@@ -56,11 +56,18 @@ class MultipleChoiceChoiceView: UIControl {
 		onTap()
 	}
 
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateForCurrentTraitCollection()
+	}
+
 	// MARK: - Private
 
 	private let onTap: () -> Void
 
 	private let checkmarkImageView = UIImageView()
+	private let iconImageView = UIImageView()
 
 	private func setUp(iconImage: UIImage?, title: String) {
 		backgroundColor = UIColor.enaColor(for: .background)
@@ -75,16 +82,17 @@ class MultipleChoiceChoiceView: UIControl {
 			contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
 			contentStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
 			contentStackView.topAnchor.constraint(equalTo: topAnchor, constant: 11),
-			contentStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -11),
-			checkmarkImageView.widthAnchor.constraint(equalToConstant: 22),
-			checkmarkImageView.heightAnchor.constraint(equalToConstant: 22)
+			contentStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -11)
 		])
+
+		checkmarkImageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
+		checkmarkImageView.setContentHuggingPriority(.required, for: .horizontal)
 
 		contentStackView.addArrangedSubview(checkmarkImageView)
 		contentStackView.setCustomSpacing(21, after: checkmarkImageView)
 
 		if let iconImage = iconImage {
-			let iconImageView = UIImageView(image: iconImage)
+			iconImageView.image = iconImage
 			iconImageView.contentMode = .scaleAspectFit
 
 			NSLayoutConstraint.activate([
@@ -106,7 +114,8 @@ class MultipleChoiceChoiceView: UIControl {
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
 		addGestureRecognizer(tapGestureRecognizer)
 
-		isSelected = false
+		updateForSelectionState()
+		updateForCurrentTraitCollection()
 
 		isAccessibilityElement = true
 		accessibilityLabel = title
@@ -121,6 +130,10 @@ class MultipleChoiceChoiceView: UIControl {
 		checkmarkImageView.image = isSelected ? UIImage(named: "Checkmark_Selected") : UIImage(named: "Checkmark_Unselected")
 
 		accessibilityTraits = isSelected ? [.button, .selected] : [.button]
+	}
+
+	private func updateForCurrentTraitCollection() {
+		iconImageView.isHidden = traitCollection.preferredContentSizeCategory.isAccessibilityCategory
 	}
 
 }

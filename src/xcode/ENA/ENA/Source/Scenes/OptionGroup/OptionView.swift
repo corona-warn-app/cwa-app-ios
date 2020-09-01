@@ -60,6 +60,7 @@ class OptionView: UIControl {
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 
+		// Update selection state for dark mode (CGColors are not changed automatically)
 		updateForSelectionState()
 	}
 
@@ -82,6 +83,7 @@ class OptionView: UIControl {
 		layer.masksToBounds = false
 
 		checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
+		checkmarkImageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
 		addSubview(checkmarkImageView)
 
 		let label = ENALabel()
@@ -98,8 +100,6 @@ class OptionView: UIControl {
 			label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -33),
 			checkmarkImageView.leadingAnchor.constraint(greaterThanOrEqualTo: label.trailingAnchor, constant: 16),
 			checkmarkImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-			checkmarkImageView.widthAnchor.constraint(equalToConstant: 22),
-			checkmarkImageView.heightAnchor.constraint(equalToConstant: 22),
 			checkmarkImageView.centerYAnchor.constraint(equalTo: label.centerYAnchor)
 		])
 

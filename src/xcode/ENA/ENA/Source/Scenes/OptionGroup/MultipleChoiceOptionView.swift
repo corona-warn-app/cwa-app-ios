@@ -47,6 +47,7 @@ class MultipleChoiceOptionView: UIView {
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 
+		// Update selection state for dark mode (CGColors are not changed automatically)
 		updateForSelectionState()
 	}
 
