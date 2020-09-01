@@ -77,8 +77,13 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let remoteDaysAndHours: DaysAndHours = DaysAndHours(days: [yesterdayString, todayString], hours: [])
 		let localDaysAndHours: DaysAndHours = DaysAndHours(days: [yesterdayString], hours: [])
 
-		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
+		#if INTEROP
+		let downloadedPackageStore = DownloadedPackagesSQLLiteStoreV1.openInMemory
 		downloadedPackageStore.set(country: "DE", day: localDaysAndHours.days[0], package: try .makePackage())
+		#else
+		let downloadedPackageStore = DownloadedPackagesSQLLiteStoreV0.openInMemory
+		downloadedPackageStore.set(day: localDaysAndHours.days[0], package: try .makePackage())
+		#endif
 
 		let sut = ExposureDetectionExecutor.makeWith(packageStore: downloadedPackageStore)
 
@@ -92,8 +97,14 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 	func testDownloadDelta_TestStoreIsPruned() throws {
 		// Test the case where the exector is asked to download the latest DaysAndHours delta,
 		// and the server has new data. We expect that the downloaded package store is pruned of old entries
-		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
+
+		#if INTEROP
+		let downloadedPackageStore = DownloadedPackagesSQLLiteStoreV1.openInMemory
 		downloadedPackageStore.set(country: "DE", day: Date.distantPast.formatted, package: try SAPDownloadedPackage.makePackage())
+		#else
+		let downloadedPackageStore = DownloadedPackagesSQLLiteStoreV0.openInMemory
+		downloadedPackageStore.set(day: Date.distantPast.formatted, package: try SAPDownloadedPackage.makePackage())
+		#endif
 
 		let sut = ExposureDetectionExecutor.makeWith(packageStore: downloadedPackageStore)
 
@@ -101,7 +112,12 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 			ExposureDetection(delegate: sut),
 			downloadDeltaFor: DaysAndHours(days: ["Hello"], hours: [])
 		)
+
+		#if INTEROP
 		XCTAssert(downloadedPackageStore.allDays(country: "DE").isEmpty, "The store should be empty after being pruned!")
+		#else
+		XCTAssert(downloadedPackageStore.allDays().isEmpty, "The store should be empty after being pruned!")
+		#endif
 	}
 
 	// MARK: - Store Delta Tests
@@ -109,7 +125,13 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 	func testStoreDelta_Success() throws {
 		// Test the case where the exector is asked to store the latest DaysAndHours delta,
 		// and the server has new data. We expect that the package store contains this new data.
-		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
+
+		#if INTEROP
+		let downloadedPackageStore = DownloadedPackagesSQLLiteStoreV1.openInMemory
+		#else
+		let downloadedPackageStore = DownloadedPackagesSQLLiteStoreV0.openInMemory
+		#endif
+
 		let testDaysAndHours = DaysAndHours(days: ["2020-01-01"], hours: [])
 		let testPackage = try SAPDownloadedPackage.makePackage()
 		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
@@ -127,11 +149,20 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 				defer { completionExpectation.fulfill() }
 				XCTAssertNil(error)
 
+				#if INTEROP
 				guard let storedPackage = downloadedPackageStore.package(for: "2020-01-01", country: "DE") else {
 					// We can't XCUnwrap here as completion handler closure cannot throw
 					XCTFail("Package store did not contain downloaded delta package!")
 					return
 				}
+				#else
+				guard let storedPackage = downloadedPackageStore.package(for: "2020-01-01") else {
+					// We can't XCUnwrap here as completion handler closure cannot throw
+					XCTFail("Package store did not contain downloaded delta package!")
+					return
+				}
+				#endif
+
 				XCTAssertEqual(storedPackage.bin, testPackage.bin)
 				XCTAssertEqual(storedPackage.signature, testPackage.signature)
 		}
@@ -199,12 +230,22 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		// Hourly fetching is disabled
 
 		let todayString = Calendar.gregorianUTC.startOfDay(for: Date()).formatted
-		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
+
+		#if INTEROP
+		let downloadedPackageStore = DownloadedPackagesSQLLiteStoreV1.openInMemory
 		try downloadedPackageStore.set(country: "DE", day: todayString, package: .makePackage())
 		// Below package is stored but should not be written to disk as hourly fetching is disabled
 		try downloadedPackageStore.set(country: "DE", hour: 3, day: todayString, package: .makePackage())
 		let store = MockTestStore()
 		store.hourlyFetchingEnabled = false
+		#else
+		let downloadedPackageStore = DownloadedPackagesSQLLiteStoreV0.openInMemory
+		try downloadedPackageStore.set(day: todayString, package: .makePackage())
+		// Below package is stored but should not be written to disk as hourly fetching is disabled
+		try downloadedPackageStore.set(hour: 3, day: todayString, package: .makePackage())
+		let store = MockTestStore()
+		store.hourlyFetchingEnabled = false
+		#endif
 
 		let sut = ExposureDetectionExecutor.makeWith(
 			packageStore: downloadedPackageStore,
@@ -244,11 +285,21 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		// We expect that the .bin and .sig files are written in the App's temp directory
 		// Hourly fetching is enabled
 		let todayString = Calendar.gregorianUTC.startOfDay(for: Date()).formatted
-		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
+
+		#if INTEROP
+		let downloadedPackageStore = DownloadedPackagesSQLLiteStoreV1.openInMemory
 		// Below package is stored but should not be written to disk as hourly fetching is enabled
 		try downloadedPackageStore.set(country: "DE", day: todayString, package: .makePackage())
 		try downloadedPackageStore.set(country: "DE", hour: 3, day: todayString, package: .makePackage())
 		try downloadedPackageStore.set(country: "DE", hour: 4, day: todayString, package: .makePackage())
+		#else
+		let downloadedPackageStore = DownloadedPackagesSQLLiteStoreV0.openInMemory
+		// Below package is stored but should not be written to disk as hourly fetching is enabled
+		try downloadedPackageStore.set(day: todayString, package: .makePackage())
+		try downloadedPackageStore.set(hour: 3, day: todayString, package: .makePackage())
+		try downloadedPackageStore.set( hour: 4, day: todayString, package: .makePackage())
+		#endif
+
 		let sut = ExposureDetectionExecutor.makeWith(packageStore: downloadedPackageStore)
 
 		let result = sut.exposureDetectionWriteDownloadedPackages(
@@ -341,10 +392,11 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 // MARK: - Private Helper Extensions
 
 private extension ExposureDetectionExecutor {
+	#if INTEROP
 	/// Create a `ExposureDetectionExecutor` with the specified parameters. Mock defaults are applied unless specified.
 	static func makeWith(
 		client: Client = ClientMock(),
-		packageStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory(),
+		packageStore: DownloadedPackagesStoreV1 = DownloadedPackagesSQLLiteStoreV1.inMemory(),
 		store: Store = MockTestStore(),
 		exposureDetector: MockExposureDetector = MockExposureDetector()
 	) -> ExposureDetectionExecutor {
@@ -355,15 +407,41 @@ private extension ExposureDetectionExecutor {
 			exposureDetector: exposureDetector
 		)
 	}
+	#else
+	/// Create a `ExposureDetectionExecutor` with the specified parameters. Mock defaults are applied unless specified.
+	static func makeWith(
+		client: Client = ClientMock(),
+		packageStore: DownloadedPackagesStoreV0 = DownloadedPackagesSQLLiteStoreV0.inMemory(),
+		store: Store = MockTestStore(),
+		exposureDetector: MockExposureDetector = MockExposureDetector()
+	) -> ExposureDetectionExecutor {
+		ExposureDetectionExecutor(
+			client: client,
+			downloadedPackagesStore: packageStore,
+			store: store,
+			exposureDetector: exposureDetector
+		)
+	}
+	#endif
 }
 
-private extension DownloadedPackagesSQLLiteStore {
-	static var openInMemory: DownloadedPackagesSQLLiteStore {
-		let store = DownloadedPackagesSQLLiteStore.inMemory()
+#if INTEROP
+private extension DownloadedPackagesSQLLiteStoreV1 {
+	static var openInMemory: DownloadedPackagesSQLLiteStoreV1 {
+		let store = DownloadedPackagesSQLLiteStoreV1.inMemory()
 		store.open()
 		return store
 	}
 }
+#else
+private extension DownloadedPackagesSQLLiteStoreV0 {
+	static var openInMemory: DownloadedPackagesSQLLiteStoreV0 {
+		let store = DownloadedPackagesSQLLiteStoreV0.inMemory()
+		store.open()
+		return store
+	}
+}
+#endif
 
 private extension Date {
 	var formatted: String {

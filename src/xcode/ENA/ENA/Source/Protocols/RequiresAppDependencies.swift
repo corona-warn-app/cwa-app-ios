@@ -23,7 +23,11 @@ protocol RequiresAppDependencies {
 	var client: HTTPClient { get }
 	var store: Store { get }
 	var taskScheduler: ENATaskScheduler { get }
-	var downloadedPackagesStore: DownloadedPackagesStore { get }
+	#if INTEROP
+	var downloadedPackagesStore: DownloadedPackagesStoreV1 { get }
+	#else
+	var downloadedPackagesStore: DownloadedPackagesStoreV0 { get }
+	#endif
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
 	var lastRiskCalculation: String { get }  // TODO: REMOVE ME
@@ -34,9 +38,15 @@ extension RequiresAppDependencies {
 		UIApplication.coronaWarnDelegate().client
 	}
 
-	var downloadedPackagesStore: DownloadedPackagesStore {
+	#if INTEROP
+	var downloadedPackagesStore: DownloadedPackagesStoreV1 {
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore
 	}
+	#else
+	var downloadedPackagesStore: DownloadedPackagesStoreV0 {
+		UIApplication.coronaWarnDelegate().downloadedPackagesStore
+	}
+	#endif
 
 	var store: Store {
 		UIApplication.coronaWarnDelegate().store

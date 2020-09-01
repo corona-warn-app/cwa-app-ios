@@ -22,6 +22,8 @@ import FMDB
 
 @testable import ENA
 
+#if INTEROP
+
 class Migration0To1Tests: XCTestCase {
 
 	func testMigrationFromStoreVersion0To1() {
@@ -47,7 +49,7 @@ class Migration0To1Tests: XCTestCase {
 			migrations: [migration0To1]
 		)
 
-		let storeV1 = DownloadedPackagesSQLLiteStore(
+		let storeV1 = DownloadedPackagesSQLLiteStoreV1(
 			database: database,
 			migrator: migrator,
 			latestVersion: latestDBVersion
@@ -59,6 +61,11 @@ class Migration0To1Tests: XCTestCase {
 		XCTAssertEqual(database.numberOfRows(for: "Z_DOWNLOADED_PACKAGE"), 14)
 		XCTAssertEqual(database.numberOfColumns(for: "Z_DOWNLOADED_PACKAGE"), 5)
 		XCTAssertEqual(numberOfDEItems(for: database), 14)
+
+		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+		storeV1.set(country: "IT", day: "14", package: dummyPackage)
+
+		XCTAssertEqual(database.numberOfRows(for: "Z_DOWNLOADED_PACKAGE"), 15)
 	}
 
 	private func numberOfDEItems(for database: FMDatabase) -> Int {
@@ -85,3 +92,5 @@ class Migration0To1Tests: XCTestCase {
 		return numberOfRows
 	}
 }
+
+#endif

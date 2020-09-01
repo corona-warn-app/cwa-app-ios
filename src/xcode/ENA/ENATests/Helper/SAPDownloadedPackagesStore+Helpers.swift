@@ -65,8 +65,16 @@ extension FMDatabase {
 	}
 }
 
-extension DownloadedPackagesSQLLiteStore {
-	class func inMemory() -> DownloadedPackagesSQLLiteStore {
-		DownloadedPackagesSQLLiteStore(database: .inMemory(), migrator: SerialMigratorFake(), latestVersion: 0)
+#if INTEROP
+extension DownloadedPackagesSQLLiteStoreV1 {
+	class func inMemory() -> DownloadedPackagesSQLLiteStoreV1 {
+		DownloadedPackagesSQLLiteStoreV1(database: .inMemory(), migrator: SerialMigratorFake(), latestVersion: 0)
 	}
 }
+#else
+extension DownloadedPackagesSQLLiteStoreV0 {
+	class func inMemory() -> DownloadedPackagesSQLLiteStoreV0 {
+		DownloadedPackagesSQLLiteStoreV0(database: .inMemory())
+	}
+}
+#endif

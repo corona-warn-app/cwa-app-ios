@@ -22,7 +22,11 @@ import UIKit
 
 protocol CoronaWarnAppDelegate: AnyObject {
 	var client: HTTPClient { get }
-	var downloadedPackagesStore: DownloadedPackagesStore { get }
+	#if INTEROP
+	var downloadedPackagesStore: DownloadedPackagesStoreV1 { get }
+	#else
+	var downloadedPackagesStore: DownloadedPackagesStoreV0 { get }
+	#endif
 	var store: Store { get }
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
@@ -116,7 +120,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	private var exposureDetection: ExposureDetection?
 	private(set) var exposureSubmissionService: ENAExposureSubmissionService?
 
-	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
+	#if INTEROP
+	let downloadedPackagesStore: DownloadedPackagesStoreV1 = DownloadedPackagesSQLLiteStoreV1(fileName: "packages")
+	#else
+	let downloadedPackagesStore: DownloadedPackagesStoreV0 = DownloadedPackagesSQLLiteStoreV0(fileName: "packages")
+	#endif
 
 	var client = HTTPClient(configuration: .backendBaseURLs)
 

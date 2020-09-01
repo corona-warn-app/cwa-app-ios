@@ -8,13 +8,19 @@ import ExposureNotification
 
 final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	private let client: Client
-	private let downloadedPackagesStore: DownloadedPackagesStore
+
+	#if INTEROP
+	private let downloadedPackagesStore: DownloadedPackagesStoreV1
+	#else
+	private let downloadedPackagesStore: DownloadedPackagesStoreV0
+	#endif
 	private let store: Store
 	private let exposureDetector: ExposureDetector
 
+	#if INTEROP
 	init(
 		client: Client,
-		downloadedPackagesStore: DownloadedPackagesStore,
+		downloadedPackagesStore: DownloadedPackagesStoreV1,
 		store: Store,
 		exposureDetector: ExposureDetector
 	) {
@@ -24,6 +30,20 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		self.store = store
 		self.exposureDetector = exposureDetector
 	}
+	#else
+	init(
+		client: Client,
+		downloadedPackagesStore: DownloadedPackagesStoreV0,
+		store: Store,
+		exposureDetector: ExposureDetector
+	) {
+
+		self.client = client
+		self.downloadedPackagesStore = downloadedPackagesStore
+		self.store = store
+		self.exposureDetector = exposureDetector
+	}
+	#endif
 
 	func exposureDetection(
 		_ detection: ExposureDetection,
@@ -77,13 +97,23 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	func exposureDetection(_ detection: ExposureDetection, downloadDeltaFor remote: DaysAndHours) -> DaysAndHours {
 		// prune the store
 		try? downloadedPackagesStore.deleteOutdatedDays(now: .formattedToday())
-		
+
+		#if INTEROP
 		let delta = DeltaCalculationResult(
 			remoteDays: Set(remote.days),
 			remoteHours: Set(remote.hours),
 			localDays: Set(downloadedPackagesStore.allDays(country: "DE")),
 			localHours: Set(downloadedPackagesStore.hours(for: .formattedToday(), country: "DE"))
 		)
+		#else
+		let delta = DeltaCalculationResult(
+			remoteDays: Set(remote.days),
+			remoteHours: Set(remote.hours),
+			localDays: Set(downloadedPackagesStore.allDays()),
+			localHours: Set(downloadedPackagesStore.hours(for: .formattedToday()))
+		)
+		#endif
+
 		return DaysAndHours(
 			days: Array(delta.missingDays),
 			hours: Array(delta.missingHours)
@@ -112,7 +142,13 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		let rootDir = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		do {
 			try fileManager.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
+
+			#if INTEROP
 			let packages = downloadedPackagesStore.allPackages(for: .formattedToday(), country: "DE", onlyHours: store.hourlyFetchingEnabled)
+			#else
+			let packages = downloadedPackagesStore.allPackages(for: .formattedToday(), onlyHours: store.hourlyFetchingEnabled)
+			#endif
+
 			let writer = AppleFilesWriter(rootDir: rootDir, keyPackages: packages)
 			return writer.writeAllPackages()
 		} catch {
@@ -148,7 +184,8 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	}
 }
 
-extension DownloadedPackagesStore {
+#if INTEROP
+extension DownloadedPackagesStoreV1 {
 	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours) {
 		let days = daysAndHours.days
 		days.bucketsByDay.forEach { day, bucket in
@@ -161,3 +198,18 @@ extension DownloadedPackagesStore {
 		}
 	}
 }
+#else
+extension DownloadedPackagesStoreV0 {
+	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours) {
+		let days = daysAndHours.days
+		days.bucketsByDay.forEach { day, bucket in
+			self.set(day: day, package: bucket)
+		}
+
+		let hours = daysAndHours.hours
+		hours.bucketsByHour.forEach { hour, bucket in
+			self.set(hour: hour, day: hours.day, package: bucket)
+		}
+	}
+}
+#endif
