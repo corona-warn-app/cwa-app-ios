@@ -21,9 +21,6 @@ import UIKit
 
 class AppInformationViewController: DynamicTableViewController {
 
-	static let englishContactFormLink = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html"
-	static let germanContactFormLink = "https://www.rki.de/SharedDocs/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html"
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
