@@ -72,7 +72,7 @@ let DefaultPublicKeyFromString: PublicKeyFromStringProvider = { pk in
 }
 
 let DefaultPublicKeyProvider: PublicKeyProvider = {
-	#if USE_DEVELOPMENT_PK_FOR_SIGNATURE_VERIFICATION
+	#if USE_DEV_PK_FOR_SIG_VERIFICATION
 	return DefaultPublicKeyFromEnvProvider(.development)
 	#else
 	return DefaultPublicKeyFromEnvProvider(.production)
