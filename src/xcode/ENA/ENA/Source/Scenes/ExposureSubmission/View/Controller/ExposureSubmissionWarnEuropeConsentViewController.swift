@@ -108,8 +108,9 @@ class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewControl
 					separators: true,
 					cells: [
 						.icon(
-							UIImage(systemName: "flag", withConfiguration: UIImage.SymbolConfiguration(weight: .regular)),
+							UIImage(named: "flag.eu"),
 							text: AppStrings.ExposureSubmissionWarnEuropeConsent.toggleTitle,
+							iconSize: 28,
 							action: .execute { [weak self] _ in
 								self?.consentGiven.toggle()
 							},
