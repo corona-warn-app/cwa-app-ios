@@ -29,26 +29,52 @@ enum KeyError: Error {
 	case plistError
 }
 
-typealias PublicKeyProviding = (_ key: String) throws -> P256.Signing.PublicKey
-enum PublicKeyStore {
-	static func get(for keyId: String) throws -> P256.Signing.PublicKey {
-		guard
-			let path = Bundle.main.path(forResource: "PublicKeys", ofType: "plist"),
-			let xml = FileManager.default.contents(atPath: path),
-			let plistDict = try? PropertyListSerialization.propertyList(from: xml, options: .mutableContainers, format: nil) as? [String: String]
-		else {
-			logError(message: "Could not find or decode PublicKeys.plist!")
-			throw KeyError.environmentError
-		}
-
-		guard let keyString = plistDict[keyId] else {
-			throw KeyError.environmentError
-		}
-		let keyData = Data(base64Encoded: keyString)
-		guard let data = keyData else {
-			throw KeyError.encodingError
-		}
-
-		return try P256.Signing.PublicKey(rawRepresentation: data)
+extension Data {
+	init(staticBase64Encoded: StaticString) {
+		// swiftlint:disable:next force_unwrapping
+		self.init(base64Encoded: "\(staticBase64Encoded)")!
 	}
 }
+
+extension P256.Signing.PublicKey {
+	init(staticBase64Encoded: StaticString) {
+		// swiftlint:disable:next force_try
+		try! self.init(rawRepresentation: Data(staticBase64Encoded: staticBase64Encoded))
+	}
+}
+
+enum PublicKeyEnv {
+	case production
+	case development
+
+	/// Returns the string representation of the PK.
+	///
+	/// We don't want to rely on `rawValue` but make accessing the key an explicit action.
+	var stringRepresentation: StaticString {
+		switch self {
+		case .production: return "c7DEstcUIRcyk35OYDJ95/hTg3UVhsaDXKT0zK7NhHPXoyzipEnOp3GyNXDVpaPi3cAfQmxeuFMZAIX2+6A5Xg=="
+		case .development: return "3BYTxr2HuJYQG+d7Ezu6KS8GEbFkiEvyJFg0j+C839gTjT6j7Ho0EXXZ/a07ZfvKcC2cmc1SunsrqU9Jov1J5Q=="
+		}
+	}
+}
+
+typealias PublicKeyProvider = () -> P256.Signing.PublicKey
+typealias PublicKeyFromStringProvider = (StaticString) -> PublicKeyProvider
+typealias PublicKeyProviderFromActiveCompilationConditions = () -> PublicKeyProvider
+typealias PublicKeyProviderFromEnv = (PublicKeyEnv) -> PublicKeyProvider
+
+private let DefaultPublicKeyFromEnvProvider: PublicKeyProviderFromEnv = { env in
+	return DefaultPublicKeyFromString(env.stringRepresentation)
+}
+
+let DefaultPublicKeyFromString: PublicKeyFromStringProvider = { pk in
+	return { P256.Signing.PublicKey(staticBase64Encoded: pk) }
+}
+
+let DefaultPublicKeyProvider: PublicKeyProvider = {
+	#if USE_DEVELOPMENT_PK_FOR_SIGNATURE_VERIFICATION
+	return DefaultPublicKeyFromEnvProvider(.development)
+	#else
+	return DefaultPublicKeyFromEnvProvider(.production)
+	#endif
+}()
