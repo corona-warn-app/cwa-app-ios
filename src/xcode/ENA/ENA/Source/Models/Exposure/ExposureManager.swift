@@ -29,7 +29,7 @@ enum ExposureNotificationError: Error {
 	case unknown(String)
 }
 
-struct ExposureManagerState {
+struct ExposureManagerState: Equatable {
 	// MARK: Creating a State
 
 	init(

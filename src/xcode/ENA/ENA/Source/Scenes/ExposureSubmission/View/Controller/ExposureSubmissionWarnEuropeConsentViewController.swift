@@ -147,7 +147,9 @@ class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewControl
 									),
 									body: NSMutableAttributedString(
 										string: AppStrings.ExposureSubmissionWarnEuropeConsent.consentDescription
-									)
+									),
+									textStyle: .textPrimary1,
+									backgroundStyle: .separator
 								)
 							}
 						)

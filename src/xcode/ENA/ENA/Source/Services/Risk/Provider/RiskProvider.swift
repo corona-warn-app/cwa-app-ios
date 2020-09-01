@@ -160,7 +160,10 @@ extension RiskProvider: RiskProviding {
 			let tracingHistory = store.tracingStatusHistory
 			let numberOfEnabledSeconds = tracingHistory.activeTracing().interval
 			let remainingTime = TracingStatusHistory.minimumActiveSeconds - numberOfEnabledSeconds
-			return Date().addingTimeInterval(remainingTime)
+			// To get a more robust Date when calculating the Date we need to drop precision, otherwise we will get dates differing in miliseconds
+			let timeInterval = Date().addingTimeInterval(remainingTime).timeIntervalSinceReferenceDate
+			let timeIntervalInSeconds = Int(timeInterval)
+			return Date(timeIntervalSinceReferenceDate: TimeInterval(timeIntervalInSeconds))
 		case .date(let date):
 			return date
 		}

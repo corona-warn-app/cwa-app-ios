@@ -83,26 +83,41 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 						height: 250
 					),
 					cells: [
-						.title2(
-							text: AppStrings.ExposureSubmissionWarnOthers.sectionTitle,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.sectionTitle
-						),
-						.body(
-							text: AppStrings.ExposureSubmissionWarnOthers.description,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.description
+						.title2(text: AppStrings.ExposureSubmissionWarnOthers.sectionTitle,
+								accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.sectionTitle),
+						.body(text: AppStrings.ExposureSubmissionWarnOthers.description,
+							  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.description),
+						.custom(
+							withIdentifier: CustomCellReuseIdentifiers.roundedCell,
+							configure: { _, cell, _ in
+								guard let appUsagesOver16Cell = cell as? DynamicTableViewRoundedCell else { return }
+
+								appUsagesOver16Cell.configure(
+									title: NSMutableAttributedString(
+										string: AppStrings.ExposureSubmissionWarnOthers.consentUnderagesTitle
+									),
+									body: NSMutableAttributedString(
+										string: AppStrings.ExposureSubmissionWarnOthers.consentUnderagesText
+									),
+									textStyle: .textContrast,
+									backgroundStyle: .riskNeutral
+								)
+							}
 						),
 						.custom(
 							withIdentifier: CustomCellReuseIdentifiers.roundedCell,
 							configure: { _, cell, _ in
-								guard let cell = cell as? DynamicTableViewRoundedCell else { return }
+								guard let privacyStatementCell = cell as? DynamicTableViewRoundedCell else { return }
 
-								cell.configure(
+								privacyStatementCell.configure(
 									title: NSMutableAttributedString(
 										string: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyTitle
 									),
 									body: NSMutableAttributedString(
 										string: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyDescription
-									)
+									),
+									textStyle: .textPrimary1,
+									backgroundStyle: .separator
 								)
 							}
 						)

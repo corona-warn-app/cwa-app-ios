@@ -20,7 +20,7 @@
 import Foundation
 import UIKit
 
-enum DetectionMode {
+enum DetectionMode: Equatable {
 	case automatic
 	case manual
 

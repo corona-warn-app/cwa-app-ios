@@ -38,25 +38,25 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 		self.autoresizingMask = .flexibleHeight
 	}
 
-	private func setup() {
+	private func setup(textStyle: ENAColor, backgroundStyle: ENAColor) {
 
 		// MARK: - General cell setup.
 		selectionStyle = .none
 		backgroundColor = .enaColor(for: .background)
 
 		// MARK: - Add inset view
-		insetView.backgroundColor = .enaColor(for: .separator)
+		insetView.backgroundColor = .enaColor(for: backgroundStyle)
 		insetView.layer.cornerRadius = 16.0
 
 		// MARK: - Title adjustment.
 		title.style = .headline
-		title.textColor = .enaColor(for: .textPrimary1)
+		title.textColor = .enaColor(for: textStyle)
 		title.lineBreakMode = .byWordWrapping
 		title.numberOfLines = 0
 
 		// MARK: - Body adjustment.
 		body.style = .body
-		body.textColor = .enaColor(for: .textPrimary1)
+		body.textColor = .enaColor(for: textStyle)
 		body.lineBreakMode = .byWordWrapping
 		body.numberOfLines = 0
 
@@ -89,8 +89,8 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 		body.bottomAnchor.constraint(equalTo: insetView.bottomAnchor, constant: -16).isActive = true
 	}
 
-	func configure(title: NSMutableAttributedString, body: NSMutableAttributedString) {
-		setup()
+	func configure(title: NSMutableAttributedString, body: NSMutableAttributedString, textStyle: ENAColor, backgroundStyle: ENAColor) {
+		setup(textStyle: textStyle, backgroundStyle: backgroundStyle)
 		setupConstraints()
 		self.title.attributedText = title
 		self.body.attributedText = body
