@@ -122,7 +122,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	#endif
 
 	private var exposureDetection: ExposureDetection?
-	private(set) var exposureSubmissionService: ENAExposureSubmissionService?
 
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
