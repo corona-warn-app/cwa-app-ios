@@ -152,6 +152,10 @@
 
 "Settings_Notification_StatusInactive" = "Off";
 
+"Settings_BackgroundAppRefresh_StatusActive" = "On";
+
+"Settings_BackgroundAppRefresh_StatusInactive" = "Off";
+
 "Settings_StatusEnable" = "Activate";
 
 "Settings_StatusDisable" = "Deactivate";
@@ -164,11 +168,15 @@
 
 "Settings_Notification_Label" = "Notifications";
 
+"Settings_BackgroundAppRefresh_Label" = "Background Updates";
+
 "Settings_Reset_Label" = "Reset App";
 
 "Settings_Tracing_Description" = "Allow COVID-19 random IDs to be generated and shared.";
 
 "Settings_Notification_Description" = "Allow automatic notifications of your COVID-19 risk status.";
+
+"Settings_BackgroundAppRefresh_Description" = "Allow automatic updates of your risk status.";
 
 "Settings_Reset_Description" = "Delete all your data in the app.";
 
@@ -200,6 +208,61 @@
 "NotificationSettings_onImageDescription" = "A woman receives a notification from her Corona-Warn-App.";
 
 "NotificationSettings_offImageDescription" = "A woman cannot receive notifications from her Corona-Warn-App.";
+
+/* Background App Referesh Settings */
+"BackgroundAppRefreshSettings_Title" = "Background Updates";
+
+"BackgroundAppRefreshSettings_Image_Description_On" = "A person holds a smartphone with activated background updates in their hand.";
+
+"BackgroundAppRefreshSettings_Image_Description_Off" = "A person holds a smartphone with deactivated background updates in their hand.";
+
+"BackgroundAppRefreshSettings_Subtitle" = "Update Risk Status in the Background";
+
+"BackgroundAppRefreshSettings_Description" = "When background updates are activated, the Corona-Warn-App determines your risk status automatically.\nNo additional costs will be incurred for the data transfer in the mobile network.\nIf background updates are deactivated, you will have to open the app manually each day to update your risk status.";
+
+"BackgroundAppRefreshSettings_Status_Header" = "Setting";
+
+"BackgroundAppRefreshSettings_Status_Title" = "Background App Refresh";
+
+"BackgroundAppRefreshSettings_Status_On" = "On";
+
+"BackgroundAppRefreshSettings_Status_Off" = "Off";
+
+"BackgroundAppRefreshSettings_InfoBox_Title" = "Activate Background App Refresh";
+
+"BackgroundAppRefreshSettings_InfoBox_Description" = "You have to activate background app refresh in both the general settings of your iPhone and in the settings of the Corona-Warn-App.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Please note that low power mode must be deactivated for you to activate background app refersh.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Deactivate Low Power Mode";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Open Settings";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2" = "Open Battery";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3" = "Deactivate Low Power Mode";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title" = "Activate Background App Refresh in General";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1" = "Open Settings";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2" = "Open General";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3" = "Open Background App Refresh";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4" = "Select either Wi-Fi or Wi-Fi & Cellular Data";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title" = "Activate Background App Refresh for the Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Open Settings";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Open the settings for the Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Activate Background App Refresh";
+
+"BackgroundAppRefreshSettings_OpenSettingsButton_Title" = "Open Settings";
+
+"BackgroundAppRefreshSettings_ShareButton_Title" = "Share Instructions";
 
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "Let’s get started";
@@ -245,6 +308,10 @@
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To identify whether you are at risk of infection, you must activate the exposure logging feature.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Exposure logging works by your device receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. This feature can be disabled at any time. \n\nEncrypted random IDs only pass information about date, duration, and proximity to other persons (calculated by signal strength). Personal data such as name, address, and location is never recorded. Individuals cannot be identified.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Age Limit: 16 and Up";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "This app is intended for people who are at least 16 years of age and who reside in Germany.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Declaration of Consent";
 
@@ -496,6 +563,10 @@
 "ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping on “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the exposure logging feature can be automatically notified that they may have been exposed to a risk of infection. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person.\n\nTransmitting your test result via the App is voluntary. You will not be penalised if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected.\n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out on the basis of the consent prior to the withdrawal. Further information can be found in the menu under “Data Privacy Information”.";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Data Privacy";
+
+"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Age Limit: 16 and Up";
+
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "This app is intended for people who are at least 16 years of age and who reside in Germany.";
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "The test can only be scanned once.";
 

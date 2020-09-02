@@ -126,7 +126,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 			configuration: ENExposureConfiguration,
 			writtenPackages: WrittenPackages,
 			completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void
-	) {
+	) -> Progress {
 		func withResultFrom(
 				summary: ENExposureDetectionSummary?,
 				error: Error?
@@ -139,7 +139,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 			}
 			fatalError("invalid state")
 		}
-		_ = exposureDetector.detectExposures(
+		return exposureDetector.detectExposures(
 				configuration: configuration,
 				diagnosisKeyURLs: writtenPackages.urls
 		) { summary, error in

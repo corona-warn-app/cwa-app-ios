@@ -35,17 +35,25 @@ extension AppDelegate: CoronaWarnAppDelegate {
 }
 
 extension AppDelegate: ExposureSummaryProvider {
-	func detectExposure(completion: @escaping (ENExposureDetectionSummary?) -> Void) {
+	func detectExposure(
+		completion: @escaping (ENExposureDetectionSummary?) -> Void
+	) -> CancellationToken {
 		exposureDetection = ExposureDetection(delegate: exposureDetectionExecutor)
-		exposureDetection?.start { result in
+
+		let token = CancellationToken { [weak self] in
+			self?.exposureDetection?.cancel()
+		}
+		exposureDetection?.start { [weak self] result in
 			switch result {
 			case .success(let summary):
 				completion(summary)
 			case .failure(let error):
-				self.showError(exposure: error)
+				self?.showError(exposure: error)
 				completion(nil)
 			}
+			self?.exposureDetection = nil
 		}
+		return token
 	}
 
 	private func showError(exposure didEndPrematurely: ExposureDetection.DidEndPrematurelyReason) {
@@ -114,7 +122,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	#endif
 
 	private var exposureDetection: ExposureDetection?
-	private(set) var exposureSubmissionService: ENAExposureSubmissionService?
 
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
