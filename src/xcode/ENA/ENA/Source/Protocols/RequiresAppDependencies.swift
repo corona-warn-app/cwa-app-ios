@@ -19,15 +19,19 @@
 import Foundation
 import UIKit
 
+#if INTEROP
+typealias DownloadedPackagesStore = DownloadedPackagesStoreV1
+typealias DownloadedPackagesSQLLiteStore = DownloadedPackagesSQLLiteStoreV1
+#else
+typealias DownloadedPackagesStore = DownloadedPackagesStoreV0
+typealias DownloadedPackagesSQLLiteStore = DownloadedPackagesSQLLiteStoreV0
+#endif
+
 protocol RequiresAppDependencies {
 	var client: HTTPClient { get }
 	var store: Store { get }
 	var taskScheduler: ENATaskScheduler { get }
-	#if INTEROP
-	var downloadedPackagesStore: DownloadedPackagesStoreV1 { get }
-	#else
-	var downloadedPackagesStore: DownloadedPackagesStoreV0 { get }
-	#endif
+	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
 	var lastRiskCalculation: String { get }  // TODO: REMOVE ME
@@ -38,15 +42,9 @@ extension RequiresAppDependencies {
 		UIApplication.coronaWarnDelegate().client
 	}
 
-	#if INTEROP
-	var downloadedPackagesStore: DownloadedPackagesStoreV1 {
+	var downloadedPackagesStore: DownloadedPackagesStore {
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore
 	}
-	#else
-	var downloadedPackagesStore: DownloadedPackagesStoreV0 {
-		UIApplication.coronaWarnDelegate().downloadedPackagesStore
-	}
-	#endif
 
 	var store: Store {
 		UIApplication.coronaWarnDelegate().store
