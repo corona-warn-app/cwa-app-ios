@@ -674,28 +674,35 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient.swift",
-      "line": 24,
+      "line": 23,
+      "symbol": "HTTPClient.Verifier",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient.swift",
+      "line": 26,
       "symbol": "HTTPClient.init(configuration:packageVerifier:session:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient.swift",
-      "line": 35,
+      "line": 37,
       "symbol": "HTTPClient.configuration",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient.swift",
-      "line": 196,
+      "line": 198,
       "symbol": "HTTPClient.getTestResult(forDevice:isFake:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient.swift",
-      "line": 242,
+      "line": 244,
       "symbol": "HTTPClient.getTANForExposureSubmit(forDevice:isFake:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -744,28 +751,28 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/SAPDownloadedPackage.swift",
-      "line": 49,
+      "line": 50,
       "symbol": "SAPDownloadedPackage.Verifier",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/SAPDownloadedPackage.swift",
-      "line": 52,
+      "line": 53,
       "symbol": "SAPDownloadedPackage.Verifier.init(key:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/SAPDownloadedPackage.swift",
-      "line": 56,
+      "line": 57,
       "symbol": "SAPDownloadedPackage.Verifier.verify(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/SAPDownloadedPackage.swift",
-      "line": 82,
+      "line": 83,
       "symbol": "SAPDownloadedPackage.Verifier.callAsFunction(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -20372,23 +20379,79 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/PublicKeyStore.swift",
-      "line": 32,
-      "symbol": "PublicKeyProviding",
-      "symbol_kind": "source.lang.swift.decl.typealias",
+      "line": 33,
+      "symbol": "Data.init(staticBase64Encoded:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/PublicKeyStore.swift",
-      "line": 33,
-      "symbol": "PublicKeyStore",
+      "line": 40,
+      "symbol": "P256.Signing.PublicKey.init(staticBase64Encoded:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/PublicKeyStore.swift",
+      "line": 46,
+      "symbol": "PublicKeyEnv",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/PublicKeyStore.swift",
-      "line": 34,
-      "symbol": "PublicKeyStore.get(for:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "line": 47,
+      "symbol": "PublicKeyEnv.production",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/PublicKeyStore.swift",
+      "line": 48,
+      "symbol": "PublicKeyEnv.development",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/PublicKeyStore.swift",
+      "line": 61,
+      "symbol": "PublicKeyProvider",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/PublicKeyStore.swift",
+      "line": 62,
+      "symbol": "PublicKeyFromStringProvider",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/PublicKeyStore.swift",
+      "line": 63,
+      "symbol": "PublicKeyProviderFromActiveCompilationConditions",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/PublicKeyStore.swift",
+      "line": 64,
+      "symbol": "PublicKeyProviderFromEnv",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/PublicKeyStore.swift",
+      "line": 70,
+      "symbol": "DefaultPublicKeyFromString",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/PublicKeyStore.swift",
+      "line": 74,
+      "symbol": "DefaultPublicKeyProvider",
+      "symbol_kind": "source.lang.swift.decl.var.global",
       "warning": "undocumented"
     },
     {

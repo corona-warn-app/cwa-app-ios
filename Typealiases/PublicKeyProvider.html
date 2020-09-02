@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>PublicKeyStore Enumeration Reference</title>
+    <title>PublicKeyProvider Type Alias Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -11,8 +11,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/PublicKeyStore" class="dashAnchor"></a>
-    <a title="PublicKeyStore Enumeration Reference"></a>
+    <a name="//apple_ref/swift/Alias/PublicKeyProvider" class="dashAnchor"></a>
+    <a title="PublicKeyProvider Type Alias Reference"></a>
     <header>
       <div class="content-wrapper">
         <p>
@@ -36,7 +36,7 @@
             <a href="../index.html">ENA Reference</a>
             <img id="carat" src="../img/carat.png" />
           </span>
-          PublicKeyStore Enumeration Reference
+          PublicKeyProvider Type Alias Reference
         </p>
       </div>
     </div>
@@ -45,11 +45,11 @@
         <article class="main-content">
           <section>
             <section class="section">
-              <h1>PublicKeyStore</h1>
+              <h1>PublicKeyProvider</h1>
                 <div class="declaration">
                   <div class="language">
                     
-                    <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">PublicKeyStore</span></code></pre>
+                    <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">PublicKeyProvider</span> <span class="o">=</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">P256</span><span class="o">.</span><span class="kt">Signing</span><span class="o">.</span><span class="kt">PublicKey</span></code></pre>
 
                   </div>
                 </div>
@@ -57,37 +57,6 @@
 
             </section>
             <section class="section task-group-section">
-              <div class="task-group">
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:3ENA14PublicKeyStoreO3get3for9CryptoKit4P256O7SigningO0bC0VSS_tKFZ"></a>
-                      <a name="//apple_ref/swift/Method/get(for:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA14PublicKeyStoreO3get3for9CryptoKit4P256O7SigningO0bC0VSS_tKFZ">get(for:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">get</span><span class="p">(</span><span class="k">for</span> <span class="nv">keyId</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">P256</span><span class="o">.</span><span class="kt">Signing</span><span class="o">.</span><span class="kt">PublicKey</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
-              </div>
             </section>
           </section>
         </article>
@@ -623,6 +592,17 @@
               </ul>
             </li>
             <li class="nav-group-name">
+              <a href="../Global%20Variables.html">Global Variables</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Global%20Variables/DefaultPublicKeyFromString.html">DefaultPublicKeyFromString</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Global%20Variables/DefaultPublicKeyProvider.html">DefaultPublicKeyProvider</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
               <a href="../Enums.html">Enumerations</a>
               <ul class="nav-group-tasks">
                 <li class="nav-group-task">
@@ -851,7 +831,7 @@
                   <a href="../Enums/OnboardingPageType.html">OnboardingPageType</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Enums/PublicKeyStore.html">PublicKeyStore</a>
+                  <a href="../Enums/PublicKeyEnv.html">PublicKeyEnv</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/QRScannerError.html">QRScannerError</a>
@@ -941,6 +921,12 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/Notification/Name.html">– Name</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/P256.html">P256</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/P256/Signing.html">– Signing</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/ProcessInfo.html">ProcessInfo</a>
@@ -1323,7 +1309,16 @@
                   <a href="../Typealiases/ExposureManager.html">ExposureManager</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Typealiases/PublicKeyProviding.html">PublicKeyProviding</a>
+                  <a href="../Typealiases/PublicKeyFromStringProvider.html">PublicKeyFromStringProvider</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Typealiases/PublicKeyProvider.html">PublicKeyProvider</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Typealiases/PublicKeyProviderFromActiveCompilationConditions.html">PublicKeyProviderFromActiveCompilationConditions</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Typealiases/PublicKeyProviderFromEnv.html">PublicKeyProviderFromEnv</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Typealiases/TracingStatusHistory.html">TracingStatusHistory</a>
