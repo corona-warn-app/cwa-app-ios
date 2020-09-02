@@ -138,7 +138,7 @@ platform :ios do
 
     # Deploy to gh pages
     sh("npm install -g --silent gh-pages@2.0.1")
-    sh("gh-pages --dist ../../../docs/swift-doc")
+    sh("gh-pages --message \"[ci skip] Update docs\" --dist ../../../docs/swift-doc")
 
   end
 
