@@ -125,6 +125,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// For details, check the methods `_submit()` and `_getTANForExposureSubmit()` specifically.
 	private func _submitExposure(
 		_ keys: [ENTemporaryExposureKey],
+		consentToFederation: Bool,
+		visitedCountries: [Country],
 		completionHandler: @escaping ExposureSubmissionHandler
 	) {
 		self._getTANForExposureSubmit(hasConsent: true, completion: { result in
@@ -132,7 +134,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			case let .failure(error):
 				completionHandler(error)
 			case let .success(tan):
-				self._submit(keys, with: tan, completion: completionHandler)
+				self._submit(keys, with: tan, consentToFederation: consentToFederation, visitedCountries: visitedCountries, completion: completionHandler)
 			}
 		})
 	}
@@ -143,9 +145,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private func _submit(
 		_ keys: [ENTemporaryExposureKey],
 		with tan: String,
+		consentToFederation: Bool,
+		visitedCountries: [Country],
 		completion: @escaping ExposureSubmissionHandler
 	) {
-		self.client.submit(keys: keys, tan: tan, isFake: false) { error in
+		self.client.submit(keys: keys, tan: tan, consentToFederation: consentToFederation, visitedCountries: visitedCountries, isFake: false) { error in
 			if let error = error {
 				logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
 				completion(self.parseError(error))
@@ -220,7 +224,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// the timestamp of the key submission is updated.
 	/// __Extension for plausible deniability__:
 	/// We prepend a fake request in order to guarantee the V+V+S sequence. Please kindly check `getTestResult` for more information.
-	func submitExposure(completionHandler: @escaping ExposureSubmissionHandler) {
+	func submitExposure(
+		consentToFederation: Bool,
+		visitedCountries: [Country],
+		completionHandler: @escaping ExposureSubmissionHandler
+	) {
 		log(message: "Started exposure submission...")
 
 		diagnosiskeyRetrieval.accessDiagnosisKeys { keys, error in
@@ -242,7 +250,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 			// Request needs to be prepended by the fake request.
 			self._fakeVerificationServerRequest(completion: { _ in
-				self._submitExposure(keys, completionHandler: completionHandler)
+				self._submitExposure(keys, consentToFederation: consentToFederation, visitedCountries: visitedCountries, completionHandler: completionHandler)
 			})
 		}
 	}
@@ -316,7 +324,7 @@ extension ENAExposureSubmissionService {
 
 	/// This method represents a dummy method that is sent to the submission server.
 	private func _fakeSubmissionServerRequest(completion: @escaping ExposureSubmissionHandler) {
-		self.client.submit(keys: [], tan: ENAExposureSubmissionService.fakeSubmissionTan, isFake: true) { _ in
+		self.client.submit(keys: [], tan: ENAExposureSubmissionService.fakeSubmissionTan, consentToFederation: false, visitedCountries: [], isFake: true) { _ in
 			completion(.fakeResponse)
 		}
 	}

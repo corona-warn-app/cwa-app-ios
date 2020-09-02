@@ -22,8 +22,8 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	
 	// MARK: - Init
 
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating) {
-		self.coordinator = coordinator
+	init?(coder: NSCoder, onPrimaryButtonTap: @escaping () -> Void) {
+		self.onPrimaryButtonTap = onPrimaryButtonTap
 
 		super.init(coder: coder)
 	}
@@ -44,7 +44,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		coordinator?.showWarnEuropeScreen()
+		onPrimaryButtonTap()
 	}
 
 	// MARK: - Internal
@@ -52,6 +52,8 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	private(set) weak var coordinator: ExposureSubmissionCoordinating?
 
 	// MARK: - Private
+
+	private let onPrimaryButtonTap: () -> Void
 
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionWarnOthers.title

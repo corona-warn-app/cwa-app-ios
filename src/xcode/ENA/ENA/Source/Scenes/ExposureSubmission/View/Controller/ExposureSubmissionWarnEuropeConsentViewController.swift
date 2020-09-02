@@ -20,13 +20,15 @@
 import UIKit
 import Combine
 
-class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewController, ExposureSubmittableViewController {
+class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 
 	// MARK: - Init
 
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, exposureSubmissionService: ExposureSubmissionService) {
-		self.coordinator = coordinator
-		self.exposureSubmissionService = exposureSubmissionService
+	init?(
+		coder: NSCoder,
+		onPrimaryButtonTap: @escaping (Bool, @escaping () -> Void) -> Void
+	) {
+		self.onPrimaryButtonTap = onPrimaryButtonTap
 
 		super.init(coder: coder)
 	}
@@ -47,19 +49,22 @@ class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewControl
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		if consentGiven {
-			coordinator?.showWarnEuropeTravelConfirmationScreen()
-		} else {
-			startSubmitProcess()
+		navigationFooterItem?.isPrimaryButtonLoading = true
+		navigationFooterItem?.isPrimaryButtonEnabled = false
+
+		onPrimaryButtonTap(consentGiven) { [weak self] in
+		   self?.navigationFooterItem?.isPrimaryButtonLoading = false
+		   self?.navigationFooterItem?.isPrimaryButtonEnabled = true
 		}
 	}
 
 	// MARK: - Internal
 
-	private(set) weak var exposureSubmissionService: ExposureSubmissionService?
 	private(set) weak var coordinator: ExposureSubmissionCoordinating?
 
 	// MARK: - Private
+
+	private let onPrimaryButtonTap: (Bool, @escaping () -> Void) -> Void
 
 	@Published var consentGiven: Bool = false
 	private var consentSubscription: AnyCancellable?

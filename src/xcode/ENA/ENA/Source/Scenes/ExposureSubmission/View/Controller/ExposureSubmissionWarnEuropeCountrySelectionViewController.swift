@@ -20,7 +20,7 @@
 import UIKit
 import Combine
 
-class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableViewController, ExposureSubmittableViewController {
+class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 
 	enum CountrySelectionOption {
 		case visitedCountries([Country])
@@ -31,12 +31,10 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 
 	init?(
 		coder: NSCoder,
-		coordinator: ExposureSubmissionCoordinating,
-		exposureSubmissionService: ExposureSubmissionService,
-		availableCountries: [Country] = ["DE", "UK", "FR", "IT", "ES", "PL", "RO", "NL", "BE", "CZ", "EL", "SE", "PT", "HU", "AT", "CH", "BG", "DK", "FI", "SK", "NO", "IE", "HR", "SI", "LT", "LV", "EE", "CY", "LU", "MT", "IS", "LI"].compactMap { Country(countryCode: $0) }
+		onPrimaryButtonTap: @escaping (CountrySelectionOption, @escaping () -> Void) -> Void,
+		availableCountries: [Country] = ["IT", "ES", "NL", "CZ", "AT", "DK", "IE", "LV", "EE"].compactMap { Country(countryCode: $0) }
 	) {
-		self.coordinator = coordinator
-		self.exposureSubmissionService = exposureSubmissionService
+		self.onPrimaryButtonTap = onPrimaryButtonTap
 		self.availableCountries = availableCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
 
 		super.init(coder: coder)
@@ -58,13 +56,22 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		startSubmitProcess()
+		guard let selectedCountrySelectionOption = selectedCountrySelectionOption else {
+			fatalError("Primary button must not be enabled before the user has selected an option")
+		}
+
+		navigationFooterItem?.isPrimaryButtonLoading = true
+		navigationFooterItem?.isPrimaryButtonEnabled = false
+
+		onPrimaryButtonTap(selectedCountrySelectionOption) { [weak self] in
+		   self?.navigationFooterItem?.isPrimaryButtonLoading = false
+		   self?.navigationFooterItem?.isPrimaryButtonEnabled = true
+		}
 	}
 
 	// MARK: - Internal
 
-	private(set) weak var exposureSubmissionService: ExposureSubmissionService?
-	private(set) weak var coordinator: ExposureSubmissionCoordinating?
+	private let onPrimaryButtonTap: (CountrySelectionOption, @escaping () -> Void) -> Void
 
 	// MARK: - Private
 

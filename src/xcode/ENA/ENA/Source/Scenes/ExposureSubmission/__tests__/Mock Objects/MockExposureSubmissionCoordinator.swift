@@ -25,6 +25,10 @@ class MockExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
 
 	weak var delegate: ExposureSubmissionCoordinatorDelegate?
 
+	var consentToFederation: Bool = false
+
+	var visitedCountries: [Country] = []
+
 	// MARK: - ExposureSubmissionCoordinator methods.
 
 	func start(with: TestResult? = nil) { }

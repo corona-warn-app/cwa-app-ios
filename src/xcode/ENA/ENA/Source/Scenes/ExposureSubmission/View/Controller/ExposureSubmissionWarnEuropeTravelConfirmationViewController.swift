@@ -20,7 +20,7 @@
 import UIKit
 import Combine
 
-class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTableViewController, ExposureSubmittableViewController {
+class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 
 	enum TravelConfirmationOption {
 		case yes, no, preferNotToSay
@@ -28,9 +28,11 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 
 	// MARK: - Init
 
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, exposureSubmissionService: ExposureSubmissionService) {
-		self.coordinator = coordinator
-		self.exposureSubmissionService = exposureSubmissionService
+	init?(
+		coder: NSCoder,
+		onPrimaryButtonTap: @escaping (TravelConfirmationOption, @escaping () -> Void) -> Void
+	) {
+		self.onPrimaryButtonTap = onPrimaryButtonTap
 
 		super.init(coder: coder)
 	}
@@ -51,19 +53,26 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		if selectedTravelConfirmationOption == .yes {
-			coordinator?.showWarnEuropeCountrySelectionScreen()
-		} else {
-			startSubmitProcess()
+		guard let selectedTravelConfirmationOption = selectedTravelConfirmationOption else {
+			fatalError("Primary button must not be enabled before the user has selected an option")
+		}
+
+		navigationFooterItem?.isPrimaryButtonLoading = true
+		navigationFooterItem?.isPrimaryButtonEnabled = false
+
+		onPrimaryButtonTap(selectedTravelConfirmationOption) { [weak self] in
+			self?.navigationFooterItem?.isPrimaryButtonLoading = false
+			self?.navigationFooterItem?.isPrimaryButtonEnabled = true
 		}
 	}
 
 	// MARK: - Internal
 
-	private(set) weak var exposureSubmissionService: ExposureSubmissionService?
 	private(set) weak var coordinator: ExposureSubmissionCoordinating?
 
 	// MARK: - Private
+
+	private let onPrimaryButtonTap: (TravelConfirmationOption, @escaping () -> Void) -> Void
 
 	@Published private var selectedTravelConfirmationOption: TravelConfirmationOption?
 

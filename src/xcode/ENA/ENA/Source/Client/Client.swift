@@ -106,10 +106,12 @@ protocol Client {
 	/// Parameters:
 	/// - keys: An array of `ENTemporaryExposureKey`s  to submit to the backend.
 	/// - tan: A transaction number
-	@available(*, deprecated, message: "Legacy call. This assumes the 'visited countries' is just Germany")
+	@available(*, deprecated, message: "Legacy call.")
 	func submit(
 		keys: [ENTemporaryExposureKey],
 		tan: String,
+		consentToFederation: Bool,
+		visitedCountries: [Country],
 		isFake: Bool,
 		completion: @escaping SubmitKeysCompletionHandler
 	)
@@ -160,6 +162,9 @@ struct CountrySubmissionPayload {
 
 	/// The exposure keys to submit
 	let exposureKeys: [ENTemporaryExposureKey]
+
+	/// whether or not the consent was given to share the keys with the european federal gateway server
+	let consentToFederation: Bool
 
 	/// the list of countries to check for any exposures
 	let visitedCountries: [Country]

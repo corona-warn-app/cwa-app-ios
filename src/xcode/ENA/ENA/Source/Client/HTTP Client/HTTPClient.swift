@@ -102,10 +102,12 @@ final class HTTPClient: Client {
 	func submit(
 		keys: [ENTemporaryExposureKey],
 		tan: String,
+		consentToFederation: Bool,
+		visitedCountries: [Country],
 		isFake: Bool = false,
 		completion: @escaping SubmitKeysCompletionHandler
 	) {
-		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [Country.defaultCountry()], tan: tan)
+		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: consentToFederation, visitedCountries: visitedCountries, tan: tan)
 		guard let request = try? URLRequest.keySubmissionRequest(configuration: configuration, payload: payload, isFake: isFake) else {
 			completion(.requestCouldNotBeBuilt)
 			return
@@ -433,13 +435,16 @@ private extension HTTPClient {
 
 private extension URLRequest {
 
-	static func keySubmissionRequest(configuration: HTTPClient.Configuration,
-									 payload: CountrySubmissionPayload,
-									 isFake: Bool) throws -> URLRequest {
+	static func keySubmissionRequest(
+		configuration: HTTPClient.Configuration,
+		payload: CountrySubmissionPayload,
+		isFake: Bool
+	) throws -> URLRequest {
 		// construct the request
 		let submPayload = SAP_SubmissionPayload.with {
 			$0.padding = self.getSubmissionPadding(for: payload.exposureKeys)
 			$0.keys = payload.exposureKeys.compactMap { $0.sapKey }
+			$0.consentToFederation = payload.consentToFederation
 			$0.visitedCountries = payload.visitedCountries.map { $0.id }
 		}
 		let payloadData = try submPayload.serializedData()
