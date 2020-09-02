@@ -19,6 +19,8 @@ import ExposureNotification
 import Foundation
 
 /// Exposure Risk level
+///
+/// - important: Due to exception case, `CaseIterable` `allCases` does not produce a correctly sorted collection!
 enum RiskLevel: Int, CaseIterable, Equatable {
 	/*
 	Generally, the risk level hiearchy is as the raw values in the enum cases state. .low is lowest and .inactive highest.
