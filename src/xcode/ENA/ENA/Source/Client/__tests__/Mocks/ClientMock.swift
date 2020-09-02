@@ -58,6 +58,16 @@ final class ClientMock {
 }
 
 extension ClientMock: Client {
+	
+	func availableDays(forCountry country: String, completion: @escaping AvailableDaysCompletionHandler) {
+		availableDays(completion: completion)
+	}
+
+	func fetchDay(_ day: String, forCountry country: String, completion: @escaping DayCompletionHandler) {
+		fetchDay(day, completion: completion)
+	}
+
+	
 	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
 		onAppConfiguration(completion)
 	}
@@ -133,4 +143,7 @@ extension ClientMock: Client {
 
 		onGetTANForExposureSubmit(device, isFake, completeWith)
 	}
+
+
+
 }

@@ -91,5 +91,19 @@ final class BackendConfigurationTests: XCTestCase {
 			config.availableHoursURL(day: "2020-04-20").absoluteString,
 			"http://localhost/dist/version/v1/diagnosis-keys/country/DE/date/2020-04-20/hour/"
 		)
+
+		#if INTEROP
+
+
+		XCTAssertEqual(
+				config.availableDaysURL(forCountry: "DE").absoluteString,
+				"http://localhost/dist/version/v1/diagnosis-keys/country/DE/date/"
+		)
+
+		XCTAssertEqual(
+				config.diagnosisKeysURL(day: "2020-04-20", forCountry: "DE"),
+				"http://localhost/dist/version/v1/diagnosis-keys/country/DE/date/2020-04-20/"
+		)
+		#endif
 	}
 }

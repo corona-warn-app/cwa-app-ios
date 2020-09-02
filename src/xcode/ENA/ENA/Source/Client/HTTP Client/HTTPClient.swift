@@ -22,9 +22,9 @@ import ZIPFoundation
 final class HTTPClient: Client {
 	// MARK: Creating
 	init(
-		configuration: Configuration,
-		packageVerifier: @escaping SAPDownloadedPackage.Verification = SAPDownloadedPackage.Verifier().verify,
-		session: URLSession = .coronaWarnSession()
+			configuration: Configuration,
+			packageVerifier: @escaping SAPDownloadedPackage.Verification = SAPDownloadedPackage.Verifier().verify,
+			session: URLSession = .coronaWarnSession()
 	) {
 		self.session = session
 		self.configuration = configuration
@@ -71,9 +71,9 @@ final class HTTPClient: Client {
 	}
 
 	func exposureConfiguration(
-		completion: @escaping ExposureConfigurationCompletionHandler
+			completion: @escaping ExposureConfigurationCompletionHandler
 	) {
-		log(message: "Fetching exposureConfiguation from: \(configuration.configurationURL)")
+		log(message: "Fetching exposureConfiguration from: \(configuration.configurationURL)")
 		appConfiguration { config in
 			guard let config = config else {
 				completion(nil)
@@ -88,25 +88,25 @@ final class HTTPClient: Client {
 	}
 
 	func submit(
-		keys: [ENTemporaryExposureKey],
-		tan: String,
-		isFake: Bool = false,
-		completion: @escaping SubmitKeysCompletionHandler
+			keys: [ENTemporaryExposureKey],
+			tan: String,
+			isFake: Bool = false,
+			completion: @escaping SubmitKeysCompletionHandler
 	) {
 		guard let request = try? URLRequest.submitKeysRequest(
-			configuration: configuration,
-			tan: tan,
-			keys: keys,
-			headerValue: isFake ? 1 : 0
+				configuration: configuration,
+				tan: tan,
+				keys: keys,
+				headerValue: isFake ? 1 : 0
 		) else {
 			completion(.requestCouldNotBeBuilt)
 			return
 		}
 
 		session.response(for: request, isFake: isFake) { result in
-            #if !RELEASE
-            UserDefaults.standard.dmLastSubmissionRequest = request.httpBody
-            #endif
+			#if !RELEASE
+			UserDefaults.standard.dmLastSubmissionRequest = request.httpBody
+			#endif
 
 			switch result {
 			case let .success(response):
@@ -124,42 +124,25 @@ final class HTTPClient: Client {
 	}
 
 	func availableDays(
-		completion completeWith: @escaping AvailableDaysCompletionHandler
+			completion completeWith: @escaping AvailableDaysCompletionHandler
 	) {
 		let url = configuration.availableDaysURL
-
-		session.GET(url) { result in
-			switch result {
-			case let .success(response):
-				guard let data = response.body else {
-					completeWith(.failure(.invalidResponse))
-					return
-				}
-				guard response.hasAcceptableStatusCode else {
-					completeWith(.failure(.invalidResponse))
-					return
-				}
-				do {
-					let decoder = JSONDecoder()
-					let days = try decoder
-						.decode(
-							[String].self,
-							from: data
-						)
-					completeWith(.success(days))
-				} catch {
-					completeWith(.failure(.invalidResponse))
-					return
-				}
-			case let .failure(error):
-				completeWith(.failure(error))
-			}
-		}
+		availableDays(from: url, completion: completeWith)
 	}
 
+	#if INTEROP
+	func availableDays(
+			forCountry country: String,
+			completion completeWith: @escaping AvailableDaysCompletionHandler
+	) {
+		let url = configuration.availableDaysURL(forCountry: country)
+		availableDays(from: url, completion: completeWith)
+	}
+	#endif
+
 	func availableHours(
-		day: String,
-		completion completeWith: @escaping AvailableHoursCompletionHandler
+			day: String,
+			completion completeWith: @escaping AvailableHoursCompletionHandler
 	) {
 		let url = configuration.availableHoursURL(day: day)
 
@@ -196,13 +179,13 @@ final class HTTPClient: Client {
 	func getTestResult(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TestResultHandler) {
 
 		guard
-			let testResultRequest = try? URLRequest.getTestResultRequest(
-				configuration: configuration,
-				registrationToken: registrationToken,
-				headerValue: isFake ? 1 : 0
-			) else {
-				completeWith(.failure(.invalidResponse))
-				return
+				let testResultRequest = try? URLRequest.getTestResultRequest(
+						configuration: configuration,
+						registrationToken: registrationToken,
+						headerValue: isFake ? 1 : 0
+				) else {
+			completeWith(.failure(.invalidResponse))
+			return
 		}
 
 		session.response(for: testResultRequest, isFake: isFake) { result in
@@ -219,8 +202,8 @@ final class HTTPClient: Client {
 				}
 				do {
 					let response = try JSONDecoder().decode(
-						FetchTestResultResponse.self,
-						from: testResultResponseData
+							FetchTestResultResponse.self,
+							from: testResultResponseData
 					)
 					guard let testResult = response.testResult else {
 						logError(message: "Failed to get test result with invalid response payload structure")
@@ -242,13 +225,13 @@ final class HTTPClient: Client {
 	func getTANForExposureSubmit(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TANHandler) {
 
 		guard
-			let tanForExposureSubmitRequest = try? URLRequest.getTanForExposureSubmitRequest(
-				configuration: configuration,
-				registrationToken: registrationToken,
-				headerValue: isFake ? 1 : 0
-			) else {
-				completeWith(.failure(.invalidResponse))
-				return
+				let tanForExposureSubmitRequest = try? URLRequest.getTanForExposureSubmitRequest(
+						configuration: configuration,
+						registrationToken: registrationToken,
+						headerValue: isFake ? 1 : 0
+				) else {
+			completeWith(.failure(.invalidResponse))
+			return
 		}
 
 		session.response(for: tanForExposureSubmitRequest, isFake: isFake) { result in
@@ -271,8 +254,8 @@ final class HTTPClient: Client {
 				}
 				do {
 					let response = try JSONDecoder().decode(
-						GetTANForExposureSubmitResponse.self,
-						from: tanResponseData
+							GetTANForExposureSubmitResponse.self,
+							from: tanResponseData
 					)
 					guard let tan = response.tan else {
 						logError(message: "Failed to get TAN because of invalid response payload structure")
@@ -294,14 +277,14 @@ final class HTTPClient: Client {
 	func getRegistrationToken(forKey key: String, withType type: String, isFake: Bool = false, completion completeWith: @escaping RegistrationHandler) {
 
 		guard
-			let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
-				configuration: configuration,
-				key: key,
-				type: type,
-				headerValue: isFake ? 1 : 0
-			) else {
-				completeWith(.failure(.invalidResponse))
-				return
+				let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
+						configuration: configuration,
+						key: key,
+						type: type,
+						headerValue: isFake ? 1 : 0
+				) else {
+			completeWith(.failure(.invalidResponse))
+			return
 		}
 
 		session.response(for: registrationTokenRequest, isFake: isFake) { result in
@@ -327,8 +310,8 @@ final class HTTPClient: Client {
 
 				do {
 					let response = try JSONDecoder().decode(
-						GetRegistrationTokenResponse.self,
-						from: registerResponseData
+							GetRegistrationTokenResponse.self,
+							from: registerResponseData
 					)
 					guard let registrationToken = response.registrationToken else {
 						logError(message: "Failed to register Device with invalid response payload structure")
@@ -348,36 +331,29 @@ final class HTTPClient: Client {
 	}
 
 	func fetchDay(
-		_ day: String,
-		completion completeWith: @escaping DayCompletionHandler
+			_ day: String,
+			completion completeWith: @escaping DayCompletionHandler
 	) {
 		let url = configuration.diagnosisKeysURL(day: day)
+		fetchDay(from: url, completion: completeWith)
 
-		session.GET(url) { result in
-			switch result {
-			case let .success(response):
-				guard let dayData = response.body else {
-					completeWith(.failure(.invalidResponse))
-					logError(message: "Failed to download day '\(day)': invalid response")
-					return
-				}
-				guard let package = SAPDownloadedPackage(compressedData: dayData) else {
-					logError(message: "Failed to create signed package.")
-					completeWith(.failure(.invalidResponse))
-					return
-				}
-				completeWith(.success(package))
-			case let .failure(error):
-				completeWith(.failure(error))
-				logError(message: "Failed to download day '\(day)' due to error: \(error).")
-			}
-		}
 	}
 
+	#if INTEROP
+	func fetchDay(
+			_ day: String,
+			forCountry country: String,
+			completion completeWith: @escaping DayCompletionHandler
+	) {
+		let url = configuration.diagnosisKeysURL(day: day, forCountry: country)
+		fetchDay(from: url, completion: completeWith)
+	}
+	#endif
+
 	func fetchHour(
-		_ hour: Int,
-		day: String,
-		completion completeWith: @escaping HourCompletionHandler
+			_ hour: Int,
+			day: String,
+			completion completeWith: @escaping HourCompletionHandler
 	) {
 		let url = configuration.diagnosisKeysURL(day: day, hour: hour)
 		session.GET(url) { result in
@@ -389,7 +365,7 @@ final class HTTPClient: Client {
 				}
 				log(message: "got hour: \(hourData.count)")
 				guard let package = SAPDownloadedPackage(compressedData: hourData) else {
-					logError(message: "Failed to create signed package.")
+					logError(message: "Failed to create signed package. For URL: \(url)")
 					completeWith(.failure(.invalidResponse))
 					return
 				}
@@ -397,6 +373,68 @@ final class HTTPClient: Client {
 			case let .failure(error):
 				completeWith(.failure(error))
 				logError(message: "failed to get day: \(error)")
+			}
+		}
+	}
+}
+
+// MARK: Extensions for private methods
+
+extension HTTPClient {
+	private func fetchDay(
+			from url: URL,
+			completion completeWith: @escaping DayCompletionHandler) {
+
+		session.GET(url) { result in
+			switch result {
+			case let .success(response):
+				guard let dayData = response.body else {
+					completeWith(.failure(.invalidResponse))
+					logError(message: "Failed to download for URL '\(url)': invalid response")
+					return
+				}
+				guard let package = SAPDownloadedPackage(compressedData: dayData) else {
+					logError(message: "Failed to create signed package. For URL: \(url)")
+					completeWith(.failure(.invalidResponse))
+					return
+				}
+				completeWith(.success(package))
+			case let .failure(error):
+				completeWith(.failure(error))
+				logError(message: "Failed to download for URL '\(url)' due to error: \(error).")
+			}
+		}
+	}
+
+	private func availableDays(
+			from url: URL,
+			completion completeWith: @escaping AvailableDaysCompletionHandler
+	) {
+		session.GET(url) { result in
+			switch result {
+			case let .success(response):
+				guard let data = response.body else {
+					completeWith(.failure(.invalidResponse))
+					return
+				}
+				guard response.hasAcceptableStatusCode else {
+					completeWith(.failure(.invalidResponse))
+					return
+				}
+				do {
+					let decoder = JSONDecoder()
+					let days = try decoder
+							.decode(
+							[String].self,
+							from: data
+					)
+					completeWith(.success(days))
+				} catch {
+					completeWith(.failure(.invalidResponse))
+					return
+				}
+			case let .failure(error):
+				completeWith(.failure(error))
 			}
 		}
 	}
@@ -420,10 +458,10 @@ private extension HTTPClient {
 
 private extension URLRequest {
 	static func submitKeysRequest(
-		configuration: HTTPClient.Configuration,
-		tan: String,
-		keys: [ENTemporaryExposureKey],
-		headerValue: Int
+			configuration: HTTPClient.Configuration,
+			tan: String,
+			keys: [ENTemporaryExposureKey],
+			headerValue: Int
 	) throws -> URLRequest {
 		let payload = SAP_SubmissionPayload.with {
 			$0.padding = self.getSubmissionPadding(for: keys)
@@ -435,29 +473,29 @@ private extension URLRequest {
 		var request = URLRequest(url: url)
 
 		request.setValue(
-			tan,
-			// TAN code associated with this diagnosis key submission.
-			forHTTPHeaderField: "cwa-authorization"
+				tan,
+				// TAN code associated with this diagnosis key submission.
+				forHTTPHeaderField: "cwa-authorization"
 		)
 
 		request.setValue(
-			"\(headerValue)",
-			// Requests with a value of "0" will be fully processed.
-			// Any other value indicates that this request shall be
-			// handled as a fake request." ,
-			forHTTPHeaderField: "cwa-fake"
+				"\(headerValue)",
+				// Requests with a value of "0" will be fully processed.
+				// Any other value indicates that this request shall be
+				// handled as a fake request." ,
+				forHTTPHeaderField: "cwa-fake"
 		)
 
 		// Add header padding for the GUID, in case it is
 		// a fake request, otherwise leave empty.
 		request.setValue(
-			headerValue == 0 ? "" : String.getRandomString(of: 36),
-			forHTTPHeaderField: "cwa-header-padding"
+				headerValue == 0 ? "" : String.getRandomString(of: 36),
+				forHTTPHeaderField: "cwa-header-padding"
 		)
 
 		request.setValue(
-			"application/x-protobuf",
-			forHTTPHeaderField: "Content-Type"
+				"application/x-protobuf",
+				forHTTPHeaderField: "Content-Type"
 		)
 
 		request.httpMethod = "POST"
@@ -467,30 +505,30 @@ private extension URLRequest {
 	}
 
 	static func getTestResultRequest(
-		configuration: HTTPClient.Configuration,
-		registrationToken: String,
-		headerValue: Int
+			configuration: HTTPClient.Configuration,
+			registrationToken: String,
+			headerValue: Int
 	) throws -> URLRequest {
 
 		var request = URLRequest(url: configuration.testResultURL)
 
 		request.setValue(
-			"\(headerValue)",
-			// Requests with a value of "0" will be fully processed.
-			// Any other value indicates that this request shall be
-			// handled as a fake request." ,
-			forHTTPHeaderField: "cwa-fake"
+				"\(headerValue)",
+				// Requests with a value of "0" will be fully processed.
+				// Any other value indicates that this request shall be
+				// handled as a fake request." ,
+				forHTTPHeaderField: "cwa-fake"
 		)
 
 		// Add header padding.
 		request.setValue(
-			String.getRandomString(of: 7),
-			forHTTPHeaderField: "cwa-header-padding"
+				String.getRandomString(of: 7),
+				forHTTPHeaderField: "cwa-header-padding"
 		)
 
 		request.setValue(
-			"application/json",
-			forHTTPHeaderField: "Content-Type"
+				"application/json",
+				forHTTPHeaderField: "Content-Type"
 		)
 
 		request.httpMethod = "POST"
@@ -504,30 +542,30 @@ private extension URLRequest {
 	}
 
 	static func getTanForExposureSubmitRequest(
-		configuration: HTTPClient.Configuration,
-		registrationToken: String,
-		headerValue: Int
+			configuration: HTTPClient.Configuration,
+			registrationToken: String,
+			headerValue: Int
 	) throws -> URLRequest {
 
 		var request = URLRequest(url: configuration.tanRetrievalURL)
 
 		request.setValue(
-			"\(headerValue)",
-			// Requests with a value of "0" will be fully processed.
-			// Any other value indicates that this request shall be
-			// handled as a fake request." ,
-			forHTTPHeaderField: "cwa-fake"
+				"\(headerValue)",
+				// Requests with a value of "0" will be fully processed.
+				// Any other value indicates that this request shall be
+				// handled as a fake request." ,
+				forHTTPHeaderField: "cwa-fake"
 		)
 
 		// Add header padding.
 		request.setValue(
-			String.getRandomString(of: 14),
-			forHTTPHeaderField: "cwa-header-padding"
+				String.getRandomString(of: 14),
+				forHTTPHeaderField: "cwa-header-padding"
 		)
 
 		request.setValue(
-			"application/json",
-			forHTTPHeaderField: "Content-Type"
+				"application/json",
+				forHTTPHeaderField: "Content-Type"
 		)
 
 		request.httpMethod = "POST"
@@ -541,31 +579,31 @@ private extension URLRequest {
 	}
 
 	static func getRegistrationTokenRequest(
-		configuration: HTTPClient.Configuration,
-		key: String,
-		type: String,
-		headerValue: Int
+			configuration: HTTPClient.Configuration,
+			key: String,
+			type: String,
+			headerValue: Int
 	) throws -> URLRequest {
 
 		var request = URLRequest(url: configuration.registrationURL)
 
 		request.setValue(
-			"\(headerValue)",
-			// Requests with a value of "0" will be fully processed.
-			// Any other value indicates that this request shall be
-			// handled as a fake request." ,
-			forHTTPHeaderField: "cwa-fake"
+				"\(headerValue)",
+				// Requests with a value of "0" will be fully processed.
+				// Any other value indicates that this request shall be
+				// handled as a fake request." ,
+				forHTTPHeaderField: "cwa-fake"
 		)
 
 		// Add header padding.
 		request.setValue(
-			"",
-			forHTTPHeaderField: "cwa-header-padding"
+				"",
+				forHTTPHeaderField: "cwa-header-padding"
 		)
 
 		request.setValue(
-			"application/json",
-			forHTTPHeaderField: "Content-Type"
+				"application/json",
+				forHTTPHeaderField: "Content-Type"
 		)
 
 		request.httpMethod = "POST"

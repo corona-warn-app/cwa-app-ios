@@ -46,6 +46,29 @@ protocol Client {
 		day: String,
 		completion: @escaping AvailableHoursCompletionHandler
 	)
+	#if INTEROP
+	/// Determines days that can be downloaded.
+	///
+	/// - Parameters:
+	///   - country: Country code
+	///   - completion: completion callback which includes the list of available days
+	func availableDays(
+			forCountry country: String,
+			completion: @escaping AvailableDaysCompletionHandler
+	)
+
+	/// Fetches the keys for a given day and country code
+	/// - Parameters:
+	///   - day: The day that the keys belong to
+	///   - country: It should be country code, like DE stands for Germany
+	///   - completion: Once the request is done, the completion is called.
+	func fetchDay(
+			_ day: String,
+			forCountry country: String,
+			completion: @escaping DayCompletionHandler
+	)
+
+	#endif
 
 	/// Gets the registration token
 	func getRegistrationToken(
@@ -186,6 +209,42 @@ extension Client {
 			)
 		}
 	}
+
+	#if INTEROP
+	/// Fetch the keys with the given days and country code
+	func fetchDays(
+			_ days: [String],
+			forCountry country: String,
+			completion completeWith: @escaping (DaysResult) -> Void
+	) {
+		var errors = [Client.Failure]()
+		var buckets = [String: SAPDownloadedPackage]()
+
+		let group = DispatchGroup()
+		for day in days {
+			group.enter()
+
+			fetchDay(day, forCountry: country) { result in
+				switch result {
+				case let .success(bucket):
+					buckets[day] = bucket
+				case let .failure(error):
+					errors.append(error)
+				}
+				group.leave()
+			}
+		}
+
+		group.notify(queue: .main) {
+			completeWith(
+					DaysResult(
+							errors: errors,
+							bucketsByDay: buckets
+					)
+			)
+		}
+	}
+	#endif
 
 	func fetchHours(
 		_ hours: [Int],

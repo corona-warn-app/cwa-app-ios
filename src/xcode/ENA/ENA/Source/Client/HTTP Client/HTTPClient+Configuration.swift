@@ -22,22 +22,22 @@ extension HTTPClient {
 		// MARK: Default Instances
 
 		static let backendBaseURLs = Configuration(
-			apiVersion: "v1",
-			country: "DE",
-			endpoints: Configuration.Endpoints(
-				distribution: .init(
-					baseURL: URL(staticString: Hosts.distributionURLString),
-					requiresTrailingSlash: false
-				),
-				submission: .init(
-					baseURL: URL(staticString: Hosts.submissionURLString),
-					requiresTrailingSlash: false
-				),
-				verification: .init(
-					baseURL: URL(staticString: Hosts.verificationURLString),
-					requiresTrailingSlash: false
+				apiVersion: "v1",
+				country: "DE",
+				endpoints: Configuration.Endpoints(
+						distribution: .init(
+								baseURL: URL(staticString: "https://svc90.main.px.t-online.de"),
+								requiresTrailingSlash: false
+						),
+						submission: .init(
+								baseURL: URL(staticString: "https://submission.coronawarn.app"),
+								requiresTrailingSlash: false
+						),
+						verification: .init(
+								baseURL: URL(staticString: "https://verification.coronawarn.app"),
+								requiresTrailingSlash: false
+						)
 				)
-			)
 		)
 
 		// MARK: Properties
@@ -48,33 +48,51 @@ extension HTTPClient {
 
 		var diagnosisKeysURL: URL {
 			endpoints
-				.distribution
-				.appending(
+					.distribution
+					.appending(
 					"version",
 					apiVersion,
 					"diagnosis-keys",
 					"country",
 					country
-				)
+			)
 		}
 
 		var availableDaysURL: URL {
 			endpoints
-				.distribution
-				.appending(
+					.distribution
+					.appending(
 					"version",
 					apiVersion,
 					"diagnosis-keys",
 					"country",
 					country,
 					"date"
-				)
+			)
 		}
+
+		#if INTEROP
+		/// Generate the URL for getting all available days
+		/// - Parameter country: country code
+		/// - Returns: URL to get all available days that server can deliver
+		func availableDaysURL(forCountry country: String) -> URL {
+			endpoints
+					.distribution
+					.appending(
+					"version",
+					apiVersion,
+					"diagnosis-keys",
+					"country",
+					country,
+					"date"
+			)
+		}
+		#endif
 
 		func availableHoursURL(day: String) -> URL {
 			endpoints
-				.distribution
-				.appending(
+					.distribution
+					.appending(
 					"version",
 					apiVersion,
 					"diagnosis-keys",
@@ -83,13 +101,13 @@ extension HTTPClient {
 					"date",
 					day,
 					"hour"
-				)
+			)
 		}
 
 		func diagnosisKeysURL(day: String, hour: Int) -> URL {
 			endpoints
-				.distribution
-				.appending(
+					.distribution
+					.appending(
 					"version",
 					apiVersion,
 					"diagnosis-keys",
@@ -99,13 +117,13 @@ extension HTTPClient {
 					day,
 					"hour",
 					String(hour)
-				)
+			)
 		}
 
 		func diagnosisKeysURL(day: String) -> URL {
 			endpoints
-				.distribution
-				.appending(
+					.distribution
+					.appending(
 					"version",
 					apiVersion,
 					"diagnosis-keys",
@@ -113,60 +131,83 @@ extension HTTPClient {
 					country,
 					"date",
 					day
-				)
+			)
 		}
+
+
+		#if INTEROP
+		/// Generate the URL to get the day package with given parameters
+		/// - Parameters:
+		///   - day: The day format should confirms to: yyyy-MM-dd
+		///   - country: The country code
+		/// - Returns: The full URL point to the key package
+		func diagnosisKeysURL(day: String, forCountry country: String) -> URL {
+			endpoints
+					.distribution
+					.appending(
+					"version",
+					apiVersion,
+					"diagnosis-keys",
+					"country",
+					country,
+					"date",
+					day
+			)
+
+		}
+		#endif
 
 		var configurationURL: URL {
 			endpoints
-				.distribution
-				.appending(
+					.distribution
+					.appending(
 					"version",
 					apiVersion,
 					"configuration",
 					"country",
 					country,
 					"app_config"
-				)
+			)
 		}
 
 		var submissionURL: URL {
 			endpoints
-				.submission
-				.appending(
+					.submission
+					.appending(
 					"version",
 					apiVersion,
 					"diagnosis-keys"
-				)
+			)
 		}
 
 		var registrationURL: URL {
 			endpoints
-				.verification
-				.appending(
+					.verification
+					.appending(
 					"version",
 					apiVersion,
 					"registrationToken"
-				)
+			)
 		}
 
 		var testResultURL: URL {
 			endpoints
-				.verification
-				.appending(
+					.verification
+					.appending(
 					"version",
 					apiVersion,
 					"testresult"
-				)
+			)
 		}
 
 		var tanRetrievalURL: URL {
 			endpoints
-				.verification
-				.appending(
+					.verification
+					.appending(
 					"version",
 					apiVersion,
 					"tan"
-				)
+			)
 		}
 	}
 }
@@ -176,9 +217,9 @@ extension HTTPClient.Configuration {
 		// MARK: Creating an Endpoint
 
 		init(
-			baseURL: URL,
-			requiresTrailingSlash: Bool,
-			requiresTrailingIndex _: Bool = true
+				baseURL: URL,
+				requiresTrailingSlash: Bool,
+				requiresTrailingIndex _: Bool = true
 		) {
 			self.baseURL = baseURL
 			self.requiresTrailingSlash = requiresTrailingSlash
