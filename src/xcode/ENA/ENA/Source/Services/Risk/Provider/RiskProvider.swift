@@ -23,14 +23,15 @@ import UIKit
 
 protocol ExposureSummaryProvider: AnyObject {
 	typealias Completion = (ENExposureDetectionSummary?) -> Void
-	func detectExposure(completion: @escaping Completion)
+	func detectExposure(completion: @escaping Completion) -> CancellationToken
 }
 
 final class RiskProvider {
 
 	private let queue = DispatchQueue(label: "com.sap.RiskProvider")
 	private let targetQueue: DispatchQueue
-	private var consumersQueue = DispatchQueue(label: "com.sap.RiskProvider")
+	private var consumersQueue = DispatchQueue(label: "com.sap.RiskProvider.consumer")
+	private var cancellationToken: CancellationToken?
 
 	private var _consumers: [RiskConsumer] = []
 	private var consumers: [RiskConsumer] {
@@ -134,10 +135,11 @@ extension RiskProvider: RiskProviding {
 		// The summary is outdated + we are in automatic mode: do a exposure detection
 		let previousSummary = store.summary
 
-		exposureSummaryProvider.detectExposure { detectedSummary in
+		self.cancellationToken = exposureSummaryProvider.detectExposure { detectedSummary in
 			if let detectedSummary = detectedSummary {
 				self.store.summary = .init(detectionSummary: detectedSummary, date: Date())
 			}
+			self.cancellationToken = nil
 			completion(
 				.init(
 					previous: previousSummary,
@@ -160,7 +162,10 @@ extension RiskProvider: RiskProviding {
 			let tracingHistory = store.tracingStatusHistory
 			let numberOfEnabledSeconds = tracingHistory.activeTracing().interval
 			let remainingTime = TracingStatusHistory.minimumActiveSeconds - numberOfEnabledSeconds
-			return Date().addingTimeInterval(remainingTime)
+			// To get a more robust Date when calculating the Date we need to drop precision, otherwise we will get dates differing in miliseconds
+			let timeInterval = Date().addingTimeInterval(remainingTime).timeIntervalSinceReferenceDate
+			let timeIntervalInSeconds = Int(timeInterval)
+			return Date(timeIntervalSinceReferenceDate: TimeInterval(timeIntervalInSeconds))
 		case .date(let date):
 			return date
 		}
@@ -251,11 +256,18 @@ extension RiskProvider: RiskProviding {
 
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
 			provideLoadingStatus(isLoading: false)
+			cancellationToken?.cancel()
+			cancellationToken = nil
 			completeOnTargetQueue(risk: nil, completion: completion)
 			return
 		}
 
-		_requestRiskLevel(summaries: summaries, appConfiguration: appConfiguration, completion: completion)
+		cancellationToken = nil
+		_requestRiskLevel(
+			summaries: summaries,
+			appConfiguration: appConfiguration,
+			completion: completion
+		)
 	}
 
 	private func _requestRiskLevel(summaries: Summaries?, appConfiguration: SAP_ApplicationConfiguration?, completion: Completion? = nil) {

@@ -19,14 +19,14 @@
 
 import Foundation
 
-struct Risk {
+struct Risk: Equatable {
 	let level: RiskLevel
 	let details: Details
 	let riskLevelHasChanged: Bool
 }
 
 extension Risk {
-	struct Details {
+	struct Details: Equatable {
 		var daysSinceLastExposure: Int?
 		var numberOfExposures: Int?
 		var numberOfHoursWithActiveTracing: Int { activeTracing.inHours }

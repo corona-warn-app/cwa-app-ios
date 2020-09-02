@@ -19,8 +19,6 @@ import ExposureNotification
 import Foundation
 import UIKit
 
-// swiftlint:disable file_length
-
 final class HomeInteractor: RequiresAppDependencies {
 	typealias SectionDefinition = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
 	typealias SectionConfiguration = [SectionDefinition]
@@ -41,9 +39,13 @@ final class HomeInteractor: RequiresAppDependencies {
 	// MARK: Properties
 	var state: State {
 		didSet {
-			homeViewController.setStateOfChildViewControllers()
-			scheduleCountdownTimer()
-			buildSections()
+			if state != oldValue {
+				homeViewController.setStateOfChildViewControllers()
+				// `buildSections()` has to be called prior to `scheduleCountdownTimer()`
+				// because `scheduleCountdownTimer()` relies on the sections to be already built.
+				buildSections()
+				scheduleCountdownTimer()
+			}
 		}
 	}
 
@@ -171,6 +173,10 @@ extension HomeInteractor {
 	}
 
 	func reloadActionSection() {
+		precondition(
+			!sections.isEmpty,
+			"Serious programmer error: reloadActionSection() was called without calling buildSections() first."
+		)
 		sections[0] = setupActionSectionDefinition()
 		homeViewController.reloadData(animatingDifferences: false)
 	}
@@ -212,14 +218,22 @@ extension HomeInteractor {
 			)
 			inactiveConfigurator?.activeAction = inActiveCellActionHandler
 		case .unknownOutdated:
-			riskLevelConfigurator = HomeUnknown48hRiskCellConfigurator(
-				isLoading: isRequestRiskRunning,
-				lastUpdateDate: dateLastExposureDetection,
-				detectionInterval: detectionInterval,
-				detectionMode: detectionMode,
-				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
-				previousRiskLevel: store.previousRiskLevel)
-			inactiveConfigurator?.activeAction = inActiveCellActionHandler
+			if detectionMode == .automatic {
+				inactiveConfigurator = HomeInactiveRiskCellConfigurator(
+					inactiveType: .outdatedResults,
+					previousRiskLevel: store.previousRiskLevel,
+					lastUpdateDate: dateLastExposureDetection
+				)
+				inactiveConfigurator?.activeAction = inActiveCellActionHandler
+			} else {
+				riskLevelConfigurator = HomeUnknown48hRiskCellConfigurator(
+					isLoading: isRequestRiskRunning,
+					lastUpdateDate: dateLastExposureDetection,
+					detectionInterval: detectionInterval,
+					detectionMode: detectionMode,
+					manualExposureDetectionState: riskProvider.manualExposureDetectionState,
+					previousRiskLevel: store.previousRiskLevel)
+			}
 		case .low:
 			let activeTracing = risk?.details.activeTracing ?? .init(interval: 0)
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(

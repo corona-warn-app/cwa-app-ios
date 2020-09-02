@@ -20,10 +20,12 @@ import Foundation
 import ZIPFoundation
 
 final class HTTPClient: Client {
+	typealias Verifier = SAPDownloadedPackage.Verification
+	
 	// MARK: Creating
 	init(
 		configuration: Configuration,
-		packageVerifier: @escaping SAPDownloadedPackage.Verification = SAPDownloadedPackage.Verifier().verify,
+		packageVerifier: @escaping Verifier = SAPDownloadedPackage.Verifier().verify,
 		session: URLSession = .coronaWarnSession()
 	) {
 		self.session = session
@@ -38,8 +40,6 @@ final class HTTPClient: Client {
 
 	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
 		session.GET(configuration.configurationURL) { [weak self] result in
-			guard let self = self else { return }
-
 			switch result {
 			case let .success(response):
 				guard let data = response.body else {
@@ -56,6 +56,8 @@ final class HTTPClient: Client {
 					completion(nil)
 					return
 				}
+
+				guard let self = self else { return }
 
 				// Configuration File Signature must be checked by the application since it is not verified by the operating system
 				guard self.packageVerifier(package) else {
@@ -104,6 +106,10 @@ final class HTTPClient: Client {
 		}
 
 		session.response(for: request, isFake: isFake) { result in
+            #if !RELEASE
+            UserDefaults.standard.dmLastSubmissionRequest = request.httpBody
+            #endif
+
 			switch result {
 			case let .success(response):
 				switch response.statusCode {

@@ -18,7 +18,6 @@
 import BackgroundTasks
 import ExposureNotification
 import UIKit
-import Connectivity
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDependencies {
 	// MARK: Properties
@@ -90,7 +89,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	func sceneDidBecomeActive(_: UIScene) {
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
-		(UIApplication.shared.delegate as? AppDelegate)?.executeFakeRequestOnAppLaunch()
+		// explicitely disabled as per #EXPOSUREAPP-2214
+		(UIApplication.shared.delegate as? AppDelegate)?.executeFakeRequestOnAppLaunch(probability: 0.0)
 	}
 
 	// MARK: Helper
@@ -145,13 +145,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	private func presentHomeVC() {
-		Connectivity.urlSessionConfiguration.timeoutIntervalForRequest = 15.0
-		Connectivity.urlSessionConfiguration.timeoutIntervalForResource = 15.0
 		enStateHandler = ENStateHandler(
 			initialExposureManagerState: exposureManager.preconditions(),
-			reachabilityService: ConnectivityReachabilityService(
-				connectivityURLs: [client.configuration.configurationURL]
-			),
 			delegate: self
 		)
 

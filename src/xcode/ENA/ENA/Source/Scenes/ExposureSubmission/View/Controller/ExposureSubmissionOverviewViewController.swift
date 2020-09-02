@@ -86,11 +86,14 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			message: AppStrings.ExposureSubmission.dataPrivacyDisclaimer,
 			preferredStyle: .alert
 		)
-		let acceptAction = UIAlertAction(title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle,
-										 style: .default, handler: { _ in
-											self.service?.acceptPairing()
-											self.coordinator?.showQRScreen(qrScannerDelegate: self)
-		})
+		let acceptAction = UIAlertAction(
+			title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle,
+			style: .default,
+			handler: { _ in
+				self.service?.acceptPairing()
+				self.coordinator?.showQRScreen(qrScannerDelegate: self)
+			}
+		)
 		alert.addAction(acceptAction)
 
 		alert.addAction(.init(title: AppStrings.ExposureSubmission.dataPrivacyDontAcceptTitle,
@@ -159,7 +162,10 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 				// Note: In the case the QR Code was already used, retrying will result
 				// in an endless loop.
 				if case .qRAlreadyUsed = error {
-					let alert = self.setupErrorAlert(message: error.localizedDescription)
+					let alert = self.setupErrorAlert(
+						title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
+						message: error.localizedDescription
+					)
 					self.present(alert, animated: true, completion: nil)
 					return
 				}

@@ -72,6 +72,7 @@ final class OnboardingInfoViewController: UIViewController {
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var boldLabel: UILabel!
 	@IBOutlet var textLabel: UILabel!
+	@IBOutlet var linkTextView: UITextView!
 	@IBOutlet var nextButton: ENAButton!
 	@IBOutlet var ignoreButton: ENAButton!
 
@@ -167,6 +168,23 @@ final class OnboardingInfoViewController: UIViewController {
 		textLabel.text = onboardingInfo.text
 		textLabel.isHidden = onboardingInfo.text.isEmpty
 
+		if Bundle.main.preferredLocalizations.first == "de" {
+			let textAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 15, weight: .regular), .link: onboardingInfo.link]
+
+			let attributedString = NSMutableAttributedString(string: onboardingInfo.linkDisplayText, attributes: textAttributes)
+					
+			linkTextView.attributedText = attributedString
+			linkTextView.dataDetectorTypes = UIDataDetectorTypes.all
+			linkTextView.isScrollEnabled = false
+			linkTextView.isHidden = onboardingInfo.link.isEmpty
+			linkTextView.isUserInteractionEnabled = true
+			linkTextView.adjustsFontForContentSizeCategory = true
+			linkTextView.textContainerInset = .zero
+			linkTextView.textContainer.lineFragmentPadding = .zero
+		} else {
+			linkTextView.isHidden = true
+		}
+
 		nextButton.setTitle(onboardingInfo.actionText, for: .normal)
 		nextButton.isHidden = onboardingInfo.actionText.isEmpty
 
@@ -181,6 +199,12 @@ final class OnboardingInfoViewController: UIViewController {
 
 		switch pageType {
 		case .enableLoggingOfContactsPage:
+			addPanel(
+				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle,
+				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_consentUnderagesText,
+				textStyle: .textContrast,
+				backgroundStyle: .riskNeutral
+			)
 			addPanel(
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
 				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelBody
@@ -207,6 +231,7 @@ final class OnboardingInfoViewController: UIViewController {
 		titleLabel.isAccessibilityElement = true
 		boldLabel.isAccessibilityElement = true
 		textLabel.isAccessibilityElement = true
+		linkTextView.isAccessibilityElement = true
 		nextButton.isAccessibilityElement = true
 		ignoreButton.isAccessibilityElement = true
 

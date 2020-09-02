@@ -25,13 +25,15 @@ import UIKit
 extension AppDelegate {
 
 	private enum Constants {
-		static let minHoursToNextBackgroundExecution = 4.0
-		static let maxHoursToNextBackgroundExecution = 12.0
-		static let numberOfDaysToRunPlaybook = 16.0
-		static let minNumberOfSequentialPlaybooks = 1
-		static let maxNumberOfSequentialPlaybooks = 4
-		static let minDelayBetweenSequentialPlaybooks = 5 // seconds
-		static let maxDelayBetweenSequentialPlaybooks = 10 // seconds
+		static let minHoursToNextBackgroundExecution = 0.0
+		static let maxHoursToNextBackgroundExecution = 0.0
+		static let numberOfDaysToRunPlaybook = 0.0
+		static let minNumberOfSequentialPlaybooks = 0
+		static let maxNumberOfSequentialPlaybooks = 0
+		/// In seconds
+		static let minDelayBetweenSequentialPlaybooks = 0
+		/// In seconds
+		static let maxDelayBetweenSequentialPlaybooks = 0
 		static let secondsPerDay = 86_400.0
 	}
 
@@ -65,24 +67,26 @@ extension AppDelegate {
 		}
 	}
 
-	func executeFakeRequestOnAppLaunch() {
-		// Execute a fake request 1 in 100 times while we are running in foreground.
-		// We therefore define a magic number and only send a fake request when
-		// our random number from [1, 100] matches the magic number.
-		let magicNumber = 6
-		guard
-			UIApplication.shared.applicationState == .active,
-			Int.random(in: 1...100) == magicNumber
-		else { return }
 
-		sendFakeRequest()
+	/// Randomly execute a fake request
+	/// - Parameter propability: the probability p to execute a fake request. Accepting values between 0 and 1.
+	/// - Returns: Bool to indicate wether the fake request has been sent
+	@discardableResult
+	func executeFakeRequestOnAppLaunch(probability p: Double) -> Bool {
+		assert(p <= 1, "p should be lower than or equal 1.0")
+		assert(p >= 0, "p should be greater than or equal 0.0")
+		if Double.random(in: 0.0.nextUp...1) <= p {
+			sendFakeRequest()
+			return true
+		}
+		return false
 	}
 
 	/// Triggers one or more fake requests over a time interval of multiple seconds.
 	/// - Parameters:
 	///   - completion: called after all requests were triggered. Currently, only required when running in background mode to avoid terminating before the requests were made.
 	private func sendFakeRequest(_ completion: (() -> Void)? = nil) {
-		let service = exposureSubmissionService ?? ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 		let group = DispatchGroup()
 
 		for i in 0..<Int.random(in: Constants.minNumberOfSequentialPlaybooks...Constants.maxNumberOfSequentialPlaybooks) {

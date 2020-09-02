@@ -21,7 +21,6 @@ import XCTest
 @testable import ENA
 import ExposureNotification
 final class ExposureDetectionTransactionTests: XCTestCase {
-	// swiftlint:disable:next function_body_length
     func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {
 		let delegate = ExposureDetectionDelegateMock()
 
@@ -144,6 +143,8 @@ private final class ExposureDetectionDelegateMock {
 }
 
 extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
+
+
 	func exposureDetection(_ detection: ExposureDetection, determineAvailableData completion: @escaping (DaysAndHours?) -> Void) {
 		completion(availableData())
 	}
@@ -165,8 +166,13 @@ extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 		writtenPackages()
 	}
 
-	func exposureDetection(_ detection: ExposureDetection, detectSummaryWithConfiguration configuration: ENExposureConfiguration, writtenPackages: WrittenPackages, completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void) {
+	func exposureDetection(
+		_ detection: ExposureDetection,
+		detectSummaryWithConfiguration configuration: ENExposureConfiguration,
+		writtenPackages: WrittenPackages,
+		completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void) -> Progress {
 		completion(summaryResult(configuration, writtenPackages))
+		return Progress()
 	}
 }
 

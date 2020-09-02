@@ -13,52 +13,22 @@
 			<string>u</string>
 			<key>one</key>
 			<!--Plural form for ONE. Plural form for ONE.-->
-			<string>Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor einem Tag mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind.</string>
+			<string>Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor einem Tag mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.</string>
 			<key>zero</key>
 			<!-- Plural form for ZERO. Plural form for ZERO.-->
-			<string>Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor %u Tagen mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind.</string>
+			<string>Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor %u Tagen mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.</string>
 			<key>few</key>
 			<!-- Plural form for FEW. Plural form for FEW.-->
-			<string>Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor %u Tagen mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind.</string>
+			<string>Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor %u Tagen mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.</string>
 			<key>many</key>
 			<!-- Plural form for MANY. Plural form for MANY.-->
-			<string>Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor %u Tagen mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind.</string>
+			<string>Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor %u Tagen mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.</string>
 			<key>two</key>
 			<!-- Plural form for TWO. Plural form for TWO.-->
-			<string>Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor %u Tagen mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind.</string>
+			<string>Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor %u Tagen mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.</string>
 			<key>other</key>
 			<!--Plural form for OTHER. Plural form for OTHER.-->
-			<string>Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor %u Tagen mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind.</string>
-		</dict>
-	</dict>
-	<key>ExposureDetection_Refreshed_Format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
-			<string>Heute, %%1$@ Uhr</string>
-			<key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
-			<string>Gestern, %%1$@ Uhr</string>
-			<key>few</key>
-			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
-			<string>%%2$@, %%1$@ Uhr</string>
-			<key>many</key>
-			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
-			<string>%%2$@, %%1$@ Uhr</string>
-			<key>two</key>
-			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
-			<string>%%2$@, %%1$@ Uhr</string>
-			<key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
-			<string>%%2$@, %%1$@ Uhr</string>
+			<string>Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor %u Tagen mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_NumberOfContacts</key>

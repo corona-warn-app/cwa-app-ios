@@ -5,15 +5,13 @@
 
 import Foundation
 extension ENStateHandler {
-	enum State {
+	enum State: Equatable {
 		/// Exposure Notification is enabled.
 		case enabled
 		/// Exposure Notification is disabled.
 		case disabled
 		/// Bluetooth is off.
 		case bluetoothOff
-		/// Internet is off.
-		case internetOff
 		/// Restricted Mode due to parental controls.
 		case restricted
 		///Not authorized. The user declined consent in onboarding.

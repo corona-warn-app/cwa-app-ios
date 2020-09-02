@@ -35,6 +35,10 @@
 
 "Common_BackgroundFetch_AlertTitle" = "تحديثات في الخلفية مُلغى تنشيطها";
 
+"Common_Deadman_AlertTitle" = "مستوى الخطر";
+
+"Common_Deadman_AlertBody" = "يُرجى تذكر فتح تطبيق Corona-Warn-App بانتظام للتحقق من مستوى الخطر لديك.";
+
 /* General - Links */
 "General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
 
@@ -52,21 +56,17 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "تسجيل المخالطة توقف";
 
-"ExposureDetection_Outdated" = "تسجيل المخالطة غير ممكن";
-
 "ExposureDetection_Unknown" = "خطر غير معروف";
 
 "ExposureDetection_Low" = "خطر منخفض";
 
-"ExposureDetection_High" = "خطر أعلى";
-
-"ExposureDetection_NumberOfDaysStored" = "%d من 14 يومًا نشط";
+"ExposureDetection_High" = "خطر مرتفع";
 
 "ExposureDetection_Refreshed" = "تم التحديث: %@";
 
 "ExposureDetection_Refreshed_Never" = "غير معروف";
 
-"ExposureDetection_RefreshingIn" = "التحديث في %02d:%02d من الدقائق";
+"ExposureDetection_RefreshingIn" = "التحديث في %02d:%02d\U00A0 من الدقائق";
 
 "ExposureDetection_RefreshIn" = "تحديث في %@";
 
@@ -86,7 +86,7 @@
 
 "ExposureDetection_Behavior_Subtitle" = "أمور يجب عليك الالتزام بها";
 
-"ExposureDetection_Guide_Hands" = "اغسل يديك بانتظام.";
+"ExposureDetection_Guide_Hands" = "اغسل يديك بانتظام بالصابون لمدة 20 ثانية.";
 
 "ExposureDetection_Guide_Mask" = "ارتدِ قناع الوجه عند التجمُّع مع أشخاص آخرين.";
 
@@ -148,9 +148,13 @@
 "How_Risk_Detection_Works_Alert_Message" = "يمكن تقدير خطر العدوى بالنسبة إليك فقط للفترات التي كان خلالها تسجيل المخالطة نشطًا. وبالتالي يجب أن تظل ميزة التسجيل نشطة دائمًا.\nيشمل تسجيل المخالطة %1$u من الأيام الماضية.\nيقوم التطبيق تلقائيًا بحذف السجلات الأقدم، مثل تلك التي لم تعد ذات صلة بمنع العدوى.\n\nللحصول على مزيد من المعلومات، الرجاء الاطلاع على صفحة الأسئلة المتكررة.";
 
 /* Settings */
-"Settings_StatusActive" = "تشغيل";
+"Settings_Notification_StatusActive" = "تشغيل";
 
-"Settings_StatusInactive" = "إيقاف تشغيل";
+"Settings_Notification_StatusInactive" = "إيقاف تشغيل";
+
+"Settings_BackgroundAppRefresh_StatusActive" = "تشغيل";
+
+"Settings_BackgroundAppRefresh_StatusInactive" = "إيقاف تشغيل";
 
 "Settings_StatusEnable" = "تنشيط";
 
@@ -164,11 +168,15 @@
 
 "Settings_Notification_Label" = "الإشعارات";
 
+"Settings_BackgroundAppRefresh_Label" = "التحديثات في الخلفية";
+
 "Settings_Reset_Label" = "إعادة تعيين التطبيق";
 
 "Settings_Tracing_Description" = "السماح بإنشاء معرفات عشوائية لمرض كوفيد-19 ومشاركتها.";
 
 "Settings_Notification_Description" = "السماح بالإشعارات التلقائية لمستوى خطر مرض كوفيد-19.";
+
+"Settings_BackgroundAppRefresh_Description" = "السماح بالتحديثات التلقائية لحالة المخاطرة الخاصة بك.";
 
 "Settings_Reset_Description" = "حذف كل البيانات في التطبيق.";
 
@@ -201,6 +209,61 @@
 
 "NotificationSettings_offImageDescription" = "سيدة لا يمكنها تلقي إشعارات من تطبيق Corona-Warn-App.";
 
+/* Background App Referesh Settings */
+"BackgroundAppRefreshSettings_Title" = "التحديثات في الخلفية";
+
+"BackgroundAppRefreshSettings_Image_Description_On" = "شخص يحمل هاتفًا ذكيًا بتحديثات في الخلفية تم تنشيطها.";
+
+"BackgroundAppRefreshSettings_Image_Description_Off" = "شخص يحمل هاتفًا ذكيًا بتحديثات في الخلفية تم إلغاء تنشيطها.";
+
+"BackgroundAppRefreshSettings_Subtitle" = "تحديث حالة المخاطرة في الخلفية";
+
+"BackgroundAppRefreshSettings_Description" = "عند تنشيط تحديثات في الخلفية، يحدد تطبيق Corona-Warn-App حالة المخاطرة لديك تلقائيًا.\nلن يتم تكبد تكاليف إضافية لنقل البيانات في شبكة الهاتف المحمول.\nفي حالة إلغاء تنشيط التحديثات في الخلفية، فسيتوجب عليك فتح التطبيق يدويًا كل يوم لتحديث حالة المخاطرة لديك.";
+
+"BackgroundAppRefreshSettings_Status_Header" = "الإعداد";
+
+"BackgroundAppRefreshSettings_Status_Title" = "تحديث التطبيق في الخلفية";
+
+"BackgroundAppRefreshSettings_Status_On" = "تشغيل";
+
+"BackgroundAppRefreshSettings_Status_Off" = "إيقاف تشغيل";
+
+"BackgroundAppRefreshSettings_InfoBox_Title" = "تنشيط تحديث التطبيق في الخلفية";
+
+"BackgroundAppRefreshSettings_InfoBox_Description" = "عليك تنشيط تحديث التطبيق في الخلفية في كلٍ من الإعدادات العامة لجهاز iPhone الذي تستخدمه وفي إعدادات تطبيق Corona-Warn-App.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "برجاء ملاحظة أنه يجب إلغاء تنشيط وضع الطاقة المنخفضة لتنشيط تحديث التطبيق في الخلفية.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "إلغاء تنشيط وضع الطاقة المنخفضة";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "فتح الإعدادات";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2" = "فتح البطارية";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3" = "إلغاء تنشيط وضع الطاقة المنخفضة";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title" = "تنشيط تحديث التطبيق في الخلفية في 'عام'";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1" = "فتح الإعدادات";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2" = "فتح 'عام'";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3" = "فتح تحديث التطبيق في الخلفية";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4" = "تحديث شبكة Wi-Fi أو شبكة Wi-Fi وبيانات الهاتف";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title" = "تنشيط تحديث التطبيق في الخلفية لتطبيق Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "فتح الإعدادات";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "فتح إعدادات تطبيق Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "تنشيط تحديث التطبيق في الخلفية";
+
+"BackgroundAppRefreshSettings_OpenSettingsButton_Title" = "فتح الإعدادات";
+
+"BackgroundAppRefreshSettings_ShareButton_Title" = "مشاركة الإرشادات";
+
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "لنبدأ";
 
@@ -218,13 +281,17 @@
 
 "Onboarding_DeactivateExposureConfirmation_message" = "يمكنك إلغاء تنشيط هذه الميزة في أي وقت.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "مجموعة أشخاص يستخدمون أجهزتهم حول المدينة.";
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "مجموعة أشخاص يستخدمون أجهزتهم في المدينة جميعًا.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_title" = "لنكافح فيروس كورونا معًا";
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "مزيد من الحماية لك ولنا جميعًا. يمكننا كسر سلاسل العدوى أسرع بكثير من خلال استخدام تطبيق Corona-Warn-App.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "قم بتحويل جهازك إلى نظام تحذير من كورونا. ألقِ نظرة عامة على مستوى الخطر الواقع عليك، وتعرف على إذا ما كنت قد تواصلت عن قرب مع أشخاص مصابين بمرض كوفيد-19 في آخر 14 يومًا.\n\nيسجل التطبيق التجمُّعات بين الأفراد من خلال تبادل المعرفات العشوائية المشفرة لأجهزتهم، دون الوصول إلى أي بيانات شخصية.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"OnboardingInfo_togetherAgainstCoronaPage_linkText" = "معلومات التطبيق بلغة مبسطة ولغة الإشارة";
 
 "OnboardingInfo_privacyPage_imageDescription" = "سيدة تستخدم تطبيق Corona-Warn-App على هاتفها الذكي. تشير أيقونة القفل الموجودة بخلفية الشاشة إلى بيانات مشفرة.";
 
@@ -241,6 +308,10 @@
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "لتحديد ما إذا كنت معرضًا لخطر العدوى، يجب عليك تنشيط ميزة تسجيل المخالطة.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "يعمل تسجيل المخالطة من خلال تلقي جهازك، عبر Bluetooth، المعرفات العشوائية المشفرة لمستخدمين آخرين وتمرير معرفك العشوائي إلى أجهزتهم. ويمكن تعطيل هذه الميزة في أي وقت.\n\nلا تمرر المعرفات العشوائية المشفرة إلا معلومات حول التاريخ والمدة ومدى الاقتراب من الأشخاص الآخرين (يتم التقدير باستخدام قوة الإشارة). ولا يتم أبدًا تسجيل البيانات الشخصية، مثل الاسم والعنوان والموقع، كما لا يمكن تحديد هوية الأفراد.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "حد العمر: 16 سنة فأكثر";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "هذا التطبيق موجه إلى الأشخاص الذين لا تقل أعمارهم عن 16 سنة وإلى هؤلاء المقيمين في ألمانيا.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "إقرار الموافقة";
 
@@ -260,7 +331,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "...يُرجى الإبلاغ عن هذا في تطبيق Corona-Warn-App. مشاركة نتائج اختبارك أمر اختياري وآمن. يُرجى القيام بهذا من أجل صحة الجميع.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "يتم تشفير إشعارك ومعالجته بصورة آمنة على خادم آمن. يتلقى الأشخاص الذين قام جهازك بتجميع معرفاتهم العشوائية، الآن تحذيرًا مصحوبًا بمعلومات حول ما يجب عليهم القيام به الآن.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "يتم تشفير إشعارك ومعالجته بصورة آمنة على خادم آمن. الآن، سيتلقى الأشخاص الذين قام جهازك بتجميع معرفاتهم العشوائية المشفرة تحذيرًا مصحوبًا بمعلومات حول ما يجب عليهم فعله على الفور.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "سيدة تتلقى إشعارًا من تطبيق Corona-Warn-App.";
 
@@ -325,9 +396,9 @@
 
 "ExposureSubmissionHotline_Title" = "طلب رقم المعاملة (TAN)";
 
-"ExposureSubmissionHotline_Description" = "يُرجى تجهيز نتيجة اختبارك (إن وُجدت) ورقم هاتفك لطلب رقم المعاملة (TAN).";
+"ExposureSubmissionHotline_Description" = "يُرجى الاحتفاظ بنتيجة اختبارك (إن وُجدت) وجهز رقم هاتفك لطلب رقم المعاملة (TAN).\n\nيُدعم الخط الساخن خدمات Tess Relay للأشخاص الذين يُعانون من ضعف السمع.(الترجمة بين اللغة الألمانية المكتوبة ولغة الإشارة) للاتصال بالخط الساخن للهاتف. يمكنك تنزيل البرنامج من App Store / Google Play.";
 
-"ExposureSubmissionHotline_SectionTitle" = "كيف يعمل ذلك";
+"ExposureSubmissionHotline_SectionTitle" = "كيف يعمل ذلك:";
 
 "ExposureSubmissionHotline_SectionDescription1" = "اتصل بالخط الساخن واطلب رقم المعاملة (TAN):";
 
@@ -459,11 +530,11 @@
 
 "ExposureSubmissionResult_testInvalid" = "الاختبار به أخطاء";
 
-"ExposureSubmissionResult_testInvalidDesc" = "هناك مشكلة في تقييم اختبارك. الرجاء الاتصال بدائرة الصحة العامة لمعرفة كيفية المتابعة.";
+"ExposureSubmissionResult_testInvalidDesc" = "هناك مشكلة في تقييم اختبارك. الرجاء الاتصال بمركز الاختبار أو المعمل لمعرفة كيفية المتابعة.";
 
-"ExposureSubmissionResult_testRedeemed" = "Test has errors";
+"ExposureSubmissionResult_testRedeemed" = "الاختبار به أخطاء";
 
-"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR Code has already expired.";
+"ExposureSubmissionResult_testRedeemedDesc" = "هناك مشكلة في تقييم اختبارك، حيث انتهت صلاحية رمز الاستجابة السريعة (QR).";
 
 "ExposureSubmissionResult_testPending" = "نتيجة الاختبار غير متوفرة حتى الآن";
 
@@ -493,15 +564,21 @@
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "خصوصية البيانات";
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "حذف الاختبار؟";
+"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "حد العمر: 16 سنة فأكثر";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "سيتم حذف الاختبار نهائيًا من تطبيق Corona-Warn-App ولا يمكن إضافته مرة أخرى. ولا يمكن التراجع عن هذا الإجراء.";
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "هذا التطبيق موجه إلى الأشخاص الذين لا تقل أعمارهم عن 16 سنة وإلى هؤلاء المقيمين في ألمانيا.";
+
+"ExposureSubmissionResult_RemoveAlert_Title" = "يمكن مسح الاختبار ضوئيًا مرة واحدة فقط.";
+
+"ExposureSubmissionResult_RemoveAlert_Text" = "إذا قمت بحذف الاختبار، فلن تتمكن من استرجاع نتيجة الاختبار الخاصة بك. تتلقى نتيجة الاختبار الخاصة بك من مركز الاختبار أو المختبر، بغض النظر عن التطبيق. إذا تمت إصابتك بمرض كوفيد-19، فسيتم إعلامك من قبل دائرة الصحة العامة.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "تاريخ التسجيل غير معروف";
 
 "ExposureSubmissionResult_RegistrationDate" = "تاريخ التسجيل";
 
 /* Exposure Submission */
+"ExposureSubmissionError_ErrorPrefix" = "حدث خطأ تقني أثناء إرسال البيانات الخاصة بك. يُرجى الاتصال بالخط الساخن الفني. ستجد رقم الهاتف ضمن معلومات التطبيق.";
+
 "ExposureSubmissionError_NoKeys" = "لا يتوفر أي مفتاح تشخيص. الرجاء المحاولة مرة أخرى غدًا.";
 
 "ExposureSubmissionError_InvalidTan" = "رقم المعاملة (TAN) غير صالح للتقديم. الرجاء الاتصال بالخط الساخن الفني عبر معلومات التطبيق -> الخط الساخن الفني.";
@@ -514,7 +591,7 @@
 
 "ExposureSubmissionError_NoResponse" = "لا يحتوي الاستجابة على أي محتوى.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "رمز الاستجابة السريعة (QR) مستخدم بالفعل. الرجاء الاتصال بالخط الساخن الفني عبر معلومات التطبيق -> الخط الساخن الفني.";
+"ExposureSubmissionError_QRAlreadyUsed" = "رمز الاستجابة السريعة (QR) غير صالح أو تم تسجيله بالفعل على هاتف ذكي آخر. ستتلقى نتيجة الاختبار من مركز الاختبار أو المختبر بغض النظر عن صلاحية رمز الاستجابة السريعة (QR). إذا تمت إصابتك بمرض كوفيد-19، فسيتم إعلامك من قبل دائرة الصحة العامة.";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "رقم المعاملة (TAN) غير صالح أو مستخدم بالفعل. الرجاء المحاولة مرة أخرى أو الاتصال بالخط الساخن الفني عبر معلومات التطبيق -> الخط الساخن الفني.";
 
@@ -624,7 +701,7 @@
 
 "Home_Risk_No_Date_Title" = "غير معروف";
 
-"Home_Risk_Period_Update_Title" = "يتم التحديث كل %@ من الساعات";
+"Home_Risk_Period_Update_Title" = "يتم التحديث كل %@\U00A0 من الساعات";
 
 "Home_Risk_Period_Disabled_Button_Title" = "يتم التحديث فقط كل %@ من الساعات";
 
@@ -636,7 +713,7 @@
 
 "Home_Risk_Last_Activate_Item_Low_Title" = "خطر منخفض";
 
-"Home_Risk_Last_Activate_Item_High_Title" = "خطر أعلى";
+"Home_Risk_Last_Activate_Item_High_Title" = "خطر مرتفع";
 
 "Home_RiskCard_Update_Button" = "تحديث";
 
@@ -662,12 +739,8 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "خطر منخفض";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "تسجيل المخالطة كان نشطًا لمدة %1$u من الأربعة عشر يومًا الماضية.";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "تسجيل المخالطة نشط دائمًا";
-
 /* Home High card */
-"Home_Risk_High_Title" = "خطر أعلى";
+"Home_Risk_High_Title" = "خطر مرتفع";
 
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "الفحص قيد التشغيل...";
@@ -767,6 +840,10 @@
 
 "App_Information_About_Text" = "يمكن لأي شخص يستخدم التطبيق تتبع سلسلة العدوى وكسرها. يحفظ التطبيق التجمُّعات مع الأشخاص الآخرين محليًا على جهازك. ويتم إشعارك عند تجمُّعك مع أشخاص تم تشخيصهم مؤخرًا على أنهم مصابون بمرض كوفيد-19، علمًا أن هويتك وخصوصيتك محميتان دائمًا.";
 
+"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"App_Information_About_LinkText" = "معلومات التطبيق بلغة مبسطة ولغة الإشارة";
+
 /* App Information - FAQ */
 "App_Information_FAQ_Navigation" = "الأسئلة المتكررة";
 
@@ -804,11 +881,15 @@
 
 "App_Information_Imprint_Section3_Title" = "الاتصال";
 
-"App_Information_Imprint_Section3_Text" = "البريد الإلكتروني: CoronaWarnApp@rki.de\nالهاتف: ‎+49 30 18754 5100";
+"App_Information_Imprint_Section3_Text" = "البريد الإلكتروني: CoronaWarnApp@rki.de";
 
 "App_Information_Imprint_Section4_Title" = "رقم تعريف ضريبة القيمة المضافة";
 
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
+
+"App_Information_Contact_Form_Title" = "نموذج الاتصال";
+
+"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "الإخطارات القانونية";
@@ -902,7 +983,7 @@
 
 "RiskLegend_Legend2_RiskLevels" = "قد يظهر لك مستوى الخطر التالي:";
 
-"RiskLegend_Legend2_High" = "خطر أعلى";
+"RiskLegend_Legend2_High" = "خطر مرتفع";
 
 "RiskLegend_Legend2_High_Color" = "أحمر";
 
@@ -930,7 +1011,7 @@
 
 "RiskLegend_Contact_Title" = "المخالطات";
 
-"RiskLegend_Contact_Text" = "التجمُّعات لمدة أطول وعن قرب مع أشخاص مصابين بمرض كوفيد-19.";
+"RiskLegend_Contact_Text" = "التجمُّعات لمدة طويلة ومن مسافة قريبة جدًا مع أشخاص مصابين بمرض كوفيد-19.";
 
 "RiskLegend_Notification_Title" = "إشعار المخالطة";
 

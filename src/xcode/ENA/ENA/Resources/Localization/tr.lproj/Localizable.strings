@@ -35,6 +35,10 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Arka plan güncellemeleri devre dışı bırakıldı";
 
+"Common_Deadman_AlertTitle" = "Risk Durumunuz";
+
+"Common_Deadman_AlertBody" = "Risk durumunuzu kontrol etmek için lütfen Corona-Warn-App'i düzenli olarak açmayı unutmayın.";
+
 /* General - Links */
 "General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
 
@@ -52,15 +56,11 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "Maruz kalma günlüğü durduruldu";
 
-"ExposureDetection_Outdated" = "Maruz kalma günlüğü oluşturulamıyor";
-
 "ExposureDetection_Unknown" = "Bilinmeyen Risk";
 
 "ExposureDetection_Low" = "Düşük Risk";
 
 "ExposureDetection_High" = "Daha Yüksek Risk";
-
-"ExposureDetection_NumberOfDaysStored" = "%d/14 gündür etkin";
 
 "ExposureDetection_Refreshed" = "Güncelleme: %@";
 
@@ -86,7 +86,7 @@
 
 "ExposureDetection_Behavior_Subtitle" = "Yapmanız gerekenler";
 
-"ExposureDetection_Guide_Hands" = "Ellerinizi düzenli olarak yıkayın.";
+"ExposureDetection_Guide_Hands" = "Ellerinizi düzenli olarak 20 saniye sabunla yıkayın.";
 
 "ExposureDetection_Guide_Mask" = "Diğer insanlarla karşılaştığınızda yüz maskesi takın.";
 
@@ -148,9 +148,13 @@
 "How_Risk_Detection_Works_Alert_Message" = "Enfeksiyon riskiniz yalnızca maruz kalma günlüğünün etkin olduğu dönemler için hesaplanabilir. Bu nedenle günlüğe kaydetme özelliğinin sürekli etkin kalması gerekir.\nMaruz kalma günlüğü son %1$u günü kapsar.\nUygulama, enfeksiyondan korunma için artık ilgili olmadığından daha eski kayıtları otomatik olarak siler.\n\nDaha fazla bilgi için lütfen SSS sayfamıza bakın.";
 
 /* Settings */
-"Settings_StatusActive" = "Açık";
+"Settings_Notification_StatusActive" = "Açık";
 
-"Settings_StatusInactive" = "Kapalı";
+"Settings_Notification_StatusInactive" = "Kapalı";
+
+"Settings_BackgroundAppRefresh_StatusActive" = "Açık";
+
+"Settings_BackgroundAppRefresh_StatusInactive" = "Kapalı";
 
 "Settings_StatusEnable" = "Etkinleştir";
 
@@ -164,11 +168,15 @@
 
 "Settings_Notification_Label" = "Bildirimler";
 
+"Settings_BackgroundAppRefresh_Label" = "Arka Plan Güncellemeleri";
+
 "Settings_Reset_Label" = "Uygulamayı Sıfırla";
 
 "Settings_Tracing_Description" = "COVID-19 rastgele kimliklerinin oluşturulmasına ve paylaşılmasına izin verin.";
 
 "Settings_Notification_Description" = "COVID-19 risk durumunuz ile ilgili otomatik bildirimlere izin verin.";
+
+"Settings_BackgroundAppRefresh_Description" = "Risk durumunuz ile ilgili otomatik güncellemelere izin verin.";
 
 "Settings_Reset_Description" = "Uygulamadaki tüm verilerinizi silin.";
 
@@ -201,6 +209,61 @@
 
 "NotificationSettings_offImageDescription" = "Bir kadın Corona-Warn-App uygulamasından bildirim alamıyor.";
 
+/* Background App Referesh Settings */
+"BackgroundAppRefreshSettings_Title" = "Arka Plan Güncellemeleri";
+
+"BackgroundAppRefreshSettings_Image_Description_On" = "Bir kişi elinde, arka plan güncellemeleri etkinleştirilmiş bir akıllı telefon tutuyor.";
+
+"BackgroundAppRefreshSettings_Image_Description_Off" = "Bir kişi elinde, arka plan güncellemeleri devre dışı bırakılmış bir akıllı telefon tutuyor.";
+
+"BackgroundAppRefreshSettings_Subtitle" = "Risk Durumunu Arka Planda Güncelle";
+
+"BackgroundAppRefreshSettings_Description" = "Arka plan güncellemeleri etkinleştirildiğinde Corona-Warn-App risk durumunuzu otomatik olarak belirler.\nMobil ağda veri aktarımı için ek ücret alınmaz.\nArka plan güncellemeleri devre dışı bırakılırsa risk durumunuzu güncellemek için uygulamayı her gün manuel olarak açmanız gerekir.";
+
+"BackgroundAppRefreshSettings_Status_Header" = "Ayar";
+
+"BackgroundAppRefreshSettings_Status_Title" = "Arka Planda Uygulamayı Yenileme";
+
+"BackgroundAppRefreshSettings_Status_On" = "Açık";
+
+"BackgroundAppRefreshSettings_Status_Off" = "Kapalı";
+
+"BackgroundAppRefreshSettings_InfoBox_Title" = "Arka Planda Uygulamayı Yenilemeyi Etkinleştir";
+
+"BackgroundAppRefreshSettings_InfoBox_Description" = "Arka planda uygulamayı yenileme özelliğini hem iPhone'unuzun genel ayarlar bölümünde hem de Corona-Warn-App'in ayarlar bölümünde etkinleştirmeniz gerekir.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Arka planda uygulamayı yenileme özelliğini etkinleştirmek için lütfen düşük güç modunun devre dışı bırakılması gerektiğini unutmayın.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Düşük Güç Modunu Devre Dışı Bırak";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Ayarları açın";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2" = "Pili açın";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3" = "Düşük Güç Modunu Devre Dışı Bırakın";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title" = "Genel Ayarlarda Arka Planda Uygulamayı Yenilemeyi Etkinleştir";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1" = "Ayarları açın";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2" = "Geneli açın";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3" = "Arka Planda Uygulamayı Yenilemeyi açın";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4" = "Wi-Fi veya Wi-Fi ve Hücresel Veri seçeneğini belirleyin";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title" = "Corona-Warn-App için Arka Planda Uygulamayı Yenilemeyi Etkinleştir";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Ayarları açın";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Corona-Warn-App ayaralarını açın";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Arka Planda Uygulamayı Yenilemeyi Etkinleştir";
+
+"BackgroundAppRefreshSettings_OpenSettingsButton_Title" = "Ayarları açın";
+
+"BackgroundAppRefreshSettings_ShareButton_Title" = "Talimatları Paylaş";
+
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "Haydi başlayalım";
 
@@ -226,6 +289,10 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Cihazınızı koronavirüs uyarı sistemine dönüştürün. Risk durumunuza ilişkin genel bir bakış elde edin ve son 14 gün içinde COVID-19 tanısı konan herhangi biri ile yakın temasa geçip geçmediğinizi öğrenin. \n\nUygulama, şifrelenmiş rastgele kimlikleri kullanıcıların cihazları arasında paylaşarak maruz kalma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.";
 
+"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Basitleştirilmiş Dilde ve İşaret Dilinde Uygulama Bilgileri";
+
 "OnboardingInfo_privacyPage_imageDescription" = "Bir kadın akıllı telefonunda Corona-Warn-App'i kullanıyor. Kılıfın arka planındaki kilit, şifrelenmiş verilerin simgesidir.";
 
 "OnboardingInfo_privacyPage_title" = "Veri Gizliliği";
@@ -241,6 +308,10 @@
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Enfeksiyon riski taşıyıp taşımadığınızı belirlemek için maruz kalma günlüğü özelliğini etkinleştirmeniz gerekir.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Maruz kalma günlüğü, cihazınızın Bluetooth üzerinden diğer kullanıcıların şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimliği diğer kullanıcıların cihazlarına aktarmasıyla çalışır. Bu özellik dilediğiniz zaman devre dışı bırakılabilir. \n\nŞifrelenmiş rastgele kimliklerde diğer kişilere yalnızca tarih, süre ve yakınlık bilgileri (sinyal gücüne göre hesaplanır) gönderilir. Ad, adres ve konum gibi kişisel veriler hiçbir durumda kaydedilmez. Kişilerin kimlikleri belirlenemez.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Yaş Sınırı: 16 ve Üzeri";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "Uygulama, 16 yaş ve üzerinde olan ve Almanya'da yaşayan kişiler için hazırlanmıştır.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Kabul Beyanı";
 
@@ -325,7 +396,7 @@
 
 "ExposureSubmissionHotline_Title" = "TAN Talebi";
 
-"ExposureSubmissionHotline_Description" = "TAN talebinde bulunmak için lütfen test sonucunuzu (varsa) ve telefon numaranızı hazır tutun.";
+"ExposureSubmissionHotline_Description" = "TAN talebinde bulunmak için lütfen test sonucunuzu (varsa) ve telefon numaranızı hazır tutun.\n\nİşitme engeli bulunan kişiler yardım hattı ile iletişime geçmek için Tess Relay hizmetlerini (Almanca yazı dili ile işaret dili arasında tercüme) kullanabilir. Yazılımı App Store/Google Play'den indirebilirsiniz.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Nasıl çalışır?";
 
@@ -459,11 +530,11 @@
 
 "ExposureSubmissionResult_testInvalid" = "Testte hata var";
 
-"ExposureSubmissionResult_testInvalidDesc" = "Testinizi değerlendirirken bir problem oluştu. Lütfen sonraki adımlarınız için kamu sağlığı yetkilisi ile görüşün.";
+"ExposureSubmissionResult_testInvalidDesc" = "Testinizi değerlendirirken bir problem oluştu. Lütfen sonraki adımlarınız için test merkezi veya laboratuvar ile görüşün.";
 
-"ExposureSubmissionResult_testRedeemed" = "Test has errors";
+"ExposureSubmissionResult_testRedeemed" = "Testte hata var";
 
-"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR Code has already expired.";
+"ExposureSubmissionResult_testRedeemedDesc" = "Testinizi değerlendirirken bir problem oluştu. QR kodunuzun süresi dolmuş.";
 
 "ExposureSubmissionResult_testPending" = "Test sonucu henüz çıkmadı";
 
@@ -493,15 +564,21 @@
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Veri Gizliliği";
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "Test silinsin mi?";
+"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Yaş Sınırı: 16 ve Üzeri";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Test kalıcı olarak Corona-Warn-App'ten silinir ve tekrar eklenemez. Bu işlem geri alınamaz.";
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "Uygulama, 16 yaş ve üzerinde olan ve Almanya'da yaşayan kişiler için hazırlanmıştır.";
+
+"ExposureSubmissionResult_RemoveAlert_Title" = "Test yalnızca bir kez taranabilir.";
+
+"ExposureSubmissionResult_RemoveAlert_Text" = "Testi silerseniz test sonucunuzu alamazsınız. Test sonucunuzu uygulamadan bağımsız olarak test merkezinden veya laboratuvardan alırsınız. COVID-19 tanısı alırsanız kamu sağlığı yetkilisi tarafından bilgilendirileceksiniz.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Kayıt tarihi bilinmiyor";
 
 "ExposureSubmissionResult_RegistrationDate" = "Kayıt tarihi:";
 
 /* Exposure Submission */
+"ExposureSubmissionError_ErrorPrefix" = "Verilerinizi gönderirken teknik hata oluştu. Lütfen teknik yardım hattı ile iletişime geçin. Telefon numarasını Uygulama Bilgileri bölümünde bulabilirsiniz.";
+
 "ExposureSubmissionError_NoKeys" = "Tanı anahtarı yok. Lütfen yarın tekrar deneyin.";
 
 "ExposureSubmissionError_InvalidTan" = "Oluşturulan TAN, gönderme işlemi için geçersiz. Lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
@@ -514,7 +591,7 @@
 
 "ExposureSubmissionError_NoResponse" = "Yanıtın içeriği yok.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "QR kod zaten kullanılmış. Lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
+"ExposureSubmissionError_QRAlreadyUsed" = "QR kod yanlış veya başka bir akıllı telefona zaten kaydedilmiş. QR kod geçerli olsun veya olmasın test sonucunuzu test merkezinden veya laboratuvardan alacaksınız. COVID-19 tanısı alırsanız kamu sağlığı yetkilisi tarafından bilgilendirileceksiniz.";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "TAN geçersiz veya zaten kullanılmış. Lütfen tekrar deneyin veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
 
@@ -563,7 +640,7 @@
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Cihaz Ayarlarını Aç";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "COVID-19'a Maruz Kalma Günlüğünü ve Bildirimleri Etkinleştir ";
+"ExposureNotificationSetting_Activate_OSENSetting" = "COVID-19'a Maruz Kalma Günlüğünü ve Bildirimleri Etkinleştir";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Maruz kalma günlüğünde, karşılaşmaların günlüğe kaydedilebilmesi için sistem ayarlarında COVID-19'a maruz kalma günlüğü ve bildirimlerin etkinleştirilmesi gerekir. Lütfen sistem ayarlarında \"COVID-19'a Maruz Kalma Günlüğü ve Bildirimler\" özelliğini etkinleştirin.";
 
@@ -662,10 +739,6 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Düşük Risk";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "Maruz kalma günlüğü son %2$u günde %1$u gün etkindi.";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Maruz kalma günlüğü sürekli etkin";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Daha Yüksek Risk";
 
@@ -763,9 +836,13 @@
 
 "App_Information_About_Title" = "Koronavirüs ile birlikte mücadele edelim";
 
-"App_Information_About_Description" = "Robert Koch Institute (RKI), Almanya'nın federal kamu sağlığı kurumudur. RKI, Federal Hükûmet adına Corona-Warn-App uygulamasını yayınlamaktadır. Uygulama, daha önce açıklanan kamu sağlığı önlemlerine ilişkin dijital bir uzantı niteliğindedir: sosyal mesafe, hijyen uygulamaları ve yüz maskeleri.";
+"App_Information_About_Description" = "Robert Koch Institute (RKI), Almanya'nın federal kamu sağlığı kurumudur. RKI, Federal Hükûmet adına Corona-Warn-App uygulamasını yayınlamaktadır. Uygulama, daha önce açıklanan kamu sağlığı önlemlerine ilişkin dijital bir tamamlayıcı niteliğindedir: sosyal mesafe, hijyen uygulamaları ve yüz maskeleri.";
 
 "App_Information_About_Text" = "Uygulamayı kullanan herkes, enfeksiyon zincirlerinin takip edilmesine ve kırılmasına yardımcı olur. Uygulama, diğer kişilerle karşılaşmaları cihazınızda yerel olarak kaydeder. Daha sonra COVID-19 tanısı konan kişilerle karşılaşmışsanız size bildirim gönderilir. Kimliğiniz ve gizliliğiniz daima koruma altındadır.";
+
+"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"App_Information_About_LinkText" = "Basitleştirilmiş Dilde ve İşaret Dilinde Uygulama Bilgileri";
 
 /* App Information - FAQ */
 "App_Information_FAQ_Navigation" = "SSS";
@@ -804,11 +881,15 @@
 
 "App_Information_Imprint_Section3_Title" = "İletişim";
 
-"App_Information_Imprint_Section3_Text" = "E-posta: CoronaWarnApp@rki.de\nTelefon: +49 30 18754 5100";
+"App_Information_Imprint_Section3_Text" = "E-posta: CoronaWarnApp@rki.de";
 
 "App_Information_Imprint_Section4_Title" = "KDV numarası";
 
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
+
+"App_Information_Contact_Form_Title" = "İletişim Formu";
+
+"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Yasal Bildirimler";
@@ -961,7 +1042,7 @@
 "ENATanInput_CharacterIndex" = "%1$u/%2$u karakter";
 
 /* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
-"Active_Tracing_Interval_Partially_Active" = "Maruz kalma günlüğü son %2$u günde %1$u gün etkindi.";
+"Active_Tracing_Interval_Partially_Active" = "Maruz kalma günlüğü son 14 günde %1$u gün etkindi.";
 
 "Active_Tracing_Interval_Permanently_Active" = "Maruz kalma günlüğü sürekli etkin";
 

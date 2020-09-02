@@ -19,7 +19,6 @@
 import ExposureNotification
 import XCTest
 
-// swiftlint:disable:next type_body_length
 class ExposureSubmissionServiceTests: XCTestCase {
 	let expectationsTimeout: TimeInterval = 2
 	let keys = [ENTemporaryExposureKey()]
@@ -99,7 +98,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: expectationsTimeout)
 	}
 
-	func testSubmitExpousure_InvalidTan() {
+	func testExposureSubmission_InvalidPayloadOrHeaders() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
@@ -107,7 +106,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		store.registrationToken = "dummyRegistrationToken"
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
-		let expectation = self.expectation(description: "OtherError")
+		let expectation = self.expectation(description: "invalidPayloadOrHeaders Error")
 
 		// Act
 		service.submitExposure { error in
@@ -116,8 +115,9 @@ class ExposureSubmissionServiceTests: XCTestCase {
 				XCTFail("error expected")
 				return
 			}
-			guard case ExposureSubmissionError.other = error else {
-				XCTFail("We expect error to be of type other")
+
+			guard case ExposureSubmissionError.invalidPayloadOrHeaders = error else {
+				XCTFail("We expect error to be of type invalidPayloadOrHeaders")
 				return
 			}
 		}
@@ -228,6 +228,48 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			case .success:
 				XCTFail("This test should intentionally produce an unknown test result that cannot be parsed.")
 			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testCorrectErrorForRequestCouldNotBeBuilt() {
+
+		// Initialize.
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let client = ClientMock(submissionError: .requestCouldNotBeBuilt)
+		let store = MockTestStore()
+		store.registrationToken = "dummyRegistrationToken"
+		let expectation = self.expectation(description: "Correct error description received.")
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+
+		// Execute test.
+		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
+
+		service.submitExposure { error in
+			expectation.fulfill()
+			XCTAssertEqual(error?.localizedDescription, controlTest)
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testCorrectErrorForInvalidPayloadOrHeaders() {
+
+		// Initialize.
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
+		let store = MockTestStore()
+		store.registrationToken = "dummyRegistrationToken"
+		let expectation = self.expectation(description: "Correct error description received.")
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+
+		// Execute test.
+		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
+
+		service.submitExposure { error in
+			expectation.fulfill()
+			XCTAssertEqual(error?.localizedDescription, controlTest)
 		}
 
 		waitForExpectations(timeout: .short)

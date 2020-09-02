@@ -35,6 +35,10 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Background updates deactivated";
 
+"Common_Deadman_AlertTitle" = "Your Risk Status";
+
+"Common_Deadman_AlertBody" = "Please remember to open the Corona-Warn-App regularly to check your risk status.";
+
 /* General - Links */
 "General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
 
@@ -52,15 +56,11 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "Exposure logging stopped";
 
-"ExposureDetection_Outdated" = "Exposure logging is not possible";
-
 "ExposureDetection_Unknown" = "Unknown Risk";
 
 "ExposureDetection_Low" = "Low Risk";
 
 "ExposureDetection_High" = "Increased Risk";
-
-"ExposureDetection_NumberOfDaysStored" = "%d of 14 days active";
 
 "ExposureDetection_Refreshed" = "Updated: %@";
 
@@ -86,7 +86,7 @@
 
 "ExposureDetection_Behavior_Subtitle" = "This is what you should do";
 
-"ExposureDetection_Guide_Hands" = "Wash your hands regularly.";
+"ExposureDetection_Guide_Hands" = "Wash your hands regularly, with soap, for 20 seconds.";
 
 "ExposureDetection_Guide_Mask" = "Wear a face mask when you encounter other people.";
 
@@ -148,9 +148,13 @@
 "How_Risk_Detection_Works_Alert_Message" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently.\nExposure logging covers the past %1$u days.\nThe app automatically deletes older logs, as these are no longer relevant for infection prevention.\n\nFor further information, please see our FAQ page.";
 
 /* Settings */
-"Settings_StatusActive" = "On";
+"Settings_Notification_StatusActive" = "On";
 
-"Settings_StatusInactive" = "Off";
+"Settings_Notification_StatusInactive" = "Off";
+
+"Settings_BackgroundAppRefresh_StatusActive" = "On";
+
+"Settings_BackgroundAppRefresh_StatusInactive" = "Off";
 
 "Settings_StatusEnable" = "Activate";
 
@@ -164,11 +168,15 @@
 
 "Settings_Notification_Label" = "Notifications";
 
+"Settings_BackgroundAppRefresh_Label" = "Background Updates";
+
 "Settings_Reset_Label" = "Reset App";
 
 "Settings_Tracing_Description" = "Allow COVID-19 random IDs to be generated and shared.";
 
 "Settings_Notification_Description" = "Allow automatic notifications of your COVID-19 risk status.";
+
+"Settings_BackgroundAppRefresh_Description" = "Allow automatic updates of your risk status.";
 
 "Settings_Reset_Description" = "Delete all your data in the app.";
 
@@ -201,6 +209,61 @@
 
 "NotificationSettings_offImageDescription" = "A woman cannot receive notifications from her Corona-Warn-App.";
 
+/* Background App Referesh Settings */
+"BackgroundAppRefreshSettings_Title" = "Background Updates";
+
+"BackgroundAppRefreshSettings_Image_Description_On" = "A person holds a smartphone with activated background updates in their hand.";
+
+"BackgroundAppRefreshSettings_Image_Description_Off" = "A person holds a smartphone with deactivated background updates in their hand.";
+
+"BackgroundAppRefreshSettings_Subtitle" = "Update Risk Status in the Background";
+
+"BackgroundAppRefreshSettings_Description" = "When background updates are activated, the Corona-Warn-App determines your risk status automatically.\nNo additional costs will be incurred for the data transfer in the mobile network.\nIf background updates are deactivated, you will have to open the app manually each day to update your risk status.";
+
+"BackgroundAppRefreshSettings_Status_Header" = "Setting";
+
+"BackgroundAppRefreshSettings_Status_Title" = "Background App Refresh";
+
+"BackgroundAppRefreshSettings_Status_On" = "On";
+
+"BackgroundAppRefreshSettings_Status_Off" = "Off";
+
+"BackgroundAppRefreshSettings_InfoBox_Title" = "Activate Background App Refresh";
+
+"BackgroundAppRefreshSettings_InfoBox_Description" = "You have to activate background app refresh in both the general settings of your iPhone and in the settings of the Corona-Warn-App.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Please note that low power mode must be deactivated for you to activate background app refersh.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Deactivate Low Power Mode";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Open Settings";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2" = "Open Battery";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3" = "Deactivate Low Power Mode";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title" = "Activate Background App Refresh in General";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1" = "Open Settings";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2" = "Open General";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3" = "Open Background App Refresh";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4" = "Select either Wi-Fi or Wi-Fi & Cellular Data";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title" = "Activate Background App Refresh for the Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Open Settings";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Open the settings for the Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Activate Background App Refresh";
+
+"BackgroundAppRefreshSettings_OpenSettingsButton_Title" = "Open Settings";
+
+"BackgroundAppRefreshSettings_ShareButton_Title" = "Share Instructions";
+
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "Let’s get started";
 
@@ -226,6 +289,10 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a corona warning system. Get an overview of your risk status and find out whether you've had close contact with people diagnosed with COVID-19 in the last 14 days. \n\nThe app logs encounters between individuals by their devices exchanging encrypted random IDs, and without accessing any personal data.";
 
+"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"OnboardingInfo_togetherAgainstCoronaPage_linkText" = "App Information in Simplified Language and Sign Language";
+
 "OnboardingInfo_privacyPage_imageDescription" = "A woman uses the Corona-Warn-App on her smartphone. An icon showing a padlock on the background of a shield symbolizes encrypted data.";
 
 "OnboardingInfo_privacyPage_title" = "Data Privacy";
@@ -241,6 +308,10 @@
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To identify whether you are at risk of infection, you must activate the exposure logging feature.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Exposure logging works by your device receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. This feature can be disabled at any time. \n\nEncrypted random IDs only pass information about date, duration, and proximity to other persons (calculated by signal strength). Personal data such as name, address, and location is never recorded. Individuals cannot be identified.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Age Limit: 16 and Up";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "This app is intended for people who are at least 16 years of age and who reside in Germany.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Declaration of Consent";
 
@@ -325,7 +396,7 @@
 
 "ExposureSubmissionHotline_Title" = "Request TAN";
 
-"ExposureSubmissionHotline_Description" = "Please keep your test result (if available) and your phone number ready to request a TAN.";
+"ExposureSubmissionHotline_Description" = "Please keep your test result (if available) and your phone number ready to request a TAN.\n\nPeople with hearing impairments can use Tess Relay services (interpreting between German written language and sign language) to contact the phone hotline. You can download the software from the App Store/Google Play.";
 
 "ExposureSubmissionHotline_SectionTitle" = "How this works:";
 
@@ -459,11 +530,11 @@
 
 "ExposureSubmissionResult_testInvalid" = "Test has errors";
 
-"ExposureSubmissionResult_testInvalidDesc" = "There was a problem evaluating your test. Please contact the public health authority to find out how to proceed.";
+"ExposureSubmissionResult_testInvalidDesc" = "There was a problem evaluating your test. Please contact the test center or laboratory involved to find out how to proceed.";
 
 "ExposureSubmissionResult_testRedeemed" = "Test has errors";
 
-"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR Code has already expired.";
+"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR code has already expired.";
 
 "ExposureSubmissionResult_testPending" = "Test result is not yet available";
 
@@ -493,15 +564,21 @@
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Data Privacy";
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "Delete the test?";
+"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Age Limit: 16 and Up";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "The test will be permanently deleted from the Corona-Warn-App and cannot be added again. This procedure cannot be undone.";
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "This app is intended for people who are at least 16 years of age and who reside in Germany.";
+
+"ExposureSubmissionResult_RemoveAlert_Title" = "The test can only be scanned once.";
+
+"ExposureSubmissionResult_RemoveAlert_Text" = "If you delete the test, you can no longer retrieve your test result. You receive your test result from the test center or laboratory, independently of the app. If you are diagnosed with COVID-19, you will be notified by the public health authority.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registration date unknown";
 
 "ExposureSubmissionResult_RegistrationDate" = "Registered on";
 
 /* Exposure Submission */
+"ExposureSubmissionError_ErrorPrefix" = "A technical error occurred while sending your data. Please contact the technical hotline. You will find the phone number under App Information.";
+
 "ExposureSubmissionError_NoKeys" = "No diagnosis key is available. Please try again tomorrow.";
 
 "ExposureSubmissionError_InvalidTan" = "The generated TAN is invalid for submission. Please contact the technical hotline via App Information -> Technical Hotline.";
@@ -514,7 +591,7 @@
 
 "ExposureSubmissionError_NoResponse" = "The response has no content.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "The QR code has been used already. Please contact the technical hotline via App Information -> Technical Hotline.";
+"ExposureSubmissionError_QRAlreadyUsed" = "The QR code is invalid or has been registered on another smartphone already. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with COVID-19, you will be notified by the public health authority.";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "The TAN is invalid or has been used already. Please try again or contact the technical hotline via App Information -> Technical Hotline.";
 
@@ -655,14 +732,6 @@
 
 "Home_Risk_Inactive_Outdated_Results_Body" = "Your exposure logging could not be updated for more than 24 hours.";
 
-"Home_Risk_Inactive_Activate_Item_Title" = "Last exposure logging: %@";
-
-"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Unknown Risk";
-
-"Home_Risk_Inactive_Activate_Item_Low_Title" = "Low Risk";
-
-"Home_Risk_Inactive_Activate_Item_High_Title" = "Increased Risk";
-
 "Home_Risk_Inactive_NoCalculation_Possible_Button" = "Activate Exposure Logging";
 
 "Home_Risk_Inactive_Outdated_Results_Button" = "Activate Exposure Logging";
@@ -670,14 +739,8 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Low Risk";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "Exposure logging was active for %1$u of the past %2$u days.";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Exposure logging permanently active";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Increased Risk";
-
-"Home_Risk_High_Button" = "Update";
 
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Check is running …";
@@ -773,9 +836,13 @@
 
 "App_Information_About_Title" = "Let's fight coronavirus together";
 
-"App_Information_About_Description" = "Robert Koch Institute (RKI) is Germany’s federal public health body. The RKI publishes the Corona-Warn-App in the name of the Federal Government. The app represents the digital extension of public health measures already introduced: social distancing, hygiene, and face masks.";
+"App_Information_About_Description" = "Robert Koch Institute (RKI) is Germany’s federal public health body. The RKI publishes the Corona-Warn-App on behalf of the Federal Government. The app is intended as a digital complement to public health measures already introduced: social distancing, hygiene, and face masks.";
 
 "App_Information_About_Text" = "Whoever uses the app helps to trace and break chains of infection. The app saves encounters with other people locally on your device. You are notified if you have encountered people who were later diagnosed with COVID-19. Your identity and privacy are always protected.";
+
+"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"App_Information_About_LinkText" = "App Information in Simplified Language and Sign Language";
 
 /* App Information - FAQ */
 "App_Information_FAQ_Navigation" = "FAQ";
@@ -814,11 +881,15 @@
 
 "App_Information_Imprint_Section3_Title" = "Contact";
 
-"App_Information_Imprint_Section3_Text" = "E-Mail: CoronaWarnApp@rki.de\nTelephone: +49 30 18754 5100";
+"App_Information_Imprint_Section3_Text" = "E-mail: CoronaWarnApp@rki.de";
 
 "App_Information_Imprint_Section4_Title" = "VAT identification number";
 
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
+
+"App_Information_Contact_Form_Title" = "Contact Form";
+
+"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Legal Notices";
