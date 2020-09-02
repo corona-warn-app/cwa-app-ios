@@ -109,7 +109,9 @@ platform :ios do
   desc "Ad hoc distribution"
   lane :adHocDistribution do
     match(
-      type: "adhoc"
+      type: "adhoc",
+      app_identifier: "de.rki.coronawarnapp",
+      template_name: "Exposure Notification for 523TP53AQF (Distribution) iOS Dist ADHOC"
     )
 
     build_ios_app(
