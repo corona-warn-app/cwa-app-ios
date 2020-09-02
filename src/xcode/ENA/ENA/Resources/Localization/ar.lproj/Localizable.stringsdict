@@ -12,22 +12,22 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>one</key>
-			<!--Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+			<!--Plural form for ONE.-->
 			<string>خطر العدوى لديك مرتفع لأنك خالطت مؤخرًا شخصًا واحدًا على الأقل مُصاب بمرض كوفيد-19 منذ يوم لفترة زمنية أطول وعن قرب.</string>
 			<key>zero</key>
-			<!-- Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+			<!--Plural form for ZERO.-->
 			<string>خطر العدوى لديك مرتفع لأنك خالطت مؤخرًا شخصًا واحدًا على الأقل مُصاب بمرض كوفيد-19 منذ %u من الأيام لفترة زمنية أطول وعن قرب.</string>
 			<key>few</key>
-			<!-- Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+			<!--Plural form for FEW.-->
 			<string>خطر العدوى لديك مرتفع لأنك خالطت مؤخرًا شخصًا واحدًا على الأقل مُصاب بمرض كوفيد-19 منذ %u من الأيام لفترة زمنية أطول وعن قرب.</string>
 			<key>many</key>
-			<!-- Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+			<!--Plural form for MANY.-->
 			<string>خطر العدوى لديك مرتفع لأنك خالطت مؤخرًا شخصًا واحدًا على الأقل مُصاب بمرض كوفيد-19 منذ %u من الأيام لفترة زمنية أطول وعن قرب.</string>
 			<key>two</key>
-			<!-- Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+			<!--Plural form for TWO.-->
 			<string>خطر العدوى لديك مرتفع لأنك خالطت مؤخرًا شخصًا واحدًا على الأقل مُصاب بمرض كوفيد-19 منذ %u من الأيام لفترة زمنية أطول وعن قرب.</string>
 			<key>other</key>
-			<!--Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+			<!--Plural form for OTHER.-->
 			<string>خطر العدوى لديك مرتفع لأنك خالطت مؤخرًا شخصًا واحدًا على الأقل مُصاب بمرض كوفيد-19 منذ %u من الأيام لفترة زمنية أطول وعن قرب.</string>
 		</dict>
 	</dict>
@@ -42,22 +42,22 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+			<!--XFLD: Plural form for Zero Plural form for ZERO.-->
 			<string>لا توجد مخالطة حتى الآن</string>
 			<key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+			<!--XFLD: Plural form for One Plural form for ONE.-->
 			<string>مخالطة واحدة</string>
 			<key>few</key>
-			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+			<!--XFLD: Plural form for Other Plural form for FEW.-->
 			<string>%u من المخالطات</string>
 			<key>many</key>
-			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+			<!--XFLD: Plural form for Other Plural form for MANY.-->
 			<string>%u من المخالطات</string>
 			<key>two</key>
-			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+			<!--XFLD: Plural form for Other Plural form for TWO.-->
 			<string>%u من المخالطات</string>
 			<key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+			<!--XFLD: Plural form for Other Plural form for OTHER.-->
 			<string>%u من المخالطات</string>
 		</dict>
 	</dict>
@@ -72,22 +72,22 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+			<!--XFLD: Plural form for Zero Plural form for ZERO.-->
 			<string>%u من الأيام منذ آخر مخالطة</string>
 			<key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+			<!--XFLD: Plural form for One Plural form for ONE.-->
 			<string>%u يوم منذ آخر مخالطة</string>
 			<key>few</key>
-			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+			<!--XFLD: Plural form for Other Plural form for FEW.-->
 			<string>%u من الأيام منذ آخر مخالطة</string>
 			<key>many</key>
-			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+			<!--XFLD: Plural form for Other Plural form for MANY.-->
 			<string>%u من الأيام منذ آخر مخالطة</string>
 			<key>two</key>
-			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+			<!--XFLD: Plural form for Other Plural form for TWO.-->
 			<string>%u من الأيام منذ آخر مخالطة</string>
 			<key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+			<!--XFLD: Plural form for Other Plural form for OTHER.-->
 			<string>%u من الأيام منذ آخر مخالطة</string>
 		</dict>
 	</dict>
@@ -102,22 +102,22 @@
             <key>NSStringFormatValueTypeKey</key>
             <string>u</string>
             <key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+			<!--XFLD: Plural form for Zero Plural form for ZERO.-->
             <string>لا توجد مخالطة حتى الآن</string>
             <key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+			<!--XFLD: Plural form for One Plural form for ONE.-->
             <string>%u مخالطة بخطر منخفض</string>
             <key>few</key>
-            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+            <!--XFLD: Plural form for Other Plural form for FEW.-->
             <string>%u من المخالطات بخطر منخفض</string>
             <key>many</key>
-            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+            <!--XFLD: Plural form for Other Plural form for MANY.-->
             <string>%u من المخالطات بخطر منخفض</string>
             <key>two</key>
-            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+            <!--XFLD: Plural form for Other Plural form for TWO.-->
             <string>%u من المخالطات بخطر منخفض</string>
             <key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+			<!--XFLD: Plural form for Other Plural form for OTHER.-->
             <string>%u من المخالطات بخطر منخفض</string>
         </dict>
     </dict>
@@ -132,22 +132,22 @@
             <key>NSStringFormatValueTypeKey</key>
             <string>u</string>
             <key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+			<!--XFLD: Plural form for Zero Plural form for ZERO.-->
             <string>لا توجد مخالطة حتى الآن</string>
             <key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+			<!--XFLD: Plural form for One Plural form for ONE.-->
             <string>%u مخالطة</string>
             <key>few</key>
-            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+            <!--XFLD: Plural form for Other Plural form for FEW.-->
             <string>%u من المخالطات</string>
             <key>many</key>
-            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+            <!--XFLD: Plural form for Other Plural form for MANY.-->
             <string>%u من المخالطات</string>
             <key>two</key>
-            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+            <!--XFLD: Plural form for Other Plural form for TWO.-->
             <string>%u من المخالطات</string>
             <key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+			<!--XFLD: Plural form for Other Plural form for OTHER.-->
             <string>%u من المخالطات</string>
         </dict>
     </dict>
@@ -162,22 +162,22 @@
             <key>NSStringFormatValueTypeKey</key>
             <string>u</string>
             <key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+			<!--XFLD: Plural form for Zero Plural form for ZERO.-->
             <string>أقل من يوم واحد منذ آخر مخالطة</string>
             <key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+			<!--XFLD: Plural form for One Plural form for ONE.-->
             <string>%u يوم منذ آخر مخالطة</string>
             <key>few</key>
-            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+            <!--XFLD: Plural form for Other Plural form for FEW.-->
             <string>%u من الأيام منذ آخر مخالطة</string>
             <key>many</key>
-            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+            <!--XFLD: Plural form for Other Plural form for MANY.-->
             <string>%u من الأيام منذ آخر مخالطة</string>
             <key>two</key>
-            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+            <!--XFLD: Plural form for Other Plural form for TWO.-->
             <string>%u من الأيام منذ آخر مخالطة</string>
             <key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+			<!--XFLD: Plural form for Other Plural form for OTHER.-->
             <string>%u من الأيام منذ آخر مخالطة</string>
         </dict>
     </dict>
@@ -192,22 +192,22 @@
             <key>NSStringFormatValueTypeKey</key>
             <string>u</string>
 			<key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+			<!--XFLD: Plural form for Zero Plural form for ZERO.-->
             <string>تحديث خلال %02u:%2$#@seconds@ من الثواني</string>
             <key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+			<!--XFLD: Plural form for One Plural form for ONE.-->
             <string>تحديث خلال %02u:%2$#@seconds@ دقيقة</string>
             <key>few</key>
-            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+            <!--XFLD: Plural form for Other Plural form for FEW.-->
             <string>تحديث خلال %02u:%2$#@seconds@ من الدقائق</string>
             <key>many</key>
-            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+            <!--XFLD: Plural form for Other Plural form for MANY.-->
             <string>تحديث خلال %02u:%2$#@seconds@ من الدقائق</string>
             <key>two</key>
-            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+            <!--XFLD: Plural form for Other Plural form for TWO.-->
             <string>تحديث خلال %02u:%2$#@seconds@ من الدقائق</string>
             <key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+			<!--XFLD: Plural form for Other Plural form for OTHER.-->
             <string>تحديث خلال %02u:%2$#@seconds@ من الدقائق</string>
         </dict>
         <key>seconds</key>
@@ -217,22 +217,22 @@
             <key>NSStringFormatValueTypeKey</key>
             <string>u</string>
 			<key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+			<!--XFLD: Plural form for One Plural form for ONE.-->
 			<string>%02u</string>
             <key>zero</key>
-            <!-- XFLD: Plural form for Other  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+            <!--XFLD: Plural form for Other Plural form for ZERO.-->
             <string>%02u</string>
             <key>few</key>
-            <!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+            <!--XFLD: Plural form for Other Plural form for FEW.-->
             <string>%02u</string>
             <key>many</key>
-            <!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+            <!--XFLD: Plural form for Other Plural form for MANY.-->
             <string>%02u</string>
             <key>two</key>
-            <!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+            <!--XFLD: Plural form for Other Plural form for TWO.-->
             <string>%02u</string>
             <key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+			<!--XFLD: Plural form for Other Plural form for OTHER.-->
             <string>%02u</string>
         </dict>
     </dict>
@@ -247,22 +247,22 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<!-- XFLD: Plural form for Zero  Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO. Plural form for ZERO.-->
+			<!--XFLD: Plural form for Zero Plural form for ZERO.-->
 			<string>تسجيل المخالطة نشط لأقل من يوم واحد. لا يمكن أن يكون التحقق من المخالطة موثوقًا به إلا إذا كان تسجيل المخالطة نشطًا دائمًا.</string>
 			<key>one</key>
-			<!-- XFLD: Plural form for One  Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE. Plural form for ONE.-->
+			<!--XFLD: Plural form for One Plural form for ONE.-->
 			<string>تسجيل المخالطة نشط لمدة %u من الأيام. لا يمكن أن يكون التحقق من المخالطة موثوقًا به إلا إذا كان تسجيل المخالطة نشطًا دائمًا.</string>
 			<key>few</key>
-			<!-- XFLD: Plural form for Other  Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW. Plural form for FEW.-->
+			<!--XFLD: Plural form for Other Plural form for FEW.-->
 			<string>تسجيل المخالطة نشط لمدة %u من الأيام. لا يمكن أن يكون التحقق من المخالطة موثوقًا به إلا إذا كان تسجيل المخالطة نشطًا دائمًا.</string>
 			<key>many</key>
-			<!-- XFLD: Plural form for Other  Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY. Plural form for MANY.-->
+			<!--XFLD: Plural form for Other Plural form for MANY.-->
 			<string>تسجيل المخالطة نشط لمدة %u من الأيام. لا يمكن أن يكون التحقق من المخالطة موثوقًا به إلا إذا كان تسجيل المخالطة نشطًا دائمًا.</string>
 			<key>two</key>
-			<!-- XFLD: Plural form for Other  Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO. Plural form for TWO.-->
+			<!--XFLD: Plural form for Other Plural form for TWO.-->
 			<string>تسجيل المخالطة نشط لمدة %u من الأيام. لا يمكن أن يكون التحقق من المخالطة موثوقًا به إلا إذا كان تسجيل المخالطة نشطًا دائمًا.</string>
 			<key>other</key>
-			<!-- XFLD: Plural form for Other  Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER. Plural form for OTHER.-->
+			<!--XFLD: Plural form for Other Plural form for OTHER.-->
 			<string>تسجيل المخالطة نشط لمدة %u من الأيام. لا يمكن أن يكون التحقق من المخالطة موثوقًا به إلا إذا كان تسجيل المخالطة نشطًا دائمًا.</string>
 		</dict>
 	</dict>
