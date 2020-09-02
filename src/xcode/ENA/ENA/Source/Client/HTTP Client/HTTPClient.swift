@@ -38,8 +38,6 @@ final class HTTPClient: Client {
 
 	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
 		session.GET(configuration.configurationURL) { [weak self] result in
-			guard let self = self else { return }
-
 			switch result {
 			case let .success(response):
 				guard let data = response.body else {
@@ -56,6 +54,8 @@ final class HTTPClient: Client {
 					completion(nil)
 					return
 				}
+
+				guard let self = self else { return }
 
 				// Configuration File Signature must be checked by the application since it is not verified by the operating system
 				guard self.packageVerifier(package) else {
@@ -90,18 +90,24 @@ final class HTTPClient: Client {
 	func submit(
 		keys: [ENTemporaryExposureKey],
 		tan: String,
+		isFake: Bool = false,
 		completion: @escaping SubmitKeysCompletionHandler
 	) {
 		guard let request = try? URLRequest.submitKeysRequest(
 			configuration: configuration,
 			tan: tan,
-			keys: keys
+			keys: keys,
+			headerValue: isFake ? 1 : 0
 		) else {
 			completion(.requestCouldNotBeBuilt)
 			return
 		}
 
-		session.response(for: request) { result in
+		session.response(for: request, isFake: isFake) { result in
+            #if !RELEASE
+            UserDefaults.standard.dmLastSubmissionRequest = request.httpBody
+            #endif
+
 			switch result {
 			case let .success(response):
 				switch response.statusCode {
@@ -187,165 +193,157 @@ final class HTTPClient: Client {
 		}
 	}
 
-	func getTestResult(forDevice registrationToken: String, completion completeWith: @escaping TestResultHandler) {
-		let url = configuration.testResultURL
+	func getTestResult(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TestResultHandler) {
 
-		let bodyValues = ["registrationToken": registrationToken]
-		do {
-			let encoder = JSONEncoder()
-			encoder.outputFormatting = .prettyPrinted
+		guard
+			let testResultRequest = try? URLRequest.getTestResultRequest(
+				configuration: configuration,
+				registrationToken: registrationToken,
+				headerValue: isFake ? 1 : 0
+			) else {
+				completeWith(.failure(.invalidResponse))
+				return
+		}
 
-			let data = try encoder.encode(bodyValues)
-
-			session.POST(url, data) { result in
-				switch result {
-				case let .success(response):
-					guard response.hasAcceptableStatusCode else {
-						completeWith(.failure(.serverError(response.statusCode)))
-						return
-					}
-					guard let testResultResponseData = response.body else {
-						completeWith(.failure(.invalidResponse))
-						logError(message: "Failed to register Device with invalid response")
-						return
-					}
-					do {
-						let decoder = JSONDecoder()
-						let responseDictionary = try decoder.decode(
-							[String: Int].self,
-							from: testResultResponseData
-						)
-						guard let testResult = responseDictionary["testResult"] else {
-							logError(message: "Failed to register Device with invalid response payload structure")
-							completeWith(.failure(.invalidResponse))
-							return
-						}
-						completeWith(.success(testResult))
-					} catch {
-						logError(message: "Failed to register Device with invalid response payload structure")
-						completeWith(.failure(.invalidResponse))
-					}
-				case let .failure(error):
-					completeWith(.failure(error))
-					logError(message: "Failed to registerDevices due to error: \(error).")
+		session.response(for: testResultRequest, isFake: isFake) { result in
+			switch result {
+			case let .success(response):
+				guard response.hasAcceptableStatusCode else {
+					completeWith(.failure(.serverError(response.statusCode)))
+					return
 				}
+				guard let testResultResponseData = response.body else {
+					completeWith(.failure(.invalidResponse))
+					logError(message: "Failed to register Device with invalid response")
+					return
+				}
+				do {
+					let response = try JSONDecoder().decode(
+						FetchTestResultResponse.self,
+						from: testResultResponseData
+					)
+					guard let testResult = response.testResult else {
+						logError(message: "Failed to get test result with invalid response payload structure")
+						completeWith(.failure(.invalidResponse))
+						return
+					}
+					completeWith(.success(testResult))
+				} catch {
+					logError(message: "Failed to get test result with invalid response payload structure")
+					completeWith(.failure(.invalidResponse))
+				}
+			case let .failure(error):
+				completeWith(.failure(error))
+				logError(message: "Failed to get test result due to error: \(error).")
 			}
-		} catch {
-			completeWith(.failure(.invalidResponse))
-			return
 		}
 	}
 
-	func getTANForExposureSubmit(forDevice registrationToken: String, completion completeWith: @escaping TANHandler) {
-		let url = configuration.tanRetrievalURL
+	func getTANForExposureSubmit(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TANHandler) {
 
-		let bodyValues = ["registrationToken": registrationToken]
-		do {
-			let encoder = JSONEncoder()
-			encoder.outputFormatting = .prettyPrinted
+		guard
+			let tanForExposureSubmitRequest = try? URLRequest.getTanForExposureSubmitRequest(
+				configuration: configuration,
+				registrationToken: registrationToken,
+				headerValue: isFake ? 1 : 0
+			) else {
+				completeWith(.failure(.invalidResponse))
+				return
+		}
 
-			let data = try encoder.encode(bodyValues)
+		session.response(for: tanForExposureSubmitRequest, isFake: isFake) { result in
+			switch result {
+			case let .success(response):
 
-			session.POST(url, data) { result in
-				switch result {
-				case let .success(response):
-
-					if response.statusCode == 400 {
-						completeWith(.failure(.regTokenNotExist))
-						return
-					}
-					guard response.hasAcceptableStatusCode else {
-						completeWith(.failure(.serverError(response.statusCode)))
-						return
-					}
-					guard let tanResponseData = response.body else {
-						completeWith(.failure(.invalidResponse))
-						logError(message: "Failed to get TAN")
-						logError(message: String(response.statusCode))
-						return
-					}
-					do {
-						let decoder = JSONDecoder()
-						let responseDictionary = try decoder.decode(
-							[String: String].self,
-							from: tanResponseData
-						)
-						guard let tan = responseDictionary["tan"] else {
-							logError(message: "Failed to get TAN because of invalid response payload structure")
-							completeWith(.failure(.invalidResponse))
-							return
-						}
-						completeWith(.success(tan))
-					} catch _ {
+				if response.statusCode == 400 {
+					completeWith(.failure(.regTokenNotExist))
+					return
+				}
+				guard response.hasAcceptableStatusCode else {
+					completeWith(.failure(.serverError(response.statusCode)))
+					return
+				}
+				guard let tanResponseData = response.body else {
+					completeWith(.failure(.invalidResponse))
+					logError(message: "Failed to get TAN")
+					logError(message: String(response.statusCode))
+					return
+				}
+				do {
+					let response = try JSONDecoder().decode(
+						GetTANForExposureSubmitResponse.self,
+						from: tanResponseData
+					)
+					guard let tan = response.tan else {
 						logError(message: "Failed to get TAN because of invalid response payload structure")
 						completeWith(.failure(.invalidResponse))
+						return
 					}
-				case let .failure(error):
-					completeWith(.failure(error))
-					logError(message: "Failed to get TAN due to error: \(error).")
+					completeWith(.success(tan))
+				} catch _ {
+					logError(message: "Failed to get TAN because of invalid response payload structure")
+					completeWith(.failure(.invalidResponse))
 				}
+			case let .failure(error):
+				completeWith(.failure(error))
+				logError(message: "Failed to get TAN due to error: \(error).")
 			}
-		} catch {
-			completeWith(.failure(.invalidResponse))
-			return
 		}
 	}
 
-	func getRegistrationToken(forKey key: String, withType type: String, completion completeWith: @escaping RegistrationHandler) {
-		let url = configuration.registrationURL
+	func getRegistrationToken(forKey key: String, withType type: String, isFake: Bool = false, completion completeWith: @escaping RegistrationHandler) {
 
-		let bodyValues = ["key": key, "keyType": type]
-		do {
-			let encoder = JSONEncoder()
-			encoder.outputFormatting = .prettyPrinted
+		guard
+			let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
+				configuration: configuration,
+				key: key,
+				type: type,
+				headerValue: isFake ? 1 : 0
+			) else {
+				completeWith(.failure(.invalidResponse))
+				return
+		}
 
-			let data = try encoder.encode(bodyValues)
+		session.response(for: registrationTokenRequest, isFake: isFake) { result in
+			switch result {
+			case let .success(response):
+				if response.statusCode == 400 {
+					if type == "TELETAN" {
+						completeWith(.failure(.teleTanAlreadyUsed))
+					} else {
+						completeWith(.failure(.qRAlreadyUsed))
+					}
+					return
+				}
+				guard response.hasAcceptableStatusCode else {
+					completeWith(.failure(.serverError(response.statusCode)))
+					return
+				}
+				guard let registerResponseData = response.body else {
+					completeWith(.failure(.invalidResponse))
+					logError(message: "Failed to register Device with invalid response")
+					return
+				}
 
-			session.POST(url, data) { result in
-				switch result {
-				case let .success(response):
-					if response.statusCode == 400 {
-						if type == "TELETAN" {
-							completeWith(.failure(.teleTanAlreadyUsed))
-						} else {
-							completeWith(.failure(.qRAlreadyUsed))
-						}
-						return
-					}
-					guard response.hasAcceptableStatusCode else {
-						completeWith(.failure(.serverError(response.statusCode)))
-						return
-					}
-					guard let registerResponseData = response.body else {
-						completeWith(.failure(.invalidResponse))
-						logError(message: "Failed to register Device with invalid response")
-						return
-					}
-	
-					do {
-						let decoder = JSONDecoder()
-						let responseDictionary = try decoder.decode(
-							[String: String].self,
-							from: registerResponseData
-						)
-						guard let registrationToken = responseDictionary["registrationToken"] else {
-							logError(message: "Failed to register Device with invalid response payload structure")
-							completeWith(.failure(.invalidResponse))
-							return
-						}
-						completeWith(.success(registrationToken))
-					} catch _ {
+				do {
+					let response = try JSONDecoder().decode(
+						GetRegistrationTokenResponse.self,
+						from: registerResponseData
+					)
+					guard let registrationToken = response.registrationToken else {
 						logError(message: "Failed to register Device with invalid response payload structure")
 						completeWith(.failure(.invalidResponse))
+						return
 					}
-				case let .failure(error):
-					completeWith(.failure(error))
-					logError(message: "Failed to registerDevices due to error: \(error).")
+					completeWith(.success(registrationToken))
+				} catch _ {
+					logError(message: "Failed to register Device with invalid response payload structure")
+					completeWith(.failure(.invalidResponse))
 				}
+			case let .failure(error):
+				completeWith(.failure(error))
+				logError(message: "Failed to registerDevices due to error: \(error).")
 			}
-		} catch {
-			completeWith(.failure(.invalidResponse))
-			return
 		}
 	}
 
@@ -406,13 +404,29 @@ final class HTTPClient: Client {
 
 // MARK: Extensions
 
+private extension HTTPClient {
+	struct FetchTestResultResponse: Codable {
+		let testResult: Int?
+	}
+
+	struct GetRegistrationTokenResponse: Codable {
+		let registrationToken: String?
+	}
+
+	struct GetTANForExposureSubmitResponse: Codable {
+		let tan: String?
+	}
+}
+
 private extension URLRequest {
 	static func submitKeysRequest(
 		configuration: HTTPClient.Configuration,
 		tan: String,
-		keys: [ENTemporaryExposureKey]
+		keys: [ENTemporaryExposureKey],
+		headerValue: Int
 	) throws -> URLRequest {
 		let payload = SAP_SubmissionPayload.with {
+			$0.padding = self.getSubmissionPadding(for: keys)
 			$0.keys = keys.compactMap { $0.sapKey }
 		}
 		let payloadData = try payload.serializedData()
@@ -427,11 +441,18 @@ private extension URLRequest {
 		)
 
 		request.setValue(
-			"0",
+			"\(headerValue)",
 			// Requests with a value of "0" will be fully processed.
 			// Any other value indicates that this request shall be
 			// handled as a fake request." ,
 			forHTTPHeaderField: "cwa-fake"
+		)
+
+		// Add header padding for the GUID, in case it is
+		// a fake request, otherwise leave empty.
+		request.setValue(
+			headerValue == 0 ? "" : String.getRandomString(of: 36),
+			forHTTPHeaderField: "cwa-header-padding"
 		)
 
 		request.setValue(
@@ -443,6 +464,150 @@ private extension URLRequest {
 		request.httpBody = payloadData
 
 		return request
+	}
+
+	static func getTestResultRequest(
+		configuration: HTTPClient.Configuration,
+		registrationToken: String,
+		headerValue: Int
+	) throws -> URLRequest {
+
+		var request = URLRequest(url: configuration.testResultURL)
+
+		request.setValue(
+			"\(headerValue)",
+			// Requests with a value of "0" will be fully processed.
+			// Any other value indicates that this request shall be
+			// handled as a fake request." ,
+			forHTTPHeaderField: "cwa-fake"
+		)
+
+		// Add header padding.
+		request.setValue(
+			String.getRandomString(of: 7),
+			forHTTPHeaderField: "cwa-header-padding"
+		)
+
+		request.setValue(
+			"application/json",
+			forHTTPHeaderField: "Content-Type"
+		)
+
+		request.httpMethod = "POST"
+
+		// Add body padding to request.
+		let originalBody = ["registrationToken": registrationToken]
+		let paddedData = try getPaddedRequestBody(for: originalBody)
+		request.httpBody = paddedData
+
+		return request
+	}
+
+	static func getTanForExposureSubmitRequest(
+		configuration: HTTPClient.Configuration,
+		registrationToken: String,
+		headerValue: Int
+	) throws -> URLRequest {
+
+		var request = URLRequest(url: configuration.tanRetrievalURL)
+
+		request.setValue(
+			"\(headerValue)",
+			// Requests with a value of "0" will be fully processed.
+			// Any other value indicates that this request shall be
+			// handled as a fake request." ,
+			forHTTPHeaderField: "cwa-fake"
+		)
+
+		// Add header padding.
+		request.setValue(
+			String.getRandomString(of: 14),
+			forHTTPHeaderField: "cwa-header-padding"
+		)
+
+		request.setValue(
+			"application/json",
+			forHTTPHeaderField: "Content-Type"
+		)
+
+		request.httpMethod = "POST"
+
+		// Add body padding to request.
+		let originalBody = ["registrationToken": registrationToken]
+		let paddedData = try getPaddedRequestBody(for: originalBody)
+		request.httpBody = paddedData
+
+		return request
+	}
+
+	static func getRegistrationTokenRequest(
+		configuration: HTTPClient.Configuration,
+		key: String,
+		type: String,
+		headerValue: Int
+	) throws -> URLRequest {
+
+		var request = URLRequest(url: configuration.registrationURL)
+
+		request.setValue(
+			"\(headerValue)",
+			// Requests with a value of "0" will be fully processed.
+			// Any other value indicates that this request shall be
+			// handled as a fake request." ,
+			forHTTPHeaderField: "cwa-fake"
+		)
+
+		// Add header padding.
+		request.setValue(
+			"",
+			forHTTPHeaderField: "cwa-header-padding"
+		)
+
+		request.setValue(
+			"application/json",
+			forHTTPHeaderField: "Content-Type"
+		)
+
+		request.httpMethod = "POST"
+
+		// Add body padding to request.
+		let originalBody = ["key": key, "keyType": type]
+		let paddedData = try getPaddedRequestBody(for: originalBody)
+		request.httpBody = paddedData
+
+		return request
+	}
+
+	// MARK: - Helper methods for adding padding to the requests.
+
+	/// This method recreates the request body with a padding that consists of a random string.
+	/// The entire request body must not be bigger than `maxRequestPayloadSize`.
+	/// Note that this method is _not_ used for the key submission step, as this needs a different handling.
+	/// Please check `getSubmissionPadding()` for this case.
+	private static func getPaddedRequestBody(for originalBody: [String: String]) throws -> Data {
+		// This is the maximum size of bytes the request body should have.
+		let maxRequestPayloadSize = 250
+
+		// Copying in order to not use inout parameters.
+		var paddedBody = originalBody
+		paddedBody["requestPadding"] = ""
+		let paddedData = try JSONEncoder().encode(paddedBody)
+		let paddingSize = maxRequestPayloadSize - paddedData.count
+		let padding = String.getRandomString(of: paddingSize)
+		paddedBody["requestPadding"] = padding
+		return try JSONEncoder().encode(paddedBody)
+	}
+
+	/// This method recreates the request body of the submit keys request with a padding that fills up to resemble
+	/// a request with 14 +`n` keys. Note that the `n`parameter is currently set to 0, but can change in the future
+	/// when there will be support for 15 keys.
+	private static func getSubmissionPadding(for keys: [ENTemporaryExposureKey]) -> Data {
+		// This parameter denotes how many keys 14 + n have to be padded.
+		let n = 0
+		let paddedKeysAmount = 14 + n - keys.count
+		guard paddedKeysAmount > 0 else { return Data() }
+		guard let data = (String.getRandomString(of: 28 * paddedKeysAmount)).data(using: .ascii) else { return Data() }
+		return data
 	}
 }
 
@@ -483,6 +648,6 @@ private extension SAP_RiskScoreParameters.DurationRiskParameter {
 
 private extension SAP_RiskScoreParameters.AttenuationRiskParameter {
 	var asArray: [NSNumber] {
-		[gt73Dbm, gt63Le73Dbm, gt51Le63Dbm, gt33Le51Dbm, gt27Le33Dbm, gt15Le27Dbm, gt10Le15Dbm, lt10Dbm].map { $0.asNumber }
+		[gt73Dbm, gt63Le73Dbm, gt51Le63Dbm, gt33Le51Dbm, gt27Le33Dbm, gt15Le27Dbm, gt10Le15Dbm, le10Dbm].map { $0.asNumber }
 	}
 }

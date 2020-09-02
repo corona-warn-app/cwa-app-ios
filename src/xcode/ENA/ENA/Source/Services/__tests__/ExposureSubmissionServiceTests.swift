@@ -19,6 +19,7 @@
 import ExposureNotification
 import XCTest
 
+// swiftlint:disable:next type_body_length
 class ExposureSubmissionServiceTests: XCTestCase {
 	let expectationsTimeout: TimeInterval = 2
 	let keys = [ENTemporaryExposureKey()]
@@ -98,7 +99,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: expectationsTimeout)
 	}
 
-	func testSubmitExpousure_InvalidTan() {
+	func testExposureSubmission_InvalidPayloadOrHeaders() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
@@ -106,7 +107,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		store.registrationToken = "dummyRegistrationToken"
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
-		let expectation = self.expectation(description: "OtherError")
+		let expectation = self.expectation(description: "invalidPayloadOrHeaders Error")
 
 		// Act
 		service.submitExposure { error in
@@ -115,8 +116,9 @@ class ExposureSubmissionServiceTests: XCTestCase {
 				XCTFail("error expected")
 				return
 			}
-			guard case ExposureSubmissionError.other = error else {
-				XCTFail("We expect error to be of type other")
+
+			guard case ExposureSubmissionError.invalidPayloadOrHeaders = error else {
+				XCTFail("We expect error to be of type invalidPayloadOrHeaders")
 				return
 			}
 		}
@@ -206,8 +208,8 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		store.registrationToken = "dummyRegistrationToken"
 
 		let client = ClientMock()
-		client.onGetTestResult = { _, completeWith in
-			let unknownTestResultValue = 4
+		client.onGetTestResult = { _, _, completeWith in
+			let unknownTestResultValue = 5
 			completeWith(.success(unknownTestResultValue))
 		}
 
@@ -230,5 +232,281 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: .short)
+	}
+
+	func testCorrectErrorForRequestCouldNotBeBuilt() {
+
+		// Initialize.
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let client = ClientMock(submissionError: .requestCouldNotBeBuilt)
+		let store = MockTestStore()
+		store.registrationToken = "dummyRegistrationToken"
+		let expectation = self.expectation(description: "Correct error description received.")
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+
+		// Execute test.
+		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
+
+		service.submitExposure { error in
+			expectation.fulfill()
+			XCTAssertEqual(error?.localizedDescription, controlTest)
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testCorrectErrorForInvalidPayloadOrHeaders() {
+
+		// Initialize.
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
+		let store = MockTestStore()
+		store.registrationToken = "dummyRegistrationToken"
+		let expectation = self.expectation(description: "Correct error description received.")
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+
+		// Execute test.
+		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
+
+		service.submitExposure { error in
+			expectation.fulfill()
+			XCTAssertEqual(error?.localizedDescription, controlTest)
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	/// The submit exposure flow consists of two steps:
+	/// 1. Getting a submission tan
+	/// 2. Submitting the keys
+	/// In this test, we make the 2. step fail and retry the full submission. The test makes sure that we do not burn the tan when the second step fails.
+	func test_partialSubmissionFailure() {
+		let tan = "dummyTan"
+		let registrationToken = "dummyRegistrationToken"
+
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let store = MockTestStore()
+		store.registrationToken = registrationToken
+
+		let client = ClientMock()
+		client.onGetTANForExposureSubmit = { _, _, completion in completion(.success(tan)) }
+
+		// Force submission error.
+		client.onSubmit = { _, _, _, completion in completion(.serverError(500)) }
+
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+		let expectation = self.expectation(description: "all callbacks called")
+		expectation.expectedFulfillmentCount = 2
+
+		// Execute test.
+
+		service.submitExposure { result in
+			expectation.fulfill()
+			XCTAssertNotNil(result)
+
+			// Retry.
+			client.onSubmit = { _, _, _, completion in completion(nil) }
+			client.onGetTANForExposureSubmit = { _, isFake, completion in
+				XCTAssert(isFake, "When executing the real request, instead of using the stored TAN, we have made a request to the server.")
+				completion(.failure(.fakeResponse))
+			}
+			service.submitExposure { result in
+				expectation.fulfill()
+				XCTAssertNil(result)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	// MARK: Plausible deniability tests.
+
+	func test_getTestResultPlaybook() {
+
+		// Counter to track the execution order.
+		var count = 0
+
+		let expectation = self.expectation(description: "execute all callbacks")
+		expectation.expectedFulfillmentCount = 4
+
+		// Initialize.
+
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let store = MockTestStore()
+		let client = ClientMock()
+		store.registrationToken = "dummyRegistrationToken"
+
+		client.onGetTestResult = { _, isFake, completion in
+			expectation.fulfill()
+			XCTAssertFalse(isFake)
+			XCTAssertEqual(count, 0)
+			count += 1
+			let testResult = 0
+			completion(.success(testResult))
+		}
+
+		client.onGetTANForExposureSubmit = { _, isFake, completion in
+			expectation.fulfill()
+			XCTAssert(isFake)
+			XCTAssertEqual(count, 1)
+			count += 1
+			completion(.failure(.fakeResponse))
+		}
+
+		client.onSubmit = { _, _, isFake, completion in
+			expectation.fulfill()
+			XCTAssert(isFake)
+			XCTAssertEqual(count, 2)
+			count += 1
+			completion(nil)
+		}
+
+		// Run test.
+
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+		service.getTestResult { _ in
+			expectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_getRegistrationTokenPlaybook() {
+
+		// Counter to track the execution order.
+		var count = 0
+
+		let expectation = self.expectation(description: "execute all callbacks")
+		expectation.expectedFulfillmentCount = 4
+
+		// Initialize.
+
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let store = MockTestStore()
+		let client = ClientMock()
+
+		client.onGetRegistrationToken = { _, _, isFake, completion in
+			expectation.fulfill()
+			XCTAssertFalse(isFake)
+			XCTAssertEqual(count, 0)
+			count += 1
+			let registrationToken = "dummyRegToken"
+			completion(.success(registrationToken))
+		}
+
+		client.onGetTANForExposureSubmit = { _, isFake, completion in
+			expectation.fulfill()
+			XCTAssert(isFake)
+			XCTAssertEqual(count, 1)
+			count += 1
+			completion(.failure(.fakeResponse))
+		}
+
+		client.onSubmit = { _, _, isFake, completion in
+			expectation.fulfill()
+			XCTAssert(isFake)
+			XCTAssertEqual(count, 2)
+			count += 1
+			completion(nil)
+		}
+
+		// Run test.
+
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+		service.getRegistrationToken(forKey: .guid("test-key")) { _ in
+			expectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_submitExposurePlaybook() {
+		// Counter to track the execution order.
+		var count = 0
+
+		let expectation = self.expectation(description: "execute all callbacks")
+		expectation.expectedFulfillmentCount = 4
+
+		// Initialize.
+
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let store = MockTestStore()
+		store.registrationToken = "dummyRegToken"
+		let client = ClientMock()
+
+		client.onGetTANForExposureSubmit = { _, isFake, completion in
+			expectation.fulfill()
+			if isFake {
+				XCTAssertEqual(count, 0)
+				count += 1
+				completion(.failure(.fakeResponse))
+			} else {
+				XCTAssertEqual(count, 1)
+				count += 1
+				completion(.success("dummyTan"))
+			}
+		}
+
+		client.onSubmit = { _, _, isFake, completion in
+			expectation.fulfill()
+			XCTAssertFalse(isFake)
+			XCTAssertEqual(count, 2)
+			count += 1
+			completion(nil)
+		}
+
+		// Run test.
+
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+		service.submitExposure { error in
+			expectation.fulfill()
+			XCTAssertNil(error)
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func test_fakeRequest() {
+		// Counter to track the execution order.
+		var count = 0
+
+		let expectation = self.expectation(description: "execute all callbacks")
+		expectation.expectedFulfillmentCount = 3
+
+		// Initialize.
+
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let store = MockTestStore()
+		let client = ClientMock()
+
+		client.onGetTANForExposureSubmit = { _, isFake, completion in
+			expectation.fulfill()
+			XCTAssert(isFake)
+			count += 1
+			completion(.failure(.fakeResponse))
+		}
+
+		client.onSubmit = { _, _, isFake, completion in
+			expectation.fulfill()
+			XCTAssert(isFake)
+			XCTAssertEqual(count, 2)
+			count += 1
+			completion(nil)
+		}
+
+		// Run test.
+
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+		service.fakeRequest()
+
+		waitForExpectations(timeout: .short)
+	}
+
+	/// The fake registration token needs to comply to a format that is checked by the server.
+	func test_fakeRegistrationTokenFormat() {
+		let str = ENAExposureSubmissionService.fakeRegistrationToken
+		let pattern = #"^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}$"#
+		let regex = try? NSRegularExpression(pattern: pattern, options: [])
+		XCTAssertNotNil(regex?.firstMatch(in: str, options: [], range: .init(location: 0, length: str.count)))
 	}
 }

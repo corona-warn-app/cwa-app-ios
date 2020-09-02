@@ -64,10 +64,14 @@ private extension DynamicCell {
 		}
 	}
 
+	/// Creates a cell that renders a view of a .html file with interactive texts, such as mail links, phone numbers, and web addresses.
 	static func html(url: URL?) -> Self {
 		.identifier(AppInformationDetailViewController.CellReuseIdentifier.html) { viewController, cell, _  in
 			guard let cell = cell as? DynamicTableViewHtmlCell else { return }
 			cell.textView.delegate = viewController as? UITextViewDelegate
+			cell.textView.isUserInteractionEnabled = true
+			cell.textView.dataDetectorTypes = [.link, .phoneNumber]
+
 			if let url = url {
 				cell.textView.load(from: url)
 			}
@@ -78,7 +82,7 @@ private extension DynamicCell {
 private extension DynamicAction {
 	static var safari: Self {
 		.execute { viewController in
-			WebPageHelper.showWebPage(from: viewController, urlString: AppStrings.SafariView.targetURL)
+			LinkHelper.showWebPage(from: viewController, urlString: AppStrings.SafariView.targetURL)
 		}
 	}
 
@@ -146,7 +150,8 @@ extension AppInformationViewController {
 				.headline(text: AppStrings.AppInformation.aboutDescription,
 						  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutDescription),
 				.subheadline(text: AppStrings.AppInformation.aboutText,
-							 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutText)
+							 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutText),
+				.bodyWithoutTopInset(text: germanLinkText(), style: .linkTextView(AppStrings.AppInformation.aboutLinkText, .subheadline), accessibilityIdentifier: AppStrings.AppInformation.aboutLinkText)
 			]
 		)
 	])
@@ -197,6 +202,8 @@ extension AppInformationViewController {
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection3Text,
 									 style: .textView(.all),
 									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Text),
+				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSectionContactFormLink, style: .linkTextView(AppStrings.AppInformation.imprintSectionContactFormTitle),
+									 accessibilityIdentifier: AppStrings.AppInformation.imprintSectionContactFormTitle),
 				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection4Title,
 											accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Title),
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection4Text,
@@ -237,4 +244,13 @@ extension AppInformationViewController {
 			]
 		)
 	])
+}
+
+// return a link if language is German; else return an empty string
+private func germanLinkText() -> String {
+	if Bundle.main.preferredLocalizations.first == "de" {
+		return AppStrings.AppInformation.aboutLink
+	} else {
+		return ""
+	}
 }

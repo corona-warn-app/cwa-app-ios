@@ -29,32 +29,30 @@ final class HomeInteractor: RequiresAppDependencies {
 
 	init(
 		homeViewController: HomeViewController,
-		state: State
+		state: State,
+		exposureSubmissionService: ExposureSubmissionService
 	) {
 		self.homeViewController = homeViewController
 		self.state = state
+		self.exposureSubmissionService = exposureSubmissionService
 		observeRisk()
 	}
 
 	// MARK: Properties
 	var state: State {
 		didSet {
-			homeViewController.setStateOfChildViewControllers()
-			// `buildSections()` has to be called prior to `scheduleCountdownTimer()`
-			// because `scheduleCountdownTimer()` relies on the sections to be already built.
-			buildSections()
-			scheduleCountdownTimer()
+			if state != oldValue {
+				homeViewController.setStateOfChildViewControllers()
+				// `buildSections()` has to be called prior to `scheduleCountdownTimer()`
+				// because `scheduleCountdownTimer()` relies on the sections to be already built.
+				buildSections()
+				scheduleCountdownTimer()
+			}
 		}
 	}
 
 	private unowned var homeViewController: HomeViewController
-	lazy var exposureSubmissionService: ExposureSubmissionService = {
-		ExposureSubmissionServiceFactory.create(
-			diagnosiskeyRetrieval: self.exposureManager,
-			client: self.client,
-			store: self.store
-		)
-	}()
+	private let exposureSubmissionService: ExposureSubmissionService
 	var enStateHandler: ENStateHandler?
 
 	private var detectionMode: DetectionMode { state.detectionMode }
@@ -222,11 +220,13 @@ extension HomeInteractor {
 			)
 			inactiveConfigurator?.activeAction = inActiveCellActionHandler
 		case .unknownOutdated:
-			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
-				inactiveType: .outdatedResults,
-				previousRiskLevel: store.previousRiskLevel,
-				lastUpdateDate: dateLastExposureDetection
-			)
+			riskLevelConfigurator = HomeUnknown48hRiskCellConfigurator(
+				isLoading: isRequestRiskRunning,
+				lastUpdateDate: dateLastExposureDetection,
+				detectionInterval: detectionInterval,
+				detectionMode: detectionMode,
+				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
+				previousRiskLevel: store.previousRiskLevel)
 			inactiveConfigurator?.activeAction = inActiveCellActionHandler
 		case .low:
 			let activeTracing = risk?.details.activeTracing ?? .init(interval: 0)
@@ -248,7 +248,7 @@ extension HomeInteractor {
 				lastUpdateDate: dateLastExposureDetection,
 				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
 				detectionMode: detectionMode,
-				validityDuration: detectionInterval
+				detectionInterval: detectionInterval
 			)
 		case .none:
 			riskLevelConfigurator = nil
@@ -417,11 +417,23 @@ extension HomeInteractor {
 				)
 
 			case .success(let result):
-				let requestTime = Date().timeIntervalSince(requestStart)
-				let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
-				DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-					self?.testResult = result
-					self?.reloadTestResult(with: result)
+				switch result {
+				case .redeemed:
+					self?.homeViewController.alertError(
+						message: AppStrings.ExposureSubmissionResult.testRedeemedDesc,
+						title: AppStrings.Home.resultCardLoadingErrorTitle,
+						completion: {
+							self?.testResult = .redeemed
+							self?.reloadTestResult(with: .invalid)
+						}
+					)
+				default:
+					let requestTime = Date().timeIntervalSince(requestStart)
+					let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
+					DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+						self?.testResult = result
+						self?.reloadTestResult(with: result)
+					}
 				}
 			}
 		}

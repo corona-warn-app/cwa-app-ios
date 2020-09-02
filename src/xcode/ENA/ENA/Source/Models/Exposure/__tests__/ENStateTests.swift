@@ -23,17 +23,14 @@ final class ENStateTests: XCTestCase {
 
 	var stateHandler: ENStateHandler!
 	var exposureManagerState: ExposureManagerState!
-	var mockReachabilityService = MockReachabilityService()
 	let mockStateHandler = MockStateHandlerObserverDelegate()
 	
 	// setup stateHandler to be in enabled state
 	override func setUp() {
 		super.setUp()
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .active)
-		mockReachabilityService = MockReachabilityService()
 		stateHandler = ENStateHandler(
 				initialExposureManagerState: exposureManagerState,
-				reachabilityService: self.mockReachabilityService,
 				delegate: mockStateHandler
 		)
 
@@ -64,19 +61,6 @@ final class ENStateTests: XCTestCase {
 		XCTAssertEqual(stateHandler.state, .bluetoothOff)
 	}
 
-	// MARK: Internet State Tests
-
-	// when internet is turned off and turned on again
-	func testTurnOffTurnOnInternet() {
-		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .active)
-		stateHandler.updateExposureState(exposureManagerState)
-		XCTAssertEqual(stateHandler.state, .enabled)
-		self.mockReachabilityService.reachabilityState = .disconnected
-		XCTAssertEqual(stateHandler.state, .internetOff)
-		self.mockReachabilityService.reachabilityState = .connected
-		XCTAssertEqual(stateHandler.state, .enabled)
-	}
-
 	// MARK: Tests with combined state changes
 
 	func testDisableTracingAndBluetoothOff() {
@@ -86,22 +70,10 @@ final class ENStateTests: XCTestCase {
 		XCTAssertEqual(stateHandler.state, .disabled)
 	}
 
-	func testDisableTracingAndBluetoothOffAndInternetOff() {
-		XCTAssertEqual(stateHandler.state, .enabled)
-		mockReachabilityService.reachabilityState = .disconnected
-		XCTAssertEqual(stateHandler.state, .internetOff)
-		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, status: .bluetoothOff)
-		stateHandler.updateExposureState(exposureManagerState)
-		XCTAssertEqual(stateHandler.state, .disabled)
-	}
-
-	func testDisableTracingAndBluetoothOnAndInternetOn() {
+	func testDisableTracingAndBluetoothOn() {
 		XCTAssertEqual(stateHandler.state, .enabled)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, status: .disabled)
 		stateHandler.updateExposureState(exposureManagerState)
-		mockReachabilityService.reachabilityState = .disconnected
-		XCTAssertEqual(stateHandler.state, .disabled)
-		mockReachabilityService.reachabilityState = .connected
 		XCTAssertEqual(stateHandler.state, .disabled)
 	}
 
@@ -109,15 +81,11 @@ final class ENStateTests: XCTestCase {
 		XCTAssertEqual(stateHandler.state, .enabled)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, status: .bluetoothOff)
 		stateHandler.updateExposureState(exposureManagerState)
-		self.mockReachabilityService.reachabilityState = .disconnected
-		XCTAssertEqual(stateHandler.state, .disabled)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .bluetoothOff)
 		stateHandler.updateExposureState(exposureManagerState)
 		XCTAssertEqual(stateHandler.state, .bluetoothOff)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .active)
 		stateHandler.updateExposureState(exposureManagerState)
-		XCTAssertEqual(stateHandler.state, .internetOff)
-		self.mockReachabilityService.reachabilityState = .connected
 		XCTAssertEqual(stateHandler.state, .enabled)
 	}
 

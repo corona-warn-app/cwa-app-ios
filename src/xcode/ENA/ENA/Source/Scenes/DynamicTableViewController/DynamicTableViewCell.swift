@@ -53,10 +53,13 @@ extension DynamicCell {
 		/// Useful for automatic link, phone #, etc. recognization
 		case textView(UIDataDetectorTypes)
 
+		case linkTextView(String, ENAFont = .body)
+
 		var reuseIdentifier: CellReuseIdentifier {
 			switch self {
 			case .label: return .dynamicTypeLabel
 			case .textView: return .dynamicTypeTextView
+			case .linkTextView: return .dynamicTypeTextView
 			}
 		}
 	}
@@ -86,6 +89,7 @@ extension DynamicCell {
 	static func dynamicType(text: String, cellStyle: TextCellStyle = .label, size: CGFloat = 17, weight: UIFont.Weight = .regular, style: UIFont.TextStyle = .body, color: UIColor? = nil, accessibilityIdentifier: String? = nil, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {
 		.identifier(cellStyle.reuseIdentifier, action: .none, accessoryAction: .none) { viewController, cell, indexPath in
 			guard let cell = cell as? DynamicTableViewTextCell else { return }
+
 			cell.configureDynamicType(size: size, weight: weight, style: style)
 			cell.configure(text: text, color: color)
 			cell.configureAccessibility(label: text, identifier: accessibilityIdentifier, traits: accessibilityTraits)
@@ -93,6 +97,11 @@ extension DynamicCell {
 			if case .textView(let dataDetectorTypes) = cellStyle,
 				let cell = cell as? DynamicTableViewTextViewCell {
 				cell.configureTextView(dataDetectorTypes: dataDetectorTypes)
+			}
+
+			if case .linkTextView(let placeHolder, let font) = cellStyle,
+				let cell = cell as? DynamicTableViewTextViewCell {
+				cell.configureAsLink(placeholder: placeHolder, urlString: text, font: font)
 			}
 
 			configure?(viewController, cell, indexPath)

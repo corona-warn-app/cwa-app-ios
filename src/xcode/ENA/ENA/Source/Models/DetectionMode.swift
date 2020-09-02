@@ -20,7 +20,7 @@
 import Foundation
 import UIKit
 
-enum DetectionMode {
+enum DetectionMode: Equatable {
 	case automatic
 	case manual
 
@@ -28,7 +28,9 @@ enum DetectionMode {
 }
 
 extension DetectionMode {
-	static func fromBackgroundStatus(_ backgroundStatus: UIBackgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus) -> DetectionMode {
+	static func fromBackgroundStatus(
+		_ backgroundStatus: UIBackgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
+	) -> DetectionMode {
 		switch backgroundStatus {
 		case .restricted, .denied:
 			return .manual

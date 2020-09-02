@@ -35,6 +35,10 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Background updates deactivated";
 
+"Common_Deadman_AlertTitle" = "Your Risk Status";
+
+"Common_Deadman_AlertBody" = "Please remember to open the Corona-Warn-App regularly to check your risk status.";
+
 /* General - Links */
 "General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
 
@@ -52,15 +56,11 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "Exposure logging stopped";
 
-"ExposureDetection_Outdated" = "Exposure logging is not possible";
-
 "ExposureDetection_Unknown" = "Unknown Risk";
 
 "ExposureDetection_Low" = "Low Risk";
 
 "ExposureDetection_High" = "Increased Risk";
-
-"ExposureDetection_NumberOfDaysStored" = "%d of 14 days active";
 
 "ExposureDetection_Refreshed" = "Updated: %@";
 
@@ -76,7 +76,7 @@
 
 "ExposureDetection_OffText" = "Activate exposure logging to evaluate your risk status today.";
 
-"ExposureDetection_OutdatedText" = "Your exposure logging could not be updated for more than 48 hours.";
+"ExposureDetection_OutdatedText" = "Your exposure logging has not been updated for more than 48 hours. Please update the calculation.";
 
 "ExposureDetection_UnknownText" = "Since you have not activated exposure logging for long enough, we cannot calculate your risk of infection.";
 
@@ -86,7 +86,7 @@
 
 "ExposureDetection_Behavior_Subtitle" = "This is what you should do";
 
-"ExposureDetection_Guide_Hands" = "Wash your hands regularly.";
+"ExposureDetection_Guide_Hands" = "Wash your hands regularly, with soap, for 20 seconds.";
 
 "ExposureDetection_Guide_Mask" = "Wear a face mask when you encounter other people.";
 
@@ -118,7 +118,7 @@
 
 "ExposureDetection_Explanation_Text_Low" = "You have a low risk of infection since no encounter with a person diagnosed with COVID-19 has been logged, or your encounter was restricted to a short time and at a greater distance.\n\nTherefore, your risk of infection has been ranked as low.\n\nThe risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.";
 
-"ExposureDetection_Explanation_Text_High" = "\n\nTherefore, your risk of infection has been ranked as increased.\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.\nWhen you get home, please also avoid close contact with members of your family or household.";
+"ExposureDetection_Explanation_Text_High" = "Therefore, your risk of infection has been ranked as increased.\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.\nWhen you get home, please also avoid close contact with members of your family or household.";
 
 "ExposureDetection_Button_Enable" = "Activate Exposure Logging";
 
@@ -226,6 +226,10 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a corona warning system. Get an overview of your risk status and find out whether you've had close contact with people diagnosed with COVID-19 in the last 14 days. \n\nThe app logs encounters between individuals by their devices exchanging encrypted random IDs, and without accessing any personal data.";
 
+"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"OnboardingInfo_togetherAgainstCoronaPage_linkText" = "App Information in Simplified Language and Sign Language";
+
 "OnboardingInfo_privacyPage_imageDescription" = "A woman uses the Corona-Warn-App on her smartphone. An icon showing a padlock on the background of a shield symbolizes encrypted data.";
 
 "OnboardingInfo_privacyPage_title" = "Data Privacy";
@@ -325,7 +329,7 @@
 
 "ExposureSubmissionHotline_Title" = "Request TAN";
 
-"ExposureSubmissionHotline_Description" = "Please keep your test result (if available) and your phone number ready to request a TAN.";
+"ExposureSubmissionHotline_Description" = "Please keep your test result (if available) and your phone number ready to request a TAN.\n\nPeople with hearing impairments can use Tess Relay services (interpreting between German written language and sign language) to contact the phone hotline. You can download the software from the App Store/Google Play.";
 
 "ExposureSubmissionHotline_SectionTitle" = "How this works:";
 
@@ -459,7 +463,11 @@
 
 "ExposureSubmissionResult_testInvalid" = "Test has errors";
 
-"ExposureSubmissionResult_testInvalidDesc" = "There was a problem evaluating your test. Please contact the public health authority to find out how to proceed.";
+"ExposureSubmissionResult_testInvalidDesc" = "There was a problem evaluating your test. Please contact the test center or laboratory involved to find out how to proceed.";
+
+"ExposureSubmissionResult_testRedeemed" = "Test has errors";
+
+"ExposureSubmissionResult_testRedeemedDesc" = "There was a problem evaluating your test. Your QR code has already expired.";
 
 "ExposureSubmissionResult_testPending" = "Test result is not yet available";
 
@@ -489,15 +497,17 @@
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Data Privacy";
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "Delete the test?";
+"ExposureSubmissionResult_RemoveAlert_Title" = "The test can only be scanned once.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "The test will be permanently deleted from the Corona-Warn-App and cannot be added again. This procedure cannot be undone.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "If you delete the test, you can no longer retrieve your test result. You receive your test result from the test center or laboratory, independently of the app. If you are diagnosed with COVID-19, you will be notified by the public health authority.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registration date unknown";
 
 "ExposureSubmissionResult_RegistrationDate" = "Registered on";
 
 /* Exposure Submission */
+"ExposureSubmissionError_ErrorPrefix" = "A technical error occurred while sending your data. Please contact the technical hotline. You will find the phone number under App Information.";
+
 "ExposureSubmissionError_NoKeys" = "No diagnosis key is available. Please try again tomorrow.";
 
 "ExposureSubmissionError_InvalidTan" = "The generated TAN is invalid for submission. Please contact the technical hotline via App Information -> Technical Hotline.";
@@ -510,7 +520,7 @@
 
 "ExposureSubmissionError_NoResponse" = "The response has no content.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "The QR code has been used already. Please contact the technical hotline via App Information -> Technical Hotline.";
+"ExposureSubmissionError_QRAlreadyUsed" = "The QR code is invalid or has been registered on another smartphone already. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with COVID-19, you will be notified by the public health authority.";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "The TAN is invalid or has been used already. Please try again or contact the technical hotline via App Information -> Technical Hotline.";
 
@@ -624,12 +634,23 @@
 
 "Home_Risk_Period_Disabled_Button_Title" = "Updated only every %@\U00A0hours";
 
-/* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Unknown Risk";
 
+"Home_Risk_Last_Activate_Item_Title" = "Last exposure logging: %@";
+
+"Home_Risk_Last_Activate_Item_Unknown_Title" = "Unknown Risk";
+
+"Home_Risk_Last_Activate_Item_Low_Title" = "Low Risk";
+
+"Home_Risk_Last_Activate_Item_High_Title" = "Increased Risk";
+
+"Home_RiskCard_Update_Button" = "Update";
+
+/* Home Unknown card */
 "Home_RiskCard_Unknown_Item_Title" = "Since you have not had exposure logging turned on for long enough, we cannot calculate your risk of infection.";
 
-"Home_RiskCard_Unknown_Button" = "Update";
+/* Home Unknown 48 card */
+"Home_RiskCard_Unknown48h_Body" = "Your exposure logging has not been updated for more than 48 hours. Please update the calculation.";
 
 /* Home Inactive card */
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "Exposure logging stopped";
@@ -640,14 +661,6 @@
 
 "Home_Risk_Inactive_Outdated_Results_Body" = "Your exposure logging could not be updated for more than 24 hours.";
 
-"Home_Risk_Inactive_Activate_Item_Title" = "Last exposure logging: %@";
-
-"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Unknown Risk";
-
-"Home_Risk_Inactive_Activate_Item_Low_Title" = "Low Risk";
-
-"Home_Risk_Inactive_Activate_Item_High_Title" = "Increased Risk";
-
 "Home_Risk_Inactive_NoCalculation_Possible_Button" = "Activate Exposure Logging";
 
 "Home_Risk_Inactive_Outdated_Results_Button" = "Activate Exposure Logging";
@@ -655,23 +668,13 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Low Risk";
 
-"Home_Risk_Low_SaveDays_Item_Title" = "Exposure logging was active for %1$u of the past %2$u days.";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Exposure logging permanently active";
-
-"Home_Risk_Low_Button" = "Update";
-
 /* Home High card */
 "Home_Risk_High_Title" = "Increased Risk";
-
-"Home_Risk_High_Button" = "Update";
 
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Check is running …";
 
 "Home_Risk_Status_Check_Body" = "Current data is being downloaded and checked. This can take several minutes.";
-
-"Home_Risk_Status_Check_Button" = "Update";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Thank you!";
@@ -762,9 +765,13 @@
 
 "App_Information_About_Title" = "Let's fight coronavirus together";
 
-"App_Information_About_Description" = "Robert Koch Institute (RKI) is Germany’s federal public health body. The RKI publishes the Corona-Warn-App in the name of the Federal Government. The app represents the digital extension of public health measures already introduced: social distancing, hygiene, and face masks.";
+"App_Information_About_Description" = "Robert Koch Institute (RKI) is Germany’s federal public health body. The RKI publishes the Corona-Warn-App on behalf of the Federal Government. The app is intended as a digital complement to public health measures already introduced: social distancing, hygiene, and face masks.";
 
 "App_Information_About_Text" = "Whoever uses the app helps to trace and break chains of infection. The app saves encounters with other people locally on your device. You are notified if you have encountered people who were later diagnosed with COVID-19. Your identity and privacy are always protected.";
+
+"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"App_Information_About_LinkText" = "App Information in Simplified Language and Sign Language";
 
 /* App Information - FAQ */
 "App_Information_FAQ_Navigation" = "FAQ";
@@ -803,11 +810,15 @@
 
 "App_Information_Imprint_Section3_Title" = "Contact";
 
-"App_Information_Imprint_Section3_Text" = "E-Mail: CoronaWarnApp@rki.de\nTelephone: +49 30 18754 5100";
+"App_Information_Imprint_Section3_Text" = "E-mail: CoronaWarnApp@rki.de";
 
 "App_Information_Imprint_Section4_Title" = "VAT identification number";
 
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
+
+"App_Information_Contact_Form_Title" = "Contact Form";
+
+"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Legal Notices";
@@ -960,7 +971,7 @@
 "ENATanInput_CharacterIndex" = "Character %1$u of %2$u";
 
 /* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
-"Active_Tracing_Interval_Partially_Active" = "Exposure logging was active for %1$u of the past %2$u days.";
+"Active_Tracing_Interval_Partially_Active" = "Exposure logging was active for %1$u of the past 14 days.";
 
 "Active_Tracing_Interval_Permanently_Active" = "Exposure logging permanently active";
 

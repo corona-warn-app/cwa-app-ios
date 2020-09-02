@@ -50,18 +50,22 @@ protocol Client {
 	/// Gets the registration token
 	func getRegistrationToken(
 		forKey key: String,
-		withType type: String, completion completeWith: @escaping RegistrationHandler
+		withType type: String,
+		isFake: Bool,
+		completion completeWith: @escaping RegistrationHandler
 	)
 
 	// getTestResultForDevice
 	func getTestResult(
 		forDevice registrationToken: String,
+		isFake: Bool,
 		completion completeWith: @escaping TestResultHandler
 	)
 
 	// getTANForDevice
 	func getTANForExposureSubmit(
 		forDevice registrationToken: String,
+		isFake: Bool,
 		completion completeWith: @escaping TANHandler
 	)
 
@@ -96,6 +100,7 @@ protocol Client {
 	func submit(
 		keys: [ENTemporaryExposureKey],
 		tan: String,
+		isFake: Bool,
 		completion: @escaping SubmitKeysCompletionHandler
 	)
 }
@@ -115,11 +120,11 @@ extension SubmissionError: LocalizedError {
 		case let .serverError(code):
 			return "\(AppStrings.ExposureSubmissionError.other)\(code)\(AppStrings.ExposureSubmissionError.otherend)"
 		case .invalidPayloadOrHeaders:
-			return "Received an invalid Payload or headers."
+			return "Received an invalid payload or headers."
 		case .invalidTan:
-			return "Received invalid TAN"
+			return AppStrings.ExposureSubmissionError.invalidTan
 		case .requestCouldNotBeBuilt:
-			return "The Submission Request could not be built correctly."
+			return "The submission request could not be built correctly."
 		case let .simpleError(errorString):
 			return errorString
 		case let .other(error):

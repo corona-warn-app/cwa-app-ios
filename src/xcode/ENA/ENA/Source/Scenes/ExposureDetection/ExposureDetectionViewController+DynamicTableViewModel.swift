@@ -47,7 +47,7 @@ private extension DynamicHeader {
 			let heightConstraint = view.heightAnchor.constraint(equalToConstant: 16)
 			heightConstraint.priority = .defaultHigh
 			heightConstraint.isActive = true
-			view.backgroundColor = (viewController as? ExposureDetectionViewController)?.state.riskTintColor
+			view.backgroundColor = (viewController as? ExposureDetectionViewController)?.state.riskBackgroundColor
 			return view
 		}
 	}
@@ -83,17 +83,9 @@ private extension DynamicCell {
 	static func risk(hasSeparator: Bool = true, configure: @escaping GenericCellConfigurator<ExposureDetectionViewController>) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.risk) { viewController, cell, indexPath in
 			let state = viewController.state
-			cell.backgroundColor = state.riskTintColor
-
-
-			var tintColor: UIColor = state.isTracingEnabled ? .enaColor(for: .textContrast) : .enaColor(for: .riskNeutral)
-
-			if state.riskLevel == .unknownOutdated { tintColor = .enaColor(for: .riskNeutral) }
-			if state.riskLevel == .inactive { tintColor = .enaColor(for: .riskNeutral) }
-
-			cell.tintColor = tintColor
-
-			cell.textLabel?.textColor = state.riskContrastColor
+			cell.backgroundColor = state.riskBackgroundColor
+			cell.tintColor = state.riskContrastTintColor
+			cell.textLabel?.textColor = state.riskContrastTextColor
 			if let cell = cell as? ExposureDetectionRiskCell {
 				cell.separatorView.isHidden = (indexPath.row == 0) || !hasSeparator
 				cell.separatorView.backgroundColor = state.isTracingEnabled ? .enaColor(for: .hairlineContrast) : .enaColor(for: .hairline)
@@ -158,8 +150,8 @@ private extension DynamicCell {
 	static func riskText(text: String) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.riskText) { viewController, cell, _ in
 			let state = viewController.state
-			cell.backgroundColor = state.riskTintColor
-			cell.textLabel?.textColor = state.riskContrastColor
+			cell.backgroundColor = state.riskBackgroundColor
+			cell.textLabel?.textColor = state.riskContrastTextColor
 			cell.textLabel?.text = text
 		}
 	}
@@ -167,7 +159,7 @@ private extension DynamicCell {
 	static func riskRefresh(text: String) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.riskRefresh) { viewController, cell, _ in
 			let state = viewController.state
-			cell.backgroundColor = state.riskTintColor
+			cell.backgroundColor = state.riskBackgroundColor
 			cell.textLabel?.text = AppStrings.ExposureDetection.refresh24h
 		}
 	}
@@ -175,7 +167,7 @@ private extension DynamicCell {
 	static func riskLoading(text: String) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.riskLoading) { viewController, cell, _ in
 			let state = viewController.state
-			cell.backgroundColor = state.riskTintColor
+			cell.backgroundColor = state.riskBackgroundColor
 			cell.textLabel?.text = text
 		}
 	}
@@ -192,10 +184,7 @@ private extension DynamicCell {
 	static func guide(text: String, image: UIImage?) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.guide) { viewController, cell, _ in
 			let state = viewController.state
-			var tintColor = state.isTracingEnabled ? state.riskTintColor : .enaColor(for: .riskNeutral)
-			if state.riskLevel == .unknownOutdated { tintColor = .enaColor(for: .riskNeutral) }
-			if state.riskLevel == .inactive { tintColor = .enaColor(for: .riskNeutral) }
-			cell.tintColor = tintColor
+			cell.tintColor = state.riskTintColor
 			cell.textLabel?.text = text
 			cell.imageView?.image = image
 		}
@@ -204,7 +193,7 @@ private extension DynamicCell {
 	static func guide(image: UIImage?, text: [String]) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.longGuide) { viewController, cell, _ in
 			let state = viewController.state
-			cell.tintColor = state.isTracingEnabled ? state.riskTintColor : .enaColor(for: .riskNeutral)
+			cell.tintColor = state.riskTintColor
 			(cell as? ExposureDetectionLongGuideCell)?.configure(image: image, text: text)
 		}
 	}
@@ -367,9 +356,7 @@ extension ExposureDetectionViewController {
 
 	private var outdatedRiskModel: DynamicTableViewModel {
 		DynamicTableViewModel([
-			.section(
-				header: .none,
-				footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)),
+			riskDataSection(
 				cells: [
 					.riskText(text: AppStrings.ExposureDetection.outdatedText),
 					.riskLastRiskLevel(hasSeparator: false, text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "Icons_LetzteErmittlung-Light")),

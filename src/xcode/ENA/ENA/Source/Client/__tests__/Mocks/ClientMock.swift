@@ -30,7 +30,7 @@ final class ClientMock {
 	///		- submissionError: when set, `submit(_:)` will fail with this error.
 	///		- urlRequestFailure: when set, calls (see above) will fail with this error
 	init(
-		availableDaysAndHours: DaysAndHours = ([], []),
+		availableDaysAndHours: DaysAndHours = DaysAndHours(days: [], hours: []),
 		downloadedPackage: SAPDownloadedPackage? = nil,
 		submissionError: SubmissionError? = nil,
 		urlRequestFailure: Client.Failure? = nil
@@ -51,7 +51,10 @@ final class ClientMock {
 	// MARK: - Configurable Mock Callbacks.
 
 	var onAppConfiguration: (AppConfigurationCompletion) -> Void = { $0(nil) }
-	var onGetTestResult: ((String, TestResultHandler) -> Void)?
+	var onGetTestResult: ((String, Bool, TestResultHandler) -> Void)?
+	var onSubmit: (([ENTemporaryExposureKey], String, Bool, @escaping SubmitKeysCompletionHandler) -> Void)?
+	var onGetRegistrationToken: ((String, String, Bool, @escaping RegistrationHandler) -> Void)?
+	var onGetTANForExposureSubmit: ((String, Bool, @escaping TANHandler) -> Void)?
 }
 
 extension ClientMock: Client {
@@ -95,24 +98,39 @@ extension ClientMock: Client {
 		completion(ENExposureConfiguration())
 	}
 
-	func submit(keys _: [ENTemporaryExposureKey], tan: String, completion: @escaping SubmitKeysCompletionHandler) {
-		completion(submissionError)
+	func submit(keys: [ENTemporaryExposureKey], tan: String, isFake: Bool, completion: @escaping SubmitKeysCompletionHandler) {
+		guard let onSubmit = self.onSubmit else {
+			completion(submissionError)
+			return
+		}
+
+		onSubmit(keys, tan, isFake, completion)
 	}
 
-	func getRegistrationToken(forKey _: String, withType: String, completion completeWith: @escaping RegistrationHandler) {
-		completeWith(.success("dummyRegistrationToken"))
+	func getRegistrationToken(forKey: String, withType: String, isFake: Bool, completion completeWith: @escaping RegistrationHandler) {
+		guard let onGetRegistrationToken = self.onGetRegistrationToken else {
+			completeWith(.success("dummyRegistrationToken"))
+			return
+		}
+
+		onGetRegistrationToken(forKey, withType, isFake, completeWith)
 	}
 
-	func getTestResult(forDevice device: String, completion completeWith: @escaping TestResultHandler) {
+	func getTestResult(forDevice device: String, isFake: Bool, completion completeWith: @escaping TestResultHandler) {
 		guard let onGetTestResult = self.onGetTestResult else {
 			completeWith(.success(TestResult.positive.rawValue))
 			return
 		}
 
-		onGetTestResult(device, completeWith)
+		onGetTestResult(device, isFake, completeWith)
 	}
 
-	func getTANForExposureSubmit(forDevice device: String, completion completeWith: @escaping TANHandler) {
-		completeWith(.success("dummyTan"))
+	func getTANForExposureSubmit(forDevice device: String, isFake: Bool, completion completeWith: @escaping TANHandler) {
+		guard let onGetTANForExposureSubmit = self.onGetTANForExposureSubmit else {
+			completeWith(.success("dummyTan"))
+			return
+		}
+
+		onGetTANForExposureSubmit(device, isFake, completeWith)
 	}
 }

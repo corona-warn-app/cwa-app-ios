@@ -44,6 +44,8 @@ func logError(
 		line: line,
 		function: function
 	)
+	let errorMessages = UserDefaults.standard.dmErrorMessages
+	UserDefaults.standard.dmErrorMessages = ["\(Date().description(with: .init(identifier: "en_US_POSIX"))) \(message)"] + errorMessages
 	#endif
 }
 

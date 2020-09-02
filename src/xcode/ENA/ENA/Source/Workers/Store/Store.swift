@@ -21,6 +21,12 @@ import ExposureNotification
 enum EitherLowOrIncreasedRiskLevel: Int {
 	case low = 0
 	case increased = 1_000 // so that increased > low + we have enough reserved values
+	var description: String {
+		switch self {
+		case .low: return "low"
+		case .increased: return "increased"
+		}
+	}
 }
 
 extension EitherLowOrIncreasedRiskLevel {
@@ -93,6 +99,15 @@ protocol Store: AnyObject {
 	// `true` if the user needs to be informed about how risk detection works.
 	// We only inform the user once. By default the value of this property is `true`.
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks: Bool { get set }
+
+	/// True if the app is allowed to execute fake requests (for plausible deniability) in the background.
+	var isAllowedToPerformBackgroundFakeRequests: Bool { get set }
+
+	/// Time when the app sent the last background fake request.
+	var lastBackgroundFakeRequest: Date { get set }
+
+	/// The time when the playbook was executed in background.
+	var firstPlaybookExecution: Date? { get set }
 
 	func clearAll(key: String?)
 }
