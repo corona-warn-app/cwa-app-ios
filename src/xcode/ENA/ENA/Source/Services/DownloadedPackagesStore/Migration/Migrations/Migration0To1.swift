@@ -19,7 +19,7 @@
 
 import FMDB
 
-class Migration0To1: Migration {
+final class Migration0To1: Migration {
 
 	private let database: FMDatabase
 

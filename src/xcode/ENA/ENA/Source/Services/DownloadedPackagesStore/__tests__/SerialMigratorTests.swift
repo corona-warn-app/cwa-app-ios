@@ -21,7 +21,7 @@ import XCTest
 import FMDB
 @testable import ENA
 
-class MigrationStub: Migration {
+final class MigrationStub: Migration {
 
 	private let migration: () -> Void
 
@@ -35,7 +35,7 @@ class MigrationStub: Migration {
 	}
 }
 
-class SerialMigratorTests: XCTestCase {
+final class SerialMigratorTests: XCTestCase {
 
 	func testSerialMigratorWithNoMigrations() {
 		let database = makeDataBase()

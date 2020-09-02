@@ -24,7 +24,7 @@ import FMDB
 
 #if INTEROP
 
-class Migration0To1Tests: XCTestCase {
+final class Migration0To1Tests: XCTestCase {
 
 	func testMigrationFromStoreVersion0To1() {
 		let database = FMDatabase.inMemory()

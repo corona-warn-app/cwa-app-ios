@@ -23,7 +23,7 @@ protocol SerialMigratorProtocol {
 	func migrate()
 }
 
-class SerialMigrator: SerialMigratorProtocol {
+final class SerialMigrator: SerialMigratorProtocol {
 
 	private let latestVersion: Int
 	private let database: FMDatabase
