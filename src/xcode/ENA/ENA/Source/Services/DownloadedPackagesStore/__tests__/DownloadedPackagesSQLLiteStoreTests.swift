@@ -24,8 +24,8 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 
 	private var store: DownloadedPackagesSQLLiteStoreV1 = .inMemory()
 
-	override func setUp() {
-		super.setUp()
+	override func tearDown() {
+		super.tearDown()
 		store.close()
 	}
 
@@ -323,8 +323,8 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 	#else
 	private var store: DownloadedPackagesSQLLiteStoreV0 = .inMemory()
 
-	override func setUp() {
-		super.setUp()
+	override func tearDown() {
+		super.tearDown()
 		store.close()
 	}
 
