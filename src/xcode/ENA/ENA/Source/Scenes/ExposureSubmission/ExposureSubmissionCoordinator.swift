@@ -136,7 +136,15 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	func dismiss() {
-		navigationController?.dismiss(animated: true)
+		guard let presentedViewController = navigationController?.viewControllers.last else { return }
+		guard let vc = presentedViewController as? RequiresDismissConfirmation else {
+			navigationController?.dismiss(animated: true)
+			return
+		}
+
+		vc.willDismiss { [weak self] shouldDismiss in
+			if shouldDismiss { self?.navigationController?.dismiss(animated: true) }
+		}
 	}
 
 	func showOverviewScreen() {
@@ -238,5 +246,31 @@ extension ExposureSubmissionCoordinator {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSuccessViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionSuccessViewController(coder: coder, coordinator: self)
 		}
+	}
+}
+
+// TODO: Move to file
+
+protocol RequiresDismissConfirmation: UIViewController {
+	/// willDismiss(_:) is called by the `ExposureSubmissionCoordinator` when the view controller is about to be removed
+	/// from the navigation controller view stack.
+	/// - Parameters:
+	///   - continueDismiss: callback that takes true if the dismissal of the current view controller should proceed.
+	func willDismiss(_ continueDismiss: @escaping ((Bool) -> Void))
+}
+
+extension RequiresDismissConfirmation {
+
+	func willDismiss(_ continueDismiss: @escaping ((Bool) -> Void)) {
+		let alert = setupErrorAlert(
+			title: "!!! Do you want to cancel?",
+			message: "!!! If you cancel, the progress is lost.",
+			okTitle: "!!! no",
+			secondaryActionTitle: "!!! yes",
+			completion: { continueDismiss(false) },
+			secondaryActionCompletion: { continueDismiss(true) }
+		)
+
+		present(alert, animated: true)
 	}
 }
