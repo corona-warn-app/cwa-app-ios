@@ -57,7 +57,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	/// part of the app, a local notification is shown.
 	private func executeFetchTestResults(completion: @escaping ((Bool) -> Void)) {
 
-		let service = exposureSubmissionService ?? ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
 		guard store.registrationToken != nil && store.testResultReceivedTimeStamp == nil else {
 			completion(false)
