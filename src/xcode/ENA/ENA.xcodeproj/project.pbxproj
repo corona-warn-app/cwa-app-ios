@@ -69,7 +69,7 @@
 		4026C2DC24852B7600926FB4 /* AppInformationViewController+LegalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */; };
 		4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */; };
 		50BD2E6224FE1E8700932566 /* AppInformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD2E6124FE1E8700932566 /* AppInformationModel.swift */; };
-		50BD2E6424FE232E00932566 /* AppInformationImprintModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD2E6324FE232E00932566 /* AppInformationImprintModel.swift */; };
+		50BD2E6424FE232E00932566 /* AppInformationImprintViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD2E6324FE232E00932566 /* AppInformationImprintViewModel.swift */; };
 		50BD2E7724FE26F400932566 /* AppInformationImprintTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD2E6F24FE26F300932566 /* AppInformationImprintTest.swift */; };
 		50DC527924FEB2AE00F6D8EB /* AppInformationDynamicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */; };
 		50DC527B24FEB5CA00F6D8EB /* AppInformationModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DC527A24FEB5CA00F6D8EB /* AppInformationModelTest.swift */; };
@@ -521,7 +521,7 @@
 		4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppInformationViewController+LegalModel.swift"; sourceTree = "<group>"; };
 		4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationLegalCell.swift; sourceTree = "<group>"; };
 		50BD2E6124FE1E8700932566 /* AppInformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationModel.swift; sourceTree = "<group>"; };
-		50BD2E6324FE232E00932566 /* AppInformationImprintModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationImprintModel.swift; sourceTree = "<group>"; };
+		50BD2E6324FE232E00932566 /* AppInformationImprintViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationImprintViewModel.swift; sourceTree = "<group>"; };
 		50BD2E6F24FE26F300932566 /* AppInformationImprintTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInformationImprintTest.swift; sourceTree = "<group>"; };
 		50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDynamicCell.swift; sourceTree = "<group>"; };
 		50DC527A24FEB5CA00F6D8EB /* AppInformationModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationModelTest.swift; sourceTree = "<group>"; };
@@ -2315,7 +2315,7 @@
 				71CC3E9C246D5D8000217F2C /* AppInformationViewController+DynamicTableViewModel.swift */,
 				50BD2E6124FE1E8700932566 /* AppInformationModel.swift */,
 				50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */,
-				50BD2E6324FE232E00932566 /* AppInformationImprintModel.swift */,
+				50BD2E6324FE232E00932566 /* AppInformationImprintViewModel.swift */,
 				4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */,
 				71CC3E9E246D6B6800217F2C /* AppInformationDetailViewController.swift */,
 				4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */,
@@ -2694,7 +2694,7 @@
 				B1CD333C24865A7D00B06E9B /* TracingStatusHistory.swift in Sources */,
 				51D420B724583B7200AD70CA /* NSObject+Identifier.swift in Sources */,
 				CDCE11D6247D644100F30825 /* NotificationSettingsViewModel.swift in Sources */,
-				50BD2E6424FE232E00932566 /* AppInformationImprintModel.swift in Sources */,
+				50BD2E6424FE232E00932566 /* AppInformationImprintViewModel.swift in Sources */,
 				710224EC248FC150000C5DEF /* HomeTestResultCellConfigurator.swift in Sources */,
 				71330E4724810A0C00EB10F6 /* DynamicTableViewFooter.swift in Sources */,
 				B1D431CB246C84A400E728AD /* DownloadedPackagesStore.swift in Sources */,

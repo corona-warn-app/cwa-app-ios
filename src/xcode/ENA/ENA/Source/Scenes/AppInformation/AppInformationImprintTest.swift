@@ -16,6 +16,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
+import Foundation
 import XCTest
 @testable import ENA
 
@@ -26,40 +27,40 @@ class AppInformationImprintTest: XCTestCase {
 			.imprint: (
 				text: AppStrings.AppInformation.imprintNavigation,
 				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintNavigation,
-				action: .push(model: AppInformationImprintModel.dynamicTable, withTitle:  AppStrings.AppInformation.imprintNavigation)
+				action: .push(model: AppInformationImprintViewModel.dynamicTable, withTitle:  AppStrings.AppInformation.imprintNavigation)
 			)
 		]
 		
 		XCTAssertNotNil(model)
-		XCTAssertTrue(model.count == 1)
+		XCTAssertEqual(model.count, 1)
 		let key = model.first?.key
-		XCTAssert(key == .imprint)
+		XCTAssertEqual(key, .imprint)
 		
-		let dynamicTable = AppInformationImprintModel.dynamicTable
-		XCTAssertTrue(dynamicTable.numberOfSection == 1)
+		let dynamicTable = AppInformationImprintViewModel.dynamicTable
+		XCTAssertEqual(dynamicTable.numberOfSection, 1)
 		
-		let section = AppInformationImprintModel.dynamicTable.section(0)
+		let section = AppInformationImprintViewModel.dynamicTable.section(0)
 		XCTAssertNotNil(section)
 		let numberOfCells = section.cells.count
 		
 		let localization = Bundle.main.preferredLocalizations.first
 		if localization == "en" || localization == "de" {
-			XCTAssertTrue(numberOfCells == 9) //DE EN
+			XCTAssertEqual(numberOfCells, 9) //DE EN
 		} else {
-			XCTAssertTrue(numberOfCells == 10)//else
+			XCTAssertEqual(numberOfCells, 10)//else
 		}
 
 	}
 	
 	func testContactForm() {
-		let cellCollection = AppInformationImprintModel.contactForms()
+		let cellCollection = AppInformationImprintViewModel.contactForms()
 		let numberOfCells = cellCollection.count
 		
 		let localization = Bundle.main.preferredLocalizations.first
 		if localization == "en" || localization == "de" {
-			XCTAssertTrue(numberOfCells == 1) //DE EN
+			XCTAssertEqual(numberOfCells, 1) //DE EN
 		} else {
-			XCTAssertTrue(numberOfCells == 2) //else
+			XCTAssertEqual(numberOfCells, 2) //else
 		}
 	}
 	

@@ -19,7 +19,7 @@
 import Foundation
 import UIKit
 
-class AppInformationImprintModel {
+class AppInformationImprintViewModel {
 	
 	static let englishContactFormLink = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html"
 	static let germanContactFormLink = "https://www.rki.de/SharedDocs/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html"
@@ -55,7 +55,7 @@ class AppInformationImprintModel {
 			.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection3Text,
 								 style: .textView(.all),
 								 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Text)]
-		cells.append(contentsOf: AppInformationImprintModel.contactForms())
+		cells.append(contentsOf: AppInformationImprintViewModel.contactForms())
 		cells.append(contentsOf: [
 						.imprintHeadlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection4Title,
 													accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Title),

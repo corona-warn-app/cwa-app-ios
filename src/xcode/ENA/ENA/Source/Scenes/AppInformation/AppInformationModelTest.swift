@@ -24,42 +24,42 @@ class AppInformationModelTest: XCTestCase {
 	
 	func testAboutModel() {
 		let dynamicTable = AppInformationModel.aboutModel
-		XCTAssertTrue(dynamicTable.numberOfSection == 1)
+		XCTAssertEqual(dynamicTable.numberOfSection, 1)
 		
 		let section = AppInformationModel.aboutModel.section(0)
 		let numberOfCells = section.cells.count
 		
-		XCTAssertTrue(numberOfCells == 4)
+		XCTAssertEqual(numberOfCells, 4)
 	}
 
 	func testContactModel() {
 		let dynamicTable = AppInformationModel.contactModel
-		XCTAssertTrue(dynamicTable.numberOfSection == 1)
+		XCTAssertEqual(dynamicTable.numberOfSection, 1)
 		
 		let section = AppInformationModel.contactModel.section(0)
 		let numberOfCells = section.cells.count
 		
-		XCTAssertTrue(numberOfCells == 6)
+		XCTAssertEqual(numberOfCells, 6)
 	}
 
 	func testPrivacyModel() {
 		let dynamicTable = AppInformationModel.privacyModel
-		XCTAssertTrue(dynamicTable.numberOfSection == 1)
+		XCTAssertEqual(dynamicTable.numberOfSection, 1)
 		
 		let section = AppInformationModel.privacyModel.section(0)
 		let numberOfCells = section.cells.count
 		
-		XCTAssertTrue(numberOfCells == 2)
+		XCTAssertEqual(numberOfCells, 2)
 	}
 
 	func testTermsModel() {
 		let dynamicTable = AppInformationModel.termsModel
-		XCTAssertTrue(dynamicTable.numberOfSection == 1)
+		XCTAssertEqual(dynamicTable.numberOfSection, 1)
 		
 		let section = AppInformationModel.termsModel.section(0)
 		let numberOfCells = section.cells.count
 		
-		XCTAssertTrue(numberOfCells == 2)
+		XCTAssertEqual(numberOfCells, 2)
 	}
 	
 }

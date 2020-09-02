@@ -54,7 +54,7 @@ extension AppInformationViewController {
 		.imprint: (
 			text: AppStrings.AppInformation.imprintNavigation,
 			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintNavigation,
-			action: .push(model: AppInformationImprintModel.dynamicTable, withTitle:  AppStrings.AppInformation.imprintNavigation)
+			action: .push(model: AppInformationImprintViewModel.dynamicTable, withTitle:  AppStrings.AppInformation.imprintNavigation)
 		)
 	]
 }
