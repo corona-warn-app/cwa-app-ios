@@ -20,7 +20,7 @@ import Foundation
 import UIKit
 
 extension AppInformationViewController {
-	static let imprintViewModel = AppInformationImprintViewModel()
+	static let imprintViewModel = AppInformationImprintViewModel(preferredLocalization: Bundle.main.preferredLocalizations.first ?? "de")
 	static let model: [Category: (text: String, accessibilityIdentifier: String?, action: DynamicAction)] = [
 		.about: (
 			text: AppStrings.AppInformation.aboutNavigation,

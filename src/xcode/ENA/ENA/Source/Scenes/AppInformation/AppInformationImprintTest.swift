@@ -22,9 +22,8 @@ import XCTest
 
 class AppInformationImprintTest: XCTestCase {
 
-	func testImprintViewModelDE() {
-		AppInformationImprintViewModel.preferredLocalization = "de"
-		let imprintViewModel = AppInformationImprintViewModel()
+	func testImprintViewModelDE() throws {
+		let imprintViewModel = AppInformationImprintViewModel(preferredLocalization: "de")
 		let model: [AppInformationViewController.Category: (text: String, accessibilityIdentifier: String?, action: DynamicAction)] = [
 			.imprint: (
 				text: AppStrings.AppInformation.imprintNavigation,
@@ -38,7 +37,7 @@ class AppInformationImprintTest: XCTestCase {
 		let key = model.first?.key
 		XCTAssertEqual(key, .imprint)
 		
-		let dynamicTable = imprintViewModel.dynamicTable
+		let dynamicTable = try XCTUnwrap(imprintViewModel.dynamicTable)
 		XCTAssertEqual(dynamicTable.numberOfSection, 1)
 		
 		let section = imprintViewModel.dynamicTable.section(0)
@@ -48,9 +47,9 @@ class AppInformationImprintTest: XCTestCase {
 		XCTAssertEqual(numberOfCells, 9) //DE EN
 	}
 
-	func testImprintViewModelEN() {
-		AppInformationImprintViewModel.preferredLocalization = "en"
-		let imprintViewModel = AppInformationImprintViewModel()
+	
+	func testImprintViewModelEN() throws {
+		let imprintViewModel = AppInformationImprintViewModel(preferredLocalization: "en")
 		let model: [AppInformationViewController.Category: (text: String, accessibilityIdentifier: String?, action: DynamicAction)] = [
 			.imprint: (
 				text: AppStrings.AppInformation.imprintNavigation,
@@ -64,7 +63,7 @@ class AppInformationImprintTest: XCTestCase {
 		let key = model.first?.key
 		XCTAssertEqual(key, .imprint)
 		
-		let dynamicTable = imprintViewModel.dynamicTable
+		let dynamicTable = try XCTUnwrap(imprintViewModel.dynamicTable)
 		XCTAssertEqual(dynamicTable.numberOfSection, 1)
 		
 		let section = imprintViewModel.dynamicTable.section(0)
@@ -74,9 +73,9 @@ class AppInformationImprintTest: XCTestCase {
 		XCTAssertEqual(numberOfCells, 9) //DE EN
 	}
 
-	func testImprintViewModelTR() {
-		AppInformationImprintViewModel.preferredLocalization = "tr"
-		let imprintViewModel = AppInformationImprintViewModel()
+
+	func testImprintViewModelTR() throws {
+		let imprintViewModel = AppInformationImprintViewModel(preferredLocalization: "tr")
 		
 		let model: [AppInformationViewController.Category: (text: String, accessibilityIdentifier: String?, action: DynamicAction)] = [
 			.imprint: (
@@ -91,7 +90,7 @@ class AppInformationImprintTest: XCTestCase {
 		let key = model.first?.key
 		XCTAssertEqual(key, .imprint)
 		
-		let dynamicTable = imprintViewModel.dynamicTable
+		let dynamicTable = try XCTUnwrap(imprintViewModel.dynamicTable)
 		XCTAssertEqual(dynamicTable.numberOfSection, 1)
 		
 		let section = imprintViewModel.dynamicTable.section(0)
