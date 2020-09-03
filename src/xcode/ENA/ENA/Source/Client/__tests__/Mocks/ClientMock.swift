@@ -126,7 +126,8 @@ extension ClientMock: Client {
 
 	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
 		guard let onSubmitCountries = self.onSubmitCountries else {
-			completion(.failure(Failure.fakeResponse))
+			let error = submissionError ?? SubmissionError.requestCouldNotBeBuilt
+			completion(.failure(error))
 			return
 		}
 		onSubmitCountries(payload.exposureKeys, payload.visitedCountries, payload.tan, isFake, completion)
