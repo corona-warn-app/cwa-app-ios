@@ -43,7 +43,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 	private func createCoordinator(
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
-		delegate: ExposureSubmissionCoordinatorDelegate) -> ExposureSubmissionCoordinating {
+		delegate: ExposureSubmissionCoordinatorDelegate) -> ExposureSubmissionCoordinator {
 
 		return ExposureSubmissionCoordinator(
 			parentNavigationController: parentNavigationController,
@@ -278,6 +278,63 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		}
 
 		XCTAssertNotNil(vc.coordinator)
+	}
+
+	func testSuccessfulSubmit() {
+		let coordinator = createCoordinator(
+			parentNavigationController: parentNavigationController,
+			exposureSubmissionService: exposureSubmissionService,
+			delegate: delegate
+		)
+
+		let expectSubmitExposure = self.expectation(description: "Call submitExposure")
+		exposureSubmissionService.submitExposureCallback = { completion in
+			expectSubmitExposure.fulfill()
+			completion(nil)
+		}
+
+		// Trigger submission process.
+		coordinator.startSubmitProcess(onSuccess: {}, onError: {})
+		waitForExpectations(timeout: .short)
+	}
+
+	func testShowENErrorAlertInternal() {
+		let coordinator = createCoordinator(
+			parentNavigationController: parentNavigationController,
+			exposureSubmissionService: exposureSubmissionService,
+			delegate: delegate
+		)
+
+		let alert = coordinator.createENAlert(.internal)
+		XCTAssertEqual(alert?.actions.count, 2)
+		XCTAssertEqual(alert?.actions[1].title, AppStrings.Common.errorAlertActionMoreInfo)
+		XCTAssertEqual(alert?.message, AppStrings.Common.enError11Description)
+	}
+
+	func testShowENErrorAlertUnsupported() {
+		let coordinator = createCoordinator(
+			parentNavigationController: parentNavigationController,
+			exposureSubmissionService: exposureSubmissionService,
+			delegate: delegate
+		)
+
+		let alert = coordinator.createENAlert(.unsupported)
+		XCTAssertEqual(alert?.actions.count, 2)
+		XCTAssertEqual(alert?.actions[1].title, AppStrings.Common.errorAlertActionMoreInfo)
+		XCTAssertEqual(alert?.message, AppStrings.Common.enError5Description)
+	}
+
+	func testShowENErrorAlertRateLimited() {
+		let coordinator = createCoordinator(
+			parentNavigationController: parentNavigationController,
+			exposureSubmissionService: exposureSubmissionService,
+			delegate: delegate
+		)
+
+		let alert = coordinator.createENAlert(.rateLimited)
+		XCTAssertEqual(alert?.actions.count, 2)
+		XCTAssertEqual(alert?.actions[1].title, AppStrings.Common.errorAlertActionMoreInfo)
+		XCTAssertEqual(alert?.message, AppStrings.Common.enError13Description)
 	}
 
 }

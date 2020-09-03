@@ -66,12 +66,9 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 		}
 	}
 
-	// MARK: - Internal
-
-	private let onPrimaryButtonTap: (CountrySelectionOption, @escaping (Bool) -> Void) -> Void
-
 	// MARK: - Private
 
+	private let onPrimaryButtonTap: (CountrySelectionOption, @escaping (Bool) -> Void) -> Void
 	private let supportedCountries: [Country]
 
 	@Published private var selectedCountrySelectionOption: CountrySelectionOption?

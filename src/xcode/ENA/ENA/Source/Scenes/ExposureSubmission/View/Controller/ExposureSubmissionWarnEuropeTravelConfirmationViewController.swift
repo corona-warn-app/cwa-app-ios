@@ -63,10 +63,6 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 		}
 	}
 
-	// MARK: - Internal
-
-	private(set) weak var coordinator: ExposureSubmissionCoordinating?
-
 	// MARK: - Private
 
 	private let onPrimaryButtonTap: (TravelConfirmationOption, @escaping (Bool) -> Void) -> Void

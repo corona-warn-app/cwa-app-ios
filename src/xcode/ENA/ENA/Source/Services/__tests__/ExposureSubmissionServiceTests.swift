@@ -25,7 +25,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 	// MARK: - Exposure Submission Tests
 
-	func testSubmitExpousure_Success() {
+	func testSubmitExposure_Success() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let client = ClientMock()
@@ -48,7 +48,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		XCTAssertNil(error)
 	}
 
-	func testSubmitExpousure_NoKeys() {
+	func testSubmitExposure_NoKeys() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
 		let client = ClientMock()
@@ -73,7 +73,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: expectationsTimeout)
 	}
 
-	func testSubmitExpousure_EmptyKeys() {
+	func testSubmitExposure_EmptyKeys() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
 		let client = ClientMock()
@@ -125,7 +125,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: expectationsTimeout)
 	}
 
-	func testSubmitExpousure_NoRegToken() {
+	func testSubmitExposure_NoRegToken() {
 		// Arrange
 
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))

@@ -347,7 +347,7 @@ extension ExposureSubmissionCoordinator {
 
 	/// Creates an error alert for the EN errors.
 	func createENAlert(_ error: ExposureSubmissionError) -> UIAlertController? {
-		return navigationController?.setupErrorAlert(
+		return UIViewController().setupErrorAlert(
 			message: error.localizedDescription,
 			secondaryActionTitle: AppStrings.Common.errorAlertActionMoreInfo,
 			secondaryActionCompletion: {
