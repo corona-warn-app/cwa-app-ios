@@ -22,6 +22,11 @@ import Combine
 
 class OptionGroupView: UIView {
 
+	enum OptionViewType {
+		case option(OptionView)
+		case multipleChoiceOption(MultipleChoiceOptionView)
+	}
+
 	// MARK: - Init
 
 	@available(*, unavailable)
@@ -47,7 +52,7 @@ class OptionGroupView: UIView {
 	private let viewModel: OptionGroupViewModel
 
 	private let contentStackView = UIStackView()
-	private var optionViews: [OptionGroupViewModel.OptionViewType] = []
+	private var optionViews: [OptionViewType] = []
 
 	private var selectionSubscription: AnyCancellable?
 
@@ -100,12 +105,12 @@ class OptionGroupView: UIView {
 		return view
 	}
 
-	private func multipleChoiceOptionView(title: String, choices: [(iconImage: UIImage?, title: String)], index: Int) -> MultipleChoiceOptionView {
+	private func multipleChoiceOptionView(title: String, choices: [OptionGroupViewModel.Choice], index: Int) -> MultipleChoiceOptionView {
 		return MultipleChoiceOptionView(
 			title: title,
 			choices: choices,
 			onTapOnChoice: { [weak self] choiceIndex in
-				self?.viewModel.multiopleChoiceOptionTapped(index: index, choiceIndex: choiceIndex)
+				self?.viewModel.multipleChoiceOptionTapped(index: index, choiceIndex: choiceIndex)
 			}
 		)
 	}

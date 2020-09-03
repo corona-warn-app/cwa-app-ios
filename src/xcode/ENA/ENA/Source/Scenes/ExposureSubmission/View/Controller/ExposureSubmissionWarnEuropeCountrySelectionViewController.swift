@@ -138,8 +138,8 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 									options: [
 										.multipleChoiceOption(
 											title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionCountrySelection,
-											choices: self.supportedCountries.map { (iconImage: $0.flag, title: $0.localizedName) }
-												+ [(iconImage: nil, title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionOtherCountries)]
+											choices: self.supportedCountries.map { .init(iconImage: $0.flag, title: $0.localizedName) }
+												+ [.init(iconImage: nil, title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionOtherCountries)]
 										),
 										.option(
 											title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionNone

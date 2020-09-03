@@ -19,8 +19,6 @@
 
 import Foundation
 
-#if UITESTING
-
 class MockExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Mock callbacks.
@@ -74,5 +72,3 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 		acceptPairingCallback?()
 	}
 }
-
-#endif

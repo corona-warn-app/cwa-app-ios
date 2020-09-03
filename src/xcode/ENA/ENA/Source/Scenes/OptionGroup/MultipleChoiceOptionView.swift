@@ -34,7 +34,7 @@ class MultipleChoiceOptionView: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	init(title: String, choices: [(iconImage: UIImage?, title: String)], onTapOnChoice: @escaping (Int) -> Void) {
+	init(title: String, choices: [OptionGroupViewModel.Choice], onTapOnChoice: @escaping (Int) -> Void) {
 		self.onTapOnChoice = onTapOnChoice
 		self.choices = choices
 
@@ -62,7 +62,7 @@ class MultipleChoiceOptionView: UIView {
 	// MARK: - Private
 
 	private let onTapOnChoice: (Int) -> Void
-	private let choices: [(iconImage: UIImage?, title: String)]
+	private let choices: [OptionGroupViewModel.Choice]
 
 	private var choiceViews: [MultipleChoiceChoiceView] = []
 	private let contentStackView = UIStackView()

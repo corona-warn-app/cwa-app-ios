@@ -22,22 +22,19 @@ import Combine
 
 class OptionGroupViewModel {
 
+	struct Choice {
+		let iconImage: UIImage?
+		let title: String
+	}
+
 	enum Option {
 		case option(title: String, accessibilityIdentifier: String? = nil)
-		case multipleChoiceOption(title: String, choices: [(iconImage: UIImage?, title: String)])
-//		case datePickerOption(title: String, initiallySelectedDaysFromToday: Int)
+		case multipleChoiceOption(title: String, choices: [Choice])
 	}
 
-	enum OptionViewType {
-		case option(OptionView)
-		case multipleChoiceOption(MultipleChoiceOptionView)
-//		case datePickerOption(title: String, initiallySelectedDaysFromToday: Int)
-	}
-
-	enum Selection {
+	enum Selection: Equatable {
 		case option(index: Int)
 		case multipleChoiceOption(index: Int, selectedChoices: Set<Int>)
-//		case datePickerOption(index: Int, selectedDaysFromToday: Int)
 	}
 
 	// MARK: - Init
@@ -54,10 +51,18 @@ class OptionGroupViewModel {
 	var options: [Option]
 
 	func optionTapped(index: Int) {
+		guard case .option = options[index] else {
+			fatalError("Option at index \(index) is not of type .option")
+		}
+
 		selection = .option(index: index)
 	}
 
-	func multiopleChoiceOptionTapped(index: Int, choiceIndex: Int) {
+	func multipleChoiceOptionTapped(index: Int, choiceIndex: Int) {
+		guard case .multipleChoiceOption = options[index] else {
+			fatalError("Option at index \(index) is not of type .multipleChoiceOption")
+		}
+
 		var newSelectedChoices = Set<Int>()
 		if case .multipleChoiceOption(index: index, selectedChoices: let previouslySelectedChoices) = selection {
 			newSelectedChoices = previouslySelectedChoices
