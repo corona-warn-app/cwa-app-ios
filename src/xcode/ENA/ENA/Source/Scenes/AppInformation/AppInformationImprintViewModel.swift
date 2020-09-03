@@ -31,7 +31,6 @@ class AppInformationImprintViewModel {
 	
 	static func contactForms(localization: String) -> [DynamicCell] {
 		let form: DynamicCell = .bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSectionContactFormLink, style: .linkTextView(AppStrings.AppInformation.imprintSectionContactFormTitle), accessibilityIdentifier: AppStrings.AppInformation.imprintSectionContactFormTitle)
-//		guard let localization = Bundle.main.preferredLocalizations.first else { return [form] }
 		if localization == "en" || localization == "de" { return [form] }
 		let englishTitle: String = AppStrings.AppInformation.imprintSectionContactFormTitle + " " + "(English)"
 		let germanTitle: String = AppStrings.AppInformation.imprintSectionContactFormTitle + " " + "(German)"
