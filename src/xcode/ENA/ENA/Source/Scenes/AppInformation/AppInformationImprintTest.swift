@@ -32,7 +32,6 @@ class AppInformationImprintTest: XCTestCase {
 			)
 		]
 		
-		XCTAssertNotNil(model)
 		XCTAssertEqual(model.count, 1)
 		let key = model.first?.key
 		XCTAssertEqual(key, .imprint)
@@ -58,7 +57,6 @@ class AppInformationImprintTest: XCTestCase {
 			)
 		]
 		
-		XCTAssertNotNil(model)
 		XCTAssertEqual(model.count, 1)
 		let key = model.first?.key
 		XCTAssertEqual(key, .imprint)
@@ -85,7 +83,6 @@ class AppInformationImprintTest: XCTestCase {
 			)
 		]
 		
-		XCTAssertNotNil(model)
 		XCTAssertEqual(model.count, 1)
 		let key = model.first?.key
 		XCTAssertEqual(key, .imprint)
