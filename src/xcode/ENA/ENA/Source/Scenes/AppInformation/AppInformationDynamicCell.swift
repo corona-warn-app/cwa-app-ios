@@ -57,7 +57,7 @@ extension DynamicCell {
 		}
 	}
 	
-	static func bodyWithoutTopInset(text: String, style: TextCellStyle = .label, accessibilityIdentifier: String?) -> Self {
+	static func bodyWithoutTopInset(text: String, style: TextCellStyle = .label, accessibilityIdentifier: String? = nil) -> Self {
 		.body(text: text, style: style, accessibilityIdentifier: accessibilityIdentifier) { _, cell, _ in
 			cell.contentView.preservesSuperviewLayoutMargins = false
 			cell.contentView.layoutMargins.top = 0
