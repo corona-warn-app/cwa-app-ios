@@ -20,10 +20,12 @@ import Foundation
 import ZIPFoundation
 
 final class HTTPClient: Client {
+	typealias Verifier = SAPDownloadedPackage.Verification
+	
 	// MARK: Creating
 	init(
 		configuration: Configuration,
-		packageVerifier: @escaping SAPDownloadedPackage.Verification = SAPDownloadedPackage.Verifier().verify,
+		packageVerifier: @escaping Verifier = SAPDownloadedPackage.Verifier().verify,
 		session: URLSession = .coronaWarnSession()
 	) {
 		self.session = session
