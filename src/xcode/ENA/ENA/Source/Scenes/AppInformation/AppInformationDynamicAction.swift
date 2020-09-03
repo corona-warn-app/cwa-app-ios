@@ -16,9 +16,6 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import Foundation
-//import UIKit
-
 extension DynamicAction {
 	static var safari: Self {
 		.execute { viewController in
