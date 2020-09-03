@@ -70,8 +70,11 @@ final class ENStateHandler {
 			return differentiateRestrictedCase()
 		case .unknown:
 			return .disabled
+		case .paused:
+			return .disabled
 		@unknown default:
-			fatalError("New state was added that is not being covered by ENStateHandler")
+			logError(message: "New state was added that is not being covered by ENStateHandler")
+			return .unknown
 		}
 	}
 
@@ -86,7 +89,8 @@ final class ENStateHandler {
 		case .authorized:
 			return .disabled
 		@unknown default:
-			fatalError("New state was added that is not being covered by ENStateHandler")
+			logError(message: "New state was added that is not being covered by ENStateHandler")
+			return .unknown
 		}
 	}
 }
