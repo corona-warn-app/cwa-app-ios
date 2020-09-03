@@ -48,7 +48,7 @@ extension DynamicCell {
 		return cell
 	}
 	
-	static func imprintHeadlineWithoutBottomInset(text: String, accessibilityIdentifier: String?) -> Self {
+	static func imprintHeadlineWithoutBottomInset(text: String, accessibilityIdentifier: String? = nil) -> Self {
 		.headline(text: text, accessibilityIdentifier: accessibilityIdentifier) { _, cell, _ in
 			cell.contentView.preservesSuperviewLayoutMargins = false
 			cell.contentView.layoutMargins.bottom = 0
