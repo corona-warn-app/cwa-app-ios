@@ -20,7 +20,7 @@ import Foundation
 import UIKit
 
 extension DynamicCell {
-	static func phone(text: String, number: String, accessibilityIdentifier: String?) -> Self {
+	static func phone(text: String, number: String, accessibilityIdentifier: String? = nil) -> Self {
 		var cell: DynamicCell = .icon(UIImage(systemName: "phone"), text: text, tintColor: .enaColor(for: .textPrimary1), action: .call(number: number)) { _, cell, _ in
 			cell.textLabel?.textColor = .enaColor(for: .textTint)
 			(cell.textLabel as? ENALabel)?.style = .title2
@@ -48,7 +48,7 @@ extension DynamicCell {
 		return cell
 	}
 	
-	static func imprintHeadlineWithoutBottomInset(text: String, accessibilityIdentifier: String?) -> Self {
+	static func imprintHeadlineWithoutBottomInset(text: String, accessibilityIdentifier: String? = nil) -> Self {
 		.headline(text: text, accessibilityIdentifier: accessibilityIdentifier) { _, cell, _ in
 			cell.contentView.preservesSuperviewLayoutMargins = false
 			cell.contentView.layoutMargins.bottom = 0
@@ -57,7 +57,7 @@ extension DynamicCell {
 		}
 	}
 	
-	static func bodyWithoutTopInset(text: String, style: TextCellStyle = .label, accessibilityIdentifier: String?) -> Self {
+	static func bodyWithoutTopInset(text: String, style: TextCellStyle = .label, accessibilityIdentifier: String? = nil) -> Self {
 		.body(text: text, style: style, accessibilityIdentifier: accessibilityIdentifier) { _, cell, _ in
 			cell.contentView.preservesSuperviewLayoutMargins = false
 			cell.contentView.layoutMargins.top = 0
