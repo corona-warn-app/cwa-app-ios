@@ -112,9 +112,26 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		let rootDir = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		do {
 			try fileManager.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
-			let packages = downloadedPackagesStore.allPackages(for: .formattedToday(), onlyHours: store.hourlyFetchingEnabled)
-			let writer = AppleFilesWriter(rootDir: rootDir, keyPackages: packages)
-			return writer.writeAllPackages()
+			let writer = AppleFilesWriter(rootDir: rootDir)
+
+			if store.hourlyFetchingEnabled {
+				for keyPackage in downloadedPackagesStore.hourlyPackages(for: .formattedToday()) {
+					let success = writer.writePackage(keyPackage)
+					if !success {
+						return nil
+					}
+				}
+			} else {
+				for day in downloadedPackagesStore.allDays() {
+					if let keyPackage = autoreleasepool(invoking: { downloadedPackagesStore.package(for: day) }) {
+						let success = writer.writePackage(keyPackage)
+						if !success {
+							return nil
+						}
+					}
+				}
+			}
+			return writer.writtenPackages
 		} catch {
 			return nil
 		}
