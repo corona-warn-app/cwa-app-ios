@@ -176,8 +176,21 @@ extension ExposureSubmissionCoordinator {
 
 	func showWarnOthersScreen() {
 		let vc = createWarnOthersViewController(
-			onPrimaryButtonTap: { [weak self] in
-				self?.showWarnEuropeScreen()
+			onPrimaryButtonTap: { [weak self] isLoading in
+				#if INTEROP
+					self?.showWarnEuropeScreen()
+				#else
+					isLoading(true)
+					self?.startSubmitProcess(
+						onSuccess: {
+							isLoading(false)
+							self?.showThankYouScreen()
+						},
+						onError: {
+							isLoading(false)
+						}
+					)
+				#endif
 			}
 		)
 
@@ -407,7 +420,7 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	private func createWarnOthersViewController(
-		onPrimaryButtonTap: @escaping () -> Void
+		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
 	) -> ExposureSubmissionWarnOthersViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnOthersViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionWarnOthersViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap)
