@@ -22,12 +22,14 @@ import XCTest
 
 class AppInformationImprintTest: XCTestCase {
 
-	func testImprintViewModel() {
+	func testImprintViewModelDE() {
+		AppInformationImprintViewModel.preferredLocalization = "de"
+		let imprintViewModel = AppInformationImprintViewModel()
 		let model: [AppInformationViewController.Category: (text: String, accessibilityIdentifier: String?, action: DynamicAction)] = [
 			.imprint: (
 				text: AppStrings.AppInformation.imprintNavigation,
 				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintNavigation,
-				action: .push(model: AppInformationImprintViewModel.dynamicTable, withTitle:  AppStrings.AppInformation.imprintNavigation)
+				action: .push(model: imprintViewModel.dynamicTable, withTitle:  AppStrings.AppInformation.imprintNavigation)
 			)
 		]
 		
@@ -36,32 +38,82 @@ class AppInformationImprintTest: XCTestCase {
 		let key = model.first?.key
 		XCTAssertEqual(key, .imprint)
 		
-		let dynamicTable = AppInformationImprintViewModel.dynamicTable
+		let dynamicTable = imprintViewModel.dynamicTable
 		XCTAssertEqual(dynamicTable.numberOfSection, 1)
 		
-		let section = AppInformationImprintViewModel.dynamicTable.section(0)
+		let section = imprintViewModel.dynamicTable.section(0)
 		XCTAssertNotNil(section)
 		let numberOfCells = section.cells.count
 		
-		let localization = Bundle.main.preferredLocalizations.first
-		if localization == "en" || localization == "de" {
-			XCTAssertEqual(numberOfCells, 9) //DE EN
-		} else {
-			XCTAssertEqual(numberOfCells, 10)//else
-		}
+		XCTAssertEqual(numberOfCells, 9) //DE EN
+	}
 
+	func testImprintViewModelEN() {
+		AppInformationImprintViewModel.preferredLocalization = "en"
+		let imprintViewModel = AppInformationImprintViewModel()
+		let model: [AppInformationViewController.Category: (text: String, accessibilityIdentifier: String?, action: DynamicAction)] = [
+			.imprint: (
+				text: AppStrings.AppInformation.imprintNavigation,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintNavigation,
+				action: .push(model: imprintViewModel.dynamicTable, withTitle:  AppStrings.AppInformation.imprintNavigation)
+			)
+		]
+		
+		XCTAssertNotNil(model)
+		XCTAssertEqual(model.count, 1)
+		let key = model.first?.key
+		XCTAssertEqual(key, .imprint)
+		
+		let dynamicTable = imprintViewModel.dynamicTable
+		XCTAssertEqual(dynamicTable.numberOfSection, 1)
+		
+		let section = imprintViewModel.dynamicTable.section(0)
+		XCTAssertNotNil(section)
+		let numberOfCells = section.cells.count
+		
+		XCTAssertEqual(numberOfCells, 9) //DE EN
+	}
+
+	func testImprintViewModelTR() {
+		AppInformationImprintViewModel.preferredLocalization = "tr"
+		let imprintViewModel = AppInformationImprintViewModel()
+		
+		let model: [AppInformationViewController.Category: (text: String, accessibilityIdentifier: String?, action: DynamicAction)] = [
+			.imprint: (
+				text: AppStrings.AppInformation.imprintNavigation,
+				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintNavigation,
+				action: .push(model: imprintViewModel.dynamicTable, withTitle:  AppStrings.AppInformation.imprintNavigation)
+			)
+		]
+		
+		XCTAssertNotNil(model)
+		XCTAssertEqual(model.count, 1)
+		let key = model.first?.key
+		XCTAssertEqual(key, .imprint)
+		
+		let dynamicTable = imprintViewModel.dynamicTable
+		XCTAssertEqual(dynamicTable.numberOfSection, 1)
+		
+		let section = imprintViewModel.dynamicTable.section(0)
+		XCTAssertNotNil(section)
+		let numberOfCells = section.cells.count
+		
+		XCTAssertEqual(numberOfCells, 10)// not DE EN
 	}
 	
-	func testContactForm() {
-		let cellCollection = AppInformationImprintViewModel.contactForms()
-		let numberOfCells = cellCollection.count
-		
-		let localization = Bundle.main.preferredLocalizations.first
-		if localization == "en" || localization == "de" {
-			XCTAssertEqual(numberOfCells, 1) //DE EN
-		} else {
-			XCTAssertEqual(numberOfCells, 2) //else
-		}
+	func testContactFormDE() {
+		let cellCollection = AppInformationImprintViewModel.contactForms(localization: "de")
+		XCTAssertEqual(cellCollection.count, 1) //DE EN
+	}
+
+	func testContactFormEN() {
+		let cellCollection = AppInformationImprintViewModel.contactForms(localization: "en")
+		XCTAssertEqual(cellCollection.count, 1) //DE EN
+	}
+
+	func testContactFormTR() {
+		let cellCollection = AppInformationImprintViewModel.contactForms(localization: "tr")
+		XCTAssertEqual(cellCollection.count, 2) //not DE EN
 	}
 	
 }

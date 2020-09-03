@@ -20,6 +20,7 @@ import Foundation
 import UIKit
 
 extension AppInformationViewController {
+	static let imprintViewModel = AppInformationImprintViewModel()
 	static let model: [Category: (text: String, accessibilityIdentifier: String?, action: DynamicAction)] = [
 		.about: (
 			text: AppStrings.AppInformation.aboutNavigation,
@@ -54,7 +55,7 @@ extension AppInformationViewController {
 		.imprint: (
 			text: AppStrings.AppInformation.imprintNavigation,
 			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintNavigation,
-			action: .push(model: AppInformationImprintViewModel.dynamicTable, withTitle:  AppStrings.AppInformation.imprintNavigation)
+			action: .push(model: imprintViewModel.dynamicTable, withTitle:  AppStrings.AppInformation.imprintNavigation)
 		)
 	]
 }
