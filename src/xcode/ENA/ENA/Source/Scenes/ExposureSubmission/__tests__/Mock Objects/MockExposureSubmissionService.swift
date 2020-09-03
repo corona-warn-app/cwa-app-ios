@@ -18,7 +18,8 @@
 //
 
 import Foundation
-@testable import ENA
+
+#if UITESTING
 
 class MockExposureSubmissionService: ExposureSubmissionService {
 
@@ -73,3 +74,5 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 		acceptPairingCallback?()
 	}
 }
+
+#endif
