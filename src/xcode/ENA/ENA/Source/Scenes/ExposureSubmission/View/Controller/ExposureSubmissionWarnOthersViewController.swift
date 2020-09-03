@@ -53,10 +53,6 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 		}
 	}
 
-	// MARK: - Internal
-
-	private(set) weak var coordinator: ExposureSubmissionCoordinating?
-
 	// MARK: - Private
 
 	private let onPrimaryButtonTap: (@escaping (Bool) -> Void) -> Void
