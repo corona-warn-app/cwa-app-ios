@@ -23,7 +23,7 @@ import Combine
 class OptionGroupViewModel {
 
 	enum Option {
-		case option(title: String)
+		case option(title: String, accessibilityIdentifier: String? = nil)
 		case multipleChoiceOption(title: String, choices: [(iconImage: UIImage?, title: String)])
 //		case datePickerOption(title: String, initiallySelectedDaysFromToday: Int)
 	}

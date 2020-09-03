@@ -133,9 +133,12 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 
 								cell.configure(
 									options: [
-										.option(title: AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionYes),
-										.option(title: AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionNo),
-										.option(title: AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionNone)
+										.option(title: AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionYes,
+												accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnEuropeTravelConfirmation.optionYes),
+										.option(title: AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionNo,
+												accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnEuropeTravelConfirmation.optionNo),
+										.option(title: AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionNone,
+												accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnEuropeTravelConfirmation.optionNone)
 									],
 									// The current selection needs to be provided in case the cell is recreated after leaving and reentering the screen
 									initialSelection: self?.optionGroupSelection

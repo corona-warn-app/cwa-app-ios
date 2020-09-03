@@ -121,6 +121,7 @@ class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewControl
 
 								let consentSwitch = UISwitch()
 								consentSwitch.isOn = self.consentGiven
+								consentSwitch.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionWarnEuropeConsent.consentSwitch
 								cell.accessoryView = consentSwitch
 
 								consentSwitch.addTarget(self, action: #selector(self.switchToggled(_:)), for: .valueChanged)

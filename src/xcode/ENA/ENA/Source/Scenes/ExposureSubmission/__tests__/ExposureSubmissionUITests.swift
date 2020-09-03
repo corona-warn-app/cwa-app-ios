@@ -161,6 +161,69 @@ class ExposureSubmissionUITests: XCTestCase {
 
 		XCTAssert(app.navigationBars["ENA.ExposureSubmissionSuccessView"].waitForExistence(timeout: .medium))
 	}
+
+	func testEUSubmission_Consent() throws {
+		// Setup service mocks.
+		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
+		launch()
+
+		fastForwardToKeySubmission()
+
+		// Testing EU submission
+
+		// ExposureSubmissionWarnEuropeConsentViewController
+		let consentSwitch = app.switches["AppStrings.ExposureSubmissionWarnEuropeConsent.consentSwitch"]
+		XCTAssertTrue(consentSwitch.waitForExistence(timeout: .medium))
+		XCTAssertTrue(consentSwitch.isHittable)
+		XCTAssertTrue(consentSwitch.isEnabled)
+		XCTAssertFalse(consentSwitch.isSelected) //disabled by default
+		consentSwitch.tap()
+
+		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].exists)
+		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
+	}
+
+	func testEUSubmission_TravelConfirmation() throws {
+		// Setup service mocks.
+		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
+		launch()
+
+		// navigate to screen
+		fastForwardToKeySubmission()
+		let consentSwitch = app.switches["AppStrings.ExposureSubmissionWarnEuropeConsent.consentSwitch"]
+		XCTAssertTrue(consentSwitch.waitForExistence(timeout: .medium))
+		consentSwitch.tap()
+		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].exists)
+		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
+
+		// ExposureSubmissionWarnEuropeTravelConfirmationViewController
+
+		let optionYes = app.buttons["AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionYes"]
+		let optionNo = app.buttons["AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionNo"]
+		let optionNone = app.buttons["AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionNone"]
+		XCTAssertTrue(optionYes.waitForExistence(timeout: .medium))
+		XCTAssertTrue(optionNo.exists)
+		XCTAssertTrue(optionNone.exists)
+
+		XCTAssertTrue(optionYes.isHittable)
+		XCTAssertTrue(optionNo.isHittable)
+		XCTAssertTrue(optionNone.isHittable)
+
+		XCTAssertFalse(optionYes.isSelected)
+		XCTAssertFalse(optionNo.isSelected)
+		XCTAssertFalse(optionNone.isSelected)
+
+		// test radio buttons
+		optionNo.tap()
+		optionYes.tap()
+		XCTAssertTrue(optionYes.isSelected)
+		XCTAssertFalse(optionNo.isSelected)
+		XCTAssertFalse(optionNone.isSelected)
+	}
 }
 
 // MARK: - Helpers.
@@ -195,6 +258,30 @@ extension ExposureSubmissionUITests {
 			)
 		}
 		fatalError("Localization could not be loaded.")
+	}
+
+
+	/// A simplified version of the `test_SubmitTAN` test to navigate to the following key submission screens
+	private func fastForwardToKeySubmission() {
+		// fast forward to EU submission screens
+		XCTAssert(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
+		//TAN button.
+		XCTAssert(app
+			.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"]
+			.waitForExistence(timeout: .medium)
+		)
+		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].tap()
+		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		type(app, text: "qwdzxcsrhe")
+		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].isEnabled)
+		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
+		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
+		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 	}
 }
 

@@ -69,8 +69,8 @@ class OptionGroupView: UIView {
 			let option = viewModel.options[optionIndex]
 
 			switch option {
-			case .option(title: let title):
-				let view = optionView(title: title, index: optionIndex)
+			case .option(title: let title, accessibilityIdentifier: let id):
+				let view = optionView(title: title, accessibilityIdentifier: id, index: optionIndex)
 				optionViews.append(.option(view))
 				contentStackView.addArrangedSubview(view)
 			case let .multipleChoiceOption(title: title, choices: choices):
@@ -89,13 +89,15 @@ class OptionGroupView: UIView {
 		isAccessibilityElement = false
 	}
 
-	private func optionView(title: String, index: Int) -> OptionView {
-		return OptionView(
+	private func optionView(title: String, accessibilityIdentifier: String?, index: Int) -> OptionView {
+		let view = OptionView(
 			title: title,
 			onTap: { [weak self] in
 				self?.viewModel.optionTapped(index: index)
 			}
 		)
+		view.accessibilityIdentifier = accessibilityIdentifier
+		return view
 	}
 
 	private func multipleChoiceOptionView(title: String, choices: [(iconImage: UIImage?, title: String)], index: Int) -> MultipleChoiceOptionView {
