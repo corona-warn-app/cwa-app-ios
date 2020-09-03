@@ -25,11 +25,18 @@ class OptionGroupViewModel {
 	struct Choice {
 		let iconImage: UIImage?
 		let title: String
+		let accessibilityIdentifier: String?
+
+		init(iconImage: UIImage?, title: String, accessibilityIdentifier: String? = nil) {
+			self.iconImage = iconImage
+			self.title = title
+			self.accessibilityIdentifier = accessibilityIdentifier
+		}
 	}
 
 	enum Option {
 		case option(title: String, accessibilityIdentifier: String? = nil)
-		case multipleChoiceOption(title: String, choices: [Choice])
+		case multipleChoiceOption(title: String, choices: [Choice], accessibilityIdentifier: String? = nil)
 	}
 
 	enum Selection: Equatable {

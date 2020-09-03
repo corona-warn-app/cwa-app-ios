@@ -131,15 +131,23 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 							configure: { [weak self] _, cell, _ in
 								guard let self = self, let cell = cell as? DynamicTableViewOptionGroupCell else { return }
 
+								// Selectable countries plus the 'other country' option
+								var choices = self.supportedCountries.map { country -> OptionGroupViewModel.Choice in
+									.init(iconImage: country.flag, title: country.localizedName, accessibilityIdentifier: "\(AccessibilityIdentifiers.ExposureSubmissionWarnEuropeCountrySelection.answerOptionCountry).\(country.id)")
+								}
+								choices.append(
+									.init(iconImage: nil, title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionOtherCountries, accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnEuropeCountrySelection.answerOptionOtherCountries)
+								)
+
 								cell.configure(
 									options: [
 										.multipleChoiceOption(
 											title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionCountrySelection,
-											choices: self.supportedCountries.map { .init(iconImage: $0.flag, title: $0.localizedName) }
-												+ [.init(iconImage: nil, title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionOtherCountries)]
+											choices: choices
 										),
 										.option(
-											title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionNone
+											title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionNone,
+											accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnEuropeCountrySelection.answerOptionNone
 										)
 									],
 									// The current selection needs to be provided in case the cell is recreated after leaving and reentering the screen

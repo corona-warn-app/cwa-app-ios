@@ -74,12 +74,12 @@ class OptionGroupView: UIView {
 			let option = viewModel.options[optionIndex]
 
 			switch option {
-			case .option(title: let title, accessibilityIdentifier: let id):
+			case let .option(title, id):
 				let view = optionView(title: title, accessibilityIdentifier: id, index: optionIndex)
 				optionViews.append(.option(view))
 				contentStackView.addArrangedSubview(view)
-			case let .multipleChoiceOption(title: title, choices: choices):
-				let view = multipleChoiceOptionView(title: title, choices: choices, index: optionIndex)
+			case let .multipleChoiceOption(title, choices, id):
+				let view = multipleChoiceOptionView(title: title, choices: choices, accessibilityIdentifier: id, index: optionIndex)
 				optionViews.append(.multipleChoiceOption(view))
 				contentStackView.addArrangedSubview(view)
 			}
@@ -105,14 +105,16 @@ class OptionGroupView: UIView {
 		return view
 	}
 
-	private func multipleChoiceOptionView(title: String, choices: [OptionGroupViewModel.Choice], index: Int) -> MultipleChoiceOptionView {
-		return MultipleChoiceOptionView(
+	private func multipleChoiceOptionView(title: String, choices: [OptionGroupViewModel.Choice], accessibilityIdentifier: String?, index: Int) -> MultipleChoiceOptionView {
+		let view = MultipleChoiceOptionView(
 			title: title,
 			choices: choices,
 			onTapOnChoice: { [weak self] choiceIndex in
 				self?.viewModel.multipleChoiceOptionTapped(index: index, choiceIndex: choiceIndex)
 			}
 		)
+		view.accessibilityIdentifier = accessibilityIdentifier
+		return view
 	}
 
 	private func deselectAllViews() {

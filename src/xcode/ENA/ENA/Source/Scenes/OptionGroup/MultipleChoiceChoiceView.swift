@@ -34,12 +34,13 @@ class MultipleChoiceChoiceView: UIControl {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	init(iconImage: UIImage?, title: String, onTap: @escaping () -> Void) {
+	init(iconImage: UIImage?, title: String, accessibilityIdentifier: String? = nil, onTap: @escaping () -> Void) {
 		self.onTap = onTap
 
 		super.init(frame: .zero)
 
 		setUp(iconImage: iconImage, title: title)
+		self.accessibilityIdentifier = accessibilityIdentifier
 	}
 
 	// MARK: - Overrides

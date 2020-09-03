@@ -104,6 +104,7 @@ class MultipleChoiceOptionView: UIView {
 			let choiceView = MultipleChoiceChoiceView(
 				iconImage: choice.iconImage,
 				title: choice.title,
+				accessibilityIdentifier: choice.accessibilityIdentifier,
 				onTap: { [weak self] in
 					self?.onTapOnChoice(choiceIndex)
 				}

@@ -208,6 +208,9 @@ enum AccessibilityIdentifiers {
 	enum ExposureSubmissionWarnEuropeCountrySelection {
 		static let description1 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description1"
 		static let description2 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description2"
+		static let answerOptionCountry = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionCountry"
+		static let answerOptionOtherCountries = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionOtherCountries"
+		static let answerOptionNone = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionNone"
 	}
 
 	enum ExposureSubmission {
