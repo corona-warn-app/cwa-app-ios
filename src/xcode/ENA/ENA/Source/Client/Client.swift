@@ -23,7 +23,7 @@ protocol Client {
 	// MARK: Types
 
 	typealias Failure = URLSession.Response.Failure
-	typealias KeySubmissionResponse = (Result<Void, Failure>) -> Void
+	typealias KeySubmissionResponse = (Result<Void, Error>) -> Void
 	typealias AvailableDaysCompletionHandler = (Result<[String], Failure>) -> Void
 	typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
 	typealias RegistrationHandler = (Result<String, Failure>) -> Void
@@ -110,8 +110,6 @@ protocol Client {
 	func submit(
 		keys: [ENTemporaryExposureKey],
 		tan: String,
-		consentToFederation: Bool,
-		visitedCountries: [Country],
 		isFake: Bool,
 		completion: @escaping SubmitKeysCompletionHandler
 	)

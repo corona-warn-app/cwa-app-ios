@@ -149,15 +149,22 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		visitedCountries: [Country],
 		completion: @escaping ExposureSubmissionHandler
 	) {
-		self.client.submit(keys: keys, tan: tan, consentToFederation: consentToFederation, visitedCountries: visitedCountries, isFake: false) { error in
-			if let error = error {
+		// swiftlint:disable vertical_parameter_alignment_on_call
+		let payload = CountrySubmissionPayload(exposureKeys: keys,
+											   consentToFederation: consentToFederation,
+											   visitedCountries: visitedCountries,
+											   tan: tan)
+		// swiftlint:enable vertical_parameter_alignment_on_call
+		client.submit(payload: payload, isFake: false) { result in
+			switch result {
+			case .success:
+				self.submitExposureCleanup()
+				log(message: "Successfully completed exposure sumbission.")
+				completion(nil)
+			case .failure(let error):
 				logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
 				completion(self.parseError(error))
-				return
 			}
-			self.submitExposureCleanup()
-			log(message: "Successfully completed exposure sumbission.")
-			completion(nil)
 		}
 	}
 
@@ -225,7 +232,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// __Extension for plausible deniability__:
 	/// We prepend a fake request in order to guarantee the V+V+S sequence. Please kindly check `getTestResult` for more information.
 	func submitExposure(
-		consentToFederation: Bool,
+		consentToFederation: Bool = false,
 		visitedCountries: [Country],
 		completionHandler: @escaping ExposureSubmissionHandler
 	) {
@@ -324,7 +331,13 @@ extension ENAExposureSubmissionService {
 
 	/// This method represents a dummy method that is sent to the submission server.
 	private func _fakeSubmissionServerRequest(completion: @escaping ExposureSubmissionHandler) {
-		self.client.submit(keys: [], tan: ENAExposureSubmissionService.fakeSubmissionTan, consentToFederation: false, visitedCountries: [], isFake: true) { _ in
+		// swiftlint:disable vertical_parameter_alignment_on_call
+		let payload = CountrySubmissionPayload(exposureKeys: [],
+											   consentToFederation: false,
+											   visitedCountries: [],
+											   tan: ENAExposureSubmissionService.fakeSubmissionTan)
+		// swiftlint:enable vertical_parameter_alignment_on_call
+		client.submit(payload: payload, isFake: true) { _ in
 			completion(.fakeResponse)
 		}
 	}
