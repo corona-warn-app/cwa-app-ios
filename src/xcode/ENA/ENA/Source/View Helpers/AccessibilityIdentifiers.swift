@@ -148,7 +148,10 @@ enum AccessibilityIdentifiers {
 		static let explanationTextLow = "AppStrings.ExposureDetection.explanationTextLow"
 		static let explanationTextHigh = "AppStrings.ExposureDetection.explanationTextHigh"
 
-		static let activeTracingSectionText = "AppStrings.ExposureDetection.activeTracingSection"
+		static let activeTracingSectionText = "AppStrings.ExposureDetection.activeTracingSectionText"
+		static let activeTracingSection = "AppStrings.ExposureDetection.activeTracingSection"
+		static let lowRiskExposureSection = "AppStrings.ExposureDetection.lowRiskExposureSection"
+		static let infectionRiskExplanationSection = "AppStrings.ExposureDetection.infectionRiskExplanationSection"
 	}
 
 	enum ExposureSubmissionDispatch {
