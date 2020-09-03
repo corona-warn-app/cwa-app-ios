@@ -102,14 +102,29 @@ final class HTTPClient: Client {
 	func submit(
 		keys: [ENTemporaryExposureKey],
 		tan: String,
-		consentToFederation: Bool,
-		visitedCountries: [Country],
 		isFake: Bool = false,
 		completion: @escaping SubmitKeysCompletionHandler
 	) {
-		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: consentToFederation, visitedCountries: visitedCountries, tan: tan)
+		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: false, visitedCountries: [Country.defaultCountry()], tan: tan)
+
+		submit(payload: payload, isFake: isFake) { result in
+			switch result {
+			case.failure(let error):
+				completion(SubmissionError.other(error))
+			case .success:
+				completion(nil)
+			}
+		}
+	}
+
+	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
+		let keys = payload.exposureKeys
+		let consent = payload.consentToFederation
+		let countries = payload.visitedCountries
+		let tan = payload.tan
+		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: consent, visitedCountries: countries, tan: tan)
 		guard let request = try? URLRequest.keySubmissionRequest(configuration: configuration, payload: payload, isFake: isFake) else {
-			completion(.requestCouldNotBeBuilt)
+			completion(.failure(SubmissionError.requestCouldNotBeBuilt))
 			return
 		}
 
@@ -121,21 +136,15 @@ final class HTTPClient: Client {
 			switch result {
 			case let .success(response):
 				switch response.statusCode {
-				case 200: completion(nil)
-				case 201: completion(nil)
-				case 400: completion(.invalidPayloadOrHeaders)
-				case 403: completion(.invalidTan)
-				default: completion(.serverError(response.statusCode))
+				case 200..<300: completion(.success(()))
+				case 400: completion(.failure(SubmissionError.invalidPayloadOrHeaders))
+				case 403: completion(.failure(SubmissionError.invalidTan))
+				default: completion(.failure(SubmissionError.serverError(response.statusCode)))
 				}
 			case let .failure(error):
-				completion(.other(error))
+				completion(.failure(SubmissionError.other(error)))
 			}
 		}
-	}
-
-	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
-		#warning("TODO")
-		preconditionFailure("not implemented")
 	}
 
 	func availableDays(
