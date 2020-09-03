@@ -24,6 +24,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var client: HTTPClient { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
+	var appConfigurationProvider: AppConfigurationProviding { get }
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
@@ -91,6 +92,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	private let consumer = RiskConsumer()
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 
+	lazy var appConfigurationProvider: AppConfigurationProviding = {
+		CachedAppConfiguration(client: self.client)
+	}()
+
 	lazy var riskProvider: RiskProvider = {
 		let exposureDetectionInterval = self.store.hourlyFetchingEnabled ? DateComponents(minute: 45) : DateComponents(hour: 24)
 
@@ -100,12 +105,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			detectionMode: .default
 		)
 
-
 		return RiskProvider(
 			configuration: config,
 			store: self.store,
 			exposureSummaryProvider: self,
-			appConfigurationProvider: CachedAppConfiguration(client: self.client),
+			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: self.exposureManager.preconditions()
 		)
 	}()

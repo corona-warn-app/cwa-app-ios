@@ -26,7 +26,7 @@ class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewControl
 
 	init?(
 		coder: NSCoder,
-		onPrimaryButtonTap: @escaping (Bool, @escaping () -> Void) -> Void
+		onPrimaryButtonTap: @escaping (Bool, @escaping (Bool) -> Void) -> Void
 	) {
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 
@@ -49,12 +49,9 @@ class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewControl
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		navigationFooterItem?.isPrimaryButtonLoading = true
-		navigationFooterItem?.isPrimaryButtonEnabled = false
-
-		onPrimaryButtonTap(consentGiven) { [weak self] in
-		   self?.navigationFooterItem?.isPrimaryButtonLoading = false
-		   self?.navigationFooterItem?.isPrimaryButtonEnabled = true
+		onPrimaryButtonTap(consentGiven) { [weak self] isLoading in
+		   self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
+		   self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
 		}
 	}
 
@@ -64,7 +61,7 @@ class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewControl
 
 	// MARK: - Private
 
-	private let onPrimaryButtonTap: (Bool, @escaping () -> Void) -> Void
+	private let onPrimaryButtonTap: (Bool, @escaping (Bool) -> Void) -> Void
 
 	@Published var consentGiven: Bool = false
 	private var consentSubscription: AnyCancellable?

@@ -30,7 +30,7 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 
 	init?(
 		coder: NSCoder,
-		onPrimaryButtonTap: @escaping (TravelConfirmationOption, @escaping () -> Void) -> Void
+		onPrimaryButtonTap: @escaping (TravelConfirmationOption, @escaping (Bool) -> Void) -> Void
 	) {
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 
@@ -57,12 +57,9 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 			fatalError("Primary button must not be enabled before the user has selected an option")
 		}
 
-		navigationFooterItem?.isPrimaryButtonLoading = true
-		navigationFooterItem?.isPrimaryButtonEnabled = false
-
-		onPrimaryButtonTap(selectedTravelConfirmationOption) { [weak self] in
-			self?.navigationFooterItem?.isPrimaryButtonLoading = false
-			self?.navigationFooterItem?.isPrimaryButtonEnabled = true
+		onPrimaryButtonTap(selectedTravelConfirmationOption) { [weak self] isLoading in
+		   self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
+		   self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
 		}
 	}
 
@@ -72,7 +69,7 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 
 	// MARK: - Private
 
-	private let onPrimaryButtonTap: (TravelConfirmationOption, @escaping () -> Void) -> Void
+	private let onPrimaryButtonTap: (TravelConfirmationOption, @escaping (Bool) -> Void) -> Void
 
 	@Published private var selectedTravelConfirmationOption: TravelConfirmationOption?
 

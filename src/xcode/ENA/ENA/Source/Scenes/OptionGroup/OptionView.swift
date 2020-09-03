@@ -82,6 +82,8 @@ class OptionView: UIControl {
 
 		checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
 		checkmarkImageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
+		checkmarkImageView.setContentHuggingPriority(.required, for: .horizontal)
+		checkmarkImageView.setContentCompressionResistancePriority(.required, for: .horizontal)
 		addSubview(checkmarkImageView)
 
 		let label = ENALabel()

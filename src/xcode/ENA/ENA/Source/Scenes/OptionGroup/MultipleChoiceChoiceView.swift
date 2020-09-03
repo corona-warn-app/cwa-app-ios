@@ -87,6 +87,7 @@ class MultipleChoiceChoiceView: UIControl {
 
 		checkmarkImageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
 		checkmarkImageView.setContentHuggingPriority(.required, for: .horizontal)
+		checkmarkImageView.setContentCompressionResistancePriority(.required, for: .horizontal)
 
 		contentStackView.addArrangedSubview(checkmarkImageView)
 		contentStackView.setCustomSpacing(21, after: checkmarkImageView)

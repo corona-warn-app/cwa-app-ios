@@ -660,6 +660,8 @@ Die Auflistung enthält alle aktuell teilnehmenden Länder und wird stetig erwei
 
 "ExposureSubmissionError_defaultError" = "Fehler bei der Schlüssel-Übermittlung";
 
+"ExposureSubmissionError_noAppConfiguration" = "!!! Fehler beim Laden der App-Konfiguration";
+
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
 

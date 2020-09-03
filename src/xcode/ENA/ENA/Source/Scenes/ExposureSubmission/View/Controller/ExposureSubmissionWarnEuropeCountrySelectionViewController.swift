@@ -31,11 +31,11 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 
 	init?(
 		coder: NSCoder,
-		onPrimaryButtonTap: @escaping (CountrySelectionOption, @escaping () -> Void) -> Void,
-		availableCountries: [Country] = ["IT", "ES", "NL", "CZ", "AT", "DK", "IE", "LV", "EE"].compactMap { Country(countryCode: $0) }
+		onPrimaryButtonTap: @escaping (CountrySelectionOption, @escaping (Bool) -> Void) -> Void,
+		supportedCountries: [Country]
 	) {
 		self.onPrimaryButtonTap = onPrimaryButtonTap
-		self.availableCountries = availableCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
+		self.supportedCountries = supportedCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
 
 		super.init(coder: coder)
 	}
@@ -60,22 +60,19 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 			fatalError("Primary button must not be enabled before the user has selected an option")
 		}
 
-		navigationFooterItem?.isPrimaryButtonLoading = true
-		navigationFooterItem?.isPrimaryButtonEnabled = false
-
-		onPrimaryButtonTap(selectedCountrySelectionOption) { [weak self] in
-		   self?.navigationFooterItem?.isPrimaryButtonLoading = false
-		   self?.navigationFooterItem?.isPrimaryButtonEnabled = true
+		onPrimaryButtonTap(selectedCountrySelectionOption) { [weak self] isLoading in
+		   self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
+		   self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
 		}
 	}
 
 	// MARK: - Internal
 
-	private let onPrimaryButtonTap: (CountrySelectionOption, @escaping () -> Void) -> Void
+	private let onPrimaryButtonTap: (CountrySelectionOption, @escaping (Bool) -> Void) -> Void
 
 	// MARK: - Private
 
-	private let availableCountries: [Country]
+	private let supportedCountries: [Country]
 
 	@Published private var selectedCountrySelectionOption: CountrySelectionOption?
 
@@ -84,8 +81,8 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 			switch optionGroupSelection {
 			case .multipleChoiceOption(index: 0, selectedChoices: let selectedCountryIndices):
 				// Filtering out "Other countries" option
-				let filteredCountryIndices = selectedCountryIndices.filter { $0 != availableCountries.count }
-				selectedCountrySelectionOption = .visitedCountries(filteredCountryIndices.map { availableCountries[$0] })
+				let filteredCountryIndices = selectedCountryIndices.filter { $0 != supportedCountries.count }
+				selectedCountrySelectionOption = .visitedCountries(filteredCountryIndices.map { supportedCountries[$0] })
 			case .option(index: 1):
 				selectedCountrySelectionOption = .preferNotToSay
 			case .none:
@@ -141,7 +138,7 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 									options: [
 										.multipleChoiceOption(
 											title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionCountrySelection,
-											choices: self.availableCountries.map { (iconImage: $0.flag, title: $0.localizedName) }
+											choices: self.supportedCountries.map { (iconImage: $0.flag, title: $0.localizedName) }
 												+ [(iconImage: nil, title: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.answerOptionOtherCountries)]
 										),
 										.option(
