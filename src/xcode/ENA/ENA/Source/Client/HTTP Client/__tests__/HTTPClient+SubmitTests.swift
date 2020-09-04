@@ -49,17 +49,22 @@ final class HTTPClientSubmitTests: XCTestCase {
 		let expectation = self.expectation(description: "completion handler is called without an error")
 
 		// Act
-		HTTPClient.makeWith(mock: stack).submit(keys: keys, tan: tan) { error in
-			defer { expectation.fulfill() }
-			XCTAssertTrue(error == nil)
-		}
+		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: false, visitedCountries: [], tan: tan)
+		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: true, completion: { response in
+			switch response {
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			case .success:
+				break
+			}
+			expectation.fulfill()
+		})
 
 		waitForExpectations(timeout: expectationsTimeout)
 	}
 
 	func testSubmit_Error() {
 		// Arrange
-		var error: SubmissionError?
 		let stack = MockNetworkStack(
 			mockSession: MockUrlSession(
 				data: nil,
@@ -71,15 +76,18 @@ final class HTTPClientSubmitTests: XCTestCase {
 		let expectation = self.expectation(description: AppStrings.ExposureSubmission.generalErrorTitle)
 
 		// Act
-		HTTPClient.makeWith(mock: stack).submit(keys: keys, tan: tan) {
-			error = $0
+		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: false, visitedCountries: [], tan: tan)
+		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: true) { response in
+			switch response {
+			case .failure(let error):
+				XCTAssertEqual(TestError.error, error as? TestError)
+			case .success:
+				XCTFail("expected an error")
+			}
 			expectation.fulfill()
 		}
 
 		waitForExpectations(timeout: expectationsTimeout)
-
-		// Assert
-		XCTAssertNotNil(error)
 	}
 
 	func testSubmit_SpecificError() {
@@ -94,20 +102,20 @@ final class HTTPClientSubmitTests: XCTestCase {
 		let expectation = self.expectation(description: "SpecificError")
 
 		// Act
-		HTTPClient.makeWith(mock: stack).submit(keys: keys, tan: tan) { error in
-			defer {
-				expectation.fulfill()
+		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: false, visitedCountries: [], tan: tan)
+		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false) { response in
+			switch response {
+			case .failure(let error):
+				switch error {
+				case SubmissionError.other(let underLyingError):
+					XCTAssertNotNil(underLyingError)
+				default:
+					XCTFail("We expect error to be of type other")
+				}
+			case .success:
+				XCTFail("expected an error")
 			}
-			guard let error = error else {
-				XCTFail("expected there to be an error")
-				return
-			}
-
-			if case let SubmissionError.other(otherError) = error {
-				XCTAssertNotNil(otherError)
-			} else {
-				XCTFail("error mismatch")
-			}
+			expectation.fulfill()
 		}
 
 		waitForExpectations(timeout: expectationsTimeout)
@@ -122,18 +130,20 @@ final class HTTPClientSubmitTests: XCTestCase {
 		let expectation = self.expectation(description: "ResponseNil")
 
 		// Act
-		HTTPClient.makeWith(mock: stack).submit(keys: keys, tan: tan) { error in
-			defer {
-				expectation.fulfill()
+		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: false, visitedCountries: [], tan: tan)
+		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false) { response in
+			switch response {
+			case .failure(let error):
+				switch error {
+				case SubmissionError.other(_):
+					break // this is what we want
+				default:
+					XCTFail("We expect error to be of type other")
+				}
+			case .success:
+				XCTFail("expected an error")
 			}
-			guard let error = error else {
-				XCTFail("We expect an error")
-				return
-			}
-			guard case SubmissionError.other = error else {
-				XCTFail("We expect error to be of type other")
-				return
-			}
+			expectation.fulfill()
 		}
 
 		waitForExpectations(timeout: expectationsTimeout)
@@ -150,10 +160,10 @@ final class HTTPClientSubmitTests: XCTestCase {
 
 		// Act
 		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: false, visitedCountries: [], tan: tan)
-		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false) { (result) in
+		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false) { response in
 			defer { expectation.fulfill() }
 
-			switch result {
+			switch response {
 			case .failure(let error):
 				guard case SubmissionError.invalidPayloadOrHeaders = error else {
 					XCTFail("We expect error to be of type invalidPayloadOrHeaders")
@@ -178,10 +188,10 @@ final class HTTPClientSubmitTests: XCTestCase {
 
 		// Act
 		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: false, visitedCountries: [], tan: tan)
-		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false) { result in
+		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false) { response in
 			defer { expectation.fulfill() }
 
-			switch result {
+			switch response {
 			case .failure(let error):
 				guard case SubmissionError.invalidTan = error else {
 					XCTFail("We expect error to be of type invalidPayloadOrHeaders")

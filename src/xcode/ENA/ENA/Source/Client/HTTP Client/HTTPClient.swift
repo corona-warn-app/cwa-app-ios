@@ -101,24 +101,6 @@ final class HTTPClient: Client {
 		}
 	}
 
-	func submit(
-		keys: [ENTemporaryExposureKey],
-		tan: String,
-		isFake: Bool = false,
-		completion: @escaping SubmitKeysCompletionHandler
-	) {
-		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: false, visitedCountries: [Country.defaultCountry()], tan: tan)
-
-		submit(payload: payload, isFake: isFake) { result in
-			switch result {
-			case.failure(let error):
-				completion(SubmissionError.other(error))
-			case .success:
-				completion(nil)
-			}
-		}
-	}
-
 	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
 		let keys = payload.exposureKeys
 		let consent = payload.consentToFederation
