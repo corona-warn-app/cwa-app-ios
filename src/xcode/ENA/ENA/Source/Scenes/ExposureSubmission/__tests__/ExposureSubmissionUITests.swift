@@ -155,11 +155,12 @@ class ExposureSubmissionUITests: XCTestCase {
 		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 
-		// Click next to warn europe.
-		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
-
+		#if INTEROP
+		XCTAssert(app.navigationBars["ENA.ExposureSubmissionWarnEuropeConsentView"].waitForExistence(timeout: .medium))
+		#else
 		XCTAssert(app.navigationBars["ENA.ExposureSubmissionSuccessView"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
+		#endif
 	}
 	
 	#if INTEROP
