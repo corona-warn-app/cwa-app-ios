@@ -36,6 +36,10 @@
 		01D16C6424EFA903007DB387 /* ExposureSubmissionWarnEuropeConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C6324EFA903007DB387 /* ExposureSubmissionWarnEuropeConsentViewController.swift */; };
 		01D16C6624EFA91F007DB387 /* ExposureSubmissionWarnEuropeTravelConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C6524EFA91F007DB387 /* ExposureSubmissionWarnEuropeTravelConfirmationViewController.swift */; };
 		01D16C6824EFA93D007DB387 /* ExposureSubmissionWarnEuropeCountrySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C6724EFA93D007DB387 /* ExposureSubmissionWarnEuropeCountrySelectionViewController.swift */; };
+		01D6948B25026EC000B45BEA /* DatePickerOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948A25026EC000B45BEA /* DatePickerOptionViewModel.swift */; };
+		01D6948D2502717F00B45BEA /* DatePickerDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948C2502717F00B45BEA /* DatePickerDayView.swift */; };
+		01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948E2502729000B45BEA /* DatePickerDay.swift */; };
+		01D69491250272CE00B45BEA /* DatePickerDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D69490250272CE00B45BEA /* DatePickerDayViewModel.swift */; };
 		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
 		01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5F7212487B9C000229720 /* AppInformationViewController.swift */; };
 		0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */; };
@@ -502,6 +506,10 @@
 		01D16C6524EFA91F007DB387 /* ExposureSubmissionWarnEuropeTravelConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnEuropeTravelConfirmationViewController.swift; sourceTree = "<group>"; };
 		01D16C6724EFA93D007DB387 /* ExposureSubmissionWarnEuropeCountrySelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnEuropeCountrySelectionViewController.swift; sourceTree = "<group>"; };
 		01D3ECFF2490230400551E65 /* StoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StoreTests.swift; sourceTree = "<group>"; };
+		01D6948A25026EC000B45BEA /* DatePickerOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerOptionViewModel.swift; sourceTree = "<group>"; };
+		01D6948C2502717F00B45BEA /* DatePickerDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDayView.swift; sourceTree = "<group>"; };
+		01D6948E2502729000B45BEA /* DatePickerDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDay.swift; sourceTree = "<group>"; };
+		01D69490250272CE00B45BEA /* DatePickerDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDayViewModel.swift; sourceTree = "<group>"; };
 		01E25C6F24A3B52F007E33F8 /* Info_Testflight.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_Testflight.plist; sourceTree = "<group>"; };
 		01F5F7212487B9C000229720 /* AppInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationViewController.swift; sourceTree = "<group>"; };
 		0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStore.swift; sourceTree = "<group>"; };
@@ -1003,7 +1011,7 @@
 				01B7232824F812DF0064C0EB /* OptionView.swift */,
 				01B7232A24F815B00064C0EB /* MultipleChoiceOptionView.swift */,
 				01B7232C24F8E0260064C0EB /* MultipleChoiceChoiceView.swift */,
-				01C7665D25024A09002C9A5C /* DatePickerOptionView.swift */,
+				01D69492250272E500B45BEA /* DatePickerOption */,
 			);
 			path = OptionGroup;
 			sourceTree = "<group>";
@@ -1022,6 +1030,26 @@
 				01D16C5D24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift */,
 				01D16C5F24ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift */,
 				01D16C6124ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		01D69492250272E500B45BEA /* DatePickerOption */ = {
+			isa = PBXGroup;
+			children = (
+				01D694932502730700B45BEA /* __tests__ */,
+				01C7665D25024A09002C9A5C /* DatePickerOptionView.swift */,
+				01D6948A25026EC000B45BEA /* DatePickerOptionViewModel.swift */,
+				01D6948C2502717F00B45BEA /* DatePickerDayView.swift */,
+				01D69490250272CE00B45BEA /* DatePickerDayViewModel.swift */,
+				01D6948E2502729000B45BEA /* DatePickerDay.swift */,
+			);
+			path = DatePickerOption;
+			sourceTree = "<group>";
+		};
+		01D694932502730700B45BEA /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -2706,6 +2734,7 @@
 				7187A5582481231C00FCC755 /* DynamicTableViewAction.swift in Sources */,
 				B16457B524DC11EF002879EB /* DMLastSubmissionRequetViewController.swift in Sources */,
 				A128F059248B459F00EC7F6C /* PublicKeyStore.swift in Sources */,
+				01D6948D2502717F00B45BEA /* DatePickerDayView.swift in Sources */,
 				71C0BEDD2498DD07009A17A0 /* ENANavigationFooterView.swift in Sources */,
 				2FA9E39524D2F2B00030561C /* ExposureSubmission+DeviceRegistrationKey.swift in Sources */,
 				A3FF84EC247BFAF00053E947 /* Hasher.swift in Sources */,
@@ -2767,6 +2796,7 @@
 				B1FE13FF2489708200D012E5 /* CachedAppConfiguration.swift in Sources */,
 				EE22DB8B247FB43A001B0A71 /* ActionDetailTableViewCell.swift in Sources */,
 				71FE1C71247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift in Sources */,
+				01D69491250272CE00B45BEA /* DatePickerDayViewModel.swift in Sources */,
 				0159E6C2247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift in Sources */,
 				B16457BB24DC3309002879EB /* DMErrorsViewController.swift in Sources */,
 				B1CD333C24865A7D00B06E9B /* TracingStatusHistory.swift in Sources */,
@@ -2801,6 +2831,7 @@
 				B16457B924DC19F9002879EB /* DMSettingsViewController.swift in Sources */,
 				2F80CFD9247ED988000F06AF /* ExposureSubmissionIntroViewController.swift in Sources */,
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
+				01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */,
 				B1741B582462EBDB006275D9 /* HomeViewController.swift in Sources */,
 				01D16C6824EFA93D007DB387 /* ExposureSubmissionWarnEuropeCountrySelectionViewController.swift in Sources */,
 				71EF33D92497F3E8007B7E1B /* ENANavigationControllerWithFooterChild.swift in Sources */,
@@ -2868,6 +2899,7 @@
 				0DD260FF248D549B007C3B2C /* KeychainHelper.swift in Sources */,
 				352F25A824EFCBDE00ACDFF3 /* LocalSettings.swift in Sources */,
 				2FA9E39724D2F3C70030561C /* ExposureSubmissionError.swift in Sources */,
+				01D6948B25026EC000B45BEA /* DatePickerOptionViewModel.swift in Sources */,
 				2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */,
 				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
 				CDD87C56247556DE007CE6CA /* MainSettingsTableViewCell.swift in Sources */,

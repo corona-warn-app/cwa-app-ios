@@ -36,7 +36,7 @@ class DatePickerOptionView: UIView {
 
 	init(title: String, today: Date, onTapOnDate: @escaping (Date) -> Void) {
 		self.onTapOnDate = onTapOnDate
-		self.today = today
+		self.viewModel = DatePickerOptionViewModel(today: today)
 
 		super.init(frame: .zero)
 
@@ -62,7 +62,7 @@ class DatePickerOptionView: UIView {
 	// MARK: - Private
 
 	private let onTapOnDate: (Date) -> Void
-	private let today: Date
+	private let viewModel: DatePickerOptionViewModel
 
 	private var dateViews: [UIView] = []
 	private let contentStackView = UIStackView()
@@ -98,11 +98,35 @@ class DatePickerOptionView: UIView {
 		contentStackView.addArrangedSubview(titleLabel)
 		contentStackView.setCustomSpacing(23, after: titleLabel)
 
-		// Add date views
+		let dayStackViews: [UIStackView] = [dayStackView(), dayStackView(), dayStackView(), dayStackView()]
+		dayStackViews.forEach { contentStackView.addArrangedSubview($0) }
+
+		for (index, datePickerDay) in viewModel.datePickerDays.enumerated() {
+			let datePickerDayView = DatePickerDayView(
+				viewModel: DatePickerDayViewModel(
+					datePickerDay: datePickerDay,
+					onTapOnDate: { date in
+						// Update selected state
+					}
+				)
+			)
+
+			dayStackViews[index / 7].addArrangedSubview(datePickerDayView)
+			print(index / 7)
+		}
 
 		accessibilityElements = [titleLabel]
 
 		updateForSelectionState()
+	}
+
+	private func dayStackView() -> UIStackView {
+		let stackView = UIStackView()
+		stackView.axis = .horizontal
+		stackView.alignment = .center
+		stackView.distribution = .fillEqually
+
+		return stackView
 	}
 
 	private func updateForSelectionState() {
