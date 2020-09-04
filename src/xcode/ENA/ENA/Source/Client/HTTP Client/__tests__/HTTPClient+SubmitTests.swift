@@ -149,15 +149,18 @@ final class HTTPClientSubmitTests: XCTestCase {
 		let expectation = self.expectation(description: "Response400")
 
 		// Act
-		HTTPClient.makeWith(mock: stack).submit(keys: keys, tan: tan) { error in
+		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: false, visitedCountries: [], tan: tan)
+		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false) { (result) in
 			defer { expectation.fulfill() }
-			guard let error = error else {
+
+			switch result {
+			case .failure(let error):
+				guard case SubmissionError.invalidPayloadOrHeaders = error else {
+					XCTFail("We expect error to be of type invalidPayloadOrHeaders")
+					return
+				}
+			default:
 				XCTFail("error expected")
-				return
-			}
-			guard case SubmissionError.invalidPayloadOrHeaders = error else {
-				XCTFail("We expect error to be of type invalidPayloadOrHeaders")
-				return
 			}
 		}
 
@@ -174,15 +177,18 @@ final class HTTPClientSubmitTests: XCTestCase {
 		let expectation = self.expectation(description: "Response403")
 
 		// Act
-		HTTPClient.makeWith(mock: stack).submit(keys: keys, tan: tan) { error in
+		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: false, visitedCountries: [], tan: tan)
+		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false) { result in
 			defer { expectation.fulfill() }
-			guard let error = error else {
+
+			switch result {
+			case .failure(let error):
+				guard case SubmissionError.invalidTan = error else {
+					XCTFail("We expect error to be of type invalidPayloadOrHeaders")
+					return
+				}
+			default:
 				XCTFail("error expected")
-				return
-			}
-			guard case SubmissionError.invalidTan = error else {
-				XCTFail("We expect error to be of type invalidTan")
-				return
 			}
 		}
 
