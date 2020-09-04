@@ -47,7 +47,8 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       language = "de"
       region = "DE"
-      codeCoverageEnabled = "YES">
+      codeCoverageEnabled = "YES"
+      onlyGenerateCoverageForSpecifiedTargets = "YES">
       <CodeCoverageTargets>
          <BuildableReference
             BuildableIdentifier = "primary"
