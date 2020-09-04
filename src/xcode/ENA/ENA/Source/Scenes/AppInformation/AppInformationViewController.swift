@@ -20,6 +20,7 @@ import Foundation
 import UIKit
 
 class AppInformationViewController: DynamicTableViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
