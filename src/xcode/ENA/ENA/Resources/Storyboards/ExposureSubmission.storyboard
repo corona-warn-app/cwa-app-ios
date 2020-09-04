@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="W8E-ea-7hM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="W8E-ea-7hM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -424,7 +424,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J4s-ra-DuU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4271" y="155"/>
+            <point key="canvasLocation" x="4248" y="155"/>
         </scene>
         <!--Exposure Submission Warn Europe Travel Confirmation View Controller-->
         <scene sceneID="ZUi-jr-d20">
@@ -465,6 +465,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6zU-QJ-wZh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5745" y="155"/>
+        </scene>
+        <!--Exposure Submission Symptoms Onset View Controller-->
+        <scene sceneID="BbT-09-4AN">
+            <objects>
+                <viewController storyboardIdentifier="ExposureSubmissionSymptomsOnsetViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5VG-sf-NqK" customClass="ExposureSubmissionSymptomsOnsetViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="Uvv-gc-uA5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" name="ENA Background Color"/>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="yLU-fU-PwT" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
+                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ezJ-Zk-a6n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3454" y="-275"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
