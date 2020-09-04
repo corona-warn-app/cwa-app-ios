@@ -349,7 +349,7 @@ extension ExposureSubmissionCoordinator {
 	func createENAlert(_ error: ExposureSubmissionError) -> UIAlertController? {
 		return UIViewController().setupErrorAlert(
 			message: error.localizedDescription,
-			secondaryActionTitle: AppStrings.Common.errorAlertActionMoreInfo,
+			secondaryActionTitle: error.faqURL != nil ? AppStrings.Common.errorAlertActionMoreInfo : nil,
 			secondaryActionCompletion: {
 				guard let url = error.faqURL else {
 					logError(message: "Unable to open FAQ page.", level: .error)
