@@ -227,10 +227,10 @@ extension ExposureSubmissionCoordinator {
 			onPrimaryButtonTap: { [weak self] selectedTravelConfirmationOption, isLoading in
 				isLoading(true)
 				self?.appConfigurationProvider.appConfiguration { applicationConfiguration in
+					isLoading(false)
+
 					guard let supportedCountries = applicationConfiguration?.supportedCountries.compactMap({ Country(countryCode: $0) }) else {
-						self?.showENErrorAlert(.noAppConfiguration, onCompletion: {
-							isLoading(false)
-						})
+						self?.showENErrorAlert(.noAppConfiguration)
 
 						return
 					}
@@ -336,12 +336,12 @@ extension ExposureSubmissionCoordinator {
 	/// Instantiates and shows an alert with a "More Info" button for
 	/// the EN errors. Assumes that the passed in `error` is either of type
 	/// `.internal`, `.unsupported` or `.rateLimited`.
-	func showENErrorAlert(_ error: ExposureSubmissionError, onCompletion: @escaping () -> Void) {
+	func showENErrorAlert(_ error: ExposureSubmissionError, onCompletion: (() -> Void)? = nil) {
 		logError(message: "error: \(error.localizedDescription)", level: .error)
 		guard let alert = createENAlert(error) else { return }
 
 		navigationController?.present(alert, animated: true, completion: {
-			onCompletion()
+			onCompletion?()
 		})
 	}
 
