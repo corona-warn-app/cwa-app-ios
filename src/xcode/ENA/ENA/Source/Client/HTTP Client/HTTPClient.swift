@@ -96,7 +96,11 @@ final class HTTPClient: Client {
 				completion(.failure(.invalidResponse))
 				return
 			}
+			#if INTEROP
 			let countries = config.supportedCountries.compactMap { Country(countryCode: $0) }
+			#else
+			let countries = [Country]()
+			#endif
 			completion(.success(countries))
 		}
 	}
