@@ -81,23 +81,6 @@ final class HTTPClientAppConfigTests: XCTestCase {
 		waitForExpectations(timeout: expectationsTimeout)
 	}
 
-	func testGetLiveAppConfiguration_SignatureVerificationSuccess() throws {
-		let successExpectation = expectation(description: "app config loaded")
-		let client = HTTPClient(configuration: .backendBaseURLs)
-		client.appConfiguration { response in
-			defer { successExpectation.fulfill() }
-
-			guard let config = response else {
-				XCTFail("Signature validation should have passed!")
-				return
-			}
-			#if INTEROP
-			XCTAssertGreaterThanOrEqual(config.supportedCountries.count, 1, "expected at least one country")
-			#endif
-		}
-		waitForExpectations(timeout: expectationsTimeout)
-	}
-
 	func testGetAppConfiguration_SupportedCountries() throws {
 		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
