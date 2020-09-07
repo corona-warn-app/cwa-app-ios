@@ -41,16 +41,14 @@ class DatePickerDayView: UIView {
 
 		setUp()
 	}
+
 	// MARK: - Overrides
 
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
+	override func layoutSubviews() {
+		super.layoutSubviews()
 
-		// Update selection state for dark mode (CGColors are not changed automatically)
-		updateForSelectionState()
+		layer.cornerRadius = bounds.width / 2
 	}
-
-	// MARK: - Internal
 
 	// MARK: - Private
 
@@ -58,14 +56,9 @@ class DatePickerDayView: UIView {
 
 	private var subscriptions = [AnyCancellable]()
 
-	private let titleLabel = ENALabel()
+	private let titleLabel = DynamicTypeLabel()
 
 	private func setUp() {
-		titleLabel.numberOfLines = 0
-		titleLabel.style = .headline
-		titleLabel.text = viewModel.dayString
-		titleLabel.textAlignment = .center
-
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(titleLabel)
 
@@ -77,17 +70,18 @@ class DatePickerDayView: UIView {
 			titleLabel.heightAnchor.constraint(equalTo: titleLabel.widthAnchor)
 		])
 
-		setUpBindings()
-	}
+		titleLabel.numberOfLines = 0
+		titleLabel.font = UIFont.preferredFont(forTextStyle: .body)
+		titleLabel.dynamicTypeSize = viewModel.fontSize
+		titleLabel.text = viewModel.dayString
+		titleLabel.textAlignment = .center
+		titleLabel.adjustsFontSizeToFitWidth = true
 
-	func setUpBindings() {
 		subscriptions = [
-			viewModel.$textColor.assign(to: \.textColor, on: titleLabel)
+			viewModel.$backgroundColor.sink { [weak self] in self?.backgroundColor = $0 },
+			viewModel.$textColor.assign(to: \.textColor, on: titleLabel),
+			viewModel.$fontWeight.assign(to: \.dynamicTypeWeight, on: titleLabel)
 		]
-	}
-
-	private func updateForSelectionState() {
-
 	}
 
 }

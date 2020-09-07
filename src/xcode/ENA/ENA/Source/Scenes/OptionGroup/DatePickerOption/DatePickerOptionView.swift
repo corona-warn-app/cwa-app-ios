@@ -79,27 +79,60 @@ class DatePickerOptionView: UIView {
 		layer.masksToBounds = false
 
 		contentStackView.axis = .vertical
-		contentStackView.isLayoutMarginsRelativeArrangement = true
 		contentStackView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(contentStackView)
 
 		NSLayoutConstraint.activate([
-			contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-			contentStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-			contentStackView.topAnchor.constraint(equalTo: topAnchor, constant: 26),
-			contentStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
+			contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
+			contentStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
+			contentStackView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+			contentStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
 		])
+
+		let titleStackView = UIStackView()
+		titleStackView.isLayoutMarginsRelativeArrangement = true
+		titleStackView.directionalLayoutMargins = .init(top: 0, leading: 12, bottom: 0, trailing: -12)
+		titleStackView.axis = .vertical
+		titleStackView.spacing = 6
 
 		let titleLabel = ENALabel()
 		titleLabel.numberOfLines = 0
 		titleLabel.style = .headline
 		titleLabel.text = title
 
-		contentStackView.addArrangedSubview(titleLabel)
-		contentStackView.setCustomSpacing(23, after: titleLabel)
+		titleStackView.addArrangedSubview(titleLabel)
+
+		let subtitleLabel = ENALabel()
+		subtitleLabel.numberOfLines = 0
+		subtitleLabel.style = .footnote
+		subtitleLabel.text = viewModel.subtitle
+
+		titleStackView.addArrangedSubview(subtitleLabel)
+
+		contentStackView.addArrangedSubview(titleStackView)
+		contentStackView.setCustomSpacing(20, after: titleStackView)
+
+		let weekdayStackView = dayStackView()
+		for (index, weekday) in viewModel.weekdays.enumerated() {
+			let weekdayLabel = DynamicTypeLabel()
+			weekdayLabel.font = UIFont.preferredFont(forTextStyle: .body)
+			weekdayLabel.numberOfLines = 0
+			weekdayLabel.dynamicTypeSize = 11
+			weekdayLabel.dynamicTypeWeight = "bold"
+			weekdayLabel.textColor = viewModel.weekdayTextColors[index]
+			weekdayLabel.textAlignment = .center
+			weekdayLabel.text = weekday
+
+			weekdayStackView.addArrangedSubview(weekdayLabel)
+		}
+		contentStackView.addArrangedSubview(weekdayStackView)
+		contentStackView.setCustomSpacing(8, after: weekdayStackView)
 
 		let dayStackViews: [UIStackView] = [dayStackView(), dayStackView(), dayStackView(), dayStackView()]
-		dayStackViews.forEach { contentStackView.addArrangedSubview($0) }
+		dayStackViews.forEach {
+			contentStackView.addArrangedSubview($0)
+			contentStackView.setCustomSpacing(4, after: $0)
+		}
 
 		for (index, datePickerDay) in viewModel.datePickerDays.enumerated() {
 			let datePickerDayView = DatePickerDayView(
@@ -125,6 +158,7 @@ class DatePickerOptionView: UIView {
 		stackView.axis = .horizontal
 		stackView.alignment = .center
 		stackView.distribution = .fillEqually
+		stackView.spacing = 4
 
 		return stackView
 	}

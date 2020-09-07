@@ -36,13 +36,17 @@ class DatePickerDayViewModel {
 
 	let onTapOnDate: (Date) -> Void
 
-	var isSelected: Bool = false {
+	var isSelected: Bool {
 		didSet {
 			updateStyle()
 		}
 	}
 
+	let fontSize: CGFloat = 16
+
+	@Published var backgroundColor: UIColor = UIColor.enaColor(for: .background)
 	@Published var textColor: UIColor = UIColor.enaColor(for: .textPrimary1)
+	@Published var fontWeight: String = "regular"
 
 	var dayString: String {
 		var calendar = Calendar(identifier: .gregorian)
@@ -62,15 +66,25 @@ class DatePickerDayViewModel {
 	private let datePickerDay: DatePickerDay
 
 	func updateStyle() {
+		backgroundColor = isSelected ? UIColor.enaColor(for: .tint) : UIColor.enaColor(for: .background)
+		print(isSelected)
+
 		switch (datePickerDay, isSelected) {
 		case (.future, _):
 			textColor = .enaColor(for: .textPrimary3)
-		case (_, true):
+			fontWeight = "regular"
+		case (.today, true):
 			textColor = .enaColor(for: .textContrast)
+			fontWeight = "bold"
 		case (.today, false):
 			textColor = .enaColor(for: .textTint)
+			fontWeight = "bold"
+		case (.past, true):
+			textColor = .enaColor(for: .textContrast)
+			fontWeight = "medium"
 		case (.past, false):
 			textColor = .enaColor(for: .textPrimary1)
+			fontWeight = "regular"
 		}
 	}
 

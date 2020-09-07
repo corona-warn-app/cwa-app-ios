@@ -22,16 +22,24 @@ import Combine
 
 struct DatePickerOptionViewModel {
 
+	// MARK: - Internal
+
 	let today: Date
 
-	var datePickerDays: [DatePickerDay] {
-		var calendar = Calendar(identifier: .gregorian)
-		calendar.locale = Locale.current
+	var subtitle: String {
+		let dateIntervalFormatter = DateIntervalFormatter()
+		dateIntervalFormatter.dateTemplate = "MMMMyyyy"
 
+		guard let firstDayOfDatePicker = firstDayOfDatePicker else {
+			return ""
+		}
+
+		return dateIntervalFormatter.string(from: firstDayOfDatePicker, to: today)
+	}
+
+	var datePickerDays: [DatePickerDay] {
 		// 1 = Sunday, ..., 6 = Saturday
-		let weekday = calendar.component(.weekday, from: today)
-		guard let firstDayOfThisWeek = calendar.date(byAdding: .day, value: -(weekday - calendar.firstWeekday), to: today),
-			let firstDayOfDatePicker = calendar.date(byAdding: .day, value: -21, to: firstDayOfThisWeek) else {
+		guard let firstDayOfDatePicker = firstDayOfDatePicker else {
 				return []
 		}
 
@@ -53,6 +61,50 @@ struct DatePickerOptionViewModel {
 		}
 
 		return datePickerDays
+	}
+
+	var weekdays: [String] {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "EEEEE"
+
+		return datesThisWeek.map { dateFormatter.string(from: $0) }
+	}
+
+	var weekdayTextColors: [UIColor] {
+		datesThisWeek.map { calendar.isDate($0, inSameDayAs: today) ? UIColor.enaColor(for: .tint) : UIColor.enaColor(for: .textPrimary2) }
+	}
+
+	// MARK: - Private
+
+	private var calendar: Calendar {
+		var calendar = Calendar(identifier: .gregorian)
+		calendar.locale = Locale.current
+
+		return calendar
+	}
+
+	private var firstDayOfThisWeek: Date? {
+		let weekday = calendar.component(.weekday, from: today)
+		return calendar.date(byAdding: .day, value: -(weekday - calendar.firstWeekday), to: today)
+	}
+
+	private var firstDayOfDatePicker: Date? {
+		guard let firstDayOfThisWeek = firstDayOfThisWeek else { return nil }
+
+		return calendar.date(byAdding: .day, value: -21, to: firstDayOfThisWeek)
+	}
+
+	private var datesThisWeek: [Date] {
+		guard let firstDayOfThisWeek = firstDayOfThisWeek else { return [] }
+
+		var datesThisWeek = [Date]()
+		for index in 0..<7 {
+			guard let date = calendar.date(byAdding: .day, value: index, to: firstDayOfThisWeek) else { return [] }
+
+			datesThisWeek.append(date)
+		}
+
+		return datesThisWeek
 	}
 
 }
