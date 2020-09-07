@@ -420,7 +420,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_PhoneNumber" = "+49 800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - So: Täglich 24 Stunden\n\nDer Anruf ist kostenfrei.";
+"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - So: Täglich 24 Stunden\n\nDer Anruf ist kostenfrei.\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Test per TAN-Eingabe in der App registrieren";
 
@@ -879,7 +879,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "App_Information_Contact_Hotline_Description" = "Unser Kundenservice ist für Sie da.";
 
-"App_Information_Contact_Hotline_Terms" = "Sprachen: Deutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nDer Anruf ist kostenfrei.";
+"App_Information_Contact_Hotline_Terms" = "Sprachen: Deutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nDer Anruf ist kostenfrei.\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Impressum";
