@@ -20,7 +20,7 @@
 import Foundation
 import XCTest
 
-class ExposureSubmissionUITests: XCTestCase {
+class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 	// MARK: - Attributes.
 	
@@ -164,7 +164,7 @@ class ExposureSubmissionUITests: XCTestCase {
 	}
 	
 	#if INTEROP
-	func testEUSubmission_Consent() throws {
+	func test_EUSubmission_Consent() throws {
 		// navigate to key submission
 		fastForwardToKeySubmission()
 
@@ -182,7 +182,7 @@ class ExposureSubmissionUITests: XCTestCase {
 		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 	}
 
-	func testEUSubmission_TravelConfirmation() throws {
+	func test_EUSubmission_TravelConfirmation() throws {
 		// navigate to key submission
 		fastForwardToKeySubmission()
 		let consentSwitch = app.switches["AppStrings.ExposureSubmissionWarnEuropeConsent.consentSwitch"]
@@ -225,7 +225,7 @@ class ExposureSubmissionUITests: XCTestCase {
 		btnContinue.tap()
 	}
 
-	func testEUSubmission_CountrySelection() throws {
+	func test_EUSubmission_CountrySelection() throws {
 		fastForwardToWarnEuropeCountrySelection()
 
 		// ExposureSubmissionWarnEuropeCountrySelectionViewController
@@ -259,7 +259,7 @@ class ExposureSubmissionUITests: XCTestCase {
 
 // MARK: - Helpers.
 
-extension ExposureSubmissionUITests {
+extension ENAUITests_04_ExposureSubmissionUITests {
 
 	private func type(_ app: XCUIApplication, text: String) {
 		text.forEach {
@@ -276,7 +276,7 @@ extension ExposureSubmissionUITests {
 	/// Use this method to grab localized strings correctly.
 	private func localized(_ string: String) -> String {
 		if let path =
-			Bundle(for: ExposureSubmissionUITests.self)
+			Bundle(for: ENAUITests_04_ExposureSubmissionUITests.self)
 				.path(
 					forResource: deviceLanguage,
 					ofType: "lproj"
