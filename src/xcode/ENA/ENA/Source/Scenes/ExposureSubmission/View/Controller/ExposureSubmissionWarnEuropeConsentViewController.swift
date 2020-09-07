@@ -135,6 +135,10 @@ class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewControl
 			$0.add(
 				.section(
 					cells: [
+						.body(
+							text: AppStrings.ExposureSubmissionWarnEuropeConsent.description,
+							accessibilityIdentifier: nil
+						),
 						.custom(
 							withIdentifier: CustomCellReuseIdentifiers.roundedCell,
 							configure: { _, cell, _ in

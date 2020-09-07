@@ -113,6 +113,11 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.optionGroupCell.rawValue
 		)
 
+		tableView.register(
+			DynamicTableViewRoundedCell.self,
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.roundedCell.rawValue
+		)
+
 		dynamicTableViewModel = dynamicTableViewModel()
 	}
 
@@ -162,6 +167,23 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 						.body(
 							text: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.description2,
 							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnEuropeCountrySelection.description2
+						),
+						.custom(
+							withIdentifier: CustomCellReuseIdentifiers.roundedCell,
+							configure: { _, cell, _ in
+								guard let cell = cell as? DynamicTableViewRoundedCell else { return }
+
+								cell.configure(
+									title: NSMutableAttributedString(
+										string: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.consentTitle
+									),
+									body: NSMutableAttributedString(
+										string: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.consentDescription
+									),
+									textStyle: .textPrimary1,
+									backgroundStyle: .separator
+								)
+							}
 						)
 					]
 				)
@@ -175,6 +197,6 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 
 extension ExposureSubmissionWarnEuropeCountrySelectionViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case optionGroupCell
+		case roundedCell, optionGroupCell
 	}
 }
