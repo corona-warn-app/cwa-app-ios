@@ -82,6 +82,14 @@ class DatePickerDayView: UIView {
 			viewModel.$textColor.assign(to: \.textColor, on: titleLabel),
 			viewModel.$fontWeight.assign(to: \.dynamicTypeWeight, on: titleLabel)
 		]
+
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
+		addGestureRecognizer(tapGestureRecognizer)
+	}
+
+	@objc
+	private func viewTapped() {
+		viewModel.onTap()
 	}
 
 }

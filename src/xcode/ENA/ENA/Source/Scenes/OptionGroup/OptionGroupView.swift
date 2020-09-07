@@ -129,7 +129,7 @@ class OptionGroupView: UIView {
 			title: title,
 			today: today,
 			onTapOnDate: { [weak self] date in
-				// Update view model
+				self?.viewModel.datePickerOptionTapped(index: index, date: date)
 			}
 		)
 		view.accessibilityIdentifier = accessibilityIdentifier
@@ -159,6 +159,10 @@ class OptionGroupView: UIView {
 
 		if case let .multipleChoiceOption(index: index, selectedChoices: selectedChoices) = selection, case let .multipleChoiceOption(view) = optionViews[index] {
 			view.selectedChoices = selectedChoices
+		}
+
+		if case let .datePickerOption(index: index, selectedDate: selectedDate) = selection, case let .datePickerOption(view) = optionViews[index] {
+			view.selectedDate = selectedDate
 		}
 	}
 

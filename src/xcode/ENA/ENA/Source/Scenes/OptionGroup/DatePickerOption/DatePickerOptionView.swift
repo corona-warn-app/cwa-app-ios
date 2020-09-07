@@ -64,7 +64,7 @@ class DatePickerOptionView: UIView {
 	private let onTapOnDate: (Date) -> Void
 	private let viewModel: DatePickerOptionViewModel
 
-	private var dateViews: [UIView] = []
+	private var dayViewModels: [DatePickerDayViewModel] = []
 	private let contentStackView = UIStackView()
 
 	private func setUp(title: String) {
@@ -135,17 +135,16 @@ class DatePickerOptionView: UIView {
 		}
 
 		for (index, datePickerDay) in viewModel.datePickerDays.enumerated() {
-			let datePickerDayView = DatePickerDayView(
-				viewModel: DatePickerDayViewModel(
-					datePickerDay: datePickerDay,
-					onTapOnDate: { date in
-						// Update selected state
-					}
-				)
+			let dayViewModel = DatePickerDayViewModel(
+				datePickerDay: datePickerDay,
+				onTapOnDate: { [weak self] date in
+					self?.onTapOnDate(date)
+				}
 			)
+			let datePickerDayView = DatePickerDayView(viewModel: dayViewModel)
 
+			dayViewModels.append(dayViewModel)
 			dayStackViews[index / 7].addArrangedSubview(datePickerDayView)
-			print(index / 7)
 		}
 
 		accessibilityElements = [titleLabel]
@@ -164,7 +163,13 @@ class DatePickerOptionView: UIView {
 	}
 
 	private func updateForSelectionState() {
-		// Update selection state of date views
+		for dayViewModel in dayViewModels {
+			if let selectedDate = selectedDate {
+				dayViewModel.selectIfSameDate(date: selectedDate)
+			} else {
+				dayViewModel.isSelected = false
+			}
+		}
 
 		layer.shadowColor = UIColor.enaColor(for: .shadow).cgColor
 

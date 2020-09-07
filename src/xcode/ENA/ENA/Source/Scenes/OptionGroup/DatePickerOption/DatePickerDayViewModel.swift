@@ -29,6 +29,11 @@ class DatePickerDayViewModel {
 		self.onTapOnDate = onTapOnDate
 		self.isSelected = isSelected
 
+		switch datePickerDay {
+		case .future(let date), .past(let date), .today(let date):
+			self.date = date
+		}
+
 		updateStyle()
 	}
 
@@ -49,25 +54,40 @@ class DatePickerDayViewModel {
 	@Published var fontWeight: String = "regular"
 
 	var dayString: String {
-		var calendar = Calendar(identifier: .gregorian)
-		calendar.locale = Locale.current
 
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "d"
 
+		return dateFormatter.string(from: date)
+	}
+
+	func onTap() {
 		switch datePickerDay {
-		case .future(let date), .past(let date), .today(let date):
-			return dateFormatter.string(from: date)
+		case .past, .today:
+			onTapOnDate(date)
+		case .future:
+			return
 		}
+	}
+
+	func selectIfSameDate(date: Date) {
+		isSelected = calendar.isDate(date, inSameDayAs: self.date)
 	}
 
 	// MARK: - Private
 
 	private let datePickerDay: DatePickerDay
+	private let date: Date
 
-	func updateStyle() {
+	private var calendar: Calendar {
+		var calendar = Calendar(identifier: .gregorian)
+		calendar.locale = Locale.current
+
+		return calendar
+	}
+
+	private func updateStyle() {
 		backgroundColor = isSelected ? UIColor.enaColor(for: .tint) : UIColor.enaColor(for: .background)
-		print(isSelected)
 
 		switch (datePickerDay, isSelected) {
 		case (.future, _):
@@ -87,6 +107,5 @@ class DatePickerDayViewModel {
 			fontWeight = "regular"
 		}
 	}
-
 
 }

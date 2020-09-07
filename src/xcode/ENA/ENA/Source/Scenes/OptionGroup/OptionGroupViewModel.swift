@@ -88,4 +88,8 @@ class OptionGroupViewModel {
 		selection = newSelectedChoices.isEmpty ? nil : .multipleChoiceOption(index: index, selectedChoices: newSelectedChoices)
 	}
 
+	func datePickerOptionTapped(index: Int, date: Date) {
+		selection = .datePickerOption(index: index, selectedDate: date)
+	}
+
 }
