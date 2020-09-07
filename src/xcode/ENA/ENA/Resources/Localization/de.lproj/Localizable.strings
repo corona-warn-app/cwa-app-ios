@@ -3,6 +3,10 @@
 
 "Alert_ActionOk" = "OK";
 
+"Alert_ActionYes" = "Ja";
+
+"Alert_ActionNo" = "Nein";
+
 "Alert_ActionRetry" = "Wiederholen";
 
 "Alert_ActionCancel" = "Abbrechen";
@@ -359,6 +363,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmission_DataPrivacyTitle" = "Datenschutz";
 
 "ExposureSubmission_Continue_actionText" = "Weiter";
+
+"ExposureSubmission_ConfirmDismissPopUpTitle" = "Wollen Sie wirklich abbrechen?";
+
+"ExposureSubmission_ConfirmDismissPopUpText" = "Ihre bisherigen Angaben werden nicht gespeichert.";
 
 "ExposureSubmission_DataPrivacyDescription" = "Durch Antippen von „Erlauben“ willigen Sie ein, dass die App den Status Ihres Corona-Virus-Tests abfragen und in der App anzeigen darf. Diese Funktion steht Ihnen zur Verfügung, wenn Sie einen QR-Code erhalten und eingewilligt haben, dass Ihr Testergebnis an das Serversystem der App übermittelt werden darf. Sobald das Testlabor Ihr Testergebnis auf dem Server hinterlegt hat, können Sie das Ergebnis in der App sehen. Falls Sie Mitteilungen aktiviert haben, werden Sie auch außerhalb der App über den Eingang des Testergebnis informiert. Das Testergebnis selbst wird aus Datenschutzgründen jedoch nur in der App angezeigt. Sie können diese Einwilligung jederzeit widerrufen, indem Sie die Testregistrierung in der App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen finden Sie unter dem Menüpunkt „Datenschutzinformation“.";
 
