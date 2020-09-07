@@ -20,13 +20,15 @@
 import UIKit
 import Combine
 
-class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+final class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+
+	typealias PrimaryButtonHandler = (Bool, @escaping (Bool) -> Void) -> Void
 
 	// MARK: - Init
 
 	init?(
 		coder: NSCoder,
-		onPrimaryButtonTap: @escaping (Bool, @escaping (Bool) -> Void) -> Void
+		onPrimaryButtonTap: @escaping PrimaryButtonHandler
 	) {
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 

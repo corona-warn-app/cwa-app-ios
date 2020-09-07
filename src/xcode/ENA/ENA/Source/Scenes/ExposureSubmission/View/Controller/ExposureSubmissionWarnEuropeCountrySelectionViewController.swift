@@ -20,7 +20,9 @@
 import UIKit
 import Combine
 
-class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+final class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+
+	typealias PrimaryButtonHandler = (CountrySelectionOption, @escaping (Bool) -> Void) -> Void
 
 	enum CountrySelectionOption {
 		case visitedCountries([Country])
@@ -31,7 +33,7 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicTableVi
 
 	init?(
 		coder: NSCoder,
-		onPrimaryButtonTap: @escaping (CountrySelectionOption, @escaping (Bool) -> Void) -> Void,
+		onPrimaryButtonTap: @escaping PrimaryButtonHandler,
 		supportedCountries: [Country]
 	) {
 		self.onPrimaryButtonTap = onPrimaryButtonTap
