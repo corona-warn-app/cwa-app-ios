@@ -17,11 +17,12 @@
 // under the License.
 //
 
-import UIKit
+import XCTest
 import Combine
+@testable import ENA
 
-enum DatePickerDay: Equatable {
-	case past(Date)
-	case today(Date)
-	case future(Date)
+class DatePickerDayViewModelTests: XCTestCase {
+
+
+
 }

@@ -24,10 +24,16 @@ class DatePickerDayViewModel {
 
 	// MARK: - Init
 
-	init(datePickerDay: DatePickerDay, onTapOnDate: @escaping (Date) -> Void, isSelected: Bool = false) {
+	init(
+		datePickerDay: DatePickerDay,
+		onTapOnDate: @escaping (Date) -> Void,
+		isSelected: Bool = false,
+		calendar: Calendar = .gregorian()
+	) {
 		self.datePickerDay = datePickerDay
 		self.onTapOnDate = onTapOnDate
 		self.isSelected = isSelected
+		self.calendar = calendar
 
 		switch datePickerDay {
 		case .future(let date), .past(let date), .today(let date):
@@ -92,12 +98,7 @@ class DatePickerDayViewModel {
 	private let datePickerDay: DatePickerDay
 	private let date: Date
 
-	private var calendar: Calendar {
-		var calendar = Calendar(identifier: .gregorian)
-		calendar.locale = Locale.current
-
-		return calendar
-	}
+	private let calendar: Calendar
 
 	private func update() {
 		backgroundColor = isSelected ? UIColor.enaColor(for: .tint) : UIColor.enaColor(for: .background)

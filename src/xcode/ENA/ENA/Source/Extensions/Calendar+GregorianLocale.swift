@@ -1,4 +1,3 @@
-//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -15,13 +14,16 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-//
 
-import UIKit
-import Combine
+import Foundation
 
-enum DatePickerDay: Equatable {
-	case past(Date)
-	case today(Date)
-	case future(Date)
+extension Calendar {
+
+	static func gregorian(with locale: Locale = .current) -> Calendar {
+		var calendar = Calendar(identifier: .gregorian)
+		calendar.locale = locale
+
+		return calendar
+	}
+
 }

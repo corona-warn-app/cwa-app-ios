@@ -22,9 +22,17 @@ import Combine
 
 struct DatePickerOptionViewModel {
 
-	// MARK: - Internal
+	// MARK: - Init
 
-	let today: Date
+	init(
+		today: Date,
+		calendar: Calendar = .gregorian()
+	) {
+		self.today = today
+		self.calendar = calendar
+	}
+
+	// MARK: - Internal
 
 	var subtitle: String {
 		let dateIntervalFormatter = DateIntervalFormatter()
@@ -71,17 +79,13 @@ struct DatePickerOptionViewModel {
 	}
 
 	var weekdayTextColors: [UIColor] {
-		datesThisWeek.map { calendar.isDate($0, inSameDayAs: today) ? UIColor.enaColor(for: .tint) : UIColor.enaColor(for: .textPrimary2) }
+		datesThisWeek.map { calendar.isDate($0, inSameDayAs: today) ? .enaColor(for: .tint) : .enaColor(for: .textPrimary2) }
 	}
 
 	// MARK: - Private
 
-	private var calendar: Calendar {
-		var calendar = Calendar(identifier: .gregorian)
-		calendar.locale = Locale.current
-
-		return calendar
-	}
+	private let today: Date
+	private let calendar: Calendar
 
 	private var firstDayOfThisWeek: Date? {
 		let weekday = calendar.component(.weekday, from: today)
