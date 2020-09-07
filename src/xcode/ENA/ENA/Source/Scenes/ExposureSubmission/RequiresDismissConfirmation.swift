@@ -34,10 +34,10 @@ extension RequiresDismissConfirmation {
 
 	func willDismiss(_ continueDismiss: @escaping ((Bool) -> Void)) {
 		let alert = setupErrorAlert(
-			title: "!!! Do you want to cancel?",
-			message: "!!! If you cancel, the progress is lost.",
-			okTitle: "!!! no",
-			secondaryActionTitle: "!!! yes",
+			title: AppStrings.ExposureSubmission.confirmDismissPopUpTitle,
+			message: AppStrings.ExposureSubmission.confirmDismissPopUpText,
+			okTitle: AppStrings.Common.alertActionNo,
+			secondaryActionTitle: AppStrings.Common.alertActionYes,
 			completion: { continueDismiss(false) },
 			secondaryActionCompletion: { continueDismiss(true) }
 		)
