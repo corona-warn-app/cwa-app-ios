@@ -147,7 +147,7 @@ class DatePickerOptionView: UIView {
 			dayStackViews[index / 7].addArrangedSubview(datePickerDayView)
 		}
 
-		accessibilityElements = [titleLabel]
+		accessibilityElements = [titleLabel, subtitleLabel] + dayStackViews.map { $0.arrangedSubviews.filter { $0.isAccessibilityElement } }
 
 		updateForSelectionState()
 	}

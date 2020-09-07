@@ -80,11 +80,15 @@ class DatePickerDayView: UIView {
 		subscriptions = [
 			viewModel.$backgroundColor.sink { [weak self] in self?.backgroundColor = $0 },
 			viewModel.$textColor.assign(to: \.textColor, on: titleLabel),
-			viewModel.$fontWeight.assign(to: \.dynamicTypeWeight, on: titleLabel)
+			viewModel.$fontWeight.assign(to: \.dynamicTypeWeight, on: titleLabel),
+			viewModel.$accessibilityTraits.assign(to: \.accessibilityTraits, on: self)
 		]
 
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
 		addGestureRecognizer(tapGestureRecognizer)
+
+		isAccessibilityElement = viewModel.isSelectable
+		accessibilityLabel = viewModel.accessibilityLabel
 	}
 
 	@objc

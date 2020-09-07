@@ -34,7 +34,7 @@ class DatePickerDayViewModel {
 			self.date = date
 		}
 
-		updateStyle()
+		update()
 	}
 
 	// MARK: - Internal
@@ -43,7 +43,7 @@ class DatePickerDayViewModel {
 
 	var isSelected: Bool {
 		didSet {
-			updateStyle()
+			update()
 		}
 	}
 
@@ -52,22 +52,35 @@ class DatePickerDayViewModel {
 	@Published var backgroundColor: UIColor = UIColor.enaColor(for: .background)
 	@Published var textColor: UIColor = UIColor.enaColor(for: .textPrimary1)
 	@Published var fontWeight: String = "regular"
+	@Published var accessibilityTraits: UIAccessibilityTraits = []
 
 	var dayString: String {
-
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "d"
 
 		return dateFormatter.string(from: date)
 	}
 
-	func onTap() {
+	var accessibilityLabel: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .long
+
+		return dateFormatter.string(from: date)
+	}
+
+	var isSelectable: Bool {
 		switch datePickerDay {
 		case .past, .today:
-			onTapOnDate(date)
+			return true
 		case .future:
-			return
+			return false
 		}
+	}
+
+	func onTap() {
+		guard isSelectable else { return }
+
+		onTapOnDate(date)
 	}
 
 	func selectIfSameDate(date: Date) {
@@ -86,7 +99,7 @@ class DatePickerDayViewModel {
 		return calendar
 	}
 
-	private func updateStyle() {
+	private func update() {
 		backgroundColor = isSelected ? UIColor.enaColor(for: .tint) : UIColor.enaColor(for: .background)
 
 		switch (datePickerDay, isSelected) {
@@ -105,6 +118,12 @@ class DatePickerDayViewModel {
 		case (.past, false):
 			textColor = .enaColor(for: .textPrimary1)
 			fontWeight = "regular"
+		}
+
+		if isSelectable {
+			accessibilityTraits = isSelected ? [.button, .selected] : [.button]
+		} else {
+			accessibilityTraits = []
 		}
 	}
 
