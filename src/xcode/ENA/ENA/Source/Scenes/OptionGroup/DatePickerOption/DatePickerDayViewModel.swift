@@ -45,8 +45,6 @@ class DatePickerDayViewModel {
 
 	// MARK: - Internal
 
-	let onTapOnDate: (Date) -> Void
-
 	var isSelected: Bool {
 		didSet {
 			update()
@@ -55,8 +53,8 @@ class DatePickerDayViewModel {
 
 	let fontSize: CGFloat = 16
 
-	@Published var backgroundColor: UIColor = UIColor.enaColor(for: .background)
-	@Published var textColor: UIColor = UIColor.enaColor(for: .textPrimary1)
+	@Published var backgroundColor: UIColor = .enaColor(for: .background)
+	@Published var textColor: UIColor = .enaColor(for: .textPrimary1)
 	@Published var fontWeight: String = "regular"
 	@Published var accessibilityTraits: UIAccessibilityTraits = []
 
@@ -96,9 +94,11 @@ class DatePickerDayViewModel {
 	// MARK: - Private
 
 	private let datePickerDay: DatePickerDay
+	private let onTapOnDate: (Date) -> Void
+	private let calendar: Calendar
+
 	private let date: Date
 
-	private let calendar: Calendar
 
 	private func update() {
 		backgroundColor = isSelected ? UIColor.enaColor(for: .tint) : UIColor.enaColor(for: .background)
