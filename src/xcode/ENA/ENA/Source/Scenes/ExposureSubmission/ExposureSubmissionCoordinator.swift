@@ -153,7 +153,7 @@ extension ExposureSubmissionCoordinator {
 			return
 		}
 
-		vc.willDismiss { [weak self] shouldDismiss in
+		vc.attemptDismiss { [weak self] shouldDismiss in
 			if shouldDismiss { self?.navigationController?.dismiss(animated: true) }
 		}
 	}

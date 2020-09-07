@@ -26,20 +26,20 @@ protocol RequiresDismissConfirmation: UIViewController {
 	/// willDismiss(_:) is called by the `ExposureSubmissionCoordinator` when the view controller is about to be removed
 	/// from the navigation controller view stack.
 	/// - Parameters:
-	///   - continueDismiss: callback that takes true if the dismissal of the current view controller should proceed.
-	func willDismiss(_ continueDismiss: @escaping ((Bool) -> Void))
+	///   - shouldDismiss: callback that takes true if the dismissal of the current view controller should proceed.
+	func attemptDismiss(_ shouldDismiss: @escaping ((Bool) -> Void))
 }
 
 extension RequiresDismissConfirmation {
 
-	func willDismiss(_ continueDismiss: @escaping ((Bool) -> Void)) {
+	func attemptDismiss(_ shouldDismiss: @escaping ((Bool) -> Void)) {
 		let alert = setupErrorAlert(
 			title: AppStrings.ExposureSubmission.confirmDismissPopUpTitle,
 			message: AppStrings.ExposureSubmission.confirmDismissPopUpText,
 			okTitle: AppStrings.Common.alertActionNo,
 			secondaryActionTitle: AppStrings.Common.alertActionYes,
-			completion: { continueDismiss(false) },
-			secondaryActionCompletion: { continueDismiss(true) }
+			completion: { shouldDismiss(false) },
+			secondaryActionCompletion: { shouldDismiss(true) }
 		)
 
 		present(alert, animated: true)
