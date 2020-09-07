@@ -48,7 +48,7 @@ class ExposureSubmissionWarnEuropeCountrySelectionViewControllerTest: XCTestCase
 		XCTAssertEqual(viewController.navigationItem.title, AppStrings.ExposureSubmissionWarnEuropeCountrySelection.title)
 		XCTAssertFalse(viewController.navigationItem.hidesBackButton, "Expected back button")
 		XCTAssertEqual(viewController.tableView.numberOfSections, 1)
-		XCTAssertEqual(viewController.tableView.numberOfRows(inSection: 0), 3)
+		XCTAssertEqual(viewController.tableView.numberOfRows(inSection: 0), 4)
 	}
 
 	func test_HastCountrySelection() throws {

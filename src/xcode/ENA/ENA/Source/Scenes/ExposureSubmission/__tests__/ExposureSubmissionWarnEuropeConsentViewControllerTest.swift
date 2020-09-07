@@ -48,7 +48,7 @@ class ExposureSubmissionWarnEuropeConsentViewControllerTest: XCTestCase {
 		XCTAssertEqual(viewController.tableView.numberOfSections, 3)
 		XCTAssertEqual(viewController.tableView.numberOfRows(inSection: 0), 1)
 		XCTAssertEqual(viewController.tableView.numberOfRows(inSection: 1), 1)
-		XCTAssertEqual(viewController.tableView.numberOfRows(inSection: 2), 1)
+		XCTAssertEqual(viewController.tableView.numberOfRows(inSection: 2), 2)
 	}
 
 	func test_ConsentSwitchCell() throws {
