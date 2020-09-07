@@ -148,9 +148,13 @@
 "How_Risk_Detection_Works_Alert_Message" = "Ваш риск заражения можно рассчитать только для периодов с активным определением риска, поэтому функция определения риска должна быть постоянно включена.\nОпределение риска охватывает последние %1$u дн.\nПриложение автоматически удалит старые журналы, как только они потеряют значение для предотвращения заражения.\n\nПодробнее см. страницу часто задаваемых вопросов.";
 
 /* Settings */
-"Settings_StatusActive" = "Вкл.";
+"Settings_Notification_StatusActive" = "Вкл.";
 
-"Settings_StatusInactive" = "Выкл.";
+"Settings_Notification_StatusInactive" = "Выкл.";
+
+"Settings_BackgroundAppRefresh_StatusActive" = "Вкл.";
+
+"Settings_BackgroundAppRefresh_StatusInactive" = "Выкл.";
 
 "Settings_StatusEnable" = "Активировать";
 
@@ -164,11 +168,15 @@
 
 "Settings_Notification_Label" = "Уведомления";
 
+"Settings_BackgroundAppRefresh_Label" = "Фоновые обновления";
+
 "Settings_Reset_Label" = "Сбросить приложение";
 
 "Settings_Tracing_Description" = "Разрешите генерацию и предоставление случайных идентификаторов COVID-19.";
 
 "Settings_Notification_Description" = "Разрешите автоматические уведомления о Вашем статусе риска заражения COVID-19.";
+
+"Settings_BackgroundAppRefresh_Description" = "Разрешите автоматические обновления своего статусе риска.";
 
 "Settings_Reset_Description" = "Удалить все Ваши данные в приложении.";
 
@@ -200,6 +208,61 @@
 "NotificationSettings_onImageDescription" = "Женщина получает уведомление от приложения Corona-Warn-App.";
 
 "NotificationSettings_offImageDescription" = "Женщина не может получать уведомления от приложения Corona-Warn-App.";
+
+/* Background App Referesh Settings */
+"BackgroundAppRefreshSettings_Title" = "Фоновые обновления";
+
+"BackgroundAppRefreshSettings_Image_Description_On" = "Человек держит в руке смартфон с активированными фоновыми обновлениями.";
+
+"BackgroundAppRefreshSettings_Image_Description_Off" = "Человек держит в руке смартфон с деактивированными фоновыми обновлениями.";
+
+"BackgroundAppRefreshSettings_Subtitle" = "Обновить статус риска в фоновом режиме";
+
+"BackgroundAppRefreshSettings_Description" = "При активации фоновых обновлений приложение Corona-Warn-App определяет ваш статус риска автоматически.\nДополнительная плата за перенос данных по мобильной сети не взимается.\nПосле деактивации фоновых обновлений вам нужно будет ежедневно открывать приложение вручную, чтобы обновить свой статус риска.";
+
+"BackgroundAppRefreshSettings_Status_Header" = "Настройка";
+
+"BackgroundAppRefreshSettings_Status_Title" = "Фоновое обновление приложения";
+
+"BackgroundAppRefreshSettings_Status_On" = "Вкл.";
+
+"BackgroundAppRefreshSettings_Status_Off" = "Выкл.";
+
+"BackgroundAppRefreshSettings_InfoBox_Title" = "Активировать фоновое обновление приложения";
+
+"BackgroundAppRefreshSettings_InfoBox_Description" = "Вы собираетесь активировать фоновое обновление приложения как в настройках своего iPhone, так и в настройках Corona-Warn-App.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Обратите внимание, что для активации фонового обновления приложения нужно отключить режим энергосбережения.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Отключить режим энергосбережения";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Открыть настройки";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2" = "Открыть аккумулятор";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3" = "Отключить режим энергосбережения";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title" = "Активировать фоновое обновление приложения в основных настройках";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1" = "Открыть настройки";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2" = "Открыть основные";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3" = "Открыть фоновое обновление приложения";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4" = "Выберите или Wi-Fi, или Wi-Fi и сотовые данные";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title" = "Активировать фоновое обновление приложения для Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Открыть настройки";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Открыть настройки Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Активировать фоновое обновление приложения";
+
+"BackgroundAppRefreshSettings_OpenSettingsButton_Title" = "Открыть настройки";
+
+"BackgroundAppRefreshSettings_ShareButton_Title" = "Поделиться инструкциями";
 
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "Давайте начнем";
@@ -245,6 +308,10 @@
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Чтобы узнать, есть ли у Вас риск заражения, нужно активировать функцию определения риска.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Для определения риска Ваше устройство получает по Bluetooth зашифрованные случайные идентификаторы других пользователей и передает Ваш случайный идентификатор на их устройства. Эту функцию можно отключить в любое время.\n\nЗашифрованные случайные идентификаторы передают другим людям только информацию о дате, продолжительности и близости контакта с другими лицами (рассчитанных по силе сигнала). Персональные данные, такие как имя, адрес или местоположение, никогда не регистрируются. Идентификация лица невозможна.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Возрастной ценз: 16 лет и старше";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "Данное приложение предназначено для людей, достигших возраста 16 лет и более и проживающих в Германии.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Заявление о согласии";
 
@@ -496,6 +563,10 @@
 "ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Нажав на «Принимаю», Вы выражаете свое согласие на передачу Приложением положительного результата Вашего теста вместе с Вашими случайными кодами за последние 14 дней в серверную систему Приложения, чтобы другие пользователи Приложения с активированной функцией определения риска были автоматически проинформированы о том, что они могли быть подвержены риску заражения. Передаваемые случайные коды не содержат никакой информации, которая бы раскрыла Вашу личность.\n\nПередача Вашего результата теста через Приложение является добровольной. Если Вы не передадите результат своего теста, никакого наказания не последует. Ввиду того, что невозможно проследить и проконтролировать, пользуетесь ли Вы Приложением и как Вы это делаете, никто, кроме Вас, не будет знать, передали ли Вы информацию об инфицировании.\n\nВы можете в любое время отозвать свое согласие, удалив Приложение. Отзыв согласия не затрагивает правомерность обработки, осуществлявшейся до момента отзыва. Дальнейшую информацию см. в пункте меню «Информация о конфиденциальности данных».";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Конфиденциальность данных";
+
+"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Возрастной ценз: 16 лет и старше";
+
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "Данное приложение предназначено для людей, достигших возраста 16 лет и более и проживающих в Германии.";
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Тест можно отсканировать только один раз.";
 

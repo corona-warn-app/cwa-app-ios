@@ -46,25 +46,26 @@ struct SAPDownloadedPackage {
 	// MARK: - Verification
 
 	typealias Verification = (SAPDownloadedPackage) -> Bool
-	struct Verifier {
-		private let keyProvider: PublicKeyProviding
 
-		init(key provider: @escaping PublicKeyProviding = PublicKeyStore.get) {
-			self.keyProvider = provider
+	struct Verifier {
+		private let getPublicKey: PublicKeyProvider
+
+		init(key provider: @escaping PublicKeyProvider = DefaultPublicKeyProvider) {
+			getPublicKey = provider
 		}
 
 		func verify(_ package: SAPDownloadedPackage) -> Bool {
 			guard
-				let parsedSignatureFile = try? SAP_TEKSignatureList(serializedData: package.signature),
-				let bundleId = Bundle.main.bundleIdentifier
-			else {
+				let parsedSignatureFile = try? SAP_TEKSignatureList(serializedData: package.signature)
+				else {
 				return false
 			}
+
+			let publicKey = getPublicKey()
 
 			for signatureEntry in parsedSignatureFile.signatures {
 				let signatureData: Data = signatureEntry.signature
 				guard
-					let publicKey = try? keyProvider(bundleId),
 					let signature = try? P256.Signing.ECDSASignature(derRepresentation: signatureData)
 				else {
 					logError(message: "Could not validate signature of downloaded package", level: .warning)
