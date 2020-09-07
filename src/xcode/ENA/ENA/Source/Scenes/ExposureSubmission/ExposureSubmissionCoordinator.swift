@@ -55,7 +55,7 @@ protocol ExposureSubmissionCoordinatorDelegate: class {
 }
 
 /// Concrete implementation of the ExposureSubmissionCoordinator protocol.
-class ExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
+class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating {
 
 	// MARK: - Attributes.
 
@@ -91,10 +91,21 @@ extension ExposureSubmissionCoordinator {
 
 	private func push(_ vc: UIViewController) {
 		self.navigationController?.pushViewController(vc, animated: true)
+		setupDismissConfirmationOnSwipeDown(for: vc)
 	}
 
 	private func present(_ vc: UIViewController) {
 		self.navigationController?.present(vc, animated: true)
+		setupDismissConfirmationOnSwipeDown(for: vc)
+	}
+
+	private func setupDismissConfirmationOnSwipeDown(for vc: UIViewController) {
+		guard let vc = vc as? RequiresDismissConfirmation else {
+			return
+		}
+
+		vc.navigationController?.presentationController?.delegate = self
+		vc.isModalInPresentation = true
 	}
 
 	/// This method selects the correct initial view controller among the following options:
@@ -249,28 +260,8 @@ extension ExposureSubmissionCoordinator {
 	}
 }
 
-// TODO: Move to file
-
-protocol RequiresDismissConfirmation: UIViewController {
-	/// willDismiss(_:) is called by the `ExposureSubmissionCoordinator` when the view controller is about to be removed
-	/// from the navigation controller view stack.
-	/// - Parameters:
-	///   - continueDismiss: callback that takes true if the dismissal of the current view controller should proceed.
-	func willDismiss(_ continueDismiss: @escaping ((Bool) -> Void))
-}
-
-extension RequiresDismissConfirmation {
-
-	func willDismiss(_ continueDismiss: @escaping ((Bool) -> Void)) {
-		let alert = setupErrorAlert(
-			title: "!!! Do you want to cancel?",
-			message: "!!! If you cancel, the progress is lost.",
-			okTitle: "!!! no",
-			secondaryActionTitle: "!!! yes",
-			completion: { continueDismiss(false) },
-			secondaryActionCompletion: { continueDismiss(true) }
-		)
-
-		present(alert, animated: true)
+extension ExposureSubmissionCoordinator: UIAdaptivePresentationControllerDelegate {
+	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+		dismiss()
 	}
 }

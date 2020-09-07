@@ -109,6 +109,3 @@ private extension ExposureSubmissionIntroViewController {
 		case stepCell
 	}
 }
-
-/// - NOTE: Marker protocol.
-extension ExposureSubmissionIntroViewController: RequiresDismissConfirmation { }
