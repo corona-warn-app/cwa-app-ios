@@ -25,6 +25,6 @@ struct EUTracingSettings: Codable {
 
 	init(isAllCountriesEnbled: Bool = false, enabledCountrys: [String] = []) {
 		self.isAllCountriesEnbled = isAllCountriesEnbled
-		self.enabledCountrys = enabledCountrys
+		self.enabledCountries = enabledCountries
 	}
 }
