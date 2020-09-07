@@ -19,7 +19,9 @@
 
 struct EUTracingSettings: Codable {
 	let isAllCountriesEnbled: Bool
-	let enabledCountrys: [String]
+
+	/// List of country identifier. Equals the initializing country code.
+	let enabledCountries: [String]
 
 	init(isAllCountriesEnbled: Bool = false, enabledCountrys: [String] = []) {
 		self.isAllCountriesEnbled = isAllCountriesEnbled
