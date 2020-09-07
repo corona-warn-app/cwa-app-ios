@@ -101,6 +101,8 @@ extension URLSession.Response.Failure: ExposureSubmissionErrorTransformable {
 			return .qRAlreadyUsed
 		case .regTokenNotExist:
 			return .regTokenNotExist
+		case .qRNotExist:
+			return .qRNotExist
 		case .noResponse:
 			return .noResponse
 		case let .serverError(code):

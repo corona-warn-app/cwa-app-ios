@@ -610,6 +610,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde bereits verwendet. Bitte versuchen Sie es erneut oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
+"ExposureSubmissionError_QRNotExist_Title" = "QR-Code ist abgelaufen";
+
+"ExposureSubmissionError_QRNotExist" = "Bitte entfernen Sie den Test aus der App.
+Danach können Sie einen neuen Test in der App hinzufügen.";
+
 "ExposureSubmissionError_RegTokenNotExist" = "Es konnte keine Übermittlungs-TAN erstellt werden. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
 "ExposureSubmissionError_other" = "Es ist ein Verbindungsfehler aufgetreten. Fehlercode für den technischen Support: ";
