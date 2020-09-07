@@ -42,27 +42,27 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		launch()
 
 		// Click submit card.
-		XCTAssert(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
 
 		// Check whether we have entered the info screen.
-		XCTAssert(app.images["ExposureSubmissionIntroViewController.image"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.images["ExposureSubmissionIntroViewController.image"].waitForExistence(timeout: .medium))
 	}
 
 	func test_NavigateToHotlineVC() throws {
 		launch()
 
 		// Open Intro screen.
-		XCTAssert(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
-		XCTAssert(app.staticTexts["AppStrings.ExposureSubmissionIntroduction.subTitle"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionIntroduction.subTitle"].waitForExistence(timeout: .medium))
 
 		// Click next button.
 		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 
 		// Select hotline button.
-		XCTAssert(app
+		XCTAssertTrue(app
 			.buttons["AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"]
 			.waitForExistence(timeout: .medium)
 		)
@@ -74,16 +74,16 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		launch()
 
 		// Open Intro screen.
-		XCTAssert(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
-		XCTAssert(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 
 		// Click next button.
 		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 
 		// Select QRCode screen.
-		XCTAssert(app
+		XCTAssertTrue(app
 			.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"]
 			.waitForExistence(timeout: .medium)
 		)
@@ -97,16 +97,16 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		launch()
 
 		// Open Intro screen.
-		XCTAssert(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
-		XCTAssert(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 
 		// Click next button.
 		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 
 		// Select QRCode screen.
-		XCTAssert(app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].tap()
 
 		// Accept the alert.
@@ -123,7 +123,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		launch()
 
 		// Open Intro screen.
-		XCTAssert(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
 
 		// Click next button.
@@ -131,34 +131,34 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 
 		// Click TAN button.
-		XCTAssert(app
+		XCTAssertTrue(app
 			.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"]
 			.waitForExistence(timeout: .medium)
 		)
 		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].tap()
 
 		// Fill in dummy TAN.
-		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
 		type(app, text: "qwdzxcsrhe")
 
 		// Click continue button.
-		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].isEnabled)
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.continueText"].isEnabled)
 		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 
 		// TAN tests are ALWAYS positive!
 
 		// Click next.
-		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 
 		// Click next to warn others.
-		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 
 		#if INTEROP
-		XCTAssert(app.navigationBars["ENA.ExposureSubmissionWarnEuropeConsentView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnEuropeConsentView"].waitForExistence(timeout: .medium))
 		#else
-		XCTAssert(app.navigationBars["ENA.ExposureSubmissionSuccessView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionSuccessView"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 		#endif
 	}
@@ -178,7 +178,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertFalse(consentSwitch.isSelected) //disabled by default
 		consentSwitch.tap()
 
-		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].exists)
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.continueText"].exists)
 		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 	}
 
@@ -188,7 +188,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		let consentSwitch = app.switches["AppStrings.ExposureSubmissionWarnEuropeConsent.consentSwitch"]
 		XCTAssertTrue(consentSwitch.waitForExistence(timeout: .medium))
 		consentSwitch.tap()
-		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].exists)
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.continueText"].exists)
 		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 
 		// ExposureSubmissionWarnEuropeTravelConfirmationViewController
@@ -270,7 +270,7 @@ extension ENAUITests_04_ExposureSubmissionUITests {
 	/// Launch and wait until the app is ready.
 	private func launch() {
 		app.launch()
-		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: .long))
 	}
 
 	/// Use this method to grab localized strings correctly.
@@ -301,23 +301,23 @@ extension ENAUITests_04_ExposureSubmissionUITests {
 		launch()
 
 		// fast forward to EU submission screens
-		XCTAssert(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
 		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 		//TAN button.
-		XCTAssert(app
+		XCTAssertTrue(app
 			.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"]
 			.waitForExistence(timeout: .medium)
 		)
 		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].tap()
-		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
 		type(app, text: "qwdzxcsrhe")
-		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].isEnabled)
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.continueText"].isEnabled)
 		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
-		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
-		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 	}
 
@@ -327,7 +327,7 @@ extension ENAUITests_04_ExposureSubmissionUITests {
 		let consentSwitch = app.switches["AppStrings.ExposureSubmissionWarnEuropeConsent.consentSwitch"]
 		XCTAssertTrue(consentSwitch.waitForExistence(timeout: .medium))
 		consentSwitch.tap()
-		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].exists)
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.continueText"].exists)
 		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 
 		let optionYes = app.buttons["AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionYes"]

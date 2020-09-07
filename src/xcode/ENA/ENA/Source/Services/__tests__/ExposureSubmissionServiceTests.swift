@@ -137,7 +137,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			defer {
 				expectation.fulfill()
 			}
-			XCTAssert(error == .noRegistrationToken)
+			XCTAssertEqual(error, .noRegistrationToken)
 		}
 
 		waitForExpectations(timeout: expectationsTimeout)
@@ -186,7 +186,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure(let error):
-				XCTAssert(error == .noRegistrationToken)
+				XCTAssertEqual(error, .noRegistrationToken)
 			case .success:
 				XCTFail("This test should always fail since the registration token is missing.")
 			}
@@ -301,7 +301,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			// Retry.
 			client.onSubmitCountries = { $2(.success(())) }
 			client.onGetTANForExposureSubmit = { _, isFake, completion in
-				XCTAssert(isFake, "When executing the real request, instead of using the stored TAN, we have made a request to the server.")
+				XCTAssertTrue(isFake, "When executing the real request, instead of using the stored TAN, we have made a request to the server.")
 				completion(.failure(.fakeResponse))
 			}
 			service.submitExposure(visitedCountries: []) { result in
@@ -341,7 +341,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		client.onGetTANForExposureSubmit = { _, isFake, completion in
 			expectation.fulfill()
-			XCTAssert(isFake)
+			XCTAssertTrue(isFake)
 			XCTAssertEqual(count, 1)
 			count += 1
 			completion(.failure(.fakeResponse))
@@ -390,7 +390,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		client.onGetTANForExposureSubmit = { _, isFake, completion in
 			expectation.fulfill()
-			XCTAssert(isFake)
+			XCTAssertTrue(isFake)
 			XCTAssertEqual(count, 1)
 			count += 1
 			completion(.failure(.fakeResponse))
@@ -475,7 +475,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		client.onGetTANForExposureSubmit = { _, isFake, completion in
 			expectation.fulfill()
-			XCTAssert(isFake)
+			XCTAssertTrue(isFake)
 			count += 1
 			completion(.failure(.fakeResponse))
 		}
