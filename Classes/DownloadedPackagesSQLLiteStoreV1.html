@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>DownloadedPackagesStore Protocol Reference</title>
+    <title>DownloadedPackagesSQLLiteStoreV1 Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -11,8 +11,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Protocol/DownloadedPackagesStore" class="dashAnchor"></a>
-    <a title="DownloadedPackagesStore Protocol Reference"></a>
+    <a name="//apple_ref/swift/Class/DownloadedPackagesSQLLiteStoreV1" class="dashAnchor"></a>
+    <a title="DownloadedPackagesSQLLiteStoreV1 Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p>
@@ -36,7 +36,7 @@
             <a href="../index.html">ENA Reference</a>
             <img id="carat" src="../img/carat.png" />
           </span>
-          DownloadedPackagesStore Protocol Reference
+          DownloadedPackagesSQLLiteStoreV1 Class Reference
         </p>
       </div>
     </div>
@@ -45,11 +45,12 @@
         <article class="main-content">
           <section>
             <section class="section">
-              <h1>DownloadedPackagesStore</h1>
+              <h1>DownloadedPackagesSQLLiteStoreV1</h1>
                 <div class="declaration">
                   <div class="language">
                     
-                    <pre class="highlight swift"><code><span class="kd">protocol</span> <span class="kt">DownloadedPackagesStore</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+                    <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">class</span> <span class="kt">DownloadedPackagesSQLLiteStoreV1</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">DownloadedPackagesSQLLiteStoreV1</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DownloadedPackagesStoreV1.html">DownloadedPackagesStoreV1</a></span></code></pre>
 
                   </div>
                 </div>
@@ -62,9 +63,62 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA23DownloadedPackagesStoreP4openyyF"></a>
+                      <a name="/s:3ENA32DownloadedPackagesSQLLiteStoreV1C0E5ErrorV"></a>
+                      <a name="//apple_ref/swift/Struct/StoreError" class="dashAnchor"></a>
+                      <a class="direct-link" href="../Classes/DownloadedPackagesSQLLiteStoreV1/StoreError.html">StoreError</a>
+                      </code>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Creating%20a%20Store"></a>
+                  <a name="//apple_ref/swift/Section/Creating a Store" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/Creating%20a%20Store"></a>
+                    <h3 class="section-name"><p>Creating a Store</p>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA32DownloadedPackagesSQLLiteStoreV1C8database8migrator13latestVersionACSo10FMDatabaseC_AA22SerialMigratorProtocol_pSitcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(database:migrator:latestVersion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA32DownloadedPackagesSQLLiteStoreV1C8database8migrator13latestVersionACSo10FMDatabaseC_AA22SerialMigratorProtocol_pSitcfc">init(database:<wbr>migrator:<wbr>latestVersion:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span>
+	<span class="nv">database</span><span class="p">:</span> <span class="kt">FMDatabase</span><span class="p">,</span>
+	<span class="nv">migrator</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SerialMigratorProtocol.html">SerialMigratorProtocol</a></span><span class="p">,</span>
+	<span class="nv">latestVersion</span><span class="p">:</span> <span class="kt">Int</span>
+<span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA32DownloadedPackagesSQLLiteStoreV1C4openyyF"></a>
                       <a name="//apple_ref/swift/Method/open()" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA23DownloadedPackagesStoreP4openyyF">open()</a>
+                      <a class="token" href="#/s:3ENA32DownloadedPackagesSQLLiteStoreV1C4openyyF">open()</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -89,9 +143,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA23DownloadedPackagesStoreP5closeyyF"></a>
+                      <a name="/s:3ENA32DownloadedPackagesSQLLiteStoreV1C5closeyyF"></a>
                       <a name="//apple_ref/swift/Method/close()" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA23DownloadedPackagesStoreP5closeyyF">close()</a>
+                      <a class="token" href="#/s:3ENA32DownloadedPackagesSQLLiteStoreV1C5closeyyF">close()</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -116,9 +170,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA23DownloadedPackagesStoreP3set3day7packageySS_AA20SAPDownloadedPackageVtF"></a>
-                      <a name="//apple_ref/swift/Method/set(day:package:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA23DownloadedPackagesStoreP3set3day7packageySS_AA20SAPDownloadedPackageVtF">set(day:<wbr>package:<wbr>)</a>
+                      <a name="/s:3ENA32DownloadedPackagesSQLLiteStoreV1C3set7country3day7packageySS_SSAA20SAPDownloadedPackageVtF"></a>
+                      <a name="//apple_ref/swift/Method/set(country:day:package:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA32DownloadedPackagesSQLLiteStoreV1C3set7country3day7packageySS_SSAA20SAPDownloadedPackageVtF">set(country:<wbr>day:<wbr>package:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -133,7 +187,11 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">set</span><span class="p">(</span><span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">package</span><span class="p">:</span> <span class="kt"><a href="../Structs/SAPDownloadedPackage.html">SAPDownloadedPackage</a></span><span class="p">)</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">set</span><span class="p">(</span>
+	<span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+	<span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+	<span class="nv">package</span><span class="p">:</span> <span class="kt"><a href="../Structs/SAPDownloadedPackage.html">SAPDownloadedPackage</a></span>
+<span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -143,9 +201,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA23DownloadedPackagesStoreP3set4hour3day7packageySi_SSAA20SAPDownloadedPackageVtF"></a>
-                      <a name="//apple_ref/swift/Method/set(hour:day:package:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA23DownloadedPackagesStoreP3set4hour3day7packageySi_SSAA20SAPDownloadedPackageVtF">set(hour:<wbr>day:<wbr>package:<wbr>)</a>
+                      <a name="/s:3ENA32DownloadedPackagesSQLLiteStoreV1C3set7country4hour3day7packageySS_SiSSAA20SAPDownloadedPackageVtF"></a>
+                      <a name="//apple_ref/swift/Method/set(country:hour:day:package:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA32DownloadedPackagesSQLLiteStoreV1C3set7country4hour3day7packageySS_SiSSAA20SAPDownloadedPackageVtF">set(country:<wbr>hour:<wbr>day:<wbr>package:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -160,7 +218,12 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">set</span><span class="p">(</span><span class="nv">hour</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">package</span><span class="p">:</span> <span class="kt"><a href="../Structs/SAPDownloadedPackage.html">SAPDownloadedPackage</a></span><span class="p">)</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">set</span><span class="p">(</span>
+	<span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+	<span class="nv">hour</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+	<span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+	<span class="nv">package</span><span class="p">:</span> <span class="kt"><a href="../Structs/SAPDownloadedPackage.html">SAPDownloadedPackage</a></span>
+<span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -170,144 +233,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA23DownloadedPackagesStoreP7package3forAA20SAPDownloadedPackageVSgSS_tF"></a>
-                      <a name="//apple_ref/swift/Method/package(for:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA23DownloadedPackagesStoreP7package3forAA20SAPDownloadedPackageVSgSS_tF">package(for:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">package</span><span class="p">(</span><span class="k">for</span> <span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/SAPDownloadedPackage.html">SAPDownloadedPackage</a></span><span class="p">?</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:3ENA23DownloadedPackagesStoreP06hourlyC03forSayAA20SAPDownloadedPackageVGSS_tF"></a>
-                      <a name="//apple_ref/swift/Method/hourlyPackages(for:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA23DownloadedPackagesStoreP06hourlyC03forSayAA20SAPDownloadedPackageVGSS_tF">hourlyPackages(for:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">hourlyPackages</span><span class="p">(</span><span class="k">for</span> <span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Structs/SAPDownloadedPackage.html">SAPDownloadedPackage</a></span><span class="p">]</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:3ENA23DownloadedPackagesStoreP7allDaysSaySSGyF"></a>
-                      <a name="//apple_ref/swift/Method/allDays()" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA23DownloadedPackagesStoreP7allDaysSaySSGyF">allDays()</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">allDays</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:3ENA23DownloadedPackagesStoreP5hours3forSaySiGSS_tF"></a>
-                      <a name="//apple_ref/swift/Method/hours(for:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA23DownloadedPackagesStoreP5hours3forSaySiGSS_tF">hours(for:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">hours</span><span class="p">(</span><span class="k">for</span> <span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:3ENA23DownloadedPackagesStoreP5resetyyF"></a>
-                      <a name="//apple_ref/swift/Method/reset()" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA23DownloadedPackagesStoreP5resetyyF">reset()</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">reset</span><span class="p">()</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:3ENA23DownloadedPackagesStoreP18deleteOutdatedDays3nowySS_tKF"></a>
+                      <a name="/s:3ENA32DownloadedPackagesSQLLiteStoreV1C18deleteOutdatedDays3nowySS_tKF"></a>
                       <a name="//apple_ref/swift/Method/deleteOutdatedDays(now:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA23DownloadedPackagesStoreP18deleteOutdatedDays3nowySS_tKF">deleteOutdatedDays(now:<wbr>)</a>
+                      <a class="token" href="#/s:3ENA32DownloadedPackagesSQLLiteStoreV1C18deleteOutdatedDays3nowySS_tKF">deleteOutdatedDays(now:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -332,13 +260,10 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA23DownloadedPackagesStorePAAE03allC03for9onlyHoursSayAA20SAPDownloadedPackageVGSS_SbtF"></a>
-                      <a name="//apple_ref/swift/Method/allPackages(for:onlyHours:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA23DownloadedPackagesStorePAAE03allC03for9onlyHoursSayAA20SAPDownloadedPackageVGSS_SbtF">allPackages(for:<wbr>onlyHours:<wbr>)</a>
+                      <a name="/s:3ENA32DownloadedPackagesSQLLiteStoreV1C7package3for7countryAA20SAPDownloadedPackageVSgSS_SStF"></a>
+                      <a name="//apple_ref/swift/Method/package(for:country:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA32DownloadedPackagesSQLLiteStoreV1C7package3for7countryAA20SAPDownloadedPackageVSgSS_SStF">package(for:<wbr>country:<wbr>)</a>
                       </code>
-                        <span class="declaration-note">
-                          Extension method
-                        </span>
                     </div>
                     <div class="height-container">
                       <div class="pointer-container"></div>
@@ -352,10 +277,7 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">allPackages</span><span class="p">(</span>
-	<span class="k">for</span> <span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-	<span class="nv">onlyHours</span><span class="p">:</span> <span class="kt">Bool</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Structs/SAPDownloadedPackage.html">SAPDownloadedPackage</a></span><span class="p">]</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">package</span><span class="p">(</span><span class="k">for</span> <span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/SAPDownloadedPackage.html">SAPDownloadedPackage</a></span><span class="p">?</span></code></pre>
 
                           </div>
                         </div>
@@ -365,13 +287,10 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA23DownloadedPackagesStorePAAE22addFetchedDaysAndHoursyyAA0fghI0VF"></a>
-                      <a name="//apple_ref/swift/Method/addFetchedDaysAndHours(_:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA23DownloadedPackagesStorePAAE22addFetchedDaysAndHoursyyAA0fghI0VF">addFetchedDaysAndHours(_:<wbr>)</a>
+                      <a name="/s:3ENA32DownloadedPackagesSQLLiteStoreV1C06hourlyC03for7countrySayAA20SAPDownloadedPackageVGSS_SStF"></a>
+                      <a name="//apple_ref/swift/Method/hourlyPackages(for:country:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA32DownloadedPackagesSQLLiteStoreV1C06hourlyC03for7countrySayAA20SAPDownloadedPackageVGSS_SStF">hourlyPackages(for:<wbr>country:<wbr>)</a>
                       </code>
-                        <span class="declaration-note">
-                          Extension method
-                        </span>
                     </div>
                     <div class="height-container">
                       <div class="pointer-container"></div>
@@ -385,7 +304,115 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">addFetchedDaysAndHours</span><span class="p">(</span><span class="n">_</span> <span class="nv">daysAndHours</span><span class="p">:</span> <span class="kt"><a href="../Structs/FetchedDaysAndHours.html">FetchedDaysAndHours</a></span><span class="p">)</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">hourlyPackages</span><span class="p">(</span><span class="k">for</span> <span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Structs/SAPDownloadedPackage.html">SAPDownloadedPackage</a></span><span class="p">]</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA32DownloadedPackagesSQLLiteStoreV1C7allDays7countrySaySSGSS_tF"></a>
+                      <a name="//apple_ref/swift/Method/allDays(country:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA32DownloadedPackagesSQLLiteStoreV1C7allDays7countrySaySSGSS_tF">allDays(country:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">allDays</span><span class="p">(</span><span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA32DownloadedPackagesSQLLiteStoreV1C5hours3for7countrySaySiGSS_SStF"></a>
+                      <a name="//apple_ref/swift/Method/hours(for:country:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA32DownloadedPackagesSQLLiteStoreV1C5hours3for7countrySaySiGSS_SStF">hours(for:<wbr>country:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">hours</span><span class="p">(</span><span class="k">for</span> <span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">country</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA32DownloadedPackagesSQLLiteStoreV1C5resetyyF"></a>
+                      <a name="//apple_ref/swift/Method/reset()" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA32DownloadedPackagesSQLLiteStoreV1C5resetyyF">reset()</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">reset</span><span class="p">()</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA32DownloadedPackagesSQLLiteStoreV1C8fileNameACSS_tcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(fileName:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA32DownloadedPackagesSQLLiteStoreV1C8fileNameACSS_tcfc">init(fileName:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">fileName</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -423,7 +450,13 @@
                   <a href="../Classes/AppInformationDetailViewController/CellReuseIdentifier.html">– CellReuseIdentifier</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Classes/AppInformationImprintViewModel.html">AppInformationImprintViewModel</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Classes/AppInformationLegalCell.html">AppInformationLegalCell</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/AppInformationModel.html">AppInformationModel</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/AppInformationViewController.html">AppInformationViewController</a>
@@ -513,10 +546,16 @@
                   <a href="../Classes/DescriptionTableViewCell.html">DescriptionTableViewCell</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Classes/DownloadedPackagesSQLLiteStore.html">DownloadedPackagesSQLLiteStore</a>
+                  <a href="../Classes/DownloadedPackagesSQLLiteStoreV0.html">DownloadedPackagesSQLLiteStoreV0</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Classes/DownloadedPackagesSQLLiteStore/StoreError.html">– StoreError</a>
+                  <a href="../Classes/DownloadedPackagesSQLLiteStoreV0/StoreError.html">– StoreError</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/DownloadedPackagesSQLLiteStoreV1.html">DownloadedPackagesSQLLiteStoreV1</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/DownloadedPackagesSQLLiteStoreV1/StoreError.html">– StoreError</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/DynamicTableViewController.html">DynamicTableViewController</a>
@@ -813,6 +852,9 @@
                   <a href="../Classes/MainSettingsTableViewCell.html">MainSettingsTableViewCell</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Classes/Migration0To1.html">Migration0To1</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Classes/MockDiagnosisKeysRetrieval.html">MockDiagnosisKeysRetrieval</a>
                 </li>
                 <li class="nav-group-task">
@@ -913,6 +955,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/SecureStore.html">SecureStore</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/SerialMigrator.html">SerialMigrator</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/SettingsViewController.html">SettingsViewController</a>
@@ -1230,6 +1275,9 @@
                   <a href="../Extensions/Double.html">Double</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Extensions/DownloadedPackagesStore.html">DownloadedPackagesStore</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Extensions/ENAuthorizationStatus.html">ENAuthorizationStatus</a>
                 </li>
                 <li class="nav-group-task">
@@ -1393,7 +1441,10 @@
                   <a href="../Protocols/DiagnosisKeysRetrieval.html">DiagnosisKeysRetrieval</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/DownloadedPackagesStore.html">DownloadedPackagesStore</a>
+                  <a href="../Protocols/DownloadedPackagesStoreV0.html">DownloadedPackagesStoreV0</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/DownloadedPackagesStoreV1.html">DownloadedPackagesStoreV1</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/DynamicTableViewTextCell.html">DynamicTableViewTextCell</a>
@@ -1483,6 +1534,9 @@
                   <a href="../Protocols/Manager.html">Manager</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/Migration.html">Migration</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/NavigationBarOpacityDelegate.html">NavigationBarOpacityDelegate</a>
                 </li>
                 <li class="nav-group-task">
@@ -1514,6 +1568,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/SegueIdentifiers.html">SegueIdentifiers</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/SerialMigratorProtocol.html">SerialMigratorProtocol</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/SettingsViewControllerDelegate.html">SettingsViewControllerDelegate</a>
@@ -1640,6 +1697,18 @@
               <a href="../Typealiases.html">Type Aliases</a>
               <ul class="nav-group-tasks">
                 <li class="nav-group-task">
+                  <a href="../Typealiases/DownloadedPackagesSQLLiteStore.html">DownloadedPackagesSQLLiteStore</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Typealiases/DownloadedPackagesSQLLiteStore.html">DownloadedPackagesSQLLiteStore</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Typealiases/DownloadedPackagesStore.html">DownloadedPackagesStore</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Typealiases/DownloadedPackagesStore.html">DownloadedPackagesStore</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Typealiases/DynamicFooter.html">DynamicFooter</a>
                 </li>
                 <li class="nav-group-task">
@@ -1667,7 +1736,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://github.com/corona-warn-app/cwa-app-ios" target="_blank" rel="external">Corona-Warn-App</a>. All rights reserved. (Last updated: 2020-09-03)</p>
+          <p>&copy; 2020 <a class="link" href="https://github.com/corona-warn-app/cwa-app-ios" target="_blank" rel="external">Corona-Warn-App</a>. All rights reserved. (Last updated: 2020-09-07)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </div>
