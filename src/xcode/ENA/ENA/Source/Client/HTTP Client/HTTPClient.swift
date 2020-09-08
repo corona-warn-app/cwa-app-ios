@@ -616,7 +616,7 @@ private extension URLRequest {
 private extension ENExposureConfiguration {
 	convenience init(from riskscoreParameters: SAP_RiskScoreParameters, minRiskScore: Int32) throws {
 		self.init()
-		minimumRiskScore = UInt8(minRiskScore)
+		minimumRiskScore = UInt8(clamping: minRiskScore)
 		minimumRiskScoreFullRange = Double(minRiskScore)
 		attenuationLevelValues = riskscoreParameters.attenuation.asArray
 		daysSinceLastExposureLevelValues = riskscoreParameters.daysSinceLastExposure.asArray
