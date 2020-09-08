@@ -49,10 +49,10 @@ final class AppleFilesWriterTests: XCTestCase {
 	}
 
 	func testWriterWithoutPackagesDoesNothing() throws {
-		let writer = AppleFilesWriter(rootDir: rootDir, keyPackages: [])
-		let writtenPackages = writer.writeAllPackages()
+		let writer = AppleFilesWriter(rootDir: rootDir)
+		let writtenPackages = writer.writtenPackages
 		XCTAssertNotNil(writtenPackages)
-		XCTAssertTrue(writtenPackages?.urls.isEmpty == true)
+		XCTAssertTrue(writtenPackages.urls.isEmpty)
 	}
 
 	func testWriterWithPackagesWritesEverything() throws {
@@ -62,11 +62,15 @@ final class AppleFilesWriterTests: XCTestCase {
 				signature: Data(bytes: [0x1], count: 1)
 			)
 		]
-		let writer = AppleFilesWriter(rootDir: rootDir, keyPackages: packages)
-		let writtenPackages = writer.writeAllPackages()
-		XCTAssertNotNil(writtenPackages)
-		XCTAssertEqual(writtenPackages?.urls.count, 2)
-		let urls = writtenPackages?.urls ?? []
+		let writer = AppleFilesWriter(rootDir: rootDir)
+
+		for package in packages {
+			let success = writer.writePackage(package)
+			XCTAssertTrue(success)
+		}
+
+		XCTAssertEqual(writer.writtenPackages.urls.count, 2)
+		let urls = writer.writtenPackages.urls
 
 		let url0 = urls[0]
 		let url1 = urls[1]
@@ -83,7 +87,7 @@ final class AppleFilesWriterTests: XCTestCase {
 
 		XCTAssertEqual(writtenFiles?.count, 2)
 
-		writtenPackages?.cleanUp()
+		writer.writtenPackages.cleanUp()
 		
 		let contentsOfRootDir = try? FileManager().contentsOfDirectory(
 			at: rootDir,
