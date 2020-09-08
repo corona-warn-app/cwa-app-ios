@@ -49,6 +49,20 @@ class EUSettingsViewController: DynamicTableViewController {
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.roundedCell.rawValue
 		)
 	}
+
+	// MARK: - Helper methods.
+
+	private func show14DaysErrorAlert() {
+		let alert = setupErrorAlert(
+			title: AppStrings.ExposureNotificationSetting.eu14DaysAlertTitle,
+			message: AppStrings.ExposureNotificationSetting.eu14DaysAlertDescription,
+			okTitle: AppStrings.ExposureNotificationSetting.eu14DaysAlertDeactivateTitle,
+			secondaryActionTitle: AppStrings.ExposureNotificationSetting.eu14DaysAlertBackTitle,
+			completion: nil,
+			secondaryActionCompletion: nil
+		)
+		present(alert, animated: true, completion: nil)
+	}
 }
 
 private extension EUSettingsViewController {

@@ -449,6 +449,10 @@ enum AppStrings {
 		static let euGermanRiskDescription = NSLocalizedString("ExposureNotificationSetting_EU_GermanRiskDesc", comment: "")
 		static let euPrivacyTitle = NSLocalizedString("ExposureNotificationSetting_EU_PrivacyTitle", comment: "")
 		static let euPrivacyDescription = NSLocalizedString("ExposureNotificationSetting_EU_PrivacyDesc", comment: "")
+		static let eu14DaysAlertTitle = NSLocalizedString("ExposureNotificationSetting_EU_14DaysAlertTitle", comment: "")
+		static let eu14DaysAlertDescription = NSLocalizedString("ExposureNotificationSetting_EU_14DaysAlertDesc", comment: "")
+		static let eu14DaysAlertDeactivateTitle = NSLocalizedString("ExposureNotificationSetting_EU_14DaysAlertDeactivateTitle", comment: "")
+		static let eu14DaysAlertBackTitle = NSLocalizedString("ExposureNotificationSetting_EU_14DaysAlertBackTitle", comment: "")
 	}
 
 	enum ExposureNotificationError {

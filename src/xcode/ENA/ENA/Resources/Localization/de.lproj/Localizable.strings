@@ -715,6 +715,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_EU_PrivacyDesc" = "In der späteren App wird hier eine Erklärung zur Datenverarbeitung zu finden sein";
 
+"ExposureNotificationSetting_EU_14DaysAlertTitle" = "Bitte erst 14 Tage nach Verlassen des Landes deaktivieren";
+
+"ExposureNotificationSetting_EU_14DaysAlertDesc" = "Bitte lassen Sie die Risiko-Ermittlung für 14 weitere Tage aktiviert, nachdem sie das jeweilige Land bereits verlassen haben. Nur so kann sichergestellt werden, dass Sie alle relevanten Daten erhalten und eine verlässliche Berechnung des Infektionsrisikos erfolgen kann.Das mobile Datenvolumen der Corona-Warn-App ist für Sie europaweit kostenlos.";
+
+"ExposureNotificationSetting_EU_14DaysAlertDeactivateTitle" = "Deaktivieren";
+
+"ExposureNotificationSetting_EU_14DaysAlertBackTitle" = "Zurück";
+
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App Logo";
 
