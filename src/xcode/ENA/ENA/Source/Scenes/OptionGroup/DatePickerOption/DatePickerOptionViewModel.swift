@@ -46,7 +46,6 @@ struct DatePickerOptionViewModel {
 	}
 
 	var datePickerDays: [DatePickerDay] {
-		// 1 = Sunday, ..., 6 = Saturday
 		guard let firstDayOfDatePicker = firstDayOfDatePicker else {
 				return []
 		}
@@ -88,8 +87,7 @@ struct DatePickerOptionViewModel {
 	private let calendar: Calendar
 
 	private var firstDayOfThisWeek: Date? {
-		let weekday = calendar.component(.weekday, from: today)
-		return calendar.date(byAdding: .day, value: -(weekday - calendar.firstWeekday), to: today)
+		return calendar.date(from: calendar.dateComponents([.weekOfYear, .yearForWeekOfYear], from: today))
 	}
 
 	private var firstDayOfDatePicker: Date? {
