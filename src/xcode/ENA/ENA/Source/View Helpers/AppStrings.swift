@@ -169,6 +169,38 @@ enum AppStrings {
 		static let imageDescription = NSLocalizedString("ExposureSubmissionHotline_imageDescription", comment: "")
 	}
 
+	enum ExposureSubmissionSymptomsOnset {
+		static let title = NSLocalizedString("ExposureSubmissionSymptomsOnset_Title", comment: "")
+		static let description = NSLocalizedString("ExposureSubmissionSymptomsOnset_Description", comment: "")
+		static let symptoms = [
+			NSLocalizedString("ExposureSubmissionSymptomsOnset_Symptom0", comment: ""),
+			NSLocalizedString("ExposureSubmissionSymptomsOnset_Symptom1", comment: ""),
+			NSLocalizedString("ExposureSubmissionSymptomsOnset_Symptom2", comment: ""),
+			NSLocalizedString("ExposureSubmissionSymptomsOnset_Symptom3", comment: ""),
+			NSLocalizedString("ExposureSubmissionSymptomsOnset_Symptom4", comment: ""),
+			NSLocalizedString("ExposureSubmissionSymptomsOnset_Symptom5", comment: ""),
+			NSLocalizedString("ExposureSubmissionSymptomsOnset_Symptom6", comment: ""),
+			NSLocalizedString("ExposureSubmissionSymptomsOnset_Symptom7", comment: "")
+		]
+		static let answerOptionYes = NSLocalizedString("ExposureSubmissionSymptomsOnset_answerOptionYes", comment: "")
+		static let answerOptionNo = NSLocalizedString("ExposureSubmissionSymptomsOnset_answerOptionNo", comment: "")
+		static let answerOptionPreferNotToSay = NSLocalizedString("ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay", comment: "")
+		static let continueButton = NSLocalizedString("ExposureSubmissionSymptomsOnset_ContinueButton", comment: "")
+	}
+	
+	
+	enum ExposureSubmissionSymptoms {
+		static let title = NSLocalizedString("ExposureSubmissionSymptomsOnset_Title", comment: "")
+		static let subtitle = NSLocalizedString("ExposureSubmissionSymptomsOnset_Subtitle", comment: "")
+		static let description = NSLocalizedString("ExposureSubmissionSymptomsOnset_Description", comment: "")
+		static let datePickerTitle = NSLocalizedString("ExposureSubmissionSymptomsOnset_datePickerTitle", comment: "")
+		static let answerOptionLastSevenDays = NSLocalizedString("ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays", comment: "")
+		static let answerOptionOneToTwoWeeksAgo = NSLocalizedString("ExposureSubmissionSymptomsOnset_AnswerOptionOneToTwoWeeksAgo", comment: "")
+		static let answerOptionMoreThanTwoWeeksAgo = NSLocalizedString("ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo", comment: "")
+		static let answerOptionPreferNotToSay = NSLocalizedString("ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay", comment: "")
+		static let continueButton = NSLocalizedString("ExposureSubmissionSymptomsOnset_ContinueButton", comment: "")
+	}
+	
 	enum ExposureSubmissionWarnOthers {
 		static let title = NSLocalizedString("ExposureSubmissionWarnOthers_title", comment: "")
 		static let accImageDescription = NSLocalizedString("ExposureSubmissionWarnOthers_AccImageDescription", comment: "")
