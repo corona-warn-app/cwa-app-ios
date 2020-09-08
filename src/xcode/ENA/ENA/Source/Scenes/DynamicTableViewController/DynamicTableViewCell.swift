@@ -39,6 +39,7 @@ extension DynamicCell {
 		case dynamicTypeTextView = "textViewCell"
 		case icon = "iconCell"
 		case space = "spaceCell"
+		case bulletPoint = "bulletPointCell"
 	}
 
 	/// Style of  `DynamicTableViewTextCell`
@@ -120,6 +121,26 @@ extension DynamicCell {
 			guard let cell = cell as? DynamicTableViewSpaceCell else { return }
 			cell.height = height
 			cell.backgroundColor = color
+		}
+	}
+	
+	
+	static func bulletPoint(
+		text: String,
+		textColor: UIColor? = nil,
+		accessibilityIdentifier: String? = nil,
+		accessibilityTraits: UIAccessibilityTraits = .staticText,
+		action: DynamicAction = .none,
+		configure: CellConfigurator? = nil
+	) -> Self {
+		.identifier(CellReuseIdentifier.bulletPoint, action: action, accessoryAction: .none) { viewController, cell, indexPath in
+			(cell as? DynamicTableViewBulletPointCell)?.configure(
+				text: text,
+				textColor: textColor,
+				accessibilityTraits: accessibilityTraits,
+				accessibilityIdentifier: accessibilityIdentifier
+			)
+			configure?(viewController, cell, indexPath)
 		}
 	}
 }

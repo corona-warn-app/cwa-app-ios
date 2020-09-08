@@ -184,6 +184,13 @@ enum AccessibilityIdentifiers {
 		static let usage01 = "AppStrings.ExposureSubmissionIntroduction.usage01"
 		static let usage02 = "AppStrings.ExposureSubmissionIntroduction.usage02"
 	}
+	
+	enum ExposureSubmissionSymptoms {
+		static let description = "AppStrings.ExposureSubmissionSymptoms.description"
+		static let answerOptionYes = "AppStrings.ExposureSubmissionSymptoms.answerOptionYes"
+		static let answerOptionNo = "AppStrings.ExposureSubmissionSymptoms.answerOptionNo"
+		static let answerOptionPreferNotToSay = "AppStrings.ExposureSubmissionSymptoms.answerOptionPreferNotToSay"
+	}
 
 	enum ExposureSubmissionWarnOthers {
 		static let accImageDescription = "AppStrings.ExposureSubmissionWarnOthers.accImageDescription"
