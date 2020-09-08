@@ -18,19 +18,13 @@
 import Foundation
 import UIKit
 
-class DynamicTableViewBulletPointCell: UITableViewCell {
-
-	// MARK: - Overrides
-
-	override func awakeFromNib() {
-		super.awakeFromNib()
-
-		
-		setUp()
-	}
+final class DynamicTableViewBulletPointCell: UITableViewCell {
+	
+	// MARK: - Init
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		
 		setUp()
 	}
 	
@@ -53,29 +47,14 @@ class DynamicTableViewBulletPointCell: UITableViewCell {
 	private var contentLabel = ENALabel()
 
 	private func setUp() {
-		
 		stackView.axis = .horizontal
 		stackView.alignment = .firstBaseline
 		stackView.distribution = .fill
 		stackView.spacing = 16
+		
 		stackView.translatesAutoresizingMaskIntoConstraints = false
-		
-		contentLabel.textColor = .enaColor(for: .textPrimary1)
-		contentLabel.style = .body
-		contentLabel.numberOfLines = 0
-		
-	
-		let pointLabel = ENALabel()
-		pointLabel.textColor = .enaColor(for: .textPrimary1)
-		pointLabel.style = .body
-		pointLabel.numberOfLines = 1
-		pointLabel.text = "•"
-		pointLabel.setContentHuggingPriority(.required, for: .horizontal)
-		
-		stackView.addArrangedSubview(pointLabel)
-		stackView.addArrangedSubview(contentLabel)
-		
 		contentView.addSubview(stackView)
+		
 		NSLayoutConstraint.activate([
 			stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 3),
 			stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
@@ -83,7 +62,18 @@ class DynamicTableViewBulletPointCell: UITableViewCell {
 			stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24)
 		])
 		
+		let pointLabel = ENALabel()
+		pointLabel.textColor = .enaColor(for: .textPrimary1)
+		pointLabel.style = .body
+		pointLabel.numberOfLines = 1
+		pointLabel.text = "•"
+		pointLabel.setContentHuggingPriority(.required, for: .horizontal)
+		stackView.addArrangedSubview(pointLabel)
+		
+		contentLabel.textColor = .enaColor(for: .textPrimary1)
+		contentLabel.style = .body
+		contentLabel.numberOfLines = 0
+		stackView.addArrangedSubview(contentLabel)
 	}
-
-
+	
 }
