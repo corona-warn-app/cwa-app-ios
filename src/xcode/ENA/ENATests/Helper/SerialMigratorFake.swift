@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,19 +15,10 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
-import Foundation
-import FMDB
+@testable import ENA
 
-protocol DownloadedPackagesStore: AnyObject {
-	func open()
-	func close()
-	func set(day: String, package: SAPDownloadedPackage)
-	func set(hour: Int, day: String, package: SAPDownloadedPackage)
-	func package(for day: String) -> SAPDownloadedPackage?
-	func hourlyPackages(for day: String) -> [SAPDownloadedPackage]
-	func allDays() -> [String] // 2020-05-30
-	func hours(for day: String) -> [Int]
-	func reset()
-	func deleteOutdatedDays(now: String) throws
+class SerialMigratorFake: SerialMigratorProtocol {
+	func migrate() { }
 }
