@@ -27,13 +27,13 @@
 
 "Common_Alert_Action_moreInfo" = "العثور على المزيد";
 
-"Common_BackgroundFetch_AlertMessage" = "قمت بإلغاء تنشيط تحديثات في الخلفية لتطبيق Corona-Warn-App. الرجاء تنشيط تحديثات في الخلفية لاستخدام تسجيل المخالطة التلقائي. إذا لم تقم بتنشيط تحديثات في الخلفية، فيمكنك فقط بدء تسجيل المخالطة يدويًا في التطبيق.\n\nيمكنك تنشيط تحديثات في الخلفية للتطبيق في إعدادات الجهاز لديك.";
+"Common_BackgroundFetch_AlertMessage" = "لقد قمت بإلغاء تنشيط تحديث التطبيق في الخلفية لتطبيق Corona-Warn-App. الرجاء تنشيط تحديث التطبيق في الخلفية لاستخدام تسجيل التعرض التلقائي. إذا لم تقم بتنشيط تحديث التطبيق في الخلفية، يمكنك بدء تسجيل التعرض يدويًا فقط في التطبيق.\n\nيمكنك تنشيط تحديث التطبيق في الخلفية للتطبيق في إعدادات الجهاز لديك.";
 
 "Common_BackgroundFetch_SettingsTitle" = "فتح إعدادات الجهاز";
 
 "Common_BackgroundFetch_OKTitle" = "بدء تسجيل المخالطة يدويًا";
 
-"Common_BackgroundFetch_AlertTitle" = "تحديثات في الخلفية مُلغى تنشيطها";
+"Common_BackgroundFetch_AlertTitle" = "تم إلغاء تنشيط تحديث التطبيق في الخلفية";
 
 "Common_Deadman_AlertTitle" = "مستوى الخطر";
 
@@ -106,9 +106,7 @@
 
 "ExposureDetection_Explanation_Title" = "خطر العدوى";
 
-"ExposureDetection_Explanation_Subtitle_Active" = "هذه هي الطريقة التي كان يتم بها تقدير الخطر الواقع عليك";
-
-"ExposureDetection_Explanation_Subtitle_Inactive" = "هذه هي الطريقة التي يتم بها تقدير الخطر الواقع عليك";
+"ExposureDetection_Explanation_Subtitle" = "هذه هي الطريقة التي يتم بها تقدير الخطر الواقع عليك";
 
 "ExposureDetection_Explanation_Text_Off" = "يتم تقدير خطر العدوى من بيانات تسجيل المخالطة (المدة ومدى الاقتراب) محليًا على جهازك. ولا يمكن الاطلاع على خطر العدوى من جانب أي شخص آخر أو تمريره إليه.";
 
@@ -116,9 +114,19 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "لا يمكننا تقدير خطر العدوى نظرًا لعدم قيامك بتنشيط تسجيل المخالطة لفترة طويلة بما يكفي.\n\nيتم تقدير خطر العدوى من بيانات تسجيل المخالطة (المدة ومدى الاقتراب) محليًا على جهازك. ولا يمكن الاطلاع على خطر العدوى من جانب أي شخص آخر أو تمريره إليه.";
 
-"ExposureDetection_Explanation_Text_Low" = "خطر العدوى لديك منخفض نظرًا لعدم تسجيل أي تجمُّع مع شخص مصاب بمرض كوفيد-19 أو تم تقييد تجمُّعك لفترة قصيرة وعلى مسافة أكبر.\n\nوبالتالي، تم تصنيف خطر العدوى على أنه منخفض.\n\nيتم تقدير خطر العدوى من بيانات تسجيل المخالطة (المدة ومدى الاقتراب) محليًا على جهازك. ولا يمكن الاطلاع على خطر العدوى من جانب أي شخص آخر أو تمريره إليه.";
+"ExposureDetection_Explanation_Text_Low" = "يتم احتساب خطر الإصابة محليًا على جهازك باستخدام بيانات تسجيل التعرض. كما يؤخذ في الاعتبار أيضًا أثناء الاحتساب المسافة والمدة التي خالطت بها أشخاص تم تشخيص إصابتهم بكوفيد-19، بالإضافة إلى احتمالية نقل العدوى. لا يمكن أن يحصل أي شخص آخر على معلومات متعلقة بخطر إصابتك بالعدوى أو رؤيتها.";
 
 "ExposureDetection_Explanation_Text_High" = "وبالتالي، تم تصنيف خطر العدوى بالنسبة إليك على أنه مرتفع.\nيتم تقدير خطر العدوى من بيانات تسجيل المخالطة (المدة ومدى الاقتراب) محليًا على جهازك. ولا يمكن الاطلاع على خطر العدوى من جانب أي شخص آخر أو تمريره إليه.\nعند العودة إلى المنزل، يرجى تجنب التعامل عن قرب مع أفراد أسرتك أو عائلتك.";
+
+"ExposureDetection_Explanation_FAQ_Link" = "https://www.coronawarn.app/en/faq/#encounter_but_green";
+
+"ExposureDetection_Explanation_FAQ_Link_Text" = "مزيد من المعلومات";
+
+"ExposureDetection_LowRiskExposure_Title" = "مخالطات ذات خطر إصابة بالعدوى منخفض";
+
+"ExposureDetection_LowRiskExposure_Subtitle" = "لماذا خطر إصابتك بالعدوى منخفض";
+
+"ExposureDetection_LowRiskExposure_Body" = "خالطت شخصًا مُصابًا بمرض كوفيد-19. مع ذلك، وبالأخذ في الاعتبار جميع البيانات المتوفرة في تطبيق Corona-Warn-App، فإن خطر إصابتك يعد منخفضًا.\nليست هناك حاجة لاتخاذ أي إجراء. نوصيك بالالتزام بالقواعد المتداولة بخصوص التباعد والنظافة.";
 
 "ExposureDetection_Button_Enable" = "تنشيط تسجيل المخالطة";
 
@@ -168,7 +176,7 @@
 
 "Settings_Notification_Label" = "الإشعارات";
 
-"Settings_BackgroundAppRefresh_Label" = "التحديثات في الخلفية";
+"Settings_BackgroundAppRefresh_Label" = "تحديث التطبيق في الخلفية";
 
 "Settings_Reset_Label" = "إعادة تعيين التطبيق";
 
@@ -210,15 +218,15 @@
 "NotificationSettings_offImageDescription" = "سيدة لا يمكنها تلقي إشعارات من تطبيق Corona-Warn-App.";
 
 /* Background App Referesh Settings */
-"BackgroundAppRefreshSettings_Title" = "التحديثات في الخلفية";
+"BackgroundAppRefreshSettings_Title" = "تحديث التطبيق في الخلفية";
 
-"BackgroundAppRefreshSettings_Image_Description_On" = "شخص يحمل هاتفًا ذكيًا بتحديثات في الخلفية تم تنشيطها.";
+"BackgroundAppRefreshSettings_Image_Description_On" = "شخص يحمل هاتفًا ذكيًا بتحديث تطبيق في الخلفية تم تنشيطه.";
 
-"BackgroundAppRefreshSettings_Image_Description_Off" = "شخص يحمل هاتفًا ذكيًا بتحديثات في الخلفية تم إلغاء تنشيطها.";
+"BackgroundAppRefreshSettings_Image_Description_Off" = "شخص يحمل هاتفًا ذكيًا بتحديث تطبيق في الخلفية تم إلغاء تنشيطه.";
 
 "BackgroundAppRefreshSettings_Subtitle" = "تحديث حالة المخاطرة في الخلفية";
 
-"BackgroundAppRefreshSettings_Description" = "عند تنشيط تحديثات في الخلفية، يحدد تطبيق Corona-Warn-App حالة المخاطرة لديك تلقائيًا.\nلن يتم تكبد تكاليف إضافية لنقل البيانات في شبكة الهاتف المحمول.\nفي حالة إلغاء تنشيط التحديثات في الخلفية، فسيتوجب عليك فتح التطبيق يدويًا كل يوم لتحديث حالة المخاطرة لديك.";
+"BackgroundAppRefreshSettings_Description" = "بمجرد تنشيط تحديث التطبيق في الخلفية، يحدد تطبيق Corona-Warn-App حالة خطر إصابتك تلقائيًا.\nلن يتم تحمل أي تكاليف إضافية لنقل البيانات في شبكة الهاتف المحمول.\nفي حالة إلغاء تنشيط تحديث التطبيق في الخلفية، فسيتوجب عليك فتح التطبيق يدويًا كل يوم لتحديث حالة خطر إصابتك.";
 
 "BackgroundAppRefreshSettings_Status_Header" = "الإعداد";
 
@@ -281,7 +289,7 @@
 
 "Onboarding_DeactivateExposureConfirmation_message" = "يمكنك إلغاء تنشيط هذه الميزة في أي وقت.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "مجموعة أشخاص يستخدمون أجهزتهم في المدينة جميعًا.";
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "مجموعة أشخاص يستخدمون أجهزتهم حول المدينة.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_title" = "لنكافح فيروس كورونا معًا";
 
@@ -311,7 +319,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "حد العمر: 16 سنة فأكثر";
 
-"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "هذا التطبيق موجه إلى الأشخاص الذين لا تقل أعمارهم عن 16 سنة وإلى هؤلاء المقيمين في ألمانيا.";
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "استخدام هذا التطبيق موجه إلى الأشخاص الذين لا تقل أعمارهم عن 16 سنة وإلى هؤلاء المقيمين في ألمانيا.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "إقرار الموافقة";
 
@@ -566,11 +574,11 @@
 
 "ExposureSubmissionWarnOthers_consentUnderagesTitle" = "حد العمر: 16 سنة فأكثر";
 
-"ExposureSubmissionWarnOthers_consentUnderagesText" = "هذا التطبيق موجه إلى الأشخاص الذين لا تقل أعمارهم عن 16 سنة وإلى هؤلاء المقيمين في ألمانيا.";
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "استخدام هذا التطبيق موجه إلى الأشخاص الذين لا تقل أعمارهم عن 16 سنة وإلى هؤلاء المقيمين في ألمانيا.";
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "يمكن مسح الاختبار ضوئيًا مرة واحدة فقط.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "إذا قمت بحذف الاختبار، فلن تتمكن من استرجاع نتيجة الاختبار الخاصة بك. تتلقى نتيجة الاختبار الخاصة بك من مركز الاختبار أو المختبر، بغض النظر عن التطبيق. إذا تمت إصابتك بمرض كوفيد-19، فسيتم إعلامك من قبل دائرة الصحة العامة.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "إذا قمت بإزالة الاختبار، فلن تتمكن من استرجاع نتيجة الاختبار الخاصة بك. ستتلقى نتيجة الاختبار من مركز الاختبار أو المختبر بغض النظر عن صلاحية رمز الاستجابة السريعة (QR). إذا تمت إصابتك بمرض كوفيد-19، فسيتم إعلام دائرة الصحة العامة من خلال القناة المنصوص عليها قانونيًا وسيتم الاتصال بك.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "تاريخ التسجيل غير معروف";
 
@@ -591,7 +599,9 @@
 
 "ExposureSubmissionError_NoResponse" = "لا يحتوي الاستجابة على أي محتوى.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "رمز الاستجابة السريعة (QR) غير صالح أو تم تسجيله بالفعل على هاتف ذكي آخر. ستتلقى نتيجة الاختبار من مركز الاختبار أو المختبر بغض النظر عن صلاحية رمز الاستجابة السريعة (QR). إذا تمت إصابتك بمرض كوفيد-19، فسيتم إعلامك من قبل دائرة الصحة العامة.";
+"ExposureSubmissionError_QRAlreadyUsed" = "رمز الاستجابة السريعة (QR) غير صالح أو تم تسجيله بالفعل على هاتف ذكي آخر. ستتلقى نتيجة الاختبار من مركز الاختبار أو المختبر بغض النظر عن صلاحية رمز الاستجابة السريعة (QR). إذا تمت إصابتك بمرض كوفيد-19، فسيتم إعلام دائرة الصحة العامة من خلال القناة المنصوص عليها قانونيًا وسيتم الاتصال بك.";
+
+"ExposureSubmissionError_QRAlreadyUsed_Title" = "رمز الاستجابة السريعة (QR) غير صالح";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "رقم المعاملة (TAN) غير صالح أو مستخدم بالفعل. الرجاء المحاولة مرة أخرى أو الاتصال بالخط الساخن الفني عبر معلومات التطبيق -> الخط الساخن الفني.";
 

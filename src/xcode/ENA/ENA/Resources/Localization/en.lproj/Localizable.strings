@@ -27,13 +27,13 @@
 
 "Common_Alert_Action_moreInfo" = "Find out more";
 
-"Common_BackgroundFetch_AlertMessage" = "You have deactivated background updates for the Corona-Warn-App. Please activate background updates to use automatic exposure logging. If you do not activate background updates, you can only start exposure logging manually in the app.\n\nYou can activate background updates for the app in your device settings.";
+"Common_BackgroundFetch_AlertMessage" = "You have deactivated background app refresh for the Corona-Warn-App. Please activate background app refresh to use automatic exposure logging. If you do not activate background app refresh, you can only start exposure logging manually in the app.\n\nYou can activate background app refresh for the app in your device settings.";
 
 "Common_BackgroundFetch_SettingsTitle" = "Open Device Settings";
 
 "Common_BackgroundFetch_OKTitle" = "Start Exposure Logging Manually";
 
-"Common_BackgroundFetch_AlertTitle" = "Background updates deactivated";
+"Common_BackgroundFetch_AlertTitle" = "Background app refresh deactivated";
 
 "Common_Deadman_AlertTitle" = "Your Risk Status";
 
@@ -106,9 +106,7 @@
 
 "ExposureDetection_Explanation_Title" = "Risk of Infection";
 
-"ExposureDetection_Explanation_Subtitle_Active" = "This is how your risk was calculated";
-
-"ExposureDetection_Explanation_Subtitle_Inactive" = "This is how your risk is calculated";
+"ExposureDetection_Explanation_Subtitle" = "This is how your risk is calculated";
 
 "ExposureDetection_Explanation_Text_Off" = "Your risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.";
 
@@ -116,9 +114,19 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "Since you have not activated exposure logging for long enough, we cannot calculate your risk of infection.\n\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to anyone else.";
 
-"ExposureDetection_Explanation_Text_Low" = "You have a low risk of infection since no encounter with a person diagnosed with COVID-19 has been logged, or your encounter was restricted to a short time and at a greater distance.\n\nTherefore, your risk of infection has been ranked as low.\n\nThe risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.";
+"ExposureDetection_Explanation_Text_Low" = "The risk of infection is calculated locally on your device, using exposure logging data. The calculation also takes into account distance and duration of any encounter with persons diagnosed with COVID-19, as well as their potential infectiousness. Your risk of infection cannot be seen by or passed on to anyone else.";
 
 "ExposureDetection_Explanation_Text_High" = "Therefore, your risk of infection has been ranked as increased.\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.\nWhen you get home, please also avoid close contact with members of your family or household.";
+
+"ExposureDetection_Explanation_FAQ_Link" = "https://www.coronawarn.app/en/faq/#encounter_but_green";
+
+"ExposureDetection_Explanation_FAQ_Link_Text" = "Further information";
+
+"ExposureDetection_LowRiskExposure_Title" = "Encounters with low risk";
+
+"ExposureDetection_LowRiskExposure_Subtitle" = "Why your risk of infection is low";
+
+"ExposureDetection_LowRiskExposure_Body" = "You encountered a person diagnosed with COVID-19. Nevertheless, taking into account all data available in the Corona-Warn-App, your risk of infection is ranked as low.\nThere is no specific need for action. We recommend that you adhere to the prevailing rules regarding distancing and hygiene.";
 
 "ExposureDetection_Button_Enable" = "Activate Exposure Logging";
 
@@ -168,7 +176,7 @@
 
 "Settings_Notification_Label" = "Notifications";
 
-"Settings_BackgroundAppRefresh_Label" = "Background Updates";
+"Settings_BackgroundAppRefresh_Label" = "Background App Refresh";
 
 "Settings_Reset_Label" = "Reset App";
 
@@ -210,15 +218,15 @@
 "NotificationSettings_offImageDescription" = "A woman cannot receive notifications from her Corona-Warn-App.";
 
 /* Background App Referesh Settings */
-"BackgroundAppRefreshSettings_Title" = "Background Updates";
+"BackgroundAppRefreshSettings_Title" = "Background App Refresh";
 
-"BackgroundAppRefreshSettings_Image_Description_On" = "A person holds a smartphone with activated background updates in their hand.";
+"BackgroundAppRefreshSettings_Image_Description_On" = "A person holds a smartphone in which background app refresh is activated.";
 
-"BackgroundAppRefreshSettings_Image_Description_Off" = "A person holds a smartphone with deactivated background updates in their hand.";
+"BackgroundAppRefreshSettings_Image_Description_Off" = "A person holds a smartphone in which background app refresh is deactivated.";
 
 "BackgroundAppRefreshSettings_Subtitle" = "Update Risk Status in the Background";
 
-"BackgroundAppRefreshSettings_Description" = "When background updates are activated, the Corona-Warn-App determines your risk status automatically.\nNo additional costs will be incurred for the data transfer in the mobile network.\nIf background updates are deactivated, you will have to open the app manually each day to update your risk status.";
+"BackgroundAppRefreshSettings_Description" = "Once background app refresh is activated, the Corona-Warn-App determines your risk status automatically.\nNo additional costs will be incurred for data transfer over the mobile network.\nIf background app refresh is deactivated, you will have to open the app manually each day to update your risk status.";
 
 "BackgroundAppRefreshSettings_Status_Header" = "Setting";
 
@@ -281,7 +289,7 @@
 
 "Onboarding_DeactivateExposureConfirmation_message" = "You can deactivate this feature at any time.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "A group of people are all using their devices in town.";
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "A group of persons use their devices around town.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_title" = "Let's fight coronavirus together";
 
@@ -311,7 +319,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Age Limit: 16 and Up";
 
-"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "This app is intended for people who are at least 16 years of age and who reside in Germany.";
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "The use of this app is intended for persons who are at least 16 years of age and who reside in Germany.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Declaration of Consent";
 
@@ -566,11 +574,11 @@
 
 "ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Age Limit: 16 and Up";
 
-"ExposureSubmissionWarnOthers_consentUnderagesText" = "This app is intended for people who are at least 16 years of age and who reside in Germany.";
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "The use of this app is intended for persons who are at least 16 years of age and who reside in Germany.";
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "The test can only be scanned once.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "If you delete the test, you can no longer retrieve your test result. You receive your test result from the test center or laboratory, independently of the app. If you are diagnosed with COVID-19, you will be notified by the public health authority.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "If you remove the test, you can no longer retrieve your test result. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with COVID-19, the public health authority will be notified through the legally prescribed channel and will contact you.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registration date unknown";
 
@@ -591,7 +599,9 @@
 
 "ExposureSubmissionError_NoResponse" = "The response has no content.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "The QR code is invalid or has been registered on another smartphone already. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with COVID-19, you will be notified by the public health authority.";
+"ExposureSubmissionError_QRAlreadyUsed" = "The QR code is invalid or has been registered on another smartphone already. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with COVID-19, the public health authority will be notified through the legally prescribed channel and will contact you.";
+
+"ExposureSubmissionError_QRAlreadyUsed_Title" = "QR code is invalid";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "The TAN is invalid or has been used already. Please try again or contact the technical hotline via App Information -> Technical Hotline.";
 
