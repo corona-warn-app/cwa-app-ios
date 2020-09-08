@@ -5035,7 +5035,7 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 167,
+      "line": 196,
       "symbol": "DownloadedPackagesStore",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
@@ -11488,20 +11488,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/DownloadedPackagesStore/V0/DownloadedPackagesStoreV0.swift",
-      "line": 35,
-      "symbol": "DownloadedPackagesStoreV0",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/DownloadedPackagesStore/V0/DownloadedPackagesStoreV0.swift",
-      "line": 36,
-      "symbol": "DownloadedPackagesStoreV0.allPackages(for:onlyHours:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/DownloadedPackagesStore/V1/DownloadedPackagesSQLLiteStoreV1.swift",
       "line": 21,
       "symbol": "DownloadedPackagesSQLLiteStoreV1",
@@ -11701,20 +11687,6 @@
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/DownloadedPackagesStore/V1/DownloadedPackagesStoreV1.swift",
       "line": 31,
       "symbol": "DownloadedPackagesStoreV1.deleteOutdatedDays(now:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/DownloadedPackagesStore/V1/DownloadedPackagesStoreV1.swift",
-      "line": 35,
-      "symbol": "DownloadedPackagesStoreV1",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/DownloadedPackagesStore/V1/DownloadedPackagesStoreV1.swift",
-      "line": 36,
-      "symbol": "DownloadedPackagesStoreV1.allPackages(for:country:onlyHours:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -12217,29 +12189,29 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/AppleFilesWriter.swift",
-      "line": 40,
-      "symbol": "AppleFilesWriter.init(rootDir:keyPackages:)",
+      "line": 42,
+      "symbol": "AppleFilesWriter.init(rootDir:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/AppleFilesWriter.swift",
-      "line": 46,
+      "line": 48,
+      "symbol": "AppleFilesWriter.writtenPackages",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/AppleFilesWriter.swift",
+      "line": 49,
       "symbol": "AppleFilesWriter.rootDir",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/AppleFilesWriter.swift",
-      "line": 47,
-      "symbol": "AppleFilesWriter.keyPackages",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/AppleFilesWriter.swift",
-      "line": 50,
-      "symbol": "AppleFilesWriter.writeAllPackages()",
+      "line": 53,
+      "symbol": "AppleFilesWriter.writePackage(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -12434,14 +12406,14 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetectionExecutor.swift",
-      "line": 139,
+      "line": 168,
       "symbol": "ExposureDetectionExecutor.exposureDetection(_:detectSummaryWithConfiguration:writtenPackages:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetectionExecutor.swift",
-      "line": 168,
+      "line": 197,
       "symbol": "DownloadedPackagesStore.addFetchedDaysAndHours(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
