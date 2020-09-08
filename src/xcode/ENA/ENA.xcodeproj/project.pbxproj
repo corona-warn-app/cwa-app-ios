@@ -62,6 +62,7 @@
 		2FC951FE24DC23B9008D39F4 /* DMConfigurationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC951FD24DC23B9008D39F4 /* DMConfigurationCell.swift */; };
 		2FD881CC2490F65C00BEC8FC /* ExposureSubmissionHotlineViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD881CB2490F65C00BEC8FC /* ExposureSubmissionHotlineViewControllerTest.swift */; };
 		2FD881CE249115E700BEC8FC /* ExposureSubmissionNavigationControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD881CD249115E700BEC8FC /* ExposureSubmissionNavigationControllerTest.swift */; };
+		2FDA18E62507AD6D0023644E /* EUSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDA18E52507AD6D0023644E /* EUSettingsViewController.swift */; };
 		2FE15A3C249B8C0B0077BD8D /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */; };
 		2FF1D62E2487850200381FFB /* NSMutableAttributedString+Generation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */; };
 		2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */; };
@@ -510,6 +511,7 @@
 		2FC951FD24DC23B9008D39F4 /* DMConfigurationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMConfigurationCell.swift; sourceTree = "<group>"; };
 		2FD881CB2490F65C00BEC8FC /* ExposureSubmissionHotlineViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionHotlineViewControllerTest.swift; sourceTree = "<group>"; };
 		2FD881CD249115E700BEC8FC /* ExposureSubmissionNavigationControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionNavigationControllerTest.swift; sourceTree = "<group>"; };
+		2FDA18E52507AD6D0023644E /* EUSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EUSettingsViewController.swift; sourceTree = "<group>"; };
 		2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
 		2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Generation.swift"; sourceTree = "<group>"; };
 		2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewRoundedCell.swift; sourceTree = "<group>"; };
@@ -1460,6 +1462,7 @@
 				EE22DB80247FB409001B0A71 /* ENSettingModel.swift */,
 				EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */,
 				853D98842469DC8100490DBA /* ExposureNotificationSettingViewController.swift */,
+				2FDA18E52507AD6D0023644E /* EUSettingsViewController.swift */,
 			);
 			path = ENSetting;
 			sourceTree = "<group>";
@@ -2822,6 +2825,7 @@
 				71FE1C86247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift in Sources */,
 				1309194F247972C40066E329 /* PrivacyProtectionViewController.swift in Sources */,
 				CDCE11DB247D64D600F30825 /* NotificationSettingsOffTableViewCell.swift in Sources */,
+				2FDA18E62507AD6D0023644E /* EUSettingsViewController.swift in Sources */,
 				51CE1B91246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift in Sources */,
 				B112545A246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift in Sources */,
 				51486D9F2484FC0200FCE216 /* HomeRiskLevelCellConfigurator.swift in Sources */,
