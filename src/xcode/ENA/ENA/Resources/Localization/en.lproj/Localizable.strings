@@ -550,58 +550,6 @@
 
 "ExposureSubmissionResult_refreshButton" = "Update";
 
-/* ExposureSubmissionSymptomsOnset */
-
-"ExposureSubmissionSymptomsOnset_Title" = "Symptome";
-
-"ExposureSubmissionSymptomsOnset_Description" = "Sind eines oder mehrere der folgenden Symptome in den letzten Tagen bei Ihnen neu aufgetreten?";
-
-"ExposureSubmissionSymptomsOnset_Symptom0" = "Erhöhte Temperatur oder Fieber";
-
-"ExposureSubmissionSymptomsOnset_Symptom1" = "Kurzatmigkeit";
-
-"ExposureSubmissionSymptomsOnset_Symptom2" = "Verlust des Geruchs-/Geschmackssinns";
-
-"ExposureSubmissionSymptomsOnset_Symptom3" = "Husten";
-
-"ExposureSubmissionSymptomsOnset_Symptom4" = "Schnupfen";
-
-"ExposureSubmissionSymptomsOnset_Symptom5" = "Halsschmerzen";
-
-"ExposureSubmissionSymptomsOnset_Symptom6" = "Kopf- und Gliederschmerzen";
-
-"ExposureSubmissionSymptomsOnset_Symptom7" = "Allgemeine Schwäche und Abgeschlagenheit";
-
-"ExposureSubmissionSymptomsOnset_answerOptionYes" = "Ja";
-
-"ExposureSubmissionSymptomsOnset_answerOptionNo" = "Nein";
-
-"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Keine Angabe";
-
-"ExposureSubmissionSymptomsOnset_ContinueButton" = "Weiter";
-
-/* ExposureSubmissionSymptoms */
-
-"ExposureSubmissionSymptomsOnset_Title" = "Symptom-Beginn";
-
-"ExposureSubmissionSymptomsOnset_Subtitle" = "Wann sind die Symptome bei Ihnen aufgetreten?";
-
-"ExposureSubmissionSymptomsOnset_Description" = "Machen Sie Ihre Angaben so genau wie möglich.";
-
-"ExposureSubmissionSymptomsOnset_datePickerTitle" = "Genaues Datum";
-
-"ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "In den letzten 7 Tagen";
-
-"ExposureSubmissionSymptomsOnset_AnswerOptionOneToTwoWeeksAgo" = "Vor 1-2 Wochen";
-
-"ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "Vor mehr als 2 Wochen";
-
-"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Keine Angabe";
-
-"ExposureSubmissionSymptomsOnset_ContinueButton" = "Weiter";
-
-/* ExposureSubmissionWarnOthers */
-
 "ExposureSubmissionWarnOthers_title" = "Warning Others";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "A device transmits an encrypted positive test diagnosis to the system.";
