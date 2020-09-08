@@ -689,6 +689,24 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_apiMisuse" = "Bei der Aktivierung der Risiko-Ermittlung ist ein interner Fehler aufgetreten. Für mehr Informationen besuchen Sie bitte die FAQ-Website und probieren Sie es später noch einmal.";
 
+/* EU Settings */
+
+"ExposureNotificationSetting_EU_Title" = "Europaweite Risiko-Ermittlung";
+
+"ExposureNotificationSetting_EU_Desc" = "Bitte aktivieren Sie alle Länder, in denen Sie sich aufhalten oder in den letzten 14 Tagen aufgehalten haben:";
+
+"ExposureNotificationSetting_EU_DataTrafficDesc" = "Die Aktivierung aller Länder erzeugt ein erhöhtes Datenvolumen und Stromverbrauch.";
+
+"ExposureNotificationSetting_EU_RegionDesc" = "Daten aus den gewählten Ländern werden empfangen und zur Risiko-Ermittlung berücksichtigt.";
+
+"ExposureNotificationSetting_EU_GermanRiskTitle" = "Deutschlandweite Risiko-Ermittlungimmer aktiv";
+
+"ExposureNotificationSetting_EU_GermanRiskDesc" = "Die Risiko-Ermittlung ist deutschlandweit immer aktiv, unabhängig davon, ob Sie die europaweite Risiko-Ermittlung aktiviert haben.";
+
+"ExposureNotificationSetting_EU_PrivacyTitle" = "Hinweise zur Verarbeitung von personenbezogenen Daten";
+
+"ExposureNotificationSetting_EU_PrivacyDesc" = "In der späteren App wird hier eine Erklärung zur Datenverarbeitung zu finden sein";
+
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App Logo";
 

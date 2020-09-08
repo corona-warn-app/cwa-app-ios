@@ -90,7 +90,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 					cells: [
 						.title2(text: AppStrings.ExposureSubmissionHotline.sectionTitle,
 								accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.sectionTitle),
-						ExposureSubmissionDynamicCell.stepCell(
+						.stepCell(
 							style: .body,
 							title: AppStrings.ExposureSubmissionHotline.sectionDescription1,
 							icon: UIImage(named: "Icons_Grey_1"),
@@ -98,7 +98,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 							hairline: .iconAttached,
 							bottomSpacing: .normal
 						),
-						ExposureSubmissionDynamicCell.stepCell(
+						.stepCell(
 							style: .headline,
 							color: .enaColor(for: .textTint),
 							title: AppStrings.ExposureSubmissionHotline.phoneNumber,
@@ -106,13 +106,13 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 							bottomSpacing: .normal,
 							action: .execute { [weak self] _ in self?.callHotline() }
 						),
-						ExposureSubmissionDynamicCell.stepCell(
+						.stepCell(
 							style: .footnote,
 							title: AppStrings.ExposureSubmissionHotline.hotlineDetailDescription,
 							hairline: .topAttached,
 							bottomSpacing: .large
 						),
-						ExposureSubmissionDynamicCell.stepCell(
+						.stepCell(
 							style: .body,
 							title: AppStrings.ExposureSubmissionHotline.sectionDescription2,
 							icon: UIImage(named: "Icons_Grey_2"),

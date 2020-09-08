@@ -80,7 +80,7 @@ private extension DynamicTableViewModel {
 				.title2(text: AppStrings.ExposureSubmissionSuccess.listTitle,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.listTitle),
 
-				ExposureSubmissionDynamicCell.stepCell(
+				.stepCell(
 					style: .body,
 					title: AppStrings.ExposureSubmissionSuccess.listItem1,
 					icon: UIImage(named: "Icons - Hotline"),
@@ -88,7 +88,7 @@ private extension DynamicTableViewModel {
 					hairline: .none,
 					bottomSpacing: .normal
 				),
-				ExposureSubmissionDynamicCell.stepCell(
+				.stepCell(
 					style: .body,
 					title: AppStrings.ExposureSubmissionSuccess.listItem2,
 					icon: UIImage(named: "Icons - Home"),
@@ -100,10 +100,10 @@ private extension DynamicTableViewModel {
 				.title2(text: AppStrings.ExposureSubmissionSuccess.subTitle,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.subTitle),
 
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_1),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_2),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_3),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_4)
+				.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_1),
+				.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_2),
+				.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_3),
+				.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_4)
 			]
 		)
 	])

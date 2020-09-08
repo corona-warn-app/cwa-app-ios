@@ -95,10 +95,10 @@ private extension DynamicTableViewModel {
 						  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionIntroduction.usage01),
 				.body(text: AppStrings.ExposureSubmissionIntroduction.usage02,
 					  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionIntroduction.usage02),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem1),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem2),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem3),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem4)
+				.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem1),
+				.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem2),
+				.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem3),
+				.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem4)
 			]
 		)
 	])

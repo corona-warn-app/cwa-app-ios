@@ -273,21 +273,21 @@ private extension ExposureSubmissionTestResultViewController {
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
 
-				ExposureSubmissionDynamicCell.stepCell(
+				.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
 					icon: UIImage(named: "Icons_Grey_Check"),
 					hairline: .iconAttached
 				),
 
-				ExposureSubmissionDynamicCell.stepCell(
+				.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testPositive,
 					description: AppStrings.ExposureSubmissionResult.testPositiveDesc,
 					icon: UIImage(named: "Icons_Grey_Error"),
 					hairline: .topAttached
 				),
 
-				ExposureSubmissionDynamicCell.stepCell(
+				.stepCell(
 					title: AppStrings.ExposureSubmissionResult.warnOthers,
 					description: AppStrings.ExposureSubmissionResult.warnOthersDesc,
 					icon: UIImage(named: "Icons_Grey_Warnen"),
@@ -311,21 +311,21 @@ private extension ExposureSubmissionTestResultViewController {
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
 
 
-				ExposureSubmissionDynamicCell.stepCell(
+				.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
 					icon: UIImage(named: "Icons_Grey_Check"),
 					hairline: .iconAttached
 				),
 
-				ExposureSubmissionDynamicCell.stepCell(
+				.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testNegative,
 					description: AppStrings.ExposureSubmissionResult.testNegativeDesc,
 					icon: UIImage(named: "Icons_Grey_Error"),
 					hairline: .topAttached
 				),
 
-				ExposureSubmissionDynamicCell.stepCell(
+				.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testRemove,
 					description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
 					icon: UIImage(named: "Icons_Grey_Entfernen"),
@@ -335,10 +335,10 @@ private extension ExposureSubmissionTestResultViewController {
 				.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.furtherInfos_Title),
 
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain)
+				.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1),
+				.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2),
+				.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3),
+				.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain)
 			]
 		)
 	}
@@ -356,21 +356,21 @@ private extension ExposureSubmissionTestResultViewController {
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
 
-				ExposureSubmissionDynamicCell.stepCell(
+				.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
 					icon: UIImage(named: "Icons_Grey_Check"),
 					hairline: .iconAttached
 				),
 
-				ExposureSubmissionDynamicCell.stepCell(
+				.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testInvalid,
 					description: AppStrings.ExposureSubmissionResult.testInvalidDesc,
 					icon: UIImage(named: "Icons_Grey_Error"),
 					hairline: .topAttached
 				),
 
-				ExposureSubmissionDynamicCell.stepCell(
+				.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testRemove,
 					description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
 					icon: UIImage(named: "Icons_Grey_Entfernen"),
@@ -393,21 +393,21 @@ private extension ExposureSubmissionTestResultViewController {
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
 
-				ExposureSubmissionDynamicCell.stepCell(
+				.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
 					icon: UIImage(named: "Icons_Grey_Check"),
 					hairline: .iconAttached
 				),
 
-				ExposureSubmissionDynamicCell.stepCell(
+				.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testRedeemed,
 					description: AppStrings.ExposureSubmissionResult.testRedeemedDesc,
 					icon: UIImage(named: "Icons_Grey_Error"),
 					hairline: .topAttached
 				),
 
-				ExposureSubmissionDynamicCell.stepCell(
+				.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testRemove,
 					description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
 					icon: UIImage(named: "Icons_Grey_Entfernen"),
@@ -429,14 +429,14 @@ private extension ExposureSubmissionTestResultViewController {
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
 
-				ExposureSubmissionDynamicCell.stepCell(
+				.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
 					icon: UIImage(named: "Icons_Grey_Check"),
 					hairline: .iconAttached
 				),
 
-				ExposureSubmissionDynamicCell.stepCell(
+				.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testPending,
 					description: AppStrings.ExposureSubmissionResult.testPendingDesc,
 					icon: UIImage(named: "Icons_Grey_Wait"),

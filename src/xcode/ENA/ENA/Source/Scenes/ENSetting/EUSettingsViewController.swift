@@ -22,13 +22,17 @@ import UIKit
 
 class EUSettingsViewController: DynamicTableViewController {
 
+	// MARK: - ViewDidLoad.
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setUp()
 	}
 
+	// MARK: - View setup methods.
+
 	private func setUp() {
-		title = "### Europaweite Risiko-Ermittlung"
+		// title = "### Europaweite Risiko-Ermittlung"
 		view.backgroundColor = .enaColor(for: .background)
 
 		setupTableView()
@@ -37,22 +41,65 @@ class EUSettingsViewController: DynamicTableViewController {
 
 	private func setupTableView() {
 		tableView.separatorStyle = .none
-		dynamicTableViewModel = .euSettingsModel()
+		dynamicTableViewModel = euSettingsModel()
+		
+		tableView.register(UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
+		tableView.register(
+			DynamicTableViewRoundedCell.self,
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.roundedCell.rawValue
+		)
 	}
-
 }
 
-private extension DynamicTableViewModel {
-	static func euSettingsModel() -> DynamicTableViewModel {
+private extension EUSettingsViewController {
+	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case stepCell
+		case roundedCell
+	}
+}
+
+private extension EUSettingsViewController {
+	func euSettingsModel() -> DynamicTableViewModel {
 		DynamicTableViewModel([
 			.section(cells: [
-				.headline(text: "### Bitte aktivieren sie alle länder in denen sie sich aufhalten oder in den letzten 14 tagen aufgehalten haben", accessibilityIdentifier: ""),
+				.title1(
+					text: AppStrings.ExposureNotificationSetting.euTitle,
+					accessibilityIdentifier: ""
+				),
+				.headline(
+					text: AppStrings.ExposureNotificationSetting.euDescription,
+					accessibilityIdentifier: ""
+				),
 				.body(text: "### Alle Länder switch", accessibilityIdentifier: ""),
-				.footnote(text: "## Die aktivierung aller länder erzeugt erhöhtes datenvolumen", accessibilityIdentifier: ""),
+				.footnote(
+					text: AppStrings.ExposureNotificationSetting.euDataTrafficDescription,
+					accessibilityIdentifier: ""
+				),
 				.body(text: "### Alle länder switch", accessibilityIdentifier: ""),
-				.footnote(text: "### Daten aus den gewählten ländern werden.... ", accessibilityIdentifier: ""),
-				.body(text: "### StepCell", accessibilityIdentifier: ""),
-				.body(text: "### graue box text", accessibilityIdentifier: "")
+				.footnote(
+					text: AppStrings.ExposureNotificationSetting.euRegionDescription,
+					accessibilityIdentifier: ""
+				),
+				.stepCell(
+					title: AppStrings.ExposureNotificationSetting.euGermanRiskTitle,
+					description: AppStrings.ExposureNotificationSetting.euGermanRiskDescription,
+					icon: UIImage(named: "Icons_Grey_1"),
+					hairline: .none
+				),
+				.custom(withIdentifier: CustomCellReuseIdentifiers.roundedCell,
+						configure: { _, cell, _ in
+							guard let privacyStatementCell = cell as? DynamicTableViewRoundedCell else { return }
+							privacyStatementCell.configure(
+								title: NSMutableAttributedString(
+									string: AppStrings.ExposureNotificationSetting.euPrivacyTitle
+								),
+								body: NSMutableAttributedString(
+									string: AppStrings.ExposureNotificationSetting.euPrivacyDescription
+								),
+								textStyle: .textPrimary1,
+								backgroundStyle: .separator
+							)
+					})
 			])
 		])
 	}

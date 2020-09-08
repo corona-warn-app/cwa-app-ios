@@ -20,7 +20,7 @@
 import Foundation
 import UIKit
 
-enum ExposureSubmissionDynamicCell {
+extension DynamicCell {
 	static func stepCell(title: String, description: String?, icon: UIImage?, iconTint: UIColor? = nil, hairline: ExposureSubmissionStepCell.Hairline, bottomSpacing: ExposureSubmissionStepCell.Spacing = .large, action: DynamicAction = .none) -> DynamicCell {
 		.identifier(ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell, action: action) { _, cell, _ in
 			guard let cell = cell as? ExposureSubmissionStepCell else { return }
