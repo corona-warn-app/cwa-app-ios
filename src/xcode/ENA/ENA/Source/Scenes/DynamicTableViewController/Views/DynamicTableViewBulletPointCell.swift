@@ -40,9 +40,8 @@ class DynamicTableViewBulletPointCell: UITableViewCell {
 	
 	// MARK: - Internal
 
-	func configure(text: String, textColor: UIColor? = nil, accessibilityTraits: UIAccessibilityTraits, accessibilityIdentifier: String? = nil) {
+	func configure(text: String, accessibilityTraits: UIAccessibilityTraits, accessibilityIdentifier: String? = nil) {
 		contentLabel.text = text
-//		contentLabel.textColor = textColor
 		self.accessibilityIdentifier = accessibilityIdentifier
 		self.accessibilityTraits = accessibilityTraits
 		accessibilityLabel = text
