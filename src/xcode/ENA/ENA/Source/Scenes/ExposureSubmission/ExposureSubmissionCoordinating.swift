@@ -228,13 +228,16 @@ extension ExposureSubmissionCoordinator {
 				isLoading(true)
 				self?.appConfigurationProvider.appConfiguration { applicationConfiguration in
 					isLoading(false)
-
+					#if INTEROP
+					// yes, this whole vc is loaded only if INTEROP is set but it's always compiled,
+					// so we need to handle this case with preprocessor macros
 					guard let supportedCountries = applicationConfiguration?.supportedCountries.compactMap({ Country(countryCode: $0) }) else {
 						self?.showENErrorAlert(.noAppConfiguration)
-
 						return
 					}
-
+					#else
+					let supportedCountries = [Country]()
+					#endif
 					self?.supportedCountries = supportedCountries
 
 					switch selectedTravelConfirmationOption {

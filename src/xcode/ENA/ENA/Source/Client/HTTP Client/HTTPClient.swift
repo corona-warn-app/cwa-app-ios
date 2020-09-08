@@ -96,26 +96,12 @@ final class HTTPClient: Client {
 				completion(.failure(.invalidResponse))
 				return
 			}
+			#if INTEROP
 			let countries = config.supportedCountries.compactMap { Country(countryCode: $0) }
+			#else
+			let countries = [Country]()
+			#endif
 			completion(.success(countries))
-		}
-	}
-
-	func submit(
-		keys: [ENTemporaryExposureKey],
-		tan: String,
-		isFake: Bool = false,
-		completion: @escaping SubmitKeysCompletionHandler
-	) {
-		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: false, visitedCountries: [Country.defaultCountry()], tan: tan)
-
-		submit(payload: payload, isFake: isFake) { result in
-			switch result {
-			case.failure(let error):
-				completion(SubmissionError.other(error))
-			case .success:
-				completion(nil)
-			}
 		}
 	}
 

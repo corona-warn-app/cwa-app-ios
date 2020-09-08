@@ -40,4 +40,15 @@ class CountryTests: XCTestCase {
 		let country = Country.defaultCountry()
 		XCTAssertEqual(country.id, "DE", "assuming Germany/DE to be default")
 	}
+
+	func testInvalidCountryCodes() throws {
+		let invalid = ["SP", "XX", ""]
+		for code in invalid {
+			XCTAssertNil(Country(countryCode: code))
+		}
+	}
+
+	func testInvalidCountryRegionName() throws {
+		XCTAssertNil(Locale.current.regionName(forCountryCode: ""))
+	}
 }

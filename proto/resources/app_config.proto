@@ -15,10 +15,6 @@ message ApplicationConfiguration {
     AttenuationDuration attenuationDuration = 4;
 
     ApplicationVersionConfiguration appVersion = 5;
-
-    AppFeatures appFeatures = 6;
-
-    repeated string supportedCountries = 7;
 }
 
 message RiskScoreParameters {
@@ -99,13 +95,4 @@ message RiskScoreClass {
     int32 min = 2;
     int32 max = 3;
     string url = 4;
-}
-
-message AppFeatures {
-  repeated AppFeature app_features = 1;
-}
-
-message AppFeature {
-  string label = 1;
-  int32 value = 2;
 }

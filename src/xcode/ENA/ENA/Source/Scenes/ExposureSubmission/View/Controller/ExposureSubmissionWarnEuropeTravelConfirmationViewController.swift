@@ -20,7 +20,9 @@
 import UIKit
 import Combine
 
-class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+final class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+
+	typealias PrimaryButtonHandler = (TravelConfirmationOption, @escaping (Bool) -> Void) -> Void
 
 	enum TravelConfirmationOption {
 		case yes, no, preferNotToSay
@@ -30,7 +32,7 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewController: DynamicTable
 
 	init?(
 		coder: NSCoder,
-		onPrimaryButtonTap: @escaping (TravelConfirmationOption, @escaping (Bool) -> Void) -> Void
+		onPrimaryButtonTap: @escaping PrimaryButtonHandler
 	) {
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 
