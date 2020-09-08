@@ -106,9 +106,7 @@
 
 "ExposureDetection_Explanation_Title" = "Infektionsrisiko";
 
-"ExposureDetection_Explanation_Subtitle_Active" = "So wurde Ihr Risiko ermittelt";
-
-"ExposureDetection_Explanation_Subtitle_Inactive" = "So wird Ihr Risiko ermittelt";
+"ExposureDetection_Explanation_Subtitle" = "So wird Ihr Risiko ermittelt";
 
 "ExposureDetection_Explanation_Text_Off" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
@@ -116,9 +114,19 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
-"ExposureDetection_Explanation_Text_Low" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.\n\nDie Infektionswahrscheinlichkeit wird daher als niedrig für Sie eingestuft.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Explanation_Text_Low" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung des Abstands und der Dauer von Begegnungen mit nachweislich Corona-positiv getesteten Personen sowie deren vermutlicher Infektiosität lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
 "ExposureDetection_Explanation_Text_High" = "Die Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft.\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.\nWenn Sie nach Hause kommen, vermeiden Sie auch Begegnungen mit Familienmitgliedern und Mitbewohnern.";
+
+"ExposureDetection_Explanation_FAQ_Link" = "https://www.coronawarn.app/de/faq/#encounter_but_green";
+
+"ExposureDetection_Explanation_FAQ_Link_Text" = "Weitere Informationen";
+
+"ExposureDetection_LowRiskExposure_Title" = "Begegnung mit niedrigem Risiko";
+
+"ExposureDetection_LowRiskExposure_Subtitle" = "Deshalb ist Ihr Infektionsrisiko niedrig";
+
+"ExposureDetection_LowRiskExposure_Body" = "Sie hatten eine Begegnung mit einer nachweislich Corona-positiv getesteten Person. Ihr Infektionsrisiko wird unter Berücksichtigung aller in der Corona-Warn-App vorliegenden Daten dennoch als niedrig eingestuft. Es besteht kein besonderer Handlungsbedarf. Es wird empfohlen, sich an die allgemein geltenden Abstands- und Hygieneregeln zu halten.";
 
 "ExposureDetection_Button_Enable" = "Risiko-Ermittlung aktivieren";
 
