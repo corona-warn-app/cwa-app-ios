@@ -205,6 +205,10 @@ final class SecureStore: Store {
 		set { kvStore["shouldPerformBackgroundFakeRequests"] = newValue }
 	}
 
+	var euTracingSettings: EUTracingSettings? {
+		get { kvStore["euTracingSettings"] as EUTracingSettings? ?? EUTracingSettings() }
+		set { kvStore["euTracingSettings"] = newValue }
+	}
 }
 
 
