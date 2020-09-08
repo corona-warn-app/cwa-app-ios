@@ -703,6 +703,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_EU_Desc" = "Bitte aktivieren Sie alle Länder, in denen Sie sich aufhalten oder in den letzten 14 Tagen aufgehalten haben:";
 
+"ExposureNotificationSetting_EU_AllCountries" = "Alle Länder";
+
 "ExposureNotificationSetting_EU_DataTrafficDesc" = "Die Aktivierung aller Länder erzeugt ein erhöhtes Datenvolumen und Stromverbrauch.";
 
 "ExposureNotificationSetting_EU_RegionDesc" = "Daten aus den gewählten Ländern werden empfangen und zur Risiko-Ermittlung berücksichtigt.";

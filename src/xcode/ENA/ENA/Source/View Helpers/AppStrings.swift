@@ -443,6 +443,7 @@ enum AppStrings {
 		// EU risk detection
 		static let euTitle = NSLocalizedString("ExposureNotificationSetting_EU_Title", comment: "")
 		static let euDescription = NSLocalizedString("ExposureNotificationSetting_EU_Desc", comment: "")
+		static let euAllCountries = NSLocalizedString("ExposureNotificationSetting_EU_AllCountries", comment: "")
 		static let euDataTrafficDescription = NSLocalizedString("ExposureNotificationSetting_EU_DataTrafficDesc", comment: "")
 		static let euRegionDescription = NSLocalizedString("ExposureNotificationSetting_EU_RegionDesc", comment: "")
 		static let euGermanRiskTitle = NSLocalizedString("ExposureNotificationSetting_EU_GermanRiskTitle", comment: "")

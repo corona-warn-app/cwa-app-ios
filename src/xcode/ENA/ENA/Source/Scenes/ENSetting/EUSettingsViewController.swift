@@ -48,6 +48,10 @@ class EUSettingsViewController: DynamicTableViewController {
 			DynamicTableViewRoundedCell.self,
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.roundedCell.rawValue
 		)
+		tableView.register(
+			SwitchCell.self,
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.switchCell.rawValue
+		)
 	}
 
 	// MARK: - Helper methods.
@@ -69,6 +73,7 @@ private extension EUSettingsViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case stepCell
 		case roundedCell
+		case switchCell
 	}
 }
 
@@ -83,13 +88,23 @@ private extension EUSettingsViewController {
 				.headline(
 					text: AppStrings.ExposureNotificationSetting.euDescription,
 					accessibilityIdentifier: ""
-				),
-				.body(text: "### Alle Länder switch", accessibilityIdentifier: ""),
+				)
+			]),
+			.section(
+				separators: true,
+				cells: [
+					.switchCell(text: AppStrings.ExposureNotificationSetting.euAllCountries)
+				]
+			),
+			.section(cells: [
 				.footnote(
 					text: AppStrings.ExposureNotificationSetting.euDataTrafficDescription,
 					accessibilityIdentifier: ""
 				),
-				.body(text: "### Alle länder switch", accessibilityIdentifier: ""),
+				.space(height: 16)
+			]),
+			.countrySwitchSection(),
+			.section(cells: [
 				.footnote(
 					text: AppStrings.ExposureNotificationSetting.euRegionDescription,
 					accessibilityIdentifier: ""
@@ -116,5 +131,88 @@ private extension EUSettingsViewController {
 					})
 			])
 		])
+	}
+}
+
+private extension DynamicSection {
+	static func countrySwitchSection() -> DynamicSection {
+		let countries = ["Deutschland", "Italien", "Österreich"]
+		return DynamicSection.section(
+			separators: true,
+			cells: countries.map {
+				DynamicCell.switchCell(text: $0, icon: .actions) {
+					print("switch state: \($0)")
+				}
+			}
+		)
+	}
+}
+
+private extension DynamicCell {
+
+	static func switchCell(text: String, icon: UIImage? = nil, isOn: Bool = false, onToggle: SwitchCell.ToggleHandler? = nil) -> Self {
+		.custom(
+			withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.switchCell,
+			action: .none,
+			accessoryAction: .none
+		) { _, cell, _ in
+			guard let cell = cell as? SwitchCell else { return }
+			cell.configure(text: text, icon: icon, isOn: isOn, onToggle: onToggle)
+		}
+	}
+}
+
+// TODO: Move to separate file.
+
+private class SwitchCell: UITableViewCell {
+
+	typealias ToggleHandler = (Bool) -> Void
+
+	// MARK: - Private attributes.
+
+	private let uiSwitch: UISwitch
+	private var onToggleAction: ToggleHandler?
+
+	// MARK: - Initializers.
+
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		uiSwitch = UISwitch()
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		self.selectionStyle = .none
+		setUpSwitch()
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	// MARK: - Helpers.
+
+	private func setUpSwitch() {
+		// Constraints.
+		// - Note: We do not use the accessory view because it breaks the separators of the DynamicTableViewController.
+		uiSwitch.translatesAutoresizingMaskIntoConstraints = false
+		contentView.addSubview(uiSwitch)
+		uiSwitch.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16).isActive = true
+		uiSwitch.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+
+		// Properties.
+		uiSwitch.onTintColor = .enaColor(for: .tint)
+		uiSwitch.addTarget(self, action: #selector(onToggle), for: .touchUpInside)
+	}
+
+	@objc
+	private func onToggle() {
+		onToggleAction?(uiSwitch.isOn)
+	}
+
+	// MARK: - Public API.
+
+	func configure(text: String, icon: UIImage? = nil, isOn: Bool = false, onToggle: ToggleHandler? = nil) {
+		imageView?.image = icon
+		textLabel?.text = text
+		uiSwitch.isOn = isOn
+		onToggleAction = onToggle
 	}
 }
