@@ -81,7 +81,6 @@ final class HTTPClientAppConfigTests: XCTestCase {
 		waitForExpectations(timeout: expectationsTimeout)
 	}
 
-
 	func testGetAppConfiguration_SupportedCountries() throws {
 		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!

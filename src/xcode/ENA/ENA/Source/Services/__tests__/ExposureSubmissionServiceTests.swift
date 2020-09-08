@@ -34,18 +34,15 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
 		let expectation = self.expectation(description: "Success")
-		var error: ExposureSubmissionError?
 
 		// Act
 		service.submitExposure(visitedCountries: []) {
-			error = $0
+			// no `ExposureSubmissionError`
+			XCTAssertNil($0)
 			expectation.fulfill()
 		}
 
 		waitForExpectations(timeout: expectationsTimeout)
-
-		// Assert
-		XCTAssertNil(error)
 	}
 
 	func testSubmitExposure_NoKeys() {
@@ -140,7 +137,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			defer {
 				expectation.fulfill()
 			}
-			XCTAssert(error == .noRegistrationToken)
+			XCTAssertEqual(error, .noRegistrationToken)
 		}
 
 		waitForExpectations(timeout: expectationsTimeout)
@@ -189,7 +186,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure(let error):
-				XCTAssert(error == .noRegistrationToken)
+				XCTAssertEqual(error, .noRegistrationToken)
 			case .success:
 				XCTFail("This test should always fail since the registration token is missing.")
 			}
@@ -287,11 +284,9 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let store = MockTestStore()
 		store.registrationToken = registrationToken
 
-		let client = ClientMock()
-		client.onGetTANForExposureSubmit = { _, _, completion in completion(.success(tan)) }
-
 		// Force submission error. (Which should result in a 4xx, not a 5xx!)
-		client.onSubmit = { _, _, _, completion in completion(.serverError(500)) }
+		let client = ClientMock(submissionError: .serverError(500))
+		client.onGetTANForExposureSubmit = { _, _, completion in completion(.success(tan)) }
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
 		let expectation = self.expectation(description: "all callbacks called")
@@ -304,9 +299,9 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			XCTAssertNotNil(result)
 
 			// Retry.
-			client.onSubmit = { _, _, _, completion in completion(nil) }
+			client.onSubmitCountries = { $2(.success(())) }
 			client.onGetTANForExposureSubmit = { _, isFake, completion in
-				XCTAssert(isFake, "When executing the real request, instead of using the stored TAN, we have made a request to the server.")
+				XCTAssertTrue(isFake, "When executing the real request, instead of using the stored TAN, we have made a request to the server.")
 				completion(.failure(.fakeResponse))
 			}
 			service.submitExposure(visitedCountries: []) { result in
@@ -346,18 +341,18 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		client.onGetTANForExposureSubmit = { _, isFake, completion in
 			expectation.fulfill()
-			XCTAssert(isFake)
+			XCTAssertTrue(isFake)
 			XCTAssertEqual(count, 1)
 			count += 1
 			completion(.failure(.fakeResponse))
 		}
 
-		client.onSubmit = { _, _, isFake, completion in
+		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
-			XCTAssert(isFake)
+			XCTAssertTrue(isFake)
 			XCTAssertEqual(count, 2)
 			count += 1
-			completion(nil)
+			completion(.success(()))
 		}
 
 		// Run test.
@@ -395,18 +390,18 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		client.onGetTANForExposureSubmit = { _, isFake, completion in
 			expectation.fulfill()
-			XCTAssert(isFake)
+			XCTAssertTrue(isFake)
 			XCTAssertEqual(count, 1)
 			count += 1
 			completion(.failure(.fakeResponse))
 		}
 
-		client.onSubmit = { _, _, isFake, completion in
+		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
-			XCTAssert(isFake)
+			XCTAssertTrue(isFake)
 			XCTAssertEqual(count, 2)
 			count += 1
-			completion(nil)
+			completion(.success(()))
 		}
 
 		// Run test.
@@ -446,12 +441,12 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			}
 		}
 
-		client.onSubmit = { _, _, isFake, completion in
+		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
 			XCTAssertFalse(isFake)
 			XCTAssertEqual(count, 2)
 			count += 1
-			completion(nil)
+			completion(.success(()))
 		}
 
 		// Run test.
@@ -480,17 +475,17 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		client.onGetTANForExposureSubmit = { _, isFake, completion in
 			expectation.fulfill()
-			XCTAssert(isFake)
+			XCTAssertTrue(isFake)
 			count += 1
 			completion(.failure(.fakeResponse))
 		}
 
-		client.onSubmit = { _, _, isFake, completion in
+		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
-			XCTAssert(isFake)
+			XCTAssertTrue(isFake)
 			XCTAssertEqual(count, 2)
 			count += 1
-			completion(nil)
+			completion(.success(()))
 		}
 
 		// Run test.

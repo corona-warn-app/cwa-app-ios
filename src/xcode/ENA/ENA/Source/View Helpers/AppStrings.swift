@@ -219,6 +219,7 @@ enum AppStrings {
 		static let continueButton = NSLocalizedString("ExposureSubmissionWarnEuropeConsent_continueButton", comment: "")
 		static let sectionTitle = NSLocalizedString("ExposureSubmissionWarnEuropeConsent_sectionTitle", comment: "")
 		static let toggleTitle = NSLocalizedString("ExposureSubmissionWarnEuropeConsent_toggleTitle", comment: "")
+		static let description = NSLocalizedString("ExposureSubmissionWarnEuropeConsent_description", comment: "")
 		static let consentTitle = NSLocalizedString("ExposureSubmissionWarnEuropeConsent_consentTitle", comment: "")
 		static let consentDescription = NSLocalizedString("ExposureSubmissionWarnEuropeConsent_consentDescription", comment: "")
 	}
@@ -241,6 +242,8 @@ enum AppStrings {
 		static let answerOptionCountrySelection = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_answerOptionCountrySelection", comment: "")
 		static let answerOptionOtherCountries = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries", comment: "")
 		static let answerOptionNone = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone", comment: "")
+		static let consentTitle = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_consentTitle", comment: "")
+		static let consentDescription = NSLocalizedString("ExposureSubmissionWarnEuropeCountrySelection_consentDescription", comment: "")
 	}
 
 	enum ExposureSubmissionSuccess {

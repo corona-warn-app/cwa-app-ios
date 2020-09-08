@@ -42,23 +42,23 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 
 		let section = vc.dynamicTableViewModel.section(0)
 		let cells = section.cells
-		XCTAssert(cells.count == 4)
+		XCTAssertEqual(cells.count, 4)
 
 		let firstItem = cells[0]
 		var id = firstItem.cellReuseIdentifier
-		XCTAssert(id.rawValue == "labelCell")
+		XCTAssertEqual(id.rawValue, "labelCell")
 
 		let secondItem = cells[1]
 		id = secondItem.cellReuseIdentifier
-		XCTAssert(id.rawValue == "labelCell")
+		XCTAssertEqual(id.rawValue, "labelCell")
 
 		let thirdItem = cells[2]
 		id = thirdItem.cellReuseIdentifier
-		XCTAssert(id.rawValue == "roundedCell")
+		XCTAssertEqual(id.rawValue, "roundedCell")
 
 		let fourthItem = cells[3]
 		id = fourthItem.cellReuseIdentifier
-		XCTAssert(id.rawValue == "roundedCell")
+		XCTAssertEqual(id.rawValue, "roundedCell")
 
 	}
 }

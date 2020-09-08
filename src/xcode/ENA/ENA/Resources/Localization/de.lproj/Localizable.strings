@@ -632,51 +632,63 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionWarnOthers_consentUnderagesText" = "Die App-Nutzung ist ab 16 Jahren gestattet und richtet sich an Personen, die sich in Deutschland aufhalten.";
 
-"ExposureSubmissionWarnEuropeConsent_title" = "!!! Europaweit warnen";
+"ExposureSubmissionWarnEuropeConsent_title" = "Europaweit warnen";
 
 "ExposureSubmissionWarnEuropeConsent_imageDescription" = "!!! ";
 
-"ExposureSubmissionWarnEuropeConsent_continueButton" = "!!! Weiter";
+"ExposureSubmissionWarnEuropeConsent_continueButton" = "Weiter";
 
-"ExposureSubmissionWarnEuropeConsent_sectionTitle" = "!!! Bitte aktivieren Sie zusätzlich die europaweite Datenübermittlung, damit Menschen in anderen Ländern auch gewarnt werden können.";
+"ExposureSubmissionWarnEuropeConsent_sectionTitle" = "Das Virus kennt keine Grenzen. Helfen Sie bei der grenzüberschreitenden Warnung!";
 
-"ExposureSubmissionWarnEuropeConsent_toggleTitle" = "!!! Europaweite Datenübermittlung";
+"ExposureSubmissionWarnEuropeConsent_toggleTitle" = "Europaweit warnen";
 
-"ExposureSubmissionWarnEuropeConsent_consentTitle" = "!!! Einwilligungserklärung";
+"ExposureSubmissionWarnEuropeConsent_description" = "Mehrere Länder in Europa arbeiten zusammen, um grenzüberschreitende Warnungen zu ermöglichen. Stellen Sie Ihre Zufallscodes den teilnehmenden Ländern zur Verfügung, damit auch Nutzer von offiziellen Corona-Apps anderer Länder gewarnt werden.";
 
-"ExposureSubmissionWarnEuropeConsent_consentDescription" = "!!! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla non enim quam. Curabitur at nunc lorem. Proin gravida erat eu sem molestie elementum. Integer faucibus nibh ut magna malesuada luctus. Sed et nunc est. Integer non mauris nec libero iaculis laoreet. Nunc porttitor cursus lorem in bibendum. Aenean ultrices posuere rhoncus. Aenean et mauris id ipsum convallis elementum quis non erat. Donec non arcu id tellus vehicula suscipit. Vivamus velit ipsum, malesuada in tristique ac, fermentum ut odio. Sed maximus accumsan accumsan. Nam vehicula nisl est, eu tristique justo interdum ut.
+"ExposureSubmissionWarnEuropeConsent_consentTitle" = "Einwilligungserklärung";
 
-Morbi vitae lacus at nunc pharetra sagittis. Mauris sit amet ornare massa. Maecenas feugiat odio sit amet egestas fringilla. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque ornare eleifend felis eu aliquam. Maecenas faucibus nisl eget ultricies ullamcorper. Aenean ut tortor risus. Vestibulum eros ante, blandit eget luctus nec, gravida ac mi. Curabitur pharetra dictum laoreet. Maecenas vel bibendum lectus. Nullam aliquam leo sit amet accumsan volutpat. In et vulputate diam. Nulla sodales viverra magna nec malesuada. Cras odio felis, tincidunt eu dolor vitae, fringilla bibendum elit.";
+"ExposureSubmissionWarnEuropeConsent_consentDescription" = "Indem Sie “Europaweit warnen” selektieren und anschließend „Weiter“ antippen, willigen Sie ein, dass Ihr Testergebnis zusammen mit Ihren Zufalls-IDs der letzten 14 Tage an das von den teilnehmenden Ländern gemeinsam betriebene europäische Serversystem übermittelt wird. Ihr Testergebnis und ihre Zufalls-IDs können dann verwendet werden, um auch Nutzer der offiziellen Corona-Apps anderer Länder zu warnen, dass sie einem Infektionsrisiko ausgesetzt waren. Die Zufalls-IDs enthalten keine Angaben, die Rückschlüsse auf Ihre Identität oder Ihre Person zulassen.
 
-"ExposureSubmissionWarnEuropeTravelConfirmation_title" = "!!! Europaweit warnen";
+Die Übermittlung zur europaweiten Warnung ist freiwillig. Wenn Sie die Daten nicht übermitteln, entstehen Ihnen keine Nachteile. Da weder nachvollzogen noch kontrolliert werden kann, ob und wie Sie die App verwenden, erfährt außer Ihnen auch niemand, ob Sie Ihr Testergebnis zur europaweiten Warnung zur Verfügung stellen. Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen finden Sie unter dem Menüpunkt „Datenschutzinformationen“.";
 
-"ExposureSubmissionWarnEuropeTravelConfirmation_continueButton" = "!!! Weiter";
+"ExposureSubmissionWarnEuropeTravelConfirmation_title" = "Europaweit warnen";
 
-"ExposureSubmissionWarnEuropeTravelConfirmation_description1" = "!!! Haben Sie sich in den letzten 14 Tagen außerhalb von Deutschland aufgehalten?";
+"ExposureSubmissionWarnEuropeTravelConfirmation_continueButton" = "Weiter";
 
-"ExposureSubmissionWarnEuropeTravelConfirmation_description2" = "!!! Ihre Angabe dient lediglich der Optimierung des Datenvolumens.";
+"ExposureSubmissionWarnEuropeTravelConfirmation_description1" = "Haben Sie sich in den letzten 14 Tagen außerhalb von Deutschland aufgehalten?";
 
-"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionYes" = "!!! Ja";
+"ExposureSubmissionWarnEuropeTravelConfirmation_description2" = "Ihre Angabe dient lediglich der Optimierung des Datenvolumens.";
 
-"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNo" = "!!! Nein";
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionYes" = "Ja";
 
-"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "!!! Keine Angabe";
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNo" = "Nein";
 
-"ExposureSubmissionWarnEuropeCountrySelection_title" = "!!! Europaweit warnen";
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "Keine Angabe";
 
-"ExposureSubmissionWarnEuropeCountrySelection_continueButton" = "!!! Weiter";
+"ExposureSubmissionWarnEuropeCountrySelection_title" = "Europaweit warnen";
 
-"ExposureSubmissionWarnEuropeCountrySelection_description1" = "!!! In welchen Ländern haben Sie sich in den letzten 14 Tagen aufgehalten?";
+"ExposureSubmissionWarnEuropeCountrySelection_continueButton" = "Weiter";
 
-"ExposureSubmissionWarnEuropeCountrySelection_description2" = "!!! Ihre Angabe dient lediglich der Optimierung des Datenvolumens.
+"ExposureSubmissionWarnEuropeCountrySelection_description1" = "In welchen Ländern haben Sie sich in den letzten 14 Tagen aufgehalten?";
+
+"ExposureSubmissionWarnEuropeCountrySelection_description2" = "Ihre Angabe dient lediglich der Optimierung des Datenvolumens.
 
 Die Auflistung enthält alle aktuell teilnehmenden Länder und wird stetig erweitert.";
 
-"ExposureSubmissionWarnEuropeCountrySelection_answerOptionCountrySelection" = "!!! Ich war in folgenden Ländern";
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionCountrySelection" = "Ich war in den folgenden Ländern";
 
-"ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries" = "!!! Andere Länder";
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries" = "Andere Länder";
 
-"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "!!! Keine Angabe";
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "Keine Angabe";
+
+"ExposureSubmissionWarnEuropeCountrySelection_consentTitle" = "Einwilligungserklärung";
+
+"ExposureSubmissionWarnEuropeCountrySelection_consentDescription" = "Indem Sie “Weiter” antippen, willigen Sie ein, dass die von Ihnen ausgewählten Länder zusammen mit Ihren Zufalls-IDs an das von den teilnehmenden Ländern gemeinsam betriebene europäische Serversystem übermittelt werden. Die teilnehmenden Länder können diese Angaben für die Risiko-Ermittlung in ihren Corona-Apps nutzen, um zu bewerten, ob Ihre Zufalls-IDs für die Nutzer dieser Corona-Apps relevant sind.
+
+Die gesendeten Informationen über die ausgewählten Länder enthalten keine Angaben, die Rückschlüsse auf Ihre Identität oder Ihre Person zulassen.
+
+Die Übermittlung der Angaben über die ausgewählten Länder ist freiwillig. Wenn Sie die Angaben zu den ausgewählten Ländern nicht übermitteln, entstehen Ihnen keine Nachteile. Da weder nachvollzogen noch kontrolliert werden kann, ob und wie Sie die App verwenden, erfährt außer Ihnen niemand, ob Sie diese Informationen zur Verfügung stellen.
+
+Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen finden Sie unter dem Menüpunkt „Datenschutzinformationen“.";
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test kann nur einmal gescannt werden";
 
@@ -722,7 +734,7 @@ Die Auflistung enthält alle aktuell teilnehmenden Länder und wird stetig erwei
 
 "ExposureSubmissionError_defaultError" = "Fehler bei der Schlüssel-Übermittlung";
 
-"ExposureSubmissionError_noAppConfiguration" = "!!! Fehler beim Laden der App-Konfiguration";
+"ExposureSubmissionError_noAppConfiguration" = "Ihre Internetverbindung wurde unterbrochen. Bitte prüfen Sie die Verbindung und öffnen Sie die App dann erneut.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";

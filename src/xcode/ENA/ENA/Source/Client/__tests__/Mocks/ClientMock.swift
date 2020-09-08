@@ -37,15 +37,17 @@ final class ClientMock {
 	) {
 		self.availableDaysAndHours = availableDaysAndHours
 		self.downloadedPackage = downloadedPackage
-		self.submissionError = submissionError
 		self.urlRequestFailure = urlRequestFailure
+
+		if let error = submissionError {
+			onSubmitCountries = { $2(.failure(error)) }
+		}
 	}
 
 	init() {}
 
 	// MARK: - Properties.
-	
-	var submissionError: SubmissionError?
+
 	var submissionResponse: KeySubmissionResponse?
 	var urlRequestFailure: Client.Failure?
 	var availableDaysAndHours: DaysAndHours = DaysAndHours(days: [], hours: [])
@@ -60,8 +62,7 @@ final class ClientMock {
 
 	var onAppConfiguration: (AppConfigurationCompletion) -> Void = { $0(nil) }
 	var onGetTestResult: ((String, Bool, TestResultHandler) -> Void)?
-	var onSubmit: (([ENTemporaryExposureKey], String, Bool, @escaping SubmitKeysCompletionHandler) -> Void)?
-	var onSubmitCountries: (([ENTemporaryExposureKey], [Country], String, Bool, @escaping KeySubmissionResponse) -> Void)?
+	var onSubmitCountries: ((_ payload: CountrySubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
 	var onGetRegistrationToken: ((String, String, Bool, @escaping RegistrationHandler) -> Void)?
 	var onGetTANForExposureSubmit: ((String, Bool, @escaping TANHandler) -> Void)?
 }
@@ -115,21 +116,8 @@ extension ClientMock: Client {
 		completion(ENExposureConfiguration())
 	}
 
-	func submit(keys: [ENTemporaryExposureKey], tan: String, isFake: Bool, completion: @escaping SubmitKeysCompletionHandler) {
-		guard let onSubmit = self.onSubmit else {
-			completion(submissionError)
-			return
-		}
-
-		onSubmit(keys, tan, isFake, completion)
-	}
-
 	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
-		guard let onSubmitCountries = self.onSubmitCountries else {
-			completion(.failure(Failure.fakeResponse))
-			return
-		}
-		onSubmitCountries(payload.exposureKeys, payload.visitedCountries, payload.tan, isFake, completion)
+		onSubmitCountries(payload, isFake, completion)
 	}
 
 	func getRegistrationToken(forKey: String, withType: String, isFake: Bool, completion completeWith: @escaping RegistrationHandler) {

@@ -34,9 +34,6 @@ protocol Client {
 	typealias AppConfigurationCompletion = (SAP_ApplicationConfiguration?) -> Void
 	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
 
-	@available(*, deprecated, message: "Will be removed soon")
-	typealias SubmitKeysCompletionHandler = (SubmissionError?) -> Void
-
 	// MARK: Interacting with a Client
 
 	/// Gets the app configuration
@@ -101,19 +98,6 @@ protocol Client {
 	)
 
 	// MARK: Submit keys
-
-	/// Submits exposure keys to the backend. This makes the local information available to the world so that the risk of others can be calculated on their local devices.
-	/// Parameters:
-	/// - keys: An array of `ENTemporaryExposureKey`s  to submit to the backend.
-	/// - tan: A transaction number
-	@available(*, deprecated, message: "Legacy call.")
-	func submit(
-		keys: [ENTemporaryExposureKey],
-		tan: String,
-		isFake: Bool,
-		completion: @escaping SubmitKeysCompletionHandler
-	)
-
 
 	/// Submits exposure keys to the backend. This makes the local information available to the world so that the risk of others can be calculated on their local devices.
 	/// - Parameters:

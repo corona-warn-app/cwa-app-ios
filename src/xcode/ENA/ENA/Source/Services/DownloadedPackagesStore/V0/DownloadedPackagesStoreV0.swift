@@ -18,7 +18,7 @@
 import Foundation
 import FMDB
 
-protocol DownloadedPackagesStore: AnyObject {
+protocol DownloadedPackagesStoreV0: AnyObject {
 	func open()
 	func close()
 	func set(day: String, package: SAPDownloadedPackage)
@@ -32,7 +32,7 @@ protocol DownloadedPackagesStore: AnyObject {
 }
 
 /// Convenience additions to `DownloadedPackagesStore`.
-extension DownloadedPackagesStore {
+extension DownloadedPackagesStoreV0 {
 	func allPackages(
 		for day: String,
 		onlyHours: Bool
