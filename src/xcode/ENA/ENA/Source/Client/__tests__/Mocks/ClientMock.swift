@@ -58,19 +58,40 @@ final class ClientMock {
 }
 
 extension ClientMock: Client {
-	
+
+	#if INTEROP
 	func availableDays(forCountry country: String, completion: @escaping AvailableDaysCompletionHandler) {
-		availableDays(completion: completion)
+		if let failure = urlRequestFailure {
+			completion(.failure(failure))
+			return
+		}
+		completion(.success(availableDaysAndHours.days))
+	}
+
+	func availableHours(day: String, country: String, completion: @escaping AvailableHoursCompletionHandler) {
+		if let failure = urlRequestFailure {
+			completion(.failure(failure))
+			return
+		}
+		completion(.success(availableDaysAndHours.hours))
 	}
 
 	func fetchDay(_ day: String, forCountry country: String, completion: @escaping DayCompletionHandler) {
-		fetchDay(day, completion: completion)
+		if let failure = urlRequestFailure {
+			completion(.failure(failure))
+			return
+		}
+		completion(.success(downloadedPackage ?? SAPDownloadedPackage(keysBin: Data(), signature: Data())))
 	}
 
-	
-	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
-		onAppConfiguration(completion)
+	func fetchHour(_ hour: Int, day: String, country: String, completion: @escaping HourCompletionHandler) {
+		if let failure = urlRequestFailure {
+			completion(.failure(failure))
+			return
+		}
+		completion(.success(downloadedPackage ?? SAPDownloadedPackage(keysBin: Data(), signature: Data())))
 	}
+	#else
 
 	func availableDays(completion: @escaping AvailableDaysCompletionHandler) {
 		if let failure = urlRequestFailure {
@@ -102,6 +123,11 @@ extension ClientMock: Client {
 			return
 		}
 		completion(.success(downloadedPackage ?? SAPDownloadedPackage(keysBin: Data(), signature: Data())))
+	}
+	#endif
+	
+	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
+		onAppConfiguration(completion)
 	}
 
 	func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler) {
@@ -143,7 +169,4 @@ extension ClientMock: Client {
 
 		onGetTANForExposureSubmit(device, isFake, completeWith)
 	}
-
-
-
 }

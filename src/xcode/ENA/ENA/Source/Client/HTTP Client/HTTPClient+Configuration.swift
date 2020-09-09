@@ -58,19 +58,6 @@ extension HTTPClient {
 			)
 		}
 
-		var availableDaysURL: URL {
-			endpoints
-					.distribution
-					.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country,
-					"date"
-			)
-		}
-
 		#if INTEROP
 		/// Generate the URL for getting all available days
 		/// - Parameter country: country code
@@ -87,55 +74,7 @@ extension HTTPClient {
 					"date"
 			)
 		}
-		#endif
 
-		func availableHoursURL(day: String) -> URL {
-			endpoints
-					.distribution
-					.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country,
-					"date",
-					day,
-					"hour"
-			)
-		}
-
-		func diagnosisKeysURL(day: String, hour: Int) -> URL {
-			endpoints
-					.distribution
-					.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country,
-					"date",
-					day,
-					"hour",
-					String(hour)
-			)
-		}
-
-		func diagnosisKeysURL(day: String) -> URL {
-			endpoints
-					.distribution
-					.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country,
-					"date",
-					day
-			)
-		}
-
-
-		#if INTEROP
 		/// Generate the URL to get the day package with given parameters
 		/// - Parameters:
 		///   - day: The day format should confirms to: yyyy-MM-dd
@@ -155,6 +94,98 @@ extension HTTPClient {
 			)
 
 		}
+
+		func diagnosisKeysURL(day: String, hour: Int, forCountry country: String) -> URL {
+			endpoints
+					.distribution
+					.appending(
+					"version",
+					apiVersion,
+					"diagnosis-keys",
+					"country",
+					country,
+					"date",
+					day,
+					"hour",
+					String(hour)
+			)
+		}
+
+		func availableHoursURL(day: String, country: String) -> URL {
+			endpoints
+					.distribution
+					.appending(
+					"version",
+					apiVersion,
+					"diagnosis-keys",
+					"country",
+					country,
+					"date",
+					day,
+					"hour"
+			)
+		}
+
+		#else
+
+		var availableDaysURL: URL {
+			endpoints
+					.distribution
+					.appending(
+					"version",
+					apiVersion,
+					"diagnosis-keys",
+					"country",
+					country,
+					"date"
+			)
+		}
+
+		func diagnosisKeysURL(day: String) -> URL {
+			endpoints
+					.distribution
+					.appending(
+					"version",
+					apiVersion,
+					"diagnosis-keys",
+					"country",
+					country,
+					"date",
+					day
+			)
+		}
+
+		func diagnosisKeysURL(day: String, hour: Int) -> URL {
+			endpoints
+					.distribution
+					.appending(
+					"version",
+					apiVersion,
+					"diagnosis-keys",
+					"country",
+					country,
+					"date",
+					day,
+					"hour",
+					String(hour)
+			)
+		}
+
+		func availableHoursURL(day: String) -> URL {
+			endpoints
+					.distribution
+					.appending(
+					"version",
+					apiVersion,
+					"diagnosis-keys",
+					"country",
+					country,
+					"date",
+					day,
+					"hour"
+			)
+		}
+
 		#endif
 
 		var configurationURL: URL {

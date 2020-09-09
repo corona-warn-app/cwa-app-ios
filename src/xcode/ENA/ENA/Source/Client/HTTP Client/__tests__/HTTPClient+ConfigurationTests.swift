@@ -68,6 +68,41 @@ final class BackendConfigurationTests: XCTestCase {
 			"http://localhost/submit/version/v1/diagnosis-keys/"
 		)
 
+
+		#if INTEROP
+
+		// Available Days URL
+		XCTAssertEqual(
+				config.availableDaysURL(forCountry: "IT").absoluteString,
+				"http://localhost/dist/version/v1/diagnosis-keys/country/IT/date/"
+		)
+
+		// Day URL
+		XCTAssertEqual(
+				config.diagnosisKeysURL(day: "2020-04-20", forCountry: "IT").absoluteString,
+				"http://localhost/dist/version/v1/diagnosis-keys/country/IT/date/2020-04-20/"
+		)
+
+		// Hour URL
+		XCTAssertEqual(
+			config.diagnosisKeysURL(day: "2020-04-20", hour: 14, forCountry: "IT").absoluteString,
+			"http://localhost/dist/version/v1/diagnosis-keys/country/IT/date/2020-04-20/hour/14/"
+		)
+
+		// Available Hours for a given Day URL
+		XCTAssertEqual(
+			config.availableHoursURL(day: "2020-04-20", country: "IT").absoluteString,
+			"http://localhost/dist/version/v1/diagnosis-keys/country/IT/date/2020-04-20/hour/"
+		)
+
+		#else
+
+		// Available Days URL
+		XCTAssertEqual(
+			config.availableDaysURL.absoluteString,
+			"http://localhost/dist/version/v1/diagnosis-keys/country/DE/date/"
+		)
+
 		// Hour URL
 		XCTAssertEqual(
 			config.diagnosisKeysURL(day: "2020-04-20", hour: 14).absoluteString,
@@ -80,30 +115,12 @@ final class BackendConfigurationTests: XCTestCase {
 			"http://localhost/dist/version/v1/diagnosis-keys/country/DE/date/2020-04-20/"
 		)
 
-		// Available Days URL
-		XCTAssertEqual(
-			config.availableDaysURL.absoluteString,
-			"http://localhost/dist/version/v1/diagnosis-keys/country/DE/date/"
-		)
-
 		// Available Hours for a given Day URL
 		XCTAssertEqual(
 			config.availableHoursURL(day: "2020-04-20").absoluteString,
 			"http://localhost/dist/version/v1/diagnosis-keys/country/DE/date/2020-04-20/hour/"
 		)
 
-		#if INTEROP
-
-
-		XCTAssertEqual(
-				config.availableDaysURL(forCountry: "DE").absoluteString,
-				"http://localhost/dist/version/v1/diagnosis-keys/country/DE/date/"
-		)
-
-		XCTAssertEqual(
-				config.diagnosisKeysURL(day: "2020-04-20", forCountry: "DE"),
-				"http://localhost/dist/version/v1/diagnosis-keys/country/DE/date/2020-04-20/"
-		)
 		#endif
 	}
 }
