@@ -22,20 +22,12 @@ import Combine
 
 class DynamicTableViewOptionGroupCell: UITableViewCell {
 
-	// MARK: - Overrides
-
-	override func awakeFromNib() {
-		super.awakeFromNib()
-
-		self.autoresizingMask = .flexibleHeight
-	}
-
 	// MARK: - Internal
 
 	@Published private(set) var selection: OptionGroupViewModel.Selection?
 
 	func configure(options: [OptionGroupViewModel.Option], initialSelection: OptionGroupViewModel.Selection? = nil) {
-		if optionGroupView != nil {
+		if optionGroupView?.superview != nil {
 			optionGroupView.removeFromSuperview()
 		}
 
