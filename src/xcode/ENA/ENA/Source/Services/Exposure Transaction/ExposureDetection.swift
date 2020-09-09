@@ -34,6 +34,51 @@ final class ExposureDetection {
 		progress?.cancel()
 	}
 
+	#if INTEROP
+
+	// MARK: Starting the Transaction
+	// Called right after the transaction knows which data is available remotly.
+	private func downloadDeltaUsingAvailableRemoteData(_ remote: DaysAndHours?, country: String) {
+		guard let remote = remote else {
+			endPrematurely(reason: .noDaysAndHours)
+			return
+		}
+
+		guard let delta = delegate?.exposureDetection(self, country: country, downloadDeltaFor: remote) else {
+			endPrematurely(reason: .noDaysAndHours)
+			return
+		}
+		delegate?.exposureDetection(self, country: country, downloadAndStore: delta) { [weak self] error in
+			guard let self = self else { return }
+			if error != nil {
+				self.endPrematurely(reason: .noDaysAndHours)
+				return
+			}
+			self.delegate?.exposureDetection(self, country: country, downloadConfiguration: self.useConfiguration)
+		}
+	}
+
+	private func useConfiguration(_ configuration: ENExposureConfiguration?, country: String) {
+		guard let configuration = configuration else {
+			endPrematurely(reason: .noExposureConfiguration)
+			return
+		}
+		guard let writtenPackages = delegate?.exposureDetectionWriteDownloadedPackages(self, country: country) else {
+			endPrematurely(reason: .unableToWriteDiagnosisKeys)
+			return
+		}
+		self.progress = delegate?.exposureDetection(
+			self,
+			detectSummaryWithConfiguration: configuration,
+			writtenPackages: writtenPackages
+		) { [weak self] result in
+			writtenPackages.cleanUp()
+			self?.useSummaryResult(result)
+		}
+	}
+
+	#else
+
 	// MARK: Starting the Transaction
 	// Called right after the transaction knows which data is available remotly.
 	private func downloadDeltaUsingAvailableRemoteData(_ remote: DaysAndHours?) {
@@ -41,6 +86,7 @@ final class ExposureDetection {
 			endPrematurely(reason: .noDaysAndHours)
 			return
 		}
+
 		guard let delta = delegate?.exposureDetection(self, downloadDeltaFor: remote) else {
 			endPrematurely(reason: .noDaysAndHours)
 			return
@@ -73,6 +119,7 @@ final class ExposureDetection {
 			self?.useSummaryResult(result)
 		}
 	}
+	#endif
 
 	private func useSummaryResult(_ result: Result<ENExposureDetectionSummary, Error>) {
 		switch result {
@@ -84,9 +131,19 @@ final class ExposureDetection {
 	}
 
 	typealias Completion = (Result<ENExposureDetectionSummary, DidEndPrematurelyReason>) -> Void
+	
 	func start(completion: @escaping Completion) {
 		self.completion = completion
+
+		#if INTEROP
+
+		delegate?.exposureDetection(self, country: "DE", determineAvailableData: downloadDeltaUsingAvailableRemoteData)
+
+		#else
+
 		delegate?.exposureDetection(self, determineAvailableData: downloadDeltaUsingAvailableRemoteData)
+
+		#endif
 	}
 
 	// MARK: Working with the Completion Handler

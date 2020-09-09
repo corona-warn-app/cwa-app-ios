@@ -60,6 +60,7 @@ final class ClientMock {
 extension ClientMock: Client {
 
 	#if INTEROP
+
 	func availableDays(forCountry country: String, completion: @escaping AvailableDaysCompletionHandler) {
 		if let failure = urlRequestFailure {
 			completion(.failure(failure))
@@ -91,6 +92,11 @@ extension ClientMock: Client {
 		}
 		completion(.success(downloadedPackage ?? SAPDownloadedPackage(keysBin: Data(), signature: Data())))
 	}
+
+	func exposureConfiguration(country: String, completion: @escaping ExposureConfigurationCompletionHandler) {
+		completion(ENExposureConfiguration(), country)
+	}
+
 	#else
 
 	func availableDays(completion: @escaping AvailableDaysCompletionHandler) {
@@ -124,14 +130,15 @@ extension ClientMock: Client {
 		}
 		completion(.success(downloadedPackage ?? SAPDownloadedPackage(keysBin: Data(), signature: Data())))
 	}
+
+	func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler) {
+		completion(ENExposureConfiguration())
+	}
+
 	#endif
 	
 	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
 		onAppConfiguration(completion)
-	}
-
-	func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler) {
-		completion(ENExposureConfiguration())
 	}
 
 	func submit(keys: [ENTemporaryExposureKey], tan: String, isFake: Bool, completion: @escaping SubmitKeysCompletionHandler) {

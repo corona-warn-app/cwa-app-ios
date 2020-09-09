@@ -26,6 +26,283 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 
 	// MARK: - Determine Available Data Tests
 
+	#if INTEROP
+
+	func testDetermineAvailableData_Success() throws {
+		// Test the case where the exector is asked to download the days and hours,
+		// and the client returns valid data. Returned DaysAndHours should be non-nil
+		let testDaysAndHours = DaysAndHours(days: ["Hello"], hours: [23])
+		let sut = ExposureDetectionExecutor.makeWith(client: ClientMock(availableDaysAndHours: testDaysAndHours))
+		let successExpectation = expectation(description: "Expect that the completion handler is called!")
+
+		sut.exposureDetection(
+			ExposureDetection(delegate: sut),
+			country: "IT",
+			determineAvailableData: { daysAndHours, country  in
+				defer { successExpectation.fulfill() }
+
+				XCTAssertEqual(daysAndHours?.days, testDaysAndHours.days)
+				XCTAssertEqual(daysAndHours?.hours, [23])
+				XCTAssertEqual(country, "IT")
+			}
+		)
+		waitForExpectations(timeout: 2.0)
+	}
+
+	func testDetermineAvailableData_Failure() throws {
+		// Test the case where the exector is asked to download the days and hours,
+		// but the client retuns an error. Returned DaysAndHours should be nil
+		let sut = ExposureDetectionExecutor.makeWith(client: ClientMock(urlRequestFailure: .serverError(500)))
+		let successExpectation = expectation(description: "Expect that the completion handler is called!")
+
+		sut.exposureDetection(
+			ExposureDetection(delegate: sut),
+			country: "IT",
+			determineAvailableData: { daysAndHours, _ in
+				defer { successExpectation.fulfill() }
+
+				XCTAssertNil(daysAndHours)
+			}
+		)
+		waitForExpectations(timeout: 2.0)
+	}
+
+	// MARK: - Download Delta Tests
+
+	func testDownloadDelta_GetDeltaSuccess() throws {
+		// Test the case where the exector is asked to download the latest DaysAndHours delta,
+		// and the server has new data. We expect that:
+		// 1 - the request is successful and we get some DaysAndHours back.
+		// 2 - only the delta is returned (days/hours the store was missing when compared to remote)
+		let cal = Calendar(identifier: .gregorian)
+		let startOfToday = cal.startOfDay(for: Date())
+		let todayString = startOfToday.formatted
+		let yesterdayString = try XCTUnwrap(cal.date(byAdding: DateComponents(day: -1), to: startOfToday)?.formatted)
+
+		let remoteDaysAndHours: DaysAndHours = DaysAndHours(days: [yesterdayString, todayString], hours: [])
+		let localDaysAndHours: DaysAndHours = DaysAndHours(days: [yesterdayString], hours: [])
+
+		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
+
+		downloadedPackageStore.set(country: "IT", day: localDaysAndHours.days[0], package: try .makePackage())
+
+		let sut = ExposureDetectionExecutor.makeWith(packageStore: downloadedPackageStore)
+
+		let missingDaysAndHours = sut.exposureDetection(
+			ExposureDetection(delegate: sut),
+			country: "IT",
+			downloadDeltaFor: remoteDaysAndHours)
+
+		XCTAssertEqual(missingDaysAndHours.days, [todayString])
+	}
+
+	func testDownloadDelta_TestStoreIsPruned() throws {
+		// Test the case where the exector is asked to download the latest DaysAndHours delta,
+		// and the server has new data. We expect that the downloaded package store is pruned of old entries
+
+		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
+
+		downloadedPackageStore.set(country: "IT", day: Date.distantPast.formatted, package: try SAPDownloadedPackage.makePackage())
+
+		let sut = ExposureDetectionExecutor.makeWith(packageStore: downloadedPackageStore)
+
+		_ = sut.exposureDetection(
+			ExposureDetection(delegate: sut),
+			country: "IT",
+			downloadDeltaFor: DaysAndHours(days: ["Hello"], hours: [])
+		)
+
+		XCTAssert(downloadedPackageStore.allDays(country: "IT").isEmpty, "The store should be empty after being pruned!")
+	}
+
+	// MARK: - Store Delta Tests
+
+	func testStoreDelta_Success() throws {
+		// Test the case where the exector is asked to store the latest DaysAndHours delta,
+		// and the server has new data. We expect that the package store contains this new data.
+
+		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
+		let testDaysAndHours = DaysAndHours(days: ["2020-01-01"], hours: [])
+		let testPackage = try SAPDownloadedPackage.makePackage()
+		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
+
+		let sut = ExposureDetectionExecutor.makeWith(
+			client: ClientMock(
+				availableDaysAndHours: testDaysAndHours,
+				downloadedPackage: testPackage),
+			packageStore: downloadedPackageStore
+		)
+
+		sut.exposureDetection(
+			ExposureDetection(delegate: sut),
+			country: "IT",
+			downloadAndStore: testDaysAndHours) { error in
+				defer { completionExpectation.fulfill() }
+				XCTAssertNil(error)
+
+				guard let storedPackage = downloadedPackageStore.package(for: "2020-01-01", country: "IT") else {
+					// We can't XCUnwrap here as completion handler closure cannot throw
+					XCTFail("Package store did not contain downloaded delta package!")
+					return
+				}
+
+				XCTAssertEqual(storedPackage.bin, testPackage.bin)
+				XCTAssertEqual(storedPackage.signature, testPackage.signature)
+		}
+		waitForExpectations(timeout: 2.0)
+	}
+
+	// MARK: - Download Configuration Tests
+
+	func testDownloadConfiguration_Success() throws {
+		// Test the case where the exector is asked to download the exposure configuration
+		// Our mock client will return a mock configuration - We expect that this is returned
+		// swiftlint:disable:next force_unwrapping
+		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try Data(contentsOf: url)
+		)
+		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
+		let client = HTTPClient.makeWith(mock: stack)
+		let sut = ExposureDetectionExecutor.makeWith(client: client)
+
+		sut.exposureDetection(
+			ExposureDetection(delegate: sut),
+			country: "IT",
+			downloadConfiguration: { configuration, country  in
+				defer { completionExpectation.fulfill() }
+
+				XCTAssertEqual(country, "IT")
+
+				if configuration == nil {
+					XCTFail("A good client response did not produce a ENExposureConfiguration!")
+				}
+			}
+		)
+		waitForExpectations(timeout: 2.0)
+	}
+
+	func testDownloadConfiguration_ClientError() throws {
+		// Test the case where the exector is asked to download the exposure configuration
+		// Our mock client will return an error response - We expect that nil is returned
+		let stack = MockNetworkStack(
+			httpStatus: 500,
+			responseData: Data()
+		)
+		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
+		let client = HTTPClient.makeWith(mock: stack)
+		let sut = ExposureDetectionExecutor.makeWith(client: client)
+
+		sut.exposureDetection(
+			ExposureDetection(delegate: sut), country: "",
+			downloadConfiguration: { configuration, _  in
+				defer { completionExpectation.fulfill() }
+
+				if configuration != nil {
+					XCTFail("A bad client response should not produce a ENExposureConfiguration!")
+				}
+			}
+		)
+		waitForExpectations(timeout: 2.0)
+	}
+
+	// MARK: - Write Downloaded Package Tests
+
+	func testWriteDownloadedPackage_NoHourlyFetching() throws {
+		// Test the case where the exector is asked to write the downloaded packages
+		// to disk and return the URLs (for later exposure detection use)
+		// We expect that the .bin and .sig files are written in the App's temp directory
+		// Hourly fetching is disabled
+
+		let todayString = Calendar.gregorianUTC.startOfDay(for: Date()).formatted
+		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
+
+		try downloadedPackageStore.set(country: "IT", day: todayString, package: .makePackage())
+		// Below package is stored but should not be written to disk as hourly fetching is disabled
+		try downloadedPackageStore.set(country: "IT", hour: 3, day: todayString, package: .makePackage())
+
+		let store = MockTestStore()
+		store.hourlyFetchingEnabled = false
+
+		let sut = ExposureDetectionExecutor.makeWith(
+			packageStore: downloadedPackageStore,
+			store: store
+		)
+
+		let result = sut.exposureDetectionWriteDownloadedPackages(
+			ExposureDetection(delegate: sut),
+			country: "IT"
+		)
+		let writtenPackages = try XCTUnwrap(result, "Written packages was unexpectedly nil!")
+
+		XCTAssertFalse(
+			writtenPackages.urls.isEmpty,
+			"The package was not saved!"
+		)
+		XCTAssertTrue(
+			writtenPackages.urls.count == 2,
+			"Hourly fetching disabled - there should only be one sig/bin combination written!"
+		)
+
+		let fileManager = FileManager.default
+		for url in writtenPackages.urls {
+			XCTAssertTrue(
+				url.absoluteString.starts(with: fileManager.temporaryDirectory.absoluteString),
+				"The packages were not written in the temporary directory!"
+			)
+		}
+		// Cleanup
+		let firstURL = try XCTUnwrap(writtenPackages.urls.first, "Written packages URLs is empty!")
+		let parentDir = firstURL.deletingLastPathComponent()
+		try fileManager.removeItem(at: parentDir)
+	}
+
+	func testWriteDownloadedPackage_HourlyFetchingEnabled() throws {
+		// Test the case where the exector is asked to write the downloaded packages
+		// to disk and return the URLs (for later exposure detection use)
+		// We expect that the .bin and .sig files are written in the App's temp directory
+		// Hourly fetching is enabled
+		let todayString = Calendar.gregorianUTC.startOfDay(for: Date()).formatted
+		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
+
+		// Below package is stored but should not be written to disk as hourly fetching is enabled
+		try downloadedPackageStore.set(country: "IT", day: todayString, package: .makePackage())
+		try downloadedPackageStore.set(country: "IT", hour: 3, day: todayString, package: .makePackage())
+		try downloadedPackageStore.set(country: "IT", hour: 4, day: todayString, package: .makePackage())
+
+		let sut = ExposureDetectionExecutor.makeWith(packageStore: downloadedPackageStore)
+
+		let result = sut.exposureDetectionWriteDownloadedPackages(
+			ExposureDetection(delegate: sut),
+			country: "IT"
+		)
+		let writtenPackages = try XCTUnwrap(result, "Written packages was unexpectedly nil!")
+
+		XCTAssertFalse(
+			writtenPackages.urls.isEmpty,
+			"The package was not saved!"
+		)
+		XCTAssertTrue(
+			writtenPackages.urls.count == 4,
+			"Hourly fetching enabled - there should be two sig/bin combination written!"
+		)
+
+		let fileManager = FileManager.default
+		for url in writtenPackages.urls {
+			XCTAssertTrue(
+				url.absoluteString.starts(with: fileManager.temporaryDirectory.absoluteString),
+				"The packages were not written in the temporary directory!"
+			)
+		}
+		// Cleanup
+		let firstURL = try XCTUnwrap(writtenPackages.urls.first, "Written packages URLs is empty!")
+		let parentDir = firstURL.deletingLastPathComponent()
+		try fileManager.removeItem(at: parentDir)
+	}
+
+	#else
+
 	func testDetermineAvailableData_Success() throws {
 		// Test the case where the exector is asked to download the days and hours,
 		// and the client returns valid data. Returned DaysAndHours should be non-nil
@@ -78,12 +355,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let localDaysAndHours: DaysAndHours = DaysAndHours(days: [yesterdayString], hours: [])
 
 		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
-
-		#if INTEROP
-		downloadedPackageStore.set(country: "DE", day: localDaysAndHours.days[0], package: try .makePackage())
-		#else
 		downloadedPackageStore.set(day: localDaysAndHours.days[0], package: try .makePackage())
-		#endif
 
 		let sut = ExposureDetectionExecutor.makeWith(packageStore: downloadedPackageStore)
 
@@ -99,12 +371,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		// and the server has new data. We expect that the downloaded package store is pruned of old entries
 
 		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
-
-		#if INTEROP
-		downloadedPackageStore.set(country: "DE", day: Date.distantPast.formatted, package: try SAPDownloadedPackage.makePackage())
-		#else
 		downloadedPackageStore.set(day: Date.distantPast.formatted, package: try SAPDownloadedPackage.makePackage())
-		#endif
 
 		let sut = ExposureDetectionExecutor.makeWith(packageStore: downloadedPackageStore)
 
@@ -144,19 +411,11 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 				defer { completionExpectation.fulfill() }
 				XCTAssertNil(error)
 
-				#if INTEROP
-				guard let storedPackage = downloadedPackageStore.package(for: "2020-01-01", country: "DE") else {
-					// We can't XCUnwrap here as completion handler closure cannot throw
-					XCTFail("Package store did not contain downloaded delta package!")
-					return
-				}
-				#else
 				guard let storedPackage = downloadedPackageStore.package(for: "2020-01-01") else {
 					// We can't XCUnwrap here as completion handler closure cannot throw
 					XCTFail("Package store did not contain downloaded delta package!")
 					return
 				}
-				#endif
 
 				XCTAssertEqual(storedPackage.bin, testPackage.bin)
 				XCTAssertEqual(storedPackage.signature, testPackage.signature)
@@ -227,15 +486,9 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let todayString = Calendar.gregorianUTC.startOfDay(for: Date()).formatted
 		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
 
-		#if INTEROP
-		try downloadedPackageStore.set(country: "DE", day: todayString, package: .makePackage())
-		// Below package is stored but should not be written to disk as hourly fetching is disabled
-		try downloadedPackageStore.set(country: "DE", hour: 3, day: todayString, package: .makePackage())
-		#else
 		try downloadedPackageStore.set(day: todayString, package: .makePackage())
 		// Below package is stored but should not be written to disk as hourly fetching is disabled
 		try downloadedPackageStore.set(hour: 3, day: todayString, package: .makePackage())
-		#endif
 
 		let store = MockTestStore()
 		store.hourlyFetchingEnabled = false
@@ -280,17 +533,10 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let todayString = Calendar.gregorianUTC.startOfDay(for: Date()).formatted
 		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
 
-		#if INTEROP
-		// Below package is stored but should not be written to disk as hourly fetching is enabled
-		try downloadedPackageStore.set(country: "DE", day: todayString, package: .makePackage())
-		try downloadedPackageStore.set(country: "DE", hour: 3, day: todayString, package: .makePackage())
-		try downloadedPackageStore.set(country: "DE", hour: 4, day: todayString, package: .makePackage())
-		#else
 		// Below package is stored but should not be written to disk as hourly fetching is enabled
 		try downloadedPackageStore.set(day: todayString, package: .makePackage())
 		try downloadedPackageStore.set(hour: 3, day: todayString, package: .makePackage())
 		try downloadedPackageStore.set( hour: 4, day: todayString, package: .makePackage())
-		#endif
 
 		let sut = ExposureDetectionExecutor.makeWith(packageStore: downloadedPackageStore)
 
@@ -320,6 +566,8 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let parentDir = firstURL.deletingLastPathComponent()
 		try fileManager.removeItem(at: parentDir)
 	}
+
+	#endif
 
 	// MARK: - Detect Summary With Configuration Tests
 

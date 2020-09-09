@@ -75,6 +75,18 @@ protocol Client {
 		completion: @escaping HourCompletionHandler
 	)
 
+	// MARK: Getting the Configuration
+
+	typealias ExposureConfigurationCompletionHandler = (ENExposureConfiguration?, String) -> Void
+
+	/// Gets the remove exposure configuration. See `ENExposureConfiguration` for more details
+	/// Parameters:
+	/// - completion: Will be called with the remove configuration or an error if something went wrong. The completion handler will always be called on the main thread.
+	func exposureConfiguration(
+		country: String,
+		completion: @escaping ExposureConfigurationCompletionHandler
+	)
+
 	#else
 
 	/// Determines days that can be downloaded.
@@ -98,8 +110,20 @@ protocol Client {
 		day: String,
 		completion: @escaping HourCompletionHandler
 	)
-	#endif
 
+	// MARK: Getting the Configuration
+
+	typealias ExposureConfigurationCompletionHandler = (ENExposureConfiguration?) -> Void
+
+	/// Gets the remove exposure configuration. See `ENExposureConfiguration` for more details
+	/// Parameters:
+	/// - completion: Will be called with the remove configuration or an error if something went wrong. The completion handler will always be called on the main thread.
+	func exposureConfiguration(
+		completion: @escaping ExposureConfigurationCompletionHandler
+	)
+
+	#endif
+	
 	/// Gets the registration token
 	func getRegistrationToken(
 		forKey key: String,
@@ -120,17 +144,6 @@ protocol Client {
 		forDevice registrationToken: String,
 		isFake: Bool,
 		completion completeWith: @escaping TANHandler
-	)
-
-	// MARK: Getting the Configuration
-
-	typealias ExposureConfigurationCompletionHandler = (ENExposureConfiguration?) -> Void
-
-	/// Gets the remove exposure configuration. See `ENExposureConfiguration` for more details
-	/// Parameters:
-	/// - completion: Will be called with the remove configuration or an error if something went wrong. The completion handler will always be called on the main thread.
-	func exposureConfiguration(
-		completion: @escaping ExposureConfigurationCompletionHandler
 	)
 
 	/// Submits exposure keys to the backend. This makes the local information available to the world so that the risk of others can be calculated on their local devices.

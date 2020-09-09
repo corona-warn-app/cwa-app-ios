@@ -144,6 +144,30 @@ private final class ExposureDetectionDelegateMock {
 
 extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 
+	#if INTEROP
+
+	func exposureDetection(_ detection: ExposureDetection, country: String, determineAvailableData completion: @escaping (DaysAndHours?, String) -> Void) {
+		completion(availableData(), country)
+	}
+
+	func exposureDetection(_ detection: ExposureDetection, country: String, downloadDeltaFor remote: DaysAndHours) -> DaysAndHours {
+		downloadDelta(remote)
+	}
+
+	func exposureDetection(_ detection: ExposureDetection, country: String, downloadAndStore delta: DaysAndHours, completion: @escaping (Error?) -> Void) {
+		completion(downloadAndStore(delta))
+
+	}
+
+	func exposureDetection(_ detection: ExposureDetection, country: String, downloadConfiguration completion: @escaping (ENExposureConfiguration?, String) -> Void) {
+		completion(configuration(), country)
+	}
+
+	func exposureDetectionWriteDownloadedPackages(_ detection: ExposureDetection, country: String) -> WrittenPackages? {
+		writtenPackages()
+	}
+
+	#else
 
 	func exposureDetection(_ detection: ExposureDetection, determineAvailableData completion: @escaping (DaysAndHours?) -> Void) {
 		completion(availableData())
@@ -165,6 +189,8 @@ extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 	func exposureDetectionWriteDownloadedPackages(_ detection: ExposureDetection) -> WrittenPackages? {
 		writtenPackages()
 	}
+	
+	#endif
 
 	func exposureDetection(
 		_ detection: ExposureDetection,

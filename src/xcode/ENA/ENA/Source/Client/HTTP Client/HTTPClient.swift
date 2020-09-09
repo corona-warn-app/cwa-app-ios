@@ -71,23 +71,6 @@ final class HTTPClient: Client {
 		}
 	}
 
-	func exposureConfiguration(
-		completion: @escaping ExposureConfigurationCompletionHandler
-	) {
-		log(message: "Fetching exposureConfiguration from: \(configuration.configurationURL)")
-		appConfiguration { config in
-			guard let config = config else {
-				completion(nil)
-				return
-			}
-			guard config.hasExposureConfig else {
-				completion(nil)
-				return
-			}
-			completion(try? ENExposureConfiguration(from: config.exposureConfig))
-		}
-	}
-
 	func submit(
 		keys: [ENTemporaryExposureKey],
 		tan: String,
@@ -125,6 +108,25 @@ final class HTTPClient: Client {
 	}
 
 	#if INTEROP
+
+	func exposureConfiguration(
+		country: String,
+		completion: @escaping ExposureConfigurationCompletionHandler
+	) {
+		log(message: "Fetching exposureConfiguration from: \(configuration.configurationURL)")
+		appConfiguration { config in
+			guard let config = config else {
+				completion(nil, country)
+				return
+			}
+			guard config.hasExposureConfig else {
+				completion(nil, country)
+				return
+			}
+			completion(try? ENExposureConfiguration(from: config.exposureConfig), country)
+		}
+	}
+
 	func availableDays(
 		forCountry country: String,
 		completion completeWith: @escaping AvailableDaysCompletionHandler
@@ -208,6 +210,23 @@ final class HTTPClient: Client {
 	}
 
 	#else
+
+	func exposureConfiguration(
+		completion: @escaping ExposureConfigurationCompletionHandler
+	) {
+		log(message: "Fetching exposureConfiguration from: \(configuration.configurationURL)")
+		appConfiguration { config in
+			guard let config = config else {
+				completion(nil)
+				return
+			}
+			guard config.hasExposureConfig else {
+				completion(nil)
+				return
+			}
+			completion(try? ENExposureConfiguration(from: config.exposureConfig))
+		}
+	}
 
 	func availableDays(
 		completion completeWith: @escaping AvailableDaysCompletionHandler
