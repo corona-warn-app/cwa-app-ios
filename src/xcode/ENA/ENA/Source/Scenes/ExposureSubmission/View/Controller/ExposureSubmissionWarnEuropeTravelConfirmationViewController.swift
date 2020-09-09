@@ -67,7 +67,7 @@ final class ExposureSubmissionWarnEuropeTravelConfirmationViewController: Dynami
 
 	// MARK: - Private
 
-	private let onPrimaryButtonTap: (TravelConfirmationOption, @escaping (Bool) -> Void) -> Void
+	private let onPrimaryButtonTap: PrimaryButtonHandler
 
 	@Published private var selectedTravelConfirmationOption: TravelConfirmationOption?
 
@@ -127,7 +127,7 @@ final class ExposureSubmissionWarnEuropeTravelConfirmationViewController: Dynami
 						.custom(
 							withIdentifier: CustomCellReuseIdentifiers.optionGroupCell,
 							configure: { [weak self] _, cell, _ in
-								guard let cell = cell as? DynamicTableViewOptionGroupCell else { return }
+								guard let self = self, let cell = cell as? DynamicTableViewOptionGroupCell else { return }
 
 								cell.configure(
 									options: [
@@ -139,12 +139,10 @@ final class ExposureSubmissionWarnEuropeTravelConfirmationViewController: Dynami
 												accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnEuropeTravelConfirmation.optionNone)
 									],
 									// The current selection needs to be provided in case the cell is recreated after leaving and reentering the screen
-									initialSelection: self?.optionGroupSelection
+									initialSelection: self.optionGroupSelection
 								)
 
-								self?.optionGroupSelectionSubscription = cell.$selection.sink {
-									self?.optionGroupSelection = $0
-								}
+								self.optionGroupSelectionSubscription = cell.$selection.assign(to: \.optionGroupSelection, on: self)
 							}
 						),
 						.body(

@@ -108,9 +108,9 @@ extension DynamicCell {
 		}
 	}
 
-	static func icon(_ image: UIImage?, text: String, tintColor: UIColor? = nil, style: ENAFont = .body, iconSize: CGFloat = 32, action: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
+	static func icon(_ image: UIImage?, text: String, tintColor: UIColor? = nil, style: ENAFont = .body, iconWidth: CGFloat = 32, action: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
 		.identifier(CellReuseIdentifier.icon, action: action, accessoryAction: .none) { viewController, cell, indexPath in
-			(cell as? DynamicTableViewIconCell)?.configure(image: image, text: text, tintColor: tintColor, style: style, iconSize: iconSize)
+			(cell as? DynamicTableViewIconCell)?.configure(image: image, text: text, tintColor: tintColor, style: style, iconWidth: iconWidth)
 			configure?(viewController, cell, indexPath)
 		}
 	}
