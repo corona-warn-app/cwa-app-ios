@@ -127,6 +127,7 @@ extension DynamicCell {
 	
 	static func bulletPoint(
 		text: String,
+		spacing: DynamicTableViewBulletPointCell.Spacing = .normal,
 		accessibilityIdentifier: String? = nil,
 		accessibilityTraits: UIAccessibilityTraits = .staticText,
 		action: DynamicAction = .none,
@@ -135,6 +136,7 @@ extension DynamicCell {
 		.identifier(CellReuseIdentifier.bulletPoint, action: action, accessoryAction: .none) { viewController, cell, indexPath in
 			(cell as? DynamicTableViewBulletPointCell)?.configure(
 				text: text,
+				spacing: spacing,
 				accessibilityTraits: accessibilityTraits,
 				accessibilityIdentifier: accessibilityIdentifier
 			)
