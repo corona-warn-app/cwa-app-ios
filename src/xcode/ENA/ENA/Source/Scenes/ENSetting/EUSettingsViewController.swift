@@ -20,11 +20,11 @@
 import Foundation
 import UIKit
 
-class EUSettingsViewController: DynamicTableViewController {
+class EUSettingsViewController: DynamicTableViewController, EUSettingsDelegate {
 
 	// MARK: - Attributes.
 
-	private var viewModel: EUSettingsViewModel {
+	fileprivate var viewModel: EUSettingsViewModel {
 		EUSettingsViewModel(
 			countries: [
 				Country(countryCode: "DE"),
@@ -33,6 +33,8 @@ class EUSettingsViewController: DynamicTableViewController {
 				].compactMap { $0 }
 		)
 	}
+
+	@Published var test: Bool = false
 
 	// MARK: - View life cycle methods.
 
@@ -53,7 +55,7 @@ class EUSettingsViewController: DynamicTableViewController {
 
 	private func setupTableView() {
 		tableView.separatorStyle = .none
-		dynamicTableViewModel = .euSettingsModel(from: viewModel)
+		dynamicTableViewModel = .euSettingsModel(for: self)
 		
 		tableView.register(
 			UINib(
@@ -73,6 +75,13 @@ class EUSettingsViewController: DynamicTableViewController {
 	}
 
 	// MARK: - Helper methods.
+
+	func setAllCountries(to: Bool) {
+		for row in 0..<tableView.numberOfRows(inSection: 3) {
+			guard let switchCell = tableView.cellForRow(at: IndexPath(row: row, section: 3)) as? SwitchCell else { return }
+			switchCell.set(to: to)
+		}
+	}
 
 	private func show14DaysErrorAlert() {
 		let alert = setupErrorAlert(
@@ -95,9 +104,14 @@ private extension EUSettingsViewController {
 	}
 }
 
+private protocol EUSettingsDelegate: class {
+	var viewModel: EUSettingsViewModel { get }
+	func setAllCountries(to: Bool)
+}
+
 private extension DynamicTableViewModel {
 
-	static func euSettingsModel(from viewModel: EUSettingsViewModel) -> DynamicTableViewModel {
+	static func euSettingsModel(for delegate: EUSettingsDelegate) -> DynamicTableViewModel {
 		DynamicTableViewModel([
 			.section(cells: [
 				.title1(
@@ -112,7 +126,10 @@ private extension DynamicTableViewModel {
 			.section(
 				separators: true,
 				cells: [
-					.switchCell(text: AppStrings.ExposureNotificationSetting.euAllCountries)
+					.switchCell(text: AppStrings.ExposureNotificationSetting.euAllCountries, isOn: delegate.viewModel.allCountriesEnabled) {
+						delegate.viewModel.setAllCountries(to: $0)
+						delegate.setAllCountries(to: $0)
+					}
 				]
 			),
 			.section(cells: [
@@ -122,7 +139,7 @@ private extension DynamicTableViewModel {
 				),
 				.space(height: 16)
 			]),
-			.countrySwitchSection(from: viewModel),
+			.countrySwitchSection(from: delegate.viewModel),
 			.section(cells: [
 				.footnote(
 					text: AppStrings.ExposureNotificationSetting.euRegionDescription,
@@ -155,10 +172,18 @@ private extension DynamicTableViewModel {
 
 private class EUSettingsViewModel {
 
-	private(set) var countries: [Country]
+	let countries: [Country]
+	var enabled = [Country: Bool]()
+	private(set) var allCountriesEnabled = false
+
+	func setAllCountries(to state: Bool) {
+		countries.forEach { enabled[$0] = state }
+		allCountriesEnabled = state
+	}
 
 	init(countries: [Country]) {
 		self.countries = countries
+		setAllCountries(to: false)
 	}
 }
 
@@ -167,8 +192,12 @@ private extension DynamicSection {
 		.section(
 			separators: true,
 			cells: model.countries.map { country in
-				DynamicCell.switchCell(text: country.localizedName, icon: country.flag, isOn: false) { _ in
-					// TODO: Update state.
+				DynamicCell.switchCell(
+					text: country.localizedName,
+					icon: country.flag,
+					isOn: model.enabled[country] ?? false) {
+						model.enabled[country] = $0
+						print("Set \(country.localizedName) to \(model.enabled[country]!)")
 				}
 			}
 		)
@@ -229,6 +258,11 @@ private class SwitchCell: UITableViewCell {
 
 	// MARK: - Public API.
 
+	func set(to on: Bool) {
+		uiSwitch.setOn(on, animated: true)
+		onToggle()
+	}
+
 	func configure(text: String, icon: UIImage? = nil, isOn: Bool = false, onToggle: ToggleHandler? = nil) {
 		imageView?.image = icon
 		textLabel?.text = text
@@ -240,7 +274,7 @@ private class SwitchCell: UITableViewCell {
 // MARK: - Delete this...
 
 /// A simple data countainer representing a country or political region.
-struct Country: Equatable {
+struct Country: Equatable, Hashable {
 
 	typealias ID = String
 
