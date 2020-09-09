@@ -1,7 +1,58 @@
 # Changelog
 
-## v1.2.0 (03/08/2020)
+## v1.3.0 (02/09/2020)
+#### Bug fixes
+-  Reduce timer rescheduling (JIRA 2302) [#1084](https://github.com/corona-warn-app/cwa-app-ios/pull/1084)
+-  Update Localizable.stringsdict - 'Zeitpunkt' -> 'Zeitraum' [#1064](https://github.com/corona-warn-app/cwa-app-ios/pull/1064)
+-  Rückmeldetext bei wiederholtem Scan [#1062](https://github.com/corona-warn-app/cwa-app-ios/pull/1062)
+-  Fixed RiskLevel Comparison [#1054](https://github.com/corona-warn-app/cwa-app-ios/pull/1054)
+-  2199 rephrased german hint on problems evaluating test results [#1049](https://github.com/corona-warn-app/cwa-app-ios/pull/1049)
+-  fixed crash on launch in a certain edge case [#1040](https://github.com/corona-warn-app/cwa-app-ios/pull/1040)
+-  Introduce separate property to enable background fake requests [#1031](https://github.com/corona-warn-app/cwa-app-ios/pull/1031)
+-  remove arabic and russian localization from rc [#1030](https://github.com/corona-warn-app/cwa-app-ios/pull/1030)
+-  brought hourly fetching back  [#929](https://github.com/corona-warn-app/cwa-app-ios/pull/929)
+-  fix: pinning is no longer disabled for testing and development [#981](https://github.com/corona-warn-app/cwa-app-ios/pull/981)
+-  App Config Protobuf Changes (closes 862) [#964](https://github.com/corona-warn-app/cwa-app-ios/pull/964)
 
+#### New features
+-  Feature/leichte sprache [#1058](https://github.com/corona-warn-app/cwa-app-ios/pull/1058)
+-  Dead man notifications [#1036](https://github.com/corona-warn-app/cwa-app-ios/pull/1036)
+-  Link contact form on imprint page [#1038](https://github.com/corona-warn-app/cwa-app-ios/pull/1038)
+-  Support for redeemed test result [#1024](https://github.com/corona-warn-app/cwa-app-ios/pull/1024)
+-  Plausible deniability [#1004](https://github.com/corona-warn-app/cwa-app-ios/pull/1004)
+-  Unknown Outdated Risk Detail Screen [#945](https://github.com/corona-warn-app/cwa-app-ios/pull/945)
+-  Risk calculation manually - after 2 days inactivity update not easy to find - the state switching logic [#907](https://github.com/corona-warn-app/cwa-app-ios/pull/907)
+-  48h Unknown card for new risk level [#907](https://github.com/corona-warn-app/cwa-app-ios/pull/907)
+-  Integrate russian EULA and privacy notice [#877](https://github.com/corona-warn-app/cwa-app-ios/pull/877)
+
+#### Enhancements
+-  Enhanced text for Tess relay services [#1059](https://github.com/corona-warn-app/cwa-app-ios/pull/1059)
+-  Test result header wraps around (closes 2065 and 2125 ) [#1043](https://github.com/corona-warn-app/cwa-app-ios/pull/1043)
+-  Add long text reference support for links, phone and email [#944](https://github.com/corona-warn-app/cwa-app-ios/pull/944)
+-  Add translation for submission server errors [#922](https://github.com/corona-warn-app/cwa-app-ios/pull/922)
+-  Introduce Coordinator [#834](https://github.com/corona-warn-app/cwa-app-ios/pull/834)
+-  Increase the robustness of the exposure submission http client [#968](https://github.com/corona-warn-app/cwa-app-ios/pull/968)
+-  Translation Delivery [#985](https://github.com/corona-warn-app/cwa-app-ios/pull/985), [#1065](https://github.com/corona-warn-app/cwa-app-ios/pull/1065)
+
+#### Others
+-  [2214] Adopted current plausible deniability configuration (disabling PD) [#1057](https://github.com/corona-warn-app/cwa-app-ios/pull/1057)
+-  added ENAPIVersion and ENDeveloperRegion to our info plists [#1041](https://github.com/corona-warn-app/cwa-app-ios/pull/1041)
+-  Availability of Tess Relay  [#1009](https://github.com/corona-warn-app/cwa-app-ios/pull/1009)
+-  added tests for DetectionMode [#962](https://github.com/corona-warn-app/cwa-app-ios/pull/962)
+-  [Chore] Moved sqlite into it’s own little framework [#614](https://github.com/corona-warn-app/cwa-app-ios/pull/614)
+-  Fix automated screenshots [#939](https://github.com/corona-warn-app/cwa-app-ios/pull/939)
+
+---
+
+## v1.2.1 (12/08/2020)
+#### Bug fixes
+-  fixed crash on launch in a certain edge case [#1040](https://github.com/corona-warn-app/cwa-app-ios/pull/1040)
+
+#### Others
+-  added ENAPIVersion and ENDeveloperRegion to our info plists [#1041](https://github.com/corona-warn-app/cwa-app-ios/pull/1041)
+---
+
+## v1.2.0 (07/08/2020)
 #### Bug fixes
 -  Fix text of high risk information [#994](https://github.com/corona-warn-app/cwa-app-ios/pull/994)
 -  Fix AppNavigationController navigation bar transparency [#926](https://github.com/corona-warn-app/cwa-app-ios/pull/926)
@@ -15,7 +66,7 @@
 
 #### New features
 
--  Translation update and integrate three new languages (Romanian, Bulgarian and Polish) [#905](https://github.com/corona-warn-app/cwa-app-ios/pull/905), [#933](https://github.com/corona-warn-app/cwa-app-ios/pull/933), [#961](https://github.com/corona-warn-app/cwa-app-ios/pull/961), [#1006](https://github.com/corona-warn-app/cwa-app-ios/pull/1006)
+-  Translation update and integrate three new languages (Romanian, Bulgarian and Polish) [#905](https://github.com/corona-warn-app/cwa-app-ios/pull/905), [#933](https://github.com/corona-warn-app/cwa-app-ios/pull/933), [#961](https://github.com/corona-warn-app/cwa-app-ios/pull/961)
 -  Add interactivity to links in App Settings Imprint (Legal) Screen [#833](https://github.com/corona-warn-app/cwa-app-ios/pull/833)
 -  Loading state  for risk cell [#873](https://github.com/corona-warn-app/cwa-app-ios/pull/873)
 -  Tracing Status Animation [#821](https://github.com/corona-warn-app/cwa-app-ios/pull/821)

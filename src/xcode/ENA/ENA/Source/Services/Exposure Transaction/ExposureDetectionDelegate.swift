@@ -63,5 +63,5 @@ protocol ExposureDetectionDelegate: AnyObject {
 		configuration: ENExposureConfiguration,
 		writtenPackages: WrittenPackages,
 		completion: @escaping DetectionHandler
-	)
+	) -> Progress
 }

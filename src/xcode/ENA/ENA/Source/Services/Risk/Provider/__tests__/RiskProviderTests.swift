@@ -26,8 +26,10 @@ private final class Summary: ENExposureDetectionSummary {}
 private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
 	var onDetectExposure: ((ExposureSummaryProvider.Completion) -> Void)?
 
-	func detectExposure(completion: (ENExposureDetectionSummary?) -> Void) {
+	func detectExposure(completion: (ENExposureDetectionSummary?) -> Void) -> CancellationToken {
+		let token = CancellationToken(onCancel: {})
 		onDetectExposure?(completion)
+		return token
 	}
 }
 
