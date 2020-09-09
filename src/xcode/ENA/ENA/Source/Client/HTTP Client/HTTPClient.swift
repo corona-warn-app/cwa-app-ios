@@ -72,7 +72,7 @@ final class HTTPClient: Client {
 	}
 
 	func exposureConfiguration(
-			completion: @escaping ExposureConfigurationCompletionHandler
+		completion: @escaping ExposureConfigurationCompletionHandler
 	) {
 		log(message: "Fetching exposureConfiguration from: \(configuration.configurationURL)")
 		appConfiguration { config in
@@ -89,19 +89,19 @@ final class HTTPClient: Client {
 	}
 
 	func submit(
-			keys: [ENTemporaryExposureKey],
-			tan: String,
-			isFake: Bool = false,
-			completion: @escaping SubmitKeysCompletionHandler
+		keys: [ENTemporaryExposureKey],
+		tan: String,
+		isFake: Bool = false,
+		completion: @escaping SubmitKeysCompletionHandler
 	) {
 		guard let request = try? URLRequest.submitKeysRequest(
-				configuration: configuration,
-				tan: tan,
-				keys: keys,
-				headerValue: isFake ? 1 : 0
-		) else {
-			completion(.requestCouldNotBeBuilt)
-			return
+			configuration: configuration,
+			tan: tan,
+			keys: keys,
+			headerValue: isFake ? 1 : 0
+			) else {
+				completion(.requestCouldNotBeBuilt)
+				return
 		}
 
 		session.response(for: request, isFake: isFake) { result in
@@ -126,17 +126,17 @@ final class HTTPClient: Client {
 
 	#if INTEROP
 	func availableDays(
-			forCountry country: String,
-			completion completeWith: @escaping AvailableDaysCompletionHandler
+		forCountry country: String,
+		completion completeWith: @escaping AvailableDaysCompletionHandler
 	) {
 		let url = configuration.availableDaysURL(forCountry: country)
 		availableDays(from: url, completion: completeWith)
 	}
-
+	
 	func availableHours(
-			day: String,
-			country: String,
-			completion completeWith: @escaping AvailableHoursCompletionHandler
+		day: String,
+		country: String,
+		completion completeWith: @escaping AvailableHoursCompletionHandler
 	) {
 		let url = configuration.availableHoursURL(day: day, country: country)
 
@@ -171,19 +171,19 @@ final class HTTPClient: Client {
 	}
 
 	func fetchDay(
-			_ day: String,
-			forCountry country: String,
-			completion completeWith: @escaping DayCompletionHandler
+		_ day: String,
+		forCountry country: String,
+		completion completeWith: @escaping DayCompletionHandler
 	) {
 		let url = configuration.diagnosisKeysURL(day: day, forCountry: country)
 		fetchDay(from: url, completion: completeWith)
 	}
 
 	func fetchHour(
-			_ hour: Int,
-			day: String,
-			country: String,
-			completion completeWith: @escaping HourCompletionHandler
+		_ hour: Int,
+		day: String,
+		country: String,
+		completion completeWith: @escaping HourCompletionHandler
 	) {
 		let url = configuration.diagnosisKeysURL(day: day, hour: hour, forCountry: country)
 		session.GET(url) { result in
@@ -210,15 +210,15 @@ final class HTTPClient: Client {
 	#else
 
 	func availableDays(
-			completion completeWith: @escaping AvailableDaysCompletionHandler
+		completion completeWith: @escaping AvailableDaysCompletionHandler
 	) {
 		let url = configuration.availableDaysURL
 		availableDays(from: url, completion: completeWith)
 	}
-
+	
 	func availableHours(
-			day: String,
-			completion completeWith: @escaping AvailableHoursCompletionHandler
+		day: String,
+		completion completeWith: @escaping AvailableHoursCompletionHandler
 	) {
 		let url = configuration.availableHoursURL(day: day)
 
@@ -253,8 +253,8 @@ final class HTTPClient: Client {
 	}
 
 	func fetchDay(
-			_ day: String,
-			completion completeWith: @escaping DayCompletionHandler
+		_ day: String,
+		completion completeWith: @escaping DayCompletionHandler
 	) {
 		let url = configuration.diagnosisKeysURL(day: day)
 		fetchDay(from: url, completion: completeWith)
@@ -262,9 +262,9 @@ final class HTTPClient: Client {
 	}
 
 	func fetchHour(
-			_ hour: Int,
-			day: String,
-			completion completeWith: @escaping HourCompletionHandler
+		_ hour: Int,
+		day: String,
+		completion completeWith: @escaping HourCompletionHandler
 	) {
 		let url = configuration.diagnosisKeysURL(day: day, hour: hour)
 		session.GET(url) { result in
@@ -292,15 +292,15 @@ final class HTTPClient: Client {
 	func getTestResult(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TestResultHandler) {
 
 		guard
-				let testResultRequest = try? URLRequest.getTestResultRequest(
-						configuration: configuration,
-						registrationToken: registrationToken,
-						headerValue: isFake ? 1 : 0
-				) else {
-			completeWith(.failure(.invalidResponse))
-			return
+			let testResultRequest = try? URLRequest.getTestResultRequest(
+				configuration: configuration,
+				registrationToken: registrationToken,
+				headerValue: isFake ? 1 : 0
+			) else {
+				completeWith(.failure(.invalidResponse))
+				return
 		}
-
+		
 		session.response(for: testResultRequest, isFake: isFake) { result in
 			switch result {
 			case let .success(response):
@@ -315,8 +315,8 @@ final class HTTPClient: Client {
 				}
 				do {
 					let response = try JSONDecoder().decode(
-							FetchTestResultResponse.self,
-							from: testResultResponseData
+						FetchTestResultResponse.self,
+						from: testResultResponseData
 					)
 					guard let testResult = response.testResult else {
 						logError(message: "Failed to get test result with invalid response payload structure")
@@ -334,23 +334,23 @@ final class HTTPClient: Client {
 			}
 		}
 	}
-
+	
 	func getTANForExposureSubmit(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TANHandler) {
-
+		
 		guard
-				let tanForExposureSubmitRequest = try? URLRequest.getTanForExposureSubmitRequest(
-						configuration: configuration,
-						registrationToken: registrationToken,
-						headerValue: isFake ? 1 : 0
-				) else {
-			completeWith(.failure(.invalidResponse))
-			return
+			let tanForExposureSubmitRequest = try? URLRequest.getTanForExposureSubmitRequest(
+				configuration: configuration,
+				registrationToken: registrationToken,
+				headerValue: isFake ? 1 : 0
+			) else {
+				completeWith(.failure(.invalidResponse))
+				return
 		}
-
+		
 		session.response(for: tanForExposureSubmitRequest, isFake: isFake) { result in
 			switch result {
 			case let .success(response):
-
+				
 				if response.statusCode == 400 {
 					completeWith(.failure(.regTokenNotExist))
 					return
@@ -367,8 +367,8 @@ final class HTTPClient: Client {
 				}
 				do {
 					let response = try JSONDecoder().decode(
-							GetTANForExposureSubmitResponse.self,
-							from: tanResponseData
+						GetTANForExposureSubmitResponse.self,
+						from: tanResponseData
 					)
 					guard let tan = response.tan else {
 						logError(message: "Failed to get TAN because of invalid response payload structure")
@@ -386,20 +386,20 @@ final class HTTPClient: Client {
 			}
 		}
 	}
-
+	
 	func getRegistrationToken(forKey key: String, withType type: String, isFake: Bool = false, completion completeWith: @escaping RegistrationHandler) {
-
+		
 		guard
-				let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
-						configuration: configuration,
-						key: key,
-						type: type,
-						headerValue: isFake ? 1 : 0
-				) else {
-			completeWith(.failure(.invalidResponse))
-			return
+			let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
+				configuration: configuration,
+				key: key,
+				type: type,
+				headerValue: isFake ? 1 : 0
+			) else {
+				completeWith(.failure(.invalidResponse))
+				return
 		}
-
+		
 		session.response(for: registrationTokenRequest, isFake: isFake) { result in
 			switch result {
 			case let .success(response):
@@ -420,11 +420,11 @@ final class HTTPClient: Client {
 					logError(message: "Failed to register Device with invalid response")
 					return
 				}
-
+				
 				do {
 					let response = try JSONDecoder().decode(
-							GetRegistrationTokenResponse.self,
-							from: registerResponseData
+						GetRegistrationTokenResponse.self,
+						from: registerResponseData
 					)
 					guard let registrationToken = response.registrationToken else {
 						logError(message: "Failed to register Device with invalid response payload structure")
@@ -448,9 +448,9 @@ final class HTTPClient: Client {
 
 extension HTTPClient {
 	private func fetchDay(
-			from url: URL,
-			completion completeWith: @escaping DayCompletionHandler) {
-
+		from url: URL,
+		completion completeWith: @escaping DayCompletionHandler) {
+		
 		session.GET(url) { result in
 			switch result {
 			case let .success(response):
@@ -471,10 +471,10 @@ extension HTTPClient {
 			}
 		}
 	}
-
+	
 	private func availableDays(
-			from url: URL,
-			completion completeWith: @escaping AvailableDaysCompletionHandler
+		from url: URL,
+		completion completeWith: @escaping AvailableDaysCompletionHandler
 	) {
 		session.GET(url) { result in
 			switch result {
@@ -490,7 +490,7 @@ extension HTTPClient {
 				do {
 					let decoder = JSONDecoder()
 					let days = try decoder
-							.decode(
+						.decode(
 							[String].self,
 							from: data
 					)
@@ -512,11 +512,11 @@ private extension HTTPClient {
 	struct FetchTestResultResponse: Codable {
 		let testResult: Int?
 	}
-
+	
 	struct GetRegistrationTokenResponse: Codable {
 		let registrationToken: String?
 	}
-
+	
 	struct GetTANForExposureSubmitResponse: Codable {
 		let tan: String?
 	}
@@ -524,10 +524,10 @@ private extension HTTPClient {
 
 private extension URLRequest {
 	static func submitKeysRequest(
-			configuration: HTTPClient.Configuration,
-			tan: String,
-			keys: [ENTemporaryExposureKey],
-			headerValue: Int
+		configuration: HTTPClient.Configuration,
+		tan: String,
+		keys: [ENTemporaryExposureKey],
+		headerValue: Int
 	) throws -> URLRequest {
 		let payload = SAP_SubmissionPayload.with {
 			$0.padding = self.getSubmissionPadding(for: keys)
@@ -535,155 +535,155 @@ private extension URLRequest {
 		}
 		let payloadData = try payload.serializedData()
 		let url = configuration.submissionURL
-
+		
 		var request = URLRequest(url: url)
-
+		
 		request.setValue(
-				tan,
-				// TAN code associated with this diagnosis key submission.
-				forHTTPHeaderField: "cwa-authorization"
+			tan,
+			// TAN code associated with this diagnosis key submission.
+			forHTTPHeaderField: "cwa-authorization"
 		)
-
+		
 		request.setValue(
-				"\(headerValue)",
-				// Requests with a value of "0" will be fully processed.
-				// Any other value indicates that this request shall be
-				// handled as a fake request." ,
-				forHTTPHeaderField: "cwa-fake"
+			"\(headerValue)",
+			// Requests with a value of "0" will be fully processed.
+			// Any other value indicates that this request shall be
+			// handled as a fake request." ,
+			forHTTPHeaderField: "cwa-fake"
 		)
-
+		
 		// Add header padding for the GUID, in case it is
 		// a fake request, otherwise leave empty.
 		request.setValue(
-				headerValue == 0 ? "" : String.getRandomString(of: 36),
-				forHTTPHeaderField: "cwa-header-padding"
+			headerValue == 0 ? "" : String.getRandomString(of: 36),
+			forHTTPHeaderField: "cwa-header-padding"
 		)
-
+		
 		request.setValue(
-				"application/x-protobuf",
-				forHTTPHeaderField: "Content-Type"
+			"application/x-protobuf",
+			forHTTPHeaderField: "Content-Type"
 		)
-
+		
 		request.httpMethod = "POST"
 		request.httpBody = payloadData
-
+		
 		return request
 	}
-
+	
 	static func getTestResultRequest(
-			configuration: HTTPClient.Configuration,
-			registrationToken: String,
-			headerValue: Int
+		configuration: HTTPClient.Configuration,
+		registrationToken: String,
+		headerValue: Int
 	) throws -> URLRequest {
-
+		
 		var request = URLRequest(url: configuration.testResultURL)
-
+		
 		request.setValue(
-				"\(headerValue)",
-				// Requests with a value of "0" will be fully processed.
-				// Any other value indicates that this request shall be
-				// handled as a fake request." ,
-				forHTTPHeaderField: "cwa-fake"
+			"\(headerValue)",
+			// Requests with a value of "0" will be fully processed.
+			// Any other value indicates that this request shall be
+			// handled as a fake request." ,
+			forHTTPHeaderField: "cwa-fake"
 		)
-
+		
 		// Add header padding.
 		request.setValue(
-				String.getRandomString(of: 7),
-				forHTTPHeaderField: "cwa-header-padding"
+			String.getRandomString(of: 7),
+			forHTTPHeaderField: "cwa-header-padding"
 		)
-
+		
 		request.setValue(
-				"application/json",
-				forHTTPHeaderField: "Content-Type"
+			"application/json",
+			forHTTPHeaderField: "Content-Type"
 		)
-
+		
 		request.httpMethod = "POST"
-
+		
 		// Add body padding to request.
 		let originalBody = ["registrationToken": registrationToken]
 		let paddedData = try getPaddedRequestBody(for: originalBody)
 		request.httpBody = paddedData
-
+		
 		return request
 	}
-
+	
 	static func getTanForExposureSubmitRequest(
-			configuration: HTTPClient.Configuration,
-			registrationToken: String,
-			headerValue: Int
+		configuration: HTTPClient.Configuration,
+		registrationToken: String,
+		headerValue: Int
 	) throws -> URLRequest {
-
+		
 		var request = URLRequest(url: configuration.tanRetrievalURL)
-
+		
 		request.setValue(
-				"\(headerValue)",
-				// Requests with a value of "0" will be fully processed.
-				// Any other value indicates that this request shall be
-				// handled as a fake request." ,
-				forHTTPHeaderField: "cwa-fake"
+			"\(headerValue)",
+			// Requests with a value of "0" will be fully processed.
+			// Any other value indicates that this request shall be
+			// handled as a fake request." ,
+			forHTTPHeaderField: "cwa-fake"
 		)
-
+		
 		// Add header padding.
 		request.setValue(
-				String.getRandomString(of: 14),
-				forHTTPHeaderField: "cwa-header-padding"
+			String.getRandomString(of: 14),
+			forHTTPHeaderField: "cwa-header-padding"
 		)
-
+		
 		request.setValue(
-				"application/json",
-				forHTTPHeaderField: "Content-Type"
+			"application/json",
+			forHTTPHeaderField: "Content-Type"
 		)
-
+		
 		request.httpMethod = "POST"
-
+		
 		// Add body padding to request.
 		let originalBody = ["registrationToken": registrationToken]
 		let paddedData = try getPaddedRequestBody(for: originalBody)
 		request.httpBody = paddedData
-
+		
 		return request
 	}
-
+	
 	static func getRegistrationTokenRequest(
-			configuration: HTTPClient.Configuration,
-			key: String,
-			type: String,
-			headerValue: Int
+		configuration: HTTPClient.Configuration,
+		key: String,
+		type: String,
+		headerValue: Int
 	) throws -> URLRequest {
-
+		
 		var request = URLRequest(url: configuration.registrationURL)
-
+		
 		request.setValue(
-				"\(headerValue)",
-				// Requests with a value of "0" will be fully processed.
-				// Any other value indicates that this request shall be
-				// handled as a fake request." ,
-				forHTTPHeaderField: "cwa-fake"
+			"\(headerValue)",
+			// Requests with a value of "0" will be fully processed.
+			// Any other value indicates that this request shall be
+			// handled as a fake request." ,
+			forHTTPHeaderField: "cwa-fake"
 		)
-
+		
 		// Add header padding.
 		request.setValue(
-				"",
-				forHTTPHeaderField: "cwa-header-padding"
+			"",
+			forHTTPHeaderField: "cwa-header-padding"
 		)
-
+		
 		request.setValue(
-				"application/json",
-				forHTTPHeaderField: "Content-Type"
+			"application/json",
+			forHTTPHeaderField: "Content-Type"
 		)
-
+		
 		request.httpMethod = "POST"
-
+		
 		// Add body padding to request.
 		let originalBody = ["key": key, "keyType": type]
 		let paddedData = try getPaddedRequestBody(for: originalBody)
 		request.httpBody = paddedData
-
+		
 		return request
 	}
-
+	
 	// MARK: - Helper methods for adding padding to the requests.
-
+	
 	/// This method recreates the request body with a padding that consists of a random string.
 	/// The entire request body must not be bigger than `maxRequestPayloadSize`.
 	/// Note that this method is _not_ used for the key submission step, as this needs a different handling.
@@ -691,7 +691,7 @@ private extension URLRequest {
 	private static func getPaddedRequestBody(for originalBody: [String: String]) throws -> Data {
 		// This is the maximum size of bytes the request body should have.
 		let maxRequestPayloadSize = 250
-
+		
 		// Copying in order to not use inout parameters.
 		var paddedBody = originalBody
 		paddedBody["requestPadding"] = ""
@@ -701,7 +701,7 @@ private extension URLRequest {
 		paddedBody["requestPadding"] = padding
 		return try JSONEncoder().encode(paddedBody)
 	}
-
+	
 	/// This method recreates the request body of the submit keys request with a padding that fills up to resemble
 	/// a request with 14 +`n` keys. Note that the `n`parameter is currently set to 0, but can change in the future
 	/// when there will be support for 15 keys.
