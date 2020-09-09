@@ -48,7 +48,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect successful result"
 		)
 
-		HTTPClient.makeWith(mock: stack).availableDays(forCountry: "DE") { result in
+		HTTPClient.makeWith(mock: stack).availableDays(forCountry: "IT") { result in
 			switch result {
 			case let .success(days):
 				XCTAssertEqual(
@@ -77,7 +77,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		HTTPClient.makeWith(mock: stack).availableDays(forCountry: "DE") { result in
+		HTTPClient.makeWith(mock: stack).availableDays(forCountry: "IT") { result in
 			switch result {
 			case .success:
 				XCTFail("an invalid response should never yield success")
@@ -102,7 +102,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		let expectation = self.expectation(
 			description: "expect successful result but empty"
 		)
-		HTTPClient.makeWith(mock: stack).availableHours(day: "2020-05-12", country: "DE") { result in
+		HTTPClient.makeWith(mock: stack).availableHours(day: "2020-05-12", country: "IT") { result in
 			switch result {
 			case let .success(hours):
 				XCTAssertEqual(
@@ -131,7 +131,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect successful result"
 		)
 
-		HTTPClient.makeWith(mock: stack).availableHours(day: "2020-05-12", country: "DE") { result in
+		HTTPClient.makeWith(mock: stack).availableHours(day: "2020-05-12", country: "IT") { result in
 			switch result {
 			case let .success(hours):
 				XCTAssertEqual(
@@ -156,7 +156,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		HTTPClient.makeWith(mock: stack).fetchHour(1, day: "2020-05-01", country: "DE") { result in
+		HTTPClient.makeWith(mock: stack).fetchHour(1, day: "2020-05-01", country: "IT") { result in
 			switch result {
 			case .success:
 				XCTFail("an invalid response should never cause success")
@@ -179,7 +179,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		HTTPClient.makeWith(mock: stack).fetchHour(1, day: "2020-05-01", country: "DE") { result in
+		HTTPClient.makeWith(mock: stack).fetchHour(1, day: "2020-05-01", country: "IT") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case let .success(sapPackage):
@@ -203,7 +203,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		HTTPClient.makeWith(mock: stack).fetchDay("2020-05-01", forCountry: "DE") { result in
+		HTTPClient.makeWith(mock: stack).fetchDay("2020-05-01", forCountry: "IT") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case let .success(sapPackage):
@@ -225,7 +225,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		HTTPClient.makeWith(mock: stack).fetchDay("2020-05-01", forCountry: "DE") { result in
+		HTTPClient.makeWith(mock: stack).fetchDay("2020-05-01", forCountry: "IT") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success:
