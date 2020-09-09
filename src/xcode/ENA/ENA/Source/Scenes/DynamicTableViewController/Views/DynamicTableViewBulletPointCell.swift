@@ -20,6 +20,13 @@ import UIKit
 
 final class DynamicTableViewBulletPointCell: UITableViewCell {
 	
+	
+	// Spacing will get divded by two and applied to top and bottom
+	enum Spacing: CGFloat {
+		case large = 16
+		case normal = 6
+	}
+	
 	// MARK: - Init
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -34,17 +41,22 @@ final class DynamicTableViewBulletPointCell: UITableViewCell {
 	
 	// MARK: - Internal
 
-	func configure(text: String, accessibilityTraits: UIAccessibilityTraits, accessibilityIdentifier: String? = nil) {
+	func configure(text: String, spacing: Spacing, accessibilityTraits: UIAccessibilityTraits, accessibilityIdentifier: String? = nil) {
 		contentLabel.text = text
 		self.accessibilityIdentifier = accessibilityIdentifier
 		self.accessibilityTraits = accessibilityTraits
 		accessibilityLabel = text
+		stackViewBottomSpacingConstraint?.constant = -(spacing.rawValue / 2)
+		stackViewTopSpacingConstraint?.constant = spacing.rawValue / 2
+		layoutIfNeeded()
 	}
 
 	// MARK: - Private
 
 	private var stackView = UIStackView()
 	private var contentLabel = ENALabel()
+	private var stackViewTopSpacingConstraint: NSLayoutConstraint?
+	private var stackViewBottomSpacingConstraint: NSLayoutConstraint?
 
 	private func setUp() {
 		stackView.axis = .horizontal
@@ -55,12 +67,17 @@ final class DynamicTableViewBulletPointCell: UITableViewCell {
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(stackView)
 		
+		
+		stackViewBottomSpacingConstraint = stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+		stackViewTopSpacingConstraint = stackView.topAnchor.constraint(equalTo: contentView.topAnchor)
+
 		NSLayoutConstraint.activate([
-			stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 3),
 			stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
-			stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3),
-			stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24)
-		])
+			stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+			stackViewBottomSpacingConstraint,
+			stackViewTopSpacingConstraint
+			].compactMap { $0 }
+		)
 		
 		let pointLabel = ENALabel()
 		pointLabel.textColor = .enaColor(for: .textPrimary1)
