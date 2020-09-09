@@ -11,6 +11,8 @@
 		011E4B032483A92A002E6412 /* MockExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */; };
 		0123D5992501385200A91838 /* ExposureSubmissionErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0123D5972501383100A91838 /* ExposureSubmissionErrorTests.swift */; };
 		013DC102245DAC4E00EE58B0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
+		0144BDE1250924CC00B0857C /* SymptomsOnset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144BDE0250924CC00B0857C /* SymptomsOnset.swift */; };
+		0144BDE32509288B00B0857C /* SymptomsOnsetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144BDE22509288B00B0857C /* SymptomsOnsetTests.swift */; };
 		014891B324F90D0B002A6F77 /* ENA.plist in Resources */ = {isa = PBXBuildFile; fileRef = 014891B224F90D0B002A6F77 /* ENA.plist */; };
 		015692E424B48C3F0033F35E /* TimeInterval+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015692E324B48C3F0033F35E /* TimeInterval+Convenience.swift */; };
 		0159E6C1247829BA00894A89 /* temporary_exposure_key_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0159E6BF247829BA00894A89 /* temporary_exposure_key_export.pb.swift */; };
@@ -251,8 +253,8 @@
 		A1877CAB248F2532006FEFC0 /* SAPDownloadedPackageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1877CA9248F247D006FEFC0 /* SAPDownloadedPackageTests.swift */; };
 		A189E45F248C325E001D0996 /* de-config in Resources */ = {isa = PBXBuildFile; fileRef = A189E45E248C325E001D0996 /* de-config */; };
 		A1BABD0924A57B88000ED515 /* TemporaryExposureKeyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BABD0824A57B88000ED515 /* TemporaryExposureKeyMock.swift */; };
-		A1BABD0E24A57CFC000ED515 /* ENTemporaryExposureKey+TransmissionRiskLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BABD0C24A57BAC000ED515 /* ENTemporaryExposureKey+TransmissionRiskLevelTests.swift */; };
-		A1BABD1024A57D03000ED515 /* ENTemporaryExposureKey+TransmissionRiskLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BABD0A24A57BA0000ED515 /* ENTemporaryExposureKey+TransmissionRiskLevel.swift */; };
+		A1BABD0E24A57CFC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BABD0C24A57BAC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift */; };
+		A1BABD1024A57D03000ED515 /* ENTemporaryExposureKey+Processing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BABD0A24A57BA0000ED515 /* ENTemporaryExposureKey+Processing.swift */; };
 		A1C683FA24AEC57400B90D12 /* DynamicTableViewTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C683F924AEC57400B90D12 /* DynamicTableViewTextViewCell.swift */; };
 		A1C683FC24AEC9EE00B90D12 /* DynamicTableViewTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C683FB24AEC9EE00B90D12 /* DynamicTableViewTextCell.swift */; };
 		A1E41941249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E41940249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift */; };
@@ -501,6 +503,8 @@
 		011E4B002483A35A002E6412 /* ENACommunity.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ENACommunity.entitlements; sourceTree = "<group>"; };
 		0123D5972501383100A91838 /* ExposureSubmissionErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionErrorTests.swift; sourceTree = "<group>"; };
 		013DC101245DAC4E00EE58B0 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		0144BDE0250924CC00B0857C /* SymptomsOnset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsOnset.swift; sourceTree = "<group>"; };
+		0144BDE22509288B00B0857C /* SymptomsOnsetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsOnsetTests.swift; sourceTree = "<group>"; };
 		014891B224F90D0B002A6F77 /* ENA.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ENA.plist; path = ../../../ENA.plist; sourceTree = "<group>"; };
 		015692E324B48C3F0033F35E /* TimeInterval+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "TimeInterval+Convenience.swift"; sourceTree = "<group>"; };
 		0159E6BF247829BA00894A89 /* temporary_exposure_key_export.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = temporary_exposure_key_export.pb.swift; path = ../../../gen/output/temporary_exposure_key_export.pb.swift; sourceTree = "<group>"; };
@@ -762,8 +766,8 @@
 		A1877CA9248F247D006FEFC0 /* SAPDownloadedPackageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAPDownloadedPackageTests.swift; sourceTree = "<group>"; };
 		A189E45E248C325E001D0996 /* de-config */ = {isa = PBXFileReference; lastKnownFileType = file; path = "de-config"; sourceTree = "<group>"; };
 		A1BABD0824A57B88000ED515 /* TemporaryExposureKeyMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemporaryExposureKeyMock.swift; sourceTree = "<group>"; };
-		A1BABD0A24A57BA0000ED515 /* ENTemporaryExposureKey+TransmissionRiskLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENTemporaryExposureKey+TransmissionRiskLevel.swift"; sourceTree = "<group>"; };
-		A1BABD0C24A57BAC000ED515 /* ENTemporaryExposureKey+TransmissionRiskLevelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENTemporaryExposureKey+TransmissionRiskLevelTests.swift"; sourceTree = "<group>"; };
+		A1BABD0A24A57BA0000ED515 /* ENTemporaryExposureKey+Processing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENTemporaryExposureKey+Processing.swift"; sourceTree = "<group>"; };
+		A1BABD0C24A57BAC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENTemporaryExposureKey+ProcessingTests.swift"; sourceTree = "<group>"; };
 		A1C683F924AEC57400B90D12 /* DynamicTableViewTextViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewTextViewCell.swift; sourceTree = "<group>"; };
 		A1C683FB24AEC9EE00B90D12 /* DynamicTableViewTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewTextCell.swift; sourceTree = "<group>"; };
 		A1E41940249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAPDownloadedPackage+Helpers.swift"; sourceTree = "<group>"; };
@@ -1422,7 +1426,7 @@
 				A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */,
 				2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */,
 				B1C7EE4324938E9E00F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandling.swift */,
-				A1BABD0A24A57BA0000ED515 /* ENTemporaryExposureKey+TransmissionRiskLevel.swift */,
+				A1BABD0A24A57BA0000ED515 /* ENTemporaryExposureKey+Processing.swift */,
 				2F96739A24AB70FA008E3147 /* ExposureSubmissionParsable.swift */,
 				2FC0357024B5B70700E234AC /* Error+FAQUrl.swift */,
 				2FA968CD24D8560B008EE367 /* String+Random.swift */,
@@ -1492,6 +1496,7 @@
 				B18E852E248C29D400CF4FB8 /* DetectionMode.swift */,
 				FEDCE21C117BF675C80F5989 /* States */,
 				B10EC1F724ED1F8700ED0E48 /* CancellationToken.swift */,
+				0144BDE0250924CC00B0857C /* SymptomsOnset.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1508,7 +1513,7 @@
 			isa = PBXGroup;
 			children = (
 				71176E2D24891C02004B0C9F /* ENAColorTests.swift */,
-				A1BABD0C24A57BAC000ED515 /* ENTemporaryExposureKey+TransmissionRiskLevelTests.swift */,
+				A1BABD0C24A57BAC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift */,
 				B1C7EE4524938EB700F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandlingTests.swift */,
 				B163D11424993F64001A322C /* UIFont+DynamicTypeTests.swift */,
 				A1E4195E249824340016E52A /* String+TodayTests.swift */,
@@ -1766,9 +1771,9 @@
 		85D759802459A82D008175F0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B15382DC248270220010F007 /* __tests__ */,
 				2FA9E39124D2F2620030561C /* Exposure Submission */,
 				B1175211248A837300C3325C /* Risk */,
-				B15382DC248270220010F007 /* __tests__ */,
 				B14D0CD8246E939600D5BEBC /* Exposure Transaction */,
 				B1D431C9246C848E00E728AD /* DownloadedPackagesStore */,
 			);
@@ -2262,6 +2267,7 @@
 			children = (
 				B1AC51D524CED8820087C35B /* DetectionModeTests.swift */,
 				B1E23B8724FE80EF006BCDA6 /* CancellationTokenTests.swift */,
+				0144BDE22509288B00B0857C /* SymptomsOnsetTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -2864,6 +2870,7 @@
 				2FC0357124B5B70700E234AC /* Error+FAQUrl.swift in Sources */,
 				51CE1BB52460AC83002CF42A /* UICollectionView+Dequeue.swift in Sources */,
 				B17F2D48248CEB4C00CAA38F /* DetectionMode.swift in Sources */,
+				0144BDE1250924CC00B0857C /* SymptomsOnset.swift in Sources */,
 				01B7232424F812500064C0EB /* DynamicTableViewOptionGroupCell.swift in Sources */,
 				137846492488027600A50AB8 /* OnboardingInfoViewController+Extension.swift in Sources */,
 				85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */,
@@ -2998,7 +3005,7 @@
 				51CE1BBD2460B1CB002CF42A /* CollectionViewCellConfigurator.swift in Sources */,
 				71D3C19A2494EFAC00DBABA8 /* ENANavigationControllerWithFooter.swift in Sources */,
 				CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */,
-				A1BABD1024A57D03000ED515 /* ENTemporaryExposureKey+TransmissionRiskLevel.swift in Sources */,
+				A1BABD1024A57D03000ED515 /* ENTemporaryExposureKey+Processing.swift in Sources */,
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
 				B1FE13FB24896E6700D012E5 /* AppConfigurationProviding.swift in Sources */,
 				514EE999246D4C2E00DE4884 /* UITableViewCell+Identifier.swift in Sources */,
@@ -3192,7 +3199,7 @@
 				AB5F84BB24F92876000400D4 /* Migration0To1Tests.swift in Sources */,
 				50DC527B24FEB5CA00F6D8EB /* AppInformationModelTest.swift in Sources */,
 				A1E4194C2495A3A10016E52A /* HTTPClient+AppConfigTests.swift in Sources */,
-				A1BABD0E24A57CFC000ED515 /* ENTemporaryExposureKey+TransmissionRiskLevelTests.swift in Sources */,
+				A1BABD0E24A57CFC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift in Sources */,
 				EE22DB8F247FB46C001B0A71 /* ENStateTests.swift in Sources */,
 				B1DDDABC247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift in Sources */,
 				2FD881CE249115E700BEC8FC /* ExposureSubmissionNavigationControllerTest.swift in Sources */,
@@ -3207,6 +3214,7 @@
 				A1654EFF24B41FF600C0E115 /* DynamicCellTests.swift in Sources */,
 				B161782D248062CE006E435A /* DeltaCalculationResultTests.swift in Sources */,
 				354DA0CC25063BDB0018354E /* ExposureSubmissionWarnEuropeConsentViewControllerTest.swift in Sources */,
+				0144BDE32509288B00B0857C /* SymptomsOnsetTests.swift in Sources */,
 				A124E64C249C4C9000E95F72 /* SAPDownloadedPackagesStore+Helpers.swift in Sources */,
 				A36FACC424C5EA1500DED947 /* ExposureDetectionViewControllerTests.swift in Sources */,
 				71176E2F248922B0004B0C9F /* ENAColorTests.swift in Sources */,
