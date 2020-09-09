@@ -22,7 +22,20 @@ import UIKit
 
 class EUSettingsViewController: DynamicTableViewController {
 
-	// MARK: - ViewDidLoad.
+	// MARK: - Attributes.
+
+	private var viewModel: EUSettingsViewModel {
+		EUSettingsViewModel(
+			countries: [
+				Country(name: "# Deutschland", flag: .actions, enabled: true),
+				Country(name: "# Italien", flag: .add, enabled: false),
+				Country(name: "# Österreich", flag: .checkmark, enabled: false),
+				Country(name: "# Dänemark", flag: .strokedCheckmark, enabled: true)
+			]
+		)
+	}
+
+	// MARK: - View life cycle methods.
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -41,9 +54,15 @@ class EUSettingsViewController: DynamicTableViewController {
 
 	private func setupTableView() {
 		tableView.separatorStyle = .none
-		dynamicTableViewModel = euSettingsModel()
+		dynamicTableViewModel = .euSettingsModel(from: viewModel)
 		
-		tableView.register(UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
+		tableView.register(
+			UINib(
+				nibName: String(describing: ExposureSubmissionStepCell.self),
+				bundle: nil
+			),
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue
+		)
 		tableView.register(
 			DynamicTableViewRoundedCell.self,
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.roundedCell.rawValue
@@ -77,8 +96,9 @@ private extension EUSettingsViewController {
 	}
 }
 
-private extension EUSettingsViewController {
-	func euSettingsModel() -> DynamicTableViewModel {
+private extension DynamicTableViewModel {
+
+	static func euSettingsModel(from viewModel: EUSettingsViewModel) -> DynamicTableViewModel {
 		DynamicTableViewModel([
 			.section(cells: [
 				.title1(
@@ -103,7 +123,7 @@ private extension EUSettingsViewController {
 				),
 				.space(height: 16)
 			]),
-			.countrySwitchSection(),
+			.countrySwitchSection(from: viewModel),
 			.section(cells: [
 				.footnote(
 					text: AppStrings.ExposureNotificationSetting.euRegionDescription,
@@ -115,7 +135,7 @@ private extension EUSettingsViewController {
 					icon: UIImage(named: "Icons_Grey_1"),
 					hairline: .none
 				),
-				.custom(withIdentifier: CustomCellReuseIdentifiers.roundedCell,
+				.custom(withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.roundedCell,
 						configure: { _, cell, _ in
 							guard let privacyStatementCell = cell as? DynamicTableViewRoundedCell else { return }
 							privacyStatementCell.configure(
@@ -134,14 +154,39 @@ private extension EUSettingsViewController {
 	}
 }
 
+// - NOTE: Just a temporary placeholder.
+private class Country {
+	let name: String
+	let flag: UIImage
+	var enabled: Bool {
+		didSet {
+			print("\(name): \(enabled)")
+		}
+	}
+
+	init(name: String, flag: UIImage = .actions, enabled: Bool = false) {
+		self.name = name
+		self.flag = flag
+		self.enabled = enabled
+	}
+}
+
+private class EUSettingsViewModel {
+
+	private(set) var countries: [Country]
+
+	init(countries: [Country]) {
+		self.countries = countries
+	}
+}
+
 private extension DynamicSection {
-	static func countrySwitchSection() -> DynamicSection {
-		let countries = ["Deutschland", "Italien", "Österreich", "VeryLongCountryExample"]
-		return DynamicSection.section(
+	static func countrySwitchSection(from model: EUSettingsViewModel) -> DynamicSection {
+		.section(
 			separators: true,
-			cells: countries.map {
-				DynamicCell.switchCell(text: $0, icon: .actions) {
-					print("switch state: \($0)")
+			cells: model.countries.map { country in
+				DynamicCell.switchCell(text: country.name, icon: country.flag, isOn: country.enabled) {
+					country.enabled = $0
 				}
 			}
 		)
