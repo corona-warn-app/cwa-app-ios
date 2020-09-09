@@ -27,11 +27,10 @@ class EUSettingsViewController: DynamicTableViewController {
 	private var viewModel: EUSettingsViewModel {
 		EUSettingsViewModel(
 			countries: [
-				Country(name: "# Deutschland", flag: .actions, enabled: true),
-				Country(name: "# Italien", flag: .add, enabled: false),
-				Country(name: "# Österreich", flag: .checkmark, enabled: false),
-				Country(name: "# Dänemark", flag: .strokedCheckmark, enabled: true)
-			]
+				Country(countryCode: "DE"),
+				Country(countryCode: "IT"),
+				Country(countryCode: "UK")
+				].compactMap { $0 }
 		)
 	}
 
@@ -154,23 +153,6 @@ private extension DynamicTableViewModel {
 	}
 }
 
-// - NOTE: Just a temporary placeholder.
-private class Country {
-	let name: String
-	let flag: UIImage
-	var enabled: Bool {
-		didSet {
-			print("\(name): \(enabled)")
-		}
-	}
-
-	init(name: String, flag: UIImage = .actions, enabled: Bool = false) {
-		self.name = name
-		self.flag = flag
-		self.enabled = enabled
-	}
-}
-
 private class EUSettingsViewModel {
 
 	private(set) var countries: [Country]
@@ -185,8 +167,8 @@ private extension DynamicSection {
 		.section(
 			separators: true,
 			cells: model.countries.map { country in
-				DynamicCell.switchCell(text: country.name, icon: country.flag, isOn: country.enabled) {
-					country.enabled = $0
+				DynamicCell.switchCell(text: country.localizedName, icon: country.flag, isOn: false) { _ in
+					// TODO: Update state.
 				}
 			}
 		)
@@ -252,5 +234,61 @@ private class SwitchCell: UITableViewCell {
 		textLabel?.text = text
 		uiSwitch.isOn = isOn
 		onToggleAction = onToggle
+	}
+}
+
+// MARK: - Delete this...
+
+/// A simple data countainer representing a country or political region.
+struct Country: Equatable {
+
+	typealias ID = String
+
+	/// The country identifier. Equals the initializing country code.
+	let id: ID
+
+	/// The localized name of the country using the current locale.
+	let localizedName: String
+
+	/// The flag of the current country, if present.
+	let flag: UIImage?
+
+	/// Initialize a country with a given. If no valid `countryCode` is given the initalizer returns `nil`.
+	///
+	/// - Parameter countryCode: An [ISO 3166 (Alpha-2)](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) country two-digit code. Examples: "DE", "FR"
+	init?(countryCode: ID) {
+		// Check if this is a valid country
+		guard let name = Locale.current.regionName(forCountryCode: countryCode) else { return nil }
+
+		id = countryCode
+		localizedName = name
+		flag = UIImage(named: "flag.\(countryCode.lowercased())") ?? UIImage.checkmark
+	}
+
+	static func defaultCountry() -> Country {
+		// swiftlint:disable:next force_unwrapping
+		return Country(countryCode: "DE")!
+	}
+}
+
+extension Locale {
+	func regionName(forCountryCode code: String) -> String? {
+		var identifier: String
+		// quick solution for the EU scenario
+		switch code.lowercased() {
+		case "el":
+			identifier = "gr"
+		case "no":
+			identifier = "nb_NO"
+		default:
+			identifier = code
+		}
+		let target = Locale(identifier: identifier)
+
+		// catch cases where multiple languages per region might appear, e.g. Norway
+		guard let regionCode = target.identifier.components(separatedBy: "_").last else {
+			return nil
+		}
+		return localizedString(forRegionCode: regionCode)
 	}
 }
