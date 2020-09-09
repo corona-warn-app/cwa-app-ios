@@ -222,10 +222,10 @@ extension Client {
 
 		group.notify(queue: .main) {
 			completeWith(
-					DaysResult(
-							errors: errors,
-							bucketsByDay: buckets
-					)
+				DaysResult(
+					errors: errors,
+					bucketsByDay: buckets
+				)
 			)
 		}
 	}

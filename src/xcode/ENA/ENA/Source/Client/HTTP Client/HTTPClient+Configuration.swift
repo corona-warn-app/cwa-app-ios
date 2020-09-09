@@ -50,11 +50,11 @@ extension HTTPClient {
 			endpoints
 				.distribution
 				.appending(
-				"version",
-				apiVersion,
-				"diagnosis-keys",
-				"country",
-				country
+					"version",
+					apiVersion,
+					"diagnosis-keys",
+					"country",
+					country
 			)
 		}
 
@@ -66,12 +66,12 @@ extension HTTPClient {
 			endpoints
 				.distribution
 				.appending(
-				"version",
-				apiVersion,
-				"diagnosis-keys",
-				"country",
-				country,
-				"date"
+					"version",
+					apiVersion,
+					"diagnosis-keys",
+					"country",
+					country,
+					"date"
 			)
 		}
 
@@ -84,13 +84,13 @@ extension HTTPClient {
 			endpoints
 				.distribution
 				.appending(
-				"version",
-				apiVersion,
-				"diagnosis-keys",
-				"country",
-				country,
-				"date",
-				day
+					"version",
+					apiVersion,
+					"diagnosis-keys",
+					"country",
+					country,
+					"date",
+					day
 			)
 
 		}
@@ -99,15 +99,15 @@ extension HTTPClient {
 			endpoints
 				.distribution
 				.appending(
-				"version",
-				apiVersion,
-				"diagnosis-keys",
-				"country",
-				country,
-				"date",
-				day,
-				"hour",
-				String(hour)
+					"version",
+					apiVersion,
+					"diagnosis-keys",
+					"country",
+					country,
+					"date",
+					day,
+					"hour",
+					String(hour)
 			)
 		}
 
@@ -115,14 +115,14 @@ extension HTTPClient {
 			endpoints
 				.distribution
 				.appending(
-				"version",
-				apiVersion,
-				"diagnosis-keys",
-				"country",
-				country,
-				"date",
-				day,
-				"hour"
+					"version",
+					apiVersion,
+					"diagnosis-keys",
+					"country",
+					country,
+					"date",
+					day,
+					"hour"
 			)
 		}
 
@@ -132,12 +132,12 @@ extension HTTPClient {
 			endpoints
 				.distribution
 				.appending(
-				"version",
-				apiVersion,
-				"diagnosis-keys",
-				"country",
-				country,
-				"date"
+					"version",
+					apiVersion,
+					"diagnosis-keys",
+					"country",
+					country,
+					"date"
 			)
 		}
 
@@ -145,13 +145,13 @@ extension HTTPClient {
 			endpoints
 				.distribution
 				.appending(
-				"version",
-				apiVersion,
-				"diagnosis-keys",
-				"country",
-				country,
-				"date",
-				day
+					"version",
+					apiVersion,
+					"diagnosis-keys",
+					"country",
+					country,
+					"date",
+					day
 			)
 		}
 
@@ -159,15 +159,15 @@ extension HTTPClient {
 			endpoints
 				.distribution
 				.appending(
-				"version",
-				apiVersion,
-				"diagnosis-keys",
-				"country",
-				country,
-				"date",
-				day,
-				"hour",
-				String(hour)
+					"version",
+					apiVersion,
+					"diagnosis-keys",
+					"country",
+					country,
+					"date",
+					day,
+					"hour",
+					String(hour)
 			)
 		}
 
@@ -175,14 +175,14 @@ extension HTTPClient {
 			endpoints
 				.distribution
 				.appending(
-				"version",
-				apiVersion,
-				"diagnosis-keys",
-				"country",
-				country,
-				"date",
-				day,
-				"hour"
+					"version",
+					apiVersion,
+					"diagnosis-keys",
+					"country",
+					country,
+					"date",
+					day,
+					"hour"
 			)
 		}
 
@@ -192,12 +192,12 @@ extension HTTPClient {
 			endpoints
 				.distribution
 				.appending(
-				"version",
-				apiVersion,
-				"configuration",
-				"country",
-				country,
-				"app_config"
+					"version",
+					apiVersion,
+					"configuration",
+					"country",
+					country,
+					"app_config"
 			)
 		}
 
@@ -205,9 +205,9 @@ extension HTTPClient {
 			endpoints
 				.submission
 				.appending(
-				"version",
-				apiVersion,
-				"diagnosis-keys"
+					"version",
+					apiVersion,
+					"diagnosis-keys"
 			)
 		}
 
@@ -215,9 +215,9 @@ extension HTTPClient {
 			endpoints
 				.verification
 				.appending(
-				"version",
-				apiVersion,
-				"registrationToken"
+					"version",
+					apiVersion,
+					"registrationToken"
 			)
 		}
 
@@ -225,9 +225,9 @@ extension HTTPClient {
 			endpoints
 				.verification
 				.appending(
-				"version",
-				apiVersion,
-				"testresult"
+					"version",
+					apiVersion,
+					"testresult"
 			)
 		}
 
@@ -235,9 +235,9 @@ extension HTTPClient {
 			endpoints
 				.verification
 				.appending(
-				"version",
-				apiVersion,
-				"tan"
+					"version",
+					apiVersion,
+					"tan"
 			)
 		}
 	}
