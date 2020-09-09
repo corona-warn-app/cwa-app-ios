@@ -5,7 +5,7 @@
 
 import Foundation
 extension HomeInteractor {
-	struct State {
+	struct State: Equatable {
 		var detectionMode: DetectionMode
 		var exposureManagerState: ExposureManagerState
 		var enState: ENStateHandler.State

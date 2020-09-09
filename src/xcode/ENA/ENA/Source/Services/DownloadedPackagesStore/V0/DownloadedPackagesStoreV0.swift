@@ -18,7 +18,7 @@
 import Foundation
 import FMDB
 
-protocol DownloadedPackagesStore: AnyObject {
+protocol DownloadedPackagesStoreV0: AnyObject {
 	func open()
 	func close()
 	func set(day: String, package: SAPDownloadedPackage)
@@ -29,26 +29,4 @@ protocol DownloadedPackagesStore: AnyObject {
 	func hours(for day: String) -> [Int]
 	func reset()
 	func deleteOutdatedDays(now: String) throws
-}
-
-/// Convenience additions to `DownloadedPackagesStore`.
-extension DownloadedPackagesStore {
-	func allPackages(
-		for day: String,
-		onlyHours: Bool
-	) -> [SAPDownloadedPackage] {
-		var packages = [SAPDownloadedPackage]()
-
-		if onlyHours {  // Testing only: Feed last three hours into framework
-			let allHoursForToday = hourlyPackages(for: .formattedToday())
-			packages.append(contentsOf: Array(allHoursForToday.prefix(3)))
-		} else {
-			let fullDays = allDays()
-			packages.append(
-				contentsOf: fullDays.map { package(for: $0) }.compactMap { $0 }
-			)
-		}
-
-		return packages
-	}
 }

@@ -36,30 +36,32 @@ struct WrittenPackages {
 }
 
 final class AppleFilesWriter {
+
 	// MARK: Creating a Writer
-	init(rootDir: URL, keyPackages: [SAPDownloadedPackage]) {
+
+	init(rootDir: URL) {
 		self.rootDir = rootDir
-		self.keyPackages = keyPackages
 	}
 
 	// MARK: Properties
+
+	private(set) var writtenPackages = WrittenPackages(urls: [])
 	let rootDir: URL
-	let keyPackages: [SAPDownloadedPackage]
 
 	// MARK: Interacting with the Writer
-	func writeAllPackages() -> WrittenPackages? {
-		var writtenPackages = WrittenPackages(urls: [])
+
+	func writePackage(_ keyPackage: SAPDownloadedPackage) -> Bool {
 		do {
-			for keyPackage in keyPackages {
-				let filename = UUID().uuidString
-				writtenPackages.add(try keyPackage.writeKeysEntry(toDirectory: rootDir, filename: filename))
-				writtenPackages.add(try keyPackage.writeSignatureEntry(toDirectory: rootDir, filename: filename))
-			}
+			let filename = UUID().uuidString
+			let keyURL = try keyPackage.writeKeysEntry(toDirectory: rootDir, filename: filename)
+			let signatureURL = try keyPackage.writeSignatureEntry(toDirectory: rootDir, filename: filename)
+			writtenPackages.add(keyURL)
+			writtenPackages.add(signatureURL)
+			return true
 		} catch {
 			writtenPackages.cleanUp()
-			return nil
+			return false
 		}
-		return writtenPackages
 	}
 }
 
