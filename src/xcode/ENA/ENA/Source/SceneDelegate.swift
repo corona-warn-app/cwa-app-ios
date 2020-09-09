@@ -224,8 +224,12 @@ extension SceneDelegate: ENAExposureManagerObserver {
 extension SceneDelegate: CoordinatorDelegate {
 	/// Resets all stores and notifies the Onboarding.
 	func coordinatorUserDidRequestReset() {
-		let newKey = KeychainHelper.generateDatabaseKey()
-		store.clearAll(key: newKey)
+		do {
+			let newKey = try KeychainHelper.generateDatabaseKey()
+			store.clearAll(key: newKey)
+		} catch {
+			fatalError("Creating new database key failed")
+		}
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.open()
 		exposureManager.reset {

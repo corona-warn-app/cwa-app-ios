@@ -19,11 +19,17 @@
 
 import Foundation
 
+enum KeychainError: Error {
+	case save(reason: String? = nil)
+	case keyGenerationFail
+}
+
 enum KeychainHelper {
 	// swiftlint:disable:next force_unwrapping
 	private static let _service = Bundle.main.bundleIdentifier!
 
-	static func saveToKeychain(key: String, data: Data) -> Bool {
+	@discardableResult
+	static func saveToKeychain(key: String, data: Data) throws -> Bool {
 
 		let deleteResult = SecItemDelete(
 			.keychainQueryForDeleting(
@@ -32,12 +38,11 @@ enum KeychainHelper {
 			)
 		)
 
+		// ignore 'item not found errors' as this might happen, e.g. on first launch
 		if deleteResult != errSecSuccess && deleteResult != errSecItemNotFound {
-			if let message = SecCopyErrorMessageString(deleteResult, nil) {
-				logError(message: "Failed to delete keychain item '\(key)' due to: \(message as String)")
-			} else {
-				logError(message: "Failed to delete keychain item '\(key)' due to unknown error")
-			}
+			let message = SecCopyErrorMessageString(deleteResult, nil) ?? "unknown error" as CFString
+			let reason = "Failed to delete existing keychain item '\(key)' due to \(message)"
+			throw KeychainError.save(reason: reason)
 		}
 
 		let addResult = SecItemAdd(
@@ -51,9 +56,11 @@ enum KeychainHelper {
 
 		if addResult != errSecSuccess {
 			if let message = SecCopyErrorMessageString(addResult, nil) {
-				logError(message: "Failed to add keychain item '\(key)' due to: \(message as String)")
+				let message = "Failed to add keychain item '\(key)' due to: \(message as String)"
+				throw KeychainError.save(reason: message)
 			} else {
-				logError(message: "Failed to add keychain item '\(key)' due to unknown error")
+				let message = "Failed to add keychain item '\(key)' due to unknown error"
+				throw KeychainError.save(reason: message)
 			}
 		}
 
@@ -75,18 +82,16 @@ enum KeychainHelper {
 		return nil
 	}
 
-	static func generateDatabaseKey() -> String? {
+	static func generateDatabaseKey() throws -> String {
 		var bytes = [UInt8](repeating: 0, count: 32)
 		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
 		guard result == errSecSuccess else {
 			logError(message: "Error creating random bytes.")
-			return nil
+			throw KeychainError.keyGenerationFail
 		}
+
 		let key = "x'\(Data(bytes).hexEncodedString())'"
-		if saveToKeychain(key: "secureStoreDatabaseKey", data: Data(key.utf8)) == false {
-			logError(message: "Unable to save Key to Keychain")
-			return nil
-		}
+		try saveToKeychain(key: SecureStore.keychainDatabaseKey, data: Data(key.utf8))
 		return key
 	}
 }
