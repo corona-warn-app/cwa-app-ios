@@ -136,7 +136,7 @@ private extension EUSettingsViewController {
 
 private extension DynamicSection {
 	static func countrySwitchSection() -> DynamicSection {
-		let countries = ["Deutschland", "Italien", "Österreich"]
+		let countries = ["Deutschland", "Italien", "Österreich", "VeryLongCountryExample"]
 		return DynamicSection.section(
 			separators: true,
 			cells: countries.map {
@@ -190,14 +190,7 @@ private class SwitchCell: UITableViewCell {
 	// MARK: - Helpers.
 
 	private func setUpSwitch() {
-		// Constraints.
-		// - Note: We do not use the accessory view because it breaks the separators of the DynamicTableViewController.
-		uiSwitch.translatesAutoresizingMaskIntoConstraints = false
-		contentView.addSubview(uiSwitch)
-		uiSwitch.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16).isActive = true
-		uiSwitch.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-
-		// Properties.
+		accessoryView = uiSwitch
 		uiSwitch.onTintColor = .enaColor(for: .tint)
 		uiSwitch.addTarget(self, action: #selector(onToggle), for: .touchUpInside)
 	}

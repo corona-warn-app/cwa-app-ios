@@ -301,7 +301,7 @@ private extension UITableViewCell {
 		contentView.addSubview(separator)
 		separator.backgroundColor = .enaColor(for: .hairline)
 		separator.translatesAutoresizingMaskIntoConstraints = false
-		separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+		separator.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
 		separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
 
 		switch location {
