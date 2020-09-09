@@ -45,8 +45,8 @@ protocol Client {
 	///   - country: Country code
 	///   - completion: completion callback which includes the list of available days
 	func availableDays(
-			forCountry country: String,
-			completion: @escaping AvailableDaysCompletionHandler
+		forCountry country: String,
+		completion: @escaping AvailableDaysCompletionHandler
 	)
 
 	/// Determines hours that can be downloaded for a given day.
@@ -62,9 +62,9 @@ protocol Client {
 	///   - country: It should be country code, like DE stands for Germany
 	///   - completion: Once the request is done, the completion is called.
 	func fetchDay(
-			_ day: String,
-			forCountry country: String,
-			completion: @escaping DayCompletionHandler
+		_ day: String,
+		forCountry country: String,
+		completion: @escaping DayCompletionHandler
 	)
 
 	/// Fetches the keys for a given `hour` of a specific `day`.
@@ -79,7 +79,6 @@ protocol Client {
 
 	/// Determines days that can be downloaded.
 	func availableDays(completion: @escaping AvailableDaysCompletionHandler)
-
 
 	/// Determines hours that can be downloaded for a given day.
 	func availableHours(
