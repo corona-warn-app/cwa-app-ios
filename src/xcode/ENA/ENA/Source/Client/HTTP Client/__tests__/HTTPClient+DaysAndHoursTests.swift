@@ -140,7 +140,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 				)
 				expectation.fulfill()
 			case let .failure(error):
-				XCTFail("a valid response should never yiled an error like \(error)")
+				XCTFail("a valid response should never yield an error like \(error)")
 			}
 		}
 		waitForExpectations(timeout: expectationsTimeout)
