@@ -70,7 +70,7 @@ final class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicT
 
 	// MARK: - Private
 
-	private let onPrimaryButtonTap: (CountrySelectionOption, @escaping (Bool) -> Void) -> Void
+	private let onPrimaryButtonTap: PrimaryButtonHandler
 	private let supportedCountries: [Country]
 
 	@Published private var selectedCountrySelectionOption: CountrySelectionOption?
@@ -161,9 +161,7 @@ final class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicT
 									initialSelection: self.optionGroupSelection
 								)
 
-								self.optionGroupSelectionSubscription = cell.$selection.sink {
-									self.optionGroupSelection = $0
-								}
+								self.optionGroupSelectionSubscription = cell.$selection.assign(to: \.optionGroupSelection, on: self)
 							}
 						),
 						.body(

@@ -30,26 +30,3 @@ protocol DownloadedPackagesStoreV1: AnyObject {
 	func reset()
 	func deleteOutdatedDays(now: String) throws
 }
-
-/// Convenience additions to `DownloadedPackagesStore`.
-extension DownloadedPackagesStoreV1 {
-	func allPackages(
-		for day: String,
-		country: String,
-		onlyHours: Bool
-	) -> [SAPDownloadedPackage] {
-		var packages = [SAPDownloadedPackage]()
-
-		if onlyHours {  // Testing only: Feed last three hours into framework
-			let allHoursForToday = hourlyPackages(for: .formattedToday(), country: country)
-			packages.append(contentsOf: Array(allHoursForToday.prefix(3)))
-		} else {
-			let fullDays = allDays(country: country)
-			packages.append(
-				contentsOf: fullDays.map { package(for: $0, country: country) }.compactMap { $0 }
-			)
-		}
-
-		return packages
-	}
-}

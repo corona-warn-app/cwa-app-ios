@@ -123,14 +123,43 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		do {
 			try fileManager.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
 
-			#if INTEROP
-			let packages = downloadedPackagesStore.allPackages(for: .formattedToday(), country: "DE", onlyHours: store.hourlyFetchingEnabled)
-			#else
-			let packages = downloadedPackagesStore.allPackages(for: .formattedToday(), onlyHours: store.hourlyFetchingEnabled)
-			#endif
+			let writer = AppleFilesWriter(rootDir: rootDir)
 
-			let writer = AppleFilesWriter(rootDir: rootDir, keyPackages: packages)
-			return writer.writeAllPackages()
+			if store.hourlyFetchingEnabled {
+				#if INTEROP
+				let hourlyPackages = downloadedPackagesStore.hourlyPackages(for: .formattedToday(), country: "DE")
+				#else
+				let hourlyPackages = downloadedPackagesStore.hourlyPackages(for: .formattedToday())
+				#endif
+				
+				for keyPackage in hourlyPackages {
+					let success = writer.writePackage(keyPackage)
+					if !success {
+						return nil
+					}
+				}
+			} else {
+				#if INTEROP
+				let allDays = downloadedPackagesStore.allDays(country: "DE")
+				#else
+				let allDays = downloadedPackagesStore.allDays()
+				#endif
+
+				for day in allDays {
+					#if INTEROP
+					let _keyPackage = autoreleasepool(invoking: { downloadedPackagesStore.package(for: day, country: "DE") })
+					#else
+					let _keyPackage = autoreleasepool(invoking: { downloadedPackagesStore.package(for: day) })
+					#endif
+					if let keyPackage = _keyPackage {
+						let success = writer.writePackage(keyPackage)
+						if !success {
+							return nil
+						}
+					}
+				}
+			}
+			return writer.writtenPackages
 		} catch {
 			return nil
 		}
