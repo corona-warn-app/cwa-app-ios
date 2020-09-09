@@ -38,6 +38,45 @@ protocol Client {
 	/// Gets the app configuration
 	func appConfiguration(completion: @escaping AppConfigurationCompletion)
 
+	#if INTEROP
+	/// Determines days that can be downloaded.
+	///
+	/// - Parameters:
+	///   - country: Country code
+	///   - completion: completion callback which includes the list of available days
+	func availableDays(
+		forCountry country: String,
+		completion: @escaping AvailableDaysCompletionHandler
+	)
+
+	/// Determines hours that can be downloaded for a given day.
+	func availableHours(
+		day: String,
+		country: String,
+		completion: @escaping AvailableHoursCompletionHandler
+	)
+
+	/// Fetches the keys for a given day and country code
+	/// - Parameters:
+	///   - day: The day that the keys belong to
+	///   - country: It should be country code, like DE stands for Germany
+	///   - completion: Once the request is done, the completion is called.
+	func fetchDay(
+		_ day: String,
+		forCountry country: String,
+		completion: @escaping DayCompletionHandler
+	)
+
+	/// Fetches the keys for a given `hour` of a specific `day`.
+	func fetchHour(
+		_ hour: Int,
+		day: String,
+		country: String,
+		completion: @escaping HourCompletionHandler
+	)
+
+	#else
+
 	/// Determines days that can be downloaded.
 	func availableDays(completion: @escaping AvailableDaysCompletionHandler)
 
@@ -46,6 +85,20 @@ protocol Client {
 		day: String,
 		completion: @escaping AvailableHoursCompletionHandler
 	)
+
+	/// Fetches the keys for a given `day`.
+	func fetchDay(
+		_ day: String,
+		completion: @escaping DayCompletionHandler
+	)
+
+	/// Fetches the keys for a given `hour` of a specific `day`.
+	func fetchHour(
+		_ hour: Int,
+		day: String,
+		completion: @escaping HourCompletionHandler
+	)
+	#endif
 
 	/// Gets the registration token
 	func getRegistrationToken(
@@ -67,19 +120,6 @@ protocol Client {
 		forDevice registrationToken: String,
 		isFake: Bool,
 		completion completeWith: @escaping TANHandler
-	)
-
-	/// Fetches the keys for a given `day`.
-	func fetchDay(
-		_ day: String,
-		completion: @escaping DayCompletionHandler
-	)
-
-	/// Fetches the keys for a given `hour` of a specific `day`.
-	func fetchHour(
-		_ hour: Int,
-		day: String,
-		completion: @escaping HourCompletionHandler
 	)
 
 	// MARK: Getting the Configuration
@@ -155,6 +195,100 @@ struct FetchedDaysAndHours {
 extension Client {
 	typealias FetchHoursCompletionHandler = (HoursResult) -> Void
 
+	#if INTEROP
+	/// Fetch the keys with the given days and country code
+	func fetchDays(
+			_ days: [String],
+			forCountry country: String,
+			completion completeWith: @escaping (DaysResult) -> Void
+	) {
+		var errors = [Client.Failure]()
+		var buckets = [String: SAPDownloadedPackage]()
+
+		let group = DispatchGroup()
+		for day in days {
+			group.enter()
+
+			fetchDay(day, forCountry: country) { result in
+				switch result {
+				case let .success(bucket):
+					buckets[day] = bucket
+				case let .failure(error):
+					errors.append(error)
+				}
+				group.leave()
+			}
+		}
+
+		group.notify(queue: .main) {
+			completeWith(
+				DaysResult(
+					errors: errors,
+					bucketsByDay: buckets
+				)
+			)
+		}
+	}
+
+	func fetchDays(
+		_ days: [String],
+		hours: [Int],
+		of day: String,
+		country: String,
+		completion completeWith: @escaping DaysAndHoursCompletionHandler
+	) {
+		let group = DispatchGroup()
+		var hoursResult = HoursResult(errors: [], bucketsByHour: [:], day: day)
+		var daysResult = DaysResult(errors: [], bucketsByDay: [:])
+
+		group.enter()
+		fetchDays(days, forCountry: country) { result in
+			daysResult = result
+			group.leave()
+		}
+
+		group.enter()
+		fetchHours(hours, day: day, country: country) { result in
+			hoursResult = result
+			group.leave()
+		}
+		group.notify(queue: .main) {
+			completeWith(FetchedDaysAndHours(hours: hoursResult, days: daysResult))
+		}
+	}
+
+	func fetchHours(
+		_ hours: [Int],
+		day: String,
+		country: String,
+		completion completeWith: @escaping FetchHoursCompletionHandler
+	) {
+		var errors = [Client.Failure]()
+		var buckets = [Int: SAPDownloadedPackage]()
+		let group = DispatchGroup()
+
+		hours.forEach { hour in
+			group.enter()
+			self.fetchHour(hour, day: day, country: country) { result in
+				switch result {
+				case let .success(hourBucket):
+					buckets[hour] = hourBucket
+				case let .failure(error):
+					errors.append(error)
+				}
+				group.leave()
+			}
+		}
+
+		group.notify(queue: .main) {
+			completeWith(
+				HoursResult(errors: errors, bucketsByHour: buckets, day: day)
+			)
+		}
+	}
+
+	#else
+
 	func fetchDays(
 		_ days: [String],
 		completion completeWith: @escaping (DaysResult) -> Void
@@ -187,6 +321,32 @@ extension Client {
 		}
 	}
 
+	func fetchDays(
+		_ days: [String],
+		hours: [Int],
+		of day: String,
+		completion completeWith: @escaping DaysAndHoursCompletionHandler
+	) {
+		let group = DispatchGroup()
+		var hoursResult = HoursResult(errors: [], bucketsByHour: [:], day: day)
+		var daysResult = DaysResult(errors: [], bucketsByDay: [:])
+
+		group.enter()
+		fetchDays(days) { result in
+			daysResult = result
+			group.leave()
+		}
+
+		group.enter()
+		fetchHours(hours, day: day) { result in
+			hoursResult = result
+			group.leave()
+		}
+		group.notify(queue: .main) {
+			completeWith(FetchedDaysAndHours(hours: hoursResult, days: daysResult))
+		}
+	}
+
 	func fetchHours(
 		_ hours: [Int],
 		day: String,
@@ -216,31 +376,7 @@ extension Client {
 		}
 	}
 
+	#endif
+
 	typealias DaysAndHoursCompletionHandler = (FetchedDaysAndHours) -> Void
-
-	func fetchDays(
-		_ days: [String],
-		hours: [Int],
-		of day: String,
-		completion completeWith: @escaping DaysAndHoursCompletionHandler
-	) {
-		let group = DispatchGroup()
-		var hoursResult = HoursResult(errors: [], bucketsByHour: [:], day: day)
-		var daysResult = DaysResult(errors: [], bucketsByDay: [:])
-
-		group.enter()
-		fetchDays(days) { result in
-			daysResult = result
-			group.leave()
-		}
-
-		group.enter()
-		fetchHours(hours, day: day) { result in
-			hoursResult = result
-			group.leave()
-		}
-		group.notify(queue: .main) {
-			completeWith(FetchedDaysAndHours(hours: hoursResult, days: daysResult))
-		}
-	}
 }
