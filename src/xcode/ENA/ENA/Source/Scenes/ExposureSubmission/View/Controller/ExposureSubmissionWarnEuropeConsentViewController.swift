@@ -59,7 +59,7 @@ final class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewC
 
 	// MARK: - Private
 
-	private let onPrimaryButtonTap: (Bool, @escaping (Bool) -> Void) -> Void
+	private let onPrimaryButtonTap: PrimaryButtonHandler
 
 	@Published var consentGiven: Bool = false
 	private var consentSubscription: AnyCancellable?
@@ -110,7 +110,7 @@ final class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewC
 						.icon(
 							UIImage(named: "flag.eu"),
 							text: AppStrings.ExposureSubmissionWarnEuropeConsent.toggleTitle,
-							iconSize: 28,
+							iconWidth: 28,
 							action: .execute { [weak self] _ in
 								self?.consentGiven.toggle()
 							},
@@ -125,6 +125,7 @@ final class ExposureSubmissionWarnEuropeConsentViewController: DynamicTableViewC
 								consentSwitch.addTarget(self, action: #selector(self.switchToggled(_:)), for: .valueChanged)
 
 								self.consentSubscription = self.$consentGiven.sink { consentGiven in
+									// .receive(on: RunLoop.main) would delay the setting after scrolling is finished, that's why DispatchQueue.main.async is used in this case
 									DispatchQueue.main.async {
 										consentSwitch.setOn(consentGiven, animated: true)
 									}

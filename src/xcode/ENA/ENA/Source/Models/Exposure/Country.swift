@@ -23,8 +23,10 @@ import UIKit
 /// A simple data countainer representing a country or political region.
 struct Country: Equatable {
 
+	typealias ID = String
+
 	/// The country identifier. Equals the initializing country code.
-	let id: String
+	let id: ID
 
 	/// The localized name of the country using the current locale.
 	let localizedName: String
@@ -35,7 +37,7 @@ struct Country: Equatable {
 	/// Initialize a country with a given. If no valid `countryCode` is given the initalizer returns `nil`.
 	///
 	/// - Parameter countryCode: An [ISO 3166 (Alpha-2)](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) country two-digit code. Examples: "DE", "FR"
-	init?(countryCode: String) {
+	init?(countryCode: ID) {
 		// Check if this is a valid country
 		guard let name = Locale.current.regionName(forCountryCode: countryCode) else { return nil }
 

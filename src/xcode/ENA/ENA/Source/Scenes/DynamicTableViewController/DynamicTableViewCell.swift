@@ -39,6 +39,7 @@ extension DynamicCell {
 		case dynamicTypeTextView = "textViewCell"
 		case icon = "iconCell"
 		case space = "spaceCell"
+		case bulletPoint = "bulletPointCell"
 	}
 
 	/// Style of  `DynamicTableViewTextCell`
@@ -108,9 +109,9 @@ extension DynamicCell {
 		}
 	}
 
-	static func icon(_ image: UIImage?, text: String, tintColor: UIColor? = nil, style: ENAFont = .body, iconSize: CGFloat = 32, action: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
+	static func icon(_ image: UIImage?, text: String, tintColor: UIColor? = nil, style: ENAFont = .body, iconWidth: CGFloat = 32, action: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
 		.identifier(CellReuseIdentifier.icon, action: action, accessoryAction: .none) { viewController, cell, indexPath in
-			(cell as? DynamicTableViewIconCell)?.configure(image: image, text: text, tintColor: tintColor, style: style, iconSize: iconSize)
+			(cell as? DynamicTableViewIconCell)?.configure(image: image, text: text, tintColor: tintColor, style: style, iconWidth: iconWidth)
 			configure?(viewController, cell, indexPath)
 		}
 	}
@@ -120,6 +121,26 @@ extension DynamicCell {
 			guard let cell = cell as? DynamicTableViewSpaceCell else { return }
 			cell.height = height
 			cell.backgroundColor = color
+		}
+	}
+	
+	
+	static func bulletPoint(
+		text: String,
+		spacing: DynamicTableViewBulletPointCell.Spacing = .normal,
+		accessibilityIdentifier: String? = nil,
+		accessibilityTraits: UIAccessibilityTraits = .staticText,
+		action: DynamicAction = .none,
+		configure: CellConfigurator? = nil
+	) -> Self {
+		.identifier(CellReuseIdentifier.bulletPoint, action: action, accessoryAction: .none) { viewController, cell, indexPath in
+			(cell as? DynamicTableViewBulletPointCell)?.configure(
+				text: text,
+				spacing: spacing,
+				accessibilityTraits: accessibilityTraits,
+				accessibilityIdentifier: accessibilityIdentifier
+			)
+			configure?(viewController, cell, indexPath)
 		}
 	}
 }
