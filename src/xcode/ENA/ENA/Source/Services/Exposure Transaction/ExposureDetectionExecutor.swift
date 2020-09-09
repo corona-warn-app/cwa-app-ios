@@ -30,7 +30,6 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	#if INTEROP
 
 	func exposureDetection(
-		_ detection: ExposureDetection,
 		country: String,
 		determineAvailableData completion: @escaping (DaysAndHours?, String) -> Void
 	) {
@@ -82,7 +81,6 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	}
 
 	func exposureDetection(
-		_ detection: ExposureDetection,
 		country: String,
 		downloadDeltaFor remote: DaysAndHours
 	) -> DaysAndHours {
@@ -107,7 +105,6 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	}
 
 	func exposureDetection(
-		_ detection: ExposureDetection,
 		country: String,
 		downloadAndStore delta: DaysAndHours,
 		completion: @escaping (Error?) -> Void
@@ -127,7 +124,6 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	}
 
 	func exposureDetectionWriteDownloadedPackages(
-		_ detection: ExposureDetection,
 		country: String
 	) -> WrittenPackages? {
 
@@ -166,7 +162,6 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	}
 
 	func exposureDetection(
-		_ detection: ExposureDetection,
 		country: String,
 		downloadConfiguration completion: @escaping (ENExposureConfiguration?, String) -> Void
 	) {
@@ -313,8 +308,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 
 	func exposureDetection(
 			_ detection: ExposureDetection,
-			detectSummaryWithConfiguration
-			configuration: ENExposureConfiguration,
+			detectSummaryWithConfiguration configuration: ENExposureConfiguration,
 			writtenPackages: WrittenPackages,
 			completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void
 	) -> Progress {
