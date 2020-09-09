@@ -22,7 +22,8 @@ import Foundation
 import ExposureNotification
 import XCTest
 
-final class ExposureKeysProcessingTests: XCTestCase {
+final class ExposureKeysTransmissionRiskLevelTests: XCTestCase {
+
 	func testMaxKeyCount_IsExpectedValue() {
 		XCTAssertEqual([ENTemporaryExposureKey]().maxKeyCount, 14)
 	}
@@ -95,6 +96,7 @@ final class ExposureKeysProcessingTests: XCTestCase {
 			)
 		}
 	}
+
 }
 
 // MARK: - Helpers

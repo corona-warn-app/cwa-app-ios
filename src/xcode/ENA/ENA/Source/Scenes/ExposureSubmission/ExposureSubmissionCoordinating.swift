@@ -74,6 +74,7 @@ class ExposureSubmissionCoordinator: ExposureSubmissionCoordinating, RequiresApp
 	/// - NOTE: We need a strong (aka non-weak) reference here.
 	let exposureSubmissionService: ExposureSubmissionService
 
+	var symptomsOnset: SymptomsOnset = .noInformation
 	var consentToFederationGiven: Bool = false
 
 	var supportedCountries: [Country] = []
@@ -306,6 +307,7 @@ extension ExposureSubmissionCoordinator {
 		onError: @escaping () -> Void
 	) {
 		exposureSubmissionService.submitExposure(
+			symptomsOnset: symptomsOnset,
 			consentToFederation: consentToFederationGiven,
 			visitedCountries: visitedCountries,
 			completionHandler: { [weak self] error in

@@ -27,6 +27,7 @@ protocol ExposureSubmissionService: class {
 	typealias TANHandler = (Result<String, ExposureSubmissionError>) -> Void
 
 	func submitExposure(
+		symptomsOnset: SymptomsOnset,
 		consentToFederation: Bool,
 		visitedCountries: [Country],
 		completionHandler: @escaping ExposureSubmissionHandler
