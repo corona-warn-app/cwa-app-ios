@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,21 +15,32 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
-import Foundation
 import UIKit
 
-struct ENSettingModel {
-	let content: [Content]
-}
+// TODO (KGA): Rethink ActionCell inheritance, not implemented for the moment
+class EuTracingTableViewCell: UITableViewCell, ConfigurableENSettingCell {
+	
+	
+	
+	@IBOutlet var actionTitleLabel: UILabel!
 
-extension ENSettingModel {
-	enum Content {
-		case banner
-		case actionCell
-		case euTracingCell
-		case tracingCell
-		case actionDetailCell
-		case descriptionCell
+	weak var delegate: ActionTableViewCellDelegate?
+	
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+	
+	func configure(for state: ENStateHandler.State) {
+		actionTitleLabel.text = "Moinsen"
 	}
+
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IOf-gd-WHN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IOf-gd-WHN">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -135,8 +135,79 @@
                                     <outlet property="switchContainerView" destination="yn0-sa-eIJ" id="kUu-s9-KpL"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="euTracingCell" id="XFL-Xc-f0T" userLabel="euTracingCell" customClass="EuTracingTableViewCell" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="415.5" width="414" height="68.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XFL-Xc-f0T" id="RHE-Pw-SOR">
+                                    <rect key="frame" x="0.0" y="0.0" width="383" height="68.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sLa-n1-ouo">
+                                            <rect key="frame" x="16" y="16" width="351" height="36.5"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="gc6-Sm-8c0">
+                                                    <rect key="frame" x="0.0" y="0.0" width="351" height="36.5"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="globe" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="IGC-iR-txJ">
+                                                            <rect key="frame" x="0.0" y="9.5" width="30" height="18.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="20" id="GAp-fy-Vvg"/>
+                                                                <constraint firstAttribute="width" constant="30" id="eKD-HT-5hj"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Pi2-Ys-o9I">
+                                                            <rect key="frame" x="30" y="0.0" width="261" height="36.5"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title Lorem Ipsum" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hil-EH-F0M">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="261" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Span, Italy, Greece" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Haa-oD-VWX">
+                                                                    <rect key="frame" x="0.0" y="20.5" width="261" height="16"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                    <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ON/OFF" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E4E-Ub-IFV">
+                                                            <rect key="frame" x="291" y="11" width="60" height="14.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="60" id="0Xb-YJ-AHy"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                                            <color key="textColor" name="ENA Text Primary 2 Color"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <constraints>
+                                                <constraint firstItem="gc6-Sm-8c0" firstAttribute="leading" secondItem="sLa-n1-ouo" secondAttribute="leading" id="2J5-v1-AM4"/>
+                                                <constraint firstAttribute="trailing" secondItem="gc6-Sm-8c0" secondAttribute="trailing" id="H67-bF-dxc"/>
+                                                <constraint firstItem="gc6-Sm-8c0" firstAttribute="top" secondItem="sLa-n1-ouo" secondAttribute="top" id="HPo-ox-7p1"/>
+                                                <constraint firstAttribute="bottom" secondItem="gc6-Sm-8c0" secondAttribute="bottom" id="NzG-ua-gV3"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="sLa-n1-ouo" secondAttribute="bottom" constant="16" id="8Nv-aw-gWn"/>
+                                        <constraint firstAttribute="trailing" secondItem="sLa-n1-ouo" secondAttribute="trailing" constant="16" id="RAl-V8-JQ0"/>
+                                        <constraint firstItem="sLa-n1-ouo" firstAttribute="top" secondItem="RHE-Pw-SOR" secondAttribute="top" constant="16" id="bW8-Ju-9kM"/>
+                                        <constraint firstItem="sLa-n1-ouo" firstAttribute="leading" secondItem="RHE-Pw-SOR" secondAttribute="leading" constant="16" id="wQ0-G9-jiH"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="countryList" destination="Haa-oD-VWX" id="puO-sS-lV0"/>
+                                    <outlet property="stateLabel" destination="E4E-Ub-IFV" id="LOp-zJ-oL5"/>
+                                    <outlet property="titleLabel" destination="hil-EH-F0M" id="Z8C-6i-nPr"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="actionDetailCell" id="4Jl-Py-HhP" userLabel="detailedActionCell" customClass="ActionDetailTableViewCell" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="415.5" width="414" height="484"/>
+                                <rect key="frame" x="0.0" y="484" width="414" height="484"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4Jl-Py-HhP" id="oos-mn-Ycm">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="484"/>
@@ -253,7 +324,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tracingCell" id="Ip1-td-013" userLabel="tracingHistoryCell" customClass="TracingHistoryTableViewCell" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="899.5" width="414" height="170.5"/>
+                                <rect key="frame" x="0.0" y="968" width="414" height="170.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ip1-td-013" id="Udp-QI-MbE">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="170.5"/>
@@ -344,7 +415,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" id="xbF-3o-4Hm" userLabel="descriptionCell" customClass="DescriptionTableViewCell" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="1070" width="414" height="362"/>
+                                <rect key="frame" x="0.0" y="1138.5" width="414" height="362"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xbF-3o-4Hm" id="cDL-9j-OWe">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="362"/>
@@ -427,6 +498,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="globe" catalog="system" width="128" height="121"/>
         <namedColor name="ENA Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
