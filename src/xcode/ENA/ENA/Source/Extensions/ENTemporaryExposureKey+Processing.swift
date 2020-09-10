@@ -21,22 +21,9 @@ import Foundation
 import ExposureNotification
 
 extension Array where Element: ENTemporaryExposureKey {
+
 	/// The maximum number of keys to be submitted
 	var maxKeyCount: Int { 14 }
-	/// Transmission risk level by days since the exposure.
-	/// These factors are applied to each `ENTemporaryExposureKey`'s `transmissionRiskLevel`
-	///
-	/// Index 0 of the array represents the day of the exposure
-	/// Index 1 the next day, and so on.
-	/// These factors are supplied by RKI
-	///
-	/// - important: The first element of the array is not used. That is because the ExposureNotification framework
-	/// does not return the current day's key - so the first key we have in the array is actually from yesterday.
-	///
-	/// - see also: [Risk Score Calculation Docs](https://github.com/corona-warn-app/cwa-documentation/blob/master/solution_architecture.md#risk-score-calculation)
-	var transmissionRiskDefaultVector: [ENRiskLevel] {
-		[5, 6, 8, 8, 8, 5, 3, 1, 1, 1, 1, 1, 1, 1, 1]
-	}
 
 	/// In-place prepare an array of `ENTemporaryExposureKey` for exposure submission.
 	///
@@ -44,14 +31,15 @@ extension Array where Element: ENTemporaryExposureKey {
 	/// 1. Sorts the keys by their `rollingStartNumber`
 	/// 2. Takes the first `maxKeyCount` (14) keys using `prefix(_ :)`
 	/// 3. Applies the `transmissionRiskDefaultVector` to the sorted keys
-	mutating func processedForSubmission() {
+	mutating func process(for symptomsOnset: SymptomsOnset) {
 		sort {
 			$0.rollingStartNumber > $1.rollingStartNumber
 		}
 
 		self = Array(prefix(maxKeyCount))
-		for (key, vectorElement) in zip(self, transmissionRiskDefaultVector.dropFirst()) {
+		for (key, vectorElement) in zip(self, symptomsOnset.transmissionRiskVector.dropFirst()) {
 			key.transmissionRiskLevel = vectorElement
 		}
 	}
+
 }

@@ -36,7 +36,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let expectation = self.expectation(description: "Success")
 
 		// Act
-		service.submitExposure(visitedCountries: []) {
+		service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) {
 			// no `ExposureSubmissionError`
 			XCTAssertNil($0)
 			expectation.fulfill()
@@ -55,7 +55,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let expectation = self.expectation(description: "NoKeys")
 
 		// Act
-		service.submitExposure(visitedCountries: []) { error in
+		service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) { error in
 			defer { expectation.fulfill() }
 			guard let error = error else {
 				XCTFail("error expected")
@@ -80,7 +80,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let expectation = self.expectation(description: "EmptyKeys")
 
 		// Act
-		service.submitExposure(visitedCountries: []) { error in
+		service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) { error in
 			defer { expectation.fulfill() }
 			guard let error = error else {
 				XCTFail("error expected")
@@ -106,7 +106,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let expectation = self.expectation(description: "invalidPayloadOrHeaders Error")
 
 		// Act
-		service.submitExposure(visitedCountries: []) { error in
+		service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) { error in
 			defer { expectation.fulfill() }
 			guard let error = error else {
 				XCTFail("error expected")
@@ -133,7 +133,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let expectation = self.expectation(description: "InvalidRegToken")
 
 		// Act
-		service.submitExposure(visitedCountries: []) {error in
+		service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) {error in
 			defer {
 				expectation.fulfill()
 			}
@@ -243,7 +243,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Execute test.
 		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
 
-		service.submitExposure(visitedCountries: []) { error in
+		service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) { error in
 			expectation.fulfill()
 			XCTAssertEqual(error?.localizedDescription, controlTest)
 		}
@@ -264,7 +264,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Execute test.
 		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
 
-		service.submitExposure(visitedCountries: []) { error in
+		service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) { error in
 			expectation.fulfill()
 			XCTAssertEqual(error?.localizedDescription, controlTest)
 		}
@@ -294,7 +294,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		// Execute test.
 
-		service.submitExposure(visitedCountries: []) { result in
+		service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) { result in
 			expectation.fulfill()
 			XCTAssertNotNil(result)
 
@@ -304,7 +304,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 				XCTAssertTrue(isFake, "When executing the real request, instead of using the stored TAN, we have made a request to the server.")
 				completion(.failure(.fakeResponse))
 			}
-			service.submitExposure(visitedCountries: []) { result in
+			service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) { result in
 				expectation.fulfill()
 				XCTAssertNil(result)
 			}
@@ -452,7 +452,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Run test.
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
-		service.submitExposure(visitedCountries: []) { error in
+		service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) { error in
 			expectation.fulfill()
 			XCTAssertNil(error)
 		}
