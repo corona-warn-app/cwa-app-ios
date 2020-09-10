@@ -145,27 +145,27 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sLa-n1-ouo">
                                             <rect key="frame" x="16" y="16" width="351" height="36.5"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="gc6-Sm-8c0">
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gc6-Sm-8c0">
                                                     <rect key="frame" x="0.0" y="0.0" width="351" height="36.5"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="globe" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="IGC-iR-txJ">
-                                                            <rect key="frame" x="0.0" y="9.5" width="30" height="18.5"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flag.eu" translatesAutoresizingMaskIntoConstraints="NO" id="IGC-iR-txJ">
+                                                            <rect key="frame" x="0.0" y="6" width="35" height="25"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="20" id="GAp-fy-Vvg"/>
-                                                                <constraint firstAttribute="width" constant="30" id="eKD-HT-5hj"/>
+                                                                <constraint firstAttribute="height" constant="25" id="GAp-fy-Vvg"/>
+                                                                <constraint firstAttribute="width" constant="35" id="eKD-HT-5hj"/>
                                                             </constraints>
                                                         </imageView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Pi2-Ys-o9I">
-                                                            <rect key="frame" x="30" y="0.0" width="261" height="36.5"/>
+                                                            <rect key="frame" x="43" y="0.0" width="240" height="36.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title Lorem Ipsum" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hil-EH-F0M">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="261" height="20.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country 1, Country 2, Country 3, Coun..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Haa-oD-VWX">
-                                                                    <rect key="frame" x="0.0" y="20.5" width="261" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="20.5" width="240" height="16"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                                     <nil key="highlightedColor"/>
@@ -499,7 +499,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="globe" catalog="system" width="128" height="121"/>
+        <image name="flag.eu" width="48" height="32"/>
         <namedColor name="ENA Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
