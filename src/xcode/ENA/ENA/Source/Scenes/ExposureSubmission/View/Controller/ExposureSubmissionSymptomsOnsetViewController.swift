@@ -18,7 +18,7 @@
 import UIKit
 import Combine
 
-class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, RequiresDismissConfirmation {
 
 	typealias PrimaryButtonHandler = (SymptomsOnsetOption) -> Void
 
