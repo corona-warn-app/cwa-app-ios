@@ -20,6 +20,7 @@
 import Foundation
 
 enum KeychainError: Error {
+	case clearItem(reason: String? = nil)
 	case save(reason: String? = nil)
 	case keyGenerationFail
 }
@@ -28,22 +29,25 @@ enum KeychainHelper {
 	// swiftlint:disable:next force_unwrapping
 	private static let _service = Bundle.main.bundleIdentifier!
 
-	@discardableResult
-	static func saveToKeychain(key: String, data: Data) throws -> Bool {
-
+	static func clearInKeychain(key: String) throws {
 		let deleteResult = SecItemDelete(
 			.keychainQueryForDeleting(
 				account: key,
 				service: _service
 			)
 		)
-
 		// ignore 'item not found errors' as this might happen, e.g. on first launch
 		if deleteResult != errSecSuccess && deleteResult != errSecItemNotFound {
 			let message = SecCopyErrorMessageString(deleteResult, nil) ?? "unknown error" as CFString
 			let reason = "Failed to delete existing keychain item '\(key)' due to \(message)"
-			throw KeychainError.save(reason: reason)
+			throw KeychainError.clearItem(reason: reason)
 		}
+	}
+
+	@discardableResult
+	static func saveToKeychain(key: String, data: Data) throws -> Bool {
+
+		try clearInKeychain(key: key)
 
 		let addResult = SecItemAdd(
 			.keychainQueryForAdding(
@@ -64,7 +68,7 @@ enum KeychainHelper {
 			}
 		}
 
-		return addResult == errSecSuccess
+		return true
 	}
 
 	static func loadFromKeychain(key: String) -> Data? {
@@ -82,6 +86,10 @@ enum KeychainHelper {
 		return nil
 	}
 
+
+	/// Generates and stores a new random database key
+	/// - Throws: a `KeychainError` in case the generation or database save fails
+	/// - Returns: the newly created key
 	static func generateDatabaseKey() throws -> String {
 		var bytes = [UInt8](repeating: 0, count: 32)
 		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)

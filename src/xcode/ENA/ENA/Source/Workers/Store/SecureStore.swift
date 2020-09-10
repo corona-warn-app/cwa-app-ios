@@ -213,17 +213,27 @@ extension SecureStore {
 	static let keychainDatabaseKey = "secureStoreDatabaseKey"
 
 	convenience init(subDirectory: String) {
-		do {
-			let fileManager = FileManager.default
-			let directoryURL = try fileManager
-				.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-				.appendingPathComponent(subDirectory)
+		self.init(subDirectory: subDirectory, isRetry: false)
+	}
 
+	private convenience init(subDirectory: String, isRetry: Bool) {
+		do {
+			let directoryURL = try SecureStore.databaseDirectory(at: subDirectory)
+			let fileManager = FileManager.default
 			if fileManager.fileExists(atPath: directoryURL.path) {
 				// fetch existing key from keychain or generate a new one
 				let key: String
 				if let keyData = KeychainHelper.loadFromKeychain(key: SecureStore.keychainDatabaseKey) {
+					#if UITESTING
+					if ProcessInfo.processInfo.arguments.contains(UITestingParameters.SecureStoreHandling.simulateMismatchingKey.rawValue) {
+						// injecting a wrong key to simulate a mismatch, e.g. because of backup restoration or other reasons
+						key = "wrong 🔑"
+					} else {
+						key = String(decoding: keyData, as: UTF8.self)
+					}
+					#else
 					key = String(decoding: keyData, as: UTF8.self)
+					#endif
 				} else {
 					key = try KeychainHelper.generateDatabaseKey()
 				}
@@ -233,8 +243,34 @@ extension SecureStore {
 				let key = try KeychainHelper.generateDatabaseKey()
 				try self.init(at: directoryURL, key: key)
 			}
+		} catch is SQLiteStoreError where isRetry == false {
+			SecureStore.performHardDatabaseReset(at: subDirectory)
+			self.init(subDirectory: subDirectory, isRetry: true)
 		} catch {
 			fatalError("Creating the Database failed (\(error)")
+		}
+	}
+
+	private static func databaseDirectory(at subDirectory: String) throws -> URL {
+		try FileManager.default
+			.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+			.appendingPathComponent(subDirectory)
+	}
+
+	/// Last Resort option.
+	///
+	/// This function clears the existing database key and removes any existing databases.
+	private static func performHardDatabaseReset(at path: String) {
+		do {
+			log(message: "⚠️ performing hard database reset ⚠️")
+			// remove database key
+			try KeychainHelper.clearInKeychain(key: SecureStore.keychainDatabaseKey)
+
+			// remove database
+			let directoryURL = try databaseDirectory(at: path)
+			try FileManager.default.removeItem(at: directoryURL)
+		} catch {
+			fatalError("Reset failure: \(error.localizedDescription)")
 		}
 	}
 }
