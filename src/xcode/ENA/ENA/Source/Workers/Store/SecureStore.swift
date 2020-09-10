@@ -25,17 +25,17 @@ final class SecureStore: Store {
 	private let directoryURL: URL
 	private let kvStore: SQLiteKeyValueStore
 
-	init(at directoryURL: URL, key: String) {
+	init(at directoryURL: URL, key: String) throws {
 		self.directoryURL = directoryURL
-		self.kvStore = SQLiteKeyValueStore(with: directoryURL, key: key)
+		self.kvStore = try SQLiteKeyValueStore(with: directoryURL, key: key)
 	}
 
 	func flush() {
-		kvStore.flush()
+		try? kvStore.flush()
 	}
 
 	func clearAll(key: String?) {
-		kvStore.clearAll(key: key)
+		try? kvStore.clearAll(key: key)
 	}
 	
 	var testResultReceivedTimeStamp: Int64? {
@@ -227,11 +227,11 @@ extension SecureStore {
 				} else {
 					key = try KeychainHelper.generateDatabaseKey()
 				}
-				self.init(at: directoryURL, key: key)
+				try self.init(at: directoryURL, key: key)
 			} else {
 				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
 				let key = try KeychainHelper.generateDatabaseKey()
-				self.init(at: directoryURL, key: key)
+				try self.init(at: directoryURL, key: key)
 			}
 		} catch {
 			fatalError("Creating the Database failed (\(error)")

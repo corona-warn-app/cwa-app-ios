@@ -19,6 +19,11 @@ import FMDB
 import Foundation
 import CWASQLite
 
+enum SQLiteStoreError: Error {
+	case databaseInitFailure
+	case readError(_ message: String? = nil)
+	case writeError(_ message: String? = nil)
+}
 
 /// Basic SQLite Key/Value store with Keys as `TEXT` and Values stored as `BLOB`
 final class SQLiteKeyValueStore {
@@ -30,20 +35,23 @@ final class SQLiteKeyValueStore {
 	/// If any part of the init fails no Datbase will be created
 	/// If the Database can't be accessed with the key the currentFile will be reset
 
-	init(with directoryURL: URL, key: String) {
+	init(with directoryURL: URL, key: String) throws {
 		self.directoryURL = directoryURL
 		var fileURL = directoryURL
 		if directoryURL.absoluteString != ":memory:" {
 			fileURL = fileURL.appendingPathComponent("secureStore.sqlite")
 		}
 		databaseQueue = FMDatabaseQueue(url: fileURL)
-		_ = initDatabase(with: key)
+		guard initDatabase(with: key) else {
+			throw SQLiteStoreError.databaseInitFailure
+		}
 	}
-
 
 	deinit {
 		closeDbIfNeeded()
 	}
+
+	// MARK: - Internal database modifications
 
 	/// Generates or Loads Database Key
 	/// Creates the K/V Datsbase if it is not already there
@@ -90,12 +98,13 @@ final class SQLiteKeyValueStore {
 		}
 	}
 
-
 	/// - returns: `Data` if the key/value pair in the DB, `nil` otherwise
-	private func getData(for key: String) -> Data? {
+	private func getData(for key: String) throws -> Data? {
 		openDbIfNeeded()
 
 		var dataToReturn: Data?
+		// hack to pass potential errors from the closure back to the local scope
+		var dbError: NSError?
 		databaseQueue?.inDatabase { db in
 			do {
 				let query = "SELECT value FROM kv WHERE key = ?;"
@@ -113,17 +122,24 @@ final class SQLiteKeyValueStore {
 				dataToReturn = resultData
 				return
 			} catch {
-				logError(message: "Failed to retrieve value from K/V SQLite store: \(error.localizedDescription)")
-				return
+				let message = "Failed to retrieve value from K/V SQLite store: \(error.localizedDescription)"
+				logError(message: message)
+				dbError = SQLiteStoreError.readError(message) as NSError
 			}
+		}
+		if let error = dbError as? SQLiteStoreError {
+			throw error
 		}
 		return dataToReturn
 	}
 
 	/// Sets or overwrites the value for a given key
 	/// - attention: Passing `nil` to the data param causes the key/value pair to be deleted from the DB
-	private func setData(_ data: Data?, for key: String) {
+	private func setData(_ data: Data?, for key: String) throws {
 		openDbIfNeeded()
+
+		// hack to pass potential errors from the closure back to the local scope
+		var dbError: NSError?
 		databaseQueue?.inDatabase { db in
 			guard let data = data else {
 				let deleteStmt = "DELETE FROM kv WHERE key = ?;"
@@ -131,7 +147,9 @@ final class SQLiteKeyValueStore {
 					try db.executeUpdate(deleteStmt, values: [key])
 					try db.executeUpdate("VACUUM", values: [])
 				} catch {
-					logError(message: "Failed to delete key from K/V SQLite store: \(error.localizedDescription)")
+					let message = "Failed to delete key from K/V SQLite store: \(error.localizedDescription)"
+					logError(message: message)
+					dbError = SQLiteStoreError.writeError(message) as NSError
 				}
 				return
 			}
@@ -141,31 +159,41 @@ final class SQLiteKeyValueStore {
 			do {
 				try db.executeUpdate(upsertStmt, values: [key, data, data])
 			} catch {
-				logError(message: "Failed to insert key/V pair into K/V SQLite store: \(error.localizedDescription)")
+				let message = "Failed to insert key/V pair into K/V SQLite store: \(error.localizedDescription)"
+				logError(message: message)
+				dbError = SQLiteStoreError.writeError(message) as NSError
 			}
+		}
+		if let error = dbError as? SQLiteStoreError {
+			throw error
 		}
 	}
 
 	/// Removes all key/value pairs from the Store
 	/// - Parameters If the key is nil, the action is same as the `resetDatabase`, otherwise
-	func clearAll(key: String?) {
-		resetDatabase()
+	func clearAll(key: String?) throws {
+		try resetDatabase()
 		guard let key = key else {
 			return
 		}
-		_ = initDatabase(with: key)
+		guard initDatabase(with: key) else {
+			throw SQLiteStoreError.databaseInitFailure
+		}
 	}
 
 	/// Removes the Database File to clear everything
-	private func resetDatabase() {
+	private func resetDatabase() throws {
 		closeDbIfNeeded()
 		do {
 			try FileManager.default.removeItem(at: directoryURL)
 			try FileManager.default.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
 		} catch {
 			logError(message: "Failed to delete database file")
+			throw error
 		}
 	}
+
+	// MARK: - Public
 
 	/// Removes most key/value pairs.
 	///
@@ -173,8 +201,11 @@ final class SQLiteKeyValueStore {
 	/// - `developerSubmissionBaseURLOverride`
 	/// - `developerDistributionBaseURLOverride`
 	/// - `developerVerificationBaseURLOverride`
-	func flush() {
+	func flush() throws {
 		openDbIfNeeded()
+
+		// hack to pass potential errors from the closure back to the local scope
+		var dbError: NSError?
 		databaseQueue?.inDatabase { db in
 			let deleteStmt = "DELETE FROM kv WHERE key NOT IN('developerSubmissionBaseURLOverride','developerDistributionBaseURLOverride','developerVerificationBaseURLOverride');"
 			do {
@@ -182,8 +213,13 @@ final class SQLiteKeyValueStore {
 				try db.executeUpdate("VACUUM", values: [])
 				log(message: "Flushed SecureStore", level: .info)
 			} catch {
-				logError(message: "Failed to delete key from K/V SQLite store: \(error.localizedDescription)")
+				let message = "Failed to delete key from K/V SQLite store: \(error.localizedDescription)"
+				logError(message: message)
+				dbError = SQLiteStoreError.writeError(message) as NSError
 			}
+		}
+		if let error = dbError as? SQLiteStoreError {
+			throw error
 		}
 	}
 
@@ -191,10 +227,10 @@ final class SQLiteKeyValueStore {
 	/// - returns: `Data` if the key/value pair is found (even if the value BLOB is empty), or nil if no value exists for the given key.
 	subscript(key: String) -> Data? {
 		get {
-			getData(for: key)
+			try? getData(for: key)
 		}
 		set {
-			setData(newValue, for: key)
+			try? setData(newValue, for: key)
 		}
 	}
 
@@ -205,7 +241,7 @@ final class SQLiteKeyValueStore {
 	///	If encoding fails, fetching the value for that key will result in empty `Data`
 	subscript<Model: Codable>(key: String) -> Model? {
 		get {
-			guard let data = getData(for: key) else {
+			guard let data = try? getData(for: key) else {
 				return nil
 			}
 			return try? JSONDecoder().decode(Model.self, from: data)
@@ -213,7 +249,7 @@ final class SQLiteKeyValueStore {
 		set {
 			do {
 				let encoded = try JSONEncoder().encode(newValue)
-				setData(encoded, for: key)
+				try setData(encoded, for: key)
 			} catch {
 				logError(message: "Error when encoding value for inserting into K/V SQLite store: \(error.localizedDescription)")
 			}

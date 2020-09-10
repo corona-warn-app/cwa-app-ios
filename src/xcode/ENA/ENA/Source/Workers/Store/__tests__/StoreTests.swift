@@ -24,7 +24,9 @@ final class StoreTests: XCTestCase {
 	private var store: SecureStore!
 
 	override func setUp() {
-		store = SecureStore(at: URL(staticString: ":memory:"), key: "123456")
+		XCTAssertNoThrow(try SecureStore(at: URL(staticString: ":memory:"), key: "123456"))
+		store = try? SecureStore(at: URL(staticString: ":memory:"), key: "123456")
+		XCTAssertNotNil(store)
 	}
 
 	func testResultReceivedTimeStamp_Success() {
@@ -117,7 +119,7 @@ final class StoreTests: XCTestCase {
 	}
 
 	/// Reads a statically created db from version 1.0.0 into the app container and checks, whether all values from that version are still readable
-	func testBackwardsCompatibility() {
+	func testBackwardsCompatibility() throws {
 		// swiftlint:disable:next force_unwrapping
 		let testStoreSourceURL = Bundle(for: StoreTests.self).url(forResource: "testStore", withExtension: "sqlite")!
 
@@ -135,7 +137,7 @@ final class StoreTests: XCTestCase {
 				print("Target exists: \(fileManager.fileExists(atPath: testStoreTargetURL.path))")
 				try fileManager.copyItem(at: testStoreSourceURL, to: testStoreTargetURL)
 
-				return SecureStore(at: directoryURL, key: "12345678")
+				return try SecureStore(at: directoryURL, key: "12345678")
 			} catch {
 				fatalError("Creating the database failed: \(error.localizedDescription)")
 			}
