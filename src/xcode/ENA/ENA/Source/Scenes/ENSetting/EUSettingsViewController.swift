@@ -89,8 +89,9 @@ class EUSettingsViewController: DynamicTableViewController {
 			secondaryActionTitle: AppStrings.ExposureNotificationSetting.eu14DaysAlertBackTitle,
 			completion: nil,
 			secondaryActionCompletion: {
-				// Handle 'back' action.
-				self.viewModel.countryCells
+				// Handle reset action, resets the switches to the state
+				// before the user tapped on them.
+				self.viewModel.countryModels
 					.filter { countries.contains($0.country) }
 					.forEach { $0.isOn = true }
 			}
@@ -112,11 +113,11 @@ private class EUSettingsViewModel {
 
 	// MARK: - Model.
 
-	class CellModel {
+	class CountryModel {
 		let country: Country
 		@Published var isOn: Bool = false
 
-		init(country: Country) {
+		init(_ country: Country) {
 			self.country = country
 		}
 	}
@@ -125,18 +126,17 @@ private class EUSettingsViewModel {
 
 	private var subscriptions = Set<AnyCancellable>()
 	@Published var allCountriesOn: Bool = false
-	let countryCells: [CellModel]
+	let countryModels: [CountryModel]
 	let errorChanges = PassthroughSubject<[Country], Never>()
 
 	// MARK: - Initializers.
 
 	init(countries: [Country]) {
-		self.countryCells = countries.map { CellModel(country: $0) }
-		self.countryCells.forEach {
-			// HACK: for some reason we need to add a delay here so the model has time to update.
+		self.countryModels = countries.map { CountryModel($0) }
+		self.countryModels.forEach {
 			$0.$isOn
-				.delay(for: .milliseconds(50), scheduler: RunLoop.main)
-				.sink { _ in self.allCountriesOn = self.countryCells.allSatisfy { $0.isOn } }
+				.receive(on: RunLoop.main)
+				.sink { _ in self.allCountriesOn = self.countryModels.allSatisfy { $0.isOn } }
 				.store(in: &subscriptions)
 		}
 	}
@@ -146,11 +146,11 @@ private class EUSettingsViewModel {
 	func countrySwitchSection() -> DynamicSection {
 		DynamicSection.section(
 			separators: true,
-			cells: countryCells.map { cellModel in
-				DynamicCell.switchCell(cellModel: cellModel) { isOn in
-					cellModel.isOn = isOn
+			cells: countryModels.map { model in
+				DynamicCell.euSwitchCell(cellModel: model) { isOn in
+					model.isOn = isOn
 					// Send the current country.
-					if isOn == false { self.errorChanges.send([cellModel.country]) }
+					if !isOn { self.errorChanges.send([model.country]) }
 				}
 			}
 		)
@@ -176,10 +176,10 @@ private class EUSettingsViewModel {
 						isOn: allCountriesOn,
 						onSwitch: self.$allCountriesOn,
 						onToggle: { isOn in
-							self.countryCells.forEach { $0.isOn = isOn }
-							if isOn == false {
+							self.countryModels.forEach { $0.isOn = isOn }
+							if !isOn {
 								// This switch modifies all countries.
-								self.errorChanges.send(self.countryCells.map { $0.country })
+								self.errorChanges.send(self.countryModels.map { $0.country })
 							}
 					 })
 				]
@@ -242,7 +242,7 @@ private extension DynamicCell {
 		}
 	}
 
-	static func switchCell(cellModel: EUSettingsViewModel.CellModel, onToggle: SwitchCell.ToggleHandler?) -> Self {
+	static func euSwitchCell(cellModel: EUSettingsViewModel.CountryModel, onToggle: SwitchCell.ToggleHandler?) -> Self {
 		.custom(
 			withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.switchCell,
 			action: .none,
