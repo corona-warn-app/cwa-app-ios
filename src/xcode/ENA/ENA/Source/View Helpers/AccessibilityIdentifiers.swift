@@ -148,7 +148,10 @@ enum AccessibilityIdentifiers {
 		static let explanationTextLow = "AppStrings.ExposureDetection.explanationTextLow"
 		static let explanationTextHigh = "AppStrings.ExposureDetection.explanationTextHigh"
 
-		static let activeTracingSectionText = "AppStrings.ExposureDetection.activeTracingSection"
+		static let activeTracingSectionText = "AppStrings.ExposureDetection.activeTracingSectionText"
+		static let activeTracingSection = "AppStrings.ExposureDetection.activeTracingSection"
+		static let lowRiskExposureSection = "AppStrings.ExposureDetection.lowRiskExposureSection"
+		static let infectionRiskExplanationSection = "AppStrings.ExposureDetection.infectionRiskExplanationSection"
 	}
 
 	enum ExposureSubmissionDispatch {
@@ -186,6 +189,28 @@ enum AccessibilityIdentifiers {
 		static let accImageDescription = "AppStrings.ExposureSubmissionWarnOthers.accImageDescription"
 		static let sectionTitle = "AppStrings.ExposureSubmissionWarnOthers.sectionTitle"
 		static let description = "AppStrings.ExposureSubmissionWarnOthers.description"
+	}
+
+	enum ExposureSubmissionWarnEuropeConsent {
+		static let imageDescription = "AppStrings.ExposureSubmissionWarnEuropeConsent.imageDescription"
+		static let sectionTitle = "AppStrings.ExposureSubmissionWarnEuropeConsent.sectionTitle"
+		static let consentSwitch = "AppStrings.ExposureSubmissionWarnEuropeConsent.consentSwitch"
+	}
+
+	enum ExposureSubmissionWarnEuropeTravelConfirmation {
+		static let description1 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description1"
+		static let description2 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description2"
+		static let optionYes = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionYes"
+		static let optionNo = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionNo"
+		static let optionNone = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionNone"
+	}
+
+	enum ExposureSubmissionWarnEuropeCountrySelection {
+		static let description1 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description1"
+		static let description2 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description2"
+		static let answerOptionCountry = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionCountry"
+		static let answerOptionOtherCountries = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionOtherCountries"
+		static let answerOptionNone = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionNone"
 	}
 
 	enum ExposureSubmission {

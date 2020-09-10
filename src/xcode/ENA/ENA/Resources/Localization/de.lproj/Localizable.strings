@@ -3,6 +3,10 @@
 
 "Alert_ActionOk" = "OK";
 
+"Alert_ActionYes" = "Ja";
+
+"Alert_ActionNo" = "Nein";
+
 "Alert_ActionRetry" = "Wiederholen";
 
 "Alert_ActionCancel" = "Abbrechen";
@@ -106,9 +110,7 @@
 
 "ExposureDetection_Explanation_Title" = "Infektionsrisiko";
 
-"ExposureDetection_Explanation_Subtitle_Active" = "So wurde Ihr Risiko ermittelt";
-
-"ExposureDetection_Explanation_Subtitle_Inactive" = "So wird Ihr Risiko ermittelt";
+"ExposureDetection_Explanation_Subtitle" = "So wird Ihr Risiko ermittelt";
 
 "ExposureDetection_Explanation_Text_Off" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
@@ -116,9 +118,19 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
-"ExposureDetection_Explanation_Text_Low" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.\n\nDie Infektionswahrscheinlichkeit wird daher als niedrig für Sie eingestuft.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Explanation_Text_Low" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung des Abstands und der Dauer von Begegnungen mit nachweislich Corona-positiv getesteten Personen sowie deren vermutlicher Infektiosität lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
 "ExposureDetection_Explanation_Text_High" = "Die Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft.\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.\nWenn Sie nach Hause kommen, vermeiden Sie auch Begegnungen mit Familienmitgliedern und Mitbewohnern.";
+
+"ExposureDetection_Explanation_FAQ_Link" = "https://www.coronawarn.app/de/faq/#encounter_but_green";
+
+"ExposureDetection_Explanation_FAQ_Link_Text" = "Weitere Informationen";
+
+"ExposureDetection_LowRiskExposure_Title" = "Begegnung mit niedrigem Risiko";
+
+"ExposureDetection_LowRiskExposure_Subtitle" = "Deshalb ist Ihr Infektionsrisiko niedrig";
+
+"ExposureDetection_LowRiskExposure_Body" = "Sie hatten eine Begegnung mit einer später Corona-positiv getesteten Person. Ihr Infektionsrisiko wird auf Grundlage der Daten der Risiko-Ermittlung dennoch als niedrig eingestuft. Ein niedriges Risiko besteht insbesondere dann, wenn sich Ihre Begegnung auf einen kurzen Zeitraum oder einen größeren Abstand beschränkt hat. Sie müssen sich keine Sorgen machen und es besteht kein besonderer Handlungsbedarf. Es wird empfohlen, sich an die allgemein geltenden Abstands- und Hygieneregeln zu halten.";
 
 "ExposureDetection_Button_Enable" = "Risiko-Ermittlung aktivieren";
 
@@ -141,6 +153,8 @@
 "ExposureDetectionError_Alert_Action_Details" = "Details";
 
 "ExposureDetectionError_Alert_Message" = "Während der Risiko-Ermittlung ist ein Fehler aufgetreten.";
+
+"ExposureDetectionError_Alert_AppConfig_Missing_Message" = "Ihre Internetverbindung wurde unterbrochen. Bitte prüfen Sie die Verbindung und öffnen Sie die App dann erneut.";
 
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Information zur Funktionsweise der Risiko-Ermittlung";
@@ -352,6 +366,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_Continue_actionText" = "Weiter";
 
+"ExposureSubmission_ConfirmDismissPopUpTitle" = "Wollen Sie wirklich abbrechen?";
+
+"ExposureSubmission_ConfirmDismissPopUpText" = "Ihre bisherigen Angaben werden nicht gespeichert.";
+
 "ExposureSubmission_DataPrivacyDescription" = "Durch Antippen von „Erlauben“ willigen Sie ein, dass die App den Status Ihres Corona-Virus-Tests abfragen und in der App anzeigen darf. Diese Funktion steht Ihnen zur Verfügung, wenn Sie einen QR-Code erhalten und eingewilligt haben, dass Ihr Testergebnis an das Serversystem der App übermittelt werden darf. Sobald das Testlabor Ihr Testergebnis auf dem Server hinterlegt hat, können Sie das Ergebnis in der App sehen. Falls Sie Mitteilungen aktiviert haben, werden Sie auch außerhalb der App über den Eingang des Testergebnis informiert. Das Testergebnis selbst wird aus Datenschutzgründen jedoch nur in der App angezeigt. Sie können diese Einwilligung jederzeit widerrufen, indem Sie die Testregistrierung in der App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen finden Sie unter dem Menüpunkt „Datenschutzinformation“.";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Erlauben";
@@ -412,7 +430,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_PhoneNumber" = "+49 800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - So: Täglich 24 Stunden\n\nDer Anruf ist kostenfrei.";
+"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - So: Täglich 24 Stunden\n\nDer Anruf ist kostenfrei.\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Test per TAN-Eingabe in der App registrieren";
 
@@ -572,6 +590,64 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionWarnOthers_consentUnderagesText" = "Die App-Nutzung ist ab 16 Jahren gestattet und richtet sich an Personen, die sich in Deutschland aufhalten.";
 
+"ExposureSubmissionWarnEuropeConsent_title" = "Europaweit warnen";
+
+"ExposureSubmissionWarnEuropeConsent_imageDescription" = "Auf einer Karte von Europa sind Menschen abgebildet, die ein Smartphone in der Hand halten. In der Mitte dieser Menschen ist eine Warnglocke abgebildet.";
+
+"ExposureSubmissionWarnEuropeConsent_continueButton" = "Weiter";
+
+"ExposureSubmissionWarnEuropeConsent_sectionTitle" = "Das Virus kennt keine Grenzen. Helfen Sie bei der grenzüberschreitenden Warnung!";
+
+"ExposureSubmissionWarnEuropeConsent_toggleTitle" = "Europaweit warnen";
+
+"ExposureSubmissionWarnEuropeConsent_description" = "Mehrere Länder in Europa arbeiten zusammen, um grenzüberschreitende Warnungen zu ermöglichen. Stellen Sie Ihre Zufallscodes den teilnehmenden Ländern zur Verfügung, damit auch Nutzer von offiziellen Corona-Apps anderer Länder gewarnt werden.";
+
+"ExposureSubmissionWarnEuropeConsent_consentTitle" = "Einwilligungserklärung";
+
+"ExposureSubmissionWarnEuropeConsent_consentDescription" = "Indem Sie “Europaweit warnen” selektieren und anschließend „Weiter“ antippen, willigen Sie ein, dass Ihr Testergebnis zusammen mit Ihren Zufalls-IDs der letzten 14 Tage an das von den teilnehmenden Ländern gemeinsam betriebene europäische Serversystem übermittelt wird. Ihr Testergebnis und ihre Zufalls-IDs können dann verwendet werden, um auch Nutzer der offiziellen Corona-Apps anderer Länder zu warnen, dass sie einem Infektionsrisiko ausgesetzt waren. Die Zufalls-IDs enthalten keine Angaben, die Rückschlüsse auf Ihre Identität oder Ihre Person zulassen.
+
+Die Übermittlung zur europaweiten Warnung ist freiwillig. Wenn Sie die Daten nicht übermitteln, entstehen Ihnen keine Nachteile. Da weder nachvollzogen noch kontrolliert werden kann, ob und wie Sie die App verwenden, erfährt außer Ihnen auch niemand, ob Sie Ihr Testergebnis zur europaweiten Warnung zur Verfügung stellen. Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen finden Sie unter dem Menüpunkt „Datenschutzinformationen“.";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_title" = "Europaweit warnen";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_continueButton" = "Weiter";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_description1" = "Haben Sie sich in den letzten 14 Tagen außerhalb von Deutschland aufgehalten?";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_description2" = "Ihre Angabe dient lediglich der Optimierung des Datenvolumens.";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionYes" = "Ja";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNo" = "Nein";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "Keine Angabe";
+
+"ExposureSubmissionWarnEuropeCountrySelection_title" = "Europaweit warnen";
+
+"ExposureSubmissionWarnEuropeCountrySelection_continueButton" = "Weiter";
+
+"ExposureSubmissionWarnEuropeCountrySelection_description1" = "In welchen Ländern haben Sie sich in den letzten 14 Tagen aufgehalten?";
+
+"ExposureSubmissionWarnEuropeCountrySelection_description2" = "Ihre Angabe dient lediglich der Optimierung des Datenvolumens.
+
+Die Auflistung enthält alle aktuell teilnehmenden Länder und wird stetig erweitert.";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionCountrySelection" = "Ich war in den folgenden Ländern";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries" = "Andere Länder";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "Keine Angabe";
+
+"ExposureSubmissionWarnEuropeCountrySelection_consentTitle" = "Einwilligungserklärung";
+
+"ExposureSubmissionWarnEuropeCountrySelection_consentDescription" = "Indem Sie “Weiter” antippen, willigen Sie ein, dass die von Ihnen ausgewählten Länder zusammen mit Ihren Zufalls-IDs an das von den teilnehmenden Ländern gemeinsam betriebene europäische Serversystem übermittelt werden. Die teilnehmenden Länder können diese Angaben für die Risiko-Ermittlung in ihren Corona-Apps nutzen, um zu bewerten, ob Ihre Zufalls-IDs für die Nutzer dieser Corona-Apps relevant sind.
+
+Die gesendeten Informationen über die ausgewählten Länder enthalten keine Angaben, die Rückschlüsse auf Ihre Identität oder Ihre Person zulassen.
+
+Die Übermittlung der Angaben über die ausgewählten Länder ist freiwillig. Wenn Sie die Angaben zu den ausgewählten Ländern nicht übermitteln, entstehen Ihnen keine Nachteile. Da weder nachvollzogen noch kontrolliert werden kann, ob und wie Sie die App verwenden, erfährt außer Ihnen niemand, ob Sie diese Informationen zur Verfügung stellen.
+
+Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen finden Sie unter dem Menüpunkt „Datenschutzinformationen“.";
+
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test kann nur einmal gescannt werden";
 
 "ExposureSubmissionResult_RemoveAlert_Text" = "Wenn Sie den Test entfernen, können Sie Ihr Testergebnis nicht mehr abrufen. Ihr Testergebnis bekommen Sie vom Testcenter oder Labor, unabhängig von der Gültigkeit des QR-Codes. Bei einem positiven Testergebnis wird auch das zuständige Gesundheitsamt auf dem gesetzlich vorgeschriebenen Weg informiert und sich an Sie wenden.";
@@ -615,6 +691,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionError_unknown" = "Unbekannter Fehler";
 
 "ExposureSubmissionError_defaultError" = "Fehler bei der Schlüssel-Übermittlung";
+
+"ExposureSubmissionError_noAppConfiguration" = "Ihre Internetverbindung wurde unterbrochen. Bitte prüfen Sie die Verbindung und öffnen Sie die App dann erneut.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
@@ -871,7 +949,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "App_Information_Contact_Hotline_Description" = "Unser Kundenservice ist für Sie da.";
 
-"App_Information_Contact_Hotline_Terms" = "Sprachen: Deutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nDer Anruf ist kostenfrei.";
+"App_Information_Contact_Hotline_Terms" = "Sprachen: Deutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nDer Anruf ist kostenfrei.\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Impressum";

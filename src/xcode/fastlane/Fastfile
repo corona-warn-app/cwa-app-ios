@@ -56,13 +56,7 @@ platform :ios do
 
   desc "Run tests"
   lane :test do
-    # UI Tests
-    run_tests(
-      scheme: "ENAUITests",
-      devices: ["iPhone 11"]
-    )
-
-    # Unit Tests
+    # Combined Unit & UI Tests
     run_tests(
       scheme: "ENATests",
       devices: ["iPhone 11"]
