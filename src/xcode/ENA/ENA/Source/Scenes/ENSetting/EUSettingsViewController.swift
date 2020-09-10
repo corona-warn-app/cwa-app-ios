@@ -25,7 +25,7 @@ class EUSettingsViewController: DynamicTableViewController {
 
 	// MARK: - Attributes.
 
-	fileprivate var viewModel: EUSettingsViewModel {
+	fileprivate var viewModel =
 		EUSettingsViewModel(
 			countries: [
 				Country(countryCode: "DE"),
@@ -33,7 +33,6 @@ class EUSettingsViewController: DynamicTableViewController {
 				Country(countryCode: "UK")
 				].compactMap { $0 }
 		)
-	}
 
 	var subscriptions = Set<AnyCancellable>()
 
@@ -57,13 +56,10 @@ class EUSettingsViewController: DynamicTableViewController {
 	private func setupTableView() {
 		tableView.separatorStyle = .none
 		dynamicTableViewModel = viewModel.euSettingsModel()
-		viewModel.errorChanges.sink(receiveCompletion: { (error) in
-			print(error)
-		}, receiveValue: { (result) in
-			print("Received result")
-			}).store(in: &subscriptions)
 
-		viewModel.errorChanges.send(true)
+		viewModel.errorChanges.sink(receiveValue: { _ in
+			self.show14DaysErrorAlert()
+			}).store(in: &subscriptions)
 		
 		tableView.register(
 			UINib(
@@ -108,6 +104,7 @@ private extension EUSettingsViewController {
 
 private class EUSettingsViewModel {
 
+
 	let countries: [Country]
 	var enabled = [Country: Bool]()
 	private(set) var allCountriesEnabled: Bool
@@ -119,7 +116,7 @@ private class EUSettingsViewModel {
 	}
 
 	let observedChanges = PassthroughSubject<Bool, Error>()
-	let errorChanges = PassthroughSubject<Bool, Error>()
+	let errorChanges = PassthroughSubject<Void, Never>()
 
 	func countrySwitchSection() -> DynamicSection {
 		DynamicSection.section(
@@ -132,7 +129,7 @@ private class EUSettingsViewModel {
 					onSwitch: observedChanges,
 					onToggle: {
 						self.enabled[country] = $0
-						self.errorChanges.send(true)
+						if !$0 { self.errorChanges.send() }
 						print("Set \(country.localizedName) to \(self.enabled[country]!)")
 					})
 			}
@@ -159,7 +156,7 @@ private class EUSettingsViewModel {
 						isOn: allCountriesEnabled,
 						onToggle: {
 							self.observedChanges.send($0)
-							if !$0 { self.errorChanges.send(true) }
+							if !$0 { self.errorChanges.send() }
 					 })
 				]
 			),
