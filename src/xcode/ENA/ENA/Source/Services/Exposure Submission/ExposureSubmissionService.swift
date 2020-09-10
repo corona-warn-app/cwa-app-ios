@@ -150,10 +150,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		completion: @escaping ExposureSubmissionHandler
 	) {
 		// swiftlint:disable vertical_parameter_alignment_on_call
-		let payload = CountrySubmissionPayload(exposureKeys: keys,
-											   consentToFederation: consentToFederation,
-											   visitedCountries: visitedCountries,
-											   tan: tan)
+		let payload = CountrySubmissionPayload(
+			exposureKeys: keys,
+			consentToFederation: consentToFederation,
+			visitedCountries: visitedCountries,
+			tan: tan
+		)
 		// swiftlint:enable vertical_parameter_alignment_on_call
 		client.submit(payload: payload, isFake: false) { result in
 			switch result {
