@@ -26,7 +26,7 @@ enum ExposureSubmissionError: Error, Equatable {
 	case notAuthorized
 	case noKeys
 	case noConsent
-	case noExposureConfiguration
+	case noAppConfiguration
 	case invalidTan
 	case invalidResponse
 	case noResponse
@@ -63,8 +63,8 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.ExposureSubmissionError.invalidResponse
 		case .noResponse:
 			return AppStrings.ExposureSubmissionError.noResponse
-		case .noExposureConfiguration:
-			return AppStrings.ExposureSubmissionError.noConfiguration
+		case .noAppConfiguration:
+			return AppStrings.ExposureSubmissionError.noAppConfiguration
 		case .qRAlreadyUsed:
 			return AppStrings.ExposureSubmissionError.qrAlreadyUsed
 		case .teleTanAlreadyUsed:

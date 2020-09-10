@@ -20,12 +20,18 @@
 import Foundation
 
 protocol ExposureSubmissionService: class {
+
 	typealias ExposureSubmissionHandler = (_ error: ExposureSubmissionError?) -> Void
 	typealias RegistrationHandler = (Result<String, ExposureSubmissionError>) -> Void
 	typealias TestResultHandler = (Result<TestResult, ExposureSubmissionError>) -> Void
 	typealias TANHandler = (Result<String, ExposureSubmissionError>) -> Void
 
-	func submitExposure(completionHandler: @escaping ExposureSubmissionHandler)
+	func submitExposure(
+		consentToFederation: Bool,
+		visitedCountries: [Country],
+		completionHandler: @escaping ExposureSubmissionHandler
+	)
+
 	func getRegistrationToken(
 		forKey deviceRegistrationKey: DeviceRegistrationKey,
 		completion completeWith: @escaping RegistrationHandler
@@ -38,4 +44,5 @@ protocol ExposureSubmissionService: class {
 	func preconditions() -> ExposureManagerState
 	func acceptPairing()
 	func fakeRequest(completionHandler: ExposureSubmissionHandler?)
+
 }

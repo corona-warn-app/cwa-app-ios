@@ -177,7 +177,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	private func showWarnOthers() {
 		if let state = exposureSubmissionService?.preconditions() {
 			if !state.isGood {
-
 				let alert = self.setupErrorAlert(
 					message: ExposureSubmissionError.enNotEnabled.localizedDescription
 				)
