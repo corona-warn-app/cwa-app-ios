@@ -22,7 +22,7 @@ final class ClientMock {
 	
 	// MARK: - Creating a Mock Client.
 
-	/// Creates a mock `Client` implementation wit given default values.
+	/// Creates a mock `Client` implementation with given default values.
 	///
 	/// - parameters:
 	///		- availableDaysAndHours: return this value when the `availableDays(_:)` or `availableHours(_:)` is called, or an error if `urlRequestFailure` is passed.
