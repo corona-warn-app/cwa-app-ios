@@ -19,8 +19,9 @@
 
 import Foundation
 import UIKit
+import Combine
 
-class EUSettingsViewController: DynamicTableViewController, EUSettingsDelegate {
+class EUSettingsViewController: DynamicTableViewController {
 
 	// MARK: - Attributes.
 
@@ -34,7 +35,7 @@ class EUSettingsViewController: DynamicTableViewController, EUSettingsDelegate {
 		)
 	}
 
-	@Published var test: Bool = false
+	var subscriptions = Set<AnyCancellable>()
 
 	// MARK: - View life cycle methods.
 
@@ -55,7 +56,14 @@ class EUSettingsViewController: DynamicTableViewController, EUSettingsDelegate {
 
 	private func setupTableView() {
 		tableView.separatorStyle = .none
-		dynamicTableViewModel = .euSettingsModel(for: self)
+		dynamicTableViewModel = viewModel.euSettingsModel()
+		viewModel.errorChanges.sink(receiveCompletion: { (error) in
+			print(error)
+		}, receiveValue: { (result) in
+			print("Received result")
+			}).store(in: &subscriptions)
+
+		viewModel.errorChanges.send(true)
 		
 		tableView.register(
 			UINib(
@@ -75,13 +83,6 @@ class EUSettingsViewController: DynamicTableViewController, EUSettingsDelegate {
 	}
 
 	// MARK: - Helper methods.
-
-	func setAllCountries(to: Bool) {
-		for row in 0..<tableView.numberOfRows(inSection: 3) {
-			guard let switchCell = tableView.cellForRow(at: IndexPath(row: row, section: 3)) as? SwitchCell else { return }
-			switchCell.set(to: to)
-		}
-	}
 
 	private func show14DaysErrorAlert() {
 		let alert = setupErrorAlert(
@@ -104,14 +105,41 @@ private extension EUSettingsViewController {
 	}
 }
 
-private protocol EUSettingsDelegate: class {
-	var viewModel: EUSettingsViewModel { get }
-	func setAllCountries(to: Bool)
-}
 
-private extension DynamicTableViewModel {
+private class EUSettingsViewModel {
 
-	static func euSettingsModel(for delegate: EUSettingsDelegate) -> DynamicTableViewModel {
+	let countries: [Country]
+	var enabled = [Country: Bool]()
+	private(set) var allCountriesEnabled: Bool
+
+	init(countries: [Country]) {
+		self.countries = countries
+		allCountriesEnabled = false
+		countries.forEach { self.enabled[$0] = false }
+	}
+
+	let observedChanges = PassthroughSubject<Bool, Error>()
+	let errorChanges = PassthroughSubject<Bool, Error>()
+
+	func countrySwitchSection() -> DynamicSection {
+		DynamicSection.section(
+			separators: true,
+			cells: countries.map { country in
+				DynamicCell.switchCell(
+					text: country.localizedName,
+					icon: country.flag,
+					isOn: enabled[country] ?? false,
+					onSwitch: observedChanges,
+					onToggle: {
+						self.enabled[country] = $0
+						self.errorChanges.send(true)
+						print("Set \(country.localizedName) to \(self.enabled[country]!)")
+					})
+			}
+		)
+	}
+
+	func euSettingsModel() -> DynamicTableViewModel {
 		DynamicTableViewModel([
 			.section(cells: [
 				.title1(
@@ -126,10 +154,13 @@ private extension DynamicTableViewModel {
 			.section(
 				separators: true,
 				cells: [
-					.switchCell(text: AppStrings.ExposureNotificationSetting.euAllCountries, isOn: delegate.viewModel.allCountriesEnabled) {
-						delegate.viewModel.setAllCountries(to: $0)
-						delegate.setAllCountries(to: $0)
-					}
+					DynamicCell.switchCell(
+						text: AppStrings.ExposureNotificationSetting.euAllCountries,
+						isOn: allCountriesEnabled,
+						onToggle: {
+							self.observedChanges.send($0)
+							if !$0 { self.errorChanges.send(true) }
+					 })
 				]
 			),
 			.section(cells: [
@@ -139,7 +170,7 @@ private extension DynamicTableViewModel {
 				),
 				.space(height: 16)
 			]),
-			.countrySwitchSection(from: delegate.viewModel),
+			countrySwitchSection(),
 			.section(cells: [
 				.footnote(
 					text: AppStrings.ExposureNotificationSetting.euRegionDescription,
@@ -170,50 +201,17 @@ private extension DynamicTableViewModel {
 	}
 }
 
-private class EUSettingsViewModel {
-
-	let countries: [Country]
-	var enabled = [Country: Bool]()
-	private(set) var allCountriesEnabled = false
-
-	func setAllCountries(to state: Bool) {
-		countries.forEach { enabled[$0] = state }
-		allCountriesEnabled = state
-	}
-
-	init(countries: [Country]) {
-		self.countries = countries
-		setAllCountries(to: false)
-	}
-}
-
-private extension DynamicSection {
-	static func countrySwitchSection(from model: EUSettingsViewModel) -> DynamicSection {
-		.section(
-			separators: true,
-			cells: model.countries.map { country in
-				DynamicCell.switchCell(
-					text: country.localizedName,
-					icon: country.flag,
-					isOn: model.enabled[country] ?? false) {
-						model.enabled[country] = $0
-						print("Set \(country.localizedName) to \(model.enabled[country]!)")
-				}
-			}
-		)
-	}
-}
 
 private extension DynamicCell {
 
-	static func switchCell(text: String, icon: UIImage? = nil, isOn: Bool = false, onToggle: SwitchCell.ToggleHandler? = nil) -> Self {
+	static func switchCell(text: String, icon: UIImage? = nil, isOn: Bool = false, onSwitch: PassthroughSubject<Bool, Error>? = nil, onToggle: SwitchCell.ToggleHandler? = nil) -> Self {
 		.custom(
 			withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.switchCell,
 			action: .none,
 			accessoryAction: .none
 		) { _, cell, _ in
 			guard let cell = cell as? SwitchCell else { return }
-			cell.configure(text: text, icon: icon, isOn: isOn, onToggle: onToggle)
+			cell.configure(text: text, icon: icon, isOn: isOn, onSwitchSubject: onSwitch, onToggle: onToggle)
 		}
 	}
 }
@@ -228,6 +226,7 @@ private class SwitchCell: UITableViewCell {
 
 	private let uiSwitch: UISwitch
 	private var onToggleAction: ToggleHandler?
+	private var onSwitch: AnyCancellable?
 
 	// MARK: - Initializers.
 
@@ -263,11 +262,15 @@ private class SwitchCell: UITableViewCell {
 		onToggle()
 	}
 
-	func configure(text: String, icon: UIImage? = nil, isOn: Bool = false, onToggle: ToggleHandler? = nil) {
+	func configure(text: String, icon: UIImage? = nil, isOn: Bool = false, onSwitchSubject: PassthroughSubject<Bool, Error>? = nil, onToggle: ToggleHandler? = nil) {
 		imageView?.image = icon
 		textLabel?.text = text
 		uiSwitch.isOn = isOn
 		onToggleAction = onToggle
+		onSwitch = onSwitchSubject?.sink(
+			receiveCompletion: { _ in },
+			receiveValue: { self.set(to: $0) }
+		)
 	}
 }
 
