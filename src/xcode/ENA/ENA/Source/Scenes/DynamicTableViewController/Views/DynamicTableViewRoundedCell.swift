@@ -81,7 +81,7 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 
 		title.leadingAnchor.constraint(equalTo: insetView.leadingAnchor, constant: 16).isActive = true
 		title.topAnchor.constraint(equalTo: insetView.topAnchor, constant: 16).isActive = true
-		title.trailingAnchor.constraint(equalTo: insetView.trailingAnchor).isActive = true
+		title.trailingAnchor.constraint(equalTo: insetView.trailingAnchor, constant: -16).isActive = true
 
 		body.leadingAnchor.constraint(equalTo: insetView.leadingAnchor, constant: 16).isActive = true
 		body.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 16).isActive = true

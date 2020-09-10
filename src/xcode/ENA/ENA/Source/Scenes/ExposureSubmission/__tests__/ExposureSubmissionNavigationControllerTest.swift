@@ -49,7 +49,7 @@ final class ExposureSubmissionNavigationControllerTest: XCTestCase {
 		navItem?.secondaryButtonTitle = title
 		navItem?.isSecondaryButtonHidden = false
 
-		XCTAssert(!vc.footerView.secondaryButton.isHidden)
+		XCTAssertFalse(vc.footerView.secondaryButton.isHidden)
 		XCTAssertEqual(vc.footerView.secondaryButton.currentTitle, title)
 		XCTAssertEqual(vc.footerView.secondaryButton.state, UIButton.State.normal)
 	}
@@ -62,10 +62,10 @@ final class ExposureSubmissionNavigationControllerTest: XCTestCase {
 		let navItem = rootVC?.navigationItem as? ENANavigationFooterItem
 
 		navItem?.isSecondaryButtonHidden = false
-		XCTAssert(!vc.footerView.secondaryButton.isHidden)
+		XCTAssertFalse(vc.footerView.secondaryButton.isHidden)
 
 		navItem?.isSecondaryButtonHidden = true
-		XCTAssert(vc.footerView.secondaryButton.alpha < 0.01)
+		XCTAssertLessThan(vc.footerView.secondaryButton.alpha, 0.01)
 	}
 
 	func testSecondaryButtonAction() {
