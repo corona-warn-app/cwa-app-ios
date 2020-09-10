@@ -140,3 +140,8 @@ extension ExposureSubmissionWarnOthersViewController {
 		case roundedCell
 	}
 }
+
+// MARK: - RequiresDismissConfirmation.
+
+/// - NOTE: Marker protocol.
+extension ExposureSubmissionWarnOthersViewController: RequiresDismissConfirmation { }
