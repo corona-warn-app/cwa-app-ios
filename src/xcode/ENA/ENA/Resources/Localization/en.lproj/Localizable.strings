@@ -106,9 +106,7 @@
 
 "ExposureDetection_Explanation_Title" = "Risk of Infection";
 
-"ExposureDetection_Explanation_Subtitle_Active" = "This is how your risk was calculated";
-
-"ExposureDetection_Explanation_Subtitle_Inactive" = "This is how your risk is calculated";
+"ExposureDetection_Explanation_Subtitle" = "This is how your risk is calculated";
 
 "ExposureDetection_Explanation_Text_Off" = "Your risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.";
 
@@ -116,9 +114,19 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "Since you have not activated exposure logging for long enough, we cannot calculate your risk of infection.\n\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to anyone else.";
 
-"ExposureDetection_Explanation_Text_Low" = "You have a low risk of infection since no encounter with a person diagnosed with COVID-19 has been logged, or your encounter was restricted to a short time and at a greater distance.\n\nTherefore, your risk of infection has been ranked as low.\n\nThe risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.";
+"ExposureDetection_Explanation_Text_Low" = "The risk of infection is calculated locally on your device, using exposure logging data. The calculation also takes into account distance and duration of any encounter with persons diagnosed with COVID-19, as well as their potential infectiousness. Your risk of infection cannot be seen by or passed on to anyone else.";
 
 "ExposureDetection_Explanation_Text_High" = "Therefore, your risk of infection has been ranked as increased.\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.\nWhen you get home, please also avoid close contact with members of your family or household.";
+
+"ExposureDetection_Explanation_FAQ_Link" = "https://www.coronawarn.app/en/faq/#encounter_but_green";
+
+"ExposureDetection_Explanation_FAQ_Link_Text" = "Further information";
+
+"ExposureDetection_LowRiskExposure_Title" = "Encounters with low risk";
+
+"ExposureDetection_LowRiskExposure_Subtitle" = "Why your risk of infection is low";
+
+"ExposureDetection_LowRiskExposure_Body" = "You encountered a person who was later diagnosed with COVID-19. Nevertheless, based on your exposure logging data, your risk of infection is low. The risk is low if your encounter was brief or occurred at a distance. You do not need to worry and there is no specific need for action. We recommend that you adhere to the prevailing rules regarding distancing and hygiene.";
 
 "ExposureDetection_Button_Enable" = "Activate Exposure Logging";
 
@@ -141,6 +149,8 @@
 "ExposureDetectionError_Alert_Action_Details" = "Details";
 
 "ExposureDetectionError_Alert_Message" = "An error occurred during exposure logging.";
+
+"ExposureDetectionError_Alert_AppConfig_Missing_Message" = "Your internet connection was lost. Please check the connection and then reopen the app.";
 
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Information about exposure logging functionality";
@@ -281,7 +291,7 @@
 
 "Onboarding_DeactivateExposureConfirmation_message" = "You can deactivate this feature at any time.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "A group of people are all using their devices in town.";
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "A group of persons use their devices around town.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_title" = "Let's fight coronavirus together";
 
@@ -570,7 +580,7 @@
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "The test can only be scanned once.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "If you delete the test, you can no longer retrieve your test result. You receive your test result from the test center or laboratory, independently of the app. If you are diagnosed with COVID-19, you will be notified by the public health authority.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "If you remove the test, you can no longer retrieve your test result. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with COVID-19, the public health authority will be notified through the legally prescribed channel and will contact you.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registration date unknown";
 
@@ -591,7 +601,9 @@
 
 "ExposureSubmissionError_NoResponse" = "The response has no content.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "The QR code is invalid or has been registered on another smartphone already. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with COVID-19, you will be notified by the public health authority.";
+"ExposureSubmissionError_QRAlreadyUsed" = "The QR code is invalid or has been registered on another smartphone already. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with COVID-19, the public health authority will be notified through the legally prescribed channel and will contact you.";
+
+"ExposureSubmissionError_QRAlreadyUsed_Title" = "QR code is invalid";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "The TAN is invalid or has been used already. Please try again or contact the technical hotline via App Information -> Technical Hotline.";
 

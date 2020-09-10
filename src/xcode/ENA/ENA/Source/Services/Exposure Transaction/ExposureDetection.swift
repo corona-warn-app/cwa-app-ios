@@ -113,7 +113,9 @@ final class ExposureDetection {
 
 	typealias Completion = (Result<ENExposureDetectionSummary, DidEndPrematurelyReason>) -> Void
 
+	#if INTEROP
 	var keypackageDownloads = [KeypackageDownload]()
+	#endif
 
 	func start(completion: @escaping Completion) {
 		self.completion = completion

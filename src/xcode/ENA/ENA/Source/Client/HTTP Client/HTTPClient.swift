@@ -71,20 +71,31 @@ final class HTTPClient: Client {
 		}
 	}
 
-	func submit(
-		keys: [ENTemporaryExposureKey],
-		tan: String,
-		isFake: Bool = false,
-		completion: @escaping SubmitKeysCompletionHandler
-	) {
-		guard let request = try? URLRequest.submitKeysRequest(
-			configuration: configuration,
-			tan: tan,
-			keys: keys,
-			headerValue: isFake ? 1 : 0
-			) else {
-				completion(.requestCouldNotBeBuilt)
+	func supportedCountries(completion: @escaping CountryFetchCompletion) {
+		appConfiguration { config in
+			guard let config = config else {
+				// the previous call needs a refactoring to return a proper reason WHY this may result in no configuration
+				completion(.failure(.invalidResponse))
 				return
+			}
+			#if INTEROP
+			let countries = config.supportedCountries.compactMap { Country(countryCode: $0) }
+			#else
+			let countries = [Country]()
+			#endif
+			completion(.success(countries))
+		}
+	}
+
+	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
+		let keys = payload.exposureKeys
+		let consent = payload.consentToFederation
+		let countries = payload.visitedCountries
+		let tan = payload.tan
+		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: consent, visitedCountries: countries, tan: tan)
+		guard let request = try? URLRequest.keySubmissionRequest(configuration: configuration, payload: payload, isFake: isFake) else {
+			completion(.failure(SubmissionError.requestCouldNotBeBuilt))
+			return
 		}
 
 		session.response(for: request, isFake: isFake) { result in
@@ -95,14 +106,13 @@ final class HTTPClient: Client {
 			switch result {
 			case let .success(response):
 				switch response.statusCode {
-				case 200: completion(nil)
-				case 201: completion(nil)
-				case 400: completion(.invalidPayloadOrHeaders)
-				case 403: completion(.invalidTan)
-				default: completion(.serverError(response.statusCode))
+				case 200..<300: completion(.success(()))
+				case 400: completion(.failure(SubmissionError.invalidPayloadOrHeaders))
+				case 403: completion(.failure(SubmissionError.invalidTan))
+				default: completion(.failure(SubmissionError.serverError(response.statusCode)))
 				}
 			case let .failure(error):
-				completion(.other(error))
+				completion(.failure(SubmissionError.other(error)))
 			}
 		}
 	}
@@ -542,29 +552,32 @@ private extension HTTPClient {
 }
 
 private extension URLRequest {
-	static func submitKeysRequest(
+
+	static func keySubmissionRequest(
 		configuration: HTTPClient.Configuration,
-		tan: String,
-		keys: [ENTemporaryExposureKey],
-		headerValue: Int
+		payload: CountrySubmissionPayload,
+		isFake: Bool
 	) throws -> URLRequest {
-		let payload = SAP_SubmissionPayload.with {
-			$0.padding = self.getSubmissionPadding(for: keys)
-			$0.keys = keys.compactMap { $0.sapKey }
+		// construct the request
+		let submPayload = SAP_SubmissionPayload.with {
+			$0.padding = self.getSubmissionPadding(for: payload.exposureKeys)
+			$0.keys = payload.exposureKeys.compactMap { $0.sapKey }
+			$0.consentToFederation = payload.consentToFederation
+			$0.visitedCountries = payload.visitedCountries.map { $0.id }
 		}
-		let payloadData = try payload.serializedData()
+		let payloadData = try submPayload.serializedData()
 		let url = configuration.submissionURL
-		
 		var request = URLRequest(url: url)
-		
+
+		// headers
 		request.setValue(
-			tan,
+			payload.tan,
 			// TAN code associated with this diagnosis key submission.
 			forHTTPHeaderField: "cwa-authorization"
 		)
 		
 		request.setValue(
-			"\(headerValue)",
+			isFake ? "1" : "0",
 			// Requests with a value of "0" will be fully processed.
 			// Any other value indicates that this request shall be
 			// handled as a fake request." ,
@@ -574,7 +587,7 @@ private extension URLRequest {
 		// Add header padding for the GUID, in case it is
 		// a fake request, otherwise leave empty.
 		request.setValue(
-			headerValue == 0 ? "" : String.getRandomString(of: 36),
+			isFake ? String.getRandomString(of: 36) : "",
 			forHTTPHeaderField: "cwa-header-padding"
 		)
 		
