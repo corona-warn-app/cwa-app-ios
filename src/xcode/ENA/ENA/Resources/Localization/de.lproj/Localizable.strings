@@ -580,6 +580,64 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionWarnOthers_consentUnderagesText" = "Die App-Nutzung ist ab 16 Jahren gestattet und richtet sich an Personen, die sich in Deutschland aufhalten.";
 
+"ExposureSubmissionWarnEuropeConsent_title" = "Europaweit warnen";
+
+"ExposureSubmissionWarnEuropeConsent_imageDescription" = "Auf einer Karte von Europa sind Menschen abgebildet, die ein Smartphone in der Hand halten. In der Mitte dieser Menschen ist eine Warnglocke abgebildet.";
+
+"ExposureSubmissionWarnEuropeConsent_continueButton" = "Weiter";
+
+"ExposureSubmissionWarnEuropeConsent_sectionTitle" = "Das Virus kennt keine Grenzen. Helfen Sie bei der grenzüberschreitenden Warnung!";
+
+"ExposureSubmissionWarnEuropeConsent_toggleTitle" = "Europaweit warnen";
+
+"ExposureSubmissionWarnEuropeConsent_description" = "Mehrere Länder in Europa arbeiten zusammen, um grenzüberschreitende Warnungen zu ermöglichen. Stellen Sie Ihre Zufallscodes den teilnehmenden Ländern zur Verfügung, damit auch Nutzer von offiziellen Corona-Apps anderer Länder gewarnt werden.";
+
+"ExposureSubmissionWarnEuropeConsent_consentTitle" = "Einwilligungserklärung";
+
+"ExposureSubmissionWarnEuropeConsent_consentDescription" = "Indem Sie “Europaweit warnen” selektieren und anschließend „Weiter“ antippen, willigen Sie ein, dass Ihr Testergebnis zusammen mit Ihren Zufalls-IDs der letzten 14 Tage an das von den teilnehmenden Ländern gemeinsam betriebene europäische Serversystem übermittelt wird. Ihr Testergebnis und ihre Zufalls-IDs können dann verwendet werden, um auch Nutzer der offiziellen Corona-Apps anderer Länder zu warnen, dass sie einem Infektionsrisiko ausgesetzt waren. Die Zufalls-IDs enthalten keine Angaben, die Rückschlüsse auf Ihre Identität oder Ihre Person zulassen.
+
+Die Übermittlung zur europaweiten Warnung ist freiwillig. Wenn Sie die Daten nicht übermitteln, entstehen Ihnen keine Nachteile. Da weder nachvollzogen noch kontrolliert werden kann, ob und wie Sie die App verwenden, erfährt außer Ihnen auch niemand, ob Sie Ihr Testergebnis zur europaweiten Warnung zur Verfügung stellen. Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen finden Sie unter dem Menüpunkt „Datenschutzinformationen“.";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_title" = "Europaweit warnen";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_continueButton" = "Weiter";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_description1" = "Haben Sie sich in den letzten 14 Tagen außerhalb von Deutschland aufgehalten?";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_description2" = "Ihre Angabe dient lediglich der Optimierung des Datenvolumens.";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionYes" = "Ja";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNo" = "Nein";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "Keine Angabe";
+
+"ExposureSubmissionWarnEuropeCountrySelection_title" = "Europaweit warnen";
+
+"ExposureSubmissionWarnEuropeCountrySelection_continueButton" = "Weiter";
+
+"ExposureSubmissionWarnEuropeCountrySelection_description1" = "In welchen Ländern haben Sie sich in den letzten 14 Tagen aufgehalten?";
+
+"ExposureSubmissionWarnEuropeCountrySelection_description2" = "Ihre Angabe dient lediglich der Optimierung des Datenvolumens.
+
+Die Auflistung enthält alle aktuell teilnehmenden Länder und wird stetig erweitert.";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionCountrySelection" = "Ich war in den folgenden Ländern";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries" = "Andere Länder";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "Keine Angabe";
+
+"ExposureSubmissionWarnEuropeCountrySelection_consentTitle" = "Einwilligungserklärung";
+
+"ExposureSubmissionWarnEuropeCountrySelection_consentDescription" = "Indem Sie “Weiter” antippen, willigen Sie ein, dass die von Ihnen ausgewählten Länder zusammen mit Ihren Zufalls-IDs an das von den teilnehmenden Ländern gemeinsam betriebene europäische Serversystem übermittelt werden. Die teilnehmenden Länder können diese Angaben für die Risiko-Ermittlung in ihren Corona-Apps nutzen, um zu bewerten, ob Ihre Zufalls-IDs für die Nutzer dieser Corona-Apps relevant sind.
+
+Die gesendeten Informationen über die ausgewählten Länder enthalten keine Angaben, die Rückschlüsse auf Ihre Identität oder Ihre Person zulassen.
+
+Die Übermittlung der Angaben über die ausgewählten Länder ist freiwillig. Wenn Sie die Angaben zu den ausgewählten Ländern nicht übermitteln, entstehen Ihnen keine Nachteile. Da weder nachvollzogen noch kontrolliert werden kann, ob und wie Sie die App verwenden, erfährt außer Ihnen niemand, ob Sie diese Informationen zur Verfügung stellen.
+
+Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen finden Sie unter dem Menüpunkt „Datenschutzinformationen“.";
+
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test kann nur einmal gescannt werden";
 
 "ExposureSubmissionResult_RemoveAlert_Text" = "Wenn Sie den Test entfernen, können Sie Ihr Testergebnis nicht mehr abrufen. Ihr Testergebnis bekommen Sie vom Testcenter oder Labor, unabhängig von der Gültigkeit des QR-Codes. Bei einem positiven Testergebnis wird auch das zuständige Gesundheitsamt auf dem gesetzlich vorgeschriebenen Weg informiert und sich an Sie wenden.";
@@ -623,6 +681,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionError_unknown" = "Unbekannter Fehler";
 
 "ExposureSubmissionError_defaultError" = "Fehler bei der Schlüssel-Übermittlung";
+
+"ExposureSubmissionError_noAppConfiguration" = "Ihre Internetverbindung wurde unterbrochen. Bitte prüfen Sie die Verbindung und öffnen Sie die App dann erneut.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";

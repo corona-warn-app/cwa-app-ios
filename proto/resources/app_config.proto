@@ -11,7 +11,7 @@ message ApplicationConfiguration {
     RiskScoreClassification riskScoreClasses = 2;
 
     RiskScoreParameters exposureConfig = 3;
-    
+
     AttenuationDuration attenuationDuration = 4;
 
     ApplicationVersionConfiguration appVersion = 5;

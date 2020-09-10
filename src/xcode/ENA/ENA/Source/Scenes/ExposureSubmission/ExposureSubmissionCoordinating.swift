@@ -46,7 +46,11 @@ protocol ExposureSubmissionCoordinating: class {
 	func showTanScreen()
 	func showQRScreen(qrScannerDelegate: ExposureSubmissionQRScannerDelegate)
 	func showWarnOthersScreen()
+	func showWarnEuropeScreen()
+	func showWarnEuropeTravelConfirmationScreen()
+	func showWarnEuropeCountrySelectionScreen()
 	func showThankYouScreen()
+
 }
 
 /// This delegate allows a class to be notified for life-cycle events of the coordinator.
@@ -55,7 +59,7 @@ protocol ExposureSubmissionCoordinatorDelegate: class {
 }
 
 /// Concrete implementation of the ExposureSubmissionCoordinator protocol.
-class ExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
+class ExposureSubmissionCoordinator: ExposureSubmissionCoordinating, RequiresAppDependencies {
 
 	// MARK: - Attributes.
 
@@ -70,6 +74,11 @@ class ExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
 	/// - NOTE: We need a strong (aka non-weak) reference here.
 	let exposureSubmissionService: ExposureSubmissionService
 
+	var consentToFederationGiven: Bool = false
+
+	var supportedCountries: [Country] = []
+	var visitedCountries: [Country] = []
+
 	// MARK: - Initializers.
 
 	init(
@@ -81,6 +90,7 @@ class ExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
 		self.exposureSubmissionService = exposureSubmissionService
 		self.delegate = delegate
 	}
+
 }
 
 // MARK: - Navigation.
@@ -153,6 +163,7 @@ extension ExposureSubmissionCoordinator {
 		let vc = createHotlineViewController()
 		push(vc)
 	}
+
 	func showTanScreen() {
 		let vc = createTanInputViewController()
 		push(vc)
@@ -164,7 +175,124 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	func showWarnOthersScreen() {
-		let vc = createWarnOthersViewController()
+		let vc = createWarnOthersViewController(
+			onPrimaryButtonTap: { [weak self] isLoading in
+				#if INTEROP
+					self?.showWarnEuropeScreen()
+				#else
+					isLoading(true)
+					self?.startSubmitProcess(
+						onSuccess: {
+							isLoading(false)
+							self?.showThankYouScreen()
+						},
+						onError: {
+							isLoading(false)
+						}
+					)
+				#endif
+			}
+		)
+
+		push(vc)
+	}
+
+	func showWarnEuropeScreen() {
+		let vc = createWarnEuropeConsentViewController(
+			onPrimaryButtonTap: { [weak self] consentToFederationGiven, isLoading in
+				self?.consentToFederationGiven = consentToFederationGiven
+
+				if consentToFederationGiven {
+					self?.showWarnEuropeTravelConfirmationScreen()
+				} else {
+					isLoading(true)
+					self?.startSubmitProcess(
+						onSuccess: {
+							isLoading(false)
+							self?.showThankYouScreen()
+						},
+						onError: {
+							isLoading(false)
+						}
+					)
+				}
+			}
+		)
+
+		push(vc)
+	}
+
+	func showWarnEuropeTravelConfirmationScreen() {
+		let vc = createWarnEuropeTravelConfirmationViewController(
+			onPrimaryButtonTap: { [weak self] selectedTravelConfirmationOption, isLoading in
+				isLoading(true)
+				self?.appConfigurationProvider.appConfiguration { applicationConfiguration in
+					isLoading(false)
+					#if INTEROP
+					// yes, this whole vc is loaded only if INTEROP is set but it's always compiled,
+					// so we need to handle this case with preprocessor macros
+					guard let supportedCountries = applicationConfiguration?.supportedCountries.compactMap({ Country(countryCode: $0) }) else {
+						self?.showENErrorAlert(.noAppConfiguration)
+						return
+					}
+					#else
+					let supportedCountries = [Country]()
+					#endif
+					self?.supportedCountries = supportedCountries
+
+					switch selectedTravelConfirmationOption {
+					case .yes:
+						self?.showWarnEuropeCountrySelectionScreen()
+						return
+					case .no:
+						self?.visitedCountries = []
+					case .preferNotToSay:
+						self?.visitedCountries = supportedCountries
+					}
+
+					isLoading(true)
+					self?.startSubmitProcess(
+						onSuccess: {
+							isLoading(false)
+							self?.showThankYouScreen()
+						},
+						onError: {
+							isLoading(false)
+						}
+					)
+				}
+			}
+		)
+
+		push(vc)
+	}
+
+	func showWarnEuropeCountrySelectionScreen() {
+		let vc = createWarnEuropeCountrySelectionViewController(
+			onPrimaryButtonTap: { [weak self] selectedCountrySelectionOption, isLoading in
+				guard let self = self else { return }
+
+				switch selectedCountrySelectionOption {
+				case .visitedCountries(let visitedCountries):
+					self.visitedCountries = visitedCountries
+				case .preferNotToSay:
+					self.visitedCountries = self.supportedCountries
+				}
+
+				isLoading(true)
+				self.startSubmitProcess(
+					onSuccess: {
+						isLoading(false)
+						self.showThankYouScreen()
+					},
+					onError: {
+						isLoading(false)
+					}
+				)
+			},
+			supportedCountries: supportedCountries
+		)
+
 		push(vc)
 	}
 
@@ -172,6 +300,73 @@ extension ExposureSubmissionCoordinator {
 		let vc = createSuccessViewController()
 		push(vc)
 	}
+
+	func startSubmitProcess(
+		onSuccess: @escaping () -> Void,
+		onError: @escaping () -> Void
+	) {
+		exposureSubmissionService.submitExposure(
+			consentToFederation: consentToFederationGiven,
+			visitedCountries: visitedCountries,
+			completionHandler: { [weak self] error in
+				switch error {
+				// We continue the regular flow even if there are no keys collected.
+				case .none, .noKeys:
+					onSuccess()
+
+				// Custom error handling for EN framework related errors.
+				case .internal, .unsupported, .rateLimited:
+					guard let error = error else {
+						logError(message: "error while parsing EN error.")
+						return
+					}
+					self?.showENErrorAlert(error, onCompletion: onError)
+
+				case .some(let error):
+					logError(message: "error: \(error.localizedDescription)", level: .error)
+					if let alert = self?.navigationController?.setupErrorAlert(message: error.localizedDescription) {
+						self?.navigationController?.present(alert, animated: true, completion: {
+							onError()
+						})
+					}
+				}
+			}
+		)
+	}
+
+	// MARK: - UI-related helpers.
+
+	/// Instantiates and shows an alert with a "More Info" button for
+	/// the EN errors. Assumes that the passed in `error` is either of type
+	/// `.internal`, `.unsupported` or `.rateLimited`.
+	func showENErrorAlert(_ error: ExposureSubmissionError, onCompletion: (() -> Void)? = nil) {
+		logError(message: "error: \(error.localizedDescription)", level: .error)
+		guard let alert = createENAlert(error) else { return }
+
+		navigationController?.present(alert, animated: true, completion: {
+			onCompletion?()
+		})
+	}
+
+	/// Creates an error alert for the EN errors.
+	func createENAlert(_ error: ExposureSubmissionError) -> UIAlertController? {
+		return UIViewController().setupErrorAlert(
+			message: error.localizedDescription,
+			secondaryActionTitle: error.faqURL != nil ? AppStrings.Common.errorAlertActionMoreInfo : nil,
+			secondaryActionCompletion: {
+				guard let url = error.faqURL else {
+					logError(message: "Unable to open FAQ page.", level: .error)
+					return
+				}
+
+				UIApplication.shared.open(
+					url,
+					options: [:]
+				)
+			}
+		)
+	}
+
 }
 
 // MARK: - Creation.
@@ -194,7 +389,6 @@ extension ExposureSubmissionCoordinator {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionOverviewViewController.self) { coder in
 			ExposureSubmissionOverviewViewController(coder: coder, coordinator: self, exposureSubmissionService: self.exposureSubmissionService)
 		}
-
 	}
 
 	private func createTanInputViewController() -> ExposureSubmissionTanInputViewController {
@@ -228,9 +422,36 @@ extension ExposureSubmissionCoordinator {
 		}
 	}
 
-	private func createWarnOthersViewController() -> ExposureSubmissionWarnOthersViewController {
+	private func createWarnOthersViewController(
+		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
+	) -> ExposureSubmissionWarnOthersViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnOthersViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionWarnOthersViewController(coder: coder, coordinator: self, exposureSubmissionService: self.exposureSubmissionService)
+			ExposureSubmissionWarnOthersViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap)
+		}
+	}
+
+	private func createWarnEuropeConsentViewController(
+		onPrimaryButtonTap: @escaping (Bool, @escaping (Bool) -> Void) -> Void
+	) -> ExposureSubmissionWarnEuropeConsentViewController {
+		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnEuropeConsentViewController.self) { coder -> UIViewController? in
+			ExposureSubmissionWarnEuropeConsentViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap)
+		}
+	}
+
+	private func createWarnEuropeTravelConfirmationViewController(
+		onPrimaryButtonTap: @escaping (ExposureSubmissionWarnEuropeTravelConfirmationViewController.TravelConfirmationOption, @escaping (Bool) -> Void) -> Void
+	) -> ExposureSubmissionWarnEuropeTravelConfirmationViewController {
+		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnEuropeTravelConfirmationViewController.self) { coder -> UIViewController? in
+			ExposureSubmissionWarnEuropeTravelConfirmationViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap)
+		}
+	}
+
+	private func createWarnEuropeCountrySelectionViewController(
+		onPrimaryButtonTap: @escaping (ExposureSubmissionWarnEuropeCountrySelectionViewController.CountrySelectionOption, @escaping (Bool) -> Void) -> Void,
+		supportedCountries: [Country]
+	) -> ExposureSubmissionWarnEuropeCountrySelectionViewController {
+		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnEuropeCountrySelectionViewController.self) { coder -> UIViewController? in
+			ExposureSubmissionWarnEuropeCountrySelectionViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap, supportedCountries: supportedCountries)
 		}
 	}
 
@@ -239,4 +460,5 @@ extension ExposureSubmissionCoordinator {
 			ExposureSubmissionSuccessViewController(coder: coder, coordinator: self)
 		}
 	}
+
 }

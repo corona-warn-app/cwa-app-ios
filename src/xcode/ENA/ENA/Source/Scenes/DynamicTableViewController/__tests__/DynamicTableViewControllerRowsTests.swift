@@ -119,7 +119,7 @@ extension DynamicTableViewControllerRowsTests {
 		guard let unwrappedCell = cell else {
 			return XCTFail("cell should not be nil")
 		}
-		let topSeparator = unwrappedCell.contentView.viewWithTag(100_001)
+		let topSeparator = unwrappedCell.viewWithTag(100_001)
 		let topSeparatorIsSubview = topSeparator?.isDescendant(of: unwrappedCell)
 		XCTAssertEqual(topSeparatorIsSubview, true)
 	}
@@ -161,7 +161,7 @@ extension DynamicTableViewControllerRowsTests {
 		guard let unwrappedCell = cell else {
 			return XCTFail("cell should not be nil")
 		}
-		let bottomSeparator = unwrappedCell.contentView.viewWithTag(100_002)
+		let bottomSeparator = unwrappedCell.viewWithTag(100_002)
 		let isSubview = bottomSeparator?.isDescendant(of: unwrappedCell)
 		XCTAssertEqual(isSubview, true)
 	}
@@ -203,7 +203,7 @@ extension DynamicTableViewControllerRowsTests {
 		guard let unwrappedCell = cell else {
 			return XCTFail("cell should not be nil")
 		}
-		let insetSeparator = unwrappedCell.contentView.viewWithTag(100_003)
+		let insetSeparator = unwrappedCell.viewWithTag(100_003)
 		let isSubview = insetSeparator?.isDescendant(of: unwrappedCell)
 		XCTAssertEqual(isSubview, true)
 	}
@@ -226,7 +226,7 @@ extension DynamicTableViewControllerRowsTests {
 		guard let unwrappedCell = cell else {
 			return XCTFail("cell should not be nil")
 		}
-		let insetSeparator = unwrappedCell.contentView.viewWithTag(100_003)
+		let insetSeparator = unwrappedCell.viewWithTag(100_003)
 		let isSubview = insetSeparator?.isDescendant(of: unwrappedCell)
 		XCTAssertEqual(isSubview, true)
 	}
