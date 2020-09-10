@@ -103,10 +103,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	private func setupUI() {
 		setupNavigationBarAppearance()
 
-		if !store.isOnboarded {
-			showOnboarding()
-		} else {
+		if store.isOnboarded {
 			showHome()
+		} else {
+			showOnboarding()
 		}
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 		window?.rootViewController = navigationController
