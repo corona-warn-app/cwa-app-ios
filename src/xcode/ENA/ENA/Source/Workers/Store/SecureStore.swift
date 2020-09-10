@@ -30,10 +30,22 @@ final class SecureStore: Store {
 		self.kvStore = try SQLiteKeyValueStore(with: directoryURL, key: key)
 	}
 
+	/// Removes most key/value pairs.
+	///
+	/// Keys whose values are not removed:
+	/// * `developerSubmissionBaseURLOverride`
+	/// * `developerDistributionBaseURLOverride`
+	/// * `developerVerificationBaseURLOverride`
+	///
+	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:flush` call
 	func flush() {
 		try? kvStore.flush()
 	}
 
+	/// Database reset & re-initialization with a given key
+	/// - Parameter key: the key for the new database; if no key is given, no new database will be created
+	///
+	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:clearAll:` call
 	func clearAll(key: String?) {
 		try? kvStore.clearAll(key: key)
 	}
@@ -217,14 +229,17 @@ extension SecureStore {
 	}
 
 	private convenience init(subDirectory: String, isRetry: Bool) {
+		// swiftlint:disable:next force_try
+		let keychain = try! KeychainHelper()
+
 		do {
 			let directoryURL = try SecureStore.databaseDirectory(at: subDirectory)
 			let fileManager = FileManager.default
 			if fileManager.fileExists(atPath: directoryURL.path) {
 				// fetch existing key from keychain or generate a new one
 				let key: String
-				if let keyData = KeychainHelper.loadFromKeychain(key: SecureStore.keychainDatabaseKey) {
-					#if UITESTING
+				if let keyData = keychain.loadFromKeychain(key: SecureStore.keychainDatabaseKey) {
+					#if UITESTING // enabled in UI tests
 					if ProcessInfo.processInfo.arguments.contains(UITestingParameters.SecureStoreHandling.simulateMismatchingKey.rawValue) {
 						// injecting a wrong key to simulate a mismatch, e.g. because of backup restoration or other reasons
 						key = "wrong 🔑"
@@ -235,12 +250,12 @@ extension SecureStore {
 					key = String(decoding: keyData, as: UTF8.self)
 					#endif
 				} else {
-					key = try KeychainHelper.generateDatabaseKey()
+					key = try keychain.generateDatabaseKey()
 				}
 				try self.init(at: directoryURL, key: key)
 			} else {
 				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
-				let key = try KeychainHelper.generateDatabaseKey()
+				let key = try keychain.generateDatabaseKey()
 				try self.init(at: directoryURL, key: key)
 			}
 		} catch is SQLiteStoreError where isRetry == false {
@@ -264,7 +279,7 @@ extension SecureStore {
 		do {
 			log(message: "⚠️ performing hard database reset ⚠️")
 			// remove database key
-			try KeychainHelper.clearInKeychain(key: SecureStore.keychainDatabaseKey)
+			try KeychainHelper().clearInKeychain(key: SecureStore.keychainDatabaseKey)
 
 			// remove database
 			let directoryURL = try databaseDirectory(at: path)

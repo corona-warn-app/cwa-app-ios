@@ -169,8 +169,8 @@ final class SQLiteKeyValueStore {
 		}
 	}
 
-	/// Removes all key/value pairs from the Store
-	/// - Parameters If the key is nil, the action is same as the `resetDatabase`, otherwise
+	/// Removes all key/value pairs from the Store and creates a new database with a given key
+	/// - Parameters The new database key/password. If the key is nil, the action is same as the `resetDatabase`
 	func clearAll(key: String?) throws {
 		try resetDatabase()
 		guard let key = key else {

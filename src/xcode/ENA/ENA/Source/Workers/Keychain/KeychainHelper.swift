@@ -20,20 +20,30 @@
 import Foundation
 
 enum KeychainError: Error {
+	case initializationError
 	case clearItem(reason: String? = nil)
 	case save(reason: String? = nil)
 	case keyGenerationFail
 }
 
-enum KeychainHelper {
-	// swiftlint:disable:next force_unwrapping
-	private static let _service = Bundle.main.bundleIdentifier!
+struct KeychainHelper {
 
-	static func clearInKeychain(key: String) throws {
+	/// The service this helper is registered to
+	let service: String
+
+	/// Initializer
+	/// - Parameter service: the service to use; defaults to the main bundle id
+	// swiftlint:disable:next force_unwrapping
+	init(service: String = Bundle.main.bundleIdentifier!) throws {
+		self.service = service
+		if self.service.isEmpty { throw KeychainError.initializationError }
+	}
+
+	func clearInKeychain(key: String) throws {
 		let deleteResult = SecItemDelete(
 			.keychainQueryForDeleting(
 				account: key,
-				service: _service
+				service: service
 			)
 		)
 		// ignore 'item not found errors' as this might happen, e.g. on first launch
@@ -45,14 +55,12 @@ enum KeychainHelper {
 	}
 
 	@discardableResult
-	static func saveToKeychain(key: String, data: Data) throws -> Bool {
-
+	func saveToKeychain(key: String, data: Data) throws -> Bool {
 		try clearInKeychain(key: key)
-
 		let addResult = SecItemAdd(
 			.keychainQueryForAdding(
 				account: key,
-				service: _service,
+				service: service,
 				data: data
 			),
 			nil
@@ -71,10 +79,10 @@ enum KeychainHelper {
 		return true
 	}
 
-	static func loadFromKeychain(key: String) -> Data? {
+	func loadFromKeychain(key: String) -> Data? {
 		var dataRef: AnyObject?
 		let status: OSStatus = SecItemCopyMatching(
-			.keychainQueryForGetting(account: key, service: _service),
+			.keychainQueryForGetting(account: key, service: service),
 			&dataRef
 		)
 		if
@@ -90,7 +98,7 @@ enum KeychainHelper {
 	/// Generates and stores a new random database key
 	/// - Throws: a `KeychainError` in case the generation or database save fails
 	/// - Returns: the newly created key
-	static func generateDatabaseKey() throws -> String {
+	func generateDatabaseKey() throws -> String {
 		var bytes = [UInt8](repeating: 0, count: 32)
 		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
 		guard result == errSecSuccess else {

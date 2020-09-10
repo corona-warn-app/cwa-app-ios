@@ -225,7 +225,7 @@ extension SceneDelegate: CoordinatorDelegate {
 	/// Resets all stores and notifies the Onboarding.
 	func coordinatorUserDidRequestReset() {
 		do {
-			let newKey = try KeychainHelper.generateDatabaseKey()
+			let newKey = try KeychainHelper().generateDatabaseKey()
 			store.clearAll(key: newKey)
 		} catch {
 			fatalError("Creating new database key failed")
