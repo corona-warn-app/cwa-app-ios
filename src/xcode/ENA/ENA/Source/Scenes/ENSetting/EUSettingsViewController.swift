@@ -25,7 +25,8 @@ class EUSettingsViewController: DynamicTableViewController {
 
 	// MARK: - Attributes.
 
-	fileprivate var viewModel =
+	private var subscriptions = Set<AnyCancellable>()
+	private var viewModel =
 		EUSettingsViewModel(
 			countries: [
 				Country(countryCode: "DE"),
@@ -34,32 +35,26 @@ class EUSettingsViewController: DynamicTableViewController {
 				].compactMap { $0 }
 		)
 
-	var subscriptions = Set<AnyCancellable>()
 
 	// MARK: - View life cycle methods.
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		setUp()
+		setupView()
 	}
 
 	// MARK: - View setup methods.
 
-	private func setUp() {
-		// title = "### Europaweite Risiko-Ermittlung"
+	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
-
 		setupTableView()
+		setupAllCountriesSwitch()
 		setupBackButton()
 	}
 
 	private func setupTableView() {
 		tableView.separatorStyle = .none
 		dynamicTableViewModel = viewModel.euSettingsModel()
-
-		viewModel.errorChanges.sink(receiveValue: { _ in
-			self.show14DaysErrorAlert()
-			}).store(in: &subscriptions)
 		
 		tableView.register(
 			UINib(
@@ -78,16 +73,27 @@ class EUSettingsViewController: DynamicTableViewController {
 		)
 	}
 
+	private func setupAllCountriesSwitch() {
+		viewModel.errorChanges
+			.sink { self.show14DaysErrorAlert(countries: $0) }
+			.store(in: &subscriptions)
+	}
+
 	// MARK: - Helper methods.
 
-	private func show14DaysErrorAlert() {
+	private func show14DaysErrorAlert(countries: [Country]) {
 		let alert = setupErrorAlert(
 			title: AppStrings.ExposureNotificationSetting.eu14DaysAlertTitle,
 			message: AppStrings.ExposureNotificationSetting.eu14DaysAlertDescription,
 			okTitle: AppStrings.ExposureNotificationSetting.eu14DaysAlertDeactivateTitle,
 			secondaryActionTitle: AppStrings.ExposureNotificationSetting.eu14DaysAlertBackTitle,
 			completion: nil,
-			secondaryActionCompletion: nil
+			secondaryActionCompletion: {
+				// Handle 'back' action.
+				self.viewModel.countryCells
+					.filter { countries.contains($0.country) }
+					.forEach { $0.isOn = true }
+			}
 		)
 		present(alert, animated: true, completion: nil)
 	}
@@ -104,34 +110,48 @@ private extension EUSettingsViewController {
 
 private class EUSettingsViewModel {
 
+	// MARK: - Model.
 
-	let countries: [Country]
-	var enabled = [Country: Bool]()
-	private(set) var allCountriesEnabled: Bool
+	class CellModel {
+		let country: Country
+		@Published var isOn: Bool = false
 
-	init(countries: [Country]) {
-		self.countries = countries
-		allCountriesEnabled = false
-		countries.forEach { self.enabled[$0] = false }
+		init(country: Country) {
+			self.country = country
+		}
 	}
 
-	let observedChanges = PassthroughSubject<Bool, Error>()
-	let errorChanges = PassthroughSubject<Void, Never>()
+	// MARK: - Attributes.
+
+	private var subscriptions = Set<AnyCancellable>()
+	@Published var allCountriesOn: Bool = false
+	let countryCells: [CellModel]
+	let errorChanges = PassthroughSubject<[Country], Never>()
+
+	// MARK: - Initializers.
+
+	init(countries: [Country]) {
+		self.countryCells = countries.map { CellModel(country: $0) }
+		self.countryCells.forEach {
+			// HACK: for some reason we need to add a delay here so the model has time to update.
+			$0.$isOn
+				.delay(for: .milliseconds(50), scheduler: RunLoop.main)
+				.sink { _ in self.allCountriesOn = self.countryCells.allSatisfy { $0.isOn } }
+				.store(in: &subscriptions)
+		}
+	}
+
+	// MARK: - DynamicTableViewModel.
 
 	func countrySwitchSection() -> DynamicSection {
 		DynamicSection.section(
 			separators: true,
-			cells: countries.map { country in
-				DynamicCell.switchCell(
-					text: country.localizedName,
-					icon: country.flag,
-					isOn: enabled[country] ?? false,
-					onSwitch: observedChanges,
-					onToggle: {
-						self.enabled[country] = $0
-						if !$0 { self.errorChanges.send() }
-						print("Set \(country.localizedName) to \(self.enabled[country]!)")
-					})
+			cells: countryCells.map { cellModel in
+				DynamicCell.switchCell(cellModel: cellModel) { isOn in
+					cellModel.isOn = isOn
+					// Send the current country.
+					if isOn == false { self.errorChanges.send([cellModel.country]) }
+				}
 			}
 		)
 	}
@@ -153,10 +173,14 @@ private class EUSettingsViewModel {
 				cells: [
 					DynamicCell.switchCell(
 						text: AppStrings.ExposureNotificationSetting.euAllCountries,
-						isOn: allCountriesEnabled,
-						onToggle: {
-							self.observedChanges.send($0)
-							if !$0 { self.errorChanges.send() }
+						isOn: allCountriesOn,
+						onSwitch: self.$allCountriesOn,
+						onToggle: { isOn in
+							self.countryCells.forEach { $0.isOn = isOn }
+							if isOn == false {
+								// This switch modifies all countries.
+								self.errorChanges.send(self.countryCells.map { $0.country })
+							}
 					 })
 				]
 			),
@@ -201,20 +225,45 @@ private class EUSettingsViewModel {
 
 private extension DynamicCell {
 
-	static func switchCell(text: String, icon: UIImage? = nil, isOn: Bool = false, onSwitch: PassthroughSubject<Bool, Error>? = nil, onToggle: SwitchCell.ToggleHandler? = nil) -> Self {
+	static func switchCell(text: String, icon: UIImage? = nil, isOn: Bool = false, onSwitch: Published<Bool>.Publisher? = nil, onToggle: SwitchCell.ToggleHandler? = nil) -> Self {
 		.custom(
 			withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.switchCell,
 			action: .none,
 			accessoryAction: .none
 		) { _, cell, _ in
 			guard let cell = cell as? SwitchCell else { return }
-			cell.configure(text: text, icon: icon, isOn: isOn, onSwitchSubject: onSwitch, onToggle: onToggle)
+			cell.configure(
+				text: text,
+				icon: icon,
+				isOn: isOn,
+				onSwitchSubject: onSwitch,
+				onToggle: onToggle
+			)
 		}
 	}
+
+	static func switchCell(cellModel: EUSettingsViewModel.CellModel, onToggle: SwitchCell.ToggleHandler?) -> Self {
+		.custom(
+			withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.switchCell,
+			action: .none,
+			accessoryAction: .none
+		) { _, cell, _ in
+			guard let cell = cell as? SwitchCell else { return }
+			cell.configure(
+				text: cellModel.country.localizedName,
+				icon: cellModel.country.flag,
+				isOn: cellModel.isOn,
+				onSwitchSubject: cellModel.$isOn,
+				onToggle: onToggle
+			)
+		}
+	}
+
 }
 
 // TODO: Move to separate file.
 
+/// - NOTE: The implementation may raise a 'kCFRunLoopCommonModes' warning that is a known UIKit bug: https://developer.apple.com/forums/thread/132035
 private class SwitchCell: UITableViewCell {
 
 	typealias ToggleHandler = (Bool) -> Void
@@ -223,7 +272,7 @@ private class SwitchCell: UITableViewCell {
 
 	private let uiSwitch: UISwitch
 	private var onToggleAction: ToggleHandler?
-	private var onSwitch: AnyCancellable?
+	private var subscriptions = Set<AnyCancellable>()
 
 	// MARK: - Initializers.
 
@@ -254,20 +303,14 @@ private class SwitchCell: UITableViewCell {
 
 	// MARK: - Public API.
 
-	func set(to on: Bool) {
-		uiSwitch.setOn(on, animated: true)
-		onToggle()
-	}
-
-	func configure(text: String, icon: UIImage? = nil, isOn: Bool = false, onSwitchSubject: PassthroughSubject<Bool, Error>? = nil, onToggle: ToggleHandler? = nil) {
+	func configure(text: String, icon: UIImage? = nil, isOn: Bool = false, onSwitchSubject: Published<Bool>.Publisher? = nil, onToggle: ToggleHandler? = nil) {
 		imageView?.image = icon
 		textLabel?.text = text
 		uiSwitch.isOn = isOn
 		onToggleAction = onToggle
-		onSwitch = onSwitchSubject?.sink(
-			receiveCompletion: { _ in },
-			receiveValue: { self.set(to: $0) }
-		)
+		onSwitchSubject?
+			.sink { self.uiSwitch.setOn($0, animated: true) }
+			.store(in: &subscriptions)
 	}
 }
 
