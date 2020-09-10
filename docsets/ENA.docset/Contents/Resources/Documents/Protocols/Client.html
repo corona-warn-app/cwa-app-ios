@@ -80,9 +80,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA6ClientP27SubmitKeysCompletionHandlera"></a>
-                      <a name="//apple_ref/swift/Alias/SubmitKeysCompletionHandler" class="dashAnchor"></a>
-                      <a class="direct-link" href="../Protocols/Client/SubmitKeysCompletionHandler.html">SubmitKeysCompletionHandler</a>
+                      <a name="/s:3ENA6ClientP21KeySubmissionResponsea"></a>
+                      <a name="//apple_ref/swift/Alias/KeySubmissionResponse" class="dashAnchor"></a>
+                      <a class="direct-link" href="../Protocols/Client/KeySubmissionResponse.html">KeySubmissionResponse</a>
                       </code>
                     </div>
                   </li>
@@ -158,6 +158,15 @@
                       </code>
                     </div>
                   </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA6ClientP22CountryFetchCompletiona"></a>
+                      <a name="//apple_ref/swift/Alias/CountryFetchCompletion" class="dashAnchor"></a>
+                      <a class="direct-link" href="../Protocols/Client/CountryFetchCompletion.html">CountryFetchCompletion</a>
+                      </code>
+                    </div>
+                  </li>
                 </ul>
               </div>
               <div class="task-group">
@@ -192,6 +201,33 @@
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appConfiguration</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/Client/AppConfigurationCompletion.html">AppConfigurationCompletion</a></span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA6ClientP18supportedCountries10completionyys6ResultOySayAA7CountryVGSo12NSURLSessionCAAE8ResponseV7FailureOGc_tF"></a>
+                      <a name="//apple_ref/swift/Method/supportedCountries(completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA6ClientP18supportedCountries10completionyys6ResultOySayAA7CountryVGSo12NSURLSessionCAAE8ResponseV7FailureOGc_tF">supportedCountries(completion:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Gets the list of available countries for key submission.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">supportedCountries</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/Client/CountryFetchCompletion.html">CountryFetchCompletion</a></span><span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -466,12 +502,25 @@ Parameters:</p>
                       </section>
                     </div>
                   </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Submit%20keys"></a>
+                  <a name="//apple_ref/swift/Section/Submit keys" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/Submit%20keys"></a>
+                    <h3 class="section-name"><p>Submit keys</p>
+</h3>
+                  </div>
+                </div>
+                <ul>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA6ClientP6submit4keys3tan6isFake10completionySaySo22ENTemporaryExposureKeyCG_SSSbyAA15SubmissionErrorOSgctF"></a>
-                      <a name="//apple_ref/swift/Method/submit(keys:tan:isFake:completion:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA6ClientP6submit4keys3tan6isFake10completionySaySo22ENTemporaryExposureKeyCG_SSSbyAA15SubmissionErrorOSgctF">submit(keys:<wbr>tan:<wbr>isFake:<wbr>completion:<wbr>)</a>
+                      <a name="/s:3ENA6ClientP6submit7payload6isFake10completionyAA24CountrySubmissionPayloadV_Sbys6ResultOyyts5Error_pGctF"></a>
+                      <a name="//apple_ref/swift/Method/submit(payload:isFake:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA6ClientP6submit7payload6isFake10completionyAA24CountrySubmissionPayloadV_Sbys6ResultOyyts5Error_pGctF">submit(payload:<wbr>isFake:<wbr>completion:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -479,13 +528,7 @@ Parameters:</p>
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Submits exposure keys to the backend. This makes the local information available to the world so that the risk of others can be calculated on their local devices.
-Parameters:</p>
-
-<ul>
-<li>keys: An array of <code>ENTemporaryExposureKey</code>s  to submit to the backend.</li>
-<li>tan: A transaction number</li>
-</ul>
+                          <p>Submits exposure keys to the backend. This makes the local information available to the world so that the risk of others can be calculated on their local devices.</p>
 
                         </div>
                         <div class="declaration">
@@ -493,13 +536,55 @@ Parameters:</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">submit</span><span class="p">(</span>
-	<span class="nv">keys</span><span class="p">:</span> <span class="p">[</span><span class="kt">ENTemporaryExposureKey</span><span class="p">],</span>
-	<span class="nv">tan</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+	<span class="nv">payload</span><span class="p">:</span> <span class="kt"><a href="../Structs/CountrySubmissionPayload.html">CountrySubmissionPayload</a></span><span class="p">,</span>
 	<span class="nv">isFake</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
-	<span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/Client/SubmitKeysCompletionHandler.html">SubmitKeysCompletionHandler</a></span>
+	<span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/Client/KeySubmissionResponse.html">KeySubmissionResponse</a></span>
 <span class="p">)</span></code></pre>
 
                           </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>payload</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>A set of properties to provide during the submission process</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>isFake</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>flag to indicate a fake request</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>completion</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>the completion handler of the submission call</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </section>
                     </div>
@@ -784,6 +869,9 @@ Parameters:</p>
                   <a href="../Classes/DynamicTableViewIconCell.html">DynamicTableViewIconCell</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Classes/DynamicTableViewOptionGroupCell.html">DynamicTableViewOptionGroupCell</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Classes/DynamicTableViewRoundedCell.html">DynamicTableViewRoundedCell</a>
                 </li>
                 <li class="nav-group-task">
@@ -946,6 +1034,30 @@ Parameters:</p>
                   <a href="../Classes/ExposureSubmissionTestResultViewController/CustomCellReuseIdentifiers.html">– CustomCellReuseIdentifiers</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Classes/ExposureSubmissionWarnEuropeConsentViewController.html">ExposureSubmissionWarnEuropeConsentViewController</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ExposureSubmissionWarnEuropeConsentViewController/CustomCellReuseIdentifiers.html">– CustomCellReuseIdentifiers</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ExposureSubmissionWarnEuropeCountrySelectionViewController.html">ExposureSubmissionWarnEuropeCountrySelectionViewController</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ExposureSubmissionWarnEuropeCountrySelectionViewController/CountrySelectionOption.html">– CountrySelectionOption</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ExposureSubmissionWarnEuropeCountrySelectionViewController/CustomCellReuseIdentifiers.html">– CustomCellReuseIdentifiers</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ExposureSubmissionWarnEuropeTravelConfirmationViewController.html">ExposureSubmissionWarnEuropeTravelConfirmationViewController</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ExposureSubmissionWarnEuropeTravelConfirmationViewController/TravelConfirmationOption.html">– TravelConfirmationOption</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ExposureSubmissionWarnEuropeTravelConfirmationViewController/CustomCellReuseIdentifiers.html">– CustomCellReuseIdentifiers</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Classes/ExposureSubmissionWarnOthersViewController.html">ExposureSubmissionWarnOthersViewController</a>
                 </li>
                 <li class="nav-group-task">
@@ -1069,6 +1181,12 @@ Parameters:</p>
                   <a href="../Classes/MockExposureSubmissionService.html">MockExposureSubmissionService</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Classes/MultipleChoiceChoiceView.html">MultipleChoiceChoiceView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/MultipleChoiceOptionView.html">MultipleChoiceOptionView</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Classes/NotificationSettingsOffTableViewCell.html">NotificationSettingsOffTableViewCell</a>
                 </li>
                 <li class="nav-group-task">
@@ -1097,6 +1215,27 @@ Parameters:</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/OnboardingInfoViewController.html">OnboardingInfoViewController</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/OptionGroupView.html">OptionGroupView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/OptionGroupView/OptionViewType.html">– OptionViewType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/OptionGroupViewModel.html">OptionGroupViewModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/OptionGroupViewModel/Choice.html">– Choice</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/OptionGroupViewModel/Option.html">– Option</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/OptionGroupViewModel/Selection.html">– Selection</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/OptionView.html">OptionView</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/PixelPerfectLayoutConstraint.html">PixelPerfectLayoutConstraint</a>
@@ -1241,6 +1380,15 @@ Parameters:</p>
                   <a href="../Enums/AccessibilityIdentifiers/ExposureSubmissionWarnOthers.html">– ExposureSubmissionWarnOthers</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/AccessibilityIdentifiers/ExposureSubmissionWarnEuropeConsent.html">– ExposureSubmissionWarnEuropeConsent</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/AccessibilityIdentifiers/ExposureSubmissionWarnEuropeTravelConfirmation.html">– ExposureSubmissionWarnEuropeTravelConfirmation</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/AccessibilityIdentifiers/ExposureSubmissionWarnEuropeCountrySelection.html">– ExposureSubmissionWarnEuropeCountrySelection</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/AccessibilityIdentifiers/ExposureSubmission.html">– ExposureSubmission</a>
                 </li>
                 <li class="nav-group-task">
@@ -1293,6 +1441,15 @@ Parameters:</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/AppStrings/ExposureSubmissionWarnOthers.html">– ExposureSubmissionWarnOthers</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/AppStrings/ExposureSubmissionWarnEuropeConsent.html">– ExposureSubmissionWarnEuropeConsent</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/AppStrings/ExposureSubmissionWarnEuropeTravelConfirmation.html">– ExposureSubmissionWarnEuropeTravelConfirmation</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/AppStrings/ExposureSubmissionWarnEuropeCountrySelection.html">– ExposureSubmissionWarnEuropeCountrySelection</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/AppStrings/ExposureSubmissionSuccess.html">– ExposureSubmissionSuccess</a>
@@ -1499,6 +1656,9 @@ Parameters:</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/ExposureSubmissionServiceFactory.html">ExposureSubmissionServiceFactory</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/Locale.html">Locale</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/NSMutableAttributedString.html">NSMutableAttributedString</a>
@@ -1816,6 +1976,12 @@ Parameters:</p>
                   <a href="../Structs/CodableExposureDetectionSummary.html">CodableExposureDetectionSummary</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/Country.html">Country</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CountrySubmissionPayload.html">CountrySubmissionPayload</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/DMExportableKey.html">DMExportableKey</a>
                 </li>
                 <li class="nav-group-task">
@@ -1941,7 +2107,7 @@ Parameters:</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://github.com/corona-warn-app/cwa-app-ios" target="_blank" rel="external">Corona-Warn-App</a>. All rights reserved. (Last updated: 2020-09-08)</p>
+          <p>&copy; 2020 <a class="link" href="https://github.com/corona-warn-app/cwa-app-ios" target="_blank" rel="external">Corona-Warn-App</a>. All rights reserved. (Last updated: 2020-09-10)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </div>
