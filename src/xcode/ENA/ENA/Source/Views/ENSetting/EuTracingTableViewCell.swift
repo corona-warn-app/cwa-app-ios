@@ -19,10 +19,7 @@
 
 import UIKit
 
-// TODO (KGA): Rethink ActionCell inheritance, not implemented for the moment
 class EuTracingTableViewCell: UITableViewCell, ConfigurableENSettingCell {
-	
-	
 	
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var countryList: UILabel!
@@ -42,9 +39,9 @@ class EuTracingTableViewCell: UITableViewCell, ConfigurableENSettingCell {
     }
 	
 	func configure(for state: ENStateHandler.State) {
-		self.titleLabel.text = "!!!Europaweite Risiko-Ermittlung"
-		self.countryList.text = "!!!! DUMMY: Spanien, Griechenland, Italien"
-		self.stateLabel.text = "NN"
+		self.titleLabel.text = "!!!###Europaweite Risiko-Ermittlung"
+		self.countryList.text = "!!!!### DUMMY: Spanien, Griechenland, Italien"
+		self.stateLabel.text = "###NN"
 	}
 
 }

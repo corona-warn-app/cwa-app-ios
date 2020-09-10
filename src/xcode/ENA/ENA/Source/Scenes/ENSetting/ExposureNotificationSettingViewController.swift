@@ -59,6 +59,8 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 		navigationItem.largeTitleDisplayMode = .always
 		setUIText()
 		tableView.sectionFooterHeight = 0.0
+		
+		tableView.delegate = self
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -186,6 +188,12 @@ extension ExposureNotificationSettingViewController {
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
 		1
 	}
+	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		print("section: \(indexPath.section)")
+        print("row: \(indexPath.row)")
+		
+	}
 
 	override func tableView(
 		_ tableView: UITableView,
@@ -209,6 +217,7 @@ extension ExposureNotificationSettingViewController {
 				let euTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.euTracingCell.cellType.rawValue, for: indexPath)
 				if let euTracingCell = euTracingCell as? EuTracingTableViewCell {
 					euTracingCell.configure(for: .enabled)
+					euTracingCell.selectionStyle = .none
 					return euTracingCell
 				}
 			case .tracingCell, .actionDetailCell:
