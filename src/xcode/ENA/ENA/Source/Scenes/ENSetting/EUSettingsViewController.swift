@@ -187,6 +187,7 @@ private class EUSettingsViewModel {
 			.section(cells: [
 				.footnote(
 					text: AppStrings.ExposureNotificationSetting.euDataTrafficDescription,
+					color: .enaColor(for: .textPrimary2),
 					accessibilityIdentifier: ""
 				),
 				.space(height: 16)
@@ -195,6 +196,7 @@ private class EUSettingsViewModel {
 			.section(cells: [
 				.footnote(
 					text: AppStrings.ExposureNotificationSetting.euRegionDescription,
+					color: .enaColor(for: .textPrimary2),
 					accessibilityIdentifier: ""
 				),
 				.stepCell(
