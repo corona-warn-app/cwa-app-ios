@@ -89,6 +89,9 @@ class OptionGroupViewModel {
 	}
 
 	func datePickerOptionTapped(index: Int, date: Date) {
+		guard case .datePickerOption = options[index] else {
+			fatalError("Option at index \(index) is not of type .datePickerOption")
+		}
 		selection = .datePickerOption(index: index, selectedDate: date)
 	}
 
