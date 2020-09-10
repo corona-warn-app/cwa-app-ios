@@ -19,6 +19,8 @@
 
 import ExposureNotification
 
+#if INTEROP
+
 class KeypackageDownload {
 
 	typealias Completion = (Result<WrittenPackages, ExposureDetection.DidEndPrematurelyReason>) -> Void
@@ -28,7 +30,7 @@ class KeypackageDownload {
 	private var completion: Completion?
 
 
-	init(country: String, delegate: ExposureDetectionDelegate) {
+	init(country: String, delegate: ExposureDetectionDelegate?) {
 		self.country = country
 		self.delegate = delegate
 	}
@@ -69,3 +71,4 @@ class KeypackageDownload {
 		completion?(.success(writtenPackages))
 	}
 }
+#endif

@@ -36,19 +36,26 @@ final class ExposureDetection {
 
 	#if INTEROP
 
-	private func detectSummary(writtenPackages: WrittenPackages, configuration: ENExposureConfiguration?) {
-		guard let configuration = configuration else {
-			endPrematurely(reason: .noExposureConfiguration)
-			return
-		}
-		progress = self.delegate?.exposureDetection(
-			self,
-			detectSummaryWithConfiguration: configuration,
-			writtenPackages: writtenPackages
-		) { [weak self] result in
-			writtenPackages.cleanUp()
-			self?.useSummaryResult(result)
-		}
+	private func detectSummary(writtenPackages: WrittenPackages) {
+
+		delegate?.exposureDetection(country: "DE", downloadConfiguration: { [weak self] configuration, _ in
+			guard let self = self else { return }
+
+			guard let configuration = configuration else {
+				self.endPrematurely(reason: .noExposureConfiguration)
+				return
+			}
+
+			self.progress = self.delegate?.exposureDetection(
+				self,
+				detectSummaryWithConfiguration: configuration,
+				writtenPackages: writtenPackages
+			) { [weak self] result in
+				writtenPackages.cleanUp()
+				self?.useSummaryResult(result)
+			}
+
+		})
 	}
 
 	#else
@@ -106,14 +113,45 @@ final class ExposureDetection {
 
 	typealias Completion = (Result<ENExposureDetectionSummary, DidEndPrematurelyReason>) -> Void
 
+	var keypackageDownloads = [KeypackageDownload]()
+
 	func start(completion: @escaping Completion) {
 		self.completion = completion
 
 		#if INTEROP
 
-		// TODO
-		// Create KeypackageDownload for every country.
-		// Collect the writtenPackages and call detectSummary.
+		let countries = ["DE", "DE", "DE"]
+		var urls = [URL]()
+		var errors = [ExposureDetection.DidEndPrematurelyReason]()
+
+		let group = DispatchGroup()
+
+		for country in countries {
+			group.enter()
+
+			let keypackageDownload = KeypackageDownload(country: country, delegate: delegate)
+			keypackageDownloads.append(keypackageDownload)
+			keypackageDownload.execute { result in
+
+				switch result {
+				case .success(let writtenPackages):
+					urls.append(contentsOf: writtenPackages.urls)
+				case .failure(let didEndPrematurelyReason):
+					errors.append(didEndPrematurelyReason)
+				}
+
+				group.leave()
+			}
+		}
+
+		group.notify(queue: .main) {
+			if let error = errors.first {
+				self.endPrematurely(reason: error)
+			} else {
+				let writtenPackages = WrittenPackages(urls: urls)
+				self.detectSummary(writtenPackages: writtenPackages)
+			}
+		}
 
 		#else
 
