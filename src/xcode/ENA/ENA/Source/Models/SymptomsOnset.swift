@@ -55,7 +55,7 @@ enum SymptomsOnset {
 		case .moreThanTwoWeeksAgo:
 			return [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5]
 		case .daysSinceOnset(let daysSinceOnset):
-			precondition(daysSinceOnset < 22)
+			assert(daysSinceOnset < 22)
 			return SymptomsOnset.daysSinceOnsetRiskVectors[min(daysSinceOnset, 21)]
 		}
 	}
