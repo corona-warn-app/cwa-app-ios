@@ -28,8 +28,7 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 	}
 	
 	var enabledCountriesID: [Country] {
-//		guard let countries = store.euTracingSettings?.enabledCountries else { return [] }
-		let countries = ["DE", "IT"]
+		guard let countries = store.euTracingSettings?.enabledCountries else { return [] }
 		return countries.compactMap({ Country(countryCode: $0) })
 	}
 
