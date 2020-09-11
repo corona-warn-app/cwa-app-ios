@@ -138,22 +138,25 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 
 								cell.configure(
 									options: [
-										.datePickerOption(title: AppStrings.ExposureSubmissionSymptomsOnset.datePickerTitle),
+										.datePickerOption(
+											title: AppStrings.ExposureSubmissionSymptomsOnset.datePickerTitle,
+											accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptomsOnset.answerOptionExactDate
+										),
 										.option(
 											title: AppStrings.ExposureSubmissionSymptomsOnset.answerOptionLastSevenDays,
-											accessibilityIdentifier: nil
+											accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptomsOnset.answerOptionLastSevenDays
 										),
 										.option(
 											title: AppStrings.ExposureSubmissionSymptomsOnset.answerOptionOneToTwoWeeksAgo,
-											accessibilityIdentifier: nil
+											accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptomsOnset.answerOptionOneToTwoWeeksAgo
 										),
 										.option(
 											title: AppStrings.ExposureSubmissionSymptomsOnset.answerOptionMoreThanTwoWeeksAgo,
-											accessibilityIdentifier: nil
+											accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptomsOnset.answerOptionMoreThanTwoWeeksAgo
 										),
 										.option(
 											title: AppStrings.ExposureSubmissionSymptomsOnset.answerOptionPreferNotToSay,
-											accessibilityIdentifier: nil
+											accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptomsOnset.answerOptionPreferNotToSay
 										)
 									],
 									// The current selection needs to be provided in case the cell is recreated after leaving and reentering the screen

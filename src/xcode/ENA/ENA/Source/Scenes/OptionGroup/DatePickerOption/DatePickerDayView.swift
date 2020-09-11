@@ -89,6 +89,7 @@ class DatePickerDayView: UIView {
 
 		isAccessibilityElement = viewModel.isSelectable
 		accessibilityLabel = viewModel.accessibilityLabel
+		accessibilityIdentifier = AccessibilityIdentifiers.DatePickerOption.day
 	}
 
 	@objc
