@@ -36,11 +36,6 @@ class IconCell: UITableViewCell {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 	}
 
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		self.autoresizingMask = .flexibleHeight
-	}
-
 	private func setup(textStyle: ENAColor, backgroundStyle: ENAColor) {
 
 		// MARK: - General cell setup.
