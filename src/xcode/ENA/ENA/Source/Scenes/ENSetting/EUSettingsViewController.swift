@@ -63,7 +63,6 @@ class EUSettingsViewController: DynamicTableViewController {
 	private func setupTableView() {
 		tableView.separatorStyle = .none
 		dynamicTableViewModel = viewModel.euSettingsModel()
-		
 		tableView.register(
 			UINib(
 				nibName: String(describing: ExposureSubmissionStepCell.self),
@@ -94,6 +93,7 @@ class EUSettingsViewController: DynamicTableViewController {
 	private func subscribeEUTracingSettingChanges() {
 		viewModel.$euTracingSettings
 			.receive(on: RunLoop.main)
+			.dropFirst()
 			.removeDuplicates()
 			.sink { euTracingSettings in print(euTracingSettings) /* TODO: updated store! */ }
 			.store(in: &subscriptions)

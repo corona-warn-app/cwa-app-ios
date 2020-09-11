@@ -43,7 +43,7 @@ class EUSettingsViewModel {
 
 	// MARK: - Initializers.
 
-	init(countries availableCountries: [Country], euTracingSettings: EUTracingSettings = EUTracingSettings()) {
+	init(countries availableCountries: [Country], euTracingSettings: EUTracingSettings) {
 		self.countryModels = availableCountries.map { CountryModel($0) }
 		self.euTracingSettings = euTracingSettings
 
