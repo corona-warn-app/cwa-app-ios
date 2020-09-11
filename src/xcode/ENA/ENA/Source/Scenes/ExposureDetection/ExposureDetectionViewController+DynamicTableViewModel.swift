@@ -269,6 +269,26 @@ extension ExposureDetectionViewController {
 		)
 	}
 
+	/// - NOTE: This section should only be displayed when more than 0 exposures occured.
+	private func lowRiskExposureSection(_ numberOfExposures: Int, accessibilityIdentifier: String?) -> DynamicSection {
+		guard numberOfExposures > 0 else { return .section(cells: []) }
+
+		return .section(
+			header: .backgroundSpace(height: 8),
+			footer: .backgroundSpace(height: 16),
+			cells: [
+				.header(
+					title: AppStrings.ExposureDetection.lowRiskExposureTitle,
+					subtitle: AppStrings.ExposureDetection.lowRiskExposureSubtitle
+				),
+				.body(
+					text: AppStrings.ExposureDetection.lowRiskExposureBody,
+					accessibilityIdentifier: accessibilityIdentifier
+				)
+			]
+		)
+	}
+
 	private func activeTracingSection(accessibilityIdentifier: String?) -> DynamicSection {
 		let p0 = NSLocalizedString(
 			"ExposureDetection_ActiveTracingSection_Text_Paragraph0",
@@ -301,17 +321,27 @@ extension ExposureDetectionViewController {
 		)
 	}
 
-	private func explanationSection(text: String, isActive: Bool, accessibilityIdentifier: String?) -> DynamicSection {
-		.section(
+	private func explanationSection(text: String, numberOfExposures: Int = -1, accessibilityIdentifier: String?) -> DynamicSection {
+		return .section(
 			header: .backgroundSpace(height: 8),
 			footer: .backgroundSpace(height: 16),
 			cells: [
 				.header(
 					title: AppStrings.ExposureDetection.explanationTitle,
-					subtitle: isActive ? AppStrings.ExposureDetection.explanationSubtitleActive : AppStrings.ExposureDetection.explanationSubtitleInactive
+					subtitle: AppStrings.ExposureDetection.explanationSubtitle
 				),
-				.body(text: text, accessibilityIdentifier: accessibilityIdentifier)
-			]
+				.body(text: text, accessibilityIdentifier: accessibilityIdentifier),
+				infectionRiskExplanationFAQLink(numberOfExposures)
+			].compactMap { $0 }
+		)
+	}
+
+	/// - NOTE: This cell should only be displayed when more than 0 exposures occured.
+	private func infectionRiskExplanationFAQLink(_ numberOfExposures: Int) -> DynamicCell? {
+		guard numberOfExposures > 0 else { return nil }
+		return .link(
+			text: AppStrings.ExposureDetection.explanationFAQLinkText,
+			url: URL(string: AppStrings.ExposureDetection.explanationFAQLink)
 		)
 	}
 
@@ -323,7 +353,7 @@ extension ExposureDetectionViewController {
 			cells: [
 				.header(
 					title: AppStrings.ExposureDetection.explanationTitle,
-					subtitle: isActive ? AppStrings.ExposureDetection.explanationSubtitleActive : AppStrings.ExposureDetection.explanationSubtitleInactive
+					subtitle: AppStrings.ExposureDetection.explanationSubtitle
 				),
 				.body(
 					text: [
@@ -349,7 +379,7 @@ extension ExposureDetectionViewController {
 			riskLoadingSection,
 			standardGuideSection,
 			explanationSection(
-				text: AppStrings.ExposureDetection.explanationTextOff, isActive: false,
+				text: AppStrings.ExposureDetection.explanationTextOff,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextOff)
 		])
 	}
@@ -367,7 +397,6 @@ extension ExposureDetectionViewController {
 			standardGuideSection,
 			explanationSection(
 				text: AppStrings.ExposureDetection.explanationTextOutdated,
-				isActive: false,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextOutdated
 			)
 		])
@@ -383,7 +412,6 @@ extension ExposureDetectionViewController {
 			standardGuideSection,
 			explanationSection(
 				text: AppStrings.ExposureDetection.explanationTextUnknown,
-				isActive: false,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextUnknown
 			)
 		])
@@ -391,6 +419,7 @@ extension ExposureDetectionViewController {
 
 	private var lowRiskModel: DynamicTableViewModel {
 		let activeTracing = state.risk?.details.activeTracing ?? .init(interval: 0)
+		let numberOfExposures = state.risk?.details.numberOfExposures ?? 0
 
 		return DynamicTableViewModel([
 			riskDataSection(
@@ -401,11 +430,15 @@ extension ExposureDetectionViewController {
 			]),
 			riskRefreshSection,
 			riskLoadingSection,
+			lowRiskExposureSection(
+				numberOfExposures,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.lowRiskExposureSection
+			),
 			standardGuideSection,
-			activeTracingSection(accessibilityIdentifier: "hello"),
+			activeTracingSection(accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.activeTracingSection),
 			explanationSection(
 				text: AppStrings.ExposureDetection.explanationTextLow,
-				isActive: true,
+				numberOfExposures: numberOfExposures,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextLow
 			)
 		])

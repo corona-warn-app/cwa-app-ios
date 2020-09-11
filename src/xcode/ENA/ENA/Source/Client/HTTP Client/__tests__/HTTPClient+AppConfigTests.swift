@@ -81,6 +81,35 @@ final class HTTPClientAppConfigTests: XCTestCase {
 		waitForExpectations(timeout: expectationsTimeout)
 	}
 
+	func testGetAppConfiguration_SupportedCountries() throws {
+		// swiftlint:disable:next force_unwrapping
+		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
+
+		let fetchCountriesExpectation = expectation(description: "Fetch country list")
+
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try Data(contentsOf: url)
+		)
+
+		HTTPClient.makeWith(mock: stack).supportedCountries { result in
+			switch result {
+			case .failure(let error):
+				XCTFail("Country fetch error: \(error as NSError)")
+			case .success(let list):
+				#if INTEROP
+				// we expect a list of countries, preferably more than one
+				XCTAssertGreaterThanOrEqual(list.count, 1)
+				#else
+				XCTAssertEqual(list.count, 0)
+				#endif
+			}
+			fetchCountriesExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
 	// MARK: - Invalid Response Tests
 
 	func testGetAppConfiguration_ServerSentInvalidData() {

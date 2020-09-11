@@ -23,10 +23,15 @@ final class ExposureDetection {
 	// MARK: Properties
 	private weak var delegate: ExposureDetectionDelegate?
 	private var completion: Completion?
+	private var progress: Progress?
 
 	// MARK: Creating a Transaction
 	init(delegate: ExposureDetectionDelegate) {
 		self.delegate = delegate
+	}
+
+	func cancel() {
+		progress?.cancel()
 	}
 
 	// MARK: Starting the Transaction
@@ -59,7 +64,7 @@ final class ExposureDetection {
 			endPrematurely(reason: .unableToWriteDiagnosisKeys)
 			return
 		}
-		delegate?.exposureDetection(
+		self.progress = delegate?.exposureDetection(
 			self,
 			detectSummaryWithConfiguration: configuration,
 			writtenPackages: writtenPackages
@@ -108,6 +113,5 @@ final class ExposureDetection {
 			self.completion?(.success(summary))
 			self.completion = nil
 		}
-
 	}
 }

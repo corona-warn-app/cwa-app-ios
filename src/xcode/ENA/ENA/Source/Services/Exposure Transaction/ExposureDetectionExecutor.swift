@@ -8,6 +8,7 @@ import ExposureNotification
 
 final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	private let client: Client
+
 	private let downloadedPackagesStore: DownloadedPackagesStore
 	private let store: Store
 	private let exposureDetector: ExposureDetector
@@ -77,13 +78,22 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	func exposureDetection(_ detection: ExposureDetection, downloadDeltaFor remote: DaysAndHours) -> DaysAndHours {
 		// prune the store
 		try? downloadedPackagesStore.deleteOutdatedDays(now: .formattedToday())
-		
+
+		#if INTEROP
+		let localDays = Set(downloadedPackagesStore.allDays(country: "DE"))
+		let localHours = Set(downloadedPackagesStore.hours(for: .formattedToday(), country: "DE"))
+		#else
+		let localDays = Set(downloadedPackagesStore.allDays())
+		let localHours = Set(downloadedPackagesStore.hours(for: .formattedToday()))
+		#endif
+
 		let delta = DeltaCalculationResult(
 			remoteDays: Set(remote.days),
 			remoteHours: Set(remote.hours),
-			localDays: Set(downloadedPackagesStore.allDays()),
-			localHours: Set(downloadedPackagesStore.hours(for: .formattedToday()))
+			localDays: localDays,
+			localHours: localHours
 		)
+
 		return DaysAndHours(
 			days: Array(delta.missingDays),
 			hours: Array(delta.missingHours)
@@ -112,9 +122,44 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		let rootDir = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		do {
 			try fileManager.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
-			let packages = downloadedPackagesStore.allPackages(for: .formattedToday(), onlyHours: store.hourlyFetchingEnabled)
-			let writer = AppleFilesWriter(rootDir: rootDir, keyPackages: packages)
-			return writer.writeAllPackages()
+
+			let writer = AppleFilesWriter(rootDir: rootDir)
+
+			if store.hourlyFetchingEnabled {
+				#if INTEROP
+				let hourlyPackages = downloadedPackagesStore.hourlyPackages(for: .formattedToday(), country: "DE")
+				#else
+				let hourlyPackages = downloadedPackagesStore.hourlyPackages(for: .formattedToday())
+				#endif
+				
+				for keyPackage in hourlyPackages {
+					let success = writer.writePackage(keyPackage)
+					if !success {
+						return nil
+					}
+				}
+			} else {
+				#if INTEROP
+				let allDays = downloadedPackagesStore.allDays(country: "DE")
+				#else
+				let allDays = downloadedPackagesStore.allDays()
+				#endif
+
+				for day in allDays {
+					#if INTEROP
+					let _keyPackage = autoreleasepool(invoking: { downloadedPackagesStore.package(for: day, country: "DE") })
+					#else
+					let _keyPackage = autoreleasepool(invoking: { downloadedPackagesStore.package(for: day) })
+					#endif
+					if let keyPackage = _keyPackage {
+						let success = writer.writePackage(keyPackage)
+						if !success {
+							return nil
+						}
+					}
+				}
+			}
+			return writer.writtenPackages
 		} catch {
 			return nil
 		}
@@ -126,7 +171,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 			configuration: ENExposureConfiguration,
 			writtenPackages: WrittenPackages,
 			completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void
-	) {
+	) -> Progress {
 		func withResultFrom(
 				summary: ENExposureDetectionSummary?,
 				error: Error?
@@ -139,7 +184,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 			}
 			fatalError("invalid state")
 		}
-		_ = exposureDetector.detectExposures(
+		return exposureDetector.detectExposures(
 				configuration: configuration,
 				diagnosisKeyURLs: writtenPackages.urls
 		) { summary, error in
@@ -152,12 +197,20 @@ extension DownloadedPackagesStore {
 	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours) {
 		let days = daysAndHours.days
 		days.bucketsByDay.forEach { day, bucket in
+			#if INTEROP
+			self.set(country: "DE", day: day, package: bucket)
+			#else
 			self.set(day: day, package: bucket)
+			#endif
 		}
 
 		let hours = daysAndHours.hours
 		hours.bucketsByHour.forEach { hour, bucket in
+			#if INTEROP
+			self.set(country: "DE", hour: hour, day: hours.day, package: bucket)
+			#else
 			self.set(hour: hour, day: hours.day, package: bucket)
+			#endif
 		}
 	}
 }

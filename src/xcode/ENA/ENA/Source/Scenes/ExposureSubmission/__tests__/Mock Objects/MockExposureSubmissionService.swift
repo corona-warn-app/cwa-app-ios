@@ -34,7 +34,7 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - ExposureSubmissionService methods.
 
-	func submitExposure(completionHandler: @escaping ExposureSubmissionHandler) {
+	func submitExposure(consentToFederation: Bool, visitedCountries: [Country], completionHandler: @escaping ExposureSubmissionHandler) {
 		submitExposureCallback?(completionHandler)
 	}
 

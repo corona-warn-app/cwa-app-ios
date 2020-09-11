@@ -146,7 +146,10 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 				// Note: In the case the QR Code was already used, retrying will result
 				// in an endless loop.
 				if case .qRAlreadyUsed = error {
-					let alert = self.setupErrorAlert(message: error.localizedDescription)
+					let alert = self.setupErrorAlert(
+						title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
+						message: error.localizedDescription
+					)
 					self.present(alert, animated: true, completion: nil)
 					return
 				}

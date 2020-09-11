@@ -32,69 +32,33 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 
 	private func createVC() -> ExposureSubmissionWarnOthersViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnOthersViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionWarnOthersViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator(), exposureSubmissionService: self.service)
+			ExposureSubmissionWarnOthersViewController(coder: coder, onPrimaryButtonTap: { _ in })
 		}
 	}
 
-	func testSuccessfulSubmit() {
+	func testCellsOnScreen() {
 		let vc = createVC()
 		_ = vc.view
 
-		let expectSubmitExposure = self.expectation(description: "Call submitExposure")
-		service.submitExposureCallback = {  completion in
+		let section = vc.dynamicTableViewModel.section(0)
+		let cells = section.cells
+		XCTAssertEqual(cells.count, 4)
 
-			expectSubmitExposure.fulfill()
-			completion(nil)
-		}
+		let firstItem = cells[0]
+		var id = firstItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "labelCell")
 
-		// Trigger submission process.
-		vc.startSubmitProcess()
-		waitForExpectations(timeout: .short)
+		let secondItem = cells[1]
+		id = secondItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "labelCell")
+
+		let thirdItem = cells[2]
+		id = thirdItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "roundedCell")
+
+		let fourthItem = cells[3]
+		id = fourthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "roundedCell")
+
 	}
-
-	func testShowENErrorAlertInternal() {
-		let vc = createVC()
-		_ = vc.view
-
-		let alert = vc.createENAlert(.internal)
-		XCTAssert(alert.actions.count == 2)
-		XCTAssert(alert.actions[1].title == AppStrings.Common.errorAlertActionMoreInfo)
-		XCTAssert(alert.message == AppStrings.Common.enError11Description)
-	}
-
-	func testShowENErrorAlertUnsupported() {
-		let vc = createVC()
-		_ = vc.view
-
-		let alert = vc.createENAlert(.unsupported)
-		XCTAssert(alert.actions.count == 2)
-		XCTAssert(alert.actions[1].title == AppStrings.Common.errorAlertActionMoreInfo)
-		XCTAssert(alert.message == AppStrings.Common.enError5Description)
-	}
-
-	func testShowENErrorAlertRateLimited() {
-		let vc = createVC()
-		_ = vc.view
-
-		let alert = vc.createENAlert(.rateLimited)
-		XCTAssert(alert.actions.count == 2)
-		XCTAssert(alert.actions[1].title == AppStrings.Common.errorAlertActionMoreInfo)
-		XCTAssert(alert.message == AppStrings.Common.enError13Description)
-	}
-
-	func testGetURLInternal() {
-		let url = ExposureSubmissionError.internal.faqURL
-		XCTAssert(url?.absoluteString == AppStrings.Links.appFaqENError11)
-	}
-
-	func testGetURLUnsupported() {
-		let url = ExposureSubmissionError.unsupported.faqURL
-		XCTAssert(url?.absoluteString == AppStrings.Links.appFaqENError5)
-	}
-
-	func testGetURLRateLimited() {
-		let url = ExposureSubmissionError.rateLimited.faqURL
-		XCTAssert(url?.absoluteString == AppStrings.Links.appFaqENError13)
-	}
-
 }

@@ -70,7 +70,7 @@
 
 "ExposureDetection_RefreshIn" = "Обновление через %@";
 
-"ExposureDetection_Refresh_24h" = "Обновление каждые 24 ч";
+"ExposureDetection_Refresh_24h" = "Обновление каждые 24 часа";
 
 "ExposureDetection_LastRiskLevel" = "Последнее определение риска: %@";
 
@@ -106,19 +106,27 @@
 
 "ExposureDetection_Explanation_Title" = "Риск заражения";
 
-"ExposureDetection_Explanation_Subtitle_Active" = "Вот как был рассчитан Ваш риск";
+"ExposureDetection_Explanation_Subtitle" = "Вот как рассчитывается Ваш риск";
 
-"ExposureDetection_Explanation_Subtitle_Inactive" = "Вот как рассчитывается Ваш риск";
-
-"ExposureDetection_Explanation_Text_Off" = "Ваш риск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
+"ExposureDetection_Explanation_Text_Off" = "Риск заражения рассчитывается на Вашем устройстве по локальным данным определения риска (продолжительности и близости). Данные риска заражения не показываются и не передаются другим лицам.";
 
 "ExposureDetection_Explanation_Text_Outdated" = "С момента активации определения риска не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.\n\nВаш риск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
 
 "ExposureDetection_Explanation_Text_Unknown" = "С момента активации определения риска не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.\n\nВаш риск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
 
-"ExposureDetection_Explanation_Text_Low" = "У Вас низкий риск заражения, поскольку не зарегистрировано контактов с лицами с положительным тестом на COVID-19 или контакты были кратковременными и на большом расстоянии.\n\nПоэтому Ваш риск заражения был оценен как низкий.\n\nРиск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
+"ExposureDetection_Explanation_Text_Low" = "Риск заражения рассчитывается локально на вашем устройстве по данным определения контакта. В расчете также учитываются расстояние и продолжительность контактов с лицами с положительным тестом на COVID-19 и их потенциальная заразность. Ваш риск заражения не виден и не передается третьим лицам.";
 
-"ExposureDetection_Explanation_Text_High" = "Поэтому ваш риск заражения был оценен как повышенный.\nРиск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.\nПо возвращении домой избегайте близкого контакта с членами вашей семьи.";
+"ExposureDetection_Explanation_Text_High" = "Поэтому ваш риск заражения был оценен как повышенный.\nРиск заражения рассчитывается по локальным данным определения контакта (продолжительности и близости) на вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.\nПо возвращении домой избегайте близкого контакта с членами вашей семьи.";
+
+"ExposureDetection_Explanation_FAQ_Link" = "https://www.coronawarn.app/en/faq/#encounter_but_green";
+
+"ExposureDetection_Explanation_FAQ_Link_Text" = "Дополнительная информация";
+
+"ExposureDetection_LowRiskExposure_Title" = "Контакты с низким риском";
+
+"ExposureDetection_LowRiskExposure_Subtitle" = "Почему ваш риск заражения низкий";
+
+"ExposureDetection_LowRiskExposure_Body" = "Вы контактировали с человеком, который позднее получил положительный тест на COVID-19. Однако с учетом данных определения контакта ваш риск заражения оценивается как низкий. Риск низкий, если контакт был кратковременным или на расстоянии. Не стоит волноваться. Не требуются никакие действия. Рекомендуем вам соблюдать действующие правила в отношении социальной дистанции и гигиены.";
 
 "ExposureDetection_Button_Enable" = "Активировать определение риска";
 
@@ -138,9 +146,11 @@
 /* Exposure Detection Errors */
 "ExposureDetectionError_Alert_Title" = "Ошибка";
 
-"ExposureDetectionError_Alert_Action_Details" = "Сведения";
+"ExposureDetectionError_Alert_Action_Details" = "Подробная информация";
 
-"ExposureDetectionError_Alert_Message" = "Ошибка при определении риска.";
+"ExposureDetectionError_Alert_Message" = "Обнаружена ошибка при определении риска.";
+
+"ExposureDetectionError_Alert_AppConfig_Missing_Message" = "Интернет-соединение прервано. Проверьте соединение и снова откройте приложение.";
 
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Информация о функции определения риска";
@@ -148,9 +158,13 @@
 "How_Risk_Detection_Works_Alert_Message" = "Ваш риск заражения можно рассчитать только для периодов с активным определением риска, поэтому функция определения риска должна быть постоянно включена.\nОпределение риска охватывает последние %1$u дн.\nПриложение автоматически удалит старые журналы, как только они потеряют значение для предотвращения заражения.\n\nПодробнее см. страницу часто задаваемых вопросов.";
 
 /* Settings */
-"Settings_StatusActive" = "Вкл.";
+"Settings_Notification_StatusActive" = "Вкл.";
 
-"Settings_StatusInactive" = "Выкл.";
+"Settings_Notification_StatusInactive" = "Выкл.";
+
+"Settings_BackgroundAppRefresh_StatusActive" = "Вкл.";
+
+"Settings_BackgroundAppRefresh_StatusInactive" = "Выкл.";
 
 "Settings_StatusEnable" = "Активировать";
 
@@ -164,11 +178,15 @@
 
 "Settings_Notification_Label" = "Уведомления";
 
+"Settings_BackgroundAppRefresh_Label" = "Фоновые обновления";
+
 "Settings_Reset_Label" = "Сбросить приложение";
 
-"Settings_Tracing_Description" = "Разрешите генерацию и предоставление случайных идентификаторов COVID-19.";
+"Settings_Tracing_Description" = "Разрешить генерацию и предоставление случайных идентификаторов COVID-19";
 
 "Settings_Notification_Description" = "Разрешите автоматические уведомления о Вашем статусе риска заражения COVID-19.";
+
+"Settings_BackgroundAppRefresh_Description" = "Разрешите автоматические обновления своего статусе риска.";
 
 "Settings_Reset_Description" = "Удалить все Ваши данные в приложении.";
 
@@ -201,6 +219,61 @@
 
 "NotificationSettings_offImageDescription" = "Женщина не может получать уведомления от приложения Corona-Warn-App.";
 
+/* Background App Referesh Settings */
+"BackgroundAppRefreshSettings_Title" = "Фоновые обновления";
+
+"BackgroundAppRefreshSettings_Image_Description_On" = "Человек держит в руке смартфон с активированными фоновыми обновлениями.";
+
+"BackgroundAppRefreshSettings_Image_Description_Off" = "Человек держит в руке смартфон с деактивированными фоновыми обновлениями.";
+
+"BackgroundAppRefreshSettings_Subtitle" = "Обновить статус риска в фоновом режиме";
+
+"BackgroundAppRefreshSettings_Description" = "При активации фоновых обновлений приложение Corona-Warn-App определяет ваш статус риска автоматически.\nДополнительная плата за перенос данных по мобильной сети не взимается.\nПосле деактивации фоновых обновлений вам нужно будет ежедневно открывать приложение вручную, чтобы обновить свой статус риска.";
+
+"BackgroundAppRefreshSettings_Status_Header" = "Настройка";
+
+"BackgroundAppRefreshSettings_Status_Title" = "Фоновое обновление приложения";
+
+"BackgroundAppRefreshSettings_Status_On" = "Вкл.";
+
+"BackgroundAppRefreshSettings_Status_Off" = "Выкл.";
+
+"BackgroundAppRefreshSettings_InfoBox_Title" = "Активировать фоновое обновление приложения";
+
+"BackgroundAppRefreshSettings_InfoBox_Description" = "Вы собираетесь активировать фоновое обновление приложения как в настройках своего iPhone, так и в настройках Corona-Warn-App.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Обратите внимание, что для активации фонового обновления приложения нужно отключить режим энергосбережения.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Отключить режим энергосбережения";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Открыть настройки";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2" = "Открыть аккумулятор";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3" = "Отключить режим энергосбережения";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title" = "Активировать фоновое обновление приложения в основных настройках";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1" = "Открыть настройки";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2" = "Открыть основные";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3" = "Открыть фоновое обновление приложения";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4" = "Выберите или Wi-Fi, или Wi-Fi и сотовые данные";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title" = "Активировать фоновое обновление приложения для Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Открыть настройки";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Открыть настройки Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Активировать фоновое обновление приложения";
+
+"BackgroundAppRefreshSettings_OpenSettingsButton_Title" = "Открыть настройки";
+
+"BackgroundAppRefreshSettings_ShareButton_Title" = "Поделиться инструкциями";
+
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "Давайте начнем";
 
@@ -224,7 +297,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Более надежная защита для Вас и для всех нас. Приложение Corona-Warn-App поможет быстрее остановить передачу инфекции.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Сделайте из Вашего устройства систему  предупреждения о коронавирусе. Просматривайте Ваш статус риска и определяйте, были ли у Вас близкие контакты с лицами с положительным тестом на COVID-19 за последние 14 дней.\n\nКонтакты людей регистрируются в приложении путем обмена зашифрованными случайными идентификаторами между  устройствами без доступа к каким-либо персональным данным.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Сделайте свое устройство системой предупреждения о коронавирусе. Получайте информацию о своем статусе риска и определяйте, были ли у Вас за последние 14 дней близкие контакты с лицами с положительным тестом на COVID-19.\n\nКонтакты регистрируются в приложении путем обмена зашифрованными случайными идентификаторами между устройствами без доступа к каким-либо персональным данным.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
 
@@ -245,6 +318,10 @@
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Чтобы узнать, есть ли у Вас риск заражения, нужно активировать функцию определения риска.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Для определения риска Ваше устройство получает по Bluetooth зашифрованные случайные идентификаторы других пользователей и передает Ваш случайный идентификатор на их устройства. Эту функцию можно отключить в любое время.\n\nЗашифрованные случайные идентификаторы передают другим людям только информацию о дате, продолжительности и близости контакта с другими лицами (рассчитанных по силе сигнала). Персональные данные, такие как имя, адрес или местоположение, никогда не регистрируются. Идентификация лица невозможна.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Возрастной ценз: 16 лет и старше";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "Данное приложение предназначено для людей, достигших возраста 16 лет и более и проживающих в Германии.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Заявление о согласии";
 
@@ -497,9 +574,13 @@
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Конфиденциальность данных";
 
+"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Возрастной ценз: 16 лет и старше";
+
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "Данное приложение предназначено для людей, достигших возраста 16 лет и более и проживающих в Германии.";
+
 "ExposureSubmissionResult_RemoveAlert_Title" = "Тест можно отсканировать только один раз.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "После удаления теста вы не сможете запросить результат тестирования. Вы получите результат теста из центра тестирования или выполнившей тест лаборатории вне зависимости от приложения. Если у вас диагностирован COVID-19, вы получите уведомление от соответствующего органа здравоохранения.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Если вы удалите тест, то не сможете вызвать результат тестирования. Вы получите результат теста из центра тестирования или выполнившей тест лаборатории вне зависимости от действительности QR-кода. Если у вас диагностирован COVID-19, соответствующий орган здравоохранения получит уведомление по безопасному каналу и свяжется с вами.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Дата регистрации неизвестна";
 
@@ -520,7 +601,9 @@
 
 "ExposureSubmissionError_NoResponse" = "Ответ не имеет содержимого.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "QR-код недействительный или уже зарегистрирован на другом смартфоне. Повторите попытку. Вы получите результат теста из центра тестирования или выполнившей тест лаборатории вне зависимости от действительности QR-кода. Если у вас диагностирован COVID-19, вы получите уведомление от соответствующего органа здравоохранения.";
+"ExposureSubmissionError_QRAlreadyUsed" = "QR-код недействительный или уже зарегистрирован на другом смартфоне. Повторите попытку. Вы получите результат теста из центра тестирования или выполнившей тест лаборатории вне зависимости от действительности QR-кода. Если у вас диагностирован COVID-19, соответствующий орган здравоохранения получит уведомление по безопасному каналу и свяжется с вами.";
+
+"ExposureSubmissionError_QRAlreadyUsed_Title" = "Недействительный QR-код";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "TAN недействителен или уже использовался. Повторите попытку или обратитесь на горячую линию по техническим вопросам по пути: Информация о приложении -> Горячая линия по техническим вопросам.";
 
@@ -569,7 +652,7 @@
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Открыть настройки устройства";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "Активировать определение контакта с COVID-19 и уведомления";
+"ExposureNotificationSetting_Activate_OSENSetting" = "Активировать определение контакта с COVID-19 и уведомления ";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Для определения риска необходимо активировать ведение журнала контактов с COVID-19 и уведомления в настройках системы. Активируйте ведение журнала контактов с COVID-19 и уведомления в настройках вашей системы.";
 
@@ -579,7 +662,7 @@
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Требуется авторизация";
 
-"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Подтвердите использование журнала контактов с COVID-19 .";
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Подтвердите использование журнала контактов с COVID-19.";
 
 "ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Авторизация";
 
@@ -793,7 +876,7 @@
 
 "App_Information_Contact_Hotline_Description" = "Наша служба поддержки всегда готова помочь.";
 
-"App_Information_Contact_Hotline_Terms" = "Языки: немецкий, английский, турецкий\n\nЧасы работы:\nпн-сб, 7:00-22:00\n(кроме государственных праздников)\n\nВсе звонки бесплатны.";
+"App_Information_Contact_Hotline_Terms" = "Языки: немецкий, английский, турецкий\n\nЧасы работы:\nПонедельник – суббота, 7:00-22:00\n(кроме государственных праздников)\n\nВсе звонки бесплатны.";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Правовая информация";
@@ -857,7 +940,7 @@
 "InviteFriends_Illustration_Label" = "Человек делится приложением Corona-Warn-App с четырьмя другими людьми.";
 
 /* Reset View */
-"Reset_NavTitle" = "Сброс";
+"Reset_NavTitle" = "Сбросить";
 
 "Reset_Header1" = "Действительно сбросить приложение?";
 
@@ -881,7 +964,7 @@
 
 "Reset_ConfirmDialog_Cancel" = "Отменить";
 
-"Reset_ConfirmDialog_Confirm" = "Сброс";
+"Reset_ConfirmDialog_Confirm" = "Сбросить";
 
 /* Safari */
 "safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";

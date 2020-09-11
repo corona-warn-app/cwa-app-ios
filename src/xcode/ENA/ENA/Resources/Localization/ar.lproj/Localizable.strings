@@ -106,9 +106,7 @@
 
 "ExposureDetection_Explanation_Title" = "خطر العدوى";
 
-"ExposureDetection_Explanation_Subtitle_Active" = "هذه هي الطريقة التي كان يتم بها تقدير الخطر الواقع عليك";
-
-"ExposureDetection_Explanation_Subtitle_Inactive" = "هذه هي الطريقة التي يتم بها تقدير الخطر الواقع عليك";
+"ExposureDetection_Explanation_Subtitle" = "هذه هي الطريقة التي يتم بها تقدير الخطر الواقع عليك";
 
 "ExposureDetection_Explanation_Text_Off" = "يتم تقدير خطر العدوى من بيانات تسجيل المخالطة (المدة ومدى الاقتراب) محليًا على جهازك. ولا يمكن الاطلاع على خطر العدوى من جانب أي شخص آخر أو تمريره إليه.";
 
@@ -116,9 +114,19 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "لا يمكننا تقدير خطر العدوى نظرًا لعدم قيامك بتنشيط تسجيل المخالطة لفترة طويلة بما يكفي.\n\nيتم تقدير خطر العدوى من بيانات تسجيل المخالطة (المدة ومدى الاقتراب) محليًا على جهازك. ولا يمكن الاطلاع على خطر العدوى من جانب أي شخص آخر أو تمريره إليه.";
 
-"ExposureDetection_Explanation_Text_Low" = "خطر العدوى لديك منخفض نظرًا لعدم تسجيل أي تجمُّع مع شخص مصاب بمرض كوفيد-19 أو تم تقييد تجمُّعك لفترة قصيرة وعلى مسافة أكبر.\n\nوبالتالي، تم تصنيف خطر العدوى على أنه منخفض.\n\nيتم تقدير خطر العدوى من بيانات تسجيل المخالطة (المدة ومدى الاقتراب) محليًا على جهازك. ولا يمكن الاطلاع على خطر العدوى من جانب أي شخص آخر أو تمريره إليه.";
+"ExposureDetection_Explanation_Text_Low" = "يتم احتساب خطر الإصابة محليًا على جهازك باستخدام بيانات تسجيل التعرض. كما يؤخذ في الاعتبار أيضًا أثناء الاحتساب المسافة والمدة التي خالطت بها أشخاص تم تشخيص إصابتهم بكوفيد-19، بالإضافة إلى احتمالية نقل العدوى. لا يمكن أن يحصل أي شخص آخر على معلومات متعلقة بخطر إصابتك بالعدوى أو رؤيتها.";
 
 "ExposureDetection_Explanation_Text_High" = "وبالتالي، تم تصنيف خطر العدوى بالنسبة إليك على أنه مرتفع.\nيتم تقدير خطر العدوى من بيانات تسجيل المخالطة (المدة ومدى الاقتراب) محليًا على جهازك. ولا يمكن الاطلاع على خطر العدوى من جانب أي شخص آخر أو تمريره إليه.\nعند العودة إلى المنزل، يرجى تجنب التعامل عن قرب مع أفراد أسرتك أو عائلتك.";
+
+"ExposureDetection_Explanation_FAQ_Link" = "https://www.coronawarn.app/en/faq/#encounter_but_green";
+
+"ExposureDetection_Explanation_FAQ_Link_Text" = "مزيد من المعلومات";
+
+"ExposureDetection_LowRiskExposure_Title" = "مخالطات ذات خطر إصابة بالعدوى منخفض";
+
+"ExposureDetection_LowRiskExposure_Subtitle" = "لماذا خطر إصابتك بالعدوى منخفض";
+
+"ExposureDetection_LowRiskExposure_Body" = "خالطت شخصًا مُصابًا بمرض كوفيد-19 مؤخرًا. ومع ذلك، وبالاستناد إلى بيانات تسجيل التعرض، فإن خطر إصابتك بالعدوى منخفض. خطر إصابتك يعد منخفضًا إذا كانت مدة المخالطة قصيرة أو حدثت عن بعد. فلا داعي للقلق وليست هناك حاجة محددة لأي إجراء. نوصيك بالالتزام بالقواعد السائدة فيما يتعلق بالمسافة والنظافة.";
 
 "ExposureDetection_Button_Enable" = "تنشيط تسجيل المخالطة";
 
@@ -142,15 +150,21 @@
 
 "ExposureDetectionError_Alert_Message" = "حدث خطأ ما أثناء تسجيل المخالطة.";
 
+"ExposureDetectionError_Alert_AppConfig_Missing_Message" = "فُقد اتصالك بالإنترنت. يُرجى التحقق من الاتصال ثم إعادة فتح التطبيق.";
+
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "معلومات حول وظيفة تسجيل المخالطة";
 
 "How_Risk_Detection_Works_Alert_Message" = "يمكن تقدير خطر العدوى بالنسبة إليك فقط للفترات التي كان خلالها تسجيل المخالطة نشطًا. وبالتالي يجب أن تظل ميزة التسجيل نشطة دائمًا.\nيشمل تسجيل المخالطة %1$u من الأيام الماضية.\nيقوم التطبيق تلقائيًا بحذف السجلات الأقدم، مثل تلك التي لم تعد ذات صلة بمنع العدوى.\n\nللحصول على مزيد من المعلومات، الرجاء الاطلاع على صفحة الأسئلة المتكررة.";
 
 /* Settings */
-"Settings_StatusActive" = "تشغيل";
+"Settings_Notification_StatusActive" = "تشغيل";
 
-"Settings_StatusInactive" = "إيقاف تشغيل";
+"Settings_Notification_StatusInactive" = "إيقاف تشغيل";
+
+"Settings_BackgroundAppRefresh_StatusActive" = "تشغيل";
+
+"Settings_BackgroundAppRefresh_StatusInactive" = "إيقاف تشغيل";
 
 "Settings_StatusEnable" = "تنشيط";
 
@@ -164,11 +178,15 @@
 
 "Settings_Notification_Label" = "الإشعارات";
 
+"Settings_BackgroundAppRefresh_Label" = "التحديثات في الخلفية";
+
 "Settings_Reset_Label" = "إعادة تعيين التطبيق";
 
 "Settings_Tracing_Description" = "السماح بإنشاء معرفات عشوائية لمرض كوفيد-19 ومشاركتها.";
 
 "Settings_Notification_Description" = "السماح بالإشعارات التلقائية لمستوى خطر مرض كوفيد-19.";
+
+"Settings_BackgroundAppRefresh_Description" = "السماح بالتحديثات التلقائية لحالة المخاطرة الخاصة بك.";
 
 "Settings_Reset_Description" = "حذف كل البيانات في التطبيق.";
 
@@ -201,6 +219,61 @@
 
 "NotificationSettings_offImageDescription" = "سيدة لا يمكنها تلقي إشعارات من تطبيق Corona-Warn-App.";
 
+/* Background App Referesh Settings */
+"BackgroundAppRefreshSettings_Title" = "التحديثات في الخلفية";
+
+"BackgroundAppRefreshSettings_Image_Description_On" = "شخص يحمل هاتفًا ذكيًا بتحديثات في الخلفية تم تنشيطها.";
+
+"BackgroundAppRefreshSettings_Image_Description_Off" = "شخص يحمل هاتفًا ذكيًا بتحديثات في الخلفية تم إلغاء تنشيطها.";
+
+"BackgroundAppRefreshSettings_Subtitle" = "تحديث حالة المخاطرة في الخلفية";
+
+"BackgroundAppRefreshSettings_Description" = "عند تنشيط تحديثات في الخلفية، يحدد تطبيق Corona-Warn-App حالة المخاطرة لديك تلقائيًا.\nلن يتم تكبد تكاليف إضافية لنقل البيانات في شبكة الهاتف المحمول.\nفي حالة إلغاء تنشيط التحديثات في الخلفية، فسيتوجب عليك فتح التطبيق يدويًا كل يوم لتحديث حالة المخاطرة لديك.";
+
+"BackgroundAppRefreshSettings_Status_Header" = "الإعداد";
+
+"BackgroundAppRefreshSettings_Status_Title" = "تحديث التطبيق في الخلفية";
+
+"BackgroundAppRefreshSettings_Status_On" = "تشغيل";
+
+"BackgroundAppRefreshSettings_Status_Off" = "إيقاف تشغيل";
+
+"BackgroundAppRefreshSettings_InfoBox_Title" = "تنشيط تحديث التطبيق في الخلفية";
+
+"BackgroundAppRefreshSettings_InfoBox_Description" = "عليك تنشيط تحديث التطبيق في الخلفية في كلٍ من الإعدادات العامة لجهاز iPhone الذي تستخدمه وفي إعدادات تطبيق Corona-Warn-App.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "برجاء ملاحظة أنه يجب إلغاء تنشيط وضع الطاقة المنخفضة لتنشيط تحديث التطبيق في الخلفية.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "إلغاء تنشيط وضع الطاقة المنخفضة";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "فتح الإعدادات";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2" = "فتح البطارية";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3" = "إلغاء تنشيط وضع الطاقة المنخفضة";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title" = "تنشيط تحديث التطبيق في الخلفية في 'عام'";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1" = "فتح الإعدادات";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2" = "فتح 'عام'";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3" = "فتح تحديث التطبيق في الخلفية";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4" = "تحديث شبكة Wi-Fi أو شبكة Wi-Fi وبيانات الهاتف";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title" = "تنشيط تحديث التطبيق في الخلفية لتطبيق Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "فتح الإعدادات";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "فتح إعدادات تطبيق Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "تنشيط تحديث التطبيق في الخلفية";
+
+"BackgroundAppRefreshSettings_OpenSettingsButton_Title" = "فتح الإعدادات";
+
+"BackgroundAppRefreshSettings_ShareButton_Title" = "مشاركة الإرشادات";
+
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "لنبدأ";
 
@@ -218,7 +291,7 @@
 
 "Onboarding_DeactivateExposureConfirmation_message" = "يمكنك إلغاء تنشيط هذه الميزة في أي وقت.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "مجموعة أشخاص يستخدمون أجهزتهم في المدينة جميعًا.";
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "مجموعة أشخاص يستخدمون أجهزتهم حول المدينة.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_title" = "لنكافح فيروس كورونا معًا";
 
@@ -245,6 +318,10 @@
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "لتحديد ما إذا كنت معرضًا لخطر العدوى، يجب عليك تنشيط ميزة تسجيل المخالطة.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "يعمل تسجيل المخالطة من خلال تلقي جهازك، عبر Bluetooth، المعرفات العشوائية المشفرة لمستخدمين آخرين وتمرير معرفك العشوائي إلى أجهزتهم. ويمكن تعطيل هذه الميزة في أي وقت.\n\nلا تمرر المعرفات العشوائية المشفرة إلا معلومات حول التاريخ والمدة ومدى الاقتراب من الأشخاص الآخرين (يتم التقدير باستخدام قوة الإشارة). ولا يتم أبدًا تسجيل البيانات الشخصية، مثل الاسم والعنوان والموقع، كما لا يمكن تحديد هوية الأفراد.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "حد العمر: 16 سنة فأكثر";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "هذا التطبيق موجه إلى الأشخاص الذين لا تقل أعمارهم عن 16 سنة وإلى هؤلاء المقيمين في ألمانيا.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "إقرار الموافقة";
 
@@ -497,9 +574,13 @@
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "خصوصية البيانات";
 
+"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "حد العمر: 16 سنة فأكثر";
+
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "هذا التطبيق موجه إلى الأشخاص الذين لا تقل أعمارهم عن 16 سنة وإلى هؤلاء المقيمين في ألمانيا.";
+
 "ExposureSubmissionResult_RemoveAlert_Title" = "يمكن مسح الاختبار ضوئيًا مرة واحدة فقط.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "إذا قمت بحذف الاختبار، فلن تتمكن من استرجاع نتيجة الاختبار الخاصة بك. تتلقى نتيجة الاختبار الخاصة بك من مركز الاختبار أو المختبر، بغض النظر عن التطبيق. إذا تمت إصابتك بمرض كوفيد-19، فسيتم إعلامك من قبل دائرة الصحة العامة.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "إذا قمت بإزالة الاختبار، فلن تتمكن من استرجاع نتيجة الاختبار الخاصة بك. ستتلقى نتيجة الاختبار من مركز الاختبار أو المختبر بغض النظر عن صلاحية رمز الاستجابة السريعة (QR). إذا تمت إصابتك بمرض كوفيد-19، فسيتم إعلام دائرة الصحة العامة من خلال القناة المنصوص عليها قانونيًا وسيتم الاتصال بك.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "تاريخ التسجيل غير معروف";
 
@@ -520,13 +601,15 @@
 
 "ExposureSubmissionError_NoResponse" = "لا يحتوي الاستجابة على أي محتوى.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "رمز الاستجابة السريعة (QR) غير صالح أو تم تسجيله بالفعل على هاتف ذكي آخر. ستتلقى نتيجة الاختبار من مركز الاختبار أو المختبر بغض النظر عن صلاحية رمز الاستجابة السريعة (QR). إذا تمت إصابتك بمرض كوفيد-19، فسيتم إعلامك من قبل دائرة الصحة العامة.";
+"ExposureSubmissionError_QRAlreadyUsed" = "رمز الاستجابة السريعة (QR) غير صالح أو تم تسجيله بالفعل على هاتف ذكي آخر. ستتلقى نتيجة الاختبار من مركز الاختبار أو المختبر بغض النظر عن صلاحية رمز الاستجابة السريعة (QR). إذا تمت إصابتك بمرض كوفيد-19، فسيتم إعلام دائرة الصحة العامة من خلال القناة المنصوص عليها قانونيًا وسيتم الاتصال بك.";
+
+"ExposureSubmissionError_QRAlreadyUsed_Title" = "رمز الاستجابة السريعة (QR) غير صالح";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "رقم المعاملة (TAN) غير صالح أو مستخدم بالفعل. الرجاء المحاولة مرة أخرى أو الاتصال بالخط الساخن الفني عبر معلومات التطبيق -> الخط الساخن الفني.";
 
 "ExposureSubmissionError_RegTokenNotExist" = "تعذر إنشاء رقم المعاملة (TAN) للتقديم. الرجاء الاتصال بالخط الساخن الفني عبر معلومات التطبيق -> الخط الساخن الفني.";
 
-"ExposureSubmissionError_other" = "حدث خطأ في الاتصال. رمز الخطأ للدعم الفني:";
+"ExposureSubmissionError_other" = "حدث خطأ في الاتصال. رمز الخطأ للدعم الفني: ";
 
 "ExposureSubmissionError_otherend" = "يُرجى المحاولة مرة أخرى.";
 
@@ -569,7 +652,7 @@
 
 "ExposureNotificationSetting_Detail_Action_Button" = "فتح إعدادات الجهاز";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "تمكين تسجيل وإشعارات المخالطة لمرض كوفيد-19";
+"ExposureNotificationSetting_Activate_OSENSetting" = "تمكين تسجيل وإشعارات المخالطة لمرض كوفيد-19 ";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "بالنسبة لتسجيل المخالطة، يجب تنشيط تسجيل وإشعارات المخالطة لمرض كوفيد-19 في إعدادات النظام؛ حتى يمكن تسجيل التجمُّعات. الرجاء تمكين \"تسجيل المخالطة لمرض كوفيد-19 والإشعارات\" في إعدادات النظام.";
 
@@ -632,7 +715,7 @@
 
 "Home_Risk_Period_Update_Title" = "يتم التحديث كل %@\U00A0 من الساعات";
 
-"Home_Risk_Period_Disabled_Button_Title" = "يتم التحديث فقط كل %@ من الساعات";
+"Home_Risk_Period_Disabled_Button_Title" = "يتم التحديث فقط كل %@\U00A0 من الساعات";
 
 "Home_Risk_Unknown_Title" = "خطر غير معروف";
 
