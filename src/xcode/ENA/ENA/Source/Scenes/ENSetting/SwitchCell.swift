@@ -52,7 +52,6 @@ class SwitchCell: UITableViewCell {
 		accessoryView = uiSwitch
 		uiSwitch.onTintColor = .enaColor(for: .tint)
 		uiSwitch.addTarget(self, action: #selector(onToggle), for: .touchUpInside)
-
 		imageView?.contentMode = .scaleAspectFit
 	}
 
@@ -71,5 +70,10 @@ class SwitchCell: UITableViewCell {
 		onSwitchSubject?
 			.sink { self.uiSwitch.setOn($0, animated: true) }
 			.store(in: &subscriptions)
+	}
+
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		self.imageView?.bounds = CGRect(x: 0, y: 0, width: 32, height: 32)
 	}
 }
