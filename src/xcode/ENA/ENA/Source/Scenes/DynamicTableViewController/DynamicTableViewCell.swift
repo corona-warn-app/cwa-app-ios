@@ -149,6 +149,10 @@ extension DynamicCell {
 		.enaLabelStyle(.subheadline, text: text, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
 	}
 
+	static func link(placeholder: String, link: String, font: ENAFont, style: ENALabel.Style, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {
+		dynamicType(text: link, cellStyle: .linkTextView(placeholder, font), size: style.fontSize, weight: UIFont.Weight(style.fontWeight), style: style.textStyle, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
+	}
+
 	static func footnote(text: String, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {
 		.enaLabelStyle(.footnote, text: text, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
 	}
