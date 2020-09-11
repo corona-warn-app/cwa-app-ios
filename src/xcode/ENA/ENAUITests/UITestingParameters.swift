@@ -25,4 +25,8 @@ enum UITestingParameters {
 		case getRegistrationTokenSuccess = "UI:ExposureSubmission:getRegistrationTokenSuccess"
 		case submitExposureSuccess = "UI:ExposureSubmission:submitExposureSuccess"
 	}
+
+	enum SecureStoreHandling: String {
+		case simulateMismatchingKey = "UI:SecureStoreHandling:simulateMismatchingKey"
+	}
 }

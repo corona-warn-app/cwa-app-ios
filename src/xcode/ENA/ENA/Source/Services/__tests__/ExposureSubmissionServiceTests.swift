@@ -313,6 +313,21 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	func testServiceHelperFunctions() throws {
+		let client = ClientMock()
+		let registrationToken = "dummyRegistrationToken"
+
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let store = MockTestStore()
+		store.registrationToken = registrationToken
+
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+		XCTAssertTrue(service.hasRegistrationToken())
+
+		service.deleteTest()
+		XCTAssertFalse(service.hasRegistrationToken())
+	}
+
 	// MARK: Plausible deniability tests.
 
 	func test_getTestResultPlaybook() {
@@ -330,13 +345,13 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let client = ClientMock()
 		store.registrationToken = "dummyRegistrationToken"
 
-		client.onGetTestResult = { _, isFake, completion in
+		let testResult = TestResult.allCases.randomElement() ?? TestResult.positive
+		client.onGetTestResult = { result, isFake, completion in
 			expectation.fulfill()
 			XCTAssertFalse(isFake)
 			XCTAssertEqual(count, 0)
 			count += 1
-			let testResult = 0
-			completion(.success(testResult))
+			completion(.success(testResult.rawValue))
 		}
 
 		client.onGetTANForExposureSubmit = { _, isFake, completion in
@@ -358,7 +373,14 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Run test.
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
-		service.getTestResult { _ in
+		service.getTestResult { response in
+			switch response {
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			case .success(let result):
+				XCTAssertEqual(result.rawValue, testResult.rawValue)
+			}
+
 			expectation.fulfill()
 		}
 
@@ -379,12 +401,13 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let store = MockTestStore()
 		let client = ClientMock()
 
+		let registrationToken = "dummyRegToken"
+
 		client.onGetRegistrationToken = { _, _, isFake, completion in
 			expectation.fulfill()
 			XCTAssertFalse(isFake)
 			XCTAssertEqual(count, 0)
 			count += 1
-			let registrationToken = "dummyRegToken"
 			completion(.success(registrationToken))
 		}
 
@@ -407,7 +430,13 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Run test.
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
-		service.getRegistrationToken(forKey: .guid("test-key")) { _ in
+		service.getRegistrationToken(forKey: .guid("test-key")) { response in
+			switch response {
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			case .success(let token):
+				XCTAssertEqual(token, registrationToken)
+			}
 			expectation.fulfill()
 		}
 
