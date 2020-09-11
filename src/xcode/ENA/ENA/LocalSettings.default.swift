@@ -15,4 +15,3 @@ struct Hosts {
 //	static let submissionURLString: StaticString = "http://localhost:8000"
 //	static let verificationURLString: StaticString = "http://localhost:8004"
 //}
-
