@@ -20,6 +20,8 @@
 import Foundation
 import UIKit
 
+/// This cell type can be seen in the `EUSettingsViewController` screen. It is different from the regular
+/// `ExposureSubmissionStepCell` as it centers the icon according to the title of the cell.
 class IconCell: UITableViewCell {
 
 	// MARK: - View elements.
@@ -30,8 +32,9 @@ class IconCell: UITableViewCell {
 
 	// MARK: - Initializer.
 
+	@available(*, unavailable)
 	required init?(coder: NSCoder) {
-		super.init(coder: coder)
+		fatalError("init(coder:) has not been implemented")
 	}
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

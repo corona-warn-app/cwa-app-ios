@@ -1127,6 +1127,15 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		2FDA18ED250BB1140023644E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2FDA18EB250B7E510023644E /* IconCell.swift */,
+				2FDA18E9250B67A00023644E /* SwitchCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		50BD2E6724FE26F300932566 /* __test__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -1572,13 +1581,12 @@
 		858F6F71245AEC05009FFD33 /* ENSetting */ = {
 			isa = PBXGroup;
 			children = (
+				2FDA18ED250BB1140023644E /* Cells */,
 				EE22DB80247FB409001B0A71 /* ENSettingModel.swift */,
 				EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */,
 				853D98842469DC8100490DBA /* ExposureNotificationSettingViewController.swift */,
 				2FDA18E52507AD6D0023644E /* EUSettingsViewController.swift */,
 				2FDA18E7250B66DD0023644E /* EUSettingsViewModel.swift */,
-				2FDA18E9250B67A00023644E /* SwitchCell.swift */,
-				2FDA18EB250B7E510023644E /* IconCell.swift */,
 			);
 			path = ENSetting;
 			sourceTree = "<group>";
