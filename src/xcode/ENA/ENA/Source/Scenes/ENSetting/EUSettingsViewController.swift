@@ -100,7 +100,7 @@ class EUSettingsViewController: DynamicTableViewController {
 	}
 }
 
-private extension EUSettingsViewController {
+extension EUSettingsViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case stepCell
 		case roundedCell
@@ -108,124 +108,7 @@ private extension EUSettingsViewController {
 	}
 }
 
-
-private class EUSettingsViewModel {
-
-	// MARK: - Model.
-
-	class CountryModel {
-		let country: Country
-		@Published var isOn: Bool = false
-
-		init(_ country: Country) {
-			self.country = country
-		}
-	}
-
-	// MARK: - Attributes.
-
-	private var subscriptions = Set<AnyCancellable>()
-	@Published var allCountriesOn: Bool = false
-	let countryModels: [CountryModel]
-	let errorChanges = PassthroughSubject<[Country], Never>()
-
-	// MARK: - Initializers.
-
-	init(countries: [Country]) {
-		self.countryModels = countries.map { CountryModel($0) }
-		self.countryModels.forEach {
-			$0.$isOn
-				.receive(on: RunLoop.main)
-				.sink { _ in self.allCountriesOn = self.countryModels.allSatisfy { $0.isOn } }
-				.store(in: &subscriptions)
-		}
-	}
-
-	// MARK: - DynamicTableViewModel.
-
-	func countrySwitchSection() -> DynamicSection {
-		DynamicSection.section(
-			separators: true,
-			cells: countryModels.map { model in
-				DynamicCell.euSwitchCell(cellModel: model) { isOn in
-					model.isOn = isOn
-					// Send the current country.
-					if !isOn { self.errorChanges.send([model.country]) }
-				}
-			}
-		)
-	}
-
-	func euSettingsModel() -> DynamicTableViewModel {
-		DynamicTableViewModel([
-			.section(cells: [
-				.title1(
-					text: AppStrings.ExposureNotificationSetting.euTitle,
-					accessibilityIdentifier: ""
-				),
-				.headline(
-					text: AppStrings.ExposureNotificationSetting.euDescription,
-					accessibilityIdentifier: ""
-				)
-			]),
-			.section(
-				separators: true,
-				cells: [
-					DynamicCell.switchCell(
-						text: AppStrings.ExposureNotificationSetting.euAllCountries,
-						isOn: allCountriesOn,
-						onSwitch: self.$allCountriesOn,
-						onToggle: { isOn in
-							self.countryModels.forEach { $0.isOn = isOn }
-							if !isOn {
-								// This switch modifies all countries.
-								self.errorChanges.send(self.countryModels.map { $0.country })
-							}
-					 })
-				]
-			),
-			.section(cells: [
-				.footnote(
-					text: AppStrings.ExposureNotificationSetting.euDataTrafficDescription,
-					color: .enaColor(for: .textPrimary2),
-					accessibilityIdentifier: ""
-				),
-				.space(height: 16)
-			]),
-			countrySwitchSection(),
-			.section(cells: [
-				.footnote(
-					text: AppStrings.ExposureNotificationSetting.euRegionDescription,
-					color: .enaColor(for: .textPrimary2),
-					accessibilityIdentifier: ""
-				),
-				.stepCell(
-					title: AppStrings.ExposureNotificationSetting.euGermanRiskTitle,
-					description: AppStrings.ExposureNotificationSetting.euGermanRiskDescription,
-					icon: Country(countryCode: "de")?.flag,
-					hairline: .none
-				),
-				.custom(withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.roundedCell,
-						configure: { _, cell, _ in
-							guard let privacyStatementCell = cell as? DynamicTableViewRoundedCell else { return }
-							privacyStatementCell.configure(
-								title: NSMutableAttributedString(
-									string: AppStrings.ExposureNotificationSetting.euPrivacyTitle
-								),
-								body: NSMutableAttributedString(
-									string: AppStrings.ExposureNotificationSetting.euPrivacyDescription
-								),
-								textStyle: .textPrimary1,
-								backgroundStyle: .separator
-							)
-					})
-			])
-		])
-	}
-}
-
-
-private extension DynamicCell {
+extension DynamicCell {
 
 	static func switchCell(text: String, icon: UIImage? = nil, isOn: Bool = false, onSwitch: Published<Bool>.Publisher? = nil, onToggle: SwitchCell.ToggleHandler? = nil) -> Self {
 		.custom(
@@ -259,59 +142,5 @@ private extension DynamicCell {
 				onToggle: onToggle
 			)
 		}
-	}
-
-}
-
-// TODO: Move to separate file.
-
-/// - NOTE: The implementation may raise a 'kCFRunLoopCommonModes' warning that is a known UIKit bug: https://developer.apple.com/forums/thread/132035
-private class SwitchCell: UITableViewCell {
-
-	typealias ToggleHandler = (Bool) -> Void
-
-	// MARK: - Private attributes.
-
-	private let uiSwitch: UISwitch
-	private var onToggleAction: ToggleHandler?
-	private var subscriptions = Set<AnyCancellable>()
-
-	// MARK: - Initializers.
-
-	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-		uiSwitch = UISwitch()
-		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		self.selectionStyle = .none
-		setUpSwitch()
-	}
-
-	@available(*, unavailable)
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-
-	// MARK: - Helpers.
-
-	private func setUpSwitch() {
-		accessoryView = uiSwitch
-		uiSwitch.onTintColor = .enaColor(for: .tint)
-		uiSwitch.addTarget(self, action: #selector(onToggle), for: .touchUpInside)
-	}
-
-	@objc
-	private func onToggle() {
-		onToggleAction?(uiSwitch.isOn)
-	}
-
-	// MARK: - Public API.
-
-	func configure(text: String, icon: UIImage? = nil, isOn: Bool = false, onSwitchSubject: Published<Bool>.Publisher? = nil, onToggle: ToggleHandler? = nil) {
-		imageView?.image = icon
-		textLabel?.text = text
-		uiSwitch.isOn = isOn
-		onToggleAction = onToggle
-		onSwitchSubject?
-			.sink { self.uiSwitch.setOn($0, animated: true) }
-			.store(in: &subscriptions)
 	}
 }

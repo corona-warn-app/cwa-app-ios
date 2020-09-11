@@ -779,7 +779,7 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 "ExposureNotificationSetting_EU_RegionDesc" = "Daten aus den gewählten Ländern werden empfangen und zur Risiko-Ermittlung berücksichtigt.";
 
-"ExposureNotificationSetting_EU_GermanRiskTitle" = "Deutschlandweite Risiko-Ermittlungimmer aktiv";
+"ExposureNotificationSetting_EU_GermanRiskTitle" = "Deutschlandweite Risiko-Ermittlung immer aktiv";
 
 "ExposureNotificationSetting_EU_GermanRiskDesc" = "Die Risiko-Ermittlung ist deutschlandweit immer aktiv, unabhängig davon, ob Sie die europaweite Risiko-Ermittlung aktiviert haben.";
 
