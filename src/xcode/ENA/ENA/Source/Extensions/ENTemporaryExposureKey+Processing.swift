@@ -37,6 +37,9 @@ extension Array where Element: ENTemporaryExposureKey {
 		}
 
 		self = Array(prefix(maxKeyCount))
+
+		/// The first element of the transmission risk vector is not used. That is because the ExposureNotification framework
+		/// does not return the current day's key - so the first key we have in the array is actually from yesterday.
 		for (key, vectorElement) in zip(self, symptomsOnset.transmissionRiskVector.dropFirst()) {
 			key.transmissionRiskLevel = vectorElement
 		}
