@@ -109,15 +109,15 @@ extension RiskProvider: RiskProviding {
 			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
 			lastExposureDetectionDate: store.summary?.date
 		)
-		if !enoughTimeHasPassed || !self.exposureManagerState.isGood {
-			completion(
-				.init(
-					previous: nil,
-					current: store.summary
-				)
-			)
-			return
-		}
+//		if !enoughTimeHasPassed || !self.exposureManagerState.isGood {
+//			completion(
+//				.init(
+//					previous: nil,
+//					current: store.summary
+//				)
+//			)
+//			return
+//		}
 
 		// Enough time has passed.
 		let shouldDetectExposures = (configuration.detectionMode == .manual && userInitiated) || configuration.detectionMode == .automatic
@@ -216,27 +216,27 @@ extension RiskProvider: RiskProviding {
 		// However in some precondition cases we can return early, mainly:
 		// 1. The exposureManagerState is bad (turned off, not authorized, etc.)
 		// 2. Tracing has not been active for at least 24 hours
-		guard exposureManagerState.isGood else {
-			completeOnTargetQueue(
-				risk: Risk(
-					level: .inactive,
-					details: details,
-					riskLevelHasChanged: false // false because we don't want to trigger a notification
-				), completion: completion
-			)
-			return
-		}
+//		guard exposureManagerState.isGood else {
+//			completeOnTargetQueue(
+//				risk: Risk(
+//					level: .inactive,
+//					details: details,
+//					riskLevelHasChanged: false // false because we don't want to trigger a notification
+//				), completion: completion
+//			)
+//			return
+//		}
 
-		guard numberOfEnabledHours >= TracingStatusHistory.minimumActiveHours else {
-			completeOnTargetQueue(
-				risk: Risk(
-					level: .unknownInitial,
-					details: details,
-					riskLevelHasChanged: false // false because we don't want to trigger a notification
-				), completion: completion
-			)
-			return
-		}
+//		guard numberOfEnabledHours >= TracingStatusHistory.minimumActiveHours else {
+//			completeOnTargetQueue(
+//				risk: Risk(
+//					level: .unknownInitial,
+//					details: details,
+//					riskLevelHasChanged: false // false because we don't want to trigger a notification
+//				), completion: completion
+//			)
+//			return
+//		}
 
 		provideLoadingStatus(isLoading: true)
 		let group = DispatchGroup()

@@ -21,9 +21,9 @@ import ExposureNotification
 
 #if INTEROP
 
-class KeypackageDownload {
+class CountryKeypackageDownload {
 
-	typealias Completion = (Result<WrittenPackages, ExposureDetection.DidEndPrematurelyReason>) -> Void
+	typealias Completion = (Result<Void, ExposureDetection.DidEndPrematurelyReason>) -> Void
 
 	private let country: String
 	private weak var delegate: ExposureDetectionDelegate?
@@ -59,16 +59,9 @@ class KeypackageDownload {
 				return
 			}
 
-			self.savePackages()
+			self.completion?(.success(()))
 		}
 	}
 
-	private func savePackages() {
-		guard let writtenPackages = delegate?.exposureDetectionWriteDownloadedPackages(country: country) else {
-			completion?(.failure(.unableToWriteDiagnosisKeys))
-			return
-		}
-		completion?(.success(writtenPackages))
-	}
 }
 #endif

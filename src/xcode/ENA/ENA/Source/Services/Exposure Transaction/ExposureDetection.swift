@@ -36,8 +36,51 @@ final class ExposureDetection {
 
 	#if INTEROP
 
-	private func detectSummary(writtenPackages: WrittenPackages) {
+	private func downloadKeyPackages(for countries: [String], completion: @escaping (DidEndPrematurelyReason?) -> Void) {
 
+		let dispatchGroup = DispatchGroup()
+		var errors = [ExposureDetection.DidEndPrematurelyReason]()
+
+		for country in countries {
+			dispatchGroup.enter()
+
+			let keypackageDownload = CountryKeypackageDownload(country: country, delegate: delegate)
+			keypackageDownloads.append(keypackageDownload)
+			keypackageDownload.execute { result in
+
+				switch result {
+				case .failure(let didEndPrematurelyReason):
+					errors.append(didEndPrematurelyReason)
+				case .success:
+					break
+				}
+
+				dispatchGroup.leave()
+			}
+		}
+
+		dispatchGroup.notify(queue: .main) {
+			if let error = errors.first {
+				completion(error)
+			} else {
+				completion(nil)
+			}
+		}
+	}
+
+	private func writeKeyPackagesToFileSystem(for countries: [String]) -> WrittenPackages? {
+		var urls = [URL]()
+		for country in countries {
+			guard let writtenPackages = self.delegate?.exposureDetectionWriteDownloadedPackages(country: country) else {
+				return nil
+			}
+			urls.append(contentsOf: writtenPackages.urls)
+		}
+
+		return WrittenPackages(urls: urls)
+	}
+
+	private func detectSummary(writtenPackages: WrittenPackages) {
 		delegate?.exposureDetection(country: "DE", downloadConfiguration: { [weak self] configuration, _ in
 			guard let self = self else { return }
 
@@ -114,7 +157,7 @@ final class ExposureDetection {
 	typealias Completion = (Result<ENExposureDetectionSummary, DidEndPrematurelyReason>) -> Void
 
 	#if INTEROP
-	var keypackageDownloads = [KeypackageDownload]()
+	var keypackageDownloads = [CountryKeypackageDownload]()
 	#endif
 
 	func start(completion: @escaping Completion) {
@@ -123,37 +166,21 @@ final class ExposureDetection {
 		#if INTEROP
 
 		let countries = ["DE", "DE", "DE"]
-		var urls = [URL]()
-		var errors = [ExposureDetection.DidEndPrematurelyReason]()
 
-		let group = DispatchGroup()
+		downloadKeyPackages(for: countries) { [weak self] (didEndPrematurelyReason) in
+			guard let self = self else { return }
 
-		for country in countries {
-			group.enter()
-
-			let keypackageDownload = KeypackageDownload(country: country, delegate: delegate)
-			keypackageDownloads.append(keypackageDownload)
-			keypackageDownload.execute { result in
-
-				switch result {
-				case .success(let writtenPackages):
-					urls.append(contentsOf: writtenPackages.urls)
-				case .failure(let didEndPrematurelyReason):
-					errors.append(didEndPrematurelyReason)
-				}
-
-				group.leave()
-			}
-		}
-
-		group.notify(queue: .main) {
-			if let error = errors.first {
-				self.endPrematurely(reason: error)
+			if let didEndPrematurelyReason = didEndPrematurelyReason {
+				self.endPrematurely(reason: didEndPrematurelyReason)
 			} else {
-				let writtenPackages = WrittenPackages(urls: urls)
+				guard let writtenPackages = self.writeKeyPackagesToFileSystem(for: countries) else {
+					self.endPrematurely(reason: .unableToWriteDiagnosisKeys)
+					return
+				}
 				self.detectSummary(writtenPackages: writtenPackages)
 			}
 		}
+
 
 		#else
 
