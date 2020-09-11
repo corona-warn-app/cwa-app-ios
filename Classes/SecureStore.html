@@ -63,9 +63,9 @@ It uses an SQLite Database that still needs to be encrypted</p>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA11SecureStoreC2at3keyAC10Foundation3URLV_SStcfc"></a>
+                      <a name="/s:3ENA11SecureStoreC2at3keyAC10Foundation3URLV_SStKcfc"></a>
                       <a name="//apple_ref/swift/Method/init(at:key:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA11SecureStoreC2at3keyAC10Foundation3URLV_SStcfc">init(at:<wbr>key:<wbr>)</a>
+                      <a class="token" href="#/s:3ENA11SecureStoreC2at3keyAC10Foundation3URLV_SStKcfc">init(at:<wbr>key:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -80,7 +80,7 @@ It uses an SQLite Database that still needs to be encrypted</p>
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="n">at</span> <span class="nv">directoryURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+                            <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="n">at</span> <span class="nv">directoryURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                           </div>
                         </div>
@@ -100,7 +100,19 @@ It uses an SQLite Database that still needs to be encrypted</p>
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Undocumented</p>
+                          <p>Removes most key/value pairs.</p>
+
+<p>Keys whose values are not removed:</p>
+
+<ul>
+<li><code><a href="../Classes/SecureStore.html#/s:3ENA11SecureStoreC34developerSubmissionBaseURLOverrideSSSgvp">developerSubmissionBaseURLOverride</a></code></li>
+<li><code><a href="../Classes/SecureStore.html#/s:3ENA11SecureStoreC36developerDistributionBaseURLOverrideSSSgvp">developerDistributionBaseURLOverride</a></code></li>
+<li><p><code><a href="../Classes/SecureStore.html#/s:3ENA11SecureStoreC36developerVerificationBaseURLOverrideSSSgvp">developerVerificationBaseURLOverride</a></code></p></li>
+</ul><div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This is just a wrapper to the <code>SQLiteKeyValueStore:flush</code> call</p>
+
+</div>
 
                         </div>
                         <div class="declaration">
@@ -127,7 +139,12 @@ It uses an SQLite Database that still needs to be encrypted</p>
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Undocumented</p>
+                          <p>Database reset &amp; re-initialization with a given key</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This is just a wrapper to the <code>SQLiteKeyValueStore:clearAll:</code> call</p>
+
+</div>
 
                         </div>
                         <div class="declaration">
@@ -137,6 +154,25 @@ It uses an SQLite Database that still needs to be encrypted</p>
                             <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">clearAll</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span></code></pre>
 
                           </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>key</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>the key for the new database; if no key is given, no new database will be created</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </section>
                     </div>
@@ -968,6 +1004,33 @@ It uses an SQLite Database that still needs to be encrypted</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">isAllowedToPerformBackgroundFakeRequests</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA11SecureStoreC19keychainDatabaseKeySSvpZ"></a>
+                      <a name="//apple_ref/swift/Variable/keychainDatabaseKey" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA11SecureStoreC19keychainDatabaseKeySSvpZ">keychainDatabaseKey</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">keychainDatabaseKey</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                           </div>
                         </div>
@@ -1846,7 +1909,7 @@ It uses an SQLite Database that still needs to be encrypted</p>
                   <a href="../Enums/KeyError.html">KeyError</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Enums/KeychainHelper.html">KeychainHelper</a>
+                  <a href="../Enums/KeychainError.html">KeychainError</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/LinkHelper.html">LinkHelper</a>
@@ -1882,6 +1945,9 @@ It uses an SQLite Database that still needs to be encrypted</p>
                   <a href="../Enums/RiskLevelCalculationError.html">RiskLevelCalculationError</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/SQLiteStoreError.html">SQLiteStoreError</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/SettingAction.html">SettingAction</a>
                 </li>
                 <li class="nav-group-task">
@@ -1895,6 +1961,9 @@ It uses an SQLite Database that still needs to be encrypted</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/UITestingParameters/ExposureSubmission.html">– ExposureSubmission</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/UITestingParameters/SecureStoreHandling.html">– SecureStoreHandling</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/UpdateAlertType.html">UpdateAlertType</a>
@@ -2329,6 +2398,9 @@ It uses an SQLite Database that still needs to be encrypted</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/InfoBoxViewModel/Instruction.html">– Instruction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KeychainHelper.html">KeychainHelper</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/OnboardingInfo.html">OnboardingInfo</a>

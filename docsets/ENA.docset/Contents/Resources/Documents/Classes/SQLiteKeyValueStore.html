@@ -62,9 +62,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA19SQLiteKeyValueStoreC4with3keyAC10Foundation3URLV_SStcfc"></a>
+                      <a name="/s:3ENA19SQLiteKeyValueStoreC4with3keyAC10Foundation3URLV_SStKcfc"></a>
                       <a name="//apple_ref/swift/Method/init(with:key:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA19SQLiteKeyValueStoreC4with3keyAC10Foundation3URLV_SStcfc">init(with:<wbr>key:<wbr>)</a>
+                      <a class="token" href="#/s:3ENA19SQLiteKeyValueStoreC4with3keyAC10Foundation3URLV_SStKcfc">init(with:<wbr>key:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -78,7 +78,7 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="n">with</span> <span class="nv">directoryURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+                            <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="n">with</span> <span class="nv">directoryURL</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                           </div>
                         </div>
@@ -133,12 +133,25 @@ If the Database can&rsquo;t be accessed with the key the currentFile will be res
                       </section>
                     </div>
                   </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Internal%20database%20modifications"></a>
+                  <a name="//apple_ref/swift/Section/Internal database modifications" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/Internal%20database%20modifications"></a>
+                    <h3 class="section-name"><p>Internal database modifications</p>
+</h3>
+                  </div>
+                </div>
+                <ul>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA19SQLiteKeyValueStoreC8clearAll3keyySSSg_tF"></a>
+                      <a name="/s:3ENA19SQLiteKeyValueStoreC8clearAll3keyySSSg_tKF"></a>
                       <a name="//apple_ref/swift/Method/clearAll(key:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA19SQLiteKeyValueStoreC8clearAll3keyySSSg_tF">clearAll(key:<wbr>)</a>
+                      <a class="token" href="#/s:3ENA19SQLiteKeyValueStoreC8clearAll3keyySSSg_tKF">clearAll(key:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -146,26 +159,39 @@ If the Database can&rsquo;t be accessed with the key the currentFile will be res
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Removes all key/value pairs from the Store</p>
+                          <p>Removes all key/value pairs from the Store and creates a new database with a given key</p>
 
                         </div>
                         <div class="declaration">
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">clearAll</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">clearAll</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span> <span class="k">throws</span></code></pre>
 
                           </div>
                         </div>
                       </section>
                     </div>
                   </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Public"></a>
+                  <a name="//apple_ref/swift/Section/Public" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/Public"></a>
+                    <h3 class="section-name"><p>Public</p>
+</h3>
+                  </div>
+                </div>
+                <ul>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA19SQLiteKeyValueStoreC5flushyyF"></a>
+                      <a name="/s:3ENA19SQLiteKeyValueStoreC5flushyyKF"></a>
                       <a name="//apple_ref/swift/Method/flush()" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA19SQLiteKeyValueStoreC5flushyyF">flush()</a>
+                      <a class="token" href="#/s:3ENA19SQLiteKeyValueStoreC5flushyyKF">flush()</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -188,7 +214,7 @@ If the Database can&rsquo;t be accessed with the key the currentFile will be res
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">flush</span><span class="p">()</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">flush</span><span class="p">()</span> <span class="k">throws</span></code></pre>
 
                           </div>
                         </div>
@@ -1126,7 +1152,7 @@ If encoding fails, fetching the value for that key will result in empty <code>Da
                   <a href="../Enums/KeyError.html">KeyError</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Enums/KeychainHelper.html">KeychainHelper</a>
+                  <a href="../Enums/KeychainError.html">KeychainError</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/LinkHelper.html">LinkHelper</a>
@@ -1162,6 +1188,9 @@ If encoding fails, fetching the value for that key will result in empty <code>Da
                   <a href="../Enums/RiskLevelCalculationError.html">RiskLevelCalculationError</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/SQLiteStoreError.html">SQLiteStoreError</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/SettingAction.html">SettingAction</a>
                 </li>
                 <li class="nav-group-task">
@@ -1175,6 +1204,9 @@ If encoding fails, fetching the value for that key will result in empty <code>Da
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/UITestingParameters/ExposureSubmission.html">– ExposureSubmission</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/UITestingParameters/SecureStoreHandling.html">– SecureStoreHandling</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/UpdateAlertType.html">UpdateAlertType</a>
@@ -1609,6 +1641,9 @@ If encoding fails, fetching the value for that key will result in empty <code>Da
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/InfoBoxViewModel/Instruction.html">– Instruction</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/KeychainHelper.html">KeychainHelper</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/OnboardingInfo.html">OnboardingInfo</a>

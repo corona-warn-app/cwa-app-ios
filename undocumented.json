@@ -5287,63 +5287,63 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 238,
+      "line": 242,
       "symbol": "SceneDelegate",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 239,
+      "line": 243,
       "symbol": "SceneDelegate.userNotificationCenter(_:willPresent:withCompletionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 243,
+      "line": 247,
       "symbol": "SceneDelegate.userNotificationCenter(_:didReceive:withCompletionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 266,
+      "line": 270,
       "symbol": "SceneDelegate",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 267,
+      "line": 271,
       "symbol": "SceneDelegate.updateExposureState(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 275,
+      "line": 279,
       "symbol": "SceneDelegate",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 276,
+      "line": 280,
       "symbol": "SceneDelegate.updateEnState(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 283,
+      "line": 287,
       "symbol": "SceneDelegate",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 285,
+      "line": 289,
       "symbol": "SceneDelegate.backgroundRefreshStatusDidChange()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -21689,29 +21689,71 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Keychain/KeychainHelper.swift",
       "line": 22,
-      "symbol": "KeychainHelper",
+      "symbol": "KeychainError",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Keychain/KeychainHelper.swift",
+      "line": 23,
+      "symbol": "KeychainError.initializationError",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Keychain/KeychainHelper.swift",
+      "line": 24,
+      "symbol": "KeychainError.clearItem(reason:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Keychain/KeychainHelper.swift",
+      "line": 25,
+      "symbol": "KeychainError.save(reason:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Keychain/KeychainHelper.swift",
       "line": 26,
+      "symbol": "KeychainError.keyGenerationFail",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Keychain/KeychainHelper.swift",
+      "line": 29,
+      "symbol": "KeychainHelper",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Keychain/KeychainHelper.swift",
+      "line": 37,
+      "symbol": "KeychainHelper.init(service:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Keychain/KeychainHelper.swift",
+      "line": 42,
+      "symbol": "KeychainHelper.clearInKeychain(key:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Keychain/KeychainHelper.swift",
+      "line": 57,
       "symbol": "KeychainHelper.saveToKeychain(key:data:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Keychain/KeychainHelper.swift",
-      "line": 63,
+      "line": 79,
       "symbol": "KeychainHelper.loadFromKeychain(key:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Keychain/KeychainHelper.swift",
-      "line": 78,
-      "symbol": "KeychainHelper.generateDatabaseKey()",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -21870,14 +21912,42 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/SQLiteKeyValueStore.swift",
-      "line": 44,
+      "line": 22,
+      "symbol": "SQLiteStoreError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/SQLiteKeyValueStore.swift",
+      "line": 23,
+      "symbol": "SQLiteStoreError.databaseInitFailure",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/SQLiteKeyValueStore.swift",
+      "line": 24,
+      "symbol": "SQLiteStoreError.readError(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/SQLiteKeyValueStore.swift",
+      "line": 25,
+      "symbol": "SQLiteStoreError.writeError(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/SQLiteKeyValueStore.swift",
+      "line": 50,
       "symbol": "SQLiteKeyValueStore.deinit",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/SQLiteKeyValueStore.swift",
-      "line": 226,
+      "line": 262,
       "symbol": "Data.hexEncodedString()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -21954,210 +22024,203 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 33,
-      "symbol": "SecureStore.flush()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 37,
-      "symbol": "SecureStore.clearAll(key:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 41,
+      "line": 53,
       "symbol": "SecureStore.testResultReceivedTimeStamp",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 46,
+      "line": 58,
       "symbol": "SecureStore.lastSuccessfulSubmitDiagnosisKeyTimestamp",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 51,
+      "line": 63,
       "symbol": "SecureStore.numberOfSuccesfulSubmissions",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 56,
+      "line": 68,
       "symbol": "SecureStore.initialSubmitCompleted",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 61,
+      "line": 73,
       "symbol": "SecureStore.exposureActivationConsentAcceptTimestamp",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 66,
+      "line": 78,
       "symbol": "SecureStore.exposureActivationConsentAccept",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 71,
+      "line": 83,
       "symbol": "SecureStore.registrationToken",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 76,
+      "line": 88,
       "symbol": "SecureStore.teleTan",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 81,
+      "line": 93,
       "symbol": "SecureStore.tan",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 86,
+      "line": 98,
       "symbol": "SecureStore.testGUID",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 91,
+      "line": 103,
       "symbol": "SecureStore.devicePairingConsentAccept",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 96,
+      "line": 108,
       "symbol": "SecureStore.devicePairingConsentAcceptTimestamp",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 101,
+      "line": 113,
       "symbol": "SecureStore.devicePairingSuccessfulTimestamp",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 106,
+      "line": 118,
       "symbol": "SecureStore.isAllowedToSubmitDiagnosisKeys",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 111,
+      "line": 123,
       "symbol": "SecureStore.isOnboarded",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 116,
+      "line": 128,
       "symbol": "SecureStore.dateOfAcceptedPrivacyNotice",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 121,
+      "line": 133,
       "symbol": "SecureStore.hasSeenSubmissionExposureTutorial",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 131,
+      "line": 143,
       "symbol": "SecureStore.developerSubmissionBaseURLOverride",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 136,
+      "line": 148,
       "symbol": "SecureStore.developerDistributionBaseURLOverride",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 141,
+      "line": 153,
       "symbol": "SecureStore.developerVerificationBaseURLOverride",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 146,
+      "line": 158,
       "symbol": "SecureStore.allowRiskChangesNotification",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 151,
+      "line": 163,
       "symbol": "SecureStore.allowTestsStatusNotification",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 156,
+      "line": 168,
       "symbol": "SecureStore.tracingStatusHistory",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 168,
+      "line": 180,
       "symbol": "SecureStore.summary",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 173,
+      "line": 185,
       "symbol": "SecureStore.hourlyFetchingEnabled",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 178,
+      "line": 190,
       "symbol": "SecureStore.previousRiskLevel",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 188,
+      "line": 200,
       "symbol": "SecureStore.userNeedsToBeInformedAboutHowRiskDetectionWorks",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
-      "line": 212,
+      "line": 225,
+      "symbol": "SecureStore.keychainDatabaseKey",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Store/SecureStore.swift",
+      "line": 227,
       "symbol": "SecureStore.init(subDirectory:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -22586,6 +22649,20 @@
       "file": "/Users/distiller/project/src/xcode/ENA/ENAUITests/UITestingParameters.swift",
       "line": 26,
       "symbol": "UITestingParameters.ExposureSubmission.submitExposureSuccess",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENAUITests/UITestingParameters.swift",
+      "line": 29,
+      "symbol": "UITestingParameters.SecureStoreHandling",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENAUITests/UITestingParameters.swift",
+      "line": 30,
+      "symbol": "UITestingParameters.SecureStoreHandling.simulateMismatchingKey",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
