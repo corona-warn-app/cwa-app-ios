@@ -23,7 +23,7 @@ protocol Client {
 	// MARK: Types
 
 	typealias Failure = URLSession.Response.Failure
-	typealias SubmitKeysCompletionHandler = (SubmissionError?) -> Void
+	typealias KeySubmissionResponse = (Result<Void, Error>) -> Void
 	typealias AvailableDaysCompletionHandler = (Result<[String], Failure>) -> Void
 	typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
 	typealias RegistrationHandler = (Result<String, Failure>) -> Void
@@ -32,11 +32,15 @@ protocol Client {
 	typealias DayCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
 	typealias HourCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
 	typealias AppConfigurationCompletion = (SAP_ApplicationConfiguration?) -> Void
+	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
 
 	// MARK: Interacting with a Client
 
 	/// Gets the app configuration
 	func appConfiguration(completion: @escaping AppConfigurationCompletion)
+
+	/// Gets the list of available countries for key submission.
+	func supportedCountries(completion: @escaping CountryFetchCompletion)
 
 	/// Determines days that can be downloaded.
 	func availableDays(completion: @escaping AvailableDaysCompletionHandler)
@@ -93,15 +97,17 @@ protocol Client {
 		completion: @escaping ExposureConfigurationCompletionHandler
 	)
 
+	// MARK: Submit keys
+
 	/// Submits exposure keys to the backend. This makes the local information available to the world so that the risk of others can be calculated on their local devices.
-	/// Parameters:
-	/// - keys: An array of `ENTemporaryExposureKey`s  to submit to the backend.
-	/// - tan: A transaction number
+	/// - Parameters:
+	///   - payload: A set of properties to provide during the submission process
+	///   - isFake: flag to indicate a fake request
+	///   - completion: the completion handler of the submission call
 	func submit(
-		keys: [ENTemporaryExposureKey],
-		tan: String,
+		payload: CountrySubmissionPayload,
 		isFake: Bool,
-		completion: @escaping SubmitKeysCompletionHandler
+		completion: @escaping KeySubmissionResponse
 	)
 }
 
@@ -131,6 +137,22 @@ extension SubmissionError: LocalizedError {
 			return error.localizedDescription
 		}
 	}
+}
+
+/// Combined model for a submit keys request
+struct CountrySubmissionPayload {
+
+	/// The exposure keys to submit
+	let exposureKeys: [ENTemporaryExposureKey]
+
+	/// whether or not the consent was given to share the keys with the european federal gateway server
+	let consentToFederation: Bool
+
+	/// the list of countries to check for any exposures
+	let visitedCountries: [Country]
+
+	/// a transaction number
+	let tan: String
 }
 
 struct DaysResult {
