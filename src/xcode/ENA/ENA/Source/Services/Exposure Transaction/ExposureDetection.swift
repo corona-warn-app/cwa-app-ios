@@ -167,7 +167,7 @@ final class ExposureDetection {
 
 		let countries = ["DE", "DE", "DE"]
 
-		downloadKeyPackages(for: countries) { [weak self] (didEndPrematurelyReason) in
+		downloadKeyPackages(for: countries) { [weak self] didEndPrematurelyReason in
 			guard let self = self else { return }
 
 			if let didEndPrematurelyReason = didEndPrematurelyReason {
