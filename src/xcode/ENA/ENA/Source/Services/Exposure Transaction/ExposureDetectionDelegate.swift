@@ -36,6 +36,8 @@ protocol ExposureDetectionDelegate: AnyObject {
 
 	#if INTEROP
 
+	typealias SupportedCountriesResult = Result<[Country], URLSession.Response.Failure>
+
 	func exposureDetection(
 		country: String,
 		determineAvailableData completion: @escaping (DaysAndHours?, String) -> Void
@@ -58,6 +60,8 @@ protocol ExposureDetectionDelegate: AnyObject {
 		country: String,
 		downloadConfiguration completion: @escaping (ENExposureConfiguration?, String) -> Void
 	)
+
+	func exposureDetection(supportedCountries completion: @escaping (SupportedCountriesResult) -> Void)
 
 	#else
 

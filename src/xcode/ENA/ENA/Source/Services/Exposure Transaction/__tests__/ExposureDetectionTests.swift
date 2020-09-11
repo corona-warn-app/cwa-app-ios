@@ -25,6 +25,12 @@ final class ExposureDetectionTransactionTests: XCTestCase {
     func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {
 		let delegate = ExposureDetectionDelegateMock()
 
+		let configurationToBeCalled = expectation(description: "configuration called")
+		delegate.configuration = {
+			configurationToBeCalled.fulfill()
+			return .mock()
+		}
+
 		let availableDataToBeCalled = expectation(description: "availableData called")
 		availableDataToBeCalled.assertForOverFulfill = false
 		delegate.availableData = {
@@ -62,12 +68,6 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 			return writtenPackages
 		}
 
-		let configurationToBeCalled = expectation(description: "configuration called")
-		delegate.configuration = {
-			configurationToBeCalled.fulfill()
-			return .mock()
-		}
-
 		let summaryResultBeCalled = expectation(description: "summaryResult called")
 		delegate.summaryResult = { _, _ in
 			summaryResultBeCalled.fulfill()
@@ -83,11 +83,11 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 
 		wait(
 			for: [
+				configurationToBeCalled,
 				availableDataToBeCalled,
 				downloadDeltaToBeCalled,
 				downloadAndStoreToBeCalled,
 				writtenPackagesBeCalled,
-				configurationToBeCalled,
 				summaryResultBeCalled,
 				startCompletionCalled
 			],
@@ -244,6 +244,10 @@ extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 
 	func exposureDetectionWriteDownloadedPackages(country: String) -> WrittenPackages? {
 		writtenPackages()
+	}
+
+	func exposureDetection(supportedCountries completion: @escaping (SupportedCountriesResult) -> Void) {
+		completion(.success([]))
 	}
 
 	#else

@@ -52,7 +52,7 @@ final class ExposureDetection {
 
 	var keypackageDownloads = [CountryKeypackageDownload]()
 
-	private func downloadKeyPackages(for countries: [String], completion: @escaping (DidEndPrematurelyReason?) -> Void) {
+	private func downloadKeyPackages(for countries: [Country.ID], completion: @escaping (DidEndPrematurelyReason?) -> Void) {
 
 		let dispatchGroup = DispatchGroup()
 		var errors = [ExposureDetection.DidEndPrematurelyReason]()
@@ -84,7 +84,7 @@ final class ExposureDetection {
 		}
 	}
 
-	private func writeKeyPackagesToFileSystem(for countries: [String]) -> WrittenPackages? {
+	private func writeKeyPackagesToFileSystem(for countries: [Country.ID]) -> WrittenPackages? {
 		var urls = [URL]()
 		for country in countries {
 			guard let writtenPackages = self.delegate?.exposureDetectionWriteDownloadedPackages(country: country) else {
@@ -176,22 +176,31 @@ final class ExposureDetection {
 		self.completion = completion
 
 		#if INTEROP
-		let countries = store.euTracingSettings?.countriesForExposureDetection ?? []
 
-		downloadKeyPackages(for: countries) { [weak self] didEndPrematurelyReason in
+		delegate?.exposureDetection(supportedCountries: { [weak self] result in
 			guard let self = self else { return }
 
-			if let didEndPrematurelyReason = didEndPrematurelyReason {
-				self.endPrematurely(reason: didEndPrematurelyReason)
-			} else {
-				guard let writtenPackages = self.writeKeyPackagesToFileSystem(for: countries) else {
-					self.endPrematurely(reason: .unableToWriteDiagnosisKeys)
-					return
-				}
-				self.detectSummary(writtenPackages: writtenPackages)
-			}
-		}
+			switch result {
+			case .success(let countries):
+				let countryIDs = countries.map { $0.id }
 
+				self.downloadKeyPackages(for: countryIDs) { [weak self] didEndPrematurelyReason in
+					guard let self = self else { return }
+
+					if let didEndPrematurelyReason = didEndPrematurelyReason {
+						self.endPrematurely(reason: didEndPrematurelyReason)
+					} else {
+						guard let writtenPackages = self.writeKeyPackagesToFileSystem(for: countryIDs) else {
+							self.endPrematurely(reason: .unableToWriteDiagnosisKeys)
+							return
+						}
+						self.detectSummary(writtenPackages: writtenPackages)
+					}
+				}
+			case.failure:
+				self.endPrematurely(reason: .noSupportedCountries)
+			}
+		})
 
 		#else
 

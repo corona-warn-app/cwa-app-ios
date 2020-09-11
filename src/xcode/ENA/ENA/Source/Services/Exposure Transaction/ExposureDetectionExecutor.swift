@@ -168,6 +168,12 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		client.exposureConfiguration(country: country, completion: completion)
 	}
 
+	func exposureDetection(
+		supportedCountries completion: @escaping (SupportedCountriesResult) -> Void
+	) {
+		client.supportedCountries(completion: completion)
+	}
+
 	#else
 
 	func exposureDetection(
