@@ -20,9 +20,26 @@ import UIKit
 final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 
 	private var state: ENStateHandler.State
+	private let store: Store
 
-	init(state: ENStateHandler.State) {
+	init(state: ENStateHandler.State, store: Store) {
 		self.state = state
+		self.store = store
+	}
+	
+	var enabledCountriesID: [Country] {
+//		guard let countries = store.euTracingSettings?.enabledCountries else { return [] }
+		let countries = ["DE", "IT"]
+		return countries.compactMap({ Country(countryCode: $0) })
+	}
+
+	var enabledCountries: String {
+		guard !enabledCountriesID.isEmpty else { return "" }
+		let countriesLocalized = enabledCountriesID
+			.compactMap({ $0.localizedName })
+			.joined(separator: ", ")
+		
+		return AppStrings.ExposureNotificationSetting.euWideSubtitle + " (" + countriesLocalized + ")"
 	}
 
 	// MARK: Configuring a Cell
@@ -32,6 +49,7 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 		case .enabled:
 			cell.configure(
 				title: AppStrings.Home.activateCardOnTitle,
+				subtitle: enabledCountries,
 				icon: UIImage(named: "Icons_Risikoermittlung_25"),
 				animationImages: (0...60).compactMap({ UIImage(named: String(format: "Icons_Risikoermittlung_%02d", $0)) }),
 				accessibilityIdentifier: AccessibilityIdentifiers.Home.activateCardOnTitle

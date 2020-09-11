@@ -61,6 +61,22 @@ extension ENALabel {
 		case subheadline
 		case footnote
 	}
+	
+	var countLabelLines: Int {
+		guard let myText = self.text as String? else { return 0 }
+		let attributes = [NSAttributedString.Key.font : self.font]
+
+		let labelSize = myText.boundingRect(with: CGSize(width: self.bounds.width,
+														 height: CGFloat.greatestFiniteMagnitude),
+											options: NSStringDrawingOptions.usesLineFragmentOrigin,
+											attributes: attributes as [NSAttributedString.Key : Any],
+											context: nil)
+		return Int(ceil(CGFloat(labelSize.height) / self.font.lineHeight))
+	}
+	
+	var isTruncated: Bool {
+		return countLabelLines > numberOfLines
+	}
 }
 
 extension ENALabel.Style {

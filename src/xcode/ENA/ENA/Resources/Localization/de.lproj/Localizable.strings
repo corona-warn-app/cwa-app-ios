@@ -705,6 +705,8 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 "ExposureNotificationSetting_ActionCell_Header" = "Einstellung";
 
+"ExposureNotificationSetting_Warn_Europe_Subtitle" = "Europaweit";
+
 "ExposureNotificationSetting_DescriptionTitle_Inactive" = "Aktivieren Sie die Begegnungs-Aufzeichnung";
 
 "ExposureNotificationSetting_DescriptionTitle" = "So funktioniert die Begegnungs-Aufzeichnung";

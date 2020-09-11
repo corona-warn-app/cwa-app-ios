@@ -286,7 +286,7 @@ extension HomeInteractor {
 	}
 
 	func setupActiveConfigurator() -> HomeActivateCellConfigurator {
-		return HomeActivateCellConfigurator(state: state.enState)
+		return HomeActivateCellConfigurator(state: state.enState, store: store)
 	}
 
 	func setupActionConfigurators() -> [CollectionViewCellConfiguratorAny] {

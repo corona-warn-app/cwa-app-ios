@@ -20,6 +20,8 @@ import UIKit
 class ActivateCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var iconImageView: UIImageView!
 	@IBOutlet var titleLabel: UILabel!
+	@IBOutlet var subtitleLabel: ENALabel!
+	
 	@IBOutlet var viewContainer: UIView!
 
 	override func awakeFromNib() {
@@ -29,8 +31,14 @@ class ActivateCollectionViewCell: HomeCardCollectionViewCell {
 		accessibilityTraits = .button
 	}
 
-	func configure(title: String, icon: UIImage?, animationImages: [UIImage]? = nil, accessibilityIdentifier: String) {
+	func configure(title: String, subtitle: String? = nil, icon: UIImage?, animationImages: [UIImage]? = nil, accessibilityIdentifier: String) {
 		self.titleLabel.text = title
+		self.subtitleLabel.text = subtitle
+		if self.subtitleLabel.isTruncated {
+			self.subtitleLabel.text = AppStrings.ExposureNotificationSetting.euWideSubtitle
+		}  else {
+			self.subtitleLabel.text = subtitle
+		}
 		self.iconImageView.image = icon
 		self.accessibilityIdentifier = accessibilityIdentifier
 		self.accessibilityLabel = title
