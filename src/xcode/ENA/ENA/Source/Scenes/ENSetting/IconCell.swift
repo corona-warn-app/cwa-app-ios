@@ -28,6 +28,8 @@ class IconCell: UITableViewCell {
 	lazy var body = ENALabel(frame: .zero)
 	lazy var iconView = UIImageView(frame: .zero)
 
+	// MARK: - Initializer.
+
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
 	}
@@ -41,6 +43,7 @@ class IconCell: UITableViewCell {
 		// MARK: - General cell setup.
 		selectionStyle = .none
 		backgroundColor = .enaColor(for: backgroundStyle)
+		iconView.contentMode = .scaleAspectFit
 
 		// MARK: - Title adjustment.
 		title.style = .headline
@@ -65,6 +68,8 @@ class IconCell: UITableViewCell {
 		contentView.addSubview(iconView)
 	}
 
+	// MARK: - Constraint setting.
+
 	private func setupConstraints() {
 		title.sizeToFit()
 		body.sizeToFit()
@@ -86,6 +91,8 @@ class IconCell: UITableViewCell {
 		body.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor).isActive = true
 	}
 
+	// MARK: - Configurator for DynamicTableView integration.
+
 	func configure(
 		icon: UIImage? = nil,
 		title: NSMutableAttributedString,
@@ -95,11 +102,8 @@ class IconCell: UITableViewCell {
 	) {
 		setup(textStyle: textStyle, backgroundStyle: backgroundStyle)
 		self.title.attributedText = title
-		if let iconImage = icon {
-			iconView.image = iconImage
-			iconView.contentMode = .scaleAspectFit
-		}
 		self.body.attributedText = body
+		if let iconImage = icon { iconView.image = iconImage }
 		setupConstraints()
 	}
 

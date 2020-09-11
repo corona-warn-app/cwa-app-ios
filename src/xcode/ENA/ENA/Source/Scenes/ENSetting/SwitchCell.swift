@@ -52,6 +52,8 @@ class SwitchCell: UITableViewCell {
 		accessoryView = uiSwitch
 		uiSwitch.onTintColor = .enaColor(for: .tint)
 		uiSwitch.addTarget(self, action: #selector(onToggle), for: .touchUpInside)
+
+		imageView?.contentMode = .scaleAspectFit
 	}
 
 	@objc
