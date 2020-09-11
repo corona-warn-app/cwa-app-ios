@@ -70,7 +70,7 @@
 
 "ExposureDetection_RefreshIn" = "Обновление через %@";
 
-"ExposureDetection_Refresh_24h" = "Обновление каждые 24 ч";
+"ExposureDetection_Refresh_24h" = "Обновление каждые 24 часа";
 
 "ExposureDetection_LastRiskLevel" = "Последнее определение риска: %@";
 
@@ -106,19 +106,27 @@
 
 "ExposureDetection_Explanation_Title" = "Риск заражения";
 
-"ExposureDetection_Explanation_Subtitle_Active" = "Вот как был рассчитан Ваш риск";
+"ExposureDetection_Explanation_Subtitle" = "Вот как рассчитывается Ваш риск";
 
-"ExposureDetection_Explanation_Subtitle_Inactive" = "Вот как рассчитывается Ваш риск";
-
-"ExposureDetection_Explanation_Text_Off" = "Ваш риск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
+"ExposureDetection_Explanation_Text_Off" = "Риск заражения рассчитывается на Вашем устройстве по локальным данным определения риска (продолжительности и близости). Данные риска заражения не показываются и не передаются другим лицам.";
 
 "ExposureDetection_Explanation_Text_Outdated" = "С момента активации определения риска не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.\n\nВаш риск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
 
 "ExposureDetection_Explanation_Text_Unknown" = "С момента активации определения риска не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.\n\nВаш риск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
 
-"ExposureDetection_Explanation_Text_Low" = "У Вас низкий риск заражения, поскольку не зарегистрировано контактов с лицами с положительным тестом на COVID-19 или контакты были кратковременными и на большом расстоянии.\n\nПоэтому Ваш риск заражения был оценен как низкий.\n\nРиск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
+"ExposureDetection_Explanation_Text_Low" = "Риск заражения рассчитывается локально на вашем устройстве по данным определения контакта. В расчете также учитываются расстояние и продолжительность контактов с лицами с положительным тестом на COVID-19 и их потенциальная заразность. Ваш риск заражения не виден и не передается третьим лицам.";
 
-"ExposureDetection_Explanation_Text_High" = "Поэтому ваш риск заражения был оценен как повышенный.\nРиск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.\nПо возвращении домой избегайте близкого контакта с членами вашей семьи.";
+"ExposureDetection_Explanation_Text_High" = "Поэтому ваш риск заражения был оценен как повышенный.\nРиск заражения рассчитывается по локальным данным определения контакта (продолжительности и близости) на вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.\nПо возвращении домой избегайте близкого контакта с членами вашей семьи.";
+
+"ExposureDetection_Explanation_FAQ_Link" = "https://www.coronawarn.app/en/faq/#encounter_but_green";
+
+"ExposureDetection_Explanation_FAQ_Link_Text" = "Дополнительная информация";
+
+"ExposureDetection_LowRiskExposure_Title" = "Контакты с низким риском";
+
+"ExposureDetection_LowRiskExposure_Subtitle" = "Почему ваш риск заражения низкий";
+
+"ExposureDetection_LowRiskExposure_Body" = "Вы контактировали с человеком, который позднее получил положительный тест на COVID-19. Однако с учетом данных определения контакта ваш риск заражения оценивается как низкий. Риск низкий, если контакт был кратковременным или на расстоянии. Не стоит волноваться. Не требуются никакие действия. Рекомендуем вам соблюдать действующие правила в отношении социальной дистанции и гигиены.";
 
 "ExposureDetection_Button_Enable" = "Активировать определение риска";
 
@@ -138,9 +146,11 @@
 /* Exposure Detection Errors */
 "ExposureDetectionError_Alert_Title" = "Ошибка";
 
-"ExposureDetectionError_Alert_Action_Details" = "Сведения";
+"ExposureDetectionError_Alert_Action_Details" = "Подробная информация";
 
-"ExposureDetectionError_Alert_Message" = "Ошибка при определении риска.";
+"ExposureDetectionError_Alert_Message" = "Обнаружена ошибка при определении риска.";
+
+"ExposureDetectionError_Alert_AppConfig_Missing_Message" = "Интернет-соединение прервано. Проверьте соединение и снова откройте приложение.";
 
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Информация о функции определения риска";
@@ -172,7 +182,7 @@
 
 "Settings_Reset_Label" = "Сбросить приложение";
 
-"Settings_Tracing_Description" = "Разрешите генерацию и предоставление случайных идентификаторов COVID-19.";
+"Settings_Tracing_Description" = "Разрешить генерацию и предоставление случайных идентификаторов COVID-19";
 
 "Settings_Notification_Description" = "Разрешите автоматические уведомления о Вашем статусе риска заражения COVID-19.";
 
@@ -287,7 +297,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Более надежная защита для Вас и для всех нас. Приложение Corona-Warn-App поможет быстрее остановить передачу инфекции.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Сделайте из Вашего устройства систему  предупреждения о коронавирусе. Просматривайте Ваш статус риска и определяйте, были ли у Вас близкие контакты с лицами с положительным тестом на COVID-19 за последние 14 дней.\n\nКонтакты людей регистрируются в приложении путем обмена зашифрованными случайными идентификаторами между  устройствами без доступа к каким-либо персональным данным.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Сделайте свое устройство системой предупреждения о коронавирусе. Получайте информацию о своем статусе риска и определяйте, были ли у Вас за последние 14 дней близкие контакты с лицами с положительным тестом на COVID-19.\n\nКонтакты регистрируются в приложении путем обмена зашифрованными случайными идентификаторами между устройствами без доступа к каким-либо персональным данным.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
 
@@ -570,7 +580,7 @@
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Тест можно отсканировать только один раз.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "После удаления теста вы не сможете запросить результат тестирования. Вы получите результат теста из центра тестирования или выполнившей тест лаборатории вне зависимости от приложения. Если у вас диагностирован COVID-19, вы получите уведомление от соответствующего органа здравоохранения.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Если вы удалите тест, то не сможете вызвать результат тестирования. Вы получите результат теста из центра тестирования или выполнившей тест лаборатории вне зависимости от действительности QR-кода. Если у вас диагностирован COVID-19, соответствующий орган здравоохранения получит уведомление по безопасному каналу и свяжется с вами.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Дата регистрации неизвестна";
 
@@ -591,7 +601,9 @@
 
 "ExposureSubmissionError_NoResponse" = "Ответ не имеет содержимого.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "QR-код недействительный или уже зарегистрирован на другом смартфоне. Повторите попытку. Вы получите результат теста из центра тестирования или выполнившей тест лаборатории вне зависимости от действительности QR-кода. Если у вас диагностирован COVID-19, вы получите уведомление от соответствующего органа здравоохранения.";
+"ExposureSubmissionError_QRAlreadyUsed" = "QR-код недействительный или уже зарегистрирован на другом смартфоне. Повторите попытку. Вы получите результат теста из центра тестирования или выполнившей тест лаборатории вне зависимости от действительности QR-кода. Если у вас диагностирован COVID-19, соответствующий орган здравоохранения получит уведомление по безопасному каналу и свяжется с вами.";
+
+"ExposureSubmissionError_QRAlreadyUsed_Title" = "Недействительный QR-код";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "TAN недействителен или уже использовался. Повторите попытку или обратитесь на горячую линию по техническим вопросам по пути: Информация о приложении -> Горячая линия по техническим вопросам.";
 
@@ -640,7 +652,7 @@
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Открыть настройки устройства";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "Активировать определение контакта с COVID-19 и уведомления";
+"ExposureNotificationSetting_Activate_OSENSetting" = "Активировать определение контакта с COVID-19 и уведомления ";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Для определения риска необходимо активировать ведение журнала контактов с COVID-19 и уведомления в настройках системы. Активируйте ведение журнала контактов с COVID-19 и уведомления в настройках вашей системы.";
 
@@ -650,7 +662,7 @@
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Требуется авторизация";
 
-"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Подтвердите использование журнала контактов с COVID-19 .";
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Подтвердите использование журнала контактов с COVID-19.";
 
 "ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Авторизация";
 
@@ -864,7 +876,7 @@
 
 "App_Information_Contact_Hotline_Description" = "Наша служба поддержки всегда готова помочь.";
 
-"App_Information_Contact_Hotline_Terms" = "Языки: немецкий, английский, турецкий\n\nЧасы работы:\nпн-сб, 7:00-22:00\n(кроме государственных праздников)\n\nВсе звонки бесплатны.";
+"App_Information_Contact_Hotline_Terms" = "Языки: немецкий, английский, турецкий\n\nЧасы работы:\nПонедельник – суббота, 7:00-22:00\n(кроме государственных праздников)\n\nВсе звонки бесплатны.";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Правовая информация";
@@ -928,7 +940,7 @@
 "InviteFriends_Illustration_Label" = "Человек делится приложением Corona-Warn-App с четырьмя другими людьми.";
 
 /* Reset View */
-"Reset_NavTitle" = "Сброс";
+"Reset_NavTitle" = "Сбросить";
 
 "Reset_Header1" = "Действительно сбросить приложение?";
 
@@ -952,7 +964,7 @@
 
 "Reset_ConfirmDialog_Cancel" = "Отменить";
 
-"Reset_ConfirmDialog_Confirm" = "Сброс";
+"Reset_ConfirmDialog_Confirm" = "Сбросить";
 
 /* Safari */
 "safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";

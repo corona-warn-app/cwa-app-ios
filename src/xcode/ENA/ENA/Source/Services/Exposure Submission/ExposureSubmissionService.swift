@@ -149,12 +149,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		visitedCountries: [Country],
 		completion: @escaping ExposureSubmissionHandler
 	) {
-		// swiftlint:disable vertical_parameter_alignment_on_call
-		let payload = CountrySubmissionPayload(exposureKeys: keys,
-											   consentToFederation: consentToFederation,
-											   visitedCountries: visitedCountries,
-											   tan: tan)
-		// swiftlint:enable vertical_parameter_alignment_on_call
+		let payload = CountrySubmissionPayload(
+			exposureKeys: keys,
+			consentToFederation: consentToFederation,
+			visitedCountries: visitedCountries,
+			tan: tan
+		)
+
 		client.submit(payload: payload, isFake: false) { result in
 			switch result {
 			case .success:
@@ -332,12 +333,13 @@ extension ENAExposureSubmissionService {
 
 	/// This method represents a dummy method that is sent to the submission server.
 	private func _fakeSubmissionServerRequest(completion: @escaping ExposureSubmissionHandler) {
-		// swiftlint:disable vertical_parameter_alignment_on_call
-		let payload = CountrySubmissionPayload(exposureKeys: [],
-											   consentToFederation: false,
-											   visitedCountries: [],
-											   tan: ENAExposureSubmissionService.fakeSubmissionTan)
-		// swiftlint:enable vertical_parameter_alignment_on_call
+		let payload = CountrySubmissionPayload(
+			exposureKeys: [],
+			consentToFederation: false,
+			visitedCountries: [],
+			tan: ENAExposureSubmissionService.fakeSubmissionTan
+		)
+
 		client.submit(payload: payload, isFake: true) { _ in
 			completion(.fakeResponse)
 		}

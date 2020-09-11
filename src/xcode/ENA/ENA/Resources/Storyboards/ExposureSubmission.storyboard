@@ -486,6 +486,26 @@
             </objects>
             <point key="canvasLocation" x="6525" y="155"/>
         </scene>
+        <!--Exposure Submission Symptoms Onset View Controller-->
+        <scene sceneID="eBG-mG-fVf">
+            <objects>
+                <viewController storyboardIdentifier="ExposureSubmissionSymptomsOnsetViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tIC-cc-Lwa" customClass="ExposureSubmissionSymptomsOnsetViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="FgC-cL-exh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" name="ENA Background Color"/>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="DJ2-g6-aBK" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
+                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b7R-f9-x9s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7378" y="155"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="5YR-5A-F8h"/>

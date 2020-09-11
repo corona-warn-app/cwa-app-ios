@@ -59,7 +59,7 @@ protocol ExposureSubmissionCoordinatorDelegate: class {
 }
 
 /// Concrete implementation of the ExposureSubmissionCoordinator protocol.
-class ExposureSubmissionCoordinator: ExposureSubmissionCoordinating, RequiresAppDependencies {
+class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, RequiresAppDependencies {
 
 	// MARK: - Attributes.
 
@@ -102,10 +102,21 @@ extension ExposureSubmissionCoordinator {
 
 	private func push(_ vc: UIViewController) {
 		self.navigationController?.pushViewController(vc, animated: true)
+		setupDismissConfirmationOnSwipeDown(for: vc)
 	}
 
 	private func present(_ vc: UIViewController) {
 		self.navigationController?.present(vc, animated: true)
+		setupDismissConfirmationOnSwipeDown(for: vc)
+	}
+
+	private func setupDismissConfirmationOnSwipeDown(for vc: UIViewController) {
+		guard let vc = vc as? RequiresDismissConfirmation else {
+			return
+		}
+
+		vc.navigationController?.presentationController?.delegate = self
+		vc.isModalInPresentation = true
 	}
 
 	/// This method selects the correct initial view controller among the following options:
@@ -147,7 +158,15 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	func dismiss() {
-		navigationController?.dismiss(animated: true)
+		guard let presentedViewController = navigationController?.viewControllers.last else { return }
+		guard let vc = presentedViewController as? RequiresDismissConfirmation else {
+			navigationController?.dismiss(animated: true)
+			return
+		}
+
+		vc.attemptDismiss { [weak self] shouldDismiss in
+			if shouldDismiss { self?.navigationController?.dismiss(animated: true) }
+		}
 	}
 
 	func showOverviewScreen() {
@@ -463,4 +482,10 @@ extension ExposureSubmissionCoordinator {
 		}
 	}
 
+}
+
+extension ExposureSubmissionCoordinator: UIAdaptivePresentationControllerDelegate {
+	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+		dismiss()
+	}
 }
