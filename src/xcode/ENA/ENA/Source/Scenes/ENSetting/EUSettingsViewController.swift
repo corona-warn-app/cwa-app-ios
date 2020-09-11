@@ -29,10 +29,17 @@ class EUSettingsViewController: DynamicTableViewController {
 	private var viewModel =
 		EUSettingsViewModel(
 			countries: [
-				Country(countryCode: "DE"),
-				Country(countryCode: "IT"),
-				Country(countryCode: "UK")
-				].compactMap { $0 }
+				Country(countryCode: "BE"),
+				Country(countryCode: "BG"),
+				Country(countryCode: "EL"),
+				Country(countryCode: "UK"),
+				Country(countryCode: "CZ"),
+				Country(countryCode: "DK")
+			].compactMap { $0 },
+			euTracingSettings: EUTracingSettings(
+				isAllCountriesEnbled: false,
+				enabledCountries: ["BE", "EL", "CZ"]
+			)
 		)
 
 
