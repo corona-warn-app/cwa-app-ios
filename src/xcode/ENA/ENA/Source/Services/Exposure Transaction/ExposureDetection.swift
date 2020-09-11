@@ -28,11 +28,22 @@ final class ExposureDetection {
 	#if INTEROP
 
 	private let store: Store
+	private var countryKeypackageDownloader: CountryKeypackageDownloaderProtocol
 
 	// MARK: Creating a Transaction
-	init(delegate: ExposureDetectionDelegate, store: Store) {
+	init(
+		delegate: ExposureDetectionDelegate,
+		store: Store,
+		countryKeypackageDownloader: CountryKeypackageDownloaderProtocol? = nil
+	) {
 		self.delegate = delegate
 		self.store = store
+
+		if let countryKeypackageDownloader = countryKeypackageDownloader {
+			self.countryKeypackageDownloader = countryKeypackageDownloader
+		} else {
+			self.countryKeypackageDownloader = CountryKeypackageDownloader(delegate: delegate)
+		}
 	}
 
 	#else
@@ -50,9 +61,35 @@ final class ExposureDetection {
 
 	#if INTEROP
 
-	var keypackageDownloads = [CountryKeypackageDownload]()
+	private func getSupportedCountries(completion: @escaping ([Country]) -> Void) {
+		delegate?.exposureDetection(supportedCountries: { [weak self] result in
+			guard let self = self else { return }
 
-	private func downloadKeyPackages(for countries: [Country.ID], completion: @escaping (DidEndPrematurelyReason?) -> Void) {
+			switch result {
+			case .success(let supportedCountries):
+				completion(supportedCountries)
+			case.failure:
+				self.endPrematurely(reason: .noSupportedCountries)
+			}
+		})
+	}
+
+	private func getCountriesToDetect(store: Store, supportedCountries: [Country]) -> [Country.ID] {
+		let supportedCountryIDs = supportedCountries.map { $0.id }
+		let isAllCountriesEnbled = self.store.euTracingSettings?.isAllCountriesEnbled ?? false
+		var countryIDs = [Country.ID]()
+
+		if isAllCountriesEnbled {
+			countryIDs = supportedCountryIDs
+		} else {
+			countryIDs = store.euTracingSettings?.enabledCountries ?? []
+		}
+
+		countryIDs.append(Country.defaultCountry().id)
+		return countryIDs
+	}
+
+	private func downloadKeyPackages(for countries: [Country.ID], completion: @escaping () -> Void) {
 
 		let dispatchGroup = DispatchGroup()
 		var errors = [ExposureDetection.DidEndPrematurelyReason]()
@@ -60,10 +97,7 @@ final class ExposureDetection {
 		for country in countries {
 			dispatchGroup.enter()
 
-			let keypackageDownload = CountryKeypackageDownload(country: country, delegate: delegate)
-			keypackageDownloads.append(keypackageDownload)
-			keypackageDownload.execute { result in
-
+			self.countryKeypackageDownloader.downloadKeypackages(for: country) { result in
 				switch result {
 				case .failure(let didEndPrematurelyReason):
 					errors.append(didEndPrematurelyReason)
@@ -77,9 +111,9 @@ final class ExposureDetection {
 
 		dispatchGroup.notify(queue: .main) {
 			if let error = errors.first {
-				completion(error)
+				self.endPrematurely(reason: error)
 			} else {
-				completion(nil)
+				completion()
 			}
 		}
 	}
@@ -177,30 +211,22 @@ final class ExposureDetection {
 
 		#if INTEROP
 
-		delegate?.exposureDetection(supportedCountries: { [weak self] result in
+		self.getSupportedCountries { [weak self] supportedCountries in
 			guard let self = self else { return }
 
-			switch result {
-			case .success(let countries):
-				let countryIDs = countries.map { $0.id }
+			let countryIDs = self.getCountriesToDetect(store: self.store, supportedCountries: supportedCountries)
 
-				self.downloadKeyPackages(for: countryIDs) { [weak self] didEndPrematurelyReason in
-					guard let self = self else { return }
+			self.downloadKeyPackages(for: countryIDs) { [weak self] in
+				guard let self = self else { return }
 
-					if let didEndPrematurelyReason = didEndPrematurelyReason {
-						self.endPrematurely(reason: didEndPrematurelyReason)
-					} else {
-						guard let writtenPackages = self.writeKeyPackagesToFileSystem(for: countryIDs) else {
-							self.endPrematurely(reason: .unableToWriteDiagnosisKeys)
-							return
-						}
-						self.detectSummary(writtenPackages: writtenPackages)
-					}
+				guard let writtenPackages = self.writeKeyPackagesToFileSystem(for: countryIDs) else {
+					self.endPrematurely(reason: .unableToWriteDiagnosisKeys)
+					return
 				}
-			case.failure:
-				self.endPrematurely(reason: .noSupportedCountries)
+
+				self.detectSummary(writtenPackages: writtenPackages)
 			}
-		})
+		}
 
 		#else
 

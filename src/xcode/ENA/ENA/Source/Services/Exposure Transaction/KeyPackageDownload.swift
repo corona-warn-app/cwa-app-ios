@@ -21,45 +21,46 @@ import ExposureNotification
 
 #if INTEROP
 
-class CountryKeypackageDownload {
-
+protocol CountryKeypackageDownloaderProtocol {
 	typealias Completion = (Result<Void, ExposureDetection.DidEndPrematurelyReason>) -> Void
 
-	private let country: String
+	func downloadKeypackages(for country: String, completion: @escaping Completion)
+}
+
+class CountryKeypackageDownloader: CountryKeypackageDownloaderProtocol {
+
 	private weak var delegate: ExposureDetectionDelegate?
-	private var completion: Completion?
 
-
-	init(country: String, delegate: ExposureDetectionDelegate?) {
-		self.country = country
+	init(delegate: ExposureDetectionDelegate?) {
 		self.delegate = delegate
 	}
 
-	func execute(completion: @escaping Completion) {
-		self.completion = completion
+	func downloadKeypackages(for country: String, completion: @escaping Completion) {
+		delegate?.exposureDetection(country: country, determineAvailableData: { [weak self] daysAndHours, country in
+			guard let self = self else { return }
 
-		delegate?.exposureDetection(country: country, determineAvailableData: downloadDeltaUsingAvailableRemoteData)
+			self.downloadDeltaUsingAvailableRemoteData(daysAndHours, country: country, completion: completion)
+		})
 	}
 
-	private func downloadDeltaUsingAvailableRemoteData(_ daysAndHours: DaysAndHours?, country: String) {
+	private func downloadDeltaUsingAvailableRemoteData(_ daysAndHours: DaysAndHours?, country: String, completion: @escaping Completion) {
+
 		guard let daysAndHours = daysAndHours else {
-			completion?(.failure(.noDaysAndHours))
+			completion(.failure(.noDaysAndHours))
 			return
 		}
 
 		guard let deltaDaysAndHours = delegate?.exposureDetection(country: country, downloadDeltaFor: daysAndHours) else {
-			completion?(.failure(.noDaysAndHours))
+			completion(.failure(.noDaysAndHours))
 			return
 		}
 
-		delegate?.exposureDetection(country: country, downloadAndStore: deltaDaysAndHours) { [weak self] error in
-			guard let self = self else { return }
+		delegate?.exposureDetection(country: country, downloadAndStore: deltaDaysAndHours) { error in
 			if error != nil {
-				self.completion?(.failure(.noDaysAndHours))
+				completion(.failure(.noDaysAndHours))
 				return
 			}
-
-			self.completion?(.success(()))
+			completion(.success(()))
 		}
 	}
 

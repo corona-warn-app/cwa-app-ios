@@ -21,32 +21,34 @@ import XCTest
 @testable import ENA
 import ExposureNotification
 final class ExposureDetectionTransactionTests: XCTestCase {
+
 	#if INTEROP
+
     func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {
 		let delegate = ExposureDetectionDelegateMock()
 
-		let configurationToBeCalled = expectation(description: "configuration called")
-		delegate.configuration = {
-			configurationToBeCalled.fulfill()
-			return .mock()
+		let supportedCountriesToBeCalled = expectation(description: "supportedCountries called")
+		delegate.supportedCountries = {
+			supportedCountriesToBeCalled.fulfill()
+			return .success([])
 		}
 
 		let availableDataToBeCalled = expectation(description: "availableData called")
-		availableDataToBeCalled.assertForOverFulfill = false
+		availableDataToBeCalled.expectedFulfillmentCount = 3
 		delegate.availableData = {
 			availableDataToBeCalled.fulfill()
 			return .init(days: ["2020-05-01"], hours: [])
 		}
 
 		let downloadDeltaToBeCalled = expectation(description: "downloadDelta called")
-		downloadDeltaToBeCalled.assertForOverFulfill = false
+		downloadDeltaToBeCalled.expectedFulfillmentCount = 3
 		delegate.downloadDelta = { _ in
 			downloadDeltaToBeCalled.fulfill()
 			return .init(days: ["2020-05-01"], hours: [])
 		}
 
 		let downloadAndStoreToBeCalled = expectation(description: "downloadAndStore called")
-		downloadAndStoreToBeCalled.assertForOverFulfill = false
+		downloadAndStoreToBeCalled.expectedFulfillmentCount = 3
 		delegate.downloadAndStore = { _ in
 			downloadAndStoreToBeCalled.fulfill()
 			return nil
@@ -62,10 +64,16 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		let writtenPackages = WrittenPackages(urls: [url0, url1])
 
 		let writtenPackagesBeCalled = expectation(description: "writtenPackages called")
-		writtenPackagesBeCalled.assertForOverFulfill = false
+		writtenPackagesBeCalled.expectedFulfillmentCount = 3
 		delegate.writtenPackages = {
 			writtenPackagesBeCalled.fulfill()
 			return writtenPackages
+		}
+
+		let configurationToBeCalled = expectation(description: "configuration called")
+		delegate.configuration = {
+			configurationToBeCalled.fulfill()
+			return .mock()
 		}
 
 		let summaryResultBeCalled = expectation(description: "summaryResult called")
@@ -75,7 +83,7 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		}
 
 		let storeMock = MockTestStore()
-		storeMock.euTracingSettings = EUTracingSettings(isAllCountriesEnbled: false, enabledCountries: ["EN", "IT"])
+		storeMock.euTracingSettings = EUTracingSettings(isAllCountriesEnbled: false, enabledCountries: ["FR", "IT"])
 
 		let startCompletionCalled = expectation(description: "start completion called")
 		let detection = ExposureDetection(delegate: delegate, store: storeMock)
@@ -83,17 +91,194 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 
 		wait(
 			for: [
-				configurationToBeCalled,
+				supportedCountriesToBeCalled,
 				availableDataToBeCalled,
 				downloadDeltaToBeCalled,
 				downloadAndStoreToBeCalled,
 				writtenPackagesBeCalled,
+				configurationToBeCalled,
 				summaryResultBeCalled,
 				startCompletionCalled
 			],
 			timeout: 1.0,
 			enforceOrder: true
 		)
+	}
+
+	func test_When_EuropeSelected_Then_DownloadIsCalledForSupportedCountriesAndDefaultCountry() {
+		let storeMock = MockTestStore()
+		storeMock.euTracingSettings = EUTracingSettings(isAllCountriesEnbled: true, enabledCountries: [])
+		let delegate = ExposureDetectionDelegateMock()
+
+		let supportedCountries = self.makeCountries()
+
+		delegate.supportedCountries = {
+			return .success(supportedCountries)
+		}
+
+		let downloaderSpy = CountryKeypackageDownloaderSpy()
+
+		let detection = ExposureDetection(
+			delegate: delegate,
+			store: storeMock,
+			countryKeypackageDownloader: downloaderSpy
+		)
+
+		let expectationDetectionCompletion = expectation(description: "Detection completion was called.")
+
+		detection.start { _ in
+			var expectedCountries = supportedCountries
+			expectedCountries.append(Country.defaultCountry())
+			let expectedCountriesIDs = expectedCountries.map { $0.id }
+
+			XCTAssertEqual(downloaderSpy.downloadedCountries, expectedCountriesIDs)
+
+			expectationDetectionCompletion.fulfill()
+		}
+
+		waitForExpectations(timeout: 1.0)
+	}
+
+	func test_When_EuropeDeSelected_And_SpecificCountriesSelected_Then_DownloadIsCalledForSpedificAndDefaultCountry() {
+		let storeMock = MockTestStore()
+		storeMock.euTracingSettings = EUTracingSettings(isAllCountriesEnbled: false, enabledCountries: ["FR"])
+		let delegate = ExposureDetectionDelegateMock()
+
+		let supportedCountries = self.makeCountries()
+
+		delegate.supportedCountries = {
+			return .success(supportedCountries)
+		}
+
+		let downloaderSpy = CountryKeypackageDownloaderSpy()
+
+		let detection = ExposureDetection(
+			delegate: delegate,
+			store: storeMock,
+			countryKeypackageDownloader: downloaderSpy
+		)
+
+		let expectationDetectionCompletion = expectation(description: "Detection completion was called.")
+
+		detection.start { _ in
+			let expectedCountriesIDs = ["FR", Country.defaultCountry().id]
+			XCTAssertEqual(downloaderSpy.downloadedCountries, expectedCountriesIDs)
+
+			expectationDetectionCompletion.fulfill()
+		}
+
+		waitForExpectations(timeout: 1.0)
+	}
+
+	func test_When_EuropeDeSelected_And_NoSpecificCountriesSelected_Then_DownloadIsCalledOnlyForDefaultCountry() {
+		let storeMock = MockTestStore()
+		storeMock.euTracingSettings = EUTracingSettings(isAllCountriesEnbled: false, enabledCountries: [])
+		let delegate = ExposureDetectionDelegateMock()
+
+		let supportedCountries = self.makeCountries()
+
+		delegate.supportedCountries = {
+			return .success(supportedCountries)
+		}
+
+		let downloaderSpy = CountryKeypackageDownloaderSpy()
+
+		let detection = ExposureDetection(
+			delegate: delegate,
+			store: storeMock,
+			countryKeypackageDownloader: downloaderSpy
+		)
+
+		let expectationDetectionCompletion = expectation(description: "Detection completion was called.")
+
+		detection.start { _ in
+			let defaultCountryID = Country.defaultCountry().id
+			XCTAssertEqual(downloaderSpy.downloadedCountries, [defaultCountryID])
+
+			expectationDetectionCompletion.fulfill()
+		}
+
+		waitForExpectations(timeout: 1.0)
+	}
+
+	func test_When_StoreHasNoEUTracingSettings_Then_DownloadIsCalledOnlyForDefaultCountry() {
+		let storeMock = MockTestStore()
+		storeMock.euTracingSettings = nil
+		let delegate = ExposureDetectionDelegateMock()
+
+		let supportedCountries = self.makeCountries()
+
+		delegate.supportedCountries = {
+			return .success(supportedCountries)
+		}
+
+		let downloaderSpy = CountryKeypackageDownloaderSpy()
+
+		let detection = ExposureDetection(
+			delegate: delegate,
+			store: storeMock,
+			countryKeypackageDownloader: downloaderSpy
+		)
+
+		let expectationDetectionCompletion = expectation(description: "Detection completion was called.")
+
+		detection.start { _ in
+			let defaultCountryID = Country.defaultCountry().id
+			XCTAssertEqual(downloaderSpy.downloadedCountries, [defaultCountryID])
+
+			expectationDetectionCompletion.fulfill()
+		}
+
+		waitForExpectations(timeout: 1.0)
+	}
+
+	func test_When_NoRemoteDataAvailable_Then_FailureNoDaysAndHoursIsCalled() {
+		let delegate = ExposureDetectionDelegateMock()
+
+		delegate.availableData = {
+			return nil
+		}
+
+		let packageDownloader = CountryKeypackageDownloader(delegate: delegate)
+
+		let detection = ExposureDetection(
+			delegate: delegate,
+			store: MockTestStore(),
+			countryKeypackageDownloader: packageDownloader
+		)
+
+		let expectationNoDaysAndHours = expectation(description: "completion with NoDaysAndHours error called.")
+
+		packageDownloader.downloadKeypackages(for: "DE") { result in
+			switch result {
+			case .failure(let error):
+				switch error {
+				case .noDaysAndHours:
+					expectationNoDaysAndHours.fulfill()
+				default:
+					XCTFail("noDaysAndHours error expteced.")
+				}
+			case .success:
+				XCTFail("downloadKeypackages should failt due to missing data.")
+			}
+		}
+
+		let expectationDetectionCompletion = expectation(description: "Detection completion was called.")
+		detection.start { _ in
+			expectationDetectionCompletion.fulfill()
+		}
+
+		waitForExpectations(timeout: 1.0)
+	}
+
+	func makeCountries() -> [Country] {
+		guard let enCountry = Country(countryCode: "FR"),
+			let itCountry = Country(countryCode: "IT") else {
+			XCTFail("Could not create supported countries.")
+			return []
+		}
+
+		return [enCountry, itCountry]
 	}
 
 	#else
@@ -168,6 +353,20 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 	#endif
 }
 
+#if INTEROP
+
+private final class CountryKeypackageDownloaderSpy: CountryKeypackageDownloaderProtocol {
+
+	private(set) var downloadedCountries = [Country.ID]()
+
+	func downloadKeypackages(for country: String, completion: @escaping Completion) {
+		downloadedCountries.append(country)
+		completion(.success(()))
+	}
+}
+
+#endif
+
 final class MutableENExposureDetectionSummary: ENExposureDetectionSummary {
 	init(daysSinceLastExposure: Int = 0, matchedKeyCount: UInt64 = 0, maximumRiskScore: ENRiskScore = .zero) {
 		self._daysSinceLastExposure = daysSinceLastExposure
@@ -195,6 +394,15 @@ private final class ExposureDetectionDelegateMock {
 	typealias DownloadAndStoreHandler = (_ delta: DaysAndHours) -> Error?
 
 	// MARK: Properties
+
+	#if INTEROP
+
+	var supportedCountries: () -> SupportedCountriesResult = {
+		.success([])
+	}
+
+	#endif
+
 	var availableData: () -> DaysAndHours? = {
 		nil
 	}
@@ -247,7 +455,7 @@ extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 	}
 
 	func exposureDetection(supportedCountries completion: @escaping (SupportedCountriesResult) -> Void) {
-		completion(.success([]))
+		completion(supportedCountries())
 	}
 
 	#else
