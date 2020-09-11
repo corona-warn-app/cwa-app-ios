@@ -570,8 +570,14 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let mockSummary = MutableENExposureDetectionSummary(daysSinceLastExposure: 2, matchedKeyCount: 2, maximumRiskScore: 255)
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((mockSummary, nil)))
 
-		sut.exposureDetection(
-			ExposureDetection(delegate: sut),
+		#if INTEROP
+		let exposureDetection = ExposureDetection(delegate: sut, store: MockTestStore())
+		#else
+		let exposureDetection = ExposureDetection(delegate: sut)
+		#endif
+
+		_ = sut.exposureDetection(
+			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
 			writtenPackages: WrittenPackages(urls: []),
 			completion: { result in
@@ -597,8 +603,14 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let expectedError = ENError(.notAuthorized)
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((nil, expectedError)))
 
+		#if INTEROP
+		let exposureDetection = ExposureDetection(delegate: sut, store: MockTestStore())
+		#else
+		let exposureDetection = ExposureDetection(delegate: sut)
+		#endif
+
 		sut.exposureDetection(
-			ExposureDetection(delegate: sut),
+			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
 			writtenPackages: WrittenPackages(urls: []),
 			completion: { result in

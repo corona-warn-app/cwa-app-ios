@@ -28,3 +28,15 @@ struct EUTracingSettings: Codable {
 		self.enabledCountries = enabledCountries
 	}
 }
+
+extension EUTracingSettings {
+	var countriesForExposureDetection: [Country.ID] {
+		if isAllCountriesEnbled {
+			var countries: [Country.ID] = enabledCountries
+			countries.append(Country.defaultCountry().id)
+			return countries
+		} else {
+			return [Country.defaultCountry().id]
+		}
+	}
+}

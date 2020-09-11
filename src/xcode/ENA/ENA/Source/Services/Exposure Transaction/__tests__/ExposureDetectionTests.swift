@@ -74,8 +74,11 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 			return .success(MutableENExposureDetectionSummary(daysSinceLastExposure: 5))
 		}
 
+		let storeMock = MockTestStore()
+		storeMock.euTracingSettings = EUTracingSettings(isAllCountriesEnbled: false, enabledCountries: ["EN", "IT"])
+
 		let startCompletionCalled = expectation(description: "start completion called")
-		let detection = ExposureDetection(delegate: delegate)
+		let detection = ExposureDetection(delegate: delegate, store: storeMock)
 		detection.start { _ in startCompletionCalled.fulfill() }
 
 		wait(

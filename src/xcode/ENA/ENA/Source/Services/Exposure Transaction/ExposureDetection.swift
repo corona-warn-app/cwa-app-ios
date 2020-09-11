@@ -25,16 +25,32 @@ final class ExposureDetection {
 	private var completion: Completion?
 	private var progress: Progress?
 
+	#if INTEROP
+
+	private let store: Store
+
+	// MARK: Creating a Transaction
+	init(delegate: ExposureDetectionDelegate, store: Store) {
+		self.delegate = delegate
+		self.store = store
+	}
+
+	#else
+
 	// MARK: Creating a Transaction
 	init(delegate: ExposureDetectionDelegate) {
 		self.delegate = delegate
 	}
+
+	#endif
 
 	func cancel() {
 		progress?.cancel()
 	}
 
 	#if INTEROP
+
+	var keypackageDownloads = [CountryKeypackageDownload]()
 
 	private func downloadKeyPackages(for countries: [String], completion: @escaping (DidEndPrematurelyReason?) -> Void) {
 
@@ -156,16 +172,11 @@ final class ExposureDetection {
 
 	typealias Completion = (Result<ENExposureDetectionSummary, DidEndPrematurelyReason>) -> Void
 
-	#if INTEROP
-	var keypackageDownloads = [CountryKeypackageDownload]()
-	#endif
-
 	func start(completion: @escaping Completion) {
 		self.completion = completion
 
 		#if INTEROP
-
-		let countries = ["DE", "DE", "DE"]
+		let countries = store.euTracingSettings?.countriesForExposureDetection ?? []
 
 		downloadKeyPackages(for: countries) { [weak self] didEndPrematurelyReason in
 			guard let self = self else { return }
