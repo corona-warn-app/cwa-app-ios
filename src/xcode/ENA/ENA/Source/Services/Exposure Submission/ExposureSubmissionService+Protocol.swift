@@ -42,7 +42,7 @@ protocol ExposureSubmissionService: class {
 	)
 	func getTestResult(_ completeWith: @escaping TestResultHandler)
 
-	/// Fetches test results for a given devide key.
+	/// Fetches test results for a given device key.
 	///
 	/// - Parameters:
 	///   - deviceRegistrationKey: the device key to fetch the test results for
