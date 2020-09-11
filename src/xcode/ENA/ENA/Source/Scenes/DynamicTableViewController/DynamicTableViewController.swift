@@ -291,32 +291,32 @@ private extension UITableViewCell {
 
 	func addSeparator(_ location: SeparatorLocation) {
 		if location == .clear {
-			contentView.viewWithTag(SeparatorLocation.top.rawValue)?.removeFromSuperview()
-			contentView.viewWithTag(SeparatorLocation.bottom.rawValue)?.removeFromSuperview()
-			contentView.viewWithTag(SeparatorLocation.inset.rawValue)?.removeFromSuperview()
+			viewWithTag(SeparatorLocation.top.rawValue)?.removeFromSuperview()
+			viewWithTag(SeparatorLocation.bottom.rawValue)?.removeFromSuperview()
+			viewWithTag(SeparatorLocation.inset.rawValue)?.removeFromSuperview()
 			return
 		}
 
 		let separator = UIView(frame: bounds)
-		contentView.addSubview(separator)
+		addSubview(separator)
 		separator.backgroundColor = .enaColor(for: .hairline)
 		separator.translatesAutoresizingMaskIntoConstraints = false
-		separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+		separator.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
 		separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
 
 		switch location {
 		case .top:
 			separator.tag = SeparatorLocation.top.rawValue
-			separator.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-			separator.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+			separator.topAnchor.constraint(equalTo: topAnchor).isActive = true
+			separator.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
 		case .bottom:
 			separator.tag = SeparatorLocation.bottom.rawValue
-			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-			separator.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+			separator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+			separator.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
 		case .inset:
 			separator.tag = SeparatorLocation.inset.rawValue
-			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-			separator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
+			separator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+			separator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15).isActive = true
 		default:
 			break
 		}

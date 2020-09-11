@@ -274,6 +274,7 @@ extension RiskProvider: RiskProviding {
 		guard let _appConfiguration = appConfiguration else {
 			provideLoadingStatus(isLoading: false)
 			completeOnTargetQueue(risk: nil, completion: completion)
+			showAppConfigError()
 			return
 		}
 
@@ -331,6 +332,16 @@ extension RiskProvider: RiskProviding {
 			store.previousRiskLevel = .increased
 		default:
 			break
+		}
+	}
+	
+	private func showAppConfigError() {
+		// This should only be in the App temporarly until we refactor either how we update/get AppConfiguration or refactor how Errors are handled during the RiskCalculation.
+		DispatchQueue.main.async {
+			UIApplication.shared.windows.first?.rootViewController?.alertError(
+				message: AppStrings.ExposureDetectionError.errorAlertAppConfigMissingMessage,
+				title: AppStrings.ExposureDetectionError.errorAlertTitle
+			)
 		}
 	}
 }

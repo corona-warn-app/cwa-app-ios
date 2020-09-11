@@ -44,4 +44,10 @@ class MockExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
 	func showWarnOthersScreen() { }
 
 	func showThankYouScreen() { }
+
+	func showWarnEuropeScreen() { }
+
+	func showWarnEuropeTravelConfirmationScreen() { }
+
+	func showWarnEuropeCountrySelectionScreen() { }
 }

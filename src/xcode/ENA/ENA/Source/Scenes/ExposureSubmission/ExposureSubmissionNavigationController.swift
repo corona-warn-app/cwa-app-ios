@@ -55,7 +55,7 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 		barButtonItem.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 
 		navigationItem.rightBarButtonItem = barButtonItem
-		navigationBar.accessibilityLabel = AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle
+		navigationBar.accessibilityIdentifier = AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle
 
 		delegate = self
 	}

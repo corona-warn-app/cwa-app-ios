@@ -21,7 +21,6 @@ import XCTest
 import Combine
 @testable import ENA
 
-// swiftlint:disable:next type_body_length
 class BackgroundAppRefreshViewModelTests: XCTestCase {
 
     func testBackgroundRefreshStatusAvailableLowPowerModeDisabled() {
