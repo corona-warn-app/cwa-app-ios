@@ -39,7 +39,7 @@ class EuTracingTableViewCell: UITableViewCell, ConfigurableENSettingCell {
     }
 	
 	func configure(for state: ENStateHandler.State) {
-		self.titleLabel.text = "!!!###Europaweite Risiko-Ermittlung"
+		self.titleLabel.text = AppStrings.ExposureNotificationSetting.euTracingEuWideTitle
 		self.countryList.text = "!!!!### DUMMY: Spanien, Griechenland, Italien"
 		self.stateLabel.text = "###NN"
 	}
