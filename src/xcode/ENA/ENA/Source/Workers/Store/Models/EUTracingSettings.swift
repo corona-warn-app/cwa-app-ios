@@ -17,7 +17,7 @@
 // under the License.
 //
 
-struct EUTracingSettings: Codable {
+struct EUTracingSettings: Codable, Equatable {
 	let isAllCountriesEnbled: Bool
 
 	/// List of country identifier. Equals the initializing country code.

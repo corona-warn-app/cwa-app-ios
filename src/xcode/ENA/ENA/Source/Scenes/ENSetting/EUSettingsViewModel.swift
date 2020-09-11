@@ -36,18 +36,39 @@ class EUSettingsViewModel {
 	// MARK: - Attributes.
 
 	private var subscriptions = Set<AnyCancellable>()
+	@Published var euTracingSettings: EUTracingSettings
 	@Published var allCountriesOn: Bool = false
 	let countryModels: [CountryModel]
 	let errorChanges = PassthroughSubject<[Country], Never>()
 
 	// MARK: - Initializers.
 
-	init(countries: [Country]) {
-		self.countryModels = countries.map { CountryModel($0) }
+	init(countries availableCountries: [Country], euTracingSettings: EUTracingSettings = EUTracingSettings()) {
+		self.countryModels = availableCountries.map { CountryModel($0) }
+		self.euTracingSettings = euTracingSettings
+
+		// Enable countries according to settings.
+		euTracingSettings.enabledCountries.forEach { id in
+			self.countryModels.first { $0.country.id == id }?.isOn = true
+		}
+
+		// Initialize allCountriesOn.
+		self.allCountriesOn = self.countryModels.allSatisfy { $0.isOn }
+
+		// Watch country changes, update allCountriesOn and emit new EUTracingSettings.
 		self.countryModels.forEach {
 			$0.$isOn
 				.receive(on: RunLoop.main)
-				.sink { _ in self.allCountriesOn = self.countryModels.allSatisfy { $0.isOn } }
+				.sink { _ in
+					self.allCountriesOn = self.countryModels.allSatisfy { $0.isOn }
+					let enabledCountries = self.countryModels
+						.filter { $0.isOn }
+						.map { $0.country.id }
+					self.euTracingSettings = EUTracingSettings(
+						isAllCountriesEnbled: self.allCountriesOn,
+						enabledCountries: enabledCountries
+					)
+				}
 				.store(in: &subscriptions)
 		}
 	}

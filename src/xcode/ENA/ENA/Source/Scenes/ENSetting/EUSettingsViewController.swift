@@ -41,6 +41,7 @@ class EUSettingsViewController: DynamicTableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
+		subscribeEUTracingSettingChanges()
 	}
 
 	// MARK: - View setup methods.
@@ -76,6 +77,14 @@ class EUSettingsViewController: DynamicTableViewController {
 	private func setupAllCountriesSwitch() {
 		viewModel.errorChanges
 			.sink { self.show14DaysErrorAlert(countries: $0) }
+			.store(in: &subscriptions)
+	}
+
+	private func subscribeEUTracingSettingChanges() {
+		viewModel.$euTracingSettings
+			.receive(on: RunLoop.main)
+			.removeDuplicates()
+			.sink { euTracingSettings in print(euTracingSettings) /* TODO: updated store! */ }
 			.store(in: &subscriptions)
 	}
 
