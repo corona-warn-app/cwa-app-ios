@@ -93,7 +93,7 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 	}
 
 	func set(
-		country: String,
+		country: Country.ID,
 		day: String,
 		package: SAPDownloadedPackage
 	) {
@@ -168,7 +168,7 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 	}
 
 	func set(
-		country: String,
+		country: Country.ID,
 		hour: Int,
 		day: String,
 		package: SAPDownloadedPackage
@@ -226,7 +226,7 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 		}
 	}
 
-	func package(for day: String, country: String) -> SAPDownloadedPackage? {
+	func package(for day: String, country: Country.ID) -> SAPDownloadedPackage? {
 		queue.sync {
 			let sql = """
 				SELECT
@@ -257,7 +257,7 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 		}
 	}
 
-	func hourlyPackages(for day: String, country: String) -> [SAPDownloadedPackage] {
+	func hourlyPackages(for day: String, country: Country.ID) -> [SAPDownloadedPackage] {
 		queue.sync {
 			let sql = """
 				SELECT
@@ -289,7 +289,7 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 		}
 	}
 
-	func allDays(country: String) -> [String] {
+	func allDays(country: Country.ID) -> [String] {
 		queue.sync {
 			let sql = """
 				SELECT
@@ -316,7 +316,7 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 		}
 	}
 
-	func hours(for day: String, country: String) -> [Int] {
+	func hours(for day: String, country: Country.ID) -> [Int] {
 		let sql =
 			"""
 			    SELECT
