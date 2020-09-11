@@ -26,6 +26,10 @@ protocol ExposureSubmissionService: class {
 	typealias TestResultHandler = (Result<TestResult, ExposureSubmissionError>) -> Void
 	typealias TANHandler = (Result<String, ExposureSubmissionError>) -> Void
 
+
+	var devicePairingConsentAcceptTimestamp: Int64? { get }
+	var devicePairingSuccessfulTimestamp: Int64? { get }
+	
 	func submitExposure(
 		consentToFederation: Bool,
 		visitedCountries: [Country],
