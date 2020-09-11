@@ -210,6 +210,82 @@
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/"></a>
+                      <a name="//apple_ref/swift/Method/availableDays(forCountry:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/">availableDays(forCountry:<wbr>completion:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Determines days that can be downloaded.</p>
+
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/"></a>
+                      <a name="//apple_ref/swift/Method/availableHours(day:country:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/">availableHours(day:<wbr>country:<wbr>completion:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Determines hours that can be downloaded for a given day.</p>
+
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/"></a>
+                      <a name="//apple_ref/swift/Method/fetchDay(_:forCountry:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/">fetchDay(_:<wbr>forCountry:<wbr>completion:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Fetches the keys for a given day and country code</p>
+
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/"></a>
+                      <a name="//apple_ref/swift/Method/fetchHour(_:day:country:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/">fetchHour(_:<wbr>day:<wbr>country:<wbr>completion:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Fetches the keys for a given <code>hour</code> of a specific <code>day</code>.</p>
+
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:3ENA6ClientP18supportedCountries10completionyys6ResultOySayAA7CountryVGSo12NSURLSessionCAAE8ResponseV7FailureOGc_tF"></a>
                       <a name="//apple_ref/swift/Method/supportedCountries(completion:)" class="dashAnchor"></a>
                       <a class="token" href="#/s:3ENA6ClientP18supportedCountries10completionyys6ResultOySayAA7CountryVGSo12NSURLSessionCAAE8ResponseV7FailureOGc_tF">supportedCountries(completion:<wbr>)</a>
@@ -284,6 +360,67 @@
                             <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">availableHours</span><span class="p">(</span>
 	<span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
 	<span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/Client/AvailableHoursCompletionHandler.html">AvailableHoursCompletionHandler</a></span>
+<span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA6ClientP8fetchDay_10completionySS_ys6ResultOyAA20SAPDownloadedPackageVSo12NSURLSessionCAAE8ResponseV7FailureOGctF"></a>
+                      <a name="//apple_ref/swift/Method/fetchDay(_:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA6ClientP8fetchDay_10completionySS_ys6ResultOyAA20SAPDownloadedPackageVSo12NSURLSessionCAAE8ResponseV7FailureOGctF">fetchDay(_:<wbr>completion:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Fetches the keys for a given <code>day</code>.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchDay</span><span class="p">(</span>
+	<span class="n">_</span> <span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+	<span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/Client/DayCompletionHandler.html">DayCompletionHandler</a></span>
+<span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA6ClientP9fetchHour_3day10completionySi_SSys6ResultOyAA20SAPDownloadedPackageVSo12NSURLSessionCAAE8ResponseV7FailureOGctF"></a>
+                      <a name="//apple_ref/swift/Method/fetchHour(_:day:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA6ClientP9fetchHour_3day10completionySi_SSys6ResultOyAA20SAPDownloadedPackageVSo12NSURLSessionCAAE8ResponseV7FailureOGctF">fetchHour(_:<wbr>day:<wbr>completion:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Fetches the keys for a given <code>hour</code> of a specific <code>day</code>.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchHour</span><span class="p">(</span>
+	<span class="n">_</span> <span class="nv">hour</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+	<span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+	<span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/Client/HourCompletionHandler.html">HourCompletionHandler</a></span>
 <span class="p">)</span></code></pre>
 
                           </div>
@@ -378,67 +515,6 @@
 	<span class="n">forDevice</span> <span class="nv">registrationToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
 	<span class="nv">isFake</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
 	<span class="n">completion</span> <span class="nv">completeWith</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/Client/TANHandler.html">TANHandler</a></span>
-<span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:3ENA6ClientP8fetchDay_10completionySS_ys6ResultOyAA20SAPDownloadedPackageVSo12NSURLSessionCAAE8ResponseV7FailureOGctF"></a>
-                      <a name="//apple_ref/swift/Method/fetchDay(_:completion:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA6ClientP8fetchDay_10completionySS_ys6ResultOyAA20SAPDownloadedPackageVSo12NSURLSessionCAAE8ResponseV7FailureOGctF">fetchDay(_:<wbr>completion:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Fetches the keys for a given <code>day</code>.</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchDay</span><span class="p">(</span>
-	<span class="n">_</span> <span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-	<span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/Client/DayCompletionHandler.html">DayCompletionHandler</a></span>
-<span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:3ENA6ClientP9fetchHour_3day10completionySi_SSys6ResultOyAA20SAPDownloadedPackageVSo12NSURLSessionCAAE8ResponseV7FailureOGctF"></a>
-                      <a name="//apple_ref/swift/Method/fetchHour(_:day:completion:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA6ClientP9fetchHour_3day10completionySi_SSys6ResultOyAA20SAPDownloadedPackageVSo12NSURLSessionCAAE8ResponseV7FailureOGctF">fetchHour(_:<wbr>day:<wbr>completion:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Fetches the keys for a given <code>hour</code> of a specific <code>day</code>.</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchHour</span><span class="p">(</span>
-	<span class="n">_</span> <span class="nv">hour</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
-	<span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-	<span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/Client/HourCompletionHandler.html">HourCompletionHandler</a></span>
 <span class="p">)</span></code></pre>
 
                           </div>
@@ -601,6 +677,70 @@ Parameters:</p>
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/"></a>
+                      <a name="//apple_ref/swift/Method/fetchDays(_:forCountry:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/">fetchDays(_:<wbr>forCountry:<wbr>completion:<wbr>)</a>
+                      </code>
+                        <span class="declaration-note">
+                          Extension method
+                        </span>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Fetch the keys with the given days and country code</p>
+
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/"></a>
+                      <a name="//apple_ref/swift/Method/fetchDays(_:hours:of:country:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/">fetchDays(_:<wbr>hours:<wbr>of:<wbr>country:<wbr>completion:<wbr>)</a>
+                      </code>
+                        <span class="declaration-note">
+                          Extension method
+                        </span>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/"></a>
+                      <a name="//apple_ref/swift/Method/fetchHours(_:day:country:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/">fetchHours(_:<wbr>day:<wbr>country:<wbr>completion:<wbr>)</a>
+                      </code>
+                        <span class="declaration-note">
+                          Extension method
+                        </span>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:3ENA6ClientPAAE9fetchDays_10completionySaySSG_yAA0D6ResultVctF"></a>
                       <a name="//apple_ref/swift/Method/fetchDays(_:completion:)" class="dashAnchor"></a>
                       <a class="token" href="#/s:3ENA6ClientPAAE9fetchDays_10completionySaySSG_yAA0D6ResultVctF">fetchDays(_:<wbr>completion:<wbr>)</a>
@@ -624,6 +764,41 @@ Parameters:</p>
                             <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchDays</span><span class="p">(</span>
 	<span class="n">_</span> <span class="nv">days</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span>
 	<span class="n">completion</span> <span class="nv">completeWith</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/DaysResult.html">DaysResult</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span>
+<span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA6ClientPAAE9fetchDays_5hours2of10completionySaySSG_SaySiGSSyAA07FetchedD8AndHoursVctF"></a>
+                      <a name="//apple_ref/swift/Method/fetchDays(_:hours:of:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA6ClientPAAE9fetchDays_5hours2of10completionySaySSG_SaySiGSSyAA07FetchedD8AndHoursVctF">fetchDays(_:<wbr>hours:<wbr>of:<wbr>completion:<wbr>)</a>
+                      </code>
+                        <span class="declaration-note">
+                          Extension method
+                        </span>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchDays</span><span class="p">(</span>
+	<span class="n">_</span> <span class="nv">days</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span>
+	<span class="nv">hours</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
+	<span class="n">of</span> <span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+	<span class="n">completion</span> <span class="nv">completeWith</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/Client/DaysAndHoursCompletionHandler.html">DaysAndHoursCompletionHandler</a></span>
 <span class="p">)</span></code></pre>
 
                           </div>
@@ -672,41 +847,6 @@ Parameters:</p>
                       <a name="//apple_ref/swift/Alias/DaysAndHoursCompletionHandler" class="dashAnchor"></a>
                       <a class="direct-link" href="../Protocols/Client/DaysAndHoursCompletionHandler.html">DaysAndHoursCompletionHandler</a>
                       </code>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:3ENA6ClientPAAE9fetchDays_5hours2of10completionySaySSG_SaySiGSSyAA07FetchedD8AndHoursVctF"></a>
-                      <a name="//apple_ref/swift/Method/fetchDays(_:hours:of:completion:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA6ClientPAAE9fetchDays_5hours2of10completionySaySSG_SaySiGSSyAA07FetchedD8AndHoursVctF">fetchDays(_:<wbr>hours:<wbr>of:<wbr>completion:<wbr>)</a>
-                      </code>
-                        <span class="declaration-note">
-                          Extension method
-                        </span>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchDays</span><span class="p">(</span>
-	<span class="n">_</span> <span class="nv">days</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span>
-	<span class="nv">hours</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
-	<span class="n">of</span> <span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-	<span class="n">completion</span> <span class="nv">completeWith</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/Client/DaysAndHoursCompletionHandler.html">DaysAndHoursCompletionHandler</a></span>
-<span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
                     </div>
                   </li>
                 </ul>
@@ -2110,7 +2250,7 @@ Parameters:</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://github.com/corona-warn-app/cwa-app-ios" target="_blank" rel="external">Corona-Warn-App</a>. All rights reserved. (Last updated: 2020-09-10)</p>
+          <p>&copy; 2020 <a class="link" href="https://github.com/corona-warn-app/cwa-app-ios" target="_blank" rel="external">Corona-Warn-App</a>. All rights reserved. (Last updated: 2020-09-11)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </div>

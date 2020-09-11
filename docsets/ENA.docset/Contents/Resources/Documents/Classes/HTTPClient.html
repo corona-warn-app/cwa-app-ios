@@ -58,19 +58,6 @@
             </section>
             <section class="section task-group-section">
               <div class="task-group">
-                <ul>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:3ENA10HTTPClientC8Verifiera"></a>
-                      <a name="//apple_ref/swift/Alias/Verifier" class="dashAnchor"></a>
-                      <a class="direct-link" href="../Classes/HTTPClient/Verifier.html">Verifier</a>
-                      </code>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div class="task-group">
                 <div class="task-name-container">
                   <a name="/Creating"></a>
                   <a name="//apple_ref/swift/Section/Creating" class="dashAnchor"></a>
@@ -103,7 +90,7 @@
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span>
 	<span class="nv">configuration</span><span class="p">:</span> <span class="kt"><a href="../Classes/HTTPClient/Configuration.html">Configuration</a></span><span class="p">,</span>
-	<span class="nv">packageVerifier</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/HTTPClient/Verifier.html">Verifier</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/SAPDownloadedPackage.html">SAPDownloadedPackage</a></span><span class="o">.</span><span class="kt"><a href="../Classes/HTTPClient/Verifier.html">Verifier</a></span><span class="p">()</span><span class="o">.</span><span class="n">verify</span><span class="p">,</span>
+	<span class="nv">packageVerifier</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Structs/SAPDownloadedPackage.html">SAPDownloadedPackage</a></span><span class="o">.</span><span class="kt">Verification</span> <span class="o">=</span> <span class="kt"><a href="../Structs/SAPDownloadedPackage.html">SAPDownloadedPackage</a></span><span class="o">.</span><span class="kt">Verifier</span><span class="p">()</span><span class="o">.</span><span class="n">verify</span><span class="p">,</span>
 	<span class="nv">session</span><span class="p">:</span> <span class="kt">URLSession</span> <span class="o">=</span> <span class="o">.</span><span class="nf">coronaWarnSession</span><span class="p">()</span>
 <span class="p">)</span></code></pre>
 
@@ -261,6 +248,78 @@
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/"></a>
+                      <a name="//apple_ref/swift/Method/availableDays(forCountry:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/">availableDays(forCountry:<wbr>completion:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/"></a>
+                      <a name="//apple_ref/swift/Method/availableHours(day:country:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/">availableHours(day:<wbr>country:<wbr>completion:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/"></a>
+                      <a name="//apple_ref/swift/Method/fetchDay(_:forCountry:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/">fetchDay(_:<wbr>forCountry:<wbr>completion:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/"></a>
+                      <a name="//apple_ref/swift/Method/fetchHour(_:day:country:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/">fetchHour(_:<wbr>day:<wbr>country:<wbr>completion:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:3ENA6ClientP13availableDays10completionyys6ResultOySaySSGSo12NSURLSessionCAAE8ResponseV7FailureOGc_tF"></a>
                       <a name="//apple_ref/swift/Method/availableDays(completion:)" class="dashAnchor"></a>
                       <a class="token" href="#/s:3ENA6ClientP13availableDays10completionyys6ResultOySaySSGSo12NSURLSessionCAAE8ResponseV7FailureOGc_tF">availableDays(completion:<wbr>)</a>
@@ -308,6 +367,65 @@
                             <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">availableHours</span><span class="p">(</span>
 	<span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
 	<span class="n">completion</span> <span class="nv">completeWith</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">AvailableHoursCompletionHandler</span>
+<span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA6ClientP8fetchDay_10completionySS_ys6ResultOyAA20SAPDownloadedPackageVSo12NSURLSessionCAAE8ResponseV7FailureOGctF"></a>
+                      <a name="//apple_ref/swift/Method/fetchDay(_:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA6ClientP8fetchDay_10completionySS_ys6ResultOyAA20SAPDownloadedPackageVSo12NSURLSessionCAAE8ResponseV7FailureOGctF">fetchDay(_:<wbr>completion:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchDay</span><span class="p">(</span>
+	<span class="n">_</span> <span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+	<span class="n">completion</span> <span class="nv">completeWith</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">DayCompletionHandler</span>
+<span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA6ClientP9fetchHour_3day10completionySi_SSys6ResultOyAA20SAPDownloadedPackageVSo12NSURLSessionCAAE8ResponseV7FailureOGctF"></a>
+                      <a name="//apple_ref/swift/Method/fetchHour(_:day:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA6ClientP9fetchHour_3day10completionySi_SSys6ResultOyAA20SAPDownloadedPackageVSo12NSURLSessionCAAE8ResponseV7FailureOGctF">fetchHour(_:<wbr>day:<wbr>completion:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchHour</span><span class="p">(</span>
+	<span class="n">_</span> <span class="nv">hour</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+	<span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+	<span class="n">completion</span> <span class="nv">completeWith</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">HourCompletionHandler</span>
 <span class="p">)</span></code></pre>
 
                           </div>
@@ -389,65 +507,6 @@
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getRegistrationToken</span><span class="p">(</span><span class="n">forKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">withType</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">isFake</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> <span class="n">completion</span> <span class="nv">completeWith</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">RegistrationHandler</span><span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:3ENA6ClientP8fetchDay_10completionySS_ys6ResultOyAA20SAPDownloadedPackageVSo12NSURLSessionCAAE8ResponseV7FailureOGctF"></a>
-                      <a name="//apple_ref/swift/Method/fetchDay(_:completion:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA6ClientP8fetchDay_10completionySS_ys6ResultOyAA20SAPDownloadedPackageVSo12NSURLSessionCAAE8ResponseV7FailureOGctF">fetchDay(_:<wbr>completion:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchDay</span><span class="p">(</span>
-	<span class="n">_</span> <span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-	<span class="n">completion</span> <span class="nv">completeWith</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">DayCompletionHandler</span>
-<span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:3ENA6ClientP9fetchHour_3day10completionySi_SSys6ResultOyAA20SAPDownloadedPackageVSo12NSURLSessionCAAE8ResponseV7FailureOGctF"></a>
-                      <a name="//apple_ref/swift/Method/fetchHour(_:day:completion:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA6ClientP9fetchHour_3day10completionySi_SSys6ResultOyAA20SAPDownloadedPackageVSo12NSURLSessionCAAE8ResponseV7FailureOGctF">fetchHour(_:<wbr>day:<wbr>completion:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchHour</span><span class="p">(</span>
-	<span class="n">_</span> <span class="nv">hour</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
-	<span class="nv">day</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-	<span class="n">completion</span> <span class="nv">completeWith</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">HourCompletionHandler</span>
-<span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -1864,7 +1923,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://github.com/corona-warn-app/cwa-app-ios" target="_blank" rel="external">Corona-Warn-App</a>. All rights reserved. (Last updated: 2020-09-10)</p>
+          <p>&copy; 2020 <a class="link" href="https://github.com/corona-warn-app/cwa-app-ios" target="_blank" rel="external">Corona-Warn-App</a>. All rights reserved. (Last updated: 2020-09-11)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </div>
