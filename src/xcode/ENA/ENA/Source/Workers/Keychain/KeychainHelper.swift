@@ -54,8 +54,7 @@ struct KeychainHelper {
 		}
 	}
 
-	@discardableResult
-	func saveToKeychain(key: String, data: Data) throws -> Bool {
+	func saveToKeychain(key: String, data: Data) throws {
 		try clearInKeychain(key: key)
 		let addResult = SecItemAdd(
 			.keychainQueryForAdding(
@@ -75,8 +74,6 @@ struct KeychainHelper {
 				throw KeychainError.save(reason: message)
 			}
 		}
-
-		return true
 	}
 
 	func loadFromKeychain(key: String) -> Data? {
