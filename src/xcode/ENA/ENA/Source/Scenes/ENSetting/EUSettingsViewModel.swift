@@ -110,12 +110,17 @@ class EUSettingsViewModel {
 					color: .enaColor(for: .textPrimary2),
 					accessibilityIdentifier: ""
 				),
-				.stepCell(
-					title: AppStrings.ExposureNotificationSetting.euGermanRiskTitle,
-					description: AppStrings.ExposureNotificationSetting.euGermanRiskDescription,
-					icon: Country(countryCode: "de")?.flag,
-					hairline: .none
-				),
+				.custom(withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.iconCell,
+					configure: { _, cell, _ in
+						guard let iconCell = cell as? IconCell else { return }
+						iconCell.configure(
+							icon: (Country(countryCode: "de")?.flag!)!,
+							title: NSMutableAttributedString(string: AppStrings.ExposureNotificationSetting.euGermanRiskTitle),
+							body: NSMutableAttributedString(string: AppStrings.ExposureNotificationSetting.euGermanRiskDescription),
+							textStyle: .textPrimary1,
+							backgroundStyle: .background
+						)
+				}),
 				.custom(withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.roundedCell,
 						configure: { _, cell, _ in
 							guard let privacyStatementCell = cell as? DynamicTableViewRoundedCell else { return }

@@ -77,6 +77,7 @@
 		2FDA18E62507AD6D0023644E /* EUSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDA18E52507AD6D0023644E /* EUSettingsViewController.swift */; };
 		2FDA18E8250B66DD0023644E /* EUSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDA18E7250B66DD0023644E /* EUSettingsViewModel.swift */; };
 		2FDA18EA250B67A00023644E /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDA18E9250B67A00023644E /* SwitchCell.swift */; };
+		2FDA18EC250B7E510023644E /* IconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDA18EB250B7E510023644E /* IconCell.swift */; };
 		2FE15A3C249B8C0B0077BD8D /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */; };
 		2FF1D62E2487850200381FFB /* NSMutableAttributedString+Generation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */; };
 		2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */; };
@@ -560,6 +561,7 @@
 		2FDA18E52507AD6D0023644E /* EUSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EUSettingsViewController.swift; sourceTree = "<group>"; };
 		2FDA18E7250B66DD0023644E /* EUSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EUSettingsViewModel.swift; sourceTree = "<group>"; };
 		2FDA18E9250B67A00023644E /* SwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
+		2FDA18EB250B7E510023644E /* IconCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconCell.swift; sourceTree = "<group>"; };
 		2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
 		2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Generation.swift"; sourceTree = "<group>"; };
 		2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewRoundedCell.swift; sourceTree = "<group>"; };
@@ -1576,6 +1578,7 @@
 				2FDA18E52507AD6D0023644E /* EUSettingsViewController.swift */,
 				2FDA18E7250B66DD0023644E /* EUSettingsViewModel.swift */,
 				2FDA18E9250B67A00023644E /* SwitchCell.swift */,
+				2FDA18EB250B7E510023644E /* IconCell.swift */,
 			);
 			path = ENSetting;
 			sourceTree = "<group>";
@@ -2843,6 +2846,7 @@
 				B1DDDABE24713BAD00A07175 /* SAPDownloadedPackage.swift in Sources */,
 				01D16C6624EFA91F007DB387 /* ExposureSubmissionWarnEuropeTravelConfirmationViewController.swift in Sources */,
 				71FE1C7C247AC2B500851FEB /* ExposureSubmissionOverviewViewController.swift in Sources */,
+				2FDA18EC250B7E510023644E /* IconCell.swift in Sources */,
 				B1FE13EC24891CFE00D012E5 /* RiskProviding.swift in Sources */,
 				011E4B032483A92A002E6412 /* MockExposureManager.swift in Sources */,
 				2FE15A3C249B8C0B0077BD8D /* AccessibilityIdentifiers.swift in Sources */,

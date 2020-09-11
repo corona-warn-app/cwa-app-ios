@@ -71,6 +71,10 @@ class EUSettingsViewController: DynamicTableViewController {
 			SwitchCell.self,
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.switchCell.rawValue
 		)
+		tableView.register(
+			IconCell.self,
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.iconCell.rawValue
+		)
 	}
 
 	private func setupAllCountriesSwitch() {
@@ -105,10 +109,26 @@ extension EUSettingsViewController {
 		case stepCell
 		case roundedCell
 		case switchCell
+		case iconCell
 	}
 }
 
 extension DynamicCell {
+
+	static func iconCell(icon: UIImage, title: NSMutableAttributedString, body: NSMutableAttributedString, textStyle: ENAColor, backgroundStyle: ENAColor) -> Self {
+		.custom(
+		withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.iconCell)
+		{ _, cell, _ in
+			guard let cell = cell as? IconCell else { return }
+			cell.configure(
+				icon: icon,
+				title: title,
+				body: body,
+				textStyle: textStyle,
+				backgroundStyle: backgroundStyle
+			)
+		}
+	}
 
 	static func switchCell(text: String, icon: UIImage? = nil, isOn: Bool = false, onSwitch: Published<Bool>.Publisher? = nil, onToggle: SwitchCell.ToggleHandler? = nil) -> Self {
 		.custom(
