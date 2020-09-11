@@ -29,10 +29,17 @@ class EUSettingsViewController: DynamicTableViewController {
 	private var viewModel =
 		EUSettingsViewModel(
 			countries: [
-				Country(countryCode: "DE"),
-				Country(countryCode: "IT"),
-				Country(countryCode: "UK")
-				].compactMap { $0 }
+				Country(countryCode: "BE"),
+				Country(countryCode: "BG"),
+				Country(countryCode: "EL"),
+				Country(countryCode: "UK"),
+				Country(countryCode: "CZ"),
+				Country(countryCode: "DK")
+			].compactMap { $0 },
+			euTracingSettings: EUTracingSettings(
+				isAllCountriesEnbled: false,
+				enabledCountries: ["BE", "EL", "CZ"]
+			)
 		)
 
 
@@ -41,6 +48,7 @@ class EUSettingsViewController: DynamicTableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
+		subscribeEUTracingSettingChanges()
 	}
 
 	// MARK: - View setup methods.
@@ -80,6 +88,14 @@ class EUSettingsViewController: DynamicTableViewController {
 	private func setupAllCountriesSwitch() {
 		viewModel.errorChanges
 			.sink { self.show14DaysErrorAlert(countries: $0) }
+			.store(in: &subscriptions)
+	}
+
+	private func subscribeEUTracingSettingChanges() {
+		viewModel.$euTracingSettings
+			.receive(on: RunLoop.main)
+			.removeDuplicates()
+			.sink { euTracingSettings in print(euTracingSettings) /* TODO: updated store! */ }
 			.store(in: &subscriptions)
 	}
 
