@@ -28,7 +28,7 @@ struct ENSettingEuTracingViewModel {
 	let allCountriesEnbledStateLabel: String
 	
 	init(euTracingSettings: EUTracingSettings) {
-		self.title = AppStrings.ExposureNotificationSetting.euTracingAllCountriesTitle
+		title = AppStrings.ExposureNotificationSetting.euTracingAllCountriesTitle
 		
 		var enabledCountries: String {
 			guard !euTracingSettings.enabledCountries.isEmpty else { return "" }
@@ -37,8 +37,8 @@ struct ENSettingEuTracingViewModel {
 				.joined(separator: ", ")
 			}
 		
-		self.countryListLabel = enabledCountries
+		countryListLabel = enabledCountries
 		
-		self.allCountriesEnbledStateLabel = euTracingSettings.isAllCountriesEnbled ? AppStrings.ExposureNotificationSetting.euTracingAllCountriesStatusOnLabel : AppStrings.ExposureNotificationSetting.euTracingAllCountrieStatusOffLabel
+		allCountriesEnbledStateLabel = euTracingSettings.isAllCountriesEnbled ? AppStrings.ExposureNotificationSetting.euTracingAllCountriesStatusOnLabel : AppStrings.ExposureNotificationSetting.euTracingAllCountrieStatusOffLabel
 	}
 }
