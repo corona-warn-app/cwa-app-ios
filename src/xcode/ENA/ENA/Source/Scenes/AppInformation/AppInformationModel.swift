@@ -97,7 +97,6 @@ class AppInformationModel {
 
 }
 
-// return a link if language is German; else return an empty string
 private func isGerman() -> Bool {
-	return Bundle.main.preferredLocalizations.first == "de" ? true : false
+	return Bundle.main.preferredLocalizations.first == "de"
 }
