@@ -478,7 +478,12 @@ enum AppStrings {
 		static let accLabelBluetoothOff = NSLocalizedString("ExposureNotificationSetting_AccLabel_BluetoothOff", comment: "")
 		static let accLabelInternetOff = NSLocalizedString("ExposureNotificationSetting_AccLabel_InternetOff", comment: "")
 		
-		static let euTracingEuWideTitle = NSLocalizedString("ExposureNotificationSetting_euTracingEuWideTitle", comment: "")
+		static let euTracingAllCountriesTitle = NSLocalizedString("ExposureNotificationSetting_euTracingAllCountriesTitle", comment: "")
+		
+		static let euTracingAllCountriesStatusOnLabel = NSLocalizedString("ExposureNotificationSetting_euTracingAllCountriesStateOn", comment: "")
+
+		static let euTracingAllCountrieStatusOffLabel = NSLocalizedString("ExposureNotificationSetting_euTracingAllCountriesStateOff", comment: "")
+		
 	}
 
 	enum ExposureNotificationError {

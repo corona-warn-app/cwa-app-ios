@@ -190,9 +190,7 @@ extension ExposureNotificationSettingViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		print("section: \(indexPath.section)")
-        print("row: \(indexPath.row)")
-		
+		// TODO: implement navigation (KGA)
 	}
 
 	override func tableView(
@@ -216,7 +214,7 @@ extension ExposureNotificationSettingViewController {
 			case .euTracingCell:
 				let euTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.euTracingCell.cellType.rawValue, for: indexPath)
 				if let euTracingCell = euTracingCell as? EuTracingTableViewCell {
-					euTracingCell.configure(for: .enabled)
+					euTracingCell.configure(for: store.euTracingSettings!)
 					euTracingCell.selectionStyle = .none
 					return euTracingCell
 				}

@@ -19,13 +19,27 @@
 
 import UIKit
 
-class EuTracingTableViewCell: UITableViewCell, ConfigurableENSettingCell {
+protocol ConfigurableEuTracingSettingCell: UITableViewCell, ConfigurableENSettingCell {
+	func configure(for euTracingSettings: EUTracingSettings)
+}
+
+class EuTracingTableViewCell: UITableViewCell, ConfigurableEuTracingSettingCell {
+	
 	
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var countryList: UILabel!
 	@IBOutlet var stateLabel: UILabel!
 
 	weak var delegate: ActionTableViewCellDelegate?
+	
+	var state: ENStateHandler.State?
+	var viewModel: ENSettingEuTracingViewModel! {
+		didSet {
+			self.titleLabel.text = viewModel.title
+			self.countryList.text = viewModel.countryListLabel
+			self.stateLabel.text = viewModel.allCountriesEnbledStateLabel
+		}
+	}
 	
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,10 +52,23 @@ class EuTracingTableViewCell: UITableViewCell, ConfigurableENSettingCell {
         // Configure the view for the selected state
     }
 	
-	func configure(for state: ENStateHandler.State) {
-		self.titleLabel.text = AppStrings.ExposureNotificationSetting.euTracingEuWideTitle
-		self.countryList.text = "!!!!### DUMMY: Spanien, Griechenland, Italien"
-		self.stateLabel.text = "###NN"
+	func configure(for euTracingSettings: EUTracingSettings) {
+		viewModel = ENSettingEuTracingViewModel(euTracingSettings:euTracingSettings) 
 	}
+	
+	
+	func configure(for state: ENStateHandler.State) {
+		self.state = state
+	}
+	
+	func configure(
+		for state: ENStateHandler.State,
+		delegate: ActionTableViewCellDelegate
+	) {
+		self.delegate = delegate
+		configure(for: state)
+	}
+	
+	
 
 }
