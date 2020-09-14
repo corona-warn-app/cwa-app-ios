@@ -155,4 +155,17 @@ class EUSettingsViewModelTests: XCTestCase {
 
 		waitForExpectations(timeout: .short)
 	}
+
+	func testCountrySwitchSection() {
+		let model = EUSettingsViewModel(
+			countries: testCountries,
+			euTracingSettings: EUTracingSettings(
+				isAllCountriesEnbled: true,
+				enabledCountries: testCountries.prefix(2).map { $0.id }
+			)
+		)
+
+		let section = model.countrySwitchSection()
+		XCTAssertEqual(section.cells.count, 4)
+	}
 }

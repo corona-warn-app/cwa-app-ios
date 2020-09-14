@@ -28,7 +28,7 @@ class SwitchCell: UITableViewCell {
 
 	// MARK: - Private attributes.
 
-	private let uiSwitch: UISwitch
+	let uiSwitch: UISwitch
 	private var onToggleAction: ToggleHandler?
 	private var subscriptions = Set<AnyCancellable>()
 
