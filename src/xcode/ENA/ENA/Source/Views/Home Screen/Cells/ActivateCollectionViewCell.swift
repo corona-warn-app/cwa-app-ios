@@ -32,16 +32,12 @@ class ActivateCollectionViewCell: HomeCardCollectionViewCell {
 	}
 
 	func configure(title: String, subtitle: String? = nil, icon: UIImage?, animationImages: [UIImage]? = nil, accessibilityIdentifier: String) {
-		self.titleLabel.text = title
-		self.subtitleLabel.text = subtitle
-		if self.subtitleLabel.isTruncated {
-			self.subtitleLabel.text = AppStrings.ExposureNotificationSetting.euWideSubtitle
-		}  else {
-			self.subtitleLabel.text = subtitle
-		}
-		self.iconImageView.image = icon
+		titleLabel.text = title
+		subtitleLabel.text = subtitle
+		subtitleLabel.text = subtitleLabel.isTruncated ? AppStrings.ExposureNotificationSetting.euWideSubtitle : subtitle
+		iconImageView.image = icon
 		self.accessibilityIdentifier = accessibilityIdentifier
-		self.accessibilityLabel = title
+		accessibilityLabel = title
 
 		if let animationImages = animationImages {
 			iconImageView.animationImages = animationImages
