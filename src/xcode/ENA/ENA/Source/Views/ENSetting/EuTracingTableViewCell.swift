@@ -46,6 +46,7 @@ class EuTracingTableViewCell: UITableViewCell, ConfigurableEuTracingSettingCell 
 	
 	func configure(for state: ENStateHandler.State) {
 		self.state = state
+		self.selectionStyle = .none
 	}
 	
 	func configure(

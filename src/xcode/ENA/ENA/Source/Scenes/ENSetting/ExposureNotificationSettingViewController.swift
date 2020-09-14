@@ -215,7 +215,6 @@ extension ExposureNotificationSettingViewController {
 				let euTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.euTracingCell.cellType.rawValue, for: indexPath)
 				if let euTracingCell = euTracingCell as? EuTracingTableViewCell {
 					euTracingCell.configure(for: store.euTracingSettings!)
-					euTracingCell.selectionStyle = .none
 					return euTracingCell
 				}
 			case .tracingCell, .actionDetailCell:
