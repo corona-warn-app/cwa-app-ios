@@ -98,6 +98,60 @@
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:3ENA25ExposureSubmissionServiceP35devicePairingConsentAcceptTimestamps5Int64VSgvp"></a>
+                      <a name="//apple_ref/swift/Property/devicePairingConsentAcceptTimestamp" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA25ExposureSubmissionServiceP35devicePairingConsentAcceptTimestamps5Int64VSgvp">devicePairingConsentAcceptTimestamp</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">devicePairingConsentAcceptTimestamp</span><span class="p">:</span> <span class="kt">Int64</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA25ExposureSubmissionServiceP32devicePairingSuccessfulTimestamps5Int64VSgvp"></a>
+                      <a name="//apple_ref/swift/Property/devicePairingSuccessfulTimestamp" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA25ExposureSubmissionServiceP32devicePairingSuccessfulTimestamps5Int64VSgvp">devicePairingSuccessfulTimestamp</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">devicePairingSuccessfulTimestamp</span><span class="p">:</span> <span class="kt">Int64</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:3ENA25ExposureSubmissionServiceP06submitB019consentToFederation16visitedCountries17completionHandlerySb_SayAA7CountryVGyAA0bC5ErrorOSgctF"></a>
                       <a name="//apple_ref/swift/Method/submitExposure(consentToFederation:visitedCountries:completionHandler:)" class="dashAnchor"></a>
                       <a class="token" href="#/s:3ENA25ExposureSubmissionServiceP06submitB019consentToFederation16visitedCountries17completionHandlerySb_SayAA7CountryVGyAA0bC5ErrorOSgctF">submitExposure(consentToFederation:<wbr>visitedCountries:<wbr>completionHandler:<wbr>)</a>
@@ -186,6 +240,76 @@
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:3ENA25ExposureSubmissionServiceP13getTestResult6forKey21useStoredRegistration10completionyAA06DevicelI0O_Sbys0G0OyAA0fG0OAA0bC5ErrorOGctF"></a>
+                      <a name="//apple_ref/swift/Method/getTestResult(forKey:useStoredRegistration:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA25ExposureSubmissionServiceP13getTestResult6forKey21useStoredRegistration10completionyAA06DevicelI0O_Sbys0G0OyAA0fG0OAA0bC5ErrorOGctF">getTestResult(forKey:<wbr>useStoredRegistration:<wbr>completion:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Fetches test results for a given device key.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getTestResult</span><span class="p">(</span><span class="n">forKey</span> <span class="nv">deviceRegistrationKey</span><span class="p">:</span> <span class="kt"><a href="../Enums/DeviceRegistrationKey.html">DeviceRegistrationKey</a></span><span class="p">,</span> <span class="nv">useStoredRegistration</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/ExposureSubmissionService/TestResultHandler.html">TestResultHandler</a></span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>deviceRegistrationKey</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>the device key to fetch the test results for</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>useStoredRegistration</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>flag to show if a separate registration is needed (<code>false</code>) or an existing registration token is used (<code>true</code>)</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>completion</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>a <code><a href="../Protocols/ExposureSubmissionService/TestResultHandler.html">TestResultHandler</a></code></p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:3ENA25ExposureSubmissionServiceP20hasRegistrationTokenSbyF"></a>
                       <a name="//apple_ref/swift/Method/hasRegistrationToken()" class="dashAnchor"></a>
                       <a class="token" href="#/s:3ENA25ExposureSubmissionServiceP20hasRegistrationTokenSbyF">hasRegistrationToken()</a>
@@ -231,60 +355,6 @@
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">deleteTest</span><span class="p">()</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:3ENA25ExposureSubmissionServiceP35devicePairingConsentAcceptTimestamps5Int64VSgvp"></a>
-                      <a name="//apple_ref/swift/Property/devicePairingConsentAcceptTimestamp" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA25ExposureSubmissionServiceP35devicePairingConsentAcceptTimestamps5Int64VSgvp">devicePairingConsentAcceptTimestamp</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">devicePairingConsentAcceptTimestamp</span><span class="p">:</span> <span class="kt">Int64</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:3ENA25ExposureSubmissionServiceP32devicePairingSuccessfulTimestamps5Int64VSgvp"></a>
-                      <a name="//apple_ref/swift/Property/devicePairingSuccessfulTimestamp" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA25ExposureSubmissionServiceP32devicePairingSuccessfulTimestamps5Int64VSgvp">devicePairingSuccessfulTimestamp</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">devicePairingSuccessfulTimestamp</span><span class="p">:</span> <span class="kt">Int64</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                           </div>
                         </div>
