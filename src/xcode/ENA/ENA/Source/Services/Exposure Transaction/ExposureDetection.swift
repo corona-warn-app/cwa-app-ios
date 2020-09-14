@@ -90,7 +90,6 @@ final class ExposureDetection {
 	}
 
 	private func downloadKeyPackages(for countries: [Country.ID], completion: @escaping () -> Void) {
-
 		let dispatchGroup = DispatchGroup()
 		var errors = [ExposureDetection.DidEndPrematurelyReason]()
 

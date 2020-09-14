@@ -135,8 +135,10 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 			let writer = AppleFilesWriter(rootDir: rootDir)
 
 			if store.hourlyFetchingEnabled {
-				let hourlyPackages = downloadedPackagesStore.hourlyPackages(for: .formattedToday(), country: country)
-				for keyPackage in hourlyPackages {
+				let allHourlyPackages = downloadedPackagesStore.hourlyPackages(for: .formattedToday(), country: country)
+				let recentThreeHoursPackages = allHourlyPackages.prefix(3)
+
+				for keyPackage in recentThreeHoursPackages {
 					let success = writer.writePackage(keyPackage)
 					if !success {
 						return nil
