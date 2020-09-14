@@ -195,6 +195,29 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	func testGetTestResult_fetchRegistrationToken() throws {
+		// Initialize.
+		let expectation = self.expectation(description: "Expect to receive a result.")
+		let service = ENAExposureSubmissionService(
+			diagnosiskeyRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil)),
+			client: ClientMock(),
+			store: MockTestStore()
+		)
+
+		// Execute test.
+		service.getTestResult(forKey: DeviceRegistrationKey.guid("wrong"), useStoredRegistration: false) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			case .success(let testResult):
+				XCTAssertEqual(testResult, TestResult.positive)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
 	func testGetTestResult_unknownTestResultValue() {
 
 		// Initialize.
