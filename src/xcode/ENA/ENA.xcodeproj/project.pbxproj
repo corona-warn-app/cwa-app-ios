@@ -2018,6 +2018,7 @@
 			isa = PBXGroup;
 			children = (
 				B1221BE12492ED0F00E6C4E4 /* CFDictionary+KeychainQueryTests.swift */,
+				35A7F080250A7CF8005E6C33 /* KeychainHelperTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -3076,6 +3077,7 @@
 				A3284259248E7672006B1F09 /* MockExposureSubmissionQRScannerViewController.swift in Sources */,
 				A328425F248E943D006B1F09 /* ExposureSubmissionTanInputViewControllerTests.swift in Sources */,
 				A14BDEC024A1AD660063E4EC /* MockExposureDetector.swift in Sources */,
+				35A7F081250A7CF8005E6C33 /* KeychainHelperTests.swift in Sources */,
 				A3483B0B24C5EFA40037855F /* MockExposureDetectionViewControllerDelegate.swift in Sources */,
 				B1C7EE482493D97000F1F284 /* RiskProvidingConfigurationManualTriggerTests.swift in Sources */,
 				B1221BE22492ED0F00E6C4E4 /* CFDictionary+KeychainQueryTests.swift in Sources */,
