@@ -89,13 +89,6 @@ jobs:
       - run:
           name: Install dependencies
           command: cd src/xcode && bundle install
-      - run: ./scripts/switch_to_dev_env.sh
-      - run:
-          name: fastlane testflight
-          command: cd src/xcode && bundle exec fastlane betaRelease --env TestFlight
-      - run:
-          name: fastlane appcenter
-          command: cd src/xcode && bundle exec fastlane adHocDistribution
   update-docs:
     macos:
       xcode: 11.6.0
@@ -133,6 +126,8 @@ workflows:
       jobs:
         - testflight-release:
             filters:
-              branches:
+              tags:
                 only:
-                  - /rc\/.*/
+                  - /^v.*/
+              branches:
+                ignore: /.*/
