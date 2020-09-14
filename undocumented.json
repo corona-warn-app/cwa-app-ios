@@ -6093,6 +6093,13 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/DynamicTableViewController/DynamicTableViewCell.swift",
       "line": 152,
+      "symbol": "DynamicCell.link(placeholder:link:font:style:color:accessibilityIdentifier:accessibilityTraits:configure:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/DynamicTableViewController/DynamicTableViewCell.swift",
+      "line": 156,
       "symbol": "DynamicCell.footnote(text:color:accessibilityIdentifier:accessibilityTraits:configure:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
