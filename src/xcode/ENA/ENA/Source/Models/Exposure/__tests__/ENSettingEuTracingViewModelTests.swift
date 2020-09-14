@@ -34,11 +34,11 @@ class ENSettingEuTracingViewModelTests: XCTestCase {
 		
 		XCTAssertNotEqual(viewModel.title, "", "Localized (i18n) Title should not be empty)")
 		XCTAssertEqual(viewModel.countryListLabel, "", "Selected country list label should be empty.")
-		XCTAssertEqual(viewModel.allCountriesEnbledStateLabel, "Aus", "Das deutsche Label sollte 'Aus' sein")
+		XCTAssertEqual(viewModel.allCountriesEnbledStateLabel, "Aus", "The German label should be 'Aus'")
 		
 		euTracingSettings = EUTracingSettings(isAllCountriesEnbled: true, enabledCountries: ["FR", "IT"])
 		viewModel = ENSettingEuTracingViewModel(euTracingSettings: euTracingSettings)
-		XCTAssertEqual(viewModel.allCountriesEnbledStateLabel, "Ein", "The German label should be 'Aus'")
+		XCTAssertEqual(viewModel.allCountriesEnbledStateLabel, "Ein", "The German label should be 'Ein'")
 		XCTAssertEqual(viewModel.countryListLabel, "Frankreich, Italien", "The German localized label should be 'Frankreich, Italien'")
 	}
 }
