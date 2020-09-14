@@ -103,10 +103,6 @@ extension ClientMock: Client {
 		completion(.success(downloadedPackage ?? SAPDownloadedPackage(keysBin: Data(), signature: Data())))
 	}
 
-	func exposureConfiguration(country: String, completion: @escaping ExposureConfigurationCompletionHandler) {
-		completion(ENExposureConfiguration(), country)
-	}
-
 	#else
 
 	func availableDays(completion: @escaping AvailableDaysCompletionHandler) {
@@ -141,11 +137,11 @@ extension ClientMock: Client {
 		completion(.success(downloadedPackage ?? SAPDownloadedPackage(keysBin: Data(), signature: Data())))
 	}
 
+	#endif
+
 	func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler) {
 		completion(ENExposureConfiguration())
 	}
-
-	#endif
 
 	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
 		onAppConfiguration(completion)

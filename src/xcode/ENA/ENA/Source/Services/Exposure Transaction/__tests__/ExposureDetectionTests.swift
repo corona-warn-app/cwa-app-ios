@@ -446,8 +446,8 @@ extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 
 	}
 
-	func exposureDetection(country: String, downloadConfiguration completion: @escaping (ENExposureConfiguration?, String) -> Void) {
-		completion(configuration(), country)
+	func exposureDetection(downloadConfiguration completion: @escaping (ENExposureConfiguration?) -> Void) {
+		completion(configuration())
 	}
 
 	func exposureDetectionWriteDownloadedPackages(country: String) -> WrittenPackages? {

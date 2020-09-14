@@ -120,20 +120,19 @@ final class HTTPClient: Client {
 	#if INTEROP
 
 	func exposureConfiguration(
-		country: String,
 		completion: @escaping ExposureConfigurationCompletionHandler
 	) {
 		log(message: "Fetching exposureConfiguration from: \(configuration.configurationURL)")
 		appConfiguration { config in
 			guard let config = config else {
-				completion(nil, country)
+				completion(nil)
 				return
 			}
 			guard config.hasExposureConfig else {
-				completion(nil, country)
+				completion(nil)
 				return
 			}
-			completion(try? ENExposureConfiguration(from: config.exposureConfig), country)
+			completion(try? ENExposureConfiguration(from: config.exposureConfig))
 		}
 	}
 

@@ -163,11 +163,8 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let sut = ExposureDetectionExecutor.makeWith(client: client)
 
 		sut.exposureDetection(
-			country: "IT",
-			downloadConfiguration: { configuration, country  in
+			downloadConfiguration: { configuration  in
 				defer { completionExpectation.fulfill() }
-
-				XCTAssertEqual(country, "IT")
 
 				if configuration == nil {
 					XCTFail("A good client response did not produce a ENExposureConfiguration!")
@@ -189,8 +186,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let sut = ExposureDetectionExecutor.makeWith(client: client)
 
 		sut.exposureDetection(
-			country: "",
-			downloadConfiguration: { configuration, _  in
+			downloadConfiguration: { configuration in
 				defer { completionExpectation.fulfill() }
 
 				if configuration != nil {

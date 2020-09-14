@@ -35,8 +35,9 @@ final class HTTPClientExposureConfigTests: XCTestCase {
 		)
 
 		let expectation = self.expectation(description: "HTTPClient should have failed.")
+		expectation.assertForOverFulfill = true
 
-		HTTPClient.makeWith(mock: stack).exposureConfiguration(country: "") { config, _  in
+		HTTPClient.makeWith(mock: stack).exposureConfiguration { config in
 			XCTAssertNil(config, "configuration should be nil when data is invalid")
 			expectation.fulfill()
 		}
@@ -72,7 +73,7 @@ final class HTTPClientExposureConfigTests: XCTestCase {
 
 		let expectation = self.expectation(description: "HTTPClient should have failed.")
 		// 4 Test that the exposureConfiguration fetch fails
-		HTTPClient.makeWith(mock: stack).exposureConfiguration(country: "") { config, _  in
+		HTTPClient.makeWith(mock: stack).exposureConfiguration { config in
 			XCTAssertNil(config, "configuration should be nil when data is invalid")
 			expectation.fulfill()
 		}
@@ -89,9 +90,8 @@ final class HTTPClientExposureConfigTests: XCTestCase {
 
 		let expectation = self.expectation(description: "HTTPClient should have succeeded.")
 
-		HTTPClient.makeWith(mock: stack).exposureConfiguration(country: "IT") { config, country  in
+		HTTPClient.makeWith(mock: stack).exposureConfiguration { config in
 			XCTAssertNotNil(config, "configuration should not be nil for valid responses")
-			XCTAssertEqual(country, "IT")
 			expectation.fulfill()
 		}
 		waitForExpectations(timeout: expectationsTimeout)
@@ -107,7 +107,7 @@ final class HTTPClientExposureConfigTests: XCTestCase {
 
 		let expectation = self.expectation(description: "HTTPClient should have failed.")
 
-		HTTPClient.makeWith(mock: stack).exposureConfiguration(country: "") { configuration, _  in
+		HTTPClient.makeWith(mock: stack).exposureConfiguration { configuration in
 			XCTAssertNil(
 				configuration, "a 404 configuration response should yield an error - not a success"
 			)

@@ -130,7 +130,7 @@ final class ExposureDetection {
 	}
 
 	private func detectSummary(writtenPackages: WrittenPackages) {
-		delegate?.exposureDetection(country: "DE", downloadConfiguration: { [weak self] configuration, _ in
+		delegate?.exposureDetection(downloadConfiguration: { [weak self] configuration in
 			guard let self = self else { return }
 
 			guard let configuration = configuration else {

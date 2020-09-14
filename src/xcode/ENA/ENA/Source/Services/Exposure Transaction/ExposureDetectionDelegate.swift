@@ -57,8 +57,7 @@ protocol ExposureDetectionDelegate: AnyObject {
 	func exposureDetectionWriteDownloadedPackages(country: String) -> WrittenPackages?
 
 	func exposureDetection(
-		country: String,
-		downloadConfiguration completion: @escaping (ENExposureConfiguration?, String) -> Void
+		downloadConfiguration completion: @escaping (ENExposureConfiguration?) -> Void
 	)
 
 	func exposureDetection(supportedCountries completion: @escaping (SupportedCountriesResult) -> Void)

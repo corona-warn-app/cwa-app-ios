@@ -77,18 +77,6 @@ protocol Client {
 		completion: @escaping HourCompletionHandler
 	)
 
-	// MARK: Getting the Configuration
-
-	typealias ExposureConfigurationCompletionHandler = (ENExposureConfiguration?, String) -> Void
-
-	/// Gets the remove exposure configuration. See `ENExposureConfiguration` for more details
-	/// Parameters:
-	/// - completion: Will be called with the remove configuration or an error if something went wrong. The completion handler will always be called on the main thread.
-	func exposureConfiguration(
-		country: String,
-		completion: @escaping ExposureConfigurationCompletionHandler
-	)
-
 	#else
 
 	/// Determines days that can be downloaded.
@@ -113,6 +101,8 @@ protocol Client {
 		completion: @escaping HourCompletionHandler
 	)
 
+	#endif
+
 	// MARK: Getting the Configuration
 
 	typealias ExposureConfigurationCompletionHandler = (ENExposureConfiguration?) -> Void
@@ -123,8 +113,6 @@ protocol Client {
 	func exposureConfiguration(
 		completion: @escaping ExposureConfigurationCompletionHandler
 	)
-
-	#endif
 
 	/// Gets the list of available countries for key submission.
 	func supportedCountries(completion: @escaping CountryFetchCompletion)
