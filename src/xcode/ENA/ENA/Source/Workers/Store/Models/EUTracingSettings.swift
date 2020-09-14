@@ -17,14 +17,18 @@
 // under the License.
 //
 
-struct EUTracingSettings: Codable {
-	let isAllCountriesEnbled: Bool
+// Due to a stakeholder decision, we dont use the user selected countries.
+// Instead just download all supported countries.
+// The other logic is left here, because at the time writing this, it was unclear wether the decision will be reverted or not.
 
-	/// List of country identifier. Equals the initializing country code.
-	let enabledCountries: [Country.ID]
-
-	init(isAllCountriesEnbled: Bool = false, enabledCountries: [String] = []) {
-		self.isAllCountriesEnbled = isAllCountriesEnbled
-		self.enabledCountries = enabledCountries
-	}
-}
+//struct EUTracingSettings: Codable {
+//	let isAllCountriesEnbled: Bool
+//
+//	/// List of country identifier. Equals the initializing country code.
+//	let enabledCountries: [Country.ID]
+//
+//	init(isAllCountriesEnbled: Bool = false, enabledCountries: [String] = []) {
+//		self.isAllCountriesEnbled = isAllCountriesEnbled
+//		self.enabledCountries = enabledCountries
+//	}
+//}
