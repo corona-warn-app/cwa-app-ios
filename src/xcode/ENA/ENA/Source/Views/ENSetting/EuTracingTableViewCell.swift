@@ -19,12 +19,11 @@
 
 import UIKit
 
-protocol ConfigurableEuTracingSettingCell: UITableViewCell, ConfigurableENSettingCell {
+protocol ConfigurableEuTracingSettingCell: ConfigurableENSettingCell {
 	func configure(for euTracingSettings: EUTracingSettings)
 }
 
 class EuTracingTableViewCell: UITableViewCell, ConfigurableEuTracingSettingCell {
-	
 	
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var countryList: UILabel!
@@ -43,19 +42,15 @@ class EuTracingTableViewCell: UITableViewCell, ConfigurableEuTracingSettingCell 
 	
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 	
 	func configure(for euTracingSettings: EUTracingSettings) {
-		viewModel = ENSettingEuTracingViewModel(euTracingSettings:euTracingSettings) 
+		viewModel = ENSettingEuTracingViewModel(euTracingSettings: euTracingSettings)
 	}
-	
 	
 	func configure(for state: ENStateHandler.State) {
 		self.state = state
@@ -68,7 +63,4 @@ class EuTracingTableViewCell: UITableViewCell, ConfigurableEuTracingSettingCell 
 		self.delegate = delegate
 		configure(for: state)
 	}
-	
-	
-
 }

@@ -29,25 +29,16 @@ struct ENSettingEuTracingViewModel {
 	
 	init(euTracingSettings: EUTracingSettings) {
 		self.title = AppStrings.ExposureNotificationSetting.euTracingAllCountriesTitle
-		self.countryListLabel = ENSettingEuTracingViewModel.buildCountrieListLabel(countryIdsList: euTracingSettings.enabledCountries)
-		self.allCountriesEnbledStateLabel = euTracingSettings.isAllCountriesEnbled ? AppStrings.ExposureNotificationSetting.euTracingAllCountriesStatusOnLabel : AppStrings.ExposureNotificationSetting.euTracingAllCountrieStatusOffLabel
 		
-	}
-	
-	fileprivate static func buildCountrieListLabel(countryIdsList: [String]) -> String {
-		guard !countryIdsList.isEmpty else { return "" }
-		
-		var label = ""
-		for countryId in countryIdsList {
-			let country = Country(countryCode: countryId)?.localizedName
-			
-			if country != nil {
-				label += country! + ", "
+		var enabledCountries: String {
+			guard !euTracingSettings.enabledCountries.isEmpty else { return "" }
+			return euTracingSettings.enabledCountries
+				.compactMap( {Country(countryCode: $0)?.localizedName} )
+				.joined(separator: ", ")
 			}
-		}
 		
-		return !label.isEmpty ? String(label.dropLast(2)) : label
+		self.countryListLabel = enabledCountries
 		
+		self.allCountriesEnbledStateLabel = euTracingSettings.isAllCountriesEnbled ? AppStrings.ExposureNotificationSetting.euTracingAllCountriesStatusOnLabel : AppStrings.ExposureNotificationSetting.euTracingAllCountrieStatusOffLabel
 	}
-	
 }
