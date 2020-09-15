@@ -129,15 +129,15 @@ workflows:
               tags:
                 only:
                   - /^v.*/
-            branches:
-              ignore: /.*/
+              branches:
+                ignore: /.*/
         - build:
             filters:
               tags:
                 only:
                   - /^v.*/
-            branches:
-              ignore: /.*/
+              branches:
+                ignore: /.*/
         - testflight-release:
             filters:
               tags:
