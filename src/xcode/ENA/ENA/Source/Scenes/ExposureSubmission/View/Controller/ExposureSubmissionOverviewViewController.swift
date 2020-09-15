@@ -19,7 +19,6 @@ import AVFoundation
 import Foundation
 import UIKit
 
-
 class ExposureSubmissionOverviewViewController: DynamicTableViewController, SpinnerInjectable {
 
 	// MARK: - Attributes.
@@ -27,12 +26,14 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 	var spinner: UIActivityIndicatorView?
 	private(set) weak var coordinator: ExposureSubmissionCoordinating?
 	private(set) weak var service: ExposureSubmissionService?
+	private let viewModel: ExposureSubmissionOverviewViewModel
 
 	// MARK: - Initializers.
 
 	required init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, exposureSubmissionService: ExposureSubmissionService) {
 		self.service = exposureSubmissionService
 		self.coordinator = coordinator
+		self.viewModel = ExposureSubmissionOverviewViewModel()
 		super.init(coder: coder)
 	}
 
@@ -129,7 +130,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 	}
 
 	func qrScanner(_ vc: QRScannerViewController, didScan code: String) {
-		guard let guid = sanitizeAndExtractGuid(code) else {
+		guard let guid = viewModel.sanitizeAndExtractGuid(code) else {
 			vc.delegate = nil
 
 			let alert = self.setupErrorAlert(
@@ -192,28 +193,6 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 				self.fetchResult()
 			}
         })
-	}
-
-	/// Sanitize the input string and assert that:
-	/// - is not empty
-	/// - length is smaller than 150 characters
-	/// - starts with https://localhost/?
-	/// - contains only alphanumeric characters
-	/// - contains a well formatted guid (6-8-4-4-4-12)
-	func sanitizeAndExtractGuid(_ input: String) -> String? {
-		guard
-			!input.isEmpty,
-			input.count <= 150,
-			let regex = try? NSRegularExpression(
-				pattern: "^https:\\/\\/localhost\\/\\?(?<GUID>[0-9A-Fa-f]{6}-[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})$"
-			),
-			let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count))
-		else { return nil }
-
-		guard let range = Range(match.range(withName: "GUID"), in: input) else { return nil }
-		let candidate = String(input[range])
-		guard !candidate.isEmpty, candidate.count <= 80 else { return nil }
-		return candidate
 	}
 
 	private func dismissQRCodeScannerView(_ vc: QRScannerViewController, completion: (() -> Void)?) {
@@ -303,5 +282,32 @@ private extension ExposureSubmissionOverviewViewController {
 extension ExposureSubmissionOverviewViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case imageCard = "imageCardCell"
+	}
+}
+
+// MARK: - ExposureSubmissionOverviewViewModel.
+
+struct ExposureSubmissionOverviewViewModel {
+
+	/// Sanitize the input string and assert that:
+	/// - is not empty
+	/// - length is smaller than 150 characters
+	/// - starts with https://localhost/?
+	/// - contains only alphanumeric characters
+	/// - contains a well formatted guid (6-8-4-4-4-12)
+	func sanitizeAndExtractGuid(_ input: String) -> String? {
+		guard
+			!input.isEmpty,
+			input.count <= 150,
+			let regex = try? NSRegularExpression(
+				pattern: "^https:\\/\\/localhost\\/\\?(?<GUID>[0-9A-Fa-f]{6}-[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})$"
+			),
+			let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count))
+		else { return nil }
+
+		guard let range = Range(match.range(withName: "GUID"), in: input) else { return nil }
+		let candidate = String(input[range])
+		guard !candidate.isEmpty, candidate.count <= 80 else { return nil }
+		return candidate
 	}
 }
