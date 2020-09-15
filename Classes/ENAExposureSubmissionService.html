@@ -430,9 +430,9 @@ We append two fake requests to this request in order to fulfill the V+V+S sequen
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA28ENAExposureSubmissionServiceC14submitExposure19consentToFederation16visitedCountries17completionHandlerySb_SayAA7CountryVGyAA0fC5ErrorOSgctF"></a>
-                      <a name="//apple_ref/swift/Method/submitExposure(consentToFederation:visitedCountries:completionHandler:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA28ENAExposureSubmissionServiceC14submitExposure19consentToFederation16visitedCountries17completionHandlerySb_SayAA7CountryVGyAA0fC5ErrorOSgctF">submitExposure(consentToFederation:<wbr>visitedCountries:<wbr>completionHandler:<wbr>)</a>
+                      <a name="/s:3ENA28ENAExposureSubmissionServiceC14submitExposure13symptomsOnset19consentToFederation16visitedCountries17completionHandleryAA08SymptomsH0O_SbSayAA7CountryVGyAA0fC5ErrorOSgctF"></a>
+                      <a name="//apple_ref/swift/Method/submitExposure(symptomsOnset:consentToFederation:visitedCountries:completionHandler:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA28ENAExposureSubmissionServiceC14submitExposure13symptomsOnset19consentToFederation16visitedCountries17completionHandleryAA08SymptomsH0O_SbSayAA7CountryVGyAA0fC5ErrorOSgctF">submitExposure(symptomsOnset:<wbr>consentToFederation:<wbr>visitedCountries:<wbr>completionHandler:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -451,6 +451,7 @@ We prepend a fake request in order to guarantee the V+V+S sequence. Please kindl
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">submitExposure</span><span class="p">(</span>
+	<span class="nv">symptomsOnset</span><span class="p">:</span> <span class="kt"><a href="../Enums/SymptomsOnset.html">SymptomsOnset</a></span><span class="p">,</span>
 	<span class="nv">consentToFederation</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
 	<span class="nv">visitedCountries</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/Country.html">Country</a></span><span class="p">],</span>
 	<span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt">ExposureSubmissionHandler</span>
@@ -748,6 +749,15 @@ Nothing called in this method is considered a &ldquo;real&rdquo; request.</p>
                   <a href="../Classes/DMViewController.html">DMViewController</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Classes/DatePickerDayView.html">DatePickerDayView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/DatePickerDayViewModel.html">DatePickerDayViewModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/DatePickerOptionView.html">DatePickerOptionView</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Classes/DescriptionTableViewCell.html">DescriptionTableViewCell</a>
                 </li>
                 <li class="nav-group-task">
@@ -761,6 +771,12 @@ Nothing called in this method is considered a &ldquo;real&rdquo; request.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/DownloadedPackagesSQLLiteStoreV1/StoreError.html">– StoreError</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/DynamicTableViewBulletPointCell.html">DynamicTableViewBulletPointCell</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/DynamicTableViewBulletPointCell/Spacing.html">– Spacing</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/DynamicTableViewController.html">DynamicTableViewController</a>
@@ -932,6 +948,24 @@ Nothing called in this method is considered a &ldquo;real&rdquo; request.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/ExposureSubmissionSuccessViewController/CustomCellReuseIdentifiers.html">– CustomCellReuseIdentifiers</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ExposureSubmissionSymptomsOnsetViewController.html">ExposureSubmissionSymptomsOnsetViewController</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ExposureSubmissionSymptomsOnsetViewController/SymptomsOnsetOption.html">– SymptomsOnsetOption</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ExposureSubmissionSymptomsOnsetViewController/CustomCellReuseIdentifiers.html">– CustomCellReuseIdentifiers</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ExposureSubmissionSymptomsViewController.html">ExposureSubmissionSymptomsViewController</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ExposureSubmissionSymptomsViewController/SymptomsOption.html">– SymptomsOption</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ExposureSubmissionSymptomsViewController/CustomCellReuseIdentifiers.html">– CustomCellReuseIdentifiers</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/ExposureSubmissionTanInputViewController.html">ExposureSubmissionTanInputViewController</a>
@@ -1292,6 +1326,12 @@ Nothing called in this method is considered a &ldquo;real&rdquo; request.</p>
                   <a href="../Enums/AccessibilityIdentifiers/ExposureSubmissionIntroduction.html">– ExposureSubmissionIntroduction</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/AccessibilityIdentifiers/ExposureSubmissionSymptoms.html">– ExposureSubmissionSymptoms</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/AccessibilityIdentifiers/ExposureSubmissionSymptomsOnset.html">– ExposureSubmissionSymptomsOnset</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/AccessibilityIdentifiers/ExposureSubmissionWarnOthers.html">– ExposureSubmissionWarnOthers</a>
                 </li>
                 <li class="nav-group-task">
@@ -1317,6 +1357,9 @@ Nothing called in this method is considered a &ldquo;real&rdquo; request.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/AccessibilityIdentifiers/General.html">– General</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/AccessibilityIdentifiers/DatePickerOption.html">– DatePickerOption</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/AppStoryboard.html">AppStoryboard</a>
@@ -1353,6 +1396,12 @@ Nothing called in this method is considered a &ldquo;real&rdquo; request.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/AppStrings/ExposureSubmissionHotline.html">– ExposureSubmissionHotline</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/AppStrings/ExposureSubmissionSymptoms.html">– ExposureSubmissionSymptoms</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/AppStrings/ExposureSubmissionSymptomsOnset.html">– ExposureSubmissionSymptomsOnset</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/AppStrings/ExposureSubmissionWarnOthers.html">– ExposureSubmissionWarnOthers</a>
@@ -1428,6 +1477,9 @@ Nothing called in this method is considered a &ldquo;real&rdquo; request.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/DMMenuItem.html">DMMenuItem</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/DatePickerDay.html">DatePickerDay</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/DetectionMode.html">DetectionMode</a>
@@ -1514,6 +1566,9 @@ Nothing called in this method is considered a &ldquo;real&rdquo; request.</p>
                   <a href="../Enums/SubmissionError.html">SubmissionError</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/SymptomsOnset.html">SymptomsOnset</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/TestResult.html">TestResult</a>
                 </li>
                 <li class="nav-group-task">
@@ -1547,6 +1602,9 @@ Nothing called in this method is considered a &ldquo;real&rdquo; request.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/CFDictionary.html">CFDictionary</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/Calendar.html">Calendar</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/Data.html">Data</a>
@@ -1907,6 +1965,9 @@ Nothing called in this method is considered a &ldquo;real&rdquo; request.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DMExportableKey.html">DMExportableKey</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DatePickerOptionViewModel.html">DatePickerOptionViewModel</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/DaysAndHours.html">DaysAndHours</a>
