@@ -84,7 +84,7 @@ final class HTTPClient: Client {
 				completion(nil)
 				return
 			}
-			completion(try? ENExposureConfiguration(from: config.exposureConfig))
+			completion(try? ENExposureConfiguration(from: config.exposureConfig, minRiskScore: config.minRiskScore))
 		}
 	}
 
@@ -729,9 +729,10 @@ private extension URLRequest {
 }
 
 private extension ENExposureConfiguration {
-	convenience init(from riskscoreParameters: SAP_RiskScoreParameters) throws {
+	convenience init(from riskscoreParameters: SAP_RiskScoreParameters, minRiskScore: Int32) throws {
 		self.init()
-		// We are intentionally not setting minimumRiskScore.
+		minimumRiskScore = UInt8(clamping: minRiskScore)
+		minimumRiskScoreFullRange = Double(minRiskScore)
 		attenuationLevelValues = riskscoreParameters.attenuation.asArray
 		daysSinceLastExposureLevelValues = riskscoreParameters.daysSinceLastExposure.asArray
 		durationLevelValues = riskscoreParameters.duration.asArray
