@@ -28,13 +28,13 @@ final class ExposureDetection {
 	#if INTEROP
 
 	private let store: Store
-	private var countryKeypackageDownloader: CountryKeypackageDownloaderProtocol
+	private var countryKeypackageDownloader: CountryKeypackageDownloading
 
 	// MARK: Creating a Transaction
 	init(
 		delegate: ExposureDetectionDelegate,
 		store: Store,
-		countryKeypackageDownloader: CountryKeypackageDownloaderProtocol? = nil
+		countryKeypackageDownloader: CountryKeypackageDownloading? = nil
 	) {
 		self.delegate = delegate
 		self.store = store

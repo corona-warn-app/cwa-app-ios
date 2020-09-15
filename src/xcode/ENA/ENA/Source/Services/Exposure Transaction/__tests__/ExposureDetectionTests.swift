@@ -368,7 +368,7 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 
 #if INTEROP
 
-private final class CountryKeypackageDownloaderSpy: CountryKeypackageDownloaderProtocol {
+private final class CountryKeypackageDownloaderSpy: CountryKeypackageDownloading {
 
 	private(set) var downloadedCountries = [Country.ID]()
 

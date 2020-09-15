@@ -21,13 +21,13 @@ import ExposureNotification
 
 #if INTEROP
 
-protocol CountryKeypackageDownloaderProtocol {
+protocol CountryKeypackageDownloading {
 	typealias Completion = (Result<Void, ExposureDetection.DidEndPrematurelyReason>) -> Void
 
 	func downloadKeypackages(for country: String, completion: @escaping Completion)
 }
 
-class CountryKeypackageDownloader: CountryKeypackageDownloaderProtocol {
+class CountryKeypackageDownloader: CountryKeypackageDownloading {
 
 	private weak var delegate: ExposureDetectionDelegate?
 
