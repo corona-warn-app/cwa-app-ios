@@ -130,7 +130,7 @@
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "Why your risk of infection is low";
 
-"ExposureDetection_LowRiskExposure_Body" = "You encountered a person diagnosed with COVID-19. Nevertheless, taking into account all data available in the Corona-Warn-App, your risk of infection is ranked as low.\nThere is no specific need for action. We recommend that you adhere to the prevailing rules regarding distancing and hygiene.";
+"ExposureDetection_LowRiskExposure_Body" = "You encountered a person who was later diagnosed with COVID-19. Nevertheless, based on your exposure logging data, your risk of infection is low. The risk is low if your encounter was brief or occurred at a distance. You do not need to worry and there is no specific need for action. We recommend that you adhere to the prevailing rules regarding distancing and hygiene.";
 
 "ExposureDetection_Button_Enable" = "Activate Exposure Logging";
 
@@ -153,6 +153,8 @@
 "ExposureDetectionError_Alert_Action_Details" = "Details";
 
 "ExposureDetectionError_Alert_Message" = "An error occurred during exposure logging.";
+
+"ExposureDetectionError_Alert_AppConfig_Missing_Message" = "Your internet connection was lost. Please check the connection and then reopen the app.";
 
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Information about exposure logging functionality";
@@ -584,6 +586,54 @@
 
 "ExposureSubmissionWarnOthers_consentUnderagesText" = "The use of this app is intended for persons who are at least 16 years of age and who reside in Germany.";
 
+"ExposureSubmissionWarnEuropeConsent_title" = "Europe-wide warnings";
+
+"ExposureSubmissionWarnEuropeConsent_imageDescription" = "Persons holding smartphones stand on a map of Europe. A bell sounding a warning is pictured in their midst.";
+
+"ExposureSubmissionWarnEuropeConsent_continueButton" = "Next";
+
+"ExposureSubmissionWarnEuropeConsent_sectionTitle" = "The virus knows no borders. Support transborder warnings!";
+
+"ExposureSubmissionWarnEuropeConsent_toggleTitle" = "Europe-wide warnings";
+
+"ExposureSubmissionWarnEuropeConsent_description" = "Several European countries are working together to enable cross-border warnings. Share your random IDs with participating countries to enable users of other countries' official Corona apps to be warned.";
+
+"ExposureSubmissionWarnEuropeConsent_consentTitle" = "Declaration of Consent";
+
+"ExposureSubmissionWarnEuropeConsent_consentDescription" = "By selecting \"Europe-wide warnings\" and tapping \"Next\", you consent to your test result and your random IDs generated during the last 14 days being transferred to the European server system jointly operated by the participating countries. Your test result and your random IDs can be used to warn users of official Corona apps from other countries that they have been exposed to a risk of infection. The random IDs do not contain data that allows conclusions about your identity or your person.\n\nThe data transfer in support of the Europe-wide warning is optional. You do not incur a disadvantage if you opt not to share your data. As it is not possible to trace or control whether and how you use the app, nobody but you knows whether you are sharing your test result in support of Europe-wide warning. You can revoke your consent at any time by deleting the app. By revoking your consent, the lawfulness of data processing, granted up to the point of revocation by your consent, is not affected. For further information, see menu item \"Data Privacy Information\".";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_title" = "Europe-wide warnings";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_continueButton" = "Next";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_description1" = "Have you visited countries outside of Germany within the last 14 days?";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_description2" = "Your entry is used solely for optimizing the data volume.";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionYes" = "Yes";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNo" = "No";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "No comment";
+
+"ExposureSubmissionWarnEuropeCountrySelection_title" = "Europe-wide warnings";
+
+"ExposureSubmissionWarnEuropeCountrySelection_continueButton" = "Next";
+
+"ExposureSubmissionWarnEuropeCountrySelection_description1" = "Which countries have you visited in the last 14 days?";
+
+"ExposureSubmissionWarnEuropeCountrySelection_description2" = "Your entry is used solely for optimizing the data volume.\n\nThe list contains all currently participating countries and is continuously updated.";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionCountrySelection" = "I have visited the following countries";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries" = "Other countries";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "No comment";
+
+"ExposureSubmissionWarnEuropeCountrySelection_consentTitle" = "Declaration of Consent";
+
+"ExposureSubmissionWarnEuropeCountrySelection_consentDescription" = "By tapping \"Next\", you consent to your selected countries and your random IDs being transferred to the European server system jointly operated by the participating countries. The participating countries can use this data for exposure logging in their own Corona apps, to assess whether your random IDs are relevant for the users of these Corona apps.\n\nThe transferred data does not contain any information that would allow conclusions about your identity or your person.\n\nTransfer of data about your selected countries is optional. You do not incur a disadvantage if you opt not to transfer your entries on selected countries. As it is not possible to trace or control whether and how you use the app, nobody but you knows whether you are sharing this information.\n\nYou can revoke your consent at any time by deleting the app. By revoking your consent, the lawfulness of data processing, granted up to the point of revocation by your consent, is not affected. For further information, see menu item \"Data Privacy Information\".";
+
 "ExposureSubmissionResult_RemoveAlert_Title" = "The test can only be scanned once.";
 
 "ExposureSubmissionResult_RemoveAlert_Text" = "If you remove the test, you can no longer retrieve your test result. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with COVID-19, the public health authority will be notified through the legally prescribed channel and will contact you.";
@@ -626,6 +676,8 @@
 "ExposureSubmissionError_unknown" = "Unknown error";
 
 "ExposureSubmissionError_defaultError" = "Error during key transmission";
+
+"ExposureSubmissionError_noAppConfiguration" = "Your internet connection was lost. Please check the connection and then reopen the app.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Exposure Logging";
