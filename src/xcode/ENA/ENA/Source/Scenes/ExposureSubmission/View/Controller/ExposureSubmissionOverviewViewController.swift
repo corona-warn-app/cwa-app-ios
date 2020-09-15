@@ -289,12 +289,12 @@ extension ExposureSubmissionOverviewViewController {
 
 struct ExposureSubmissionOverviewViewModel {
 
-	/// Sanitize the input string and assert that:
-	/// - is not empty
-	/// - length is smaller than 150 characters
-	/// - starts with https://localhost/?
-	/// - contains only alphanumeric characters
-	/// - contains a well formatted guid (6-8-4-4-4-12)
+	/// Sanitizes the input string and extracts a guid.
+	/// - the input needs to start with https://localhost/?
+	/// - the input must not ne longer than 150 chars and cannot be empty
+	/// - the guid contains only the following characters: a-f, A-F, 0-9,-
+	/// - the guid is a well formatted string (6-8-4-4-4-12) with length 43
+	///   (6 chars encode a random number, 32 chars for the uuid, 5 chars are separators)
 	func sanitizeAndExtractGuid(_ input: String) -> String? {
 		guard
 			!input.isEmpty,
@@ -307,7 +307,7 @@ struct ExposureSubmissionOverviewViewModel {
 
 		guard let range = Range(match.range(withName: "GUID"), in: input) else { return nil }
 		let candidate = String(input[range])
-		guard !candidate.isEmpty, candidate.count <= 80 else { return nil }
+		guard !candidate.isEmpty, candidate.count == 43 else { return nil }
 		return candidate
 	}
 }
