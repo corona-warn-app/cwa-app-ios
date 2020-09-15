@@ -3,6 +3,10 @@
 
 "Alert_ActionOk" = "OK";
 
+"Alert_ActionYes" = "Tak";
+
+"Alert_ActionNo" = "Nie";
+
 "Alert_ActionRetry" = "Powtórz";
 
 "Alert_ActionCancel" = "Anuluj";
@@ -27,13 +31,13 @@
 
 "Common_Alert_Action_moreInfo" = "Dowiedz się więcej";
 
-"Common_BackgroundFetch_AlertMessage" = "Dezaktywowałeś(-aś) aktualizacje w tle dla aplikacji Corona-Warn-App. Aktywuj aktualizacje w tle, aby korzystać z automatycznego rejestrowania narażenia. Jeśli nie aktywujesz aktualizacji w tle, możliwe będzie tylko ręczne uruchomienie rejestrowania narażenia w aplikacji.\n\nMożesz aktywować aktualizacje w tle dla aplikacji w ustawieniach swojego urządzenia.";
+"Common_BackgroundFetch_AlertMessage" = "Dezaktywowałeś(-aś) odświeżanie aplikacji w tle dla aplikacji Corona-Warn-App. Aktywuj odświeżanie aplikacji w tle, aby korzystać z automatycznego rejestrowania narażenia. Jeśli nie aktywujesz odświeżania aplikacji w tle, możliwe będzie tylko ręczne uruchomienie rejestrowania narażenia w aplikacji. Możesz aktywować odświeżanie aplikacji w tle dla aplikacji w ustawieniach swojego urządzenia.";
 
 "Common_BackgroundFetch_SettingsTitle" = "Otwórz ustawienia urządzenia";
 
 "Common_BackgroundFetch_OKTitle" = "Uruchom rejestrowanie narażenia ręcznie";
 
-"Common_BackgroundFetch_AlertTitle" = "Aktualizacje w tle dezaktywowane";
+"Common_BackgroundFetch_AlertTitle" = "Odświeżanie aplikacji w tle dezaktywowane";
 
 "Common_Deadman_AlertTitle" = "Twój status ryzyka";
 
@@ -126,7 +130,7 @@
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "Dlaczego Twoje ryzyko zakażenia jest niskie";
 
-"ExposureDetection_LowRiskExposure_Body" = "Byłeś(-aś) narażony(-a) na kontakt z osobą, u której zdiagnozowano COVID-19. Jednak na podstawie Twoich danych rejestracji narażenia Twoje ryzyko zakażenia jest niskie. Ryzyko jest niskie, jeśli Twój kontakt trwał krótko lub zachowany został dystans. Nie musisz się martwić i podejmować żadnych działań. Zalecamy przestrzeganie obowiązujących reguł dotyczących dystansu i higieny.";
+"ExposureDetection_LowRiskExposure_Body" = "Byłeś(-aś) narażony(-a) na bliski kontakt z osobą, u której zdiagnozowano COVID-19. Jednak po uwzględnieniu wszystkich danych dostępnych w aplikacji Corona-Warn-App, Twoje ryzyko zakażenia zostało ocenione jako niskie.\nNie ma potrzeby podejmowania żadnych działań. Zalecamy przestrzeganie obowiązujących reguł dotyczących dystansu i higieny.";
 
 "ExposureDetection_Button_Enable" = "Aktywuj rejestrowanie narażenia";
 
@@ -150,17 +154,19 @@
 
 "ExposureDetectionError_Alert_Message" = "Podczas rejestrowania narażenia wystąpił błąd.";
 
-"ExposureDetectionError_Alert_AppConfig_Missing_Message" = "Twoje połączenie internetowe zostało utracone. Sprawdź połączenie, a następnie ponownie otwórz aplikację.";
-
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Informacje o funkcjonalności rejestrowania narażenia";
 
 "How_Risk_Detection_Works_Alert_Message" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna.\nRejestrowanie narażenia obejmuje ostatnie %1$u dni.\nAplikacja automatycznie usuwa starsze dzienniki, ponieważ nie są one już istotne dla zapobiegania zakażeniom.\n\nWięcej informacji znajduje się na naszej stronie „Często zadawane pytania”.";
 
 /* Settings */
-"Settings_StatusActive" = "Wł.";
+"Settings_Notification_StatusActive" = "Wł.";
 
-"Settings_StatusInactive" = "Wył.";
+"Settings_Notification_StatusInactive" = "Wył.";
+
+"Settings_BackgroundAppRefresh_StatusActive" = "Wł.";
+
+"Settings_BackgroundAppRefresh_StatusInactive" = "Wył.";
 
 "Settings_StatusEnable" = "Aktywuj";
 
@@ -174,11 +180,15 @@
 
 "Settings_Notification_Label" = "Powiadomienia";
 
+"Settings_BackgroundAppRefresh_Label" = "Odświeżanie aplikacji w tle";
+
 "Settings_Reset_Label" = "Resetuj aplikację";
 
 "Settings_Tracing_Description" = "Zezwól na generowanie i udostępnianie losowych identyfikatorów COVID-19.";
 
 "Settings_Notification_Description" = "Zezwól na automatyczne powiadomienia o statusie ryzyka COVID-19";
+
+"Settings_BackgroundAppRefresh_Description" = "Zezwól na automatyczne aktualizacje statusu ryzyka.";
 
 "Settings_Reset_Description" = "Usuń wszystkie swoje dane z aplikacji.";
 
@@ -210,6 +220,61 @@
 "NotificationSettings_onImageDescription" = "Kobieta otrzymuje powiadomienie od swojej aplikacji Corona-Warn-App.";
 
 "NotificationSettings_offImageDescription" = "Kobieta nie może otrzymywać powiadomień od swojej aplikacji Corona-Warn-App.";
+
+/* Background App Referesh Settings */
+"BackgroundAppRefreshSettings_Title" = "Odświeżanie aplikacji w tle";
+
+"BackgroundAppRefreshSettings_Image_Description_On" = "Osoba trzyma w dłoni smartfon z aktywowanym odświeżaniem aplikacji w tle.";
+
+"BackgroundAppRefreshSettings_Image_Description_Off" = "Osoba trzyma w dłoni smartfon z dezaktywowanym odświeżaniem aplikacji w tle.";
+
+"BackgroundAppRefreshSettings_Subtitle" = "Aktualizuj status ryzyka w tle";
+
+"BackgroundAppRefreshSettings_Description" = "Gdy odświeżanie aplikacji w tle jest aktywowane, Corona-Warn-App ustala Twój status ryzyka automatycznie.\nNie są naliczane dodatkowe koszty za transfer danych przez sieć mobilną.\nJeśli odświeżanie aplikacji w tle sjest dezaktywowane, konieczne jest codzienne ręczne otwieranie aplikacji w celu aktualizacji statusu ryzyka.";
+
+"BackgroundAppRefreshSettings_Status_Header" = "Ustawienie";
+
+"BackgroundAppRefreshSettings_Status_Title" = "Odświeżanie aplikacji w tle";
+
+"BackgroundAppRefreshSettings_Status_On" = "Wł.";
+
+"BackgroundAppRefreshSettings_Status_Off" = "Wył.";
+
+"BackgroundAppRefreshSettings_InfoBox_Title" = "Aktywuj odświeżanie aplikacji w tle";
+
+"BackgroundAppRefreshSettings_InfoBox_Description" = "Musisz aktywować odświeżanie aplikacji w tle zarówno w ustawieniach ogólnych iPhone'a, jak i w ustawieniach Corona-Warn-App.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Pamiętaj, że aby można było aktywować odświeżanie aplikacji w tle, tryb niskiego zasilania musi być dezaktywowany.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Dezaktywuj tryb niskiego zasilania";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Otwórz opcję Ustawienia";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2" = "Otwórz opcję Bateria";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3" = "Dezaktywuj tryb niskiego zasilania";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title" = "Aktywuj odświeżanie aplikacji w tle w opcji Ogólne";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1" = "Otwórz opcję Ustawienia";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2" = "Otwórz opcję Ogólne";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3" = "Otwórz Odświeżanie aplikacji w tle";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4" = "Wybierz sieć Wi-Fi lub sieć Wi-Fi i dane komórkowe";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title" = "Aktywuj odświeżanie aplikacji w tle dla Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Otwórz opcję Ustawienia";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Otwórz ustawienia dla Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Aktywuj odświeżanie aplikacji w tle";
+
+"BackgroundAppRefreshSettings_OpenSettingsButton_Title" = "Otwórz opcję Ustawienia";
+
+"BackgroundAppRefreshSettings_ShareButton_Title" = "Instrukcje udostępniania";
 
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "Zaczynamy";
@@ -256,6 +321,10 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Działanie funkcji rejestrowania narażenia polega na odbieraniu przez Twoje urządzenie za pomocą Bluetooth zaszyfrowanych, losowych identyfikatorów innych użytkowników i przekazywaniu Twoich własnych, losowych identyfikatorów do ich urządzeń. Funkcję tę można wyłączyć w dowolnym momencie. \n\nIdentyfikatory przekazują w sposób zaszyfrowany wyłącznie informacje o dacie, czasie trwania i odległości (przy wykorzystaniu mocy sygnału) od innych użytkowników aplikacji. Dane osobowe, takie jak nazwisko, adres, lokalizacja, nie są nigdy rejestrowane. Ustalenie tożsamości osób nie jest możliwe.";
 
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Limit wieku: 16 i więcej";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "Ta aplikacja jest przeznaczona dla osób, które ukończyły 16 lat i mieszkają w Niemczech.";
+
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Oświadczenie o wyrażeniu zgody";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "To find out whether you have been in contact with an infected person and whether there is a risk that you yourself have been infected, you need to enable the App’s exposure logging feature. By tapping on the “Turn On” button, you agree to the enabling of the App’s exposure logging feature and the associated data processing.\n\n\nIn order to use the App’s exposure logging feature, you will have to enable the COVID-19 Exposure Logging functionality provided by Apple on your iPhone and grant the Corona-Warn-App permission to use this.\n\nWhen exposure logging is enabled, your iPhone continuously generates and transmits random IDs via Bluetooth, which other Apple and Android smartphones in your vicinity can receive if exposure logging is also enabled on them. Your iPhone, in turn, receives the random IDs of the other smartphones. Your own random IDs and those received from other smartphones are recorded in the exposure log and stored there for 14 days.\n\n\nTo identify your risk of infection, the App loads a list – several times a day or on request – of the random IDs of all users who have told the App that they have been infected with the coronavirus. This list is then compared with the random IDs stored in the exposure log. If the App detects that you may have been in contact with an infected user, it will inform you of this and tell you that there is a risk that you are also infected. In this case, the App is also given access to other data stored in your iPhone’s exposure log (date, duration and Bluetooth signal strength of the contact).\n\nThe Bluetooth signal strength is used to derive the physical distance (the stronger the signal, the smaller the distance). The App then analyses this information in order to assess your likelihood of having been infected with the coronavirus and to give you recommendations for what to do next. This analysis is only performed locally on your iPhone. Apart from you, nobody (not even the RKI) will know whether you have been in contact with an infected person and what risk has been identified for you.\n\nTo withdraw your consent to the exposure logging feature, you can disable the feature using the toggle switch in the App or delete the App. If you decide to use the exposure logging feature again, you can toggle the feature back on or reinstall the App. If you disable the exposure logging feature, the App will no longer check whether you have been in contact with an infected user. If you also wish to stop your device sending and receiving random IDs, you will need to disable COVID-19 Exposure Logging in your iPhone settings. Please note that your own random IDs and those received from other smartphones which are stored in the exposure log will not be deleted in the App. You can only permanently delete the data stored in the exposure log in your iPhone settings.\n\n\nThe App’s privacy notice (including an explanation of the data processing carried out for the exposure logging feature) can be found in the menu under “Data Privacy Information”.";
@@ -290,6 +359,10 @@
 "ExposureSubmission_DataPrivacyTitle" = "Prywatność danych";
 
 "ExposureSubmission_Continue_actionText" = "Dalej";
+
+"ExposureSubmission_ConfirmDismissPopUpTitle" = "Czy chcesz anulować?";
+
+"ExposureSubmission_ConfirmDismissPopUpText" = "Twoje wpisy nie zostaną zapisane.";
 
 "ExposureSubmission_DataPrivacyDescription" = "By tapping on “Accept”, you consent to the App querying the status of your coronavirus test and displaying it in the App. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the App’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the App. If you have enabled notifications, you will also receive a notification outside the App telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the App. You can withdraw this consent at any time by deleting your test registration in the App. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy Information”.";
 
@@ -351,7 +424,7 @@
 
 "ExposureSubmission_PhoneNumber" = "+49 800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Języki: \nniemiecki, angielski, turecki\n\nGodziny pracy:\nod poniedziałku do niedzieli:  24 godziny na dobę\n\nPołączenie jest bezpłatne.";
+"ExposureSubmission_PhoneDetailDescription" = "Języki: \nniemiecki, angielski, turecki\n\nGodziny pracy:\nod poniedziałku do niedzieli: 24 godziny na dobę\n\nPołączenie jest bezpłatne.\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Zarejestruj test poprzez wpisanie numeru TAN w aplikacji.";
 
@@ -506,6 +579,10 @@
 "ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping on “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the exposure logging feature can be automatically notified that they may have been exposed to a risk of infection. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person.\n\nTransmitting your test result via the App is voluntary. You will not be penalised if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected.\n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out on the basis of the consent prior to the withdrawal. Further information can be found in the menu under “Data Privacy Information”.";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Prywatność danych";
+
+"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Limit wieku: 16 i więcej";
+
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "Ta aplikacja jest przeznaczona dla osób, które ukończyły 16 lat i mieszkają w Niemczech.";
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test może być zeskanowany tylko raz.";
 
@@ -805,7 +882,7 @@
 
 "App_Information_Contact_Hotline_Description" = "Nasz zespół obsługi klienta jest gotowy do pomocy.";
 
-"App_Information_Contact_Hotline_Terms" = "Języki: niemiecki, angielski, turecki\n\nGodziny pracy:\nod poniedziałku do soboty: 7:00 - 22:00\n(za wyjątkiem świąt państwowych)\n\nPołączenie jest bezpłatne.";
+"App_Information_Contact_Hotline_Terms" = "Języki: niemiecki, angielski, turecki\n\nGodziny pracy:\nod poniedziałku do soboty: od 7:00 do 10:00\n(oprócz świąt)\n\nPołączenie jest bezpłatne.\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem: 116 117.";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Impressum";

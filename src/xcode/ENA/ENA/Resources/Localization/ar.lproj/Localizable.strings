@@ -3,6 +3,10 @@
 
 "Alert_ActionOk" = "موافق";
 
+"Alert_ActionYes" = "نعم";
+
+"Alert_ActionNo" = "لا";
+
 "Alert_ActionRetry" = "تكرار";
 
 "Alert_ActionCancel" = "إلغاء";
@@ -27,13 +31,13 @@
 
 "Common_Alert_Action_moreInfo" = "العثور على المزيد";
 
-"Common_BackgroundFetch_AlertMessage" = "قمت بإلغاء تنشيط تحديثات في الخلفية لتطبيق Corona-Warn-App. الرجاء تنشيط تحديثات في الخلفية لاستخدام تسجيل المخالطة التلقائي. إذا لم تقم بتنشيط تحديثات في الخلفية، فيمكنك فقط بدء تسجيل المخالطة يدويًا في التطبيق.\n\nيمكنك تنشيط تحديثات في الخلفية للتطبيق في إعدادات الجهاز لديك.";
+"Common_BackgroundFetch_AlertMessage" = "لقد قمت بإلغاء تنشيط تحديث التطبيق في الخلفية لتطبيق Corona-Warn-App. الرجاء تنشيط تحديث التطبيق في الخلفية لاستخدام تسجيل التعرض التلقائي. إذا لم تقم بتنشيط تحديث التطبيق في الخلفية، يمكنك بدء تسجيل التعرض يدويًا فقط في التطبيق.\n\nيمكنك تنشيط تحديث التطبيق في الخلفية للتطبيق في إعدادات الجهاز لديك.";
 
 "Common_BackgroundFetch_SettingsTitle" = "فتح إعدادات الجهاز";
 
 "Common_BackgroundFetch_OKTitle" = "بدء تسجيل المخالطة يدويًا";
 
-"Common_BackgroundFetch_AlertTitle" = "تحديثات في الخلفية مُلغى تنشيطها";
+"Common_BackgroundFetch_AlertTitle" = "تم إلغاء تنشيط تحديث التطبيق في الخلفية";
 
 "Common_Deadman_AlertTitle" = "مستوى الخطر";
 
@@ -126,7 +130,7 @@
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "لماذا خطر إصابتك بالعدوى منخفض";
 
-"ExposureDetection_LowRiskExposure_Body" = "خالطت شخصًا مُصابًا بمرض كوفيد-19 مؤخرًا. ومع ذلك، وبالاستناد إلى بيانات تسجيل التعرض، فإن خطر إصابتك بالعدوى منخفض. خطر إصابتك يعد منخفضًا إذا كانت مدة المخالطة قصيرة أو حدثت عن بعد. فلا داعي للقلق وليست هناك حاجة محددة لأي إجراء. نوصيك بالالتزام بالقواعد السائدة فيما يتعلق بالمسافة والنظافة.";
+"ExposureDetection_LowRiskExposure_Body" = "خالطت شخصًا مُصابًا بمرض كوفيد-19. مع ذلك، وبالأخذ في الاعتبار جميع البيانات المتوفرة في تطبيق Corona-Warn-App، فإن خطر إصابتك يعد منخفضًا.\nليست هناك حاجة لاتخاذ أي إجراء. نوصيك بالالتزام بالقواعد المتداولة بخصوص التباعد والنظافة.";
 
 "ExposureDetection_Button_Enable" = "تنشيط تسجيل المخالطة";
 
@@ -149,8 +153,6 @@
 "ExposureDetectionError_Alert_Action_Details" = "التفاصيل";
 
 "ExposureDetectionError_Alert_Message" = "حدث خطأ ما أثناء تسجيل المخالطة.";
-
-"ExposureDetectionError_Alert_AppConfig_Missing_Message" = "فُقد اتصالك بالإنترنت. يُرجى التحقق من الاتصال ثم إعادة فتح التطبيق.";
 
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "معلومات حول وظيفة تسجيل المخالطة";
@@ -178,7 +180,7 @@
 
 "Settings_Notification_Label" = "الإشعارات";
 
-"Settings_BackgroundAppRefresh_Label" = "التحديثات في الخلفية";
+"Settings_BackgroundAppRefresh_Label" = "تحديث التطبيق في الخلفية";
 
 "Settings_Reset_Label" = "إعادة تعيين التطبيق";
 
@@ -220,15 +222,15 @@
 "NotificationSettings_offImageDescription" = "سيدة لا يمكنها تلقي إشعارات من تطبيق Corona-Warn-App.";
 
 /* Background App Referesh Settings */
-"BackgroundAppRefreshSettings_Title" = "التحديثات في الخلفية";
+"BackgroundAppRefreshSettings_Title" = "تحديث التطبيق في الخلفية";
 
-"BackgroundAppRefreshSettings_Image_Description_On" = "شخص يحمل هاتفًا ذكيًا بتحديثات في الخلفية تم تنشيطها.";
+"BackgroundAppRefreshSettings_Image_Description_On" = "شخص يحمل هاتفًا ذكيًا بتحديث تطبيق في الخلفية تم تنشيطه.";
 
-"BackgroundAppRefreshSettings_Image_Description_Off" = "شخص يحمل هاتفًا ذكيًا بتحديثات في الخلفية تم إلغاء تنشيطها.";
+"BackgroundAppRefreshSettings_Image_Description_Off" = "شخص يحمل هاتفًا ذكيًا بتحديث تطبيق في الخلفية تم إلغاء تنشيطه.";
 
 "BackgroundAppRefreshSettings_Subtitle" = "تحديث حالة المخاطرة في الخلفية";
 
-"BackgroundAppRefreshSettings_Description" = "عند تنشيط تحديثات في الخلفية، يحدد تطبيق Corona-Warn-App حالة المخاطرة لديك تلقائيًا.\nلن يتم تكبد تكاليف إضافية لنقل البيانات في شبكة الهاتف المحمول.\nفي حالة إلغاء تنشيط التحديثات في الخلفية، فسيتوجب عليك فتح التطبيق يدويًا كل يوم لتحديث حالة المخاطرة لديك.";
+"BackgroundAppRefreshSettings_Description" = "بمجرد تنشيط تحديث التطبيق في الخلفية، يحدد تطبيق Corona-Warn-App حالة خطر إصابتك تلقائيًا.\nلن يتم تحمل أي تكاليف إضافية لنقل البيانات في شبكة الهاتف المحمول.\nفي حالة إلغاء تنشيط تحديث التطبيق في الخلفية، فسيتوجب عليك فتح التطبيق يدويًا كل يوم لتحديث حالة خطر إصابتك.";
 
 "BackgroundAppRefreshSettings_Status_Header" = "الإعداد";
 
@@ -242,7 +244,7 @@
 
 "BackgroundAppRefreshSettings_InfoBox_Description" = "عليك تنشيط تحديث التطبيق في الخلفية في كلٍ من الإعدادات العامة لجهاز iPhone الذي تستخدمه وفي إعدادات تطبيق Corona-Warn-App.";
 
-"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "برجاء ملاحظة أنه يجب إلغاء تنشيط وضع الطاقة المنخفضة لتنشيط تحديث التطبيق في الخلفية.";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "يُرجى ملاحظة أنه يجب إلغاء تنشيط وضع الطاقة المنخفضة لتنشيط تحديث التطبيق في الخلفية.";
 
 "BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "إلغاء تنشيط وضع الطاقة المنخفضة";
 
@@ -321,7 +323,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "حد العمر: 16 سنة فأكثر";
 
-"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "هذا التطبيق موجه إلى الأشخاص الذين لا تقل أعمارهم عن 16 سنة وإلى هؤلاء المقيمين في ألمانيا.";
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "استخدام هذا التطبيق موجه إلى الأشخاص الذين لا تقل أعمارهم عن 16 سنة وإلى هؤلاء المقيمين في ألمانيا.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "إقرار الموافقة";
 
@@ -357,6 +359,10 @@
 "ExposureSubmission_DataPrivacyTitle" = "خصوصية البيانات";
 
 "ExposureSubmission_Continue_actionText" = "التالي";
+
+"ExposureSubmission_ConfirmDismissPopUpTitle" = "هل تريد الإلغاء؟";
+
+"ExposureSubmission_ConfirmDismissPopUpText" = "لن يتم حفظ الإدخالات.";
 
 "ExposureSubmission_DataPrivacyDescription" = "بالنقر على \"قبول\"، فإنك توافق على السماح للتطبيق بالاستعلام عن حالة فحص فيروس كورونا خاصتك، وعرض الحالة في التطبيق. تتاح لك هذه الخاصية عندما تتلقى رمز استجابة سريعة (QR) وتوافق على السماح بإرسال نتيجة الاختبار إلى نظام السيرفر الخاص بالتطبيق. بمجرد أن يودع معمل الفحوصات نتيجة اختبارك على السيرفر، يمكنك الاطلاع على النتيجة في التطبيق. وإذا كنت قد نشطت خاصية الإشعارات، فستتلقى إشعارًا أيضًا خارج التطبيق بظهور نتيجة الاختبار. نتيجة الاختبار نفسها لا تظهر إلا في التطبيق لأسباب متعلقة بحماية البيانات. يمكنك إلغاء هذه الموافقة في أي وقت عن طريق حذف تسجيل الاختبار في التطبيق. عند إلغاء الموافقة، تظل مشروعية المعالجة حتى تاريخ الإلغاء قائمةً. تجد المزيد من المعلومات تحت بند القائمة \"معلومات خصوصية البيانات\".";
 
@@ -418,7 +424,7 @@
 
 "ExposureSubmission_PhoneNumber" = "‎+49 800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "اللغات\nالألمانية والإنجليزية والتركية\n\nساعات العمل:\nالاثنين إلى الأحد: 24 ساعة\n\nالاتصال مجاني.";
+"ExposureSubmission_PhoneDetailDescription" = "اللغات:\nالألمانية والإنجليزية والتركية\n\nساعات العمل:\nالإثنين إلى الأحد: 24 ساعة\n\nالاتصال مجاني.\n\nإذا كان لديك أي استفسارات متعلقة بصحتك، فيُرجى التواصل مع طبيبك الممارس العام أو الخط الساخن لخدمة الطوارئ الطبية، هاتف: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "سجِّل الاختبار بإدخال رقم المعاملة (TAN) في التطبيق.";
 
@@ -576,7 +582,7 @@
 
 "ExposureSubmissionWarnOthers_consentUnderagesTitle" = "حد العمر: 16 سنة فأكثر";
 
-"ExposureSubmissionWarnOthers_consentUnderagesText" = "هذا التطبيق موجه إلى الأشخاص الذين لا تقل أعمارهم عن 16 سنة وإلى هؤلاء المقيمين في ألمانيا.";
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "استخدام هذا التطبيق موجه إلى الأشخاص الذين لا تقل أعمارهم عن 16 سنة وإلى هؤلاء المقيمين في ألمانيا.";
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "يمكن مسح الاختبار ضوئيًا مرة واحدة فقط.";
 
@@ -876,7 +882,7 @@
 
 "App_Information_Contact_Hotline_Description" = "خدمة العملاء هنا لمساعدتك.";
 
-"App_Information_Contact_Hotline_Terms" = "اللغات: الألمانية والإنجليزية والتركية\n\nساعات العمل:\nالاثنين إلى السبت: من الساعة 7 صباحًا حتى 10 مساءً\n(فيما عدا العطلات الرسمية)\nالاتصال مجاني.";
+"App_Information_Contact_Hotline_Terms" = "اللغات: الألمانية والإنجليزية والتركية\n\nساعات العمل:\nالإثنين إلى السبت: من الساعة 7صباحًا حتى 10 مساءً\n((فيما عد العطلات الرسمية)\n\nالاتصال مجاني.\n\nإذا كان لديك أي استفسارات متعلقة بصحتك، فيُرجى التواصل مع طبيبك الممارس العام أو الخط الساخن لخدمة الطوارئ الطبية، هاتف: 116 117.";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "بيان النشر";
