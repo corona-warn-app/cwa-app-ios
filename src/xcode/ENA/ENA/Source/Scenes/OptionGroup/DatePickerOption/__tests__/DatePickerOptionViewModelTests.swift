@@ -21,44 +21,47 @@ import XCTest
 import Combine
 @testable import ENA
 
+// swiftlint:disable force_unwrapping
 class DatePickerOptionViewModelTests: XCTestCase {
 
     func testMonthAndYearChange() {
+		let referenceDate = Calendar.current.startOfDay(for: Date(timeIntervalSinceReferenceDate: 0))
+
 		let viewModel = DatePickerOptionViewModel(
-			today: Date(timeIntervalSinceReferenceDate: 0)
+			today: referenceDate
 		)
 
 		XCTAssertEqual(viewModel.subtitle, "Dezember 2000 – Januar 2001")
 
 		XCTAssertEqual(viewModel.datePickerDays.count, 28)
-		XCTAssertEqual(viewModel.datePickerDays[0], .past(Date(timeIntervalSinceReferenceDate: -21 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[1], .past(Date(timeIntervalSinceReferenceDate: -20 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[2], .past(Date(timeIntervalSinceReferenceDate: -19 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[3], .past(Date(timeIntervalSinceReferenceDate: -18 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[4], .past(Date(timeIntervalSinceReferenceDate: -17 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[5], .past(Date(timeIntervalSinceReferenceDate: -16 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[6], .past(Date(timeIntervalSinceReferenceDate: -15 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[7], .past(Date(timeIntervalSinceReferenceDate: -14 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[8], .past(Date(timeIntervalSinceReferenceDate: -13 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[9], .past(Date(timeIntervalSinceReferenceDate: -12 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[10], .past(Date(timeIntervalSinceReferenceDate: -11 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[11], .past(Date(timeIntervalSinceReferenceDate: -10 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[12], .past(Date(timeIntervalSinceReferenceDate: -9 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[13], .past(Date(timeIntervalSinceReferenceDate: -8 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[14], .past(Date(timeIntervalSinceReferenceDate: -7 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[15], .past(Date(timeIntervalSinceReferenceDate: -6 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[16], .past(Date(timeIntervalSinceReferenceDate: -5 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[17], .past(Date(timeIntervalSinceReferenceDate: -4 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[18], .past(Date(timeIntervalSinceReferenceDate: -3 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[19], .past(Date(timeIntervalSinceReferenceDate: -2 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[20], .past(Date(timeIntervalSinceReferenceDate: -1 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[21], .today(Date(timeIntervalSinceReferenceDate: 0)))
-		XCTAssertEqual(viewModel.datePickerDays[22], .future(Date(timeIntervalSinceReferenceDate: +1 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[23], .future(Date(timeIntervalSinceReferenceDate: +2 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[24], .future(Date(timeIntervalSinceReferenceDate: +3 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[25], .future(Date(timeIntervalSinceReferenceDate: +4 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[26], .future(Date(timeIntervalSinceReferenceDate: +5 * 24 * 60 * 60)))
-		XCTAssertEqual(viewModel.datePickerDays[27], .future(Date(timeIntervalSinceReferenceDate: +6 * 24 * 60 * 60)))
+		XCTAssertEqual(viewModel.datePickerDays[0], .past(Calendar.current.date(byAdding: .day, value: -21, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[1], .past(Calendar.current.date(byAdding: .day, value: -20, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[2], .past(Calendar.current.date(byAdding: .day, value: -19, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[3], .past(Calendar.current.date(byAdding: .day, value: -18, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[4], .past(Calendar.current.date(byAdding: .day, value: -17, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[5], .past(Calendar.current.date(byAdding: .day, value: -16, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[6], .past(Calendar.current.date(byAdding: .day, value: -15, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[7], .past(Calendar.current.date(byAdding: .day, value: -14, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[8], .past(Calendar.current.date(byAdding: .day, value: -13, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[9], .past(Calendar.current.date(byAdding: .day, value: -12, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[10], .past(Calendar.current.date(byAdding: .day, value: -11, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[11], .past(Calendar.current.date(byAdding: .day, value: -10, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[12], .past(Calendar.current.date(byAdding: .day, value: -9, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[13], .past(Calendar.current.date(byAdding: .day, value: -8, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[14], .past(Calendar.current.date(byAdding: .day, value: -7, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[15], .past(Calendar.current.date(byAdding: .day, value: -6, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[16], .past(Calendar.current.date(byAdding: .day, value: -5, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[17], .past(Calendar.current.date(byAdding: .day, value: -4, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[18], .past(Calendar.current.date(byAdding: .day, value: -3, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[19], .past(Calendar.current.date(byAdding: .day, value: -2, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[20], .past(Calendar.current.date(byAdding: .day, value: -1, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[21], .today(Calendar.current.date(byAdding: .day, value: 0, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[22], .future(Calendar.current.date(byAdding: .day, value: 1, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[23], .future(Calendar.current.date(byAdding: .day, value: 2, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[24], .future(Calendar.current.date(byAdding: .day, value: 3, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[25], .future(Calendar.current.date(byAdding: .day, value: 4, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[26], .future(Calendar.current.date(byAdding: .day, value: 5, to: referenceDate)!))
+		XCTAssertEqual(viewModel.datePickerDays[27], .future(Calendar.current.date(byAdding: .day, value: 6, to: referenceDate)!))
 
 		XCTAssertEqual(viewModel.weekdays.count, 7)
 		XCTAssertEqual(viewModel.weekdays, ["M", "D", "M", "D", "F", "S", "S"])
@@ -77,7 +80,7 @@ class DatePickerOptionViewModelTests: XCTestCase {
 
 	func testMonthChange() {
 		let viewModel = DatePickerOptionViewModel(
-			today: Date(timeIntervalSinceReferenceDate: 31 * 24 * 60 * 60)
+			today: Calendar.current.date(byAdding: .day, value: 31, to: Date(timeIntervalSinceReferenceDate: 0))!
 		)
 
 		XCTAssertEqual(viewModel.subtitle, "Januar–Februar 2001")
@@ -85,7 +88,7 @@ class DatePickerOptionViewModelTests: XCTestCase {
 
 	func testWithinOneMonth() {
 		let viewModel = DatePickerOptionViewModel(
-			today: Date(timeIntervalSinceReferenceDate: 28 * 24 * 60 * 60)
+			today: Calendar.current.date(byAdding: .day, value: 28, to: Date(timeIntervalSinceReferenceDate: 0))!
 		)
 
 		XCTAssertEqual(viewModel.subtitle, "Januar 2001")
@@ -93,7 +96,7 @@ class DatePickerOptionViewModelTests: XCTestCase {
 
 	func test() {
 		let viewModel = DatePickerOptionViewModel(
-			today: Date(timeIntervalSinceReferenceDate: 28 * 24 * 60 * 60),
+			today: Calendar.current.date(byAdding: .day, value: 28, to: Date(timeIntervalSinceReferenceDate: 0))!,
 			calendar: .gregorian(with: .init(identifier: "en-US"))
 		)
 
