@@ -38,10 +38,4 @@ enum ExposureSubmissionDynamicCell {
 		}
 	}
 
-	static func stepCell(bulletPoint title: String, hairline: ExposureSubmissionStepCell.Hairline = .none, bottomSpacing: ExposureSubmissionStepCell.Spacing = .normal, action: DynamicAction = .none) -> DynamicCell {
-		.identifier(ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell, action: action) { _, cell, _ in
-			guard let cell = cell as? ExposureSubmissionStepCell else { return }
-			cell.configure(bulletPoint: title, hairline: hairline, bottomSpacing: bottomSpacing)
-		}
-	}
 }

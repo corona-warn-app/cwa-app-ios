@@ -257,6 +257,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// __Extension for plausible deniability__:
 	/// We prepend a fake request in order to guarantee the V+V+S sequence. Please kindly check `getTestResult` for more information.
 	func submitExposure(
+		symptomsOnset: SymptomsOnset,
 		consentToFederation: Bool = false,
 		visitedCountries: [Country],
 		completionHandler: @escaping ExposureSubmissionHandler
@@ -278,7 +279,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				self.submitExposureCleanup()
 				return
 			}
-			keys.processedForSubmission()
+			keys.process(for: symptomsOnset)
 
 			// Request needs to be prepended by the fake request.
 			self._fakeVerificationServerRequest(completion: { _ in
