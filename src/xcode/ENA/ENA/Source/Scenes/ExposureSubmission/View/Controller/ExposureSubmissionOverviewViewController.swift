@@ -195,14 +195,18 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 	}
 
 	/// Sanitize the input string and assert that:
-	/// - length is smaller than 128 characters
-	/// - starts with https://
-	/// - contains only alphanumeric characters
 	/// - is not empty
+	/// - length is smaller than 150 characters
+	/// - starts with https://localhost/?
+	/// - contains only alphanumeric characters
+	/// - contains a well formatted guid (6-8-4-4-4-12)
 	func sanitizeAndExtractGuid(_ input: String) -> String? {
 		guard
+			!input.isEmpty,
 			input.count <= 150,
-			let regex = try? NSRegularExpression(pattern: "^https:\\/\\/localhost\\/\\?(?<GUID>[0-9A-Fa-f]{6}-[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})$"),
+			let regex = try? NSRegularExpression(
+				pattern: "^https:\\/\\/localhost\\/\\?(?<GUID>[0-9A-Fa-f]{6}-[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})$"
+			),
 			let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count))
 		else { return nil }
 
