@@ -124,6 +124,20 @@ workflows:
                   - master
     betaRelease:
       jobs:
+        - test:
+            filters:
+              tags:
+                only:
+                  - /^v.*/
+            branches:
+              ignore: /.*/
+        - build:
+            filters:
+              tags:
+                only:
+                  - /^v.*/
+            branches:
+              ignore: /.*/
         - testflight-release:
             filters:
               tags:
