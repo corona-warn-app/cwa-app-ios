@@ -51,7 +51,7 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 			attributes: nil
 		)
 		// Old DB is deinited and hence connection closed at every setUp() call
-		kvStore = SQLiteKeyValueStore(with: storeDir, key: "password")
+		kvStore = try SQLiteKeyValueStore(with: storeDir, key: "password")
 	}
 
 	override func setUpWithError() throws {
@@ -85,17 +85,17 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 		XCTAssertEqual(kvStore[rawMockData[0].key], someOtherData)
 	}
 
-	func testClearAll_Success() {
+	func testClearAll_Success() throws {
 		kvStore[rawMockData[0].key] = rawMockData[0].data
 		kvStore[rawMockData[1].key] = rawMockData[1].data
 
-		kvStore.clearAll(key: "newPassword")
+		try kvStore.clearAll(key: "newPassword")
 
 		XCTAssertNil(kvStore[rawMockData[0].key])
 		XCTAssertNil(kvStore[rawMockData[1].key])
 	}
 
-	func testFlush_OverridesNotCleared() {
+	func testFlush_OverridesNotCleared() throws {
 		kvStore[rawMockData[0].key] = rawMockData[0].data
 		kvStore[rawMockData[1].key] = rawMockData[1].data
 
@@ -103,7 +103,7 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 		kvStore[rawMockData[3].key] = rawMockData[3].data
 		kvStore[rawMockData[4].key] = rawMockData[4].data
 
-		kvStore.flush()
+		try kvStore.flush()
 
 		XCTAssertNil(kvStore[rawMockData[0].key])
 		XCTAssertNil(kvStore[rawMockData[1].key])

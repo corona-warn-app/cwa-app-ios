@@ -44,9 +44,9 @@ final class ExposureSubmissionOverviewViewControllerTests: XCTestCase {
 			ExposureSubmissionOverviewViewController(coder: coder, coordinator: self.coordinator, exposureSubmissionService: self.service)
 		}
 
-		let expectation = self.expectation(description: "Call getRegistration service method.")
-		service.getRegistrationTokenCallback = { deviceRegistrationKey, completion in
-			completion(.success(""))
+		let expectation = self.expectation(description: "Received test result callback")
+		service.getTestResultCallback = { completion in
+			completion(.success(.negative))
 			expectation.fulfill()
 		}
 

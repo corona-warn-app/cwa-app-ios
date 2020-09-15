@@ -41,6 +41,18 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		// regarding the exposure notification framework.
 		if store.hourlyFetchingEnabled {
 			group.enter()
+
+			#if INTEROP
+			client.availableHours(day: .formattedToday(), country: "DE") { result in
+				switch result {
+				case let .success(hours):
+					daysAndHours.hours = hours
+				case let .failure(error):
+					errors.append(error)
+				}
+				group.leave()
+			}
+			#else
 			client.availableHours(day: .formattedToday()) { result in
 				switch result {
 				case let .success(hours):
@@ -50,9 +62,22 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 				}
 				group.leave()
 			}
+			#endif
 		}
 
 		group.enter()
+
+		#if INTEROP
+		client.availableDays(forCountry: "DE") { result in
+			switch result {
+			case let .success(days):
+				daysAndHours.days = days
+			case let .failure(error):
+				errors.append(error)
+			}
+			group.leave()
+		}
+		#else
 		client.availableDays { result in
 			switch result {
 			case let .success(days):
@@ -62,6 +87,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 			}
 			group.leave()
 		}
+		#endif
 
 		group.notify(queue: .main) {
 			guard errors.isEmpty else {
@@ -105,12 +131,23 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 			downloadedPackagesStore.addFetchedDaysAndHours(fetchedDaysAndHours)
 			completion(nil)
 		}
+
+		#if INTEROP
+		client.fetchDays(
+				delta.days,
+				hours: delta.hours,
+				of: .formattedToday(),
+				country: "DE",
+				completion: storeDaysAndHours
+		)
+		#else
 		client.fetchDays(
 				delta.days,
 				hours: delta.hours,
 				of: .formattedToday(),
 				completion: storeDaysAndHours
 		)
+		#endif
 	}
 
 	func exposureDetection(_ detection: ExposureDetection, downloadConfiguration completion: @escaping (ENExposureConfiguration?) -> Void) {

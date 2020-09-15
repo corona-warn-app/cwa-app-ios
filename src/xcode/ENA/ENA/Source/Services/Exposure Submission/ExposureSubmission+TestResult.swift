@@ -19,7 +19,7 @@
 
 import Foundation
 
-enum TestResult: Int {
+enum TestResult: Int, CaseIterable {
 	case pending = 0
 	case negative = 1
 	case positive = 2
