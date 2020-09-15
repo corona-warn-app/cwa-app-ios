@@ -3,6 +3,10 @@
 
 "Alert_ActionOk" = "OK";
 
+"Alert_ActionYes" = "Да";
+
+"Alert_ActionNo" = "Не";
+
 "Alert_ActionRetry" = "Отново";
 
 "Alert_ActionCancel" = "Отказ";
@@ -27,13 +31,13 @@
 
 "Common_Alert_Action_moreInfo" = "Научете повече";
 
-"Common_BackgroundFetch_AlertMessage" = "Дезактивирали сте фоновите актуализации за приложението Corona-Warn-App. Моля, активирайте ги, за да използвате автоматичното регистриране на излагания на риск. Ако не го направите, регистрирането на излаганията може да бъде стартирано само ръчно от приложението.\n\nМоже да активирате фоновите актуализации за приложението от настройките на Вашето устройство.";
+"Common_BackgroundFetch_AlertMessage" = "Дезактивирали сте фоновото опресняване за приложението Corona-Warn-App. Моля, активирайте го, за да използвате автоматичното регистриране на излагания на риск. Ако не го направите, регистрирането на излаганията може да бъде стартирано само ръчно от приложението.\n\nМоже да активирате фоновото опресняване за приложението от настройките на Вашето устройство.";
 
 "Common_BackgroundFetch_SettingsTitle" = "Към настройките за устройството";
 
 "Common_BackgroundFetch_OKTitle" = "Ръчно стартиране на регистрирането на излагания на риск";
 
-"Common_BackgroundFetch_AlertTitle" = "Фоновите актуализации са дезактивирани";
+"Common_BackgroundFetch_AlertTitle" = "Фоновото опресняване за приложението е дезактивирано";
 
 "Common_Deadman_AlertTitle" = "Вашият статус на риск";
 
@@ -100,15 +104,13 @@
 
 "ExposureDetection_Guide_Hotline2" = "Вашия личен лекар";
 
-"ExposureDetection_Guide_Hotline3" = "Общата служба за медицинска помощ на телефон 116117";
+"ExposureDetection_Guide_Hotline3" = "Службата за спешна медицинска помощ на телефон 116117";
 
 "ExposureDetection_Guide_Hotline4" = "Местна служба за обществено здравеопазване";
 
 "ExposureDetection_Explanation_Title" = "Риск от заразяване";
 
-"ExposureDetection_Explanation_Subtitle_Active" = "Ето как е изчислено Вашето ниво на риск";
-
-"ExposureDetection_Explanation_Subtitle_Inactive" = "Ето как се изчислява Вашето ниво на риск";
+"ExposureDetection_Explanation_Subtitle" = "Ето как се изчислява Вашето ниво на риск";
 
 "ExposureDetection_Explanation_Text_Off" = "Рискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани на вашето локално устройство. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.";
 
@@ -116,9 +118,19 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "Тъй като регистрирането на излагания не е било активно достатъчно дълго, не можем да изчислим Вашия риск от заразяване.\n\nРискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани на вашето локално устройство. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.";
 
-"ExposureDetection_Explanation_Text_Low" = "Вашето ниво на риск от заразяване е ниско, защото нямате регистрирани контакти с лица, които впоследствие са били диагностицирани с COVID-19, или ако сте имали такива, те са били краткотрайни и от по-голямо разстояние.\n\nТова е причината да определим Вашия риск от заразяване като нисък.\n\nРискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани на вашето локално устройство. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.";
+"ExposureDetection_Explanation_Text_Low" = "Рискът от заразяване се изчислява локално на устройството Ви въз основа на регистрираните данни за излагане. Изчислението включва също така разстоянието от и продължителността на всички контакти с лица, диагностицирани с COVID-19., както и възможността им да заразят околните. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.";
 
 "ExposureDetection_Explanation_Text_High" = "Това е причината да определим Вашия риск от заразяване като повишен.\nРискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани на вашето локално устройство. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.\nКогато се приберете у дома, избягвайте близките контакти с членовете на домакинството си.";
+
+"ExposureDetection_Explanation_FAQ_Link" = "https://www.coronawarn.app/en/faq/#encounter_but_green";
+
+"ExposureDetection_Explanation_FAQ_Link_Text" = "Още информация";
+
+"ExposureDetection_LowRiskExposure_Title" = "Контакти с нисък риск";
+
+"ExposureDetection_LowRiskExposure_Subtitle" = "Защо рискът Ви от заразяване е нисък";
+
+"ExposureDetection_LowRiskExposure_Body" = "Били сте в контакт с лице, диагностицирано с COVID-19. Но отчитайки всички данни, налични в приложението Corona-Warn-App, рискът ви от заразяване се определя като нисък. \nНе е нужно да предприемате определени действия. Препоръчваме Ви да спазвате широкоразпространените правила за социално дистанциране и поддържане на хигиена.";
 
 "ExposureDetection_Button_Enable" = "Активиране на регистрирането на излагания на риск";
 
@@ -168,7 +180,7 @@
 
 "Settings_Notification_Label" = "Известия";
 
-"Settings_BackgroundAppRefresh_Label" = "Актуализации във фонов режим";
+"Settings_BackgroundAppRefresh_Label" = "Фоново опресняване на приложението";
 
 "Settings_Reset_Label" = "Изчистване на данните в приложението";
 
@@ -210,7 +222,7 @@
 "NotificationSettings_offImageDescription" = "Жена, която не може да получава известия от приложението Corona-Warn-App.";
 
 /* Background App Referesh Settings */
-"BackgroundAppRefreshSettings_Title" = "Фонови актуализации";
+"BackgroundAppRefreshSettings_Title" = "Фоново опресняване на приложението";
 
 "BackgroundAppRefreshSettings_Image_Description_On" = "Човек държи в ръка смартфон с активирани фонови актуализации.";
 
@@ -218,7 +230,7 @@
 
 "BackgroundAppRefreshSettings_Subtitle" = "Актуализация на статус на риск във фонов режим";
 
-"BackgroundAppRefreshSettings_Description" = "Когато фоновите актуализации за активирани, приложението Corona-Warn-App определя Вашия статус на риск автоматично.\nНе се начисляват допълнителни такси за предаването на данните в мобилната мрежа.\nАко фоновите актуализации са дезактивирани, ще трябва да отваряте приложението всеки ден, за да актуализирате своя статус на риск.";
+"BackgroundAppRefreshSettings_Description" = "Когато фоновото опресняване е активирано, приложението Corona-Warn-App определя Вашия статус на риск автоматично.\nНе се начисляват допълнителни такси за предаването на данните през мобилната мрежа.\nАко фоновото пресняване е дезактивирано, ще трябва да отваряте приложението всеки ден, за да актуализирате своя статус на риск.";
 
 "BackgroundAppRefreshSettings_Status_Header" = "Настройка";
 
@@ -234,7 +246,7 @@
 
 "BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Имайте предвид, че за да активирате фоновото опресняване на приложението, енергоспестяващият режим трябва да е дезактивиран.";
 
-"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Дезактивиране на енергоспестяващия режим";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Дезактивирайте енергоспестяващия режим";
 
 "BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Отворете менюто за настройки";
 
@@ -281,7 +293,7 @@
 
 "Onboarding_DeactivateExposureConfirmation_message" = "Тази настройка може да се промени по всяко време.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "Група хора използват телефоните си, придвижвайки се из града.";
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "Група лица използват устройствата си, придвижвайки се из града.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_title" = "Да се преборим с коронавируса заедно";
 
@@ -311,7 +323,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Минимална възраст: 16 год.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "Това приложение е предназначено за лица, навършили 16 години, с постоянно пребиваване в Германия.";
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "Употребата на това приложение е предназначено за лица, навършили 16 години, с постоянно пребиваване в Германия.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Поверителност";
 
@@ -347,6 +359,10 @@
 "ExposureSubmission_DataPrivacyTitle" = "Поверителност";
 
 "ExposureSubmission_Continue_actionText" = "Напред";
+
+"ExposureSubmission_ConfirmDismissPopUpTitle" = "Желаете ли отмяна?";
+
+"ExposureSubmission_ConfirmDismissPopUpText" = "Въведените от Вас данни няма да бъдат запазени.";
 
 "ExposureSubmission_DataPrivacyDescription" = "By tapping on “Accept”, you consent to the App querying the status of your coronavirus test and displaying it in the App. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the App’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the App. If you have enabled notifications, you will also receive a notification outside the App telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the App. You can withdraw this consent at any time by deleting your test registration in the App. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy Information”.";
 
@@ -408,7 +424,7 @@
 
 "ExposureSubmission_PhoneNumber" = "+49 800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Езици: \nнемски, английски, турски\n\nРаботно време:\nот понеделник до неделя: 24 часа\n\nОбаждането е безплатно.";
+"ExposureSubmission_PhoneDetailDescription" = "Езици: \nнемски, английски, турски\n\nРаботно време:\nот понеделник до неделя: 24 часа\n\nОбаждането е безплатно.\n\nАко имате въпроси, свързани със здравето, се обадете на личния си лекар или на горещата линия на службата за медицинска помощ на телефон 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Регистрирайте теста, като въведете ТАН кода в приложението.";
 
@@ -486,7 +502,7 @@
 "ExposureSubmissionIntroduction_ListItem4" = "Ако не разполагате с ТАН код, по телефона може да заявите да Ви бъде предоставен такъв.";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_Title" = "Резултат от тест";
+"ExposureSubmissionResult_Title" = "Резултат от теста";
 
 "ExposureSubmissionResult_CardSubTitle" = "Вашата диагноза";
 
@@ -532,7 +548,7 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "Възникна проблем при определянето на резултата от Вашия тест.Моля, свържете се със съответния център за тестване или лаборатория, за да получите информация какво можете да направите.";
 
-"ExposureSubmissionResult_testRedeemed" = "Грешки в теста";
+"ExposureSubmissionResult_testRedeemed" = "Възникнаха грешки при тестването";
 
 "ExposureSubmissionResult_testRedeemedDesc" = "Възникнаха грешки при проверката на Вашия тест. Този QR код вече е изтекъл.";
 
@@ -558,7 +574,7 @@
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Моля, помогнете на всички нас!";
 
-"ExposureSubmissionWarnOthers_description" = "Като следваща стъпка може да позволите на Corona-Warn-App да сподели Вашите случайни ИД кодове за последните 14 дни с останалите потребители. По този начин може да предупредите други хора и да помогнете за прекъсване на веригата на заразяване.\n\nАнонимността Ви се запазва, тъй като се изпращат само случайни ИД кодове, които не Ви идентифицират.";
+"ExposureSubmissionWarnOthers_description" = "Като следваща стъпка може да позволите на Corona-Warn-App да сподели Вашите случайни ИД кодове за последните 14 дни с останалите потребители. По този начин може да предупредите други хора и да помогнете за прекъсване на веригата на заразяване.\n\nТъй като се разменят само случайни идентификатори, несъдържащи лични данни, анонимността Ви е гарантирана.";
 
 "ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping on “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the exposure logging feature can be automatically notified that they may have been exposed to a risk of infection. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person.\n\nTransmitting your test result via the App is voluntary. You will not be penalised if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected.\n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out on the basis of the consent prior to the withdrawal. Further information can be found in the menu under “Data Privacy Information”.";
 
@@ -566,11 +582,11 @@
 
 "ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Минимална възраст: 16 год.";
 
-"ExposureSubmissionWarnOthers_consentUnderagesText" = "Това приложение е предназначено за лица, навършили 16 години, с постоянно пребиваване в Германия.";
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "Употребата на това приложение е предназначено за лица, навършили 16 години, с постоянно пребиваване в Германия.";
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Тестът може да се сканира само веднъж.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Ако изтриете теста, повече няма да можете да извлечете данните за резултата си. Ще получите резултата си от център за тестване или лаборатория, независимо от приложението. Ако Ви бъде поставена диагноза COVID-19, службата за обществено осигуряване ще Ви уведоми за това.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Ако изтриете теста, повече няма да можете да излечете данните за резултата си. Ще получите резултата си от център за тестване или лаборатория, независимо от валидността на QR кода. Ако Ви бъде поставена диагноза COVID-19, службата за обществено осигуряване ще бъде уведомена за това по установения от правните норми канал и ще се свърже с Вас.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Датата на регистрация е неизвестна";
 
@@ -591,7 +607,9 @@
 
 "ExposureSubmissionError_NoResponse" = "Съдържанието на отговора е празно.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "QR кодът е невалиден или вече е регистриран на друг смартфон. Ще получите резултата си от център за тестване или лаборатория, независимо от валидността на QR кода. Ако Ви бъде поставена диагноза COVID-19, службата за обществено осигуряване ще Ви уведоми за това.";
+"ExposureSubmissionError_QRAlreadyUsed" = "QR кодът е невалиден или вече е регистриран на друг смартфон. Ще получите резултата си от център за тестване или лаборатория, независимо от валидността на QR кода. Ако Ви бъде поставена диагноза COVID-19, службата за обществено осигуряване ще бъде уведомена за това по установения от правните норми канал и ще се свърже с Вас.";
+
+"ExposureSubmissionError_QRAlreadyUsed_Title" = "Невалиден QR код";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "ТАН кодът е невалиден или вече е използван. Моля, опитайте отново или се обадете на горещата линия за технически въпроси, която може да намерите в раздел „Информация за приложението“.";
 
@@ -640,7 +658,7 @@
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Към настройките за устройството";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "Активиране на регистрирането на излагания на риск от заразяване с COVID-19 и свързаните с това известия";
+"ExposureNotificationSetting_Activate_OSENSetting" = "Активиране на регистрирането на излагания на риск от заразяване с COVID-19 и свързаните с това известия ";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Моля, уверете се, че функцията за регистриране на излагания на риск от заразяване с COVID-19 и свързаните с това известия е активирана във Вашите системните настройки.";
 
@@ -703,7 +721,7 @@
 
 "Home_Risk_Period_Update_Title" = "Актуализира се на всеки %@\U00A0часа";
 
-"Home_Risk_Period_Disabled_Button_Title" = "Актуализира се на всеки %@\U00A0часа";
+"Home_Risk_Period_Disabled_Button_Title" = "Актуализира се едва на всеки %@\U00A0часа";
 
 "Home_Risk_Unknown_Title" = "Неизвестен риск";
 
@@ -864,7 +882,7 @@
 
 "App_Information_Contact_Hotline_Description" = "Нашият екип за обслужване на клиенти е готов да Ви помогне.";
 
-"App_Information_Contact_Hotline_Terms" = "Езици: немски, английски, турски\n\nРаботно време:\nпонеделник до неделя: 7:00 - 22:00\n(с изключение на национални празници)\n\nОбаждането е безплатно.";
+"App_Information_Contact_Hotline_Terms" = "Езици: немски, английски, турски\n\nРаботно време:\nпонеделник до събота: 7:00 - 22:00\n(с изключение на национални празници)\n\nОбаждането е безплатно.\n\nАко имате въпроси, свързани със здравето, се обадете на личния си лекар или на горещата линия на службата за медицинска помощ на телефон 116 117.";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "За издателя";
