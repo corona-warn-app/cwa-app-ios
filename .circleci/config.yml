@@ -86,9 +86,6 @@ jobs:
     shell: zsh
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: cd src/xcode && bundle install
   update-docs:
     macos:
       xcode: 11.6.0
@@ -139,6 +136,9 @@ workflows:
               branches:
                 ignore: /.*/
         - testflight-release:
+            requires:
+              - test
+              - build
             filters:
               tags:
                 only:
