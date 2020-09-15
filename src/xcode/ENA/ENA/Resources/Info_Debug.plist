@@ -40,7 +40,7 @@
 	<key>ENAPIVersion</key>
 	<integer>1</integer>
 	<key>ENDeveloperRegion</key>
-	<string>DEDEV</string>
+	<string>TEST_DE_0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
