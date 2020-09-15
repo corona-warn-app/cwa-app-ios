@@ -45,6 +45,7 @@ protocol ExposureSubmissionCoordinating: class {
 	func showHotlineScreen()
 	func showTanScreen()
 	func showQRScreen(qrScannerDelegate: ExposureSubmissionQRScannerDelegate)
+	func showSymptomsScreen()
 	func showWarnOthersScreen()
 	func showWarnEuropeScreen()
 	func showWarnEuropeTravelConfirmationScreen()
@@ -192,6 +193,51 @@ extension ExposureSubmissionCoordinator {
 	func showQRScreen(qrScannerDelegate: ExposureSubmissionQRScannerDelegate) {
 		let vc = createQRScannerViewController(qrScannerDelegate: qrScannerDelegate)
 		present(vc)
+	}
+
+	func showSymptomsScreen() {
+		let vc = createSymptomsViewController(
+			onPrimaryButtonTap: { [weak self] selectedSymptomsOption in
+				switch selectedSymptomsOption {
+				case .yes:
+					self?.showSymptomsOnsetScreen()
+				case .no:
+					self?.symptomsOnset = .nonSymptomatic
+					self?.showWarnOthersScreen()
+				case .preferNotToSay:
+					self?.symptomsOnset = .noInformation
+					self?.showWarnOthersScreen()
+				}
+			}
+		)
+
+		push(vc)
+	}
+
+	func showSymptomsOnsetScreen() {
+		let vc = createSymptomsOnsetViewController(
+			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption in
+				switch selectedSymptomsOnsetOption {
+				case .exactDate(let date):
+					guard let daysSinceOnset = Calendar.gregorian().dateComponents([.day], from: date, to: Date()).day else {
+						fatalError("Getting days since onset from date failed")
+					}
+					self?.symptomsOnset = .daysSinceOnset(daysSinceOnset)
+				case .lastSevenDays:
+					self?.symptomsOnset = .lastSevenDays
+				case .oneToTwoWeeksAgo:
+					self?.symptomsOnset = .oneToTwoWeeksAgo
+				case .moreThanTwoWeeksAgo:
+					self?.symptomsOnset = .moreThanTwoWeeksAgo
+				case .preferNotToSay:
+					self?.symptomsOnset = .symptomaticWithUnknownOnset
+				}
+
+				self?.showWarnOthersScreen()
+			}
+		)
+
+		push(vc)
 	}
 
 	func showWarnOthersScreen() {
@@ -440,6 +486,22 @@ extension ExposureSubmissionCoordinator {
 			let vc = ExposureSubmissionQRScannerNavigationController(coder: coder, coordinator: self, exposureSubmissionService: self.exposureSubmissionService)
 			vc?.scannerViewController?.delegate = qrScannerDelegate
 			return vc
+		}
+	}
+
+	private func createSymptomsViewController(
+		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsViewController.SymptomsOption) -> Void
+	) -> ExposureSubmissionSymptomsViewController {
+		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSymptomsViewController.self) { coder -> UIViewController? in
+			ExposureSubmissionSymptomsViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap)
+		}
+	}
+
+	private func createSymptomsOnsetViewController(
+		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption) -> Void
+	) -> ExposureSubmissionSymptomsOnsetViewController {
+		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSymptomsOnsetViewController.self) { coder -> UIViewController? in
+			ExposureSubmissionSymptomsOnsetViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap)
 		}
 	}
 

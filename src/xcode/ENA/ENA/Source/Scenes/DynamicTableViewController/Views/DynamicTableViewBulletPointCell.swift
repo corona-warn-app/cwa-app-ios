@@ -59,6 +59,9 @@ final class DynamicTableViewBulletPointCell: UITableViewCell {
 	private var stackViewBottomSpacingConstraint: NSLayoutConstraint?
 
 	private func setUp() {
+		selectionStyle = .none
+		backgroundColor = .enaColor(for: .background)
+
 		stackView.axis = .horizontal
 		stackView.alignment = .firstBaseline
 		stackView.distribution = .fill

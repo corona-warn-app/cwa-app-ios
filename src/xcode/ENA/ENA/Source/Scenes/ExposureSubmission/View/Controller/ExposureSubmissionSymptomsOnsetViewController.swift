@@ -18,9 +18,11 @@
 import UIKit
 import Combine
 
-class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, RequiresDismissConfirmation {
 
-	enum SymptomsOnsetSelectionOption {
+	typealias PrimaryButtonHandler = (SymptomsOnsetOption) -> Void
+
+	enum SymptomsOnsetOption {
 		case exactDate(Date)
 		case lastSevenDays
 		case oneToTwoWeeksAgo
@@ -32,7 +34,7 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 
 	init?(
 		coder: NSCoder,
-		onPrimaryButtonTap: @escaping (SymptomsOnsetSelectionOption) -> Void
+		onPrimaryButtonTap: @escaping PrimaryButtonHandler
 	) {
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 
@@ -55,7 +57,7 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		guard let selectedSymptomsOnsetSelectionOption = selectedSymptomsOnsetSelectionOption else {
+		guard let selectedSymptomsOnsetSelectionOption = selectedSymptomsOnsetOption else {
 			fatalError("Primary button must not be enabled before the user has selected an option")
 		}
 
@@ -64,25 +66,25 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 
 	// MARK: - Private
 
-	private let onPrimaryButtonTap: (SymptomsOnsetSelectionOption) -> Void
+	private let onPrimaryButtonTap: PrimaryButtonHandler
 
-	@Published private var selectedSymptomsOnsetSelectionOption: SymptomsOnsetSelectionOption?
+	@Published private var selectedSymptomsOnsetOption: SymptomsOnsetOption?
 
 	private var optionGroupSelection: OptionGroupViewModel.Selection? {
 		didSet {
 			switch optionGroupSelection {
 			case .datePickerOption(index: 0, selectedDate: let date):
-				selectedSymptomsOnsetSelectionOption = .exactDate(date)
+				selectedSymptomsOnsetOption = .exactDate(date)
 			case .option(index: 1):
-				selectedSymptomsOnsetSelectionOption = .lastSevenDays
+				selectedSymptomsOnsetOption = .lastSevenDays
 			case .option(index: 2):
-				selectedSymptomsOnsetSelectionOption = .oneToTwoWeeksAgo
+				selectedSymptomsOnsetOption = .oneToTwoWeeksAgo
 			case .option(index: 3):
-				selectedSymptomsOnsetSelectionOption = .moreThanTwoWeeksAgo
+				selectedSymptomsOnsetOption = .moreThanTwoWeeksAgo
 			case .option(index: 4):
-				selectedSymptomsOnsetSelectionOption = .preferNotToSay
+				selectedSymptomsOnsetOption = .preferNotToSay
 			case .none:
-				selectedSymptomsOnsetSelectionOption = nil
+				selectedSymptomsOnsetOption = nil
 			default:
 				fatalError("This selection has not yet been handled.")
 			}
@@ -98,7 +100,7 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 
 		setupTableView()
 
-		symptomsOnsetButtonStateSubscription = $selectedSymptomsOnsetSelectionOption.receive(on: RunLoop.main).sink {
+		symptomsOnsetButtonStateSubscription = $selectedSymptomsOnsetOption.receive(on: RunLoop.main).sink {
 			self.navigationFooterItem?.isPrimaryButtonEnabled = $0 != nil
 		}
 	}
@@ -136,22 +138,25 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 
 								cell.configure(
 									options: [
-										.datePickerOption(title: AppStrings.ExposureSubmissionSymptomsOnset.datePickerTitle),
+										.datePickerOption(
+											title: AppStrings.ExposureSubmissionSymptomsOnset.datePickerTitle,
+											accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptomsOnset.answerOptionExactDate
+										),
 										.option(
 											title: AppStrings.ExposureSubmissionSymptomsOnset.answerOptionLastSevenDays,
-											accessibilityIdentifier: nil
+											accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptomsOnset.answerOptionLastSevenDays
 										),
 										.option(
 											title: AppStrings.ExposureSubmissionSymptomsOnset.answerOptionOneToTwoWeeksAgo,
-											accessibilityIdentifier: nil
+											accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptomsOnset.answerOptionOneToTwoWeeksAgo
 										),
 										.option(
 											title: AppStrings.ExposureSubmissionSymptomsOnset.answerOptionMoreThanTwoWeeksAgo,
-											accessibilityIdentifier: nil
+											accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptomsOnset.answerOptionMoreThanTwoWeeksAgo
 										),
 										.option(
 											title: AppStrings.ExposureSubmissionSymptomsOnset.answerOptionPreferNotToSay,
-											accessibilityIdentifier: nil
+											accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptomsOnset.answerOptionPreferNotToSay
 										)
 									],
 									// The current selection needs to be provided in case the cell is recreated after leaving and reentering the screen

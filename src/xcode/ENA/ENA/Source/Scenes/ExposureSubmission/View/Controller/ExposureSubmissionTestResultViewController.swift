@@ -184,7 +184,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 				return
 			}
 
-			self.coordinator?.showWarnOthersScreen()
+			self.coordinator?.showSymptomsScreen()
 		}
 	}
 }
