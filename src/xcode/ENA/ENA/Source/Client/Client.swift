@@ -40,6 +40,7 @@ protocol Client {
 	func appConfiguration(completion: @escaping AppConfigurationCompletion)
 
 	#if INTEROP
+
 	/// Determines days that can be downloaded.
 	///
 	/// - Parameters:
@@ -78,9 +79,6 @@ protocol Client {
 
 	#else
 
-	/// Gets the list of available countries for key submission.
-	func supportedCountries(completion: @escaping CountryFetchCompletion)
-
 	/// Determines days that can be downloaded.
 	func availableDays(completion: @escaping AvailableDaysCompletionHandler)
 
@@ -102,8 +100,23 @@ protocol Client {
 		day: String,
 		completion: @escaping HourCompletionHandler
 	)
+
 	#endif
 
+	// MARK: Getting the Configuration
+
+	typealias ExposureConfigurationCompletionHandler = (ENExposureConfiguration?) -> Void
+
+	/// Gets the remove exposure configuration. See `ENExposureConfiguration` for more details
+	/// Parameters:
+	/// - completion: Will be called with the remove configuration or an error if something went wrong. The completion handler will always be called on the main thread.
+	func exposureConfiguration(
+		completion: @escaping ExposureConfigurationCompletionHandler
+	)
+
+	/// Gets the list of available countries for key submission.
+	func supportedCountries(completion: @escaping CountryFetchCompletion)
+	
 	/// Gets the registration token
 	func getRegistrationToken(
 		forKey key: String,
@@ -124,17 +137,6 @@ protocol Client {
 		forDevice registrationToken: String,
 		isFake: Bool,
 		completion completeWith: @escaping TANHandler
-	)
-
-	// MARK: Getting the Configuration
-
-	typealias ExposureConfigurationCompletionHandler = (ENExposureConfiguration?) -> Void
-
-	/// Gets the remove exposure configuration. See `ENExposureConfiguration` for more details
-	/// Parameters:
-	/// - completion: Will be called with the remove configuration or an error if something went wrong. The completion handler will always be called on the main thread.
-	func exposureConfiguration(
-		completion: @escaping ExposureConfigurationCompletionHandler
 	)
 
 	// MARK: Submit keys

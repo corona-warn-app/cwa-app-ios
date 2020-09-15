@@ -34,6 +34,36 @@ protocol ExposureDetectionDelegate: AnyObject {
 	typealias Completion = (DaysAndHours?) -> Void
 	typealias DetectionHandler = (Result<ENExposureDetectionSummary, Error>) -> Void
 
+	#if INTEROP
+
+	typealias SupportedCountriesResult = Result<[Country], URLSession.Response.Failure>
+
+	func exposureDetection(
+		country: String,
+		determineAvailableData completion: @escaping (DaysAndHours?, String) -> Void
+	)
+
+	func exposureDetection(
+		country: String,
+		downloadDeltaFor remote: DaysAndHours
+	) -> DaysAndHours
+
+	func exposureDetection(
+		country: String,
+		downloadAndStore delta: DaysAndHours,
+		completion: @escaping (Error?) -> Void
+	)
+
+	func exposureDetectionWriteDownloadedPackages(country: String) -> WrittenPackages?
+
+	func exposureDetection(
+		downloadConfiguration completion: @escaping (ENExposureConfiguration?) -> Void
+	)
+
+	func exposureDetection(supportedCountries completion: @escaping (SupportedCountriesResult) -> Void)
+
+	#else
+
 	func exposureDetection(
 		_ detection: ExposureDetection,
 		determineAvailableData completion: @escaping (DaysAndHours?) -> Void
@@ -50,12 +80,14 @@ protocol ExposureDetectionDelegate: AnyObject {
 		completion: @escaping (Error?) -> Void
 	)
 
+	func exposureDetectionWriteDownloadedPackages(_ detection: ExposureDetection) -> WrittenPackages?
+
 	func exposureDetection(
 		_ detection: ExposureDetection,
 		downloadConfiguration completion: @escaping (ENExposureConfiguration?) -> Void
 	)
 
-	func exposureDetectionWriteDownloadedPackages(_ detection: ExposureDetection) -> WrittenPackages?
+	#endif
 
 	func exposureDetection(
 		_ detection: ExposureDetection,

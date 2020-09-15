@@ -109,7 +109,10 @@ protocol Store: AnyObject {
 	/// The time when the playbook was executed in background.
 	var firstPlaybookExecution: Date? { get set }
 
-	var euTracingSettings: EUTracingSettings? { get set }
+	// Due to a stakeholder decision, we dont use the user selected countries.
+	// Instead just download all supported countries.
+	// The other logic is left here, because at the time writing this, it was unclear wether the decision will be reverted or not.
+//	var euTracingSettings: EUTracingSettings? { get set }
 
 	func clearAll(key: String?)
 }
