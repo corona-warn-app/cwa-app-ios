@@ -572,6 +572,58 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_refreshButton" = "Aktualisieren";
 
+/* ExposureSubmissionSymptoms */
+
+"ExposureSubmissionSymptoms_Title" = "Symptome";
+
+"ExposureSubmissionSymptoms_Description" = "Sind eines oder mehrere der folgenden Symptome in den letzten Tagen bei Ihnen neu aufgetreten?";
+
+"ExposureSubmissionSymptoms_Symptom0" = "Erhöhte Temperatur oder Fieber";
+
+"ExposureSubmissionSymptoms_Symptom1" = "Kurzatmigkeit";
+
+"ExposureSubmissionSymptoms_Symptom2" = "Verlust des Geruchs-/Geschmackssinns";
+
+"ExposureSubmissionSymptoms_Symptom3" = "Husten";
+
+"ExposureSubmissionSymptoms_Symptom4" = "Schnupfen";
+
+"ExposureSubmissionSymptoms_Symptom5" = "Halsschmerzen";
+
+"ExposureSubmissionSymptoms_Symptom6" = "Kopf- und Gliederschmerzen";
+
+"ExposureSubmissionSymptoms_Symptom7" = "Allgemeine Schwäche und Abgeschlagenheit";
+
+"ExposureSubmissionSymptoms_AnswerOptionYes" = "Ja";
+
+"ExposureSubmissionSymptoms_AnswerOptionNo" = "Nein";
+
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Keine Angabe";
+
+"ExposureSubmissionSymptoms_ContinueButton" = "Weiter";
+
+/* ExposureSubmissionSymptomsOnset */
+
+"ExposureSubmissionSymptomsOnset_Title" = "Symptom-Beginn";
+
+"ExposureSubmissionSymptomsOnset_Subtitle" = "Wann sind die Symptome bei Ihnen aufgetreten?";
+
+"ExposureSubmissionSymptomsOnset_Description" = "Machen Sie Ihre Angaben so genau wie möglich.";
+
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Genaues Datum";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "In den letzten 7 Tagen";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionOneToTwoWeeksAgo" = "Vor 1-2 Wochen";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "Vor mehr als 2 Wochen";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Keine Angabe";
+
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "Weiter";
+
+/* ExposureSubmissionWarnOthers */
+
 "ExposureSubmissionWarnOthers_title" = "Andere warnen";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
