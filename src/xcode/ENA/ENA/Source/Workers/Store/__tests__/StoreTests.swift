@@ -23,8 +23,9 @@ import XCTest
 final class StoreTests: XCTestCase {
 	private var store: SecureStore!
 
-	override func setUp() {
-		store = SecureStore(at: URL(staticString: ":memory:"), key: "123456")
+	override func setUpWithError() throws {
+		XCTAssertNoThrow(try SecureStore(at: URL(staticString: ":memory:"), key: "123456"))
+		store = try SecureStore(at: URL(staticString: ":memory:"), key: "123456")
 	}
 
 	func testResultReceivedTimeStamp_Success() {
@@ -117,7 +118,7 @@ final class StoreTests: XCTestCase {
 	}
 
 	/// Reads a statically created db from version 1.0.0 into the app container and checks, whether all values from that version are still readable
-	func testBackwardsCompatibility() {
+	func testBackwardsCompatibility() throws {
 		// swiftlint:disable:next force_unwrapping
 		let testStoreSourceURL = Bundle(for: StoreTests.self).url(forResource: "testStore", withExtension: "sqlite")!
 
@@ -135,7 +136,7 @@ final class StoreTests: XCTestCase {
 				print("Target exists: \(fileManager.fileExists(atPath: testStoreTargetURL.path))")
 				try fileManager.copyItem(at: testStoreSourceURL, to: testStoreTargetURL)
 
-				return SecureStore(at: directoryURL, key: "12345678")
+				return try SecureStore(at: directoryURL, key: "12345678")
 			} catch {
 				fatalError("Creating the database failed: \(error.localizedDescription)")
 			}
@@ -180,5 +181,61 @@ final class StoreTests: XCTestCase {
 		XCTAssertEqual(tmpStore.tracingStatusHistory[0].date.description, testDate1.description)
 		XCTAssertEqual(tmpStore.tracingStatusHistory[1].on, false)
 		XCTAssertEqual(tmpStore.tracingStatusHistory[1].date.description, testDate2.description)
+	}
+
+	func testValueToggles() throws {
+		let store = try SecureStore(at: URL(staticString: ":memory:"), key: "123456")
+
+		let isOnboarded = store.isOnboarded
+		store.isOnboarded.toggle()
+		XCTAssertNotEqual(isOnboarded, store.isOnboarded)
+
+		let isAllowedToSubmitDiagnosisKeys = store.isAllowedToSubmitDiagnosisKeys
+		store.isAllowedToSubmitDiagnosisKeys.toggle()
+		XCTAssertNotEqual(isAllowedToSubmitDiagnosisKeys, store.isAllowedToSubmitDiagnosisKeys)
+
+		let allowRiskChangesNotification = store.allowRiskChangesNotification
+		store.allowRiskChangesNotification.toggle()
+		XCTAssertNotEqual(allowRiskChangesNotification, store.allowRiskChangesNotification)
+
+		// etc.
+	}
+
+	func testBackupRestoration() throws {
+		// prerequisite: clean state
+		let keychain = try KeychainHelper()
+		try keychain.clearInKeychain(key: SecureStore.keychainDatabaseKey)
+
+		// 1. create store and store db key in keychain
+		let store = SecureStore(subDirectory: "test")
+		XCTAssertFalse(store.isOnboarded)
+		// user finished onboarding and used the app…
+		store.isOnboarded.toggle()
+		store.testGUID = UUID().uuidString
+
+		guard let databaseKey = keychain.loadFromKeychain(key: SecureStore.keychainDatabaseKey) else {
+			XCTFail("expected a key!")
+			return
+		}
+
+		// 2. restored with db key in keychain
+		// This simulates iCloud keychain
+		let restore = SecureStore(subDirectory: "test")
+		XCTAssertTrue(restore.isOnboarded)
+		XCTAssertEqual(restore.testGUID, store.testGUID)
+		// still the same key?
+		XCTAssertEqual(databaseKey, keychain.loadFromKeychain(key: SecureStore.keychainDatabaseKey))
+
+		// 3. db key in keychain 'changed' for some reason
+		// swiftlint:disable:next force_unwrapping
+		try keychain.saveToKeychain(key: SecureStore.keychainDatabaseKey, data: "corrupted".data(using: .utf8)!)
+		let restore2 = SecureStore(subDirectory: "test")
+		// database reset?
+		XCTAssertFalse(restore2.isOnboarded)
+		XCTAssertEqual(restore2.testGUID, "") // init values…
+		XCTAssertNotEqual(databaseKey, keychain.loadFromKeychain(key: SecureStore.keychainDatabaseKey))
+
+		// cleanup
+		store.clearAll(key: nil)
 	}
 }

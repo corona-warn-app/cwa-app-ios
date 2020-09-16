@@ -3,6 +3,10 @@
 
 "Alert_ActionOk" = "OK";
 
+"Alert_ActionYes" = "Da";
+
+"Alert_ActionNo" = "Nu";
+
 "Alert_ActionRetry" = "Repetare";
 
 "Alert_ActionCancel" = "Anulare";
@@ -27,13 +31,13 @@
 
 "Common_Alert_Action_moreInfo" = "Aflați mai multe";
 
-"Common_BackgroundFetch_AlertMessage" = "Ați dezactivat actualizările în fundal pentru aplicația Corona-Warn. Activați actualizările în fundal pentru a utiliza înregistrarea automată în jurnal a expunerilor. Dacă nu activați actualizările în fundal, puteți porni doar manual în aplicație înregistrarea în jurnal a expunerilor.\n\nPuteți activa actualizările în fundal pentru aplicație în configurările dispozitivului dvs.";
+"Common_BackgroundFetch_AlertMessage" = "Ați dezactivat împrospătarea aplicației în fundal pentru aplicația Corona-Warn. Activați împrospătarea aplicației în fundal pentru a utiliza înregistrarea automată în jurnal a expunerilor. Dacă nu activați împrospătarea aplicației în fundal, puteți porni doar manual din aplicație înregistrarea în jurnal a expunerilor.\n\nPuteți activa împrospătarea aplicației în fundal pentru aplicație din configurările dispozitivului dvs.";
 
 "Common_BackgroundFetch_SettingsTitle" = "Deschideți configurările dispozitivului";
 
 "Common_BackgroundFetch_OKTitle" = "Porniți manual înregistrarea în jurnal a expunerilor";
 
-"Common_BackgroundFetch_AlertTitle" = "Actualizări în fundal dezactivate";
+"Common_BackgroundFetch_AlertTitle" = "Împrospătarea aplicației în fundal dezactivată";
 
 "Common_Deadman_AlertTitle" = "Starea riscului dvs.";
 
@@ -126,7 +130,7 @@
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "De ce riscul dvs. de infectare este redus";
 
-"ExposureDetection_LowRiskExposure_Body" = "Ați avut o întâlnire cu o persoană diagnosticată cu COVID-19. Totuși, pe baza datelor de înregistrare în jurnal a expunerilor, riscul dvs. de infectare este redus. Riscul este redus dacă întâlnirea dvs. a fost de scurtă durată sau s-a păstrat o anumită distanță. Nu este cazul să vă îngrijorați și nu este nevoie de nicio acțiune specială din partea dvs. Vă recomandăm să respectați regulile generale privind distanțarea și igiena.";
+"ExposureDetection_LowRiskExposure_Body" = "Ați avut o întâlnire cu o persoană diagnosticată cu COVID-19. Totuși, luând în calcul toate datele disponibile în aplicația Corona-Warn, riscul dvs. de infectare este clasificat ca fiind redus.\nNu este nevoie de nicio acțiune specială din partea dvs. Vă recomandăm să respectați regulile generale privind distanțarea și igiena.";
 
 "ExposureDetection_Button_Enable" = "Activați înregistrarea în jurnal a expunerilor";
 
@@ -149,8 +153,6 @@
 "ExposureDetectionError_Alert_Action_Details" = "Detalii";
 
 "ExposureDetectionError_Alert_Message" = "A apărut o eroare în timpul înregistrării în jurnal a expunerilor.";
-
-"ExposureDetectionError_Alert_AppConfig_Missing_Message" = "Conexiunea dvs. la internet a fost pierdută. Verificați conexiunea și apoi redeschideți aplicația.";
 
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Informații despre funcționalitatea de înregistrare în jurnal a expunerilor";
@@ -178,7 +180,7 @@
 
 "Settings_Notification_Label" = "Notificări";
 
-"Settings_BackgroundAppRefresh_Label" = "Actualizări în fundal";
+"Settings_BackgroundAppRefresh_Label" = "Împrospătarea aplicației în fundal";
 
 "Settings_Reset_Label" = "Resetați aplicația";
 
@@ -220,15 +222,15 @@
 "NotificationSettings_offImageDescription" = "O femeie nu poate primi notificări de la Corona-Warn-App.";
 
 /* Background App Referesh Settings */
-"BackgroundAppRefreshSettings_Title" = "Actualizări în fundal";
+"BackgroundAppRefreshSettings_Title" = "Împrospătarea aplicației în fundal";
 
-"BackgroundAppRefreshSettings_Image_Description_On" = "O persoană ține în mână un smartphone care are actualizările în fundal activate.";
+"BackgroundAppRefreshSettings_Image_Description_On" = "O persoană ține în mână un smartphone care are activată împrospătarea aplicației în fundal.";
 
-"BackgroundAppRefreshSettings_Image_Description_Off" = "O persoană ține în mână un smartphone care are actualizările în fundal dezactivate.";
+"BackgroundAppRefreshSettings_Image_Description_Off" = "O persoană ține în mână un smartphone care are dezactivată împrospătarea aplicației în fundal.";
 
 "BackgroundAppRefreshSettings_Subtitle" = "Actualizare în fundal a stării de risc";
 
-"BackgroundAppRefreshSettings_Description" = "Când sunt activate actualizările în fundal, aplicația Corona-Warn determină automat starea riscului dvs.\nNu se aplică costuri suplimentare pentru transferul de date în rețeaua mobilă.\nDacă sunt dezactivate actualizările în fundal, va trebui să deschideți manual aplicația în fiecare zi pentru a actualiza starea riscului dvs.";
+"BackgroundAppRefreshSettings_Description" = "Odată ce este activată împrospătarea aplicației în fundal, aplicația Corona-Warn determină automat starea riscului dvs.\nNu se aplică costuri suplimentare pentru transferul de date către rețeaua mobilă.\nDacă este dezactivată împrospătarea aplicației în fundal, va trebui să deschideți manual aplicația în fiecare zi pentru a actualiza starea riscului dvs.";
 
 "BackgroundAppRefreshSettings_Status_Header" = "Setare";
 
@@ -321,7 +323,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Limita de vârstă: începând cu 16 ani";
 
-"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "Această aplicație este destinată persoanelor care au vârsta de cel puțin 16 ani și care locuiesc în Germania.";
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "Utilizarea acestei aplicații este destinată persoanelor care au vârsta de cel puțin 16 ani și care locuiesc în Germania.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Declarație de consimțământ";
 
@@ -357,6 +359,10 @@
 "ExposureSubmission_DataPrivacyTitle" = "Confidențialitatea datelor";
 
 "ExposureSubmission_Continue_actionText" = "Înainte";
+
+"ExposureSubmission_ConfirmDismissPopUpTitle" = "Doriți să anulați?";
+
+"ExposureSubmission_ConfirmDismissPopUpText" = "Intrările dvs. nu vor fi salvate.";
 
 "ExposureSubmission_DataPrivacyDescription" = "By tapping on “Accept”, you consent to the App querying the status of your coronavirus test and displaying it in the App. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the App’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the App. If you have enabled notifications, you will also receive a notification outside the App telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the App. You can withdraw this consent at any time by deleting your test registration in the App. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy Information”.";
 
@@ -418,7 +424,7 @@
 
 "ExposureSubmission_PhoneNumber" = "+49 800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Limbi: \ngermană, engleză, turcă\n\nProgram de lucru:\nluni - duminică: non-stop\n\nApelul este gratuit.";
+"ExposureSubmission_PhoneDetailDescription" = "Limbi: \ngermană, engleză, turcă\n\nProgram de lucru:\nluni - duminică: non-stop\n\nApelul este gratuit.\n\nDacă aveți întrebări legate de starea de sănătate, vă rugăm să contactați medicul de familie sau hotline-ul pentru servicii medicale de urgență, la numărul de telefon: 112.";
 
 "ExposureSubmission_SectionDescription2" = "Înregistrați testul introducând codul TAN în aplicație.";
 
@@ -576,7 +582,7 @@
 
 "ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Limita de vârstă: începând cu 16 ani";
 
-"ExposureSubmissionWarnOthers_consentUnderagesText" = "Această aplicație este destinată persoanelor care au vârsta de cel puțin 16 ani și care locuiesc în Germania.";
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "Utilizarea acestei aplicații este destinată persoanelor care au vârsta de cel puțin 16 ani și care locuiesc în Germania.";
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Testul poate fi scanat o singură dată.";
 
@@ -876,7 +882,7 @@
 
 "App_Information_Contact_Hotline_Description" = "Serviciul clienți vă stă la dispoziție.";
 
-"App_Information_Contact_Hotline_Terms" = "Limbi: germană, engleză, turcă\n\nProgram de lucru:\nluni - sâmbătă: 07:00 - 22:00\n(exceptând sărbătorile legale)\n\nApelul este gratuit.";
+"App_Information_Contact_Hotline_Terms" = "Limbi: germană, engleză, turcă\n\nProgram de lucru:\nluni - sâmbătă: 07:00 - 22:00\n(exceptând sărbătorile legale)\n\nApelul este gratuit.\n\nDacă aveți întrebări legate de starea de sănătate, vă rugăm să contactați medicul de familie sau hotline-ul pentru servicii medicale de urgență, la numărul de telefon: 112.";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Informații de contact";

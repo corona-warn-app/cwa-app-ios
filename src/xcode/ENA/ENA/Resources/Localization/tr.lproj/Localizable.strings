@@ -3,6 +3,10 @@
 
 "Alert_ActionOk" = "Tamam";
 
+"Alert_ActionYes" = "Evet";
+
+"Alert_ActionNo" = "Hayır";
+
 "Alert_ActionRetry" = "Tekrarla";
 
 "Alert_ActionCancel" = "İptal";
@@ -27,13 +31,13 @@
 
 "Common_Alert_Action_moreInfo" = "Daha fazla bilgi edinin";
 
-"Common_BackgroundFetch_AlertMessage" = "Corona-Warn-App için arka plan güncellemelerini devre dışı bıraktınız. Otomatik maruz kalma günlüğü özelliğini kullanmak için lütfen arka plan güncellemelerini etkinleştirin. Arka plan güncellemelerini etkinleştirmezseniz maruz kalma günlüğü özelliğini yalnızca uygulamadan manüel olarak başlatabilirsiniz.\n\nUygulamanın arka plan güncellemelerini cihazınızın ayarlarından etkinleştirebilirsiniz.";
+"Common_BackgroundFetch_AlertMessage" = "Corona-Warn-App için arka planda uygulamayı yenilemeyi devre dışı bıraktınız. Otomatik maruz kalma günlüğü özelliğini kullanmak için lütfen arka planda uygulamayı yenilemeyi etkinleştirin. Arka planda uygulamayı yenilemeyi etkinleştirmezseniz maruz kalma günlüğü özelliğini yalnızca uygulamadan manüel olarak başlatabilirsiniz.\n\nUygulama için arka planda uygulamayı yenilemeyi cihazınızın ayarlarından etkinleştirebilirsiniz.";
 
 "Common_BackgroundFetch_SettingsTitle" = "Cihaz Ayarlarını Aç";
 
 "Common_BackgroundFetch_OKTitle" = "Maruz Kalma Günlüğünü Manüel Olarak Başlat";
 
-"Common_BackgroundFetch_AlertTitle" = "Arka plan güncellemeleri devre dışı bırakıldı";
+"Common_BackgroundFetch_AlertTitle" = "Arka planda uygulamayı yenileme devre dışı bırakıldı";
 
 "Common_Deadman_AlertTitle" = "Risk Durumunuz";
 
@@ -126,7 +130,7 @@
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "Enfeksiyon riskiniz neden düşük?";
 
-"ExposureDetection_LowRiskExposure_Body" = "Daha sonra COVID-19 tanısı konmuş bir kişiyle karşılaştınız. Ancak maruz kalma günlüğü verilerine göre enfeksiyon riskiniz düşük. Kısa süreyle ya da uzak mesafeyle karşılaşmanız durumunda risk düşük olur. Endişelenmeniz gerekmez ve eylem gerçekleştirmeniz özel bir ihtiyaç bulunmuyor. Mesafe ve hijyen konusunda belirlenen kurallara riayet etmenizi öneririz.";
+"ExposureDetection_LowRiskExposure_Body" = "COVID-19 tanısı konmuş bir kişiyle karşılaştınız. Ancak Corona-Warn-App uygulamasındaki tüm veriler göz önünde bulundurulduğunda enfeksiyon riskiniz düşük olarak derecelendirilmiş.\nEylem gerçekleştirmeniz özel bir ihtiyaç yok. Mesafe ve hijyen konusunda belirlenen kurallara riayet etmenizi öneririz.";
 
 "ExposureDetection_Button_Enable" = "Maruz Kalma Günlüğünü Etkinleştir";
 
@@ -149,8 +153,6 @@
 "ExposureDetectionError_Alert_Action_Details" = "Ayrıntılar";
 
 "ExposureDetectionError_Alert_Message" = "Maruz kalma günlüğü sırasında bir hata oluştu.";
-
-"ExposureDetectionError_Alert_AppConfig_Missing_Message" = "İnternet bağlantınız kesildi. Lütfen bağlantıyı kontrol edin ve ardından uygulamayı yeniden açın.";
 
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Maruz kalma günlüğü işlevi hakkında bilgi";
@@ -178,7 +180,7 @@
 
 "Settings_Notification_Label" = "Bildirimler";
 
-"Settings_BackgroundAppRefresh_Label" = "Arka Plan Güncellemeleri";
+"Settings_BackgroundAppRefresh_Label" = "Arka Planda Uygulamayı Yenileme";
 
 "Settings_Reset_Label" = "Uygulamayı Sıfırla";
 
@@ -220,15 +222,15 @@
 "NotificationSettings_offImageDescription" = "Bir kadın Corona-Warn-App uygulamasından bildirim alamıyor.";
 
 /* Background App Referesh Settings */
-"BackgroundAppRefreshSettings_Title" = "Arka Plan Güncellemeleri";
+"BackgroundAppRefreshSettings_Title" = "Arka Planda Uygulamayı Yenileme";
 
-"BackgroundAppRefreshSettings_Image_Description_On" = "Bir kişi elinde, arka plan güncellemeleri etkinleştirilmiş bir akıllı telefon tutuyor.";
+"BackgroundAppRefreshSettings_Image_Description_On" = "Bir kişi elinde, arka planda uygulamayı yenileme etkinleştirilmiş bir akıllı telefon tutuyor.";
 
-"BackgroundAppRefreshSettings_Image_Description_Off" = "Bir kişi elinde, arka plan güncellemeleri devre dışı bırakılmış bir akıllı telefon tutuyor.";
+"BackgroundAppRefreshSettings_Image_Description_Off" = "Bir kişi elinde, arka planda uygulamayı yenileme devre dışı bırakılmış bir akıllı telefon tutuyor.";
 
 "BackgroundAppRefreshSettings_Subtitle" = "Risk Durumunu Arka Planda Güncelle";
 
-"BackgroundAppRefreshSettings_Description" = "Arka plan güncellemeleri etkinleştirildiğinde Corona-Warn-App risk durumunuzu otomatik olarak belirler.\nMobil ağda veri aktarımı için ek ücret alınmaz.\nArka plan güncellemeleri devre dışı bırakılırsa risk durumunuzu güncellemek için uygulamayı her gün manuel olarak açmanız gerekir.";
+"BackgroundAppRefreshSettings_Description" = "Arka planda uygulamayı yenileme etkinleştirildiğinde Corona-Warn-App risk durumunuzu otomatik olarak belirler.\nMobil ağda veri aktarımı için ek ücret alınmaz.\nArka planda uygulamayıı yenileme devre dışı bırakılırsa risk durumunuzu güncellemek için uygulamayı her gün manüel olarak açmanız gerekir.";
 
 "BackgroundAppRefreshSettings_Status_Header" = "Ayar";
 
@@ -244,7 +246,7 @@
 
 "BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Arka planda uygulamayı yenileme özelliğini etkinleştirmek için lütfen düşük güç modunun devre dışı bırakılması gerektiğini unutmayın.";
 
-"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Düşük Güç Modunu Devre Dışı Bırak";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Düşük Güç Modunu Devre Dışı Bırakın";
 
 "BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Ayarları açın";
 
@@ -321,7 +323,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Yaş Sınırı: 16 ve Üzeri";
 
-"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "Uygulama, 16 yaş ve üzerinde olan ve Almanya'da yaşayan kişiler için hazırlanmıştır.";
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "Bu uygulama, 16 yaş ve üzerinde olan ve Almanya'da yaşayan kişilerin kullanması için hazırlanmıştır.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Kabul Beyanı";
 
@@ -357,6 +359,10 @@
 "ExposureSubmission_DataPrivacyTitle" = "Veri Gizliliği";
 
 "ExposureSubmission_Continue_actionText" = "Sonraki";
+
+"ExposureSubmission_ConfirmDismissPopUpTitle" = "İptal etmek istiyor musunuz?";
+
+"ExposureSubmission_ConfirmDismissPopUpText" = "Girişleriniz kaydedilmeyecektir.";
 
 "ExposureSubmission_DataPrivacyDescription" = "\"Kabul Et\" seçeneğine dokunarak Uygulamanın koronavirüs testinizin durumunu sorgulamasına ve Uygulamada görüntülemesine izin verirsiniz. Bu özelliği, QR kod aldıysanız ve test sonucunuzun Uygulamanın sunucu sistemine aktarılmasına onay verdiyseniz kullanabilirsiniz. Testi yapan laboratuvar test sonucunuzu sunucuya kaydettiği anda sonucu Uygulamada görüntüleyebilirsiniz. Ayrıca bildirimleri etkinleştirirseniz Uygulama, kullanmadığınız sırada test sonucunuzun alındığını belirten bir bildirim gönderir. Ancak gizlilik nedenleriyle testin sonucu yalnızca Uygulamada görüntülenecektir. Uygulamada test kaydınızı silerek dilediğiniz zaman bu onayı geri çekebilirsiniz. Onayınızı geri çekmeniz, onayınızı geri çekmeden önce testi işlemenin hukuki niteliğini etkilemeyecektir. Menüde \"Veri Gizliliği Bilgileri\" başlığında daha fazla bilgiye erişebilirsiniz.";
 
@@ -418,7 +424,7 @@
 
 "ExposureSubmission_PhoneNumber" = "+49 800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Diller: \nAlmanca, İngilizce, Türkçe\n\nMesai saatleri:\nPazartesi - Pazar: 24 saat\n\nArama ücretsizdir.";
+"ExposureSubmission_PhoneDetailDescription" = "Diller: \nAlmanca, İngilizce, Türkçe\n\nMesai saatleri:\nPazartesi - Pazar: 24 saat\n\nArama ücretsizdir.\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Uygulamaya TAN girerek testi kaydedin.";
 
@@ -576,7 +582,7 @@
 
 "ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Yaş Sınırı: 16 ve Üzeri";
 
-"ExposureSubmissionWarnOthers_consentUnderagesText" = "Uygulama, 16 yaş ve üzerinde olan ve Almanya'da yaşayan kişiler için hazırlanmıştır.";
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "Bu uygulama, 16 yaş ve üzerinde olan ve Almanya'da yaşayan kişilerin kullanması için hazırlanmıştır.";
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test yalnızca bir kez taranabilir.";
 
@@ -876,7 +882,7 @@
 
 "App_Information_Contact_Hotline_Description" = "Müşteri hizmetlerimiz size yardımcı olmaya hazır.";
 
-"App_Information_Contact_Hotline_Terms" = "Diller: Almanca, İngilizce, Türkçe\n\nMesai saatleri:\nPazartesi - Cumartesi: 7.00 - 22.00\n(ulusal tatiller hariçtir)\n\nAramalar ücretsizdir.";
+"App_Information_Contact_Hotline_Terms" = "Diller: Almanca, İngilizce, Türkçe\n\nMesai saatleri:\nPazartesi - Cumartesi: 07.00 - 22.00\n(ulusal tatiller hariçtir)\n\nArama ücretsizdir.\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Baskı";

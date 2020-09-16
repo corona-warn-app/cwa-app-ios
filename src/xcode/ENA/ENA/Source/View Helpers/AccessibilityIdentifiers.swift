@@ -184,6 +184,22 @@ enum AccessibilityIdentifiers {
 		static let usage01 = "AppStrings.ExposureSubmissionIntroduction.usage01"
 		static let usage02 = "AppStrings.ExposureSubmissionIntroduction.usage02"
 	}
+	
+	enum ExposureSubmissionSymptoms {
+		static let description = "AppStrings.ExposureSubmissionSymptoms.description"
+		static let answerOptionYes = "AppStrings.ExposureSubmissionSymptoms.answerOptionYes"
+		static let answerOptionNo = "AppStrings.ExposureSubmissionSymptoms.answerOptionNo"
+		static let answerOptionPreferNotToSay = "AppStrings.ExposureSubmissionSymptoms.answerOptionPreferNotToSay"
+	}
+
+	enum ExposureSubmissionSymptomsOnset {
+		static let description = "AppStrings.ExposureSubmissionSymptomsOnset.description"
+		static let answerOptionExactDate = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionExactDate"
+		static let answerOptionLastSevenDays = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionLastSevenDays"
+		static let answerOptionOneToTwoWeeksAgo = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionOneToTwoWeeksAgo"
+		static let answerOptionMoreThanTwoWeeksAgo = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionMoreThanTwoWeeksAgo"
+		static let answerOptionPreferNotToSay = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionPreferNotToSay"
+	}
 
 	enum ExposureSubmissionWarnOthers {
 		static let accImageDescription = "AppStrings.ExposureSubmissionWarnOthers.accImageDescription"
@@ -232,6 +248,10 @@ enum AccessibilityIdentifiers {
 	enum General {
 		static let exposureSubmissionNavigationControllerTitle = "ExposureSubmissionNavigationController"
 		static let image = "ExposureSubmissionIntroViewController.image"
+	}
+
+	enum DatePickerOption {
+		static let day = "AppStrings.DatePickerOption.day"
 	}
 
 }

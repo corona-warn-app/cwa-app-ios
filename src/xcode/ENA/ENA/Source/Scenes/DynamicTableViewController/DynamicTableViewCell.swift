@@ -39,6 +39,7 @@ extension DynamicCell {
 		case dynamicTypeTextView = "textViewCell"
 		case icon = "iconCell"
 		case space = "spaceCell"
+		case bulletPoint = "bulletPointCell"
 	}
 
 	/// Style of  `DynamicTableViewTextCell`
@@ -122,6 +123,26 @@ extension DynamicCell {
 			cell.backgroundColor = color
 		}
 	}
+	
+	
+	static func bulletPoint(
+		text: String,
+		spacing: DynamicTableViewBulletPointCell.Spacing = .normal,
+		accessibilityIdentifier: String? = nil,
+		accessibilityTraits: UIAccessibilityTraits = .staticText,
+		action: DynamicAction = .none,
+		configure: CellConfigurator? = nil
+	) -> Self {
+		.identifier(CellReuseIdentifier.bulletPoint, action: action, accessoryAction: .none) { viewController, cell, indexPath in
+			(cell as? DynamicTableViewBulletPointCell)?.configure(
+				text: text,
+				spacing: spacing,
+				accessibilityTraits: accessibilityTraits,
+				accessibilityIdentifier: accessibilityIdentifier
+			)
+			configure?(viewController, cell, indexPath)
+		}
+	}
 }
 
 extension DynamicCell {
@@ -147,6 +168,10 @@ extension DynamicCell {
 
 	static func subheadline(text: String, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {
 		.enaLabelStyle(.subheadline, text: text, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
+	}
+
+	static func link(placeholder: String, link: String, font: ENAFont, style: ENALabel.Style, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {
+		dynamicType(text: link, cellStyle: .linkTextView(placeholder, font), size: style.fontSize, weight: UIFont.Weight(style.fontWeight), style: style.textStyle, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
 	}
 
 	static func footnote(text: String, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {

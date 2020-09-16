@@ -1,4 +1,3 @@
-//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -15,18 +14,16 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-//
 
 import Foundation
 
-enum UITestingParameters {
-	enum ExposureSubmission: String {
-		case useMock = "UI:ExposureSubmission:useMock"
-		case getRegistrationTokenSuccess = "UI:ExposureSubmission:getRegistrationTokenSuccess"
-		case submitExposureSuccess = "UI:ExposureSubmission:submitExposureSuccess"
+extension Calendar {
+
+	static func gregorian(with locale: Locale = .current) -> Calendar {
+		var calendar = Calendar(identifier: .gregorian)
+		calendar.locale = locale
+
+		return calendar
 	}
 
-	enum SecureStoreHandling: String {
-		case simulateMismatchingKey = "UI:SecureStoreHandling:simulateMismatchingKey"
-	}
 }

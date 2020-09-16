@@ -25,17 +25,29 @@ final class SecureStore: Store {
 	private let directoryURL: URL
 	private let kvStore: SQLiteKeyValueStore
 
-	init(at directoryURL: URL, key: String) {
+	init(at directoryURL: URL, key: String) throws {
 		self.directoryURL = directoryURL
-		self.kvStore = SQLiteKeyValueStore(with: directoryURL, key: key)
+		self.kvStore = try SQLiteKeyValueStore(with: directoryURL, key: key)
 	}
 
+	/// Removes most key/value pairs.
+	///
+	/// Keys whose values are not removed:
+	/// * `developerSubmissionBaseURLOverride`
+	/// * `developerDistributionBaseURLOverride`
+	/// * `developerVerificationBaseURLOverride`
+	///
+	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:flush` call
 	func flush() {
-		kvStore.flush()
+		try? kvStore.flush()
 	}
 
+	/// Database reset & re-initialization with a given key
+	/// - Parameter key: the key for the new database; if no key is given, no new database will be created
+	///
+	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:clearAll:` call
 	func clearAll(key: String?) {
-		kvStore.clearAll(key: key)
+		try? kvStore.clearAll(key: key)
 	}
 	
 	var testResultReceivedTimeStamp: Int64? {
@@ -216,32 +228,71 @@ final class SecureStore: Store {
 
 
 extension SecureStore {
-	convenience init(subDirectory: String) {
-		do {
-			let fileManager = FileManager.default
-			let directoryURL = try fileManager
-				.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-				.appendingPathComponent(subDirectory)
 
-			var key: String
-			if !fileManager.fileExists(atPath: directoryURL.path) {
-				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
-				guard let key = KeychainHelper.generateDatabaseKey() else {
-					fatalError("Creating the Database failed")
-				}
-				self.init(at: directoryURL, key: key)
-			} else {
-				if let keyData = KeychainHelper.loadFromKeychain(key: "secureStoreDatabaseKey") {
+	static let keychainDatabaseKey = "secureStoreDatabaseKey"
+
+	convenience init(subDirectory: String) {
+		self.init(subDirectory: subDirectory, isRetry: false)
+	}
+
+	private convenience init(subDirectory: String, isRetry: Bool) {
+		// swiftlint:disable:next force_try
+		let keychain = try! KeychainHelper()
+
+		do {
+			let directoryURL = try SecureStore.databaseDirectory(at: subDirectory)
+			let fileManager = FileManager.default
+			if fileManager.fileExists(atPath: directoryURL.path) {
+				// fetch existing key from keychain or generate a new one
+				let key: String
+				if let keyData = keychain.loadFromKeychain(key: SecureStore.keychainDatabaseKey) {
+					#if UITESTING // enabled in UI tests
+					if ProcessInfo.processInfo.arguments.contains(UITestingParameters.SecureStoreHandling.simulateMismatchingKey.rawValue) {
+						// injecting a wrong key to simulate a mismatch, e.g. because of backup restoration or other reasons
+						key = "wrong 🔑"
+					} else {
+						key = String(decoding: keyData, as: UTF8.self)
+					}
+					#else
 					key = String(decoding: keyData, as: UTF8.self)
-				} else if let generated = KeychainHelper.generateDatabaseKey() {
-					key = generated
+					#endif
 				} else {
-					fatalError("Cannot get or generate the key")
+					key = try keychain.generateDatabaseKey()
 				}
-				self.init(at: directoryURL, key: key)
+				try self.init(at: directoryURL, key: key)
+			} else {
+				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
+				let key = try keychain.generateDatabaseKey()
+				try self.init(at: directoryURL, key: key)
 			}
+		} catch is SQLiteStoreError where isRetry == false {
+			SecureStore.performHardDatabaseReset(at: subDirectory)
+			self.init(subDirectory: subDirectory, isRetry: true)
 		} catch {
-			fatalError("Creating the Database failed")
+			fatalError("Creating the Database failed (\(error)")
+		}
+	}
+
+	private static func databaseDirectory(at subDirectory: String) throws -> URL {
+		try FileManager.default
+			.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+			.appendingPathComponent(subDirectory)
+	}
+
+	/// Last Resort option.
+	///
+	/// This function clears the existing database key and removes any existing databases.
+	private static func performHardDatabaseReset(at path: String) {
+		do {
+			log(message: "⚠️ performing hard database reset ⚠️")
+			// remove database key
+			try KeychainHelper().clearInKeychain(key: SecureStore.keychainDatabaseKey)
+
+			// remove database
+			let directoryURL = try databaseDirectory(at: path)
+			try FileManager.default.removeItem(at: directoryURL)
+		} catch {
+			fatalError("Reset failure: \(error.localizedDescription)")
 		}
 	}
 }

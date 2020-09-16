@@ -37,11 +37,13 @@ class OptionGroupViewModel {
 	enum Option {
 		case option(title: String, accessibilityIdentifier: String? = nil)
 		case multipleChoiceOption(title: String, choices: [Choice], accessibilityIdentifier: String? = nil)
+		case datePickerOption(title: String, today: Date = Date(), accessibilityIdentifier: String? = nil)
 	}
 
 	enum Selection: Equatable {
 		case option(index: Int)
 		case multipleChoiceOption(index: Int, selectedChoices: Set<Int>)
+		case datePickerOption(index: Int, selectedDate: Date)
 	}
 
 	// MARK: - Init
@@ -84,6 +86,13 @@ class OptionGroupViewModel {
 		}
 
 		selection = newSelectedChoices.isEmpty ? nil : .multipleChoiceOption(index: index, selectedChoices: newSelectedChoices)
+	}
+
+	func datePickerOptionTapped(index: Int, date: Date) {
+		guard case .datePickerOption = options[index] else {
+			fatalError("Option at index \(index) is not of type .datePickerOption")
+		}
+		selection = .datePickerOption(index: index, selectedDate: date)
 	}
 
 }

@@ -26,7 +26,12 @@ protocol ExposureSubmissionService: class {
 	typealias TestResultHandler = (Result<TestResult, ExposureSubmissionError>) -> Void
 	typealias TANHandler = (Result<String, ExposureSubmissionError>) -> Void
 
+
+	var devicePairingConsentAcceptTimestamp: Int64? { get }
+	var devicePairingSuccessfulTimestamp: Int64? { get }
+	
 	func submitExposure(
+		symptomsOnset: SymptomsOnset,
 		consentToFederation: Bool,
 		visitedCountries: [Country],
 		completionHandler: @escaping ExposureSubmissionHandler
@@ -37,10 +42,16 @@ protocol ExposureSubmissionService: class {
 		completion completeWith: @escaping RegistrationHandler
 	)
 	func getTestResult(_ completeWith: @escaping TestResultHandler)
+
+	/// Fetches test results for a given device key.
+	///
+	/// - Parameters:
+	///   - deviceRegistrationKey: the device key to fetch the test results for
+	///   - useStoredRegistration: flag to show if a separate registration is needed (`false`) or an existing registration token is used (`true`)
+	///   - completion: a `TestResultHandler`
+	func getTestResult(forKey deviceRegistrationKey: DeviceRegistrationKey, useStoredRegistration: Bool, completion: @escaping TestResultHandler)
 	func hasRegistrationToken() -> Bool
 	func deleteTest()
-	var devicePairingConsentAcceptTimestamp: Int64? { get }
-	var devicePairingSuccessfulTimestamp: Int64? { get }
 	func preconditions() -> ExposureManagerState
 	func acceptPairing()
 	func fakeRequest(completionHandler: ExposureSubmissionHandler?)
