@@ -301,6 +301,7 @@ final class HTTPClient: Client {
 
 	func getTestResult(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TestResultHandler) {
 
+		
 		guard
 			let testResultRequest = try? URLRequest.getTestResultRequest(
 				configuration: configuration,
@@ -314,6 +315,12 @@ final class HTTPClient: Client {
 		session.response(for: testResultRequest, isFake: isFake) { result in
 			switch result {
 			case let .success(response):
+				
+				if response.statusCode == 400 {
+					completeWith(.failure(.qRNotExist))
+					return
+				}
+				
 				guard response.hasAcceptableStatusCode else {
 					completeWith(.failure(.serverError(response.statusCode)))
 					return
