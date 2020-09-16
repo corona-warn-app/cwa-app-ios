@@ -386,9 +386,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionTanEntry_Submit" = "Weiter";
 
-"ExposureSubmissionTanEntry_InvalidCharacterError" = "Ungültige Eingabe, bitte überprüfen Sie das Zeichen.";
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Ihre Eingabe enthält ein ungültiges Zeichen. Bitte überprüfen Sie Ihre Eingabe";
 
-"ExposureSubmissionTanEntry_InvalidError" = "Ungültige TAN, bitte überprüfen Sie Ihre Eingabe.";
+"ExposureSubmissionTanEntry_InvalidError" = "Ungültige TAN. Bitte überprüfen Sie Ihre Eingabe.";
 
 "ExposureSubmission_NavTitle" = "Positivkennung senden";
 
