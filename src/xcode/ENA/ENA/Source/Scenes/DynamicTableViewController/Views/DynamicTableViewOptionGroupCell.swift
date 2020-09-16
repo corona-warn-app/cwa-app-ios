@@ -48,13 +48,13 @@ class DynamicTableViewOptionGroupCell: UITableViewCell {
 		backgroundColor = .enaColor(for: .background)
 
 		optionGroupView.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(optionGroupView)
+		contentView.addSubview(optionGroupView)
 
 		NSLayoutConstraint.activate([
-			optionGroupView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-			optionGroupView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-			optionGroupView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-			optionGroupView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+			optionGroupView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+			optionGroupView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+			optionGroupView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+			optionGroupView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
 		])
 	}
 
