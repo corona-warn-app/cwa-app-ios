@@ -106,6 +106,7 @@ extension URLSession.Response {
 		case noResponse
 		case teleTanAlreadyUsed
 		case qRAlreadyUsed
+		case qRNotExist
 		case regTokenNotExist
 		case invalidResponse
 		case serverError(Int)
