@@ -366,19 +366,23 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 	#endif
 }
 
-#if INTEROP
+// Due to a stakeholder decision, we dont use the user selected countries.
+// Instead just download all supported countries.
+// The other logic is left here, because at the time writing this, it was unclear wether the decision will be reverted or not.
 
-private final class CountryKeypackageDownloaderSpy: CountryKeypackageDownloading {
-
-	private(set) var downloadedCountries = [Country.ID]()
-
-	func downloadKeypackages(for country: String, completion: @escaping Completion) {
-		downloadedCountries.append(country)
-		completion(.success(()))
-	}
-}
-
-#endif
+//#if INTEROP
+//
+//private final class CountryKeypackageDownloaderSpy: CountryKeypackageDownloading {
+//
+//	private(set) var downloadedCountries = [Country.ID]()
+//
+//	func downloadKeypackages(for country: String, completion: @escaping Completion) {
+//		downloadedCountries.append(country)
+//		completion(.success(()))
+//	}
+//}
+//
+//#endif
 
 final class MutableENExposureDetectionSummary: ENExposureDetectionSummary {
 	init(daysSinceLastExposure: Int = 0, matchedKeyCount: UInt64 = 0, maximumRiskScore: ENRiskScore = .zero) {
