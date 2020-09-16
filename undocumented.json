@@ -7947,28 +7947,28 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionOverviewViewController.swift",
-      "line": 23,
+      "line": 22,
       "symbol": "ExposureSubmissionOverviewViewController",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionOverviewViewController.swift",
-      "line": 27,
+      "line": 26,
       "symbol": "ExposureSubmissionOverviewViewController.spinner",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionOverviewViewController.swift",
-      "line": 28,
+      "line": 27,
       "symbol": "ExposureSubmissionOverviewViewController.coordinator",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionOverviewViewController.swift",
-      "line": 29,
+      "line": 28,
       "symbol": "ExposureSubmissionOverviewViewController.service",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
@@ -7982,51 +7982,58 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionOverviewViewController.swift",
-      "line": 46,
+      "line": 47,
       "symbol": "ExposureSubmissionOverviewViewController.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionOverviewViewController.swift",
-      "line": 96,
+      "line": 97,
       "symbol": "ExposureSubmissionOverviewViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionOverviewViewController.swift",
-      "line": 97,
+      "line": 98,
       "symbol": "ExposureSubmissionOverviewViewController.qrScanner(_:error:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionOverviewViewController.swift",
-      "line": 116,
+      "line": 117,
       "symbol": "ExposureSubmissionOverviewViewController.qrScanner(_:didScan:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionOverviewViewController.swift",
-      "line": 273,
+      "line": 258,
       "symbol": "ExposureSubmissionOverviewViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionOverviewViewController.swift",
-      "line": 274,
+      "line": 259,
       "symbol": "ExposureSubmissionOverviewViewController.CustomCellReuseIdentifiers",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionOverviewViewController.swift",
-      "line": 275,
+      "line": 260,
       "symbol": "ExposureSubmissionOverviewViewController.CustomCellReuseIdentifiers.imageCard",
       "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionOverviewViewController.swift",
+      "line": 266,
+      "symbol": "ExposureSubmissionOverviewViewModel",
+      "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
