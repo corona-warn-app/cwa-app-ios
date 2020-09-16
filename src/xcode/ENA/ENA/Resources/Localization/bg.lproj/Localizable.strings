@@ -568,17 +568,66 @@
 
 "ExposureSubmissionResult_refreshButton" = "Актуализиране";
 
+/* ExposureSubmissionSymptoms */
+"ExposureSubmissionSymptoms_Title" = "Симптоми";
+
+"ExposureSubmissionSymptoms_Description" = "Имали ли сте един или повече от следните симптоми през последните няколко дни?";
+
+"ExposureSubmissionSymptoms_Symptom0" = "Повишена температура или треска";
+
+"ExposureSubmissionSymptoms_Symptom1" = "Затруднено дишане";
+
+"ExposureSubmissionSymptoms_Symptom2" = "Загуба на обоняние/вкус";
+
+"ExposureSubmissionSymptoms_Symptom3" = "Кашлица";
+
+"ExposureSubmissionSymptoms_Symptom4" = "Хрема";
+
+"ExposureSubmissionSymptoms_Symptom5" = "Болки в гърлото";
+
+"ExposureSubmissionSymptoms_Symptom6" = "Главоболие и болки в крайниците";
+
+"ExposureSubmissionSymptoms_Symptom7" = "Обща слабост и умора";
+
+"ExposureSubmissionSymptoms_AnswerOptionYes" = "Да";
+
+"ExposureSubmissionSymptoms_AnswerOptionNo" = "Не";
+
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Без коментар";
+
+"ExposureSubmissionSymptoms_ContinueButton" = "Напред";
+
+/* ExposureSubmissionSymptomsOnset */
+"ExposureSubmissionSymptomsOnset_Title" = "Начало на симптомите";
+
+"ExposureSubmissionSymptomsOnset_Subtitle" = "Кога се появиха за първи път тези симптоми?";
+
+"ExposureSubmissionSymptomsOnset_Description" = "Отговорете на въпроса възможно най-точно.";
+
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Точна дата";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "През последните 7 дни";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionOneToTwoWeeksAgo" = "Преди 1-2 седмици";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "Преди повече от 2 седмици";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Без коментар";
+
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "Напред";
+
+/* ExposureSubmissionWarnOthers */
 "ExposureSubmissionWarnOthers_title" = "Предупредете другите";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "Устройство предава на системата информация за положителен резултат от тест.";
 
-"ExposureSubmissionWarnOthers_continueButton" = "Напред";
+"ExposureSubmissionWarnOthers_continueButton" = "Приемам";
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Моля, помогнете на всички нас!";
 
 "ExposureSubmissionWarnOthers_description" = "Като следваща стъпка може да позволите на Corona-Warn-App да сподели Вашите случайни ИД кодове за последните 14 дни с останалите потребители. По този начин може да предупредите други хора и да помогнете за прекъсване на веригата на заразяване.\n\nАнонимността Ви се запазва, тъй като се изпращат само случайни ИД кодове, които не Ви идентифицират.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping on “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the exposure logging feature can be automatically notified that they may have been exposed to a risk of infection. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person.\n\nTransmitting your test result via the App is voluntary. You will not be penalised if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected.\n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out on the basis of the consent prior to the withdrawal. Further information can be found in the menu under “Data Privacy Information”.";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the exposure logging feature can be automatically notified that they may have been exposed to a risk of infection. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person. \n\nTransmitting your test result via the App is voluntary. You will not be penalized if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected.\n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out based on the consent prior to the withdrawal. Further information can be found in the menu under “Data Privacy”.";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Поверителност";
 

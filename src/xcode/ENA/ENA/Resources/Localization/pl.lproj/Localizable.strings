@@ -568,17 +568,66 @@
 
 "ExposureSubmissionResult_refreshButton" = "Aktualizuj";
 
+/* ExposureSubmissionSymptoms */
+"ExposureSubmissionSymptoms_Title" = "Symptomy";
+
+"ExposureSubmissionSymptoms_Description" = "Czy w ciągu ostatnich kilku dni wystąpił u Ciebie jeden lub kilka z wymienionych poniżej symptomów?";
+
+"ExposureSubmissionSymptoms_Symptom0" = "Podwyższona temperatura lub gorączka";
+
+"ExposureSubmissionSymptoms_Symptom1" = "Duszności";
+
+"ExposureSubmissionSymptoms_Symptom2" = "Utrata węchu/smaku";
+
+"ExposureSubmissionSymptoms_Symptom3" = "Kaszel";
+
+"ExposureSubmissionSymptoms_Symptom4" = "Katar";
+
+"ExposureSubmissionSymptoms_Symptom5" = "Ból gardła";
+
+"ExposureSubmissionSymptoms_Symptom6" = "Ból głowy i kończyn";
+
+"ExposureSubmissionSymptoms_Symptom7" = "Ogólne osłabienie i wyczerpanie";
+
+"ExposureSubmissionSymptoms_AnswerOptionYes" = "Tak";
+
+"ExposureSubmissionSymptoms_AnswerOptionNo" = "Nie";
+
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Bez komentarza";
+
+"ExposureSubmissionSymptoms_ContinueButton" = "Dalej";
+
+/* ExposureSubmissionSymptomsOnset */
+"ExposureSubmissionSymptomsOnset_Title" = "Początek wystąpienia symptomów";
+
+"ExposureSubmissionSymptomsOnset_Subtitle" = "Kiedy zacząłeś(-łaś) odczutwać te symptomy?";
+
+"ExposureSubmissionSymptomsOnset_Description" = "Odpowiedz na pytanie najdokładniej, jak możesz.";
+
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Dokładna data";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "W ciągu ostatnich 7 dni";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionOneToTwoWeeksAgo" = "1-2 tygodnie temu";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "Ponad 2 tygodnie temu";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Bez komentarza";
+
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "Dalej";
+
+/* ExposureSubmissionWarnOthers */
 "ExposureSubmissionWarnOthers_title" = "Ostrzeganie innych";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "Zaszyfrowana diagnoza zakażenia jest przesyłana do systemu.";
 
-"ExposureSubmissionWarnOthers_continueButton" = "Dalej";
+"ExposureSubmissionWarnOthers_continueButton" = "Akceptuj";
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Pomóż nam wszystkim!";
 
 "ExposureSubmissionWarnOthers_description" = "Możesz następnie aktywować w aplikacji Corona-Warn-App udostępnianie innym Twoich losowych identyfikatorów z ostatnich 14 dni. W ten sposób ostrzeżesz inne osoby i pomożesz w przerwaniu łańcucha zakażeń.\n\nPonieważ przekazywane są tylko bezosobowe, losowe identyfikatory, zachowasz anonimowość.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping on “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the exposure logging feature can be automatically notified that they may have been exposed to a risk of infection. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person.\n\nTransmitting your test result via the App is voluntary. You will not be penalised if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected.\n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out on the basis of the consent prior to the withdrawal. Further information can be found in the menu under “Data Privacy Information”.";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the exposure logging feature can be automatically notified that they may have been exposed to a risk of infection. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person. \n\nTransmitting your test result via the App is voluntary. You will not be penalized if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected.\n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out based on the consent prior to the withdrawal. Further information can be found in the menu under “Data Privacy”.";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Prywatność danych";
 

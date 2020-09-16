@@ -568,17 +568,66 @@
 
 "ExposureSubmissionResult_refreshButton" = "Actualizare";
 
+/* ExposureSubmissionSymptoms */
+"ExposureSubmissionSymptoms_Title" = "Simptome";
+
+"ExposureSubmissionSymptoms_Description" = "Ați resimțit unul sau mai multe dintre următoarele simptome în ultimele zile?";
+
+"ExposureSubmissionSymptoms_Symptom0" = "Temperatură crescută sau febră";
+
+"ExposureSubmissionSymptoms_Symptom1" = "Scurtarea respirației";
+
+"ExposureSubmissionSymptoms_Symptom2" = "Pierderea mirosului/gustului";
+
+"ExposureSubmissionSymptoms_Symptom3" = "Tuse";
+
+"ExposureSubmissionSymptoms_Symptom4" = "Curgerea nasului";
+
+"ExposureSubmissionSymptoms_Symptom5" = "Durere în gât";
+
+"ExposureSubmissionSymptoms_Symptom6" = "Durere de cap și dureri de membre";
+
+"ExposureSubmissionSymptoms_Symptom7" = "Slăbiciune generală și epuizare";
+
+"ExposureSubmissionSymptoms_AnswerOptionYes" = "Da";
+
+"ExposureSubmissionSymptoms_AnswerOptionNo" = "Nu";
+
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Nu comentez";
+
+"ExposureSubmissionSymptoms_ContinueButton" = "Înainte";
+
+/* ExposureSubmissionSymptomsOnset */
+"ExposureSubmissionSymptomsOnset_Title" = "Începutul simptomelor";
+
+"ExposureSubmissionSymptomsOnset_Subtitle" = "Când ați început să resimțiți aceste simptome?";
+
+"ExposureSubmissionSymptomsOnset_Description" = "Răspundeți la întrebare cât mai precis cu putință.";
+
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Data exactă";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "În ultimele 7 zile";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionOneToTwoWeeksAgo" = "Acum 1-2 săptămâni";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "Cu peste 2 săptămâni în urmă";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Nu comentez";
+
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "Înainte";
+
+/* ExposureSubmissionWarnOthers */
 "ExposureSubmissionWarnOthers_title" = "Avertizarea altora";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "Un dispozitiv transmite un diagnostic de test pozitiv criptat către sistem.";
 
-"ExposureSubmissionWarnOthers_continueButton" = "Înainte";
+"ExposureSubmissionWarnOthers_continueButton" = "Accept";
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Să ne ajutăm împreună!";
 
 "ExposureSubmissionWarnOthers_description" = "Apoi, puteți să vă asigurați că aplicația Corona-Warn trimite altor persoane ID-urile aleatorii din ultimele 14 zile. Prin aceasta, puteți avertiza și alte persoane și puteți contribui la întreruperea lanțului de infectare\n\nPentru că sunt transmise doar ID-uri aleatorii impersonale, identitatea dvs. va rămâne anonimă.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping on “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the exposure logging feature can be automatically notified that they may have been exposed to a risk of infection. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person.\n\nTransmitting your test result via the App is voluntary. You will not be penalised if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected.\n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out on the basis of the consent prior to the withdrawal. Further information can be found in the menu under “Data Privacy Information”.";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Apăsând pe „Accept”, consimțiți ca aplicația să trimită rezultatul pozitiv al testului dvs. către sistemul de servere al aplicației, împreună cu ID-urile dvs. aleatorii din ultimele 14 zile, pentru ca ceilalți utilizatori ai aplicației care au activat caracteristica de înregistrare în jurnal a expunerilor să poată fi notificați automat că se poate să fi fost expuși la riscul de infectare. ID-urile aleatorii transmise în acest scop nu conțin informații care să poată permite tragerea unor concluzii privind identitatea dvs. sau persoana dvs. \n\nTransmiterea rezultatului testului prin intermediul aplicației este voluntară. Nu veți fi penalizat dacă nu transmiteți rezultatul testului. Din moment ce nu este posibilă urmărirea sau verificarea modului în care utilizați aplicația sau dacă o utilizați sau nu, doar dvs. veți ști dacă ați transmis informațiile că sunteți infectat.\n\nPuteți oricând să vă retrageți consimțământul prin ștergerea acestei aplicații. Retragerea consimțământului nu va afecta legalitatea procesării efectuate în baza consimțământului acordat înainte de retragerea acestuia. Pentru informații suplimentare, consultați meniul din „Confidențialitatea datelor”.";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Confidențialitatea datelor";
 

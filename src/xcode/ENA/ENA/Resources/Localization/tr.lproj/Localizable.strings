@@ -568,17 +568,66 @@
 
 "ExposureSubmissionResult_refreshButton" = "Güncelle";
 
+/* ExposureSubmissionSymptoms */
+"ExposureSubmissionSymptoms_Title" = "Belirtiler";
+
+"ExposureSubmissionSymptoms_Description" = "Son birkaç günde aşağıdaki belirtilerden birini veya daha fazlasını yaşadınız mı?";
+
+"ExposureSubmissionSymptoms_Symptom0" = "Artan vücut sıcaklığı veya ateş";
+
+"ExposureSubmissionSymptoms_Symptom1" = "Nefes darlığı";
+
+"ExposureSubmissionSymptoms_Symptom2" = "Koku/tat kaybı";
+
+"ExposureSubmissionSymptoms_Symptom3" = "Öksürük";
+
+"ExposureSubmissionSymptoms_Symptom4" = "Burun akıntısı";
+
+"ExposureSubmissionSymptoms_Symptom5" = "Boğaz ağrısı";
+
+"ExposureSubmissionSymptoms_Symptom6" = "Baş ağrısı ve kol/bacak ağrısı";
+
+"ExposureSubmissionSymptoms_Symptom7" = "Genel zayıflık ve bitkinlik";
+
+"ExposureSubmissionSymptoms_AnswerOptionYes" = "Evet";
+
+"ExposureSubmissionSymptoms_AnswerOptionNo" = "Hayır";
+
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Yorum yok";
+
+"ExposureSubmissionSymptoms_ContinueButton" = "Sonraki";
+
+/* ExposureSubmissionSymptomsOnset */
+"ExposureSubmissionSymptomsOnset_Title" = "Belirtilerin başlangıcı";
+
+"ExposureSubmissionSymptomsOnset_Subtitle" = "Bu belirtileri ilk kez ne zaman yaşamaya başladınız?";
+
+"ExposureSubmissionSymptomsOnset_Description" = "Soruya mümkün olduğunca doğru yanıt verin.";
+
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Tam tarih";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "Son 7 gün içinde";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionOneToTwoWeeksAgo" = "1-2 hafta önce";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "2 haftadan uzun süre önce";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Yorum yok";
+
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "Sonraki";
+
+/* ExposureSubmissionWarnOthers */
 "ExposureSubmissionWarnOthers_title" = "Diğer Kullanıcıları Uyarma";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "Bir cihaz şifrelenmiş pozitif test tanısını sisteme aktarır.";
 
-"ExposureSubmissionWarnOthers_continueButton" = "Sonraki";
+"ExposureSubmissionWarnOthers_continueButton" = "Kabul Et";
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Lütfen hepimize yardımcı olun!";
 
 "ExposureSubmissionWarnOthers_description" = "Corona-Warn-App'in son 14 güne ait rastgele kimliklerinizi diğer kullanıcılarla paylaşmasını sağlayabilirsiniz. Bu sayede diğer kullanıcıları uyarabilir ve enfeksiyon zincirini kırabilirsiniz.\n\nYalnızca kişisel olmayan rastgele kimlikler aktarıldığından kimliğiniz gizli kalacaktır.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "\"Kabul et\" seçeneğine dokunduğunuzda, Uygulamanın pozitif test sonucunuzu son 14 güne ait rastgele kimliklerinizle birlikte uygulamanın sunucu sistemine göndermesine izin vermiş olursunuz, bu sayede maruz kalma günlüğünü etkinleştirmiş olan diğer Uygulama kullanıcıları otomatik şekilde bilgilendirilebilir. İletilen rastgele kimlikler, kimliğiniz ya da kişiliğinize ilişkin sonuç çıkartacak hiçbir bilgi içermez. \n\nTest sonucunuzun Uygulama aracılığıyla iletilmesi, isteğe bağlıdır. Test sonucunuzu iletmezseniz size hiçbir dezavantajı olmaz. Uygulamayı kullanıp kullanmadığınızı ve nasıl kullandığınızı anlayamadığımız ve kontrol edemediğimiz için enfeksiyonu bulaştırıp bulaştırmadığınızı sizden başka kimse öğrenemez.\n\nUygulamayı silerek, onayınızı dilediğinizde geri alabilirsiniz. Onayın geri alınmasıyla, geri almaya kadar yapılmış veri işlemelerin hukuka uygunlukları bu durumdan etkilenmez. \"Veri Gizliliği Bilgileri\" menüsünden diğer bilgilere ulaşabilirsiniz.";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "\"Kabul Et\" seçeneğine dokunduğunuzda, Uygulamanın pozitif test sonucunuzu son 14 güne ait rastgele kimliklerinizle birlikte uygulamanın sunucu sistemine göndermesine izin vermiş olursunuz, bu sayede maruz kalma günlüğünü etkinleştirmiş olan diğer Uygulama kullanıcıları otomatik şekilde bilgilendirilebilir. İletilen rastgele kimlikler, kimliğiniz ya da kişiliğinize ilişkin sonuç çıkartacak hiçbir bilgi içermez. \n\nTest sonucunuzun Uygulama aracılığıyla iletilmesi, isteğe bağlıdır. Test sonucunuzu iletmezseniz size hiçbir dezavantajı olmaz. Uygulamayı kullanıp kullanmadığınızı ve nasıl kullandığınızı anlayamadığımız ve kontrol edemediğimiz için enfeksiyonu bulaştırıp bulaştırmadığınızı sizden başka kimse öğrenemez.\n\nUygulamayı silerek, onayınızı dilediğinizde geri alabilirsiniz. Onayın geri alınmasıyla, geri almaya kadar yapılmış veri işlemelerin hukuka uygunlukları bu durumdan etkilenmez. \"Veri Gizliliği\" menüsünden diğer bilgilere ulaşabilirsiniz.";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Veri Gizliliği";
 
