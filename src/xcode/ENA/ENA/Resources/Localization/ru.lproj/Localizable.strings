@@ -568,17 +568,66 @@
 
 "ExposureSubmissionResult_refreshButton" = "Обновить";
 
+/* ExposureSubmissionSymptoms */
+"ExposureSubmissionSymptoms_Title" = "Симптомы";
+
+"ExposureSubmissionSymptoms_Description" = "Наблюдали ли Вы у себя какие-либо из следующих симптомов в последние несколько дней?";
+
+"ExposureSubmissionSymptoms_Symptom0" = "Повышенная температура или озноб";
+
+"ExposureSubmissionSymptoms_Symptom1" = "Одышка";
+
+"ExposureSubmissionSymptoms_Symptom2" = "Потеря обоняния/вкуса";
+
+"ExposureSubmissionSymptoms_Symptom3" = "Кашель";
+
+"ExposureSubmissionSymptoms_Symptom4" = "Насморк";
+
+"ExposureSubmissionSymptoms_Symptom5" = "Боль в горле";
+
+"ExposureSubmissionSymptoms_Symptom6" = "Головная боль и боли в конечностях";
+
+"ExposureSubmissionSymptoms_Symptom7" = "Общая слабость и утомление";
+
+"ExposureSubmissionSymptoms_AnswerOptionYes" = "Да";
+
+"ExposureSubmissionSymptoms_AnswerOptionNo" = "Нет";
+
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Нет комментария";
+
+"ExposureSubmissionSymptoms_ContinueButton" = "Дальше";
+
+/* ExposureSubmissionSymptomsOnset */
+"ExposureSubmissionSymptomsOnset_Title" = "Появление симптомов";
+
+"ExposureSubmissionSymptomsOnset_Subtitle" = "Когда у Вас впервые появились эти симптомы?";
+
+"ExposureSubmissionSymptomsOnset_Description" = "Ответьте на вопрос как можно точнее.";
+
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Точная дата";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "В последние 7 дней";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionOneToTwoWeeksAgo" = "1-2 недели назад";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "Большее 2 недель назад";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Нет комментария";
+
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "Дальше";
+
+/* ExposureSubmissionWarnOthers */
 "ExposureSubmissionWarnOthers_title" = "Предупреждение других людей";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "Устройство передает зашифрованную информацию о положительном тесте в систему.";
 
-"ExposureSubmissionWarnOthers_continueButton" = "Дальше";
+"ExposureSubmissionWarnOthers_continueButton" = "Принимаю";
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Помогите всем нам!";
 
 "ExposureSubmissionWarnOthers_description" = "Далее Вы можете разрешить приложению Corona-Warn-App предоставление ваших случайных идентификаторов за последние 14 дней другим людям. Так Вы предупредите их и поможете остановить передачу инфекции.\n\nПоскольку передаются только обезличенные случайные идентификаторы, Ваша анонимность сохраняется.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Нажав на «Принимаю», Вы выражаете свое согласие на передачу Приложением положительного результата Вашего теста вместе с Вашими случайными кодами за последние 14 дней в серверную систему Приложения, чтобы другие пользователи Приложения с активированной функцией определения риска были автоматически проинформированы о том, что они могли быть подвержены риску заражения. Передаваемые случайные коды не содержат никакой информации, которая бы раскрыла Вашу личность.\n\nПередача Вашего результата теста через Приложение является добровольной. Если Вы не передадите результат своего теста, никакого наказания не последует. Ввиду того, что невозможно проследить и проконтролировать, пользуетесь ли Вы Приложением и как Вы это делаете, никто, кроме Вас, не будет знать, передали ли Вы информацию об инфицировании.\n\nВы можете в любое время отозвать свое согласие, удалив Приложение. Отзыв согласия не затрагивает правомерность обработки, осуществлявшейся до момента отзыва. Дальнейшую информацию см. в пункте меню «Информация о конфиденциальности данных».";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Нажимая «Принимаю», Вы даете свое согласие на передачу приложением положительного результата Вашего теста вместе с Вашими случайными идентификаторами за последние 14 дней в серверную систему приложения, чтобы другие пользователи приложения с активированной функцией определения контакта были автоматически проинформированы о возможном риске заражения. Передаваемые случайные идентификаторы не содержат никакой информации, которая бы раскрыла Вашу личность.\n\nПередача Вашего результата теста через приложение является добровольной. Если Вы не передадите результат своего теста, никакого наказания не последует. Невозможно проследить и проконтролировать, пользуетесь ли Вы приложением и как Вы это делаете, поэтому никто, кроме Вас, не будет знать, передали ли Вы информацию об инфицировании.\n\nВы можете в любое время отозвать свое согласие, удалив приложение. Отзыв согласия не затрагивает правомерность обработки, осуществлявшейся до момента отзыва. Дальнейшую информацию см. в пункте меню \"Информация о конфиденциальности данных\".";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Конфиденциальность данных";
 

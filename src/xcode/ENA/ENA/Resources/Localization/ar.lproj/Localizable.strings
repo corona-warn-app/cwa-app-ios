@@ -568,17 +568,66 @@
 
 "ExposureSubmissionResult_refreshButton" = "تحديث";
 
+/* ExposureSubmissionSymptoms */
+"ExposureSubmissionSymptoms_Title" = "الأعراض";
+
+"ExposureSubmissionSymptoms_Description" = "هل عانيت من واحد أو أكثر من الأعراض التالية في الأيام القليلة الماضية؟";
+
+"ExposureSubmissionSymptoms_Symptom0" = "ارتفاع درجة الحرارة أو الحمى";
+
+"ExposureSubmissionSymptoms_Symptom1" = "ضيق في التنفس";
+
+"ExposureSubmissionSymptoms_Symptom2" = "فقدان حاسة الشم/التذوق";
+
+"ExposureSubmissionSymptoms_Symptom3" = "السعال";
+
+"ExposureSubmissionSymptoms_Symptom4" = "سيلان الأنف";
+
+"ExposureSubmissionSymptoms_Symptom5" = "إلتهاب الحلق";
+
+"ExposureSubmissionSymptoms_Symptom6" = "صداع وألم في الأطراف";
+
+"ExposureSubmissionSymptoms_Symptom7" = "الضعف العام والإرهاق";
+
+"ExposureSubmissionSymptoms_AnswerOptionYes" = "نعم";
+
+"ExposureSubmissionSymptoms_AnswerOptionNo" = "لا";
+
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "لا تعليق";
+
+"ExposureSubmissionSymptoms_ContinueButton" = "التالي";
+
+/* ExposureSubmissionSymptomsOnset */
+"ExposureSubmissionSymptomsOnset_Title" = "بداية الأعراض";
+
+"ExposureSubmissionSymptomsOnset_Subtitle" = "متى بدأت تعاني من هذه الأعراض لأول مرة؟";
+
+"ExposureSubmissionSymptomsOnset_Description" = "أجب عن السؤال بأكبر قدر ممكن من الدقة.";
+
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "التاريخ المحدد";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "في آخر 7 أيام";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionOneToTwoWeeksAgo" = "منذ أسبوع إلى أسبوعين";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "منذ أكثر من أسبوعين";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "لا تعليق";
+
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "التالي";
+
+/* ExposureSubmissionWarnOthers */
 "ExposureSubmissionWarnOthers_title" = "تحذير الآخرين";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "جهاز يرسل تشخيص اختبار إيجابي مشفرًا إلى النظام.";
 
-"ExposureSubmissionWarnOthers_continueButton" = "التالي";
+"ExposureSubmissionWarnOthers_continueButton" = "قبول";
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "يُرجى مساعدتنا جميعًا!";
 
 "ExposureSubmissionWarnOthers_description" = "يمكنك لاحقًا التأكد من مشاركة تطبيق Corona-Warn-App لمعرفاتك العشوائية في آخر 14 يومًا مع الآخرين. ومن خلال القيام بذلك، يمكنك تحذير الأشخاص الآخرين والمساعدة على كسر سلسلة العدوى.\n\nستظل هويتك مجهولة حيث يتم إرسال المعرفات العشوائية غير الشخصية فقط.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "بالنقر على \"قبول\"، فإنك توافق على أن يرسل التطبيق نتيجة اختبارك الإيجابية مع أرقام تعريفك العشوائية لآخر 14 يومًا إلى نظام سيرفر التطبيق، حتى يتسنى إخطار غيرك من مستخدمي التطبيق المنشطين لخاصية تسجيل المخالطة أوتوماتيكيًا باحتمالية تعرضهم لخطر العدوى. لا تتضمن المعرفات العشوائية المتداولة أية بيانات تسمح بثغرات يمكن التعرف من خلالها على هويتك أو شخصك.\n\nنشر نتيجة اختبارك عبر التطبيق خطوة اختيارية. إذا لم تنشر نتيجة اختبارك، لن تترتب عليك أية أضرار؛ لأنه لا يمكن لأحد سواك معرفة أو مراقبة ما إذا كنت تستخدم التطبيق، وكيف تستخدمه، وما إذا كنت نشرت إصابتك بالعدوى أم لا.\n\nيمكنك إلغاء موافقتك في أي وقت عن طريق حذف التطبيق. عند إلغاء الموافقة، تظل مشروعية المعالجة بدايةً من الموافقة حتى تاريخ الإلغاء قائمةً. تجد المزيد من المعلومات تحت بند القائمة \"معلومات خصوصية البيانات\".";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "بالنقر على 'قبول'، فإنك توافق على أن يرسل التطبيق نتيجة اختبارك الإيجابية مع أرقام تعريفك العشوائية لآخر 14 يومًا إلى نظام سيرفر التطبيق، حتى يتسنى إخطار غيرك من مستخدمي التطبيق المنشطين لخاصية تسجيل المخالطة أوتوماتيكيًا باحتمالية تعرضهم لخطر العدوى. لا تتضمن المعرفات العشوائية المتداولة أية بيانات تسمح بثغرات يمكن التعرف من خلالها على هويتك أو شخصك.\n\nنشر نتيجة اختبارك عبر التطبيق خطوة اختيارية. إذا لم تنشر نتيجة اختبارك، لن تترتب عليك أية أضرار؛ لأنه لا يمكن لأحد سواك معرفة أو مراقبة ما إذا كنت تستخدم التطبيق، وكيف تستخدمه، وما إذا كنت نشرت إصابتك بالعدوى أم لا.\n\nيمكنك إلغاء موافقتك في أي وقت عن طريق حذف التطبيق. عند إلغاء الموافقة، تظل مشروعية المعالجة بدايةً من الموافقة حتى تاريخ الإلغاء قائمةً. تجد المزيد من المعلومات تحت بند القائمة 'خصوصية البيانات'.";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "خصوصية البيانات";
 
