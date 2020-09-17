@@ -1,7 +1,6 @@
 version: 2.1
 
 jobs:
-
   prepare-dependencies:
     macos:
       xcode: 12.0.0
@@ -18,7 +17,6 @@ jobs:
       - run:
           name: Install dependencies
           command: cd src/xcode && bundle install
-
   build:
     macos:
       xcode: 12.0.0
@@ -78,7 +76,6 @@ jobs:
           key: sonar-cloud-v2
           paths:
             - ~/sonar/
-
   grab-screenshots:
     macos:
       xcode: 12.0.0
@@ -119,35 +116,35 @@ workflows:
         - test:
           requires:
             - prepare-dependencies
-    build:
-      jobs:
-        - prepare-dependencies
-        - build:
-            requires:
-              - prepare-dependencies
-        - update-docs:
-            requires:
-              - prepare-dependencies
-            filters:
-              branches:
-                only:
-                  - develop
-        - grab-screenshots:
-            requires:
-              - prepare-dependencies
-            filters:
-              branches:
-                only:
-                  - master
-
-    betaRelease:
-      jobs:
-        - prepare-dependencies
-        - testflight-release:
-            requires:
-              - prepare-dependencies
-            filters:
-              branches:
-                only:
-                  - /rc\/.*/
-
+#    build:
+#      jobs:
+#        - prepare-dependencies
+#        - build:
+#            requires:
+#              - prepare-dependencies
+#        - update-docs:
+#            requires:
+#              - prepare-dependencies
+#            filters:
+#              branches:
+#                only:
+#                  - develop
+#        - grab-screenshots:
+#            requires:
+#              - prepare-dependencies
+#            filters:
+#              branches:
+#                only:
+#                  - master
+#
+#    betaRelease:
+#      jobs:
+#        - prepare-dependencies
+#        - testflight-release:
+#            requires:
+#              - prepare-dependencies
+#            filters:
+#              branches:
+#                only:
+#                  - /rc\/.*/
+#
