@@ -29,6 +29,9 @@ jobs:
             [[ ${testedBranches[(r)$CIRCLE_BRANCH]} == $CIRCLE_BRANCH || -v CIRCLE_PULL_REQUEST ]] && true || circleci step halt
       - checkout
       - run:
+          name: Install Bundler
+          command: sudo gem install bundler:2.1.4
+      - run:
           name: Install dependencies
           command: brew install swiftlint && cd src/xcode && bundle install
       - run:
@@ -77,6 +80,9 @@ jobs:
       xcode: 12.0.0
     steps:
       - checkout
+      - run:
+          name: Install Bundler
+          command: sudo gem install bundler:2.1.4
       - run: cd src/xcode && bundle install
       - run:
           name: Snapshots
@@ -89,6 +95,9 @@ jobs:
     shell: zsh
     steps:
       - checkout
+      - run:
+          name: Install Bundler
+          command: sudo gem install bundler:2.1.4
       - run:
           name: Install dependencies
           command: cd src/xcode && bundle install
@@ -105,6 +114,9 @@ jobs:
     shell: zsh
     steps:
       - checkout
+      - run:
+          name: Install Bundler
+          command: sudo gem install bundler:2.1.4
       - run:
           name: Install dependencies
           command: cd src/xcode && bundle install
