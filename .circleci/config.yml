@@ -116,13 +116,13 @@ workflows:
     test-and-scan:
       jobs:
         - prepare-dependencies
-        - test
+        - test:
           requires:
             - prepare-dependencies
     build:
       jobs:
         - prepare-dependencies
-        - build
+        - build:
           requires:
             - prepare-dependencies
         - update-docs:
