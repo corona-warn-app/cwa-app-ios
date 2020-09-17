@@ -124,7 +124,7 @@ workflows:
         - prepare-dependencies
         - build:
             requires:
-            prepare-dependencies
+              prepare-dependencies
         - update-docs:
             requires:
               prepare-dependencies
