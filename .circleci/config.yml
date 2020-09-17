@@ -23,6 +23,7 @@ jobs:
     shell: zsh
 
     steps:
+      - prepare-dependencies
       - run:
           name: Build
           command: cd src/xcode && bundle exec fastlane build
@@ -31,6 +32,7 @@ jobs:
       xcode: 12.0.0
     shell: zsh
     steps:
+      - prepare-dependencies
       - run:
           name: Skip this job for non-PRs and when not on development
           command: |
@@ -80,6 +82,7 @@ jobs:
     macos:
       xcode: 12.0.0
     steps:
+      - prepare-dependencies
       - run:
           name: Snapshots
           command: cd src/xcode && bundle exec fastlane snapshot
@@ -90,6 +93,7 @@ jobs:
       xcode: 12.0.0
     shell: zsh
     steps:
+      - prepare-dependencies
       - run: ./scripts/switch_to_dev_env.sh
       - run:
           name: fastlane testflight
@@ -102,6 +106,7 @@ jobs:
       xcode: 12.0.0
     shell: zsh
     steps:
+      - prepare-dependencies
       - add_ssh_keys:
           fingerprints:
             - "2c:ea:55:72:82:d9:8a:35:02:ac:25:a6:39:3c:e4:23"
@@ -112,36 +117,23 @@ jobs:
 workflows:
   test-and-scan:
     jobs:
-      - prepare-dependencies
-      - test:
-          requires:
-            - prepare-dependencies
+      - test
   build:
     jobs:
-      - prepare-dependencies
-      - build:
-          requires:
-            - prepare-dependencies
+      - build
       - update-docs:
-          requires:
-            - prepare-dependencies
           filters:
             branches:
               only:
                 - develop
       - grab-screenshots:
-          requires:
-            - prepare-dependencies
           filters:
             branches:
               only:
                 - master
   betaRelease:
     jobs:
-      - prepare-dependencies
       - testflight-release:
-          requires:
-            - prepare-dependencies
           filters:
             branches:
               only:
