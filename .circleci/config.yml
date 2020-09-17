@@ -108,26 +108,45 @@ jobs:
           command: cd src/xcode && bundle exec fastlane updateDocs
 
 workflows:
-  test-and-scan:
-    jobs:
-      - test
-  build:
-    jobs:
-      - build
-      - update-docs:
-          filters:
-            branches:
-              only:
-                - develop
-      - grab-screenshots:
-          filters:
-            branches:
-              only:
-                - master
-  betaRelease:
-    jobs:
-      - testflight-release:
-          filters:
-            branches:
-              only:
-                - /rc\/.*/
+    test-and-scan:
+      jobs:
+        - test
+    build:
+      jobs:
+        - build
+        - update-docs:
+            filters:
+              branches:
+                only:
+                  - develop
+        - grab-screenshots:
+            filters:
+              branches:
+                only:
+                  - master
+    betaRelease:
+      jobs:
+        - test:
+            filters:
+              tags:
+                only:
+                  - /^v.*/
+              branches:
+                ignore: /.*/
+        - build:
+            filters:
+              tags:
+                only:
+                  - /^v.*/
+              branches:
+                ignore: /.*/
+        - testflight-release:
+            requires:
+              - test
+              - build
+            filters:
+              tags:
+                only:
+                  - /^v.*/
+              branches:
+                ignore: /.*/
