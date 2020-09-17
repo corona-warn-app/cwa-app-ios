@@ -136,44 +136,13 @@ workflows:
             branches:
               only:
                 - master
-
-
-#workflows:
-#    test-and-scan:
-#      jobs:
-#        - prepare-dependencies
-#        - test:
-#            requires:
-#              - prepare-dependencies
-#    build:
-#      jobs:
-#        - prepare-dependencies
-#        - build:
-#            requires:
-#              - prepare-dependencies
-#        - update-docs:
-#            requires:
-#              - prepare-dependencies
-#            filters:
-#              branches:
-#                only:
-#                  - develop
-#        - grab-screenshots:
-#            requires:
-#              - prepare-dependencies
-#            filters:
-#              branches:
-#                only:
-#                  - master
-#
-#    betaRelease:
-#      jobs:
-#        - prepare-dependencies
-#        - testflight-release:
-#            requires:
-#              - prepare-dependencies
-#            filters:
-#              branches:
-#                only:
-#                  - /rc\/.*/
-#
+  betaRelease:
+    jobs:
+      - prepare-dependencies
+      - testflight-release:
+          requires:
+            - prepare-dependencies
+          filters:
+            branches:
+              only:
+                - /rc\/.*/
