@@ -114,8 +114,8 @@ workflows:
       jobs:
         - prepare-dependencies
         - test:
-          requires:
-            - prepare-dependencies
+            requires:
+              - prepare-dependencies
 #    build:
 #      jobs:
 #        - prepare-dependencies
