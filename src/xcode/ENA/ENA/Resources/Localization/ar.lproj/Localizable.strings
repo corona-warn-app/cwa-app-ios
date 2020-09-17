@@ -130,7 +130,7 @@
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "لماذا خطر إصابتك بالعدوى منخفض";
 
-"ExposureDetection_LowRiskExposure_Body" = "خالطت شخصًا مُصابًا بمرض كوفيد-19. مع ذلك، وبالأخذ في الاعتبار جميع البيانات المتوفرة في تطبيق Corona-Warn-App، فإن خطر إصابتك يعد منخفضًا.\nليست هناك حاجة لاتخاذ أي إجراء. نوصيك بالالتزام بالقواعد المتداولة بخصوص التباعد والنظافة.";
+"ExposureDetection_LowRiskExposure_Body" = "خالطت شخصًا مُصابًا بمرض كوفيد-19 مؤخرًا. ومع ذلك، وبالاستناد إلى بيانات تسجيل التعرض، فإن خطر إصابتك بالعدوى منخفض. خطر إصابتك يعد منخفضًا إذا كانت مدة المخالطة قصيرة أو حدثت عن بعد. فلا داعي للقلق وليست هناك حاجة محددة لأي إجراء. نوصيك بالالتزام بالقواعد السائدة فيما يتعلق بالمسافة والنظافة.";
 
 "ExposureDetection_Button_Enable" = "تنشيط تسجيل المخالطة";
 
@@ -153,6 +153,8 @@
 "ExposureDetectionError_Alert_Action_Details" = "التفاصيل";
 
 "ExposureDetectionError_Alert_Message" = "حدث خطأ ما أثناء تسجيل المخالطة.";
+
+"ExposureDetectionError_Alert_AppConfig_Missing_Message" = "فُقد اتصالك بالإنترنت. يُرجى التحقق من الاتصال ثم إعادة فتح التطبيق.";
 
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "معلومات حول وظيفة تسجيل المخالطة";
@@ -566,23 +568,120 @@
 
 "ExposureSubmissionResult_refreshButton" = "تحديث";
 
+/* ExposureSubmissionSymptoms */
+"ExposureSubmissionSymptoms_Title" = "الأعراض";
+
+"ExposureSubmissionSymptoms_Description" = "هل عانيت من واحد أو أكثر من الأعراض التالية في الأيام القليلة الماضية؟";
+
+"ExposureSubmissionSymptoms_Symptom0" = "ارتفاع درجة الحرارة أو الحمى";
+
+"ExposureSubmissionSymptoms_Symptom1" = "ضيق في التنفس";
+
+"ExposureSubmissionSymptoms_Symptom2" = "فقدان حاسة الشم/التذوق";
+
+"ExposureSubmissionSymptoms_Symptom3" = "السعال";
+
+"ExposureSubmissionSymptoms_Symptom4" = "سيلان الأنف";
+
+"ExposureSubmissionSymptoms_Symptom5" = "إلتهاب الحلق";
+
+"ExposureSubmissionSymptoms_Symptom6" = "صداع وألم في الأطراف";
+
+"ExposureSubmissionSymptoms_Symptom7" = "الضعف العام والإرهاق";
+
+"ExposureSubmissionSymptoms_AnswerOptionYes" = "نعم";
+
+"ExposureSubmissionSymptoms_AnswerOptionNo" = "لا";
+
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "لا تعليق";
+
+"ExposureSubmissionSymptoms_ContinueButton" = "التالي";
+
+/* ExposureSubmissionSymptomsOnset */
+"ExposureSubmissionSymptomsOnset_Title" = "بداية الأعراض";
+
+"ExposureSubmissionSymptomsOnset_Subtitle" = "متى بدأت تعاني من هذه الأعراض لأول مرة؟";
+
+"ExposureSubmissionSymptomsOnset_Description" = "أجب عن السؤال بأكبر قدر ممكن من الدقة.";
+
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "التاريخ المحدد";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "في آخر 7 أيام";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionOneToTwoWeeksAgo" = "منذ أسبوع إلى أسبوعين";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "منذ أكثر من أسبوعين";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "لا تعليق";
+
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "التالي";
+
+/* ExposureSubmissionWarnOthers */
 "ExposureSubmissionWarnOthers_title" = "تحذير الآخرين";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "جهاز يرسل تشخيص اختبار إيجابي مشفرًا إلى النظام.";
 
-"ExposureSubmissionWarnOthers_continueButton" = "التالي";
+"ExposureSubmissionWarnOthers_continueButton" = "قبول";
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "يُرجى مساعدتنا جميعًا!";
 
 "ExposureSubmissionWarnOthers_description" = "يمكنك لاحقًا التأكد من مشاركة تطبيق Corona-Warn-App لمعرفاتك العشوائية في آخر 14 يومًا مع الآخرين. ومن خلال القيام بذلك، يمكنك تحذير الأشخاص الآخرين والمساعدة على كسر سلسلة العدوى.\n\nستظل هويتك مجهولة حيث يتم إرسال المعرفات العشوائية غير الشخصية فقط.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "بالنقر على \"قبول\"، فإنك توافق على أن يرسل التطبيق نتيجة اختبارك الإيجابية مع أرقام تعريفك العشوائية لآخر 14 يومًا إلى نظام سيرفر التطبيق، حتى يتسنى إخطار غيرك من مستخدمي التطبيق المنشطين لخاصية تسجيل المخالطة أوتوماتيكيًا باحتمالية تعرضهم لخطر العدوى. لا تتضمن المعرفات العشوائية المتداولة أية بيانات تسمح بثغرات يمكن التعرف من خلالها على هويتك أو شخصك.\n\nنشر نتيجة اختبارك عبر التطبيق خطوة اختيارية. إذا لم تنشر نتيجة اختبارك، لن تترتب عليك أية أضرار؛ لأنه لا يمكن لأحد سواك معرفة أو مراقبة ما إذا كنت تستخدم التطبيق، وكيف تستخدمه، وما إذا كنت نشرت إصابتك بالعدوى أم لا.\n\nيمكنك إلغاء موافقتك في أي وقت عن طريق حذف التطبيق. عند إلغاء الموافقة، تظل مشروعية المعالجة بدايةً من الموافقة حتى تاريخ الإلغاء قائمةً. تجد المزيد من المعلومات تحت بند القائمة \"معلومات خصوصية البيانات\".";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "بالنقر على 'قبول'، فإنك توافق على أن يرسل التطبيق نتيجة اختبارك الإيجابية مع أرقام تعريفك العشوائية لآخر 14 يومًا إلى نظام سيرفر التطبيق، حتى يتسنى إخطار غيرك من مستخدمي التطبيق المنشطين لخاصية تسجيل المخالطة أوتوماتيكيًا باحتمالية تعرضهم لخطر العدوى. لا تتضمن المعرفات العشوائية المتداولة أية بيانات تسمح بثغرات يمكن التعرف من خلالها على هويتك أو شخصك.\n\nنشر نتيجة اختبارك عبر التطبيق خطوة اختيارية. إذا لم تنشر نتيجة اختبارك، لن تترتب عليك أية أضرار؛ لأنه لا يمكن لأحد سواك معرفة أو مراقبة ما إذا كنت تستخدم التطبيق، وكيف تستخدمه، وما إذا كنت نشرت إصابتك بالعدوى أم لا.\n\nيمكنك إلغاء موافقتك في أي وقت عن طريق حذف التطبيق. عند إلغاء الموافقة، تظل مشروعية المعالجة بدايةً من الموافقة حتى تاريخ الإلغاء قائمةً. تجد المزيد من المعلومات تحت بند القائمة 'خصوصية البيانات'.";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "خصوصية البيانات";
 
 "ExposureSubmissionWarnOthers_consentUnderagesTitle" = "حد العمر: 16 سنة فأكثر";
 
 "ExposureSubmissionWarnOthers_consentUnderagesText" = "استخدام هذا التطبيق موجه إلى الأشخاص الذين لا تقل أعمارهم عن 16 سنة وإلى هؤلاء المقيمين في ألمانيا.";
+
+"ExposureSubmissionWarnEuropeConsent_title" = "تحذيرات على مستوى أوروبا";
+
+"ExposureSubmissionWarnEuropeConsent_imageDescription" = "أشخاص يحملون أجهزة ذكية يقفون على خريطة لأوروبا، وفي وسطهم صورة لجرس يطلق تحذيرًا.";
+
+"ExposureSubmissionWarnEuropeConsent_continueButton" = "التالي";
+
+"ExposureSubmissionWarnEuropeConsent_sectionTitle" = "الفيروس لا يعرف حدودًا. ادعم التحذيرات العابرة للحدود!";
+
+"ExposureSubmissionWarnEuropeConsent_toggleTitle" = "تحذيرات على مستوى أوروبا";
+
+"ExposureSubmissionWarnEuropeConsent_description" = "العديد من الدول الأوروبية تعمل معًا لتمكين التحذيرات العابرة للحدود. شارك معرفاتك العشوائية مع الدول المشاركة لتمكين تحذير مستخدمي تطبيقات كورونا الرسمية في الدول الأخرى.";
+
+"ExposureSubmissionWarnEuropeConsent_consentTitle" = "إقرار الموافقة";
+
+"ExposureSubmissionWarnEuropeConsent_consentDescription" = "من خلال تحديد 'تحذيرات على مستوى أوروبا' والنقر فوق 'التالي'، توافق على نقل نتيجة اختبارك ومعرفاتك العشوائية التي تم إنشاؤها خلال آخر 14 يومًا إلى نظام الخادم الأوروبي الذي يتم تشغيله بشكل مشترك من قِبل الدول المشاركة. ويمكن استخدام نتيجة اختبارك ومعرفاتك العشوائية لتحذير مستخدمي تطبيقات كورونا الرسمية من الدول الأخرى من تعرضهم لخطر العدوى. ولا تحتوي المعرفات العشوائية على بيانات تسمح باستنتاج هويتك أو شخصيتك.\n\nيُعد نقل البيانات دعمًا للتحذير على مستوى أوروبا أمرًا اختياريًا. ولن تتكبد أي أضرار إذا اخترت عدم مشاركة بياناتك. ونظرًا لعدم إمكانية تتبع أو التحكم فيما إذا كنت تستخدم التطبيق وكيفية استخدامك له، لا يعرف أي أحد غيرك ما إذا كنت تشارك نتيجة اختبارك دعمًا للتحذير على مستوى أوروبا. ويمكنك إلغاء موافقتك في أي وقت من خلال حذف التطبيق. وبإلغاء موافقتك، لا تتأثر قانونية معالجة البيانات، الممنوحة حتى وقت الإلغاء بموافقتك. لمزيد من المعلومات، راجع عنصر القائمة 'معلومات خصوصية البيانات'.";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_title" = "تحذيرات على مستوى أوروبا";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_continueButton" = "التالي";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_description1" = "هل زرتَ دولًا خارج ألمانيا خلال آخر 14 يومًا؟";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_description2" = "لا يُستخدم إدخالك إلا لغرض تحسين حجم البيانات.";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionYes" = "نعم";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNo" = "لا";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "لا تعليق";
+
+"ExposureSubmissionWarnEuropeCountrySelection_title" = "تحذيرات على مستوى أوروبا";
+
+"ExposureSubmissionWarnEuropeCountrySelection_continueButton" = "التالي";
+
+"ExposureSubmissionWarnEuropeCountrySelection_description1" = "ما هي الدول التي زرتها آخر 14 يومًا؟";
+
+"ExposureSubmissionWarnEuropeCountrySelection_description2" = "لا يُستخدم إدخالك إلا لغرض تحسين حجم البيانات.\n\nتحتوي القائمة على كل الدول المشاركة حاليًا، ويتم تحديثها باستمرار.";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionCountrySelection" = "لقد زرتُ الدول التالية";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries" = "دول أخرى";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "لا تعليق";
+
+"ExposureSubmissionWarnEuropeCountrySelection_consentTitle" = "إقرار الموافقة";
+
+"ExposureSubmissionWarnEuropeCountrySelection_consentDescription" = "من خلال النقر فوق 'التالي'، توافق على نقل الدول والمعرفات العشوائية التي حددتها إلى نظام الخادم الأوروبي الذي يتم تشغيله بشكل مشترك من قِبل الدول المشاركة. يمكن للدول المشاركة استخدام هذه البيانات لتسجيل المخالطة في تطبيقات كورونا الخاصة بها؛ لتقييم ما إذا كانت معرفاتك العشوائية ذات صلة بمستخدمي تطبيقات كورونا هذه أم لا.\n\nلا تحتوي البيانات المنقولة على أي معلومات من شأنها أن تسمح باستنتاج هويتك أو شخصيتك.\n\nيُعد نقل البيانات المتعلقة بالدول التي حددتها أمرًا اختياريًا. ولن تتحمل أي أضرار إذا اخترت عدم نقل إدخالاتك بشأن الدول المحددة. ونظرًا لعدم إمكانية تتبع أو التحكم فيما إذا كنت تستخدم التطبيق وكيفية استخدامك له، لا يعرف أي أحد غيرك ما إذا كنت تشارك هذه المعلومات أم لا.\n\nيمكنك إلغاء موافقتك في أي وقت من خلال حذف التطبيق. وبإلغاء موافقتك، لا تتأثر قانونية معالجة البيانات، الممنوحة حتى وقت الإلغاء بموافقتك. لمزيد من المعلومات، راجع عنصر القائمة 'معلومات خصوصية البيانات'.";
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "يمكن مسح الاختبار ضوئيًا مرة واحدة فقط.";
 
@@ -615,7 +714,7 @@
 
 "ExposureSubmissionError_RegTokenNotExist" = "تعذر إنشاء رقم المعاملة (TAN) للتقديم. الرجاء الاتصال بالخط الساخن الفني عبر معلومات التطبيق -> الخط الساخن الفني.";
 
-"ExposureSubmissionError_other" = "حدث خطأ في الاتصال. رمز الخطأ للدعم الفني: ";
+"ExposureSubmissionError_other" = "حدث خطأ في الاتصال. رمز الخطأ للدعم الفني:";
 
 "ExposureSubmissionError_otherend" = "يُرجى المحاولة مرة أخرى.";
 
@@ -626,6 +725,8 @@
 "ExposureSubmissionError_unknown" = "حدث خطأ غير معروف";
 
 "ExposureSubmissionError_defaultError" = "حدث خطأ في إرسال المفتاح";
+
+"ExposureSubmissionError_noAppConfiguration" = "فُقد اتصالك بالإنترنت. يُرجى التحقق من الاتصال ثم إعادة فتح التطبيق.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "تسجيل المخالطة";
@@ -658,7 +759,7 @@
 
 "ExposureNotificationSetting_Detail_Action_Button" = "فتح إعدادات الجهاز";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "تمكين تسجيل وإشعارات المخالطة لمرض كوفيد-19 ";
+"ExposureNotificationSetting_Activate_OSENSetting" = "تمكين تسجيل وإشعارات المخالطة لمرض كوفيد-19";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "بالنسبة لتسجيل المخالطة، يجب تنشيط تسجيل وإشعارات المخالطة لمرض كوفيد-19 في إعدادات النظام؛ حتى يمكن تسجيل التجمُّعات. الرجاء تمكين \"تسجيل المخالطة لمرض كوفيد-19 والإشعارات\" في إعدادات النظام.";
 
@@ -721,7 +822,7 @@
 
 "Home_Risk_Period_Update_Title" = "يتم التحديث كل %@\U00A0 من الساعات";
 
-"Home_Risk_Period_Disabled_Button_Title" = "يتم التحديث فقط كل %@\U00A0 من الساعات";
+"Home_Risk_Period_Disabled_Button_Title" = "يتم التحديث فقط كل %@ من الساعات";
 
 "Home_Risk_Unknown_Title" = "خطر غير معروف";
 

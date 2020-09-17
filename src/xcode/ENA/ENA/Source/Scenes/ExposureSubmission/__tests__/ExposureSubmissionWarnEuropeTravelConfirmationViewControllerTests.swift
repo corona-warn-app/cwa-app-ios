@@ -49,13 +49,13 @@ class ExposureSubmissionWarnEuropeTravelConfirmationViewControllerTests: XCTestC
 		XCTAssertEqual(viewController.tableView.numberOfRows(inSection: 0), 3)
 	}
 
-	func test_HastTravelConfirmationSelection() throws {
+	func test_HasTravelConfirmationSelection() throws {
 		// find a travel confirmation cell
 		let cell = try XCTUnwrap(viewController.tableView.visibleCells.compactMap({ $0 as? DynamicTableViewOptionGroupCell }).first)
 		XCTAssertNil(cell.selection, "Expected no preselection")
 
 		XCTAssertEqual(cell.reuseIdentifier, ExposureSubmissionWarnEuropeTravelConfirmationViewController.CustomCellReuseIdentifiers.optionGroupCell.rawValue)
-		_ = try XCTUnwrap(cell.subviews.compactMap({ $0 as? OptionGroupView }).first)
+		_ = try XCTUnwrap(cell.contentView.subviews.compactMap({ $0 as? OptionGroupView }).first)
 	}
 
 }
