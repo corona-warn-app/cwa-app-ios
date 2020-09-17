@@ -32,11 +32,6 @@ jobs:
     steps:
       - prepare-dependencies
       - run:
-          name: Skip this job for non-PRs and when not on development
-          command: |
-            testedBranches=(staging develop)
-            [[ ${testedBranches[(r)$CIRCLE_BRANCH]} == $CIRCLE_BRANCH || -v CIRCLE_PULL_REQUEST ]] && true || circleci step halt
-      - run:
           name: Tests
           command: cd src/xcode && bundle exec fastlane test
       - restore_cache:
