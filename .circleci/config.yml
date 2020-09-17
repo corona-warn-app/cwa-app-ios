@@ -118,23 +118,23 @@ workflows:
         - prepare-dependencies
         - test:
           requires:
-            prepare-dependencies
+            - prepare-dependencies
     build:
       jobs:
         - prepare-dependencies
         - build:
             requires:
-              prepare-dependencies
+              - prepare-dependencies
         - update-docs:
             requires:
-              prepare-dependencies
+              - prepare-dependencies
             filters:
               branches:
                 only:
                   - develop
         - grab-screenshots:
             requires:
-              prepare-dependencies
+              - prepare-dependencies
             filters:
               branches:
                 only:
@@ -145,7 +145,7 @@ workflows:
         - prepare-dependencies
         - testflight-release:
             requires:
-              prepare-dependencies
+              - prepare-dependencies
             filters:
               branches:
                 only:
