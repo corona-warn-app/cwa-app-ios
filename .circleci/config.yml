@@ -131,8 +131,27 @@ workflows:
                   - master
     betaRelease:
       jobs:
-        - testflight-release:
+        - test:
             filters:
-              branches:
+              tags:
                 only:
-                  - /rc\/.*/
+                  - /^v.*/
+              branches:
+                ignore: /.*/
+        - build:
+            filters:
+              tags:
+                only:
+                  - /^v.*/
+              branches:
+                ignore: /.*/
+        - testflight-release:
+            requires:
+              - test
+              - build
+            filters:
+              tags:
+                only:
+                  - /^v.*/
+              branches:
+                ignore: /.*/
