@@ -110,12 +110,21 @@ jobs:
           command: cd src/xcode && bundle exec fastlane updateDocs
 
 workflows:
-    test-and-scan:
-      jobs:
-        - prepare-dependencies
-        - test:
-            requires:
-              - prepare-dependencies
+  test-and-scan:
+    jobs:
+      - prepare-dependencies
+      - test:
+          requires:
+            - prepare-dependencies
+
+
+#workflows:
+#    test-and-scan:
+#      jobs:
+#        - prepare-dependencies
+#        - test:
+#            requires:
+#              - prepare-dependencies
 #    build:
 #      jobs:
 #        - prepare-dependencies
