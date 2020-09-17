@@ -116,6 +116,26 @@ workflows:
       - test:
           requires:
             - prepare-dependencies
+  build:
+    jobs:
+      - prepare-dependencies
+      - build:
+          requires:
+            - prepare-dependencies
+      - update-docs:
+          requires:
+            - prepare-dependencies
+          filters:
+            branches:
+              only:
+                - develop
+      - grab-screenshots:
+          requires:
+            - prepare-dependencies
+          filters:
+            branches:
+              only:
+                - master
 
 
 #workflows:
