@@ -24,7 +24,7 @@ platform :ios do
 
   before_all do
     setup_circle_ci
-    xcversion(version: "11.6")
+    xcversion(version: "12.0")
   end
 
   desc "Update license file"
@@ -38,7 +38,7 @@ platform :ios do
       skip_codesigning: true,
       export_method: "ad-hoc",
       skip_package_ipa: true,
-      destination: "platform=iOS Simulator,OS=13.6,name=iPhone 11",
+      destination: "platform=iOS Simulator,OS=14.0,name=iPhone 11",
       scheme: "ENA"
     )
   end
@@ -49,7 +49,7 @@ platform :ios do
       skip_codesigning: true,
       export_method: "ad-hoc",
       skip_package_ipa: true,
-      destination: "platform=iOS Simulator,OS=13.6,name=iPhone 11",
+      destination: "platform=iOS Simulator,OS=14.0,name=iPhone 11",
       scheme: "ENACommunity"
     )
   end
