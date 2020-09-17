@@ -12,7 +12,7 @@ commands:
           command: sudo gem install bundler:2.1.4
       - run:
           name: Install dependencies
-          command: cd src/xcode && bundle install
+          command: brew install swiftlint && cd src/xcode && bundle install
 
 jobs:
   build:
