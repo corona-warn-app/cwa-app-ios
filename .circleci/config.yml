@@ -118,33 +118,36 @@ workflows:
         - prepare-dependencies
         - test:
           requires:
-            - prepare-dependencies
+            prepare-dependencies
     build:
       jobs:
         - prepare-dependencies
         - build:
-          requires:
-            - prepare-dependencies
+            requires:
+            prepare-dependencies
         - update-docs:
+            requires:
+              prepare-dependencies
             filters:
               branches:
                 only:
                   - develop
-            requires:
-              - prepare-dependencies
         - grab-screenshots:
+            requires:
+              prepare-dependencies
             filters:
               branches:
                 only:
                   - master
-            requires:
-              - prepare-dependencies
+
     betaRelease:
       jobs:
+        - prepare-dependencies
         - testflight-release:
+            requires:
+              prepare-dependencies
             filters:
               branches:
                 only:
                   - /rc\/.*/
-            requires:
-              - prepare-dependencies
+
