@@ -728,7 +728,7 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "QR-Code ist ungültig";
 
-"ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde bereits verwendet. Bitte versuchen Sie es erneut oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde bereits verwendet. Bitte rufen Sie die unter „TAN anfragen“ angegebene Nummer an, um weitere Informationen zu erhalten.";
 
 "ExposureSubmissionError_QRNotExist_Title" = "QR-Code ist abgelaufen";
 
