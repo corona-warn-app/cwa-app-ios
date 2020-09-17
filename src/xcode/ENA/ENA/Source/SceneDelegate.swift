@@ -102,7 +102,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	private func setupUI() {
 		setupNavigationBarAppearance()
-
+		#if DEBUG
+		log(message: "‼️ isOnboarded: \(store.isOnboarded)", level: .info)
+		log(message: "‼️ testGUID: \(store.testGUID ?? "<empty>")", level: .info)
+		if store.testGUID?.isEmpty ?? true {
+			store.testGUID = UUID().uuidString
+		}
+		#endif
 		if store.isOnboarded {
 			showHome()
 		} else {
