@@ -25,7 +25,7 @@ func log(
 	function: String = #function
 ) {
 	#if !RELEASE
-	print("\(level.rawValue.uppercased()): [\((file as NSString).lastPathComponent):\(line) - \(function)]\n \(message)")
+	NSLog("\(level.rawValue.uppercased()): [\((file as NSString).lastPathComponent):\(line) - \(function)]\n \(message)")
 	#endif
 }
 
