@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     macos:
-      xcode: 11.6.0
+      xcode: 12.0.0
     shell: zsh
 
     steps:
@@ -16,7 +16,7 @@ jobs:
           command: cd src/xcode && bundle exec fastlane build
   test:
     macos:
-      xcode: 11.6.0
+      xcode: 12.0.0
     shell: zsh
     steps:
       - run:
@@ -71,7 +71,7 @@ jobs:
 
   grab-screenshots:
     macos:
-      xcode: 11.6.0
+      xcode: 12.0.0
     steps:
       - checkout
       - run: cd src/xcode && bundle install
@@ -82,7 +82,7 @@ jobs:
           path: src/xcode/screenshots
   testflight-release:
     macos:
-      xcode: 11.6.0
+      xcode: 12.0.0
     shell: zsh
     steps:
       - checkout
@@ -98,7 +98,7 @@ jobs:
           command: cd src/xcode && bundle exec fastlane adHocDistribution
   update-docs:
     macos:
-      xcode: 11.6.0
+      xcode: 12.0.0
     shell: zsh
     steps:
       - checkout
