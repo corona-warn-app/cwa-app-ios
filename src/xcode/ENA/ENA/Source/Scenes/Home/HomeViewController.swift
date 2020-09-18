@@ -103,11 +103,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		homeInteractor.requestRisk(userInitiated: false)
 		updateBackgroundColor()
 	}
-	
-	deinit {
-		let notificationCenter = NotificationCenter.default
-        notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
-	}
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
