@@ -499,4 +499,8 @@ extension HomeInteractor: CountdownTimerDelegate {
 		riskLevelConfigurator?.timeUntilUpdate = time
 		riskLevelConfigurator?.configureButton(for: cell)
 	}
+	
+	func refreshTimerAfterResumingFromBackground() {
+		scheduleCountdownTimer()
+	}
 }
