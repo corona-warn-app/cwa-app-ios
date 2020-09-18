@@ -104,7 +104,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		updateBackgroundColor()
 	}
 	
-	override func viewWillDisappear(_ animated: Bool) {
+	deinit {
 		let notificationCenter = NotificationCenter.default
         notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
 	}
