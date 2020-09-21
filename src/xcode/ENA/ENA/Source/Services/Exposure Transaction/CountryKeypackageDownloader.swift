@@ -54,7 +54,7 @@ class CountryKeypackageDownloader: CountryKeypackageDownloading {
 		}
 
 		delegate?.exposureDetection(country: country, downloadAndStore: deltaDaysAndHours) { error in
-			if error != nil {
+			guard error == nil else {
 				completion(.failure(.noDaysAndHours))
 				return
 			}
