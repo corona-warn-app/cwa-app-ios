@@ -40,6 +40,9 @@ class EuTracingTableViewCell: UITableViewCell, ConfigurableEuTracingSettingCell 
 
 	func configure() {
 		viewModel = ENSettingEuTracingViewModel()
+		let backgroundView = UIView()
+		backgroundView.backgroundColor = UIColor.clear
+		self.selectedBackgroundView = backgroundView
 	}
 
 	func configure(for state: ENStateHandler.State) {

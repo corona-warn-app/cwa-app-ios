@@ -186,6 +186,11 @@ extension ExposureNotificationSettingViewController {
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
 		1
 	}
+	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		// TODO: implement navigation (KGA)
+		
+	}
 
 	override func tableView(
 		_ tableView: UITableView,

@@ -11,7 +11,7 @@
         <scene sceneID="HeS-Mu-zWP">
             <objects>
                 <tableViewController storyboardIdentifier="ExposureNotificationSettingViewController" id="IOf-gd-WHN" customClass="ExposureNotificationSettingViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="eOO-1b-gIw">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="eOO-1b-gIw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="1500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="ENA Background Color"/>
@@ -135,35 +135,38 @@
                                     <outlet property="switchContainerView" destination="yn0-sa-eIJ" id="kUu-s9-KpL"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="euTracingCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="euTracingCell" id="dAF-eY-9lh" customClass="EuTracingTableViewCell" customModule="ENA" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="euTracingCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="euTracingCell" id="dAF-eY-9lh" customClass="EuTracingTableViewCell" customModule="ENA" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="415.5" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dAF-eY-9lh" id="hBu-HK-9bj">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="383" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gan-fG-jTy">
-                                            <rect key="frame" x="87" y="-42.5" width="240" height="128"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gan-fG-jTy">
+                                            <rect key="frame" x="16" y="0.0" width="343" height="44"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t9k-hP-B9Q">
-                                                    <rect key="frame" x="20" y="9" width="90" height="41"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="t9k-hP-B9Q">
+                                                    <rect key="frame" x="20" y="9" width="87.5" height="38.5"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flag.eu" translatesAutoresizingMaskIntoConstraints="NO" id="FW9-RH-yVt">
-                                                            <rect key="frame" x="0.0" y="0.0" width="48" height="41"/>
+                                                            <rect key="frame" x="0.0" y="7" width="35" height="25"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="25" id="Vn1-XV-vyR"/>
+                                                                <constraint firstAttribute="width" constant="35" id="kvB-6q-6jS"/>
+                                                            </constraints>
                                                         </imageView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uGE-qa-wxH">
-                                                            <rect key="frame" x="48" y="0.0" width="42" height="41"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="uGE-qa-wxH">
+                                                            <rect key="frame" x="43" y="0.0" width="44.5" height="38.5"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XNB-0p-YZY">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="42" height="20.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                    <nil key="textColor"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XNB-0p-YZY">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="44.5" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                    <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPp-fC-i40">
-                                                                    <rect key="frame" x="0.0" y="20.5" width="42" height="20.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <rect key="frame" x="0.0" y="22.5" width="44.5" height="16"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -175,6 +178,12 @@
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         </view>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Gan-fG-jTy" firstAttribute="leading" secondItem="hBu-HK-9bj" secondAttribute="leading" constant="16" id="Ql5-lu-grH"/>
+                                        <constraint firstAttribute="bottom" secondItem="Gan-fG-jTy" secondAttribute="bottom" id="Xg4-30-6Sk"/>
+                                        <constraint firstItem="Gan-fG-jTy" firstAttribute="top" secondItem="hBu-HK-9bj" secondAttribute="top" id="mQt-5R-ElU"/>
+                                        <constraint firstAttribute="trailing" secondItem="Gan-fG-jTy" secondAttribute="trailing" constant="24" id="pCs-Eg-gZt"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="countryList" destination="IPp-fC-i40" id="YCS-io-efd"/>
