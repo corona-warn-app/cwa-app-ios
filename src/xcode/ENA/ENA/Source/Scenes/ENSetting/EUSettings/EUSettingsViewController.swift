@@ -61,28 +61,15 @@ class EUSettingsViewController: DynamicTableViewController {
 		tableView.separatorStyle = .none
 		dynamicTableViewModel = viewModel.euSettingsModel()
 		tableView.register(
-			UINib(
-				nibName: String(describing: ExposureSubmissionStepCell.self),
-				bundle: nil
-			),
-			forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue
-		)
-		tableView.register(
-			DynamicTableViewRoundedCell.self,
-			forCellReuseIdentifier: CustomCellReuseIdentifiers.roundedCell.rawValue
-		)
-		tableView.register(
 			FlagIconCell.self,
-			forCellReuseIdentifier: CustomCellReuseIdentifiers.switchCell.rawValue
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.flagCell.rawValue
 		)
 	}
 }
 
 extension EUSettingsViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case stepCell
-		case roundedCell
-		case switchCell
+		case flagCell
 	}
 }
 
@@ -90,7 +77,7 @@ extension DynamicCell {
 
 	static func euCell(cellModel: EUSettingsViewModel.CountryModel) -> Self {
 		.custom(
-			withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.switchCell,
+			withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.flagCell,
 			action: .none,
 			accessoryAction: .none
 		) { _, cell, _ in
