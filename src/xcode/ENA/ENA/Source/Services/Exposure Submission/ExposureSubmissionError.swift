@@ -33,6 +33,7 @@ enum ExposureSubmissionError: Error, Equatable {
 	case teleTanAlreadyUsed
 	case qRAlreadyUsed
 	case regTokenNotExist
+	case qRNotExist
 	case serverError(Int)
 	case unknown
 	case httpError(String)
@@ -67,6 +68,8 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.ExposureSubmissionError.noAppConfiguration
 		case .qRAlreadyUsed:
 			return AppStrings.ExposureSubmissionError.qrAlreadyUsed
+		case .qRNotExist:
+			return AppStrings.ExposureSubmissionError.qrNotExist
 		case .teleTanAlreadyUsed:
 			return AppStrings.ExposureSubmissionError.teleTanAlreadyUsed
 		case .regTokenNotExist:

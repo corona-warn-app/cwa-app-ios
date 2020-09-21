@@ -22,8 +22,6 @@ import XCTest
 import ExposureNotification
 final class ExposureDetectionTransactionTests: XCTestCase {
 
-	#if INTEROP
-
     func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {
 		let delegate = ExposureDetectionDelegateMock()
 
@@ -155,77 +153,6 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 
 		return [enCountry, itCountry]
 	}
-
-	#else
-
-    func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {
-		let delegate = ExposureDetectionDelegateMock()
-
-		let availableDataToBeCalled = expectation(description: "availableData called")
-		delegate.availableData = {
-			availableDataToBeCalled.fulfill()
-			return .init(days: ["2020-05-01"], hours: [])
-		}
-
-		let downloadDeltaToBeCalled = expectation(description: "downloadDelta called")
-		delegate.downloadDelta = { _ in
-			downloadDeltaToBeCalled.fulfill()
-			return .init(days: ["2020-05-01"], hours: [])
-		}
-
-		let downloadAndStoreToBeCalled = expectation(description: "downloadAndStore called")
-		delegate.downloadAndStore = { _ in
-			downloadAndStoreToBeCalled.fulfill()
-			return nil
-		}
-
-		let configurationToBeCalled = expectation(description: "configuration called")
-		delegate.configuration = {
-			configurationToBeCalled.fulfill()
-			return .mock()
-		}
-
-		let rootDir = FileManager().temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try FileManager().createDirectory(atPath: rootDir.path, withIntermediateDirectories: true, attributes: nil)
-		let url0 = rootDir.appendingPathComponent("1").appendingPathExtension("sig")
-		let url1 = rootDir.appendingPathComponent("1").appendingPathExtension("bin")
-		try "url0".write(to: url0, atomically: true, encoding: .utf8)
-		try "url1".write(to: url1, atomically: true, encoding: .utf8)
-
-		let writtenPackages = WrittenPackages(urls: [url0, url1])
-
-		let writtenPackagesBeCalled = expectation(description: "writtenPackages called")
-		delegate.writtenPackages = {
-			writtenPackagesBeCalled.fulfill()
-			return writtenPackages
-		}
-
-		let summaryResultBeCalled = expectation(description: "summaryResult called")
-		delegate.summaryResult = { _, _ in
-			summaryResultBeCalled.fulfill()
-			return .success(MutableENExposureDetectionSummary(daysSinceLastExposure: 5))
-		}
-
-		let startCompletionCalled = expectation(description: "start completion called")
-		let detection = ExposureDetection(delegate: delegate)
-		detection.start { _ in startCompletionCalled.fulfill() }
-
-		wait(
-			for: [
-				availableDataToBeCalled,
-				downloadDeltaToBeCalled,
-				downloadAndStoreToBeCalled,
-				configurationToBeCalled,
-				writtenPackagesBeCalled,
-				summaryResultBeCalled,
-				startCompletionCalled
-			],
-			timeout: 1.0,
-			enforceOrder: true
-		)
-	}
-
-	#endif
 }
 
 final class MutableENExposureDetectionSummary: ENExposureDetectionSummary {
@@ -256,13 +183,9 @@ private final class ExposureDetectionDelegateMock {
 
 	// MARK: Properties
 
-	#if INTEROP
-
 	var supportedCountries: () -> SupportedCountriesResult = {
 		.success([])
 	}
-
-	#endif
 
 	var availableData: () -> DaysAndHours? = {
 		nil
@@ -292,8 +215,6 @@ private final class ExposureDetectionDelegateMock {
 
 extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 
-	#if INTEROP
-
 	func exposureDetection(country: String, determineAvailableData completion: @escaping (DaysAndHours?, String) -> Void) {
 		completion(availableData(), country)
 	}
@@ -318,31 +239,6 @@ extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 	func exposureDetection(supportedCountries completion: @escaping (SupportedCountriesResult) -> Void) {
 		completion(supportedCountries())
 	}
-
-	#else
-
-	func exposureDetection(_ detection: ExposureDetection, determineAvailableData completion: @escaping (DaysAndHours?) -> Void) {
-		completion(availableData())
-	}
-
-	func exposureDetection(_ detection: ExposureDetection, downloadDeltaFor remote: DaysAndHours) -> DaysAndHours {
-		downloadDelta(remote)
-	}
-
-	func exposureDetection(_ detection: ExposureDetection, downloadAndStore delta: DaysAndHours, completion: @escaping (Error?) -> Void) {
-		completion(downloadAndStore(delta))
-
-	}
-
-	func exposureDetection(_ detection: ExposureDetection, downloadConfiguration completion: @escaping (ENExposureConfiguration?) -> Void) {
-		completion(configuration())
-	}
-
-	func exposureDetectionWriteDownloadedPackages(_ detection: ExposureDetection) -> WrittenPackages? {
-		writtenPackages()
-	}
-	
-	#endif
 
 	func exposureDetection(
 		_ detection: ExposureDetection,

@@ -97,13 +97,10 @@ final class HTTPClientAppConfigTests: XCTestCase {
 			case .failure(let error):
 				XCTFail("Country fetch error: \(error as NSError)")
 			case .success(let list):
-				#if INTEROP
+				
 				// As of 2020-09-16 the latest backend deployment returns zero (0) countries.
 				// Due to the current changes in INTEROP we should check this by end of Sept 2020!
-				XCTAssertGreaterThanOrEqual(list.count, 0)
-				#else
 				XCTAssertEqual(list.count, 0)
-				#endif
 			}
 			fetchCountriesExpectation.fulfill()
 		}

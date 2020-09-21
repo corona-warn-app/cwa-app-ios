@@ -74,7 +74,7 @@
 
 "ExposureDetection_RefreshIn" = "Обновление через %@";
 
-"ExposureDetection_Refresh_24h" = "Обновление каждые 24 часа";
+"ExposureDetection_Refresh_24h" = "Обновление каждые 24 ч";
 
 "ExposureDetection_LastRiskLevel" = "Последнее определение риска: %@";
 
@@ -112,7 +112,7 @@
 
 "ExposureDetection_Explanation_Subtitle" = "Вот как рассчитывается Ваш риск";
 
-"ExposureDetection_Explanation_Text_Off" = "Риск заражения рассчитывается на Вашем устройстве по локальным данным определения риска (продолжительности и близости). Данные риска заражения не показываются и не передаются другим лицам.";
+"ExposureDetection_Explanation_Text_Off" = "Ваш риск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
 
 "ExposureDetection_Explanation_Text_Outdated" = "С момента активации определения риска не прошло достаточно времени, чтобы рассчитать Ваш риск заражения.\n\nВаш риск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.";
 
@@ -120,7 +120,7 @@
 
 "ExposureDetection_Explanation_Text_Low" = "Риск заражения рассчитывается локально на вашем устройстве по данным определения контакта. В расчете также учитываются расстояние и продолжительность контактов с лицами с положительным тестом на COVID-19 и их потенциальная заразность. Ваш риск заражения не виден и не передается третьим лицам.";
 
-"ExposureDetection_Explanation_Text_High" = "Поэтому ваш риск заражения был оценен как повышенный.\nРиск заражения рассчитывается по локальным данным определения контакта (продолжительности и близости) на вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.\nПо возвращении домой избегайте близкого контакта с членами вашей семьи.";
+"ExposureDetection_Explanation_Text_High" = "Поэтому ваш риск заражения был оценен как повышенный.\nРиск заражения рассчитывается по локальным данным определения риска (продолжительности и близости) на Вашем устройстве. Данные риска заражения не показываются и не передаются другим лицам.\nПо возвращении домой избегайте близкого контакта с членами вашей семьи.";
 
 "ExposureDetection_Explanation_FAQ_Link" = "https://www.coronawarn.app/en/faq/#encounter_but_green";
 
@@ -130,7 +130,7 @@
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "Почему ваш риск заражения низкий";
 
-"ExposureDetection_LowRiskExposure_Body" = "Вы контактировали с лицом с положительным тестом на COVID-19. Однако с учетом всех данных, доступных в приложении Corona-Warn-App, ваш риск заражения оценивается как низкий. Не требуются никакие действия. Рекомендуем вам соблюдать действующие правила в отношении социальной дистанции и гигиены.";
+"ExposureDetection_LowRiskExposure_Body" = "Вы контактировали с человеком, который позднее получил положительный тест на COVID-19. Однако с учетом данных определения контакта ваш риск заражения оценивается как низкий. Риск низкий, если контакт был кратковременным или на расстоянии. Не стоит волноваться. Не требуются никакие действия. Рекомендуем вам соблюдать действующие правила в отношении социальной дистанции и гигиены.";
 
 "ExposureDetection_Button_Enable" = "Активировать определение риска";
 
@@ -150,9 +150,11 @@
 /* Exposure Detection Errors */
 "ExposureDetectionError_Alert_Title" = "Ошибка";
 
-"ExposureDetectionError_Alert_Action_Details" = "Подробная информация";
+"ExposureDetectionError_Alert_Action_Details" = "Сведения";
 
-"ExposureDetectionError_Alert_Message" = "Обнаружена ошибка при определении риска.";
+"ExposureDetectionError_Alert_Message" = "Ошибка при определении риска.";
+
+"ExposureDetectionError_Alert_AppConfig_Missing_Message" = "Интернет-соединение прервано. Проверьте соединение и снова откройте приложение.";
 
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Информация о функции определения риска";
@@ -184,7 +186,7 @@
 
 "Settings_Reset_Label" = "Сбросить приложение";
 
-"Settings_Tracing_Description" = "Разрешить генерацию и предоставление случайных идентификаторов COVID-19";
+"Settings_Tracing_Description" = "Разрешите генерацию и предоставление случайных идентификаторов COVID-19.";
 
 "Settings_Notification_Description" = "Разрешите автоматические уведомления о Вашем статусе риска заражения COVID-19.";
 
@@ -299,7 +301,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Более надежная защита для Вас и для всех нас. Приложение Corona-Warn-App поможет быстрее остановить передачу инфекции.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Сделайте свое устройство системой предупреждения о коронавирусе. Получайте информацию о своем статусе риска и определяйте, были ли у Вас за последние 14 дней близкие контакты с лицами с положительным тестом на COVID-19.\n\nКонтакты регистрируются в приложении путем обмена зашифрованными случайными идентификаторами между устройствами без доступа к каким-либо персональным данным.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Сделайте из Вашего устройства систему  предупреждения о коронавирусе. Просматривайте Ваш статус риска и определяйте, были ли у Вас близкие контакты с лицами с положительным тестом на COVID-19 за последние 14 дней.\n\nКонтакты людей регистрируются в приложении путем обмена зашифрованными случайными идентификаторами между  устройствами без доступа к каким-либо персональным данным.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
 
@@ -566,23 +568,120 @@
 
 "ExposureSubmissionResult_refreshButton" = "Обновить";
 
+/* ExposureSubmissionSymptoms */
+"ExposureSubmissionSymptoms_Title" = "Симптомы";
+
+"ExposureSubmissionSymptoms_Description" = "Наблюдали ли Вы у себя какие-либо из следующих симптомов в последние несколько дней?";
+
+"ExposureSubmissionSymptoms_Symptom0" = "Повышенная температура или озноб";
+
+"ExposureSubmissionSymptoms_Symptom1" = "Одышка";
+
+"ExposureSubmissionSymptoms_Symptom2" = "Потеря обоняния/вкуса";
+
+"ExposureSubmissionSymptoms_Symptom3" = "Кашель";
+
+"ExposureSubmissionSymptoms_Symptom4" = "Насморк";
+
+"ExposureSubmissionSymptoms_Symptom5" = "Боль в горле";
+
+"ExposureSubmissionSymptoms_Symptom6" = "Головная боль и боли в конечностях";
+
+"ExposureSubmissionSymptoms_Symptom7" = "Общая слабость и утомление";
+
+"ExposureSubmissionSymptoms_AnswerOptionYes" = "Да";
+
+"ExposureSubmissionSymptoms_AnswerOptionNo" = "Нет";
+
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Нет комментария";
+
+"ExposureSubmissionSymptoms_ContinueButton" = "Дальше";
+
+/* ExposureSubmissionSymptomsOnset */
+"ExposureSubmissionSymptomsOnset_Title" = "Появление симптомов";
+
+"ExposureSubmissionSymptomsOnset_Subtitle" = "Когда у Вас впервые появились эти симптомы?";
+
+"ExposureSubmissionSymptomsOnset_Description" = "Ответьте на вопрос как можно точнее.";
+
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Точная дата";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "В последние 7 дней";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionOneToTwoWeeksAgo" = "1-2 недели назад";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "Большее 2 недель назад";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Нет комментария";
+
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "Дальше";
+
+/* ExposureSubmissionWarnOthers */
 "ExposureSubmissionWarnOthers_title" = "Предупреждение других людей";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "Устройство передает зашифрованную информацию о положительном тесте в систему.";
 
-"ExposureSubmissionWarnOthers_continueButton" = "Дальше";
+"ExposureSubmissionWarnOthers_continueButton" = "Принимаю";
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Помогите всем нам!";
 
 "ExposureSubmissionWarnOthers_description" = "Далее Вы можете разрешить приложению Corona-Warn-App предоставление ваших случайных идентификаторов за последние 14 дней другим людям. Так Вы предупредите их и поможете остановить передачу инфекции.\n\nПоскольку передаются только обезличенные случайные идентификаторы, Ваша анонимность сохраняется.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Нажав на «Принимаю», Вы выражаете свое согласие на передачу Приложением положительного результата Вашего теста вместе с Вашими случайными кодами за последние 14 дней в серверную систему Приложения, чтобы другие пользователи Приложения с активированной функцией определения риска были автоматически проинформированы о том, что они могли быть подвержены риску заражения. Передаваемые случайные коды не содержат никакой информации, которая бы раскрыла Вашу личность.\n\nПередача Вашего результата теста через Приложение является добровольной. Если Вы не передадите результат своего теста, никакого наказания не последует. Ввиду того, что невозможно проследить и проконтролировать, пользуетесь ли Вы Приложением и как Вы это делаете, никто, кроме Вас, не будет знать, передали ли Вы информацию об инфицировании.\n\nВы можете в любое время отозвать свое согласие, удалив Приложение. Отзыв согласия не затрагивает правомерность обработки, осуществлявшейся до момента отзыва. Дальнейшую информацию см. в пункте меню «Информация о конфиденциальности данных».";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Нажимая «Принимаю», Вы даете свое согласие на передачу приложением положительного результата Вашего теста вместе с Вашими случайными идентификаторами за последние 14 дней в серверную систему приложения, чтобы другие пользователи приложения с активированной функцией определения контакта были автоматически проинформированы о возможном риске заражения. Передаваемые случайные идентификаторы не содержат никакой информации, которая бы раскрыла Вашу личность.\n\nПередача Вашего результата теста через приложение является добровольной. Если Вы не передадите результат своего теста, никакого наказания не последует. Невозможно проследить и проконтролировать, пользуетесь ли Вы приложением и как Вы это делаете, поэтому никто, кроме Вас, не будет знать, передали ли Вы информацию об инфицировании.\n\nВы можете в любое время отозвать свое согласие, удалив приложение. Отзыв согласия не затрагивает правомерность обработки, осуществлявшейся до момента отзыва. Дальнейшую информацию см. в пункте меню \"Информация о конфиденциальности данных\".";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Конфиденциальность данных";
 
 "ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Возрастной ценз: 16 лет и старше";
 
 "ExposureSubmissionWarnOthers_consentUnderagesText" = "Данное приложение предназначено для людей, достигших возраста 16 лет и более и проживающих в Германии.";
+
+"ExposureSubmissionWarnEuropeConsent_title" = "Предупреждения для Европы";
+
+"ExposureSubmissionWarnEuropeConsent_imageDescription" = "Люди со смартфонами в руках стоят на карте Европы. Среди них изображен колокольчик, сигнализирующий о предупреждении.";
+
+"ExposureSubmissionWarnEuropeConsent_continueButton" = "Дальше";
+
+"ExposureSubmissionWarnEuropeConsent_sectionTitle" = "Вирус не знает границ. Поддержите трансграничные предупреждения!";
+
+"ExposureSubmissionWarnEuropeConsent_toggleTitle" = "Предупреждения для Европы";
+
+"ExposureSubmissionWarnEuropeConsent_description" = "Несколько европейских стран совместно работают над трансграничными предупреждениями. Поделитесь своими случайный идентификаторами с участвующими странами, чтобы предупреждать пользователей официальных приложений по коронавирусу в других странах.";
+
+"ExposureSubmissionWarnEuropeConsent_consentTitle" = "Заявление о согласии";
+
+"ExposureSubmissionWarnEuropeConsent_consentDescription" = "By selecting \"Europe-wide warnings\" and tapping \"Next\", you consent to your test result and your random IDs generated during the last 14 days being transferred to the European server system jointly operated by the participating countries. Your test result and your random IDs can be used to warn users of official Corona apps from other countries that they have been exposed to a risk of infection. The random IDs do not contain data that allows conclusions about your identity or your person.\n\nThe data transfer in support of the Europe-wide warning is optional. You do not incur a disadvantage if you opt not to share your data. As it is not possible to trace or control whether and how you use the app, nobody but you knows whether you are sharing your test result in support of Europe-wide warning. You can revoke your consent at any time by deleting the app. By revoking your consent, the lawfulness of data processing, granted up to the point of revocation by your consent, is not affected. For further information, see menu item \"Data Privacy Information\".";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_title" = "Предупреждения для Европы";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_continueButton" = "Дальше";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_description1" = "Выезжали ли Вы из Германии за последние 14 дней?";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_description2" = "Ваши сведения используются только для оптимизации объема данных.";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionYes" = "Да";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNo" = "Нет";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "Нет комментария";
+
+"ExposureSubmissionWarnEuropeCountrySelection_title" = "Предупреждения для Европы";
+
+"ExposureSubmissionWarnEuropeCountrySelection_continueButton" = "Дальше";
+
+"ExposureSubmissionWarnEuropeCountrySelection_description1" = "Какие страны Вы посещали за последние 14 дней?";
+
+"ExposureSubmissionWarnEuropeCountrySelection_description2" = "Ваши сведения используются только для оптимизации объема данных.\n\nСписок содержит все участвующие страны на текущий момент и постоянно обновляется.";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionCountrySelection" = "Я посещал(а) следующие страны";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries" = "Другие страны";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "Нет комментария";
+
+"ExposureSubmissionWarnEuropeCountrySelection_consentTitle" = "Заявление о согласии";
+
+"ExposureSubmissionWarnEuropeCountrySelection_consentDescription" = "By tapping \"Next\", you consent to your selected countries and your random IDs being transferred to the European server system jointly operated by the participating countries. The participating countries can use this data for exposure logging in their own Corona apps, to assess whether your random IDs are relevant for the users of these Corona apps.\n\nThe transferred data does not contain any information that would allow conclusions about your identity or your person.\n\nTransfer of data about your selected countries is optional. You do not incur a disadvantage if you opt not to transfer your entries on selected countries. As it is not possible to trace or control whether and how you use the app, nobody but you knows whether you are sharing this information.\n\nYou can revoke your consent at any time by deleting the app. By revoking your consent, the lawfulness of data processing, granted up to the point of revocation by your consent, is not affected. For further information, see menu item \"Data Privacy Information\".";
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Тест можно отсканировать только один раз.";
 
@@ -627,6 +726,8 @@
 
 "ExposureSubmissionError_defaultError" = "Ошибка при передаче ключа";
 
+"ExposureSubmissionError_noAppConfiguration" = "Интернет-соединение прервано. Проверьте соединение и снова откройте приложение.";
+
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Определение риска";
 
@@ -658,7 +759,7 @@
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Открыть настройки устройства";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "Активировать определение контакта с COVID-19 и уведомления ";
+"ExposureNotificationSetting_Activate_OSENSetting" = "Активировать определение контакта с COVID-19 и уведомления";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Для определения риска необходимо активировать ведение журнала контактов с COVID-19 и уведомления в настройках системы. Активируйте ведение журнала контактов с COVID-19 и уведомления в настройках вашей системы.";
 
@@ -668,7 +769,7 @@
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Требуется авторизация";
 
-"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Подтвердите использование журнала контактов с COVID-19.";
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Подтвердите использование журнала контактов с COVID-19 .";
 
 "ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Авторизация";
 
@@ -946,7 +1047,7 @@
 "InviteFriends_Illustration_Label" = "Человек делится приложением Corona-Warn-App с четырьмя другими людьми.";
 
 /* Reset View */
-"Reset_NavTitle" = "Сбросить";
+"Reset_NavTitle" = "Сброс";
 
 "Reset_Header1" = "Действительно сбросить приложение?";
 
@@ -970,7 +1071,7 @@
 
 "Reset_ConfirmDialog_Cancel" = "Отменить";
 
-"Reset_ConfirmDialog_Confirm" = "Сбросить";
+"Reset_ConfirmDialog_Confirm" = "Сброс";
 
 /* Safari */
 "safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";

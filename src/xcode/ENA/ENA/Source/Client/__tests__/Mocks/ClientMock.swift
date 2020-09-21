@@ -69,8 +69,6 @@ final class ClientMock {
 
 extension ClientMock: Client {
 
-	#if INTEROP
-
 	func availableDays(forCountry country: String, completion: @escaping AvailableDaysCompletionHandler) {
 		if let failure = urlRequestFailure {
 			completion(.failure(failure))
@@ -102,49 +100,13 @@ extension ClientMock: Client {
 		}
 		completion(.success(downloadedPackage ?? SAPDownloadedPackage(keysBin: Data(), signature: Data())))
 	}
-
-	#else
-
-	func availableDays(completion: @escaping AvailableDaysCompletionHandler) {
-		if let failure = urlRequestFailure {
-			completion(.failure(failure))
-			return
-		}
-		completion(.success(availableDaysAndHours.days))
+	
+	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
+		onAppConfiguration(completion)
 	}
-
-	func availableHours(day: String, completion: @escaping AvailableHoursCompletionHandler) {
-		if let failure = urlRequestFailure {
-			completion(.failure(failure))
-			return
-		}
-		completion(.success(availableDaysAndHours.hours))
-	}
-
-	func fetchDay(_: String, completion: @escaping DayCompletionHandler) {
-		if let failure = urlRequestFailure {
-			completion(.failure(failure))
-			return
-		}
-		completion(.success(downloadedPackage ?? SAPDownloadedPackage(keysBin: Data(), signature: Data())))
-	}
-
-	func fetchHour(_: Int, day: String, completion: @escaping HourCompletionHandler) {
-		if let failure = urlRequestFailure {
-			completion(.failure(failure))
-			return
-		}
-		completion(.success(downloadedPackage ?? SAPDownloadedPackage(keysBin: Data(), signature: Data())))
-	}
-
-	#endif
 
 	func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler) {
 		completion(ENExposureConfiguration())
-	}
-
-	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
-		onAppConfiguration(completion)
 	}
 	
 	func supportedCountries(completion: @escaping CountryFetchCompletion) {

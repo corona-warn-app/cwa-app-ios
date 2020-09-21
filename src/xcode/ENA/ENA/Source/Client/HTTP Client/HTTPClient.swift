@@ -78,11 +78,8 @@ final class HTTPClient: Client {
 				completion(.failure(.invalidResponse))
 				return
 			}
-			#if INTEROP
+
 			let countries = config.supportedCountries.compactMap { Country(countryCode: $0) }
-			#else
-			let countries = [Country]()
-			#endif
 			completion(.success(countries))
 		}
 	}
@@ -116,8 +113,6 @@ final class HTTPClient: Client {
 			}
 		}
 	}
-
-	#if INTEROP
 
 	func availableDays(
 		forCountry country: String,
@@ -201,88 +196,6 @@ final class HTTPClient: Client {
 		}
 	}
 
-	#else
-
-	func availableDays(
-		completion completeWith: @escaping AvailableDaysCompletionHandler
-	) {
-		let url = configuration.availableDaysURL
-		availableDays(from: url, completion: completeWith)
-	}
-	
-	func availableHours(
-		day: String,
-		completion completeWith: @escaping AvailableHoursCompletionHandler
-	) {
-		let url = configuration.availableHoursURL(day: day)
-
-		session.GET(url) { result in
-			switch result {
-			case let .success(response):
-				// We accept 404 responses since this can happen in case there
-				// have not been any new cases reported on that day.
-				// We don't report this as an error to simplify things for the consumer.
-				guard response.statusCode != 404 else {
-					completeWith(.success([]))
-					return
-				}
-
-				guard let data = response.body else {
-					completeWith(.failure(.invalidResponse))
-					return
-				}
-
-				do {
-					let decoder = JSONDecoder()
-					let hours = try decoder.decode([Int].self, from: data)
-					completeWith(.success(hours))
-				} catch {
-					completeWith(.failure(.invalidResponse))
-					return
-				}
-			case let .failure(error):
-				completeWith(.failure(error))
-			}
-		}
-	}
-
-	func fetchDay(
-		_ day: String,
-		completion completeWith: @escaping DayCompletionHandler
-	) {
-		let url = configuration.diagnosisKeysURL(day: day)
-		fetchDay(from: url, completion: completeWith)
-
-	}
-
-	func fetchHour(
-		_ hour: Int,
-		day: String,
-		completion completeWith: @escaping HourCompletionHandler
-	) {
-		let url = configuration.diagnosisKeysURL(day: day, hour: hour)
-		session.GET(url) { result in
-			switch result {
-			case let .success(response):
-				guard let hourData = response.body else {
-					completeWith(.failure(.invalidResponse))
-					return
-				}
-				log(message: "got hour: \(hourData.count)")
-				guard let package = SAPDownloadedPackage(compressedData: hourData) else {
-					logError(message: "Failed to create signed package. For URL: \(url)")
-					completeWith(.failure(.invalidResponse))
-					return
-				}
-				completeWith(.success(package))
-			case let .failure(error):
-				completeWith(.failure(error))
-				logError(message: "failed to get day: \(error)")
-			}
-		}
-	}
-	#endif
-
 	func exposureConfiguration(
 		completion: @escaping ExposureConfigurationCompletionHandler
 	) {
@@ -302,6 +215,7 @@ final class HTTPClient: Client {
 
 	func getTestResult(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TestResultHandler) {
 
+		
 		guard
 			let testResultRequest = try? URLRequest.getTestResultRequest(
 				configuration: configuration,
@@ -315,6 +229,12 @@ final class HTTPClient: Client {
 		session.response(for: testResultRequest, isFake: isFake) { result in
 			switch result {
 			case let .success(response):
+				
+				if response.statusCode == 400 {
+					completeWith(.failure(.qRNotExist))
+					return
+				}
+				
 				guard response.hasAcceptableStatusCode else {
 					completeWith(.failure(.serverError(response.statusCode)))
 					return

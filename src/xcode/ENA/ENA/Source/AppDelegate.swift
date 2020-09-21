@@ -40,11 +40,7 @@ extension AppDelegate: ExposureSummaryProvider {
 		completion: @escaping (ENExposureDetectionSummary?) -> Void
 	) -> CancellationToken {
 
-		#if INTEROP
 		exposureDetection = ExposureDetection(delegate: exposureDetectionExecutor, store: store)
-		#else
-		exposureDetection = ExposureDetection(delegate: exposureDetectionExecutor)
-		#endif
 
 		let token = CancellationToken { [weak self] in
 			self?.exposureDetection?.cancel()

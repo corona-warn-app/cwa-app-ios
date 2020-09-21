@@ -19,8 +19,6 @@
 
 import ExposureNotification
 
-#if INTEROP
-
 protocol CountryKeypackageDownloading {
 	typealias Completion = (Result<Void, ExposureDetection.DidEndPrematurelyReason>) -> Void
 
@@ -65,4 +63,3 @@ class CountryKeypackageDownloader: CountryKeypackageDownloading {
 	}
 
 }
-#endif

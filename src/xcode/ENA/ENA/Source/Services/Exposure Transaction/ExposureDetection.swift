@@ -25,8 +25,6 @@ final class ExposureDetection {
 	private var completion: Completion?
 	private var progress: Progress?
 
-	#if INTEROP
-
 	private let store: Store
 	private var countryKeypackageDownloader: CountryKeypackageDownloading
 
@@ -46,20 +44,9 @@ final class ExposureDetection {
 		}
 	}
 
-	#else
-
-	// MARK: Creating a Transaction
-	init(delegate: ExposureDetectionDelegate) {
-		self.delegate = delegate
-	}
-
-	#endif
-
 	func cancel() {
 		progress?.cancel()
 	}
-
-	#if INTEROP
 
 	private func getSupportedCountries(completion: @escaping ([Country]) -> Void) {
 		delegate?.exposureDetection(supportedCountries: { [weak self] result in
@@ -141,50 +128,6 @@ final class ExposureDetection {
 		})
 	}
 
-	#else
-
-	// MARK: Starting the Transaction
-	// Called right after the transaction knows which data is available remotly.
-	private func downloadDeltaUsingAvailableRemoteData(_ remote: DaysAndHours?) {
-		guard let remote = remote else {
-			endPrematurely(reason: .noDaysAndHours)
-			return
-		}
-
-		guard let delta = delegate?.exposureDetection(self, downloadDeltaFor: remote) else {
-			endPrematurely(reason: .noDaysAndHours)
-			return
-		}
-		delegate?.exposureDetection(self, downloadAndStore: delta) { [weak self] error in
-			guard let self = self else { return }
-			if error != nil {
-				self.endPrematurely(reason: .noDaysAndHours)
-				return
-			}
-			self.delegate?.exposureDetection(self, downloadConfiguration: self.useConfiguration)
-		}
-	}
-
-	private func useConfiguration(_ configuration: ENExposureConfiguration?) {
-		guard let configuration = configuration else {
-			endPrematurely(reason: .noExposureConfiguration)
-			return
-		}
-		guard let writtenPackages = delegate?.exposureDetectionWriteDownloadedPackages(self) else {
-			endPrematurely(reason: .unableToWriteDiagnosisKeys)
-			return
-		}
-		self.progress = delegate?.exposureDetection(
-			self,
-			detectSummaryWithConfiguration: configuration,
-			writtenPackages: writtenPackages
-		) { [weak self] result in
-			writtenPackages.cleanUp()
-			self?.useSummaryResult(result)
-		}
-	}
-	#endif
-
 	private func useSummaryResult(_ result: Result<ENExposureDetectionSummary, Error>) {
 		switch result {
 		case .success(let summary):
@@ -198,8 +141,6 @@ final class ExposureDetection {
 
 	func start(completion: @escaping Completion) {
 		self.completion = completion
-
-		#if INTEROP
 
 		self.getSupportedCountries { [weak self] supportedCountries in
 			guard let self = self else { return }
@@ -217,12 +158,6 @@ final class ExposureDetection {
 				self.detectSummary(writtenPackages: writtenPackages)
 			}
 		}
-
-		#else
-
-		delegate?.exposureDetection(self, determineAvailableData: downloadDeltaUsingAvailableRemoteData)
-
-		#endif
 	}
 
 	// MARK: Working with the Completion Handler
