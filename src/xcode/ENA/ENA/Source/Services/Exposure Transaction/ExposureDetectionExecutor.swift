@@ -28,8 +28,8 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	}
 
 	func exposureDetection(
-		country: String,
-		determineAvailableData completion: @escaping (DaysAndHours?, String) -> Void
+		country: Country.ID,
+		determineAvailableData completion: @escaping (DaysAndHours?, Country.ID) -> Void
 	) {
 		let group = DispatchGroup()
 
@@ -79,7 +79,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	}
 
 	func exposureDetection(
-		country: String,
+		country: Country.ID,
 		downloadDeltaFor remote: DaysAndHours
 	) -> DaysAndHours {
 
@@ -103,7 +103,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	}
 
 	func exposureDetection(
-		country: String,
+		country: Country.ID,
 		downloadAndStore delta: DaysAndHours,
 		completion: @escaping (Error?) -> Void
 	) {
@@ -122,7 +122,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	}
 
 	func exposureDetectionWriteDownloadedPackages(
-		country: String
+		country: Country.ID
 	) -> WrittenPackages? {
 
 		let fileManager = FileManager()
@@ -202,7 +202,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 
 extension DownloadedPackagesStore {
 
-	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours, country: String) {
+	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours, country: Country.ID) {
 		let days = daysAndHours.days
 		days.bucketsByDay.forEach { day, bucket in
 			self.set(country: country, day: day, package: bucket)

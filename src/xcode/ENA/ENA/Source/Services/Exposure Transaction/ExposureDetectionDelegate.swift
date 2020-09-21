@@ -36,22 +36,22 @@ protocol ExposureDetectionDelegate: AnyObject {
 	typealias SupportedCountriesResult = Result<[Country], URLSession.Response.Failure>
 
 	func exposureDetection(
-		country: String,
-		determineAvailableData completion: @escaping (DaysAndHours?, String) -> Void
+		country: Country.ID,
+		determineAvailableData completion: @escaping (DaysAndHours?, Country.ID) -> Void
 	)
 
 	func exposureDetection(
-		country: String,
+		country: Country.ID,
 		downloadDeltaFor remote: DaysAndHours
 	) -> DaysAndHours
 
 	func exposureDetection(
-		country: String,
+		country: Country.ID,
 		downloadAndStore delta: DaysAndHours,
 		completion: @escaping (Error?) -> Void
 	)
 
-	func exposureDetectionWriteDownloadedPackages(country: String) -> WrittenPackages?
+	func exposureDetectionWriteDownloadedPackages(country: Country.ID) -> WrittenPackages?
 
 	func exposureDetection(
 		downloadConfiguration completion: @escaping (ENExposureConfiguration?) -> Void
