@@ -62,7 +62,7 @@ class EUSettingsViewModel {
 	func euSettingsModel() -> DynamicTableViewModel {
 		DynamicTableViewModel([
 			.section(
-				header: .image(UIImage(named: "Illu_Submission_AndereWarnen"),
+				header: .image(UIImage(named: "Illu_EU_Interop"),
 							   accessibilityLabel: AppStrings.ExposureSubmissionWarnOthers.accImageDescription,
 							   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription,
 							   height: 250),
