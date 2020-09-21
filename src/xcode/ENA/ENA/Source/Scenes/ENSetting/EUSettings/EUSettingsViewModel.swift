@@ -35,7 +35,6 @@ class EUSettingsViewModel {
 
 	// MARK: - Attributes.
 
-	private var subscriptions = Set<AnyCancellable>()
 	// @Published var euTracingSettings: EUTracingSettings
 	let countryModels: [CountryModel]
 
@@ -67,6 +66,7 @@ class EUSettingsViewModel {
 							   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription,
 							   height: 250),
 				cells: [
+					.space(height: 8),
 					.title1(
 						text: AppStrings.ExposureNotificationSetting.euTitle,
 						accessibilityIdentifier: ""
@@ -84,7 +84,8 @@ class EUSettingsViewModel {
 						text: AppStrings.ExposureNotificationSetting.euDescription3,
 						accessibilityIdentifier: ""
 					),
-					.space(height: 16)
+					.space(height: 16),
+
 			]),
 			.section(
 				separators: true,

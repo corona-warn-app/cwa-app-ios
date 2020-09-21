@@ -25,7 +25,6 @@ class EUSettingsViewController: DynamicTableViewController {
 
 	// MARK: - Attributes.
 
-	private var subscriptions = Set<AnyCancellable>()
 	private var viewModel =
 		EUSettingsViewModel(
 			countries: [
@@ -73,12 +72,8 @@ class EUSettingsViewController: DynamicTableViewController {
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.roundedCell.rawValue
 		)
 		tableView.register(
-			SwitchCell.self,
+			FlagIconCell.self,
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.switchCell.rawValue
-		)
-		tableView.register(
-			IconCell.self,
-			forCellReuseIdentifier: CustomCellReuseIdentifiers.iconCell.rawValue
 		)
 	}
 }
@@ -88,25 +83,10 @@ extension EUSettingsViewController {
 		case stepCell
 		case roundedCell
 		case switchCell
-		case iconCell
 	}
 }
 
 extension DynamicCell {
-	static func iconCell(icon: UIImage, title: NSMutableAttributedString, body: NSMutableAttributedString, textStyle: ENAColor, backgroundStyle: ENAColor) -> Self {
-		.custom(
-		withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.iconCell
-		) { _, cell, _ in
-			guard let cell = cell as? IconCell else { return }
-			cell.configure(
-				icon: icon,
-				title: title,
-				body: body,
-				textStyle: textStyle,
-				backgroundStyle: backgroundStyle
-			)
-		}
-	}
 
 	static func euCell(cellModel: EUSettingsViewModel.CountryModel) -> Self {
 		.custom(
@@ -114,7 +94,7 @@ extension DynamicCell {
 			action: .none,
 			accessoryAction: .none
 		) { _, cell, _ in
-			guard let cell = cell as? SwitchCell else { return }
+			guard let cell = cell as? FlagIconCell else { return }
 			cell.configure(
 				text: cellModel.country.localizedName,
 				icon: cellModel.country.flag
