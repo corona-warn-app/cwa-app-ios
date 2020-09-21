@@ -87,13 +87,6 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 
 		let storeMock = MockTestStore()
 
-
-		// Due to a stakeholder decision, we dont use the user selected countries.
-		// Instead just download all supported countries.
-		// The other logic is left here, because at the time writing this, it was unclear wether the decision will be reverted or not.
-
-		//storeMock.euTracingSettings = EUTracingSettings(isAllCountriesEnbled: false, enabledCountries: ["FR", "IT"])
-
 		let startCompletionCalled = expectation(description: "start completion called")
 		let detection = ExposureDetection(delegate: delegate, store: storeMock)
 		detection.start { _ in startCompletionCalled.fulfill() }
@@ -113,137 +106,6 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 			enforceOrder: true
 		)
 	}
-
-	// Due to a stakeholder decision, we dont use the user selected countries.
-	// Instead just download all supported countries.
-	// The other logic is left here, because at the time writing this, it was unclear wether the decision will be reverted or not.
-
-//	func test_When_EuropeSelected_Then_DownloadIsCalledForSupportedCountriesAndDefaultCountry() {
-//		let storeMock = MockTestStore()
-//		storeMock.euTracingSettings = EUTracingSettings(isAllCountriesEnbled: true, enabledCountries: [])
-//		let delegate = ExposureDetectionDelegateMock()
-//
-//		let supportedCountries = self.makeCountries()
-//
-//		delegate.supportedCountries = {
-//			return .success(supportedCountries)
-//		}
-//
-//		let downloaderSpy = CountryKeypackageDownloaderSpy()
-//
-//		let detection = ExposureDetection(
-//			delegate: delegate,
-//			store: storeMock,
-//			countryKeypackageDownloader: downloaderSpy
-//		)
-//
-//		let expectationDetectionCompletion = expectation(description: "Detection completion was called.")
-//
-//		detection.start { _ in
-//			var expectedCountries = supportedCountries
-//			expectedCountries.append(Country.defaultCountry())
-//			let expectedCountriesIDs = expectedCountries.map { $0.id }
-//
-//			XCTAssertEqual(downloaderSpy.downloadedCountries, expectedCountriesIDs)
-//
-//			expectationDetectionCompletion.fulfill()
-//		}
-//
-//		waitForExpectations(timeout: 1.0)
-//	}
-//
-//	func test_When_EuropeDeSelected_And_SpecificCountriesSelected_Then_DownloadIsCalledForSpedificAndDefaultCountry() {
-//		let storeMock = MockTestStore()
-//		storeMock.euTracingSettings = EUTracingSettings(isAllCountriesEnbled: false, enabledCountries: ["FR"])
-//		let delegate = ExposureDetectionDelegateMock()
-//
-//		let supportedCountries = self.makeCountries()
-//
-//		delegate.supportedCountries = {
-//			return .success(supportedCountries)
-//		}
-//
-//		let downloaderSpy = CountryKeypackageDownloaderSpy()
-//
-//		let detection = ExposureDetection(
-//			delegate: delegate,
-//			store: storeMock,
-//			countryKeypackageDownloader: downloaderSpy
-//		)
-//
-//		let expectationDetectionCompletion = expectation(description: "Detection completion was called.")
-//
-//		detection.start { _ in
-//			let expectedCountriesIDs = ["FR", Country.defaultCountry().id]
-//			XCTAssertEqual(downloaderSpy.downloadedCountries, expectedCountriesIDs)
-//
-//			expectationDetectionCompletion.fulfill()
-//		}
-//
-//		waitForExpectations(timeout: 1.0)
-//	}
-//
-//	func test_When_EuropeDeSelected_And_NoSpecificCountriesSelected_Then_DownloadIsCalledOnlyForDefaultCountry() {
-//		let storeMock = MockTestStore()
-//		storeMock.euTracingSettings = EUTracingSettings(isAllCountriesEnbled: false, enabledCountries: [])
-//		let delegate = ExposureDetectionDelegateMock()
-//
-//		let supportedCountries = self.makeCountries()
-//
-//		delegate.supportedCountries = {
-//			return .success(supportedCountries)
-//		}
-//
-//		let downloaderSpy = CountryKeypackageDownloaderSpy()
-//
-//		let detection = ExposureDetection(
-//			delegate: delegate,
-//			store: storeMock,
-//			countryKeypackageDownloader: downloaderSpy
-//		)
-//
-//		let expectationDetectionCompletion = expectation(description: "Detection completion was called.")
-//
-//		detection.start { _ in
-//			let defaultCountryID = Country.defaultCountry().id
-//			XCTAssertEqual(downloaderSpy.downloadedCountries, [defaultCountryID])
-//
-//			expectationDetectionCompletion.fulfill()
-//		}
-//
-//		waitForExpectations(timeout: 1.0)
-//	}
-//
-//	func test_When_StoreHasNoEUTracingSettings_Then_DownloadIsCalledOnlyForDefaultCountry() {
-//		let storeMock = MockTestStore()
-//		storeMock.euTracingSettings = nil
-//		let delegate = ExposureDetectionDelegateMock()
-//
-//		let supportedCountries = self.makeCountries()
-//
-//		delegate.supportedCountries = {
-//			return .success(supportedCountries)
-//		}
-//
-//		let downloaderSpy = CountryKeypackageDownloaderSpy()
-//
-//		let detection = ExposureDetection(
-//			delegate: delegate,
-//			store: storeMock,
-//			countryKeypackageDownloader: downloaderSpy
-//		)
-//
-//		let expectationDetectionCompletion = expectation(description: "Detection completion was called.")
-//
-//		detection.start { _ in
-//			let defaultCountryID = Country.defaultCountry().id
-//			XCTAssertEqual(downloaderSpy.downloadedCountries, [defaultCountryID])
-//
-//			expectationDetectionCompletion.fulfill()
-//		}
-//
-//		waitForExpectations(timeout: 1.0)
-//	}
 
 	func test_When_NoRemoteDataAvailable_Then_FailureNoDaysAndHoursIsCalled() {
 		let delegate = ExposureDetectionDelegateMock()
@@ -365,24 +227,6 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 
 	#endif
 }
-
-// Due to a stakeholder decision, we dont use the user selected countries.
-// Instead just download all supported countries.
-// The other logic is left here, because at the time writing this, it was unclear wether the decision will be reverted or not.
-
-//#if INTEROP
-//
-//private final class CountryKeypackageDownloaderSpy: CountryKeypackageDownloading {
-//
-//	private(set) var downloadedCountries = [Country.ID]()
-//
-//	func downloadKeypackages(for country: String, completion: @escaping Completion) {
-//		downloadedCountries.append(country)
-//		completion(.success(()))
-//	}
-//}
-//
-//#endif
 
 final class MutableENExposureDetectionSummary: ENExposureDetectionSummary {
 	init(daysSinceLastExposure: Int = 0, matchedKeyCount: UInt64 = 0, maximumRiskScore: ENRiskScore = .zero) {

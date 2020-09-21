@@ -75,26 +75,9 @@ final class ExposureDetection {
 	}
 
 	private func getCountriesToDetect(store: Store, supportedCountries: [Country]) -> [Country.ID] {
-
-		// Due to a stakeholder decision, we dont use the user selected countries.
-		// Instead just download all supported countries.
-		// The other logic is left here, because at the time writing this, it was unclear wether the decision will be reverted or not.
 		var countryIDs = supportedCountries.map { $0.id }
 		countryIDs.append(Country.defaultCountry().id)
 		return countryIDs
-
-//		let supportedCountryIDs = supportedCountries.map { $0.id }
-//		let isAllCountriesEnbled = self.store.euTracingSettings?.isAllCountriesEnbled ?? false
-//		var countryIDs = [Country.ID]()
-//
-//		if isAllCountriesEnbled {
-//			countryIDs = supportedCountryIDs
-//		} else {
-//			countryIDs = store.euTracingSettings?.enabledCountries ?? []
-//		}
-//
-//		countryIDs.append(Country.defaultCountry().id)
-//		return countryIDs
 	}
 
 	private func downloadKeyPackages(for countries: [Country.ID], completion: @escaping () -> Void) {
