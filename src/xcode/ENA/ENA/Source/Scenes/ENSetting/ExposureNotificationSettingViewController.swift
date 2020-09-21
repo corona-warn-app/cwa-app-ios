@@ -208,7 +208,7 @@ extension ExposureNotificationSettingViewController {
 			case .euTracingCell:
 				let euTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.euTracingCell.cellType.rawValue, for: indexPath)
 				if let euTracingCell = euTracingCell as? EuTracingTableViewCell {
-					euTracingCell.configure(for: store.euTracingSettings!)
+					euTracingCell.configure()
 					return euTracingCell
 				}
 			case .tracingCell, .actionDetailCell:
@@ -270,6 +270,7 @@ extension ExposureNotificationSettingViewController {
 	fileprivate enum ReusableCellIdentifier: String {
 		case banner
 		case actionCell
+		case euTracingCell
 		case tracingCell
 		case actionDetailCell
 		case descriptionCell
@@ -283,6 +284,8 @@ private extension ENSettingModel.Content {
 			return .banner
 		case .actionCell:
 			return .actionCell
+		case .euTracingCell:
+			return .euTracingCell
 		case .tracingCell:
 			return .tracingCell
 		case .actionDetailCell:

@@ -25,20 +25,10 @@ struct ENSettingEuTracingViewModel {
 	
 	let countryListLabel: String
 	
-	let allCountriesEnbledStateLabel: String
-	
-	init(euTracingSettings: EUTracingSettings) {
-		title = AppStrings.ExposureNotificationSetting.euTracingAllCountriesTitle
+	init() {
+		title = AppStrings.ExposureNotificationSetting.euTracingRiskDeterminationTitle
 		
-		var enabledCountries: String {
-			guard !euTracingSettings.enabledCountries.isEmpty else { return "" }
-			return euTracingSettings.enabledCountries
-				.compactMap( {Country(countryCode: $0)?.localizedName} )
-				.joined(separator: ", ")
-			}
+		countryListLabel = AppStrings.ExposureNotificationSetting.euTracingAllCountriesTitle
 		
-		countryListLabel = enabledCountries
-		
-		allCountriesEnbledStateLabel = euTracingSettings.isAllCountriesEnbled ? AppStrings.ExposureNotificationSetting.euTracingAllCountriesStatusOnLabel : AppStrings.ExposureNotificationSetting.euTracingAllCountrieStatusOffLabel
 	}
 }

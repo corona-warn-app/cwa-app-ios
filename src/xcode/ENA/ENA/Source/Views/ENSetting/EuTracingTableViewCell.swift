@@ -20,14 +20,13 @@
 import UIKit
 
 protocol ConfigurableEuTracingSettingCell: ConfigurableENSettingCell {
-	func configure(for euTracingSettings: EUTracingSettings)
+	func configure()
 }
 
 class EuTracingTableViewCell: UITableViewCell, ConfigurableEuTracingSettingCell {
 
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var countryList: UILabel!
-	@IBOutlet var stateLabel: UILabel!
 
 	weak var delegate: ActionTableViewCellDelegate?
 
@@ -36,12 +35,11 @@ class EuTracingTableViewCell: UITableViewCell, ConfigurableEuTracingSettingCell 
 		didSet {
 			self.titleLabel.text = viewModel.title
 			self.countryList.text = viewModel.countryListLabel
-			self.stateLabel.text = viewModel.allCountriesEnbledStateLabel
 		}
 	}
 
-	func configure(for euTracingSettings: EUTracingSettings) {
-		viewModel = ENSettingEuTracingViewModel(euTracingSettings: euTracingSettings)
+	func configure() {
+		viewModel = ENSettingEuTracingViewModel()
 	}
 
 	func configure(for state: ENStateHandler.State) {
