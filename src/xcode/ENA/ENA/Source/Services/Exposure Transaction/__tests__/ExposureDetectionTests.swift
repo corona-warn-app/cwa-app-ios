@@ -141,6 +141,86 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		waitForExpectations(timeout: 1.0)
 	}
 
+	func test_When_PackageDownloaderFails_Then_NoRiskCaculationIsTriggered() {
+		let delegate = ExposureDetectionDelegateMock()
+
+		delegate.configuration = {
+			XCTFail("Configuration call not expected after failing download.")
+			return .mock()
+		}
+
+		delegate.writtenPackages = {
+			XCTFail("Package write call not expected after failing download.")
+			return WrittenPackages(urls: [])
+		}
+
+		delegate.summaryResult = { _, _ in
+			XCTFail("Configuration call not expected after failing download.")
+			return .failure(NSError())
+		}
+
+		let packageDownloader = CountryKeypackageDownloaderFailing()
+
+		let detection = ExposureDetection(
+			delegate: delegate,
+			countryKeypackageDownloader: packageDownloader
+		)
+
+		let expectationFailureResult = expectation(description: "Detection should fail.")
+
+		detection.start { result in
+			switch result {
+			case .failure:
+				XCTAssertFalse(delegate.detectSummaryWithConfigurationWasCalled)
+				expectationFailureResult.fulfill()
+			case .success:
+				XCTFail("Success is not expected.")
+			}
+		}
+
+		waitForExpectations(timeout: 1.0)
+	}
+
+	func test_When_SavingPackageToFileSystemFails_Then_NoRiskCaculationIsTriggered() {
+		let delegate = ExposureDetectionDelegateMock()
+
+		delegate.writtenPackages = {
+			return nil
+		}
+
+		delegate.configuration = {
+			XCTFail("Configuration call not expected after failing download.")
+			return .mock()
+		}
+
+
+		delegate.summaryResult = { _, _ in
+			XCTFail("Configuration call not expected after failing download.")
+			return .failure(NSError())
+		}
+
+		let packageDownloader = CountryKeypackageDownloaderFake()
+
+		let detection = ExposureDetection(
+			delegate: delegate,
+			countryKeypackageDownloader: packageDownloader
+		)
+
+		let expectationFailureResult = expectation(description: "Detection should fail.")
+
+		detection.start { result in
+			switch result {
+			case .failure:
+				XCTAssertFalse(delegate.detectSummaryWithConfigurationWasCalled)
+				expectationFailureResult.fulfill()
+			case .success:
+				XCTFail("Success is not expected.")
+			}
+		}
+
+		waitForExpectations(timeout: 1.0)
+	}
+
 	func makeCountries() -> [Country] {
 		guard let enCountry = Country(countryCode: "FR"),
 			let itCountry = Country(countryCode: "IT") else {
@@ -173,7 +253,21 @@ final class MutableENExposureDetectionSummary: ENExposureDetectionSummary {
 	override var maximumRiskScore: ENRiskScore { _maximumRiskScore }
 }
 
+private final class CountryKeypackageDownloaderFailing: CountryKeypackageDownloading {
+	func downloadKeypackages(for country: Country.ID, completion: @escaping Completion) {
+		completion(Result.failure(.noSupportedCountries))
+	}
+}
+
+private final class CountryKeypackageDownloaderFake: CountryKeypackageDownloading {
+	func downloadKeypackages(for country: Country.ID, completion: @escaping Completion) {
+		completion(Result.success(()))
+	}
+}
+
 private final class ExposureDetectionDelegateMock {
+	var detectSummaryWithConfigurationWasCalled = false
+
 	// MARK: Types
 	struct SummaryError: Error { }
 	typealias DownloadAndStoreHandler = (_ delta: DaysAndHours) -> Error?
@@ -243,6 +337,8 @@ extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 		writtenPackages: WrittenPackages,
 		completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void) -> Progress {
 		completion(summaryResult(configuration, writtenPackages))
+
+		detectSummaryWithConfigurationWasCalled = true
 		return Progress()
 	}
 }
