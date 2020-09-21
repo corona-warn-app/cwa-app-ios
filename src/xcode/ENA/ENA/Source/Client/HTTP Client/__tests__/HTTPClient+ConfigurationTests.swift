@@ -68,9 +68,6 @@ final class BackendConfigurationTests: XCTestCase {
 			"http://localhost/submit/version/v1/diagnosis-keys/"
 		)
 
-
-		#if INTEROP
-
 		// Available Days URL
 		XCTAssertEqual(
 				config.availableDaysURL(forCountry: "IT").absoluteString,
@@ -94,33 +91,5 @@ final class BackendConfigurationTests: XCTestCase {
 			config.availableHoursURL(day: "2020-04-20", country: "IT").absoluteString,
 			"http://localhost/dist/version/v1/diagnosis-keys/country/IT/date/2020-04-20/hour/"
 		)
-
-		#else
-
-		// Available Days URL
-		XCTAssertEqual(
-			config.availableDaysURL.absoluteString,
-			"http://localhost/dist/version/v1/diagnosis-keys/country/DE/date/"
-		)
-
-		// Hour URL
-		XCTAssertEqual(
-			config.diagnosisKeysURL(day: "2020-04-20", hour: 14).absoluteString,
-			"http://localhost/dist/version/v1/diagnosis-keys/country/DE/date/2020-04-20/hour/14/"
-		)
-
-		// Day URL
-		XCTAssertEqual(
-			config.diagnosisKeysURL(day: "2020-04-20").absoluteString,
-			"http://localhost/dist/version/v1/diagnosis-keys/country/DE/date/2020-04-20/"
-		)
-
-		// Available Hours for a given Day URL
-		XCTAssertEqual(
-			config.availableHoursURL(day: "2020-04-20").absoluteString,
-			"http://localhost/dist/version/v1/diagnosis-keys/country/DE/date/2020-04-20/hour/"
-		)
-
-		#endif
 	}
 }
