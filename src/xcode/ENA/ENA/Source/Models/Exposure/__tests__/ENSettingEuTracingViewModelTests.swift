@@ -30,7 +30,7 @@ class ENSettingEuTracingViewModelTests: XCTestCase {
 	
 	func testENSettingEuTracingViewModelTests_LabelsAsExpected() throws {
 		
-		var viewModel = ENSettingEuTracingViewModel()
+		let viewModel = ENSettingEuTracingViewModel()
 		
 		XCTAssertNotEqual(viewModel.title, "", "Localized (i18n) Title should not be empty)")
 		XCTAssertNotEqual(viewModel.countryListLabel, "", "Sub title label should be empty.")
