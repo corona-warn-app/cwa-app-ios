@@ -24,8 +24,10 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 	init?(
 		coder: NSCoder,
+		supportedCountries: [Country],
 		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
+		self.supportedCountries = supportedCountries
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 
 		super.init(coder: coder)
@@ -55,6 +57,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 	// MARK: - Private
 
+	private let supportedCountries: [Country]
 	private let onPrimaryButtonTap: (@escaping (Bool) -> Void) -> Void
 
 	private func setupView() {
@@ -77,7 +80,11 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	}
 
 	private func dynamicTableViewModel() -> DynamicTableViewModel {
-		DynamicTableViewModel.with {
+//		let countryCells = AppStrings.ExposureSubmissionSymptoms.symptoms.map {
+//			DynamicCell.bulletPoint(text: $0)
+//		}
+
+		return DynamicTableViewModel.with {
 			$0.add(
 				.section(
 					header: .image(

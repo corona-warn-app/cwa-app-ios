@@ -1,0 +1,153 @@
+//
+// Corona-Warn-App
+//
+// SAP SE and all other contributors
+// copyright owners license this file to you under the Apache
+// License, Version 2.0 (the "License"); you may not use this
+// file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+//
+
+import Foundation
+import UIKit
+
+class ExposureSubmissionCoordinatorModel: RequiresAppDependencies {
+
+	// MARK: - Init
+
+	init(exposureSubmissionService: ExposureSubmissionService) {
+		self.exposureSubmissionService = exposureSubmissionService
+	}
+
+	// MARK: - Internal
+
+	let exposureSubmissionService: ExposureSubmissionService
+
+	var supportedCountries: [Country] = []
+
+	var shouldShowSymptomsOnsetScreen = false
+
+	var exposureSubmissionServiceHasRegistrationToken: Bool {
+		exposureSubmissionService.hasRegistrationToken()
+	}
+
+	func symptomsOptionSelected(
+		selectedSymptomsOption: ExposureSubmissionSymptomsViewController.SymptomsOption,
+		isLoading: @escaping (Bool) -> Void,
+		onSuccess: @escaping () -> Void,
+		onError: @escaping (ExposureSubmissionError) -> Void
+	) {
+		switch selectedSymptomsOption {
+		case .yes:
+			shouldShowSymptomsOnsetScreen = true
+			onSuccess()
+		case .no:
+			symptomsOnset = .nonSymptomatic
+			shouldShowSymptomsOnsetScreen = false
+			loadSupportedCountries(isLoading: isLoading, onSuccess: onSuccess, onError: onError)
+		case .preferNotToSay:
+			symptomsOnset = .noInformation
+			shouldShowSymptomsOnsetScreen = false
+			loadSupportedCountries(isLoading: isLoading, onSuccess: onSuccess, onError: onError)
+		}
+	}
+
+	func symptomsOnsetOptionSelected(
+		selectedSymptomsOnsetOption: ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption,
+		isLoading: @escaping (Bool) -> Void,
+		onSuccess: @escaping () -> Void,
+		onError: @escaping (ExposureSubmissionError) -> Void
+	) {
+		switch selectedSymptomsOnsetOption {
+		case .exactDate(let date):
+			guard let daysSinceOnset = Calendar.gregorian().dateComponents([.day], from: date, to: Date()).day else { fatalError("Getting days since onset from date failed") }
+			symptomsOnset = .daysSinceOnset(daysSinceOnset)
+		case .lastSevenDays:
+			symptomsOnset = .lastSevenDays
+		case .oneToTwoWeeksAgo:
+			symptomsOnset = .oneToTwoWeeksAgo
+		case .moreThanTwoWeeksAgo:
+			symptomsOnset = .moreThanTwoWeeksAgo
+		case .preferNotToSay:
+			symptomsOnset = .symptomaticWithUnknownOnset
+		}
+
+		loadSupportedCountries(isLoading: isLoading, onSuccess: onSuccess, onError: onError)
+	}
+
+
+	func warnOthersConsentGiven(
+		isLoading: @escaping (Bool) -> Void,
+		onSuccess: @escaping () -> Void,
+		onError: @escaping (ExposureSubmissionError) -> Void
+	) {
+		isLoading(true)
+		startSubmitProcess(
+			onSuccess: {
+				isLoading(false)
+				onSuccess()
+			},
+			onError: { error in
+				isLoading(false)
+				onError(error)
+			}
+		)
+	}
+
+	// MARK: - Private
+
+	private var symptomsOnset: SymptomsOnset = .noInformation
+	private var consentToFederationGiven: Bool = false
+
+	private func loadSupportedCountries(
+		isLoading: @escaping (Bool) -> Void,
+		onSuccess: @escaping () -> Void,
+		onError: @escaping (ExposureSubmissionError) -> Void
+	) {
+		isLoading(true)
+		appConfigurationProvider.appConfiguration { applicationConfiguration in
+			isLoading(false)
+
+			guard let supportedCountries = applicationConfiguration?.supportedCountries.compactMap({ Country(countryCode: $0) }) else {
+				onError(.noAppConfiguration)
+				return
+			}
+
+			if supportedCountries.isEmpty {
+				self.supportedCountries = [Country(countryCode: "DE")].compactMap { $0 }
+			} else {
+				self.supportedCountries = supportedCountries
+			}
+		}
+	}
+
+	private func startSubmitProcess(
+		onSuccess: @escaping () -> Void,
+		onError: @escaping (ExposureSubmissionError) -> Void
+	) {
+		exposureSubmissionService.submitExposure(
+			symptomsOnset: symptomsOnset,
+			consentToFederation: consentToFederationGiven,
+			visitedCountries: supportedCountries,
+			completionHandler: { error in
+				// We continue the regular flow even if there are no keys collected.
+				guard let error = error, error != .noKeys else {
+					onSuccess()
+					return
+				}
+
+				onError(error)
+			}
+		)
+	}
+
+}

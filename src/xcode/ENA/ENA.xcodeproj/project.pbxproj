@@ -13,6 +13,7 @@
 		013DC102245DAC4E00EE58B0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
 		0144BDE1250924CC00B0857C /* SymptomsOnset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144BDE0250924CC00B0857C /* SymptomsOnset.swift */; };
 		0144BDE32509288B00B0857C /* SymptomsOnsetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144BDE22509288B00B0857C /* SymptomsOnsetTests.swift */; };
+		0144BDED250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144BDEC250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift */; };
 		014891B324F90D0B002A6F77 /* ENA.plist in Resources */ = {isa = PBXBuildFile; fileRef = 014891B224F90D0B002A6F77 /* ENA.plist */; };
 		015178C22507D2E50074F095 /* ExposureSubmissionSymptomsOnsetViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015178C12507D2A90074F095 /* ExposureSubmissionSymptomsOnsetViewControllerTests.swift */; };
 		015692E424B48C3F0033F35E /* TimeInterval+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015692E324B48C3F0033F35E /* TimeInterval+Convenience.swift */; };
@@ -37,9 +38,6 @@
 		01D16C5E24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C5D24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift */; };
 		01D16C6024ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C5F24ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift */; };
 		01D16C6224ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C6124ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift */; };
-		01D16C6424EFA903007DB387 /* ExposureSubmissionWarnEuropeConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C6324EFA903007DB387 /* ExposureSubmissionWarnEuropeConsentViewController.swift */; };
-		01D16C6624EFA91F007DB387 /* ExposureSubmissionWarnEuropeTravelConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C6524EFA91F007DB387 /* ExposureSubmissionWarnEuropeTravelConfirmationViewController.swift */; };
-		01D16C6824EFA93D007DB387 /* ExposureSubmissionWarnEuropeCountrySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C6724EFA93D007DB387 /* ExposureSubmissionWarnEuropeCountrySelectionViewController.swift */; };
 		01D6948B25026EC000B45BEA /* DatePickerOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948A25026EC000B45BEA /* DatePickerOptionViewModel.swift */; };
 		01D6948D2502717F00B45BEA /* DatePickerDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948C2502717F00B45BEA /* DatePickerDayView.swift */; };
 		01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948E2502729000B45BEA /* DatePickerDay.swift */; };
@@ -90,9 +88,6 @@
 		2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */; };
 		350BB08825055B4700345A77 /* app_config_V0.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350BB08725055B4700345A77 /* app_config_V0.pb.swift */; };
 		352F25A824EFCBDE00ACDFF3 /* LocalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352F25A724EFCBDE00ACDFF3 /* LocalSettings.swift */; };
-		354DA0CC25063BDB0018354E /* ExposureSubmissionWarnEuropeConsentViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354DA0CB25063BDB0018354E /* ExposureSubmissionWarnEuropeConsentViewControllerTest.swift */; };
-		354DA0CE250658C30018354E /* ExposureSubmissionWarnEuropeCountrySelectionViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354DA0CD250658C30018354E /* ExposureSubmissionWarnEuropeCountrySelectionViewControllerTests.swift */; };
-		354DA0D0250665A10018354E /* ExposureSubmissionWarnEuropeTravelConfirmationViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354DA0CF250665A10018354E /* ExposureSubmissionWarnEuropeTravelConfirmationViewControllerTests.swift */; };
 		354E305924EFF26E00526C9F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354E305824EFF26E00526C9F /* Country.swift */; };
 		359767F124FD13D9001FD591 /* diagnosis_key_batch.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 359767F024FD13D9001FD591 /* diagnosis_key_batch.pb.swift */; };
 		3598D99A24FE280700483F1F /* CountryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3598D99924FE280700483F1F /* CountryTests.swift */; };
@@ -508,6 +503,7 @@
 		013DC101245DAC4E00EE58B0 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		0144BDE0250924CC00B0857C /* SymptomsOnset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsOnset.swift; sourceTree = "<group>"; };
 		0144BDE22509288B00B0857C /* SymptomsOnsetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsOnsetTests.swift; sourceTree = "<group>"; };
+		0144BDEC250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCoordinatorModel.swift; sourceTree = "<group>"; };
 		014891B224F90D0B002A6F77 /* ENA.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ENA.plist; path = ../../../ENA.plist; sourceTree = "<group>"; };
 		015178C12507D2A90074F095 /* ExposureSubmissionSymptomsOnsetViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsOnsetViewControllerTests.swift; sourceTree = "<group>"; };
 		015692E324B48C3F0033F35E /* TimeInterval+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "TimeInterval+Convenience.swift"; sourceTree = "<group>"; };
@@ -528,9 +524,6 @@
 		01D16C5D24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAppRefreshViewModelTests.swift; sourceTree = "<group>"; };
 		01D16C5F24ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBackgroundRefreshStatusProvider.swift; sourceTree = "<group>"; };
 		01D16C6124ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLowPowerModeStatusProvider.swift; sourceTree = "<group>"; };
-		01D16C6324EFA903007DB387 /* ExposureSubmissionWarnEuropeConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnEuropeConsentViewController.swift; sourceTree = "<group>"; };
-		01D16C6524EFA91F007DB387 /* ExposureSubmissionWarnEuropeTravelConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnEuropeTravelConfirmationViewController.swift; sourceTree = "<group>"; };
-		01D16C6724EFA93D007DB387 /* ExposureSubmissionWarnEuropeCountrySelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnEuropeCountrySelectionViewController.swift; sourceTree = "<group>"; };
 		01D3ECFF2490230400551E65 /* StoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StoreTests.swift; sourceTree = "<group>"; };
 		01D6948A25026EC000B45BEA /* DatePickerOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerOptionViewModel.swift; sourceTree = "<group>"; };
 		01D6948C2502717F00B45BEA /* DatePickerDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDayView.swift; sourceTree = "<group>"; };
@@ -584,9 +577,6 @@
 		2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewRoundedCell.swift; sourceTree = "<group>"; };
 		350BB08725055B4700345A77 /* app_config_V0.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = app_config_V0.pb.swift; path = ../../../gen/output/app_config_V0.pb.swift; sourceTree = "<group>"; };
 		352F25A724EFCBDE00ACDFF3 /* LocalSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalSettings.swift; sourceTree = "<group>"; };
-		354DA0CB25063BDB0018354E /* ExposureSubmissionWarnEuropeConsentViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnEuropeConsentViewControllerTest.swift; sourceTree = "<group>"; };
-		354DA0CD250658C30018354E /* ExposureSubmissionWarnEuropeCountrySelectionViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnEuropeCountrySelectionViewControllerTests.swift; sourceTree = "<group>"; };
-		354DA0CF250665A10018354E /* ExposureSubmissionWarnEuropeTravelConfirmationViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnEuropeTravelConfirmationViewControllerTests.swift; sourceTree = "<group>"; };
 		354E305824EFF26E00526C9F /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		359767F024FD13D9001FD591 /* diagnosis_key_batch.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = diagnosis_key_batch.pb.swift; path = ../../../gen/output/diagnosis_key_batch.pb.swift; sourceTree = "<group>"; };
 		3598D99924FE280700483F1F /* CountryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTests.swift; sourceTree = "<group>"; };
@@ -1828,9 +1818,6 @@
 				A328426224910552006B1F09 /* ExposureSubmissionSuccessViewControllerTests.swift */,
 				A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */,
 				A372DA3E24BEF773003248BB /* ExposureSubmissionCoordinatorTests.swift */,
-				354DA0CB25063BDB0018354E /* ExposureSubmissionWarnEuropeConsentViewControllerTest.swift */,
-				354DA0CD250658C30018354E /* ExposureSubmissionWarnEuropeCountrySelectionViewControllerTests.swift */,
-				354DA0CF250665A10018354E /* ExposureSubmissionWarnEuropeTravelConfirmationViewControllerTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -1891,9 +1878,6 @@
 				EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */,
 				EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */,
 				A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */,
-				01D16C6324EFA903007DB387 /* ExposureSubmissionWarnEuropeConsentViewController.swift */,
-				01D16C6524EFA91F007DB387 /* ExposureSubmissionWarnEuropeTravelConfirmationViewController.swift */,
-				01D16C6724EFA93D007DB387 /* ExposureSubmissionWarnEuropeCountrySelectionViewController.swift */,
 				71FE1C73247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift */,
 			);
 			path = Controller;
@@ -2425,6 +2409,7 @@
 				A372DA3724BDA015003248BB /* View */,
 				71FE1C79247AC2B500851FEB /* ExposureSubmissionNavigationController.swift */,
 				A372DA3A24BDA075003248BB /* ExposureSubmissionCoordinator.swift */,
+				0144BDEC250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift */,
 				A3816085250633D7002286E9 /* RequiresDismissConfirmation.swift */,
 			);
 			path = ExposureSubmission;
@@ -2852,6 +2837,7 @@
 				51486DA62485237200FCE216 /* RiskThankYouCollectionViewCell.swift in Sources */,
 				71330E43248109FD00EB10F6 /* DynamicTableViewCell.swift in Sources */,
 				B14D0CDD246E972400D5BEBC /* ExposureDetectionDelegate.swift in Sources */,
+				0144BDED250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift in Sources */,
 				B161782E2480658F006E435A /* DeltaCalculationResult.swift in Sources */,
 				B11E619B246EE4B0004A056A /* DynamicTypeLabel.swift in Sources */,
 				B1D7D69224766D2100E4DA5D /* apple_export.pb.swift in Sources */,
@@ -2894,7 +2880,6 @@
 				0DF6BBB7248C04CF007E8B0C /* app_config.pb.swift in Sources */,
 				AB5F84AD24F8F7A1000400D4 /* SerialMigrator.swift in Sources */,
 				B1DDDABE24713BAD00A07175 /* SAPDownloadedPackage.swift in Sources */,
-				01D16C6624EFA91F007DB387 /* ExposureSubmissionWarnEuropeTravelConfirmationViewController.swift in Sources */,
 				71FE1C7C247AC2B500851FEB /* ExposureSubmissionOverviewViewController.swift in Sources */,
 				B1FE13EC24891CFE00D012E5 /* RiskProviding.swift in Sources */,
 				011E4B032483A92A002E6412 /* MockExposureManager.swift in Sources */,
@@ -2960,12 +2945,10 @@
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
 				01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */,
 				B1741B582462EBDB006275D9 /* HomeViewController.swift in Sources */,
-				01D16C6824EFA93D007DB387 /* ExposureSubmissionWarnEuropeCountrySelectionViewController.swift in Sources */,
 				71EF33D92497F3E8007B7E1B /* ENANavigationControllerWithFooterChild.swift in Sources */,
 				A3EE6E5A249BB7AF00C64B61 /* ExposureSubmissionServiceFactory.swift in Sources */,
 				4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */,
 				350BB08825055B4700345A77 /* app_config_V0.pb.swift in Sources */,
-				01D16C6424EFA903007DB387 /* ExposureSubmissionWarnEuropeConsentViewController.swift in Sources */,
 				51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */,
 				B1FE13EB24891CFA00D012E5 /* RiskProvider.swift in Sources */,
 				B143DBDF2477F292000A29E8 /* ExposureNotificationSettingViewController.swift in Sources */,
@@ -3150,7 +3133,6 @@
 				A372DA4224BF3E29003248BB /* MockExposureSubmissionCoordinator.swift in Sources */,
 				A1E419582495A8F90016E52A /* HTTPClient+RegistrationTokenTests.swift in Sources */,
 				A1E419552495A8060016E52A /* HTTPClient+GetTestResultTests.swift in Sources */,
-				354DA0CE250658C30018354E /* ExposureSubmissionWarnEuropeCountrySelectionViewControllerTests.swift in Sources */,
 				01D16C5E24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift in Sources */,
 				A3284259248E7672006B1F09 /* MockExposureSubmissionQRScannerViewController.swift in Sources */,
 				A328425F248E943D006B1F09 /* ExposureSubmissionTanInputViewControllerTests.swift in Sources */,
@@ -3227,7 +3209,6 @@
 				01D16C6224ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift in Sources */,
 				A1654EFF24B41FF600C0E115 /* DynamicCellTests.swift in Sources */,
 				B161782D248062CE006E435A /* DeltaCalculationResultTests.swift in Sources */,
-				354DA0CC25063BDB0018354E /* ExposureSubmissionWarnEuropeConsentViewControllerTest.swift in Sources */,
 				0144BDE32509288B00B0857C /* SymptomsOnsetTests.swift in Sources */,
 				A124E64C249C4C9000E95F72 /* SAPDownloadedPackagesStore+Helpers.swift in Sources */,
 				A36FACC424C5EA1500DED947 /* ExposureDetectionViewControllerTests.swift in Sources */,
@@ -3239,7 +3220,6 @@
 				B18C411D246DB30000B8D8CB /* URL+Helper.swift in Sources */,
 				CDF27BD5246ADBF30044D32B /* HTTPClient+DaysAndHoursTests.swift in Sources */,
 				A17DA5E32486D8EF006F310F /* RiskLevelTests.swift in Sources */,
-				354DA0D0250665A10018354E /* ExposureSubmissionWarnEuropeTravelConfirmationViewControllerTests.swift in Sources */,
 				B117909824914D77007FF821 /* StoreTests.swift in Sources */,
 				F22C6E252492082B00712A6B /* DynamicTableViewSpaceCellTests.swift in Sources */,
 				B1AC51D624CED8820087C35B /* DetectionModeTests.swift in Sources */,
