@@ -26,6 +26,7 @@ extension ENSettingModel {
 	enum Content {
 		case banner
 		case actionCell
+		case euTracingCell
 		case tracingCell
 		case actionDetailCell
 		case descriptionCell

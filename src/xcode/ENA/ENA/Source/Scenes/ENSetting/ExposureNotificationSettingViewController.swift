@@ -33,7 +33,7 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 
 	private var lastActionCell: ActionCell?
 
-	let model = ENSettingModel(content: [.banner, .actionCell, .actionDetailCell, .descriptionCell])
+	let model = ENSettingModel(content: [.banner, .actionCell, .euTracingCell, .actionDetailCell, .descriptionCell])
 	let store: Store
 	var enState: ENStateHandler.State
 
@@ -204,6 +204,12 @@ extension ExposureNotificationSettingViewController {
 				if let cell = cell as? ActionCell {
 					cell.configure(for: enState, delegate: self)
 					lastActionCell = cell
+				}
+			case .euTracingCell:
+				let euTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.euTracingCell.cellType.rawValue, for: indexPath)
+				if let euTracingCell = euTracingCell as? EuTracingTableViewCell {
+					euTracingCell.configure(for: store.euTracingSettings!)
+					return euTracingCell
 				}
 			case .tracingCell, .actionDetailCell:
 				switch enState {
