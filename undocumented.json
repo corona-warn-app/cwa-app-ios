@@ -296,196 +296,189 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 116,
+      "line": 87,
       "symbol": "Client.getTestResult(forDevice:isFake:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 123,
+      "line": 94,
       "symbol": "Client.getTANForExposureSubmit(forDevice:isFake:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 131,
+      "line": 102,
       "symbol": "Client.ExposureConfigurationCompletionHandler",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 154,
+      "line": 125,
       "symbol": "SubmissionError",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 155,
+      "line": 126,
       "symbol": "SubmissionError.other(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 156,
+      "line": 127,
       "symbol": "SubmissionError.invalidPayloadOrHeaders",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 157,
+      "line": 128,
       "symbol": "SubmissionError.invalidTan",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 158,
+      "line": 129,
       "symbol": "SubmissionError.serverError(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 159,
+      "line": 130,
       "symbol": "SubmissionError.requestCouldNotBeBuilt",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 160,
+      "line": 131,
       "symbol": "SubmissionError.simpleError(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 163,
+      "line": 134,
       "symbol": "SubmissionError",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 164,
+      "line": 135,
       "symbol": "SubmissionError.localizedDescription",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 198,
+      "line": 169,
       "symbol": "DaysResult",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 199,
+      "line": 170,
       "symbol": "DaysResult.errors",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 200,
+      "line": 171,
       "symbol": "DaysResult.bucketsByDay",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 203,
+      "line": 174,
       "symbol": "HoursResult",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 204,
+      "line": 175,
       "symbol": "HoursResult.errors",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 205,
+      "line": 176,
       "symbol": "HoursResult.bucketsByHour",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 206,
+      "line": 177,
       "symbol": "HoursResult.day",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 209,
+      "line": 180,
       "symbol": "FetchedDaysAndHours",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 210,
+      "line": 181,
       "symbol": "FetchedDaysAndHours.hours",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 211,
+      "line": 182,
       "symbol": "FetchedDaysAndHours.days",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 212,
+      "line": 183,
       "symbol": "FetchedDaysAndHours.allKeyPackages",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 218,
+      "line": 189,
       "symbol": "Client.FetchHoursCompletionHandler",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 314,
-      "symbol": "Client.fetchDays(_:completion:)",
+      "line": 225,
+      "symbol": "Client.fetchDays(_:hours:of:country:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 346,
-      "symbol": "Client.fetchDays(_:hours:of:completion:)",
+      "line": 252,
+      "symbol": "Client.fetchHours(_:day:country:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 372,
-      "symbol": "Client.fetchHours(_:day:completion:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 403,
+      "line": 282,
       "symbol": "Client.DaysAndHoursCompletionHandler",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
@@ -534,147 +527,133 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 131,
-      "symbol": "HTTPClient.Configuration.availableDaysURL",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 144,
-      "symbol": "HTTPClient.Configuration.diagnosisKeysURL(day:)",
+      "line": 97,
+      "symbol": "HTTPClient.Configuration.diagnosisKeysURL(day:hour:forCountry:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 158,
-      "symbol": "HTTPClient.Configuration.diagnosisKeysURL(day:hour:)",
+      "line": 113,
+      "symbol": "HTTPClient.Configuration.availableHoursURL(day:country:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 174,
-      "symbol": "HTTPClient.Configuration.availableHoursURL(day:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 191,
+      "line": 128,
       "symbol": "HTTPClient.Configuration.configurationURL",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 204,
+      "line": 141,
       "symbol": "HTTPClient.Configuration.submissionURL",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 214,
+      "line": 151,
       "symbol": "HTTPClient.Configuration.registrationURL",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 224,
+      "line": 161,
       "symbol": "HTTPClient.Configuration.testResultURL",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 234,
+      "line": 171,
       "symbol": "HTTPClient.Configuration.tanRetrievalURL",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 246,
+      "line": 183,
       "symbol": "HTTPClient.Configuration",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 247,
+      "line": 184,
       "symbol": "HTTPClient.Configuration.Endpoint",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 250,
+      "line": 187,
       "symbol": "HTTPClient.Configuration.Endpoint.init(baseURL:requiresTrailingSlash:requiresTrailingIndex:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 262,
+      "line": 199,
       "symbol": "HTTPClient.Configuration.Endpoint.baseURL",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 263,
+      "line": 200,
       "symbol": "HTTPClient.Configuration.Endpoint.requiresTrailingSlash",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 264,
+      "line": 201,
       "symbol": "HTTPClient.Configuration.Endpoint.requiresTrailingIndex",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 268,
+      "line": 205,
       "symbol": "HTTPClient.Configuration.Endpoint.appending(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 280,
+      "line": 217,
       "symbol": "HTTPClient.Configuration",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 281,
+      "line": 218,
       "symbol": "HTTPClient.Configuration.Endpoints",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 282,
+      "line": 219,
       "symbol": "HTTPClient.Configuration.Endpoints.distribution",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 283,
+      "line": 220,
       "symbol": "HTTPClient.Configuration.Endpoints.submission",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient+Configuration.swift",
-      "line": 284,
+      "line": 221,
       "symbol": "HTTPClient.Configuration.Endpoints.verification",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
@@ -709,14 +688,21 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient.swift",
-      "line": 302,
+      "line": 91,
+      "symbol": "HTTPClient.supportedCountries(completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient.swift",
+      "line": 216,
       "symbol": "HTTPClient.getTestResult(forDevice:isFake:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient.swift",
-      "line": 355,
+      "line": 269,
       "symbol": "HTTPClient.getTANForExposureSubmit(forDevice:isFake:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -5014,147 +5000,147 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 26,
+      "line": 22,
       "symbol": "DownloadedPackagesStore",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 27,
+      "line": 23,
       "symbol": "DownloadedPackagesSQLLiteStore",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 30,
+      "line": 25,
       "symbol": "RequiresAppDependencies",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 31,
+      "line": 26,
       "symbol": "RequiresAppDependencies.client",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
+      "line": 27,
+      "symbol": "RequiresAppDependencies.store",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
+      "line": 28,
+      "symbol": "RequiresAppDependencies.taskScheduler",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
+      "line": 29,
+      "symbol": "RequiresAppDependencies.downloadedPackagesStore",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
+      "line": 30,
+      "symbol": "RequiresAppDependencies.appConfigurationProvider",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
+      "line": 31,
+      "symbol": "RequiresAppDependencies.riskProvider",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
       "line": 32,
-      "symbol": "RequiresAppDependencies.store",
+      "symbol": "RequiresAppDependencies.exposureManager",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
       "line": 33,
-      "symbol": "RequiresAppDependencies.taskScheduler",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 34,
-      "symbol": "RequiresAppDependencies.downloadedPackagesStore",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 35,
-      "symbol": "RequiresAppDependencies.appConfigurationProvider",
+      "symbol": "RequiresAppDependencies.lastRiskCalculation",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
       "line": 36,
-      "symbol": "RequiresAppDependencies.riskProvider",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 37,
-      "symbol": "RequiresAppDependencies.exposureManager",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 38,
-      "symbol": "RequiresAppDependencies.lastRiskCalculation",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 41,
       "symbol": "RequiresAppDependencies",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 42,
+      "line": 37,
       "symbol": "RequiresAppDependencies.client",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 46,
+      "line": 41,
       "symbol": "RequiresAppDependencies.downloadedPackagesStore",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 50,
+      "line": 45,
       "symbol": "RequiresAppDependencies.store",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 54,
+      "line": 49,
       "symbol": "RequiresAppDependencies.appConfigurationProvider",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 58,
+      "line": 53,
       "symbol": "RequiresAppDependencies.riskProvider",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 62,
+      "line": 57,
       "symbol": "RequiresAppDependencies.lastRiskCalculation",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 66,
+      "line": 61,
       "symbol": "RequiresAppDependencies.exposureManager",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 70,
+      "line": 65,
       "symbol": "RequiresAppDependencies.taskScheduler",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 233,
+      "line": 183,
       "symbol": "DownloadedPackagesStore",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
@@ -13589,42 +13575,42 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetectionExecutor.swift",
-      "line": 104,
+      "line": 80,
       "symbol": "ExposureDetectionExecutor.exposureDetection(_:downloadDeltaFor:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetectionExecutor.swift",
-      "line": 129,
+      "line": 100,
       "symbol": "ExposureDetectionExecutor.exposureDetection(_:downloadAndStore:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetectionExecutor.swift",
-      "line": 153,
+      "line": 115,
       "symbol": "ExposureDetectionExecutor.exposureDetection(_:downloadConfiguration:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetectionExecutor.swift",
-      "line": 157,
+      "line": 119,
       "symbol": "ExposureDetectionExecutor.exposureDetectionWriteDownloadedPackages(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetectionExecutor.swift",
-      "line": 205,
+      "line": 155,
       "symbol": "ExposureDetectionExecutor.exposureDetection(_:detectSummaryWithConfiguration:writtenPackages:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetectionExecutor.swift",
-      "line": 234,
+      "line": 184,
       "symbol": "DownloadedPackagesStore.addFetchedDaysAndHours(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
