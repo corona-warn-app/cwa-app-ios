@@ -212,15 +212,15 @@ private final class ExposureDetectionDelegateMock {
 
 extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 
-	func exposureDetection(country: String, determineAvailableData completion: @escaping (DaysAndHours?, String) -> Void) {
+	func exposureDetection(country: Country.ID, determineAvailableData completion: @escaping (DaysAndHours?, Country.ID) -> Void) {
 		completion(availableData(), country)
 	}
 
-	func exposureDetection(country: String, downloadDeltaFor remote: DaysAndHours) -> DaysAndHours {
+	func exposureDetection(country: Country.ID, downloadDeltaFor remote: DaysAndHours) -> DaysAndHours {
 		downloadDelta(remote)
 	}
 
-	func exposureDetection(country: String, downloadAndStore delta: DaysAndHours, completion: @escaping (Error?) -> Void) {
+	func exposureDetection(country: Country.ID, downloadAndStore delta: DaysAndHours, completion: @escaping (Error?) -> Void) {
 		completion(downloadAndStore(delta))
 
 	}
@@ -229,7 +229,7 @@ extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 		completion(configuration())
 	}
 
-	func exposureDetectionWriteDownloadedPackages(country: String) -> WrittenPackages? {
+	func exposureDetectionWriteDownloadedPackages(country: Country.ID) -> WrittenPackages? {
 		writtenPackages()
 	}
 
