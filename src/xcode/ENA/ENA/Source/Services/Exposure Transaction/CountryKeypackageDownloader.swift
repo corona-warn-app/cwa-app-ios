@@ -22,7 +22,7 @@ import ExposureNotification
 protocol CountryKeypackageDownloading {
 	typealias Completion = (Result<Void, ExposureDetection.DidEndPrematurelyReason>) -> Void
 
-	func downloadKeypackages(for country: String, completion: @escaping Completion)
+	func downloadKeypackages(for country: Country.ID, completion: @escaping Completion)
 }
 
 class CountryKeypackageDownloader: CountryKeypackageDownloading {
@@ -33,7 +33,7 @@ class CountryKeypackageDownloader: CountryKeypackageDownloading {
 		self.delegate = delegate
 	}
 
-	func downloadKeypackages(for country: String, completion: @escaping Completion) {
+	func downloadKeypackages(for country: Country.ID, completion: @escaping Completion) {
 		delegate?.exposureDetection(country: country, determineAvailableData: { [weak self] daysAndHours, country in
 			guard let self = self else { return }
 
@@ -41,7 +41,7 @@ class CountryKeypackageDownloader: CountryKeypackageDownloading {
 		})
 	}
 
-	private func downloadDeltaUsingAvailableRemoteData(_ daysAndHours: DaysAndHours?, country: String, completion: @escaping Completion) {
+	private func downloadDeltaUsingAvailableRemoteData(_ daysAndHours: DaysAndHours?, country: Country.ID, completion: @escaping Completion) {
 
 		guard let daysAndHours = daysAndHours else {
 			completion(.failure(.noDaysAndHours))
