@@ -92,16 +92,22 @@ final class ExposureDetection {
 		}
 	}
 
-	private func writeKeyPackagesToFileSystem(for countries: [Country.ID]) -> WrittenPackages? {
+	private func writeKeyPackagesToFileSystem(for countries: [Country.ID], completion: (WrittenPackages) -> Void) {
 		var urls = [URL]()
+		var writePackagesSuccess = true
+
 		for country in countries {
 			guard let writtenPackages = self.delegate?.exposureDetectionWriteDownloadedPackages(country: country) else {
-				return nil
+				self.endPrematurely(reason: .unableToWriteDiagnosisKeys)
+				writePackagesSuccess = false
+				break
 			}
 			urls.append(contentsOf: writtenPackages.urls)
 		}
 
-		return WrittenPackages(urls: urls)
+		if writePackagesSuccess {
+			completion(WrittenPackages(urls: urls))
+		}
 	}
 
 	private func detectSummary(writtenPackages: WrittenPackages) {
@@ -147,12 +153,11 @@ final class ExposureDetection {
 			self.downloadKeyPackages(for: countryIDs) { [weak self] in
 				guard let self = self else { return }
 
-				guard let writtenPackages = self.writeKeyPackagesToFileSystem(for: countryIDs) else {
-					self.endPrematurely(reason: .unableToWriteDiagnosisKeys)
-					return
-				}
+				self.writeKeyPackagesToFileSystem(for: countryIDs) {  [weak self] writtenPackages in
+					guard let self = self else { return }
 
-				self.detectSummary(writtenPackages: writtenPackages)
+					self.detectSummary(writtenPackages: writtenPackages)
+				}
 			}
 		}
 	}
