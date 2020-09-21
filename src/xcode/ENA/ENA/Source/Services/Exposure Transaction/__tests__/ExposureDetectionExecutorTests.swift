@@ -295,7 +295,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
 		let mockSummary = MutableENExposureDetectionSummary(daysSinceLastExposure: 2, matchedKeyCount: 2, maximumRiskScore: 255)
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((mockSummary, nil)))
-		let exposureDetection = ExposureDetection(delegate: sut, store: MockTestStore())
+		let exposureDetection = ExposureDetection(delegate: sut)
 
 		_ = sut.exposureDetection(
 			exposureDetection,
@@ -323,7 +323,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
 		let expectedError = ENError(.notAuthorized)
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((nil, expectedError)))
-		let exposureDetection = ExposureDetection(delegate: sut, store: MockTestStore())
+		let exposureDetection = ExposureDetection(delegate: sut)
 
 		sut.exposureDetection(
 			exposureDetection,

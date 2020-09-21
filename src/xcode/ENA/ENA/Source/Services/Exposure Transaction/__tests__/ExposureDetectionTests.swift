@@ -83,10 +83,8 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 			return .success(MutableENExposureDetectionSummary(daysSinceLastExposure: 5))
 		}
 
-		let storeMock = MockTestStore()
-
 		let startCompletionCalled = expectation(description: "start completion called")
-		let detection = ExposureDetection(delegate: delegate, store: storeMock)
+		let detection = ExposureDetection(delegate: delegate)
 		detection.start { _ in startCompletionCalled.fulfill() }
 
 		wait(
@@ -116,7 +114,6 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 
 		let detection = ExposureDetection(
 			delegate: delegate,
-			store: MockTestStore(),
 			countryKeypackageDownloader: packageDownloader
 		)
 

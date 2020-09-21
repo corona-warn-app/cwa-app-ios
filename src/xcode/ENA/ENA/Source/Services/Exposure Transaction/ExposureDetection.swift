@@ -25,17 +25,14 @@ final class ExposureDetection {
 	private var completion: Completion?
 	private var progress: Progress?
 
-	private let store: Store
 	private var countryKeypackageDownloader: CountryKeypackageDownloading
 
 	// MARK: Creating a Transaction
 	init(
 		delegate: ExposureDetectionDelegate,
-		store: Store,
 		countryKeypackageDownloader: CountryKeypackageDownloading? = nil
 	) {
 		self.delegate = delegate
-		self.store = store
 
 		if let countryKeypackageDownloader = countryKeypackageDownloader {
 			self.countryKeypackageDownloader = countryKeypackageDownloader
@@ -61,7 +58,7 @@ final class ExposureDetection {
 		})
 	}
 
-	private func getCountriesToDetect(store: Store, supportedCountries: [Country]) -> [Country.ID] {
+	private func getCountriesToDetect(supportedCountries: [Country]) -> [Country.ID] {
 		var countryIDs = supportedCountries.map { $0.id }
 		countryIDs.append(Country.defaultCountry().id)
 		return countryIDs
@@ -145,7 +142,7 @@ final class ExposureDetection {
 		self.getSupportedCountries { [weak self] supportedCountries in
 			guard let self = self else { return }
 
-			let countryIDs = self.getCountriesToDetect(store: self.store, supportedCountries: supportedCountries)
+			let countryIDs = self.getCountriesToDetect(supportedCountries: supportedCountries)
 
 			self.downloadKeyPackages(for: countryIDs) { [weak self] in
 				guard let self = self else { return }
