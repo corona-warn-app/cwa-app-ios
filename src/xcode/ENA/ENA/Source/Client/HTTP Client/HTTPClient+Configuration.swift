@@ -58,7 +58,6 @@ extension HTTPClient {
 			)
 		}
 
-		#if INTEROP
 		/// Generate the URL for getting all available days
 		/// - Parameter country: country code
 		/// - Returns: URL to get all available days that server can deliver
@@ -125,68 +124,6 @@ extension HTTPClient {
 					"hour"
 			)
 		}
-
-		#else
-
-		var availableDaysURL: URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country,
-					"date"
-			)
-		}
-
-		func diagnosisKeysURL(day: String) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country,
-					"date",
-					day
-			)
-		}
-
-		func diagnosisKeysURL(day: String, hour: Int) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country,
-					"date",
-					day,
-					"hour",
-					String(hour)
-			)
-		}
-
-		func availableHoursURL(day: String) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country,
-					"date",
-					day,
-					"hour"
-			)
-		}
-
-		#endif
 
 		var configurationURL: URL {
 			endpoints

@@ -7,7 +7,6 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/apple/swift-protobuf/
 
-#if INTEROP
 import Foundation
 import SwiftProtobuf
 
@@ -975,5 +974,3 @@ extension SAP_AppFeature: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     return true
   }
 }
-
-#endif // INTEROP
