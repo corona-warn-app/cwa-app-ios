@@ -823,6 +823,16 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 "ExposureNotificationSetting_apiMisuse" = "Bei der Aktivierung der Risiko-Ermittlung ist ein interner Fehler aufgetreten. Für mehr Informationen besuchen Sie bitte die FAQ-Website und probieren Sie es später noch einmal.";
 
+/* EU Settings */
+
+"ExposureNotificationSetting_EU_Title" = "Länderübergreifende Risiko-Ermittlung";
+
+"ExposureNotificationSetting_EU_Desc_1" = "Die Corona-Warn-App warnt länderübergreifend vor möglichen Infektionen, indem Daten über eine europäische Infrastruktur ausgetauscht werden.";
+
+"ExposureNotificationSetting_EU_Desc_2" = "Es werden keine persönlichen Daten ausgetauscht. Für den länderübergreifenden Datenaustausch über die Corona-Warn-App fallen keine zusätzlichen Kosten für Sie an.";
+
+"ExposureNotificationSetting_EU_Desc_3" = "Derzeit nehmen die folgenden Länder teil:";
+
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App Logo";
 
