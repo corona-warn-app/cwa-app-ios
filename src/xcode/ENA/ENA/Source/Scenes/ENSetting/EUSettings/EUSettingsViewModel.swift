@@ -42,7 +42,9 @@ class EUSettingsViewModel {
 	// MARK: - Initializers.
 
 	init(countries availableCountries: [Country]/*, euTracingSettings: EUTracingSettings*/) {
-		self.countryModels = availableCountries.map { CountryModel($0) }
+		self.countryModels = availableCountries
+			.sorted { $0.localizedName <  $1.localizedName }
+			.map { CountryModel($0) }
 		// self.euTracingSettings = euTracingSettings
 	}
 
