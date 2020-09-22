@@ -33,7 +33,11 @@ class EUSettingsViewController: DynamicTableViewController {
 				Country(countryCode: "EL"),
 				Country(countryCode: "UK"),
 				Country(countryCode: "CZ"),
-				Country(countryCode: "DK")
+				Country(countryCode: "DE"),
+				Country(countryCode: "DK"),
+				Country(countryCode: "FR"),
+				Country(countryCode: "IE")
+
 			].compactMap { $0 }/*,
 			euTracingSettings: EUTracingSettings(
 				isAllCountriesEnbled: false,
