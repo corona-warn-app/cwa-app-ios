@@ -222,13 +222,7 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 	}
 
 	func makeCountries() -> [Country] {
-		guard let enCountry = Country(countryCode: "FR"),
-			let itCountry = Country(countryCode: "IT") else {
-			XCTFail("Could not create supported countries.")
-			return []
-		}
-
-		return [enCountry, itCountry]
+		return [Country(countryCode: "FR"), Country(countryCode: "IT")].compactMap { $0 }
 	}
 }
 
