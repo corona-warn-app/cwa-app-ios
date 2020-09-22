@@ -25,8 +25,8 @@ protocol ConfigurableEuTracingSettingCell: ConfigurableENSettingCell {
 
 class EuTracingTableViewCell: UITableViewCell, ConfigurableEuTracingSettingCell {
 
-	@IBOutlet var titleLabel: UILabel!
-	@IBOutlet var countryList: UILabel!
+	@IBOutlet var titleLabel: ENALabel!
+	@IBOutlet var countryList: ENALabel!
 
 	weak var delegate: ActionTableViewCellDelegate?
 
