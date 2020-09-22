@@ -377,6 +377,11 @@ extension ExposureSubmissionCoordinator {
 			visitedCountries: visitedCountries,
 			completionHandler: { [weak self] error in
 				switch error {
+				// If User doesn`t allow TEK`s to be shared with the app, we stay on the screen (https://jira.itc.sap.com/browse/EXPOSUREAPP-2293)
+				case .notAuthorized:
+					onError()
+					return
+				
 				// We continue the regular flow even if there are no keys collected.
 				case .none, .noKeys:
 					onSuccess()
