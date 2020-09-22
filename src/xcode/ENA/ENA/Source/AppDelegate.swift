@@ -39,6 +39,7 @@ extension AppDelegate: ExposureSummaryProvider {
 	func detectExposure(
 		completion: @escaping (ENExposureDetectionSummary?) -> Void
 	) -> CancellationToken {
+
 		exposureDetection = ExposureDetection(delegate: exposureDetectionExecutor)
 
 		let token = CancellationToken { [weak self] in

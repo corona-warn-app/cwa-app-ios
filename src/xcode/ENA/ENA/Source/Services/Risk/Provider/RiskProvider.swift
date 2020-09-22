@@ -254,7 +254,7 @@ extension RiskProvider: RiskProviding {
 			group.leave()
 		}
 
-		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
+		guard group.wait(timeout: .now() + .seconds(60 * 8)) == .success else {
 			provideLoadingStatus(isLoading: false)
 			cancellationToken?.cancel()
 			cancellationToken = nil

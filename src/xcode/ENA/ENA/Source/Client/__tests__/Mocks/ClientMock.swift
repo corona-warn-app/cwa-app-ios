@@ -108,6 +108,14 @@ extension ClientMock: Client {
 	func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler) {
 		completion(ENExposureConfiguration())
 	}
+	
+	func supportedCountries(completion: @escaping CountryFetchCompletion) {
+		if let failure = urlRequestFailure {
+			completion(.failure(failure))
+			return
+		}
+		completion(.success(supportedCountries))
+	}
 
 	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
 		onSubmitCountries(payload, isFake, completion)
