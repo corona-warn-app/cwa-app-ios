@@ -58,15 +58,6 @@ final class ExposureDetection {
 		})
 	}
 
-	private func getCountriesToDetect(supportedCountries: [Country]) -> [Country.ID] {
-		#if EUROPEMODE
-		return ["EUR"]
-		#else
-		let countryIDs = Set(supportedCountries.map { $0.id })
-		return Array(countryIDs)
-		#endif
-	}
-
 	private func downloadKeyPackages(for countries: [Country.ID], completion: @escaping () -> Void) {
 		let dispatchGroup = DispatchGroup()
 		var errors = [ExposureDetection.DidEndPrematurelyReason]()
@@ -148,21 +139,38 @@ final class ExposureDetection {
 	func start(completion: @escaping Completion) {
 		self.completion = completion
 
+		#if EUROPEMODE
+
+		let countryIDs = ["EUR"]
+		self.downloadKeyPackages(for: countryIDs) { [weak self] in
+			guard let self = self else { return }
+
+			self.writeKeyPackagesToFileSystem(for: countryIDs) {  [weak self] writtenPackages in
+				guard let self = self else { return }
+
+				self.detectSummary(writtenPackages: writtenPackages)
+			}
+		}
+
+		#else
+
 		self.getSupportedCountries { [weak self] supportedCountries in
 			guard let self = self else { return }
 
-			let countryIDs = self.getCountriesToDetect(supportedCountries: supportedCountries)
+			let countryIDs = Set(supportedCountries.map { $0.id })
 
-			self.downloadKeyPackages(for: countryIDs) { [weak self] in
+			self.downloadKeyPackages(for: Array(countryIDs)) { [weak self] in
 				guard let self = self else { return }
 
-				self.writeKeyPackagesToFileSystem(for: countryIDs) {  [weak self] writtenPackages in
+				self.writeKeyPackagesToFileSystem(for: Array(countryIDs)) {  [weak self] writtenPackages in
 					guard let self = self else { return }
 
 					self.detectSummary(writtenPackages: writtenPackages)
 				}
 			}
 		}
+
+		#endif
 	}
 
 	// MARK: Working with the Completion Handler
