@@ -20,7 +20,7 @@
 import UIKit
 
 protocol ConfigurableEuTracingSettingCell: ConfigurableENSettingCell {
-	func configure()
+	func configure(using viewModel: ENSettingEuTracingViewModel)
 }
 
 class EuTracingTableViewCell: UITableViewCell, ConfigurableEuTracingSettingCell {
@@ -38,8 +38,7 @@ class EuTracingTableViewCell: UITableViewCell, ConfigurableEuTracingSettingCell 
 		}
 	}
 
-	func configure() {
-		viewModel = ENSettingEuTracingViewModel()
+	func configure(using viewModel: ENSettingEuTracingViewModel = .init()){
 		let backgroundView = UIView()
 		backgroundView.backgroundColor = UIColor.clear
 		self.selectedBackgroundView = backgroundView
