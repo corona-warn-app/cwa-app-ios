@@ -379,8 +379,7 @@ extension ExposureSubmissionCoordinator {
 				switch error {
 				// If User doesn`t allow TEK`s to be shared with the app, we stay on the screen (https://jira.itc.sap.com/browse/EXPOSUREAPP-2293)
 				case .notAuthorized:
-					self.navigationFooterItem?.isPrimaryButtonLoading = false
-					self.navigationFooterItem?.isPrimaryButtonEnabled = true
+					onError()
 					return
 				
 				// We continue the regular flow even if there are no keys collected.
