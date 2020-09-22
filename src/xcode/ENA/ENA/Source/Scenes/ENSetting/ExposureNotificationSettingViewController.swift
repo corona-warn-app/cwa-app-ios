@@ -33,7 +33,7 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 
 	private var lastActionCell: ActionCell?
 
-	let model = ENSettingModel(content: [.banner, .actionCell, .actionDetailCell, .descriptionCell])
+	let model = ENSettingModel(content: [.banner, .actionCell, .euTracingCell, .actionDetailCell, .descriptionCell])
 	let store: Store
 	var enState: ENStateHandler.State
 
@@ -186,6 +186,11 @@ extension ExposureNotificationSettingViewController {
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
 		1
 	}
+	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		// TODO: implement navigation (KGA)
+		
+	}
 
 	override func tableView(
 		_ tableView: UITableView,
@@ -204,6 +209,12 @@ extension ExposureNotificationSettingViewController {
 				if let cell = cell as? ActionCell {
 					cell.configure(for: enState, delegate: self)
 					lastActionCell = cell
+				}
+			case .euTracingCell:
+				let euTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.euTracingCell.cellType.rawValue, for: indexPath)
+				if let euTracingCell = euTracingCell as? EuTracingTableViewCell {
+					euTracingCell.configure()
+					return euTracingCell
 				}
 			case .tracingCell, .actionDetailCell:
 				switch enState {
@@ -264,6 +275,7 @@ extension ExposureNotificationSettingViewController {
 	fileprivate enum ReusableCellIdentifier: String {
 		case banner
 		case actionCell
+		case euTracingCell
 		case tracingCell
 		case actionDetailCell
 		case descriptionCell
@@ -277,6 +289,8 @@ private extension ENSettingModel.Content {
 			return .banner
 		case .actionCell:
 			return .actionCell
+		case .euTracingCell:
+			return .euTracingCell
 		case .tracingCell:
 			return .tracingCell
 		case .actionDetailCell:

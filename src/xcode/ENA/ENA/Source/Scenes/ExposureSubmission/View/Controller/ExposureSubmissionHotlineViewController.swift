@@ -80,7 +80,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 								   accessibilityLabel: AppStrings.ExposureSubmissionHotline.imageDescription,
 								   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.imageDescription),
 					cells: [
-						.body(text: AppStrings.ExposureSubmissionHotline.description,
+						.body(text: [AppStrings.ExposureSubmissionHotline.description, AppStrings.Common.tessRelayDescription].joined(separator: "\n\n"),
 							  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.description) { _, cell, _ in
 								cell.textLabel?.accessibilityTraits = .header
 						}
