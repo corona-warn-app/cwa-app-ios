@@ -90,16 +90,10 @@ class ExposureSubmissionCoordinatorModel: RequiresAppDependencies {
 		onSuccess: @escaping () -> Void,
 		onError: @escaping (ExposureSubmissionError) -> Void
 	) {
-		isLoading(true)
 		startSubmitProcess(
-			onSuccess: {
-				isLoading(false)
-				onSuccess()
-			},
-			onError: { error in
-				isLoading(false)
-				onError(error)
-			}
+			isLoading: isLoading,
+			onSuccess: onSuccess,
+			onError: onError
 		)
 	}
 
@@ -123,7 +117,7 @@ class ExposureSubmissionCoordinatorModel: RequiresAppDependencies {
 			}
 
 			if supportedCountries.isEmpty {
-				self.supportedCountries = [Country(countryCode: "DE")].compactMap { $0 }
+				self.supportedCountries = ["DE"].compactMap { Country(countryCode: $0) }
 			} else {
 				self.supportedCountries = supportedCountries
 			}
@@ -133,21 +127,32 @@ class ExposureSubmissionCoordinatorModel: RequiresAppDependencies {
 	}
 
 	private func startSubmitProcess(
+		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping () -> Void,
 		onError: @escaping (ExposureSubmissionError) -> Void
 	) {
+		isLoading(true)
+
 		exposureSubmissionService.submitExposure(
 			symptomsOnset: symptomsOnset,
 			consentToFederation: consentToFederationGiven,
 			visitedCountries: supportedCountries,
 			completionHandler: { error in
-				// We continue the regular flow even if there are no keys collected.
-				guard let error = error, error != .noKeys else {
-					onSuccess()
-					return
-				}
+				isLoading(false)
 
-				onError(error)
+				switch error {
+				// If the user doesn`t allow the TEKs to be shared with the app, we stay on the screen (https://jira.itc.sap.com/browse/EXPOSUREAPP-2293)
+				case .notAuthorized:
+					return
+
+				// We continue the regular flow even if there are no keys collected.
+				case .none, .noKeys:
+					onSuccess()
+
+				case .some(let error):
+					logError(message: "error: \(error.localizedDescription)", level: .error)
+					onError(error)
+				}
 			}
 		)
 	}
