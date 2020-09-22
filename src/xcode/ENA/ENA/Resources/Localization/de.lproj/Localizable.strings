@@ -823,6 +823,11 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 "ExposureNotificationSetting_apiMisuse" = "Bei der Aktivierung der Risiko-Ermittlung ist ein interner Fehler aufgetreten. Für mehr Informationen besuchen Sie bitte die FAQ-Website und probieren Sie es später noch einmal.";
 
+/* EU Tracing Risk decription */
+"ExposureNotificationSetting_euTracingRiskDeterminationTitle" = "Länderübergreifende Risiko-Ermittlung";
+
+"ExposureNotificationSetting_euTracingAllCountriesTitle" = "Teilnehmende Länder";
+
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App Logo";
 
