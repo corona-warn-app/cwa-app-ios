@@ -79,9 +79,9 @@ protocol Client {
 
 	typealias ExposureConfigurationCompletionHandler = (ENExposureConfiguration?) -> Void
 
-	/// Gets the remove exposure configuration. See `ENExposureConfiguration` for more details
+	/// Gets the exposure configuration. See `ENExposureConfiguration` for more details
 	/// Parameters:
-	/// - completion: Will be called with the remove configuration or an error if something went wrong. The completion handler will always be called on the main thread.
+	/// - completion: Will be called with the configuration or an error if something went wrong.
 	func exposureConfiguration(
 		completion: @escaping ExposureConfigurationCompletionHandler
 	)
