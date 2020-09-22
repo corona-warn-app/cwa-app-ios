@@ -384,9 +384,9 @@
 
 "ExposureSubmissionTanEntry_Submit" = "Sonraki";
 
-"ExposureSubmissionTanEntry_InvalidCharacterError" = "Giriş geçersiz, lütfen girişinizi kontrol edin.";
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Girişiniz geçersiz karakterler içeriyor. Lütfen girişinizi kontrol edin";
 
-"ExposureSubmissionTanEntry_InvalidError" = "TAN geçersiz, lütfen girişinizi kontrol edin.";
+"ExposureSubmissionTanEntry_InvalidError" = "TAN geçersiz. Lütfen girişinizi kontrol edin.";
 
 "ExposureSubmission_NavTitle" = "Tanı Anahtarı Gönder";
 
@@ -710,7 +710,11 @@
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "QR kod geçersiz";
 
-"ExposureSubmissionError_TeleTanAlreadyUsed" = "TAN geçersiz veya zaten kullanılmış. Lütfen tekrar deneyin veya Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "TAN geçersiz veya zaten kullanılmış. Daha fazla bilgi için \"TAN Talebi\" bölümünün altında listelenen numarayı arayın.";
+
+"ExposureSubmissionError_QRNotExist_Title" = "R kodun süresi doldu";
+
+"ExposureSubmissionError_QRNotExist" = "Lütfen testi uygulamadan kaldırın.\nArdından Uygulamaya yeni bir test ekleyebilirsiniz.";
 
 "ExposureSubmissionError_RegTokenNotExist" = "Gönderme işlemi için TAN oluşturulamıyor. Lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
 
@@ -1074,7 +1078,7 @@
 "Reset_ConfirmDialog_Confirm" = "Sıfırla";
 
 /* Safari */
-"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-tuerkisch";
+"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";
 
 /* Local Notifications */
 "local_notifications_ignore" = "Yok Say";

@@ -384,9 +384,9 @@
 
 "ExposureSubmissionTanEntry_Submit" = "Înainte";
 
-"ExposureSubmissionTanEntry_InvalidCharacterError" = "Intrare nevalabilă. Verificați intrarea.";
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Intrarea dvs. conține caractere nevalabile. Vă rugăm să o verificați";
 
-"ExposureSubmissionTanEntry_InvalidError" = "TAN nevalabil. Verificați intrarea.";
+"ExposureSubmissionTanEntry_InvalidError" = "TAN nevalabil. Verificați intrarea dvs.";
 
 "ExposureSubmission_NavTitle" = "Trimitere cheie de pozitivare";
 
@@ -710,7 +710,11 @@
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "Codul QR este nevalabil";
 
-"ExposureSubmissionError_TeleTanAlreadyUsed" = "Codul TAN este nevalabil sau a fost deja utilizat. Reîncercați sau contactați hotline-ul tehnic accesând Informații aplicație -> Hotline tehnic.";
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "TAN-ul este nevalabil sau a fost deja utilizat. Pentru informații suplimentare, apelați numărul afișat la „Solicitare TAN”.";
+
+"ExposureSubmissionError_QRNotExist_Title" = "Codul QR a expirat";
+
+"ExposureSubmissionError_QRNotExist" = "Vă rugăm să eliminați testul din aplicație.\nApoi puteți adăuga un test nou în aplicație.";
 
 "ExposureSubmissionError_RegTokenNotExist" = "Un cod TAN de transmis nu poate fi generat. Contactați hotline-ul tehnic accesând Informații aplicație -> Hotline tehnic.";
 
