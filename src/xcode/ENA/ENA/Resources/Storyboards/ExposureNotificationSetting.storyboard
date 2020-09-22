@@ -194,8 +194,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="countryList" destination="IPp-fC-i40" id="YCS-io-efd"/>
-                                    <outlet property="titleLabel" destination="XNB-0p-YZY" id="35c-CZ-gZK"/>
+                                    <outlet property="countryList" destination="IPp-fC-i40" id="XmQ-fO-q4k"/>
+                                    <outlet property="titleLabel" destination="XNB-0p-YZY" id="vYM-tU-a6X"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="actionDetailCell" id="4Jl-Py-HhP" userLabel="detailedActionCell" customClass="ActionDetailTableViewCell" customModule="ENA" customModuleProvider="target">
