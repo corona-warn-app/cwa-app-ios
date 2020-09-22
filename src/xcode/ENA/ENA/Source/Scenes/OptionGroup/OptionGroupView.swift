@@ -25,6 +25,7 @@ class OptionGroupView: UIView {
 	enum OptionViewType {
 		case option(OptionView)
 		case multipleChoiceOption(MultipleChoiceOptionView)
+		case datePickerOption(DatePickerOptionView)
 	}
 
 	// MARK: - Init
@@ -82,6 +83,10 @@ class OptionGroupView: UIView {
 				let view = multipleChoiceOptionView(title: title, choices: choices, accessibilityIdentifier: id, index: optionIndex)
 				optionViews.append(.multipleChoiceOption(view))
 				contentStackView.addArrangedSubview(view)
+			case let .datePickerOption(title, today, accessibilityIdentifier):
+				let view = datePickerOptionView(title: title, today: today, accessibilityIdentifier: accessibilityIdentifier, index: optionIndex)
+				optionViews.append(.datePickerOption(view))
+				contentStackView.addArrangedSubview(view)
 			}
 		}
 
@@ -102,6 +107,7 @@ class OptionGroupView: UIView {
 			}
 		)
 		view.accessibilityIdentifier = accessibilityIdentifier
+
 		return view
 	}
 
@@ -114,6 +120,20 @@ class OptionGroupView: UIView {
 			}
 		)
 		view.accessibilityIdentifier = accessibilityIdentifier
+
+		return view
+	}
+
+	private func datePickerOptionView(title: String, today: Date, accessibilityIdentifier: String?, index: Int) -> DatePickerOptionView {
+		let view = DatePickerOptionView(
+			title: title,
+			today: today,
+			onTapOnDate: { [weak self] date in
+				self?.viewModel.datePickerOptionTapped(index: index, date: date)
+			}
+		)
+		view.accessibilityIdentifier = accessibilityIdentifier
+
 		return view
 	}
 
@@ -124,8 +144,9 @@ class OptionGroupView: UIView {
 				view.isSelected = false
 			case .multipleChoiceOption(let view):
 				view.selectedChoices = []
+			case .datePickerOption(let view):
+				view.selectedDate = nil
 			}
-
 		}
 	}
 
@@ -138,6 +159,10 @@ class OptionGroupView: UIView {
 
 		if case let .multipleChoiceOption(index: index, selectedChoices: selectedChoices) = selection, case let .multipleChoiceOption(view) = optionViews[index] {
 			view.selectedChoices = selectedChoices
+		}
+
+		if case let .datePickerOption(index: index, selectedDate: selectedDate) = selection, case let .datePickerOption(view) = optionViews[index] {
+			view.selectedDate = selectedDate
 		}
 	}
 

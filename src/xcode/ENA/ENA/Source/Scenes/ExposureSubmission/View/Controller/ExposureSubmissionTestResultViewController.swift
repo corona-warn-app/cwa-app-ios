@@ -184,7 +184,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 				return
 			}
 
-			self.coordinator?.showWarnOthersScreen()
+			self.coordinator?.showSymptomsScreen()
 		}
 	}
 }
@@ -334,10 +334,10 @@ private extension ExposureSubmissionTestResultViewController {
 				.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.furtherInfos_Title),
 
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain)
+				.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1, spacing: .large),
+				.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2, spacing: .large),
+				.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3, spacing: .large),
+				.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain, spacing: .large)
 			]
 		)
 	}

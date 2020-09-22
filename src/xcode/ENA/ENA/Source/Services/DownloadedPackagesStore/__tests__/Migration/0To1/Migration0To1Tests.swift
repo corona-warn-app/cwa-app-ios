@@ -22,8 +22,6 @@ import FMDB
 
 @testable import ENA
 
-#if INTEROP
-
 final class Migration0To1Tests: XCTestCase {
 
 	func testMigrationFromStoreVersion0To1() {
@@ -92,5 +90,3 @@ final class Migration0To1Tests: XCTestCase {
 		return numberOfRows
 	}
 }
-
-#endif

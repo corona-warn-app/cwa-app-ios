@@ -19,7 +19,7 @@
 	<key>CFBundleName</key>
 	<string>CoronaWarn</string>
 	<key>ENDeveloperRegion</key>
-	<string>DE</string>
+	<string>TEST_DE_0</string>
 	<key>ENAPIVersion</key>
 	<integer>1</integer>
 	<key>CFBundlePackageType</key>

@@ -52,4 +52,25 @@ class ExposureSubmissionTanInputViewControllerTests: XCTestCase {
 		
 		waitForExpectations(timeout: .short)
 	}
+
+	// Checks that a wrong TAN was input.
+	func testWrongTan() {
+		let vc = createVC()
+		_ = vc.view
+
+		vc.tanInput.insertText("ZBYKEVDBNU")
+		XCTAssert(vc.errorView.alpha == 1)
+		XCTAssert(vc.errorLabel.text == AppStrings.ExposureSubmissionTanEntry.invalidError)
+	}
+
+	// Checks that a TAN with one wrong character was input.
+	func testWrongCharacterTan() {
+		let vc = createVC()
+		_ = vc.view
+
+		vc.tanInput.insertText("ZBYKEVDBNL")
+		XCTAssert(vc.errorView.alpha == 1)
+		XCTAssert(vc.errorLabel.text == "\(AppStrings.ExposureSubmissionTanEntry.invalidError)\n\n\(AppStrings.ExposureSubmissionTanEntry.invalidCharacterError)")
+	}
+
 }

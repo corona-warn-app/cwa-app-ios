@@ -31,6 +31,7 @@ protocol ExposureSubmissionService: class {
 	var devicePairingSuccessfulTimestamp: Int64? { get }
 	
 	func submitExposure(
+		symptomsOnset: SymptomsOnset,
 		consentToFederation: Bool,
 		visitedCountries: [Country],
 		completionHandler: @escaping ExposureSubmissionHandler

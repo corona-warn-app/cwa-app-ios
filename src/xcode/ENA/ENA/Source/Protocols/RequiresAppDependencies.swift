@@ -19,13 +19,8 @@
 import Foundation
 import UIKit
 
-#if INTEROP
 typealias DownloadedPackagesStore = DownloadedPackagesStoreV1
 typealias DownloadedPackagesSQLLiteStore = DownloadedPackagesSQLLiteStoreV1
-#else
-typealias DownloadedPackagesStore = DownloadedPackagesStoreV0
-typealias DownloadedPackagesSQLLiteStore = DownloadedPackagesSQLLiteStoreV0
-#endif
 
 protocol RequiresAppDependencies {
 	var client: HTTPClient { get }

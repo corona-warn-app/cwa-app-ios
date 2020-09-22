@@ -3,6 +3,10 @@
 
 "Alert_ActionOk" = "Tamam";
 
+"Alert_ActionYes" = "Evet";
+
+"Alert_ActionNo" = "Hayır";
+
 "Alert_ActionRetry" = "Tekrarla";
 
 "Alert_ActionCancel" = "İptal";
@@ -27,13 +31,13 @@
 
 "Common_Alert_Action_moreInfo" = "Daha fazla bilgi edinin";
 
-"Common_BackgroundFetch_AlertMessage" = "Corona-Warn-App için arka plan güncellemelerini devre dışı bıraktınız. Otomatik maruz kalma günlüğü özelliğini kullanmak için lütfen arka plan güncellemelerini etkinleştirin. Arka plan güncellemelerini etkinleştirmezseniz maruz kalma günlüğü özelliğini yalnızca uygulamadan manüel olarak başlatabilirsiniz.\n\nUygulamanın arka plan güncellemelerini cihazınızın ayarlarından etkinleştirebilirsiniz.";
+"Common_BackgroundFetch_AlertMessage" = "Corona-Warn-App için arka planda uygulamayı yenilemeyi devre dışı bıraktınız. Otomatik maruz kalma günlüğü özelliğini kullanmak için lütfen arka planda uygulamayı yenilemeyi etkinleştirin. Arka planda uygulamayı yenilemeyi etkinleştirmezseniz maruz kalma günlüğü özelliğini yalnızca uygulamadan manüel olarak başlatabilirsiniz.\n\nUygulama için arka planda uygulamayı yenilemeyi cihazınızın ayarlarından etkinleştirebilirsiniz.";
 
 "Common_BackgroundFetch_SettingsTitle" = "Cihaz Ayarlarını Aç";
 
 "Common_BackgroundFetch_OKTitle" = "Maruz Kalma Günlüğünü Manüel Olarak Başlat";
 
-"Common_BackgroundFetch_AlertTitle" = "Arka plan güncellemeleri devre dışı bırakıldı";
+"Common_BackgroundFetch_AlertTitle" = "Arka planda uygulamayı yenileme devre dışı bırakıldı";
 
 "Common_Deadman_AlertTitle" = "Risk Durumunuz";
 
@@ -178,7 +182,7 @@
 
 "Settings_Notification_Label" = "Bildirimler";
 
-"Settings_BackgroundAppRefresh_Label" = "Arka Plan Güncellemeleri";
+"Settings_BackgroundAppRefresh_Label" = "Arka Planda Uygulamayı Yenileme";
 
 "Settings_Reset_Label" = "Uygulamayı Sıfırla";
 
@@ -220,15 +224,15 @@
 "NotificationSettings_offImageDescription" = "Bir kadın Corona-Warn-App uygulamasından bildirim alamıyor.";
 
 /* Background App Referesh Settings */
-"BackgroundAppRefreshSettings_Title" = "Arka Plan Güncellemeleri";
+"BackgroundAppRefreshSettings_Title" = "Arka Planda Uygulamayı Yenileme";
 
-"BackgroundAppRefreshSettings_Image_Description_On" = "Bir kişi elinde, arka plan güncellemeleri etkinleştirilmiş bir akıllı telefon tutuyor.";
+"BackgroundAppRefreshSettings_Image_Description_On" = "Bir kişi elinde, arka planda uygulamayı yenileme etkinleştirilmiş bir akıllı telefon tutuyor.";
 
-"BackgroundAppRefreshSettings_Image_Description_Off" = "Bir kişi elinde, arka plan güncellemeleri devre dışı bırakılmış bir akıllı telefon tutuyor.";
+"BackgroundAppRefreshSettings_Image_Description_Off" = "Bir kişi elinde, arka planda uygulamayı yenileme devre dışı bırakılmış bir akıllı telefon tutuyor.";
 
 "BackgroundAppRefreshSettings_Subtitle" = "Risk Durumunu Arka Planda Güncelle";
 
-"BackgroundAppRefreshSettings_Description" = "Arka plan güncellemeleri etkinleştirildiğinde Corona-Warn-App risk durumunuzu otomatik olarak belirler.\nMobil ağda veri aktarımı için ek ücret alınmaz.\nArka plan güncellemeleri devre dışı bırakılırsa risk durumunuzu güncellemek için uygulamayı her gün manuel olarak açmanız gerekir.";
+"BackgroundAppRefreshSettings_Description" = "Arka planda uygulamayı yenileme etkinleştirildiğinde Corona-Warn-App risk durumunuzu otomatik olarak belirler.\nMobil ağda veri aktarımı için ek ücret alınmaz.\nArka planda uygulamayıı yenileme devre dışı bırakılırsa risk durumunuzu güncellemek için uygulamayı her gün manüel olarak açmanız gerekir.";
 
 "BackgroundAppRefreshSettings_Status_Header" = "Ayar";
 
@@ -321,7 +325,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Yaş Sınırı: 16 ve Üzeri";
 
-"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "Uygulama, 16 yaş ve üzerinde olan ve Almanya'da yaşayan kişiler için hazırlanmıştır.";
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "Bu uygulama, 16 yaş ve üzerinde olan ve Almanya'da yaşayan kişilerin kullanması için hazırlanmıştır.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Kabul Beyanı";
 
@@ -357,6 +361,10 @@
 "ExposureSubmission_DataPrivacyTitle" = "Veri Gizliliği";
 
 "ExposureSubmission_Continue_actionText" = "Sonraki";
+
+"ExposureSubmission_ConfirmDismissPopUpTitle" = "İptal etmek istiyor musunuz?";
+
+"ExposureSubmission_ConfirmDismissPopUpText" = "Girişleriniz kaydedilmeyecektir.";
 
 "ExposureSubmission_DataPrivacyDescription" = "\"Kabul Et\" seçeneğine dokunarak Uygulamanın koronavirüs testinizin durumunu sorgulamasına ve Uygulamada görüntülemesine izin verirsiniz. Bu özelliği, QR kod aldıysanız ve test sonucunuzun Uygulamanın sunucu sistemine aktarılmasına onay verdiyseniz kullanabilirsiniz. Testi yapan laboratuvar test sonucunuzu sunucuya kaydettiği anda sonucu Uygulamada görüntüleyebilirsiniz. Ayrıca bildirimleri etkinleştirirseniz Uygulama, kullanmadığınız sırada test sonucunuzun alındığını belirten bir bildirim gönderir. Ancak gizlilik nedenleriyle testin sonucu yalnızca Uygulamada görüntülenecektir. Uygulamada test kaydınızı silerek dilediğiniz zaman bu onayı geri çekebilirsiniz. Onayınızı geri çekmeniz, onayınızı geri çekmeden önce testi işlemenin hukuki niteliğini etkilemeyecektir. Menüde \"Veri Gizliliği Bilgileri\" başlığında daha fazla bilgiye erişebilirsiniz.";
 
@@ -396,7 +404,7 @@
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "TAN'yi manuel olarak girerek kaydedin.";
+"ExposureSubmissionDispatch_TANButtonDescription" = "TAN'yi manüel olarak girerek kaydedin.";
 
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "TAN Talebi";
 
@@ -418,7 +426,7 @@
 
 "ExposureSubmission_PhoneNumber" = "+49 800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Diller: \nAlmanca, İngilizce, Türkçe\n\nMesai saatleri:\nPazartesi - Pazar: 24 saat\n\nArama ücretsizdir.";
+"ExposureSubmission_PhoneDetailDescription" = "Diller: \nAlmanca, İngilizce, Türkçe\n\nMesai saatleri:\nPazartesi - Pazar: 24 saat\n\nArama ücretsizdir.\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Uygulamaya TAN girerek testi kaydedin.";
 
@@ -560,23 +568,120 @@
 
 "ExposureSubmissionResult_refreshButton" = "Güncelle";
 
+/* ExposureSubmissionSymptoms */
+"ExposureSubmissionSymptoms_Title" = "Belirtiler";
+
+"ExposureSubmissionSymptoms_Description" = "Son birkaç günde aşağıdaki belirtilerden birini veya daha fazlasını yaşadınız mı?";
+
+"ExposureSubmissionSymptoms_Symptom0" = "Artan vücut sıcaklığı veya ateş";
+
+"ExposureSubmissionSymptoms_Symptom1" = "Nefes darlığı";
+
+"ExposureSubmissionSymptoms_Symptom2" = "Koku/tat kaybı";
+
+"ExposureSubmissionSymptoms_Symptom3" = "Öksürük";
+
+"ExposureSubmissionSymptoms_Symptom4" = "Burun akıntısı";
+
+"ExposureSubmissionSymptoms_Symptom5" = "Boğaz ağrısı";
+
+"ExposureSubmissionSymptoms_Symptom6" = "Baş ağrısı ve kol/bacak ağrısı";
+
+"ExposureSubmissionSymptoms_Symptom7" = "Genel zayıflık ve bitkinlik";
+
+"ExposureSubmissionSymptoms_AnswerOptionYes" = "Evet";
+
+"ExposureSubmissionSymptoms_AnswerOptionNo" = "Hayır";
+
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Yorum yok";
+
+"ExposureSubmissionSymptoms_ContinueButton" = "Sonraki";
+
+/* ExposureSubmissionSymptomsOnset */
+"ExposureSubmissionSymptomsOnset_Title" = "Belirtilerin başlangıcı";
+
+"ExposureSubmissionSymptomsOnset_Subtitle" = "Bu belirtileri ilk kez ne zaman yaşamaya başladınız?";
+
+"ExposureSubmissionSymptomsOnset_Description" = "Soruya mümkün olduğunca doğru yanıt verin.";
+
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Tam tarih";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "Son 7 gün içinde";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionOneToTwoWeeksAgo" = "1-2 hafta önce";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "2 haftadan uzun süre önce";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Yorum yok";
+
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "Sonraki";
+
+/* ExposureSubmissionWarnOthers */
 "ExposureSubmissionWarnOthers_title" = "Diğer Kullanıcıları Uyarma";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "Bir cihaz şifrelenmiş pozitif test tanısını sisteme aktarır.";
 
-"ExposureSubmissionWarnOthers_continueButton" = "Sonraki";
+"ExposureSubmissionWarnOthers_continueButton" = "Kabul Et";
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Lütfen hepimize yardımcı olun!";
 
 "ExposureSubmissionWarnOthers_description" = "Corona-Warn-App'in son 14 güne ait rastgele kimliklerinizi diğer kullanıcılarla paylaşmasını sağlayabilirsiniz. Bu sayede diğer kullanıcıları uyarabilir ve enfeksiyon zincirini kırabilirsiniz.\n\nYalnızca kişisel olmayan rastgele kimlikler aktarıldığından kimliğiniz gizli kalacaktır.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "\"Kabul et\" seçeneğine dokunduğunuzda, Uygulamanın pozitif test sonucunuzu son 14 güne ait rastgele kimliklerinizle birlikte uygulamanın sunucu sistemine göndermesine izin vermiş olursunuz, bu sayede maruz kalma günlüğünü etkinleştirmiş olan diğer Uygulama kullanıcıları otomatik şekilde bilgilendirilebilir. İletilen rastgele kimlikler, kimliğiniz ya da kişiliğinize ilişkin sonuç çıkartacak hiçbir bilgi içermez. \n\nTest sonucunuzun Uygulama aracılığıyla iletilmesi, isteğe bağlıdır. Test sonucunuzu iletmezseniz size hiçbir dezavantajı olmaz. Uygulamayı kullanıp kullanmadığınızı ve nasıl kullandığınızı anlayamadığımız ve kontrol edemediğimiz için enfeksiyonu bulaştırıp bulaştırmadığınızı sizden başka kimse öğrenemez.\n\nUygulamayı silerek, onayınızı dilediğinizde geri alabilirsiniz. Onayın geri alınmasıyla, geri almaya kadar yapılmış veri işlemelerin hukuka uygunlukları bu durumdan etkilenmez. \"Veri Gizliliği Bilgileri\" menüsünden diğer bilgilere ulaşabilirsiniz.";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "\"Kabul Et\" seçeneğine dokunduğunuzda, Uygulamanın pozitif test sonucunuzu son 14 güne ait rastgele kimliklerinizle birlikte uygulamanın sunucu sistemine göndermesine izin vermiş olursunuz, bu sayede maruz kalma günlüğünü etkinleştirmiş olan diğer Uygulama kullanıcıları otomatik şekilde bilgilendirilebilir. İletilen rastgele kimlikler, kimliğiniz ya da kişiliğinize ilişkin sonuç çıkartacak hiçbir bilgi içermez. \n\nTest sonucunuzun Uygulama aracılığıyla iletilmesi, isteğe bağlıdır. Test sonucunuzu iletmezseniz size hiçbir dezavantajı olmaz. Uygulamayı kullanıp kullanmadığınızı ve nasıl kullandığınızı anlayamadığımız ve kontrol edemediğimiz için enfeksiyonu bulaştırıp bulaştırmadığınızı sizden başka kimse öğrenemez.\n\nUygulamayı silerek, onayınızı dilediğinizde geri alabilirsiniz. Onayın geri alınmasıyla, geri almaya kadar yapılmış veri işlemelerin hukuka uygunlukları bu durumdan etkilenmez. \"Veri Gizliliği\" menüsünden diğer bilgilere ulaşabilirsiniz.";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Veri Gizliliği";
 
 "ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Yaş Sınırı: 16 ve Üzeri";
 
-"ExposureSubmissionWarnOthers_consentUnderagesText" = "Uygulama, 16 yaş ve üzerinde olan ve Almanya'da yaşayan kişiler için hazırlanmıştır.";
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "Bu uygulama, 16 yaş ve üzerinde olan ve Almanya'da yaşayan kişilerin kullanması için hazırlanmıştır.";
+
+"ExposureSubmissionWarnEuropeConsent_title" = "Avrupa geneli uyarılar";
+
+"ExposureSubmissionWarnEuropeConsent_imageDescription" = "Avrupa haritasının üzerinde, akıllı telefonlarını tutan kişiler ayakta duruyor. Bu kişilerin ortasında, uyarı sesi veren bir zil resmi var.";
+
+"ExposureSubmissionWarnEuropeConsent_continueButton" = "Sonraki";
+
+"ExposureSubmissionWarnEuropeConsent_sectionTitle" = "Virüs sınır tanımıyor. Sınırların ötesindeki uyarılara destek verin!";
+
+"ExposureSubmissionWarnEuropeConsent_toggleTitle" = "Avrupa geneli uyarılar";
+
+"ExposureSubmissionWarnEuropeConsent_description" = "Bazı Avrupa ülkeleri sınırlar arası uyarıları etkinleştirmek için iş birliği yapıyor. Diğer ülkelerin resmi Korona uygulamalarını kullanan kişilerin uyarı alabilmesi için rastgele kimliklerinizi katılımcı ülkelerle paylaşın.";
+
+"ExposureSubmissionWarnEuropeConsent_consentTitle" = "Kabul Beyanı";
+
+"ExposureSubmissionWarnEuropeConsent_consentDescription" = "\"Avrupa geneli uyarılar\" seçeneğini belirleyip \"Sonraki\" seçeneğine dokunduğunuzda test sonucunuzun ve son 14 gün boyunca oluşturulan rastgele kimliklerinizin katılımcı ülkeler tarafından ortak olarak işletilen Avrupa sunucu sistemine aktarılmasına onay verirsiniz. Test sonucunuz ve rastgele kimlikleriniz, diğer ülkelerdeki resmi Korona uygulamalarının kullanıcılarını enfeksiyon riskine maruz kalmış olabilecekleri konusunda uyarmak için kullanılabilir. Rastgele kimlikler, kimliğinize ilişkin çıkarımlar yapılabilmesini sağlayan veriler içermez.\n\nAvrupa geneli uyarıları desteklemek için veri aktarımı yapılması isteğe bağlıdır. Verilerinizi paylaşmamayı seçerseniz herhangi bir dezavantajla karşılaşmazsınız. Uygulamayı kullanıp kullanmadığınızı ve nasıl kullandığınızı takip etmek ya da kontrol etmek mümkün olmadığından Avrupa geneli uyarıları desteklemek için test sonucunuzu paylaşıp paylaşmadığınızı yalnızca siz bilirsiniz. Uygulamayı silerek dilediğiniz zaman onayınızı iptal edebilirsiniz. Onayınızı iptal ettiğinizde iptal işlemine kadar yapılmış veri işlemelerin hukuka uygunlukları bu durumdan etkilenmez. Daha fazla bilgi için \"Veri Gizliliği Bilgileri\" menüsüne bakın.";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_title" = "Avrupa geneli uyarılar";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_continueButton" = "Sonraki";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_description1" = "Son 14 gün içinde Almanya dışındaki ülkelere gittiniz mi?";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_description2" = "Girişiniz yalnızca veri hacmini optimize etmek için kullanılır.";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionYes" = "Evet";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNo" = "Hayır";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "Yorum yok";
+
+"ExposureSubmissionWarnEuropeCountrySelection_title" = "Avrupa geneli uyarılar";
+
+"ExposureSubmissionWarnEuropeCountrySelection_continueButton" = "Sonraki";
+
+"ExposureSubmissionWarnEuropeCountrySelection_description1" = "Son 14 günde hangi ülkelere gittiniz?";
+
+"ExposureSubmissionWarnEuropeCountrySelection_description2" = "Girişiniz yalnızca veri hacmini optimize etmek için kullanılır.\n\nListe tüm güncel katılımcı ülkeleri içerir ve sürekli olarak güncellenir.";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionCountrySelection" = "Şu ülkelere gittim:";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries" = "Diğer ülkeler";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "Yorum yok";
+
+"ExposureSubmissionWarnEuropeCountrySelection_consentTitle" = "Kabul Beyanı";
+
+"ExposureSubmissionWarnEuropeCountrySelection_consentDescription" = "\"Sonraki\" seçeneğine tıkladığınızda, seçtiğiniz ülkelerin ve rastgele kimliklerinizin katılımcı ülkeler tarafından ortak olarak işletilen Avrupa sunucu sistemine aktarılmasına onay verirsiniz. Katılımcı ülkeler, bu verileri kendi Korona uygulamalarında maruz kalma günlüğü için kullanarak rastgele kimliklerinizin bu Korona uygulamalarının kullanıcıları ile ilişkili olup olmadığını değerlendirebilir.\n\n\nAktarılan veriler kimliğinize ilişkin çıkarımlar yapılabilmesini sağlayan veriler içermez.\n\nSeçtiğiniz ülkelerle ilgili verilerin aktarımı isteğe bağlıdır. Seçtiğiniz ülkelere ilişkin girişlerinizi aktarmak istemezseniz bir dezavantajla karşılaşmazsınız. Seçtiğiniz ülkelere ilişkin verileri paylaşmamayı seçerseniz herhangi bir dezavantajla karşılaşmazsınız. Uygulamayı kullanıp kullanmadığınızı ve nasıl kullandığınızı takip etmek ya da kontrol etmek mümkün olmadığından bu bilgileri paylaşıp paylaşmadığınızı yalnızca siz bilirsiniz.\n\nUygulamayı silerek dilediğiniz zaman onayınızı iptal edebilirsiniz. Onayınızı iptal ettiğinizde iptal işlemine kadar yapılmış veri işlemelerin hukuka uygunlukları bu durumdan etkilenmez. Daha fazla bilgi için \"Veri Gizliliği Bilgileri\" menüsüne bakın.";
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test yalnızca bir kez taranabilir.";
 
@@ -621,6 +726,8 @@
 
 "ExposureSubmissionError_defaultError" = "Önemli aktarım sırasında hata oluştu";
 
+"ExposureSubmissionError_noAppConfiguration" = "İnternet bağlantınız kesildi. Lütfen bağlantıyı kontrol edin ve ardından uygulamayı yeniden açın.";
+
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Maruz Kalma Günlüğü";
 
@@ -652,7 +759,7 @@
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Cihaz Ayarlarını Aç";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "COVID-19'a Maruz Kalma Günlüğünü ve Bildirimleri Etkinleştir ";
+"ExposureNotificationSetting_Activate_OSENSetting" = "COVID-19'a Maruz Kalma Günlüğünü ve Bildirimleri Etkinleştir";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Maruz kalma günlüğünde, karşılaşmaların günlüğe kaydedilebilmesi için sistem ayarlarında COVID-19'a maruz kalma günlüğü ve bildirimlerin etkinleştirilmesi gerekir. Lütfen sistem ayarlarında \"COVID-19'a Maruz Kalma Günlüğü ve Bildirimler\" özelliğini etkinleştirin.";
 
@@ -876,7 +983,7 @@
 
 "App_Information_Contact_Hotline_Description" = "Müşteri hizmetlerimiz size yardımcı olmaya hazır.";
 
-"App_Information_Contact_Hotline_Terms" = "Diller: Almanca, İngilizce, Türkçe\n\nMesai saatleri:\nPazartesi - Cumartesi: 7.00 - 22.00\n(ulusal tatiller hariçtir)\n\nAramalar ücretsizdir.";
+"App_Information_Contact_Hotline_Terms" = "Diller: Almanca, İngilizce, Türkçe\n\nMesai saatleri:\nPazartesi - Cumartesi: 07.00 - 22.00\n(ulusal tatiller hariçtir)\n\nArama ücretsizdir.\n\nSağlıkla ilgili tüm sorularınız için lütfen aile hekiminizle veya tıbbi acil servis yardım hattı ile iletişime geçin. Telefon: 116 117.";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Baskı";
@@ -967,7 +1074,7 @@
 "Reset_ConfirmDialog_Confirm" = "Sıfırla";
 
 /* Safari */
-"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";
+"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-tuerkisch";
 
 /* Local Notifications */
 "local_notifications_ignore" = "Yok Say";

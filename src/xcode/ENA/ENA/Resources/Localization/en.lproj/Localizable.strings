@@ -3,6 +3,10 @@
 
 "Alert_ActionOk" = "OK";
 
+"Alert_ActionYes" = "Yes";
+
+"Alert_ActionNo" = "No";
+
 "Alert_ActionRetry" = "Repeat";
 
 "Alert_ActionCancel" = "Cancel";
@@ -27,13 +31,13 @@
 
 "Common_Alert_Action_moreInfo" = "Find out more";
 
-"Common_BackgroundFetch_AlertMessage" = "You have deactivated background updates for the Corona-Warn-App. Please activate background updates to use automatic exposure logging. If you do not activate background updates, you can only start exposure logging manually in the app.\n\nYou can activate background updates for the app in your device settings.";
+"Common_BackgroundFetch_AlertMessage" = "You have deactivated background app refresh for the Corona-Warn-App. Please activate background app refresh to use automatic exposure logging. If you do not activate background app refresh, you can only start exposure logging manually in the app.\n\nYou can activate background app refresh for the app in your device settings.";
 
 "Common_BackgroundFetch_SettingsTitle" = "Open Device Settings";
 
 "Common_BackgroundFetch_OKTitle" = "Start Exposure Logging Manually";
 
-"Common_BackgroundFetch_AlertTitle" = "Background updates deactivated";
+"Common_BackgroundFetch_AlertTitle" = "Background app refresh deactivated";
 
 "Common_Deadman_AlertTitle" = "Your Risk Status";
 
@@ -178,7 +182,7 @@
 
 "Settings_Notification_Label" = "Notifications";
 
-"Settings_BackgroundAppRefresh_Label" = "Background Updates";
+"Settings_BackgroundAppRefresh_Label" = "Background App Refresh";
 
 "Settings_Reset_Label" = "Reset App";
 
@@ -220,15 +224,15 @@
 "NotificationSettings_offImageDescription" = "A woman cannot receive notifications from her Corona-Warn-App.";
 
 /* Background App Referesh Settings */
-"BackgroundAppRefreshSettings_Title" = "Background Updates";
+"BackgroundAppRefreshSettings_Title" = "Background App Refresh";
 
-"BackgroundAppRefreshSettings_Image_Description_On" = "A person holds a smartphone with activated background updates in their hand.";
+"BackgroundAppRefreshSettings_Image_Description_On" = "A person holds a smartphone in which background app refresh is activated.";
 
-"BackgroundAppRefreshSettings_Image_Description_Off" = "A person holds a smartphone with deactivated background updates in their hand.";
+"BackgroundAppRefreshSettings_Image_Description_Off" = "A person holds a smartphone in which background app refresh is deactivated.";
 
 "BackgroundAppRefreshSettings_Subtitle" = "Update Risk Status in the Background";
 
-"BackgroundAppRefreshSettings_Description" = "When background updates are activated, the Corona-Warn-App determines your risk status automatically.\nNo additional costs will be incurred for the data transfer in the mobile network.\nIf background updates are deactivated, you will have to open the app manually each day to update your risk status.";
+"BackgroundAppRefreshSettings_Description" = "Once background app refresh is activated, the Corona-Warn-App determines your risk status automatically.\nNo additional costs will be incurred for data transfer over the mobile network.\nIf background app refresh is deactivated, you will have to open the app manually each day to update your risk status.";
 
 "BackgroundAppRefreshSettings_Status_Header" = "Setting";
 
@@ -242,7 +246,7 @@
 
 "BackgroundAppRefreshSettings_InfoBox_Description" = "You have to activate background app refresh in both the general settings of your iPhone and in the settings of the Corona-Warn-App.";
 
-"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Please note that low power mode must be deactivated for you to activate background app refersh.";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Please note that low power mode must be deactivated for you to activate background app refresh.";
 
 "BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Deactivate Low Power Mode";
 
@@ -321,7 +325,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Age Limit: 16 and Up";
 
-"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "This app is intended for people who are at least 16 years of age and who reside in Germany.";
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "The use of this app is intended for persons who are at least 16 years of age and who reside in Germany.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Declaration of Consent";
 
@@ -357,6 +361,10 @@
 "ExposureSubmission_DataPrivacyTitle" = "Data Privacy";
 
 "ExposureSubmission_Continue_actionText" = "Next";
+
+"ExposureSubmission_ConfirmDismissPopUpTitle" = "Do you want to cancel?";
+
+"ExposureSubmission_ConfirmDismissPopUpText" = "Your entries will not be saved.";
 
 "ExposureSubmission_DataPrivacyDescription" = "By tapping on “Accept”, you consent to the App querying the status of your coronavirus test and displaying it in the App. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the App’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the App. If you have enabled notifications, you will also receive a notification outside the App telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the App. You can withdraw this consent at any time by deleting your test registration in the App. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy Information”.";
 
@@ -418,7 +426,7 @@
 
 "ExposureSubmission_PhoneNumber" = "+49 800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Languages: \nGerman, English, Turkish\n\nBusiness hours:\nMonday to Sunday: 24 hours\n\nThe call is free of charge.";
+"ExposureSubmission_PhoneDetailDescription" = "Languages:\nGerman, English, Turkish\n\nBusiness hours:\nMonday to Sunday: 24 hours\n\nThe call is free of charge.\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Register the test by entering the TAN in the app.";
 
@@ -560,23 +568,120 @@
 
 "ExposureSubmissionResult_refreshButton" = "Update";
 
+/* ExposureSubmissionSymptoms */
+"ExposureSubmissionSymptoms_Title" = "Symptoms";
+
+"ExposureSubmissionSymptoms_Description" = "Have you experienced one or more of the following symptoms in the past few days?";
+
+"ExposureSubmissionSymptoms_Symptom0" = "Increased temperature or fever";
+
+"ExposureSubmissionSymptoms_Symptom1" = "Shortness of breath";
+
+"ExposureSubmissionSymptoms_Symptom2" = "Loss of sense of smell/taste";
+
+"ExposureSubmissionSymptoms_Symptom3" = "Cough";
+
+"ExposureSubmissionSymptoms_Symptom4" = "Runny nose";
+
+"ExposureSubmissionSymptoms_Symptom5" = "Sore throat";
+
+"ExposureSubmissionSymptoms_Symptom6" = "Headache and aching limbs";
+
+"ExposureSubmissionSymptoms_Symptom7" = "General weakness and exhaustion";
+
+"ExposureSubmissionSymptoms_AnswerOptionYes" = "Yes";
+
+"ExposureSubmissionSymptoms_AnswerOptionNo" = "No";
+
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "No comment";
+
+"ExposureSubmissionSymptoms_ContinueButton" = "Next";
+
+/* ExposureSubmissionSymptomsOnset */
+"ExposureSubmissionSymptomsOnset_Title" = "Start of Symptoms";
+
+"ExposureSubmissionSymptomsOnset_Subtitle" = "When did you first start to experience these symptoms?";
+
+"ExposureSubmissionSymptomsOnset_Description" = "Answer the question as accurately as possible.";
+
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Exact date";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "In the last 7 days";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionOneToTwoWeeksAgo" = "1-2 weeks ago";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "More than 2 weeks ago";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "No comment";
+
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "Next";
+
+/* ExposureSubmissionWarnOthers */
 "ExposureSubmissionWarnOthers_title" = "Warning Others";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "A device transmits an encrypted positive test diagnosis to the system.";
 
-"ExposureSubmissionWarnOthers_continueButton" = "Next";
+"ExposureSubmissionWarnOthers_continueButton" = "Accept";
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Please help all of us!";
 
 "ExposureSubmissionWarnOthers_description" = "Next, you can make sure that the Corona-Warn-App shares your random IDs of the last 14 days with others. By doing this, you can warn other people and help to break the infection chain.\n\nSince only impersonal random IDs are transmitted, your identity will remain anonymous.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping on “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the exposure logging feature can be automatically notified that they may have been exposed to a risk of infection. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person.\n\nTransmitting your test result via the App is voluntary. You will not be penalised if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected.\n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out on the basis of the consent prior to the withdrawal. Further information can be found in the menu under “Data Privacy Information”.";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the exposure logging feature can be automatically notified that they may have been exposed to a risk of infection. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person. \n\nTransmitting your test result via the App is voluntary. You will not be penalized if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected.\n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out based on the consent prior to the withdrawal. Further information can be found in the menu under “Data Privacy”.";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Data Privacy";
 
 "ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Age Limit: 16 and Up";
 
-"ExposureSubmissionWarnOthers_consentUnderagesText" = "This app is intended for people who are at least 16 years of age and who reside in Germany.";
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "The use of this app is intended for persons who are at least 16 years of age and who reside in Germany.";
+
+"ExposureSubmissionWarnEuropeConsent_title" = "Europe-wide warnings";
+
+"ExposureSubmissionWarnEuropeConsent_imageDescription" = "Persons holding smartphones stand on a map of Europe. A bell sounding a warning is pictured in their midst.";
+
+"ExposureSubmissionWarnEuropeConsent_continueButton" = "Next";
+
+"ExposureSubmissionWarnEuropeConsent_sectionTitle" = "The virus knows no borders. Support transborder warnings!";
+
+"ExposureSubmissionWarnEuropeConsent_toggleTitle" = "Europe-wide warnings";
+
+"ExposureSubmissionWarnEuropeConsent_description" = "Several European countries are working together to enable cross-border warnings. Share your random IDs with participating countries to enable users of other countries' official Corona apps to be warned.";
+
+"ExposureSubmissionWarnEuropeConsent_consentTitle" = "Declaration of Consent";
+
+"ExposureSubmissionWarnEuropeConsent_consentDescription" = "By selecting \"Europe-wide warnings\" and tapping \"Next\", you consent to your test result and your random IDs generated during the last 14 days being transferred to the European server system jointly operated by the participating countries. Your test result and your random IDs can be used to warn users of official Corona apps from other countries that they have been exposed to a risk of infection. The random IDs do not contain data that allows conclusions about your identity or your person.\n\nThe data transfer in support of the Europe-wide warning is optional. You do not incur a disadvantage if you opt not to share your data. As it is not possible to trace or control whether and how you use the app, nobody but you knows whether you are sharing your test result in support of Europe-wide warning. You can revoke your consent at any time by deleting the app. By revoking your consent, the lawfulness of data processing, granted up to the point of revocation by your consent, is not affected. For further information, see menu item \"Data Privacy Information\".";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_title" = "Europe-wide warnings";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_continueButton" = "Next";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_description1" = "Have you visited countries outside of Germany within the last 14 days?";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_description2" = "Your entry is used solely for optimizing the data volume.";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionYes" = "Yes";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNo" = "No";
+
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "No comment";
+
+"ExposureSubmissionWarnEuropeCountrySelection_title" = "Europe-wide warnings";
+
+"ExposureSubmissionWarnEuropeCountrySelection_continueButton" = "Next";
+
+"ExposureSubmissionWarnEuropeCountrySelection_description1" = "Which countries have you visited in the last 14 days?";
+
+"ExposureSubmissionWarnEuropeCountrySelection_description2" = "Your entry is used solely for optimizing the data volume.\n\nThe list contains all currently participating countries and is continuously updated.";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionCountrySelection" = "I have visited the following countries";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries" = "Other countries";
+
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "No comment";
+
+"ExposureSubmissionWarnEuropeCountrySelection_consentTitle" = "Declaration of Consent";
+
+"ExposureSubmissionWarnEuropeCountrySelection_consentDescription" = "By tapping \"Next\", you consent to your selected countries and your random IDs being transferred to the European server system jointly operated by the participating countries. The participating countries can use this data for exposure logging in their own Corona apps, to assess whether your random IDs are relevant for the users of these Corona apps.\n\nThe transferred data does not contain any information that would allow conclusions about your identity or your person.\n\nTransfer of data about your selected countries is optional. You do not incur a disadvantage if you opt not to transfer your entries on selected countries. As it is not possible to trace or control whether and how you use the app, nobody but you knows whether you are sharing this information.\n\nYou can revoke your consent at any time by deleting the app. By revoking your consent, the lawfulness of data processing, granted up to the point of revocation by your consent, is not affected. For further information, see menu item \"Data Privacy Information\".";
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "The test can only be scanned once.";
 
@@ -620,6 +725,8 @@
 "ExposureSubmissionError_unknown" = "Unknown error";
 
 "ExposureSubmissionError_defaultError" = "Error during key transmission";
+
+"ExposureSubmissionError_noAppConfiguration" = "Your internet connection was lost. Please check the connection and then reopen the app.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Exposure Logging";
@@ -876,7 +983,7 @@
 
 "App_Information_Contact_Hotline_Description" = "Our customer service is here to help.";
 
-"App_Information_Contact_Hotline_Terms" = "Languages: German, English, Turkish\n\nBusiness hours:\nMonday to Saturday: 7am - 10pm\n(except national holidays)\n\nThe call is free of charge.";
+"App_Information_Contact_Hotline_Terms" = "Languages: German, English, Turkish\n\nBusiness hours:\nMonday to Saturday: 7am - 10pm\n(except national holidays)\n\nThe call is free of charge.\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Imprint";
