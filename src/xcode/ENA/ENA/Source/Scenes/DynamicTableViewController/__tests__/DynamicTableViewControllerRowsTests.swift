@@ -108,7 +108,7 @@ extension DynamicTableViewControllerRowsTests {
 			.body(text: "Foo", accessibilityIdentifier: "Foo"),
 			.body(text: "Bar", accessibilityIdentifier: "Bar")
 		]
-		let section = DynamicSection.section(separators: true, cells: cells)
+		let section = DynamicSection.section(separators: .all, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = sut
@@ -129,7 +129,7 @@ extension DynamicTableViewControllerRowsTests {
 			.body(text: "Foo", accessibilityIdentifier: "Foo"),
 			.body(text: "Bar", accessibilityIdentifier: "Bar")
 		]
-		let section = DynamicSection.section(separators: true, cells: cells)
+		let section = DynamicSection.section(separators: .all, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = sut
@@ -149,7 +149,7 @@ extension DynamicTableViewControllerRowsTests {
 			.body(text: "Foo", accessibilityIdentifier: "Foo"),
 			.body(text: "Bar", accessibilityIdentifier: "Bar")
 		]
-		let section = DynamicSection.section(separators: true, cells: cells)
+		let section = DynamicSection.section(separators: .all, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = sut
@@ -171,7 +171,7 @@ extension DynamicTableViewControllerRowsTests {
 			.body(text: "Foo", accessibilityIdentifier: "Foo"),
 			.body(text: "Bar", accessibilityIdentifier: "Bar")
 		]
-		let section = DynamicSection.section(separators: true, cells: cells)
+		let section = DynamicSection.section(separators: .all, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = sut
@@ -192,7 +192,7 @@ extension DynamicTableViewControllerRowsTests {
 			.body(text: "Bar", accessibilityIdentifier: "Bar"),
 			.body(text: "Baz", accessibilityIdentifier: "Baz")
 		]
-		let section = DynamicSection.section(separators: true, cells: cells)
+		let section = DynamicSection.section(separators: .all, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = sut
@@ -214,7 +214,7 @@ extension DynamicTableViewControllerRowsTests {
 			.body(text: "Bar", accessibilityIdentifier: "Bar"),
 			.body(text: "Baz", accessibilityIdentifier: "Baz")
 		]
-		let section = DynamicSection.section(separators: true, cells: cells)
+		let section = DynamicSection.section(separators: .all, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = sut
@@ -237,7 +237,7 @@ extension DynamicTableViewControllerRowsTests {
 			.body(text: "Bar", accessibilityIdentifier: "Bar"),
 			.body(text: "Baz", accessibilityIdentifier: "Baz")
 		]
-		let section = DynamicSection.section(separators: true, cells: cells)
+		let section = DynamicSection.section(separators: .all, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = sut
