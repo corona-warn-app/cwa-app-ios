@@ -1,3 +1,0 @@
-/* Corona-Warn-App\n\n  SAP SE and all other contributors\n  copyright owners license this file to you under the Apache\n  License, Version 2.0 (the \"License\"); you may not use this\n  file except in compliance with the License.\n  You may obtain a copy of the License at\n\n  http://www.apache.org/licenses/LICENSE-2.0\n\n  Unless required by applicable law or agreed to in writing,\n  software distributed under the License is distributed on an\n  \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n  KIND, either express or implied.  See the License for the\n  specific language governing permissions and limitations\n  under the License. */
-"NSCameraUsageDescription" = "Разрешите приложению сканировать QR-коды с камеры.";
-
