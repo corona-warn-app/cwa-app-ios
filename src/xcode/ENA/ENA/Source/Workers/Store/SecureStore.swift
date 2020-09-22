@@ -216,7 +216,6 @@ final class SecureStore: Store {
 		get { kvStore["shouldPerformBackgroundFakeRequests"] as Bool? ?? false }
 		set { kvStore["shouldPerformBackgroundFakeRequests"] = newValue }
 	}
-
 }
 
 
