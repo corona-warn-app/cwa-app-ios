@@ -171,7 +171,7 @@ struct SAP_TemporaryExposureKey {
 
   /// Key of infected user
   var keyData: Data {
-    get {return _keyData ?? SwiftProtobuf.Internal.emptyData}
+    get {return _keyData ?? Data()}
     set {_keyData = newValue}
   }
   /// Returns true if `keyData` has been explicitly set.
@@ -209,6 +209,17 @@ struct SAP_TemporaryExposureKey {
   /// Clears the value of `rollingPeriod`. Subsequent reads from it will return its default value.
   mutating func clearRollingPeriod() {self._rollingPeriod = nil}
 
+  /// Number of days elapsed between symptom onset and the TEK being used.
+  /// E.g. 2 means TEK is 2 days after onset of symptoms.
+  var daysSinceOnsetOfSymptoms: Int32 {
+    get {return _daysSinceOnsetOfSymptoms ?? 0}
+    set {_daysSinceOnsetOfSymptoms = newValue}
+  }
+  /// Returns true if `daysSinceOnsetOfSymptoms` has been explicitly set.
+  var hasDaysSinceOnsetOfSymptoms: Bool {return self._daysSinceOnsetOfSymptoms != nil}
+  /// Clears the value of `daysSinceOnsetOfSymptoms`. Subsequent reads from it will return its default value.
+  mutating func clearDaysSinceOnsetOfSymptoms() {self._daysSinceOnsetOfSymptoms = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -217,6 +228,7 @@ struct SAP_TemporaryExposureKey {
   fileprivate var _transmissionRiskLevel: Int32? = nil
   fileprivate var _rollingStartIntervalNumber: Int32? = nil
   fileprivate var _rollingPeriod: Int32? = nil
+  fileprivate var _daysSinceOnsetOfSymptoms: Int32? = nil
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -237,14 +249,17 @@ extension SAP_TemporaryExposureKeyExport: SwiftProtobuf.Message, SwiftProtobuf._
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularFixed64Field(value: &self._startTimestamp)
-      case 2: try decoder.decodeSingularFixed64Field(value: &self._endTimestamp)
-      case 3: try decoder.decodeSingularStringField(value: &self._region)
-      case 4: try decoder.decodeSingularInt32Field(value: &self._batchNum)
-      case 5: try decoder.decodeSingularInt32Field(value: &self._batchSize)
-      case 6: try decoder.decodeRepeatedMessageField(value: &self.signatureInfos)
-      case 7: try decoder.decodeRepeatedMessageField(value: &self.keys)
+      case 1: try { try decoder.decodeSingularFixed64Field(value: &self._startTimestamp) }()
+      case 2: try { try decoder.decodeSingularFixed64Field(value: &self._endTimestamp) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self._region) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self._batchNum) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self._batchSize) }()
+      case 6: try { try decoder.decodeRepeatedMessageField(value: &self.signatureInfos) }()
+      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.keys) }()
       default: break
       }
     }
@@ -300,12 +315,15 @@ extension SAP_SignatureInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self._appBundleID)
-      case 2: try decoder.decodeSingularStringField(value: &self._androidPackage)
-      case 3: try decoder.decodeSingularStringField(value: &self._verificationKeyVersion)
-      case 4: try decoder.decodeSingularStringField(value: &self._verificationKeyID)
-      case 5: try decoder.decodeSingularStringField(value: &self._signatureAlgorithm)
+      case 1: try { try decoder.decodeSingularStringField(value: &self._appBundleID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self._androidPackage) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self._verificationKeyVersion) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self._verificationKeyID) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self._signatureAlgorithm) }()
       default: break
       }
     }
@@ -348,15 +366,20 @@ extension SAP_TemporaryExposureKey: SwiftProtobuf.Message, SwiftProtobuf._Messag
     2: .standard(proto: "transmission_risk_level"),
     3: .standard(proto: "rolling_start_interval_number"),
     4: .standard(proto: "rolling_period"),
+    6: .standard(proto: "days_since_onset_of_symptoms"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularBytesField(value: &self._keyData)
-      case 2: try decoder.decodeSingularInt32Field(value: &self._transmissionRiskLevel)
-      case 3: try decoder.decodeSingularInt32Field(value: &self._rollingStartIntervalNumber)
-      case 4: try decoder.decodeSingularInt32Field(value: &self._rollingPeriod)
+      case 1: try { try decoder.decodeSingularBytesField(value: &self._keyData) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self._transmissionRiskLevel) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self._rollingStartIntervalNumber) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self._rollingPeriod) }()
+      case 6: try { try decoder.decodeSingularSInt32Field(value: &self._daysSinceOnsetOfSymptoms) }()
       default: break
       }
     }
@@ -375,6 +398,9 @@ extension SAP_TemporaryExposureKey: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if let v = self._rollingPeriod {
       try visitor.visitSingularInt32Field(value: v, fieldNumber: 4)
     }
+    if let v = self._daysSinceOnsetOfSymptoms {
+      try visitor.visitSingularSInt32Field(value: v, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -383,6 +409,7 @@ extension SAP_TemporaryExposureKey: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs._transmissionRiskLevel != rhs._transmissionRiskLevel {return false}
     if lhs._rollingStartIntervalNumber != rhs._rollingStartIntervalNumber {return false}
     if lhs._rollingPeriod != rhs._rollingPeriod {return false}
+    if lhs._daysSinceOnsetOfSymptoms != rhs._daysSinceOnsetOfSymptoms {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
