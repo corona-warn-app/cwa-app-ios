@@ -25,7 +25,7 @@
 
 "Common_ENError5_Description" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
 
-"Common_ENError11_Description" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Handy neu und versuchen Sie es morgen erneut.";
+"Common_ENError11_Description" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Smartphone neu und versuchen Sie es morgen erneut.";
 
 "Common_ENError13_Description" = "Fehler 13: Ihre Risiko-Ermittlung für den heutigen Tag wurde bereits durchgeführt. Bitte versuchen Sie es in 24 Stunden erneut.";
 
@@ -116,9 +116,9 @@
 
 "ExposureDetection_Explanation_Text_Off" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
-"ExposureDetection_Explanation_Text_Outdated" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Explanation_Text_Outdated" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
-"ExposureDetection_Explanation_Text_Unknown" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Explanation_Text_Unknown" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
 "ExposureDetection_Explanation_Text_Low" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung des Abstands und der Dauer von Begegnungen mit nachweislich Corona-positiv getesteten Personen sowie deren vermutlicher Infektiosität lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
@@ -313,7 +313,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informationen zur App in leichter Sprache und Gebärdensprache";
 
-"OnboardingInfo_privacyPage_imageDescription" = "Eine Frau mit einem Handy benutzt die Corona-Warn-App, ein Vorhängeschloss auf einem Schild steht als Symbol für verschlüsselte Daten.";
+"OnboardingInfo_privacyPage_imageDescription" = "Eine Frau mit einem Smartphone benutzt die Corona-Warn-App, ein Vorhängeschloss auf einem Schild steht als Symbol für verschlüsselte Daten.";
 
 "OnboardingInfo_privacyPage_title" = "Datenschutz";
 
@@ -327,7 +327,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr Handy per Bluetooth verschlüsselte Zufallscodes anderer Nutzerinnen und Nutzer empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.\n\nDie verschlüsselten Zufallscodes geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Konkrete Rückschlüsse auf Personen sind nicht möglich.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr Smartphone per Bluetooth verschlüsselte Zufallscodes anderer Nutzerinnen und Nutzer empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.\n\nDie verschlüsselten Zufallscodes geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Konkrete Rückschlüsse auf Personen sind nicht möglich.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "App-Nutzung ab 16 Jahren";
 
@@ -769,7 +769,7 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 "ExposureNotificationSetting_DescriptionText1" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Die Risiko-Ermittlung funktioniert, indem Ihr Handy per Bluetooth verschlüsselte Zufallscodes anderer Nutzerinnen und Nutzer empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.";
+"ExposureNotificationSetting_DescriptionText2" = "Die Risiko-Ermittlung funktioniert, indem Ihr Smartphone per Bluetooth verschlüsselte Zufallscodes anderer Nutzerinnen und Nutzer empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.";
 
 "ExposureNotificationSetting_DescriptionText3" = "Die verschlüsselten Zufallscodes geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Konkrete Rückschlüsse auf Personen sind nicht möglich.";
 
