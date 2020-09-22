@@ -59,9 +59,12 @@ final class ExposureDetection {
 	}
 
 	private func getCountriesToDetect(supportedCountries: [Country]) -> [Country.ID] {
-		var countryIDs = Set(supportedCountries.map { $0.id })
-		countryIDs.insert(Country.defaultCountry().id)
+		#if EUROPEMODE
+		return ["EUR"]
+		#else
+		let countryIDs = Set(supportedCountries.map { $0.id })
 		return Array(countryIDs)
+		#endif
 	}
 
 	private func downloadKeyPackages(for countries: [Country.ID], completion: @escaping () -> Void) {
