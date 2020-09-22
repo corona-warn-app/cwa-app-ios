@@ -92,6 +92,9 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		applySnapshotFromSections()
 
 		setStateOfChildViewControllers()
+		
+		let notificationCenter = NotificationCenter.default
+		notificationCenter.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -155,6 +158,9 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	// MARK: Misc
+	@objc func refreshUIAfterResumingFromBackground() {
+		homeInteractor.refreshTimerAfterResumingFromBackground()
+	}
 
 	// Called by HomeInteractor
 	func setStateOfChildViewControllers() {
