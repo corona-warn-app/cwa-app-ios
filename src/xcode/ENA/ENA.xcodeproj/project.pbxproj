@@ -24,6 +24,7 @@
 		016146912487A43E00660992 /* LinkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016146902487A43E00660992 /* LinkHelper.swift */; };
 		01678E9C249A5F08003B048B /* testStore.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 01678E9A249A521F003B048B /* testStore.sqlite */; };
 		019BFC6C24C9901A0053973D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCC2702484DC8400E2811D /* sqlite3.c */; settings = {COMPILER_FLAGS = "-w"; }; };
+		01A2367A2519D1E80043D9F8 /* ExposureSubmissionWarnOthersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A236792519D1E80043D9F8 /* ExposureSubmissionWarnOthersViewModel.swift */; };
 		01A97DD12506768F00C07C37 /* DatePickerOptionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A97DD02506767E00C07C37 /* DatePickerOptionViewModelTests.swift */; };
 		01A97DD32506769F00C07C37 /* DatePickerDayViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A97DD22506769F00C07C37 /* DatePickerDayViewModelTests.swift */; };
 		01B7232424F812500064C0EB /* DynamicTableViewOptionGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B7232324F812500064C0EB /* DynamicTableViewOptionGroupCell.swift */; };
@@ -510,6 +511,7 @@
 		0159E6C0247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = temporary_exposure_key_signature_list.pb.swift; path = ../../../gen/output/temporary_exposure_key_signature_list.pb.swift; sourceTree = "<group>"; };
 		016146902487A43E00660992 /* LinkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkHelper.swift; sourceTree = "<group>"; };
 		01678E9A249A521F003B048B /* testStore.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = testStore.sqlite; sourceTree = "<group>"; };
+		01A236792519D1E80043D9F8 /* ExposureSubmissionWarnOthersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnOthersViewModel.swift; sourceTree = "<group>"; };
 		01A97DD02506767E00C07C37 /* DatePickerOptionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerOptionViewModelTests.swift; sourceTree = "<group>"; };
 		01A97DD22506769F00C07C37 /* DatePickerDayViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDayViewModelTests.swift; sourceTree = "<group>"; };
 		01B7232324F812500064C0EB /* DynamicTableViewOptionGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewOptionGroupCell.swift; sourceTree = "<group>"; };
@@ -1569,8 +1571,8 @@
 				714194E9247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift */,
 				710ABB22247513E300948792 /* DynamicTypeTableViewCell.swift */,
 				71FE1C8A247AC79D00851FEB /* DynamicTableViewIconCell.swift */,
-				EB3BCA85250799E7003F27C7 /* DynamicTableViewBulletPointCell.swift */,
 				71FE1C8B247AC79D00851FEB /* DynamicTableViewIconCell.xib */,
+				EB3BCA85250799E7003F27C7 /* DynamicTableViewBulletPointCell.swift */,
 				71B8044E248526B600D53506 /* DynamicTableViewSpaceCell.swift */,
 				2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */,
 				717D21E8248C022E00D9717E /* DynamicTableViewHtmlCell.swift */,
@@ -1876,6 +1878,7 @@
 				EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */,
 				EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */,
 				A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */,
+				01A236792519D1E80043D9F8 /* ExposureSubmissionWarnOthersViewModel.swift */,
 				71FE1C73247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift */,
 			);
 			path = Controller;
@@ -3105,6 +3108,7 @@
 				713EA26324798F8500AB7EE8 /* ExposureDetectionHeaderCell.swift in Sources */,
 				FEDCE09E9F78ABEB4AA9A484 /* ExposureDetectionExecutor.swift in Sources */,
 				FEDCE50B4AC5E24D4E11AA52 /* RequiresAppDependencies.swift in Sources */,
+				01A2367A2519D1E80043D9F8 /* ExposureSubmissionWarnOthersViewModel.swift in Sources */,
 				EB3BCA882507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift in Sources */,
 				FEDCE29E414945F14E7CE576 /* ENStateHandler+State.swift in Sources */,
 				FEDCE6E2763B0BABFADF36BA /* ExposureDetectionViewController+State.swift in Sources */,

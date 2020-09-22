@@ -127,6 +127,8 @@ class ExposureSubmissionCoordinatorModel: RequiresAppDependencies {
 			} else {
 				self.supportedCountries = supportedCountries
 			}
+
+			onSuccess()
 		}
 	}
 

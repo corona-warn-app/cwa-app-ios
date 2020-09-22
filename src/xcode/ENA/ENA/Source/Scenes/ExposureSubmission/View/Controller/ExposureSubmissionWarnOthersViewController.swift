@@ -27,7 +27,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 		supportedCountries: [Country],
 		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
-		self.supportedCountries = supportedCountries
+		self.viewModel = ExposureSubmissionWarnOthersViewModel(supportedCountries: supportedCountries)
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 
 		super.init(coder: coder)
@@ -57,7 +57,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 	// MARK: - Private
 
-	private let supportedCountries: [Country]
+	private let viewModel: ExposureSubmissionWarnOthersViewModel
 	private let onPrimaryButtonTap: (@escaping (Bool) -> Void) -> Void
 
 	private func setupView() {
@@ -76,66 +76,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.roundedCell.rawValue
 		)
 
-		dynamicTableViewModel = dynamicTableViewModel()
-	}
-
-	private func dynamicTableViewModel() -> DynamicTableViewModel {
-//		let countryCells = AppStrings.ExposureSubmissionSymptoms.symptoms.map {
-//			DynamicCell.bulletPoint(text: $0)
-//		}
-
-		return DynamicTableViewModel.with {
-			$0.add(
-				.section(
-					header: .image(
-						UIImage(named: "Illu_Submission_AndereWarnen"),
-						accessibilityLabel: AppStrings.ExposureSubmissionWarnOthers.accImageDescription,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription,
-						height: 250
-					),
-					cells: [
-						.title2(text: AppStrings.ExposureSubmissionWarnOthers.sectionTitle,
-								accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.sectionTitle),
-						.body(text: AppStrings.ExposureSubmissionWarnOthers.description,
-							  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.description),
-						.custom(
-							withIdentifier: CustomCellReuseIdentifiers.roundedCell,
-							configure: { _, cell, _ in
-								guard let appUsagesOver16Cell = cell as? DynamicTableViewRoundedCell else { return }
-
-								appUsagesOver16Cell.configure(
-									title: NSMutableAttributedString(
-										string: AppStrings.ExposureSubmissionWarnOthers.consentUnderagesTitle
-									),
-									body: NSMutableAttributedString(
-										string: AppStrings.ExposureSubmissionWarnOthers.consentUnderagesText
-									),
-									textStyle: .textContrast,
-									backgroundStyle: .riskNeutral
-								)
-							}
-						),
-						.custom(
-							withIdentifier: CustomCellReuseIdentifiers.roundedCell,
-							configure: { _, cell, _ in
-								guard let privacyStatementCell = cell as? DynamicTableViewRoundedCell else { return }
-
-								privacyStatementCell.configure(
-									title: NSMutableAttributedString(
-										string: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyTitle
-									),
-									body: NSMutableAttributedString(
-										string: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyDescription
-									),
-									textStyle: .textPrimary1,
-									backgroundStyle: .separator
-								)
-							}
-						)
-					]
-				)
-			)
-		}
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
 	}
 
 }
