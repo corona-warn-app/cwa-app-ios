@@ -44,6 +44,7 @@ enum AppStrings {
 		static let backgroundFetch_AlertTitle = NSLocalizedString("Common_BackgroundFetch_AlertTitle", comment: "")
 		static let deadmanAlertTitle = NSLocalizedString("Common_Deadman_AlertTitle", comment: "")
 		static let deadmanAlertBody = NSLocalizedString("Common_Deadman_AlertBody", comment: "")
+		static let tessRelayDescription = NSLocalizedString("Common_Tess_Relay_Description", comment: "")
 	}
 
 	enum Links {
