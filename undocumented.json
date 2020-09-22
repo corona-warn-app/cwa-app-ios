@@ -7751,7 +7751,7 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinator.swift",
-      "line": 550,
+      "line": 555,
       "symbol": "ExposureSubmissionCoordinator.presentationControllerDidAttemptToDismiss(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
