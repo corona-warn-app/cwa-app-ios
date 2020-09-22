@@ -51,7 +51,14 @@ final class ExposureDetection {
 
 			switch result {
 			case .success(let supportedCountries):
-				completion(supportedCountries)
+				var _supportedCountries = supportedCountries
+
+				// If supported countries is empty for some reason, we add the default country (DE).
+				if _supportedCountries.isEmpty {
+					_supportedCountries.append(Country.defaultCountry())
+				}
+
+				completion(_supportedCountries)
 			case.failure:
 				self.endPrematurely(reason: .noSupportedCountries)
 			}
