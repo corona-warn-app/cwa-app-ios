@@ -21,14 +21,7 @@ import Foundation
 
 struct ENSettingEuTracingViewModel {
 	
-	let title: String
+	let title = AppStrings.ExposureNotificationSetting.euTracingRiskDeterminationTitle
+	let countryListLabell = AppStrings.ExposureNotificationSetting.euTracingAllCountriesTitle
 	
-	let countryListLabel: String
-	
-	init() {
-		title = AppStrings.ExposureNotificationSetting.euTracingRiskDeterminationTitle
-		
-		countryListLabel = AppStrings.ExposureNotificationSetting.euTracingAllCountriesTitle
-		
-	}
 }
