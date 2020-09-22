@@ -28,14 +28,6 @@ class ENSettingEuTracingViewModelTests: XCTestCase {
 		XCTAssertNotNil(viewModel)
 	}
 	
-	func testCellSelectedBackgroundColor_clear() throws {
-		let viewModel = ENSettingEuTracingViewModel()
-		let cell = EuTracingTableViewCell()
-		cell.configure(using: viewModel)
-		
-		XCTAssertEqual(cell.selectedBackgroundView?.backgroundColor, UIColor.clear, "Background color of 'cell selected' state should be UIColor.clear")
-	}
-	
 	func testENSettingEuTracingViewModelTests_LabelsAsExpected() throws {
 		
 		let viewModel = ENSettingEuTracingViewModel()
