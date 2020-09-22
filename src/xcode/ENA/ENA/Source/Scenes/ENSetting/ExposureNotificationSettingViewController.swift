@@ -188,7 +188,8 @@ extension ExposureNotificationSettingViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		// TODO: implement navigation (KGA)
+		let vc = EUSettingsViewController()
+		navigationController?.pushViewController(vc, animated: true)
 		
 	}
 
