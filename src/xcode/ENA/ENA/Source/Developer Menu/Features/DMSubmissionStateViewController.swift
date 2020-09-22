@@ -207,8 +207,6 @@ private extension Client {
 
 		var daysAndHours: DaysAndHours = .none
 
-
-		#if INTEROP
 		group.enter()
 		availableDays(forCountry: "DE") { result in
 			if case let .success(days) = result {
@@ -224,25 +222,6 @@ private extension Client {
 			}
 			group.leave()
 		}
-		
-		#else
-
-		group.enter()
-		availableDays { result in
-			if case let .success(days) = result {
-				daysAndHours.days = days
-			}
-			group.leave()
-		}
-		
-		group.enter()
-		availableHours(day: .formattedToday()) { result in
-			if case let .success(hours) = result {
-				daysAndHours.hours = hours
-			}
-			group.leave()
-		}
-		#endif
 
 		group.notify(queue: .main) {
 			completeWith(daysAndHours)
@@ -254,7 +233,6 @@ private extension Client {
 	) {
 		availableDaysAndHours { daysAndHours in
 
-			#if INTEROP
 			self.fetchDays(
 				daysAndHours.days,
 				hours: daysAndHours.hours,
@@ -262,14 +240,6 @@ private extension Client {
 				country: "DE",
 				completion: completeWith
 			)
-			#else
-			self.fetchDays(
-				daysAndHours.days,
-				hours: daysAndHours.hours,
-				of: .formattedToday(),
-				completion: completeWith
-			)
-			#endif
 		}
 	}
 }
