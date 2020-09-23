@@ -59,13 +59,13 @@ class EUSettingsViewController: DynamicTableViewController {
 	// MARK: Data Source setup methods.
 
 	private func setupDataSource() {
-		client?.supportedCountries(completion: { [self] result in
+		client?.supportedCountries(completion: { [weak self] result in
 			switch result {
-			case .failure(_):
+			case .failure:
 				// TODO: We have not defined any behaviour yet for a failed country list download.
 				print("The country list could not be loaded.")
 			case .success(let countries):
-				viewModel = EUSettingsViewModel(countries: countries)
+				self?.viewModel = EUSettingsViewModel(countries: countries)
 			}
 		})
 	}
