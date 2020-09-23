@@ -34,9 +34,10 @@ final class HTTPClient: Client {
 
 	// MARK: Properties
 	let configuration: Configuration
-	private let session: URLSession
-	private let packageVerifier: SAPDownloadedPackage.Verification
+	let session: URLSession
+	let packageVerifier: SAPDownloadedPackage.Verification
 
+	@available(*, deprecated, message: "Use CachedAppConfiguration instead")
 	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
 		session.GET(configuration.configurationURL) { [weak self] result in
 			switch result {
@@ -71,6 +72,7 @@ final class HTTPClient: Client {
 		}
 	}
 
+	@available(*, deprecated, message: "Use CachedAppConfiguration instead")
 	func exposureConfiguration(
 		completion: @escaping ExposureConfigurationCompletionHandler
 	) {
@@ -88,6 +90,7 @@ final class HTTPClient: Client {
 		}
 	}
 
+	@available(*, deprecated, message: "Use CachedAppConfiguration instead")
 	func supportedCountries(completion: @escaping CountryFetchCompletion) {
 		appConfiguration { config in
 			guard let config = config else {
