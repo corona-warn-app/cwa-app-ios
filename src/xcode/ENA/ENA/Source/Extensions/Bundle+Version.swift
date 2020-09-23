@@ -17,28 +17,19 @@
 // under the License.
 //
 
-import UIKit
+extension Bundle {
 
-protocol DeltaOnboardingViewController: UIViewController {
-	var finished: (() -> Void)? { get set }
-}
-
-protocol DeltaOnboarding {
-	var version: String { get }
-	var store: Store { get }
-
-	var isFinished: Bool { get }
-
-	func finish()
-	func makeViewController() -> DeltaOnboardingViewController
-}
-
-extension DeltaOnboarding {
-	var isFinished: Bool {
-		return store.onboardingVersion.numericGreaterOrEqual(then: version)
+	var appVersion: String {
+		guard let version = infoDictionary?["CFBundleShortVersionString"] as? String else {
+			fatalError("Could not read CFBundleShortVersionString from Bundle.")
+		}
+		return version
 	}
 
-	func finish() {
-		store.onboardingVersion = version
+	var appBuildNumber: String {
+		guard let buildNumber = infoDictionary?["CFBundleVersion"] as? String else {
+			fatalError("Could not read CFBundleVersion from Bundle.")
+		}
+		return buildNumber
 	}
 }

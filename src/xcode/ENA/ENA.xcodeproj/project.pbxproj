@@ -310,6 +310,7 @@
 		AB5F84BD24F92E92000400D4 /* SerialMigratorFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F84BC24F92E92000400D4 /* SerialMigratorFake.swift */; };
 		AB5F84BE24FE2DC9000400D4 /* DownloadedPackagesSQLLiteStoreV0.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F84B824F92855000400D4 /* DownloadedPackagesSQLLiteStoreV0.swift */; };
 		AB5F84C024FE2EB3000400D4 /* DownloadedPackagesStoreV0.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F84BF24FE2EB3000400D4 /* DownloadedPackagesStoreV0.swift */; };
+		AB6289CF251BA01400CF61D2 /* Bundle+Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6289CE251BA01400CF61D2 /* Bundle+Version.swift */; };
 		AB7420AC251B67A8006666AC /* DeltaOnboardingV15.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420AB251B67A8006666AC /* DeltaOnboardingV15.swift */; };
 		AB7420B7251B69E2006666AC /* DeltaOnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420B6251B69E2006666AC /* DeltaOnboardingCoordinator.swift */; };
 		AB7420C2251B7D59006666AC /* DeltaOnboardingBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420C1251B7D59006666AC /* DeltaOnboardingBase.swift */; };
@@ -833,6 +834,7 @@
 		AB5F84BA24F92876000400D4 /* Migration0To1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration0To1Tests.swift; sourceTree = "<group>"; };
 		AB5F84BC24F92E92000400D4 /* SerialMigratorFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialMigratorFake.swift; sourceTree = "<group>"; };
 		AB5F84BF24FE2EB3000400D4 /* DownloadedPackagesStoreV0.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesStoreV0.swift; sourceTree = "<group>"; };
+		AB6289CE251BA01400CF61D2 /* Bundle+Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Version.swift"; sourceTree = "<group>"; };
 		AB7420AB251B67A8006666AC /* DeltaOnboardingV15.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingV15.swift; sourceTree = "<group>"; };
 		AB7420B6251B69E2006666AC /* DeltaOnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingCoordinator.swift; sourceTree = "<group>"; };
 		AB7420C1251B7D59006666AC /* DeltaOnboardingBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingBase.swift; sourceTree = "<group>"; };
@@ -1455,6 +1457,7 @@
 				2FA968CD24D8560B008EE367 /* String+Random.swift */,
 				EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */,
 				01DB708425068167008F7244 /* Calendar+GregorianLocale.swift */,
+				AB6289CE251BA01400CF61D2 /* Bundle+Version.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2899,6 +2902,7 @@
 				B14D0CDD246E972400D5BEBC /* ExposureDetectionDelegate.swift in Sources */,
 				B161782E2480658F006E435A /* DeltaCalculationResult.swift in Sources */,
 				B11E619B246EE4B0004A056A /* DynamicTypeLabel.swift in Sources */,
+				AB6289CF251BA01400CF61D2 /* Bundle+Version.swift in Sources */,
 				B1D7D69224766D2100E4DA5D /* apple_export.pb.swift in Sources */,
 				AB7420C2251B7D59006666AC /* DeltaOnboardingBase.swift in Sources */,
 				7187A5582481231C00FCC755 /* DynamicTableViewAction.swift in Sources */,

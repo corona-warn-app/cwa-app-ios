@@ -17,28 +17,9 @@
 // under the License.
 //
 
-import UIKit
+extension String {
 
-protocol DeltaOnboardingViewController: UIViewController {
-	var finished: (() -> Void)? { get set }
-}
-
-protocol DeltaOnboarding {
-	var version: String { get }
-	var store: Store { get }
-
-	var isFinished: Bool { get }
-
-	func finish()
-	func makeViewController() -> DeltaOnboardingViewController
-}
-
-extension DeltaOnboarding {
-	var isFinished: Bool {
-		return store.onboardingVersion.numericGreaterOrEqual(then: version)
-	}
-
-	func finish() {
-		store.onboardingVersion = version
+	func numericGreaterOrEqual(then otherString: String) -> Bool {
+		return compare(otherString, options: .numeric) != .orderedAscending
 	}
 }

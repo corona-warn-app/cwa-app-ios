@@ -60,13 +60,9 @@ extension AppInformationViewController {
 		versionLabel.textColor = .enaColor(for: .textPrimary2)
 		versionLabel.style = .footnote
 
-		if let bundleVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"],
-			let bundleBuild = Bundle.main.infoDictionary?["CFBundleVersion"] {
-			versionLabel.text = "\(AppStrings.Home.appInformationVersion) \(bundleVersion) (\(bundleBuild))"
-		} else {
-			versionLabel.text = "\(AppStrings.Home.appInformationVersion) <unknown>"
-			logError(message: "Unknown version. Should not happen!")
-		}
+		let bundleVersion = Bundle.main.appVersion
+		let bundleBuild = Bundle.main.appBuildNumber
+		versionLabel.text = "\(AppStrings.Home.appInformationVersion) \(bundleVersion) (\(bundleBuild))"
 
 		let footerView = UIView()
 		footerView.addSubview(versionLabel)

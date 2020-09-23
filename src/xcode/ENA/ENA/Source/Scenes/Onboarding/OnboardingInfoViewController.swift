@@ -390,9 +390,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private func finishOnBoarding() {
 		store.isOnboarded = true
-		if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-			store.onboardingVersion = appVersion
-		}
+		store.onboardingVersion = Bundle.main.appVersion
 
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
