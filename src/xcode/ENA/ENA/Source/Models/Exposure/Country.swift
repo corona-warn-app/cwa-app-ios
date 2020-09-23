@@ -61,6 +61,8 @@ extension Locale {
 			identifier = "gr"
 		case "no":
 			identifier = "nb_NO"
+		case "eur":
+			identifier = "eu"
 		default:
 			identifier = code
 		}
