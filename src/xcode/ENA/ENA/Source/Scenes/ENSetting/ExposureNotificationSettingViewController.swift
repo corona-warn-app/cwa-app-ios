@@ -35,16 +35,19 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 
 	let model = ENSettingModel(content: [.banner, .actionCell, .euTracingCell, .actionDetailCell, .descriptionCell])
 	let store: Store
+	var client: Client
 	var enState: ENStateHandler.State
 
 	init?(
 		coder: NSCoder,
 		initialEnState: ENStateHandler.State,
 		store: Store,
+		client: Client,
 		delegate: ExposureNotificationSettingViewControllerDelegate
 	) {
 		self.delegate = delegate
 		self.store = store
+		self.client = client
 		enState = initialEnState
 		super.init(coder: coder)
 	}
@@ -189,6 +192,7 @@ extension ExposureNotificationSettingViewController {
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let vc = EUSettingsViewController()
+		vc.client = client
 		navigationController?.pushViewController(vc, animated: true)
 		
 	}

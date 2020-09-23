@@ -35,26 +35,32 @@ class EUSettingsViewModel {
 
 	// MARK: - Attributes.
 
-	// @Published var euTracingSettings: EUTracingSettings
 	let countryModels: [CountryModel]
 
 	// MARK: - Initializers.
 
-	init(countries availableCountries: [Country]/*, euTracingSettings: EUTracingSettings*/) {
+	init(countries availableCountries: [Country]) {
 		self.countryModels = availableCountries
 			.sorted { $0.localizedName <  $1.localizedName }
 			.map { CountryModel($0) }
-		// self.euTracingSettings = euTracingSettings
 	}
 
 	// MARK: - DynamicTableViewModel.
 
-	func countrySwitchSection() -> DynamicSection {
-		DynamicSection.section(
-			separators: true,
-			cells: countryModels.map { model in
-				DynamicCell.euCell(cellModel: model)
-			}
+	func countries() -> DynamicSection {
+
+		let cells: [DynamicCell]
+
+		if !countryModels.isEmpty {
+			cells = countryModels.map { DynamicCell.euCell(cellModel: $0) }
+		} else {
+			// TODO: This cell has to be adjusted.
+			cells = [.body(text: "No countries could be accessed.", accessibilityIdentifier: "")]
+		}
+
+		return DynamicSection.section(
+			separators: !countryModels.isEmpty,
+			cells: cells
 		)
 	}
 
@@ -84,16 +90,10 @@ class EUSettingsViewModel {
 						text: AppStrings.ExposureNotificationSetting.euDescription3,
 						accessibilityIdentifier: ""
 					),
-					.space(height: 16),
+					.space(height: 16)
 
 			]),
-			.section(
-				separators: true,
-				cells:
-					countryModels.map { model in
-						DynamicCell.euCell(cellModel: model)
-					}
-				)
+			countries()
 		])
 	}
 }

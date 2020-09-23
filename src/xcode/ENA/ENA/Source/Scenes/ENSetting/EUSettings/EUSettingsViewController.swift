@@ -23,28 +23,13 @@ import Combine
 
 class EUSettingsViewController: DynamicTableViewController {
 
-	// MARK: - Attributes.
+	// MARK: - Public Attributes.
 
-	private var viewModel =
-		EUSettingsViewModel(
-			countries: [
-				Country(countryCode: "BE"),
-				Country(countryCode: "BG"),
-				Country(countryCode: "EL"),
-				Country(countryCode: "UK"),
-				Country(countryCode: "CZ"),
-				Country(countryCode: "DE"),
-				Country(countryCode: "DK"),
-				Country(countryCode: "FR"),
-				Country(countryCode: "IE")
+	var client: Client?
 
-			].compactMap { $0 }/*,
-			euTracingSettings: EUTracingSettings(
-				isAllCountriesEnbled: false,
-				enabledCountries: ["BE", "EL", "CZ"]
-			)*/
-		)
+	// MARK: - Private Attributes
 
+	private var viewModel = EUSettingsViewModel(countries: [])
 
 	// MARK: - View life cycle methods.
 
@@ -57,6 +42,7 @@ class EUSettingsViewController: DynamicTableViewController {
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
+		setupDataSource()
 		setupTableView()
 		setupBackButton()
 	}
@@ -69,6 +55,20 @@ class EUSettingsViewController: DynamicTableViewController {
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.flagCell.rawValue
 		)
 	}
+
+	// MARK: Data Source setup methods.
+
+	private func setupDataSource() {
+		client?.supportedCountries(completion: { [self] result in
+			switch result {
+			case .failure(_):
+				// TODO: We have not defined any behaviour yet for a failed country list download.
+				print("The country list could not be loaded.")
+			case .success(let countries):
+				viewModel = EUSettingsViewModel(countries: countries)
+			}
+		})
+	}
 }
 
 extension EUSettingsViewController {
@@ -78,7 +78,6 @@ extension EUSettingsViewController {
 }
 
 extension DynamicCell {
-
 	static func euCell(cellModel: EUSettingsViewModel.CountryModel) -> Self {
 		.custom(
 			withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.flagCell,
