@@ -25,7 +25,7 @@
 
 "Common_ENError5_Description" = "Грешка 5: Нещо се обърка. Вашето ниво на риск не може да бъде определено. Работим по намиране на решение за проблема.";
 
-"Common_ENError11_Description" = "Грешка 11: Нещо се обърка. Вашето ниво на риск не може да бъде определено. Моля, рестартирайте устройството си и опитайте отново утре.";
+"Common_ENError11_Description" = "Грешка 11: Нещо се обърка. Вашето ниво на риск не може да бъде определено. Моля, рестартирайте смартфона си и опитайте отново утре.";
 
 "Common_ENError13_Description" = "Грешка 13: Регистрирането на Вашето излагане на риск днес вече е извършено. Моля, опитайте отново след 24 часа.";
 
@@ -104,7 +104,7 @@
 
 "ExposureDetection_Guide_Hotline2" = "Вашия личен лекар";
 
-"ExposureDetection_Guide_Hotline3" = "Общата служба за медицинска помощ на телефон 116117";
+"ExposureDetection_Guide_Hotline3" = "Службата за спешна медицинска помощ на телефон 116117";
 
 "ExposureDetection_Guide_Hotline4" = "Местна служба за обществено здравеопазване";
 
@@ -114,11 +114,11 @@
 
 "ExposureDetection_Explanation_Text_Off" = "Рискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани на вашето локално устройство. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.";
 
-"ExposureDetection_Explanation_Text_Outdated" = "Тъй като регистрирането на излагания не е било активно достатъчно дълго, не можем да изчислим Вашия риск от заразяване.\n\nРискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани на вашето локално устройство. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.";
+"ExposureDetection_Explanation_Text_Outdated" = "Тъй като регистрирането на излагания не е било активно достатъчно дълго, не можем да изчислим Вашия риск от заразяване.\n\nРискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани локално на вашия смартфон. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.";
 
-"ExposureDetection_Explanation_Text_Unknown" = "Тъй като регистрирането на излагания не е било активно достатъчно дълго, не можем да изчислим Вашия риск от заразяване.\n\nРискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани на вашето локално устройство. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.";
+"ExposureDetection_Explanation_Text_Unknown" = "Тъй като регистрирането на излагания не е било активно достатъчно дълго, не можем да изчислим Вашия риск от заразяване.\n\nРискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани локално на вашия смартфон. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.";
 
-"ExposureDetection_Explanation_Text_Low" = "Рискът от заразяване се изчислява локално на устройството Ви въз основа на регистрираните данни за излагане. Изчислението включва също така разстоянието от и продължителността на всички контакти с лица, диагностицирани с COVID-19., както и възможността им да заразят околните. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.";
+"ExposureDetection_Explanation_Text_Low" = "Рискът от заразяване се изчислява локално на смартфона Ви въз основа на регистрираните данни за излагане. Изчислението включва също така разстоянието от и продължителността на всички контакти с лица, диагностицирани с COVID-19., както и възможността им да заразят околните. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.";
 
 "ExposureDetection_Explanation_Text_High" = "Това е причината да определим Вашия риск от заразяване като повишен.\nРискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани на вашето локално устройство. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.\nКогато се приберете у дома, избягвайте близките контакти с членовете на домакинството си.";
 
@@ -248,7 +248,7 @@
 
 "BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Имайте предвид, че за да активирате фоновото опресняване на приложението, енергоспестяващият режим трябва да е дезактивиран.";
 
-"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Дезактивиране на енергоспестяващия режим";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Дезактивирайте енергоспестяващия режим";
 
 "BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Отворете менюто за настройки";
 
@@ -321,7 +321,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "За да установите дали за Вас съществува риск от заразяване, трябва да активирате функцията за регистриране на излагания на риск.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Регистрирането на излагания на риск се извършва с помощта на Bluetooth връзка, при която Вашето устройство получава криптираните случайни идентификатори на други потребители и изпраща до техните устройства Вашите случайни идентификатори. Функцията може да бъде дезактивирана по всяко време. \n\nКриптираните случайни ИД кодове предават само информация за дата, продължителност и близост на контакта с други лица (изчислена чрез силата на сигнала). Лични данни от типа на име, адрес и местоположение не се записват и идентифицирането на лицата е невъзможно.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Регистрирането на излагания на риск се извършва с помощта на Bluetooth връзка, при която Вашият смартфон получава криптираните случайни идентификатори на други потребители и изпраща до техните устройства Вашите случайни идентификатори. Функцията може да бъде дезактивирана по всяко време. \n\nКриптираните случайни ИД кодове предават само информация за дата, продължителност и близост на контакта с други лица (изчислена чрез силата на сигнала). Лични данни от типа на име, адрес и местоположение не се записват и идентифицирането на лицата е невъзможно.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Минимална възраст: 16 год.";
 
@@ -329,7 +329,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Поверителност";
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "To find out whether you have been in contact with an infected person and whether there is a risk that you yourself have been infected, you need to enable the App’s exposure logging feature. By tapping on the “Turn On” button, you agree to the enabling of the App’s exposure logging feature and the associated data processing.\n\n\nIn order to use the App’s exposure logging feature, you will have to enable the COVID-19 Exposure Logging functionality provided by Apple on your iPhone and grant the Corona-Warn-App permission to use this.\n\nWhen exposure logging is enabled, your iPhone continuously generates and transmits random IDs via Bluetooth, which other Apple and Android smartphones in your vicinity can receive if exposure logging is also enabled on them. Your iPhone, in turn, receives the random IDs of the other smartphones. Your own random IDs and those received from other smartphones are recorded in the exposure log and stored there for 14 days.\n\n\nTo identify your risk of infection, the App loads a list – several times a day or on request – of the random IDs of all users who have told the App that they have been infected with the coronavirus. This list is then compared with the random IDs stored in the exposure log. If the App detects that you may have been in contact with an infected user, it will inform you of this and tell you that there is a risk that you are also infected. In this case, the App is also given access to other data stored in your iPhone’s exposure log (date, duration and Bluetooth signal strength of the contact).\n\nThe Bluetooth signal strength is used to derive the physical distance (the stronger the signal, the smaller the distance). The App then analyses this information in order to assess your likelihood of having been infected with the coronavirus and to give you recommendations for what to do next. This analysis is only performed locally on your iPhone. Apart from you, nobody (not even the RKI) will know whether you have been in contact with an infected person and what risk has been identified for you.\n\nTo withdraw your consent to the exposure logging feature, you can disable the feature using the toggle switch in the App or delete the App. If you decide to use the exposure logging feature again, you can toggle the feature back on or reinstall the App. If you disable the exposure logging feature, the App will no longer check whether you have been in contact with an infected user. If you also wish to stop your device sending and receiving random IDs, you will need to disable COVID-19 Exposure Logging in your iPhone settings. Please note that your own random IDs and those received from other smartphones which are stored in the exposure log will not be deleted in the App. You can only permanently delete the data stored in the exposure log in your iPhone settings.\n\n\nThe App’s privacy notice (including an explanation of the data processing carried out for the exposure logging feature) can be found in the menu under “Data Privacy Information”.";
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "To find out whether you have been in contact with an infected person and whether there is a risk that you yourself have been infected, you need to enable the App's exposure logging feature. By tapping on the \"Turn On\" button, you agree to the enabling of the App's exposure logging feature and the associated data processing.\n\n\nIn order to use the App's exposure logging feature, you will have to enable the COVID-19 Exposure Logging functionality provided by Apple on your iPhone and grant the Corona-Warn-App permission to use this.\n\nWhen exposure logging is enabled, your iPhone continuously generates and transmits random IDs via Bluetooth, which other Apple and Android smartphones in your vicinity can receive if exposure logging is also enabled on them. Your iPhone, in turn, receives the random IDs of the other smartphones. Your own random IDs and those received from other smartphones are recorded in the exposure log and stored there for 14 days.\n\n\nTo identify your risk of infection, the App loads a list – several times a day or on request – of the random IDs of all users who have told the App that they have been infected with the coronavirus. This list is then compared with the random IDs stored in the exposure log. If the App detects that you may have been in contact with an infected user, it will inform you of this and tell you that there is a risk that you are also infected. In this case, the App is also given access to other data stored in your iPhone's exposure log (date, duration and Bluetooth signal strength of the contact).\n\nThe Bluetooth signal strength is used to derive the physical distance (the stronger the signal, the smaller the distance). The App then analyses this information in order to assess your likelihood of having been infected with the coronavirus and to give you recommendations for what to do next. This analysis is only performed locally on your iPhone. Apart from you, nobody (not even the RKI) will know whether you have been in contact with an infected person and what risk has been identified for you.\n\nTo withdraw your consent to the exposure logging feature, you can disable the feature using the toggle switch in the App or delete the App. If you decide to use the exposure logging feature again, you can toggle the feature back on or reinstall the App. If you disable the exposure logging feature, the App will no longer check whether you have been in contact with an infected user. If you also wish to stop your device sending and receiving random IDs, you will need to disable COVID-19 Exposure Logging in your iPhone settings. Please note that your own random IDs and those received from other smartphones which are stored in the exposure log will not be deleted in the App. You can only permanently delete the data stored in the exposure log in your iPhone settings.\n\n\nThe App's privacy notice (including an explanation of the data processing carried out for the exposure logging feature) can be found in the menu under \"Data Privacy Information\".";
 
 "OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Статус";
 
@@ -345,7 +345,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "... моля съобщете за това в приложението Corona-Warn-App. Споделянето на резултатите от Вашите тестове е доброволно и безопасно. Направете го в името на общото здраве.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Вашето известие се криптира с висока степен на сигурност и се обработва на защитен сървър. Лицата, чиито криптирани случайни ИД кодове са запазени на Вашето устройство, ще получат предупреждение, както и информация относно това, което трябва да направят.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Вашето известие се криптира с висока степен на сигурност и се обработва на защитен сървър. Лицата, чиито криптирани случайни ИД кодове са запазени на Вашия смартфон, ще получат предупреждение, както и информация относно това, което трябва да направят.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Жена, която получава известие от приложението Corona-Warn-App.";
 
@@ -384,9 +384,9 @@
 
 "ExposureSubmissionTanEntry_Submit" = "Напред";
 
-"ExposureSubmissionTanEntry_InvalidCharacterError" = "Въведените данни са невалидни. Моля, проверете.";
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Въвели сте невалидни символи. Моля, проверете данните!";
 
-"ExposureSubmissionTanEntry_InvalidError" = "Невалиден ТАН код. Проверете въведените данни.";
+"ExposureSubmissionTanEntry_InvalidError" = "Невалиден ТАН код. Моля, проверете въведените данни!";
 
 "ExposureSubmission_NavTitle" = "Изпращане на диагностичен код";
 
@@ -504,7 +504,7 @@
 "ExposureSubmissionIntroduction_ListItem4" = "Ако не разполагате с ТАН код, по телефона може да заявите да Ви бъде предоставен такъв.";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_Title" = "Резултат от тест";
+"ExposureSubmissionResult_Title" = "Резултат от теста";
 
 "ExposureSubmissionResult_CardSubTitle" = "Вашата диагноза";
 
@@ -550,7 +550,7 @@
 
 "ExposureSubmissionResult_testInvalidDesc" = "Възникна проблем при определянето на резултата от Вашия тест.Моля, свържете се със съответния център за тестване или лаборатория, за да получите информация какво можете да направите.";
 
-"ExposureSubmissionResult_testRedeemed" = "Грешки в теста";
+"ExposureSubmissionResult_testRedeemed" = "Възникнаха грешки при тестването";
 
 "ExposureSubmissionResult_testRedeemedDesc" = "Възникнаха грешки при проверката на Вашия тест. Този QR код вече е изтекъл.";
 
@@ -612,7 +612,7 @@
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "Преди повече от 2 седмици";
 
-"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Без коментар";
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Без отговор";
 
 "ExposureSubmissionSymptomsOnset_ContinueButton" = "Напред";
 
@@ -625,9 +625,9 @@
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Моля, помогнете на всички нас!";
 
-"ExposureSubmissionWarnOthers_description" = "Като следваща стъпка може да позволите на Corona-Warn-App да сподели Вашите случайни ИД кодове за последните 14 дни с останалите потребители. По този начин може да предупредите други хора и да помогнете за прекъсване на веригата на заразяване.\n\nАнонимността Ви се запазва, тъй като се изпращат само случайни ИД кодове, които не Ви идентифицират.";
+"ExposureSubmissionWarnOthers_description" = "Като следваща стъпка може да позволите на Corona-Warn-App да сподели Вашите случайни ИД кодове за последните 14 дни с останалите потребители. По този начин може да предупредите други хора и да помогнете за прекъсване на веригата на заразяване.\n\nТъй като риск от заразяване може да съществува и преди проявата на заболяването и може да варира във времето, Ви молим също да заявите кога за пръв път сте забелязали симптоми на инфеция с коронавирус (напр. висока температура или кашлица). Това ще позволи на приложението да изчисли по-точно риска от заразяване за другите потребители, с които сте имали контакт. Изборът дали да предоставите информация за развитието на симптомите е Ваш. Ако нямате симтоми или не желаете да споделите тази информация, можете да изберете опцията \"без отговор\".\n\nТъй като се разменят само случайни идентификатори, несъдържащи лични данни, анонимността Ви е гарантирана.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the exposure logging feature can be automatically notified that they may have been exposed to a risk of infection. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person. \n\nTransmitting your test result via the App is voluntary. You will not be penalized if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected.\n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out based on the consent prior to the withdrawal. Further information can be found in the menu under “Data Privacy”.";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping \"Accept\", you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the exposure logging feature can be automatically notified that they may have been exposed to a risk of infection. If you provide optional information about the onset of your symptoms, the random IDs transmitted will also include a risk value derived from your information, indicating your risk of having infected others on the day the random ID is valid. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person.\n\nTransmitting your test result via the App is voluntary. You will not be penalized if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected.\n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out based on the consent prior to the withdrawal. Further information can be found in the menu under \"App Information\" > \"Data Privacy\".";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Поверителност";
 
@@ -663,7 +663,7 @@
 
 "ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNo" = "Не";
 
-"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "Без коментар";
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "Без отговор";
 
 "ExposureSubmissionWarnEuropeCountrySelection_title" = "Предупреждения за цяла Европа";
 
@@ -671,13 +671,13 @@
 
 "ExposureSubmissionWarnEuropeCountrySelection_description1" = "Кои държави сте посетили през последните 14 дни?";
 
-"ExposureSubmissionWarnEuropeCountrySelection_description2" = "Въведените от Вас данни ще се използват единствено за оптимизиране на обема данни.\nСписъкът съдържа всички участващи в момента държави и се актуализира постоянно.";
+"ExposureSubmissionWarnEuropeCountrySelection_description2" = "Въведените от Вас данни ще се използват единствено за оптимизиране на масива от данни.\nСписъкът съдържа всички участващи в момента държави и се актуализира постоянно.";
 
 "ExposureSubmissionWarnEuropeCountrySelection_answerOptionCountrySelection" = "Посетих следните държави";
 
 "ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries" = "Други държави";
 
-"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "Без коментар";
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "Без отговор";
 
 "ExposureSubmissionWarnEuropeCountrySelection_consentTitle" = "Декларация за съгласие";
 
@@ -685,7 +685,7 @@
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Тестът може да се сканира само веднъж.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Ако изтриете теста, повече няма да можете да извлечете данните за резултата си. Ще получите резултата си от център за тестване или лаборатория, независимо от валидността на QR кода. Ако Ви бъде поставена диагноза COVID-19, службата за обществено осигуряване ще бъде уведомена за това по установения от правните норми канал и ще се свърже с Вас.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Ако изтриете теста, повече няма да можете да излечете данните за резултата си. Ще получите резултата си от център за тестване или лаборатория, независимо от валидността на QR кода. Ако Ви бъде поставена диагноза COVID-19, службата за обществено осигуряване ще бъде уведомена за това по установения от правните норми канал и ще се свърже с Вас.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Датата на регистрация е неизвестна";
 
@@ -700,7 +700,7 @@
 
 "ExposureSubmissionError_EnNotEnabled" = "Регистрирането на излагания на риск не е активно.";
 
-"ExposureSubmissionError_NoRegistrationToken" = "Не беше намерен токен за регистрация на устройството.";
+"ExposureSubmissionError_NoRegistrationToken" = "Не беше намерен токен за регистрация на смартфона.";
 
 "ExposureSubmissionError_InvalidResponse" = "Отговорът не може да бъде обработен.";
 
@@ -710,7 +710,11 @@
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "Невалиден QR код";
 
-"ExposureSubmissionError_TeleTanAlreadyUsed" = "ТАН кодът е невалиден или вече е използван. Моля, опитайте отново или се обадете на горещата линия за технически въпроси, която може да намерите в раздел „Информация за приложението“.";
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "ТАН кодът е невалиден или вече е използван. За повече информация се обадете на номера, посочен под “Заявяване на ТАН код”.";
+
+"ExposureSubmissionError_QRNotExist_Title" = "Този QR код е изтекъл";
+
+"ExposureSubmissionError_QRNotExist" = "Моля, премахнете теста от приложението.\nПосле можете да добавите нов тест.";
 
 "ExposureSubmissionError_RegTokenNotExist" = "Не може да бъде генериран ТАН код за изпращане. Моля, обадете се на горещата линия за технически въпроси, която можете да намерите в раздел „Информация за приложението“.";
 
@@ -745,7 +749,7 @@
 
 "ExposureNotificationSetting_DescriptionText1" = "За да установите дали за Вас съществува риск от заразяване, трябва да активирате функцията за регистриране на излагания на риск.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Регистрирането на излагания на риск се извършва с помощта на Bluetooth връзка, при която Вашето устройство получава криптираните случайни ИД кодове на други потребители и изпраща до техните устройства Вашите случайни ИД кодове. Функцията може да бъде дезактивирана по всяко време.";
+"ExposureNotificationSetting_DescriptionText2" = "Регистрирането на излагания на риск се извършва с помощта на Bluetooth връзка, при която Вашият смартфон получава криптираните случайни ИД кодове на други потребители и изпраща до техните смартфони Вашите случайни ИД кодове. Функцията може да бъде дезактивирана по всяко време.";
 
 "ExposureNotificationSetting_DescriptionText3" = "Криптираните случайни ИД кодове предават само информация за дата, продължителност и близост до другите лица (изчислена посредством силата на сигнала). Лични данни от типа на име, адрес и местоположение не се записват и идентифицирането на лицата е невъзможно.";
 
@@ -759,7 +763,7 @@
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Към настройките за устройството";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "Активиране на регистрирането на излагания на риск от заразяване с COVID-19 и свързаните с това известия";
+"ExposureNotificationSetting_Activate_OSENSetting" = "Активиране на регистрирането на излагания на риск от заразяване с COVID-19 и свързаните с това известия ";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Моля, уверете се, че функцията за регистриране на излагания на риск от заразяване с COVID-19 и свързаните с това известия е активирана във Вашите системните настройки.";
 
@@ -822,7 +826,7 @@
 
 "Home_Risk_Period_Update_Title" = "Актуализира се на всеки %@\U00A0часа";
 
-"Home_Risk_Period_Disabled_Button_Title" = "Актуализира се на всеки %@\U00A0часа";
+"Home_Risk_Period_Disabled_Button_Title" = "Актуализира се едва на всеки %@\U00A0часа";
 
 "Home_Risk_Unknown_Title" = "Неизвестен риск";
 
@@ -1094,7 +1098,7 @@
 
 "RiskLegend_Legend1_Title" = "Регистриране на излаганията на риск";
 
-"RiskLegend_Legend1_Text" = "Регистрирането на излагания на риск е една от трите основни функции на приложението. Когато е активирана, всички осъществени контакти между устройства се записват, без да е необходимо да правите друго.";
+"RiskLegend_Legend1_Text" = "Регистрирането на излагания на риск е една от трите основни функции на приложението. Когато е активирана, всички осъществени контакти между смартфоните се записват, без да е необходимо да правите друго.";
 
 "RiskLegend_Legend2_Title" = "Риск от заразяване";
 
@@ -1140,7 +1144,7 @@
 
 "RiskLegend_Random_Text" = "Случайните идентификатори са произволно генерирани комбинации от цифри и букви, които устройствата си разменят, когато са в близост едно до друго. Идентифицирането на конкретни лица посредством проследяването им е невъзможно. Освен това те се изтриват автоматично след 14 дни. Лицата, диагностицирани с COVID-19, могат да споделят с останалите потребители на приложението своите случайни идентификатори, генерирани през последните 14 дни.";
 
-"RiskLegend_Image1_AccLabel" = "На екрана на устройство се вижда съдържание с номера.";
+"RiskLegend_Image1_AccLabel" = "На екрана на смартфона се вижда съдържание с номера.";
 
 /* Update Message */
 "Update_Message_Title" = "Има налична актуализация";
