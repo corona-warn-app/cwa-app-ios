@@ -37,7 +37,6 @@ class DeltaOnboardingCoordinator {
 
 	private func showNextOnbaordingViewController() {
 		guard let onboarding = nextOnboarding() else {
-			rootViewController = nil
 			finished?()
 			return
 		}

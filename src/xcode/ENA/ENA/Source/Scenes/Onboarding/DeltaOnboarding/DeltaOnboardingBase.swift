@@ -35,12 +35,10 @@ protocol DeltaOnboarding {
 
 extension DeltaOnboarding {
 	var isFinished: Bool {
-		store.onboardingVersion >= version
+		return store.onboardingVersion.compare(version, options: .numeric) != .orderedAscending
 	}
 
 	func finish() {
-		if store.onboardingVersion < version {
-			store.onboardingVersion = version
-		}
+		store.onboardingVersion = version
 	}
 }
