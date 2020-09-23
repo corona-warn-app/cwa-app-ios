@@ -41,7 +41,7 @@ class EUSettingsViewModel {
 
 	init(countries availableCountries: [Country]) {
 		self.countryModels = availableCountries
-			.sorted { $0.localizedName <  $1.localizedName }
+			.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
 			.map { CountryModel($0) }
 	}
 
