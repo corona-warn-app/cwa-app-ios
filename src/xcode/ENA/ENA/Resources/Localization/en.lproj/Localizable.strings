@@ -317,7 +317,7 @@
 
 "OnboardingInfo_privacyPage_normalText" = "You will remain anonymous.\nYour data is fully encrypted and transmitted under a pseudonym.\n\nResponsible body: GDPR, article 4, para. 7:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nPlease read our data privacy regulations.\n\nData privacy information:";
 
-"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Three persons have activated exposure logging on their devices, which will log their encounters with each other.";
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Three persons have activated exposure logging on their smartphones, which will log their encounters with each other.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "How to Enable Exposure Logging";
 
@@ -347,7 +347,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… please report this in the Corona-Warn-App. Sharing your test results is voluntary and secure. Please do this for the sake of everyone's health.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your notification is encrypted securely and processed on a secure server. Persons whose encrypted random IDs your device has collected will now receive a warning along with information about what they should now do.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your notification is encrypted securely and processed on a secure server. Persons whose encrypted random IDs your smartphone has collected will now receive a warning along with information about what they should now do.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "A woman receives a notification from her Corona-Warn-App.";
 
@@ -751,6 +751,7 @@
 
 "ExposureNotificationSetting_DescriptionText1" = "To identify whether you are at risk of infection, you must activate the exposure logging feature.";
 
+
 "ExposureNotificationSetting_DescriptionText2" = "Exposure logging works by your smartphone receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. This feature can be deactivated at any time.";
 
 "ExposureNotificationSetting_DescriptionText3" = "The encrypted random IDs only pass information about date, duration and proximity to other persons (calculated by signal strength). Personal data such as name, address, location is never recorded. Individuals cannot be identified.";
@@ -779,7 +780,7 @@
 
 "ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Authorization";
 
-"ExposureNotificationSetting_AccLabel_Enabled" = "Three persons have activated exposure logging on their devices, which will log their encounters with each other.";
+"ExposureNotificationSetting_AccLabel_Enabled" = "Three persons have activated exposure logging on their smartphones, which will log their encounters with each other.";
 
 "ExposureNotificationSetting_AccLabel_Disabled" = "A person has deactivated exposure logging on their smartphone, so an encounter with two other persons is not logged.";
 
@@ -1105,7 +1106,7 @@
 
 "RiskLegend_Legend1_Title" = "Exposure Logging";
 
-"RiskLegend_Legend1_Text" = "Exposure logging is one of the three central features of the app. When you activate it, encounters with people's devices are logged. You don't have to do anything else.";
+"RiskLegend_Legend1_Text" = "Exposure logging is one of three central features of the app. Once you activate it, encounters with people's smartphones are logged. You don't have to do anything else.";
 
 "RiskLegend_Legend2_Title" = "Risk of Infection";
 
@@ -1149,9 +1150,9 @@
 
 "RiskLegend_Random_Title" = "Random IDs";
 
-"RiskLegend_Random_Text" = "Random IDs are combinations of digits and letters generated randomly. They are exchanged between devices in close proximity. Random IDs cannot be traced to a specific person and are automatically deleted after 14 days. Persons diagnosed with COVID-19 can opt to share their random IDs of up to the last 14 days with other app users.";
+"RiskLegend_Random_Text" = "Random IDs are combinations of digits and letters generated randomly. They are exchanged between smartphones in close proximity. Random IDs cannot be traced to a specific person and are automatically deleted after 14 days. Persons diagnosed with COVID-19 can opt to share their random IDs of up to the last 14 days with other app users.";
 
-"RiskLegend_Image1_AccLabel" = "A device shows various numbered content.";
+"RiskLegend_Image1_AccLabel" = "A smartphone shows various numbered content.";
 
 /* Update Message */
 "Update_Message_Title" = "Update available";
