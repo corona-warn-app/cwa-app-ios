@@ -204,7 +204,7 @@ extension HomeInteractor {
 		switch riskLevel {
 		case .unknownInitial:
 			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
-				isLoading: isRequestRiskRunning,
+				state: isRequestRiskRunning ? .loading : .normal,
 				lastUpdateDate: nil,
 				detectionInterval: detectionInterval,
 				detectionMode: detectionMode,
@@ -227,7 +227,7 @@ extension HomeInteractor {
 				inactiveConfigurator?.activeAction = inActiveCellActionHandler
 			} else {
 				riskLevelConfigurator = HomeUnknown48hRiskCellConfigurator(
-					isLoading: isRequestRiskRunning,
+					state: isRequestRiskRunning ? .loading : .normal,
 					lastUpdateDate: dateLastExposureDetection,
 					detectionInterval: detectionInterval,
 					detectionMode: detectionMode,
@@ -237,7 +237,7 @@ extension HomeInteractor {
 		case .low:
 			let activeTracing = risk?.details.activeTracing ?? .init(interval: 0)
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(
-				isLoading: isRequestRiskRunning,
+				state: isRequestRiskRunning ? .loading : .normal,
 				numberRiskContacts: state.numberRiskContacts,
 				lastUpdateDate: dateLastExposureDetection,
 				isButtonHidden: detectionIsAutomatic,
@@ -248,7 +248,7 @@ extension HomeInteractor {
 			)
 		case .increased:
 			riskLevelConfigurator = HomeHighRiskCellConfigurator(
-				isLoading: isRequestRiskRunning,
+				state: isRequestRiskRunning ? .loading : .normal,
 				numberRiskContacts: state.numberRiskContacts,
 				daysSinceLastExposure: state.daysSinceLastExposure,
 				lastUpdateDate: dateLastExposureDetection,

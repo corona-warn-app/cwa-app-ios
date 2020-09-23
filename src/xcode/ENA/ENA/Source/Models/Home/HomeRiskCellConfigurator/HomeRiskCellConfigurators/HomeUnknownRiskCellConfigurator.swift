@@ -18,18 +18,23 @@
 import UIKit
 
 final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
+
+	private let titleColor: UIColor = .enaColor(for: .textContrast)
+	private let color: UIColor = .enaColor(for: .riskNeutral)
+	private let separatorColor: UIColor = .enaColor(for: .hairlineContrast)
+
 	// MARK: Configuration
 
 	// MARK: Creating a unknown Risk cell
 	init(
-		isLoading: Bool,
+		state: State,
 		lastUpdateDate: Date?,
 		detectionInterval: Int,
 		detectionMode: DetectionMode,
 		manualExposureDetectionState: ManualExposureDetectionState?
 	) {
 		super.init(
-			isLoading: isLoading,
+			state: state,
 			isButtonEnabled: manualExposureDetectionState == .possible,
 			isButtonHidden: detectionMode == .automatic,
 			detectionIntervalLabelHidden: detectionMode != .automatic,
@@ -39,36 +44,41 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	}
 
 	override func configure(cell: RiskLevelCollectionViewCell) {
-		cell.delegate = self
-		let title: String = isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardUnknownTitle
-		
-		let titleColor: UIColor = .enaColor(for: .textContrast)
-		cell.configureTitle(title: title, titleColor: titleColor)
-		cell.configureBody(text: "", bodyColor: titleColor, isHidden: true)
-
-		let color: UIColor = .enaColor(for: .riskNeutral)
-		let separatorColor: UIColor = .enaColor(for: .hairlineContrast)
 		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
-		if isLoading {
-			let isLoadingItem = HomeRiskLoadingItemViewConfigurator(title: AppStrings.Home.riskCardStatusCheckBody, titleColor: titleColor, isLoading: true, color: color, separatorColor: separatorColor)
-			itemCellConfigurators.append(isLoadingItem)
-		} else {
-			let item = HomeRiskTextItemViewConfigurator(title: AppStrings.Home.riskCardUnknownItemTitle, titleColor: titleColor, color: color, separatorColor: separatorColor)
-			itemCellConfigurators.append(item)
+
+		switch state {
+		case .loading:
+			itemCellConfigurators.append(setupLoadingCellState(for: cell))
+		default:
+			itemCellConfigurators.append(setupNormalCellState(for: cell))
+
 		}
+
+		cell.delegate = self
+		cell.configureBody(text: "", bodyColor: titleColor, isHidden: true)
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
-
 		cell.configureBackgroundColor(color: color)
-
-		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, "\(detectionInterval)")
 		cell.configureDetectionIntervalLabel(
-			text: intervalTitle,
+			text: String(format: AppStrings.Home.riskCardIntervalUpdateTitle, "\(detectionInterval)"),
 			isHidden: detectionIntervalLabelHidden
 		)
 
 		configureButton(for: cell)
 		setupAccessibility(cell)
 	}
+
+	// MARK: - Configuration helpers.
+
+	private func setupLoadingCellState(for cell: RiskLevelCollectionViewCell) -> HomeRiskViewConfiguratorAny {
+		cell.configureTitle(title: AppStrings.Home.riskCardStatusCheckTitle, titleColor: titleColor)
+		return HomeRiskLoadingItemViewConfigurator(title: AppStrings.Home.riskCardStatusCheckBody, titleColor: titleColor, isActivityIndicatorOn: true, color: color, separatorColor: separatorColor)
+	}
+
+	private func setupNormalCellState(for cell: RiskLevelCollectionViewCell) -> HomeRiskViewConfiguratorAny {
+		cell.configureTitle(title: AppStrings.Home.riskCardUnknownTitle, titleColor: titleColor)
+		return HomeRiskTextItemViewConfigurator(title: AppStrings.Home.riskCardUnknownItemTitle, titleColor: titleColor, color: color, separatorColor: separatorColor)
+	}
+
 
 	// MARK: Hashable
 
@@ -77,7 +87,7 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	}
 
 	static func == (lhs: HomeUnknownRiskCellConfigurator, rhs: HomeUnknownRiskCellConfigurator) -> Bool {
-		lhs.isLoading == rhs.isLoading &&
+		lhs.state == rhs.state &&
 		lhs.isButtonEnabled == rhs.isButtonEnabled &&
 		lhs.isButtonHidden == rhs.isButtonHidden &&
 		lhs.detectionIntervalLabelHidden == rhs.detectionIntervalLabelHidden &&
