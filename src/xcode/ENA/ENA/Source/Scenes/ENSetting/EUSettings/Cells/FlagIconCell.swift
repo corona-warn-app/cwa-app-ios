@@ -19,7 +19,6 @@
 
 import Foundation
 import UIKit
-import Combine
 
 /// - NOTE: The implementation may raise a 'kCFRunLoopCommonModes' warning that is a known UIKit bug: https://developer.apple.com/forums/thread/132035
 class FlagIconCell: UITableViewCell {

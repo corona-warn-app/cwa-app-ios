@@ -48,15 +48,10 @@ class EUSettingsViewModel {
 	// MARK: - DynamicTableViewModel.
 
 	func countries() -> DynamicSection {
-
-		let cells: [DynamicCell]
-
-		if !countryModels.isEmpty {
-			cells = countryModels.map { DynamicCell.euCell(cellModel: $0) }
-		} else {
-			// TODO: This cell has to be adjusted.
-			cells = [.body(text: "No countries could be accessed.", accessibilityIdentifier: "")]
-		}
+		let cells = countryModels.isEmpty
+			// TODO: This cell needs to be adjusted.
+			? [.body(text: "No countries could be accessed.", accessibilityIdentifier: "")]
+			: countryModels.map { DynamicCell.euCell(cellModel: $0) }
 
 		return DynamicSection.section(
 			separators: !countryModels.isEmpty,
