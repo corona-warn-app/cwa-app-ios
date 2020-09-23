@@ -384,9 +384,9 @@
 
 "ExposureSubmissionTanEntry_Submit" = "Next";
 
-"ExposureSubmissionTanEntry_InvalidCharacterError" = "Invalid entry, please check your entry.";
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Your entry contains invalid characters. Please check your entry";
 
-"ExposureSubmissionTanEntry_InvalidError" = "Invalid TAN, please check your entry.";
+"ExposureSubmissionTanEntry_InvalidError" = "Invalid TAN. Please check your entry.";
 
 "ExposureSubmission_NavTitle" = "Send Diagnosis Key";
 
@@ -710,7 +710,11 @@
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "QR code is invalid";
 
-"ExposureSubmissionError_TeleTanAlreadyUsed" = "The TAN is invalid or has been used already. Please try again or contact the technical hotline via App Information -> Technical Hotline.";
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "The TAN is invalid or has already been used. For further information, call the number listed under \"Request TAN\".";
+
+"ExposureSubmissionError_QRNotExist_Title" = "QR code has expired";
+
+"ExposureSubmissionError_QRNotExist" = "Please remove the test from the app.\nYou can then add a new test to the App.";
 
 "ExposureSubmissionError_RegTokenNotExist" = "A TAN for submission cannot be generated. Please contact the technical hotline via App Information -> Technical Hotline.";
 

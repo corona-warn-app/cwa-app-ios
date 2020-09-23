@@ -384,7 +384,7 @@
 
 "ExposureSubmissionTanEntry_Submit" = "Dalej";
 
-"ExposureSubmissionTanEntry_InvalidCharacterError" = "Nieprawidłowy wpis, Sprawdź go.";
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Twój wpis zawiera nieprawidłowe znaki, Sprawdź swój wpis.";
 
 "ExposureSubmissionTanEntry_InvalidError" = "Nieprawidłowy TAN, sprawdź swój wpis.";
 
@@ -710,7 +710,11 @@
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "Niepoprawny kod QR";
 
-"ExposureSubmissionError_TeleTanAlreadyUsed" = "Numer TAN jest nieprawidłowy lub był już używany. Spróbuj ponownie lub skontaktuj się z techniczną infolinią, wybierając opcje: Informacje o aplikacji -> Infolinia techniczna.";
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "TAN jest nieprawidłowy lub został już użyty. Więcej informacji można uzyskać dzwoniąc na numer wymieniony w sekcji „Poproś o TAN”.";
+
+"ExposureSubmissionError_QRNotExist_Title" = "Kod QR wygasł";
+
+"ExposureSubmissionError_QRNotExist" = "Usuń test z aplikacji.\nPotem możesz dodać nowy test do aplikacji.";
 
 "ExposureSubmissionError_RegTokenNotExist" = "Nie można wygenerować numeru TAN do przesłania. Skontaktuj się z techniczną infolinią, wybierając opcje: Informacje o aplikacji -> Infolinia techniczna.";
 
