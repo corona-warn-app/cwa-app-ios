@@ -23,11 +23,8 @@ import XCTest
 
 class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 
-	var service: MockExposureSubmissionService!
-
 	override func setUp() {
 		super.setUp()
-		service = MockExposureSubmissionService()
 	}
 
 	private func createVC() -> ExposureSubmissionWarnOthersViewController {
