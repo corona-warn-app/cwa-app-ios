@@ -384,9 +384,9 @@
 
 "ExposureSubmissionTanEntry_Submit" = "Напред";
 
-"ExposureSubmissionTanEntry_InvalidCharacterError" = "Въведените данни са невалидни. Моля, проверете.";
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Въвели сте невалидни символи. Моля, проверете данните!";
 
-"ExposureSubmissionTanEntry_InvalidError" = "Невалиден ТАН код. Проверете въведените данни.";
+"ExposureSubmissionTanEntry_InvalidError" = "Невалиден ТАН код. Моля, проверете въведените данни!";
 
 "ExposureSubmission_NavTitle" = "Изпращане на диагностичен код";
 
@@ -710,7 +710,11 @@
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "Невалиден QR код";
 
-"ExposureSubmissionError_TeleTanAlreadyUsed" = "ТАН кодът е невалиден или вече е използван. Моля, опитайте отново или се обадете на горещата линия за технически въпроси, която може да намерите в раздел „Информация за приложението“.";
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "ТАН кодът е невалиден или вече е използван. За повече информация се обадете на номера, посочен под “Заявяване на ТАН код”.";
+
+"ExposureSubmissionError_QRNotExist_Title" = "Този QR код е изтекъл";
+
+"ExposureSubmissionError_QRNotExist" = "Моля, премахнете теста от приложението.\nПосле можете да добавите нов тест.";
 
 "ExposureSubmissionError_RegTokenNotExist" = "Не може да бъде генериран ТАН код за изпращане. Моля, обадете се на горещата линия за технически въпроси, която можете да намерите в раздел „Информация за приложението“.";
 
