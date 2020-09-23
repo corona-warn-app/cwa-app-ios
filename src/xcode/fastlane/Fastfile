@@ -59,7 +59,8 @@ platform :ios do
     # Combined Unit & UI Tests
     run_tests(
       scheme: "ENATests",
-      devices: ["iPhone 11"]
+      devices: ["iPhone 11"],
+      concurrent_workers: 4
     )
 
     swiftlint(
