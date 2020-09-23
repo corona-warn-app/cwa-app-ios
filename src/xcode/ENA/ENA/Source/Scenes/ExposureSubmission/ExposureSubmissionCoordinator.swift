@@ -69,7 +69,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	///  (the navigationController holds a strong reference to the coordinator).
 	weak var navigationController: UINavigationController?
 
-	let model: ExposureSubmissionCoordinatorModel
+	var model: ExposureSubmissionCoordinatorModel!
 
 	// MARK: - Initializers.
 
@@ -81,8 +81,11 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		self.parentNavigationController = parentNavigationController
 		self.delegate = delegate
 
+		super.init()
+
 		self.model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			appConfigurationProvider: appConfigurationProvider
 		)
 	}
 

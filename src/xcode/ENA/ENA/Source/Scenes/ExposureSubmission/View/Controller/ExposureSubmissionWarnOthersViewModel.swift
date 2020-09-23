@@ -19,10 +19,6 @@ import Foundation
 import UIKit
 
 struct ExposureSubmissionWarnOthersViewModel {
-
-	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case roundedCell
-	}
 	
 	// MARK: - Init
 
@@ -69,6 +65,7 @@ struct ExposureSubmissionWarnOthersViewModel {
 						DynamicCell.icon($0.flag, text: $0.localizedName, iconWidth: 28) { _, cell, _ in
 							cell.contentView.layoutMargins.left = 32
 							cell.contentView.layoutMargins.right = 32
+							cell.selectionStyle = .none
 						}
 					}
 				)
@@ -78,7 +75,7 @@ struct ExposureSubmissionWarnOthersViewModel {
 					cells: [
 						.space(height: 20),
 						.custom(
-							withIdentifier: CustomCellReuseIdentifiers.roundedCell,
+							withIdentifier: ExposureSubmissionWarnOthersViewController.CustomCellReuseIdentifiers.roundedCell,
 							configure: { _, cell, _ in
 								guard let privacyStatementCell = cell as? DynamicTableViewRoundedCell else { return }
 

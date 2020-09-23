@@ -20,7 +20,7 @@
 import Foundation
 import XCTest
 
-	class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
+class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 	// MARK: - Attributes.
 	

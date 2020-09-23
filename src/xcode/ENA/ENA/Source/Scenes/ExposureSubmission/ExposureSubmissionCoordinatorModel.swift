@@ -20,17 +20,19 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionCoordinatorModel: RequiresAppDependencies {
+class ExposureSubmissionCoordinatorModel {
 
 	// MARK: - Init
 
-	init(exposureSubmissionService: ExposureSubmissionService) {
+	init(exposureSubmissionService: ExposureSubmissionService, appConfigurationProvider: AppConfigurationProviding) {
 		self.exposureSubmissionService = exposureSubmissionService
+		self.appConfigurationProvider = appConfigurationProvider
 	}
 
 	// MARK: - Internal
 
 	let exposureSubmissionService: ExposureSubmissionService
+	let appConfigurationProvider: AppConfigurationProviding
 
 	var supportedCountries: [Country] = []
 
