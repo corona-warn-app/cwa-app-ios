@@ -43,6 +43,8 @@
 
 "Common_Deadman_AlertBody" = "Risk durumunuzu kontrol etmek için lütfen Corona-Warn-App'i düzenli olarak açmayı unutmayın.";
 
+"Common_Tess_Relay_Description" = "İşitme engeli bulunan kişiler yardım hattı ile iletişime geçmek için Tess Relay hizmetlerini (Almanca yazı dili ile işaret dili arasında tercüme) kullanabilir. Yazılımı App Store/Google Play'den indirebilirsiniz.";
+
 /* General - Links */
 "General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
 
@@ -329,7 +331,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Kabul Beyanı";
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Enfekte olan biriyle temas halinde olup olmadığınızı ve sizin de enfeksiyon riski altında olup olmadığınızı öğrenmek için Uygulamanın maruz kalma günlüğü özelliğini etkinleştirmeniz gerekir. \"Aç\" düğmesine dokunarak Uygulamanın maruz kalma günlüğü özelliğini etkinleştirmeyi ve ilişkili verilerin işlenmesini kabul edersiniz.\n\nUygulamanın maruz kalma günlüğü özelliğini kullanmak için iPhone'unuzda Apple tarafından sunulan COVID-19'a Maruz Kalma Günlüğü işlevini etkinleştirmeniz ve Corona-Warn-App'e bu işlevi kullanma izni vermeniz gerekecektir.\n\nMaruz kalma günlüğü etkinleştirildiğinde iPhone'ununuz sürekli olarak rastgele kimlikler oluşturur ve bu rastgele kimlikleri maruz kalma günlüğü etkinleştirilmiş olan yakınınızdaki diğer Apple ve Android akıllı telefonlara Bluetooth üzerinden aktarır. Bunun karşılığında iPhone'unuz diğer akıllı telefonların rastgele kimliklerini alır. Size ait olan ve diğer akıllı telefonlardan alınan rastgele kimlikler, maruz kalma günlüğüne kaydedilir ve 14 gün süreyle burada saklanır.\n\nUygulama, enfeksiyon riskinizi belirlemek için koronavirüs enfeksiyonu olduğunu Uygulamada belirten tüm kullanıcıların rastgele kimliklerinin listesini (günde birkaç kez veya talep üzerine) yükler. Ardından bu liste maruz kalma günlüğünde tutulan rastgele kimliklerle karşılaştırılır. Uygulama, enfekte olan bir kullanıcı ile temas halinde olabileceğinizi saptadığında bu konuda bilgilendirilirsiniz ve sizin de enfeksiyon riski taşıdığınız belirtilir. Bu durumda Uygulama, iPhone'unuzun maruz kalma günlüğünde tutulan diğer verilere (tarih, süre ve temas sırasındaki Bluetooth sinyalinin gücü) erişir.\n\nBluetooth sinyal gücü, fiziksel mesafenin belirlenmesi için kullanılır (sinyal ne kadar güçlü olursa mesafe o kadar kısa olur). Ardından Uygulama, koronavirüs enfeksiyonu olasılığınızı değerlendirmek ve sonraki adımlara yönelik öneriler sunmak üzere bu bilgileri analiz eder. Bu analiz iPhone'unuzda yalnızca yerel olarak gerçekleştirilir. Sizin dışınızda hiç kimse (RKI bile) enfekte olan biriyle temas ettiğinizi ve sizin için belirlenen riski bilmez.\n\nMaruz kalma günlüğü özelliğine verdiğiniz onayı geri çekmek için Uygulamadaki düğmeyi kullanarak veya Uygulamayı silerek özelliği devre dışı bırakabilirsiniz. Maruz kalma günlüğü özelliğini yeniden kullanmaya karar verirseniz özelliği geri açabilir veya Uygulamayı yeniden yükleyebilirsiniz. Maruz kalma günlüğü özelliğini devre dışı bırakırsanız Uygulama artık enfekte olan bir kullanıcı ile temas halinde olup olmadığınızı kontrol etmez. Cihazınızın rastgele kimlik göndermesini ve almasını durdurmak isterseniz de iPhone'unuzun ayarlarında COVID-19'a Maruz Kalma Günlüğü özelliğini devre dışı bırakmanız gerekir. Size ait olan ve diğer akıllı telefonlardan alınan maruz kalma günlüğündeki rastgele kimliklerin Uygulamada silinmeyeceğini unutmayın. iPhone'unuzun ayarlarında yalnızca maruz kalma günlüğünde tutulan verileri kalıcı olarak silebilirsiniz.\n\nUygulamanın gizlilik bildirimini (maruz kalma günlüğü özelliği için gerçekleştirilen veri işlemeye ilişkin açıklama dahil) menüde \"Veri Gizliliği Bilgileri\" başlığında bulabilirsiniz.";
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Enfekte olan biriyle temas halinde olup olmadığınızı ve sizin de enfeksiyon riski altında olup olmadığınızı öğrenmek için Uygulamanın maruz kalma günlüğü özelliğini etkinleştirmeniz gerekir. \"Aç\" düğmesine dokunarak Uygulamanın maruz kalma günlüğü özelliğini etkinleştirmeyi ve ilişkili verilerin işlenmesini kabul edersiniz.\n\n\nUygulamanın maruz kalma günlüğü özelliğini kullanmak için iPhone'unuzda Apple tarafından sunulan COVID-19'a Maruz Kalma Günlüğü işlevini etkinleştirmeniz ve Corona-Warn-App'e bu işlevi kullanma izni vermeniz gerekecektir.\n\nMaruz kalma günlüğü etkinleştirildiğinde iPhone'ununuz sürekli olarak rastgele kimlikler oluşturur ve bu rastgele kimlikleri maruz kalma günlüğü etkinleştirilmiş olan yakınınızdaki diğer Apple ve Android akıllı telefonlara Bluetooth üzerinden aktarır. Bunun karşılığında iPhone'unuz diğer akıllı telefonların rastgele kimliklerini alır. Size ait olan ve diğer akıllı telefonlardan alınan rastgele kimlikler, maruz kalma günlüğüne kaydedilir ve 14 gün süreyle burada saklanır.\n\n\nUygulama, enfeksiyon riskinizi belirlemek için koronavirüs enfeksiyonu olduğunu Uygulamada belirten tüm kullanıcıların rastgele kimliklerinin listesini (günde birkaç kez veya talep üzerine) yükler. Ardından bu liste maruz kalma günlüğünde tutulan rastgele kimliklerle karşılaştırılır. Uygulama, enfekte olan bir kullanıcı ile temas halinde olabileceğinizi saptadığında bu konuda bilgilendirilirsiniz ve sizin de enfeksiyon riski taşıdığınız belirtilir. Bu durumda Uygulama, iPhone'unuzun maruz kalma günlüğünde tutulan diğer verilere (tarih, süre ve temas sırasındaki Bluetooth sinyalinin gücü) erişir.\n\nBluetooth sinyal gücü, fiziksel mesafenin belirlenmesi için kullanılır (sinyal ne kadar güçlü olursa mesafe o kadar kısa olur). Ardından Uygulama, koronavirüs enfeksiyonu olasılığınızı değerlendirmek ve sonraki adımlara yönelik öneriler sunmak üzere bu bilgileri analiz eder. Bu analiz iPhone'unuzda yalnızca yerel olarak gerçekleştirilir. Sizin dışınızda hiç kimse (RKI bile) enfekte olan biriyle temas ettiğinizi ve sizin için belirlenen riski bilmez.\n\nMaruz kalma günlüğü özelliğine verdiğiniz onayı geri çekmek için Uygulamadaki düğmeyi kullanarak veya Uygulamayı silerek özelliği devre dışı bırakabilirsiniz. Maruz kalma günlüğü özelliğini yeniden kullanmaya karar verirseniz özelliği geri açabilir veya Uygulamayı yeniden yükleyebilirsiniz. Maruz kalma günlüğü özelliğini devre dışı bırakırsanız Uygulama artık enfekte olan bir kullanıcı ile temas halinde olup olmadığınızı kontrol etmez. Cihazınızın rastgele kimlik göndermesini ve almasını durdurmak isterseniz de iPhone'unuzun ayarlarında COVID-19'a Maruz Kalma Günlüğü özelliğini devre dışı bırakmanız gerekir. Size ait olan ve diğer akıllı telefonlardan alınan maruz kalma günlüğündeki rastgele kimliklerin Uygulamada silinmeyeceğini unutmayın. iPhone'unuzun ayarlarında yalnızca maruz kalma günlüğünde tutulan verileri kalıcı olarak silebilirsiniz.\n\n\nUygulamanın gizlilik bildirimini (maruz kalma günlüğü özelliği için gerçekleştirilen veri işlemeye ilişkin açıklama dahil) menüde \"Veri Gizliliği Bilgileri\" başlığında bulabilirsiniz.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Durum";
 
@@ -414,7 +416,7 @@
 
 "ExposureSubmissionHotline_Title" = "TAN Talebi";
 
-"ExposureSubmissionHotline_Description" = "TAN talebinde bulunmak için lütfen test sonucunuzu (varsa) ve telefon numaranızı hazır tutun.\n\nİşitme engeli bulunan kişiler yardım hattı ile iletişime geçmek için Tess Relay hizmetlerini (Almanca yazı dili ile işaret dili arasında tercüme) kullanabilir. Yazılımı App Store/Google Play'den indirebilirsiniz.";
+"ExposureSubmissionHotline_Description" = "TAN talebinde bulunmak için lütfen test sonucunuzu (varsa) ve telefon numaranızı hazır tutun.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Nasıl çalışır?";
 
@@ -749,7 +751,7 @@
 
 "ExposureNotificationSetting_DescriptionText1" = "Enfeksiyon riski taşıyıp taşımadığınızı belirlemek için maruz kalma günlüğü özelliğini etkinleştirmeniz gerekir.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Maruz kalma günlüğü, akıllı telefonunuzun Bluetooth üzerinden diğer kullanıcıların şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimliği diğer kullanıcıların akıllı telefonlarına aktarmasıyla çalışır. Bu özellik dilediğiniz zaman devre dışı bırakılabilir.";
+"ExposureNotificationSetting_DescriptionText2" = "Maruz kalma günlüğü, akıllı telefonunuzun Bluetooth üzerinden diğer kullanıcıların şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimliği diğer kullanıcıların cihazlarına aktarmasıyla çalışır. Bu özellik dilediğiniz zaman devre dışı bırakılabilir.";
 
 "ExposureNotificationSetting_DescriptionText3" = "Şifrelenmiş rastgele kimliklerde diğer kişilere yalnızca tarih, süre ve yakınlık bilgileri (sinyal gücüne göre hesaplanır) gönderilir. Ad, adres ve konum gibi kişisel veriler hiçbir durumda kaydedilmez. Kişilerin kimlikleri belirlenemez.";
 
@@ -804,6 +806,11 @@
 "ExposureNotificationSetting_unknownError" = "Bilinmeyen bir hata oluştu. Daha fazla bilgi için SSS sayfamızı ziyaret edin.";
 
 "ExposureNotificationSetting_apiMisuse" = "Maruz kalma günlüğü özelliğini etkinleştirirken dahili hata oluştu. Daha fazla bilgi için SSS sayfamızı ziyaret edin ve daha sonra tekrar deneyin.";
+
+/* EU Tracing Risk decription */
+"ExposureNotificationSetting_euTracingRiskDeterminationTitle" = "Ülkeler Arası Maruz Kalma Günlüğü";
+
+"ExposureNotificationSetting_euTracingAllCountriesTitle" = "Katılımcı Ülkeler";
 
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App logosu";
