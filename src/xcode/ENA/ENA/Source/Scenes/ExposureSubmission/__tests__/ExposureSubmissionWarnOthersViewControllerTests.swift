@@ -121,7 +121,7 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 
 		let section = vc.dynamicTableViewModel.section(2)
 		let cells = section.cells
-		XCTAssertEqual(cells.count, 2)
+		XCTAssertEqual(cells.count, 3)
 
 		let firstItem = cells[0]
 		var id = firstItem.cellReuseIdentifier
@@ -129,6 +129,10 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 
 		let secondItem = cells[1]
 		id = secondItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "roundedCell")
+
+		let thirdItem = cells[2]
+		id = thirdItem.cellReuseIdentifier
 		XCTAssertEqual(id.rawValue, "roundedCell")
 	}
 

@@ -77,9 +77,26 @@ struct ExposureSubmissionWarnOthersViewModel {
 						.custom(
 							withIdentifier: ExposureSubmissionWarnOthersViewController.CustomCellReuseIdentifiers.roundedCell,
 							configure: { _, cell, _ in
-								guard let privacyStatementCell = cell as? DynamicTableViewRoundedCell else { return }
+								guard let cell = cell as? DynamicTableViewRoundedCell else { return }
 
-								privacyStatementCell.configure(
+								cell.configure(
+									title: NSMutableAttributedString(
+										string: AppStrings.ExposureSubmissionWarnOthers.consentUnderagesTitle
+									),
+									body: NSMutableAttributedString(
+										string: AppStrings.ExposureSubmissionWarnOthers.consentUnderagesText
+									),
+									textStyle: .textContrast,
+									backgroundStyle: .riskNeutral
+								)
+							}
+						),
+						.custom(
+							withIdentifier: ExposureSubmissionWarnOthersViewController.CustomCellReuseIdentifiers.roundedCell,
+							configure: { _, cell, _ in
+								guard let cell = cell as? DynamicTableViewRoundedCell else { return }
+
+								cell.configure(
 									title: NSMutableAttributedString(
 										string: AppStrings.ExposureSubmissionWarnOthers.consentTitle
 									),

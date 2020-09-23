@@ -630,17 +630,23 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
 
-"ExposureSubmissionWarnOthers_continueButton" = "Einverstanden";
-
 "ExposureSubmissionWarnOthers_sectionTitle" = "Helfen Sie mit!";
 
 "ExposureSubmissionWarnOthers_description" = "Als Nächstes können Sie dafür sorgen, dass Ihre Mitmenschen über mögliche Risiko-Begegnungen gewarnt werden.\n\nHierfür können Sie Ihre bislang nur auf Ihrem Smartphone gespeicherten Zufalls-IDs an das von den teilnehmenden Ländern gemeinsam betriebene europäische Serversystem zur Verfügung stellen. Von dort werden die Zufalls-IDs durch die teilnehmenden Länder an die Nutzer der jeweiligen offiziellen Corona-Apps verteilt. Nach dem täglichen Download der Zufalls-IDs werden die Nutzerinnen und Nutzer, mit denen Sie Kontakt hatten, dann gewarnt, sofern eine Risiko-Begegnung stattfand.\n\nEs werden nur Zufalls-IDs übertragen. Es werden keine persönlichen Daten wie Ihr Name, Ihre Adresse oder Ihr Aufenthaltsort mitgeteilt.";
 
-"ExposureSubmissionWarnOthers_consentDescription" = "Indem Sie „Einverstanden“ antippen, willigen Sie ein, dass Ihre Zufalls-IDs der letzten 14 Tage an das von den teilnehmenden Ländern* gemeinsam betriebene europäische Serversystem übermittelt werden. Da Sie Corona-positiv getestet wurden, können Sie Nutzer der offiziellen Corona-Apps der teilnehmenden Länder warnen. Hierzu werden Ihre Zufalls-IDs den teilnehmenden Ländern übermittelt. Den Nutzern der offiziellen Corona-Apps anderer Länder, denen Sie begegnet sind, kann dann angezeigt werden, dass diese eine Risiko-Begegnung in den letzten 14 Tagen hatten.\n\nAndere Nutzer können anhand Ihrer Zufalls-IDs nicht auf Ihre Identität, Ihren Namen oder andere persönliche Angaben schließen.\n\nDie Übermittlung der Zufalls-IDs zur länderübergreifenden Warnung ist freiwillig. Wenn Sie die Daten nicht übermitteln, entstehen Ihnen keine Nachteile. Da weder nachvollzogen noch kontrolliert werden kann, ob und wie Sie die App verwenden, erfährt außer Ihnen auch niemand, ob Sie Ihre Zufalls-IDs zur Verfügung stellen.\n\nSie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen – auch zu den teilnehmenden Ländern und datenschutzrechtlich verantwortlichen Gesundheitsbehörden – finden Sie unter dem Menüpunkt „Datenschutz“.";
-
 "ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Derzeit nehmen die folgenden Länder an der länderübergreifenden Risiko-Ermittlung teil:";
 
+"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "App-Nutzung ab 16 Jahren";
+
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "Die App-Nutzung ist ab 16 Jahren gestattet und richtet sich an Personen, die sich in Deutschland aufhalten.";
+
 "ExposureSubmissionWarnOthers_consentTitle" = "Einwilligungserklärung";
+
+"ExposureSubmissionWarnOthers_consentDescription" = "Indem Sie „Einverstanden“ antippen, willigen Sie ein, dass Ihre Zufalls-IDs der letzten 14 Tage an das von den teilnehmenden Ländern* gemeinsam betriebene europäische Serversystem übermittelt werden. Da Sie Corona-positiv getestet wurden, können Sie Nutzer der offiziellen Corona-Apps der teilnehmenden Länder warnen. Hierzu werden Ihre Zufalls-IDs den teilnehmenden Ländern übermittelt. Den Nutzern der offiziellen Corona-Apps anderer Länder, denen Sie begegnet sind, kann dann angezeigt werden, dass diese eine Risiko-Begegnung in den letzten 14 Tagen hatten.\n\nAndere Nutzer können anhand Ihrer Zufalls-IDs nicht auf Ihre Identität, Ihren Namen oder andere persönliche Angaben schließen.\n\nDie Übermittlung der Zufalls-IDs zur länderübergreifenden Warnung ist freiwillig. Wenn Sie die Daten nicht übermitteln, entstehen Ihnen keine Nachteile. Da weder nachvollzogen noch kontrolliert werden kann, ob und wie Sie die App verwenden, erfährt außer Ihnen auch niemand, ob Sie Ihre Zufalls-IDs zur Verfügung stellen.\n\nSie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen – auch zu den teilnehmenden Ländern und datenschutzrechtlich verantwortlichen Gesundheitsbehörden – finden Sie unter dem Menüpunkt „Datenschutz“.";
+
+"ExposureSubmissionWarnOthers_continueButton" = "Einverstanden";
+
+/* Exposure Submission Result */
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test kann nur einmal gescannt werden";
 
