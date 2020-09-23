@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,21 +15,24 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
-import Foundation
-import UIKit
+import XCTest
+@testable import ENA
 
-struct ENSettingModel {
-	let content: [Content]
-}
-
-extension ENSettingModel {
-	enum Content {
-		case banner
-		case actionCell
-		case euTracingCell
-		case tracingCell
-		case actionDetailCell
-		case descriptionCell
+class ENSettingEuTracingViewModelTests: XCTestCase {
+	
+	func testENSettingEuTracingViewModelTests_Init() throws {
+		
+		let viewModel = ENSettingEuTracingViewModel()
+		XCTAssertNotNil(viewModel)
+	}
+	
+	func testENSettingEuTracingViewModelTests_LabelsAsExpected() throws {
+		
+		let viewModel = ENSettingEuTracingViewModel()
+		
+		XCTAssertNotEqual(viewModel.title, "", "Localized (i18n) Title should not be empty)")
+		XCTAssertNotEqual(viewModel.countryListLabel, "", "Sub title label should be empty.")
 	}
 }
