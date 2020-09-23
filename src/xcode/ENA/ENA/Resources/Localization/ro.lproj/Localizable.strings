@@ -13,7 +13,7 @@
 
 "Alert_ActionRemove" = "Eliminare";
 
-"Alert_BluetoothOff_Title" = "Porniți Bluetooth";
+"Alert_BluetoothOff_Title" = "Activați Bluetooth-ul";
 
 "Alert_BluetoothOff_Description" = "Activați Bluetooth-ul în configurările sistemului dvs. pentru a utiliza această aplicație.";
 
@@ -25,7 +25,7 @@
 
 "Common_ENError5_Description" = "Eroarea 5: A apărut o problemă. Nivelul dvs. de risc nu poate fi determinat. Lucrăm la soluționarea problemei.";
 
-"Common_ENError11_Description" = "Eroarea 11: A apărut o problemă. Nivelul dvs. de risc nu poate fi determinat. Reporniți dispozitivul dvs. și reîncercați mâine.";
+"Common_ENError11_Description" = "Eroarea 11: A apărut o problemă. Nivelul dvs. de risc nu poate fi determinat. Reporniți smartphone-ul și reîncercați mâine.";
 
 "Common_ENError13_Description" = "Eroarea 13: Înregistrarea în jurnal a expunerilor dvs. pentru astăzi a fost deja efectuată. Reîncercați în 24 de ore.";
 
@@ -106,7 +106,7 @@
 
 "ExposureDetection_Guide_Hotline3" = "Serviciul general de urgență la numărul de telefon 112";
 
-"ExposureDetection_Guide_Hotline4" = "Direcția de sănătate publică relevantă";
+"ExposureDetection_Guide_Hotline4" = "Autoritatea de sănătate publică din regiunea dvs.";
 
 "ExposureDetection_Explanation_Title" = "Risc de infectare";
 
@@ -114,17 +114,17 @@
 
 "ExposureDetection_Explanation_Text_Off" = "Riscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe dispozitivul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.";
 
-"ExposureDetection_Explanation_Text_Outdated" = "Deoarece nu ați activat un timp suficient de lung înregistrarea în jurnal a expunerilor, nu putem calcula riscul dvs. de infectare.\n\nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe dispozitivul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.";
+"ExposureDetection_Explanation_Text_Outdated" = "Deoarece nu ați activat un timp suficient de lung înregistrarea în jurnal a expunerilor, nu putem calcula riscul dvs. de infectare.\n\nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe smartphone-ul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.";
 
-"ExposureDetection_Explanation_Text_Unknown" = "Deoarece nu ați activat un timp suficient de lung înregistrarea în jurnal a expunerilor, nu putem calcula riscul dvs. de infectare.\n\nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe dispozitivul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.";
+"ExposureDetection_Explanation_Text_Unknown" = "Deoarece nu ați activat un timp suficient de lung înregistrarea în jurnal a expunerilor, nu putem calcula riscul dvs. de infectare.\n\nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe smartphone-ul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.";
 
-"ExposureDetection_Explanation_Text_Low" = "Riscul de infectare este calculat local pe dispozitivul dvs., utilizând datele de înregistrare în jurnal a expunerilor. Calculul poate ține cont și de distanța și durata întâlnirii cu persoane diagnosticate cu COVID-19, precum și de potențiala contagiozitate a acestora. Riscul dvs. de infectare nu poate fi observat sau transmis mai departe niciunei alte persoane.";
+"ExposureDetection_Explanation_Text_Low" = "Riscul de infectare este calculat local pe smartphone-ul dvs., utilizând datele de înregistrare în jurnal a expunerilor. Calculul poate ține cont și de distanța și durata expunerii la persoane diagnosticate cu COVID-19, precum și de potențiala contagiozitate a acestora. Riscul dvs. de infectare nu poate fi observat sau transmis mai departe niciunei alte persoane.";
 
 "ExposureDetection_Explanation_Text_High" = "Prin urmare, riscul dvs. de infectare a fost clasificat ca fiind crescut.\nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe dispozitivul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.\nCând ajungeți acasă, evitați contactul strâns cu membrii familiei sau cu cei din gospodăria dvs.";
 
 "ExposureDetection_Explanation_FAQ_Link" = "https://www.coronawarn.app/en/faq/#encounter_but_green";
 
-"ExposureDetection_Explanation_FAQ_Link_Text" = "Informaţii suplimentare";
+"ExposureDetection_Explanation_FAQ_Link_Text" = "Informații suplimentare";
 
 "ExposureDetection_LowRiskExposure_Title" = "Întâlniri cu risc redus";
 
@@ -315,13 +315,13 @@
 
 "OnboardingInfo_privacyPage_normalText" = "Vă este păstrată anonimitatea.\nDatele dvs. sunt criptate integral și sunt transmise sub pseudonim.\n\nOrganism responsabil: GDPR, articolul 4, alin. 7:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nConsultați reglementările noastre privind confidențialitatea datelor.\n\nInformații despre confidențialitatea datelor:";
 
-"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Trei persoane și-au activat pe dispozitiv înregistrarea în jurnal a expunerilor, ceea ce va duce la înregistrarea întâlnirilor lor.";
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Trei persoane și-au activat pe smartphone înregistrarea în jurnal a expunerilor, ceea ce va duce la înregistrarea întâlnirilor lor.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "Cum se activează înregistrarea în jurnal a expunerilor";
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Pentru a identifica dacă sunteți supus riscului de infectare, trebuie să activați caracteristica de înregistrare în jurnal a expunerilor.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Înregistrarea în jurnal a expunerilor funcționează astfel: dispozitivul dvs. primește prin Bluetooth ID-uri aleatorii criptate ale altor utilizatori și transmite propriul dvs. ID aleatoriu către dispozitivele acestora. Această caracteristică poate fi oricând dezactivată. \n\nID-urile aleatorii criptate transmit informații doar despre dată, durată și proximitatea față de alte persoane (calculate utilizând intensitatea semnalului). Datele personale, precum numele, adresa și locația nu sunt înregistrate niciodată. Nu se pot identifica persoanele individuale.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Înregistrarea în jurnal a expunerilor funcționează astfel: smartphone-ul dvs. primește prin Bluetooth ID-uri aleatorii criptate ale altor utilizatori și transmite propriul dvs. ID aleatoriu către dispozitivele acestora. Această caracteristică poate fi oricând dezactivată. \n\nID-urile aleatorii criptate transmit informații doar despre dată, durată și proximitatea față de alte persoane (calculate utilizând intensitatea semnalului). Datele personale, precum numele, adresa și locația nu sunt înregistrate niciodată. Nu se pot identifica persoanele individuale.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Limita de vârstă: începând cu 16 ani";
 
@@ -329,7 +329,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Declarație de consimțământ";
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "To find out whether you have been in contact with an infected person and whether there is a risk that you yourself have been infected, you need to enable the App’s exposure logging feature. By tapping on the “Turn On” button, you agree to the enabling of the App’s exposure logging feature and the associated data processing.\n\n\nIn order to use the App’s exposure logging feature, you will have to enable the COVID-19 Exposure Logging functionality provided by Apple on your iPhone and grant the Corona-Warn-App permission to use this.\n\nWhen exposure logging is enabled, your iPhone continuously generates and transmits random IDs via Bluetooth, which other Apple and Android smartphones in your vicinity can receive if exposure logging is also enabled on them. Your iPhone, in turn, receives the random IDs of the other smartphones. Your own random IDs and those received from other smartphones are recorded in the exposure log and stored there for 14 days.\n\n\nTo identify your risk of infection, the App loads a list – several times a day or on request – of the random IDs of all users who have told the App that they have been infected with the coronavirus. This list is then compared with the random IDs stored in the exposure log. If the App detects that you may have been in contact with an infected user, it will inform you of this and tell you that there is a risk that you are also infected. In this case, the App is also given access to other data stored in your iPhone’s exposure log (date, duration and Bluetooth signal strength of the contact).\n\nThe Bluetooth signal strength is used to derive the physical distance (the stronger the signal, the smaller the distance). The App then analyses this information in order to assess your likelihood of having been infected with the coronavirus and to give you recommendations for what to do next. This analysis is only performed locally on your iPhone. Apart from you, nobody (not even the RKI) will know whether you have been in contact with an infected person and what risk has been identified for you.\n\nTo withdraw your consent to the exposure logging feature, you can disable the feature using the toggle switch in the App or delete the App. If you decide to use the exposure logging feature again, you can toggle the feature back on or reinstall the App. If you disable the exposure logging feature, the App will no longer check whether you have been in contact with an infected user. If you also wish to stop your device sending and receiving random IDs, you will need to disable COVID-19 Exposure Logging in your iPhone settings. Please note that your own random IDs and those received from other smartphones which are stored in the exposure log will not be deleted in the App. You can only permanently delete the data stored in the exposure log in your iPhone settings.\n\n\nThe App’s privacy notice (including an explanation of the data processing carried out for the exposure logging feature) can be found in the menu under “Data Privacy Information”.";
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "To find out whether you have been in contact with an infected person and whether there is a risk that you yourself have been infected, you need to enable the App's exposure logging feature. By tapping on the \"Turn On\" button, you agree to the enabling of the App's exposure logging feature and the associated data processing.\n\n\nIn order to use the App's exposure logging feature, you will have to enable the COVID-19 Exposure Logging functionality provided by Apple on your iPhone and grant the Corona-Warn-App permission to use this.\n\nWhen exposure logging is enabled, your iPhone continuously generates and transmits random IDs via Bluetooth, which other Apple and Android smartphones in your vicinity can receive if exposure logging is also enabled on them. Your iPhone, in turn, receives the random IDs of the other smartphones. Your own random IDs and those received from other smartphones are recorded in the exposure log and stored there for 14 days.\n\n\nTo identify your risk of infection, the App loads a list – several times a day or on request – of the random IDs of all users who have told the App that they have been infected with the coronavirus. This list is then compared with the random IDs stored in the exposure log. If the App detects that you may have been in contact with an infected user, it will inform you of this and tell you that there is a risk that you are also infected. In this case, the App is also given access to other data stored in your iPhone's exposure log (date, duration and Bluetooth signal strength of the contact).\n\nThe Bluetooth signal strength is used to derive the physical distance (the stronger the signal, the smaller the distance). The App then analyses this information in order to assess your likelihood of having been infected with the coronavirus and to give you recommendations for what to do next. This analysis is only performed locally on your iPhone. Apart from you, nobody (not even the RKI) will know whether you have been in contact with an infected person and what risk has been identified for you.\n\nTo withdraw your consent to the exposure logging feature, you can disable the feature using the toggle switch in the App or delete the App. If you decide to use the exposure logging feature again, you can toggle the feature back on or reinstall the App. If you disable the exposure logging feature, the App will no longer check whether you have been in contact with an infected user. If you also wish to stop your device sending and receiving random IDs, you will need to disable COVID-19 Exposure Logging in your iPhone settings. Please note that your own random IDs and those received from other smartphones which are stored in the exposure log will not be deleted in the App. You can only permanently delete the data stored in the exposure log in your iPhone settings.\n\n\nThe App's privacy notice (including an explanation of the data processing carried out for the exposure logging feature) can be found in the menu under \"Data Privacy Information\".";
 
 "OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Stare";
 
@@ -337,15 +337,15 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_stateActive" = "Activ";
 
-"OnboardingInfo_enableLoggingOfContactsPage_stateStopped" = "Oprit";
+"OnboardingInfo_enableLoggingOfContactsPage_stateStopped" = "Oprită";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "Un diagnostic de test pozitiv criptat este transmis la sistem, iar acesta va avertiza apoi ceilalți utilizatori.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Dacă sunteți diagnosticat cu COVID-19 …";
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Dacă sunteți diagnosticat cu COVID-19…";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… vă rugăm să raportați acest lucru în Corona-Warn-App. Împărtășirea rezultatului testului este voluntară și securizată. Vă rugăm să faceți acest lucru pentru binele celorlalți.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "…vă rugăm să raportați acest lucru în Corona-Warn-App. Împărtășirea rezultatului testului este voluntară și securizată. Vă rugăm să faceți acest lucru pentru binele celorlalți.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Notificarea dvs. este criptată în mod securizat și este prelucrată pe un server sigur. Persoanele ale căror ID-uri aleatorii criptate au fost colectate de dispozitivul dvs. vor primi acum o avertizare împreună cu informații despre pașii de urmat.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Notificarea dvs. este criptată în mod securizat și este prelucrată pe un server sigur. Persoanele ale căror ID-uri aleatorii criptate au fost colectate de smartphone-ul dvs. vor primi acum o avertizare împreună cu informații despre pașii de urmat.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "O femeie primește o notificare de la Corona-Warn-App.";
 
@@ -384,7 +384,7 @@
 
 "ExposureSubmissionTanEntry_Submit" = "Înainte";
 
-"ExposureSubmissionTanEntry_InvalidCharacterError" = "Intrarea dvs. conține caractere nevalabile. Vă rugăm să o verificați";
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Intrarea dvs. conține caractere nevalabile. Vă rugăm să o verificați.";
 
 "ExposureSubmissionTanEntry_InvalidError" = "TAN nevalabil. Verificați intrarea dvs.";
 
@@ -478,7 +478,7 @@
 
 "ExposureSubmissionSuccess_listItem2_1" = "Perioada de carantină este de obicei de 14 zile. Observați ce simptome aveți și monitorizați dezvoltarea acestora.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "Direcția de sănătate publică vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 15 minute începând cu două zile înainte de a prezenta simptome.";
+"ExposureSubmissionSuccess_listItem2_2" = "Autoritatea de sănătate publică din regiunea dvs. vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 15 minute începând cu două zile înainte de a prezenta simptome.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Luați în considerare în special persoanele care nu vor fi notificate direct de aplicație dacă nu au un smartphone sau dacă nu și-au instalat aplicația.";
 
@@ -524,7 +524,7 @@
 
 "ExposureSubmissionResult_testAddedDesc" = "Testul dvs. a fost stocat în Corona-Warn-App.";
 
-"ExposureSubmissionResult_warnOthers" = "Avertizarea altor persoane";
+"ExposureSubmissionResult_warnOthers" = "Avertizarea altora";
 
 "ExposureSubmissionResult_warnOthersDesc" = "Trimiteți ID-urile dvs. aleatorii din ultimele 14 zile pentru a proteja alte persoane și pentru a întrerupe lanțul de infectare.";
 
@@ -625,9 +625,9 @@
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Să ne ajutăm împreună!";
 
-"ExposureSubmissionWarnOthers_description" = "Apoi, puteți să vă asigurați că aplicația Corona-Warn trimite altor persoane ID-urile aleatorii din ultimele 14 zile. Prin aceasta, puteți avertiza și alte persoane și puteți contribui la întreruperea lanțului de infectare\n\nPentru că sunt transmise doar ID-uri aleatorii impersonale, identitatea dvs. va rămâne anonimă.";
+"ExposureSubmissionWarnOthers_description" = "Apoi, puteți să vă asigurați că aplicația Corona-Warn trimite altor persoane ID-urile aleatorii din ultimele 14 zile. Prin aceasta, puteți avertiza și alte persoane și puteți contribui la întreruperea lanțului de infectare\n\nDeoarece poate exista un risc de infectare înainte de instalarea bolii și acesta poate varia în timp, vă putem solicita să menționați când ați observat prima dată orice simptom de coronavirus (de exemplu, febră sau tuse). Acest lucru va permite Aplicației să calculeze mai precis riscul de infectare pentru alți utilizatori ai aplicației cu care v-ați întâlnit. Furnizarea informațiilor privind instalarea simptomelor dvs. este opțională. Dacă nu aveți niciun fel de simptopme sau nu doriți să partajați aceste informații, puteți selecta „niciun răspuns”.\n\nPentru că sunt transmise doar ID-uri aleatorii impersonale, identitatea dvs. va rămâne anonimă.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Apăsând pe „Accept”, consimțiți ca aplicația să trimită rezultatul pozitiv al testului dvs. către sistemul de servere al aplicației, împreună cu ID-urile dvs. aleatorii din ultimele 14 zile, pentru ca ceilalți utilizatori ai aplicației care au activat caracteristica de înregistrare în jurnal a expunerilor să poată fi notificați automat că se poate să fi fost expuși la riscul de infectare. ID-urile aleatorii transmise în acest scop nu conțin informații care să poată permite tragerea unor concluzii privind identitatea dvs. sau persoana dvs. \n\nTransmiterea rezultatului testului prin intermediul aplicației este voluntară. Nu veți fi penalizat dacă nu transmiteți rezultatul testului. Din moment ce nu este posibilă urmărirea sau verificarea modului în care utilizați aplicația sau dacă o utilizați sau nu, doar dvs. veți ști dacă ați transmis informațiile că sunteți infectat.\n\nPuteți oricând să vă retrageți consimțământul prin ștergerea acestei aplicații. Retragerea consimțământului nu va afecta legalitatea procesării efectuate în baza consimțământului acordat înainte de retragerea acestuia. Pentru informații suplimentare, consultați meniul din „Confidențialitatea datelor”.";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Apăsând pe „Accept”, consimțiți ca aplicația să trimită rezultatul pozitiv al testului dvs. către sistemul de servere al aplicației, împreună cu ID-urile dvs. aleatorii din ultimele 14 zile, pentru ca ceilalți utilizatori ai aplicației care au activat caracteristica de înregistrare în jurnal a expunerilor să poată fi notificați automat că se poate să fi fost expuși la riscul de infectare. Dacă furnizați informații opționale privind instalarea simptomelor dvs., ID-urile aleatorii transmise vor include și o valoare a riscului derivată din informațiile dvs., indicând riscul infectării de către dvs. a altor persoane în ziua în care respectivul ID aleatoriu este valabil. ID-urile aleatorii transmise în acest scop nu conțin informații care să poată permite tragerea unor concluzii privind identitatea dvs. sau persoana dvs.\n\nTransmiterea rezultatului testului prin intermediul aplicației este voluntară. Nu veți fi penalizat dacă nu transmiteți rezultatul testului. Din moment ce nu este posibilă urmărirea sau verificarea modului în care utilizați aplicația sau dacă o utilizați sau nu, doar dvs. veți ști dacă ați transmis informațiile că sunteți infectat.\n\nPuteți oricând să vă retrageți consimțământul prin ștergerea acestei aplicații. Retragerea consimțământului nu va afecta legalitatea procesării efectuate în baza consimțământului acordat înainte de retragerea acestuia. Pentru informații suplimentare, consultați meniul din „Informații aplicație” > „Confidențialitatea datelor”.";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Confidențialitatea datelor";
 
@@ -692,7 +692,7 @@
 "ExposureSubmissionResult_RegistrationDate" = "Înregistrat la";
 
 /* Exposure Submission */
-"ExposureSubmissionError_ErrorPrefix" = "A apărut o eroare tehnică la trimiterea datelor dvs. Contactaţi hotline-ul tehnic. Veți găsi numărul de telefon accesând Informații aplicație.";
+"ExposureSubmissionError_ErrorPrefix" = "A apărut o eroare tehnică la trimiterea datelor dvs. Contactați hotline-ul tehnic. Veți găsi numărul de telefon accesând Informații aplicație.";
 
 "ExposureSubmissionError_NoKeys" = "Nu este disponibilă nicio cheie de pozitivare. Reîncercați mâine.";
 
@@ -700,7 +700,7 @@
 
 "ExposureSubmissionError_EnNotEnabled" = "Înregistrarea în jurnal a expunerilor nu este activă.";
 
-"ExposureSubmissionError_NoRegistrationToken" = "Niciun token de înregistrare nu a putut fi găsit pe dispozitiv.";
+"ExposureSubmissionError_NoRegistrationToken" = "Niciun token de înregistrare nu a putut fi găsit pe smartphone.";
 
 "ExposureSubmissionError_InvalidResponse" = "Răspunsul nu poate fi prelucrat.";
 
@@ -718,7 +718,7 @@
 
 "ExposureSubmissionError_RegTokenNotExist" = "Un cod TAN de transmis nu poate fi generat. Contactați hotline-ul tehnic accesând Informații aplicație -> Hotline tehnic.";
 
-"ExposureSubmissionError_other" = "A apărut o eroare de conexiune. Cod de eroare pentru asistența tehnică:";
+"ExposureSubmissionError_other" = "A apărut o eroare de conexiune. Cod de eroare pentru asistența tehnică: ";
 
 "ExposureSubmissionError_otherend" = "Reîncercați.";
 
@@ -749,21 +749,21 @@
 
 "ExposureNotificationSetting_DescriptionText1" = "Pentru a identifica dacă sunteți supus riscului de infectare, trebuie să activați caracteristica de înregistrare în jurnal a expunerilor.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Înregistrarea în jurnal a expunerilor funcționează astfel: dispozitivul dvs. primește prin Bluetooth ID-uri aleatorii criptate ale altor utilizatori și transmite propriul dvs. ID aleatoriu către dispozitivele acestora. Această caracteristică poate fi oricând dezactivată.";
+"ExposureNotificationSetting_DescriptionText2" = "Înregistrarea în jurnal a expunerilor funcționează astfel: smartphone-ul dvs. primește prin Bluetooth ID-uri aleatorii criptate ale altor utilizatori și transmite propriul dvs. ID aleatoriu către smartphone-urile acestora. Această caracteristică poate fi oricând dezactivată.";
 
 "ExposureNotificationSetting_DescriptionText3" = "ID-urile aleatorii criptate transmit informații doar despre dată, durată și proximitatea față de alte persoane (calculate utilizând intensitatea semnalului). Datele personale, precum numele, adresa, locația nu sunt înregistrate niciodată. Nu se pot identifica persoanele individuale.";
 
-"ExposureNotificationSetting_Activate_Bluetooth" = "Porniți Bluetooth";
+"ExposureNotificationSetting_Activate_Bluetooth" = "Activați Bluetooth-ul";
 
-"ExposureNotificationSetting_Bluetooth_Description" = "Bluetooth-ul trebuie să fie activat pentru ca înregistrarea în jurnal a expunerilor să funcționeze. Activați Bluetooth-ul în configurările dispozitivului.";
+"ExposureNotificationSetting_Bluetooth_Description" = "Bluetooth-ul trebuie să fie activat pentru ca înregistrarea în jurnal a expunerilor să funcționeze. Activați Bluetooth-ul în setările dispozitivului.";
 
 "ExposureNotificationSetting_Activate_Internet" = "Deschideți conexiunea la internet";
 
-"ExposureNotificationSetting_Internet_Description" = "Înregistrarea în jurnal a expunerilor necesită conexiunea la internet pentru a calcula expunerile. Porniți rețeaua WIFI sau datele celulare din setările dispozitivului dvs.";
+"ExposureNotificationSetting_Internet_Description" = "Înregistrarea în jurnal a expunerilor necesită conexiunea la internet pentru a calcula expunerile. Porniți rețeaua Wi-Fi sau datele mobile din setările dispozitivului dvs.";
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Deschideți configurările dispozitivului";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "Activați Înregistrarea în jurnal a expunerilor la COVID-19 și Notificări";
+"ExposureNotificationSetting_Activate_OSENSetting" = "Activați Înregistrarea în jurnal a expunerilor la COVID-19 și Notificări ";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Pentru înregistrarea în jurnal a expunerilor, trebuie activate înregistrarea în jurnal a expunerilor la COVID-19 și notificările în setările sistemului, pentru a putea fi înregistrate întâlnirile. Vă rugăm să activați „Înregistrarea în jurnal a expunerilor la COVID-19 și Notificări” în setările sistemului dvs.";
 
@@ -777,7 +777,7 @@
 
 "ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Autorizație";
 
-"ExposureNotificationSetting_AccLabel_Enabled" = "Trei persoane și-au activat pe dispozitiv înregistrarea în jurnal a expunerilor, ceea ce va duce la înregistrarea întâlnirilor lor.";
+"ExposureNotificationSetting_AccLabel_Enabled" = "Trei persoane și-au activat pe smartphone înregistrarea în jurnal a expunerilor, ceea ce va duce la înregistrarea întâlnirilor lor.";
 
 "ExposureNotificationSetting_AccLabel_Disabled" = "O persoană și-a dezactivat de pe smartphone înregistrarea în jurnal a expunerilor și, prin urmare, întâlnirea cu alte două persoane nu este înregistrată.";
 
@@ -826,7 +826,7 @@
 
 "Home_Risk_Period_Update_Title" = "Actualizată la fiecare %@\U00A0ore";
 
-"Home_Risk_Period_Disabled_Button_Title" = "Actualizată la fiecare %@\U00A0ore";
+"Home_Risk_Period_Disabled_Button_Title" = "Actualizată doar la %@\U00A0ore";
 
 "Home_Risk_Unknown_Title" = "Risc necunoscut";
 
@@ -885,7 +885,7 @@
 
 "Home_Thank_You_Card_14Days_Item_Title" = "Perioada de carantină este de obicei de 14 zile. Observați ce simptome aveți și monitorizați dezvoltarea acestora.";
 
-"Home_Thank_You_Card_Contacts_Item_Title" = "Direcția de sănătate publică vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 15 minute începând cu două zile înainte de a prezenta simptome.";
+"Home_Thank_You_Card_Contacts_Item_Title" = "Autoritatea de sănătate publică din regiunea dvs. vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 15 minute începând cu două zile înainte de a prezenta simptome.";
 
 "Home_Thank_You_Card_App_Item_Title" = "Luați în considerare în special persoanele care nu vor fi notificate direct de aplicație dacă nu au un smartphone sau dacă nu și-au instalat aplicația.";
 
@@ -1098,7 +1098,7 @@
 
 "RiskLegend_Legend1_Title" = "Înregistrarea în jurnal a expunerilor";
 
-"RiskLegend_Legend1_Text" = "Înregistrarea în jurnal a expunerilor este una dintre cele trei caracteristici centrale ale aplicației. Când o activați, sunt înregistrate întâlnirile cu dispozitivele altor persoane. Nu trebuie să faceți nimic altceva.";
+"RiskLegend_Legend1_Text" = "Înregistrarea în jurnal a expunerilor este una dintre cele trei caracteristici centrale ale aplicației. Când o activați, sunt înregistrate întâlnirile cu smartphone-urile altor persoane. Nu trebuie să faceți nimic altceva.";
 
 "RiskLegend_Legend2_Title" = "Risc de infectare";
 
@@ -1142,9 +1142,9 @@
 
 "RiskLegend_Random_Title" = "ID-uri aleatorii";
 
-"RiskLegend_Random_Text" = "ID-urile aleatorii sunt combinații de cifre și litere generate aleatoriu. Acestea sunt schimbate între dispozitivele aflate în proximitate strânsă. ID-urile aleatorii nu pot fi asociate cu o persoană anume și sunt șterse automat după 14 zile. Persoanele diagnosticate cu COVID-19 pot opta să trimită ID-urile aleatorii din ultimele 14 zile și altor utilizatori ai aplicației.";
+"RiskLegend_Random_Text" = "ID-urile aleatorii sunt combinații de cifre și litere generate aleatoriu. Acestea sunt schimbate între smartphone-urile aflate în proximitate strânsă. ID-urile aleatorii nu pot fi asociate cu o persoană anume și sunt șterse automat după 14 zile. Persoanele diagnosticate cu COVID-19 pot opta să trimită ID-urile aleatorii din ultimele 14 zile și altor utilizatori ai aplicației.";
 
-"RiskLegend_Image1_AccLabel" = "Un dispozitiv arată conținut numerotat diferit.";
+"RiskLegend_Image1_AccLabel" = "Un smartphone arată conținut numerotat diferit.";
 
 /* Update Message */
 "Update_Message_Title" = "Actualizare disponibilă";
