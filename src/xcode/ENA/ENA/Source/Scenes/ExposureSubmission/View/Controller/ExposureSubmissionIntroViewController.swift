@@ -89,7 +89,7 @@ private extension DynamicTableViewModel {
 				accessibilityIdentifier: AccessibilityIdentifiers.General.image,
 				height: 200
 			),
-			separators: false,
+			separators: .none,
 			cells: [
 				.headline(text: AppStrings.ExposureSubmissionIntroduction.usage01,
 						  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionIntroduction.usage01),
