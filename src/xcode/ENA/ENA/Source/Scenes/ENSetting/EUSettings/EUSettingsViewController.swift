@@ -63,10 +63,17 @@ class EUSettingsViewController: DynamicTableViewController {
 			case .failure:
 				// TODO: We have not defined any behaviour yet for a failed country list download.
 				logError(message: "The country list could not be loaded.")
+				self?.viewModel = EUSettingsViewModel(countries: [])
 			case .success(let countries):
 				self?.viewModel = EUSettingsViewModel(countries: countries)
 			}
+			self?.reloadData()
 		})
+	}
+
+	private func reloadData() {
+		dynamicTableViewModel = viewModel.euSettingsModel()
+		tableView.reloadData()
 	}
 }
 
