@@ -137,7 +137,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		deltaOnboardingCoordinator?.finished = { [weak self] in
 			self?.deltaOnboardingCoordinator = nil
 		}
-		deltaOnboardingCoordinator?.startOnboarding()
+
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+			self.deltaOnboardingCoordinator?.startOnboarding()
+		}
 	}
 
 	/// This method sets up a background fetch alert, and presents it, if needed.
