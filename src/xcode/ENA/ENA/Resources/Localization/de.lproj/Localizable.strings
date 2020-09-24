@@ -787,6 +787,10 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt, dass die Begegnungsmitteilungen in den Systemeinstellungen aktiviert sind, um Begegnungen zu protokollieren. Bitte klicken Sie auf „Geräte-Einstellungen öffnen“ -> „Begegnungsmitteilungen“ -> „Begegnungsmitteilungen teilen“. Legen Sie danach die App als aktive App für die Begegnungsmitteilungen fest, indem Sie auf „Als aktive Region festlegen“ klicken.";
 
+"ExposureNotificationSetting_Activate_Old_OSENSetting" = "COVID-19-Begegnungsmitteilungen aktivieren ";
+
+"ExposureNotificationSetting_Activate_Old_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt aktivierte COVID-19-Begegnungsmitteilungen in den Systemeinstellungen, um Begegnungen zu protokollieren. Bitte klicken Sie auf „Geräte-Einstellungen öffnen“ und aktivieren dann die „COVID-19-Begegnungsmitteilungen“ in den Einstellungen.";
+
 "ExposureNotificationSetting_SetActiveApp_OSENSetting" = "Aktive Region festlegen";
 
 "ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt, dass die Corona-Warn-App in den Systemeinstellungen als aktive App festgelegt wurde, um Begegnungen zu protokollieren. Bitte klicken Sie auf „Geräte-Einstellungen öffnen“ -> „Begegnungsmitteilungen“ -> „Als aktive Region festlegen“.";

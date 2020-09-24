@@ -57,8 +57,13 @@ class ActionDetailTableViewCell: UITableViewCell, ActionCell {
 			descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateParentalControlENSettingDescription
 			iconImageView2.isHidden = true
 		case .notAuthorized:
-			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSetting
-			descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSettingDescription
+			if #available(iOS 13.7, *) {
+				actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSetting
+				descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSettingDescription
+			} else {
+				actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateOldOSENSetting
+				descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateOldOSENSettingDescription
+			}
 			iconImageView2.isHidden = true
 		case .notActiveApp:
 			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateAppOSENSetting
