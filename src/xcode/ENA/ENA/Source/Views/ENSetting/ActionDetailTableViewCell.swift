@@ -60,6 +60,10 @@ class ActionDetailTableViewCell: UITableViewCell, ActionCell {
 			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSetting
 			descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSettingDescription
 			iconImageView2.isHidden = true
+		case .notActiveApp:
+			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateAppOSENSetting
+			descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateAppOSENSettingDescription
+			iconImageView2.isHidden = true
 		case .unknown:
 			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.authorizationRequiredENSetting
 			descriptionLabel.text = AppStrings.ExposureNotificationSetting.authorizationRequiredENSettingDescription
@@ -80,7 +84,7 @@ class ActionDetailTableViewCell: UITableViewCell, ActionCell {
 			return (nil, nil)
 		case .bluetoothOff:
 			return (UIImage(named: "Icons_Bluetooth"), nil)
-		case .restricted, .notAuthorized, .unknown:
+		case .restricted, .notAuthorized, .unknown, .notActiveApp:
 			return (UIImage(named: "Icons_iOS_Settings"), nil)
 		}
 	}
