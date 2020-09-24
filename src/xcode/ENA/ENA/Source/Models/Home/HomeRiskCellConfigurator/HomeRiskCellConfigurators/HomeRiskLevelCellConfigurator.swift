@@ -23,7 +23,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: Properties
 	var buttonAction: (() -> Void)?
 
-	var state: State
+	var state: ActivityState
 	var isButtonEnabled: Bool
 	var isButtonHidden: Bool
 	var detectionIntervalLabelHidden: Bool
@@ -62,7 +62,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
-		state: State,
+		state: ActivityState,
 		isButtonEnabled: Bool,
 		isButtonHidden: Bool,
 		detectionIntervalLabelHidden: Bool,
@@ -165,7 +165,7 @@ extension HomeRiskLevelCellConfigurator: RiskLevelCollectionViewCellDelegate {
 }
 
 extension HomeRiskLevelCellConfigurator {
-	enum State {
+	enum ActivityState {
 		case normal
 		case loading
 		case detecting

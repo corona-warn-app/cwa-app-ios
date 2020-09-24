@@ -64,7 +64,8 @@ final class HomeInteractor: RequiresAppDependencies {
 
 	private(set) var testResult: TestResult?
 
-	private lazy var isRequestRiskRunning = riskProvider.isLoading
+	private var riskCellActivityState: HomeRiskLevelCellConfigurator.ActivityState = .normal
+
 	private let riskConsumer = RiskConsumer()
 
 	deinit {
@@ -75,10 +76,6 @@ final class HomeInteractor: RequiresAppDependencies {
 		guard let indexPath = indexPathForActiveCell() else { return }
 		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
-	}
-
-	private func updateRiskLoading() {
-		isRequestRiskRunning ? riskLevelConfigurator?.startLoading() : riskLevelConfigurator?.stopLoading()
 	}
 
 	private func updateRiskButton(isEnabled: Bool) {
@@ -97,15 +94,15 @@ final class HomeInteractor: RequiresAppDependencies {
 
 	private func observeRisk() {
 		riskConsumer.didChangeLoadingStatus = { isLoading in
-			self.updateAndReloadRiskLoading(isRequestRiskRunning: isLoading)
+			self.updateAndReloadRiskCellState(to: isLoading ? .loading : .normal)
 		}
 
 		riskProvider.observeRisk(riskConsumer)
 	}
 
-	func updateAndReloadRiskLoading(isRequestRiskRunning: Bool) {
-		self.isRequestRiskRunning = isRequestRiskRunning
-		updateRiskLoading()
+	func updateAndReloadRiskCellState(to state: HomeRiskLevelCellConfigurator.ActivityState) {
+		riskCellActivityState = state
+		riskLevelConfigurator?.state = state
 		reloadRiskCell()
 	}
 
@@ -204,7 +201,7 @@ extension HomeInteractor {
 		switch riskLevel {
 		case .unknownInitial:
 			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
-				state: isRequestRiskRunning ? .loading : .normal,
+				state: riskCellActivityState,
 				lastUpdateDate: nil,
 				detectionInterval: detectionInterval,
 				detectionMode: detectionMode,
@@ -227,7 +224,7 @@ extension HomeInteractor {
 				inactiveConfigurator?.activeAction = inActiveCellActionHandler
 			} else {
 				riskLevelConfigurator = HomeUnknown48hRiskCellConfigurator(
-					state: isRequestRiskRunning ? .loading : .normal,
+					state: riskCellActivityState,
 					lastUpdateDate: dateLastExposureDetection,
 					detectionInterval: detectionInterval,
 					detectionMode: detectionMode,
@@ -237,7 +234,7 @@ extension HomeInteractor {
 		case .low:
 			let activeTracing = risk?.details.activeTracing ?? .init(interval: 0)
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(
-				state: isRequestRiskRunning ? .loading : .normal,
+				state: riskCellActivityState,
 				numberRiskContacts: state.numberRiskContacts,
 				lastUpdateDate: dateLastExposureDetection,
 				isButtonHidden: detectionIsAutomatic,
@@ -248,7 +245,7 @@ extension HomeInteractor {
 			)
 		case .increased:
 			riskLevelConfigurator = HomeHighRiskCellConfigurator(
-				state: isRequestRiskRunning ? .loading : .normal,
+				state: riskCellActivityState,
 				numberRiskContacts: state.numberRiskContacts,
 				daysSinceLastExposure: state.daysSinceLastExposure,
 				lastUpdateDate: dateLastExposureDetection,

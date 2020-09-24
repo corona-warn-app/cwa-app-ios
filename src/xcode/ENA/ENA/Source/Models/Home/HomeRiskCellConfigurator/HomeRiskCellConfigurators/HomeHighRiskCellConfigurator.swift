@@ -28,7 +28,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
-		state: State,
+		state: ActivityState,
 		numberRiskContacts: Int,
 		daysSinceLastExposure: Int?,
 		lastUpdateDate: Date?,

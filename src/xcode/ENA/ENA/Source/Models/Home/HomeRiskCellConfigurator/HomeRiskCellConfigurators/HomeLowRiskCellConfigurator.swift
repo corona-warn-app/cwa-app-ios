@@ -30,7 +30,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
-		state: State,
+		state: ActivityState,
 		numberRiskContacts: Int,
 		lastUpdateDate: Date?,
 		isButtonHidden: Bool,
@@ -58,7 +58,9 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 		switch state {
 		case .loading:
-			itemCellConfigurators.append(setupLoadingCellState(for: cell))
+			itemCellConfigurators += [setupLoadingCellState(for: cell)]
+		case .detecting:
+			itemCellConfigurators += [setupDetectingCellState(for: cell)]
 		default:
 			itemCellConfigurators.append(contentsOf: setupNormalCellState(for: cell))
 		}
@@ -80,6 +82,17 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	private func setupLoadingCellState(for cell: RiskLevelCollectionViewCell) -> HomeRiskLoadingItemViewConfigurator {
 		cell.configureTitle(title: AppStrings.Home.riskCardStatusCheckTitle, titleColor: titleColor)
+		return HomeRiskLoadingItemViewConfigurator(
+			title: AppStrings.Home.riskCardStatusCheckBody,
+			titleColor: titleColor,
+			isActivityIndicatorOn: true,
+			color: color,
+			separatorColor: separatorColor
+		)
+	}
+
+	private func setupDetectingCellState(for cell: RiskLevelCollectionViewCell) -> HomeRiskLoadingItemViewConfigurator {
+		cell.configureTitle(title: "AppStrings.Home.riskCardStatusCheckTitle", titleColor: titleColor)
 		return HomeRiskLoadingItemViewConfigurator(
 			title: AppStrings.Home.riskCardStatusCheckBody,
 			titleColor: titleColor,

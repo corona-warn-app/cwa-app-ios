@@ -25,7 +25,7 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	// MARK: Creating a unknown 48h Risk cell
 	init(
-		state: State,
+		state: ActivityState,
 		lastUpdateDate: Date?,
 		detectionInterval: Int,
 		detectionMode: DetectionMode,
