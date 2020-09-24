@@ -131,6 +131,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .manuallyRequestRisk:
 			vc = nil
 			manuallyRequestRisk()
+		case .onboardingVersion:
+			vc = makeOnboardingVersionViewController()
 		}
 		
 		if let vc = vc {
@@ -187,6 +189,10 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			}
 		)
 		present(alert, animated: true, completion: nil)
+	}
+
+	private func makeOnboardingVersionViewController() -> DMDeltaOnboardingViewController {
+		return DMDeltaOnboardingViewController(store: store)
 	}
 }
 
