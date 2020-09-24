@@ -27,7 +27,7 @@ extension Bundle {
 	}
 
 	var appBuildNumber: String {
-		guard let buildNumber = infoDictionary?["CFBundleVersion"] as? String else {
+		guard let buildNumber = infoDictionary?[kCFBundleVersionKey as String] as? String else {
 			fatalError("Could not read CFBundleVersion from Bundle.")
 		}
 		return buildNumber
