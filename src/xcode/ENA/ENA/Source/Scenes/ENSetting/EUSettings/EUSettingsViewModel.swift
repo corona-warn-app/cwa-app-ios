@@ -50,7 +50,7 @@ class EUSettingsViewModel {
 	func countries() -> DynamicSection {
 		let cells = countryModels.isEmpty
 			// TODO: This cell needs to be adjusted.
-			? [.body(text: "No countries could be accessed.", accessibilityIdentifier: "")]
+			? [.emptyCell()]
 			: countryModels.map { DynamicCell.euCell(cellModel: $0) }
 
 		return DynamicSection.section(

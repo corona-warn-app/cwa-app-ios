@@ -53,6 +53,11 @@ class EUSettingsViewController: DynamicTableViewController {
 			DynamicTableViewIconCell.self,
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.flagCell.rawValue
 		)
+
+		tableView.register(
+			DynamicTableViewRoundedCell.self,
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.roundedCell.rawValue
+		)
 	}
 
 	// MARK: Data Source setup methods.
@@ -73,6 +78,7 @@ class EUSettingsViewController: DynamicTableViewController {
 extension EUSettingsViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case flagCell
+		case roundedCell
 	}
 }
 
@@ -86,5 +92,28 @@ extension DynamicCell {
 			iconWidth: 32,
 			action: .none,
 			configure: nil)
+	}
+
+	static func emptyCell() -> Self {
+		.custom(
+			withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.roundedCell,
+			action: .none,
+			accessoryAction: .none) { _, cell, _ in
+				if let roundedCell = cell as? DynamicTableViewRoundedCell {
+					roundedCell.configure(
+						title: NSMutableAttributedString(string: "Länder können aktuell nicht angezeigt werden."),
+						titleStyle: .title2,
+						body: NSMutableAttributedString(string: "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind."),
+						textColor: .textPrimary1,
+						bgColor: .separator,
+						icons: [UIImage(named: "Icons_MobileDaten")!, UIImage(named: "Icon_Wifi")!],
+						buttonTitle: "Geräte-Einstellungen öffnen") {
+
+						if let url = URL(string: UIApplication.openSettingsURLString) {
+							UIApplication.shared.open(url)
+						}
+					}
+				}
+			}
 	}
 }

@@ -180,8 +180,8 @@ final class ExposureSubmissionWarnEuropeCountrySelectionViewController: DynamicT
 									body: NSMutableAttributedString(
 										string: AppStrings.ExposureSubmissionWarnEuropeCountrySelection.consentDescription
 									),
-									textStyle: .textPrimary1,
-									backgroundStyle: .separator
+									textColor: .textPrimary1,
+									bgColor: .separator
 								)
 							}
 						)

@@ -103,8 +103,8 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 									body: NSMutableAttributedString(
 										string: AppStrings.ExposureSubmissionWarnOthers.consentUnderagesText
 									),
-									textStyle: .textContrast,
-									backgroundStyle: .riskNeutral
+									textColor: .textContrast,
+									bgColor: .riskNeutral
 								)
 							}
 						),
@@ -120,8 +120,8 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 									body: NSMutableAttributedString(
 										string: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyDescription
 									),
-									textStyle: .textPrimary1,
-									backgroundStyle: .separator
+									textColor: .textPrimary1,
+									bgColor: .separator
 								)
 							}
 						)
