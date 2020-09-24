@@ -78,13 +78,16 @@ extension EUSettingsViewController {
 
 extension DynamicCell {
 	static func euCell(cellModel: EUSettingsViewModel.CountryModel) -> Self {
-		.icon(
-			cellModel.country.flag,
-			text: cellModel.country.localizedName,
-			tintColor: nil,
-			style: .body,
-			iconWidth: 32,
-			action: .none,
-			configure: nil)
+		.icon(cellModel.country.flag,
+			  text: cellModel.country.localizedName,
+			  tintColor: nil,
+			  style: .body,
+			  iconWidth: 32,
+			  action: .none,
+			  configure: { _, cell, _ in
+			cell.contentView.layoutMargins.left = 32
+			cell.contentView.layoutMargins.right = 32
+			cell.selectionStyle = .none
+		})
 	}
 }
