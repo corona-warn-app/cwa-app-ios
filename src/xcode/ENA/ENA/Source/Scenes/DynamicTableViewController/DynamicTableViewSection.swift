@@ -19,9 +19,13 @@ import Foundation
 import UIKit
 
 struct DynamicSection {
+	enum Separators {
+		case none, all, inBetween
+	}
+
 	let header: DynamicHeader
 	let footer: DynamicFooter
-	let separators: Bool
+	let separators: Separators
 	private let isHidden: ((DynamicTableViewController) -> Bool)?
 	let cells: [DynamicCell]
 
@@ -29,7 +33,7 @@ struct DynamicSection {
 		isHidden?(viewController) ?? false
 	}
 
-	private init(header: DynamicHeader, footer: DynamicFooter, separators: Bool, isHidden: ((DynamicTableViewController) -> Bool)?, cells: [DynamicCell]) {
+	private init(header: DynamicHeader, footer: DynamicFooter, separators: Separators, isHidden: ((DynamicTableViewController) -> Bool)?, cells: [DynamicCell]) {
 		self.header = header
 		self.footer = footer
 		self.separators = separators
@@ -37,7 +41,7 @@ struct DynamicSection {
 		self.cells = cells
 	}
 
-	static func section(header: DynamicHeader = .none, footer: DynamicFooter = .none, separators: Bool = false, isHidden: ((DynamicTableViewController) -> Bool)? = nil, cells: [DynamicCell]) -> Self {
+	static func section(header: DynamicHeader = .none, footer: DynamicFooter = .none, separators: Separators = .none, isHidden: ((DynamicTableViewController) -> Bool)? = nil, cells: [DynamicCell]) -> Self {
 		.init(header: header, footer: footer, separators: separators, isHidden: isHidden, cells: cells)
 	}
 }
