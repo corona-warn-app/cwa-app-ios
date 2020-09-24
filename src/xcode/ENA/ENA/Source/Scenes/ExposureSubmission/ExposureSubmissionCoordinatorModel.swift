@@ -119,7 +119,7 @@ class ExposureSubmissionCoordinatorModel {
 			}
 
 			if supportedCountries.isEmpty {
-				self.supportedCountries = ["DE"].compactMap { Country(countryCode: $0) }
+				self.supportedCountries = [.defaultCountry()]
 			} else {
 				self.supportedCountries = supportedCountries
 			}
