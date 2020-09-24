@@ -89,6 +89,13 @@ final class ENStateTests: XCTestCase {
 		XCTAssertEqual(stateHandler.state, .enabled)
 	}
 
+	func testNotActiveApp() {
+		XCTAssertEqual(stateHandler.state, .enabled)
+		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, status: .restricted)
+		stateHandler.updateExposureState(exposureManagerState)
+		XCTAssertEqual(stateHandler.state, .notActiveApp)
+	}
+
 	// MARK: Tests different ENStatus states
 
 	func testRestrictedState() {
@@ -102,7 +109,7 @@ final class ENStateTests: XCTestCase {
 		case .unknown:
 			XCTAssertEqual(stateHandler.state, .unknown)
 		case .authorized:
-			XCTAssertEqual(stateHandler.state, .disabled)
+			XCTAssertEqual(stateHandler.state, .notActiveApp)
 		@unknown default:
 			fatalError("Not all cases handled by Test cases of ENStateHandler")
 		}
