@@ -167,7 +167,7 @@ extension HomeRiskLevelCellConfigurator: RiskLevelCollectionViewCellDelegate {
 extension HomeRiskLevelCellConfigurator {
 	enum ActivityState {
 		case normal
-		case loading
+		case loading // TODO: Introduce downloading state.
 		case detecting
 	}
 }

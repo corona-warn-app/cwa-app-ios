@@ -891,9 +891,14 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 "Home_Risk_High_Title" = "Erhöhtes Risiko";
 
 /* Home Status Check */
-"Home_Risk_Status_Check_Title" = "Prüfung läuft …";
 
-"Home_Risk_Status_Check_Body" = "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
+"Home_Risk_Status_Downloading_Title" = "Daten werden heruntergeladen …";
+
+"Home_Risk_Status_Detecting_Title" = "Prüfung läuft …";
+
+"Home_Risk_Status_Downloading_Body" = "Das kann bis zu mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
+
+"Home_Risk_Status_Detecting_Body" = "Ihre Begegnungsdaten werden nun geprüft. Das kann bis zu mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Vielen Dank!";

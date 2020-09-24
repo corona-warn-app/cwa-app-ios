@@ -77,10 +77,21 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 		switch state {
 		case .loading:
-			cell.configureTitle(title: AppStrings.Home.riskCardStatusCheckTitle, titleColor: .enaColor(for: .textContrast))
+			cell.configureTitle(title: AppStrings.Home.riskCardStatusDownloadingTitle, titleColor: .enaColor(for: .textContrast))
 			return [
 				HomeRiskLoadingItemViewConfigurator(
-					title: AppStrings.Home.riskCardStatusCheckBody,
+					title: AppStrings.Home.riskCardStatusDownloadingBody,
+					titleColor: .enaColor(for: .textContrast),
+					isActivityIndicatorOn: true,
+					color: .enaColor(for: .riskNeutral),
+					separatorColor: .enaColor(for: .hairlineContrast)
+				)
+			]
+		case .detecting:
+			cell.configureTitle(title: AppStrings.Home.riskCardStatusDetectingTitle, titleColor: .enaColor(for: .textContrast))
+			return [
+				HomeRiskLoadingItemViewConfigurator(
+					title: AppStrings.Home.riskCardStatusDetectingBody,
 					titleColor: .enaColor(for: .textContrast),
 					isActivityIndicatorOn: true,
 					color: .enaColor(for: .riskNeutral),
@@ -88,7 +99,7 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 				)
 			]
 		default:
-			cell.configureTitle(title:  AppStrings.Home.riskCardUnknownTitle, titleColor: .enaColor(for: .textContrast))
+			cell.configureTitle(title: AppStrings.Home.riskCardUnknownTitle, titleColor: .enaColor(for: .textContrast))
 			let activateItemTitle = String(format: AppStrings.Home.riskCardLastActiveItemTitle, previousRiskTitle)
 			let dateTitle = String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString)
 

@@ -48,7 +48,9 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 		switch state {
 		case .loading:
-			itemCellConfigurators.append(setupLoadingCellState(for: cell))
+			itemCellConfigurators += [setupDownloadingCellState(for: cell)]
+		case .detecting:
+			itemCellConfigurators += [setupDetectingCellState(for: cell)]
 		default:
 			itemCellConfigurators.append(setupNormalCellState(for: cell))
 
@@ -69,9 +71,14 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	// MARK: - Configuration helpers.
 
-	private func setupLoadingCellState(for cell: RiskLevelCollectionViewCell) -> HomeRiskViewConfiguratorAny {
-		cell.configureTitle(title: AppStrings.Home.riskCardStatusCheckTitle, titleColor: titleColor)
-		return HomeRiskLoadingItemViewConfigurator(title: AppStrings.Home.riskCardStatusCheckBody, titleColor: titleColor, isActivityIndicatorOn: true, color: color, separatorColor: separatorColor)
+	private func setupDownloadingCellState(for cell: RiskLevelCollectionViewCell) -> HomeRiskViewConfiguratorAny {
+		cell.configureTitle(title: AppStrings.Home.riskCardStatusDownloadingTitle, titleColor: titleColor)
+		return HomeRiskLoadingItemViewConfigurator(title: AppStrings.Home.riskCardStatusDownloadingBody, titleColor: titleColor, isActivityIndicatorOn: true, color: color, separatorColor: separatorColor)
+	}
+
+	private func setupDetectingCellState(for cell: RiskLevelCollectionViewCell) -> HomeRiskViewConfiguratorAny {
+		cell.configureTitle(title: AppStrings.Home.riskCardStatusDetectingTitle, titleColor: titleColor)
+		return HomeRiskLoadingItemViewConfigurator(title: AppStrings.Home.riskCardStatusDetectingBody, titleColor: titleColor, isActivityIndicatorOn: true, color: color, separatorColor: separatorColor)
 	}
 
 	private func setupNormalCellState(for cell: RiskLevelCollectionViewCell) -> HomeRiskViewConfiguratorAny {
