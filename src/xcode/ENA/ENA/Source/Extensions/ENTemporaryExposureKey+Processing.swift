@@ -22,27 +22,32 @@ import ExposureNotification
 
 extension Array where Element: ENTemporaryExposureKey {
 
-	/// The maximum number of keys to be submitted
-	var maxKeyCount: Int { 14 }
-
-	/// In-place prepare an array of `ENTemporaryExposureKey` for exposure submission.
+	/// Prepare an array of `ENTemporaryExposureKey` for exposure submission.
 	///
 	/// Performs the following steps:
-	/// 1. Sorts the keys by their `rollingStartNumber`
-	/// 2. Takes the first `maxKeyCount` (14) keys using `prefix(_ :)`
-	/// 3. Applies the `transmissionRiskDefaultVector` to the sorted keys
-	mutating func process(for symptomsOnset: SymptomsOnset) {
-		sort {
-			$0.rollingStartNumber > $1.rollingStartNumber
+	/// 1. Groups the keys by their `rollingStartNumber`
+	/// 2. Applies the `transmissionRiskVector` to the grouped keys
+	func processedForSubmission(with symptomsOnset: SymptomsOnset, today: Date = Date()) -> [ENTemporaryExposureKey] {
+		let groupedExposureKeys: [Int: Self] = Dictionary(grouping: self, by: {
+			let rollingStartNumber = $0.rollingStartNumber
+			let startDate = Date(timeIntervalSince1970: Double(rollingStartNumber) * 600)
+
+			var calendar = Calendar(identifier: .gregorian)
+			// swiftlint:disable:next force_unwrapping
+			calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+
+			guard let daysUntilToday = calendar.dateComponents([.day], from: startDate, to: today).day else { fatalError("Getting days since rolling start day failed") }
+
+			return daysUntilToday
+		})
+
+		for (daysUntilToday, exposureKeys) in groupedExposureKeys where daysUntilToday >= 0 && daysUntilToday <= 14 {
+			for exposureKey in exposureKeys {
+				exposureKey.transmissionRiskLevel = symptomsOnset.transmissionRiskVector[daysUntilToday]
+			}
 		}
 
-		self = Array(prefix(maxKeyCount))
-
-		/// The first element of the transmission risk vector is not used. That is because the ExposureNotification framework
-		/// does not return the current day's key - so the first key we have in the array is actually from yesterday.
-		for (key, vectorElement) in zip(self, symptomsOnset.transmissionRiskVector.dropFirst()) {
-			key.transmissionRiskLevel = vectorElement
-		}
+		return groupedExposureKeys.values.flatMap { $0 }
 	}
 
 }
