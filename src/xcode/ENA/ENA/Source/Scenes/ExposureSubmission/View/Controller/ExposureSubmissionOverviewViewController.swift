@@ -218,7 +218,7 @@ private extension ExposureSubmissionOverviewViewController {
 		data.add(
 			.section(
 				header: header,
-				separators: false,
+				separators: .none,
 				cells: [
 					.body(
 						text: AppStrings.ExposureSubmissionDispatch.description,
