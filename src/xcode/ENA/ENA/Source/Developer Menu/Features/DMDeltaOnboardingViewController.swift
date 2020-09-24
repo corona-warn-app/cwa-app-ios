@@ -21,9 +21,13 @@ import UIKit
 
 class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 
+	// MARK: - Attributes
+
 	private let store: Store
 	private var textField: UITextField!
 	private var currentVersionLabel: UILabel!
+
+	// MARK: - Initializers
 
 	init(store: Store) {
 		self.store = store
@@ -35,6 +39,8 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+
+	// MARK: - View Lifecycle Methods
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -67,6 +73,8 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 			stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
 		])
 	}
+
+	// MARK: - Private API
 
 	private func updateCurrentVersionLabel() {
 		currentVersionLabel.text = "Current onboarding version: \(store.onboardingVersion)"

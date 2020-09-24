@@ -21,7 +21,11 @@ import UIKit
 
 class DeltaOnboardingV15ViewController: UIViewController, DeltaOnboardingViewController {
 
+	// MARK: - Attributes
+
 	var finished: (() -> Void)?
+
+	// MARK: - Initializers
 
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nil, bundle: nil)
@@ -31,6 +35,8 @@ class DeltaOnboardingV15ViewController: UIViewController, DeltaOnboardingViewCon
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+
+	// MARK: - View Lifecycle Methods
 
 	override func viewDidLoad() {
 		view.backgroundColor = .red
@@ -46,6 +52,8 @@ class DeltaOnboardingV15ViewController: UIViewController, DeltaOnboardingViewCon
 			button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
 		])
 	}
+
+	// MARK: - Private API
 
 	@objc
 	private func didTapButton() {

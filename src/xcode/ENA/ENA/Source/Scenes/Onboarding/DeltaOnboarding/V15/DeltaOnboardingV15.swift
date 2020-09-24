@@ -20,6 +20,7 @@
 import UIKit
 
 struct DeltaOnboardingV15: DeltaOnboarding {
+
 	let version = "1.5"
 	let store: Store
 

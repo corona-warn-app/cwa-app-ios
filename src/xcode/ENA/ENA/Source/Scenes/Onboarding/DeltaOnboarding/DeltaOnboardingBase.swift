@@ -26,7 +26,6 @@ protocol DeltaOnboardingViewController: UIViewController {
 protocol DeltaOnboarding {
 	var version: String { get }
 	var store: Store { get }
-
 	var isFinished: Bool { get }
 
 	func finish()

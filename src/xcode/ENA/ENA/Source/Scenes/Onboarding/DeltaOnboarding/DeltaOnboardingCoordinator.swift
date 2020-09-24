@@ -21,19 +21,27 @@ import UIKit
 
 class DeltaOnboardingCoordinator {
 
+	// MARK: - Attributes
+
 	private weak var rootViewController: UIViewController?
 	private let onboardings: [DeltaOnboarding]
 
 	var finished: (() -> Void)?
+
+	// MARK: - Initializers
 
 	init(rootViewController: UIViewController, onboardings: [DeltaOnboarding]) {
 		self.rootViewController = rootViewController
 		self.onboardings = onboardings
 	}
 
+	// MARK: - Internal API
+
 	func startOnboarding() {
 		showNextOnbaordingViewController()
 	}
+
+	// MARK: - Private API
 
 	private func showNextOnbaordingViewController() {
 		guard let onboarding = nextOnboarding() else {
