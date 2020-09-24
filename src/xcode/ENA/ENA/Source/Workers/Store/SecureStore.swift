@@ -22,6 +22,9 @@ import Foundation
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
 final class SecureStore: Store {
+
+	// MARK: - Static.
+
 	private let directoryURL: URL
 	private let kvStore: SQLiteKeyValueStore
 
@@ -215,6 +218,11 @@ final class SecureStore: Store {
 	var isAllowedToPerformBackgroundFakeRequests: Bool {
 		get { kvStore["shouldPerformBackgroundFakeRequests"] as Bool? ?? false }
 		set { kvStore["shouldPerformBackgroundFakeRequests"] = newValue }
+	}
+
+	var serverEnvironment: ServerEnvironment {
+		get { kvStore["serverEnvironment"] as ServerEnvironment? ?? LocalSettings.defaultEnvironment() }
+		set { kvStore["serverEnvironment"] = newValue }
 	}
 
 }

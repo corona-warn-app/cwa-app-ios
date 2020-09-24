@@ -21,24 +21,24 @@ extension HTTPClient {
 	struct Configuration {
 		// MARK: Default Instances
 
-		static let backendBaseURLs = Configuration(
-			apiVersion: "v1",
-			country: "DE",
-			endpoints: Configuration.Endpoints(
+		init(with store: Store) {
+			self.apiVersion = "v1"
+			self.country = "DE"
+			self.endpoints = Configuration.Endpoints(
 				distribution: .init(
-					baseURL: URL(staticString: Hosts.distributionURLString),
+					baseURL: store.serverEnvironment.distributionURL,
 					requiresTrailingSlash: false
 				),
 				submission: .init(
-					baseURL: URL(staticString: Hosts.submissionURLString),
+					baseURL: store.serverEnvironment.submissionURL,
 					requiresTrailingSlash: false
 				),
 				verification: .init(
-					baseURL: URL(staticString: Hosts.verificationURLString),
+					baseURL: store.serverEnvironment.verificationURL,
 					requiresTrailingSlash: false
 				)
 			)
-		)
+		}
 
 		// MARK: Properties
 

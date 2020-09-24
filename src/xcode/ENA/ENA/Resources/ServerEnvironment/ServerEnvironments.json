@@ -1,0 +1,10 @@
+{
+	"ServerEnvironments":[
+		{
+			"name": "Production",
+			"distributionURL": "https://svc90.main.px.t-online.de",
+			"submissionURL": "https://svc90.main.px.t-online.de",
+			"verificationURL": "https://svc90.main.px.t-online.de"
+		}
+	]
+}

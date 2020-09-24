@@ -86,8 +86,7 @@ extension AppDelegate: ExposureSummaryProvider {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-	//TODO: Handle it
-	var store: Store = SecureStore(subDirectory: "database")
+	let store: Store
 	
 	private let consumer = RiskConsumer()
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
@@ -129,7 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
-	var client = HTTPClient(configuration: .backendBaseURLs)
+	let client: HTTPClient
 
 	// TODO: REMOVE ME
 	var lastRiskCalculation: String = ""
@@ -142,6 +141,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			exposureDetector: self.exposureManager
 		)
 	}()
+
+	override init() {
+		self.store = SecureStore(subDirectory: "database")
+
+		let configuration = HTTPClient.Configuration(with: store)
+		self.client = HTTPClient(configuration: configuration)
+	}
 
 	func application(
 		_: UIApplication,

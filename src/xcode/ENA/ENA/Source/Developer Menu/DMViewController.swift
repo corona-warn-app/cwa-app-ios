@@ -131,6 +131,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .manuallyRequestRisk:
 			vc = nil
 			manuallyRequestRisk()
+		case .serverEnvironment:
+			vc = makeServerEnvironmentViewController()
 		}
 		
 		if let vc = vc {
@@ -187,6 +189,10 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			}
 		)
 		present(alert, animated: true, completion: nil)
+	}
+
+	private func makeServerEnvironmentViewController() -> DMServerEnvironmentViewController {
+		return DMServerEnvironmentViewController(store: store)
 	}
 }
 
