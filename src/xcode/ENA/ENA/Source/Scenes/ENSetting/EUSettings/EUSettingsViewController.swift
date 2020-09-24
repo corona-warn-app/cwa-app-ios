@@ -50,7 +50,7 @@ class EUSettingsViewController: DynamicTableViewController {
 		tableView.separatorStyle = .none
 		dynamicTableViewModel = viewModel.euSettingsModel()
 		tableView.register(
-			FlagIconCell.self,
+			DynamicTableViewIconCell.self,
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.flagCell.rawValue
 		)
 	}
@@ -78,16 +78,13 @@ extension EUSettingsViewController {
 
 extension DynamicCell {
 	static func euCell(cellModel: EUSettingsViewModel.CountryModel) -> Self {
-		.custom(
-			withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.flagCell,
+		.icon(
+			cellModel.country.flag,
+			text: cellModel.country.localizedName,
+			tintColor: nil,
+			style: .body,
+			iconWidth: 32,
 			action: .none,
-			accessoryAction: .none
-		) { _, cell, _ in
-			guard let cell = cell as? FlagIconCell else { return }
-			cell.configure(
-				text: cellModel.country.localizedName,
-				icon: cellModel.country.flag
-			)
-		}
+			configure: nil)
 	}
 }

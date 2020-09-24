@@ -72,7 +72,6 @@
 		2F3218D0248063E300A7AC0A /* UIView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */; };
 		2F3D95372518BCD1002B2C81 /* EUSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3D95362518BCD1002B2C81 /* EUSettingsViewController.swift */; };
 		2F3D953C2518BCE9002B2C81 /* EUSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3D953B2518BCE9002B2C81 /* EUSettingsViewModel.swift */; };
-		2F3D95472518BD40002B2C81 /* FlagIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3D95462518BD40002B2C81 /* FlagIconCell.swift */; };
 		2F785752248506BD00323A9C /* HomeTestResultCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F78574F248506BD00323A9C /* HomeTestResultCollectionViewCell.xib */; };
 		2F80CFD9247ED988000F06AF /* ExposureSubmissionIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */; };
 		2F80CFDB247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */; };
@@ -572,7 +571,6 @@
 		2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Convenience.swift"; sourceTree = "<group>"; };
 		2F3D95362518BCD1002B2C81 /* EUSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EUSettingsViewController.swift; sourceTree = "<group>"; };
 		2F3D953B2518BCE9002B2C81 /* EUSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EUSettingsViewModel.swift; sourceTree = "<group>"; };
-		2F3D95462518BD40002B2C81 /* FlagIconCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagIconCell.swift; sourceTree = "<group>"; };
 		2F78574F248506BD00323A9C /* HomeTestResultCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeTestResultCollectionViewCell.xib; sourceTree = "<group>"; };
 		2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionIntroViewController.swift; sourceTree = "<group>"; };
 		2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionHotlineViewController.swift; sourceTree = "<group>"; };
@@ -1156,19 +1154,10 @@
 		2F3D95352518BCBA002B2C81 /* EUSettings */ = {
 			isa = PBXGroup;
 			children = (
-				2F3D95402518BD10002B2C81 /* Cells */,
 				2F3D95362518BCD1002B2C81 /* EUSettingsViewController.swift */,
 				2F3D953B2518BCE9002B2C81 /* EUSettingsViewModel.swift */,
 			);
 			path = EUSettings;
-			sourceTree = "<group>";
-		};
-		2F3D95402518BD10002B2C81 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				2F3D95462518BD40002B2C81 /* FlagIconCell.swift */,
-			);
-			path = Cells;
 			sourceTree = "<group>";
 		};
 		2FA9E39124D2F2620030561C /* Exposure Submission */ = {
@@ -2942,7 +2931,6 @@
 				011E4B032483A92A002E6412 /* MockExposureManager.swift in Sources */,
 				2FE15A3C249B8C0B0077BD8D /* AccessibilityIdentifiers.swift in Sources */,
 				51FE277F247535E300BB8144 /* RiskLoadingItemView.swift in Sources */,
-				2F3D95472518BD40002B2C81 /* FlagIconCell.swift in Sources */,
 				514C0A0824772F5E00F235F6 /* RiskItemView.swift in Sources */,
 				B1175213248A83AB00C3325C /* Risk.swift in Sources */,
 				A36D07B92486D61C00E46F96 /* HomeCardCellButtonDelegate.swift in Sources */,
