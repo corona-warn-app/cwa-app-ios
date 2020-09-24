@@ -793,6 +793,8 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 "ExposureNotificationSetting_SetActiveApp_OSENSetting" = "Aktive Region festlegen";
 
+"ExposureNotificationSetting_SetActiveApp_Old_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt, dass die Corona-Warn-App in den Systemeinstellungen als aktive App festgelegt wurde, um Begegnungen zu protokollieren. Bitte klicken Sie auf „Geräte-Einstellungen öffnen“ -> „Einstellungen für COVID-19-Begegnungsaufzeichnungen“ und wählen Sie dann die Corona-Warn-App als aktive App aus.";
+
 "ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt, dass die Corona-Warn-App in den Systemeinstellungen als aktive App festgelegt wurde, um Begegnungen zu protokollieren. Bitte klicken Sie auf „Geräte-Einstellungen öffnen“ -> „Begegnungsmitteilungen“ -> „Als aktive Region festlegen“.";
 
 "ExposureNotificationSetting_ParentalControls_OSENSetting" = "COVID-19-Kontaktprotokoll und -Mitteilungen aktivieren";

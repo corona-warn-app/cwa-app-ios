@@ -66,8 +66,13 @@ class ActionDetailTableViewCell: UITableViewCell, ActionCell {
 			}
 			iconImageView2.isHidden = true
 		case .notActiveApp:
-			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateAppOSENSetting
-			descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateAppOSENSettingDescription
+			if #available(iOS 13.7, *) {
+				actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateAppOSENSetting
+				descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateAppOSENSettingDescription
+			} else {
+				actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateAppOSENSetting
+				descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateOldAppOSENSettingDescription
+			}
 			iconImageView2.isHidden = true
 		case .unknown:
 			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.authorizationRequiredENSetting
