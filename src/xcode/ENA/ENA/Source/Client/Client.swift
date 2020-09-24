@@ -31,7 +31,6 @@ protocol Client {
 	typealias TANHandler = (Result<String, Failure>) -> Void
 	typealias DayCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
 	typealias HourCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
-	typealias AppConfigResultHandler = (Result<SAP_ApplicationConfiguration, Error>) -> Void
 	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
 
 	@available(*, deprecated, message: "will be removed once the app config cache is in place")

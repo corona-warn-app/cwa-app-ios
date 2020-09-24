@@ -24,13 +24,20 @@ import XCTest
 // swiftlint:disable:next type_body_length
 class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
+	let configProvider = CachingClientMock()
+
+	override func tearDownWithError() throws {
+		configProvider.onFetchAppConfiguration = nil
+	}
+
+
 	func testExposureSubmissionServiceHasRegistrationToken() {
 		let exposureSubmissionService = MockExposureSubmissionService()
 		exposureSubmissionService.hasRegistrationTokenCallback = { true }
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: MockAppConfiguration(mockSAPApplicationConfiguration: nil)
+			appConfigurationProvider: configProvider
 		)
 
 		XCTAssertTrue(model.exposureSubmissionServiceHasRegistrationToken)
@@ -42,7 +49,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: MockAppConfiguration(mockSAPApplicationConfiguration: nil)
+			appConfigurationProvider: configProvider
 		)
 
 		XCTAssertFalse(model.exposureSubmissionServiceHasRegistrationToken)
@@ -56,7 +63,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: MockAppConfiguration(mockSAPApplicationConfiguration: nil)
+			appConfigurationProvider: configProvider
 		)
 
 		let expectedIsLoadingValues = [Bool]()
@@ -94,13 +101,15 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 				completion(nil)
 			}
 
-			var sapApplicationConfiguration = SAP_ApplicationConfiguration()
-			sapApplicationConfiguration.supportedCountries = ["DE", "IT", "ES"]
-			let mockAppConfiguration = MockAppConfiguration(mockSAPApplicationConfiguration: sapApplicationConfiguration)
+			configProvider.onFetchAppConfiguration = { _, completeWith in
+				var config = SAP_ApplicationConfiguration()
+				config.supportedCountries = ["DE", "IT", "ES"]
+				completeWith(.success(config))
+			}
 
 			let model = ExposureSubmissionCoordinatorModel(
 				exposureSubmissionService: exposureSubmissionService,
-				appConfigurationProvider: mockAppConfiguration
+				appConfigurationProvider: configProvider
 			)
 
 			let expectedIsLoadingValues = [true, false]
@@ -140,13 +149,15 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 				completion(nil)
 			}
 
-			var sapApplicationConfiguration = SAP_ApplicationConfiguration()
-			sapApplicationConfiguration.supportedCountries = []
-			let mockAppConfiguration = MockAppConfiguration(mockSAPApplicationConfiguration: sapApplicationConfiguration)
+			configProvider.onFetchAppConfiguration = { _, completeWith in
+				var config = SAP_ApplicationConfiguration()
+				config.supportedCountries = []
+				completeWith(.success(config))
+			}
 
 			let model = ExposureSubmissionCoordinatorModel(
 				exposureSubmissionService: exposureSubmissionService,
-				appConfigurationProvider: mockAppConfiguration
+				appConfigurationProvider: configProvider
 			)
 
 			let expectedIsLoadingValues = [true, false]
@@ -186,11 +197,9 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 				completion(nil)
 			}
 
-			let mockAppConfiguration = MockAppConfiguration(mockSAPApplicationConfiguration: nil)
-
 			let model = ExposureSubmissionCoordinatorModel(
 				exposureSubmissionService: exposureSubmissionService,
-				appConfigurationProvider: mockAppConfiguration
+				appConfigurationProvider: configProvider
 			)
 
 			let expectedIsLoadingValues = [true, false]
@@ -200,7 +209,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			isLoadingExpectation.expectedFulfillmentCount = 2
 
 			let onSuccessExpectation = expectation(description: "onSuccess is not called")
-			onSuccessExpectation.isInverted = true
+			onSuccessExpectation.expectedFulfillmentCount = 1
 
 			let onErrorExpectation = expectation(description: "onError is called")
 
@@ -218,7 +227,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
 
 			XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
-			XCTAssertEqual(model.supportedCountries, [])
+			XCTAssertEqual(model.supportedCountries, [.defaultCountry()])
 		}
 	}
 
@@ -230,13 +239,15 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 				completion(nil)
 			}
 
-			var sapApplicationConfiguration = SAP_ApplicationConfiguration()
-			sapApplicationConfiguration.supportedCountries = ["DE", "IT", "ES"]
-			let mockAppConfiguration = MockAppConfiguration(mockSAPApplicationConfiguration: sapApplicationConfiguration)
+			configProvider.onFetchAppConfiguration = { _, completeWith in
+				var config = SAP_ApplicationConfiguration()
+				config.supportedCountries = ["DE", "IT", "ES"]
+				completeWith(.success(config))
+			}
 
 			let model = ExposureSubmissionCoordinatorModel(
 				exposureSubmissionService: exposureSubmissionService,
-				appConfigurationProvider: mockAppConfiguration
+				appConfigurationProvider: configProvider
 			)
 
 			let expectedIsLoadingValues = [true, false]
@@ -276,13 +287,15 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 				completion(nil)
 			}
 
-			var sapApplicationConfiguration = SAP_ApplicationConfiguration()
-			sapApplicationConfiguration.supportedCountries = []
-			let mockAppConfiguration = MockAppConfiguration(mockSAPApplicationConfiguration: sapApplicationConfiguration)
+			configProvider.onFetchAppConfiguration = { _, completeWith in
+				var config = SAP_ApplicationConfiguration()
+				config.supportedCountries = []
+				completeWith(.success(config))
+			}
 
 			let model = ExposureSubmissionCoordinatorModel(
 				exposureSubmissionService: exposureSubmissionService,
-				appConfigurationProvider: mockAppConfiguration
+				appConfigurationProvider: configProvider
 			)
 
 			let expectedIsLoadingValues = [true, false]
@@ -322,11 +335,9 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 				completion(nil)
 			}
 
-			let mockAppConfiguration = MockAppConfiguration(mockSAPApplicationConfiguration: nil)
-
 			let model = ExposureSubmissionCoordinatorModel(
 				exposureSubmissionService: exposureSubmissionService,
-				appConfigurationProvider: mockAppConfiguration
+				appConfigurationProvider: configProvider
 			)
 
 			let expectedIsLoadingValues = [true, false]
@@ -354,7 +365,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
 
 			XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
-			XCTAssertEqual(model.supportedCountries, [])
+			XCTAssertEqual(model.supportedCountries, [.defaultCountry()])
 		}
 	}
 
@@ -366,7 +377,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: MockAppConfiguration(mockSAPApplicationConfiguration: nil)
+			appConfigurationProvider: configProvider
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -401,7 +412,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: MockAppConfiguration(mockSAPApplicationConfiguration: nil)
+			appConfigurationProvider: configProvider
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -436,7 +447,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: MockAppConfiguration(mockSAPApplicationConfiguration: nil)
+			appConfigurationProvider: configProvider
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -473,7 +484,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: MockAppConfiguration(mockSAPApplicationConfiguration: nil)
+			appConfigurationProvider: configProvider
 		)
 
 		let expectedIsLoadingValues = [true, false]

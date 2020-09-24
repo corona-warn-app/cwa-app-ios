@@ -20,48 +20,59 @@
 import Foundation
 
 final class CachedAppConfiguration {
-	// MARK: Creating a Cached App Configuration
-	init(client: Client) {
-		self.client = client
+
+	enum CacheError: Error {
+		case dataFetchError(message: String?)
+		case dataVerificationError(message: String?)
 	}
 
-	// MARK: Properties
-	private let client: Client
-	private var cache: Cache?
+
+	init(client: AppConfigurationFetching, store: AppConfigCaching) {
+		self.client = client
+		self.store = store
+
+		// check for updated or fetch initial app configuration
+		client.fetchAppConfiguration(etag: store.lastETag) { result in
+			switch result {
+			case .success(let response):
+				self.store.lastETag = response.eTag
+				self.store.appConfig = response.config
+			case .failure(let error):
+				logError(message: "Failed to fetch app config: \(error.localizedDescription)")
+			}
+		}
+	}
+
+	/// Most likely a HTTP client
+	private let client: AppConfigurationFetching
+
+	/// The place where the app config and last etag is stored
+	private let store: AppConfigCaching
+
 }
 
 extension CachedAppConfiguration: AppConfigurationProviding {
-	func appConfiguration(completion: @escaping Completion) {
-		guard let cache = cache else {
-			actuallyDownloadAppConfiguration(completion: completion)
-			return
-		}
 
-		let calendar = Calendar.current
-		let deltaInMinutes = abs(calendar.dateComponents([.minute], from: cache.date, to: Date()).minute ?? .max)
-		if deltaInMinutes < 5 {
-			completion(cache.value)
-			return
-		}
-		actuallyDownloadAppConfiguration(completion: completion)
-	}
-
-	private func actuallyDownloadAppConfiguration(completion: @escaping Completion) {
-		client.appConfiguration { [weak self] appConfiguration in
-			guard let appConfiguration = appConfiguration else {
-				self?.cache = nil
-				completion(nil)
-				return
+	func appConfiguration(forceFetch: Bool = false, completion: @escaping Completion) {
+		if let cachedVersion = store.appConfig, !forceFetch {
+			// use the cached version
+			completion(.success(cachedVersion))
+		} else {
+			// fetch a new one
+			client.fetchAppConfiguration(etag: store.lastETag) { [weak self] result in
+				switch result {
+				case .success(let response):
+					self?.store.lastETag = response.eTag
+					self?.store.appConfig = response.config
+					completion(.success(response.config))
+				case .failure(let error):
+					completion(.failure(error))
+				}
 			}
-			self?.cache = .init(date: Date(), value: appConfiguration)
-			completion(appConfiguration)
 		}
 	}
-}
 
-private extension CachedAppConfiguration {
-	struct Cache {
-		let date: Date
-		let value: SAP_ApplicationConfiguration
+	func appConfiguration(completion: @escaping Completion) {
+		self.appConfiguration(forceFetch: false, completion: completion)
 	}
 }

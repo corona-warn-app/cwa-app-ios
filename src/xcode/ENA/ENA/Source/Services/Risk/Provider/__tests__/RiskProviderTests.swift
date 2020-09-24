@@ -78,7 +78,7 @@ final class RiskProviderTests: XCTestCase {
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
-			appConfigurationProvider: CachedAppConfiguration(client: ClientMock(submissionError: nil)),
+			appConfigurationProvider: CachedAppConfiguration(client: CachingClientMock(), store: store),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
 		)
 
@@ -135,7 +135,7 @@ final class RiskProviderTests: XCTestCase {
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
-			appConfigurationProvider: CachedAppConfiguration(client: ClientMock(submissionError: nil)),
+			appConfigurationProvider: CachedAppConfiguration(client: CachingClientMock(), store: store),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
 		)
 
@@ -171,15 +171,15 @@ final class RiskProviderTests: XCTestCase {
 			detectionRequested.fulfill()
 		}
 
-		let client = ClientMock(submissionError: nil)
+		let client = CachingClientMock()
 
-		client.onAppConfiguration = { complete in
-			complete(SAP_ApplicationConfiguration.with {
+		client.onFetchAppConfiguration = { _, complete in
+			complete(.success(SAP_ApplicationConfiguration.with {
 				$0.exposureConfig = SAP_RiskScoreParameters()
-			})
+			}))
 		}
 
-		let cachedAppConfig = CachedAppConfiguration(client: client)
+		let cachedAppConfig = CachedAppConfiguration(client: client, store: store)
 
 		let sut = RiskProvider(
 			configuration: config,

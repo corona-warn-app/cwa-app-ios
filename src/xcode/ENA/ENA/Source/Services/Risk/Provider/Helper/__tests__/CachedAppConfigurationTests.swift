@@ -21,28 +21,39 @@ import XCTest
 @testable import ENA
 
 final class CachedAppConfigurationTests: XCTestCase {
-	func testXX() {
-		let client = ClientMock(submissionError: nil)
+	func testCachedRequests() {
+		let client = CachingClientMock()
 
 		let expectation = self.expectation(description: "onAppConfiguration called")
+		// we trigger a config fetch twice but expect only one http request (plus one cached result)
 		expectation.expectedFulfillmentCount = 1
 		expectation.assertForOverFulfill = true
 
 		let expectedConfig = SAP_ApplicationConfiguration()
-		client.onAppConfiguration = { completeWith in
-			completeWith(expectedConfig)
+		client.onFetchAppConfiguration = { _, completeWith in
+			completeWith(.success(expectedConfig))
 			expectation.fulfill()
 		}
 
-		let sut = CachedAppConfiguration(client: client)
-
-		sut.appConfiguration { config in
-			XCTAssertEqual(config, expectedConfig)
+		let cache = CachedAppConfiguration(client: client, store: MockTestStore())
+		cache.appConfiguration { response in
+			switch response {
+			case .success(let config):
+				XCTAssertEqual(config, expectedConfig)
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			}
 		}
 
-		// Should not trigger another call to the actual client
-		sut.appConfiguration { config in
-			XCTAssertEqual(config, expectedConfig)
+		// Should not trigger another call (expectation) to the actual client
+		// Remember: `expectedFulfillmentCount = 1`
+		cache.appConfiguration { response in
+			switch response {
+			case .success(let config):
+				XCTAssertEqual(config, expectedConfig)
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			}
 		}
 
 		waitForExpectations(timeout: 0.5)

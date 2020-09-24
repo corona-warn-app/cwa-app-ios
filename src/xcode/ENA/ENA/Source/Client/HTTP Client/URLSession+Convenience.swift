@@ -79,7 +79,7 @@ extension URLSession {
 			}
 			completion(
 				.success(
-					.init(body: data, statusCode: response.statusCode)
+					.init(body: data, statusCode: response.statusCode, httpResponse: response)
 				)
 			)
 		}
@@ -94,6 +94,7 @@ extension URLSession {
 
 		let body: Data?
 		let statusCode: Int
+		let httpResponse: HTTPURLResponse
 
 		// MARK: Working with a Response
 

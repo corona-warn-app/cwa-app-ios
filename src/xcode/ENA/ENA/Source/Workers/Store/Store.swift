@@ -111,3 +111,8 @@ protocol Store: AnyObject {
 
 	func clearAll(key: String?)
 }
+
+protocol AppConfigCaching: Store {
+	var lastETag: String? { get set }
+	var appConfig: SAP_ApplicationConfiguration? { get set }
+}
