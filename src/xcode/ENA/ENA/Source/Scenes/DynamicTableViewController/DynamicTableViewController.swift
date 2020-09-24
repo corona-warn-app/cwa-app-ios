@@ -252,15 +252,15 @@ extension DynamicTableViewController {
 
 		content.configure(cell: cell, at: indexPath, for: self)
 
-		if section.separators {
+		cell.removeSeparators()
+
+		if section.separators != .none {
 			let isFirst = indexPath.row == 0
 			let isLast = indexPath.row == section.cells.count - 1
 
-			if isFirst { cell.addSeparator(.top) }
-			if isLast { cell.addSeparator(.bottom) }
-			if !isLast { cell.addSeparator(.inset) }
-		} else {
-			cell.addSeparator(.clear)
+			if isFirst && section.separators == .all { cell.addSeparator(.top) }
+			if isLast && section.separators == .all { cell.addSeparator(.bottom) }
+			if !isLast { cell.addSeparator(.inBetween) }
 		}
 
 		if let cellBackgroundColor = cellBackgroundColor {
@@ -286,40 +286,36 @@ private extension UITableViewCell {
 	enum SeparatorLocation: Int {
 		case top = 100_001
 		case bottom = 100_002
-		case inset = 100_003
-		case clear = 100_004
+		case inBetween = 100_003
+	}
+
+	func removeSeparators() {
+		contentView.viewWithTag(SeparatorLocation.top.rawValue)?.removeFromSuperview()
+		contentView.viewWithTag(SeparatorLocation.bottom.rawValue)?.removeFromSuperview()
+		contentView.viewWithTag(SeparatorLocation.inBetween.rawValue)?.removeFromSuperview()
 	}
 
 	func addSeparator(_ location: SeparatorLocation) {
-		if location == .clear {
-			viewWithTag(SeparatorLocation.top.rawValue)?.removeFromSuperview()
-			viewWithTag(SeparatorLocation.bottom.rawValue)?.removeFromSuperview()
-			viewWithTag(SeparatorLocation.inset.rawValue)?.removeFromSuperview()
-			return
-		}
-
 		let separator = UIView(frame: bounds)
-		addSubview(separator)
+		contentView.addSubview(separator)
 		separator.backgroundColor = .enaColor(for: .hairline)
 		separator.translatesAutoresizingMaskIntoConstraints = false
-		separator.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+		separator.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
 		separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
 
 		switch location {
 		case .top:
 			separator.tag = SeparatorLocation.top.rawValue
-			separator.topAnchor.constraint(equalTo: topAnchor).isActive = true
-			separator.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+			separator.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+			separator.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
 		case .bottom:
 			separator.tag = SeparatorLocation.bottom.rawValue
-			separator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-			separator.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-		case .inset:
-			separator.tag = SeparatorLocation.inset.rawValue
-			separator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-			separator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15).isActive = true
-		default:
-			break
+			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+			separator.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
+		case .inBetween:
+			separator.tag = SeparatorLocation.inBetween.rawValue
+			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+			separator.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
 		}
 	}
 }
