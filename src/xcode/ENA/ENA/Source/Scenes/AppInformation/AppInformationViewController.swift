@@ -34,7 +34,7 @@ class AppInformationViewController: DynamicTableViewController {
 			.section(
 				header: .space(height: 32),
 				footer: .view(footerView()),
-				separators: false,
+				separators: .none,
 				cells: Category.allCases.compactMap { Self.model[$0] }.map { .body(text: $0.text, accessibilityIdentifier: $0.accessibilityIdentifier) }
 			)
 		])

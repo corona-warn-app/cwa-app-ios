@@ -25,7 +25,7 @@
 
 "Common_ENError5_Description" = "Hata 5: Bir sorun oluştu. Risk düzeyiniz belirlenemiyor. Problemi çözmeye çalışıyoruz.";
 
-"Common_ENError11_Description" = "Hata 11: Bir sorun oluştu. Risk düzeyiniz belirlenemiyor. Lütfen cihazınızı yeniden başlatın ve yarın tekrar deneyin.";
+"Common_ENError11_Description" = "Hata 11: Bir sorun oluştu. Risk düzeyiniz belirlenemiyor. Lütfen akıllı telefonunuzu yeniden başlatın ve yarın tekrar deneyin.";
 
 "Common_ENError13_Description" = "Hata 13: Bugünkü maruz kalma günlüğünüz zaten çıkarıldı. Lütfen 24 saat içinde tekrar deneyin.";
 
@@ -42,6 +42,8 @@
 "Common_Deadman_AlertTitle" = "Risk Durumunuz";
 
 "Common_Deadman_AlertBody" = "Risk durumunuzu kontrol etmek için lütfen Corona-Warn-App'i düzenli olarak açmayı unutmayın.";
+
+"Common_Tess_Relay_Description" = "İşitme engeli bulunan kişiler yardım hattı ile iletişime geçmek için Tess Relay hizmetlerini (Almanca yazı dili ile işaret dili arasında tercüme) kullanabilir. Yazılımı App Store/Google Play'den indirebilirsiniz.";
 
 /* General - Links */
 "General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
@@ -114,11 +116,11 @@
 
 "ExposureDetection_Explanation_Text_Off" = "Enfeksiyon riskiniz, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.";
 
-"ExposureDetection_Explanation_Text_Outdated" = "Maruz kalma günlüğünü uzun süredir etkinleştirmediğiniz için enfeksiyon riskinizi hesaplayamıyoruz.\n\nEnfeksiyon riskiniz, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.";
+"ExposureDetection_Explanation_Text_Outdated" = "Maruz kalma günlüğünü uzun süredir etkinleştirmediğiniz için enfeksiyon riskinizi hesaplayamıyoruz.\n\nEnfeksiyon riskiniz, akıllı telefonunuzda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.";
 
-"ExposureDetection_Explanation_Text_Unknown" = "Maruz kalma günlüğünü uzun süredir etkinleştirmediğiniz için enfeksiyon riskinizi hesaplayamıyoruz.\n\nEnfeksiyon riskiniz, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.";
+"ExposureDetection_Explanation_Text_Unknown" = "Maruz kalma günlüğünü uzun süredir etkinleştirmediğiniz için enfeksiyon riskinizi hesaplayamıyoruz.\n\nEnfeksiyon riskiniz, akıllı telefonunuzda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.";
 
-"ExposureDetection_Explanation_Text_Low" = "Enfeksiyon riskiniz, maruz kalma günlüğünün verileri kullanılarak yerel olarak cihazınızda hesaplanır. Hesaplamada COVID-19 tanısı konan kişilerle tüm karşılaşmaların mesafesi ve süresinin yanında potansiyel enfeksiyon bulaştırma durumu da göz önünde bulundurulur. Enfeksiyon riskiniz bir başkası tarafından görüntülenemez ya da bir başkasına aktarılamaz.";
+"ExposureDetection_Explanation_Text_Low" = "Enfeksiyon riskiniz, maruz kalma günlüğünün verileri kullanılarak yerel olarak akıllı telefonunuzda hesaplanır. Hesaplamada COVID-19 tanısı konan kişilere maruz kalma mesafesi ve süresinin yanında potansiyel enfeksiyon bulaştırma durumu da göz önünde bulundurulur. Enfeksiyon riskiniz bir başkası tarafından görüntülenemez ya da bir başkasına aktarılamaz.";
 
 "ExposureDetection_Explanation_Text_High" = "Bu nedenle enfeksiyon riskiniz artmış olarak derecelendirilmiştir.\nEnfeksiyon riskiniz, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.\nEve gittiğinizde lütfen aile fertleriniz veya ev arkadaşlarınızla yakın temastan kaçının.";
 
@@ -248,7 +250,7 @@
 
 "BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Arka planda uygulamayı yenileme özelliğini etkinleştirmek için lütfen düşük güç modunun devre dışı bırakılması gerektiğini unutmayın.";
 
-"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Düşük Güç Modunu Devre Dışı Bırak";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Düşük Güç Modunu Devre Dışı Bırakın";
 
 "BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Ayarları açın";
 
@@ -315,13 +317,13 @@
 
 "OnboardingInfo_privacyPage_normalText" = "Kimliğiniz gizli tutulacaktır.\nVerileriniz tamamen şifrelenir ve bir takma ad altında aktarılır.\n\nSorumlu kuruluş: GDPR, 4. madde, 7. paragraf:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nLütfen veri gizliliği düzenlemelerimizi okuyun.\n\nVeri gizliliği bilgileri:";
 
-"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Üç kişi cihazlarında maruz kalma günlüğünü etkinleştirdi ve birbirleri ile karşılaşmaları günlüğe kaydedilecektir.";
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Üç kişi akıllı telefonlarında maruz kalma günlüğünü etkinleştirdi ve birbirleri ile karşılaşmaları günlüğe kaydedilecektir.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "Maruz Kalma Günlüğünü Etkinleştirme";
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Enfeksiyon riski taşıyıp taşımadığınızı belirlemek için maruz kalma günlüğü özelliğini etkinleştirmeniz gerekir.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Maruz kalma günlüğü, cihazınızın Bluetooth üzerinden diğer kullanıcıların şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimliği diğer kullanıcıların cihazlarına aktarmasıyla çalışır. Bu özellik dilediğiniz zaman devre dışı bırakılabilir. \n\nŞifrelenmiş rastgele kimliklerde diğer kişilere yalnızca tarih, süre ve yakınlık bilgileri (sinyal gücüne göre hesaplanır) gönderilir. Ad, adres ve konum gibi kişisel veriler hiçbir durumda kaydedilmez. Kişilerin kimlikleri belirlenemez.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Maruz kalma günlüğü, akıllı telefonunuzun Bluetooth üzerinden diğer kullanıcıların şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimliği diğer kullanıcıların cihazlarına aktarmasıyla çalışır. Bu özellik dilediğiniz zaman devre dışı bırakılabilir. \n\nŞifrelenmiş rastgele kimliklerde diğer kişilere yalnızca tarih, süre ve yakınlık bilgileri (sinyal gücüne göre hesaplanır) gönderilir. Ad, adres ve konum gibi kişisel veriler hiçbir durumda kaydedilmez. Kişilerin kimlikleri belirlenemez.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Yaş Sınırı: 16 ve Üzeri";
 
@@ -329,7 +331,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Kabul Beyanı";
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Enfekte olan biriyle temas halinde olup olmadığınızı ve sizin de enfeksiyon riski altında olup olmadığınızı öğrenmek için Uygulamanın maruz kalma günlüğü özelliğini etkinleştirmeniz gerekir. \"Aç\" düğmesine dokunarak Uygulamanın maruz kalma günlüğü özelliğini etkinleştirmeyi ve ilişkili verilerin işlenmesini kabul edersiniz.\n\nUygulamanın maruz kalma günlüğü özelliğini kullanmak için iPhone'unuzda Apple tarafından sunulan COVID-19'a Maruz Kalma Günlüğü işlevini etkinleştirmeniz ve Corona-Warn-App'e bu işlevi kullanma izni vermeniz gerekecektir.\n\nMaruz kalma günlüğü etkinleştirildiğinde iPhone'ununuz sürekli olarak rastgele kimlikler oluşturur ve bu rastgele kimlikleri maruz kalma günlüğü etkinleştirilmiş olan yakınınızdaki diğer Apple ve Android akıllı telefonlara Bluetooth üzerinden aktarır. Bunun karşılığında iPhone'unuz diğer akıllı telefonların rastgele kimliklerini alır. Size ait olan ve diğer akıllı telefonlardan alınan rastgele kimlikler, maruz kalma günlüğüne kaydedilir ve 14 gün süreyle burada saklanır.\n\nUygulama, enfeksiyon riskinizi belirlemek için koronavirüs enfeksiyonu olduğunu Uygulamada belirten tüm kullanıcıların rastgele kimliklerinin listesini (günde birkaç kez veya talep üzerine) yükler. Ardından bu liste maruz kalma günlüğünde tutulan rastgele kimliklerle karşılaştırılır. Uygulama, enfekte olan bir kullanıcı ile temas halinde olabileceğinizi saptadığında bu konuda bilgilendirilirsiniz ve sizin de enfeksiyon riski taşıdığınız belirtilir. Bu durumda Uygulama, iPhone'unuzun maruz kalma günlüğünde tutulan diğer verilere (tarih, süre ve temas sırasındaki Bluetooth sinyalinin gücü) erişir.\n\nBluetooth sinyal gücü, fiziksel mesafenin belirlenmesi için kullanılır (sinyal ne kadar güçlü olursa mesafe o kadar kısa olur). Ardından Uygulama, koronavirüs enfeksiyonu olasılığınızı değerlendirmek ve sonraki adımlara yönelik öneriler sunmak üzere bu bilgileri analiz eder. Bu analiz iPhone'unuzda yalnızca yerel olarak gerçekleştirilir. Sizin dışınızda hiç kimse (RKI bile) enfekte olan biriyle temas ettiğinizi ve sizin için belirlenen riski bilmez.\n\nMaruz kalma günlüğü özelliğine verdiğiniz onayı geri çekmek için Uygulamadaki düğmeyi kullanarak veya Uygulamayı silerek özelliği devre dışı bırakabilirsiniz. Maruz kalma günlüğü özelliğini yeniden kullanmaya karar verirseniz özelliği geri açabilir veya Uygulamayı yeniden yükleyebilirsiniz. Maruz kalma günlüğü özelliğini devre dışı bırakırsanız Uygulama artık enfekte olan bir kullanıcı ile temas halinde olup olmadığınızı kontrol etmez. Cihazınızın rastgele kimlik göndermesini ve almasını durdurmak isterseniz de iPhone'unuzun ayarlarında COVID-19'a Maruz Kalma Günlüğü özelliğini devre dışı bırakmanız gerekir. Size ait olan ve diğer akıllı telefonlardan alınan maruz kalma günlüğündeki rastgele kimliklerin Uygulamada silinmeyeceğini unutmayın. iPhone'unuzun ayarlarında yalnızca maruz kalma günlüğünde tutulan verileri kalıcı olarak silebilirsiniz.\n\nUygulamanın gizlilik bildirimini (maruz kalma günlüğü özelliği için gerçekleştirilen veri işlemeye ilişkin açıklama dahil) menüde \"Veri Gizliliği Bilgileri\" başlığında bulabilirsiniz.";
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Enfekte olan biriyle temas halinde olup olmadığınızı ve sizin de enfeksiyon riski altında olup olmadığınızı öğrenmek için Uygulamanın maruz kalma günlüğü özelliğini etkinleştirmeniz gerekir. \"Aç\" düğmesine dokunarak Uygulamanın maruz kalma günlüğü özelliğini etkinleştirmeyi ve ilişkili verilerin işlenmesini kabul edersiniz.\n\n\nUygulamanın maruz kalma günlüğü özelliğini kullanmak için iPhone'unuzda Apple tarafından sunulan COVID-19'a Maruz Kalma Günlüğü işlevini etkinleştirmeniz ve Corona-Warn-App'e bu işlevi kullanma izni vermeniz gerekecektir.\n\nMaruz kalma günlüğü etkinleştirildiğinde iPhone'ununuz sürekli olarak rastgele kimlikler oluşturur ve bu rastgele kimlikleri maruz kalma günlüğü etkinleştirilmiş olan yakınınızdaki diğer Apple ve Android akıllı telefonlara Bluetooth üzerinden aktarır. Bunun karşılığında iPhone'unuz diğer akıllı telefonların rastgele kimliklerini alır. Size ait olan ve diğer akıllı telefonlardan alınan rastgele kimlikler, maruz kalma günlüğüne kaydedilir ve 14 gün süreyle burada saklanır.\n\n\nUygulama, enfeksiyon riskinizi belirlemek için koronavirüs enfeksiyonu olduğunu Uygulamada belirten tüm kullanıcıların rastgele kimliklerinin listesini (günde birkaç kez veya talep üzerine) yükler. Ardından bu liste maruz kalma günlüğünde tutulan rastgele kimliklerle karşılaştırılır. Uygulama, enfekte olan bir kullanıcı ile temas halinde olabileceğinizi saptadığında bu konuda bilgilendirilirsiniz ve sizin de enfeksiyon riski taşıdığınız belirtilir. Bu durumda Uygulama, iPhone'unuzun maruz kalma günlüğünde tutulan diğer verilere (tarih, süre ve temas sırasındaki Bluetooth sinyalinin gücü) erişir.\n\nBluetooth sinyal gücü, fiziksel mesafenin belirlenmesi için kullanılır (sinyal ne kadar güçlü olursa mesafe o kadar kısa olur). Ardından Uygulama, koronavirüs enfeksiyonu olasılığınızı değerlendirmek ve sonraki adımlara yönelik öneriler sunmak üzere bu bilgileri analiz eder. Bu analiz iPhone'unuzda yalnızca yerel olarak gerçekleştirilir. Sizin dışınızda hiç kimse (RKI bile) enfekte olan biriyle temas ettiğinizi ve sizin için belirlenen riski bilmez.\n\nMaruz kalma günlüğü özelliğine verdiğiniz onayı geri çekmek için Uygulamadaki düğmeyi kullanarak veya Uygulamayı silerek özelliği devre dışı bırakabilirsiniz. Maruz kalma günlüğü özelliğini yeniden kullanmaya karar verirseniz özelliği geri açabilir veya Uygulamayı yeniden yükleyebilirsiniz. Maruz kalma günlüğü özelliğini devre dışı bırakırsanız Uygulama artık enfekte olan bir kullanıcı ile temas halinde olup olmadığınızı kontrol etmez. Cihazınızın rastgele kimlik göndermesini ve almasını durdurmak isterseniz de iPhone'unuzun ayarlarında COVID-19'a Maruz Kalma Günlüğü özelliğini devre dışı bırakmanız gerekir. Size ait olan ve diğer akıllı telefonlardan alınan maruz kalma günlüğündeki rastgele kimliklerin Uygulamada silinmeyeceğini unutmayın. iPhone'unuzun ayarlarında yalnızca maruz kalma günlüğünde tutulan verileri kalıcı olarak silebilirsiniz.\n\n\nUygulamanın gizlilik bildirimini (maruz kalma günlüğü özelliği için gerçekleştirilen veri işlemeye ilişkin açıklama dahil) menüde \"Veri Gizliliği Bilgileri\" başlığında bulabilirsiniz.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Durum";
 
@@ -345,7 +347,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… lütfen bunu Corona-Warn-App'te belirtin. Test sonuçlarınızı paylaşmanız gönüllülük esasına dayalıdır ve güvenlidir. Lütfen herkesin sağlığı için bunu yapın.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Bildiriminiz güvenli olarak şifrelenir ve güvenli bir sunucuda işlenir. Cihazınızda şifrelenmiş rastgele kimlikleri toplanan kişilere bundan sonra atmaları gereken adımlarla birlikte bir uyarı gönderilir.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Bildiriminiz güvenli olarak şifrelenir ve güvenli bir sunucuda işlenir. Akıllı telefonunuza şifrelenmiş rastgele kimlikleri toplanan kişilere bundan sonra atmaları gereken adımlarla birlikte bir uyarı gönderilir.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Bir kadın Corona-Warn-App uygulamasından bildirim alıyor.";
 
@@ -384,7 +386,7 @@
 
 "ExposureSubmissionTanEntry_Submit" = "Sonraki";
 
-"ExposureSubmissionTanEntry_InvalidCharacterError" = "Girişiniz geçersiz karakterler içeriyor. Lütfen girişinizi kontrol edin";
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Girişiniz geçersiz karakterler içeriyor. Lütfen girişinizi kontrol edin.";
 
 "ExposureSubmissionTanEntry_InvalidError" = "TAN geçersiz. Lütfen girişinizi kontrol edin.";
 
@@ -404,7 +406,7 @@
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "TAN'yi manüel olarak girerek kaydedin.";
+"ExposureSubmissionDispatch_TANButtonDescription" = "TAN'yi manuel olarak girerek kaydedin.";
 
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "TAN Talebi";
 
@@ -414,7 +416,7 @@
 
 "ExposureSubmissionHotline_Title" = "TAN Talebi";
 
-"ExposureSubmissionHotline_Description" = "TAN talebinde bulunmak için lütfen test sonucunuzu (varsa) ve telefon numaranızı hazır tutun.\n\nİşitme engeli bulunan kişiler yardım hattı ile iletişime geçmek için Tess Relay hizmetlerini (Almanca yazı dili ile işaret dili arasında tercüme) kullanabilir. Yazılımı App Store/Google Play'den indirebilirsiniz.";
+"ExposureSubmissionHotline_Description" = "TAN talebinde bulunmak için lütfen test sonucunuzu (varsa) ve telefon numaranızı hazır tutun.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Nasıl çalışır?";
 
@@ -593,7 +595,7 @@
 
 "ExposureSubmissionSymptoms_AnswerOptionNo" = "Hayır";
 
-"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Yorum yok";
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Beyan yok";
 
 "ExposureSubmissionSymptoms_ContinueButton" = "Sonraki";
 
@@ -612,7 +614,7 @@
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "2 haftadan uzun süre önce";
 
-"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Yorum yok";
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Beyan yok";
 
 "ExposureSubmissionSymptomsOnset_ContinueButton" = "Sonraki";
 
@@ -625,9 +627,9 @@
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Lütfen hepimize yardımcı olun!";
 
-"ExposureSubmissionWarnOthers_description" = "Corona-Warn-App'in son 14 güne ait rastgele kimliklerinizi diğer kullanıcılarla paylaşmasını sağlayabilirsiniz. Bu sayede diğer kullanıcıları uyarabilir ve enfeksiyon zincirini kırabilirsiniz.\n\nYalnızca kişisel olmayan rastgele kimlikler aktarıldığından kimliğiniz gizli kalacaktır.";
+"ExposureSubmissionWarnOthers_description" = "Corona-Warn-App'in son 14 güne ait rastgele kimliklerinizi diğer kullanıcılarla paylaşmasını sağlayabilirsiniz. Bu sayede başkalarını uyarabilir ve enfeksiyon zincirini kırmaları için onlara yardımcı olabilirsiniz.\n\nEnfeksiyon riski, hastalığın başlangıcından önce meydana geldiğinden ve zaman içerisinde değişebileceğinden, olası korona bulgularının (ör. ateş ya da öksürük) ilk ne zaman ortaya çıktığını da bildirmenizi rica ederiz. Bu sayede, sizinle temas eden diğer uygulama kullanıcılarının enfeksiyon riski de daha doğru hesaplanabilir. Bulgu başlangıcına ilişkin bildirim, isteğe bağlıdır. Bulgu yoksa ya da bilgi vermek istemiyorsanız, \"Bilgi yok\" seçeneğini seçebilirsiniz.\n\nYalnızca kişisel olmayan rastgele kimlikler aktarıldığından kimliğiniz gizli kalır.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "\"Kabul Et\" seçeneğine dokunduğunuzda, Uygulamanın pozitif test sonucunuzu son 14 güne ait rastgele kimliklerinizle birlikte uygulamanın sunucu sistemine göndermesine izin vermiş olursunuz, bu sayede maruz kalma günlüğünü etkinleştirmiş olan diğer Uygulama kullanıcıları otomatik şekilde bilgilendirilebilir. İletilen rastgele kimlikler, kimliğiniz ya da kişiliğinize ilişkin sonuç çıkartacak hiçbir bilgi içermez. \n\nTest sonucunuzun Uygulama aracılığıyla iletilmesi, isteğe bağlıdır. Test sonucunuzu iletmezseniz size hiçbir dezavantajı olmaz. Uygulamayı kullanıp kullanmadığınızı ve nasıl kullandığınızı anlayamadığımız ve kontrol edemediğimiz için enfeksiyonu bulaştırıp bulaştırmadığınızı sizden başka kimse öğrenemez.\n\nUygulamayı silerek, onayınızı dilediğinizde geri alabilirsiniz. Onayın geri alınmasıyla, geri almaya kadar yapılmış veri işlemelerin hukuka uygunlukları bu durumdan etkilenmez. \"Veri Gizliliği\" menüsünden diğer bilgilere ulaşabilirsiniz.";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "\"Kabul Et\" seçeneğine dokunduğunuzda, Uygulamanın pozitif test sonucunuzu son 14 güne ait rastgele kimliklerinizle birlikte uygulamanın sunucu sistemine göndermesine izin vermiş olursunuz, bu sayede maruz kalma günlüğünü etkinleştirmiş olan diğer Uygulama kullanıcıları otomatik şekilde bilgilendirilebilir. İsteğe bağlı bu bilgileri bulgu başlangıcında verirseniz, iletilen rastgele kimlikler, ilgili rastgele kimliğin geçerli olduğu gün itibariyle enfeksiyon riskini içeren, bilgileriniz aracılığıyla hesaplanan toplam risk puanını da içerir. İletilen rastgele kimlikler, kimliğiniz ya da kişiliğinize ilişkin sonuç çıkartacak hiçbir bilgi içermez.\n\nTest sonucunuzun Uygulama aracılığıyla iletilmesi, isteğe bağlıdır. Test sonucunuzu iletmezseniz size hiçbir dezavantajı olmaz. Uygulamayı kullanıp kullanmadığınızı ve nasıl kullandığınızı anlayamadığımız ve kontrol edemediğimiz için enfeksiyonu bulaştırıp bulaştırmadığınızı sizden başka kimse öğrenemez.\n\nUygulamayı silerek, onayınızı dilediğinizde geri alabilirsiniz. Onayın geri alınmasıyla, geri almaya kadar yapılmış veri işlemelerin hukuka uygunlukları bu durumdan etkilenmez. Bu konuya ilişkin diğer bilgileri \"Uygulama Bilgileri\" > \"Veri Gizliliği\" menüsünde bulabilirsiniz.";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Veri Gizliliği";
 
@@ -663,7 +665,7 @@
 
 "ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNo" = "Hayır";
 
-"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "Yorum yok";
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "Beyan yok";
 
 "ExposureSubmissionWarnEuropeCountrySelection_title" = "Avrupa geneli uyarılar";
 
@@ -677,7 +679,7 @@
 
 "ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries" = "Diğer ülkeler";
 
-"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "Yorum yok";
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "Beyan yok";
 
 "ExposureSubmissionWarnEuropeCountrySelection_consentTitle" = "Kabul Beyanı";
 
@@ -700,7 +702,7 @@
 
 "ExposureSubmissionError_EnNotEnabled" = "Maruz kalma günlüğü etkin değil.";
 
-"ExposureSubmissionError_NoRegistrationToken" = "Cihazda kayıt belirteci bulunamadı.";
+"ExposureSubmissionError_NoRegistrationToken" = "Akıllı telefonda kayıt belirteci bulunamadı.";
 
 "ExposureSubmissionError_InvalidResponse" = "Yanıt işlenemedi.";
 
@@ -749,7 +751,7 @@
 
 "ExposureNotificationSetting_DescriptionText1" = "Enfeksiyon riski taşıyıp taşımadığınızı belirlemek için maruz kalma günlüğü özelliğini etkinleştirmeniz gerekir.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Maruz kalma günlüğü, cihazınızın Bluetooth üzerinden diğer kullanıcıların şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimliği diğer kullanıcıların cihazlarına aktarmasıyla çalışır. Bu özellik dilediğiniz zaman devre dışı bırakılabilir.";
+"ExposureNotificationSetting_DescriptionText2" = "Maruz kalma günlüğü, akıllı telefonunuzun Bluetooth üzerinden diğer kullanıcıların şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimliği diğer kullanıcıların cihazlarına aktarmasıyla çalışır. Bu özellik dilediğiniz zaman devre dışı bırakılabilir.";
 
 "ExposureNotificationSetting_DescriptionText3" = "Şifrelenmiş rastgele kimliklerde diğer kişilere yalnızca tarih, süre ve yakınlık bilgileri (sinyal gücüne göre hesaplanır) gönderilir. Ad, adres ve konum gibi kişisel veriler hiçbir durumda kaydedilmez. Kişilerin kimlikleri belirlenemez.";
 
@@ -763,7 +765,7 @@
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Cihaz Ayarlarını Aç";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "COVID-19'a Maruz Kalma Günlüğünü ve Bildirimleri Etkinleştir";
+"ExposureNotificationSetting_Activate_OSENSetting" = "COVID-19'a Maruz Kalma Günlüğünü ve Bildirimleri Etkinleştir ";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Maruz kalma günlüğünde, karşılaşmaların günlüğe kaydedilebilmesi için sistem ayarlarında COVID-19'a maruz kalma günlüğü ve bildirimlerin etkinleştirilmesi gerekir. Lütfen sistem ayarlarında \"COVID-19'a Maruz Kalma Günlüğü ve Bildirimler\" özelliğini etkinleştirin.";
 
@@ -777,7 +779,7 @@
 
 "ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Yetki";
 
-"ExposureNotificationSetting_AccLabel_Enabled" = "Üç kişi cihazlarında maruz kalma günlüğünü etkinleştirdi ve birbirleri ile karşılaşmaları günlüğe kaydedilecektir.";
+"ExposureNotificationSetting_AccLabel_Enabled" = "Üç kişi akıllı telefonlarında maruz kalma günlüğünü etkinleştirdi ve birbirleri ile karşılaşmaları günlüğe kaydedilecektir.";
 
 "ExposureNotificationSetting_AccLabel_Disabled" = "Bir kişi akıllı telefonunda maruz kalma günlüğünü devre dışı bıraktı. Bu nedenle iki diğer kişi ile karşılaşma günlüğe kaydedilmez.";
 
@@ -804,6 +806,11 @@
 "ExposureNotificationSetting_unknownError" = "Bilinmeyen bir hata oluştu. Daha fazla bilgi için SSS sayfamızı ziyaret edin.";
 
 "ExposureNotificationSetting_apiMisuse" = "Maruz kalma günlüğü özelliğini etkinleştirirken dahili hata oluştu. Daha fazla bilgi için SSS sayfamızı ziyaret edin ve daha sonra tekrar deneyin.";
+
+/* EU Tracing Risk decription */
+"ExposureNotificationSetting_euTracingRiskDeterminationTitle" = "Ülkeler Arası Maruz Kalma Günlüğü";
+
+"ExposureNotificationSetting_euTracingAllCountriesTitle" = "Katılımcı Ülkeler";
 
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App logosu";
@@ -1098,7 +1105,7 @@
 
 "RiskLegend_Legend1_Title" = "Maruz Kalma Günlüğü";
 
-"RiskLegend_Legend1_Text" = "Maruz kalma günlüğü, uygulamanın üç temel özelliğinden biridir. Bu özelliği etkinleştirdiğinizde, diğer kişilerin cihazlarıyla karşılaşmalarınız günlüğe kaydedilir. Başka bir işlem yapmanız gerekmez.";
+"RiskLegend_Legend1_Text" = "Maruz kalma günlüğü, uygulamanın üç temel özelliğinden biridir. Bu özelliği etkinleştirdiğinizde, diğer kişilerin akıllı telefonlarıyla karşılaşmalarınız günlüğe kaydedilir. Başka bir işlem yapmanız gerekmez.";
 
 "RiskLegend_Legend2_Title" = "Enfeksiyon Riski";
 
@@ -1142,9 +1149,9 @@
 
 "RiskLegend_Random_Title" = "Rastgele Kimlikler";
 
-"RiskLegend_Random_Text" = "Rastgele Kimlikler, rastgele oluşturulan rakam ve harf kombinasyonlarıdır. Yakın mesafedeki cihazlar arasında değiştirilir. Rastgele Kimlikler belirli bir kişiyi izlemek üzere kullanılamaz ve 14 günün sonunda otomatik olarak silinir. COVID-19 tanısı konan kişiler son 14 güne kadar rastgele kimliklerinin uygulamanın diğer kullanıcıları ile paylaşılmasını seçebilir.";
+"RiskLegend_Random_Text" = "Rastgele Kimlikler, rastgele oluşturulan rakam ve harf kombinasyonlarıdır. Yakın mesafedeki akıllı telefonlar arasında değiştirilir. Rastgele Kimlikler belirli bir kişiyi izlemek üzere kullanılamaz ve 14 günün sonunda otomatik olarak silinir. COVID-19 tanısı konan kişiler son 14 güne kadar rastgele kimliklerinin uygulamanın diğer kullanıcıları ile paylaşılmasını seçebilir.";
 
-"RiskLegend_Image1_AccLabel" = "Bir cihaz farklı numaralandırılmış içerikler gösteriyor.";
+"RiskLegend_Image1_AccLabel" = "Bir akıllı telefon farklı numaralandırılmış içerikler gösteriyor.";
 
 /* Update Message */
 "Update_Message_Title" = "Güncelleme var";
