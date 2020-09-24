@@ -24,71 +24,46 @@ import XCTest
 
 final class ExposureKeysProcessingTests: XCTestCase {
 
-	func testMaxKeyCount_IsExpectedValue() {
-		XCTAssertEqual([ENTemporaryExposureKey]().maxKeyCount, 14)
-	}
-
-	func testSubmissionPreprocess_VerifySort() {
-		var keys: [ENTemporaryExposureKey] = [
-			TemporaryExposureKeyMock(rollingStartNumber: 4),
-			TemporaryExposureKeyMock(rollingStartNumber: 7),
-			TemporaryExposureKeyMock(rollingStartNumber: 2),
-			TemporaryExposureKeyMock(rollingStartNumber: 7)
-		]
-		keys.process(for: .noInformation)
-		let rollingStartNumbers = keys.map { $0.rollingStartNumber }
-		XCTAssertEqual(rollingStartNumbers.count, 4)
-		XCTAssertEqual(rollingStartNumbers[0], 7, "Key sorting incorrect! Got \(rollingStartNumbers[0]), expected 7")
-		XCTAssertEqual(rollingStartNumbers[1], 7, "Key sorting incorrect! Got \(rollingStartNumbers[1]), expected 7")
-		XCTAssertEqual(rollingStartNumbers[2], 4, "Key sorting incorrect! Got \(rollingStartNumbers[2]), expected 4")
-		XCTAssertEqual(rollingStartNumbers[3], 2, "Key sorting incorrect! Got \(rollingStartNumbers[3]), expected 2")
-	}
-
-	func testSubmissionPreprocess_TrimKeys() {
-		var keys = makeMockKeys(count: 22)
-		let copy = keys.sorted { $0.rollingStartNumber > $1.rollingStartNumber }
-		keys.process(for: .noInformation)
-
-		XCTAssertEqual(keys.count, keys.maxKeyCount)
-		XCTAssertEqual(keys, Array(copy.prefix(keys.maxKeyCount)))
-	}
-
 	func testSubmissionPreprocess_NoKeys() {
 		var keys = makeMockKeys(count: 0)
-		keys.process(for: .noInformation)
+		keys = keys.processedForSubmission(with: .noInformation)
 
 		XCTAssertEqual(keys.count, 0)
 	}
 
 	func testSubmissionPreprocess_FewKeys() {
 		var keys = makeMockKeys(count: 2)
-		let copy = keys.sorted { $0.rollingStartNumber > $1.rollingStartNumber }
-		keys.process(for: .noInformation)
+		keys = keys.processedForSubmission(with: .noInformation)
 
 		XCTAssertEqual(keys.count, 2)
-		XCTAssertEqual(keys, Array(copy.prefix(keys.maxKeyCount)))
-	}
-
-	func testSubmissionPreprocess_ApplyVector_FewKeys() {
-		let symptomsOnset: SymptomsOnset = .noInformation
-		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
-
-		var keys = makeMockKeys(count: 2)
-		keys.process(for: symptomsOnset)
-
-		XCTAssertEqual(keys.count, 2)
-		XCTAssertEqual(keys[0].transmissionRiskLevel, transmissionRiskVector[1])
-		XCTAssertEqual(keys[1].transmissionRiskLevel, transmissionRiskVector[2])
 	}
 
 	func testSubmissionPreprocess_ApplyNoInformationVector() {
 		let symptomsOnset: SymptomsOnset = .noInformation
 		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
 
-		var keys = makeMockKeys(count: 30)
-		keys.process(for: symptomsOnset)
+		var keys = [
+			makeMockKey(daysUntilToday: 0),
+			makeMockKey(daysUntilToday: 1),
+			makeMockKey(daysUntilToday: 2),
+			makeMockKey(daysUntilToday: 3),
+			makeMockKey(daysUntilToday: 4),
+			makeMockKey(daysUntilToday: 5),
+			makeMockKey(daysUntilToday: 6),
+			makeMockKey(daysUntilToday: 7),
+			makeMockKey(daysUntilToday: 8),
+			makeMockKey(daysUntilToday: 9),
+			makeMockKey(daysUntilToday: 10),
+			makeMockKey(daysUntilToday: 11),
+			makeMockKey(daysUntilToday: 12),
+			makeMockKey(daysUntilToday: 13),
+			makeMockKey(daysUntilToday: 14)
+		]
+		keys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
 
-		for (key, vectorElement) in zip(keys, transmissionRiskVector.dropFirst()) {
+		keys.sort { $0.rollingStartNumber > $1.rollingStartNumber }
+
+		for (key, vectorElement) in zip(keys, transmissionRiskVector) {
 			XCTAssertEqual(
 				key.transmissionRiskLevel,
 				vectorElement,
@@ -101,8 +76,26 @@ final class ExposureKeysProcessingTests: XCTestCase {
 		let symptomsOnset: SymptomsOnset = .nonSymptomatic
 		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
 
-		var keys = makeMockKeys(count: 30)
-		keys.process(for: symptomsOnset)
+		var keys = [
+			makeMockKey(daysUntilToday: 0),
+			makeMockKey(daysUntilToday: 1),
+			makeMockKey(daysUntilToday: 2),
+			makeMockKey(daysUntilToday: 3),
+			makeMockKey(daysUntilToday: 4),
+			makeMockKey(daysUntilToday: 5),
+			makeMockKey(daysUntilToday: 6),
+			makeMockKey(daysUntilToday: 7),
+			makeMockKey(daysUntilToday: 8),
+			makeMockKey(daysUntilToday: 9),
+			makeMockKey(daysUntilToday: 10),
+			makeMockKey(daysUntilToday: 11),
+			makeMockKey(daysUntilToday: 12),
+			makeMockKey(daysUntilToday: 13),
+			makeMockKey(daysUntilToday: 14)
+		]
+		keys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		keys.sort { $0.rollingStartNumber > $1.rollingStartNumber }
 
 		for (key, vectorElement) in zip(keys, transmissionRiskVector.dropFirst()) {
 			XCTAssertEqual(
@@ -117,8 +110,26 @@ final class ExposureKeysProcessingTests: XCTestCase {
 		let symptomsOnset: SymptomsOnset = .symptomaticWithUnknownOnset
 		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
 
-		var keys = makeMockKeys(count: 30)
-		keys.process(for: symptomsOnset)
+		var keys = [
+			makeMockKey(daysUntilToday: 0),
+			makeMockKey(daysUntilToday: 1),
+			makeMockKey(daysUntilToday: 2),
+			makeMockKey(daysUntilToday: 3),
+			makeMockKey(daysUntilToday: 4),
+			makeMockKey(daysUntilToday: 5),
+			makeMockKey(daysUntilToday: 6),
+			makeMockKey(daysUntilToday: 7),
+			makeMockKey(daysUntilToday: 8),
+			makeMockKey(daysUntilToday: 9),
+			makeMockKey(daysUntilToday: 10),
+			makeMockKey(daysUntilToday: 11),
+			makeMockKey(daysUntilToday: 12),
+			makeMockKey(daysUntilToday: 13),
+			makeMockKey(daysUntilToday: 14)
+		]
+		keys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		keys.sort { $0.rollingStartNumber > $1.rollingStartNumber }
 
 		for (key, vectorElement) in zip(keys, transmissionRiskVector.dropFirst()) {
 			XCTAssertEqual(
@@ -133,8 +144,26 @@ final class ExposureKeysProcessingTests: XCTestCase {
 		let symptomsOnset: SymptomsOnset = .lastSevenDays
 		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
 
-		var keys = makeMockKeys(count: 30)
-		keys.process(for: symptomsOnset)
+		var keys = [
+			makeMockKey(daysUntilToday: 0),
+			makeMockKey(daysUntilToday: 1),
+			makeMockKey(daysUntilToday: 2),
+			makeMockKey(daysUntilToday: 3),
+			makeMockKey(daysUntilToday: 4),
+			makeMockKey(daysUntilToday: 5),
+			makeMockKey(daysUntilToday: 6),
+			makeMockKey(daysUntilToday: 7),
+			makeMockKey(daysUntilToday: 8),
+			makeMockKey(daysUntilToday: 9),
+			makeMockKey(daysUntilToday: 10),
+			makeMockKey(daysUntilToday: 11),
+			makeMockKey(daysUntilToday: 12),
+			makeMockKey(daysUntilToday: 13),
+			makeMockKey(daysUntilToday: 14)
+		]
+		keys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		keys.sort { $0.rollingStartNumber > $1.rollingStartNumber }
 
 		for (key, vectorElement) in zip(keys, transmissionRiskVector.dropFirst()) {
 			XCTAssertEqual(
@@ -149,8 +178,26 @@ final class ExposureKeysProcessingTests: XCTestCase {
 		let symptomsOnset: SymptomsOnset = .oneToTwoWeeksAgo
 		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
 
-		var keys = makeMockKeys(count: 30)
-		keys.process(for: symptomsOnset)
+		var keys = [
+			makeMockKey(daysUntilToday: 0),
+			makeMockKey(daysUntilToday: 1),
+			makeMockKey(daysUntilToday: 2),
+			makeMockKey(daysUntilToday: 3),
+			makeMockKey(daysUntilToday: 4),
+			makeMockKey(daysUntilToday: 5),
+			makeMockKey(daysUntilToday: 6),
+			makeMockKey(daysUntilToday: 7),
+			makeMockKey(daysUntilToday: 8),
+			makeMockKey(daysUntilToday: 9),
+			makeMockKey(daysUntilToday: 10),
+			makeMockKey(daysUntilToday: 11),
+			makeMockKey(daysUntilToday: 12),
+			makeMockKey(daysUntilToday: 13),
+			makeMockKey(daysUntilToday: 14)
+		]
+		keys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		keys.sort { $0.rollingStartNumber > $1.rollingStartNumber }
 
 		for (key, vectorElement) in zip(keys, transmissionRiskVector.dropFirst()) {
 			XCTAssertEqual(
@@ -165,8 +212,26 @@ final class ExposureKeysProcessingTests: XCTestCase {
 		let symptomsOnset: SymptomsOnset = .moreThanTwoWeeksAgo
 		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
 
-		var keys = makeMockKeys(count: 30)
-		keys.process(for: symptomsOnset)
+		var keys = [
+			makeMockKey(daysUntilToday: 0),
+			makeMockKey(daysUntilToday: 1),
+			makeMockKey(daysUntilToday: 2),
+			makeMockKey(daysUntilToday: 3),
+			makeMockKey(daysUntilToday: 4),
+			makeMockKey(daysUntilToday: 5),
+			makeMockKey(daysUntilToday: 6),
+			makeMockKey(daysUntilToday: 7),
+			makeMockKey(daysUntilToday: 8),
+			makeMockKey(daysUntilToday: 9),
+			makeMockKey(daysUntilToday: 10),
+			makeMockKey(daysUntilToday: 11),
+			makeMockKey(daysUntilToday: 12),
+			makeMockKey(daysUntilToday: 13),
+			makeMockKey(daysUntilToday: 14)
+		]
+		keys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		keys.sort { $0.rollingStartNumber > $1.rollingStartNumber }
 
 		for (key, vectorElement) in zip(keys, transmissionRiskVector.dropFirst()) {
 			XCTAssertEqual(
@@ -182,8 +247,26 @@ final class ExposureKeysProcessingTests: XCTestCase {
 			let symptomsOnset: SymptomsOnset = .daysSinceOnset(daysSinceOnset)
 			let transmissionRiskVector = symptomsOnset.transmissionRiskVector
 
-			var keys = makeMockKeys(count: 30)
-			keys.process(for: symptomsOnset)
+			var keys = [
+				makeMockKey(daysUntilToday: 0),
+				makeMockKey(daysUntilToday: 1),
+				makeMockKey(daysUntilToday: 2),
+				makeMockKey(daysUntilToday: 3),
+				makeMockKey(daysUntilToday: 4),
+				makeMockKey(daysUntilToday: 5),
+				makeMockKey(daysUntilToday: 6),
+				makeMockKey(daysUntilToday: 7),
+				makeMockKey(daysUntilToday: 8),
+				makeMockKey(daysUntilToday: 9),
+				makeMockKey(daysUntilToday: 10),
+				makeMockKey(daysUntilToday: 11),
+				makeMockKey(daysUntilToday: 12),
+				makeMockKey(daysUntilToday: 13),
+				makeMockKey(daysUntilToday: 14)
+			]
+			keys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+			keys.sort { $0.rollingStartNumber > $1.rollingStartNumber }
 
 			for (key, vectorElement) in zip(keys, transmissionRiskVector.dropFirst()) {
 				XCTAssertEqual(
@@ -202,9 +285,19 @@ final class ExposureKeysProcessingTests: XCTestCase {
 extension ExposureKeysProcessingTests {
 	/// Make an ENTemporaryExposureKey with random values
 	private func makeMockKeys(count: Int) -> [ENTemporaryExposureKey] {
-		(0..<count).map { _ in
-			TemporaryExposureKeyMock(rollingStartNumber: ENIntervalNumber.random())
+		(0..<count).map {
+			TemporaryExposureKeyMock(rollingStartNumber: ENIntervalNumber($0 * 144))
 		}
+	}
+
+	private func makeMockKey(daysUntilToday: Int, today: Date = Date(timeIntervalSinceReferenceDate: 0)) -> ENTemporaryExposureKey {
+		var calendar = Calendar(identifier: .gregorian)
+		// swiftlint:disable:next force_unwrapping
+		calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+
+		guard let date = calendar.date(byAdding: .day, value: -daysUntilToday, to: today) else { fatalError("Could not create date") }
+
+		return TemporaryExposureKeyMock(rollingStartNumber: ENIntervalNumber(date.timeIntervalSince1970 / 600))
 	}
 }
 
