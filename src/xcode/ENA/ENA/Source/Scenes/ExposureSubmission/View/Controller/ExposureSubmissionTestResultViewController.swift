@@ -267,7 +267,7 @@ private extension ExposureSubmissionTestResultViewController {
 					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive, timeStamp: self.timeStamp)
 				}
 			),
-			separators: false,
+			separators: .none,
 			cells: [
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
@@ -304,7 +304,7 @@ private extension ExposureSubmissionTestResultViewController {
 					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .negative, timeStamp: self.timeStamp)
 				}
 			),
-			separators: false,
+			separators: .none,
 			cells: [
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
@@ -350,7 +350,7 @@ private extension ExposureSubmissionTestResultViewController {
 					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid, timeStamp: self.timeStamp)
 				}
 			),
-			separators: false,
+			separators: .none,
 			cells: [
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
@@ -387,7 +387,7 @@ private extension ExposureSubmissionTestResultViewController {
 					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid, timeStamp: self.timeStamp)
 				}
 			),
-			separators: false,
+			separators: .none,
 			cells: [
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
