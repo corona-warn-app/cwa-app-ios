@@ -97,7 +97,7 @@ final class ExposureKeysProcessingTests: XCTestCase {
 
 		keys.sort { $0.rollingStartNumber > $1.rollingStartNumber }
 
-		for (key, vectorElement) in zip(keys, transmissionRiskVector.dropFirst()) {
+		for (key, vectorElement) in zip(keys, transmissionRiskVector) {
 			XCTAssertEqual(
 				key.transmissionRiskLevel,
 				vectorElement,
@@ -131,7 +131,7 @@ final class ExposureKeysProcessingTests: XCTestCase {
 
 		keys.sort { $0.rollingStartNumber > $1.rollingStartNumber }
 
-		for (key, vectorElement) in zip(keys, transmissionRiskVector.dropFirst()) {
+		for (key, vectorElement) in zip(keys, transmissionRiskVector) {
 			XCTAssertEqual(
 				key.transmissionRiskLevel,
 				vectorElement,
@@ -165,7 +165,7 @@ final class ExposureKeysProcessingTests: XCTestCase {
 
 		keys.sort { $0.rollingStartNumber > $1.rollingStartNumber }
 
-		for (key, vectorElement) in zip(keys, transmissionRiskVector.dropFirst()) {
+		for (key, vectorElement) in zip(keys, transmissionRiskVector) {
 			XCTAssertEqual(
 				key.transmissionRiskLevel,
 				vectorElement,
@@ -199,7 +199,7 @@ final class ExposureKeysProcessingTests: XCTestCase {
 
 		keys.sort { $0.rollingStartNumber > $1.rollingStartNumber }
 
-		for (key, vectorElement) in zip(keys, transmissionRiskVector.dropFirst()) {
+		for (key, vectorElement) in zip(keys, transmissionRiskVector) {
 			XCTAssertEqual(
 				key.transmissionRiskLevel,
 				vectorElement,
@@ -233,7 +233,7 @@ final class ExposureKeysProcessingTests: XCTestCase {
 
 		keys.sort { $0.rollingStartNumber > $1.rollingStartNumber }
 
-		for (key, vectorElement) in zip(keys, transmissionRiskVector.dropFirst()) {
+		for (key, vectorElement) in zip(keys, transmissionRiskVector) {
 			XCTAssertEqual(
 				key.transmissionRiskLevel,
 				vectorElement,
@@ -268,7 +268,7 @@ final class ExposureKeysProcessingTests: XCTestCase {
 
 			keys.sort { $0.rollingStartNumber > $1.rollingStartNumber }
 
-			for (key, vectorElement) in zip(keys, transmissionRiskVector.dropFirst()) {
+			for (key, vectorElement) in zip(keys, transmissionRiskVector) {
 				XCTAssertEqual(
 					key.transmissionRiskLevel,
 					vectorElement,
