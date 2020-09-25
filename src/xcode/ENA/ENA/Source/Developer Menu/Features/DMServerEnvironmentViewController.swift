@@ -21,10 +21,7 @@ import UIKit
 
 class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
-	private let store: Store
-	private let downloadedPackagesStore: DownloadedPackagesStore
-	private var currentEnvironmentLabel: UILabel!
-	private var picker: UIPickerView!
+	// MARK: - Init
 
 	init(store: Store, downloadedPackagesStore: DownloadedPackagesStore) {
 		self.store = store
@@ -36,6 +33,8 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+
+	// MARK: - Overrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -73,9 +72,13 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 		])
 	}
 
+	// MARK: - Protocol UIPickerViewDelegate
+
 	func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
 		return LocalServerEnvironment.availableEnvironments()[row].name
 	}
+
+	// MARK: - Protocol UIPickerViewDataSource
 
 	func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
 		return LocalServerEnvironment.availableEnvironments().count
@@ -84,6 +87,17 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 	func numberOfComponents(in pickerView: UIPickerView) -> Int {
 		return 1
 	}
+
+	// MARK: - Public
+
+	// MARK: - Internal
+
+	// MARK: - Private
+
+	private let store: Store
+	private let downloadedPackagesStore: DownloadedPackagesStore
+	private var currentEnvironmentLabel: UILabel!
+	private var picker: UIPickerView!
 
 	private func updateCurrentEnviromentLabel() {
 		currentEnvironmentLabel.text = "Selected Environment: \(store.serverEnvironment.name)"
@@ -105,10 +119,8 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 		}
 
 		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-
 		quitAlert.addAction(quitAction)
 		quitAlert.addAction(cancelAction)
-
 		present(quitAlert, animated: true)
 	}
 }
