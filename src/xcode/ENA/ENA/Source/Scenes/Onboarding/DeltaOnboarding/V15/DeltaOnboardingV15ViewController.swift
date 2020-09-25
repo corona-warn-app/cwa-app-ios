@@ -19,7 +19,7 @@
 
 import UIKit
 
-class DeltaOnboardingV15ViewController: UIViewController, DeltaOnboardingViewController {
+class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboardingViewController {
 
 	// MARK: - Attributes
 
@@ -43,7 +43,7 @@ class DeltaOnboardingV15ViewController: UIViewController, DeltaOnboardingViewCon
 
 		let button = UIButton(frame: .zero)
 		button.translatesAutoresizingMaskIntoConstraints = false
-		button.setTitle("Finished", for: .normal)
+		button.setTitle("Finished Delta", for: .normal)
 		button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
 		view.addSubview(button)
 
