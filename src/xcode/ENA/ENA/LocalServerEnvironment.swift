@@ -4,26 +4,26 @@ import Foundation
 
 // MARK: - Map
 struct Map: Codable {
-    let serverEnvironments: [ServerEnvironment]
+	let serverEnvironments: [ServerEnvironment]
 
-    enum CodingKeys: String, CodingKey {
-        case serverEnvironments = "ServerEnvironments"
-    }
+	enum CodingKeys: String, CodingKey {
+		case serverEnvironments = "ServerEnvironments"
+	}
 }
 
 // MARK: - ServerEnvironment
 struct ServerEnvironment: Codable {
-    let name: String
-    let distributionURL, submissionURL, verificationURL: URL
+	let name: String
+	let distributionURL, submissionURL, verificationURL: URL
 }
 
-enum LocalSettings {
+enum LocalServerEnvironment {
 
-    struct Hosts {
-        let distributionURL: URL
-        let submissionURL: URL
-        let verificationURL: URL
-    }
+	struct Hosts {
+		let distributionURL: URL
+		let submissionURL: URL
+		let verificationURL: URL
+	}
 
 	static func defaultEnvironment() -> ServerEnvironment {
 		return loadServerEnvironment("Production")
@@ -49,12 +49,12 @@ enum LocalSettings {
 		return map.serverEnvironments
 	}
 
-    static func getHosts(for environment: String) -> Hosts {
+	static func getHosts(for environment: String) -> Hosts {
 		let environment = loadServerEnvironment(environment)
 		return Hosts(
 			distributionURL: environment.distributionURL,
 			submissionURL: environment.submissionURL,
 			verificationURL: environment.verificationURL
 		)
-    }
+	}
 }

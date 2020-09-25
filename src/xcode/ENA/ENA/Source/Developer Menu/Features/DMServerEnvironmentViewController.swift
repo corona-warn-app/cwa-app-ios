@@ -49,7 +49,7 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 		picker.dataSource = self
 		picker.delegate = self
 
-		let environmentIndex = LocalSettings.availableEnvironments().firstIndex {
+		let environmentIndex = LocalServerEnvironment.availableEnvironments().firstIndex {
 			$0.name == store.serverEnvironment.name
 		}
 		picker.selectRow(environmentIndex ?? 0, inComponent: 0, animated: true)
@@ -72,11 +72,11 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 	}
 
 	func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-		return LocalSettings.availableEnvironments()[row].name
+		return LocalServerEnvironment.availableEnvironments()[row].name
 	}
 
 	func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-		return LocalSettings.availableEnvironments().count
+		return LocalServerEnvironment.availableEnvironments().count
 	}
 
 	func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -95,7 +95,7 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 			guard let self = self else { return }
 
 			let selectedRow = self.picker.selectedRow(inComponent: 0)
-			self.store.serverEnvironment = LocalSettings.availableEnvironments()[selectedRow]
+			self.store.serverEnvironment = LocalServerEnvironment.availableEnvironments()[selectedRow]
 			self.updateCurrentEnviromentLabel()
 
 			exit(0)

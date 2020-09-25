@@ -221,7 +221,7 @@ final class SecureStore: Store {
 	}
 
 	var serverEnvironment: ServerEnvironment {
-		get { kvStore["serverEnvironment"] as ServerEnvironment? ?? LocalSettings.defaultEnvironment() }
+		get { kvStore["serverEnvironment"] as ServerEnvironment? ?? LocalServerEnvironment.defaultEnvironment() }
 		set { kvStore["serverEnvironment"] = newValue }
 	}
 
