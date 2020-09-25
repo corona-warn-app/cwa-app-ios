@@ -23,7 +23,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: Properties
 	var buttonAction: (() -> Void)?
 
-	var state: ActivityState
+	var state: RiskProvider.ActivityState
 	var isButtonEnabled: Bool
 	var isButtonHidden: Bool
 	var detectionIntervalLabelHidden: Bool
@@ -33,7 +33,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	var timeUntilUpdate: String?
 
 	var isLoading: Bool {
-		state == .loading
+		state == .downloading
 	}
 
 	private static let lastUpdateDateFormatter: DateFormatter = {
@@ -62,7 +62,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
-		state: ActivityState,
+		state: RiskProvider.ActivityState,
 		isButtonEnabled: Bool,
 		isButtonHidden: Bool,
 		detectionIntervalLabelHidden: Bool,
@@ -75,15 +75,6 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		self.detectionIntervalLabelHidden = detectionIntervalLabelHidden
 		self.lastUpdateDate = lastUpdateDate
 		self.detectionInterval = detectionInterval
-	}
-
-	// MARK: Loading
-	func startLoading() {
-		state = .loading
-	}
-
-	func stopLoading() {
-		state = .normal
 	}
 
 	// MARK: Button
@@ -161,13 +152,5 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 extension HomeRiskLevelCellConfigurator: RiskLevelCollectionViewCellDelegate {
 	func updateButtonTapped(cell _: RiskLevelCollectionViewCell) {
 		buttonAction?()
-	}
-}
-
-extension HomeRiskLevelCellConfigurator {
-	enum ActivityState {
-		case normal
-		case loading // TODO: Introduce downloading state.
-		case detecting
 	}
 }

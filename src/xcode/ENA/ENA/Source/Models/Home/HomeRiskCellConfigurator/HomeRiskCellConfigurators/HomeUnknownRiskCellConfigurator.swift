@@ -27,7 +27,7 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	// MARK: Creating a unknown Risk cell
 	init(
-		state: ActivityState,
+		state: RiskProvider.ActivityState,
 		lastUpdateDate: Date?,
 		detectionInterval: Int,
 		detectionMode: DetectionMode,
@@ -47,7 +47,7 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
 
 		switch state {
-		case .loading:
+		case .downloading:
 			itemCellConfigurators += [setupDownloadingCellState(for: cell)]
 		case .detecting:
 			itemCellConfigurators += [setupDetectingCellState(for: cell)]

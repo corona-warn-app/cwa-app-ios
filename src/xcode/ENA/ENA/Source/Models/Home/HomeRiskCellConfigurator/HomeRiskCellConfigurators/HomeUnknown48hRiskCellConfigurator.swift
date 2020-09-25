@@ -25,7 +25,7 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	// MARK: Creating a unknown 48h Risk cell
 	init(
-		state: ActivityState,
+		state: RiskProvider.ActivityState,
 		lastUpdateDate: Date?,
 		detectionInterval: Int,
 		detectionMode: DetectionMode,
@@ -76,7 +76,7 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	private func setupItemCellConfigurators(for cell: RiskLevelCollectionViewCell) -> [HomeRiskViewConfiguratorAny] {
 
 		switch state {
-		case .loading:
+		case .downloading:
 			cell.configureTitle(title: AppStrings.Home.riskCardStatusDownloadingTitle, titleColor: .enaColor(for: .textContrast))
 			return [
 				HomeRiskLoadingItemViewConfigurator(

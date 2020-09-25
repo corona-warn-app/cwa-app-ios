@@ -62,7 +62,7 @@ final class RiskProvider {
 	private let appConfigurationProvider: AppConfigurationProviding
 	var exposureManagerState: ExposureManagerState
 	var configuration: RiskProvidingConfiguration
-	private(set) var isLoading: Bool = false
+	private(set) var activityState: ActivityState = .idle
 }
 
 private extension RiskConsumer {
@@ -238,7 +238,7 @@ extension RiskProvider: RiskProviding {
 			return
 		}
 
-		provideLoadingStatus(isLoading: true)
+		provideActivityState(.downloading)
 		let group = DispatchGroup()
 
 		group.enter()
@@ -255,7 +255,7 @@ extension RiskProvider: RiskProviding {
 		}
 
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
-			provideLoadingStatus(isLoading: false)
+			provideActivityState(.idle)
 			cancellationToken?.cancel()
 			cancellationToken = nil
 			completeOnTargetQueue(risk: nil, completion: completion)
@@ -272,7 +272,7 @@ extension RiskProvider: RiskProviding {
 
 	private func _requestRiskLevel(summaries: Summaries?, appConfiguration: SAP_ApplicationConfiguration?, completion: Completion? = nil) {
 		guard let _appConfiguration = appConfiguration else {
-			provideLoadingStatus(isLoading: false)
+			provideActivityState(.idle)
 			completeOnTargetQueue(risk: nil, completion: completion)
 			showAppConfigError()
 			return
@@ -292,12 +292,12 @@ extension RiskProvider: RiskProviding {
 				providerConfiguration: configuration
 			) else {
 				logError(message: "Serious error during risk calculation")
-				provideLoadingStatus(isLoading: false)
+				provideActivityState(.idle)
 				completeOnTargetQueue(risk: nil, completion: completion)
 				return
 		}
 
-		provideLoadingStatus(isLoading: false)
+		provideActivityState(.idle)
 		completeOnTargetQueue(risk: risk, completion: completion)
 		saveRiskIfNeeded(risk)
 	}
@@ -311,15 +311,15 @@ extension RiskProvider: RiskProviding {
 		#endif
 	}
 
-	private func provideLoadingStatus(isLoading: Bool) {
-		self.isLoading = isLoading
-		_provideLoadingStatus(isLoading)
+	private func provideActivityState(_ state: ActivityState) {
+		activityState = state
+		_provideActivityState(state)
 	}
 
-	private func _provideLoadingStatus(_ isLoading: Bool) {
+	private func _provideActivityState(_ state: ActivityState) {
 		targetQueue.async { [weak self] in
 			self?.consumers.forEach {
-				$0.didChangeLoadingStatus?(isLoading)
+				$0.didChangeActivityState?(state)
 			}
 		}
 	}
@@ -342,6 +342,19 @@ extension RiskProvider: RiskProviding {
 				message: AppStrings.ExposureDetectionError.errorAlertAppConfigMissingMessage,
 				title: AppStrings.ExposureDetectionError.errorAlertTitle
 			)
+		}
+	}
+}
+
+
+extension RiskProvider {
+	enum ActivityState {
+		case idle
+		case downloading
+		case detecting
+
+		var isActive: Bool {
+			self != .idle
 		}
 	}
 }

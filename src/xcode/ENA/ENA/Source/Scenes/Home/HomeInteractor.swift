@@ -64,7 +64,7 @@ final class HomeInteractor: RequiresAppDependencies {
 
 	private(set) var testResult: TestResult?
 
-	private var riskCellActivityState: HomeRiskLevelCellConfigurator.ActivityState = .normal
+	private var riskCellActivityState: RiskProvider.ActivityState = .idle
 
 	private let riskConsumer = RiskConsumer()
 
@@ -93,14 +93,14 @@ final class HomeInteractor: RequiresAppDependencies {
 	}
 
 	private func observeRisk() {
-		riskConsumer.didChangeLoadingStatus = { isLoading in
-			self.updateAndReloadRiskCellState(to: isLoading ? .loading : .normal)
+		riskConsumer.didChangeActivityState = { state in
+			self.updateAndReloadRiskCellState(to: state)
 		}
 
 		riskProvider.observeRisk(riskConsumer)
 	}
 
-	func updateAndReloadRiskCellState(to state: HomeRiskLevelCellConfigurator.ActivityState) {
+	func updateAndReloadRiskCellState(to state: RiskProvider.ActivityState) {
 		riskCellActivityState = state
 		riskLevelConfigurator?.state = state
 		reloadRiskCell()

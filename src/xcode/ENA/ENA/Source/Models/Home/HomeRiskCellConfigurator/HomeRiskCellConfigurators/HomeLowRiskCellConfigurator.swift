@@ -30,7 +30,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
-		state: ActivityState,
+		state: RiskProvider.ActivityState,
 		numberRiskContacts: Int,
 		lastUpdateDate: Date?,
 		isButtonHidden: Bool,
@@ -57,7 +57,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
 
 		switch state {
-		case .loading:
+		case .downloading:
 			itemCellConfigurators += [setupDownloadingCellState(for: cell)]
 		case .detecting:
 			itemCellConfigurators += [setupDetectingCellState(for: cell)]

@@ -26,7 +26,8 @@ extension ExposureDetectionViewController {
 		var detectionMode: DetectionMode = DetectionMode.default
 
 		var isTracingEnabled: Bool { exposureManagerState.enabled }
-		var isLoading: Bool = false
+		
+		var activityState: RiskProvider.ActivityState = .idle
 
 		var risk: Risk?
 		var riskLevel: RiskLevel {

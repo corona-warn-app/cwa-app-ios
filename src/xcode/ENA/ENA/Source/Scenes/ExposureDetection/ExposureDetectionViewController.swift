@@ -79,8 +79,9 @@ extension ExposureDetectionViewController {
 			self?.state.risk = risk
 			self?.updateUI()
 		}
-		consumer.didChangeLoadingStatus = { [weak self] isLoading in
-			self?.state.isLoading = isLoading
+		consumer.didChangeActivityState = { [weak self] activityState in
+			self?.state.activityState = activityState
+			self?.state
 		}
 
 		riskProvider.observeRisk(consumer)
