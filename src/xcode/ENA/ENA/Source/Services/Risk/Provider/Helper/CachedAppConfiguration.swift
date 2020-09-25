@@ -24,21 +24,40 @@ final class CachedAppConfiguration {
 	enum CacheError: Error {
 		case dataFetchError(message: String?)
 		case dataVerificationError(message: String?)
+		/// HTTP 304 – Content on server has not changed from the given `If-None-Match` header in the request
+		case notModified
 	}
-
 
 	init(client: AppConfigurationFetching, store: AppConfigCaching) {
 		self.client = client
 		self.store = store
 
+		// edge case: if no app config is cached, omit a potentially existing ETag to force fetch a new configuration
+		let etag = store.appConfig == nil ? nil : store.lastETag
+
 		// check for updated or fetch initial app configuration
-		client.fetchAppConfiguration(etag: store.lastETag) { result in
+		fetchConfig(with: etag)
+	}
+
+	private func fetchConfig(with etag: String? = nil, completion: Completion? = nil) {
+		client.fetchAppConfiguration(etag: store.lastETag) { [weak self] result in
 			switch result {
 			case .success(let response):
-				self.store.lastETag = response.eTag
-				self.store.appConfig = response.config
+				self?.store.lastETag = response.eTag
+				self?.store.appConfig = response.config
+				completion?(.success(response.config))
 			case .failure(let error):
-				logError(message: "Failed to fetch app config: \(error.localizedDescription)")
+				switch error {
+				case CachedAppConfiguration.CacheError.notModified where self?.store.appConfig != nil:
+					log(message: "config not modified")
+					// server is not modified and we have a cached config
+					guard let config = self?.store.appConfig else {
+						fatalError("App configuration cache broken!") // in `where` we trust
+					}
+					completion?(.success(config))
+				default:
+					completion?(.failure(error))
+				}
 			}
 		}
 	}
@@ -59,16 +78,7 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 			completion(.success(cachedVersion))
 		} else {
 			// fetch a new one
-			client.fetchAppConfiguration(etag: store.lastETag) { [weak self] result in
-				switch result {
-				case .success(let response):
-					self?.store.lastETag = response.eTag
-					self?.store.appConfig = response.config
-					completion(.success(response.config))
-				case .failure(let error):
-					completion(.failure(error))
-				}
-			}
+			fetchConfig(with: store.lastETag)
 		}
 	}
 

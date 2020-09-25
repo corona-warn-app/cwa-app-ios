@@ -22,7 +22,7 @@ import XCTest
 
 final class CachedAppConfigurationTests: XCTestCase {
 	func testCachedRequests() {
-		let client = CachingClientMock()
+		let client = CachingHTTPClientMock()
 
 		let expectation = self.expectation(description: "app configuration fetched")
 		// we trigger a config fetch twice but expect only one http request (plus one cached result)
@@ -31,11 +31,16 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		let expectedConfig = SAP_ApplicationConfiguration()
 		client.onFetchAppConfiguration = { _, completeWith in
-			completeWith(.success(expectedConfig))
+			let config = AppConfigurationFetchingResponse(expectedConfig, "etag")
+			completeWith(.success(config))
 			expectation.fulfill()
 		}
 
-		let cache = CachedAppConfiguration(client: client, store: MockTestStore())
+		let store = MockTestStore()
+		XCTAssertNil(store.appConfig)
+		XCTAssertNil(store.lastETag)
+
+		let cache = CachedAppConfiguration(client: client, store: store)
 		cache.appConfiguration { response in
 			switch response {
 			case .success(let config):
@@ -44,6 +49,9 @@ final class CachedAppConfigurationTests: XCTestCase {
 				XCTFail(error.localizedDescription)
 			}
 		}
+
+		XCTAssertNotNil(store.appConfig)
+		XCTAssertNotNil(store.lastETag)
 
 		// Should not trigger another call (expectation) to the actual client
 		// Remember: `expectedFulfillmentCount = 1`
@@ -51,11 +59,12 @@ final class CachedAppConfigurationTests: XCTestCase {
 			switch response {
 			case .success(let config):
 				XCTAssertEqual(config, expectedConfig)
+				XCTAssertEqual(config, store.appConfig)
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			}
 		}
 
-		waitForExpectations(timeout: 0.5)
+		waitForExpectations(timeout: 2.0)
 	}
 }

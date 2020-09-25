@@ -54,7 +54,7 @@ struct AppConfigurationFetchingResponse {
 	let config: SAP_ApplicationConfiguration
 	let eTag: String?
 
-	init(_ config: SAP_ApplicationConfiguration, _ eTag: String?) {
+	init(_ config: SAP_ApplicationConfiguration, _ eTag: String? = nil) {
 		self.config = config
 		self.eTag = eTag
 	}

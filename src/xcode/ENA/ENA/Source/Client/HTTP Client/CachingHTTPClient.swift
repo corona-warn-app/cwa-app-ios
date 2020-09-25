@@ -50,9 +50,15 @@ class CachingHTTPClient: AppConfigurationFetching {
 			headers = nil
 		}
 
-		session.GET(configuration.configurationURL, extraHeaders: headers) { result in
+		session.GET(configuration.configurationURL, extraHeaders: nil) { result in
 			switch result {
 			case .success(let response):
+				// content not modified?
+				guard response.statusCode != 304 else {
+					completion(.failure(CachedAppConfiguration.CacheError.notModified))
+					return
+				}
+
 				// has data?
 				guard
 					let data = response.body,
