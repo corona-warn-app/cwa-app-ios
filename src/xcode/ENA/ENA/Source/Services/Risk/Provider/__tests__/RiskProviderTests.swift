@@ -73,11 +73,18 @@ final class RiskProviderTests: XCTestCase {
 			completion(.init())
 		}
 
+		let client = CachingHTTPClientMock()
+		client.onFetchAppConfiguration = { _, complete in
+			// just deliver no app configuration (as before)
+			// TODO: require a missing app config feels hacky in this context - review!
+			complete(.failure(CachedAppConfiguration.CacheError.notModified))
+		}
+
 		let sut = RiskProvider(
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
-			appConfigurationProvider: CachedAppConfiguration(client: CachingHTTPClientMock(), store: store),
+			appConfigurationProvider: CachedAppConfiguration(client: client, store: store),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
 		)
 

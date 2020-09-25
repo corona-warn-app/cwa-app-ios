@@ -26,6 +26,13 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 	// default provider for a static app configuration
 	let configProvider = CachedAppConfiguration(client: CachingHTTPClientMock(), store: MockTestStore())
 
+	override func setUpWithError() throws {
+		// uses a common database!
+		let store = MockTestStore()
+		store.appConfig = nil
+		store.lastETag = nil
+	}
+
 	override func tearDownWithError() throws {
 		// uses a common database!
 		let store = MockTestStore()
@@ -104,12 +111,12 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			}
 
 			let client = CachingHTTPClientMock()
-			let provider = CachedAppConfiguration(client: client, store: MockTestStore())
 			client.onFetchAppConfiguration = { _, completeWith in
 				var config = SAP_ApplicationConfiguration()
 				config.supportedCountries = ["DE", "IT", "ES"]
 				completeWith(.success(AppConfigurationFetchingResponse(config)))
 			}
+			let provider = CachedAppConfiguration(client: client, store: MockTestStore())
 
 			let model = ExposureSubmissionCoordinatorModel(
 				exposureSubmissionService: exposureSubmissionService,
@@ -154,12 +161,12 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			}
 
 			let client = CachingHTTPClientMock()
-			let provider = CachedAppConfiguration(client: client, store: MockTestStore())
 			client.onFetchAppConfiguration = { _, completeWith in
 				var config = SAP_ApplicationConfiguration()
 				config.supportedCountries = []
 				completeWith(.success(AppConfigurationFetchingResponse(config)))
 			}
+			let provider = CachedAppConfiguration(client: client, store: MockTestStore())
 
 			let model = ExposureSubmissionCoordinatorModel(
 				exposureSubmissionService: exposureSubmissionService,
@@ -247,12 +254,12 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			}
 
 			let client = CachingHTTPClientMock()
-			let provider = CachedAppConfiguration(client: client, store: MockTestStore())
 			client.onFetchAppConfiguration = { _, completeWith in
 				var config = SAP_ApplicationConfiguration()
 				config.supportedCountries = ["DE", "IT", "ES"]
 				completeWith(.success(AppConfigurationFetchingResponse(config)))
 			}
+			let provider = CachedAppConfiguration(client: client, store: MockTestStore())
 
 			let model = ExposureSubmissionCoordinatorModel(
 				exposureSubmissionService: exposureSubmissionService,
