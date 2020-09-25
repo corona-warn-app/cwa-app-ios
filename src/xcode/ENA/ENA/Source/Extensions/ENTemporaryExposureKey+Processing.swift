@@ -28,7 +28,7 @@ extension Array where Element: ENTemporaryExposureKey {
 	/// 1. Groups the keys by their `rollingStartNumber`
 	/// 2. Applies the `transmissionRiskVector` to the grouped keys
 	func processedForSubmission(with symptomsOnset: SymptomsOnset, today: Date = Date()) -> [ENTemporaryExposureKey] {
-		let groupedExposureKeys: [Int: Self] = Dictionary(grouping: self, by: {
+		var groupedExposureKeys: [Int: Self] = Dictionary(grouping: self, by: {
 			let rollingStartNumber = $0.rollingStartNumber
 			let startDate = Date(timeIntervalSince1970: Double(rollingStartNumber) * 600)
 
@@ -41,9 +41,13 @@ extension Array where Element: ENTemporaryExposureKey {
 			return daysUntilToday
 		})
 
-		for (daysUntilToday, exposureKeys) in groupedExposureKeys where daysUntilToday >= 0 && daysUntilToday <= 14 {
-			for exposureKey in exposureKeys {
-				exposureKey.transmissionRiskLevel = symptomsOnset.transmissionRiskVector[daysUntilToday]
+		for (daysUntilToday, exposureKeys) in groupedExposureKeys {
+			if daysUntilToday >= 0 && daysUntilToday <= 14 {
+				for exposureKey in exposureKeys {
+					exposureKey.transmissionRiskLevel = symptomsOnset.transmissionRiskVector[daysUntilToday]
+				}
+			} else {
+				groupedExposureKeys[daysUntilToday] = nil
 			}
 		}
 
