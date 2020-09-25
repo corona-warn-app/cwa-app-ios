@@ -19,7 +19,7 @@
 
 import UIKit
 
-protocol DeltaOnboardingViewController: UIViewController {
+protocol DeltaOnboardingViewControllerProtocol: UIViewController {
 	var finished: (() -> Void)? { get set }
 }
 
@@ -29,7 +29,7 @@ protocol DeltaOnboarding {
 	var isFinished: Bool { get }
 
 	func finish()
-	func makeViewController() -> DeltaOnboardingViewController
+	func makeViewController() -> DeltaOnboardingViewControllerProtocol
 }
 
 extension DeltaOnboarding {

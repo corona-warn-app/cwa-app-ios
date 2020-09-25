@@ -143,26 +143,26 @@ private class ViewControllerPresentSpy: UIViewController {
 	}
 }
 
-private class DeltaOnboardingViewControllerDummy: UIViewController, DeltaOnboardingViewController {
+private class DeltaOnboardingViewControllerDummy: UIViewController, DeltaOnboardingViewControllerProtocol {
 	var finished: (() -> Void)?
 }
 
 private class DeltaOnboardingSpy: DeltaOnboarding {
 	let version: String
 	let store: Store
-	let deltaViewController: DeltaOnboardingViewController
+	let deltaViewController: DeltaOnboardingViewControllerProtocol
 
 	init(
 		version: String,
 		store: Store,
-		deltaViewController: DeltaOnboardingViewController
+		deltaViewController: DeltaOnboardingViewControllerProtocol
 	) {
 		self.version = version
 		self.store = store
 		self.deltaViewController = deltaViewController
 	}
 
-	func makeViewController() -> DeltaOnboardingViewController {
+	func makeViewController() -> DeltaOnboardingViewControllerProtocol {
 		return deltaViewController
 	}
 }
