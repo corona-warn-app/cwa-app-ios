@@ -28,7 +28,7 @@ struct DeltaOnboardingV15: DeltaOnboarding {
 		self.store = store
 	}
 
-	func makeViewController() -> DeltaOnboardingViewController {
+	func makeViewController() -> DeltaOnboardingViewControllerProtocol {
 		return DeltaOnboardingV15ViewController()
 	}
 }

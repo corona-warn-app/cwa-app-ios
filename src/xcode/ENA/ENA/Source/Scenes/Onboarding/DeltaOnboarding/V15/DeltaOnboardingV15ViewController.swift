@@ -19,7 +19,7 @@
 
 import UIKit
 
-class DeltaOnboardingV15ViewController: UIViewController, DeltaOnboardingViewController {
+class DeltaOnboardingV15ViewController: UIViewController, DeltaOnboardingViewControllerProtocol {
 
 	// MARK: - Attributes
 
