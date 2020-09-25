@@ -22,11 +22,13 @@ import UIKit
 class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
 	private let store: Store
+	private let downloadedPackagesStore: DownloadedPackagesStore
 	private var currentEnvironmentLabel: UILabel!
 	private var picker: UIPickerView!
 
-	init(store: Store) {
+	init(store: Store, downloadedPackagesStore: DownloadedPackagesStore) {
 		self.store = store
+		self.downloadedPackagesStore = downloadedPackagesStore
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -97,7 +99,8 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 			let selectedRow = self.picker.selectedRow(inComponent: 0)
 			self.store.serverEnvironment = LocalServerEnvironment.availableEnvironments()[selectedRow]
 			self.updateCurrentEnviromentLabel()
-
+			self.store.summary = nil
+			self.downloadedPackagesStore.reset()
 			exit(0)
 		}
 

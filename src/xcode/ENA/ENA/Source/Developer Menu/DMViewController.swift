@@ -192,7 +192,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	}
 
 	private func makeServerEnvironmentViewController() -> DMServerEnvironmentViewController {
-		return DMServerEnvironmentViewController(store: store)
+		return DMServerEnvironmentViewController(store: store, downloadedPackagesStore: downloadedPackagesStore)
 	}
 }
 
