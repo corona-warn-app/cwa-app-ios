@@ -478,7 +478,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSuccess_listTitle" = "Bitte beachten Sie:";
 
-"ExposureSubmissionSuccess_listItem1" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
+"ExposureSubmissionSuccess_listItem1" = "Das Gesundheitsamt wird sich in den nächsten Tagen bei Ihnen melden.";
 
 "ExposureSubmissionSuccess_listItem2" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
 
@@ -578,7 +578,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSymptoms_Title" = "Symptome";
 
-"ExposureSubmissionSymptoms_Description" = "Sind eines oder mehrere der folgenden Symptome in den letzten Tagen bei Ihnen neu aufgetreten?";
+"ExposureSubmissionSymptoms_Introduction" = "Wenn Sie angeben, ob und wann eventuelle Corona-Symptome bei Ihnen aufgetreten sind, kann das Infektionsrisiko von anderen App-Nutzern genauer berechnet werden. Sie müssen keine Angabe machen, wählen Sie dazu „Keine Angabe“.";
+
+"ExposureSubmissionSymptoms_Description" = "Sind bei Ihnen in den letzten Tagen folgende Symptome aufgetreten?";
 
 "ExposureSubmissionSymptoms_Symptom0" = "Erhöhte Temperatur oder Fieber";
 
@@ -858,7 +860,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Thank_You_Card_Note_Title" = "Bitte beachten Sie:";
 
-"Home_Thank_You_Card_Phone_Item_Title" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
+"Home_Thank_You_Card_Phone_Item_Title" = "Das Gesundheitsamt wird sich in den nächsten Tagen bei Ihnen melden.";
 
 "Home_Thank_You_Card_Home_Item_Title" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
 
