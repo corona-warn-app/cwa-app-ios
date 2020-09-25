@@ -54,7 +54,7 @@ class EUSettingsViewModel {
 			: countryModels.map { DynamicCell.euCell(cellModel: $0) }
 
 		return DynamicSection.section(
-			separators: !countryModels.isEmpty,
+			separators: countryModels.isEmpty ? .none : .inBetween,
 			cells: cells
 		)
 	}

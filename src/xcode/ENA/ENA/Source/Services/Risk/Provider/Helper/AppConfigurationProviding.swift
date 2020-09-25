@@ -23,3 +23,23 @@ protocol AppConfigurationProviding: AnyObject {
 	typealias Completion = (SAP_ApplicationConfiguration?) -> Void
 	func appConfiguration(completion: @escaping Completion)
 }
+
+class MockAppConfiguration: AppConfigurationProviding {
+
+	// MARK: - Init
+
+	init(mockSAPApplicationConfiguration appConfiguration: SAP_ApplicationConfiguration?) {
+		self.appConfiguration = appConfiguration
+	}
+
+	// MARK: - Protocol AppConfigurationProviding
+
+	func appConfiguration(completion: @escaping Completion) {
+		completion(appConfiguration)
+	}
+
+	// MARK: - Private
+
+	private var appConfiguration: SAP_ApplicationConfiguration?
+
+}

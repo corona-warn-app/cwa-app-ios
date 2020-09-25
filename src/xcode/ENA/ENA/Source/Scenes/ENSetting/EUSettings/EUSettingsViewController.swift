@@ -67,11 +67,18 @@ class EUSettingsViewController: DynamicTableViewController {
 			switch result {
 			case .failure:
 				// TODO: We have not defined any behaviour yet for a failed country list download.
-				print("The country list could not be loaded.")
+				logError(message: "The country list could not be loaded.")
+				self?.viewModel = EUSettingsViewModel(countries: [])
 			case .success(let countries):
 				self?.viewModel = EUSettingsViewModel(countries: countries)
 			}
+			self?.reloadData()
 		})
+	}
+
+	private func reloadData() {
+		dynamicTableViewModel = viewModel.euSettingsModel()
+		tableView.reloadData()
 	}
 }
 
@@ -84,14 +91,17 @@ extension EUSettingsViewController {
 
 extension DynamicCell {
 	static func euCell(cellModel: EUSettingsViewModel.CountryModel) -> Self {
-		.icon(
-			cellModel.country.flag,
-			text: cellModel.country.localizedName,
-			tintColor: nil,
-			style: .body,
-			iconWidth: 32,
-			action: .none,
-			configure: nil)
+		.icon(cellModel.country.flag,
+			  text: cellModel.country.localizedName,
+			  tintColor: nil,
+			  style: .body,
+			  iconWidth: 32,
+			  action: .none,
+			  configure: { _, cell, _ in
+			cell.contentView.layoutMargins.left = 32
+			cell.contentView.layoutMargins.right = 32
+			cell.selectionStyle = .none
+		})
 	}
 
 	static func emptyCell() -> Self {
