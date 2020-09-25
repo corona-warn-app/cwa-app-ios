@@ -19,7 +19,7 @@
 import Foundation
 import UIKit
 
-class AppInformationModel {
+enum AppInformationModel {
 	
 	static let aboutModel = DynamicTableViewModel([
 		.section(
@@ -48,7 +48,7 @@ class AppInformationModel {
 			cells: [
 				.title2(text: AppStrings.AppInformation.contactTitle,
 						accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactTitle),
-				.body(text: AppStrings.AppInformation.contactDescription,
+				.body(text: [AppStrings.AppInformation.contactDescription, AppStrings.Common.tessRelayDescription].joined(separator: "\n\n"),
 					  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactDescription),
 				.headline(text: AppStrings.AppInformation.contactHotlineTitle,
 						  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactHotlineTitle),
@@ -61,7 +61,6 @@ class AppInformationModel {
 			]
 		)
 	])
-
 
 	static let privacyModel = DynamicTableViewModel([
 		.section(

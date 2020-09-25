@@ -17,29 +17,22 @@
 // under the License.
 //
 
-import Foundation
+import XCTest
+@testable import ENA
 
-protocol AppConfigurationProviding: AnyObject {
-	typealias Completion = (SAP_ApplicationConfiguration?) -> Void
-	func appConfiguration(completion: @escaping Completion)
-}
-
-class MockAppConfiguration: AppConfigurationProviding {
-
-	// MARK: - Init
-
-	init(mockSAPApplicationConfiguration appConfiguration: SAP_ApplicationConfiguration?) {
-		self.appConfiguration = appConfiguration
+class ENSettingEuTracingViewModelTests: XCTestCase {
+	
+	func testENSettingEuTracingViewModelTests_Init() throws {
+		
+		let viewModel = ENSettingEuTracingViewModel()
+		XCTAssertNotNil(viewModel)
 	}
-
-	// MARK: - Protocol AppConfigurationProviding
-
-	func appConfiguration(completion: @escaping Completion) {
-		completion(appConfiguration)
+	
+	func testENSettingEuTracingViewModelTests_LabelsAsExpected() throws {
+		
+		let viewModel = ENSettingEuTracingViewModel()
+		
+		XCTAssertNotEqual(viewModel.title, "", "Localized (i18n) Title should not be empty)")
+		XCTAssertNotEqual(viewModel.countryListLabel, "", "Sub title label should be empty.")
 	}
-
-	// MARK: - Private
-
-	private var appConfiguration: SAP_ApplicationConfiguration?
-
 }
