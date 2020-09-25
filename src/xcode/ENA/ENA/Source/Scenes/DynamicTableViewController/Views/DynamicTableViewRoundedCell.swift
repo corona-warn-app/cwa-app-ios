@@ -80,6 +80,8 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 		// MARK: - Button adjustment.
 		if let buttonTitle = buttonTitle {
 			button.setTitle(buttonTitle, for: .normal)
+			button.titleLabel?.numberOfLines = 0
+			button.titleLabel?.lineBreakMode = .byWordWrapping
 			let tapHandler = UITapGestureRecognizer(target: self, action: #selector(didTapButton(sender:)))
 			button.addGestureRecognizer(tapHandler)
 			self.buttonTapped = buttonTapped
@@ -94,40 +96,43 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 	}
 
 	private func setupConstraints() {
-		body.sizeToFit()
-		title.sizeToFit()
-		iconStackView.sizeToFit()
-
 		let marginGuide = contentView.layoutMarginsGuide
 		contentView.addSubview(insetView)
-		insetView.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor).isActive = true
-		insetView.topAnchor.constraint(equalTo: marginGuide.topAnchor).isActive = true
-		insetView.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor).isActive = true
-		insetView.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor).isActive = true
 
-		title.leadingAnchor.constraint(equalTo: insetView.leadingAnchor, constant: 16).isActive = true
-		title.topAnchor.constraint(equalTo: insetView.topAnchor, constant: 20).isActive = true
+		NSLayoutConstraint.activate([
+			insetView.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor),
+			insetView.topAnchor.constraint(equalTo: marginGuide.topAnchor),
+			insetView.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor),
+			insetView.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor),
+			title.leadingAnchor.constraint(equalTo: insetView.leadingAnchor, constant: 16),
+			title.topAnchor.constraint(equalTo: insetView.topAnchor, constant: 20),
+			body.leadingAnchor.constraint(equalTo: insetView.leadingAnchor, constant: 16),
+			body.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 16),
+			body.trailingAnchor.constraint(equalTo: insetView.trailingAnchor, constant: -16)
+		])
 
 		if iconStackView.subviews.isEmpty {
 			title.trailingAnchor.constraint(equalTo: insetView.trailingAnchor, constant: -16).isActive = true
 			iconStackView.removeFromSuperview()
 		} else {
-			title.trailingAnchor.constraint(equalTo: iconStackView.leadingAnchor, constant: -32).isActive = true
+			NSLayoutConstraint.activate([
+				title.trailingAnchor.constraint(equalTo: iconStackView.leadingAnchor, constant: -32),
+				iconStackView.topAnchor.constraint(equalTo: insetView.topAnchor, constant: 20),
+				iconStackView.trailingAnchor.constraint(equalTo: insetView.trailingAnchor, constant: -16)
+			])
+
 			iconStackView.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 			iconStackView.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
-			iconStackView.topAnchor.constraint(equalTo: insetView.topAnchor, constant: 20).isActive = true
-			iconStackView.trailingAnchor.constraint(equalTo: insetView.trailingAnchor, constant: -16).isActive = true
 		}
 
-		body.leadingAnchor.constraint(equalTo: insetView.leadingAnchor, constant: 16).isActive = true
-		body.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 16).isActive = true
-		body.trailingAnchor.constraint(equalTo: insetView.trailingAnchor, constant: -16).isActive = true
-
 		if buttonTapped != nil {
-			body.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -37).isActive = true
-			button.leadingAnchor.constraint(equalTo: insetView.leadingAnchor, constant: 16).isActive = true
-			button.trailingAnchor.constraint(equalTo: insetView.trailingAnchor, constant: -16).isActive = true
-			button.bottomAnchor.constraint(equalTo: insetView.bottomAnchor, constant: -16).isActive = true
+			NSLayoutConstraint.activate([
+				body.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -37),
+				button.leadingAnchor.constraint(equalTo: insetView.leadingAnchor, constant: 16),
+				button.trailingAnchor.constraint(equalTo: insetView.trailingAnchor, constant: -16),
+				button.bottomAnchor.constraint(equalTo: insetView.bottomAnchor, constant: -16)
+			])
+			button.setContentHuggingPriority(.defaultLow, for: .vertical)
 		} else {
 			body.bottomAnchor.constraint(equalTo: insetView.bottomAnchor, constant: -16).isActive = true
 			button.removeFromSuperview()

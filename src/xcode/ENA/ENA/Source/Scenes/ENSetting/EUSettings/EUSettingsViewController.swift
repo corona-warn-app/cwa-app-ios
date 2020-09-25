@@ -71,11 +71,11 @@ class EUSettingsViewController: DynamicTableViewController {
 			case .success(let countries):
 				self?.viewModel = EUSettingsViewModel(countries: countries)
 			}
-			self?.reloadData()
+			self?.reloadCountrySection()
 		})
 	}
 
-	private func reloadData() {
+	private func reloadCountrySection() {
 		dynamicTableViewModel = viewModel.euSettingsModel()
 		tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
 	}
