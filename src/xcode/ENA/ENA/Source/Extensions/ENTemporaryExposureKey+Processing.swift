@@ -24,13 +24,13 @@ extension Array where Element: ENTemporaryExposureKey {
 
 	/// Prepare an array of `ENTemporaryExposureKey` for exposure submission.
 	func processedForSubmission(with symptomsOnset: SymptomsOnset, today: Date = Date()) -> [ENTemporaryExposureKey] {
-		/// 1. Group exposure keys by the day their rolling period started in the UTC timezone
+		/// 1. Group exposure keys by the day their rolling period started in the UTC time zone
 		var groupedExposureKeys: [Int: Self] = Dictionary(grouping: self, by: {
 			/// Use the rolling start number to get the date the rolling period started.
 			/// The rollingStartNumber is the unix timestamp divided by 600, giving the amount of of 10-minute-intervals that passed since 01.01.1970 00:00 UTC.
 			let startDate = Date(timeIntervalSince1970: Double($0.rollingStartNumber) * 600)
 
-			/// Make sure to use a calendar in UTC timezone with 24 hour days and leap seconds etc. in sync with the gregorian calendar
+			/// Make sure to use a calendar in UTC time zone with 24 hour days and leap seconds etc. in sync with the gregorian calendar
 			var calendar = Calendar(identifier: .gregorian)
 			guard let utcTimeZone = TimeZone(secondsFromGMT: 0) else { fatalError("Getting UTC time zone failed.") }
 			calendar.timeZone = utcTimeZone
