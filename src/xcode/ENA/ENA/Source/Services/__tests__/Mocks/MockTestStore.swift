@@ -52,4 +52,5 @@ final class MockTestStore: Store {
 	var allowTestsStatusNotification: Bool = true
 	var hourlyFetchingEnabled: Bool = true
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
+	var serverEnvironment: ServerEnvironment = LocalServerEnvironment.defaultEnvironment()
 }

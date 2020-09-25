@@ -145,7 +145,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	override init() {
 		self.store = SecureStore(subDirectory: "database")
 
-		let configuration = HTTPClient.Configuration(with: store)
+		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
 		self.client = HTTPClient(configuration: configuration)
 	}
 
