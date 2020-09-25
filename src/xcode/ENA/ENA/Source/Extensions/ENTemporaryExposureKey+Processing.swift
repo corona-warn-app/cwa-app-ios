@@ -32,8 +32,8 @@ extension Array where Element: ENTemporaryExposureKey {
 
 			/// Make sure to use a calendar in UTC timezone with 24 hour days and leap seconds etc. in sync with the gregorian calendar
 			var calendar = Calendar(identifier: .gregorian)
-			// swiftlint:disable:next force_unwrapping
-			calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+			guard let utcTimeZone = TimeZone(secondsFromGMT: 0) else { fatalError("Getting UTC time zone failed.") }
+			calendar.timeZone = utcTimeZone
 
 			/// Get the amount of days between start date and today to group the keys by that amount
 			guard let daysUntilToday = calendar.dateComponents([.day], from: startDate, to: today).day else { fatalError("Getting days since rolling start day failed") }
