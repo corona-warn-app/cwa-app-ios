@@ -65,6 +65,7 @@ final class ClientMock {
 	var onSubmitCountries: ((_ payload: CountrySubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
 	var onGetRegistrationToken: ((String, String, Bool, @escaping RegistrationHandler) -> Void)?
 	var onGetTANForExposureSubmit: ((String, Bool, @escaping TANHandler) -> Void)?
+	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
 }
 
 extension ClientMock: Client {
@@ -108,13 +109,14 @@ extension ClientMock: Client {
 	func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler) {
 		completion(ENExposureConfiguration())
 	}
-	
+
 	func supportedCountries(completion: @escaping CountryFetchCompletion) {
-		if let failure = urlRequestFailure {
-			completion(.failure(failure))
+		guard let onSupportedCountries = self.onSupportedCountries else {
+			completion(.success(supportedCountries))
 			return
 		}
-		completion(.success(supportedCountries))
+
+		onSupportedCountries(completion)
 	}
 
 	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
