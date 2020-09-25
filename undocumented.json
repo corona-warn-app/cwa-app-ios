@@ -16425,28 +16425,28 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
       "line": 215,
-      "symbol": "AppStrings.ExposureSubmissionWarnOthers.consentDescription",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 216,
-      "symbol": "AppStrings.ExposureSubmissionWarnOthers.consentTitle",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 217,
       "symbol": "AppStrings.ExposureSubmissionWarnOthers.consentUnderagesTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 218,
+      "line": 216,
       "symbol": "AppStrings.ExposureSubmissionWarnOthers.consentUnderagesText",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
+      "line": 217,
+      "symbol": "AppStrings.ExposureSubmissionWarnOthers.consentDescription",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
+      "line": 218,
+      "symbol": "AppStrings.ExposureSubmissionWarnOthers.consentTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
