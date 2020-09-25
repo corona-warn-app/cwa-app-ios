@@ -24,7 +24,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 	func testCachedRequests() {
 		let client = CachingClientMock()
 
-		let expectation = self.expectation(description: "onAppConfiguration called")
+		let expectation = self.expectation(description: "app configuration fetched")
 		// we trigger a config fetch twice but expect only one http request (plus one cached result)
 		expectation.expectedFulfillmentCount = 1
 		expectation.assertForOverFulfill = true

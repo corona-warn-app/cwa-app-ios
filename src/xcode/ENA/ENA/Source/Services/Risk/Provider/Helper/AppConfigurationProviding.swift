@@ -23,13 +23,13 @@ import Foundation
 protocol AppConfigurationProviding: AnyObject {
 	typealias Completion = (Result<SAP_ApplicationConfiguration, Error>) -> Void
 
-	/// Fetch the current app configuration, either the cached one or
+	/// Fetch the current app configuration, either the cached or a newly fetched one
 	/// - Parameters:
-	///   - forceFetch: triggers a fetch ignoring the cache
+	///   - forceFetch: triggers a direct fetch ignoring the cache
 	///   - completion: result handler
 	func appConfiguration(forceFetch: Bool, completion: @escaping Completion)
 
-	/// Fetch the current app configuration, either the cached one or
+	/// Fetch the current app configuration, either the cached or a newly fetched one
 	/// - Parameter completion: result handler
 	func appConfiguration(completion: @escaping Completion)
 }
