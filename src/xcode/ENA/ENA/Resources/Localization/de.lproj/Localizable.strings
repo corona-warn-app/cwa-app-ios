@@ -786,6 +786,12 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_euTracingAllCountriesTitle" = "Teilnehmende Länder";
 
+"ExposureNotificationSetting_EU_Empty_Error_Title" = "Länder können aktuell nicht angezeigt werden.";
+
+"ExposureNotificationSetting_EU_Empty_Error_Desc" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind.";
+
+"ExposureNotificationSetting_EU_Empty_Error_Button_Title" = "Geräte-Einstellungen öffnen";
+
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App Logo";
 

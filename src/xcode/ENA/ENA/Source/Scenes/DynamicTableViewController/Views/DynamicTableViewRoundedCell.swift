@@ -68,12 +68,12 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 
 		// MARK: - Stackview adjustment.
 		if !icons.isEmpty {
+			iconStackView = UIStackView(frame: .zero)
 			iconStackView.axis = .horizontal
 			iconStackView.spacing = 8
 			iconStackView.distribution = .fillProportionally
 			for icon in icons {
-				let imageView = UIImageView(image: icon)
-				iconStackView.addArrangedSubview(imageView)
+				iconStackView.addArrangedSubview(UIImageView(image: icon))
 			}
 		}
 
@@ -106,7 +106,7 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 		insetView.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor).isActive = true
 
 		title.leadingAnchor.constraint(equalTo: insetView.leadingAnchor, constant: 16).isActive = true
-		title.topAnchor.constraint(equalTo: insetView.topAnchor, constant: 16).isActive = true
+		title.topAnchor.constraint(equalTo: insetView.topAnchor, constant: 20).isActive = true
 
 		if iconStackView.subviews.isEmpty {
 			title.trailingAnchor.constraint(equalTo: insetView.trailingAnchor, constant: -16).isActive = true
@@ -115,7 +115,7 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 			title.trailingAnchor.constraint(equalTo: iconStackView.leadingAnchor, constant: -32).isActive = true
 			iconStackView.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 			iconStackView.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
-			iconStackView.topAnchor.constraint(equalTo: insetView.topAnchor, constant: 16).isActive = true
+			iconStackView.topAnchor.constraint(equalTo: insetView.topAnchor, constant: 20).isActive = true
 			iconStackView.trailingAnchor.constraint(equalTo: insetView.trailingAnchor, constant: -16).isActive = true
 		}
 
@@ -124,7 +124,7 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 		body.trailingAnchor.constraint(equalTo: insetView.trailingAnchor, constant: -16).isActive = true
 
 		if buttonTapped != nil {
-			body.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -16).isActive = true
+			body.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -37).isActive = true
 			button.leadingAnchor.constraint(equalTo: insetView.leadingAnchor, constant: 16).isActive = true
 			button.trailingAnchor.constraint(equalTo: insetView.trailingAnchor, constant: -16).isActive = true
 			button.bottomAnchor.constraint(equalTo: insetView.bottomAnchor, constant: -16).isActive = true

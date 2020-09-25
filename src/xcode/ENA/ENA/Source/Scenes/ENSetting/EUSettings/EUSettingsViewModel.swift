@@ -35,9 +35,13 @@ class EUSettingsViewModel {
 
 	// MARK: - Attributes.
 
-	let countryModels: [CountryModel]
+	let countryModels: [CountryModel]?
 
 	// MARK: - Initializers.
+
+	init() {
+		self.countryModels = nil
+	}
 
 	init(countries availableCountries: [Country]) {
 		self.countryModels = availableCountries
@@ -48,8 +52,12 @@ class EUSettingsViewModel {
 	// MARK: - DynamicTableViewModel.
 
 	func countries() -> DynamicSection {
+
+		guard let countryModels = countryModels else {
+			return DynamicSection.section(cells: [])
+		}
+
 		let cells = countryModels.isEmpty
-			// TODO: This cell needs to be adjusted.
 			? [.emptyCell()]
 			: countryModels.map { DynamicCell.euCell(cellModel: $0) }
 

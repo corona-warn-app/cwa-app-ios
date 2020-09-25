@@ -28,7 +28,7 @@ class EUSettingsViewController: DynamicTableViewController {
 
 	// MARK: - Private Attributes
 
-	private var viewModel = EUSettingsViewModel(countries: [])
+	private var viewModel = EUSettingsViewModel()
 
 	// MARK: - View life cycle methods.
 
@@ -66,7 +66,6 @@ class EUSettingsViewController: DynamicTableViewController {
 		client?.supportedCountries(completion: { [weak self] result in
 			switch result {
 			case .failure:
-				// TODO: We have not defined any behaviour yet for a failed country list download.
 				logError(message: "The country list could not be loaded.")
 				self?.viewModel = EUSettingsViewModel(countries: [])
 			case .success(let countries):
@@ -78,7 +77,7 @@ class EUSettingsViewController: DynamicTableViewController {
 
 	private func reloadData() {
 		dynamicTableViewModel = viewModel.euSettingsModel()
-		tableView.reloadData()
+		tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
 	}
 }
 
@@ -111,14 +110,16 @@ extension DynamicCell {
 			accessoryAction: .none) { _, cell, _ in
 				if let roundedCell = cell as? DynamicTableViewRoundedCell {
 					roundedCell.configure(
-						title: NSMutableAttributedString(string: "Länder können aktuell nicht angezeigt werden."),
+						title: NSMutableAttributedString(string: AppStrings.ExposureNotificationSetting.euEmptyErrorTitle),
 						titleStyle: .title2,
-						body: NSMutableAttributedString(string: "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind."),
+						body: NSMutableAttributedString(string: AppStrings.ExposureNotificationSetting.euEmptyErrorDescription),
 						textColor: .textPrimary1,
 						bgColor: .separator,
-						icons: [UIImage(named: "Icons_MobileDaten")!, UIImage(named: "Icon_Wifi")!],
-						buttonTitle: "Geräte-Einstellungen öffnen") {
-
+						icons: [
+							UIImage(named: "Icons_MobileDaten"),
+							UIImage(named: "Icon_Wifi")]
+							.compactMap { $0 },
+						buttonTitle: AppStrings.ExposureNotificationSetting.euEmptyErrorButtonTitle) {
 						if let url = URL(string: UIApplication.openSettingsURLString) {
 							UIApplication.shared.open(url)
 						}
