@@ -50,7 +50,7 @@ class CachingHTTPClient: AppConfigurationFetching {
 			headers = nil
 		}
 
-		session.GET(configuration.configurationURL, extraHeaders: nil) { result in
+		session.GET(configuration.configurationURL, extraHeaders: headers) { result in
 			switch result {
 			case .success(let response):
 				// content not modified?

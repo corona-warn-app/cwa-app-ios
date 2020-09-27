@@ -24,7 +24,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 	func testCachedRequests() {
 		let client = CachingHTTPClientMock()
 
-		let expectation = self.expectation(description: "app configuration fetched")
+		let expectation = self.expectation(description: "app configuration loaded")
 		// we trigger a config fetch twice but expect only one http request (plus one cached result)
 		expectation.expectedFulfillmentCount = 1
 		expectation.assertForOverFulfill = true
@@ -40,6 +40,9 @@ final class CachedAppConfigurationTests: XCTestCase {
 		XCTAssertNil(store.appConfig)
 		XCTAssertNil(store.lastETag)
 
+		let expConfig = self.expectation(description: "app configuration fetched")
+		expConfig.expectedFulfillmentCount = 2
+
 		let cache = CachedAppConfiguration(client: client, store: store)
 		cache.appConfiguration { response in
 			switch response {
@@ -48,6 +51,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			}
+			expConfig.fulfill()
 		}
 
 		XCTAssertNotNil(store.appConfig)
@@ -63,8 +67,116 @@ final class CachedAppConfigurationTests: XCTestCase {
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			}
+			expConfig.fulfill()
 		}
 
-		waitForExpectations(timeout: 2.0)
+		waitForExpectations(timeout: .long)
+	}
+
+	func testFetch_nothingCached() throws {
+
+		let store = MockTestStore()
+		XCTAssertNil(store.appConfig)
+		XCTAssertNil(store.lastETag)
+
+		let client = CachingHTTPClient()
+
+		let expConfig = self.expectation(description: "app configuration fetched")
+
+		let cache = CachedAppConfiguration(client: client, store: store)
+
+		cache.appConfiguration { response in
+			XCTAssertNotNil(store.appConfig)
+			XCTAssertNotNil(store.lastETag)
+
+			switch response {
+			case .success(let config):
+				XCTAssertTrue(config.isInitialized)
+			case .failure(let error):
+				XCTFail("Expected no error, got: \(error)")
+			}
+			expConfig.fulfill()
+		}
+
+		waitForExpectations(timeout: .long)
+	}
+
+	func testCacheNotModfied_useCache() throws {
+
+		let expFetchRequest = self.expectation(description: "fetch request done")
+		expFetchRequest.expectedFulfillmentCount = 1
+
+		let store = MockTestStore()
+		store.lastETag = "etag"
+		store.appConfig = SAP_ApplicationConfiguration()
+
+		let client = CachingHTTPClientMock()
+		client.onFetchAppConfiguration = { _, completeWith in
+			completeWith(.failure(CachedAppConfiguration.CacheError.notModified))
+			expFetchRequest.fulfill()
+		}
+
+		let expConfig = self.expectation(description: "app configuration fetched")
+
+		let cache = CachedAppConfiguration(client: client, store: store)
+
+		cache.appConfiguration { response in
+			switch response {
+			case .success(let config):
+				XCTAssertEqual(config, store.appConfig)
+			case .failure(let error):
+				XCTFail("Expected no error, got: \(error)")
+			}
+			expConfig.fulfill()
+		}
+
+		waitForExpectations(timeout: .long)
+	}
+
+	func testCacheNotModfied_nothingCached() throws {
+
+		let expFetchRequest = self.expectation(description: "fetch request done")
+		// 1. on init
+		// 2. on `cache.appConfiguration` because of no config in store
+		expFetchRequest.expectedFulfillmentCount = 2
+
+		let store = MockTestStore()
+		XCTAssertNil(store.appConfig)
+		XCTAssertNil(store.lastETag)
+		
+		let client = CachingHTTPClientMock()
+		client.onFetchAppConfiguration = { _, completeWith in
+			XCTAssertNil(store.appConfig)
+			XCTAssertNil(store.lastETag)
+
+			completeWith(.failure(CachedAppConfiguration.CacheError.notModified))
+			expFetchRequest.fulfill()
+		}
+
+		let expConfig = self.expectation(description: "app configuration fetched")
+
+		let cache = CachedAppConfiguration(client: client, store: store)
+
+		cache.appConfiguration { response in
+			XCTAssertNil(store.appConfig)
+			XCTAssertNil(store.lastETag)
+
+			switch response {
+			case .success:
+				XCTFail("expected to fail")
+			case .failure(let error):
+				let err = error as? CachedAppConfiguration.CacheError
+				if case .notModified = err {
+					XCTAssert(true)
+					// we exprect the .notModified error
+					// Tip: you should remove the `lastETag` from the store in this case
+				} else {
+					XCTFail("wrong error type; got: \(error)")
+				}
+			}
+			expConfig.fulfill()
+		}
+
+		waitForExpectations(timeout: .long)
 	}
 }

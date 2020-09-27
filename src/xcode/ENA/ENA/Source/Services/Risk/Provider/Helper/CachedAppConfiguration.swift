@@ -28,6 +28,12 @@ final class CachedAppConfiguration {
 		case notModified
 	}
 
+	/// Most likely a HTTP client
+	private let client: AppConfigurationFetching
+
+	/// The place where the app config and last etag is stored
+	private let store: AppConfigCaching
+
 	init(client: AppConfigurationFetching, store: AppConfigCaching) {
 		self.client = client
 		self.store = store
@@ -39,8 +45,8 @@ final class CachedAppConfiguration {
 		fetchConfig(with: etag)
 	}
 
-	private func fetchConfig(with etag: String? = nil, completion: Completion? = nil) {
-		client.fetchAppConfiguration(etag: store.lastETag) { [weak self] result in
+	private func fetchConfig(with etag: String?, completion: Completion? = nil) {
+		client.fetchAppConfiguration(etag: etag) { [weak self] result in
 			switch result {
 			case .success(let response):
 				self?.store.lastETag = response.eTag
@@ -61,13 +67,6 @@ final class CachedAppConfiguration {
 			}
 		}
 	}
-
-	/// Most likely a HTTP client
-	private let client: AppConfigurationFetching
-
-	/// The place where the app config and last etag is stored
-	private let store: AppConfigCaching
-
 }
 
 extension CachedAppConfiguration: AppConfigurationProviding {
@@ -78,7 +77,7 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 			completion(.success(cachedVersion))
 		} else {
 			// fetch a new one
-			fetchConfig(with: store.lastETag)
+			fetchConfig(with: store.lastETag, completion: completion)
 		}
 	}
 
