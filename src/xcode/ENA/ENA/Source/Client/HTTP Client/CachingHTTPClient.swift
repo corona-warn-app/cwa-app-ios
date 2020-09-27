@@ -43,11 +43,9 @@ class CachingHTTPClient: AppConfigurationFetching {
 	///   - completion: result handler
 	func fetchAppConfiguration(etag: String? = nil, completion: @escaping AppConfigResultHandler) {
 		// ETag
-		let headers: [String: String]?
+		var headers: [String: String]? = nil
 		if let etag = etag {
 			headers = ["If-None-Match": etag]
-		} else {
-			headers = nil
 		}
 
 		session.GET(configuration.configurationURL, extraHeaders: headers) { result in
