@@ -82,11 +82,6 @@
                BlueprintName = "ENATests"
                ReferencedContainer = "container:ENA.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "CachedAppConfigurationTests/testFetch_nothingCached()">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>
