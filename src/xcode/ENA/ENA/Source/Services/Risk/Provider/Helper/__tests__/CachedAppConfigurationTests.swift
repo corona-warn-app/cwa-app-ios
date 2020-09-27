@@ -76,8 +76,8 @@ final class CachedAppConfigurationTests: XCTestCase {
 	func testFetch_nothingCached() throws {
 
 		let store = MockTestStore()
-		XCTAssertNil(store.appConfig)
-		XCTAssertNil(store.lastETag)
+		store.appConfig = nil
+		store.lastETag = nil
 
 		let client = CachingHTTPClient()
 
