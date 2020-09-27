@@ -115,11 +115,11 @@ class ExposureSubmissionCoordinatorModel {
 
 			switch result {
 			case .success(let config):
-				let supportedCountries = config.supportedCountries.compactMap({ Country(countryCode: $0) })
-				if supportedCountries.isEmpty {
+				let countries = config.supportedCountries.compactMap({ Country(countryCode: $0) })
+				if countries.isEmpty {
 					self.supportedCountries = [.defaultCountry()]
 				} else {
-					self.supportedCountries = supportedCountries
+					self.supportedCountries = countries
 				}
 				onSuccess()
 			case .failure(let error):
