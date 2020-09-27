@@ -73,6 +73,8 @@ final class CachedAppConfigurationTests: XCTestCase {
 		waitForExpectations(timeout: .long)
 	}
 
+	// disabled due to verification issues
+	// I'm leaving this in because it's still a valid - manual - test!
 	func testFetch_nothingCached() throws {
 
 		let store = MockTestStore()
