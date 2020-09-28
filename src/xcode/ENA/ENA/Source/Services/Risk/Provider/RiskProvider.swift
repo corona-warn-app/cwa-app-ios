@@ -20,6 +20,7 @@
 import Foundation
 import ExposureNotification
 import UIKit
+import Combine
 
 protocol ExposureSummaryProvider: AnyObject {
 	typealias Completion = (ENExposureDetectionSummary?) -> Void
@@ -62,15 +63,22 @@ final class RiskProvider {
 		self.appConfigurationProvider = appConfigurationProvider
 		self.exposureManagerState = exposureManagerState
 		self.targetQueue = targetQueue
+
+		self.$activityState
+			.removeDuplicates()
+			.debounce(for: .milliseconds(250), scheduler: RunLoop.main)
+			.sink { [weak self] state in self?._provideActivityState(state) }
+			.store(in: &subscriptions)
 	}
 
 	// MARK: Properties
+	private var subscriptions = Set<AnyCancellable>()
 	private let store: Store
 	private let exposureSummaryProvider: ExposureSummaryProvider
 	private let appConfigurationProvider: AppConfigurationProviding
+	@Published private(set) var activityState: ActivityState = .idle
 	var exposureManagerState: ExposureManagerState
 	var configuration: RiskProvidingConfiguration
-	private(set) var activityState: ActivityState = .idle
 }
 
 private extension RiskConsumer {
@@ -315,14 +323,6 @@ extension RiskProvider: RiskProviding {
 		#endif
 	}
 
-	private func _provideActivityState(_ state: ActivityState) {
-		targetQueue.async { [weak self] in
-			self?.consumers.forEach {
-				$0.didChangeActivityState?(state)
-			}
-		}
-	}
-
 	private func saveRiskIfNeeded(_ risk: Risk) {
 		switch risk.level {
 		case .low:
@@ -346,9 +346,19 @@ extension RiskProvider: RiskProviding {
 }
 
 extension RiskProvider: ActivityStateProviderDelegate {
+
+	/// - NOTE: The activity state is propagated to subscribers
+	/// via a sink that can be found in the RiskProvider initializer.
 	func provideActivityState(_ state: ActivityState) {
 		activityState = state
-		_provideActivityState(state)
+	}
+
+	private func _provideActivityState(_ state: ActivityState) {
+		targetQueue.async { [weak self] in
+			self?.consumers.forEach {
+				$0.didChangeActivityState?(state)
+			}
+		}
 	}
 }
 
