@@ -175,6 +175,7 @@ enum AppStrings {
 
 	enum ExposureSubmissionSymptoms {
 		static let title = NSLocalizedString("ExposureSubmissionSymptoms_Title", comment: "")
+		static let introduction = NSLocalizedString("ExposureSubmissionSymptoms_Introduction", comment: "")
 		static let description = NSLocalizedString("ExposureSubmissionSymptoms_Description", comment: "")
 		static let symptoms = [
 			NSLocalizedString("ExposureSubmissionSymptoms_Symptom0", comment: ""),
