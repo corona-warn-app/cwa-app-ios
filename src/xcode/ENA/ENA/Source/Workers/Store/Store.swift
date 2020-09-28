@@ -113,6 +113,6 @@ protocol Store: AnyObject {
 }
 
 protocol AppConfigCaching: Store {
-	var lastETag: String? { get set }
+	var lastAppConfigETag: String? { get set }
 	var appConfig: SAP_ApplicationConfiguration? { get set }
 }

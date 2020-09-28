@@ -38,7 +38,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		let store = MockTestStore()
 		XCTAssertNil(store.appConfig)
-		XCTAssertNil(store.lastETag)
+		XCTAssertNil(store.lastAppConfigETag)
 
 		let expConfig = self.expectation(description: "app configuration fetched")
 		expConfig.expectedFulfillmentCount = 2
@@ -55,7 +55,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		}
 
 		XCTAssertNotNil(store.appConfig)
-		XCTAssertNotNil(store.lastETag)
+		XCTAssertNotNil(store.lastAppConfigETag)
 
 		// Should not trigger another call (expectation) to the actual client
 		// Remember: `expectedFulfillmentCount = 1`
@@ -111,7 +111,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		expFetchRequest.expectedFulfillmentCount = 1
 
 		let store = MockTestStore()
-		store.lastETag = "etag"
+		store.lastAppConfigETag = "etag"
 		store.appConfig = SAP_ApplicationConfiguration()
 
 		let client = CachingHTTPClientMock()
@@ -146,12 +146,12 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		let store = MockTestStore()
 		XCTAssertNil(store.appConfig)
-		XCTAssertNil(store.lastETag)
+		XCTAssertNil(store.lastAppConfigETag)
 		
 		let client = CachingHTTPClientMock()
 		client.onFetchAppConfiguration = { _, completeWith in
 			XCTAssertNil(store.appConfig)
-			XCTAssertNil(store.lastETag)
+			XCTAssertNil(store.lastAppConfigETag)
 
 			completeWith(.failure(CachedAppConfiguration.CacheError.notModified))
 			expFetchRequest.fulfill()
@@ -163,7 +163,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		cache.appConfiguration { response in
 			XCTAssertNil(store.appConfig)
-			XCTAssertNil(store.lastETag)
+			XCTAssertNil(store.lastAppConfigETag)
 
 			switch response {
 			case .success:

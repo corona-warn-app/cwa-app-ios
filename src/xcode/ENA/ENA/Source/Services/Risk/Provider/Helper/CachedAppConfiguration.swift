@@ -39,7 +39,7 @@ final class CachedAppConfiguration {
 		self.store = store
 
 		// edge case: if no app config is cached, omit a potentially existing ETag to force fetch a new configuration
-		let etag = store.appConfig == nil ? nil : store.lastETag
+		let etag = store.appConfig == nil ? nil : store.lastAppConfigETag
 
 		// check for updated or fetch initial app configuration
 		fetchConfig(with: etag)
@@ -49,7 +49,7 @@ final class CachedAppConfiguration {
 		client.fetchAppConfiguration(etag: etag) { [weak self] result in
 			switch result {
 			case .success(let response):
-				self?.store.lastETag = response.eTag
+				self?.store.lastAppConfigETag = response.eTag
 				self?.store.appConfig = response.config
 				completion?(.success(response.config))
 			case .failure(let error):
@@ -77,7 +77,7 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 			completion(.success(cachedVersion))
 		} else {
 			// fetch a new one
-			fetchConfig(with: store.lastETag, completion: completion)
+			fetchConfig(with: store.lastAppConfigETag, completion: completion)
 		}
 	}
 

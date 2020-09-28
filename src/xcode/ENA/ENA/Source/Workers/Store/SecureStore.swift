@@ -220,9 +220,9 @@ final class SecureStore: Store {
 }
 
 extension SecureStore: AppConfigCaching {
-	var lastETag: String? {
-		get { kvStore["lastETag"] as String? ?? nil }
-		set { kvStore["lastETag"] = newValue }
+	var lastAppConfigETag: String? {
+		get { kvStore["lastAppConfigETag"] as String? ?? nil }
+		set { kvStore["lastAppConfigETag"] = newValue }
 	}
 
 	var appConfig: SAP_ApplicationConfiguration? {

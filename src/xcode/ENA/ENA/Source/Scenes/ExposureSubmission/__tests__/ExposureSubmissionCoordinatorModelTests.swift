@@ -30,14 +30,14 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		// uses a common database!
 		let store = MockTestStore()
 		store.appConfig = nil
-		store.lastETag = nil
+		store.lastAppConfigETag = nil
 	}
 
 	override func tearDownWithError() throws {
 		// uses a common database!
 		let store = MockTestStore()
 		store.appConfig = nil
-		store.lastETag = nil
+		store.lastAppConfigETag = nil
 	}
 
 	func testExposureSubmissionServiceHasRegistrationToken() {
