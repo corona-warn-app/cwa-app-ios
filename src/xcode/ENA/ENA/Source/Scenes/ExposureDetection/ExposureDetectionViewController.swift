@@ -81,7 +81,6 @@ extension ExposureDetectionViewController {
 		}
 		consumer.didChangeActivityState = { [weak self] activityState in
 			self?.state.activityState = activityState
-			self?.state
 		}
 
 		riskProvider.observeRisk(consumer)

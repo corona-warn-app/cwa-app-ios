@@ -102,7 +102,7 @@ final class HomeInteractor: RequiresAppDependencies {
 
 	func updateAndReloadRiskCellState(to state: RiskProvider.ActivityState) {
 		riskCellActivityState = state
-		riskLevelConfigurator?.state = state
+		riskLevelConfigurator?.riskProviderState = state
 		reloadRiskCell()
 	}
 

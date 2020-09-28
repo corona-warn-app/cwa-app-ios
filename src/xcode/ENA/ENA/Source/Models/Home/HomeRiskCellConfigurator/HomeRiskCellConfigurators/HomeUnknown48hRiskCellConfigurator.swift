@@ -61,7 +61,7 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	/// Adjusts the UI for the given cell, including setting text and adjusting colors.
 	private func configureUI(for cell: RiskLevelCollectionViewCell) {
 		cell.configureBackgroundColor(color: .enaColor(for: .riskNeutral))
-		cell.configureBody(text: AppStrings.Home.riskCardUnknown48hBody, bodyColor: .enaColor(for: .textContrast), isHidden: isLoading)
+		cell.configureBody(text: AppStrings.Home.riskCardUnknown48hBody, bodyColor: .enaColor(for: .textContrast), isHidden: riskProviderState.isActive)
 		configureButton(for: cell)
 		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, "\(detectionInterval)")
 		cell.configureDetectionIntervalLabel(text: intervalTitle, isHidden: detectionIntervalLabelHidden)
@@ -75,7 +75,7 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	private func setupItemCellConfigurators(for cell: RiskLevelCollectionViewCell) -> [HomeRiskViewConfiguratorAny] {
 
-		switch state {
+		switch riskProviderState {
 		case .downloading:
 			cell.configureTitle(title: AppStrings.Home.riskCardStatusDownloadingTitle, titleColor: .enaColor(for: .textContrast))
 			return [
@@ -147,7 +147,7 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	}
 
 	static func == (lhs: HomeUnknown48hRiskCellConfigurator, rhs: HomeUnknown48hRiskCellConfigurator) -> Bool {
-		lhs.state == rhs.state &&
+		lhs.riskProviderState == rhs.riskProviderState &&
 		lhs.isButtonEnabled == rhs.isButtonEnabled &&
 		lhs.isButtonHidden == rhs.isButtonHidden &&
 		lhs.detectionIntervalLabelHidden == rhs.detectionIntervalLabelHidden &&

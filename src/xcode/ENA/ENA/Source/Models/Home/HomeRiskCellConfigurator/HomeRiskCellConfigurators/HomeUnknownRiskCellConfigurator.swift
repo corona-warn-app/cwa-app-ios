@@ -46,7 +46,7 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	override func configure(cell: RiskLevelCollectionViewCell) {
 		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
 
-		switch state {
+		switch riskProviderState {
 		case .downloading:
 			itemCellConfigurators += [setupDownloadingCellState(for: cell)]
 		case .detecting:
@@ -94,7 +94,7 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	}
 
 	static func == (lhs: HomeUnknownRiskCellConfigurator, rhs: HomeUnknownRiskCellConfigurator) -> Bool {
-		lhs.state == rhs.state &&
+		lhs.riskProviderState == rhs.riskProviderState &&
 		lhs.isButtonEnabled == rhs.isButtonEnabled &&
 		lhs.isButtonHidden == rhs.isButtonHidden &&
 		lhs.detectionIntervalLabelHidden == rhs.detectionIntervalLabelHidden &&

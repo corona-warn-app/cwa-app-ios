@@ -23,7 +23,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: Properties
 	var buttonAction: (() -> Void)?
 
-	var state: RiskProvider.ActivityState
+	var riskProviderState: RiskProvider.ActivityState
 	var isButtonEnabled: Bool
 	var isButtonHidden: Bool
 	var detectionIntervalLabelHidden: Bool
@@ -31,10 +31,6 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	
 	var detectionInterval: Int
 	var timeUntilUpdate: String?
-
-	var isLoading: Bool {
-		state == .downloading
-	}
 
 	private static let lastUpdateDateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
@@ -53,7 +49,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	}
 
 	private var buttonTitle: String {
-		if isLoading { return AppStrings.Home.riskCardUpdateButton }
+		if riskProviderState.isActive { return AppStrings.Home.riskCardUpdateButton }
 		if isButtonEnabled { return AppStrings.Home.riskCardUpdateButton }
 		if let timeUntilUpdate = timeUntilUpdate { return String(format: AppStrings.ExposureDetection.refreshIn, timeUntilUpdate) }
 		return String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, "\(detectionInterval)")
@@ -69,7 +65,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		lastUpdateDate: Date?,
 		detectionInterval: Int
 	) {
-		self.state = state
+		self.riskProviderState = state
 		self.isButtonEnabled = isButtonEnabled
 		self.isButtonHidden = isButtonHidden
 		self.detectionIntervalLabelHidden = detectionIntervalLabelHidden
@@ -131,7 +127,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: Hashable
 
 	func hash(into hasher: inout Swift.Hasher) {
-		hasher.combine(isLoading)
+		hasher.combine(riskProviderState)
 		hasher.combine(isButtonEnabled)
 		hasher.combine(isButtonHidden)
 		hasher.combine(detectionIntervalLabelHidden)
@@ -140,7 +136,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	}
 
 	static func == (lhs: HomeRiskLevelCellConfigurator, rhs: HomeRiskLevelCellConfigurator) -> Bool {
-		lhs.isLoading == rhs.isLoading &&
+		lhs.riskProviderState == rhs.riskProviderState &&
 		lhs.isButtonEnabled == rhs.isButtonEnabled &&
 		lhs.isButtonHidden == rhs.isButtonHidden &&
 		lhs.detectionIntervalLabelHidden == rhs.detectionIntervalLabelHidden &&
