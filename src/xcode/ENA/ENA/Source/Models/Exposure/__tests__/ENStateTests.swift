@@ -102,7 +102,7 @@ final class ENStateTests: XCTestCase {
 		case .unknown:
 			XCTAssertEqual(stateHandler.state, .unknown)
 		case .authorized:
-			XCTAssertEqual(stateHandler.state, .disabled)
+			XCTAssertEqual(stateHandler.state, .notActiveApp)
 		@unknown default:
 			fatalError("Not all cases handled by Test cases of ENStateHandler")
 		}
