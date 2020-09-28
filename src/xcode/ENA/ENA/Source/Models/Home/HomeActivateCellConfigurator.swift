@@ -37,7 +37,7 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 				accessibilityIdentifier: AccessibilityIdentifiers.Home.activateCardOnTitle
 			)
 
-		case .disabled, .restricted, .notAuthorized, .unknown:
+		case .disabled, .restricted, .notAuthorized, .unknown, .notActiveApp:
 			cell.configure(
 				title: AppStrings.Home.activateCardOffTitle,
 				icon: UIImage(named: "Icons_Risikoermittlung_gestoppt"),

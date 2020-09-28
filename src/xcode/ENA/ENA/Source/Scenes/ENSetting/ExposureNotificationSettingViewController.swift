@@ -243,7 +243,7 @@ extension ExposureNotificationSettingViewController {
 						)
 						return tracingCell
 					}
-				case .bluetoothOff, .restricted, .notAuthorized, .unknown:
+				case .bluetoothOff, .restricted, .notAuthorized, .unknown, .notActiveApp:
 					if let cell = cell as? ActionCell {
 						cell.configure(for: enState, delegate: self)
 					}
