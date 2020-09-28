@@ -573,7 +573,9 @@
 /* ExposureSubmissionSymptoms */
 "ExposureSubmissionSymptoms_Title" = "Simptome";
 
-"ExposureSubmissionSymptoms_Description" = "Ați resimțit unul sau mai multe dintre următoarele simptome în ultimele zile?";
+"ExposureSubmissionSymptoms_Introduction" = "Puteți indica momentul când și dacă ați observat simptomele specifice coronavirusului pentru a-i permite aplicației să calculeze mai exact riscul de infectare al altor utilizatori ai aplicației. Dacă nu doriți să furnizați aceste informații, selectați „Nu răspund”.";
+
+"ExposureSubmissionSymptoms_Description" = "Ați resimțit unul sau mai multe dintre următoarele simptome?";
 
 "ExposureSubmissionSymptoms_Symptom0" = "Temperatură crescută sau febră";
 
@@ -595,7 +597,7 @@
 
 "ExposureSubmissionSymptoms_AnswerOptionNo" = "Nu";
 
-"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Nu comentez";
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Nu răspund";
 
 "ExposureSubmissionSymptoms_ContinueButton" = "Înainte";
 
@@ -614,7 +616,7 @@
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "Cu peste 2 săptămâni în urmă";
 
-"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Nu comentez";
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Nu răspund";
 
 "ExposureSubmissionSymptomsOnset_ContinueButton" = "Înainte";
 
@@ -625,15 +627,15 @@
 
 "ExposureSubmissionWarnOthers_continueButton" = "Accept";
 
-"ExposureSubmissionWarnOthers_sectionTitle" = "Să ne ajutăm împreună!";
+"ExposureSubmissionWarnOthers_sectionTitle" = "Puteți fi de ajutor!";
 
-"ExposureSubmissionWarnOthers_description" = "Apoi, puteți să vă asigurați că aplicația Corona-Warn trimite altor persoane ID-urile aleatorii din ultimele 14 zile. Prin aceasta, puteți avertiza și alte persoane și puteți contribui la întreruperea lanțului de infectare\n\nDeoarece poate exista un risc de infectare înainte de instalarea bolii și acesta poate varia în timp, vă putem solicita să menționați când ați observat prima dată orice simptom de coronavirus (de exemplu, febră sau tuse). Acest lucru va permite Aplicației să calculeze mai precis riscul de infectare pentru alți utilizatori ai aplicației cu care v-ați întâlnit. Furnizarea informațiilor privind instalarea simptomelor dvs. este opțională. Dacă nu aveți niciun fel de simptopme sau nu doriți să partajați aceste informații, puteți selecta „niciun răspuns”.\n\nPentru că sunt transmise doar ID-uri aleatorii impersonale, identitatea dvs. va rămâne anonimă.";
+"ExposureSubmissionWarnOthers_description" = "Dacă doriți, acum îi puteți permite aplicației să transmită ID-urile dvs. aleatorii memorate local din ultimele 14 zile către ceilalți. În acest mod, îi puteți avertiza pe ceilalți utilizatori și puteți contribui la întreruperea lanțului de infectare.\n\nAplicația va transmite doar ID-urile aleatorii și informațiile pe care le-ați furnizat despre debutul simptomelor. Identitatea dvs. nu va fi dezvăluită.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Apăsând pe „Accept”, consimțiți ca aplicația să trimită rezultatul pozitiv al testului dvs. către sistemul de servere al aplicației, împreună cu ID-urile dvs. aleatorii din ultimele 14 zile, pentru ca ceilalți utilizatori ai aplicației care au activat caracteristica de înregistrare în jurnal a expunerilor să poată fi notificați automat că se poate să fi fost expuși la riscul de infectare. Dacă furnizați informații opționale privind instalarea simptomelor dvs., ID-urile aleatorii transmise vor include și o valoare a riscului derivată din informațiile dvs., indicând riscul infectării de către dvs. a altor persoane în ziua în care respectivul ID aleatoriu este valabil. ID-urile aleatorii transmise în acest scop nu conțin informații care să poată permite tragerea unor concluzii privind identitatea dvs. sau persoana dvs.\n\nTransmiterea rezultatului testului prin intermediul aplicației este voluntară. Nu veți fi penalizat dacă nu transmiteți rezultatul testului. Din moment ce nu este posibilă urmărirea sau verificarea modului în care utilizați aplicația sau dacă o utilizați sau nu, doar dvs. veți ști dacă ați transmis informațiile că sunteți infectat.\n\nPuteți oricând să vă retrageți consimțământul prin ștergerea acestei aplicații. Retragerea consimțământului nu va afecta legalitatea procesării efectuate în baza consimțământului acordat înainte de retragerea acestuia. Pentru informații suplimentare, consultați meniul din „Informații aplicație” > „Confidențialitatea datelor”.";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the risk identification feature can be automatically notified that they may have been exposed to a risk of infection. If you provided optional information about the onset of your symptoms, the random IDs will be transmitted with a risk value derived from your information, indicating your risk of having infected others on the day the random ID is valid. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person.\n\nTransmitting your test result via the App is voluntary. You will not be penalised if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected. \n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out on the basis of the consent prior to the withdrawal. Further information can be found under “App Information”> “Data Privacy”.\n";
 
-"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Confidențialitatea datelor";
+"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Consimțământ";
 
-"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Limita de vârstă: începând cu 16 ani";
+"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Avertizare: peste 16 ani";
 
 "ExposureSubmissionWarnOthers_consentUnderagesText" = "Utilizarea acestei aplicații este destinată persoanelor care au vârsta de cel puțin 16 ani și care locuiesc în Germania.";
 
@@ -665,7 +667,7 @@
 
 "ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNo" = "Nu";
 
-"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "Nu comentez";
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "Nu răspund";
 
 "ExposureSubmissionWarnEuropeCountrySelection_title" = "Avertizări la nivel european";
 
@@ -679,7 +681,7 @@
 
 "ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries" = "Alte țări";
 
-"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "Nu comentez";
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "Nu răspund";
 
 "ExposureSubmissionWarnEuropeCountrySelection_consentTitle" = "Declarație de consimțământ";
 
