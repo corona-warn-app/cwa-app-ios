@@ -33,7 +33,7 @@ class EUSettingsViewControllerTests: XCTestCase {
 		vc.client = client
 		vc.viewDidLoad()
 
-		XCTAssert(vc.dynamicTableViewModel.section(1).cells.count == 6)
+		XCTAssert(vc.dynamicTableViewModel.numberOfRows(inSection: 1, for: vc) == 6)
 	}
 
 	func testDataReloadForUnsuccessfulDownload() {
@@ -46,7 +46,7 @@ class EUSettingsViewControllerTests: XCTestCase {
 		vc.client = client
 		vc.viewDidLoad()
 
-		XCTAssert(vc.dynamicTableViewModel.section(1).cells.count == 1)
+		XCTAssert(vc.dynamicTableViewModel.numberOfRows(inSection: 1, for: vc) == 1)
 	}
 
 }
