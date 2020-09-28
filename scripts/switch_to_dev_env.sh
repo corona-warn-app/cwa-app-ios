@@ -14,9 +14,9 @@ serverEnvironments="{
 		},
 		{
 			\"name\": \"ECME\",
-			\"distributionURL\": \"${ECME_SECRET_DIST_URL}\",
-			\"submissionURL\": \"${ECME_SECRET_SUBM_URL}\",
-			\"verificationURL\": \"${ECME_SECRET_VERIF_URL}\"
+			\"distributionURL\": \"${ACME_SECRET_DIST_URL}\",
+			\"submissionURL\": \"${ACME_SECRET_SUBM_URL}\",
+			\"verificationURL\": \"${ACME_SECRET_VERIF_URL}\"
 		}
 	]
 }
