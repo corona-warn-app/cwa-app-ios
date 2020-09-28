@@ -10439,133 +10439,133 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 87,
+      "line": 88,
       "symbol": "OnboardingInfoViewController.htmlTextView",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 89,
+      "line": 90,
       "symbol": "OnboardingInfoViewController.onboardingInfo",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 91,
+      "line": 92,
       "symbol": "OnboardingInfoViewController.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 100,
+      "line": 102,
       "symbol": "OnboardingInfoViewController.viewWillAppear(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 107,
+      "line": 109,
       "symbol": "OnboardingInfoViewController.viewDidLayoutSubviews()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 114,
+      "line": 116,
       "symbol": "OnboardingInfoViewController.runActionForPageType(completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 138,
+      "line": 140,
       "symbol": "OnboardingInfoViewController.runIgnoreActionForPageType(completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 229,
+      "line": 235,
       "symbol": "OnboardingInfoViewController.setupAccessibility()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 248,
+      "line": 254,
       "symbol": "OnboardingInfoViewController.addSkipAccessibilityActionToHeader()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 257,
+      "line": 263,
       "symbol": "OnboardingInfoViewController.skip(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 341,
+      "line": 347,
       "symbol": "OnboardingInfoViewController.openSettings()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 346,
+      "line": 352,
       "symbol": "OnboardingInfoViewController.showError(_:from:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 352,
+      "line": 358,
       "symbol": "OnboardingInfoViewController.didTapNextButton(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 362,
+      "line": 368,
       "symbol": "OnboardingInfoViewController.didTapIgnoreButton(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 370,
+      "line": 376,
       "symbol": "OnboardingInfoViewController.gotoNextScreen()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 398,
+      "line": 404,
       "symbol": "OnboardingInfoViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 399,
+      "line": 405,
       "symbol": "OnboardingInfoViewController.textView(_:shouldInteractWith:in:interaction:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 405,
+      "line": 411,
       "symbol": "OnboardingInfoViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController.swift",
-      "line": 406,
+      "line": 412,
       "symbol": "OnboardingInfoViewController.preferredNavigationBarOpacity",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
