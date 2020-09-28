@@ -19,20 +19,28 @@ struct ServerEnvironment: Codable {
 
 struct LocalServerEnvironment {
 
-	private let bundle: Bundle
-
-	init(_ bundle: Bundle = Bundle.main) {
-		self.bundle = bundle
-	}
-
 	struct Hosts {
 		let distributionURL: URL
 		let submissionURL: URL
 		let verificationURL: URL
 	}
 
-	func defaultEnvironment() -> ServerEnvironment {
-		return loadServerEnvironment("Default")
+	private let environments: [ServerEnvironment]
+
+	init(bundle: Bundle = Bundle.main, resourceName: String = "ServerEnvironments") {
+		guard
+			let jsonURL = bundle.url(forResource: resourceName, withExtension: "json"),
+			let jsonData = try? Data(contentsOf: jsonURL),
+			let map = try? JSONDecoder().decode(Map.self, from: jsonData) else {
+
+			fatalError("Missing server environment.")
+		}
+
+		self.environments = map.serverEnvironments
+	}
+
+	func availableEnvironments() -> [ServerEnvironment] {
+		return environments
 	}
 
 	func loadServerEnvironment(_ name: String) -> ServerEnvironment {
@@ -43,16 +51,8 @@ struct LocalServerEnvironment {
 		return environment
 	}
 
-	func availableEnvironments() -> [ServerEnvironment] {
-		guard
-			let jsonURL = bundle.url(forResource: "ServerEnvironments", withExtension: "json"),
-			let jsonData = try? Data(contentsOf: jsonURL),
-			let map = try? JSONDecoder().decode(Map.self, from: jsonData) else {
-
-			fatalError("Missing server environment.")
-		}
-
-		return map.serverEnvironments
+	func defaultEnvironment() -> ServerEnvironment {
+		return loadServerEnvironment("Default")
 	}
 
 	func getHosts(for environment: String) -> Hosts {

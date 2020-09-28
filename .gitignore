@@ -5,7 +5,7 @@
 ## User settings
 xcuserdata/
 LocalSettings.swift
-src/xcode/ENA/ENA/Resources/ServerEnvironment/ServerEnvironments.json
+ServerEnvironments.json
 
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 *.xcscmblueprint

@@ -23,9 +23,7 @@ import XCTest
 class LocalServerEnvironmentTests: XCTestCase {
 	
 	func test_AvailableEnvironmentsReturnsEnvironments() {
-		let testBundle = Bundle(for: LocalServerEnvironmentTests.self)
-		let sut_LocalServerEnvironment = LocalServerEnvironment(testBundle)
-
+		let sut_LocalServerEnvironment = makeLocalServerEnvironment()
 		let environments = sut_LocalServerEnvironment.availableEnvironments()
 
 		XCTAssertEqual(environments.count, 3)
@@ -35,9 +33,7 @@ class LocalServerEnvironmentTests: XCTestCase {
 	}
 
 	func test_GetHostsReturnesCorrectHosts() {
-		let testBundle = Bundle(for: LocalServerEnvironmentTests.self)
-		let sut_LocalServerEnvironment = LocalServerEnvironment(testBundle)
-
+		let sut_LocalServerEnvironment = makeLocalServerEnvironment()
 		let hosts = sut_LocalServerEnvironment.getHosts(for: "TestEnvironment2")
 
 		XCTAssertEqual(hosts.distributionURL.absoluteString, "https://TestEnvironment2.distribution")
@@ -46,18 +42,21 @@ class LocalServerEnvironmentTests: XCTestCase {
 	}
 
 	func test_loadServerEnvironmentReturnesCorrectEnvironment() {
-		let testBundle = Bundle(for: LocalServerEnvironmentTests.self)
-		let sut_LocalServerEnvironment = LocalServerEnvironment(testBundle)
-
+		let sut_LocalServerEnvironment = makeLocalServerEnvironment()
 		let environment = sut_LocalServerEnvironment.loadServerEnvironment("TestEnvironment1")
+		
 		XCTAssertEqual(environment.name, "TestEnvironment1")
 	}
 
 	func test_defaultEnvironmentShouldReturnCorrectEnvironment() {
-		let testBundle = Bundle(for: LocalServerEnvironmentTests.self)
-		let sut_LocalServerEnvironment = LocalServerEnvironment(testBundle)
-
+		let sut_LocalServerEnvironment = makeLocalServerEnvironment()
 		let environment = sut_LocalServerEnvironment.defaultEnvironment()
+
 		XCTAssertEqual(environment.name, "Default")
+	}
+
+	private func makeLocalServerEnvironment() -> LocalServerEnvironment {
+		let testBundle = Bundle(for: LocalServerEnvironmentTests.self)
+		return LocalServerEnvironment(bundle: testBundle, resourceName: "TestServerEnvironments")
 	}
 }
