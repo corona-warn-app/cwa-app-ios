@@ -84,7 +84,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private var onboardingInfos = OnboardingInfo.testData()
 	private var exposureManagerActivated = false
-	private var pageSetupDone: [OnboardingPageType: Bool] = [.privacyPage: false, .enableLoggingOfContactsPage: false]
+	private var pageSetupDone = [OnboardingPageType: Bool]()
 	var htmlTextView: HtmlTextView?
 
 	var onboardingInfo: OnboardingInfo?
@@ -92,6 +92,7 @@ final class OnboardingInfoViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		onboardingInfo = onboardingInfos[pageType.rawValue]
+		OnboardingPageType.allCases.forEach({ pageSetupDone[$0] = false })
 		// should be revised in the future
 		viewRespectsSystemMinimumLayoutMargins = false
 		view.layoutMargins = .zero
@@ -214,7 +215,6 @@ final class OnboardingInfoViewController: UIViewController {
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
 				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelBody
 			)
-			pageSetupDone[pageType] = true
 		case .privacyPage:
 			innerStackView.isHidden = true
 			let textView = HtmlTextView()
@@ -226,11 +226,10 @@ final class OnboardingInfoViewController: UIViewController {
 			stackView.addArrangedSubview(textView)
 			htmlTextView = textView
 			addSkipAccessibilityActionToHeader()
-			pageSetupDone[pageType] = true
 		default:
 			break
 		}
-
+		pageSetupDone[pageType] = true
 	}
 
 	func setupAccessibility() {
