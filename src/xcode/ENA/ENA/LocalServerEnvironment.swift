@@ -17,7 +17,13 @@ struct ServerEnvironment: Codable {
 	let distributionURL, submissionURL, verificationURL: URL
 }
 
-enum LocalServerEnvironment {
+struct LocalServerEnvironment {
+
+	private let bundle: Bundle
+
+	init(_ bundle: Bundle = Bundle.main) {
+		self.bundle = bundle
+	}
 
 	struct Hosts {
 		let distributionURL: URL
@@ -25,11 +31,11 @@ enum LocalServerEnvironment {
 		let verificationURL: URL
 	}
 
-	static func defaultEnvironment() -> ServerEnvironment {
-		return loadServerEnvironment("Production")
+	func defaultEnvironment() -> ServerEnvironment {
+		return loadServerEnvironment("Default")
 	}
 
-	static func loadServerEnvironment(_ name: String) -> ServerEnvironment {
+	func loadServerEnvironment(_ name: String) -> ServerEnvironment {
 		guard let environment = availableEnvironments().first(where: { $0.name == name }) else {
 			fatalError("Missing server environment.")
 		}
@@ -37,9 +43,9 @@ enum LocalServerEnvironment {
 		return environment
 	}
 
-	static func availableEnvironments() -> [ServerEnvironment] {
+	func availableEnvironments() -> [ServerEnvironment] {
 		guard
-			let jsonURL = Bundle.main.url(forResource: "ServerEnvironments", withExtension: "json"),
+			let jsonURL = bundle.url(forResource: "ServerEnvironments", withExtension: "json"),
 			let jsonData = try? Data(contentsOf: jsonURL),
 			let map = try? JSONDecoder().decode(Map.self, from: jsonData) else {
 
@@ -49,7 +55,7 @@ enum LocalServerEnvironment {
 		return map.serverEnvironments
 	}
 
-	static func getHosts(for environment: String) -> Hosts {
+	func getHosts(for environment: String) -> Hosts {
 		let environment = loadServerEnvironment(environment)
 		return Hosts(
 			distributionURL: environment.distributionURL,

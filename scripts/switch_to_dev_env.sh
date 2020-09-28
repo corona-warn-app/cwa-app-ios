@@ -7,7 +7,7 @@ cd $script_dir/../src/xcode/ENA/ENA/Resources/ServerEnvironment
 serverEnvironments="{
 	\"ServerEnvironments\":[
 		{
-			\"name\": \"Production\",
+			\"name\": \"Default\",
 			\"distributionURL\": \"${SECRET_DIST_URL}\",
 			\"submissionURL\": \"${SECRET_SUBM_URL}\",
 			\"verificationURL\": \"${SECRET_VERIF_URL}\"

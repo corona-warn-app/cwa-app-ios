@@ -27,10 +27,16 @@ final class SecureStore: Store {
 
 	private let directoryURL: URL
 	private let kvStore: SQLiteKeyValueStore
+	private let localServerEnvironment: LocalServerEnvironment
 
-	init(at directoryURL: URL, key: String) throws {
+	init(
+		at directoryURL: URL,
+		key: String,
+		localServerEnvironment: LocalServerEnvironment
+	) throws {
 		self.directoryURL = directoryURL
 		self.kvStore = try SQLiteKeyValueStore(with: directoryURL, key: key)
+		self.localServerEnvironment = localServerEnvironment
 	}
 
 	/// Removes most key/value pairs.
@@ -221,7 +227,7 @@ final class SecureStore: Store {
 	}
 
 	var serverEnvironment: ServerEnvironment {
-		get { kvStore["serverEnvironment"] as ServerEnvironment? ?? LocalServerEnvironment.defaultEnvironment() }
+		get { kvStore["serverEnvironment"] as ServerEnvironment? ?? localServerEnvironment.defaultEnvironment() }
 		set { kvStore["serverEnvironment"] = newValue }
 	}
 
@@ -232,11 +238,11 @@ extension SecureStore {
 
 	static let keychainDatabaseKey = "secureStoreDatabaseKey"
 
-	convenience init(subDirectory: String) {
-		self.init(subDirectory: subDirectory, isRetry: false)
+	convenience init(subDirectory: String, localServerEnvironment: LocalServerEnvironment) {
+		self.init(subDirectory: subDirectory, isRetry: false, localServerEnvironment: localServerEnvironment)
 	}
 
-	private convenience init(subDirectory: String, isRetry: Bool) {
+	private convenience init(subDirectory: String, isRetry: Bool, localServerEnvironment: LocalServerEnvironment) {
 		// swiftlint:disable:next force_try
 		let keychain = try! KeychainHelper()
 
@@ -260,15 +266,15 @@ extension SecureStore {
 				} else {
 					key = try keychain.generateDatabaseKey()
 				}
-				try self.init(at: directoryURL, key: key)
+				try self.init(at: directoryURL, key: key, localServerEnvironment: localServerEnvironment)
 			} else {
 				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
 				let key = try keychain.generateDatabaseKey()
-				try self.init(at: directoryURL, key: key)
+				try self.init(at: directoryURL, key: key, localServerEnvironment: localServerEnvironment)
 			}
 		} catch is SQLiteStoreError where isRetry == false {
 			SecureStore.performHardDatabaseReset(at: subDirectory)
-			self.init(subDirectory: subDirectory, isRetry: true)
+			self.init(subDirectory: subDirectory, isRetry: true, localServerEnvironment: localServerEnvironment)
 		} catch {
 			fatalError("Creating the Database failed (\(error)")
 		}

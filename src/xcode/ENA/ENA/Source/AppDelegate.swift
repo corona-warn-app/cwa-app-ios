@@ -29,6 +29,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
+	var localServerEnvironment: LocalServerEnvironment { get }
 }
 
 extension AppDelegate: CoronaWarnAppDelegate {
@@ -87,6 +88,7 @@ extension AppDelegate: ExposureSummaryProvider {
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	let store: Store
+	let localServerEnvironment: LocalServerEnvironment
 	
 	private let consumer = RiskConsumer()
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
@@ -143,7 +145,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}()
 
 	override init() {
-		self.store = SecureStore(subDirectory: "database")
+		self.localServerEnvironment = LocalServerEnvironment()
+
+		self.store = SecureStore(subDirectory: "database", localServerEnvironment: localServerEnvironment)
 
 		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
 		self.client = HTTPClient(configuration: configuration)

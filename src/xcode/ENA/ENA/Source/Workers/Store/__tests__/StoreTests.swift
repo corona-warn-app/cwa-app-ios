@@ -24,8 +24,8 @@ final class StoreTests: XCTestCase {
 	private var store: SecureStore!
 
 	override func setUpWithError() throws {
-		XCTAssertNoThrow(try SecureStore(at: URL(staticString: ":memory:"), key: "123456"))
-		store = try SecureStore(at: URL(staticString: ":memory:"), key: "123456")
+		XCTAssertNoThrow(try SecureStore(at: URL(staticString: ":memory:"), key: "123456", localServerEnvironment: LocalServerEnvironment()))
+		store = try SecureStore(at: URL(staticString: ":memory:"), key: "123456", localServerEnvironment: LocalServerEnvironment())
 	}
 
 	func testResultReceivedTimeStamp_Success() {
@@ -136,7 +136,7 @@ final class StoreTests: XCTestCase {
 				print("Target exists: \(fileManager.fileExists(atPath: testStoreTargetURL.path))")
 				try fileManager.copyItem(at: testStoreSourceURL, to: testStoreTargetURL)
 
-				return try SecureStore(at: directoryURL, key: "12345678")
+				return try SecureStore(at: directoryURL, key: "12345678", localServerEnvironment: LocalServerEnvironment())
 			} catch {
 				fatalError("Creating the database failed: \(error.localizedDescription)")
 			}
@@ -184,7 +184,7 @@ final class StoreTests: XCTestCase {
 	}
 
 	func testValueToggles() throws {
-		let store = try SecureStore(at: URL(staticString: ":memory:"), key: "123456")
+		let store = try SecureStore(at: URL(staticString: ":memory:"), key: "123456", localServerEnvironment: LocalServerEnvironment())
 
 		let isOnboarded = store.isOnboarded
 		store.isOnboarded.toggle()
@@ -207,7 +207,7 @@ final class StoreTests: XCTestCase {
 		try keychain.clearInKeychain(key: SecureStore.keychainDatabaseKey)
 
 		// 1. create store and store db key in keychain
-		let store = SecureStore(subDirectory: "test")
+		let store = SecureStore(subDirectory: "test", localServerEnvironment: LocalServerEnvironment())
 		XCTAssertFalse(store.isOnboarded)
 		// user finished onboarding and used the app…
 		store.isOnboarded.toggle()
@@ -220,7 +220,7 @@ final class StoreTests: XCTestCase {
 
 		// 2. restored with db key in keychain
 		// This simulates iCloud keychain
-		let restore = SecureStore(subDirectory: "test")
+		let restore = SecureStore(subDirectory: "test", localServerEnvironment: LocalServerEnvironment())
 		XCTAssertTrue(restore.isOnboarded)
 		XCTAssertEqual(restore.testGUID, store.testGUID)
 		// still the same key?
@@ -229,7 +229,7 @@ final class StoreTests: XCTestCase {
 		// 3. db key in keychain 'changed' for some reason
 		// swiftlint:disable:next force_unwrapping
 		try keychain.saveToKeychain(key: SecureStore.keychainDatabaseKey, data: "corrupted".data(using: .utf8)!)
-		let restore2 = SecureStore(subDirectory: "test")
+		let restore2 = SecureStore(subDirectory: "test", localServerEnvironment: LocalServerEnvironment())
 		// database reset?
 		XCTAssertFalse(restore2.isOnboarded)
 		XCTAssertEqual(restore2.testGUID, "") // init values…
