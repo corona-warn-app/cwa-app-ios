@@ -38,6 +38,8 @@ final class CachedAppConfiguration {
 		self.client = client
 		self.store = store
 
+		guard shouldFetch() else { return }
+
 		// edge case: if no app config is cached, omit a potentially existing ETag to force fetch a new configuration
 		let etag = store.appConfig == nil ? nil : store.lastAppConfigETag
 
@@ -61,6 +63,9 @@ final class CachedAppConfiguration {
 						fatalError("App configuration cache broken!") // in `where` we trust
 					}
 					completion?(.success(config))
+
+					// keep track of last successful fetch
+					self?.store.lastAppConfigFetch = Date()
 				default:
 					completion?(.failure(error))
 				}
@@ -71,8 +76,12 @@ final class CachedAppConfiguration {
 
 extension CachedAppConfiguration: AppConfigurationProviding {
 
+	fileprivate static let timestampKey = "LastAppConfigFetch"
+
 	func appConfiguration(forceFetch: Bool = false, completion: @escaping Completion) {
-		if let cachedVersion = store.appConfig, !forceFetch {
+		let force = shouldFetch() || forceFetch
+
+		if let cachedVersion = store.appConfig, !force {
 			// use the cached version
 			completion(.success(cachedVersion))
 		} else {
@@ -83,5 +92,15 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 
 	func appConfiguration(completion: @escaping Completion) {
 		self.appConfiguration(forceFetch: false, completion: completion)
+	}
+
+	/// Simple helper to simulate Cache-Control
+	/// - Note: This 300s value is because of current handicaps with the HTTPClient
+	/// - Returns: `true` is a network call should be done; `false` if cache should be used
+	private func shouldFetch() -> Bool {
+		guard let lastFetch = store.lastAppConfigFetch else {
+			return true
+		}
+		return lastFetch.distance(to: Date()) >= 300
 	}
 }

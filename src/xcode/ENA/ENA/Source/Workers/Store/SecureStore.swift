@@ -225,6 +225,11 @@ extension SecureStore: AppConfigCaching {
 		set { kvStore["lastAppConfigETag"] = newValue }
 	}
 
+	var lastAppConfigFetch: Date? {
+		get { kvStore["lastAppConfigFetch"] as Date? ?? nil }
+		set { kvStore["lastAppConfigFetch"] = newValue }
+	}
+
 	var appConfig: SAP_ApplicationConfiguration? {
 		get {
 			guard let data = kvStore["SAP_ApplicationConfiguration"] else { return nil }

@@ -29,16 +29,18 @@ final class CachedAppConfigurationTests: XCTestCase {
 		expectation.expectedFulfillmentCount = 1
 		expectation.assertForOverFulfill = true
 
+		let store = MockTestStore()
+		XCTAssertNil(store.appConfig)
+		XCTAssertNil(store.lastAppConfigETag)
+
 		let expectedConfig = SAP_ApplicationConfiguration()
 		client.onFetchAppConfiguration = { _, completeWith in
+			store.lastAppConfigFetch = Date()
+
 			let config = AppConfigurationFetchingResponse(expectedConfig, "etag")
 			completeWith(.success(config))
 			expectation.fulfill()
 		}
-
-		let store = MockTestStore()
-		XCTAssertNil(store.appConfig)
-		XCTAssertNil(store.lastAppConfigETag)
 
 		let expConfig = self.expectation(description: "app configuration fetched")
 		expConfig.expectedFulfillmentCount = 2
@@ -73,14 +75,70 @@ final class CachedAppConfigurationTests: XCTestCase {
 		waitForExpectations(timeout: .long)
 	}
 
-	// disabled due to verification issues
-	// I'm leaving this in because it's still a valid - manual - test!
-	/*
+	func testCacheDecay() throws {
+		let client = CachingHTTPClientMock()
+		let outdatedConfig = SAP_ApplicationConfiguration()
+		let updatedConfig = CachingHTTPClientMock.staticAppConfig
+
+		let store = MockTestStore()
+		store.appConfig = outdatedConfig
+		store.lastAppConfigFetch = 297.secondsAgo // close to the assumed 300 seconds default decay
+
+		let lastFetch = try XCTUnwrap(store.lastAppConfigFetch)
+		XCTAssertLessThan(Date().timeIntervalSince(lastFetch), 300)
+
+		let expectation = self.expectation(description: "app configuration loaded")
+		expectation.assertForOverFulfill = true
+
+		client.onFetchAppConfiguration = { _, completeWith in
+			store.appConfig = updatedConfig
+			store.lastAppConfigFetch = Date()
+
+			let config = AppConfigurationFetchingResponse(updatedConfig, "etag")
+			completeWith(.success(config))
+			expectation.fulfill()
+		}
+
+		let expConfig = self.expectation(description: "app configuration fetched")
+		expConfig.expectedFulfillmentCount = 2
+
+		let cache = CachedAppConfiguration(client: client, store: store)
+		cache.appConfiguration { response in
+			switch response {
+			case .success(let config):
+				XCTAssertEqual(config, outdatedConfig)
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			}
+			expConfig.fulfill()
+		}
+
+		XCTAssertEqual(store.appConfig, outdatedConfig)
+
+		// ensure cache decay
+		sleep(5)
+		XCTAssertGreaterThanOrEqual(Date().timeIntervalSince(lastFetch), 300)
+
+		// second fetch – expected decayed cached and updated config
+		cache.appConfiguration { response in
+			switch response {
+			case .success(let config):
+				XCTAssertEqual(config, updatedConfig)
+				XCTAssertEqual(config, store.appConfig)
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			}
+			expConfig.fulfill()
+		}
+
+		waitForExpectations(timeout: 10)
+	}
+
 	func testFetch_nothingCached() throws {
 
 		let store = MockTestStore()
 		store.appConfig = nil
-		store.lastETag = nil
+		store.lastAppConfigETag = nil
 
 		let client = CachingHTTPClient()
 
@@ -90,7 +148,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		cache.appConfiguration { response in
 			XCTAssertNotNil(store.appConfig)
-			XCTAssertNotNil(store.lastETag)
+			XCTAssertNotNil(store.lastAppConfigETag)
 
 			switch response {
 			case .success(let config):
@@ -103,7 +161,6 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		waitForExpectations(timeout: .long)
 	}
-	*/
 
 	func testCacheNotModfied_useCache() throws {
 
@@ -182,5 +239,14 @@ final class CachedAppConfigurationTests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: .long)
+	}
+}
+
+private extension Int {
+
+	/// A date n seconds ago
+	var secondsAgo: Date? {
+		let components = DateComponents(second: -(self))
+		return Calendar.autoupdatingCurrent.date(byAdding: components, to: Date())
 	}
 }

@@ -55,6 +55,7 @@ final class MockTestStore: Store, AppConfigCaching {
 
 	// MARK: - AppConfigCaching
 	
-	var lastAppConfigETag: String? = nil
-	var appConfig: SAP_ApplicationConfiguration? = nil
+	var lastAppConfigETag: String?
+	var lastAppConfigFetch: Date?
+	var appConfig: SAP_ApplicationConfiguration?
 }

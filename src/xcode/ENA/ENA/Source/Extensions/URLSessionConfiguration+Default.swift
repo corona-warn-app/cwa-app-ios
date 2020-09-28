@@ -35,6 +35,7 @@ extension URLSessionConfiguration {
 
 	/// Session config with caching policy `.useProtocolCachePolicy`
 	///
+	/// - Note: Caching is not realized via `NSURLCache` but via the internal SecureStore
 	/// - Returns: A session url configuration that uses the same set of parameters like the default CWA config. Only exception is the usage of caching policies.
 	class func cachingSessionConfiguration() -> URLSessionConfiguration {
 		let config = coronaWarnSessionConfiguration()
