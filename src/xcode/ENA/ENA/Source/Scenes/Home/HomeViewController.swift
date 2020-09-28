@@ -68,6 +68,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	private var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable>?
 	private var collectionView: UICollectionView! { view as? UICollectionView }
 	private var homeInteractor: HomeInteractor!
+	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 
 	private weak var delegate: HomeViewControllerDelegate?
 
@@ -106,6 +107,16 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
+		showInformationHowRiskDetectionWorks()
+		showDeltaOnboarding()
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		updateBackgroundColor()
+	}
+
+	private func showInformationHowRiskDetectionWorks() {
 		guard store.userNeedsToBeInformedAboutHowRiskDetectionWorks else {
 			return
 		}
@@ -118,9 +129,18 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		}
 	}
 
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		updateBackgroundColor()
+	private func showDeltaOnboarding() {
+		let onboardings: [DeltaOnboarding] = [
+			DeltaOnboardingV15(store: store)
+		]
+		deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
+		deltaOnboardingCoordinator?.finished = { [weak self] in
+			self?.deltaOnboardingCoordinator = nil
+		}
+
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+			self.deltaOnboardingCoordinator?.startOnboarding()
+		}
 	}
 
 	/// This method sets up a background fetch alert, and presents it, if needed.

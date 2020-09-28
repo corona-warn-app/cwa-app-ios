@@ -49,12 +49,9 @@ final class AppUpdateCheckHelper {
 			guard let versionInfo: SAP_ApplicationVersionConfiguration = result?.appVersion else {
 				return
 			}
-			guard let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
-				return
-			}
 
 			let alertType = self.alertTypeFrom(
-				currentVersion: appVersion,
+				currentVersion: Bundle.main.appVersion,
 				minVersion: versionInfo.ios.min,
 				latestVersion: versionInfo.ios.latest
 			)
