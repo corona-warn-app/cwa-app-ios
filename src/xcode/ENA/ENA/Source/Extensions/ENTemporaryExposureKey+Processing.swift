@@ -23,11 +23,11 @@ import ExposureNotification
 extension Array where Element: ENTemporaryExposureKey {
 
 	/// Prepare an array of `ENTemporaryExposureKey` for exposure submission.
-	func processedForSubmission(with symptomsOnset: SymptomsOnset, today: Date = Date()) -> [ENTemporaryExposureKey] {
+	func processedForSubmission(with symptomsOnset: SymptomsOnset, today: Date = Date()) -> [SAP_TemporaryExposureKey] {
 		/// 1. Group exposure keys by the day their rolling period started in the UTC time zone
-		var groupedExposureKeys: [Int: Self] = Dictionary(grouping: self, by: {
+		let groupedExposureKeys: [Int: Self] = Dictionary(grouping: self, by: {
 			/// Use the rolling start number to get the date the rolling period started.
-			/// The rollingStartNumber is the unix timestamp divided by 600, giving the amount of of 10-minute-intervals that passed since 01.01.1970 00:00 UTC.
+			/// The rollingStartNumber is the unix timestamp divided by 600, giving the amount of 10-minute-intervals that passed since 01.01.1970 00:00 UTC.
 			let startDate = Date(timeIntervalSince1970: Double($0.rollingStartNumber) * 600)
 
 			/// Make sure to use a calendar in UTC time zone with 24 hour days and leap seconds etc. in sync with the gregorian calendar
@@ -41,21 +41,24 @@ extension Array where Element: ENTemporaryExposureKey {
 			return daysUntilToday
 		})
 
-		/// 2. Assign the corresponding transmission risk levels and filter out keys that have no corresponding transmission risk level
-		for (daysUntilToday, exposureKeys) in groupedExposureKeys {
-			if daysUntilToday >= 0 && daysUntilToday <= 14 {
-				for exposureKey in exposureKeys {
-					/// Assign corresponding transmission risk level
-					exposureKey.transmissionRiskLevel = symptomsOnset.transmissionRiskVector[daysUntilToday]
-				}
-			} else {
-				/// Remove keys that have no corresponding transmission risk level
-				groupedExposureKeys[daysUntilToday] = nil
+		/// 2. Assign the corresponding transmission risk levels and days since onset of symptoms. Keys that have no corresponding transmission risk level are filtered out.
+		var processedExposureKeys = [SAP_TemporaryExposureKey]()
+		for (daysUntilToday, exposureKeys) in groupedExposureKeys where daysUntilToday >= 0 && daysUntilToday <= 14 {
+			for exposureKey in exposureKeys {
+				/// Convert to SAP key struct for submission
+				var sapExposureKey = exposureKey.sapKey
+
+				/// Assign corresponding transmission risk level
+				sapExposureKey.transmissionRiskLevel = symptomsOnset.transmissionRiskVector[daysUntilToday]
+
+				/// Assign corresponding days since onset of symptoms
+				sapExposureKey.daysSinceOnsetOfSymptoms = symptomsOnset.daysSinceOnsetOfSymptomsVector[daysUntilToday]
+
+				processedExposureKeys.append(sapExposureKey)
 			}
 		}
 
-		// Flatten dictionary [[0] -> [Key0], [1] -> [Key1, Key2]] to unsorted array [Key1, Key2, Key0]
-		return groupedExposureKeys.values.flatMap { $0 }
+		return processedExposureKeys
 	}
 
 }

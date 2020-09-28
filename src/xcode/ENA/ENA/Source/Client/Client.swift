@@ -154,7 +154,7 @@ extension SubmissionError: LocalizedError {
 struct CountrySubmissionPayload {
 
 	/// The exposure keys to submit
-	let exposureKeys: [ENTemporaryExposureKey]
+	let exposureKeys: [SAP_TemporaryExposureKey]
 
 	/// whether or not the consent was given to share the keys with the european federal gateway server
 	let consentToFederation: Bool
