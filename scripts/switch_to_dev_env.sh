@@ -13,7 +13,7 @@ serverEnvironments="{
 			\"verificationURL\": \"${SECRET_VERIF_URL}\"
 		},
 		{
-			\"name\": \"ECME\",
+			\"name\": \"ACME\",
 			\"distributionURL\": \"${ACME_SECRET_DIST_URL}\",
 			\"submissionURL\": \"${ACME_SECRET_SUBM_URL}\",
 			\"verificationURL\": \"${ACME_SECRET_VERIF_URL}\"
