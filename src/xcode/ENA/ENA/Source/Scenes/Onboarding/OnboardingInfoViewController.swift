@@ -84,6 +84,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private var onboardingInfos = OnboardingInfo.testData()
 	private var exposureManagerActivated = false
+	private var pageSetupDone: [OnboardingPageType: Bool] = [.privacyPage: false, .enableLoggingOfContactsPage: false]
 	var htmlTextView: HtmlTextView?
 
 	var onboardingInfo: OnboardingInfo?
@@ -197,6 +198,10 @@ final class OnboardingInfoViewController: UIViewController {
 		stateTitleLabel.text = onboardingInfo.stateTitle
 		stateStateLabel.text = exposureNotificationsEnabled ? onboardingInfo.stateActivated : onboardingInfo.stateDeactivated
 
+		guard let pageDone = pageSetupDone[pageType], !pageDone else {
+			return
+		}
+
 		switch pageType {
 		case .enableLoggingOfContactsPage:
 			addPanel(
@@ -209,6 +214,7 @@ final class OnboardingInfoViewController: UIViewController {
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
 				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelBody
 			)
+			pageSetupDone[pageType] = true
 		case .privacyPage:
 			innerStackView.isHidden = true
 			let textView = HtmlTextView()
@@ -220,6 +226,7 @@ final class OnboardingInfoViewController: UIViewController {
 			stackView.addArrangedSubview(textView)
 			htmlTextView = textView
 			addSkipAccessibilityActionToHeader()
+			pageSetupDone[pageType] = true
 		default:
 			break
 		}
