@@ -199,11 +199,15 @@ final class OnboardingInfoViewController: UIViewController {
 
 		switch pageType {
 		case .enableLoggingOfContactsPage:
+			addParagraph(
+				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_euTitle,
+				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_euDescription
+			)
 			addPanel(
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle,
 				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_consentUnderagesText,
-				textStyle: .textContrast,
-				backgroundStyle: .riskNeutral
+				textColor: .textContrast,
+				bgColor: .riskNeutral
 			)
 			addPanel(
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
