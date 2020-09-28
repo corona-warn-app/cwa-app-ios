@@ -122,12 +122,8 @@ class ExposureSubmissionCoordinatorModel {
 					self.supportedCountries = countries
 				}
 				onSuccess()
-			case .failure(let error):
-				if let error = error as? ExposureSubmissionError {
-					onError(error)
-				} else {
-					onError(.unknown)
-				}
+			case .failure:
+				onError(.noAppConfiguration)
 			}
 		}
 	}
