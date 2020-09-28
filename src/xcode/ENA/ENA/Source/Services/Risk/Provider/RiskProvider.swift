@@ -23,7 +23,15 @@ import UIKit
 
 protocol ExposureSummaryProvider: AnyObject {
 	typealias Completion = (ENExposureDetectionSummary?) -> Void
-	func detectExposure(completion: @escaping Completion) -> CancellationToken
+	func detectExposure(
+		activityStateDelegate: ActivityStateProviderDelegate?,
+		completion: @escaping Completion
+	) -> CancellationToken
+}
+
+/// This protocol is used to provide an up-to-date exposure detection state for the RiskProvider.
+protocol ActivityStateProviderDelegate: class {
+	func provideActivityState(_ state: RiskProvider.ActivityState)
 }
 
 final class RiskProvider {
@@ -135,7 +143,7 @@ extension RiskProvider: RiskProviding {
 		// The summary is outdated + we are in automatic mode: do a exposure detection
 		let previousSummary = store.summary
 
-		self.cancellationToken = exposureSummaryProvider.detectExposure { detectedSummary in
+		self.cancellationToken = exposureSummaryProvider.detectExposure(activityStateDelegate: self) { detectedSummary in
 			if let detectedSummary = detectedSummary {
 				self.store.summary = .init(detectionSummary: detectedSummary, date: Date())
 			}
@@ -201,6 +209,7 @@ extension RiskProvider: RiskProviding {
 	}
 
 	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
+		provideActivityState(.idle)
 		var summaries: Summaries?
 		let tracingHistory = store.tracingStatusHistory
 		let numberOfEnabledHours = tracingHistory.activeTracing().inHours
@@ -238,7 +247,6 @@ extension RiskProvider: RiskProviding {
 			return
 		}
 
-		provideActivityState(.downloading)
 		let group = DispatchGroup()
 
 		group.enter()
@@ -255,7 +263,6 @@ extension RiskProvider: RiskProviding {
 		}
 
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
-			provideActivityState(.idle)
 			cancellationToken?.cancel()
 			cancellationToken = nil
 			completeOnTargetQueue(risk: nil, completion: completion)
@@ -272,7 +279,6 @@ extension RiskProvider: RiskProviding {
 
 	private func _requestRiskLevel(summaries: Summaries?, appConfiguration: SAP_ApplicationConfiguration?, completion: Completion? = nil) {
 		guard let _appConfiguration = appConfiguration else {
-			provideActivityState(.idle)
 			completeOnTargetQueue(risk: nil, completion: completion)
 			showAppConfigError()
 			return
@@ -292,12 +298,10 @@ extension RiskProvider: RiskProviding {
 				providerConfiguration: configuration
 			) else {
 				logError(message: "Serious error during risk calculation")
-				provideActivityState(.idle)
 				completeOnTargetQueue(risk: nil, completion: completion)
 				return
 		}
 
-		provideActivityState(.idle)
 		completeOnTargetQueue(risk: risk, completion: completion)
 		saveRiskIfNeeded(risk)
 	}
@@ -309,11 +313,6 @@ extension RiskProvider: RiskProviding {
 		#else
 		consumer?.provideRisk(risk)
 		#endif
-	}
-
-	private func provideActivityState(_ state: ActivityState) {
-		activityState = state
-		_provideActivityState(state)
 	}
 
 	private func _provideActivityState(_ state: ActivityState) {
@@ -346,6 +345,12 @@ extension RiskProvider: RiskProviding {
 	}
 }
 
+extension RiskProvider: ActivityStateProviderDelegate {
+	func provideActivityState(_ state: ActivityState) {
+		activityState = state
+		_provideActivityState(state)
+	}
+}
 
 extension RiskProvider {
 	enum ActivityState {
