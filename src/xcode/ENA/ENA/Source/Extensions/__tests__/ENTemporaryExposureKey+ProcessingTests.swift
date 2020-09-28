@@ -26,185 +26,73 @@ final class ExposureKeysProcessingTests: XCTestCase {
 	
 	func testSubmissionPreprocess_ApplyNoInformationVectors() {
 		let symptomsOnset: SymptomsOnset = .noInformation
-		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
-		let daysSinceOnsetOfSymptomsVector = symptomsOnset.daysSinceOnsetOfSymptomsVector
 		
-		let days = 0...14
+		let days = Array(0...14)
 		let keys = days.map { makeMockKey(daysUntilToday: $0) }
-		var processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
-		
-		processedKeys.sort { $0.rollingStartIntervalNumber > $1.rollingStartIntervalNumber }
-		
-		for (key, day) in zip(processedKeys, days) {
-			XCTAssertEqual(
-				key.transmissionRiskLevel,
-				transmissionRiskVector[day],
-				"Transmission Risk Level vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-			
-			XCTAssertEqual(
-				key.daysSinceOnsetOfSymptoms,
-				daysSinceOnsetOfSymptomsVector[day],
-				"Days Since Onset Of Symptoms vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-		}
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
 	
 	func testSubmissionPreprocess_ApplyNonSymptomaticVectors() {
 		let symptomsOnset: SymptomsOnset = .nonSymptomatic
-		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
-		let daysSinceOnsetOfSymptomsVector = symptomsOnset.daysSinceOnsetOfSymptomsVector
 		
-		let days = 0...14
+		let days = Array(0...14)
 		let keys = days.map { makeMockKey(daysUntilToday: $0) }
-		var processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
-		
-		processedKeys.sort { $0.rollingStartIntervalNumber > $1.rollingStartIntervalNumber }
-		
-		for (key, day) in zip(processedKeys, days) {
-			XCTAssertEqual(
-				key.transmissionRiskLevel,
-				transmissionRiskVector[day],
-				"Transmission Risk Level vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-			
-			XCTAssertEqual(
-				key.daysSinceOnsetOfSymptoms,
-				daysSinceOnsetOfSymptomsVector[day],
-				"Days Since Onset Of Symptoms vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-		}
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
 	
 	func testSubmissionPreprocess_ApplySymptomaticWithUnknownOnsetDaysVectors() {
 		let symptomsOnset: SymptomsOnset = .symptomaticWithUnknownOnset
-		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
-		let daysSinceOnsetOfSymptomsVector = symptomsOnset.daysSinceOnsetOfSymptomsVector
 		
-		let days = 0...14
+		let days = Array(0...14)
 		let keys = days.map { makeMockKey(daysUntilToday: $0) }
-		var processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
-		
-		processedKeys.sort { $0.rollingStartIntervalNumber > $1.rollingStartIntervalNumber }
-		
-		for (key, day) in zip(processedKeys, days) {
-			XCTAssertEqual(
-				key.transmissionRiskLevel,
-				transmissionRiskVector[day],
-				"Transmission Risk Level vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-			
-			XCTAssertEqual(
-				key.daysSinceOnsetOfSymptoms,
-				daysSinceOnsetOfSymptomsVector[day],
-				"Days Since Onset Of Symptoms vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-		}
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
 	
 	func testSubmissionPreprocess_ApplyLastSevenDaysVectors() {
 		let symptomsOnset: SymptomsOnset = .lastSevenDays
-		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
-		let daysSinceOnsetOfSymptomsVector = symptomsOnset.daysSinceOnsetOfSymptomsVector
 		
-		let days = 0...14
+		let days = Array(0...14)
 		let keys = days.map { makeMockKey(daysUntilToday: $0) }
-		var processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
-		
-		processedKeys.sort { $0.rollingStartIntervalNumber > $1.rollingStartIntervalNumber }
-		
-		for (key, day) in zip(processedKeys, days) {
-			XCTAssertEqual(
-				key.transmissionRiskLevel,
-				transmissionRiskVector[day],
-				"Transmission Risk Level vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-			
-			XCTAssertEqual(
-				key.daysSinceOnsetOfSymptoms,
-				daysSinceOnsetOfSymptomsVector[day],
-				"Days Since Onset Of Symptoms vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-		}
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
 	
 	func testSubmissionPreprocess_ApplyOneToTwoWeeksAgoVectors() {
 		let symptomsOnset: SymptomsOnset = .oneToTwoWeeksAgo
-		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
-		let daysSinceOnsetOfSymptomsVector = symptomsOnset.daysSinceOnsetOfSymptomsVector
 		
-		let days = 0...14
+		let days = Array(0...14)
 		let keys = days.map { makeMockKey(daysUntilToday: $0) }
-		var processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
-		
-		processedKeys.sort { $0.rollingStartIntervalNumber > $1.rollingStartIntervalNumber }
-		
-		for (key, day) in zip(processedKeys, days) {
-			XCTAssertEqual(
-				key.transmissionRiskLevel,
-				transmissionRiskVector[day],
-				"Transmission Risk Level vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-			
-			XCTAssertEqual(
-				key.daysSinceOnsetOfSymptoms,
-				daysSinceOnsetOfSymptomsVector[day],
-				"Days Since Onset Of Symptoms vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-		}
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
 	
 	func testSubmissionPreprocess_ApplyMoreThanTwoWeeksAgoVectors() {
 		let symptomsOnset: SymptomsOnset = .moreThanTwoWeeksAgo
-		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
-		let daysSinceOnsetOfSymptomsVector = symptomsOnset.daysSinceOnsetOfSymptomsVector
 		
-		let days = 0...14
+		let days = Array(0...14)
 		let keys = days.map { makeMockKey(daysUntilToday: $0) }
-		var processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
-		
-		processedKeys.sort { $0.rollingStartIntervalNumber > $1.rollingStartIntervalNumber }
-		
-		for (key, day) in zip(processedKeys, days) {
-			XCTAssertEqual(
-				key.transmissionRiskLevel,
-				transmissionRiskVector[day],
-				"Transmission Risk Level vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-			
-			XCTAssertEqual(
-				key.daysSinceOnsetOfSymptoms,
-				daysSinceOnsetOfSymptomsVector[day],
-				"Days Since Onset Of Symptoms vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-		}
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
 	
 	func testSubmissionPreprocess_ApplyDaysSinceOnsetVectors() {
 		for daysSinceOnset in 0..<22 {
 			let symptomsOnset: SymptomsOnset = .daysSinceOnset(daysSinceOnset)
-			let transmissionRiskVector = symptomsOnset.transmissionRiskVector
-			let daysSinceOnsetOfSymptomsVector = symptomsOnset.daysSinceOnsetOfSymptomsVector
 			
-			let days = 0...14
+			let days = Array(0...14)
 			let keys = days.map { makeMockKey(daysUntilToday: $0) }
-			var processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
-			
-			processedKeys.sort { $0.rollingStartIntervalNumber > $1.rollingStartIntervalNumber }
-			
-			for (key, day) in zip(processedKeys, days) {
-				XCTAssertEqual(
-					key.transmissionRiskLevel,
-					transmissionRiskVector[day],
-					"Transmission Risk Level vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-				)
-				
-				XCTAssertEqual(
-					key.daysSinceOnsetOfSymptoms,
-					daysSinceOnsetOfSymptomsVector[day],
-					"Days Since Onset Of Symptoms vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-				)
-			}
+			let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+			assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 		}
 	}
 	
@@ -217,213 +105,82 @@ final class ExposureKeysProcessingTests: XCTestCase {
 	
 	func testSubmissionPreprocess_TodaysKeyMissing() {
 		let symptomsOnset: SymptomsOnset = .daysSinceOnset(7)
-		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
-		let daysSinceOnsetOfSymptomsVector = symptomsOnset.daysSinceOnsetOfSymptomsVector
 		
-		let days = 1...14
+		let days = Array(1...14)
 		let keys = days.map { makeMockKey(daysUntilToday: $0) }
-		var processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
-		
-		processedKeys.sort { $0.rollingStartIntervalNumber > $1.rollingStartIntervalNumber }
-		
-		for (key, day) in zip(processedKeys, days) {
-			XCTAssertEqual(
-				key.transmissionRiskLevel,
-				transmissionRiskVector[day],
-				"Transmission Risk Level vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-			
-			XCTAssertEqual(
-				key.daysSinceOnsetOfSymptoms,
-				daysSinceOnsetOfSymptomsVector[day],
-				"Days Since Onset Of Symptoms vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-		}
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
 	
 	func testSubmissionPreprocess_14DaysAgoKeyMissing() {
 		let symptomsOnset: SymptomsOnset = .daysSinceOnset(7)
-		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
-		let daysSinceOnsetOfSymptomsVector = symptomsOnset.daysSinceOnsetOfSymptomsVector
 		
-		let days = 1...13
+		let days = Array(1...13)
 		let keys = days.map { makeMockKey(daysUntilToday: $0) }
-		var processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
-		
-		processedKeys.sort { $0.rollingStartIntervalNumber > $1.rollingStartIntervalNumber }
-		
-		for (key, day) in zip(processedKeys, days) {
-			XCTAssertEqual(
-				key.transmissionRiskLevel,
-				transmissionRiskVector[day],
-				"Transmission Risk Level vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-			
-			XCTAssertEqual(
-				key.daysSinceOnsetOfSymptoms,
-				daysSinceOnsetOfSymptomsVector[day],
-				"Days Since Onset Of Symptoms vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-		}
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
 	
 	func testSubmissionPreprocess_InBetweenKeyMissing() {
 		let symptomsOnset: SymptomsOnset = .daysSinceOnset(7)
-		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
-		let daysSinceOnsetOfSymptomsVector = symptomsOnset.daysSinceOnsetOfSymptomsVector
 		
 		let days = [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14]
 		let keys = days.map { makeMockKey(daysUntilToday: $0) }
-		var processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
-		
-		processedKeys.sort { $0.rollingStartIntervalNumber > $1.rollingStartIntervalNumber }
-		
-		for (key, day) in zip(processedKeys, days) {
-			XCTAssertEqual(
-				key.transmissionRiskLevel,
-				transmissionRiskVector[day],
-				"Transmission Risk Level vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-			
-			XCTAssertEqual(
-				key.daysSinceOnsetOfSymptoms,
-				daysSinceOnsetOfSymptomsVector[day],
-				"Days Since Onset Of Symptoms vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-		}
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
 	
 	func testSubmissionPreprocess_MultipleKeysMissing() {
 		let symptomsOnset: SymptomsOnset = .daysSinceOnset(7)
-		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
-		let daysSinceOnsetOfSymptomsVector = symptomsOnset.daysSinceOnsetOfSymptomsVector
 		
 		let days = [1, 2, 3, 4, 5, 8, 9, 10, 11, 13, 14]
 		let keys = days.map { makeMockKey(daysUntilToday: $0) }
-		var processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
-		
-		processedKeys.sort { $0.rollingStartIntervalNumber > $1.rollingStartIntervalNumber }
-		
-		for (key, day) in zip(processedKeys, days) {
-			XCTAssertEqual(
-				key.transmissionRiskLevel,
-				transmissionRiskVector[day],
-				"Transmission Risk Level vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-			
-			XCTAssertEqual(
-				key.daysSinceOnsetOfSymptoms,
-				daysSinceOnsetOfSymptomsVector[day],
-				"Days Since Onset Of Symptoms vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-		}
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
 	
 	func testSubmissionPreprocess_MultipleKeysForOneDay() {
 		let symptomsOnset: SymptomsOnset = .daysSinceOnset(7)
-		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
-		let daysSinceOnsetOfSymptomsVector = symptomsOnset.daysSinceOnsetOfSymptomsVector
 		
 		let days = [0, 0, 0, 1, 2, 3, 4, 5, 6, 6, 7, 7, 7, 8, 9, 10, 11, 12, 12, 13, 14, 14]
 		let keys = days.map { makeMockKey(daysUntilToday: $0) }
-		var processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
-		
-		processedKeys.sort { $0.rollingStartIntervalNumber > $1.rollingStartIntervalNumber }
-		
-		for (key, day) in zip(processedKeys, days) {
-			XCTAssertEqual(
-				key.transmissionRiskLevel,
-				transmissionRiskVector[day],
-				"Transmission Risk Level vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-			
-			XCTAssertEqual(
-				key.daysSinceOnsetOfSymptoms,
-				daysSinceOnsetOfSymptomsVector[day],
-				"Days Since Onset Of Symptoms vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-		}
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
 	
 	func testSubmissionPreprocess_KeysFromTheFutureAreIgnored() {
 		let symptomsOnset: SymptomsOnset = .daysSinceOnset(7)
-		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
-		let daysSinceOnsetOfSymptomsVector = symptomsOnset.daysSinceOnsetOfSymptomsVector
 		
 		let days = [-6, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 		let keys = days.map { makeMockKey(daysUntilToday: $0) }
-		var processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
-		
-		processedKeys.sort { $0.rollingStartIntervalNumber > $1.rollingStartIntervalNumber }
-		
-		let filteredDays = days.filter { (0...14).contains($0) }
-		for (key, day) in zip(processedKeys, filteredDays) {
-			XCTAssertEqual(
-				key.transmissionRiskLevel,
-				transmissionRiskVector[day],
-				"Transmission Risk Level vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-			
-			XCTAssertEqual(
-				key.daysSinceOnsetOfSymptoms,
-				daysSinceOnsetOfSymptomsVector[day],
-				"Days Since Onset Of Symptoms vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-		}
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
 	
 	func testSubmissionPreprocess_KeysOlderThan14DaysAreeIgnored() {
 		let symptomsOnset: SymptomsOnset = .daysSinceOnset(7)
-		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
-		let daysSinceOnsetOfSymptomsVector = symptomsOnset.daysSinceOnsetOfSymptomsVector
 		
 		let days = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 32, 167]
 		let keys = days.map { makeMockKey(daysUntilToday: $0) }
-		var processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
-		
-		processedKeys.sort { $0.rollingStartIntervalNumber > $1.rollingStartIntervalNumber }
-		
-		let filteredDays = days.filter { (0...14).contains($0) }
-		for (key, day) in zip(processedKeys, filteredDays) {
-			XCTAssertEqual(
-				key.transmissionRiskLevel,
-				transmissionRiskVector[day],
-				"Transmission Risk Level vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-			
-			XCTAssertEqual(
-				key.daysSinceOnsetOfSymptoms,
-				daysSinceOnsetOfSymptomsVector[day],
-				"Days Since Onset Of Symptoms vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-		}
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
 	
 	func testSubmissionPreprocess_ManyEdgeCases() {
 		let symptomsOnset: SymptomsOnset = .daysSinceOnset(7)
-		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
-		let daysSinceOnsetOfSymptomsVector = symptomsOnset.daysSinceOnsetOfSymptomsVector
 		
 		let days = [-54, -3, 1, 2, 3, 4, 6, 6, 6, 6, 6, 6, 7, 8, 9, 10, 11, 15, 16, 32, 167]
 		let keys = days.map { makeMockKey(daysUntilToday: $0) }
-		var processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
 		
-		processedKeys.sort { $0.rollingStartIntervalNumber > $1.rollingStartIntervalNumber }
-		
-		let filteredDays = days.filter { (0...14).contains($0) }
-		for (key, day) in zip(processedKeys, filteredDays) {
-			XCTAssertEqual(
-				key.transmissionRiskLevel,
-				transmissionRiskVector[day],
-				"Transmission Risk Level vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-			
-			XCTAssertEqual(
-				key.daysSinceOnsetOfSymptoms,
-				daysSinceOnsetOfSymptomsVector[day],
-				"Days Since Onset Of Symptoms vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
-			)
-		}
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
 	
 }
@@ -441,4 +198,27 @@ extension ExposureKeysProcessingTests {
 		
 		return TemporaryExposureKeyMock(rollingStartNumber: ENIntervalNumber(date.timeIntervalSince1970 / 600))
 	}
+
+	private func assertCorrectProcessing(on processedKeys: [SAP_TemporaryExposureKey], for days: [Int], with symptomsOnset: SymptomsOnset) {
+		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
+		let daysSinceOnsetOfSymptomsVector = symptomsOnset.daysSinceOnsetOfSymptomsVector
+
+		let sortedKeys = processedKeys.sorted { $0.rollingStartIntervalNumber > $1.rollingStartIntervalNumber }
+
+		let filteredDays = days.filter { (0...14).contains($0) }
+		for (key, day) in zip(sortedKeys, filteredDays) {
+			XCTAssertEqual(
+				key.transmissionRiskLevel,
+				transmissionRiskVector[day],
+				"Transmission Risk Level vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
+			)
+
+			XCTAssertEqual(
+				key.daysSinceOnsetOfSymptoms,
+				daysSinceOnsetOfSymptomsVector[day],
+				"Days Since Onset Of Symptoms vector not applied correctly! Expected \(daysSinceOnsetOfSymptomsVector[day]), got \(key.daysSinceOnsetOfSymptoms)"
+			)
+		}
+	}
+
 }
