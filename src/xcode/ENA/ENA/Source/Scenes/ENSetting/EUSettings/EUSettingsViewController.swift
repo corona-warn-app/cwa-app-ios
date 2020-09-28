@@ -28,7 +28,7 @@ class EUSettingsViewController: DynamicTableViewController {
 
 	// MARK: - Private Attributes
 
-	private var viewModel = EUSettingsViewModel(countries: [])
+	private var viewModel = EUSettingsViewModel()
 
 	// MARK: - View life cycle methods.
 
@@ -53,6 +53,11 @@ class EUSettingsViewController: DynamicTableViewController {
 			DynamicTableViewIconCell.self,
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.flagCell.rawValue
 		)
+
+		tableView.register(
+			DynamicTableViewRoundedCell.self,
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.roundedCell.rawValue
+		)
 	}
 
 	// MARK: Data Source setup methods.
@@ -61,25 +66,25 @@ class EUSettingsViewController: DynamicTableViewController {
 		client?.supportedCountries(completion: { [weak self] result in
 			switch result {
 			case .failure:
-				// TODO: We have not defined any behaviour yet for a failed country list download.
 				logError(message: "The country list could not be loaded.")
 				self?.viewModel = EUSettingsViewModel(countries: [])
 			case .success(let countries):
 				self?.viewModel = EUSettingsViewModel(countries: countries)
 			}
-			self?.reloadData()
+			self?.reloadCountrySection()
 		})
 	}
 
-	private func reloadData() {
+	private func reloadCountrySection() {
 		dynamicTableViewModel = viewModel.euSettingsModel()
-		tableView.reloadData()
+		tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
 	}
 }
 
 extension EUSettingsViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case flagCell
+		case roundedCell
 	}
 }
 
@@ -96,5 +101,30 @@ extension DynamicCell {
 			cell.contentView.layoutMargins.right = 32
 			cell.selectionStyle = .none
 		})
+	}
+
+	static func emptyCell() -> Self {
+		.custom(
+			withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.roundedCell,
+			action: .none,
+			accessoryAction: .none) { _, cell, _ in
+				if let roundedCell = cell as? DynamicTableViewRoundedCell {
+					roundedCell.configure(
+						title: NSMutableAttributedString(string: AppStrings.ExposureNotificationSetting.euEmptyErrorTitle),
+						titleStyle: .title2,
+						body: NSMutableAttributedString(string: AppStrings.ExposureNotificationSetting.euEmptyErrorDescription),
+						textColor: .textPrimary1,
+						bgColor: .separator,
+						icons: [
+							UIImage(named: "Icons_MobileDaten"),
+							UIImage(named: "Icon_Wifi")]
+							.compactMap { $0 },
+						buttonTitle: AppStrings.ExposureNotificationSetting.euEmptyErrorButtonTitle) {
+						if let url = URL(string: UIApplication.openSettingsURLString) {
+							UIApplication.shared.open(url)
+						}
+					}
+				}
+			}
 	}
 }
