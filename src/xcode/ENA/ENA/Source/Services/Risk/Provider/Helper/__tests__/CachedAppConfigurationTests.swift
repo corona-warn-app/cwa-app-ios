@@ -140,7 +140,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		store.appConfig = nil
 		store.lastAppConfigETag = nil
 
-		let client = CachingHTTPClient()
+		let client = CachingHTTPClientMock()
 
 		let expConfig = self.expectation(description: "app configuration fetched")
 
