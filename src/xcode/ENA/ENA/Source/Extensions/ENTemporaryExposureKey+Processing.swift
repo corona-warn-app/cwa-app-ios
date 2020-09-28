@@ -36,23 +36,23 @@ extension Array where Element: ENTemporaryExposureKey {
 			calendar.timeZone = utcTimeZone
 
 			/// Get the amount of days between start date and today to group the keys by that amount
-			guard let daysUntilToday = calendar.dateComponents([.day], from: startDate, to: today).day else { fatalError("Getting days since rolling start day failed") }
+			guard let ageInDays = calendar.dateComponents([.day], from: startDate, to: today).day else { fatalError("Getting days since rolling start day failed") }
 
-			return daysUntilToday
+			return ageInDays
 		})
 
 		/// 2. Assign the corresponding transmission risk levels and days since onset of symptoms. Keys that have no corresponding transmission risk level are filtered out.
 		var processedExposureKeys = [SAP_TemporaryExposureKey]()
-		for (daysUntilToday, exposureKeys) in groupedExposureKeys where daysUntilToday >= 0 && daysUntilToday <= 14 {
+		for (ageInDays, exposureKeys) in groupedExposureKeys where ageInDays >= 0 && ageInDays <= 14 {
 			for exposureKey in exposureKeys {
 				/// Convert to SAP key struct for submission
 				var sapExposureKey = exposureKey.sapKey
 
 				/// Assign corresponding transmission risk level
-				sapExposureKey.transmissionRiskLevel = symptomsOnset.transmissionRiskVector[daysUntilToday]
+				sapExposureKey.transmissionRiskLevel = symptomsOnset.transmissionRiskVector[ageInDays]
 
 				/// Assign corresponding days since onset of symptoms
-				sapExposureKey.daysSinceOnsetOfSymptoms = symptomsOnset.daysSinceOnsetOfSymptomsVector[daysUntilToday]
+				sapExposureKey.daysSinceOnsetOfSymptoms = symptomsOnset.daysSinceOnsetOfSymptomsVector[ageInDays]
 
 				processedExposureKeys.append(sapExposureKey)
 			}
