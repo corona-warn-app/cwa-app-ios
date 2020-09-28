@@ -128,8 +128,9 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 						 )]
 						+ bulletPointCells
 						+ [
-							.body(
+							.subheadline(
 								text: AppStrings.ExposureSubmissionSymptoms.introduction,
+								color: .enaColor(for: .textPrimary2),
 								accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptoms.introduction
 						)]
 						+ [
