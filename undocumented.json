@@ -122,90 +122,90 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
       "line": 39,
-      "symbol": "AppDelegate.detectExposure(completion:)",
+      "symbol": "AppDelegate.detectExposure(activityStateDelegate:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 87,
+      "line": 94,
       "symbol": "AppDelegate",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 90,
+      "line": 97,
       "symbol": "AppDelegate.store",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 93,
+      "line": 100,
       "symbol": "AppDelegate.taskScheduler",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 95,
+      "line": 102,
       "symbol": "AppDelegate.appConfigurationProvider",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 99,
+      "line": 106,
       "symbol": "AppDelegate.riskProvider",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 125,
+      "line": 132,
       "symbol": "AppDelegate.exposureManager",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 130,
+      "line": 138,
       "symbol": "AppDelegate.downloadedPackagesStore",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 132,
+      "line": 140,
       "symbol": "AppDelegate.client",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 135,
+      "line": 143,
       "symbol": "AppDelegate.lastRiskCalculation",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 146,
+      "line": 154,
       "symbol": "AppDelegate.application(_:didFinishLaunchingWithOptions:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 161,
+      "line": 169,
       "symbol": "AppDelegate.application(_:configurationForConnecting:options:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 169,
+      "line": 177,
       "symbol": "AppDelegate.application(_:didDiscardSceneSessions:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -990,14 +990,14 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Coordinator.swift",
       "line": 157,
-      "symbol": "Coordinator.showExposureDetection(state:isRequestRiskRunning:)",
+      "symbol": "Coordinator.showExposureDetection(state:activityState:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Coordinator.swift",
       "line": 176,
-      "symbol": "Coordinator.setExposureDetectionState(state:isRequestRiskRunning:)",
+      "symbol": "Coordinator.setExposureDetectionState(state:activityState:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -3355,28 +3355,28 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeHighRiskCellConfigurator.swift",
-      "line": 26,
-      "symbol": "HomeHighRiskCellConfigurator.init(isLoading:numberRiskContacts:daysSinceLastExposure:lastUpdateDate:manualExposureDetectionState:detectionMode:detectionInterval:)",
+      "line": 30,
+      "symbol": "HomeHighRiskCellConfigurator.init(state:numberRiskContacts:daysSinceLastExposure:lastUpdateDate:manualExposureDetectionState:detectionMode:detectionInterval:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeHighRiskCellConfigurator.swift",
-      "line": 49,
+      "line": 53,
       "symbol": "HomeHighRiskCellConfigurator.configure(cell:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeHighRiskCellConfigurator.swift",
-      "line": 89,
+      "line": 106,
       "symbol": "HomeHighRiskCellConfigurator.hash(into:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeHighRiskCellConfigurator.swift",
-      "line": 95,
+      "line": 112,
       "symbol": "HomeHighRiskCellConfigurator.==(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -3496,7 +3496,7 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeLowRiskCellConfigurator.swift",
       "line": 32,
-      "symbol": "HomeLowRiskCellConfigurator.init(isLoading:numberRiskContacts:lastUpdateDate:isButtonHidden:detectionMode:manualExposureDetectionState:detectionInterval:activeTracing:)",
+      "symbol": "HomeLowRiskCellConfigurator.init(state:numberRiskContacts:lastUpdateDate:isButtonHidden:detectionMode:manualExposureDetectionState:detectionInterval:activeTracing:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -3509,14 +3509,14 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeLowRiskCellConfigurator.swift",
-      "line": 121,
+      "line": 148,
       "symbol": "HomeLowRiskCellConfigurator.hash(into:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeLowRiskCellConfigurator.swift",
-      "line": 128,
+      "line": 155,
       "symbol": "HomeLowRiskCellConfigurator.==(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -3545,7 +3545,7 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeRiskLevelCellConfigurator.swift",
       "line": 26,
-      "symbol": "HomeRiskLevelCellConfigurator.isLoading",
+      "symbol": "HomeRiskLevelCellConfigurator.riskProviderState",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
@@ -3601,62 +3601,48 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeRiskLevelCellConfigurator.swift",
       "line": 60,
-      "symbol": "HomeRiskLevelCellConfigurator.init(isLoading:isButtonEnabled:isButtonHidden:detectionIntervalLabelHidden:lastUpdateDate:detectionInterval:)",
+      "symbol": "HomeRiskLevelCellConfigurator.init(state:isButtonEnabled:isButtonHidden:detectionIntervalLabelHidden:lastUpdateDate:detectionInterval:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeRiskLevelCellConfigurator.swift",
-      "line": 77,
-      "symbol": "HomeRiskLevelCellConfigurator.startLoading()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeRiskLevelCellConfigurator.swift",
-      "line": 81,
-      "symbol": "HomeRiskLevelCellConfigurator.stopLoading()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeRiskLevelCellConfigurator.swift",
-      "line": 87,
+      "line": 78,
       "symbol": "HomeRiskLevelCellConfigurator.updateButtonEnabled(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeRiskLevelCellConfigurator.swift",
-      "line": 91,
+      "line": 82,
       "symbol": "HomeRiskLevelCellConfigurator.updateButtonHidden(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeRiskLevelCellConfigurator.swift",
-      "line": 97,
+      "line": 88,
       "symbol": "HomeRiskLevelCellConfigurator.configure(cell:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeRiskLevelCellConfigurator.swift",
-      "line": 101,
+      "line": 92,
       "symbol": "HomeRiskLevelCellConfigurator.setupAccessibility(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeRiskLevelCellConfigurator.swift",
-      "line": 157,
+      "line": 148,
       "symbol": "HomeRiskLevelCellConfigurator",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeRiskLevelCellConfigurator.swift",
-      "line": 158,
+      "line": 149,
       "symbol": "HomeRiskLevelCellConfigurator.updateButtonTapped(cell:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -3692,41 +3678,34 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeUnknown48hRiskCellConfigurator.swift",
       "line": 27,
-      "symbol": "HomeUnknown48hRiskCellConfigurator.init(isLoading:lastUpdateDate:detectionInterval:detectionMode:manualExposureDetectionState:previousRiskLevel:)",
+      "symbol": "HomeUnknown48hRiskCellConfigurator.init(state:lastUpdateDate:detectionInterval:detectionMode:manualExposureDetectionState:previousRiskLevel:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeUnknown48hRiskCellConfigurator.swift",
       "line": 48,
-      "symbol": "HomeUnknown48hRiskCellConfigurator.title",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeUnknown48hRiskCellConfigurator.swift",
-      "line": 52,
       "symbol": "HomeUnknown48hRiskCellConfigurator.previousRiskTitle",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeUnknown48hRiskCellConfigurator.swift",
-      "line": 121,
+      "line": 131,
       "symbol": "HomeUnknown48hRiskCellConfigurator.configure(cell:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeUnknown48hRiskCellConfigurator.swift",
-      "line": 134,
+      "line": 144,
       "symbol": "HomeUnknown48hRiskCellConfigurator.hash(into:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeUnknown48hRiskCellConfigurator.swift",
-      "line": 139,
+      "line": 149,
       "symbol": "HomeUnknown48hRiskCellConfigurator.==(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -3740,28 +3719,28 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeUnknownRiskCellConfigurator.swift",
-      "line": 24,
-      "symbol": "HomeUnknownRiskCellConfigurator.init(isLoading:lastUpdateDate:detectionInterval:detectionMode:manualExposureDetectionState:)",
+      "line": 29,
+      "symbol": "HomeUnknownRiskCellConfigurator.init(state:lastUpdateDate:detectionInterval:detectionMode:manualExposureDetectionState:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeUnknownRiskCellConfigurator.swift",
-      "line": 41,
+      "line": 46,
       "symbol": "HomeUnknownRiskCellConfigurator.configure(cell:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeUnknownRiskCellConfigurator.swift",
-      "line": 75,
+      "line": 92,
       "symbol": "HomeUnknownRiskCellConfigurator.hash(into:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskCellConfigurators/HomeUnknownRiskCellConfigurator.swift",
-      "line": 79,
+      "line": 96,
       "symbol": "HomeUnknownRiskCellConfigurator.==(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
@@ -3895,7 +3874,7 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskViewConfigurators/HomeRiskLoadingItemViewConfigurator.swift",
       "line": 24,
-      "symbol": "HomeRiskLoadingItemViewConfigurator.isLoading",
+      "symbol": "HomeRiskLoadingItemViewConfigurator.isActivityIndicatorOn",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
@@ -3916,7 +3895,7 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Home/HomeRiskCellConfigurator/HomeRiskViewConfigurators/HomeRiskLoadingItemViewConfigurator.swift",
       "line": 28,
-      "symbol": "HomeRiskLoadingItemViewConfigurator.init(title:titleColor:isLoading:color:separatorColor:)",
+      "symbol": "HomeRiskLoadingItemViewConfigurator.init(title:titleColor:isActivityIndicatorOn:color:separatorColor:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -4650,70 +4629,70 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/States/ExposureDetectionViewController+State.swift",
-      "line": 29,
-      "symbol": "ExposureDetectionViewController.State.isLoading",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/States/ExposureDetectionViewController+State.swift",
-      "line": 31,
-      "symbol": "ExposureDetectionViewController.State.risk",
+      "line": 30,
+      "symbol": "ExposureDetectionViewController.State.activityState",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/States/ExposureDetectionViewController+State.swift",
       "line": 32,
+      "symbol": "ExposureDetectionViewController.State.risk",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/States/ExposureDetectionViewController+State.swift",
+      "line": 33,
       "symbol": "ExposureDetectionViewController.State.riskLevel",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/States/ExposureDetectionViewController+State.swift",
-      "line": 36,
+      "line": 37,
       "symbol": "ExposureDetectionViewController.State.previousRiskLevel",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/States/ExposureDetectionViewController+State.swift",
-      "line": 38,
+      "line": 39,
       "symbol": "ExposureDetectionViewController.State.actualRiskText",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/States/ExposureDetectionViewController+State.swift",
-      "line": 49,
+      "line": 50,
       "symbol": "ExposureDetectionViewController.State.riskText",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/States/ExposureDetectionViewController+State.swift",
-      "line": 53,
+      "line": 54,
       "symbol": "ExposureDetectionViewController.State.riskBackgroundColor",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/States/ExposureDetectionViewController+State.swift",
-      "line": 57,
+      "line": 58,
       "symbol": "ExposureDetectionViewController.State.riskTintColor",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/States/ExposureDetectionViewController+State.swift",
-      "line": 61,
+      "line": 62,
       "symbol": "ExposureDetectionViewController.State.riskContrastTintColor",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/States/ExposureDetectionViewController+State.swift",
-      "line": 65,
+      "line": 66,
       "symbol": "ExposureDetectionViewController.State.riskContrastTextColor",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
@@ -9256,140 +9235,140 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 70,
+      "line": 71,
       "symbol": "HomeInteractor.deinit",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 106,
-      "symbol": "HomeInteractor.updateAndReloadRiskLoading(isRequestRiskRunning:)",
+      "line": 103,
+      "symbol": "HomeInteractor.updateAndReloadRiskCellState(to:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 112,
+      "line": 109,
       "symbol": "HomeInteractor.requestRisk(userInitiated:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 116,
+      "line": 113,
       "symbol": "HomeInteractor.buildSections()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 166,
+      "line": 163,
       "symbol": "HomeInteractor",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 175,
+      "line": 172,
       "symbol": "HomeInteractor.reloadActionSection()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 187,
+      "line": 184,
       "symbol": "HomeInteractor",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 192,
+      "line": 189,
       "symbol": "HomeInteractor.setupRiskConfigurator()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 274,
+      "line": 271,
       "symbol": "HomeInteractor.setupSubmitConfigurator()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 280,
+      "line": 277,
       "symbol": "HomeInteractor.setupFindingPositiveRiskCellConfigurator()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 288,
+      "line": 285,
       "symbol": "HomeInteractor.setupActiveConfigurator()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 292,
+      "line": 289,
       "symbol": "HomeInteractor.setupActionConfigurators()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 400,
+      "line": 397,
       "symbol": "HomeInteractor",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 401,
+      "line": 398,
       "symbol": "HomeInteractor.updateTestResults()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 450,
+      "line": 447,
       "symbol": "HomeInteractor",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 451,
+      "line": 448,
       "symbol": "HomeInteractor.updateEnState(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 467,
+      "line": 464,
       "symbol": "HomeInteractor",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 488,
+      "line": 485,
       "symbol": "HomeInteractor.countdownTimer(_:didEnd:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 494,
+      "line": 491,
       "symbol": "HomeInteractor.countdownTimer(_:didUpdate:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeInteractor.swift",
-      "line": 503,
+      "line": 500,
       "symbol": "HomeInteractor.refreshTimerAfterResumingFromBackground()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -9460,14 +9439,14 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
       "line": 24,
-      "symbol": "HomeViewControllerDelegate.showExposureDetection(state:isRequestRiskRunning:)",
+      "symbol": "HomeViewControllerDelegate.showExposureDetection(state:activityState:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
       "line": 25,
-      "symbol": "HomeViewControllerDelegate.setExposureDetectionState(state:isRequestRiskRunning:)",
+      "symbol": "HomeViewControllerDelegate.setExposureDetectionState(state:activityState:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -13309,28 +13288,35 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetection.swift",
-      "line": 29,
+      "line": 25,
+      "symbol": "ExposureDetection.activityState",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetection.swift",
+      "line": 31,
       "symbol": "ExposureDetection.init(delegate:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetection.swift",
-      "line": 33,
+      "line": 35,
       "symbol": "ExposureDetection.cancel()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetection.swift",
-      "line": 86,
+      "line": 91,
       "symbol": "ExposureDetection.Completion",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetection.swift",
-      "line": 87,
+      "line": 92,
       "symbol": "ExposureDetection.start(completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -13680,85 +13666,141 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 24,
+      "line": 25,
       "symbol": "ExposureSummaryProvider",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 25,
+      "line": 26,
       "symbol": "ExposureSummaryProvider.Completion",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 26,
-      "symbol": "ExposureSummaryProvider.detectExposure(completion:)",
+      "line": 27,
+      "symbol": "ExposureSummaryProvider.detectExposure(activityStateDelegate:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 29,
+      "line": 35,
+      "symbol": "ActivityStateProviderDelegate.provideActivityState(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
+      "line": 38,
       "symbol": "RiskProvider",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 43,
+      "line": 52,
       "symbol": "RiskProvider.init(configuration:store:exposureSummaryProvider:appConfigurationProvider:exposureManagerState:targetQueue:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 63,
+      "line": 79,
+      "symbol": "RiskProvider.activityState",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
+      "line": 80,
       "symbol": "RiskProvider.exposureManagerState",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 64,
+      "line": 81,
       "symbol": "RiskProvider.configuration",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 65,
-      "symbol": "RiskProvider.isLoading",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 76,
+      "line": 92,
       "symbol": "RiskProvider",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 77,
+      "line": 93,
       "symbol": "RiskProvider.observeRisk(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 81,
+      "line": 97,
       "symbol": "RiskProvider.removeRisk(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 85,
+      "line": 101,
       "symbol": "RiskProvider.manualExposureDetectionState",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
+      "line": 348,
+      "symbol": "RiskProvider",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
+      "line": 365,
+      "symbol": "RiskProvider",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
+      "line": 366,
+      "symbol": "RiskProvider.ActivityState",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
+      "line": 367,
+      "symbol": "RiskProvider.ActivityState.idle",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
+      "line": 368,
+      "symbol": "RiskProvider.ActivityState.downloading",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
+      "line": 369,
+      "symbol": "RiskProvider.ActivityState.detecting",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
+      "line": 371,
+      "symbol": "RiskProvider.ActivityState.isActive",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
@@ -18308,1035 +18350,1049 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
       "line": 560,
-      "symbol": "AppStrings.Home.riskCardStatusCheckTitle",
+      "symbol": "AppStrings.Home.riskCardStatusDownloadingTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
       "line": 561,
-      "symbol": "AppStrings.Home.riskCardStatusCheckBody",
+      "symbol": "AppStrings.Home.riskCardStatusDownloadingBody",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 564,
-      "symbol": "AppStrings.Home.thankYouCardTitle",
+      "line": 562,
+      "symbol": "AppStrings.Home.riskCardStatusDetectingTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 565,
-      "symbol": "AppStrings.Home.thankYouCardBody",
+      "line": 563,
+      "symbol": "AppStrings.Home.riskCardStatusDetectingBody",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
       "line": 566,
-      "symbol": "AppStrings.Home.thankYouCardNoteTitle",
+      "symbol": "AppStrings.Home.thankYouCardTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
       "line": 567,
-      "symbol": "AppStrings.Home.thankYouCardPhoneItemTitle",
+      "symbol": "AppStrings.Home.thankYouCardBody",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
       "line": 568,
-      "symbol": "AppStrings.Home.thankYouCardHomeItemTitle",
+      "symbol": "AppStrings.Home.thankYouCardNoteTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
       "line": 569,
-      "symbol": "AppStrings.Home.thankYouCardFurtherInfoItemTitle",
+      "symbol": "AppStrings.Home.thankYouCardPhoneItemTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
       "line": 570,
-      "symbol": "AppStrings.Home.thankYouCard14DaysItemTitle",
+      "symbol": "AppStrings.Home.thankYouCardHomeItemTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
       "line": 571,
-      "symbol": "AppStrings.Home.thankYouCardContactsItemTitle",
+      "symbol": "AppStrings.Home.thankYouCardFurtherInfoItemTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
       "line": 572,
-      "symbol": "AppStrings.Home.thankYouCardAppItemTitle",
+      "symbol": "AppStrings.Home.thankYouCard14DaysItemTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
       "line": 573,
+      "symbol": "AppStrings.Home.thankYouCardContactsItemTitle",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
+      "line": 574,
+      "symbol": "AppStrings.Home.thankYouCardAppItemTitle",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
+      "line": 575,
       "symbol": "AppStrings.Home.thankYouCardNoSymptomsItemTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 576,
+      "line": 578,
       "symbol": "AppStrings.Home.findingPositiveCardTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 577,
+      "line": 579,
       "symbol": "AppStrings.Home.findingPositiveCardStatusTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 578,
+      "line": 580,
       "symbol": "AppStrings.Home.findingPositiveCardStatusSubtitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 579,
+      "line": 581,
       "symbol": "AppStrings.Home.findingPositiveCardNoteTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 580,
+      "line": 582,
       "symbol": "AppStrings.Home.findingPositivePhoneItemTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 581,
+      "line": 583,
       "symbol": "AppStrings.Home.findingPositiveHomeItemTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 582,
+      "line": 584,
       "symbol": "AppStrings.Home.findingPositiveShareItemTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 583,
+      "line": 585,
       "symbol": "AppStrings.Home.findingPositiveCardButton",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 586,
+      "line": 588,
       "symbol": "AppStrings.Home.submitCardTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 587,
+      "line": 589,
       "symbol": "AppStrings.Home.submitCardBody",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 588,
+      "line": 590,
       "symbol": "AppStrings.Home.submitCardButton",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 590,
+      "line": 592,
       "symbol": "AppStrings.Home.settingsCardTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 591,
+      "line": 593,
       "symbol": "AppStrings.Home.appInformationCardTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 592,
+      "line": 594,
       "symbol": "AppStrings.Home.appInformationVersion",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 594,
+      "line": 596,
       "symbol": "AppStrings.Home.infoCardShareTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 595,
+      "line": 597,
       "symbol": "AppStrings.Home.infoCardShareBody",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 596,
+      "line": 598,
       "symbol": "AppStrings.Home.infoCardAboutTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 597,
+      "line": 599,
       "symbol": "AppStrings.Home.infoCardAboutBody",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 600,
+      "line": 602,
       "symbol": "AppStrings.Home.resultCardResultAvailableTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 601,
+      "line": 603,
       "symbol": "AppStrings.Home.resultCardResultUnvailableTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 602,
+      "line": 604,
       "symbol": "AppStrings.Home.resultCardLoadingBody",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 603,
+      "line": 605,
       "symbol": "AppStrings.Home.resultCardLoadingTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 604,
+      "line": 606,
       "symbol": "AppStrings.Home.resultCardShowResultButton",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 605,
+      "line": 607,
       "symbol": "AppStrings.Home.resultCardNegativeTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 606,
+      "line": 608,
       "symbol": "AppStrings.Home.resultCardNegativeDesc",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 607,
+      "line": 609,
       "symbol": "AppStrings.Home.resultCardPendingDesc",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 608,
+      "line": 610,
       "symbol": "AppStrings.Home.resultCardInvalidTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 609,
+      "line": 611,
       "symbol": "AppStrings.Home.resultCardInvalidDesc",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 610,
+      "line": 612,
       "symbol": "AppStrings.Home.resultCardLoadingErrorTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 613,
+      "line": 615,
       "symbol": "AppStrings.InviteFriends",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 614,
+      "line": 616,
       "symbol": "AppStrings.InviteFriends.title",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 615,
+      "line": 617,
       "symbol": "AppStrings.InviteFriends.description",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 616,
+      "line": 618,
       "symbol": "AppStrings.InviteFriends.submit",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 617,
+      "line": 619,
       "symbol": "AppStrings.InviteFriends.navigationBarTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 618,
+      "line": 620,
       "symbol": "AppStrings.InviteFriends.shareTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 619,
+      "line": 621,
       "symbol": "AppStrings.InviteFriends.shareUrl",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 620,
+      "line": 622,
       "symbol": "AppStrings.InviteFriends.subtitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 621,
+      "line": 623,
       "symbol": "AppStrings.InviteFriends.imageAccessLabel",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 624,
+      "line": 626,
       "symbol": "AppStrings.Reset",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 625,
+      "line": 627,
       "symbol": "AppStrings.Reset.navigationBarTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 626,
+      "line": 628,
       "symbol": "AppStrings.Reset.header1",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 627,
+      "line": 629,
       "symbol": "AppStrings.Reset.description1",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 628,
+      "line": 630,
       "symbol": "AppStrings.Reset.resetButton",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 629,
+      "line": 631,
       "symbol": "AppStrings.Reset.discardButton",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 630,
+      "line": 632,
       "symbol": "AppStrings.Reset.infoTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 631,
+      "line": 633,
       "symbol": "AppStrings.Reset.infoDescription",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 632,
+      "line": 634,
       "symbol": "AppStrings.Reset.subtitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 633,
+      "line": 635,
       "symbol": "AppStrings.Reset.imageDescription",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 635,
+      "line": 637,
       "symbol": "AppStrings.Reset.confirmDialogTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 636,
+      "line": 638,
       "symbol": "AppStrings.Reset.confirmDialogDescription",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 637,
+      "line": 639,
       "symbol": "AppStrings.Reset.confirmDialogCancel",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 638,
+      "line": 640,
       "symbol": "AppStrings.Reset.confirmDialogConfirm",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 641,
+      "line": 643,
       "symbol": "AppStrings.SafariView",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 642,
+      "line": 644,
       "symbol": "AppStrings.SafariView.targetURL",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 645,
+      "line": 647,
       "symbol": "AppStrings.LocalNotifications",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 646,
+      "line": 648,
       "symbol": "AppStrings.LocalNotifications.ignore",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 647,
+      "line": 649,
       "symbol": "AppStrings.LocalNotifications.detectExposureTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 648,
+      "line": 650,
       "symbol": "AppStrings.LocalNotifications.detectExposureBody",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 649,
+      "line": 651,
       "symbol": "AppStrings.LocalNotifications.testResultsTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 650,
+      "line": 652,
       "symbol": "AppStrings.LocalNotifications.testResultsBody",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 653,
+      "line": 655,
       "symbol": "AppStrings.RiskLegend",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 654,
+      "line": 656,
       "symbol": "AppStrings.RiskLegend.title",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 655,
+      "line": 657,
       "symbol": "AppStrings.RiskLegend.subtitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 656,
+      "line": 658,
       "symbol": "AppStrings.RiskLegend.legend1Title",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 657,
+      "line": 659,
       "symbol": "AppStrings.RiskLegend.legend1Text",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 658,
+      "line": 660,
       "symbol": "AppStrings.RiskLegend.legend2Title",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 659,
+      "line": 661,
       "symbol": "AppStrings.RiskLegend.legend2Text",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 660,
+      "line": 662,
       "symbol": "AppStrings.RiskLegend.legend2RiskLevels",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 661,
+      "line": 663,
       "symbol": "AppStrings.RiskLegend.legend2High",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 662,
+      "line": 664,
       "symbol": "AppStrings.RiskLegend.legend2HighColor",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 663,
+      "line": 665,
       "symbol": "AppStrings.RiskLegend.legend2Low",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 664,
+      "line": 666,
       "symbol": "AppStrings.RiskLegend.legend2LowColor",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 665,
+      "line": 667,
       "symbol": "AppStrings.RiskLegend.legend2Unknown",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 666,
+      "line": 668,
       "symbol": "AppStrings.RiskLegend.legend2UnknownColor",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 667,
+      "line": 669,
       "symbol": "AppStrings.RiskLegend.legend3Title",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 668,
+      "line": 670,
       "symbol": "AppStrings.RiskLegend.legend3Text",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 669,
+      "line": 671,
       "symbol": "AppStrings.RiskLegend.definitionsTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 670,
+      "line": 672,
       "symbol": "AppStrings.RiskLegend.storeTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 671,
+      "line": 673,
       "symbol": "AppStrings.RiskLegend.storeText",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 672,
+      "line": 674,
       "symbol": "AppStrings.RiskLegend.checkTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 673,
+      "line": 675,
       "symbol": "AppStrings.RiskLegend.checkText",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 674,
+      "line": 676,
       "symbol": "AppStrings.RiskLegend.contactTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 675,
+      "line": 677,
       "symbol": "AppStrings.RiskLegend.contactText",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 676,
+      "line": 678,
       "symbol": "AppStrings.RiskLegend.notificationTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 677,
+      "line": 679,
       "symbol": "AppStrings.RiskLegend.notificationText",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 678,
+      "line": 680,
       "symbol": "AppStrings.RiskLegend.randomTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 679,
+      "line": 681,
       "symbol": "AppStrings.RiskLegend.randomText",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 680,
+      "line": 682,
       "symbol": "AppStrings.RiskLegend.titleImageAccLabel",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 683,
+      "line": 685,
       "symbol": "AppStrings.UpdateMessage",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 684,
+      "line": 686,
       "symbol": "AppStrings.UpdateMessage.title",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 685,
+      "line": 687,
       "symbol": "AppStrings.UpdateMessage.text",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 686,
+      "line": 688,
       "symbol": "AppStrings.UpdateMessage.textForce",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 687,
+      "line": 689,
       "symbol": "AppStrings.UpdateMessage.actionUpdate",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 688,
+      "line": 690,
       "symbol": "AppStrings.UpdateMessage.actionLater",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 690,
+      "line": 692,
       "symbol": "AppStrings.AppInformation",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 691,
+      "line": 693,
       "symbol": "AppStrings.AppInformation.aboutNavigation",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 692,
+      "line": 694,
       "symbol": "AppStrings.AppInformation.aboutImageDescription",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 693,
+      "line": 695,
       "symbol": "AppStrings.AppInformation.aboutTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 694,
+      "line": 696,
       "symbol": "AppStrings.AppInformation.aboutDescription",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 695,
+      "line": 697,
       "symbol": "AppStrings.AppInformation.aboutText",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 696,
+      "line": 698,
       "symbol": "AppStrings.AppInformation.aboutLink",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 697,
+      "line": 699,
       "symbol": "AppStrings.AppInformation.aboutLinkText",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 699,
+      "line": 701,
       "symbol": "AppStrings.AppInformation.faqNavigation",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 701,
+      "line": 703,
       "symbol": "AppStrings.AppInformation.contactNavigation",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 702,
+      "line": 704,
       "symbol": "AppStrings.AppInformation.contactImageDescription",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 703,
+      "line": 705,
       "symbol": "AppStrings.AppInformation.contactTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 704,
+      "line": 706,
       "symbol": "AppStrings.AppInformation.contactDescription",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 705,
+      "line": 707,
       "symbol": "AppStrings.AppInformation.contactHotlineTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 706,
+      "line": 708,
       "symbol": "AppStrings.AppInformation.contactHotlineText",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 707,
+      "line": 709,
       "symbol": "AppStrings.AppInformation.contactHotlineNumber",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 708,
+      "line": 710,
       "symbol": "AppStrings.AppInformation.contactHotlineDescription",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 709,
+      "line": 711,
       "symbol": "AppStrings.AppInformation.contactHotlineTerms",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 711,
+      "line": 713,
       "symbol": "AppStrings.AppInformation.imprintNavigation",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 712,
+      "line": 714,
       "symbol": "AppStrings.AppInformation.imprintImageDescription",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 713,
+      "line": 715,
       "symbol": "AppStrings.AppInformation.imprintSection1Title",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 714,
+      "line": 716,
       "symbol": "AppStrings.AppInformation.imprintSection1Text",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 715,
+      "line": 717,
       "symbol": "AppStrings.AppInformation.imprintSection2Title",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 716,
+      "line": 718,
       "symbol": "AppStrings.AppInformation.imprintSection2Text",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 717,
+      "line": 719,
       "symbol": "AppStrings.AppInformation.imprintSection3Title",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 718,
+      "line": 720,
       "symbol": "AppStrings.AppInformation.imprintSection3Text",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 719,
+      "line": 721,
       "symbol": "AppStrings.AppInformation.imprintSection4Title",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 720,
+      "line": 722,
       "symbol": "AppStrings.AppInformation.imprintSection4Text",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 721,
+      "line": 723,
       "symbol": "AppStrings.AppInformation.imprintSectionContactFormTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 722,
+      "line": 724,
       "symbol": "AppStrings.AppInformation.imprintSectionContactFormLink",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 724,
+      "line": 726,
       "symbol": "AppStrings.AppInformation.legalNavigation",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 725,
+      "line": 727,
       "symbol": "AppStrings.AppInformation.legalImageDescription",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 727,
+      "line": 729,
       "symbol": "AppStrings.AppInformation.privacyNavigation",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 728,
+      "line": 730,
       "symbol": "AppStrings.AppInformation.privacyImageDescription",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 729,
+      "line": 731,
       "symbol": "AppStrings.AppInformation.privacyTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 731,
+      "line": 733,
       "symbol": "AppStrings.AppInformation.termsNavigation",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 732,
+      "line": 734,
       "symbol": "AppStrings.AppInformation.termsImageDescription",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 733,
+      "line": 735,
       "symbol": "AppStrings.AppInformation.termsTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 736,
+      "line": 738,
       "symbol": "AppStrings.ENATanInput",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 737,
+      "line": 739,
       "symbol": "AppStrings.ENATanInput.empty",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 738,
+      "line": 740,
       "symbol": "AppStrings.ENATanInput.invalidCharacter",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
-      "line": 739,
+      "line": 741,
       "symbol": "AppStrings.ENATanInput.characterIndex",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"

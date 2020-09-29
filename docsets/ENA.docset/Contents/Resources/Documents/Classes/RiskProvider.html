@@ -51,6 +51,7 @@
                     
                     <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">class</span> <span class="kt">RiskProvider</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RiskProvider</span><span class="p">:</span> <span class="kt"><a href="../Protocols/RiskProviding.html">RiskProviding</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RiskProvider</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ActivityStateProviderDelegate.html">ActivityStateProviderDelegate</a></span></code></pre>
 
                   </div>
                 </div>
@@ -119,6 +120,34 @@
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:3ENA12RiskProviderC13activityStateAC08ActivityE0Ovp"></a>
+                      <a name="//apple_ref/swift/Property/activityState" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA12RiskProviderC13activityStateAC08ActivityE0Ovp">activityState</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">activityState</span><span class="p">:</span> <span class="kt"><a href="../Classes/RiskProvider/ActivityState.html">ActivityState</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:3ENA12RiskProviderC20exposureManagerStateAA08ExposureeF0Vvp"></a>
                       <a name="//apple_ref/swift/Property/exposureManagerState" class="dashAnchor"></a>
                       <a class="token" href="#/s:3ENA12RiskProviderC20exposureManagerStateAA08ExposureeF0Vvp">exposureManagerState</a>
@@ -164,33 +193,6 @@
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">configuration</span><span class="p">:</span> <span class="kt"><a href="../Structs/RiskProvidingConfiguration.html">RiskProvidingConfiguration</a></span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:3ENA12RiskProviderC9isLoadingSbvp"></a>
-                      <a name="//apple_ref/swift/Property/isLoading" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA12RiskProviderC9isLoadingSbvp">isLoading</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">isLoading</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                           </div>
                         </div>
@@ -333,6 +335,47 @@ For Case2, we need to calculate the remaining time until we reach a full 24h of 
                           </div>
                         </div>
                       </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA12RiskProviderC20provideActivityStateyyAC0eF0OF"></a>
+                      <a name="//apple_ref/swift/Method/provideActivityState(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA12RiskProviderC20provideActivityStateyyAC0eF0OF">provideActivityState(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    The activity state is propagated to subscribers
+via a sink that can be found in the RiskProvider initializer.
+
+</div>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">provideActivityState</span><span class="p">(</span><span class="n">_</span> <span class="nv">state</span><span class="p">:</span> <span class="kt"><a href="../Classes/RiskProvider/ActivityState.html">ActivityState</a></span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA12RiskProviderC13ActivityStateO"></a>
+                      <a name="//apple_ref/swift/Enum/ActivityState" class="dashAnchor"></a>
+                      <a class="direct-link" href="../Classes/RiskProvider/ActivityState.html">ActivityState</a>
+                      </code>
                     </div>
                   </li>
                 </ul>
@@ -921,6 +964,9 @@ For Case2, we need to calculate the remaining time until we reach a full 24h of 
                   <a href="../Classes/RiskProvider.html">RiskProvider</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Classes/RiskProvider/ActivityState.html">– ActivityState</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Classes/RiskTextItemView.html">RiskTextItemView</a>
                 </li>
                 <li class="nav-group-task">
@@ -1433,6 +1479,9 @@ For Case2, we need to calculate the remaining time until we reach a full 24h of 
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/ActionTableViewCellDelegate.html">ActionTableViewCellDelegate</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/ActivityStateProviderDelegate.html">ActivityStateProviderDelegate</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/AppConfigurationProviding.html">AppConfigurationProviding</a>
