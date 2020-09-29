@@ -52,7 +52,7 @@ class DeltaOnboardingCoordinator: RequiresAppDependencies {
 		appConfigurationProvider.appConfiguration { applicationConfiguration in
 			
 			let supportedCountries = applicationConfiguration?.supportedCountries.compactMap({ Country(countryCode: $0) }) ?? []
-			
+						
 			let onboardingViewController = onboarding.makeViewController(supportedCountries: supportedCountries)
 
 			onboardingViewController.finished = { [weak self] in
@@ -69,7 +69,6 @@ class DeltaOnboardingCoordinator: RequiresAppDependencies {
 			}
 			
 			self.rootViewController?.present(navigationController, animated: true)
-
 		}
 
 		
