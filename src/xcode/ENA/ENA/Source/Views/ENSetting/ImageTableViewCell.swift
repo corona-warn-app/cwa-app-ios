@@ -60,7 +60,7 @@ class ImageTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 				AppStrings.ExposureNotificationSetting.accLabelEnabled,
 				"AppStrings.ExposureNotificationSetting.accLabelEnabled"
 			)
-		case .disabled, .restricted, .notAuthorized, .unknown:
+		case .disabled, .restricted, .notAuthorized, .unknown, .notActiveApp:
 			return .init(
 				UIImage(named: "Illu_Risikoermittlung_Off"),
 				AppStrings.ExposureNotificationSetting.accLabelDisabled,

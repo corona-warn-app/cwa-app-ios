@@ -22,27 +22,40 @@ import ExposureNotification
 
 extension Array where Element: ENTemporaryExposureKey {
 
-	/// The maximum number of keys to be submitted
-	var maxKeyCount: Int { 14 }
+	/// Prepare an array of `ENTemporaryExposureKey` for exposure submission.
+	func processedForSubmission(with symptomsOnset: SymptomsOnset, today: Date = Date()) -> [ENTemporaryExposureKey] {
+		/// 1. Group exposure keys by the day their rolling period started in the UTC time zone
+		var groupedExposureKeys: [Int: Self] = Dictionary(grouping: self, by: {
+			/// Use the rolling start number to get the date the rolling period started.
+			/// The rollingStartNumber is the unix timestamp divided by 600, giving the amount of of 10-minute-intervals that passed since 01.01.1970 00:00 UTC.
+			let startDate = Date(timeIntervalSince1970: Double($0.rollingStartNumber) * 600)
 
-	/// In-place prepare an array of `ENTemporaryExposureKey` for exposure submission.
-	///
-	/// Performs the following steps:
-	/// 1. Sorts the keys by their `rollingStartNumber`
-	/// 2. Takes the first `maxKeyCount` (14) keys using `prefix(_ :)`
-	/// 3. Applies the `transmissionRiskDefaultVector` to the sorted keys
-	mutating func process(for symptomsOnset: SymptomsOnset) {
-		sort {
-			$0.rollingStartNumber > $1.rollingStartNumber
+			/// Make sure to use a calendar in UTC time zone with 24 hour days and leap seconds etc. in sync with the gregorian calendar
+			var calendar = Calendar(identifier: .gregorian)
+			guard let utcTimeZone = TimeZone(secondsFromGMT: 0) else { fatalError("Getting UTC time zone failed.") }
+			calendar.timeZone = utcTimeZone
+
+			/// Get the amount of days between start date and today to group the keys by that amount
+			guard let daysUntilToday = calendar.dateComponents([.day], from: startDate, to: today).day else { fatalError("Getting days since rolling start day failed") }
+
+			return daysUntilToday
+		})
+
+		/// 2. Assign the corresponding transmission risk levels and filter out keys that have no corresponding transmission risk level
+		for (daysUntilToday, exposureKeys) in groupedExposureKeys {
+			if daysUntilToday >= 0 && daysUntilToday <= 14 {
+				for exposureKey in exposureKeys {
+					/// Assign corresponding transmission risk level
+					exposureKey.transmissionRiskLevel = symptomsOnset.transmissionRiskVector[daysUntilToday]
+				}
+			} else {
+				/// Remove keys that have no corresponding transmission risk level
+				groupedExposureKeys[daysUntilToday] = nil
+			}
 		}
 
-		self = Array(prefix(maxKeyCount))
-
-		/// The first element of the transmission risk vector is not used. That is because the ExposureNotification framework
-		/// does not return the current day's key - so the first key we have in the array is actually from yesterday.
-		for (key, vectorElement) in zip(self, symptomsOnset.transmissionRiskVector.dropFirst()) {
-			key.transmissionRiskLevel = vectorElement
-		}
+		// Flatten dictionary [[0] -> [Key0], [1] -> [Key1, Key2]] to unsorted array [Key1, Key2, Key0]
+		return groupedExposureKeys.values.flatMap { $0 }
 	}
 
 }
