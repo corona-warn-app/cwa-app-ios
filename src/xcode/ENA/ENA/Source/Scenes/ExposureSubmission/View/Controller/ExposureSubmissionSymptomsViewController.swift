@@ -125,11 +125,17 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 				.section(
 					header: .none,
 					cells: [
-						.headline(
-							text: AppStrings.ExposureSubmissionSymptoms.description,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptoms.description
-						)]
+							.headline(
+							 text: AppStrings.ExposureSubmissionSymptoms.description,
+							 accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptoms.description
+						 )]
 						+ bulletPointCells
+						+ [
+							.subheadline(
+								text: AppStrings.ExposureSubmissionSymptoms.introduction,
+								color: .enaColor(for: .textPrimary2),
+								accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSymptoms.introduction
+						)]
 						+ [
 							.custom(
 								withIdentifier: CustomCellReuseIdentifiers.optionGroupCell,

@@ -175,6 +175,7 @@ enum AppStrings {
 
 	enum ExposureSubmissionSymptoms {
 		static let title = NSLocalizedString("ExposureSubmissionSymptoms_Title", comment: "")
+		static let introduction = NSLocalizedString("ExposureSubmissionSymptoms_Introduction", comment: "")
 		static let description = NSLocalizedString("ExposureSubmissionSymptoms_Description", comment: "")
 		static let symptoms = [
 			NSLocalizedString("ExposureSubmissionSymptoms_Symptom0", comment: ""),
@@ -466,8 +467,13 @@ enum AppStrings {
 		static let internetDescription = NSLocalizedString("ExposureNotificationSetting_Internet_Description", comment: "")
 		static let detailActionButtonTitle = NSLocalizedString("ExposureNotificationSetting_Detail_Action_Button", comment: "")
 		static let tracingHistoryDescription = NSLocalizedString("ENSetting_Tracing_History", comment: "")
+		static let activateOldOSENSetting = NSLocalizedString("ExposureNotificationSetting_Activate_OSENSetting_Pre13.7", comment: "")
+		static let activateOldOSENSettingDescription = NSLocalizedString("ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7", comment: "")
 		static let activateOSENSetting = NSLocalizedString("ExposureNotificationSetting_Activate_OSENSetting", comment: "")
 		static let activateOSENSettingDescription = NSLocalizedString("ExposureNotificationSetting_Activate_OSENSetting_Description", comment: "")
+		static let activateAppOSENSetting = NSLocalizedString("ExposureNotificationSetting_SetActiveApp_OSENSetting", comment: "")
+		static let activateAppOSENSettingDescription = NSLocalizedString("ExposureNotificationSetting_SetActiveApp_OSENSetting_Description", comment: "")
+		static let activateOldAppOSENSettingDescription = NSLocalizedString("ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7", comment: "")
 		static let activateParentalControlENSetting = NSLocalizedString("ExposureNotificationSetting_ParentalControls_OSENSetting", comment: "")
 		static let activateParentalControlENSettingDescription = NSLocalizedString("ExposureNotificationSetting_ParentalControls_OSENSetting_Description", comment: "")
 		static let authorizationRequiredENSetting = NSLocalizedString("ExposureNotificationSetting_AuthorizationRequired_OSENSetting", comment: "")

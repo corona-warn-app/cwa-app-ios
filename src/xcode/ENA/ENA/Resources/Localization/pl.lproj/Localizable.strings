@@ -573,7 +573,9 @@
 /* ExposureSubmissionSymptoms */
 "ExposureSubmissionSymptoms_Title" = "Symptomy";
 
-"ExposureSubmissionSymptoms_Description" = "Czy w ciągu ostatnich kilku dni wystąpił u Ciebie jeden lub kilka z wymienionych poniżej symptomów?";
+"ExposureSubmissionSymptoms_Introduction" = "Możesz podać, czy i kiedy zauważyłeś(-łaś) symptomy koronawirusa, aby umożliwić aplikacji dokładniejsze obliczenie ryzyka zakażenia innych użytkowników aplikacji. Jeśli nie chcesz podawać tych informacji, wybierz „brak odpowiedzi”.";
+
+"ExposureSubmissionSymptoms_Description" = "Czy wystąpił u Ciebie jeden lub kilka z wymienionych poniżej symptomów?";
 
 "ExposureSubmissionSymptoms_Symptom0" = "Podwyższona temperatura lub gorączka";
 
@@ -595,7 +597,7 @@
 
 "ExposureSubmissionSymptoms_AnswerOptionNo" = "Nie";
 
-"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Bez komentarza";
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Brak odpowiedzi";
 
 "ExposureSubmissionSymptoms_ContinueButton" = "Dalej";
 
@@ -614,7 +616,7 @@
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "Ponad 2 tygodnie temu";
 
-"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Bez komentarza";
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Brak odpowiedzi";
 
 "ExposureSubmissionSymptomsOnset_ContinueButton" = "Dalej";
 
@@ -625,15 +627,15 @@
 
 "ExposureSubmissionWarnOthers_continueButton" = "Akceptuj";
 
-"ExposureSubmissionWarnOthers_sectionTitle" = "Pomóż nam wszystkim!";
+"ExposureSubmissionWarnOthers_sectionTitle" = "Możesz pomóc!";
 
-"ExposureSubmissionWarnOthers_description" = "Teraz możesz aktywować udostępnianie Twoich losowych identyfikatorów z ostatnich 14 dni. W ten sposób ostrzeżesz inne osoby i pomożesz w przerwaniu łańcucha zakażeń.\n\nZe względu na to, że ryzyko zakażenia może istnieć przed wystąpieniem choroby i może się zmieniać w czasie, prosimy również o podanie momentu zauważenia pierwszych objawów koronawirusa (takich jak na przykład gorączka lub kaszel). Dzięki temu aplikacja będzie mogła dokładniej obliczyć ryzyko zakażenia dla innych użytkowników aplikacji, z którymi miałeś(-aś) kontakt. Podanie informacji o wystąpieniu objawów jest opcjonalne. Jeśli nie masz żadnych objawów lub nie chcesz udostępnić tych informacji, możesz wybrać opcję „brak odpowiedzi”.\n\nZachowasz anonimowość, ponieważ przekazywane są tylko bezosobowe, losowe identyfikatory.";
+"ExposureSubmissionWarnOthers_description" = "Jeśli chcesz, możesz teraz aktywować w aplikacji udostępnianie innym Twoich losowych identyfikatorów z ostatnich 14 dni. W ten sposób ostrzeżesz inne osoby i pomożesz w przerwaniu łańcucha zakażeń.\n\nAplikacja udostępnie losowe identyfikatory i podane przez Ciebie informacje o wystąpieniu symptomów. Twoja tożsamość nie zostanie ujawniona.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping \"Accept\", you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the exposure logging feature can be automatically notified that they may have been exposed to a risk of infection. If you provide optional information about the onset of your symptoms, the random IDs transmitted will also include a risk value derived from your information, indicating your risk of having infected others on the day the random ID is valid. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person.\n\nTransmitting your test result via the App is voluntary. You will not be penalized if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected.\n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out based on the consent prior to the withdrawal. Further information can be found in the menu under \"App Information\" > \"Data Privacy\".";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the risk identification feature can be automatically notified that they may have been exposed to a risk of infection. If you provided optional information about the onset of your symptoms, the random IDs will be transmitted with a risk value derived from your information, indicating your risk of having infected others on the day the random ID is valid. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person.\n\nTransmitting your test result via the App is voluntary. You will not be penalized if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected. \n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out on the basis of the consent prior to the withdrawal. Further information can be found under “App Information”> “Data Privacy”.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Prywatność danych";
+"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Zgoda";
 
-"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Limit wieku: 16 i więcej";
+"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Ostrzeżenie dot. wieku (16 lat)";
 
 "ExposureSubmissionWarnOthers_consentUnderagesText" = "Ta aplikacja jest przeznaczona dla osób, które ukończyły 16 lat i mieszkają w Niemczech.";
 
@@ -665,7 +667,7 @@
 
 "ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNo" = "Nie";
 
-"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "Bez komentarza";
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "Brak odpowiedzi";
 
 "ExposureSubmissionWarnEuropeCountrySelection_title" = "Ostrzeżenia obejmujące całą Europę";
 
@@ -679,7 +681,7 @@
 
 "ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries" = "Inne kraje";
 
-"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "Bez komentarza";
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "Brak odpowiedzi";
 
 "ExposureSubmissionWarnEuropeCountrySelection_consentTitle" = "Oświadczenie o wyrażeniu zgody";
 
