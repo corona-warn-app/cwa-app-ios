@@ -21,8 +21,8 @@ import UIKit
 protocol HomeViewControllerDelegate: AnyObject {
 	func showRiskLegend()
 	func showExposureNotificationSetting(enState: ENStateHandler.State)
-	func showExposureDetection(state: HomeInteractor.State, isRequestRiskRunning: Bool)
-	func setExposureDetectionState(state: HomeInteractor.State, isRequestRiskRunning: Bool)
+	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProvider.ActivityState)
+	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProvider.ActivityState)
 	func showExposureSubmission(with result: TestResult?)
 	func showInviteFriends()
 	func showWebPage(from viewController: UIViewController, urlString: String)
@@ -164,7 +164,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	// Called by HomeInteractor
 	func setStateOfChildViewControllers() {
-		delegate?.setExposureDetectionState(state: homeInteractor.state, isRequestRiskRunning: homeInteractor.riskProvider.isLoading)
+		delegate?.setExposureDetectionState(state: homeInteractor.state, activityState: homeInteractor.riskProvider.activityState)
 	}
 
 	func updateState(detectionMode: DetectionMode, exposureManagerState: ExposureManagerState, risk: Risk?) {
@@ -188,7 +188,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	func showExposureDetection() {
-		delegate?.showExposureDetection(state: homeInteractor.state, isRequestRiskRunning: homeInteractor.riskProvider.isLoading)
+		delegate?.showExposureDetection(state: homeInteractor.state, activityState: homeInteractor.riskProvider.activityState)
 	}
 
 	private func showScreenForActionSectionForCell(at indexPath: IndexPath) {

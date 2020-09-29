@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import BackgroundTasks
+import Combine
 import ExposureNotification
 import FMDB
 import UIKit
@@ -33,14 +33,21 @@ protocol CoronaWarnAppDelegate: AnyObject {
 }
 
 extension AppDelegate: CoronaWarnAppDelegate {
-	// required - otherwise app will crash because cast will fails
+	// required - otherwise app will crash because cast will fail.
 }
 
 extension AppDelegate: ExposureSummaryProvider {
 	func detectExposure(
+		activityStateDelegate: ActivityStateProviderDelegate? = nil,
 		completion: @escaping (ENExposureDetectionSummary?) -> Void
 	) -> CancellationToken {
 		exposureDetection = ExposureDetection(delegate: exposureDetectionExecutor)
+		exposureDetection?
+			.$activityState
+			.removeDuplicates()
+			.subscribe(on: RunLoop.main)
+			.sink { activityStateDelegate?.provideActivityState($0) }
+			.store(in: &subscriptions)
 
 		let token = CancellationToken { [weak self] in
 			self?.exposureDetection?.cancel()
@@ -127,6 +134,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	#endif
 
 	private var exposureDetection: ExposureDetection?
+	private var subscriptions = Set<AnyCancellable>()
 
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
