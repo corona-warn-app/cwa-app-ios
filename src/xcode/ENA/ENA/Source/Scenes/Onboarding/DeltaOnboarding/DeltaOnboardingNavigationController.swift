@@ -19,55 +19,16 @@ import Foundation
 import UIKit
 
 final class DeltaOnboardingNavigationController: ENANavigationControllerWithFooter, UINavigationControllerDelegate, DeltaOnboardingViewControllerProtocol {
-	var finished: (() -> Void)?
 
 	// MARK: - Attributes.
+
+	var finished: (() -> Void)?
 
 	// MARK: - Life cycle.
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		let closeButton = UIButton(type: .custom)
-		closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)
-		closeButton.setImage(UIImage(named: "Icons - Close - Tap"), for: .highlighted)
-		closeButton.addTarget(self, action: #selector(close), for: .primaryActionTriggered)
-
-		let barButtonItem = UIBarButtonItem(customView: closeButton)
-		barButtonItem.accessibilityLabel = AppStrings.AccessibilityLabel.close
-		barButtonItem.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
-
-		navigationItem.rightBarButtonItem = barButtonItem
 		navigationBar.accessibilityIdentifier = AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle
-
-		delegate = self
-	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-
-		applyDefaultRightBarButtonItem(to: topViewController)
-	}
-
-	private func applyDefaultRightBarButtonItem(to viewController: UIViewController?) {
-		if let viewController = viewController,
-			viewController.navigationItem.rightBarButtonItem == nil ||
-				viewController.navigationItem.rightBarButtonItem == navigationItem.rightBarButtonItem {
-			viewController.navigationItem.rightBarButtonItem = navigationItem.rightBarButtonItem
-		}
-	}
-
-	@objc
-	func close() {
-		finished?()
-	}
-}
-
-extension DeltaOnboardingNavigationController {
-	func navigationController(_: UINavigationController, willShow viewController: UIViewController, animated _: Bool) {
-		if let deltaOnboardingViewController = viewController as? DeltaOnboardingViewControllerProtocol {
-			deltaOnboardingViewController.finished = self.finished
-		}
-		applyDefaultRightBarButtonItem(to: viewController)
 	}
 }

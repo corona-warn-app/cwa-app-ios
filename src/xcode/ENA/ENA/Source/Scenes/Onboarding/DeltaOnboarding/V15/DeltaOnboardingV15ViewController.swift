@@ -36,10 +36,6 @@ class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboard
 		super.init(coder: coder)
 	}
 
-	/*override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-		super.init(nibName: nil, bundle: nil)
-	}*/
-
 	@available(*, unavailable)
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
@@ -51,6 +47,7 @@ class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboard
 		super.viewDidLoad()
 		self.navigationController?.presentationController?.delegate = self
 		setupView()
+		setupRightBarButtonItem()
 	}
 	
 	// MARK: - Protocol UIAdaptivePresentationControllerDelegate
@@ -69,6 +66,19 @@ class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboard
 
 	private let viewModel: DeltaOnboardingV15ViewModel
 
+	private func setupRightBarButtonItem() {
+		let closeButton = UIButton(type: .custom)
+		closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)
+		closeButton.setImage(UIImage(named: "Icons - Close - Tap"), for: .highlighted)
+		closeButton.addTarget(self, action: #selector(close), for: .primaryActionTriggered)
+
+		let barButtonItem = UIBarButtonItem(customView: closeButton)
+		barButtonItem.accessibilityLabel = AppStrings.AccessibilityLabel.close
+		barButtonItem.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
+
+		navigationItem.rightBarButtonItem = barButtonItem
+	}
+
 	private func setupView() {
 		navigationFooterItem?.primaryButtonTitle = AppStrings.DeltaOnboarding.primaryButton
 		setupTableView()
@@ -86,6 +96,10 @@ class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboard
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 	}
 
+	@objc
+	func close() {
+		finished?()
+	}
 }
 
 // MARK: - Cell reuse identifiers.

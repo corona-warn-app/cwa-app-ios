@@ -39,6 +39,10 @@ class DeltaOnboardingV15: DeltaOnboarding {
 
 		let navigationController = DeltaOnboardingNavigationController(rootViewController: deltaOnboardingViewController)
 
+		deltaOnboardingViewController.finished = {
+			navigationController.finished?()
+		}
+
 		return navigationController
 	}
 }
