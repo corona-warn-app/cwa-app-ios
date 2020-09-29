@@ -29,6 +29,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
+	var serverEnvironment: ServerEnvironment { get }
 }
 
 extension AppDelegate: CoronaWarnAppDelegate {
@@ -94,8 +95,8 @@ extension AppDelegate: ExposureSummaryProvider {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-	//TODO: Handle it
-	var store: Store = SecureStore(subDirectory: "database")
+	let store: Store
+	let serverEnvironment: ServerEnvironment
 	
 	private let consumer = RiskConsumer()
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
@@ -138,7 +139,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
-	var client = HTTPClient(configuration: .backendBaseURLs)
+	let client: HTTPClient
 
 	// TODO: REMOVE ME
 	var lastRiskCalculation: String = ""
@@ -151,6 +152,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			exposureDetector: self.exposureManager
 		)
 	}()
+
+	override init() {
+		self.serverEnvironment = ServerEnvironment()
+
+		self.store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
+
+		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
+		self.client = HTTPClient(configuration: configuration)
+	}
 
 	func application(
 		_: UIApplication,

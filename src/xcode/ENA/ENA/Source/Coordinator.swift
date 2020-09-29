@@ -116,7 +116,8 @@ class Coordinator: RequiresAppDependencies {
 			store: store,
 			exposureManager: exposureManager,
 			developerStore: UserDefaults.standard,
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			serverEnvironment: serverEnvironment
 		)
 		developerMenu?.enableIfAllowed()
 	}

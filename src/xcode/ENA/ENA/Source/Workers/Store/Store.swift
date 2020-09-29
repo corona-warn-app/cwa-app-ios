@@ -109,5 +109,7 @@ protocol Store: AnyObject {
 	/// The time when the playbook was executed in background.
 	var firstPlaybookExecution: Date? { get set }
 
+	var selectedServerEnvironment: ServerEnvironmentData { get set }
+
 	func clearAll(key: String?)
 }
