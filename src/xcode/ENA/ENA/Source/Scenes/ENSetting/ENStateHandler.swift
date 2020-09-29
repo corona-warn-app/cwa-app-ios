@@ -87,7 +87,7 @@ final class ENStateHandler {
 		case .unknown:
 			return .unknown
 		case .authorized:
-			return .disabled
+			return .notActiveApp
 		@unknown default:
 			logError(message: "New state was added that is not being covered by ENStateHandler")
 			return .unknown

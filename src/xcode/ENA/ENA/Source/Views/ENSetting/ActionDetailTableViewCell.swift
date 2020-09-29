@@ -57,8 +57,22 @@ class ActionDetailTableViewCell: UITableViewCell, ActionCell {
 			descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateParentalControlENSettingDescription
 			iconImageView2.isHidden = true
 		case .notAuthorized:
-			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSetting
-			descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSettingDescription
+			if #available(iOS 13.7, *) {
+				actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSetting
+				descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSettingDescription
+			} else {
+				actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateOldOSENSetting
+				descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateOldOSENSettingDescription
+			}
+			iconImageView2.isHidden = true
+		case .notActiveApp:
+			if #available(iOS 13.7, *) {
+				actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateAppOSENSetting
+				descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateAppOSENSettingDescription
+			} else {
+				actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateAppOSENSetting
+				descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateOldAppOSENSettingDescription
+			}
 			iconImageView2.isHidden = true
 		case .unknown:
 			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.authorizationRequiredENSetting
@@ -80,7 +94,7 @@ class ActionDetailTableViewCell: UITableViewCell, ActionCell {
 			return (nil, nil)
 		case .bluetoothOff:
 			return (UIImage(named: "Icons_Bluetooth"), nil)
-		case .restricted, .notAuthorized, .unknown:
+		case .restricted, .notAuthorized, .unknown, .notActiveApp:
 			return (UIImage(named: "Icons_iOS_Settings"), nil)
 		}
 	}

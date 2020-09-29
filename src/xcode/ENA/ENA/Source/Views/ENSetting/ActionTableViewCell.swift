@@ -65,7 +65,7 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 		case .bluetoothOff:
 			detailLabel.isHidden = false
 			switchContainerView.isHidden = true
-		case .restricted, .notAuthorized:
+		case .restricted, .notAuthorized, .notActiveApp:
 			detailLabel.isHidden = false
 			switchContainerView.isHidden = true
 			detailLabel.text = AppStrings.ExposureNotificationSetting.deactivatedTracing
