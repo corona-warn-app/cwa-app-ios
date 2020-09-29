@@ -29,7 +29,7 @@ protocol DeltaOnboarding {
 	var isFinished: Bool { get }
 
 	func finish()
-	func makeViewController(supportedCountries: [Country]) -> DeltaOnboardingViewControllerProtocol
+	func makeViewController() -> DeltaOnboardingViewControllerProtocol
 }
 
 extension DeltaOnboarding {

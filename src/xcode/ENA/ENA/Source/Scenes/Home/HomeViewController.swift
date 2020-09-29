@@ -130,16 +130,23 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	private func showDeltaOnboarding() {
-		let onboardings: [DeltaOnboarding] = [
-			DeltaOnboardingV15(store: store)
-		]
-		deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
-		deltaOnboardingCoordinator?.finished = { [weak self] in
-			self?.deltaOnboardingCoordinator = nil
-		}
+		appConfigurationProvider.appConfiguration { [weak self] applicationConfiguration in
+			guard let self = self else { return }
 
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-			self.deltaOnboardingCoordinator?.startOnboarding()
+			let supportedCountries = applicationConfiguration?.supportedCountries.compactMap({ Country(countryCode: $0) }) ?? []
+
+			let onboardings: [DeltaOnboarding] = [
+				DeltaOnboardingV15(store: self.store, supportedCountries: supportedCountries)
+
+			]
+			self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
+			self.deltaOnboardingCoordinator?.finished = { [weak self] in
+				self?.deltaOnboardingCoordinator = nil
+			}
+
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+				self.deltaOnboardingCoordinator?.startOnboarding()
+			}
 		}
 	}
 

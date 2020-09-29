@@ -19,7 +19,7 @@
 
 import UIKit
 
-class DeltaOnboardingCoordinator: RequiresAppDependencies {
+class DeltaOnboardingCoordinator {
 
 	// MARK: - Attributes
 
@@ -48,12 +48,8 @@ class DeltaOnboardingCoordinator: RequiresAppDependencies {
 			finished?()
 			return
 		}
-		
-		appConfigurationProvider.appConfiguration { applicationConfiguration in
-			
-			let supportedCountries = applicationConfiguration?.supportedCountries.compactMap({ Country(countryCode: $0) }) ?? []
 						
-			let onboardingViewController = onboarding.makeViewController(supportedCountries: supportedCountries)
+			let onboardingViewController = onboarding.makeViewController()
 
 			onboardingViewController.finished = { [weak self] in
 				self?.rootViewController?.dismiss(animated: true)
@@ -69,7 +65,6 @@ class DeltaOnboardingCoordinator: RequiresAppDependencies {
 			}
 			
 			self.rootViewController?.present(navigationController, animated: true)
-		}
 	}
 
 	private func nextOnboarding() -> DeltaOnboarding? {
