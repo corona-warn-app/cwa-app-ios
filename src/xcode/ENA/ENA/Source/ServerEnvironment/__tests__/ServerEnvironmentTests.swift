@@ -20,11 +20,11 @@
 import XCTest
 @testable import ENA
 
-class LocalServerEnvironmentTests: XCTestCase {
+class ServerEnvironmentTests: XCTestCase {
 	
 	func test_AvailableEnvironmentsReturnsEnvironments() {
-		let sut_LocalServerEnvironment = makeLocalServerEnvironment()
-		let environments = sut_LocalServerEnvironment.availableEnvironments()
+		let sut_ServerEnvironment = makeServerEnvironment()
+		let environments = sut_ServerEnvironment.availableEnvironments()
 
 		XCTAssertEqual(environments.count, 3)
 		XCTAssertEqual(environments[0].name, "Default")
@@ -32,31 +32,22 @@ class LocalServerEnvironmentTests: XCTestCase {
 		XCTAssertEqual(environments[2].name, "TestEnvironment2")
 	}
 
-	func test_GetHostsReturnesCorrectHosts() {
-		let sut_LocalServerEnvironment = makeLocalServerEnvironment()
-		let hosts = sut_LocalServerEnvironment.getHosts(for: "TestEnvironment2")
-
-		XCTAssertEqual(hosts.distributionURL.absoluteString, "https://TestEnvironment2.distribution")
-		XCTAssertEqual(hosts.submissionURL.absoluteString, "https://TestEnvironment2.submission")
-		XCTAssertEqual(hosts.verificationURL.absoluteString, "https://TestEnvironment2.verification")
-	}
-
 	func test_loadServerEnvironmentReturnesCorrectEnvironment() {
-		let sut_LocalServerEnvironment = makeLocalServerEnvironment()
-		let environment = sut_LocalServerEnvironment.loadServerEnvironment("TestEnvironment1")
+		let sut_ServerEnvironment = makeServerEnvironment()
+		let environment = sut_ServerEnvironment.environment("TestEnvironment1")
 		
 		XCTAssertEqual(environment.name, "TestEnvironment1")
 	}
 
 	func test_defaultEnvironmentShouldReturnCorrectEnvironment() {
-		let sut_LocalServerEnvironment = makeLocalServerEnvironment()
-		let environment = sut_LocalServerEnvironment.defaultEnvironment()
+		let sut_ServerEnvironment = makeServerEnvironment()
+		let environment = sut_ServerEnvironment.defaultEnvironment()
 
 		XCTAssertEqual(environment.name, "Default")
 	}
 
-	private func makeLocalServerEnvironment() -> LocalServerEnvironment {
-		let testBundle = Bundle(for: LocalServerEnvironmentTests.self)
-		return LocalServerEnvironment(bundle: testBundle, resourceName: "TestServerEnvironments")
+	private func makeServerEnvironment() -> ServerEnvironment {
+		let testBundle = Bundle(for: ServerEnvironmentTests.self)
+		return ServerEnvironment(bundle: testBundle, resourceName: "TestServerEnvironments")
 	}
 }

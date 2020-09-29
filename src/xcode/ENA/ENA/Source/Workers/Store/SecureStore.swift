@@ -23,20 +23,18 @@ import Foundation
 /// It uses an SQLite Database that still needs to be encrypted
 final class SecureStore: Store {
 
-	// MARK: - Static.
-
 	private let directoryURL: URL
 	private let kvStore: SQLiteKeyValueStore
-	private let localServerEnvironment: LocalServerEnvironment
+	private var serverEnvironment: ServerEnvironment
 
 	init(
 		at directoryURL: URL,
 		key: String,
-		localServerEnvironment: LocalServerEnvironment
+		serverEnvironment: ServerEnvironment
 	) throws {
 		self.directoryURL = directoryURL
 		self.kvStore = try SQLiteKeyValueStore(with: directoryURL, key: key)
-		self.localServerEnvironment = localServerEnvironment
+		self.serverEnvironment = serverEnvironment
 	}
 
 	/// Removes most key/value pairs.
@@ -226,9 +224,9 @@ final class SecureStore: Store {
 		set { kvStore["shouldPerformBackgroundFakeRequests"] = newValue }
 	}
 
-	var serverEnvironment: ServerEnvironment {
-		get { kvStore["serverEnvironment"] as ServerEnvironment? ?? localServerEnvironment.defaultEnvironment() }
-		set { kvStore["serverEnvironment"] = newValue }
+	var selectedServerEnvironment: ServerEnvironmentData {
+		get { kvStore["selectedServerEnvironment"] as ServerEnvironmentData? ?? serverEnvironment.defaultEnvironment() }
+		set { kvStore["selectedServerEnvironment"] = newValue }
 	}
 
 }
@@ -238,11 +236,11 @@ extension SecureStore {
 
 	static let keychainDatabaseKey = "secureStoreDatabaseKey"
 
-	convenience init(subDirectory: String, localServerEnvironment: LocalServerEnvironment) {
-		self.init(subDirectory: subDirectory, isRetry: false, localServerEnvironment: localServerEnvironment)
+	convenience init(subDirectory: String, serverEnvironment: ServerEnvironment) {
+		self.init(subDirectory: subDirectory, isRetry: false, serverEnvironment: serverEnvironment)
 	}
 
-	private convenience init(subDirectory: String, isRetry: Bool, localServerEnvironment: LocalServerEnvironment) {
+	private convenience init(subDirectory: String, isRetry: Bool, serverEnvironment: ServerEnvironment) {
 		// swiftlint:disable:next force_try
 		let keychain = try! KeychainHelper()
 
@@ -266,15 +264,15 @@ extension SecureStore {
 				} else {
 					key = try keychain.generateDatabaseKey()
 				}
-				try self.init(at: directoryURL, key: key, localServerEnvironment: localServerEnvironment)
+				try self.init(at: directoryURL, key: key, serverEnvironment: serverEnvironment)
 			} else {
 				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
 				let key = try keychain.generateDatabaseKey()
-				try self.init(at: directoryURL, key: key, localServerEnvironment: localServerEnvironment)
+				try self.init(at: directoryURL, key: key, serverEnvironment: serverEnvironment)
 			}
 		} catch is SQLiteStoreError where isRetry == false {
 			SecureStore.performHardDatabaseReset(at: subDirectory)
-			self.init(subDirectory: subDirectory, isRetry: true, localServerEnvironment: localServerEnvironment)
+			self.init(subDirectory: subDirectory, isRetry: true, serverEnvironment: serverEnvironment)
 		} catch {
 			fatalError("Creating the Database failed (\(error)")
 		}

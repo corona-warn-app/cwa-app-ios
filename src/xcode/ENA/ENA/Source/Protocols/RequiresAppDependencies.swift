@@ -31,7 +31,7 @@ protocol RequiresAppDependencies {
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
 	var lastRiskCalculation: String { get }  // TODO: REMOVE ME
-	var localServerEnvironment: LocalServerEnvironment { get }
+	var serverEnvironment: ServerEnvironment { get }
 }
 
 extension RequiresAppDependencies {
@@ -67,7 +67,7 @@ extension RequiresAppDependencies {
 		UIApplication.coronaWarnDelegate().taskScheduler
 	}
 
-	var localServerEnvironment: LocalServerEnvironment {
-		UIApplication.coronaWarnDelegate().localServerEnvironment
+	var serverEnvironment: ServerEnvironment {
+		UIApplication.coronaWarnDelegate().serverEnvironment
 	}
 }

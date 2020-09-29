@@ -2,30 +2,26 @@
 
 import Foundation
 
-// MARK: - Map
+// MARK: - Structs for json encoding.
+
 struct Map: Codable {
-	let serverEnvironments: [ServerEnvironment]
+	let serverEnvironments: [ServerEnvironmentData]
 
 	enum CodingKeys: String, CodingKey {
 		case serverEnvironments = "ServerEnvironments"
 	}
 }
 
-// MARK: - ServerEnvironment
-struct ServerEnvironment: Codable {
+struct ServerEnvironmentData: Codable {
 	let name: String
 	let distributionURL, submissionURL, verificationURL: URL
 }
 
-struct LocalServerEnvironment {
+// MARK: - ServerEnvironment access.
 
-	struct Hosts {
-		let distributionURL: URL
-		let submissionURL: URL
-		let verificationURL: URL
-	}
+struct ServerEnvironment {
 
-	private let environments: [ServerEnvironment]
+	private let environments: [ServerEnvironmentData]
 
 	init(bundle: Bundle = Bundle.main, resourceName: String = "ServerEnvironments") {
 		guard
@@ -39,11 +35,11 @@ struct LocalServerEnvironment {
 		self.environments = map.serverEnvironments
 	}
 
-	func availableEnvironments() -> [ServerEnvironment] {
+	func availableEnvironments() -> [ServerEnvironmentData] {
 		return environments
 	}
 
-	func loadServerEnvironment(_ name: String) -> ServerEnvironment {
+	func environment(_ name: String) -> ServerEnvironmentData {
 		guard let environment = availableEnvironments().first(where: { $0.name == name }) else {
 			fatalError("Missing server environment.")
 		}
@@ -51,16 +47,7 @@ struct LocalServerEnvironment {
 		return environment
 	}
 
-	func defaultEnvironment() -> ServerEnvironment {
-		return loadServerEnvironment("Default")
-	}
-
-	func getHosts(for environment: String) -> Hosts {
-		let environment = loadServerEnvironment(environment)
-		return Hosts(
-			distributionURL: environment.distributionURL,
-			submissionURL: environment.submissionURL,
-			verificationURL: environment.verificationURL
-		)
+	func defaultEnvironment() -> ServerEnvironmentData {
+		return environment("Default")
 	}
 }

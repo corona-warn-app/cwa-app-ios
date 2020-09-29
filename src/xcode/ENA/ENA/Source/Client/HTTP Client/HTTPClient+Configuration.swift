@@ -25,15 +25,15 @@ extension HTTPClient {
 		static func makeDefaultConfiguration(store: Store) -> Configuration {
 			let endpoints = Configuration.Endpoints(
 				distribution: .init(
-					baseURL: store.serverEnvironment.distributionURL,
+					baseURL: store.selectedServerEnvironment.distributionURL,
 					requiresTrailingSlash: false
 				),
 				submission: .init(
-					baseURL: store.serverEnvironment.submissionURL,
+					baseURL: store.selectedServerEnvironment.submissionURL,
 					requiresTrailingSlash: false
 				),
 				verification: .init(
-					baseURL: store.serverEnvironment.verificationURL,
+					baseURL: store.selectedServerEnvironment.verificationURL,
 					requiresTrailingSlash: false
 				)
 			)

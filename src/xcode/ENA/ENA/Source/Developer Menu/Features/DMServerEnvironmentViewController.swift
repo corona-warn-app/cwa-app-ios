@@ -26,11 +26,11 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 	init(
 		store: Store,
 		downloadedPackagesStore: DownloadedPackagesStore,
-		localServerEnvironment: LocalServerEnvironment
+		serverEnvironment: ServerEnvironment
 	) {
 		self.store = store
 		self.downloadedPackagesStore = downloadedPackagesStore
-		self.localServerEnvironment = localServerEnvironment
+		self.serverEnvironment = serverEnvironment
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -55,8 +55,8 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 		picker.dataSource = self
 		picker.delegate = self
 
-		let environmentIndex = localServerEnvironment.availableEnvironments().firstIndex {
-			$0.name == store.serverEnvironment.name
+		let environmentIndex = serverEnvironment.availableEnvironments().firstIndex {
+			$0.name == store.selectedServerEnvironment.name
 		}
 		picker.selectRow(environmentIndex ?? 0, inComponent: 0, animated: true)
 
@@ -80,33 +80,29 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 	// MARK: - Protocol UIPickerViewDelegate
 
 	func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-		return localServerEnvironment.availableEnvironments()[row].name
+		return serverEnvironment.availableEnvironments()[row].name
 	}
 
 	// MARK: - Protocol UIPickerViewDataSource
 
 	func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-		return localServerEnvironment.availableEnvironments().count
+		return serverEnvironment.availableEnvironments().count
 	}
 
 	func numberOfComponents(in pickerView: UIPickerView) -> Int {
 		return 1
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let store: Store
 	private let downloadedPackagesStore: DownloadedPackagesStore
-	private let localServerEnvironment: LocalServerEnvironment
+	private let serverEnvironment: ServerEnvironment
 	private var currentEnvironmentLabel: UILabel!
 	private var picker: UIPickerView!
 
 	private func updateCurrentEnviromentLabel() {
-		currentEnvironmentLabel.text = "Selected Environment: \(store.serverEnvironment.name)"
+		currentEnvironmentLabel.text = "Selected Environment: \(store.selectedServerEnvironment.name)"
 	}
 
 	@objc
@@ -117,7 +113,7 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 			guard let self = self else { return }
 
 			let selectedRow = self.picker.selectedRow(inComponent: 0)
-			self.store.serverEnvironment = self.localServerEnvironment.availableEnvironments()[selectedRow]
+			self.store.selectedServerEnvironment = self.serverEnvironment.availableEnvironments()[selectedRow]
 			self.updateCurrentEnviromentLabel()
 			self.store.summary = nil
 			self.downloadedPackagesStore.reset()

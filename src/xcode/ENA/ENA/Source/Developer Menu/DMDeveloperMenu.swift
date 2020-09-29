@@ -57,7 +57,7 @@ final class DMDeveloperMenu {
 		exposureManager: ExposureManager,
 		developerStore: DMStore,
 		exposureSubmissionService: ExposureSubmissionService,
-		localServerEnvironment: LocalServerEnvironment
+		serverEnvironment: ServerEnvironment
 	) {
 		self.client = client
 		self.presentingViewController = presentingViewController
@@ -65,7 +65,7 @@ final class DMDeveloperMenu {
 		self.exposureManager = exposureManager
 		self.developerStore = developerStore
 		self.exposureSubmissionService = exposureSubmissionService
-		self.localServerEnvironment = localServerEnvironment
+		self.serverEnvironment = serverEnvironment
 	}
 
 	// MARK: Properties
@@ -75,7 +75,7 @@ final class DMDeveloperMenu {
 	private let exposureManager: ExposureManager
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let developerStore: DMStore
-	private let localServerEnvironment: LocalServerEnvironment
+	private let serverEnvironment: ServerEnvironment
 
 	// MARK: Interacting with the developer menu
 
