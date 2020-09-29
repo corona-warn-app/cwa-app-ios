@@ -19,7 +19,7 @@
 
 import UIKit
 
-class DeltaOnboardingCoordinator {
+class DeltaOnboardingCoordinator: RequiresAppDependencies {
 
 	// MARK: - Attributes
 
@@ -48,26 +48,36 @@ class DeltaOnboardingCoordinator {
 			finished?()
 			return
 		}
-
-		let onboardingViewController = onboarding.makeViewController()
-
-		onboardingViewController.finished = { [weak self] in
-			self?.rootViewController?.dismiss(animated: true)
-			onboarding.finish()
-			self?.showNextOnbaordingViewController()
-		}
-
-		let navigationController = DeltaOnboardingNavigationController(rootViewController: onboardingViewController)
-		navigationController.finished = { [weak self] in
-			self?.rootViewController?.dismiss(animated: true)
-			onboarding.finish()
-			self?.showNextOnbaordingViewController()
-		}
 		
-		rootViewController?.present(navigationController, animated: true)
+		appConfigurationProvider.appConfiguration { applicationConfiguration in
+			
+			let supportedCountries = applicationConfiguration?.supportedCountries.compactMap({ Country(countryCode: $0) }) ?? []
+			
+			let onboardingViewController = onboarding.makeViewController(supportedCountries: supportedCountries)
+
+			onboardingViewController.finished = { [weak self] in
+				self?.rootViewController?.dismiss(animated: true)
+				onboarding.finish()
+				self?.showNextOnbaordingViewController()
+			}
+
+			let navigationController = DeltaOnboardingNavigationController(rootViewController: onboardingViewController)
+			navigationController.finished = { [weak self] in
+				self?.rootViewController?.dismiss(animated: true)
+				onboarding.finish()
+				self?.showNextOnbaordingViewController()
+			}
+			
+			self.rootViewController?.present(navigationController, animated: true)
+
+		}
+
+		
 	}
 
 	private func nextOnboarding() -> DeltaOnboarding? {
 		return onboardings.first(where: { !$0.isFinished })
 	}
+	
+	
 }

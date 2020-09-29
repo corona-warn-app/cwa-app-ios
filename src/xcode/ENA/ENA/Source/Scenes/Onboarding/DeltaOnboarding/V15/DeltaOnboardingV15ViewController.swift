@@ -29,8 +29,7 @@ class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboard
 	
 	init?(
 		coder: NSCoder,
-		supportedCountries: [Country],
-		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
+		supportedCountries: [Country]
 	) {
 		self.viewModel = DeltaOnboardingV15ViewModel(supportedCountries: supportedCountries)
 		
