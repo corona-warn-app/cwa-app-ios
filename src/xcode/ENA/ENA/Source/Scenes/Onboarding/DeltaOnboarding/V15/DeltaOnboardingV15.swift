@@ -29,6 +29,11 @@ struct DeltaOnboardingV15: DeltaOnboarding {
 	}
 
 	func makeViewController() -> DeltaOnboardingViewControllerProtocol {
-		return DeltaOnboardingV15ViewController()
+		
+		let deltaOnboardingViewController = AppStoryboard.onboarding.initiate(viewControllerType: DeltaOnboardingV15ViewController.self) { coder -> UIViewController? in
+			DeltaOnboardingV15ViewController(coder: coder, supportedCountries: [], onPrimaryButtonTap: {_ in})
+		 }
+		
+		return deltaOnboardingViewController
 	}
 }

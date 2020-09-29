@@ -732,5 +732,19 @@ enum AppStrings {
 		static let invalidCharacter = NSLocalizedString("ENATanInput_InvalidCharacter", comment: "")
 		static let characterIndex = NSLocalizedString("ENATanInput_CharacterIndex", comment: "")
 	}
+	
+	enum DeltaOnboarding {
+		static let accImageLabel = NSLocalizedString("DeltaOnboarding_AccessibilityImageLabel", comment: "")
+		static let title = NSLocalizedString("DeltaOnboarding_Headline", comment: "")
+		
+		static let description = NSLocalizedString("DeltaOnboarding_Description", comment: "")
+		static let downloadInfo = NSLocalizedString("DeltaOnboarding_DownloadInfo", comment: "")
+		static let participatingCountries = NSLocalizedString("DeltaOnboarding_ParticipatingCountries", comment: "")
+		
+		static let participatingCountriesListUnavailableTitle = NSLocalizedString("DeltaOnboarding_ParticipatingCountriesList_Unavailable_Title", comment:"")
+		static let participatingCountriesListUnavailable = NSLocalizedString("DeltaOnboarding_ParticipatingCountriesList_Unavailable", comment: "")
+		
+		static let primaryButton = NSLocalizedString("DeltaOnboarding_PrimaryButton_Continue", comment: "")
+	}
 	// swiftlint:disable:next file_length
 }

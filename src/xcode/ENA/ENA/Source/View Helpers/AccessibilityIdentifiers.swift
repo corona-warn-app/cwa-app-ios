@@ -206,6 +206,15 @@ enum AccessibilityIdentifiers {
 		static let sectionTitle = "AppStrings.ExposureSubmissionWarnOthers.sectionTitle"
 		static let description = "AppStrings.ExposureSubmissionWarnOthers.description"
 	}
+	
+	enum DeltaOnboarding {
+		static let accImageDescription = "AppStrings.DeltaOnboarding.accImageLabel"
+		static let sectionTitle = "AppStrings.DeltaOnboarding.title"
+		static let description = "AppStrings.DeltaOnboarding.description"
+		static let downloadInfo = "AppStrings.DeltaOnboarding.downloadInfo"
+		static let participatingCountriesListUnavailable = "AppStrings.DeltaOnboarding.participatingCountriesListUnavailable"
+		static let participatingCountriesListUnavailableTitle = "AppStrings.DeltaOnboarding.participatingCountriesListUnavailableTitle"
+	}
 
 	enum ExposureSubmissionWarnEuropeConsent {
 		static let imageDescription = "AppStrings.ExposureSubmissionWarnEuropeConsent.imageDescription"
