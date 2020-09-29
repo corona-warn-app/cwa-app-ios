@@ -46,11 +46,15 @@ final class OnboardingInfoViewController: UIViewController {
 		coder: NSCoder,
 		pageType: OnboardingPageType,
 		exposureManager: ExposureManager,
-		store: Store
+		store: Store,
+		client: HTTPClient,
+		supportedCountries: [Country]? = nil
 	) {
 		self.pageType = pageType
 		self.exposureManager = exposureManager
 		self.store = store
+		self.client = client
+		self.supportedCountries = supportedCountries
 		super.init(coder: coder)
 	}
 
@@ -84,9 +88,12 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private var onboardingInfos = OnboardingInfo.testData()
 	private var exposureManagerActivated = false
+
+	var client: HTTPClient?
 	var htmlTextView: HtmlTextView?
 
 	var onboardingInfo: OnboardingInfo?
+	var supportedCountries: [Country]?
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -95,6 +102,8 @@ final class OnboardingInfoViewController: UIViewController {
 		viewRespectsSystemMinimumLayoutMargins = false
 		view.layoutMargins = .zero
 		setupAccessibility()
+
+		if pageType == .togetherAgainstCoronaPage { loadCountryList() }
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -145,6 +154,24 @@ final class OnboardingInfoViewController: UIViewController {
 			completion()
 		}
 		present(alert, animated: true, completion: nil)
+	}
+
+	private func loadCountryList() {
+		client?.supportedCountries(completion: { [weak self] result in
+			switch result {
+			case .failure:
+				logError(message: "Did not receive a country list.")
+				self?.supportedCountries = []
+			case .success(let countries):
+				self?.supportedCountries = countries
+			}
+		})
+	}
+
+	private func updateCountrySection(countries: [Country]) {
+		let bla = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+		bla.backgroundColor = .red
+		stackView.insertArrangedSubview(view, at: 3)
 	}
 
 	private func updateUI(exposureManagerState: ExposureManagerState) {
@@ -203,6 +230,7 @@ final class OnboardingInfoViewController: UIViewController {
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_euTitle,
 				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_euDescription
 			)
+			addCountrySection(title: "Derzeit nehmen die folgenden Länder teil:", countries: supportedCountries ?? [])
 			addPanel(
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle,
 				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_consentUnderagesText,
@@ -384,7 +412,9 @@ final class OnboardingInfoViewController: UIViewController {
 				coder: coder,
 				pageType: nextPageType,
 				exposureManager: self.exposureManager,
-				store: self.store
+				store: self.store,
+				client: client,
+				supportedCountries: supportedCountries
 			)
 		}
 		// swiftlint:disable:next force_unwrapping
@@ -393,7 +423,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 
 	private func finishOnBoarding() {
-		store.isOnboarded = true
+		// store.isOnboarded = true
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
 

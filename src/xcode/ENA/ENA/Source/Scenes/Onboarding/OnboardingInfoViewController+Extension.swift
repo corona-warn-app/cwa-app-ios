@@ -90,4 +90,100 @@ extension OnboardingInfoViewController {
 		)
 	}
 
+	func createCountrySection(
+		title: String,
+		countries: [Country]
+	) -> UIView {
+
+		let containerView = UIView()
+
+		// MARK: - Create country table.
+		let countryListView = UIStackView()
+		countryListView.translatesAutoresizingMaskIntoConstraints = false
+		countryListView.axis = .vertical
+		countryListView.alignment = .leading
+		countryListView.distribution = .equalSpacing
+		countryListView.spacing = 7.5
+		containerView.addSubview(countryListView)
+
+		// MARK: - Create title label.
+		let titleLabel = ENALabel()
+		titleLabel.style = .headline
+		titleLabel.text = title
+		titleLabel.translatesAutoresizingMaskIntoConstraints = false
+		titleLabel.textColor = .enaColor(for: .textPrimary1)
+		titleLabel.lineBreakMode = .byWordWrapping
+		titleLabel.numberOfLines = 0
+		containerView.addSubview(titleLabel)
+
+		for (index, country) in countries.enumerated() {
+			// MARK: - Create stack view to hold label and flag for country.
+			let stackView = UIStackView()
+			stackView.axis = .horizontal
+			stackView.alignment = .center
+			stackView.spacing = 13
+
+			// MARK: - Country name.
+			let label = ENALabel()
+			label.style = .body
+			label.text = country.localizedName
+
+			// MARK: - Country flag.
+			let image = UIImageView(image: country.flag)
+			image.widthAnchor.constraint(equalToConstant: 28).isActive = true
+			image.contentMode = .scaleAspectFit
+
+			stackView.addArrangedSubview(image)
+			stackView.addArrangedSubview(label)
+			countryListView.addArrangedSubview(stackView)
+
+			// MARK: - Add separator inbetween each.
+			if index == countries.count - 1 { break }
+			let separator = UIView()
+			separator.backgroundColor = .enaColor(for: .hairline)
+			countryListView.addArrangedSubview(separator)
+
+			NSLayoutConstraint.activate([
+				separator.leadingAnchor.constraint(equalTo: countryListView.leadingAnchor),
+				separator.trailingAnchor.constraint(equalTo: countryListView.trailingAnchor),
+				separator.heightAnchor.constraint(equalToConstant: 1)
+			])
+		}
+
+		let layoutMarginsGuide = containerView.layoutMarginsGuide
+
+		NSLayoutConstraint.activate([
+			titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
+			titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+			titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+			countryListView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
+			countryListView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
+			countryListView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+			countryListView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
+		])
+
+		return containerView
+	}
+
+	func addCountrySection(
+		title: String,
+		countries: [Country]
+	) {
+		// - TODO: Finalize handling of empty list.
+		if countries.isEmpty {
+			let emptyLabel = ENALabel()
+			emptyLabel.style = .headline
+			emptyLabel.text = "No countries could be loaded."
+			emptyLabel.translatesAutoresizingMaskIntoConstraints = false
+			emptyLabel.textColor = .enaColor(for: .textPrimary1)
+			emptyLabel.lineBreakMode = .byWordWrapping
+			emptyLabel.numberOfLines = 0
+			stackView.addArrangedSubview(emptyLabel)
+			return
+		}
+
+		let containerView = createCountrySection(title: title, countries: countries)
+		stackView.addArrangedSubview(containerView)
+	}
+
 }
