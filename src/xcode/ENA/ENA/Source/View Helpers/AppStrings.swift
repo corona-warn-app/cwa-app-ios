@@ -431,10 +431,10 @@ enum AppStrings {
 		static let onboardingInfo_enableLoggingOfContactsPage_title = NSLocalizedString("OnboardingInfo_enableLoggingOfContactsPage_title", comment: "")
 		static let onboardingInfo_enableLoggingOfContactsPage_boldText = NSLocalizedString("OnboardingInfo_enableLoggingOfContactsPage_boldText", comment: "")
 		static let onboardingInfo_enableLoggingOfContactsPage_normalText = NSLocalizedString("OnboardingInfo_enableLoggingOfContactsPage_normalText", comment: "")
-		static let onboardingInfo_enableLoggingOfContactsPage_panelTitle = NSLocalizedString("OnboardingInfo_enableLoggingOfContactsPage_panelTitle", comment: "")
+		static let onboardingInfo_enableLoggingOfContactsPage_panelTitle = NSLocalizedString("OnboardingInfo_enableLoggingOfContactsPage_panelTitle", tableName: "Localizable.legal", comment: "")
 		static let onboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle = NSLocalizedString("OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle", comment: "")
 		static let onboardingInfo_enableLoggingOfContactsPage_consentUnderagesText = NSLocalizedString("OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText", comment: "")
-		static let onboardingInfo_enableLoggingOfContactsPage_panelBody = NSLocalizedString("OnboardingInfo_enableLoggingOfContactsPage_panelBody", comment: "")
+		static let onboardingInfo_enableLoggingOfContactsPage_panelBody = NSLocalizedString("OnboardingInfo_enableLoggingOfContactsPage_panelBody", tableName: "Localizable.legal", comment: "")
 		static let onboardingInfo_howDoesDataExchangeWorkPage_imageDescription = NSLocalizedString("OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription", comment: "")
 		static let onboardingInfo_enableLoggingOfContactsPage_button = NSLocalizedString("Onboarding_EnableLogging_actionText", comment: "")
 		static let onboardingInfo_howDoesDataExchangeWorkPage_title = NSLocalizedString("OnboardingInfo_howDoesDataExchangeWorkPage_title", comment: "")
@@ -481,15 +481,23 @@ enum AppStrings {
 		static let authorizationButtonTitle = NSLocalizedString("ExposureNotificationSetting_AuthorizationRequired_ActionTitle", comment: "")
 		static let privacyConsentActivateAction = NSLocalizedString("ExposureNotificationSetting_Activate_Action", comment: "")
 		static let privacyConsentDismissAction = NSLocalizedString("ExposureNotificationSetting_Dismiss_Action", comment: "")
-
 		static let accLabelEnabled = NSLocalizedString("ExposureNotificationSetting_AccLabel_Enabled", comment: "")
 		static let accLabelDisabled = NSLocalizedString("ExposureNotificationSetting_AccLabel_Disabled", comment: "")
 		static let accLabelBluetoothOff = NSLocalizedString("ExposureNotificationSetting_AccLabel_BluetoothOff", comment: "")
 		static let accLabelInternetOff = NSLocalizedString("ExposureNotificationSetting_AccLabel_InternetOff", comment: "")
+
+		// EU Settings
 		
 		static let euTracingRiskDeterminationTitle = NSLocalizedString("ExposureNotificationSetting_euTracingRiskDeterminationTitle", comment: "")
-		
 		static let euTracingAllCountriesTitle = NSLocalizedString("ExposureNotificationSetting_euTracingAllCountriesTitle", comment: "")
+		static let euTitle = NSLocalizedString("ExposureNotificationSetting_EU_Title", comment: "")
+		static let euDescription1 = NSLocalizedString("ExposureNotificationSetting_EU_Desc_1", comment: "")
+		static let euDescription2 = NSLocalizedString("ExposureNotificationSetting_EU_Desc_2", comment: "")
+		static let euDescription3 = NSLocalizedString("ExposureNotificationSetting_EU_Desc_3", comment: "")
+		static let euEmptyErrorTitle = NSLocalizedString("ExposureNotificationSetting_EU_Empty_Error_Title", comment: "")
+		static let euEmptyErrorDescription = NSLocalizedString("ExposureNotificationSetting_EU_Empty_Error_Desc", comment: "")
+		static let euEmptyErrorButtonTitle = NSLocalizedString("ExposureNotificationSetting_EU_Empty_Error_Button_Title", comment: "")
+
 	}
 
 	enum ExposureNotificationError {
@@ -557,8 +565,10 @@ enum AppStrings {
 		// High Card
 		static let riskCardHighTitle = NSLocalizedString("Home_Risk_High_Title", comment: "")
 		static let riskCardHighNumberContactsItemTitle = NSLocalizedString("Home_Risk_High_Number_Contacts_Item_Title", comment: "")
-		static let riskCardStatusCheckTitle = NSLocalizedString("Home_Risk_Status_Check_Title", comment: "")
-		static let riskCardStatusCheckBody = NSLocalizedString("Home_Risk_Status_Check_Body", comment: "")
+		static let riskCardStatusDownloadingTitle = NSLocalizedString("Home_Risk_Status_Downloading_Title", comment: "")
+		static let riskCardStatusDownloadingBody = NSLocalizedString("Home_Risk_Status_Downloading_Body", comment: "")
+		static let riskCardStatusDetectingTitle = NSLocalizedString("Home_Risk_Status_Detecting_Title", comment: "")
+		static let riskCardStatusDetectingBody = NSLocalizedString("Home_Risk_Status_Detecting_Body", comment: "")
 
 		// Thank you card
 		static let thankYouCardTitle = NSLocalizedString("Home_Thank_You_Card_Title", comment: "")

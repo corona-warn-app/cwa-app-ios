@@ -25,7 +25,7 @@
 
 "Common_ENError5_Description" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
 
-"Common_ENError11_Description" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Smartphone neu und versuchen Sie es morgen erneut.";
+"Common_ENError11_Description" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Handy neu und versuchen Sie es morgen erneut.";
 
 "Common_ENError13_Description" = "Fehler 13: Ihre Risiko-Ermittlung für den heutigen Tag wurde bereits durchgeführt. Bitte versuchen Sie es in 24 Stunden erneut.";
 
@@ -332,10 +332,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "App-Nutzung ab 16 Jahren";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "Die App-Nutzung ist ab 16 Jahren gestattet und richtet sich an Personen, die sich in Deutschland aufhalten.";
-
-"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Einwilligungserklärung";
-
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Um zu erfahren, ob Sie Risiko-Begegnungen mit Nutzern der offiziellen Corona-Apps teilnehmender Länder* hatten und für Sie ein Infektionsrisiko besteht, müssen Sie die Funktion Risiko-Ermittlung in der App aktivieren. Der Aktivierung der Risiko-Ermittlung und der damit im Zusammenhang stehenden Datenverarbeitung stimmen Sie mit Antippen des Buttons „Risiko-Ermittlung aktivieren“ zu.\n\n\nUm die Risiko-Ermittlung nutzen zu können müssen Sie zudem auf Ihrem iPhone die von Apple bereitgestellte Kontaktaufzeichnungs-Funktion „COVID-19-Kontaktprotokoll“ aktivieren und für die Corona-Warn-App freigeben.\n\nIhr iPhone erzeugt und versendet bei aktivierter Kontaktaufzeichnung kontinuierlich Zufalls-IDs per Bluetooth, die von anderen Apple- und Android-Smartphones mit ebenfalls aktivierter Kontaktaufzeichnung in Ihrer Umgebung empfangen werden können. Umgekehrt empfängt Ihr iPhone die Zufalls-IDs der anderen Smartphones. Die eigenen und die von anderen Smartphones empfangenen Zufalls-IDs werden im COVID-19-Kontaktprotokoll aufgezeichnet und dort für 14 Tage gespeichert.\n\n\nFür die Risiko-Ermittlung lädt die App täglich oder auf Abfrage eine Liste mit den Zufalls-IDs aller Nutzer, die Ihre Zufalls-IDs über das europäische Serversystem geteilt haben, nachdem sie Corona-positiv getestet wurden. Diese Liste wird dann mit den im COVID-19-Kontaktprotokoll gespeicherten Zufalls-IDs verglichen. Wenn die App dabei feststellt, dass Sie eine Risiko-Begegnung hatten, werden Sie darüber von der App informiert. In diesem Fall erhält die App außerdem Zugriff auf weitere im COVID-19-Kontaktprotokoll Ihres iPhone gespeicherte Daten (Datum und Dauer sowie Bluetooth-Signalstärke des Kontakts).\n\nAus der Bluetooth-Signalstärke wird der räumliche Abstand zu dem anderen Nutzer abgeleitet (je stärker das Signal, desto geringer der Abstand). Diese Angaben werden von der App ausgewertet, um Ihr Gesundheitsrisiko abzuschätzen und Ihnen Empfehlungen für die nächsten Schritte zu geben. Diese Auswertung wird ausschließlich lokal auf Ihrem iPhone durchgeführt. Außer Ihnen erfährt niemand (auch nicht die Gesundheitsbehörden), ob Sie eine Risiko-Begegnung hatten und welches Risiko für Sie ermittelt wird.\n\nZum Widerruf Ihrer Einwilligung in die Risiko-Ermittlung können Sie die Funktion über den Schieberegler innerhalb der App deaktivieren oder die App löschen. Wenn Sie die Risiko-Ermittlung wieder nutzen möchten, können Sie den Schieberegler erneut aktivieren oder die App erneut installieren. Wenn Sie die Risiko-Ermittlung deaktivieren, prüft die App nicht mehr, ob Sie Risiko-Begegnungen hatten. Um auch die Aussendung und den Empfang der Zufalls-IDs anzuhalten, müssen Sie das COVID-19-Kontaktprotokoll in den Einstellungen Ihres iPhones deaktivieren. Bitte beachten Sie, dass die im COVID-19-Kontaktprotokoll aufgezeichneten fremden und eigenen Zufalls-IDs nicht in der App gelöscht werden. Die im COVID-19-Kontaktprotokoll gespeicherten Daten können Sie nur in den Einstellungen Ihres iPhones dauerhaft löschen.\n\n\nDie Datenschutzhinweise der App (einschließlich Informationen zur Datenverarbeitung für die Risiko-Ermittlung) finden Sie unter dem Menüpunkt „Datenschutz“.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Status";
 
@@ -779,10 +775,26 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_apiMisuse" = "Bei der Aktivierung der Risiko-Ermittlung ist ein interner Fehler aufgetreten. Für mehr Informationen besuchen Sie bitte die FAQ-Website und probieren Sie es später noch einmal.";
 
+/* EU Settings */
+
+"ExposureNotificationSetting_EU_Title" = "Länderübergreifende Risiko-Ermittlung";
+
+"ExposureNotificationSetting_EU_Desc_1" = "Die Corona-Warn-App warnt länderübergreifend vor möglichen Infektionen, indem Daten über eine europäische Infrastruktur ausgetauscht werden.";
+
+"ExposureNotificationSetting_EU_Desc_2" = "Es werden keine persönlichen Daten ausgetauscht. Für den länderübergreifenden Datenaustausch über die Corona-Warn-App fallen keine zusätzlichen Kosten für Sie an.";
+
+"ExposureNotificationSetting_EU_Desc_3" = "Derzeit nehmen die folgenden Länder teil:";
+
 /* EU Tracing Risk decription */
 "ExposureNotificationSetting_euTracingRiskDeterminationTitle" = "Länderübergreifende Risiko-Ermittlung";
 
 "ExposureNotificationSetting_euTracingAllCountriesTitle" = "Teilnehmende Länder";
+
+"ExposureNotificationSetting_EU_Empty_Error_Title" = "Länder können aktuell nicht angezeigt werden.";
+
+"ExposureNotificationSetting_EU_Empty_Error_Desc" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind.";
+
+"ExposureNotificationSetting_EU_Empty_Error_Button_Title" = "Geräte-Einstellungen öffnen";
 
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App Logo";
@@ -845,9 +857,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Home_Risk_High_Title" = "Erhöhtes Risiko";
 
 /* Home Status Check */
-"Home_Risk_Status_Check_Title" = "Prüfung läuft …";
 
-"Home_Risk_Status_Check_Body" = "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
+"Home_Risk_Status_Downloading_Title" = "Daten werden heruntergeladen …";
+
+"Home_Risk_Status_Detecting_Title" = "Prüfung läuft …";
+
+"Home_Risk_Status_Downloading_Body" = "Das kann bis zu mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
+
+"Home_Risk_Status_Detecting_Body" = "Ihre Begegnungsdaten werden nun geprüft. Das kann bis zu mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Vielen Dank!";

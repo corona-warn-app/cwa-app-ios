@@ -35,16 +35,19 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 
 	let model = ENSettingModel(content: [.banner, .actionCell, .euTracingCell, .actionDetailCell, .descriptionCell])
 	let store: Store
+	var client: Client
 	var enState: ENStateHandler.State
 
 	init?(
 		coder: NSCoder,
 		initialEnState: ENStateHandler.State,
 		store: Store,
+		client: Client,
 		delegate: ExposureNotificationSettingViewControllerDelegate
 	) {
 		self.delegate = delegate
 		self.store = store
+		self.client = client
 		enState = initialEnState
 		super.init(coder: coder)
 	}
@@ -84,7 +87,12 @@ extension ExposureNotificationSettingViewController {
 	}
 
 	private func handleEnableError(_ error: ExposureNotificationError, alert: Bool) {
-		let faqAction = UIAlertAction(title: AppStrings.ExposureNotificationError.learnMoreActionTitle, style: .default, handler: { _ in LinkHelper.showWebPage(from: self, urlString: AppStrings.ExposureNotificationError.learnMoreURL) })
+		let openSettingsAction = UIAlertAction(title: AppStrings.Common.alertActionOpenSettings, style: .default, handler: { _ in
+			if let settingsUrl = URL(string: UIApplication.openSettingsURLString),
+				UIApplication.shared.canOpenURL(settingsUrl) {
+				UIApplication.shared.open(settingsUrl, completionHandler: nil)
+			}
+		})
 		var errorMessage = ""
 		switch error {
 		case .exposureNotificationAuthorization:
@@ -99,7 +107,7 @@ extension ExposureNotificationSettingViewController {
 			errorMessage = AppStrings.ExposureNotificationError.apiMisuse
 		}
 		if alert {
-			alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [faqAction])
+			alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [openSettingsAction])
 		}
 		logError(message: error.localizedDescription + " with message: " + errorMessage, level: .error)
 		if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
@@ -188,7 +196,9 @@ extension ExposureNotificationSettingViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		// TODO: implement navigation (KGA)
+		let vc = EUSettingsViewController()
+		vc.client = client
+		navigationController?.pushViewController(vc, animated: true)
 		
 	}
 

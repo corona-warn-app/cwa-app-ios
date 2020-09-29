@@ -34,12 +34,13 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let successExpectation = expectation(description: "Expect that the completion handler is called!")
 
 		sut.exposureDetection(
-			ExposureDetection(delegate: sut),
-			determineAvailableData: { daysAndHours in
+			country: "IT",
+			determineAvailableData: { daysAndHours, country  in
 				defer { successExpectation.fulfill() }
 
 				XCTAssertEqual(daysAndHours?.days, testDaysAndHours.days)
 				XCTAssertEqual(daysAndHours?.hours, [23])
+				XCTAssertEqual(country, "IT")
 			}
 		)
 		waitForExpectations(timeout: 2.0)
@@ -52,8 +53,8 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let successExpectation = expectation(description: "Expect that the completion handler is called!")
 
 		sut.exposureDetection(
-			ExposureDetection(delegate: sut),
-			determineAvailableData: { daysAndHours in
+			country: "IT",
+			determineAvailableData: { daysAndHours, _ in
 				defer { successExpectation.fulfill() }
 
 				XCTAssertNil(daysAndHours)
@@ -79,12 +80,12 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 
 		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
 
-		downloadedPackageStore.set(country: "DE", day: localDaysAndHours.days[0], package: try .makePackage())
+		downloadedPackageStore.set(country: "IT", day: localDaysAndHours.days[0], package: try .makePackage())
 
 		let sut = ExposureDetectionExecutor.makeWith(packageStore: downloadedPackageStore)
 
 		let missingDaysAndHours = sut.exposureDetection(
-			ExposureDetection(delegate: sut),
+			country: "IT",
 			downloadDeltaFor: remoteDaysAndHours)
 
 		XCTAssertEqual(missingDaysAndHours.days, [todayString])
@@ -96,16 +97,16 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 
 		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
 
-		downloadedPackageStore.set(country: "DE", day: Date.distantPast.formatted, package: try SAPDownloadedPackage.makePackage())
+		downloadedPackageStore.set(country: "IT", day: Date.distantPast.formatted, package: try SAPDownloadedPackage.makePackage())
 
 		let sut = ExposureDetectionExecutor.makeWith(packageStore: downloadedPackageStore)
 
 		_ = sut.exposureDetection(
-			ExposureDetection(delegate: sut),
+			country: "IT",
 			downloadDeltaFor: DaysAndHours(days: ["Hello"], hours: [])
 		)
 
-		XCTAssert(downloadedPackageStore.allDays(country: "DE").isEmpty, "The store should be empty after being pruned!")
+		XCTAssert(downloadedPackageStore.allDays(country: "IT").isEmpty, "The store should be empty after being pruned!")
 	}
 
 	// MARK: - Store Delta Tests
@@ -127,12 +128,12 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		)
 
 		sut.exposureDetection(
-			ExposureDetection(delegate: sut),
+			country: "IT",
 			downloadAndStore: testDaysAndHours) { error in
 				defer { completionExpectation.fulfill() }
 				XCTAssertNil(error)
 
-				guard let storedPackage = downloadedPackageStore.package(for: "2020-01-01", country: "DE") else {
+				guard let storedPackage = downloadedPackageStore.package(for: "2020-01-01", country: "IT") else {
 					// We can't XCUnwrap here as completion handler closure cannot throw
 					XCTFail("Package store did not contain downloaded delta package!")
 					return
@@ -160,8 +161,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let sut = ExposureDetectionExecutor.makeWith(client: client)
 
 		sut.exposureDetection(
-			ExposureDetection(delegate: sut),
-			downloadConfiguration: { configuration in
+			downloadConfiguration: { configuration  in
 				defer { completionExpectation.fulfill() }
 
 				if configuration == nil {
@@ -184,7 +184,6 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let sut = ExposureDetectionExecutor.makeWith(client: client)
 
 		sut.exposureDetection(
-			ExposureDetection(delegate: sut),
 			downloadConfiguration: { configuration in
 				defer { completionExpectation.fulfill() }
 
@@ -207,9 +206,9 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let todayString = Calendar.gregorianUTC.startOfDay(for: Date()).formatted
 		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
 
-		try downloadedPackageStore.set(country: "DE", day: todayString, package: .makePackage())
+		try downloadedPackageStore.set(country: "IT", day: todayString, package: .makePackage())
 		// Below package is stored but should not be written to disk as hourly fetching is disabled
-		try downloadedPackageStore.set(country: "DE", hour: 3, day: todayString, package: .makePackage())
+		try downloadedPackageStore.set(country: "IT", hour: 3, day: todayString, package: .makePackage())
 
 		let store = MockTestStore()
 		store.hourlyFetchingEnabled = false
@@ -220,7 +219,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		)
 
 		let result = sut.exposureDetectionWriteDownloadedPackages(
-			ExposureDetection(delegate: sut)
+			country: "IT"
 		)
 		let writtenPackages = try XCTUnwrap(result, "Written packages was unexpectedly nil!")
 
@@ -255,14 +254,14 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
 
 		// Below package is stored but should not be written to disk as hourly fetching is enabled
-		try downloadedPackageStore.set(country: "DE", day: todayString, package: .makePackage())
-		try downloadedPackageStore.set(country: "DE", hour: 3, day: todayString, package: .makePackage())
-		try downloadedPackageStore.set(country: "DE", hour: 4, day: todayString, package: .makePackage())
+		try downloadedPackageStore.set(country: "IT", day: todayString, package: .makePackage())
+		try downloadedPackageStore.set(country: "IT", hour: 3, day: todayString, package: .makePackage())
+		try downloadedPackageStore.set(country: "IT", hour: 4, day: todayString, package: .makePackage())
 
 		let sut = ExposureDetectionExecutor.makeWith(packageStore: downloadedPackageStore)
 
 		let result = sut.exposureDetectionWriteDownloadedPackages(
-			ExposureDetection(delegate: sut)
+			country: "IT"
 		)
 		let writtenPackages = try XCTUnwrap(result, "Written packages was unexpectedly nil!")
 
@@ -296,9 +295,10 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
 		let mockSummary = MutableENExposureDetectionSummary(daysSinceLastExposure: 2, matchedKeyCount: 2, maximumRiskScore: 255)
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((mockSummary, nil)))
+		let exposureDetection = ExposureDetection(delegate: sut)
 
-		sut.exposureDetection(
-			ExposureDetection(delegate: sut),
+		_ = sut.exposureDetection(
+			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
 			writtenPackages: WrittenPackages(urls: []),
 			completion: { result in
@@ -323,9 +323,10 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
 		let expectedError = ENError(.notAuthorized)
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((nil, expectedError)))
+		let exposureDetection = ExposureDetection(delegate: sut)
 
 		sut.exposureDetection(
-			ExposureDetection(delegate: sut),
+			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
 			writtenPackages: WrittenPackages(urls: []),
 			completion: { result in

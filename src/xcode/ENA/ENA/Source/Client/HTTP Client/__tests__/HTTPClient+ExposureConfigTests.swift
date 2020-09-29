@@ -26,21 +26,6 @@ final class HTTPClientExposureConfigTests: XCTestCase {
 
 	private let expectationsTimeout: TimeInterval = 2
 
-	func testInvalidEmptyExposureConfigurationResponseData() {
-		let stack = MockNetworkStack(
-			httpStatus: 200,
-			responseData: nil
-		)
-
-		let expectation = self.expectation(description: "HTTPClient should have failed.")
-
-		HTTPClient.makeWith(mock: stack).exposureConfiguration { config in
-			XCTAssertNil(config, "configuration should be nil when data is invalid")
-			expectation.fulfill()
-		}
-		waitForExpectations(timeout: expectationsTimeout)
-	}
-
 	func testResponseDataHasNoExposureConfig() throws {
 		// Test the case where we get a SAP_ApplicationConfiguration, but it's hasExposureConfig == nil
 
@@ -108,6 +93,21 @@ final class HTTPClientExposureConfigTests: XCTestCase {
 			XCTAssertNil(
 				configuration, "a 404 configuration response should yield an error - not a success"
 			)
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	func testInvalidEmptyExposureConfigurationResponseData() {
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: nil
+		)
+
+		let expectation = self.expectation(description: "HTTPClient should have failed.")
+
+		HTTPClient.makeWith(mock: stack).exposureConfiguration { config in
+			XCTAssertNil(config, "configuration should be nil when data is invalid")
 			expectation.fulfill()
 		}
 		waitForExpectations(timeout: expectationsTimeout)
