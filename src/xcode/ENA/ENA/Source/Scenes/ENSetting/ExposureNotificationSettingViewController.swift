@@ -84,7 +84,7 @@ extension ExposureNotificationSettingViewController {
 	}
 
 	private func handleEnableError(_ error: ExposureNotificationError, alert: Bool) {
-		let openSetttingsAction = UIAlertAction(title: AppStrings.Common.alertActionOpenSettings, style: .default, handler: { _ in
+		let openSettingsAction = UIAlertAction(title: AppStrings.Common.alertActionOpenSettings, style: .default, handler: { _ in
 			if let settingsUrl = URL(string: UIApplication.openSettingsURLString),
 				UIApplication.shared.canOpenURL(settingsUrl) {
 				UIApplication.shared.open(settingsUrl, completionHandler: nil)
@@ -104,7 +104,7 @@ extension ExposureNotificationSettingViewController {
 			errorMessage = AppStrings.ExposureNotificationError.apiMisuse
 		}
 		if alert {
-			alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [openSetttingsAction])
+			alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [openSettingsAction])
 		}
 		logError(message: error.localizedDescription + " with message: " + errorMessage, level: .error)
 		if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
