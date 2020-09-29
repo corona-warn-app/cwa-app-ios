@@ -7247,91 +7247,91 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ENSetting/ExposureNotificationSettingViewController.swift",
-      "line": 150,
+      "line": 155,
       "symbol": "ExposureNotificationSettingViewController.persistForDPP(accepted:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ENSetting/ExposureNotificationSettingViewController.swift",
-      "line": 156,
+      "line": 161,
       "symbol": "ExposureNotificationSettingViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ENSetting/ExposureNotificationSettingViewController.swift",
-      "line": 157,
+      "line": 162,
       "symbol": "ExposureNotificationSettingViewController.numberOfSections(in:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ENSetting/ExposureNotificationSettingViewController.swift",
-      "line": 161,
+      "line": 166,
       "symbol": "ExposureNotificationSettingViewController.tableView(_:heightForFooterInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ENSetting/ExposureNotificationSettingViewController.swift",
-      "line": 165,
+      "line": 170,
       "symbol": "ExposureNotificationSettingViewController.tableView(_:heightForHeaderInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ENSetting/ExposureNotificationSettingViewController.swift",
-      "line": 177,
+      "line": 182,
       "symbol": "ExposureNotificationSettingViewController.tableView(_:titleForHeaderInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ENSetting/ExposureNotificationSettingViewController.swift",
-      "line": 186,
+      "line": 191,
       "symbol": "ExposureNotificationSettingViewController.tableView(_:numberOfRowsInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ENSetting/ExposureNotificationSettingViewController.swift",
-      "line": 190,
+      "line": 195,
       "symbol": "ExposureNotificationSettingViewController.tableView(_:didSelectRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ENSetting/ExposureNotificationSettingViewController.swift",
-      "line": 195,
+      "line": 200,
       "symbol": "ExposureNotificationSettingViewController.tableView(_:cellForRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ENSetting/ExposureNotificationSettingViewController.swift",
-      "line": 261,
+      "line": 266,
       "symbol": "ExposureNotificationSettingViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ENSetting/ExposureNotificationSettingViewController.swift",
-      "line": 262,
+      "line": 267,
       "symbol": "ExposureNotificationSettingViewController.performAction(action:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ENSetting/ExposureNotificationSettingViewController.swift",
-      "line": 305,
+      "line": 310,
       "symbol": "ExposureNotificationSettingViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ENSetting/ExposureNotificationSettingViewController.swift",
-      "line": 306,
+      "line": 311,
       "symbol": "ExposureNotificationSettingViewController.updateEnState(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
