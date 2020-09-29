@@ -20,7 +20,9 @@ import Foundation
 
 /// Every time the user wants to know the own risk the app creates an `ExposureDetection`.
 final class ExposureDetection {
+	
 	// MARK: Properties
+	@Published var activityState: RiskProvider.ActivityState = .idle
 	private weak var delegate: ExposureDetectionDelegate?
 	private var completion: Completion?
 	private var progress: Progress?
@@ -31,12 +33,14 @@ final class ExposureDetection {
 	}
 
 	func cancel() {
+		activityState = .idle
 		progress?.cancel()
 	}
 
 	// MARK: Starting the Transaction
 	// Called right after the transaction knows which data is available remotly.
 	private func downloadDeltaUsingAvailableRemoteData(_ remote: DaysAndHours?) {
+		activityState = .downloading
 		guard let remote = remote else {
 			endPrematurely(reason: .noDaysAndHours)
 			return
@@ -56,6 +60,7 @@ final class ExposureDetection {
 	}
 
 	private func useConfiguration(_ configuration: ENExposureConfiguration?) {
+		activityState = .detecting
 		guard let configuration = configuration else {
 			endPrematurely(reason: .noExposureConfiguration)
 			return
@@ -97,6 +102,8 @@ final class ExposureDetection {
 			completion != nil,
 			"Tried to end a detection prematurely is only possible if a detection is currently running."
 		)
+
+		activityState = .idle
 		DispatchQueue.main.async {
 			self.completion?(.failure(reason))
 			self.completion = nil
@@ -109,6 +116,8 @@ final class ExposureDetection {
 			completion != nil,
 			"Tried report a summary but no completion handler is set."
 		)
+
+		activityState = .idle
 		DispatchQueue.main.async {
 			self.completion?(.success(summary))
 			self.completion = nil
