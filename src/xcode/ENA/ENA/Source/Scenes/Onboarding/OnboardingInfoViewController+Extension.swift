@@ -32,6 +32,7 @@ extension OnboardingInfoViewController {
 		itemSpacing: CGFloat = 10
 	) {
 
+		// MARK: - Title label.
 		let titleLabel = ENALabel()
 		titleLabel.style = titleStyle
 		titleLabel.text = title
@@ -40,6 +41,7 @@ extension OnboardingInfoViewController {
 		titleLabel.lineBreakMode = .byWordWrapping
 		titleLabel.numberOfLines = 0
 
+		// MARK: - Text label.
 		let textLabel = ENALabel()
 		textLabel.style = bodyStyle
 		textLabel.text = body
@@ -48,6 +50,7 @@ extension OnboardingInfoViewController {
 		textLabel.lineBreakMode = .byWordWrapping
 		textLabel.numberOfLines = 0
 
+		// MARK: - Stackview for labels.
 		let labelStackView = UIStackView(arrangedSubviews: [titleLabel, textLabel])
 		labelStackView.translatesAutoresizingMaskIntoConstraints = false
 		labelStackView.axis = .vertical
@@ -55,6 +58,7 @@ extension OnboardingInfoViewController {
 		labelStackView.distribution = .equalSpacing
 		labelStackView.spacing = itemSpacing
 
+		// MARK: - Container for entire view.
 		let containerView = UIView()
 		containerView.addSubview(labelStackView)
 		containerView.layer.cornerRadius = 14.0
@@ -72,6 +76,7 @@ extension OnboardingInfoViewController {
 
 	}
 
+	/// Adds a simple paragraph with a title and a text under it.
 	func addParagraph(
 		title: String,
 		body: String,
@@ -169,13 +174,10 @@ extension OnboardingInfoViewController {
 		title: String,
 		countries: [Country]
 	) {
-		// - TODO: Finalize handling of empty list.
 		if countries.isEmpty {
-			addPanel(
-				title: title,
-				body: "No countries could be loaded.",
-				bgColor: .background,
-				insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+			addParagraph(
+				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_emptyEuTitle,
+				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription
 			)
 			return
 		}

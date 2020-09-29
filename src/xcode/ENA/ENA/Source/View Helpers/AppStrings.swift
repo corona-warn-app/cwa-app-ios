@@ -452,6 +452,8 @@ enum AppStrings {
 		// Onbarding Intro EU Texts
 		static let onboardingInfo_enableLoggingOfContactsPage_euTitle = NSLocalizedString("onboardingInfo_enableLoggingOfContactsPage_euTitle", comment: "")
 		static let onboardingInfo_enableLoggingOfContactsPage_euDescription = NSLocalizedString("onboardingInfo_enableLoggingOfContactsPage_euDescription", comment: "")
+		static let onboardingInfo_enableLoggingOfContactsPage_emptyEuTitle = NSLocalizedString("onboardingInfo_enableLoggingOfContactsPage_emptyEuTitle", comment: "")
+		static let onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription = NSLocalizedString("onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription", comment: "")
 	}
 
 	enum ExposureNotificationSetting {
