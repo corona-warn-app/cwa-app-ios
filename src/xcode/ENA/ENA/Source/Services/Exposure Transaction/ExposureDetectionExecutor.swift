@@ -7,6 +7,7 @@ import Foundation
 import ExposureNotification
 
 final class ExposureDetectionExecutor: ExposureDetectionDelegate {
+
 	private let client: Client
 
 	private let downloadedPackagesStore: DownloadedPackagesStore
@@ -27,8 +28,8 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	}
 
 	func exposureDetection(
-		_ detection: ExposureDetection,
-		determineAvailableData completion: @escaping (DaysAndHours?) -> Void
+		country: Country.ID,
+		determineAvailableData completion: @escaping (DaysAndHours?, Country.ID) -> Void
 	) {
 		let group = DispatchGroup()
 
@@ -42,7 +43,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		if store.hourlyFetchingEnabled {
 			group.enter()
 
-			client.availableHours(day: .formattedToday(), country: "DE") { result in
+			client.availableHours(day: .formattedToday(), country: country) { result in
 				switch result {
 				case let .success(hours):
 					daysAndHours.hours = hours
@@ -55,7 +56,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 
 		group.enter()
 
-		client.availableDays(forCountry: "DE") { result in
+		client.availableDays(forCountry: country) { result in
 			switch result {
 			case let .success(days):
 				daysAndHours.days = days
@@ -70,19 +71,23 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 				logError(
 					message: "Unable to determine available data due to errors:\n \(errors.map { $0.localizedDescription }.joined(separator: "\n"))"
 				)
-				completion(/* we are unable to determine the days and hours */ nil)
+				completion(/* we are unable to determine the days and hours */ nil, country)
 				return
 			}
-			completion(daysAndHours)
+			completion(daysAndHours, country)
 		}
 	}
 
-	func exposureDetection(_ detection: ExposureDetection, downloadDeltaFor remote: DaysAndHours) -> DaysAndHours {
+	func exposureDetection(
+		country: Country.ID,
+		downloadDeltaFor remote: DaysAndHours
+	) -> DaysAndHours {
+
 		// prune the store
 		try? downloadedPackagesStore.deleteOutdatedDays(now: .formattedToday())
 
-		let localDays = Set(downloadedPackagesStore.allDays(country: "DE"))
-		let localHours = Set(downloadedPackagesStore.hours(for: .formattedToday(), country: "DE"))
+		let localDays = Set(downloadedPackagesStore.allDays(country: country))
+		let localHours = Set(downloadedPackagesStore.hours(for: .formattedToday(), country: country))
 
 		let delta = DeltaCalculationResult(
 			remoteDays: Set(remote.days),
@@ -97,9 +102,13 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		)
 	}
 
-	func exposureDetection(_ detection: ExposureDetection, downloadAndStore delta: DaysAndHours, completion: @escaping (Error?) -> Void) {
+	func exposureDetection(
+		country: Country.ID,
+		downloadAndStore delta: DaysAndHours,
+		completion: @escaping (Error?) -> Void
+	) {
 		func storeDaysAndHours(_ fetchedDaysAndHours: FetchedDaysAndHours) {
-			downloadedPackagesStore.addFetchedDaysAndHours(fetchedDaysAndHours)
+			downloadedPackagesStore.addFetchedDaysAndHours(fetchedDaysAndHours, country: country)
 			completion(nil)
 		}
 
@@ -107,16 +116,15 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 				delta.days,
 				hours: delta.hours,
 				of: .formattedToday(),
-				country: "DE",
+				country: country,
 				completion: storeDaysAndHours
 		)
 	}
 
-	func exposureDetection(_ detection: ExposureDetection, downloadConfiguration completion: @escaping (ENExposureConfiguration?) -> Void) {
-		client.exposureConfiguration(completion: completion)
-	}
+	func exposureDetectionWriteDownloadedPackages(
+		country: Country.ID
+	) -> WrittenPackages? {
 
-	func exposureDetectionWriteDownloadedPackages(_ detection: ExposureDetection) -> WrittenPackages? {
 		let fileManager = FileManager()
 		let rootDir = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		do {
@@ -125,19 +133,20 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 			let writer = AppleFilesWriter(rootDir: rootDir)
 
 			if store.hourlyFetchingEnabled {
-				let hourlyPackages = downloadedPackagesStore.hourlyPackages(for: .formattedToday(), country: "DE")
-				
-				for keyPackage in hourlyPackages {
+				let allHourlyPackages = downloadedPackagesStore.hourlyPackages(for: .formattedToday(), country: country)
+				let recentThreeHoursPackages = allHourlyPackages.prefix(3)
+
+				for keyPackage in recentThreeHoursPackages {
 					let success = writer.writePackage(keyPackage)
 					if !success {
 						return nil
 					}
 				}
 			} else {
-				let allDays = downloadedPackagesStore.allDays(country: "DE")
+				let allDays = downloadedPackagesStore.allDays(country: country)
 
 				for day in allDays {
-					let _keyPackage = autoreleasepool(invoking: { downloadedPackagesStore.package(for: day, country: "DE") })
+					let _keyPackage = autoreleasepool(invoking: { downloadedPackagesStore.package(for: day, country: country) })
 					if let keyPackage = _keyPackage {
 						let success = writer.writePackage(keyPackage)
 						if !success {
@@ -153,9 +162,20 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	}
 
 	func exposureDetection(
+		supportedCountries completion: @escaping (SupportedCountriesResult) -> Void
+	) {
+		client.supportedCountries(completion: completion)
+	}
+
+	func exposureDetection(
+		downloadConfiguration completion: @escaping (ENExposureConfiguration?) -> Void
+	) {
+		client.exposureConfiguration(completion: completion)
+	}
+
+	func exposureDetection(
 			_ detection: ExposureDetection,
-			detectSummaryWithConfiguration
-			configuration: ENExposureConfiguration,
+			detectSummaryWithConfiguration configuration: ENExposureConfiguration,
 			writtenPackages: WrittenPackages,
 			completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void
 	) -> Progress {
@@ -181,15 +201,16 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 }
 
 extension DownloadedPackagesStore {
-	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours) {
+
+	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours, country: Country.ID) {
 		let days = daysAndHours.days
 		days.bucketsByDay.forEach { day, bucket in
-			self.set(country: "DE", day: day, package: bucket)
+			self.set(country: country, day: day, package: bucket)
 		}
 
 		let hours = daysAndHours.hours
 		hours.bucketsByHour.forEach { hour, bucket in
-			self.set(country: "DE", hour: hour, day: hours.day, package: bucket)
+			self.set(country: country, hour: hour, day: hours.day, package: bucket)
 		}
 	}
 }
