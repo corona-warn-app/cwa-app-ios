@@ -8,6 +8,9 @@
           "sourceFilters": [
             "*.strings","*.stringsdict"
           ],
+          "excludedSourceFilters":[
+            "*.legal.*"
+          ],
            "targetFolderPath":"../[langCode].lproj/"
         }
       ]
