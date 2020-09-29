@@ -81,9 +81,18 @@ the results of a transaction.</p>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA25ExposureDetectionDelegateP08exposureC0_22determineAvailableDatayAA0bC0C_yAA12DaysAndHoursVSgctF"></a>
-                      <a name="//apple_ref/swift/Method/exposureDetection(_:determineAvailableData:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA25ExposureDetectionDelegateP08exposureC0_22determineAvailableDatayAA0bC0C_yAA12DaysAndHoursVSgctF">exposureDetection(_:<wbr>determineAvailableData:<wbr>)</a>
+                      <a name="/s:3ENA25ExposureDetectionDelegateP24SupportedCountriesResulta"></a>
+                      <a name="//apple_ref/swift/Alias/SupportedCountriesResult" class="dashAnchor"></a>
+                      <a class="direct-link" href="../Protocols/ExposureDetectionDelegate/SupportedCountriesResult.html">SupportedCountriesResult</a>
+                      </code>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA25ExposureDetectionDelegateP08exposureC07country22determineAvailableDataySS_yAA12DaysAndHoursVSg_SStctF"></a>
+                      <a name="//apple_ref/swift/Method/exposureDetection(country:determineAvailableData:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA25ExposureDetectionDelegateP08exposureC07country22determineAvailableDataySS_yAA12DaysAndHoursVSg_SStctF">exposureDetection(country:<wbr>determineAvailableData:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -99,8 +108,8 @@ the results of a transaction.</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">exposureDetection</span><span class="p">(</span>
-	<span class="n">_</span> <span class="nv">detection</span><span class="p">:</span> <span class="kt"><a href="../Classes/ExposureDetection.html">ExposureDetection</a></span><span class="p">,</span>
-	<span class="n">determineAvailableData</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/DaysAndHours.html">DaysAndHours</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span>
+	<span class="nv">country</span><span class="p">:</span> <span class="kt"><a href="../Structs/Country.html">Country</a></span><span class="o">.</span><span class="kt">ID</span><span class="p">,</span>
+	<span class="n">determineAvailableData</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Structs/DaysAndHours.html">DaysAndHours</a></span><span class="p">?,</span> <span class="kt"><a href="../Structs/Country.html">Country</a></span><span class="o">.</span><span class="kt">ID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span>
 <span class="p">)</span></code></pre>
 
                           </div>
@@ -111,9 +120,9 @@ the results of a transaction.</p>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA25ExposureDetectionDelegateP08exposureC0_16downloadDeltaForAA12DaysAndHoursVAA0bC0C_AGtF"></a>
-                      <a name="//apple_ref/swift/Method/exposureDetection(_:downloadDeltaFor:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA25ExposureDetectionDelegateP08exposureC0_16downloadDeltaForAA12DaysAndHoursVAA0bC0C_AGtF">exposureDetection(_:<wbr>downloadDeltaFor:<wbr>)</a>
+                      <a name="/s:3ENA25ExposureDetectionDelegateP08exposureC07country16downloadDeltaForAA12DaysAndHoursVSS_AHtF"></a>
+                      <a name="//apple_ref/swift/Method/exposureDetection(country:downloadDeltaFor:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA25ExposureDetectionDelegateP08exposureC07country16downloadDeltaForAA12DaysAndHoursVSS_AHtF">exposureDetection(country:<wbr>downloadDeltaFor:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -129,7 +138,7 @@ the results of a transaction.</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">exposureDetection</span><span class="p">(</span>
-	<span class="n">_</span> <span class="nv">detection</span><span class="p">:</span> <span class="kt"><a href="../Classes/ExposureDetection.html">ExposureDetection</a></span><span class="p">,</span>
+	<span class="nv">country</span><span class="p">:</span> <span class="kt"><a href="../Structs/Country.html">Country</a></span><span class="o">.</span><span class="kt">ID</span><span class="p">,</span>
 	<span class="n">downloadDeltaFor</span> <span class="nv">remote</span><span class="p">:</span> <span class="kt"><a href="../Structs/DaysAndHours.html">DaysAndHours</a></span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DaysAndHours.html">DaysAndHours</a></span></code></pre>
 
@@ -141,9 +150,9 @@ the results of a transaction.</p>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA25ExposureDetectionDelegateP08exposureC0_16downloadAndStore10completionyAA0bC0C_AA04DaysG5HoursVys5Error_pSgctF"></a>
-                      <a name="//apple_ref/swift/Method/exposureDetection(_:downloadAndStore:completion:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA25ExposureDetectionDelegateP08exposureC0_16downloadAndStore10completionyAA0bC0C_AA04DaysG5HoursVys5Error_pSgctF">exposureDetection(_:<wbr>downloadAndStore:<wbr>completion:<wbr>)</a>
+                      <a name="/s:3ENA25ExposureDetectionDelegateP08exposureC07country16downloadAndStore10completionySS_AA04DaysH5HoursVys5Error_pSgctF"></a>
+                      <a name="//apple_ref/swift/Method/exposureDetection(country:downloadAndStore:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA25ExposureDetectionDelegateP08exposureC07country16downloadAndStore10completionySS_AA04DaysH5HoursVys5Error_pSgctF">exposureDetection(country:<wbr>downloadAndStore:<wbr>completion:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -159,7 +168,7 @@ the results of a transaction.</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">exposureDetection</span><span class="p">(</span>
-	<span class="n">_</span> <span class="nv">detection</span><span class="p">:</span> <span class="kt"><a href="../Classes/ExposureDetection.html">ExposureDetection</a></span><span class="p">,</span>
+	<span class="nv">country</span><span class="p">:</span> <span class="kt"><a href="../Structs/Country.html">Country</a></span><span class="o">.</span><span class="kt">ID</span><span class="p">,</span>
 	<span class="n">downloadAndStore</span> <span class="nv">delta</span><span class="p">:</span> <span class="kt"><a href="../Structs/DaysAndHours.html">DaysAndHours</a></span><span class="p">,</span>
 	<span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span>
 <span class="p">)</span></code></pre>
@@ -172,9 +181,36 @@ the results of a transaction.</p>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA25ExposureDetectionDelegateP08exposureC0_21downloadConfigurationyAA0bC0C_ySo010ENExposureG0CSgctF"></a>
-                      <a name="//apple_ref/swift/Method/exposureDetection(_:downloadConfiguration:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA25ExposureDetectionDelegateP08exposureC0_21downloadConfigurationyAA0bC0C_ySo010ENExposureG0CSgctF">exposureDetection(_:<wbr>downloadConfiguration:<wbr>)</a>
+                      <a name="/s:3ENA25ExposureDetectionDelegateP08exposureC23WriteDownloadedPackages7countryAA07WrittenH0VSgSS_tF"></a>
+                      <a name="//apple_ref/swift/Method/exposureDetectionWriteDownloadedPackages(country:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA25ExposureDetectionDelegateP08exposureC23WriteDownloadedPackages7countryAA07WrittenH0VSgSS_tF">exposureDetectionWriteDownloadedPackages(country:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">exposureDetectionWriteDownloadedPackages</span><span class="p">(</span><span class="nv">country</span><span class="p">:</span> <span class="kt"><a href="../Structs/Country.html">Country</a></span><span class="o">.</span><span class="kt">ID</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/WrittenPackages.html">WrittenPackages</a></span><span class="p">?</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA25ExposureDetectionDelegateP08exposureC021downloadConfigurationyySo010ENExposureG0CSgc_tF"></a>
+                      <a name="//apple_ref/swift/Method/exposureDetection(downloadConfiguration:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA25ExposureDetectionDelegateP08exposureC021downloadConfigurationyySo010ENExposureG0CSgc_tF">exposureDetection(downloadConfiguration:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -190,7 +226,6 @@ the results of a transaction.</p>
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">exposureDetection</span><span class="p">(</span>
-	<span class="n">_</span> <span class="nv">detection</span><span class="p">:</span> <span class="kt"><a href="../Classes/ExposureDetection.html">ExposureDetection</a></span><span class="p">,</span>
 	<span class="n">downloadConfiguration</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">ENExposureConfiguration</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span>
 <span class="p">)</span></code></pre>
 
@@ -202,9 +237,9 @@ the results of a transaction.</p>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA25ExposureDetectionDelegateP08exposureC23WriteDownloadedPackagesyAA07WrittenH0VSgAA0bC0CF"></a>
-                      <a name="//apple_ref/swift/Method/exposureDetectionWriteDownloadedPackages(_:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA25ExposureDetectionDelegateP08exposureC23WriteDownloadedPackagesyAA07WrittenH0VSgAA0bC0CF">exposureDetectionWriteDownloadedPackages(_:<wbr>)</a>
+                      <a name="/s:3ENA25ExposureDetectionDelegateP08exposureC018supportedCountriesyys6ResultOySayAA7CountryVGSo12NSURLSessionCAAE8ResponseV7FailureOGc_tF"></a>
+                      <a name="//apple_ref/swift/Method/exposureDetection(supportedCountries:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA25ExposureDetectionDelegateP08exposureC018supportedCountriesyys6ResultOySayAA7CountryVGSo12NSURLSessionCAAE8ResponseV7FailureOGc_tF">exposureDetection(supportedCountries:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -219,7 +254,7 @@ the results of a transaction.</p>
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">exposureDetectionWriteDownloadedPackages</span><span class="p">(</span><span class="n">_</span> <span class="nv">detection</span><span class="p">:</span> <span class="kt"><a href="../Classes/ExposureDetection.html">ExposureDetection</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/WrittenPackages.html">WrittenPackages</a></span><span class="p">?</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">exposureDetection</span><span class="p">(</span><span class="n">supportedCountries</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Protocols/ExposureDetectionDelegate/SupportedCountriesResult.html">SupportedCountriesResult</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -336,6 +371,9 @@ the results of a transaction.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/CountdownTimer.html">CountdownTimer</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/CountryKeypackageDownloader.html">CountryKeypackageDownloader</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/DMBackendConfigurationViewController.html">DMBackendConfigurationViewController</a>
@@ -495,6 +533,18 @@ the results of a transaction.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/ENStateHandler/State.html">– State</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/EUSettingsViewController.html">EUSettingsViewController</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/EUSettingsViewController/CustomCellReuseIdentifiers.html">– CustomCellReuseIdentifiers</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/EUSettingsViewModel.html">EUSettingsViewModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/EUSettingsViewModel/CountryModel.html">– CountryModel</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/EuTracingTableViewCell.html">EuTracingTableViewCell</a>
@@ -1393,6 +1443,9 @@ the results of a transaction.</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/CountdownTimerDelegate.html">CountdownTimerDelegate</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/CountryKeypackageDownloading.html">CountryKeypackageDownloading</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/DMStore.html">DMStore</a>
