@@ -363,6 +363,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "onboardingInfo_enableLoggingOfContactsPage_euDescription" = "Mehrere Länder in der EU arbeiten zusammen, um länderübergreifende Warnungen zu ermöglichen. Das heißt es können die Kontakte mit Nutzern der offiziellen Corona-Apps aller teilnehmenden Länder berücksichtigt werden.\n\nHat ein Nutzer seine Zufalls-IDs über das von den teilnehmenden Ländern gemeinsam betriebene Serversystem zur Verfügung gestellt, können Nutzer der offiziellen Corona-Apps der teilnehmender Länder gewarnt werden.\n\nDer tägliche Download der Zufalls-IDs ist für Sie kostenlos – Ihr Datenvolumen wird nicht belastet und es fallen im europäischen Ausland keine Roaming-Gebühren an.";
 
+"onboardingInfo_enableLoggingOfContactsPage_participatingCountriesTitle" = "Derzeit nehmen die folgenden Länder teil:";
+
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuTitle" = "Teilnehmende Länder";
 
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "Die teilnehmenden Länder können Sie jederzeit einsehen in den Details zur Risiko-Ermittlung.";

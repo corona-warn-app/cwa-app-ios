@@ -234,7 +234,7 @@ final class OnboardingInfoViewController: UIViewController {
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_euTitle,
 				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_euDescription
 			)
-			addCountrySection(title: "Derzeit nehmen die folgenden Länder teil:", countries: supportedCountries ?? [])
+			addCountrySection(title: AppStrings.Onboarding.onboardingInfo_ParticipatingCountries_Title, countries: supportedCountries ?? [])
 			addPanel(
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle,
 				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_consentUnderagesText,
