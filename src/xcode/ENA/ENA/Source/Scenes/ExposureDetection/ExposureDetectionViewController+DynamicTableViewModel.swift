@@ -227,7 +227,7 @@ extension ExposureDetectionViewController {
 
 	private func riskDataSection(cells: [DynamicCell]) -> DynamicSection {
 		riskSection(
-			isHidden: { (($0 as? Self)?.state.isLoading ?? false) },
+			isHidden: { (($0 as? Self)?.state.activityState.isActive ?? false) },
 			cells: cells
 		)
 	}
@@ -236,7 +236,7 @@ extension ExposureDetectionViewController {
 		riskSection(
 			isHidden: { viewController in
 				guard let state = (viewController as? ExposureDetectionViewController)?.state else { return true }
-				if state.isLoading { return true }
+				if state.activityState.isActive { return true }
 				return state.detectionMode != .automatic
 			},
 			cells: [
@@ -249,7 +249,7 @@ extension ExposureDetectionViewController {
 		.section(
 			header: .none,
 			footer: .none,
-			isHidden: { !(($0 as? Self)?.state.isLoading ?? false) },
+			isHidden: { !(($0 as? Self)?.state.activityState.isActive ?? false) },
 			cells: [
 				.riskLoading(text: AppStrings.ExposureDetection.loadingText)
 			]
@@ -424,7 +424,7 @@ extension ExposureDetectionViewController {
 		return DynamicTableViewModel([
 			riskDataSection(
 				cells: [
-				.riskContacts(text: AppStrings.ExposureDetection.numberOfContacts, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
+				.riskContacts(text: AppStrings.Home.riskCardLowNumberContactsItemTitle, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
 				.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
 				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 			]),

@@ -279,7 +279,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				self.submitExposureCleanup()
 				return
 			}
-			keys.process(for: symptomsOnset)
+			keys = keys.processedForSubmission(with: symptomsOnset)
 
 			// Request needs to be prepended by the fake request.
 			self._fakeVerificationServerRequest(completion: { _ in

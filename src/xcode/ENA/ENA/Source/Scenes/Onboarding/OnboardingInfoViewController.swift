@@ -84,6 +84,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private var onboardingInfos = OnboardingInfo.testData()
 	private var exposureManagerActivated = false
+	private var pageSetupDone = false
 	var htmlTextView: HtmlTextView?
 
 	var onboardingInfo: OnboardingInfo?
@@ -91,6 +92,7 @@ final class OnboardingInfoViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		onboardingInfo = onboardingInfos[pageType.rawValue]
+		pageSetupDone = false
 		// should be revised in the future
 		viewRespectsSystemMinimumLayoutMargins = false
 		view.layoutMargins = .zero
@@ -197,6 +199,10 @@ final class OnboardingInfoViewController: UIViewController {
 		stateTitleLabel.text = onboardingInfo.stateTitle
 		stateStateLabel.text = exposureNotificationsEnabled ? onboardingInfo.stateActivated : onboardingInfo.stateDeactivated
 
+		guard !pageSetupDone else {
+			return
+		}
+
 		switch pageType {
 		case .enableLoggingOfContactsPage:
 			addPanel(
@@ -223,7 +229,7 @@ final class OnboardingInfoViewController: UIViewController {
 		default:
 			break
 		}
-
+		pageSetupDone = true
 	}
 
 	func setupAccessibility() {
