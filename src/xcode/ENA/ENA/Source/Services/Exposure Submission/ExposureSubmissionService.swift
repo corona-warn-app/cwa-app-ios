@@ -124,7 +124,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// This method does two API calls in one step - firstly, it gets the submission TAN, and then it submits the keys.
 	/// For details, check the methods `_submit()` and `_getTANForExposureSubmit()` specifically.
 	private func _submitExposure(
-		_ keys: [ENTemporaryExposureKey],
+		_ keys: [SAP_TemporaryExposureKey],
 		consentToFederation: Bool,
 		visitedCountries: [Country],
 		completionHandler: @escaping ExposureSubmissionHandler
@@ -143,7 +143,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// part of the submission flow in which the keys are submitted.
 	/// For more information, please check _submitExposure().
 	private func _submit(
-		_ keys: [ENTemporaryExposureKey],
+		_ keys: [SAP_TemporaryExposureKey],
 		with tan: String,
 		consentToFederation: Bool,
 		visitedCountries: [Country],
@@ -271,7 +271,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return
 			}
 
-			guard var keys = keys, !keys.isEmpty else {
+			guard let keys = keys, !keys.isEmpty else {
 				completionHandler(.noKeys)
 				// We perform a cleanup in order to set the correct
 				// timestamps, despite not having communicated with the backend,
@@ -279,11 +279,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				self.submitExposureCleanup()
 				return
 			}
-			keys = keys.processedForSubmission(with: symptomsOnset)
+			let processedKeys = keys.processedForSubmission(with: symptomsOnset)
 
 			// Request needs to be prepended by the fake request.
 			self._fakeVerificationServerRequest(completion: { _ in
-				self._submitExposure(keys, consentToFederation: consentToFederation, visitedCountries: visitedCountries, completionHandler: completionHandler)
+				self._submitExposure(processedKeys, consentToFederation: consentToFederation, visitedCountries: visitedCountries, completionHandler: completionHandler)
 			})
 		}
 	}

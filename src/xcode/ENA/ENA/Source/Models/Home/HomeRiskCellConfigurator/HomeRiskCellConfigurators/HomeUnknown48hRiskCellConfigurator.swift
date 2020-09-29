@@ -25,7 +25,7 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	// MARK: Creating a unknown 48h Risk cell
 	init(
-		isLoading: Bool,
+		state: RiskProvider.ActivityState,
 		lastUpdateDate: Date?,
 		detectionInterval: Int,
 		detectionMode: DetectionMode,
@@ -34,7 +34,7 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	) {
 		self.previousRiskLevel = previousRiskLevel
 		super.init(
-			isLoading: isLoading,
+			state: state,
 			isButtonEnabled: manualExposureDetectionState == .possible,
 			isButtonHidden: detectionMode == .automatic,
 			detectionIntervalLabelHidden: detectionMode != .automatic,
@@ -44,10 +44,6 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	}
 
 	// MARK: - Computed properties.
-
-	var title: String {
-		return isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardUnknownTitle
-	}
 
 	var previousRiskTitle: String {
 		switch previousRiskLevel {
@@ -65,8 +61,7 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	/// Adjusts the UI for the given cell, including setting text and adjusting colors.
 	private func configureUI(for cell: RiskLevelCollectionViewCell) {
 		cell.configureBackgroundColor(color: .enaColor(for: .riskNeutral))
-		cell.configureTitle(title: title, titleColor: .enaColor(for: .textContrast))
-		cell.configureBody(text: AppStrings.Home.riskCardUnknown48hBody, bodyColor: .enaColor(for: .textContrast), isHidden: isLoading)
+		cell.configureBody(text: AppStrings.Home.riskCardUnknown48hBody, bodyColor: .enaColor(for: .textContrast), isHidden: riskProviderState.isActive)
 		configureButton(for: cell)
 		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, "\(detectionInterval)")
 		cell.configureDetectionIntervalLabel(text: intervalTitle, isHidden: detectionIntervalLabelHidden)
@@ -74,22 +69,37 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	/// Adjusts the UI for the risk views of a given cell.
 	private func configureRiskViewsUI(for cell: RiskLevelCollectionViewCell) {
-		let itemCellConfigurators = setupItemCellConfigurators()
+		let itemCellConfigurators = setupItemCellConfigurators(for: cell)
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
 	}
 
-	private func setupItemCellConfigurators() -> [HomeRiskViewConfiguratorAny] {
-		if isLoading {
+	private func setupItemCellConfigurators(for cell: RiskLevelCollectionViewCell) -> [HomeRiskViewConfiguratorAny] {
+
+		switch riskProviderState {
+		case .downloading:
+			cell.configureTitle(title: AppStrings.Home.riskCardStatusDownloadingTitle, titleColor: .enaColor(for: .textContrast))
 			return [
 				HomeRiskLoadingItemViewConfigurator(
-					title: AppStrings.Home.riskCardStatusCheckBody,
+					title: AppStrings.Home.riskCardStatusDownloadingBody,
 					titleColor: .enaColor(for: .textContrast),
-					isLoading: true,
+					isActivityIndicatorOn: true,
 					color: .enaColor(for: .riskNeutral),
 					separatorColor: .enaColor(for: .hairlineContrast)
 				)
 			]
-		} else {
+		case .detecting:
+			cell.configureTitle(title: AppStrings.Home.riskCardStatusDetectingTitle, titleColor: .enaColor(for: .textContrast))
+			return [
+				HomeRiskLoadingItemViewConfigurator(
+					title: AppStrings.Home.riskCardStatusDetectingBody,
+					titleColor: .enaColor(for: .textContrast),
+					isActivityIndicatorOn: true,
+					color: .enaColor(for: .riskNeutral),
+					separatorColor: .enaColor(for: .hairlineContrast)
+				)
+			]
+		default:
+			cell.configureTitle(title: AppStrings.Home.riskCardUnknownTitle, titleColor: .enaColor(for: .textContrast))
 			let activateItemTitle = String(format: AppStrings.Home.riskCardLastActiveItemTitle, previousRiskTitle)
 			let dateTitle = String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString)
 
@@ -137,7 +147,7 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	}
 
 	static func == (lhs: HomeUnknown48hRiskCellConfigurator, rhs: HomeUnknown48hRiskCellConfigurator) -> Bool {
-		lhs.isLoading == rhs.isLoading &&
+		lhs.riskProviderState == rhs.riskProviderState &&
 		lhs.isButtonEnabled == rhs.isButtonEnabled &&
 		lhs.isButtonHidden == rhs.isButtonHidden &&
 		lhs.detectionIntervalLabelHidden == rhs.detectionIntervalLabelHidden &&
