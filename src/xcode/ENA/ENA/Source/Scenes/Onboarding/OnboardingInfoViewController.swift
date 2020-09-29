@@ -427,7 +427,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 
 	private func finishOnBoarding() {
-		// store.isOnboarded = true
+		store.isOnboarded = true
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
 
