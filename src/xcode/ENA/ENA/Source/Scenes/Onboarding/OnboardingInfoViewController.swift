@@ -47,7 +47,7 @@ final class OnboardingInfoViewController: UIViewController {
 		pageType: OnboardingPageType,
 		exposureManager: ExposureManager,
 		store: Store,
-		client: HTTPClient,
+		client: Client,
 		supportedCountries: [Country]? = nil
 	) {
 		self.pageType = pageType
@@ -89,7 +89,7 @@ final class OnboardingInfoViewController: UIViewController {
 	private var onboardingInfos = OnboardingInfo.testData()
 	private var exposureManagerActivated = false
 
-	var client: HTTPClient?
+	var client: Client
 	private var pageSetupDone = false
 	var htmlTextView: HtmlTextView?
 
@@ -159,7 +159,7 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	private func loadCountryList() {
-		client?.supportedCountries(completion: { [weak self] result in
+		client.supportedCountries(completion: { [weak self] result in
 			var availableCountries: [Country]
 			switch result {
 			case .failure:
@@ -234,7 +234,7 @@ final class OnboardingInfoViewController: UIViewController {
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_euTitle,
 				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_euDescription
 			)
-			addCountrySection(title: "Derzeit nehmen die folgenden Länder teil:", countries: supportedCountries ?? [])
+			addCountrySection(title: AppStrings.Onboarding.onboardingInfo_ParticipatingCountries_Title, countries: supportedCountries ?? [])
 			addPanel(
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle,
 				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_consentUnderagesText,
