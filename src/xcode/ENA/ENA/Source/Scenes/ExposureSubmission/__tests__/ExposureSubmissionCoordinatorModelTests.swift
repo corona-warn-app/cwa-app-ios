@@ -25,15 +25,15 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 	// default provider for a static app configuration
 	let configProvider = CachedAppConfiguration(client: CachingHTTPClientMock(), store: MockTestStore())
 
-	override func setUpWithError() throws {
-		// uses a common database!
+	override func setUp() {
+		// No property needed, Store uses a common database file
 		let store = MockTestStore()
 		store.appConfig = nil
 		store.lastAppConfigETag = nil
 	}
 
-	override func tearDownWithError() throws {
-		// uses a common database!
+	override func tearDown() {
+		// No property needed, Store uses a common database file
 		let store = MockTestStore()
 		store.appConfig = nil
 		store.lastAppConfigETag = nil
