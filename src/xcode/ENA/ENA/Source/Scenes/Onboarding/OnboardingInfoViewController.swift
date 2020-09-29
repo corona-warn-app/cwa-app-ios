@@ -158,13 +158,17 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private func loadCountryList() {
 		client?.supportedCountries(completion: { [weak self] result in
+			var availableCountries: [Country]
 			switch result {
 			case .failure:
 				logError(message: "Did not receive a country list.")
-				self?.supportedCountries = []
+				availableCountries = []
 			case .success(let countries):
-				self?.supportedCountries = countries
+				availableCountries = countries
 			}
+
+			self?.supportedCountries = availableCountries
+				.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
 		})
 	}
 

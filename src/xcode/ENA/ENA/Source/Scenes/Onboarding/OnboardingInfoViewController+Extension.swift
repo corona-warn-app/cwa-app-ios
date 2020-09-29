@@ -171,14 +171,12 @@ extension OnboardingInfoViewController {
 	) {
 		// - TODO: Finalize handling of empty list.
 		if countries.isEmpty {
-			let emptyLabel = ENALabel()
-			emptyLabel.style = .headline
-			emptyLabel.text = "No countries could be loaded."
-			emptyLabel.translatesAutoresizingMaskIntoConstraints = false
-			emptyLabel.textColor = .enaColor(for: .textPrimary1)
-			emptyLabel.lineBreakMode = .byWordWrapping
-			emptyLabel.numberOfLines = 0
-			stackView.addArrangedSubview(emptyLabel)
+			addPanel(
+				title: title,
+				body: "No countries could be loaded.",
+				bgColor: .background,
+				insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+			)
 			return
 		}
 
