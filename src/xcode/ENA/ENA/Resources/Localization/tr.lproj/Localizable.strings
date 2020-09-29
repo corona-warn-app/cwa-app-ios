@@ -573,7 +573,9 @@
 /* ExposureSubmissionSymptoms */
 "ExposureSubmissionSymptoms_Title" = "Belirtiler";
 
-"ExposureSubmissionSymptoms_Description" = "Son birkaç günde aşağıdaki belirtilerden birini veya daha fazlasını yaşadınız mı?";
+"ExposureSubmissionSymptoms_Introduction" = "Uygulamanın, diğer kullanıcılar açısından enfeksiyon riskini daha doğru bir biçimde hesaplayabilmesi için herhangi bir korona belirtisi fark edip etmediğinizi ve ne zaman fark ettiğinizi belirtebilirsiniz. Bu bilgileri sağlamak istemiyorsanız \"bilgi yok\" seçeneğini belirlemeniz yeterlidir.";
+
+"ExposureSubmissionSymptoms_Description" = "Aşağıdaki belirtilerden birini veya daha fazlasını yaşadınız mı?";
 
 "ExposureSubmissionSymptoms_Symptom0" = "Artan vücut sıcaklığı veya ateş";
 
@@ -595,7 +597,7 @@
 
 "ExposureSubmissionSymptoms_AnswerOptionNo" = "Hayır";
 
-"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Beyan yok";
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Bilgi yok";
 
 "ExposureSubmissionSymptoms_ContinueButton" = "Sonraki";
 
@@ -614,7 +616,7 @@
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "2 haftadan uzun süre önce";
 
-"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Beyan yok";
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Bilgi yok";
 
 "ExposureSubmissionSymptomsOnset_ContinueButton" = "Sonraki";
 
@@ -625,15 +627,15 @@
 
 "ExposureSubmissionWarnOthers_continueButton" = "Kabul Et";
 
-"ExposureSubmissionWarnOthers_sectionTitle" = "Lütfen hepimize yardımcı olun!";
+"ExposureSubmissionWarnOthers_sectionTitle" = "Yardımcı olabilirsiniz!";
 
-"ExposureSubmissionWarnOthers_description" = "Corona-Warn-App'in son 14 güne ait rastgele kimliklerinizi diğer kullanıcılarla paylaşmasını sağlayabilirsiniz. Bu sayede başkalarını uyarabilir ve enfeksiyon zincirini kırmaları için onlara yardımcı olabilirsiniz.\n\nEnfeksiyon riski, hastalığın başlangıcından önce meydana geldiğinden ve zaman içerisinde değişebileceğinden, olası korona bulgularının (ör. ateş ya da öksürük) ilk ne zaman ortaya çıktığını da bildirmenizi rica ederiz. Bu sayede, sizinle temas eden diğer uygulama kullanıcılarının enfeksiyon riski de daha doğru hesaplanabilir. Bulgu başlangıcına ilişkin bildirim, isteğe bağlıdır. Bulgu yoksa ya da bilgi vermek istemiyorsanız, \"Bilgi yok\" seçeneğini seçebilirsiniz.\n\nYalnızca kişisel olmayan rastgele kimlikler aktarıldığından kimliğiniz gizli kalır.";
+"ExposureSubmissionWarnOthers_description" = "Dilerseniz Uygulama sisteminin son 14 güne ait rastgele kimliklerinizi diğer kullanıcılarla paylaşmasını sağlayabilirsiniz. Bu sayede başkalarını uyarabilir ve enfeksiyon zincirini kırmaları için onlara yardımcı olabilirsiniz.\n\nUygulama, yalnızca rastgele kimliklerinizi ve belirtilerin başlangıcı hakkında sağladığınız bilgileri aktarır. Kimliğiniz açıklanmaz.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "\"Kabul Et\" seçeneğine dokunduğunuzda, Uygulamanın pozitif test sonucunuzu son 14 güne ait rastgele kimliklerinizle birlikte uygulamanın sunucu sistemine göndermesine izin vermiş olursunuz, bu sayede maruz kalma günlüğünü etkinleştirmiş olan diğer Uygulama kullanıcıları otomatik şekilde bilgilendirilebilir. İsteğe bağlı bu bilgileri bulgu başlangıcında verirseniz, iletilen rastgele kimlikler, ilgili rastgele kimliğin geçerli olduğu gün itibariyle enfeksiyon riskini içeren, bilgileriniz aracılığıyla hesaplanan toplam risk puanını da içerir. İletilen rastgele kimlikler, kimliğiniz ya da kişiliğinize ilişkin sonuç çıkartacak hiçbir bilgi içermez.\n\nTest sonucunuzun Uygulama aracılığıyla iletilmesi, isteğe bağlıdır. Test sonucunuzu iletmezseniz size hiçbir dezavantajı olmaz. Uygulamayı kullanıp kullanmadığınızı ve nasıl kullandığınızı anlayamadığımız ve kontrol edemediğimiz için enfeksiyonu bulaştırıp bulaştırmadığınızı sizden başka kimse öğrenemez.\n\nUygulamayı silerek, onayınızı dilediğinizde geri alabilirsiniz. Onayın geri alınmasıyla, geri almaya kadar yapılmış veri işlemelerin hukuka uygunlukları bu durumdan etkilenmez. Bu konuya ilişkin diğer bilgileri \"Uygulama Bilgileri\" > \"Veri Gizliliği\" menüsünde bulabilirsiniz.";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "\"Kabul Et\" seçeneğine dokunduğunuzda, Uygulamanın pozitif test sonucunuzu son 14 güne ait rastgele kimliklerinizle birlikte uygulamanın sunucu sistemine göndermesine izin vermiş olursunuz, bu sayede risk belirleme özelliği etkinleştirmiş olan diğer Uygulama kullanıcıları otomatik şekilde bilgilendirilebilir. Belirtilerinizin başlangıcına ilişkin isteğe bağlı bu bilgileri verirseniz rastgele kimlikler, bilgilerinizden elde edilen risk değeri ile birlikte iletilerek ilgili rastgele kimliğin geçerli olduğu gün itibarıyla başkalarını enfekte etmiş olma riskinizi belirtir. Bu amaçla iletilen rastgele kimlikler, kimliğiniz ya da kişiliğinize ilişkin sonuç çıkartacak hiçbir bilgi içermez.\n\nTest sonucunuzun Uygulama aracılığıyla iletilmesi, isteğe bağlıdır. Test sonucunuzu iletmezseniz size hiçbir dezavantajı olmaz. Uygulamayı kullanıp kullanmadığınızı ve nasıl kullandığınızı anlayamadığımız ve kontrol edemediğimiz için enfeksiyonu bulaştırıp bulaştırmadığınızı sizden başka kimse öğrenemez.\n\nUygulamayı silerek, onayınızı dilediğinizde geri alabilirsiniz. Onayın geri alınmasıyla, geri almaya kadar yapılmış veri işlemelerin hukuka uygunlukları bu durumdan etkilenmez. Bu konuya ilişkin diğer bilgileri \"Uygulama Bilgileri\" > \"Veri Gizliliği\" bölümünde bulabilirsiniz.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Veri Gizliliği";
+"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "İzin";
 
-"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Yaş Sınırı: 16 ve Üzeri";
+"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "16 Yaş Uyarısı";
 
 "ExposureSubmissionWarnOthers_consentUnderagesText" = "Bu uygulama, 16 yaş ve üzerinde olan ve Almanya'da yaşayan kişilerin kullanması için hazırlanmıştır.";
 
@@ -665,7 +667,7 @@
 
 "ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNo" = "Hayır";
 
-"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "Beyan yok";
+"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "Bilgi yok";
 
 "ExposureSubmissionWarnEuropeCountrySelection_title" = "Avrupa geneli uyarılar";
 
@@ -679,7 +681,7 @@
 
 "ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries" = "Diğer ülkeler";
 
-"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "Beyan yok";
+"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "Bilgi yok";
 
 "ExposureSubmissionWarnEuropeCountrySelection_consentTitle" = "Kabul Beyanı";
 

@@ -133,6 +133,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			manuallyRequestRisk()
 		case .onboardingVersion:
 			vc = makeOnboardingVersionViewController()
+		case .serverEnvironment:
+			vc = makeServerEnvironmentViewController()
 		}
 		
 		if let vc = vc {
@@ -193,6 +195,14 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 
 	private func makeOnboardingVersionViewController() -> DMDeltaOnboardingViewController {
 		return DMDeltaOnboardingViewController(store: store)
+    }
+
+    private func makeServerEnvironmentViewController() -> DMServerEnvironmentViewController {
+		return DMServerEnvironmentViewController(
+			store: store,
+			downloadedPackagesStore: downloadedPackagesStore,
+			serverEnvironment: serverEnvironment
+		)
 	}
 }
 

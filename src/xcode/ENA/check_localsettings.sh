@@ -4,11 +4,11 @@ set -euo pipefail
 
 pushd `dirname ${0}`
 
-LOCAL_SETTINGS=./ENA/LocalSettings.swift
+LOCAL_SETTINGS=./ENA/Resources/ServerEnvironment/ServerEnvironments.json
 
-# if not present create a new LocalSettings file from defaults
+# if not present create a new ServerEnvironment file from default
 if [ ! -f ${LOCAL_SETTINGS} ]; then
-    cp ./ENA/LocalSettings.default.swift ${LOCAL_SETTINGS}
+    cp ./ENA/Resources/ServerEnvironment/ServerEnvironments.default.json ${LOCAL_SETTINGS}
 fi
 
 popd

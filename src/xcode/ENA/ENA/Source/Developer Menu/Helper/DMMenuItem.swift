@@ -34,6 +34,7 @@ enum DMMenuItem: Int, CaseIterable {
 	case store
 	case tracingHistory
 	case onboardingVersion
+	case serverEnvironment
 }
 
 extension DMMenuItem {
@@ -63,6 +64,7 @@ extension DMMenuItem {
 		case .store: return "Store Contents"
 		case .tracingHistory: return "Tracing History"
 		case .onboardingVersion: return "Onboarding Version"
+		case .serverEnvironment: return "Server Environment"
 		}
 	}
 	var subtitle: String {
@@ -80,6 +82,7 @@ extension DMMenuItem {
 		case .store: return "See the contents of the encrypted store used by the app"
 		case .tracingHistory: return "See when tracing was active"
 		case .onboardingVersion: return "Set the onboarding version"
+		case .serverEnvironment: return "Select server environment"
 		}
 	}
 }

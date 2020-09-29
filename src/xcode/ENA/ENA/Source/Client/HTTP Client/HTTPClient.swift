@@ -71,23 +71,6 @@ final class HTTPClient: Client {
 		}
 	}
 
-	func exposureConfiguration(
-		completion: @escaping ExposureConfigurationCompletionHandler
-	) {
-		log(message: "Fetching exposureConfiguration from: \(configuration.configurationURL)")
-		appConfiguration { config in
-			guard let config = config else {
-				completion(nil)
-				return
-			}
-			guard config.hasExposureConfig else {
-				completion(nil)
-				return
-			}
-			completion(try? ENExposureConfiguration(from: config.exposureConfig, minRiskScore: config.minRiskScore))
-		}
-	}
-
 	func supportedCountries(completion: @escaping CountryFetchCompletion) {
 		appConfiguration { config in
 			guard let config = config else {
@@ -210,6 +193,23 @@ final class HTTPClient: Client {
 				completeWith(.failure(error))
 				logError(message: "failed to get day: \(error)")
 			}
+		}
+	}
+
+	func exposureConfiguration(
+		completion: @escaping ExposureConfigurationCompletionHandler
+	) {
+		log(message: "Fetching exposureConfiguration from: \(configuration.configurationURL)")
+		appConfiguration { config in
+			guard let config = config else {
+				completion(nil)
+				return
+			}
+			guard config.hasExposureConfig else {
+				completion(nil)
+				return
+			}
+			completion(try? ENExposureConfiguration(from: config.exposureConfig, minRiskScore: config.minRiskScore))
 		}
 	}
 
@@ -463,7 +463,7 @@ private extension URLRequest {
 		// construct the request
 		let submPayload = SAP_SubmissionPayload.with {
 			$0.padding = self.getSubmissionPadding(for: payload.exposureKeys)
-			$0.keys = payload.exposureKeys.compactMap { $0.sapKey }
+			$0.keys = payload.exposureKeys
 			$0.consentToFederation = payload.consentToFederation
 			$0.visitedCountries = payload.visitedCountries.map { $0.id }
 		}
@@ -639,7 +639,7 @@ private extension URLRequest {
 	/// This method recreates the request body of the submit keys request with a padding that fills up to resemble
 	/// a request with 14 +`n` keys. Note that the `n`parameter is currently set to 0, but can change in the future
 	/// when there will be support for 15 keys.
-	private static func getSubmissionPadding(for keys: [ENTemporaryExposureKey]) -> Data {
+	private static func getSubmissionPadding(for keys: [SAP_TemporaryExposureKey]) -> Data {
 		// This parameter denotes how many keys 14 + n have to be padded.
 		let n = 0
 		let paddedKeysAmount = 14 + n - keys.count

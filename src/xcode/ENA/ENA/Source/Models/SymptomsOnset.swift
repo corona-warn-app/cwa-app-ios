@@ -40,7 +40,7 @@ enum SymptomsOnset {
 	/// These factors are supplied by RKI
 	///
 	/// - see also: [Risk Score Calculation Docs](https://github.com/corona-warn-app/cwa-documentation/blob/master/solution_architecture.md#risk-score-calculation)
-	var transmissionRiskVector: [ENRiskLevel] {
+	var transmissionRiskVector: [Int32] {
 		switch self {
 		case .noInformation:
 			return [5, 6, 7, 7, 7, 6, 4, 3, 2, 1, 1, 1, 1, 1, 1]
@@ -60,9 +60,29 @@ enum SymptomsOnset {
 		}
 	}
 
+	/// Days since onset of symptoms according to https://github.com/corona-warn-app/cwa-app-tech-spec/blob/56521167b688f418127adde09a18a48f262af382/docs/spec/days-since-onset-of-symptoms.md
+	var daysSinceOnsetOfSymptomsVector: [Int32] {
+		switch self {
+		case .noInformation:
+			return Array(3986...4000).reversed()
+		case .nonSymptomatic:
+			return Array(2986...3000).reversed()
+		case .symptomaticWithUnknownOnset:
+			return Array(1986...2000).reversed()
+		case .lastSevenDays:
+			return Array(687...701).reversed()
+		case .oneToTwoWeeksAgo:
+			return Array(694...708).reversed()
+		case .moreThanTwoWeeksAgo:
+			return Array(701...715).reversed()
+		case .daysSinceOnset(let daysSinceOnset):
+			return Array(-14...0).reversed().map { Int32($0 + daysSinceOnset) }
+		}
+	}
+
 	// MARK: - Private
 
-	private static let daysSinceOnsetRiskVectors: [[ENRiskLevel]] = [
+	private static let daysSinceOnsetRiskVectors: [[Int32]] = [
 		[8, 8, 7, 6, 4, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		[8, 8, 8, 7, 6, 4, 2, 1, 1, 1, 1, 1, 1, 1, 1],
 		[6, 8, 8, 8, 7, 6, 4, 2, 1, 1, 1, 1, 1, 1, 1],
@@ -86,6 +106,5 @@ enum SymptomsOnset {
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 	]
-
 
 }

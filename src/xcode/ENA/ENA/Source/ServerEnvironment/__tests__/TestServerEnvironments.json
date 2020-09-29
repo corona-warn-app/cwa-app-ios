@@ -1,0 +1,22 @@
+{
+	"ServerEnvironments":[
+		{
+			"name": "Default",
+			"distributionURL": "https://Default.distribution",
+			"submissionURL": "https://Default.submission",
+			"verificationURL": "https://Default.verification"
+		},
+		{
+			"name": "TestEnvironment1",
+			"distributionURL": "https://TestEnvironment1.distribution",
+			"submissionURL": "https://TestEnvironment1.submission",
+			"verificationURL": "https://TestEnvironment1.verification"
+		},
+		{
+			"name": "TestEnvironment2",
+			"distributionURL": "https://TestEnvironment2.distribution",
+			"submissionURL": "https://TestEnvironment2.submission",
+			"verificationURL": "https://TestEnvironment2.verification"
+		}
+	]
+}
