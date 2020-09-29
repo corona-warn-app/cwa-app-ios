@@ -63,7 +63,6 @@ class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboard
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		finished?()
-	
 	}
 
 	// MARK: - Private API

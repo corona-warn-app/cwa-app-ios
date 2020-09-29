@@ -20,29 +20,14 @@ import UIKit
 
 final class DeltaOnboardingNavigationController: ENANavigationControllerWithFooter, UINavigationControllerDelegate, DeltaOnboardingViewControllerProtocol {
 	var finished: (() -> Void)?
-	
 
 	// MARK: - Attributes.
 
-
-	// MARK: - Initializers.
-
-	override init(rootViewController: UIViewController) {
-		
-		super.init(rootViewController: rootViewController)
-	}
-
-	@available(*, unavailable)
-	required init?(coder _: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
+	// MARK: - Life cycle.
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-
-		
-		
 		let closeButton = UIButton(type: .custom)
 		closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)
 		closeButton.setImage(UIImage(named: "Icons - Close - Tap"), for: .highlighted)
@@ -64,8 +49,6 @@ final class DeltaOnboardingNavigationController: ENANavigationControllerWithFoot
 		applyDefaultRightBarButtonItem(to: topViewController)
 	}
 
-	
-
 	private func applyDefaultRightBarButtonItem(to viewController: UIViewController?) {
 		if let viewController = viewController,
 			viewController.navigationItem.rightBarButtonItem == nil ||
@@ -74,7 +57,6 @@ final class DeltaOnboardingNavigationController: ENANavigationControllerWithFoot
 		}
 	}
 
-	
 	@objc
 	func close() {
 		finished?()
@@ -83,6 +65,9 @@ final class DeltaOnboardingNavigationController: ENANavigationControllerWithFoot
 
 extension DeltaOnboardingNavigationController {
 	func navigationController(_: UINavigationController, willShow viewController: UIViewController, animated _: Bool) {
+		if let deltaOnboardingViewController = viewController as? DeltaOnboardingViewControllerProtocol {
+			deltaOnboardingViewController.finished = self.finished
+		}
 		applyDefaultRightBarButtonItem(to: viewController)
 	}
 }

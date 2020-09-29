@@ -48,23 +48,16 @@ class DeltaOnboardingCoordinator {
 			finished?()
 			return
 		}
-						
-			let onboardingViewController = onboarding.makeViewController()
 
-			onboardingViewController.finished = { [weak self] in
-				self?.rootViewController?.dismiss(animated: true)
-				onboarding.finish()
-				self?.showNextOnboardingViewController()
-			}
+		let onboardingViewController = onboarding.makeViewController()
 
-			let navigationController = DeltaOnboardingNavigationController(rootViewController: onboardingViewController)
-			navigationController.finished = { [weak self] in
-				self?.rootViewController?.dismiss(animated: true)
-				onboarding.finish()
-				self?.showNextOnboardingViewController()
-			}
-			
-			self.rootViewController?.present(navigationController, animated: true)
+		onboardingViewController.finished = { [weak self] in
+			self?.rootViewController?.dismiss(animated: true)
+			onboarding.finish()
+			self?.showNextOnboardingViewController()
+		}
+
+		self.rootViewController?.present(onboardingViewController, animated: true)
 	}
 
 	private func nextOnboarding() -> DeltaOnboarding? {

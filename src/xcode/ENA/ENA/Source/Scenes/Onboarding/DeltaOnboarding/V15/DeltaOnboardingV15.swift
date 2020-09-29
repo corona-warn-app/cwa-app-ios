@@ -19,7 +19,7 @@
 
 import UIKit
 
-struct DeltaOnboardingV15: DeltaOnboarding {
+class DeltaOnboardingV15: DeltaOnboarding {
 
 	let version = "1.5"
 	let store: Store
@@ -31,11 +31,14 @@ struct DeltaOnboardingV15: DeltaOnboarding {
 	}
 
 	func makeViewController() -> DeltaOnboardingViewControllerProtocol {
-		
-		let deltaOnboardingViewController = AppStoryboard.onboarding.initiate(viewControllerType: DeltaOnboardingV15ViewController.self) { coder -> UIViewController? in
-			DeltaOnboardingV15ViewController(coder: coder, supportedCountries: supportedCountries)
+		let deltaOnboardingViewController = AppStoryboard.onboarding.initiate(
+			viewControllerType: DeltaOnboardingV15ViewController.self) { [weak self] coder -> UIViewController? in
+			guard let self = self else { return nil }
+			return DeltaOnboardingV15ViewController(coder: coder, supportedCountries: self.supportedCountries)
 		}
-		
-		return deltaOnboardingViewController
+
+		let navigationController = DeltaOnboardingNavigationController(rootViewController: deltaOnboardingViewController)
+
+		return navigationController
 	}
 }
