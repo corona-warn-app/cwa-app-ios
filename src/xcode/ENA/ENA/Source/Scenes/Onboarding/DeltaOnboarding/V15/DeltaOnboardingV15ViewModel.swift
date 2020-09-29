@@ -83,7 +83,7 @@ struct DeltaOnboardingV15ViewModel {
 						.space(height: 20),
 						
 						.custom(
-							withIdentifier: ExposureSubmissionWarnOthersViewController.CustomCellReuseIdentifiers.roundedCell,
+							withIdentifier: DeltaOnboardingV15ViewController.CustomCellReuseIdentifiers.roundedCell,
 							configure: { _, cell, _ in
 								guard let cell = cell as? DynamicTableViewRoundedCell else { return }
 
