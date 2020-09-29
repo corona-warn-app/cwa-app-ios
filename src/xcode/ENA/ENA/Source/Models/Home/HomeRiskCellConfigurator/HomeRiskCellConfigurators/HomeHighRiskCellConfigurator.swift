@@ -59,7 +59,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		case .detecting:
 			itemCellConfigurators += [setupDetectingCellState(for: cell)]
 		default:
-			itemCellConfigurators.append(contentsOf: setupNormalCellState(for: cell))
+			itemCellConfigurators += setupNormalCellState(for: cell)
 		}
 
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
