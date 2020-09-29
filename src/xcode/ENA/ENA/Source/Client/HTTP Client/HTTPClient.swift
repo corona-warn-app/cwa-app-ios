@@ -71,23 +71,6 @@ final class HTTPClient: Client {
 		}
 	}
 
-	func exposureConfiguration(
-		completion: @escaping ExposureConfigurationCompletionHandler
-	) {
-		log(message: "Fetching exposureConfiguration from: \(configuration.configurationURL)")
-		appConfiguration { config in
-			guard let config = config else {
-				completion(nil)
-				return
-			}
-			guard config.hasExposureConfig else {
-				completion(nil)
-				return
-			}
-			completion(try? ENExposureConfiguration(from: config.exposureConfig, minRiskScore: config.minRiskScore))
-		}
-	}
-
 	func supportedCountries(completion: @escaping CountryFetchCompletion) {
 		appConfiguration { config in
 			guard let config = config else {
@@ -210,6 +193,23 @@ final class HTTPClient: Client {
 				completeWith(.failure(error))
 				logError(message: "failed to get day: \(error)")
 			}
+		}
+	}
+
+	func exposureConfiguration(
+		completion: @escaping ExposureConfigurationCompletionHandler
+	) {
+		log(message: "Fetching exposureConfiguration from: \(configuration.configurationURL)")
+		appConfiguration { config in
+			guard let config = config else {
+				completion(nil)
+				return
+			}
+			guard config.hasExposureConfig else {
+				completion(nil)
+				return
+			}
+			completion(try? ENExposureConfiguration(from: config.exposureConfig, minRiskScore: config.minRiskScore))
 		}
 	}
 

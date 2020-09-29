@@ -40,6 +40,7 @@ extension AppDelegate: ExposureSummaryProvider {
 		activityStateDelegate: ActivityStateProviderDelegate? = nil,
 		completion: @escaping (ENExposureDetectionSummary?) -> Void
 	) -> CancellationToken {
+
 		exposureDetection = ExposureDetection(delegate: exposureDetectionExecutor)
 		exposureDetection?
 			.$activityState

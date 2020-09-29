@@ -54,7 +54,7 @@ final class SQLiteKeyValueStore {
 	// MARK: - Internal database modifications
 
 	/// Generates or Loads Database Key
-	/// Creates the K/V Datsbase if it is not already there
+	/// Creates the K/V Database if it is not already there
 	private func initDatabase(with key: String) -> Bool {
 
 		var isSuccess = true

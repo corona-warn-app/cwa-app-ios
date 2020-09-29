@@ -71,6 +71,8 @@
 		13E5046D248E434B0086641C /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = EE92A340245D96DA006B97B0 /* Localizable.stringsdict */; };
 		2F26CE2E248B9C4F00BE30EE /* UIViewController+BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */; };
 		2F3218D0248063E300A7AC0A /* UIView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */; };
+		2F3D95372518BCD1002B2C81 /* EUSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3D95362518BCD1002B2C81 /* EUSettingsViewController.swift */; };
+		2F3D953C2518BCE9002B2C81 /* EUSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3D953B2518BCE9002B2C81 /* EUSettingsViewModel.swift */; };
 		2F785752248506BD00323A9C /* HomeTestResultCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F78574F248506BD00323A9C /* HomeTestResultCollectionViewCell.xib */; };
 		2F80CFD9247ED988000F06AF /* ExposureSubmissionIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */; };
 		2F80CFDB247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */; };
@@ -84,6 +86,7 @@
 		2FC0356F24B342FA00E234AC /* UIViewcontroller+AlertTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0356E24B342FA00E234AC /* UIViewcontroller+AlertTest.swift */; };
 		2FC0357124B5B70700E234AC /* Error+FAQUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC0357024B5B70700E234AC /* Error+FAQUrl.swift */; };
 		2FC951FE24DC23B9008D39F4 /* DMConfigurationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC951FD24DC23B9008D39F4 /* DMConfigurationCell.swift */; };
+		2FD473BF251E0ECE000DCA40 /* EUSettingsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD473BE251E0ECE000DCA40 /* EUSettingsViewControllerTests.swift */; };
 		2FD881CC2490F65C00BEC8FC /* ExposureSubmissionHotlineViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD881CB2490F65C00BEC8FC /* ExposureSubmissionHotlineViewControllerTest.swift */; };
 		2FD881CE249115E700BEC8FC /* ExposureSubmissionNavigationControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD881CD249115E700BEC8FC /* ExposureSubmissionNavigationControllerTest.swift */; };
 		2FE15A3C249B8C0B0077BD8D /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */; };
@@ -300,6 +303,8 @@
 		A3EE6E5C249BB97500C64B61 /* UITestingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */; };
 		A3EE6E5D249BB9B900C64B61 /* UITestingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */; };
 		A3FF84EC247BFAF00053E947 /* Hasher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FF84EB247BFAF00053E947 /* Hasher.swift */; };
+		AB1011592507C15000D392A2 /* TracingStatusHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1011572507C15000D392A2 /* TracingStatusHistory.swift */; };
+		AB10115B250926BB00D392A2 /* CountryKeypackageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB10115A250926BB00D392A2 /* CountryKeypackageDownloader.swift */; };
 		AB5F84AD24F8F7A1000400D4 /* SerialMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F84AC24F8F7A1000400D4 /* SerialMigrator.swift */; };
 		AB5F84B024F8F7C3000400D4 /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F84AF24F8F7C3000400D4 /* Migration.swift */; };
 		AB5F84B224F8F7E3000400D4 /* Migration0To1.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F84B124F8F7E3000400D4 /* Migration0To1.swift */; };
@@ -382,7 +387,6 @@
 		B1C7EE482493D97000F1F284 /* RiskProvidingConfigurationManualTriggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C7EE472493D97000F1F284 /* RiskProvidingConfigurationManualTriggerTests.swift */; };
 		B1C7EEAE24941A3B00F1F284 /* ManualExposureDetectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C7EEAD24941A3B00F1F284 /* ManualExposureDetectionState.swift */; };
 		B1C7EEB024941A6B00F1F284 /* RiskConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C7EEAF24941A6B00F1F284 /* RiskConsumer.swift */; };
-		B1CD333C24865A7D00B06E9B /* TracingStatusHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CD333B24865A7D00B06E9B /* TracingStatusHistory.swift */; };
 		B1CD333E24865E0000B06E9B /* TracingStatusHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CD333D24865E0000B06E9B /* TracingStatusHistoryTests.swift */; };
 		B1CD33412486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CD33402486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift */; };
 		B1D431C8246C69F300E728AD /* HTTPClient+ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D431C7246C69F300E728AD /* HTTPClient+ConfigurationTests.swift */; };
@@ -567,6 +571,8 @@
 		13E50468248E3CD20086641C /* ENAUITestsAppInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsAppInformation.swift; sourceTree = "<group>"; };
 		2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+BackButton.swift"; sourceTree = "<group>"; };
 		2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Convenience.swift"; sourceTree = "<group>"; };
+		2F3D95362518BCD1002B2C81 /* EUSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EUSettingsViewController.swift; sourceTree = "<group>"; };
+		2F3D953B2518BCE9002B2C81 /* EUSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EUSettingsViewModel.swift; sourceTree = "<group>"; };
 		2F78574F248506BD00323A9C /* HomeTestResultCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeTestResultCollectionViewCell.xib; sourceTree = "<group>"; };
 		2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionIntroViewController.swift; sourceTree = "<group>"; };
 		2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionHotlineViewController.swift; sourceTree = "<group>"; };
@@ -580,6 +586,7 @@
 		2FC0356E24B342FA00E234AC /* UIViewcontroller+AlertTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewcontroller+AlertTest.swift"; sourceTree = "<group>"; };
 		2FC0357024B5B70700E234AC /* Error+FAQUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+FAQUrl.swift"; sourceTree = "<group>"; };
 		2FC951FD24DC23B9008D39F4 /* DMConfigurationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMConfigurationCell.swift; sourceTree = "<group>"; };
+		2FD473BE251E0ECE000DCA40 /* EUSettingsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EUSettingsViewControllerTests.swift; sourceTree = "<group>"; };
 		2FD881CB2490F65C00BEC8FC /* ExposureSubmissionHotlineViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionHotlineViewControllerTest.swift; sourceTree = "<group>"; };
 		2FD881CD249115E700BEC8FC /* ExposureSubmissionNavigationControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionNavigationControllerTest.swift; sourceTree = "<group>"; };
 		2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
@@ -818,6 +825,8 @@
 		A3EE6E59249BB7AF00C64B61 /* ExposureSubmissionServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionServiceFactory.swift; sourceTree = "<group>"; };
 		A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestingParameters.swift; sourceTree = "<group>"; };
 		A3FF84EB247BFAF00053E947 /* Hasher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hasher.swift; sourceTree = "<group>"; };
+		AB1011572507C15000D392A2 /* TracingStatusHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracingStatusHistory.swift; sourceTree = "<group>"; };
+		AB10115A250926BB00D392A2 /* CountryKeypackageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryKeypackageDownloader.swift; sourceTree = "<group>"; };
 		AB5F84AC24F8F7A1000400D4 /* SerialMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialMigrator.swift; sourceTree = "<group>"; };
 		AB5F84AF24F8F7C3000400D4 /* Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration.swift; sourceTree = "<group>"; };
 		AB5F84B124F8F7E3000400D4 /* Migration0To1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration0To1.swift; sourceTree = "<group>"; };
@@ -888,7 +897,6 @@
 		B1C7EE472493D97000F1F284 /* RiskProvidingConfigurationManualTriggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskProvidingConfigurationManualTriggerTests.swift; sourceTree = "<group>"; };
 		B1C7EEAD24941A3B00F1F284 /* ManualExposureDetectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualExposureDetectionState.swift; sourceTree = "<group>"; };
 		B1C7EEAF24941A6B00F1F284 /* RiskConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskConsumer.swift; sourceTree = "<group>"; };
-		B1CD333B24865A7D00B06E9B /* TracingStatusHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracingStatusHistory.swift; sourceTree = "<group>"; };
 		B1CD333D24865E0000B06E9B /* TracingStatusHistoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracingStatusHistoryTests.swift; sourceTree = "<group>"; };
 		B1CD33402486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaWarnURLSessionDelegate.swift; sourceTree = "<group>"; };
 		B1D431C7246C69F300E728AD /* HTTPClient+ConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+ConfigurationTests.swift"; sourceTree = "<group>"; };
@@ -1143,6 +1151,16 @@
 			path = AppInformation;
 			sourceTree = "<group>";
 		};
+		2F3D95352518BCBA002B2C81 /* EUSettings */ = {
+			isa = PBXGroup;
+			children = (
+				2FD473BD251E0E7F000DCA40 /* __tests__ */,
+				2F3D95362518BCD1002B2C81 /* EUSettingsViewController.swift */,
+				2F3D953B2518BCE9002B2C81 /* EUSettingsViewModel.swift */,
+			);
+			path = EUSettings;
+			sourceTree = "<group>";
+		};
 		2FA9E39124D2F2620030561C /* Exposure Submission */ = {
 			isa = PBXGroup;
 			children = (
@@ -1171,6 +1189,14 @@
 				2FC951FD24DC23B9008D39F4 /* DMConfigurationCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		2FD473BD251E0E7F000DCA40 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				2FD473BE251E0ECE000DCA40 /* EUSettingsViewControllerTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		50BD2E6724FE26F300932566 /* __test__ */ = {
@@ -1402,7 +1428,6 @@
 				A1C2B2DA24834934004A3BD5 /* __tests__ */,
 				CD99A3C6246155C300BF12AF /* Logger.swift */,
 				B120C7C524AFDAB900F68FF1 /* ActiveTracing.swift */,
-				B1CD333B24865A7D00B06E9B /* TracingStatusHistory.swift */,
 				A3FF84EB247BFAF00053E947 /* Hasher.swift */,
 				0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */,
 				016146902487A43E00660992 /* LinkHelper.swift */,
@@ -1623,6 +1648,7 @@
 		858F6F71245AEC05009FFD33 /* ENSetting */ = {
 			isa = PBXGroup;
 			children = (
+				2F3D95352518BCBA002B2C81 /* EUSettings */,
 				EE22DB80247FB409001B0A71 /* ENSettingModel.swift */,
 				EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */,
 				853D98842469DC8100490DBA /* ExposureNotificationSettingViewController.swift */,
@@ -1915,6 +1941,14 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		AB1011552507C14F00D392A2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AB1011572507C15000D392A2 /* TracingStatusHistory.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		AB5F84A924F8F6C7000400D4 /* Migration */ = {
 			isa = PBXGroup;
 			children = (
@@ -2090,6 +2124,7 @@
 				B14D0CDE246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift */,
 				B14D0CDC246E972400D5BEBC /* ExposureDetectionDelegate.swift */,
 				FEDCE0116603B6E00FAEE632 /* ExposureDetectionExecutor.swift */,
+				AB10115A250926BB00D392A2 /* CountryKeypackageDownloader.swift */,
 			);
 			path = "Exposure Transaction";
 			sourceTree = "<group>";
@@ -2230,6 +2265,7 @@
 			isa = PBXGroup;
 			children = (
 				B117909724914D6E007FF821 /* __tests__ */,
+				AB1011552507C14F00D392A2 /* Models */,
 				013DC101245DAC4E00EE58B0 /* Store.swift */,
 				B184A37F248FFCBE007180F6 /* SecureStore.swift */,
 				B184A382248FFCE2007180F6 /* CodableExposureDetectionSummary.swift */,
@@ -2899,6 +2935,7 @@
 				B1175213248A83AB00C3325C /* Risk.swift in Sources */,
 				A36D07B92486D61C00E46F96 /* HomeCardCellButtonDelegate.swift in Sources */,
 				B1A89F3824819C2B00DA1CEC /* HomeInteractor.swift in Sources */,
+				2F3D953C2518BCE9002B2C81 /* EUSettingsViewModel.swift in Sources */,
 				01B7232924F812DF0064C0EB /* OptionView.swift in Sources */,
 				514C0A16247C164700F235F6 /* HomeHighRiskCellConfigurator.swift in Sources */,
 				71FE1C7B247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift in Sources */,
@@ -2909,6 +2946,7 @@
 				51CE1B4A246016B0002CF42A /* UICollectionViewCell+Identifier.swift in Sources */,
 				50DC527924FEB2AE00F6D8EB /* AppInformationDynamicCell.swift in Sources */,
 				EB3BCA8C2507C3B0003F27C7 /* DynamicTableViewBulletPointCell.swift in Sources */,
+				2F3D95372518BCD1002B2C81 /* EUSettingsViewController.swift in Sources */,
 				71B8044F248526B600D53506 /* DynamicTableViewSpaceCell.swift in Sources */,
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
 				71FE1C7A247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift in Sources */,
@@ -2916,12 +2954,13 @@
 				51486DA22485101500FCE216 /* RiskInactiveCollectionViewCell.swift in Sources */,
 				710021DC248E44A6001F0B63 /* ENAFont.swift in Sources */,
 				B1FE13FF2489708200D012E5 /* CachedAppConfiguration.swift in Sources */,
+				AB10115B250926BB00D392A2 /* CountryKeypackageDownloader.swift in Sources */,
 				EE22DB8B247FB43A001B0A71 /* ActionDetailTableViewCell.swift in Sources */,
+				AB1011592507C15000D392A2 /* TracingStatusHistory.swift in Sources */,
 				71FE1C71247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift in Sources */,
 				01D69491250272CE00B45BEA /* DatePickerDayViewModel.swift in Sources */,
 				0159E6C2247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift in Sources */,
 				B16457BB24DC3309002879EB /* DMErrorsViewController.swift in Sources */,
-				B1CD333C24865A7D00B06E9B /* TracingStatusHistory.swift in Sources */,
 				01B7232F24FE4F080064C0EB /* OptionGroupViewModel.swift in Sources */,
 				51D420B724583B7200AD70CA /* NSObject+Identifier.swift in Sources */,
 				CDCE11D6247D644100F30825 /* NotificationSettingsViewModel.swift in Sources */,
@@ -3195,6 +3234,7 @@
 				CDF27BD3246ADBA70044D32B /* ExposureSubmissionServiceTests.swift in Sources */,
 				01D16C6024ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift in Sources */,
 				A328426324910552006B1F09 /* ExposureSubmissionSuccessViewControllerTests.swift in Sources */,
+				2FD473BF251E0ECE000DCA40 /* EUSettingsViewControllerTests.swift in Sources */,
 				A372DA4124BF33F9003248BB /* MockExposureSubmissionCoordinatorDelegate.swift in Sources */,
 				3598D99A24FE280700483F1F /* CountryTests.swift in Sources */,
 				B163D1102499068D001A322C /* SettingsViewModelTests.swift in Sources */,
