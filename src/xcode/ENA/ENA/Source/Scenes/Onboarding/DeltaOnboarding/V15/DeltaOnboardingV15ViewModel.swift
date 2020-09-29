@@ -89,10 +89,10 @@ struct DeltaOnboardingV15ViewModel {
 
 								cell.configure(
 									title: NSMutableAttributedString(
-										string: AppStrings.ExposureSubmissionWarnOthers.consentTitle
+										string: AppStrings.DeltaOnboarding.legalDataProcessingInfoTitle
 									),
 									body: NSMutableAttributedString(
-										string: AppStrings.ExposureSubmissionWarnOthers.consentDescription
+										string: AppStrings.DeltaOnboarding.legalDataProcessingInfoContent
 									),
 									textStyle: .textPrimary1,
 									backgroundStyle: .separator
