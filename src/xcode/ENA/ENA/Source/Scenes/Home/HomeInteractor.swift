@@ -93,8 +93,8 @@ final class HomeInteractor: RequiresAppDependencies {
 	}
 
 	private func observeRisk() {
-		riskConsumer.didChangeActivityState = { state in
-			self.updateAndReloadRiskCellState(to: state)
+		riskConsumer.didChangeActivityState = { [weak self] state in
+			self?.updateAndReloadRiskCellState(to: state)
 		}
 
 		riskProvider.observeRisk(riskConsumer)
