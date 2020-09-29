@@ -94,8 +94,8 @@ struct DeltaOnboardingV15ViewModel {
 									body: NSMutableAttributedString(
 										string: AppStrings.DeltaOnboarding.legalDataProcessingInfoContent
 									),
-									textStyle: .textPrimary1,
-									backgroundStyle: .separator
+									textColor: .textPrimary1,
+									bgColor: .separator
 								)
 							}
 						)
