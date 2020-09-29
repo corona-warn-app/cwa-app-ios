@@ -174,12 +174,6 @@ final class OnboardingInfoViewController: UIViewController {
 		})
 	}
 
-	private func updateCountrySection(countries: [Country]) {
-		let bla = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
-		bla.backgroundColor = .red
-		stackView.insertArrangedSubview(view, at: 3)
-	}
-
 	private func updateUI(exposureManagerState: ExposureManagerState) {
 		guard isViewLoaded else { return }
 		guard let onboardingInfo = onboardingInfo else { return }
