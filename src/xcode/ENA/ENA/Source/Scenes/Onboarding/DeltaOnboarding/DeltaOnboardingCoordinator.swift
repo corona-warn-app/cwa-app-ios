@@ -70,13 +70,10 @@ class DeltaOnboardingCoordinator: RequiresAppDependencies {
 			
 			self.rootViewController?.present(navigationController, animated: true)
 		}
-
-		
 	}
 
 	private func nextOnboarding() -> DeltaOnboarding? {
 		return onboardings.first(where: { !$0.isFinished })
 	}
-	
 	
 }
