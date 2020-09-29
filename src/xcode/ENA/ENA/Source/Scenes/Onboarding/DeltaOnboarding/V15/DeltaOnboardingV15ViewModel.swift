@@ -37,7 +37,7 @@ struct DeltaOnboardingV15ViewModel {
 			$0.add(
 				.section(
 					header: .image(
-						UIImage(named: "Illu_Submission_EuropaweitWarnen"),
+						UIImage(named: "Illu_EUTracingOnboarding"),
 						accessibilityLabel: AppStrings.DeltaOnboarding.accImageLabel,
 						accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.accImageDescription,
 						height: 250
