@@ -310,6 +310,7 @@
 		AB1FCBDC2521FCD5005930BA /* TestServerEnvironments.json in Resources */ = {isa = PBXBuildFile; fileRef = AB1FCBDB2521FCD5005930BA /* TestServerEnvironments.json */; };
 		AB1011592507C15000D392A2 /* TracingStatusHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1011572507C15000D392A2 /* TracingStatusHistory.swift */; };
 		AB10115B250926BB00D392A2 /* CountryKeypackageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB10115A250926BB00D392A2 /* CountryKeypackageDownloader.swift */; };
+		AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */; };
 		AB5F84AD24F8F7A1000400D4 /* SerialMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F84AC24F8F7A1000400D4 /* SerialMigrator.swift */; };
 		AB5F84B024F8F7C3000400D4 /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F84AF24F8F7C3000400D4 /* Migration.swift */; };
 		AB5F84B224F8F7E3000400D4 /* Migration0To1.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F84B124F8F7E3000400D4 /* Migration0To1.swift */; };
@@ -834,6 +835,7 @@
 		A3EE6E59249BB7AF00C64B61 /* ExposureSubmissionServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionServiceFactory.swift; sourceTree = "<group>"; };
 		A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestingParameters.swift; sourceTree = "<group>"; };
 		A3FF84EB247BFAF00053E947 /* Hasher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hasher.swift; sourceTree = "<group>"; };
+		AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerTests.swift; sourceTree = "<group>"; };
 		AB1FCBCC2521FC44005930BA /* ServerEnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerEnvironmentTests.swift; sourceTree = "<group>"; };
 		AB1FCBDB2521FCD5005930BA /* TestServerEnvironments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestServerEnvironments.json; sourceTree = "<group>"; };
 		AB1011572507C15000D392A2 /* TracingStatusHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracingStatusHistory.swift; sourceTree = "<group>"; };
@@ -1424,6 +1426,7 @@
 		51D420AF2458308400AD70CA /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				AB1885CF25238D9B00D39BBE /* __tests__ */,
 				51C737BC245B349700286105 /* OnboardingInfoViewController.swift */,
 				A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */,
 				137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */,
@@ -1950,6 +1953,14 @@
 			isa = PBXGroup;
 			children = (
 				A3E851B424ADDAC000402485 /* CountdownTimerTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		AB1885CF25238D9B00D39BBE /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -3241,6 +3252,7 @@
 				B1221BE22492ED0F00E6C4E4 /* CFDictionary+KeychainQueryTests.swift in Sources */,
 				A124E64A249BF4EF00E95F72 /* ExposureDetectionExecutorTests.swift in Sources */,
 				A128F04E2489ABEE00EC7F6C /* RiskCalculationTests.swift in Sources */,
+				AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */,
 				B16177E824802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift in Sources */,
 				B1175216248A9F9600C3325C /* ConvertingKeysTests.swift in Sources */,
 				B10F9B8B249961BC00C418F4 /* DynamicTypeLabelTests.swift in Sources */,

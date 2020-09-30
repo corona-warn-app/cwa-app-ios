@@ -46,11 +46,15 @@ final class OnboardingInfoViewController: UIViewController {
 		coder: NSCoder,
 		pageType: OnboardingPageType,
 		exposureManager: ExposureManager,
-		store: Store
+		store: Store,
+		client: Client,
+		supportedCountries: [Country]? = nil
 	) {
 		self.pageType = pageType
 		self.exposureManager = exposureManager
 		self.store = store
+		self.client = client
+		self.supportedCountries = supportedCountries
 		super.init(coder: coder)
 	}
 
@@ -84,10 +88,13 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private var onboardingInfos = OnboardingInfo.testData()
 	private var exposureManagerActivated = false
+
+	var client: Client
 	private var pageSetupDone = false
 	var htmlTextView: HtmlTextView?
 
 	var onboardingInfo: OnboardingInfo?
+	var supportedCountries: [Country]?
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -97,6 +104,8 @@ final class OnboardingInfoViewController: UIViewController {
 		viewRespectsSystemMinimumLayoutMargins = false
 		view.layoutMargins = .zero
 		setupAccessibility()
+
+		if pageType == .togetherAgainstCoronaPage { loadCountryList() }
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -147,6 +156,22 @@ final class OnboardingInfoViewController: UIViewController {
 			completion()
 		}
 		present(alert, animated: true, completion: nil)
+	}
+
+	private func loadCountryList() {
+		client.supportedCountries(completion: { [weak self] result in
+			var availableCountries: [Country]
+			switch result {
+			case .failure:
+				logError(message: "Did not receive a country list.")
+				availableCountries = []
+			case .success(let countries):
+				availableCountries = countries
+			}
+
+			self?.supportedCountries = availableCountries
+				.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
+		})
 	}
 
 	private func updateUI(exposureManagerState: ExposureManagerState) {
@@ -205,11 +230,16 @@ final class OnboardingInfoViewController: UIViewController {
 
 		switch pageType {
 		case .enableLoggingOfContactsPage:
+			addParagraph(
+				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_euTitle,
+				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_euDescription
+			)
+			addCountrySection(title: AppStrings.Onboarding.onboardingInfo_ParticipatingCountries_Title, countries: supportedCountries ?? [])
 			addPanel(
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle,
 				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_consentUnderagesText,
-				textStyle: .textContrast,
-				backgroundStyle: .riskNeutral
+				textColor: .textContrast,
+				bgColor: .riskNeutral
 			)
 			addPanel(
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
@@ -386,7 +416,9 @@ final class OnboardingInfoViewController: UIViewController {
 				coder: coder,
 				pageType: nextPageType,
 				exposureManager: self.exposureManager,
-				store: self.store
+				store: self.store,
+				client: client,
+				supportedCountries: supportedCountries
 			)
 		}
 		// swiftlint:disable:next force_unwrapping
