@@ -20,10 +20,19 @@
 import Foundation
 import ExposureNotification
 import UIKit
+import Combine
 
 protocol ExposureSummaryProvider: AnyObject {
 	typealias Completion = (ENExposureDetectionSummary?) -> Void
-	func detectExposure(completion: @escaping Completion) -> CancellationToken
+	func detectExposure(
+		activityStateDelegate: ActivityStateProviderDelegate?,
+		completion: @escaping Completion
+	) -> CancellationToken
+}
+
+/// This protocol is used to provide an up-to-date exposure detection state for the RiskProvider.
+protocol ActivityStateProviderDelegate: class {
+	func provideActivityState(_ state: RiskProvider.ActivityState)
 }
 
 final class RiskProvider {
@@ -54,15 +63,22 @@ final class RiskProvider {
 		self.appConfigurationProvider = appConfigurationProvider
 		self.exposureManagerState = exposureManagerState
 		self.targetQueue = targetQueue
+
+		self.$activityState
+			.removeDuplicates()
+			.debounce(for: .milliseconds(250), scheduler: RunLoop.main)
+			.sink { [weak self] state in self?._provideActivityState(state) }
+			.store(in: &subscriptions)
 	}
 
 	// MARK: Properties
+	private var subscriptions = Set<AnyCancellable>()
 	private let store: Store
 	private let exposureSummaryProvider: ExposureSummaryProvider
 	private let appConfigurationProvider: AppConfigurationProviding
+	@Published private(set) var activityState: ActivityState = .idle
 	var exposureManagerState: ExposureManagerState
 	var configuration: RiskProvidingConfiguration
-	private(set) var isLoading: Bool = false
 }
 
 private extension RiskConsumer {
@@ -135,7 +151,7 @@ extension RiskProvider: RiskProviding {
 		// The summary is outdated + we are in automatic mode: do a exposure detection
 		let previousSummary = store.summary
 
-		self.cancellationToken = exposureSummaryProvider.detectExposure { detectedSummary in
+		self.cancellationToken = exposureSummaryProvider.detectExposure(activityStateDelegate: self) { detectedSummary in
 			if let detectedSummary = detectedSummary {
 				self.store.summary = .init(detectionSummary: detectedSummary, date: Date())
 			}
@@ -201,6 +217,7 @@ extension RiskProvider: RiskProviding {
 	}
 
 	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
+		provideActivityState(.idle)
 		var summaries: Summaries?
 		let tracingHistory = store.tracingStatusHistory
 		let numberOfEnabledHours = tracingHistory.activeTracing().inHours
@@ -238,7 +255,6 @@ extension RiskProvider: RiskProviding {
 			return
 		}
 
-		provideLoadingStatus(isLoading: true)
 		let group = DispatchGroup()
 
 		group.enter()
@@ -260,8 +276,7 @@ extension RiskProvider: RiskProviding {
 			group.leave()
 		}
 
-		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
-			provideLoadingStatus(isLoading: false)
+		guard group.wait(timeout: .now() + .seconds(60 * 8)) == .success else {
 			cancellationToken?.cancel()
 			cancellationToken = nil
 			completeOnTargetQueue(risk: nil, completion: completion)
@@ -278,7 +293,6 @@ extension RiskProvider: RiskProviding {
 
 	private func _requestRiskLevel(summaries: Summaries?, appConfiguration: SAP_ApplicationConfiguration?, completion: Completion? = nil) {
 		guard let _appConfiguration = appConfiguration else {
-			provideLoadingStatus(isLoading: false)
 			completeOnTargetQueue(risk: nil, completion: completion)
 			showAppConfigError()
 			return
@@ -298,12 +312,10 @@ extension RiskProvider: RiskProviding {
 				providerConfiguration: configuration
 			) else {
 				logError(message: "Serious error during risk calculation")
-				provideLoadingStatus(isLoading: false)
 				completeOnTargetQueue(risk: nil, completion: completion)
 				return
 		}
 
-		provideLoadingStatus(isLoading: false)
 		completeOnTargetQueue(risk: risk, completion: completion)
 		saveRiskIfNeeded(risk)
 	}
@@ -315,19 +327,6 @@ extension RiskProvider: RiskProviding {
 		#else
 		consumer?.provideRisk(risk)
 		#endif
-	}
-
-	private func provideLoadingStatus(isLoading: Bool) {
-		self.isLoading = isLoading
-		_provideLoadingStatus(isLoading)
-	}
-
-	private func _provideLoadingStatus(_ isLoading: Bool) {
-		targetQueue.async { [weak self] in
-			self?.consumers.forEach {
-				$0.didChangeLoadingStatus?(isLoading)
-			}
-		}
 	}
 
 	private func saveRiskIfNeeded(_ risk: Risk) {
@@ -348,6 +347,35 @@ extension RiskProvider: RiskProviding {
 				message: AppStrings.ExposureDetectionError.errorAlertAppConfigMissingMessage,
 				title: AppStrings.ExposureDetectionError.errorAlertTitle
 			)
+		}
+	}
+}
+
+extension RiskProvider: ActivityStateProviderDelegate {
+
+	/// - NOTE: The activity state is propagated to subscribers
+	/// via a sink that can be found in the RiskProvider initializer.
+	func provideActivityState(_ state: ActivityState) {
+		activityState = state
+	}
+
+	private func _provideActivityState(_ state: ActivityState) {
+		targetQueue.async { [weak self] in
+			self?.consumers.forEach {
+				$0.didChangeActivityState?(state)
+			}
+		}
+	}
+}
+
+extension RiskProvider {
+	enum ActivityState {
+		case idle
+		case downloading
+		case detecting
+
+		var isActive: Bool {
+			self != .idle
 		}
 	}
 }

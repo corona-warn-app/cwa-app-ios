@@ -38,6 +38,7 @@ final class SettingsViewController: UITableViewController {
 	private weak var delegate: SettingsViewControllerDelegate?
 
 	let store: Store
+	let client: Client
 
 	let tracingSegue = "showTracing"
 	let notificationsSegue = "showNotifications"
@@ -47,11 +48,11 @@ final class SettingsViewController: UITableViewController {
 	let settingsViewModel = SettingsViewModel()
 	var enState: ENStateHandler.State
 
-
-	init?(coder: NSCoder, store: Store, initialEnState: ENStateHandler.State, delegate: SettingsViewControllerDelegate) {
+	init?(coder: NSCoder, store: Store, initialEnState: ENStateHandler.State, client: Client, delegate: SettingsViewControllerDelegate) {
 		self.store = store
 		self.delegate = delegate
 		self.enState = initialEnState
+		self.client = client
 		super.init(coder: coder)
 	}
 
@@ -83,15 +84,22 @@ final class SettingsViewController: UITableViewController {
 		if segue.identifier == resetSegue, let nc = segue.destination as? UINavigationController, let vc = nc.topViewController as? ResetViewController {
 			vc.delegate = self
 		}
+
+		if
+			segue.identifier == tracingSegue,
+			let vc = segue.destination as? ExposureNotificationSettingViewController {
+			vc.client = client
+		}
 	}
 
 	@IBSegueAction
 	func createExposureNotificationSettingViewController(coder: NSCoder) -> ExposureNotificationSettingViewController? {
 		let vc = ExposureNotificationSettingViewController(
-				coder: coder,
-				initialEnState: enState,
-				store: store,
-				delegate: self
+			coder: coder,
+			initialEnState: enState,
+			store: store,
+			client: client,
+			delegate: self
 		)
 		notificationSettingsController = vc
 		return vc
