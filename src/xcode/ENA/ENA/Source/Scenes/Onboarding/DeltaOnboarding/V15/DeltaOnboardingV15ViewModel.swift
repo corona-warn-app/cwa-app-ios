@@ -62,7 +62,7 @@ struct DeltaOnboardingV15ViewModel {
 			$0.add(
 				.section(
 					separators: .none,
-					cells: buildCountryLabel()
+					cells: buildCountryCells()
 				)
 			)
 			$0.add(
