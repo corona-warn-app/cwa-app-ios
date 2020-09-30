@@ -34,9 +34,10 @@ final class HTTPClient: Client {
 
 	// MARK: Properties
 	let configuration: Configuration
-	private let session: URLSession
-	private let packageVerifier: SAPDownloadedPackage.Verification
+	let session: URLSession
+	let packageVerifier: SAPDownloadedPackage.Verification
 
+	@available(*, deprecated, message: "Use CachedAppConfiguration instead")
 	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
 		session.GET(configuration.configurationURL) { [weak self] result in
 			switch result {
@@ -71,23 +72,7 @@ final class HTTPClient: Client {
 		}
 	}
 
-	func exposureConfiguration(
-		completion: @escaping ExposureConfigurationCompletionHandler
-	) {
-		log(message: "Fetching exposureConfiguration from: \(configuration.configurationURL)")
-		appConfiguration { config in
-			guard let config = config else {
-				completion(nil)
-				return
-			}
-			guard config.hasExposureConfig else {
-				completion(nil)
-				return
-			}
-			completion(try? ENExposureConfiguration(from: config.exposureConfig, minRiskScore: config.minRiskScore))
-		}
-	}
-
+	@available(*, deprecated, message: "Use CachedAppConfiguration instead")
 	func supportedCountries(completion: @escaping CountryFetchCompletion) {
 		appConfiguration { config in
 			guard let config = config else {
@@ -210,6 +195,23 @@ final class HTTPClient: Client {
 				completeWith(.failure(error))
 				logError(message: "failed to get day: \(error)")
 			}
+		}
+	}
+
+	func exposureConfiguration(
+		completion: @escaping ExposureConfigurationCompletionHandler
+	) {
+		log(message: "Fetching exposureConfiguration from: \(configuration.configurationURL)")
+		appConfiguration { config in
+			guard let config = config else {
+				completion(nil)
+				return
+			}
+			guard config.hasExposureConfig else {
+				completion(nil)
+				return
+			}
+			completion(try? ENExposureConfiguration(from: config.exposureConfig, minRiskScore: config.minRiskScore))
 		}
 	}
 

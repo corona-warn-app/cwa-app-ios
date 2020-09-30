@@ -110,21 +110,21 @@ class ExposureSubmissionCoordinatorModel {
 		onError: @escaping (ExposureSubmissionError) -> Void
 	) {
 		isLoading(true)
-		appConfigurationProvider.appConfiguration { applicationConfiguration in
+		appConfigurationProvider.appConfiguration { result in
 			isLoading(false)
 
-			guard let supportedCountries = applicationConfiguration?.supportedCountries.compactMap({ Country(countryCode: $0) }) else {
+			switch result {
+			case .success(let config):
+				let countries = config.supportedCountries.compactMap({ Country(countryCode: $0) })
+				if countries.isEmpty {
+					self.supportedCountries = [.defaultCountry()]
+				} else {
+					self.supportedCountries = countries
+				}
+				onSuccess()
+			case .failure:
 				onError(.noAppConfiguration)
-				return
 			}
-
-			if supportedCountries.isEmpty {
-				self.supportedCountries = [.defaultCountry()]
-			} else {
-				self.supportedCountries = supportedCountries
-			}
-
-			onSuccess()
 		}
 	}
 

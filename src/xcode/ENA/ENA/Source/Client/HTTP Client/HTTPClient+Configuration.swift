@@ -19,26 +19,31 @@ import Foundation
 
 extension HTTPClient {
 	struct Configuration {
+		
 		// MARK: Default Instances
 
-		static let backendBaseURLs = Configuration(
-			apiVersion: "v1",
-			country: "DE",
-			endpoints: Configuration.Endpoints(
+		static func makeDefaultConfiguration(store: Store) -> Configuration {
+			let endpoints = Configuration.Endpoints(
 				distribution: .init(
-					baseURL: URL(staticString: Hosts.distributionURLString),
+					baseURL: store.selectedServerEnvironment.distributionURL,
 					requiresTrailingSlash: false
 				),
 				submission: .init(
-					baseURL: URL(staticString: Hosts.submissionURLString),
+					baseURL: store.selectedServerEnvironment.submissionURL,
 					requiresTrailingSlash: false
 				),
 				verification: .init(
-					baseURL: URL(staticString: Hosts.verificationURLString),
+					baseURL: store.selectedServerEnvironment.verificationURL,
 					requiresTrailingSlash: false
 				)
 			)
-		)
+
+			return Configuration(
+				apiVersion: "v1",
+				country: "DE",
+				endpoints: endpoints
+			)
+		}
 
 		// MARK: Properties
 

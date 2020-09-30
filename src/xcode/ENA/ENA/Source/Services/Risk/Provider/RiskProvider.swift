@@ -265,12 +265,18 @@ extension RiskProvider: RiskProviding {
 
 		var appConfiguration: SAP_ApplicationConfiguration?
 		group.enter()
-		appConfigurationProvider.appConfiguration { configuration in
-			appConfiguration = configuration
+		appConfigurationProvider.appConfiguration { result in
+			switch result {
+			case .success(let config):
+				appConfiguration = config
+			case .failure(let error):
+				logError(message: error.localizedDescription)
+				appConfiguration = nil
+			}
 			group.leave()
 		}
 
-		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
+		guard group.wait(timeout: .now() + .seconds(60 * 8)) == .success else {
 			cancellationToken?.cancel()
 			cancellationToken = nil
 			completeOnTargetQueue(risk: nil, completion: completion)

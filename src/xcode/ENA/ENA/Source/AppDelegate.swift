@@ -29,6 +29,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
+	var serverEnvironment: ServerEnvironment { get }
 }
 
 extension AppDelegate: CoronaWarnAppDelegate {
@@ -40,6 +41,7 @@ extension AppDelegate: ExposureSummaryProvider {
 		activityStateDelegate: ActivityStateProviderDelegate? = nil,
 		completion: @escaping (ENExposureDetectionSummary?) -> Void
 	) -> CancellationToken {
+
 		exposureDetection = ExposureDetection(delegate: exposureDetectionExecutor)
 		exposureDetection?
 			.$activityState
@@ -93,14 +95,22 @@ extension AppDelegate: ExposureSummaryProvider {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-	//TODO: Handle it
-	var store: Store = SecureStore(subDirectory: "database")
+	let store: Store
+	let serverEnvironment: ServerEnvironment
 	
 	private let consumer = RiskConsumer()
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 
 	lazy var appConfigurationProvider: AppConfigurationProviding = {
-		CachedAppConfiguration(client: self.client)
+		// use a custom http client that uses/recognized caching mechanisms
+		let appFetchingClient = CachingHTTPClient(clientConfiguration: client.configuration)
+
+		// we currently use the store as common place for temporal persistency
+		guard let store = store as? AppConfigCaching else {
+			preconditionFailure("Ensure to provide a proper app config cache")
+		}
+		
+		return CachedAppConfiguration(client: appFetchingClient, store: store)
 	}()
 
 	lazy var riskProvider: RiskProvider = {
@@ -137,7 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
-	var client = HTTPClient(configuration: .backendBaseURLs)
+	let client: HTTPClient
 
 	// TODO: REMOVE ME
 	var lastRiskCalculation: String = ""
@@ -150,6 +160,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			exposureDetector: self.exposureManager
 		)
 	}()
+
+	override init() {
+		self.serverEnvironment = ServerEnvironment()
+
+		self.store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
+
+		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
+		self.client = HTTPClient(configuration: configuration)
+	}
 
 	func application(
 		_: UIApplication,

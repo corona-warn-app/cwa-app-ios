@@ -117,7 +117,8 @@ class Coordinator: RequiresAppDependencies {
 			store: store,
 			exposureManager: exposureManager,
 			developerStore: UserDefaults.standard,
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			serverEnvironment: serverEnvironment
 		)
 		developerMenu?.enableIfAllowed()
 	}
@@ -145,10 +146,11 @@ extension Coordinator: HomeViewControllerDelegate {
 		let storyboard = AppStoryboard.exposureNotificationSetting.instance
 		let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController") { coder in
 			ExposureNotificationSettingViewController(
-					coder: coder,
-					initialEnState: enState,
-					store: self.store,
-					delegate: self
+				coder: coder,
+				initialEnState: enState,
+				store: self.store,
+				client: self.client,
+				delegate: self
 			)
 		}
 		addToEnStateUpdateList(vc)
@@ -223,6 +225,7 @@ extension Coordinator: HomeViewControllerDelegate {
 				coder: coder,
 				store: self.store,
 				initialEnState: enState,
+				client: self.client,
 				delegate: self
 			)
 		}

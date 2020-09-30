@@ -86,8 +86,8 @@ struct ExposureSubmissionWarnOthersViewModel {
 									body: NSMutableAttributedString(
 										string: AppStrings.ExposureSubmissionWarnOthers.consentUnderagesText
 									),
-									textStyle: .textContrast,
-									backgroundStyle: .riskNeutral
+									textColor: .textContrast,
+									bgColor: .riskNeutral
 								)
 							}
 						),
@@ -103,8 +103,8 @@ struct ExposureSubmissionWarnOthersViewModel {
 									body: NSMutableAttributedString(
 										string: AppStrings.ExposureSubmissionWarnOthers.consentDescription
 									),
-									textStyle: .textPrimary1,
-									backgroundStyle: .separator
+									textColor: .textPrimary1,
+									bgColor: .separator
 								)
 							}
 						)

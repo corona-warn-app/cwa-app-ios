@@ -17,12 +17,27 @@
 // under the License.
 //
 
-@testable import ENA
-import Foundation
 import XCTest
+@testable import ENA
 
-// swiftlint:disable:next type_body_length
 class ExposureSubmissionCoordinatorModelTests: XCTestCase {
+
+	// default provider for a static app configuration
+	let configProvider = CachedAppConfiguration(client: CachingHTTPClientMock(), store: MockTestStore())
+
+	override func setUp() {
+		// No property needed, Store uses a common database file
+		let store = MockTestStore()
+		store.appConfig = nil
+		store.lastAppConfigETag = nil
+	}
+
+	override func tearDown() {
+		// No property needed, Store uses a common database file
+		let store = MockTestStore()
+		store.appConfig = nil
+		store.lastAppConfigETag = nil
+	}
 
 	func testExposureSubmissionServiceHasRegistrationToken() {
 		let exposureSubmissionService = MockExposureSubmissionService()
@@ -30,7 +45,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: MockAppConfiguration(mockSAPApplicationConfiguration: nil)
+			appConfigurationProvider: configProvider
 		)
 
 		XCTAssertTrue(model.exposureSubmissionServiceHasRegistrationToken)
@@ -42,7 +57,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: MockAppConfiguration(mockSAPApplicationConfiguration: nil)
+			appConfigurationProvider: configProvider
 		)
 
 		XCTAssertFalse(model.exposureSubmissionServiceHasRegistrationToken)
@@ -56,7 +71,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: MockAppConfiguration(mockSAPApplicationConfiguration: nil)
+			appConfigurationProvider: configProvider
 		)
 
 		let expectedIsLoadingValues = [Bool]()
@@ -94,13 +109,17 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 				completion(nil)
 			}
 
-			var sapApplicationConfiguration = SAP_ApplicationConfiguration()
-			sapApplicationConfiguration.supportedCountries = ["DE", "IT", "ES"]
-			let mockAppConfiguration = MockAppConfiguration(mockSAPApplicationConfiguration: sapApplicationConfiguration)
+			let client = CachingHTTPClientMock()
+			client.onFetchAppConfiguration = { _, completeWith in
+				var config = SAP_ApplicationConfiguration()
+				config.supportedCountries = ["DE", "IT", "ES"]
+				completeWith(.success(AppConfigurationFetchingResponse(config)))
+			}
+			let provider = CachedAppConfiguration(client: client, store: MockTestStore())
 
 			let model = ExposureSubmissionCoordinatorModel(
 				exposureSubmissionService: exposureSubmissionService,
-				appConfigurationProvider: mockAppConfiguration
+				appConfigurationProvider: provider
 			)
 
 			let expectedIsLoadingValues = [true, false]
@@ -140,13 +159,17 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 				completion(nil)
 			}
 
-			var sapApplicationConfiguration = SAP_ApplicationConfiguration()
-			sapApplicationConfiguration.supportedCountries = []
-			let mockAppConfiguration = MockAppConfiguration(mockSAPApplicationConfiguration: sapApplicationConfiguration)
+			let client = CachingHTTPClientMock()
+			client.onFetchAppConfiguration = { _, completeWith in
+				var config = SAP_ApplicationConfiguration()
+				config.supportedCountries = []
+				completeWith(.success(AppConfigurationFetchingResponse(config)))
+			}
+			let provider = CachedAppConfiguration(client: client, store: MockTestStore())
 
 			let model = ExposureSubmissionCoordinatorModel(
 				exposureSubmissionService: exposureSubmissionService,
-				appConfigurationProvider: mockAppConfiguration
+				appConfigurationProvider: provider
 			)
 
 			let expectedIsLoadingValues = [true, false]
@@ -186,11 +209,19 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 				completion(nil)
 			}
 
-			let mockAppConfiguration = MockAppConfiguration(mockSAPApplicationConfiguration: nil)
+			// Simulate an empty cache and broken network
+			let client = CachingHTTPClientMock()
+			client.onFetchAppConfiguration = { _, completeWith in
+				completeWith(.failure(CachedAppConfiguration.CacheError.dataFetchError(message: "fake")))
+			}
+			let store = MockTestStore()
+			store.appConfig = nil
+			store.lastAppConfigETag = nil
+			let provider = CachedAppConfiguration(client: client, store: store)
 
 			let model = ExposureSubmissionCoordinatorModel(
 				exposureSubmissionService: exposureSubmissionService,
-				appConfigurationProvider: mockAppConfiguration
+				appConfigurationProvider: provider
 			)
 
 			let expectedIsLoadingValues = [true, false]
@@ -230,13 +261,17 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 				completion(nil)
 			}
 
-			var sapApplicationConfiguration = SAP_ApplicationConfiguration()
-			sapApplicationConfiguration.supportedCountries = ["DE", "IT", "ES"]
-			let mockAppConfiguration = MockAppConfiguration(mockSAPApplicationConfiguration: sapApplicationConfiguration)
+			let client = CachingHTTPClientMock()
+			client.onFetchAppConfiguration = { _, completeWith in
+				var config = SAP_ApplicationConfiguration()
+				config.supportedCountries = ["DE", "IT", "ES"]
+				completeWith(.success(AppConfigurationFetchingResponse(config)))
+			}
+			let provider = CachedAppConfiguration(client: client, store: MockTestStore())
 
 			let model = ExposureSubmissionCoordinatorModel(
 				exposureSubmissionService: exposureSubmissionService,
-				appConfigurationProvider: mockAppConfiguration
+				appConfigurationProvider: provider
 			)
 
 			let expectedIsLoadingValues = [true, false]
@@ -276,13 +311,17 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 				completion(nil)
 			}
 
-			var sapApplicationConfiguration = SAP_ApplicationConfiguration()
-			sapApplicationConfiguration.supportedCountries = []
-			let mockAppConfiguration = MockAppConfiguration(mockSAPApplicationConfiguration: sapApplicationConfiguration)
+			let client = CachingHTTPClientMock()
+			let provider = CachedAppConfiguration(client: client, store: MockTestStore())
+			client.onFetchAppConfiguration = { _, completeWith in
+				var config = SAP_ApplicationConfiguration()
+				config.supportedCountries = []
+				completeWith(.success(AppConfigurationFetchingResponse(config)))
+			}
 
 			let model = ExposureSubmissionCoordinatorModel(
 				exposureSubmissionService: exposureSubmissionService,
-				appConfigurationProvider: mockAppConfiguration
+				appConfigurationProvider: provider
 			)
 
 			let expectedIsLoadingValues = [true, false]
@@ -322,11 +361,19 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 				completion(nil)
 			}
 
-			let mockAppConfiguration = MockAppConfiguration(mockSAPApplicationConfiguration: nil)
+			// Simulate an empty cache and broken network
+			let client = CachingHTTPClientMock()
+			client.onFetchAppConfiguration = { _, completeWith in
+				completeWith(.failure(CachedAppConfiguration.CacheError.dataFetchError(message: "fake")))
+			}
+			let store = MockTestStore()
+			store.appConfig = nil
+			store.lastAppConfigETag = nil
+			let provider = CachedAppConfiguration(client: client, store: store)
 
 			let model = ExposureSubmissionCoordinatorModel(
 				exposureSubmissionService: exposureSubmissionService,
-				appConfigurationProvider: mockAppConfiguration
+				appConfigurationProvider: provider
 			)
 
 			let expectedIsLoadingValues = [true, false]
@@ -366,7 +413,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: MockAppConfiguration(mockSAPApplicationConfiguration: nil)
+			appConfigurationProvider: configProvider
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -401,7 +448,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: MockAppConfiguration(mockSAPApplicationConfiguration: nil)
+			appConfigurationProvider: configProvider
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -436,7 +483,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: MockAppConfiguration(mockSAPApplicationConfiguration: nil)
+			appConfigurationProvider: configProvider
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -473,7 +520,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: MockAppConfiguration(mockSAPApplicationConfiguration: nil)
+			appConfigurationProvider: configProvider
 		)
 
 		let expectedIsLoadingValues = [true, false]

@@ -31,12 +31,15 @@ protocol Client {
 	typealias TANHandler = (Result<String, Failure>) -> Void
 	typealias DayCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
 	typealias HourCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
-	typealias AppConfigurationCompletion = (SAP_ApplicationConfiguration?) -> Void
 	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
+
+	@available(*, deprecated, message: "will be removed once the app config cache is in place")
+	typealias AppConfigurationCompletion = (SAP_ApplicationConfiguration?) -> Void
 
 	// MARK: Interacting with a Client
 
 	/// Gets the app configuration
+	@available(*, deprecated, message: "Use CachedAppConfiguration instead")
 	func appConfiguration(completion: @escaping AppConfigurationCompletion)
 
 	/// Determines days that can be downloaded.
@@ -75,6 +78,20 @@ protocol Client {
 		completion: @escaping HourCompletionHandler
 	)
 
+	// MARK: Getting the Configuration
+
+	typealias ExposureConfigurationCompletionHandler = (ENExposureConfiguration?) -> Void
+
+	/// Gets the exposure configuration. See `ENExposureConfiguration` for more details
+	/// Parameters:
+	/// - completion: Will be called with the configuration or an error if something went wrong.
+	func exposureConfiguration(
+		completion: @escaping ExposureConfigurationCompletionHandler
+	)
+
+	/// Gets the list of available countries for key submission.
+	func supportedCountries(completion: @escaping CountryFetchCompletion)
+
 	/// Gets the registration token
 	func getRegistrationToken(
 		forKey key: String,
@@ -95,17 +112,6 @@ protocol Client {
 		forDevice registrationToken: String,
 		isFake: Bool,
 		completion completeWith: @escaping TANHandler
-	)
-
-	// MARK: Getting the Configuration
-
-	typealias ExposureConfigurationCompletionHandler = (ENExposureConfiguration?) -> Void
-
-	/// Gets the remove exposure configuration. See `ENExposureConfiguration` for more details
-	/// Parameters:
-	/// - completion: Will be called with the remove configuration or an error if something went wrong. The completion handler will always be called on the main thread.
-	func exposureConfiguration(
-		completion: @escaping ExposureConfigurationCompletionHandler
 	)
 
 	// MARK: Submit keys
