@@ -367,7 +367,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuTitle" = "Teilnehmende Länder";
 
-"onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "Die teilnehmenden Länder können Sie jederzeit einsehen in den Details zur Risiko-Ermittlung.";
+"onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "Die teilnehmenden Länder können Sie jederzeit in den Details zur Risiko-Ermittlung einsehen.";
 
 /* Exposure Submission */
 "ExposureSubmission_Hotline_Number" = "+498007540002";
