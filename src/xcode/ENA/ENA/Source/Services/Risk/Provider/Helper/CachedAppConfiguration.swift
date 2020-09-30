@@ -95,7 +95,8 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 	}
 
 	/// Simple helper to simulate Cache-Control
-	/// - Note: This 300s value is because of current handicaps with the HTTPClient
+	/// - Note: This 300 second value is because of current handicaps with the HTTPClient architecture
+	///   which does not easily return response headers. This requires further refactoring of `URLSession+Convenience.swift`.
 	/// - Returns: `true` is a network call should be done; `false` if cache should be used
 	private func shouldFetch() -> Bool {
 		guard let lastFetch = store.lastAppConfigFetch else {
