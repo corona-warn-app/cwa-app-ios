@@ -22,11 +22,7 @@ import XCTest
 @testable import ENA
 
 class DeltaOnboardingViewControllerTests: XCTestCase {
-	
-	override func setUp() {
-		super.setUp()
-	}
-	
+
 	private func createVC() -> DeltaOnboardingV15ViewController {
 		AppStoryboard.onboarding.initiate(viewControllerType: DeltaOnboardingV15ViewController.self) { coder -> UIViewController? in
 			DeltaOnboardingV15ViewController(
@@ -47,7 +43,7 @@ class DeltaOnboardingViewControllerTests: XCTestCase {
 	
 	func testCellsInSection0() {
 		let vc = createVC()
-		_ = vc.view
+		vc.loadViewIfNeeded()
 
 		let section = vc.dynamicTableViewModel.section(0)
 		let cells = section.cells
@@ -73,7 +69,7 @@ class DeltaOnboardingViewControllerTests: XCTestCase {
 	
 	func testCellsInSection1WithCountries() {
 		let vc = createVC()
-		_ = vc.view
+		vc.loadViewIfNeeded()
 
 		let section = vc.dynamicTableViewModel.section(1)
 		let cells = section.cells
@@ -87,7 +83,7 @@ class DeltaOnboardingViewControllerTests: XCTestCase {
 	
 	func testCellsInSection1WithoutCountries() {
 		let vc = createVCWithoutCountries()
-		_ = vc.view
+		vc.loadViewIfNeeded()
 
 		let section = vc.dynamicTableViewModel.section(1)
 		let cells = section.cells
@@ -104,7 +100,7 @@ class DeltaOnboardingViewControllerTests: XCTestCase {
 	
 	func testCellsInSection2WithCountries() {
 		let vc = createVC()
-		_ = vc.view
+		vc.loadViewIfNeeded()
 
 		let section = vc.dynamicTableViewModel.section(2)
 		let cells = section.cells
@@ -118,7 +114,7 @@ class DeltaOnboardingViewControllerTests: XCTestCase {
 	
 	func testCellsInSection2WithoutCountries() {
 		let vc = createVCWithoutCountries()
-		_ = vc.view
+		vc.loadViewIfNeeded()
 
 		let section = vc.dynamicTableViewModel.section(2)
 		let cells = section.cells
