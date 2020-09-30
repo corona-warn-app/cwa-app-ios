@@ -22,8 +22,6 @@ import XCTest
 import ExposureNotification
 final class ExposureDetectionTransactionTests: XCTestCase {
 
-	#if EUROPEMODE
-
 	func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {
 		let delegate = ExposureDetectionDelegateMock()
 
@@ -90,91 +88,6 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 			enforceOrder: true
 		)
 	}
-
-	#else
-
-	func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {
-		let delegate = ExposureDetectionDelegateMock()
-
-		let supportedCountriesToBeCalled = expectation(description: "supportedCountries called")
-		delegate.supportedCountries = { [weak self] in
-			guard let self = self else {
-				return .success([])
-			}
-			supportedCountriesToBeCalled.fulfill()
-			return .success(self.makeCountries())
-		}
-
-		let availableDataToBeCalled = expectation(description: "availableData called")
-		availableDataToBeCalled.expectedFulfillmentCount = 2
-		delegate.availableData = {
-			availableDataToBeCalled.fulfill()
-			return .init(days: ["2020-05-01"], hours: [])
-		}
-
-		let downloadDeltaToBeCalled = expectation(description: "downloadDelta called")
-		downloadDeltaToBeCalled.expectedFulfillmentCount = 2
-		delegate.downloadDelta = { _ in
-			downloadDeltaToBeCalled.fulfill()
-			return .init(days: ["2020-05-01"], hours: [])
-		}
-
-		let downloadAndStoreToBeCalled = expectation(description: "downloadAndStore called")
-		downloadAndStoreToBeCalled.expectedFulfillmentCount = 2
-		delegate.downloadAndStore = { _ in
-			downloadAndStoreToBeCalled.fulfill()
-			return nil
-		}
-
-		let rootDir = FileManager().temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try FileManager().createDirectory(atPath: rootDir.path, withIntermediateDirectories: true, attributes: nil)
-		let url0 = rootDir.appendingPathComponent("1").appendingPathExtension("sig")
-		let url1 = rootDir.appendingPathComponent("1").appendingPathExtension("bin")
-		try "url0".write(to: url0, atomically: true, encoding: .utf8)
-		try "url1".write(to: url1, atomically: true, encoding: .utf8)
-
-		let writtenPackages = WrittenPackages(urls: [url0, url1])
-
-		let writtenPackagesBeCalled = expectation(description: "writtenPackages called")
-		writtenPackagesBeCalled.expectedFulfillmentCount = 2
-		delegate.writtenPackages = {
-			writtenPackagesBeCalled.fulfill()
-			return writtenPackages
-		}
-
-		let configurationToBeCalled = expectation(description: "configuration called")
-		delegate.configuration = {
-			configurationToBeCalled.fulfill()
-			return .mock()
-		}
-
-		let summaryResultBeCalled = expectation(description: "summaryResult called")
-		delegate.summaryResult = { _, _ in
-			summaryResultBeCalled.fulfill()
-			return .success(MutableENExposureDetectionSummary(daysSinceLastExposure: 5))
-		}
-
-		let startCompletionCalled = expectation(description: "start completion called")
-		let detection = ExposureDetection(delegate: delegate)
-		detection.start { _ in startCompletionCalled.fulfill() }
-
-		wait(
-			for: [
-				supportedCountriesToBeCalled,
-				availableDataToBeCalled,
-				downloadDeltaToBeCalled,
-				downloadAndStoreToBeCalled,
-				writtenPackagesBeCalled,
-				configurationToBeCalled,
-				summaryResultBeCalled,
-				startCompletionCalled
-			],
-			timeout: 1.0,
-			enforceOrder: true
-		)
-	}
-
-	#endif
 
 	func test_When_NoRemoteDataAvailable_Then_FailureNoDaysAndHoursIsCalled() {
 		let delegate = ExposureDetectionDelegateMock()

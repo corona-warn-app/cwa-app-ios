@@ -149,8 +149,6 @@ final class ExposureDetection {
 	func start(completion: @escaping Completion) {
 		self.completion = completion
 
-		#if EUROPEMODE
-
 		activityState = .downloading
 
 		let countryIDs = ["EUR"]
@@ -164,29 +162,6 @@ final class ExposureDetection {
 				self.detectSummary(writtenPackages: writtenPackages)
 			}
 		}
-
-		#else
-
-		activityState = .downloading
-
-		self.getSupportedCountries { [weak self] supportedCountries in
-			guard let self = self else { return }
-
-			let countryIDs = Set(supportedCountries.map { $0.id })
-
-			self.downloadKeyPackages(for: Array(countryIDs)) { [weak self] in
-				guard let self = self else { return }
-
-				self.writeKeyPackagesToFileSystem(for: Array(countryIDs)) {  [weak self] writtenPackages in
-					guard let self = self else { return }
-
-					self.activityState = .detecting
-					self.detectSummary(writtenPackages: writtenPackages)
-				}
-			}
-		}
-
-		#endif
 	}
 
 	// MARK: Working with the Completion Handler
