@@ -24,11 +24,4 @@ final class DeltaOnboardingNavigationController: ENANavigationControllerWithFoot
 
 	var finished: (() -> Void)?
 
-	// MARK: - Life cycle.
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-
-		navigationBar.accessibilityIdentifier = AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle
-	}
 }
