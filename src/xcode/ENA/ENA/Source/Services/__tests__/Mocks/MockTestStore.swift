@@ -18,7 +18,7 @@
 import Foundation
 @testable import ENA
 
-final class MockTestStore: Store {
+final class MockTestStore: Store, AppConfigCaching {
 	var isAllowedToPerformBackgroundFakeRequests = false
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
@@ -54,4 +54,10 @@ final class MockTestStore: Store {
 	var hourlyFetchingEnabled: Bool = true
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
 	var selectedServerEnvironment: ServerEnvironmentData = ServerEnvironment().defaultEnvironment()
+
+	// MARK: - AppConfigCaching
+	
+	var lastAppConfigETag: String?
+	var lastAppConfigFetch: Date?
+	var appConfig: SAP_ApplicationConfiguration?
 }
