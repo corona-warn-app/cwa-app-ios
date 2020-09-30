@@ -1165,3 +1165,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Active_Tracing_Interval_Permanently_Active" = "Risiko-Ermittlung dauerhaft aktiv";
 
+/* Delta Onboarding */
+"DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
+
+"DeltaOnboarding_Headline" = "Länderübergreifende Risiko-Ermittlung";
+
+"DeltaOnboarding_Description" = "Die Funktion der Corona-Warn-App wurde erweitert. Es arbeiten nun mehrere Länder in der EU zusammen, um über das gemeinsam betriebene Serversystem länderübergreifende Warnungen zu ermöglichen. So können bei der Risiko-Ermittlung jetzt auch die Kontakte mit Nutzern der offiziellen Corona-Apps anderer teilnehmender Länder berücksichtigt werden.";
+
+"DeltaOnboarding_DownloadInfo" = "Der tägliche Download der Zufalls-IDs ist für Sie kostenlos – Ihr Datenvolumen wird nicht belastet und es fallen im europäischen Ausland keine Roaming-Gebühren an.";
+
+"DeltaOnboarding_ParticipatingCountries" = "Derzeit nehmen die folgenden Länder teil:";
+
+"DeltaOnboarding_ParticipatingCountriesList_Unavailable" = "Die teilnehmenden Länder können Sie jederzeit einsehen in den Details zur Risiko-Ermittlung.";
+
+"DeltaOnboarding_ParticipatingCountriesList_Unavailable_Title" = "Teilnehmende Länder";
+
+"DeltaOnboarding_PrimaryButton_Continue" = "Weiter";

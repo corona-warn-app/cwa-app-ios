@@ -38,12 +38,12 @@ class DeltaOnboardingCoordinator {
 	// MARK: - Internal API
 
 	func startOnboarding() {
-		showNextOnbaordingViewController()
+		showNextOnboardingViewController()
 	}
 
 	// MARK: - Private API
 
-	private func showNextOnbaordingViewController() {
+	private func showNextOnboardingViewController() {
 		guard let onboarding = nextOnboarding() else {
 			finished?()
 			return
@@ -54,13 +54,14 @@ class DeltaOnboardingCoordinator {
 		onboardingViewController.finished = { [weak self] in
 			self?.rootViewController?.dismiss(animated: true)
 			onboarding.finish()
-			self?.showNextOnbaordingViewController()
+			self?.showNextOnboardingViewController()
 		}
 
-		rootViewController?.present(onboardingViewController, animated: true)
+		self.rootViewController?.present(onboardingViewController, animated: true)
 	}
 
 	private func nextOnboarding() -> DeltaOnboarding? {
 		return onboardings.first(where: { !$0.isFinished })
 	}
+	
 }
