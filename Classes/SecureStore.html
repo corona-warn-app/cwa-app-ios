@@ -50,6 +50,7 @@
                   <div class="language">
                     
                     <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">class</span> <span class="kt">SecureStore</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Store.html">Store</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SecureStore</span><span class="p">:</span> <span class="kt"><a href="../Protocols/AppConfigCaching.html">AppConfigCaching</a></span></code></pre>
 
                   </div>
                 </div>
@@ -1044,6 +1045,87 @@ It uses an SQLite Database that still needs to be encrypted</p>
                   <li class="item">
                     <div>
                       <code>
+                      <a name="/s:3ENA11SecureStoreC17lastAppConfigETagSSSgvp"></a>
+                      <a name="//apple_ref/swift/Property/lastAppConfigETag" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA11SecureStoreC17lastAppConfigETagSSSgvp">lastAppConfigETag</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">lastAppConfigETag</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA11SecureStoreC18lastAppConfigFetch10Foundation4DateVSgvp"></a>
+                      <a name="//apple_ref/swift/Property/lastAppConfigFetch" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA11SecureStoreC18lastAppConfigFetch10Foundation4DateVSgvp">lastAppConfigFetch</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">lastAppConfigFetch</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA11SecureStoreC9appConfigAA28SAP_ApplicationConfigurationVSgvp"></a>
+                      <a name="//apple_ref/swift/Property/appConfig" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA11SecureStoreC9appConfigAA28SAP_ApplicationConfigurationVSgvp">appConfig</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">appConfig</span><span class="p">:</span> <span class="kt">SAP_ApplicationConfiguration</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
                       <a name="/s:3ENA11SecureStoreC19keychainDatabaseKeySSvpZ"></a>
                       <a name="//apple_ref/swift/Variable/keychainDatabaseKey" class="dashAnchor"></a>
                       <a class="token" href="#/s:3ENA11SecureStoreC19keychainDatabaseKeySSvpZ">keychainDatabaseKey</a>
@@ -1157,6 +1239,12 @@ It uses an SQLite Database that still needs to be encrypted</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/CachedAppConfiguration.html">CachedAppConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/CachedAppConfiguration/CacheError.html">– CacheError</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/CachingHTTPClient.html">CachingHTTPClient</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/CancellationToken.html">CancellationToken</a>
@@ -1586,9 +1674,6 @@ It uses an SQLite Database that still needs to be encrypted</p>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/Migration0To1.html">Migration0To1</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Classes/MockAppConfiguration.html">MockAppConfiguration</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/MockDiagnosisKeysRetrieval.html">MockDiagnosisKeysRetrieval</a>
@@ -2219,6 +2304,12 @@ It uses an SQLite Database that still needs to be encrypted</p>
                   <a href="../Protocols/ActivityStateProviderDelegate.html">ActivityStateProviderDelegate</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/AppConfigCaching.html">AppConfigCaching</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/AppConfigurationFetching.html">AppConfigurationFetching</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/AppConfigurationProviding.html">AppConfigurationProviding</a>
                 </li>
                 <li class="nav-group-task">
@@ -2431,6 +2522,9 @@ It uses an SQLite Database that still needs to be encrypted</p>
                   <a href="../Structs/ActiveTracing.html">ActiveTracing</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/AppConfigurationFetchingResponse.html">AppConfigurationFetchingResponse</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/CodableExposureDetectionSummary.html">CodableExposureDetectionSummary</a>
                 </li>
                 <li class="nav-group-task">
@@ -2586,7 +2680,7 @@ It uses an SQLite Database that still needs to be encrypted</p>
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://github.com/corona-warn-app/cwa-app-ios" target="_blank" rel="external">Corona-Warn-App</a>. All rights reserved. (Last updated: 2020-09-29)</p>
+          <p>&copy; 2020 <a class="link" href="https://github.com/corona-warn-app/cwa-app-ios" target="_blank" rel="external">Corona-Warn-App</a>. All rights reserved. (Last updated: 2020-09-30)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </div>

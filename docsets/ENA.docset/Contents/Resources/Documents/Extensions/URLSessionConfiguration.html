@@ -71,7 +71,7 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Undocumented</p>
+                          <p>A strict session configuration denying usage of cookies and caching</p>
 
                         </div>
                         <div class="declaration">
@@ -81,6 +81,46 @@
                             <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">coronaWarnSessionConfiguration</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">URLSessionConfiguration</span></code></pre>
 
                           </div>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>The <strong>default</strong> session configuration for this app.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:So25NSURLSessionConfigurationC3ENAE014cachingSessionB0AByFZ"></a>
+                      <a name="//apple_ref/swift/Method/cachingSessionConfiguration()" class="dashAnchor"></a>
+                      <a class="token" href="#/s:So25NSURLSessionConfigurationC3ENAE014cachingSessionB0AByFZ">cachingSessionConfiguration()</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Session config with caching policy <code>.useProtocolCachePolicy</code></p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Caching is not realized via <code>NSURLCache</code> but via the internal SecureStore due to privacy concerns
+
+</div>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">class</span> <span class="kd">func</span> <span class="nf">cachingSessionConfiguration</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">URLSessionConfiguration</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>A session url configuration that uses the same set of parameters like the default CWA config. Only exception is the usage of caching policies.</p>
                         </div>
                       </section>
                     </div>
@@ -147,6 +187,12 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/CachedAppConfiguration.html">CachedAppConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/CachedAppConfiguration/CacheError.html">– CacheError</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/CachingHTTPClient.html">CachingHTTPClient</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/CancellationToken.html">CancellationToken</a>
@@ -576,9 +622,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/Migration0To1.html">Migration0To1</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Classes/MockAppConfiguration.html">MockAppConfiguration</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/MockDiagnosisKeysRetrieval.html">MockDiagnosisKeysRetrieval</a>
@@ -1209,6 +1252,12 @@
                   <a href="../Protocols/ActivityStateProviderDelegate.html">ActivityStateProviderDelegate</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/AppConfigCaching.html">AppConfigCaching</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/AppConfigurationFetching.html">AppConfigurationFetching</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/AppConfigurationProviding.html">AppConfigurationProviding</a>
                 </li>
                 <li class="nav-group-task">
@@ -1421,6 +1470,9 @@
                   <a href="../Structs/ActiveTracing.html">ActiveTracing</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/AppConfigurationFetchingResponse.html">AppConfigurationFetchingResponse</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/CodableExposureDetectionSummary.html">CodableExposureDetectionSummary</a>
                 </li>
                 <li class="nav-group-task">
@@ -1576,7 +1628,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://github.com/corona-warn-app/cwa-app-ios" target="_blank" rel="external">Corona-Warn-App</a>. All rights reserved. (Last updated: 2020-09-29)</p>
+          <p>&copy; 2020 <a class="link" href="https://github.com/corona-warn-app/cwa-app-ios" target="_blank" rel="external">Corona-Warn-App</a>. All rights reserved. (Last updated: 2020-09-30)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </div>

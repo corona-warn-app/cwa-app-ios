@@ -53,7 +53,7 @@
 
                   </div>
                 </div>
-              <p>Undocumented</p>
+              <p>A provider of the app configuration struct</p>
 
             </section>
             <section class="section task-group-section">
@@ -71,9 +71,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA25AppConfigurationProvidingP03appC010completionyyAA015SAP_ApplicationC0VSgc_tF"></a>
-                      <a name="//apple_ref/swift/Method/appConfiguration(completion:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA25AppConfigurationProvidingP03appC010completionyyAA015SAP_ApplicationC0VSgc_tF">appConfiguration(completion:<wbr>)</a>
+                      <a name="/s:3ENA25AppConfigurationProvidingP03appC010forceFetch10completionySb_ys6ResultOyAA015SAP_ApplicationC0Vs5Error_pGctF"></a>
+                      <a name="//apple_ref/swift/Method/appConfiguration(forceFetch:completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA25AppConfigurationProvidingP03appC010forceFetch10completionySb_ys6ResultOyAA015SAP_ApplicationC0Vs5Error_pGctF">appConfiguration(forceFetch:<wbr>completion:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -81,7 +81,65 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Undocumented</p>
+                          <p>Fetch the current app configuration, either the cached or a newly fetched one</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appConfiguration</span><span class="p">(</span><span class="nv">forceFetch</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/AppConfigurationProviding/Completion.html">Completion</a></span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>forceFetch</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>triggers a direct fetch ignoring the cache</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>completion</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>result handler</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA25AppConfigurationProvidingP03appC010completionyys6ResultOyAA015SAP_ApplicationC0Vs5Error_pGc_tF"></a>
+                      <a name="//apple_ref/swift/Method/appConfiguration(completion:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA25AppConfigurationProvidingP03appC010completionyys6ResultOyAA015SAP_ApplicationC0Vs5Error_pGc_tF">appConfiguration(completion:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Fetch the current app configuration, either the cached or a newly fetched one</p>
 
                         </div>
                         <div class="declaration">
@@ -91,6 +149,25 @@
                             <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">appConfiguration</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/AppConfigurationProviding/Completion.html">Completion</a></span><span class="p">)</span></code></pre>
 
                           </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>completion</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>result handler</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </section>
                     </div>
@@ -157,6 +234,12 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/CachedAppConfiguration.html">CachedAppConfiguration</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/CachedAppConfiguration/CacheError.html">– CacheError</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/CachingHTTPClient.html">CachingHTTPClient</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/CancellationToken.html">CancellationToken</a>
@@ -586,9 +669,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/Migration0To1.html">Migration0To1</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Classes/MockAppConfiguration.html">MockAppConfiguration</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/MockDiagnosisKeysRetrieval.html">MockDiagnosisKeysRetrieval</a>
@@ -1219,6 +1299,12 @@
                   <a href="../Protocols/ActivityStateProviderDelegate.html">ActivityStateProviderDelegate</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/AppConfigCaching.html">AppConfigCaching</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/AppConfigurationFetching.html">AppConfigurationFetching</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/AppConfigurationProviding.html">AppConfigurationProviding</a>
                 </li>
                 <li class="nav-group-task">
@@ -1431,6 +1517,9 @@
                   <a href="../Structs/ActiveTracing.html">ActiveTracing</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Structs/AppConfigurationFetchingResponse.html">AppConfigurationFetchingResponse</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Structs/CodableExposureDetectionSummary.html">CodableExposureDetectionSummary</a>
                 </li>
                 <li class="nav-group-task">
@@ -1586,7 +1675,7 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://github.com/corona-warn-app/cwa-app-ios" target="_blank" rel="external">Corona-Warn-App</a>. All rights reserved. (Last updated: 2020-09-29)</p>
+          <p>&copy; 2020 <a class="link" href="https://github.com/corona-warn-app/cwa-app-ios" target="_blank" rel="external">Corona-Warn-App</a>. All rights reserved. (Last updated: 2020-09-30)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </div>
