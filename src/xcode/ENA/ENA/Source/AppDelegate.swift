@@ -102,7 +102,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 
 	lazy var appConfigurationProvider: AppConfigurationProviding = {
-		CachedAppConfiguration(client: self.client)
+		// use a custom http client that uses/recognized caching mechanisms
+		let appFetchingClient = CachingHTTPClient(clientConfiguration: client.configuration)
+
+		// we currently use the store as common place for temporal persistency
+		guard let store = store as? AppConfigCaching else {
+			preconditionFailure("Ensure to provide a proper app config cache")
+		}
+		
+		return CachedAppConfiguration(client: appFetchingClient, store: store)
 	}()
 
 	lazy var riskProvider: RiskProvider = {
