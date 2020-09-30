@@ -31,8 +31,8 @@ class CachingHTTPClient: AppConfigurationFetching {
 		self.packageVerifier = packageVerifier
 	}
 
-	convenience init(basedOn client: HTTPClient) {
-		self.init(configuration: client.configuration)
+	convenience init(basedOn clientConfig: HTTPClient.Configuration) {
+		self.init(configuration: clientConfig)
 	}
 
 	// MARK: - AppConfigurationFetching
@@ -43,7 +43,7 @@ class CachingHTTPClient: AppConfigurationFetching {
 	///   - completion: result handler
 	func fetchAppConfiguration(etag: String? = nil, completion: @escaping AppConfigResultHandler) {
 		// ETag
-		var headers: [String: String]? = nil
+		var headers: [String: String]?
 		if let etag = etag {
 			headers = ["If-None-Match": etag]
 		}
