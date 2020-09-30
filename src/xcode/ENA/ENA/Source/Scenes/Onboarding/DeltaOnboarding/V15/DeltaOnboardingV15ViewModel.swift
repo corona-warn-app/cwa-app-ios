@@ -109,7 +109,7 @@ struct DeltaOnboardingV15ViewModel {
 
 	private let supportedCountries: [Country]
 
-	private func buildCountryLabel() -> [DynamicCell] {
+	private func buildCountryCell() -> [DynamicCell] {
 		var cells: [DynamicCell] = []
 		if(supportedCountries.isEmpty) {
 			cells = [
