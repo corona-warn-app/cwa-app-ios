@@ -21,18 +21,29 @@ import Foundation
 
 
 class CachingHTTPClient: AppConfigurationFetching {
+	/// The client configuration - mostly server endpoints per environment
 	let configuration: HTTPClient.Configuration
+
+	/// The underlying URLSession for all network requests
 	let session: URLSession
+
+	/// Verifier for the fetched & signed protobuf packages
 	let packageVerifier: SAPDownloadedPackage.Verifier
 
-	init(session: URLSession = URLSession(configuration: .cachingSessionConfiguration()), configuration: HTTPClient.Configuration = .backendBaseURLs, packageVerifier: SAPDownloadedPackage.Verifier = SAPDownloadedPackage.Verifier()) {
-		self.session = session
-		self.configuration = configuration
-		self.packageVerifier = packageVerifier
-	}
 
-	convenience init(basedOn clientConfig: HTTPClient.Configuration) {
-		self.init(configuration: clientConfig)
+	/// Initializer for the caching client.
+	///
+	/// - Parameters:
+	///   - clientConfiguration: The client configuration for the client.
+	///   - session: An optional session to use for network requests. Default is based on a predefined configuration.
+	///   - packageVerifier: The verifier to use for package validation.
+	init(
+		clientConfiguration: HTTPClient.Configuration,
+		session: URLSession = URLSession(configuration: .cachingSessionConfiguration()),
+		packageVerifier: SAPDownloadedPackage.Verifier = SAPDownloadedPackage.Verifier()) {
+		self.session = session
+		self.configuration = clientConfiguration
+		self.packageVerifier = packageVerifier
 	}
 
 	// MARK: - AppConfigurationFetching

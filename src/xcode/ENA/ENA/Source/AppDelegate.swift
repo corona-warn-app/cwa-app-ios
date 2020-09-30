@@ -103,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	lazy var appConfigurationProvider: AppConfigurationProviding = {
 		// use a custom http client that uses/recognized caching mechanisms
-		let appFetchingClient = CachingHTTPClient(basedOn: client.configuration)
+		let appFetchingClient = CachingHTTPClient(clientConfiguration: client.configuration)
 
 		// we currently use the store as common place for temporal persistency
 		guard let store = store as? AppConfigCaching else {

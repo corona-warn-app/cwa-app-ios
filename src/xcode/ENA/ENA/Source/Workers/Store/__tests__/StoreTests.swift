@@ -240,7 +240,7 @@ final class StoreTests: XCTestCase {
 	}
 
 	func testConfigCaching() throws {
-		let store = SecureStore(subDirectory: "test")
+		let store = SecureStore(subDirectory: "test", serverEnvironment: ServerEnvironment())
 		XCTAssertNil(store.appConfig)
 		XCTAssertNil(store.lastAppConfigETag)
 

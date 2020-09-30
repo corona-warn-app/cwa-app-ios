@@ -22,6 +22,14 @@ import Foundation
 
 final class CachingHTTPClientMock: CachingHTTPClient {
 
+	convenience init() {
+		let serverEnvironment = ServerEnvironment()
+		let store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
+		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
+
+		self.init(clientConfiguration: configuration)
+	}
+
 	static let staticAppConfig: SAP_ApplicationConfiguration = {
 		let bundle = Bundle(for: CachingHTTPClientMock.self)
 		// there is a test for this (`testStaticAppConfiguration`), let's keep it short.
