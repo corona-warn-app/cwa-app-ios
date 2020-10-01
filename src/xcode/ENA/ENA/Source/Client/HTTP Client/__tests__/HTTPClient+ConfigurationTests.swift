@@ -50,8 +50,6 @@ final class BackendConfigurationTests: XCTestCase {
 			endpoints: endpoints
 		)
 
-		// Diagnosis Keys URL
-
 		// Check Configuration URL
 		XCTAssertEqual(
 			config.configurationURL.absoluteString,
