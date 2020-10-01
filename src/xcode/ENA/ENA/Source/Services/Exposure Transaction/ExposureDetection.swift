@@ -47,28 +47,7 @@ final class ExposureDetection {
 		progress?.cancel()
 	}
 
-	private func getSupportedCountries(completion: @escaping ([Country]) -> Void) {
-		delegate?.exposureDetection(supportedCountries: { [weak self] result in
-			guard let self = self else { return }
-
-			switch result {
-			case .success(let supportedCountries):
-				var _supportedCountries = supportedCountries
-
-				// If supported countries is empty for some reason, we add the default country (DE).
-				if _supportedCountries.isEmpty {
-					_supportedCountries.append(Country.defaultCountry())
-				}
-
-				completion(_supportedCountries)
-			case.failure:
-				self.endPrematurely(reason: .noSupportedCountries)
-			}
-		})
-	}
-
 	private func downloadKeyPackages(for countries: [Country.ID], completion: @escaping () -> Void) {
-
 		let dispatchGroup = DispatchGroup()
 		var errors = [ExposureDetection.DidEndPrematurelyReason]()
 
