@@ -773,6 +773,10 @@ enum AppStrings {
 		static let legalDataProcessingInfoTitle = NSLocalizedString("DeltaOnboarding_DataProcessing_Info_title", tableName: "Localizable.legal", comment: "")
 		
 		static let legalDataProcessingInfoContent = NSLocalizedString("DeltaOnboarding_DataProcessing_Info_content", tableName: "Localizable.legal", comment: "")
+
+		static let termsDescription1 = NSLocalizedString("DeltaOnboarding_Terms_Description1", comment: "")
+		static let termsButtonTitle = NSLocalizedString("DeltaOnboarding_Terms_Button", comment: "")
+		static let termsDescription2 = NSLocalizedString("DeltaOnboarding_Terms_Description2", comment: "")
 	}
 	// swiftlint:disable:next file_length
 }

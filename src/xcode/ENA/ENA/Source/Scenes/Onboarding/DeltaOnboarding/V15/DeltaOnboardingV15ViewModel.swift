@@ -77,7 +77,6 @@ struct DeltaOnboardingV15ViewModel {
 				.section(
 					cells: [
 						.space(height: 20),
-						
 						.custom(
 							withIdentifier: DeltaOnboardingV15ViewController.CustomCellReuseIdentifiers.roundedCell,
 							configure: { _, cell, _ in
@@ -94,7 +93,11 @@ struct DeltaOnboardingV15ViewModel {
 									bgColor: .separator
 								)
 							}
-						)
+						),
+						.space(height: 8),
+						.body(text: AppStrings.DeltaOnboarding.termsDescription1, accessibilityIdentifier: nil),
+						.body(text: AppStrings.DeltaOnboarding.termsButtonTitle, accessibilityIdentifier: nil),
+						.body(text: AppStrings.DeltaOnboarding.termsDescription2, accessibilityIdentifier: nil)
 					]
 				)
 			)
