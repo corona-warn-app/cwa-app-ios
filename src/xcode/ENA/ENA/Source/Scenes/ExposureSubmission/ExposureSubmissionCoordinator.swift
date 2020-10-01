@@ -126,7 +126,6 @@ extension ExposureSubmissionCoordinator {
 		if isUITesting, ProcessInfo.processInfo.arguments.contains("-negativeResult") {
 			return createTestResultViewController(with: .negative)
 		}
-
 		#else
 		// We got a test result and can jump straight into the test result view controller.
 		if let result = result, model.exposureSubmissionServiceHasRegistrationToken {
