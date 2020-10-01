@@ -122,8 +122,8 @@ extension ExposureSubmissionCoordinator {
 	/// and returns an ExposureSubmissionTestResultViewController.
 	/// Option 3: (default) return the ExposureSubmissionIntroViewController.
 	private func getInitialViewController(with result: TestResult? = nil) -> UIViewController {
-		#if UITESTING
-		if ProcessInfo.processInfo.arguments.contains("-negativeResult") {
+		#if DEVELOP
+		if isUITesting, ProcessInfo.processInfo.arguments.contains("-negativeResult") {
 			return createTestResultViewController(with: .negative)
 		}
 

@@ -37,10 +37,16 @@ struct ExposureManagerState: Equatable {
 		enabled: Bool = false,
 		status: ENStatus = .unknown
 	) {
-		#if UITESTING
-		self.authorized = true
-		self.enabled = true
-		self.status = .active
+		#if DEBUG
+		if isUITesting {
+			self.authorized = true
+			self.enabled = true
+			self.status = .active
+		} else {
+			self.authorized = authorized
+			self.enabled = enabled
+			self.status = status
+		}
 		#else
 		self.authorized = authorized
 		self.enabled = enabled

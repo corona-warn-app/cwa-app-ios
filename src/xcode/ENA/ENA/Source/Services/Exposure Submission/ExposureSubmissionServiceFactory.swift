@@ -23,9 +23,10 @@ import Foundation
 class ExposureSubmissionServiceFactory { }
 
 // MARK: Default implementation.
-#if !UITESTING
+#if !DEBUG
 
 extension ExposureSubmissionServiceFactory {
+
 	static func create(diagnosiskeyRetrieval: DiagnosisKeysRetrieval, client: Client, store: Store) -> ExposureSubmissionService {
 		return ENAExposureSubmissionService(
 			diagnosiskeyRetrieval: diagnosiskeyRetrieval,
@@ -38,13 +39,22 @@ extension ExposureSubmissionServiceFactory {
 #endif
 
 // MARK: UI Testing implementation.
-#if UITESTING
+#if DEBUG
 
 /// This extension will return a mock service if and only if the .useMock parameter is passed to the application.
 /// If the parameter is _not_ provided, the factory will instantiate a regular ENAExposureSubmissionService.
 /// - NOTE: This is condtionally compiled so no test code spills into the release build.
 extension ExposureSubmissionServiceFactory {
 	static func create(diagnosiskeyRetrieval: DiagnosisKeysRetrieval, client: Client, store: Store) -> ExposureSubmissionService {
+
+		// default implementation if in non UI testing mode
+		guard isUITesting else {
+			return ENAExposureSubmissionService(
+				diagnosiskeyRetrieval: diagnosiskeyRetrieval,
+				client: client,
+				store: store
+			)
+		}
 
 		guard isEnabled(.useMock) else {
 			return ENAExposureSubmissionService(
