@@ -60,8 +60,10 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 		}
 
 		onPrimaryButtonTap(selectedSymptomsOption) { [weak self] isLoading in
-		   self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
-		   self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+			DispatchQueue.main.async {
+				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+			}
 		}
 	}
 
