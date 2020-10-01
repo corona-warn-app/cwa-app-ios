@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "6DC91C46-00BC-4F75-9911-CFCC53F77B98",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "commandLineArgumentEntries" : [
+
+    ],
+    "language" : "de",
+    "region" : "DE"
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:ENA.xcodeproj",
+        "identifier" : "85D7595324570491008175F0",
+        "name" : "ENATests"
+      }
+    },
+    {
+      "skippedTests" : [
+        "ENAUITests"
+      ],
+      "target" : {
+        "containerPath" : "container:ENA.xcodeproj",
+        "identifier" : "85D7595E24570491008175F0",
+        "name" : "ENAUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

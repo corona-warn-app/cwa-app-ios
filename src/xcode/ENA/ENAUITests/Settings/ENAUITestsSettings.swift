@@ -27,7 +27,7 @@ class ENAUITests_03_Settings: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
+		app.launchEnvironment["IsOnboarded"] = "YES"
 	}
 
 	func test_0030_SettingsFlow() throws {

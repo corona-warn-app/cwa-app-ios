@@ -33,7 +33,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
+		app.launchEnvironment["IsOnboarded"] = "YES"
 	}
 
 	// MARK: - Test cases.

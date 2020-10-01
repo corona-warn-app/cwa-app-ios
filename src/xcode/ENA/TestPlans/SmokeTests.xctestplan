@@ -1,0 +1,136 @@
+{
+  "configurations" : [
+    {
+      "id" : "D13F0342-9947-40D3-9F75-14C6373C7BA5",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:ENA.xcodeproj",
+          "identifier" : "85D7593A2457048F008175F0",
+          "name" : "ENA"
+        }
+      ]
+    },
+    "language" : "de",
+    "region" : "DE"
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "skippedTests" : [
+        "ActiveTracingTests",
+        "AppInformationImprintTest",
+        "AppInformationModelTest",
+        "AppUpdateCheckerHelperTests",
+        "AppleFilesWriterTests",
+        "BackendConfigurationTests",
+        "BackgroundAppRefreshViewModelTests",
+        "CFDictionary_KeychainQueryTests",
+        "CachedAppConfigurationTests",
+        "CancellationTokenTests",
+        "ConvertingKeysTests",
+        "CoordinatorTests",
+        "CountdownTimerTests",
+        "DatePickerDayViewModelTests",
+        "DatePickerOptionViewModelTests",
+        "DeltaCalculationResultTests",
+        "DeltaOnboardingCoordinatorTests",
+        "DeltaOnboardingViewControllerTests",
+        "DetectionModeTests",
+        "DownloadedPackagesSQLLiteStoreTests",
+        "DynamicCellTests",
+        "DynamicTableViewControllerFooterTests",
+        "DynamicTableViewControllerHeaderTests",
+        "DynamicTableViewControllerNumberOfRowsAndSectionsTests",
+        "DynamicTableViewControllerRegisterCellsTests",
+        "DynamicTableViewControllerRowsTests",
+        "DynamicTableViewModelTests",
+        "DynamicTableViewSpaceCellTests",
+        "DynamicTableViewTextViewCellTests",
+        "DynamicTypeLabelTests",
+        "ENAColorTests",
+        "ENSettingEuTracingViewModelTests",
+        "EUSettingsViewControllerTests",
+        "ExposureDetectionExecutorTests",
+        "ExposureDetectionTransactionTests",
+        "ExposureDetectionViewControllerTests",
+        "ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests",
+        "ExposureKeysProcessingTests",
+        "ExposureSubmissionCoordinatorModelTests",
+        "ExposureSubmissionCoordinatorTests",
+        "ExposureSubmissionErrorTests",
+        "ExposureSubmissionHotlineViewControllerTest",
+        "ExposureSubmissionNavigationControllerTest",
+        "ExposureSubmissionOverviewViewControllerTests",
+        "ExposureSubmissionOverviewViewModelTests",
+        "ExposureSubmissionServiceTests",
+        "ExposureSubmissionSuccessViewControllerTests",
+        "ExposureSubmissionSymptomsOnsetViewControllerTests",
+        "ExposureSubmissionTanInputViewControllerTests",
+        "ExposureSubmissionViewControllerTests",
+        "ExposureSubmissionWarnOthersViewControllerTests",
+        "HTTPClientConfigurationEndpointTests",
+        "HTTPClientDaysAndHoursTests",
+        "HTTPClientExposureConfigTests",
+        "HTTPClientPlausibleDeniabilityTests",
+        "HTTPClientRegistrationTokenTests",
+        "HTTPClientSubmitTests",
+        "HTTPClientTANForExposureSubmitTests",
+        "HTTPClientTestResultTests",
+        "HomeHighRiskCellConfiguratorTests",
+        "HomeLowRiskCellConfiguratorTests",
+        "HomeRiskCellConfiguratorTests",
+        "HomeRiskLevelCellConfiguratorTests",
+        "HomeUnknown48hRiskCellConfiguratorTests",
+        "HomeUnknownRiskCellConfiguratorTests",
+        "KeyTests",
+        "KeychainHelperTests",
+        "Migration0To1Tests",
+        "OnboardingInfoViewControllerTests",
+        "OptionGroupViewModelTests",
+        "PublicKeyProviderTests",
+        "RiskCalculationTests",
+        "RiskLevelTests",
+        "RiskProviderTests",
+        "RiskProvidingConfigurationManualTriggerTests",
+        "RiskProvidingConfigurationTests",
+        "SAPDownloadedPackageTests",
+        "SAP_RiskScoreClass_LowAndHighTests",
+        "SAP_SemanticVersionTests",
+        "SQLiteKeyValueStoreTests",
+        "SapFileBucketTests",
+        "SerialMigratorTests",
+        "ServerEnvironmentTests",
+        "SettingsViewModelTests",
+        "StringTodayTests",
+        "SymptomsOnsetTests",
+        "TracingStatusHistoryTests",
+        "UIFont_DynamicTypeTests",
+        "UIViewController_AlertTest",
+        "URLSessionConvenienceTests"
+      ],
+      "target" : {
+        "containerPath" : "container:ENA.xcodeproj",
+        "identifier" : "85D7595324570491008175F0",
+        "name" : "ENATests"
+      }
+    },
+    {
+      "enabled" : false,
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:ENA.xcodeproj",
+        "identifier" : "85D7595E24570491008175F0",
+        "name" : "ENAUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
