@@ -33,7 +33,7 @@ final class AppUpdateCheckerHelperTests: XCTestCase {
 		// Old DB is deinited and hence connection closed at every setUp() call
 		mockClient = ClientMock(submissionError: .requestCouldNotBeBuilt)
 		mockStore = MockTestStore()
-		sut = AppUpdateCheckHelper(client: mockClient, store: mockStore)
+		sut = AppUpdateCheckHelper(appConfigurationProvider: AppConfigurationProviderFake(), store: mockStore)
 	}
 	
 	func testAlertType_none() {

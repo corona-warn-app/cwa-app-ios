@@ -27,14 +27,17 @@ final class ExposureDetection {
 	private var completion: Completion?
 	private var progress: Progress?
 	private var countryKeypackageDownloader: CountryKeypackageDownloading
+	private let appConfigurationProvider: AppConfigurationProviding
 	private let country = "EUR"
 
 	// MARK: Creating a Transaction
 	init(
 		delegate: ExposureDetectionDelegate,
-		countryKeypackageDownloader: CountryKeypackageDownloading? = nil
+		countryKeypackageDownloader: CountryKeypackageDownloading? = nil,
+		appConfigurationProvider: AppConfigurationProviding
 	) {
 		self.delegate = delegate
+		self.appConfigurationProvider = appConfigurationProvider
 
 		if let countryKeypackageDownloader = countryKeypackageDownloader {
 			self.countryKeypackageDownloader = countryKeypackageDownloader
@@ -67,25 +70,32 @@ final class ExposureDetection {
 		}
 	}
 
-	private func detectSummary(writtenPackages: WrittenPackages) {
-		delegate?.exposureDetection(downloadConfiguration: { [weak self] configuration in
+	private func loadExposureConfiguration(completion: @escaping (ENExposureConfiguration) -> Void) {
+		appConfigurationProvider.appConfiguration { [weak self] result in
 			guard let self = self else { return }
 
-			guard let configuration = configuration else {
+			switch result {
+			case .success(let appConfiguration):
+			guard let configuration = try? ENExposureConfiguration(from: appConfiguration.exposureConfig, minRiskScore: appConfiguration.minRiskScore) else {
+					self.endPrematurely(reason: .noExposureConfiguration)
+					return
+				}
+				completion(configuration)
+			case .failure:
 				self.endPrematurely(reason: .noExposureConfiguration)
-				return
 			}
+		}
+	}
 
-			self.progress = self.delegate?.exposureDetection(
-				self,
-				detectSummaryWithConfiguration: configuration,
-				writtenPackages: writtenPackages
-			) { [weak self] result in
-				writtenPackages.cleanUp()
-				self?.useSummaryResult(result)
-			}
-
-		})
+	private func detectSummary(writtenPackages: WrittenPackages, exposureConfiguration: ENExposureConfiguration) {
+		self.progress = self.delegate?.exposureDetection(
+			self,
+			detectSummaryWithConfiguration: exposureConfiguration,
+			writtenPackages: writtenPackages
+		) { [weak self] result in
+			writtenPackages.cleanUp()
+			self?.useSummaryResult(result)
+		}
 	}
 
 	private func useSummaryResult(_ result: Result<ENExposureDetectionSummary, Error>) {
@@ -111,7 +121,12 @@ final class ExposureDetection {
 				guard let self = self else { return }
 
 				self.activityState = .detecting
-				self.detectSummary(writtenPackages: writtenPackages)
+
+				self.loadExposureConfiguration { [weak self] configuration in
+					guard let self = self else { return }
+
+					self.detectSummary(writtenPackages: writtenPackages, exposureConfiguration: configuration)
+				}
 			}
 		}
 	}
@@ -146,5 +161,47 @@ final class ExposureDetection {
 			self.completion?(.success(summary))
 			self.completion = nil
 		}
+	}
+}
+
+private extension ENExposureConfiguration {
+	convenience init(from riskscoreParameters: SAP_RiskScoreParameters, minRiskScore: Int32) throws {
+		self.init()
+		minimumRiskScore = UInt8(clamping: minRiskScore)
+		minimumRiskScoreFullRange = Double(minRiskScore)
+		attenuationLevelValues = riskscoreParameters.attenuation.asArray
+		daysSinceLastExposureLevelValues = riskscoreParameters.daysSinceLastExposure.asArray
+		durationLevelValues = riskscoreParameters.duration.asArray
+		transmissionRiskLevelValues = riskscoreParameters.transmission.asArray
+	}
+}
+
+private extension SAP_RiskLevel {
+	var asNumber: NSNumber {
+		NSNumber(value: rawValue)
+	}
+}
+
+private extension SAP_RiskScoreParameters.TransmissionRiskParameter {
+	var asArray: [NSNumber] {
+		[appDefined1, appDefined2, appDefined3, appDefined4, appDefined5, appDefined6, appDefined7, appDefined8].map { $0.asNumber }
+	}
+}
+
+private extension SAP_RiskScoreParameters.DaysSinceLastExposureRiskParameter {
+	var asArray: [NSNumber] {
+		[ge14Days, ge12Lt14Days, ge10Lt12Days, ge8Lt10Days, ge6Lt8Days, ge4Lt6Days, ge2Lt4Days, ge0Lt2Days].map { $0.asNumber }
+	}
+}
+
+private extension SAP_RiskScoreParameters.DurationRiskParameter {
+	var asArray: [NSNumber] {
+		[eq0Min, gt0Le5Min, gt5Le10Min, gt10Le15Min, gt15Le20Min, gt20Le25Min, gt25Le30Min, gt30Min].map { $0.asNumber }
+	}
+}
+
+private extension SAP_RiskScoreParameters.AttenuationRiskParameter {
+	var asArray: [NSNumber] {
+		[gt73Dbm, gt63Le73Dbm, gt51Le63Dbm, gt33Le51Dbm, gt27Le33Dbm, gt15Le27Dbm, gt10Le15Dbm, le10Dbm].map { $0.asNumber }
 	}
 }

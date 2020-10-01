@@ -149,7 +149,7 @@ extension Coordinator: HomeViewControllerDelegate {
 				coder: coder,
 				initialEnState: enState,
 				store: self.store,
-				client: self.client,
+				appConfigurationProvider: self.appConfigurationProvider,
 				delegate: self
 			)
 		}
@@ -225,7 +225,7 @@ extension Coordinator: HomeViewControllerDelegate {
 				coder: coder,
 				store: self.store,
 				initialEnState: enState,
-				client: self.client,
+				appConfigurationProvider: self.appConfigurationProvider,
 				delegate: self
 			)
 		}

@@ -38,10 +38,6 @@ protocol Client {
 
 	// MARK: Interacting with a Client
 
-	/// Gets the app configuration
-	@available(*, deprecated, message: "Use CachedAppConfiguration instead")
-	func appConfiguration(completion: @escaping AppConfigurationCompletion)
-
 	/// Determines days that can be downloaded.
 	///
 	/// - Parameters:
@@ -79,18 +75,6 @@ protocol Client {
 	)
 
 	// MARK: Getting the Configuration
-
-	typealias ExposureConfigurationCompletionHandler = (ENExposureConfiguration?) -> Void
-
-	/// Gets the exposure configuration. See `ENExposureConfiguration` for more details
-	/// Parameters:
-	/// - completion: Will be called with the configuration or an error if something went wrong.
-	func exposureConfiguration(
-		completion: @escaping ExposureConfigurationCompletionHandler
-	)
-
-	/// Gets the list of available countries for key submission.
-	func supportedCountries(completion: @escaping CountryFetchCompletion)
 
 	/// Gets the registration token
 	func getRegistrationToken(
