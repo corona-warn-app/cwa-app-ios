@@ -131,6 +131,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .manuallyRequestRisk:
 			vc = nil
 			manuallyRequestRisk()
+		case .onboardingVersion:
+			vc = makeOnboardingVersionViewController()
 		case .serverEnvironment:
 			vc = makeServerEnvironmentViewController()
 		}
@@ -191,7 +193,11 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		present(alert, animated: true, completion: nil)
 	}
 
-	private func makeServerEnvironmentViewController() -> DMServerEnvironmentViewController {
+	private func makeOnboardingVersionViewController() -> DMDeltaOnboardingViewController {
+		return DMDeltaOnboardingViewController(store: store)
+    }
+
+    private func makeServerEnvironmentViewController() -> DMServerEnvironmentViewController {
 		return DMServerEnvironmentViewController(
 			store: store,
 			downloadedPackagesStore: downloadedPackagesStore,

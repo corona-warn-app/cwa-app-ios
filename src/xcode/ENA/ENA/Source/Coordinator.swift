@@ -94,7 +94,8 @@ class Coordinator: RequiresAppDependencies {
 						coder: coder,
 						pageType: .togetherAgainstCoronaPage,
 						exposureManager: self.exposureManager,
-						store: self.store
+						store: self.store,
+						client: self.client
 					)
 				}
 			],

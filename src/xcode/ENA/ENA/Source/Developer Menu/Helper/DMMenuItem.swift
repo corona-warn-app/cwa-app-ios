@@ -33,6 +33,7 @@ enum DMMenuItem: Int, CaseIterable {
 	case sendFakeRequest
 	case store
 	case tracingHistory
+	case onboardingVersion
 	case serverEnvironment
 }
 
@@ -62,6 +63,7 @@ extension DMMenuItem {
 		case .sendFakeRequest: return "Send fake Request"
 		case .store: return "Store Contents"
 		case .tracingHistory: return "Tracing History"
+		case .onboardingVersion: return "Onboarding Version"
 		case .serverEnvironment: return "Server Environment"
 		}
 	}
@@ -79,6 +81,7 @@ extension DMMenuItem {
 		case .sendFakeRequest: return "Sends a fake request for testing plausible deniability"
 		case .store: return "See the contents of the encrypted store used by the app"
 		case .tracingHistory: return "See when tracing was active"
+		case .onboardingVersion: return "Set the onboarding version"
 		case .serverEnvironment: return "Select server environment"
 		}
 	}
