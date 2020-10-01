@@ -40,7 +40,7 @@
                                                         <rect key="frame" x="0.0" y="36.5" width="382" height="617.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFa-H0-7iG" customClass="ENATanInput" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="284" width="382" height="50"/>
+                                                                <rect key="frame" x="0.0" y="285.5" width="382" height="46.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" priority="250" constant="50" placeholder="YES" id="GoX-aD-BHg"/>
                                                                 </constraints>
@@ -232,7 +232,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="999" text="Positionieren Sie den Rahmen über dem QR Code Ihres Dokuments" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTI-P6-3Zh" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="52" y="149.5" width="310.5" height="42.5"/>
+                                <rect key="frame" x="52" y="151" width="310.5" height="41"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" name="ENA Text Contrast Color"/>
                                 <nil key="highlightedColor"/>
@@ -408,66 +408,6 @@
             </objects>
             <point key="canvasLocation" x="935" y="1308"/>
         </scene>
-        <!--Exposure Submission Warn Europe Consent View Controller-->
-        <scene sceneID="0su-8g-bvX">
-            <objects>
-                <viewController storyboardIdentifier="ExposureSubmissionWarnEuropeConsentViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9Qi-SJ-8c7" customClass="ExposureSubmissionWarnEuropeConsentViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="6dg-f2-C8X">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" name="ENA Background Color"/>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="g4g-aI-78s" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
-                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="J4s-ra-DuU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4271" y="155"/>
-        </scene>
-        <!--Exposure Submission Warn Europe Travel Confirmation View Controller-->
-        <scene sceneID="ZUi-jr-d20">
-            <objects>
-                <viewController storyboardIdentifier="ExposureSubmissionWarnEuropeTravelConfirmationViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wmD-vQ-Mt0" customClass="ExposureSubmissionWarnEuropeTravelConfirmationViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="srP-Ft-NM0">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" name="ENA Background Color"/>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="ITZ-jd-CGF" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
-                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RyV-gl-ieg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5004" y="155"/>
-        </scene>
-        <!--Exposure Submission Warn Europe Country Selection View Controller-->
-        <scene sceneID="Qgm-Oj-oFH">
-            <objects>
-                <viewController storyboardIdentifier="ExposureSubmissionWarnEuropeCountrySelectionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sD4-FE-cDd" customClass="ExposureSubmissionWarnEuropeCountrySelectionViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="Q2q-Rm-mbI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" name="ENA Background Color"/>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="5LU-2g-8cd" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
-                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6zU-QJ-wZh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5745" y="155"/>
-        </scene>
         <!--Exposure Submission Symptoms View Controller-->
         <scene sceneID="Lgw-rw-O6o">
             <objects>
@@ -511,13 +451,13 @@
     </scenes>
     <designables>
         <designable name="DuS-ZV-gMr">
-            <size key="intrinsicContentSize" width="67" height="20.5"/>
+            <size key="intrinsicContentSize" width="70.5" height="20.5"/>
         </designable>
         <designable name="I0N-4y-Zcm">
-            <size key="intrinsicContentSize" width="67" height="20.5"/>
+            <size key="intrinsicContentSize" width="70.5" height="20.5"/>
         </designable>
         <designable name="aTI-P6-3Zh">
-            <size key="intrinsicContentSize" width="509" height="20.5"/>
+            <size key="intrinsicContentSize" width="529" height="20.5"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
