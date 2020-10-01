@@ -502,6 +502,7 @@ enum AppStrings {
 		static let euDescription1 = NSLocalizedString("ExposureNotificationSetting_EU_Desc_1", comment: "")
 		static let euDescription2 = NSLocalizedString("ExposureNotificationSetting_EU_Desc_2", comment: "")
 		static let euDescription3 = NSLocalizedString("ExposureNotificationSetting_EU_Desc_3", comment: "")
+		static let euDescription4 = NSLocalizedString("ExposureNotificationSetting_EU_Desc_4", comment: "")
 		static let euEmptyErrorTitle = NSLocalizedString("ExposureNotificationSetting_EU_Empty_Error_Title", comment: "")
 		static let euEmptyErrorDescription = NSLocalizedString("ExposureNotificationSetting_EU_Empty_Error_Desc", comment: "")
 		static let euEmptyErrorButtonTitle = NSLocalizedString("ExposureNotificationSetting_EU_Empty_Error_Button_Title", comment: "")
