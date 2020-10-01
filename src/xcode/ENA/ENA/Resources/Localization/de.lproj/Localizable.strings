@@ -1188,7 +1188,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "DeltaOnboarding_ParticipatingCountries" = "Derzeit nehmen die folgenden Länder teil:";
 
-"DeltaOnboarding_ParticipatingCountriesList_Unavailable" = "Die teilnehmenden Länder können Sie jederzeit einsehen in den Details zur Risiko-Ermittlung.";
+"DeltaOnboarding_ParticipatingCountriesList_Unavailable" = "Die teilnehmenden Länder können Sie jederzeit in den Details zur Risiko-Ermittlung einsehen.";
 
 "DeltaOnboarding_ParticipatingCountriesList_Unavailable_Title" = "Teilnehmende Länder";
 
