@@ -8724,21 +8724,21 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionSymptomsOnsetViewController.swift",
-      "line": 184,
+      "line": 186,
       "symbol": "ExposureSubmissionSymptomsOnsetViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionSymptomsOnsetViewController.swift",
-      "line": 185,
+      "line": 187,
       "symbol": "ExposureSubmissionSymptomsOnsetViewController.CustomCellReuseIdentifiers",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionSymptomsOnsetViewController.swift",
-      "line": 186,
+      "line": 188,
       "symbol": "ExposureSubmissionSymptomsOnsetViewController.CustomCellReuseIdentifiers.optionGroupCell",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
@@ -8808,21 +8808,21 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionSymptomsViewController.swift",
-      "line": 173,
+      "line": 175,
       "symbol": "ExposureSubmissionSymptomsViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionSymptomsViewController.swift",
-      "line": 174,
+      "line": 176,
       "symbol": "ExposureSubmissionSymptomsViewController.CustomCellReuseIdentifiers",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionSymptomsViewController.swift",
-      "line": 175,
+      "line": 177,
       "symbol": "ExposureSubmissionSymptomsViewController.CustomCellReuseIdentifiers.optionGroupCell",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
@@ -9123,28 +9123,28 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionWarnOthersViewController.swift",
-      "line": 86,
+      "line": 88,
       "symbol": "ExposureSubmissionWarnOthersViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionWarnOthersViewController.swift",
-      "line": 87,
+      "line": 89,
       "symbol": "ExposureSubmissionWarnOthersViewController.CustomCellReuseIdentifiers",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionWarnOthersViewController.swift",
-      "line": 88,
+      "line": 90,
       "symbol": "ExposureSubmissionWarnOthersViewController.CustomCellReuseIdentifiers.roundedCell",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionWarnOthersViewController.swift",
-      "line": 95,
+      "line": 97,
       "symbol": "ExposureSubmissionWarnOthersViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
