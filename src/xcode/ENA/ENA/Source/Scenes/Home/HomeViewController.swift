@@ -68,6 +68,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	private var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable>?
 	private var collectionView: UICollectionView! { view as? UICollectionView }
 	private var homeInteractor: HomeInteractor!
+	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 
 	private weak var delegate: HomeViewControllerDelegate?
 
@@ -106,6 +107,16 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
+		showInformationHowRiskDetectionWorks()
+		showDeltaOnboarding()
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		updateBackgroundColor()
+	}
+
+	private func showInformationHowRiskDetectionWorks() {
 		guard store.userNeedsToBeInformedAboutHowRiskDetectionWorks else {
 			return
 		}
@@ -118,9 +129,26 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		}
 	}
 
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		updateBackgroundColor()
+	private func showDeltaOnboarding() {
+		appConfigurationProvider.appConfiguration { [weak self] result in
+			guard let self = self ,
+				  case let .success(applicationConfiguration) = result else { return }
+
+			let supportedCountries = applicationConfiguration.supportedCountries.compactMap({ Country(countryCode: $0) })
+
+			let onboardings: [DeltaOnboarding] = [
+				DeltaOnboardingV15(store: self.store, supportedCountries: supportedCountries)
+			]
+			
+			self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
+			self.deltaOnboardingCoordinator?.finished = { [weak self] in
+				self?.deltaOnboardingCoordinator = nil
+			}
+
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+				self.deltaOnboardingCoordinator?.startOnboarding()
+			}
+		}
 	}
 
 	/// This method sets up a background fetch alert, and presents it, if needed.

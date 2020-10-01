@@ -428,6 +428,8 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private func finishOnBoarding() {
 		store.isOnboarded = true
+		store.onboardingVersion = Bundle.main.appVersion
+
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
 
