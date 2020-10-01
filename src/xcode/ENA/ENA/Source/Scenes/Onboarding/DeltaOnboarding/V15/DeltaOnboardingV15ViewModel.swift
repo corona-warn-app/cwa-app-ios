@@ -51,10 +51,6 @@ struct DeltaOnboardingV15ViewModel {
 							text: AppStrings.DeltaOnboarding.description,
 							accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.description
 						),
-						.body(
-							text: AppStrings.DeltaOnboarding.downloadInfo,
-							accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.downloadInfo
-						),
 						.space(height: 16)
 					]
 				)
