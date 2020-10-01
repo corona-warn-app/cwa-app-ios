@@ -130,13 +130,6 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 	func test_When_PackageDownloaderFails_Then_NoRiskCaculationIsTriggered() {
 		let delegate = ExposureDetectionDelegateMock()
 
-		delegate.supportedCountries = { [weak self] in
-			guard let self = self else {
-				return .success([])
-			}
-			return .success(self.makeCountries())
-		}
-
 		delegate.configuration = {
  			XCTFail("Configuration call not expected after failing download.")
 			return .mock()
@@ -176,13 +169,6 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 
 	func test_When_SavingPackageToFileSystemFails_Then_NoRiskCaculationIsTriggered() {
 		let delegate = ExposureDetectionDelegateMock()
-
-		delegate.supportedCountries = { [weak self] in
-			guard let self = self else {
-				return .success([])
-			}
-			return .success(self.makeCountries())
-		}
 		
 		delegate.writtenPackages = {
 			return nil
@@ -219,10 +205,6 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 1.0)
-	}
-
-	func makeCountries() -> [Country] {
-		return [Country(countryCode: "FR"), Country(countryCode: "IT")].compactMap { $0 }
 	}
 }
 
@@ -267,10 +249,6 @@ private final class ExposureDetectionDelegateMock {
 	typealias DownloadAndStoreHandler = (_ delta: DaysAndHours) -> Error?
 
 	// MARK: Properties
-
-	var supportedCountries: () -> SupportedCountriesResult = {
-		.success([])
-	}
 
 	var availableData: () -> DaysAndHours? = {
 		nil
@@ -319,10 +297,6 @@ extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 
 	func exposureDetectionWriteDownloadedPackages(country: Country.ID) -> WrittenPackages? {
 		writtenPackages()
-	}
-
-	func exposureDetection(supportedCountries completion: @escaping (SupportedCountriesResult) -> Void) {
-		completion(supportedCountries())
 	}
 
 	func exposureDetection(

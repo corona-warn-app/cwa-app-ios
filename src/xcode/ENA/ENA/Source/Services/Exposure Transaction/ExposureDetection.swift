@@ -27,6 +27,7 @@ final class ExposureDetection {
 	private var completion: Completion?
 	private var progress: Progress?
 	private var countryKeypackageDownloader: CountryKeypackageDownloading
+	private let country = "EUR"
 
 	// MARK: Creating a Transaction
 	init(
@@ -47,49 +48,22 @@ final class ExposureDetection {
 		progress?.cancel()
 	}
 
-	private func downloadKeyPackages(for countries: [Country.ID], completion: @escaping () -> Void) {
-		let dispatchGroup = DispatchGroup()
-		var errors = [ExposureDetection.DidEndPrematurelyReason]()
-
-		for country in countries {
-			dispatchGroup.enter()
-
-			self.countryKeypackageDownloader.downloadKeypackages(for: country) { result in
-				switch result {
-				case .failure(let didEndPrematurelyReason):
-					errors.append(didEndPrematurelyReason)
-				case .success:
-					break
-				}
-
-				dispatchGroup.leave()
-			}
-		}
-
-		dispatchGroup.notify(queue: .main) {
-			if let error = errors.first {
-				self.endPrematurely(reason: error)
-			} else {
+	private func downloadKeyPackages(completion: @escaping () -> Void) {
+		self.countryKeypackageDownloader.downloadKeypackages(for: country) { result in
+			switch result {
+			case .failure(let didEndPrematurelyReason):
+				self.endPrematurely(reason: didEndPrematurelyReason)
+			case .success:
 				completion()
 			}
 		}
 	}
 
-	private func writeKeyPackagesToFileSystem(for countries: [Country.ID], completion: (WrittenPackages) -> Void) {
-		var urls = [URL]()
-		var writePackagesSuccess = true
-
-		for country in countries {
-			guard let writtenPackages = self.delegate?.exposureDetectionWriteDownloadedPackages(country: country) else {
-				self.endPrematurely(reason: .unableToWriteDiagnosisKeys)
-				writePackagesSuccess = false
-				break
-			}
-			urls.append(contentsOf: writtenPackages.urls)
-		}
-
-		if writePackagesSuccess {
-			completion(WrittenPackages(urls: urls))
+	private func writeKeyPackagesToFileSystem(completion: (WrittenPackages) -> Void) {
+		if let writtenPackages = self.delegate?.exposureDetectionWriteDownloadedPackages(country: country) {
+			completion(WrittenPackages(urls: writtenPackages.urls))
+		} else {
+			endPrematurely(reason: .unableToWriteDiagnosisKeys)
 		}
 	}
 
@@ -130,11 +104,10 @@ final class ExposureDetection {
 
 		activityState = .downloading
 
-		let countryIDs = ["EUR"]
-		self.downloadKeyPackages(for: countryIDs) { [weak self] in
+		self.downloadKeyPackages { [weak self] in
 			guard let self = self else { return }
 
-			self.writeKeyPackagesToFileSystem(for: countryIDs) {  [weak self] writtenPackages in
+			self.writeKeyPackagesToFileSystem { [weak self] writtenPackages in
 				guard let self = self else { return }
 
 				self.activityState = .detecting
