@@ -9837,120 +9837,106 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 189,
+      "line": 195,
       "symbol": "HomeViewController.refreshUIAfterResumingFromBackground()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 194,
+      "line": 200,
       "symbol": "HomeViewController.setStateOfChildViewControllers()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 198,
+      "line": 204,
       "symbol": "HomeViewController.updateState(detectionMode:exposureManagerState:risk:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 206,
+      "line": 212,
       "symbol": "HomeViewController.showExposureSubmissionWithoutResult()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 210,
+      "line": 216,
       "symbol": "HomeViewController.showExposureSubmission(with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 214,
+      "line": 220,
       "symbol": "HomeViewController.showExposureNotificationSetting()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 218,
+      "line": 224,
       "symbol": "HomeViewController.showExposureDetection()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 266,
+      "line": 272,
       "symbol": "HomeViewController.reloadData(animatingDifferences:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 271,
+      "line": 277,
       "symbol": "HomeViewController.reloadCell(at:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 312,
+      "line": 318,
       "symbol": "HomeViewController.applySnapshotFromSections(animatingDifferences:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 321,
+      "line": 327,
       "symbol": "HomeViewController.updateSections()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 333,
+      "line": 339,
       "symbol": "HomeViewController.cellForItem(at:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 340,
+      "line": 346,
       "symbol": "HomeViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 341,
+      "line": 347,
       "symbol": "HomeViewController.showTestResultScreen()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 345,
-      "symbol": "HomeViewController.updateTestResultState()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
       "line": 351,
-      "symbol": "HomeViewController",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 352,
-      "symbol": "HomeViewController.homeLayoutSection(for:)",
+      "symbol": "HomeViewController.updateTestResultState()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -9964,69 +9950,83 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
       "line": 358,
+      "symbol": "HomeViewController.homeLayoutSection(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
+      "line": 363,
+      "symbol": "HomeViewController",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
+      "line": 364,
       "symbol": "HomeViewController.collectionView(_:shouldHighlightItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 366,
+      "line": 372,
       "symbol": "HomeViewController.collectionView(_:didHighlightItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 370,
+      "line": 376,
       "symbol": "HomeViewController.collectionView(_:didUnhighlightItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 374,
+      "line": 380,
       "symbol": "HomeViewController.collectionView(_:didSelectItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 379,
+      "line": 385,
       "symbol": "HomeViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 380,
+      "line": 386,
       "symbol": "HomeViewController.updateExposureState(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 386,
+      "line": 392,
       "symbol": "HomeViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 387,
+      "line": 393,
       "symbol": "HomeViewController.updateEnState(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 393,
+      "line": 399,
       "symbol": "HomeViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 394,
+      "line": 400,
       "symbol": "HomeViewController.preferredNavigationBarOpacity",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
