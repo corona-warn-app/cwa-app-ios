@@ -58,18 +58,24 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 			return writtenPackages
 		}
 
+
 		let summaryResultBeCalled = expectation(description: "summaryResult called")
 		delegate.summaryResult = { _, _ in
 			summaryResultBeCalled.fulfill()
 			return .success(MutableENExposureDetectionSummary(daysSinceLastExposure: 5))
 		}
 
+		let appConfigurationProviderSpy = AppConfigurationProviderSpy()
+
 		let startCompletionCalled = expectation(description: "start completion called")
 		let detection = ExposureDetection(
 			delegate: delegate,
-			appConfigurationProvider: AppConfigurationProviderFake()
+			appConfigurationProvider: appConfigurationProviderSpy
 		)
-		detection.start { _ in startCompletionCalled.fulfill() }
+		detection.start { _ in
+			XCTAssertTrue(appConfigurationProviderSpy.didCallAppConfiguration)
+			startCompletionCalled.fulfill()
+		}
 
 		wait(
 			for: [
@@ -202,6 +208,20 @@ final class AppConfigurationProviderFake: AppConfigurationProviding {
 	}
 
 	func appConfiguration(completion: @escaping Completion) {
+		completion(.success(SAP_ApplicationConfiguration()))
+	}
+}
+
+final class AppConfigurationProviderSpy: AppConfigurationProviding {
+	var didCallAppConfiguration = false
+
+	func appConfiguration(forceFetch: Bool, completion: @escaping Completion) {
+		didCallAppConfiguration = true
+		completion(.success(SAP_ApplicationConfiguration()))
+	}
+
+	func appConfiguration(completion: @escaping Completion) {
+		didCallAppConfiguration = true
 		completion(.success(SAP_ApplicationConfiguration()))
 	}
 }
