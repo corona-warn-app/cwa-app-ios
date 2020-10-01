@@ -107,7 +107,7 @@ struct DeltaOnboardingV15ViewModel {
 
 	private func buildCountryCells() -> [DynamicCell] {
 		var cells: [DynamicCell] = []
-		if(supportedCountries.isEmpty) {
+		if supportedCountries.isEmpty {
 			cells = [
 				.headline(
 					text: AppStrings.DeltaOnboarding.participatingCountriesListUnavailableTitle,
