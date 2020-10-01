@@ -51,10 +51,6 @@ struct DeltaOnboardingV15ViewModel {
 							text: AppStrings.DeltaOnboarding.description,
 							accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.description
 						),
-						.body(
-							text: AppStrings.DeltaOnboarding.downloadInfo,
-							accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.downloadInfo
-						),
 						.space(height: 16)
 					]
 				)
@@ -111,7 +107,7 @@ struct DeltaOnboardingV15ViewModel {
 
 	private func buildCountryCells() -> [DynamicCell] {
 		var cells: [DynamicCell] = []
-		if(supportedCountries.isEmpty) {
+		if supportedCountries.isEmpty {
 			cells = [
 				.headline(
 					text: AppStrings.DeltaOnboarding.participatingCountriesListUnavailableTitle,
