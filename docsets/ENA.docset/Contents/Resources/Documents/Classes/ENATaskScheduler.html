@@ -198,9 +198,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA16ENATaskSchedulerC27scheduleDeadmanNotificationyyFZ"></a>
-                      <a name="//apple_ref/swift/Method/scheduleDeadmanNotification()" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA16ENATaskSchedulerC27scheduleDeadmanNotificationyyFZ">scheduleDeadmanNotification()</a>
+                      <a name="/s:3ENA16ENATaskSchedulerC35scheduleDeadmanNotificationIfNeededyyFZ"></a>
+                      <a name="//apple_ref/swift/Method/scheduleDeadmanNotificationIfNeeded()" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA16ENATaskSchedulerC35scheduleDeadmanNotificationIfNeededyyFZ">scheduleDeadmanNotificationIfNeeded()</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -208,17 +208,41 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Schedules a local notification to fire 36 hours from now.
-In case the background execution fails  there will be a backup notification for the
-user to be notified to open the app. If everything runs smoothly,
-the current notification will always be moved to the future, thus never firing.</p>
+                          <p>Schedules a local notification to fire 36 hours from now, if there isn´t a notification already scheduled</p>
 
                         </div>
                         <div class="declaration">
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">scheduleDeadmanNotification</span><span class="p">()</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">scheduleDeadmanNotificationIfNeeded</span><span class="p">()</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA16ENATaskSchedulerC24resetDeadmanNotificationyyFZ"></a>
+                      <a name="//apple_ref/swift/Method/resetDeadmanNotification()" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA16ENATaskSchedulerC24resetDeadmanNotificationyyFZ">resetDeadmanNotification()</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Reset the Deadman Notification, should be called after a successfull risk-calculation.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">resetDeadmanNotification</span><span class="p">()</span></code></pre>
 
                           </div>
                         </div>

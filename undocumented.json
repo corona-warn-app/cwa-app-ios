@@ -4979,14 +4979,14 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Task Scheduling/ENATaskScheduler.swift",
-      "line": 48,
+      "line": 49,
       "symbol": "ENATaskScheduler.delegate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Task Scheduling/ENATaskScheduler.swift",
-      "line": 79,
+      "line": 80,
       "symbol": "ENATaskScheduler.scheduleTask()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
