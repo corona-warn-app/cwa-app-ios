@@ -25,7 +25,7 @@
 
 "Common_ENError5_Description" = "Error 5: Something went wrong. Your level of risk cannot be determined. We are working on a solution of the problem.";
 
-"Common_ENError11_Description" = "Error 11: Something went wrong. Your level of risk cannot be determined. Please restart your smartphone and try again tomorrow.";
+"Common_ENError11_Description" = "Error 11: Something went wrong. Your level of risk cannot be determined. Please restart your device and try again tomorrow.";
 
 "Common_ENError13_Description" = "Error 13: Your exposure logging for today has already been carried out. Please try again in 24 hours.";
 
@@ -116,7 +116,7 @@
 
 "ExposureDetection_Explanation_Text_Off" = "Your risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.";
 
-"ExposureDetection_Explanation_Text_Outdated" = "Since you have not activated exposure logging for long enough, we cannot calculate your risk of infection.\n\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your smartphone. Your risk of infection cannot be seen by, or passed on to anyone else.";
+"ExposureDetection_Explanation_Text_Outdated" = "Your exposure check has not been updated for more than 48 hours. Please update the calculation.";
 
 "ExposureDetection_Explanation_Text_Unknown" = "Since you have not activated exposure logging for long enough, we cannot calculate your risk of infection.\n\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your smartphone. Your risk of infection cannot be seen by, or passed on to anyone else.";
 
@@ -317,21 +317,17 @@
 
 "OnboardingInfo_privacyPage_normalText" = "You will remain anonymous.\nYour data is fully encrypted and transmitted under a pseudonym.\n\nResponsible body: GDPR, article 4, para. 7:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nPlease read our data privacy regulations.\n\nData privacy information:";
 
-"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Three persons have activated exposure logging on their smartphones, which will log their encounters with each other.";
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Three persons have activated exposure logging on their devices, which will log their encounters with each other.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_title" = "How to Enable Exposure Logging";
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "How you make exposure logging possible";
 
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To identify whether you are at risk of infection, you must activate the exposure logging feature.";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To identify any possible exposure, you need to enable exposure logging.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Exposure logging works by your smartphone receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. This feature can be disabled at any time. \n\nEncrypted random IDs only pass information about date, duration, and proximity to other persons (calculated by signal strength). Personal data such as name, address, and location is never recorded. Individuals cannot be identified.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Exposure logging works by your smartphone receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. This feature can be disabled at any time. \n\nEncrypted random IDs only pass information about date, duration, and proximity to other persons (calculated by signal strength). Personal data such as name, address, and location is never recorded. Individuals cannot be identified based on the random IDs.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Age Limit: 16 and Up";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "The use of this app is intended for persons who are at least 16 years of age and who reside in Germany.";
-
-"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Declaration of Consent";
-
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "To find out whether you have been in contact with an infected person and whether there is a risk that you yourself have been infected, you need to enable the App's exposure logging feature. By tapping the \"Turn On\" button, you agree to the enabling of the App's exposure logging feature and the associated data processing.\n\n\nIn order to use the App's exposure logging feature, you will have to enable the COVID-19 Exposure Logging functionality provided by Apple on your iPhone and grant the Corona-Warn-App permission to use this.\n\nWhen exposure logging is enabled, your iPhone continuously generates and transmits random IDs via Bluetooth, which other Apple and Android smartphones in your vicinity can receive if exposure logging is also enabled on them. Your iPhone, in turn, receives the random IDs of the other smartphones. Your own random IDs and those received from other smartphones are recorded in the exposure log and stored there for 14 days.\n\n\nTo identify your risk of infection, the App loads a list – several times a day or on request – of the random IDs of all users who have told the App that they have been infected with the coronavirus. This list is then compared with the random IDs stored in the exposure log. If the App detects that you may have been in contact with an infected user, it will inform you of this and tell you that there is a risk that you are also infected. In this case, the App is also given access to other data stored in your iPhone’s exposure log (date, duration and Bluetooth signal strength of the contact).\n\nThe Bluetooth signal strength is used to derive the physical distance (the stronger the signal, the smaller the distance). The App then analyses this information in order to assess your likelihood of having been infected with the coronavirus and to give you recommendations for what to do next. This analysis is only performed locally on your iPhone. Apart from you, nobody (not even the RKI) will know whether you have been in contact with an infected person and what risk has been identified for you.\n\nTo withdraw your consent to the exposure logging feature, you can disable the feature using the toggle switch in the App or delete the App. If you decide to use the exposure logging feature again, you can toggle the feature back on or reinstall the App. If you disable the exposure logging feature, the App will no longer check whether you have been in contact with an infected user. If you also wish to stop your device sending and receiving random IDs, you will need to disable COVID-19 Exposure Logging in your iPhone settings. Please note that your own random IDs and those received from other smartphones which are stored in the exposure log will not be deleted in the App. You can only permanently delete the data stored in the exposure log in your iPhone settings.\n\n\nThe App's privacy notice (including an explanation of the data processing carried out for the exposure logging feature) can be found in the menu under \"Data Privacy Information\".";
 
 "OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Status";
 
@@ -347,7 +343,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… please report this in the Corona-Warn-App. Sharing your test results is voluntary and secure. Please do this for the sake of everyone's health.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your notification is encrypted securely and processed on a secure server. Persons whose encrypted random IDs your smartphone has collected will now receive a warning along with information about what they should now do.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your notification is encrypted securely and processed on a secure server. Persons whose encrypted random IDs your device has collected will now receive a warning along with information about what they should now do.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "A woman receives a notification from her Corona-Warn-App.";
 
@@ -356,6 +352,17 @@
 "OnboardingInfo_alwaysStayInformedPage_boldText" = "The app can notify you automatically about your risk status and warn you about new infections of people you have been exposed to. Allow the app now to notify you.";
 
 "OnboardingInfo_alwaysStayInformedPage_normalText" = "You can then self-isolate to protect others and find out where you can get tested.";
+
+/* Onboarding EU Keys */
+"onboardingInfo_enableLoggingOfContactsPage_euTitle" = "Transnational Exposure Logging";
+
+"onboardingInfo_enableLoggingOfContactsPage_euDescription" = "Several countries have teamed up to enable international warning. In other words, your potential exposure to users of the official corona apps in all participating countries can now be taken into account.\n\nWhen a user submits their random IDs to the exchange server jointly operated by the participating countries, users of the official corona apps in all these countries can be warned of potential exposure.\n\nThe daily download of random IDs is normally free of charge for you. This means the data volume caused by the app will not be charged by cellular carriers, nor will you incur any roaming fees in other European countries. For more information, please contact your cellular carrier.";
+
+"onboardingInfo_enableLoggingOfContactsPage_participatingCountriesTitle" = "The following countries currently participate:";
+
+"onboardingInfo_enableLoggingOfContactsPage_emptyEuTitle" = "Participating Countries";
+
+"onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "You can view the participating countries in the exposure logging details.";
 
 /* Exposure Submission */
 "ExposureSubmission_Hotline_Number" = "+498007540002";
@@ -474,7 +481,7 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Please note:";
 
-"ExposureSubmissionSuccess_listItem1" = "The public health authority will contact you within the next few days by telephone or by letter.";
+"ExposureSubmissionSuccess_listItem1" = "The public health authority will contact you within the next few days.";
 
 "ExposureSubmissionSuccess_listItem2" = "You are infectious. Isolate yourself from other people.";
 
@@ -495,7 +502,7 @@
 
 "ExposureSubmissionIntroduction_Usage01" = "For the app to work well, we rely on the support of persons who were diagnosed with COVID-19.";
 
-"ExposureSubmissionIntroduction_Usage02" = "Since only encrypted random IDs are exchanged, you remain anonymous. You can now proceed as follows:";
+"ExposureSubmissionIntroduction_Usage02" = "Since the app only exchanges encrypted random IDs, it is impossible for you to be identified. You can now proceed as follows:";
 
 "ExposureSubmissionIntroduction_ListItem1" = "If there is a QR code in your test document, you can scan this and register the test. As soon as the result is available, you can view it in the app.";
 
@@ -528,7 +535,7 @@
 
 "ExposureSubmissionResult_warnOthers" = "Warning Others";
 
-"ExposureSubmissionResult_warnOthersDesc" = "Share your random IDs of the last 14 days in order to protect others and break the chain of infection.";
+"ExposureSubmissionResult_warnOthersDesc" = "Share your random IDs and warn others.\nHelp determine the risk of infection for others more accurately by also indicating when you first noticed any coronavirus symptoms.";
 
 "ExposureSubmissionResult_testPositive" = "Positive Diagnosis";
 
@@ -597,7 +604,7 @@
 
 "ExposureSubmissionSymptoms_AnswerOptionNo" = "No";
 
-"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "No answer";
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "No statement";
 
 "ExposureSubmissionSymptoms_ContinueButton" = "Next";
 
@@ -616,7 +623,7 @@
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "More than 2 weeks ago";
 
-"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "No answer";
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "No statement";
 
 "ExposureSubmissionSymptomsOnset_ContinueButton" = "Next";
 
@@ -625,68 +632,19 @@
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "A device transmits an encrypted positive test diagnosis to the system.";
 
-"ExposureSubmissionWarnOthers_continueButton" = "Accept";
-
 "ExposureSubmissionWarnOthers_sectionTitle" = "You can help!";
 
-"ExposureSubmissionWarnOthers_description" = "If you wish, you can now allow the App system to transmit your locally stored random IDs from the last 14 days to others. In this way, you can warn fellow users and help to break the chain of infection.\n\nThe App will only transmit random IDs and information you provided about the onset of symptoms. Your identity will not be disclosed.";
+"ExposureSubmissionWarnOthers_description" = "If you wish, you can now ensure that others are warned of possible infection.\n\nTo do so, you can transmit your own random IDs from the last 14 days – and, optionally, information about when you first noticed coronavirus symptoms – to the joint exchange server operated by the participating countries. From there, your random IDs and any additional information will be distributed to the users of the relevant official coronavirus apps. In this way, any other users with whom you have had contact can be warned of a possible infection.\n\nThe only information transmitted will be your random IDs and any optional information you provide about the onset of your symptoms. No personal data such as your name, address or location will be disclosed.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the risk identification feature can be automatically notified that they may have been exposed to a risk of infection. If you provided optional information about the onset of your symptoms, the random IDs will be transmitted with a risk value derived from your information, indicating your risk of having infected others on the day the random ID is valid. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person.\n\nTransmitting your test result via the App is voluntary. You will not be penalised if you do not transmit your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have transmitted the information that you are infected. \n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out on the basis of the consent prior to the withdrawal. Further information can be found under “App Information”> “Data Privacy”.\n";
-
-"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Consent";
+"ExposureSubmissionWarnOthers_supportedCountriesTitle" = "The following countries currently participate in transnational exposure logging:";
 
 "ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Age 16 Warning";
 
 "ExposureSubmissionWarnOthers_consentUnderagesText" = "The use of this app is intended for persons who are at least 16 years of age and who reside in Germany.";
 
-"ExposureSubmissionWarnEuropeConsent_title" = "Europe-wide warnings";
+"ExposureSubmissionWarnOthers_continueButton" = "Accept";
 
-"ExposureSubmissionWarnEuropeConsent_imageDescription" = "Persons holding smartphones stand on a map of Europe. A bell sounding a warning is pictured in their midst.";
-
-"ExposureSubmissionWarnEuropeConsent_continueButton" = "Next";
-
-"ExposureSubmissionWarnEuropeConsent_sectionTitle" = "The virus knows no borders. Support transborder warnings!";
-
-"ExposureSubmissionWarnEuropeConsent_toggleTitle" = "Europe-wide warnings";
-
-"ExposureSubmissionWarnEuropeConsent_description" = "Several European countries are working together to enable cross-border warnings. Share your random IDs with participating countries to enable users of other countries' official Corona apps to be warned.";
-
-"ExposureSubmissionWarnEuropeConsent_consentTitle" = "Declaration of Consent";
-
-"ExposureSubmissionWarnEuropeConsent_consentDescription" = "By selecting \"Europe-wide warnings\" and tapping \"Next\", you consent to your test result and your random IDs generated during the last 14 days being transferred to the European server system jointly operated by the participating countries. Your test result and your random IDs can be used to warn users of official Corona apps from other countries that they have been exposed to a risk of infection. The random IDs do not contain data that allows conclusions about your identity or your person.\n\nThe data transfer in support of the Europe-wide warning is optional. You do not incur a disadvantage if you opt not to share your data. As it is not possible to trace or control whether and how you use the app, nobody but you knows whether you are sharing your test result in support of Europe-wide warning. You can revoke your consent at any time by deleting the app. By revoking your consent, the lawfulness of data processing, granted up to the point of revocation by your consent, is not affected. For further information, see menu item \"Data Privacy Information\".";
-
-"ExposureSubmissionWarnEuropeTravelConfirmation_title" = "Europe-wide warnings";
-
-"ExposureSubmissionWarnEuropeTravelConfirmation_continueButton" = "Next";
-
-"ExposureSubmissionWarnEuropeTravelConfirmation_description1" = "Have you visited countries outside of Germany within the last 14 days?";
-
-"ExposureSubmissionWarnEuropeTravelConfirmation_description2" = "Your entry is used solely for optimizing the data volume.";
-
-"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionYes" = "Yes";
-
-"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNo" = "No";
-
-"ExposureSubmissionWarnEuropeTravelConfirmation_answerOptionNone" = "No answer";
-
-"ExposureSubmissionWarnEuropeCountrySelection_title" = "Europe-wide warnings";
-
-"ExposureSubmissionWarnEuropeCountrySelection_continueButton" = "Next";
-
-"ExposureSubmissionWarnEuropeCountrySelection_description1" = "Which countries have you visited in the last 14 days?";
-
-"ExposureSubmissionWarnEuropeCountrySelection_description2" = "Your entry is used solely for optimizing the data volume.\n\nThe list contains all currently participating countries and is continuously updated.";
-
-"ExposureSubmissionWarnEuropeCountrySelection_answerOptionCountrySelection" = "I have visited the following countries";
-
-"ExposureSubmissionWarnEuropeCountrySelection_answerOptionOtherCountries" = "Other countries";
-
-"ExposureSubmissionWarnEuropeCountrySelection_answerOptionNone" = "No answer";
-
-"ExposureSubmissionWarnEuropeCountrySelection_consentTitle" = "Declaration of Consent";
-
-"ExposureSubmissionWarnEuropeCountrySelection_consentDescription" = "By tapping \"Next\", you consent to your selected countries and your random IDs being transferred to the European server system jointly operated by the participating countries. The participating countries can use this data for exposure logging in their own Corona apps, to assess whether your random IDs are relevant for the users of these Corona apps.\n\nThe transferred data does not contain any information that would allow conclusions about your identity or your person.\n\nTransfer of data about your selected countries is optional. You do not incur a disadvantage if you opt not to transfer your entries on selected countries. As it is not possible to trace or control whether and how you use the app, nobody but you knows whether you are sharing this information.\n\nYou can revoke your consent at any time by deleting the app. By revoking your consent, the lawfulness of data processing, granted up to the point of revocation by your consent, is not affected. For further information, see menu item \"Data Privacy Information\".";
-
+/* Exposure Submission Result */
 "ExposureSubmissionResult_RemoveAlert_Title" = "The test can only be scanned once.";
 
 "ExposureSubmissionResult_RemoveAlert_Text" = "If you remove the test, you can no longer retrieve your test result. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with COVID-19, the public health authority will be notified through the legally prescribed channel and will contact you.";
@@ -749,14 +707,13 @@
 
 "ExposureNotificationSetting_DescriptionTitle_Inactive" = "Activate Exposure Logging";
 
-"ExposureNotificationSetting_DescriptionTitle" = "This is how your exposure logging works";
+"ExposureNotificationSetting_DescriptionTitle" = "How exposure logging works";
 
-"ExposureNotificationSetting_DescriptionText1" = "To identify whether you are at risk of infection, you must activate the exposure logging feature.";
+"ExposureNotificationSetting_DescriptionText1" = "You need to enable the exposure logging feature so that the app can determine whether you are at risk after encountering an infected app user. The exposure logging feature works transnationally, meaning any possible exposure involving users is also detected by other official coronavirus apps.";
 
+"ExposureNotificationSetting_DescriptionText2" = "The exposure logging feature works by your smartphone receiving encrypted random IDs from other users via Bluetooth and passing your own random IDs to their smartphones. Every day, the app downloads a list containing the random IDs – along with any voluntary information about the onset of symptoms – of all users who have tested positive for the virus and voluntarily shared this information via their app. This list is then compared with the random IDs of other users that have been recorded by your smartphone, in order to calculate the likelihood that you have also been infected and to warn you if necessary. You can use the toggle switch to disable exposure logging at any time.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Exposure logging works by your smartphone receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. This feature can be deactivated at any time.";
-
-"ExposureNotificationSetting_DescriptionText3" = "The encrypted random IDs only pass information about date, duration and proximity to other persons (calculated by signal strength). Personal data such as name, address, location is never recorded. Individuals cannot be identified.";
+"ExposureNotificationSetting_DescriptionText3" = "The app never collects personal data such as your name, address or location, nor is this information passed on to other users. It is not possible to use random IDs to draw conclusions about individual persons.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Turn on Bluetooth";
 
@@ -768,13 +725,23 @@
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Open Device Settings";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "Enable COVID-19 Exposure Logging and Notifications ";
+"ExposureNotificationSetting_Activate_OSENSetting" = "Enable Exposure Notifications";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description" = "For exposure logging, COVID-19 exposure logging and notifications must be activated in the system settings so that encounters can be logged. Please enable “COVID-19 Exposure Logging and Notifications” in your system settings.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Exposure logging requires exposure notifications to be activated in the system settings, so that encounters can be logged. Select \"Open Device Settings\" -> \"Exposure Notifications\" -> \"Share Exposure Information\". Then define the app as active app for exposure notifications by selecting \"Specify as Active Region\".";
+
+"ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "Activate COVID-19 Exposure Notifications";
+
+"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Exposure logging requires COVID-19 Exposure Notifications to be activated in the system settings, so that encounters can be logged. Select \"Open Device Settings\" and activate \"COVID-19 Exposure Notifications\" in the settings.";
+
+"ExposureNotificationSetting_SetActiveApp_OSENSetting" = "Specify Active Region";
+
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Exposure logging requires the Corona-Warn-App to be defined as active app in the system settings, so that encounters can be logged. Select \"Open Device Settings\" -> \"Settings for COVID-19 Exposure Logging\" and then select the Corona-Warn-App as active app.";
+
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Exposure logging requires the Corona-Warn-App to be defined as active app in the system settings, so that encounters can be logged. Select \"Open Device Settings\" -> \"Exposure Notifications\" -> \"Specify as Active Region\".";
 
 "ExposureNotificationSetting_ParentalControls_OSENSetting" = "Enable COVID-19 Exposure Logging and Notifications";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "For exposure logging, COVID-19 exposure logging and notifications must be activated in the system settings so that encounters can be logged. Please enable “COVID-19 Exposure Logging and Notifications” in your system settings.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "For exposure logging, COVID-19 exposure logging and notifications must be activated in the system settings so that encounters can be logged. Please enable \"COVID-19 Exposure Logging and Notifications\" in your system settings.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Authorization required";
 
@@ -782,7 +749,7 @@
 
 "ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Authorization";
 
-"ExposureNotificationSetting_AccLabel_Enabled" = "Three persons have activated exposure logging on their smartphones, which will log their encounters with each other.";
+"ExposureNotificationSetting_AccLabel_Enabled" = "Three persons have activated exposure logging on their devices, which will log their encounters with each other.";
 
 "ExposureNotificationSetting_AccLabel_Disabled" = "A person has deactivated exposure logging on their smartphone, so an encounter with two other persons is not logged.";
 
@@ -810,10 +777,27 @@
 
 "ExposureNotificationSetting_apiMisuse" = "An internal error occurred while activating the exposure logging feature. For more information, visit our FAQ page and try again later.";
 
+/* EU Settings */
+"ExposureNotificationSetting_EU_Title" = "Transnational Exposure Logging";
+
+"ExposureNotificationSetting_EU_Desc_1" = "Several countries are working together to enable transnational alerts via a joint exchange server. For example, contacts with users of an official coronavirus app from other participating countries can also be taken into account for exposure logging.";
+
+"ExposureNotificationSetting_EU_Desc_2" = "To do this, the app downloads a list, which is updated daily, of the random IDs of all users who have shared their random IDs via their own app. This list is then compared with the random IDs recorded by your smartphone. The daily download of the list with the random IDs is usually free of charge for you – you will not be charged for the data used by the app in this context, will roaming charges apply for this in other EU countries.";
+
+"ExposureNotificationSetting_EU_Desc_3" = "The following countries currently participate in transnational exposure logging:";
+
+"ExposureNotificationSetting_EU_Desc_4" = "The app’s privacy notice (including information about the data processing carried out for the transnational exposure logging feature) can be found in the menu under “App Information” > “Data Privacy”.";
+
 /* EU Tracing Risk decription */
-"ExposureNotificationSetting_euTracingRiskDeterminationTitle" = "Cross-Country Exposure Logging";
+"ExposureNotificationSetting_euTracingRiskDeterminationTitle" = "Transnational Exposure Logging";
 
 "ExposureNotificationSetting_euTracingAllCountriesTitle" = "Participating Countries";
+
+"ExposureNotificationSetting_EU_Empty_Error_Title" = "Countries cannot be displayed now.";
+
+"ExposureNotificationSetting_EU_Empty_Error_Desc" = "Your Internet connection may have been lost. Please ensure that you are connected to the Internet.";
+
+"ExposureNotificationSetting_EU_Empty_Error_Button_Title" = "Open Device Settings";
 
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App logo";
@@ -876,9 +860,13 @@
 "Home_Risk_High_Title" = "Increased Risk";
 
 /* Home Status Check */
-"Home_Risk_Status_Check_Title" = "Check is running …";
+"Home_Risk_Status_Downloading_Title" = "Data is being downloaded…";
 
-"Home_Risk_Status_Check_Body" = "Current data is being downloaded and checked. This can take several minutes.";
+"Home_Risk_Status_Detecting_Title" = "Check is running …";
+
+"Home_Risk_Status_Downloading_Body" = "This may take several minutes. Many thanks for your patience.";
+
+"Home_Risk_Status_Detecting_Body" = "Your exposure data is being checked. This may take several minutes. Many thanks for you patience.";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Thank you!";
@@ -887,7 +875,7 @@
 
 "Home_Thank_You_Card_Note_Title" = "Please note:";
 
-"Home_Thank_You_Card_Phone_Item_Title" = "The public health authority will contact you within the next few days by telephone or by letter.";
+"Home_Thank_You_Card_Phone_Item_Title" = "The public health authority will contact you within the next few days.";
 
 "Home_Thank_You_Card_Home_Item_Title" = "You are infectious. Isolate yourself from other people.";
 
@@ -931,7 +919,7 @@
 
 "Home_InfoCard_AboutTitle" = "FAQ";
 
-"Home_InfoCard_AboutBody" = "Here you can find answers to frequently asked questions about the Corona-Warn-App. You will be forwarded to an external website.";
+"Home_InfoCard_AboutBody" = "Here you can find answers to frequently asked questions about the Corona-Warn-App. You will be forwarded to an external German government website.";
 
 "Home_SettingsCard_Title" = "Settings";
 
@@ -1108,7 +1096,7 @@
 
 "RiskLegend_Legend1_Title" = "Exposure Logging";
 
-"RiskLegend_Legend1_Text" = "Exposure logging is one of three central features of the app. Once you activate it, encounters with people's smartphones are logged. You don't have to do anything else.";
+"RiskLegend_Legend1_Text" = "Exposure logging is one of the three central features of the app. When you activate it, encounters with people's devices are logged. You don't have to do anything else.";
 
 "RiskLegend_Legend2_Title" = "Risk of Infection";
 
@@ -1152,9 +1140,9 @@
 
 "RiskLegend_Random_Title" = "Random IDs";
 
-"RiskLegend_Random_Text" = "Random IDs are combinations of digits and letters generated randomly. They are exchanged between smartphones in close proximity. Random IDs cannot be traced to a specific person and are automatically deleted after 14 days. Persons diagnosed with COVID-19 can opt to share their random IDs of up to the last 14 days with other app users.";
+"RiskLegend_Random_Text" = "Random IDs are combinations of digits and letters generated randomly. They are exchanged between devices in close proximity. Random IDs cannot be traced to a specific person and are automatically deleted after 14 days. Persons diagnosed with COVID-19 can opt to share their random IDs of up to the last 14 days with other app users.";
 
-"RiskLegend_Image1_AccLabel" = "A smartphone shows various numbered content.";
+"RiskLegend_Image1_AccLabel" = "A device shows various numbered content.";
 
 /* Update Message */
 "Update_Message_Title" = "Update available";
@@ -1178,4 +1166,25 @@
 "Active_Tracing_Interval_Partially_Active" = "Exposure logging was active for %1$u of the past 14 days.";
 
 "Active_Tracing_Interval_Permanently_Active" = "Exposure logging permanently active";
+
+/* Delta Onboarding */
+"DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
+
+"DeltaOnboarding_Headline" = "Transnational Exposure Logging";
+
+"DeltaOnboarding_Description" = "The functionality of the Corona-Warn-App has been extended. Several countries are now working together to enable transnational alerts via a joint exchange server. For example, contacts with users of an official coronavirus app from other participating countries can now also be taken into account for exposure logging.\n\nTo do this, the app downloads a list, which is updated daily, of the random IDs of all users who have shared their random IDs via their own app. This list is then compared with the random IDs recorded by your smartphone.\n\nThe daily download of the list with the random IDs is usually free of charge for you. Specifically, this means that mobile network operators do not charge you for the data used by the app in this context, and nor do they apply roaming charges for this in other EU countries. Please contact your mobile network operator for more information.";
+
+"DeltaOnboarding_ParticipatingCountries" = "The following countries currently participate:";
+
+"DeltaOnboarding_ParticipatingCountriesList_Unavailable" = "You can view the participating countries in the exposure logging details.";
+
+"DeltaOnboarding_ParticipatingCountriesList_Unavailable_Title" = "Participating Countries";
+
+"DeltaOnboarding_PrimaryButton_Continue" = "Next";
+
+"DeltaOnboarding_Terms_Description1" = "The terms of use have also been updated, to reflect the functional enhancements in the app.";
+
+"DeltaOnboarding_Terms_Button" = "Display terms of use";
+
+"DeltaOnboarding_Terms_Description2" = "The Terms of Use and privacy notice can also be found in the menu under “App Information” and in the app description in your app store. The changes will not affect how you use the app. If you continue to use the app or reopen it, we will assume that you agree to the updated Terms of Use.";
 
