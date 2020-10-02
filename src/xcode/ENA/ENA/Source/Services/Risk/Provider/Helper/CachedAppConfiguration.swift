@@ -53,7 +53,7 @@ final class CachedAppConfiguration {
 			case .success(let response):
 				self?.store.lastAppConfigETag = response.eTag
 				self?.store.appConfig = response.config
-				completion?(.success(response.config))
+				self?.completeOnMain(completion: completion, result: .success(response.config))
 			case .failure(let error):
 				switch error {
 				case CachedAppConfiguration.CacheError.notModified where self?.store.appConfig != nil:
@@ -62,14 +62,20 @@ final class CachedAppConfiguration {
 					guard let config = self?.store.appConfig else {
 						fatalError("App configuration cache broken!") // in `where` we trust
 					}
-					completion?(.success(config))
+					self?.completeOnMain(completion: completion, result: .success(config))
 
 					// keep track of last successful fetch
 					self?.store.lastAppConfigFetch = Date()
 				default:
-					completion?(.failure(error))
+					self?.completeOnMain(completion: completion, result: .failure(error))
 				}
 			}
+		}
+	}
+
+	private func completeOnMain(completion: Completion?, result: Result<SAP_ApplicationConfiguration, Error>) {
+		DispatchQueue.main.async {
+			completion?(result)
 		}
 	}
 }
@@ -83,7 +89,7 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 
 		if let cachedVersion = store.appConfig, !force {
 			// use the cached version
-			completion(.success(cachedVersion))
+			completeOnMain(completion: completion, result: .success(cachedVersion))
 		} else {
 			// fetch a new one
 			fetchConfig(with: store.lastAppConfigETag, completion: completion)
