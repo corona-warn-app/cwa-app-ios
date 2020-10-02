@@ -28,14 +28,14 @@ enum UpdateAlertType {
 
 final class AppUpdateCheckHelper {
 	// MARK: Properties
-	private let client: Client
+	private let appConfigurationProvider: AppConfigurationProviding
 	private let store: Store
 
 	/// The retained `NotificationCenter` observer that listens for `UIApplication.didBecomeActiveNotification` notifications.
 	var applicationDidBecomeActiveObserver: NSObjectProtocol?
 
-	init(client: Client, store: Store) {
-		self.client = client
+	init(appConfigurationProvider: AppConfigurationProviding, store: Store) {
+		self.appConfigurationProvider = appConfigurationProvider
 		self.store = store
 	}
 
@@ -45,8 +45,19 @@ final class AppUpdateCheckHelper {
 	}
 
 	func checkAppVersionDialog(for vc: UIViewController?) {
-		client.appConfiguration { result in
-			guard let versionInfo: SAP_ApplicationVersionConfiguration = result?.appVersion else {
+		appConfigurationProvider.appConfiguration { [weak self] result in
+			guard let self = self else { return }
+
+			var _versionInfo: SAP_ApplicationVersionConfiguration?
+
+			switch result {
+			case .success(let applicationConfiguration):
+				_versionInfo = applicationConfiguration.appVersion
+			case .failure(let error):
+				logError(message: "Error while loading app configuration: \(error).")
+			}
+
+			guard let versionInfo = _versionInfo else {
 				return
 			}
 

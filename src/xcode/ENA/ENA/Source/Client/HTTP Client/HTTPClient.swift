@@ -37,55 +37,6 @@ final class HTTPClient: Client {
 	let session: URLSession
 	let packageVerifier: SAPDownloadedPackage.Verification
 
-	@available(*, deprecated, message: "Use CachedAppConfiguration instead")
-	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
-		session.GET(configuration.configurationURL) { [weak self] result in
-			switch result {
-			case let .success(response):
-				guard let data = response.body else {
-					completion(nil)
-					return
-				}
-				guard response.hasAcceptableStatusCode else {
-					completion(nil)
-					return
-				}
-
-				guard let package = SAPDownloadedPackage(compressedData: data) else {
-					logError(message: "Failed to create downloaded package for app config.")
-					completion(nil)
-					return
-				}
-
-				guard let self = self else { return }
-
-				// Configuration File Signature must be checked by the application since it is not verified by the operating system
-				guard self.packageVerifier(package) else {
-					logError(message: "Failed to verify app config signature")
-					completion(nil)
-					return
-				}
-				completion(try? SAP_ApplicationConfiguration(serializedData: package.bin))
-			case .failure:
-				completion(nil)
-			}
-		}
-	}
-
-	@available(*, deprecated, message: "Use CachedAppConfiguration instead")
-	func supportedCountries(completion: @escaping CountryFetchCompletion) {
-		appConfiguration { config in
-			guard let config = config else {
-				// the previous call needs a refactoring to return a proper reason WHY this may result in no configuration
-				completion(.failure(.invalidResponse))
-				return
-			}
-
-			let countries = config.supportedCountries.compactMap { Country(countryCode: $0) }
-			completion(.success(countries))
-		}
-	}
-
 	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
 		let keys = payload.exposureKeys
 		let consent = payload.consentToFederation
@@ -198,26 +149,7 @@ final class HTTPClient: Client {
 		}
 	}
 
-	func exposureConfiguration(
-		completion: @escaping ExposureConfigurationCompletionHandler
-	) {
-		log(message: "Fetching exposureConfiguration from: \(configuration.configurationURL)")
-		appConfiguration { config in
-			guard let config = config else {
-				completion(nil)
-				return
-			}
-			guard config.hasExposureConfig else {
-				completion(nil)
-				return
-			}
-			completion(try? ENExposureConfiguration(from: config.exposureConfig, minRiskScore: config.minRiskScore))
-		}
-	}
-
 	func getTestResult(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TestResultHandler) {
-
-		
 		guard
 			let testResultRequest = try? URLRequest.getTestResultRequest(
 				configuration: configuration,
@@ -648,47 +580,5 @@ private extension URLRequest {
 		guard paddedKeysAmount > 0 else { return Data() }
 		guard let data = (String.getRandomString(of: 28 * paddedKeysAmount)).data(using: .ascii) else { return Data() }
 		return data
-	}
-}
-
-private extension ENExposureConfiguration {
-	convenience init(from riskscoreParameters: SAP_RiskScoreParameters, minRiskScore: Int32) throws {
-		self.init()
-		minimumRiskScore = UInt8(clamping: minRiskScore)
-		minimumRiskScoreFullRange = Double(minRiskScore)
-		attenuationLevelValues = riskscoreParameters.attenuation.asArray
-		daysSinceLastExposureLevelValues = riskscoreParameters.daysSinceLastExposure.asArray
-		durationLevelValues = riskscoreParameters.duration.asArray
-		transmissionRiskLevelValues = riskscoreParameters.transmission.asArray
-	}
-}
-
-private extension SAP_RiskLevel {
-	var asNumber: NSNumber {
-		NSNumber(value: rawValue)
-	}
-}
-
-private extension SAP_RiskScoreParameters.TransmissionRiskParameter {
-	var asArray: [NSNumber] {
-		[appDefined1, appDefined2, appDefined3, appDefined4, appDefined5, appDefined6, appDefined7, appDefined8].map { $0.asNumber }
-	}
-}
-
-private extension SAP_RiskScoreParameters.DaysSinceLastExposureRiskParameter {
-	var asArray: [NSNumber] {
-		[ge14Days, ge12Lt14Days, ge10Lt12Days, ge8Lt10Days, ge6Lt8Days, ge4Lt6Days, ge2Lt4Days, ge0Lt2Days].map { $0.asNumber }
-	}
-}
-
-private extension SAP_RiskScoreParameters.DurationRiskParameter {
-	var asArray: [NSNumber] {
-		[eq0Min, gt0Le5Min, gt5Le10Min, gt10Le15Min, gt15Le20Min, gt20Le25Min, gt25Le30Min, gt30Min].map { $0.asNumber }
-	}
-}
-
-private extension SAP_RiskScoreParameters.AttenuationRiskParameter {
-	var asArray: [NSNumber] {
-		[gt73Dbm, gt63Le73Dbm, gt51Le63Dbm, gt33Le51Dbm, gt27Le33Dbm, gt15Le27Dbm, gt10Le15Dbm, le10Dbm].map { $0.asNumber }
 	}
 }

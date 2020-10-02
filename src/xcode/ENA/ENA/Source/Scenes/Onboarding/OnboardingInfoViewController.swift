@@ -159,19 +159,21 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	private func loadCountryList() {
-		client.supportedCountries(completion: { [weak self] result in
-			var availableCountries: [Country]
+		appConfigurationProvider.appConfiguration { [weak self] result in
+			var supportedCountryIDs: [String]
+
 			switch result {
-			case .failure:
-				logError(message: "Did not receive a country list.")
-				availableCountries = []
-			case .success(let countries):
-				availableCountries = countries
+			case .success(let applicationConfiguration):
+				supportedCountryIDs = applicationConfiguration.supportedCountries
+			case .failure(let error):
+				logError(message: "Error while loading app configuration: \(error).")
+				supportedCountryIDs = []
 			}
 
-			self?.supportedCountries = availableCountries
+			let supportedCountries = supportedCountryIDs.compactMap { Country(countryCode: $0) }
+			self?.supportedCountries = supportedCountries
 				.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
-		})
+		}
 	}
 
 	private func updateUI(exposureManagerState: ExposureManagerState) {

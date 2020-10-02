@@ -27,13 +27,20 @@ final class ExposureDetection {
 	private var completion: Completion?
 	private var progress: Progress?
 	private var countryKeypackageDownloader: CountryKeypackageDownloading
+	private let appConfigurationProvider: AppConfigurationProviding
+
+	// There was a decision not to use the 2 letter code "EU", but instead "EUR".
+	// Please see this story for more informations: https://jira.itc.sap.com/browse/EXPOSUREBACK-151
+	private let country = "EUR"
 
 	// MARK: Creating a Transaction
 	init(
 		delegate: ExposureDetectionDelegate,
-		countryKeypackageDownloader: CountryKeypackageDownloading? = nil
+		countryKeypackageDownloader: CountryKeypackageDownloading? = nil,
+		appConfigurationProvider: AppConfigurationProviding
 	) {
 		self.delegate = delegate
+		self.appConfigurationProvider = appConfigurationProvider
 
 		if let countryKeypackageDownloader = countryKeypackageDownloader {
 			self.countryKeypackageDownloader = countryKeypackageDownloader
@@ -47,92 +54,51 @@ final class ExposureDetection {
 		progress?.cancel()
 	}
 
-	private func getSupportedCountries(completion: @escaping ([Country]) -> Void) {
-		delegate?.exposureDetection(supportedCountries: { [weak self] result in
-			guard let self = self else { return }
-
+	private func downloadKeyPackages(completion: @escaping () -> Void) {
+		countryKeypackageDownloader.downloadKeypackages(for: country) { [weak self] result in
 			switch result {
-			case .success(let supportedCountries):
-				var _supportedCountries = supportedCountries
-
-				// If supported countries is empty for some reason, we add the default country (DE).
-				if _supportedCountries.isEmpty {
-					_supportedCountries.append(Country.defaultCountry())
-				}
-
-				completion(_supportedCountries)
-			case.failure:
-				self.endPrematurely(reason: .noSupportedCountries)
-			}
-		})
-	}
-
-	private func downloadKeyPackages(for countries: [Country.ID], completion: @escaping () -> Void) {
-
-		let dispatchGroup = DispatchGroup()
-		var errors = [ExposureDetection.DidEndPrematurelyReason]()
-
-		for country in countries {
-			dispatchGroup.enter()
-
-			self.countryKeypackageDownloader.downloadKeypackages(for: country) { result in
-				switch result {
-				case .failure(let didEndPrematurelyReason):
-					errors.append(didEndPrematurelyReason)
-				case .success:
-					break
-				}
-
-				dispatchGroup.leave()
-			}
-		}
-
-		dispatchGroup.notify(queue: .main) {
-			if let error = errors.first {
-				self.endPrematurely(reason: error)
-			} else {
+			case .failure(let didEndPrematurelyReason):
+				self?.endPrematurely(reason: didEndPrematurelyReason)
+			case .success:
 				completion()
 			}
 		}
 	}
 
-	private func writeKeyPackagesToFileSystem(for countries: [Country.ID], completion: (WrittenPackages) -> Void) {
-		var urls = [URL]()
-		var writePackagesSuccess = true
-
-		for country in countries {
-			guard let writtenPackages = self.delegate?.exposureDetectionWriteDownloadedPackages(country: country) else {
-				self.endPrematurely(reason: .unableToWriteDiagnosisKeys)
-				writePackagesSuccess = false
-				break
-			}
-			urls.append(contentsOf: writtenPackages.urls)
-		}
-
-		if writePackagesSuccess {
-			completion(WrittenPackages(urls: urls))
+	private func writeKeyPackagesToFileSystem(completion: (WrittenPackages) -> Void) {
+		if let writtenPackages = self.delegate?.exposureDetectionWriteDownloadedPackages(country: country) {
+			completion(WrittenPackages(urls: writtenPackages.urls))
+		} else {
+			endPrematurely(reason: .unableToWriteDiagnosisKeys)
 		}
 	}
 
-	private func detectSummary(writtenPackages: WrittenPackages) {
-		delegate?.exposureDetection(downloadConfiguration: { [weak self] configuration in
+	private func loadExposureConfiguration(completion: @escaping (ENExposureConfiguration) -> Void) {
+		appConfigurationProvider.appConfiguration { [weak self] result in
 			guard let self = self else { return }
 
-			guard let configuration = configuration else {
+			switch result {
+			case .success(let appConfiguration):
+			guard let configuration = try? ENExposureConfiguration(from: appConfiguration.exposureConfig, minRiskScore: appConfiguration.minRiskScore) else {
+					self.endPrematurely(reason: .noExposureConfiguration)
+					return
+				}
+				completion(configuration)
+			case .failure:
 				self.endPrematurely(reason: .noExposureConfiguration)
-				return
 			}
+		}
+	}
 
-			self.progress = self.delegate?.exposureDetection(
-				self,
-				detectSummaryWithConfiguration: configuration,
-				writtenPackages: writtenPackages
-			) { [weak self] result in
-				writtenPackages.cleanUp()
-				self?.useSummaryResult(result)
-			}
-
-		})
+	private func detectSummary(writtenPackages: WrittenPackages, exposureConfiguration: ENExposureConfiguration) {
+		self.progress = self.delegate?.exposureDetection(
+			self,
+			detectSummaryWithConfiguration: exposureConfiguration,
+			writtenPackages: writtenPackages
+		) { [weak self] result in
+			writtenPackages.cleanUp()
+			self?.useSummaryResult(result)
+		}
 	}
 
 	private func useSummaryResult(_ result: Result<ENExposureDetectionSummary, Error>) {
@@ -149,44 +115,23 @@ final class ExposureDetection {
 	func start(completion: @escaping Completion) {
 		self.completion = completion
 
-		#if EUROPEMODE
-
 		activityState = .downloading
 
-		let countryIDs = ["EUR"]
-		self.downloadKeyPackages(for: countryIDs) { [weak self] in
+		downloadKeyPackages { [weak self] in
 			guard let self = self else { return }
 
-			self.writeKeyPackagesToFileSystem(for: countryIDs) {  [weak self] writtenPackages in
+			self.writeKeyPackagesToFileSystem { [weak self] writtenPackages in
 				guard let self = self else { return }
 
 				self.activityState = .detecting
-				self.detectSummary(writtenPackages: writtenPackages)
-			}
-		}
 
-		#else
-
-		activityState = .downloading
-
-		self.getSupportedCountries { [weak self] supportedCountries in
-			guard let self = self else { return }
-
-			let countryIDs = Set(supportedCountries.map { $0.id })
-
-			self.downloadKeyPackages(for: Array(countryIDs)) { [weak self] in
-				guard let self = self else { return }
-
-				self.writeKeyPackagesToFileSystem(for: Array(countryIDs)) {  [weak self] writtenPackages in
+				self.loadExposureConfiguration { [weak self] configuration in
 					guard let self = self else { return }
 
-					self.activityState = .detecting
-					self.detectSummary(writtenPackages: writtenPackages)
+					self.detectSummary(writtenPackages: writtenPackages, exposureConfiguration: configuration)
 				}
 			}
 		}
-
-		#endif
 	}
 
 	// MARK: Working with the Completion Handler
@@ -219,5 +164,47 @@ final class ExposureDetection {
 			self.completion?(.success(summary))
 			self.completion = nil
 		}
+	}
+}
+
+private extension ENExposureConfiguration {
+	convenience init(from riskscoreParameters: SAP_RiskScoreParameters, minRiskScore: Int32) throws {
+		self.init()
+		minimumRiskScore = UInt8(clamping: minRiskScore)
+		minimumRiskScoreFullRange = Double(minRiskScore)
+		attenuationLevelValues = riskscoreParameters.attenuation.asArray
+		daysSinceLastExposureLevelValues = riskscoreParameters.daysSinceLastExposure.asArray
+		durationLevelValues = riskscoreParameters.duration.asArray
+		transmissionRiskLevelValues = riskscoreParameters.transmission.asArray
+	}
+}
+
+private extension SAP_RiskLevel {
+	var asNumber: NSNumber {
+		NSNumber(value: rawValue)
+	}
+}
+
+private extension SAP_RiskScoreParameters.TransmissionRiskParameter {
+	var asArray: [NSNumber] {
+		[appDefined1, appDefined2, appDefined3, appDefined4, appDefined5, appDefined6, appDefined7, appDefined8].map { $0.asNumber }
+	}
+}
+
+private extension SAP_RiskScoreParameters.DaysSinceLastExposureRiskParameter {
+	var asArray: [NSNumber] {
+		[ge14Days, ge12Lt14Days, ge10Lt12Days, ge8Lt10Days, ge6Lt8Days, ge4Lt6Days, ge2Lt4Days, ge0Lt2Days].map { $0.asNumber }
+	}
+}
+
+private extension SAP_RiskScoreParameters.DurationRiskParameter {
+	var asArray: [NSNumber] {
+		[eq0Min, gt0Le5Min, gt5Le10Min, gt10Le15Min, gt15Le20Min, gt20Le25Min, gt25Le30Min, gt30Min].map { $0.asNumber }
+	}
+}
+
+private extension SAP_RiskScoreParameters.AttenuationRiskParameter {
+	var asArray: [NSNumber] {
+		[gt73Dbm, gt63Le73Dbm, gt51Le63Dbm, gt33Le51Dbm, gt27Le33Dbm, gt15Le27Dbm, gt10Le15Dbm, le10Dbm].map { $0.asNumber }
 	}
 }
