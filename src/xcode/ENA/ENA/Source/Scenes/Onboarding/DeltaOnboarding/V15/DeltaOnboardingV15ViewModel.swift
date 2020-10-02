@@ -77,7 +77,6 @@ struct DeltaOnboardingV15ViewModel {
 				.section(
 					cells: [
 						.space(height: 20),
-						
 						.custom(
 							withIdentifier: DeltaOnboardingV15ViewController.CustomCellReuseIdentifiers.roundedCell,
 							configure: { _, cell, _ in
@@ -94,7 +93,32 @@ struct DeltaOnboardingV15ViewModel {
 									bgColor: .separator
 								)
 							}
+						),
+						.space(height: 8),
+						.body(text: AppStrings.DeltaOnboarding.termsDescription1)
+					]
+				)
+			)
+			$0.add(
+				.section(
+					separators: .all,
+					cells: [
+						.headline(
+							text: AppStrings.DeltaOnboarding.termsButtonTitle,
+							style: .label,
+							action: .push(model: AppInformationModel.termsModel, withTitle: AppStrings.AppInformation.termsNavigation),
+							configure: { viewController, cell, IndexPath in
+								cell.accessoryType = .disclosureIndicator
+								cell.selectionStyle = .default
+							}
 						)
+					]
+				)
+			)
+			$0.add(
+				.section(
+					cells: [
+						.body(text: AppStrings.DeltaOnboarding.termsDescription2)
 					]
 				)
 			)
