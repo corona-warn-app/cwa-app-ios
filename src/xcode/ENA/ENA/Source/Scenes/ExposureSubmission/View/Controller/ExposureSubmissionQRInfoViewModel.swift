@@ -19,14 +19,6 @@ import Foundation
 import UIKit
 
 struct ExposureSubmissionQRInfoViewModel {
-	
-	// MARK: - Init
-
-	init(
-		supportedCountries: [Country]
-	) {
-		self.supportedCountries = supportedCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
-	}
 
 	// MARK: - Internal
 
@@ -35,87 +27,38 @@ struct ExposureSubmissionQRInfoViewModel {
 			$0.add(
 				.section(
 					header: .image(
-						UIImage(named: "Illu_Submission_AndereWarnen"),
+						UIImage(imageLiteralResourceName: "Illu_Submission_QRPrimer"),
 						accessibilityLabel: AppStrings.ExposureSubmissionWarnOthers.accImageDescription,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription,
 						height: 250
 					),
 					cells: [
-						.title2(
-							text: AppStrings.ExposureSubmissionWarnOthers.sectionTitle,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.sectionTitle
+						.icon(
+							UIImage(imageLiteralResourceName: "Icons_QR1"),
+							text: .string(AppStrings.ExposureSubmissionQRInfo.instruction1)
 						),
-						.body(
-							text: AppStrings.ExposureSubmissionWarnOthers.description,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.description
+						.icon(
+							UIImage(imageLiteralResourceName: "Icons_QR2"),
+							text: .attributedString(
+								AppStrings.ExposureSubmissionQRInfo.instruction2
+									.inserting(string: AppStrings.ExposureSubmissionQRInfo.instruction2HighlightedPhrase, style: .headline)
+							)
 						),
-						.space(height: 16),
-						.headline(
-							text: AppStrings.ExposureSubmissionWarnOthers.supportedCountriesTitle,
-							accessibilityIdentifier: nil
+						.icon(
+							UIImage(imageLiteralResourceName: "Icons_QR3"),
+							text: .attributedString(
+								AppStrings.ExposureSubmissionQRInfo.instruction3
+									.inserting(string: AppStrings.ExposureSubmissionQRInfo.instruction3HighlightedPhrase, style: .headline)
+							)
 						),
-						.space(height: 12)
-					]
-				)
-			)
-			$0.add(
-				.section(
-					separators: .inBetween,
-					cells: supportedCountries.map {
-						DynamicCell.icon($0.flag, text: $0.localizedName, iconWidth: 28) { _, cell, _ in
-							cell.contentView.layoutMargins.left = 32
-							cell.contentView.layoutMargins.right = 32
-							cell.selectionStyle = .none
-						}
-					}
-				)
-			)
-			$0.add(
-				.section(
-					cells: [
-						.space(height: 20),
-						.custom(
-							withIdentifier: ExposureSubmissionWarnOthersViewController.CustomCellReuseIdentifiers.roundedCell,
-							configure: { _, cell, _ in
-								guard let cell = cell as? DynamicTableViewRoundedCell else { return }
-
-								cell.configure(
-									title: NSMutableAttributedString(
-										string: AppStrings.ExposureSubmissionWarnOthers.consentUnderagesTitle
-									),
-									body: NSMutableAttributedString(
-										string: AppStrings.ExposureSubmissionWarnOthers.consentUnderagesText
-									),
-									textColor: .textContrast,
-									bgColor: .riskNeutral
-								)
-							}
-						),
-						.custom(
-							withIdentifier: ExposureSubmissionWarnOthersViewController.CustomCellReuseIdentifiers.roundedCell,
-							configure: { _, cell, _ in
-								guard let cell = cell as? DynamicTableViewRoundedCell else { return }
-
-								cell.configure(
-									title: NSMutableAttributedString(
-										string: AppStrings.ExposureSubmissionWarnOthers.consentTitle
-									),
-									body: NSMutableAttributedString(
-										string: AppStrings.ExposureSubmissionWarnOthers.consentDescription
-									),
-									textColor: .textPrimary1,
-									bgColor: .separator
-								)
-							}
+						.icon(
+							UIImage(imageLiteralResourceName: "Icons_QR4"),
+							text: .string(AppStrings.ExposureSubmissionQRInfo.instruction4)
 						)
 					]
 				)
 			)
 		}
 	}
-
-	// MARK: - Private
-
-	private let supportedCountries: [Country]
 
 }

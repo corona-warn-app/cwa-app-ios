@@ -22,15 +22,13 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANav
 	
 	// MARK: - Init
 
-	init?(
-		coder: NSCoder,
-		supportedCountries: [Country],
-		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
+	init(
+		onPrimaryButtonTap: @escaping () -> Void
 	) {
-		self.viewModel = ExposureSubmissionWarnOthersViewModel(supportedCountries: supportedCountries)
+		self.viewModel = ExposureSubmissionQRInfoViewModel()
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 
-		super.init(coder: coder)
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)
@@ -46,34 +44,39 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANav
 		setupView()
 	}
 
+	override var navigationItem: UINavigationItem {
+		navigationFooterItem
+	}
+
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		onPrimaryButtonTap { [weak self] isLoading in
-			DispatchQueue.main.async {
-				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
-				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
-			}
-		}
+		onPrimaryButtonTap()
 	}
 
 	// MARK: - Private
 
-	private let viewModel: ExposureSubmissionWarnOthersViewModel
-	private let onPrimaryButtonTap: (@escaping (Bool) -> Void) -> Void
+	private let viewModel: ExposureSubmissionQRInfoViewModel
+	private let onPrimaryButtonTap: () -> Void
+
+	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		let item = ENANavigationFooterItem()
+
+		item.primaryButtonTitle = AppStrings.ExposureSubmissionQRInfo.continueButton
+		item.isPrimaryButtonEnabled = true
+		item.isSecondaryButtonHidden = true
+
+		item.title = AppStrings.ExposureSubmissionQRInfo.title
+
+		return item
+	}()
 
 	private func setupView() {
-		navigationItem.title = AppStrings.ExposureSubmissionWarnOthers.title
-		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionWarnOthers.continueButton
-
-		setupTableView()
-	}
-
-	private func setupTableView() {
-//		tableView.delegate = self
-//		tableView.dataSource = self
+		view.backgroundColor = .enaColor(for: .background)
+		cellBackgroundColor = .clear
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
+		tableView.separatorStyle = .none
 	}
 
 }
