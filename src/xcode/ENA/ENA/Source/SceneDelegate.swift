@@ -36,7 +36,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		}
 	}
 
-	private lazy var appUpdateChecker = AppUpdateCheckHelper(client: self.client, store: self.store)
+	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
 
 	private var enStateHandler: ENStateHandler?
 

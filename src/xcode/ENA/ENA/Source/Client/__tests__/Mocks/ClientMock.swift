@@ -101,23 +101,6 @@ extension ClientMock: Client {
 		}
 		completion(.success(downloadedPackage ?? SAPDownloadedPackage(keysBin: Data(), signature: Data())))
 	}
-	
-	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
-		onAppConfiguration(completion)
-	}
-
-	func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler) {
-		completion(ENExposureConfiguration())
-	}
-
-	func supportedCountries(completion: @escaping CountryFetchCompletion) {
-		guard let onSupportedCountries = self.onSupportedCountries else {
-			completion(.success(supportedCountries))
-			return
-		}
-
-		onSupportedCountries(completion)
-	}
 
 	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
 		onSubmitCountries(payload, isFake, completion)
