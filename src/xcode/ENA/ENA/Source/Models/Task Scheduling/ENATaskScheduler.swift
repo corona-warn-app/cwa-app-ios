@@ -136,14 +136,14 @@ final class ENATaskScheduler {
 		})
 	}
 	
-	/// Cancels the Deadman Notificatoin, should be called after a successfull risk-calculation.
+	/// Cancels the Deadman Notificatoin
 	private static func cancelDeadmanNotification() {
 		let notificationCenter = UNUserNotificationCenter.current()
 		
 		notificationCenter.removePendingNotificationRequests(withIdentifiers: [deadManNotificationIdentifier])
 	}
 
-	/// Reset the Deadman Notification
+	/// Reset the Deadman Notification, should be called after a successfull risk-calculation.
 	static func resetDeadmanNotification() {
 		ENATaskScheduler.cancelDeadmanNotification()
 		ENATaskScheduler.scheduleDeadmanNotificationIfNeeded()
