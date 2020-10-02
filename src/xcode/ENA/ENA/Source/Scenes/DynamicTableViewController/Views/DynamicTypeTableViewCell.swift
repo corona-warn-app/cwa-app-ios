@@ -53,6 +53,9 @@ class DynamicTypeTableViewCell: UITableViewCell, DynamicTableViewTextCell {
 
 	override func prepareForReuse() {
 		super.prepareForReuse()
+
+		accessoryType = .none
+		selectionStyle = .none
 		
 		resetMargins()
 		configureDynamicType()
