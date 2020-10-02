@@ -28,6 +28,9 @@ final class ExposureDetection {
 	private var progress: Progress?
 	private var countryKeypackageDownloader: CountryKeypackageDownloading
 	private let appConfigurationProvider: AppConfigurationProviding
+
+	// There was a decision not to use the 2 letter code "EU", but instead "EUR".
+	// Please see this story for more informations: https://jira.itc.sap.com/browse/EXPOSUREBACK-151
 	private let country = "EUR"
 
 	// MARK: Creating a Transaction
@@ -52,10 +55,10 @@ final class ExposureDetection {
 	}
 
 	private func downloadKeyPackages(completion: @escaping () -> Void) {
-		self.countryKeypackageDownloader.downloadKeypackages(for: country) { result in
+		countryKeypackageDownloader.downloadKeypackages(for: country) { [weak self] result in
 			switch result {
 			case .failure(let didEndPrematurelyReason):
-				self.endPrematurely(reason: didEndPrematurelyReason)
+				self?.endPrematurely(reason: didEndPrematurelyReason)
 			case .success:
 				completion()
 			}
@@ -114,7 +117,7 @@ final class ExposureDetection {
 
 		activityState = .downloading
 
-		self.downloadKeyPackages { [weak self] in
+		downloadKeyPackages { [weak self] in
 			guard let self = self else { return }
 
 			self.writeKeyPackagesToFileSystem { [weak self] writtenPackages in

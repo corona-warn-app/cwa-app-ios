@@ -502,6 +502,7 @@ enum AppStrings {
 		static let euDescription1 = NSLocalizedString("ExposureNotificationSetting_EU_Desc_1", comment: "")
 		static let euDescription2 = NSLocalizedString("ExposureNotificationSetting_EU_Desc_2", comment: "")
 		static let euDescription3 = NSLocalizedString("ExposureNotificationSetting_EU_Desc_3", comment: "")
+		static let euDescription4 = NSLocalizedString("ExposureNotificationSetting_EU_Desc_4", comment: "")
 		static let euEmptyErrorTitle = NSLocalizedString("ExposureNotificationSetting_EU_Empty_Error_Title", comment: "")
 		static let euEmptyErrorDescription = NSLocalizedString("ExposureNotificationSetting_EU_Empty_Error_Desc", comment: "")
 		static let euEmptyErrorButtonTitle = NSLocalizedString("ExposureNotificationSetting_EU_Empty_Error_Button_Title", comment: "")
@@ -762,7 +763,6 @@ enum AppStrings {
 		static let title = NSLocalizedString("DeltaOnboarding_Headline", comment: "")
 		
 		static let description = NSLocalizedString("DeltaOnboarding_Description", comment: "")
-		static let downloadInfo = NSLocalizedString("DeltaOnboarding_DownloadInfo", comment: "")
 		static let participatingCountries = NSLocalizedString("DeltaOnboarding_ParticipatingCountries", comment: "")
 		
 		static let participatingCountriesListUnavailableTitle = NSLocalizedString("DeltaOnboarding_ParticipatingCountriesList_Unavailable_Title", comment: "")
@@ -773,6 +773,10 @@ enum AppStrings {
 		static let legalDataProcessingInfoTitle = NSLocalizedString("DeltaOnboarding_DataProcessing_Info_title", tableName: "Localizable.legal", comment: "")
 		
 		static let legalDataProcessingInfoContent = NSLocalizedString("DeltaOnboarding_DataProcessing_Info_content", tableName: "Localizable.legal", comment: "")
+
+		static let termsDescription1 = NSLocalizedString("DeltaOnboarding_Terms_Description1", comment: "")
+		static let termsButtonTitle = NSLocalizedString("DeltaOnboarding_Terms_Button", comment: "")
+		static let termsDescription2 = NSLocalizedString("DeltaOnboarding_Terms_Description2", comment: "")
 	}
 	// swiftlint:disable:next file_length
 }

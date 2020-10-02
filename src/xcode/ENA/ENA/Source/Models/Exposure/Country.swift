@@ -61,6 +61,8 @@ extension Locale {
 			identifier = "gr"
 		case "no":
 			identifier = "nb_NO"
+		// There was a decision not to use the 2 letter code "EU", but instead "EUR".
+		// Please see this story for more informations: https://jira.itc.sap.com/browse/EXPOSUREBACK-151
 		case "eur":
 			identifier = "eu"
 		default:

@@ -47,8 +47,7 @@ class DeltaOnboardingViewControllerTests: XCTestCase {
 
 		let section = vc.dynamicTableViewModel.section(0)
 		let cells = section.cells
-		XCTAssertEqual(cells.count, 4)
-
+		XCTAssertEqual(cells.count, 3)
 		
 		let firstItem = cells[0]
 		var id = firstItem.cellReuseIdentifier
@@ -60,10 +59,6 @@ class DeltaOnboardingViewControllerTests: XCTestCase {
 
 		let thirdItem = cells[2]
 		id = thirdItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "labelCell")
-
-		let fourthItem = cells[3]
-		id = fourthItem.cellReuseIdentifier
 		XCTAssertEqual(id.rawValue, "spaceCell")
 	}
 	
