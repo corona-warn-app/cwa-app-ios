@@ -91,7 +91,7 @@ extension EUSettingsViewController {
 extension DynamicCell {
 	static func euCell(cellModel: EUSettingsViewModel.CountryModel) -> Self {
 		.icon(cellModel.country.flag,
-			  text: cellModel.country.localizedName,
+			  text: .string(cellModel.country.localizedName),
 			  tintColor: nil,
 			  style: .body,
 			  iconWidth: 32,
@@ -99,7 +99,6 @@ extension DynamicCell {
 			  configure: { _, cell, _ in
 			cell.contentView.layoutMargins.left = 32
 			cell.contentView.layoutMargins.right = 32
-			cell.selectionStyle = .none
 		})
 	}
 
