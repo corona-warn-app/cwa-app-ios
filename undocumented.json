@@ -6212,7 +6212,7 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/DynamicTableViewController/DynamicTableViewCell.swift",
       "line": 90,
-      "symbol": "DynamicCell.dynamicType(text:cellStyle:size:weight:style:color:accessibilityIdentifier:accessibilityTraits:configure:)",
+      "symbol": "DynamicCell.dynamicType(text:cellStyle:size:weight:style:color:accessibilityIdentifier:accessibilityTraits:action:accessoryAction:configure:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
@@ -6268,14 +6268,14 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/DynamicTableViewController/DynamicTableViewCell.swift",
       "line": 161,
-      "symbol": "DynamicCell.headline(text:color:accessibilityIdentifier:accessibilityTraits:configure:)",
+      "symbol": "DynamicCell.headline(text:style:color:accessibilityIdentifier:accessibilityTraits:action:configure:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/DynamicTableViewController/DynamicTableViewCell.swift",
       "line": 165,
-      "symbol": "DynamicCell.body(text:style:color:accessibilityIdentifier:accessibilityTraits:configure:)",
+      "symbol": "DynamicCell.body(text:style:color:accessibilityIdentifier:accessibilityTraits:action:configure:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
@@ -7163,21 +7163,21 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/DynamicTableViewController/Views/DynamicTypeTableViewCell.swift",
-      "line": 67,
+      "line": 70,
       "symbol": "DynamicTypeTableViewCell.configureDynamicType(size:weight:style:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/DynamicTableViewController/Views/DynamicTypeTableViewCell.swift",
-      "line": 73,
+      "line": 76,
       "symbol": "DynamicTypeTableViewCell.configure(text:color:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/DynamicTableViewController/Views/DynamicTypeTableViewCell.swift",
-      "line": 78,
+      "line": 81,
       "symbol": "DynamicTypeTableViewCell.configureAccessibility(label:identifier:traits:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -20360,6 +20360,27 @@
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
       "line": 775,
       "symbol": "AppStrings.DeltaOnboarding.legalDataProcessingInfoContent",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
+      "line": 777,
+      "symbol": "AppStrings.DeltaOnboarding.termsDescription1",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
+      "line": 778,
+      "symbol": "AppStrings.DeltaOnboarding.termsButtonTitle",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AppStrings.swift",
+      "line": 779,
+      "symbol": "AppStrings.DeltaOnboarding.termsDescription2",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
