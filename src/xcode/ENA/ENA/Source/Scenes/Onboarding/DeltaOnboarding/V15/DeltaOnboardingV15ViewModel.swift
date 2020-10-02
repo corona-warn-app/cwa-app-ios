@@ -95,9 +95,30 @@ struct DeltaOnboardingV15ViewModel {
 							}
 						),
 						.space(height: 8),
-						.body(text: AppStrings.DeltaOnboarding.termsDescription1, accessibilityIdentifier: nil),
-						.body(text: AppStrings.DeltaOnboarding.termsButtonTitle, accessibilityIdentifier: nil),
-						.body(text: AppStrings.DeltaOnboarding.termsDescription2, accessibilityIdentifier: nil)
+						.body(text: AppStrings.DeltaOnboarding.termsDescription1)
+					]
+				)
+			)
+			$0.add(
+				.section(
+					separators: .all,
+					cells: [
+						.headline(
+							text: AppStrings.DeltaOnboarding.termsButtonTitle,
+							style: .label,
+							action: .push(model: AppInformationModel.termsModel, withTitle: AppStrings.AppInformation.termsNavigation),
+							configure: { viewController, cell, IndexPath in
+								cell.accessoryType = .disclosureIndicator
+								cell.selectionStyle = .default
+							}
+						)
+					]
+				)
+			)
+			$0.add(
+				.section(
+					cells: [
+						.body(text: AppStrings.DeltaOnboarding.termsDescription2)
 					]
 				)
 			)
