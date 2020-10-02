@@ -244,7 +244,7 @@ private extension ExposureSubmissionOverviewViewController {
 			),
 			.imageCard(
 				title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
-				attributedDescription: applyFont(style: .headline, to: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription, with: AppStrings.ExposureSubmissionDispatch.positiveWord),
+				attributedDescription: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription.inserting(string: AppStrings.ExposureSubmissionDispatch.positiveWord, style: .headline),
 				image: UIImage(named: "Illu_Submission_Anruf"),
 				action: .execute(block: { [weak self] _ in self?.coordinator?.showHotlineScreen() }),
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.hotlineButtonDescription
@@ -252,14 +252,6 @@ private extension ExposureSubmissionOverviewViewController {
 		]))
 
 		return data
-	}
-
-	private func applyFont(style: ENAFont, to text: String, with content: String) -> NSAttributedString {
-		return NSMutableAttributedString.generateAttributedString(normalText: text, attributedText: [
-			NSAttributedString(string: content, attributes: [
-				NSAttributedString.Key.font: UIFont.enaFont(for: style)
-			])
-		])
 	}
 }
 
