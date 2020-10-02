@@ -162,12 +162,6 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	}
 
 	func exposureDetection(
-		supportedCountries completion: @escaping (SupportedCountriesResult) -> Void
-	) {
-		client.supportedCountries(completion: completion)
-	}
-
-	func exposureDetection(
 		downloadConfiguration completion: @escaping (ENExposureConfiguration?) -> Void
 	) {
 		client.exposureConfiguration(completion: completion)
