@@ -19,6 +19,7 @@ import FMDB
 import Foundation
 
 final class DownloadedPackagesSQLLiteStoreV1 {
+
 	struct StoreError: Error {
 		init(_ message: String) {
 			self.message = message
@@ -95,8 +96,12 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 	func set(
 		country: Country.ID,
 		day: String,
-		package: SAPDownloadedPackage
+		package: SAPDownloadedPackage,
+		completion: ((SQLiteError?) -> Void)? = nil
 	) {
+
+		let currentThread = Thread.current
+
 		func deleteHours() -> Bool {
 			database.executeUpdate(
 				"""
@@ -155,16 +160,36 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 
 			guard deleteHours() else {
 				self.database.rollback()
+				self.completeAsyncWithError(completion: completion, errorCode: database.lastErrorCode())
 				return
 			}
 			guard insertDay() else {
 				self.database.rollback()
+				self.completeAsyncWithError(completion: completion, errorCode: database.lastErrorCode())
 				return
 			}
 
 			self._commit()
+
+			self.completeAsync(completion: completion)
 		}
 
+	}
+
+	private func completeAsyncWithError(completion: ((SQLiteError?) -> Void)?, errorCode: Int32) {
+		queue.async {
+			if let error = SQLiteError(rawValue: errorCode) {
+				completion?(error)
+			} else {
+				completion?(.unknown)
+			}
+		}
+	}
+
+	private func completeAsync(completion: ((SQLiteError?) -> Void)?) {
+		DispatchQueue.global().async {
+			completion?(nil)
+		}
 	}
 
 	func set(

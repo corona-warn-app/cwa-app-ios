@@ -18,10 +18,22 @@
 import Foundation
 import FMDB
 
+enum SQLiteError: Int32 {
+	case sqlite_full = 13
+	case unknown = -1
+}
+
 protocol DownloadedPackagesStoreV1: AnyObject {
 	func open()
 	func close()
-	func set(country: Country.ID, day: String, package: SAPDownloadedPackage)
+
+	func set(
+		country: Country.ID,
+		day: String,
+		package: SAPDownloadedPackage,
+		completion: ((SQLiteError?) -> Void)?
+	)
+
 	func set(country: Country.ID, hour: Int, day: String, package: SAPDownloadedPackage)
 	func package(for day: String, country: Country.ID) -> SAPDownloadedPackage?
 	func hourlyPackages(for day: String, country: Country.ID) -> [SAPDownloadedPackage]

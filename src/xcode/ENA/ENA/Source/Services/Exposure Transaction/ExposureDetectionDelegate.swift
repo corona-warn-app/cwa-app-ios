@@ -48,7 +48,7 @@ protocol ExposureDetectionDelegate: AnyObject {
 	func exposureDetection(
 		country: Country.ID,
 		downloadAndStore delta: DaysAndHours,
-		completion: @escaping (Error?) -> Void
+		completion: @escaping (ExposureDetection.DidEndPrematurelyReason?) -> Void
 	)
 
 	func exposureDetectionWriteDownloadedPackages(country: Country.ID) -> WrittenPackages?
