@@ -1723,7 +1723,6 @@
 				B1FF6B6B2497D0B40041CF02 /* CWASQLite */,
 				85D7593C2457048F008175F0 /* Products */,
 				5107E3D72459B2D60042FC9B /* Frameworks */,
-				B1741B572462EB26006275D9 /* Recovered References */,
 				0DFCC2692484D7A700E2811D /* ENA-Bridging-Header.h */,
 				0DFCC26F2484DC8200E2811D /* ENATests-Bridging-Header.h */,
 			);
@@ -2358,13 +2357,6 @@
 				ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */,
 			);
 			path = Features;
-			sourceTree = "<group>";
-		};
-		B1741B572462EB26006275D9 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		B184A381248FFCC3007180F6 /* Store */ = {
