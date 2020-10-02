@@ -152,6 +152,7 @@ enum AppStrings {
 		static let instruction3 = NSLocalizedString("ExposureSubmissionQRInfo_instruction3", comment: "")
 		static let instruction3HighlightedPhrase = NSLocalizedString("ExposureSubmissionQRInfo_instruction3_highlightedPhrase", comment: "")
 		static let instruction4 = NSLocalizedString("ExposureSubmissionQRInfo_instruction4", comment: "")
+		static let continueButton = NSLocalizedString("ExposureSubmissionQRInfo_continueButton", comment: "")
 	}
 
 	enum ExposureSubmissionQRScanner {
