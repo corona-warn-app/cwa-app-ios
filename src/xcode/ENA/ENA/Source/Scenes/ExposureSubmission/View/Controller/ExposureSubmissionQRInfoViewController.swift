@@ -18,12 +18,12 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, SpinnerInjectable {
 	
 	// MARK: - Init
 
 	init(
-		onPrimaryButtonTap: @escaping () -> Void
+		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
 		self.viewModel = ExposureSubmissionQRInfoViewModel()
 		self.onPrimaryButtonTap = onPrimaryButtonTap
@@ -51,13 +51,19 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANav
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		onPrimaryButtonTap()
+		onPrimaryButtonTap { [weak self] isLoading in
+			isLoading ? self?.spinner?.startAnimating() : self?.spinner?.stopAnimating()
+		}
 	}
+
+	// MARK: - Internal
+
+	var spinner: UIActivityIndicatorView?
 
 	// MARK: - Private
 
 	private let viewModel: ExposureSubmissionQRInfoViewModel
-	private let onPrimaryButtonTap: () -> Void
+	private let onPrimaryButtonTap: (@escaping (Bool) -> Void) -> Void
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()

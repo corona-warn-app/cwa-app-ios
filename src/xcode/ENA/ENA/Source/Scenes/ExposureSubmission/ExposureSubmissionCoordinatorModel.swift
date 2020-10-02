@@ -99,6 +99,48 @@ class ExposureSubmissionCoordinatorModel {
 		)
 	}
 
+	/// Sanitizes the input string and extracts a guid.
+	/// - the input needs to start with https://localhost/?
+	/// - the input must not ne longer than 150 chars and cannot be empty
+	/// - the guid contains only the following characters: a-f, A-F, 0-9,-
+	/// - the guid is a well formatted string (6-8-4-4-4-12) with length 43
+	///   (6 chars encode a random number, 32 chars for the uuid, 5 chars are separators)
+	func sanitizeAndExtractGuid(_ input: String) -> String? {
+		guard
+			!input.isEmpty,
+			input.count <= 150,
+			let regex = try? NSRegularExpression(
+				pattern: "^https:\\/\\/localhost\\/\\?(?<GUID>[0-9A-Fa-f]{6}-[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})$"
+			),
+			let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count))
+		else { return nil }
+
+		guard let range = Range(match.range(withName: "GUID"), in: input) else { return nil }
+		let candidate = String(input[range])
+		guard !candidate.isEmpty, candidate.count == 43 else { return nil }
+		return candidate
+	}
+
+	func getTestResults(
+		forKey key: DeviceRegistrationKey,
+		isLoading: @escaping (Bool) -> Void,
+		onSuccess: @escaping (TestResult) -> Void,
+		onError: @escaping (Error) -> Void
+	) {
+		isLoading(true)
+
+		exposureSubmissionService.getTestResult(forKey: key, useStoredRegistration: false, completion: { result in
+			isLoading(false)
+
+			switch result {
+			case let .failure(error):
+				onError(error)
+			case let .success(testResult):
+				onSuccess(testResult)
+			}
+		})
+	}
+
 	// MARK: - Private
 
 	private var symptomsOnset: SymptomsOnset = .noInformation

@@ -42,9 +42,7 @@ protocol ExposureSubmissionCoordinating: class {
 
 	func showOverviewScreen()
 	func showTestResultScreen(with result: TestResult)
-	func showHotlineScreen()
 	func showTanScreen()
-	func showQRScreen(qrScannerDelegate: ExposureSubmissionQRScannerDelegate)
 	func showSymptomsScreen()
 	func showWarnOthersScreen()
 	func showThankYouScreen()
@@ -167,7 +165,11 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	func showOverviewScreen() {
-		let vc = createOverviewViewController()
+		let vc = createOverviewViewController(
+			onQRCodeButtonTap: { [weak self] in self?.showQRInfoScreen() },
+			onTANButtonTap: { [weak self] in self?.showTanScreen() },
+			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() }
+		)
 		push(vc)
 	}
 
@@ -186,8 +188,48 @@ extension ExposureSubmissionCoordinator {
 		push(vc)
 	}
 
-	func showQRScreen(qrScannerDelegate: ExposureSubmissionQRScannerDelegate) {
-		let vc = createQRScannerViewController(qrScannerDelegate: qrScannerDelegate)
+	func showQRInfoScreen() {
+		let vc = ExposureSubmissionQRInfoViewController(onPrimaryButtonTap: { [weak self] isLoading in
+			self?.showDisclaimer(isLoading: isLoading)
+		})
+		push(vc)
+	}
+
+	func showDisclaimer(isLoading: (Bool) -> Void) {
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmission.dataPrivacyTitle,
+			message: AppStrings.ExposureSubmission.dataPrivacyDisclaimer,
+			preferredStyle: .alert
+		)
+
+		let acceptAction = UIAlertAction(
+			title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle,
+			style: .default,
+			handler: { [weak self] _ in
+				self?.model.exposureSubmissionService.acceptPairing()
+				self?.showQRScreen()
+			}
+		)
+
+		alert.addAction(acceptAction)
+
+		alert.addAction(
+			.init(
+				title: AppStrings.ExposureSubmission.dataPrivacyDontAcceptTitle,
+				style: .cancel,
+				handler: { _ in
+					alert.dismiss(animated: true, completion: nil)
+
+				}
+			)
+		)
+		alert.preferredAction = acceptAction
+
+		navigationController?.present(alert, animated: true, completion: nil)
+	}
+
+	func showQRScreen() {
+		let vc = createQRScannerViewController(qrScannerDelegate: self)
 		present(vc)
 	}
 
@@ -281,6 +323,81 @@ extension ExposureSubmissionCoordinator {
 
 }
 
+extension ExposureSubmissionCoordinator: ExposureSubmissionQRScannerDelegate {
+	func qrScanner(_ viewController: QRScannerViewController, error: QRScannerError) {
+		switch error {
+		case .cameraPermissionDenied:
+			// The error handler could have been invoked on a non-main thread which causes
+			// issues (crash) when updating the UI.
+			DispatchQueue.main.async {
+				guard let alert = self.navigationController?.setupErrorAlert(
+					message: error.localizedDescription,
+					completion: {
+						self.dismissQRCodeScannerView(viewController, completion: nil)
+					}) else { fatalError("TODO!") }
+				viewController.present(alert, animated: true, completion: nil)
+			}
+		default:
+			logError(message: "QRScannerError.other occurred.", level: .error)
+		}
+	}
+
+	func qrScanner(_ vc: QRScannerViewController, didScan code: String) {
+		guard let guid = model.sanitizeAndExtractGuid(code) else {
+			vc.delegate = nil
+
+			guard let alert = navigationController?.setupErrorAlert(
+				title: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundTitle,
+				message: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundText,
+				okTitle: AppStrings.Common.alertActionCancel,
+				secondaryActionTitle: AppStrings.Common.alertActionRetry,
+				completion: {
+					self.dismissQRCodeScannerView(vc, completion: nil)
+				},
+				secondaryActionCompletion: { vc.delegate = self }
+			) else { fatalError("TODO!") }
+
+			vc.present(alert, animated: true, completion: nil)
+			return
+		}
+
+		// Found QR Code, deactivate scanning.
+		dismissQRCodeScannerView(vc, completion: { [weak self] in
+			self?.getTestResults(for: .guid(guid))
+		})
+	}
+
+	func getTestResults(for key: DeviceRegistrationKey) {
+		model.getTestResults(
+			forKey: key,
+			isLoading: { _ in },
+			onSuccess: { [weak self] in self?.showTestResultScreen(with: $0) },
+			onError: { [weak self] error in
+				if let submissionError = error as? ExposureSubmissionError {
+					self?.showErrorAlert(for: submissionError)
+				} else {
+					guard let alert = self?.navigationController?.setupErrorAlert(
+						message: error.localizedDescription,
+						secondaryActionTitle: AppStrings.Common.alertActionRetry,
+						secondaryActionCompletion: {
+							self?.getTestResults(for: key)
+						}
+					) else { fatalError("TODO") }
+
+					self?.navigationController?.present(alert, animated: true, completion: nil)
+				}
+
+				logError(message: "An error occurred during result fetching: \(error)", level: .error)
+			}
+		)
+	}
+
+	private func dismissQRCodeScannerView(_ vc: QRScannerViewController, completion: (() -> Void)?) {
+		vc.delegate = nil
+		vc.dismiss(animated: true, completion: completion)
+	}
+}
+
 // MARK: - Creation.
 
 extension ExposureSubmissionCoordinator {
@@ -297,9 +414,13 @@ extension ExposureSubmissionCoordinator {
 		}
 	}
 
-	private func createOverviewViewController() -> ExposureSubmissionOverviewViewController {
+	private func createOverviewViewController(onQRCodeButtonTap: @escaping () -> Void,
+											  onTANButtonTap: @escaping () -> Void,
+				   onHotlineButtonTap: @escaping () -> Void) -> ExposureSubmissionOverviewViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionOverviewViewController.self) { coder in
-			ExposureSubmissionOverviewViewController(coder: coder, coordinator: self, exposureSubmissionService: self.model.exposureSubmissionService)
+			ExposureSubmissionOverviewViewController(coder: coder, onQRCodeButtonTap: onQRCodeButtonTap,
+													 onTANButtonTap: onTANButtonTap,
+					onHotlineButtonTap: onHotlineButtonTap)
 		}
 	}
 
