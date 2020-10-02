@@ -38,7 +38,7 @@ final class SettingsViewController: UITableViewController {
 	private weak var delegate: SettingsViewControllerDelegate?
 
 	let store: Store
-	let client: Client
+	let appConfigurationProvider: AppConfigurationProviding
 
 	let tracingSegue = "showTracing"
 	let notificationsSegue = "showNotifications"
@@ -48,11 +48,17 @@ final class SettingsViewController: UITableViewController {
 	let settingsViewModel = SettingsViewModel()
 	var enState: ENStateHandler.State
 
-	init?(coder: NSCoder, store: Store, initialEnState: ENStateHandler.State, client: Client, delegate: SettingsViewControllerDelegate) {
+	init?(
+		coder: NSCoder,
+		store: Store,
+		initialEnState: ENStateHandler.State,
+		appConfigurationProvider: AppConfigurationProviding,
+		delegate: SettingsViewControllerDelegate
+	) {
 		self.store = store
 		self.delegate = delegate
 		self.enState = initialEnState
-		self.client = client
+		self.appConfigurationProvider = appConfigurationProvider
 		super.init(coder: coder)
 	}
 
@@ -84,12 +90,6 @@ final class SettingsViewController: UITableViewController {
 		if segue.identifier == resetSegue, let nc = segue.destination as? UINavigationController, let vc = nc.topViewController as? ResetViewController {
 			vc.delegate = self
 		}
-
-		if
-			segue.identifier == tracingSegue,
-			let vc = segue.destination as? ExposureNotificationSettingViewController {
-			vc.client = client
-		}
 	}
 
 	@IBSegueAction
@@ -98,7 +98,7 @@ final class SettingsViewController: UITableViewController {
 			coder: coder,
 			initialEnState: enState,
 			store: store,
-			client: client,
+			appConfigurationProvider: appConfigurationProvider,
 			delegate: self
 		)
 		notificationSettingsController = vc

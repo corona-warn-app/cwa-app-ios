@@ -42,7 +42,11 @@ extension AppDelegate: ExposureSummaryProvider {
 		completion: @escaping (ENExposureDetectionSummary?) -> Void
 	) -> CancellationToken {
 
-		exposureDetection = ExposureDetection(delegate: exposureDetectionExecutor)
+		exposureDetection = ExposureDetection(
+			delegate: exposureDetectionExecutor,
+			appConfigurationProvider: appConfigurationProvider
+		)
+		
 		exposureDetection?
 			.$activityState
 			.removeDuplicates()

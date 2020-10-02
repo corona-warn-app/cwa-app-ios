@@ -145,56 +145,6 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		waitForExpectations(timeout: 2.0)
 	}
 
-	// MARK: - Download Configuration Tests
-
-	func testDownloadConfiguration_Success() throws {
-		// Test the case where the exector is asked to download the exposure configuration
-		// Our mock client will return a mock configuration - We expect that this is returned
-		// swiftlint:disable:next force_unwrapping
-		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
-		let stack = MockNetworkStack(
-			httpStatus: 200,
-			responseData: try Data(contentsOf: url)
-		)
-		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
-		let client = HTTPClient.makeWith(mock: stack)
-		let sut = ExposureDetectionExecutor.makeWith(client: client)
-
-		sut.exposureDetection(
-			downloadConfiguration: { configuration  in
-				defer { completionExpectation.fulfill() }
-
-				if configuration == nil {
-					XCTFail("A good client response did not produce a ENExposureConfiguration!")
-				}
-			}
-		)
-		waitForExpectations(timeout: 2.0)
-	}
-
-	func testDownloadConfiguration_ClientError() throws {
-		// Test the case where the exector is asked to download the exposure configuration
-		// Our mock client will return an error response - We expect that nil is returned
-		let stack = MockNetworkStack(
-			httpStatus: 500,
-			responseData: Data()
-		)
-		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
-		let client = HTTPClient.makeWith(mock: stack)
-		let sut = ExposureDetectionExecutor.makeWith(client: client)
-
-		sut.exposureDetection(
-			downloadConfiguration: { configuration in
-				defer { completionExpectation.fulfill() }
-
-				if configuration != nil {
-					XCTFail("A bad client response should not produce a ENExposureConfiguration!")
-				}
-			}
-		)
-		waitForExpectations(timeout: 2.0)
-	}
-
 	// MARK: - Write Downloaded Package Tests
 
 	func testWriteDownloadedPackage_NoHourlyFetching() throws {
@@ -295,7 +245,10 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
 		let mockSummary = MutableENExposureDetectionSummary(daysSinceLastExposure: 2, matchedKeyCount: 2, maximumRiskScore: 255)
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((mockSummary, nil)))
-		let exposureDetection = ExposureDetection(delegate: sut)
+		let exposureDetection = ExposureDetection(
+			delegate: sut,
+			appConfigurationProvider: AppConfigurationProviderFake()
+		)
 
 		_ = sut.exposureDetection(
 			exposureDetection,
@@ -323,7 +276,10 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
 		let expectedError = ENError(.notAuthorized)
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((nil, expectedError)))
-		let exposureDetection = ExposureDetection(delegate: sut)
+		let exposureDetection = ExposureDetection(
+			delegate: sut,
+			appConfigurationProvider: AppConfigurationProviderFake()
+		)
 
 		sut.exposureDetection(
 			exposureDetection,
