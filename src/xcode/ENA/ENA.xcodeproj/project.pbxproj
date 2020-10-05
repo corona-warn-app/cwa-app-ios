@@ -92,10 +92,10 @@
 		2FE15A3C249B8C0B0077BD8D /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */; };
 		2FF1D62E2487850200381FFB /* NSMutableAttributedString+Generation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */; };
 		2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */; };
-		35075C0A2526378D00DE92F7 /* AllTests.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 35075C092526378D00DE92F7 /* AllTests.xctestplan */; };
-		35075C0F252637C300DE92F7 /* SmokeTests.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 35075C0E252637C300DE92F7 /* SmokeTests.xctestplan */; };
 		352F25A824EFCBDE00ACDFF3 /* ServerEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352F25A724EFCBDE00ACDFF3 /* ServerEnvironment.swift */; };
 		353412CC2525EE4A0086D15C /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353412CB2525EE4A0086D15C /* Globals.swift */; };
+		3539DAD1252B353C00489B1A /* CachedAppConfigurationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */; };
+		3539DAE3252B42EE00489B1A /* de-config-int-2020-09-25 in Resources */ = {isa = PBXBuildFile; fileRef = 35853E11251DDD33008FE983 /* de-config-int-2020-09-25 */; };
 		354E305924EFF26E00526C9F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354E305824EFF26E00526C9F /* Country.swift */; };
 		35853E12251DDD33008FE983 /* de-config-int-2020-09-25 in Resources */ = {isa = PBXBuildFile; fileRef = 35853E11251DDD33008FE983 /* de-config-int-2020-09-25 */; };
 		35853E22251DED0F008FE983 /* CachingHTTPClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35163D23251CFCCB00D220CA /* CachingHTTPClientMock.swift */; };
@@ -616,6 +616,7 @@
 		35163D23251CFCCB00D220CA /* CachingHTTPClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingHTTPClientMock.swift; sourceTree = "<group>"; };
 		352F25A724EFCBDE00ACDFF3 /* ServerEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerEnvironment.swift; sourceTree = "<group>"; };
 		353412CB2525EE4A0086D15C /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAppConfigurationMock.swift; sourceTree = "<group>"; };
 		354E305824EFF26E00526C9F /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		35853E11251DDD33008FE983 /* de-config-int-2020-09-25 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "de-config-int-2020-09-25"; sourceTree = "<group>"; };
 		359767F024FD13D9001FD591 /* diagnosis_key_batch.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = diagnosis_key_batch.pb.swift; path = ../../../gen/output/diagnosis_key_batch.pb.swift; sourceTree = "<group>"; };
@@ -2534,6 +2535,7 @@
 				B1FE13FC24896EE700D012E5 /* __tests__ */,
 				B1FE13F824896DDB00D012E5 /* CachedAppConfiguration.swift */,
 				B1FE13FA24896E6700D012E5 /* AppConfigurationProviding.swift */,
+				3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -2905,7 +2907,6 @@
 				51C7790C24867F16004582F8 /* RiskListItemView.xib in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */,
-				35075C0A2526378D00DE92F7 /* AllTests.xctestplan in Resources */,
 				A328424D248B91E0006B1F09 /* HomeTestResultLoadingCell.xib in Resources */,
 				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
@@ -2913,8 +2914,8 @@
 				AB628A1F251CDADE00CF61D2 /* ServerEnvironments.json in Resources */,
 				014891B324F90D0B002A6F77 /* ENA.plist in Resources */,
 				51C779142486E5AB004582F8 /* RiskFindingPositiveCollectionViewCell.xib in Resources */,
+				3539DAE3252B42EE00489B1A /* de-config-int-2020-09-25 in Resources */,
 				51D420CE245869C800AD70CA /* Home.storyboard in Resources */,
-				35075C0F252637C300DE92F7 /* SmokeTests.xctestplan in Resources */,
 				8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */,
 				514C0A0B247AF9F700F235F6 /* RiskTextItemView.xib in Resources */,
 				51B5B414246DF07300DC5D3E /* RiskImageItemView.xib in Resources */,
@@ -3281,6 +3282,7 @@
 				CD99A3CA2461A47C00BF12AF /* AppStrings.swift in Sources */,
 				514E81342461B97800636861 /* ExposureManager.swift in Sources */,
 				71176E32248957C3004B0C9F /* AppNavigationController.swift in Sources */,
+				3539DAD1252B353C00489B1A /* CachedAppConfigurationMock.swift in Sources */,
 				B14D0CD9246E946E00D5BEBC /* ExposureDetection.swift in Sources */,
 				B161782524804AC3006E435A /* DownloadedPackagesSQLLiteStoreV1.swift in Sources */,
 				51CE1BBF2460B222002CF42A /* HomeRiskCellConfigurator.swift in Sources */,
