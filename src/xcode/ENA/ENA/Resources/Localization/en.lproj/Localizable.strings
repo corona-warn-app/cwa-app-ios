@@ -317,11 +317,11 @@
 
 "OnboardingInfo_privacyPage_normalText" = "You will remain anonymous.\nYour data is fully encrypted and transmitted under a pseudonym.\n\nResponsible body: GDPR, article 4, para. 7:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nPlease read our data privacy regulations.\n\nData privacy information:";
 
-"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Three persons have activated exposure logging on their devices, which will log their encounters with each other.";
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Three persons have activated exposure logging on their smartphones, which will log their encounters with each other.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_title" = "How you make exposure logging possible";
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "How to Enable Exposure Logging";
 
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To identify any possible exposure, you need to enable exposure logging.";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To identify whether you are at risk of infection, you must activate the exposure logging feature.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Exposure logging works by your smartphone receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. This feature can be disabled at any time. \n\nEncrypted random IDs only pass information about date, duration, and proximity to other persons (calculated by signal strength). Personal data such as name, address, and location is never recorded. Individuals cannot be identified based on the random IDs.";
 
@@ -343,7 +343,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… please report this in the Corona-Warn-App. Sharing your test results is voluntary and secure. Please do this for the sake of everyone's health.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your notification is encrypted securely and processed on a secure server. Persons whose encrypted random IDs your device has collected will now receive a warning along with information about what they should now do.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your notification is encrypted securely and processed on a secure server. Persons whose encrypted random IDs your smartphone has collected will now receive a warning along with information about what they should now do.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "A woman receives a notification from her Corona-Warn-App.";
 
@@ -604,7 +604,7 @@
 
 "ExposureSubmissionSymptoms_AnswerOptionNo" = "No";
 
-"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "No statement";
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "No answer";
 
 "ExposureSubmissionSymptoms_ContinueButton" = "Next";
 
@@ -623,7 +623,7 @@
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "More than 2 weeks ago";
 
-"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "No statement";
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "No answer";
 
 "ExposureSubmissionSymptomsOnset_ContinueButton" = "Next";
 
@@ -729,7 +729,7 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Exposure logging requires exposure notifications to be activated in the system settings, so that encounters can be logged. Select \"Open Device Settings\" -> \"Exposure Notifications\" -> \"Share Exposure Information\". Then define the app as active app for exposure notifications by selecting \"Specify as Active Region\".";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "Activate COVID-19 Exposure Notifications";
+"ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "Activate COVID-19 Exposure Notifications ";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Exposure logging requires COVID-19 Exposure Notifications to be activated in the system settings, so that encounters can be logged. Select \"Open Device Settings\" and activate \"COVID-19 Exposure Notifications\" in the settings.";
 
@@ -741,7 +741,7 @@
 
 "ExposureNotificationSetting_ParentalControls_OSENSetting" = "Enable COVID-19 Exposure Logging and Notifications";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "For exposure logging, COVID-19 exposure logging and notifications must be activated in the system settings so that encounters can be logged. Please enable \"COVID-19 Exposure Logging and Notifications\" in your system settings.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "For exposure logging, COVID-19 exposure logging and notifications must be activated in the system settings so that encounters can be logged. Please enable “COVID-19 Exposure Logging and Notifications” in your system settings.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Authorization required";
 
@@ -749,7 +749,7 @@
 
 "ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Authorization";
 
-"ExposureNotificationSetting_AccLabel_Enabled" = "Three persons have activated exposure logging on their devices, which will log their encounters with each other.";
+"ExposureNotificationSetting_AccLabel_Enabled" = "Three persons have activated exposure logging on their smartphones, which will log their encounters with each other.";
 
 "ExposureNotificationSetting_AccLabel_Disabled" = "A person has deactivated exposure logging on their smartphone, so an encounter with two other persons is not logged.";
 
@@ -1096,7 +1096,7 @@
 
 "RiskLegend_Legend1_Title" = "Exposure Logging";
 
-"RiskLegend_Legend1_Text" = "Exposure logging is one of the three central features of the app. When you activate it, encounters with people's devices are logged. You don't have to do anything else.";
+"RiskLegend_Legend1_Text" = "Exposure logging is one of three central features of the app. Once you activate it, encounters with people's smartphones are logged. You don't have to do anything else.";
 
 "RiskLegend_Legend2_Title" = "Risk of Infection";
 
@@ -1140,9 +1140,9 @@
 
 "RiskLegend_Random_Title" = "Random IDs";
 
-"RiskLegend_Random_Text" = "Random IDs are combinations of digits and letters generated randomly. They are exchanged between devices in close proximity. Random IDs cannot be traced to a specific person and are automatically deleted after 14 days. Persons diagnosed with COVID-19 can opt to share their random IDs of up to the last 14 days with other app users.";
+"RiskLegend_Random_Text" = "Random IDs are combinations of digits and letters generated randomly. They are exchanged between smartphones in close proximity. Random IDs cannot be traced to a specific person and are automatically deleted after 14 days. Persons diagnosed with COVID-19 can opt to share their random IDs of up to the last 14 days with other app users.";
 
-"RiskLegend_Image1_AccLabel" = "A device shows various numbered content.";
+"RiskLegend_Image1_AccLabel" = "A smartphone shows various numbered content.";
 
 /* Update Message */
 "Update_Message_Title" = "Update available";
