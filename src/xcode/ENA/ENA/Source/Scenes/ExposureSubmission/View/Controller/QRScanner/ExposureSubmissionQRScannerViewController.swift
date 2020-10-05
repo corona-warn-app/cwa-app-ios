@@ -49,7 +49,7 @@ protocol QRScannerViewController: class {
 final class ExposureSubmissionQRScannerNavigationController: UINavigationController {
 
 	// MARK: - Attributes.
-	
+
 	private weak var coordinator: ExposureSubmissionCoordinating?
 	private weak var exposureSubmissionService: ExposureSubmissionService?
 	weak var scannerViewController: ExposureSubmissionQRScannerViewController? {
@@ -57,7 +57,7 @@ final class ExposureSubmissionQRScannerNavigationController: UINavigationControl
 	}
 
 	// MARK: - Initializers.
-	
+
 	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, exposureSubmissionService: ExposureSubmissionService) {
 		self.coordinator = coordinator
 		self.exposureSubmissionService = exposureSubmissionService
@@ -70,7 +70,7 @@ final class ExposureSubmissionQRScannerNavigationController: UINavigationControl
 	}
 
 	// MARK: - View lifecycle methods.
-	
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -98,7 +98,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, QRScann
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+
 		setupView()
 		updateToggleFlashAccessibility()
 		prepareScanning()
