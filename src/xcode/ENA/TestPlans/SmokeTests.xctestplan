@@ -23,7 +23,6 @@
   },
   "testTargets" : [
     {
-      "parallelizable" : true,
       "skippedTests" : [
         "ActiveTracingTests",
         "AppInformationImprintTest",
