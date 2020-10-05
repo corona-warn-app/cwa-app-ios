@@ -453,6 +453,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Exposure Submission QR Code Info */
 "ExposureSubmissionQRInfo_title" = "QR-Code Scan";
 
+"ExposureSubmissionQRInfo_imageDescription" = "Eine Person hält ein Smartphone vor einen QR-Code. Auf dem Smartphone sieht man das Einlesen des QR-Codes.";
+
 "ExposureSubmissionQRInfo_instruction1" = "Bitte scannen Sie nur Ihren eigenen Test.";
 
 "ExposureSubmissionQRInfo_instruction2" = "Jeder Test kann %@ gescannt werden.";
@@ -465,7 +467,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_instruction4" = "Wenn Ihnen ein aktuellerer Test vorliegt, löschen Sie den vorhandenen Test und scannen Sie den QR-Code des aktuellen Tests ein.";
 
-"ExposureSubmissionQRInfo_continueButton" = "Weiter";
+"ExposureSubmissionQRInfo_primaryButtonTitle" = "Weiter";
 
 /* Exposure Submission QR Code Scanner */
 "ExposureSubmissionQRScanner_title" = "QR-Code Scan";

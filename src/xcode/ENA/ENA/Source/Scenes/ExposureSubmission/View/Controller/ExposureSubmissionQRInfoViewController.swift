@@ -68,7 +68,7 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANav
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
 
-		item.primaryButtonTitle = AppStrings.ExposureSubmissionQRInfo.continueButton
+		item.primaryButtonTitle = AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle
 		item.isPrimaryButtonEnabled = true
 		item.isSecondaryButtonHidden = true
 

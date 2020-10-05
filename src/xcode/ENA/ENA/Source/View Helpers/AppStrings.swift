@@ -146,13 +146,14 @@ enum AppStrings {
 
 	enum ExposureSubmissionQRInfo {
 		static let title = NSLocalizedString("ExposureSubmissionQRInfo_title", comment: "")
+		static let imageDescription = NSLocalizedString("ExposureSubmissionQRInfo_imageDescription", comment: "")
 		static let instruction1 = NSLocalizedString("ExposureSubmissionQRInfo_instruction1", comment: "")
 		static let instruction2 = NSLocalizedString("ExposureSubmissionQRInfo_instruction2", comment: "")
 		static let instruction2HighlightedPhrase = NSLocalizedString("ExposureSubmissionQRInfo_instruction2_highlightedPhrase", comment: "")
 		static let instruction3 = NSLocalizedString("ExposureSubmissionQRInfo_instruction3", comment: "")
 		static let instruction3HighlightedPhrase = NSLocalizedString("ExposureSubmissionQRInfo_instruction3_highlightedPhrase", comment: "")
 		static let instruction4 = NSLocalizedString("ExposureSubmissionQRInfo_instruction4", comment: "")
-		static let continueButton = NSLocalizedString("ExposureSubmissionQRInfo_continueButton", comment: "")
+		static let primaryButtonTitle = NSLocalizedString("ExposureSubmissionQRInfo_primaryButtonTitle", comment: "")
 	}
 
 	enum ExposureSubmissionQRScanner {

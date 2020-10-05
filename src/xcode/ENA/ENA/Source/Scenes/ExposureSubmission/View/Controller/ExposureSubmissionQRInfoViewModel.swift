@@ -28,7 +28,7 @@ struct ExposureSubmissionQRInfoViewModel {
 				.section(
 					header: .image(
 						UIImage(imageLiteralResourceName: "Illu_Submission_QRPrimer"),
-						accessibilityLabel: AppStrings.ExposureSubmissionWarnOthers.accImageDescription,
+						accessibilityLabel: AppStrings.ExposureSubmissionQRInfo.imageDescription,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription,
 						height: 250
 					),
