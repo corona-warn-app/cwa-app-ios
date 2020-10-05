@@ -19,88 +19,34 @@ import AVFoundation
 import Foundation
 import UIKit
 
-enum QRScannerError: Error {
-	case cameraPermissionDenied
-	case other
-}
+final class ExposureSubmissionQRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
-extension QRScannerError: LocalizedError {
-	var errorDescription: String? {
-		switch self {
-		case .cameraPermissionDenied:
-			return AppStrings.ExposureSubmissionQRScanner.cameraPermissionDenied
-		default:
-			return AppStrings.ExposureSubmissionQRScanner.otherError
-		}
-	}
-}
+	// MARK: - Init
 
-protocol ExposureSubmissionQRScannerDelegate: AnyObject {
-	func qrScanner(_ viewController: QRScannerViewController, didScan code: String)
-	func qrScanner(_ viewController: QRScannerViewController, error: QRScannerError)
-}
+	init(
+		onSuccess: @escaping (DeviceRegistrationKey) -> Void,
+		onError: @escaping (QRScannerError) -> Void,
+		onCancel: @escaping () -> Void
+	) {
+		self.onSuccess = onSuccess
+		self.onError = onError
+		self.onCancel = onCancel
 
-protocol QRScannerViewController: class {
-	var delegate: ExposureSubmissionQRScannerDelegate? { get set }
-	func dismiss(animated: Bool, completion: (() -> Void)?)
-	func present(_: UIViewController, animated: Bool, completion: (() -> Void)?)
-}
-
-final class ExposureSubmissionQRScannerNavigationController: UINavigationController {
-
-	// MARK: - Attributes.
-
-	private weak var coordinator: ExposureSubmissionCoordinating?
-	private weak var exposureSubmissionService: ExposureSubmissionService?
-	weak var scannerViewController: ExposureSubmissionQRScannerViewController? {
-		viewControllers.first as? ExposureSubmissionQRScannerViewController
-	}
-
-	// MARK: - Initializers.
-
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, exposureSubmissionService: ExposureSubmissionService) {
-		self.coordinator = coordinator
-		self.exposureSubmissionService = exposureSubmissionService
-		super.init(coder: coder)
+		super.init(nibName: "ExposureSubmissionQRScannerViewController", bundle: .main)
 	}
 
 	@available(*, unavailable)
-	required init?(coder aDecoder: NSCoder) {
+	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - View lifecycle methods.
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-
-		overrideUserInterfaceStyle = .dark
-
-		navigationBar.tintColor = .enaColor(for: .textContrast)
-		navigationBar.shadowImage = UIImage()
-		if let image = UIImage.with(color: UIColor(white: 0, alpha: 0.5)) {
-			navigationBar.setBackgroundImage(image, for: .default)
-		}
-	}
-}
-
-final class ExposureSubmissionQRScannerViewController: UIViewController, QRScannerViewController {
-	@IBOutlet var focusView: ExposureSubmissionQRScannerFocusView!
-	@IBOutlet var flashButton: UIButton!
-	@IBOutlet var instructionLabel: DynamicTypeLabel!
-
-	weak var delegate: ExposureSubmissionQRScannerDelegate?
-
-	private var captureDevice: AVCaptureDevice?
-	private var previewLayer: AVCaptureVideoPreviewLayer? { didSet { setNeedsPreviewMaskUpdate() } }
-
-	private var needsPreviewMaskUpdate: Bool = true
+	// MARK: - Overrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
 		setupView()
-		updateToggleFlashAccessibility()
+//		updateToggleFlashAccessibility()
 		prepareScanning()
 	}
 
@@ -111,6 +57,45 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, QRScann
 		updatePreviewMaskIfNeeded()
 	}
 
+	// MARK: - Protocol AVCaptureMetadataOutputObjectsDelegate
+
+	func metadataOutput(
+		_: AVCaptureMetadataOutput,
+		didOutput metadataObjects: [AVMetadataObject],
+		from _: AVCaptureConnection
+	) {
+		if let code = metadataObjects.first(where: { $0 is AVMetadataMachineReadableCodeObject }) as? AVMetadataMachineReadableCodeObject, let stringValue = code.stringValue {
+			guard let extractedGuid = viewModel.extractGuid(from: stringValue) else {
+				onError(.codeNotFound)
+				return
+			}
+
+			onSuccess(.guid(extractedGuid))
+		}
+	}
+
+	// MARK: - Public
+
+	// MARK: - Internal
+
+	// MARK: - Private
+
+	private let onSuccess: (DeviceRegistrationKey) -> Void
+	private let onError: (QRScannerError) -> Void
+	private let onCancel: () -> Void
+
+	private let viewModel = ExposureSubmissionQRScannerViewModel()
+
+	@IBOutlet private var focusView: ExposureSubmissionQRScannerFocusView!
+	@IBOutlet private var instructionLabel: DynamicTypeLabel!
+
+	private let flashButton = UIButton(type: .custom)
+
+	private var captureDevice: AVCaptureDevice?
+	private var previewLayer: AVCaptureVideoPreviewLayer? { didSet { setNeedsPreviewMaskUpdate() } }
+
+	private var needsPreviewMaskUpdate: Bool = true
+
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionQRScanner.title
 		instructionLabel.text = AppStrings.ExposureSubmissionQRScanner.instruction
@@ -119,6 +104,24 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, QRScann
 		instructionLabel.layer.shadowOpacity = 1
 		instructionLabel.layer.shadowRadius = 3
 		instructionLabel.layer.shadowOffset = .init(width: 0, height: 0)
+
+		navigationController?.overrideUserInterfaceStyle = .dark
+
+		navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
+		navigationController?.navigationBar.shadowImage = UIImage()
+		if let image = UIImage.with(color: UIColor(white: 0, alpha: 0.5)) {
+			navigationController?.navigationBar.setBackgroundImage(image, for: .default)
+		}
+
+		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
+		flashButton.setImage(UIImage(systemName: "bolt"), for: .normal)
+		flashButton.setImage(UIImage(systemName: "bolt.fill"), for: .selected)
+
+		let flashBarButtonItem = UIBarButtonItem(customView: flashButton)
+		navigationItem.rightBarButtonItem = flashBarButtonItem
+
+		let cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
+		navigationItem.leftBarButtonItem = cancelBarButtonItem
 	}
 
 	private func updateToggleFlashAccessibility() {
@@ -128,10 +131,10 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, QRScann
 
 		if flashButton.isSelected {
 			flashButton.accessibilityValue = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityOnValue
-			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityDisableAction, target: self, selector: #selector(toggleFlash))]
+			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityDisableAction, target: self, selector: #selector(didToggleFlash))]
 		} else {
 			flashButton.accessibilityValue = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityOffValue
-			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityEnableAction, target: self, selector: #selector(toggleFlash))]
+			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityEnableAction, target: self, selector: #selector(didToggleFlash))]
 		}
 	}
 
@@ -142,14 +145,14 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, QRScann
 		case .notDetermined:
 			AVCaptureDevice.requestAccess(for: .video) { isAllowed in
 				guard isAllowed else {
-					self.delegate?.qrScanner(self, error: .cameraPermissionDenied)
+					self.onError(.cameraPermissionDenied)
 					return
 				}
 
 				self.startScanning()
 			}
 		default:
-			delegate?.qrScanner(self, error: .cameraPermissionDenied)
+			onError(.cameraPermissionDenied)
 		}
 	}
 
@@ -159,12 +162,12 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, QRScann
 
 		captureDevice = AVCaptureDevice.default(for: .video)
 		guard let captureDevice = captureDevice else {
-			delegate?.qrScanner(self, error: .other)
+			onError(.other)
 			return
 		}
 
 		guard let caputureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else {
-			delegate?.qrScanner(self, error: .other)
+			onError(.other)
 			return
 		}
 
@@ -188,11 +191,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, QRScann
 		captureSession.startRunning()
 	}
 
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-	}
-
-	@IBAction func toggleFlash() {
+	@objc private func didToggleFlash() {
 		guard let device = captureDevice else { return }
 		guard device.hasTorch else { return }
 
@@ -219,26 +218,10 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, QRScann
 		}
 	}
 
-	@IBAction func close() {
-		dismiss(animated: true)
+	@objc private func didTapCancel() {
+		onCancel()
 	}
-}
 
-extension ExposureSubmissionQRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
-	func metadataOutput(
-		_: AVCaptureMetadataOutput,
-		didOutput metadataObjects: [AVMetadataObject],
-		from _: AVCaptureConnection
-	) {
-		if
-			let code = metadataObjects.first(ofType: AVMetadataMachineReadableCodeObject.self),
-			let stringValue = code.stringValue {
-			delegate?.qrScanner(self, didScan: stringValue)
-		}
-	}
-}
-
-extension ExposureSubmissionQRScannerViewController {
 	private func setNeedsPreviewMaskUpdate() {
 		guard needsPreviewMaskUpdate else { return }
 		needsPreviewMaskUpdate = true
@@ -278,36 +261,5 @@ extension ExposureSubmissionQRScannerViewController {
 		previewLayer.mask?.addSublayer(throughHoleLayer)
 		previewLayer.mask?.addSublayer(backdropLayer)
 	}
-}
-
-@IBDesignable
-final class ExposureSubmissionQRScannerFocusView: UIView {
-	@IBInspectable var backdropOpacity: CGFloat = 0
-	@IBInspectable var cornerRadius: CGFloat = 0
-	@IBInspectable var borderWidth: CGFloat = 1
-
-	override func prepareForInterfaceBuilder() {
-		super.prepareForInterfaceBuilder()
-
-		backgroundColor = UIColor(white: 1, alpha: 0.5)
-
-		awakeFromNib()
-	}
-
-	override func awakeFromNib() {
-		super.awakeFromNib()
-
-		layer.cornerRadius = cornerRadius
-		layer.borderWidth = borderWidth
-		layer.borderColor = tintColor.cgColor
-	}
-}
-
-private extension Array {
-	func first<T>(ofType _: T.Type) -> T? {
-		first(where: { $0 is T }) as? T
-	}
-}
-
 
 }

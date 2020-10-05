@@ -23,8 +23,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController {
 
 	// MARK: - Init
 
-	required init?(
-		coder: NSCoder,
+	required init(
 		onQRCodeButtonTap: @escaping () -> Void,
 		onTANButtonTap: @escaping () -> Void,
 		onHotlineButtonTap: @escaping () -> Void
@@ -33,7 +32,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController {
 		self.onTANButtonTap = onTANButtonTap
 		self.onHotlineButtonTap = onHotlineButtonTap
 
-		super.init(coder: coder)
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)
@@ -46,8 +45,11 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		dynamicTableViewModel = dynamicTableData()
 		setupView()
+	}
+
+	override var navigationItem: UINavigationItem {
+		navigationFooterItem
 	}
 
 	// MARK: - Private
@@ -56,7 +58,23 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController {
 	private let onTANButtonTap: () -> Void
 	private let onHotlineButtonTap: () -> Void
 
+	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		let item = ENANavigationFooterItem()
+
+		item.isPrimaryButtonHidden = true
+		item.isSecondaryButtonHidden = true
+
+		item.title = AppStrings.ExposureSubmissionDispatch.title
+
+		return item
+	}()
+
 	private func setupView() {
+		view.backgroundColor = .enaColor(for: .background)
+		cellBackgroundColor = .clear
+
+		hidesBottomBarWhenPushed = true
+
 		tableView.register(
 			UINib(
 				nibName: String(describing: ExposureSubmissionTestResultHeaderView.self),
@@ -65,9 +83,16 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController {
 			forHeaderFooterViewReuseIdentifier: "test"
 		)
 
-		tableView.register(UINib(nibName: String(describing: ExposureSubmissionImageCardCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.imageCard.rawValue)
+		tableView.register(
+			UINib(
+				nibName: String(describing: ExposureSubmissionImageCardCell.self),
+				bundle: nil
+			),
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.imageCard.rawValue
+		)
 
-		title = AppStrings.ExposureSubmissionDispatch.title
+		dynamicTableViewModel = dynamicTableData()
+		tableView.separatorStyle = .none
 	}
 
 }
