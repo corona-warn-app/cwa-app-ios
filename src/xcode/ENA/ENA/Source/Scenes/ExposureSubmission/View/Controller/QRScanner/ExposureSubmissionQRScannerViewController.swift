@@ -46,7 +46,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, AVCaptu
 		super.viewDidLoad()
 
 		setupView()
-//		updateToggleFlashAccessibility()
+		updateToggleFlashAccessibility()
 		prepareScanning()
 	}
 
@@ -191,7 +191,8 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, AVCaptu
 		captureSession.startRunning()
 	}
 
-	@objc private func didToggleFlash() {
+	@objc
+	private func didToggleFlash() {
 		guard let device = captureDevice else { return }
 		guard device.hasTorch else { return }
 
@@ -218,7 +219,8 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, AVCaptu
 		}
 	}
 
-	@objc private func didTapCancel() {
+	@objc
+	private func didTapCancel() {
 		onCancel()
 	}
 

@@ -229,6 +229,8 @@ extension ExposureSubmissionCoordinator {
 
 	private func showQRScreen() {
 		var vc: ExposureSubmissionQRScannerViewController!
+		var navigationController: UINavigationController!
+
 		vc = ExposureSubmissionQRScannerViewController(
 			onSuccess: { [weak self] deviceRegistrationKey in
 				vc.dismiss(animated: true) {
@@ -239,11 +241,7 @@ extension ExposureSubmissionCoordinator {
 				switch error {
 				case .cameraPermissionDenied:
 					DispatchQueue.main.async {
-						let alert = UIAlertController.errorAlert(
-							message: error.localizedDescription,
-							completion: {
-								vc.dismiss(animated: true)
-							})
+						let alert = UIAlertController.errorAlert(message: error.localizedDescription)
 						self?.navigationController?.present(alert, animated: true)
 					}
 				case .codeNotFound:
@@ -253,7 +251,6 @@ extension ExposureSubmissionCoordinator {
 							message: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundText,
 							okTitle: AppStrings.Common.alertActionCancel,
 							secondaryActionTitle: AppStrings.Common.alertActionRetry,
-							completion: { vc.dismiss(animated: true) },
 							secondaryActionCompletion: { /* TODO: Reactivate qr reading? */ }
 						)
 
@@ -264,11 +261,11 @@ extension ExposureSubmissionCoordinator {
 				}
 			},
 			onCancel: {
-				vc.dismiss(animated: true)
+				navigationController.dismiss(animated: true)
 			}
 		)
 
-		let navigationController = UINavigationController(rootViewController: vc)
+		navigationController = UINavigationController(rootViewController: vc)
 		navigationController.modalPresentationStyle = .fullScreen
 
 		present(navigationController)
