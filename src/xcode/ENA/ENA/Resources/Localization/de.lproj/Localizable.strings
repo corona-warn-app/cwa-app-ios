@@ -289,7 +289,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Onboarding_Continue_actionText" = "Weiter";
 
-"Onboarding_EnableLogging_actionText" = "Weiter";
+"Onboarding_EnableLogging_actionText" = "Risiko-Ermittlung aktivieren";
 
 "Onboarding_Continue_actionTextHint" = "Sie können diesen Bildschirm überspringen";
 
