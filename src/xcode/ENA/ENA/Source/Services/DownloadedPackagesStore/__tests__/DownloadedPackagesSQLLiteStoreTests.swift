@@ -63,7 +63,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		let completionExpectation = expectation(description: "Completion callback")
 		
 		store.set(country: "DE", day: "2020-10-06", package: package) { [weak self] error in
-			guard let self = self else { return	}
+			guard let self = self else { return }
 
 			let packageOut = self.store.package(for: "2020-10-06", country: "DE")
 			XCTAssertNotNil(packageOut)
@@ -93,9 +93,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		
 		store.keyValueStore = mockStore
 		
-		store.set(country: "DE", day: "2020-10-06", package: package) { [weak self] error in
-			guard let self = self else { return	}
-
+		store.set(country: "DE", day: "2020-10-06", package: package) { error in
 			XCTAssertNotNil(error)
 			completionExpectation.fulfill()
 		}
