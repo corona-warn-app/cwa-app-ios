@@ -47,6 +47,13 @@ final class DownloadedPackagesSQLLiteStoreV1 {
 	}
 
 	// MARK: Properties
+
+	#if !RELEASE
+
+	var store: Store?
+
+	#endif
+
 	private let latestVersion: Int
 	private let queue = DispatchQueue(label: "com.sap.DownloadedPackagesSQLLiteStore")
 	private let database: FMDatabase
@@ -99,6 +106,16 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 		package: SAPDownloadedPackage,
 		completion: ((SQLiteError?) -> Void)? = nil
 	) {
+
+		#if !RELEASE
+
+		if let store = store, let errorCode = store.fakeSQLiteError {
+			completeAsyncWithError(completion: completion, errorCode: errorCode)
+			return
+		}
+
+		#endif
+
 		func deleteHours() -> Bool {
 			database.executeUpdate(
 				"""

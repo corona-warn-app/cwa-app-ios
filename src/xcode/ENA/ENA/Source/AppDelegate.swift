@@ -172,6 +172,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
 		self.client = HTTPClient(configuration: configuration)
+
+		#if !RELEASE
+		downloadedPackagesStore.store = self.store
+		#endif
 	}
 
 	func application(

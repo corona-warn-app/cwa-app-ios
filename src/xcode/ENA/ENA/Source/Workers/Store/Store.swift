@@ -50,7 +50,6 @@ protocol Store: AnyObject {
 	var developerDistributionBaseURLOverride: String? { get set }
 	var developerVerificationBaseURLOverride: String? { get set }
 	var teleTan: String? { get set }
-	var hourlyFetchingEnabled: Bool { get set }
 
 	// A secret allowing the client to upload the diagnosisKey set.
 	var tan: String? { get set }
@@ -113,6 +112,16 @@ protocol Store: AnyObject {
 	var selectedServerEnvironment: ServerEnvironmentData { get set }
 
 	func clearAll(key: String?)
+
+	#if !RELEASE
+
+	// Settings from the debug menu.
+
+	var hourlyFetchingEnabled: Bool { get set }
+
+	var fakeSQLiteError: Int32? { get set }
+
+	#endif
 }
 
 protocol AppConfigCaching: Store {
