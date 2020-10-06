@@ -40,7 +40,6 @@
 		01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C2D440250124E600FB23BF /* OptionGroupViewModelTests.swift */; };
 		01C6ABF42527273E0052814D /* String+Insertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6ABF32527273D0052814D /* String+Insertion.swift */; };
 		01C6AC0E252B1E990052814D /* ExposureSubmissionQRScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6AC0D252B1E980052814D /* ExposureSubmissionQRScannerViewModel.swift */; };
-		01C6AC16252B20D90052814D /* ExposureSubmissionQRScannerNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6AC15252B20D90052814D /* ExposureSubmissionQRScannerNavigationController.swift */; };
 		01C6AC21252B21DF0052814D /* ExposureSubmissionQRScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01C6AC20252B21DF0052814D /* ExposureSubmissionQRScannerViewController.xib */; };
 		01C6AC26252B23D70052814D /* ExposureSubmissionQRScannerFocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6AC25252B23D70052814D /* ExposureSubmissionQRScannerFocusView.swift */; };
 		01C6AC32252B29C00052814D /* QRScannerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6AC31252B29C00052814D /* QRScannerError.swift */; };
@@ -562,7 +561,6 @@
 		01C2D440250124E600FB23BF /* OptionGroupViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionGroupViewModelTests.swift; sourceTree = "<group>"; };
 		01C6ABF32527273D0052814D /* String+Insertion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Insertion.swift"; sourceTree = "<group>"; };
 		01C6AC0D252B1E980052814D /* ExposureSubmissionQRScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRScannerViewModel.swift; sourceTree = "<group>"; };
-		01C6AC15252B20D90052814D /* ExposureSubmissionQRScannerNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRScannerNavigationController.swift; sourceTree = "<group>"; };
 		01C6AC20252B21DF0052814D /* ExposureSubmissionQRScannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExposureSubmissionQRScannerViewController.xib; sourceTree = "<group>"; };
 		01C6AC25252B23D70052814D /* ExposureSubmissionQRScannerFocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRScannerFocusView.swift; sourceTree = "<group>"; };
 		01C6AC31252B29C00052814D /* QRScannerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerError.swift; sourceTree = "<group>"; };
@@ -1136,7 +1134,6 @@
 		01C6AC2D252B23FC0052814D /* QRScanner */ = {
 			isa = PBXGroup;
 			children = (
-				01C6AC15252B20D90052814D /* ExposureSubmissionQRScannerNavigationController.swift */,
 				71FE1C74247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift */,
 				01C6AC20252B21DF0052814D /* ExposureSubmissionQRScannerViewController.xib */,
 				01C6AC0D252B1E980052814D /* ExposureSubmissionQRScannerViewModel.swift */,
@@ -3232,7 +3229,6 @@
 				0159E6C1247829BA00894A89 /* temporary_exposure_key_export.pb.swift in Sources */,
 				71FE1C80247AC2B500851FEB /* ExposureSubmissionNavigationController.swift in Sources */,
 				2FA968CE24D8560B008EE367 /* String+Random.swift in Sources */,
-				01C6AC16252B20D90052814D /* ExposureSubmissionQRScannerNavigationController.swift in Sources */,
 				EB858D2024E700D10048A0AA /* UIView+Screenshot.swift in Sources */,
 				CD99A3C7246155C300BF12AF /* Logger.swift in Sources */,
 				2F96739B24AB70FA008E3147 /* ExposureSubmissionParsable.swift in Sources */,
