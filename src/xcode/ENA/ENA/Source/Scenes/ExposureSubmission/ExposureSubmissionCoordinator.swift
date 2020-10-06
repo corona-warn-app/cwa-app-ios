@@ -66,6 +66,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	///  (the navigationController holds a strong reference to the coordinator).
 	weak var navigationController: UINavigationController?
 
+	weak var presentedViewController: UIViewController?
+
 	var model: ExposureSubmissionCoordinatorModel!
 
 	// MARK: - Initializers.
@@ -96,11 +98,6 @@ extension ExposureSubmissionCoordinator {
 
 	private func push(_ vc: UIViewController) {
 		self.navigationController?.pushViewController(vc, animated: true)
-		setupDismissConfirmationOnSwipeDown(for: vc)
-	}
-
-	private func present(_ vc: UIViewController) {
-		self.navigationController?.present(vc, animated: true)
 		setupDismissConfirmationOnSwipeDown(for: vc)
 	}
 
@@ -228,16 +225,13 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	private func showQRScreen() {
-		// be careful if this pattern gets used to submit references a closure
-		var scannerViewController: ExposureSubmissionQRScannerViewController!
-
-		scannerViewController = ExposureSubmissionQRScannerViewController(
-			onSuccess: { [weak self, scannerViewController] deviceRegistrationKey in
-				scannerViewController?.dismiss(animated: true) {
+		let scannerViewController = ExposureSubmissionQRScannerViewController(
+			onSuccess: { [weak self] deviceRegistrationKey in
+				self?.presentedViewController?.dismiss(animated: true) {
 					self?.getTestResults(for: deviceRegistrationKey)
 				}
 			},
-			onError: { [weak self, scannerViewController] error in
+			onError: { [weak self] error in
 				switch error {
 				case .cameraPermissionDenied:
 					DispatchQueue.main.async {
@@ -253,21 +247,22 @@ extension ExposureSubmissionCoordinator {
 							secondaryActionTitle: AppStrings.Common.alertActionRetry,
 							secondaryActionCompletion: { /* TODO: Reactivate qr reading? */ }
 						)
-
-						scannerViewController?.present(alert, animated: true)
+						self?.presentedViewController?.present(alert, animated: true)
 					}
 				default:
 					logError(message: "QRScannerError.other occurred.", level: .error)
 				}
 			},
 			onCancel: { [weak self] in
-				self?.navigationController?.dismiss(animated: true)
+				self?.presentedViewController?.dismiss(animated: true)
 			}
 		)
 
-		let navigationController = UINavigationController(rootViewController: scannerViewController)
-		navigationController.modalPresentationStyle = .fullScreen
-		present(navigationController)
+		let qrScannerNavigationController = UINavigationController(rootViewController: scannerViewController)
+		qrScannerNavigationController.modalPresentationStyle = .fullScreen
+
+		navigationController?.present(qrScannerNavigationController, animated: true)
+		presentedViewController = qrScannerNavigationController
 	}
 
 	func showSymptomsScreen() {
