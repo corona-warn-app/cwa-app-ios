@@ -99,9 +99,6 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 		package: SAPDownloadedPackage,
 		completion: ((SQLiteError?) -> Void)? = nil
 	) {
-
-		let currentThread = Thread.current
-
 		func deleteHours() -> Bool {
 			database.executeUpdate(
 				"""
