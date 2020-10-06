@@ -285,7 +285,7 @@
 
 "Onboarding_Continue_actionText" = "Next";
 
-"Onboarding_EnableLogging_actionText" = "Next";
+"Onboarding_EnableLogging_actionText" = "Activate Exposure Logging";
 
 "Onboarding_Continue_actionTextHint" = "You can skip this screen";
 
@@ -343,7 +343,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… please report this in the Corona-Warn-App. Sharing your test results is voluntary and secure. Please do this for the sake of everyone's health.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your notification is encrypted securely and processed on a secure server. Persons whose encrypted random IDs your smartphone has collected will now receive a warning along with information about what they should now do.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your notification is encrypted securely and processed on a secure server. People whose encrypted random IDs your device has collected will now receive a warning along with information about what they should now do.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "A woman receives a notification from her Corona-Warn-App.";
 
@@ -537,10 +537,6 @@
 
 "ExposureSubmissionResult_warnOthersDesc" = "Share your random IDs and warn others.\nHelp determine the risk of infection for others more accurately by also indicating when you first noticed any coronavirus symptoms.";
 
-"ExposureSubmissionResult_testPositive" = "Positive Diagnosis";
-
-"ExposureSubmissionResult_testPositiveDesc" = "Your test result was verified as positive.";
-
 "ExposureSubmissionResult_testNegative" = "Negative Diagnosis";
 
 "ExposureSubmissionResult_testNegativeDesc" = "The laboratory result indicates no verification that you have coronavirus SARS-CoV-2.";
@@ -571,7 +567,9 @@
 
 "ExposureSubmissionResult_testRemoveDesc" = "Please delete the test from the Corona-Warn-App, so that you can save a new test code here if necessary.";
 
-"ExposureSubmissionResult_continueButton" = "Next";
+"ExposureSubmissionResult_primaryButtonTitle" = "Enter Symptoms";
+
+"ExposureSubmissionResult_secondaryButtonTitle" = "Don’t Enter Symptoms";
 
 "ExposureSubmissionResult_deleteButton" = "Delete test";
 
@@ -1138,9 +1136,9 @@
 
 "RiskLegend_Notification_Text" = "The display of exposures in the Corona-Warn-App.";
 
-"RiskLegend_Random_Title" = "Random IDs";
+"RiskLegend_Random_Title" = "Random ID";
 
-"RiskLegend_Random_Text" = "Random IDs are combinations of digits and letters generated randomly. They are exchanged between smartphones in close proximity. Random IDs cannot be traced to a specific person and are automatically deleted after 14 days. Persons diagnosed with COVID-19 can opt to share their random IDs of up to the last 14 days with other app users.";
+"RiskLegend_Random_Text" = "Random IDs are combinations of digits and letters generated randomly. They are exchanged between devices in close proximity. Random IDs cannot be traced to a specific person and are automatically deleted after 14 days. Persons diagnosed with COVID-19 can opt to share their random IDs of up to the last 14 days with other app users.";
 
 "RiskLegend_Image1_AccLabel" = "A smartphone shows various numbered content.";
 
