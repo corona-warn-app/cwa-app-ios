@@ -174,7 +174,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		self.client = HTTPClient(configuration: configuration)
 
 		#if !RELEASE
-		downloadedPackagesStore.store = self.store
+		downloadedPackagesStore.keyValueStore = self.store
 		#endif
 	}
 

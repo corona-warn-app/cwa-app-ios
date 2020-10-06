@@ -44,7 +44,7 @@ protocol DownloadedPackagesStoreV1: AnyObject {
 
 	#if !RELEASE
 
-	var store: Store? { get set }
+	var keyValueStore: Store? { get set }
 
 	#endif
 }

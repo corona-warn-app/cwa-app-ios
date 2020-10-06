@@ -49,6 +49,59 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertEqual(packageOut?.signature, signature)
 		XCTAssertEqual(packageOut?.bin, keysBin)
 	}
+	
+	func testSettingDaysCompletionCallback() throws {
+		store.open()
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
+
+		let package = SAPDownloadedPackage(
+			keysBin: keysBin,
+			signature: signature
+		)
+		
+		let completionExpectation = expectation(description: "Completion callback")
+		
+		store.set(country: "DE", day: "2020-10-06", package: package) { [weak self] error in
+			guard let self = self else { return	}
+
+			let packageOut = self.store.package(for: "2020-10-06", country: "DE")
+			XCTAssertNotNil(packageOut)
+			XCTAssertEqual(packageOut?.signature, signature)
+			XCTAssertEqual(packageOut?.bin, keysBin)
+			XCTAssertNil(error)
+			completionExpectation.fulfill()
+		}
+		
+		waitForExpectations(timeout: 1)
+	}
+	
+	func testSettingDaysCompletionCallbackExpectedNotNil() throws {
+		store.open()
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
+
+		let package = SAPDownloadedPackage(
+			keysBin: keysBin,
+			signature: signature
+		)
+		
+		let completionExpectation = expectation(description: "Completion callback")
+		let mockStore = MockTestStore()
+		
+		mockStore.fakeSQLiteError = 13
+		
+		store.keyValueStore = mockStore
+		
+		store.set(country: "DE", day: "2020-10-06", package: package) { [weak self] error in
+			guard let self = self else { return	}
+
+			XCTAssertNotNil(error)
+			completionExpectation.fulfill()
+		}
+		
+		waitForExpectations(timeout: 1)
+	}
 
 	// Add a package for a given hour on a given day, try to get it and assert that it matches whatever we put inside
 	func testSettingHoursForDay() throws {

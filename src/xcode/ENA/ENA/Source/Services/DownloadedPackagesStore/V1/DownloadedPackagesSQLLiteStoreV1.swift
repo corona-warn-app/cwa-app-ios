@@ -50,7 +50,7 @@ final class DownloadedPackagesSQLLiteStoreV1 {
 
 	#if !RELEASE
 
-	var store: Store?
+	var keyValueStore: Store?
 
 	#endif
 
@@ -109,7 +109,7 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 
 		#if !RELEASE
 
-		if let store = store, let errorCode = store.fakeSQLiteError {
+		if let store = keyValueStore, let errorCode = store.fakeSQLiteError {
 			completeAsyncWithError(completion: completion, errorCode: errorCode)
 			return
 		}
