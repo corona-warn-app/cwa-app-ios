@@ -78,8 +78,10 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 		switch result {
 		case .positive:
-			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.continueButton
-			navigationFooterItem?.isSecondaryButtonHidden = true
+			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.primaryButtonTitle
+			navigationFooterItem?.secondaryButtonTitle = AppStrings.ExposureSubmissionResult.secondaryButtonTitle
+			navigationFooterItem?.isSecondaryButtonEnabled = true
+			navigationFooterItem?.isSecondaryButtonHidden = false
 		case .negative, .invalid, .redeemed:
 			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
 			navigationFooterItem?.isSecondaryButtonHidden = true
