@@ -542,10 +542,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_warnOthersDesc" = "Teilen Sie Ihre Zufalls-IDs und warnen Sie andere.\nHelfen Sie, das Infektionsrisiko für andere genauer zu bestimmen, indem Sie auch angeben, wann eventuelle Corona-Symptome zum ersten Mal aufgetreten sind.";
 
-"ExposureSubmissionResult_testPositive" = "Befund positiv";
-
-"ExposureSubmissionResult_testPositiveDesc" = "Ihr Testergebnis wurde erfolgreich als positiv verifiziert.";
-
 "ExposureSubmissionResult_testNegative" = "Befund negativ";
 
 "ExposureSubmissionResult_testNegativeDesc" = "Der Labortest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.";
@@ -576,7 +572,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testRemoveDesc" = "Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.";
 
-"ExposureSubmissionResult_continueButton" = "Weiter";
+"ExposureSubmissionResult_primaryButtonTitle" = "Weiter mit Symptom-Erfassung";
+
+"ExposureSubmissionResult_secondaryButtonTitle" = "Weiter ohne Symptom-Erfassung";
 
 "ExposureSubmissionResult_deleteButton" = "Test entfernen";
 
