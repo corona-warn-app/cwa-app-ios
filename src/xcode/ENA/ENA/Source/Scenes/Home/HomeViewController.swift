@@ -192,7 +192,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	// MARK: Misc
-	@objc func refreshUIAfterResumingFromBackground() {
+	@objc
+	func refreshUIAfterResumingFromBackground() {
 		homeInteractor.refreshTimerAfterResumingFromBackground()
 	}
 
