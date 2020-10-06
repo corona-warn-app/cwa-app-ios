@@ -82,14 +82,17 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 			navigationFooterItem?.secondaryButtonTitle = AppStrings.ExposureSubmissionResult.secondaryButtonTitle
 			navigationFooterItem?.isSecondaryButtonEnabled = true
 			navigationFooterItem?.isSecondaryButtonHidden = false
+			navigationFooterItem?.secondaryButtonHasBorder = true
 		case .negative, .invalid, .redeemed:
 			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
 			navigationFooterItem?.isSecondaryButtonHidden = true
+			navigationFooterItem?.secondaryButtonHasBorder = false
 		case .pending:
 			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.refreshButton
 			navigationFooterItem?.secondaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
 			navigationFooterItem?.isSecondaryButtonEnabled = true
 			navigationFooterItem?.isSecondaryButtonHidden = false
+			navigationFooterItem?.secondaryButtonHasBorder = false
 		}
 	}
 
