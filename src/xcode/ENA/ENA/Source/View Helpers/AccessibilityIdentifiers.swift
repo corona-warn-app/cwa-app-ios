@@ -240,7 +240,8 @@ enum AccessibilityIdentifiers {
 	}
 
 	enum ExposureSubmission {
-		static let continueText = "AppStrings.ExposureSubmission.continueText"
+		static let primaryButton = "AppStrings.ExposureSubmission.primaryButton"
+		static let secondaryButton = "AppStrings.ExposureSubmission.secondaryButton"
 	}
 
 	enum Reset {
