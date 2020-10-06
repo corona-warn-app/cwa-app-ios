@@ -50,8 +50,16 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		self.window = window
 
 		#if UITESTING
-		if let isOnboarded = UserDefaults.standard.value(forKey: "isOnboarded") as? String {
+		if let isOnboarded = UserDefaults.standard.string(forKey: "isOnboarded") {
 			store.isOnboarded = (isOnboarded != "NO")
+		}
+
+		if let onboardingVersion = UserDefaults.standard.string(forKey: "onboardingVersion") {
+			store.onboardingVersion = onboardingVersion
+		}
+
+		if let setCurrentOnboardingVersion = UserDefaults.standard.string(forKey: "setCurrentOnboardingVersion"), setCurrentOnboardingVersion == "YES" {
+			store.onboardingVersion = Bundle.main.appVersion
 		}
 		#endif
 

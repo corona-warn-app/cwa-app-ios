@@ -34,6 +34,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		setupSnapshot(app)
 		app.setDefaults()
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
+		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
 	}
 
 	// MARK: - Test cases.
