@@ -118,7 +118,6 @@ protocol Store: AnyObject {
 	// Settings from the debug menu.
 
 	var hourlyFetchingEnabled: Bool { get set }
-
 	var fakeSQLiteError: Int32? { get set }
 
 	#endif

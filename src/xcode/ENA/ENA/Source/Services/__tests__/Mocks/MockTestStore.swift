@@ -51,9 +51,17 @@ final class MockTestStore: Store, AppConfigCaching {
 	var registrationToken: String?
 	var allowRiskChangesNotification: Bool = true
 	var allowTestsStatusNotification: Bool = true
-	var hourlyFetchingEnabled: Bool = true
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
 	var selectedServerEnvironment: ServerEnvironmentData = ServerEnvironment().defaultEnvironment()
+
+	#if !RELEASE
+
+	// Settings from the debug menu.
+
+	var hourlyFetchingEnabled: Bool = true
+	var fakeSQLiteError: Int32? = nil
+
+	#endif
 
 	// MARK: - AppConfigCaching
 	
