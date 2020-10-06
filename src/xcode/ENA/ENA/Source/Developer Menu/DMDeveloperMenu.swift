@@ -34,7 +34,7 @@ extension UserDefaults: DMStore {
 	}
 	var dmErrorMessages: [String] {
 		get {
-			(array(forKey: "dmErrorMessages") ?? []) as [String]
+			(array(forKey: "dmErrorMessages") ?? []) as? [String] ?? [String]()
 		}
 		set {
 			set(newValue, forKey: "dmErrorMessages")
