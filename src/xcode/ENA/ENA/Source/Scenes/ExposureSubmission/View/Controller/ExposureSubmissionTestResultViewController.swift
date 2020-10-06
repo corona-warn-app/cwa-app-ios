@@ -174,9 +174,8 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		self.setupButtons()
 	}
 
-	/// Only show the "warn others" screen if the ENManager is enabled correctly,
-	/// otherwise, show an alert.
-	private func showWarnOthers() {
+	/// Check if the ENManager is enabled correctly, otherwise, show an alert.
+	private func checkExposureSubmissionPreconditions(onSuccess: () -> Void) {
 		if let state = exposureSubmissionService?.preconditions() {
 			if !state.isGood {
 				let alert = self.setupErrorAlert(
@@ -186,7 +185,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 				return
 			}
 
-			self.coordinator?.showSymptomsScreen()
+			onSuccess()
 		}
 	}
 }
@@ -215,7 +214,9 @@ extension ExposureSubmissionTestResultViewController {
 
 		switch result {
 		case .positive:
-			showWarnOthers()
+			checkExposureSubmissionPreconditions { [weak self] in
+				self?.coordinator?.showSymptomsScreen()
+			}
 		case .negative, .invalid, .redeemed:
 			deleteTest()
 		case .pending:
@@ -226,6 +227,10 @@ extension ExposureSubmissionTestResultViewController {
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
 		guard let result = testResult else { return }
 		switch result {
+		case .positive:
+			checkExposureSubmissionPreconditions { [weak self] in
+				self?.coordinator?.showWarnOthersScreen()
+			}
 		case .pending:
 			deleteTest()
 		default:
