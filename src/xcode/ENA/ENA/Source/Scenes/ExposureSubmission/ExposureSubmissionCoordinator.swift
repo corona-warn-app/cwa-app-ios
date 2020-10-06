@@ -228,16 +228,16 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	private func showQRScreen() {
-		var vc: ExposureSubmissionQRScannerViewController!
-		var navigationController: UINavigationController!
+		// be careful if this pattern gets used to submit references a closure
+		var scannerViewController: ExposureSubmissionQRScannerViewController!
 
-		vc = ExposureSubmissionQRScannerViewController(
-			onSuccess: { [weak self] deviceRegistrationKey in
-				vc.dismiss(animated: true) {
+		scannerViewController = ExposureSubmissionQRScannerViewController(
+			onSuccess: { [weak self, scannerViewController] deviceRegistrationKey in
+				scannerViewController?.dismiss(animated: true) {
 					self?.getTestResults(for: deviceRegistrationKey)
 				}
 			},
-			onError: { [weak self] error in
+			onError: { [weak self, scannerViewController] error in
 				switch error {
 				case .cameraPermissionDenied:
 					DispatchQueue.main.async {
@@ -254,20 +254,19 @@ extension ExposureSubmissionCoordinator {
 							secondaryActionCompletion: { /* TODO: Reactivate qr reading? */ }
 						)
 
-						vc.present(alert, animated: true)
+						scannerViewController?.present(alert, animated: true)
 					}
 				default:
 					logError(message: "QRScannerError.other occurred.", level: .error)
 				}
 			},
-			onCancel: {
-				navigationController.dismiss(animated: true)
+			onCancel: { [weak self] in
+				self?.navigationController?.dismiss(animated: true)
 			}
 		)
 
-		navigationController = UINavigationController(rootViewController: vc)
+		let navigationController = UINavigationController(rootViewController: scannerViewController)
 		navigationController.modalPresentationStyle = .fullScreen
-
 		present(navigationController)
 	}
 
