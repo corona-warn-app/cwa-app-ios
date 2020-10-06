@@ -66,7 +66,7 @@ extension ExposureDetection.DidEndPrematurelyReason: LocalizedError {
 		case .noSupportedCountries:
 			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoSupportedCountries"
 		case .noDiskSpace:
-			return "No disk space error message"
+			return AppStrings.ExposureDetectionError.errorAlertFullDistSpaceMessage
 		}
 	}
 }
