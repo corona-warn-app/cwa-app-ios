@@ -72,7 +72,7 @@ final class RiskProvidingConfigurationTests: XCTestCase {
 		let testDate = Date(timeIntervalSince1970: 1466467200.0)  // 21.06.2016
 		let twoHoursAgo = Calendar.current.date(byAdding: DateComponents(hour: -2), to: testDate)
 		let inTwentyTwoHours = Calendar.current.date(byAdding: DateComponents(hour: 22), to: testDate)
-		XCTAssertEqual(config.nextExposureDetectionDate(lastExposureDetectionDate: twoHoursAgo, currentDate: testDate), .date(inTwentyTwoHours!))
+		XCTAssertEqual(config.nextExposureDetectionDate(lastExposureDetectionDate: twoHoursAgo, currentDate: testDate), .date(inTwentyTwoHours ?? Date()))
 	}
 
 // Temporarily disabled because expected behavior is not defined yet
