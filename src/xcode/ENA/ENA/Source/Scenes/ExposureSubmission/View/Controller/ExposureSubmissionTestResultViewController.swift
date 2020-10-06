@@ -437,7 +437,10 @@ private extension ExposureSubmissionTestResultViewController {
 
 				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testPending,
-					description: AppStrings.ExposureSubmissionResult.testPendingDesc,
+					description:
+						AppStrings.ExposureSubmissionResult.testPendingDescParagraph1 +
+						AppStrings.ExposureSubmissionResult.testPendingDescParagraph2 +
+						AppStrings.ExposureSubmissionResult.testPendingDescParagraph3,
 					icon: UIImage(named: "Icons_Grey_Wait"),
 					hairline: .none
 				)
