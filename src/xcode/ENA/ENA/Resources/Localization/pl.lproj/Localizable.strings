@@ -62,7 +62,7 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "Rejestrowanie narażenia zatrzymane";
 
-"ExposureDetection_Unknown" = "Nieznane ryzyko";
+"ExposureDetection_Unknown" = "Ryzyko nieznane";
 
 "ExposureDetection_Low" = "Niskie ryzyko";
 
@@ -84,7 +84,7 @@
 
 "ExposureDetection_OutdatedText" = "Rejestrowanie narażenia nie było aktualizowane przez okres dłuższy niż 24 godziny. Aktualizuj obliczenie.";
 
-"ExposureDetection_UnknownText" = "Ponieważ nie aktywowałeś(-aś) rejestrowania narażenia na wystarczająco długi czas, nie możemy obliczyć Twojego ryzyka zakażenia.";
+"ExposureDetection_UnknownText" = "Nie możemy jeszcze podać ryzyka zakażenia, ponieważ nie mamy jeszcze wystarczającej ilości danych.";
 
 "ExposureDetection_LoadingText" = "Bieżące dane są pobierane i sprawdzane. Może to potrwać kilka minut.";
 
@@ -94,7 +94,7 @@
 
 "ExposureDetection_Guide_Hands" = "Regularnie myj ręce mydłem przez 20 sekund.";
 
-"ExposureDetection_Guide_Mask" = "Załóż maseczkę na twarz, mając kontakt z innymi osobami.";
+"ExposureDetection_Guide_Mask" = "Załóż maseczkę, jeśli zamierzasz kontaktować się fizycznie z innymi osobami.";
 
 "ExposureDetection_Guide_Distance" = "Zachowuj odległość co najmniej 1,5 metra od innych osób.";
 
@@ -106,7 +106,7 @@
 
 "ExposureDetection_Guide_Hotline2" = "Twój lekarz rodzinny";
 
-"ExposureDetection_Guide_Hotline3" = "Pogotowie ratunkowe pod numerem telefonu 116117";
+"ExposureDetection_Guide_Hotline3" = "Lekarz dyżurny pod numerem telefonu 116117";
 
 "ExposureDetection_Guide_Hotline4" = "Organ ds. zdrowia publicznego";
 
@@ -116,7 +116,7 @@
 
 "ExposureDetection_Explanation_Text_Off" = "Ryzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie w urządzeniu. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.";
 
-"ExposureDetection_Explanation_Text_Outdated" = "Nie możemy jeszcze podać ryzyka zakażenia, ponieważ nie mamy jeszcze wystarczającej ilości danych.\n\nRyzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie w smartfonie. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.";
+"ExposureDetection_Explanation_Text_Outdated" = "Sprawdzanie narażenia nie było aktualizowane przez okres dłuższy niż 24 godziny. Aktualizuj obliczenie.";
 
 "ExposureDetection_Explanation_Text_Unknown" = "Nie możemy jeszcze podać ryzyka zakażenia, ponieważ nie mamy jeszcze wystarczającej ilości danych.\n\nRyzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie w smartfonie. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.";
 
@@ -161,7 +161,7 @@
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Informacje o funkcjonalności rejestrowania narażenia";
 
-"How_Risk_Detection_Works_Alert_Message" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna.\nRejestrowanie narażenia obejmuje ostatnie %1$u dni.\nAplikacja automatycznie usuwa starsze dzienniki, ponieważ nie są one już istotne dla zapobiegania zakażeniom.\n\nWięcej informacji znajduje się na naszej stronie Często zadawane pytania.";
+"How_Risk_Detection_Works_Alert_Message" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna.\nRejestrowanie narażenia obejmuje ostatnie %1$u dni.\nAplikacja automatycznie usuwa starsze dzienniki, ponieważ nie są one już istotne dla zapobiegania zakażeniom.\n\nWięcej informacji znajduje się na naszej stronie „Często zadawane pytania”.";
 
 /* Settings */
 "Settings_Notification_StatusActive" = "Wł.";
@@ -317,13 +317,13 @@
 
 "OnboardingInfo_privacyPage_normalText" = "Zachowasz anonimowość.\nTwoje dane są w pełni zaszyfrowane i przesyłane pod pseudonimem.\n\nOdpowiedzialny organ: RODO, artykuł 4, paragraf. 7:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nZapoznaj się z naszymi przepisami o prywatności danych.\n\nInformacje o prywatności danych:";
 
-"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Trzy osoby aktywowały rejestrowanie narażenia na swoich urządzeniach, które będą rejestrować ich wzajemne kontakty.";
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Trzy osoby aktywowały rejestrowanie narażenia na swoich smartfonach, które będą rejestrować ich wzajemne kontakty.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "Jak włączyć rejestrowanie narażenia";
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Aby ustalić występowanie ryzyka zakażenia, musisz aktywować funkcję rejestrowania narażenia.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Działanie funkcji rejestrowania narażenia polega na odbieraniu przez Twój smartfon za pomocą Bluetooth zaszyfrowanych, losowych identyfikatorów innych użytkowników i przekazywaniu Twoich własnych, losowych identyfikatorów do ich urządzeń. Funkcję tę można wyłączyć w dowolnym momencie. \n\nIdentyfikatory przekazują w sposób zaszyfrowany wyłącznie informacje o dacie, czasie trwania i odległości (przy wykorzystaniu mocy sygnału) od innych użytkowników aplikacji. Dane osobowe, takie jak nazwisko, adres, lokalizacja, nie są nigdy rejestrowane. Ustalenie tożsamości osób nie jest możliwe.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Działanie funkcji rejestrowania narażenia polega na odbieraniu przez Twój smartfon za pomocą Bluetooth zaszyfrowanych, losowych identyfikatorów innych użytkowników i przekazywaniu Twoich własnych, losowych identyfikatorów do ich urządzeń. Funkcję tę można wyłączyć w dowolnym momencie. \n\nIdentyfikatory przekazują w sposób zaszyfrowany wyłącznie informacje o dacie kontaktu, czasie trwania i odległości (przy wykorzystaniu mocy sygnału) od innych użytkowników aplikacji. Dane osobowe, takie jak nazwisko, adres, lokalizacja, nie są nigdy rejestrowane. Ustalenie tożsamości osób na podstawie losowych identyfikatorów nie jest możliwe.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Limit wieku: 16 i więcej";
 
@@ -343,7 +343,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… zgłoś ten fakt w Corona-Warn-App. Udostępnianie wyników testu jest dobrowolne i bezpieczne. Zrób to ze względu na zdrowie innych osób.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Twoje powiadomienie jest szyfrowane w bezpieczny sposób i przetwarzane na bezpiecznym serwerze. Osoby, których zaszyfrowane losowe identyfikatory zostały zgromadzone przez Twoje urządzenie, otrzymają wtedy ostrzeżenie wraz z informacją na temat dalszych kroków postępowania.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Twoje powiadomienie jest szyfrowane w bezpieczny sposób i przetwarzane na bezpiecznym serwerze. Osoby, których zaszyfrowane losowe identyfikatory zostały zgromadzone przez Twój smartfon, otrzymają wtedy ostrzeżenie wraz z informacją na temat dalszych kroków postępowania.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Kobieta otrzymuje powiadomienie od swojej aplikacji Corona-Warn-App.";
 
@@ -356,7 +356,7 @@
 /* Onboarding EU Keys */
 "onboardingInfo_enableLoggingOfContactsPage_euTitle" = "Rejestrowanie narażenia\nw różnych krajach";
 
-"onboardingInfo_enableLoggingOfContactsPage_euDescription" = "Wiele krajów w UE współpracuje w zakresie aktywowania międzynarodowych ostrzeżeń. Innymi słowy, można teraz określić Twoje potencjalne narażenie wobec użytkowników oficjalnych aplikacji Corona we wszystkich uczestniczących krajach.\n\nGdy użytkownik przesyła swój losowy identyfikator do systemu serwera obsługiwanego wspólnie przez kraje uczestniczące, użytkownicy oficjalnych aplikacji Corona we wszystkich tych krajach mogą zostać ostrzeżeni o potencjalnym narażeniu.\n\nCodzienne pobieranie losowych identyfikatorów jest bezpłatne – Twój wolumen danych nie jest związany z żadną opłatą ani kosztami roamingu w innych krajach europejskich.";
+"onboardingInfo_enableLoggingOfContactsPage_euDescription" = "Wiele krajów współpracuje w zakresie aktywowania międzynarodowych ostrzeżeń. Innymi słowy, można teraz określić Twoje potencjalne narażenie wobec użytkowników oficjalnych aplikacji koronawirusowych we wszystkich uczestniczących krajach.\n\nGdy użytkownik przesyła swój losowy identyfikator do serwera wymiany danych obsługiwanego wspólnie przez kraje uczestniczące, użytkownicy oficjalnych aplikacji koronawirusowych we wszystkich tych krajach mogą zostać ostrzeżeni o potencjalnym narażeniu.\n\nCodzienne pobieranie losowych identyfikatorów jest bezpłatne. To oznacza, że wolumen danych aplikacji nie będzie podlegał żadnym opłatom naliczanym przez operatorów komórkowych ani opłatom roamingowym w innych krajach europejskich. Aby uzyskać więcej informacji, skontaktuj się ze swoim operatorem komórkowym.";
 
 "onboardingInfo_enableLoggingOfContactsPage_participatingCountriesTitle" = "Obecnie uczestniczą następujące kraje:";
 
@@ -487,7 +487,7 @@
 
 "ExposureSubmissionSuccess_listItem2_1" = "Okres kwarantanny wynosi zazwyczaj 14 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 15 minut w ciągu dwóch dni przed wystąpieniem objawów.";
+"ExposureSubmissionSuccess_listItem2_2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (rozmowa twarzą w twarz w odległości mniejszej niż 2 metry) przez ponad 15 minut w ciągu dwóch dni przed wystąpieniem objawów.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Zwróć szczególną uwagę na osoby, które nie zostaną powiadomione bezpośrednio przez aplikację, ponieważ nie posiadają smartfonów lub nie zainstalowały aplikacji.";
 
@@ -500,9 +500,9 @@
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "Zaszyfrowana diagnoza zakażenia jest przesyłana do systemu.";
 
-"ExposureSubmissionIntroduction_Usage01" = "Aby zapewnić prawidłowe działanie aplikacji, korzystamy ze wsparcia osób, u których zdiagnozowano COVID-19.";
+"ExposureSubmissionIntroduction_Usage01" = "Skuteczność działania aplikacji zależy od pomocy osób, u których zdiagnozowano COVID-19.";
 
-"ExposureSubmissionIntroduction_Usage02" = "Ponieważ wymieniane są tylko zaszyfrowane, losowe identyfikatory, zachowujesz anonimowość. Możesz teraz postąpić w poniższy sposób:";
+"ExposureSubmissionIntroduction_Usage02" = "Ponieważ w aplikacji wymieniane są tylko zaszyfrowane, losowe identyfikatory, zachowujesz anonimowość. Możesz teraz postąpić w poniższy sposób:";
 
 "ExposureSubmissionIntroduction_ListItem1" = "Jeżeli w Twoim dokumencie testu znajduje się kod QR, możesz go zeskanować i zarejestrować test. Jak tylko wynik będzie dostępny, będziesz mieć możliwość sprawdzenia go w aplikacji.";
 
@@ -535,15 +535,15 @@
 
 "ExposureSubmissionResult_warnOthers" = "Ostrzeganie innych";
 
-"ExposureSubmissionResult_warnOthersDesc" = "Udostępnij swoje losowe identyfikatory z ostatnich 14 dni w celu ochrony innych osób i przerwania łańcucha zakażeń.";
+"ExposureSubmissionResult_warnOthersDesc" = "Udostępnij swoje losowe identyfikatory, aby ostrzegać innych.\nPomóż innym dokładniej ocenić ryzyko zakażenia, wysyłając informację, gdy dostrzeżesz u siebie symptomy koronawirusa.";
 
 "ExposureSubmissionResult_testPositive" = "Diagnoza zakażenia";
 
 "ExposureSubmissionResult_testPositiveDesc" = "Twój wynik testu jest pozytywny.";
 
-"ExposureSubmissionResult_testNegative" = "Diagnoza braku zakażenia";
+"ExposureSubmissionResult_testNegative" = "Diagnoza: brak zakażenia";
 
-"ExposureSubmissionResult_testNegativeDesc" = "Wynik laboratoryjny nie potwierdza, że masz koronawirusa SARS-CoV-2.";
+"ExposureSubmissionResult_testNegativeDesc" = "Wynik laboratoryjny nie potwierdza zakażenia wirusem SARS-CoV-2.";
 
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Inne informacje:";
 
@@ -604,7 +604,7 @@
 
 "ExposureSubmissionSymptoms_AnswerOptionNo" = "Nie";
 
-"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Bez komentarza";
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Brak odpowiedzi";
 
 "ExposureSubmissionSymptoms_ContinueButton" = "Dalej";
 
@@ -623,7 +623,7 @@
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "Ponad 2 tygodnie temu";
 
-"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Bez komentarza";
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Brak odpowiedzi";
 
 "ExposureSubmissionSymptomsOnset_ContinueButton" = "Dalej";
 
@@ -632,9 +632,9 @@
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "Zaszyfrowana diagnoza zakażenia jest przesyłana do systemu.";
 
-"ExposureSubmissionWarnOthers_sectionTitle" = "Pomóż nam wszystkim!";
+"ExposureSubmissionWarnOthers_sectionTitle" = "Możesz pomóc!";
 
-"ExposureSubmissionWarnOthers_description" = "Możesz się teraz upewnić, czy inni zostali powiadomieni o potencjalnym narażeniu.\n\nW tym celu możesz wysyłać losowe identyfikatory, które są przechowywane tylko na Twoim smartfonie, do europejskiego systemu serwera, który jest obsługiwany wspólnie przez wszystkie uczestniczące kraje. Z tego systemu kraje uczestniczące przesyłają losowe identyfikatory do użytowników oficjalnych aplikacji Corona. Po codziennym pobraniu danych, inni użytkownicy, z którymi miałeś(-łaś) kontakt, zostaną powiadomieni, czy dotyczy ich ryzyko narażenia.\n\nUdostępniane są tylko losowe identyfikatory. Nie są udostępniane dane osobowe, takie jak imię i nazwisko, adres lub lokalizacja.";
+"ExposureSubmissionWarnOthers_description" = "Jeśli chcesz, możesz się teraz upewnić, czy inni otrzymali ostrzeżenie dotyczące potencjalnego zakażenia.\n\nW tym celu możesz wysyłać losowe identyfikatory z ostatnich 14 dni – a opcjonalnie informację o dostrzeżeniu symptomów koronawirusa u siebie – na wspólny serwer wymiany danych obsługiwany przez wszystkie uczestniczące kraje. Z tego serwera Twoje losowe identyfikatory i wszelkie dodatkowe informacje będą przesyłane do użytkowników odpowiednich oficjalnych aplikacji koronawirusowych. Dzięki temu inni użytkownicy, z którymi miałeś(-łaś) kontakt, otrzymają ostrzeżenie dotyczące ewentualnego zakażenia.\n\nJedynymi udostępnianymi informacjami są Twoje losowe identyfikatory oraz wszelkie opcjonalnie podane przez Ciebie informacje o wystąpieniu u Ciebie symptomów. Nie są ujawniane żadne dane osobowe, takie jak imię i nazwisko, adres czy lokalizacja.";
 
 "ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Następujące kraje uczestniczą obecnie w międzynarodowym rejestrowaniu narażenia:";
 
@@ -707,19 +707,19 @@
 
 "ExposureNotificationSetting_DescriptionTitle_Inactive" = "Aktywuj rejestrowanie narażenia";
 
-"ExposureNotificationSetting_DescriptionTitle" = "Sposób działania funkcji rejestrowania narażenia";
+"ExposureNotificationSetting_DescriptionTitle" = "Jak działa funkcja rejestrowania narażenia";
 
-"ExposureNotificationSetting_DescriptionText1" = "Aby ustalić występowanie ryzyka zakażenia, musisz aktywować funkcję rejestrowania narażenia.";
+"ExposureNotificationSetting_DescriptionText1" = "Musisz włączyć funkcję rejestrowania narażenia, aby aplikacja mogła ustalić, czy dotyczy Cię ryzyko zakażenia po kontakcie z zainfekowanym użytkownikiem aplikacji. Funkcja rejestrowania narażenia działa we wszystkich uczestniczących krajach, co oznacza, że potencjalne narażenie użytkowników jest wykrywane również przez inne oficjalne aplikacje koronawirusowe.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Działanie funkcji rejestrowania narażenia polega na odbieraniu przez Twój smartfon za pomocą Bluetooth zaszyfrowanych, losowych identyfikatorów innych użytkowników i przekazywaniu Twoich własnych, losowych identyfikatorów do ich urządzeń Funkcję tę można wyłączyć w dowolnym momencie.";
+"ExposureNotificationSetting_DescriptionText2" = "Działanie funkcji rejestrowania narażenia polega na odbieraniu przez Twój smartfon za pomocą Bluetooth zaszyfrowanych, losowych identyfikatorów innych użytkowników i przekazywaniu Twoich własnych, losowych identyfikatorów do ich urządzeń. Codziennie aplikacja pobiera listę losowych identyfikatorów – wraz z wszelkimi opcjonalnie podawanymi informacjami o wystąpieniu symptomów – wszystkich użytkowników, którzy mieli pozytywny wynik testu na wirusa i dobrowolnie udostępnili tę informację poprzez aplikację. Lista jest następnie porównywana z losowymi identyfikatorami innych użytkowników, które zarejestrował Twój smartfon, w celu obliczenia prawdopodobieństwa Twojego zakażenia i ostrzeżenia Cię w razie potrzeby. Funkcję tę można wyłączyć w dowolnym momencie.";
 
-"ExposureNotificationSetting_DescriptionText3" = "Identyfikatory przekazują w sposób zaszyfrowany wyłącznie informacje o dacie, czasie trwania i odległości (przy wykorzystaniu mocy sygnału) od innych użytkowników aplikacji. Dane osobowe, takie jak nazwisko, adres, lokalizacja, nie są nigdy rejestrowane. Ustalenie tożsamości osób nie jest możliwe.";
+"ExposureNotificationSetting_DescriptionText3" = "Aplikacja nigdy nie gromadzi danych osobowych takich jak imię i nazwisko, adres czy lokalizacja. Takie informacje nie są też przekazywane innym użytkownikom. Nie jest możliwe wykorzystanie losowych identyfikatorów w celu ustalenia tożsamości poszczególnych osób.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Włącz Bluetooth";
 
 "ExposureNotificationSetting_Bluetooth_Description" = "Należy włączyć Bluetooth, aby funkcja rejestrowania narażenia mogła rejestrować kontakty. Włącz Bluetooth w ustawieniach swojego urządzenia.";
 
-"ExposureNotificationSetting_Activate_Internet" = "Otwórz połączenie z Internetem";
+"ExposureNotificationSetting_Activate_Internet" = "Połącz z Internetem";
 
 "ExposureNotificationSetting_Internet_Description" = "Rejestrowanie narażenia wymaga połączenia z Internetem w celu obliczenia narażeń. Włącz WIFI lub dane mobilne w ustawieniach swojego urządzenia.";
 
@@ -729,7 +729,7 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Aby rejestrowanie narażenia było możliwe, należy aktywować funkcję powiadamiania o narażeniu w ustawieniach systemu w celu umożliwienia rejestracji kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” -> „Powiadomienia o narażeniu” -> „Udostępnij informacje o narażeniu”. Następnie zdefiniuj aplikację jako aktywną dla powiadomień o narażeniu wybierając opcję ”Określ jako region aktywny”.";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "Aktywuj powiadomienia o narażeniu na COVID-19";
+"ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "Aktywuj powiadomienia o narażeniu na COVID-19 ";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Rejestrowanie narażenia wymaga aktywacji powiadomień o narażeniu na COVID-19, tak by możliwe było rejestrowanie kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” i aktywuj „Powiadomienia o narażeniu na COVID-19” w ustawieniach.";
 
@@ -749,7 +749,7 @@
 
 "ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Autoryzacja";
 
-"ExposureNotificationSetting_AccLabel_Enabled" = "Trzy osoby aktywowały rejestrowanie narażenia na swoich urządzeniach, które będą rejestrować ich wzajemne kontakty.";
+"ExposureNotificationSetting_AccLabel_Enabled" = "Trzy osoby aktywowały rejestrowanie narażenia na swoich smartfonach, które będą rejestrować ich wzajemne kontakty.";
 
 "ExposureNotificationSetting_AccLabel_Disabled" = "Jedna osoba dezaktywowała rejestrowanie narażenia na swoim smartfonie, więc kontakt z dwiema pozostałymi osobami nie jest rejestrowany.";
 
@@ -771,25 +771,25 @@
 
 "ExposureNotificationSetting_exposureNotification_Required" = "Podczas aktywacji funkcji rejestrowania narażenia wystąpił błąd. Sprawdź, czy funkcja powiadamiania o narażeniu na COVID-19 jest aktywna w ustawieniach dla tej aplikacji.";
 
-"ExposureNotificationSetting_exposureNotification_unavailable" = "Podczas aktywacji funkcji rejestrowania narażenia wystąpił błąd. Sprawdź, czy ta aplikacja jest wybrana w Twoich ustawieniach jako aktywna aplikacja do rejestrowania narażenia na COVID-19. Aby uzyskać więcej informacji, odwiedź naszą stronę Często zadawane pytania.";
+"ExposureNotificationSetting_exposureNotification_unavailable" = "Podczas aktywacji funkcji rejestrowania narażenia wystąpił błąd. Sprawdź, czy ta aplikacja jest wybrana w Twoich ustawieniach jako aktywna aplikacja do rejestrowania narażenia na COVID-19. Aby uzyskać więcej informacji, odwiedź naszą stronę „Często zadawane pytania”.";
 
-"ExposureNotificationSetting_unknownError" = "Wystąpił nieznany błąd. Aby uzyskać więcej informacji, odwiedź naszą stronę Często zadawane pytania.";
+"ExposureNotificationSetting_unknownError" = "Wystąpił nieznany błąd. Aby uzyskać więcej informacji, odwiedź naszą stronę „Często zadawane pytania”.";
 
-"ExposureNotificationSetting_apiMisuse" = "Podczas aktywacji funkcji rejestrowania narażenia wystąpił wewnętrzny błąd. Aby uzyskać więcej informacji, odwiedź naszą stronę Często zadawane pytania i spróbuj ponownie później.";
+"ExposureNotificationSetting_apiMisuse" = "Podczas aktywacji funkcji rejestrowania narażenia wystąpił wewnętrzny błąd. Aby uzyskać więcej informacji, odwiedź naszą stronę „Często zadawane pytania” i spróbuj ponownie później.";
 
 /* EU Settings */
 "ExposureNotificationSetting_EU_Title" = "Rejestrowanie narażenia\nw różnych krajach";
 
-"ExposureNotificationSetting_EU_Desc_1" = "Corona-Warn-App ostrzega Cię o potencjalnym zakażeniu w skali międzynarodowej, dzięki wymianie danych w całej infrastrukturze krajów europejskich.";
+"ExposureNotificationSetting_EU_Desc_1" = "Wiele krajów współpracuje ze sobą w celu aktywacji transgranicznych alertów wysyłanych poprzez wspólny serwer wymiany danych. Na przykład przy rejestrowaniu narażenia można wziąć pod uwagę również kontakty z użytkownikami oficjalnych aplikacji koronawirusowyych z innych uczestniczących krajów.";
 
-"ExposureNotificationSetting_EU_Desc_2" = "Nie są udostępniane dane osobowe. Nie ponosisz żadnych dodatkowych kosztów z tytułu transgranicznego udostępniania danych przez Corona-Warn-App";
+"ExposureNotificationSetting_EU_Desc_2" = "W tym celu aplikacja pobiera listę, która jest aktualizowana codziennie, z losowymi identyfikatorami wszystkich użytkowników, którzy udostępnili swoje losowe identyfikatory poprzez własną aplikację. Lista jest następnie porównywana z losowymi identyfikatorami zarejestrowanymi przez Twój smartfon. Codzienne pobieranie listy z losowymi identyfikatorami jest z reguły bezpłatne – za dane używane przez aplikację w tym kontekście nie będą pobierane opłaty roamingowe w innych krajach UE.";
 
-"ExposureNotificationSetting_EU_Desc_3" = "Obecnie uczestniczą następujące kraje:";
+"ExposureNotificationSetting_EU_Desc_3" = "Następujące kraje uczestniczą obecnie w międzynarodowym rejestrowaniu narażenia:";
 
-"ExposureNotificationSetting_EU_Desc_4" = "Die Datenschutzerklärung der App (einschließlich Informationen zur Datenverarbeitung für die länderübergreifende Risiko-Ermittlung) finden Sie unter dem Menüpunkt „App-Informationen“ > „Datenschutz“.";
+"ExposureNotificationSetting_EU_Desc_4" = "Informacje aplikacji o prywatności danych (łącznie z wyjaśnieniem dotyczącym przetwarzania danych wykonywanego dla funkcji rejestrowania narażenia) można znaleźć w menu w sekcji „Informacje aplikacji” > „Informacje o ochronie danych”.";
 
 /* EU Tracing Risk decription */
-"ExposureNotificationSetting_euTracingRiskDeterminationTitle" = "Rejestrowanie narażenia\nw różnych krajach";
+"ExposureNotificationSetting_euTracingRiskDeterminationTitle" = "Rejestrowanie narażenia w różnych krajach";
 
 "ExposureNotificationSetting_euTracingAllCountriesTitle" = "Kraje uczestniczące";
 
@@ -826,7 +826,7 @@
 
 "Home_Risk_Last_Activate_Item_Title" = "Ostatnie rejestrowanie narażenia:\n%@";
 
-"Home_Risk_Last_Activate_Item_Unknown_Title" = "Ryzyko nieznane";
+"Home_Risk_Last_Activate_Item_Unknown_Title" = "Nieznane ryzyko";
 
 "Home_Risk_Last_Activate_Item_Low_Title" = "Niskie ryzyko";
 
@@ -883,7 +883,7 @@
 
 "Home_Thank_You_Card_14Days_Item_Title" = "Okres kwarantanny wynosi zazwyczaj 14 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
 
-"Home_Thank_You_Card_Contacts_Item_Title" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 15 minut w ciągu dwóch dni przed wystąpieniem objawów.";
+"Home_Thank_You_Card_Contacts_Item_Title" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (rozmowa twarzą w twarz w odległości mniejszej niż 2 metry) przez ponad 15 minut w ciągu dwóch dni przed wystąpieniem objawów.";
 
 "Home_Thank_You_Card_App_Item_Title" = "Zwróć szczególną uwagę na osoby, które nie zostaną powiadomione bezpośrednio przez aplikację, ponieważ nie posiadają smartfonów lub nie zainstalowały aplikacji.";
 
@@ -919,7 +919,7 @@
 
 "Home_InfoCard_AboutTitle" = "Często zadawane pytania";
 
-"Home_InfoCard_AboutBody" = "Tutaj możesz znaleźć odpowiedzi na często zadawane pytania dotyczące Corona-Warn-App. Zostaniesz przekierowany(-a) na zewnętrzną stronę internetową.";
+"Home_InfoCard_AboutBody" = "Tutaj możesz znaleźć odpowiedzi na często zadawane pytania dotyczące Corona-Warn-App. Zostaniesz przekierowany(-a) na zewnętrzną stronę internetową administracji Niemiec.";
 
 "Home_SettingsCard_Title" = "Ustawienia";
 
@@ -1096,7 +1096,7 @@
 
 "RiskLegend_Legend1_Title" = "Rejestrowanie narażenia";
 
-"RiskLegend_Legend1_Text" = "Rejestrowanie narażenia jest jedną z trzech głównych funkcji aplikacji. Po jej aktywacji rejestrowane są kontakty z urządzeniami innych osób. Nie musisz robić nic więcej.";
+"RiskLegend_Legend1_Text" = "Rejestrowanie narażenia jest jedną z trzech głównych funkcji aplikacji. Po jej aktywacji rejestrowane są kontakty ze smartfonami innych osób. Nie musisz robić nic więcej.";
 
 "RiskLegend_Legend2_Title" = "Ryzyko zakażenia";
 
@@ -1118,17 +1118,17 @@
 
 "RiskLegend_Legend3_Title" = "Powiadamianie innych użytkowników";
 
-"RiskLegend_Legend3_Text" = "Inną kluczową funkcją jest rejestracja testu i pobranie wyniku. W przypadku zdiagnozowania u Ciebie COVID-19 będziesz mieć możliwość powiadomienia innych i przerwania łańcucha zakażeń.";
+"RiskLegend_Legend3_Text" = "Kolejną kluczową funkcją jest rejestracja testu i pobranie wyniku. W przypadku zdiagnozowania u Ciebie COVID-19 będziesz mieć możliwość powiadomienia innych i przerwania łańcucha zakażeń.";
 
 "RiskLegend_Definitions_Title" = "Definicja terminów";
 
 "RiskLegend_Store_Title" = "Dziennik narażeń";
 
-"RiskLegend_Store_Text" = "Lista otrzymanych i tymczasowych losowych identyfikatorów zapisanych tymczasowo w pamięci masowej systemu operacyjnego. Lista ta jest odczytywana podczas sprawdzania narażeń. Wszystkie losowe identyfikatory są automatycznie usuwane po 14 dniach.";
+"RiskLegend_Store_Text" = "Lista otrzymanych i tymczasowych losowych identyfikatorów zapisanych tymczasowo w pamięci masowej systemu operacyjnego. Aplikacja korzysta z listy podczas sprawdzania narażeń. Wszystkie losowe identyfikatory są automatycznie usuwane po 14 dniach.";
 
 "RiskLegend_Check_Title" = "Sprawdzanie narażenia";
 
-"RiskLegend_Check_Text" = "Dane dziennika narażeń są pobierane i synchronizowane ze zgłoszonymi zakażeniami innych użytkowników. Sprawdzanie narażeń jest wykonywane automatycznie mniej więcej co dwie godziny.";
+"RiskLegend_Check_Text" = "Odczytanie danych dziennika narażeń i porównanie ze zgłoszonymi zakażeniami innych użytkowników. Sprawdzanie narażeń jest wykonywane automatycznie mniej więcej co dwie godziny.";
 
 "RiskLegend_Contact_Title" = "Narażenia";
 
@@ -1136,13 +1136,13 @@
 
 "RiskLegend_Notification_Title" = "Powiadomienie o narażeniu";
 
-"RiskLegend_Notification_Text" = "Wyświetlanie narażeń w Corona-Warn-App.";
+"RiskLegend_Notification_Text" = "Wyświetlenie narażeń w Corona-Warn-App.";
 
 "RiskLegend_Random_Title" = "Losowe identyfikatory";
 
-"RiskLegend_Random_Text" = "Identyfikatory losowe są kombinacją cyfr i liter generowanych losowo. Są one wymieniane pomiędzy urządzeniami znajdującymi się w bliskiej odległości od siebie. Identyfikatorów losowych nie można przypisać do konkretnej osoby. Są one automatycznie usuwane po 14 dniach. Osoby, u których zdiagnozowano COVID-19, mogą zdecydować się na udostępnienie swoich losowych identyfikatorów z ostatnich 14 dni innym użytkownikom aplikacji.";
+"RiskLegend_Random_Text" = "Losowe identyfikatory są kombinacją cyfr i liter generowanych losowo. Są one wymieniane pomiędzy smartfonami znajdującymi się w bliskiej odległości od siebie. Losowych identyfikatorów nie można przypisać do konkretnej osoby. Są one automatycznie usuwane po 14 dniach. Osoby, u których zdiagnozowano COVID-19, mogą zdecydować się na udostępnienie swoich losowych identyfikatorów z ostatnich 14 dni innym użytkownikom aplikacji.";
 
-"RiskLegend_Image1_AccLabel" = "Urządzenie pokazuje różne ponumerowane treści.";
+"RiskLegend_Image1_AccLabel" = "Smartfon pokazuje różne ponumerowane treści.";
 
 /* Update Message */
 "Update_Message_Title" = "Dostępna aktualizacja";
@@ -1172,7 +1172,7 @@
 
 "DeltaOnboarding_Headline" = "Rejestrowanie narażenia\nw różnych krajach";
 
-"DeltaOnboarding_Description" = "Funkcje aplikacji Corona-Warn-App zostały rozszerzone. Wiele krajów UE połączyło siły w celu aktywacji międzynarodowych ostrzeżeń, na podstawie wspólnie obsługiwanego systemu serwera. Podczas oceny ryzyka narażenia można teraz wziąć pod uwagę narażenie wobec użytkowników oficjalnych aplikacji Corona w innych krajach uczestniczących.";
+"DeltaOnboarding_Description" = "Funkcje aplikacji Corona-Warn-App zostały rozszerzone. Wiele krajów UE współpracuje teraz w celu aktywacji międzynarodowych alertów wysyłanych poprzez wspólny serwer wymiany danych. Przy rejestracji narażenia można teraz na przykład wziąć pod uwagę kontakty z użytkownikami dowolnej oficjalnej aplikacji koronawirusowej z innych krajów uczestniczących.\n\nW tym celu aplikacja pobiera listę, która jest aktualizowana codziennie, z losowymi identyfikatorami wszystkich użytkowników, którzy udostępnili swoje losowe identyfikatory poprzez własną aplikację. Lista jest następnie porównywana z losowymi identyfikatorami zarejestrowanymi przez Twój smartfon.\n\nCodzienne pobieranie listy z losowymi identyfikatorami jest z reguły bezpłatne. Oznacza to, że operatorzy sieci mobilnych nie będą pobierać opłat za transmisję danych używanych przez aplikację w tym kontekście ani też nie będą naliczane opłaty roamingowe w innych krajach UE. Aby uzyskać więcej informacji, skontaktuj się ze swoim operatorem sieci mobilnej.";
 
 "DeltaOnboarding_ParticipatingCountries" = "Obecnie uczestniczą następujące kraje:";
 
@@ -1182,9 +1182,9 @@
 
 "DeltaOnboarding_PrimaryButton_Continue" = "Dalej";
 
-"DeltaOnboarding_Terms_Description1" = "Im Zuge der Erweiterung der Funktion der App wurden auch die Nutzungsbedingungen aktualisiert:";
+"DeltaOnboarding_Terms_Description1" = "Warunki korzystania zostały również zaktualizowane w celu uwzględnienia rozszerzeń funkcji w aplikacji,";
 
-"DeltaOnboarding_Terms_Button" = "Nutzungsbedingungen anzeigen";
+"DeltaOnboarding_Terms_Button" = "Wyświetl warunki korzystania";
 
-"DeltaOnboarding_Terms_Description2" = "Die Nutzungsbedingungen und die Datenschutzerklärung finden Sie auch unter dem Menüpunkt „App-Informationen“ sowie in der App-Beschreibung Ihres App Stores. Die Änderungen haben keine Auswirkungen auf Ihre Nutzung der App. Wenn Sie die App weiter nutzen oder erneut öffnen, gehen wir davon aus, dass Sie mit den aktualisierten Nutzungsbedingungen einverstanden sind.";
+"DeltaOnboarding_Terms_Description2" = "Warunki korzystania i informacje o prywatności danych można znaleźć w menu w sekcji „Informacje aplikacji” oraz w opisie aplikacji w Twoim App Store. Zmiany nie będą miały wpływu na korzystanie przez Ciebie z aplikacji. W przypadku dalszego korzystania z aplikacji lub jej ponownego otwarcia, zakładamy, że użytkownik zgadza się na zaktualizowane warunki korzystania.";
 
