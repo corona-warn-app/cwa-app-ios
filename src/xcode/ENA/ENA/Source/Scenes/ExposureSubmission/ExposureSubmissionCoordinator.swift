@@ -366,19 +366,32 @@ extension ExposureSubmissionCoordinator {
 			isLoading: isLoading,
 			onSuccess: { [weak self] in self?.showTestResultScreen(with: $0) },
 			onError: { [weak self] error in
-				if let submissionError = error as? ExposureSubmissionError {
-					self?.showErrorAlert(for: submissionError)
-				} else {
-					let alert = UIAlertController.errorAlert(
+				let alert: UIAlertController
+
+				switch error {
+				case .qRNotExist:
+					alert = UIAlertController.errorAlert(
+						title: AppStrings.ExposureSubmissionError.qrNotExistTitle,
+						message: error.localizedDescription
+					)
+
+					self?.navigationController?.present(alert, animated: true, completion: nil)
+				case .qRAlreadyUsed:
+					alert = UIAlertController.errorAlert(
+						title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
+						message: error.localizedDescription
+					)
+				default:
+					alert = UIAlertController.errorAlert(
 						message: error.localizedDescription,
 						secondaryActionTitle: AppStrings.Common.alertActionRetry,
 						secondaryActionCompletion: {
 							self?.getTestResults(for: key, isLoading: isLoading)
 						}
 					)
-
-					self?.navigationController?.present(alert, animated: true)
 				}
+
+				self?.navigationController?.present(alert, animated: true, completion: nil)
 
 				logError(message: "An error occurred during result fetching: \(error)", level: .error)
 			}
