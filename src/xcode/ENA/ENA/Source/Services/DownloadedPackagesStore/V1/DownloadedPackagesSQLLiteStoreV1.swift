@@ -110,7 +110,7 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 		#if !RELEASE
 
 		if let store = keyValueStore, let errorCode = store.fakeSQLiteError {
-			completeAsyncWithError(completion: completion, errorCode: errorCode)
+			failAsyncWithError(completion: completion, errorCode: errorCode)
 			return
 		}
 
@@ -174,12 +174,12 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 
 			guard deleteHours() else {
 				self.database.rollback()
-				self.completeAsyncWithError(completion: completion, errorCode: database.lastErrorCode())
+				self.failAsyncWithError(completion: completion, errorCode: database.lastErrorCode())
 				return
 			}
 			guard insertDay() else {
 				self.database.rollback()
-				self.completeAsyncWithError(completion: completion, errorCode: database.lastErrorCode())
+				self.failAsyncWithError(completion: completion, errorCode: database.lastErrorCode())
 				return
 			}
 
@@ -190,8 +190,8 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 
 	}
 
-	private func completeAsyncWithError(completion: ((SQLiteError?) -> Void)?, errorCode: Int32) {
-		queue.async {
+	private func failAsyncWithError(completion: ((SQLiteError?) -> Void)?, errorCode: Int32) {
+		DispatchQueue.global().async {
 			if let error = SQLiteError(rawValue: errorCode) {
 				completion?(error)
 			} else {
@@ -201,7 +201,7 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 	}
 
 	private func completeAsync(completion: ((SQLiteError?) -> Void)?) {
-		queue.async {
+		DispatchQueue.global().async {
 			completion?(nil)
 		}
 	}
