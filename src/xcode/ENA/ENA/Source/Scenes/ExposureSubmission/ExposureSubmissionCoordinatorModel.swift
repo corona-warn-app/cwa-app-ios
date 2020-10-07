@@ -103,7 +103,7 @@ class ExposureSubmissionCoordinatorModel {
 		for key: DeviceRegistrationKey,
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping (TestResult) -> Void,
-		onError: @escaping (Error) -> Void
+		onError: @escaping (ExposureSubmissionError) -> Void
 	) {
 		isLoading(true)
 

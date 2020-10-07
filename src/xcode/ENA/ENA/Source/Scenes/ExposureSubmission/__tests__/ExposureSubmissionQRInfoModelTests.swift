@@ -20,7 +20,7 @@
 import XCTest
 @testable import ENA
 
-class ExposureSubmissionCoordinatorModelTests: XCTestCase {
+class ExposureSubmissionQRInfoModelTests: XCTestCase {
 
 	func testDynamicTableVIewModel() {
 		let viewModel = ExposureSubmissionQRInfoViewModel()
