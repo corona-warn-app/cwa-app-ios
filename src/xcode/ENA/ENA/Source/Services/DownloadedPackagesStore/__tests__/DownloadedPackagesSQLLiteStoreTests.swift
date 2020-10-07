@@ -89,7 +89,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		let completionExpectation = expectation(description: "Completion callback")
 		let mockStore = MockTestStore()
 		
-		mockStore.fakeSQLiteError = SQLiteError.sqlite_full.rawValue
+		mockStore.fakeSQLiteError = SQLiteErrorCode.sqlite_full.rawValue
 		
 		store.keyValueStore = mockStore
 		

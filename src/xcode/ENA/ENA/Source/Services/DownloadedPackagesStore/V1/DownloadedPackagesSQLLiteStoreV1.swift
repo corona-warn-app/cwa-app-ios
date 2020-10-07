@@ -104,7 +104,7 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 		country: Country.ID,
 		day: String,
 		package: SAPDownloadedPackage,
-		completion: ((SQLiteError?) -> Void)? = nil
+		completion: ((SQLiteErrorCode?) -> Void)? = nil
 	) {
 
 		#if !RELEASE
@@ -190,9 +190,9 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 
 	}
 
-	private func failAsyncWithError(completion: ((SQLiteError?) -> Void)?, errorCode: Int32) {
+	private func failAsyncWithError(completion: ((SQLiteErrorCode?) -> Void)?, errorCode: Int32) {
 		DispatchQueue.global().async {
-			if let error = SQLiteError(rawValue: errorCode) {
+			if let error = SQLiteErrorCode(rawValue: errorCode) {
 				completion?(error)
 			} else {
 				completion?(.unknown)
@@ -200,7 +200,7 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 		}
 	}
 
-	private func completeAsync(completion: ((SQLiteError?) -> Void)?) {
+	private func completeAsync(completion: ((SQLiteErrorCode?) -> Void)?) {
 		DispatchQueue.global().async {
 			completion?(nil)
 		}

@@ -18,7 +18,7 @@
 import Foundation
 import FMDB
 
-enum SQLiteError: Int32 {
+enum SQLiteErrorCode: Int32 {
 	case sqlite_full = 13
 	case unknown = -1
 }
@@ -31,7 +31,7 @@ protocol DownloadedPackagesStoreV1: AnyObject {
 		country: Country.ID,
 		day: String,
 		package: SAPDownloadedPackage,
-		completion: ((SQLiteError?) -> Void)?
+		completion: ((SQLiteErrorCode?) -> Void)?
 	)
 
 	func set(country: Country.ID, hour: Int, day: String, package: SAPDownloadedPackage)
