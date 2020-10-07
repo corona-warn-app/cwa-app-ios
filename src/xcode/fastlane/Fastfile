@@ -58,7 +58,7 @@ platform :ios do
   lane :test do
     # Combined Unit & UI Tests
     run_tests(
-      scheme: "ENAUnifiedTests",
+      scheme: "ENATests",
       testplan: "AllTests",
       devices: ["iPhone 11"]
     )
@@ -74,7 +74,7 @@ platform :ios do
     # Gather code coverage
     xcov(
       workspace: "ENA.xcworkspace",
-      scheme: "ENAUnifiedTests",
+      scheme: "ENATests",
       markdown_report: true,
       html_report: false,
       output_directory: "fastlane/test_output"
