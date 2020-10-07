@@ -104,9 +104,7 @@ enum AppStrings {
 		static let procedure = NSLocalizedString("ExposureSubmissionResult_Procedure", comment: "")
 		static let testAdded = NSLocalizedString("ExposureSubmissionResult_testAdded", comment: "")
 		static let warnOthers = NSLocalizedString("ExposureSubmissionResult_warnOthers", comment: "")
-		static let testPositive = NSLocalizedString("ExposureSubmissionResult_testPositive", comment: "")
 		static let testAddedDesc = NSLocalizedString("ExposureSubmissionResult_testAddedDesc", comment: "")
-		static let testPositiveDesc = NSLocalizedString("ExposureSubmissionResult_testPositiveDesc", comment: "")
 		static let testNegative = NSLocalizedString("ExposureSubmissionResult_testNegative", comment: "")
 		static let testNegativeDesc = NSLocalizedString("ExposureSubmissionResult_testNegativeDesc", comment: "")
 		static let testInvalid = NSLocalizedString("ExposureSubmissionResult_testInvalid", comment: "")
@@ -114,11 +112,14 @@ enum AppStrings {
 		static let testRedeemed = NSLocalizedString("ExposureSubmissionResult_testRedeemed", comment: "")
 		static let testRedeemedDesc = NSLocalizedString("ExposureSubmissionResult_testRedeemedDesc", comment: "")
 		static let testPending = NSLocalizedString("ExposureSubmissionResult_testPending", comment: "")
-		static let testPendingDesc = NSLocalizedString("ExposureSubmissionResult_testPendingDesc", comment: "")
+		static let testPendingDescParagraph1 = NSLocalizedString("ExposureSubmissionResult_testPendingDesc_paragraph1", comment: "")
+		static let testPendingDescParagraph2 = NSLocalizedString("ExposureSubmissionResult_testPendingDesc_paragraph2", comment: "")
+		static let testPendingDescParagraph3 = NSLocalizedString("ExposureSubmissionResult_testPendingDesc_paragraph3", comment: "")
 		static let testRemove = NSLocalizedString("ExposureSubmissionResult_testRemove", comment: "")
 		static let testRemoveDesc = NSLocalizedString("ExposureSubmissionResult_testRemoveDesc", comment: "")
 		static let warnOthersDesc = NSLocalizedString("ExposureSubmissionResult_warnOthersDesc", comment: "")
-		static let continueButton = NSLocalizedString("ExposureSubmissionResult_continueButton", comment: "")
+		static let primaryButtonTitle = NSLocalizedString("ExposureSubmissionResult_primaryButtonTitle", comment: "")
+		static let secondaryButtonTitle = NSLocalizedString("ExposureSubmissionResult_secondaryButtonTitle", comment: "")
 		static let deleteButton = NSLocalizedString("ExposureSubmissionResult_deleteButton", comment: "")
 		static let refreshButton = NSLocalizedString("ExposureSubmissionResult_refreshButton", comment: "")
 		static let furtherInfos_Title = NSLocalizedString("ExposureSubmissionResult_testNegative_furtherInfos_title", comment: "")
@@ -514,6 +515,7 @@ enum AppStrings {
 		static let euDescription1 = NSLocalizedString("ExposureNotificationSetting_EU_Desc_1", comment: "")
 		static let euDescription2 = NSLocalizedString("ExposureNotificationSetting_EU_Desc_2", comment: "")
 		static let euDescription3 = NSLocalizedString("ExposureNotificationSetting_EU_Desc_3", comment: "")
+		static let euDescription4 = NSLocalizedString("ExposureNotificationSetting_EU_Desc_4", comment: "")
 		static let euEmptyErrorTitle = NSLocalizedString("ExposureNotificationSetting_EU_Empty_Error_Title", comment: "")
 		static let euEmptyErrorDescription = NSLocalizedString("ExposureNotificationSetting_EU_Empty_Error_Desc", comment: "")
 		static let euEmptyErrorButtonTitle = NSLocalizedString("ExposureNotificationSetting_EU_Empty_Error_Button_Title", comment: "")
@@ -774,7 +776,6 @@ enum AppStrings {
 		static let title = NSLocalizedString("DeltaOnboarding_Headline", comment: "")
 		
 		static let description = NSLocalizedString("DeltaOnboarding_Description", comment: "")
-		static let downloadInfo = NSLocalizedString("DeltaOnboarding_DownloadInfo", comment: "")
 		static let participatingCountries = NSLocalizedString("DeltaOnboarding_ParticipatingCountries", comment: "")
 		
 		static let participatingCountriesListUnavailableTitle = NSLocalizedString("DeltaOnboarding_ParticipatingCountriesList_Unavailable_Title", comment: "")
@@ -785,6 +786,10 @@ enum AppStrings {
 		static let legalDataProcessingInfoTitle = NSLocalizedString("DeltaOnboarding_DataProcessing_Info_title", tableName: "Localizable.legal", comment: "")
 		
 		static let legalDataProcessingInfoContent = NSLocalizedString("DeltaOnboarding_DataProcessing_Info_content", tableName: "Localizable.legal", comment: "")
+
+		static let termsDescription1 = NSLocalizedString("DeltaOnboarding_Terms_Description1", comment: "")
+		static let termsButtonTitle = NSLocalizedString("DeltaOnboarding_Terms_Button", comment: "")
+		static let termsDescription2 = NSLocalizedString("DeltaOnboarding_Terms_Description2", comment: "")
 	}
 	// swiftlint:disable:next file_length
 }

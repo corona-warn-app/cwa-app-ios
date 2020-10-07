@@ -9,4 +9,3 @@ Our code uses several (custom) [ compilation conditions](https://help.apple.com/
 | `COMMUNITY` | `true` is the *Community* build configuration/schema has been selected. The *Community* configuration enables other developers to run the app in Simulator. |
 | `USE_DEV_PK_FOR_SIG_VERIFICATION` | `true` if the app should use the dev-public keys for the signature verfification. This is only set for testing and during development. In case this is set mistakenly to `true` the app simply stops working. |
 | `DISABLE_CERTIFICATE_PINNING` | `true` if certificate pinning should be disabled. This is **NEVER EVER** set for builds that will end up in the App Store. We only use this for debugging purposes. |
-| `EUROPEMODE` | `true` if europe mode should be enabled. If the exposure detection runs in europe mode, only key packages for country "EUR" are downloaded. Countries from the supported countries list are ignored. |

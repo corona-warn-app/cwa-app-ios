@@ -24,11 +24,22 @@ class EUSettingsViewController: DynamicTableViewController {
 
 	// MARK: - Public Attributes.
 
-	var client: Client?
+	var appConfigurationProvider: AppConfigurationProviding
 
 	// MARK: - Private Attributes
 
 	private var viewModel = EUSettingsViewModel()
+
+	init(appConfigurationProvider: AppConfigurationProviding) {
+		self.appConfigurationProvider = appConfigurationProvider
+
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	// MARK: - View life cycle methods.
 
@@ -63,16 +74,18 @@ class EUSettingsViewController: DynamicTableViewController {
 	// MARK: Data Source setup methods.
 
 	private func setupDataSource() {
-		client?.supportedCountries(completion: { [weak self] result in
+		appConfigurationProvider.appConfiguration { [weak self] result in
 			switch result {
-			case .failure:
-				logError(message: "The country list could not be loaded.")
+			case .success(let applicationConfiguration):
+				let supportedCountryIDs = applicationConfiguration.supportedCountries
+				let supportedCountries = supportedCountryIDs.compactMap { Country(countryCode: $0) }
+				self?.viewModel = EUSettingsViewModel(countries: supportedCountries)
+			case .failure(let error):
+				logError(message: "Error while loading app configuration: \(error).")
 				self?.viewModel = EUSettingsViewModel(countries: [])
-			case .success(let countries):
-				self?.viewModel = EUSettingsViewModel(countries: countries)
 			}
 			self?.reloadCountrySection()
-		})
+		}
 	}
 
 	private func reloadCountrySection() {

@@ -17,6 +17,8 @@
 // under the License.
 //
 
+import Foundation
+
 extension Bundle {
 
 	var appVersion: String {

@@ -23,17 +23,14 @@ import XCTest
 
 final class AppUpdateCheckerHelperTests: XCTestCase {
 
-	private var mockClient: ClientMock!
 	private var mockStore: MockTestStore!
 	private var sut: AppUpdateCheckHelper!
 	private let currentVersion = "1.0.0"
 
 	override func setUp() {
 		super.setUp()
-		// Old DB is deinited and hence connection closed at every setUp() call
-		mockClient = ClientMock(submissionError: .requestCouldNotBeBuilt)
 		mockStore = MockTestStore()
-		sut = AppUpdateCheckHelper(client: mockClient, store: mockStore)
+		sut = AppUpdateCheckHelper(appConfigurationProvider: AppConfigurationProviderFake(), store: mockStore)
 	}
 	
 	func testAlertType_none() {

@@ -51,18 +51,6 @@ extension HTTPClient {
 		let country: String
 		let endpoints: Endpoints
 
-		var diagnosisKeysURL: URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country
-			)
-		}
-
 		/// Generate the URL for getting all available days
 		/// - Parameter country: country code
 		/// - Returns: URL to get all available days that server can deliver

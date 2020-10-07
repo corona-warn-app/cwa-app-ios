@@ -96,7 +96,15 @@ class EUSettingsViewModel {
 					.space(height: 16)
 
 			]),
-			countries()
+			countries(),
+			.section(
+				cells: [
+					.space(height: 8),
+					.body(text: AppStrings.ExposureNotificationSetting.euDescription4,
+						  accessibilityIdentifier: ""
+					),
+					.space(height: 16)
+			])
 		])
 	}
 }

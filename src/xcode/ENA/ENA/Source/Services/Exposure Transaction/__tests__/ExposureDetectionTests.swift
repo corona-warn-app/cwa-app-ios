@@ -22,8 +22,6 @@ import XCTest
 import ExposureNotification
 final class ExposureDetectionTransactionTests: XCTestCase {
 
-	#if EUROPEMODE
-
 	func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {
 		let delegate = ExposureDetectionDelegateMock()
 
@@ -60,11 +58,6 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 			return writtenPackages
 		}
 
-		let configurationToBeCalled = expectation(description: "configuration called")
-		delegate.configuration = {
-			configurationToBeCalled.fulfill()
-			return .mock()
-		}
 
 		let summaryResultBeCalled = expectation(description: "summaryResult called")
 		delegate.summaryResult = { _, _ in
@@ -72,9 +65,17 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 			return .success(MutableENExposureDetectionSummary(daysSinceLastExposure: 5))
 		}
 
+		let appConfigurationProviderSpy = AppConfigurationProviderSpy()
+
 		let startCompletionCalled = expectation(description: "start completion called")
-		let detection = ExposureDetection(delegate: delegate)
-		detection.start { _ in startCompletionCalled.fulfill() }
+		let detection = ExposureDetection(
+			delegate: delegate,
+			appConfigurationProvider: appConfigurationProviderSpy
+		)
+		detection.start { _ in
+			XCTAssertTrue(appConfigurationProviderSpy.didCallAppConfiguration)
+			startCompletionCalled.fulfill()
+		}
 
 		wait(
 			for: [
@@ -82,7 +83,6 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 				downloadDeltaToBeCalled,
 				downloadAndStoreToBeCalled,
 				writtenPackagesBeCalled,
-				configurationToBeCalled,
 				summaryResultBeCalled,
 				startCompletionCalled
 			],
@@ -90,91 +90,6 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 			enforceOrder: true
 		)
 	}
-
-	#else
-
-	func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {
-		let delegate = ExposureDetectionDelegateMock()
-
-		let supportedCountriesToBeCalled = expectation(description: "supportedCountries called")
-		delegate.supportedCountries = { [weak self] in
-			guard let self = self else {
-				return .success([])
-			}
-			supportedCountriesToBeCalled.fulfill()
-			return .success(self.makeCountries())
-		}
-
-		let availableDataToBeCalled = expectation(description: "availableData called")
-		availableDataToBeCalled.expectedFulfillmentCount = 2
-		delegate.availableData = {
-			availableDataToBeCalled.fulfill()
-			return .init(days: ["2020-05-01"], hours: [])
-		}
-
-		let downloadDeltaToBeCalled = expectation(description: "downloadDelta called")
-		downloadDeltaToBeCalled.expectedFulfillmentCount = 2
-		delegate.downloadDelta = { _ in
-			downloadDeltaToBeCalled.fulfill()
-			return .init(days: ["2020-05-01"], hours: [])
-		}
-
-		let downloadAndStoreToBeCalled = expectation(description: "downloadAndStore called")
-		downloadAndStoreToBeCalled.expectedFulfillmentCount = 2
-		delegate.downloadAndStore = { _ in
-			downloadAndStoreToBeCalled.fulfill()
-			return nil
-		}
-
-		let rootDir = FileManager().temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try FileManager().createDirectory(atPath: rootDir.path, withIntermediateDirectories: true, attributes: nil)
-		let url0 = rootDir.appendingPathComponent("1").appendingPathExtension("sig")
-		let url1 = rootDir.appendingPathComponent("1").appendingPathExtension("bin")
-		try "url0".write(to: url0, atomically: true, encoding: .utf8)
-		try "url1".write(to: url1, atomically: true, encoding: .utf8)
-
-		let writtenPackages = WrittenPackages(urls: [url0, url1])
-
-		let writtenPackagesBeCalled = expectation(description: "writtenPackages called")
-		writtenPackagesBeCalled.expectedFulfillmentCount = 2
-		delegate.writtenPackages = {
-			writtenPackagesBeCalled.fulfill()
-			return writtenPackages
-		}
-
-		let configurationToBeCalled = expectation(description: "configuration called")
-		delegate.configuration = {
-			configurationToBeCalled.fulfill()
-			return .mock()
-		}
-
-		let summaryResultBeCalled = expectation(description: "summaryResult called")
-		delegate.summaryResult = { _, _ in
-			summaryResultBeCalled.fulfill()
-			return .success(MutableENExposureDetectionSummary(daysSinceLastExposure: 5))
-		}
-
-		let startCompletionCalled = expectation(description: "start completion called")
-		let detection = ExposureDetection(delegate: delegate)
-		detection.start { _ in startCompletionCalled.fulfill() }
-
-		wait(
-			for: [
-				supportedCountriesToBeCalled,
-				availableDataToBeCalled,
-				downloadDeltaToBeCalled,
-				downloadAndStoreToBeCalled,
-				writtenPackagesBeCalled,
-				configurationToBeCalled,
-				summaryResultBeCalled,
-				startCompletionCalled
-			],
-			timeout: 1.0,
-			enforceOrder: true
-		)
-	}
-
-	#endif
 
 	func test_When_NoRemoteDataAvailable_Then_FailureNoDaysAndHoursIsCalled() {
 		let delegate = ExposureDetectionDelegateMock()
@@ -187,7 +102,8 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 
 		let detection = ExposureDetection(
 			delegate: delegate,
-			countryKeypackageDownloader: packageDownloader
+			countryKeypackageDownloader: packageDownloader,
+			appConfigurationProvider: AppConfigurationProviderFake()
 		)
 
 		let expectationNoDaysAndHours = expectation(description: "completion with NoDaysAndHours error called.")
@@ -217,18 +133,6 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 	func test_When_PackageDownloaderFails_Then_NoRiskCaculationIsTriggered() {
 		let delegate = ExposureDetectionDelegateMock()
 
-		delegate.supportedCountries = { [weak self] in
-			guard let self = self else {
-				return .success([])
-			}
-			return .success(self.makeCountries())
-		}
-
-		delegate.configuration = {
- 			XCTFail("Configuration call not expected after failing download.")
-			return .mock()
-		}
-
 		delegate.writtenPackages = {
 			XCTFail("Package write call not expected after failing download.")
 			return WrittenPackages(urls: [])
@@ -243,7 +147,8 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 
 		let detection = ExposureDetection(
 			delegate: delegate,
-			countryKeypackageDownloader: packageDownloader
+			countryKeypackageDownloader: packageDownloader,
+			appConfigurationProvider: AppConfigurationProviderFake()
 		)
 
 		let expectationFailureResult = expectation(description: "Detection should fail.")
@@ -263,23 +168,10 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 
 	func test_When_SavingPackageToFileSystemFails_Then_NoRiskCaculationIsTriggered() {
 		let delegate = ExposureDetectionDelegateMock()
-
-		delegate.supportedCountries = { [weak self] in
-			guard let self = self else {
-				return .success([])
-			}
-			return .success(self.makeCountries())
-		}
 		
 		delegate.writtenPackages = {
 			return nil
 		}
-
-		delegate.configuration = {
-			XCTFail("Configuration call not expected after failing download.")
-			return .mock()
-		}
-
 
 		delegate.summaryResult = { _, _ in
 			XCTFail("Configuration call not expected after failing download.")
@@ -290,7 +182,8 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 
 		let detection = ExposureDetection(
 			delegate: delegate,
-			countryKeypackageDownloader: packageDownloader
+			countryKeypackageDownloader: packageDownloader,
+			appConfigurationProvider: AppConfigurationProviderFake()
 		)
 
 		let expectationFailureResult = expectation(description: "Detection should fail.")
@@ -307,9 +200,29 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 
 		waitForExpectations(timeout: 1.0)
 	}
+}
 
-	func makeCountries() -> [Country] {
-		return [Country(countryCode: "FR"), Country(countryCode: "IT")].compactMap { $0 }
+final class AppConfigurationProviderFake: AppConfigurationProviding {
+	func appConfiguration(forceFetch: Bool, completion: @escaping Completion) {
+		completion(.success(SAP_ApplicationConfiguration()))
+	}
+
+	func appConfiguration(completion: @escaping Completion) {
+		completion(.success(SAP_ApplicationConfiguration()))
+	}
+}
+
+final class AppConfigurationProviderSpy: AppConfigurationProviding {
+	var didCallAppConfiguration = false
+
+	func appConfiguration(forceFetch: Bool, completion: @escaping Completion) {
+		didCallAppConfiguration = true
+		completion(.success(SAP_ApplicationConfiguration()))
+	}
+
+	func appConfiguration(completion: @escaping Completion) {
+		didCallAppConfiguration = true
+		completion(.success(SAP_ApplicationConfiguration()))
 	}
 }
 
@@ -355,10 +268,6 @@ private final class ExposureDetectionDelegateMock {
 
 	// MARK: Properties
 
-	var supportedCountries: () -> SupportedCountriesResult = {
-		.success([])
-	}
-
 	var availableData: () -> DaysAndHours? = {
 		nil
 	}
@@ -368,10 +277,6 @@ private final class ExposureDetectionDelegateMock {
 	}
 
 	var downloadAndStore: DownloadAndStoreHandler = { _ in nil }
-
-	var configuration: () -> ENExposureConfiguration? = {
-		nil
-	}
 
 	var writtenPackages: () -> WrittenPackages? = {
 		nil
@@ -400,16 +305,8 @@ extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 
 	}
 
-	func exposureDetection(downloadConfiguration completion: @escaping (ENExposureConfiguration?) -> Void) {
-		completion(configuration())
-	}
-
 	func exposureDetectionWriteDownloadedPackages(country: Country.ID) -> WrittenPackages? {
 		writtenPackages()
-	}
-
-	func exposureDetection(supportedCountries completion: @escaping (SupportedCountriesResult) -> Void) {
-		completion(supportedCountries())
 	}
 
 	func exposureDetection(
