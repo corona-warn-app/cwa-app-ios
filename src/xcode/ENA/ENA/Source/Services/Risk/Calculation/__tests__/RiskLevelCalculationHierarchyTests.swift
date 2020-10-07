@@ -23,129 +23,124 @@ import ExposureNotification
 import XCTest
 
 
-// MARK: - RiskLevel changed tests
+// MARK: Risk Level Calculation Hierarchy Tests
+// There is a certain order to risk levels, and some override others. This is tested below.
+
 extension RiskCalculationTests {
 	
-	func testCalculateRisk_RiskChanged_WithPreviousRisk() {
+	func testCalculateRisk_UnknownOutdatedOverridesIncreased() {
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: .init(day: 1),
 			exposureDetectionInterval: .init(day: 1),
 			detectionMode: .automatic
 		)
 
-		// Test the case where we have an old risk level in the store,
-		// and the new risk level has changed
-
-		// Will produce increased risk
+		// Test case where last exposure summary was gotten too far in the past,
+		// But the risk is increased
 		let risk = RiskCalculation.risk(
 			summary: summaryHigh,
 			configuration: appConfig,
-			// arbitrary, but within limit
-			dateLastExposureDetection: Date().addingTimeInterval(-3600),
-			activeTracing: .init(interval: 48 * 3600),
-			preconditions: preconditions(.valid),
-			previousRiskLevel: .low,
-			providerConfiguration: config
-		)
-		XCTAssertNotNil(risk)
-		XCTAssertEqual(risk?.level, .increased)
-		XCTAssertTrue(risk?.riskLevelHasChanged ?? false)
-	}
-
-	func testCalculateRisk_RiskChanged_NoPreviousRisk() {
-		let config = RiskProvidingConfiguration(
-			exposureDetectionValidityDuration: .init(day: 1),
-			exposureDetectionInterval: .init(day: 1),
-			detectionMode: .automatic
-		)
-
-		// Test the case where we do not have an old risk level in the store,
-		// and the new risk level has changed
-
-		// Will produce high risk
-		let risk = RiskCalculation.risk(
-			summary: summaryHigh,
-			configuration: appConfig,
-			// arbitrary, but within limit
-			dateLastExposureDetection: Date().addingTimeInterval(-3600),
+			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -2)),
 			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.valid),
 			previousRiskLevel: nil,
 			providerConfiguration: config
 		)
-		// Going from unknown -> increased or low risk does not produce a change
-		XCTAssertFalse(risk?.riskLevelHasChanged ?? true)
+
+		XCTAssertEqual(risk?.level, .unknownOutdated)
+		XCTAssertTrue(risk?.riskLevelHasChanged == false)
 	}
 
-	func testCalculateRisk_RiskNotChanged() {
+	func testCalculateRisk_IncreasedOverridesUnknownOutdated() {
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: .init(day: 1),
 			exposureDetectionInterval: .init(day: 1),
 			detectionMode: .automatic
 		)
 
-		// Test the case where we have an old risk level in the store,
-		// and the new risk level has not changed
-
+		// Test case where last exposure summary was gotten less then 1 day
+		// Active tracing is more then 24h
+		// But the risk is increased
 		let risk = RiskCalculation.risk(
-			summary: summaryLow,
+			summary: summaryHigh,
 			configuration: appConfig,
-			// arbitrary, but within limit
-			dateLastExposureDetection: Date().addingTimeInterval(-3600),
+			dateLastExposureDetection: Date().addingTimeInterval(.init(hours: -23)),
 			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.valid),
-			previousRiskLevel: .low,
+			previousRiskLevel: nil,
 			providerConfiguration: config
 		)
 
-		XCTAssertFalse(risk?.riskLevelHasChanged ?? true)
+		XCTAssertEqual(risk?.level, .increased)
+		XCTAssertTrue(risk?.riskLevelHasChanged == false)
 	}
 
-	func testCalculateRisk_LowToUnknown() {
+	func testCalculateRisk_IncreasedOverridesUnknownOutdated2() {
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: .init(day: 1),
 			exposureDetectionInterval: .init(day: 1),
 			detectionMode: .automatic
 		)
 
-		// Test the case where we have low risk level in the store,
-		// and the new risk calculation returns unknown
-
-		// Produces unknown risk
+		// Test case where last exposure summary was gotten more then 1 day
+		// Active tracing is less then 24h
+		// But the risk is increased
 		let risk = RiskCalculation.risk(
-			summary: summaryLow,
+			summary: summaryHigh,
+			configuration: appConfig,
+			dateLastExposureDetection: Date().addingTimeInterval(.init(hours: -25)),
+			activeTracing: .init(interval: 2 * 3600),
+			preconditions: preconditions(.valid),
+			previousRiskLevel: nil,
+			providerConfiguration: config
+		)
+
+		XCTAssertEqual(risk?.level, .increased)
+		XCTAssertTrue(risk?.riskLevelHasChanged == false)
+	}
+
+	func testCalculateRisk_IncreasedOverridesUnknownOutdated3() {
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: .init(day: 1),
+			exposureDetectionInterval: .init(day: 1),
+			detectionMode: .automatic
+		)
+
+		// Test case where last exposure summary was gotten less then 1 day
+		// Active tracing is less then 24h
+		// But the risk is increased
+		let risk = RiskCalculation.risk(
+			summary: summaryHigh,
+			configuration: appConfig,
+			dateLastExposureDetection: Date().addingTimeInterval(.init(hours: -23)),
+			activeTracing: .init(interval: 2 * 3600),
+			preconditions: preconditions(.valid),
+			previousRiskLevel: nil,
+			providerConfiguration: config
+		)
+
+		XCTAssertEqual(risk?.level, .increased)
+		XCTAssertTrue(risk?.riskLevelHasChanged == false)
+	}
+
+	func testCalculateRisk_UnknownInitialOverridesUnknownOutdated() {
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: .init(day: 1),
+			exposureDetectionInterval: .init(day: 1),
+			detectionMode: .automatic
+		)
+
+		// Test case where last exposure summary was gotten too far in the past,
+		let risk = RiskCalculation.risk(
+			summary: nil,
 			configuration: appConfig,
 			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -2)),
 			activeTracing: .init(interval: 48 * 3600),
 			preconditions: preconditions(.valid),
-			previousRiskLevel: .low,
+			previousRiskLevel: nil,
 			providerConfiguration: config
 		)
-		// The risk level did not change - we only care about changes between low and increased
-		XCTAssertFalse(risk?.riskLevelHasChanged ?? true)
-	}
 
-	func testCalculateRisk_IncreasedToUnknown() {
-		let config = RiskProvidingConfiguration(
-			exposureDetectionValidityDuration: .init(day: 1),
-			exposureDetectionInterval: .init(day: 1),
-			detectionMode: .automatic
-		)
-
-		// Test the case where we have low risk level in the store,
-		// and the new risk calculation returns unknown
-
-		// Produces unknown risk
-		let risk = RiskCalculation.risk(
-			summary: summaryLow,
-			configuration: appConfig,
-			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -2)),
-			activeTracing: .init(interval: 48 * 3600),
-			preconditions: preconditions(.valid),
-			previousRiskLevel: .increased,
-			providerConfiguration: config
-		)
-		// The risk level did not change - we only care about changes between low and increased
-		XCTAssertFalse(risk?.riskLevelHasChanged ?? true)
+		XCTAssertEqual(risk?.level, .unknownInitial)
 	}
 }
