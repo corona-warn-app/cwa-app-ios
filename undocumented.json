@@ -366,105 +366,105 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 159,
+      "line": 156,
       "symbol": "DaysResult",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 160,
+      "line": 157,
       "symbol": "DaysResult.errors",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 161,
+      "line": 158,
       "symbol": "DaysResult.bucketsByDay",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 164,
+      "line": 161,
       "symbol": "HoursResult",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 165,
+      "line": 162,
       "symbol": "HoursResult.errors",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 166,
+      "line": 163,
       "symbol": "HoursResult.bucketsByHour",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 167,
+      "line": 164,
       "symbol": "HoursResult.day",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 170,
+      "line": 167,
       "symbol": "FetchedDaysAndHours",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 171,
+      "line": 168,
       "symbol": "FetchedDaysAndHours.hours",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 172,
+      "line": 169,
       "symbol": "FetchedDaysAndHours.days",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 173,
+      "line": 170,
       "symbol": "FetchedDaysAndHours.allKeyPackages",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 179,
+      "line": 176,
       "symbol": "Client.FetchHoursCompletionHandler",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 215,
+      "line": 212,
       "symbol": "Client.fetchDays(_:hours:of:country:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 242,
+      "line": 239,
       "symbol": "Client.fetchHours(_:day:country:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/Client.swift",
-      "line": 272,
+      "line": 269,
       "symbol": "Client.DaysAndHoursCompletionHandler",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
@@ -688,14 +688,14 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient.swift",
-      "line": 152,
+      "line": 151,
       "symbol": "HTTPClient.getTestResult(forDevice:isFake:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Client/HTTP Client/HTTPClient.swift",
-      "line": 203,
+      "line": 202,
       "symbol": "HTTPClient.getTANForExposureSubmit(forDevice:isFake:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -9250,7 +9250,7 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/__tests__/Mock Objects/MockExposureSubmissionService.swift",
       "line": 37,
-      "symbol": "MockExposureSubmissionService.submitExposure(symptomsOnset:consentToFederation:visitedCountries:completionHandler:)",
+      "symbol": "MockExposureSubmissionService.submitExposure(symptomsOnset:visitedCountries:completionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -13702,55 +13702,55 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Submission/ExposureSubmissionService+Protocol.swift",
       "line": 33,
-      "symbol": "ExposureSubmissionService.submitExposure(symptomsOnset:consentToFederation:visitedCountries:completionHandler:)",
+      "symbol": "ExposureSubmissionService.submitExposure(symptomsOnset:visitedCountries:completionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Submission/ExposureSubmissionService+Protocol.swift",
-      "line": 40,
+      "line": 39,
       "symbol": "ExposureSubmissionService.getRegistrationToken(forKey:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Submission/ExposureSubmissionService+Protocol.swift",
-      "line": 44,
+      "line": 43,
       "symbol": "ExposureSubmissionService.getTestResult(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Submission/ExposureSubmissionService+Protocol.swift",
-      "line": 53,
+      "line": 52,
       "symbol": "ExposureSubmissionService.hasRegistrationToken()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Submission/ExposureSubmissionService+Protocol.swift",
-      "line": 54,
+      "line": 53,
       "symbol": "ExposureSubmissionService.deleteTest()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Submission/ExposureSubmissionService+Protocol.swift",
-      "line": 55,
+      "line": 54,
       "symbol": "ExposureSubmissionService.preconditions()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Submission/ExposureSubmissionService+Protocol.swift",
-      "line": 56,
+      "line": 55,
       "symbol": "ExposureSubmissionService.acceptPairing()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Submission/ExposureSubmissionService+Protocol.swift",
-      "line": 57,
+      "line": 56,
       "symbol": "ExposureSubmissionService.fakeRequest(completionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -13820,35 +13820,35 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Submission/ExposureSubmissionService.swift",
-      "line": 293,
+      "line": 289,
       "symbol": "ENAExposureSubmissionService.hasRegistrationToken()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Submission/ExposureSubmissionService.swift",
-      "line": 300,
+      "line": 296,
       "symbol": "ENAExposureSubmissionService.deleteTest()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Submission/ExposureSubmissionService.swift",
-      "line": 337,
+      "line": 333,
       "symbol": "ENAExposureSubmissionService.preconditions()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Submission/ExposureSubmissionService.swift",
-      "line": 341,
+      "line": 337,
       "symbol": "ENAExposureSubmissionService.acceptPairing()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Submission/ExposureSubmissionService.swift",
-      "line": 349,
+      "line": 345,
       "symbol": "ENAExposureSubmissionService",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
