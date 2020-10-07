@@ -18,7 +18,7 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, SpinnerInjectable {
+class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 	
 	// MARK: - Init
 
@@ -53,14 +53,11 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANav
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		onPrimaryButtonTap { [weak self] isLoading in
 			DispatchQueue.main.async {
-				isLoading ? self?.startSpinner() : self?.stopSpinner()
+				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
 			}
 		}
 	}
-
-	// MARK: - Protocol SpinnerInjectable
-
-	var spinner: UIActivityIndicatorView?
 
 	// MARK: - Private
 
