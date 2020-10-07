@@ -136,7 +136,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .serverEnvironment:
 			vc = makeServerEnvironmentViewController()
 		case .simulateNoDiskSpace:
-			vc = DMNoDiskSpaceViewController(store: store)
+			vc = DMSQLiteErrorViewController(store: store)
 		}
 		
 		if let vc = vc {

@@ -201,7 +201,7 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 	}
 
 	private func completeAsync(completion: ((SQLiteError?) -> Void)?) {
-		DispatchQueue.global().async {
+		queue.async {
 			completion?(nil)
 		}
 	}
