@@ -106,6 +106,7 @@
 		5015682A252CC3560012EB94 /* RiskLevelChangedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50156829252CC3560012EB94 /* RiskLevelChangedTests.swift */; };
 		5022FD3E252DA86A00656985 /* RiskLevelCalculationHierarchyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5022FD3D252DA86A00656985 /* RiskLevelCalculationHierarchyTests.swift */; };
 		5022FD43252DAA4B00656985 /* RiskLevelCalculationErrorCasesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5022FD42252DAA4B00656985 /* RiskLevelCalculationErrorCasesTest.swift */; };
+		5022FD48252DADCA00656985 /* RiskLevelCalculationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5022FD47252DADCA00656985 /* RiskLevelCalculationTests.swift */; };
 		50BD2E6224FE1E8700932566 /* AppInformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD2E6124FE1E8700932566 /* AppInformationModel.swift */; };
 		50BD2E6424FE232E00932566 /* AppInformationImprintViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD2E6324FE232E00932566 /* AppInformationImprintViewModel.swift */; };
 		50BD2E7724FE26F400932566 /* AppInformationImprintTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD2E6F24FE26F300932566 /* AppInformationImprintTest.swift */; };
@@ -626,6 +627,7 @@
 		50156829252CC3560012EB94 /* RiskLevelChangedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevelChangedTests.swift; sourceTree = "<group>"; };
 		5022FD3D252DA86A00656985 /* RiskLevelCalculationHierarchyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevelCalculationHierarchyTests.swift; sourceTree = "<group>"; };
 		5022FD42252DAA4B00656985 /* RiskLevelCalculationErrorCasesTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevelCalculationErrorCasesTest.swift; sourceTree = "<group>"; };
+		5022FD47252DADCA00656985 /* RiskLevelCalculationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevelCalculationTests.swift; sourceTree = "<group>"; };
 		50BD2E6124FE1E8700932566 /* AppInformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationModel.swift; sourceTree = "<group>"; };
 		50BD2E6324FE232E00932566 /* AppInformationImprintViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationImprintViewModel.swift; sourceTree = "<group>"; };
 		50BD2E6F24FE26F300932566 /* AppInformationImprintTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInformationImprintTest.swift; sourceTree = "<group>"; };
@@ -1864,6 +1866,7 @@
 			isa = PBXGroup;
 			children = (
 				A128F04C2489ABE700EC7F6C /* RiskCalculationTests.swift */,
+				5022FD47252DADCA00656985 /* RiskLevelCalculationTests.swift */,
 				5022FD42252DAA4B00656985 /* RiskLevelCalculationErrorCasesTest.swift */,
 				50156829252CC3560012EB94 /* RiskLevelChangedTests.swift */,
 				5022FD3D252DA86A00656985 /* RiskLevelCalculationHierarchyTests.swift */,
@@ -3302,6 +3305,7 @@
 				015692E424B48C3F0033F35E /* TimeInterval+Convenience.swift in Sources */,
 				516E42FE24B7773E0008CC30 /* HomeLowRiskCellConfiguratorTests.swift in Sources */,
 				B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */,
+				5022FD48252DADCA00656985 /* RiskLevelCalculationTests.swift in Sources */,
 				A32C046524D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift in Sources */,
 				A372DA4224BF3E29003248BB /* MockExposureSubmissionCoordinator.swift in Sources */,
 				A1E419582495A8F90016E52A /* HTTPClient+RegistrationTokenTests.swift in Sources */,

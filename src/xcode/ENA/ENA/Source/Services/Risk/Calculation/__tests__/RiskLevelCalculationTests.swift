@@ -21,30 +21,8 @@
 import ExposureNotification
 import XCTest
 
-class RiskCalculationTests: XCTestCase {
-
-	private let store = MockTestStore()
-
-	// MARK: - Tests for calculating raw risk score
-
-	func testCalculateRawRiskScore_Zero() throws {
-		let summaryZeroMaxRisk = makeExposureSummaryContainer(maxRiskScoreFullRange: 0, ad_low: 10, ad_mid: 10, ad_high: 10)
-		XCTAssertEqual(RiskCalculation.calculateRawRisk(summary: summaryZeroMaxRisk, configuration: appConfig), 0.0, accuracy: 0.01)
-	}
-
-	func testCalculateRawRiskScore_Low() throws {
-		XCTAssertEqual(RiskCalculation.calculateRawRisk(summary: summaryLow, configuration: appConfig), 1.07, accuracy: 0.01)
-	}
-
-	func testCalculateRawRiskScore_Med() throws {
-		XCTAssertEqual(RiskCalculation.calculateRawRisk(summary: summaryMed, configuration: appConfig), 2.56, accuracy: 0.01)
-	}
-
-	func testCalculateRawRiskScore_High() throws {
-		XCTAssertEqual(RiskCalculation.calculateRawRisk(summary: summaryHigh, configuration: appConfig), 10.2, accuracy: 0.01)
-	}
-
-	// MARK: - Tests for calculating risk levels
+// MARK: - Tests for calculating risk levels
+extension RiskCalculationTests {
 
 	func testCalculateRisk_Inactive() {
 		// Test the condition when the risk is returned as inactive
