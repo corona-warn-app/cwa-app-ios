@@ -285,7 +285,7 @@
 
 "Onboarding_Continue_actionText" = "Напред";
 
-"Onboarding_EnableLogging_actionText" = "Напред";
+"Onboarding_EnableLogging_actionText" = "Активиране на регистрирането на излагания на риск";
 
 "Onboarding_Continue_actionTextHint" = "Можете да пропуснете този екран";
 
@@ -343,7 +343,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "... моля съобщете за това в приложението Corona-Warn-App. Споделянето на резултатите от Вашите тестове е доброволно и безопасно. Направете го в името на общото здраве.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Вашето известие се криптира с висока степен на сигурност и се обработва на защитен сървър. Лицата, чиито криптирани случайни ИД кодове са запазени на Вашия смартфон, ще получат предупреждение, както и информация относно това, което трябва да направят.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Вашето известие се криптира с висока степен на сигурност и се обработва на защитен сървър. Лицата, чиито криптирани случайни ИД кодове са запазени на Вашето устройство, ще получат предупреждение, както и информация относно това, което трябва да направят.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Жена, която получава известие от приложението Corona-Warn-App.";
 
@@ -537,10 +537,6 @@
 
 "ExposureSubmissionResult_warnOthersDesc" = "Споделете своите случайни идентификатори и предупредете околните.\nПомогнете ни да определяме риска от заразяване за тях по-точно, като споделите и кога за пръв път сте забелязали симптомите на коронавирусната инфекция.";
 
-"ExposureSubmissionResult_testPositive" = "Положителен резултат";
-
-"ExposureSubmissionResult_testPositiveDesc" = "Резултатът от Вашия тест бе потвърден като положителен.";
-
 "ExposureSubmissionResult_testNegative" = "Отрицателен резултат";
 
 "ExposureSubmissionResult_testNegativeDesc" = "Вашият лабораторен резултат не потвърждава заразяване с коронавирус SARS-CoV-2.";
@@ -571,7 +567,9 @@
 
 "ExposureSubmissionResult_testRemoveDesc" = "Моля, изтрийте теста от приложението Corona-Warn-App, за да можете да запазите нов код на тест, ако е необходимо.";
 
-"ExposureSubmissionResult_continueButton" = "Напред";
+"ExposureSubmissionResult_primaryButtonTitle" = "Въведете симптоми";
+
+"ExposureSubmissionResult_secondaryButtonTitle" = "Не въвеждайте симптоми";
 
 "ExposureSubmissionResult_deleteButton" = "Изтриване на тест";
 
@@ -1138,7 +1136,7 @@
 
 "RiskLegend_Notification_Text" = "Показват излаганията на риск в приложението Corona-Warn-App.";
 
-"RiskLegend_Random_Title" = "Случайни идентификатори";
+"RiskLegend_Random_Title" = "Случаен идентификатор";
 
 "RiskLegend_Random_Text" = "Случайните идентификатори са произволно генерирани комбинации от цифри и букви, които устройствата си разменят, когато са в близост едно до друго. Идентифицирането на конкретни лица посредством проследяването им е невъзможно. Освен това те се изтриват автоматично след 14 дни. Лицата, диагностицирани с COVID-19, могат да споделят с останалите потребители на приложението своите случайни идентификатори, генерирани през последните 14 дни.";
 

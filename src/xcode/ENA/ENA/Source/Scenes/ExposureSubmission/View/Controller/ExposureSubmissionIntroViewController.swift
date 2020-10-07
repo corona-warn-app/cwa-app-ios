@@ -49,7 +49,8 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.continueText
+		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
+		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
 	}
 
 	// MARK: - Setup helpers.

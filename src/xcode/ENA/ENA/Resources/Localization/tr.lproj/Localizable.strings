@@ -285,7 +285,7 @@
 
 "Onboarding_Continue_actionText" = "Sonraki";
 
-"Onboarding_EnableLogging_actionText" = "Sonraki";
+"Onboarding_EnableLogging_actionText" = "Maruz Kalma Günlüğünü Etkinleştir";
 
 "Onboarding_Continue_actionTextHint" = "Bu ekranı atlayabilirsiniz";
 
@@ -343,7 +343,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… lütfen bunu Corona-Warn-App'te belirtin. Test sonuçlarınızı paylaşmanız gönüllülük esasına dayalıdır ve güvenlidir. Lütfen herkesin sağlığı için bunu yapın.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Bildiriminiz güvenli olarak şifrelenir ve güvenli bir sunucuda işlenir. Akıllı telefonunuza şifrelenmiş rastgele kimlikleri toplanan kişilere bundan sonra atmaları gereken adımlarla birlikte bir uyarı gönderilir.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Bildiriminiz güvenli olarak şifrelenir ve güvenli bir sunucuda işlenir. Cihazınızda şifrelenmiş rastgele kimlikleri toplanan kişilere bundan sonra atmaları gereken adımlarla birlikte bir uyarı gönderilir.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Bir kadın Corona-Warn-App uygulamasından bildirim alıyor.";
 
@@ -537,10 +537,6 @@
 
 "ExposureSubmissionResult_warnOthersDesc" = "Rastgele kimliklerinizi paylaşın ve diğer kullanıcıları uyarın.\nHerhangi bir koronavirüs semptomunu ne zaman ilk kez fark ettiğinizi de belirterek diğer kullanıcıların enfeksiyon riskini daha doğru şekilde belirlemeye yardımcı olun.";
 
-"ExposureSubmissionResult_testPositive" = "Pozitif Tanı";
-
-"ExposureSubmissionResult_testPositiveDesc" = "Test sonucunuz pozitif olarak doğrulandı.";
-
 "ExposureSubmissionResult_testNegative" = "Negatif Tanı";
 
 "ExposureSubmissionResult_testNegativeDesc" = "Laboratuvar sonucuna göre koronavirüs SARS-CoV-2 olduğunuza dair bir doğrulama yok.";
@@ -571,7 +567,9 @@
 
 "ExposureSubmissionResult_testRemoveDesc" = "Gerekirse yeni bir test kodu kaydedebilmeniz için lütfen testi Corona-Warn-App'ten silin.";
 
-"ExposureSubmissionResult_continueButton" = "Sonraki";
+"ExposureSubmissionResult_primaryButtonTitle" = "Semptomları Gir";
+
+"ExposureSubmissionResult_secondaryButtonTitle" = "Semptomları Girme";
 
 "ExposureSubmissionResult_deleteButton" = "Testi sil";
 
@@ -1138,9 +1136,9 @@
 
 "RiskLegend_Notification_Text" = "Corona-Warn-App'te maruz kalmalara ilişkin görüntü.";
 
-"RiskLegend_Random_Title" = "Rastgele Kimlikler";
+"RiskLegend_Random_Title" = "Rastgele Kimlik";
 
-"RiskLegend_Random_Text" = "Rastgele Kimlikler, rastgele oluşturulan rakam ve harf kombinasyonlarıdır. Yakın mesafedeki akıllı telefonlar arasında değiştirilir. Rastgele Kimlikler belirli bir kişiyi izlemek üzere kullanılamaz ve 14 günün sonunda otomatik olarak silinir. COVID-19 tanısı konan kişiler son 14 güne kadar rastgele kimliklerinin uygulamanın diğer kullanıcıları ile paylaşılmasını seçebilir.";
+"RiskLegend_Random_Text" = "Rastgele Kimlikler, rastgele oluşturulan rakam ve harf kombinasyonlarıdır. Yakın mesafedeki cihazlar arasında değiştirilir. Rastgele Kimlikler belirli bir kişiyi izlemek üzere kullanılamaz ve 14 günün sonunda otomatik olarak silinir. COVID-19 tanısı konan kişiler son 14 güne kadar rastgele kimliklerinin uygulamanın diğer kullanıcıları ile paylaşılmasını seçebilir.";
 
 "RiskLegend_Image1_AccLabel" = "Bir akıllı telefon farklı numaralandırılmış içerikler gösteriyor.";
 

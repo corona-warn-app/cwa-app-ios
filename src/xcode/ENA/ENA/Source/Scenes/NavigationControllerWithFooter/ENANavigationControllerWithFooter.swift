@@ -279,7 +279,8 @@ private extension ENANavigationFooterItem {
 			observe(\.isSecondaryButtonHidden, changeHandler: { _, _ in observer(self) }),
 			observe(\.isSecondaryButtonEnabled, changeHandler: { _, _ in observer(self) }),
 			observe(\.isSecondaryButtonLoading, changeHandler: { _, _ in observer(self) }),
-			observe(\.secondaryButtonTitle, changeHandler: { _, _ in observer(self) })
+			observe(\.secondaryButtonTitle, changeHandler: { _, _ in observer(self) }),
+			observe(\.secondaryButtonHasBorder, changeHandler: { _, _ in observer(self) })
 		]
 		return Observer(observers: observers)
 	}
