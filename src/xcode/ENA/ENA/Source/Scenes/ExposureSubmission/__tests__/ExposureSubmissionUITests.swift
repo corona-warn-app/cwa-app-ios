@@ -71,48 +71,37 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertNotNil(app.navigationBars.firstMatch.title)
 	}
 
-	func test_DataPrivacyDisclaimerShownOnQRCodeScan() throws {
-		launch()
-
-		// Open Intro screen.
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
-		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-
-		// Click next button.
-		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-
-		// Select QRCode screen.
-		XCTAssertTrue(app
-			.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"]
-			.waitForExistence(timeout: .medium)
-		)
-		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].tap()
-
-		// Test that data privacy alert is shown.
-		XCTAssertTrue(app.alerts.firstMatch.exists)
-	}
-
 	func test_QRCodeScanOpened() throws {
 		launch()
 
-		// Open Intro screen.
+		// -> Open Intro screen
 		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 
-		// Click next button.
+		// Intro screen
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionIntroView"].waitForExistence(timeout: .medium))
+
 		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
-		// Select QRCode screen.
+		// Overview Screen
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionOverviewView"].waitForExistence(timeout: .medium))
+
+		// -> Select QRCode screen.
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].tap()
 
-		// Accept the alert.
+		// QR Code Info Screen
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionQRInfoView"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+
+		// -> Accept the alert.
 		XCTAssertTrue(app.alerts.firstMatch.exists)
 		app.alerts.buttons.firstMatch.tap()
+
+		// QR Code Scanner Screen
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionQRScannerView"].waitForExistence(timeout: .medium))
 	}
 
 	func test_SubmitTAN_SymptomsOptionNo() {
