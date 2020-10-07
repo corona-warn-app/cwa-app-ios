@@ -19,7 +19,8 @@
       ]
     },
     "language" : "de",
-    "region" : "DE"
+    "region" : "DE",
+    "testExecutionOrdering" : "random"
   },
   "testTargets" : [
     {

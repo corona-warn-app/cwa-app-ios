@@ -9,11 +9,21 @@
     }
   ],
   "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:ENA.xcodeproj",
+          "identifier" : "85D7593A2457048F008175F0",
+          "name" : "ENA"
+        }
+      ]
+    },
     "commandLineArgumentEntries" : [
 
     ],
     "language" : "de",
-    "region" : "DE"
+    "region" : "DE",
+    "testExecutionOrdering" : "random"
   },
   "testTargets" : [
     {
