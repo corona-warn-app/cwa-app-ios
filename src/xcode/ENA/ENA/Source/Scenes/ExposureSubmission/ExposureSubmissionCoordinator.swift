@@ -225,7 +225,9 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	private func showQRScreen() {
+		let scannerViewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: true)
 		let scannerViewController = ExposureSubmissionQRScannerViewController(
+			viewModel: scannerViewModel,
 			onSuccess: { [weak self] deviceRegistrationKey in
 				self?.presentedViewController?.dismiss(animated: true) {
 					self?.getTestResults(for: deviceRegistrationKey)
@@ -235,8 +237,10 @@ extension ExposureSubmissionCoordinator {
 				switch error {
 				case .cameraPermissionDenied:
 					DispatchQueue.main.async {
-						let alert = UIAlertController.errorAlert(message: error.localizedDescription)
-						self?.navigationController?.present(alert, animated: true)
+						let alert = UIAlertController.errorAlert(message: error.localizedDescription, completion: {
+							self?.presentedViewController?.dismiss(animated: true)
+						})
+						self?.presentedViewController?.present(alert, animated: true)
 					}
 				case .codeNotFound:
 					DispatchQueue.main.async {
@@ -245,7 +249,10 @@ extension ExposureSubmissionCoordinator {
 							message: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundText,
 							okTitle: AppStrings.Common.alertActionCancel,
 							secondaryActionTitle: AppStrings.Common.alertActionRetry,
-							secondaryActionCompletion: { /* TODO: Reactivate qr reading? */ }
+							completion: { [weak self] in
+								self?.presentedViewController?.dismiss(animated: true)
+							},
+							secondaryActionCompletion: { scannerViewModel.activateScanning() }
 						)
 						self?.presentedViewController?.present(alert, animated: true)
 					}

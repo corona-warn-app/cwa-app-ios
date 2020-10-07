@@ -18,9 +18,25 @@
 import Foundation
 import UIKit
 
-struct ExposureSubmissionQRScannerViewModel {
+class ExposureSubmissionQRScannerViewModel {
+
+	// MARK: - Init
+
+	init(isScanningActivated: Bool) {
+		self.isScanningActivated = isScanningActivated
+	}
 
 	// MARK: - Internal
+
+	private(set) var isScanningActivated: Bool
+
+	func activateScanning() {
+		isScanningActivated = true
+	}
+
+	func deactivateScanning() {
+		isScanningActivated = false
+	}
 
 	/// Sanitizes the input string and extracts a guid.
 	/// - the input needs to start with https://localhost/?

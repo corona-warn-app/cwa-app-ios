@@ -24,10 +24,12 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, AVCaptu
 	// MARK: - Init
 
 	init(
+		viewModel: ExposureSubmissionQRScannerViewModel,
 		onSuccess: @escaping (DeviceRegistrationKey) -> Void,
 		onError: @escaping (QRScannerError) -> Void,
 		onCancel: @escaping () -> Void
 	) {
+		self.viewModel = viewModel
 		self.onSuccess = onSuccess
 		self.onError = onError
 		self.onCancel = onCancel
@@ -64,7 +66,11 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, AVCaptu
 		didOutput metadataObjects: [AVMetadataObject],
 		from _: AVCaptureConnection
 	) {
+		guard viewModel.isScanningActivated else { return }
+
 		if let code = metadataObjects.first(where: { $0 is AVMetadataMachineReadableCodeObject }) as? AVMetadataMachineReadableCodeObject, let stringValue = code.stringValue {
+			viewModel.deactivateScanning()
+
 			guard let extractedGuid = viewModel.extractGuid(from: stringValue) else {
 				onError(.codeNotFound)
 				return
@@ -84,7 +90,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, AVCaptu
 	private let onError: (QRScannerError) -> Void
 	private let onCancel: () -> Void
 
-	private let viewModel = ExposureSubmissionQRScannerViewModel()
+	private let viewModel: ExposureSubmissionQRScannerViewModel
 
 	@IBOutlet private var focusView: ExposureSubmissionQRScannerFocusView!
 	@IBOutlet private var instructionLabel: DynamicTypeLabel!
