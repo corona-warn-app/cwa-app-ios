@@ -90,4 +90,33 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 	}
 
+	func test_Screenshots_OnboardingFlow_EnablePermissions_normal_XS() throws {
+		let snapshotsActive = true
+		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "YES"])
+		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .XS)
+		app.launch()
+
+		let prefix = "OnboardingFlow_EnablePermission_"
+		
+		if snapshotsActive { snapshot(prefix + "1")}
+		
+		// tap through the onboarding screens
+		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].tap()
+		if snapshotsActive { snapshot(prefix + "2")}
+		
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		if snapshotsActive { snapshot(prefix + "3")}
+		
+		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].tap()
+		if snapshotsActive { snapshot(prefix + "4")}
+		
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		if snapshotsActive { snapshot(prefix + "5")}
+		
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		if snapshotsActive { snapshot(prefix + "6")}
+		
+		app.buttons["OK"].tap()
+		if snapshotsActive { snapshot(prefix + "7")}
+	}
 }
