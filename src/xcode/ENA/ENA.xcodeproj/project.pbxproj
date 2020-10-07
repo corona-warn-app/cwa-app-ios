@@ -29,6 +29,7 @@
 		01A1B442252DE57000841B63 /* ExposureSubmissionQRScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1B441252DE54600841B63 /* ExposureSubmissionQRScannerViewModelTests.swift */; };
 		01A1B44A252DFD7800841B63 /* MetadataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1B449252DFD7700841B63 /* MetadataObject.swift */; };
 		01A1B452252DFDC400841B63 /* FakeMetadataMachineReadableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1B451252DFD9400841B63 /* FakeMetadataMachineReadableObject.swift */; };
+		01A1B45C252E077600841B63 /* TimeInterval+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015692E324B48C3F0033F35E /* TimeInterval+Convenience.swift */; };
 		01A2367A2519D1E80043D9F8 /* ExposureSubmissionWarnOthersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A236792519D1E80043D9F8 /* ExposureSubmissionWarnOthersViewModel.swift */; };
 		01A23685251A23740043D9F8 /* ExposureSubmissionCoordinatorModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A23684251A22E90043D9F8 /* ExposureSubmissionCoordinatorModelTests.swift */; };
 		01A97DD12506768F00C07C37 /* DatePickerOptionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A97DD02506767E00C07C37 /* DatePickerOptionViewModelTests.swift */; };
@@ -3456,6 +3457,7 @@
 				A32842652491136E006B1F09 /* ExposureSubmissionUITests.swift in Sources */,
 				85D7596424570491008175F0 /* ENAUITests.swift in Sources */,
 				13E50469248E3CD20086641C /* ENAUITestsAppInformation.swift in Sources */,
+				01A1B45C252E077600841B63 /* TimeInterval+Convenience.swift in Sources */,
 				130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */,
 				13E5046B248E3DF30086641C /* AppStrings.swift in Sources */,
 				A3EE6E5C249BB97500C64B61 /* UITestingParameters.swift in Sources */,

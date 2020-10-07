@@ -403,9 +403,3 @@ extension ENAUITests_04_ExposureSubmissionUITests {
 	}
 
 }
-
-private extension TimeInterval {
-	static let short = 1.0
-	static let medium = 3.0
-	static let long = 5.0
-}
