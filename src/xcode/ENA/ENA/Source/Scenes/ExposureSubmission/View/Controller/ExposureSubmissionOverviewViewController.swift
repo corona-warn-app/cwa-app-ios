@@ -110,7 +110,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 				viewController.present(alert, animated: true, completion: nil)
 			}
 		default:
-			logError(message: "QRScannerError.other occurred.", level: .error)
+			Log.error("QRScannerError.other occurred.", log: .api)
 		}
 	}
 
@@ -165,7 +165,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 					return
 				}
 				
-				logError(message: "An error occurred during result fetching: \(error)", level: .error)
+				Log.error("An error occurred during result fetching: \(error)", log: .api)
 
 				let alert = self.setupErrorAlert(
 					message: error.localizedDescription,

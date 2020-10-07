@@ -81,7 +81,7 @@ class EUSettingsViewController: DynamicTableViewController {
 				let supportedCountries = supportedCountryIDs.compactMap { Country(countryCode: $0) }
 				self?.viewModel = EUSettingsViewModel(countries: supportedCountries)
 			case .failure(let error):
-				logError(message: "Error while loading app configuration: \(error).")
+				Log.error("Error while loading app configuration: \(error).", log: .api)
 				self?.viewModel = EUSettingsViewModel(countries: [])
 			}
 			self?.reloadCountrySection()

@@ -143,7 +143,7 @@ extension ExposureSubmissionCoordinator {
 	func start(with result: TestResult? = nil) {
 		let initialVC = getInitialViewController(with: result)
 		guard let parentNavigationController = parentNavigationController else {
-			log(message: "Parent navigation controller not set.", level: .error, file: #file, line: #line, function: #function)
+			Log.error("Parent navigation controller not set.", log: .ui)
 			return
 		}
 
@@ -256,14 +256,14 @@ extension ExposureSubmissionCoordinator {
 	// MARK: - UI-related helpers.
 
 	func showErrorAlert(for error: ExposureSubmissionError, onCompletion: (() -> Void)? = nil) {
-		logError(message: "error: \(error.localizedDescription)", level: .error)
+		Log.error("error: \(error.localizedDescription)", log: .ui)
 
 		guard let alert = navigationController?.setupErrorAlert(
 			message: error.localizedDescription,
 			secondaryActionTitle: error.faqURL != nil ? AppStrings.Common.errorAlertActionMoreInfo : nil,
 			secondaryActionCompletion: {
 				guard let url = error.faqURL else {
-					logError(message: "Unable to open FAQ page.", level: .error)
+					Log.error("Unable to open FAQ page.", log: .api)
 					return
 				}
 

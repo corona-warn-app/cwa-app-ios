@@ -207,7 +207,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, QRScann
 					try device.setTorchModeOn(level: 1.0)
 					flashButton.isSelected = true
 				} catch {
-					log(message: error.localizedDescription, level: .error)
+					Log.error(error.localizedDescription, log: .api)
 				}
 			}
 
@@ -215,7 +215,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, QRScann
 
 			updateToggleFlashAccessibility()
 		} catch {
-			log(message: error.localizedDescription, level: .error)
+			Log.error(error.localizedDescription, log: .api)
 		}
 	}
 

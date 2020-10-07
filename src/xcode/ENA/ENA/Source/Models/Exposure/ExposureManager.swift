@@ -153,7 +153,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	func activate(completion: @escaping CompletionHandler) {
 		manager.activate { activationError in
 			if let activationError = activationError {
-				logError(message: "Failed to activate ENManager: \(activationError.localizedDescription)")
+				Log.error("Failed to activate ENManager: \(activationError.localizedDescription)", log: .api)
 				self.handleENError(error: activationError, completion: completion)
 				return
 			}
@@ -178,7 +178,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	private func changeEnabled(to status: Bool, completion: @escaping CompletionHandler) {
 		manager.setExposureNotificationEnabled(status) { error in
 			if let error = error {
-				logError(message: "Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)")
+				Log.error("Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)", log: .api)
 				self.handleENError(error: error, completion: completion)
 				return
 			}
@@ -223,7 +223,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
 		if !manager.exposureNotificationEnabled {
 			let error = ENError(.notEnabled)
-			logError(message: error.localizedDescription)
+			Log.error(error.localizedDescription, log: .api)
 			completionHandler(nil, error)
 			return
 		}
@@ -246,7 +246,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 				completion(ExposureNotificationError.apiMisuse)
 			default:
 				let errorMsg = "[ExposureManager] Not implemented \(error.localizedDescription)"
-				logError(message: errorMsg)
+				Log.error(errorMsg, log: .api)
 				completion(ExposureNotificationError.unknown(error.localizedDescription))
 			}
 		}
@@ -289,7 +289,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		notificationCenter.requestAuthorization(options: options) { _, error in
 			if let error = error {
 				// handle error
-				log(message: "Notification authorization request error: \(error.localizedDescription)", level: .error)
+				Log.error("Notification authorization request error: \(error.localizedDescription)", log: .api)
 			}
 			DispatchQueue.main.async {
 				completionHandler()

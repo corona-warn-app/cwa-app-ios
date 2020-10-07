@@ -160,10 +160,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			switch result {
 			case .success:
 				self.submitExposureCleanup()
-				log(message: "Successfully completed exposure sumbission.")
+				Log.info("Successfully completed exposure sumbission.", log: .api)
 				completion(nil)
 			case .failure(let error):
-				logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
+				Log.error("Error while submiting diagnosis keys: \(error.localizedDescription)", log: .api)
 				completion(self.parseError(error))
 			}
 		}
@@ -262,11 +262,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		visitedCountries: [Country],
 		completionHandler: @escaping ExposureSubmissionHandler
 	) {
-		log(message: "Started exposure submission...")
+		Log.info("Started exposure submission...", log: .api)
 
 		diagnosiskeyRetrieval.accessDiagnosisKeys { keys, error in
 			if let error = error {
-				logError(message: "Error while retrieving diagnosis keys: \(error.localizedDescription)")
+				Log.error("Error while retrieving diagnosis keys: \(error.localizedDescription)", log: .api)
 				completionHandler(self.parseError(error))
 				return
 			}
@@ -331,7 +331,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.isAllowedToSubmitDiagnosisKeys = false
 		store.tan = nil
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
-		log(message: "Exposure submission cleanup.")
+		Log.info("Exposure submission cleanup.", log: .api)
 	}
 
 	func preconditions() -> ExposureManagerState {

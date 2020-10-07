@@ -166,7 +166,7 @@ final class OnboardingInfoViewController: UIViewController {
 			case .success(let applicationConfiguration):
 				supportedCountryIDs = applicationConfiguration.supportedCountries
 			case .failure(let error):
-				logError(message: "Error while loading app configuration: \(error).")
+				Log.error("Error while loading app configuration: \(error).", log: .api)
 				supportedCountryIDs = []
 			}
 
@@ -298,12 +298,12 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private func persistTimestamp(completion: (() -> Void)?) {
 		if let acceptedDate = store.dateOfAcceptedPrivacyNotice {
-			log(message: "User has already accepted the privacy terms on \(acceptedDate)", level: .warning)
+			Log.warning("User has already accepted the privacy terms on \(acceptedDate)", log: .localData)
 			completion?()
 			return
 		}
 		store.dateOfAcceptedPrivacyNotice = Date()
-		log(message: "Persist that user accepted the privacy terms on \(Date())", level: .info)
+		Log.info("Persist that user accepted the privacy terms on \(Date())", log: .localData)
 		completion?()
 	}
 
@@ -323,11 +323,11 @@ final class OnboardingInfoViewController: UIViewController {
 		func shouldHandleError(_ error: ExposureNotificationError?) -> Bool {
 			switch error {
 			case .exposureNotificationRequired:
-				log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
+				Log.warning("Encourage the user to consider enabling Exposure Notifications.", log: .api)
 			case .exposureNotificationAuthorization:
-				log(message: "Encourage the user to authorize this application", level: .warning)
+				Log.warning("Encourage the user to authorize this application", log: .api)
 			case .exposureNotificationUnavailable:
-				log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
+				Log.warning("Tell the user that Exposure Notifications is currently not available.", log: .api)
 			case .apiMisuse:
 				// User already enabled notifications, but went back to the previous screen. Just ignore error and proceed
 				return false

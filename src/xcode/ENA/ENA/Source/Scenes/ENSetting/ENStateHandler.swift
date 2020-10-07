@@ -73,7 +73,7 @@ final class ENStateHandler {
 		case .paused:
 			return .disabled
 		@unknown default:
-			logError(message: "New state was added that is not being covered by ENStateHandler")
+			Log.error("New state was added that is not being covered by ENStateHandler", log: .api)
 			return .unknown
 		}
 	}
@@ -89,7 +89,7 @@ final class ENStateHandler {
 		case .authorized:
 			return .notActiveApp
 		@unknown default:
-			logError(message: "New state was added that is not being covered by ENStateHandler")
+			Log.error("New state was added that is not being covered by ENStateHandler", log: .api)
 			return .unknown
 		}
 	}
