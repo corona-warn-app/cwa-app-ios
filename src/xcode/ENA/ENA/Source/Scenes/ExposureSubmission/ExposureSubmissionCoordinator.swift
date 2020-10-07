@@ -44,6 +44,7 @@ protocol ExposureSubmissionCoordinating: class {
 	func showTestResultScreen(with result: TestResult)
 	func showTanScreen()
 	func showSymptomsScreen()
+	func showWarnOthersScreen()
 	func showThankYouScreen()
 
 }
@@ -312,7 +313,7 @@ extension ExposureSubmissionCoordinator {
 		push(vc)
 	}
 
-	private func showWarnOthersScreen() {
+	func showWarnOthersScreen() {
 		let vc = createWarnOthersViewController(
 			supportedCountries: model.supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
