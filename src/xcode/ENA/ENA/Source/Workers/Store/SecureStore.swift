@@ -194,6 +194,11 @@ final class SecureStore: Store {
 		set { kvStore["previousSummaryMetadata"] = newValue }
 	}
 
+	var hourlyFetchingEnabled: Bool {
+		get { kvStore["hourlyFetchingEnabled"] as Bool? ?? false }
+		set { kvStore["hourlyFetchingEnabled"] = newValue }
+	}
+
 	var previousRiskLevel: EitherLowOrIncreasedRiskLevel? {
 		get {
 			guard let value = kvStore["previousRiskLevel"] as Int? else {
@@ -232,11 +237,6 @@ final class SecureStore: Store {
 	#if !RELEASE
 
 	// Settings from the debug menu.
-
-	var hourlyFetchingEnabled: Bool {
-		get { kvStore["hourlyFetchingEnabled"] as Bool? ?? false }
-		set { kvStore["hourlyFetchingEnabled"] = newValue }
-	}
 
 	var fakeSQLiteError: Int32? {
 		get { kvStore["fakeSQLiteError"] as Int32? }
