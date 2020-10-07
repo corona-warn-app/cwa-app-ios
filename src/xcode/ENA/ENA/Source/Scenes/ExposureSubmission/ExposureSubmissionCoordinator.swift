@@ -226,15 +226,14 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	private func showQRScreen(isLoading: @escaping (Bool) -> Void) {
-		let scannerViewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: true)
 		let scannerViewController = ExposureSubmissionQRScannerViewController(
-			viewModel: scannerViewModel,
+			isScanningActivated: true,
 			onSuccess: { [weak self] deviceRegistrationKey in
 				self?.presentedViewController?.dismiss(animated: true) {
 					self?.getTestResults(for: deviceRegistrationKey, isLoading: isLoading)
 				}
 			},
-			onError: { [weak self] error in
+			onError: { [weak self] error, reactivateScanning in
 				switch error {
 				case .cameraPermissionDenied:
 					DispatchQueue.main.async {
@@ -253,7 +252,7 @@ extension ExposureSubmissionCoordinator {
 							completion: { [weak self] in
 								self?.presentedViewController?.dismiss(animated: true)
 							},
-							secondaryActionCompletion: { scannerViewModel.activateScanning() }
+							secondaryActionCompletion: { reactivateScanning() }
 						)
 						self?.presentedViewController?.present(alert, animated: true)
 					}

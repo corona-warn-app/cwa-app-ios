@@ -1,4 +1,3 @@
-//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -15,11 +14,23 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-//
 
+import AVFoundation
 import Foundation
 
-enum DeviceRegistrationKey: Equatable {
-	case teleTan(String)
-	case guid(String)
+protocol MetadataObject: NSObjectProtocol {
+	var time: CMTime { get }
+	var duration: CMTime { get }
+	var bounds: CGRect { get }
+	var type: AVMetadataObject.ObjectType { get }
+
 }
+
+protocol MetadataMachineReadableCodeObject: MetadataObject {
+
+	var stringValue: String? { get }
+
+}
+
+extension AVMetadataObject: MetadataObject {}
+extension AVMetadataMachineReadableCodeObject: MetadataMachineReadableCodeObject {}

@@ -27,6 +27,8 @@
 		019357192525FAD00038F615 /* ExposureSubmissionQRInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019357172525FAD00038F615 /* ExposureSubmissionQRInfoViewModel.swift */; };
 		019BFC6C24C9901A0053973D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCC2702484DC8400E2811D /* sqlite3.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		01A1B442252DE57000841B63 /* ExposureSubmissionQRScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1B441252DE54600841B63 /* ExposureSubmissionQRScannerViewModelTests.swift */; };
+		01A1B44A252DFD7800841B63 /* MetadataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1B449252DFD7700841B63 /* MetadataObject.swift */; };
+		01A1B452252DFDC400841B63 /* FakeMetadataMachineReadableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1B451252DFD9400841B63 /* FakeMetadataMachineReadableObject.swift */; };
 		01A2367A2519D1E80043D9F8 /* ExposureSubmissionWarnOthersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A236792519D1E80043D9F8 /* ExposureSubmissionWarnOthersViewModel.swift */; };
 		01A23685251A23740043D9F8 /* ExposureSubmissionCoordinatorModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A23684251A22E90043D9F8 /* ExposureSubmissionCoordinatorModelTests.swift */; };
 		01A97DD12506768F00C07C37 /* DatePickerOptionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A97DD02506767E00C07C37 /* DatePickerOptionViewModelTests.swift */; };
@@ -547,6 +549,8 @@
 		019357162525FAD00038F615 /* ExposureSubmissionQRInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRInfoViewController.swift; sourceTree = "<group>"; };
 		019357172525FAD00038F615 /* ExposureSubmissionQRInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRInfoViewModel.swift; sourceTree = "<group>"; };
 		01A1B441252DE54600841B63 /* ExposureSubmissionQRScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRScannerViewModelTests.swift; sourceTree = "<group>"; };
+		01A1B449252DFD7700841B63 /* MetadataObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataObject.swift; sourceTree = "<group>"; };
+		01A1B451252DFD9400841B63 /* FakeMetadataMachineReadableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMetadataMachineReadableObject.swift; sourceTree = "<group>"; };
 		01A236792519D1E80043D9F8 /* ExposureSubmissionWarnOthersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnOthersViewModel.swift; sourceTree = "<group>"; };
 		01A23684251A22E90043D9F8 /* ExposureSubmissionCoordinatorModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCoordinatorModelTests.swift; sourceTree = "<group>"; };
 		01A97DD02506767E00C07C37 /* DatePickerOptionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerOptionViewModelTests.swift; sourceTree = "<group>"; };
@@ -1143,6 +1147,7 @@
 				01C6AC0D252B1E980052814D /* ExposureSubmissionQRScannerViewModel.swift */,
 				01C6AC25252B23D70052814D /* ExposureSubmissionQRScannerFocusView.swift */,
 				01C6AC31252B29C00052814D /* QRScannerError.swift */,
+				01A1B449252DFD7700841B63 /* MetadataObject.swift */,
 			);
 			path = QRScanner;
 			sourceTree = "<group>";
@@ -1946,6 +1951,7 @@
 				A32842662492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift */,
 				A372DA3C24BE01D9003248BB /* MockExposureSubmissionCoordinator.swift */,
 				A372DA4024BF33F9003248BB /* MockExposureSubmissionCoordinatorDelegate.swift */,
+				01A1B451252DFD9400841B63 /* FakeMetadataMachineReadableObject.swift */,
 			);
 			path = "Mock Objects";
 			sourceTree = "<group>";
@@ -3201,6 +3207,7 @@
 				71D3C19A2494EFAC00DBABA8 /* ENANavigationControllerWithFooter.swift in Sources */,
 				CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */,
 				A1BABD1024A57D03000ED515 /* ENTemporaryExposureKey+Processing.swift in Sources */,
+				01A1B44A252DFD7800841B63 /* MetadataObject.swift in Sources */,
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
 				B1FE13FB24896E6700D012E5 /* AppConfigurationProviding.swift in Sources */,
 				514EE999246D4C2E00DE4884 /* UITableViewCell+Identifier.swift in Sources */,
@@ -3396,6 +3403,7 @@
 				A328426324910552006B1F09 /* ExposureSubmissionSuccessViewControllerTests.swift in Sources */,
 				2FD473BF251E0ECE000DCA40 /* EUSettingsViewControllerTests.swift in Sources */,
 				A372DA4124BF33F9003248BB /* MockExposureSubmissionCoordinatorDelegate.swift in Sources */,
+				01A1B452252DFDC400841B63 /* FakeMetadataMachineReadableObject.swift in Sources */,
 				3598D99A24FE280700483F1F /* CountryTests.swift in Sources */,
 				B163D1102499068D001A322C /* SettingsViewModelTests.swift in Sources */,
 				A1654F0224B43E8500C0E115 /* DynamicTableViewTextViewCellTests.swift in Sources */,

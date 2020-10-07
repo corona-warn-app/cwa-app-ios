@@ -19,20 +19,22 @@ import AVFoundation
 import Foundation
 import UIKit
 
-final class ExposureSubmissionQRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+final class ExposureSubmissionQRScannerViewController: UIViewController {
 
 	// MARK: - Init
 
 	init(
-		viewModel: ExposureSubmissionQRScannerViewModel,
+		isScanningActivated: Bool,
 		onSuccess: @escaping (DeviceRegistrationKey) -> Void,
-		onError: @escaping (QRScannerError) -> Void,
+		onError: @escaping (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void,
 		onCancel: @escaping () -> Void
 	) {
-		self.viewModel = viewModel
-		self.onSuccess = onSuccess
-		self.onError = onError
-		self.onCancel = onCancel
+		viewModel = ExposureSubmissionQRScannerViewModel(
+			isScanningActivated: isScanningActivated,
+			onSuccess: onSuccess,
+			onError: onError,
+			onCancel: onCancel
+		)
 
 		super.init(nibName: "ExposureSubmissionQRScannerViewController", bundle: .main)
 	}
@@ -58,37 +60,8 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, AVCaptu
 		setNeedsPreviewMaskUpdate()
 		updatePreviewMaskIfNeeded()
 	}
-
-	// MARK: - Protocol AVCaptureMetadataOutputObjectsDelegate
-
-	func metadataOutput(
-		_: AVCaptureMetadataOutput,
-		didOutput metadataObjects: [AVMetadataObject],
-		from _: AVCaptureConnection
-	) {
-		guard viewModel.isScanningActivated else { return }
-
-		if let code = metadataObjects.first(where: { $0 is AVMetadataMachineReadableCodeObject }) as? AVMetadataMachineReadableCodeObject, let stringValue = code.stringValue {
-			viewModel.deactivateScanning()
-
-			guard let extractedGuid = viewModel.extractGuid(from: stringValue) else {
-				onError(.codeNotFound)
-				return
-			}
-
-			onSuccess(.guid(extractedGuid))
-		}
-	}
-
-	// MARK: - Public
-
-	// MARK: - Internal
-
+	
 	// MARK: - Private
-
-	private let onSuccess: (DeviceRegistrationKey) -> Void
-	private let onError: (QRScannerError) -> Void
-	private let onCancel: () -> Void
 
 	private let viewModel: ExposureSubmissionQRScannerViewModel
 
@@ -151,14 +124,19 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, AVCaptu
 		case .notDetermined:
 			AVCaptureDevice.requestAccess(for: .video) { isAllowed in
 				guard isAllowed else {
-					self.onError(.cameraPermissionDenied)
+					self.viewModel.onError(.cameraPermissionDenied) { [weak self] in
+						self?.viewModel.activateScanning()
+					}
+
 					return
 				}
 
 				self.startScanning()
 			}
 		default:
-			onError(.cameraPermissionDenied)
+			viewModel.onError(.cameraPermissionDenied) { [weak self] in
+				self?.viewModel.activateScanning()
+			}
 		}
 	}
 
@@ -168,12 +146,18 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, AVCaptu
 
 		captureDevice = AVCaptureDevice.default(for: .video)
 		guard let captureDevice = captureDevice else {
-			onError(.other)
+			viewModel.onError(.other) { [weak self] in
+				self?.viewModel.activateScanning()
+			}
+
 			return
 		}
 
 		guard let caputureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else {
-			onError(.other)
+			viewModel.onError(.other) { [weak self] in
+				self?.viewModel.activateScanning()
+			}
+
 			return
 		}
 
@@ -183,7 +167,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, AVCaptu
 		captureSession.addOutput(metadataOutput)
 
 		metadataOutput.metadataObjectTypes = [.qr]
-		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
+		metadataOutput.setMetadataObjectsDelegate(viewModel, queue: .main)
 
 		previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
 		guard let previewLayer = previewLayer else { return }
@@ -227,7 +211,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, AVCaptu
 
 	@objc
 	private func didTapCancel() {
-		onCancel()
+		viewModel.onCancel()
 	}
 
 	private func setNeedsPreviewMaskUpdate() {

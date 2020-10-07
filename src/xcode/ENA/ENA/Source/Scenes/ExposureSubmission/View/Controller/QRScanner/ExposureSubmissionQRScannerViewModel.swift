@@ -15,20 +15,40 @@
 // specific language governing permissions and limitations
 // under the License.
 
+import AVFoundation
 import Foundation
 import UIKit
 
-class ExposureSubmissionQRScannerViewModel {
+class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
 	// MARK: - Init
 
-	init(isScanningActivated: Bool) {
+	init(
+		isScanningActivated: Bool,
+		onSuccess: @escaping (DeviceRegistrationKey) -> Void,
+		onError: @escaping (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void,
+		onCancel: @escaping () -> Void
+	) {
 		self.isScanningActivated = isScanningActivated
+		self.onSuccess = onSuccess
+		self.onError = onError
+		self.onCancel = onCancel
+	}
+
+	// MARK: - Protocol AVCaptureMetadataOutputObjectsDelegate
+
+	func metadataOutput(
+		_: AVCaptureMetadataOutput,
+		didOutput metadataObjects: [AVMetadataObject],
+		from _: AVCaptureConnection
+	) {
+		didScan(metadataObjects: metadataObjects)
 	}
 
 	// MARK: - Internal
 
-	private(set) var isScanningActivated: Bool
+	let onError: (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
+	let onCancel: () -> Void
 
 	func activateScanning() {
 		isScanningActivated = true
@@ -36,6 +56,24 @@ class ExposureSubmissionQRScannerViewModel {
 
 	func deactivateScanning() {
 		isScanningActivated = false
+	}
+
+	func didScan(metadataObjects: [MetadataObject]) {
+		guard isScanningActivated else { return }
+
+		if let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject, let stringValue = code.stringValue {
+			deactivateScanning()
+
+			guard let extractedGuid = extractGuid(from: stringValue) else {
+				onError(.codeNotFound) { [weak self] in
+					self?.activateScanning()
+				}
+
+				return
+			}
+
+			onSuccess(.guid(extractedGuid))
+		}
 	}
 
 	/// Sanitizes the input string and extracts a guid.
@@ -61,5 +99,11 @@ class ExposureSubmissionQRScannerViewModel {
 
 		return candidate
 	}
+
+	// MARK: - Private
+
+	private var isScanningActivated: Bool
+
+	private let onSuccess: (DeviceRegistrationKey) -> Void
 
 }

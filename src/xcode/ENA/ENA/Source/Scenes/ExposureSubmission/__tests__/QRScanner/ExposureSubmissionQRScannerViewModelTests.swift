@@ -17,34 +17,141 @@
 // under the License.
 //
 
+import AVFoundation
 import Foundation
 import XCTest
 @testable import ENA
 
 final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 
-	func testActivateScanning() {
-		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: false)
+	func testSuccessfulScan() {
+		let guid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
 
-		XCTAssertFalse(viewModel.isScanningActivated)
+		let onSuccessExpectation = expectation(description: "onSuccess called")
+		onSuccessExpectation.expectedFulfillmentCount = 1
 
-		viewModel.activateScanning()
+		let onErrorExpectation = expectation(description: "onError not called")
+		onErrorExpectation.isInverted = true
 
-		XCTAssertTrue(viewModel.isScanningActivated)
+		let viewModel = ExposureSubmissionQRScannerViewModel(
+			isScanningActivated: true,
+			onSuccess: { deviceRegistrationKey in
+				XCTAssertEqual(deviceRegistrationKey, .guid(guid))
+
+				onSuccessExpectation.fulfill()
+			},
+			onError: { _, _ in
+				onErrorExpectation.fulfill()
+			},
+			onCancel: { }
+		)
+
+		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://localhost/?\(guid)")
+		viewModel.didScan(metadataObjects: [metaDataObject])
+
+		// Check that scanning is deactivated after one successful scan
+		viewModel.didScan(metadataObjects: [metaDataObject])
+
+		waitForExpectations(timeout: 1.0)
 	}
 
-	func testDeactivateScanning() {
-		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: true)
+	func testUnsuccessfulScan() {
+		let emptyGuid = ""
 
-		XCTAssertTrue(viewModel.isScanningActivated)
+		let onSuccessExpectation = expectation(description: "onSuccess not called")
+		onSuccessExpectation.isInverted = true
 
-		viewModel.deactivateScanning()
+		let onErrorExpectation = expectation(description: "onError called")
+		onErrorExpectation.expectedFulfillmentCount = 1
 
-		XCTAssertFalse(viewModel.isScanningActivated)
+		let viewModel = ExposureSubmissionQRScannerViewModel(
+			isScanningActivated: true,
+			onSuccess: { _ in
+				onSuccessExpectation.fulfill()
+			},
+			onError: { error, _ in
+				XCTAssertEqual(error, .codeNotFound)
+
+				onErrorExpectation.fulfill()
+			},
+			onCancel: { }
+		)
+
+		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://localhost/?\(emptyGuid)")
+		viewModel.didScan(metadataObjects: [metaDataObject])
+
+		// Check that scanning is deactivated after one unsuccessful scan
+		viewModel.didScan(metadataObjects: [metaDataObject])
+
+		waitForExpectations(timeout: 1.0)
+	}
+
+	func testScanningIsDeactivatedInitially() {
+		let guid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
+
+		let onSuccessExpectation = expectation(description: "onSuccess not called")
+		onSuccessExpectation.isInverted = true
+
+		let onErrorExpectation = expectation(description: "onError not called")
+		onErrorExpectation.isInverted = true
+
+		let viewModel = ExposureSubmissionQRScannerViewModel(
+			isScanningActivated: false,
+			onSuccess: { _ in
+				onSuccessExpectation.fulfill()
+			},
+			onError: { _, _ in
+				onErrorExpectation.fulfill()
+			},
+			onCancel: { }
+		)
+
+		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://localhost/?\(guid)")
+		viewModel.didScan(metadataObjects: [metaDataObject])
+
+		waitForExpectations(timeout: 1.0)
+	}
+
+	func testInitalUnsuccessfulScanWithSuccessfulRetry() {
+		let validGuid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
+		let emptyGuid = ""
+
+		let onSuccessExpectation = expectation(description: "onSuccess called")
+		onSuccessExpectation.expectedFulfillmentCount = 1
+
+		let onErrorExpectation = expectation(description: "onError called")
+		onErrorExpectation.expectedFulfillmentCount = 1
+
+		let viewModel = ExposureSubmissionQRScannerViewModel(
+			isScanningActivated: true,
+			onSuccess: { deviceRegistrationKey in
+				XCTAssertEqual(deviceRegistrationKey, .guid(validGuid))
+
+				onSuccessExpectation.fulfill()
+			},
+			onError: { error, reactivateScanning in
+				XCTAssertEqual(error, .codeNotFound)
+
+				reactivateScanning()
+
+				onErrorExpectation.fulfill()
+			},
+			onCancel: { }
+		)
+
+		let invalidMetaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://localhost/?\(emptyGuid)")
+		viewModel.didScan(metadataObjects: [invalidMetaDataObject])
+
+		wait(for: [onErrorExpectation], timeout: 1.0)
+
+		let validMetaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://localhost/?\(validGuid)")
+		viewModel.didScan(metadataObjects: [validMetaDataObject])
+
+		wait(for: [onSuccessExpectation], timeout: 1.0)
 	}
 
 	func testQRCodeExtraction_EmptyString() {
-		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: false)
+		let viewModel = createViewModel(isScanningActivated: false)
 
 		let result = viewModel.extractGuid(from: "")
 
@@ -52,7 +159,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	}
 
 	func testQRCodeExtraction_InputLengthExceeded() {
-		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: false)
+		let viewModel = createViewModel(isScanningActivated: false)
 
 		let result = viewModel.extractGuid(from: String(repeating: "x", count: 150))
 
@@ -60,7 +167,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	}
 
 	func testQRCodeExtraction_WrongURL() {
-		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: false)
+		let viewModel = createViewModel(isScanningActivated: false)
 
 		let result = viewModel.extractGuid(from: "https://coronawarn.app/?\(validGuid)")
 
@@ -68,7 +175,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	}
 
 	func testQRCodeExtraction_MissingURL() {
-		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: false)
+		let viewModel = createViewModel(isScanningActivated: false)
 
 		let result = viewModel.extractGuid(from: "?\(validGuid)")
 
@@ -76,7 +183,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	}
 
 	func testQRCodeExtraction_MissingQuestionMark() {
-		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: false)
+		let viewModel = createViewModel(isScanningActivated: false)
 
 		let result = viewModel.extractGuid(from: "https://localhost/\(validGuid)")
 
@@ -84,7 +191,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	}
 
 	func testQRCodeExtraction_AdditionalSpaceAfterQuestionMark() {
-		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: false)
+		let viewModel = createViewModel(isScanningActivated: false)
 
 		let result = viewModel.extractGuid(from: "? \(validGuid)")
 
@@ -92,7 +199,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	}
 
 	func testQRCodeExtraction_GUIDLengthExceeded() {
-		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: false)
+		let viewModel = createViewModel(isScanningActivated: false)
 
 		let result = viewModel.extractGuid(from: "https://localhost/?\(validGuid)-BEEF")
 
@@ -100,7 +207,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	}
 
 	func testQRCodeExtraction_GUIDTooShort() {
-		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: false)
+		let viewModel = createViewModel(isScanningActivated: false)
 
 		let result = viewModel.extractGuid(from: "https://localhost/?\(validGuid.dropLast(4))")
 
@@ -108,7 +215,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	}
 
 	func testQRCodeExtraction_GUIDStructureWrong() {
-		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: false)
+		let viewModel = createViewModel(isScanningActivated: false)
 
 		let wrongGuid = "3D6D-083567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
 		let result = viewModel.extractGuid(from: "https://localhost/?\(wrongGuid)")
@@ -117,7 +224,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	}
 
 	func testQRCodeExtraction_ValidWithUppercaseString() {
-		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: false)
+		let viewModel = createViewModel(isScanningActivated: false)
 
 		let result = viewModel.extractGuid(from: "https://localhost/?\(validGuid.uppercased())")
 
@@ -125,7 +232,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	}
 
 	func testQRCodeExtraction_ValidWithLowercaseString() {
-		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: false)
+		let viewModel = createViewModel(isScanningActivated: false)
 
 		let result = viewModel.extractGuid(from: "https://localhost/?\(validGuid.lowercased())")
 
@@ -133,7 +240,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	}
 
 	func testQRCodeExtraction_ValidWithMixedcaseString() {
-		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: false)
+		let viewModel = createViewModel(isScanningActivated: false)
 
 		let mixedCaseGuid = "3D6d08-3567F3f2-4DcF-43A3-8737-4CD1F87d6FDa"
 		let result = viewModel.extractGuid(from: "https://localhost/?\(mixedCaseGuid)")
@@ -142,5 +249,9 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	}
 
 	private let validGuid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
+
+	private func createViewModel(isScanningActivated: Bool) -> ExposureSubmissionQRScannerViewModel {
+		ExposureSubmissionQRScannerViewModel(isScanningActivated: isScanningActivated, onSuccess: { _ in }, onError: { _, _ in }, onCancel: { })
+	}
 
 }
