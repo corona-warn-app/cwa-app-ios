@@ -191,7 +191,7 @@ extension ExposureSubmissionCoordinator {
 		push(vc)
 	}
 
-	private func showDisclaimer(isLoading: (Bool) -> Void) {
+	private func showDisclaimer(isLoading: @escaping (Bool) -> Void) {
 		let alert = UIAlertController(
 			title: AppStrings.ExposureSubmission.dataPrivacyTitle,
 			message: AppStrings.ExposureSubmission.dataPrivacyDisclaimer,
@@ -203,7 +203,7 @@ extension ExposureSubmissionCoordinator {
 			style: .default,
 			handler: { [weak self] _ in
 				self?.model.exposureSubmissionService.acceptPairing()
-				self?.showQRScreen()
+				self?.showQRScreen(isLoading: isLoading)
 			}
 		)
 
@@ -224,13 +224,13 @@ extension ExposureSubmissionCoordinator {
 		navigationController?.present(alert, animated: true)
 	}
 
-	private func showQRScreen() {
+	private func showQRScreen(isLoading: @escaping (Bool) -> Void) {
 		let scannerViewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: true)
 		let scannerViewController = ExposureSubmissionQRScannerViewController(
 			viewModel: scannerViewModel,
 			onSuccess: { [weak self] deviceRegistrationKey in
 				self?.presentedViewController?.dismiss(animated: true) {
-					self?.getTestResults(for: deviceRegistrationKey)
+					self?.getTestResults(for: deviceRegistrationKey, isLoading: isLoading)
 				}
 			},
 			onError: { [weak self] error in
@@ -360,10 +360,10 @@ extension ExposureSubmissionCoordinator {
 		})
 	}
 
-	private func getTestResults(for key: DeviceRegistrationKey) {
+	private func getTestResults(for key: DeviceRegistrationKey, isLoading: @escaping (Bool) -> Void) {
 		model.getTestResults(
 			for: key,
-			isLoading: { _ in },
+			isLoading: isLoading,
 			onSuccess: { [weak self] in self?.showTestResultScreen(with: $0) },
 			onError: { [weak self] error in
 				if let submissionError = error as? ExposureSubmissionError {
@@ -373,7 +373,7 @@ extension ExposureSubmissionCoordinator {
 						message: error.localizedDescription,
 						secondaryActionTitle: AppStrings.Common.alertActionRetry,
 						secondaryActionCompletion: {
-							self?.getTestResults(for: key)
+							self?.getTestResults(for: key, isLoading: isLoading)
 						}
 					)
 

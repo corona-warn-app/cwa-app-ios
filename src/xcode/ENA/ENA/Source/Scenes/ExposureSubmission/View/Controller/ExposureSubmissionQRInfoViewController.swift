@@ -52,11 +52,13 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANav
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		onPrimaryButtonTap { [weak self] isLoading in
-			isLoading ? self?.spinner?.startAnimating() : self?.spinner?.stopAnimating()
+			DispatchQueue.main.async {
+				isLoading ? self?.startSpinner() : self?.stopSpinner()
+			}
 		}
 	}
 
-	// MARK: - Internal
+	// MARK: - Protocol SpinnerInjectable
 
 	var spinner: UIActivityIndicatorView?
 
