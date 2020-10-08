@@ -313,6 +313,58 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionSuccessView"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 	}
+	
+	func test_screenshot_SubmitTAN() {
+		var screenshotCounter = 0
+		
+		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
+		launch()
+		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		
+		// Open Intro screen.
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		
+		// Click next button.
+		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		
+		// Click TAN button.
+		XCTAssertTrue(app
+						.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"]
+						.waitForExistence(timeout: .medium)
+		)
+		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].tap()
+		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		
+		// Fill in dummy TAN.
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
+		type(app, text: "qwdzxcsrhe")
+		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		
+		// Click continue button.
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].isEnabled)
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		
+		// TAN tests are ALWAYS positive!
+		
+		// Click secondary button to skip symptoms screens and immediately go to warn others screen.
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
+		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionSuccessView"].waitForExistence(timeout: .medium))
+		
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+	}
 
 }
 
@@ -408,4 +460,12 @@ private extension TimeInterval {
 	static let short = 1.0
 	static let medium = 3.0
 	static let long = 5.0
+}
+
+
+private extension Int {
+	mutating func inc() -> Int {
+		self += 1
+		return self
+	}
 }
