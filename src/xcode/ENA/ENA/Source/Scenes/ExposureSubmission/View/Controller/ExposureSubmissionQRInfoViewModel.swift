@@ -41,14 +41,14 @@ struct ExposureSubmissionQRInfoViewModel {
 							UIImage(imageLiteralResourceName: "Icons_QR2"),
 							text: .attributedString(
 								AppStrings.ExposureSubmissionQRInfo.instruction2
-									.inserting(string: AppStrings.ExposureSubmissionQRInfo.instruction2HighlightedPhrase, style: .headline)
+									.inserting(emphasizedString: AppStrings.ExposureSubmissionQRInfo.instruction2HighlightedPhrase)
 							)
 						),
 						.icon(
 							UIImage(imageLiteralResourceName: "Icons_QR3"),
 							text: .attributedString(
 								AppStrings.ExposureSubmissionQRInfo.instruction3
-									.inserting(string: AppStrings.ExposureSubmissionQRInfo.instruction3HighlightedPhrase, style: .headline)
+									.inserting(emphasizedString: AppStrings.ExposureSubmissionQRInfo.instruction3HighlightedPhrase)
 							)
 						),
 						.icon(

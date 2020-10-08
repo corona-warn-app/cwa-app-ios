@@ -154,7 +154,7 @@ private extension ExposureSubmissionOverviewViewController {
 			),
 			.imageCard(
 				title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
-				attributedDescription: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription.inserting(string: AppStrings.ExposureSubmissionDispatch.positiveWord, style: .headline),
+				attributedDescription: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription.inserting(emphasizedString: AppStrings.ExposureSubmissionDispatch.positiveWord),
 				image: UIImage(named: "Illu_Submission_Anruf"),
 				action: .execute { [weak self] _ in self?.onHotlineButtonTap() },
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.hotlineButtonDescription

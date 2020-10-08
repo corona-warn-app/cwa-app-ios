@@ -19,10 +19,10 @@ import UIKit
 
 extension String {
 
-	func inserting(string: String, style: ENAFont) -> NSAttributedString {
+	func inserting(emphasizedString: String) -> NSAttributedString {
 		return NSMutableAttributedString.generateAttributedString(normalText: self, attributedText: [
-			NSAttributedString(string: string, attributes: [
-				NSAttributedString.Key.font: UIFont.enaFont(for: style)
+			NSAttributedString(string: emphasizedString, attributes: [
+				NSAttributedString.Key.font: UIFont.enaFont(for: .headline)
 			])
 		])
 	}
