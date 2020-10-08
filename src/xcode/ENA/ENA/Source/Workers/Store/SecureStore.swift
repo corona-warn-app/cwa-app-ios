@@ -234,6 +234,16 @@ final class SecureStore: Store {
 		set { kvStore["selectedServerEnvironment"] = newValue }
 	}
 
+	#if !RELEASE
+
+	// Settings from the debug menu.
+
+	var fakeSQLiteError: Int32? {
+		get { kvStore["fakeSQLiteError"] as Int32? }
+		set { kvStore["fakeSQLiteError"] = newValue }
+	}
+
+	#endif
 }
 
 extension SecureStore: AppConfigCaching {

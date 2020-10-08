@@ -55,6 +55,14 @@ final class MockTestStore: Store, AppConfigCaching {
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
 	var selectedServerEnvironment: ServerEnvironmentData = ServerEnvironment().defaultEnvironment()
 
+	#if !RELEASE
+
+	// Settings from the debug menu.
+
+	var fakeSQLiteError: Int32? = nil
+
+	#endif
+
 	// MARK: - AppConfigCaching
 	
 	var lastAppConfigETag: String?
