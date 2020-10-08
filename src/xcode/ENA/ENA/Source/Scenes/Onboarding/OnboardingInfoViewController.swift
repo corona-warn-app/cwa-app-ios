@@ -310,10 +310,12 @@ final class OnboardingInfoViewController: UIViewController {
 	// MARK: Exposure notifications
 
 	private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
+		#if DEBUG
 		if exposureManager is MockExposureManager {
 			completion?()
 			return
 		}
+		#endif
 
 		func persistForDPP(accepted: Bool) {
 			self.store.exposureActivationConsentAccept = accepted
