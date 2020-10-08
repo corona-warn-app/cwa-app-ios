@@ -62,10 +62,9 @@ struct ExposureSubmissionWarnOthersViewModel {
 				.section(
 					separators: .inBetween,
 					cells: supportedCountries.map {
-						DynamicCell.icon($0.flag, text: $0.localizedName, iconWidth: 28) { _, cell, _ in
+						DynamicCell.icon($0.flag, text: .string($0.localizedName), iconWidth: 28) { _, cell, _ in
 							cell.contentView.layoutMargins.left = 32
 							cell.contentView.layoutMargins.right = 32
-							cell.selectionStyle = .none
 						}
 					}
 				)

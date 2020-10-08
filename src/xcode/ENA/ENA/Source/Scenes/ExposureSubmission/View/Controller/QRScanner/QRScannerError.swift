@@ -1,4 +1,3 @@
-//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -15,34 +14,22 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-//
 
-@testable import ENA
+import Foundation
 
-class MockExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
+enum QRScannerError: Error, LocalizedError {
 
-	// MARK: - Attributes.
+	case cameraPermissionDenied
+	case codeNotFound
+	case other
 
-	weak var delegate: ExposureSubmissionCoordinatorDelegate?
-
-	// MARK: - ExposureSubmissionCoordinator methods.
-
-	func start(with: TestResult? = nil) { }
-
-	func dismiss() { }
-
-	func showOverviewScreen() { }
-
-	func showTestResultScreen(with result: TestResult) { }
-
-	func showHotlineScreen() { }
-
-	func showTanScreen() { }
-
-	func showSymptomsScreen() { }
-
-	func showWarnOthersScreen() { }
-
-	func showThankYouScreen() { }
+	var errorDescription: String? {
+		switch self {
+		case .cameraPermissionDenied:
+			return AppStrings.ExposureSubmissionQRScanner.cameraPermissionDenied
+		default:
+			return AppStrings.ExposureSubmissionQRScanner.otherError
+		}
+	}
 
 }

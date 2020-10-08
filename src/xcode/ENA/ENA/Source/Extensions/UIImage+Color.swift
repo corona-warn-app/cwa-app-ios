@@ -17,32 +17,24 @@
 // under the License.
 //
 
-@testable import ENA
+import UIKit
 
-class MockExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
+extension UIImage {
 
-	// MARK: - Attributes.
+	static func with(color: UIColor) -> UIImage? {
+		let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
 
-	weak var delegate: ExposureSubmissionCoordinatorDelegate?
+		UIGraphicsBeginImageContext(rect.size)
 
-	// MARK: - ExposureSubmissionCoordinator methods.
+		if let context = UIGraphicsGetCurrentContext() {
+			context.setFillColor(color.cgColor)
+			context.fill(rect)
+		}
 
-	func start(with: TestResult? = nil) { }
+		let image = UIGraphicsGetImageFromCurrentImageContext()
+		UIGraphicsEndImageContext()
 
-	func dismiss() { }
-
-	func showOverviewScreen() { }
-
-	func showTestResultScreen(with result: TestResult) { }
-
-	func showHotlineScreen() { }
-
-	func showTanScreen() { }
-
-	func showSymptomsScreen() { }
-
-	func showWarnOthersScreen() { }
-
-	func showThankYouScreen() { }
+		return image
+	}
 
 }
