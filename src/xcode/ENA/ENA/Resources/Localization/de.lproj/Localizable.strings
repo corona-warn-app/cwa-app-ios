@@ -158,6 +158,8 @@
 
 "ExposureDetectionError_Alert_AppConfig_Missing_Message" = "Ihre Internetverbindung wurde unterbrochen. Bitte prüfen Sie die Verbindung und öffnen Sie die App dann erneut.";
 
+"ExposureDetectionError_Alert_FullDiskSpace_Message" = "Es steht nicht genug Speicherplatz für die aktuellen Daten zur Verfügung.\nBitte geben Sie Speicherplatz auf Ihrem Smartphone frei, damit Ihr Risikostatus aktualisiert werden kann.";
+
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Information zur Funktionsweise der Risiko-Ermittlung";
 
@@ -573,7 +575,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Gehen Sie nicht krank zur Arbeit, um andere Personen nicht zu gefährden.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Falls sich Ihre Symptome verschlechtern, kann die Notwendigkeit eines weiteres SARS-CoV-2-Tests bestehen.";
+"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Falls sich Ihre Symptome verschlechtern, kann die Notwendigkeit eines weiteren SARS-CoV-2-Tests bestehen.";
 
 "ExposureSubmissionResult_testInvalid" = "Test fehlerhaft";
 

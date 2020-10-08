@@ -22,17 +22,24 @@ import ExposureNotification
 
 extension ExposureDetection.DidEndPrematurelyReason {
 	func errorAlertController(rootController: UIViewController) -> UIAlertController? {
-		guard case let ExposureDetection.DidEndPrematurelyReason.noSummary(error) = self else {
+		switch self {
+		case let .noSummary(error):
+			return makeAlertControllerForENError(error, rootController: rootController)
+		case .noDiskSpace:
+			return rootController.setupErrorAlert(
+				message: localizedDescription
+			)
+		default:
+			// Don't show an alert for all other errors.
 			return nil
 		}
-		guard let unwrappedError = error else {
-			return nil
-		}
+	}
 
-		switch unwrappedError {
-		case let unwrappedError as ENError:
+	private func makeAlertControllerForENError(_ error: Error?, rootController: UIViewController) -> UIAlertController {
+		switch error {
+		case let error as ENError:
 			let openFAQ: (() -> Void)? = {
-				guard let url = unwrappedError.faqURL else { return nil }
+				guard let url = error.faqURL else { return nil }
 				return {
 					UIApplication.shared.open(url, options: [:])
 				}
