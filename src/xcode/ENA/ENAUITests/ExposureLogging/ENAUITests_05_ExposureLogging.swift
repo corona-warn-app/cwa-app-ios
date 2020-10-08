@@ -39,6 +39,7 @@ class ENAUITests_05_ExposureLogging: XCTestCase {
 	func test_screenshot_exposureLogging() throws {
 		var screenshotCounter = 0
 		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .M)
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launch()
 
 		// only run if home screen is present
