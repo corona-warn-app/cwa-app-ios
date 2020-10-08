@@ -5,9 +5,6 @@ extension OSLog {
 
 	private static var subsystem = Bundle.main.unwrappedBundleIdentifier
 
-    /// Logs the view cycles like viewDidLoad.
-    static let viewCycle = OSLog(subsystem: subsystem, category: "viewcycle")
-
     /// API interactions
     static let api = OSLog(subsystem: subsystem, category: "api")
     /// Exoplanet UI
