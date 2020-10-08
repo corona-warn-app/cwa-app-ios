@@ -207,6 +207,28 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		homeInteractor.state.risk = risk
 
 		reloadData(animatingDifferences: false)
+
+		showRiskStatusLoweredAlert(currentRisk: risk)
+	}
+
+	func showRiskStatusLoweredAlert(currentRisk: Risk?) {
+		defer { store.shouldShowRiskStatusLoweredAlert = false }
+
+		guard store.shouldShowRiskStatusLoweredAlert && currentRisk?.level == .low else { return }
+
+		let alert = UIAlertController(
+			title: AppStrings.Home.riskStatusLoweredAlertTitle,
+			message: AppStrings.Home.riskStatusLoweredAlertMessage,
+			preferredStyle: .alert
+		)
+
+		let alertAction = UIAlertAction(
+			title: AppStrings.Home.riskStatusLoweredAlertPrimaryButtonTitle,
+			style: .default
+		)
+		alert.addAction(alertAction)
+
+		present(alert, animated: true)
 	}
 
 	func showExposureSubmissionWithoutResult() {
