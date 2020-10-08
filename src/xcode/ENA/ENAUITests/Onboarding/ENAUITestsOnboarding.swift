@@ -90,10 +90,12 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 	}
 
-	func test_Screenshots_OnboardingFlow_EnablePermissions_normal_XS() throws {
+	
+	// MARK: - Screenshots for Onboarding Flow (enable permissions)
+	func test_Screenshots_OnboardingFlow_EnablePermissions_normal_L() throws {
 		let snapshotsActive = true
 		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "YES"])
-		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .XS)
+		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .L)
 		app.launch()
 
 		let prefix = "OnboardingFlow_EnablePermission_"
