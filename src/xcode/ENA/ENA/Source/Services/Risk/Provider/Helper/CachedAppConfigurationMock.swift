@@ -19,14 +19,8 @@
 
 import Foundation
 
-
-final class CachedAppConfigurationMock {
-	init() {
-		#if !DEBUG
-		preconditionFailure("Do not use this mock in a non-DEBUG environment!")
-		#endif
-	}
-}
+#if DEBUG
+final class CachedAppConfigurationMock {}
 
 extension CachedAppConfigurationMock: AppConfigurationProviding {
 
@@ -41,3 +35,4 @@ extension CachedAppConfigurationMock: AppConfigurationProviding {
 		self.appConfiguration(forceFetch: false, completion: completion)
 	}
 }
+#endif

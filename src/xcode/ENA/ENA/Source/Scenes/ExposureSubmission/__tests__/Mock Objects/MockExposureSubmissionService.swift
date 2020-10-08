@@ -19,6 +19,7 @@
 
 import Foundation
 
+#if DEBUG
 class MockExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Mock callbacks.
@@ -76,3 +77,4 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 		acceptPairingCallback?()
 	}
 }
+#endif

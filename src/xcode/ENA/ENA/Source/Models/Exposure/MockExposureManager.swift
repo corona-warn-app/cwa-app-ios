@@ -18,6 +18,7 @@
 import ExposureNotification
 import UIKit
 
+#if DEBUG
 final class MockExposureManager {
 	typealias MockDiagnosisKeysResult = ([ENTemporaryExposureKey]?, Error?)
 
@@ -104,3 +105,4 @@ extension MockExposureManager: ExposureManager {
 		#endif
 	}
 }
+#endif
