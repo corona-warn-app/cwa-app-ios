@@ -53,9 +53,9 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
    cd src/xcode && bundle install --path vendor/bundle
    ```
 
-6. (Optional) Add code snippet to XCode:
+6. (Optional) Add code snippet to Xcode:
 CodeSnipets are located inside the folder 'CodeSnippets'.
-Copy MARKs.codesnippet  to XCode UserData folder:
+Copy MARKs.codesnippet  to Xcode UserData folder:
  ```console
  cp CodeSnippets/MARKs.codesnippet ~/Library/Developer/Xcode/UserData/CodeSnippets/
  ```
