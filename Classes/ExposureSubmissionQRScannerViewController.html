@@ -49,8 +49,7 @@
                 <div class="declaration">
                   <div class="language">
                     
-                    <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">class</span> <span class="kt">ExposureSubmissionQRScannerViewController</span> <span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="kt"><a href="../Protocols/QRScannerViewController.html">QRScannerViewController</a></span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ExposureSubmissionQRScannerViewController</span><span class="p">:</span> <span class="kt">AVCaptureMetadataOutputObjectsDelegate</span></code></pre>
+                    <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">class</span> <span class="kt">ExposureSubmissionQRScannerViewController</span> <span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
 
                   </div>
                 </div>
@@ -59,13 +58,22 @@
             </section>
             <section class="section task-group-section">
               <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Init"></a>
+                  <a name="//apple_ref/swift/Section/Init" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/Init"></a>
+                    <h3 class="section-name"><p>Init</p>
+</h3>
+                  </div>
+                </div>
                 <ul>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/c:@M@ENA@objc(cs)ExposureSubmissionQRScannerViewController(py)focusView"></a>
-                      <a name="//apple_ref/swift/Property/focusView" class="dashAnchor"></a>
-                      <a class="token" href="#/c:@M@ENA@objc(cs)ExposureSubmissionQRScannerViewController(py)focusView">focusView</a>
+                      <a name="/s:3ENA41ExposureSubmissionQRScannerViewControllerC19isScanningActivated9onSuccess0J5Error0J6CancelACSb_yAA21DeviceRegistrationKeyOcyAA0dL0O_yyctcyyctcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(isScanningActivated:onSuccess:onError:onCancel:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA41ExposureSubmissionQRScannerViewControllerC19isScanningActivated9onSuccess0J5Error0J6CancelACSb_yAA21DeviceRegistrationKeyOcyAA0dL0O_yyctcyyctcfc">init(isScanningActivated:<wbr>onSuccess:<wbr>onError:<wbr>onCancel:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -80,97 +88,31 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
-<span class="k">var</span> <span class="nv">focusView</span><span class="p">:</span> <span class="kt"><a href="../Classes/ExposureSubmissionQRScannerFocusView.html">ExposureSubmissionQRScannerFocusView</a></span><span class="o">!</span></code></pre>
+                            <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span>
+	<span class="nv">isScanningActivated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
+	<span class="nv">onSuccess</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/DeviceRegistrationKey.html">DeviceRegistrationKey</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span>
+	<span class="nv">onError</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/QRScannerError.html">QRScannerError</a></span><span class="p">,</span> <span class="n">_</span> <span class="nv">reactivateScanning</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span>
+	<span class="nv">onCancel</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span>
+<span class="p">)</span></code></pre>
 
                           </div>
                         </div>
                       </section>
                     </div>
                   </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/c:@M@ENA@objc(cs)ExposureSubmissionQRScannerViewController(py)flashButton"></a>
-                      <a name="//apple_ref/swift/Property/flashButton" class="dashAnchor"></a>
-                      <a class="token" href="#/c:@M@ENA@objc(cs)ExposureSubmissionQRScannerViewController(py)flashButton">flashButton</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
-<span class="k">var</span> <span class="nv">flashButton</span><span class="p">:</span> <span class="kt">UIButton</span><span class="o">!</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/c:@M@ENA@objc(cs)ExposureSubmissionQRScannerViewController(py)instructionLabel"></a>
-                      <a name="//apple_ref/swift/Property/instructionLabel" class="dashAnchor"></a>
-                      <a class="token" href="#/c:@M@ENA@objc(cs)ExposureSubmissionQRScannerViewController(py)instructionLabel">instructionLabel</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@IBOutlet</span>
-<span class="k">var</span> <span class="nv">instructionLabel</span><span class="p">:</span> <span class="kt"><a href="../Classes/DynamicTypeLabel.html">DynamicTypeLabel</a></span><span class="o">!</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:3ENA41ExposureSubmissionQRScannerViewControllerC8delegateAA0bcD8Delegate_pSgvp"></a>
-                      <a name="//apple_ref/swift/Property/delegate" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA41ExposureSubmissionQRScannerViewControllerC8delegateAA0bcD8Delegate_pSgvp">delegate</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="k">weak</span> <span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ExposureSubmissionQRScannerDelegate.html">ExposureSubmissionQRScannerDelegate</a></span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Overrides"></a>
+                  <a name="//apple_ref/swift/Section/Overrides" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/Overrides"></a>
+                    <h3 class="section-name"><p>Overrides</p>
+</h3>
+                  </div>
+                </div>
+                <ul>
                   <li class="item">
                     <div>
                       <code>
@@ -219,120 +161,6 @@
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLayoutSubviews</span><span class="p">()</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/c:@M@ENA@objc(cs)ExposureSubmissionQRScannerViewController(im)viewDidAppear:"></a>
-                      <a name="//apple_ref/swift/Method/viewDidAppear(_:)" class="dashAnchor"></a>
-                      <a class="token" href="#/c:@M@ENA@objc(cs)ExposureSubmissionQRScannerViewController(im)viewDidAppear:">viewDidAppear(_:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidAppear</span><span class="p">(</span><span class="n">_</span> <span class="nv">animated</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/c:@M@ENA@objc(cs)ExposureSubmissionQRScannerViewController(im)toggleFlash"></a>
-                      <a name="//apple_ref/swift/Method/toggleFlash()" class="dashAnchor"></a>
-                      <a class="token" href="#/c:@M@ENA@objc(cs)ExposureSubmissionQRScannerViewController(im)toggleFlash">toggleFlash()</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@IBAction</span>
-<span class="kd">func</span> <span class="nf">toggleFlash</span><span class="p">()</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/c:@M@ENA@objc(cs)ExposureSubmissionQRScannerViewController(im)close"></a>
-                      <a name="//apple_ref/swift/Method/close()" class="dashAnchor"></a>
-                      <a class="token" href="#/c:@M@ENA@objc(cs)ExposureSubmissionQRScannerViewController(im)close">close()</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@IBAction</span>
-<span class="kd">func</span> <span class="nf">close</span><span class="p">()</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/c:@CM@ENA@objc(cs)ExposureSubmissionQRScannerViewController(im)captureOutput:didOutputMetadataObjects:fromConnection:"></a>
-                      <a name="//apple_ref/swift/Method/metadataOutput(_:didOutput:from:)" class="dashAnchor"></a>
-                      <a class="token" href="#/c:@CM@ENA@objc(cs)ExposureSubmissionQRScannerViewController(im)captureOutput:didOutputMetadataObjects:fromConnection:">metadataOutput(_:<wbr>didOutput:<wbr>from:<wbr>)</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">metadataOutput</span><span class="p">(</span>
-	<span class="nv">_</span><span class="p">:</span> <span class="kt">AVCaptureMetadataOutput</span><span class="p">,</span>
-	<span class="n">didOutput</span> <span class="nv">metadataObjects</span><span class="p">:</span> <span class="p">[</span><span class="kt">AVMetadataObject</span><span class="p">],</span>
-	<span class="n">from</span> <span class="nv">_</span><span class="p">:</span> <span class="kt">AVCaptureConnection</span>
-<span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -544,6 +372,9 @@
                   <a href="../Classes/DynamicTableViewIconCell.html">DynamicTableViewIconCell</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Classes/DynamicTableViewIconCell/Text.html">– Text</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Classes/DynamicTableViewOptionGroupCell.html">DynamicTableViewOptionGroupCell</a>
                 </li>
                 <li class="nav-group-task">
@@ -685,13 +516,16 @@
                   <a href="../Classes/ExposureSubmissionOverviewViewController/CustomCellReuseIdentifiers.html">– CustomCellReuseIdentifiers</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Classes/ExposureSubmissionQRInfoViewController.html">ExposureSubmissionQRInfoViewController</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Classes/ExposureSubmissionQRScannerFocusView.html">ExposureSubmissionQRScannerFocusView</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Classes/ExposureSubmissionQRScannerNavigationController.html">ExposureSubmissionQRScannerNavigationController</a>
+                  <a href="../Classes/ExposureSubmissionQRScannerViewController.html">ExposureSubmissionQRScannerViewController</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Classes/ExposureSubmissionQRScannerViewController.html">ExposureSubmissionQRScannerViewController</a>
+                  <a href="../Classes/ExposureSubmissionQRScannerViewModel.html">ExposureSubmissionQRScannerViewModel</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/ExposureSubmissionServiceFactory.html">ExposureSubmissionServiceFactory</a>
@@ -1139,6 +973,9 @@
                   <a href="../Enums/AppStrings/ExposureSubmissionDispatch.html">– ExposureSubmissionDispatch</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Enums/AppStrings/ExposureSubmissionQRInfo.html">– ExposureSubmissionQRInfo</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Enums/AppStrings/ExposureSubmissionQRScanner.html">– ExposureSubmissionQRScanner</a>
                 </li>
                 <li class="nav-group-task">
@@ -1336,6 +1173,12 @@
               <a href="../Extensions.html">Extensions</a>
               <ul class="nav-group-tasks">
                 <li class="nav-group-task">
+                  <a href="../Extensions/AVMetadataMachineReadableCodeObject.html">AVMetadataMachineReadableCodeObject</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/AVMetadataObject.html">AVMetadataObject</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Extensions/Array.html">Array</a>
                 </li>
                 <li class="nav-group-task">
@@ -1436,6 +1279,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/UIFont/Weight.html">– Weight</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/UIImage.html">UIImage</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/UINavigationBar.html">UINavigationBar</a>
@@ -1607,9 +1453,6 @@
                   <a href="../Protocols/ExposureSubmissionErrorTransformable.html">ExposureSubmissionErrorTransformable</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Protocols/ExposureSubmissionQRScannerDelegate.html">ExposureSubmissionQRScannerDelegate</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Protocols/ExposureSubmissionService.html">ExposureSubmissionService</a>
                 </li>
                 <li class="nav-group-task">
@@ -1643,13 +1486,16 @@
                   <a href="../Protocols/Manager.html">Manager</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Protocols/MetadataMachineReadableCodeObject.html">MetadataMachineReadableCodeObject</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/MetadataObject.html">MetadataObject</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Protocols/Migration.html">Migration</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/NavigationBarOpacityDelegate.html">NavigationBarOpacityDelegate</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Protocols/QRScannerViewController.html">QRScannerViewController</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/RequiresAppDependencies.html">RequiresAppDependencies</a>
@@ -1686,9 +1532,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/SettingsViewControllerDelegate.html">SettingsViewControllerDelegate</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Protocols/SpinnerInjectable.html">SpinnerInjectable</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Protocols/Store.html">Store</a>
@@ -1780,7 +1623,7 @@
                   <a href="../Structs/ExposureManagerState.html">ExposureManagerState</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/ExposureSubmissionOverviewViewModel.html">ExposureSubmissionOverviewViewModel</a>
+                  <a href="../Structs/ExposureSubmissionQRInfoViewModel.html">ExposureSubmissionQRInfoViewModel</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ExposureSubmissionWarnOthersViewModel.html">ExposureSubmissionWarnOthersViewModel</a>
