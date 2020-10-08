@@ -44,13 +44,13 @@ extension ExposureSubmissionServiceFactory {
 /// If the parameter is _not_ provided, the factory will instantiate a regular ENAExposureSubmissionService.
 /// - NOTE: This is condtionally compiled so no test code spills into the release build.
 extension ExposureSubmissionServiceFactory {
-	static func create(diagnosiskeyRetrieval: DiagnosisKeysRetrieval, client: Client, store: Store) -> ExposureSubmissionService {
+	static func create(diagnosiskeyRetrieval: DiagnosisKeysRetrieval, client: Client, keyValueStore: Store) -> ExposureSubmissionService {
 
 		guard isEnabled(.useMock) else {
 			return ENAExposureSubmissionService(
 				diagnosiskeyRetrieval: diagnosiskeyRetrieval,
 				client: client,
-				store: store
+				keyValueStore: keyValueStore
 			)
 		}
 

@@ -42,6 +42,13 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 			Reason.noSummary(ENError(.apiMisuse)).errorAlertController(rootController: root)
 		)
 	}
+	
+	func testNoStorageCapacityErrorAlert() {
+		let root = UIViewController()
+		XCTAssertNotNil(
+			Reason.noDiskSpace.errorAlertController(rootController: root)
+		)
+	}
 
 	// MARK: - Special ENError handling tests
 	

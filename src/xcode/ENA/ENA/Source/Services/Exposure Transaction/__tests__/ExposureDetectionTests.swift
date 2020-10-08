@@ -264,7 +264,7 @@ private final class ExposureDetectionDelegateMock {
 
 	// MARK: Types
 	struct SummaryError: Error { }
-	typealias DownloadAndStoreHandler = (_ delta: DaysAndHours) -> Error?
+	typealias DownloadAndStoreHandler = (_ delta: DaysAndHours) -> ExposureDetection.DidEndPrematurelyReason?
 
 	// MARK: Properties
 
@@ -300,7 +300,7 @@ extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 		downloadDelta(remote)
 	}
 
-	func exposureDetection(country: Country.ID, downloadAndStore delta: DaysAndHours, completion: @escaping (Error?) -> Void) {
+	func exposureDetection(country: Country.ID, downloadAndStore delta: DaysAndHours, completion: @escaping (ExposureDetection.DidEndPrematurelyReason?) -> Void) {
 		completion(downloadAndStore(delta))
 
 	}

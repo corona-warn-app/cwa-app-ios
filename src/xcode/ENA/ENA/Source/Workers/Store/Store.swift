@@ -113,6 +113,14 @@ protocol Store: AnyObject {
 	var selectedServerEnvironment: ServerEnvironmentData { get set }
 
 	func clearAll(key: String?)
+
+	#if !RELEASE
+
+	// Settings from the debug menu.
+
+	var fakeSQLiteError: Int32? { get set }
+
+	#endif
 }
 
 protocol AppConfigCaching: Store {

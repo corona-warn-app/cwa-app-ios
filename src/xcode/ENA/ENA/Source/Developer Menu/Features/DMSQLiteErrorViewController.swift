@@ -17,21 +17,20 @@
 // under the License.
 //
 
+#if !RELEASE
+
 import UIKit
 
-class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
-
-	// MARK: - Attributes
+final class DMSQLiteErrorViewController: UIViewController, UITextFieldDelegate {
+	
+	// MARK: Properties
 
 	private let store: Store
 	private var textField: UITextField!
-	private var currentVersionLabel: UILabel!
-
-	// MARK: - Initializers
+	private var currentErrorCodeLabel: UILabel!
 
 	init(store: Store) {
 		self.store = store
-
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -40,20 +39,18 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - View Lifecycle Methods
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
 		view.backgroundColor = .systemBackground
 
-		currentVersionLabel = UILabel(frame: .zero)
-		currentVersionLabel.translatesAutoresizingMaskIntoConstraints = false
-		updateCurrentVersionLabel()
+		currentErrorCodeLabel = UILabel(frame: .zero)
+		currentErrorCodeLabel.translatesAutoresizingMaskIntoConstraints = false
+		updateCurrentErrorCodeLabel()
 
 		let button = UIButton(frame: .zero)
 		button.translatesAutoresizingMaskIntoConstraints = false
-		button.setTitle("Save Onboarding Version", for: .normal)
+		button.setTitle("Save SQLite Error Code", for: .normal)
 		button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
 		button.setTitleColor(.enaColor(for: .buttonPrimary), for: .normal)
 
@@ -62,7 +59,7 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 		textField.delegate = self
 		textField.borderStyle = .bezel
 
-		let stackView = UIStackView(arrangedSubviews: [currentVersionLabel, textField, button])
+		let stackView = UIStackView(arrangedSubviews: [currentErrorCodeLabel, textField, button])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .vertical
 		stackView.spacing = 20
@@ -72,20 +69,38 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 			stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
 		])
+
 	}
 
 	// MARK: - Private API
 
-	private func updateCurrentVersionLabel() {
-		currentVersionLabel.text = "Current onboarding version: \(store.onboardingVersion)"
+	private func updateCurrentErrorCodeLabel() {
+		if let errorCode = store.fakeSQLiteError {
+			currentErrorCodeLabel.text = "Current configured error code: \(errorCode)"
+		} else {
+			currentErrorCodeLabel.text = "No error code configured."
+		}
 	}
 
 	@objc
 	private func buttonTapped() {
-		store.onboardingVersion = textField.text ?? ""
-		updateCurrentVersionLabel()
-		let alert = UIAlertController(title: "Saved onboarding version: \(store.onboardingVersion)", message: "", preferredStyle: .alert)
+		guard let errorCode = Int32(textField.text ?? "") else {
+			store.fakeSQLiteError = nil
+			updateCurrentErrorCodeLabel()
+
+			let alert = UIAlertController(title: "Reset done", message: "You have reset the error code. No error code will be used.", preferredStyle: .alert)
+			alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
+			present(alert, animated: true)
+			return
+		}
+
+		store.fakeSQLiteError = errorCode
+		updateCurrentErrorCodeLabel()
+
+		let alert = UIAlertController(title: "Setup done", message: "Setup done for error code: \(errorCode)", preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
 		present(alert, animated: true)
 	}
+
 }
+#endif
