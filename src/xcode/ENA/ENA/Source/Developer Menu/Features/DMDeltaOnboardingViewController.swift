@@ -45,7 +45,7 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		view.backgroundColor = .white
+		view.backgroundColor = .systemBackground
 
 		currentVersionLabel = UILabel(frame: .zero)
 		currentVersionLabel.translatesAutoresizingMaskIntoConstraints = false

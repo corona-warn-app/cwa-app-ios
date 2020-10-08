@@ -28,6 +28,7 @@ class ENAUITests_03_Settings: XCTestCase {
 		setupSnapshot(app)
 		app.setDefaults()
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
+		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
 	}
 
 	func test_0030_SettingsFlow() throws {

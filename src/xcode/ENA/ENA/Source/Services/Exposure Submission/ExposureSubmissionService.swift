@@ -125,7 +125,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// For details, check the methods `_submit()` and `_getTANForExposureSubmit()` specifically.
 	private func _submitExposure(
 		_ keys: [SAP_TemporaryExposureKey],
-		consentToFederation: Bool,
 		visitedCountries: [Country],
 		completionHandler: @escaping ExposureSubmissionHandler
 	) {
@@ -134,7 +133,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			case let .failure(error):
 				completionHandler(error)
 			case let .success(tan):
-				self._submit(keys, with: tan, consentToFederation: consentToFederation, visitedCountries: visitedCountries, completion: completionHandler)
+				self._submit(keys, with: tan, visitedCountries: visitedCountries, completion: completionHandler)
 			}
 		})
 	}
@@ -145,13 +144,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private func _submit(
 		_ keys: [SAP_TemporaryExposureKey],
 		with tan: String,
-		consentToFederation: Bool,
 		visitedCountries: [Country],
 		completion: @escaping ExposureSubmissionHandler
 	) {
 		let payload = CountrySubmissionPayload(
 			exposureKeys: keys,
-			consentToFederation: consentToFederation,
 			visitedCountries: visitedCountries,
 			tan: tan
 		)
@@ -258,7 +255,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// We prepend a fake request in order to guarantee the V+V+S sequence. Please kindly check `getTestResult` for more information.
 	func submitExposure(
 		symptomsOnset: SymptomsOnset,
-		consentToFederation: Bool = false,
 		visitedCountries: [Country],
 		completionHandler: @escaping ExposureSubmissionHandler
 	) {
@@ -283,7 +279,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 			// Request needs to be prepended by the fake request.
 			self._fakeVerificationServerRequest(completion: { _ in
-				self._submitExposure(processedKeys, consentToFederation: consentToFederation, visitedCountries: visitedCountries, completionHandler: completionHandler)
+				self._submitExposure(processedKeys, visitedCountries: visitedCountries, completionHandler: completionHandler)
 			})
 		}
 	}
@@ -359,7 +355,6 @@ extension ENAExposureSubmissionService {
 	private func _fakeSubmissionServerRequest(completion: @escaping ExposureSubmissionHandler) {
 		let payload = CountrySubmissionPayload(
 			exposureKeys: [],
-			consentToFederation: false,
 			visitedCountries: [],
 			tan: ENAExposureSubmissionService.fakeSubmissionTan
 		)

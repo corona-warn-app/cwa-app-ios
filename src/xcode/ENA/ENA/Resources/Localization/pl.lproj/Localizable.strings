@@ -285,7 +285,7 @@
 
 "Onboarding_Continue_actionText" = "Dalej";
 
-"Onboarding_EnableLogging_actionText" = "Dalej";
+"Onboarding_EnableLogging_actionText" = "Aktywuj rejestrowanie narażenia";
 
 "Onboarding_Continue_actionTextHint" = "Możesz pominąć ten ekran";
 
@@ -343,7 +343,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… zgłoś ten fakt w Corona-Warn-App. Udostępnianie wyników testu jest dobrowolne i bezpieczne. Zrób to ze względu na zdrowie innych osób.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Twoje powiadomienie jest szyfrowane w bezpieczny sposób i przetwarzane na bezpiecznym serwerze. Osoby, których zaszyfrowane losowe identyfikatory zostały zgromadzone przez Twój smartfon, otrzymają wtedy ostrzeżenie wraz z informacją na temat dalszych kroków postępowania.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Twoje powiadomienie jest szyfrowane w bezpieczny sposób i przetwarzane na bezpiecznym serwerze. Osoby, których zaszyfrowane losowe identyfikatory zostały zgromadzone przez Twoje urządzenie, otrzymają wtedy ostrzeżenie wraz z informacją na temat dalszych kroków postępowania.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Kobieta otrzymuje powiadomienie od swojej aplikacji Corona-Warn-App.";
 
@@ -537,10 +537,6 @@
 
 "ExposureSubmissionResult_warnOthersDesc" = "Udostępnij swoje losowe identyfikatory, aby ostrzegać innych.\nPomóż innym dokładniej ocenić ryzyko zakażenia, wysyłając informację, gdy dostrzeżesz u siebie symptomy koronawirusa.";
 
-"ExposureSubmissionResult_testPositive" = "Diagnoza zakażenia";
-
-"ExposureSubmissionResult_testPositiveDesc" = "Twój wynik testu jest pozytywny.";
-
 "ExposureSubmissionResult_testNegative" = "Diagnoza: brak zakażenia";
 
 "ExposureSubmissionResult_testNegativeDesc" = "Wynik laboratoryjny nie potwierdza zakażenia wirusem SARS-CoV-2.";
@@ -571,7 +567,9 @@
 
 "ExposureSubmissionResult_testRemoveDesc" = "Usuń test z aplikacji Corona-Warn-App, aby w razie potrzeby można było zapisać w niej kod nowego testu.";
 
-"ExposureSubmissionResult_continueButton" = "Dalej";
+"ExposureSubmissionResult_primaryButtonTitle" = "Wprowadź symptomy";
+
+"ExposureSubmissionResult_secondaryButtonTitle" = "Nie wprowadzaj symptomów";
 
 "ExposureSubmissionResult_deleteButton" = "Usuń test";
 
@@ -1138,9 +1136,9 @@
 
 "RiskLegend_Notification_Text" = "Wyświetlenie narażeń w Corona-Warn-App.";
 
-"RiskLegend_Random_Title" = "Losowe identyfikatory";
+"RiskLegend_Random_Title" = "Identyfikator losowy";
 
-"RiskLegend_Random_Text" = "Losowe identyfikatory są kombinacją cyfr i liter generowanych losowo. Są one wymieniane pomiędzy smartfonami znajdującymi się w bliskiej odległości od siebie. Losowych identyfikatorów nie można przypisać do konkretnej osoby. Są one automatycznie usuwane po 14 dniach. Osoby, u których zdiagnozowano COVID-19, mogą zdecydować się na udostępnienie swoich losowych identyfikatorów z ostatnich 14 dni innym użytkownikom aplikacji.";
+"RiskLegend_Random_Text" = "Losowe identyfikatory są kombinacją cyfr i liter generowanych losowo. Są one wymieniane pomiędzy urządzeniami znajdującymi się w bliskiej odległości od siebie. Losowych identyfikatorów nie można przypisać do konkretnej osoby. Są one automatycznie usuwane po 14 dniach. Osoby, u których zdiagnozowano COVID-19, mogą zdecydować się na udostępnienie swoich losowych identyfikatorów z ostatnich 14 dni innym użytkownikom aplikacji.";
 
 "RiskLegend_Image1_AccLabel" = "Smartfon pokazuje różne ponumerowane treści.";
 

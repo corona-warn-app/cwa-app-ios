@@ -289,7 +289,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Onboarding_Continue_actionText" = "Weiter";
 
-"Onboarding_EnableLogging_actionText" = "Weiter";
+"Onboarding_EnableLogging_actionText" = "Risiko-Ermittlung aktivieren";
 
 "Onboarding_Continue_actionTextHint" = "Sie können diesen Bildschirm überspringen";
 
@@ -542,10 +542,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_warnOthersDesc" = "Teilen Sie Ihre Zufalls-IDs und warnen Sie andere.\nHelfen Sie, das Infektionsrisiko für andere genauer zu bestimmen, indem Sie auch angeben, wann eventuelle Corona-Symptome zum ersten Mal aufgetreten sind.";
 
-"ExposureSubmissionResult_testPositive" = "Befund positiv";
-
-"ExposureSubmissionResult_testPositiveDesc" = "Ihr Testergebnis wurde erfolgreich als positiv verifiziert.";
-
 "ExposureSubmissionResult_testNegative" = "Befund negativ";
 
 "ExposureSubmissionResult_testNegativeDesc" = "Der Labortest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.";
@@ -558,7 +554,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Gehen Sie nicht krank zur Arbeit, um andere Personen nicht zu gefährden.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Falls sich Ihre Symptome verschlechtern, kann die Notwendigkeit eines weiteres SARS-CoV-2-Tests bestehen.";
+"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Falls sich Ihre Symptome verschlechtern, kann die Notwendigkeit eines weiteren SARS-CoV-2-Tests bestehen.";
 
 "ExposureSubmissionResult_testInvalid" = "Test fehlerhaft";
 
@@ -570,13 +566,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testPending" = "Testergebnis noch nicht verfügbar";
 
-"ExposureSubmissionResult_testPendingDesc" = "Ihr Testergebnis steht noch nicht zur Verfügung.";
+"ExposureSubmissionResult_testPendingDesc_paragraph1" = "Bitte gedulden Sie sich, die Auswertung kann einige Tage dauern.\n\n";
+
+"ExposureSubmissionResult_testPendingDesc_paragraph2" = "Sie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls Ihr Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.\n\n";
+
+"ExposureSubmissionResult_testPendingDesc_paragraph3" = "Falls Ihnen außerhalb der App ein positives Testergebnis mitgeteilt wurde, rufen Sie bitte die unter \"TAN anfragen\" angegebene Nummer an, um Ihr Testergebnis in der App registrieren und andere damit warnen zu können.";
 
 "ExposureSubmissionResult_testRemove" = "Test entfernen";
 
 "ExposureSubmissionResult_testRemoveDesc" = "Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.";
 
-"ExposureSubmissionResult_continueButton" = "Weiter";
+"ExposureSubmissionResult_primaryButtonTitle" = "Weiter mit Symptom-Erfassung";
+
+"ExposureSubmissionResult_secondaryButtonTitle" = "Weiter ohne Symptom-Erfassung";
 
 "ExposureSubmissionResult_deleteButton" = "Test entfernen";
 
@@ -719,7 +721,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_DescriptionTitle" = "So funktioniert die Risiko-Ermittlung";
 
-"ExposureNotificationSetting_DescriptionText1" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren. Die Risiko-Ermittlung funktioniert länderübergreifend, so dass auch RisikoBegegnungen mit Nutzern von anderen offiziellen Corona-Apps erkannt werden.";
+"ExposureNotificationSetting_DescriptionText1" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren. Die Risiko-Ermittlung funktioniert länderübergreifend, so dass auch Risiko-Begegnungen mit Nutzern von anderen offiziellen Corona-Apps erkannt werden.";
 
 "ExposureNotificationSetting_DescriptionText2" = "Die Risiko-Ermittlung funktioniert, indem Ihr Smartphone per Bluetooth verschlüsselte Zufalls-IDs anderer Nutzer empfängt und Ihre eigenen Zufalls-IDs an deren Smartphone weitergibt. Die App lädt täglich eine Liste mit den Zufalls-IDs und eventuellen Angaben zum Symptombeginn aller Corona-positiv getesteten Nutzer herunter, die diese freiwillig über ihre App geteilt haben. Diese Liste wird dann mit den von Ihrem Smartphone aufgezeichneten Zufalls-IDs anderer Nutzer verglichen, um Ihr Infektionsrisiko zu berechnen und Sie zu warnen. Die Risiko-Ermittlung lässt sich jederzeit über den Schieberegler deaktivieren.";
 
@@ -793,7 +795,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_EU_Desc_1" = "Mehrere Länder arbeiten zusammen, um über den gemeinsam betriebenen Austausch-Server länderübergreifende Warnungen zu ermöglichen. So können bei der Risiko-Ermittlung auch die Kontakte mit Nutzern einer offiziellen Corona-App anderer teilnehmender Länder berücksichtigt werden.";
 
-"ExposureNotificationSetting_EU_Desc_2" = "Hierfür lädt die App täglich eine aktuelle Liste mit den Zufalls-IDs aller Nutzer herunter, die diese über ihre App geteilt haben. Diese Liste wird dann mit den von Ihrem Smartphone aufgezeichneten Zufalls-IDs  verglichen. Der tägliche Download der Liste mit den Zufalls-IDs ist für Sie kostenlos – Ihr Datenvolumen wird nicht belastet und es fallen im europäischen Ausland keine Roaming-Gebühren an.";
+"ExposureNotificationSetting_EU_Desc_2" = "Hierfür lädt die App täglich eine aktuelle Liste mit den Zufalls-IDs aller Nutzer herunter, die diese über ihre App geteilt haben. Diese Liste wird dann mit den von Ihrem Smartphone aufgezeichneten Zufalls-IDs verglichen. Der tägliche Download der Liste mit den Zufalls-IDs ist für Sie kostenlos – Ihr Datenvolumen wird nicht belastet und es fallen im europäischen Ausland keine Roaming-Gebühren an.";
 
 "ExposureNotificationSetting_EU_Desc_3" = "Derzeit nehmen die folgenden Länder an der länderübergreifenden Risiko-Ermittlung teil:";
 

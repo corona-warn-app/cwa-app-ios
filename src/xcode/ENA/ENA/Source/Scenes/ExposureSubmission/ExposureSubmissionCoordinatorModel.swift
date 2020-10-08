@@ -102,7 +102,6 @@ class ExposureSubmissionCoordinatorModel {
 	// MARK: - Private
 
 	private var symptomsOnset: SymptomsOnset = .noInformation
-	private var consentToFederationGiven: Bool = false
 
 	private func loadSupportedCountries(
 		isLoading: @escaping (Bool) -> Void,
@@ -137,7 +136,6 @@ class ExposureSubmissionCoordinatorModel {
 
 		exposureSubmissionService.submitExposure(
 			symptomsOnset: symptomsOnset,
-			consentToFederation: consentToFederationGiven,
 			visitedCountries: supportedCountries,
 			completionHandler: { error in
 				isLoading(false)

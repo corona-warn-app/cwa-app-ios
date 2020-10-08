@@ -285,7 +285,7 @@
 
 "Onboarding_Continue_actionText" = "Înainte";
 
-"Onboarding_EnableLogging_actionText" = "Înainte";
+"Onboarding_EnableLogging_actionText" = "Activați înregistrarea în jurnal a expunerilor";
 
 "Onboarding_Continue_actionTextHint" = "Puteți sări peste acest ecran";
 
@@ -343,7 +343,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "…vă rugăm să raportați acest lucru în Corona-Warn-App. Împărtășirea rezultatului testului este voluntară și securizată. Vă rugăm să faceți acest lucru pentru binele celorlalți.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Notificarea dvs. este criptată în mod securizat și este prelucrată pe un server sigur. Persoanele ale căror ID-uri aleatorii criptate au fost colectate de smartphone-ul dvs. vor primi acum o avertizare împreună cu informații despre pașii de urmat.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Notificarea dvs. este criptată în mod securizat și este prelucrată pe un server sigur. Persoanele ale căror ID-uri aleatorii criptate au fost colectate de dispozitivul dvs. vor primi acum o avertizare împreună cu informații despre pașii de urmat.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "O femeie primește o notificare de la Corona-Warn-App.";
 
@@ -537,10 +537,6 @@
 
 "ExposureSubmissionResult_warnOthersDesc" = "Partajați ID-urile dvs. aleatorii și avertizați-i pe ceilalți.\nAjutați la stabilirea riscului de infectare pentru ceilalți cu mai multă acuratețe, indicând momentul în care ați observat prima dată simptomele de coronavirus.";
 
-"ExposureSubmissionResult_testPositive" = "Diagnostic pozitiv";
-
-"ExposureSubmissionResult_testPositiveDesc" = "Rezultatul testului dvs. a fost verificat ca fiind pozitiv.";
-
 "ExposureSubmissionResult_testNegative" = "Diagnostic negativ";
 
 "ExposureSubmissionResult_testNegativeDesc" = "Rezultatul de laborator nu indică o confirmare a infecției cu coronavirusul SARS-CoV-2.";
@@ -571,7 +567,9 @@
 
 "ExposureSubmissionResult_testRemoveDesc" = "Ștergeți testul din Corona-Warn-App pentru a salva un nou cod de test aici dacă este necesar.";
 
-"ExposureSubmissionResult_continueButton" = "Înainte";
+"ExposureSubmissionResult_primaryButtonTitle" = "Introducere simptome";
+
+"ExposureSubmissionResult_secondaryButtonTitle" = "Nu se introduc simptome";
 
 "ExposureSubmissionResult_deleteButton" = "Ștergere test";
 
@@ -1138,9 +1136,9 @@
 
 "RiskLegend_Notification_Text" = "Afișarea expunerilor în Corona-Warn-App.";
 
-"RiskLegend_Random_Title" = "ID-uri aleatorii";
+"RiskLegend_Random_Title" = "ID aleatoriu";
 
-"RiskLegend_Random_Text" = "ID-urile aleatorii sunt combinații de cifre și litere generate aleatoriu. Acestea sunt schimbate între smartphone-urile aflate în proximitate strânsă. ID-urile aleatorii nu pot fi asociate cu o persoană anume și sunt șterse automat după 14 zile. Persoanele diagnosticate cu COVID-19 pot opta să trimită ID-urile aleatorii din ultimele 14 zile și altor utilizatori ai aplicației.";
+"RiskLegend_Random_Text" = "ID-urile aleatorii sunt combinații de cifre și litere generate aleatoriu. Acestea sunt schimbate între dispozitivele aflate în proximitate strânsă. ID-urile aleatorii nu pot fi asociate cu o persoană anume și sunt șterse automat după 14 zile. Persoanele diagnosticate cu COVID-19 pot opta să trimită ID-urile aleatorii din ultimele 14 zile altor utilizatori ai aplicației.";
 
 "RiskLegend_Image1_AccLabel" = "Un smartphone arată conținut numerotat diferit.";
 

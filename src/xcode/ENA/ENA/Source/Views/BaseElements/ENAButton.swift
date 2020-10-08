@@ -25,6 +25,10 @@ class ENAButton: DynamicTypeButton {
 	@IBInspectable var isTransparent: Bool = false { didSet { applyStyle() } }
 	@IBInspectable var isInverted: Bool = false { didSet { applyStyle() } }
 	@IBInspectable var isLoading: Bool = false { didSet { applyStyle() } }
+	@IBInspectable var hasBorder: Bool = false { didSet {
+		applyStyle()
+
+	} }
 
 	override var isEnabled: Bool { didSet { applyStyle() } }
 	override var isHighlighted: Bool { didSet { applyHighlight() } }
@@ -116,6 +120,14 @@ class ENAButton: DynamicTypeButton {
 			backgroundColor = style.disabledBackgroundColor
 			setTitleColor(style.disabledForegroundColor.withAlphaComponent(0.5), for: .disabled)
 			activityIndicator?.color = style.disabledForegroundColor.withAlphaComponent(0.5)
+		}
+
+		if hasBorder {
+			layer.borderWidth = 1
+			layer.borderColor = style.foregroundColor.cgColor
+			layer.cornerRadius = 8
+		} else {
+			layer.borderWidth = 0
 		}
 
 		highlightView?.backgroundColor = style.highlightColor
