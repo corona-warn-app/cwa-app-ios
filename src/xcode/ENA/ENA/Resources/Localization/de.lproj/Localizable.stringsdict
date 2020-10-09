@@ -37,7 +37,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<string>Bisher keine Risiko-Begegnungen</string>
+			<string>Keine Risiko-Begegnungen</string>
 			<key>one</key>
 			<string>Eine Risiko-Begegnung</string>
 			<key>few</key>
