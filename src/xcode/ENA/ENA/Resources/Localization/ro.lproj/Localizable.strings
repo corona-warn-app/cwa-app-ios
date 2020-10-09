@@ -127,6 +127,14 @@
 
 "ExposureDetection_Button_Refresh" = "Actualizare";
 
+"ExposureDetection_Risk_Status_Downloading_Title" = "Datele sunt în curs de descărcare...";
+
+"ExposureDetection_Risk_Status_Detecting_Title" = "Verificarea este în curs…";
+
+"ExposureDetection_Risk_Status_Downloading_Body" = "Aceasta poate dura câteva minute. Vă mulțumim pentru răbdare.";
+
+"ExposureDetection_Risk_Status_Detecting_Body" = "Datele dvs. privind expunerea sunt verificate. Aceasta poate dura câteva minute. Vă mulțumim pentru răbdare.";
+
 /* Active Tracing Section */
 "ExposureDetection_ActiveTracingSection_Title" = "Perioada înregistrată";
 
