@@ -316,10 +316,17 @@ extension RiskProvider: RiskProviding {
 				return
 		}
 
-		/// Only set shouldShowRiskStatusLoweredAlert if risk level has changed from increased to low. Otherwise leave shouldShowRiskStatusLoweredAlert unchanged.
+		/// Only set shouldShowRiskStatusLoweredAlert if risk level has changed from increase to low or vice versa. Otherwise leave shouldShowRiskStatusLoweredAlert unchanged.
 		/// Scenario: Risk level changed from increased to low in the first risk calculation. in a second risk calculation it stays low. If the user does not open the app between these two calculations, the alert should still be shown.
-		if risk.level == .low && risk.riskLevelHasChanged {
-			store.shouldShowRiskStatusLoweredAlert = true
+		if risk.riskLevelHasChanged {
+			switch risk.level {
+			case .low:
+				store.shouldShowRiskStatusLoweredAlert = true
+			case .increased:
+				store.shouldShowRiskStatusLoweredAlert = false
+			default:
+				break
+			}
 		}
 
 		completeOnTargetQueue(risk: risk, completion: completion)

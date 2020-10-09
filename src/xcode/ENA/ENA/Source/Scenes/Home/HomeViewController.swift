@@ -212,9 +212,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	func showRiskStatusLoweredAlert(currentRisk: Risk?) {
-		defer { store.shouldShowRiskStatusLoweredAlert = false }
-
-		guard store.shouldShowRiskStatusLoweredAlert && currentRisk?.level == .low else { return }
+		guard store.shouldShowRiskStatusLoweredAlert else { return }
 
 		let alert = UIAlertController(
 			title: AppStrings.Home.riskStatusLoweredAlertTitle,
@@ -228,7 +226,9 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		)
 		alert.addAction(alertAction)
 
-		present(alert, animated: true)
+		present(alert, animated: true) { [weak self] in
+			self?.store.shouldShowRiskStatusLoweredAlert = false
+		}
 	}
 
 	func showExposureSubmissionWithoutResult() {
