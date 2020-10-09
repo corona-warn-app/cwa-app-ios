@@ -884,9 +884,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Risk_Status_Detecting_Title" = "Prüfung läuft …";
 
-"Home_Risk_Status_Downloading_Body" = "Das kann bis zu mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
+"Home_Risk_Status_Downloading_Body" = "Das kann mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
 
-"Home_Risk_Status_Detecting_Body" = "Ihre Begegnungsdaten werden nun geprüft. Das kann bis zu mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
+"Home_Risk_Status_Detecting_Body" = "Ihre Begegnungsdaten werden nun geprüft. Das kann mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Vielen Dank!";
