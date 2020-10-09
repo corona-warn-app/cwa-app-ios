@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -183,7 +182,7 @@
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="t9k-hP-B9Q" firstAttribute="leading" secondItem="Gan-fG-jTy" secondAttribute="leading" id="6HE-nT-q1K"/>
                                                 <constraint firstItem="t9k-hP-B9Q" firstAttribute="top" secondItem="Gan-fG-jTy" secondAttribute="top" id="6lt-cj-EMd"/>
@@ -199,6 +198,7 @@
                                         <constraint firstAttribute="trailing" secondItem="Gan-fG-jTy" secondAttribute="trailing" id="pCs-Eg-gZt"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" name="ENA Background Color"/>
                                 <connections>
                                     <outlet property="countryList" destination="IPp-fC-i40" id="XmQ-fO-q4k"/>
                                     <outlet property="titleLabel" destination="XNB-0p-YZY" id="vYM-tU-a6X"/>
@@ -565,8 +565,5 @@
         <namedColor name="ENA Tint Color">
             <color red="0.0" green="0.49803921568627452" blue="0.67843137254901964" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
