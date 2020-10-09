@@ -138,6 +138,14 @@
 
 "ExposureDetection_Button_Refresh" = "Актуализиране";
 
+"ExposureDetection_Risk_Status_Downloading_Title" = "Данните се изтеглят...";
+
+"ExposureDetection_Risk_Status_Detecting_Title" = "Извършва се проверка ...";
+
+"ExposureDetection_Risk_Status_Downloading_Body" = "Това може да отнеме няколко минути. Благодарим Ви за търпението!";
+
+"ExposureDetection_Risk_Status_Detecting_Body" = "Данните за Вашия риск от заразяване се проверяват. Това може да отнеме няколко минути. Благодарим Ви за търпението!";
+
 /* Active Tracing Section */
 "ExposureDetection_ActiveTracingSection_Title" = "Период на регистриране";
 

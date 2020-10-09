@@ -249,9 +249,9 @@ extension ExposureDetectionViewController {
 		var riskLoadingText = ""
 		switch state.activityState {
 		case .detecting:
-			riskLoadingText = AppStrings.Home.riskCardStatusDetectingBody
+			riskLoadingText = AppStrings.ExposureDetection.riskCardStatusDetectingBody
 		case .downloading:
-			riskLoadingText = AppStrings.Home.riskCardStatusDownloadingBody
+			riskLoadingText = AppStrings.ExposureDetection.riskCardStatusDownloadingBody
 		default:
 			break
 		}

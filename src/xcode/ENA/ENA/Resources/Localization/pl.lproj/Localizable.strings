@@ -138,6 +138,14 @@
 
 "ExposureDetection_Button_Refresh" = "Aktualizuj";
 
+"ExposureDetection_Risk_Status_Downloading_Title" = "Dane są pobierane...";
+
+"ExposureDetection_Risk_Status_Detecting_Title" = "Sprawdzanie w toku ...";
+
+"ExposureDetection_Risk_Status_Downloading_Body" = "Może to potrwać kilka minut. Dziękujemy za cierpliwość.";
+
+"ExposureDetection_Risk_Status_Detecting_Body" = "Twoje dane narażenia są sprawdzane. Może to potrwać kilka minut. Dziękujemy za cierpliwość.";
+
 /* Active Tracing Section */
 "ExposureDetection_ActiveTracingSection_Title" = "Okres zarejestrowany";
 

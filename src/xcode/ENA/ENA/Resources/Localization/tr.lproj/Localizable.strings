@@ -138,6 +138,14 @@
 
 "ExposureDetection_Button_Refresh" = "Güncelle";
 
+"ExposureDetection_Risk_Status_Downloading_Title" = "Veri indiriliyor…";
+
+"ExposureDetection_Risk_Status_Detecting_Title" = "Kontrol devam ediyor …";
+
+"ExposureDetection_Risk_Status_Downloading_Body" = "Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için çok teşekkür ederiz.";
+
+"ExposureDetection_Risk_Status_Detecting_Body" = "Maruz kalma verileriniz kontrol ediliyor. Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için çok teşekkür ederiz.";
+
 /* Active Tracing Section */
 "ExposureDetection_ActiveTracingSection_Title" = "Dönem günlüğe kaydedildi";
 

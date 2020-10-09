@@ -50,9 +50,9 @@ extension ExposureDetectionViewController {
 		var titleText: String {
 			switch activityState {
 			case .detecting:
-				return AppStrings.Home.riskCardStatusDetectingTitle
+				return AppStrings.ExposureDetection.riskCardStatusDetectingTitle
 			case .downloading:
-				return AppStrings.Home.riskCardStatusDownloadingTitle
+				return AppStrings.ExposureDetection.riskCardStatusDownloadingTitle
 			case .idle:
 				return isTracingEnabled ? riskLevel.text : AppStrings.ExposureDetection.off
 			}
