@@ -47,8 +47,15 @@ extension ExposureDetectionViewController {
 			}
 		}
 
-		var riskText: String {
-			 isTracingEnabled ? riskLevel.text : AppStrings.ExposureDetection.off
+		var titleText: String {
+			switch activityState {
+			case .detecting:
+				return AppStrings.Home.riskCardStatusDetectingTitle
+			case .downloading:
+				return AppStrings.Home.riskCardStatusDownloadingTitle
+			case .idle:
+				return isTracingEnabled ? riskLevel.text : AppStrings.ExposureDetection.off
+			}
 		}
 
 		var riskBackgroundColor: UIColor {
@@ -63,7 +70,7 @@ extension ExposureDetectionViewController {
 			isTracingEnabled ? riskLevel.contrastTintColor : .enaColor(for: .riskNeutral)
 		}
 
-		var riskContrastTextColor: UIColor {
+		var titleTextColor: UIColor {
 			isTracingEnabled ? riskLevel.contrastTextColor : .enaColor(for: .textPrimary1)
 		}
 	}
