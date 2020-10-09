@@ -33,6 +33,15 @@ extension CodableExposureDetectionSummary {
 		makeExposureSummaryContainer(maxRiskScoreFullRange: 255, ad_low: 30, ad_mid: 30, ad_high: 30)
 	}
 
+	static func summary(for riskLevel: EitherLowOrIncreasedRiskLevel) -> CodableExposureDetectionSummary {
+		switch riskLevel {
+		case .low:
+			return .summaryLow
+		case .increased:
+			return .summaryHigh
+		}
+	}
+
 	static func makeExposureSummaryContainer(
 		maxRiskScoreFullRange: Int,
 		ad_low: Double,
