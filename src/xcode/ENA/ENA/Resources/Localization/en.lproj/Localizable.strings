@@ -45,15 +45,6 @@
 
 "Common_Tess_Relay_Description" = "Persons with hearing impairments can use Tess Relay services (interpreting between German written language and sign language) to contact the phone hotline. You can download the software from the App Store/Google Play.";
 
-/* General - Links */
-"General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
-
-"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
-
-"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
-
-"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
-
 /* Accessibility */
 "AccessibilityLabel_Close" = "Close";
 
@@ -124,8 +115,6 @@
 
 "ExposureDetection_Explanation_Text_High" = "Therefore, your risk of infection has been ranked as increased.\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.\nWhen you get home, please also avoid close contact with members of your family or household.";
 
-"ExposureDetection_Explanation_FAQ_Link" = "https://www.coronawarn.app/en/faq/#encounter_but_green";
-
 "ExposureDetection_Explanation_FAQ_Link_Text" = "Further information";
 
 "ExposureDetection_LowRiskExposure_Title" = "Encounters with low risk";
@@ -137,6 +126,14 @@
 "ExposureDetection_Button_Enable" = "Activate Exposure Logging";
 
 "ExposureDetection_Button_Refresh" = "Update";
+
+"ExposureDetection_Risk_Status_Downloading_Title" = "Data is being downloaded…";
+
+"ExposureDetection_Risk_Status_Detecting_Title" = "Check is running …";
+
+"ExposureDetection_Risk_Status_Downloading_Body" = "This may take several minutes. Many thanks for your patience.";
+
+"ExposureDetection_Risk_Status_Detecting_Body" = "Your exposure data is being checked. This may take several minutes. Many thanks for you patience.";
 
 /* Active Tracing Section */
 "ExposureDetection_ActiveTracingSection_Title" = "Period logged";
@@ -304,8 +301,6 @@
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "More protection for you and for us all. By using the Corona-Warn-App we can break infection chains much quicker.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a corona warning system. Get an overview of your risk status and find out whether you've had close contact with people diagnosed with COVID-19 in the last 14 days. \n\nThe app logs encounters between individuals by their devices exchanging encrypted random IDs, and without accessing any personal data.";
-
-"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "App Information in Simplified Language and Sign Language";
 
@@ -763,8 +758,6 @@
 
 "ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Find out more";
 
-"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.coronawarn.app/en/faq/";
-
 "ExposureNotificationSetting_AuthenticationError" = "An error occurred while activating the exposure logging feature. Please check whether you have activated the COVID-19 exposure log in your settings.";
 
 "ExposureNotificationSetting_exposureNotification_Required" = "An error occurred while activating the exposure logging feature. Please check whether the COVID-19 exposure notification feature in your settings is activated for the app.";
@@ -959,8 +952,6 @@
 
 "App_Information_About_Text" = "Whoever uses the app helps to trace and break chains of infection. The app saves encounters with other people locally on your device. You are notified if you have encountered people who were later diagnosed with COVID-19. Your identity and privacy are always protected.";
 
-"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
-
 "App_Information_About_LinkText" = "App Information in Simplified Language and Sign Language";
 
 /* App Information - FAQ */
@@ -1008,8 +999,6 @@
 
 "App_Information_Contact_Form_Title" = "Contact Form";
 
-"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
-
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Legal Notices";
 
@@ -1042,8 +1031,6 @@
 
 "InviteFriends_ShareTitle" = "Fighting coronavirus together. I'm in on this, you too?";
 
-"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-englisch";
-
 "InviteFriends_Illustration_Label" = "A man shares the Corona-Warn-App with four other persons.";
 
 /* Reset View */
@@ -1072,9 +1059,6 @@
 "Reset_ConfirmDialog_Cancel" = "Cancel";
 
 "Reset_ConfirmDialog_Confirm" = "Reset";
-
-/* Safari */
-"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";
 
 /* Local Notifications */
 "local_notifications_ignore" = "Ignore";

@@ -45,15 +45,6 @@
 
 "Common_Tess_Relay_Description" = "Gehörlose, schwerhörige und spätertaubte Menschen können zur telefonischen Kontaktaufnahme die Tess-Relay-Dienste (Dolmetschen in Gebärdensprache und deutscher Schriftsprache) nutzen. Die Software können Sie in Ihrem App Store / Play Store herunterladen.";
 
-/* General - Links */
-"General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
-
-"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/de/faq/#ENError5";
-
-"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/de/faq/#ENError11";
-
-"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/de/faq/#ENError13";
-
 /* Accessibility */
 "AccessibilityLabel_Close" = "Schließen";
 
@@ -124,8 +115,6 @@
 
 "ExposureDetection_Explanation_Text_High" = "Die Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft.\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.\nWenn Sie nach Hause kommen, vermeiden Sie auch Begegnungen mit Familienmitgliedern und Mitbewohnern.";
 
-"ExposureDetection_Explanation_FAQ_Link" = "https://www.coronawarn.app/de/faq/#encounter_but_green";
-
 "ExposureDetection_Explanation_FAQ_Link_Text" = "Weitere Informationen";
 
 "ExposureDetection_LowRiskExposure_Title" = "Begegnung mit niedrigem Risiko";
@@ -137,6 +126,14 @@
 "ExposureDetection_Button_Enable" = "Risiko-Ermittlung aktivieren";
 
 "ExposureDetection_Button_Refresh" = "Aktualisieren";
+
+"ExposureDetection_Risk_Status_Downloading_Title" = "Daten werden heruntergeladen …";
+
+"ExposureDetection_Risk_Status_Detecting_Title" = "Prüfung läuft …";
+
+"ExposureDetection_Risk_Status_Downloading_Body" = "Das kann mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
+
+"ExposureDetection_Risk_Status_Detecting_Body" = "Ihre Begegnungsdaten werden nun geprüft. Das kann mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
 
 /* Active Tracing Section */
 "ExposureDetection_ActiveTracingSection_Title" = "Ermittlungszeitraum";
@@ -310,8 +307,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mehr Schutz für Sie und uns alle. Mit der Corona-Warn-App durchbrechen wir Infektionsketten schneller.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in Ihrer Nähe waren.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufalls-IDs austauschen. Und zwar ohne dabei auf persönliche Daten zuzugreifen.";
-
-"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informationen zur App in leichter Sprache und Gebärdensprache";
 
@@ -798,8 +793,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Mehr erfahren";
 
-"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.coronawarn.app/de/faq/";
-
 "ExposureNotificationSetting_AuthenticationError" = "Bei der Aktivierung der Risiko-Ermittlung ist ein Fehler aufgetreten. Bitte prüfen Sie in den Einstellungen, ob Sie das COVID-19-Kontaktprotokoll aktiviert haben.";
 
 "ExposureNotificationSetting_exposureNotification_Required" = "Bei der Aktivierung der Risiko-Ermittlung ist ein Fehler aufgetreten. Bitte prüfen Sie in den Einstellungen, ob für diese App die COVID-19-Kontaktmitteilung aktiviert wurde.";
@@ -899,9 +892,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Risk_Status_Detecting_Title" = "Prüfung läuft …";
 
-"Home_Risk_Status_Downloading_Body" = "Das kann bis zu mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
+"Home_Risk_Status_Downloading_Body" = "Das kann mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
 
-"Home_Risk_Status_Detecting_Body" = "Ihre Begegnungsdaten werden nun geprüft. Das kann bis zu mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
+"Home_Risk_Status_Detecting_Body" = "Ihre Begegnungsdaten werden nun geprüft. Das kann mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Vielen Dank!";
@@ -1004,8 +997,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "App_Information_About_Text" = "Wer sie nutzt, hilft, Infektionsketten schnell nachzuverfolgen und zu durchbrechen. Die App speichert dezentral – auf Ihrem Smartphone – Begegnungen mit anderen. Sie werden informiert, wenn Sie Begegnungen mit nachweislich infizierten Personen hatten. Ihre Privatsphäre bleibt dabei bestens geschützt.";
 
-"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
-
 "App_Information_About_LinkText" = "Informationen zur App in leichter Sprache und Gebärdensprache";
 
 /* App Information - FAQ */
@@ -1053,8 +1044,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "App_Information_Contact_Form_Title" = "Kontaktformular";
 
-"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
-
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Rechtliche Hinweise";
 
@@ -1087,8 +1076,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "InviteFriends_ShareTitle" = "Gemeinsam Corona bekämpfen. Ich bin dabei. Du auch?";
 
-"InviteFriends_ShareUrl" = "https://www.corona-warn-app.de";
-
 "InviteFriends_Illustration_Label" = "Ein Mann teilt die Corona-Warn-App mit vier anderen Personen.";
 
 /* Reset View */
@@ -1117,9 +1104,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Reset_ConfirmDialog_Cancel" = "Abbrechen";
 
 "Reset_ConfirmDialog_Confirm" = "Zurücksetzen";
-
-/* Safari */
-"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq";
 
 /* Local Notifications */
 "local_notifications_ignore" = "Ignorieren";
