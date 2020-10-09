@@ -45,15 +45,6 @@
 
 "Common_Tess_Relay_Description" = "Persoanele cu deficiențe de auz pot utiliza serviciile Tess Relay (interpretare între limba germană scrisă și limbajul semnelor) pentru a contacta hotline-ul telefonic. Puteți descărca software-ul din App Store/Google Play.";
 
-/* General - Links */
-"General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
-
-"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
-
-"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
-
-"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
-
 /* Accessibility */
 "AccessibilityLabel_Close" = "Închidere";
 
@@ -123,8 +114,6 @@
 "ExposureDetection_Explanation_Text_Low" = "Riscul de infectare este calculat local pe smartphone-ul dvs., utilizând datele de înregistrare în jurnal a expunerilor. Calculul poate ține cont și de distanța și durata expunerii la persoane diagnosticate cu COVID-19, precum și de potențiala contagiozitate a acestora. Riscul dvs. de infectare nu poate fi observat sau transmis mai departe niciunei alte persoane.";
 
 "ExposureDetection_Explanation_Text_High" = "Prin urmare, riscul dvs. de infectare a fost clasificat ca fiind crescut.\nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe dispozitivul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.\nCând ajungeți acasă, evitați contactul strâns cu membrii familiei sau cu cei din gospodăria dvs.";
-
-"ExposureDetection_Explanation_FAQ_Link" = "https://www.coronawarn.app/en/faq/#encounter_but_green";
 
 "ExposureDetection_Explanation_FAQ_Link_Text" = "Informații suplimentare";
 
@@ -304,8 +293,6 @@
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mai multă protecție pentru dvs. și pentru noi toți. Utilizând Corona-Warn-App putem întrerupe mai ușor lanțul de infectare.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Transformați-vă dispozitivul într-un sistem de avertizare împotriva coronavirusului. Obțineți un sumar al stării de risc și aflați dacă ați intrat în contact strâns cu persoane diagnosticate cu COVID-19 în ultimele 14 zile. \n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin dispozitivele acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.";
-
-"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informații despre aplicație în limbaj simplificat și în limbajul semnelor";
 
@@ -763,8 +750,6 @@
 
 "ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Aflați mai multe";
 
-"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.coronawarn.app/en/faq/";
-
 "ExposureNotificationSetting_AuthenticationError" = "A apărut o eroare la activarea caracteristicii de înregistrare în jurnal a expunerilor. Verificați dacă ați activat jurnalul de expuneri la COVID-19 în setările dvs.";
 
 "ExposureNotificationSetting_exposureNotification_Required" = "A apărut o eroare la activarea caracteristicii de înregistrare în jurnal a expunerilor. Verificați dacă este activată caracteristica de notificare a expunerii la risc în setările pentru aplicație.";
@@ -959,8 +944,6 @@
 
 "App_Information_About_Text" = "Persoanele care utilizează aplicația ajută la urmărirea și întreruperea lanțurilor de infectare. Aplicația salvează local, pe dispozitivul dvs., întâlnirile cu alte persoane. Sunteți notificat dacă ați întâlnit persoane care au fost diagnosticate ulterior cu COVID-19. Identitatea și confidențialitatea dvs. sunt protejate întotdeauna.";
 
-"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
-
 "App_Information_About_LinkText" = "Informații despre aplicație în limbaj simplificat și în limbajul semnelor";
 
 /* App Information - FAQ */
@@ -1008,8 +991,6 @@
 
 "App_Information_Contact_Form_Title" = "Formular de contact";
 
-"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
-
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Mențiuni legale";
 
@@ -1042,8 +1023,6 @@
 
 "InviteFriends_ShareTitle" = "Să combatem împreună COVID-19. Eu vreau. Vrei și tu?";
 
-"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-englisch";
-
 "InviteFriends_Illustration_Label" = "Un bărbat partajează Corona-Warn-App cu alte patru persoane.";
 
 /* Reset View */
@@ -1072,9 +1051,6 @@
 "Reset_ConfirmDialog_Cancel" = "Anulare";
 
 "Reset_ConfirmDialog_Confirm" = "Resetare";
-
-/* Safari */
-"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";
 
 /* Local Notifications */
 "local_notifications_ignore" = "Ignorare";

@@ -45,15 +45,6 @@
 
 "Common_Tess_Relay_Description" = "İşitme engeli bulunan kişiler yardım hattı ile iletişime geçmek için Tess Relay hizmetlerini (Almanca yazı dili ile işaret dili arasında tercüme) kullanabilir. Yazılımı App Store/Google Play'den indirebilirsiniz.";
 
-/* General - Links */
-"General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
-
-"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
-
-"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
-
-"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
-
 /* Accessibility */
 "AccessibilityLabel_Close" = "Kapat";
 
@@ -123,8 +114,6 @@
 "ExposureDetection_Explanation_Text_Low" = "Enfeksiyon riskiniz, maruz kalma günlüğünün verileri kullanılarak yerel olarak akıllı telefonunuzda hesaplanır. Hesaplamada COVID-19 tanısı konan kişilere maruz kalma mesafesi ve süresinin yanında potansiyel enfeksiyon bulaştırma durumu da göz önünde bulundurulur. Enfeksiyon riskiniz bir başkası tarafından görüntülenemez ya da bir başkasına aktarılamaz.";
 
 "ExposureDetection_Explanation_Text_High" = "Bu nedenle enfeksiyon riskiniz artmış olarak derecelendirilmiştir.\nEnfeksiyon riskiniz, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.\nEve gittiğinizde lütfen aile fertleriniz veya ev arkadaşlarınızla yakın temastan kaçının.";
-
-"ExposureDetection_Explanation_FAQ_Link" = "https://www.coronawarn.app/en/faq/#encounter_but_green";
 
 "ExposureDetection_Explanation_FAQ_Link_Text" = "Daha fazla bilgi";
 
@@ -304,8 +293,6 @@
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Sizin için ve hepimiz için daha fazla koruma. Corona-Warn-App uygulamasını kullanarak enfeksiyon zincirlerini çok daha kısa süre içinde kırabiliriz.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Cihazınızı koronavirüs uyarı sistemine dönüştürün. Risk durumunuza ilişkin genel bir bakış elde edin ve son 14 gün içinde COVID-19 tanısı konan herhangi biri ile yakın temasa geçip geçmediğinizi öğrenin. \n\nUygulama, şifrelenmiş rastgele kimlikleri kullanıcıların cihazları arasında paylaşarak maruz kalma günlüğü oluşturur ve bu sırada hiçbir kişisel veriye erişim sağlanmaz.";
-
-"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Basitleştirilmiş Dilde ve İşaret Dilinde Uygulama Bilgileri";
 
@@ -763,8 +750,6 @@
 
 "ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Daha fazla bilgi edinin";
 
-"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.coronawarn.app/en/faq/";
-
 "ExposureNotificationSetting_AuthenticationError" = "Maruz kalma günlüğü özelliğini etkinleştirirken bir hata oluştu. Lütfen ayarlarınızda COVID-19 maruz kalma günlüğünü etkinleştirip etkinleştirmediğinizi kontrol edin.";
 
 "ExposureNotificationSetting_exposureNotification_Required" = "Maruz kalma günlüğü özelliğini etkinleştirirken bir hata oluştu. Lütfen ayarlarınızda COVID-19 maruz kalma bildirimi özelliğini uygulama için etkinleştirip etkinleştirmediğinizi kontrol edin.";
@@ -959,8 +944,6 @@
 
 "App_Information_About_Text" = "Uygulamayı kullanan herkes, enfeksiyon zincirlerinin takip edilmesine ve kırılmasına yardımcı olur. Uygulama, diğer kişilerle karşılaşmaları cihazınızda yerel olarak kaydeder. Daha sonra COVID-19 tanısı konan kişilerle karşılaşmışsanız size bildirim gönderilir. Kimliğiniz ve gizliliğiniz daima koruma altındadır.";
 
-"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
-
 "App_Information_About_LinkText" = "Basitleştirilmiş Dilde ve İşaret Dilinde Uygulama Bilgileri";
 
 /* App Information - FAQ */
@@ -1008,8 +991,6 @@
 
 "App_Information_Contact_Form_Title" = "İletişim Formu";
 
-"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
-
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Yasal Bildirimler";
 
@@ -1042,8 +1023,6 @@
 
 "InviteFriends_ShareTitle" = "Koronavirüs ile birlikte mücadele edelim. Ben katıldım, peki ya sen?";
 
-"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-tuerkisch";
-
 "InviteFriends_Illustration_Label" = "Bir erkek, Corona-Warn-App'i dört farklı kişi ile paylaşıyor.";
 
 /* Reset View */
@@ -1072,9 +1051,6 @@
 "Reset_ConfirmDialog_Cancel" = "İptal";
 
 "Reset_ConfirmDialog_Confirm" = "Sıfırla";
-
-/* Safari */
-"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";
 
 /* Local Notifications */
 "local_notifications_ignore" = "Yok Say";
