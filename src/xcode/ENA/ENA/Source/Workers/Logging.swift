@@ -32,21 +32,22 @@ enum Log {
     }
 
 	private static func log(message: String, type: OSLogType, log: OSLog, error: Error?) {
+		#if !RELEASE
+
 		os_log("%{private}@", log: log, type: type, message)
 
-		#if !RELEASE
 		// Save logs to File. This is used for viewing and exporting logs from debug menu.
 
 		let fileLogger = FileLogger()
 		fileLogger.log(message, logType: type)
-
-		#endif
 
 		// Crashlytics
 		// ...
 
 		// Sentry
 		// ...
+
+		#endif
 	}
 }
 
