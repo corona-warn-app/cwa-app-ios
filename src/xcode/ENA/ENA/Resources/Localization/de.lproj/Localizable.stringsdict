@@ -85,9 +85,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<string>Bisher keine Risiko-Begegnung</string>
+			<string>Keine Risiko-Begegnungen</string>
 			<key>one</key>
-			<string>%u Begegnung mit niedrigem Risiko</string>
+			<string>Eine Begegnung mit niedrigem Risiko</string>
 			<key>few</key>
 			<string>%u Begegnungen mit niedrigem Risiko</string>
 			<key>many</key>
@@ -109,9 +109,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<string>Bisher keine Risiko-Begegnung</string>
+			<string>Keine Risiko-Begegnungen</string>
 			<key>one</key>
-			<string>%u Risiko-Begegnung</string>
+			<string>Eine Risiko-Begegnung</string>
 			<key>few</key>
 			<string>%u Risiko-Begegnungen</string>
 			<key>many</key>
