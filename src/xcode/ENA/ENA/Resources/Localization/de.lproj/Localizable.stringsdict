@@ -26,30 +26,6 @@
 			<string>Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor %u Tagen mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.</string>
 		</dict>
 	</dict>
-	<key>ExposureDetection_NumberOfContacts</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<string>Keine Risiko-Begegnungen</string>
-			<key>one</key>
-			<string>Eine Risiko-Begegnung</string>
-			<key>few</key>
-			<string>%u Risiko-Begegnungen</string>
-			<key>many</key>
-			<string>%u Risiko-Begegnungen</string>
-			<key>two</key>
-			<string>%u Risiko-Begegnungen</string>
-			<key>other</key>
-			<string>%u Risiko-Begegnungen</string>
-		</dict>
-	</dict>
 	<key>ExposureDetection_LastExposure</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
