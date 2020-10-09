@@ -144,7 +144,7 @@
 
 "ExposureDetection_Risk_Status_Downloading_Body" = "Das kann mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
 
-"ExposureDetection_Risk_Status_Detecting_Body" = "Ihre Begegnungsdaten werden nun geprüft. Das kann bis zu mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
+"ExposureDetection_Risk_Status_Detecting_Body" = "Ihre Begegnungsdaten werden nun geprüft. Das kann mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
 
 /* Active Tracing Section */
 "ExposureDetection_ActiveTracingSection_Title" = "Ermittlungszeitraum";
