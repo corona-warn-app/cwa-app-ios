@@ -24,6 +24,7 @@ final class MockTestStore: Store, AppConfigCaching {
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
 	var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
+	var shouldShowRiskStatusLoweredAlert: Bool = false
 	var summary: SummaryMetadata?
 	var tracingStatusHistory: TracingStatusHistory = []
 	var testResultReceivedTimeStamp: Int64?
