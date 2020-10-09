@@ -38,7 +38,7 @@ class ENAUITests_05_ExposureLogging: XCTestCase {
 
 	func test_screenshot_exposureLogging() throws {
 		var screenshotCounter = 0
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .M)
+		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launch()
 
@@ -46,12 +46,6 @@ class ENAUITests_05_ExposureLogging: XCTestCase {
 		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 		
 		app.cells["AppStrings.Home.activateCardOnTitle"].tap()
-		snapshot("exposureloggingscreen_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		
-		app.swipeUp()
-		snapshot("exposureloggingscreen_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		
-		app.swipeUp()
 		snapshot("exposureloggingscreen_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		
 		app.swipeUp()

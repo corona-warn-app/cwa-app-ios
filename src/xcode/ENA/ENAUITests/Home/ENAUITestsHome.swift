@@ -36,7 +36,7 @@ class ENAUITests_01_Home: XCTestCase {
 	}
 
 	func test_0010_HomeFlow_medium() throws {
-		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .XS)
+		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
 		app.launch()
 
 		// only run if home screen is present
@@ -52,7 +52,7 @@ class ENAUITests_01_Home: XCTestCase {
 	}
 
 	func test_0011_HomeFlow_extrasmall() throws {
-		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
+		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .XS)
 		app.launch()
 
 		// only run if home screen is present
@@ -88,7 +88,7 @@ class ENAUITests_01_Home: XCTestCase {
 	func test_screenshot_homescreen_riskCardIncreased() throws {
 		var screenshotCounter = 0
 		let riskLevel = "increased"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .M)
+		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launch()
 
@@ -102,7 +102,7 @@ class ENAUITests_01_Home: XCTestCase {
 	func test_screenshot_homescreen_riskCardLow() throws {
 		var screenshotCounter = 0
 		let riskLevel = "low"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .M)
+		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launch()
 
@@ -116,7 +116,7 @@ class ENAUITests_01_Home: XCTestCase {
 	func test_screenshot_homescreen_riskCardInactive() throws {
 		var screenshotCounter = 0
 		let riskLevel = "inactive"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .M)
+		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launch()
 
@@ -131,7 +131,7 @@ class ENAUITests_01_Home: XCTestCase {
 	func test_screenshot_homescreen_riskCardUnknownUnknownInitial() throws {
 		var screenshotCounter = 0
 		let riskLevel = "unknownInitial"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .M)
+		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launch()
 
@@ -145,7 +145,7 @@ class ENAUITests_01_Home: XCTestCase {
 	func test_screenshot_homescreen_riskCardUnknownUnknownOutdated() throws {
 		var screenshotCounter = 0
 		let riskLevel = "unknownOutdated"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .M)
+		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launch()
 
