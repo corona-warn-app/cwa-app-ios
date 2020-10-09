@@ -127,6 +127,14 @@
 
 "ExposureDetection_Button_Refresh" = "Update";
 
+"ExposureDetection_Risk_Status_Downloading_Title" = "Data is being downloaded…";
+
+"ExposureDetection_Risk_Status_Detecting_Title" = "Check is running …";
+
+"ExposureDetection_Risk_Status_Downloading_Body" = "This may take several minutes. Many thanks for your patience.";
+
+"ExposureDetection_Risk_Status_Detecting_Body" = "Your exposure data is being checked. This may take several minutes. Many thanks for you patience.";
+
 /* Active Tracing Section */
 "ExposureDetection_ActiveTracingSection_Title" = "Period logged";
 
