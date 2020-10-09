@@ -1,4 +1,3 @@
-//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -15,34 +14,32 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-//
 
+import AVFoundation
+import Foundation
 @testable import ENA
 
-class MockExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
+class FakeMetadataMachineReadableCodeObject: NSObject, MetadataMachineReadableCodeObject {
 
-	// MARK: - Attributes.
+	init(
+		stringValue: String? = nil,
+		time: CMTime = CMTime(),
+		duration: CMTime = CMTime(),
+		bounds: CGRect = .zero,
+		type: AVMetadataObject.ObjectType = .qr
+	) {
+		self.stringValue = stringValue
+		self.time = time
+		self.duration = duration
+		self.bounds = bounds
+		self.type = type
+	}
 
-	weak var delegate: ExposureSubmissionCoordinatorDelegate?
+	var stringValue: String?
 
-	// MARK: - ExposureSubmissionCoordinator methods.
-
-	func start(with: TestResult? = nil) { }
-
-	func dismiss() { }
-
-	func showOverviewScreen() { }
-
-	func showTestResultScreen(with result: TestResult) { }
-
-	func showHotlineScreen() { }
-
-	func showTanScreen() { }
-
-	func showSymptomsScreen() { }
-
-	func showWarnOthersScreen() { }
-
-	func showThankYouScreen() { }
+	var time: CMTime
+	var duration: CMTime
+	var bounds: CGRect
+	var type: AVMetadataObject.ObjectType
 
 }

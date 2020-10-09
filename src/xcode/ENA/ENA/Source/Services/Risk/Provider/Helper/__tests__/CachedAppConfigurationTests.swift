@@ -72,7 +72,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			expConfig.fulfill()
 		}
 
-		waitForExpectations(timeout: .long)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testCacheDecay() throws {
@@ -159,7 +159,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			expConfig.fulfill()
 		}
 
-		waitForExpectations(timeout: .long)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testCacheNotModfied_useCache() throws {
@@ -191,7 +191,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			expConfig.fulfill()
 		}
 
-		waitForExpectations(timeout: .long)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testCacheNotModfied_nothingCached() throws {
@@ -238,7 +238,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			expConfig.fulfill()
 		}
 
-		waitForExpectations(timeout: .long)
+		waitForExpectations(timeout: .medium)
 	}
 }
 

@@ -1,4 +1,3 @@
-//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -15,34 +14,18 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-//
 
-@testable import ENA
+import UIKit
 
-class MockExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
+extension String {
 
-	// MARK: - Attributes.
-
-	weak var delegate: ExposureSubmissionCoordinatorDelegate?
-
-	// MARK: - ExposureSubmissionCoordinator methods.
-
-	func start(with: TestResult? = nil) { }
-
-	func dismiss() { }
-
-	func showOverviewScreen() { }
-
-	func showTestResultScreen(with result: TestResult) { }
-
-	func showHotlineScreen() { }
-
-	func showTanScreen() { }
-
-	func showSymptomsScreen() { }
-
-	func showWarnOthersScreen() { }
-
-	func showThankYouScreen() { }
+	/// Returns an attributed string that inserts the given string in an emphasized style
+	func inserting(emphasizedString: String) -> NSAttributedString {
+		return NSMutableAttributedString.generateAttributedString(normalText: self, attributedText: [
+			NSAttributedString(string: emphasizedString, attributes: [
+				NSAttributedString.Key.font: UIFont.enaFont(for: .headline)
+			])
+		])
+	}
 
 }

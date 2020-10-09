@@ -1,4 +1,3 @@
-//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -15,34 +14,28 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-//
 
-@testable import ENA
+import UIKit
 
-class MockExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
+@IBDesignable
+final class ExposureSubmissionQRScannerFocusView: UIView {
+	@IBInspectable var backdropOpacity: CGFloat = 0
+	@IBInspectable var cornerRadius: CGFloat = 0
+	@IBInspectable var borderWidth: CGFloat = 1
 
-	// MARK: - Attributes.
+	override func prepareForInterfaceBuilder() {
+		super.prepareForInterfaceBuilder()
 
-	weak var delegate: ExposureSubmissionCoordinatorDelegate?
+		backgroundColor = UIColor(white: 1, alpha: 0.5)
 
-	// MARK: - ExposureSubmissionCoordinator methods.
+		awakeFromNib()
+	}
 
-	func start(with: TestResult? = nil) { }
+	override func awakeFromNib() {
+		super.awakeFromNib()
 
-	func dismiss() { }
-
-	func showOverviewScreen() { }
-
-	func showTestResultScreen(with result: TestResult) { }
-
-	func showHotlineScreen() { }
-
-	func showTanScreen() { }
-
-	func showSymptomsScreen() { }
-
-	func showWarnOthersScreen() { }
-
-	func showThankYouScreen() { }
-
+		layer.cornerRadius = cornerRadius
+		layer.borderWidth = borderWidth
+		layer.borderColor = tintColor.cgColor
+	}
 }

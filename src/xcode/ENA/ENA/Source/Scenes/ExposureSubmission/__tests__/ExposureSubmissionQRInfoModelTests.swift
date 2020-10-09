@@ -17,32 +17,18 @@
 // under the License.
 //
 
+import XCTest
 @testable import ENA
 
-class MockExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
+class ExposureSubmissionQRInfoModelTests: XCTestCase {
 
-	// MARK: - Attributes.
+	func testDynamicTableVIewModel() {
+		let viewModel = ExposureSubmissionQRInfoViewModel()
 
-	weak var delegate: ExposureSubmissionCoordinatorDelegate?
+		let dynamicTableViewModel = viewModel.dynamicTableViewModel
 
-	// MARK: - ExposureSubmissionCoordinator methods.
-
-	func start(with: TestResult? = nil) { }
-
-	func dismiss() { }
-
-	func showOverviewScreen() { }
-
-	func showTestResultScreen(with result: TestResult) { }
-
-	func showHotlineScreen() { }
-
-	func showTanScreen() { }
-
-	func showSymptomsScreen() { }
-
-	func showWarnOthersScreen() { }
-
-	func showThankYouScreen() { }
+		XCTAssertEqual(dynamicTableViewModel.numberOfSection, 1)
+		XCTAssertEqual(dynamicTableViewModel.section(0).cells.count, 4)
+	}
 
 }
