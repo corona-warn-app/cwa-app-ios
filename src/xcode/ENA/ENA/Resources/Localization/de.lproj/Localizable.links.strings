@@ -1,11 +1,3 @@
-/* 
-  Localizable.links.strings
-  ENA
-
-  Created by Artur Friesen on 09.10.20.
-  Copyright © 2020 SAP SE. All rights reserved.
-*/
-
 "OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
 
 "ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.coronawarn.app/de/faq/";
