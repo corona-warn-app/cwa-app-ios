@@ -128,5 +128,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		
 		app.buttons["OK"].tap()
 		if snapshotsActive { snapshot(prefix + "7")}
+		app.swipeUp()
+		if snapshotsActive { snapshot(prefix + "7a")}
 	}
 }
