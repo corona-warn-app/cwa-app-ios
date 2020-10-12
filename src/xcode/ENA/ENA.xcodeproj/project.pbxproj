@@ -323,6 +323,7 @@
 		AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */; };
 		AB1FCBD42521FC47005930BA /* ServerEnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1FCBCC2521FC44005930BA /* ServerEnvironmentTests.swift */; };
 		AB1FCBDC2521FCD5005930BA /* TestServerEnvironments.json in Resources */ = {isa = PBXBuildFile; fileRef = AB1FCBDB2521FCD5005930BA /* TestServerEnvironments.json */; };
+		AB453F602534B04400D8339E /* ExposureManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB453F5F2534B04400D8339E /* ExposureManagerTests.swift */; };
 		AB5F84AD24F8F7A1000400D4 /* SerialMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F84AC24F8F7A1000400D4 /* SerialMigrator.swift */; };
 		AB5F84B024F8F7C3000400D4 /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F84AF24F8F7C3000400D4 /* Migration.swift */; };
 		AB5F84B224F8F7E3000400D4 /* Migration0To1.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F84B124F8F7E3000400D4 /* Migration0To1.swift */; };
@@ -873,6 +874,7 @@
 		AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerTests.swift; sourceTree = "<group>"; };
 		AB1FCBCC2521FC44005930BA /* ServerEnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerEnvironmentTests.swift; sourceTree = "<group>"; };
 		AB1FCBDB2521FCD5005930BA /* TestServerEnvironments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestServerEnvironments.json; sourceTree = "<group>"; };
+		AB453F5F2534B04400D8339E /* ExposureManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureManagerTests.swift; sourceTree = "<group>"; };
 		AB5F84AC24F8F7A1000400D4 /* SerialMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialMigrator.swift; sourceTree = "<group>"; };
 		AB5F84AF24F8F7C3000400D4 /* Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration.swift; sourceTree = "<group>"; };
 		AB5F84B124F8F7E3000400D4 /* Migration0To1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration0To1.swift; sourceTree = "<group>"; };
@@ -2321,6 +2323,7 @@
 			children = (
 				B15382DE248270B50010F007 /* Mocks */,
 				EE22DB8E247FB46C001B0A71 /* ENStateTests.swift */,
+				AB453F5F2534B04400D8339E /* ExposureManagerTests.swift */,
 				A17DA5E12486D8E7006F310F /* RiskLevelTests.swift */,
 				3598D99924FE280700483F1F /* CountryTests.swift */,
 				941F5ECB2518E82100785F06 /* ENSettingEuTracingViewModelTests.swift */,
@@ -3382,6 +3385,7 @@
 				51F1256024BEFB8F00126C86 /* HomeUnknown48hRiskCellConfiguratorTests.swift in Sources */,
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
 				B1C7EE4624938EB700F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandlingTests.swift in Sources */,
+				AB453F602534B04400D8339E /* ExposureManagerTests.swift in Sources */,
 				B10F9B8C249961CE00C418F4 /* UIFont+DynamicTypeTests.swift in Sources */,
 				01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */,
 				A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */,
