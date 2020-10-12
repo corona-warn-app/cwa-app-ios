@@ -157,8 +157,8 @@ class ENAUITests_01_Home: XCTestCase {
 	}
 }
 
-private extension Int {
-	mutating func inc() -> Int {
+extension Int {
+	public mutating func inc() -> Int {
 		self += 1
 		return self
 	}

@@ -461,11 +461,3 @@ private extension TimeInterval {
 	static let medium = 3.0
 	static let long = 5.0
 }
-
-
-private extension Int {
-	mutating func inc() -> Int {
-		self += 1
-		return self
-	}
-}

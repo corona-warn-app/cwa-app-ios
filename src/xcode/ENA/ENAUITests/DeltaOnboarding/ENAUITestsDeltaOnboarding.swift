@@ -83,11 +83,4 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		
 	}
 
-}
-
-private extension Int {
-	mutating func inc() -> Int {
-		self += 1
-		return self
-	}
-}
+} 

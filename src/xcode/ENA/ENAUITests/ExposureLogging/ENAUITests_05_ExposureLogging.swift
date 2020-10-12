@@ -52,10 +52,3 @@ class ENAUITests_05_ExposureLogging: XCTestCase {
 		snapshot("exposureloggingscreen_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 }
-
-private extension Int {
-	mutating func inc() -> Int {
-		self += 1
-		return self
-	}
-}
