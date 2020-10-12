@@ -28,6 +28,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		setupSnapshot(app)
 		app.setDefaults()
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
+		app.launchArguments.append(contentsOf: ["-test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S", ".unknown"])
 	}
 
 	override func tearDownWithError() throws {
@@ -93,7 +94,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 	
 	// MARK: -	
 
-	func test_Screenshots_OnboardingFlow_EnablePermissions_normal_S() throws {
+	func test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S() throws {
 		let snapshotsActive = true
 		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "YES"])
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)

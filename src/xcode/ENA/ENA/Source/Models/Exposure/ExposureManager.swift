@@ -40,7 +40,11 @@ struct ExposureManagerState: Equatable {
 		#if UITESTING
 		self.authorized = true
 		self.enabled = true
-		self.status = .active // Onboarding Screen 3 – disables button "Do Not Activate"
+		if UserDefaults.standard.string(forKey: "test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S") != nil {
+			self.status = .unknown // Onboarding Screen 3 – enable button "Do Not Activate"
+		} else {
+			self.status = .active
+		}
 		#else
 		self.authorized = authorized
 		self.enabled = enabled
