@@ -28,7 +28,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		setupSnapshot(app)
 		app.setDefaults()
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
-		app.launchArguments.append(contentsOf: ["-test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S", ".unknown"])
+		app.launchArguments.append(contentsOf: ["-ENStatus", ".unknown"])
 	}
 
 	override func tearDownWithError() throws {

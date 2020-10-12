@@ -40,8 +40,25 @@ struct ExposureManagerState: Equatable {
 		#if UITESTING
 		self.authorized = true
 		self.enabled = true
-		if UserDefaults.standard.string(forKey: "test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S") != nil {
-			self.status = .unknown // Onboarding Screen 3 – enable button "Do Not Activate"
+		if let statusText = UserDefaults.standard.string(forKey: "ENStatus") {
+			switch statusText {
+			case ".unknown" :
+				self.status = .unknown
+			case ".active" :
+				self.status = .active
+			case ".disabled" :
+				self.status = .disabled
+			case ".bluetoothOff" :
+				self.status = .bluetoothOff
+			case ".restricted" :
+				self.status = .restricted
+			case ".paused" :
+				self.status = .paused
+			case ".unauthorized" :
+				self.status = .unauthorized
+			default :
+				self.status = .unknown
+			}
 		} else {
 			self.status = .active
 		}
