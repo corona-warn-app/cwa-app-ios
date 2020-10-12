@@ -40,7 +40,7 @@ struct ExposureManagerState: Equatable {
 		#if UITESTING
 		self.authorized = true
 		self.enabled = true
-		self.status = .unknown // Onboarding Screen 3 – displays bitton "Do Not Activate"
+		self.status = .active // Onboarding Screen 3 – disables button "Do Not Activate"
 		#else
 		self.authorized = authorized
 		self.enabled = enabled
