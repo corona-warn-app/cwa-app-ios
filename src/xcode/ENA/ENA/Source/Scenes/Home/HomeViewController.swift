@@ -208,10 +208,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 		reloadData(animatingDifferences: false)
 
-		showRiskStatusLoweredAlert(currentRisk: risk)
+		showRiskStatusLoweredAlertIfNeeded()
 	}
 
-	func showRiskStatusLoweredAlert(currentRisk: Risk?) {
+	func showRiskStatusLoweredAlertIfNeeded() {
 		guard store.shouldShowRiskStatusLoweredAlert else { return }
 
 		let alert = UIAlertController(
