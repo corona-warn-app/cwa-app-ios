@@ -199,7 +199,7 @@ extension RiskProvider: RiskProviding {
 			_provideRisk(risk, to: consumer)
 		}
 
-		saveRiskIfNeeded(risk)
+		savePreviousRiskLevel(risk)
 	}
 	#else
 
@@ -316,8 +316,21 @@ extension RiskProvider: RiskProviding {
 				return
 		}
 
+		/// Only set shouldShowRiskStatusLoweredAlert if risk level has changed from increase to low or vice versa. Otherwise leave shouldShowRiskStatusLoweredAlert unchanged.
+		/// Scenario: Risk level changed from increased to low in the first risk calculation. In a second risk calculation it stays low. If the user does not open the app between these two calculations, the alert should still be shown.
+		if risk.riskLevelHasChanged {
+			switch risk.level {
+			case .low:
+				store.shouldShowRiskStatusLoweredAlert = true
+			case .increased:
+				store.shouldShowRiskStatusLoweredAlert = false
+			default:
+				break
+			}
+		}
+
 		completeOnTargetQueue(risk: risk, completion: completion)
-		saveRiskIfNeeded(risk)
+		savePreviousRiskLevel(risk)
 	}
 	#endif
 
@@ -329,7 +342,7 @@ extension RiskProvider: RiskProviding {
 		#endif
 	}
 
-	private func saveRiskIfNeeded(_ risk: Risk) {
+	private func savePreviousRiskLevel(_ risk: Risk) {
 		switch risk.level {
 		case .low:
 			store.previousRiskLevel = .low
