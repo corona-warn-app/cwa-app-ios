@@ -55,7 +55,6 @@ enum SymptomsOnset {
 		case .moreThanTwoWeeksAgo:
 			return [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5]
 		case .daysSinceOnset(let daysSinceOnset):
-			assert(daysSinceOnset < 22)
 			return SymptomsOnset.daysSinceOnsetRiskVectors[min(daysSinceOnset, 21)]
 		}
 	}
@@ -76,7 +75,7 @@ enum SymptomsOnset {
 		case .moreThanTwoWeeksAgo:
 			return Array(701...715).reversed()
 		case .daysSinceOnset(let daysSinceOnset):
-			return Array(-14...0).reversed().map { Int32($0 + daysSinceOnset) }
+			return Array(-14...0).reversed().map { Int32($0 + min(daysSinceOnset, 21)) }
 		}
 	}
 
