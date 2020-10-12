@@ -140,6 +140,13 @@ workflows:
                   - /^v.*/
               branches:
                 ignore: /.*/
+        - grab-screenshots:
+            filters:
+              tags:
+                only:
+                  - /^v.*/
+              branches:
+                ignore: /.*/
         - testflight-release:
             requires:
               - test

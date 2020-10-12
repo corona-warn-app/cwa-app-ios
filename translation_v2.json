@@ -9,7 +9,7 @@
             "*.strings","*.stringsdict"
           ],
           "excludedSourceFilters":[
-            "*.legal.*"
+            "*.legal.*", "*.links.*"
           ],
            "targetFolderPath":"../[langCode].lproj/"
         }

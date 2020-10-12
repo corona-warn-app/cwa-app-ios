@@ -52,7 +52,10 @@ struct DatePickerOptionViewModel {
 
 		var datePickerDays = [DatePickerDay]()
 		for index in 0..<28 {
-			guard let date = calendar.date(byAdding: .day, value: index, to: firstDayOfDatePicker) else { return [] }
+			guard let date = calendar.date(byAdding: .day, value: index, to: firstDayOfDatePicker),
+				  let daysFromToday = calendar.dateComponents([.day], from: calendar.startOfDay(for: today), to: calendar.startOfDay(for: date)).day else {
+				return []
+			}
 
 			var datePickerDay: DatePickerDay
 
@@ -60,8 +63,10 @@ struct DatePickerOptionViewModel {
 				datePickerDay = .today(date)
 			} else if date > today {
 				datePickerDay = .future(date)
+			} else if daysFromToday >= -21 {
+				datePickerDay = .upTo21DaysAgo(date)
 			} else {
-				datePickerDay = .past(date)
+				datePickerDay = .moreThan21DaysAgo(date)
 			}
 
 			datePickerDays.append(datePickerDay)
