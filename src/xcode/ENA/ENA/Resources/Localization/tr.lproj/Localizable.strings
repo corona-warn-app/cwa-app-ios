@@ -131,9 +131,9 @@
 
 "ExposureDetection_Risk_Status_Detecting_Title" = "Kontrol devam ediyor …";
 
-"ExposureDetection_Risk_Status_Downloading_Body" = "Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için çok teşekkür ederiz.";
+"ExposureDetection_Risk_Status_Downloading_Body" = "Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için teşekkür ederiz.";
 
-"ExposureDetection_Risk_Status_Detecting_Body" = "Maruz kalma verileriniz kontrol ediliyor. Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için çok teşekkür ederiz.";
+"ExposureDetection_Risk_Status_Detecting_Body" = "Maruz kalma verileriniz kontrol ediliyor. Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için teşekkür ederiz.";
 
 /* Active Tracing Section */
 "ExposureDetection_ActiveTracingSection_Title" = "Dönem günlüğe kaydedildi";
@@ -154,6 +154,8 @@
 "ExposureDetectionError_Alert_Message" = "Maruz kalma günlüğü sırasında bir hata oluştu.";
 
 "ExposureDetectionError_Alert_AppConfig_Missing_Message" = "İnternet bağlantınız kesildi. Lütfen bağlantıyı kontrol edin ve ardından uygulamayı yeniden açın.";
+
+"ExposureDetectionError_Alert_FullDiskSpace_Message" = "Mevcut veriler için yeterli boş bellek yok.\nRisk durumunuzun güncellenebilmesi için lütfen akıllı telefonunuzun belleğini boşaltın.";
 
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Maruz kalma günlüğü işlevi hakkında bilgi";
@@ -247,7 +249,7 @@
 
 "BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Arka planda uygulamayı yenileme özelliğini etkinleştirmek için lütfen düşük güç modunun devre dışı bırakılması gerektiğini unutmayın.";
 
-"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Düşük Güç Modunu Devre Dışı Bırakın";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Düşük Güç Modunu Devre Dışı Bırak";
 
 "BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Ayarları açın";
 
@@ -312,11 +314,11 @@
 
 "OnboardingInfo_privacyPage_normalText" = "Kimliğiniz gizli tutulacaktır.\nVerileriniz tamamen şifrelenir ve bir takma ad altında aktarılır.\n\nSorumlu kuruluş: GDPR, 4. madde, 7. paragraf:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nLütfen veri gizliliği düzenlemelerimizi okuyun.\n\nVeri gizliliği bilgileri:";
 
-"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Üç kişi akıllı telefonlarında maruz kalma günlüğünü etkinleştirdi ve birbirleri ile karşılaşmaları günlüğe kaydedilecektir.";
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Üç kişi cihazlarında maruz kalma günlüğünü etkinleştirdi ve birbirleri ile karşılaşmaları günlüğe kaydedilecektir.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_title" = "Maruz Kalma Günlüğünü Etkinleştirme";
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "Maruz kalma günlüğünüzü nasıl etkinleştirirsiniz?";
 
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Enfeksiyon riski taşıyıp taşımadığınızı belirlemek için maruz kalma günlüğü özelliğini etkinleştirmeniz gerekir.";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Tüm olası maruz kalmaları belirlemek için maruz kalma günlüğü özelliğini etkinleştirmeniz gerekir.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Maruz kalma günlüğü, akıllı telefonunuzun Bluetooth üzerinden diğer kullanıcıların şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimliği diğer kullanıcıların cihazlarına aktarmasıyla çalışır. Bu özellik dilediğiniz zaman devre dışı bırakılabilir. \n\nŞifrelenmiş rastgele kimliklerde diğer kişilere yalnızca tarih, süre ve yakınlık bilgileri (sinyal gücüne göre hesaplanır) gönderilir. Ad, adres ve konum gibi kişisel veriler hiçbir durumda kaydedilmez. Kişilerin kimlikleri rastgele kimliklere göre belirlenemez.";
 
@@ -408,7 +410,7 @@
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "TAN'yi manuel olarak girerek kaydedin.";
+"ExposureSubmissionDispatch_TANButtonDescription" = "TAN'yi manüel olarak girerek kaydedin.";
 
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "TAN Talebi";
 
@@ -439,6 +441,25 @@
 "ExposureSubmission_TANInputButtonTitle" = "TAN gir";
 
 "ExposureSubmissionHotline_imageDescription" = "Yardım hattı size bir TAN iletecektir.";
+
+/* Exposure Submission QR Code Info */
+"ExposureSubmissionQRInfo_title" = "QR Kod Tarama";
+
+"ExposureSubmissionQRInfo_imageDescription" = "Bir kişi bir QR kodun yanında akıllı telefon tutuyor. Okunan QR kod akıllı telefonun ekranında görünüyor.";
+
+"ExposureSubmissionQRInfo_instruction1" = "Lütfen yalnızca kendi testinizi tarayın.";
+
+"ExposureSubmissionQRInfo_instruction2" = "Her test %@ taranabilir.";
+
+"ExposureSubmissionQRInfo_instruction2_highlightedPhrase" = "yalnızca bir kez";
+
+"ExposureSubmissionQRInfo_instruction3" = "Uygulama aynı anda birden çok testi %@.";
+
+"ExposureSubmissionQRInfo_instruction3_highlightedPhrase" = "yönetemez";
+
+"ExposureSubmissionQRInfo_instruction4" = "Daha yakın zamanlı bir test varsa mevcut testi silin ve yakın zamanlı testin QR kodunu tarayın.";
+
+"ExposureSubmissionQRInfo_primaryButtonTitle" = "Sonraki";
 
 /* Exposure Submission QR Code Scanner */
 "ExposureSubmissionQRScanner_title" = "QR Kod Tarama";
@@ -544,7 +565,7 @@
 
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Kendinizi iyi hissetmiyorsanız diğer insanları riske atmamak için işe gitmeyin.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Belirtileriniz kötüleşirse ilave SARS-CoV-2 testi yapılması gerekebilir.";
+"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Belirtileriniz kötüleşirse başka bir SARS-CoV-2 testinin yapılması gerekebilir.";
 
 "ExposureSubmissionResult_testInvalid" = "Testte hata var";
 
@@ -556,7 +577,11 @@
 
 "ExposureSubmissionResult_testPending" = "Test sonucu henüz çıkmadı";
 
-"ExposureSubmissionResult_testPendingDesc" = "Test sonucunuz henüz çıkmadı.";
+"ExposureSubmissionResult_testPendingDesc_paragraph1" = "Lütfen sabırlı olun, değerlendirmenin tamamlanması birkaç gün sürebilir.\n\n";
+
+"ExposureSubmissionResult_testPendingDesc_paragraph2" = "Test sonucunuz uygulama dışından da tarafınıza iletilecektir. Testinizin pozitif sonuç vermesi halinde kamu sağlığı yetkilileri sizi bilgilendirecektir.\n\n";
+
+"ExposureSubmissionResult_testPendingDesc_paragraph3" = "Test sonucunun pozitif olması halinde sonucu uygulamaya kaydetmek ve diğer kullanıcıları uyarmak için lütfen \"TAN Talebi\" başlığının altında görüntülenen numarayı arayın.";
 
 "ExposureSubmissionResult_testRemove" = "Testi sil";
 
@@ -597,7 +622,7 @@
 
 "ExposureSubmissionSymptoms_AnswerOptionNo" = "Hayır";
 
-"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Bilgi yok";
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Beyan yok";
 
 "ExposureSubmissionSymptoms_ContinueButton" = "Sonraki";
 
@@ -616,7 +641,7 @@
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "2 haftadan uzun süre önce";
 
-"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Bilgi yok";
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Beyan yok";
 
 "ExposureSubmissionSymptomsOnset_ContinueButton" = "Sonraki";
 
@@ -722,7 +747,7 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Maruz kalma günlüğünde, karşılaşmaların günlüğe kaydedilebilmesi için sistem ayarlarında maruz kalma bildirimlerinin etkinleştirilmesi gerekir. \"Cihaz Ayarlarını Aç\"  -> \"Maruz Kalma Bildirimleri\" -> \"Maruz Kalma Bildirimlerini Paylaş\" seçeneğini belirleyin. Ardından \"Etkin Bölge Olarak Belirle\" seçeneğini belirleyerek uygulamayı maruz kalma bildirimleri için etkin uygulama olarak tanımlayın.";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "COVID-19 Maruz Kalma Bildirimlerini Etkinleştir ";
+"ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "COVID-19 Maruz Kalma Bildirimlerini Etkinleştir";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Maruz kalma günlüğünde, karşılaşmaların günlüğe kaydedilebilmesi için sistem ayarlarında COVID-19 Maruz Kalma Bildirimlerinin etkinleştirilmesi gerekir. \"Cihaz Ayarlarını Aç\" seçeneğini belirleyin ve ayarlarda \"COVID-19 Maruz Kalma Bildirimleri\" özelliğini etkinleştirin.";
 
@@ -742,7 +767,7 @@
 
 "ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Yetki";
 
-"ExposureNotificationSetting_AccLabel_Enabled" = "Üç kişi akıllı telefonlarında maruz kalma günlüğünü etkinleştirdi ve birbirleri ile karşılaşmaları günlüğe kaydedilecektir.";
+"ExposureNotificationSetting_AccLabel_Enabled" = "Üç kişi cihazlarında maruz kalma günlüğünü etkinleştirdi ve birbirleri ile karşılaşmaları günlüğe kaydedilecektir.";
 
 "ExposureNotificationSetting_AccLabel_Disabled" = "Bir kişi akıllı telefonunda maruz kalma günlüğünü devre dışı bıraktı. Bu nedenle iki diğer kişi ile karşılaşma günlüğe kaydedilmez.";
 
@@ -855,9 +880,9 @@
 
 "Home_Risk_Status_Detecting_Title" = "Kontrol devam ediyor …";
 
-"Home_Risk_Status_Downloading_Body" = "Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için çok teşekkür ederiz.";
+"Home_Risk_Status_Downloading_Body" = "Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için teşekkür ederiz.";
 
-"Home_Risk_Status_Detecting_Body" = "Maruz kalma verileriniz kontrol ediliyor. Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için çok teşekkür ederiz.";
+"Home_Risk_Status_Detecting_Body" = "Maruz kalma verileriniz kontrol ediliyor. Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için teşekkür ederiz.";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Teşekkür ederiz!";
@@ -950,7 +975,7 @@
 
 "App_Information_About_Description" = "Robert Koch Institute (RKI), Almanya'nın federal kamu sağlığı kurumudur. RKI, Federal Hükûmet adına Corona-Warn-App uygulamasını yayınlamaktadır. Uygulama, daha önce açıklanan kamu sağlığı önlemlerine ilişkin dijital bir tamamlayıcı niteliğindedir: sosyal mesafe, hijyen uygulamaları ve yüz maskeleri.";
 
-"App_Information_About_Text" = "Uygulamayı kullanan herkes, enfeksiyon zincirlerinin takip edilmesine ve kırılmasına yardımcı olur. Uygulama, diğer kişilerle karşılaşmaları cihazınızda yerel olarak kaydeder. Daha sonra COVID-19 tanısı konan kişilerle karşılaşmışsanız size bildirim gönderilir. Kimliğiniz ve gizliliğiniz daima koruma altındadır.";
+"App_Information_About_Text" = "Uygulamayı kullanan kişiler, enfeksiyon zincirlerinin takip edilmesine ve kırılmasına yardımcı olur. Uygulama, diğer kişilerle karşılaşmaları cihazınızda yerel olarak kaydeder. Daha sonra COVID-19 tanısı konan kişilerle karşılaşmışsanız size bildirim gönderilir. Kimliğiniz ve gizliliğiniz daima koruma altındadır.";
 
 "App_Information_About_LinkText" = "Basitleştirilmiş Dilde ve İşaret Dilinde Uygulama Bilgileri";
 
@@ -1078,7 +1103,7 @@
 
 "RiskLegend_Legend1_Title" = "Maruz Kalma Günlüğü";
 
-"RiskLegend_Legend1_Text" = "Maruz kalma günlüğü, uygulamanın üç temel özelliğinden biridir. Bu özelliği etkinleştirdiğinizde, diğer kişilerin akıllı telefonlarıyla karşılaşmalarınız günlüğe kaydedilir. Başka bir işlem yapmanız gerekmez.";
+"RiskLegend_Legend1_Text" = "Maruz kalma günlüğü, uygulamanın üç temel özelliğinden biridir. Bu özelliği etkinleştirdiğinizde, diğer kişilerin cihazlarıyla karşılaşmalarınız günlüğe kaydedilir. Başka bir işlem yapmanız gerekmez.";
 
 "RiskLegend_Legend2_Title" = "Enfeksiyon Riski";
 
@@ -1124,7 +1149,7 @@
 
 "RiskLegend_Random_Text" = "Rastgele Kimlikler, rastgele oluşturulan rakam ve harf kombinasyonlarıdır. Yakın mesafedeki cihazlar arasında değiştirilir. Rastgele Kimlikler belirli bir kişiyi izlemek üzere kullanılamaz ve 14 günün sonunda otomatik olarak silinir. COVID-19 tanısı konan kişiler son 14 güne kadar rastgele kimliklerinin uygulamanın diğer kullanıcıları ile paylaşılmasını seçebilir.";
 
-"RiskLegend_Image1_AccLabel" = "Bir akıllı telefon farklı numaralandırılmış içerikler gösteriyor.";
+"RiskLegend_Image1_AccLabel" = "Bir cihaz farklı numaralandırılmış içerikler gösteriyor.";
 
 /* Update Message */
 "Update_Message_Title" = "Güncelleme var";
