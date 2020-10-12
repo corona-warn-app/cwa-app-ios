@@ -93,26 +93,39 @@ class ENAUITests_00_Onboarding: XCTestCase {
 	
 	// MARK: -	
 
-	func test_Screenshots_OnboardingFlow_EnablePermissions_normal_L() throws {
+	func test_Screenshots_OnboardingFlow_EnablePermissions_normal_S() throws {
 		let snapshotsActive = true
 		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "YES"])
-		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .L)
+		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
 		app.launch()
 
 		let prefix = "OnboardingFlow_EnablePermission_"
 		
 		if snapshotsActive { snapshot(prefix + "1")}
-		// tap through the onboarding screens
+		
 		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].tap()
 		if snapshotsActive { snapshot(prefix + "2")}
+		app.swipeUp()
+		if snapshotsActive { snapshot(prefix + "2a")}
+		app.swipeUp()
+		if snapshotsActive { snapshot(prefix + "2b")}
+
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
 		if snapshotsActive { snapshot(prefix + "3")}
+		app.swipeUp()
+		if snapshotsActive { snapshot(prefix + "3a")}
+		app.swipeUp()
+		if snapshotsActive { snapshot(prefix + "3b")}
+
 		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].tap()
 		if snapshotsActive { snapshot(prefix + "4")}
+		
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
 		if snapshotsActive { snapshot(prefix + "5")}
+
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
 		if snapshotsActive { snapshot(prefix + "6")}
+		
 		app.buttons["OK"].tap()
 		if snapshotsActive { snapshot(prefix + "7")}
 	}
