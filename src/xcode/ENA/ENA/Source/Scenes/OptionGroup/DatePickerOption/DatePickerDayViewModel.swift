@@ -36,7 +36,7 @@ class DatePickerDayViewModel {
 		self.calendar = calendar
 
 		switch datePickerDay {
-		case .future(let date), .past(let date), .today(let date):
+		case .moreThan21DaysAgo(let date), .upTo21DaysAgo(let date), .today(let date), .future(let date):
 			self.date = date
 		}
 
@@ -74,9 +74,9 @@ class DatePickerDayViewModel {
 
 	var isSelectable: Bool {
 		switch datePickerDay {
-		case .past, .today:
+		case .upTo21DaysAgo, .today:
 			return true
-		case .future:
+		case .moreThan21DaysAgo, .future:
 			return false
 		}
 	}
@@ -104,7 +104,7 @@ class DatePickerDayViewModel {
 		backgroundColor = isSelected ? UIColor.enaColor(for: .tint) : UIColor.enaColor(for: .background)
 
 		switch (datePickerDay, isSelected) {
-		case (.future, _):
+		case (.future, _), (.moreThan21DaysAgo, _):
 			textColor = .enaColor(for: .textPrimary3)
 			fontWeight = "regular"
 		case (.today, true):
@@ -113,10 +113,10 @@ class DatePickerDayViewModel {
 		case (.today, false):
 			textColor = .enaColor(for: .textTint)
 			fontWeight = "bold"
-		case (.past, true):
+		case (.upTo21DaysAgo, true):
 			textColor = .enaColor(for: .textContrast)
 			fontWeight = "medium"
-		case (.past, false):
+		case (.upTo21DaysAgo, false):
 			textColor = .enaColor(for: .textPrimary1)
 			fontWeight = "regular"
 		}
