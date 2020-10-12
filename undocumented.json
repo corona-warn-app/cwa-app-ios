@@ -11112,20 +11112,27 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/OptionGroup/DatePickerOption/DatePickerDay.swift",
       "line": 24,
-      "symbol": "DatePickerDay.past(_:)",
+      "symbol": "DatePickerDay.moreThan21DaysAgo(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/OptionGroup/DatePickerOption/DatePickerDay.swift",
       "line": 25,
-      "symbol": "DatePickerDay.today(_:)",
+      "symbol": "DatePickerDay.upTo21DaysAgo(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/OptionGroup/DatePickerOption/DatePickerDay.swift",
       "line": 26,
+      "symbol": "DatePickerDay.today(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/OptionGroup/DatePickerOption/DatePickerDay.swift",
+      "line": 27,
       "symbol": "DatePickerDay.future(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
@@ -11300,14 +11307,14 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/OptionGroup/DatePickerOption/DatePickerOptionViewModel.swift",
-      "line": 73,
+      "line": 78,
       "symbol": "DatePickerOptionViewModel.weekdays",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/OptionGroup/DatePickerOption/DatePickerOptionViewModel.swift",
-      "line": 80,
+      "line": 85,
       "symbol": "DatePickerOptionViewModel.weekdayTextColors",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
