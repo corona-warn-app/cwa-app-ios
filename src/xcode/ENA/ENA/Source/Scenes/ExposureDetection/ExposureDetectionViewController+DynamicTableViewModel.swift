@@ -458,7 +458,7 @@ extension ExposureDetectionViewController {
 		let activeTracing = state.risk?.details.activeTracing ?? .init(interval: 0)
 		return DynamicTableViewModel([
 			riskDataSection(cells: [
-				.riskContacts(text: AppStrings.ExposureDetection.numberOfContacts, image: UIImage(named: "Icons_RisikoBegegnung")),
+				.riskContacts(text: AppStrings.Home.riskCardHighNumberContactsItemTitle, image: UIImage(named: "Icons_RisikoBegegnung")),
 				.riskLastExposure(text: AppStrings.ExposureDetection.lastExposure, image: UIImage(named: "Icons_Calendar")),
 				.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
 				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))

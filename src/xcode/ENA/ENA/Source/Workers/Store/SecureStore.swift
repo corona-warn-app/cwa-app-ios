@@ -209,6 +209,11 @@ final class SecureStore: Store {
 		set { kvStore["previousRiskLevel"] = newValue?.rawValue }
 	}
 
+	var shouldShowRiskStatusLoweredAlert: Bool {
+		get { kvStore["shouldShowRiskStatusLoweredAlert"] as Bool? ?? false }
+		set { kvStore["shouldShowRiskStatusLoweredAlert"] = newValue }
+	}
+
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks: Bool {
 		get { kvStore["userNeedsToBeInformedAboutHowRiskDetectionWorks"] as Bool? ?? true }
 		set { kvStore["userNeedsToBeInformedAboutHowRiskDetectionWorks"] = newValue }
