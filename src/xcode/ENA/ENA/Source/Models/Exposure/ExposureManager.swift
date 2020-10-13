@@ -123,6 +123,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	private weak var exposureManagerObserver: ENAExposureManagerObserver?
 	private var statusObservation: NSKeyValueObservation?
 	@objc private var manager: Manager
+	private var progress: Progress?
 
 	// MARK: Creating a Manager
 
@@ -210,9 +211,21 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	/// Wrapper for `ENManager.detectExposures`
 	/// `ExposureManager` needs to be activated and enabled
 	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
-		manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs) { summary, error in
+
+		// An exposure detection is currently running. Return current progress.
+		if let progress = progress, !progress.isCancelled && !progress.isFinished {
+			return progress
+		}
+
+		let _progress = manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs) { [weak self] summary, error in
+			guard let self = self else { return }
+			self.progress = nil
 			completionHandler(summary, error)
 		}
+
+		progress = _progress
+
+		return _progress
 	}
 
 	// MARK: Diagnosis Keys

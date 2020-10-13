@@ -146,9 +146,6 @@ struct CountrySubmissionPayload {
 	/// The exposure keys to submit
 	let exposureKeys: [SAP_TemporaryExposureKey]
 
-	/// whether or not the consent was given to share the keys with the european federal gateway server
-	let consentToFederation: Bool
-
 	/// the list of countries to check for any exposures
 	let visitedCountries: [Country]
 

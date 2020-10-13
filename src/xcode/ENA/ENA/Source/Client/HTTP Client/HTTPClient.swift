@@ -39,10 +39,9 @@ final class HTTPClient: Client {
 
 	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
 		let keys = payload.exposureKeys
-		let consent = payload.consentToFederation
 		let countries = payload.visitedCountries
 		let tan = payload.tan
-		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: consent, visitedCountries: countries, tan: tan)
+		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: countries, tan: tan)
 		guard let request = try? URLRequest.keySubmissionRequest(configuration: configuration, payload: payload, isFake: isFake) else {
 			completion(.failure(SubmissionError.requestCouldNotBeBuilt))
 			return
@@ -398,7 +397,8 @@ private extension URLRequest {
 		let submPayload = SAP_SubmissionPayload.with {
 			$0.padding = self.getSubmissionPadding(for: payload.exposureKeys)
 			$0.keys = payload.exposureKeys
-			$0.consentToFederation = payload.consentToFederation
+			/// Consent needs always set to be true https://jira.itc.sap.com/browse/EXPOSUREAPP-3125?focusedCommentId=1022122&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-1022122
+			$0.consentToFederation = true
 			$0.visitedCountries = payload.visitedCountries.map { $0.id }
 		}
 		let payloadData = try submPayload.serializedData()

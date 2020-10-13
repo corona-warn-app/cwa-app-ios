@@ -21,7 +21,7 @@ import UIKit
 
 extension DynamicCell {
 	static func phone(text: String, number: String, accessibilityIdentifier: String? = nil) -> Self {
-		var cell: DynamicCell = .icon(UIImage(systemName: "phone"), text: text, tintColor: .enaColor(for: .textPrimary1), action: .call(number: number)) { _, cell, _ in
+		var cell: DynamicCell = .icon(UIImage(systemName: "phone"), text: .string(text), tintColor: .enaColor(for: .textPrimary1), selectionStyle: .default, action: .call(number: number)) { _, cell, _ in
 			cell.textLabel?.textColor = .enaColor(for: .textTint)
 			(cell.textLabel as? ENALabel)?.style = .title2
 			
