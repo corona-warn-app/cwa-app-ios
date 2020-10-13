@@ -64,15 +64,6 @@ enum RiskCalculation {
 		providerConfiguration: RiskProvidingConfiguration,
 		currentDate: Date = Date()
 	) -> Result<RiskLevel, RiskLevelCalculationError> {
-		DispatchQueue.main.async {
-			let appDelegate = UIApplication.shared.delegate as? AppDelegate // TODO: Remove
-			appDelegate?.lastRiskCalculation = ""  // Reset; Append from here on
-			appDelegate?.lastRiskCalculation.append("configuration: \(configuration)\n")
-			appDelegate?.lastRiskCalculation.append("numberOfTracingActiveHours: \(activeTracing.inHours)\n")
-			appDelegate?.lastRiskCalculation.append("preconditions: \(preconditions)\n")
-			appDelegate?.lastRiskCalculation.append("currentDate: \(currentDate)\n")
-			appDelegate?.lastRiskCalculation.append("summary: \(String(describing: summary?.description))\n")
-		}
 
 		//
 		// Precondition 1 - Exposure Notifications must be turned on
@@ -162,19 +153,6 @@ enum RiskCalculation {
 		// Fig 13 - 1
 		let weightedAttenuation = weightedAttenuationDurationsLow + weightedAttenuationDurationsMid + weightedAttenuationDurationsHigh + bucketOffset
 
-		// TODO: Remove
-		DispatchQueue.main.async {
-			let appDelegate = UIApplication.shared.delegate as? AppDelegate
-			appDelegate?.lastRiskCalculation.append("\n ===== Calculation =====\n")
-			appDelegate?.lastRiskCalculation.append("normRiskScore: \(normRiskScore)\n")
-			appDelegate?.lastRiskCalculation.append("weightedAttenuationDurationsLow: \(weightedAttenuationDurationsLow)\n")
-			appDelegate?.lastRiskCalculation.append("weightedAttenuationDurationsMid: \(weightedAttenuationDurationsMid)\n")
-			appDelegate?.lastRiskCalculation.append("weightedAttenuationDurationsHigh: \(weightedAttenuationDurationsHigh)\n")
-			appDelegate?.lastRiskCalculation.append("bucketOffset: \(bucketOffset)\n")
-			appDelegate?.lastRiskCalculation.append("weightedAttenuation: \(weightedAttenuation)\n")
-			appDelegate?.lastRiskCalculation.append("Final result: \((normRiskScore * weightedAttenuation).rounded(to: 2))\n")
-		}
-
 		// Round to two decimal places
 		return (normRiskScore * weightedAttenuation).rounded(to: 2)
 	}
@@ -206,14 +184,6 @@ enum RiskCalculation {
 				activeTracing: activeTracing,
 				exposureDetectionDate: dateLastExposureDetection ?? Date()
 			)
-
-			DispatchQueue.main.async {
-				// TODO: Remove
-				let appDelegate = UIApplication.shared.delegate as? AppDelegate
-				appDelegate?.lastRiskCalculation.append("\n ===== Risk =====\n")
-				appDelegate?.lastRiskCalculation.append("details: \(details)\n")
-				appDelegate?.lastRiskCalculation.append("summary: \(String(describing: summary?.description))\n")
-			}
 
 			var riskLevelHasChanged = false
 			if
