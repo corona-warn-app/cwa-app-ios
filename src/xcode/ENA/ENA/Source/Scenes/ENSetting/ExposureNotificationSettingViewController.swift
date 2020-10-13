@@ -162,6 +162,7 @@ extension ExposureNotificationSettingViewController {
 }
 
 extension ExposureNotificationSettingViewController {
+
 	override func numberOfSections(in _: UITableView) -> Int {
 		model.content.count
 	}
@@ -206,64 +207,78 @@ extension ExposureNotificationSettingViewController {
 	) -> UITableViewCell {
 		let section = indexPath.section
 		let content = model.content[section]
-		if let cell = tableView.dequeueReusableCell(withIdentifier: content.cellType.rawValue, for: indexPath) as? ConfigurableENSettingCell {
-			switch content {
-			case .banner:
-				cell.configure(for: enState)
-			case .actionCell:
-				if let lastActionCell = lastActionCell {
-					return lastActionCell
-				}
-				if let cell = cell as? ActionCell {
-					cell.configure(for: enState, delegate: self)
-					lastActionCell = cell
-				}
-			case .euTracingCell:
-				let euTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.euTracingCell.cellType.rawValue, for: indexPath)
-				if let euTracingCell = euTracingCell as? EuTracingTableViewCell {
-					euTracingCell.configure()
-					return euTracingCell
-				}
-			case .tracingCell, .actionDetailCell:
-				switch enState {
-				case .enabled, .disabled:
-					let tracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.tracingCell.cellType.rawValue, for: indexPath)
-					if let tracingCell = tracingCell as? TracingHistoryTableViewCell {
-						let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
-							(UIColor.enaColor(for: .tint), UIColor.enaColor(for: .hairline)) :
-							(UIColor.enaColor(for: .textPrimary2), UIColor.enaColor(for: .hairline))
-						let activeTracing = store.tracingStatusHistory.activeTracing()
-						let text = [
-							activeTracing.exposureDetectionActiveTracingSectionTextParagraph0,
-							activeTracing.exposureDetectionActiveTracingSectionTextParagraph1]
-							.joined(separator: "\n\n")
 
-						let numberOfDaysWithActiveTracing = activeTracing.inDays
-						let title = NSLocalizedString("ExposureDetection_ActiveTracingSection_Title", comment: "")
-						let subtitle = NSLocalizedString("ExposureDetection_ActiveTracingSection_Subtitle", comment: "")
-
-						tracingCell.configure(
-							progress: CGFloat(numberOfDaysWithActiveTracing),
-							title: title,
-							subtitle: subtitle,
-							text: text,
-							colorConfigurationTuple: colorConfig
-						)
-						return tracingCell
-					}
-				case .bluetoothOff, .restricted, .notAuthorized, .unknown, .notActiveApp:
-					if let cell = cell as? ActionCell {
-						cell.configure(for: enState, delegate: self)
-					}
-				}
-			case .descriptionCell:
-				cell.configure(for: enState)
-			}
-			return cell
-		} else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: content.cellType.rawValue, for: indexPath) as? ConfigurableENSettingCell else {
 			return UITableViewCell()
 		}
+
+		switch content {
+		case .banner:
+			cell.configure(for: enState)
+		case .actionCell:
+			if let lastActionCell = lastActionCell {
+				return lastActionCell
+			}
+			if let cell = cell as? ActionCell {
+				cell.configure(for: enState, delegate: self)
+				lastActionCell = cell
+			}
+		case .euTracingCell:
+			return euTracingCell(for: indexPath, in: tableView)
+		case .tracingCell, .actionDetailCell:
+			switch enState {
+			case .enabled, .disabled:
+				return tracingCell(for: indexPath, in: tableView)
+			case .bluetoothOff, .restricted, .notAuthorized, .unknown, .notActiveApp:
+				(cell as? ActionCell)?.configure(for: enState, delegate: self)
+			}
+		case .descriptionCell:
+			cell.configure(for: enState)
+		}
+
+		return cell
 	}
+
+	private func euTracingCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
+		let dequeuedEUTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.euTracingCell.cellType.rawValue, for: indexPath)
+		guard let euTracingCell = dequeuedEUTracingCell as? EuTracingTableViewCell else {
+			return UITableViewCell()
+		}
+
+		euTracingCell.configure()
+		return euTracingCell
+	}
+
+	private func tracingCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
+		let dequeuedTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.tracingCell.cellType.rawValue, for: indexPath)
+		guard let tracingCell = dequeuedTracingCell as? TracingHistoryTableViewCell else {
+			return UITableViewCell()
+		}
+
+		let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
+			(UIColor.enaColor(for: .tint), UIColor.enaColor(for: .hairline)) :
+			(UIColor.enaColor(for: .textPrimary2), UIColor.enaColor(for: .hairline))
+		let activeTracing = store.tracingStatusHistory.activeTracing()
+		let text = [
+			activeTracing.exposureDetectionActiveTracingSectionTextParagraph0,
+			activeTracing.exposureDetectionActiveTracingSectionTextParagraph1]
+			.joined(separator: "\n\n")
+
+		let numberOfDaysWithActiveTracing = activeTracing.inDays
+		let title = NSLocalizedString("ExposureDetection_ActiveTracingSection_Title", comment: "")
+		let subtitle = NSLocalizedString("ExposureDetection_ActiveTracingSection_Subtitle", comment: "")
+
+		tracingCell.configure(
+			progress: CGFloat(numberOfDaysWithActiveTracing),
+			title: title,
+			subtitle: subtitle,
+			text: text,
+			colorConfigurationTuple: colorConfig
+		)
+
+		return tracingCell
+	}
+
 }
 
 extension ExposureNotificationSettingViewController: ActionTableViewCellDelegate {
