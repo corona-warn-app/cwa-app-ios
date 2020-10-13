@@ -213,7 +213,7 @@ extension DMViewController: DMSubmissionStateViewControllerDelegate {
 		_: DMSubmissionStateViewController,
 		getDiagnosisKeys completionHandler: @escaping ENGetDiagnosisKeysHandler
 	) {
-		exposureManager.getTestDiagnosisKeys(completionHandler: completionHandler)
+		exposureManager.accessDiagnosisKeys(completionHandler: completionHandler)
 	}
 }
 
