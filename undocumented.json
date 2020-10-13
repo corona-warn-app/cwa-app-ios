@@ -1129,28 +1129,14 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/DMDeveloperMenu.swift",
-      "line": 23,
-      "symbol": "DMStore.dmErrorMessages",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/DMDeveloperMenu.swift",
-      "line": 27,
+      "line": 26,
       "symbol": "UserDefaults.dmLastSubmissionRequest",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/DMDeveloperMenu.swift",
-      "line": 35,
-      "symbol": "UserDefaults.dmErrorMessages",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/DMDeveloperMenu.swift",
-      "line": 99,
+      "line": 90,
       "symbol": "DMDeveloperMenu.showDeveloperMenu()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1250,34 +1236,6 @@
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Features/DMDeltaOnboardingViewController.swift",
       "line": 45,
       "symbol": "DMDeltaOnboardingViewController.viewDidLoad()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Features/DMErrorsViewController.swift",
-      "line": 27,
-      "symbol": "DMErrorsViewController.init()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Features/DMErrorsViewController.swift",
-      "line": 37,
-      "symbol": "DMErrorsViewController.loadView()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Features/DMErrorsViewController.swift",
-      "line": 42,
-      "symbol": "DMErrorsViewController.viewWillAppear(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Features/DMErrorsViewController.swift",
-      "line": 81,
-      "symbol": "DMErrorsViewController.exportErrorLog()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -1404,6 +1362,34 @@
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Features/DMLastSubmissionRequetViewController.swift",
       "line": 67,
       "symbol": "DMLastSubmissionRequestViewController.exportRequest()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Features/DMLogsViewController.swift",
+      "line": 66,
+      "symbol": "DMLogsViewController.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Features/DMLogsViewController.swift",
+      "line": 77,
+      "symbol": "DMLogsViewController.viewDidLoad()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Features/DMLogsViewController.swift",
+      "line": 102,
+      "symbol": "DMLogsViewController.viewWillAppear(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Features/DMLogsViewController.swift",
+      "line": 142,
+      "symbol": "DMLogsViewController.exportErrorLog()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -1901,6 +1887,13 @@
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Helper/DMMenuItem.swift",
       "line": 72,
       "symbol": "DMMenuItem.subtitle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Extensions/Bundle+Identifier.swift",
+      "line": 24,
+      "symbol": "Bundle.unwrappedBundleIdentifier",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
@@ -5287,7 +5280,7 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 192,
+      "line": 191,
       "symbol": "DownloadedPackagesStore",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
@@ -14170,35 +14163,35 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetectionExecutor.swift",
-      "line": 80,
+      "line": 79,
       "symbol": "ExposureDetectionExecutor.exposureDetection(country:downloadDeltaFor:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetectionExecutor.swift",
-      "line": 104,
+      "line": 103,
       "symbol": "ExposureDetectionExecutor.exposureDetection(country:downloadAndStore:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetectionExecutor.swift",
-      "line": 126,
+      "line": 125,
       "symbol": "ExposureDetectionExecutor.exposureDetectionWriteDownloadedPackages(country:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetectionExecutor.swift",
-      "line": 165,
+      "line": 164,
       "symbol": "ExposureDetectionExecutor.exposureDetection(_:detectSummaryWithConfiguration:writtenPackages:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetectionExecutor.swift",
-      "line": 194,
+      "line": 193,
       "symbol": "DownloadedPackagesStore.addFetchedDaysAndHours(_:country:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -23647,45 +23640,87 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Logger.swift",
-      "line": 20,
-      "symbol": "log(message:level:file:line:function:)",
-      "symbol_kind": "source.lang.swift.decl.function.free",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Logger.swift",
-      "line": 32,
-      "symbol": "logError(message:level:file:line:function:)",
-      "symbol_kind": "source.lang.swift.decl.function.free",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Logger.swift",
-      "line": 52,
-      "symbol": "LogLevel",
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Logging.swift",
+      "line": 16,
+      "symbol": "Log",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Logger.swift",
-      "line": 53,
-      "symbol": "LogLevel.info",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Logging.swift",
+      "line": 18,
+      "symbol": "Log.debug(_:log:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Logger.swift",
-      "line": 54,
-      "symbol": "LogLevel.warning",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Logging.swift",
+      "line": 22,
+      "symbol": "Log.info(_:log:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Logger.swift",
-      "line": 55,
-      "symbol": "LogLevel.error",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Logging.swift",
+      "line": 26,
+      "symbol": "Log.warning(_:log:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Logging.swift",
+      "line": 30,
+      "symbol": "Log.error(_:log:error:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Logging.swift",
+      "line": 63,
+      "symbol": "OSLogType.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Logging.swift",
+      "line": 78,
+      "symbol": "OSLogType.icon",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Logging.swift",
+      "line": 94,
+      "symbol": "FileLogger",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Logging.swift",
+      "line": 102,
+      "symbol": "FileLogger.makeWriteFileHandle(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Logging.swift",
+      "line": 118,
+      "symbol": "FileLogger.makeReadFileHandle(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Logging.swift",
+      "line": 128,
+      "symbol": "FileLogger.log(_:logType:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Workers/Logging.swift",
+      "line": 141,
+      "symbol": "FileLogger.read(logType:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {

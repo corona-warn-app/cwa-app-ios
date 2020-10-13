@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>LogLevel Enumeration Reference</title>
+    <title>Log Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -11,8 +11,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/LogLevel" class="dashAnchor"></a>
-    <a title="LogLevel Enumeration Reference"></a>
+    <a name="//apple_ref/swift/Enum/Log" class="dashAnchor"></a>
+    <a title="Log Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
         <p>
@@ -36,7 +36,7 @@
             <a href="../index.html">ENA Reference</a>
             <img id="carat" src="../img/carat.png" />
           </span>
-          LogLevel Enumeration Reference
+          Log Enumeration Reference
         </p>
       </div>
     </div>
@@ -45,11 +45,11 @@
         <article class="main-content">
           <section>
             <section class="section">
-              <h1>LogLevel</h1>
+              <h1>Log</h1>
                 <div class="declaration">
                   <div class="language">
                     
-                    <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">LogLevel</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
+                    <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">Log</span></code></pre>
 
                   </div>
                 </div>
@@ -62,9 +62,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA8LogLevelO4infoyA2CmF"></a>
-                      <a name="//apple_ref/swift/Element/info" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA8LogLevelO4infoyA2CmF">info</a>
+                      <a name="/s:3ENA3LogO5debug_3logySS_So06OS_os_D0CtFZ"></a>
+                      <a name="//apple_ref/swift/Method/debug(_:log:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA3LogO5debug_3logySS_So06OS_os_D0CtFZ">debug(_:<wbr>log:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -79,7 +79,7 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="k">case</span> <span class="n">info</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">debug</span><span class="p">(</span><span class="n">_</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">log</span><span class="p">:</span> <span class="kt">OSLog</span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -89,9 +89,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA8LogLevelO7warningyA2CmF"></a>
-                      <a name="//apple_ref/swift/Element/warning" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA8LogLevelO7warningyA2CmF">warning</a>
+                      <a name="/s:3ENA3LogO4info_3logySS_So06OS_os_D0CtFZ"></a>
+                      <a name="//apple_ref/swift/Method/info(_:log:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA3LogO4info_3logySS_So06OS_os_D0CtFZ">info(_:<wbr>log:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -106,7 +106,7 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="k">case</span> <span class="n">warning</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">info</span><span class="p">(</span><span class="n">_</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">log</span><span class="p">:</span> <span class="kt">OSLog</span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -116,9 +116,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:3ENA8LogLevelO5erroryA2CmF"></a>
-                      <a name="//apple_ref/swift/Element/error" class="dashAnchor"></a>
-                      <a class="token" href="#/s:3ENA8LogLevelO5erroryA2CmF">error</a>
+                      <a name="/s:3ENA3LogO7warning_3logySS_So06OS_os_D0CtFZ"></a>
+                      <a name="//apple_ref/swift/Method/warning(_:log:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA3LogO7warning_3logySS_So06OS_os_D0CtFZ">warning(_:<wbr>log:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -133,7 +133,34 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="k">case</span> <span class="n">error</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">warning</span><span class="p">(</span><span class="n">_</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">log</span><span class="p">:</span> <span class="kt">OSLog</span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA3LogO5error_3logADySS_So06OS_os_D0Cs5Error_pSgtFZ"></a>
+                      <a name="//apple_ref/swift/Method/error(_:log:error:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA3LogO5error_3logADySS_So06OS_os_D0Cs5Error_pSgtFZ">error(_:<wbr>log:<wbr>error:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">error</span><span class="p">(</span><span class="n">_</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">log</span><span class="p">:</span> <span class="kt">OSLog</span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -240,9 +267,6 @@
                   <a href="../Classes/DMDeveloperMenu.html">DMDeveloperMenu</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Classes/DMErrorsViewController.html">DMErrorsViewController</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Classes/DMKeyCell.html">DMKeyCell</a>
                 </li>
                 <li class="nav-group-task">
@@ -256,6 +280,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/DMLastSubmissionRequestViewController.html">DMLastSubmissionRequestViewController</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/DMLogsViewController.html">DMLogsViewController</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/DMSQLiteErrorViewController.html">DMSQLiteErrorViewController</a>
@@ -1078,7 +1105,7 @@
                   <a href="../Enums/LinkHelper.html">LinkHelper</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Enums/LogLevel.html">LogLevel</a>
+                  <a href="../Enums/Log.html">Log</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/ManualExposureDetectionState.html">ManualExposureDetectionState</a>
@@ -1212,6 +1239,12 @@
                   <a href="../Extensions/Notification/Name.html">– Name</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Extensions/OSLog.html">OSLog</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/OSLogType.html">OSLogType</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Extensions/P256.html">P256</a>
                 </li>
                 <li class="nav-group-task">
@@ -1288,17 +1321,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/UserDefaults.html">UserDefaults</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-group-name">
-              <a href="../Functions.html">Functions</a>
-              <ul class="nav-group-tasks">
-                <li class="nav-group-task">
-                  <a href="../Functions/log_28message_3Alevel_3Afile_3Aline_3Afunction_3A_29_5F_24s7message5level4file4line8functionySS_5F3ENA8LogLevelOSSSuSStcD.html">log(message:level:file:line:function:)</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Functions/logError_28message_3Alevel_3Afile_3Aline_3Afunction_3A_29_5F_24s7message5level4file4line8functionySS_5F3ENA8LogLevelOSSSuSStcD.html">logError(message:level:file:line:function:)</a>
                 </li>
               </ul>
             </li>
@@ -1603,6 +1625,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FetchedDaysAndHours.html">FetchedDaysAndHours</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FileLogger.html">FileLogger</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/HoursResult.html">HoursResult</a>

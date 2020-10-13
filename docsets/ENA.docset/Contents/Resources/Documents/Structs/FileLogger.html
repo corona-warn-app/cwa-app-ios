@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>logError(message:level:file:line:function:) Function Reference</title>
+    <title>FileLogger Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -11,8 +11,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Function/logError(message:level:file:line:function:)" class="dashAnchor"></a>
-    <a title="logError(message:level:file:line:function:) Function Reference"></a>
+    <a name="//apple_ref/swift/Struct/FileLogger" class="dashAnchor"></a>
+    <a title="FileLogger Structure Reference"></a>
     <header>
       <div class="content-wrapper">
         <p>
@@ -36,7 +36,7 @@
             <a href="../index.html">ENA Reference</a>
             <img id="carat" src="../img/carat.png" />
           </span>
-          logError(message:level:file:line:function:) Function Reference
+          FileLogger Structure Reference
         </p>
       </div>
     </div>
@@ -45,17 +45,11 @@
         <article class="main-content">
           <section>
             <section class="section">
-              <h1>logError(message:level:file:line:function:)</h1>
+              <h1>FileLogger</h1>
                 <div class="declaration">
                   <div class="language">
                     
-                    <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">logError</span><span class="p">(</span>
-	<span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-	<span class="nv">level</span><span class="p">:</span> <span class="kt"><a href="../Enums/LogLevel.html">LogLevel</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">error</span><span class="p">,</span>
-	<span class="nv">file</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kd">#file</span><span class="p">,</span>
-	<span class="nv">line</span><span class="p">:</span> <span class="kt">UInt</span> <span class="o">=</span> <span class="kd">#line</span><span class="p">,</span>
-	<span class="nv">function</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kd">#function</span>
-<span class="p">)</span></code></pre>
+                    <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">FileLogger</span></code></pre>
 
                   </div>
                 </div>
@@ -63,6 +57,118 @@
 
             </section>
             <section class="section task-group-section">
+              <div class="task-group">
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA10FileLoggerV09makeWriteB6Handle4withSo06NSFileF0CSgSo13os_log_type_ta_tF"></a>
+                      <a name="//apple_ref/swift/Method/makeWriteFileHandle(with:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA10FileLoggerV09makeWriteB6Handle4withSo06NSFileF0CSgSo13os_log_type_ta_tF">makeWriteFileHandle(with:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">makeWriteFileHandle</span><span class="p">(</span><span class="n">with</span> <span class="nv">logType</span><span class="p">:</span> <span class="kt">OSLogType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">FileHandle</span><span class="p">?</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA10FileLoggerV08makeReadB6Handle4withSo06NSFileF0CSgSo13os_log_type_ta_tF"></a>
+                      <a name="//apple_ref/swift/Method/makeReadFileHandle(with:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA10FileLoggerV08makeReadB6Handle4withSo06NSFileF0CSgSo13os_log_type_ta_tF">makeReadFileHandle(with:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">makeReadFileHandle</span><span class="p">(</span><span class="n">with</span> <span class="nv">logType</span><span class="p">:</span> <span class="kt">OSLogType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">FileHandle</span><span class="p">?</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA10FileLoggerV3log_0D4TypeySS_So03os_D7_type_tatF"></a>
+                      <a name="//apple_ref/swift/Method/log(_:logType:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA10FileLoggerV3log_0D4TypeySS_So03os_D7_type_tatF">log(_:<wbr>logType:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">log</span><span class="p">(</span><span class="n">_</span> <span class="nv">logMessage</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">logType</span><span class="p">:</span> <span class="kt">OSLogType</span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:3ENA10FileLoggerV4read7logTypeSSSo03os_E7_type_ta_tF"></a>
+                      <a name="//apple_ref/swift/Method/read(logType:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:3ENA10FileLoggerV4read7logTypeSSSo03os_E7_type_ta_tF">read(logType:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">read</span><span class="p">(</span><span class="nv">logType</span><span class="p">:</span> <span class="kt">OSLogType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </section>
           </section>
         </article>
@@ -161,9 +267,6 @@
                   <a href="../Classes/DMDeveloperMenu.html">DMDeveloperMenu</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Classes/DMErrorsViewController.html">DMErrorsViewController</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Classes/DMKeyCell.html">DMKeyCell</a>
                 </li>
                 <li class="nav-group-task">
@@ -177,6 +280,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/DMLastSubmissionRequestViewController.html">DMLastSubmissionRequestViewController</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/DMLogsViewController.html">DMLogsViewController</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Classes/DMSQLiteErrorViewController.html">DMSQLiteErrorViewController</a>
@@ -999,7 +1105,7 @@
                   <a href="../Enums/LinkHelper.html">LinkHelper</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Enums/LogLevel.html">LogLevel</a>
+                  <a href="../Enums/Log.html">Log</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Enums/ManualExposureDetectionState.html">ManualExposureDetectionState</a>
@@ -1133,6 +1239,12 @@
                   <a href="../Extensions/Notification/Name.html">– Name</a>
                 </li>
                 <li class="nav-group-task">
+                  <a href="../Extensions/OSLog.html">OSLog</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/OSLogType.html">OSLogType</a>
+                </li>
+                <li class="nav-group-task">
                   <a href="../Extensions/P256.html">P256</a>
                 </li>
                 <li class="nav-group-task">
@@ -1209,17 +1321,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Extensions/UserDefaults.html">UserDefaults</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-group-name">
-              <a href="../Functions.html">Functions</a>
-              <ul class="nav-group-tasks">
-                <li class="nav-group-task">
-                  <a href="../Functions/log_28message_3Alevel_3Afile_3Aline_3Afunction_3A_29_5F_24s7message5level4file4line8functionySS_5F3ENA8LogLevelOSSSuSStcD.html">log(message:level:file:line:function:)</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Functions/logError_28message_3Alevel_3Afile_3Aline_3Afunction_3A_29_5F_24s7message5level4file4line8functionySS_5F3ENA8LogLevelOSSSuSStcD.html">logError(message:level:file:line:function:)</a>
                 </li>
               </ul>
             </li>
@@ -1524,6 +1625,9 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/FetchedDaysAndHours.html">FetchedDaysAndHours</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/FileLogger.html">FileLogger</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/HoursResult.html">HoursResult</a>
