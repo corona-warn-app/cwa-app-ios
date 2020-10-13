@@ -3110,42 +3110,42 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 126,
+      "line": 127,
       "symbol": "ENAExposureManager.init(manager:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 133,
+      "line": 134,
       "symbol": "ENAExposureManager.resume(observer:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 217,
+      "line": 230,
       "symbol": "ENAExposureManager.getTestDiagnosisKeys(completionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 280,
+      "line": 293,
       "symbol": "ENAExposureManager.deinit",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 286,
+      "line": 299,
       "symbol": "ENAExposureManager.requestUserNotificationsPermissions(completionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 342,
+      "line": 355,
       "symbol": "ENAExposureManager.alertForBluetoothOff(completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
