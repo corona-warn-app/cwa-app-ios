@@ -8171,42 +8171,42 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionHotlineViewController.swift",
-      "line": 130,
+      "line": 133,
       "symbol": "ExposureSubmissionHotlineViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionHotlineViewController.swift",
-      "line": 131,
+      "line": 134,
       "symbol": "ExposureSubmissionHotlineViewController.CustomCellReuseIdentifiers",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionHotlineViewController.swift",
-      "line": 132,
+      "line": 135,
       "symbol": "ExposureSubmissionHotlineViewController.CustomCellReuseIdentifiers.stepCell",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionHotlineViewController.swift",
-      "line": 138,
+      "line": 141,
       "symbol": "ExposureSubmissionHotlineViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionHotlineViewController.swift",
-      "line": 139,
+      "line": 142,
       "symbol": "ExposureSubmissionHotlineViewController.navigationController(_:didTapPrimaryButton:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Controller/ExposureSubmissionHotlineViewController.swift",
-      "line": 143,
+      "line": 146,
       "symbol": "ExposureSubmissionHotlineViewController.navigationController(_:didTapSecondaryButton:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -9158,8 +9158,8 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/View/Custom/ExposureSubmissionDynamicCell.swift",
-      "line": 31,
-      "symbol": "ExposureSubmissionDynamicCell.stepCell(style:color:title:icon:iconAccessibilityLabel:iconTint:hairline:bottomSpacing:action:)",
+      "line": 39,
+      "symbol": "ExposureSubmissionDynamicCell.stepCell(style:color:title:icon:iconAccessibilityLabel:accessibilityLabel:accessibilityTraits:iconTint:hairline:bottomSpacing:action:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
