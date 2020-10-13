@@ -105,7 +105,7 @@ final class DMKeysViewController: UITableViewController {
 		tableView.reloadData()
 		exposureManager.accessDiagnosisKeys { keys, _ in
 			guard let keys = keys else {
-				logError(message: "No keys retrieved in developer menu")
+				Log.error("No keys retrieved in developer menu", log: .api)
 				return
 			}
 			self.keys = keys.map { $0.sapKey }

@@ -44,7 +44,7 @@ extension UNUserNotificationCenter {
 
 		add(request) { error in
 			if let error = error {
-				logError(message: error.localizedDescription)
+				Log.error(error.localizedDescription, log: .api)
 			}
 		}
 

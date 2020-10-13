@@ -26,7 +26,7 @@ enum LinkHelper {
 			openLink(withUrl: url, from: viewController)
 		} else {
 			let error = "\(urlString) is no valid URL"
-			logError(message: error)
+			Log.error(error, log: .api)
 			fatalError(error)
 		}
 	}
