@@ -241,7 +241,7 @@ type_body_length:
   error: 400
   
 function_parameter_count:
-  warning: 6
+  warning: 7
   error: 10
 
 
