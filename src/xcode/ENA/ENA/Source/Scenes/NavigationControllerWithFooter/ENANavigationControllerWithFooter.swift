@@ -207,7 +207,7 @@ extension ENANavigationControllerWithFooter {
 
 	private func transitionFooterView(to viewController: UIViewController?) {
 		if nil != firstResponder {
-			log(message: "[\(String(describing: Self.self))] Keyboard must be dismissed in `viewWillDisappear` of child before transitioning to another view controller!", level: .warning)
+			Log.warning("[\(String(describing: Self.self))] Keyboard must be dismissed in `viewWillDisappear` of child before transitioning to another view controller!", log: .ui)
 		}
 
 		transitionCoordinator?.animate(alongsideTransition: { context in
@@ -279,7 +279,8 @@ private extension ENANavigationFooterItem {
 			observe(\.isSecondaryButtonHidden, changeHandler: { _, _ in observer(self) }),
 			observe(\.isSecondaryButtonEnabled, changeHandler: { _, _ in observer(self) }),
 			observe(\.isSecondaryButtonLoading, changeHandler: { _, _ in observer(self) }),
-			observe(\.secondaryButtonTitle, changeHandler: { _, _ in observer(self) })
+			observe(\.secondaryButtonTitle, changeHandler: { _, _ in observer(self) }),
+			observe(\.secondaryButtonHasBorder, changeHandler: { _, _ in observer(self) })
 		]
 		return Observer(observers: observers)
 	}

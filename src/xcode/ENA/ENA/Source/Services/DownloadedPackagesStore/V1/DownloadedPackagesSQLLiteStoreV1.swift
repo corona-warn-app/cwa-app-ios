@@ -19,6 +19,7 @@ import FMDB
 import Foundation
 
 final class DownloadedPackagesSQLLiteStoreV1 {
+
 	struct StoreError: Error {
 		init(_ message: String) {
 			self.message = message
@@ -46,6 +47,13 @@ final class DownloadedPackagesSQLLiteStoreV1 {
 	}
 
 	// MARK: Properties
+
+	#if !RELEASE
+
+	var keyValueStore: Store?
+
+	#endif
+
 	private let latestVersion: Int
 	private let queue = DispatchQueue(label: "com.sap.DownloadedPackagesSQLLiteStore")
 	private let database: FMDatabase
@@ -95,8 +103,19 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 	func set(
 		country: Country.ID,
 		day: String,
-		package: SAPDownloadedPackage
+		package: SAPDownloadedPackage,
+		completion: ((SQLiteErrorCode?) -> Void)? = nil
 	) {
+
+		#if !RELEASE
+
+		if let store = keyValueStore, let errorCode = store.fakeSQLiteError {
+			failAsyncWithError(completion: completion, errorCode: errorCode)
+			return
+		}
+
+		#endif
+
 		func deleteHours() -> Bool {
 			database.executeUpdate(
 				"""
@@ -155,16 +174,36 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 
 			guard deleteHours() else {
 				self.database.rollback()
+				self.failAsyncWithError(completion: completion, errorCode: database.lastErrorCode())
 				return
 			}
 			guard insertDay() else {
 				self.database.rollback()
+				self.failAsyncWithError(completion: completion, errorCode: database.lastErrorCode())
 				return
 			}
 
 			self._commit()
+
+			self.completeAsync(completion: completion)
 		}
 
+	}
+
+	private func failAsyncWithError(completion: ((SQLiteErrorCode?) -> Void)?, errorCode: Int32) {
+		DispatchQueue.global().async {
+			if let error = SQLiteErrorCode(rawValue: errorCode) {
+				completion?(error)
+			} else {
+				completion?(.unknown)
+			}
+		}
+	}
+
+	private func completeAsync(completion: ((SQLiteErrorCode?) -> Void)?) {
+		DispatchQueue.global().async {
+			completion?(nil)
+		}
 	}
 
 	func set(

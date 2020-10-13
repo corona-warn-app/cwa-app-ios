@@ -186,10 +186,9 @@ enum RiskCalculation {
 			)
 
 			var riskLevelHasChanged = false
-			if
-				let previousRiskLevel = previousRiskLevel,
-				let newRiskLevel = EitherLowOrIncreasedRiskLevel(with: level),
-				previousRiskLevel != newRiskLevel {
+			if let previousRiskLevel = previousRiskLevel,
+			   let newRiskLevel = EitherLowOrIncreasedRiskLevel(with: level),
+			   previousRiskLevel != newRiskLevel {
 				// If the newly calculated risk level is different than the stored level, set the flag to true.
 				// Note that we ignore all levels aside from low or increased risk
 				riskLevelHasChanged = true

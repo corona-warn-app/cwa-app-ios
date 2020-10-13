@@ -78,16 +78,21 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 		switch result {
 		case .positive:
-			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.continueButton
-			navigationFooterItem?.isSecondaryButtonHidden = true
+			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.primaryButtonTitle
+			navigationFooterItem?.secondaryButtonTitle = AppStrings.ExposureSubmissionResult.secondaryButtonTitle
+			navigationFooterItem?.isSecondaryButtonEnabled = true
+			navigationFooterItem?.isSecondaryButtonHidden = false
+			navigationFooterItem?.secondaryButtonHasBorder = true
 		case .negative, .invalid, .redeemed:
 			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
 			navigationFooterItem?.isSecondaryButtonHidden = true
+			navigationFooterItem?.secondaryButtonHasBorder = false
 		case .pending:
 			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.refreshButton
 			navigationFooterItem?.secondaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
 			navigationFooterItem?.isSecondaryButtonEnabled = true
 			navigationFooterItem?.isSecondaryButtonHidden = false
+			navigationFooterItem?.secondaryButtonHasBorder = false
 		}
 	}
 
@@ -99,7 +104,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 	private func setupDynamicTableView() {
 		guard let result = testResult else {
-			logError(message: "No test result.", level: .error)
+			Log.error( "No test result.", log: .ui)
 			return
 		}
 
@@ -172,9 +177,8 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		self.setupButtons()
 	}
 
-	/// Only show the "warn others" screen if the ENManager is enabled correctly,
-	/// otherwise, show an alert.
-	private func showWarnOthers() {
+	/// Check if the ENManager is enabled correctly, otherwise, show an alert.
+	private func checkExposureSubmissionPreconditions(onSuccess: () -> Void) {
 		if let state = exposureSubmissionService?.preconditions() {
 			if !state.isGood {
 				let alert = self.setupErrorAlert(
@@ -184,7 +188,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 				return
 			}
 
-			self.coordinator?.showSymptomsScreen()
+			onSuccess()
 		}
 	}
 }
@@ -213,7 +217,9 @@ extension ExposureSubmissionTestResultViewController {
 
 		switch result {
 		case .positive:
-			showWarnOthers()
+			checkExposureSubmissionPreconditions { [weak self] in
+				self?.coordinator?.showSymptomsScreen()
+			}
 		case .negative, .invalid, .redeemed:
 			deleteTest()
 		case .pending:
@@ -224,6 +230,10 @@ extension ExposureSubmissionTestResultViewController {
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
 		guard let result = testResult else { return }
 		switch result {
+		case .positive:
+			checkExposureSubmissionPreconditions { [weak self] in
+				self?.coordinator?.showWarnOthersScreen()
+			}
 		case .pending:
 			deleteTest()
 		default:
@@ -277,13 +287,6 @@ private extension ExposureSubmissionTestResultViewController {
 					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
 					icon: UIImage(named: "Icons_Grey_Check"),
 					hairline: .iconAttached
-				),
-
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testPositive,
-					description: AppStrings.ExposureSubmissionResult.testPositiveDesc,
-					icon: UIImage(named: "Icons_Grey_Error"),
-					hairline: .topAttached
 				),
 
 				ExposureSubmissionDynamicCell.stepCell(
@@ -437,7 +440,10 @@ private extension ExposureSubmissionTestResultViewController {
 
 				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testPending,
-					description: AppStrings.ExposureSubmissionResult.testPendingDesc,
+					description:
+						AppStrings.ExposureSubmissionResult.testPendingDescParagraph1 +
+						AppStrings.ExposureSubmissionResult.testPendingDescParagraph2 +
+						AppStrings.ExposureSubmissionResult.testPendingDescParagraph3,
 					icon: UIImage(named: "Icons_Grey_Wait"),
 					hairline: .none
 				)

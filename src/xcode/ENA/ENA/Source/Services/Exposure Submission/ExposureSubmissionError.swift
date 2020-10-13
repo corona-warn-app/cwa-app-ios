@@ -93,7 +93,7 @@ extension ExposureSubmissionError: LocalizedError {
 		case .requestCouldNotBeBuilt:
 			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
 		default:
-			logError(message: "\(self)")
+			Log.error("\(self)", log: .api)
 			return AppStrings.ExposureSubmissionError.defaultError
 		}
 	}

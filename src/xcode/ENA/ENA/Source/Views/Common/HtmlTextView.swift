@@ -62,7 +62,7 @@ extension HtmlTextView {
 				self.attributedText = mutableAttributedText
 			}
 		} else {
-			logError(message: "HTML resource could not be loaded: \(url)")
+			Log.error("HTML resource could not be loaded: \(url)", log: .api)
 		}
 	}
 

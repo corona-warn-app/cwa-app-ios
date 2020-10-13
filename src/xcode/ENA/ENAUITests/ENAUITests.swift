@@ -25,7 +25,7 @@ class ENAUITests: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
+		app.launchEnvironment["IsOnboarded"] = "NO"
 	}
 
 
@@ -89,8 +89,8 @@ class ENAUITests: XCTestCase {
 		XCTAssertTrue(app.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Home.submitCardButton"].tap()
 		// todo: need accessibility for Next
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: 5.0))
-		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitForExistence(timeout: 5.0))
 		if snapshotsActive { snapshot("AppStore_0005") }
 

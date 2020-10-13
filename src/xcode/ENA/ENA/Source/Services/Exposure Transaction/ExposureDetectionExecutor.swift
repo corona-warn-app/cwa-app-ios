@@ -67,9 +67,8 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 
 		group.notify(queue: .main) {
 			guard errors.isEmpty else {
-				logError(
-					message: "Unable to determine available data due to errors:\n \(errors.map { $0.localizedDescription }.joined(separator: "\n"))"
-				)
+				let errorMessage = "Unable to determine available data due to errors:\n \(errors.map { $0.localizedDescription }.joined(separator: "\n"))"
+				Log.error(errorMessage, log: .api)
 				completion(/* we are unable to determine the days and hours */ nil, country)
 				return
 			}
@@ -104,19 +103,22 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	func exposureDetection(
 		country: Country.ID,
 		downloadAndStore delta: DaysAndHours,
-		completion: @escaping (Error?) -> Void
+		completion: @escaping (ExposureDetection.DidEndPrematurelyReason?) -> Void
 	) {
 		func storeDaysAndHours(_ fetchedDaysAndHours: FetchedDaysAndHours) {
-			downloadedPackagesStore.addFetchedDaysAndHours(fetchedDaysAndHours, country: country)
-			completion(nil)
+			downloadedPackagesStore.addFetchedDaysAndHours(
+				fetchedDaysAndHours,
+				country: country,
+				completion: completion
+			)
 		}
 
 		client.fetchDays(
-				delta.days,
-				hours: delta.hours,
-				of: .formattedToday(),
-				country: country,
-				completion: storeDaysAndHours
+			delta.days,
+			hours: delta.hours,
+			of: .formattedToday(),
+			country: country,
+			completion: storeDaysAndHours
 		)
 	}
 
@@ -128,7 +130,6 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		let rootDir = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		do {
 			try fileManager.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
-
 			let writer = AppleFilesWriter(rootDir: rootDir)
 
 			if store.hourlyFetchingEnabled {
@@ -189,15 +190,24 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 
 extension DownloadedPackagesStore {
 
-	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours, country: Country.ID) {
+	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours, country: Country.ID, completion: @escaping (ExposureDetection.DidEndPrematurelyReason?) -> Void) {
 		let days = daysAndHours.days
 		days.bucketsByDay.forEach { day, bucket in
-			self.set(country: country, day: day, package: bucket)
-		}
-
-		let hours = daysAndHours.hours
-		hours.bucketsByHour.forEach { hour, bucket in
-			self.set(country: country, hour: hour, day: hours.day, package: bucket)
+			self.set(country: country, day: day, package: bucket) { error in
+				switch error {
+				case .sqlite_full:
+					completion(ExposureDetection.DidEndPrematurelyReason.noDiskSpace)
+				case .unknown:
+					completion(ExposureDetection.DidEndPrematurelyReason.unableToWriteDiagnosisKeys)
+				case .none:
+					completion(nil)
+				}
+			}
+			
+			let hours = daysAndHours.hours
+			hours.bucketsByHour.forEach { hour, bucket in
+				self.set(country: country, hour: hour, day: hours.day, package: bucket)
+			}
 		}
 	}
 }

@@ -105,6 +105,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 
 	lazy var appConfigurationProvider: AppConfigurationProviding = {
+		#if DEBUG
+		if isUITesting {
+			// provide a static app configuration for ui tests to prevent validation errors
+			return CachedAppConfigurationMock()
+		}
+		#endif
 		// use a custom http client that uses/recognized caching mechanisms
 		let appFetchingClient = CachingHTTPClient(clientConfiguration: client.configuration)
 
@@ -168,6 +174,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
 		self.client = HTTPClient(configuration: configuration)
+
+		#if !RELEASE
+		downloadedPackagesStore.keyValueStore = self.store
+		#endif
 	}
 
 	func application(

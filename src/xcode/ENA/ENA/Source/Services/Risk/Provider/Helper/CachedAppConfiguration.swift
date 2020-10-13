@@ -57,7 +57,7 @@ final class CachedAppConfiguration {
 			case .failure(let error):
 				switch error {
 				case CachedAppConfiguration.CacheError.notModified where self?.store.appConfig != nil:
-					log(message: "config not modified")
+					Log.error("config not modified", log: .api)
 					// server is not modified and we have a cached config
 					guard let config = self?.store.appConfig else {
 						fatalError("App configuration cache broken!") // in `where` we trust

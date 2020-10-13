@@ -19,6 +19,7 @@
 import Foundation
 import ExposureNotification
 
+#if DEBUG
 final class MockDiagnosisKeysRetrieval {
 
 	typealias MockDiagnosisKeysResult = ([ENTemporaryExposureKey]?, Error?)
@@ -42,3 +43,4 @@ extension MockDiagnosisKeysRetrieval: DiagnosisKeysRetrieval {
 		completionHandler(diagnosisKeysResult.0, diagnosisKeysResult.1)
 	}
 }
+#endif

@@ -19,6 +19,7 @@
 
 import Foundation
 
+#if DEBUG
 class MockExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Mock callbacks.
@@ -34,7 +35,7 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - ExposureSubmissionService methods.
 
-	func submitExposure(symptomsOnset: SymptomsOnset, consentToFederation: Bool, visitedCountries: [Country], completionHandler: @escaping ExposureSubmissionHandler) {
+	func submitExposure(symptomsOnset: SymptomsOnset, visitedCountries: [Country], completionHandler: @escaping ExposureSubmissionHandler) {
 		submitExposureCallback?(completionHandler)
 	}
 
@@ -76,3 +77,4 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 		acceptPairingCallback?()
 	}
 }
+#endif

@@ -551,4 +551,88 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
 	}
 
+	func testGetTestResultSucceeds() {
+		let expectedTestResult: TestResult = .positive
+
+		let exposureSubmissionService = MockExposureSubmissionService()
+		exposureSubmissionService.getTestResultCallback = { completion in
+			completion(.success(expectedTestResult))
+		}
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: exposureSubmissionService,
+			appConfigurationProvider: configProvider
+		)
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is called")
+
+		let onErrorExpectation = expectation(description: "onError is not called")
+		onErrorExpectation.isInverted = true
+
+		model.getTestResults(
+			for: .guid(""),
+			isLoading: {
+				isLoadingValues.append($0)
+				isLoadingExpectation.fulfill()
+			},
+			onSuccess: { testResult in
+				XCTAssertEqual(testResult, expectedTestResult)
+
+				onSuccessExpectation.fulfill()
+			},
+			onError: { _ in onErrorExpectation.fulfill() }
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+	}
+
+	func testGetTestResultFails() {
+		let expectedError: ExposureSubmissionError = .unknown
+
+		let exposureSubmissionService = MockExposureSubmissionService()
+		exposureSubmissionService.getTestResultCallback = { completion in
+			completion(.failure(expectedError))
+		}
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: exposureSubmissionService,
+			appConfigurationProvider: configProvider
+		)
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is not called")
+		onSuccessExpectation.isInverted = true
+
+		let onErrorExpectation = expectation(description: "onError is called")
+
+		model.getTestResults(
+			for: .guid(""),
+			isLoading: {
+				isLoadingValues.append($0)
+				isLoadingExpectation.fulfill()
+			},
+			onSuccess: { _ in onSuccessExpectation.fulfill() },
+			onError: { error in
+				XCTAssertEqual(error, expectedError)
+
+				onErrorExpectation.fulfill()
+			}
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+	}
+
 }

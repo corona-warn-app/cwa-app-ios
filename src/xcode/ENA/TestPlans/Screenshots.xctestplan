@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "E49DA41E-E8E3-4DAA-8D5E-903DF2089E55",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "ENAUITests_00_Onboarding",
+        "ENAUITests_01_Home",
+        "ENAUITests_02_AppInformation",
+        "ENAUITests_03_Settings",
+        "ENAUITests_04_ExposureSubmissionUITests"
+      ],
+      "target" : {
+        "containerPath" : "container:ENA.xcodeproj",
+        "identifier" : "85D7595E24570491008175F0",
+        "name" : "ENAUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
