@@ -63,9 +63,9 @@ class DatePickerDayViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.isSelectable)
     }
 
-    func testPastNotSelected() {
+    func testUpTo21DaysAgoNotSelected() {
 		let viewModel = DatePickerDayViewModel(
-			datePickerDay: .past(Date(timeIntervalSinceReferenceDate: 0)),
+			datePickerDay: .upTo21DaysAgo(Date(timeIntervalSinceReferenceDate: 0)),
 			onTapOnDate: { _ in },
 			isSelected: false
 		)
@@ -83,9 +83,9 @@ class DatePickerDayViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.isSelectable)
     }
 
-    func testPastSelected() {
+    func testUpTo21DaysAgoSelected() {
 		let viewModel = DatePickerDayViewModel(
-			datePickerDay: .past(Date(timeIntervalSinceReferenceDate: 0)),
+			datePickerDay: .upTo21DaysAgo(Date(timeIntervalSinceReferenceDate: 0)),
 			onTapOnDate: { _ in },
 			isSelected: true
 		)
@@ -102,6 +102,26 @@ class DatePickerDayViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.accessibilityLabel, "1. Januar 2001")
 		XCTAssertTrue(viewModel.isSelectable)
     }
+
+	func testMoreThan21DaysAgoNotSelected() {
+	 let viewModel = DatePickerDayViewModel(
+		 datePickerDay: .moreThan21DaysAgo(Date(timeIntervalSinceReferenceDate: 0)),
+		 onTapOnDate: { _ in },
+		 isSelected: false
+	 )
+
+	 XCTAssertFalse(viewModel.isSelected)
+
+	 XCTAssertEqual(viewModel.fontSize, 16)
+	 XCTAssertEqual(viewModel.backgroundColor, .enaColor(for: .background))
+	 XCTAssertEqual(viewModel.textColor, .enaColor(for: .textPrimary3))
+	 XCTAssertEqual(viewModel.fontWeight, "regular")
+	 XCTAssertEqual(viewModel.accessibilityTraits, [])
+
+	 XCTAssertEqual(viewModel.dayString, "1")
+	 XCTAssertEqual(viewModel.accessibilityLabel, "1. Januar 2001")
+	 XCTAssertFalse(viewModel.isSelectable)
+ }
 
     func testFutureNotSelected() {
 		let viewModel = DatePickerDayViewModel(
@@ -138,11 +158,26 @@ class DatePickerDayViewModelTests: XCTestCase {
 		wait(for: [expectation], timeout: 1.0)
 	}
 
-    func testTapOnPastDate() {
+	func testTapOnMoreThan21DaysAgoDate() {
+		let expectation = XCTestExpectation(description: "onTapOnDate not called")
+		expectation.isInverted = true
+
+		let viewModel = DatePickerDayViewModel(
+			datePickerDay: .moreThan21DaysAgo(Date(timeIntervalSinceReferenceDate: 0)),
+			onTapOnDate: { _ in expectation.fulfill() },
+			isSelected: false
+		)
+
+		viewModel.onTap()
+
+		wait(for: [expectation], timeout: 1.0)
+	}
+
+    func testTapOnUpTo21DaysAgoDate() {
 		let expectation = XCTestExpectation(description: "onTapOnDate called")
 
 		let viewModel = DatePickerDayViewModel(
-			datePickerDay: .past(Date(timeIntervalSinceReferenceDate: 0)),
+			datePickerDay: .upTo21DaysAgo(Date(timeIntervalSinceReferenceDate: 0)),
 			onTapOnDate: { _ in expectation.fulfill() },
 			isSelected: false
 		)

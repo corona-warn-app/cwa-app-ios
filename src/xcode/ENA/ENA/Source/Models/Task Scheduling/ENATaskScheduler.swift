@@ -67,7 +67,7 @@ final class ENATaskScheduler {
 			task.expirationHandler = {
 				self.scheduleTask()
 				backgroundTask.cancel()
-				logError(message: "Task has expired.")
+				Log.error("Task has expired.", log: .api)
 				task.setTaskCompleted(success: false)
 			}
 
@@ -86,7 +86,7 @@ final class ENATaskScheduler {
 			taskRequest.earliestBeginDate = nil
 			try BGTaskScheduler.shared.submit(taskRequest)
 		} catch {
-			logError(message: "ERROR: scheduleTask() could NOT submit task request: \(error)")
+			Log.error("ERROR: scheduleTask() could NOT submit task request: \(error)", log: .api)
 		}
 	}
 
@@ -128,9 +128,9 @@ final class ENATaskScheduler {
 				)
 
 				notificationCenter.add(request) { error in
-				   if error != nil {
-					  logError(message: "Deadman notification could not be scheduled.")
-				   }
+					if error != nil {
+						Log.error("Deadman notification could not be scheduled.", log: .api)
+					}
 				}
 			}
 		})

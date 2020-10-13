@@ -99,7 +99,7 @@ struct KeychainHelper {
 		var bytes = [UInt8](repeating: 0, count: 32)
 		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
 		guard result == errSecSuccess else {
-			logError(message: "Error creating random bytes.")
+			Log.error("Error creating random bytes.", log: .api)
 			throw KeychainError.keyGenerationFail
 		}
 

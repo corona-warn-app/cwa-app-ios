@@ -147,18 +147,11 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 		// Get navigation controller and make sure to load view.
 		let navigationController = getNavigationController(from: coordinator)
-		// _ = navigationController?.view
-		sleep(3)
+		_ = navigationController?.view
 
 		XCTAssertNotNil(navigationController)
 		XCTAssertNotNil(navigationController?.topViewController)
-		guard let vc = navigationController?.topViewController as? ExposureSubmissionOverviewViewController else {
-			XCTFail("Could not load presented view controller.")
-			return
-		}
-
-		XCTAssertNotNil(vc.coordinator)
-		XCTAssertNotNil(vc.service)
+		XCTAssertNotNil(navigationController?.topViewController as? ExposureSubmissionOverviewViewController)
 	}
 
 	func testShowTestResultScreen() {

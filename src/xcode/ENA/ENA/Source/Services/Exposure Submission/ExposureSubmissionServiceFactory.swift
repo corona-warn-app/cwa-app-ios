@@ -19,58 +19,48 @@
 
 import Foundation
 
-/// Service factory that can be used to create an instance of the ExposureSubmissionService.
-class ExposureSubmissionServiceFactory { }
+enum ExposureSubmissionServiceFactory {
 
-// MARK: Default implementation.
-#if !UITESTING
-
-extension ExposureSubmissionServiceFactory {
 	static func create(diagnosiskeyRetrieval: DiagnosisKeysRetrieval, client: Client, store: Store) -> ExposureSubmissionService {
-		return ENAExposureSubmissionService(
+		/// Will return a mock service in UI tests if and only if the .useMock parameter is passed to the application.
+		/// If the parameter is _not_ provided, the factory will instantiate a regular ENAExposureSubmissionService.
+		#if DEBUG
+		if isUITesting {
+			guard isEnabled(.useMock) else {
+				return ENAExposureSubmissionService(
+					diagnosiskeyRetrieval: diagnosiskeyRetrieval,
+					client: client,
+					store: store
+				)
+			}
+
+			let service = MockExposureSubmissionService()
+
+			if isEnabled(.getRegistrationTokenSuccess) {
+				service.getRegistrationTokenCallback = { _, completeWith in
+					DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+						completeWith(.success("dummyRegToken"))
+					}
+				}
+			}
+
+			if isEnabled(.submitExposureSuccess) {
+				service.submitExposureCallback = { completeWith in
+					DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+						completeWith(nil)
+					}
+				}
+			}
+
+			return service
+		}
+		#endif
+
+		let service = ENAExposureSubmissionService(
 			diagnosiskeyRetrieval: diagnosiskeyRetrieval,
 			client: client,
 			store: store
 		)
-	}
-}
-
-#endif
-
-// MARK: UI Testing implementation.
-#if UITESTING
-
-/// This extension will return a mock service if and only if the .useMock parameter is passed to the application.
-/// If the parameter is _not_ provided, the factory will instantiate a regular ENAExposureSubmissionService.
-/// - NOTE: This is condtionally compiled so no test code spills into the release build.
-extension ExposureSubmissionServiceFactory {
-	static func create(diagnosiskeyRetrieval: DiagnosisKeysRetrieval, client: Client, store: Store) -> ExposureSubmissionService {
-
-		guard isEnabled(.useMock) else {
-			return ENAExposureSubmissionService(
-				diagnosiskeyRetrieval: diagnosiskeyRetrieval,
-				client: client,
-				store: store
-			)
-		}
-
-		let service = MockExposureSubmissionService()
-
-		if isEnabled(.getRegistrationTokenSuccess) {
-			service.getRegistrationTokenCallback = { _, completeWith in
-				DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-					completeWith(.success("dummyRegToken"))
-				}
-			}
-		}
-
-		if isEnabled(.submitExposureSuccess) {
-			service.submitExposureCallback = { completeWith in
-				DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-					completeWith(nil)
-				}
-			}
-		}
 
 		return service
 	}
@@ -78,6 +68,5 @@ extension ExposureSubmissionServiceFactory {
 	private static func isEnabled(_ parameter: UITestingParameters.ExposureSubmission) -> Bool {
 		return ProcessInfo.processInfo.arguments.contains(parameter.rawValue)
 	}
-}
 
-#endif
+}

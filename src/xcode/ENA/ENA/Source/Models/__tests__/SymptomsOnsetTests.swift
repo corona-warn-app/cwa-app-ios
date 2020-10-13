@@ -194,6 +194,14 @@ final class SymptomsOnsetTests: XCTestCase {
 		XCTAssertEqual(SymptomsOnset.daysSinceOnset(21).transmissionRiskVector, vector)
 	}
 
+	func testMoreThan21DaysSinceOnsetTransmissionRiskVector_Equals21DaysSinceOnsetTransmissionRiskVector() {
+		let twentyOneDaysVector: [Int32] = SymptomsOnset.daysSinceOnset(21).transmissionRiskVector
+
+		for daysSinceOnset in 22..<28 {
+			XCTAssertEqual(SymptomsOnset.daysSinceOnset(daysSinceOnset).transmissionRiskVector, twentyOneDaysVector)
+		}
+	}
+
 	// MARK: - Days Since Onset Of Symptoms Vector
 
 	func testNoInformationDaysSinceOnsetOfSymptomsVector_IsExpectedValue() {
@@ -362,6 +370,14 @@ final class SymptomsOnsetTests: XCTestCase {
 		let vector: [Int32] = [21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7]
 
 		XCTAssertEqual(SymptomsOnset.daysSinceOnset(21).daysSinceOnsetOfSymptomsVector, vector)
+	}
+
+	func testMoreThan21DaysSinceOnsetOfSymptomsVector_Equals21DaysSinceOnsetOfSymptomsVector() {
+		let twentyOneDaysVector: [Int32] = SymptomsOnset.daysSinceOnset(21).daysSinceOnsetOfSymptomsVector
+
+		for daysSinceOnset in 22..<28 {
+			XCTAssertEqual(SymptomsOnset.daysSinceOnset(daysSinceOnset).daysSinceOnsetOfSymptomsVector, twentyOneDaysVector)
+		}
 	}
 
 }
