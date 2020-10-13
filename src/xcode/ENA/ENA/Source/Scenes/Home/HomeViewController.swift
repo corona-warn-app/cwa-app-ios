@@ -263,7 +263,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		case is RiskThankYouCollectionViewCell:
 			return
 		default:
-			log(message: "Unknown cell type tapped.", file: #file, line: #line, function: #function)
+			Log.info("Unknown cell type tapped.", log: .ui)
 			return
 		}
 	}

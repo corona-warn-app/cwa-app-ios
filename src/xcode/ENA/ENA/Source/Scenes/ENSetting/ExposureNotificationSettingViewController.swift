@@ -109,7 +109,7 @@ extension ExposureNotificationSettingViewController {
 		if alert {
 			alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [openSettingsAction])
 		}
-		logError(message: error.localizedDescription + " with message: " + errorMessage, level: .error)
+		Log.error(error.localizedDescription + " with message: " + errorMessage, log: .ui)
 		if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
 			mySceneDelegate.requestUpdatedExposureState()
 		}
@@ -312,7 +312,7 @@ private extension ENSettingModel.Content {
 // MARK: ENStateHandler Updating
 extension ExposureNotificationSettingViewController: ENStateHandlerUpdating {
 	func updateEnState(_ enState: ENStateHandler.State) {
-		log(message: "Get the new state: \(enState)")
+		Log.info("Get the new state: \(enState)", log: .api)
 		self.enState = enState
 		lastActionCell?.configure(for: enState, delegate: self)
 		self.tableView.reloadData()

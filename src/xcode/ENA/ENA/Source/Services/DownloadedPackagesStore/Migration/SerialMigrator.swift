@@ -48,7 +48,7 @@ final class SerialMigrator: SerialMigratorProtocol {
 					self?.database.userVersion += 1
 					migrate()
 				} else {
-					logError(message: "Migration failed from version \(database.userVersion) to version \(database.userVersion += 1)")
+					Log.error("Migration failed from version \(database.userVersion) to version \(database.userVersion += 1)", log: .localData)
 					return
 				}
 			}

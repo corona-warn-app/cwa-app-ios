@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,32 +15,18 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
-import UIKit
+import Foundation
 
-protocol TableViewCellConfiguratorAny {
-	var viewAnyType: UITableViewCell.Type { get }
+extension Bundle {
 
-	func configureAny(cell: UITableViewCell)
-}
-
-protocol TableViewCellConfigurator: TableViewCellConfiguratorAny {
-	associatedtype CellType: UITableViewCell
-	func configure(cell: CellType)
-}
-
-extension TableViewCellConfigurator {
-	var viewAnyType: UITableViewCell.Type {
-		CellType.self
-	}
-
-	func configureAny(cell: UITableViewCell) {
-		if let cell = cell as? CellType {
-			configure(cell: cell)
-		} else {
-			let error = "\(cell) isn't conformed CellType"
-			Log.error(error)
-			fatalError(error)
+	var unwrappedBundleIdentifier: String {
+		guard let identifier = bundleIdentifier else {
+			let errorMessage = "Could no read bundle identifier."
+			Log.error(errorMessage, log: .api)
+			fatalError(errorMessage)
 		}
+		return identifier
 	}
 }

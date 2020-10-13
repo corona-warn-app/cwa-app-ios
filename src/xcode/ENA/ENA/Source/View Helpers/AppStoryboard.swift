@@ -37,7 +37,7 @@ enum AppStoryboard: String {
 		let viewControllerIdentifier = viewControllerType.stringName()
 		guard let vc = storyboard.instantiateViewController(identifier: viewControllerIdentifier, creator: creator) as? T else {
 			let error = "Can't initiate \(viewControllerIdentifier) for \(rawValue) storyboard"
-			logError(message: error)
+			Log.error(error, log: .ui)
 			fatalError(error)
 		}
 		return vc
@@ -47,7 +47,7 @@ enum AppStoryboard: String {
 		let storyboard = UIStoryboard(name: rawValue, bundle: nil)
 		guard let vc = storyboard.instantiateInitialViewController(creator: creator) as? T else {
 			let error = "Can't initiate start UIViewController for \(rawValue) storyboard"
-			logError(message: error)
+			Log.error(error, log: .ui)
 			fatalError(error)
 		}
 		return vc

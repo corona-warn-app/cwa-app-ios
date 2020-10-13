@@ -329,7 +329,7 @@ extension SecureStore {
 	/// This function clears the existing database key and removes any existing databases.
 	private static func performHardDatabaseReset(at path: String) {
 		do {
-			log(message: "⚠️ performing hard database reset ⚠️")
+			Log.info("⚠️ performing hard database reset ⚠️", log: .localData)
 			// remove database key
 			try KeychainHelper().clearInKeychain(key: SecureStore.keychainDatabaseKey)
 

@@ -142,7 +142,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			exposureManager.activate { [weak self] error in
 				if let error = error {
 					// TODO: Error handling, if error occurs, what can we do?
-					logError(message: "Cannot activate the  ENManager. The reason is \(error)")
+					Log.error("Cannot activate the  ENManager. The reason is \(error)", log: .api)
 					return
 				}
 				self?.presentHomeVC()
@@ -222,7 +222,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		status: \(newState.status)
 		authorizationStatus: \(ENManager.authorizationStatus)
 		"""
-		log(message: message)
+		Log.info(message, log: .api)
 
 		state.exposureManager = newState
 		updateExposureState(newState)
@@ -286,7 +286,7 @@ extension SceneDelegate: ExposureStateUpdating {
 
 extension SceneDelegate: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
-		log(message: "SceneDelegate got EnState update: \(state)")
+		Log.info("SceneDelegate got EnState update: \(state)", log: .api)
 		coordinator.updateEnState(state)
 	}
 }

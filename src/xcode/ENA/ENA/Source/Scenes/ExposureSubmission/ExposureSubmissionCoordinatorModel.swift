@@ -170,7 +170,7 @@ class ExposureSubmissionCoordinatorModel {
 					onSuccess()
 
 				case .some(let error):
-					logError(message: "error: \(error.localizedDescription)", level: .error)
+					Log.error("error: \(error.localizedDescription)", log: .api)
 					onError(error)
 				}
 			}

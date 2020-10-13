@@ -261,7 +261,7 @@ extension RiskProvider: RiskProviding {
 			case .success(let config):
 				appConfiguration = config
 			case .failure(let error):
-				logError(message: error.localizedDescription)
+				Log.error(error.localizedDescription, log: .api)
 				appConfiguration = nil
 			}
 			group.leave()
@@ -302,7 +302,7 @@ extension RiskProvider: RiskProviding {
 				previousRiskLevel: store.previousRiskLevel,
 				providerConfiguration: configuration
 			) else {
-				logError(message: "Serious error during risk calculation")
+				Log.error("Serious error during risk calculation", log: .api)
 				completeOnTargetQueue(risk: nil, completion: completion)
 				return
 		}
