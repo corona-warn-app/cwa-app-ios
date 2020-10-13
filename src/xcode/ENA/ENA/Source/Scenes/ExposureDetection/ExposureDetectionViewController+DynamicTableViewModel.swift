@@ -85,7 +85,7 @@ private extension DynamicCell {
 			let state = viewController.state
 			cell.backgroundColor = state.riskBackgroundColor
 			cell.tintColor = state.riskContrastTintColor
-			cell.textLabel?.textColor = state.riskContrastTextColor
+			cell.textLabel?.textColor = state.titleTextColor
 			if let cell = cell as? ExposureDetectionRiskCell {
 				cell.separatorView.isHidden = (indexPath.row == 0) || !hasSeparator
 				cell.separatorView.backgroundColor = state.isTracingEnabled ? .enaColor(for: .hairlineContrast) : .enaColor(for: .hairline)
@@ -151,7 +151,7 @@ private extension DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.riskText) { viewController, cell, _ in
 			let state = viewController.state
 			cell.backgroundColor = state.riskBackgroundColor
-			cell.textLabel?.textColor = state.riskContrastTextColor
+			cell.textLabel?.textColor = state.titleTextColor
 			cell.textLabel?.text = text
 		}
 	}
@@ -246,12 +246,22 @@ extension ExposureDetectionViewController {
 	}
 
 	private var riskLoadingSection: DynamicSection {
-		.section(
+		var riskLoadingText = ""
+		switch state.activityState {
+		case .detecting:
+			riskLoadingText = AppStrings.ExposureDetection.riskCardStatusDetectingBody
+		case .downloading:
+			riskLoadingText = AppStrings.ExposureDetection.riskCardStatusDownloadingBody
+		default:
+			break
+		}
+
+		return DynamicSection.section(
 			header: .none,
 			footer: .none,
 			isHidden: { !(($0 as? Self)?.state.activityState.isActive ?? false) },
 			cells: [
-				.riskLoading(text: AppStrings.ExposureDetection.loadingText)
+				.riskLoading(text: riskLoadingText)
 			]
 		)
 	}
@@ -448,7 +458,7 @@ extension ExposureDetectionViewController {
 		let activeTracing = state.risk?.details.activeTracing ?? .init(interval: 0)
 		return DynamicTableViewModel([
 			riskDataSection(cells: [
-				.riskContacts(text: AppStrings.ExposureDetection.numberOfContacts, image: UIImage(named: "Icons_RisikoBegegnung")),
+				.riskContacts(text: AppStrings.Home.riskCardHighNumberContactsItemTitle, image: UIImage(named: "Icons_RisikoBegegnung")),
 				.riskLastExposure(text: AppStrings.ExposureDetection.lastExposure, image: UIImage(named: "Icons_Calendar")),
 				.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
 				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))

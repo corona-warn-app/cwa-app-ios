@@ -95,7 +95,7 @@ class NotificationSettingsViewController: UIViewController {
 			guard let self = self else { return }
 
 			if let error = error {
-				log(message: "Error while requesting notifications permissions: \(error.localizedDescription)")
+				Log.info("Error while requesting notifications permissions: \(error.localizedDescription)", log: .api)
 				self.viewModel = NotificationSettingsViewModel.notificationsOff()
 				return
 			}

@@ -25,7 +25,7 @@ class ENAUITests: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
+		app.launchEnvironment["IsOnboarded"] = "NO"
 	}
 
 

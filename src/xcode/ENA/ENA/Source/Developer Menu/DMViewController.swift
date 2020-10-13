@@ -121,7 +121,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .settings:
 			vc = DMSettingsViewController(store: store)
 		case .errorLog:
-			vc = DMErrorsViewController()
+			vc = DMLogsViewController()
 		case .sendFakeRequest:
 			vc = nil
 			sendFakeRequest()
@@ -135,6 +135,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = makeOnboardingVersionViewController()
 		case .serverEnvironment:
 			vc = makeServerEnvironmentViewController()
+		case .simulateNoDiskSpace:
+			vc = DMSQLiteErrorViewController(store: store)
 		}
 		
 		if let vc = vc {

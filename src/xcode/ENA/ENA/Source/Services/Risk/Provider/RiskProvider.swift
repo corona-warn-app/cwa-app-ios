@@ -187,22 +187,6 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	#if UITESTING
-	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
-		let risk = Risk.mocked
-
-		targetQueue.async {
-			completion?(.mocked)
-		}
-
-		for consumer in consumers {
-			_provideRisk(risk, to: consumer)
-		}
-
-		saveRiskIfNeeded(risk)
-	}
-	#else
-
 	private func completeOnTargetQueue(risk: Risk?, completion: Completion? = nil) {
 		targetQueue.async {
 			completion?(risk)
@@ -217,6 +201,13 @@ extension RiskProvider: RiskProviding {
 	}
 
 	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
+		#if DEBUG
+		if isUITesting {
+			_requestRiskLevel_Mock(userInitiated: userInitiated, completion: completion)
+			return
+		}
+		#endif
+
 		provideActivityState(.idle)
 		var summaries: Summaries?
 		let tracingHistory = store.tracingStatusHistory
@@ -270,7 +261,7 @@ extension RiskProvider: RiskProviding {
 			case .success(let config):
 				appConfiguration = config
 			case .failure(let error):
-				logError(message: error.localizedDescription)
+				Log.error(error.localizedDescription, log: .api)
 				appConfiguration = nil
 			}
 			group.leave()
@@ -311,25 +302,40 @@ extension RiskProvider: RiskProviding {
 				previousRiskLevel: store.previousRiskLevel,
 				providerConfiguration: configuration
 			) else {
-				logError(message: "Serious error during risk calculation")
+				Log.error("Serious error during risk calculation", log: .api)
 				completeOnTargetQueue(risk: nil, completion: completion)
 				return
 		}
 
+		/// Only set shouldShowRiskStatusLoweredAlert if risk level has changed from increase to low or vice versa. Otherwise leave shouldShowRiskStatusLoweredAlert unchanged.
+		/// Scenario: Risk level changed from increased to low in the first risk calculation. In a second risk calculation it stays low. If the user does not open the app between these two calculations, the alert should still be shown.
+		if risk.riskLevelHasChanged {
+			switch risk.level {
+			case .low:
+				store.shouldShowRiskStatusLoweredAlert = true
+			case .increased:
+				store.shouldShowRiskStatusLoweredAlert = false
+			default:
+				break
+			}
+		}
+
 		completeOnTargetQueue(risk: risk, completion: completion)
-		saveRiskIfNeeded(risk)
+		savePreviousRiskLevel(risk)
 	}
-	#endif
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {
-		#if UITESTING
-		consumer?.provideRisk(.mocked)
-		#else
-		consumer?.provideRisk(risk)
+		#if DEBUG
+		if isUITesting {
+			consumer?.provideRisk(.mocked)
+			return
+		}
 		#endif
+
+		consumer?.provideRisk(risk)
 	}
 
-	private func saveRiskIfNeeded(_ risk: Risk) {
+	private func savePreviousRiskLevel(_ risk: Risk) {
 		switch risk.level {
 		case .low:
 			store.previousRiskLevel = .low
@@ -379,3 +385,21 @@ extension RiskProvider {
 		}
 	}
 }
+
+#if DEBUG
+extension RiskProvider {
+	private func _requestRiskLevel_Mock(userInitiated: Bool, completion: Completion? = nil) {
+		let risk = Risk.mocked
+
+		targetQueue.async {
+			completion?(.mocked)
+		}
+
+		for consumer in consumers {
+			_provideRisk(risk, to: consumer)
+		}
+
+		savePreviousRiskLevel(risk)
+	}
+}
+#endif

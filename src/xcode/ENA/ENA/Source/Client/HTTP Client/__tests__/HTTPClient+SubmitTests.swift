@@ -49,7 +49,7 @@ final class HTTPClientSubmitTests: XCTestCase {
 		let expectation = self.expectation(description: "completion handler is called without an error")
 
 		// Act
-		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: false, visitedCountries: [], tan: tan)
+		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], tan: tan)
 		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false, completion: { response in
 			switch response {
 			case .failure(let error):
@@ -76,7 +76,7 @@ final class HTTPClientSubmitTests: XCTestCase {
 		let expectation = self.expectation(description: AppStrings.ExposureSubmission.generalErrorTitle)
 
 		// Act
-		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: false, visitedCountries: [], tan: tan)
+		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], tan: tan)
 		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: true) { response in
 			switch response {
 			case .failure:
@@ -102,7 +102,7 @@ final class HTTPClientSubmitTests: XCTestCase {
 		let expectation = self.expectation(description: "SpecificError")
 
 		// Act
-		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: false, visitedCountries: [], tan: tan)
+		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], tan: tan)
 		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false) { response in
 			switch response {
 			case .failure(let error):
@@ -130,7 +130,7 @@ final class HTTPClientSubmitTests: XCTestCase {
 		let expectation = self.expectation(description: "ResponseNil")
 
 		// Act
-		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: false, visitedCountries: [], tan: tan)
+		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], tan: tan)
 		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false) { response in
 			switch response {
 			case .failure(let error):
@@ -159,7 +159,7 @@ final class HTTPClientSubmitTests: XCTestCase {
 		let expectation = self.expectation(description: "Response400")
 
 		// Act
-		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: false, visitedCountries: [], tan: tan)
+		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], tan: tan)
 		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false) { response in
 			defer { expectation.fulfill() }
 
@@ -187,7 +187,7 @@ final class HTTPClientSubmitTests: XCTestCase {
 		let expectation = self.expectation(description: "Response403")
 
 		// Act
-		let payload = CountrySubmissionPayload(exposureKeys: keys, consentToFederation: false, visitedCountries: [], tan: tan)
+		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: [], tan: tan)
 		HTTPClient.makeWith(mock: stack).submit(payload: payload, isFake: false) { response in
 			defer { expectation.fulfill() }
 

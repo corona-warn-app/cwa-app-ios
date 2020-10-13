@@ -173,7 +173,7 @@ class HTTPClientPlausibleDeniabilityTests: XCTestCase {
 		let fakeClient = HTTPClient.makeWith(mock: fakeStack)
 
 		// Test.
-		let payload = CountrySubmissionPayload(exposureKeys: [], consentToFederation: false, visitedCountries: [], tan: "dummyTan")
+		let payload = CountrySubmissionPayload(exposureKeys: [], visitedCountries: [], tan: "dummyTan")
 		realClient.submit(payload: payload, isFake: false, completion: { _ in expectation.fulfill() })
 		fakeClient.submit(payload: payload, isFake: true, completion: { _ in expectation.fulfill() })
 

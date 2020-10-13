@@ -67,7 +67,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		service.getTestResult { result in
 			switch result {
 			case .failure(let error):
-				logError(message: error.localizedDescription)
+				Log.error(error.localizedDescription, log: .api)
 			case .success(.pending), .success(.redeemed):
 				// Do not trigger notifications for pending or redeemed results.
 				break

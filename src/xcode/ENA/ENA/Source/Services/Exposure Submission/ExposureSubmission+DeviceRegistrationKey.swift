@@ -19,7 +19,7 @@
 
 import Foundation
 
-enum DeviceRegistrationKey {
+enum DeviceRegistrationKey: Equatable {
 	case teleTan(String)
 	case guid(String)
 }

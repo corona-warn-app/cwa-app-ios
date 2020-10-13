@@ -99,10 +99,29 @@ class ExposureSubmissionCoordinatorModel {
 		)
 	}
 
+	func getTestResults(
+		for key: DeviceRegistrationKey,
+		isLoading: @escaping (Bool) -> Void,
+		onSuccess: @escaping (TestResult) -> Void,
+		onError: @escaping (ExposureSubmissionError) -> Void
+	) {
+		isLoading(true)
+
+		exposureSubmissionService.getTestResult(forKey: key, useStoredRegistration: false, completion: { result in
+			isLoading(false)
+
+			switch result {
+			case let .failure(error):
+				onError(error)
+			case let .success(testResult):
+				onSuccess(testResult)
+			}
+		})
+	}
+
 	// MARK: - Private
 
 	private var symptomsOnset: SymptomsOnset = .noInformation
-	private var consentToFederationGiven: Bool = false
 
 	private func loadSupportedCountries(
 		isLoading: @escaping (Bool) -> Void,
@@ -137,7 +156,6 @@ class ExposureSubmissionCoordinatorModel {
 
 		exposureSubmissionService.submitExposure(
 			symptomsOnset: symptomsOnset,
-			consentToFederation: consentToFederationGiven,
 			visitedCountries: supportedCountries,
 			completionHandler: { error in
 				isLoading(false)
@@ -152,7 +170,7 @@ class ExposureSubmissionCoordinatorModel {
 					onSuccess()
 
 				case .some(let error):
-					logError(message: "error: \(error.localizedDescription)", level: .error)
+					Log.error("error: \(error.localizedDescription)", log: .api)
 					onError(error)
 				}
 			}
