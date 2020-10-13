@@ -96,13 +96,17 @@ extension Array where Element == TracingStatusEntry {
 		maximumNumberOfDays: Int = Self.maxStoredDays
 	) -> ActiveTracing {
 		#if DEBUG
-		// two weeks for ui testing or default interval
-		let interval = isUITesting ? .init(336 * 3600) : getContinuousEnabledInterval(since: date)
-		#else
-		let interval = getContinuousEnabledInterval(since: date)
+		// two weeks for ui testing
+		if isUITesting {
+			return ActiveTracing(
+				interval: .init(336 * 3600),
+				maximumNumberOfDays: maximumNumberOfDays
+			)
+		}
 		#endif
+
 		return ActiveTracing(
-			interval: interval,
+			interval: getContinuousEnabledInterval(since: date),
 			maximumNumberOfDays: maximumNumberOfDays
 		)
 	}

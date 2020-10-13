@@ -313,10 +313,13 @@ extension RiskProvider: RiskProviding {
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {
 		#if DEBUG
-		consumer?.provideRisk(isUITesting ? .mocked : risk)
-		#else
-		consumer?.provideRisk(risk)
+		if isUITesting {
+			consumer?.provideRisk(.mocked)
+			return
+		}
 		#endif
+
+		consumer?.provideRisk(risk)
 	}
 
 	private func saveRiskIfNeeded(_ risk: Risk) {
