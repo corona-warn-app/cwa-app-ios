@@ -41,6 +41,7 @@ extension AppDelegate: ExposureSummaryProvider {
 		activityStateDelegate: ActivityStateProviderDelegate? = nil,
 		completion: @escaping (ENExposureDetectionSummary?) -> Void
 	) -> CancellationToken {
+		Log.info("AppDelegate: Detect exposure.", log: .riskDetection)
 
 		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
@@ -60,8 +61,10 @@ extension AppDelegate: ExposureSummaryProvider {
 		exposureDetection?.start { [weak self] result in
 			switch result {
 			case .success(let summary):
+				Log.info("AppDelegate: Detect exposure completed", log: .riskDetection)
 				completion(summary)
 			case .failure(let error):
+				Log.error("AppDelegate: Detect exposure failed", log: .riskDetection, error: error)
 				self?.showError(exposure: error)
 				completion(nil)
 			}
