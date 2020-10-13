@@ -124,6 +124,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	private var statusObservation: NSKeyValueObservation?
 	@objc private var manager: Manager
 	private var progress: Progress?
+	private var detectExposuresCompletionHandlers = [ENDetectExposuresHandler]()
 
 	// MARK: Creating a Manager
 
