@@ -95,41 +95,38 @@ class ENAUITests_00_Onboarding: XCTestCase {
 	// MARK: -	
 
 	func test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S() throws {
-		let snapshotsActive = true
+		var screenshotCounter = 0
 		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "YES"])
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
 		app.launch()
-
+		
 		let prefix = "OnboardingFlow_EnablePermission_"
 		
-		if snapshotsActive { snapshot(prefix + "1")}
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		
 		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].tap()
-		if snapshotsActive { snapshot(prefix + "2")}
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		app.swipeUp()
-		if snapshotsActive { snapshot(prefix + "2a")}
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		app.swipeUp()
-		if snapshotsActive { snapshot(prefix + "2b")}
-
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
-		if snapshotsActive { snapshot(prefix + "3")}
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		app.swipeUp()
-		if snapshotsActive { snapshot(prefix + "3a")}
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		app.swipeUp()
-		if snapshotsActive { snapshot(prefix + "3b")}
-
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		
 		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].tap()
-		if snapshotsActive { snapshot(prefix + "4")}
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
-		if snapshotsActive { snapshot(prefix + "5")}
-
-		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
-		if snapshotsActive { snapshot(prefix + "6")}
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		
-		app.buttons["OK"].tap()
-		if snapshotsActive { snapshot(prefix + "7")}
-		app.swipeUp()
-		if snapshotsActive { snapshot(prefix + "7a")}
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		
+//		Onboarding ends here. Next screen is the home screen.
 	}
 }
