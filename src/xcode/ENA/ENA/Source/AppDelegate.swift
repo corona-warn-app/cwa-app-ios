@@ -106,6 +106,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 
 	lazy var appConfigurationProvider: AppConfigurationProviding = {
+		#if DEBUG
+		if isUITesting {
+			// provide a static app configuration for ui tests to prevent validation errors
+			return CachedAppConfigurationMock()
+		}
+		#endif
 		// use a custom http client that uses/recognized caching mechanisms
 		let appFetchingClient = CachingHTTPClient(clientConfiguration: client.configuration)
 

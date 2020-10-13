@@ -49,7 +49,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		let window = UIWindow(windowScene: windowScene)
 		self.window = window
 
-		#if UITESTING
+		#if DEBUG
 		if let isOnboarded = UserDefaults.standard.string(forKey: "isOnboarded") {
 			store.isOnboarded = (isOnboarded != "NO")
 		}

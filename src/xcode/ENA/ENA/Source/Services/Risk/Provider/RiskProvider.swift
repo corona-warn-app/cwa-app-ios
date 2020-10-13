@@ -187,22 +187,6 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	#if UITESTING
-	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
-		let risk = Risk.mocked
-
-		targetQueue.async {
-			completion?(.mocked)
-		}
-
-		for consumer in consumers {
-			_provideRisk(risk, to: consumer)
-		}
-
-		savePreviousRiskLevel(risk)
-	}
-	#else
-
 	private func completeOnTargetQueue(risk: Risk?, completion: Completion? = nil) {
 		targetQueue.async {
 			completion?(risk)
@@ -217,6 +201,13 @@ extension RiskProvider: RiskProviding {
 	}
 
 	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
+		#if DEBUG
+		if isUITesting {
+			_requestRiskLevel_Mock(userInitiated: userInitiated, completion: completion)
+			return
+		}
+		#endif
+
 		provideActivityState(.idle)
 		var summaries: Summaries?
 		let tracingHistory = store.tracingStatusHistory
@@ -332,14 +323,16 @@ extension RiskProvider: RiskProviding {
 		completeOnTargetQueue(risk: risk, completion: completion)
 		savePreviousRiskLevel(risk)
 	}
-	#endif
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {
-		#if UITESTING
-		consumer?.provideRisk(.mocked)
-		#else
-		consumer?.provideRisk(risk)
+		#if DEBUG
+		if isUITesting {
+			consumer?.provideRisk(.mocked)
+			return
+		}
 		#endif
+
+		consumer?.provideRisk(risk)
 	}
 
 	private func savePreviousRiskLevel(_ risk: Risk) {
@@ -392,3 +385,21 @@ extension RiskProvider {
 		}
 	}
 }
+
+#if DEBUG
+extension RiskProvider {
+	private func _requestRiskLevel_Mock(userInitiated: Bool, completion: Completion? = nil) {
+		let risk = Risk.mocked
+
+		targetQueue.async {
+			completion?(.mocked)
+		}
+
+		for consumer in consumers {
+			_provideRisk(risk, to: consumer)
+		}
+
+		savePreviousRiskLevel(risk)
+	}
+}
+#endif

@@ -291,16 +291,16 @@ extension SecureStore {
 				// fetch existing key from keychain or generate a new one
 				let key: String
 				if let keyData = keychain.loadFromKeychain(key: SecureStore.keychainDatabaseKey) {
-					#if UITESTING // enabled in UI tests
-					if ProcessInfo.processInfo.arguments.contains(UITestingParameters.SecureStoreHandling.simulateMismatchingKey.rawValue) {
+					#if DEBUG
+					if isUITesting, ProcessInfo.processInfo.arguments.contains(UITestingParameters.SecureStoreHandling.simulateMismatchingKey.rawValue) {
 						// injecting a wrong key to simulate a mismatch, e.g. because of backup restoration or other reasons
 						key = "wrong 🔑"
-					} else {
-						key = String(decoding: keyData, as: UTF8.self)
+						try self.init(at: directoryURL, key: key, serverEnvironment: serverEnvironment)
+						return
 					}
-					#else
-					key = String(decoding: keyData, as: UTF8.self)
 					#endif
+
+					key = String(decoding: keyData, as: UTF8.self)
 				} else {
 					key = try keychain.generateDatabaseKey()
 				}

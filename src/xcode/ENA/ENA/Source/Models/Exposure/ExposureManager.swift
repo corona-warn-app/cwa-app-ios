@@ -37,22 +37,25 @@ struct ExposureManagerState: Equatable {
 		enabled: Bool = false,
 		status: ENStatus = .unknown
 	) {
-		#if UITESTING
-		self.authorized = true
-		self.enabled = true
-		self.status = .active
-		#else
 		self.authorized = authorized
 		self.enabled = enabled
 		self.status = status
+
+
+		#if DEBUG
+		if isUITesting {
+			self.authorized = true
+			self.enabled = true
+			self.status = .active
+		}
 		#endif
 	}
 
 	// MARK: Properties
 
-	let authorized: Bool
-	let enabled: Bool
-	let status: ENStatus
+	private(set) var authorized: Bool
+	private(set) var enabled: Bool
+	private(set) var status: ENStatus
 	var isGood: Bool { authorized && enabled && status == .active }
 }
 

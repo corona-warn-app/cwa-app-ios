@@ -19,32 +19,20 @@
 
 import Foundation
 
-struct Risk: Equatable {
-	let level: RiskLevel
-	let details: Details
-	let riskLevelHasChanged: Bool
-}
-
-extension Risk {
-	struct Details: Equatable {
-		var daysSinceLastExposure: Int?
-		var numberOfExposures: Int?
-		var numberOfHoursWithActiveTracing: Int { activeTracing.inHours }
-		var activeTracing: ActiveTracing
-		var numberOfDaysWithActiveTracing: Int { activeTracing.inDays }
-		var exposureDetectionDate: Date?
-	}
-}
-
 #if DEBUG
-extension Risk {
-	static let mocked = Risk(
-		level: .low,
-		details: Risk.Details(
-			numberOfExposures: 0,
-			activeTracing: .init(interval: 336 * 3600),  // two weeks
-			exposureDetectionDate: Date()),
-		riskLevelHasChanged: true
-	)
+final class CachedAppConfigurationMock {}
+
+extension CachedAppConfigurationMock: AppConfigurationProviding {
+
+	func appConfiguration(forceFetch: Bool = false, completion: @escaping Completion) {
+		DispatchQueue.main.async {
+			let mock = SAP_ApplicationConfiguration()
+			completion(.success(mock))
+		}
+	}
+
+	func appConfiguration(completion: @escaping Completion) {
+		self.appConfiguration(forceFetch: false, completion: completion)
+	}
 }
 #endif
