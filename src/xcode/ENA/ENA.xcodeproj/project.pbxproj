@@ -50,6 +50,8 @@
 		01C6AC32252B29C00052814D /* QRScannerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6AC31252B29C00052814D /* QRScannerError.swift */; };
 		01C6AC3A252B2A500052814D /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6AC39252B2A500052814D /* UIImage+Color.swift */; };
 		01C7665E25024A09002C9A5C /* DatePickerOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C7665D25024A09002C9A5C /* DatePickerOptionView.swift */; };
+		01CF95D52530827F007B72F7 /* SAPApplicationConfiguration+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CF95D425308252007B72F7 /* SAPApplicationConfiguration+Helpers.swift */; };
+		01CF95DD253083B2007B72F7 /* CodableExposureDetectionSummary+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CF95DC25308346007B72F7 /* CodableExposureDetectionSummary+Helpers.swift */; };
 		01D16C5E24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C5D24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift */; };
 		01D16C6024ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C5F24ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift */; };
 		01D16C6224ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C6124ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift */; };
@@ -574,6 +576,8 @@
 		01C6AC31252B29C00052814D /* QRScannerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerError.swift; sourceTree = "<group>"; };
 		01C6AC39252B2A500052814D /* UIImage+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
 		01C7665D25024A09002C9A5C /* DatePickerOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerOptionView.swift; sourceTree = "<group>"; };
+		01CF95D425308252007B72F7 /* SAPApplicationConfiguration+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAPApplicationConfiguration+Helpers.swift"; sourceTree = "<group>"; };
+		01CF95DC25308346007B72F7 /* CodableExposureDetectionSummary+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodableExposureDetectionSummary+Helpers.swift"; sourceTree = "<group>"; };
 		01D16C5D24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAppRefreshViewModelTests.swift; sourceTree = "<group>"; };
 		01D16C5F24ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBackgroundRefreshStatusProvider.swift; sourceTree = "<group>"; };
 		01D16C6124ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLowPowerModeStatusProvider.swift; sourceTree = "<group>"; };
@@ -2439,6 +2443,8 @@
 				A14BDEBF24A1AD660063E4EC /* MockExposureDetector.swift */,
 				015692E324B48C3F0033F35E /* TimeInterval+Convenience.swift */,
 				AB5F84BC24F92E92000400D4 /* SerialMigratorFake.swift */,
+				01CF95DC25308346007B72F7 /* CodableExposureDetectionSummary+Helpers.swift */,
+				01CF95D425308252007B72F7 /* SAPApplicationConfiguration+Helpers.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -3419,6 +3425,8 @@
 				A328426324910552006B1F09 /* ExposureSubmissionSuccessViewControllerTests.swift in Sources */,
 				2FD473BF251E0ECE000DCA40 /* EUSettingsViewControllerTests.swift in Sources */,
 				A372DA4124BF33F9003248BB /* MockExposureSubmissionCoordinatorDelegate.swift in Sources */,
+				01CF95DD253083B2007B72F7 /* CodableExposureDetectionSummary+Helpers.swift in Sources */,
+				01CF95D52530827F007B72F7 /* SAPApplicationConfiguration+Helpers.swift in Sources */,
 				01A1B452252DFDC400841B63 /* FakeMetadataMachineReadableObject.swift in Sources */,
 				3598D99A24FE280700483F1F /* CountryTests.swift in Sources */,
 				B163D1102499068D001A322C /* SettingsViewModelTests.swift in Sources */,
