@@ -108,19 +108,16 @@ enum RiskCalculation {
 
 		let riskScore = calculateRawRisk(summary: summary, configuration: configuration)
 
-		var isLow = false
 		var isIncreased = false
 
 		if riskRangeLow.contains(riskScore) {
-			isLow = true
+			riskLevels.append(.low)
 		} else if riskRangeHigh.contains(riskScore) {
 			isIncreased = true
+			riskLevels.append(.increased)
 		} else {
 			return .failure(.riskOutsideRange)
 		}
-
-		if isLow { riskLevels.append(.low) }
-		if isIncreased { riskLevels.append(.increased) }
 
 		// Depending on different conditions we return riskLevel
 		let state = (isUnknownOutdated, isIncreased, isUnknownInitial)
