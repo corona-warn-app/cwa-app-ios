@@ -92,6 +92,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		return cell
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let menuItem = DMMenuItem.existingFromIndexPath(indexPath)
 		let vc: UIViewController?
