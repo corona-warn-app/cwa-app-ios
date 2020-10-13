@@ -191,16 +191,18 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 extension DownloadedPackagesStore {
 
 	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours, country: Country.ID, completion: @escaping (ExposureDetection.DidEndPrematurelyReason?) -> Void) {
+		var errors = [ExposureDetection.DidEndPrematurelyReason]()
+
 		let days = daysAndHours.days
 		days.bucketsByDay.forEach { day, bucket in
 			self.set(country: country, day: day, package: bucket) { error in
 				switch error {
 				case .sqlite_full:
-					completion(ExposureDetection.DidEndPrematurelyReason.noDiskSpace)
+					errors.append(ExposureDetection.DidEndPrematurelyReason.noDiskSpace)
 				case .unknown:
-					completion(ExposureDetection.DidEndPrematurelyReason.unableToWriteDiagnosisKeys)
+					errors.append(ExposureDetection.DidEndPrematurelyReason.unableToWriteDiagnosisKeys)
 				case .none:
-					completion(nil)
+					break
 				}
 			}
 			
@@ -208,6 +210,12 @@ extension DownloadedPackagesStore {
 			hours.bucketsByHour.forEach { hour, bucket in
 				self.set(country: country, hour: hour, day: hours.day, package: bucket)
 			}
+		}
+
+		if errors.isEmpty {
+			completion(nil)
+		} else {
+			completion(errors.first)
 		}
 	}
 }
