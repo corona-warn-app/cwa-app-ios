@@ -211,6 +211,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	/// Wrapper for `ENManager.detectExposures`
 	/// `ExposureManager` needs to be activated and enabled
 	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
+		detectExposuresCompletionHandlers.append(completionHandler)
 
 		// An exposure detection is currently running. Return current progress.
 		if let progress = progress, !progress.isCancelled && !progress.isFinished {
@@ -220,7 +221,11 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		let _progress = manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs) { [weak self] summary, error in
 			guard let self = self else { return }
 			self.progress = nil
-			completionHandler(summary, error)
+
+			for completionHandler in self.detectExposuresCompletionHandlers {
+				completionHandler(summary, error)
+			}
+			self.detectExposuresCompletionHandlers = []
 		}
 
 		progress = _progress
