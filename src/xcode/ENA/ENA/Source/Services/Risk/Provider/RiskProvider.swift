@@ -399,7 +399,7 @@ extension RiskProvider {
 			_provideRisk(risk, to: consumer)
 		}
 
-		saveRiskIfNeeded(risk)
+		savePreviousRiskLevel(risk)
 	}
 }
 #endif
