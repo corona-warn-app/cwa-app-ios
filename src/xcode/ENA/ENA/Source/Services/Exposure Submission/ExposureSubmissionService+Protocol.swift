@@ -32,7 +32,6 @@ protocol ExposureSubmissionService: class {
 	
 	func submitExposure(
 		symptomsOnset: SymptomsOnset,
-		consentToFederation: Bool,
 		visitedCountries: [Country],
 		completionHandler: @escaping ExposureSubmissionHandler
 	)

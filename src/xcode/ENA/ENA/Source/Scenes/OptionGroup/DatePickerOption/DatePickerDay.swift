@@ -21,7 +21,8 @@ import UIKit
 import Combine
 
 enum DatePickerDay: Equatable {
-	case past(Date)
+	case moreThan21DaysAgo(Date)
+	case upTo21DaysAgo(Date)
 	case today(Date)
 	case future(Date)
 }

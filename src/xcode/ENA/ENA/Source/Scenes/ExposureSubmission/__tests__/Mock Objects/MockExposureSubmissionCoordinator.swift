@@ -39,17 +39,10 @@ class MockExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
 
 	func showTanScreen() { }
 
-	func showQRScreen(qrScannerDelegate: ExposureSubmissionQRScannerDelegate) { }
-
 	func showSymptomsScreen() { }
 
 	func showWarnOthersScreen() { }
 
 	func showThankYouScreen() { }
 
-	func showWarnEuropeScreen() { }
-
-	func showWarnEuropeTravelConfirmationScreen() { }
-
-	func showWarnEuropeCountrySelectionScreen() { }
 }

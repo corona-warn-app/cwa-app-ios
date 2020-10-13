@@ -209,6 +209,11 @@ final class SecureStore: Store {
 		set { kvStore["previousRiskLevel"] = newValue?.rawValue }
 	}
 
+	var shouldShowRiskStatusLoweredAlert: Bool {
+		get { kvStore["shouldShowRiskStatusLoweredAlert"] as Bool? ?? false }
+		set { kvStore["shouldShowRiskStatusLoweredAlert"] = newValue }
+	}
+
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks: Bool {
 		get { kvStore["userNeedsToBeInformedAboutHowRiskDetectionWorks"] as Bool? ?? true }
 		set { kvStore["userNeedsToBeInformedAboutHowRiskDetectionWorks"] = newValue }
@@ -234,6 +239,16 @@ final class SecureStore: Store {
 		set { kvStore["selectedServerEnvironment"] = newValue }
 	}
 
+	#if !RELEASE
+
+	// Settings from the debug menu.
+
+	var fakeSQLiteError: Int32? {
+		get { kvStore["fakeSQLiteError"] as Int32? }
+		set { kvStore["fakeSQLiteError"] = newValue }
+	}
+
+	#endif
 }
 
 extension SecureStore: AppConfigCaching {

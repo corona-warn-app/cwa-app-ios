@@ -94,7 +94,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 							style: .body,
 							title: AppStrings.ExposureSubmissionHotline.sectionDescription1,
 							icon: UIImage(named: "Icons_Grey_1"),
-							iconAccessibilityLabel: AppStrings.ExposureSubmissionHotline.iconAccessibilityLabel1,
+							iconAccessibilityLabel: AppStrings.ExposureSubmissionHotline.iconAccessibilityLabel1 + " " + AppStrings.ExposureSubmissionHotline.sectionDescription1,
 							hairline: .iconAttached,
 							bottomSpacing: .normal
 						),
@@ -102,6 +102,8 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 							style: .headline,
 							color: .enaColor(for: .textTint),
 							title: AppStrings.ExposureSubmissionHotline.phoneNumber,
+							accessibilityLabel: AppStrings.ExposureSubmissionHotline.callButtonTitle,
+							accessibilityTraits: [.button],
 							hairline: .topAttached,
 							bottomSpacing: .normal,
 							action: .execute { [weak self] _ in self?.callHotline() }
@@ -109,6 +111,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 						ExposureSubmissionDynamicCell.stepCell(
 							style: .footnote,
 							title: AppStrings.ExposureSubmissionHotline.hotlineDetailDescription,
+							accessibilityLabel: AppStrings.ExposureSubmissionHotline.hotlineDetailDescription,
 							hairline: .topAttached,
 							bottomSpacing: .large
 						),
@@ -116,7 +119,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 							style: .body,
 							title: AppStrings.ExposureSubmissionHotline.sectionDescription2,
 							icon: UIImage(named: "Icons_Grey_2"),
-							iconAccessibilityLabel: AppStrings.ExposureSubmissionHotline.iconAccessibilityLabel2,
+							iconAccessibilityLabel: AppStrings.ExposureSubmissionHotline.iconAccessibilityLabel2 + " " + AppStrings.ExposureSubmissionHotline.sectionDescription2,
 							hairline: .none
 						)
 					])
