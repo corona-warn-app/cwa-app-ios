@@ -31,36 +31,6 @@
 			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
 		</dict>
 	</dict>
-	<key>ExposureDetection_NumberOfContacts</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<!--Plural form for ZERO.-->
-			<string>Şu ana dek hiçbir maruz kalma yok</string>
-			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>Bir maruz kalma</string>
-			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>%u maruz kalma</string>
-			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>%u maruz kalma</string>
-			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>%u maruz kalma</string>
-			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>%u maruz kalma</string>
-		</dict>
-	</dict>
 	<key>ExposureDetection_LastExposure</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -106,7 +76,7 @@
 			<string>Şu ana dek hiçbir maruz kalma yok</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>%u kez düşük riskli karşılaşma</string>
+			<string>Bir kez düşük riskli karşılaşma</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
 			<string>%u kez düşük riskli karşılaşma</string>
@@ -136,7 +106,7 @@
 			<string>Şu ana dek hiçbir maruz kalma yok</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>%u maruz kalma</string>
+			<string>Bir maruz kalma</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
 			<string>%u maruz kalma</string>

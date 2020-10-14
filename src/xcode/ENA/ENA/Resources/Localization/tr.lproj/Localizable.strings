@@ -966,6 +966,13 @@
 
 "Home_resultCard_LoadingErrorTitle" = "Test sonucunuz yüklenemiyor.";
 
+/* Home Alert Risk Lowered */
+"Home_Alert_RiskStatusLowered_Title" = "Risk Durumunuzda Değişiklik";
+
+"Home_Alert_RiskStatusLowered_Message" = "Risk durumunuzun artmasına neden olan son maruz kalma 14 günden uzun süre önce gerçekleşti. Bu nedenle enfeksiyon riskiniz yeniden düşük olarak derecelendirildi.\n\nYapmanız gerekenler:\n1. Herhangi bir COVID-19 enfeksiyonu belirtiniz yoksa mesafe ve hijyen konusunda belirlenen kurallara riayet etmenizi öneririz.\n2. COVID-19 enfeksiyonu belirtiniz varsa doktorunuzu ziyaret edip test yaptırmanızı öneririz.";
+
+"Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "Tamam";
+
 /* App Information - About */
 "App_Information_About_Navigation" = "Uygulama Hakkında";
 
