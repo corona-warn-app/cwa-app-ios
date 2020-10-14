@@ -18,6 +18,7 @@
 //
 
 import XCTest
+import ExposureNotification
 
 class ENAUITests_00_Onboarding: XCTestCase {
 	var app: XCUIApplication!
@@ -28,7 +29,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		setupSnapshot(app)
 		app.setDefaults()
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
-		app.launchArguments.append(contentsOf: ["-ENStatus", ".unknown"])
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.unknown.stringValue])
 	}
 
 	override func tearDownWithError() throws {
