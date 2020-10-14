@@ -7891,98 +7891,112 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinator.swift",
-      "line": 54,
+      "line": 51,
+      "symbol": "ExposureSubmissionCoordinating.loadSupportedCountries(isLoading:onSuccess:onError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinator.swift",
+      "line": 57,
       "symbol": "ExposureSubmissionCoordinatorDelegate.exposureSubmissionCoordinatorWillDisappear(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinator.swift",
-      "line": 64,
+      "line": 67,
       "symbol": "ExposureSubmissionCoordinator.parentNavigationController",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinator.swift",
-      "line": 70,
+      "line": 73,
       "symbol": "ExposureSubmissionCoordinator.presentedViewController",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinator.swift",
-      "line": 72,
+      "line": 75,
       "symbol": "ExposureSubmissionCoordinator.model",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinator.swift",
-      "line": 76,
+      "line": 79,
       "symbol": "ExposureSubmissionCoordinator.init(parentNavigationController:exposureSubmissionService:delegate:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinator.swift",
-      "line": 150,
+      "line": 153,
       "symbol": "ExposureSubmissionCoordinator.dismiss()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinator.swift",
-      "line": 162,
+      "line": 165,
       "symbol": "ExposureSubmissionCoordinator.showOverviewScreen()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinator.swift",
-      "line": 171,
+      "line": 174,
       "symbol": "ExposureSubmissionCoordinator.showTestResultScreen(with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinator.swift",
-      "line": 176,
+      "line": 179,
       "symbol": "ExposureSubmissionCoordinator.showHotlineScreen()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinator.swift",
-      "line": 181,
+      "line": 184,
       "symbol": "ExposureSubmissionCoordinator.showTanScreen()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinator.swift",
-      "line": 273,
+      "line": 276,
       "symbol": "ExposureSubmissionCoordinator.showSymptomsScreen()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinator.swift",
-      "line": 313,
+      "line": 316,
       "symbol": "ExposureSubmissionCoordinator.showWarnOthersScreen()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinator.swift",
-      "line": 330,
+      "line": 333,
       "symbol": "ExposureSubmissionCoordinator.showThankYouScreen()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinator.swift",
-      "line": 473,
+      "line": 339,
+      "symbol": "ExposureSubmissionCoordinator.loadSupportedCountries(isLoading:onSuccess:onError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinator.swift",
+      "line": 481,
       "symbol": "ExposureSubmissionCoordinator.presentationControllerDidAttemptToDismiss(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -8061,6 +8075,13 @@
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinatorModel.swift",
       "line": 102,
       "symbol": "ExposureSubmissionCoordinatorModel.getTestResults(for:isLoading:onSuccess:onError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/ExposureSubmission/ExposureSubmissionCoordinatorModel.swift",
+      "line": 127,
+      "symbol": "ExposureSubmissionCoordinatorModel.loadSupportedCountries(isLoading:onSuccess:onError:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
