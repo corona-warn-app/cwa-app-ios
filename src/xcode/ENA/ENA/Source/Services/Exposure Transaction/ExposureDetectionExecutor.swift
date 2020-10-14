@@ -193,18 +193,23 @@ extension DownloadedPackagesStore {
 
 	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours, country: Country.ID, completion: @escaping (ExposureDetection.DidEndPrematurelyReason?) -> Void) {
 		let days = daysAndHours.days
+		var errors = [ExposureDetection.DidEndPrematurelyReason]()
+		let dispatchGroup = DispatchGroup()
+
 		days.bucketsByDay.forEach { day, bucket in
+			dispatchGroup.enter()
+
 			self.set(country: country, day: day, package: bucket) { error in
 				switch error {
 				case .sqlite_full:
-					completion(ExposureDetection.DidEndPrematurelyReason.noDiskSpace)
-					return
+					errors.append(ExposureDetection.DidEndPrematurelyReason.noDiskSpace)
 				case .unknown:
-					completion(ExposureDetection.DidEndPrematurelyReason.unableToWriteDiagnosisKeys)
-					return
+					errors.append(ExposureDetection.DidEndPrematurelyReason.unableToWriteDiagnosisKeys)
 				case .none:
 					break
 				}
+
+				dispatchGroup.leave()
 			}
 
 			let hours = daysAndHours.hours
@@ -213,6 +218,12 @@ extension DownloadedPackagesStore {
 			}
 		}
 
-		completion(nil)
+		dispatchGroup.notify(queue: .main) {
+			guard errors.isEmpty else {
+				completion(errors.first)
+				return
+			}
+			completion(nil)
+		}
 	}
 }
