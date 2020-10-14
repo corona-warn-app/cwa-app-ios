@@ -67,8 +67,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		riskConsumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk
-			#if UITESTING
-			if let uiTestRiskLevelEnv = UserDefaults.standard.string(forKey: "riskLevel") {
+			#if DEBUG
+			if isUITesting, let uiTestRiskLevelEnv = UserDefaults.standard.string(forKey: "riskLevel") {
 				var uiTestRiskLevel: RiskLevel
 				var uiTestExposureNumber = 100
 				switch uiTestRiskLevelEnv {
@@ -87,7 +87,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 				}
 				let uiTestRisk = Risk(level: uiTestRiskLevel, details: .init(daysSinceLastExposure: 1, numberOfExposures: uiTestExposureNumber, activeTracing: .init(interval: 14*86400), exposureDetectionDate: nil), riskLevelHasChanged: false)
 				self?.state.risk = uiTestRisk
-			}			
+			}
 			#endif
 		}
 		

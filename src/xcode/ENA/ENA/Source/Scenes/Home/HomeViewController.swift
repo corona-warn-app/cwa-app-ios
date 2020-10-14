@@ -118,8 +118,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	private func showInformationHowRiskDetectionWorks() {
 		
-		#if UITESTING
-		if let showInfo = UserDefaults.standard.string(forKey: "userNeedsToBeInformedAboutHowRiskDetectionWorks") {
+		#if DEBUG
+		if isUITesting, let showInfo = UserDefaults.standard.string(forKey: "userNeedsToBeInformedAboutHowRiskDetectionWorks") {
 			store.userNeedsToBeInformedAboutHowRiskDetectionWorks = (showInfo == "YES")
 		}
 		#endif
