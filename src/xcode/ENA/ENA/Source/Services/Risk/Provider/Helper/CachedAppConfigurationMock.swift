@@ -20,19 +20,29 @@
 import Foundation
 
 #if DEBUG
-final class CachedAppConfigurationMock {}
+final class CachedAppConfigurationMock: AppConfigurationProviding {
 
-extension CachedAppConfigurationMock: AppConfigurationProviding {
+	// MARK: - Init
+
+	init(appConfigurationResult: Result<SAP_ApplicationConfiguration, Error> = .success(SAP_ApplicationConfiguration())) {
+		self.appConfigurationResult = appConfigurationResult
+	}
+
+	// MARK: - Protocol AppConfigurationProviding
 
 	func appConfiguration(forceFetch: Bool = false, completion: @escaping Completion) {
 		DispatchQueue.main.async {
-			let mock = SAP_ApplicationConfiguration()
-			completion(.success(mock))
+			completion(self.appConfigurationResult)
 		}
 	}
 
 	func appConfiguration(completion: @escaping Completion) {
 		self.appConfiguration(forceFetch: false, completion: completion)
 	}
+
+	// MARK: - Private
+
+	private var appConfigurationResult: Result<SAP_ApplicationConfiguration, Error>
+
 }
 #endif
