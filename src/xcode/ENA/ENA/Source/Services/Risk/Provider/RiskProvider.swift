@@ -322,6 +322,9 @@ extension RiskProvider: RiskProviding {
 
 		completeOnTargetQueue(risk: risk, completion: completion)
 		savePreviousRiskLevel(risk)
+
+		/// We were able to calculate a risk so we have to reset the DeadMan Notification
+		UNUserNotificationCenter.current().resetDeadmanNotification()
 	}
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {
