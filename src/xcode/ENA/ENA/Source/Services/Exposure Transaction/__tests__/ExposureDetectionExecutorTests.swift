@@ -176,6 +176,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 
 				XCTAssertEqual(storedPackage.bin, testPackage.bin)
 				XCTAssertEqual(storedPackage.signature, testPackage.signature)
+				XCTAssertEqual(downloadedPackageStore.allDays(country: "IT").count, 2)
 		}
 		waitForExpectations(timeout: 2.0)
 	}
