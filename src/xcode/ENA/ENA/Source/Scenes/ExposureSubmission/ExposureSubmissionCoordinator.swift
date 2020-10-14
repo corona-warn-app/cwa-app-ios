@@ -49,6 +49,9 @@ protocol ExposureSubmissionCoordinating: class {
 	func showWarnOthersScreen()
 	func showThankYouScreen()
 
+	// Temporarily added for quickfix: https://jira.itc.sap.com/browse/EXPOSUREAPP-3231
+	func loadSupportedCountries(isLoading: @escaping (Bool) -> Void, onSuccess: @escaping () -> Void, onError: @escaping (ExposureSubmissionError) -> Void)
+
 }
 
 /// This delegate allows a class to be notified for life-cycle events of the coordinator.
@@ -251,6 +254,11 @@ extension ExposureSubmissionCoordinator {
 	func showThankYouScreen() {
 		let vc = createSuccessViewController()
 		push(vc)
+	}
+
+	// Temporarily added for quickfix: https://jira.itc.sap.com/browse/EXPOSUREAPP-3231
+	func loadSupportedCountries(isLoading: @escaping (Bool) -> Void, onSuccess: @escaping () -> Void, onError: @escaping (ExposureSubmissionError) -> Void) {
+		model.loadSupportedCountries(isLoading: isLoading, onSuccess: onSuccess, onError: onError)
 	}
 
 	// MARK: - UI-related helpers.
