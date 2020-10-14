@@ -191,14 +191,14 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 202,
+      "line": 205,
       "symbol": "AppDelegate.application(_:configurationForConnecting:options:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 210,
+      "line": 213,
       "symbol": "AppDelegate.application(_:didDiscardSceneSessions:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -5014,14 +5014,14 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Task Scheduling/ENATaskScheduler.swift",
-      "line": 49,
+      "line": 48,
       "symbol": "ENATaskScheduler.delegate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Task Scheduling/ENATaskScheduler.swift",
-      "line": 80,
+      "line": 79,
       "symbol": "ENATaskScheduler.scheduleTask()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -14555,49 +14555,49 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 360,
+      "line": 363,
       "symbol": "RiskProvider",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 377,
+      "line": 380,
       "symbol": "RiskProvider",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 378,
+      "line": 381,
       "symbol": "RiskProvider.ActivityState",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 379,
+      "line": 382,
       "symbol": "RiskProvider.ActivityState.idle",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 380,
+      "line": 383,
       "symbol": "RiskProvider.ActivityState.downloading",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 381,
+      "line": 384,
       "symbol": "RiskProvider.ActivityState.detecting",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 383,
+      "line": 386,
       "symbol": "RiskProvider.ActivityState.isActive",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
