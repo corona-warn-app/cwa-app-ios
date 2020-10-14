@@ -966,6 +966,13 @@
 
 "Home_resultCard_LoadingErrorTitle" = "Резултатът от Вашия тест не може да бъде зареден.";
 
+/* Home Alert Risk Lowered */
+"Home_Alert_RiskStatusLowered_Title" = "Промяна на Вашия статус на риск";
+
+"Home_Alert_RiskStatusLowered_Message" = "Последният контакт, който предизвика повишаване на нивото на Вашия риск, беше преди повече от 14 дни. Затова Вашият риск от заразяване отново е определен като нисък.\n\nЕто какво трябва да направите:\n1. Ако нямате симптоми за заразяване с COVID-19, продължете да следвате общоприетите правила за спазване на дистанция и хигиена.\n2. Ако имате симптоми за заразяване с COVID-19, препоръчваме Ви да посетите своя лекар и да се тествате.";
+
+"Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
+
 /* App Information - About */
 "App_Information_About_Navigation" = "За приложението";
 
