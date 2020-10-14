@@ -31,36 +31,6 @@
 			<string>Изложени сте на повишен риск от заразяване, защото преди %u дни сте имали продължителен и близък контакт с поне едно лице, диагностицирано с COVID-19.</string>
 		</dict>
 	</dict>
-	<key>ExposureDetection_NumberOfContacts</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<!--Plural form for ZERO.-->
-			<string>До момента няма излагане на риск</string>
-			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>Едно излагане на риск</string>
-			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>%u излагания на риск</string>
-			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>%u излагания на риск</string>
-			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>%u излагания на риск</string>
-			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>%u излагания на риск</string>
-		</dict>
-	</dict>
 	<key>ExposureDetection_LastExposure</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -106,19 +76,19 @@
 			<string>До момента няма излагане на риск</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>%u контакт с нисък риск</string>
+			<string>Един контакт с нисък риск</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
-			<string>%u контакти с нисък риск</string>
+			<string>%u контакта с нисък риск</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>%u контакти с нисък риск</string>
+			<string>%u контакта с нисък риск</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
 			<string>%u контакта с нисък риск</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>%u контакти с нисък риск</string>
+			<string>%u контакта с нисък риск</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_High_Number_Contacts_Item_Title</key>
@@ -136,7 +106,7 @@
 			<string>До момента няма излагане на риск</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>%u излагане на риск</string>
+			<string>Едно излагане на риск</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
 			<string>%u излагания на риск</string>
