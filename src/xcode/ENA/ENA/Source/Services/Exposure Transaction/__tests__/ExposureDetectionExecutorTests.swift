@@ -191,7 +191,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let testDaysAndHours = DaysAndHours(days: ["2020-01-01", "2020-01-02"], hours: [])
 		let testPackage = try SAPDownloadedPackage.makePackage()
 		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
-		completionExpectation.assertForOverFulfill = true
+		completionExpectation.expectedFulfillmentCount = 1
 
 		let sut = ExposureDetectionExecutor.makeWith(
 			client: ClientMock(
