@@ -966,6 +966,13 @@
 
 "Home_resultCard_LoadingErrorTitle" = "Your test result cannot be loaded.";
 
+/* Home Alert Risk Lowered */
+"Home_Alert_RiskStatusLowered_Title" = "Change of Your Risk Status";
+
+"Home_Alert_RiskStatusLowered_Message" = "The last exposure that resulted in your increased risk was more than 14 days ago. Therefore, your risk of infection has been ranked as low again.\n\nThis is what you should do:\n1. If you do not have any symptoms of a COVID-19 infection, continue to follow the prevailing rules regarding distancing and hygiene.\n2. If you have symptoms of a COVID-19 infection, we recommend that you visit your doctor and get tested.";
+
+"Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
+
 /* App Information - About */
 "App_Information_About_Navigation" = "About the App";
 
