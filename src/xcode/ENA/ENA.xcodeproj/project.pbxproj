@@ -477,6 +477,7 @@
 		EB7D205624E6A5930089264C /* InfoBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7D205524E6A5930089264C /* InfoBoxViewModel.swift */; };
 		EB7F8E9524E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7F8E9424E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift */; };
 		EB858D2024E700D10048A0AA /* UIView+Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */; };
+		EB873540253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */; };
 		EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */; };
 		EE20EA072469883900770683 /* RiskLegend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE20EA062469883900770683 /* RiskLegend.storyboard */; };
 		EE22DB81247FB40A001B0A71 /* ENStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */; };
@@ -1033,6 +1034,7 @@
 		EB7D205524E6A5930089264C /* InfoBoxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBoxViewModel.swift; sourceTree = "<group>"; };
 		EB7F8E9424E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAppRefreshViewController.swift; sourceTree = "<group>"; };
 		EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Screenshot.swift"; sourceTree = "<group>"; };
+		EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenter+DeadManSwitch.swift"; sourceTree = "<group>"; };
 		EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewController.swift; sourceTree = "<group>"; };
 		EE20EA062469883900770683 /* RiskLegend.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RiskLegend.storyboard; sourceTree = "<group>"; };
 		EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENStateHandler.swift; sourceTree = "<group>"; };
@@ -1551,36 +1553,37 @@
 				71176E2C24891BCF004B0C9F /* __tests__ */,
 				514EE996246D4BDD00DE4884 /* UICollectionView */,
 				514EE997246D4BEB00DE4884 /* UITableView */,
+				AB1886D0252DE51E00D39BBE /* Bundle+Identifier.swift */,
+				A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */,
+				AB6289CE251BA01400CF61D2 /* Bundle+Version.swift */,
+				01DB708425068167008F7244 /* Calendar+GregorianLocale.swift */,
 				51895EDB245E16CD0085DA38 /* ENAColor.swift */,
 				710021DB248E44A6001F0B63 /* ENAFont.swift */,
-				13722043247AEEAD00152764 /* UNNotificationCenter+Extension.swift */,
-				51D420B624583B7200AD70CA /* NSObject+Identifier.swift */,
-				51D420B824583B8300AD70CA /* UIViewController+AppStoryboard.swift */,
-				B1EDFD8C248E74D000E7EAFF /* URL+StaticString.swift */,
+				A1BABD0A24A57BA0000ED515 /* ENTemporaryExposureKey+Processing.swift */,
+				2FC0357024B5B70700E234AC /* Error+FAQUrl.swift */,
+				B1C7EE4324938E9E00F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandling.swift */,
+				2F96739A24AB70FA008E3147 /* ExposureSubmissionParsable.swift */,
 				51D420D324586DCA00AD70CA /* NotificationName.swift */,
-				85142500245DA0B3009D2791 /* UIViewController+Alert.swift */,
-				B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */,
-				01C6ABF32527273D0052814D /* String+Insertion.swift */,
-				71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */,
-				B14D0CDA246E968C00D5BEBC /* String+Today.swift */,
+				2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */,
+				51D420B624583B7200AD70CA /* NSObject+Identifier.swift */,
 				AB6289D3251BA4EC00CF61D2 /* String+Compare.swift */,
+				01C6ABF32527273D0052814D /* String+Insertion.swift */,
+				B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */,
+				2FA968CD24D8560B008EE367 /* String+Random.swift */,
+				B14D0CDA246E968C00D5BEBC /* String+Today.swift */,
+				B1D6B003247DA4920079DDD3 /* UIApplication+CoronaWarn.swift */,
+				71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */,
+				01C6AC39252B2A500052814D /* UIImage+Color.swift */,
+				2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */,
+				EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */,
+				85142500245DA0B3009D2791 /* UIViewController+Alert.swift */,
+				51D420B824583B8300AD70CA /* UIViewController+AppStoryboard.swift */,
+				2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */,
+				13722043247AEEAD00152764 /* UNNotificationCenter+Extension.swift */,
+				EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */,
+				B1EDFD8C248E74D000E7EAFF /* URL+StaticString.swift */,
 				B153096924706F1000A4A1BD /* URLSession+Default.swift */,
 				B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */,
-				B1D6B003247DA4920079DDD3 /* UIApplication+CoronaWarn.swift */,
-				2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */,
-				2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */,
-				A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */,
-				2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */,
-				B1C7EE4324938E9E00F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandling.swift */,
-				A1BABD0A24A57BA0000ED515 /* ENTemporaryExposureKey+Processing.swift */,
-				2F96739A24AB70FA008E3147 /* ExposureSubmissionParsable.swift */,
-				2FC0357024B5B70700E234AC /* Error+FAQUrl.swift */,
-				2FA968CD24D8560B008EE367 /* String+Random.swift */,
-				EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */,
-				01DB708425068167008F7244 /* Calendar+GregorianLocale.swift */,
-				AB6289CE251BA01400CF61D2 /* Bundle+Version.swift */,
-				AB1886D0252DE51E00D39BBE /* Bundle+Identifier.swift */,
-				01C6AC39252B2A500052814D /* UIImage+Color.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3351,6 +3354,7 @@
 				B1175218248ACFBC00C3325C /* SAP_RiskScoreClass+LowAndHigh.swift in Sources */,
 				EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */,
 				AB7420B7251B69E2006666AC /* DeltaOnboardingCoordinator.swift in Sources */,
+				EB873540253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
 				514C0A0624772F3400F235F6 /* HomeRiskViewConfigurator.swift in Sources */,
 				71EF33DB2497F419007B7E1B /* ENANavigationFooterItem.swift in Sources */,

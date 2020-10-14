@@ -42,7 +42,6 @@ final class ENATaskScheduler {
 	// MARK: - Static.
 
 	static let shared = ENATaskScheduler()
-	private static let deadManNotificationIdentifier = (Bundle.main.bundleIdentifier ?? "") + ".notifications.cwa-deadman"
 
 	// MARK: - Attributes.
 
@@ -79,7 +78,6 @@ final class ENATaskScheduler {
 
 	func scheduleTask() {
 		do {
-			ENATaskScheduler.scheduleDeadmanNotificationIfNeeded()
 			let taskRequest = BGProcessingTaskRequest(identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier)
 			taskRequest.requiresNetworkConnectivity = true
 			taskRequest.requiresExternalPower = false
@@ -96,57 +94,6 @@ final class ENATaskScheduler {
 		delegate?.executeENABackgroundTask { success in
 			task.setTaskCompleted(success: success)
 		}
-	}
-
-	// MARK: - Deadman notifications.
-
-	/// Schedules a local notification to fire 36 hours from now, if there isn´t a notification already scheduled
-	static func scheduleDeadmanNotificationIfNeeded() {
-		let notificationCenter = UNUserNotificationCenter.current()
-
-		// Check if Deadman Notification is already scheduled
-		notificationCenter.getPendingNotificationRequests(completionHandler: { notificationRequests in
-			if notificationRequests.contains(where: { $0.identifier == deadManNotificationIdentifier }) {
-				// Deadman Notification already setup -> return
-				return
-			} else {
-				// No Deadman Notification setup, contiune to setup a new one
-				let content = UNMutableNotificationContent()
-				content.title = AppStrings.Common.deadmanAlertTitle
-				content.body = AppStrings.Common.deadmanAlertBody
-				content.sound = .default
-
-				let trigger = UNTimeIntervalNotificationTrigger(
-					timeInterval: 36 * 60 * 60,
-					repeats: false
-				)
-
-				let request = UNNotificationRequest(
-					identifier: deadManNotificationIdentifier,
-					content: content,
-					trigger: trigger
-				)
-
-				notificationCenter.add(request) { error in
-					if error != nil {
-						Log.error("Deadman notification could not be scheduled.", log: .api)
-					}
-				}
-			}
-		})
-	}
-	
-	/// Cancels the Deadman Notificatoin
-	private static func cancelDeadmanNotification() {
-		let notificationCenter = UNUserNotificationCenter.current()
-		
-		notificationCenter.removePendingNotificationRequests(withIdentifiers: [deadManNotificationIdentifier])
-	}
-
-	/// Reset the Deadman Notification, should be called after a successfull risk-calculation.
-	static func resetDeadmanNotification() {
-		ENATaskScheduler.cancelDeadmanNotification()
-		ENATaskScheduler.scheduleDeadmanNotificationIfNeeded()
 	}
 	
 }
