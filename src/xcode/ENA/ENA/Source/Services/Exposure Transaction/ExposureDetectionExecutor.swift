@@ -198,17 +198,21 @@ extension DownloadedPackagesStore {
 				switch error {
 				case .sqlite_full:
 					completion(ExposureDetection.DidEndPrematurelyReason.noDiskSpace)
+					return
 				case .unknown:
 					completion(ExposureDetection.DidEndPrematurelyReason.unableToWriteDiagnosisKeys)
+					return
 				case .none:
-					completion(nil)
+					break
 				}
 			}
-			
+
 			let hours = daysAndHours.hours
 			hours.bucketsByHour.forEach { hour, bucket in
 				self.set(country: country, hour: hour, day: hours.day, package: bucket)
 			}
 		}
+
+		completion(nil)
 	}
 }
