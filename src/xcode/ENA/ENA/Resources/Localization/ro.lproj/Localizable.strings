@@ -966,6 +966,13 @@
 
 "Home_resultCard_LoadingErrorTitle" = "Rezultatul testului dvs. nu poate fi încărcat.";
 
+/* Home Alert Risk Lowered */
+"Home_Alert_RiskStatusLowered_Title" = "Modificarea stării riscului dvs.";
+
+"Home_Alert_RiskStatusLowered_Message" = "Ultima expunere care a generat riscul dvs. crescut a avut loc cu mai mult de 14 zile în urmă. Prin urmare, riscul dvs. de infectare a fost clasificat ca fiind din nou redus.\n\nIată ce trebuie să faceți:\n1. Dacă nu aveți simptomele unei infecții cu COVID-19, continuați să respectați regulile generale privind distanțarea și igiena.\n2. Dacă aveți simptomele unei infecții cu COVID-19, vă recomandăm să mergeți la medic și să vă testați.";
+
+"Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
+
 /* App Information - About */
 "App_Information_About_Navigation" = "Despre aplicație";
 

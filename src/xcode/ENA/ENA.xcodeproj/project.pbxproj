@@ -479,6 +479,7 @@
 		EB7D205624E6A5930089264C /* InfoBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7D205524E6A5930089264C /* InfoBoxViewModel.swift */; };
 		EB7F8E9524E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7F8E9424E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift */; };
 		EB858D2024E700D10048A0AA /* UIView+Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */; };
+		EB873540253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */; };
 		EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */; };
 		EE20EA072469883900770683 /* RiskLegend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE20EA062469883900770683 /* RiskLegend.storyboard */; };
 		EE22DB81247FB40A001B0A71 /* ENStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */; };
@@ -1037,6 +1038,7 @@
 		EB7D205524E6A5930089264C /* InfoBoxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBoxViewModel.swift; sourceTree = "<group>"; };
 		EB7F8E9424E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAppRefreshViewController.swift; sourceTree = "<group>"; };
 		EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Screenshot.swift"; sourceTree = "<group>"; };
+		EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenter+DeadManSwitch.swift"; sourceTree = "<group>"; };
 		EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewController.swift; sourceTree = "<group>"; };
 		EE20EA062469883900770683 /* RiskLegend.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RiskLegend.storyboard; sourceTree = "<group>"; };
 		EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENStateHandler.swift; sourceTree = "<group>"; };
@@ -1555,36 +1557,37 @@
 				71176E2C24891BCF004B0C9F /* __tests__ */,
 				514EE996246D4BDD00DE4884 /* UICollectionView */,
 				514EE997246D4BEB00DE4884 /* UITableView */,
+				AB1886D0252DE51E00D39BBE /* Bundle+Identifier.swift */,
+				A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */,
+				AB6289CE251BA01400CF61D2 /* Bundle+Version.swift */,
+				01DB708425068167008F7244 /* Calendar+GregorianLocale.swift */,
 				51895EDB245E16CD0085DA38 /* ENAColor.swift */,
 				710021DB248E44A6001F0B63 /* ENAFont.swift */,
-				13722043247AEEAD00152764 /* UNNotificationCenter+Extension.swift */,
-				51D420B624583B7200AD70CA /* NSObject+Identifier.swift */,
-				51D420B824583B8300AD70CA /* UIViewController+AppStoryboard.swift */,
-				B1EDFD8C248E74D000E7EAFF /* URL+StaticString.swift */,
+				A1BABD0A24A57BA0000ED515 /* ENTemporaryExposureKey+Processing.swift */,
+				2FC0357024B5B70700E234AC /* Error+FAQUrl.swift */,
+				B1C7EE4324938E9E00F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandling.swift */,
+				2F96739A24AB70FA008E3147 /* ExposureSubmissionParsable.swift */,
 				51D420D324586DCA00AD70CA /* NotificationName.swift */,
-				85142500245DA0B3009D2791 /* UIViewController+Alert.swift */,
-				B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */,
-				01C6ABF32527273D0052814D /* String+Insertion.swift */,
-				71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */,
-				B14D0CDA246E968C00D5BEBC /* String+Today.swift */,
+				2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */,
+				51D420B624583B7200AD70CA /* NSObject+Identifier.swift */,
 				AB6289D3251BA4EC00CF61D2 /* String+Compare.swift */,
+				01C6ABF32527273D0052814D /* String+Insertion.swift */,
+				B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */,
+				2FA968CD24D8560B008EE367 /* String+Random.swift */,
+				B14D0CDA246E968C00D5BEBC /* String+Today.swift */,
+				B1D6B003247DA4920079DDD3 /* UIApplication+CoronaWarn.swift */,
+				71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */,
+				01C6AC39252B2A500052814D /* UIImage+Color.swift */,
+				2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */,
+				EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */,
+				85142500245DA0B3009D2791 /* UIViewController+Alert.swift */,
+				51D420B824583B8300AD70CA /* UIViewController+AppStoryboard.swift */,
+				2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */,
+				13722043247AEEAD00152764 /* UNNotificationCenter+Extension.swift */,
+				EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */,
+				B1EDFD8C248E74D000E7EAFF /* URL+StaticString.swift */,
 				B153096924706F1000A4A1BD /* URLSession+Default.swift */,
 				B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */,
-				B1D6B003247DA4920079DDD3 /* UIApplication+CoronaWarn.swift */,
-				2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */,
-				2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */,
-				A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */,
-				2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */,
-				B1C7EE4324938E9E00F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandling.swift */,
-				A1BABD0A24A57BA0000ED515 /* ENTemporaryExposureKey+Processing.swift */,
-				2F96739A24AB70FA008E3147 /* ExposureSubmissionParsable.swift */,
-				2FC0357024B5B70700E234AC /* Error+FAQUrl.swift */,
-				2FA968CD24D8560B008EE367 /* String+Random.swift */,
-				EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */,
-				01DB708425068167008F7244 /* Calendar+GregorianLocale.swift */,
-				AB6289CE251BA01400CF61D2 /* Bundle+Version.swift */,
-				AB1886D0252DE51E00D39BBE /* Bundle+Identifier.swift */,
-				01C6AC39252B2A500052814D /* UIImage+Color.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3373,6 +3376,7 @@
 				B1175218248ACFBC00C3325C /* SAP_RiskScoreClass+LowAndHigh.swift in Sources */,
 				EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */,
 				AB7420B7251B69E2006666AC /* DeltaOnboardingCoordinator.swift in Sources */,
+				EB873540253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
 				514C0A0624772F3400F235F6 /* HomeRiskViewConfigurator.swift in Sources */,
 				71EF33DB2497F419007B7E1B /* ENANavigationFooterItem.swift in Sources */,
@@ -4160,6 +4164,141 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = CWASQLite/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_CFLAGS = (
+					"-DSQLITE_TEMP_STORE=3",
+					"-DSQLCIPHER_CRYPTO_CC",
+					"-DNDEBUG",
+					"-DSQLITE_HAS_CODEC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp.sqlite;
+				PRODUCT_NAME = CWASQLite;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = AdHoc;
+		};
+		01DE5A74248E3CF800F6D7F2 /* UITesting */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG UITESTING";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = UITesting;
+		};
+		01DE5A75248E3CF800F6D7F2 /* UITesting */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"SQLITE_HAS_CODEC=1",
+				);
+				INFOPLIST_FILE = ENA/Resources/Info.plist;
+				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONE_APP_DEV_TEAM = 523TP53AQF;
+				IPHONE_APP_DIST_PROF_SPECIFIER = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.5.0;
+				OTHER_CFLAGS = (
+					"-DSQLITE_HAS_CODEC",
+					"-DSQLITE_TEMP_STORE=3",
+					"-DSQLCIPHER_CRYPTO_CC",
+					"-DNDEBUG",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DISABLE_CERTIFICATE_PINNING";
+				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = UITesting;
+		};
+		01DE5A76248E3CF800F6D7F2 /* UITesting */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 523TP53AQF;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"SQLITE_HAS_CODEC=1",
+				);
+				INFOPLIST_FILE = ENATests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
