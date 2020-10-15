@@ -185,6 +185,7 @@ final class OnboardingInfoViewController: UIViewController {
 		let exposureNotificationsNotSet = exposureManagerState.status == .unknown || exposureManagerState.status == .bluetoothOff
 		let exposureNotificationsEnabled = exposureManagerState.enabled
 		let exposureNotificationsDisabled = !exposureNotificationsEnabled && !exposureNotificationsNotSet
+		// show state of "Expoure Logging" when it has been enabled by the user
 		let showStateView = onboardingInfo.showState && !exposureNotificationsNotSet
 
 		// swiftlint:disable force_unwrapping
@@ -227,7 +228,9 @@ final class OnboardingInfoViewController: UIViewController {
 		stateStateLabel.text = exposureNotificationsEnabled ? onboardingInfo.stateActivated : onboardingInfo.stateDeactivated
 
 		guard !pageSetupDone else {
-			if pageType == .enableLoggingOfContactsPage && exposureManagerState.status == .active {
+			// Back button tapped
+			// If "logging of contacts" has been enabled then display alternative text on buttom
+			if pageType == .enableLoggingOfContactsPage && showStateView {
 				nextButton.setTitle(onboardingInfo.alternativeActionText, for: .normal)
 			}
 			return
@@ -235,7 +238,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 		switch pageType {
 		case .enableLoggingOfContactsPage:
-			if exposureManagerState.status == .active {
+			if showStateView {
 				nextButton.setTitle(onboardingInfo.alternativeActionText, for: .normal)
 			}
 			addParagraph(
