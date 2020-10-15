@@ -71,9 +71,17 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					completeWith(.failure(.other("Failed to parse TestResult")))
 					return
 				}
-				completeWith(.success(testResult))
-				if testResult != .pending {
+				switch testResult {
+				case .negative, .positive, .redeemed:
 					self.store.testResultReceivedTimeStamp = Int64(Date().timeIntervalSince1970)
+					completeWith(.success(testResult))
+				case .pending:
+					completeWith(.success(testResult))
+				case .invalid:
+					/// The .invalid status is only known after the test has been registered on the server
+					/// so we generate an error here, even if the server returned the http result 201
+					completeWith(.failure(.qRInvalid))
+					self.store.registrationToken = nil
 				}
 			}
 		}
