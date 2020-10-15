@@ -404,6 +404,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		// can't access system popup directly
 		let label = app.localized("ExposureSubmissionError_EnNotEnabled")
+		XCTAssertFalse(label.isEmpty)
 		XCTAssertTrue(app.staticTexts[label].waitForExistence(timeout: .medium))
 		snapshot("error_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
