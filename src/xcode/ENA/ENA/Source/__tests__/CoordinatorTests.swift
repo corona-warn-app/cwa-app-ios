@@ -94,6 +94,9 @@ class CoordinatorTests: XCTestCase {
 		let pushViewControllerWasCalled = coordinator.mockNavigationController.pushViewControllerWasCalled
 		XCTAssertTrue(pushViewControllerWasCalled)
 	}
+	
+	
+	
 
 	func test_coordinator_shouldShowExposureDetection() {
 		let state = HomeInteractor.State(detectionMode: .automatic, exposureManagerState: .init(), enState: .unknown, risk: nil)
