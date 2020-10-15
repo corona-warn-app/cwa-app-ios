@@ -227,11 +227,17 @@ final class OnboardingInfoViewController: UIViewController {
 		stateStateLabel.text = exposureNotificationsEnabled ? onboardingInfo.stateActivated : onboardingInfo.stateDeactivated
 
 		guard !pageSetupDone else {
+			if pageType == .enableLoggingOfContactsPage && exposureManagerState.status == .active {
+				nextButton.setTitle(onboardingInfo.alternativeActionText, for: .normal)
+			}
 			return
 		}
 
 		switch pageType {
 		case .enableLoggingOfContactsPage:
+			if exposureManagerState.status == .active {
+				nextButton.setTitle(onboardingInfo.alternativeActionText, for: .normal)
+			}
 			addParagraph(
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_euTitle,
 				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_euDescription
