@@ -239,6 +239,8 @@ extension ExposureNotificationSettingViewController {
 		return cell
 	}
 
+	// MARK: - Private
+
 	private func euTracingCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
 		let dequeuedEUTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.euTracingCell.cellType.rawValue, for: indexPath)
 		guard let euTracingCell = dequeuedEUTracingCell as? EuTracingTableViewCell else {
