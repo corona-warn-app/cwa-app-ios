@@ -206,6 +206,8 @@ included:
 
 # Excluded paths (takes precedence over 'included')
 excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - ENA/ENATests
+  - ENA/ENAUITests
 
 # Rules use by 'swiftlint analyze' (experimental)
 analyzer_rules:
