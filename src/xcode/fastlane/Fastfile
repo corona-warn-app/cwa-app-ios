@@ -68,6 +68,7 @@ platform :ios do
       mode: :lint,
       output_file: "swiftlint.result.json",
       config_file: "ENA/.swiftlint.yml",
+      strict: true,
       raise_if_swiftlint_error: true,
       reporter: "sonarqube"
     )
