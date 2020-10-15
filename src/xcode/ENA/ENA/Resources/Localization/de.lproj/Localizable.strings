@@ -69,7 +69,7 @@
 
 "ExposureDetection_Refresh_24h" = "Aktualisierung alle 24 Stunden";
 
-"ExposureDetection_LastRiskLevel" = "Letzte Risiko-Ermittlung: %@";
+"ExposureDetection_LastRiskLevel" = "Letzte Risiko-Überprüfung: %@";
 
 "ExposureDetection_OffText" = "Aktivieren Sie die Risiko-Ermittlung, um Ihren heutigen Risikostatus zu berechnen.";
 
@@ -851,7 +851,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
 
-"Home_Risk_Last_Activate_Item_Title" = "Letzte Risiko-Ermittlung: %@";
+"Home_Risk_Last_Activate_Item_Title" = "Letzte Risiko-Überprüfung: %@";
 
 "Home_Risk_Last_Activate_Item_Unknown_Title" = "Unbekanntes Risiko";
 
