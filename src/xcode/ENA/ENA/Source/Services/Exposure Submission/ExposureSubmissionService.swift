@@ -178,9 +178,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
+	// MARK: - Internal
+
+	static let fakeRegistrationToken = "63b4d3ff-e0de-4bd4-90c1-17c2bb683a2f"
+
 	// MARK: - Private
 
-	private static let fakeRegistrationToken = "63b4d3ff-e0de-4bd4-90c1-17c2bb683a2f"
 	private static var fakeSubmissionTan: String { return UUID().uuidString }
 
 	private let diagnosiskeyRetrieval: DiagnosisKeysRetrieval
