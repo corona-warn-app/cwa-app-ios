@@ -218,6 +218,39 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	func testGetTestResult_invalidTestResultValur() {
+
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let store = MockTestStore()
+		store.registrationToken = "dummyRegistrationToken"
+
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completeWith in
+			let invalidTestResultValue = 3
+			completeWith(.success(invalidTestResultValue))
+		}
+
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+		let expectation = self.expectation(description: "Expect to receive a result.")
+		let expectationToFailWithInvalid = self.expectation(description: "Expect to fail with error of type .qRInvalid")
+
+		// Execute test.
+
+		service.getTestResult { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				if case ExposureSubmissionError.qRInvalid = error {
+					expectationToFailWithInvalid.fulfill()
+				}
+			case .success:
+				XCTFail("This test should intentionally produce an unknown test result that cannot be parsed.")
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
 	func testGetTestResult_unknownTestResultValue() {
 
 		// Initialize.
