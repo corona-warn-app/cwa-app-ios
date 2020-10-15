@@ -28,7 +28,6 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
-	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
 	var serverEnvironment: ServerEnvironment { get }
 }
 
@@ -158,9 +157,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
 	let client: HTTPClient
-
-	// TODO: REMOVE ME
-	var lastRiskCalculation: String = ""
 
 	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
 		ExposureDetectionExecutor(

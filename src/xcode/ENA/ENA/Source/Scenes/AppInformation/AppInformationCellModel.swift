@@ -15,13 +15,12 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-//
 
 import Foundation
+import UIKit
 
-
-/// Global flag if UI testing is enabled or not
-var isUITesting: Bool {
-	// defined in XCUIApplication.setDefaults()
-	return ProcessInfo.processInfo.environment["XCUI"] == "YES"
+struct AppInformationCellModel {
+	var text: String
+	var accessibilityIdentifier: String?
+	var action: DynamicAction
 }

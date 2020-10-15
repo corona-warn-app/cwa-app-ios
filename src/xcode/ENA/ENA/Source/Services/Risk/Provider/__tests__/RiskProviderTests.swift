@@ -77,18 +77,11 @@ final class RiskProviderTests: XCTestCase {
 			completion(.init())
 		}
 
-		let client = CachingHTTPClientMock()
-		client.onFetchAppConfiguration = { _, complete in
-			// just deliver no app configuration (as before)
-			// TODO: require a missing app config feels hacky in this context - review!
-			complete(.failure(CachedAppConfiguration.CacheError.notModified))
-		}
-
 		let sut = RiskProvider(
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
-			appConfigurationProvider: CachedAppConfiguration(client: client, store: store),
+			appConfigurationProvider: CachedAppConfigurationMock(),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
 		)
 
@@ -144,7 +137,7 @@ final class RiskProviderTests: XCTestCase {
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
-			appConfigurationProvider: CachedAppConfiguration(client: CachingHTTPClientMock(), store: store),
+			appConfigurationProvider: CachedAppConfigurationMock(),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
 		)
 
@@ -180,15 +173,10 @@ final class RiskProviderTests: XCTestCase {
 			detectionRequested.fulfill()
 		}
 
-		let client = CachingHTTPClientMock()
-
-		client.onFetchAppConfiguration = { _, complete in
-			complete(.success(AppConfigurationFetchingResponse(SAP_ApplicationConfiguration.with {
-				$0.exposureConfig = SAP_RiskScoreParameters()
-			})))
+		let sapAppConfig = SAP_ApplicationConfiguration.with {
+			$0.exposureConfig = SAP_RiskScoreParameters()
 		}
-
-		let cachedAppConfig = CachedAppConfiguration(client: client, store: store)
+		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
 
 		let sut = RiskProvider(
 			configuration: config,
@@ -408,16 +396,13 @@ final class RiskProviderTests: XCTestCase {
 			completion(.init())
 		}
 
-		let client = CachingHTTPClientMock()
-		client.onFetchAppConfiguration = { _, complete in
-			complete(.success(AppConfigurationFetchingResponse(.riskCalculationAppConfig, "fake")))
-		}
+		let appConfigurationProvider = CachedAppConfigurationMock(appConfigurationResult: .success(.riskCalculationAppConfig))
 
 		return RiskProvider(
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
-			appConfigurationProvider: CachedAppConfiguration(client: client, store: store),
+			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
 		)
 	}

@@ -19,7 +19,6 @@ import ExposureNotification
 import Foundation
 import ZIPFoundation
 
-// swiftlint:disable file_length
 final class HTTPClient: Client {
 	// MARK: Creating
 	init(

@@ -346,7 +346,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 			appConfigurationProvider: AppConfigurationProviderFake()
 		)
 
-		sut.exposureDetection(
+		_ = sut.exposureDetection(
 			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
 			writtenPackages: WrittenPackages(urls: []),

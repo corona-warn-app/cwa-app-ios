@@ -19,6 +19,7 @@
 import ExposureNotification
 import XCTest
 
+// swiftlint:disable:next type_body_length
 class ExposureSubmissionServiceTests: XCTestCase {
 	let expectationsTimeout: TimeInterval = 2
 	let keys = [ENTemporaryExposureKey()]
