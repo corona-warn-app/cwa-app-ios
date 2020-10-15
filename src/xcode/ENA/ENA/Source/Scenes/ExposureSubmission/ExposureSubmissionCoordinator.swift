@@ -387,6 +387,13 @@ extension ExposureSubmissionCoordinator {
 						title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
 						message: error.localizedDescription
 					)
+
+				case .qRInvalid:
+					alert = UIAlertController.errorAlert(
+						title: AppStrings.ExposureSubmission.qrCodeInvalidTitle,
+						message: error.localizedDescription
+					)
+
 				default:
 					alert = UIAlertController.errorAlert(
 						message: error.localizedDescription,
