@@ -92,8 +92,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	// Public API for accessing the service methods needed for Exposure Submission.
-
 	/// This method gets the test result based on the registrationToken that was previously
 	/// received, either from the TAN or QR Code flow. After successful completion,
 	/// the timestamp of the last received test is updated.
