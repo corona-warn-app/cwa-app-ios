@@ -71,7 +71,6 @@ enum AppStrings {
 		static let hotlineNumber = NSLocalizedString("ExposureSubmission_Hotline_Number", comment: "")
 		static let qrCodeInvalidTitle = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeInvalid_Alert_Title", comment: "")
 		static let qrCodeInvalidAlertText = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeInvalid_Alert_Text", comment: "")
-		static let qrCodeInvalidAlertPrimarybutton = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeInvalid_Alert_PrimaryButtonTitle", comment: "")
 	}
 
 	enum ExposureSubmissionTanEntry {
