@@ -3057,7 +3057,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint is not available.\"\n  echo \"Use 'brew install swiftlint' to install SwiftLint or download it manually from https://github.com/realm/SwiftLint.\"\nfi\n\n";
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"error: SwiftLint is not available.\"\n  echo \"Use 'brew install swiftlint' to install SwiftLint or download it manually from https://github.com/realm/SwiftLint.\"\nfi\n\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
