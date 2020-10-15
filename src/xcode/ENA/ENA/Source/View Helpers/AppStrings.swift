@@ -69,6 +69,9 @@ enum AppStrings {
 		static let confirmDismissPopUpTitle = NSLocalizedString("ExposureSubmission_ConfirmDismissPopUpTitle", comment: "")
 		static let confirmDismissPopUpText = NSLocalizedString("ExposureSubmission_ConfirmDismissPopUpText", comment: "")
 		static let hotlineNumber = NSLocalizedString("ExposureSubmission_Hotline_Number", comment: "")
+		static let qrCodeInvalidTitle = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeInvalid_Alert_Title", comment: "")
+		static let qrCodeInvalidAlertText = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeInvalid_Alert_Text", comment: "")
+		static let qrCodeInvalidAlertPrimarybutton = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeInvalid_Alert_PrimaryButtonTitle", comment: "")
 	}
 
 	enum ExposureSubmissionTanEntry {
@@ -205,7 +208,6 @@ enum AppStrings {
 		static let answerOptionPreferNotToSay = NSLocalizedString("ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay", comment: "")
 		static let continueButton = NSLocalizedString("ExposureSubmissionSymptoms_ContinueButton", comment: "")
 	}
-	
 	
 	enum ExposureSubmissionSymptomsOnset {
 		static let title = NSLocalizedString("ExposureSubmissionSymptomsOnset_Title", comment: "")

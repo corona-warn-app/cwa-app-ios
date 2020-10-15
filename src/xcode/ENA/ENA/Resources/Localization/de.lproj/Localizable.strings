@@ -466,6 +466,12 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_primaryButtonTitle" = "Weiter";
 
+"ExposureSubmissionQRInfo_QRCodeInvalid_Alert_Title" = "QR-Code nicht mehr gültig";
+
+"ExposureSubmissionQRInfo_QRCodeInvalid_Alert_Text" = "Ihr Test liegt länger als 21 Tage zurück und kann nicht mehr in der App registriert werden. Bitte stellen Sie bei zukünftigen Tests sicher, dass Sie den QR-Code scannen, sobald er Ihnen vorliegt.";
+
+"ExposureSubmissionQRInfo_QRCodeInvalid_Alert_PrimaryButtonTitle" = "OK";
+
 /* Exposure Submission QR Code Scanner */
 "ExposureSubmissionQRScanner_title" = "QR-Code Scan";
 
