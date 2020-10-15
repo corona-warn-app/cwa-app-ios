@@ -23,7 +23,7 @@ extension AppInformationViewController {
 
 	static let imprintViewModel = AppInformationImprintViewModel(preferredLocalization: Bundle.main.preferredLocalizations.first ?? "de")
 
-	static let model: [Category: (AppInformationCellModel)] = [
+	static let model: [Category: AppInformationCellModel] = [
 		.about: AppInformationCellModel(
 			text: AppStrings.AppInformation.aboutNavigation,
 			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.aboutNavigation,
