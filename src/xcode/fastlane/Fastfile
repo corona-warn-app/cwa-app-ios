@@ -59,6 +59,7 @@ platform :ios do
     # Combined Unit & UI Tests
     run_tests(
       scheme: "ENATests",
+      xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=YES",
       testplan: "AllTests",
       devices: ["iPhone 11"]
     )
