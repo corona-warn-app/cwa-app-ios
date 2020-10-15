@@ -24,7 +24,10 @@ platform :ios do
 
   before_all do
     setup_circle_ci
-    xcversion(version: "12.0")
+    
+    if is_ci?
+      xcversion(version: "12.0")
+    end
   end
 
   desc "Update license file"
