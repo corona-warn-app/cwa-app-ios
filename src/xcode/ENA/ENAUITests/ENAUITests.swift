@@ -16,6 +16,7 @@
 // under the License.
 
 import XCTest
+import ExposureNotification
 
 class ENAUITests: XCTestCase {
 	var app: XCUIApplication!
@@ -50,6 +51,8 @@ class ENAUITests: XCTestCase {
 		let snapshotsActive = true
 
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launch()
 
 		//// ScreenShot_0001: Onboarding screen 1
@@ -113,7 +116,8 @@ class ENAUITests: XCTestCase {
 		let snapshotsActive = true
 
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
-
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments.append(contentsOf: ["-negativeResult", "YES"])
 		app.launch()
 

@@ -403,7 +403,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.alerts.firstMatch.waitForExistence(timeout: .short))
 
 		// can't access system popup directly
-		let label = NSLocalizedString("ExposureSubmissionError_EnNotEnabled", tableName: nil, bundle: Bundle(for: Self.self), value: "", comment: "")
+		let label = app.localized("ExposureSubmissionError_EnNotEnabled")
 		XCTAssertTrue(app.staticTexts[label].waitForExistence(timeout: .medium))
 		snapshot("error_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
