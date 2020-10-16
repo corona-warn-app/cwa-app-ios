@@ -135,56 +135,56 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 125,
+      "line": 120,
       "symbol": "AppDelegate.riskProvider",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 151,
+      "line": 146,
       "symbol": "AppDelegate.exposureManager",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 157,
+      "line": 152,
       "symbol": "AppDelegate.downloadedPackagesStore",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 159,
+      "line": 154,
       "symbol": "AppDelegate.client",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 170,
+      "line": 165,
       "symbol": "AppDelegate.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 183,
+      "line": 178,
       "symbol": "AppDelegate.application(_:didFinishLaunchingWithOptions:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 201,
+      "line": 196,
       "symbol": "AppDelegate.application(_:configurationForConnecting:options:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/AppDelegate.swift",
-      "line": 209,
+      "line": 204,
       "symbol": "AppDelegate.application(_:didDiscardSceneSessions:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1157,7 +1157,7 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/DMViewController.swift",
-      "line": 211,
+      "line": 213,
       "symbol": "DMViewController.submissionStateViewController(_:getDiagnosisKeys:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1341,6 +1341,41 @@
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Features/DMLogsViewController.swift",
       "line": 142,
       "symbol": "DMLogsViewController.exportErrorLog()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Features/DMNotificationsViewController.swift",
+      "line": 24,
+      "symbol": "DMNotificationsViewController",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Features/DMNotificationsViewController.swift",
+      "line": 28,
+      "symbol": "DMNotificationsViewController.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Features/DMNotificationsViewController.swift",
+      "line": 40,
+      "symbol": "DMNotificationsViewController.viewDidLoad()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Features/DMNotificationsViewController.swift",
+      "line": 53,
+      "symbol": "DMNotificationsViewController.tableView(_:numberOfRowsInSection:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Features/DMNotificationsViewController.swift",
+      "line": 57,
+      "symbol": "DMNotificationsViewController.tableView(_:cellForRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -1801,37 +1836,65 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Helper/DMMenuItem.swift",
-      "line": 40,
+      "line": 38,
+      "symbol": "DMMenuItem.listPendingNotifications",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Helper/DMMenuItem.swift",
+      "line": 41,
       "symbol": "DMMenuItem",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Helper/DMMenuItem.swift",
-      "line": 41,
+      "line": 42,
       "symbol": "DMMenuItem.init(indexPath:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Helper/DMMenuItem.swift",
-      "line": 45,
+      "line": 46,
       "symbol": "DMMenuItem.existingFromIndexPath(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Helper/DMMenuItem.swift",
-      "line": 52,
+      "line": 53,
       "symbol": "DMMenuItem.title",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Helper/DMMenuItem.swift",
-      "line": 70,
+      "line": 72,
       "symbol": "DMMenuItem.subtitle",
       "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Helper/DMNotificationCell.swift",
+      "line": 22,
+      "symbol": "DMNotificationCell",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Helper/DMNotificationCell.swift",
+      "line": 26,
+      "symbol": "DMNotificationCell.init(style:reuseIdentifier:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Developer Menu/Helper/DMNotificationCell.swift",
+      "line": 38,
+      "symbol": "DMNotificationCell.reuseIdentifier",
+      "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
@@ -5210,7 +5273,7 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Protocols/RequiresAppDependencies.swift",
-      "line": 191,
+      "line": 208,
       "symbol": "DownloadedPackagesStore",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
@@ -14170,7 +14233,7 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Exposure Transaction/ExposureDetectionExecutor.swift",
-      "line": 193,
+      "line": 210,
       "symbol": "DownloadedPackagesStore.addFetchedDaysAndHours(_:country:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -14506,49 +14569,49 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 363,
+      "line": 366,
       "symbol": "RiskProvider",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 380,
+      "line": 383,
       "symbol": "RiskProvider",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 381,
+      "line": 384,
       "symbol": "RiskProvider.ActivityState",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 382,
+      "line": 385,
       "symbol": "RiskProvider.ActivityState.idle",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 383,
+      "line": 386,
       "symbol": "RiskProvider.ActivityState.downloading",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 384,
+      "line": 387,
       "symbol": "RiskProvider.ActivityState.detecting",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/RiskProvider.swift",
-      "line": 386,
+      "line": 389,
       "symbol": "RiskProvider.ActivityState.isActive",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
