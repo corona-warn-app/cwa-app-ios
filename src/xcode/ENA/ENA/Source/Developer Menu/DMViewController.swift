@@ -92,6 +92,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		return cell
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let menuItem = DMMenuItem.existingFromIndexPath(indexPath)
 		let vc: UIViewController?
@@ -116,8 +117,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMStoreViewController(store: store)
 		case .lastSubmissionRequest:
 			vc = DMLastSubmissionRequestViewController(lastSubmissionRequest: UserDefaults.standard.dmLastSubmissionRequest)
-		case .lastRiskCalculation:
-			vc = DMLastRiskCalculationViewController(lastRisk: (UIApplication.shared.delegate as? AppDelegate)?.lastRiskCalculation)
 		case .settings:
 			vc = DMSettingsViewController(store: store)
 		case .errorLog:

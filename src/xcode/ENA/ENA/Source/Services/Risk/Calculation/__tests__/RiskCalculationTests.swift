@@ -21,6 +21,7 @@
 import ExposureNotification
 import XCTest
 
+// swiftlint:disable:next type_body_length
 final class RiskCalculationTests: XCTestCase {
 
 	private let store = MockTestStore()

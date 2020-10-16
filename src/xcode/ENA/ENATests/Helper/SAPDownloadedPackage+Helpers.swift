@@ -22,7 +22,7 @@ import Foundation
 import CryptoKit
 import ZIPFoundation
 
-// MARK: -  Static helpers for package creation
+// MARK: - Static helpers for package creation
 
 extension SAPDownloadedPackage {
 

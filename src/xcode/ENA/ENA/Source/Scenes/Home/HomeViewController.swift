@@ -127,10 +127,11 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		guard store.userNeedsToBeInformedAboutHowRiskDetectionWorks else {
 			return
 		}
-		// TODO: Check whether or not we have to display some kind of different alert (eg. the forced update alert).
+
 		let alert = UIAlertController.localizedHowRiskDetectionWorksAlertController(
 			maximumNumberOfDays: TracingStatusHistory.maxStoredDays
 		)
+
 		present(alert, animated: true) {
 			self.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = false
 		}
@@ -199,7 +200,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	// MARK: Misc
-	@objc func refreshUIAfterResumingFromBackground() {
+	@objc
+	func refreshUIAfterResumingFromBackground() {
 		homeInteractor.refreshTimerAfterResumingFromBackground()
 	}
 
