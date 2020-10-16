@@ -41,6 +41,7 @@ final class DMNotificationsViewController: UITableViewController {
 		super.viewDidLoad()
 		
 		tableView.register(DMNotificationCell.self, forCellReuseIdentifier: DMNotificationCell.reuseIdentifier)
+		tableView.allowsSelection = false
 		
 		UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
 			self.localNotificationRequests = requests
@@ -71,8 +72,6 @@ final class DMNotificationsViewController: UITableViewController {
 		cell.detailTextLabel?.text = df.string(from: triggerDate)
 		return cell
 	}
-
-	override func tableView(_: UITableView, didSelectRowAt _: IndexPath) {}
 	
 	// MARK: - Private
 
