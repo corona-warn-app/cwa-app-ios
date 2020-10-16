@@ -111,14 +111,9 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	private struct Summaries {
-		var previous: SummaryMetadata?
-		var current: SummaryMetadata?
-	}
-
-	private func determineSummaries(
+	private func determineSummary(
 		userInitiated: Bool,
-		completion: @escaping (Summaries) -> Void
+		completion: @escaping (SummaryMetadata?) -> Void
 	) {
 		// Here we are in automatic mode and thus we have to check the validity of the current summary
 		let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
@@ -126,12 +121,7 @@ extension RiskProvider: RiskProviding {
 			lastExposureDetectionDate: store.summary?.date
 		)
 		if !enoughTimeHasPassed || !self.exposureManagerState.isGood {
-			completion(
-				.init(
-					previous: nil,
-					current: store.summary
-				)
-			)
+			completion(store.summary)
 			return
 		}
 
@@ -139,29 +129,21 @@ extension RiskProvider: RiskProviding {
 		let shouldDetectExposures = (configuration.detectionMode == .manual && userInitiated) || configuration.detectionMode == .automatic
 
 		if shouldDetectExposures == false {
-			completion(
-				.init(
-					previous: nil,
-					current: store.summary
-				)
-			)
+			completion(store.summary)
 			return
 		}
 
 		// The summary is outdated + we are in automatic mode: do a exposure detection
-		let previousSummary = store.summary
 
-		self.cancellationToken = exposureSummaryProvider.detectExposure(activityStateDelegate: self) { detectedSummary in
+		self.cancellationToken = exposureSummaryProvider.detectExposure(activityStateDelegate: self) { [weak self] detectedSummary in
+			guard let self = self else { return }
+
 			if let detectedSummary = detectedSummary {
-				self.store.summary = .init(detectionSummary: detectedSummary, date: Date())
+				self.store.summary = SummaryMetadata(detectionSummary: detectedSummary, date: Date())
 			}
 			self.cancellationToken = nil
-			completion(
-				.init(
-					previous: previousSummary,
-					current: self.store.summary
-				)
-			)
+
+			completion(self.store.summary)
 		}
 	}
 
@@ -209,7 +191,7 @@ extension RiskProvider: RiskProviding {
 		#endif
 
 		provideActivityState(.idle)
-		var summaries: Summaries?
+		var summary: SummaryMetadata?
 		let tracingHistory = store.tracingStatusHistory
 		let numberOfEnabledHours = tracingHistory.activeTracing().inHours
 		let details = Risk.Details(
@@ -249,8 +231,8 @@ extension RiskProvider: RiskProviding {
 		let group = DispatchGroup()
 
 		group.enter()
-		determineSummaries(userInitiated: userInitiated) {
-			summaries = $0
+		determineSummary(userInitiated: userInitiated) {
+			summary = $0
 			group.leave()
 		}
 
@@ -276,13 +258,13 @@ extension RiskProvider: RiskProviding {
 
 		cancellationToken = nil
 		_requestRiskLevel(
-			summaries: summaries,
+			summary: summary,
 			appConfiguration: appConfiguration,
 			completion: completion
 		)
 	}
 
-	private func _requestRiskLevel(summaries: Summaries?, appConfiguration: SAP_ApplicationConfiguration?, completion: Completion? = nil) {
+	private func _requestRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_ApplicationConfiguration?, completion: Completion? = nil) {
 		guard let _appConfiguration = appConfiguration else {
 			completeOnTargetQueue(risk: nil, completion: completion)
 			showAppConfigError()
@@ -293,9 +275,9 @@ extension RiskProvider: RiskProviding {
 
 		guard
 			let risk = RiskCalculation.risk(
-				summary: summaries?.current?.summary,
+				summary: summary?.summary,
 				configuration: _appConfiguration,
-				dateLastExposureDetection: summaries?.current?.date,
+				dateLastExposureDetection: summary?.date,
 				activeTracing: activeTracing,
 				preconditions: exposureManagerState,
 				currentDate: Date(),
