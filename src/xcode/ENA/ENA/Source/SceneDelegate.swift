@@ -36,7 +36,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		}
 	}
 
-	private lazy var appUpdateChecker = AppUpdateCheckHelper(client: self.client, store: self.store)
+	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
 
 	private var enStateHandler: ENStateHandler?
 
@@ -50,8 +50,16 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		self.window = window
 
 		#if UITESTING
-		if let isOnboarded = UserDefaults.standard.value(forKey: "isOnboarded") as? String {
+		if let isOnboarded = UserDefaults.standard.string(forKey: "isOnboarded") {
 			store.isOnboarded = (isOnboarded != "NO")
+		}
+
+		if let onboardingVersion = UserDefaults.standard.string(forKey: "onboardingVersion") {
+			store.onboardingVersion = onboardingVersion
+		}
+
+		if let setCurrentOnboardingVersion = UserDefaults.standard.string(forKey: "setCurrentOnboardingVersion"), setCurrentOnboardingVersion == "YES" {
+			store.onboardingVersion = Bundle.main.appVersion
 		}
 		#endif
 
@@ -103,10 +111,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	private func setupUI() {
 		setupNavigationBarAppearance()
 
-		if !store.isOnboarded {
-			showOnboarding()
-		} else {
+		if store.isOnboarded {
 			showHome()
+		} else {
+			showOnboarding()
 		}
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 		window?.rootViewController = navigationController
@@ -224,8 +232,12 @@ extension SceneDelegate: ENAExposureManagerObserver {
 extension SceneDelegate: CoordinatorDelegate {
 	/// Resets all stores and notifies the Onboarding.
 	func coordinatorUserDidRequestReset() {
-		let newKey = KeychainHelper.generateDatabaseKey()
-		store.clearAll(key: newKey)
+		do {
+			let newKey = try KeychainHelper().generateDatabaseKey()
+			store.clearAll(key: newKey)
+		} catch {
+			fatalError("Creating new database key failed")
+		}
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.open()
 		exposureManager.reset {

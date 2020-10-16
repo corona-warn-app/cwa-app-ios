@@ -43,7 +43,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 	private func createCoordinator(
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
-		delegate: ExposureSubmissionCoordinatorDelegate) -> ExposureSubmissionCoordinating {
+		delegate: ExposureSubmissionCoordinatorDelegate) -> ExposureSubmissionCoordinator {
 
 		return ExposureSubmissionCoordinator(
 			parentNavigationController: parentNavigationController,
@@ -237,7 +237,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		XCTAssertNotNil(vc.exposureSubmissionService)
 	}
 
-	func showWarnOthersScreen() {
+	func testShowWarnOthersScreen() {
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
@@ -253,16 +253,10 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 		XCTAssertNotNil(navigationController)
 		XCTAssertNotNil(navigationController?.topViewController)
-		guard let vc = navigationController?.topViewController as? ExposureSubmissionWarnOthersViewController else {
-			XCTFail("Could not load presented view controller.")
-			return
-		}
-
-		XCTAssertNotNil(vc.coordinator)
-		XCTAssertNotNil(vc.exposureSubmissionService)
+		XCTAssertNotNil(navigationController?.topViewController as? ExposureSubmissionWarnOthersViewController)
 	}
 
-	func showThankYouScreen() {
+	func testShowThankYouScreen() {
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,

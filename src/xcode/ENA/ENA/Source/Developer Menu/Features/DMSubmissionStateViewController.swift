@@ -208,7 +208,7 @@ private extension Client {
 		var daysAndHours: DaysAndHours = .none
 
 		group.enter()
-		availableDays { result in
+		availableDays(forCountry: "DE") { result in
 			if case let .success(days) = result {
 				daysAndHours.days = days
 			}
@@ -216,7 +216,7 @@ private extension Client {
 		}
 
 		group.enter()
-		availableHours(day: .formattedToday()) { result in
+		availableHours(day: .formattedToday(), country: "DE") { result in
 			if case let .success(hours) = result {
 				daysAndHours.hours = hours
 			}
@@ -232,10 +232,12 @@ private extension Client {
 		completion completeWith: @escaping DaysAndHoursCompletionHandler
 	) {
 		availableDaysAndHours { daysAndHours in
+
 			self.fetchDays(
 				daysAndHours.days,
 				hours: daysAndHours.hours,
 				of: .formattedToday(),
+				country: "DE",
 				completion: completeWith
 			)
 		}

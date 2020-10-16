@@ -23,78 +23,117 @@ import XCTest
 
 class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 
-	var service: MockExposureSubmissionService!
-
 	override func setUp() {
 		super.setUp()
-		service = MockExposureSubmissionService()
 	}
 
 	private func createVC() -> ExposureSubmissionWarnOthersViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnOthersViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionWarnOthersViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator(), exposureSubmissionService: self.service)
+			ExposureSubmissionWarnOthersViewController(
+				coder: coder,
+				supportedCountries: ["DE", "IT", "ES", "NL", "CZ", "AT", "DK", "IE", "LV", "EE"].compactMap { Country(countryCode: $0) },
+				onPrimaryButtonTap: { _ in }
+			)
 		}
 	}
 
-	func testSuccessfulSubmit() {
+	func testCellsInSection0() {
 		let vc = createVC()
 		_ = vc.view
 
-		let expectSubmitExposure = self.expectation(description: "Call submitExposure")
-		service.submitExposureCallback = {  completion in
+		let section = vc.dynamicTableViewModel.section(0)
+		let cells = section.cells
+		XCTAssertEqual(cells.count, 5)
 
-			expectSubmitExposure.fulfill()
-			completion(nil)
-		}
+		let firstItem = cells[0]
+		var id = firstItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "labelCell")
 
-		// Trigger submission process.
-		vc.startSubmitProcess()
-		waitForExpectations(timeout: .short)
+		let secondItem = cells[1]
+		id = secondItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "labelCell")
+
+		let thirdItem = cells[2]
+		id = thirdItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "spaceCell")
+
+		let fourthItem = cells[3]
+		id = fourthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "labelCell")
+
+  		let fifthItem = cells[4]
+  		id = fifthItem.cellReuseIdentifier
+  		XCTAssertEqual(id.rawValue, "spaceCell")
 	}
 
-	func testShowENErrorAlertInternal() {
+	func testCellsInSection1() {
 		let vc = createVC()
 		_ = vc.view
 
-		let alert = vc.createENAlert(.internal)
-		XCTAssert(alert.actions.count == 2)
-		XCTAssert(alert.actions[1].title == AppStrings.Common.errorAlertActionMoreInfo)
-		XCTAssert(alert.message == AppStrings.Common.enError11Description)
+		let section = vc.dynamicTableViewModel.section(1)
+		let cells = section.cells
+		XCTAssertEqual(cells.count, 10)
+
+		let firstItem = cells[0]
+		var id = firstItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "iconCell")
+
+		let secondItem = cells[1]
+		id = secondItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "iconCell")
+
+		let thirdItem = cells[2]
+		id = thirdItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "iconCell")
+
+		let fourthItem = cells[3]
+		id = fourthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "iconCell")
+
+		let fifthItem = cells[4]
+		id = fifthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "iconCell")
+
+		let sixthItem = cells[5]
+		id = sixthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "iconCell")
+
+		let seventhItem = cells[6]
+		id = seventhItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "iconCell")
+
+		let eighthItem = cells[7]
+		id = eighthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "iconCell")
+
+		let ninthItem = cells[8]
+		id = ninthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "iconCell")
+
+		let tenthItem = cells[9]
+		id = tenthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "iconCell")
 	}
 
-	func testShowENErrorAlertUnsupported() {
+	func testCellsInSection2() {
 		let vc = createVC()
 		_ = vc.view
 
-		let alert = vc.createENAlert(.unsupported)
-		XCTAssert(alert.actions.count == 2)
-		XCTAssert(alert.actions[1].title == AppStrings.Common.errorAlertActionMoreInfo)
-		XCTAssert(alert.message == AppStrings.Common.enError5Description)
-	}
+		let section = vc.dynamicTableViewModel.section(2)
+		let cells = section.cells
+		XCTAssertEqual(cells.count, 3)
 
-	func testShowENErrorAlertRateLimited() {
-		let vc = createVC()
-		_ = vc.view
+		let firstItem = cells[0]
+		var id = firstItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "spaceCell")
 
-		let alert = vc.createENAlert(.rateLimited)
-		XCTAssert(alert.actions.count == 2)
-		XCTAssert(alert.actions[1].title == AppStrings.Common.errorAlertActionMoreInfo)
-		XCTAssert(alert.message == AppStrings.Common.enError13Description)
-	}
+		let secondItem = cells[1]
+		id = secondItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "roundedCell")
 
-	func testGetURLInternal() {
-		let url = ExposureSubmissionError.internal.faqURL
-		XCTAssert(url?.absoluteString == AppStrings.Links.appFaqENError11)
-	}
-
-	func testGetURLUnsupported() {
-		let url = ExposureSubmissionError.unsupported.faqURL
-		XCTAssert(url?.absoluteString == AppStrings.Links.appFaqENError5)
-	}
-
-	func testGetURLRateLimited() {
-		let url = ExposureSubmissionError.rateLimited.faqURL
-		XCTAssert(url?.absoluteString == AppStrings.Links.appFaqENError13)
+		let thirdItem = cells[2]
+		id = thirdItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "roundedCell")
 	}
 
 }

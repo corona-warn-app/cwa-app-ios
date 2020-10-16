@@ -19,7 +19,6 @@ import AVFoundation
 import Foundation
 import UIKit
 
-
 class ExposureSubmissionOverviewViewController: DynamicTableViewController, SpinnerInjectable {
 
 	// MARK: - Attributes.
@@ -27,12 +26,14 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 	var spinner: UIActivityIndicatorView?
 	private(set) weak var coordinator: ExposureSubmissionCoordinating?
 	private(set) weak var service: ExposureSubmissionService?
+	private let viewModel: ExposureSubmissionOverviewViewModel
 
 	// MARK: - Initializers.
 
 	required init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, exposureSubmissionService: ExposureSubmissionService) {
 		self.service = exposureSubmissionService
 		self.coordinator = coordinator
+		self.viewModel = ExposureSubmissionOverviewViewModel()
 		super.init(coder: coder)
 	}
 
@@ -63,21 +64,6 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 
 	// MARK: - Helpers.
 
-	private func fetchResult() {
-		startSpinner()
-		service?.getTestResult { result in
-			self.stopSpinner()
-			switch result {
-			case let .failure(error):
-				logError(message: "An error occurred during result fetching: \(error)", level: .error)
-				let alert = self.setupErrorAlert(message: error.localizedDescription)
-				self.present(alert, animated: true, completion: nil)
-			case let .success(testResult):
-				self.coordinator?.showTestResultScreen(with: testResult)
-			}
-		}
-	}
-
 	/// Shows the data privacy disclaimer and only lets the
 	/// user scan a QR code after accepting.
 	func showDisclaimer() {
@@ -86,11 +72,14 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			message: AppStrings.ExposureSubmission.dataPrivacyDisclaimer,
 			preferredStyle: .alert
 		)
-		let acceptAction = UIAlertAction(title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle,
-										 style: .default, handler: { _ in
-											self.service?.acceptPairing()
-											self.coordinator?.showQRScreen(qrScannerDelegate: self)
-		})
+		let acceptAction = UIAlertAction(
+			title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle,
+			style: .default,
+			handler: { _ in
+				self.service?.acceptPairing()
+				self.coordinator?.showQRScreen(qrScannerDelegate: self)
+			}
+		)
 		alert.addAction(acceptAction)
 
 		alert.addAction(.init(title: AppStrings.ExposureSubmission.dataPrivacyDontAcceptTitle,
@@ -126,7 +115,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 	}
 
 	func qrScanner(_ vc: QRScannerViewController, didScan code: String) {
-		guard let guid = sanitizeAndExtractGuid(code) else {
+		guard let guid = viewModel.sanitizeAndExtractGuid(code) else {
 			vc.delegate = nil
 
 			let alert = self.setupErrorAlert(
@@ -145,16 +134,25 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 
 		// Found QR Code, deactivate scanning.
 		dismissQRCodeScannerView(vc, completion: {
-			self.startSpinner()
-			self.getRegistrationToken(forKey: .guid(guid))
+			self.getTestResults(forKey: .guid(guid))
 		})
 	}
 
-	private func getRegistrationToken(forKey: DeviceRegistrationKey) {
-		service?.getRegistrationToken(forKey: forKey, completion: { result in
+	private func getTestResults(forKey key: DeviceRegistrationKey) {
+		self.startSpinner()
+		service?.getTestResult(forKey: key, useStoredRegistration: false, completion: { result in
 			self.stopSpinner()
 			switch result {
 			case let .failure(error):
+				
+				if case .qRNotExist = error {
+					let alert = self.setupErrorAlert(
+						title: AppStrings.ExposureSubmissionError.qrNotExistTitle,
+						message: error.localizedDescription
+					)
+					self.present(alert, animated: true, completion: nil)
+					return
+				}
 
 				// Note: In the case the QR Code was already used, retrying will result
 				// in an endless loop.
@@ -166,45 +164,21 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 					self.present(alert, animated: true, completion: nil)
 					return
 				}
-
-				logError(message: "Error while getting registration token: \(error)", level: .error)
+				
+				logError(message: "An error occurred during result fetching: \(error)", level: .error)
 
 				let alert = self.setupErrorAlert(
 					message: error.localizedDescription,
 					secondaryActionTitle: AppStrings.Common.alertActionRetry,
 					secondaryActionCompletion: {
-						self.startSpinner()
-						self.getRegistrationToken(forKey: forKey)
+						self.getTestResults(forKey: key)
 					}
 				)
 				self.present(alert, animated: true, completion: nil)
-
-			case let .success(token):
-				log(
-					message: "Received registration token: \(token)",
-					file: #file,
-					line: #line,
-					function: #function
-				)
-				self.fetchResult()
+			case let .success(testResult):
+				self.coordinator?.showTestResultScreen(with: testResult)
 			}
-        })
-	}
-
-	/// Sanitize the input string and assert that:
-	/// - length is smaller than 128 characters
-	/// - starts with https://
-	/// - contains only alphanumeric characters
-	/// - is not empty
-	func sanitizeAndExtractGuid(_ input: String) -> String? {
-		guard input.count <= 150 else { return nil }
-		guard let regex = try? NSRegularExpression(pattern: "^.*\\?(?<GUID>[A-Z,a-z,0-9,-]*)") else { return nil }
-		guard let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count)) else { return nil }
-		let nsRange = match.range(withName: "GUID")
-		guard let range = Range(nsRange, in: input) else { return nil }
-		let candidate = String(input[range])
-		guard !candidate.isEmpty, candidate.count <= 80 else { return nil }
-		return candidate
+		})
 	}
 
 	private func dismissQRCodeScannerView(_ vc: QRScannerViewController, completion: (() -> Void)?) {
@@ -244,7 +218,7 @@ private extension ExposureSubmissionOverviewViewController {
 		data.add(
 			.section(
 				header: header,
-				separators: false,
+				separators: .none,
 				cells: [
 					.body(
 						text: AppStrings.ExposureSubmissionDispatch.description,
@@ -294,5 +268,32 @@ private extension ExposureSubmissionOverviewViewController {
 extension ExposureSubmissionOverviewViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case imageCard = "imageCardCell"
+	}
+}
+
+// MARK: - ExposureSubmissionOverviewViewModel.
+
+struct ExposureSubmissionOverviewViewModel {
+
+	/// Sanitizes the input string and extracts a guid.
+	/// - the input needs to start with https://localhost/?
+	/// - the input must not ne longer than 150 chars and cannot be empty
+	/// - the guid contains only the following characters: a-f, A-F, 0-9,-
+	/// - the guid is a well formatted string (6-8-4-4-4-12) with length 43
+	///   (6 chars encode a random number, 32 chars for the uuid, 5 chars are separators)
+	func sanitizeAndExtractGuid(_ input: String) -> String? {
+		guard
+			!input.isEmpty,
+			input.count <= 150,
+			let regex = try? NSRegularExpression(
+				pattern: "^https:\\/\\/localhost\\/\\?(?<GUID>[0-9A-Fa-f]{6}-[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})$"
+			),
+			let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count))
+		else { return nil }
+
+		guard let range = Range(match.range(withName: "GUID"), in: input) else { return nil }
+		let candidate = String(input[range])
+		guard !candidate.isEmpty, candidate.count == 43 else { return nil }
+		return candidate
 	}
 }

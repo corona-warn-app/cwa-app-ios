@@ -23,7 +23,7 @@ protocol Client {
 	// MARK: Types
 
 	typealias Failure = URLSession.Response.Failure
-	typealias SubmitKeysCompletionHandler = (SubmissionError?) -> Void
+	typealias KeySubmissionResponse = (Result<Void, Error>) -> Void
 	typealias AvailableDaysCompletionHandler = (Result<[String], Failure>) -> Void
 	typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
 	typealias RegistrationHandler = (Result<String, Failure>) -> Void
@@ -31,21 +31,50 @@ protocol Client {
 	typealias TANHandler = (Result<String, Failure>) -> Void
 	typealias DayCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
 	typealias HourCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
+	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
+
+	@available(*, deprecated, message: "will be removed once the app config cache is in place")
 	typealias AppConfigurationCompletion = (SAP_ApplicationConfiguration?) -> Void
 
 	// MARK: Interacting with a Client
 
-	/// Gets the app configuration
-	func appConfiguration(completion: @escaping AppConfigurationCompletion)
-
 	/// Determines days that can be downloaded.
-	func availableDays(completion: @escaping AvailableDaysCompletionHandler)
+	///
+	/// - Parameters:
+	///   - country: Country code
+	///   - completion: completion callback which includes the list of available days
+	func availableDays(
+		forCountry country: String,
+		completion: @escaping AvailableDaysCompletionHandler
+	)
 
 	/// Determines hours that can be downloaded for a given day.
 	func availableHours(
 		day: String,
+		country: String,
 		completion: @escaping AvailableHoursCompletionHandler
 	)
+
+	/// Fetches the keys for a given day and country code
+	/// - Parameters:
+	///   - day: The day that the keys belong to
+	///   - country: It should be country code, like DE stands for Germany
+	///   - completion: Once the request is done, the completion is called.
+	func fetchDay(
+		_ day: String,
+		forCountry country: String,
+		completion: @escaping DayCompletionHandler
+	)
+
+	/// Fetches the keys for a given `hour` of a specific `day`.
+	func fetchHour(
+		_ hour: Int,
+		day: String,
+		country: String,
+		completion: @escaping HourCompletionHandler
+	)
+
+	// MARK: Getting the Configuration
 
 	/// Gets the registration token
 	func getRegistrationToken(
@@ -69,39 +98,17 @@ protocol Client {
 		completion completeWith: @escaping TANHandler
 	)
 
-	/// Fetches the keys for a given `day`.
-	func fetchDay(
-		_ day: String,
-		completion: @escaping DayCompletionHandler
-	)
-
-	/// Fetches the keys for a given `hour` of a specific `day`.
-	func fetchHour(
-		_ hour: Int,
-		day: String,
-		completion: @escaping HourCompletionHandler
-	)
-
-	// MARK: Getting the Configuration
-
-	typealias ExposureConfigurationCompletionHandler = (ENExposureConfiguration?) -> Void
-
-	/// Gets the remove exposure configuration. See `ENExposureConfiguration` for more details
-	/// Parameters:
-	/// - completion: Will be called with the remove configuration or an error if something went wrong. The completion handler will always be called on the main thread.
-	func exposureConfiguration(
-		completion: @escaping ExposureConfigurationCompletionHandler
-	)
+	// MARK: Submit keys
 
 	/// Submits exposure keys to the backend. This makes the local information available to the world so that the risk of others can be calculated on their local devices.
-	/// Parameters:
-	/// - keys: An array of `ENTemporaryExposureKey`s  to submit to the backend.
-	/// - tan: A transaction number
+	/// - Parameters:
+	///   - payload: A set of properties to provide during the submission process
+	///   - isFake: flag to indicate a fake request
+	///   - completion: the completion handler of the submission call
 	func submit(
-		keys: [ENTemporaryExposureKey],
-		tan: String,
+		payload: CountrySubmissionPayload,
 		isFake: Bool,
-		completion: @escaping SubmitKeysCompletionHandler
+		completion: @escaping KeySubmissionResponse
 	)
 }
 
@@ -133,6 +140,19 @@ extension SubmissionError: LocalizedError {
 	}
 }
 
+/// Combined model for a submit keys request
+struct CountrySubmissionPayload {
+
+	/// The exposure keys to submit
+	let exposureKeys: [SAP_TemporaryExposureKey]
+
+	/// the list of countries to check for any exposures
+	let visitedCountries: [Country]
+
+	/// a transaction number
+	let tan: String
+}
+
 struct DaysResult {
 	let errors: [Client.Failure]
 	let bucketsByDay: [String: SAPDownloadedPackage]
@@ -155,18 +175,20 @@ struct FetchedDaysAndHours {
 extension Client {
 	typealias FetchHoursCompletionHandler = (HoursResult) -> Void
 
+	/// Fetch the keys with the given days and country code
 	func fetchDays(
-		_ days: [String],
-		completion completeWith: @escaping (DaysResult) -> Void
+			_ days: [String],
+			forCountry country: String,
+			completion completeWith: @escaping (DaysResult) -> Void
 	) {
 		var errors = [Client.Failure]()
 		var buckets = [String: SAPDownloadedPackage]()
 
 		let group = DispatchGroup()
-
 		for day in days {
 			group.enter()
-			fetchDay(day) { result in
+
+			fetchDay(day, forCountry: country) { result in
 				switch result {
 				case let .success(bucket):
 					buckets[day] = bucket
@@ -187,9 +209,37 @@ extension Client {
 		}
 	}
 
+	func fetchDays(
+		_ days: [String],
+		hours: [Int],
+		of day: String,
+		country: String,
+		completion completeWith: @escaping DaysAndHoursCompletionHandler
+	) {
+		let group = DispatchGroup()
+		var hoursResult = HoursResult(errors: [], bucketsByHour: [:], day: day)
+		var daysResult = DaysResult(errors: [], bucketsByDay: [:])
+
+		group.enter()
+		fetchDays(days, forCountry: country) { result in
+			daysResult = result
+			group.leave()
+		}
+
+		group.enter()
+		fetchHours(hours, day: day, country: country) { result in
+			hoursResult = result
+			group.leave()
+		}
+		group.notify(queue: .main) {
+			completeWith(FetchedDaysAndHours(hours: hoursResult, days: daysResult))
+		}
+	}
+
 	func fetchHours(
 		_ hours: [Int],
 		day: String,
+		country: String,
 		completion completeWith: @escaping FetchHoursCompletionHandler
 	) {
 		var errors = [Client.Failure]()
@@ -198,7 +248,7 @@ extension Client {
 
 		hours.forEach { hour in
 			group.enter()
-			self.fetchHour(hour, day: day) { result in
+			self.fetchHour(hour, day: day, country: country) { result in
 				switch result {
 				case let .success(hourBucket):
 					buckets[hour] = hourBucket
@@ -217,30 +267,4 @@ extension Client {
 	}
 
 	typealias DaysAndHoursCompletionHandler = (FetchedDaysAndHours) -> Void
-
-	func fetchDays(
-		_ days: [String],
-		hours: [Int],
-		of day: String,
-		completion completeWith: @escaping DaysAndHoursCompletionHandler
-	) {
-		let group = DispatchGroup()
-		var hoursResult = HoursResult(errors: [], bucketsByHour: [:], day: day)
-		var daysResult = DaysResult(errors: [], bucketsByDay: [:])
-
-		group.enter()
-		fetchDays(days) { result in
-			daysResult = result
-			group.leave()
-		}
-
-		group.enter()
-		fetchHours(hours, day: day) { result in
-			hoursResult = result
-			group.leave()
-		}
-		group.notify(queue: .main) {
-			completeWith(FetchedDaysAndHours(hours: hoursResult, days: daysResult))
-		}
-	}
 }

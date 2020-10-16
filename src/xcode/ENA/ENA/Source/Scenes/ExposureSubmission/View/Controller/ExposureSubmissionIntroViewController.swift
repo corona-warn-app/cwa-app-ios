@@ -49,7 +49,8 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.continueText
+		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
+		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
 	}
 
 	// MARK: - Setup helpers.
@@ -89,16 +90,16 @@ private extension DynamicTableViewModel {
 				accessibilityIdentifier: AccessibilityIdentifiers.General.image,
 				height: 200
 			),
-			separators: false,
+			separators: .none,
 			cells: [
 				.headline(text: AppStrings.ExposureSubmissionIntroduction.usage01,
 						  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionIntroduction.usage01),
 				.body(text: AppStrings.ExposureSubmissionIntroduction.usage02,
 					  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionIntroduction.usage02),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem1),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem2),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem3),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem4)
+				.bulletPoint(text: AppStrings.ExposureSubmissionIntroduction.listItem1, spacing: .large),
+				.bulletPoint(text: AppStrings.ExposureSubmissionIntroduction.listItem2, spacing: .large),
+				.bulletPoint(text: AppStrings.ExposureSubmissionIntroduction.listItem3, spacing: .large),
+				.bulletPoint(text: AppStrings.ExposureSubmissionIntroduction.listItem4, spacing: .large)
 			]
 		)
 	])

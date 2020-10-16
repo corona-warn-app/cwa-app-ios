@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import BackgroundTasks
+import Combine
 import ExposureNotification
 import FMDB
 import UIKit
@@ -24,28 +24,50 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var client: HTTPClient { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
+	var appConfigurationProvider: AppConfigurationProviding { get }
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
+	var serverEnvironment: ServerEnvironment { get }
 }
 
 extension AppDelegate: CoronaWarnAppDelegate {
-	// required - otherwise app will crash because cast will fails
+	// required - otherwise app will crash because cast will fail.
 }
 
 extension AppDelegate: ExposureSummaryProvider {
-	func detectExposure(completion: @escaping (ENExposureDetectionSummary?) -> Void) {
-		exposureDetection = ExposureDetection(delegate: exposureDetectionExecutor)
-		exposureDetection?.start { result in
+	func detectExposure(
+		activityStateDelegate: ActivityStateProviderDelegate? = nil,
+		completion: @escaping (ENExposureDetectionSummary?) -> Void
+	) -> CancellationToken {
+
+		exposureDetection = ExposureDetection(
+			delegate: exposureDetectionExecutor,
+			appConfigurationProvider: appConfigurationProvider
+		)
+		
+		exposureDetection?
+			.$activityState
+			.removeDuplicates()
+			.subscribe(on: RunLoop.main)
+			.sink { activityStateDelegate?.provideActivityState($0) }
+			.store(in: &subscriptions)
+
+		let token = CancellationToken { [weak self] in
+			self?.exposureDetection?.cancel()
+		}
+		exposureDetection?.start { [weak self] result in
 			switch result {
 			case .success(let summary):
 				completion(summary)
 			case .failure(let error):
-				self.showError(exposure: error)
+				self?.showError(exposure: error)
 				completion(nil)
 			}
+			self?.exposureDetection = nil
 		}
+		return token
 	}
 
 	private func showError(exposure didEndPrematurely: ExposureDetection.DidEndPrematurelyReason) {
@@ -77,11 +99,23 @@ extension AppDelegate: ExposureSummaryProvider {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-	//TODO: Handle it
-	var store: Store = SecureStore(subDirectory: "database")
+	let store: Store
+	let serverEnvironment: ServerEnvironment
 	
 	private let consumer = RiskConsumer()
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
+
+	lazy var appConfigurationProvider: AppConfigurationProviding = {
+		// use a custom http client that uses/recognized caching mechanisms
+		let appFetchingClient = CachingHTTPClient(clientConfiguration: client.configuration)
+
+		// we currently use the store as common place for temporal persistency
+		guard let store = store as? AppConfigCaching else {
+			preconditionFailure("Ensure to provide a proper app config cache")
+		}
+		
+		return CachedAppConfiguration(client: appFetchingClient, store: store)
+	}()
 
 	lazy var riskProvider: RiskProvider = {
 		let exposureDetectionInterval = self.store.hourlyFetchingEnabled ? DateComponents(minute: 45) : DateComponents(hour: 24)
@@ -92,12 +126,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			detectionMode: .default
 		)
 
-
 		return RiskProvider(
 			configuration: config,
 			store: self.store,
 			exposureSummaryProvider: self,
-			appConfigurationProvider: CachedAppConfiguration(client: self.client),
+			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: self.exposureManager.preconditions()
 		)
 	}()
@@ -114,11 +147,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	#endif
 
 	private var exposureDetection: ExposureDetection?
-	private(set) var exposureSubmissionService: ENAExposureSubmissionService?
+	private var subscriptions = Set<AnyCancellable>()
 
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
-	var client = HTTPClient(configuration: .backendBaseURLs)
+	let client: HTTPClient
 
 	// TODO: REMOVE ME
 	var lastRiskCalculation: String = ""
@@ -131,6 +164,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			exposureDetector: self.exposureManager
 		)
 	}()
+
+	override init() {
+		self.serverEnvironment = ServerEnvironment()
+
+		self.store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
+
+		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
+		self.client = HTTPClient(configuration: configuration)
+
+		#if !RELEASE
+		downloadedPackagesStore.keyValueStore = self.store
+		#endif
+	}
 
 	func application(
 		_: UIApplication,
@@ -157,4 +203,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_: UIApplication, didDiscardSceneSessions _: Set<UISceneSession>) {}
 }
-

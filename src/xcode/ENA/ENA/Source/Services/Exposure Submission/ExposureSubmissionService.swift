@@ -124,7 +124,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// This method does two API calls in one step - firstly, it gets the submission TAN, and then it submits the keys.
 	/// For details, check the methods `_submit()` and `_getTANForExposureSubmit()` specifically.
 	private func _submitExposure(
-		_ keys: [ENTemporaryExposureKey],
+		_ keys: [SAP_TemporaryExposureKey],
+		visitedCountries: [Country],
 		completionHandler: @escaping ExposureSubmissionHandler
 	) {
 		self._getTANForExposureSubmit(hasConsent: true, completion: { result in
@@ -132,7 +133,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			case let .failure(error):
 				completionHandler(error)
 			case let .success(tan):
-				self._submit(keys, with: tan, completion: completionHandler)
+				self._submit(keys, with: tan, visitedCountries: visitedCountries, completion: completionHandler)
 			}
 		})
 	}
@@ -141,19 +142,27 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// part of the submission flow in which the keys are submitted.
 	/// For more information, please check _submitExposure().
 	private func _submit(
-		_ keys: [ENTemporaryExposureKey],
+		_ keys: [SAP_TemporaryExposureKey],
 		with tan: String,
+		visitedCountries: [Country],
 		completion: @escaping ExposureSubmissionHandler
 	) {
-		self.client.submit(keys: keys, tan: tan, isFake: false) { error in
-			if let error = error {
+		let payload = CountrySubmissionPayload(
+			exposureKeys: keys,
+			visitedCountries: visitedCountries,
+			tan: tan
+		)
+
+		client.submit(payload: payload, isFake: false) { result in
+			switch result {
+			case .success:
+				self.submitExposureCleanup()
+				log(message: "Successfully completed exposure sumbission.")
+				completion(nil)
+			case .failure(let error):
 				logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
 				completion(self.parseError(error))
-				return
 			}
-			self.submitExposureCleanup()
-			log(message: "Successfully completed exposure sumbission.")
-			completion(nil)
 		}
 	}
 
@@ -199,6 +208,30 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
+	func getTestResult(forKey deviceRegistrationKey: DeviceRegistrationKey, useStoredRegistration: Bool = true, completion: @escaping TestResultHandler) {
+		if useStoredRegistration {
+			getTestResult(completion)
+		} else {
+			let (key, type) = getKeyAndType(for: deviceRegistrationKey)
+			_getRegistrationToken(key, type) { result in
+				switch result {
+				case .failure(let error):
+					completion(.failure(error))
+
+					// Fake requests.
+					self._fakeVerificationAndSubmissionServerRequest()
+				case .success(let token):
+					self._getTestResult(token) { testResult in
+						completion(testResult)
+					}
+
+					// Fake request.
+					self._fakeSubmissionServerRequest { _ in /* no op */ }
+				}
+			}
+		}
+	}
+
 	/// Stores the provided key, retrieves the registration token and deletes the key.
 	/// __Extension for plausible deniability__:
 	/// We append two fake requests to this request in order to fulfill the V+V+S sequence. Please kindly check `getTestResult` for more information.
@@ -220,7 +253,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// the timestamp of the key submission is updated.
 	/// __Extension for plausible deniability__:
 	/// We prepend a fake request in order to guarantee the V+V+S sequence. Please kindly check `getTestResult` for more information.
-	func submitExposure(completionHandler: @escaping ExposureSubmissionHandler) {
+	func submitExposure(
+		symptomsOnset: SymptomsOnset,
+		visitedCountries: [Country],
+		completionHandler: @escaping ExposureSubmissionHandler
+	) {
 		log(message: "Started exposure submission...")
 
 		diagnosiskeyRetrieval.accessDiagnosisKeys { keys, error in
@@ -230,7 +267,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return
 			}
 
-			guard var keys = keys, !keys.isEmpty else {
+			guard let keys = keys, !keys.isEmpty else {
 				completionHandler(.noKeys)
 				// We perform a cleanup in order to set the correct
 				// timestamps, despite not having communicated with the backend,
@@ -238,11 +275,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				self.submitExposureCleanup()
 				return
 			}
-			keys.processedForSubmission()
+			let processedKeys = keys.processedForSubmission(with: symptomsOnset)
 
 			// Request needs to be prepended by the fake request.
 			self._fakeVerificationServerRequest(completion: { _ in
-				self._submitExposure(keys, completionHandler: completionHandler)
+				self._submitExposure(processedKeys, visitedCountries: visitedCountries, completionHandler: completionHandler)
 			})
 		}
 	}
@@ -316,7 +353,13 @@ extension ENAExposureSubmissionService {
 
 	/// This method represents a dummy method that is sent to the submission server.
 	private func _fakeSubmissionServerRequest(completion: @escaping ExposureSubmissionHandler) {
-		self.client.submit(keys: [], tan: ENAExposureSubmissionService.fakeSubmissionTan, isFake: true) { _ in
+		let payload = CountrySubmissionPayload(
+			exposureKeys: [],
+			visitedCountries: [],
+			tan: ENAExposureSubmissionService.fakeSubmissionTan
+		)
+
+		client.submit(payload: payload, isFake: true) { _ in
 			completion(.fakeResponse)
 		}
 	}

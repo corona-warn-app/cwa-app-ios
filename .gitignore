@@ -4,6 +4,8 @@
 
 ## User settings
 xcuserdata/
+LocalSettings.swift
+ServerEnvironments.json
 
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 *.xcscmblueprint
@@ -98,3 +100,5 @@ src/xcode/screenshots
 /src/xcode/.idea
 /src/xcode/vendor
 /src/xcode/.bundle
+
+docs/swift-doc

@@ -23,93 +23,202 @@ import ExposureNotification
 import XCTest
 
 final class ExposureKeysProcessingTests: XCTestCase {
-	func testMaxKeyCount_IsExpectedValue() {
-		XCTAssertEqual([ENTemporaryExposureKey]().maxKeyCount, 14)
+	
+	func testSubmissionPreprocess_ApplyNoInformationVectors() {
+		let symptomsOnset: SymptomsOnset = .noInformation
+		
+		let days = Array(0...14)
+		let keys = days.map { makeMockKey(daysUntilToday: $0) }
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
+	
+	func testSubmissionPreprocess_ApplyNonSymptomaticVectors() {
+		let symptomsOnset: SymptomsOnset = .nonSymptomatic
+		
+		let days = Array(0...14)
+		let keys = days.map { makeMockKey(daysUntilToday: $0) }
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
 
-	func testTransmissionRiskDefaultVector_IsExpectedValue() {
-		let vector: [ENRiskLevel] = [5, 6, 8, 8, 8, 5, 3, 1, 1, 1, 1, 1, 1, 1, 1]
-
-		XCTAssertEqual([ENTemporaryExposureKey]().transmissionRiskDefaultVector, vector)
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
+	
+	func testSubmissionPreprocess_ApplySymptomaticWithUnknownOnsetDaysVectors() {
+		let symptomsOnset: SymptomsOnset = .symptomaticWithUnknownOnset
+		
+		let days = Array(0...14)
+		let keys = days.map { makeMockKey(daysUntilToday: $0) }
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
 
-	func testSubmissionPreprocess_VerifySort() {
-		var keys: [ENTemporaryExposureKey] = [
-			TemporaryExposureKeyMock(rollingStartNumber: 4),
-			TemporaryExposureKeyMock(rollingStartNumber: 7),
-			TemporaryExposureKeyMock(rollingStartNumber: 2),
-			TemporaryExposureKeyMock(rollingStartNumber: 7)
-		]
-		keys.processedForSubmission()
-		let rollingStartNumbers = keys.map { $0.rollingStartNumber }
-		XCTAssertEqual(rollingStartNumbers.count, 4)
-		XCTAssertEqual(rollingStartNumbers[0], 7, "Key sorting incorrect! Got \(rollingStartNumbers[0]), expected 7")
-		XCTAssertEqual(rollingStartNumbers[1], 7, "Key sorting incorrect! Got \(rollingStartNumbers[1]), expected 7")
-		XCTAssertEqual(rollingStartNumbers[2], 4, "Key sorting incorrect! Got \(rollingStartNumbers[2]), expected 4")
-		XCTAssertEqual(rollingStartNumbers[3], 2, "Key sorting incorrect! Got \(rollingStartNumbers[3]), expected 2")
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
+	
+	func testSubmissionPreprocess_ApplyLastSevenDaysVectors() {
+		let symptomsOnset: SymptomsOnset = .lastSevenDays
+		
+		let days = Array(0...14)
+		let keys = days.map { makeMockKey(daysUntilToday: $0) }
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
 
-	func testSubmissionPreprocess_TrimKeys() {
-		var keys = makeMockKeys(count: 22)
-		let copy = keys.sorted { $0.rollingStartNumber > $1.rollingStartNumber }
-		keys.processedForSubmission()
-
-		XCTAssertEqual(keys.count, keys.maxKeyCount)
-		XCTAssertEqual(keys, Array(copy.prefix(keys.maxKeyCount)))
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
+	
+	func testSubmissionPreprocess_ApplyOneToTwoWeeksAgoVectors() {
+		let symptomsOnset: SymptomsOnset = .oneToTwoWeeksAgo
+		
+		let days = Array(0...14)
+		let keys = days.map { makeMockKey(daysUntilToday: $0) }
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
 
-	func testSubmissionPreprocess_NoKeys() {
-		var keys = makeMockKeys(count: 0)
-		keys.processedForSubmission()
-
-		XCTAssertEqual(keys.count, 0)
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
+	
+	func testSubmissionPreprocess_ApplyMoreThanTwoWeeksAgoVectors() {
+		let symptomsOnset: SymptomsOnset = .moreThanTwoWeeksAgo
+		
+		let days = Array(0...14)
+		let keys = days.map { makeMockKey(daysUntilToday: $0) }
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
 
-	func testSubmissionPreprocess_FewKeys() {
-		var keys = makeMockKeys(count: 2)
-		let copy = keys.sorted { $0.rollingStartNumber > $1.rollingStartNumber }
-		keys.processedForSubmission()
-
-		XCTAssertEqual(keys.count, 2)
-		XCTAssertEqual(keys, Array(copy.prefix(keys.maxKeyCount)))
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 	}
+	
+	func testSubmissionPreprocess_ApplyDaysSinceOnsetVectors() {
+		for daysSinceOnset in 0..<22 {
+			let symptomsOnset: SymptomsOnset = .daysSinceOnset(daysSinceOnset)
+			
+			let days = Array(0...14)
+			let keys = days.map { makeMockKey(daysUntilToday: $0) }
+			let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
 
-	func testSubmissionPreprocess_ApplyVector_FewKeys() {
-		var keys = makeMockKeys(count: 2)
-		keys.processedForSubmission()
-
-		XCTAssertEqual(keys.count, 2)
-		XCTAssertEqual(keys[0].transmissionRiskLevel, keys.transmissionRiskDefaultVector[1])
-		XCTAssertEqual(keys[1].transmissionRiskLevel, keys.transmissionRiskDefaultVector[2])
-	}
-
-	func testSubmissionPreprocess_ApplyVector() {
-		var keys = makeMockKeys(count: 30)
-		keys.processedForSubmission()
-
-		for (key, vectorElement) in zip(keys, keys.transmissionRiskDefaultVector.dropFirst()) {
-			XCTAssertEqual(
-				key.transmissionRiskLevel,
-				vectorElement,
-				"Transmission Risk Level vector not applied correctly! Expected \(vectorElement), got \(key.transmissionRiskLevel)"
-			)
+			assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
 		}
 	}
+	
+	func testSubmissionPreprocess_NoKeys() {
+		let keys = [ENTemporaryExposureKey]()
+		let processedKeys = keys.processedForSubmission(with: .noInformation)
+		
+		XCTAssertEqual(processedKeys.count, 0)
+	}
+	
+	func testSubmissionPreprocess_TodaysKeyMissing() {
+		let symptomsOnset: SymptomsOnset = .daysSinceOnset(7)
+		
+		let days = Array(1...14)
+		let keys = days.map { makeMockKey(daysUntilToday: $0) }
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
+	}
+	
+	func testSubmissionPreprocess_14DaysAgoKeyMissing() {
+		let symptomsOnset: SymptomsOnset = .daysSinceOnset(7)
+		
+		let days = Array(1...13)
+		let keys = days.map { makeMockKey(daysUntilToday: $0) }
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
+	}
+	
+	func testSubmissionPreprocess_InBetweenKeyMissing() {
+		let symptomsOnset: SymptomsOnset = .daysSinceOnset(7)
+		
+		let days = [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14]
+		let keys = days.map { makeMockKey(daysUntilToday: $0) }
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
+	}
+	
+	func testSubmissionPreprocess_MultipleKeysMissing() {
+		let symptomsOnset: SymptomsOnset = .daysSinceOnset(7)
+		
+		let days = [1, 2, 3, 4, 5, 8, 9, 10, 11, 13, 14]
+		let keys = days.map { makeMockKey(daysUntilToday: $0) }
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
+	}
+	
+	func testSubmissionPreprocess_MultipleKeysForOneDay() {
+		let symptomsOnset: SymptomsOnset = .daysSinceOnset(7)
+		
+		let days = [0, 0, 0, 1, 2, 3, 4, 5, 6, 6, 7, 7, 7, 8, 9, 10, 11, 12, 12, 13, 14, 14]
+		let keys = days.map { makeMockKey(daysUntilToday: $0) }
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
+	}
+	
+	func testSubmissionPreprocess_KeysFromTheFutureAreIgnored() {
+		let symptomsOnset: SymptomsOnset = .daysSinceOnset(7)
+		
+		let days = [-6, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+		let keys = days.map { makeMockKey(daysUntilToday: $0) }
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
+	}
+	
+	func testSubmissionPreprocess_KeysOlderThan14DaysAreIgnored() {
+		let symptomsOnset: SymptomsOnset = .daysSinceOnset(7)
+		
+		let days = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 32, 167]
+		let keys = days.map { makeMockKey(daysUntilToday: $0) }
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
+	}
+	
+	func testSubmissionPreprocess_ManyEdgeCases() {
+		let symptomsOnset: SymptomsOnset = .daysSinceOnset(7)
+		
+		let days = [-54, -3, 1, 2, 3, 4, 6, 6, 6, 6, 6, 6, 7, 8, 9, 10, 11, 15, 16, 32, 167]
+		let keys = days.map { makeMockKey(daysUntilToday: $0) }
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset, today: Date(timeIntervalSinceReferenceDate: 0))
+		
+		assertCorrectProcessing(on: processedKeys, for: days, with: symptomsOnset)
+	}
+	
 }
 
 // MARK: - Helpers
 
 extension ExposureKeysProcessingTests {
-	/// Make an ENTemporaryExposureKey with random values
-	private func makeMockKeys(count: Int) -> [ENTemporaryExposureKey] {
-		(0..<count).map { _ in
-			TemporaryExposureKeyMock(rollingStartNumber: ENIntervalNumber.random())
+	
+	private func makeMockKey(daysUntilToday: Int, today: Date = Date(timeIntervalSinceReferenceDate: 0)) -> ENTemporaryExposureKey {
+		var calendar = Calendar(identifier: .gregorian)
+		// swiftlint:disable:next force_unwrapping
+		calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+		
+		guard let date = calendar.date(byAdding: .day, value: -daysUntilToday, to: today) else { fatalError("Could not create date") }
+		
+		return TemporaryExposureKeyMock(rollingStartNumber: ENIntervalNumber(date.timeIntervalSince1970 / 600))
+	}
+
+	private func assertCorrectProcessing(on processedKeys: [SAP_TemporaryExposureKey], for days: [Int], with symptomsOnset: SymptomsOnset) {
+		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
+		let daysSinceOnsetOfSymptomsVector = symptomsOnset.daysSinceOnsetOfSymptomsVector
+
+		let sortedKeys = processedKeys.sorted { $0.rollingStartIntervalNumber > $1.rollingStartIntervalNumber }
+
+		let filteredDays = days.filter { (0...14).contains($0) }
+		for (key, day) in zip(sortedKeys, filteredDays) {
+			XCTAssertEqual(
+				key.transmissionRiskLevel,
+				transmissionRiskVector[day],
+				"Transmission Risk Level vector not applied correctly! Expected \(transmissionRiskVector[day]), got \(key.transmissionRiskLevel)"
+			)
+
+			XCTAssertEqual(
+				key.daysSinceOnsetOfSymptoms,
+				daysSinceOnsetOfSymptomsVector[day],
+				"Days Since Onset Of Symptoms vector not applied correctly! Expected \(daysSinceOnsetOfSymptomsVector[day]), got \(key.daysSinceOnsetOfSymptoms)"
+			)
 		}
 	}
-}
 
-private extension ENIntervalNumber {
-	static func random() -> ENIntervalNumber {
-		ENIntervalNumber.random(in: ENIntervalNumber.min...ENIntervalNumber.max)
-	}
 }

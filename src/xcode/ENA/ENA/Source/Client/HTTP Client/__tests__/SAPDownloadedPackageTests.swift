@@ -25,7 +25,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 	private lazy var signingKey = P256.Signing.PrivateKey()
 	private lazy var publicKey = signingKey.publicKey
 	private let defaultBundleId = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
-	private lazy var mockKeyProvider: PublicKeyProviding = { _ in return self.publicKey }
+	private lazy var mockKeyProvider: PublicKeyProvider = { self.publicKey }
 	private lazy var verifier = SAPDownloadedPackage.Verifier(key: mockKeyProvider)
 
 	// MARK: Signature Verification Tests

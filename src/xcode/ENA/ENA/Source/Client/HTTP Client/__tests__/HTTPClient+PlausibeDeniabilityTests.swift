@@ -173,9 +173,9 @@ class HTTPClientPlausibleDeniabilityTests: XCTestCase {
 		let fakeClient = HTTPClient.makeWith(mock: fakeStack)
 
 		// Test.
-
-		realClient.submit(keys: [], tan: "dummyTan", isFake: false) { _ in expectation.fulfill() }
-		fakeClient.submit(keys: [], tan: "dummyTan", isFake: true) { _ in expectation.fulfill() }
+		let payload = CountrySubmissionPayload(exposureKeys: [], visitedCountries: [], tan: "dummyTan")
+		realClient.submit(payload: payload, isFake: false, completion: { _ in expectation.fulfill() })
+		fakeClient.submit(payload: payload, isFake: true, completion: { _ in expectation.fulfill() })
 
 		waitForExpectations(timeout: .short)
 		XCTAssertEqual(realRequestBodySize, fakeRequestBodySize)

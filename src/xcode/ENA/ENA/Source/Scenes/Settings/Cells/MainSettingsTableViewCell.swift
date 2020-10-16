@@ -47,16 +47,17 @@ class MainSettingsTableViewCell: UITableViewCell {
 		setLayoutConstraints()
 	}
 
-	func configure(model: SettingsViewModel.Main) {
+	func configure(model: SettingsViewModel.CellModel) {
 		iconImageView.image = UIImage(named: model.icon)
 		stateLabel.text = model.state ?? model.stateInactive
+		accessibilityIdentifier = model.accessibilityIdentifier
 
 		updateDescriptionLabel(model.description)
 		updateLayoutConstraints()
 	}
 
 	private func setLayoutConstraints() {
-		regularConstraints = [imageContainerCenterConstraint, descriptionLabelTrailingConstraint, descriptionLabelBottom, stateLabelLeading, stateLabelTop, disclosureIndicatorLeading]
+		regularConstraints = [imageContainerFirstBaselineConstraint, descriptionLabelTrailingConstraint, descriptionLabelBottom, stateLabelLeading, stateLabelTop, disclosureIndicatorLeading]
 
 		let labelHalfCapHeight = descriptionLabel.font.capHeight / 2
 		imageContainerFirstBaselineConstraint.constant = labelHalfCapHeight

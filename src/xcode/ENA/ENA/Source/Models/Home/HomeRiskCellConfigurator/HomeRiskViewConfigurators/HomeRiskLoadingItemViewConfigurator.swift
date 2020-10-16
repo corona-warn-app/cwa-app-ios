@@ -21,14 +21,14 @@ final class HomeRiskLoadingItemViewConfigurator: HomeRiskViewConfigurator {
 
 	var title: String
 	var titleColor: UIColor
-	var isLoading: Bool
+	var isActivityIndicatorOn: Bool
 	var color: UIColor
 	var separatorColor: UIColor
 
-	init(title: String, titleColor: UIColor, isLoading: Bool, color: UIColor, separatorColor: UIColor) {
+	init(title: String, titleColor: UIColor, isActivityIndicatorOn: Bool, color: UIColor, separatorColor: UIColor) {
 		self.title = title
 		self.titleColor = titleColor
-		self.isLoading = isLoading
+		self.isActivityIndicatorOn = isActivityIndicatorOn
 		self.color = color
 		self.separatorColor = separatorColor
 	}
@@ -39,7 +39,7 @@ final class HomeRiskLoadingItemViewConfigurator: HomeRiskViewConfigurator {
 		riskView.textLabel?.text = title
 		riskView.textLabel?.textColor = titleColor
 		riskView.separatorView?.backgroundColor = separatorColor
-		if isLoading {
+		if isActivityIndicatorOn {
 			riskView.activityIndicatorView.startAnimating()
 		} else {
 			riskView.activityIndicatorView.stopAnimating()

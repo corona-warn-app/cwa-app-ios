@@ -31,6 +31,10 @@ extension ExposureDetection {
 		case noExposureConfiguration
 		/// Unable to write diagnosis keys
 		case unableToWriteDiagnosisKeys
+		/// Unable to get supported countries
+		case noSupportedCountries
+		/// Unable to save key packages due to missing disk space
+		case noDiskSpace
 	}
 }
 
@@ -59,6 +63,10 @@ extension ExposureDetection.DidEndPrematurelyReason: LocalizedError {
 			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoDaysAndHours"
 		case .noExposureConfiguration:
 			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoExposureConfiguration"
+		case .noSupportedCountries:
+			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoSupportedCountries"
+		case .noDiskSpace:
+			return AppStrings.ExposureDetectionError.errorAlertFullDistSpaceMessage
 		}
 	}
 }

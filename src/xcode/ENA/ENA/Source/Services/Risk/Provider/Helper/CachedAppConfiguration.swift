@@ -20,48 +20,95 @@
 import Foundation
 
 final class CachedAppConfiguration {
-	// MARK: Creating a Cached App Configuration
-	init(client: Client) {
-		self.client = client
+
+	enum CacheError: Error {
+		case dataFetchError(message: String?)
+		case dataVerificationError(message: String?)
+		/// HTTP 304 – Content on server has not changed from the given `If-None-Match` header in the request
+		case notModified
 	}
 
-	// MARK: Properties
-	private let client: Client
-	private var cache: Cache?
+	/// Most likely a HTTP client
+	private let client: AppConfigurationFetching
+
+	/// The place where the app config and last etag is stored
+	private let store: AppConfigCaching
+
+	init(client: AppConfigurationFetching, store: AppConfigCaching) {
+		self.client = client
+		self.store = store
+
+		guard shouldFetch() else { return }
+
+		// edge case: if no app config is cached, omit a potentially existing ETag to force fetch a new configuration
+		let etag = store.appConfig == nil ? nil : store.lastAppConfigETag
+
+		// check for updated or fetch initial app configuration
+		fetchConfig(with: etag)
+	}
+
+	private func fetchConfig(with etag: String?, completion: Completion? = nil) {
+		client.fetchAppConfiguration(etag: etag) { [weak self] result in
+			switch result {
+			case .success(let response):
+				self?.store.lastAppConfigETag = response.eTag
+				self?.store.appConfig = response.config
+				self?.completeOnMain(completion: completion, result: .success(response.config))
+			case .failure(let error):
+				switch error {
+				case CachedAppConfiguration.CacheError.notModified where self?.store.appConfig != nil:
+					log(message: "config not modified")
+					// server is not modified and we have a cached config
+					guard let config = self?.store.appConfig else {
+						fatalError("App configuration cache broken!") // in `where` we trust
+					}
+					self?.completeOnMain(completion: completion, result: .success(config))
+
+					// keep track of last successful fetch
+					self?.store.lastAppConfigFetch = Date()
+				default:
+					self?.completeOnMain(completion: completion, result: .failure(error))
+				}
+			}
+		}
+	}
+
+	// Prevents failing main thread checks because UI is accessing the result directly.
+	private func completeOnMain(completion: Completion?, result: Result<SAP_ApplicationConfiguration, Error>) {
+		DispatchQueue.main.async {
+			completion?(result)
+		}
+	}
 }
 
 extension CachedAppConfiguration: AppConfigurationProviding {
+
+	fileprivate static let timestampKey = "LastAppConfigFetch"
+
+	func appConfiguration(forceFetch: Bool = false, completion: @escaping Completion) {
+		let force = shouldFetch() || forceFetch
+
+		if let cachedVersion = store.appConfig, !force {
+			// use the cached version
+			completeOnMain(completion: completion, result: .success(cachedVersion))
+		} else {
+			// fetch a new one
+			fetchConfig(with: store.lastAppConfigETag, completion: completion)
+		}
+	}
+
 	func appConfiguration(completion: @escaping Completion) {
-		guard let cache = cache else {
-			actuallyDownloadAppConfiguration(completion: completion)
-			return
-		}
-
-		let calendar = Calendar.current
-		let deltaInMinutes = abs(calendar.dateComponents([.minute], from: cache.date, to: Date()).minute ?? .max)
-		if deltaInMinutes < 5 {
-			completion(cache.value)
-			return
-		}
-		actuallyDownloadAppConfiguration(completion: completion)
+		self.appConfiguration(forceFetch: false, completion: completion)
 	}
 
-	private func actuallyDownloadAppConfiguration(completion: @escaping Completion) {
-		client.appConfiguration { [weak self] appConfiguration in
-			guard let appConfiguration = appConfiguration else {
-				self?.cache = nil
-				completion(nil)
-				return
-			}
-			self?.cache = .init(date: Date(), value: appConfiguration)
-			completion(appConfiguration)
+	/// Simple helper to simulate Cache-Control
+	/// - Note: This 300 second value is because of current handicaps with the HTTPClient architecture
+	///   which does not easily return response headers. This requires further refactoring of `URLSession+Convenience.swift`.
+	/// - Returns: `true` is a network call should be done; `false` if cache should be used
+	private func shouldFetch() -> Bool {
+		guard let lastFetch = store.lastAppConfigFetch else {
+			return true
 		}
-	}
-}
-
-private extension CachedAppConfiguration {
-	struct Cache {
-		let date: Date
-		let value: SAP_ApplicationConfiguration
+		return lastFetch.distance(to: Date()) >= 300
 	}
 }

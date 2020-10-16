@@ -78,16 +78,21 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 		switch result {
 		case .positive:
-			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.continueButton
-			navigationFooterItem?.isSecondaryButtonHidden = true
+			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.primaryButtonTitle
+			navigationFooterItem?.secondaryButtonTitle = AppStrings.ExposureSubmissionResult.secondaryButtonTitle
+			navigationFooterItem?.isSecondaryButtonEnabled = true
+			navigationFooterItem?.isSecondaryButtonHidden = false
+			navigationFooterItem?.secondaryButtonHasBorder = true
 		case .negative, .invalid, .redeemed:
 			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
 			navigationFooterItem?.isSecondaryButtonHidden = true
+			navigationFooterItem?.secondaryButtonHasBorder = false
 		case .pending:
 			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.refreshButton
 			navigationFooterItem?.secondaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
 			navigationFooterItem?.isSecondaryButtonEnabled = true
 			navigationFooterItem?.isSecondaryButtonHidden = false
+			navigationFooterItem?.secondaryButtonHasBorder = false
 		}
 	}
 
@@ -172,12 +177,10 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		self.setupButtons()
 	}
 
-	/// Only show the "warn others" screen if the ENManager is enabled correctly,
-	/// otherwise, show an alert.
-	private func showWarnOthers() {
+	/// Check if the ENManager is enabled correctly, otherwise, show an alert.
+	private func checkExposureSubmissionPreconditions(onSuccess: () -> Void) {
 		if let state = exposureSubmissionService?.preconditions() {
 			if !state.isGood {
-
 				let alert = self.setupErrorAlert(
 					message: ExposureSubmissionError.enNotEnabled.localizedDescription
 				)
@@ -185,7 +188,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 				return
 			}
 
-			self.coordinator?.showWarnOthersScreen()
+			onSuccess()
 		}
 	}
 }
@@ -214,7 +217,9 @@ extension ExposureSubmissionTestResultViewController {
 
 		switch result {
 		case .positive:
-			showWarnOthers()
+			checkExposureSubmissionPreconditions { [weak self] in
+				self?.coordinator?.showSymptomsScreen()
+			}
 		case .negative, .invalid, .redeemed:
 			deleteTest()
 		case .pending:
@@ -225,6 +230,28 @@ extension ExposureSubmissionTestResultViewController {
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
 		guard let result = testResult else { return }
 		switch result {
+		case .positive:
+			checkExposureSubmissionPreconditions { [weak self] in
+				// Temporarily loading countries here as quickfix: https://jira.itc.sap.com/browse/EXPOSUREAPP-3231
+				self?.coordinator?.loadSupportedCountries(
+					isLoading: { isLoading in
+						self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+						self?.navigationFooterItem?.isSecondaryButtonEnabled = !isLoading
+						self?.navigationFooterItem?.isSecondaryButtonLoading = isLoading
+					},
+					onSuccess: {
+						self?.coordinator?.showWarnOthersScreen()
+					},
+					onError: { _ in
+						guard let self = self else { return }
+
+						let alert = self.setupErrorAlert(
+							message: ExposureSubmissionError.noAppConfiguration.localizedDescription
+						)
+						self.present(alert, animated: true)
+					}
+				)
+			}
 		case .pending:
 			deleteTest()
 		default:
@@ -268,7 +295,7 @@ private extension ExposureSubmissionTestResultViewController {
 					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive, timeStamp: self.timeStamp)
 				}
 			),
-			separators: false,
+			separators: .none,
 			cells: [
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
@@ -278,13 +305,6 @@ private extension ExposureSubmissionTestResultViewController {
 					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
 					icon: UIImage(named: "Icons_Grey_Check"),
 					hairline: .iconAttached
-				),
-
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testPositive,
-					description: AppStrings.ExposureSubmissionResult.testPositiveDesc,
-					icon: UIImage(named: "Icons_Grey_Error"),
-					hairline: .topAttached
 				),
 
 				ExposureSubmissionDynamicCell.stepCell(
@@ -305,7 +325,7 @@ private extension ExposureSubmissionTestResultViewController {
 					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .negative, timeStamp: self.timeStamp)
 				}
 			),
-			separators: false,
+			separators: .none,
 			cells: [
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
@@ -335,10 +355,10 @@ private extension ExposureSubmissionTestResultViewController {
 				.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.furtherInfos_Title),
 
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain)
+				.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1, spacing: .large),
+				.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2, spacing: .large),
+				.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3, spacing: .large),
+				.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain, spacing: .large)
 			]
 		)
 	}
@@ -351,7 +371,7 @@ private extension ExposureSubmissionTestResultViewController {
 					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid, timeStamp: self.timeStamp)
 				}
 			),
-			separators: false,
+			separators: .none,
 			cells: [
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
@@ -388,7 +408,7 @@ private extension ExposureSubmissionTestResultViewController {
 					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid, timeStamp: self.timeStamp)
 				}
 			),
-			separators: false,
+			separators: .none,
 			cells: [
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),

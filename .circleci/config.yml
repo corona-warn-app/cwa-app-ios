@@ -1,33 +1,36 @@
 version: 2.1
 
-jobs:
-  build:
-    macos:
-      xcode: 11.6.0
-    shell: zsh
-
+commands:
+  prepare-dependencies:
     steps:
       - checkout
       - run:
+          name: fix SwiftPM #Solves and old Xcode 11 issue that seems to got reintroduced with Xcode 12: https://stackoverflow.com/questions/58125659/github-actions-xcodebuild-fails-due-to-server-fingerprint
+          command: for ip in $(dig @8.8.8.8 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts
+      - run:
+          name: Install Bundler
+          command: sudo gem install bundler:2.1.4
+      - run:
           name: Install dependencies
-          command: cd src/xcode && bundle install
+          command: brew install swiftlint && cd src/xcode && bundle install
+
+jobs:
+  build:
+    macos:
+      xcode: 12.0.0
+    shell: zsh
+
+    steps:
+      - prepare-dependencies
       - run:
           name: Build
           command: cd src/xcode && bundle exec fastlane build
   test:
     macos:
-      xcode: 11.6.0
+      xcode: 12.0.0
     shell: zsh
     steps:
-      - run:
-          name: Skip this job for non-PRs and when not on development
-          command: |
-            testedBranches=(staging develop)
-            [[ ${testedBranches[(r)$CIRCLE_BRANCH]} == $CIRCLE_BRANCH || -v CIRCLE_PULL_REQUEST ]] && true || circleci step halt
-      - checkout
-      - run:
-          name: Install dependencies
-          command: brew install swiftlint && cd src/xcode && bundle install
+      - prepare-dependencies
       - run:
           name: Tests
           command: cd src/xcode && bundle exec fastlane test
@@ -68,13 +71,11 @@ jobs:
           key: sonar-cloud-v2
           paths:
             - ~/sonar/
-
   grab-screenshots:
     macos:
-      xcode: 11.6.0
+      xcode: 12.0.0
     steps:
-      - checkout
-      - run: cd src/xcode && bundle install
+      - prepare-dependencies
       - run:
           name: Snapshots
           command: cd src/xcode && bundle exec fastlane snapshot
@@ -82,17 +83,29 @@ jobs:
           path: src/xcode/screenshots
   testflight-release:
     macos:
-      xcode: 11.6.0
+      xcode: 12.0.0
     shell: zsh
     steps:
-      - checkout
-      - run:
-          name: Install dependencies
-          command: cd src/xcode && bundle install
+      - prepare-dependencies
       - run: ./scripts/switch_to_dev_env.sh
       - run:
-          name: fastlane
+          name: fastlane testflight
           command: cd src/xcode && bundle exec fastlane betaRelease --env TestFlight
+      - run:
+          name: fastlane appcenter
+          command: cd src/xcode && bundle exec fastlane adHocDistribution
+  update-docs:
+    macos:
+      xcode: 12.0.0
+    shell: zsh
+    steps:
+      - prepare-dependencies
+      - add_ssh_keys:
+          fingerprints:
+            - "2c:ea:55:72:82:d9:8a:35:02:ac:25:a6:39:3c:e4:23"
+      - run:
+          name: Run lane for doc update
+          command: cd src/xcode && bundle exec fastlane updateDocs
 
 workflows:
     test-and-scan:
@@ -101,6 +114,11 @@ workflows:
     build:
       jobs:
         - build
+        - update-docs:
+            filters:
+              branches:
+                only:
+                  - develop
         - grab-screenshots:
             filters:
               branches:
@@ -108,8 +126,34 @@ workflows:
                   - master
     betaRelease:
       jobs:
-        - testflight-release:
+        - test:
             filters:
-              branches:
+              tags:
                 only:
-                  - /rc\/.*/
+                  - /^v.*/
+              branches:
+                ignore: /.*/
+        - build:
+            filters:
+              tags:
+                only:
+                  - /^v.*/
+              branches:
+                ignore: /.*/
+        - grab-screenshots:
+            filters:
+              tags:
+                only:
+                  - /^v.*/
+              branches:
+                ignore: /.*/
+        - testflight-release:
+            requires:
+              - test
+              - build
+            filters:
+              tags:
+                only:
+                  - /^v.*/
+              branches:
+                ignore: /.*/

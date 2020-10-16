@@ -33,29 +33,25 @@ struct DaysAndHours {
 protocol ExposureDetectionDelegate: AnyObject {
 	typealias Completion = (DaysAndHours?) -> Void
 	typealias DetectionHandler = (Result<ENExposureDetectionSummary, Error>) -> Void
+	typealias SupportedCountriesResult = Result<[Country], URLSession.Response.Failure>
 
 	func exposureDetection(
-		_ detection: ExposureDetection,
-		determineAvailableData completion: @escaping (DaysAndHours?) -> Void
+		country: Country.ID,
+		determineAvailableData completion: @escaping (DaysAndHours?, Country.ID) -> Void
 	)
 
 	func exposureDetection(
-		_ detection: ExposureDetection,
+		country: Country.ID,
 		downloadDeltaFor remote: DaysAndHours
 	) -> DaysAndHours
 
 	func exposureDetection(
-		_ detection: ExposureDetection,
+		country: Country.ID,
 		downloadAndStore delta: DaysAndHours,
-		completion: @escaping (Error?) -> Void
+		completion: @escaping (ExposureDetection.DidEndPrematurelyReason?) -> Void
 	)
 
-	func exposureDetection(
-		_ detection: ExposureDetection,
-		downloadConfiguration completion: @escaping (ENExposureConfiguration?) -> Void
-	)
-
-	func exposureDetectionWriteDownloadedPackages(_ detection: ExposureDetection) -> WrittenPackages?
+	func exposureDetectionWriteDownloadedPackages(country: Country.ID) -> WrittenPackages?
 
 	func exposureDetection(
 		_ detection: ExposureDetection,
@@ -63,5 +59,5 @@ protocol ExposureDetectionDelegate: AnyObject {
 		configuration: ENExposureConfiguration,
 		writtenPackages: WrittenPackages,
 		completion: @escaping DetectionHandler
-	)
+	) -> Progress
 }

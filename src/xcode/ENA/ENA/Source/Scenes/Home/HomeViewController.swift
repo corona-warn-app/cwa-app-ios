@@ -21,8 +21,8 @@ import UIKit
 protocol HomeViewControllerDelegate: AnyObject {
 	func showRiskLegend()
 	func showExposureNotificationSetting(enState: ENStateHandler.State)
-	func showExposureDetection(state: HomeInteractor.State, isRequestRiskRunning: Bool)
-	func setExposureDetectionState(state: HomeInteractor.State, isRequestRiskRunning: Bool)
+	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProvider.ActivityState)
+	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProvider.ActivityState)
 	func showExposureSubmission(with result: TestResult?)
 	func showInviteFriends()
 	func showWebPage(from viewController: UIViewController, urlString: String)
@@ -68,6 +68,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	private var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable>?
 	private var collectionView: UICollectionView! { view as? UICollectionView }
 	private var homeInteractor: HomeInteractor!
+	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 
 	private weak var delegate: HomeViewControllerDelegate?
 
@@ -92,6 +93,9 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		applySnapshotFromSections()
 
 		setStateOfChildViewControllers()
+		
+		let notificationCenter = NotificationCenter.default
+		notificationCenter.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -103,6 +107,16 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
+		showInformationHowRiskDetectionWorks()
+		showDeltaOnboarding()
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		updateBackgroundColor()
+	}
+
+	private func showInformationHowRiskDetectionWorks() {
 		guard store.userNeedsToBeInformedAboutHowRiskDetectionWorks else {
 			return
 		}
@@ -115,9 +129,32 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		}
 	}
 
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		updateBackgroundColor()
+	private func showDeltaOnboarding() {
+		appConfigurationProvider.appConfiguration { [weak self] result in
+			guard let self = self else { return }
+			
+			let supportedCountries: [Country]
+			
+			switch result {
+			case .success(let applicationConfiguration):
+				supportedCountries = applicationConfiguration.supportedCountries.compactMap({ Country(countryCode: $0) })
+			case .failure:
+				supportedCountries = []
+			}
+			
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+				let onboardings: [DeltaOnboarding] = [
+					DeltaOnboardingV15(store: self.store, supportedCountries: supportedCountries)
+				]
+				
+				self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
+				self.deltaOnboardingCoordinator?.finished = { [weak self] in
+					self?.deltaOnboardingCoordinator = nil
+				}
+				
+				self.deltaOnboardingCoordinator?.startOnboarding()
+			}
+		}
 	}
 
 	/// This method sets up a background fetch alert, and presents it, if needed.
@@ -155,10 +192,13 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	// MARK: Misc
+	@objc func refreshUIAfterResumingFromBackground() {
+		homeInteractor.refreshTimerAfterResumingFromBackground()
+	}
 
 	// Called by HomeInteractor
 	func setStateOfChildViewControllers() {
-		delegate?.setExposureDetectionState(state: homeInteractor.state, isRequestRiskRunning: homeInteractor.riskProvider.isLoading)
+		delegate?.setExposureDetectionState(state: homeInteractor.state, activityState: homeInteractor.riskProvider.activityState)
 	}
 
 	func updateState(detectionMode: DetectionMode, exposureManagerState: ExposureManagerState, risk: Risk?) {
@@ -182,7 +222,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	func showExposureDetection() {
-		delegate?.showExposureDetection(state: homeInteractor.state, isRequestRiskRunning: homeInteractor.riskProvider.isLoading)
+		delegate?.showExposureDetection(state: homeInteractor.state, activityState: homeInteractor.riskProvider.activityState)
 	}
 
 	private func showScreenForActionSectionForCell(at indexPath: IndexPath) {

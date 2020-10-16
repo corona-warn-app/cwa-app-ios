@@ -44,54 +44,73 @@ final class ExposureSubmissionOverviewViewControllerTests: XCTestCase {
 			ExposureSubmissionOverviewViewController(coder: coder, coordinator: self.coordinator, exposureSubmissionService: self.service)
 		}
 
-		let expectation = self.expectation(description: "Call getRegistration service method.")
-		service.getRegistrationTokenCallback = { deviceRegistrationKey, completion in
-			completion(.success(""))
+		let expectation = self.expectation(description: "Received test result callback")
+		service.getTestResultCallback = { completion in
+			completion(.success(.negative))
 			expectation.fulfill()
 		}
 
 		qrScannerViewController.dismissCallback = { _, callback in callback?() }
 
-		vc.qrScanner(qrScannerViewController, didScan: "https://example.org/?50C707FB-2DC4-4252-9C21-7B0DF0F30ED5")
+		vc.qrScanner(qrScannerViewController, didScan: "https://localhost/?3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA")
 		waitForExpectations(timeout: .short)
 	}
+}
+
+class ExposureSubmissionOverviewViewModelTests: XCTestCase {
 
 	func testQRCodeSanitization() {
-		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionOverviewViewController.self) { coder in
-			ExposureSubmissionOverviewViewController(coder: coder, coordinator: self.coordinator, exposureSubmissionService: self.service)
-		}
+		let viewModel = ExposureSubmissionOverviewViewModel()
+		let guid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
 
 		// Empty.
-		var result = vc.sanitizeAndExtractGuid("")
+		var result = viewModel.sanitizeAndExtractGuid("")
 		XCTAssertNil(result)
 
 		// Input Length exceeded.
-		result = vc.sanitizeAndExtractGuid(String(repeating: "x", count: 150))
+		result = viewModel.sanitizeAndExtractGuid(String(repeating: "x", count: 150))
+		XCTAssertNil(result)
+
+		// Wrong URL.
+		result = viewModel.sanitizeAndExtractGuid("https://coronawarn.app/?\(guid)")
+		XCTAssertNil(result)
+
+		// Missing URL.
+		result = viewModel.sanitizeAndExtractGuid("?\(guid)")
 		XCTAssertNil(result)
 
 		// Missing ?.
-		let guid = "61d4e0f7-a910-4b82-8b9b-39fdc76837a0"
-		result = vc.sanitizeAndExtractGuid("https://abc.com/\(guid)")
+		result = viewModel.sanitizeAndExtractGuid("https://localhost/\(guid)")
 		XCTAssertNil(result)
 
 		// Additional space after ?
-		result = vc.sanitizeAndExtractGuid("? \(guid)")
+		result = viewModel.sanitizeAndExtractGuid("? \(guid)")
 		XCTAssertNil(result)
 
-		// GUID Length exceeded.
-		result = vc.sanitizeAndExtractGuid("https://abc.com/\(guid)\(guid)")
+		// GUID length exceeded.
+		result = viewModel.sanitizeAndExtractGuid("https://localhost/?\(guid)-BEEF")
 		XCTAssertNil(result)
 
-		// Success.
-		result = vc.sanitizeAndExtractGuid("https://abc.com?\(guid)")
+		// GUID too short.
+		result = viewModel.sanitizeAndExtractGuid("https://localhost/?\(guid.dropLast(4))")
+		XCTAssertNil(result)
+
+		// GUID structure wrong.
+		let wrongGuid = "3D6D-083567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
+		result = viewModel.sanitizeAndExtractGuid("https://localhost/?\(wrongGuid)")
+		XCTAssertNil(result)
+
+		// Success uppercase.
+		result = viewModel.sanitizeAndExtractGuid("https://localhost/?\(guid)")
 		XCTAssertEqual(result, guid)
-		result = vc.sanitizeAndExtractGuid("?\(guid)")
-		XCTAssertEqual(result, guid)
-		result = vc.sanitizeAndExtractGuid(" ?\(guid)")
-		XCTAssertEqual(result, guid)
-		result = vc.sanitizeAndExtractGuid("some-string?\(guid)")
-		XCTAssertEqual(result, guid)
-		result = vc.sanitizeAndExtractGuid("https://abc.com?\(guid.uppercased())")
-		XCTAssertEqual(result, guid.uppercased())
+
+		// Success lowercase.
+		result = viewModel.sanitizeAndExtractGuid("https://localhost/?\(guid.lowercased())")
+		XCTAssertEqual(result, guid.lowercased())
+
+		// Success mixed case.
+		let mixedCaseGuid = "3D6d08-3567F3f2-4DcF-43A3-8737-4CD1F87d6FDa"
+		result = viewModel.sanitizeAndExtractGuid("https://localhost/?\(mixedCaseGuid)")
+		XCTAssertEqual(result, mixedCaseGuid)
 	}
 }

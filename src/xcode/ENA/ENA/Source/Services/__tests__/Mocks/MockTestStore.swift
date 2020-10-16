@@ -18,7 +18,7 @@
 import Foundation
 @testable import ENA
 
-final class MockTestStore: Store {
+final class MockTestStore: Store, AppConfigCaching {
 	var isAllowedToPerformBackgroundFakeRequests = false
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
@@ -35,6 +35,7 @@ final class MockTestStore: Store {
 	var exposureActivationConsentAcceptTimestamp: Int64?
 	var exposureActivationConsentAccept: Bool = false
 	var isOnboarded: Bool = false
+	var onboardingVersion: String = ""
 	var dateOfAcceptedPrivacyNotice: Date?
 	var allowsCellularUse: Bool = false
 	var developerSubmissionBaseURLOverride: String?
@@ -52,4 +53,19 @@ final class MockTestStore: Store {
 	var allowTestsStatusNotification: Bool = true
 	var hourlyFetchingEnabled: Bool = true
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
+	var selectedServerEnvironment: ServerEnvironmentData = ServerEnvironment().defaultEnvironment()
+
+	#if !RELEASE
+
+	// Settings from the debug menu.
+
+	var fakeSQLiteError: Int32? = nil
+
+	#endif
+
+	// MARK: - AppConfigCaching
+	
+	var lastAppConfigETag: String?
+	var lastAppConfigFetch: Date?
+	var appConfig: SAP_ApplicationConfiguration?
 }

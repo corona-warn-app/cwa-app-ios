@@ -1,0 +1,23 @@
+module: ENA
+author: Corona-Warn-App
+title: Swift-Doc for the Corona-Warn-App
+output: ../../docs/swift-doc
+author_url: https://github.com/corona-warn-app/cwa-app-ios
+github_url: https://github.com/corona-warn-app/cwa-app-ios
+min_acl: internal
+hide_documentation_coverage: true
+documentation: Extra/*.md
+abstract: Sections/*.md
+exclude: "*pb*"
+theme: jony
+use_safe_filenames: true
+separate_global_declarations: true
+xcodebuild_arguments:
+ - -project
+ - ENA/ENA.xcodeproj
+ - -scheme
+ - ENA
+ - CODE_SIGN_IDENTITY=''
+ - CODE_SIGNING_REQUIRED=NO
+ - CODE_SIGN_ENTITLEMENTS=''
+ - CODE_SIGNING_ALLOWED=NO

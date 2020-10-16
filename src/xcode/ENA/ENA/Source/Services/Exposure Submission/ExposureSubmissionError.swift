@@ -26,13 +26,14 @@ enum ExposureSubmissionError: Error, Equatable {
 	case notAuthorized
 	case noKeys
 	case noConsent
-	case noExposureConfiguration
+	case noAppConfiguration
 	case invalidTan
 	case invalidResponse
 	case noResponse
 	case teleTanAlreadyUsed
 	case qRAlreadyUsed
 	case regTokenNotExist
+	case qRNotExist
 	case serverError(Int)
 	case unknown
 	case httpError(String)
@@ -63,10 +64,12 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.ExposureSubmissionError.invalidResponse
 		case .noResponse:
 			return AppStrings.ExposureSubmissionError.noResponse
-		case .noExposureConfiguration:
-			return AppStrings.ExposureSubmissionError.noConfiguration
+		case .noAppConfiguration:
+			return AppStrings.ExposureSubmissionError.noAppConfiguration
 		case .qRAlreadyUsed:
 			return AppStrings.ExposureSubmissionError.qrAlreadyUsed
+		case .qRNotExist:
+			return AppStrings.ExposureSubmissionError.qrNotExist
 		case .teleTanAlreadyUsed:
 			return AppStrings.ExposureSubmissionError.teleTanAlreadyUsed
 		case .regTokenNotExist:
@@ -95,4 +98,3 @@ extension ExposureSubmissionError: LocalizedError {
 		}
 	}
 }
-

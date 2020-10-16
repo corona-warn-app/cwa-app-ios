@@ -20,6 +20,7 @@ import Foundation
 import UIKit
 
 class AppInformationViewController: DynamicTableViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,7 +34,7 @@ class AppInformationViewController: DynamicTableViewController {
 			.section(
 				header: .space(height: 32),
 				footer: .view(footerView()),
-				separators: false,
+				separators: .none,
 				cells: Category.allCases.compactMap { Self.model[$0] }.map { .body(text: $0.text, accessibilityIdentifier: $0.accessibilityIdentifier) }
 			)
 		])
@@ -59,13 +60,9 @@ extension AppInformationViewController {
 		versionLabel.textColor = .enaColor(for: .textPrimary2)
 		versionLabel.style = .footnote
 
-		if let bundleVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"],
-			let bundleBuild = Bundle.main.infoDictionary?["CFBundleVersion"] {
-			versionLabel.text = "\(AppStrings.Home.appInformationVersion) \(bundleVersion) (\(bundleBuild))"
-		} else {
-			versionLabel.text = "\(AppStrings.Home.appInformationVersion) <unknown>"
-			logError(message: "Unknown version. Should not happen!")
-		}
+		let bundleVersion = Bundle.main.appVersion
+		let bundleBuild = Bundle.main.appBuildNumber
+		versionLabel.text = "\(AppStrings.Home.appInformationVersion) \(bundleVersion) (\(bundleBuild))"
 
 		let footerView = UIView()
 		footerView.addSubview(versionLabel)

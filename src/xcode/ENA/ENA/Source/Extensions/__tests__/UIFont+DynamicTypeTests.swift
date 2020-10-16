@@ -38,4 +38,3 @@ final class UIFont_DynamicTypeTests: XCTestCase {
 private extension CGFloat {
 	static let high: CGFloat = 0.01
 }
-

@@ -99,7 +99,9 @@ enum AccessibilityIdentifiers {
 	enum Settings {
 		static let tracingLabel = "AppStrings.Settings.tracingLabel"
 		static let notificationLabel = "AppStrings.Settings.notificationLabel"
+		static let backgroundAppRefreshLabel = "AppStrings.Settings.backgroundAppRefreshLabel"
 		static let resetLabel = "AppStrings.Settings.resetLabel"
+		static let backgroundAppRefreshImageDescription = "AppStrings.Settings.backgroundAppRefreshImageDescription"
 	}
 
 	enum AppInformation {
@@ -182,15 +184,64 @@ enum AccessibilityIdentifiers {
 		static let usage01 = "AppStrings.ExposureSubmissionIntroduction.usage01"
 		static let usage02 = "AppStrings.ExposureSubmissionIntroduction.usage02"
 	}
+	
+	enum ExposureSubmissionSymptoms {
+		static let description = "AppStrings.ExposureSubmissionSymptoms.description"
+		static let introduction = "AppStrings.ExposureSubmissionSymptoms.introduction"
+		static let answerOptionYes = "AppStrings.ExposureSubmissionSymptoms.answerOptionYes"
+		static let answerOptionNo = "AppStrings.ExposureSubmissionSymptoms.answerOptionNo"
+		static let answerOptionPreferNotToSay = "AppStrings.ExposureSubmissionSymptoms.answerOptionPreferNotToSay"
+	}
+
+	enum ExposureSubmissionSymptomsOnset {
+		static let description = "AppStrings.ExposureSubmissionSymptomsOnset.description"
+		static let answerOptionExactDate = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionExactDate"
+		static let answerOptionLastSevenDays = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionLastSevenDays"
+		static let answerOptionOneToTwoWeeksAgo = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionOneToTwoWeeksAgo"
+		static let answerOptionMoreThanTwoWeeksAgo = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionMoreThanTwoWeeksAgo"
+		static let answerOptionPreferNotToSay = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionPreferNotToSay"
+	}
 
 	enum ExposureSubmissionWarnOthers {
 		static let accImageDescription = "AppStrings.ExposureSubmissionWarnOthers.accImageDescription"
 		static let sectionTitle = "AppStrings.ExposureSubmissionWarnOthers.sectionTitle"
 		static let description = "AppStrings.ExposureSubmissionWarnOthers.description"
 	}
+	
+	enum DeltaOnboarding {
+		static let accImageDescription = "AppStrings.DeltaOnboarding.accImageLabel"
+		static let sectionTitle = "AppStrings.DeltaOnboarding.title"
+		static let description = "AppStrings.DeltaOnboarding.description"
+		static let downloadInfo = "AppStrings.DeltaOnboarding.downloadInfo"
+		static let participatingCountriesListUnavailable = "AppStrings.DeltaOnboarding.participatingCountriesListUnavailable"
+		static let participatingCountriesListUnavailableTitle = "AppStrings.DeltaOnboarding.participatingCountriesListUnavailableTitle"
+	}
+
+	enum ExposureSubmissionWarnEuropeConsent {
+		static let imageDescription = "AppStrings.ExposureSubmissionWarnEuropeConsent.imageDescription"
+		static let sectionTitle = "AppStrings.ExposureSubmissionWarnEuropeConsent.sectionTitle"
+		static let consentSwitch = "AppStrings.ExposureSubmissionWarnEuropeConsent.consentSwitch"
+	}
+
+	enum ExposureSubmissionWarnEuropeTravelConfirmation {
+		static let description1 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description1"
+		static let description2 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description2"
+		static let optionYes = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionYes"
+		static let optionNo = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionNo"
+		static let optionNone = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionNone"
+	}
+
+	enum ExposureSubmissionWarnEuropeCountrySelection {
+		static let description1 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description1"
+		static let description2 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description2"
+		static let answerOptionCountry = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionCountry"
+		static let answerOptionOtherCountries = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionOtherCountries"
+		static let answerOptionNone = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionNone"
+	}
 
 	enum ExposureSubmission {
-		static let continueText = "AppStrings.ExposureSubmission.continueText"
+		static let primaryButton = "AppStrings.ExposureSubmission.primaryButton"
+		static let secondaryButton = "AppStrings.ExposureSubmission.secondaryButton"
 	}
 
 	enum Reset {
@@ -208,6 +259,10 @@ enum AccessibilityIdentifiers {
 	enum General {
 		static let exposureSubmissionNavigationControllerTitle = "ExposureSubmissionNavigationController"
 		static let image = "ExposureSubmissionIntroViewController.image"
+	}
+
+	enum DatePickerOption {
+		static let day = "AppStrings.DatePickerOption.day"
 	}
 
 }

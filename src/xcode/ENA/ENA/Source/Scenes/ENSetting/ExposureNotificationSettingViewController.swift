@@ -33,18 +33,21 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 
 	private var lastActionCell: ActionCell?
 
-	let model = ENSettingModel(content: [.banner, .actionCell, .actionDetailCell, .descriptionCell])
+	let model = ENSettingModel(content: [.banner, .actionCell, .euTracingCell, .actionDetailCell, .descriptionCell])
 	let store: Store
+	let appConfigurationProvider: AppConfigurationProviding
 	var enState: ENStateHandler.State
 
 	init?(
 		coder: NSCoder,
 		initialEnState: ENStateHandler.State,
 		store: Store,
+		appConfigurationProvider: AppConfigurationProviding,
 		delegate: ExposureNotificationSettingViewControllerDelegate
 	) {
 		self.delegate = delegate
 		self.store = store
+		self.appConfigurationProvider = appConfigurationProvider
 		enState = initialEnState
 		super.init(coder: coder)
 	}
@@ -84,7 +87,12 @@ extension ExposureNotificationSettingViewController {
 	}
 
 	private func handleEnableError(_ error: ExposureNotificationError, alert: Bool) {
-		let faqAction = UIAlertAction(title: AppStrings.ExposureNotificationError.learnMoreActionTitle, style: .default, handler: { _ in LinkHelper.showWebPage(from: self, urlString: AppStrings.ExposureNotificationError.learnMoreURL) })
+		let openSettingsAction = UIAlertAction(title: AppStrings.Common.alertActionOpenSettings, style: .default, handler: { _ in
+			if let settingsUrl = URL(string: UIApplication.openSettingsURLString),
+				UIApplication.shared.canOpenURL(settingsUrl) {
+				UIApplication.shared.open(settingsUrl, completionHandler: nil)
+			}
+		})
 		var errorMessage = ""
 		switch error {
 		case .exposureNotificationAuthorization:
@@ -99,7 +107,7 @@ extension ExposureNotificationSettingViewController {
 			errorMessage = AppStrings.ExposureNotificationError.apiMisuse
 		}
 		if alert {
-			alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [faqAction])
+			alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [openSettingsAction])
 		}
 		logError(message: error.localizedDescription + " with message: " + errorMessage, level: .error)
 		if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
@@ -186,6 +194,11 @@ extension ExposureNotificationSettingViewController {
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
 		1
 	}
+	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let vc = EUSettingsViewController(appConfigurationProvider: appConfigurationProvider)
+		navigationController?.pushViewController(vc, animated: true)
+	}
 
 	override func tableView(
 		_ tableView: UITableView,
@@ -204,6 +217,12 @@ extension ExposureNotificationSettingViewController {
 				if let cell = cell as? ActionCell {
 					cell.configure(for: enState, delegate: self)
 					lastActionCell = cell
+				}
+			case .euTracingCell:
+				let euTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.euTracingCell.cellType.rawValue, for: indexPath)
+				if let euTracingCell = euTracingCell as? EuTracingTableViewCell {
+					euTracingCell.configure()
+					return euTracingCell
 				}
 			case .tracingCell, .actionDetailCell:
 				switch enState {
@@ -232,7 +251,7 @@ extension ExposureNotificationSettingViewController {
 						)
 						return tracingCell
 					}
-				case .bluetoothOff, .restricted, .notAuthorized, .unknown:
+				case .bluetoothOff, .restricted, .notAuthorized, .unknown, .notActiveApp:
 					if let cell = cell as? ActionCell {
 						cell.configure(for: enState, delegate: self)
 					}
@@ -264,6 +283,7 @@ extension ExposureNotificationSettingViewController {
 	fileprivate enum ReusableCellIdentifier: String {
 		case banner
 		case actionCell
+		case euTracingCell
 		case tracingCell
 		case actionDetailCell
 		case descriptionCell
@@ -277,6 +297,8 @@ private extension ENSettingModel.Content {
 			return .banner
 		case .actionCell:
 			return .actionCell
+		case .euTracingCell:
+			return .euTracingCell
 		case .tracingCell:
 			return .tracingCell
 		case .actionDetailCell:

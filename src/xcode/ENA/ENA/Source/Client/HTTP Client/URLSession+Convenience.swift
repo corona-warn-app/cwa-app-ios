@@ -21,24 +21,25 @@ extension URLSession {
 	typealias Completion = Response.Completion
 
 	// This method executes HTTP GET requests.
-	func GET(_ url: URL, completion: @escaping Completion) {
-		response(for: URLRequest(url: url), isFake: false, completion: completion)
+	func GET(_ url: URL, extraHeaders: [String: String]? = nil, completion: @escaping Completion) {
+		response(for: URLRequest(url: url), isFake: false, extraHeaders: extraHeaders, completion: completion)
 	}
 
 	// This method executes HTTP POST requests.
-	func POST(_ url: URL, completion: @escaping Completion) {
+	func POST(_ url: URL, extraHeaders: [String: String]? = nil, completion: @escaping Completion) {
 		var request = URLRequest(url: url)
 		request.httpMethod = "POST"
-		response(for: request, isFake: false, completion: completion)
+
+		response(for: request, isFake: false, extraHeaders: extraHeaders, completion: completion)
 	}
 
 	// This method executes HTTP POST with HTTP BODY requests.
-	func POST(_ url: URL, _ body: Data, completion: @escaping Completion) {
+	func POST(_ url: URL, _ body: Data, extraHeaders: [String: String]? = nil, completion: @escaping Completion) {
 		var request = URLRequest(url: url)
 		request.httpMethod = "POST"
 		request.httpBody = body
 		request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-		response(for: request, isFake: false, completion: completion)
+		response(for: request, isFake: false, extraHeaders: extraHeaders, completion: completion)
 	}
 
 	// This method executes HTTP requests.
@@ -50,8 +51,15 @@ extension URLSession {
 	func response(
 		for request: URLRequest,
 		isFake: Bool = false,
+		extraHeaders: [String: String]? = nil,
 		completion: @escaping Completion
 	) {
+		// modify request - if needed
+		var request = request
+		extraHeaders?.forEach {
+			request.addValue($1, forHTTPHeaderField: $0)
+		}
+
 		dataTask(with: request) { data, response, error in
 			guard !isFake else {
 				completion(.failure(.fakeResponse))
@@ -71,7 +79,7 @@ extension URLSession {
 			}
 			completion(
 				.success(
-					.init(body: data, statusCode: response.statusCode)
+					.init(body: data, statusCode: response.statusCode, httpResponse: response)
 				)
 			)
 		}
@@ -86,6 +94,7 @@ extension URLSession {
 
 		let body: Data?
 		let statusCode: Int
+		let httpResponse: HTTPURLResponse
 
 		// MARK: Working with a Response
 
@@ -106,6 +115,7 @@ extension URLSession.Response {
 		case noResponse
 		case teleTanAlreadyUsed
 		case qRAlreadyUsed
+		case qRNotExist
 		case regTokenNotExist
 		case invalidResponse
 		case serverError(Int)

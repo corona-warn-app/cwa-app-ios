@@ -3,6 +3,10 @@
 
 "Alert_ActionOk" = "OK";
 
+"Alert_ActionYes" = "Ja";
+
+"Alert_ActionNo" = "Nein";
+
 "Alert_ActionRetry" = "Wiederholen";
 
 "Alert_ActionCancel" = "Abbrechen";
@@ -39,14 +43,7 @@
 
 "Common_Deadman_AlertBody" = "Bitte denken Sie daran, die Corona-Warn-App regelmäßig zu öffnen, um Ihren Risikostatus zu überprüfen.";
 
-/* General - Links */
-"General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
-
-"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/de/faq/#ENError5";
-
-"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/de/faq/#ENError11";
-
-"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/de/faq/#ENError13";
+"Common_Tess_Relay_Description" = "Gehörlose, schwerhörige und spätertaubte Menschen können zur telefonischen Kontaktaufnahme die Tess-Relay-Dienste (Dolmetschen in Gebärdensprache und deutscher Schriftsprache) nutzen. Die Software können Sie in Ihrem App Store / Play Store herunterladen.";
 
 /* Accessibility */
 "AccessibilityLabel_Close" = "Schließen";
@@ -110,15 +107,13 @@
 
 "ExposureDetection_Explanation_Text_Off" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
-"ExposureDetection_Explanation_Text_Outdated" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Explanation_Text_Outdated" = "Ihre Risiko-Überprüfung wurde seit mehr als 48 Stunden nicht durchgeführt. Bitte aktualisieren Sie Ihre Risiko-Überprüfung.";
 
-"ExposureDetection_Explanation_Text_Unknown" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Explanation_Text_Unknown" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
-"ExposureDetection_Explanation_Text_Low" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung des Abstands und der Dauer von Begegnungen mit nachweislich Corona-positiv getesteten Personen sowie deren vermutlicher Infektiosität lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Explanation_Text_Low" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung des Abstands und der Dauer von Begegnungen mit nachweislich Corona-positiv getesteten Personen sowie deren vermutlicher Infektiosität lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
 "ExposureDetection_Explanation_Text_High" = "Die Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft.\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.\nWenn Sie nach Hause kommen, vermeiden Sie auch Begegnungen mit Familienmitgliedern und Mitbewohnern.";
-
-"ExposureDetection_Explanation_FAQ_Link" = "https://www.coronawarn.app/de/faq/#encounter_but_green";
 
 "ExposureDetection_Explanation_FAQ_Link_Text" = "Weitere Informationen";
 
@@ -131,6 +126,14 @@
 "ExposureDetection_Button_Enable" = "Risiko-Ermittlung aktivieren";
 
 "ExposureDetection_Button_Refresh" = "Aktualisieren";
+
+"ExposureDetection_Risk_Status_Downloading_Title" = "Daten werden heruntergeladen …";
+
+"ExposureDetection_Risk_Status_Detecting_Title" = "Prüfung läuft …";
+
+"ExposureDetection_Risk_Status_Downloading_Body" = "Das kann mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
+
+"ExposureDetection_Risk_Status_Detecting_Body" = "Ihre Begegnungsdaten werden nun geprüft. Das kann mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
 
 /* Active Tracing Section */
 "ExposureDetection_ActiveTracingSection_Title" = "Ermittlungszeitraum";
@@ -152,15 +155,21 @@
 
 "ExposureDetectionError_Alert_AppConfig_Missing_Message" = "Ihre Internetverbindung wurde unterbrochen. Bitte prüfen Sie die Verbindung und öffnen Sie die App dann erneut.";
 
+"ExposureDetectionError_Alert_FullDiskSpace_Message" = "Es steht nicht genug Speicherplatz für die aktuellen Daten zur Verfügung.\nBitte geben Sie Speicherplatz auf Ihrem Smartphone frei, damit Ihr Risikostatus aktualisiert werden kann.";
+
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Information zur Funktionsweise der Risiko-Ermittlung";
 
 "How_Risk_Detection_Works_Alert_Message" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-Ermittlung sollte daher dauerhaft aktiv sein.\nFür Ihre Risiko-Ermittlung wird nur der Zeitraum der letzten %1$u Tage betrachtet.\nÄltere Tage werden automatisch gelöscht, da sie aus Sicht des Infektionsschutzes nicht mehr relevant sind.\n\nWeitere Informationen finden Sie in den FAQ.";
 
 /* Settings */
-"Settings_StatusActive" = "An";
+"Settings_Notification_StatusActive" = "An";
 
-"Settings_StatusInactive" = "Aus";
+"Settings_Notification_StatusInactive" = "Aus";
+
+"Settings_BackgroundAppRefresh_StatusActive" = "An";
+
+"Settings_BackgroundAppRefresh_StatusInactive" = "Aus";
 
 "Settings_StatusEnable" = "Aktivieren";
 
@@ -174,11 +183,15 @@
 
 "Settings_Notification_Label" = "Mitteilungen";
 
+"Settings_BackgroundAppRefresh_Label" = "Hintergrundaktualisierung";
+
 "Settings_Reset_Label" = "Anwendung zurücksetzen";
 
-"Settings_Tracing_Description" = "Erlauben Sie die Aufzeichnung und Weitergabe von COVID-19-Zufallscodes.";
+"Settings_Tracing_Description" = "Erlauben Sie die Aufzeichnung und Weitergabe von COVID-19-Zufalls-IDs.";
 
 "Settings_Notification_Description" = "Erlauben Sie automatische Mitteilungen zu Ihrem COVID-19-Risikostatus.";
+
+"Settings_BackgroundAppRefresh_Description" = "Erlauben Sie die automatische Aktualisierung Ihres Risikostatus.";
 
 "Settings_Reset_Description" = "Löschen Sie alle Ihre Daten in der App.";
 
@@ -211,12 +224,71 @@
 
 "NotificationSettings_offImageDescription" = "Eine Frau kann keine Mitteilungen von ihrer Corona-Warn-App erhalten.";
 
+/* Background App Referesh Settings */
+
+"BackgroundAppRefreshSettings_Title" = "Hintergrundaktualisierung";
+
+"BackgroundAppRefreshSettings_Image_Description_On" = "Ein Mensch hält ein Smartphone mit eingeschalteter Hintergrundaktualisierung in der Hand.";
+
+"BackgroundAppRefreshSettings_Image_Description_Off" = "Ein Mensch hält ein Smartphone mit ausgeschalteter Hintergrundaktualisierung in der Hand.";
+
+"BackgroundAppRefreshSettings_Subtitle" = "Risikostatus im Hintergrund aktualisieren";
+
+"BackgroundAppRefreshSettings_Description" = "Bei eingeschalteter Hintergrundaktualisierung ermittelt die Corona-Warn-App Ihren Risikostatus automatisch.
+Es fallen hierbei keine zusätzliche Kosten für die Datenübertragung im Mobilfunknetz an.
+Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufrufen, um Ihren Risikostatus zu aktualisieren.";
+
+"BackgroundAppRefreshSettings_Status_Header" = "Einstellung";
+
+"BackgroundAppRefreshSettings_Status_Title" = "Hintergrundaktualisierung";
+
+"BackgroundAppRefreshSettings_Status_On" = "An";
+
+"BackgroundAppRefreshSettings_Status_Off" = "Aus";
+
+"BackgroundAppRefreshSettings_InfoBox_Title" = "Hintergrundaktualisierung einschalten";
+
+"BackgroundAppRefreshSettings_InfoBox_Description" = "Die Hintergrundaktualisierung müssen Sie sowohl in den allgemeinen Einstellungen Ihres iPhones als auch in den Einstellungen der Corona-Warn-App einschalten.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Beachten Sie bitte, dass für das Einschalten der Hintergrundaktualisierung der Stromsparmodus ausgeschaltet sein muss.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Stromsparmodus ausschalten";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Öffnen Sie Einstellungen.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2" = "Öffnen Sie Batterie.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3" = "Schalten Sie den Stromsparmodus aus.";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title" = "Hintergrundaktualisierung allgemein einschalten";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1" = "Öffnen Sie Einstellungen.";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2" = "Öffnen Sie Allgemein.";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3" = "Öffnen Sie Hintergrundaktualisierung.";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4" = "Wählen Sie entweder WLAN oder WLAN & Mobile Daten.";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title" = "Hintergrundaktualisierung für die Corona-Warn-App einschalten";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Öffnen Sie Einstellungen.";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Öffnen Sie die Corona-Warn-App Einstellungen.";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Schalten Sie die Hintergrundaktualisierung ein.";
+
+"BackgroundAppRefreshSettings_OpenSettingsButton_Title" = "Einstellungen öffnen";
+
+"BackgroundAppRefreshSettings_ShareButton_Title" = "Anleitung teilen";
+
+
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "Los geht’s";
 
 "Onboarding_Continue_actionText" = "Weiter";
 
-"Onboarding_EnableLogging_actionText" = "Weiter";
+"Onboarding_EnableLogging_actionText" = "Risiko-Ermittlung aktivieren";
 
 "Onboarding_Continue_actionTextHint" = "Sie können diesen Bildschirm überspringen";
 
@@ -234,13 +306,11 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mehr Schutz für Sie und uns alle. Mit der Corona-Warn-App durchbrechen wir Infektionsketten schneller.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in Ihrer Nähe waren.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufallscodes austauschen. Und zwar ohne dabei auf persönliche Daten zuzugreifen.";
-
-"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in Ihrer Nähe waren.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufalls-IDs austauschen. Und zwar ohne dabei auf persönliche Daten zuzugreifen.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informationen zur App in leichter Sprache und Gebärdensprache";
 
-"OnboardingInfo_privacyPage_imageDescription" = "Eine Frau mit einem Handy benutzt die Corona-Warn-App, ein Vorhängeschloss auf einem Schild steht als Symbol für verschlüsselte Daten.";
+"OnboardingInfo_privacyPage_imageDescription" = "Eine Frau mit einem Smartphone benutzt die Corona-Warn-App, ein Vorhängeschloss auf einem Schild steht als Symbol für verschlüsselte Daten.";
 
 "OnboardingInfo_privacyPage_title" = "Datenschutz";
 
@@ -254,11 +324,11 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr Handy per Bluetooth verschlüsselte Zufallscodes anderer Nutzerinnen und Nutzer empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.\n\nDie verschlüsselten Zufallscodes geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Konkrete Rückschlüsse auf Personen sind nicht möglich.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr Smartphone per Bluetooth verschlüsselte Zufalls-IDs anderer Nutzer empfängt und Ihre eigenen Zufalls-IDs an deren Smartphones weitergibt. Die Risiko-Ermittlung lässt sich jederzeit deaktivieren.\n\nDie verschlüsselten Zufalls-IDs geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Rückschlüsse auf einzelne Personen sind anhand der Zufalls-IDs nicht möglich.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Einwilligungserklärung";
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "App-Nutzung ab 16 Jahren";
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Um zu erfahren, ob Sie Kontakt mit einer infizierten Person hatten und für Sie ein Infektionsrisiko besteht, müssen Sie die Funktion Risiko-Ermittlung in der App aktivieren. Der Aktivierung der Risiko-Ermittlung und der damit im Zusammenhang stehenden Datenverarbeitung stimmen Sie mit Antippen des Buttons „Risiko-Ermittlung aktivieren“ zu.\n\n\nUm die Risiko-Ermittlung nutzen zu können, müssen Sie zudem auf Ihrem iPhone die von Apple bereitgestellte Kontaktaufzeichnungs-Funktion „COVID-19-Kontaktprotokoll“ aktivieren und für die Corona-Warn-App freigeben.\n\nIhr iPhone erzeugt und versendet bei aktivierter Kontaktaufzeichnung kontinuierlich Zufalls-IDs per Bluetooth, die von anderen Apple- und Android-Smartphones mit ebenfalls aktivierter Kontaktaufzeichnung in Ihrer Umgebung empfangen werden können. Umgekehrt empfängt Ihr iPhone die Zufalls-IDs der anderen Smartphones. Die eigenen und die von anderen Smartphones empfangenen Zufalls-IDs werden im COVID-19-Kontaktprotokoll aufgezeichnet und dort für 14 Tage gespeichert.\n\n\nZur Ermittlung Ihres Infektionsrisikos lädt die App mehrmals täglich oder auf Abfrage eine Liste mit den Zufalls-IDs aller Nutzer, die Ihre Infektion mit dem Corona-Virus in der App geteilt haben. Diese Liste wird dann mit den im COVID-19-Kontaktprotokoll gespeicherten Zufalls-IDs verglichen. Wenn die App dabei feststellt, dass Sie möglicherweise Kontakt zu einem infizierten Nutzer gehabt haben, werden Sie von der App informiert, dass Sie mit einer infizierten Person in Kontakt waren und insoweit ein Infektionsrisiko besteht. In diesem Fall erhält die App außerdem Zugriff auf weitere im COVID-19-Kontaktprotokoll Ihres iPhone gespeicherte Daten (Datum und Dauer sowie Bluetooth-Signalstärke des Kontakts).\n\nAus der Bluetooth-Signalstärke wird der räumliche Abstand abgeleitet (je stärker das Signal, desto geringer der Abstand). Diese Angaben werden von der App ausgewertet, um Ihr Gesundheitsrisiko durch eine Infektion mit dem Corona-Virus abzuschätzen und Ihnen Empfehlungen für die nächsten Schritte zu geben. Diese Auswertung wird ausschließlich lokal auf Ihrem iPhone durchgeführt. Außer Ihnen erfährt niemand (auch nicht das RKI), ob Sie mit einer infizierten Person Kontakt hatten und welches Risiko für Sie ermittelt wird.\n\nZum Widerruf Ihrer Einwilligung in die Risiko-Ermittlung können Sie die Funktion über den Schieberegler innerhalb der App deaktivieren oder die App löschen. Wenn Sie die Risiko-Ermittlung wieder nutzen möchten, können Sie den Schieberegler erneut aktivieren oder die App erneut installieren. Wenn Sie die Risiko-Ermittlung deaktivieren, prüft die App nicht mehr, ob Sie Kontakt zu einem infizierten Nutzer gehabt haben. Um auch die Aussendung und den Empfang der Zufalls-IDs anzuhalten, müssen Sie das COVID-19-Kontaktprotokoll in den Einstellungen Ihres iPhones deaktivieren. Bitte beachten Sie, dass die im COVID-19-Kontaktprotokoll aufgezeichneten fremden und eigenen Zufalls-Kennungen nicht in der App gelöscht werden. Die im COVID-19-Kontaktprotokoll gespeicherten Daten können Sie nur in den Einstellungen Ihres iPhones dauerhaft löschen.\n\n\nDie Datenschutzhinweise der App (einschließlich Informationen zur Datenverarbeitung für die Risiko-Ermittlung) finden Sie unter dem Menüpunkt „Datenschutzinformation“.";
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "Die App-Nutzung ist ab 16 Jahren gestattet und richtet sich an Personen, die sich in Deutschland aufhalten.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Status";
 
@@ -274,7 +344,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… teilen Sie es bitte über die Corona-Warn-App mit. Freiwillig und sicher. Für die Gesundheit aller.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ihre Mitteilung wird zuverlässig verschlüsselt über einen sicheren Server weiterverarbeitet. Die Personen, deren verschlüsselte Zufallscodes Sie gesammelt haben, erhalten nun eine Warnung und Informationen darüber, wie sie weiter vorgehen sollen.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ihre Mitteilung wird zuverlässig verschlüsselt über einen sicheren Server weiterverarbeitet. Die Personen, deren verschlüsselte Zufalls-IDs Sie gesammelt haben, erhalten nun eine Warnung und Informationen darüber, wie sie weiter vorgehen sollen.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Eine Frau erhält eine Mitteilung von ihrer Corona-Warn-App.";
 
@@ -284,12 +354,28 @@
 
 "OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Isolation begeben und sich nach entsprechender Abklärung testen lassen.";
 
+/* Onboarding EU Keys */
+
+"onboardingInfo_enableLoggingOfContactsPage_euTitle" = "Länderübergreifende Risiko-Ermittlung";
+
+"onboardingInfo_enableLoggingOfContactsPage_euDescription" = "Mehrere Länder arbeiten zusammen, um länderübergreifende Warnungen zu ermöglichen. Das heißt es können die Kontakte mit Nutzern der offiziellen Corona-Apps aller teilnehmenden Länder berücksichtigt werden.\n\nHat ein Nutzer seine Zufalls-IDs über den von den teilnehmenden Ländern gemeinsam betriebenen Austausch-Server zur Verfügung gestellt, können Nutzer der offiziellen Corona-Apps der teilnehmenden Länder gewarnt werden.\n\nDer tägliche Download der Liste mit den Zufalls-IDs ist für Sie in der Regel kostenlos. Das heißt: Das von der App verursachte Datenvolumen wird von den Mobilfunk-Betreibern nicht angerechnet und im EU-Ausland werden Ihnen keine Roaming-Gebühren berechnet. Näheres erfahren Sie von Ihrem Mobilfunk-Betreiber.";
+
+"onboardingInfo_enableLoggingOfContactsPage_participatingCountriesTitle" = "Derzeit nehmen die folgenden Länder teil:";
+
+"onboardingInfo_enableLoggingOfContactsPage_emptyEuTitle" = "Teilnehmende Länder";
+
+"onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "Die teilnehmenden Länder können Sie jederzeit in den Details zur Risiko-Ermittlung einsehen.";
+
 /* Exposure Submission */
 "ExposureSubmission_Hotline_Number" = "+498007540002";
 
 "ExposureSubmission_DataPrivacyTitle" = "Datenschutz";
 
 "ExposureSubmission_Continue_actionText" = "Weiter";
+
+"ExposureSubmission_ConfirmDismissPopUpTitle" = "Wollen Sie wirklich abbrechen?";
+
+"ExposureSubmission_ConfirmDismissPopUpText" = "Ihre bisherigen Angaben werden nicht gespeichert.";
 
 "ExposureSubmission_DataPrivacyDescription" = "Durch Antippen von „Erlauben“ willigen Sie ein, dass die App den Status Ihres Corona-Virus-Tests abfragen und in der App anzeigen darf. Diese Funktion steht Ihnen zur Verfügung, wenn Sie einen QR-Code erhalten und eingewilligt haben, dass Ihr Testergebnis an das Serversystem der App übermittelt werden darf. Sobald das Testlabor Ihr Testergebnis auf dem Server hinterlegt hat, können Sie das Ergebnis in der App sehen. Falls Sie Mitteilungen aktiviert haben, werden Sie auch außerhalb der App über den Eingang des Testergebnis informiert. Das Testergebnis selbst wird aus Datenschutzgründen jedoch nur in der App angezeigt. Sie können diese Einwilligung jederzeit widerrufen, indem Sie die Testregistrierung in der App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen finden Sie unter dem Menüpunkt „Datenschutzinformation“.";
 
@@ -309,9 +395,9 @@
 
 "ExposureSubmissionTanEntry_Submit" = "Weiter";
 
-"ExposureSubmissionTanEntry_InvalidCharacterError" = "Ungültige Eingabe, bitte überprüfen Sie das Zeichen.";
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Ihre Eingabe enthält ein ungültiges Zeichen. Bitte überprüfen Sie Ihre Eingabe.";
 
-"ExposureSubmissionTanEntry_InvalidError" = "Ungültige TAN, bitte überprüfen Sie Ihre Eingabe.";
+"ExposureSubmissionTanEntry_InvalidError" = "Ungültige TAN. Bitte überprüfen Sie Ihre Eingabe.";
 
 "ExposureSubmission_NavTitle" = "Positivkennung senden";
 
@@ -339,7 +425,7 @@
 
 "ExposureSubmissionHotline_Title" = "TAN anfragen";
 
-"ExposureSubmissionHotline_Description" = "Bitte halten Sie zur TAN-Abfrage Ihren Befundbrief (sofern vorhanden) und Ihre Telefonnummer bereit.\n\nGehörlose, schwerhörige und spätertaubte Menschen können zur telefonischen Kontaktaufnahme die Tess-Relay-Dienste (Dolmetschen in Gebärdensprache und deutscher Schriftsprache) nutzen. Die Software können Sie in Ihrem App Store / Play Store herunterladen.";
+"ExposureSubmissionHotline_Description" = "Bitte halten Sie zur TAN-Abfrage Ihren Befundbrief (sofern vorhanden) und Ihre Telefonnummer bereit.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Info zum Ablauf:";
 
@@ -351,7 +437,7 @@
 
 "ExposureSubmission_PhoneNumber" = "+49 800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - So: Täglich 24 Stunden\n\nDer Anruf ist kostenfrei.";
+"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - So: Täglich 24 Stunden\n\nDer Anruf ist kostenfrei.\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 "ExposureSubmission_SectionDescription2" = "Test per TAN-Eingabe in der App registrieren";
 
@@ -397,7 +483,7 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Bitte beachten Sie:";
 
-"ExposureSubmissionSuccess_listItem1" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
+"ExposureSubmissionSuccess_listItem1" = "Das Gesundheitsamt wird sich in den nächsten Tagen bei Ihnen melden.";
 
 "ExposureSubmissionSuccess_listItem2" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
 
@@ -418,7 +504,7 @@
 
 "ExposureSubmissionIntroduction_Usage01" = "Damit die Corona-Warn-App funktioniert, sind wir auf die Mithilfe von Corona-positiv getesteten Personen angewiesen.";
 
-"ExposureSubmissionIntroduction_Usage02" = "Da nur verschlüsselte Zufallscodes ausgetauscht werden, bleiben Sie unerkannt. Sie können jetzt wie folgt vorgehen:";
+"ExposureSubmissionIntroduction_Usage02" = "Da nur verschlüsselte Zufalls-IDs ausgetauscht werden, bleiben Sie unerkannt. Sie können jetzt wie folgt vorgehen:";
 
 "ExposureSubmissionIntroduction_ListItem1" = "Wenn sich auf Ihrem Testdokument ein QR-Code befindet, können Sie diesen in der App scannen und den Test damit registrieren. Sobald das Ergebnis vorliegt, können Sie es in der App einsehen.";
 
@@ -451,11 +537,7 @@
 
 "ExposureSubmissionResult_warnOthers" = "Andere warnen";
 
-"ExposureSubmissionResult_warnOthersDesc" = "Ihre Zufallscodes der letzten 14 Tage teilen, um andere zu schützen und die Infektionskette zu unterbrechen.";
-
-"ExposureSubmissionResult_testPositive" = "Befund positiv";
-
-"ExposureSubmissionResult_testPositiveDesc" = "Ihr Testergebnis wurde erfolgreich als positiv verifiziert.";
+"ExposureSubmissionResult_warnOthersDesc" = "Teilen Sie Ihre Zufalls-IDs und warnen Sie andere.\nHelfen Sie, das Infektionsrisiko für andere genauer zu bestimmen, indem Sie auch angeben, wann eventuelle Corona-Symptome zum ersten Mal aufgetreten sind.";
 
 "ExposureSubmissionResult_testNegative" = "Befund negativ";
 
@@ -469,7 +551,7 @@
 
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Gehen Sie nicht krank zur Arbeit, um andere Personen nicht zu gefährden.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Falls sich Ihre Symptome verschlechtern, kann die Notwendigkeit eines weiteres SARS-CoV-2-Tests bestehen.";
+"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Falls sich Ihre Symptome verschlechtern, kann die Notwendigkeit eines weiteren SARS-CoV-2-Tests bestehen.";
 
 "ExposureSubmissionResult_testInvalid" = "Test fehlerhaft";
 
@@ -487,25 +569,85 @@
 
 "ExposureSubmissionResult_testRemoveDesc" = "Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.";
 
-"ExposureSubmissionResult_continueButton" = "Weiter";
+"ExposureSubmissionResult_primaryButtonTitle" = "Weiter mit Symptom-Erfassung";
+
+"ExposureSubmissionResult_secondaryButtonTitle" = "Weiter ohne Symptom-Erfassung";
 
 "ExposureSubmissionResult_deleteButton" = "Test entfernen";
 
 "ExposureSubmissionResult_refreshButton" = "Aktualisieren";
 
+/* ExposureSubmissionSymptoms */
+
+"ExposureSubmissionSymptoms_Title" = "Symptome";
+
+"ExposureSubmissionSymptoms_Introduction" = "Wenn Sie angeben, ob und wann eventuelle Corona-Symptome bei Ihnen aufgetreten sind, kann das Infektionsrisiko von anderen App-Nutzern genauer berechnet werden. Sie müssen keine Angabe machen, wählen Sie dazu „Keine Angabe“.";
+
+"ExposureSubmissionSymptoms_Description" = "Sind bei Ihnen in den letzten Tagen folgende Symptome aufgetreten?";
+
+"ExposureSubmissionSymptoms_Symptom0" = "Erhöhte Temperatur oder Fieber";
+
+"ExposureSubmissionSymptoms_Symptom1" = "Kurzatmigkeit";
+
+"ExposureSubmissionSymptoms_Symptom2" = "Verlust des Geruchs-/Geschmackssinns";
+
+"ExposureSubmissionSymptoms_Symptom3" = "Husten";
+
+"ExposureSubmissionSymptoms_Symptom4" = "Schnupfen";
+
+"ExposureSubmissionSymptoms_Symptom5" = "Halsschmerzen";
+
+"ExposureSubmissionSymptoms_Symptom6" = "Kopf- und Gliederschmerzen";
+
+"ExposureSubmissionSymptoms_Symptom7" = "Allgemeine Schwäche und Abgeschlagenheit";
+
+"ExposureSubmissionSymptoms_AnswerOptionYes" = "Ja";
+
+"ExposureSubmissionSymptoms_AnswerOptionNo" = "Nein";
+
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Keine Angabe";
+
+"ExposureSubmissionSymptoms_ContinueButton" = "Weiter";
+
+/* ExposureSubmissionSymptomsOnset */
+
+"ExposureSubmissionSymptomsOnset_Title" = "Symptom-Beginn";
+
+"ExposureSubmissionSymptomsOnset_Subtitle" = "Wann sind die Symptome bei Ihnen aufgetreten?";
+
+"ExposureSubmissionSymptomsOnset_Description" = "Machen Sie Ihre Angaben so genau wie möglich.";
+
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Genaues Datum";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "In den letzten 7 Tagen";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionOneToTwoWeeksAgo" = "Vor 1-2 Wochen";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "Vor mehr als 2 Wochen";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Keine Angabe";
+
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "Weiter";
+
+/* ExposureSubmissionWarnOthers */
+
 "ExposureSubmissionWarnOthers_title" = "Andere warnen";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
 
-"ExposureSubmissionWarnOthers_continueButton" = "Weiter";
-
 "ExposureSubmissionWarnOthers_sectionTitle" = "Helfen Sie mit!";
 
-"ExposureSubmissionWarnOthers_description" = "Als Nächstes können Sie dafür sorgen, dass das Corona-Warn-System Ihre lokal gespeicherten Zufallscodes der letzten 14 Tage an andere verteilt. So können Sie Ihre Mitmenschen warnen und helfen, die Infektionskette zu unterbrechen.\n\nDa nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität unbekannt.";
+"ExposureSubmissionWarnOthers_description" = "Als Nächstes können Sie dafür sorgen, dass Ihre Mitmenschen vor einer möglichen Infektion gewarnt werden.\n\nHierfür können Sie Ihre eigenen Zufalls-IDs der letzten 14 Tage und optional auch Angaben zum ersten Auftreten von eventuellen Corona-Symptomen an den von den teilnehmenden Ländern gemeinsam betriebenen Austausch-Server übertragen. Von dort werden Ihre Zufalls-IDs und eventuelle weitere Angaben an die Nutzer der jeweiligen offiziellen Corona-Apps verteilt. So können die anderen Nutzer, mit denen Sie Kontakt hatten, vor einer eventuellen Ansteckung gewarnt werden.\n\nEs werden nur Zufalls-IDs und eventuelle Angaben zum Symptombeginn übertragen. Es werden keine persönlichen Daten wie Ihr Name, Ihre Adresse oder Ihr Aufenthaltsort mitgeteilt.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Durch Antippen von „Einverstanden“ willigen Sie ein, dass die App Ihr positives Testergebnis zusammen mit Ihren Zufalls-IDs der letzten 14 Tage an das Serversystem der App übermittelt, damit andere App-Nutzer mit aktivierter Risiko-Ermittlung automatisch informiert werden können, dass sie möglicherweise einem Infektionsrisiko ausgesetzt waren. Die übermittelten Zufalls-IDs enthalten keine Angaben, die Rückschlüsse auf Ihre Identität oder Ihre Person zulassen.\n\nDie Übermittlung Ihres Testergebnisses per App ist freiwillig. Wenn Sie Ihr Testergebnis nicht übermitteln, entstehen Ihnen keine Nachteile. Da weder nachvollzogen noch kontrolliert werden kann, ob und wie Sie die App verwenden, erfährt außer Ihnen niemand, ob Sie eine Infektion übermittelt haben.\n\nSie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen finden Sie unter dem Menüpunkt „Datenschutzinformation“.";
+"ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Folgende Länder nehmen derzeit an der länderübergreifenden Risiko-Ermittlung teil:";
 
-"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Datenschutz";
+"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "App-Nutzung ab 16 Jahren";
+
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "Die App-Nutzung ist ab 16 Jahren gestattet und richtet sich an Personen, die sich in Deutschland aufhalten.";
+
+"ExposureSubmissionWarnOthers_continueButton" = "Einverstanden";
+
+/* Exposure Submission Result */
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test kann nur einmal gescannt werden";
 
@@ -525,7 +667,7 @@
 
 "ExposureSubmissionError_EnNotEnabled" = "Die Risiko-Ermittlung ist nicht aktiv.";
 
-"ExposureSubmissionError_NoRegistrationToken" = "Kein Registrations-Token auf dem Endgerät gefunden.";
+"ExposureSubmissionError_NoRegistrationToken" = "Kein Registrations-Token auf dem Smartphone gefunden.";
 
 "ExposureSubmissionError_InvalidResponse" = "Die Antwort kann nicht verarbeitet werden.";
 
@@ -535,7 +677,11 @@
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "QR-Code ist ungültig";
 
-"ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde bereits verwendet. Bitte versuchen Sie es erneut oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde bereits verwendet. Bitte rufen Sie die unter „TAN anfragen“ angegebene Nummer an, um weitere Informationen zu erhalten.";
+
+"ExposureSubmissionError_QRNotExist_Title" = "QR-Code ist abgelaufen";
+
+"ExposureSubmissionError_QRNotExist" = "Bitte entfernen Sie den Test aus der App.\nDanach können Sie einen neuen Test in der App hinzufügen.";
 
 "ExposureSubmissionError_RegTokenNotExist" = "Es konnte keine Übermittlungs-TAN erstellt werden. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
@@ -545,11 +691,13 @@
 
 "ExposureSubmissionError_httpError" = "Es konnte keine Verbindung hergestellt werden.";
 
-"ExposureSubmissionError_declined" = "Bitte geben Sie Ihre Zufallscodes frei, um andere zu warnen.";
+"ExposureSubmissionError_declined" = "Bitte geben Sie Ihre Zufalls-IDs frei, um andere zu warnen.";
 
 "ExposureSubmissionError_unknown" = "Unbekannter Fehler";
 
 "ExposureSubmissionError_defaultError" = "Fehler bei der Schlüssel-Übermittlung";
+
+"ExposureSubmissionError_noAppConfiguration" = "Ihre Internetverbindung wurde unterbrochen. Bitte prüfen Sie die Verbindung und öffnen Sie die App dann erneut.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
@@ -564,13 +712,13 @@
 
 "ExposureNotificationSetting_DescriptionTitle_Inactive" = "Aktivieren Sie die Begegnungs-Aufzeichnung";
 
-"ExposureNotificationSetting_DescriptionTitle" = "So funktioniert die Begegnungs-Aufzeichnung";
+"ExposureNotificationSetting_DescriptionTitle" = "So funktioniert die Risiko-Ermittlung";
 
-"ExposureNotificationSetting_DescriptionText1" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
+"ExposureNotificationSetting_DescriptionText1" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren. Die Risiko-Ermittlung funktioniert länderübergreifend, so dass auch Risiko-Begegnungen mit Nutzern von anderen offiziellen Corona-Apps erkannt werden.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Die Risiko-Ermittlung funktioniert, indem Ihr Handy per Bluetooth verschlüsselte Zufallscodes anderer Nutzerinnen und Nutzer empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.";
+"ExposureNotificationSetting_DescriptionText2" = "Die Risiko-Ermittlung funktioniert, indem Ihr Smartphone per Bluetooth verschlüsselte Zufalls-IDs anderer Nutzer empfängt und Ihre eigenen Zufalls-IDs an deren Smartphone weitergibt. Die App lädt täglich eine Liste mit den Zufalls-IDs und eventuellen Angaben zum Symptombeginn aller Corona-positiv getesteten Nutzer herunter, die diese freiwillig über ihre App geteilt haben. Diese Liste wird dann mit den von Ihrem Smartphone aufgezeichneten Zufalls-IDs anderer Nutzer verglichen, um Ihr Infektionsrisiko zu berechnen und Sie zu warnen. Die Risiko-Ermittlung lässt sich jederzeit über den Schieberegler deaktivieren.";
 
-"ExposureNotificationSetting_DescriptionText3" = "Die verschlüsselten Zufallscodes geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Konkrete Rückschlüsse auf Personen sind nicht möglich.";
+"ExposureNotificationSetting_DescriptionText3" = "Persönliche Daten wie Ihr Name, Ihre Adresse oder Ihr Aufenthaltsort werden über die App zu keiner Zeit erfasst oder an andere Nutzer übermittelt. Rückschlüsse auf Ihre Identität, Ihren Namen oder andere persönliche Angaben sind anhand der Zufalls-IDs nicht möglich.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Bluetooth aktivieren";
 
@@ -582,9 +730,19 @@
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Geräte-Einstellungen öffnen";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "COVID-19-Kontaktprotokoll und -Mitteilungen aktivieren ";
+"ExposureNotificationSetting_Activate_OSENSetting" = "Begegnungsmitteilungen aktivieren";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt das aktivierte COVID-19-Kontaktprotokoll und die -Mitteilungen in den Systemeinstellungen, um Begegnungen zu protokollieren. Bitte aktivieren Sie „COVID-19-Kontaktprotokoll und -Mitteilungen“ in Ihren Systemeinstellungen.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt, dass die Begegnungsmitteilungen in den Systemeinstellungen aktiviert sind, um Begegnungen zu protokollieren. Bitte klicken Sie auf „Geräte-Einstellungen öffnen“ -> „Begegnungsmitteilungen“ -> „Begegnungsinformationen teilen“. Legen Sie danach die App als aktive App für die Begegnungsmitteilungen fest, indem Sie auf „Als aktive Region festlegen“ klicken.";
+
+"ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "COVID-19-Begegnungsmitteilungen aktivieren ";
+
+"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Die Risiko-Ermittlung benötigt aktivierte COVID-19-Begegnungsmitteilungen in den Systemeinstellungen, um Begegnungen zu protokollieren. Bitte klicken Sie auf „Geräte-Einstellungen öffnen“ und aktivieren dann die „COVID-19-Begegnungsmitteilungen“ in den Einstellungen.";
+
+"ExposureNotificationSetting_SetActiveApp_OSENSetting" = "Aktive Region festlegen";
+
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Die Risiko-Ermittlung benötigt, dass die Corona-Warn-App in den Systemeinstellungen als aktive App festgelegt wurde, um Begegnungen zu protokollieren. Bitte klicken Sie auf „Geräte-Einstellungen öffnen“ -> „Einstellungen für COVID-19-Begegnungsaufzeichnungen“ und wählen Sie dann die Corona-Warn-App als aktive App aus.";
+
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt, dass die Corona-Warn-App in den Systemeinstellungen als aktive App festgelegt wurde, um Begegnungen zu protokollieren. Bitte klicken Sie auf „Geräte-Einstellungen öffnen“ -> „Begegnungsmitteilungen“ -> „Als aktive Region festlegen“.";
 
 "ExposureNotificationSetting_ParentalControls_OSENSetting" = "COVID-19-Kontaktprotokoll und -Mitteilungen aktivieren";
 
@@ -612,8 +770,6 @@
 
 "ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Mehr erfahren";
 
-"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.coronawarn.app/de/faq/";
-
 "ExposureNotificationSetting_AuthenticationError" = "Bei der Aktivierung der Risiko-Ermittlung ist ein Fehler aufgetreten. Bitte prüfen Sie in den Einstellungen, ob Sie das COVID-19-Kontaktprotokoll aktiviert haben.";
 
 "ExposureNotificationSetting_exposureNotification_Required" = "Bei der Aktivierung der Risiko-Ermittlung ist ein Fehler aufgetreten. Bitte prüfen Sie in den Einstellungen, ob für diese App die COVID-19-Kontaktmitteilung aktiviert wurde.";
@@ -623,6 +779,29 @@
 "ExposureNotificationSetting_unknownError" = "Ein unbekannter Fehler ist aufgetreten. Für mehr Informationen besuchen Sie bitte die FAQ-Website.";
 
 "ExposureNotificationSetting_apiMisuse" = "Bei der Aktivierung der Risiko-Ermittlung ist ein interner Fehler aufgetreten. Für mehr Informationen besuchen Sie bitte die FAQ-Website und probieren Sie es später noch einmal.";
+
+/* EU Settings */
+
+"ExposureNotificationSetting_EU_Title" = "Länderübergreifende Risiko-Ermittlung";
+
+"ExposureNotificationSetting_EU_Desc_1" = "Mehrere Länder arbeiten zusammen, um über den gemeinsam betriebenen Austausch-Server länderübergreifende Warnungen zu ermöglichen. So können bei der Risiko-Ermittlung auch die Kontakte mit Nutzern einer offiziellen Corona-App anderer teilnehmender Länder berücksichtigt werden.";
+
+"ExposureNotificationSetting_EU_Desc_2" = "Hierfür lädt die App täglich eine aktuelle Liste mit den Zufalls-IDs aller Nutzer herunter, die diese über ihre App geteilt haben. Diese Liste wird dann mit den von Ihrem Smartphone aufgezeichneten Zufalls-IDs verglichen. Der tägliche Download der Liste mit den Zufalls-IDs ist für Sie kostenlos – Ihr Datenvolumen wird nicht belastet und es fallen im europäischen Ausland keine Roaming-Gebühren an.";
+
+"ExposureNotificationSetting_EU_Desc_3" = "Derzeit nehmen die folgenden Länder an der länderübergreifenden Risiko-Ermittlung teil:";
+
+"ExposureNotificationSetting_EU_Desc_4" = "Die Datenschutzerklärung der App (einschließlich Informationen zur Datenverarbeitung für die länderübergreifende Risiko-Ermittlung) finden Sie unter dem Menüpunkt „App-Informationen“ > „Datenschutz“.";
+
+/* EU Tracing Risk decription */
+"ExposureNotificationSetting_euTracingRiskDeterminationTitle" = "Länderübergreifende Risiko-Ermittlung";
+
+"ExposureNotificationSetting_euTracingAllCountriesTitle" = "Teilnehmende Länder";
+
+"ExposureNotificationSetting_EU_Empty_Error_Title" = "Länder können aktuell nicht angezeigt werden.";
+
+"ExposureNotificationSetting_EU_Empty_Error_Desc" = "Möglicherweise wurde Ihre Internet-Verbindung unterbrochen. Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind.";
+
+"ExposureNotificationSetting_EU_Empty_Error_Button_Title" = "Geräte-Einstellungen öffnen";
 
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App Logo";
@@ -685,9 +864,14 @@
 "Home_Risk_High_Title" = "Erhöhtes Risiko";
 
 /* Home Status Check */
-"Home_Risk_Status_Check_Title" = "Prüfung läuft …";
 
-"Home_Risk_Status_Check_Body" = "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
+"Home_Risk_Status_Downloading_Title" = "Daten werden heruntergeladen …";
+
+"Home_Risk_Status_Detecting_Title" = "Prüfung läuft …";
+
+"Home_Risk_Status_Downloading_Body" = "Das kann mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
+
+"Home_Risk_Status_Detecting_Body" = "Ihre Begegnungsdaten werden nun geprüft. Das kann mehrere Minuten dauern. Vielen Dank für Ihre Geduld.";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Vielen Dank!";
@@ -696,7 +880,7 @@
 
 "Home_Thank_You_Card_Note_Title" = "Bitte beachten Sie:";
 
-"Home_Thank_You_Card_Phone_Item_Title" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
+"Home_Thank_You_Card_Phone_Item_Title" = "Das Gesundheitsamt wird sich in den nächsten Tagen bei Ihnen melden.";
 
 "Home_Thank_You_Card_Home_Item_Title" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
 
@@ -723,14 +907,14 @@
 
 "Home_Finding_Positive_Card_Home_Item_Title" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
 
-"Home_Finding_Positive_Card_Share_Item_Title" = "Teilen Sie Ihre Zufallscodes, damit andere gewarnt werden können.";
+"Home_Finding_Positive_Card_Share_Item_Title" = "Teilen Sie Ihre Zufalls-IDs, damit andere gewarnt werden können.";
 
 "Home_Finding_Positive_Card_Button" = "Weiter";
 
 /* Home Submit card */
 "Home_SubmitCard_Title" = "Wurden Sie getestet?";
 
-"Home_SubmitCard_Body" = "Helfen Sie mit, die Infektionskette zu durchbrechen und informieren Sie andere.";
+"Home_SubmitCard_Body" = "Helfen Sie mit, die Infektionskette zu durchbrechen, und informieren Sie andere.";
 
 "Home_SubmitCard_Button" = "Informieren & helfen";
 
@@ -740,7 +924,7 @@
 
 "Home_InfoCard_AboutTitle" = "Häufige Fragen";
 
-"Home_InfoCard_AboutBody" = "Hier finden Sie Antworten auf häufig gestellte Fragen rund um die Corona-Warn-App. Sie werden auf eine externe Website weitergeleitet.";
+"Home_InfoCard_AboutBody" = "Hier finden Sie Antworten auf häufig gestellte Fragen rund um die Corona-Warn-App. Sie werden auf eine externe Website der Bundesregierung weitergeleitet.";
 
 "Home_SettingsCard_Title" = "Einstellungen";
 
@@ -782,8 +966,6 @@
 
 "App_Information_About_Text" = "Wer sie nutzt, hilft, Infektionsketten schnell nachzuverfolgen und zu durchbrechen. Die App speichert dezentral – auf Ihrem Smartphone – Begegnungen mit anderen. Sie werden informiert, wenn Sie Begegnungen mit nachweislich infizierten Personen hatten. Ihre Privatsphäre bleibt dabei bestens geschützt.";
 
-"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
-
 "App_Information_About_LinkText" = "Informationen zur App in leichter Sprache und Gebärdensprache";
 
 /* App Information - FAQ */
@@ -806,7 +988,7 @@
 
 "App_Information_Contact_Hotline_Description" = "Unser Kundenservice ist für Sie da.";
 
-"App_Information_Contact_Hotline_Terms" = "Sprachen: Deutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nDer Anruf ist kostenfrei.";
+"App_Information_Contact_Hotline_Terms" = "Sprachen: Deutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nDer Anruf ist kostenfrei.\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Impressum";
@@ -825,13 +1007,11 @@
 
 "App_Information_Imprint_Section3_Text" = "E-Mail: CoronaWarnApp@rki.de";
 
-"App_Information_Imprint_Section4_Title" = "Umsatzsteueridentifikationsnummer";
+"App_Information_Imprint_Section4_Title" = "Umsatzsteuer-Identifikationsnummer";
 
 "App_Information_Imprint_Section4_Text" = "DE 165 893 430";
 
 "App_Information_Contact_Form_Title" = "Kontaktformular";
-
-"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Rechtliche Hinweise";
@@ -865,8 +1045,6 @@
 
 "InviteFriends_ShareTitle" = "Gemeinsam Corona bekämpfen. Ich bin dabei. Du auch?";
 
-"InviteFriends_ShareUrl" = "https://www.corona-warn-app.de";
-
 "InviteFriends_Illustration_Label" = "Ein Mann teilt die Corona-Warn-App mit vier anderen Personen.";
 
 /* Reset View */
@@ -895,9 +1073,6 @@
 "Reset_ConfirmDialog_Cancel" = "Abbrechen";
 
 "Reset_ConfirmDialog_Confirm" = "Zurücksetzen";
-
-/* Safari */
-"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq";
 
 /* Local Notifications */
 "local_notifications_ignore" = "Ignorieren";
@@ -945,7 +1120,7 @@
 
 "RiskLegend_Store_Title" = "Begegnungs-Aufzeichnung";
 
-"RiskLegend_Store_Text" = "Liste der empfangenen und vorübergehend im Betriebssystemspeicher abgelegten kurzlebigen Zufallscodes. Diese Liste wird bei der Risiko-Überprüfung gelesen. Alle Zufallscodes werden nach 14 Tagen automatisch gelöscht.";
+"RiskLegend_Store_Text" = "Liste der empfangenen und vorübergehend im Betriebssystemspeicher abgelegten kurzlebigen Zufalls-IDs. Diese Liste wird bei der Risiko-Überprüfung gelesen. Alle Zufalls-IDs werden nach 14 Tagen automatisch gelöscht.";
 
 "RiskLegend_Check_Title" = "Risiko-Überprüfung";
 
@@ -959,9 +1134,9 @@
 
 "RiskLegend_Notification_Text" = "Die Anzeige von Risiko-Begegnungen in der Corona-Warn-App.";
 
-"RiskLegend_Random_Title" = "Zufallscode";
+"RiskLegend_Random_Title" = "Zufalls-ID";
 
-"RiskLegend_Random_Text" = "Die Zufallscodes sind zufällig erzeugte Zahlen- und Buchstabenkombinationen. Sie werden zwischen benachbarten Smartphones ausgetauscht. Zufallscodes lassen sich nicht einer bestimmten Person zuordnen und werden nach 14 Tagen automatisch gelöscht. Eine Corona-positiv getestete Person kann ihre Zufallscodes der letzten bis zu 14 Tage freiwillig mit anderen App-Nutzern teilen.";
+"RiskLegend_Random_Text" = "Die Zufalls-IDs sind zufällig erzeugte Zahlen- und Buchstabenkombinationen. Sie werden zwischen benachbarten Smartphones ausgetauscht. Zufalls-IDs lassen sich nicht einer bestimmten Person zuordnen und werden nach 14 Tagen automatisch gelöscht. Eine Corona-positiv getestete Person kann ihre Zufalls-IDs der letzten bis zu 14 Tage freiwillig mit anderen App-Nutzern teilen.";
 
 "RiskLegend_Image1_AccLabel" = "Ein Smartphone zeigt unterschiedliche Inhalte, die nummeriert sind.";
 
@@ -988,3 +1163,23 @@
 
 "Active_Tracing_Interval_Permanently_Active" = "Risiko-Ermittlung dauerhaft aktiv";
 
+/* Delta Onboarding */
+"DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
+
+"DeltaOnboarding_Headline" = "Länderübergreifende Risiko-Ermittlung";
+
+"DeltaOnboarding_Description" = "Die Funktion der Corona-Warn-App wurde erweitert. Es arbeiten nun mehrere Länder zusammen, um über einen gemeinsam betriebenen Austausch-Server länderübergreifende Warnungen zu ermöglichen. So können bei der Risiko-Ermittlung jetzt auch die Kontakte mit Nutzern einer offiziellen Corona-App anderer teilnehmender Länder berücksichtigt werden.\n\nHierfür lädt die App täglich eine aktuelle Liste mit den Zufalls-IDs aller Nutzer herunter, die diese über ihre App geteilt haben. Diese Liste wird dann mit den von Ihrem Smartphone aufgezeichneten Zufalls-IDs verglichen.\n\nDer tägliche Download der Liste mit den Zufalls-IDs ist für Sie in der Regel kostenlos. Das heißt: Das von der App verursachte Datenvolumen wird von den Mobilfunk-Betreibern nicht angerechnet und im EU-Ausland werden Ihnen keine Roaming-Gebühren berechnet. Näheres erfahren Sie von Ihrem Mobilfunk-Betreiber.";
+
+"DeltaOnboarding_ParticipatingCountries" = "Derzeit nehmen die folgenden Länder teil:";
+
+"DeltaOnboarding_ParticipatingCountriesList_Unavailable" = "Die teilnehmenden Länder können Sie jederzeit in den Details zur Risiko-Ermittlung einsehen.";
+
+"DeltaOnboarding_ParticipatingCountriesList_Unavailable_Title" = "Teilnehmende Länder";
+
+"DeltaOnboarding_PrimaryButton_Continue" = "Weiter";
+
+"DeltaOnboarding_Terms_Description1" = "Im Zuge der Erweiterung der Funktion der App wurden auch die Nutzungsbedingungen aktualisiert:";
+
+"DeltaOnboarding_Terms_Button" = "Nutzungsbedingungen anzeigen";
+
+"DeltaOnboarding_Terms_Description2" = "Die Nutzungsbedingungen und die Datenschutzerklärung finden Sie auch unter dem Menüpunkt „App-Informationen“ sowie in der App-Beschreibung Ihres App Stores. Die Änderungen haben keine Auswirkungen auf Ihre Nutzung der App. Wenn Sie die App weiter nutzen oder erneut öffnen, gehen wir davon aus, dass Sie mit den aktualisierten Nutzungsbedingungen einverstanden sind.";

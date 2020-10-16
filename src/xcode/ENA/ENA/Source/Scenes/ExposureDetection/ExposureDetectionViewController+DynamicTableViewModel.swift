@@ -85,7 +85,7 @@ private extension DynamicCell {
 			let state = viewController.state
 			cell.backgroundColor = state.riskBackgroundColor
 			cell.tintColor = state.riskContrastTintColor
-			cell.textLabel?.textColor = state.riskContrastTextColor
+			cell.textLabel?.textColor = state.titleTextColor
 			if let cell = cell as? ExposureDetectionRiskCell {
 				cell.separatorView.isHidden = (indexPath.row == 0) || !hasSeparator
 				cell.separatorView.backgroundColor = state.isTracingEnabled ? .enaColor(for: .hairlineContrast) : .enaColor(for: .hairline)
@@ -151,7 +151,7 @@ private extension DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.riskText) { viewController, cell, _ in
 			let state = viewController.state
 			cell.backgroundColor = state.riskBackgroundColor
-			cell.textLabel?.textColor = state.riskContrastTextColor
+			cell.textLabel?.textColor = state.titleTextColor
 			cell.textLabel?.text = text
 		}
 	}
@@ -227,7 +227,7 @@ extension ExposureDetectionViewController {
 
 	private func riskDataSection(cells: [DynamicCell]) -> DynamicSection {
 		riskSection(
-			isHidden: { (($0 as? Self)?.state.isLoading ?? false) },
+			isHidden: { (($0 as? Self)?.state.activityState.isActive ?? false) },
 			cells: cells
 		)
 	}
@@ -236,7 +236,7 @@ extension ExposureDetectionViewController {
 		riskSection(
 			isHidden: { viewController in
 				guard let state = (viewController as? ExposureDetectionViewController)?.state else { return true }
-				if state.isLoading { return true }
+				if state.activityState.isActive { return true }
 				return state.detectionMode != .automatic
 			},
 			cells: [
@@ -246,12 +246,22 @@ extension ExposureDetectionViewController {
 	}
 
 	private var riskLoadingSection: DynamicSection {
-		.section(
+		var riskLoadingText = ""
+		switch state.activityState {
+		case .detecting:
+			riskLoadingText = AppStrings.ExposureDetection.riskCardStatusDetectingBody
+		case .downloading:
+			riskLoadingText = AppStrings.ExposureDetection.riskCardStatusDownloadingBody
+		default:
+			break
+		}
+
+		return DynamicSection.section(
 			header: .none,
 			footer: .none,
-			isHidden: { !(($0 as? Self)?.state.isLoading ?? false) },
+			isHidden: { !(($0 as? Self)?.state.activityState.isActive ?? false) },
 			cells: [
-				.riskLoading(text: AppStrings.ExposureDetection.loadingText)
+				.riskLoading(text: riskLoadingText)
 			]
 		)
 	}

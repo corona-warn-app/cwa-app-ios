@@ -109,7 +109,8 @@ extension ExposureSubmissionTanInputViewController {
 						self.navigationFooterItem?.isPrimaryButtonLoading = false
 						self.navigationFooterItem?.isPrimaryButtonEnabled = true
 						self.tanInput.becomeFirstResponder()
-				})
+					}
+				)
 				self.present(alert, animated: true, completion: nil)
 
 			case .success:
@@ -133,15 +134,14 @@ extension ExposureSubmissionTanInputViewController: ENATanInputDelegate {
 		navigationFooterItem?.isPrimaryButtonEnabled = (isValid && isChecksumValid)
 
 		UIView.animate(withDuration: CATransaction.animationDuration()) {
-			if isValid && !isChecksumValid {
-				self.errorLabel.text = AppStrings.ExposureSubmissionTanEntry.invalidError
-				self.errorView.alpha = 1
-			} else if isBlocked {
-				self.errorLabel.text = AppStrings.ExposureSubmissionTanEntry.invalidCharacterError
-				self.errorView.alpha = 1
-			} else {
-				self.errorView.alpha = 0
-			}
+
+			var errorTexts = [String]()
+
+			if isValid && !isChecksumValid { errorTexts.append(AppStrings.ExposureSubmissionTanEntry.invalidError) }
+			if isBlocked { errorTexts.append(AppStrings.ExposureSubmissionTanEntry.invalidCharacterError) }
+
+			self.errorView.alpha = errorTexts.isEmpty ? 0 : 1
+			self.errorLabel.text = errorTexts.joined(separator: "\n\n")
 
 			self.view.layoutIfNeeded()
 		}

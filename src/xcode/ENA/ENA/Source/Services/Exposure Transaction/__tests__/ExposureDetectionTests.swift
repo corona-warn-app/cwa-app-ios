@@ -21,12 +21,12 @@ import XCTest
 @testable import ENA
 import ExposureNotification
 final class ExposureDetectionTransactionTests: XCTestCase {
-	// swiftlint:disable:next function_body_length
-    func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {
+
+	func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {
 		let delegate = ExposureDetectionDelegateMock()
 
 		let availableDataToBeCalled = expectation(description: "availableData called")
-		delegate.availableData = {
+ 		delegate.availableData = {
 			availableDataToBeCalled.fulfill()
 			return .init(days: ["2020-05-01"], hours: [])
 		}
@@ -41,12 +41,6 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		delegate.downloadAndStore = { _ in
 			downloadAndStoreToBeCalled.fulfill()
 			return nil
-		}
-
-		let configurationToBeCalled = expectation(description: "configuration called")
-		delegate.configuration = {
-			configurationToBeCalled.fulfill()
-			return .mock()
 		}
 
 		let rootDir = FileManager().temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
@@ -64,22 +58,30 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 			return writtenPackages
 		}
 
+
 		let summaryResultBeCalled = expectation(description: "summaryResult called")
 		delegate.summaryResult = { _, _ in
 			summaryResultBeCalled.fulfill()
 			return .success(MutableENExposureDetectionSummary(daysSinceLastExposure: 5))
 		}
 
+		let appConfigurationProviderSpy = AppConfigurationProviderSpy()
+
 		let startCompletionCalled = expectation(description: "start completion called")
-		let detection = ExposureDetection(delegate: delegate)
-		detection.start { _ in startCompletionCalled.fulfill() }
+		let detection = ExposureDetection(
+			delegate: delegate,
+			appConfigurationProvider: appConfigurationProviderSpy
+		)
+		detection.start { _ in
+			XCTAssertTrue(appConfigurationProviderSpy.didCallAppConfiguration)
+			startCompletionCalled.fulfill()
+		}
 
 		wait(
 			for: [
 				availableDataToBeCalled,
 				downloadDeltaToBeCalled,
 				downloadAndStoreToBeCalled,
-				configurationToBeCalled,
 				writtenPackagesBeCalled,
 				summaryResultBeCalled,
 				startCompletionCalled
@@ -87,6 +89,140 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 			timeout: 1.0,
 			enforceOrder: true
 		)
+	}
+
+	func test_When_NoRemoteDataAvailable_Then_FailureNoDaysAndHoursIsCalled() {
+		let delegate = ExposureDetectionDelegateMock()
+
+		delegate.availableData = {
+			return nil
+		}
+
+		let packageDownloader = CountryKeypackageDownloader(delegate: delegate)
+
+		let detection = ExposureDetection(
+			delegate: delegate,
+			countryKeypackageDownloader: packageDownloader,
+			appConfigurationProvider: AppConfigurationProviderFake()
+		)
+
+		let expectationNoDaysAndHours = expectation(description: "completion with NoDaysAndHours error called.")
+
+		packageDownloader.downloadKeypackages(for: "DE") { result in
+			switch result {
+			case .failure(let error):
+				switch error {
+				case .noDaysAndHours:
+					expectationNoDaysAndHours.fulfill()
+				default:
+					XCTFail("noDaysAndHours error expteced.")
+				}
+			case .success:
+				XCTFail("downloadKeypackages should failt due to missing data.")
+			}
+		}
+
+		let expectationDetectionCompletion = expectation(description: "Detection completion was called.")
+		detection.start { _ in
+			expectationDetectionCompletion.fulfill()
+		}
+
+		waitForExpectations(timeout: 1.0)
+	}
+
+	func test_When_PackageDownloaderFails_Then_NoRiskCaculationIsTriggered() {
+		let delegate = ExposureDetectionDelegateMock()
+
+		delegate.writtenPackages = {
+			XCTFail("Package write call not expected after failing download.")
+			return WrittenPackages(urls: [])
+		}
+
+		delegate.summaryResult = { _, _ in
+			XCTFail("Configuration call not expected after failing download.")
+			return .failure(NSError())
+		}
+
+		let packageDownloader = CountryKeypackageDownloaderFailing()
+
+		let detection = ExposureDetection(
+			delegate: delegate,
+			countryKeypackageDownloader: packageDownloader,
+			appConfigurationProvider: AppConfigurationProviderFake()
+		)
+
+		let expectationFailureResult = expectation(description: "Detection should fail.")
+
+		detection.start { result in
+			switch result {
+			case .failure:
+				XCTAssertFalse(delegate.detectSummaryWithConfigurationWasCalled)
+				expectationFailureResult.fulfill()
+			case .success:
+				XCTFail("Success is not expected.")
+			}
+		}
+
+		waitForExpectations(timeout: 1.0)
+	}
+
+	func test_When_SavingPackageToFileSystemFails_Then_NoRiskCaculationIsTriggered() {
+		let delegate = ExposureDetectionDelegateMock()
+		
+		delegate.writtenPackages = {
+			return nil
+		}
+
+		delegate.summaryResult = { _, _ in
+			XCTFail("Configuration call not expected after failing download.")
+			return .failure(NSError())
+		}
+
+		let packageDownloader = CountryKeypackageDownloaderFake()
+
+		let detection = ExposureDetection(
+			delegate: delegate,
+			countryKeypackageDownloader: packageDownloader,
+			appConfigurationProvider: AppConfigurationProviderFake()
+		)
+
+		let expectationFailureResult = expectation(description: "Detection should fail.")
+
+		detection.start { result in
+			switch result {
+			case .failure:
+				XCTAssertFalse(delegate.detectSummaryWithConfigurationWasCalled)
+				expectationFailureResult.fulfill()
+			case .success:
+				XCTFail("Success is not expected.")
+			}
+		}
+
+		waitForExpectations(timeout: 1.0)
+	}
+}
+
+final class AppConfigurationProviderFake: AppConfigurationProviding {
+	func appConfiguration(forceFetch: Bool, completion: @escaping Completion) {
+		completion(.success(SAP_ApplicationConfiguration()))
+	}
+
+	func appConfiguration(completion: @escaping Completion) {
+		completion(.success(SAP_ApplicationConfiguration()))
+	}
+}
+
+final class AppConfigurationProviderSpy: AppConfigurationProviding {
+	var didCallAppConfiguration = false
+
+	func appConfiguration(forceFetch: Bool, completion: @escaping Completion) {
+		didCallAppConfiguration = true
+		completion(.success(SAP_ApplicationConfiguration()))
+	}
+
+	func appConfiguration(completion: @escaping Completion) {
+		didCallAppConfiguration = true
+		completion(.success(SAP_ApplicationConfiguration()))
 	}
 }
 
@@ -111,12 +247,27 @@ final class MutableENExposureDetectionSummary: ENExposureDetectionSummary {
 	override var maximumRiskScore: ENRiskScore { _maximumRiskScore }
 }
 
+private final class CountryKeypackageDownloaderFailing: CountryKeypackageDownloading {
+	func downloadKeypackages(for country: Country.ID, completion: @escaping Completion) {
+		completion(Result.failure(.noSupportedCountries))
+	}
+}
+
+private final class CountryKeypackageDownloaderFake: CountryKeypackageDownloading {
+	func downloadKeypackages(for country: Country.ID, completion: @escaping Completion) {
+		completion(Result.success(()))
+	}
+}
+
 private final class ExposureDetectionDelegateMock {
+	var detectSummaryWithConfigurationWasCalled = false
+
 	// MARK: Types
 	struct SummaryError: Error { }
-	typealias DownloadAndStoreHandler = (_ delta: DaysAndHours) -> Error?
+	typealias DownloadAndStoreHandler = (_ delta: DaysAndHours) -> ExposureDetection.DidEndPrematurelyReason?
 
 	// MARK: Properties
+
 	var availableData: () -> DaysAndHours? = {
 		nil
 	}
@@ -126,10 +277,6 @@ private final class ExposureDetectionDelegateMock {
 	}
 
 	var downloadAndStore: DownloadAndStoreHandler = { _ in nil }
-
-	var configuration: () -> ENExposureConfiguration? = {
-		nil
-	}
 
 	var writtenPackages: () -> WrittenPackages? = {
 		nil
@@ -144,29 +291,33 @@ private final class ExposureDetectionDelegateMock {
 }
 
 extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
-	func exposureDetection(_ detection: ExposureDetection, determineAvailableData completion: @escaping (DaysAndHours?) -> Void) {
-		completion(availableData())
+
+	func exposureDetection(country: Country.ID, determineAvailableData completion: @escaping (DaysAndHours?, Country.ID) -> Void) {
+		completion(availableData(), country)
 	}
 
-	func exposureDetection(_ detection: ExposureDetection, downloadDeltaFor remote: DaysAndHours) -> DaysAndHours {
+	func exposureDetection(country: Country.ID, downloadDeltaFor remote: DaysAndHours) -> DaysAndHours {
 		downloadDelta(remote)
 	}
 
-	func exposureDetection(_ detection: ExposureDetection, downloadAndStore delta: DaysAndHours, completion: @escaping (Error?) -> Void) {
+	func exposureDetection(country: Country.ID, downloadAndStore delta: DaysAndHours, completion: @escaping (ExposureDetection.DidEndPrematurelyReason?) -> Void) {
 		completion(downloadAndStore(delta))
 
 	}
 
-	func exposureDetection(_ detection: ExposureDetection, downloadConfiguration completion: @escaping (ENExposureConfiguration?) -> Void) {
-		completion(configuration())
-	}
-
-	func exposureDetectionWriteDownloadedPackages(_ detection: ExposureDetection) -> WrittenPackages? {
+	func exposureDetectionWriteDownloadedPackages(country: Country.ID) -> WrittenPackages? {
 		writtenPackages()
 	}
 
-	func exposureDetection(_ detection: ExposureDetection, detectSummaryWithConfiguration configuration: ENExposureConfiguration, writtenPackages: WrittenPackages, completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void) {
+	func exposureDetection(
+		_ detection: ExposureDetection,
+		detectSummaryWithConfiguration configuration: ENExposureConfiguration,
+		writtenPackages: WrittenPackages,
+		completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void) -> Progress {
 		completion(summaryResult(configuration, writtenPackages))
+
+		detectSummaryWithConfigurationWasCalled = true
+		return Progress()
 	}
 }
 

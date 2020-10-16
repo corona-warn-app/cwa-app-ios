@@ -50,12 +50,6 @@ final class BackendConfigurationTests: XCTestCase {
 			endpoints: endpoints
 		)
 
-		// Diagnosis Keys URL
-		XCTAssertEqual(
-			config.diagnosisKeysURL.absoluteString,
-			"http://localhost/dist/version/v1/diagnosis-keys/country/DE/"
-		)
-
 		// Check Configuration URL
 		XCTAssertEqual(
 			config.configurationURL.absoluteString,
@@ -68,28 +62,28 @@ final class BackendConfigurationTests: XCTestCase {
 			"http://localhost/submit/version/v1/diagnosis-keys/"
 		)
 
-		// Hour URL
+		// Available Days URL
 		XCTAssertEqual(
-			config.diagnosisKeysURL(day: "2020-04-20", hour: 14).absoluteString,
-			"http://localhost/dist/version/v1/diagnosis-keys/country/DE/date/2020-04-20/hour/14/"
+				config.availableDaysURL(forCountry: "IT").absoluteString,
+				"http://localhost/dist/version/v1/diagnosis-keys/country/IT/date/"
 		)
 
 		// Day URL
 		XCTAssertEqual(
-			config.diagnosisKeysURL(day: "2020-04-20").absoluteString,
-			"http://localhost/dist/version/v1/diagnosis-keys/country/DE/date/2020-04-20/"
+				config.diagnosisKeysURL(day: "2020-04-20", forCountry: "IT").absoluteString,
+				"http://localhost/dist/version/v1/diagnosis-keys/country/IT/date/2020-04-20/"
 		)
 
-		// Available Days URL
+		// Hour URL
 		XCTAssertEqual(
-			config.availableDaysURL.absoluteString,
-			"http://localhost/dist/version/v1/diagnosis-keys/country/DE/date/"
+			config.diagnosisKeysURL(day: "2020-04-20", hour: 14, forCountry: "IT").absoluteString,
+			"http://localhost/dist/version/v1/diagnosis-keys/country/IT/date/2020-04-20/hour/14/"
 		)
 
 		// Available Hours for a given Day URL
 		XCTAssertEqual(
-			config.availableHoursURL(day: "2020-04-20").absoluteString,
-			"http://localhost/dist/version/v1/diagnosis-keys/country/DE/date/2020-04-20/hour/"
+			config.availableHoursURL(day: "2020-04-20", country: "IT").absoluteString,
+			"http://localhost/dist/version/v1/diagnosis-keys/country/IT/date/2020-04-20/hour/"
 		)
 	}
 }

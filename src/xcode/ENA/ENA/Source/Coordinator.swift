@@ -94,7 +94,8 @@ class Coordinator: RequiresAppDependencies {
 						coder: coder,
 						pageType: .togetherAgainstCoronaPage,
 						exposureManager: self.exposureManager,
-						store: self.store
+						store: self.store,
+						client: self.client
 					)
 				}
 			],
@@ -116,7 +117,8 @@ class Coordinator: RequiresAppDependencies {
 			store: store,
 			exposureManager: exposureManager,
 			developerStore: UserDefaults.standard,
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			serverEnvironment: serverEnvironment
 		)
 		developerMenu?.enableIfAllowed()
 	}
@@ -144,21 +146,22 @@ extension Coordinator: HomeViewControllerDelegate {
 		let storyboard = AppStoryboard.exposureNotificationSetting.instance
 		let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController") { coder in
 			ExposureNotificationSettingViewController(
-					coder: coder,
-					initialEnState: enState,
-					store: self.store,
-					delegate: self
+				coder: coder,
+				initialEnState: enState,
+				store: self.store,
+				appConfigurationProvider: self.appConfigurationProvider,
+				delegate: self
 			)
 		}
 		addToEnStateUpdateList(vc)
 		rootViewController.pushViewController(vc, animated: true)
 	}
 
-	func showExposureDetection(state: HomeInteractor.State, isRequestRiskRunning: Bool) {
+	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProvider.ActivityState) {
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: state.exposureManagerState,
 			detectionMode: state.detectionMode,
-			isLoading: isRequestRiskRunning,
+			activityState: activityState,
 			risk: state.risk,
 			previousRiskLevel: store.previousRiskLevel
 		)
@@ -173,11 +176,11 @@ extension Coordinator: HomeViewControllerDelegate {
 		rootViewController.present(vc, animated: true)
 	}
 
-	func setExposureDetectionState(state: HomeInteractor.State, isRequestRiskRunning: Bool) {
+	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProvider.ActivityState) {
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: state.exposureManagerState,
 			detectionMode: state.detectionMode,
-			isLoading: isRequestRiskRunning,
+			activityState: activityState,
 			risk: state.risk,
 			previousRiskLevel: store.previousRiskLevel
 		)
@@ -222,6 +225,7 @@ extension Coordinator: HomeViewControllerDelegate {
 				coder: coder,
 				store: self.store,
 				initialEnState: enState,
+				appConfigurationProvider: self.appConfigurationProvider,
 				delegate: self
 			)
 		}

@@ -79,8 +79,8 @@ extension ExposureDetectionViewController {
 			self?.state.risk = risk
 			self?.updateUI()
 		}
-		consumer.didChangeLoadingStatus = { [weak self] isLoading in
-			self?.state.isLoading = isLoading
+		consumer.didChangeActivityState = { [weak self] activityState in
+			self?.state.activityState = activityState
 		}
 
 		riskProvider.observeRisk(consumer)
@@ -182,8 +182,8 @@ extension ExposureDetectionViewController {
 
 	private func updateHeader() {
 		headerView.backgroundColor = state.riskBackgroundColor
-		titleLabel.text = state.riskText
-		titleLabel.textColor = state.riskContrastTextColor
+		titleLabel.text = state.titleText
+		titleLabel.textColor = state.titleTextColor
 	}
 
 	private func updateTableView() {

@@ -63,7 +63,7 @@ extension HTTPClient {
 	/// Configure a `HTTPClient` with `.fake` configuration and mocked `URLSession`
 	static func makeWith(mock stack: MockNetworkStack) -> HTTPClient {
 		HTTPClient(
-			configuration: .fake,
+			configuration: HTTPClient.Configuration.makeDefaultConfiguration(store: MockTestStore()),
 			packageVerifier: stack.packageVerifier,
 			session: stack.urlSession
 		)

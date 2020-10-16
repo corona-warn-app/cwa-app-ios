@@ -26,8 +26,13 @@ private final class Summary: ENExposureDetectionSummary {}
 private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
 	var onDetectExposure: ((ExposureSummaryProvider.Completion) -> Void)?
 
-	func detectExposure(completion: (ENExposureDetectionSummary?) -> Void) {
+	func detectExposure(
+		activityStateDelegate: ActivityStateProviderDelegate? = nil,
+		completion: (ENExposureDetectionSummary?) -> Void
+	) -> CancellationToken {
+		let token = CancellationToken(onCancel: {})
 		onDetectExposure?(completion)
+		return token
 	}
 }
 
@@ -37,12 +42,12 @@ final class RiskProviderTests: XCTestCase {
 
 		let calendar = Calendar.current
 
-		let lastExposureDetectionDate = calendar.date(
+		let lastExposureDetectionDate = try XCTUnwrap(calendar.date(
 			byAdding: .day,
 			value: -3,
 			to: Date(),
 			wrappingComponents: false
-		)
+		))
 
 		let store = MockTestStore()
 		store.summary = SummaryMetadata(
@@ -53,8 +58,7 @@ final class RiskProviderTests: XCTestCase {
 				attenuationDurations: [],
 				maximumRiskScoreFullRange: 0
 			),
-			// swiftlint:disable:next force_unwrapping
-			date: lastExposureDetectionDate!
+			date: lastExposureDetectionDate
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
@@ -72,11 +76,18 @@ final class RiskProviderTests: XCTestCase {
 			completion(.init())
 		}
 
+		let client = CachingHTTPClientMock()
+		client.onFetchAppConfiguration = { _, complete in
+			// just deliver no app configuration (as before)
+			// TODO: require a missing app config feels hacky in this context - review!
+			complete(.failure(CachedAppConfiguration.CacheError.notModified))
+		}
+
 		let sut = RiskProvider(
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
-			appConfigurationProvider: CachedAppConfiguration(client: ClientMock(submissionError: nil)),
+			appConfigurationProvider: CachedAppConfiguration(client: client, store: store),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
 		)
 
@@ -92,12 +103,12 @@ final class RiskProviderTests: XCTestCase {
 
 		let calendar = Calendar.current
 
-		let lastExposureDetectionDate = calendar.date(
+		let lastExposureDetectionDate = try XCTUnwrap(calendar.date(
 			byAdding: .day,
 			value: -3,
 			to: Date(),
 			wrappingComponents: false
-		)
+		))
 
 		let store = MockTestStore()
 		store.summary = SummaryMetadata(
@@ -108,8 +119,7 @@ final class RiskProviderTests: XCTestCase {
 				attenuationDurations: [],
 				maximumRiskScoreFullRange: 0
 			),
-			// swiftlint:disable:next force_unwrapping
-			date: lastExposureDetectionDate!
+			date: lastExposureDetectionDate
 		)
 		// Tracing was only active for one hour, there is not enough data to calculate risk,
 		// and we might get a rate limit error (ex. user reinstalls the app - losing tracing history - and risk is requested again)
@@ -133,7 +143,7 @@ final class RiskProviderTests: XCTestCase {
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
-			appConfigurationProvider: CachedAppConfiguration(client: ClientMock(submissionError: nil)),
+			appConfigurationProvider: CachedAppConfiguration(client: CachingHTTPClientMock(), store: store),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
 		)
 
@@ -169,15 +179,15 @@ final class RiskProviderTests: XCTestCase {
 			detectionRequested.fulfill()
 		}
 
-		let client = ClientMock(submissionError: nil)
+		let client = CachingHTTPClientMock()
 
-		client.onAppConfiguration = { complete in
-			complete(SAP_ApplicationConfiguration.with {
+		client.onFetchAppConfiguration = { _, complete in
+			complete(.success(AppConfigurationFetchingResponse(SAP_ApplicationConfiguration.with {
 				$0.exposureConfig = SAP_RiskScoreParameters()
-			})
+			})))
 		}
 
-		let cachedAppConfig = CachedAppConfiguration(client: client)
+		let cachedAppConfig = CachedAppConfiguration(client: client, store: store)
 
 		let sut = RiskProvider(
 			configuration: config,

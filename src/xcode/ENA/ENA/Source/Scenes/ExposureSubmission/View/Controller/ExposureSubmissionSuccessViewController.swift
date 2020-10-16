@@ -73,7 +73,7 @@ private extension DynamicTableViewModel {
 				accessibilityLabel: AppStrings.ExposureSubmissionSuccess.accImageDescription,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.accImageDescription
 			),
-			separators: false,
+			separators: .none,
 			cells: [
 				.body(text: AppStrings.ExposureSubmissionSuccess.description,
 					  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.description),
@@ -100,10 +100,11 @@ private extension DynamicTableViewModel {
 				.title2(text: AppStrings.ExposureSubmissionSuccess.subTitle,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.subTitle),
 
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_1),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_2),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_3),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_4)
+				.bulletPoint(text: AppStrings.ExposureSubmissionSuccess.listItem2_1, spacing: .large),
+				.bulletPoint(text: AppStrings.ExposureSubmissionSuccess.listItem2_2, spacing: .large),
+				.bulletPoint(text: AppStrings.ExposureSubmissionSuccess.listItem2_3, spacing: .large),
+				.bulletPoint(text: AppStrings.ExposureSubmissionSuccess.listItem2_4, spacing: .large)
+				
 			]
 		)
 	])

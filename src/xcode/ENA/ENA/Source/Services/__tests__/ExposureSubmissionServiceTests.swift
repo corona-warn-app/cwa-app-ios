@@ -19,14 +19,13 @@
 import ExposureNotification
 import XCTest
 
-// swiftlint:disable:next type_body_length
 class ExposureSubmissionServiceTests: XCTestCase {
 	let expectationsTimeout: TimeInterval = 2
 	let keys = [ENTemporaryExposureKey()]
 
 	// MARK: - Exposure Submission Tests
 
-	func testSubmitExpousure_Success() {
+	func testSubmitExposure_Success() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let client = ClientMock()
@@ -35,21 +34,18 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
 		let expectation = self.expectation(description: "Success")
-		var error: ExposureSubmissionError?
 
 		// Act
-		service.submitExposure {
-			error = $0
+		service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) {
+			// no `ExposureSubmissionError`
+			XCTAssertNil($0)
 			expectation.fulfill()
 		}
 
 		waitForExpectations(timeout: expectationsTimeout)
-
-		// Assert
-		XCTAssertNil(error)
 	}
 
-	func testSubmitExpousure_NoKeys() {
+	func testSubmitExposure_NoKeys() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
 		let client = ClientMock()
@@ -59,7 +55,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let expectation = self.expectation(description: "NoKeys")
 
 		// Act
-		service.submitExposure { error in
+		service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) { error in
 			defer { expectation.fulfill() }
 			guard let error = error else {
 				XCTFail("error expected")
@@ -74,7 +70,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: expectationsTimeout)
 	}
 
-	func testSubmitExpousure_EmptyKeys() {
+	func testSubmitExposure_EmptyKeys() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
 		let client = ClientMock()
@@ -84,7 +80,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let expectation = self.expectation(description: "EmptyKeys")
 
 		// Act
-		service.submitExposure { error in
+		service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) { error in
 			defer { expectation.fulfill() }
 			guard let error = error else {
 				XCTFail("error expected")
@@ -110,7 +106,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let expectation = self.expectation(description: "invalidPayloadOrHeaders Error")
 
 		// Act
-		service.submitExposure { error in
+		service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) { error in
 			defer { expectation.fulfill() }
 			guard let error = error else {
 				XCTFail("error expected")
@@ -126,7 +122,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: expectationsTimeout)
 	}
 
-	func testSubmitExpousure_NoRegToken() {
+	func testSubmitExposure_NoRegToken() {
 		// Arrange
 
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
@@ -137,11 +133,11 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let expectation = self.expectation(description: "InvalidRegToken")
 
 		// Act
-		service.submitExposure {error in
+		service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) {error in
 			defer {
 				expectation.fulfill()
 			}
-			XCTAssert(error == .noRegistrationToken)
+			XCTAssertEqual(error, .noRegistrationToken)
 		}
 
 		waitForExpectations(timeout: expectationsTimeout)
@@ -190,9 +186,32 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure(let error):
-				XCTAssert(error == .noRegistrationToken)
+				XCTAssertEqual(error, .noRegistrationToken)
 			case .success:
 				XCTFail("This test should always fail since the registration token is missing.")
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testGetTestResult_fetchRegistrationToken() throws {
+		// Initialize.
+		let expectation = self.expectation(description: "Expect to receive a result.")
+		let service = ENAExposureSubmissionService(
+			diagnosiskeyRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil)),
+			client: ClientMock(),
+			store: MockTestStore()
+		)
+
+		// Execute test.
+		service.getTestResult(forKey: DeviceRegistrationKey.guid("wrong"), useStoredRegistration: false) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			case .success(let testResult):
+				XCTAssertEqual(testResult, TestResult.positive)
 			}
 		}
 
@@ -247,7 +266,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Execute test.
 		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
 
-		service.submitExposure { error in
+		service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) { error in
 			expectation.fulfill()
 			XCTAssertEqual(error?.localizedDescription, controlTest)
 		}
@@ -268,7 +287,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Execute test.
 		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
 
-		service.submitExposure { error in
+		service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) { error in
 			expectation.fulfill()
 			XCTAssertEqual(error?.localizedDescription, controlTest)
 		}
@@ -288,11 +307,9 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let store = MockTestStore()
 		store.registrationToken = registrationToken
 
-		let client = ClientMock()
+		// Force submission error. (Which should result in a 4xx, not a 5xx!)
+		let client = ClientMock(submissionError: .serverError(500))
 		client.onGetTANForExposureSubmit = { _, _, completion in completion(.success(tan)) }
-
-		// Force submission error.
-		client.onSubmit = { _, _, _, completion in completion(.serverError(500)) }
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
 		let expectation = self.expectation(description: "all callbacks called")
@@ -300,23 +317,38 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		// Execute test.
 
-		service.submitExposure { result in
+		service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) { result in
 			expectation.fulfill()
 			XCTAssertNotNil(result)
 
 			// Retry.
-			client.onSubmit = { _, _, _, completion in completion(nil) }
+			client.onSubmitCountries = { $2(.success(())) }
 			client.onGetTANForExposureSubmit = { _, isFake, completion in
-				XCTAssert(isFake, "When executing the real request, instead of using the stored TAN, we have made a request to the server.")
+				XCTAssertTrue(isFake, "When executing the real request, instead of using the stored TAN, we have made a request to the server.")
 				completion(.failure(.fakeResponse))
 			}
-			service.submitExposure { result in
+			service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) { result in
 				expectation.fulfill()
 				XCTAssertNil(result)
 			}
 		}
 
 		waitForExpectations(timeout: .short)
+	}
+
+	func testServiceHelperFunctions() throws {
+		let client = ClientMock()
+		let registrationToken = "dummyRegistrationToken"
+
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let store = MockTestStore()
+		store.registrationToken = registrationToken
+
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+		XCTAssertTrue(service.hasRegistrationToken())
+
+		service.deleteTest()
+		XCTAssertFalse(service.hasRegistrationToken())
 	}
 
 	// MARK: Plausible deniability tests.
@@ -336,35 +368,42 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let client = ClientMock()
 		store.registrationToken = "dummyRegistrationToken"
 
-		client.onGetTestResult = { _, isFake, completion in
+		let testResult = TestResult.allCases.randomElement() ?? TestResult.positive
+		client.onGetTestResult = { result, isFake, completion in
 			expectation.fulfill()
 			XCTAssertFalse(isFake)
 			XCTAssertEqual(count, 0)
 			count += 1
-			let testResult = 0
-			completion(.success(testResult))
+			completion(.success(testResult.rawValue))
 		}
 
 		client.onGetTANForExposureSubmit = { _, isFake, completion in
 			expectation.fulfill()
-			XCTAssert(isFake)
+			XCTAssertTrue(isFake)
 			XCTAssertEqual(count, 1)
 			count += 1
 			completion(.failure(.fakeResponse))
 		}
 
-		client.onSubmit = { _, _, isFake, completion in
+		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
-			XCTAssert(isFake)
+			XCTAssertTrue(isFake)
 			XCTAssertEqual(count, 2)
 			count += 1
-			completion(nil)
+			completion(.success(()))
 		}
 
 		// Run test.
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
-		service.getTestResult { _ in
+		service.getTestResult { response in
+			switch response {
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			case .success(let result):
+				XCTAssertEqual(result.rawValue, testResult.rawValue)
+			}
+
 			expectation.fulfill()
 		}
 
@@ -385,35 +424,42 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let store = MockTestStore()
 		let client = ClientMock()
 
+		let registrationToken = "dummyRegToken"
+
 		client.onGetRegistrationToken = { _, _, isFake, completion in
 			expectation.fulfill()
 			XCTAssertFalse(isFake)
 			XCTAssertEqual(count, 0)
 			count += 1
-			let registrationToken = "dummyRegToken"
 			completion(.success(registrationToken))
 		}
 
 		client.onGetTANForExposureSubmit = { _, isFake, completion in
 			expectation.fulfill()
-			XCTAssert(isFake)
+			XCTAssertTrue(isFake)
 			XCTAssertEqual(count, 1)
 			count += 1
 			completion(.failure(.fakeResponse))
 		}
 
-		client.onSubmit = { _, _, isFake, completion in
+		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
-			XCTAssert(isFake)
+			XCTAssertTrue(isFake)
 			XCTAssertEqual(count, 2)
 			count += 1
-			completion(nil)
+			completion(.success(()))
 		}
 
 		// Run test.
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
-		service.getRegistrationToken(forKey: .guid("test-key")) { _ in
+		service.getRegistrationToken(forKey: .guid("test-key")) { response in
+			switch response {
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			case .success(let token):
+				XCTAssertEqual(token, registrationToken)
+			}
 			expectation.fulfill()
 		}
 
@@ -447,18 +493,18 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			}
 		}
 
-		client.onSubmit = { _, _, isFake, completion in
+		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
 			XCTAssertFalse(isFake)
 			XCTAssertEqual(count, 2)
 			count += 1
-			completion(nil)
+			completion(.success(()))
 		}
 
 		// Run test.
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
-		service.submitExposure { error in
+		service.submitExposure(symptomsOnset: .noInformation, visitedCountries: []) { error in
 			expectation.fulfill()
 			XCTAssertNil(error)
 		}
@@ -481,17 +527,17 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		client.onGetTANForExposureSubmit = { _, isFake, completion in
 			expectation.fulfill()
-			XCTAssert(isFake)
+			XCTAssertTrue(isFake)
 			count += 1
 			completion(.failure(.fakeResponse))
 		}
 
-		client.onSubmit = { _, _, isFake, completion in
+		client.onSubmitCountries = { _, isFake, completion in
 			expectation.fulfill()
-			XCTAssert(isFake)
+			XCTAssertTrue(isFake)
 			XCTAssertEqual(count, 2)
 			count += 1
-			completion(nil)
+			completion(.success(()))
 		}
 
 		// Run test.

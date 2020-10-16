@@ -46,11 +46,15 @@ final class OnboardingInfoViewController: UIViewController {
 		coder: NSCoder,
 		pageType: OnboardingPageType,
 		exposureManager: ExposureManager,
-		store: Store
+		store: Store,
+		client: Client,
+		supportedCountries: [Country]? = nil
 	) {
 		self.pageType = pageType
 		self.exposureManager = exposureManager
 		self.store = store
+		self.client = client
+		self.supportedCountries = supportedCountries
 		super.init(coder: coder)
 	}
 
@@ -84,17 +88,24 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private var onboardingInfos = OnboardingInfo.testData()
 	private var exposureManagerActivated = false
+
+	var client: Client
+	private var pageSetupDone = false
 	var htmlTextView: HtmlTextView?
 
 	var onboardingInfo: OnboardingInfo?
+	var supportedCountries: [Country]?
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		onboardingInfo = onboardingInfos[pageType.rawValue]
+		pageSetupDone = false
 		// should be revised in the future
 		viewRespectsSystemMinimumLayoutMargins = false
 		view.layoutMargins = .zero
 		setupAccessibility()
+
+		if pageType == .togetherAgainstCoronaPage { loadCountryList() }
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -147,6 +158,24 @@ final class OnboardingInfoViewController: UIViewController {
 		present(alert, animated: true, completion: nil)
 	}
 
+	private func loadCountryList() {
+		appConfigurationProvider.appConfiguration { [weak self] result in
+			var supportedCountryIDs: [String]
+
+			switch result {
+			case .success(let applicationConfiguration):
+				supportedCountryIDs = applicationConfiguration.supportedCountries
+			case .failure(let error):
+				logError(message: "Error while loading app configuration: \(error).")
+				supportedCountryIDs = []
+			}
+
+			let supportedCountries = supportedCountryIDs.compactMap { Country(countryCode: $0) }
+			self?.supportedCountries = supportedCountries
+				.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
+		}
+	}
+
 	private func updateUI(exposureManagerState: ExposureManagerState) {
 		guard isViewLoaded else { return }
 		guard let onboardingInfo = onboardingInfo else { return }
@@ -197,8 +226,23 @@ final class OnboardingInfoViewController: UIViewController {
 		stateTitleLabel.text = onboardingInfo.stateTitle
 		stateStateLabel.text = exposureNotificationsEnabled ? onboardingInfo.stateActivated : onboardingInfo.stateDeactivated
 
+		guard !pageSetupDone else {
+			return
+		}
+
 		switch pageType {
 		case .enableLoggingOfContactsPage:
+			addParagraph(
+				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_euTitle,
+				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_euDescription
+			)
+			addCountrySection(title: AppStrings.Onboarding.onboardingInfo_ParticipatingCountries_Title, countries: supportedCountries ?? [])
+			addPanel(
+				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle,
+				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_consentUnderagesText,
+				textColor: .textContrast,
+				bgColor: .riskNeutral
+			)
 			addPanel(
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
 				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelBody
@@ -217,7 +261,7 @@ final class OnboardingInfoViewController: UIViewController {
 		default:
 			break
 		}
-
+		pageSetupDone = true
 	}
 
 	func setupAccessibility() {
@@ -374,7 +418,9 @@ final class OnboardingInfoViewController: UIViewController {
 				coder: coder,
 				pageType: nextPageType,
 				exposureManager: self.exposureManager,
-				store: self.store
+				store: self.store,
+				client: client,
+				supportedCountries: supportedCountries
 			)
 		}
 		// swiftlint:disable:next force_unwrapping
@@ -384,6 +430,8 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private func finishOnBoarding() {
 		store.isOnboarded = true
+		store.onboardingVersion = Bundle.main.appVersion
+
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
 

@@ -44,6 +44,7 @@ extension EitherLowOrIncreasedRiskLevel {
 
 protocol Store: AnyObject {
 	var isOnboarded: Bool { get set }
+	var onboardingVersion: String { get set }
 	var dateOfAcceptedPrivacyNotice: Date? { get set }
 	var developerSubmissionBaseURLOverride: String? { get set }
 	var developerDistributionBaseURLOverride: String? { get set }
@@ -109,5 +110,21 @@ protocol Store: AnyObject {
 	/// The time when the playbook was executed in background.
 	var firstPlaybookExecution: Date? { get set }
 
+	var selectedServerEnvironment: ServerEnvironmentData { get set }
+
 	func clearAll(key: String?)
+
+	#if !RELEASE
+
+	// Settings from the debug menu.
+
+	var fakeSQLiteError: Int32? { get set }
+
+	#endif
+}
+
+protocol AppConfigCaching: Store {
+	var lastAppConfigETag: String? { get set }
+	var lastAppConfigFetch: Date? { get set }
+	var appConfig: SAP_ApplicationConfiguration? { get set }
 }

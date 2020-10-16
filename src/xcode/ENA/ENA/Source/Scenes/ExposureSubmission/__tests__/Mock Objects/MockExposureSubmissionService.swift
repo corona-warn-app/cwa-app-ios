@@ -34,7 +34,7 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - ExposureSubmissionService methods.
 
-	func submitExposure(completionHandler: @escaping ExposureSubmissionHandler) {
+	func submitExposure(symptomsOnset: SymptomsOnset, visitedCountries: [Country], completionHandler: @escaping ExposureSubmissionHandler) {
 		submitExposureCallback?(completionHandler)
 	}
 
@@ -48,6 +48,10 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 
 	func getTestResult(_ completeWith: @escaping TestResultHandler) {
 		getTestResultCallback?(completeWith)
+	}
+
+	func getTestResult(forKey deviceRegistrationKey: DeviceRegistrationKey, useStoredRegistration: Bool, completion: @escaping TestResultHandler) {
+		getTestResultCallback?(completion)
 	}
 
 	func hasRegistrationToken() -> Bool {
