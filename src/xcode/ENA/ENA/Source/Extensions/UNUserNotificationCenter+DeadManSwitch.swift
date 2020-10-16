@@ -28,7 +28,7 @@ extension UNUserNotificationCenter {
 
 		// Check if Deadman Notification is already scheduled
 		getPendingNotificationRequests(completionHandler: { notificationRequests in
-			if notificationRequests.contains(where: { $0.identifier == UNUserNotificationCenter.deadManNotificationIdentifier }) {
+			if notificationRequests.contains(where: { $0.identifier == UNUserNotificationCenter.deadmanNotificationIdentifier }) {
 				// Deadman Notification already setup -> return
 				return
 			} else {
@@ -44,7 +44,7 @@ extension UNUserNotificationCenter {
 				)
 
 				let request = UNNotificationRequest(
-					identifier: UNUserNotificationCenter.deadManNotificationIdentifier,
+					identifier: UNUserNotificationCenter.deadmanNotificationIdentifier,
 					content: content,
 					trigger: trigger
 				)
@@ -66,10 +66,10 @@ extension UNUserNotificationCenter {
 	
 	// MARK: - Private
 	
-	private static let deadManNotificationIdentifier = (Bundle.main.bundleIdentifier ?? "") + ".notifications.cwa-deadman"
+	private static let deadmanNotificationIdentifier = (Bundle.main.bundleIdentifier ?? "") + ".notifications.cwa-deadman"
 
 	/// Cancels the Deadman Notificatoin
 	private func cancelDeadmanNotification() {
-		removePendingNotificationRequests(withIdentifiers: [UNUserNotificationCenter.deadManNotificationIdentifier])
+		removePendingNotificationRequests(withIdentifiers: [UNUserNotificationCenter.deadmanNotificationIdentifier])
 	}
 }
