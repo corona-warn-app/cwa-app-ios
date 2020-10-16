@@ -1,8 +1,8 @@
 #!/usr/bin/env groovy
-@Library(['piper-lib', 'piper-lib-os', 'mobile-pipeline-lib']) _
+@Library(['piper-lib', 'piper-lib-os']) _
 
 try {
-	if (env.BRANCH_NAME == 'master') {
+	if (env.BRANCH_NAME == 'main') {
 	   // Central Build
 		node {
 			lock(resource: "${env.JOB_NAME}/10", inversePrecedence: true) {
@@ -63,7 +63,7 @@ def forcePushToNaasForkMasterBranch() {
     def config = globalPipelineEnvironment.configuration.general
     def gitSSHCredentialsId = config.gitSshKeyCredentialsId
     def gitSshUrl = "git@github.wdf.sap.corp:NAAS-Mobile/cwa-app-ios-internal.git"
-    println("Push master to Naas-Fork repo ${gitSshUrl}.")
+    println("Push main to Naas-Fork repo ${gitSshUrl}.")
     sshagent([gitSSHCredentialsId]) {
         sh """
 	    git remote add naas ${gitSshUrl}
