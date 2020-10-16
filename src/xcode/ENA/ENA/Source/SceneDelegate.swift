@@ -85,7 +85,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 					uiTestRiskLevel = RiskLevel.inactive
 					
 				}
-				let uiTestRisk = Risk(level: uiTestRiskLevel, details: .init(daysSinceLastExposure: 1, numberOfExposures: uiTestExposureNumber, activeTracing: .init(interval: 14*86400), exposureDetectionDate: nil), riskLevelHasChanged: false)
+				let uiTestRisk = Risk(level: uiTestRiskLevel, details: .init(daysSinceLastExposure: 1, numberOfExposures: uiTestExposureNumber, activeTracing: .init(interval: 14 * 86400), exposureDetectionDate: nil), riskLevelHasChanged: false)
 				self?.state.risk = uiTestRisk
 			}
 			#endif
