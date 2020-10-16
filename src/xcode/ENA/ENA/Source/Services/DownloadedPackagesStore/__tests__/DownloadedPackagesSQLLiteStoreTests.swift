@@ -235,4 +235,39 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertEqual(store.allDays(country: "DE").count, 7)
 		XCTAssertEqual(store.allDays(country: "IT").count, 2)
 	}
+
+	func test_ResetRemovesAllKeys() {
+		let database = FMDatabase.inMemory()
+		let store = DownloadedPackagesSQLLiteStore(database: database, migrator: SerialMigratorFake(), latestVersion: 0)
+		store.open()
+
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
+
+		let package = SAPDownloadedPackage(
+			keysBin: keysBin,
+			signature: signature
+		)
+
+		// Add days
+		store.set(country: "DE", day: "2020-06-01", package: package)
+		store.set(country: "DE", day: "2020-06-02", package: package)
+		store.set(country: "DE", day: "2020-06-03", package: package)
+		store.set(country: "IT", day: "2020-06-03", package: package)
+		store.set(country: "DE", day: "2020-06-04", package: package)
+		store.set(country: "DE", day: "2020-06-05", package: package)
+		store.set(country: "DE", day: "2020-06-06", package: package)
+		store.set(country: "IT", day: "2020-06-06", package: package)
+		store.set(country: "DE", day: "2020-06-07", package: package)
+
+		XCTAssertEqual(store.allDays(country: "DE").count, 7)
+		XCTAssertEqual(store.allDays(country: "IT").count, 2)
+
+		store.reset()
+		store.open()
+
+		XCTAssertEqual(store.allDays(country: "DE").count, 0)
+		XCTAssertEqual(store.allDays(country: "IT").count, 0)
+		XCTAssertEqual(database.lastErrorCode(), 0)
+	}
 }
