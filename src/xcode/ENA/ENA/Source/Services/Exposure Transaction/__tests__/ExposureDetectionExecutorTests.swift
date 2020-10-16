@@ -368,6 +368,53 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		)
 		waitForExpectations(timeout: 2.0)
 	}
+
+	func testDetectSummaryWithConfiguration_Error2BadParameter_ClearsCache() throws {
+		// Test the case where the exector is asked to run an exposure detection
+		// We provide an `MockExposureDetector` with an error, and expect this to be returned
+		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
+		let expectedError = ENError(.badParameter)
+
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
+		let package = SAPDownloadedPackage(
+			keysBin: keysBin,
+			signature: signature
+		)
+		let packageStore = DownloadedPackagesSQLLiteStore.inMemory()
+		packageStore.open()
+		packageStore.set(country: "DE", day: "SomeDay", package: package)
+
+		let store = MockTestStore()
+		store.appConfig = SAP_ApplicationConfiguration()
+
+		let sut = ExposureDetectionExecutor.makeWith(
+			packageStore: packageStore,
+			store: store,
+			exposureDetector: MockExposureDetector((nil, expectedError))
+		)
+		let exposureDetection = ExposureDetection(
+			delegate: sut,
+			appConfigurationProvider: AppConfigurationProviderFake()
+		)
+
+		XCTAssertNotEqual(packageStore.allDays(country: "DE").count, 0)
+		XCTAssertNotNil(store.appConfig)
+
+		sut.exposureDetection(
+			exposureDetection,
+			detectSummaryWithConfiguration: ENExposureConfiguration(),
+			writtenPackages: WrittenPackages(urls: []),
+			completion: { result in
+
+				XCTAssertEqual(packageStore.allDays(country: "DE").count, 0)
+				XCTAssertNil(store.appConfig)
+
+				completionExpectation.fulfill()
+			}
+		)
+		waitForExpectations(timeout: 2.0)
+	}
 }
 
 // MARK: - Private Helper Extensions
@@ -377,7 +424,7 @@ private extension ExposureDetectionExecutor {
 	static func makeWith(
 		client: Client = ClientMock(),
 		packageStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory(),
-		store: Store = MockTestStore(),
+		store: Store & AppConfigCaching = MockTestStore(),
 		exposureDetector: MockExposureDetector = MockExposureDetector()
 	) -> ExposureDetectionExecutor {
 		ExposureDetectionExecutor(
