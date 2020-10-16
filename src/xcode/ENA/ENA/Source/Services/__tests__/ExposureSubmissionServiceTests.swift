@@ -227,6 +227,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completeWith in
 			let invalidTestResultValue = 3
+			let invalidTestResultValue = 4
 			completeWith(.success(invalidTestResultValue))
 		}
 
