@@ -25,7 +25,6 @@ enum DMMenuItem: Int, CaseIterable {
 	case checkSubmittedKeys
 	case backendConfiguration
 	case lastSubmissionRequest
-	case lastRiskCalculation
 	case settings
 	case manuallyRequestRisk
 	case errorLog
@@ -56,7 +55,6 @@ extension DMMenuItem {
 		case .checkSubmittedKeys: return "Check submitted Keys"
 		case .backendConfiguration: return "Backend Configuration"
 		case .lastSubmissionRequest: return "Last Submission Request"
-		case .lastRiskCalculation: return "Last Risk Calculation"
 		case .settings: return "Developer Settings"
 		case .manuallyRequestRisk: return "Manually Request Risk"
 		case .errorLog: return "Error Log"
@@ -75,7 +73,6 @@ extension DMMenuItem {
 		case .checkSubmittedKeys: return "Check the state of your local keys"
 		case .backendConfiguration: return "See the current backend configuration"
 		case .lastSubmissionRequest: return "Export the last executed submission request"
-		case .lastRiskCalculation: return "View and export the last executed risk calculation"
 		case .settings: return "Adjust the Developer Settings (e.g: hourly mode)"
 		case .manuallyRequestRisk: return "Manually requests the current risk"
 		case .errorLog: return "View all errors logged by the app"

@@ -33,9 +33,6 @@ protocol Client {
 	typealias HourCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
 	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
 
-	@available(*, deprecated, message: "will be removed once the app config cache is in place")
-	typealias AppConfigurationCompletion = (SAP_ApplicationConfiguration?) -> Void
-
 	// MARK: Interacting with a Client
 
 	/// Determines days that can be downloaded.

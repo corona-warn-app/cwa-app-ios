@@ -141,7 +141,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		if exposureManager.preconditions().status == .unknown {
 			exposureManager.activate { [weak self] error in
 				if let error = error {
-					// TODO: Error handling, if error occurs, what can we do?
 					Log.error("Cannot activate the  ENManager. The reason is \(error)", log: .api)
 					return
 				}

@@ -28,7 +28,6 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
-	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
 	var serverEnvironment: ServerEnvironment { get }
 }
 
@@ -162,9 +161,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	let client: HTTPClient
 
-	// TODO: REMOVE ME
-	var lastRiskCalculation: String = ""
-
 	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
 		ExposureDetectionExecutor(
 			client: self.client,
@@ -196,6 +192,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		taskScheduler.delegate = self
 
 		riskProvider.observeRisk(consumer)
+		
+		// Setup DeadmanNotification after AppLaunch
+		UNUserNotificationCenter.current().scheduleDeadmanNotificationIfNeeded()
 
 		return true
 	}

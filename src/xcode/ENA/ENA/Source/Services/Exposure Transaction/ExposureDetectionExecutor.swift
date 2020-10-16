@@ -191,10 +191,14 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 extension DownloadedPackagesStore {
 
 	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours, country: Country.ID, completion: @escaping (ExposureDetection.DidEndPrematurelyReason?) -> Void) {
-		var errors = [ExposureDetection.DidEndPrematurelyReason]()
 
 		let days = daysAndHours.days
+		var errors = [ExposureDetection.DidEndPrematurelyReason]()
+		let dispatchGroup = DispatchGroup()
+
 		days.bucketsByDay.forEach { day, bucket in
+			dispatchGroup.enter()
+
 			self.set(country: country, day: day, package: bucket) { error in
 				switch error {
 				case .sqlite_full:
@@ -204,18 +208,22 @@ extension DownloadedPackagesStore {
 				case .none:
 					break
 				}
+
+				dispatchGroup.leave()
 			}
-			
+
 			let hours = daysAndHours.hours
 			hours.bucketsByHour.forEach { hour, bucket in
 				self.set(country: country, hour: hour, day: hours.day, package: bucket)
 			}
 		}
 
-		if errors.isEmpty {
+		dispatchGroup.notify(queue: .main) {
+			guard errors.isEmpty else {
+				completion(errors.first)
+				return
+			}
 			completion(nil)
-		} else {
-			completion(errors.first)
 		}
 	}
 }

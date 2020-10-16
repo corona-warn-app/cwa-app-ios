@@ -232,7 +232,25 @@ extension ExposureSubmissionTestResultViewController {
 		switch result {
 		case .positive:
 			checkExposureSubmissionPreconditions { [weak self] in
-				self?.coordinator?.showWarnOthersScreen()
+				// Temporarily loading countries here as quickfix: https://jira.itc.sap.com/browse/EXPOSUREAPP-3231
+				self?.coordinator?.loadSupportedCountries(
+					isLoading: { isLoading in
+						self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+						self?.navigationFooterItem?.isSecondaryButtonEnabled = !isLoading
+						self?.navigationFooterItem?.isSecondaryButtonLoading = isLoading
+					},
+					onSuccess: {
+						self?.coordinator?.showWarnOthersScreen()
+					},
+					onError: { _ in
+						guard let self = self else { return }
+
+						let alert = self.setupErrorAlert(
+							message: ExposureSubmissionError.noAppConfiguration.localizedDescription
+						)
+						self.present(alert, animated: true)
+					}
+				)
 			}
 		case .pending:
 			deleteTest()

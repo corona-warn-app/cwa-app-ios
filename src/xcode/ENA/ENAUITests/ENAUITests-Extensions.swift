@@ -102,7 +102,10 @@ extension XCUIApplication {
 
 extension XCTestCase {
 	var currentLanguage: (langCode: String, localeCode: String)? {
-		let currentLocale = Locale(identifier: Locale.preferredLanguages.first!)
+		guard let preferredLanguage = Locale.preferredLanguages.first else {
+			fatalError("Cant unwrap: Locale.preferredLanguages.first")
+		}
+		let currentLocale = Locale(identifier: preferredLanguage)
 		guard let langCode = currentLocale.languageCode else {
 			return nil
 		}
