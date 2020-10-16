@@ -191,7 +191,6 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 extension DownloadedPackagesStore {
 
 	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours, country: Country.ID, completion: @escaping (ExposureDetection.DidEndPrematurelyReason?) -> Void) {
-
 		let days = daysAndHours.days
 		var errors = [ExposureDetection.DidEndPrematurelyReason]()
 		let dispatchGroup = DispatchGroup()
