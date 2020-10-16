@@ -63,6 +63,7 @@ platform :ios do
     run_tests(
       scheme: "ENATests",
       testplan: "AllTests",
+      only_test_configurations: ["DE"],
       devices: ["iPhone 11"]
     )
 
