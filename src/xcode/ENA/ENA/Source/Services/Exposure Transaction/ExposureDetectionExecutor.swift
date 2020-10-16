@@ -179,6 +179,8 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 
 				// Clear the app config
 				store.appConfig = nil
+				store.lastAppConfigETag = nil
+				store.lastAppConfigFetch = nil
 			}
 		}
 

@@ -409,6 +409,8 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 
 				XCTAssertEqual(packageStore.allDays(country: "DE").count, 0)
 				XCTAssertNil(store.appConfig)
+				XCTAssertNil(store.lastAppConfigETag)
+				XCTAssertNil(store.lastAppConfigFetch)
 
 				completionExpectation.fulfill()
 			}
