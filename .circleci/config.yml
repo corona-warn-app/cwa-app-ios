@@ -81,19 +81,19 @@ jobs:
           command: cd src/xcode && bundle exec fastlane snapshot
       - store_artifacts:
           path: src/xcode/screenshots
-  testflight-release:
-    macos:
-      xcode: 12.0.0
-    shell: zsh
-    steps:
-      - prepare-dependencies
-      - run: ./scripts/switch_to_dev_env.sh
-      - run:
-          name: fastlane testflight
-          command: cd src/xcode && bundle exec fastlane betaRelease --env TestFlight
-      - run:
-          name: fastlane appcenter
-          command: cd src/xcode && bundle exec fastlane adHocDistribution
+  # testflight-release:
+  #   macos:
+  #     xcode: 12.0.0
+  #   shell: zsh
+  #   steps:
+  #     - prepare-dependencies
+  #     - run: ./scripts/switch_to_dev_env.sh
+  #     - run:
+  #         name: fastlane testflight
+  #         command: cd src/xcode && bundle exec fastlane betaRelease --env TestFlight
+  #     - run:
+  #         name: fastlane appcenter
+  #         command: cd src/xcode && bundle exec fastlane adHocDistribution
   update-docs:
     macos:
       xcode: 12.0.0
@@ -147,13 +147,13 @@ workflows:
                   - /^v.*/
               branches:
                 ignore: /.*/
-        - testflight-release:
-            requires:
-              - test
-              - build
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
+        # - testflight-release:
+        #     requires:
+        #       - test
+        #       - build
+        #     filters:
+        #       tags:
+        #         only:
+        #           - /^v.*/
+        #       branches:
+        #         ignore: /.*/
