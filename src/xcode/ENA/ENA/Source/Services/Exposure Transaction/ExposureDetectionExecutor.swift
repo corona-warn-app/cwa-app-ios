@@ -171,7 +171,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 
 		// Clear the key packages and app config on ENError = 2 = .badParameter
 		// For more details, see: https://jira.itc.sap.com/browse/EXPOSUREAPP-3297
-		func clearCacheOnError2(error: Error) {
+		func clearCacheOnErrorBadParameter(error: Error) {
 			if let enError = error as? ENError, enError.code == .badParameter {
 				// Clear the key packages
 				downloadedPackagesStore.reset()
@@ -189,7 +189,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 				error: Error?
 		) -> Result<ENExposureDetectionSummary, Error> {
 			if let error = error {
-				clearCacheOnError2(error: error)
+				clearCacheOnErrorBadParameter(error: error)
 				return .failure(error)
 			}
 			if let summary = summary {
