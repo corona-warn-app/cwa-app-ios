@@ -154,6 +154,9 @@ extension RiskProvider: RiskProviding {
 		self.cancellationToken = exposureSummaryProvider.detectExposure(activityStateDelegate: self) { detectedSummary in
 			if let detectedSummary = detectedSummary {
 				self.store.summary = .init(detectionSummary: detectedSummary, date: Date())
+				
+				/// We were able to calculate a risk so we have to reset the DeadMan Notification
+				UNUserNotificationCenter.current().resetDeadmanNotification()
 			}
 			self.cancellationToken = nil
 			completion(

@@ -187,6 +187,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		taskScheduler.delegate = self
 
 		riskProvider.observeRisk(consumer)
+		
+		// Setup DeadmanNotification after AppLaunch
+		UNUserNotificationCenter.current().scheduleDeadmanNotificationIfNeeded()
 
 		return true
 	}

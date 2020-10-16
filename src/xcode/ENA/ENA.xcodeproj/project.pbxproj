@@ -455,6 +455,7 @@
 		EB2394A024E5492900E71225 /* BackgroundAppRefreshViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23949F24E5492900E71225 /* BackgroundAppRefreshViewModel.swift */; };
 		EB3BCA882507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */; };
 		EB3BCA8C2507C3B0003F27C7 /* DynamicTableViewBulletPointCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3BCA85250799E7003F27C7 /* DynamicTableViewBulletPointCell.swift */; };
+		EB6B5D8325398D9E00B0ED57 /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6B5D8225398D9E00B0ED57 /* UNUserNotificationCenter+DeadManSwitch.swift */; };
 		EB7057D724E6BACA002235B4 /* InfoBoxView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB7057D624E6BACA002235B4 /* InfoBoxView.xib */; };
 		EB7D205424E6A3320089264C /* InfoBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7D205324E6A3320089264C /* InfoBoxView.swift */; };
 		EB7D205624E6A5930089264C /* InfoBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7D205524E6A5930089264C /* InfoBoxViewModel.swift */; };
@@ -993,6 +994,7 @@
 		EB3BCA85250799E7003F27C7 /* DynamicTableViewBulletPointCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewBulletPointCell.swift; sourceTree = "<group>"; };
 		EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsOnsetViewController.swift; sourceTree = "<group>"; };
 		EB3BCA8A2507B8F3003F27C7 /* ExposureSubmissionSymptomsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewControllerTests.swift; sourceTree = "<group>"; };
+		EB6B5D8225398D9E00B0ED57 /* UNUserNotificationCenter+DeadManSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenter+DeadManSwitch.swift"; sourceTree = "<group>"; };
 		EB7057D624E6BACA002235B4 /* InfoBoxView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoBoxView.xib; sourceTree = "<group>"; };
 		EB7D205324E6A3320089264C /* InfoBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBoxView.swift; sourceTree = "<group>"; };
 		EB7D205524E6A5930089264C /* InfoBoxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBoxViewModel.swift; sourceTree = "<group>"; };
@@ -1483,6 +1485,7 @@
 		51D420B524583B5100AD70CA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				EB6B5D8225398D9E00B0ED57 /* UNUserNotificationCenter+DeadManSwitch.swift */,
 				71176E2C24891BCF004B0C9F /* __tests__ */,
 				514EE996246D4BDD00DE4884 /* UICollectionView */,
 				514EE997246D4BEB00DE4884 /* UITableView */,
@@ -3155,6 +3158,7 @@
 				B19FD7132491A08500A9D56A /* SAP_SemanticVersion+Compare.swift in Sources */,
 				B1D7D68E24766D2100E4DA5D /* submission_payload.pb.swift in Sources */,
 				B1B381432472EF8B0056BEEE /* HTTPClient+Configuration.swift in Sources */,
+				EB6B5D8325398D9E00B0ED57 /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */,
 				354E305924EFF26E00526C9F /* Country.swift in Sources */,
 				A328424E248B91E0006B1F09 /* HomeTestResultLoadingCell.swift in Sources */,
 				A3816086250633D7002286E9 /* RequiresDismissConfirmation.swift in Sources */,
