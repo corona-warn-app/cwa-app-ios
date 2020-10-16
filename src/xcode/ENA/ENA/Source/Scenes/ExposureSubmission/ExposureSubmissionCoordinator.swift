@@ -375,20 +375,20 @@ extension ExposureSubmissionCoordinator {
 				let alert: UIAlertController
 
 				switch error {
-				case .qRNotExist:
+				case .qrDoesNotExist:
 					alert = UIAlertController.errorAlert(
 						title: AppStrings.ExposureSubmissionError.qrNotExistTitle,
 						message: error.localizedDescription
 					)
 
 					self?.navigationController?.present(alert, animated: true, completion: nil)
-				case .qRAlreadyUsed:
+				case .qrAlreadyUsed:
 					alert = UIAlertController.errorAlert(
 						title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
 						message: error.localizedDescription
 					)
 
-				case .qRRedeemed:
+				case .qrExpired:
 					alert = UIAlertController.errorAlert(
 						title: AppStrings.ExposureSubmission.qrCodeInvalidTitle,
 						message: error.localizedDescription

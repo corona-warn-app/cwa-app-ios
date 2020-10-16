@@ -215,10 +215,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					completeWith(.success(testResult))
 				case .pending:
 					completeWith(.success(testResult))
-				case .redeemed:
-					/// The .redeemed status is only known after the test has been registered on the server
+				case .expired:
+					/// The .expired status is only known after the test has been registered on the server
 					/// so we generate an error here, even if the server returned the http result 201
-					completeWith(.failure(.qRRedeemed))
+					completeWith(.failure(.qrExpired))
 					self.store.registrationToken = nil
 				}
 			}

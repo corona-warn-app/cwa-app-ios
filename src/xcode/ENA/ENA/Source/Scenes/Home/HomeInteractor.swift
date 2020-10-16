@@ -421,12 +421,12 @@ extension HomeInteractor {
 
 			case .success(let result):
 				switch result {
-				case .redeemed:
+				case .expired:
 					self?.homeViewController.alertError(
-						message: AppStrings.ExposureSubmissionResult.testRedeemedDesc,
+						message: AppStrings.ExposureSubmissionResult.testExpiredDesc,
 						title: AppStrings.Home.resultCardLoadingErrorTitle,
 						completion: {
-							self?.testResult = .redeemed
+							self?.testResult = .expired
 							self?.reloadTestResult(with: .invalid)
 						}
 					)

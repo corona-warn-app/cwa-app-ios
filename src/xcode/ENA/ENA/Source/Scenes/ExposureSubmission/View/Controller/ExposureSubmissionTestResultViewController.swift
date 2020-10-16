@@ -83,7 +83,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 			navigationFooterItem?.isSecondaryButtonEnabled = true
 			navigationFooterItem?.isSecondaryButtonHidden = false
 			navigationFooterItem?.secondaryButtonHasBorder = true
-		case .negative, .invalid, .redeemed:
+		case .negative, .invalid, .expired:
 			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
 			navigationFooterItem?.isSecondaryButtonHidden = true
 			navigationFooterItem?.secondaryButtonHasBorder = false
@@ -220,7 +220,7 @@ extension ExposureSubmissionTestResultViewController {
 			checkExposureSubmissionPreconditions { [weak self] in
 				self?.coordinator?.showSymptomsScreen()
 			}
-		case .negative, .invalid, .redeemed:
+		case .negative, .invalid, .expired:
 			deleteTest()
 		case .pending:
 			refreshTest()
@@ -282,8 +282,8 @@ private extension ExposureSubmissionTestResultViewController {
 			return invalidTestResultSection()
 		case .pending:
 			return pendingTestResultSection()
-		case .redeemed:
-			return redeemedTestResultSection()
+		case .expired:
+			return expiredTestResultSection()
 		}
 	}
 
@@ -400,7 +400,7 @@ private extension ExposureSubmissionTestResultViewController {
 		)
 	}
 
-	private func redeemedTestResultSection() -> DynamicSection {
+	private func expiredTestResultSection() -> DynamicSection {
 		.section(
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
@@ -421,8 +421,8 @@ private extension ExposureSubmissionTestResultViewController {
 				),
 
 				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testRedeemed,
-					description: AppStrings.ExposureSubmissionResult.testRedeemedDesc,
+					title: AppStrings.ExposureSubmissionResult.testExpired,
+					description: AppStrings.ExposureSubmissionResult.testExpiredDesc,
 					icon: UIImage(named: "Icons_Grey_Error"),
 					hairline: .topAttached
 				),

@@ -164,7 +164,7 @@ final class HTTPClient: Client {
 			case let .success(response):
 				
 				if response.statusCode == 400 {
-					completeWith(.failure(.qRNotExist))
+					completeWith(.failure(.qrDoesNotExist))
 					return
 				}
 				
@@ -271,7 +271,7 @@ final class HTTPClient: Client {
 					if type == "TELETAN" {
 						completeWith(.failure(.teleTanAlreadyUsed))
 					} else {
-						completeWith(.failure(.qRAlreadyUsed))
+						completeWith(.failure(.qrAlreadyUsed))
 					}
 					return
 				}

@@ -240,7 +240,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure(let error):
-				if case ExposureSubmissionError.qRRedeemed = error {
+				if case ExposureSubmissionError.qrExpired = error {
 					expectationToFailWithInvalid.fulfill()
 				}
 			case .success:
