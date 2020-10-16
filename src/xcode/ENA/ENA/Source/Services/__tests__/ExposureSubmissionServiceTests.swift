@@ -218,21 +218,20 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
-	func testGetTestResult_invalidTestResultValur() {
-
+	func testGetTestResult_expiredTestResultValue() {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let store = MockTestStore()
 		store.registrationToken = "dummyRegistrationToken"
 
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completeWith in
-			let invalidTestResultValue = 4
-			completeWith(.success(invalidTestResultValue))
+			let expiredTestResultValue = 4
+			completeWith(.success(expiredTestResultValue))
 		}
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
 		let expectation = self.expectation(description: "Expect to receive a result.")
-		let expectationToFailWithInvalid = self.expectation(description: "Expect to fail with error of type .qRInvalid")
+		let expectationToFailWithExpired = self.expectation(description: "Expect to fail with error of type .qrExpired")
 
 		// Execute test.
 
@@ -241,10 +240,10 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			switch result {
 			case .failure(let error):
 				if case ExposureSubmissionError.qrExpired = error {
-					expectationToFailWithInvalid.fulfill()
+					expectationToFailWithExpired.fulfill()
 				}
 			case .success:
-				XCTFail("This test should intentionally produce an unknown test result that cannot be parsed.")
+				XCTFail("This test should intentionally produce an expired test result that cannot be parsed.")
 			}
 		}
 
