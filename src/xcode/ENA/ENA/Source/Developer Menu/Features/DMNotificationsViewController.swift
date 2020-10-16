@@ -60,12 +60,10 @@ final class DMNotificationsViewController: UITableViewController {
 		
 		cell.textLabel?.text = notificationRequest.identifier
 		
-		guard let trigger = notificationRequest.trigger as? UNTimeIntervalNotificationTrigger else {
+		guard let trigger = notificationRequest.trigger as? UNTimeIntervalNotificationTrigger, let triggerDate = trigger.nextTriggerDate() else {
 			return cell
 		}
-		guard let triggerDate = trigger.nextTriggerDate() else {
-			return cell
-		}
+		
 		let df = DateFormatter()
 		df.dateFormat = "yyyy-MM-dd hh:mm:ss"
 
