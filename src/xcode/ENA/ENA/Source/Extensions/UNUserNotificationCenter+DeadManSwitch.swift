@@ -25,7 +25,7 @@ extension UNUserNotificationCenter {
 	
 	/// Schedules a local notification to fire 36 hours from now, if there isn´t a notification already scheduled
 	func scheduleDeadmanNotificationIfNeeded() {
-
+		
 		// Check if Deadman Notification is already scheduled
 		getPendingNotificationRequests(completionHandler: { notificationRequests in
 			if notificationRequests.contains(where: { $0.identifier == UNUserNotificationCenter.deadmanNotificationIdentifier }) {
@@ -37,22 +37,22 @@ extension UNUserNotificationCenter {
 				content.title = AppStrings.Common.deadmanAlertTitle
 				content.body = AppStrings.Common.deadmanAlertBody
 				content.sound = .default
-
+				
 				let trigger = UNTimeIntervalNotificationTrigger(
 					timeInterval: 36 * 60 * 60,
 					repeats: false
 				)
-
+				
 				let request = UNNotificationRequest(
 					identifier: UNUserNotificationCenter.deadmanNotificationIdentifier,
 					content: content,
 					trigger: trigger
 				)
-
+				
 				self.add(request) { error in
-				   if error != nil {
-					logError(message: "Deadman notification could not be scheduled.")
-				   }
+					if error != nil {
+						logError(message: "Deadman notification could not be scheduled.")
+					}
 				}
 			}
 		})
