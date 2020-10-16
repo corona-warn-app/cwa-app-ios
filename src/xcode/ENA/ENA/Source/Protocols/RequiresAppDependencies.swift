@@ -30,7 +30,6 @@ protocol RequiresAppDependencies {
 	var appConfigurationProvider: AppConfigurationProviding { get }
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
-	var lastRiskCalculation: String { get }  // TODO: REMOVE ME
 	var serverEnvironment: ServerEnvironment { get }
 }
 
@@ -53,10 +52,6 @@ extension RequiresAppDependencies {
 
 	var riskProvider: RiskProvider {
 		UIApplication.coronaWarnDelegate().riskProvider
-	}
-
-	var lastRiskCalculation: String {
-		UIApplication.coronaWarnDelegate().lastRiskCalculation
 	}
 
 	var exposureManager: ExposureManager {

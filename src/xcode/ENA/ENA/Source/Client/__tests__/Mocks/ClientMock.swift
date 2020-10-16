@@ -60,7 +60,6 @@ final class ClientMock {
 
 	// MARK: - Configurable Mock Callbacks.
 
-	var onAppConfiguration: (AppConfigurationCompletion) -> Void = { $0(nil) }
 	var onGetTestResult: ((String, Bool, TestResultHandler) -> Void)?
 	var onSubmitCountries: ((_ payload: CountrySubmissionPayload, _ isFake: Bool, _ completion: @escaping KeySubmissionResponse) -> Void) = { $2(.success(())) }
 	var onGetRegistrationToken: ((String, String, Bool, @escaping RegistrationHandler) -> Void)?

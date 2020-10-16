@@ -23,12 +23,11 @@ import UIKit
 protocol CoronaWarnAppDelegate: AnyObject {
 	var client: HTTPClient { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
-	var store: Store { get }
+	var store: Store & AppConfigCaching { get }
 	var appConfigurationProvider: AppConfigurationProviding { get }
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
-	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
 	var serverEnvironment: ServerEnvironment { get }
 }
 
@@ -99,7 +98,7 @@ extension AppDelegate: ExposureSummaryProvider {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-	let store: Store
+	let store: Store & AppConfigCaching
 	let serverEnvironment: ServerEnvironment
 	
 	private let consumer = RiskConsumer()
@@ -115,11 +114,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// use a custom http client that uses/recognized caching mechanisms
 		let appFetchingClient = CachingHTTPClient(clientConfiguration: client.configuration)
 
-		// we currently use the store as common place for temporal persistency
-		guard let store = store as? AppConfigCaching else {
-			preconditionFailure("Ensure to provide a proper app config cache")
-		}
-		
 		return CachedAppConfiguration(client: appFetchingClient, store: store)
 	}()
 
@@ -158,9 +152,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
 	let client: HTTPClient
-
-	// TODO: REMOVE ME
-	var lastRiskCalculation: String = ""
 
 	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
 		ExposureDetectionExecutor(

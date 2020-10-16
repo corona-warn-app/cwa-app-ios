@@ -17,11 +17,25 @@
 // under the License.
 //
 
-import Foundation
+import UIKit
 
+final class DMNotificationCell: UITableViewCell {
+	
+	// MARK: - Init
+	
+	override init(style _: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+		textLabel?.lineBreakMode = .byTruncatingMiddle
+	}
 
-/// Global flag if UI testing is enabled or not
-var isUITesting: Bool {
-	// defined in XCUIApplication.setDefaults()
-	return ProcessInfo.processInfo.environment["XCUI"] == "YES"
+	@available(*, unavailable)
+	required init?(coder _: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	// MARK: - Internal
+	
+	static var reuseIdentifier = "DMNotificationCell"
+
+	
 }
