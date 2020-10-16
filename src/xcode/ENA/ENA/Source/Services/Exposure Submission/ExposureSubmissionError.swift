@@ -43,7 +43,7 @@ enum ExposureSubmissionError: Error, Equatable {
 	case fakeResponse
 	case invalidPayloadOrHeaders
 	case requestCouldNotBeBuilt
-	case qRInvalid
+	case qRRedeemed
 }
 
 extension ExposureSubmissionError: LocalizedError {
@@ -93,7 +93,7 @@ extension ExposureSubmissionError: LocalizedError {
 			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
 		case .requestCouldNotBeBuilt:
 			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
-		case .qRInvalid:
+		case .qRRedeemed:
 			return AppStrings.ExposureSubmission.qrCodeInvalidAlertText
 		default:
 			Log.error("\(self)", log: .api)

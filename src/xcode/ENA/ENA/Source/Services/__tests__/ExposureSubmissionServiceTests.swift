@@ -226,7 +226,6 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completeWith in
-			let invalidTestResultValue = 3
 			let invalidTestResultValue = 4
 			completeWith(.success(invalidTestResultValue))
 		}
@@ -241,7 +240,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure(let error):
-				if case ExposureSubmissionError.qRInvalid = error {
+				if case ExposureSubmissionError.qRRedeemed = error {
 					expectationToFailWithInvalid.fulfill()
 				}
 			case .success:

@@ -218,7 +218,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				case .redeemed:
 					/// The .redeemed status is only known after the test has been registered on the server
 					/// so we generate an error here, even if the server returned the http result 201
-					completeWith(.failure(.qRInvalid))
+					completeWith(.failure(.qRRedeemed))
 					self.store.registrationToken = nil
 				}
 			}

@@ -388,7 +388,7 @@ extension ExposureSubmissionCoordinator {
 						message: error.localizedDescription
 					)
 
-				case .qRInvalid:
+				case .qRRedeemed:
 					alert = UIAlertController.errorAlert(
 						title: AppStrings.ExposureSubmission.qrCodeInvalidTitle,
 						message: error.localizedDescription
