@@ -389,7 +389,7 @@ extension ExposureSubmissionCoordinator {
 					)
 				case .qrExpired:
 					alert = UIAlertController.errorAlert(
-						title: AppStrings.ExposureSubmission.qrCodeInvalidTitle,
+						title: AppStrings.ExposureSubmission.qrCodeExpiredTitle,
 						message: error.localizedDescription
 					)
 				default:

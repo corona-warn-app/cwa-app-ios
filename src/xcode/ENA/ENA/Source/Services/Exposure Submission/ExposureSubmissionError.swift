@@ -94,7 +94,7 @@ extension ExposureSubmissionError: LocalizedError {
 		case .requestCouldNotBeBuilt:
 			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
 		case .qrExpired:
-			return AppStrings.ExposureSubmission.qrCodeInvalidAlertText
+			return AppStrings.ExposureSubmission.qrCodeExpiredAlertText
 		default:
 			Log.error("\(self)", log: .api)
 			return AppStrings.ExposureSubmissionError.defaultError

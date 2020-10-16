@@ -69,8 +69,8 @@ enum AppStrings {
 		static let confirmDismissPopUpTitle = NSLocalizedString("ExposureSubmission_ConfirmDismissPopUpTitle", comment: "")
 		static let confirmDismissPopUpText = NSLocalizedString("ExposureSubmission_ConfirmDismissPopUpText", comment: "")
 		static let hotlineNumber = NSLocalizedString("ExposureSubmission_Hotline_Number", comment: "")
-		static let qrCodeInvalidTitle = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeInvalid_Alert_Title", comment: "")
-		static let qrCodeInvalidAlertText = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeInvalid_Alert_Text", comment: "")
+		static let qrCodeExpiredTitle = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title", comment: "")
+		static let qrCodeExpiredAlertText = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeExpired_Alert_Text", comment: "")
 	}
 
 	enum ExposureSubmissionTanEntry {
