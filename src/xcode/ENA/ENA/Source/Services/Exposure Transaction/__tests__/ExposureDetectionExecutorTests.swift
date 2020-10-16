@@ -401,7 +401,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		XCTAssertNotEqual(packageStore.allDays(country: "DE").count, 0)
 		XCTAssertNotNil(store.appConfig)
 
-		sut.exposureDetection(
+		_ = sut.exposureDetection(
 			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
 			writtenPackages: WrittenPackages(urls: []),
