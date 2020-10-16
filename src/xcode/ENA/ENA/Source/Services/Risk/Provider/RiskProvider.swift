@@ -155,7 +155,7 @@ extension RiskProvider: RiskProviding {
 			if let detectedSummary = detectedSummary {
 				self.store.summary = .init(detectionSummary: detectedSummary, date: Date())
 				
-				/// We were able to calculate a risk so we have to reset the DeadMan Notification
+				/// We were able to calculate a risk so we have to reset the deadman notification
 				UNUserNotificationCenter.current().resetDeadmanNotification()
 			}
 			self.cancellationToken = nil
