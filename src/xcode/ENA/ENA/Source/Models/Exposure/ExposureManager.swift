@@ -29,6 +29,10 @@ enum ExposureNotificationError: Error {
 	case unknown(String)
 }
 
+enum ExposureDetectionError: Error {
+	case exposureDetectionIsRunning
+}
+
 struct ExposureManagerState: Equatable {
 	// MARK: Creating a State
 
@@ -216,6 +220,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 
 		// An exposure detection is currently running. Return current progress.
 		if let progress = progress, !progress.isCancelled && !progress.isFinished {
+			completionHandler(nil, ExposureDetectionError.exposureDetectionIsRunning)
 			return progress
 		}
 
