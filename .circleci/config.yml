@@ -79,8 +79,11 @@ jobs:
       - run:
           name: Snapshots
           command: cd src/xcode && bundle exec fastlane snapshot
+      - run:
+          name: Package Screenshots
+          command: tar -czf screenshots.tar src/xcode/screenshots
       - store_artifacts:
-          path: src/xcode/screenshots
+          path: screenshots.tar
   # testflight-release:
   #   macos:
   #     xcode: 12.0.0
