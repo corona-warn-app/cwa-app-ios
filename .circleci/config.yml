@@ -11,12 +11,6 @@ commands:
           name: Install Bundler
           command: sudo gem install bundler:2.1.4
       - run:
-          name: Package Screenshots
-          command: |
-            cd src/xcode
-            tar -czf screenshots/screenshots.tar --exclude='*.tar' screenshots
-            cd -
-      - run:
           name: Install dependencies
           command: brew install swiftlint && cd src/xcode && bundle install
 
@@ -87,9 +81,9 @@ jobs:
           command: cd src/xcode && bundle exec fastlane snapshot
       - run:
           name: Package Screenshots
-          command: tar -czf screenshots.tar src/xcode/screenshots
+          command: cd src/xcode && tar -czf screenshots/screenshots.tar --exclude='*.tar' screenshots && cd -
       - store_artifacts:
-          path: screenshots.tar
+          path: src/xcode/screenshots/screenshots.tar
   # testflight-release:
   #   macos:
   #     xcode: 12.0.0
