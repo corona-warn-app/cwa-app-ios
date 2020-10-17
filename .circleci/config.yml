@@ -11,6 +11,10 @@ commands:
           name: Install Bundler
           command: sudo gem install bundler:2.1.4
       - run:
+          name: Package Screenshots
+          # packaging of screenshots to a common tar
+          command: cd src/xcode && tar -czf src/xcode/screenshots/screenshots.tar --exclude='*.tar' src/xcode/screenshots && cd -
+      - run:
           name: Install dependencies
           command: brew install swiftlint && cd src/xcode && bundle install
 
