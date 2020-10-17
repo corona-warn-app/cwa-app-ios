@@ -15,6 +15,7 @@
   },
   "testTargets" : [
     {
+      "parallelizable" : true,
       "skippedTests" : [
         "ENAUITests_00_Onboarding\/test_0000_OnboardingFlow_DisablePermissions_normal_XXXL()",
         "ENAUITests_00_Onboarding\/test_0001_OnboardingFlow_EnablePermissions_normal_XS()",
