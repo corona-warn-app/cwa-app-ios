@@ -13,7 +13,7 @@ commands:
       - run:
           name: Package Screenshots
           # packaging of screenshots to a common tar
-          command: cd src/xcode && tar -czf src/xcode/screenshots/screenshots.tar --exclude='*.tar' src/xcode/screenshots && cd -
+          command: cd src/xcode && tar -czf screenshots/screenshots.tar --exclude='*.tar' screenshots && cd -
       - run:
           name: Install dependencies
           command: brew install swiftlint && cd src/xcode && bundle install
