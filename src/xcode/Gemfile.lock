@@ -251,7 +251,7 @@ GEM
       claide (>= 1.0.2, < 2.0)
       colored2 (~> 3.1)
       nanaimo (~> 0.3.0)
-    xcov (1.7.5)
+    xcov (1.7.4)
       fastlane (>= 2.141.0, < 3.0.0)
       multipart-post
       slack-notifier
