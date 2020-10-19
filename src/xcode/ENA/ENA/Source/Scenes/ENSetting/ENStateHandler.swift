@@ -72,6 +72,8 @@ final class ENStateHandler {
 			return .disabled
 		case .paused:
 			return .disabled
+		case .unauthorized:
+			return .notAuthorized
 		@unknown default:
 			Log.error("New state was added that is not being covered by ENStateHandler", log: .api)
 			return .unknown

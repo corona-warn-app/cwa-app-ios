@@ -198,13 +198,17 @@ disabled_rules:
   - type_name
   - identifier_name
   - redundant_string_enum_value # disabled because it conflicts with explicit_enum_raw_value
+  - nesting
 
 # Included paths (disables --path option)
 included:
   - ENA
+  - ENATests
+  - ENAUITests
 
 # Excluded paths (takes precedence over 'included')
 excluded: # paths to ignore during linting. Takes precedence over `included`.
+
 
 # Rules use by 'swiftlint analyze' (experimental)
 analyzer_rules:
@@ -240,7 +244,7 @@ type_body_length:
   error: 400
   
 function_parameter_count:
-  warning: 6
+  warning: 7
   error: 10
 
 

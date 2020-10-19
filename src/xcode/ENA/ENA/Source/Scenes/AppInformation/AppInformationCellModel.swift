@@ -15,14 +15,12 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-//
 
 import Foundation
+import UIKit
 
-enum TestResult: Int, CaseIterable {
-	case pending = 0
-	case negative = 1
-	case positive = 2
-	case invalid = 3
-	case expired = 4
+struct AppInformationCellModel {
+	var text: String
+	var accessibilityIdentifier: String?
+	var action: DynamicAction
 }

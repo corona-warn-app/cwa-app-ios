@@ -25,4 +25,3 @@ var isUITesting: Bool {
 	// defined in XCUIApplication.setDefaults()
 	return ProcessInfo.processInfo.environment["XCUI"] == "YES"
 }
-

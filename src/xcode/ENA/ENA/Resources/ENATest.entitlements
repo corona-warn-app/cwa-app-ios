@@ -8,5 +8,7 @@
 	<true/>
 	<key>com.apple.developer.exposure-notification</key>
 	<true/>
+	<key>com.apple.developer.exposure-notification-logging</key>
+	<true/>
 </dict>
 </plist>

@@ -114,10 +114,10 @@ final class HTTPClientRegistrationTokenTests: XCTestCase {
 				XCTFail("Backend returned 400 - the request should have failed!")
 			case .failure(let error):
 				switch error {
-				case .qRAlreadyUsed:
+				case .qrAlreadyUsed:
 					break
 				default:
-					XCTFail("The error was not .qRAlreadyUsed!")
+					XCTFail("The error was not .qrAlreadyUsed!")
 				}
 			}
 		}

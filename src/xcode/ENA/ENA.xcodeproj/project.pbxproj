@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0103CED12536D1A100BDAAD1 /* AppInformationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0103CED02536D1A100BDAAD1 /* AppInformationCellModel.swift */; };
 		011E13AE24680A4000973467 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E13AD24680A4000973467 /* HTTPClient.swift */; };
 		011E4B032483A92A002E6412 /* MockExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */; };
 		0123D5992501385200A91838 /* ExposureSubmissionErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0123D5972501383100A91838 /* ExposureSubmissionErrorTests.swift */; };
@@ -389,7 +390,6 @@
 		B161782E2480658F006E435A /* DeltaCalculationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B161782924805784006E435A /* DeltaCalculationResult.swift */; };
 		B163D1102499068D001A322C /* SettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B163D10F2499068D001A322C /* SettingsViewModelTests.swift */; };
 		B16457B524DC11EF002879EB /* DMLastSubmissionRequetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16457B424DC11EF002879EB /* DMLastSubmissionRequetViewController.swift */; };
-		B16457B724DC160B002879EB /* DMLastRiskCalculationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16457B624DC160B002879EB /* DMLastRiskCalculationViewController.swift */; };
 		B16457B924DC19F9002879EB /* DMSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16457B824DC19F9002879EB /* DMSettingsViewController.swift */; };
 		B16457BB24DC3309002879EB /* DMLogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16457BA24DC3309002879EB /* DMLogsViewController.swift */; };
 		B16457BD24DC3F4E002879EB /* DMKeysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FC2D1C24D9C87F00083C81 /* DMKeysViewController.swift */; };
@@ -472,6 +472,8 @@
 		EB2394A024E5492900E71225 /* BackgroundAppRefreshViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23949F24E5492900E71225 /* BackgroundAppRefreshViewModel.swift */; };
 		EB3BCA882507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */; };
 		EB3BCA8C2507C3B0003F27C7 /* DynamicTableViewBulletPointCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3BCA85250799E7003F27C7 /* DynamicTableViewBulletPointCell.swift */; };
+		EB6B5D882539AE9400B0ED57 /* DMNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6B5D872539AE9400B0ED57 /* DMNotificationsViewController.swift */; };
+		EB6B5D8D2539B36100B0ED57 /* DMNotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6B5D8C2539B36100B0ED57 /* DMNotificationCell.swift */; };
 		EB7057D724E6BACA002235B4 /* InfoBoxView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB7057D624E6BACA002235B4 /* InfoBoxView.xib */; };
 		EB7D205424E6A3320089264C /* InfoBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7D205324E6A3320089264C /* InfoBoxView.swift */; };
 		EB7D205624E6A5930089264C /* InfoBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7D205524E6A5930089264C /* InfoBoxViewModel.swift */; };
@@ -543,6 +545,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0103CED02536D1A100BDAAD1 /* AppInformationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationCellModel.swift; sourceTree = "<group>"; };
 		011E13AD24680A4000973467 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		011E4B002483A35A002E6412 /* ENACommunity.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ENACommunity.entitlements; sourceTree = "<group>"; };
 		0123D5972501383100A91838 /* ExposureSubmissionErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionErrorTests.swift; sourceTree = "<group>"; };
@@ -949,7 +952,6 @@
 		B163D10F2499068D001A322C /* SettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModelTests.swift; sourceTree = "<group>"; };
 		B163D11424993F64001A322C /* UIFont+DynamicTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+DynamicTypeTests.swift"; sourceTree = "<group>"; };
 		B16457B424DC11EF002879EB /* DMLastSubmissionRequetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMLastSubmissionRequetViewController.swift; sourceTree = "<group>"; };
-		B16457B624DC160B002879EB /* DMLastRiskCalculationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMLastRiskCalculationViewController.swift; sourceTree = "<group>"; };
 		B16457B824DC19F9002879EB /* DMSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSettingsViewController.swift; sourceTree = "<group>"; };
 		B16457BA24DC3309002879EB /* DMLogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMLogsViewController.swift; sourceTree = "<group>"; };
 		B1741B422461C105006275D9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -1029,6 +1031,8 @@
 		EB3BCA85250799E7003F27C7 /* DynamicTableViewBulletPointCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewBulletPointCell.swift; sourceTree = "<group>"; };
 		EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsOnsetViewController.swift; sourceTree = "<group>"; };
 		EB3BCA8A2507B8F3003F27C7 /* ExposureSubmissionSymptomsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewControllerTests.swift; sourceTree = "<group>"; };
+		EB6B5D872539AE9400B0ED57 /* DMNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNotificationsViewController.swift; sourceTree = "<group>"; };
+		EB6B5D8C2539B36100B0ED57 /* DMNotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNotificationCell.swift; sourceTree = "<group>"; };
 		EB7057D624E6BACA002235B4 /* InfoBoxView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoBoxView.xib; sourceTree = "<group>"; };
 		EB7D205324E6A3320089264C /* InfoBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBoxView.swift; sourceTree = "<group>"; };
 		EB7D205524E6A5930089264C /* InfoBoxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBoxViewModel.swift; sourceTree = "<group>"; };
@@ -2439,10 +2443,10 @@
 				B16457BA24DC3309002879EB /* DMLogsViewController.swift */,
 				B1FC2D1C24D9C87F00083C81 /* DMKeysViewController.swift */,
 				B1F82DF124718C7300E2E56A /* DMBackendConfigurationViewController.swift */,
-				B16457B624DC160B002879EB /* DMLastRiskCalculationViewController.swift */,
 				AB6289D8251C833100CF61D2 /* DMDeltaOnboardingViewController.swift */,
 				ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */,
 				9417BA94252B6B5100AD4053 /* DMSQLiteErrorViewController.swift */,
+				EB6B5D872539AE9400B0ED57 /* DMNotificationsViewController.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -2556,6 +2560,7 @@
 				B1FC2D1F24D9C8DF00083C81 /* SAP_TemporaryExposureKey+DeveloperMenu.swift */,
 				B1A31F6824DAE6C000E263DF /* DMKeyCell.swift */,
 				B103193124E18A0A00DD02EF /* DMMenuItem.swift */,
+				EB6B5D8C2539B36100B0ED57 /* DMNotificationCell.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -2757,6 +2762,7 @@
 				50BD2E6724FE26F300932566 /* __test__ */,
 				01F5F7212487B9C000229720 /* AppInformationViewController.swift */,
 				71CC3E9C246D5D8000217F2C /* AppInformationViewController+DynamicTableViewModel.swift */,
+				0103CED02536D1A100BDAAD1 /* AppInformationCellModel.swift */,
 				50BD2E6124FE1E8700932566 /* AppInformationModel.swift */,
 				50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */,
 				50E3BE59250127DF0033E2C7 /* AppInformationDynamicAction.swift */,
@@ -2908,7 +2914,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "SAP SE";
 				TargetAttributes = {
 					85D7593A2457048F008175F0 = {
@@ -3057,7 +3063,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint is not available.\"\n  echo \"Use 'brew install swiftlint' to install SwiftLint or download it manually from https://github.com/realm/SwiftLint.\"\nfi\n\n";
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"error: SwiftLint is not available.\"\n  echo \"Use 'brew install swiftlint' to install SwiftLint or download it manually from https://github.com/realm/SwiftLint.\"\nfi\n\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3174,6 +3180,7 @@
 				2F26CE2E248B9C4F00BE30EE /* UIViewController+BackButton.swift in Sources */,
 				A16714BB248D18D20031B111 /* SummaryMetadata.swift in Sources */,
 				51C779162486E5BA004582F8 /* RiskFindingPositiveCollectionViewCell.swift in Sources */,
+				EB6B5D882539AE9400B0ED57 /* DMNotificationsViewController.swift in Sources */,
 				B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */,
 				711EFCC72492EE31005FEF21 /* ENAFooterView.swift in Sources */,
 				B1FE13F024891D1500D012E5 /* RiskCalculation.swift in Sources */,
@@ -3288,6 +3295,7 @@
 				71B8044D248525CD00D53506 /* RiskLegendViewController+DynamicTableViewModel.swift in Sources */,
 				EB7D205624E6A5930089264C /* InfoBoxViewModel.swift in Sources */,
 				859DD512248549790073D59F /* MockDiagnosisKeysRetrieval.swift in Sources */,
+				EB6B5D8D2539B36100B0ED57 /* DMNotificationCell.swift in Sources */,
 				2FA9E39324D2F2920030561C /* ExposureSubmission+TestResult.swift in Sources */,
 				EE22DB89247FB43A001B0A71 /* TracingHistoryTableViewCell.swift in Sources */,
 				71B804472484CC0800D53506 /* ENALabel.swift in Sources */,
@@ -3296,6 +3304,7 @@
 				713EA25B247818B000AB7EE8 /* DynamicTypeButton.swift in Sources */,
 				CDA262F824AB808800612E15 /* Coordinator.swift in Sources */,
 				A3552CC624DD6E78008C91BE /* AppDelegate+ENATaskExecutionDelegate.swift in Sources */,
+				0103CED12536D1A100BDAAD1 /* AppInformationCellModel.swift in Sources */,
 				51C77910248684F5004582F8 /* HomeRiskListItemViewConfigurator.swift in Sources */,
 				B1D6B004247DA4920079DDD3 /* UIApplication+CoronaWarn.swift in Sources */,
 				51CE1BC32460B28D002CF42A /* HomeInfoCellConfigurator.swift in Sources */,
@@ -3304,7 +3313,6 @@
 				01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */,
 				514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */,
 				713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */,
-				B16457B724DC160B002879EB /* DMLastRiskCalculationViewController.swift in Sources */,
 				01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */,
 				01C6AC32252B29C00052814D /* QRScannerError.swift in Sources */,
 				EB7D205424E6A3320089264C /* InfoBoxView.swift in Sources */,
@@ -3679,6 +3687,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -3721,7 +3730,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -3839,6 +3848,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -3876,7 +3886,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -4013,6 +4023,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -4050,7 +4061,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
@@ -4160,141 +4171,6 @@
 			};
 			name = AdHoc;
 		};
-		01DE5A74248E3CF800F6D7F2 /* UITesting */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG UITESTING";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = UITesting;
-		};
-		01DE5A75248E3CF800F6D7F2 /* UITesting */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-					"SQLITE_HAS_CODEC=1",
-				);
-				INFOPLIST_FILE = ENA/Resources/Info.plist;
-				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONE_APP_DEV_TEAM = 523TP53AQF;
-				IPHONE_APP_DIST_PROF_SPECIFIER = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.5.0;
-				OTHER_CFLAGS = (
-					"-DSQLITE_HAS_CODEC",
-					"-DSQLITE_TEMP_STORE=3",
-					"-DSQLCIPHER_CRYPTO_CC",
-					"-DNDEBUG",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DISABLE_CERTIFICATE_PINNING";
-				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = UITesting;
-		};
-		01DE5A76248E3CF800F6D7F2 /* UITesting */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 523TP53AQF;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"SQLITE_HAS_CODEC=1",
-				);
-				INFOPLIST_FILE = ENATests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				OTHER_CFLAGS = (
-					"-DSQLITE_TEMP_STORE=3",
-					"-DSQLCIPHER_CRYPTO_CC",
-					"-DNDEBUG",
-					"-DSQLITE_HAS_CODEC",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp.sqlite;
-				PRODUCT_NAME = CWASQLite;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = AdHoc;
-		};
 		85D7596624570491008175F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4322,6 +4198,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -4383,6 +4260,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -4420,7 +4298,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -4461,7 +4339,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -4601,10 +4479,10 @@
 			buildSettings = {
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -4648,7 +4526,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -4691,7 +4569,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -4795,7 +4673,7 @@
 			repositoryURL = "https://github.com/apple/swift-protobuf.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.9.0;
+				version = 1.12.0;
 			};
 		};
 		B1B5A75E24924B3D0029D5D7 /* XCRemoteSwiftPackageReference "fmdb" */ = {

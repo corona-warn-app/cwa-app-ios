@@ -20,6 +20,8 @@
 import XCTest
 @testable import ENA
 
+// swiftlint:disable file_length
+// swiftlint:disable:next type_body_length
 class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 	// default provider for a static app configuration
@@ -63,6 +65,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		XCTAssertFalse(model.exposureSubmissionServiceHasRegistrationToken)
 	}
 
+	// MARK: -
 	func testSymptomsOptionYesSelected() {
 		let exposureSubmissionService = MockExposureSubmissionService()
 		exposureSubmissionService.submitExposureCallback = { completion in
@@ -253,6 +256,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 	}
 
+	// MARK: -
 	func testSymptomsOnsetOptionsSelectedSupportedCountriesLoadSucceeds() {
 		let symptomsOnsetOptions: [ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption] = [.exactDate(Date()), .lastSevenDays, .oneToTwoWeeksAgo, .moreThanTwoWeeksAgo, .preferNotToSay]
 		for symptomsOnsetOption in symptomsOnsetOptions {
@@ -405,6 +409,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 	}
 
+	// MARK: -
 	func testSuccessfulSubmit() {
 		let exposureSubmissionService = MockExposureSubmissionService()
 		exposureSubmissionService.submitExposureCallback = { completion in
