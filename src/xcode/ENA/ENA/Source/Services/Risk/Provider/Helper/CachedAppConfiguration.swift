@@ -17,9 +17,9 @@
 // under the License.
 //
 
-import Foundation
+import UIKit
 
-final class CachedAppConfiguration {
+final class CachedAppConfiguration: RequiresAppDependencies {
 
 	enum CacheError: Error {
 		case dataFetchError(message: String?)
@@ -57,6 +57,9 @@ final class CachedAppConfiguration {
 
 				// keep track of last successful fetch
 				self?.store.lastAppConfigFetch = Date()
+
+				// Recalculate risk with new app configuration
+				self?.riskProvider.requestRisk(userInitiated: false, ignoreCachedSummary: true)
 			case .failure(let error):
 				switch error {
 				case CachedAppConfiguration.CacheError.notModified where self?.store.appConfig != nil:
