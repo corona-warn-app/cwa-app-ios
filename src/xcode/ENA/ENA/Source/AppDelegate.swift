@@ -37,13 +37,13 @@ extension AppDelegate: CoronaWarnAppDelegate {
 
 extension AppDelegate: ExposureSummaryProvider {
 	func detectExposure(
+		appConfiguration: SAP_ApplicationConfiguration,
 		activityStateDelegate: ActivityStateProviderDelegate? = nil,
 		completion: @escaping (ENExposureDetectionSummary?) -> Void
 	) -> CancellationToken {
-
 		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
-			appConfigurationProvider: appConfigurationProvider
+			appConfiguration: appConfiguration
 		)
 		
 		exposureDetection?

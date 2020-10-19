@@ -25,6 +25,7 @@ import Combine
 protocol ExposureSummaryProvider: AnyObject {
 	typealias Completion = (ENExposureDetectionSummary?) -> Void
 	func detectExposure(
+		appConfiguration: SAP_ApplicationConfiguration,
 		activityStateDelegate: ActivityStateProviderDelegate?,
 		completion: @escaping Completion
 	) -> CancellationToken
@@ -90,6 +91,7 @@ private extension RiskConsumer {
 }
 
 extension RiskProvider: RiskProviding {
+
 	func observeRisk(_ consumer: RiskConsumer) {
 		consumers.append(consumer)
 	}
@@ -105,37 +107,40 @@ extension RiskProvider: RiskProviding {
 	}
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
-	func requestRisk(userInitiated: Bool, completion: Completion? = nil) {
+	func requestRisk(userInitiated: Bool, ignoreCachedSummary: Bool = false, completion: Completion? = nil) {
 		queue.async {
-			self._requestRiskLevel(userInitiated: userInitiated, completion: completion)
+			self._requestRiskLevel(userInitiated: userInitiated, ignoreCachedSummary: ignoreCachedSummary, completion: completion)
 		}
 	}
 
 	private func determineSummary(
 		userInitiated: Bool,
+		ignoreCachedSummary: Bool = false,
+		appConfiguration: SAP_ApplicationConfiguration,
 		completion: @escaping (SummaryMetadata?) -> Void
 	) {
-		// Here we are in automatic mode and thus we have to check the validity of the current summary
-		let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
-			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
-			lastExposureDetectionDate: store.summary?.date
-		)
-		if !enoughTimeHasPassed || !self.exposureManagerState.isGood {
-			completion(store.summary)
-			return
+		if !ignoreCachedSummary {
+			// Here we are in automatic mode and thus we have to check the validity of the current summary
+			let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
+				activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
+				lastExposureDetectionDate: store.summary?.date
+			)
+			if !enoughTimeHasPassed || !self.exposureManagerState.isGood {
+				completion(store.summary)
+				return
+			}
+
+			// Enough time has passed.
+			let shouldDetectExposures = (configuration.detectionMode == .manual && userInitiated) || configuration.detectionMode == .automatic
+
+			if shouldDetectExposures == false {
+				completion(store.summary)
+				return
+			}
 		}
 
-		// Enough time has passed.
-		let shouldDetectExposures = (configuration.detectionMode == .manual && userInitiated) || configuration.detectionMode == .automatic
-
-		if shouldDetectExposures == false {
-			completion(store.summary)
-			return
-		}
-
-		// The summary is outdated + we are in automatic mode: do a exposure detection
-
-		self.cancellationToken = exposureSummaryProvider.detectExposure(activityStateDelegate: self) { [weak self] detectedSummary in
+		// The summary is outdated: do a exposure detection
+		self.cancellationToken = exposureSummaryProvider.detectExposure(appConfiguration: appConfiguration, activityStateDelegate: self) { [weak self] detectedSummary in
 			guard let self = self else { return }
 
 			if let detectedSummary = detectedSummary {
@@ -182,7 +187,7 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
+	private func _requestRiskLevel(userInitiated: Bool, ignoreCachedSummary: Bool, completion: Completion? = nil) {
 		#if DEBUG
 		if isUITesting {
 			_requestRiskLevel_Mock(userInitiated: userInitiated, completion: completion)
@@ -231,25 +236,27 @@ extension RiskProvider: RiskProviding {
 		let group = DispatchGroup()
 
 		group.enter()
-		determineSummary(userInitiated: userInitiated) {
-			summary = $0
-			group.leave()
-		}
-
 		var appConfiguration: SAP_ApplicationConfiguration?
-		group.enter()
-		appConfigurationProvider.appConfiguration { result in
+		appConfigurationProvider.appConfiguration { [weak self] result in
 			switch result {
 			case .success(let config):
 				appConfiguration = config
+
+				self?.determineSummary(userInitiated: userInitiated, ignoreCachedSummary: ignoreCachedSummary, appConfiguration: config) {
+					summary = $0
+					group.leave()
+				}
 			case .failure(let error):
 				Log.error(error.localizedDescription, log: .api)
-				appConfiguration = nil
+
+				self?.completeOnTargetQueue(risk: nil, completion: completion)
+				self?.showAppConfigError()
+
+				group.leave()
 			}
-			group.leave()
 		}
 
-		guard group.wait(timeout: .now() + .seconds(60 * 8)) == .success else {
+		guard let unwrappedAppConfiguration = appConfiguration, group.wait(timeout: .now() + .seconds(60 * 8)) == .success else {
 			cancellationToken?.cancel()
 			cancellationToken = nil
 			completeOnTargetQueue(risk: nil, completion: completion)
@@ -259,28 +266,21 @@ extension RiskProvider: RiskProviding {
 		cancellationToken = nil
 		_requestRiskLevel(
 			summary: summary,
-			appConfiguration: appConfiguration,
+			appConfiguration: unwrappedAppConfiguration,
 			completion: completion
 		)
 	}
 
-	private func _requestRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_ApplicationConfiguration?, completion: Completion? = nil) {
-		guard let _appConfiguration = appConfiguration else {
-			completeOnTargetQueue(risk: nil, completion: completion)
-			showAppConfigError()
-			return
-		}
-
+	private func _requestRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_ApplicationConfiguration, completion: Completion? = nil) {
 		let activeTracing = store.tracingStatusHistory.activeTracing()
 
 		guard
 			let risk = RiskCalculation.risk(
 				summary: summary?.summary,
-				configuration: _appConfiguration,
+				configuration: appConfiguration,
 				dateLastExposureDetection: summary?.date,
 				activeTracing: activeTracing,
 				preconditions: exposureManagerState,
-				currentDate: Date(),
 				previousRiskLevel: store.previousRiskLevel,
 				providerConfiguration: configuration
 			) else {

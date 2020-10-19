@@ -27,7 +27,7 @@ final class ExposureDetection {
 	private var completion: Completion?
 	private var progress: Progress?
 	private var countryKeypackageDownloader: CountryKeypackageDownloading
-	private let appConfigurationProvider: AppConfigurationProviding
+	private let appConfiguration: SAP_ApplicationConfiguration
 
 	// There was a decision not to use the 2 letter code "EU", but instead "EUR".
 	// Please see this story for more informations: https://jira.itc.sap.com/browse/EXPOSUREBACK-151
@@ -37,10 +37,10 @@ final class ExposureDetection {
 	init(
 		delegate: ExposureDetectionDelegate,
 		countryKeypackageDownloader: CountryKeypackageDownloading? = nil,
-		appConfigurationProvider: AppConfigurationProviding
+		appConfiguration: SAP_ApplicationConfiguration
 	) {
 		self.delegate = delegate
-		self.appConfigurationProvider = appConfigurationProvider
+		self.appConfiguration = appConfiguration
 
 		if let countryKeypackageDownloader = countryKeypackageDownloader {
 			self.countryKeypackageDownloader = countryKeypackageDownloader
@@ -73,21 +73,12 @@ final class ExposureDetection {
 		}
 	}
 
-	private func loadExposureConfiguration(completion: @escaping (ENExposureConfiguration) -> Void) {
-		appConfigurationProvider.appConfiguration { [weak self] result in
-			guard let self = self else { return }
-
-			switch result {
-			case .success(let appConfiguration):
-			guard let configuration = try? ENExposureConfiguration(from: appConfiguration.exposureConfig, minRiskScore: appConfiguration.minRiskScore) else {
-					self.endPrematurely(reason: .noExposureConfiguration)
-					return
-				}
-				completion(configuration)
-			case .failure:
-				self.endPrematurely(reason: .noExposureConfiguration)
-			}
+	private var exposureConfiguration: ENExposureConfiguration? {
+		guard let configuration = try? ENExposureConfiguration(from: appConfiguration.exposureConfig, minRiskScore: appConfiguration.minRiskScore) else {
+			return nil
 		}
+
+		return configuration
 	}
 
 	private func detectSummary(writtenPackages: WrittenPackages, exposureConfiguration: ENExposureConfiguration) {
@@ -125,10 +116,10 @@ final class ExposureDetection {
 
 				self.activityState = .detecting
 
-				self.loadExposureConfiguration { [weak self] configuration in
-					guard let self = self else { return }
-
-					self.detectSummary(writtenPackages: writtenPackages, exposureConfiguration: configuration)
+				if let exposureConfiguration = self.exposureConfiguration {
+					self.detectSummary(writtenPackages: writtenPackages, exposureConfiguration: exposureConfiguration)
+				} else {
+					self.endPrematurely(reason: .noExposureConfiguration)
 				}
 			}
 		}
