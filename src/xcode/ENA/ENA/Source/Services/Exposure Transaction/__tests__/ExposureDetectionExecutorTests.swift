@@ -312,7 +312,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((mockSummary, nil)))
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfigurationProvider: AppConfigurationProviderFake()
+			appConfiguration: SAP_ApplicationConfiguration()
 		)
 
 		_ = sut.exposureDetection(
@@ -343,7 +343,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((nil, expectedError)))
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfigurationProvider: AppConfigurationProviderFake()
+			appConfiguration: SAP_ApplicationConfiguration()
 		)
 
 		_ = sut.exposureDetection(

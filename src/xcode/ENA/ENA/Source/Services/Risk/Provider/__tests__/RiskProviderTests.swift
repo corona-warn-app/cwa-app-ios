@@ -24,9 +24,11 @@ import ExposureNotification
 private final class Summary: ENExposureDetectionSummary {}
 
 private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
+
 	var onDetectExposure: ((ExposureSummaryProvider.Completion) -> Void)?
 
 	func detectExposure(
+		appConfiguration: SAP_ApplicationConfiguration,
 		activityStateDelegate: ActivityStateProviderDelegate? = nil,
 		completion: (ENExposureDetectionSummary?) -> Void
 	) -> CancellationToken {
@@ -34,6 +36,7 @@ private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
 		onDetectExposure?(completion)
 		return token
 	}
+
 }
 
 final class RiskProviderTests: XCTestCase {
