@@ -35,8 +35,6 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		let expectedConfig = SAP_ApplicationConfiguration()
 		client.onFetchAppConfiguration = { _, completeWith in
-			store.lastAppConfigFetch = Date()
-
 			let config = AppConfigurationFetchingResponse(expectedConfig, "etag")
 			completeWith(.success(config))
 			expectation.fulfill()
