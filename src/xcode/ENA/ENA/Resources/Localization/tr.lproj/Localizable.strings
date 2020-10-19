@@ -131,9 +131,9 @@
 
 "ExposureDetection_Risk_Status_Detecting_Title" = "Kontrol devam ediyor …";
 
-"ExposureDetection_Risk_Status_Downloading_Body" = "Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için çok teşekkür ederiz.";
+"ExposureDetection_Risk_Status_Downloading_Body" = "Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için teşekkür ederiz.";
 
-"ExposureDetection_Risk_Status_Detecting_Body" = "Maruz kalma verileriniz kontrol ediliyor. Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için çok teşekkür ederiz.";
+"ExposureDetection_Risk_Status_Detecting_Body" = "Maruz kalma verileriniz kontrol ediliyor. Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için teşekkür ederiz.";
 
 /* Active Tracing Section */
 "ExposureDetection_ActiveTracingSection_Title" = "Dönem günlüğe kaydedildi";
@@ -154,6 +154,8 @@
 "ExposureDetectionError_Alert_Message" = "Maruz kalma günlüğü sırasında bir hata oluştu.";
 
 "ExposureDetectionError_Alert_AppConfig_Missing_Message" = "İnternet bağlantınız kesildi. Lütfen bağlantıyı kontrol edin ve ardından uygulamayı yeniden açın.";
+
+"ExposureDetectionError_Alert_FullDiskSpace_Message" = "Mevcut veriler için yeterli boş bellek yok.\nRisk durumunuzun güncellenebilmesi için lütfen akıllı telefonunuzun belleğini boşaltın.";
 
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Maruz kalma günlüğü işlevi hakkında bilgi";
@@ -544,7 +546,7 @@
 
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Kendinizi iyi hissetmiyorsanız diğer insanları riske atmamak için işe gitmeyin.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Belirtileriniz kötüleşirse ilave SARS-CoV-2 testi yapılması gerekebilir.";
+"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Belirtileriniz kötüleşirse başka bir SARS-CoV-2 testinin yapılması gerekebilir.";
 
 "ExposureSubmissionResult_testInvalid" = "Testte hata var";
 
@@ -855,9 +857,9 @@
 
 "Home_Risk_Status_Detecting_Title" = "Kontrol devam ediyor …";
 
-"Home_Risk_Status_Downloading_Body" = "Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için çok teşekkür ederiz.";
+"Home_Risk_Status_Downloading_Body" = "Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için teşekkür ederiz.";
 
-"Home_Risk_Status_Detecting_Body" = "Maruz kalma verileriniz kontrol ediliyor. Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için çok teşekkür ederiz.";
+"Home_Risk_Status_Detecting_Body" = "Maruz kalma verileriniz kontrol ediliyor. Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için teşekkür ederiz.";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Teşekkür ederiz!";

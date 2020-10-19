@@ -155,6 +155,8 @@
 
 "ExposureDetectionError_Alert_AppConfig_Missing_Message" = "Няма връзка с интернет. Моля, проверете и отворете приложението отново.";
 
+"ExposureDetectionError_Alert_FullDiskSpace_Message" = "Няма достатъчно свободна памет за текущите данни.\nМоля, освободете място на смартфона си, за да може Вашият статус на риск да бъде актуализиран.";
+
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Информация относно функционалността за регистриране на излагания на риск";
 

@@ -131,9 +131,9 @@
 
 "ExposureDetection_Risk_Status_Detecting_Title" = "Check is running …";
 
-"ExposureDetection_Risk_Status_Downloading_Body" = "This may take several minutes. Many thanks for your patience.";
+"ExposureDetection_Risk_Status_Downloading_Body" = "This may take several minutes. Thank you for your patience.";
 
-"ExposureDetection_Risk_Status_Detecting_Body" = "Your exposure data is being checked. This may take several minutes. Many thanks for you patience.";
+"ExposureDetection_Risk_Status_Detecting_Body" = "Your exposure data is being checked. This may take several minutes. Thank you for your patience.";
 
 /* Active Tracing Section */
 "ExposureDetection_ActiveTracingSection_Title" = "Period logged";
@@ -154,6 +154,8 @@
 "ExposureDetectionError_Alert_Message" = "An error occurred during exposure logging.";
 
 "ExposureDetectionError_Alert_AppConfig_Missing_Message" = "Your internet connection was lost. Please check the connection and then reopen the app.";
+
+"ExposureDetectionError_Alert_FullDiskSpace_Message" = "There is not enough free memory available for the current data.\nPlease free up memory on your smartphone to enable your risk status to be updated.";
 
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Information about exposure logging functionality";
@@ -544,7 +546,7 @@
 
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Do not go to work if you feel unwell to ensure you do not put other people at risk.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "If your symptoms worsen, you might need a further SARS-CoV-2 test.";
+"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "If your symptoms worsen, you might need another SARS-CoV-2 test.";
 
 "ExposureSubmissionResult_testInvalid" = "Test has errors";
 
@@ -855,9 +857,9 @@
 
 "Home_Risk_Status_Detecting_Title" = "Check is running …";
 
-"Home_Risk_Status_Downloading_Body" = "This may take several minutes. Many thanks for your patience.";
+"Home_Risk_Status_Downloading_Body" = "This may take several minutes. Thank you for your patience.";
 
-"Home_Risk_Status_Detecting_Body" = "Your exposure data is being checked. This may take several minutes. Many thanks for you patience.";
+"Home_Risk_Status_Detecting_Body" = "Your exposure data is being checked. This may take several minutes. Thank you for your patience.";
 
 /* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Thank you!";

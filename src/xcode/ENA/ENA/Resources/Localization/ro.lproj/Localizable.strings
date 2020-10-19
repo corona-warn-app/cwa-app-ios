@@ -155,6 +155,8 @@
 
 "ExposureDetectionError_Alert_AppConfig_Missing_Message" = "Conexiunea dvs. la internet a fost pierdută. Verificați conexiunea și apoi redeschideți aplicația.";
 
+"ExposureDetectionError_Alert_FullDiskSpace_Message" = "Nu este suficientă memorie liberă disponibilă pentru datele curente.\nEliberați memorie pe smartphone-ul dvs. pentru a permite actualizarea stării riscului dvs.";
+
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Informații despre funcționalitatea de înregistrare în jurnal a expunerilor";
 
@@ -544,7 +546,7 @@
 
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Nu mergeți la serviciu dacă nu vă simțiți bine pentru a nu expune la risc alte persoane.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Dacă simptomele dvs. se agravează, se poate să aveți nevoie de un test SARS-CoV-2 suplimentar.";
+"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Dacă simptomele dvs. se agravează, se poate să aveți nevoie de un alt test SARS-CoV-2.";
 
 "ExposureSubmissionResult_testInvalid" = "Testul are erori";
 

@@ -155,6 +155,8 @@
 
 "ExposureDetectionError_Alert_AppConfig_Missing_Message" = "Twoje połączenie internetowe zostało utracone. Sprawdź połączenie, a następnie ponownie otwórz aplikację.";
 
+"ExposureDetectionError_Alert_FullDiskSpace_Message" = "Brak wystarczającej ilości pamięci do zapisania bieżących danych.\nZwolnij pamięć w smartfonie, aby umożliwić aktualizację statusu ryzyka.";
+
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Informacje o funkcjonalności rejestrowania narażenia";
 
@@ -544,7 +546,7 @@
 
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Nie idź do pracy, jeśli nie czujesz się dobrze, aby nie stwarzać zagrożenia dla innych osób.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Jeśli objawy nasilą się, może być konieczne wykonanie kolejnego testu SARS-CoV-2.";
+"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Jeśli objawy nasilą się, może być konieczne wykonanie kolejnego testu na SARS-CoV-2.";
 
 "ExposureSubmissionResult_testInvalid" = "Test zawiera błędy";
 
