@@ -127,6 +127,14 @@ platform :ios do
     )
   end
 
+  desc "Upload .ipa to Telekom Mobile Device Cloud"
+  lane :tcloud do
+    sh("curl --location --request POST '$TSI_CLOUD_URL' \
+      --header 'Authorization: Bearer $TSI_CLOUD_TOKEN' \
+      --form 'file=@/ENA.ipa'
+      ")
+  end
+
   desc "Update GitHub Pages"
   lane :updateDocs do
 
