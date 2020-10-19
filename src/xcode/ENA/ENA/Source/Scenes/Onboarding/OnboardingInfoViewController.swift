@@ -19,29 +19,40 @@ import UIKit
 import UserNotifications
 import ExposureNotification
 
-enum OnboardingPageType: Int, CaseIterable {
-	case togetherAgainstCoronaPage = 0
-	case privacyPage = 1
-	case enableLoggingOfContactsPage = 2
-	case howDoesDataExchangeWorkPage = 3
-	case alwaysStayInformedPage = 4
-
-	func next() -> OnboardingPageType? {
-		OnboardingPageType(rawValue: rawValue + 1)
-	}
-
-	func isLast() -> Bool {
-		(self == OnboardingPageType.allCases.last)
-	}
-}
-
-extension OnboardingInfoViewController: RequiresAppDependencies {
-
-}
 
 final class OnboardingInfoViewController: UIViewController {
-	// MARK: Creating a Onboarding View Controller
 
+	@IBOutlet var imageView: UIImageView!
+	@IBOutlet var stateHeaderLabel: ENALabel!
+	@IBOutlet var stateTitleLabel: ENALabel!
+	@IBOutlet var stateStateLabel: ENALabel!
+	@IBOutlet var titleLabel: UILabel!
+	@IBOutlet var boldLabel: UILabel!
+	@IBOutlet var textLabel: UILabel!
+	@IBOutlet var linkTextView: UITextView!
+	@IBOutlet var nextButton: ENAButton!
+	@IBOutlet var ignoreButton: ENAButton!
+
+	@IBOutlet var scrollView: UIScrollView!
+	@IBOutlet var stackView: UIStackView!
+	@IBOutlet var stateView: UIView!
+	@IBOutlet var innerStackView: UIStackView!
+	@IBOutlet var footerView: UIView!
+
+	private var pageType: OnboardingPageType
+	private var exposureManager: ExposureManager
+	private var store: Store
+	private var htmlTextView: HtmlTextView?
+	private var onboardingInfo: OnboardingInfo?
+	private var supportedCountries: [Country]?
+	private var client: Client
+
+	private var pageSetupDone = false
+	private var onboardingInfos = OnboardingInfo.testData()
+	private var exposureManagerActivated = false
+	
+	
+	// MARK: - Init
 	init?(
 		coder: NSCoder,
 		pageType: OnboardingPageType,
@@ -63,39 +74,28 @@ final class OnboardingInfoViewController: UIViewController {
 		fatalError("init(coder:) has intentionally not been implemented")
 	}
 
-	// MARK: Properties
 
-	var pageType: OnboardingPageType
-	var exposureManager: ExposureManager
-	var store: Store
+	@IBAction func didTapNextButton(_: Any) {
+		nextButton.isUserInteractionEnabled = false
+		runActionForPageType(
+			completion: { [weak self] in
+				self?.gotoNextScreen()
+				self?.nextButton.isUserInteractionEnabled = true
+			}
+		)
+	}
 
-	@IBOutlet var imageView: UIImageView!
-	@IBOutlet var stateHeaderLabel: ENALabel!
-	@IBOutlet var stateTitleLabel: ENALabel!
-	@IBOutlet var stateStateLabel: ENALabel!
-	@IBOutlet var titleLabel: UILabel!
-	@IBOutlet var boldLabel: UILabel!
-	@IBOutlet var textLabel: UILabel!
-	@IBOutlet var linkTextView: UITextView!
-	@IBOutlet var nextButton: ENAButton!
-	@IBOutlet var ignoreButton: ENAButton!
 
-	@IBOutlet var scrollView: UIScrollView!
-	@IBOutlet var stackView: UIStackView!
-	@IBOutlet var stateView: UIView!
-	@IBOutlet var innerStackView: UIStackView!
-	@IBOutlet var footerView: UIView!
+	@IBAction func didTapIgnoreButton(_: Any) {
+		runIgnoreActionForPageType(
+			completion: {
+				self.gotoNextScreen()
+			}
+		)
+	}
 
-	private var onboardingInfos = OnboardingInfo.testData()
-	private var exposureManagerActivated = false
-
-	var client: Client
-	private var pageSetupDone = false
-	var htmlTextView: HtmlTextView?
-
-	var onboardingInfo: OnboardingInfo?
-	var supportedCountries: [Country]?
-
+	
+	// MARK: - Overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		onboardingInfo = onboardingInfos[pageType.rawValue]
@@ -108,6 +108,7 @@ final class OnboardingInfoViewController: UIViewController {
 		if pageType == .togetherAgainstCoronaPage { loadCountryList() }
 	}
 
+	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
@@ -115,6 +116,7 @@ final class OnboardingInfoViewController: UIViewController {
 		updateUI(exposureManagerState: preconditions)
 	}
 
+	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 
@@ -122,6 +124,8 @@ final class OnboardingInfoViewController: UIViewController {
 		scrollView.verticalScrollIndicatorInsets.bottom = scrollView.contentInset.bottom
 	}
 
+	
+	// MARK: - Public
 	func runActionForPageType(completion: @escaping () -> Void) {
 		switch pageType {
 		case .privacyPage:
@@ -146,6 +150,7 @@ final class OnboardingInfoViewController: UIViewController {
 		}
 	}
 
+	
 	func runIgnoreActionForPageType(completion: @escaping () -> Void) {
 		guard pageType == .enableLoggingOfContactsPage, !exposureManager.preconditions().authorized else {
 			completion()
@@ -157,6 +162,74 @@ final class OnboardingInfoViewController: UIViewController {
 		}
 		present(alert, animated: true, completion: nil)
 	}
+
+	
+	func setupAccessibility() {
+		imageView.isAccessibilityElement = true
+		imageView.accessibilityLabel = onboardingInfo?.imageDescription
+		imageView.accessibilityIdentifier = onboardingInfo?.imageAccessibilityIdentifier
+		titleLabel.isAccessibilityElement = true
+		titleLabel.accessibilityIdentifier = onboardingInfo?.titleAccessibilityIdentifier
+		titleLabel.accessibilityTraits = .header
+		boldLabel.isAccessibilityElement = true
+		textLabel.isAccessibilityElement = true
+		linkTextView.isAccessibilityElement = true
+		nextButton.isAccessibilityElement = true
+		nextButton.accessibilityIdentifier = onboardingInfo?.actionTextAccessibilityIdentifier
+		ignoreButton.accessibilityIdentifier = onboardingInfo?.ignoreTextAccessibilityIdentifier
+		ignoreButton.isAccessibilityElement = true
+	}
+
+	
+	func addSkipAccessibilityActionToHeader() {
+		titleLabel.accessibilityHint = AppStrings.Onboarding.onboardingContinueDescription
+		let actionName = AppStrings.Onboarding.onboardingContinue
+		let skipAction = UIAccessibilityCustomAction(name: actionName, target: self, selector: #selector(skip(_:)))
+		titleLabel.accessibilityCustomActions = [skipAction]
+		htmlTextView?.accessibilityCustomActions = [skipAction]
+	}
+
+	
+	@objc
+	func skip(_ sender: Any) {
+		didTapNextButton(sender)
+	}
+	
+	
+	// MARK: - Private
+	private func openSettings() {
+		guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+		UIApplication.shared.open(url, options: [:], completionHandler: nil)
+	}
+
+	
+	private func showError(_ error: ExposureNotificationError, from viewController: UIViewController, completion: (() -> Void)?) {
+		let alert = UIAlertController(title: AppStrings.ExposureSubmission.generalErrorTitle, message: String(describing: error), preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .cancel))
+		viewController.present(alert, animated: true, completion: completion)
+	}
+
+
+	private func gotoNextScreen() {
+		guard let nextPageType = pageType.next() else {
+			finishOnBoarding()
+			return
+		}
+		let storyboard = AppStoryboard.onboarding.instance
+		let next = storyboard.instantiateInitialViewController { [unowned self] coder in
+			OnboardingInfoViewController(
+				coder: coder,
+				pageType: nextPageType,
+				exposureManager: self.exposureManager,
+				store: self.store,
+				client: client,
+				supportedCountries: supportedCountries
+			)
+		}
+		// swiftlint:disable:next force_unwrapping
+		navigationController?.pushViewController(next!, animated: true)
+	}
+
 
 	private func loadCountryList() {
 		appConfigurationProvider.appConfiguration { [weak self] result in
@@ -176,6 +249,7 @@ final class OnboardingInfoViewController: UIViewController {
 		}
 	}
 
+	
 	private func updateUI(exposureManagerState: ExposureManagerState) {
 		guard isViewLoaded else { return }
 		guard let onboardingInfo = onboardingInfo else { return }
@@ -227,20 +301,21 @@ final class OnboardingInfoViewController: UIViewController {
 		stateTitleLabel.text = onboardingInfo.stateTitle
 		stateStateLabel.text = exposureNotificationsEnabled ? onboardingInfo.stateActivated : onboardingInfo.stateDeactivated
 
-		guard !pageSetupDone else {
-			// Back button tapped
-			// If "logging of contacts" has been enabled then display alternative text on buttom
-			if pageType == .enableLoggingOfContactsPage && showStateView {
-				nextButton.setTitle(onboardingInfo.alternativeActionText, for: .normal)
-			}
-			return
+		if pageType == .enableLoggingOfContactsPage && showStateView {
+			nextButton.setTitle(onboardingInfo.alternativeActionText, for: .normal)
 		}
+		
+		if pageSetupDone {
+			return
+		} else {
+			setupPage()
+		}
+	}
 
+    
+	private func setupPage() {
 		switch pageType {
 		case .enableLoggingOfContactsPage:
-			if showStateView {
-				nextButton.setTitle(onboardingInfo.alternativeActionText, for: .normal)
-			}
 			addParagraph(
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_euTitle,
 				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_euDescription
@@ -272,39 +347,8 @@ final class OnboardingInfoViewController: UIViewController {
 		}
 		pageSetupDone = true
 	}
-
-	func setupAccessibility() {
-		imageView.isAccessibilityElement = true
-		titleLabel.isAccessibilityElement = true
-		boldLabel.isAccessibilityElement = true
-		textLabel.isAccessibilityElement = true
-		linkTextView.isAccessibilityElement = true
-		nextButton.isAccessibilityElement = true
-		ignoreButton.isAccessibilityElement = true
-
-		imageView.accessibilityLabel = onboardingInfo?.imageDescription
-
-		titleLabel.accessibilityIdentifier = onboardingInfo?.titleAccessibilityIdentifier
-		imageView.accessibilityIdentifier = onboardingInfo?.imageAccessibilityIdentifier
-		nextButton.accessibilityIdentifier = onboardingInfo?.actionTextAccessibilityIdentifier
-		ignoreButton.accessibilityIdentifier = onboardingInfo?.ignoreTextAccessibilityIdentifier
-
-		titleLabel.accessibilityTraits = .header
-	}
-
-	func addSkipAccessibilityActionToHeader() {
-		titleLabel.accessibilityHint = AppStrings.Onboarding.onboardingContinueDescription
-		let actionName = AppStrings.Onboarding.onboardingContinue
-		let skipAction = UIAccessibilityCustomAction(name: actionName, target: self, selector: #selector(skip(_:)))
-		titleLabel.accessibilityCustomActions = [skipAction]
-		htmlTextView?.accessibilityCustomActions = [skipAction]
-	}
-
-	@objc
-	func skip(_ sender: Any) {
-		didTapNextButton(sender)
-	}
-
+	
+	
 	private func persistTimestamp(completion: (() -> Void)?) {
 		if let acceptedDate = store.dateOfAcceptedPrivacyNotice {
 			Log.warning("User has already accepted the privacy terms on \(acceptedDate)", log: .localData)
@@ -316,7 +360,6 @@ final class OnboardingInfoViewController: UIViewController {
 		completion?()
 	}
 
-	// MARK: Exposure notifications
 
 	private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
 		#if DEBUG
@@ -380,62 +423,12 @@ final class OnboardingInfoViewController: UIViewController {
 		}
 	}
 
+	
 	private func askLocalNotificationsPermissions(completion: (() -> Void)?) {
 		exposureManager.requestUserNotificationsPermissions {
 			completion?()
 			return
 		}
-	}
-
-	func openSettings() {
-		guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-		UIApplication.shared.open(url, options: [:], completionHandler: nil)
-	}
-
-	func showError(_ error: ExposureNotificationError, from viewController: UIViewController, completion: (() -> Void)?) {
-		let alert = UIAlertController(title: AppStrings.ExposureSubmission.generalErrorTitle, message: String(describing: error), preferredStyle: .alert)
-		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .cancel))
-		viewController.present(alert, animated: true, completion: completion)
-	}
-
-	@IBAction func didTapNextButton(_: Any) {
-		nextButton.isUserInteractionEnabled = false
-		runActionForPageType(
-			completion: { [weak self] in
-				self?.gotoNextScreen()
-				self?.nextButton.isUserInteractionEnabled = true
-			}
-		)
-	}
-
-	@IBAction func didTapIgnoreButton(_: Any) {
-		runIgnoreActionForPageType(
-			completion: {
-				self.gotoNextScreen()
-			}
-		)
-	}
-
-	func gotoNextScreen() {
-
-		guard let nextPageType = pageType.next() else {
-			finishOnBoarding()
-			return
-		}
-
-		let storyboard = AppStoryboard.onboarding.instance
-		let next = storyboard.instantiateInitialViewController { [unowned self] coder in
-			OnboardingInfoViewController(
-				coder: coder,
-				pageType: nextPageType,
-				exposureManager: self.exposureManager,
-				store: self.store,
-				client: client,
-				supportedCountries: supportedCountries
-			)
-		}
-		// swiftlint:disable:next force_unwrapping
-		navigationController?.pushViewController(next!, animated: true)
 	}
 
 
@@ -446,18 +439,4 @@ final class OnboardingInfoViewController: UIViewController {
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
 
-}
-
-extension OnboardingInfoViewController: UITextViewDelegate {
-	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-		LinkHelper.openLink(withUrl: url, from: self)
-		return false
-	}
-}
-
-extension OnboardingInfoViewController: NavigationBarOpacityDelegate {
-	var preferredNavigationBarOpacity: CGFloat {
-		let alpha = (scrollView.adjustedContentInset.top + scrollView.contentOffset.y) / scrollView.adjustedContentInset.top
-		return max(0, min(alpha, 1))
-	}
 }

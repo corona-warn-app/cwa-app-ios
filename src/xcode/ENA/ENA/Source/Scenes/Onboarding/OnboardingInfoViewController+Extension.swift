@@ -19,6 +19,24 @@
 
 import UIKit
 
+
+enum OnboardingPageType: Int, CaseIterable {
+	case togetherAgainstCoronaPage = 0
+	case privacyPage = 1
+	case enableLoggingOfContactsPage = 2
+	case howDoesDataExchangeWorkPage = 3
+	case alwaysStayInformedPage = 4
+
+	func next() -> OnboardingPageType? {
+		OnboardingPageType(rawValue: rawValue + 1)
+	}
+
+	func isLast() -> Bool {
+		(self == OnboardingPageType.allCases.last)
+	}
+}
+
+
 extension OnboardingInfoViewController {
 
 	func addPanel(
@@ -32,7 +50,6 @@ extension OnboardingInfoViewController {
 		itemSpacing: CGFloat = 10
 	) {
 
-		// MARK: - Title label.
 		let titleLabel = ENALabel()
 		titleLabel.style = titleStyle
 		titleLabel.text = title
@@ -41,7 +58,6 @@ extension OnboardingInfoViewController {
 		titleLabel.lineBreakMode = .byWordWrapping
 		titleLabel.numberOfLines = 0
 
-		// MARK: - Text label.
 		let textLabel = ENALabel()
 		textLabel.style = bodyStyle
 		textLabel.text = body
@@ -50,7 +66,6 @@ extension OnboardingInfoViewController {
 		textLabel.lineBreakMode = .byWordWrapping
 		textLabel.numberOfLines = 0
 
-		// MARK: - Stackview for labels.
 		let labelStackView = UIStackView(arrangedSubviews: [titleLabel, textLabel])
 		labelStackView.translatesAutoresizingMaskIntoConstraints = false
 		labelStackView.axis = .vertical
@@ -58,7 +73,6 @@ extension OnboardingInfoViewController {
 		labelStackView.distribution = .equalSpacing
 		labelStackView.spacing = itemSpacing
 
-		// MARK: - Container for entire view.
 		let containerView = UIView()
 		containerView.addSubview(labelStackView)
 		containerView.layer.cornerRadius = 14.0
@@ -102,7 +116,6 @@ extension OnboardingInfoViewController {
 
 		let containerView = UIView()
 
-		// MARK: - Create country table.
 		let countryListView = UIStackView()
 		countryListView.translatesAutoresizingMaskIntoConstraints = false
 		countryListView.axis = .vertical
@@ -111,7 +124,6 @@ extension OnboardingInfoViewController {
 		countryListView.spacing = 7.5
 		containerView.addSubview(countryListView)
 
-		// MARK: - Create title label.
 		let titleLabel = ENALabel()
 		titleLabel.style = .headline
 		titleLabel.text = title
@@ -122,18 +134,15 @@ extension OnboardingInfoViewController {
 		containerView.addSubview(titleLabel)
 
 		for (index, country) in countries.enumerated() {
-			// MARK: - Create stack view to hold label and flag for country.
 			let stackView = UIStackView()
 			stackView.axis = .horizontal
 			stackView.alignment = .center
 			stackView.spacing = 13
 
-			// MARK: - Country name.
 			let label = ENALabel()
 			label.style = .body
 			label.text = country.localizedName
 
-			// MARK: - Country flag.
 			let image = UIImageView(image: country.flag)
 			image.widthAnchor.constraint(equalToConstant: 28).isActive = true
 			image.contentMode = .scaleAspectFit
@@ -142,7 +151,6 @@ extension OnboardingInfoViewController {
 			stackView.addArrangedSubview(label)
 			countryListView.addArrangedSubview(stackView)
 
-			// MARK: - Add separator inbetween each.
 			if index == countries.count - 1 { break }
 			let separator = UIView()
 			separator.backgroundColor = .enaColor(for: .hairline)
@@ -185,5 +193,26 @@ extension OnboardingInfoViewController {
 		let containerView = createCountrySection(title: title, countries: countries)
 		stackView.addArrangedSubview(containerView)
 	}
+
+}
+
+
+extension OnboardingInfoViewController: UITextViewDelegate {
+	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+		LinkHelper.openLink(withUrl: url, from: self)
+		return false
+	}
+}
+
+
+extension OnboardingInfoViewController: NavigationBarOpacityDelegate {
+	var preferredNavigationBarOpacity: CGFloat {
+		let alpha = (scrollView.adjustedContentInset.top + scrollView.contentOffset.y) / scrollView.adjustedContentInset.top
+		return max(0, min(alpha, 1))
+	}
+}
+
+
+extension OnboardingInfoViewController: RequiresAppDependencies {
 
 }
