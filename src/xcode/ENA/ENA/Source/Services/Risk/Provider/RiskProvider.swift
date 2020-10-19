@@ -256,7 +256,8 @@ extension RiskProvider: RiskProviding {
 			}
 		}
 
-		guard let unwrappedAppConfiguration = appConfiguration, group.wait(timeout: .now() + .seconds(60 * 8)) == .success else {
+		guard group.wait(timeout: .now() + .seconds(60 * 8)) == .success,
+			  let unwrappedAppConfiguration = appConfiguration else {
 			cancellationToken?.cancel()
 			cancellationToken = nil
 			completeOnTargetQueue(risk: nil, completion: completion)
