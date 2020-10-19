@@ -113,13 +113,7 @@ jobs:
 workflows:
     tcloud:
       jobs:
-        - build:
-            filters:
-              branches:
-                only: ci/upload-ipa-to-tcloud
         - testflight-release:
-            requires:
-              - build
             filters:
               branches:
                 only: ci/upload-ipa-to-tcloud
