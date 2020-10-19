@@ -60,8 +60,8 @@ extension ExposureDetection.DidEndPrematurelyReason: LocalizedError {
 
 			} else if let exposureDetectionError = error as? ExposureDetectionError {
 				switch exposureDetectionError {
-				case .exposureDetectionIsRunning:
-					return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: ExposureDetectionIsRunning"
+				case .isAlreadyRunning:
+					return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: ExposureDetectionIsAlreadyRunning"
 				}
 			} else {
 				return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoSummary"

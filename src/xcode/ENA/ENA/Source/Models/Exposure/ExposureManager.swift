@@ -30,7 +30,7 @@ enum ExposureNotificationError: Error {
 }
 
 enum ExposureDetectionError: Error {
-	case exposureDetectionIsRunning
+	case isAlreadyRunning
 }
 
 struct ExposureManagerState: Equatable {
@@ -217,8 +217,8 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
 		// An exposure detection is currently running. Call complete with error and return current progress.
 		if let progress = progress, !progress.isCancelled && !progress.isFinished {
-			Log.error("ENAExposureManager: Exposure detection is allready running.", log: .riskDetection, error: ExposureDetectionError.exposureDetectionIsRunning)
-			completionHandler(nil, ExposureDetectionError.exposureDetectionIsRunning)
+			Log.error("ENAExposureManager: Exposure detection is allready running.", log: .riskDetection, error: ExposureDetectionError.isAlreadyRunning)
+			completionHandler(nil, ExposureDetectionError.isAlreadyRunning)
 			return progress
 		}
 
