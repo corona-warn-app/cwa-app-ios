@@ -22,16 +22,10 @@ import Foundation
 
 final class CachingHTTPClientMock: CachingHTTPClient {
 
-	convenience init(store: Store? = nil) {
-		if let store = store {
-			let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
-			self.init(clientConfiguration: configuration)
-		} else {
-			let serverEnvironment = ServerEnvironment()
-			let store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
-			let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
-			self.init(clientConfiguration: configuration)
-		}
+	convenience init(store: Store = MockTestStore()) {
+		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
+		self.init(clientConfiguration: configuration)
+		self.init(clientConfiguration: configuration)
 	}
 
 	static let staticAppConfig: SAP_ApplicationConfiguration = {
