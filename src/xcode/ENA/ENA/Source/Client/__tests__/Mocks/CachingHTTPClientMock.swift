@@ -25,7 +25,6 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 	convenience init(store: Store = MockTestStore()) {
 		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
 		self.init(clientConfiguration: configuration)
-		self.init(clientConfiguration: configuration)
 	}
 
 	static let staticAppConfig: SAP_ApplicationConfiguration = {
