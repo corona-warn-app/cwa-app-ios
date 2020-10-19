@@ -54,6 +54,9 @@ final class CachedAppConfiguration {
 				self?.store.lastAppConfigETag = response.eTag
 				self?.store.appConfig = response.config
 				self?.completeOnMain(completion: completion, result: .success(response.config))
+
+				// keep track of last successful fetch
+				self?.store.lastAppConfigFetch = Date()
 			case .failure(let error):
 				switch error {
 				case CachedAppConfiguration.CacheError.notModified where self?.store.appConfig != nil:
