@@ -21,13 +21,14 @@ import XCTest
 @testable import ENA
 
 final class CachedAppConfigurationTests: XCTestCase {
+
 	func testCachedRequests() {
 		let client = CachingHTTPClientMock()
 
-		let expectation = self.expectation(description: "app configuration loaded")
+		let fetchedFromClientExpectation = self.expectation(description: "configuration fetched from client")
 		// we trigger a config fetch twice but expect only one http request (plus one cached result)
-		expectation.expectedFulfillmentCount = 1
-		expectation.assertForOverFulfill = true
+		fetchedFromClientExpectation.expectedFulfillmentCount = 1
+		fetchedFromClientExpectation.assertForOverFulfill = true
 
 		let store = MockTestStore()
 		XCTAssertNil(store.appConfig)
@@ -37,11 +38,11 @@ final class CachedAppConfigurationTests: XCTestCase {
 		client.onFetchAppConfiguration = { _, completeWith in
 			let config = AppConfigurationFetchingResponse(expectedConfig, "etag")
 			completeWith(.success(config))
-			expectation.fulfill()
+			fetchedFromClientExpectation.fulfill()
 		}
 
-		let expConfig = self.expectation(description: "app configuration fetched")
-		expConfig.expectedFulfillmentCount = 2
+		let completionExpectation = self.expectation(description: "app configuration completion called")
+		completionExpectation.expectedFulfillmentCount = 2
 
 		let cache = CachedAppConfiguration(client: client, store: store)
 		cache.appConfiguration { response in
@@ -51,7 +52,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			}
-			expConfig.fulfill()
+			completionExpectation.fulfill()
 		}
 
 		XCTAssertNotNil(store.appConfig)
@@ -67,7 +68,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			}
-			expConfig.fulfill()
+			completionExpectation.fulfill()
 		}
 
 		waitForExpectations(timeout: .medium)
@@ -85,20 +86,19 @@ final class CachedAppConfigurationTests: XCTestCase {
 		let lastFetch = try XCTUnwrap(store.lastAppConfigFetch)
 		XCTAssertLessThan(Date().timeIntervalSince(lastFetch), 300)
 
-		let expectation = self.expectation(description: "app configuration loaded")
-		expectation.assertForOverFulfill = true
+		let fetchedFromClientExpectation = self.expectation(description: "configuration fetched from client")
+		fetchedFromClientExpectation.assertForOverFulfill = true
 
 		client.onFetchAppConfiguration = { _, completeWith in
 			store.appConfig = updatedConfig
-			store.lastAppConfigFetch = Date()
 
 			let config = AppConfigurationFetchingResponse(updatedConfig, "etag")
 			completeWith(.success(config))
-			expectation.fulfill()
+			fetchedFromClientExpectation.fulfill()
 		}
 
-		let expConfig = self.expectation(description: "app configuration fetched")
-		expConfig.expectedFulfillmentCount = 2
+		let completionExpectation = self.expectation(description: "app configuration completion called")
+		completionExpectation.expectedFulfillmentCount = 2
 
 		let cache = CachedAppConfiguration(client: client, store: store)
 		cache.appConfiguration { response in
@@ -108,7 +108,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			}
-			expConfig.fulfill()
+			completionExpectation.fulfill()
 		}
 
 		XCTAssertEqual(store.appConfig, outdatedConfig)
@@ -126,21 +126,20 @@ final class CachedAppConfigurationTests: XCTestCase {
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			}
-			expConfig.fulfill()
+			completionExpectation.fulfill()
 		}
 
 		waitForExpectations(timeout: 10)
 	}
 
 	func testFetch_nothingCached() throws {
-
 		let store = MockTestStore()
 		store.appConfig = nil
 		store.lastAppConfigETag = nil
 
 		let client = CachingHTTPClientMock()
 
-		let expConfig = self.expectation(description: "app configuration fetched")
+		let completionExpectation = self.expectation(description: "app configuration completion called")
 
 		let cache = CachedAppConfiguration(client: client, store: store)
 
@@ -154,16 +153,15 @@ final class CachedAppConfigurationTests: XCTestCase {
 			case .failure(let error):
 				XCTFail("Expected no error, got: \(error)")
 			}
-			expConfig.fulfill()
+			completionExpectation.fulfill()
 		}
 
 		waitForExpectations(timeout: .medium)
 	}
 
 	func testCacheNotModfied_useCache() throws {
-
-		let expFetchRequest = self.expectation(description: "fetch request done")
-		expFetchRequest.expectedFulfillmentCount = 1
+		let fetchedFromClientExpectation = self.expectation(description: "configuration fetched from client")
+		fetchedFromClientExpectation.expectedFulfillmentCount = 1
 
 		let store = MockTestStore()
 		store.lastAppConfigETag = "etag"
@@ -172,10 +170,10 @@ final class CachedAppConfigurationTests: XCTestCase {
 		let client = CachingHTTPClientMock()
 		client.onFetchAppConfiguration = { _, completeWith in
 			completeWith(.failure(CachedAppConfiguration.CacheError.notModified))
-			expFetchRequest.fulfill()
+			fetchedFromClientExpectation.fulfill()
 		}
 
-		let expConfig = self.expectation(description: "app configuration fetched")
+		let completionExpectation = self.expectation(description: "app configuration completion called")
 
 		let cache = CachedAppConfiguration(client: client, store: store)
 
@@ -186,18 +184,17 @@ final class CachedAppConfigurationTests: XCTestCase {
 			case .failure(let error):
 				XCTFail("Expected no error, got: \(error)")
 			}
-			expConfig.fulfill()
+			completionExpectation.fulfill()
 		}
 
 		waitForExpectations(timeout: .medium)
 	}
 
 	func testCacheNotModfied_nothingCached() throws {
-
-		let expFetchRequest = self.expectation(description: "fetch request done")
+		let fetchedFromClientExpectation = self.expectation(description: "configuration fetched from client")
 		// 1. on init
 		// 2. on `cache.appConfiguration` because of no config in store
-		expFetchRequest.expectedFulfillmentCount = 2
+		fetchedFromClientExpectation.expectedFulfillmentCount = 2
 
 		let store = MockTestStore()
 		XCTAssertNil(store.appConfig)
@@ -209,10 +206,10 @@ final class CachedAppConfigurationTests: XCTestCase {
 			XCTAssertNil(store.lastAppConfigETag)
 
 			completeWith(.failure(CachedAppConfiguration.CacheError.notModified))
-			expFetchRequest.fulfill()
+			fetchedFromClientExpectation.fulfill()
 		}
 
-		let expConfig = self.expectation(description: "app configuration fetched")
+		let completionExpectation = self.expectation(description: "app configuration completion called")
 
 		let cache = CachedAppConfiguration(client: client, store: store)
 
@@ -233,11 +230,12 @@ final class CachedAppConfigurationTests: XCTestCase {
 					XCTFail("wrong error type; got: \(error)")
 				}
 			}
-			expConfig.fulfill()
+			completionExpectation.fulfill()
 		}
 
 		waitForExpectations(timeout: .medium)
 	}
+
 }
 
 private extension Int {
@@ -247,4 +245,5 @@ private extension Int {
 		let components = DateComponents(second: -(self))
 		return Calendar.autoupdatingCurrent.date(byAdding: components, to: Date())
 	}
+
 }
