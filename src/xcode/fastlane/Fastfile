@@ -134,11 +134,12 @@ platform :ios do
     tsi_cloud_token = ENV['TSI_CLOUD_TOKEN']
     sh("echo 'tsi_cloud_url'")
     sh("echo '${tsi_cloud_token}'")
+    sh("echo '#{ENV["TSI_CLOUD_URL"]}'")
 
-  # sh("curl --location --request POST '$TSI_CLOUD_URL' \
-  #    --header 'Authorization: Bearer $TSI_CLOUD_TOKEN' \
+  # sh("curl --location --request POST '#{ENV["TSI_CLOUD_URL"]}' \
+  #    --header 'Authorization: Bearer #{ENV["TSI_CLOUD_TOKEN"]}' \
   #    --form 'file=@/ENA.ipa'
-  #    ")
+  #    ", log: false)
   end
 
   desc "Update GitHub Pages"
