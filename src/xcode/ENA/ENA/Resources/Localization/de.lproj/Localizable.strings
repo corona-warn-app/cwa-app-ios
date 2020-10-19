@@ -466,6 +466,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_primaryButtonTitle" = "Weiter";
 
+"ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title" = "QR-Code nicht mehr gültig";
+
+"ExposureSubmissionQRInfo_QRCodeExpired_Alert_Text" = "Ihr Test liegt länger als 21 Tage zurück und kann nicht mehr in der App registriert werden. Bitte stellen Sie bei zukünftigen Tests sicher, dass Sie den QR-Code scannen, sobald er Ihnen vorliegt.";
+
 /* Exposure Submission QR Code Scanner */
 "ExposureSubmissionQRScanner_title" = "QR-Code Scan";
 
@@ -576,9 +580,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Testcenter oder das zuständige Labor, um Information zum weiteren Vorgehen zu erhalten.";
 
-"ExposureSubmissionResult_testRedeemed" = "Test fehlerhaft";
+"ExposureSubmissionResult_testExpired" = "Test fehlerhaft";
 
-"ExposureSubmissionResult_testRedeemedDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Ihr QR Code ist bereits abgelaufen.";
+"ExposureSubmissionResult_testExpiredDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Ihr QR Code ist bereits abgelaufen.";
 
 "ExposureSubmissionResult_testPending" = "Testergebnis noch nicht verfügbar";
 
