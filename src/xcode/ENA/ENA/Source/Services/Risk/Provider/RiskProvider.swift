@@ -120,6 +120,8 @@ extension RiskProvider: RiskProviding {
 		userInitiated: Bool,
 		completion: @escaping (Summaries) -> Void
 	) {
+		Log.info("RiskProvider: Determine summeries.", log: .riskDetection)
+
 		// Here we are in automatic mode and thus we have to check the validity of the current summary
 		let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
 			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
@@ -204,6 +206,8 @@ extension RiskProvider: RiskProviding {
 	}
 
 	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
+		Log.info("RiskProvider: Request risk level", log: .riskDetection)
+
 		#if DEBUG
 		if isUITesting {
 			_requestRiskLevel_Mock(userInitiated: userInitiated, completion: completion)
@@ -286,6 +290,8 @@ extension RiskProvider: RiskProviding {
 	}
 
 	private func _requestRiskLevel(summaries: Summaries?, appConfiguration: SAP_ApplicationConfiguration?, completion: Completion? = nil) {
+		Log.info("RiskProvider: Apply risk calculation", log: .riskDetection)
+
 		guard let _appConfiguration = appConfiguration else {
 			completeOnTargetQueue(risk: nil, completion: completion)
 			showAppConfigError()
