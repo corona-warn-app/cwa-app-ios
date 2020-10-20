@@ -566,6 +566,11 @@ enum AppStrings {
 		static let riskCardInactiveNoCalculationPossibleButton = NSLocalizedString("Home_Risk_Inactive_NoCalculation_Possible_Button", comment: "")
 		static let riskCardInactiveOutdatedResultsButton = NSLocalizedString("Home_Risk_Inactive_Outdated_Results_Button", comment: "")
 
+		// Failed Card
+		static let riskCardFailedCalculationTitle = NSLocalizedString("Home_Risk_Failed_Title", comment: "")
+		static let riskCardFailedCalculationBody = NSLocalizedString("Home_Risk_Failed_Body", comment: "")
+		static let riskCardFailedCalculationRestartButtonTitle = NSLocalizedString("Home_Risk_Restart_Button_Title", comment: "")
+
 		// Common
 		static let riskCardDateItemTitle = NSLocalizedString("Home_Risk_Date_Item_Title", comment: "")
 		static let riskCardNoDateTitle = NSLocalizedString("Home_Risk_No_Date_Title", comment: "")
