@@ -83,21 +83,36 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	/// - the guid is a well formatted string (6-8-4-4-4-12) with length 43
 	///   (6 chars encode a random number, 32 chars for the uuid, 5 chars are separators)
 	func extractGuid(from input: String) -> String? {
-		guard
-			!input.isEmpty,
-			input.count <= 150,
-			let regex = try? NSRegularExpression(
-				pattern: "^https:\\/\\/localhost\\/\\?(?<GUID>[0-9A-Fa-f]{6}-[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})$"
-			),
-			let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.count))
-		else { return nil }
+		guard let urlComponents = URLComponents(string: input),
+			  urlComponents.scheme == "https",
+			  urlComponents.host == "localhost",
+			  let queryString = urlComponents.query,
+			  queryString.count == 43
+			  else {
+			return nil
+		}
 
+		return queryString
+
+//		https://localhost/?62AF54-00DE966F-3727-45CB-B403-419E8134ECBC
+
+//		guard
+//			!input.isEmpty,
+//			input.count <= 150,
+//			let regex = try? NSRegularExpression(
+//				pattern: "^https:\\/\\/localhost\\/\\?(?<GUID>[0-9A-Fa-f]{6}-[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})$"
+//			),
+//			let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.count))
+//		else { return nil }
+
+		/*
 		guard let range = Range(match.range(withName: "GUID"), in: input) else { return nil }
 
 		let candidate = String(input[range])
 		guard !candidate.isEmpty, candidate.count == 43 else { return nil }
 
 		return candidate
+*/
 	}
 
 	// MARK: - Private
