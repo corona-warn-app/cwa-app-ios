@@ -29,7 +29,6 @@ jobs:
     macos:
       xcode: 12.0.0
     shell: zsh
-    parallelism: 4
     steps:
       - prepare-dependencies
       - run:
@@ -89,12 +88,12 @@ jobs:
     steps:
       - prepare-dependencies
       - run: ./scripts/switch_to_dev_env.sh
-      - run:
-          name: fastlane testflight
-          command: cd src/xcode && bundle exec fastlane betaRelease --env TestFlight
-      - run:
-          name: fastlane appcenter
-          command: cd src/xcode && bundle exec fastlane adHocDistribution
+      # - run:
+      #     name: fastlane testflight
+      #     command: cd src/xcode && bundle exec fastlane betaRelease --env TestFlight
+      # - run:
+      #     name: fastlane appcenter
+      #     command: cd src/xcode && bundle exec fastlane adHocDistribution
   update-docs:
     macos:
       xcode: 12.0.0
