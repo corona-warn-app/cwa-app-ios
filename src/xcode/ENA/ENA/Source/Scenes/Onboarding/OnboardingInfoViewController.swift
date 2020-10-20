@@ -90,73 +90,7 @@ final class OnboardingInfoViewController: UIViewController {
 		scrollView.verticalScrollIndicatorInsets.bottom = scrollView.contentInset.bottom
 	}
 	
-	// MARK: - Public
-	
-	func runActionForPageType(completion: @escaping () -> Void) {
-		switch pageType {
-		case .privacyPage:
-			persistTimestamp(completion: completion)
-		case .enableLoggingOfContactsPage:
-			func handleBluetooth(completion: @escaping () -> Void) {
-				if let alertController = self.exposureManager.alertForBluetoothOff(completion: { completion() }) {
-					self.present(alertController, animated: true)
-				}
-				completion()
-			}
-			askExposureNotificationsPermissions(completion: {
-				handleBluetooth {
-					completion()
-				}
-			})
 
-		case .alwaysStayInformedPage:
-			askLocalNotificationsPermissions(completion: completion)
-		default:
-			completion()
-		}
-	}
-	
-	func runIgnoreActionForPageType(completion: @escaping () -> Void) {
-		guard pageType == .enableLoggingOfContactsPage, !exposureManager.preconditions().authorized else {
-			completion()
-			return
-		}
-
-		let alert = OnboardingInfoViewControllerUtils.setupExposureConfirmationAlert {
-			completion()
-		}
-		present(alert, animated: true, completion: nil)
-	}
-	
-	func setupAccessibility() {
-		imageView.isAccessibilityElement = true
-		imageView.accessibilityLabel = onboardingInfo?.imageDescription
-		imageView.accessibilityIdentifier = onboardingInfo?.imageAccessibilityIdentifier
-		titleLabel.isAccessibilityElement = true
-		titleLabel.accessibilityIdentifier = onboardingInfo?.titleAccessibilityIdentifier
-		titleLabel.accessibilityTraits = .header
-		boldLabel.isAccessibilityElement = true
-		textLabel.isAccessibilityElement = true
-		linkTextView.isAccessibilityElement = true
-		nextButton.isAccessibilityElement = true
-		nextButton.accessibilityIdentifier = onboardingInfo?.actionTextAccessibilityIdentifier
-		ignoreButton.accessibilityIdentifier = onboardingInfo?.ignoreTextAccessibilityIdentifier
-		ignoreButton.isAccessibilityElement = true
-	}
-
-	func addSkipAccessibilityActionToHeader() {
-		titleLabel.accessibilityHint = AppStrings.Onboarding.onboardingContinueDescription
-		let actionName = AppStrings.Onboarding.onboardingContinue
-		let skipAction = UIAccessibilityCustomAction(name: actionName, target: self, selector: #selector(skip(_:)))
-		titleLabel.accessibilityCustomActions = [skipAction]
-		htmlTextView?.accessibilityCustomActions = [skipAction]
-	}
-
-	@objc
-	func skip(_ sender: Any) {
-		didTapNextButton(sender)
-	}
-	
 	// MARK: - Private
 	
 	private var pageType: OnboardingPageType
@@ -421,5 +355,70 @@ final class OnboardingInfoViewController: UIViewController {
 
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
+	
+	private func runActionForPageType(completion: @escaping () -> Void) {
+		switch pageType {
+		case .privacyPage:
+			persistTimestamp(completion: completion)
+		case .enableLoggingOfContactsPage:
+			func handleBluetooth(completion: @escaping () -> Void) {
+				if let alertController = self.exposureManager.alertForBluetoothOff(completion: { completion() }) {
+					self.present(alertController, animated: true)
+				}
+				completion()
+			}
+			askExposureNotificationsPermissions(completion: {
+				handleBluetooth {
+					completion()
+				}
+			})
 
+		case .alwaysStayInformedPage:
+			askLocalNotificationsPermissions(completion: completion)
+		default:
+			completion()
+		}
+	}
+	
+	private func runIgnoreActionForPageType(completion: @escaping () -> Void) {
+		guard pageType == .enableLoggingOfContactsPage, !exposureManager.preconditions().authorized else {
+			completion()
+			return
+		}
+
+		let alert = OnboardingInfoViewControllerUtils.setupExposureConfirmationAlert {
+			completion()
+		}
+		present(alert, animated: true, completion: nil)
+	}
+	
+	private func setupAccessibility() {
+		imageView.isAccessibilityElement = true
+		imageView.accessibilityLabel = onboardingInfo?.imageDescription
+		imageView.accessibilityIdentifier = onboardingInfo?.imageAccessibilityIdentifier
+		titleLabel.isAccessibilityElement = true
+		titleLabel.accessibilityIdentifier = onboardingInfo?.titleAccessibilityIdentifier
+		titleLabel.accessibilityTraits = .header
+		boldLabel.isAccessibilityElement = true
+		textLabel.isAccessibilityElement = true
+		linkTextView.isAccessibilityElement = true
+		nextButton.isAccessibilityElement = true
+		nextButton.accessibilityIdentifier = onboardingInfo?.actionTextAccessibilityIdentifier
+		ignoreButton.accessibilityIdentifier = onboardingInfo?.ignoreTextAccessibilityIdentifier
+		ignoreButton.isAccessibilityElement = true
+	}
+
+	private func addSkipAccessibilityActionToHeader() {
+		titleLabel.accessibilityHint = AppStrings.Onboarding.onboardingContinueDescription
+		let actionName = AppStrings.Onboarding.onboardingContinue
+		let skipAction = UIAccessibilityCustomAction(name: actionName, target: self, selector: #selector(skip(_:)))
+		titleLabel.accessibilityCustomActions = [skipAction]
+		htmlTextView?.accessibilityCustomActions = [skipAction]
+	}
+
+	@objc
+	private func skip(_ sender: Any) {
+		didTapNextButton(sender)
+	}
+	
 }
