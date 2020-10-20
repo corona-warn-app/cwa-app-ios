@@ -14394,7 +14394,7 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Services/Risk/Provider/Helper/CachedAppConfiguration.swift",
-      "line": 84,
+      "line": 87,
       "symbol": "CachedAppConfiguration",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
