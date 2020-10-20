@@ -40,6 +40,7 @@ final class OnboardingInfoViewController: UIViewController {
 	@IBOutlet var footerView: UIView!
 	
 	// MARK: - Init
+	
 	init?(
 		coder: NSCoder,
 		pageType: OnboardingPageType,
@@ -62,6 +63,7 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	// MARK: - Overrides
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		onboardingInfo = onboardingInfos[pageType.rawValue]
@@ -89,6 +91,7 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 	
 	// MARK: - Public
+	
 	func runActionForPageType(completion: @escaping () -> Void) {
 		switch pageType {
 		case .privacyPage:
@@ -155,6 +158,7 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 	
 	// MARK: - Private
+	
 	private var pageType: OnboardingPageType
 	private var exposureManager: ExposureManager
 	private var store: Store
