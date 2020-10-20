@@ -395,7 +395,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		)
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfigurationProvider: AppConfigurationProviderFake()
+			appConfiguration: SAP_ApplicationConfiguration()
 		)
 
 		XCTAssertNotEqual(packageStore.allDays(country: "DE").count, 0)
