@@ -123,8 +123,7 @@ class ExposureSubmissionCoordinatorModel {
 
 	private var symptomsOnset: SymptomsOnset = .noInformation
 
-	// Temporarily set to internal for quickfix: https://jira.itc.sap.com/browse/EXPOSUREAPP-3231
-	func loadSupportedCountries(
+	private func loadSupportedCountries(
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping () -> Void,
 		onError: @escaping (ExposureSubmissionError) -> Void
