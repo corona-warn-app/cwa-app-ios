@@ -211,7 +211,11 @@ final class OnboardingInfoViewController: UIViewController {
 			linkTextView.isHidden = true
 		}
 
-		nextButton.setTitle(onboardingInfo.actionText, for: .normal)
+		if pageType == .enableLoggingOfContactsPage && showStateView {
+			nextButton.setTitle(onboardingInfo.alternativeActionText, for: .normal)
+		} else {
+			nextButton.setTitle(onboardingInfo.actionText, for: .normal)
+		}
 		nextButton.isHidden = onboardingInfo.actionText.isEmpty
 
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
@@ -222,10 +226,6 @@ final class OnboardingInfoViewController: UIViewController {
 		stateHeaderLabel.text = onboardingInfo.stateHeader?.uppercased()
 		stateTitleLabel.text = onboardingInfo.stateTitle
 		stateStateLabel.text = exposureNotificationsEnabled ? onboardingInfo.stateActivated : onboardingInfo.stateDeactivated
-
-		if pageType == .enableLoggingOfContactsPage && showStateView {
-			nextButton.setTitle(onboardingInfo.alternativeActionText, for: .normal)
-		}
 		
 		if pageSetupDone {
 			return
