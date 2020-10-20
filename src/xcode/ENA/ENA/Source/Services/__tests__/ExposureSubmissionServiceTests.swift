@@ -401,7 +401,8 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let client = ClientMock()
 		store.registrationToken = "dummyRegistrationToken"
 
-		let testResult = TestResult.allCases.randomElement() ?? TestResult.positive
+		let storedResults: [TestResult] = [.pending, .negative, .positive, .invalid]
+		let testResult = storedResults.randomElement() ?? TestResult.positive
 		client.onGetTestResult = { result, isFake, completion in
 			expectation.fulfill()
 			XCTAssertFalse(isFake)
