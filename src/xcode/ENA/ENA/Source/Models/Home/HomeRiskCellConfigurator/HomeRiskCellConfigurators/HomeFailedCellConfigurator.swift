@@ -22,13 +22,6 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 	private var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 	private var lastUpdateDate: Date?
 
-	enum InactiveType {
-		case noCalculationPossible
-		case outdatedResults
-	}
-
-	var inactiveType: InactiveType = .noCalculationPossible
-
 	var activeAction: (() -> Void)?
 
 	private static let lastUpdateDateFormatter: DateFormatter = {
@@ -50,11 +43,9 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
-		inactiveType: InactiveType,
 		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
 		lastUpdateDate: Date?
 	) {
-		self.inactiveType = inactiveType
 		self.previousRiskLevel = previousRiskLevel
 		self.lastUpdateDate = lastUpdateDate
 	}
@@ -62,11 +53,11 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: - Computed properties.
 
 	var title: String {
-		return "This is the new card title." // inactiveType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleTitle : AppStrings.Home.riskCardInactiveOutdatedResultsTitle
+		return AppStrings.Home.riskCardFailedCalculationTitle
 	}
 
 	var body: String {
-		return "This is the new card body." //inactiveType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleBody : AppStrings.Home.riskCardInactiveOutdatedResultsBody
+		return AppStrings.Home.riskCardFailedCalculationBody
 	}
 
 	var previousRiskTitle: String {
@@ -81,7 +72,7 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 	}
 
 	var buttonTitle: String {
-		return inactiveType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleButton : AppStrings.Home.riskCardInactiveOutdatedResultsButton
+		AppStrings.Home.riskCardFailedCalculationRestartButtonTitle
 	}
 
 	// MARK: - UI Helpers
@@ -157,13 +148,11 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: Hashable
 
 	func hash(into hasher: inout Swift.Hasher) {
-		hasher.combine(inactiveType)
 		hasher.combine(previousRiskLevel)
 		hasher.combine(lastUpdateDate)
 	}
 
 	static func == (lhs: HomeFailedCellConfigurator, rhs: HomeFailedCellConfigurator) -> Bool {
-		lhs.inactiveType == rhs.inactiveType &&
 		lhs.previousRiskLevel == rhs.previousRiskLevel &&
 		lhs.lastUpdateDate == rhs.lastUpdateDate
 	}
