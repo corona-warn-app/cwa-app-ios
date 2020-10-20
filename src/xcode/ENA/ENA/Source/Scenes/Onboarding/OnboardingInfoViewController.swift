@@ -38,18 +38,6 @@ final class OnboardingInfoViewController: UIViewController {
 	@IBOutlet var stateView: UIView!
 	@IBOutlet var innerStackView: UIStackView!
 	@IBOutlet var footerView: UIView!
-
-	private var pageType: OnboardingPageType
-	private var exposureManager: ExposureManager
-	private var store: Store
-	private var htmlTextView: HtmlTextView?
-	private var onboardingInfo: OnboardingInfo?
-	private var supportedCountries: [Country]?
-	private var client: Client
-
-	private var pageSetupDone = false
-	private var onboardingInfos = OnboardingInfo.testData()
-	private var exposureManagerActivated = false
 	
 	
 	// MARK: - Init
@@ -177,6 +165,18 @@ final class OnboardingInfoViewController: UIViewController {
 	
 	
 	// MARK: - Private
+	private var pageType: OnboardingPageType
+	private var exposureManager: ExposureManager
+	private var store: Store
+	private var htmlTextView: HtmlTextView?
+	private var onboardingInfo: OnboardingInfo?
+	private var supportedCountries: [Country]?
+	private var client: Client
+	private var pageSetupDone = false
+	private var onboardingInfos = OnboardingInfo.testData()
+	private var exposureManagerActivated = false
+
+
 	@IBAction private func didTapNextButton(_: Any) {
 		nextButton.isUserInteractionEnabled = false
 		runActionForPageType(
