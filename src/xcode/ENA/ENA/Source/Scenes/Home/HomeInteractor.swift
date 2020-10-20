@@ -108,7 +108,18 @@ final class HomeInteractor: RequiresAppDependencies {
 	}
 
 	func requestRisk(userInitiated: Bool) {
-		riskProvider.requestRisk(userInitiated: userInitiated)
+		riskProvider.requestRisk(userInitiated: userInitiated) { [weak self] result in
+			guard let self = self else { return }
+
+			switch result {
+			case .failure:
+				self.state.riskDetectionFailed = true
+			case .success:
+				self.state.riskDetectionFailed = false
+			}
+
+			self.reloadActionSection()
+		}
 	}
 
 	func buildSections() {
@@ -191,15 +202,15 @@ extension HomeInteractor {
 		let detectionIsAutomatic = detectionMode == .automatic
 		let dateLastExposureDetection = riskDetails?.exposureDetectionDate
 
-
-//		case .failed:
-//			failedConfigurator = HomeFailedCellConfigurator(
-//				inactiveType: .noCalculationPossible,
-//				previousRiskLevel: store.previousRiskLevel,
-//				lastUpdateDate: dateLastExposureDetection
-//			)
-//			failedConfigurator?.activeAction = inActiveCellActionHandler
-
+		if state.riskDetectionFailed {
+			let failedConfigurator = HomeFailedCellConfigurator(
+				inactiveType: .noCalculationPossible,
+				previousRiskLevel: store.previousRiskLevel,
+				lastUpdateDate: dateLastExposureDetection
+			)
+			failedConfigurator.activeAction = inActiveCellActionHandler
+			return failedConfigurator
+		}
 
 		riskLevelConfigurator = nil
 		inactiveConfigurator = nil

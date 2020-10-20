@@ -51,7 +51,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				detectionMode: detectionMode,
 				exposureManagerState: exposureManagerState,
 				enState: initialEnState,
-				risk: risk
+				risk: risk,
+				riskDetectionFailed: false
 			), exposureSubmissionService: exposureSubmissionService)
 		navigationItem.largeTitleDisplayMode = .never
 		delegate.addToEnStateUpdateList(homeInteractor)
@@ -203,10 +204,16 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		delegate?.setExposureDetectionState(state: homeInteractor.state, activityState: homeInteractor.riskProvider.activityState)
 	}
 
-	func updateState(detectionMode: DetectionMode, exposureManagerState: ExposureManagerState, risk: Risk?) {
+	func updateState(
+		detectionMode: DetectionMode,
+		exposureManagerState: ExposureManagerState,
+		risk: Risk?,
+		riskDetectionFailed: Bool
+	) {
 		homeInteractor.state.detectionMode = detectionMode
 		homeInteractor.state.exposureManagerState = exposureManagerState
 		homeInteractor.state.risk = risk
+		homeInteractor.state.riskDetectionFailed = riskDetectionFailed
 
 		reloadData(animatingDifferences: false)
 

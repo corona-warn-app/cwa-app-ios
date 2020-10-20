@@ -10,5 +10,6 @@ extension SceneDelegate {
 		var exposureManager: ExposureManagerState
 		var detectionMode: DetectionMode
 		var risk: Risk?
+		var riskDetectionFailed: Bool
 	}
 }

@@ -82,9 +82,16 @@ final class RiskProvider {
 }
 
 private extension RiskConsumer {
-	func provideRisk(_ risk: Risk) {
-		targetQueue.async { [weak self] in
-			self?.didCalculateRisk(risk)
+	func provideRiskCalculationResult(_ result: RiskCalculationResult) {
+		switch result {
+		case .success(let risk):
+			targetQueue.async { [weak self] in
+				self?.didCalculateRisk(risk)
+			}
+		case .failure(let error):
+			targetQueue.async { [weak self] in
+				self?.didFailCalculateRisk(error)
+			}
 		}
 	}
 }
@@ -118,7 +125,7 @@ extension RiskProvider: RiskProviding {
 
 	private func determineSummaries(
 		userInitiated: Bool,
-		completion: @escaping (Summaries) -> Void
+		completion: @escaping (Summaries?) -> Void
 	) {
 		Log.info("RiskProvider: Determine summeries.", log: .riskDetection)
 
@@ -159,14 +166,17 @@ extension RiskProvider: RiskProviding {
 				
 				/// We were able to calculate a risk so we have to reset the deadman notification
 				UNUserNotificationCenter.current().resetDeadmanNotification()
+
+				completion(
+					.init(
+						previous: previousSummary,
+						current: self.store.summary
+					)
+				)
+			} else {
+				completion(nil)
 			}
 			self.cancellationToken = nil
-			completion(
-				.init(
-					previous: previousSummary,
-					current: self.store.summary
-				)
-			)
 		}
 	}
 
@@ -197,16 +207,18 @@ extension RiskProvider: RiskProviding {
 			completion?(.success(risk))
 		}
 
-		// We only wish to notify consumers if an actual risk level has been calculated.
-		// We do not notify if an error occurred.
 		for consumer in consumers {
-			_provideRisk(risk, to: consumer)
+			_provideRiskResult(.success(risk), to: consumer)
 		}
 	}
 
-	private func failOnTargetQueue(error: RiskProviderError, completion: Completion? = nil) {
+	private func failOnTargetQueue(error: RiskCalculationError, completion: Completion? = nil) {
 		targetQueue.async {
 			completion?(.failure(error))
+		}
+
+		for consumer in consumers {
+			_provideRiskResult(.failure(error), to: consumer)
 		}
 	}
 
@@ -282,11 +294,19 @@ extension RiskProvider: RiskProviding {
 		guard group.wait(timeout: .now() + .seconds(60 * 8)) == .success else {
 			cancellationToken?.cancel()
 			cancellationToken = nil
+			Log.info("RiskProvider: Canceled risk calculation due to timeout", log: .riskDetection)
 			failOnTargetQueue(error: .timeout, completion: completion)
 			return
 		}
 
 		cancellationToken = nil
+
+		guard summaries != nil else {
+			Log.info("RiskProvider: Failed determining summaries.", log: .riskDetection)
+			self.failOnTargetQueue(error: .failedRiskDetection, completion: completion)
+			return
+		}
+
 		_requestRiskLevel(
 			summaries: summaries,
 			appConfiguration: appConfiguration,
@@ -298,8 +318,8 @@ extension RiskProvider: RiskProviding {
 		Log.info("RiskProvider: Apply risk calculation", log: .riskDetection)
 
 		guard let _appConfiguration = appConfiguration else {
+			Log.info("RiskProvider: Failed reading app configuration.", log: .riskDetection)
 			failOnTargetQueue(error: .missingAppConfig, completion: completion)
-			showAppConfigError()
 			return
 		}
 
@@ -341,15 +361,15 @@ extension RiskProvider: RiskProviding {
 		UNUserNotificationCenter.current().resetDeadmanNotification()
 	}
 
-	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {
+	private func _provideRiskResult(_ result: RiskCalculationResult, to consumer: RiskConsumer?) {
 		#if DEBUG
 		if isUITesting {
-			consumer?.provideRisk(.mocked)
+			consumer?.provideRiskCalculationResult(.success(.mocked))
 			return
 		}
 		#endif
 
-		consumer?.provideRisk(risk)
+		consumer?.provideRiskCalculationResult(result)
 	}
 
 	private func savePreviousRiskLevel(_ risk: Risk) {
@@ -360,16 +380,6 @@ extension RiskProvider: RiskProviding {
 			store.previousRiskLevel = .increased
 		default:
 			break
-		}
-	}
-	
-	private func showAppConfigError() {
-		// This should only be in the App temporarly until we refactor either how we update/get AppConfiguration or refactor how Errors are handled during the RiskCalculation.
-		DispatchQueue.main.async {
-			UIApplication.shared.windows.first?.rootViewController?.alertError(
-				message: AppStrings.ExposureDetectionError.errorAlertAppConfigMissingMessage,
-				title: AppStrings.ExposureDetectionError.errorAlertTitle
-			)
 		}
 	}
 }
@@ -413,7 +423,7 @@ extension RiskProvider {
 		}
 
 		for consumer in consumers {
-			_provideRisk(risk, to: consumer)
+			_provideRiskResult(.success(risk), to: consumer)
 		}
 
 		savePreviousRiskLevel(risk)
