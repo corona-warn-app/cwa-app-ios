@@ -89,7 +89,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 			let regex = try? NSRegularExpression(
 				pattern: "^https:\\/\\/localhost\\/\\?(?<GUID>[0-9A-Fa-f]{6}-[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})$"
 			),
-			let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count))
+			let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.count))
 		else { return nil }
 
 		guard let range = Range(match.range(withName: "GUID"), in: input) else { return nil }

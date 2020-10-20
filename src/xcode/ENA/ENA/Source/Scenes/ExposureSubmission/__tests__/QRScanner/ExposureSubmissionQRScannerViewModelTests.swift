@@ -174,6 +174,14 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		XCTAssertNil(result)
 	}
 
+	func testQRCodeExtration_someUTF8Text() {
+		let viewModel = createViewModel(isScanningActivated: false)
+
+		let result = viewModel.extractGuid(from: "This is a Test ん鞠")
+
+		XCTAssertNil(result)
+	}
+
 	func testQRCodeExtraction_MissingURL() {
 		let viewModel = createViewModel(isScanningActivated: false)
 
