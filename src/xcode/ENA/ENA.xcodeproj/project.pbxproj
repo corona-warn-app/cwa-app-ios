@@ -127,6 +127,7 @@
 		50DC527924FEB2AE00F6D8EB /* AppInformationDynamicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */; };
 		50DC527B24FEB5CA00F6D8EB /* AppInformationModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DC527A24FEB5CA00F6D8EB /* AppInformationModelTest.swift */; };
 		50E3BE5A250127DF0033E2C7 /* AppInformationDynamicAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E3BE59250127DF0033E2C7 /* AppInformationDynamicAction.swift */; };
+		50F9130D253F1D7800DFE683 /* OnboardingPageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F9130C253F1D7800DFE683 /* OnboardingPageType.swift */; };
 		51486D9F2484FC0200FCE216 /* HomeRiskLevelCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51486D9E2484FC0200FCE216 /* HomeRiskLevelCellConfigurator.swift */; };
 		51486DA22485101500FCE216 /* RiskInactiveCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51486DA02485101500FCE216 /* RiskInactiveCollectionViewCell.swift */; };
 		51486DA32485101500FCE216 /* RiskInactiveCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51486DA12485101500FCE216 /* RiskInactiveCollectionViewCell.xib */; };
@@ -665,6 +666,7 @@
 		50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDynamicCell.swift; sourceTree = "<group>"; };
 		50DC527A24FEB5CA00F6D8EB /* AppInformationModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationModelTest.swift; sourceTree = "<group>"; };
 		50E3BE59250127DF0033E2C7 /* AppInformationDynamicAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDynamicAction.swift; sourceTree = "<group>"; };
+		50F9130C253F1D7800DFE683 /* OnboardingPageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageType.swift; sourceTree = "<group>"; };
 		5111E7622460BB1500ED6498 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		51486D9E2484FC0200FCE216 /* HomeRiskLevelCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskLevelCellConfigurator.swift; sourceTree = "<group>"; };
 		51486DA02485101500FCE216 /* RiskInactiveCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskInactiveCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1526,6 +1528,7 @@
 				51C737BC245B349700286105 /* OnboardingInfoViewController.swift */,
 				A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */,
 				137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */,
+				50F9130C253F1D7800DFE683 /* OnboardingPageType.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -3092,6 +3095,7 @@
 				2FA9E39524D2F2B00030561C /* ExposureSubmission+DeviceRegistrationKey.swift in Sources */,
 				A3FF84EC247BFAF00053E947 /* Hasher.swift in Sources */,
 				51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */,
+				50F9130D253F1D7800DFE683 /* OnboardingPageType.swift in Sources */,
 				A372DA3B24BDA075003248BB /* ExposureSubmissionCoordinator.swift in Sources */,
 				51FE277B2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift in Sources */,
 				0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */,
@@ -4163,141 +4167,6 @@
 			};
 			name = AdHoc;
 		};
-		01DE5A74248E3CF800F6D7F2 /* UITesting */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG UITESTING";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = UITesting;
-		};
-		01DE5A75248E3CF800F6D7F2 /* UITesting */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-					"SQLITE_HAS_CODEC=1",
-				);
-				INFOPLIST_FILE = ENA/Resources/Info.plist;
-				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONE_APP_DEV_TEAM = 523TP53AQF;
-				IPHONE_APP_DIST_PROF_SPECIFIER = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.6.0;
-				OTHER_CFLAGS = (
-					"-DSQLITE_HAS_CODEC",
-					"-DSQLITE_TEMP_STORE=3",
-					"-DSQLCIPHER_CRYPTO_CC",
-					"-DNDEBUG",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DISABLE_CERTIFICATE_PINNING";
-				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = UITesting;
-		};
-		01DE5A76248E3CF800F6D7F2 /* UITesting */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 523TP53AQF;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"SQLITE_HAS_CODEC=1",
-				);
-				INFOPLIST_FILE = ENATests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				OTHER_CFLAGS = (
-					"-DSQLITE_TEMP_STORE=3",
-					"-DSQLCIPHER_CRYPTO_CC",
-					"-DNDEBUG",
-					"-DSQLITE_HAS_CODEC",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp.sqlite;
-				PRODUCT_NAME = CWASQLite;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = AdHoc;
-		};
 		85D7596624570491008175F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4689,48 +4558,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Community;
-		};
-		B1FF6B712497D0B50041CF02 /* UITesting */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DISABLE_CERTIFICATE_PINNING=1",
-					"SQLITE_HAS_CODEC=1",
-				);
-				INFOPLIST_FILE = CWASQLite/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				OTHER_CFLAGS = (
-					"-DSQLITE_TEMP_STORE=3",
-					"-DSQLCIPHER_CRYPTO_CC",
-					"-DNDEBUG",
-					"-DSQLITE_HAS_CODEC",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp.sqlite;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = UITesting;
 		};
 		B1FF6B722497D0B50041CF02 /* Release */ = {
 			isa = XCBuildConfiguration;
