@@ -75,26 +75,6 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 
-	@IBAction func didTapNextButton(_: Any) {
-		nextButton.isUserInteractionEnabled = false
-		runActionForPageType(
-			completion: { [weak self] in
-				self?.gotoNextScreen()
-				self?.nextButton.isUserInteractionEnabled = true
-			}
-		)
-	}
-
-
-	@IBAction func didTapIgnoreButton(_: Any) {
-		runIgnoreActionForPageType(
-			completion: {
-				self.gotoNextScreen()
-			}
-		)
-	}
-
-	
 	// MARK: - Overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -197,6 +177,26 @@ final class OnboardingInfoViewController: UIViewController {
 	
 	
 	// MARK: - Private
+	@IBAction private func didTapNextButton(_: Any) {
+		nextButton.isUserInteractionEnabled = false
+		runActionForPageType(
+			completion: { [weak self] in
+				self?.gotoNextScreen()
+				self?.nextButton.isUserInteractionEnabled = true
+			}
+		)
+	}
+
+
+	@IBAction private func didTapIgnoreButton(_: Any) {
+		runIgnoreActionForPageType(
+			completion: {
+				self.gotoNextScreen()
+			}
+		)
+	}
+
+
 	private func openSettings() {
 		guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
 		UIApplication.shared.open(url, options: [:], completionHandler: nil)
