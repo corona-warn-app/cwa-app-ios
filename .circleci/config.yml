@@ -20,6 +20,8 @@ commands:
           command: cd src/xcode && bundle install --path=vendor
       - save_cache:
           key: v0-{{ checksum "src/xcode/Gemfile.lock" }}
+          paths:
+            - "vendor"
 
 jobs:
   build:
