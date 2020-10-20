@@ -11,8 +11,15 @@ commands:
           name: Install Bundler
           command: sudo gem install bundler:2.1.4
       - run:
+          name: Install swiftlint
+          command: brew install swiftlint
+      - restore_cache:
+          key: v0-{{ checksum "src/xcode/Gemfile.lock" }}
+      - run:
           name: Install dependencies
-          command: brew install swiftlint && cd src/xcode && bundle install
+          command: cd src/xcode && bundle install --path=vendor
+      - save_cache:
+          key: v0-{{ checksum "src/xcode/Gemfile.lock" }}
 
 jobs:
   build:
