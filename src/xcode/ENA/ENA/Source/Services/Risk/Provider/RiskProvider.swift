@@ -197,6 +197,8 @@ extension RiskProvider: RiskProviding {
 			completion?(.success(risk))
 		}
 
+		// We only wish to notify consumers if an actual risk level has been calculated.
+		// We do not notify if an error occurred.
 		for consumer in consumers {
 			_provideRisk(risk, to: consumer)
 		}
@@ -205,26 +207,6 @@ extension RiskProvider: RiskProviding {
 	private func failOnTargetQueue(error: RiskProviderError, completion: Completion? = nil) {
 		targetQueue.async {
 			completion?(.failure(error))
-		}
-
-		guard
-			let risk = RiskCalculation.risk(
-				summary:nil,
-				failedCalculateSummary: true
-				configuration: nil,
-				dateLastExposureDetection: nil,
-				activeTracing: nil,
-				preconditions: nil,
-				currentDate: Date(),
-				previousRiskLevel: store.previousRiskLevel,
-				providerConfiguration: configuration
-			) else {
-				Log.error("Serious error during risk calculation for failed state", log: .api)
-				return
-		}
-
-		for consumer in consumers {
-			_provideRisk(risk, to: consumer)
 		}
 	}
 

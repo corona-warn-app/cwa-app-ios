@@ -18,7 +18,7 @@
 import Foundation
 import ExposureNotification
 
-protocol 78: AnyObject {
+protocol ENStateHandlerUpdating: AnyObject {
 	func updateEnState(_ state: ENStateHandler.State)
 }
 
