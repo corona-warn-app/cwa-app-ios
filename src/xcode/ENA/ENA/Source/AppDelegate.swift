@@ -119,7 +119,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			preconditionFailure("Ensure to provide a proper app config cache")
 		}
 		
-		return CachedAppConfiguration(client: appFetchingClient, store: store)
+		return CachedAppConfiguration(client: appFetchingClient, store: store, configurationDidChange: { [weak self] in
+			// Recalculate risk with new app configuration
+			self?.riskProvider.requestRisk(userInitiated: false, ignoreCachedSummary: true)
+		})
 	}()
 
 	lazy var riskProvider: RiskProvider = {
