@@ -84,6 +84,7 @@ final class SettingsViewController: UITableViewController {
 
 		checkTracingStatus()
 		checkNotificationSettings()
+		checkBackgroundAppRefresh()
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
