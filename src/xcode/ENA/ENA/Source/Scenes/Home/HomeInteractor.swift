@@ -204,11 +204,13 @@ extension HomeInteractor {
 
 		if state.riskDetectionFailed {
 			let failedConfigurator = HomeFailedCellConfigurator(
-				inactiveType: .noCalculationPossible,
 				previousRiskLevel: store.previousRiskLevel,
 				lastUpdateDate: dateLastExposureDetection
 			)
-			failedConfigurator.activeAction = inActiveCellActionHandler
+			failedConfigurator.activeAction = { [weak self] in
+				guard let self = self else { return }
+				self.requestRisk(userInitiated: true)
+			}
 			return failedConfigurator
 		}
 
