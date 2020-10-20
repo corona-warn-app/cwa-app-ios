@@ -22,10 +22,8 @@ import Foundation
 
 final class CachingHTTPClientMock: CachingHTTPClient {
 
-	convenience init() {
-		let store = MockTestStore()
+	convenience init(store: Store = MockTestStore()) {
 		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
-
 		self.init(clientConfiguration: configuration)
 	}
 

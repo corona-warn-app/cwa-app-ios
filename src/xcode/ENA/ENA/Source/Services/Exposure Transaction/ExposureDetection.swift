@@ -105,18 +105,21 @@ final class ExposureDetection {
 
 	func start(completion: @escaping Completion) {
 		self.completion = completion
+		Log.info("ExposureDetection: Start downloading packages.", log: .riskDetection)
 
 		activityState = .downloading
 
 		downloadKeyPackages { [weak self] in
 			guard let self = self else { return }
-
+			Log.info("ExposureDetection: Completed downloading packages.", log: .riskDetection)
+			Log.info("ExposureDetection: Start writing packages to file system.", log: .riskDetection)
 			self.writeKeyPackagesToFileSystem { [weak self] writtenPackages in
 				guard let self = self else { return }
-
+				Log.info("ExposureDetection: Completed writing packages to file system.", log: .riskDetection)
 				self.activityState = .detecting
 
 				if let exposureConfiguration = self.exposureConfiguration {
+          Log.info("ExposureDetection: Start detecting summary.", log: .riskDetection)
 					self.detectSummary(writtenPackages: writtenPackages, exposureConfiguration: exposureConfiguration)
 				} else {
 					self.endPrematurely(reason: .noExposureConfiguration)
@@ -129,6 +132,8 @@ final class ExposureDetection {
 
 	// Ends the transaction prematurely with a given reason.
 	private func endPrematurely(reason: DidEndPrematurelyReason) {
+		Log.error("ExposureDetection: End prematurely.", log: .riskDetection, error: reason)
+
 		precondition(
 			completion != nil,
 			"Tried to end a detection prematurely is only possible if a detection is currently running."
@@ -144,6 +149,8 @@ final class ExposureDetection {
 
 	// Informs the delegate about a summary.
 	private func didDetectSummary(_ summary: ENExposureDetectionSummary) {
+		Log.info("ExposureDetection: Completed detecting summary.", log: .riskDetection)
+
 		precondition(
 			completion != nil,
 			"Tried report a summary but no completion handler is set."

@@ -23,7 +23,6 @@ import XCTest
 final class CachedAppConfigurationTests: XCTestCase {
 
 	func testCachedRequests() {
-		let client = CachingHTTPClientMock()
 
 		let fetchedFromClientExpectation = expectation(description: "configuration fetched from client")
 		// we trigger a config fetch twice but expect only one http request (plus one cached result)
@@ -34,6 +33,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		XCTAssertNil(store.appConfig)
 		XCTAssertNil(store.lastAppConfigETag)
 
+		let client = CachingHTTPClientMock(store: store)
 		let expectedConfig = SAP_ApplicationConfiguration()
 		client.onFetchAppConfiguration = { _, completeWith in
 			let config = AppConfigurationFetchingResponse(expectedConfig, "etag")
@@ -81,13 +81,14 @@ final class CachedAppConfigurationTests: XCTestCase {
 	}
 
 	func testCacheDecay() throws {
-		let client = CachingHTTPClientMock()
 		let outdatedConfig = SAP_ApplicationConfiguration()
 		let updatedConfig = CachingHTTPClientMock.staticAppConfig
 
 		let store = MockTestStore()
 		store.appConfig = outdatedConfig
 		store.lastAppConfigFetch = 297.secondsAgo // close to the assumed 300 seconds default decay
+
+		let client = CachingHTTPClientMock(store: store)
 
 		let lastFetch = try XCTUnwrap(store.lastAppConfigFetch)
 		XCTAssertLessThan(Date().timeIntervalSince(lastFetch), 300)
@@ -151,7 +152,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		store.appConfig = nil
 		store.lastAppConfigETag = nil
 
-		let client = CachingHTTPClientMock()
+		let client = CachingHTTPClientMock(store: store)
 
 		let completionExpectation = expectation(description: "app configuration completion called")
 
@@ -187,7 +188,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		store.lastAppConfigETag = "etag"
 		store.appConfig = SAP_ApplicationConfiguration()
 
-		let client = CachingHTTPClientMock()
+		let client = CachingHTTPClientMock(store: store)
 		client.onFetchAppConfiguration = { _, completeWith in
 			completeWith(.failure(CachedAppConfiguration.CacheError.notModified))
 			fetchedFromClientExpectation.fulfill()
@@ -225,7 +226,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		XCTAssertNil(store.appConfig)
 		XCTAssertNil(store.lastAppConfigETag)
 		
-		let client = CachingHTTPClientMock()
+		let client = CachingHTTPClientMock(store: store)
 		client.onFetchAppConfiguration = { _, completeWith in
 			XCTAssertNil(store.appConfig)
 			XCTAssertNil(store.lastAppConfigETag)

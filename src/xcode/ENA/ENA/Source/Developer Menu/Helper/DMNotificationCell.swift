@@ -17,12 +17,25 @@
 // under the License.
 //
 
-import Foundation
+import UIKit
 
-enum TestResult: Int, CaseIterable {
-	case pending = 0
-	case negative = 1
-	case positive = 2
-	case invalid = 3
-	case expired = 4
+final class DMNotificationCell: UITableViewCell {
+	
+	// MARK: - Init
+	
+	override init(style _: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+		textLabel?.lineBreakMode = .byTruncatingMiddle
+	}
+
+	@available(*, unavailable)
+	required init?(coder _: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	// MARK: - Internal
+	
+	static var reuseIdentifier = "DMNotificationCell"
+
+	
 }

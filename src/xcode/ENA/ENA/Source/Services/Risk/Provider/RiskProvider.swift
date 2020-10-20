@@ -119,6 +119,7 @@ extension RiskProvider: RiskProviding {
 		appConfiguration: SAP_ApplicationConfiguration,
 		completion: @escaping (SummaryMetadata?) -> Void
 	) {
+		Log.info("RiskProvider: Determine summeries.", log: .riskDetection)
 		if !ignoreCachedSummary {
 			// Here we are in automatic mode and thus we have to check the validity of the current summary
 			let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
@@ -145,6 +146,9 @@ extension RiskProvider: RiskProviding {
 
 			if let detectedSummary = detectedSummary {
 				self.store.summary = SummaryMetadata(detectionSummary: detectedSummary, date: Date())
+				
+				/// We were able to calculate a risk so we have to reset the deadman notification
+				UNUserNotificationCenter.current().resetDeadmanNotification()
 			}
 			self.cancellationToken = nil
 
@@ -188,6 +192,8 @@ extension RiskProvider: RiskProviding {
 	}
 
 	private func _requestRiskLevel(userInitiated: Bool, ignoreCachedSummary: Bool, completion: Completion? = nil) {
+		Log.info("RiskProvider: Request risk level", log: .riskDetection)
+
 		#if DEBUG
 		if isUITesting {
 			_requestRiskLevel_Mock(userInitiated: userInitiated, completion: completion)
@@ -273,6 +279,8 @@ extension RiskProvider: RiskProviding {
 	}
 
 	private func _requestRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_ApplicationConfiguration, completion: Completion? = nil) {
+		Log.info("RiskProvider: Apply risk calculation", log: .riskDetection)
+
 		let activeTracing = store.tracingStatusHistory.activeTracing()
 
 		guard
