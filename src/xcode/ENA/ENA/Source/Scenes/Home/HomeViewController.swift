@@ -319,6 +319,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			RiskLevelCollectionViewCell.self,
 			InfoCollectionViewCell.self,
 			HomeTestResultCollectionViewCell.self,
+			RiskFailedCollectionViewCell.self,
 			RiskInactiveCollectionViewCell.self,
 			RiskFindingPositiveCollectionViewCell.self,
 			RiskThankYouCollectionViewCell.self,

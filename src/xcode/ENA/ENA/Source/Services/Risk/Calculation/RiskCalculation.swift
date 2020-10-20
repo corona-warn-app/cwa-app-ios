@@ -57,6 +57,7 @@ enum RiskCalculation {
 	*/
 	private static func riskLevel(
 		summary: CodableExposureDetectionSummary?,
+		failedCalculateSummary: Bool = false,
 		configuration: SAP_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
 		activeTracing: ActiveTracing, // Get this from the `TracingStatusHistory`
@@ -86,6 +87,7 @@ enum RiskCalculation {
 			riskLevels.max() ?? .inactive
 		}
 
+		if failedCalculateSummary { riskLevels.append(.failed) }
 		if isInactive { riskLevels.append(.inactive) }
 		if isUnknownOutdated { riskLevels.append(.unknownOutdated) }
 		if isUnknownInitial { riskLevels.append(.unknownInitial) }
@@ -156,6 +158,7 @@ enum RiskCalculation {
 
 	static func risk(
 		summary: CodableExposureDetectionSummary?,
+		failedCalculateSummary: Bool = false,
 		configuration: SAP_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
 		activeTracing: ActiveTracing,

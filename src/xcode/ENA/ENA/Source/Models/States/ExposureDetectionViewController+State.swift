@@ -82,6 +82,7 @@ private extension RiskLevel {
 		case .unknownInitial: return AppStrings.ExposureDetection.unknown
 		case .unknownOutdated: return AppStrings.ExposureDetection.unknown
 		case .inactive: return AppStrings.ExposureDetection.off
+		case .failed: return "Failed dummy text."
 		case .low: return AppStrings.ExposureDetection.low
 		case .increased: return AppStrings.ExposureDetection.high
 		}
@@ -92,6 +93,7 @@ private extension RiskLevel {
 		case .unknownInitial: return .enaColor(for: .riskNeutral)
 		case .unknownOutdated: return .enaColor(for: .riskNeutral)
 		case .inactive: return .enaColor(for: .background)
+		case .failed: return .enaColor(for: .background)
 		case .low: return .enaColor(for: .riskLow)
 		case .increased: return .enaColor(for: .riskHigh)
 		}
@@ -102,6 +104,7 @@ private extension RiskLevel {
 		case .unknownInitial: return .enaColor(for: .riskNeutral)
 		case .unknownOutdated: return .enaColor(for: .riskNeutral)
 		case .inactive: return .enaColor(for: .riskNeutral)
+		case .failed: return .enaColor(for: .riskNeutral)
 		case .low: return .enaColor(for: .riskLow)
 		case .increased: return .enaColor(for: .riskHigh)
 		}
@@ -112,6 +115,7 @@ private extension RiskLevel {
 		case .unknownInitial: return .enaColor(for: .textContrast)
 		case .unknownOutdated: return .enaColor(for: .textContrast)
 		case .inactive: return .enaColor(for: .riskNeutral)
+		case .failed: return .enaColor(for: .riskNeutral)
 		case .low: return .enaColor(for: .textContrast)
 		case .increased: return .enaColor(for: .textContrast)
 		}
@@ -122,6 +126,7 @@ private extension RiskLevel {
 		case .unknownInitial: return .enaColor(for: .textContrast)
 		case .unknownOutdated: return .enaColor(for: .textContrast)
 		case .inactive: return .enaColor(for: .textPrimary1)
+		case .failed: return .enaColor(for: .textPrimary1)
 		case .low: return .enaColor(for: .textContrast)
 		case .increased: return .enaColor(for: .textContrast)
 		}

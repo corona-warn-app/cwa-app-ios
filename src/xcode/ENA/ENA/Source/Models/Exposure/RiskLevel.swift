@@ -45,6 +45,8 @@ enum RiskLevel: Int, CaseIterable, Equatable {
 	case unknownInitial
 	/// Increased risk
 	case increased
+	/// Calculation failed
+	case failed
 	/// No calculation possible - tracing is inactive
 	///
 	/// - important: Should always be displayed, even if a different risk level has been calculated. It overrides all other levels!

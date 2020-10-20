@@ -59,6 +59,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	private var activeConfigurator: HomeActivateCellConfigurator!
 	private var testResultConfigurator = HomeTestResultCellConfigurator()
 	private var riskLevelConfigurator: HomeRiskLevelCellConfigurator?
+	private var failedConfigurator: HomeFailedCellConfigurator?
 	private var inactiveConfigurator: HomeInactiveRiskCellConfigurator?
 	private var countdownTimer: CountdownTimer?
 
@@ -206,6 +207,13 @@ extension HomeInteractor {
 				detectionMode: detectionMode,
 				manualExposureDetectionState: riskProvider.manualExposureDetectionState
 			)
+		case .failed:
+			failedConfigurator = HomeFailedCellConfigurator(
+				inactiveType: .noCalculationPossible,
+				previousRiskLevel: store.previousRiskLevel,
+				lastUpdateDate: dateLastExposureDetection
+			)
+			failedConfigurator?.activeAction = inActiveCellActionHandler
 		case .inactive:
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
 				inactiveType: .noCalculationPossible,

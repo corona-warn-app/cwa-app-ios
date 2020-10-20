@@ -324,6 +324,9 @@
 		A3EE6E5C249BB97500C64B61 /* UITestingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */; };
 		A3EE6E5D249BB9B900C64B61 /* UITestingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */; };
 		A3FF84EC247BFAF00053E947 /* Hasher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FF84EB247BFAF00053E947 /* Hasher.swift */; };
+		AB010CFE253ECB6B00DF1F61 /* HomeFailedCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB010CFD253ECB6A00DF1F61 /* HomeFailedCellConfigurator.swift */; };
+		AB010D04253ECC9200DF1F61 /* RiskFailedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB010D02253ECC9200DF1F61 /* RiskFailedCollectionViewCell.swift */; };
+		AB010D05253ECC9200DF1F61 /* RiskFailedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB010D03253ECC9200DF1F61 /* RiskFailedCollectionViewCell.xib */; };
 		AB1011592507C15000D392A2 /* TracingStatusHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1011572507C15000D392A2 /* TracingStatusHistory.swift */; };
 		AB10115B250926BB00D392A2 /* CountryKeypackageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB10115A250926BB00D392A2 /* CountryKeypackageDownloader.swift */; };
 		AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */; };
@@ -886,6 +889,9 @@
 		A3EE6E59249BB7AF00C64B61 /* ExposureSubmissionServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionServiceFactory.swift; sourceTree = "<group>"; };
 		A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestingParameters.swift; sourceTree = "<group>"; };
 		A3FF84EB247BFAF00053E947 /* Hasher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hasher.swift; sourceTree = "<group>"; };
+		AB010CFD253ECB6A00DF1F61 /* HomeFailedCellConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeFailedCellConfigurator.swift; sourceTree = "<group>"; };
+		AB010D02253ECC9200DF1F61 /* RiskFailedCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RiskFailedCollectionViewCell.swift; sourceTree = "<group>"; };
+		AB010D03253ECC9200DF1F61 /* RiskFailedCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RiskFailedCollectionViewCell.xib; sourceTree = "<group>"; };
 		AB1011572507C15000D392A2 /* TracingStatusHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracingStatusHistory.swift; sourceTree = "<group>"; };
 		AB10115A250926BB00D392A2 /* CountryKeypackageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryKeypackageDownloader.swift; sourceTree = "<group>"; };
 		AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerTests.swift; sourceTree = "<group>"; };
@@ -1341,6 +1347,7 @@
 				514C0A13247C163800F235F6 /* HomeLowRiskCellConfigurator.swift */,
 				514C0A15247C164700F235F6 /* HomeHighRiskCellConfigurator.swift */,
 				514C0A19247C16D600F235F6 /* HomeInactiveRiskCellConfigurator.swift */,
+				AB010CFD253ECB6A00DF1F61 /* HomeFailedCellConfigurator.swift */,
 				515BBDEA2484F8E500CDB674 /* HomeThankYouRiskCellConfigurator.swift */,
 				51C779112486E549004582F8 /* HomeFindingPositiveRiskCellConfigurator.swift */,
 			);
@@ -1443,6 +1450,8 @@
 			children = (
 				51CE1B7A246078B6002CF42A /* RiskLevelCollectionViewCell.swift */,
 				51CE1B79246078B6002CF42A /* RiskLevelCollectionViewCell.xib */,
+				AB010D02253ECC9200DF1F61 /* RiskFailedCollectionViewCell.swift */,
+				AB010D03253ECC9200DF1F61 /* RiskFailedCollectionViewCell.xib */,
 				51486DA02485101500FCE216 /* RiskInactiveCollectionViewCell.swift */,
 				51486DA12485101500FCE216 /* RiskInactiveCollectionViewCell.xib */,
 				51486DA42485237200FCE216 /* RiskThankYouCollectionViewCell.swift */,
@@ -2983,6 +2992,7 @@
 				EE20EA072469883900770683 /* RiskLegend.storyboard in Resources */,
 				71FE1C8D247AC79D00851FEB /* DynamicTableViewIconCell.xib in Resources */,
 				71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */,
+				AB010D05253ECC9200DF1F61 /* RiskFailedCollectionViewCell.xib in Resources */,
 				51C7790C24867F16004582F8 /* RiskListItemView.xib in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */,
@@ -3193,6 +3203,7 @@
 				EE22DB8C247FB43A001B0A71 /* DescriptionTableViewCell.swift in Sources */,
 				2F3218D0248063E300A7AC0A /* UIView+Convenience.swift in Sources */,
 				B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */,
+				AB010CFE253ECB6B00DF1F61 /* HomeFailedCellConfigurator.swift in Sources */,
 				514C0A11247C15EC00F235F6 /* HomeUnknownRiskCellConfigurator.swift in Sources */,
 				710ABB23247513E300948792 /* DynamicTypeTableViewCell.swift in Sources */,
 				71FE1C7D247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift in Sources */,
@@ -3286,6 +3297,7 @@
 				B153096C24706F2400A4A1BD /* URLSessionConfiguration+Default.swift in Sources */,
 				B1BD9E7E24898A2300BD3930 /* ExposureDetectionViewController+DynamicTableViewModel.swift in Sources */,
 				0159E6C1247829BA00894A89 /* temporary_exposure_key_export.pb.swift in Sources */,
+				AB010D04253ECC9200DF1F61 /* RiskFailedCollectionViewCell.swift in Sources */,
 				71FE1C80247AC2B500851FEB /* ExposureSubmissionNavigationController.swift in Sources */,
 				2FA968CE24D8560B008EE367 /* String+Random.swift in Sources */,
 				EB858D2024E700D10048A0AA /* UIView+Screenshot.swift in Sources */,

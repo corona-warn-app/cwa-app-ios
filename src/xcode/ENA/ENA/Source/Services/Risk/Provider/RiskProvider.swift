@@ -192,16 +192,39 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	private func completeOnTargetQueue(risk: Risk?, completion: Completion? = nil) {
+	private func successOnTargetQueue(risk: Risk, completion: Completion? = nil) {
 		targetQueue.async {
-			completion?(risk)
+			completion?(.success(risk))
 		}
-		// We only wish to notify consumers if an actual risk level has been calculated.
-		// We do not notify if an error occurred.
-		if let risk = risk {
-			for consumer in consumers {
-				_provideRisk(risk, to: consumer)
-			}
+
+		for consumer in consumers {
+			_provideRisk(risk, to: consumer)
+		}
+	}
+
+	private func failOnTargetQueue(error: RiskProviderError, completion: Completion? = nil) {
+		targetQueue.async {
+			completion?(.failure(error))
+		}
+
+		guard
+			let risk = RiskCalculation.risk(
+				summary:nil,
+				failedCalculateSummary: true
+				configuration: nil,
+				dateLastExposureDetection: nil,
+				activeTracing: nil,
+				preconditions: nil,
+				currentDate: Date(),
+				previousRiskLevel: store.previousRiskLevel,
+				providerConfiguration: configuration
+			) else {
+				Log.error("Serious error during risk calculation for failed state", log: .api)
+				return
+		}
+
+		for consumer in consumers {
+			_provideRisk(risk, to: consumer)
 		}
 	}
 
@@ -232,7 +255,7 @@ extension RiskProvider: RiskProviding {
 		// 1. The exposureManagerState is bad (turned off, not authorized, etc.)
 		// 2. Tracing has not been active for at least 24 hours
 		guard exposureManagerState.isGood else {
-			completeOnTargetQueue(
+			successOnTargetQueue(
 				risk: Risk(
 					level: .inactive,
 					details: details,
@@ -243,7 +266,7 @@ extension RiskProvider: RiskProviding {
 		}
 
 		guard numberOfEnabledHours >= TracingStatusHistory.minimumActiveHours else {
-			completeOnTargetQueue(
+			successOnTargetQueue(
 				risk: Risk(
 					level: .unknownInitial,
 					details: details,
@@ -277,7 +300,7 @@ extension RiskProvider: RiskProviding {
 		guard group.wait(timeout: .now() + .seconds(60 * 8)) == .success else {
 			cancellationToken?.cancel()
 			cancellationToken = nil
-			completeOnTargetQueue(risk: nil, completion: completion)
+			failOnTargetQueue(error: .timeout, completion: completion)
 			return
 		}
 
@@ -293,7 +316,7 @@ extension RiskProvider: RiskProviding {
 		Log.info("RiskProvider: Apply risk calculation", log: .riskDetection)
 
 		guard let _appConfiguration = appConfiguration else {
-			completeOnTargetQueue(risk: nil, completion: completion)
+			failOnTargetQueue(error: .missingAppConfig, completion: completion)
 			showAppConfigError()
 			return
 		}
@@ -312,7 +335,7 @@ extension RiskProvider: RiskProviding {
 				providerConfiguration: configuration
 			) else {
 				Log.error("Serious error during risk calculation", log: .api)
-				completeOnTargetQueue(risk: nil, completion: completion)
+				failOnTargetQueue(error: .failedRiskCalculation, completion: completion)
 				return
 		}
 
@@ -329,7 +352,7 @@ extension RiskProvider: RiskProviding {
 			}
 		}
 
-		completeOnTargetQueue(risk: risk, completion: completion)
+		successOnTargetQueue(risk: risk, completion: completion)
 		savePreviousRiskLevel(risk)
 
 		/// We were able to calculate a risk so we have to reset the DeadMan Notification
@@ -404,7 +427,7 @@ extension RiskProvider {
 		let risk = Risk.mocked
 
 		targetQueue.async {
-			completion?(.mocked)
+			completion?(.success(.mocked))
 		}
 
 		for consumer in consumers {

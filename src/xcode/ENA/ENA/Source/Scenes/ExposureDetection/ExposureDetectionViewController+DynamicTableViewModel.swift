@@ -28,6 +28,7 @@ extension ExposureDetectionViewController {
 		case .unknownInitial: return unknownRiskModel
 		case .unknownOutdated: return outdatedRiskModel
 		case .inactive: return offModel
+		case .failed: return offModel
 		case .low: return lowRiskModel
 		case .increased: return highRiskModel
 		}
