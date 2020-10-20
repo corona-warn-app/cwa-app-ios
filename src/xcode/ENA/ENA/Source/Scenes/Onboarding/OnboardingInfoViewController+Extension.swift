@@ -178,6 +178,7 @@ extension OnboardingInfoViewController {
 
 }
 
+// MARK: - Protocol UITextViewDelegate
 
 extension OnboardingInfoViewController: UITextViewDelegate {
 	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
@@ -186,6 +187,7 @@ extension OnboardingInfoViewController: UITextViewDelegate {
 	}
 }
 
+// MARK: - Protocol NavigationBarOpacityDelegate
 
 extension OnboardingInfoViewController: NavigationBarOpacityDelegate {
 	var preferredNavigationBarOpacity: CGFloat {
@@ -194,6 +196,7 @@ extension OnboardingInfoViewController: NavigationBarOpacityDelegate {
 	}
 }
 
+// MARK: - Protocol RequiresAppDependencies
 
 extension OnboardingInfoViewController: RequiresAppDependencies {
 

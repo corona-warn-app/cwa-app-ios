@@ -22,22 +22,8 @@ import ExposureNotification
 
 final class OnboardingInfoViewController: UIViewController {
 
-	@IBOutlet var imageView: UIImageView!
-	@IBOutlet var stateHeaderLabel: ENALabel!
-	@IBOutlet var stateTitleLabel: ENALabel!
-	@IBOutlet var stateStateLabel: ENALabel!
-	@IBOutlet var titleLabel: UILabel!
-	@IBOutlet var boldLabel: UILabel!
-	@IBOutlet var textLabel: UILabel!
-	@IBOutlet var linkTextView: UITextView!
-	@IBOutlet var nextButton: ENAButton!
-	@IBOutlet var ignoreButton: ENAButton!
-
 	@IBOutlet var scrollView: UIScrollView!
 	@IBOutlet var stackView: UIStackView!
-	@IBOutlet var stateView: UIView!
-	@IBOutlet var innerStackView: UIStackView!
-	@IBOutlet var footerView: UIView!
 	
 	// MARK: - Init
 	
@@ -93,6 +79,20 @@ final class OnboardingInfoViewController: UIViewController {
 
 	// MARK: - Private
 	
+	@IBOutlet private var imageView: UIImageView!
+	@IBOutlet private var stateHeaderLabel: ENALabel!
+	@IBOutlet private var stateTitleLabel: ENALabel!
+	@IBOutlet private var stateStateLabel: ENALabel!
+	@IBOutlet private var titleLabel: UILabel!
+	@IBOutlet private var boldLabel: UILabel!
+	@IBOutlet private var textLabel: UILabel!
+	@IBOutlet private var linkTextView: UITextView!
+	@IBOutlet private var nextButton: ENAButton!
+	@IBOutlet private var ignoreButton: ENAButton!
+	@IBOutlet private var stateView: UIView!
+	@IBOutlet private var innerStackView: UIStackView!
+	@IBOutlet private var footerView: UIView!
+
 	private var pageType: OnboardingPageType
 	private var exposureManager: ExposureManager
 	private var store: Store
