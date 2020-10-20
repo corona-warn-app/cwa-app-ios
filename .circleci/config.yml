@@ -21,7 +21,7 @@ commands:
       - save_cache:
           key: v0-{{ checksum "src/xcode/Gemfile.lock" }}
           paths:
-            - "vendor"
+            - "src/xcode/vendor"
 
 jobs:
   build:
