@@ -156,10 +156,3 @@ class ENAUITests_01_Home: XCTestCase {
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 }
-
-extension Int {
-	public mutating func inc() -> Int {
-		self += 1
-		return self
-	}
-}
