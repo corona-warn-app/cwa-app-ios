@@ -27,6 +27,7 @@
   },
   "testTargets" : [
     {
+      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
         "identifier" : "85D7595324570491008175F0",
@@ -34,6 +35,7 @@
       }
     },
     {
+      "parallelizable" : true,
       "skippedTests" : [
         "ENAUITests"
       ],
