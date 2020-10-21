@@ -335,7 +335,6 @@ extension RiskProvider: RiskProviding {
 				dateLastExposureDetection: summaries?.current?.date,
 				activeTracing: activeTracing,
 				preconditions: exposureManagerState,
-				currentDate: Date(),
 				previousRiskLevel: store.previousRiskLevel,
 				providerConfiguration: configuration
 			) else {

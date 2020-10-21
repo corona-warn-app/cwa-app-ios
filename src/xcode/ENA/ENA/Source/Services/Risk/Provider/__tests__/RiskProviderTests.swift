@@ -480,7 +480,6 @@ struct RiskCalculationFake: RiskCalculationProtocol {
 		dateLastExposureDetection: Date?,
 		activeTracing: ActiveTracing,
 		preconditions: ExposureManagerState,
-		currentDate: Date,
 		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
 		providerConfiguration: RiskProvidingConfiguration
 	) -> Risk? {

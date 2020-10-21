@@ -22,13 +22,13 @@ import ExposureNotification
 import UIKit
 
 protocol RiskCalculationProtocol {
+
 	func risk(
 		summary: CodableExposureDetectionSummary?,
 		configuration: SAP_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
 		activeTracing: ActiveTracing,
 		preconditions: ExposureManagerState,
-		currentDate: Date,
 		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
 		providerConfiguration: RiskProvidingConfiguration
 	) -> Risk?
@@ -74,8 +74,7 @@ struct RiskCalculation: RiskCalculationProtocol {
 		dateLastExposureDetection: Date?,
 		activeTracing: ActiveTracing, // Get this from the `TracingStatusHistory`
 		preconditions: ExposureManagerState,
-		providerConfiguration: RiskProvidingConfiguration,
-		currentDate: Date = Date()
+		providerConfiguration: RiskProvidingConfiguration
 	) -> Result<RiskLevel, RiskLevelCalculationError> {
 
 		//
@@ -173,7 +172,6 @@ struct RiskCalculation: RiskCalculationProtocol {
 		dateLastExposureDetection: Date?,
 		activeTracing: ActiveTracing,
 		preconditions: ExposureManagerState,
-		currentDate: Date = Date(),
 		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
 		providerConfiguration: RiskProvidingConfiguration
 	) -> Risk? {
