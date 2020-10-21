@@ -50,15 +50,10 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 		setupView()
 		updateToggleFlashAccessibility()
 
-		guard let captureSession = viewModel.captureSession else {
-			viewModel.onError(.other, {})
-			return
-		}
-		let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+		let previewLayer = AVCaptureVideoPreviewLayer(session: viewModel.captureSession)
 		previewLayer.frame = view.bounds
 		previewLayer.videoGravity = .resizeAspectFill
 		view.layer.insertSublayer(previewLayer, at: 0)
-
 		viewModel.startCaptureSession()
 	}
 

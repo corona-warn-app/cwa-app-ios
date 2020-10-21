@@ -256,6 +256,28 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		XCTAssertEqual(result, mixedCaseGuid)
 	}
 
+	func testGIVEN_ViewModelWithScanningEnabled_WHEN_stop_THEN_scanningIsDisabled() {
+		// GIVEN
+		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: true, onSuccess: { _ in }, onError: { _, _ in }, onCancel: {})
+
+		// WHEN
+		viewModel.stop()
+
+		// THEN
+		XCTAssertFalse(viewModel.isScanningActivated, "Scanning is still enabled")
+	}
+
+	func testGIVEN_ViewModelWithScanningDisabled_WHEN_stop_THEN_scanningIsDisabled() {
+		// GIVEN
+		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: false, onSuccess: { _ in }, onError: { _, _ in }, onCancel: {})
+
+		// WHEN
+		viewModel.stop()
+
+		// THEN
+		XCTAssertFalse(viewModel.isScanningActivated, "Scanning is still enabled")
+	}
+
 	private let validGuid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
 
 	private func createViewModel() -> ExposureSubmissionQRScannerViewModel {
