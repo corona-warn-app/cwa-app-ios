@@ -168,9 +168,29 @@ extension ExposureSubmissionCoordinator {
 		push(vc)
 	}
 
-	func showTestResultScreen(with result: TestResult) {
-		let vc = createTestResultViewController(with: result)
+	func showTestResultScreen(with testResult: TestResult) {
+		let vc = createTestResultViewController(with: testResult)
 		push(vc)
+	}
+
+	func createTestResultViewController(with testResult: TestResult) -> ExposureSubmissionTestResultViewController {
+		return ExposureSubmissionTestResultViewController(
+			viewModel: .init(
+				testResult: testResult,
+				exposureSubmissionService: model.exposureSubmissionService
+			),
+			onContinueWithSymptomsButtonTap: { [weak self] in
+//				self?.model.checkExposureSubmissionPreconditions {
+//				}
+			},
+			onContinueWithoutSymptomsButtonTap: { [weak self] in
+//				self?.model.checkExposureSubmissionPreconditions {
+//				}
+			},
+			onTestDeleted: { [weak self] in
+				self?.dismiss()
+			}
+		)
 	}
 
 	func showHotlineScreen() {
@@ -427,17 +447,6 @@ extension ExposureSubmissionCoordinator {
 	private func createHotlineViewController() -> ExposureSubmissionHotlineViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionHotlineViewController(coder: coder, coordinator: self)
-		}
-	}
-
-	private func createTestResultViewController(with result: TestResult) -> ExposureSubmissionTestResultViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionTestResultViewController(
-				coder: coder,
-				coordinator: self,
-				exposureSubmissionService: self.model.exposureSubmissionService,
-				testResult: result
-			)
 		}
 	}
 

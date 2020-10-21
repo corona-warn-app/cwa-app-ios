@@ -123,6 +123,21 @@ class ExposureSubmissionCoordinatorModel {
 
 	private var symptomsOnset: SymptomsOnset = .noInformation
 
+	/// Check if the ENManager is enabled correctly, otherwise, show an alert.
+//	func checkExposureSubmissionPreconditions(onSuccess: () -> Void) {
+//		if let state = exposureSubmissionService.preconditions() {
+//			if !state.isGood {
+//				let alert = self.setupErrorAlert(
+//					message: ExposureSubmissionError.enNotEnabled.localizedDescription
+//				)
+//				self.present(alert, animated: true, completion: nil)
+//				return
+//			}
+//
+//			onSuccess()
+//		}
+//	}
+
 	private func loadSupportedCountries(
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping () -> Void,
