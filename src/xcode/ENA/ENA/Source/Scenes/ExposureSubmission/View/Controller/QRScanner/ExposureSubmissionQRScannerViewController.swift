@@ -47,9 +47,10 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 		super.viewDidLoad()
 
 		setupView()
-		updateToggleFlashAccessibility()
-
+//		updateToggleFlashAccessibility()
 		viewModel.startCaptureSession()
+
+		setupNavigationBar()
 	}
 
 	override func viewDidLayoutSubviews() {
@@ -82,14 +83,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 		instructionLabel.layer.shadowRadius = 3
 		instructionLabel.layer.shadowOffset = .init(width: 0, height: 0)
 
-		navigationController?.overrideUserInterfaceStyle = .dark
-
-		navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
-		navigationController?.navigationBar.shadowImage = UIImage()
-		if let image = UIImage.with(color: UIColor(white: 0, alpha: 0.5)) {
-			navigationController?.navigationBar.setBackgroundImage(image, for: .default)
-		}
-
+/*
 		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
 		flashButton.setImage(UIImage(systemName: "bolt"), for: .normal)
 		flashButton.setImage(UIImage(systemName: "bolt.fill"), for: .selected)
@@ -99,7 +93,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 
 		let cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
 		navigationItem.leftBarButtonItem = cancelBarButtonItem
-
+*/
 		// setup video capture layer
 		let captureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: viewModel.captureSession)
 		captureVideoPreviewLayer.frame = view.bounds
@@ -109,7 +103,21 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 	}
 
 	private func setupNavigationBar() {
+		navigationController?.overrideUserInterfaceStyle = .dark
+		navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
+		navigationController?.navigationBar.shadowImage = UIImage()
+		if let image = UIImage.with(color: UIColor(white: 0, alpha: 0.5)) {
+			navigationController?.navigationBar.setBackgroundImage(image, for: .default)
+		}
+
 		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
+
+		let flashButton = UIButton(type: .custom)
+		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
+		flashButton.setImage(UIImage(systemName: "bolt"), for: .normal)
+		flashButton.setImage(UIImage(systemName: "bolt.fill"), for: .selected)
+
+		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: flashButton)
 	}
 
 	private func updateToggleFlashAccessibility() {
