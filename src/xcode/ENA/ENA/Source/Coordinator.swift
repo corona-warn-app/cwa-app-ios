@@ -105,15 +105,11 @@ class Coordinator: RequiresAppDependencies {
 
 	func updateState(
 		detectionMode: DetectionMode,
-		exposureManagerState: ExposureManagerState,
-		risk: Risk?,
-		riskDetectionFailed: Bool
+		exposureManagerState: ExposureManagerState
 	) {
 		homeController?.updateState(
 			detectionMode: detectionMode,
-			exposureManagerState: exposureManagerState,
-			risk: risk,
-			riskDetectionFailed: riskDetectionFailed
+			exposureManagerState: exposureManagerState
 		)
 	}
 

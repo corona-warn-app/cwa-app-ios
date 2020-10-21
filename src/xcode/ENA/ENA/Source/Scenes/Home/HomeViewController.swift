@@ -206,14 +206,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	func updateState(
 		detectionMode: DetectionMode,
-		exposureManagerState: ExposureManagerState,
-		risk: Risk?,
-		riskDetectionFailed: Bool
+		exposureManagerState: ExposureManagerState
 	) {
-		homeInteractor.state.detectionMode = detectionMode
-		homeInteractor.state.exposureManagerState = exposureManagerState
-		homeInteractor.state.risk = risk
-		homeInteractor.state.riskDetectionFailed = riskDetectionFailed
+		homeInteractor.updateDetectionMode(detectionMode)
+		homeInteractor.updateExposureManagerState(exposureManagerState)
 
 		reloadData(animatingDifferences: false)
 
@@ -418,14 +414,14 @@ extension HomeViewController: UICollectionViewDelegate {
 
 extension HomeViewController: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
-		homeInteractor.state.exposureManagerState = state
+		homeInteractor.updateExposureManagerState(state)
 		reloadData(animatingDifferences: false)
 	}
 }
 
 extension HomeViewController: ENStateHandlerUpdating {
-	func updateEnState(_ state: ENStateHandler.State) {
-		homeInteractor.state.enState = state
+	func updateEnState(_ enState: ENStateHandler.State) {
+		homeInteractor.updateEnState(enState)
 		reloadData(animatingDifferences: false)
 	}
 }

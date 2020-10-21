@@ -175,6 +175,59 @@ final class RiskProviderTests: XCTestCase {
 		let detectionRequested = expectation(description: "expectThatNoSummaryIsRequested")
 
 		exposureSummaryProvider.onDetectExposure = { completion in
+			completion(ENExposureDetectionSummary())
+			detectionRequested.fulfill()
+		}
+
+		let sapAppConfig = SAP_ApplicationConfiguration.with {
+			$0.exposureConfig = SAP_RiskScoreParameters()
+		}
+		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
+
+		let sut = RiskProvider(
+			configuration: config,
+			store: store,
+			exposureSummaryProvider: exposureSummaryProvider,
+			appConfigurationProvider: cachedAppConfig,
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskCalculation: RiskCalculationFake()
+		)
+
+		let consumer = RiskConsumer()
+		let didCalculateRiskCalled = expectation(
+			description: "expect didCalculateRisk to be called"
+		)
+
+		consumer.didCalculateRisk = { _ in
+			didCalculateRiskCalled.fulfill()
+		}
+
+		consumer.didFailCalculateRisk = { _ in
+			XCTFail("didFailCalculateRisk should not be called.")
+		}
+
+		sut.observeRisk(consumer)
+		sut.requestRisk(userInitiated: true)
+		wait(for: [detectionRequested, didCalculateRiskCalled], timeout: 1.0, enforceOrder: true)
+	}
+
+	func testThatDetectionFails() throws {
+		let duration = DateComponents(day: 1)
+
+		let store = MockTestStore()
+		store.summary = nil
+		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
+
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: duration,
+			exposureDetectionInterval: duration
+		)
+
+		let exposureSummaryProvider = ExposureSummaryProviderMock()
+
+		let detectionRequested = expectation(description: "expectThatNoSummaryIsRequested")
+
+		exposureSummaryProvider.onDetectExposure = { completion in
 			completion(nil)
 			detectionRequested.fulfill()
 		}
@@ -189,21 +242,26 @@ final class RiskProviderTests: XCTestCase {
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
 			appConfigurationProvider: cachedAppConfig,
-			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskCalculation: RiskCalculationFake()
 		)
 
 		let consumer = RiskConsumer()
-		let didCalculateRiskCalled = expectation(
-			description: "expect didCalculateRisk to be called"
+		let didCalculateRiskFailedCalled = expectation(
+			description: "expect didCalculateFailedRisk to be called"
 		)
 
 		consumer.didCalculateRisk = { _ in
-			didCalculateRiskCalled.fulfill()
+			XCTFail("didFailCalculateRisk should not be called.")
+		}
+
+		consumer.didFailCalculateRisk = { _ in
+			didCalculateRiskFailedCalled.fulfill()
 		}
 
 		sut.observeRisk(consumer)
 		sut.requestRisk(userInitiated: true)
-		wait(for: [detectionRequested, didCalculateRiskCalled], timeout: 1.0, enforceOrder: true)
+		wait(for: [detectionRequested, didCalculateRiskFailedCalled], timeout: 1.0, enforceOrder: true)
 	}
 
 	func testShouldShowRiskStatusLoweredAlertIntitiallyFalseIsSetToTrueWhenRiskStatusLowers() throws {
@@ -413,4 +471,27 @@ final class RiskProviderTests: XCTestCase {
 		)
 	}
 
+}
+
+struct RiskCalculationFake: RiskCalculationProtocol {
+	func risk(
+		summary: CodableExposureDetectionSummary?,
+		configuration: SAP_ApplicationConfiguration,
+		dateLastExposureDetection: Date?,
+		activeTracing: ActiveTracing,
+		preconditions: ExposureManagerState,
+		currentDate: Date,
+		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
+		providerConfiguration: RiskProvidingConfiguration
+	) -> Risk? {
+		let fakeRisk = Risk(
+			level: .low,
+			details: Risk.Details(
+				numberOfExposures: 0,
+				activeTracing: .init(interval: 336 * 3600),  // two weeks
+				exposureDetectionDate: Date()),
+			riskLevelHasChanged: true
+		)
+		return fakeRisk
+	}
 }

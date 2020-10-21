@@ -41,6 +41,7 @@ final class RiskProvider {
 	private let targetQueue: DispatchQueue
 	private var consumersQueue = DispatchQueue(label: "com.sap.RiskProvider.consumer")
 	private var cancellationToken: CancellationToken?
+	private let riskCalculation: RiskCalculationProtocol
 
 	private var _consumers: [RiskConsumer] = []
 	private var consumers: [RiskConsumer] {
@@ -55,7 +56,8 @@ final class RiskProvider {
 		exposureSummaryProvider: ExposureSummaryProvider,
 		appConfigurationProvider: AppConfigurationProviding,
 		exposureManagerState: ExposureManagerState,
-		targetQueue: DispatchQueue = .main
+		targetQueue: DispatchQueue = .main,
+		riskCalculation: RiskCalculationProtocol = RiskCalculation()
 	) {
 		self.configuration = configuration
 		self.store = store
@@ -63,6 +65,7 @@ final class RiskProvider {
 		self.appConfigurationProvider = appConfigurationProvider
 		self.exposureManagerState = exposureManagerState
 		self.targetQueue = targetQueue
+		self.riskCalculation = riskCalculation
 
 		self.$activityState
 			.removeDuplicates()
@@ -326,7 +329,7 @@ extension RiskProvider: RiskProviding {
 		let activeTracing = store.tracingStatusHistory.activeTracing()
 
 		guard
-			let risk = RiskCalculation.risk(
+			let risk = riskCalculation.risk(
 				summary: summaries?.current?.summary,
 				configuration: _appConfiguration,
 				dateLastExposureDetection: summaries?.current?.date,

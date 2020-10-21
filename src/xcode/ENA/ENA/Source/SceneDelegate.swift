@@ -31,9 +31,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		didSet {
 			coordinator.updateState(
 				detectionMode: state.detectionMode,
-				exposureManagerState: state.exposureManager,
-				risk: state.risk,
-				riskDetectionFailed: state.riskDetectionFailed
+				exposureManagerState: state.exposureManager
 			)
 		}
 	}

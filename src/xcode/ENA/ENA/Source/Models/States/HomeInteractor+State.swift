@@ -24,7 +24,8 @@ extension HomeInteractor {
 		init(
 			detectionMode: DetectionMode,
 			exposureManagerState: ExposureManagerState,
-			enState: ENStateHandler.State, risk: Risk?,
+			enState: ENStateHandler.State,
+			risk: Risk?,
 			riskDetectionFailed: Bool
 		) {
 			self.detectionMode = detectionMode
