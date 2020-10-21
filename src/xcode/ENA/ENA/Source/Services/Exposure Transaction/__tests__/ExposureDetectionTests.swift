@@ -66,15 +66,12 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 			return .success(MutableENExposureDetectionSummary(daysSinceLastExposure: 5))
 		}
 
-		let appConfigurationProviderSpy = AppConfigurationProviderSpy()
-
 		let startCompletionCalled = expectation(description: "start completion called")
 		let detection = ExposureDetection(
 			delegate: delegate,
-			appConfigurationProvider: appConfigurationProviderSpy
+			appConfiguration: SAP_ApplicationConfiguration()
 		)
 		detection.start { _ in
-			XCTAssertTrue(appConfigurationProviderSpy.didCallAppConfiguration)
 			startCompletionCalled.fulfill()
 		}
 
@@ -104,7 +101,7 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		let detection = ExposureDetection(
 			delegate: delegate,
 			countryKeypackageDownloader: packageDownloader,
-			appConfigurationProvider: AppConfigurationProviderFake()
+			appConfiguration: SAP_ApplicationConfiguration()
 		)
 
 		let expectationNoDaysAndHours = expectation(description: "completion with NoDaysAndHours error called.")
@@ -149,7 +146,7 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		let detection = ExposureDetection(
 			delegate: delegate,
 			countryKeypackageDownloader: packageDownloader,
-			appConfigurationProvider: AppConfigurationProviderFake()
+			appConfiguration: SAP_ApplicationConfiguration()
 		)
 
 		let expectationFailureResult = expectation(description: "Detection should fail.")
@@ -184,7 +181,7 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		let detection = ExposureDetection(
 			delegate: delegate,
 			countryKeypackageDownloader: packageDownloader,
-			appConfigurationProvider: AppConfigurationProviderFake()
+			appConfiguration: SAP_ApplicationConfiguration()
 		)
 
 		let expectationFailureResult = expectation(description: "Detection should fail.")
@@ -209,20 +206,6 @@ final class AppConfigurationProviderFake: AppConfigurationProviding {
 	}
 
 	func appConfiguration(completion: @escaping Completion) {
-		completion(.success(SAP_ApplicationConfiguration()))
-	}
-}
-
-final class AppConfigurationProviderSpy: AppConfigurationProviding {
-	var didCallAppConfiguration = false
-
-	func appConfiguration(forceFetch: Bool, completion: @escaping Completion) {
-		didCallAppConfiguration = true
-		completion(.success(SAP_ApplicationConfiguration()))
-	}
-
-	func appConfiguration(completion: @escaping Completion) {
-		didCallAppConfiguration = true
 		completion(.success(SAP_ApplicationConfiguration()))
 	}
 }
