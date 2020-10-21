@@ -20,9 +20,9 @@ import Foundation
 import UIKit
 
 class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
-
+	
 	// MARK: - Init
-
+	
 	init(
 		isScanningActivated: Bool,
 		onSuccess: @escaping (DeviceRegistrationKey) -> Void,
@@ -34,9 +34,9 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		self.onError = onError
 		self.onCancel = onCancel
 	}
-
+	
 	// MARK: - Protocol AVCaptureMetadataOutputObjectsDelegate
-
+	
 	func metadataOutput(
 		_: AVCaptureMetadataOutput,
 		didOutput metadataObjects: [AVMetadataObject],
@@ -44,38 +44,38 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	) {
 		didScan(metadataObjects: metadataObjects)
 	}
-
+	
 	// MARK: - Internal
-
+	
 	let onError: (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
 	let onCancel: () -> Void
-
+	
 	func activateScanning() {
 		isScanningActivated = true
 	}
-
+	
 	func deactivateScanning() {
 		isScanningActivated = false
 	}
-
+	
 	func didScan(metadataObjects: [MetadataObject]) {
 		guard isScanningActivated else { return }
-
+		
 		if let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject, let stringValue = code.stringValue {
 			deactivateScanning()
-
+			
 			guard let extractedGuid = extractGuid(from: stringValue) else {
 				onError(.codeNotFound) { [weak self] in
 					self?.activateScanning()
 				}
-
+				
 				return
 			}
-
+			
 			onSuccess(.guid(extractedGuid))
 		}
 	}
-
+	
 	/// Sanitizes the input string and extracts a guid.
 	/// - the input needs to start with https://localhost/?
 	/// - the input must not ne longer than 150 chars and cannot be empty
@@ -83,42 +83,26 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	/// - the guid is a well formatted string (6-8-4-4-4-12) with length 43
 	///   (6 chars encode a random number, 32 chars for the uuid, 5 chars are separators)
 	func extractGuid(from input: String) -> String? {
-		guard let urlComponents = URLComponents(string: input),
+		guard !input.isEmpty,
+			  input.count <= 150,
+			  let urlComponents = URLComponents(string: input),
 			  urlComponents.scheme == "https",
 			  urlComponents.host == "localhost",
-			  let queryString = urlComponents.query,
-			  queryString.count == 43
-			  else {
+			  let candidate = urlComponents.query,
+			  candidate.count == 43,
+			  let matchings = candidate.range(
+				of: #"^[0-9A-Fa-f]{6}-[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$"#,
+				options: .regularExpression
+			  ) else {
 			return nil
 		}
-
-		return queryString
-
-//		https://localhost/?62AF54-00DE966F-3727-45CB-B403-419E8134ECBC
-
-//		guard
-//			!input.isEmpty,
-//			input.count <= 150,
-//			let regex = try? NSRegularExpression(
-//				pattern: "^https:\\/\\/localhost\\/\\?(?<GUID>[0-9A-Fa-f]{6}-[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})$"
-//			),
-//			let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.count))
-//		else { return nil }
-
-		/*
-		guard let range = Range(match.range(withName: "GUID"), in: input) else { return nil }
-
-		let candidate = String(input[range])
-		guard !candidate.isEmpty, candidate.count == 43 else { return nil }
-
-		return candidate
-*/
+		return matchings.isEmpty ? nil : candidate
 	}
-
+	
 	// MARK: - Private
-
+	
 	private var isScanningActivated: Bool
-
+	
 	private let onSuccess: (DeviceRegistrationKey) -> Void
-
+	
 }
