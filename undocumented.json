@@ -12707,161 +12707,161 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 89,
+      "line": 90,
       "symbol": "SettingsViewController.prepare(for:sender:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 96,
+      "line": 97,
       "symbol": "SettingsViewController.createExposureNotificationSettingViewController(coder:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 109,
+      "line": 110,
       "symbol": "SettingsViewController.createNotificationSettingsViewController(coder:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 114,
+      "line": 115,
       "symbol": "SettingsViewController.createBackgroundAppRefreshViewController(coder:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 183,
+      "line": 184,
       "symbol": "SettingsViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 184,
+      "line": 185,
       "symbol": "SettingsViewController.numberOfSections(in:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 188,
+      "line": 189,
       "symbol": "SettingsViewController.tableView(_:numberOfRowsInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 192,
+      "line": 193,
       "symbol": "SettingsViewController.tableView(_:heightForHeaderInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 200,
+      "line": 201,
       "symbol": "SettingsViewController.tableView(_:titleForFooterInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 215,
+      "line": 216,
       "symbol": "SettingsViewController.tableView(_:willDisplayFooterView:forSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 228,
+      "line": 229,
       "symbol": "SettingsViewController.tableView(_:cellForRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 257,
+      "line": 258,
       "symbol": "SettingsViewController.configureMainCell(indexPath:model:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 267,
+      "line": 268,
       "symbol": "SettingsViewController.tableView(_:didSelectRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 299,
+      "line": 300,
       "symbol": "SettingsViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 300,
+      "line": 301,
       "symbol": "SettingsViewController.reset()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 305,
+      "line": 306,
       "symbol": "SettingsViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 306,
+      "line": 307,
       "symbol": "SettingsViewController.exposureNotificationSettingViewController(_:setExposureManagerEnabled:then:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 311,
+      "line": 312,
       "symbol": "SettingsViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 312,
+      "line": 313,
       "symbol": "SettingsViewController.updateExposureState(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 317,
+      "line": 318,
       "symbol": "SettingsViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 318,
+      "line": 319,
       "symbol": "SettingsViewController.updateEnState(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 325,
+      "line": 326,
       "symbol": "SettingsViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Settings/SettingsViewController.swift",
-      "line": 326,
+      "line": 327,
       "symbol": "SettingsViewController.preferredLargeTitleBackgroundColor",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
