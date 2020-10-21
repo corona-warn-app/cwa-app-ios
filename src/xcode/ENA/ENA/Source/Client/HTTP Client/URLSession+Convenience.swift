@@ -114,8 +114,8 @@ extension URLSession.Response {
 		/// The session did not receive an error but nor either an `HTTPURLResponse`/HTTP body.
 		case noResponse
 		case teleTanAlreadyUsed
-		case qRAlreadyUsed
-		case qRNotExist
+		case qrAlreadyUsed
+		case qrDoesNotExist
 		case regTokenNotExist
 		case invalidResponse
 		case serverError(Int)

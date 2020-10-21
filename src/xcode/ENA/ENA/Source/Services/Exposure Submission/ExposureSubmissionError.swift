@@ -31,9 +31,9 @@ enum ExposureSubmissionError: Error, Equatable {
 	case invalidResponse
 	case noResponse
 	case teleTanAlreadyUsed
-	case qRAlreadyUsed
+	case qrAlreadyUsed
 	case regTokenNotExist
-	case qRNotExist
+	case qrDoesNotExist
 	case serverError(Int)
 	case unknown
 	case httpError(String)
@@ -43,6 +43,7 @@ enum ExposureSubmissionError: Error, Equatable {
 	case fakeResponse
 	case invalidPayloadOrHeaders
 	case requestCouldNotBeBuilt
+	case qrExpired
 }
 
 extension ExposureSubmissionError: LocalizedError {
@@ -66,9 +67,9 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.ExposureSubmissionError.noResponse
 		case .noAppConfiguration:
 			return AppStrings.ExposureSubmissionError.noAppConfiguration
-		case .qRAlreadyUsed:
+		case .qrAlreadyUsed:
 			return AppStrings.ExposureSubmissionError.qrAlreadyUsed
-		case .qRNotExist:
+		case .qrDoesNotExist:
 			return AppStrings.ExposureSubmissionError.qrNotExist
 		case .teleTanAlreadyUsed:
 			return AppStrings.ExposureSubmissionError.teleTanAlreadyUsed
@@ -92,6 +93,8 @@ extension ExposureSubmissionError: LocalizedError {
 			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
 		case .requestCouldNotBeBuilt:
 			return "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
+		case .qrExpired:
+			return AppStrings.ExposureSubmission.qrCodeExpiredAlertText
 		default:
 			Log.error("\(self)", log: .api)
 			return AppStrings.ExposureSubmissionError.defaultError

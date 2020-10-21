@@ -68,8 +68,8 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			switch result {
 			case .failure(let error):
 				Log.error(error.localizedDescription, log: .api)
-			case .success(.pending), .success(.redeemed):
-				// Do not trigger notifications for pending or redeemed results.
+			case .success(.pending), .success(.expired):
+				// Do not trigger notifications for pending or expired results.
 				break
 			case .success:
 				UNUserNotificationCenter.current().presentNotification(
