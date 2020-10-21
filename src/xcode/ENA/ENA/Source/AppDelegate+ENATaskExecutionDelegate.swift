@@ -101,9 +101,6 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				body: AppStrings.LocalNotifications.detectExposureBody,
 				identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier + ".risk-detection"
 			)
-			
-			// We were successful to calculate a risk in the Background, time to reset Deadman Notification
-			ENATaskScheduler.resetDeadmanNotification()
 
 			completion(true)
 		}

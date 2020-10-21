@@ -42,7 +42,7 @@ enum LinkHelper {
 
 	static func openLink(withUrl url: URL, from viewController: UIViewController) {
 		let config = SFSafariViewController.Configuration()
-		config.entersReaderIfAvailable = true
+		config.entersReaderIfAvailable = false
 		config.barCollapsingEnabled = true
 
 		let vc = SFSafariViewController(url: url, configuration: config)

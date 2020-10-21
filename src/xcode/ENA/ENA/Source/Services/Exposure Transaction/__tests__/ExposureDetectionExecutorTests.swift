@@ -145,6 +145,71 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		waitForExpectations(timeout: 2.0)
 	}
 
+	func testStoreDelta_CompletionCalledOnlyOnce() throws {
+		// Test the case where the exector is asked to store the latest DaysAndHours delta,
+		// and the server has new data. We expect that completion is only called once.
+
+		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
+		let testDaysAndHours = DaysAndHours(days: ["2020-01-01", "2020-01-02"], hours: [])
+		let testPackage = try SAPDownloadedPackage.makePackage()
+		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
+		completionExpectation.expectedFulfillmentCount = 1
+
+		let sut = ExposureDetectionExecutor.makeWith(
+			client: ClientMock(
+				availableDaysAndHours: testDaysAndHours,
+				downloadedPackage: testPackage),
+			packageStore: downloadedPackageStore
+		)
+
+		sut.exposureDetection(
+			country: "IT",
+			downloadAndStore: testDaysAndHours) { error in
+				defer { completionExpectation.fulfill() }
+				XCTAssertNil(error)
+
+				guard let storedPackage = downloadedPackageStore.package(for: "2020-01-01", country: "IT") else {
+					// We can't XCUnwrap here as completion handler closure cannot throw
+					XCTFail("Package store did not contain downloaded delta package!")
+					return
+				}
+
+				XCTAssertEqual(storedPackage.bin, testPackage.bin)
+				XCTAssertEqual(storedPackage.signature, testPackage.signature)
+				XCTAssertEqual(downloadedPackageStore.allDays(country: "IT").count, 2)
+		}
+		waitForExpectations(timeout: 2.0)
+	}
+
+	func testStoreDelta_WhenErrorHappens_ThenCompletionCalledOnlyOnce() throws {
+		// Test the case where the exector is asked to store the latest DaysAndHours delta.
+		// The packages store returns an error. We expect that completion is only called once.
+
+		let mockKeyValueStore = MockTestStore()
+		mockKeyValueStore.fakeSQLiteError = 13
+		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
+		downloadedPackageStore.keyValueStore = mockKeyValueStore
+		let testDaysAndHours = DaysAndHours(days: ["2020-01-01", "2020-01-02"], hours: [])
+		let testPackage = try SAPDownloadedPackage.makePackage()
+		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
+		completionExpectation.expectedFulfillmentCount = 1
+
+		let sut = ExposureDetectionExecutor.makeWith(
+			client: ClientMock(
+				availableDaysAndHours: testDaysAndHours,
+				downloadedPackage: testPackage),
+			packageStore: downloadedPackageStore
+		)
+
+		sut.exposureDetection(
+			country: "IT",
+			downloadAndStore: testDaysAndHours) { error in
+				XCTAssertNotNil(error)
+				completionExpectation.fulfill()
+		}
+		waitForExpectations(timeout: 2.0)
+	}
+
 	// MARK: - Write Downloaded Package Tests
 
 	func testWriteDownloadedPackage_NoHourlyFetching() throws {
@@ -303,6 +368,55 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		)
 		waitForExpectations(timeout: 2.0)
 	}
+
+	func testDetectSummaryWithConfiguration_Error2BadParameter_ClearsCache() throws {
+		// Test the case where the exector is asked to run an exposure detection
+		// We provide an `MockExposureDetector` with an error, and expect this to be returned
+		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
+		let expectedError = ENError(.badParameter)
+
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
+		let package = SAPDownloadedPackage(
+			keysBin: keysBin,
+			signature: signature
+		)
+		let packageStore = DownloadedPackagesSQLLiteStore.inMemory()
+		packageStore.open()
+		packageStore.set(country: "DE", day: "SomeDay", package: package)
+
+		let store = MockTestStore()
+		store.appConfig = SAP_ApplicationConfiguration()
+
+		let sut = ExposureDetectionExecutor.makeWith(
+			packageStore: packageStore,
+			store: store,
+			exposureDetector: MockExposureDetector((nil, expectedError))
+		)
+		let exposureDetection = ExposureDetection(
+			delegate: sut,
+			appConfigurationProvider: AppConfigurationProviderFake()
+		)
+
+		XCTAssertNotEqual(packageStore.allDays(country: "DE").count, 0)
+		XCTAssertNotNil(store.appConfig)
+
+		sut.exposureDetection(
+			exposureDetection,
+			detectSummaryWithConfiguration: ENExposureConfiguration(),
+			writtenPackages: WrittenPackages(urls: []),
+			completion: { result in
+
+				XCTAssertEqual(packageStore.allDays(country: "DE").count, 0)
+				XCTAssertNil(store.appConfig)
+				XCTAssertNil(store.lastAppConfigETag)
+				XCTAssertNil(store.lastAppConfigFetch)
+
+				completionExpectation.fulfill()
+			}
+		)
+		waitForExpectations(timeout: 2.0)
+	}
 }
 
 // MARK: - Private Helper Extensions
@@ -312,7 +426,7 @@ private extension ExposureDetectionExecutor {
 	static func makeWith(
 		client: Client = ClientMock(),
 		packageStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory(),
-		store: Store = MockTestStore(),
+		store: Store & AppConfigCaching = MockTestStore(),
 		exposureDetector: MockExposureDetector = MockExposureDetector()
 	) -> ExposureDetectionExecutor {
 		ExposureDetectionExecutor(
