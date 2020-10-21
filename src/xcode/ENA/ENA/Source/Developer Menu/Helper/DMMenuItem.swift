@@ -35,6 +35,7 @@ enum DMMenuItem: Int, CaseIterable {
 	case onboardingVersion
 	case serverEnvironment
 	case simulateNoDiskSpace
+	case listPendingNotifications
 }
 
 extension DMMenuItem {
@@ -65,6 +66,7 @@ extension DMMenuItem {
 		case .onboardingVersion: return "Onboarding Version"
 		case .serverEnvironment: return "Server Environment"
 		case .simulateNoDiskSpace: return "Simulate SQLite Error"
+		case .listPendingNotifications: return "Pending Notifications"
 		}
 	}
 	var subtitle: String {
@@ -83,6 +85,7 @@ extension DMMenuItem {
 		case .onboardingVersion: return "Set the onboarding version"
 		case .serverEnvironment: return "Select server environment"
 		case .simulateNoDiskSpace: return "Simulates SQLite returns defined error"
+		case .listPendingNotifications: return "List all pending Notifications"
 		}
 	}
 }

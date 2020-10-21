@@ -69,6 +69,8 @@ enum AppStrings {
 		static let confirmDismissPopUpTitle = NSLocalizedString("ExposureSubmission_ConfirmDismissPopUpTitle", comment: "")
 		static let confirmDismissPopUpText = NSLocalizedString("ExposureSubmission_ConfirmDismissPopUpText", comment: "")
 		static let hotlineNumber = NSLocalizedString("ExposureSubmission_Hotline_Number", comment: "")
+		static let qrCodeExpiredTitle = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title", comment: "")
+		static let qrCodeExpiredAlertText = NSLocalizedString("ExposureSubmissionQRInfo_QRCodeExpired_Alert_Text", comment: "")
 	}
 
 	enum ExposureSubmissionTanEntry {
@@ -109,8 +111,8 @@ enum AppStrings {
 		static let testNegativeDesc = NSLocalizedString("ExposureSubmissionResult_testNegativeDesc", comment: "")
 		static let testInvalid = NSLocalizedString("ExposureSubmissionResult_testInvalid", comment: "")
 		static let testInvalidDesc = NSLocalizedString("ExposureSubmissionResult_testInvalidDesc", comment: "")
-		static let testRedeemed = NSLocalizedString("ExposureSubmissionResult_testRedeemed", comment: "")
-		static let testRedeemedDesc = NSLocalizedString("ExposureSubmissionResult_testRedeemedDesc", comment: "")
+		static let testExpired = NSLocalizedString("ExposureSubmissionResult_testExpired", comment: "")
+		static let testExpiredDesc = NSLocalizedString("ExposureSubmissionResult_testExpiredDesc", comment: "")
 		static let testPending = NSLocalizedString("ExposureSubmissionResult_testPending", comment: "")
 		static let testPendingDescParagraph1 = NSLocalizedString("ExposureSubmissionResult_testPendingDesc_paragraph1", comment: "")
 		static let testPendingDescParagraph2 = NSLocalizedString("ExposureSubmissionResult_testPendingDesc_paragraph2", comment: "")
@@ -205,7 +207,6 @@ enum AppStrings {
 		static let answerOptionPreferNotToSay = NSLocalizedString("ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay", comment: "")
 		static let continueButton = NSLocalizedString("ExposureSubmissionSymptoms_ContinueButton", comment: "")
 	}
-	
 	
 	enum ExposureSubmissionSymptomsOnset {
 		static let title = NSLocalizedString("ExposureSubmissionSymptomsOnset_Title", comment: "")
