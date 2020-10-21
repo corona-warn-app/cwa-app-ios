@@ -33,6 +33,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		self.onError = onError
 		self.onCancel = onCancel
 		self.isScanningActivated = isScanningActivated
+		self.captureSession = AVCaptureSession()
 	}
 
 	// MARK: - Protocol AVCaptureMetadataOutputObjectsDelegate
@@ -49,6 +50,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 
 	let onError: (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
 	let onCancel: () -> Void
+	let captureSession: AVCaptureSession
 
 	func startCaptureSession() {
 		switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -72,6 +74,20 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		}
 	}
 
+	func setupCaptureSession() {
+		guard let captureDevice = AVCaptureDevice.default(for: .video),
+			  let caputureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else {
+			onError(.cameraPermissionDenied) {}
+			return
+		}
+
+		let metadataOutput = AVCaptureMetadataOutput()
+		captureSession.addInput(caputureDeviceInput)
+		captureSession.addOutput(metadataOutput)
+		metadataOutput.metadataObjectTypes = [.qr]
+		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
+	}
+
 	func stop() {
 		deactivateScanning()
 	}
@@ -93,27 +109,6 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 			onSuccess(.guid(extractedGuid))
 		}
 	}
-
-/*
-	func didScan(metadataObjects: [MetadataObject]) {
-		guard isScanningActivated else { return }
-
-		if let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject, let stringValue = code.stringValue {
-			deactivateScanning()
-
-			guard let extractedGuid = extractGuid(from: stringValue) else {
-				onError(.codeNotFound) { [weak self] in
-					self?.activateScanning()
-				}
-
-				return
-			}
-
-			onSuccess(.guid(extractedGuid))
-		}
-	}
-*/
-
 
 	/// Sanitizes the input string and extracts a guid.
 	/// - the input needs to start with https://localhost/?
@@ -141,29 +136,13 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	// MARK: - Private
 
 	private let onSuccess: (DeviceRegistrationKey) -> Void
-
-	lazy var  captureSession: AVCaptureSession? = {
-		guard let captureDevice = AVCaptureDevice.default(for: .video),
-			  let caputureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else {
-			return nil
-		}
-
-		let metadataOutput = AVCaptureMetadataOutput()
-		let captureSession = AVCaptureSession()
-		captureSession.addInput(caputureDeviceInput)
-		captureSession.addOutput(metadataOutput)
-		metadataOutput.metadataObjectTypes = [.qr]
-		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
-		return captureSession
-	}()
-
-	var isScanningActivated: Bool
+	private(set) var isScanningActivated: Bool
 
 	private func activateScanning() {
 		if isScanningActivated {
 			return
 		}
-		captureSession?.startRunning()
+		captureSession.startRunning()
 		isScanningActivated = true
 	}
 
@@ -171,7 +150,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		if !isScanningActivated {
 			return
 		}
-		captureSession?.stopRunning()
+		captureSession.stopRunning()
 		isScanningActivated = false
 	}
 
