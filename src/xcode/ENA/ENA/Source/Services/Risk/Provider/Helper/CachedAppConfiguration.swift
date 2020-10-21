@@ -17,7 +17,7 @@
 // under the License.
 //
 
-import UIKit
+import Foundation
 
 final class CachedAppConfiguration {
 
