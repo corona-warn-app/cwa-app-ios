@@ -1286,13 +1286,6 @@
 			path = "Exposure Submission";
 			sourceTree = "<group>";
 		};
-		2FC0357524B8755500E234AC /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
 		2FC951FA24DC2366008D39F4 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -1604,7 +1597,6 @@
 		51D420C124583D3100AD70CA /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				2FC0357524B8755500E234AC /* __tests__ */,
 				51CE1B2E245F5CFC002CF42A /* HomeViewController.swift */,
 				5111E7622460BB1500ED6498 /* HomeInteractor.swift */,
 				51CE1B5424604DD2002CF42A /* HomeLayout.swift */,
