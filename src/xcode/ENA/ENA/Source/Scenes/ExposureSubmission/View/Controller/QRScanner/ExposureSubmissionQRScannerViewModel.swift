@@ -26,14 +26,14 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	init(
 		isScanningActivated: Bool = false,
 		onSuccess: @escaping (DeviceRegistrationKey) -> Void,
-		onError: @escaping (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void,
-		onCancel: @escaping () -> Void
+		onError: @escaping (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
 	) {
 		self.onSuccess = onSuccess
 		self.onError = onError
-		self.onCancel = onCancel
 		self.isScanningActivated = isScanningActivated
 		self.captureSession = AVCaptureSession()
+		super.init()
+		setupCaptureSession()
 	}
 
 	// MARK: - Protocol AVCaptureMetadataOutputObjectsDelegate
@@ -48,8 +48,6 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 
 	// MARK: - Internal
 
-	let onError: (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
-	let onCancel: () -> Void
 	let captureSession: AVCaptureSession
 
 	func startCaptureSession() {
@@ -74,7 +72,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		}
 	}
 
-	func setupCaptureSession() {
+	private func setupCaptureSession() {
 		guard let captureDevice = AVCaptureDevice.default(for: .video),
 			  let caputureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else {
 			onError(.cameraPermissionDenied) {}
@@ -136,6 +134,8 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	// MARK: - Private
 
 	private let onSuccess: (DeviceRegistrationKey) -> Void
+	private let onError: (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
+
 	private(set) var isScanningActivated: Bool
 
 	private func activateScanning() {
