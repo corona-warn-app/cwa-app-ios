@@ -88,15 +88,12 @@ jobs:
     steps:
       - prepare-dependencies
       - run: ./scripts/switch_to_dev_env.sh
-      - run:
-          name: Upload to TSI Mobile Device Cloud
-          command: cd src/xcode && bundle exec fastlane tcloud
       #- run:
       #    name: fastlane testflight
       #    command: cd src/xcode && bundle exec fastlane betaRelease --env TestFlight
-      #- run:
-      #    name: fastlane appcenter
-      #    command: cd src/xcode && bundle exec fastlane adHocDistribution
+      - run:
+          name: fastlane appcenter and Mobile Device Cloud
+          command: cd src/xcode && bundle exec fastlane adHocDistribution
   update-docs:
     macos:
       xcode: 12.0.0
