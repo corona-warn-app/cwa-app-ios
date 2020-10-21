@@ -269,6 +269,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			showExposureSubmission(with: homeInteractor.testResult)
 		case is RiskInactiveCollectionViewCell:
 			showExposureDetection()
+		case is RiskFailedCollectionViewCell:
+			showExposureDetection()
 		case is RiskThankYouCollectionViewCell:
 			return
 		default:

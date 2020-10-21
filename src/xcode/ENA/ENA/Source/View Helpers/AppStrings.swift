@@ -324,6 +324,10 @@ enum AppStrings {
 		static let riskCardStatusDownloadingBody = NSLocalizedString("ExposureDetection_Risk_Status_Downloading_Body", comment: "")
 		static let riskCardStatusDetectingTitle = NSLocalizedString("ExposureDetection_Risk_Status_Detecting_Title", comment: "")
 		static let riskCardStatusDetectingBody = NSLocalizedString("ExposureDetection_Risk_Status_Detecting_Body", comment: "")
+
+		static let riskCardFailedCalculationTitle = NSLocalizedString("ExposureDetection_Risk_Failed_Title", comment: "")
+		static let riskCardFailedCalculationBody = NSLocalizedString("ExposureDetection_Risk_Failed_Body", comment: "")
+		static let riskCardFailedCalculationRestartButtonTitle = NSLocalizedString("ExposureDetection_Risk_Restart_Button_Title", comment: "")
 	}
 
 	enum ExposureDetectionError {
