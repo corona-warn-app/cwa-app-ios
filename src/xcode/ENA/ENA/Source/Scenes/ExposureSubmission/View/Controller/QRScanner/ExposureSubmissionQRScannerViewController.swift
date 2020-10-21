@@ -30,10 +30,9 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 	) {
 		viewModel = ExposureSubmissionQRScannerViewModel(
 			onSuccess: onSuccess,
-			onError: onError,
-			onCancel: onCancel
+			onError: onError
 		)
-
+		self.onCancelScannerView = onCancel
 		super.init(nibName: "ExposureSubmissionQRScannerViewController", bundle: .main)
 	}
 
@@ -50,26 +49,22 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 		setupView()
 		updateToggleFlashAccessibility()
 
-		let previewLayer = AVCaptureVideoPreviewLayer(session: viewModel.captureSession)
-		previewLayer.frame = view.bounds
-		previewLayer.videoGravity = .resizeAspectFill
-		view.layer.insertSublayer(previewLayer, at: 0)
 		viewModel.startCaptureSession()
 	}
 
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-
 		setNeedsPreviewMaskUpdate()
 		updatePreviewMaskIfNeeded()
 	}
 	
 	// MARK: - Private
 
-	private let viewModel: ExposureSubmissionQRScannerViewModel
-
 	@IBOutlet private var focusView: ExposureSubmissionQRScannerFocusView!
 	@IBOutlet private var instructionLabel: DynamicTypeLabel!
+
+	private let viewModel: ExposureSubmissionQRScannerViewModel
+	private let onCancelScannerView: () -> Void
 
 	private let flashButton = UIButton(type: .custom)
 
@@ -104,6 +99,17 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 
 		let cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
 		navigationItem.leftBarButtonItem = cancelBarButtonItem
+
+		// setup video capture layer
+		let captureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: viewModel.captureSession)
+		captureVideoPreviewLayer.frame = view.bounds
+		captureVideoPreviewLayer.videoGravity = .resizeAspectFill
+		view.layer.insertSublayer(captureVideoPreviewLayer, at: 0)
+		self.previewLayer = captureVideoPreviewLayer
+	}
+
+	private func setupNavigationBar() {
+		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
 	}
 
 	private func updateToggleFlashAccessibility() {
@@ -119,72 +125,6 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityEnableAction, target: self, selector: #selector(didToggleFlash))]
 		}
 	}
-
-/*
-	private func prepareScanning() {
-		switch AVCaptureDevice.authorizationStatus(for: .video) {
-		case .authorized:
-			startScanning()
-		case .notDetermined:
-			AVCaptureDevice.requestAccess(for: .video) { isAllowed in
-				guard isAllowed else {
-					self.viewModel.onError(.cameraPermissionDenied) { [weak self] in
-						self?.viewModel.activateScanning()
-					}
-
-					return
-				}
-
-				self.startScanning()
-			}
-		default:
-			viewModel.onError(.cameraPermissionDenied) { [weak self] in
-				self?.viewModel.activateScanning()
-			}
-		}
-	}
-
-	// Make sure to get permission to use the camera before using this method.
-	private func startScanning() {
-		let captureSession = AVCaptureSession()
-
-		captureDevice = AVCaptureDevice.default(for: .video)
-		guard let captureDevice = captureDevice else {
-			viewModel.onError(.other) { [weak self] in
-				self?.viewModel.activateScanning()
-			}
-
-			return
-		}
-
-		guard let caputureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else {
-			viewModel.onError(.other) { [weak self] in
-				self?.viewModel.activateScanning()
-			}
-
-			return
-		}
-
-		let metadataOutput = AVCaptureMetadataOutput()
-
-		captureSession.addInput(caputureDeviceInput)
-		captureSession.addOutput(metadataOutput)
-
-		metadataOutput.metadataObjectTypes = [.qr]
-		metadataOutput.setMetadataObjectsDelegate(viewModel, queue: .main)
-
-		previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-		guard let previewLayer = previewLayer else { return }
-
-		DispatchQueue.main.async {
-			self.previewLayer?.frame = self.view.bounds
-			self.previewLayer?.videoGravity = .resizeAspectFill
-			self.view.layer.insertSublayer(previewLayer, at: 0)
-		}
-
-		captureSession.startRunning()
-	}
-*/
 
 	@objc
 	private func didToggleFlash() {
@@ -216,7 +156,8 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 
 	@objc
 	private func didTapCancel() {
-		viewModel.onCancel()
+		viewModel.stop()
+		onCancelScannerView()
 	}
 
 	private func setNeedsPreviewMaskUpdate() {
@@ -227,16 +168,15 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 	}
 
 	private func updatePreviewMaskIfNeeded() {
-		guard needsPreviewMaskUpdate else { return }
-		needsPreviewMaskUpdate = false
-
-		guard let previewLayer = previewLayer else { return }
-		guard focusView.backdropOpacity > 0 else {
-			previewLayer.mask = nil
+		guard needsPreviewMaskUpdate,
+			  let previewLayer = previewLayer,
+			  focusView.backdropOpacity > 0 else {
+			needsPreviewMaskUpdate = false
+			self.previewLayer?.mask = nil
 			return
 		}
-		let backdropColor = UIColor(white: 0, alpha: 1 - max(0, min(focusView.backdropOpacity, 1)))
 
+		let backdropColor = UIColor(white: 0, alpha: 1 - max(0, min(focusView.backdropOpacity, 1)))
 		let focusPath = UIBezierPath(roundedRect: focusView.frame, cornerRadius: focusView.layer.cornerRadius)
 
 		let backdropPath = UIBezierPath(cgPath: focusPath.cgPath)
