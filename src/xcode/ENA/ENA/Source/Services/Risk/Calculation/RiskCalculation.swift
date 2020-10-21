@@ -53,7 +53,6 @@ enum RiskCalculation {
 		- dateLastExposureDetection: The date of the most recent exposure detection
 		- numberOfTracingActiveDays: A count of how many days tracing has been active for
 		- preconditions: Current state of the `ExposureManager`
-		- currentDate: The current `Date` to use in checks. Defaults to `Date()`
 	*/
 	private static func riskLevel(
 		summary: CodableExposureDetectionSummary?,
@@ -61,8 +60,7 @@ enum RiskCalculation {
 		dateLastExposureDetection: Date?,
 		activeTracing: ActiveTracing, // Get this from the `TracingStatusHistory`
 		preconditions: ExposureManagerState,
-		providerConfiguration: RiskProvidingConfiguration,
-		currentDate: Date = Date()
+		providerConfiguration: RiskProvidingConfiguration
 	) -> Result<RiskLevel, RiskLevelCalculationError> {
 
 		//
@@ -160,7 +158,6 @@ enum RiskCalculation {
 		dateLastExposureDetection: Date?,
 		activeTracing: ActiveTracing,
 		preconditions: ExposureManagerState,
-		currentDate: Date = Date(),
 		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
 		providerConfiguration: RiskProvidingConfiguration
 	) -> Risk? {
