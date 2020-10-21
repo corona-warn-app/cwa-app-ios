@@ -217,7 +217,6 @@ extension ExposureSubmissionCoordinator {
 				style: .cancel,
 				handler: { _ in
 					alert.dismiss(animated: true)
-
 				}
 			)
 		)
@@ -228,7 +227,6 @@ extension ExposureSubmissionCoordinator {
 
 	private func showQRScreen(isLoading: @escaping (Bool) -> Void) {
 		let scannerViewController = ExposureSubmissionQRScannerViewController(
-			isScanningActivated: true,
 			onSuccess: { [weak self] deviceRegistrationKey in
 				self?.presentedViewController?.dismiss(animated: true) {
 					self?.getTestResults(for: deviceRegistrationKey, isLoading: isLoading)

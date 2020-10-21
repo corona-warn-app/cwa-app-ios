@@ -24,13 +24,11 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		isScanningActivated: Bool,
 		onSuccess: @escaping (DeviceRegistrationKey) -> Void,
 		onError: @escaping (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void,
 		onCancel: @escaping () -> Void
 	) {
 		viewModel = ExposureSubmissionQRScannerViewModel(
-			isScanningActivated: isScanningActivated,
 			onSuccess: onSuccess,
 			onError: onError,
 			onCancel: onCancel
@@ -51,7 +49,17 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 
 		setupView()
 		updateToggleFlashAccessibility()
-		prepareScanning()
+
+		guard let captureSession = viewModel.captureSession else {
+			viewModel.onError(.other, {})
+			return
+		}
+		let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+		previewLayer.frame = view.bounds
+		previewLayer.videoGravity = .resizeAspectFill
+		view.layer.insertSublayer(previewLayer, at: 0)
+
+		viewModel.startCaptureSession()
 	}
 
 	override func viewDidLayoutSubviews() {
@@ -117,6 +125,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 		}
 	}
 
+/*
 	private func prepareScanning() {
 		switch AVCaptureDevice.authorizationStatus(for: .video) {
 		case .authorized:
@@ -180,6 +189,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 
 		captureSession.startRunning()
 	}
+*/
 
 	@objc
 	private func didToggleFlash() {

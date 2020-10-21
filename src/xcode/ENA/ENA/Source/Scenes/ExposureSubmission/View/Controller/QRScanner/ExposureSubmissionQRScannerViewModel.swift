@@ -20,23 +20,23 @@ import Foundation
 import UIKit
 
 class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
-	
+
 	// MARK: - Init
-	
+
 	init(
-		isScanningActivated: Bool,
+		isScanningActivated: Bool = false,
 		onSuccess: @escaping (DeviceRegistrationKey) -> Void,
 		onError: @escaping (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void,
 		onCancel: @escaping () -> Void
 	) {
-		self.isScanningActivated = isScanningActivated
 		self.onSuccess = onSuccess
 		self.onError = onError
 		self.onCancel = onCancel
+		self.isScanningActivated = isScanningActivated
 	}
-	
+
 	// MARK: - Protocol AVCaptureMetadataOutputObjectsDelegate
-	
+
 	func metadataOutput(
 		_: AVCaptureMetadataOutput,
 		didOutput metadataObjects: [AVMetadataObject],
@@ -44,38 +44,77 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	) {
 		didScan(metadataObjects: metadataObjects)
 	}
-	
+
 	// MARK: - Internal
-	
+
 	let onError: (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
 	let onCancel: () -> Void
-	
-	func activateScanning() {
-		isScanningActivated = true
+
+	func startCaptureSession() {
+		switch AVCaptureDevice.authorizationStatus(for: .video) {
+		case .authorized:
+			Log.info("AVCaptureDevice.authorized - enable qr code scanner")
+			activateScanning()
+		case .notDetermined:
+			AVCaptureDevice.requestAccess(for: .video) { [weak self] isAllowed in
+				guard isAllowed else {
+					self?.onError(.cameraPermissionDenied) {
+						Log.info(".cameraPermissionDenied - stop here we can't go on")
+					}
+					return
+				}
+				self?.activateScanning()
+			}
+		default:
+			onError(.cameraPermissionDenied) {
+				Log.info("permission denied - what to do next?")
+			}
+		}
 	}
-	
-	func deactivateScanning() {
-		isScanningActivated = false
+
+	func stop() {
+		deactivateScanning()
 	}
-	
+
 	func didScan(metadataObjects: [MetadataObject]) {
-		guard isScanningActivated else { return }
-		
+		guard isScanningActivated else {
+			Log.error("Scanning not stopped from previous run")
+			return
+		}
+		deactivateScanning()
+
 		if let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject, let stringValue = code.stringValue {
-			deactivateScanning()
-			
 			guard let extractedGuid = extractGuid(from: stringValue) else {
 				onError(.codeNotFound) { [weak self] in
 					self?.activateScanning()
 				}
-				
 				return
 			}
-			
 			onSuccess(.guid(extractedGuid))
 		}
 	}
-	
+
+/*
+	func didScan(metadataObjects: [MetadataObject]) {
+		guard isScanningActivated else { return }
+
+		if let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject, let stringValue = code.stringValue {
+			deactivateScanning()
+
+			guard let extractedGuid = extractGuid(from: stringValue) else {
+				onError(.codeNotFound) { [weak self] in
+					self?.activateScanning()
+				}
+
+				return
+			}
+
+			onSuccess(.guid(extractedGuid))
+		}
+	}
+*/
+
+
 	/// Sanitizes the input string and extracts a guid.
 	/// - the input needs to start with https://localhost/?
 	/// - the input must not ne longer than 150 chars and cannot be empty
@@ -98,11 +137,42 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		}
 		return matchings.isEmpty ? nil : candidate
 	}
-	
+
 	// MARK: - Private
-	
-	private var isScanningActivated: Bool
-	
+
 	private let onSuccess: (DeviceRegistrationKey) -> Void
-	
+
+	lazy var  captureSession: AVCaptureSession? = {
+		guard let captureDevice = AVCaptureDevice.default(for: .video),
+			  let caputureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else {
+			return nil
+		}
+
+		let metadataOutput = AVCaptureMetadataOutput()
+		let captureSession = AVCaptureSession()
+		captureSession.addInput(caputureDeviceInput)
+		captureSession.addOutput(metadataOutput)
+		metadataOutput.metadataObjectTypes = [.qr]
+		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
+		return captureSession
+	}()
+
+	var isScanningActivated: Bool
+
+	private func activateScanning() {
+		if isScanningActivated {
+			return
+		}
+		captureSession?.startRunning()
+		isScanningActivated = true
+	}
+
+	private func deactivateScanning() {
+		if !isScanningActivated {
+			return
+		}
+		captureSession?.stopRunning()
+		isScanningActivated = false
+	}
+
 }
