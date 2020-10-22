@@ -121,7 +121,7 @@ workflows:
             filters:
               branches:
                 only:
-                  - develop
+                  - main
         - grab-screenshots:
             filters:
               branches:
