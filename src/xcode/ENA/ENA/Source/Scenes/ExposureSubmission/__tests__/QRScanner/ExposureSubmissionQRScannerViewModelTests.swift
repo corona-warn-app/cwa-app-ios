@@ -258,7 +258,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: true, onSuccess: { _ in }, onError: { _, _ in })
 
 		// WHEN
-		viewModel.stop()
+		viewModel.stopCapturSession()
 
 		// THEN
 		XCTAssertFalse(viewModel.isScanningActivated, "Scanning is still enabled")
@@ -269,7 +269,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: false, onSuccess: { _ in }, onError: { _, _ in })
 
 		// WHEN
-		viewModel.stop()
+		viewModel.stopCapturSession()
 
 		// THEN
 		XCTAssertFalse(viewModel.isScanningActivated, "Scanning is still enabled")

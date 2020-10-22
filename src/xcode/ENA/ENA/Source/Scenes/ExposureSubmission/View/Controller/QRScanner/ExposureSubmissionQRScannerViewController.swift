@@ -66,11 +66,8 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 	private let viewModel: ExposureSubmissionQRScannerViewModel
 	private let onCancelScannerView: () -> Void
 
-//	private let flashButton = UIButton(type: .custom)
-
-	private var previewLayer: AVCaptureVideoPreviewLayer? { didSet { setNeedsPreviewMaskUpdate() } }
-
 	private var needsPreviewMaskUpdate: Bool = true
+	private var previewLayer: AVCaptureVideoPreviewLayer? { didSet { setNeedsPreviewMaskUpdate() } }
 
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionQRScanner.title
@@ -81,23 +78,12 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 		instructionLabel.layer.shadowRadius = 3
 		instructionLabel.layer.shadowOffset = .init(width: 0, height: 0)
 
-/*
-		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
-		flashButton.setImage(UIImage(systemName: "bolt"), for: .normal)
-		flashButton.setImage(UIImage(systemName: "bolt.fill"), for: .selected)
-
-		let flashBarButtonItem = UIBarButtonItem(customView: flashButton)
-		navigationItem.rightBarButtonItem = flashBarButtonItem
-
-		let cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
-		navigationItem.leftBarButtonItem = cancelBarButtonItem
-*/
 		// setup video capture layer
 		let captureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: viewModel.captureSession)
 		captureVideoPreviewLayer.frame = view.bounds
 		captureVideoPreviewLayer.videoGravity = .resizeAspectFill
 		view.layer.insertSublayer(captureVideoPreviewLayer, at: 0)
-		self.previewLayer = captureVideoPreviewLayer
+		previewLayer = captureVideoPreviewLayer
 	}
 
 	private func setupNavigationBar() {
@@ -155,7 +141,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 
 	@objc
 	private func didTapCancel() {
-		viewModel.stop()
+		viewModel.stopCapturSession()
 		onCancelScannerView()
 	}
 
