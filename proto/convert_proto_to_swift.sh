@@ -12,11 +12,10 @@ if ! hash protoc 2>/dev/null; then
     echo "$ brew install swift-protobuf"
     exit
 fi
-mkdir -p ../src/xcode/gen/output #Create output if it doesnt exist
-rm -rf ../src/xcode/gen/output/* #Delte old files
+rm -rf ../src/xcode/ENA/ENA/backend/generated/* #Delete old files
 
 for protoFile in $(find ./resources -name '*.proto');
 	do 
-		protoc --swift_out=../src/xcode/gen/output --experimental_allow_proto3_optional --proto_path=./resources $protoFile
+		protoc --swift_out=../src/xcode/ENA/ENA/backend/generated/ --experimental_allow_proto3_optional --proto_path=./resources $protoFile
 	done;
 
