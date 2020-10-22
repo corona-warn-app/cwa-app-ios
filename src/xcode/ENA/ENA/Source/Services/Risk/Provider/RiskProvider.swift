@@ -159,10 +159,11 @@ extension RiskProvider: RiskProviding {
 
 				/// We were able to calculate a risk so we have to reset the deadman notification
 				UNUserNotificationCenter.current().resetDeadmanNotification()
+				completion(self.store.summary)
+			} else {
+				completion(nil)
 			}
 			self.cancellationToken = nil
-
-			completion(self.store.summary)
 		}
 	}
 
