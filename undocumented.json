@@ -2872,294 +2872,294 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 60,
+      "line": 76,
       "symbol": "ExposureManagerState.authorized",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 61,
+      "line": 77,
       "symbol": "ExposureManagerState.enabled",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 62,
+      "line": 78,
       "symbol": "ExposureManagerState.status",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 63,
+      "line": 79,
       "symbol": "ExposureManagerState.isGood",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 66,
+      "line": 82,
       "symbol": "Manager",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 67,
+      "line": 83,
       "symbol": "Manager.authorizationStatus",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 68,
+      "line": 84,
       "symbol": "Manager.detectExposures(configuration:diagnosisKeyURLs:completionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 69,
+      "line": 85,
       "symbol": "Manager.activate(completionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 70,
+      "line": 86,
       "symbol": "Manager.invalidate()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 71,
+      "line": 87,
       "symbol": "Manager.invalidationHandler",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 72,
+      "line": 88,
       "symbol": "Manager.exposureNotificationEnabled",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 73,
+      "line": 89,
       "symbol": "Manager.setExposureNotificationEnabled(_:completionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 74,
+      "line": 90,
       "symbol": "Manager.exposureNotificationStatus",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 75,
+      "line": 91,
       "symbol": "Manager.getDiagnosisKeys(completionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 76,
+      "line": 92,
       "symbol": "Manager.getTestDiagnosisKeys(completionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 81,
+      "line": 97,
       "symbol": "ExposureManagerLifeCycle",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 82,
+      "line": 98,
       "symbol": "ExposureManagerLifeCycle.CompletionHandler",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 83,
+      "line": 99,
       "symbol": "ExposureManagerLifeCycle.invalidate(handler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 84,
+      "line": 100,
       "symbol": "ExposureManagerLifeCycle.activate(completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 85,
+      "line": 101,
       "symbol": "ExposureManagerLifeCycle.enable(completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 86,
+      "line": 102,
       "symbol": "ExposureManagerLifeCycle.disable(completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 87,
+      "line": 103,
       "symbol": "ExposureManagerLifeCycle.preconditions()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 88,
+      "line": 104,
       "symbol": "ExposureManagerLifeCycle.reset(handler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 89,
+      "line": 105,
       "symbol": "ExposureManagerLifeCycle.requestUserNotificationsPermissions(completionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 93,
+      "line": 109,
       "symbol": "DiagnosisKeysRetrieval",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 94,
+      "line": 110,
       "symbol": "DiagnosisKeysRetrieval.getTestDiagnosisKeys(completionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 95,
+      "line": 111,
       "symbol": "DiagnosisKeysRetrieval.accessDiagnosisKeys(completionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 96,
+      "line": 112,
       "symbol": "DiagnosisKeysRetrieval.preconditions()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 100,
+      "line": 116,
       "symbol": "ExposureDetector",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 101,
+      "line": 117,
       "symbol": "ExposureDetector.detectExposures(configuration:diagnosisKeyURLs:completionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 104,
+      "line": 120,
       "symbol": "ExposureManagerObserving",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 105,
+      "line": 121,
       "symbol": "ExposureManagerObserving.resume(observer:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 106,
+      "line": 122,
       "symbol": "ExposureManagerObserving.alertForBluetoothOff(completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 110,
+      "line": 126,
       "symbol": "ExposureManager",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 115,
+      "line": 131,
       "symbol": "ENAExposureManagerObserver",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 116,
+      "line": 132,
       "symbol": "ENAExposureManagerObserver.exposureManager(_:didChangeState:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 134,
+      "line": 150,
       "symbol": "ENAExposureManager.init(manager:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 141,
+      "line": 157,
       "symbol": "ENAExposureManager.resume(observer:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 242,
+      "line": 258,
       "symbol": "ENAExposureManager.getTestDiagnosisKeys(completionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 305,
+      "line": 321,
       "symbol": "ENAExposureManager.deinit",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 311,
+      "line": 327,
       "symbol": "ENAExposureManager.requestUserNotificationsPermissions(completionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Models/Exposure/ExposureManager.swift",
-      "line": 367,
+      "line": 383,
       "symbol": "ENAExposureManager.alertForBluetoothOff(completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -5392,119 +5392,119 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 81,
+      "line": 104,
       "symbol": "SceneDelegate.sceneWillEnterForeground(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 92,
+      "line": 116,
       "symbol": "SceneDelegate.sceneDidEnterBackground(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 97,
+      "line": 121,
       "symbol": "SceneDelegate.sceneDidBecomeActive(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 106,
+      "line": 130,
       "symbol": "SceneDelegate.requestUpdatedExposureState()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 172,
+      "line": 196,
       "symbol": "SceneDelegate.isOnboardedDidChange(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 208,
+      "line": 232,
       "symbol": "SceneDelegate",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 209,
+      "line": 233,
       "symbol": "SceneDelegate.exposureManager(_:didChangeState:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 231,
+      "line": 255,
       "symbol": "SceneDelegate",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 249,
+      "line": 273,
       "symbol": "SceneDelegate",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 250,
+      "line": 274,
       "symbol": "SceneDelegate.userNotificationCenter(_:willPresent:withCompletionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 254,
+      "line": 278,
       "symbol": "SceneDelegate.userNotificationCenter(_:didReceive:withCompletionHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 277,
+      "line": 301,
       "symbol": "SceneDelegate",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 278,
+      "line": 302,
       "symbol": "SceneDelegate.updateExposureState(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 286,
+      "line": 310,
       "symbol": "SceneDelegate",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 287,
+      "line": 311,
       "symbol": "SceneDelegate.updateEnState(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 294,
+      "line": 318,
       "symbol": "SceneDelegate",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/SceneDelegate.swift",
-      "line": 296,
+      "line": 320,
       "symbol": "SceneDelegate.backgroundRefreshStatusDidChange()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -9858,176 +9858,162 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 197,
+      "line": 204,
       "symbol": "HomeViewController.refreshUIAfterResumingFromBackground()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 202,
+      "line": 209,
       "symbol": "HomeViewController.setStateOfChildViewControllers()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 206,
+      "line": 213,
       "symbol": "HomeViewController.updateState(detectionMode:exposureManagerState:risk:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 216,
+      "line": 223,
       "symbol": "HomeViewController.showRiskStatusLoweredAlertIfNeeded()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 236,
+      "line": 243,
       "symbol": "HomeViewController.showExposureSubmissionWithoutResult()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 240,
+      "line": 247,
       "symbol": "HomeViewController.showExposureSubmission(with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 244,
+      "line": 251,
       "symbol": "HomeViewController.showExposureNotificationSetting()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 248,
+      "line": 255,
       "symbol": "HomeViewController.showExposureDetection()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 296,
+      "line": 303,
       "symbol": "HomeViewController.reloadData(animatingDifferences:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 301,
+      "line": 308,
       "symbol": "HomeViewController.reloadCell(at:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 342,
+      "line": 349,
       "symbol": "HomeViewController.applySnapshotFromSections(animatingDifferences:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 351,
+      "line": 358,
       "symbol": "HomeViewController.updateSections()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 363,
+      "line": 370,
       "symbol": "HomeViewController.cellForItem(at:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 370,
+      "line": 377,
       "symbol": "HomeViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 371,
+      "line": 378,
       "symbol": "HomeViewController.showTestResultScreen()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 375,
+      "line": 382,
       "symbol": "HomeViewController.updateTestResultState()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 381,
+      "line": 388,
       "symbol": "HomeViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 382,
+      "line": 389,
       "symbol": "HomeViewController.homeLayoutSection(for:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 387,
+      "line": 394,
       "symbol": "HomeViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 388,
+      "line": 395,
       "symbol": "HomeViewController.collectionView(_:shouldHighlightItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 396,
+      "line": 403,
       "symbol": "HomeViewController.collectionView(_:didHighlightItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 400,
+      "line": 407,
       "symbol": "HomeViewController.collectionView(_:didUnhighlightItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 404,
+      "line": 411,
       "symbol": "HomeViewController.collectionView(_:didSelectItemAt:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 409,
-      "symbol": "HomeViewController",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
-      "line": 410,
-      "symbol": "HomeViewController.updateExposureState(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -10041,7 +10027,7 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
       "line": 417,
-      "symbol": "HomeViewController.updateEnState(_:)",
+      "symbol": "HomeViewController.updateExposureState(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -10055,6 +10041,20 @@
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
       "line": 424,
+      "symbol": "HomeViewController.updateEnState(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
+      "line": 430,
+      "symbol": "HomeViewController",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Home/HomeViewController.swift",
+      "line": 431,
       "symbol": "HomeViewController.preferredNavigationBarOpacity",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
@@ -10719,35 +10719,35 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/DeltaOnboarding/V15/DeltaOnboardingV15ViewController.swift",
-      "line": 100,
+      "line": 101,
       "symbol": "DeltaOnboardingV15ViewController.close()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/DeltaOnboarding/V15/DeltaOnboardingV15ViewController.swift",
-      "line": 107,
+      "line": 108,
       "symbol": "DeltaOnboardingV15ViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/DeltaOnboarding/V15/DeltaOnboardingV15ViewController.swift",
-      "line": 108,
+      "line": 109,
       "symbol": "DeltaOnboardingV15ViewController.CustomCellReuseIdentifiers",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/DeltaOnboarding/V15/DeltaOnboardingV15ViewController.swift",
-      "line": 109,
+      "line": 110,
       "symbol": "DeltaOnboardingV15ViewController.CustomCellReuseIdentifiers.roundedCell",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/Scenes/Onboarding/DeltaOnboarding/V15/DeltaOnboardingV15ViewController.swift",
-      "line": 116,
+      "line": 117,
       "symbol": "DeltaOnboardingV15ViewController",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
@@ -15934,210 +15934,217 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 220,
+      "line": 218,
+      "symbol": "AccessibilityIdentifiers.DeltaOnboarding.primaryButton",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
+      "line": 221,
       "symbol": "AccessibilityIdentifiers.ExposureSubmissionWarnEuropeConsent",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 221,
+      "line": 222,
       "symbol": "AccessibilityIdentifiers.ExposureSubmissionWarnEuropeConsent.imageDescription",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 222,
+      "line": 223,
       "symbol": "AccessibilityIdentifiers.ExposureSubmissionWarnEuropeConsent.sectionTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 223,
+      "line": 224,
       "symbol": "AccessibilityIdentifiers.ExposureSubmissionWarnEuropeConsent.consentSwitch",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 226,
+      "line": 227,
       "symbol": "AccessibilityIdentifiers.ExposureSubmissionWarnEuropeTravelConfirmation",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 227,
+      "line": 228,
       "symbol": "AccessibilityIdentifiers.ExposureSubmissionWarnEuropeTravelConfirmation.description1",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 228,
+      "line": 229,
       "symbol": "AccessibilityIdentifiers.ExposureSubmissionWarnEuropeTravelConfirmation.description2",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 229,
+      "line": 230,
       "symbol": "AccessibilityIdentifiers.ExposureSubmissionWarnEuropeTravelConfirmation.optionYes",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 230,
+      "line": 231,
       "symbol": "AccessibilityIdentifiers.ExposureSubmissionWarnEuropeTravelConfirmation.optionNo",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 231,
+      "line": 232,
       "symbol": "AccessibilityIdentifiers.ExposureSubmissionWarnEuropeTravelConfirmation.optionNone",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 234,
+      "line": 235,
       "symbol": "AccessibilityIdentifiers.ExposureSubmissionWarnEuropeCountrySelection",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 235,
+      "line": 236,
       "symbol": "AccessibilityIdentifiers.ExposureSubmissionWarnEuropeCountrySelection.description1",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 236,
+      "line": 237,
       "symbol": "AccessibilityIdentifiers.ExposureSubmissionWarnEuropeCountrySelection.description2",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 237,
+      "line": 238,
       "symbol": "AccessibilityIdentifiers.ExposureSubmissionWarnEuropeCountrySelection.answerOptionCountry",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 238,
+      "line": 239,
       "symbol": "AccessibilityIdentifiers.ExposureSubmissionWarnEuropeCountrySelection.answerOptionOtherCountries",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 239,
+      "line": 240,
       "symbol": "AccessibilityIdentifiers.ExposureSubmissionWarnEuropeCountrySelection.answerOptionNone",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 242,
+      "line": 243,
       "symbol": "AccessibilityIdentifiers.ExposureSubmission",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 243,
+      "line": 244,
       "symbol": "AccessibilityIdentifiers.ExposureSubmission.primaryButton",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 244,
+      "line": 245,
       "symbol": "AccessibilityIdentifiers.ExposureSubmission.secondaryButton",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 247,
+      "line": 248,
       "symbol": "AccessibilityIdentifiers.Reset",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 248,
+      "line": 249,
       "symbol": "AccessibilityIdentifiers.Reset.imageDescription",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 251,
+      "line": 252,
       "symbol": "AccessibilityIdentifiers.AccessibilityLabel",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 252,
+      "line": 253,
       "symbol": "AccessibilityIdentifiers.AccessibilityLabel.close",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 255,
+      "line": 256,
       "symbol": "AccessibilityIdentifiers.InviteFriends",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 256,
+      "line": 257,
       "symbol": "AccessibilityIdentifiers.InviteFriends.imageAccessLabel",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 259,
+      "line": 260,
       "symbol": "AccessibilityIdentifiers.General",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 260,
+      "line": 261,
       "symbol": "AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 261,
+      "line": 262,
       "symbol": "AccessibilityIdentifiers.General.image",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 264,
+      "line": 265,
       "symbol": "AccessibilityIdentifiers.DatePickerOption",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENA/Source/View Helpers/AccessibilityIdentifiers.swift",
-      "line": 265,
+      "line": 266,
       "symbol": "AccessibilityIdentifiers.DatePickerOption.day",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
@@ -24544,51 +24551,58 @@
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENAUITests/UITestingParameters.swift",
-      "line": 22,
+      "line": 23,
       "symbol": "UITestingParameters",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENAUITests/UITestingParameters.swift",
-      "line": 23,
+      "line": 24,
       "symbol": "UITestingParameters.ExposureSubmission",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENAUITests/UITestingParameters.swift",
-      "line": 24,
+      "line": 25,
       "symbol": "UITestingParameters.ExposureSubmission.useMock",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENAUITests/UITestingParameters.swift",
-      "line": 25,
+      "line": 26,
       "symbol": "UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENAUITests/UITestingParameters.swift",
-      "line": 26,
+      "line": 27,
       "symbol": "UITestingParameters.ExposureSubmission.submitExposureSuccess",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENAUITests/UITestingParameters.swift",
-      "line": 29,
+      "line": 30,
       "symbol": "UITestingParameters.SecureStoreHandling",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/src/xcode/ENA/ENAUITests/UITestingParameters.swift",
-      "line": 30,
+      "line": 31,
       "symbol": "UITestingParameters.SecureStoreHandling.simulateMismatchingKey",
       "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/src/xcode/ENA/ENAUITests/UITestingParameters.swift",
+      "line": 36,
+      "symbol": "ENStatus.stringValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
