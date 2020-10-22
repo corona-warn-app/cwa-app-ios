@@ -66,7 +66,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 			AVCaptureDevice.requestAccess(for: .video) { [weak self] isAllowed in
 				guard isAllowed else {
 					self?.onError(.cameraPermissionDenied) {
-						Log.info(".cameraPermissionDenied - stop here we can't go on")
+						Log.error("camera requestAccess denied - stop here we can't go on", log: .ui)
 					}
 					return
 				}
@@ -74,16 +74,16 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 			}
 		default:
 			onError(.cameraPermissionDenied) {
-				Log.info("permission denied - what to do next?")
+				Log.info(".cameraPermissionDenied - stop here we can't go on", log: .ui)
 			}
 		}
 	}
 
-	func stop() {
+	func stopCapturSession() {
 		deactivateScanning()
 	}
 
-	/// toggle torchMode between on / off after finish call optional compltetion handler
+	/// toggle torchMode between on / off after finish call optional completion handler
 	func toggleFlash(completion: (() -> Void)? = nil ) {
 		guard let device = captureDevice,
 			  device.hasTorch else {
@@ -180,7 +180,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	private func setupCaptureSession() {
 		guard let currentCaptureDevice = captureDevice,
 			let caputureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
-			onError(.cameraPermissionDenied) {}
+			onError(.cameraPermissionDenied) { Log.error("Failed to setup AVCaptureDeviceInput", log: .ui) }
 			return
 		}
 
