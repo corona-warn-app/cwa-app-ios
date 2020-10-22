@@ -22,6 +22,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
+
 final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 
 	func testSuccessfulScan() {
@@ -42,8 +43,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			},
 			onError: { _, _ in
 				onErrorExpectation.fulfill()
-			},
-			onCancel: { }
+			}
 		)
 
 		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://localhost/?\(guid)")
@@ -73,8 +73,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 				XCTAssertEqual(error, .codeNotFound)
 
 				onErrorExpectation.fulfill()
-			},
-			onCancel: { }
+			}
 		)
 
 		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://localhost/?\(emptyGuid)")
@@ -102,8 +101,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			},
 			onError: { _, _ in
 				onErrorExpectation.fulfill()
-			},
-			onCancel: { }
+			}
 		)
 
 		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://localhost/?\(guid)")
@@ -135,8 +133,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 				reactivateScanning()
 
 				onErrorExpectation.fulfill()
-			},
-			onCancel: { }
+			}
 		)
 
 		let invalidMetaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://localhost/?\(emptyGuid)")
@@ -258,7 +255,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 
 	func testGIVEN_ViewModelWithScanningEnabled_WHEN_stop_THEN_scanningIsDisabled() {
 		// GIVEN
-		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: true, onSuccess: { _ in }, onError: { _, _ in }, onCancel: {})
+		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: true, onSuccess: { _ in }, onError: { _, _ in })
 
 		// WHEN
 		viewModel.stop()
@@ -269,7 +266,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 
 	func testGIVEN_ViewModelWithScanningDisabled_WHEN_stop_THEN_scanningIsDisabled() {
 		// GIVEN
-		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: false, onSuccess: { _ in }, onError: { _, _ in }, onCancel: {})
+		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: false, onSuccess: { _ in }, onError: { _, _ in })
 
 		// WHEN
 		viewModel.stop()
@@ -281,7 +278,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	private let validGuid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
 
 	private func createViewModel() -> ExposureSubmissionQRScannerViewModel {
-		ExposureSubmissionQRScannerViewModel(isScanningActivated: false, onSuccess: { _ in }, onError: { _, _ in }, onCancel: { })
+		ExposureSubmissionQRScannerViewModel(isScanningActivated: false, onSuccess: { _ in }, onError: { _, _ in })
 	}
 
 }

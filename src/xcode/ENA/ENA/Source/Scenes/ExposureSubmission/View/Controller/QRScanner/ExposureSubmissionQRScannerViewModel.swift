@@ -32,6 +32,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		self.onError = onError
 		self.isScanningActivated = isScanningActivated
 		self.captureSession = AVCaptureSession()
+		self.captureDevice = AVCaptureDevice.default(for: .video)
 		super.init()
 		setupCaptureSession()
 	}
@@ -47,6 +48,12 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	}
 
 	// MARK: - Internal
+
+	enum TorchMode {
+		case notAvailable
+		case lightOn
+		case ligthOff
+	}
 
 	let captureSession: AVCaptureSession
 
@@ -72,22 +79,53 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		}
 	}
 
-	private func setupCaptureSession() {
-		guard let captureDevice = AVCaptureDevice.default(for: .video),
-			  let caputureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else {
-			onError(.cameraPermissionDenied) {}
+	func stop() {
+		deactivateScanning()
+	}
+
+	/// toggle torchMode between on / off after finish call optional compltetion handler
+	func toggleFlash(completion: (() -> Void)? = nil ) {
+		guard let device = captureDevice,
+			  device.hasTorch else {
 			return
 		}
 
-		let metadataOutput = AVCaptureMetadataOutput()
-		captureSession.addInput(caputureDeviceInput)
-		captureSession.addOutput(metadataOutput)
-		metadataOutput.metadataObjectTypes = [.qr]
-		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
+		defer {
+			device.unlockForConfiguration()
+			completion?()
+		}
+
+		do {
+			try device.lockForConfiguration()
+
+			if device.torchMode == .on {
+				device.torchMode = .off
+			} else {
+				try device.setTorchModeOn(level: 1.0)
+			}
+
+		} catch {
+			Log.error(error.localizedDescription, log: .api)
+		}
 	}
 
-	func stop() {
-		deactivateScanning()
+	/// return a torchMode on current device state
+	var torchMode: TorchMode {
+		guard let device = captureDevice,
+			  device.hasTorch else {
+			return .notAvailable
+		}
+
+		switch device.torchMode {
+		case .off:
+			return .ligthOff
+		case .on:
+			return .lightOn
+		case .auto:
+			return .notAvailable
+		@unknown default:
+			return .notAvailable
+		}
 	}
 
 	func didScan(metadataObjects: [MetadataObject]) {
@@ -135,8 +173,23 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 
 	private let onSuccess: (DeviceRegistrationKey) -> Void
 	private let onError: (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
+	private let captureDevice: AVCaptureDevice?
 
 	private(set) var isScanningActivated: Bool
+
+	private func setupCaptureSession() {
+		guard let currentCaptureDevice = captureDevice,
+			let caputureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
+			onError(.cameraPermissionDenied) {}
+			return
+		}
+
+		let metadataOutput = AVCaptureMetadataOutput()
+		captureSession.addInput(caputureDeviceInput)
+		captureSession.addOutput(metadataOutput)
+		metadataOutput.metadataObjectTypes = [.qr]
+		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
+	}
 
 	private func activateScanning() {
 		if isScanningActivated {
