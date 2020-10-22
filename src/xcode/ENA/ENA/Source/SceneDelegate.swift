@@ -67,7 +67,30 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		riskConsumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk
+			#if DEBUG
+			if isUITesting, let uiTestRiskLevelEnv = UserDefaults.standard.string(forKey: "riskLevel") {
+				var uiTestRiskLevel: RiskLevel
+				var uiTestExposureNumber = 100
+				switch uiTestRiskLevelEnv {
+				case "increased":
+					uiTestRiskLevel = RiskLevel.increased
+				case "low":
+					uiTestRiskLevel = RiskLevel.low
+					uiTestExposureNumber = 7
+				case "unknownInitial":
+					uiTestRiskLevel = RiskLevel.unknownInitial
+				case "unknownOutdated":
+					uiTestRiskLevel = RiskLevel.unknownOutdated
+				default:
+					uiTestRiskLevel = RiskLevel.inactive
+					
+				}
+				let uiTestRisk = Risk(level: uiTestRiskLevel, details: .init(daysSinceLastExposure: 1, numberOfExposures: uiTestExposureNumber, activeTracing: .init(interval: 14 * 86400), exposureDetectionDate: nil), riskLevelHasChanged: false)
+				self?.state.risk = uiTestRisk
+			}
+			#endif
 		}
+		
 		riskProvider.observeRisk(riskConsumer)
 
 		UNUserNotificationCenter.current().delegate = self
@@ -85,6 +108,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		riskProvider.requestRisk(userInitiated: false)
 
 		let state = exposureManager.preconditions()
+		
 		updateExposureState(state)
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
