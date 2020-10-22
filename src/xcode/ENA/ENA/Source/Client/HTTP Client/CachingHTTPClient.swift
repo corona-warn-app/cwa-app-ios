@@ -62,6 +62,23 @@ class CachingHTTPClient: AppConfigurationFetching {
 		session.GET(configuration.configurationURL, extraHeaders: headers) { result in
 			switch result {
 			case .success(let response):
+
+				if let dateString = response.httpResponse.value(forHTTPHeaderField: "Date") {
+					// "Thu, 22 Oct 2020 13:59:00 GMT"
+					let dateFormatter = DateFormatter()
+					dateFormatter.dateFormat = "EEE',' dd' 'MMM' 'yyyy HH':'mm':'ss zzz"
+
+					if let serverDate = dateFormatter.date(from: dateString),
+					   let serverDateMinus2Hours = Calendar.current.date(byAdding: .hour, value: -2, to: serverDate),
+					   let serverDatePlus2Hours = Calendar.current.date(byAdding: .hour, value: 2, to: serverDate) {
+							let deviceDate = Date()
+							let deviceTimeIsCorrect = (serverDateMinus2Hours ... serverDatePlus2Hours).contains(deviceDate)
+							print(deviceTimeIsCorrect)
+					}
+
+					//(server_time - 2 hrs) < device_time_in_utc < (server_time + 2 hrs)
+				}
+
 				// content not modified?
 				guard response.statusCode != 304 else {
 					completion(.failure(CachedAppConfiguration.CacheError.notModified))
