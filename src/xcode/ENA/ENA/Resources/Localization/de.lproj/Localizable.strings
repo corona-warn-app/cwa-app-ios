@@ -375,7 +375,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Exposure Submission */
 "ExposureSubmission_Hotline_Number" = "+498007540002";
 
-"ExposureSubmission_DataPrivacyTitle" = "Datenschutz";
+"ExposureSubmission_DataPrivacyTitle" = "Einwilligungserklärung";
 
 "ExposureSubmission_Continue_actionText" = "Weiter";
 
