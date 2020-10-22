@@ -50,7 +50,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 	func testVerifySignature_RejectCorruptSignature() throws {
 		let package = SAPDownloadedPackage(
 			keysBin: Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 4),
-			// This cannot be decoded into a SAP_TEKSignatureList
+			// This cannot be decoded into a SAP_External_Exposurenotification_TEKSignatureList
 			signature: Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 4)
 		)
 

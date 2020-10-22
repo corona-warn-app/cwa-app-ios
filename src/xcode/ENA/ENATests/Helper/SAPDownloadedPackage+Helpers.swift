@@ -42,7 +42,7 @@ extension SAPDownloadedPackage {
 		return info
 	}
 
-	static func makePackage(bin: Data, signature: SAP_TEKSignatureList) throws -> SAPDownloadedPackage {
+	static func makePackage(bin: Data, signature: SAP_External_Exposurenotification_TEKSignatureList) throws -> SAPDownloadedPackage {
 		return SAPDownloadedPackage(
 			keysBin: bin,
 			signature: try signature.serializedData()
@@ -82,8 +82,8 @@ enum ArchivingError: Error {
 }
 
 extension SAP_TEKSignature {
-	func asList() -> SAP_TEKSignatureList {
-		var signatureList = SAP_TEKSignatureList()
+	func asList() -> SAP_External_Exposurenotification_TEKSignatureList {
+		var signatureList = SAP_External_Exposurenotification_TEKSignatureList()
 		signatureList.signatures = [self]
 
 		return signatureList
@@ -91,8 +91,8 @@ extension SAP_TEKSignature {
 }
 
 extension Array where Element == SAP_TEKSignature {
-	func asList() -> SAP_TEKSignatureList {
-		var signatureList = SAP_TEKSignatureList()
+	func asList() -> SAP_External_Exposurenotification_TEKSignatureList {
+		var signatureList = SAP_External_Exposurenotification_TEKSignatureList()
 		signatureList.signatures = self
 
 		return signatureList

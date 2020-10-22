@@ -114,7 +114,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 			let client = CachingHTTPClientMock()
 			client.onFetchAppConfiguration = { _, completeWith in
-				var config = SAP_ApplicationConfiguration()
+				var config = SAP_Internal_ApplicationConfiguration()
 				config.supportedCountries = ["DE", "IT", "ES"]
 				completeWith(.success(AppConfigurationFetchingResponse(config)))
 			}
@@ -164,7 +164,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 			let client = CachingHTTPClientMock()
 			client.onFetchAppConfiguration = { _, completeWith in
-				var config = SAP_ApplicationConfiguration()
+				var config = SAP_Internal_ApplicationConfiguration()
 				config.supportedCountries = []
 				completeWith(.success(AppConfigurationFetchingResponse(config)))
 			}
@@ -267,7 +267,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 			let client = CachingHTTPClientMock()
 			client.onFetchAppConfiguration = { _, completeWith in
-				var config = SAP_ApplicationConfiguration()
+				var config = SAP_Internal_ApplicationConfiguration()
 				config.supportedCountries = ["DE", "IT", "ES"]
 				completeWith(.success(AppConfigurationFetchingResponse(config)))
 			}
@@ -318,7 +318,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			let client = CachingHTTPClientMock()
 			let provider = CachedAppConfiguration(client: client, store: MockTestStore())
 			client.onFetchAppConfiguration = { _, completeWith in
-				var config = SAP_ApplicationConfiguration()
+				var config = SAP_Internal_ApplicationConfiguration()
 				config.supportedCountries = []
 				completeWith(.success(AppConfigurationFetchingResponse(config)))
 			}

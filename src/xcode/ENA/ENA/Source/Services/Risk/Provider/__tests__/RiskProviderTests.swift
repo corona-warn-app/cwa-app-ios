@@ -28,7 +28,7 @@ private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
 	var onDetectExposure: ((ExposureSummaryProvider.Completion) -> Void)?
 
 	func detectExposure(
-		appConfiguration: SAP_ApplicationConfiguration,
+		appConfiguration: SAP_Internal_ApplicationConfiguration,
 		activityStateDelegate: ActivityStateProviderDelegate? = nil,
 		completion: (ENExposureDetectionSummary?) -> Void
 	) -> CancellationToken {
@@ -171,8 +171,8 @@ final class RiskProviderTests: XCTestCase {
 			detectionRequested.fulfill()
 		}
 
-		let sapAppConfig = SAP_ApplicationConfiguration.with {
-			$0.exposureConfig = SAP_RiskScoreParameters()
+		let sapAppConfig = SAP_Internal_ApplicationConfiguration.with {
+			$0.exposureConfig = SAP_Internal_RiskScoreParameters()
 		}
 		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
 
