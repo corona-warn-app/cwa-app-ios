@@ -65,14 +65,14 @@ final class RiskProvidingConfigurationTests: XCTestCase {
 		XCTAssertEqual(config.nextExposureDetectionDate(lastExposureDetectionDate: nil, currentDate: now), NextExposureDetection.now)
 	}
 
-	func testGetNextExposureDetectionDate_in22Hours() {
+	func testGetNextExposureDetectionDate_in22Hours() throws {
 		// Test the case where the last exposure detection date is in the future.
 		// This edge case should be handled by just returning now as the next detection date
 
 		let testDate = Date(timeIntervalSince1970: 1466467200.0)  // 21.06.2016
 		let twoHoursAgo = Calendar.current.date(byAdding: DateComponents(hour: -2), to: testDate)
-		let inTwentyTwoHours = Calendar.current.date(byAdding: DateComponents(hour: 22), to: testDate)
-		XCTAssertEqual(config.nextExposureDetectionDate(lastExposureDetectionDate: twoHoursAgo, currentDate: testDate), .date(inTwentyTwoHours!))
+		let inTwentyTwoHours = try XCTUnwrap(Calendar.current.date(byAdding: DateComponents(hour: 22), to: testDate))
+		XCTAssertEqual(config.nextExposureDetectionDate(lastExposureDetectionDate: twoHoursAgo, currentDate: testDate), .date(inTwentyTwoHours))
 	}
 
 // Temporarily disabled because expected behavior is not defined yet

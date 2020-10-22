@@ -95,7 +95,7 @@ class NotificationSettingsViewController: UIViewController {
 			guard let self = self else { return }
 
 			if let error = error {
-				log(message: "Error while requesting notifications permissions: \(error.localizedDescription)")
+				Log.info("Error while requesting notifications permissions: \(error.localizedDescription)", log: .api)
 				self.viewModel = NotificationSettingsViewModel.notificationsOff()
 				return
 			}
@@ -138,9 +138,6 @@ class NotificationSettingsViewController: UIViewController {
 		infoViewImage.image = UIImage(named: viewModel.icon)
 		infoViewDescriptionLabel.text = viewModel.description
 		infoViewButton.setTitle(viewModel.openSettings, for: .normal)
-
-		// TODO: Remove these lines after they are added to ENAButton
-		infoViewButton.titleLabel?.lineBreakMode = .byWordWrapping
 
 		if let infoViewButton = infoViewButton {
 			infoViewButton.addConstraint(NSLayoutConstraint(item: infoViewButton, attribute: .height, relatedBy: .equal, toItem: infoViewButton.titleLabel, attribute: .height, multiplier: 1, constant: 0))

@@ -185,7 +185,6 @@ extension HomeInteractor {
 	private var risk: Risk? { state.risk }
 	private var riskDetails: Risk.Details? { risk?.details }
 
-	// swiftlint:disable:next function_body_length
 	func setupRiskConfigurator() -> CollectionViewCellConfiguratorAny? {
 
 		let detectionIsAutomatic = detectionMode == .automatic
@@ -303,7 +302,7 @@ extension HomeInteractor {
 
 			let thankYou = HomeThankYouRiskCellConfigurator()
 			actionsConfigurators.append(thankYou)
-			log(message: "Reached end of life state.", file: #file, line: #line, function: #function)
+			Log.info("Reached end of life state.", log: .localData)
 
 		} else if store.registrationToken != nil {
 			// This is shown when we registered a test.
@@ -421,12 +420,12 @@ extension HomeInteractor {
 
 			case .success(let result):
 				switch result {
-				case .redeemed:
+				case .expired:
 					self?.homeViewController.alertError(
-						message: AppStrings.ExposureSubmissionResult.testRedeemedDesc,
+						message: AppStrings.ExposureSubmissionResult.testExpiredDesc,
 						title: AppStrings.Home.resultCardLoadingErrorTitle,
 						completion: {
-							self?.testResult = .redeemed
+							self?.testResult = .expired
 							self?.reloadTestResult(with: .invalid)
 						}
 					)

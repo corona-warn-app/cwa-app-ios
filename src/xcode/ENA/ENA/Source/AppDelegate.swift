@@ -23,12 +23,11 @@ import UIKit
 protocol CoronaWarnAppDelegate: AnyObject {
 	var client: HTTPClient { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
-	var store: Store { get }
+	var store: Store & AppConfigCaching { get }
 	var appConfigurationProvider: AppConfigurationProviding { get }
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
-	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
 	var serverEnvironment: ServerEnvironment { get }
 }
 
@@ -38,13 +37,15 @@ extension AppDelegate: CoronaWarnAppDelegate {
 
 extension AppDelegate: ExposureSummaryProvider {
 	func detectExposure(
+		appConfiguration: SAP_ApplicationConfiguration,
 		activityStateDelegate: ActivityStateProviderDelegate? = nil,
 		completion: @escaping (ENExposureDetectionSummary?) -> Void
 	) -> CancellationToken {
+		Log.info("AppDelegate: Detect exposure.", log: .riskDetection)
 
 		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
-			appConfigurationProvider: appConfigurationProvider
+			appConfiguration: appConfiguration
 		)
 		
 		exposureDetection?
@@ -60,8 +61,10 @@ extension AppDelegate: ExposureSummaryProvider {
 		exposureDetection?.start { [weak self] result in
 			switch result {
 			case .success(let summary):
+				Log.info("AppDelegate: Detect exposure completed", log: .riskDetection)
 				completion(summary)
 			case .failure(let error):
+				Log.error("AppDelegate: Detect exposure failed", log: .riskDetection, error: error)
 				self?.showError(exposure: error)
 				completion(nil)
 			}
@@ -99,22 +102,26 @@ extension AppDelegate: ExposureSummaryProvider {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-	let store: Store
+	let store: Store & AppConfigCaching
 	let serverEnvironment: ServerEnvironment
 	
 	private let consumer = RiskConsumer()
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 
 	lazy var appConfigurationProvider: AppConfigurationProviding = {
+		#if DEBUG
+		if isUITesting {
+			// provide a static app configuration for ui tests to prevent validation errors
+			return CachedAppConfigurationMock()
+		}
+		#endif
 		// use a custom http client that uses/recognized caching mechanisms
 		let appFetchingClient = CachingHTTPClient(clientConfiguration: client.configuration)
-
-		// we currently use the store as common place for temporal persistency
-		guard let store = store as? AppConfigCaching else {
-			preconditionFailure("Ensure to provide a proper app config cache")
-		}
 		
-		return CachedAppConfiguration(client: appFetchingClient, store: store)
+		return CachedAppConfiguration(client: appFetchingClient, store: store, configurationDidChange: { [weak self] in
+			// Recalculate risk with new app configuration
+			self?.riskProvider.requestRisk(userInitiated: false, ignoreCachedSummary: true)
+		})
 	}()
 
 	lazy var riskProvider: RiskProvider = {
@@ -153,9 +160,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	let client: HTTPClient
 
-	// TODO: REMOVE ME
-	var lastRiskCalculation: String = ""
-
 	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
 		ExposureDetectionExecutor(
 			client: self.client,
@@ -187,6 +191,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		taskScheduler.delegate = self
 
 		riskProvider.observeRisk(consumer)
+		
+		// Setup DeadmanNotification after AppLaunch
+		UNUserNotificationCenter.current().scheduleDeadmanNotificationIfNeeded()
 
 		return true
 	}

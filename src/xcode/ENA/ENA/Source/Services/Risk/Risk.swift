@@ -36,7 +36,7 @@ extension Risk {
 	}
 }
 
-#if UITESTING
+#if DEBUG
 extension Risk {
 	static let mocked = Risk(
 		level: .low,

@@ -24,9 +24,11 @@ import ExposureNotification
 private final class Summary: ENExposureDetectionSummary {}
 
 private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
+
 	var onDetectExposure: ((ExposureSummaryProvider.Completion) -> Void)?
 
 	func detectExposure(
+		appConfiguration: SAP_ApplicationConfiguration,
 		activityStateDelegate: ActivityStateProviderDelegate? = nil,
 		completion: (ENExposureDetectionSummary?) -> Void
 	) -> CancellationToken {
@@ -34,10 +36,12 @@ private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
 		onDetectExposure?(completion)
 		return token
 	}
+
 }
 
 final class RiskProviderTests: XCTestCase {
-	func testExposureDetectionIsExecutedIfLastDetectionIsToOldAndModeIsAutomatic() throws {
+
+	func testExposureDetectionIsExecutedIfLastDetectionIsTooOldAndModeIsAutomatic() throws {
 		let duration = DateComponents(day: 1)
 
 		let calendar = Calendar.current
@@ -76,25 +80,16 @@ final class RiskProviderTests: XCTestCase {
 			completion(.init())
 		}
 
-		let client = CachingHTTPClientMock()
-		client.onFetchAppConfiguration = { _, complete in
-			// just deliver no app configuration (as before)
-			// TODO: require a missing app config feels hacky in this context - review!
-			complete(.failure(CachedAppConfiguration.CacheError.notModified))
-		}
-
-		let sut = RiskProvider(
+		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
-			appConfigurationProvider: CachedAppConfiguration(client: client, store: store),
+			appConfigurationProvider: CachedAppConfigurationMock(),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
 		)
 
-		let consumer = RiskConsumer()
+		riskProvider.requestRisk(userInitiated: false)
 
-		sut.observeRisk(consumer)
-		sut.requestRisk(userInitiated: false)
 		waitForExpectations(timeout: 1.0)
 	}
 
@@ -139,19 +134,16 @@ final class RiskProviderTests: XCTestCase {
 		}
 		expectThatSummaryIsRequested.isInverted = true
 
-		let sut = RiskProvider(
+		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
-			appConfigurationProvider: CachedAppConfiguration(client: CachingHTTPClientMock(), store: store),
+			appConfigurationProvider: CachedAppConfigurationMock(),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
 		)
 
-		let consumer = RiskConsumer()
-
-		sut.observeRisk(consumer)
 		let expectThatRiskIsReturned = expectation(description: "expectThatRiskIsReturned")
-		sut.requestRisk(userInitiated: false) { risk in
+		riskProvider.requestRisk(userInitiated: false) { risk in
 			expectThatRiskIsReturned.fulfill()
 			XCTAssertEqual(risk?.level, .unknownInitial, "Tracing was active for < 24 hours but risk is not .unknownInitial")
 		}
@@ -179,17 +171,12 @@ final class RiskProviderTests: XCTestCase {
 			detectionRequested.fulfill()
 		}
 
-		let client = CachingHTTPClientMock()
-
-		client.onFetchAppConfiguration = { _, complete in
-			complete(.success(AppConfigurationFetchingResponse(SAP_ApplicationConfiguration.with {
-				$0.exposureConfig = SAP_RiskScoreParameters()
-			})))
+		let sapAppConfig = SAP_ApplicationConfiguration.with {
+			$0.exposureConfig = SAP_RiskScoreParameters()
 		}
+		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
 
-		let cachedAppConfig = CachedAppConfiguration(client: client, store: store)
-
-		let sut = RiskProvider(
+		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
@@ -198,16 +185,223 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		let consumer = RiskConsumer()
-		let didCalculateRiskCalled = expectation(
-			description: "expect didCalculateRisk to be called"
-		)
 
+		let didCalculateRiskCalled = expectation(description: "expect didCalculateRisk to be called")
 		consumer.didCalculateRisk = { _ in
 			didCalculateRiskCalled.fulfill()
 		}
+		riskProvider.observeRisk(consumer)
 
-		sut.observeRisk(consumer)
-		sut.requestRisk(userInitiated: true)
+		riskProvider.requestRisk(userInitiated: true)
+
 		wait(for: [detectionRequested, didCalculateRiskCalled], timeout: 1.0, enforceOrder: true)
 	}
+
+	func testShouldShowRiskStatusLoweredAlertIntitiallyFalseIsSetToTrueWhenRiskStatusLowers() throws {
+		let store = MockTestStore()
+		store.shouldShowRiskStatusLoweredAlert = false
+
+		let riskProvider = try riskProviderChangingRiskLevel(from: .increased, to: .low, store: store)
+
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+
+		riskProvider.requestRisk(userInitiated: false)
+
+		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
+		consumer.didCalculateRisk = { risk in
+			didCalculateRiskExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .long)
+
+		XCTAssertTrue(store.shouldShowRiskStatusLoweredAlert)
+	}
+
+	func testShouldShowRiskStatusLoweredAlertIntitiallyTrueIsSetToTrueWhenRiskStatusLowers() throws {
+		let store = MockTestStore()
+		store.shouldShowRiskStatusLoweredAlert = true
+
+		let riskProvider = try riskProviderChangingRiskLevel(from: .increased, to: .low, store: store)
+
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+
+		riskProvider.requestRisk(userInitiated: false)
+
+		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
+		consumer.didCalculateRisk = { risk in
+			didCalculateRiskExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .long)
+
+		XCTAssertTrue(store.shouldShowRiskStatusLoweredAlert)
+	}
+
+	func testShouldShowRiskStatusLoweredAlertInitiallyFalseKeepsValueWhenRiskStatusRises() throws {
+		let store = MockTestStore()
+		store.shouldShowRiskStatusLoweredAlert = false
+
+		let riskProvider = try riskProviderChangingRiskLevel(from: .low, to: .increased, store: store)
+
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+
+		riskProvider.requestRisk(userInitiated: false)
+
+		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
+		consumer.didCalculateRisk = { risk in
+			didCalculateRiskExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .long)
+
+		XCTAssertFalse(store.shouldShowRiskStatusLoweredAlert)
+	}
+
+	func testShouldShowRiskStatusLoweredAlertInitiallyTrueIsSetToFalseWhenRiskStatusRises() throws {
+		let store = MockTestStore()
+		store.shouldShowRiskStatusLoweredAlert = true
+
+		let riskProvider = try riskProviderChangingRiskLevel(from: .low, to: .increased, store: store)
+
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+
+		riskProvider.requestRisk(userInitiated: false)
+
+		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
+		consumer.didCalculateRisk = { risk in
+			didCalculateRiskExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .long)
+
+		XCTAssertFalse(store.shouldShowRiskStatusLoweredAlert)
+	}
+
+	func testShouldShowRiskStatusLoweredAlertInitiallyTrueKeepsValueWhenRiskStatusStaysLow() throws {
+		let store = MockTestStore()
+		store.shouldShowRiskStatusLoweredAlert = true
+
+		let riskProvider = try riskProviderChangingRiskLevel(from: .low, to: .low, store: store)
+
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+
+		riskProvider.requestRisk(userInitiated: false)
+
+		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
+		consumer.didCalculateRisk = { risk in
+			didCalculateRiskExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .long)
+
+		XCTAssertTrue(store.shouldShowRiskStatusLoweredAlert)
+	}
+
+	func testShouldShowRiskStatusLoweredAlertInitiallyFalseKeepsValueWhenRiskStatusStaysLow() throws {
+		let store = MockTestStore()
+		store.shouldShowRiskStatusLoweredAlert = false
+
+		let riskProvider = try riskProviderChangingRiskLevel(from: .low, to: .low, store: store)
+
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+
+		riskProvider.requestRisk(userInitiated: false)
+
+		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
+		consumer.didCalculateRisk = { risk in
+			didCalculateRiskExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .long)
+
+		XCTAssertFalse(store.shouldShowRiskStatusLoweredAlert)
+	}
+
+	func testShouldShowRiskStatusLoweredAlertInitiallyTrueKeepsValueWhenRiskStatusStaysIncreased() throws {
+		let store = MockTestStore()
+		store.shouldShowRiskStatusLoweredAlert = true
+
+		let riskProvider = try riskProviderChangingRiskLevel(from: .increased, to: .increased, store: store)
+
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+
+		riskProvider.requestRisk(userInitiated: false)
+
+		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
+		consumer.didCalculateRisk = { risk in
+			didCalculateRiskExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .long)
+
+		XCTAssertTrue(store.shouldShowRiskStatusLoweredAlert)
+	}
+
+	func testShouldShowRiskStatusLoweredAlertInitiallyFalseKeepsValueWhenRiskStatusStaysIncrease() throws {
+		let store = MockTestStore()
+		store.shouldShowRiskStatusLoweredAlert = false
+
+		let riskProvider = try riskProviderChangingRiskLevel(from: .increased, to: .increased, store: store)
+
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+
+		riskProvider.requestRisk(userInitiated: false)
+
+		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
+		consumer.didCalculateRisk = { risk in
+			didCalculateRiskExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .long)
+
+		XCTAssertFalse(store.shouldShowRiskStatusLoweredAlert)
+	}
+
+	// MARK: - Private
+
+	private func riskProviderChangingRiskLevel(from previousRiskLevel: EitherLowOrIncreasedRiskLevel, to newRiskLevel: EitherLowOrIncreasedRiskLevel, store: MockTestStore) throws -> RiskProvider {
+		let duration = DateComponents(day: 2)
+
+		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
+		store.previousRiskLevel = previousRiskLevel
+
+		let lastExposureDetectionDate = try XCTUnwrap(
+			Calendar.current.date(byAdding: .day, value: -1, to: Date(), wrappingComponents: false)
+		)
+
+		store.summary = SummaryMetadata(
+			summary: .summary(for: newRiskLevel),
+			date: lastExposureDetectionDate
+		)
+
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: duration,
+			exposureDetectionInterval: duration,
+			detectionMode: .manual
+		)
+		let exposureSummaryProvider = ExposureSummaryProviderMock()
+
+		exposureSummaryProvider.onDetectExposure = { completion in
+			completion(.init())
+		}
+
+		let appConfigurationProvider = CachedAppConfigurationMock(appConfigurationResult: .success(.riskCalculationAppConfig))
+
+		return RiskProvider(
+			configuration: config,
+			store: store,
+			exposureSummaryProvider: exposureSummaryProvider,
+			appConfigurationProvider: appConfigurationProvider,
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
+		)
+	}
+
 }

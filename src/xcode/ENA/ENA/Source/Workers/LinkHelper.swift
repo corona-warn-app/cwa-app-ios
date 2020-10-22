@@ -26,7 +26,7 @@ enum LinkHelper {
 			openLink(withUrl: url, from: viewController)
 		} else {
 			let error = "\(urlString) is no valid URL"
-			logError(message: error)
+			Log.error(error, log: .api)
 			fatalError(error)
 		}
 	}
@@ -42,7 +42,7 @@ enum LinkHelper {
 
 	static func openLink(withUrl url: URL, from viewController: UIViewController) {
 		let config = SFSafariViewController.Configuration()
-		config.entersReaderIfAvailable = true
+		config.entersReaderIfAvailable = false
 		config.barCollapsingEnabled = true
 
 		let vc = SFSafariViewController(url: url, configuration: config)

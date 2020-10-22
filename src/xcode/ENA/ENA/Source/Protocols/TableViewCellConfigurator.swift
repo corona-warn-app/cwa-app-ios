@@ -38,7 +38,7 @@ extension TableViewCellConfigurator {
 			configure(cell: cell)
 		} else {
 			let error = "\(cell) isn't conformed CellType"
-			logError(message: error)
+			Log.error(error)
 			fatalError(error)
 		}
 	}

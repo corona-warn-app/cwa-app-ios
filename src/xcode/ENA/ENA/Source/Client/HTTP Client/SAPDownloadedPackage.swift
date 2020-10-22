@@ -68,7 +68,7 @@ struct SAPDownloadedPackage {
 				guard
 					let signature = try? P256.Signing.ECDSASignature(derRepresentation: signatureData)
 				else {
-					logError(message: "Could not validate signature of downloaded package", level: .warning)
+					Log.warning("Could not validate signature of downloaded package", log: .api)
 					continue
 				}
 

@@ -67,9 +67,9 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		service.getTestResult { result in
 			switch result {
 			case .failure(let error):
-				logError(message: error.localizedDescription)
-			case .success(.pending), .success(.redeemed):
-				// Do not trigger notifications for pending or redeemed results.
+				Log.error(error.localizedDescription, log: .api)
+			case .success(.pending), .success(.expired):
+				// Do not trigger notifications for pending or expired results.
 				break
 			case .success:
 				UNUserNotificationCenter.current().presentNotification(
@@ -101,9 +101,6 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				body: AppStrings.LocalNotifications.detectExposureBody,
 				identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier + ".risk-detection"
 			)
-			
-			// We were successful to calculate a risk in the Background, time to reset Deadman Notification
-			ENATaskScheduler.resetDeadmanNotification()
 
 			completion(true)
 		}

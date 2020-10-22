@@ -45,7 +45,7 @@ final class PublicKeyProviderTests: XCTestCase {
 		let pk: StaticString = "c7DEstcUIRcyk35OYDJ95/hTg3UVhsaDXKT0zK7NhHPXoyzipEnOp3GyNXDVpaPi3cAfQmxeuFMZAIX2+6A5Xg=="
 		let data = try XCTUnwrap(Data(staticBase64Encoded: pk))
 		XCTAssertEqual(
-			try DefaultPublicKeyFromString(pk)().rawRepresentation,
+			DefaultPublicKeyFromString(pk)().rawRepresentation,
 			try P256.Signing.PublicKey(rawRepresentation: data).rawRepresentation
 		)
 	}

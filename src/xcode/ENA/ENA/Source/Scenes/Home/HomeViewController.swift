@@ -117,13 +117,21 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	private func showInformationHowRiskDetectionWorks() {
+		
+		#if DEBUG
+		if isUITesting, let showInfo = UserDefaults.standard.string(forKey: "userNeedsToBeInformedAboutHowRiskDetectionWorks") {
+			store.userNeedsToBeInformedAboutHowRiskDetectionWorks = (showInfo == "YES")
+		}
+		#endif
+		
 		guard store.userNeedsToBeInformedAboutHowRiskDetectionWorks else {
 			return
 		}
-		// TODO: Check whether or not we have to display some kind of different alert (eg. the forced update alert).
+
 		let alert = UIAlertController.localizedHowRiskDetectionWorksAlertController(
 			maximumNumberOfDays: TracingStatusHistory.maxStoredDays
 		)
+
 		present(alert, animated: true) {
 			self.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = false
 		}
@@ -192,7 +200,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	// MARK: Misc
-	@objc func refreshUIAfterResumingFromBackground() {
+	@objc
+	func refreshUIAfterResumingFromBackground() {
 		homeInteractor.refreshTimerAfterResumingFromBackground()
 	}
 
@@ -207,6 +216,28 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		homeInteractor.state.risk = risk
 
 		reloadData(animatingDifferences: false)
+
+		showRiskStatusLoweredAlertIfNeeded()
+	}
+
+	func showRiskStatusLoweredAlertIfNeeded() {
+		guard store.shouldShowRiskStatusLoweredAlert else { return }
+
+		let alert = UIAlertController(
+			title: AppStrings.Home.riskStatusLoweredAlertTitle,
+			message: AppStrings.Home.riskStatusLoweredAlertMessage,
+			preferredStyle: .alert
+		)
+
+		let alertAction = UIAlertAction(
+			title: AppStrings.Home.riskStatusLoweredAlertPrimaryButtonTitle,
+			style: .default
+		)
+		alert.addAction(alertAction)
+
+		present(alert, animated: true) { [weak self] in
+			self?.store.shouldShowRiskStatusLoweredAlert = false
+		}
 	}
 
 	func showExposureSubmissionWithoutResult() {
@@ -241,7 +272,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		case is RiskThankYouCollectionViewCell:
 			return
 		default:
-			log(message: "Unknown cell type tapped.", file: #file, line: #line, function: #function)
+			Log.info("Unknown cell type tapped.", log: .ui)
 			return
 		}
 	}

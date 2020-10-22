@@ -20,34 +20,7 @@ import Foundation
 
 class ENAExposureSubmissionService: ExposureSubmissionService {
 
-	// MARK: - Static properties.
-
-	static let fakeRegistrationToken = "63b4d3ff-e0de-4bd4-90c1-17c2bb683a2f"
-	static var fakeSubmissionTan: String { return UUID().uuidString }
-
-	// MARK: - Properties.
-
-	let diagnosiskeyRetrieval: DiagnosisKeysRetrieval
-	let client: Client
-	let store: Store
-
-	// MARK: - Computed properties.
-
-	private var devicePairingConsentAccept: Bool {
-		get { self.store.devicePairingConsentAccept }
-		set { self.store.devicePairingConsentAccept = newValue }
-	}
-
-	private(set) var devicePairingConsentAcceptTimestamp: Int64? {
-		get { self.store.devicePairingConsentAcceptTimestamp }
-		set { self.store.devicePairingConsentAcceptTimestamp = newValue }
-	}
-	private(set) var devicePairingSuccessfulTimestamp: Int64? {
-		get { self.store.devicePairingSuccessfulTimestamp }
-		set { self.store.devicePairingSuccessfulTimestamp = newValue }
-	}
-
-	// MARK: - Initializer.
+	// MARK: - Init
 
 	init(diagnosiskeyRetrieval: DiagnosisKeysRetrieval, client: Client, store: Store) {
 		self.diagnosiskeyRetrieval = diagnosiskeyRetrieval
@@ -55,7 +28,172 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.store = store
 	}
 
-	// MARK: - Private methods for handling the API calls.
+	// MARK: - Protocol ExposureSubmissionService
+
+	private(set) var devicePairingConsentAcceptTimestamp: Int64? {
+		get { self.store.devicePairingConsentAcceptTimestamp }
+		set { self.store.devicePairingConsentAcceptTimestamp = newValue }
+	}
+
+	private(set) var devicePairingSuccessfulTimestamp: Int64? {
+		get { self.store.devicePairingSuccessfulTimestamp }
+		set { self.store.devicePairingSuccessfulTimestamp = newValue }
+	}
+
+	/// This method submits the exposure keys. Additionally, after successful completion,
+	/// the timestamp of the key submission is updated.
+	/// __Extension for plausible deniability__:
+	/// We prepend a fake request in order to guarantee the V+V+S sequence. Please kindly check `getTestResult` for more information.
+	func submitExposure(
+		symptomsOnset: SymptomsOnset,
+		visitedCountries: [Country],
+		completionHandler: @escaping ExposureSubmissionHandler
+	) {
+		Log.info("Started exposure submission...", log: .api)
+
+		diagnosiskeyRetrieval.accessDiagnosisKeys { keys, error in
+			if let error = error {
+				Log.error("Error while retrieving diagnosis keys: \(error.localizedDescription)", log: .api)
+				completionHandler(self.parseError(error))
+				return
+			}
+
+			guard let keys = keys, !keys.isEmpty else {
+				completionHandler(.noKeys)
+				// We perform a cleanup in order to set the correct
+				// timestamps, despite not having communicated with the backend,
+				// in order to show the correct screens.
+				self.submitExposureCleanup()
+				return
+			}
+			let processedKeys = keys.processedForSubmission(with: symptomsOnset)
+
+			// Request needs to be prepended by the fake request.
+			self._fakeVerificationServerRequest(completion: { _ in
+				self._submitExposure(processedKeys, visitedCountries: visitedCountries, completionHandler: completionHandler)
+			})
+		}
+	}
+
+	/// Stores the provided key, retrieves the registration token and deletes the key.
+	/// __Extension for plausible deniability__:
+	/// We append two fake requests to this request in order to fulfill the V+V+S sequence. Please kindly check `getTestResult` for more information.
+	func getRegistrationToken(
+		forKey deviceRegistrationKey: DeviceRegistrationKey,
+		completion completeWith: @escaping RegistrationHandler
+	) {
+		let (key, type) = getKeyAndType(for: deviceRegistrationKey)
+
+		_getRegistrationToken(key, type) { result in
+			completeWith(result)
+
+			// Fake requests.
+			self._fakeVerificationAndSubmissionServerRequest()
+		}
+	}
+
+	/// This method gets the test result based on the registrationToken that was previously
+	/// received, either from the TAN or QR Code flow. After successful completion,
+	/// the timestamp of the last received test is updated.
+	/// __Extension for plausible deniability__:
+	/// We append two fake requests to this request in order to fulfill the V+V+S sequence. (This means, we
+	/// always send three requests, regardless which API call we do. The first two have to go to the verification server,
+	/// and the last one goes to the submission server.)
+	func getTestResult(_ completeWith: @escaping TestResultHandler) {
+		guard let registrationToken = store.registrationToken else {
+			completeWith(.failure(.noRegistrationToken))
+			return
+		}
+
+		_getTestResult(registrationToken) { result in
+			completeWith(result)
+
+			// Fake requests.
+			self._fakeVerificationAndSubmissionServerRequest()
+		}
+	}
+
+	func getTestResult(forKey deviceRegistrationKey: DeviceRegistrationKey, useStoredRegistration: Bool = true, completion: @escaping TestResultHandler) {
+		if useStoredRegistration {
+			getTestResult(completion)
+		} else {
+			let (key, type) = getKeyAndType(for: deviceRegistrationKey)
+			_getRegistrationToken(key, type) { result in
+				switch result {
+				case .failure(let error):
+					completion(.failure(error))
+
+					// Fake requests.
+					self._fakeVerificationAndSubmissionServerRequest()
+				case .success(let token):
+					self._getTestResult(token) { testResult in
+						completion(testResult)
+					}
+
+					// Fake request.
+					self._fakeSubmissionServerRequest { _ in /* no op */ }
+				}
+			}
+		}
+	}
+
+	func hasRegistrationToken() -> Bool {
+		guard let token = store.registrationToken, !token.isEmpty else {
+			return false
+		}
+		return true
+	}
+
+	func deleteTest() {
+		store.registrationToken = nil
+		store.testResultReceivedTimeStamp = nil
+		store.devicePairingConsentAccept = false
+		store.devicePairingSuccessfulTimestamp = nil
+		store.devicePairingConsentAcceptTimestamp = nil
+		store.isAllowedToSubmitDiagnosisKeys = false
+	}
+
+	func preconditions() -> ExposureManagerState {
+		diagnosiskeyRetrieval.preconditions()
+	}
+
+	func acceptPairing() {
+		devicePairingConsentAccept = true
+		devicePairingConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
+	}
+
+
+	/// This method is called randomly sometimes in the foreground and from the background.
+	/// It represents the full-fledged dummy request needed to realize plausible deniability.
+	/// Nothing called in this method is considered a "real" request.
+	func fakeRequest(completionHandler: ExposureSubmissionHandler? = nil) {
+		_fakeVerificationServerRequest { _ in
+			self._fakeVerificationServerRequest(completion: { _ in
+				self._fakeSubmissionServerRequest(completion: { _ in
+					completionHandler?(.fakeResponse)
+				})
+			})
+		}
+	}
+
+	// MARK: - Internal
+
+	static let fakeRegistrationToken = "63b4d3ff-e0de-4bd4-90c1-17c2bb683a2f"
+
+	// MARK: - Private
+
+	private static var fakeSubmissionTan: String { return UUID().uuidString }
+
+	private let diagnosiskeyRetrieval: DiagnosisKeysRetrieval
+	private let client: Client
+	private let store: Store
+
+	private var devicePairingConsentAccept: Bool {
+		get { self.store.devicePairingConsentAccept }
+		set { self.store.devicePairingConsentAccept = newValue }
+	}
+
+	// MARK: methods for handling the API calls.
 
 	private func _getTestResult(
 		_ registrationToken: String,
@@ -71,9 +209,17 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					completeWith(.failure(.other("Failed to parse TestResult")))
 					return
 				}
-				completeWith(.success(testResult))
-				if testResult != .pending {
+				switch testResult {
+				case .negative, .positive, .invalid:
 					self.store.testResultReceivedTimeStamp = Int64(Date().timeIntervalSince1970)
+					completeWith(.success(testResult))
+				case .pending:
+					completeWith(.success(testResult))
+				case .expired:
+					/// The .expired status is only known after the test has been registered on the server
+					/// so we generate an error here, even if the server returned the http result 201
+					completeWith(.failure(.qrExpired))
+					self.store.registrationToken = nil
 				}
 			}
 		}
@@ -157,10 +303,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			switch result {
 			case .success:
 				self.submitExposureCleanup()
-				log(message: "Successfully completed exposure sumbission.")
+				Log.info("Successfully completed exposure sumbission.", log: .api)
 				completion(nil)
 			case .failure(let error):
-				logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
+				Log.error("Error while submiting diagnosis keys: \(error.localizedDescription)", log: .api)
 				completion(self.parseError(error))
 			}
 		}
@@ -183,123 +329,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				completeWith(.success(registrationToken))
 			}
 		}
-	}
-
-	// MARK: - Public API for accessing the service methods needed for Exposure Submission.
-
-	/// This method gets the test result based on the registrationToken that was previously
-	/// received, either from the TAN or QR Code flow. After successful completion,
-	/// the timestamp of the last received test is updated.
-	/// __Extension for plausible deniability__:
-	/// We append two fake requests to this request in order to fulfill the V+V+S sequence. (This means, we
-	/// always send three requests, regardless which API call we do. The first two have to go to the verification server,
-	/// and the last one goes to the submission server.)
-	func getTestResult(_ completeWith: @escaping TestResultHandler) {
-		guard let registrationToken = store.registrationToken else {
-			completeWith(.failure(.noRegistrationToken))
-			return
-		}
-
-		_getTestResult(registrationToken) { result in
-			completeWith(result)
-
-			// Fake requests.
-			self._fakeVerificationAndSubmissionServerRequest()
-		}
-	}
-
-	func getTestResult(forKey deviceRegistrationKey: DeviceRegistrationKey, useStoredRegistration: Bool = true, completion: @escaping TestResultHandler) {
-		if useStoredRegistration {
-			getTestResult(completion)
-		} else {
-			let (key, type) = getKeyAndType(for: deviceRegistrationKey)
-			_getRegistrationToken(key, type) { result in
-				switch result {
-				case .failure(let error):
-					completion(.failure(error))
-
-					// Fake requests.
-					self._fakeVerificationAndSubmissionServerRequest()
-				case .success(let token):
-					self._getTestResult(token) { testResult in
-						completion(testResult)
-					}
-
-					// Fake request.
-					self._fakeSubmissionServerRequest { _ in /* no op */ }
-				}
-			}
-		}
-	}
-
-	/// Stores the provided key, retrieves the registration token and deletes the key.
-	/// __Extension for plausible deniability__:
-	/// We append two fake requests to this request in order to fulfill the V+V+S sequence. Please kindly check `getTestResult` for more information.
-	func getRegistrationToken(
-		forKey deviceRegistrationKey: DeviceRegistrationKey,
-		completion completeWith: @escaping RegistrationHandler
-	) {
-		let (key, type) = getKeyAndType(for: deviceRegistrationKey)
-
-		_getRegistrationToken(key, type) { result in
-			completeWith(result)
-
-			// Fake requests.
-			self._fakeVerificationAndSubmissionServerRequest()
-		}
-	}
-
-	/// This method submits the exposure keys. Additionally, after successful completion,
-	/// the timestamp of the key submission is updated.
-	/// __Extension for plausible deniability__:
-	/// We prepend a fake request in order to guarantee the V+V+S sequence. Please kindly check `getTestResult` for more information.
-	func submitExposure(
-		symptomsOnset: SymptomsOnset,
-		visitedCountries: [Country],
-		completionHandler: @escaping ExposureSubmissionHandler
-	) {
-		log(message: "Started exposure submission...")
-
-		diagnosiskeyRetrieval.accessDiagnosisKeys { keys, error in
-			if let error = error {
-				logError(message: "Error while retrieving diagnosis keys: \(error.localizedDescription)")
-				completionHandler(self.parseError(error))
-				return
-			}
-
-			guard let keys = keys, !keys.isEmpty else {
-				completionHandler(.noKeys)
-				// We perform a cleanup in order to set the correct
-				// timestamps, despite not having communicated with the backend,
-				// in order to show the correct screens.
-				self.submitExposureCleanup()
-				return
-			}
-			let processedKeys = keys.processedForSubmission(with: symptomsOnset)
-
-			// Request needs to be prepended by the fake request.
-			self._fakeVerificationServerRequest(completion: { _ in
-				self._submitExposure(processedKeys, visitedCountries: visitedCountries, completionHandler: completionHandler)
-			})
-		}
-	}
-
-	// MARK: - Helper methods.
-
-	func hasRegistrationToken() -> Bool {
-		guard let token = store.registrationToken, !token.isEmpty else {
-			return false
-		}
-		return true
-	}
-
-	func deleteTest() {
-		store.registrationToken = nil
-		store.testResultReceivedTimeStamp = nil
-		store.devicePairingConsentAccept = false
-		store.devicePairingSuccessfulTimestamp = nil
-		store.devicePairingConsentAcceptTimestamp = nil
-		store.isAllowedToSubmitDiagnosisKeys = false
 	}
 
 	private func getToken(isFake: Bool) -> String? {
@@ -327,22 +356,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.isAllowedToSubmitDiagnosisKeys = false
 		store.tan = nil
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
-		log(message: "Exposure submission cleanup.")
+		Log.info("Exposure submission cleanup.", log: .api)
 	}
 
-	func preconditions() -> ExposureManagerState {
-		diagnosiskeyRetrieval.preconditions()
-	}
-
-	func acceptPairing() {
-		devicePairingConsentAccept = true
-		devicePairingConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
-	}
-}
-
-// MARK: - Fake requests.
-
-extension ENAExposureSubmissionService {
+	// MARK: Fake requests
 
 	/// This method represents a dummy method that is sent to the verification server.
 	private func _fakeVerificationServerRequest(completion completeWith: @escaping TANHandler) {
@@ -370,19 +387,6 @@ extension ENAExposureSubmissionService {
 			self._fakeSubmissionServerRequest { _ in
 				completionHandler?(.fakeResponse)
 			}
-		}
-	}
-
-	/// This method is called randomly sometimes in the foreground and from the background.
-	/// It represents the full-fledged dummy request needed to realize plausible deniability.
-	/// Nothing called in this method is considered a "real" request.
-	func fakeRequest(completionHandler: ExposureSubmissionHandler? = nil) {
-		_fakeVerificationServerRequest { _ in
-			self._fakeVerificationServerRequest(completion: { _ in
-				self._fakeSubmissionServerRequest(completion: { _ in
-					completionHandler?(.fakeResponse)
-				})
-			})
 		}
 	}
 }

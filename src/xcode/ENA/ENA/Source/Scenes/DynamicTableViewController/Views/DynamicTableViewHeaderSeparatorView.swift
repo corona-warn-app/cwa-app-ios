@@ -23,13 +23,13 @@ class DynamicTableViewHeaderSeparatorView: UITableViewHeaderFooterView {
 	private var heightConstraint: NSLayoutConstraint!
 
 	var color: UIColor? {
-		set { separatorView.backgroundColor = newValue }
 		get { separatorView.backgroundColor }
+		set { separatorView.backgroundColor = newValue }
 	}
 
 	var height: CGFloat {
-		set { heightConstraint.constant = newValue }
 		get { heightConstraint.constant }
+		set { heightConstraint.constant = newValue }
 	}
 
 	@available(*, unavailable)

@@ -19,6 +19,9 @@
 import ExposureNotification
 import XCTest
 
+
+// swiftlint:disable file_length
+// swiftlint:disable:next type_body_length
 class ExposureSubmissionServiceTests: XCTestCase {
 	let expectationsTimeout: TimeInterval = 2
 	let keys = [ENTemporaryExposureKey()]
@@ -218,6 +221,38 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	func testGetTestResult_expiredTestResultValue() {
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let store = MockTestStore()
+		store.registrationToken = "dummyRegistrationToken"
+
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completeWith in
+			let expiredTestResultValue = 4
+			completeWith(.success(expiredTestResultValue))
+		}
+
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+		let expectation = self.expectation(description: "Expect to receive a result.")
+		let expectationToFailWithExpired = self.expectation(description: "Expect to fail with error of type .qrExpired")
+
+		// Execute test.
+
+		service.getTestResult { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				if case ExposureSubmissionError.qrExpired = error {
+					expectationToFailWithExpired.fulfill()
+				}
+			case .success:
+				XCTFail("This test should intentionally produce an expired test result that cannot be parsed.")
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
 	func testGetTestResult_unknownTestResultValue() {
 
 		// Initialize.
@@ -353,61 +388,24 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 	// MARK: Plausible deniability tests.
 
-	func test_getTestResultPlaybook() {
+	func test_getTestResultPlaybookPositive() {
+		getTestResultPlaybookTest(with: .positive)
+	}
 
-		// Counter to track the execution order.
-		var count = 0
+	func test_getTestResultPlaybookNegative() {
+		getTestResultPlaybookTest(with: .negative)
+	}
 
-		let expectation = self.expectation(description: "execute all callbacks")
-		expectation.expectedFulfillmentCount = 4
+	func test_getTestResultPlaybookPending() {
+		getTestResultPlaybookTest(with: .pending)
+	}
 
-		// Initialize.
+	func test_getTestResultPlaybookInvalid() {
+		getTestResultPlaybookTest(with: .invalid)
+	}
 
-		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let store = MockTestStore()
-		let client = ClientMock()
-		store.registrationToken = "dummyRegistrationToken"
-
-		let testResult = TestResult.allCases.randomElement() ?? TestResult.positive
-		client.onGetTestResult = { result, isFake, completion in
-			expectation.fulfill()
-			XCTAssertFalse(isFake)
-			XCTAssertEqual(count, 0)
-			count += 1
-			completion(.success(testResult.rawValue))
-		}
-
-		client.onGetTANForExposureSubmit = { _, isFake, completion in
-			expectation.fulfill()
-			XCTAssertTrue(isFake)
-			XCTAssertEqual(count, 1)
-			count += 1
-			completion(.failure(.fakeResponse))
-		}
-
-		client.onSubmitCountries = { _, isFake, completion in
-			expectation.fulfill()
-			XCTAssertTrue(isFake)
-			XCTAssertEqual(count, 2)
-			count += 1
-			completion(.success(()))
-		}
-
-		// Run test.
-
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
-		service.getTestResult { response in
-			switch response {
-			case .failure(let error):
-				XCTFail(error.localizedDescription)
-			case .success(let result):
-				XCTAssertEqual(result.rawValue, testResult.rawValue)
-			}
-
-			expectation.fulfill()
-		}
-
-		waitForExpectations(timeout: .short)
+	func test_getTestResultPlaybookExpired() {
+		getTestResultPlaybookTest(with: .expired)
 	}
 
 	func test_getRegistrationTokenPlaybook() {
@@ -555,4 +553,72 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let regex = try? NSRegularExpression(pattern: pattern, options: [])
 		XCTAssertNotNil(regex?.firstMatch(in: str, options: [], range: .init(location: 0, length: str.count)))
 	}
+
+	// MARK: - Private
+
+	private func getTestResultPlaybookTest(with testResult: TestResult) {
+
+		// Counter to track the execution order.
+		var count = 0
+
+		let expectation = self.expectation(description: "execute all callbacks")
+		expectation.expectedFulfillmentCount = 4
+
+		// Initialize.
+
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let store = MockTestStore()
+		let client = ClientMock()
+		store.registrationToken = "dummyRegistrationToken"
+
+		client.onGetTestResult = { result, isFake, completion in
+			expectation.fulfill()
+			XCTAssertFalse(isFake)
+			XCTAssertEqual(count, 0)
+			count += 1
+			completion(.success(testResult.rawValue))
+		}
+
+		client.onGetTANForExposureSubmit = { _, isFake, completion in
+			expectation.fulfill()
+			XCTAssertTrue(isFake)
+			XCTAssertEqual(count, 1)
+			count += 1
+			completion(.failure(.fakeResponse))
+		}
+
+		client.onSubmitCountries = { _, isFake, completion in
+			expectation.fulfill()
+			XCTAssertTrue(isFake)
+			XCTAssertEqual(count, 2)
+			count += 1
+			completion(.success(()))
+		}
+
+		// Run test.
+
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+		service.getTestResult { response in
+			switch response {
+			case .failure(let error):
+				if testResult == .expired {
+					XCTAssertEqual(error, .qrExpired)
+				} else {
+					XCTFail(error.localizedDescription)
+				}
+
+			case .success(let result):
+				if testResult == .expired {
+					XCTFail("Expired test result should lead to failure case")
+				} else {
+					XCTAssertEqual(result.rawValue, testResult.rawValue)
+				}
+			}
+
+			expectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
 }

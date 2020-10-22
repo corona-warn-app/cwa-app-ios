@@ -54,7 +54,7 @@ final class AppUpdateCheckHelper {
 			case .success(let applicationConfiguration):
 				_versionInfo = applicationConfiguration.appVersion
 			case .failure(let error):
-				logError(message: "Error while loading app configuration: \(error).")
+				Log.error("Error while loading app configuration: \(error).", log: .api)
 			}
 
 			guard let versionInfo = _versionInfo else {

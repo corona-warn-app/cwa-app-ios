@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1150"
+   LastUpgradeVersion = "1200"
    version = "2.0">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -72,6 +72,12 @@
             ReferencedContainer = "container:ENA.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
+      <TestPlans>
+         <TestPlanReference
+            reference = "container:TestPlans/AllTests.xctestplan"
+            default = "YES">
+         </TestPlanReference>
+      </TestPlans>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -80,6 +86,16 @@
                BlueprintIdentifier = "85D7595324570491008175F0"
                BuildableName = "ENATests.xctest"
                BlueprintName = "ENATests"
+               ReferencedContainer = "container:ENA.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "85D7595E24570491008175F0"
+               BuildableName = "ENAUITests.xctest"
+               BlueprintName = "ENAUITests"
                ReferencedContainer = "container:ENA.xcodeproj">
             </BuildableReference>
          </TestableReference>

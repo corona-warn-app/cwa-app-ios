@@ -49,7 +49,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		let window = UIWindow(windowScene: windowScene)
 		self.window = window
 
-		#if UITESTING
+		#if DEBUG
 		if let isOnboarded = UserDefaults.standard.string(forKey: "isOnboarded") {
 			store.isOnboarded = (isOnboarded != "NO")
 		}
@@ -67,7 +67,30 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		riskConsumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk
+			#if DEBUG
+			if isUITesting, let uiTestRiskLevelEnv = UserDefaults.standard.string(forKey: "riskLevel") {
+				var uiTestRiskLevel: RiskLevel
+				var uiTestExposureNumber = 100
+				switch uiTestRiskLevelEnv {
+				case "increased":
+					uiTestRiskLevel = RiskLevel.increased
+				case "low":
+					uiTestRiskLevel = RiskLevel.low
+					uiTestExposureNumber = 7
+				case "unknownInitial":
+					uiTestRiskLevel = RiskLevel.unknownInitial
+				case "unknownOutdated":
+					uiTestRiskLevel = RiskLevel.unknownOutdated
+				default:
+					uiTestRiskLevel = RiskLevel.inactive
+					
+				}
+				let uiTestRisk = Risk(level: uiTestRiskLevel, details: .init(daysSinceLastExposure: 1, numberOfExposures: uiTestExposureNumber, activeTracing: .init(interval: 14 * 86400), exposureDetectionDate: nil), riskLevelHasChanged: false)
+				self?.state.risk = uiTestRisk
+			}
+			#endif
 		}
+		
 		riskProvider.observeRisk(riskConsumer)
 
 		UNUserNotificationCenter.current().delegate = self
@@ -85,6 +108,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		riskProvider.requestRisk(userInitiated: false)
 
 		let state = exposureManager.preconditions()
+		
 		updateExposureState(state)
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
@@ -141,8 +165,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		if exposureManager.preconditions().status == .unknown {
 			exposureManager.activate { [weak self] error in
 				if let error = error {
-					// TODO: Error handling, if error occurs, what can we do?
-					logError(message: "Cannot activate the  ENManager. The reason is \(error)")
+					Log.error("Cannot activate the  ENManager. The reason is \(error)", log: .api)
 					return
 				}
 				self?.presentHomeVC()
@@ -222,7 +245,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		status: \(newState.status)
 		authorizationStatus: \(ENManager.authorizationStatus)
 		"""
-		log(message: message)
+		Log.info(message, log: .api)
 
 		state.exposureManager = newState
 		updateExposureState(newState)
@@ -286,7 +309,7 @@ extension SceneDelegate: ExposureStateUpdating {
 
 extension SceneDelegate: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
-		log(message: "SceneDelegate got EnState update: \(state)")
+		Log.info("SceneDelegate got EnState update: \(state)", log: .api)
 		coordinator.updateEnState(state)
 	}
 }

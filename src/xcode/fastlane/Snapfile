@@ -3,23 +3,25 @@
 # A list of devices you want to take the screenshots from
 devices([
     "iPhone 8",
-    "iPhone X"
+    "iPhone 11 Pro"
 ])
 
 ios_version(
-  "14.0"
+  "14.1"
 )
 
 languages([
   "en-US",
   "de-DE",
-#  "bg-BG",
-#  "ro-RO",
-#  "pl-PL"
+  "bg-BG",
+  "ro-RO",
+  "pl-PL",
+  "tr-Tr"
 ])
 
 # The name of the scheme which contains the UI Tests
-scheme("ENAUITests")
+scheme("ENAScreenshots")
+testplan("Screenshots")
 
 # Where should the resulting screenshots be stored?
 output_directory("./screenshots")

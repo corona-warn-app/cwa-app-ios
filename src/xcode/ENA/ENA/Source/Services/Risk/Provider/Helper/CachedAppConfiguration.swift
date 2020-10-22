@@ -34,9 +34,12 @@ final class CachedAppConfiguration {
 	/// The place where the app config and last etag is stored
 	private let store: AppConfigCaching
 
-	init(client: AppConfigurationFetching, store: AppConfigCaching) {
+	private let configurationDidChange: (() -> Void)?
+
+	init(client: AppConfigurationFetching, store: AppConfigCaching, configurationDidChange: (() -> Void)? = nil) {
 		self.client = client
 		self.store = store
+		self.configurationDidChange = configurationDidChange
 
 		guard shouldFetch() else { return }
 
@@ -54,10 +57,15 @@ final class CachedAppConfiguration {
 				self?.store.lastAppConfigETag = response.eTag
 				self?.store.appConfig = response.config
 				self?.completeOnMain(completion: completion, result: .success(response.config))
+
+				// keep track of last successful fetch
+				self?.store.lastAppConfigFetch = Date()
+
+				self?.configurationDidChange?()
 			case .failure(let error):
 				switch error {
 				case CachedAppConfiguration.CacheError.notModified where self?.store.appConfig != nil:
-					log(message: "config not modified")
+					Log.error("config not modified", log: .api)
 					// server is not modified and we have a cached config
 					guard let config = self?.store.appConfig else {
 						fatalError("App configuration cache broken!") // in `where` we trust

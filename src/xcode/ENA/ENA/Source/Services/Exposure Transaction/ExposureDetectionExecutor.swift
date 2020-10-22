@@ -11,13 +11,13 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	private let client: Client
 
 	private let downloadedPackagesStore: DownloadedPackagesStore
-	private let store: Store
+	private let store: Store & AppConfigCaching
 	private let exposureDetector: ExposureDetector
 
 	init(
 		client: Client,
 		downloadedPackagesStore: DownloadedPackagesStore,
-		store: Store,
+		store: Store & AppConfigCaching,
 		exposureDetector: ExposureDetector
 	) {
 		self.client = client
@@ -67,9 +67,8 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 
 		group.notify(queue: .main) {
 			guard errors.isEmpty else {
-				logError(
-					message: "Unable to determine available data due to errors:\n \(errors.map { $0.localizedDescription }.joined(separator: "\n"))"
-				)
+				let errorMessage = "Unable to determine available data due to errors:\n \(errors.map { $0.localizedDescription }.joined(separator: "\n"))"
+				Log.error(errorMessage, log: .api)
 				completion(/* we are unable to determine the days and hours */ nil, country)
 				return
 			}
@@ -168,11 +167,28 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 			writtenPackages: WrittenPackages,
 			completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void
 	) -> Progress {
+
+		// Clear the key packages and app config on ENError = 2 = .badParameter
+		// For more details, see: https://jira.itc.sap.com/browse/EXPOSUREAPP-3297
+		func clearCacheOnErrorBadParameter(error: Error) {
+			if let enError = error as? ENError, enError.code == .badParameter {
+				// Clear the key packages
+				downloadedPackagesStore.reset()
+				downloadedPackagesStore.open()
+
+				// Clear the app config
+				store.appConfig = nil
+				store.lastAppConfigETag = nil
+				store.lastAppConfigFetch = nil
+			}
+		}
+
 		func withResultFrom(
 				summary: ENExposureDetectionSummary?,
 				error: Error?
 		) -> Result<ENExposureDetectionSummary, Error> {
 			if let error = error {
+				clearCacheOnErrorBadParameter(error: error)
 				return .failure(error)
 			}
 			if let summary = summary {
