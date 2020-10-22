@@ -1,7 +1,7 @@
 //
 // Corona-Warn-App
 //
-// SAP SE and all other contributors
+// SAP SE and all other contributors /
 // copyright owners license this file to you under the Apache
 // License, Version 2.0 (the "License"); you may not use this
 // file except in compliance with the License.
@@ -17,23 +17,19 @@
 // under the License.
 //
 
-import Foundation
-import ExposureNotification
 
-enum UITestingParameters {
-	enum ExposureSubmission: String {
-		case useMock = "UI:ExposureSubmission:useMock"
-		case getRegistrationTokenSuccess = "UI:ExposureSubmission:getRegistrationTokenSuccess"
-		case submitExposureSuccess = "UI:ExposureSubmission:submitExposureSuccess"
+enum OnboardingPageType: Int, CaseIterable {
+	case togetherAgainstCoronaPage = 0
+	case privacyPage = 1
+	case enableLoggingOfContactsPage = 2
+	case howDoesDataExchangeWorkPage = 3
+	case alwaysStayInformedPage = 4
+
+	func next() -> OnboardingPageType? {
+		OnboardingPageType(rawValue: rawValue + 1)
 	}
 
-	enum SecureStoreHandling: String {
-		case simulateMismatchingKey = "UI:SecureStoreHandling:simulateMismatchingKey"
-	}
-}
-
-extension ENStatus {
-	var stringValue: String {
-		String(describing: self.rawValue)
+	func isLast() -> Bool {
+		(self == OnboardingPageType.allCases.last)
 	}
 }
