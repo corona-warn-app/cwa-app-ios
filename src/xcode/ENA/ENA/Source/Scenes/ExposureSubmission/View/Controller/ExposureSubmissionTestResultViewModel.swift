@@ -24,70 +24,86 @@ class ExposureSubmissionTestResultViewModel {
 
 	init(
 		testResult: TestResult,
-		exposureSubmissionService: ExposureSubmissionService
+		exposureSubmissionService: ExposureSubmissionService,
+		onTestDeleted: @escaping () -> Void
 	) {
 		self.testResult = testResult
 		self.exposureSubmissionService = exposureSubmissionService
+		self.onTestDeleted = onTestDeleted
+
+		updateForCurrentTestResult()
 	}
 
 	// MARK: - Internal
 
-	@Published var testResult: TestResult
-
-	var timeStamp: Int64? {
-		exposureSubmissionService.devicePairingSuccessfulTimestamp
-	}
-
-	var dynamicTableViewModel: DynamicTableViewModel {
-		DynamicTableViewModel.with {
-			$0.add(
-				testResultSection(for: testResult)
-			)
+	var testResult: TestResult {
+		didSet {
+			updateForCurrentTestResult()
 		}
 	}
 
-	@Published var navigationFooterItem: ENANavigationFooterItem = {
+	var isLoading: Bool = false {
+		didSet {
+			navigationFooterItem.isPrimaryButtonEnabled = !isLoading
+			navigationFooterItem.isPrimaryButtonLoading = isLoading
+		}
+	}
+
+	@Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
+
+	@Published var error: Error?
+
+	lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
 
-		item.title = AppStrings.ExposureSubmissionQRInfo.title
+		item.title = AppStrings.ExposureSubmissionResult.title
+		item.hidesBackButton = true
+		item.largeTitleDisplayMode = .always
 
 		return item
 	}()
 
 	func refreshTest() {
-		exposureSubmissionService.getTestResult { result in
+		isLoading = true
+
+		exposureSubmissionService.getTestResult { [weak self] result in
+			self?.isLoading = false
+
 			switch result {
 			case let .failure(error):
-				break
-//				let alert = self.setupErrorAlert(message: error.localizedDescription)
-//
-//				self.present(alert, animated: true, completion: {
-//					self.navigationFooterItem?.isPrimaryButtonEnabled = true
-//					self.navigationFooterItem?.isPrimaryButtonLoading = false
-//				})
+				self?.error = error
 			case let .success(testResult):
-				self.testResult = testResult
+				self?.testResult = testResult
 			}
 		}
 	}
 
 	func deleteTest() {
 		exposureSubmissionService.deleteTest()
+		onTestDeleted()
 	}
 
 	// MARK: - Private
 
 	private var exposureSubmissionService: ExposureSubmissionService
+	private let onTestDeleted: () -> Void
+
+	private var timeStamp: Int64? {
+		exposureSubmissionService.devicePairingSuccessfulTimestamp
+	}
+
+	private func updateForCurrentTestResult() {
+		self.dynamicTableViewModel = DynamicTableViewModel([currentTestResultSection])
+		updateButtons()
+	}
 
 	private func updateButtons() {
-		// Make sure to reset all button loading states.
-		navigationFooterItem.isPrimaryButtonLoading = false
-		navigationFooterItem.isSecondaryButtonLoading = false
-
 		// Make sure to reset buttons to default state.
+		navigationFooterItem.isPrimaryButtonLoading = false
 		navigationFooterItem.isPrimaryButtonEnabled = true
 		navigationFooterItem.isPrimaryButtonHidden = false
 
+		navigationFooterItem.isSecondaryButtonLoading = false
 		navigationFooterItem.isSecondaryButtonEnabled = false
 		navigationFooterItem.isSecondaryButtonHidden = true
 		navigationFooterItem.secondaryButtonHasBorder = false
@@ -110,22 +126,22 @@ class ExposureSubmissionTestResultViewModel {
 		}
 	}
 
-	private func testResultSection(for result: TestResult) -> DynamicSection {
-		switch result {
+	private var currentTestResultSection: DynamicSection {
+		switch testResult {
 		case .positive:
-			return positiveTestResultSection()
+			return positiveTestResultSection
 		case .negative:
-			return negativeTestResultSection()
+			return negativeTestResultSection
 		case .invalid:
-			return invalidTestResultSection()
+			return invalidTestResultSection
 		case .pending:
-			return pendingTestResultSection()
+			return pendingTestResultSection
 		case .expired:
-			return expiredTestResultSection()
+			return expiredTestResultSection
 		}
 	}
 
-	private func positiveTestResultSection() -> DynamicSection {
+	private var positiveTestResultSection: DynamicSection {
 		.section(
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
@@ -155,7 +171,7 @@ class ExposureSubmissionTestResultViewModel {
 		)
 	}
 
-	private func negativeTestResultSection() -> DynamicSection {
+	private var negativeTestResultSection: DynamicSection {
 		.section(
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
@@ -201,7 +217,7 @@ class ExposureSubmissionTestResultViewModel {
 		)
 	}
 
-	private func invalidTestResultSection() -> DynamicSection {
+	private var invalidTestResultSection: DynamicSection {
 		.section(
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
@@ -238,7 +254,39 @@ class ExposureSubmissionTestResultViewModel {
 		)
 	}
 
-	private func expiredTestResultSection() -> DynamicSection {
+	private var pendingTestResultSection: DynamicSection {
+		.section(
+			header: .identifier(
+				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+				configure: { view, _ in
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .pending, timeStamp: self.timeStamp)
+				}
+			),
+			cells: [
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
+
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.testAdded,
+					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					icon: UIImage(named: "Icons_Grey_Check"),
+					hairline: .iconAttached
+				),
+
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.testPending,
+					description:
+						AppStrings.ExposureSubmissionResult.testPendingDescParagraph1 +
+						AppStrings.ExposureSubmissionResult.testPendingDescParagraph2 +
+						AppStrings.ExposureSubmissionResult.testPendingDescParagraph3,
+					icon: UIImage(named: "Icons_Grey_Wait"),
+					hairline: .none
+				)
+			]
+		)
+	}
+
+	private var expiredTestResultSection: DynamicSection {
 		.section(
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
@@ -269,38 +317,6 @@ class ExposureSubmissionTestResultViewModel {
 					title: AppStrings.ExposureSubmissionResult.testRemove,
 					description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
 					icon: UIImage(named: "Icons_Grey_Entfernen"),
-					hairline: .none
-				)
-			]
-		)
-	}
-
-	private func pendingTestResultSection() -> DynamicSection {
-		.section(
-			header: .identifier(
-				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .pending, timeStamp: self.timeStamp)
-				}
-			),
-			cells: [
-				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testAdded,
-					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
-					icon: UIImage(named: "Icons_Grey_Check"),
-					hairline: .iconAttached
-				),
-
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testPending,
-					description:
-						AppStrings.ExposureSubmissionResult.testPendingDescParagraph1 +
-						AppStrings.ExposureSubmissionResult.testPendingDescParagraph2 +
-						AppStrings.ExposureSubmissionResult.testPendingDescParagraph3,
-					icon: UIImage(named: "Icons_Grey_Wait"),
 					hairline: .none
 				)
 			]

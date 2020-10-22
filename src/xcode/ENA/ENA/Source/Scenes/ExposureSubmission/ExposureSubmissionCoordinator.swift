@@ -177,7 +177,10 @@ extension ExposureSubmissionCoordinator {
 		return ExposureSubmissionTestResultViewController(
 			viewModel: .init(
 				testResult: testResult,
-				exposureSubmissionService: model.exposureSubmissionService
+				exposureSubmissionService: model.exposureSubmissionService,
+				onTestDeleted: { [weak self] in
+					self?.dismiss()
+				}
 			),
 			onContinueWithSymptomsButtonTap: { [weak self] in
 //				self?.model.checkExposureSubmissionPreconditions {
@@ -186,9 +189,6 @@ extension ExposureSubmissionCoordinator {
 			onContinueWithoutSymptomsButtonTap: { [weak self] in
 //				self?.model.checkExposureSubmissionPreconditions {
 //				}
-			},
-			onTestDeleted: { [weak self] in
-				self?.dismiss()
 			}
 		)
 	}

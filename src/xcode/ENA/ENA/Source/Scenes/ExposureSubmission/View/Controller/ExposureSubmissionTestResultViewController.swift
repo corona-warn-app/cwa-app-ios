@@ -15,8 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import Foundation
 import UIKit
+import Combine
 
 class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 
@@ -25,13 +25,11 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	init(
 		viewModel: ExposureSubmissionTestResultViewModel,
 		onContinueWithSymptomsButtonTap: @escaping () -> Void,
-		onContinueWithoutSymptomsButtonTap: @escaping () -> Void,
-		onTestDeleted: @escaping () -> Void
+		onContinueWithoutSymptomsButtonTap: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.onContinueWithSymptomsButtonTap = onContinueWithSymptomsButtonTap
 		self.onContinueWithoutSymptomsButtonTap = onContinueWithoutSymptomsButtonTap
-		self.onTestDeleted = onTestDeleted
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -46,7 +44,8 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		setupView()
+		setUpView()
+		setUpBindings()
 	}
 
 	override var navigationItem: UINavigationItem {
@@ -60,9 +59,9 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		case .positive:
 			onContinueWithSymptomsButtonTap()
 		case .negative, .invalid, .expired:
-			deleteTest()
+			showDeletionConfirmationAlert()
 		case .pending:
-			refreshTest()
+			viewModel.refreshTest()
 		}
 	}
 
@@ -71,9 +70,8 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		case .positive:
 			onContinueWithoutSymptomsButtonTap()
 		case .pending:
-			deleteTest()
+			showDeletionConfirmationAlert()
 		default:
-			// Secondary button is only active for pending result state.
 			break
 		}
 	}
@@ -84,23 +82,17 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 	private let onContinueWithSymptomsButtonTap: () -> Void
 	private let onContinueWithoutSymptomsButtonTap: () -> Void
-	private let onTestDeleted: () -> Void
 
-	private func setupView() {
+	private var subscribers: [AnyCancellable] = []
+
+	private func setUpView() {
 		view.backgroundColor = .enaColor(for: .background)
 		cellBackgroundColor = .clear
 
-		setupDynamicTableView()
-		setupNavigationBar()
+		setUpDynamicTableView()
 	}
 
-	private func setupNavigationBar() {
-		navigationItem.hidesBackButton = true
-		navigationController?.navigationItem.largeTitleDisplayMode = .always
-		navigationItem.title = AppStrings.ExposureSubmissionResult.title
-	}
-
-	private func setupDynamicTableView() {
+	private func setUpDynamicTableView() {
 		tableView.separatorStyle = .none
 
 		tableView.register(
@@ -111,48 +103,51 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 			UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil),
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue
 		)
-
-		dynamicTableViewModel = viewModel.dynamicTableViewModel
 	}
 
-	private func deleteTest() {
+	private func setUpBindings() {
+		subscribers.append(viewModel.$dynamicTableViewModel.sink { [weak self] dynamicTableViewModel in
+			self?.dynamicTableViewModel = dynamicTableViewModel
+			self?.tableView.reloadData()
+		})
+
+		subscribers.append(viewModel.$error.sink { [weak self] error in
+			guard let self = self, let error = error else { return }
+
+			self.viewModel.error = nil
+
+			let alert = self.setupErrorAlert(message: error.localizedDescription)
+			self.present(alert, animated: true)
+		})
+	}
+
+	private func showDeletionConfirmationAlert() {
 		let alert = UIAlertController(
 			title: AppStrings.ExposureSubmissionResult.removeAlert_Title,
 			message: AppStrings.ExposureSubmissionResult.removeAlert_Text,
 			preferredStyle: .alert
 		)
 
-		let cancel = UIAlertAction(
+		let cancelAction = UIAlertAction(
 			title: AppStrings.Common.alertActionCancel,
 			style: .cancel,
-			handler: { _ in alert.dismiss(animated: true, completion: nil) }
-		)
-
-		let delete = UIAlertAction(
-			title: AppStrings.Common.alertActionRemove,
-			style: .destructive,
 			handler: { _ in
-				self.viewModel.deleteTest()
-				self.onTestDeleted()
+				alert.dismiss(animated: true)
 			}
 		)
 
-		alert.addAction(delete)
-		alert.addAction(cancel)
+		let deleteAction = UIAlertAction(
+			title: AppStrings.Common.alertActionRemove,
+			style: .destructive,
+			handler: { [weak self] _ in
+				self?.viewModel.deleteTest()
+			}
+		)
+
+		alert.addAction(deleteAction)
+		alert.addAction(cancelAction)
 
 		present(alert, animated: true, completion: nil)
-	}
-
-	private func refreshTest() {
-		navigationFooterItem?.isPrimaryButtonEnabled = false
-		navigationFooterItem?.isPrimaryButtonLoading = true
-
-		viewModel.refreshTest()
-	}
-
-	private func refreshView() {
-		self.dynamicTableViewModel = self.viewModel.dynamicTableViewModel
-		self.tableView.reloadData()
 	}
 
 }
