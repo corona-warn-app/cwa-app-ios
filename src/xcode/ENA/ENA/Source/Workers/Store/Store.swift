@@ -115,6 +115,10 @@ protocol Store: AnyObject {
 
 	var selectedServerEnvironment: ServerEnvironmentData { get set }
 
+	var deviceTimeIsCorrect: Bool  { get set }
+	
+	var deviceTimeErrorWasShown: Bool  { get set }
+
 	func clearAll(key: String?)
 
 	#if !RELEASE

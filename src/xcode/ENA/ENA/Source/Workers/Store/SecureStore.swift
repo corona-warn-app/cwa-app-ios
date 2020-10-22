@@ -239,6 +239,16 @@ final class SecureStore: Store {
 		set { kvStore["selectedServerEnvironment"] = newValue }
 	}
 
+	var deviceTimeIsCorrect: Bool  {
+		get { kvStore["deviceTimeIsCorrect"] as Bool? ?? true }
+		set { kvStore["deviceTimeIsCorrect"] = newValue }
+	}
+
+	var deviceTimeErrorWasShown: Bool  {
+		get { kvStore["deviceTimeErrorWasShown"] as Bool? ?? false }
+		set { kvStore["deviceTimeErrorWasShown"] = newValue }
+	}
+
 	#if !RELEASE
 
 	// Settings from the debug menu.
