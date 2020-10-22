@@ -66,7 +66,6 @@ struct RiskCalculation: RiskCalculationProtocol {
 		- dateLastExposureDetection: The date of the most recent exposure detection
 		- numberOfTracingActiveDays: A count of how many days tracing has been active for
 		- preconditions: Current state of the `ExposureManager`
-		- currentDate: The current `Date` to use in checks. Defaults to `Date()`
 	*/
 	private func riskLevel(
 		summary: CodableExposureDetectionSummary?,
