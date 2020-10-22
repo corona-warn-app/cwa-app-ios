@@ -62,4 +62,63 @@ class AppInformationModelTest: XCTestCase {
 		XCTAssertEqual(numberOfCells, 2)
 	}
 	
+	func testTermsOfUse() throws {
+		let filename = "usage"
+		let fileExtension = "html"
+		
+		// get the URL for de
+		let url = Bundle.main.url(forResource: filename, withExtension: "html")
+		var pathString = url?.deletingLastPathComponent().deletingLastPathComponent().absoluteString
+		
+		let anotherURL = Bundle.main.url(forResource: filename, withExtension: fileExtension, subdirectory: pathString, localization: "en")
+		pathString = pathString! + "en.lproj"
+		let files = Bundle.main.paths(forResourcesOfType: "html", inDirectory: pathString, forLocalization: "en")
+		
+		
+		let data = try Data(contentsOf: url!)
+		let text = String(data: data, encoding: .utf8)
+		
+	}
+
+	func testUsageText() throws {
+		let filename = "usage"
+		let fileExtension = "html"
+		
+		
+		let urlEN = Bundle.main.url(forResource: filename, withExtension: fileExtension)
+
+		let dataEN = try Data(contentsOf: urlEN!.deletingLastPathComponent()
+								.deletingLastPathComponent()
+								.appendingPathComponent("en.lproj")
+								.appendingPathComponent(filename + "." + fileExtension)
+		)
+		
+		let textEN = try getText(filename: filename, fileExtension: fileExtension, localization: "en")
+		let textPL = try getText(filename: filename, fileExtension: fileExtension, localization: "pl")
+		let textRO = try getText(filename: filename, fileExtension: fileExtension, localization: "ro")
+		let textBG = try getText(filename: filename, fileExtension: fileExtension, localization: "bg")
+
+		print(textEN.count)
+		print(textPL.count)
+		print(textRO.count)
+		print(textBG.count)
+		XCTAssertEqual(textEN.count, textPL.count)
+//		XCTAssertEqual(textEN, textPL)
+		
+	}
+	
+	
+	private func getText(filename: String, fileExtension: String, localization: String) throws -> String {
+		let directory = localization + ".lproj"
+		let url = Bundle.main.url(forResource: filename, withExtension: fileExtension)
+		
+		let data = try Data(contentsOf: url!.deletingLastPathComponent()
+								.deletingLastPathComponent()
+								.appendingPathComponent(directory)
+								.appendingPathComponent(filename + "." + fileExtension)
+		)
+		return String(data: data, encoding: .utf8) ?? ""
+		
+	}
+	
 }
