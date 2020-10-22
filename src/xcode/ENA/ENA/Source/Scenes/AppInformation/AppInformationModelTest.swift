@@ -22,6 +22,9 @@ import XCTest
 
 class AppInformationModelTest: XCTestCase {
 	
+	private let targetLocalizationIDs = ["pl", "ro", "bg"]
+	private let sourceLocalizationID = "en"
+	
 	func testAboutModel() {
 		let dynamicTable = AppInformationModel.aboutModel
 		XCTAssertEqual(dynamicTable.numberOfSection, 1)
@@ -63,59 +66,37 @@ class AppInformationModelTest: XCTestCase {
 	}
 	
 	func testTermsOfUse() throws {
-		let filename = "usage"
+		let filename = "privacy-policy"
 		let fileExtension = "html"
 		
-		// get the URL for de
-		let url = Bundle.main.url(forResource: filename, withExtension: "html")
-		var pathString = url?.deletingLastPathComponent().deletingLastPathComponent().absoluteString
-		
-		let anotherURL = Bundle.main.url(forResource: filename, withExtension: fileExtension, subdirectory: pathString, localization: "en")
-		pathString = pathString! + "en.lproj"
-		let files = Bundle.main.paths(forResourcesOfType: "html", inDirectory: pathString, forLocalization: "en")
-		
-		
-		let data = try Data(contentsOf: url!)
-		let text = String(data: data, encoding: .utf8)
-		
+		try compareText(filename, fileExtension)
 	}
 
 	func testUsageText() throws {
 		let filename = "usage"
 		let fileExtension = "html"
 		
-		
-		let urlEN = Bundle.main.url(forResource: filename, withExtension: fileExtension)
-
-		let dataEN = try Data(contentsOf: urlEN!.deletingLastPathComponent()
-								.deletingLastPathComponent()
-								.appendingPathComponent("en.lproj")
-								.appendingPathComponent(filename + "." + fileExtension)
-		)
-		
-		let textEN = try getText(filename: filename, fileExtension: fileExtension, localization: "en")
-		let textPL = try getText(filename: filename, fileExtension: fileExtension, localization: "pl")
-		let textRO = try getText(filename: filename, fileExtension: fileExtension, localization: "ro")
-		let textBG = try getText(filename: filename, fileExtension: fileExtension, localization: "bg")
-
-		print(textEN.count)
-		print(textPL.count)
-		print(textRO.count)
-		print(textBG.count)
-		XCTAssertEqual(textEN.count, textPL.count)
-//		XCTAssertEqual(textEN, textPL)
-		
+		try compareText(filename, fileExtension)
 	}
 	
+	fileprivate func compareText(_ filename: String, _ fileExtension: String) throws {
+		let sourceText = try getText(fromFile: filename, withExtension: fileExtension, localization: sourceLocalizationID)
+		for id in targetLocalizationIDs {
+			let targetText = try getText(fromFile: filename, withExtension: fileExtension, localization: "\(id)")
+			XCTAssertEqual(sourceText, targetText)
+		}
+	}
 	
-	private func getText(filename: String, fileExtension: String, localization: String) throws -> String {
+	fileprivate func getText(fromFile: String, withExtension: String, localization: String) throws -> String {
 		let directory = localization + ".lproj"
-		let url = Bundle.main.url(forResource: filename, withExtension: fileExtension)
+		guard let url = Bundle.main.url(forResource: fromFile, withExtension: withExtension) else {
+			return ""
+		}
 		
-		let data = try Data(contentsOf: url!.deletingLastPathComponent()
+		let data = try Data(contentsOf: url.deletingLastPathComponent()
 								.deletingLastPathComponent()
 								.appendingPathComponent(directory)
-								.appendingPathComponent(filename + "." + fileExtension)
+								.appendingPathComponent(fromFile + "." + withExtension)
 		)
 		return String(data: data, encoding: .utf8) ?? ""
 		
