@@ -47,10 +47,9 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 		super.viewDidLoad()
 
 		setupView()
-//		updateToggleFlashAccessibility()
 		viewModel.startCaptureSession()
-
 		setupNavigationBar()
+		updateToggleFlashAccessibility()
 	}
 
 	override func viewDidLayoutSubviews() {
@@ -67,9 +66,8 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 	private let viewModel: ExposureSubmissionQRScannerViewModel
 	private let onCancelScannerView: () -> Void
 
-	private let flashButton = UIButton(type: .custom)
+//	private let flashButton = UIButton(type: .custom)
 
-	private var captureDevice: AVCaptureDevice?
 	private var previewLayer: AVCaptureVideoPreviewLayer? { didSet { setNeedsPreviewMaskUpdate() } }
 
 	private var needsPreviewMaskUpdate: Bool = true
@@ -116,19 +114,31 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
 		flashButton.setImage(UIImage(systemName: "bolt"), for: .normal)
 		flashButton.setImage(UIImage(systemName: "bolt.fill"), for: .selected)
-
+		flashButton.accessibilityLabel = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityLabel
+		flashButton.accessibilityTraits = [.button]
 		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: flashButton)
 	}
 
 	private func updateToggleFlashAccessibility() {
-		flashButton.accessibilityLabel = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityLabel
-		flashButton.accessibilityCustomActions?.removeAll()
-		flashButton.accessibilityTraits = [.button]
+		guard let flashButton = navigationItem.rightBarButtonItem?.customView as? UIButton else {
+			return
+		}
 
-		if flashButton.isSelected {
+		flashButton.accessibilityCustomActions?.removeAll()
+
+		switch viewModel.torchMode {
+		case .notAvailable:
+			flashButton.isEnabled = false
+			flashButton.isSelected = false
+			flashButton.accessibilityValue = nil
+		case .lightOn:
+			flashButton.isEnabled = true
+			flashButton.isSelected = true
 			flashButton.accessibilityValue = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityOnValue
 			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityDisableAction, target: self, selector: #selector(didToggleFlash))]
-		} else {
+		case .ligthOff:
+			flashButton.isEnabled = true
+			flashButton.isSelected = false
 			flashButton.accessibilityValue = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityOffValue
 			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityEnableAction, target: self, selector: #selector(didToggleFlash))]
 		}
@@ -136,30 +146,11 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 
 	@objc
 	private func didToggleFlash() {
-		guard let device = captureDevice else { return }
-		guard device.hasTorch else { return }
-
-		do {
-			try device.lockForConfiguration()
-
-			if device.torchMode == .on {
-				device.torchMode = .off
-				flashButton.isSelected = false
-			} else {
-				do {
-					try device.setTorchModeOn(level: 1.0)
-					flashButton.isSelected = true
-				} catch {
-					Log.error(error.localizedDescription, log: .api)
-				}
+		viewModel.toggleFlash(completion: { [weak self] in
+			DispatchQueue.main.async {
+				self?.updateToggleFlashAccessibility()
 			}
-
-			device.unlockForConfiguration()
-
-			updateToggleFlashAccessibility()
-		} catch {
-			Log.error(error.localizedDescription, log: .api)
-		}
+		})
 	}
 
 	@objc
