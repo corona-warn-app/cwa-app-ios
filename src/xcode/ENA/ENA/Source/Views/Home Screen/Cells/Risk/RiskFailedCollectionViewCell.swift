@@ -25,6 +25,20 @@ protocol RiskFailedCollectionViewCellDelegate: AnyObject {
 
 final class RiskFailedCollectionViewCell: HomeCardCollectionViewCell {
 
+	// MARK: - Overrides
+
+	override func awakeFromNib() {
+		super.awakeFromNib()
+		stackView.setCustomSpacing(16.0, after: riskViewStackView)
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		activeButton.titleLabel?.lineBreakMode = traitCollection.preferredContentSizeCategory >= .accessibilityMedium ? .byTruncatingMiddle : .byWordWrapping
+	}
+
+	// MARK: - Internal
+
 	weak var delegate: RiskFailedCollectionViewCellDelegate?
 
 	@IBOutlet var titleLabel: ENALabel!
@@ -36,16 +50,6 @@ final class RiskFailedCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var topContainer: UIView!
 	@IBOutlet var stackView: UIStackView!
 	@IBOutlet var riskViewStackView: UIStackView!
-
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		stackView.setCustomSpacing(16.0, after: riskViewStackView)
-	}
-
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		activeButton.titleLabel?.lineBreakMode = traitCollection.preferredContentSizeCategory >= .accessibilityMedium ? .byTruncatingMiddle : .byWordWrapping
-	}
 
 	@IBAction func activeButtonTapped(_: UIButton) {
 		delegate?.activeButtonTapped(cell: self)

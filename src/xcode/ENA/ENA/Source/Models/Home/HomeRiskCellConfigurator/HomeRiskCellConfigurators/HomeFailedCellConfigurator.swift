@@ -19,10 +19,79 @@ import UIKit
 
 final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 
+	// MARK: - Init
+
+	init(
+		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
+		lastUpdateDate: Date?
+	) {
+		self.previousRiskLevel = previousRiskLevel
+		self.lastUpdateDate = lastUpdateDate
+	}
+
+	// MARK: - Overrides
+
+	// MARK: - Internal
+
+	var activeAction: (() -> Void)?
+
+	let title = AppStrings.Home.riskCardFailedCalculationTitle
+	let body = AppStrings.Home.riskCardFailedCalculationBody
+	let buttonTitle = AppStrings.Home.riskCardFailedCalculationRestartButtonTitle
+
+	var previousRiskTitle: String {
+		switch previousRiskLevel {
+		case .low?:
+			return AppStrings.Home.riskCardLastActiveItemLowTitle
+		case .increased?:
+			return AppStrings.Home.riskCardLastActiveItemHighTitle
+		default:
+			return AppStrings.Home.riskCardLastActiveItemUnknownTitle
+		}
+	}
+
+	func setupAccessibility(_ cell: RiskFailedCollectionViewCell) {
+		cell.titleLabel.isAccessibilityElement = false
+		cell.chevronImageView.isAccessibilityElement = false
+		cell.viewContainer.isAccessibilityElement = false
+		cell.stackView.isAccessibilityElement = false
+
+		cell.topContainer.isAccessibilityElement = true
+		cell.bodyLabel.isAccessibilityElement = true
+
+		let topContainerText = cell.titleLabel.text ?? ""
+		cell.topContainer.accessibilityLabel = topContainerText
+		cell.topContainer.accessibilityTraits = [.button, .header]
+	}
+
+	func configure(cell: RiskFailedCollectionViewCell) {
+
+		cell.delegate = self
+
+		// Configuring the UI.
+
+		configureUI(for: cell)
+		configureRiskViewsUI(for: cell)
+
+		setupAccessibility(cell)
+
+	}
+
+	func hash(into hasher: inout Swift.Hasher) {
+		hasher.combine(previousRiskLevel)
+		hasher.combine(lastUpdateDate)
+	}
+
+	static func == (lhs: HomeFailedCellConfigurator, rhs: HomeFailedCellConfigurator) -> Bool {
+		lhs.previousRiskLevel == rhs.previousRiskLevel &&
+		lhs.lastUpdateDate == rhs.lastUpdateDate
+	}
+
+	// MARK: - Private
+
 	private var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 	private var lastUpdateDate: Date?
 
-	var activeAction: (() -> Void)?
 
 	private static let lastUpdateDateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
@@ -39,43 +108,6 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 			return AppStrings.Home.riskCardNoDateTitle
 		}
 	}
-
-	// MARK: Creating a Home Risk Cell Configurator
-
-	init(
-		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
-		lastUpdateDate: Date?
-	) {
-		self.previousRiskLevel = previousRiskLevel
-		self.lastUpdateDate = lastUpdateDate
-	}
-
-	// MARK: - Computed properties.
-
-	var title: String {
-		return AppStrings.Home.riskCardFailedCalculationTitle
-	}
-
-	var body: String {
-		return AppStrings.Home.riskCardFailedCalculationBody
-	}
-
-	var previousRiskTitle: String {
-		switch previousRiskLevel {
-		case .low?:
-			return AppStrings.Home.riskCardLastActiveItemLowTitle
-		case .increased?:
-			return AppStrings.Home.riskCardLastActiveItemHighTitle
-		default:
-			return AppStrings.Home.riskCardLastActiveItemUnknownTitle
-		}
-	}
-
-	var buttonTitle: String {
-		AppStrings.Home.riskCardFailedCalculationRestartButtonTitle
-	}
-
-	// MARK: - UI Helpers
 
 	/// Adjusts the UI for the given cell, including setting text and adjusting colors.
 	private func configureUI(for cell: RiskFailedCollectionViewCell) {
@@ -115,49 +147,9 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
 	}
-
-	func setupAccessibility(_ cell: RiskFailedCollectionViewCell) {
-		cell.titleLabel.isAccessibilityElement = false
-		cell.chevronImageView.isAccessibilityElement = false
-		cell.viewContainer.isAccessibilityElement = false
-		cell.stackView.isAccessibilityElement = false
-
-		cell.topContainer.isAccessibilityElement = true
-		cell.bodyLabel.isAccessibilityElement = true
-
-		let topContainerText = cell.titleLabel.text ?? ""
-		cell.topContainer.accessibilityLabel = topContainerText
-		cell.topContainer.accessibilityTraits = [.button, .header]
-	}
-
-	// MARK: - Configuration.
-
-	func configure(cell: RiskFailedCollectionViewCell) {
-
-		cell.delegate = self
-
-		// Configuring the UI.
-
-		configureUI(for: cell)
-		configureRiskViewsUI(for: cell)
-
-		setupAccessibility(cell)
-
-	}
-
-	// MARK: Hashable
-
-	func hash(into hasher: inout Swift.Hasher) {
-		hasher.combine(previousRiskLevel)
-		hasher.combine(lastUpdateDate)
-	}
-
-	static func == (lhs: HomeFailedCellConfigurator, rhs: HomeFailedCellConfigurator) -> Bool {
-		lhs.previousRiskLevel == rhs.previousRiskLevel &&
-		lhs.lastUpdateDate == rhs.lastUpdateDate
-	}
-	
 }
+
+// MARK: - Protocol RiskFailedCollectionViewCellDelegate
 
 extension HomeFailedCellConfigurator: RiskFailedCollectionViewCellDelegate {
 	func activeButtonTapped(cell: RiskFailedCollectionViewCell) {
