@@ -3,7 +3,7 @@
 ## This script converts *.proto files to *.pb.swift files.
 ## In order to work properly protoc should be installed.
 
-
+set -euo pipefail
 
 if ! hash protoc 2>/dev/null; then
     echo "[ERROR] Converting .proto-files to .swift-files requires protoc."
