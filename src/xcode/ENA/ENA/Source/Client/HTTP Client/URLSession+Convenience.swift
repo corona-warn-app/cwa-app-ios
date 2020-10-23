@@ -66,17 +66,21 @@ extension URLSession {
 				return
 			}
 
-			if let error = error {
-				completion(.failure(.httpError(error)))
-				return
-			}
-			guard
-				let data = data,
-				let response = response as? HTTPURLResponse
-			else {
+			guard let response = response as? HTTPURLResponse else {
 				completion(.failure(.noResponse))
 				return
 			}
+
+			if let error = error {
+				completion(.failure(.httpError(error, response)))
+				return
+			}
+
+			guard let data = data else {
+				completion(.failure(.noResponse))
+				return
+			}
+
 			completion(
 				.success(
 					.init(body: data, statusCode: response.statusCode, httpResponse: response)
@@ -110,7 +114,7 @@ extension URLSession.Response {
 	/// Raised when `URLSession` was unable to get an actual response.
 	enum Failure: Error {
 		/// The session received an `Error`. In that case the body and response is discarded.
-		case httpError(Error)
+		case httpError(Error, HTTPURLResponse)
 		/// The session did not receive an error but nor either an `HTTPURLResponse`/HTTP body.
 		case noResponse
 		case teleTanAlreadyUsed

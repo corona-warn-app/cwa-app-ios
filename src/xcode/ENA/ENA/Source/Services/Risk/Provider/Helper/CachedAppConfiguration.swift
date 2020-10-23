@@ -52,32 +52,45 @@ final class CachedAppConfiguration {
 
 	private func fetchConfig(with etag: String?, completion: Completion? = nil) {
 		client.fetchAppConfiguration(etag: etag) { [weak self] result in
-			switch result {
+			guard let self = self else { return }
+
+			switch result.0 {
 			case .success(let response):
-				self?.store.lastAppConfigETag = response.eTag
-				self?.store.appConfig = response.config
-				self?.completeOnMain(completion: completion, result: .success(response.config))
+				self.store.lastAppConfigETag = response.eTag
+				self.store.appConfig = response.config
+				self.completeOnMain(completion: completion, result: .success(response.config))
 
 				// keep track of last successful fetch
-				self?.store.lastAppConfigFetch = Date()
+				self.store.lastAppConfigFetch = Date()
 
-				self?.configurationDidChange?()
+				self.configurationDidChange?()
 			case .failure(let error):
 				switch error {
-				case CachedAppConfiguration.CacheError.notModified where self?.store.appConfig != nil:
+				case CachedAppConfiguration.CacheError.notModified where self.store.appConfig != nil:
 					Log.error("config not modified", log: .api)
 					// server is not modified and we have a cached config
-					guard let config = self?.store.appConfig else {
+					guard let config = self.store.appConfig else {
 						fatalError("App configuration cache broken!") // in `where` we trust
 					}
-					self?.completeOnMain(completion: completion, result: .success(config))
+					self.completeOnMain(completion: completion, result: .success(config))
 
 					// keep track of last successful fetch
-					self?.store.lastAppConfigFetch = Date()
+					self.store.lastAppConfigFetch = Date()
 				default:
-					self?.completeOnMain(completion: completion, result: .failure(error))
+					self.completeOnMain(completion: completion, result: .failure(error))
 				}
 			}
+
+			let serverTime = result.1
+
+			self.persistDeviceTimeCheckFlags(
+				deviceTimeIsCorrect: self.isDeviceTimeCorrect(
+					serverTime: serverTime
+				),
+				deviceTimeCheckKillSwitchIsActive: self.isDeviceTimeCheckKillSwitchActive(
+					config: self.store.appConfig
+				)
+			)
 		}
 	}
 
@@ -85,6 +98,41 @@ final class CachedAppConfiguration {
 	private func completeOnMain(completion: Completion?, result: Result<SAP_ApplicationConfiguration, Error>) {
 		DispatchQueue.main.async {
 			completion?(result)
+		}
+	}
+
+	private func persistDeviceTimeCheckFlags(
+		deviceTimeIsCorrect: Bool,
+		deviceTimeCheckKillSwitchIsActive: Bool
+	) {
+		store.deviceTimeIsCorrect = deviceTimeCheckKillSwitchIsActive ? true : deviceTimeIsCorrect
+		if deviceTimeIsCorrect {
+			store.deviceTimeErrorWasShown = false
+		}
+	}
+
+	private func isDeviceTimeCorrect(serverTime: Date?) -> Bool {
+		guard let serverTime = serverTime else {
+			return true
+		}
+
+		if let serverTimeMinus2Hours = Calendar.current.date(byAdding: .hour, value: -2, to: serverTime),
+		   let serverTimePlus2Hours = Calendar.current.date(byAdding: .hour, value: 2, to: serverTime) {
+			let deviceTime = Date()
+			return (serverTimeMinus2Hours ... serverTimePlus2Hours).contains(deviceTime)
+		} else {
+			return true
+		}
+	}
+
+	private func isDeviceTimeCheckKillSwitchActive(config: SAP_ApplicationConfiguration?) -> Bool {
+		if let config = config {
+			let killSwitchFeature = config.appFeatures.appFeatures.first {
+				$0.label == "disable-device-time-check"
+			}
+			return killSwitchFeature?.value == 1
+		} else {
+			return false
 		}
 	}
 }
