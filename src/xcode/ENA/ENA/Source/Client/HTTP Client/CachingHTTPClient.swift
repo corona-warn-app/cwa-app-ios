@@ -62,7 +62,7 @@ class CachingHTTPClient: AppConfigurationFetching {
 		session.GET(configuration.configurationURL, extraHeaders: headers) { result in
 			switch result {
 			case .success(let response):
-				let serverDate = response.httpResponse.date
+				let serverDate = response.httpResponse.dateHeader
 
 				// content not modified?
 				guard response.statusCode != 304 else {
@@ -99,7 +99,7 @@ class CachingHTTPClient: AppConfigurationFetching {
 			case .failure(let error):
 				var serverDate: Date?
 				if case let .httpError(_, httpResponse) = error {
-					serverDate = httpResponse.date
+					serverDate = httpResponse.dateHeader
 				}
 				completion((.failure(error), serverDate))
 			}
@@ -108,7 +108,7 @@ class CachingHTTPClient: AppConfigurationFetching {
 }
 
 private extension HTTPURLResponse {
-	var date: Date? {
+	var dateHeader: Date? {
 		if let dateString = value(forHTTPHeaderField: "Date") {
 			let dateFormatter = DateFormatter()
 			dateFormatter.dateFormat = "EEE',' dd' 'MMM' 'yyyy HH':'mm':'ss zzz"
