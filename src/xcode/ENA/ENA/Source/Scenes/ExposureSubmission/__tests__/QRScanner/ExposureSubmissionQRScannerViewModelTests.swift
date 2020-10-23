@@ -32,7 +32,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		onSuccessExpectation.expectedFulfillmentCount = 1
 
 		let onErrorExpectation = expectation(description: "onError not called")
-		onErrorExpectation.isInverted = true
+		// first onError call will happen on ViewModel init
+		onErrorExpectation.expectedFulfillmentCount = 1
 
 		let viewModel = ExposureSubmissionQRScannerViewModel(
 			isScanningActivated: true,
@@ -99,7 +100,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		onSuccessExpectation.isInverted = true
 
 		let onErrorExpectation = expectation(description: "onError not called")
-		onErrorExpectation.isInverted = true
+		// first onError call will happen on ViewModel init
+		onErrorExpectation.expectedFulfillmentCount = 1
 
 		let viewModel = ExposureSubmissionQRScannerViewModel(
 			isScanningActivated: false,
