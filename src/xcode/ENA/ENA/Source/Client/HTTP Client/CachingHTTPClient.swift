@@ -62,26 +62,11 @@ class CachingHTTPClient: AppConfigurationFetching {
 		session.GET(configuration.configurationURL, extraHeaders: headers) { result in
 			switch result {
 			case .success(let response):
-
-				if let dateString = response.httpResponse.value(forHTTPHeaderField: "Date") {
-					// "Thu, 22 Oct 2020 13:59:00 GMT"
-					let dateFormatter = DateFormatter()
-					dateFormatter.dateFormat = "EEE',' dd' 'MMM' 'yyyy HH':'mm':'ss zzz"
-
-					if let serverDate = dateFormatter.date(from: dateString),
-					   let serverDateMinus2Hours = Calendar.current.date(byAdding: .hour, value: -2, to: serverDate),
-					   let serverDatePlus2Hours = Calendar.current.date(byAdding: .hour, value: 2, to: serverDate) {
-							let deviceDate = Date()
-							let deviceTimeIsCorrect = (serverDateMinus2Hours ... serverDatePlus2Hours).contains(deviceDate)
-							print(deviceTimeIsCorrect)
-					}
-
-					//(server_time - 2 hrs) < device_time_in_utc < (server_time + 2 hrs)
-				}
+				let serverDate = response.httpResponse.date
 
 				// content not modified?
 				guard response.statusCode != 304 else {
-					completion(.failure(CachedAppConfiguration.CacheError.notModified))
+					completion((.failure(CachedAppConfiguration.CacheError.notModified), serverDate))
 					return
 				}
 
@@ -91,14 +76,14 @@ class CachingHTTPClient: AppConfigurationFetching {
 					let package = SAPDownloadedPackage(compressedData: data)
 				else {
 					let error = CachedAppConfiguration.CacheError.dataFetchError(message: "Failed to create downloaded package for app config.")
-					completion(.failure(error))
+					completion((.failure(error), serverDate))
 					return
 				}
 
 				// data verified?
 				guard self.packageVerifier(package) else {
 					let error = CachedAppConfiguration.CacheError.dataVerificationError(message: "Failed to verify app config signature")
-					completion(.failure(error))
+					completion((.failure(error), serverDate))
 					return
 				}
 
@@ -107,13 +92,26 @@ class CachingHTTPClient: AppConfigurationFetching {
 					let config = try SAP_ApplicationConfiguration(serializedData: package.bin)
 					let eTag = response.httpResponse.value(forHTTPHeaderField: "ETag")
 					let configurationResponse = AppConfigurationFetchingResponse(config, eTag)
-					completion(.success(configurationResponse))
+					completion((.success(configurationResponse), serverDate))
 				} catch {
-					completion(.failure(error))
+					completion((.failure(error), serverDate))
 				}
-			case .failure(let error):
-				completion(.failure(error))
+			case .failure(let error, let response):
+				let serverDate = response.date
+				completion((.failure(error), serverDate))
 			}
+		}
+	}
+}
+
+private extension HTTPURLResponse {
+	var date: Date? {
+		if let dateString = value(forHTTPHeaderField: "Date") {
+			let dateFormatter = DateFormatter()
+			dateFormatter.dateFormat = "EEE',' dd' 'MMM' 'yyyy HH':'mm':'ss zzz"
+			return dateFormatter.date(from: dateString)
+		} else {
+			return nil
 		}
 	}
 }
