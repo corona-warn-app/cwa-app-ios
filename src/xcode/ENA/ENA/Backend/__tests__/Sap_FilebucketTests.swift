@@ -42,7 +42,7 @@ final class SapFileBucketTests: XCTestCase {
 
 		let fixtureData = try Data(contentsOf: fixtureUrl)
 		let bucket = try XCTUnwrap(SAPDownloadedPackage(compressedData: fixtureData))
-		let config = try SAP_ApplicationConfiguration(serializedData: bucket.bin)
+		let config = try SAP_Internal_ApplicationConfiguration(serializedData: bucket.bin)
 		XCTAssertEqual(config.supportedCountries, ["DE"])
 	}
 }

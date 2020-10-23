@@ -25,7 +25,7 @@ import Combine
 protocol ExposureSummaryProvider: AnyObject {
 	typealias Completion = (ENExposureDetectionSummary?) -> Void
 	func detectExposure(
-		appConfiguration: SAP_ApplicationConfiguration,
+		appConfiguration: SAP_Internal_ApplicationConfiguration,
 		activityStateDelegate: ActivityStateProviderDelegate?,
 		completion: @escaping Completion
 	) -> CancellationToken
@@ -126,7 +126,7 @@ extension RiskProvider: RiskProviding {
 	private func determineSummary(
 		userInitiated: Bool,
 		ignoreCachedSummary: Bool = false,
-		appConfiguration: SAP_ApplicationConfiguration,
+		appConfiguration: SAP_Internal_ApplicationConfiguration,
 		completion: @escaping (SummaryMetadata?) -> Void
 	) {
 		Log.info("RiskProvider: Determine summeries.", log: .riskDetection)
@@ -260,7 +260,7 @@ extension RiskProvider: RiskProviding {
 		let group = DispatchGroup()
 
 		group.enter()
-		var appConfiguration: SAP_ApplicationConfiguration?
+		var appConfiguration: SAP_Internal_ApplicationConfiguration?
 		appConfigurationProvider.appConfiguration { [weak self] result in
 			switch result {
 			case .success(let config):
@@ -303,7 +303,7 @@ extension RiskProvider: RiskProviding {
 		)
 	}
 
-	private func _requestRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_ApplicationConfiguration, completion: Completion? = nil) {
+	private func _requestRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_Internal_ApplicationConfiguration, completion: Completion? = nil) {
 		Log.info("RiskProvider: Apply risk calculation", log: .riskDetection)
 
 		let activeTracing = store.tracingStatusHistory.activeTracing()
