@@ -19,9 +19,13 @@ import Foundation
 import UIKit
 
 extension ExposureDetectionViewController {
-	func dynamicTableViewModel(for riskLevel: RiskLevel, isTracingEnabled: Bool) -> DynamicTableViewModel {
+	func dynamicTableViewModel(for riskLevel: RiskLevel, riskDetectionFailed: Bool, isTracingEnabled: Bool) -> DynamicTableViewModel {
 		if !isTracingEnabled {
 			return offModel
+		}
+
+		if riskDetectionFailed {
+			return failureModel
 		}
 
 		switch riskLevel {
@@ -382,6 +386,25 @@ extension ExposureDetectionViewController {
 				footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)),
 				cells: [
 					.riskText(text: AppStrings.ExposureDetection.offText),
+					.riskLastRiskLevel(hasSeparator: false, text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "Icons_LetzteErmittlung-Light")),
+					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
+				]
+			),
+			riskLoadingSection,
+			standardGuideSection,
+			explanationSection(
+				text: AppStrings.ExposureDetection.explanationTextOff,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextOff)
+		])
+	}
+	
+	private var failureModel: DynamicTableViewModel {
+		DynamicTableViewModel([
+			.section(
+				header: .none,
+				footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)),
+				cells: [
+					.riskText(text: AppStrings.ExposureDetection.riskCardFailedCalculationBody),
 					.riskLastRiskLevel(hasSeparator: false, text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "Icons_LetzteErmittlung-Light")),
 					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 				]

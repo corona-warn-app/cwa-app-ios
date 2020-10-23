@@ -18,8 +18,9 @@
 //
 
 import XCTest
-@testable import ENA
 import ExposureNotification
+@testable import ENA
+
 final class ExposureDetectionTransactionTests: XCTestCase {
 
 	func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {

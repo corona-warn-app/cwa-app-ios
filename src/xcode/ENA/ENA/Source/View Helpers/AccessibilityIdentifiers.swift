@@ -215,6 +215,7 @@ enum AccessibilityIdentifiers {
 		static let downloadInfo = "AppStrings.DeltaOnboarding.downloadInfo"
 		static let participatingCountriesListUnavailable = "AppStrings.DeltaOnboarding.participatingCountriesListUnavailable"
 		static let participatingCountriesListUnavailableTitle = "AppStrings.DeltaOnboarding.participatingCountriesListUnavailableTitle"
+		static let primaryButton = "AppStrings.DeltaOnboarding.primaryButton"
 	}
 
 	enum ExposureSubmissionWarnEuropeConsent {
