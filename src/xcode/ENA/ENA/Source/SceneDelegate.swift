@@ -50,6 +50,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		self.window = window
 
 		#if DEBUG
+		
+		// Speed up animations for faster UI-Tests: https://pspdfkit.com/blog/2016/running-ui-tests-with-ludicrous-speed/#update-why-not-just-disable-animations-altogether
+		if isUITesting {
+			window.layer.speed = 100
+		}
+		
 		if let isOnboarded = UserDefaults.standard.string(forKey: "isOnboarded") {
 			store.isOnboarded = (isOnboarded != "NO")
 		}
