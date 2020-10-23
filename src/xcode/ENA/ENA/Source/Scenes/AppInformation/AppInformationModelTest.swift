@@ -22,9 +22,6 @@ import XCTest
 
 class AppInformationModelTest: XCTestCase {
 	
-	private let targetLocalizationIDs = ["pl", "ro", "bg"]
-	private let sourceLocalizationID = "en"
-	
 	func testAboutModel() {
 		let dynamicTable = AppInformationModel.aboutModel
 		XCTAssertEqual(dynamicTable.numberOfSection, 1)
@@ -63,43 +60,6 @@ class AppInformationModelTest: XCTestCase {
 		let numberOfCells = section.cells.count
 		
 		XCTAssertEqual(numberOfCells, 2)
-	}
-	
-	func testTermsOfUse() throws {
-		let filename = "privacy-policy"
-		let fileExtension = "html"
-		
-		try compareText(filename, fileExtension)
-	}
-
-	func testUsageText() throws {
-		let filename = "usage"
-		let fileExtension = "html"
-		
-		try compareText(filename, fileExtension)
-	}
-	
-	fileprivate func compareText(_ filename: String, _ fileExtension: String) throws {
-		let sourceText = try getText(fromFile: filename, withExtension: fileExtension, localization: sourceLocalizationID)
-		for id in targetLocalizationIDs {
-			let targetText = try getText(fromFile: filename, withExtension: fileExtension, localization: "\(id)")
-			XCTAssertEqual(sourceText, targetText)
-		}
-	}
-	
-	fileprivate func getText(fromFile: String, withExtension: String, localization: String) throws -> String {
-		let directory = localization + ".lproj"
-		guard let url = Bundle.main.url(forResource: fromFile, withExtension: withExtension) else {
-			return ""
-		}
-		
-		let data = try Data(contentsOf: url.deletingLastPathComponent()
-								.deletingLastPathComponent()
-								.appendingPathComponent(directory)
-								.appendingPathComponent(fromFile + "." + withExtension)
-		)
-		return String(data: data, encoding: .utf8) ?? ""
-		
 	}
 	
 }
