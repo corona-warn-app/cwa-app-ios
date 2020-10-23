@@ -107,7 +107,7 @@ class CachingHTTPClient: AppConfigurationFetching {
 	}
 }
 
-private extension HTTPURLResponse {
+extension HTTPURLResponse {
 	var dateHeader: Date? {
 		if let dateString = value(forHTTPHeaderField: "Date") {
 			let dateFormatter = DateFormatter()
