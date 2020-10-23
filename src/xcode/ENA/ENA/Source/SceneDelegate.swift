@@ -56,17 +56,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			window.layer.speed = 100
 		}
 		
-		if let isOnboarded = UserDefaults.standard.string(forKey: "isOnboarded") {
-			store.isOnboarded = (isOnboarded != "NO")
-		}
-
-		if let onboardingVersion = UserDefaults.standard.string(forKey: "onboardingVersion") {
-			store.onboardingVersion = onboardingVersion
-		}
-
-		if let setCurrentOnboardingVersion = UserDefaults.standard.string(forKey: "setCurrentOnboardingVersion"), setCurrentOnboardingVersion == "YES" {
-			store.onboardingVersion = Bundle.main.appVersion
-		}
+		setupOnboardingForTesting()
+		
 		#endif
 
 		exposureManager.resume(observer: self)
@@ -202,6 +193,21 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	private func showOnboarding() {
 		coordinator.showOnboarding()
 	}
+	#if DEBUG
+	private func setupOnboardingForTesting() {
+		if let isOnboarded = UserDefaults.standard.string(forKey: "isOnboarded") {
+			store.isOnboarded = (isOnboarded != "NO")
+		}
+
+		if let onboardingVersion = UserDefaults.standard.string(forKey: "onboardingVersion") {
+			store.onboardingVersion = onboardingVersion
+		}
+
+		if let setCurrentOnboardingVersion = UserDefaults.standard.string(forKey: "setCurrentOnboardingVersion"), setCurrentOnboardingVersion == "YES" {
+			store.onboardingVersion = Bundle.main.appVersion
+		}
+	}
+	#endif
 
 	@objc
 	func isOnboardedDidChange(_: NSNotification) {
