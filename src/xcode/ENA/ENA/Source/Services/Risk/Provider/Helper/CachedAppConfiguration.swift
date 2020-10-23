@@ -34,9 +34,12 @@ final class CachedAppConfiguration {
 	/// The place where the app config and last etag is stored
 	private let store: AppConfigCaching
 
-	init(client: AppConfigurationFetching, store: AppConfigCaching) {
+	private let configurationDidChange: (() -> Void)?
+
+	init(client: AppConfigurationFetching, store: AppConfigCaching, configurationDidChange: (() -> Void)? = nil) {
 		self.client = client
 		self.store = store
+		self.configurationDidChange = configurationDidChange
 
 		guard shouldFetch() else { return }
 
@@ -57,6 +60,8 @@ final class CachedAppConfiguration {
 
 				// keep track of last successful fetch
 				self?.store.lastAppConfigFetch = Date()
+
+				self?.configurationDidChange?()
 			case .failure(let error):
 				switch error {
 				case CachedAppConfiguration.CacheError.notModified where self?.store.appConfig != nil:
