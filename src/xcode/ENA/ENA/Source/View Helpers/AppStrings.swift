@@ -801,5 +801,13 @@ enum AppStrings {
 		static let termsButtonTitle = NSLocalizedString("DeltaOnboarding_Terms_Button", comment: "")
 		static let termsDescription2 = NSLocalizedString("DeltaOnboarding_Terms_Description2", comment: "")
 	}
+	
+	enum WrongDeviceTime {
+		static let pushNotificationTitle = NSLocalizedString("ExposureDetection_WrongTime_Notification_Title", comment: "")
+		static let pushNotificationText = NSLocalizedString("ExposureDetection_WrongTime_Notification_Body", comment: "")
+		static let popoverTitle = NSLocalizedString("ExposureDetection_WrongTime_Notification_Popover_Title", comment: "")
+		static let popoverText = NSLocalizedString("ExposureDetection_WrongTime_Notification_Popover_Body", comment: "")
+	}
+	
 	// swiftlint:disable:next file_length
 }
