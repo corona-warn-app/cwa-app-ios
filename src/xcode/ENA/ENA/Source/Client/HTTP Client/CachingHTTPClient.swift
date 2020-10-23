@@ -96,8 +96,11 @@ class CachingHTTPClient: AppConfigurationFetching {
 				} catch {
 					completion((.failure(error), serverDate))
 				}
-			case .failure(let error, let response):
-				let serverDate = response.date
+			case .failure(let error):
+				var serverDate: Date?
+				if case let .httpError(_, httpResponse) = error {
+					serverDate = httpResponse.date
+				}
 				completion((.failure(error), serverDate))
 			}
 		}
