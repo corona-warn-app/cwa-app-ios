@@ -23,7 +23,7 @@ import ExposureNotification
 extension Array where Element: ENTemporaryExposureKey {
 
 	/// Prepare an array of `ENTemporaryExposureKey` for exposure submission.
-	func processedForSubmission(with symptomsOnset: SymptomsOnset, today: Date = Date()) -> [SAP_TemporaryExposureKey] {
+	func processedForSubmission(with symptomsOnset: SymptomsOnset, today: Date = Date()) -> [SAP_External_Exposurenotification_TemporaryExposureKey] {
 		/// 1. Group exposure keys by the day their rolling period started in the UTC time zone
 		let groupedExposureKeys: [Int: Self] = Dictionary(grouping: self, by: {
 			/// Use the rolling start number to get the date the rolling period started.
@@ -42,7 +42,7 @@ extension Array where Element: ENTemporaryExposureKey {
 		})
 
 		/// 2. Assign the corresponding transmission risk levels and days since onset of symptoms. Keys that have no corresponding transmission risk level are filtered out.
-		var processedExposureKeys = [SAP_TemporaryExposureKey]()
+		var processedExposureKeys = [SAP_External_Exposurenotification_TemporaryExposureKey]()
 		for (ageInDays, exposureKeys) in groupedExposureKeys where ageInDays >= 0 && ageInDays <= 14 {
 			for exposureKey in exposureKeys {
 				/// Convert to SAP key struct for submission

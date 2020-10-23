@@ -393,8 +393,8 @@ private extension URLRequest {
 		isFake: Bool
 	) throws -> URLRequest {
 		// construct the request
-		let submPayload = SAP_SubmissionPayload.with {
-			$0.padding = self.getSubmissionPadding(for: payload.exposureKeys)
+		let submPayload = SAP_Internal_SubmissionPayload.with {
+			$0.requestPadding = self.getSubmissionPadding(for: payload.exposureKeys)
 			$0.keys = payload.exposureKeys
 			/// Consent needs always set to be true https://jira.itc.sap.com/browse/EXPOSUREAPP-3125?focusedCommentId=1022122&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-1022122
 			$0.consentToFederation = true
@@ -572,7 +572,7 @@ private extension URLRequest {
 	/// This method recreates the request body of the submit keys request with a padding that fills up to resemble
 	/// a request with 14 +`n` keys. Note that the `n`parameter is currently set to 0, but can change in the future
 	/// when there will be support for 15 keys.
-	private static func getSubmissionPadding(for keys: [SAP_TemporaryExposureKey]) -> Data {
+	private static func getSubmissionPadding(for keys: [SAP_External_Exposurenotification_TemporaryExposureKey]) -> Data {
 		// This parameter denotes how many keys 14 + n have to be padded.
 		let n = 0
 		let paddedKeysAmount = 14 + n - keys.count

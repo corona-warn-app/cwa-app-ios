@@ -19,13 +19,13 @@
 import Foundation
 @testable import ENA
 
-extension SAP_ApplicationConfiguration {
+extension SAP_Internal_ApplicationConfiguration {
 
-	static var riskCalculationAppConfig: SAP_ApplicationConfiguration {
+	static var riskCalculationAppConfig: SAP_Internal_ApplicationConfiguration {
 		makeAppConfig(w_low: 1.0, w_med: 0.5, w_high: 0.5)
 	}
 
-	/// Makes an mock `SAP_ApplicationConfiguration`
+	/// Makes an mock `SAP_Internal_ApplicationConfiguration`
 	///
 	/// Some defaults are applied for ad_norm, w4, and low & high ranges
 	private static func makeAppConfig(
@@ -37,20 +37,20 @@ extension SAP_ApplicationConfiguration {
 		riskRangeLow: ClosedRange<Int32> = 1...5,
 		// Gap between the ranges is on purpose, this is an edge case to test
 		riskRangeHigh: Range<Int32> = 6..<11
-	) -> SAP_ApplicationConfiguration {
-		var config = SAP_ApplicationConfiguration()
+	) -> SAP_Internal_ApplicationConfiguration {
+		var config = SAP_Internal_ApplicationConfiguration()
 		config.attenuationDuration.defaultBucketOffset = w4
 		config.attenuationDuration.riskScoreNormalizationDivisor = ad_norm
 		config.attenuationDuration.weights.low = w_low
 		config.attenuationDuration.weights.mid = w_med
 		config.attenuationDuration.weights.high = w_high
 
-		var riskScoreClassLow = SAP_RiskScoreClass()
+		var riskScoreClassLow = SAP_Internal_RiskScoreClass()
 		riskScoreClassLow.label = "LOW"
 		riskScoreClassLow.min = riskRangeLow.lowerBound
 		riskScoreClassLow.max = riskRangeLow.upperBound
 
-		var riskScoreClassHigh = SAP_RiskScoreClass()
+		var riskScoreClassHigh = SAP_Internal_RiskScoreClass()
 		riskScoreClassHigh.label = "HIGH"
 		riskScoreClassHigh.min = riskRangeHigh.lowerBound
 		riskScoreClassHigh.max = riskRangeHigh.upperBound

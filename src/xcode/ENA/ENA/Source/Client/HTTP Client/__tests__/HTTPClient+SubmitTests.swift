@@ -28,8 +28,8 @@ final class HTTPClientSubmitTests: XCTestCase {
 	let expectationsTimeout: TimeInterval = 2
 	let tan = "1234"
 
-	private var keys: [SAP_TemporaryExposureKey] {
-		var key = SAP_TemporaryExposureKey()
+	private var keys: [SAP_External_Exposurenotification_TemporaryExposureKey] {
+		var key = SAP_External_Exposurenotification_TemporaryExposureKey()
 		key.keyData = Data(bytes: [1, 2, 3], count: 3)
 		key.rollingPeriod = 1337
 		key.rollingStartIntervalNumber = 42

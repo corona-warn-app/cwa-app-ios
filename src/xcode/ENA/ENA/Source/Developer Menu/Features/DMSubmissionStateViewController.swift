@@ -183,14 +183,14 @@ private extension SAPDownloadedPackage {
 		bin.withoutBinHeader
 	}
 
-	func keys() throws -> [Apple_TemporaryExposureKey] {
+	func keys() throws -> [SAP_External_Exposurenotification_TemporaryExposureKey] {
 		let data = binProtobufData
-		let export = try Apple_TemporaryExposureKeyExport(serializedData: data)
+		let export = try SAP_External_Exposurenotification_TemporaryExposureKeyExport(serializedData: data)
 		return export.keys
 	}
 }
 
-private extension Array where Element == Apple_TemporaryExposureKey {
+private extension Array where Element == SAP_External_Exposurenotification_TemporaryExposureKey {
 	func containsKey(_ key: ENTemporaryExposureKey) -> Bool {
 		contains { appleKey in
 			appleKey.keyData == key.keyData
