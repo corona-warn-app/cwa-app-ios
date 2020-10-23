@@ -109,7 +109,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		}
 	}
 
-	/// return a torchMode on current device state
+	/// get current torchMode by device state
 	var torchMode: TorchMode {
 		guard let device = captureDevice,
 			  device.hasTorch else {
@@ -130,7 +130,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 
 	func didScan(metadataObjects: [MetadataObject]) {
 		guard isScanningActivated else {
-			Log.error("Scanning not stopped from previous run")
+			Log.info("Scanning not stopped from previous run")
 			return
 		}
 		deactivateScanning()
