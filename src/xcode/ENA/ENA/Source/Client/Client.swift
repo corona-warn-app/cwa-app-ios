@@ -141,7 +141,7 @@ extension SubmissionError: LocalizedError {
 struct CountrySubmissionPayload {
 
 	/// The exposure keys to submit
-	let exposureKeys: [SAP_TemporaryExposureKey]
+	let exposureKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]
 
 	/// the list of countries to check for any exposures
 	let visitedCountries: [Country]

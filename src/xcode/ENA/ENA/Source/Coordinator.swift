@@ -103,8 +103,14 @@ class Coordinator: RequiresAppDependencies {
 		)
 	}
 
-	func updateState(detectionMode: DetectionMode, exposureManagerState: ExposureManagerState, risk: Risk?) {
-		homeController?.updateState(detectionMode: detectionMode, exposureManagerState: exposureManagerState, risk: risk)
+	func updateState(
+		detectionMode: DetectionMode,
+		exposureManagerState: ExposureManagerState
+	) {
+		homeController?.updateState(
+			detectionMode: detectionMode,
+			exposureManagerState: exposureManagerState
+		)
 	}
 
 	#if !RELEASE
@@ -159,6 +165,7 @@ extension Coordinator: HomeViewControllerDelegate {
 
 	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProvider.ActivityState) {
 		let state = ExposureDetectionViewController.State(
+			riskDetectionFailed: state.riskDetectionFailed,
 			exposureManagerState: state.exposureManagerState,
 			detectionMode: state.detectionMode,
 			activityState: activityState,
@@ -178,6 +185,7 @@ extension Coordinator: HomeViewControllerDelegate {
 
 	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProvider.ActivityState) {
 		let state = ExposureDetectionViewController.State(
+			riskDetectionFailed: state.riskDetectionFailed,
 			exposureManagerState: state.exposureManagerState,
 			detectionMode: state.detectionMode,
 			activityState: activityState,

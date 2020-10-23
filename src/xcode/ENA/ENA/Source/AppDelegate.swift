@@ -37,6 +37,7 @@ extension AppDelegate: CoronaWarnAppDelegate {
 
 extension AppDelegate: ExposureSummaryProvider {
 	func detectExposure(
+		appConfiguration: SAP_Internal_ApplicationConfiguration,
 		activityStateDelegate: ActivityStateProviderDelegate? = nil,
 		completion: @escaping (ENExposureDetectionSummary?) -> Void
 	) -> CancellationToken {
@@ -44,7 +45,7 @@ extension AppDelegate: ExposureSummaryProvider {
 
 		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
-			appConfigurationProvider: appConfigurationProvider
+			appConfiguration: appConfiguration
 		)
 		
 		exposureDetection?
@@ -116,8 +117,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		#endif
 		// use a custom http client that uses/recognized caching mechanisms
 		let appFetchingClient = CachingHTTPClient(clientConfiguration: client.configuration)
-
-		return CachedAppConfiguration(client: appFetchingClient, store: store)
+		
+		return CachedAppConfiguration(client: appFetchingClient, store: store, configurationDidChange: { [weak self] in
+			// Recalculate risk with new app configuration
+			self?.riskProvider.requestRisk(userInitiated: false, ignoreCachedSummary: true)
+		})
 	}()
 
 	lazy var riskProvider: RiskProvider = {

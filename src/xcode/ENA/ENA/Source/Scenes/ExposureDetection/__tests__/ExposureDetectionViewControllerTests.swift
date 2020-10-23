@@ -42,7 +42,7 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 
 	func testHighRiskState() {
 		let state = ExposureDetectionViewController.State(
-			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskDetectionFailed: false, exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			detectionMode: .automatic,
 			activityState: .idle,
 			risk: .init(level: .increased,

@@ -19,11 +19,20 @@
 
 import Foundation
 
+typealias RiskCalculationResult = Result<Risk, RiskCalculationError>
+
+enum RiskCalculationError: Error {
+	case timeout
+	case missingAppConfig
+	case failedRiskCalculation
+	case failedRiskDetection
+}
+
 protocol RiskProviding: AnyObject {
-	typealias Completion = (Risk?) -> Void
+	typealias Completion = (RiskCalculationResult) -> Void
 
 	func observeRisk(_ consumer: RiskConsumer)
-	func requestRisk(userInitiated: Bool, completion: Completion?)
+	func requestRisk(userInitiated: Bool, ignoreCachedSummary: Bool, completion: Completion?)
 	func nextExposureDetectionDate() -> Date
 
 	var configuration: RiskProvidingConfiguration { get set }

@@ -21,6 +21,8 @@ import UIKit
 
 extension ExposureDetectionViewController {
 	struct State {
+		var riskDetectionFailed: Bool
+
 		var exposureManagerState: ExposureManagerState = .init()
 
 		var detectionMode: DetectionMode = DetectionMode.default
@@ -54,24 +56,32 @@ extension ExposureDetectionViewController {
 			case .downloading:
 				return AppStrings.ExposureDetection.riskCardStatusDownloadingTitle
 			case .idle:
-				return isTracingEnabled ? riskLevel.text : AppStrings.ExposureDetection.off
+				if !isTracingEnabled {
+					return AppStrings.ExposureDetection.off
+				}
+
+				if riskDetectionFailed {
+					return AppStrings.ExposureDetection.riskCardFailedCalculationTitle
+				}
+
+				return riskLevel.text
 			}
 		}
 
 		var riskBackgroundColor: UIColor {
-			isTracingEnabled ? riskLevel.backgroundColor : .enaColor(for: .background)
+			!isTracingEnabled || riskDetectionFailed ? .enaColor(for: .background) : riskLevel.backgroundColor
 		}
 
 		var riskTintColor: UIColor {
-			isTracingEnabled ? riskLevel.tintColor : .enaColor(for: .riskNeutral)
+			!isTracingEnabled || riskDetectionFailed ? .enaColor(for: .riskNeutral) : riskLevel.tintColor
 		}
 
 		var riskContrastTintColor: UIColor {
-			isTracingEnabled ? riskLevel.contrastTintColor : .enaColor(for: .riskNeutral)
+			!isTracingEnabled || riskDetectionFailed ? .enaColor(for: .riskNeutral) : riskLevel.contrastTintColor
 		}
 
 		var titleTextColor: UIColor {
-			isTracingEnabled ? riskLevel.contrastTextColor : .enaColor(for: .textPrimary1)
+			!isTracingEnabled || riskDetectionFailed ? .enaColor(for: .textPrimary1) : riskLevel.contrastTextColor
 		}
 	}
 }
