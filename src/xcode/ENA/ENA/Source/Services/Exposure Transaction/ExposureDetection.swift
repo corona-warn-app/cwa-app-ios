@@ -111,7 +111,6 @@ final class ExposureDetection {
 
 		downloadKeyPackages { [weak self] in
 			guard let self = self else { return }
-
 			Log.info("ExposureDetection: Completed downloading packages.", log: .riskDetection)
 			Log.info("ExposureDetection: Start writing packages to file system.", log: .riskDetection)
 
@@ -122,11 +121,14 @@ final class ExposureDetection {
 
 				self.activityState = .detecting
 
+				// (kga) add another if condition to check for correct device time
+				// (kga) add another else statement for the wrong time state
 				if let exposureConfiguration = self.exposureConfiguration {
 					Log.info("ExposureDetection: Start detecting summary.", log: .riskDetection)
 
 					self.detectSummary(writtenPackages: writtenPackages, exposureConfiguration: exposureConfiguration)
-				} else {
+				}
+				else {
 					Log.error("ExposureDetection: End prematurely.", log: .riskDetection, error: DidEndPrematurelyReason.noExposureConfiguration)
 
 					self.endPrematurely(reason: .noExposureConfiguration)

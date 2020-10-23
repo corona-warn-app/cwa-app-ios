@@ -332,7 +332,7 @@ enum AppStrings {
 		static let errorAlertActionDetails = NSLocalizedString("ExposureDetectionError_Alert_Action_Details", comment: "")
 		static let errorAlertAppConfigMissingMessage = NSLocalizedString("ExposureDetectionError_Alert_AppConfig_Missing_Message", comment: "")
 		static let errorAlertFullDistSpaceMessage = NSLocalizedString("ExposureDetectionError_Alert_FullDiskSpace_Message", comment: "")
-
+		static let errorAlertWrongDeviceTime = NSLocalizedString("ExposureDetection_WrongTime_Notification_Popover_Body", comment: "")
 	}
 
 	enum Settings {
@@ -803,10 +803,8 @@ enum AppStrings {
 	}
 	
 	enum WrongDeviceTime {
-		static let pushNotificationTitle = NSLocalizedString("ExposureDetection_WrongTime_Notification_Title", comment: "")
-		static let pushNotificationText = NSLocalizedString("ExposureDetection_WrongTime_Notification_Body", comment: "")
-		static let popoverTitle = NSLocalizedString("ExposureDetection_WrongTime_Notification_Popover_Title", comment: "")
-		static let popoverText = NSLocalizedString("ExposureDetection_WrongTime_Notification_Popover_Body", comment: "")
+		static let errorPushNotificationTitle = NSLocalizedString("ExposureDetection_WrongTime_Notification_Title", comment: "")
+		static let errorPushNotificationText = NSLocalizedString("ExposureDetection_WrongTime_Notification_Body", comment: "")
 	}
 	
 	// swiftlint:disable:next file_length
