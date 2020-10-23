@@ -116,7 +116,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			client.onFetchAppConfiguration = { _, completeWith in
 				var config = SAP_ApplicationConfiguration()
 				config.supportedCountries = ["DE", "IT", "ES"]
-				completeWith(.success(AppConfigurationFetchingResponse(config)))
+				completeWith((.success(AppConfigurationFetchingResponse(config)), nil))
 			}
 			let provider = CachedAppConfiguration(client: client, store: MockTestStore())
 
@@ -166,7 +166,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			client.onFetchAppConfiguration = { _, completeWith in
 				var config = SAP_ApplicationConfiguration()
 				config.supportedCountries = []
-				completeWith(.success(AppConfigurationFetchingResponse(config)))
+				completeWith((.success(AppConfigurationFetchingResponse(config)), nil))
 			}
 			let provider = CachedAppConfiguration(client: client, store: MockTestStore())
 
@@ -215,7 +215,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			// Simulate an empty cache and broken network
 			let client = CachingHTTPClientMock()
 			client.onFetchAppConfiguration = { _, completeWith in
-				completeWith(.failure(CachedAppConfiguration.CacheError.dataFetchError(message: "fake")))
+				completeWith((.failure(CachedAppConfiguration.CacheError.dataFetchError(message: "fake")), nil))
 			}
 			let store = MockTestStore()
 			store.appConfig = nil
@@ -269,7 +269,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			client.onFetchAppConfiguration = { _, completeWith in
 				var config = SAP_ApplicationConfiguration()
 				config.supportedCountries = ["DE", "IT", "ES"]
-				completeWith(.success(AppConfigurationFetchingResponse(config)))
+				completeWith((.success(AppConfigurationFetchingResponse(config)), nil))
 			}
 			let provider = CachedAppConfiguration(client: client, store: MockTestStore())
 
@@ -320,7 +320,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			client.onFetchAppConfiguration = { _, completeWith in
 				var config = SAP_ApplicationConfiguration()
 				config.supportedCountries = []
-				completeWith(.success(AppConfigurationFetchingResponse(config)))
+				completeWith((.success(AppConfigurationFetchingResponse(config)), nil))
 			}
 
 			let model = ExposureSubmissionCoordinatorModel(
@@ -368,7 +368,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			// Simulate an empty cache and broken network
 			let client = CachingHTTPClientMock()
 			client.onFetchAppConfiguration = { _, completeWith in
-				completeWith(.failure(CachedAppConfiguration.CacheError.dataFetchError(message: "fake")))
+				completeWith((.failure(CachedAppConfiguration.CacheError.dataFetchError(message: "fake")), nil))
 			}
 			let store = MockTestStore()
 			store.appConfig = nil

@@ -40,7 +40,7 @@ protocol AppConfigurationFetching {
 	var session: URLSession { get }
 	var packageVerifier: SAPDownloadedPackage.Verifier { get }
 
-	typealias AppConfigResultHandler = (Result<AppConfigurationFetchingResponse, Error>) -> Void
+	typealias AppConfigResultHandler = ((Result<AppConfigurationFetchingResponse, Error>, Date?)) -> Void
 
 	/// Request app configuration from backend
 	/// - Parameters:
