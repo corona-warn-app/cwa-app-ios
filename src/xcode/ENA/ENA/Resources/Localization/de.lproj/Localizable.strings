@@ -141,6 +141,14 @@
 
 "ExposureDetection_Risk_Restart_Button_Title" = "Erneut starten";
 
+"ExposureDetection_WrongTime_Notification_Title" = "Risiko-Überprüfung nicht möglich";
+
+"ExposureDetection_WrongTime_Notification_Body" = "Die auf Ihrem Smartphone eingestellte Uhrzeit entspricht nicht der aktuellen Uhrzeit. Deshalb kann Ihr Risiko im Moment nicht überprüft werden. Bitte passen Sie die Uhrzeit in den Einstellungen Ihres Smartphones an.";
+
+"ExposureDetection_WrongTime_Notification_Popover_Title" = "Risiko-Überprüfung nicht möglich";
+
+"ExposureDetection_WrongTime_Notification_Popover_Body" = "Die auf Ihrem Smartphone eingestellte Uhrzeit entspricht nicht der aktuellen Uhrzeit. Deshalb kann Ihr Risiko im Moment nicht überprüft werden. Bitte passen Sie die Uhrzeit in den Einstellungen Ihres Smartphones an.";
+
 /* Active Tracing Section */
 "ExposureDetection_ActiveTracingSection_Title" = "Ermittlungszeitraum";
 
