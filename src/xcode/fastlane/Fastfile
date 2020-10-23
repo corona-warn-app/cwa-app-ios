@@ -24,7 +24,10 @@ platform :ios do
 
   before_all do
     setup_circle_ci
-    xcversion(version: "12.0")
+
+    if is_ci?
+      xcversion(version: "12.1")
+    end
   end
 
   desc "Update license file"
@@ -38,7 +41,7 @@ platform :ios do
       skip_codesigning: true,
       export_method: "ad-hoc",
       skip_package_ipa: true,
-      destination: "platform=iOS Simulator,OS=14.0,name=iPhone 11",
+      destination: "platform=iOS Simulator,OS=14.1,name=iPhone 11",
       scheme: "ENA"
     )
   end
@@ -49,7 +52,7 @@ platform :ios do
       skip_codesigning: true,
       export_method: "ad-hoc",
       skip_package_ipa: true,
-      destination: "platform=iOS Simulator,OS=14.0,name=iPhone 11",
+      destination: "platform=iOS Simulator,OS=14.1,name=iPhone 11",
       scheme: "ENACommunity"
     )
   end
@@ -61,6 +64,7 @@ platform :ios do
       scheme: "ENATests",
       xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=YES",
       testplan: "AllTests",
+      only_test_configurations: ["DE"],
       devices: ["iPhone 11"]
     )
 

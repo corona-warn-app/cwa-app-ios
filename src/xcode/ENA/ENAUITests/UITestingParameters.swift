@@ -18,6 +18,7 @@
 //
 
 import Foundation
+import ExposureNotification
 
 enum UITestingParameters {
 	enum ExposureSubmission: String {
@@ -28,5 +29,11 @@ enum UITestingParameters {
 
 	enum SecureStoreHandling: String {
 		case simulateMismatchingKey = "UI:SecureStoreHandling:simulateMismatchingKey"
+	}
+}
+
+extension ENStatus {
+	var stringValue: String {
+		String(describing: self.rawValue)
 	}
 }

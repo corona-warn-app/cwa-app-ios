@@ -17,7 +17,7 @@ commands:
 jobs:
   build:
     macos:
-      xcode: 12.0.0
+      xcode: 12.1.0
     shell: zsh
 
     steps:
@@ -27,7 +27,7 @@ jobs:
           command: cd src/xcode && bundle exec fastlane build
   test:
     macos:
-      xcode: 12.0.0
+      xcode: 12.1.0
     shell: zsh
     steps:
       - prepare-dependencies
@@ -73,17 +73,20 @@ jobs:
             - ~/sonar/
   grab-screenshots:
     macos:
-      xcode: 12.0.0
+      xcode: 12.1.0
     steps:
       - prepare-dependencies
       - run:
           name: Snapshots
           command: cd src/xcode && bundle exec fastlane snapshot
+      - run:
+          name: Package Screenshots
+          command: cd src/xcode && tar -czf screenshots/screenshots.tar --exclude='*.tar' screenshots && cd -
       - store_artifacts:
-          path: src/xcode/screenshots
+          path: src/xcode/screenshots/screenshots.tar
   testflight-release:
     macos:
-      xcode: 12.0.0
+      xcode: 12.1.0
     shell: zsh
     steps:
       - prepare-dependencies
@@ -96,7 +99,7 @@ jobs:
           command: cd src/xcode && bundle exec fastlane adHocDistribution
   update-docs:
     macos:
-      xcode: 12.0.0
+      xcode: 12.1.0
     shell: zsh
     steps:
       - prepare-dependencies
@@ -124,7 +127,7 @@ workflows:
             filters:
               branches:
                 only:
-                  - develop
+                  - main
         - grab-screenshots:
             filters:
               branches:

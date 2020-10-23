@@ -17,23 +17,19 @@
 // under the License.
 //
 
-import Foundation
 
-typealias RiskCalculationResult = Result<Risk, RiskCalculationError>
+enum OnboardingPageType: Int, CaseIterable {
+	case togetherAgainstCoronaPage = 0
+	case privacyPage = 1
+	case enableLoggingOfContactsPage = 2
+	case howDoesDataExchangeWorkPage = 3
+	case alwaysStayInformedPage = 4
 
-enum RiskCalculationError: Error {
-	case timeout
-	case missingAppConfig
-	case failedRiskCalculation
-	case failedRiskDetection
-}
+	func next() -> OnboardingPageType? {
+		OnboardingPageType(rawValue: rawValue + 1)
+	}
 
-protocol RiskProviding: AnyObject {
-	typealias Completion = (RiskCalculationResult) -> Void
-
-	func observeRisk(_ consumer: RiskConsumer)
-	func requestRisk(userInitiated: Bool, ignoreCachedSummary: Bool, completion: Completion?)
-	func nextExposureDetectionDate() -> Date
-
-	var configuration: RiskProvidingConfiguration { get set }
+	func isLast() -> Bool {
+		(self == OnboardingPageType.allCases.last)
+	}
 }
