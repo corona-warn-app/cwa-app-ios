@@ -42,6 +42,7 @@ final class RiskProvider {
 	private let targetQueue: DispatchQueue
 	private var consumersQueue = DispatchQueue(label: "com.sap.RiskProvider.consumer")
 	private var cancellationToken: CancellationToken?
+	private let riskCalculation: RiskCalculationProtocol
 
 	private var _consumers: [RiskConsumer] = []
 	private var consumers: [RiskConsumer] {
@@ -56,7 +57,8 @@ final class RiskProvider {
 		exposureSummaryProvider: ExposureSummaryProvider,
 		appConfigurationProvider: AppConfigurationProviding,
 		exposureManagerState: ExposureManagerState,
-		targetQueue: DispatchQueue = .main
+		targetQueue: DispatchQueue = .main,
+		riskCalculation: RiskCalculationProtocol = RiskCalculation()
 	) {
 		self.configuration = configuration
 		self.store = store
@@ -64,6 +66,7 @@ final class RiskProvider {
 		self.appConfigurationProvider = appConfigurationProvider
 		self.exposureManagerState = exposureManagerState
 		self.targetQueue = targetQueue
+		self.riskCalculation = riskCalculation
 
 		self.$activityState
 			.removeDuplicates()
@@ -83,9 +86,16 @@ final class RiskProvider {
 }
 
 private extension RiskConsumer {
-	func provideRisk(_ risk: Risk) {
-		targetQueue.async { [weak self] in
-			self?.didCalculateRisk(risk)
+	func provideRiskCalculationResult(_ result: RiskCalculationResult) {
+		switch result {
+		case .success(let risk):
+			targetQueue.async { [weak self] in
+				self?.didCalculateRisk(risk)
+			}
+		case .failure(let error):
+			targetQueue.async { [weak self] in
+				self?.didFailCalculateRisk(error)
+			}
 		}
 	}
 }
@@ -146,13 +156,14 @@ extension RiskProvider: RiskProviding {
 
 			if let detectedSummary = detectedSummary {
 				self.store.summary = SummaryMetadata(detectionSummary: detectedSummary, date: Date())
-				
+
 				/// We were able to calculate a risk so we have to reset the deadman notification
 				UNUserNotificationCenter.current().resetDeadmanNotification()
+				completion(self.store.summary)
+			} else {
+				completion(nil)
 			}
 			self.cancellationToken = nil
-
-			completion(self.store.summary)
 		}
 	}
 
@@ -178,16 +189,23 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	private func completeOnTargetQueue(risk: Risk?, completion: Completion? = nil) {
+	private func successOnTargetQueue(risk: Risk, completion: Completion? = nil) {
 		targetQueue.async {
-			completion?(risk)
+			completion?(.success(risk))
 		}
-		// We only wish to notify consumers if an actual risk level has been calculated.
-		// We do not notify if an error occurred.
-		if let risk = risk {
-			for consumer in consumers {
-				_provideRisk(risk, to: consumer)
-			}
+
+		for consumer in consumers {
+			_provideRiskResult(.success(risk), to: consumer)
+		}
+	}
+
+	private func failOnTargetQueue(error: RiskCalculationError, completion: Completion? = nil) {
+		targetQueue.async {
+			completion?(.failure(error))
+		}
+
+		for consumer in consumers {
+			_provideRiskResult(.failure(error), to: consumer)
 		}
 	}
 
@@ -218,7 +236,7 @@ extension RiskProvider: RiskProviding {
 		// 1. The exposureManagerState is bad (turned off, not authorized, etc.)
 		// 2. Tracing has not been active for at least 24 hours
 		guard exposureManagerState.isGood else {
-			completeOnTargetQueue(
+			successOnTargetQueue(
 				risk: Risk(
 					level: .inactive,
 					details: details,
@@ -229,7 +247,7 @@ extension RiskProvider: RiskProviding {
 		}
 
 		guard numberOfEnabledHours >= TracingStatusHistory.minimumActiveHours else {
-			completeOnTargetQueue(
+			successOnTargetQueue(
 				risk: Risk(
 					level: .unknownInitial,
 					details: details,
@@ -255,8 +273,7 @@ extension RiskProvider: RiskProviding {
 			case .failure(let error):
 				Log.error(error.localizedDescription, log: .api)
 
-				self?.completeOnTargetQueue(risk: nil, completion: completion)
-				self?.showAppConfigError()
+				self?.failOnTargetQueue(error: .missingAppConfig, completion: completion)
 
 				group.leave()
 			}
@@ -266,11 +283,19 @@ extension RiskProvider: RiskProviding {
 			  let unwrappedAppConfiguration = appConfiguration else {
 			cancellationToken?.cancel()
 			cancellationToken = nil
-			completeOnTargetQueue(risk: nil, completion: completion)
+			Log.info("RiskProvider: Canceled risk calculation due to timeout", log: .riskDetection)
+			failOnTargetQueue(error: .timeout, completion: completion)
 			return
 		}
 
 		cancellationToken = nil
+
+		guard summary != nil else {
+			Log.info("RiskProvider: Failed determining summary.", log: .riskDetection)
+			self.failOnTargetQueue(error: .failedRiskDetection, completion: completion)
+			return
+		}
+
 		_requestRiskLevel(
 			summary: summary,
 			appConfiguration: unwrappedAppConfiguration,
@@ -284,7 +309,7 @@ extension RiskProvider: RiskProviding {
 		let activeTracing = store.tracingStatusHistory.activeTracing()
 
 		guard
-			let risk = RiskCalculation.risk(
+			let risk = riskCalculation.risk(
 				summary: summary?.summary,
 				configuration: appConfiguration,
 				dateLastExposureDetection: summary?.date,
@@ -294,7 +319,7 @@ extension RiskProvider: RiskProviding {
 				providerConfiguration: configuration
 			) else {
 				Log.error("Serious error during risk calculation", log: .api)
-				completeOnTargetQueue(risk: nil, completion: completion)
+				failOnTargetQueue(error: .failedRiskCalculation, completion: completion)
 				return
 		}
 
@@ -311,22 +336,22 @@ extension RiskProvider: RiskProviding {
 			}
 		}
 
-		completeOnTargetQueue(risk: risk, completion: completion)
+		successOnTargetQueue(risk: risk, completion: completion)
 		savePreviousRiskLevel(risk)
 
 		/// We were able to calculate a risk so we have to reset the DeadMan Notification
 		UNUserNotificationCenter.current().resetDeadmanNotification()
 	}
 
-	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {
+	private func _provideRiskResult(_ result: RiskCalculationResult, to consumer: RiskConsumer?) {
 		#if DEBUG
 		if isUITesting {
-			consumer?.provideRisk(.mocked)
+			consumer?.provideRiskCalculationResult(.success(.mocked))
 			return
 		}
 		#endif
 
-		consumer?.provideRisk(risk)
+		consumer?.provideRiskCalculationResult(result)
 	}
 
 	private func savePreviousRiskLevel(_ risk: Risk) {
@@ -337,16 +362,6 @@ extension RiskProvider: RiskProviding {
 			store.previousRiskLevel = .increased
 		default:
 			break
-		}
-	}
-	
-	private func showAppConfigError() {
-		// This should only be in the App temporarly until we refactor either how we update/get AppConfiguration or refactor how Errors are handled during the RiskCalculation.
-		DispatchQueue.main.async {
-			UIApplication.shared.windows.first?.rootViewController?.alertError(
-				message: AppStrings.ExposureDetectionError.errorAlertAppConfigMissingMessage,
-				title: AppStrings.ExposureDetectionError.errorAlertTitle
-			)
 		}
 	}
 }
@@ -386,11 +401,11 @@ extension RiskProvider {
 		let risk = Risk.mocked
 
 		targetQueue.async {
-			completion?(.mocked)
+			completion?(.success(.mocked))
 		}
 
 		for consumer in consumers {
-			_provideRisk(risk, to: consumer)
+			_provideRiskResult(.success(risk), to: consumer)
 		}
 
 		savePreviousRiskLevel(risk)
