@@ -6,6 +6,7 @@
 import Foundation
 extension HomeInteractor {
 	struct State: Equatable {
+		var riskDetectionFailed: Bool
 		var detectionMode: DetectionMode
 		var exposureManagerState: ExposureManagerState
 		var enState: ENStateHandler.State
@@ -20,11 +21,18 @@ extension HomeInteractor {
 			risk?.details.daysSinceLastExposure
 		}
 
-		init(detectionMode: DetectionMode, exposureManagerState: ExposureManagerState, enState: ENStateHandler.State, risk: Risk?) {
+		init(
+			detectionMode: DetectionMode,
+			exposureManagerState: ExposureManagerState,
+			enState: ENStateHandler.State,
+			risk: Risk?,
+			riskDetectionFailed: Bool
+		) {
 			self.detectionMode = detectionMode
 			self.exposureManagerState = exposureManagerState
 			self.enState = enState
 			self.risk = risk
+			self.riskDetectionFailed = riskDetectionFailed
 		}
 	}
 }

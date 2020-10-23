@@ -162,13 +162,8 @@
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Für Ihre Risiko-Ermittlung wird nur der Zeitraum der letzten %1$u Tage betrachtet. In diesem Zeitraum war Ihre Risiko-Ermittlung für eine Gesamtdauer von %2$u Tagen aktiv. Ältere Tage werden automatisch gelöscht, da sie aus Sicht des Infektionsschutzes nicht mehr relevant sind.";
 
 /* Exposure Detection Errors */
-"ExposureDetectionError_Alert_Title" = "Fehler";
-
-"ExposureDetectionError_Alert_Action_Details" = "Details";
 
 "ExposureDetectionError_Alert_Message" = "Während der Risiko-Ermittlung ist ein Fehler aufgetreten.";
-
-"ExposureDetectionError_Alert_AppConfig_Missing_Message" = "Ihre Internetverbindung wurde unterbrochen. Bitte prüfen Sie die Verbindung und öffnen Sie die App dann erneut.";
 
 "ExposureDetectionError_Alert_FullDiskSpace_Message" = "Es steht nicht genug Speicherplatz für die aktuellen Daten zur Verfügung.\nBitte geben Sie Speicherplatz auf Ihrem Smartphone frei, damit Ihr Risikostatus aktualisiert werden kann.";
 
