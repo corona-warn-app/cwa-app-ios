@@ -17,14 +17,19 @@
 // under the License.
 //
 
-import Foundation
 
-protocol RiskProviding: AnyObject {
-	typealias Completion = (Risk?) -> Void
+enum OnboardingPageType: Int, CaseIterable {
+	case togetherAgainstCoronaPage = 0
+	case privacyPage = 1
+	case enableLoggingOfContactsPage = 2
+	case howDoesDataExchangeWorkPage = 3
+	case alwaysStayInformedPage = 4
 
-	func observeRisk(_ consumer: RiskConsumer)
-	func requestRisk(userInitiated: Bool, ignoreCachedSummary: Bool, completion: Completion?)
-	func nextExposureDetectionDate() -> Date
+	func next() -> OnboardingPageType? {
+		OnboardingPageType(rawValue: rawValue + 1)
+	}
 
-	var configuration: RiskProvidingConfiguration { get set }
+	func isLast() -> Bool {
+		(self == OnboardingPageType.allCases.last)
+	}
 }

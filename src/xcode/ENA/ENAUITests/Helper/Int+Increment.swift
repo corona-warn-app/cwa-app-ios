@@ -1,7 +1,7 @@
 //
 // Corona-Warn-App
 //
-// SAP SE and all other contributors /
+// SAP SE and all other contributors
 // copyright owners license this file to you under the Apache
 // License, Version 2.0 (the "License"); you may not use this
 // file except in compliance with the License.
@@ -19,12 +19,9 @@
 
 import Foundation
 
-protocol RiskProviding: AnyObject {
-	typealias Completion = (Risk?) -> Void
-
-	func observeRisk(_ consumer: RiskConsumer)
-	func requestRisk(userInitiated: Bool, ignoreCachedSummary: Bool, completion: Completion?)
-	func nextExposureDetectionDate() -> Date
-
-	var configuration: RiskProvidingConfiguration { get set }
+extension Int {
+	public mutating func inc() -> Int {
+		self += 1
+		return self
+	}
 }

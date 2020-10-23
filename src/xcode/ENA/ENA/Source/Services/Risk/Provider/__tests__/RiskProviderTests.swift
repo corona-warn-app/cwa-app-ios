@@ -24,9 +24,11 @@ import ExposureNotification
 private final class Summary: ENExposureDetectionSummary {}
 
 private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
+
 	var onDetectExposure: ((ExposureSummaryProvider.Completion) -> Void)?
 
 	func detectExposure(
+		appConfiguration: SAP_ApplicationConfiguration,
 		activityStateDelegate: ActivityStateProviderDelegate? = nil,
 		completion: (ENExposureDetectionSummary?) -> Void
 	) -> CancellationToken {
@@ -34,11 +36,12 @@ private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
 		onDetectExposure?(completion)
 		return token
 	}
+
 }
 
 final class RiskProviderTests: XCTestCase {
 
-	func testExposureDetectionIsExecutedIfLastDetectionIsToOldAndModeIsAutomatic() throws {
+	func testExposureDetectionIsExecutedIfLastDetectionIsTooOldAndModeIsAutomatic() throws {
 		let duration = DateComponents(day: 1)
 
 		let calendar = Calendar.current
@@ -77,7 +80,7 @@ final class RiskProviderTests: XCTestCase {
 			completion(.init())
 		}
 
-		let sut = RiskProvider(
+		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
@@ -85,10 +88,8 @@ final class RiskProviderTests: XCTestCase {
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
 		)
 
-		let consumer = RiskConsumer()
+		riskProvider.requestRisk(userInitiated: false)
 
-		sut.observeRisk(consumer)
-		sut.requestRisk(userInitiated: false)
 		waitForExpectations(timeout: 1.0)
 	}
 
@@ -133,7 +134,7 @@ final class RiskProviderTests: XCTestCase {
 		}
 		expectThatSummaryIsRequested.isInverted = true
 
-		let sut = RiskProvider(
+		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
@@ -141,11 +142,8 @@ final class RiskProviderTests: XCTestCase {
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
 		)
 
-		let consumer = RiskConsumer()
-
-		sut.observeRisk(consumer)
 		let expectThatRiskIsReturned = expectation(description: "expectThatRiskIsReturned")
-		sut.requestRisk(userInitiated: false) { risk in
+		riskProvider.requestRisk(userInitiated: false) { risk in
 			expectThatRiskIsReturned.fulfill()
 			XCTAssertEqual(risk?.level, .unknownInitial, "Tracing was active for < 24 hours but risk is not .unknownInitial")
 		}
@@ -178,7 +176,7 @@ final class RiskProviderTests: XCTestCase {
 		}
 		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
 
-		let sut = RiskProvider(
+		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
@@ -187,16 +185,15 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		let consumer = RiskConsumer()
-		let didCalculateRiskCalled = expectation(
-			description: "expect didCalculateRisk to be called"
-		)
 
+		let didCalculateRiskCalled = expectation(description: "expect didCalculateRisk to be called")
 		consumer.didCalculateRisk = { _ in
 			didCalculateRiskCalled.fulfill()
 		}
+		riskProvider.observeRisk(consumer)
 
-		sut.observeRisk(consumer)
-		sut.requestRisk(userInitiated: true)
+		riskProvider.requestRisk(userInitiated: true)
+
 		wait(for: [detectionRequested, didCalculateRiskCalled], timeout: 1.0, enforceOrder: true)
 	}
 
