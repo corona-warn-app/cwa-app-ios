@@ -27,12 +27,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	private lazy var navigationController: UINavigationController = AppNavigationController()
 	private lazy var coordinator = Coordinator(self, navigationController)
 
-	var state: State = State(exposureManager: .init(), detectionMode: currentDetectionMode, risk: nil) {
+	var state: State = State(exposureManager: .init(), detectionMode: currentDetectionMode, risk: nil, riskDetectionFailed: false) {
 		didSet {
 			coordinator.updateState(
 				detectionMode: state.detectionMode,
-				exposureManagerState: state.exposureManager,
-				risk: state.risk)
+				exposureManagerState: state.exposureManager
+			)
 		}
 	}
 
@@ -67,6 +67,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		riskConsumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk
+			self?.state.riskDetectionFailed = false
+
 			#if DEBUG
 			if isUITesting, let uiTestRiskLevelEnv = UserDefaults.standard.string(forKey: "riskLevel") {
 				var uiTestRiskLevel: RiskLevel
@@ -83,12 +85,15 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 					uiTestRiskLevel = RiskLevel.unknownOutdated
 				default:
 					uiTestRiskLevel = RiskLevel.inactive
-					
+
 				}
 				let uiTestRisk = Risk(level: uiTestRiskLevel, details: .init(daysSinceLastExposure: 1, numberOfExposures: uiTestExposureNumber, activeTracing: .init(interval: 14 * 86400), exposureDetectionDate: nil), riskLevelHasChanged: false)
 				self?.state.risk = uiTestRisk
 			}
 			#endif
+		}
+		riskConsumer.didFailCalculateRisk = {  [weak self] _ in
+			self?.state.riskDetectionFailed = true
 		}
 		
 		riskProvider.observeRisk(riskConsumer)
