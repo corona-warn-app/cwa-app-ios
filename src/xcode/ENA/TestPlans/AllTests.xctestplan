@@ -9,6 +9,7 @@
       }
     },
     {
+      "enabled" : false,
       "id" : "1A0C143D-8EB4-4EDC-90D0-2D24EAC78C4B",
       "name" : "EN",
       "options" : {
@@ -17,6 +18,7 @@
       }
     },
     {
+      "enabled" : false,
       "id" : "923744F6-0D40-4591-9147-70780A54A89E",
       "name" : "RO",
       "options" : {
@@ -25,6 +27,7 @@
       }
     },
     {
+      "enabled" : false,
       "id" : "76F58801-D234-473B-92BB-F77A906BC887",
       "name" : "PL",
       "options" : {
@@ -33,6 +36,7 @@
       }
     },
     {
+      "enabled" : false,
       "id" : "1C2ECF54-A91A-4614-823F-9F010BCC63ED",
       "name" : "TR",
       "options" : {
