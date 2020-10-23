@@ -302,6 +302,14 @@ extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 		detectSummaryWithConfigurationWasCalled = true
 		return Progress()
 	}
+	
+	func isDeviceTimeCorrect() -> Bool {
+		
+	}
+	
+	func hasDeviceTimeErrorBeenShown() -> Bool {
+		
+	}
 }
 
 private extension ENExposureConfiguration {

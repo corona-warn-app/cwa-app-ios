@@ -21,7 +21,7 @@ import UIKit
 import ExposureNotification
 
 extension ExposureDetection.DidEndPrematurelyReason {
-	func errorAlertController(rootController: UIViewController) -> UIAlertController? {
+	func errorAlertController(rootController: UIViewController, store: Store) -> UIAlertController? {
 		switch self {
 		case let .noSummary(error):
 			return makeAlertControllerForENError(error, rootController: rootController)
@@ -29,6 +29,16 @@ extension ExposureDetection.DidEndPrematurelyReason {
 			return rootController.setupErrorAlert(
 				message: localizedDescription
 			)
+		case .wrongDeviceTime:
+			// Check if wrong time error was shown already
+			if(!store.deviceTimeErrorWasShown) {
+				store.deviceTimeErrorWasShown = true
+				return rootController.setupErrorAlert(
+					message: localizedDescription
+				)
+			}
+			return nil
+			
 		default:
 			// Don't show an alert for all other errors.
 			return nil

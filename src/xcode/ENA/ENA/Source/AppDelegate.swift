@@ -79,7 +79,7 @@ extension AppDelegate: ExposureSummaryProvider {
 			let scene = UIApplication.shared.connectedScenes.first,
 			let delegate = scene.delegate as? SceneDelegate,
 			let rootController = delegate.window?.rootViewController,
-			let alert = didEndPrematurely.errorAlertController(rootController: rootController)
+			let alert = didEndPrematurely.errorAlertController(rootController: rootController, store: store)
 		else {
 			return
 		}
