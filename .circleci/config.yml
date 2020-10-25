@@ -106,7 +106,7 @@ jobs:
         default: "de-DE"
         type: string
     steps:
-      - run: bundle exec fastlane run snapshot languages:<<parameters.language>> clear_previous_screenshots:"false"
+      - run: cd src/xcode && bundle exec fastlane run snapshot languages:<<parameters.language>> clear_previous_screenshots:"false"
   collect-snapshots:
     macos:
       xcode: 12.1.0
