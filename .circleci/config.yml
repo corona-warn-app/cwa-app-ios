@@ -38,7 +38,6 @@ jobs:
   build:
     macos:
       xcode: 12.1.0
-    shell: zsh
     steps:
       - attach_workspace:
           at: .
@@ -48,7 +47,6 @@ jobs:
   test:
     macos:
       xcode: 12.1.0
-    shell: zsh
     steps:
       - attach_workspace:
           at: .
@@ -126,7 +124,6 @@ jobs:
   testflight-release:
     macos:
       xcode: 12.1.0
-    shell: zsh
     steps:
       - attach_workspace:
           at: .
@@ -140,7 +137,6 @@ jobs:
   update-docs:
     macos:
       xcode: 12.1.0
-    shell: zsh
     steps:
       - attach_workspace:
           at: .
@@ -213,8 +209,7 @@ workflows:
         - testflight-release:
             requires:
               - dependencies
-            # ensure we publish ONLY on (release) tags
-            filters:
+            filters: # ensure we publish ONLY on (release) tags
               tags:
                 only:
                   - /^v.*/
