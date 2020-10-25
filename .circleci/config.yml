@@ -116,6 +116,10 @@ jobs:
       - run:
           name: Snapshot
           command: cd src/xcode && bundle exec fastlane run snapshot languages:<<parameters.language>> clear_previous_screenshots:"false"
+      - persist_to_workspace:
+          root: .
+          paths:
+            - src/xcode/*
   collect-snapshots:
     macos:
       xcode: 12.1.0
