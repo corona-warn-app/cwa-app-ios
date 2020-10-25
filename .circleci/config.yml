@@ -12,7 +12,7 @@ commands:
           command: sudo gem install bundler:2.1.4
       - run:
           name: Install swiftlint
-          command: HOMEBREW_NO_AUTO_UPDATE=1 brew install swiftlint
+          command: brew install swiftlint
       - restore_cache:
           key: v2-{{ checksum "src/xcode/Gemfile.lock" }}
       - run:
