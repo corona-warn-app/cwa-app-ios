@@ -143,22 +143,22 @@ jobs:
           command: cd src/xcode && bundle exec fastlane updateDocs
 
 workflows:
-    test-and-scan:
-      jobs:
-        - test
-    build:
-      jobs:
-        - build
-        - update-docs:
-            filters:
-              branches:
-                only:
-                  - main
-        - grab-screenshots:
-            filters:
-              branches:
-                only:
-                  - main
+    # test-and-scan:
+    #   jobs:
+    #     - test
+    # build:
+    #   jobs:
+    #     - build
+    #     - update-docs:
+    #         filters:
+    #           branches:
+    #             only:
+    #               - main
+    #     - grab-screenshots:
+    #         filters:
+    #           branches:
+    #             only:
+    #               - main
     snapshot-all:
       jobs:
         - dependencies
@@ -175,36 +175,36 @@ workflows:
         - collect-snapshots:
             requires:
               - snapshot
-    betaRelease:
-      jobs:
-        - test:
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
-        - build:
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
-        - grab-screenshots:
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
-        - testflight-release:
-            requires:
-              - test
-              - build
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
+    # betaRelease:
+    #   jobs:
+    #     - test:
+    #         filters:
+    #           tags:
+    #             only:
+    #               - /^v.*/
+    #           branches:
+    #             ignore: /.*/
+    #     - build:
+    #         filters:
+    #           tags:
+    #             only:
+    #               - /^v.*/
+    #           branches:
+    #             ignore: /.*/
+    #     - grab-screenshots:
+    #         filters:
+    #           tags:
+    #             only:
+    #               - /^v.*/
+    #           branches:
+    #             ignore: /.*/
+    #     - testflight-release:
+    #         requires:
+    #           - test
+    #           - build
+    #         filters:
+    #           tags:
+    #             only:
+    #               - /^v.*/
+    #           branches:
+    #             ignore: /.*/
