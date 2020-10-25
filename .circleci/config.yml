@@ -34,7 +34,6 @@ jobs:
           root: .
           paths:
             - ./*
-
   build:
     macos:
       xcode: 12.1.0
@@ -118,9 +117,9 @@ jobs:
           at: src/xcode/screenshots
       - run:
           name: Package Screenshots
-          command: tar -czf screenshots.tar --exclude='*.tar' screenshots
+          command: cd src/xcode && tar -czf screenshots/screenshots.tar --exclude='*.tar' screenshots && cd -
       - store_artifacts:
-          path: screenshots.tar
+          path: src/xcode/screenshots/screenshots.tar
   testflight-release:
     macos:
       xcode: 12.1.0
