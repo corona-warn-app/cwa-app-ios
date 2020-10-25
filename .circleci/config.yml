@@ -116,6 +116,9 @@ jobs:
       - run:
           name: Snapshot
           command: cd src/xcode && bundle exec fastlane run snapshot languages:<<parameters.language>> clear_previous_screenshots:"false"
+      - run:
+          name: Rename overview html
+          command: mv src/xcode/screenshots/screenshots.html src/xcode/screenshots/screenshots-<<parameters.language>>.html
       - persist_to_workspace:
           root: .
           paths:
