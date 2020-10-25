@@ -177,22 +177,40 @@ workflows:
     #           branches:
     #             only:
     #               - main
-    snapshot-all:
+    build-and-test:
       jobs:
         - dependencies
+        - build:
+            requires:
+              - dependencies
+        - test:
+            requires:
+              - dependencies
+        - update-docs:
+            requires:
+              - dependencies
+            filters:
+              branches:
+                only:
+                  - main
+
+    snapshot-all:
+      jobs:
+        - dependencies:
+            filters:
+              branches:
+                only:
+                  - main
         - snapshot:
             matrix:
               parameters:
                 language: ["de-DE", "en-EN", "bg-BG", "ro-RO", "pl-PL", "tr-TR"]
             requires:
               - dependencies
-            # filters:
-            #   branches:
-            #     only:
-            #       - main
         - collect-snapshots:
             requires:
               - snapshot
+
     # betaRelease:
     #   jobs:
     #     - test:
