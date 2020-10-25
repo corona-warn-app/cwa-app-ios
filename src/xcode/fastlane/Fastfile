@@ -25,9 +25,11 @@ platform :ios do
   before_all do
     setup_circle_ci
 
-    if is_ci?
-      xcversion(version: "12.1.0")
-    end
+    # if is_ci?
+    #   puts "Setting Xcode version"
+    #   xcversion(version: "12.1.0")
+    # end
+    xcversion(version: "12.1.0")
   end
 
   desc "Update license file"
