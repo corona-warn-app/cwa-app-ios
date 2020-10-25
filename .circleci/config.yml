@@ -119,7 +119,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - src/xcode/*
+            - src/xcode/screenshots/*
   collect-snapshots:
     macos:
       xcode: 12.1.0
