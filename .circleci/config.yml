@@ -17,7 +17,7 @@ commands:
           key: v1-{{ checksum "src/xcode/Gemfile.lock" }}
       - run:
           name: Install dependencies
-          command: cd src/xcode && bundle install --path=vendor
+          command: cd src/xcode && bundle install --path=vendor --jobs=8 --local
       - save_cache:
           key: v1-{{ checksum "src/xcode/Gemfile.lock" }}
           paths:
