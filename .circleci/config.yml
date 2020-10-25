@@ -166,11 +166,11 @@ workflows:
 
     snapshot-all:
       jobs:
-        - dependencies
-            # filters:
-            #   branches:
-            #     only:
-            #       - main
+        - dependencies:
+            filters:
+              branches:
+                only:
+                  - main
         - snapshot:
             matrix:
               parameters:
@@ -183,13 +183,13 @@ workflows:
 
     beta-release:
       jobs:
-        - dependencies
-            # filters:
-            #   tags:
-            #     only:
-            #       - /^v.*/
-            #   branches:
-            #     ignore: /.*/
+        - dependencies:
+            filters:
+              tags:
+                only:
+                  - /^v.*/
+              branches:
+                ignore: /.*/
         - test:
             requires:
               - dependencies
