@@ -10,14 +10,15 @@ ios_version(
   "14.1"
 )
 
-languages([
-  "en-US",
-  "de-DE",
-  "bg-BG",
-  "ro-RO",
-  "pl-PL",
-  "tr-Tr"
-])
+# Languages are set individually in CI
+# languages([
+#   "en-US",
+#   "de-DE",
+#   "bg-BG",
+#   "ro-RO",
+#   "pl-PL",
+#   "tr-Tr"
+# ])
 
 # The name of the scheme which contains the UI Tests
 scheme("ENAScreenshots")
@@ -27,7 +28,7 @@ testplan("Screenshots")
 output_directory("./screenshots")
 
 # remove the '#' to clear all previously generated screenshots before creating new ones
-clear_previous_screenshots(true)
+# clear_previous_screenshots(true)
 
 # Remove the '#' to set the status bar to 9:41 AM, and show full battery and reception.
 override_status_bar(true)

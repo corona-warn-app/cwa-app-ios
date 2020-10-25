@@ -23,7 +23,13 @@ commands:
           paths:
             - "src/xcode/vendor"
 
+
 jobs:
+  dependencies:
+    macos:
+      xcode: 12.1.0
+    steps:
+      - prepare-dependencies
   build:
     macos:
       xcode: 12.1.0
@@ -92,6 +98,24 @@ jobs:
           command: cd src/xcode && tar -czf screenshots/screenshots.tar --exclude='*.tar' screenshots && cd -
       - store_artifacts:
           path: src/xcode/screenshots/screenshots.tar
+  snapshot:
+    macos:
+      xcode: 12.1.0
+    parameters:
+      language:
+        default: "de-DE"
+        type: string
+    steps:
+      - run: bundle exec fastlane run snapshot languages:<<parameters.language>> clear_previous_screenshots:"false"
+  collect-snapshots:
+    macos:
+      xcode: 12.1.0
+    steps:
+      - run:
+          name: Package Screenshots
+          command: cd src/xcode && tar -czf screenshots/screenshots.tar --exclude='*.tar' screenshots && cd -
+      - store_artifacts:
+          path: src/xcode/screenshots/screenshots.tar
   testflight-release:
     macos:
       xcode: 12.1.0
@@ -135,6 +159,22 @@ workflows:
               branches:
                 only:
                   - main
+    snapshot-all:
+      jobs:
+        - dependencies
+        - snapshot:
+            matrix:
+              parameters:
+                language: ["de-DE", "en-EN", "bg-BG", "ro-RO", "pl-PL", "tr-TR"]
+            requires:
+              - dependencies
+            # filters:
+            #   branches:
+            #     only:
+            #       - main
+        - collect-snapshots:
+            requires:
+              - snapshot
     betaRelease:
       jobs:
         - test:
