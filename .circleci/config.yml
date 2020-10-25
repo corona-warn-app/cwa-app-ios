@@ -114,7 +114,7 @@ jobs:
       xcode: 12.1.0
     steps:
       - attach_workspace:
-          at: src/xcode/screenshots
+          at: .
       - run:
           name: Package Screenshots
           command: cd src/xcode && tar -czf screenshots/screenshots.tar --exclude='*.tar' screenshots && cd -
