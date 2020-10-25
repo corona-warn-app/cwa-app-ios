@@ -197,10 +197,10 @@ workflows:
     snapshot-all:
       jobs:
         - dependencies:
-            filters:
-              branches:
-                only:
-                  - main
+            # filters:
+            #   branches:
+            #     only:
+            #       - main
         - snapshot:
             matrix:
               parameters:
