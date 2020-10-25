@@ -30,6 +30,11 @@ jobs:
       xcode: 12.1.0
     steps:
       - prepare-dependencies
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./*
+
   build:
     macos:
       xcode: 12.1.0
@@ -106,7 +111,11 @@ jobs:
         default: "de-DE"
         type: string
     steps:
-      - run: cd src/xcode && bundle exec fastlane run snapshot languages:<<parameters.language>> clear_previous_screenshots:"false"
+      - attach_workspace:
+          at: .
+      - run:
+          name: Snapshot
+          command: cd src/xcode && bundle exec fastlane run snapshot languages:<<parameters.language>> clear_previous_screenshots:"false"
   collect-snapshots:
     macos:
       xcode: 12.1.0
