@@ -101,6 +101,7 @@ jobs:
   snapshot:
     macos:
       xcode: 12.1.0
+    parallelism: 7
     parameters:
       language:
         default: "de-DE"
