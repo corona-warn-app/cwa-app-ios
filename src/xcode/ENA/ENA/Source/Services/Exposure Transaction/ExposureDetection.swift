@@ -123,10 +123,8 @@ final class ExposureDetection {
 
 				if let exposureConfiguration = self.exposureConfiguration {
 					Log.info("ExposureDetection: Start detecting summary.", log: .riskDetection)
-					
-					let isDeviceTimeCorrect = self.delegate?.isDeviceTimeCorrect() ?? true
-					
-					if !isDeviceTimeCorrect {
+
+					if !self.isDeviceTimeCorrect() {
 						Log.warning("ExposureDetection: Risk detection skipped due to wrong device time.", log: .riskDetection)
 						self.endPrematurely(reason: .wrongDeviceTime)
 
@@ -142,6 +140,11 @@ final class ExposureDetection {
 		}
 	}
 
+	// MARK: Device time functions
+	private func isDeviceTimeCorrect() -> Bool {
+		return self.delegate?.isDeviceTimeCorrect() ?? true
+	}
+	
 	// MARK: Working with the Completion Handler
 
 	// Ends the transaction prematurely with a given reason.
