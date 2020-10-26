@@ -82,7 +82,7 @@ jobs:
       - store_artifacts:
           path: src/xcode/fastlane/test_output
       - store_artifacts:
-          path: DerivedData/Logs/Test
+          path: DerivedData/Logs/
       - store_artifacts:
           path: src/xcode/swiftlint.result.json
       - run:
