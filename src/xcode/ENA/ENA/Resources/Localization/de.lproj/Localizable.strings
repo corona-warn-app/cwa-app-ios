@@ -43,7 +43,7 @@
 
 "Common_Deadman_AlertBody" = "Bitte öffnen Sie die Corona-Warn-App, um die Risiko-Überprüfung anzustoßen.";
 
-"Common_Tess_Relay_Description" = "Gehörlose, schwerhörige und spätertaubte Menschen können zur telefonischen Kontaktaufnahme die Tess-Relay-Dienste (Dolmetschen in Gebärdensprache und deutscher Schriftsprache) nutzen. Die Software können Sie im im Apple App Store herunterladen.";
+"Common_Tess_Relay_Description" = "Gehörlose, schwerhörige und spätertaubte Menschen können zur telefonischen Kontaktaufnahme die Tess-Relay-Dienste (Dolmetschen in Gebärdensprache und deutscher Schriftsprache) nutzen. Die Software können Sie im Apple App Store herunterladen.";
 
 /* Accessibility */
 "AccessibilityLabel_Close" = "Schließen";
