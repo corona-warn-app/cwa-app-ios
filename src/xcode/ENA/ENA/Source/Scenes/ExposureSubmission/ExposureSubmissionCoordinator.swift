@@ -176,18 +176,32 @@ extension ExposureSubmissionCoordinator {
 			viewModel: .init(
 				testResult: testResult,
 				exposureSubmissionService: model.exposureSubmissionService,
+				onContinueWithSymptomsFlowButtonTap: { [weak self] in
+					self?.model.continueWithSymptomsFlowSelected(
+						onSuccess: {
+							self?.showSymptomsScreen()
+						}, onError: { error in
+							self?.showErrorAlert(for: error)
+						}
+					)
+				},
+				onContinueWithoutSymptomsFlowButtonTap: { [weak self] in
+					self?.model.continueWithoutSymptomsFlowSelected(
+						isLoading: { isLoading in
+
+						},
+						onSuccess: {
+							self?.showSymptomsScreen()
+						},
+						onError: { error in
+							self?.showErrorAlert(for: error)
+						}
+					)
+				},
 				onTestDeleted: { [weak self] in
 					self?.dismiss()
 				}
-			),
-			onContinueWithSymptomsButtonTap: { [weak self] in
-//				self?.model.checkExposureSubmissionPreconditions {
-//				}
-			},
-			onContinueWithoutSymptomsButtonTap: { [weak self] in
-//				self?.model.checkExposureSubmissionPreconditions {
-//				}
-			}
+			)
 		)
 	}
 

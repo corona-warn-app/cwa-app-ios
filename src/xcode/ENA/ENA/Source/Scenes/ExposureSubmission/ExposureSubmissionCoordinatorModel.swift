@@ -42,6 +42,29 @@ class ExposureSubmissionCoordinatorModel {
 		exposureSubmissionService.hasRegistrationToken()
 	}
 
+	func continueWithSymptomsFlowSelected(
+		onSuccess: @escaping () -> Void,
+		onError: @escaping (ExposureSubmissionError) -> Void
+	) {
+		if isExposureSubmissionServiceStateGood {
+			onSuccess()
+		} else {
+			onError(.enNotEnabled)
+		}
+	}
+
+	func continueWithoutSymptomsFlowSelected(
+		isLoading: @escaping (Bool) -> Void,
+		onSuccess: @escaping () -> Void,
+		onError: @escaping (ExposureSubmissionError) -> Void
+	) {
+		if isExposureSubmissionServiceStateGood {
+			loadSupportedCountries(isLoading: isLoading, onSuccess: onSuccess, onError: onError)
+		} else {
+			onError(.enNotEnabled)
+		}
+	}
+
 	func symptomsOptionSelected(
 		selectedSymptomsOption: ExposureSubmissionSymptomsViewController.SymptomsOption,
 		isLoading: @escaping (Bool) -> Void,
@@ -123,20 +146,9 @@ class ExposureSubmissionCoordinatorModel {
 
 	private var symptomsOnset: SymptomsOnset = .noInformation
 
-	/// Check if the ENManager is enabled correctly, otherwise, show an alert.
-//	func checkExposureSubmissionPreconditions(onSuccess: () -> Void) {
-//		if let state = exposureSubmissionService.preconditions() {
-//			if !state.isGood {
-//				let alert = self.setupErrorAlert(
-//					message: ExposureSubmissionError.enNotEnabled.localizedDescription
-//				)
-//				self.present(alert, animated: true, completion: nil)
-//				return
-//			}
-//
-//			onSuccess()
-//		}
-//	}
+	private var isExposureSubmissionServiceStateGood: Bool {
+		exposureSubmissionService.preconditions().isGood
+	}
 
 	private func loadSupportedCountries(
 		isLoading: @escaping (Bool) -> Void,

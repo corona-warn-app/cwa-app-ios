@@ -23,13 +23,9 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	// MARK: - Init
 
 	init(
-		viewModel: ExposureSubmissionTestResultViewModel,
-		onContinueWithSymptomsButtonTap: @escaping () -> Void,
-		onContinueWithoutSymptomsButtonTap: @escaping () -> Void
+		viewModel: ExposureSubmissionTestResultViewModel
 	) {
 		self.viewModel = viewModel
-		self.onContinueWithSymptomsButtonTap = onContinueWithSymptomsButtonTap
-		self.onContinueWithoutSymptomsButtonTap = onContinueWithoutSymptomsButtonTap
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -55,33 +51,16 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		switch viewModel.testResult {
-		case .positive:
-			onContinueWithSymptomsButtonTap()
-		case .negative, .invalid, .expired:
-			showDeletionConfirmationAlert()
-		case .pending:
-			viewModel.refreshTest()
-		}
+		viewModel.didTapPrimaryButton()
 	}
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
-		switch viewModel.testResult {
-		case .positive:
-			onContinueWithoutSymptomsButtonTap()
-		case .pending:
-			showDeletionConfirmationAlert()
-		default:
-			break
-		}
+		viewModel.didTapSecondaryButton()
 	}
 
 	// MARK: - Private
 
 	private let viewModel: ExposureSubmissionTestResultViewModel
-
-	private let onContinueWithSymptomsButtonTap: () -> Void
-	private let onContinueWithoutSymptomsButtonTap: () -> Void
 
 	private var subscribers: [AnyCancellable] = []
 
@@ -109,6 +88,14 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		subscribers.append(viewModel.$dynamicTableViewModel.sink { [weak self] dynamicTableViewModel in
 			self?.dynamicTableViewModel = dynamicTableViewModel
 			self?.tableView.reloadData()
+		})
+
+		subscribers.append(viewModel.$shouldShowDeletionConfirmationAlert.sink { [weak self] shouldShowDeletionConfirmationAlert in
+			guard let self = self, shouldShowDeletionConfirmationAlert else { return }
+
+			self.viewModel.shouldShowDeletionConfirmationAlert = false
+
+			self.showDeletionConfirmationAlert()
 		})
 
 		subscribers.append(viewModel.$error.sink { [weak self] error in

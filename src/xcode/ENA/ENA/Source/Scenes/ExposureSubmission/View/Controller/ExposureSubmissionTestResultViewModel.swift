@@ -25,10 +25,14 @@ class ExposureSubmissionTestResultViewModel {
 	init(
 		testResult: TestResult,
 		exposureSubmissionService: ExposureSubmissionService,
+		onContinueWithSymptomsFlowButtonTap: @escaping () -> Void,
+		onContinueWithoutSymptomsFlowButtonTap: @escaping () -> Void,
 		onTestDeleted: @escaping () -> Void
 	) {
 		self.testResult = testResult
 		self.exposureSubmissionService = exposureSubmissionService
+		self.onContinueWithSymptomsFlowButtonTap = onContinueWithSymptomsFlowButtonTap
+		self.onContinueWithoutSymptomsFlowButtonTap = onContinueWithoutSymptomsFlowButtonTap
 		self.onTestDeleted = onTestDeleted
 
 		updateForCurrentTestResult()
@@ -50,7 +54,7 @@ class ExposureSubmissionTestResultViewModel {
 	}
 
 	@Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
-
+	@Published var shouldShowDeletionConfirmationAlert: Bool = false
 	@Published var error: Error?
 
 	lazy var navigationFooterItem: ENANavigationFooterItem = {
@@ -62,6 +66,28 @@ class ExposureSubmissionTestResultViewModel {
 
 		return item
 	}()
+
+	func didTapPrimaryButton() {
+		switch testResult {
+		case .positive:
+			onContinueWithSymptomsFlowButtonTap()
+		case .negative, .invalid, .expired:
+			shouldShowDeletionConfirmationAlert = true
+		case .pending:
+			refreshTest()
+		}
+	}
+
+	func didTapSecondaryButton() {
+		switch testResult {
+		case .positive:
+			onContinueWithoutSymptomsFlowButtonTap()
+		case .pending:
+			shouldShowDeletionConfirmationAlert = true
+		default:
+			break
+		}
+	}
 
 	func refreshTest() {
 		isLoading = true
@@ -86,6 +112,9 @@ class ExposureSubmissionTestResultViewModel {
 	// MARK: - Private
 
 	private var exposureSubmissionService: ExposureSubmissionService
+
+	private let onContinueWithSymptomsFlowButtonTap: () -> Void
+	private let onContinueWithoutSymptomsFlowButtonTap: () -> Void
 	private let onTestDeleted: () -> Void
 
 	private var timeStamp: Int64? {
