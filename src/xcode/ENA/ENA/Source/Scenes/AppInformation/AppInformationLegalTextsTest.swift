@@ -43,7 +43,7 @@ class AppInformationLegalTextsTest: XCTestCase {
 		let sourceText = try getText(fromFile: filename, withExtension: fileExtension, localization: sourceLocalizationID)
 		for id in targetLocalizationIDs {
 			let targetText = try getText(fromFile: filename, withExtension: fileExtension, localization: "\(id)")
-			XCTAssertEqual(sourceText, targetText)
+			XCTAssertEqual(targetText, sourceText)
 		}
 	}
 	
