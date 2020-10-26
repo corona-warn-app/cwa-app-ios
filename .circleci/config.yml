@@ -77,12 +77,15 @@ jobs:
           name: Fix SwiftLint output for SonarCloud
           command: |
             ./scripts/fix_swiftlint_output.sh src/xcode/swiftlint.result.json
+      - run:
+          name: Package test results # for better readability in 'Artifacts' view
+          command: tar -czf ~/testresults.tar --exclude='*.tar' ~/DerivedData/Logs/Test
       - store_test_results:
           path: src/xcode/fastlane/test_output
       - store_artifacts:
           path: src/xcode/fastlane/test_output
       - store_artifacts:
-          path: ~/DerivedData/Logs/Test
+          path: ~/testresults.tar
       - store_artifacts:
           path: src/xcode/swiftlint.result.json
       - run:
