@@ -38,17 +38,11 @@ struct ActiveTracing: Equatable {
 		// Hours are intentionally rounded down.
 		// We could also simply cast this to `Int` (what we actually do here as well)
 		// but we still call rounded(…) to make it more explicit.
-		//return Int((interval / TimeInterval.SEC_PER_HOUR).rounded(.down))
-		
-		// (kga) revert
-		14*24
+		return Int((interval / TimeInterval.SEC_PER_HOUR).rounded(.down))
 	}
 	
 	var inDays: Int {
-//		min(Int((interval / TimeInterval.SEC_PER_DAY).rounded(.toNearestOrAwayFromZero)), maximumNumberOfDays)
-		
-		// (kga) revert
-		14
+		min(Int((interval / TimeInterval.SEC_PER_DAY).rounded(.toNearestOrAwayFromZero)), maximumNumberOfDays)
 	}
 }
 

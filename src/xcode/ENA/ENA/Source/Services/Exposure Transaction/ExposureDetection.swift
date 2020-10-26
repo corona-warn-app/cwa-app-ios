@@ -121,14 +121,12 @@ final class ExposureDetection {
 
 				self.activityState = .detecting
 
-				// (kga) add another if condition to check for correct device time
-				// (kga) add another else statement for the wrong time state
 				if let exposureConfiguration = self.exposureConfiguration {
 					Log.info("ExposureDetection: Start detecting summary.", log: .riskDetection)
 					
-					let isDeviceTimeCorrect = self.delegate?.isDeviceTimeCorrect()
+					let isDeviceTimeCorrect = self.delegate?.isDeviceTimeCorrect() ?? true
 					
-					if !isDeviceTimeCorrect! {
+					if !isDeviceTimeCorrect {
 						Log.warning("ExposureDetection: Risk detection skipped due to wrong device time.", log: .riskDetection)
 						self.endPrematurely(reason: .wrongDeviceTime)
 
