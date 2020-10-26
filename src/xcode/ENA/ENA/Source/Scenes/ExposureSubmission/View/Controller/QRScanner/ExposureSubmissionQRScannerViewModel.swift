@@ -24,7 +24,6 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	// MARK: - Init
 
 	init(
-		isScanningActivated: Bool = false,
 		onSuccess: @escaping (DeviceRegistrationKey) -> Void,
 		onError: @escaping (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
 	) {

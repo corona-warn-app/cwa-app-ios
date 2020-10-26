@@ -53,7 +53,6 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		onErrorExpectation.expectedFulfillmentCount = 1
 
 		let viewModel = ExposureSubmissionQRScannerViewModelMock(
-			isScanningActivated: true,
 			onSuccess: { deviceRegistrationKey in
 				XCTAssertEqual(deviceRegistrationKey, .guid(guid))
 
@@ -121,7 +120,6 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		onErrorExpectation.expectedFulfillmentCount = 1
 
 		let viewModel = ExposureSubmissionQRScannerViewModel(
-			isScanningActivated: false,
 			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},
@@ -290,7 +288,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 
 	func testGIVEN_ViewModelWithScanningEnabled_WHEN_stop_THEN_scanningIsDisabled() {
 		// GIVEN
-		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: true, onSuccess: { _ in }, onError: { _, _ in })
+		let viewModel = ExposureSubmissionQRScannerViewModel(onSuccess: { _ in }, onError: { _, _ in })
 
 		// WHEN
 		viewModel.stopCapturSession()
@@ -301,7 +299,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 
 	func testGIVEN_ViewModelWithScanningDisabled_WHEN_stop_THEN_scanningIsDisabled() {
 		// GIVEN
-		let viewModel = ExposureSubmissionQRScannerViewModel(isScanningActivated: false, onSuccess: { _ in }, onError: { _, _ in })
+		let viewModel = ExposureSubmissionQRScannerViewModel(onSuccess: { _ in }, onError: { _, _ in })
 
 		// WHEN
 		viewModel.stopCapturSession()
@@ -313,7 +311,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 	private let validGuid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
 
 	private func createViewModel() -> ExposureSubmissionQRScannerViewModel {
-		ExposureSubmissionQRScannerViewModel(isScanningActivated: false, onSuccess: { _ in }, onError: { _, _ in })
+		ExposureSubmissionQRScannerViewModel(onSuccess: { _ in }, onError: { _, _ in })
 	}
 
 }
