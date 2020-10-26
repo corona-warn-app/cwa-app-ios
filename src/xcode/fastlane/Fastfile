@@ -26,7 +26,6 @@ platform :ios do
     setup_circle_ci
 
     if is_ci
-      puts "Setting Xcode version"
       xcversion(version: "12.1.0")
     end
   end

@@ -1,5 +1,9 @@
 version: 2.1
 
+configuration:
+  - cache_key: &cache_key v4-{{ checksum "src/xcode/Gemfile.lock" }}
+  - xcode_version: &xcode_version 12.1.0
+
 commands:
   prepare-dependencies:
     steps:
@@ -14,12 +18,12 @@ commands:
           name: Install swiftlint
           command: brew install swiftlint
       - restore_cache:
-          key: v3-{{ checksum "src/xcode/Gemfile.lock" }}
+          key: *cache_key
       - run:
           name: Install dependencies
           command: cd src/xcode && bundle install --path=vendor --jobs=4
       - save_cache:
-          key: v3-{{ checksum "src/xcode/Gemfile.lock" }}
+          key: *cache_key
           paths:
             - src/xcode/vendor
             - /usr/local/Cellar/
@@ -29,16 +33,16 @@ commands:
 jobs:
   dependencies:
     macos:
-      xcode: 12.1.0
+      xcode: *xcode_version
     steps:
       - prepare-dependencies
       - persist_to_workspace:
           root: .
           paths:
-            - ./*
+            - .
   build:
     macos:
-      xcode: 12.1.0
+      xcode: *xcode_version
     steps:
       - attach_workspace:
           at: .
@@ -50,7 +54,7 @@ jobs:
           command: cd src/xcode && bundle exec fastlane build
   test:
     macos:
-      xcode: 12.1.0
+      xcode: *xcode_version
     steps:
       - attach_workspace:
           at: .
@@ -99,7 +103,7 @@ jobs:
             - ~/sonar/
   snapshot:
     macos:
-      xcode: 12.1.0
+      xcode: *xcode_version
     parameters:
       language:
         default: "de-DE"
@@ -122,7 +126,7 @@ jobs:
             - src/xcode/screenshots/*
   collect-snapshots:
     macos:
-      xcode: 12.1.0
+      xcode: *xcode_version
     steps:
       - attach_workspace:
           at: .
@@ -133,7 +137,7 @@ jobs:
           path: src/xcode/screenshots/screenshots.tar
   testflight-release:
     macos:
-      xcode: 12.1.0
+      xcode: *xcode_version
     steps:
       - attach_workspace:
           at: .
@@ -149,7 +153,7 @@ jobs:
           command: cd src/xcode && bundle exec fastlane adHocDistribution
   update-docs:
     macos:
-      xcode: 12.1.0
+      xcode: *xcode_version
     steps:
       - attach_workspace:
           at: .
@@ -184,7 +188,7 @@ workflows:
             filters:
               branches:
                 only:
-                  - main
+                  - /release/*/
         - snapshot:
             matrix:
               parameters:
