@@ -24,6 +24,7 @@ commands:
             - src/xcode/vendor
             - /usr/local/Cellar/
             - /usr/local/opt/
+            - /usr/local/bin/
 
 jobs:
   dependencies:
