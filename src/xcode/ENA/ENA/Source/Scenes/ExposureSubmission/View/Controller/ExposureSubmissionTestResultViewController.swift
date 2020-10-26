@@ -62,7 +62,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 	private let viewModel: ExposureSubmissionTestResultViewModel
 
-	private var subscribers: [AnyCancellable] = []
+	private var bindings: [AnyCancellable] = []
 
 	private func setUpView() {
 		view.backgroundColor = .enaColor(for: .background)
@@ -85,27 +85,33 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	}
 
 	private func setUpBindings() {
-		subscribers.append(viewModel.$dynamicTableViewModel.sink { [weak self] dynamicTableViewModel in
-			self?.dynamicTableViewModel = dynamicTableViewModel
-			self?.tableView.reloadData()
-		})
+		viewModel.$dynamicTableViewModel
+			.sink { [weak self] dynamicTableViewModel in
+				self?.dynamicTableViewModel = dynamicTableViewModel
+				self?.tableView.reloadData()
+			}
+			.store(in: &bindings)
 
-		subscribers.append(viewModel.$shouldShowDeletionConfirmationAlert.sink { [weak self] shouldShowDeletionConfirmationAlert in
-			guard let self = self, shouldShowDeletionConfirmationAlert else { return }
+		viewModel.$shouldShowDeletionConfirmationAlert
+			.sink { [weak self] shouldShowDeletionConfirmationAlert in
+				guard let self = self, shouldShowDeletionConfirmationAlert else { return }
 
-			self.viewModel.shouldShowDeletionConfirmationAlert = false
+				self.viewModel.shouldShowDeletionConfirmationAlert = false
 
-			self.showDeletionConfirmationAlert()
-		})
+				self.showDeletionConfirmationAlert()
+			}
+			.store(in: &bindings)
 
-		subscribers.append(viewModel.$error.sink { [weak self] error in
-			guard let self = self, let error = error else { return }
+		viewModel.$error
+			.sink { [weak self] error in
+				guard let self = self, let error = error else { return }
 
-			self.viewModel.error = nil
+				self.viewModel.error = nil
 
-			let alert = self.setupErrorAlert(message: error.localizedDescription)
-			self.present(alert, animated: true)
-		})
+				let alert = self.setupErrorAlert(message: error.localizedDescription)
+				self.present(alert, animated: true)
+			}
+			.store(in: &bindings)
 	}
 
 	private func showDeletionConfirmationAlert() {
