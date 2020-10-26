@@ -34,12 +34,25 @@ final class CachedAppConfiguration {
 	/// The place where the app config and last etag is stored
 	private let store: AppConfigCaching
 
+	private let deviceTimeCheck: DeviceTimeCheckProtocol
+
 	private let configurationDidChange: (() -> Void)?
 
-	init(client: AppConfigurationFetching, store: AppConfigCaching, configurationDidChange: (() -> Void)? = nil) {
+	init(
+		client: AppConfigurationFetching,
+		store: AppConfigCaching,
+		deviceTimeCheck: DeviceTimeCheckProtocol? = nil,
+		configurationDidChange: (() -> Void)? = nil
+	) {
 		self.client = client
 		self.store = store
 		self.configurationDidChange = configurationDidChange
+
+		if let deviceTimeCheck = deviceTimeCheck {
+			self.deviceTimeCheck = deviceTimeCheck
+		} else {
+			self.deviceTimeCheck = DeviceTimeCheck(store: store)
+		}
 
 		guard shouldFetch() else { return }
 
@@ -81,16 +94,14 @@ final class CachedAppConfiguration {
 				}
 			}
 
-			let serverTime = result.1
-
-			self.persistDeviceTimeCheckFlags(
-				deviceTimeIsCorrect: self.isDeviceTimeCorrect(
-					serverTime: serverTime
-				),
-				deviceTimeCheckKillSwitchIsActive: self.isDeviceTimeCheckKillSwitchActive(
-					config: self.store.appConfig
+			if let serverTime = result.1 {
+				self.deviceTimeCheck.checkAndPersistDeviceTimeFlags(
+					serverTime: serverTime,
+					deviceTime: Date()
 				)
-			)
+			} else {
+				self.deviceTimeCheck.resetDeviceTimeFlagsToDefault()
+			}
 		}
 	}
 
@@ -98,41 +109,6 @@ final class CachedAppConfiguration {
 	private func completeOnMain(completion: Completion?, result: Result<SAP_ApplicationConfiguration, Error>) {
 		DispatchQueue.main.async {
 			completion?(result)
-		}
-	}
-
-	private func persistDeviceTimeCheckFlags(
-		deviceTimeIsCorrect: Bool,
-		deviceTimeCheckKillSwitchIsActive: Bool
-	) {
-		store.deviceTimeIsCorrect = deviceTimeCheckKillSwitchIsActive ? true : deviceTimeIsCorrect
-		if deviceTimeIsCorrect {
-			store.deviceTimeErrorWasShown = false
-		}
-	}
-
-	private func isDeviceTimeCorrect(serverTime: Date?) -> Bool {
-		guard let serverTime = serverTime else {
-			return true
-		}
-
-		if let serverTimeMinus2Hours = Calendar.current.date(byAdding: .hour, value: -2, to: serverTime),
-		   let serverTimePlus2Hours = Calendar.current.date(byAdding: .hour, value: 2, to: serverTime) {
-			let deviceTime = Date()
-			return (serverTimeMinus2Hours ... serverTimePlus2Hours).contains(deviceTime)
-		} else {
-			return true
-		}
-	}
-
-	private func isDeviceTimeCheckKillSwitchActive(config: SAP_ApplicationConfiguration?) -> Bool {
-		if let config = config {
-			let killSwitchFeature = config.appFeatures.appFeatures.first {
-				$0.label == "disable-device-time-check"
-			}
-			return killSwitchFeature?.value == 1
-		} else {
-			return false
 		}
 	}
 }
