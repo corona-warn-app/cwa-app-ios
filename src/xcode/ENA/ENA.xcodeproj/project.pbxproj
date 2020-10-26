@@ -115,6 +115,7 @@
 		35BE8598251CE495005C2FD0 /* CachingHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BE8597251CE495005C2FD0 /* CachingHTTPClient.swift */; };
 		4026C2DC24852B7600926FB4 /* AppInformationViewController+LegalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */; };
 		4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */; };
+		501491232546C29B000BA9A4 /* AppInformationLegalTextsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501491222546C29B000BA9A4 /* AppInformationLegalTextsTest.swift */; };
 		50BD2E6224FE1E8700932566 /* AppInformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD2E6124FE1E8700932566 /* AppInformationModel.swift */; };
 		50BD2E6424FE232E00932566 /* AppInformationImprintViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD2E6324FE232E00932566 /* AppInformationImprintViewModel.swift */; };
 		50BD2E7724FE26F400932566 /* AppInformationImprintTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD2E6F24FE26F300932566 /* AppInformationImprintTest.swift */; };
@@ -665,6 +666,7 @@
 		35BE8597251CE495005C2FD0 /* CachingHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingHTTPClient.swift; sourceTree = "<group>"; };
 		4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppInformationViewController+LegalModel.swift"; sourceTree = "<group>"; };
 		4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationLegalCell.swift; sourceTree = "<group>"; };
+		501491222546C29B000BA9A4 /* AppInformationLegalTextsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInformationLegalTextsTest.swift; sourceTree = "<group>"; };
 		50BD2E6124FE1E8700932566 /* AppInformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationModel.swift; sourceTree = "<group>"; };
 		50BD2E6324FE232E00932566 /* AppInformationImprintViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationImprintViewModel.swift; sourceTree = "<group>"; };
 		50BD2E6F24FE26F300932566 /* AppInformationImprintTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInformationImprintTest.swift; sourceTree = "<group>"; };
@@ -1330,6 +1332,7 @@
 			isa = PBXGroup;
 			children = (
 				50BD2E6F24FE26F300932566 /* AppInformationImprintTest.swift */,
+				501491222546C29B000BA9A4 /* AppInformationLegalTextsTest.swift */,
 				50DC527A24FEB5CA00F6D8EB /* AppInformationModelTest.swift */,
 			);
 			name = __test__;
@@ -3334,7 +3337,6 @@
 				AB6289D4251BA4EC00CF61D2 /* String+Compare.swift in Sources */,
 				B153096C24706F2400A4A1BD /* URLSessionConfiguration+Default.swift in Sources */,
 				B1BD9E7E24898A2300BD3930 /* ExposureDetectionViewController+DynamicTableViewModel.swift in Sources */,
-				0159E6C1247829BA00894A89 /* temporary_exposure_key_export.pb.swift in Sources */,
 				AB010D04253ECC9200DF1F61 /* RiskFailedCollectionViewCell.swift in Sources */,
 				71FE1C80247AC2B500851FEB /* ExposureSubmissionNavigationController.swift in Sources */,
 				2FA968CE24D8560B008EE367 /* String+Random.swift in Sources */,
@@ -3511,6 +3513,7 @@
 				01A97DD32506769F00C07C37 /* DatePickerDayViewModelTests.swift in Sources */,
 				516E430024B777B20008CC30 /* HomeHighRiskCellConfiguratorTests.swift in Sources */,
 				F2DC809224898B1800EDC40A /* DynamicTableViewControllerHeaderTests.swift in Sources */,
+				501491232546C29B000BA9A4 /* AppInformationLegalTextsTest.swift in Sources */,
 				B1D431C8246C69F300E728AD /* HTTPClient+ConfigurationTests.swift in Sources */,
 				B15382FE248424F00010F007 /* ExposureDetectionTests.swift in Sources */,
 				A372DA3F24BEF773003248BB /* ExposureSubmissionCoordinatorTests.swift in Sources */,
