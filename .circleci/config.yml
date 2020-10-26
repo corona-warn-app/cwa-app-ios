@@ -14,15 +14,16 @@ commands:
           name: Install swiftlint
           command: brew install swiftlint
       - restore_cache:
-          key: v2-{{ checksum "src/xcode/Gemfile.lock" }}
+          key: v3-{{ checksum "src/xcode/Gemfile.lock" }}
       - run:
           name: Install dependencies
           command: cd src/xcode && bundle install --path=vendor --jobs=4
       - save_cache:
-          key: v2-{{ checksum "src/xcode/Gemfile.lock" }}
+          key: v3-{{ checksum "src/xcode/Gemfile.lock" }}
           paths:
-            - "src/xcode/vendor"
-
+            - src/xcode/vendor
+            - /usr/local/Cellar/
+            - /usr/local/opt/
 
 jobs:
   dependencies:
