@@ -165,6 +165,6 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 		guard let lastFetch = store.lastAppConfigFetch else {
 			return true
 		}
-		return lastFetch.distance(to: Date()) >= 300
+		return abs(lastFetch.distance(to: Date())) >= 300
 	}
 }
