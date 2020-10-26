@@ -62,9 +62,6 @@ jobs:
           name: Install swiftlint # chaching currently fails, needs some further tweaks
           command: brew install swiftlint
       - run:
-          name: Setup New DerivedData Folder
-          command: mkdir ~/DerivedData
-      - run:
           name: Tests
           command: cd src/xcode && bundle exec fastlane test
       - restore_cache:
@@ -77,9 +74,6 @@ jobs:
           name: Fix SwiftLint output for SonarCloud
           command: |
             ./scripts/fix_swiftlint_output.sh src/xcode/swiftlint.result.json
-      - run:
-          name: Package test results # for better readability in 'Artifacts' view
-          command: tar -czf ~/testresults.tar --exclude='*.tar' ~/DerivedData/Logs/Test
       - store_test_results:
           path: src/xcode/fastlane/test_output
       - store_artifacts:
