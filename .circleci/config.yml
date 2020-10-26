@@ -43,6 +43,9 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Install swiftlint # chaching currently fails, needs some further tweaks
+          command: brew install swiftlint
+      - run:
           name: Build
           command: cd src/xcode && bundle exec fastlane build
   test:
@@ -51,6 +54,9 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run:
+          name: Install swiftlint # chaching currently fails, needs some further tweaks
+          command: brew install swiftlint
       - run:
           name: Tests
           command: cd src/xcode && bundle exec fastlane test
@@ -102,6 +108,9 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Install swiftlint # chaching currently fails, needs some further tweaks
+          command: brew install swiftlint
+      - run:
           name: Snapshot
           command: cd src/xcode && bundle exec fastlane run snapshot languages:<<parameters.language>> clear_previous_screenshots:"false" && cd -
       - run:
@@ -128,6 +137,9 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - run:
+          name: Install swiftlint # chaching currently fails, needs some further tweaks
+          command: brew install swiftlint
       - run: ./scripts/switch_to_dev_env.sh
       - run:
           name: fastlane testflight
