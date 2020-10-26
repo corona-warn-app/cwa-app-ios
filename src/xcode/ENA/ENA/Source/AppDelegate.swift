@@ -125,7 +125,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}()
 
 	lazy var riskProvider: RiskProvider = {
-		let exposureDetectionInterval = self.store.hourlyFetchingEnabled ? DateComponents(minute: 45) : DateComponents(hour: 24)
+		// (kga) revert
+//		let exposureDetectionInterval = self.store.hourlyFetchingEnabled ? DateComponents(minute: 45) : DateComponents(hour: 24)
+		
+		let exposureDetectionInterval = DateComponents(second: 5)
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: DateComponents(day: 2),

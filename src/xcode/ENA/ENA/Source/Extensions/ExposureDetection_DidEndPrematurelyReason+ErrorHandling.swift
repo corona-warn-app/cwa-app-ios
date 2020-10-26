@@ -31,12 +31,14 @@ extension ExposureDetection.DidEndPrematurelyReason {
 			)
 		case .wrongDeviceTime:
 			// Check if wrong time error was shown already
-			if(!store.deviceTimeErrorWasShown) {
+			// (kga) enable deviceTimeErrorShown
+			
+			//if(!store.deviceTimeErrorWasShown) {
 				store.deviceTimeErrorWasShown = true
 				return rootController.setupErrorAlert(
 					message: localizedDescription
 				)
-			}
+			//}
 			return nil
 			
 		default:

@@ -162,9 +162,14 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 	///   which does not easily return response headers. This requires further refactoring of `URLSession+Convenience.swift`.
 	/// - Returns: `true` is a network call should be done; `false` if cache should be used
 	private func shouldFetch() -> Bool {
-		guard let lastFetch = store.lastAppConfigFetch else {
-			return true
-		}
-		return lastFetch.distance(to: Date()) >= 300
+		
+		// (kga) revert
+//
+//		guard let lastFetch = store.lastAppConfigFetch else {
+//			return true
+//		}
+//		return lastFetch.distance(to: Date()) >= 300
+		
+		return true
 	}
 }

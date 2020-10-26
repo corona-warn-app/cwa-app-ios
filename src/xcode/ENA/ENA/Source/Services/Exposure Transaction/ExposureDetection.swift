@@ -108,7 +108,6 @@ final class ExposureDetection {
 
 		self.completion = completion
 		activityState = .downloading
-		let isDeviceTimeCorrect = self.delegate?.isDeviceTimeCorrect()
 		
 		downloadKeyPackages { [weak self] in
 			guard let self = self else { return }
@@ -124,14 +123,18 @@ final class ExposureDetection {
 
 				// (kga) add another if condition to check for correct device time
 				// (kga) add another else statement for the wrong time state
-				if(!isDeviceTimeCorrect!) {
-					Log.warning("ExposureDetection: Risk detection skipped due to wrong device time.", log: .riskDetection)
-					self.endPrematurely(reason: .wrongDeviceTime)
-
-				} else if let exposureConfiguration = self.exposureConfiguration {
+				if let exposureConfiguration = self.exposureConfiguration {
 					Log.info("ExposureDetection: Start detecting summary.", log: .riskDetection)
 					
-					self.detectSummary(writtenPackages: writtenPackages, exposureConfiguration: exposureConfiguration)
+					let isDeviceTimeCorrect = self.delegate?.isDeviceTimeCorrect()
+					
+					if !isDeviceTimeCorrect! {
+						Log.warning("ExposureDetection: Risk detection skipped due to wrong device time.", log: .riskDetection)
+						self.endPrematurely(reason: .wrongDeviceTime)
+
+					} else {
+						self.detectSummary(writtenPackages: writtenPackages, exposureConfiguration: exposureConfiguration)
+					}
 				} else {
 					Log.error("ExposureDetection: End prematurely.", log: .riskDetection, error: DidEndPrematurelyReason.noExposureConfiguration)
 
