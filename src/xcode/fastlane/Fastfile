@@ -82,6 +82,7 @@ platform :ios do
     xcov(
       workspace: "ENA.xcworkspace",
       scheme: "ENATests",
+      derived_data_path: "DerivedData",
       markdown_report: true,
       html_report: false,
       output_directory: "fastlane/test_output"
