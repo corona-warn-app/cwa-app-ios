@@ -245,6 +245,8 @@ private final class CountryKeypackageDownloaderFake: CountryKeypackageDownloadin
 
 private final class ExposureDetectionDelegateMock {
 	var detectSummaryWithConfigurationWasCalled = false
+	var deviceTimeCorrect = true
+	var deviceTimeIncorrectErrorMessageShown = false
 
 	// MARK: Types
 	struct SummaryError: Error { }
@@ -305,11 +307,11 @@ extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 	}
 	
 	func isDeviceTimeCorrect() -> Bool {
-		
+		return deviceTimeCorrect
 	}
 	
 	func hasDeviceTimeErrorBeenShown() -> Bool {
-		
+		return deviceTimeIncorrectErrorMessageShown
 	}
 }
 
