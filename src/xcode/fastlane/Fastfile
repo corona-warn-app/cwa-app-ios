@@ -63,6 +63,7 @@ platform :ios do
     run_tests(
       scheme: "ENATests",
       xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=YES",
+      derived_data_path: "DerivedData",
       testplan: "AllTests",
       only_test_configurations: ["DE"],
       devices: ["iPhone 11"]
