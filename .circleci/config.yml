@@ -63,7 +63,7 @@ jobs:
           command: brew install swiftlint
       - run:
           name: Setup New DerivedData Folder
-          command: mkdir DerivedData
+          command: mkdir ~/DerivedData
       - run:
           name: Tests
           command: cd src/xcode && bundle exec fastlane test
@@ -82,7 +82,7 @@ jobs:
       - store_artifacts:
           path: src/xcode/fastlane/test_output
       - store_artifacts:
-          path: DerivedData/Logs/
+          path: ~/DerivedData/Logs/Test
       - store_artifacts:
           path: src/xcode/swiftlint.result.json
       - run:

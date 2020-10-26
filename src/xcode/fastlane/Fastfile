@@ -63,7 +63,7 @@ platform :ios do
     run_tests(
       scheme: "ENATests",
       xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=YES",
-      derived_data_path: "DerivedData",
+      derived_data_path: "~/DerivedData",
       testplan: "AllTests",
       only_test_configurations: ["DE"],
       devices: ["iPhone 11"]
@@ -82,7 +82,7 @@ platform :ios do
     xcov(
       workspace: "ENA.xcworkspace",
       scheme: "ENATests",
-      derived_data_path: "DerivedData",
+      derived_data_path: "~/DerivedData",
       markdown_report: true,
       html_report: false,
       output_directory: "fastlane/test_output"
