@@ -30,7 +30,6 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	) {
 		self.onSuccess = onSuccess
 		self.onError = onError
-		self.isScanningActivated = isScanningActivated
 		self.captureSession = AVCaptureSession()
 		self.captureDevice = AVCaptureDevice.default(for: .video)
 		super.init()
@@ -175,7 +174,9 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	private let onError: (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
 	private let captureDevice: AVCaptureDevice?
 
-	private(set) var isScanningActivated: Bool
+	var isScanningActivated: Bool {
+		captureSession.isRunning
+	}
 
 	private func setupCaptureSession() {
 		guard let currentCaptureDevice = captureDevice,
@@ -191,20 +192,12 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
 	}
 
-	private func activateScanning() {
-		if isScanningActivated {
-			return
-		}
+	func activateScanning() {
 		captureSession.startRunning()
-		isScanningActivated = true
 	}
 
-	private func deactivateScanning() {
-		if !isScanningActivated {
-			return
-		}
+	func deactivateScanning() {
 		captureSession.stopRunning()
-		isScanningActivated = false
 	}
 
 }
