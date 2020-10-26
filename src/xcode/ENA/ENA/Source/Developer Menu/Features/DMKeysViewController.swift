@@ -47,7 +47,7 @@ final class DMKeysViewController: UITableViewController {
 	private let client: Client
 	private let store: Store
 	private let exposureManager: ExposureManager
-	private var keys = [SAP_TemporaryExposureKey]() {
+	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
 		didSet {
 			keys = self.keys.sorted()
 		}
@@ -178,7 +178,7 @@ private extension DateFormatter {
 	}
 }
 
-private extension SAP_TemporaryExposureKey {
+private extension SAP_External_Exposurenotification_TemporaryExposureKey {
 	private static let dateFormatter: DateFormatter = .rollingPeriodDateFormatter()
 
 	var rollingStartNumberDate: Date {

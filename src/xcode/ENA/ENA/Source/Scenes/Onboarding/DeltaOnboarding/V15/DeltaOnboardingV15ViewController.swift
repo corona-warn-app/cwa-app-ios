@@ -81,6 +81,7 @@ class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboard
 
 	private func setupView() {
 		navigationFooterItem?.primaryButtonTitle = AppStrings.DeltaOnboarding.primaryButton
+		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.DeltaOnboarding.primaryButton
 		setupTableView()
 	}
 

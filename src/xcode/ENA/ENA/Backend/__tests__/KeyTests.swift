@@ -23,14 +23,14 @@ class KeyTests: XCTestCase {
 	// works. Currently this is needed by the developer menu in order to transfer keys from
 	// device to device.
 	func testKeyEncodeDecode() throws {
-		var kIn = Apple_TemporaryExposureKey()
+		var kIn = SAP_External_Exposurenotification_TemporaryExposureKey()
 		kIn.keyData = Data(bytes: [1, 2, 3], count: 3)
 		kIn.rollingPeriod = 1337
 		kIn.rollingStartIntervalNumber = 42
 		kIn.transmissionRiskLevel = 8
 
 		let dataIn = try kIn.serializedData()
-		let kOut = try Apple_TemporaryExposureKey(serializedData: dataIn)
+		let kOut = try SAP_External_Exposurenotification_TemporaryExposureKey(serializedData: dataIn)
 		XCTAssertEqual(kOut.keyData, Data(bytes: [1, 2, 3], count: 3))
 		XCTAssertEqual(kOut.rollingPeriod, 1337)
 		XCTAssertEqual(kOut.rollingStartIntervalNumber, 42)

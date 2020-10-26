@@ -199,7 +199,7 @@ extension ExposureKeysProcessingTests {
 		return TemporaryExposureKeyMock(rollingStartNumber: ENIntervalNumber(date.timeIntervalSince1970 / 600))
 	}
 
-	private func assertCorrectProcessing(on processedKeys: [SAP_TemporaryExposureKey], for days: [Int], with symptomsOnset: SymptomsOnset) {
+	private func assertCorrectProcessing(on processedKeys: [SAP_External_Exposurenotification_TemporaryExposureKey], for days: [Int], with symptomsOnset: SymptomsOnset) {
 		let transmissionRiskVector = symptomsOnset.transmissionRiskVector
 		let daysSinceOnsetOfSymptomsVector = symptomsOnset.daysSinceOnsetOfSymptomsVector
 

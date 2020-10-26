@@ -20,13 +20,13 @@
 import XCTest
 @testable import ENA
 
-final class SAP_RiskScoreClass_LowAndHighTests: XCTestCase {
+final class SAP_Internal_RiskScoreClass_LowAndHighTests: XCTestCase {
     func testWithOnlyHighAndLow() {
-		let sut: [SAP_RiskScoreClass] = [
-			SAP_RiskScoreClass.with {
+		let sut: [SAP_Internal_RiskScoreClass] = [
+			SAP_Internal_RiskScoreClass.with {
 				$0.label = "LOW"
 			},
-			SAP_RiskScoreClass.with {
+			SAP_Internal_RiskScoreClass.with {
 				$0.label = "HIGH"
 			}
 		]
@@ -36,14 +36,14 @@ final class SAP_RiskScoreClass_LowAndHighTests: XCTestCase {
 	}
 
 	func testEmpty() {
-		let sut: [SAP_RiskScoreClass] = []
+		let sut: [SAP_Internal_RiskScoreClass] = []
 		XCTAssertNil(sut.low)
 		XCTAssertNil(sut.high)
 	}
 
 	func testIgnoresEmojis() {
-		let high = SAP_RiskScoreClass.with { $0.label = "🚬" }
-		let sut: [SAP_RiskScoreClass] = [high]
+		let high = SAP_Internal_RiskScoreClass.with { $0.label = "🚬" }
+		let sut: [SAP_Internal_RiskScoreClass] = [high]
 		XCTAssertNil(sut.high)
 	}
 }

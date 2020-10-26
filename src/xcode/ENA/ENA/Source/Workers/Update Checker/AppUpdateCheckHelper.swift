@@ -48,7 +48,7 @@ final class AppUpdateCheckHelper {
 		appConfigurationProvider.appConfiguration { [weak self] result in
 			guard let self = self else { return }
 
-			var _versionInfo: SAP_ApplicationVersionConfiguration?
+			var _versionInfo: SAP_Internal_ApplicationVersionConfiguration?
 
 			switch result {
 			case .success(let applicationConfiguration):
@@ -114,8 +114,8 @@ final class AppUpdateCheckHelper {
 
 	func alertTypeFrom(
 		currentVersion: String,
-		minVersion: SAP_SemanticVersion,
-		latestVersion: SAP_SemanticVersion
+		minVersion: SAP_Internal_SemanticVersion,
+		latestVersion: SAP_Internal_SemanticVersion
 	) -> UpdateAlertType {
 		guard let currentSemanticVersion = currentVersion.semanticVersion else {
 			return .none

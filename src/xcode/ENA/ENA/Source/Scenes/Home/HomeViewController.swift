@@ -51,7 +51,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				detectionMode: detectionMode,
 				exposureManagerState: exposureManagerState,
 				enState: initialEnState,
-				risk: risk
+				risk: risk,
+				riskDetectionFailed: false
 			), exposureSubmissionService: exposureSubmissionService)
 		navigationItem.largeTitleDisplayMode = .never
 		delegate.addToEnStateUpdateList(homeInteractor)
@@ -117,6 +118,13 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	private func showInformationHowRiskDetectionWorks() {
+		
+		#if DEBUG
+		if isUITesting, let showInfo = UserDefaults.standard.string(forKey: "userNeedsToBeInformedAboutHowRiskDetectionWorks") {
+			store.userNeedsToBeInformedAboutHowRiskDetectionWorks = (showInfo == "YES")
+		}
+		#endif
+		
 		guard store.userNeedsToBeInformedAboutHowRiskDetectionWorks else {
 			return
 		}
@@ -203,10 +211,12 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		delegate?.setExposureDetectionState(state: homeInteractor.state, activityState: homeInteractor.riskProvider.activityState)
 	}
 
-	func updateState(detectionMode: DetectionMode, exposureManagerState: ExposureManagerState, risk: Risk?) {
-		homeInteractor.state.detectionMode = detectionMode
-		homeInteractor.state.exposureManagerState = exposureManagerState
-		homeInteractor.state.risk = risk
+	func updateState(
+		detectionMode: DetectionMode,
+		exposureManagerState: ExposureManagerState
+	) {
+		homeInteractor.updateDetectionMode(detectionMode)
+		homeInteractor.updateExposureManagerState(exposureManagerState)
 
 		reloadData(animatingDifferences: false)
 
@@ -261,6 +271,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		case is HomeTestResultCollectionViewCell:
 			showExposureSubmission(with: homeInteractor.testResult)
 		case is RiskInactiveCollectionViewCell:
+			showExposureDetection()
+		case is RiskFailedCollectionViewCell:
 			showExposureDetection()
 		case is RiskThankYouCollectionViewCell:
 			return
@@ -319,6 +331,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			RiskLevelCollectionViewCell.self,
 			InfoCollectionViewCell.self,
 			HomeTestResultCollectionViewCell.self,
+			RiskFailedCollectionViewCell.self,
 			RiskInactiveCollectionViewCell.self,
 			RiskFindingPositiveCollectionViewCell.self,
 			RiskThankYouCollectionViewCell.self,
@@ -408,14 +421,14 @@ extension HomeViewController: UICollectionViewDelegate {
 
 extension HomeViewController: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
-		homeInteractor.state.exposureManagerState = state
+		homeInteractor.updateExposureManagerState(state)
 		reloadData(animatingDifferences: false)
 	}
 }
 
 extension HomeViewController: ENStateHandlerUpdating {
-	func updateEnState(_ state: ENStateHandler.State) {
-		homeInteractor.state.enState = state
+	func updateEnState(_ enState: ENStateHandler.State) {
+		homeInteractor.updateEnState(enState)
 		reloadData(animatingDifferences: false)
 	}
 }
