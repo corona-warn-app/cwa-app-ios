@@ -22,6 +22,23 @@ import Foundation
 import XCTest
 @testable import ENA
 
+final class ExposureSubmissionQRScannerViewModelMock: ExposureSubmissionQRScannerViewModel {
+
+	private var fakeIsScanning: Bool = true
+
+	override var isScanningActivated: Bool {
+		return fakeIsScanning
+	}
+
+	override func activateScanning() {
+		fakeIsScanning = true
+	}
+
+	override func deactivateScanning() {
+		fakeIsScanning = false
+	}
+
+}
 
 final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 
@@ -35,7 +52,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		// first onError call will happen on ViewModel init
 		onErrorExpectation.expectedFulfillmentCount = 1
 
-		let viewModel = ExposureSubmissionQRScannerViewModel(
+		let viewModel = ExposureSubmissionQRScannerViewModelMock(
 			isScanningActivated: true,
 			onSuccess: { deviceRegistrationKey in
 				XCTAssertEqual(deviceRegistrationKey, .guid(guid))
@@ -64,10 +81,9 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 
 		let onErrorExpectation = expectation(description: "onError called")
 		// first onError call will happen on ViewModel init
-		onErrorExpectation.expectedFulfillmentCount = 2
+		onErrorExpectation.expectedFulfillmentCount = 3
 
 		let viewModel = ExposureSubmissionQRScannerViewModel(
-			isScanningActivated: true,
 			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},
@@ -84,6 +100,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			}
 		)
 
+		viewModel.activateScanning()
 		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://localhost/?\(emptyGuid)")
 		viewModel.didScan(metadataObjects: [metaDataObject])
 
@@ -131,7 +148,6 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		onErrorExpectation.expectedFulfillmentCount = 2
 
 		let viewModel = ExposureSubmissionQRScannerViewModel(
-			isScanningActivated: true,
 			onSuccess: { deviceRegistrationKey in
 				XCTAssertEqual(deviceRegistrationKey, .guid(validGuid))
 
@@ -152,6 +168,8 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 				}
 			}
 		)
+
+		viewModel.activateScanning()
 
 		let invalidMetaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://localhost/?\(emptyGuid)")
 		viewModel.didScan(metadataObjects: [invalidMetaDataObject])
