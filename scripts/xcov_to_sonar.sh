@@ -1,4 +1,4 @@
-#!zsh
+#!/bin/bash
 set -euo pipefail
 
 function convert_file {
