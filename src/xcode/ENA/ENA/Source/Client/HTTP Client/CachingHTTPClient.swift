@@ -111,7 +111,8 @@ extension HTTPURLResponse {
 	var dateHeader: Date? {
 		if let dateString = value(forHTTPHeaderField: "Date") {
 			let dateFormatter = DateFormatter()
-			dateFormatter.dateFormat = "EEE',' dd' 'MMM' 'yyyy HH':'mm':'ss zzz"
+			dateFormatter.locale = Locale(identifier: "us_US")
+			dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
 			return dateFormatter.date(from: dateString)
 		} else {
 			return nil
