@@ -209,12 +209,6 @@ extension ExposureSubmissionCoordinator {
 			}
 		)
 
-		#if DEBUG
-		if isUITesting {
-			acceptAction.setAccessibilityIdentifier(accessabilityIdentifier: "AppStrings.ExposureSubmission.dataPrivacyAcceptTitle")
-		}
-		#endif
-
 		alert.addAction(acceptAction)
 
 		alert.addAction(
@@ -228,13 +222,7 @@ extension ExposureSubmissionCoordinator {
 		)
 		alert.preferredAction = acceptAction
 
-		navigationController?.present(alert, animated: true, completion: {
-			#if DEBUG
-			if isUITesting {
-				alert.applyAccessibilityIdentifiers()
-			}
-			#endif
-		})
+		navigationController?.present(alert, animated: true)
 	}
 
 	private func showQRScreen(isLoading: @escaping (Bool) -> Void) {
