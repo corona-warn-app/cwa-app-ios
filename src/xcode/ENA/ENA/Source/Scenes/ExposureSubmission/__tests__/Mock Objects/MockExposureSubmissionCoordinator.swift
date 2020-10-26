@@ -39,10 +39,6 @@ class MockExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
 
 	func showTanScreen() { }
 
-	func showSymptomsScreen() { }
-
-	func showWarnOthersScreen() { }
-
 	func showThankYouScreen() { }
 	
 }

@@ -43,8 +43,6 @@ protocol ExposureSubmissionCoordinating: class {
 	func showOverviewScreen()
 	func showTestResultScreen(with result: TestResult)
 	func showTanScreen()
-	func showSymptomsScreen()
-	func showWarnOthersScreen()
 	func showThankYouScreen()
 
 }
