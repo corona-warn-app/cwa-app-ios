@@ -25,10 +25,6 @@ commands:
           name: Install dependencies
           shell: /bin/zsh
           command: cd src/xcode && bundle install --path=vendor --jobs=4
-      - run:
-          name: A TEST...
-          shell: /bin/zsh
-          command: cd src/xcode && bundle --version
       - save_cache:
           key: *cache_key
           paths:
@@ -51,7 +47,7 @@ jobs:
   build:
     macos:
       xcode: *xcode_version
-    shell: /bin/zsh
+    #shell: /bin/zsh
     steps:
       - attach_workspace:
           at: .
@@ -60,12 +56,12 @@ jobs:
           command: brew install swiftlint
       - run:
           name: Build
-          shell: /bin/zsh
+          #shell: /bin/zsh
           command: cd src/xcode && bundle exec fastlane build
   test:
     macos:
       xcode: *xcode_version
-    shell: /bin/zsh
+    #shell: /bin/zsh
     steps:
       - attach_workspace:
           at: .
@@ -74,16 +70,18 @@ jobs:
           command: brew install swiftlint
       - run:
           name: Tests
-          shell: /bin/zsh
+          #shell: /bin/zsh
           command: cd src/xcode && bundle exec fastlane test
       - restore_cache:
           key: sonar-cloud-v2
       - run:
           name: Convert coverage information to SonarCloud format
+          shell: /bin/zsh
           command: |
             ./scripts/xcov_to_sonar.sh src/xcode/fastlane/test_output/action_0.xccovarchive/ $CIRCLE_WORKING_DIRECTORY/ src/xcode/fastlane/test_output/coverage.xml
       - run:
           name: Fix SwiftLint output for SonarCloud
+          shell: /bin/zsh
           command: |
             ./scripts/fix_swiftlint_output.sh src/xcode/swiftlint.result.json
       - store_test_results:
@@ -97,6 +95,7 @@ jobs:
           command: '[[ -v CIRCLE_PR_REPONAME ]] && circleci-agent step halt || true'
       - run:
           name: Install and run sonar-scanner
+          shell: /bin/zsh
           command: |
             SCANNER=sonar-scanner-cli-4.3.0.2102-macosx
             SCANNERDIR=~/sonar/sonar-scanner-4.3.0.2102-macosx
