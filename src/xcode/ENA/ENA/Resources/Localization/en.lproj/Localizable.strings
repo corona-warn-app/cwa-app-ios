@@ -111,6 +111,8 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "Since you have not activated exposure logging for long enough, we cannot calculate your risk of infection.\n\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your smartphone. Your risk of infection cannot be seen by, or passed on to anyone else.";
 
+"ExposureDetection_Explanation_Text_Low_No_Encounter" = "You have a low risk of infection because no exposure to people later diagnosed with COVID-19 was logged, or because your encounters were only for a short time and at a greater distance.";
+
 "ExposureDetection_Explanation_Text_Low_With_Encounter" = "The risk of infection is calculated locally on your smartphone, using exposure logging data. The calculation also takes into account distance and duration of any exposure to persons diagnosed with COVID-19, as well as their potential infectiousness. Your risk of infection cannot be seen by or passed on to anyone else.";
 
 "ExposureDetection_Explanation_Text_High" = "Therefore, your risk of infection has been ranked as increased.\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.\nWhen you get home, please also avoid close contact with members of your family or household.";

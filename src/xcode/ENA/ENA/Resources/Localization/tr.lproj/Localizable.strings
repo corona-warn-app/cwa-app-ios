@@ -111,6 +111,8 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "Maruz kalma günlüğünü uzun süredir etkinleştirmediğiniz için enfeksiyon riskinizi hesaplayamıyoruz.\n\nEnfeksiyon riskiniz, akıllı telefonunuzda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.";
 
+"ExposureDetection_Explanation_Text_Low_No_Encounter" = "Daha sonra COVID-19 tanısı konan kişilere maruz kaldığınıza dair bir günlük kaydı oluşturulmadığı veya bu kişilerle yalnızca kısa süreyle ve uzak mesafeden karşılaştığınız için enfeksiyon riskiniz düşüktür.";
+
 "ExposureDetection_Explanation_Text_Low_With_Encounter" = "Enfeksiyon riskiniz, maruz kalma günlüğünün verileri kullanılarak yerel olarak akıllı telefonunuzda hesaplanır. Hesaplamada COVID-19 tanısı konan kişilere maruz kalma mesafesi ve süresinin yanında potansiyel enfeksiyon bulaştırma durumu da göz önünde bulundurulur. Enfeksiyon riskiniz bir başkası tarafından görüntülenemez ya da bir başkasına aktarılamaz.";
 
 "ExposureDetection_Explanation_Text_High" = "Bu nedenle enfeksiyon riskiniz artmış olarak derecelendirilmiştir.\nEnfeksiyon riskiniz, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.\nEve gittiğinizde lütfen aile fertleriniz veya ev arkadaşlarınızla yakın temastan kaçının.";

@@ -111,6 +111,8 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "Deoarece nu ați activat un timp suficient de lung înregistrarea în jurnal a expunerilor, nu putem calcula riscul dvs. de infectare.\n\nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe smartphone-ul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.";
 
+"ExposureDetection_Explanation_Text_Low_No_Encounter" = "Aveți un risc redus de infectare deoarece nu a fost înregistrată nicio expunere la persoane diagnosticate ulterior cu COVID-19 sau întâlnirile au fost limitate la o perioadă scurtă și la o distanță mai mare.";
+
 "ExposureDetection_Explanation_Text_Low_With_Encounter" = "Riscul de infectare este calculat local pe smartphone-ul dvs., utilizând datele de înregistrare în jurnal a expunerilor. Calculul poate ține cont și de distanța și durata expunerii la persoane diagnosticate cu COVID-19, precum și de potențiala contagiozitate a acestora. Riscul dvs. de infectare nu poate fi observat sau transmis mai departe niciunei alte persoane.";
 
 "ExposureDetection_Explanation_Text_High" = "Prin urmare, riscul dvs. de infectare a fost clasificat ca fiind crescut.\nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe dispozitivul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.\nCând ajungeți acasă, evitați contactul strâns cu membrii familiei sau cu cei din gospodăria dvs.";

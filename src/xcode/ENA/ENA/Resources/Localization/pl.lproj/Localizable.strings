@@ -111,6 +111,8 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "Nie możemy jeszcze podać ryzyka zakażenia, ponieważ nie mamy jeszcze wystarczającej ilości danych.\n\nRyzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie w smartfonie. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.";
 
+"ExposureDetection_Explanation_Text_Low_No_Encounter" = "Masz niskie ryzyko zakażenia, ponieważ nie zarejestrowano narażenia na kontakt z osobami, u których później zdiagnozowano COVID-19, lub ponieważ Twoje kontakty trwały krótko przy zachowaniu odpowiednio dużej odległości.";
+
 "ExposureDetection_Explanation_Text_Low_With_Encounter" = "Ryzyko zakażenia jest obliczane lokalnie na Twoim smartfonie na podstawie danych rejestrowania narażenia. Ta kalkulacja uwzględnia również dystans i czas trwania narażenia na kontakt z osobami, u których zdiagnozowano COVID-19, a także potencjalną podatność na zakażenie. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.";
 
 "ExposureDetection_Explanation_Text_High" = "Dlatego Twoje ryzyko zakażenia zostało ocenione jako podwyższone.\nRyzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie w urządzeniu. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.\nPo powrocie do domu unikaj również bliskiego kontaktu z członkami rodziny lub gospodarstwa domowego.";
