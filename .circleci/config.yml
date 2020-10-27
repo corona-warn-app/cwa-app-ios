@@ -13,9 +13,11 @@ commands:
           command: for ip in $(dig @8.8.8.8 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts
       - run:
           name: Install Bundler
+          shell: /bin/zsh
           command: sudo gem install bundler:2.1.4
       - run:
           name: Install swiftlint
+          shell: /bin/zsh
           command: brew install swiftlint
       - restore_cache:
           key: *cache_key
