@@ -124,7 +124,6 @@
     },
     {
       "enabled" : false,
-      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
         "identifier" : "85D7595E24570491008175F0",
