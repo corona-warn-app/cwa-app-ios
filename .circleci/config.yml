@@ -24,12 +24,15 @@ commands:
           key: *cache_key
       - run:
           name: Install dependencies
-          shell: /bin/zsh
           command: cd src/xcode && bundle install --path=vendor --jobs=4
       - save_cache:
           key: *cache_key
           paths:
-            - src/xcode/vendor
+            - src/xcode/
+            - /usr/local/Cellar/
+            - /usr/local/opt/
+            - /usr/local/bin/
+
 
 jobs:
   dependencies:
