@@ -246,8 +246,8 @@ extension ExposureSubmissionCoordinator {
 				case .codeNotFound:
 					DispatchQueue.main.async {
 						let alert = UIAlertController.errorAlert(
-							title: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundTitle,
-							message: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundText,
+							title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
+							message: AppStrings.ExposureSubmissionError.qrAlreadyUsed,
 							okTitle: AppStrings.Common.alertActionCancel,
 							secondaryActionTitle: AppStrings.Common.alertActionRetry,
 							completion: { [weak self] in

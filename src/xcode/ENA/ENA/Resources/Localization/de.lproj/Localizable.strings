@@ -485,10 +485,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRScanner_instruction" = "Positionieren Sie den Rahmen über dem QR-Code Ihres Dokuments.";
 
-"ExposureSubmissionQRScanner_notFoundAlertTitle" = "Befund wurde nicht gefunden";
-
-"ExposureSubmissionQRScanner_notFoundAlertText" = "Um das Lesen des QR-Codes zu erleichtern, versuchen Sie, den QR-Code vertikal zum Scanner auszurichten oder aktivieren Sie das Blitzlicht.";
-
 "ExposureSubmissionQRScanner_otherError" = "Ein unbekannter Fehler ist aufgetreten.";
 
 "ExposureSubmissionQRScanner_cameraPermissionDenied" = "Bitte erlauben Sie der App die Benutzung der Kamera, um den QR-Code zu scannen.";
