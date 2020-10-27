@@ -188,11 +188,11 @@ workflows:
 
     snapshot-all:
       jobs:
-        - dependencies:
-            filters:
-              branches:
-                only:
-                  - /release/*/
+        - dependencies
+            # filters:
+            #   branches:
+            #     only:
+            #       - /release/*/
         - snapshot:
             matrix:
               parameters:
