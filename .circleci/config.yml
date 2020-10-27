@@ -47,7 +47,6 @@ jobs:
   build:
     macos:
       xcode: *xcode_version
-    #shell: /bin/zsh
     steps:
       - attach_workspace:
           at: .
@@ -56,12 +55,10 @@ jobs:
           command: brew install swiftlint
       - run:
           name: Build
-          #shell: /bin/zsh
           command: cd src/xcode && bundle exec fastlane build
   test:
     macos:
       xcode: *xcode_version
-    #shell: /bin/zsh
     steps:
       - attach_workspace:
           at: .
@@ -70,7 +67,6 @@ jobs:
           command: brew install swiftlint
       - run:
           name: Tests
-          #shell: /bin/zsh
           command: cd src/xcode && bundle exec fastlane test
       - restore_cache:
           key: sonar-cloud-v2
@@ -92,6 +88,7 @@ jobs:
           path: src/xcode/swiftlint.result.json
       - run:
           name: Skip SonarCloud for external Pull Requests
+          shell: /bin/zsh
           command: '[[ -v CIRCLE_PR_REPONAME ]] && circleci-agent step halt || true'
       - run:
           name: Install and run sonar-scanner
