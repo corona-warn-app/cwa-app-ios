@@ -55,7 +55,44 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 
 	let captureSession: AVCaptureSession
 
+	var isScanningActivated: Bool {
+		captureSession.isRunning
+	}
+
+	/// get current torchMode by device state
+	var torchMode: TorchMode {
+		guard let device = captureDevice,
+			  device.hasTorch else {
+			return .notAvailable
+		}
+
+		switch device.torchMode {
+		case .off:
+			return .ligthOff
+		case .on:
+			return .lightOn
+		case .auto:
+			return .notAvailable
+		@unknown default:
+			return .notAvailable
+		}
+	}
+
+	func activateScanning() {
+		captureSession.startRunning()
+	}
+
+	func deactivateScanning() {
+		captureSession.stopRunning()
+	}
+
 	func startCaptureSession() {
+		#if DEBUG
+		if isUITesting {
+			activateScanning()
+			return
+		}
+		#endif
 		switch AVCaptureDevice.authorizationStatus(for: .video) {
 		case .authorized:
 			Log.info("AVCaptureDevice.authorized - enable qr code scanner")
@@ -107,25 +144,6 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		}
 	}
 
-	/// get current torchMode by device state
-	var torchMode: TorchMode {
-		guard let device = captureDevice,
-			  device.hasTorch else {
-			return .notAvailable
-		}
-
-		switch device.torchMode {
-		case .off:
-			return .ligthOff
-		case .on:
-			return .lightOn
-		case .auto:
-			return .notAvailable
-		@unknown default:
-			return .notAvailable
-		}
-	}
-
 	func didScan(metadataObjects: [MetadataObject]) {
 		guard isScanningActivated else {
 			Log.info("Scanning not stopped from previous run")
@@ -173,10 +191,6 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	private let onError: (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
 	private let captureDevice: AVCaptureDevice?
 
-	var isScanningActivated: Bool {
-		captureSession.isRunning
-	}
-
 	private func setupCaptureSession() {
 		guard let currentCaptureDevice = captureDevice,
 			let caputureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
@@ -191,12 +205,5 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
 	}
 
-	func activateScanning() {
-		captureSession.startRunning()
-	}
-
-	func deactivateScanning() {
-		captureSession.stopRunning()
-	}
 
 }
