@@ -21,7 +21,7 @@ commands:
       - run:
           name: Install Bundler
           shell: /bin/zsh
-          command: sudo gem install bundler:2.1.4
+          command: sudo gem install rake bundler:2.1.4
       - run:
           name: Install dependencies
           shell: /bin/zsh
@@ -33,7 +33,6 @@ commands:
             - /usr/local/Cellar/
             - /usr/local/opt/
             - /usr/local/bin/
-
 
 jobs:
   dependencies:
