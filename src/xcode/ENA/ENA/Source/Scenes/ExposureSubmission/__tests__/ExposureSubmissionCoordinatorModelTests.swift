@@ -66,353 +66,45 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 	}
 
 	// MARK: -
-	func testSymptomsOptionYesSelected() {
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { completion in
-			completion(nil)
-		}
 
+	func testSymptomsOptionYesSelected() {
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
+			exposureSubmissionService: MockExposureSubmissionService(),
 			appConfigurationProvider: configProvider
 		)
 
-		let expectedIsLoadingValues = [Bool]()
-		var isLoadingValues = [Bool]()
-
-		let isLoadingExpectation = expectation(description: "isLoading is not called")
-		isLoadingExpectation.isInverted = true
-
-		let onSuccessExpectation = expectation(description: "onSuccess is called")
-
-		let onErrorExpectation = expectation(description: "onError is not called")
-		onErrorExpectation.isInverted = true
-
-		model.symptomsOptionSelected(
-			selectedSymptomsOption: .yes,
-			isLoading: {
-				isLoadingValues.append($0)
-				isLoadingExpectation.fulfill()
-			},
-			onSuccess: { onSuccessExpectation.fulfill() },
-			onError: { _ in onErrorExpectation.fulfill() }
-		)
-
-		waitForExpectations(timeout: .short)
-		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+		model.symptomsOptionSelected(.yes)
 
 		XCTAssertTrue(model.shouldShowSymptomsOnsetScreen)
 	}
 
-	func testSymptomsOptionNoOrPreferNotToSaySelectedSupportedCountriesLoadSucceeds() {
-		let symptomOptions: [ExposureSubmissionSymptomsViewController.SymptomsOption] = [.no, .preferNotToSay]
-		for symptomOption in symptomOptions {
-			let exposureSubmissionService = MockExposureSubmissionService()
-			exposureSubmissionService.submitExposureCallback = { completion in
-				completion(nil)
-			}
+	func testSymptomsOptionNoSelected() {
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			appConfigurationProvider: configProvider
+		)
 
-			let client = CachingHTTPClientMock()
-			client.onFetchAppConfiguration = { _, completeWith in
-				var config = SAP_ApplicationConfiguration()
-				config.supportedCountries = ["DE", "IT", "ES"]
-				completeWith(.success(AppConfigurationFetchingResponse(config)))
-			}
-			let provider = CachedAppConfiguration(client: client, store: MockTestStore())
+		model.symptomsOptionSelected(.no)
 
-			let model = ExposureSubmissionCoordinatorModel(
-				exposureSubmissionService: exposureSubmissionService,
-				appConfigurationProvider: provider
-			)
-
-			let expectedIsLoadingValues = [true, false]
-			var isLoadingValues = [Bool]()
-
-			let isLoadingExpectation = expectation(description: "isLoading is called twice")
-			isLoadingExpectation.expectedFulfillmentCount = 2
-
-			let onSuccessExpectation = expectation(description: "onSuccess is called")
-
-			let onErrorExpectation = expectation(description: "onError is not called")
-			onErrorExpectation.isInverted = true
-
-			model.symptomsOptionSelected(
-				selectedSymptomsOption: symptomOption,
-				isLoading: {
-					isLoadingValues.append($0)
-					isLoadingExpectation.fulfill()
-				},
-				onSuccess: { onSuccessExpectation.fulfill() },
-				onError: { _ in onErrorExpectation.fulfill() }
-			)
-
-			waitForExpectations(timeout: .short)
-			XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
-
-			XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
-			XCTAssertEqual(model.supportedCountries, [Country(countryCode: "DE"), Country(countryCode: "IT"), Country(countryCode: "ES")])
-		}
+		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
 	}
 
-	func testSymptomsOptionNoOrPreferNotToSaySelectedSupportedCountriesLoadEmpty() {
-		let symptomOptions: [ExposureSubmissionSymptomsViewController.SymptomsOption] = [.no, .preferNotToSay]
-		for symptomOption in symptomOptions {
-			let exposureSubmissionService = MockExposureSubmissionService()
-			exposureSubmissionService.submitExposureCallback = { completion in
-				completion(nil)
-			}
+	func testSymptomsOptionPreferNotToSaySelected() {
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: MockExposureSubmissionService(),
+			appConfigurationProvider: configProvider
+		)
 
-			let client = CachingHTTPClientMock()
-			client.onFetchAppConfiguration = { _, completeWith in
-				var config = SAP_ApplicationConfiguration()
-				config.supportedCountries = []
-				completeWith(.success(AppConfigurationFetchingResponse(config)))
-			}
-			let provider = CachedAppConfiguration(client: client, store: MockTestStore())
+		model.symptomsOptionSelected(.preferNotToSay)
 
-			let model = ExposureSubmissionCoordinatorModel(
-				exposureSubmissionService: exposureSubmissionService,
-				appConfigurationProvider: provider
-			)
-
-			let expectedIsLoadingValues = [true, false]
-			var isLoadingValues = [Bool]()
-
-			let isLoadingExpectation = expectation(description: "isLoading is called twice")
-			isLoadingExpectation.expectedFulfillmentCount = 2
-
-			let onSuccessExpectation = expectation(description: "onSuccess is called")
-
-			let onErrorExpectation = expectation(description: "onError is not called")
-			onErrorExpectation.isInverted = true
-
-			model.symptomsOptionSelected(
-				selectedSymptomsOption: symptomOption,
-				isLoading: {
-					isLoadingValues.append($0)
-					isLoadingExpectation.fulfill()
-				},
-				onSuccess: { onSuccessExpectation.fulfill() },
-				onError: { _ in onErrorExpectation.fulfill() }
-			)
-
-			waitForExpectations(timeout: .short)
-			XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
-
-			XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
-			XCTAssertEqual(model.supportedCountries, [Country(countryCode: "DE")])
-		}
+		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
 	}
 
-	func testSymptomsOptionNoOrPreferNotToSaySelectedSupportedCountriesLoadFails() {
-		let symptomOptions: [ExposureSubmissionSymptomsViewController.SymptomsOption] = [.no, .preferNotToSay]
-		for symptomOption in symptomOptions {
-			let exposureSubmissionService = MockExposureSubmissionService()
-			exposureSubmissionService.submitExposureCallback = { completion in
-				completion(nil)
-			}
-
-			// Simulate an empty cache and broken network
-			let client = CachingHTTPClientMock()
-			client.onFetchAppConfiguration = { _, completeWith in
-				completeWith(.failure(CachedAppConfiguration.CacheError.dataFetchError(message: "fake")))
-			}
-			let store = MockTestStore()
-			store.appConfig = nil
-			store.lastAppConfigETag = nil
-			let provider = CachedAppConfiguration(client: client, store: store)
-
-			let model = ExposureSubmissionCoordinatorModel(
-				exposureSubmissionService: exposureSubmissionService,
-				appConfigurationProvider: provider
-			)
-
-			let expectedIsLoadingValues = [true, false]
-			var isLoadingValues = [Bool]()
-
-			let isLoadingExpectation = expectation(description: "isLoading is called twice")
-			isLoadingExpectation.expectedFulfillmentCount = 2
-
-			let onSuccessExpectation = expectation(description: "onSuccess is not called")
-			onSuccessExpectation.isInverted = true
-
-			let onErrorExpectation = expectation(description: "onError is called")
-
-			model.symptomsOptionSelected(
-				selectedSymptomsOption: symptomOption,
-				isLoading: {
-					isLoadingValues.append($0)
-					isLoadingExpectation.fulfill()
-				},
-				onSuccess: { onSuccessExpectation.fulfill() },
-				onError: { _ in onErrorExpectation.fulfill() }
-			)
-
-			waitForExpectations(timeout: .short)
-			XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
-
-			XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
-			XCTAssertEqual(model.supportedCountries, [])
-		}
-	}
-
-	// MARK: -
-	func testSymptomsOnsetOptionsSelectedSupportedCountriesLoadSucceeds() {
-		let symptomsOnsetOptions: [ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption] = [.exactDate(Date()), .lastSevenDays, .oneToTwoWeeksAgo, .moreThanTwoWeeksAgo, .preferNotToSay]
-		for symptomsOnsetOption in symptomsOnsetOptions {
-			let exposureSubmissionService = MockExposureSubmissionService()
-			exposureSubmissionService.submitExposureCallback = { completion in
-				completion(nil)
-			}
-
-			let client = CachingHTTPClientMock()
-			client.onFetchAppConfiguration = { _, completeWith in
-				var config = SAP_ApplicationConfiguration()
-				config.supportedCountries = ["DE", "IT", "ES"]
-				completeWith(.success(AppConfigurationFetchingResponse(config)))
-			}
-			let provider = CachedAppConfiguration(client: client, store: MockTestStore())
-
-			let model = ExposureSubmissionCoordinatorModel(
-				exposureSubmissionService: exposureSubmissionService,
-				appConfigurationProvider: provider
-			)
-
-			let expectedIsLoadingValues = [true, false]
-			var isLoadingValues = [Bool]()
-
-			let isLoadingExpectation = expectation(description: "isLoading is called twice")
-			isLoadingExpectation.expectedFulfillmentCount = 2
-
-			let onSuccessExpectation = expectation(description: "onSuccess is called")
-
-			let onErrorExpectation = expectation(description: "onError is not called")
-			onErrorExpectation.isInverted = true
-
-			model.symptomsOnsetOptionSelected(
-				selectedSymptomsOnsetOption: symptomsOnsetOption,
-				isLoading: {
-					isLoadingValues.append($0)
-					isLoadingExpectation.fulfill()
-				},
-				onSuccess: { onSuccessExpectation.fulfill() },
-				onError: { _ in onErrorExpectation.fulfill() }
-			)
-
-			waitForExpectations(timeout: .short)
-			XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
-
-			XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
-			XCTAssertEqual(model.supportedCountries, [Country(countryCode: "DE"), Country(countryCode: "IT"), Country(countryCode: "ES")])
-		}
-	}
-
-	func testSymptomsOnsetOptionsSelectedSupportedCountriesLoadEmpty() {
-		let symptomsOnsetOptions: [ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption] = [.exactDate(Date()), .lastSevenDays, .oneToTwoWeeksAgo, .moreThanTwoWeeksAgo, .preferNotToSay]
-		for symptomsOnsetOption in symptomsOnsetOptions {
-			let exposureSubmissionService = MockExposureSubmissionService()
-			exposureSubmissionService.submitExposureCallback = { completion in
-				completion(nil)
-			}
-
-			let client = CachingHTTPClientMock()
-			let provider = CachedAppConfiguration(client: client, store: MockTestStore())
-			client.onFetchAppConfiguration = { _, completeWith in
-				var config = SAP_ApplicationConfiguration()
-				config.supportedCountries = []
-				completeWith(.success(AppConfigurationFetchingResponse(config)))
-			}
-
-			let model = ExposureSubmissionCoordinatorModel(
-				exposureSubmissionService: exposureSubmissionService,
-				appConfigurationProvider: provider
-			)
-
-			let expectedIsLoadingValues = [true, false]
-			var isLoadingValues = [Bool]()
-
-			let isLoadingExpectation = expectation(description: "isLoading is called twice")
-			isLoadingExpectation.expectedFulfillmentCount = 2
-
-			let onSuccessExpectation = expectation(description: "onSuccess is called")
-
-			let onErrorExpectation = expectation(description: "onError is not called")
-			onErrorExpectation.isInverted = true
-
-			model.symptomsOnsetOptionSelected(
-				selectedSymptomsOnsetOption: symptomsOnsetOption,
-				isLoading: {
-					isLoadingValues.append($0)
-					isLoadingExpectation.fulfill()
-				},
-				onSuccess: { onSuccessExpectation.fulfill() },
-				onError: { _ in onErrorExpectation.fulfill() }
-			)
-
-			waitForExpectations(timeout: .short)
-			XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
-
-			XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
-			XCTAssertEqual(model.supportedCountries, [Country(countryCode: "DE")])
-		}
-	}
-
-	func testSymptomsOnsetOptionsSelectedSupportedCountriesLoadFails() {
-		let symptomsOnsetOptions: [ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption] = [.exactDate(Date()), .lastSevenDays, .oneToTwoWeeksAgo, .moreThanTwoWeeksAgo, .preferNotToSay]
-		for symptomsOnsetOption in symptomsOnsetOptions {
-			let exposureSubmissionService = MockExposureSubmissionService()
-			exposureSubmissionService.submitExposureCallback = { completion in
-				completion(nil)
-			}
-
-			// Simulate an empty cache and broken network
-			let client = CachingHTTPClientMock()
-			client.onFetchAppConfiguration = { _, completeWith in
-				completeWith(.failure(CachedAppConfiguration.CacheError.dataFetchError(message: "fake")))
-			}
-			let store = MockTestStore()
-			store.appConfig = nil
-			store.lastAppConfigETag = nil
-			let provider = CachedAppConfiguration(client: client, store: store)
-
-			let model = ExposureSubmissionCoordinatorModel(
-				exposureSubmissionService: exposureSubmissionService,
-				appConfigurationProvider: provider
-			)
-
-			let expectedIsLoadingValues = [true, false]
-			var isLoadingValues = [Bool]()
-
-			let isLoadingExpectation = expectation(description: "isLoading is called twice")
-			isLoadingExpectation.expectedFulfillmentCount = 2
-
-			let onSuccessExpectation = expectation(description: "onSuccess is not called")
-			onSuccessExpectation.isInverted = true
-
-			let onErrorExpectation = expectation(description: "onError is called")
-
-			model.symptomsOnsetOptionSelected(
-				selectedSymptomsOnsetOption: symptomsOnsetOption,
-				isLoading: {
-					isLoadingValues.append($0)
-					isLoadingExpectation.fulfill()
-				},
-				onSuccess: { onSuccessExpectation.fulfill() },
-				onError: { _ in onErrorExpectation.fulfill() }
-			)
-
-			waitForExpectations(timeout: .short)
-			XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
-
-			XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
-			XCTAssertEqual(model.supportedCountries, [])
-		}
-	}
 
 	// MARK: -
 	func testSuccessfulSubmit() {
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { completion in
+		exposureSubmissionService.submitExposureCallback = { _, _, completion in
 			completion(nil)
 		}
 
@@ -447,7 +139,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 	func testSuccessfulSubmitWithoutKeys() {
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { completion in
+		exposureSubmissionService.submitExposureCallback = { _, _, completion in
 			completion(.noKeys)
 		}
 
@@ -482,7 +174,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 	func testFailingSubmitWithNotAuthorizedError() {
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { completion in
+		exposureSubmissionService.submitExposureCallback = { _, _, completion in
 			completion(.notAuthorized)
 		}
 
@@ -519,7 +211,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 	func testFailingSubmitWithInternalError() {
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { completion in
+		exposureSubmissionService.submitExposureCallback = { _, _, completion in
 			completion(.internal)
 		}
 
