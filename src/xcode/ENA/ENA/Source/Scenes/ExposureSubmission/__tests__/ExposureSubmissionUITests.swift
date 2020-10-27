@@ -96,11 +96,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionQRInfoView"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
-		print("lookup localized button -> \(app.localized("ExposureSubmissionDataPrivacy_AcceptTitle"))")
-		for button in app.alerts.buttons.allElementsBoundByIndex {
-			print("found alert button-> \(button.debugDescription)")
-		}
-
 		// -> Accept the alert.
 		XCTAssertTrue(app.alerts.firstMatch.exists)
 		app.alerts.buttons[app.localized("ExposureSubmissionDataPrivacy_AcceptTitle")].tap()
