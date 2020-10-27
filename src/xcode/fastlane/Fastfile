@@ -65,7 +65,8 @@ platform :ios do
       xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=YES",
       testplan: "AllTests",
       only_test_configurations: ["DE"],
-      devices: ["iPhone 11"]
+      devices: ["iPhone 11"],
+      prelaunch_simulator: true
     )
 
     swiftlint(
