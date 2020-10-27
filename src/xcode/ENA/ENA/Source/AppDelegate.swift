@@ -39,7 +39,7 @@ extension AppDelegate: ExposureSummaryProvider {
 	func detectExposure(
 		appConfiguration: SAP_ApplicationConfiguration,
 		activityStateDelegate: ActivityStateProviderDelegate? = nil,
-		completion: @escaping (ENExposureDetectionSummary?) -> Void
+		completion: @escaping (Result<ENExposureDetectionSummary, ExposureDetection.DidEndPrematurelyReason>) -> Void
 	) -> CancellationToken {
 		Log.info("AppDelegate: Detect exposure.", log: .riskDetection)
 
@@ -62,11 +62,11 @@ extension AppDelegate: ExposureSummaryProvider {
 			switch result {
 			case .success(let summary):
 				Log.info("AppDelegate: Detect exposure completed", log: .riskDetection)
-				completion(summary)
+				completion(.success(summary))
 			case .failure(let error):
 				Log.error("AppDelegate: Detect exposure failed", log: .riskDetection, error: error)
 				self?.showError(exposure: error)
-				completion(nil)
+				completion(.failure(error))
 			}
 			self?.exposureDetection = nil
 		}
@@ -79,7 +79,7 @@ extension AppDelegate: ExposureSummaryProvider {
 			let scene = UIApplication.shared.connectedScenes.first,
 			let delegate = scene.delegate as? SceneDelegate,
 			let rootController = delegate.window?.rootViewController,
-			let alert = didEndPrematurely.errorAlertController(rootController: rootController, store: store)
+			let alert = didEndPrematurely.errorAlertController(rootController: rootController)
 		else {
 			return
 		}

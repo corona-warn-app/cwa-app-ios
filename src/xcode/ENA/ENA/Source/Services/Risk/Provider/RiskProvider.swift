@@ -23,7 +23,7 @@ import UIKit
 import Combine
 
 protocol ExposureSummaryProvider: AnyObject {
-	typealias Completion = (ENExposureDetectionSummary?) -> Void
+	typealias Completion = (Result<ENExposureDetectionSummary, ExposureDetection.DidEndPrematurelyReason>) -> Void
 	func detectExposure(
 		appConfiguration: SAP_ApplicationConfiguration,
 		activityStateDelegate: ActivityStateProviderDelegate?,
@@ -127,7 +127,7 @@ extension RiskProvider: RiskProviding {
 		userInitiated: Bool,
 		ignoreCachedSummary: Bool = false,
 		appConfiguration: SAP_ApplicationConfiguration,
-		completion: @escaping (SummaryMetadata?) -> Void
+		completion: @escaping (Result<SummaryMetadata?, ExposureDetection.DidEndPrematurelyReason>) -> Void
 	) {
 		Log.info("RiskProvider: Determine summeries.", log: .riskDetection)
 		if !ignoreCachedSummary {
@@ -137,7 +137,7 @@ extension RiskProvider: RiskProviding {
 				lastExposureDetectionDate: store.summary?.date
 			)
 			if !enoughTimeHasPassed || !self.exposureManagerState.isGood {
-				completion(store.summary)
+				completion(.success(store.summary))
 				return
 			}
 
@@ -145,24 +145,26 @@ extension RiskProvider: RiskProviding {
 			let shouldDetectExposures = (configuration.detectionMode == .manual && userInitiated) || configuration.detectionMode == .automatic
 
 			if shouldDetectExposures == false {
-				completion(store.summary)
+				completion(.success(store.summary))
 				return
 			}
 		}
 
 		// The summary is outdated: do a exposure detection
-		self.cancellationToken = exposureSummaryProvider.detectExposure(appConfiguration: appConfiguration, activityStateDelegate: self) { [weak self] detectedSummary in
+		self.cancellationToken = exposureSummaryProvider.detectExposure(appConfiguration: appConfiguration, activityStateDelegate: self) { [weak self] result in
 			guard let self = self else { return }
 
-			if let detectedSummary = detectedSummary {
+			switch result {
+			case .success(let detectedSummary):
 				self.store.summary = SummaryMetadata(detectionSummary: detectedSummary, date: Date())
 
 				/// We were able to calculate a risk so we have to reset the deadman notification
 				UNUserNotificationCenter.current().resetDeadmanNotification()
-				completion(self.store.summary)
-			} else {
-				completion(nil)
+				completion(.success(self.store.summary))
+			case .failure(let error):
+				completion(.failure(error))
 			}
+
 			self.cancellationToken = nil
 		}
 	}
@@ -220,7 +222,6 @@ extension RiskProvider: RiskProviding {
 		#endif
 
 		provideActivityState(.idle)
-		var summary: SummaryMetadata?
 		let tracingHistory = store.tracingStatusHistory
 		let numberOfEnabledHours = tracingHistory.activeTracing().inHours
 		let details = Risk.Details(
@@ -260,27 +261,44 @@ extension RiskProvider: RiskProviding {
 		let group = DispatchGroup()
 
 		group.enter()
-		var appConfiguration: SAP_ApplicationConfiguration?
+
 		appConfigurationProvider.appConfiguration { [weak self] result in
+
 			switch result {
 			case .success(let config):
-				appConfiguration = config
+				self?.determineSummary(
+					userInitiated: userInitiated,
+					ignoreCachedSummary: ignoreCachedSummary,
+					appConfiguration: config,
+					completion: { result in
+						guard let self = self else { return }
 
-				self?.determineSummary(userInitiated: userInitiated, ignoreCachedSummary: ignoreCachedSummary, appConfiguration: config) {
-					summary = $0
-					group.leave()
-				}
+						switch result {
+						case .success(let summary):
+							self._requestRiskLevel(
+								summary: summary,
+								appConfiguration: config,
+								completion: completion
+							)
+						case .failure(let error):
+							Log.info("RiskProvider: Failed determining summary.", log: .riskDetection)
+							self.failOnTargetQueue(
+								error: .failedRiskDetection(error),
+								completion: completion
+							)
+						}
+
+						group.leave()
+					}
+				)
 			case .failure(let error):
 				Log.error(error.localizedDescription, log: .api)
-
 				self?.failOnTargetQueue(error: .missingAppConfig, completion: completion)
-
 				group.leave()
 			}
 		}
 
-		guard group.wait(timeout: .now() + .seconds(60 * 8)) == .success,
-			  let unwrappedAppConfiguration = appConfiguration else {
+		guard group.wait(timeout: .now() + .seconds(60 * 8)) == .success else {
 			cancellationToken?.cancel()
 			cancellationToken = nil
 			Log.info("RiskProvider: Canceled risk calculation due to timeout", log: .riskDetection)
@@ -289,18 +307,6 @@ extension RiskProvider: RiskProviding {
 		}
 
 		cancellationToken = nil
-
-		guard summary != nil else {
-			Log.info("RiskProvider: Failed determining summary.", log: .riskDetection)
-			self.failOnTargetQueue(error: .failedRiskDetection, completion: completion)
-			return
-		}
-
-		_requestRiskLevel(
-			summary: summary,
-			appConfiguration: unwrappedAppConfiguration,
-			completion: completion
-		)
 	}
 
 	private func _requestRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_ApplicationConfiguration, completion: Completion? = nil) {
