@@ -9,7 +9,7 @@ commands:
     steps:
       - checkout
       - run:
-          name: fix SwiftPM #Solves and old Xcode 11 issue that seems to got reintroduced with Xcode 12: https://stackoverflow.com/questions/58125659/github-actions-xcodebuild-fails-due-to-server-fingerprint
+          name: fix SwiftPM #Solves an old Xcode 11 issue that seems to got reintroduced with Xcode 12: https://stackoverflow.com/questions/58125659/github-actions-xcodebuild-fails-due-to-server-fingerprint
           command: for ip in $(dig @8.8.8.8 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts
       - restore_cache:
           key: *cache_key
