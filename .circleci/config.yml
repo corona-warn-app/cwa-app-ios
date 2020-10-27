@@ -1,7 +1,7 @@
 version: 2.1
 
 configuration:
-  - cache_key: &cache_key v5-{{ checksum "src/xcode/Gemfile.lock" }}
+  - cache_key: &cache_key v6-{{ checksum "src/xcode/Gemfile.lock" }}
   - xcode_version: &xcode_version 12.1.0
 
 commands:
@@ -24,11 +24,12 @@ commands:
           key: *cache_key
       - run:
           name: Install dependencies
+          shell: /bin/zsh
           command: cd src/xcode && bundle install --path=vendor --jobs=4
       - save_cache:
           key: *cache_key
           paths:
-            - src/xcode/
+            - src/xcode/vendor
             - /usr/local/Cellar/
             - /usr/local/opt/
             - /usr/local/bin/
