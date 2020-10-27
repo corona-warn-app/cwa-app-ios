@@ -43,7 +43,7 @@
 
 "Common_Deadman_AlertBody" = "Bitte öffnen Sie die Corona-Warn-App, um die Risiko-Überprüfung anzustoßen.";
 
-"Common_Tess_Relay_Description" = "Gehörlose, schwerhörige und spätertaubte Menschen können zur telefonischen Kontaktaufnahme die Tess-Relay-Dienste (Dolmetschen in Gebärdensprache und deutscher Schriftsprache) nutzen. Die Software können Sie in Ihrem App Store / Play Store herunterladen.";
+"Common_Tess_Relay_Description" = "Gehörlose, schwerhörige und spätertaubte Menschen können zur telefonischen Kontaktaufnahme die Tess-Relay-Dienste (Dolmetschen in Gebärdensprache und deutscher Schriftsprache) nutzen. Die Software können Sie im App Store herunterladen.";
 
 /* Accessibility */
 "AccessibilityLabel_Close" = "Schließen";
@@ -484,10 +484,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionQRScanner_title" = "QR-Code Scan";
 
 "ExposureSubmissionQRScanner_instruction" = "Positionieren Sie den Rahmen über dem QR-Code Ihres Dokuments.";
-
-"ExposureSubmissionQRScanner_notFoundAlertTitle" = "Befund wurde nicht gefunden";
-
-"ExposureSubmissionQRScanner_notFoundAlertText" = "Um das Lesen des QR-Codes zu erleichtern, versuchen Sie, den QR-Code vertikal zum Scanner auszurichten oder aktivieren Sie das Blitzlicht.";
 
 "ExposureSubmissionQRScanner_otherError" = "Ein unbekannter Fehler ist aufgetreten.";
 

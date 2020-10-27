@@ -217,7 +217,6 @@ extension ExposureSubmissionCoordinator {
 				style: .cancel,
 				handler: { _ in
 					alert.dismiss(animated: true)
-
 				}
 			)
 		)
@@ -228,7 +227,6 @@ extension ExposureSubmissionCoordinator {
 
 	private func showQRScreen(isLoading: @escaping (Bool) -> Void) {
 		let scannerViewController = ExposureSubmissionQRScannerViewController(
-			isScanningActivated: true,
 			onSuccess: { [weak self] deviceRegistrationKey in
 				self?.presentedViewController?.dismiss(animated: true) {
 					self?.getTestResults(for: deviceRegistrationKey, isLoading: isLoading)
@@ -246,8 +244,8 @@ extension ExposureSubmissionCoordinator {
 				case .codeNotFound:
 					DispatchQueue.main.async {
 						let alert = UIAlertController.errorAlert(
-							title: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundTitle,
-							message: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundText,
+							title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
+							message: AppStrings.ExposureSubmissionError.qrAlreadyUsed,
 							okTitle: AppStrings.Common.alertActionCancel,
 							secondaryActionTitle: AppStrings.Common.alertActionRetry,
 							completion: { [weak self] in

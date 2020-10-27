@@ -178,7 +178,7 @@
 			<string>Actualizare în %02u:%2$#@seconds@ minute</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>Actualizare în %02u:%2$#@seconds@ de minute</string>
+			<string>Actualizare în %02u:%2$#@seconds@ minute</string>
 		</dict>
 		<key>seconds</key>
 		<dict>
