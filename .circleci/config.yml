@@ -68,6 +68,7 @@ jobs:
           command: brew install swiftlint
       - run:
           name: Tests
+          shell: /bin/zsh
           command: cd src/xcode && bundle exec fastlane test
       - restore_cache:
           key: sonar-cloud-v2
