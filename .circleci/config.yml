@@ -16,7 +16,7 @@ commands:
       - run:
           name: Install Bundler
           shell: /bin/zsh
-          command: sudo gem install bundler:2.1.4
+          command: gem install bundler:2.1.4
       - run:
           name: Install swiftlint
           shell: /bin/zsh
@@ -25,6 +25,9 @@ commands:
           name: Install dependencies
           shell: /bin/zsh
           command: cd src/xcode && bundle install --path=vendor --jobs=4
+      - run:
+          name: A TEST...
+          command: cd src/xcode && bundle exec fastlane build
       - save_cache:
           key: *cache_key
           paths:
