@@ -59,6 +59,8 @@ platform :ios do
 
   desc "Run tests"
   lane :test do
+    sh("killall Simulator && open Simulator")
+    
     # Combined Unit & UI Tests
     run_tests(
       scheme: "ENA",

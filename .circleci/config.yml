@@ -62,6 +62,9 @@ jobs:
           at: .
       - install-tools # chaching currently fails, needs some further tweaks
       - run:
+          name: Prelaunch Simulators
+          command: killall Simulator || true && open -a Simulator 
+      - run:
           name: Run Fastlane tests
           command: cd src/xcode && bundle exec fastlane test
       - restore_cache:
@@ -116,6 +119,9 @@ jobs:
       - attach_workspace:
           at: .
       - install-tools # chaching currently fails, needs some further tweaks
+      - run:
+          name: Prelaunch Simulators
+          command: killall Simulator || true && open -a Simulator
       - run:
           name: Snapshot
           command: cd src/xcode && bundle exec fastlane run snapshot languages:<<parameters.language>> clear_previous_screenshots:"false" && cd -
