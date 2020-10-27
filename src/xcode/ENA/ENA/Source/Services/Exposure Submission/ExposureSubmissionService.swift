@@ -270,7 +270,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// This method does two API calls in one step - firstly, it gets the submission TAN, and then it submits the keys.
 	/// For details, check the methods `_submit()` and `_getTANForExposureSubmit()` specifically.
 	private func _submitExposure(
-		_ keys: [SAP_TemporaryExposureKey],
+		_ keys: [SAP_External_Exposurenotification_TemporaryExposureKey],
 		visitedCountries: [Country],
 		completionHandler: @escaping ExposureSubmissionHandler
 	) {
@@ -288,7 +288,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// part of the submission flow in which the keys are submitted.
 	/// For more information, please check _submitExposure().
 	private func _submit(
-		_ keys: [SAP_TemporaryExposureKey],
+		_ keys: [SAP_External_Exposurenotification_TemporaryExposureKey],
 		with tan: String,
 		visitedCountries: [Country],
 		completion: @escaping ExposureSubmissionHandler
