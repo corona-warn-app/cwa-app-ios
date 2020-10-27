@@ -145,7 +145,8 @@ enum AccessibilityIdentifiers {
 		static let explanationTextOff = "AppStrings.ExposureDetection.explanationTextOff"
 		static let explanationTextOutdated = "AppStrings.ExposureDetection.explanationTextOutdated"
 		static let explanationTextUnknown = "AppStrings.ExposureDetection.explanationTextUnknown"
-		static let explanationTextLow = "AppStrings.ExposureDetection.explanationTextLow"
+		static let explanationTextLowNoEncounter = "AppStrings.ExposureDetection.explanationTextLowNoEncounter"
+		static let explanationTextLowWithEncounter = "AppStrings.ExposureDetection.explanationTextLowWithEncounter"
 		static let explanationTextHigh = "AppStrings.ExposureDetection.explanationTextHigh"
 
 		static let activeTracingSectionText = "AppStrings.ExposureDetection.activeTracingSectionText"
