@@ -9,11 +9,9 @@ commands:
     steps:
       - run:
           name: Install swiftlint
-          shell: /bin/zsh
           command: brew install swiftlint
       - run:
           name: Install Bundler
-          shell: /bin/zsh
           command: sudo gem install rake bundler:2.1.4
 
   prepare-dependencies:
