@@ -3334,7 +3334,6 @@
 				AB6289D4251BA4EC00CF61D2 /* String+Compare.swift in Sources */,
 				B153096C24706F2400A4A1BD /* URLSessionConfiguration+Default.swift in Sources */,
 				B1BD9E7E24898A2300BD3930 /* ExposureDetectionViewController+DynamicTableViewModel.swift in Sources */,
-				0159E6C1247829BA00894A89 /* temporary_exposure_key_export.pb.swift in Sources */,
 				AB010D04253ECC9200DF1F61 /* RiskFailedCollectionViewCell.swift in Sources */,
 				71FE1C80247AC2B500851FEB /* ExposureSubmissionNavigationController.swift in Sources */,
 				2FA968CE24D8560B008EE367 /* String+Random.swift in Sources */,
