@@ -24,6 +24,7 @@ typealias RiskCalculationResult = Result<Risk, RiskCalculationError>
 enum RiskCalculationError: Error {
 	case timeout
 	case missingAppConfig
+	case missingCachedSummary
 	case failedRiskCalculation
 	case failedRiskDetection(ExposureDetection.DidEndPrematurelyReason)
 }

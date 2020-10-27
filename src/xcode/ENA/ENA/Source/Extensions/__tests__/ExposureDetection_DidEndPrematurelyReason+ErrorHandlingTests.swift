@@ -27,30 +27,27 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 
     func testNonSummaryReasonsShouldNotReturnAnAlert() {
 		let root = UIViewController()
-		let mockStore = MockTestStore()
 
-		XCTAssertNil(Reason.noDaysAndHours.errorAlertController(rootController: root, store: mockStore))
-		XCTAssertNil(Reason.noExposureManager.errorAlertController(rootController: root, store: mockStore))
-		XCTAssertNil(Reason.noDaysAndHours.errorAlertController(rootController: root, store: mockStore))
-		XCTAssertNil(Reason.noExposureConfiguration.errorAlertController(rootController: root, store: mockStore))
-		XCTAssertNil(Reason.unableToWriteDiagnosisKeys.errorAlertController(rootController: root, store: mockStore))
+		XCTAssertNil(Reason.noDaysAndHours.errorAlertController(rootController: root))
+		XCTAssertNil(Reason.noExposureManager.errorAlertController(rootController: root))
+		XCTAssertNil(Reason.noDaysAndHours.errorAlertController(rootController: root))
+		XCTAssertNil(Reason.noExposureConfiguration.errorAlertController(rootController: root))
+		XCTAssertNil(Reason.unableToWriteDiagnosisKeys.errorAlertController(rootController: root))
 	}
 	
 	func testSummaryErrorCreatesAlert() {
 		let root = UIViewController()
-		let mockStore = MockTestStore()
-		
+
 		XCTAssertNotNil(
-			Reason.noSummary(ENError(.apiMisuse)).errorAlertController(rootController: root, store: mockStore)
+			Reason.noSummary(ENError(.apiMisuse)).errorAlertController(rootController: root)
 		)
 	}
 	
 	func testNoStorageCapacityErrorAlert() {
 		let root = UIViewController()
-		let mockStore = MockTestStore()
-		
+
 		XCTAssertNotNil(
-			Reason.noDiskSpace.errorAlertController(rootController: root, store: mockStore)
+			Reason.noDiskSpace.errorAlertController(rootController: root)
 		)
 	}
 
@@ -64,8 +61,7 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 
 	func testError_ENError_Unsupported() {
 		let root = UIViewController()
-		let mockStore = MockTestStore()
-		let alert = Reason.noSummary(ENError(.unsupported)).errorAlertController(rootController: root, store: mockStore)
+		let alert = Reason.noSummary(ENError(.unsupported)).errorAlertController(rootController: root)
 
 		XCTAssertEqual(alert?.message, AppStrings.Common.enError5Description)
 		XCTAssertEqual(alert?.actions.count, 2)
@@ -75,8 +71,7 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 
 	func testError_ENError_Internal() {
 		let root = UIViewController()
-		let mockStore = MockTestStore()
-		let alert = Reason.noSummary(ENError(.internal)).errorAlertController(rootController: root, store: mockStore)
+		let alert = Reason.noSummary(ENError(.internal)).errorAlertController(rootController: root)
 
 		XCTAssertEqual(alert?.message, AppStrings.Common.enError11Description)
 		XCTAssertEqual(alert?.actions.count, 2)
@@ -86,8 +81,7 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 
 	func testError_ENError_RateLimit() {
 		let root = UIViewController()
-		let mockStore = MockTestStore()
-		let alert = Reason.noSummary(ENError(.rateLimited)).errorAlertController(rootController: root, store: mockStore)
+		let alert = Reason.noSummary(ENError(.rateLimited)).errorAlertController(rootController: root)
 
 		XCTAssertEqual(alert?.message, AppStrings.Common.enError13Description)
 		XCTAssertEqual(alert?.actions.count, 2)

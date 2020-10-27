@@ -127,25 +127,28 @@ extension RiskProvider: RiskProviding {
 		userInitiated: Bool,
 		ignoreCachedSummary: Bool = false,
 		appConfiguration: SAP_ApplicationConfiguration,
-		completion: @escaping (Result<SummaryMetadata?, ExposureDetection.DidEndPrematurelyReason>) -> Void
+		completion: @escaping (Result<SummaryMetadata, RiskCalculationError>) -> Void
 	) {
 		Log.info("RiskProvider: Determine summeries.", log: .riskDetection)
+
 		if !ignoreCachedSummary {
-			// Here we are in automatic mode and thus we have to check the validity of the current summary
+			func completeWithCachedSummary() {
+				if let summary = store.summary {
+					completion(.success(summary))
+				} else {
+					completion(.failure(.missingCachedSummary))
+				}
+			}
+
+			// Here we are in automatic mode and thus we have to check the validity of the current summary.
 			let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
 				activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
 				lastExposureDetectionDate: store.summary?.date
 			)
-			if !enoughTimeHasPassed || !self.exposureManagerState.isGood {
-				completion(.success(store.summary))
-				return
-			}
-
-			// Enough time has passed.
 			let shouldDetectExposures = (configuration.detectionMode == .manual && userInitiated) || configuration.detectionMode == .automatic
 
-			if shouldDetectExposures == false {
-				completion(.success(store.summary))
+			if !enoughTimeHasPassed || !self.exposureManagerState.isGood || !shouldDetectExposures {
+				completeWithCachedSummary()
 				return
 			}
 		}
@@ -156,13 +159,14 @@ extension RiskProvider: RiskProviding {
 
 			switch result {
 			case .success(let detectedSummary):
-				self.store.summary = SummaryMetadata(detectionSummary: detectedSummary, date: Date())
+				let summary = SummaryMetadata(detectionSummary: detectedSummary, date: Date())
+				self.store.summary = summary
 
 				/// We were able to calculate a risk so we have to reset the deadman notification
 				UNUserNotificationCenter.current().resetDeadmanNotification()
-				completion(.success(self.store.summary))
+				completion(.success(summary))
 			case .failure(let error):
-				completion(.failure(error))
+				completion(.failure(.failedRiskDetection(error)))
 			}
 
 			self.cancellationToken = nil
@@ -263,7 +267,6 @@ extension RiskProvider: RiskProviding {
 		group.enter()
 
 		appConfigurationProvider.appConfiguration { [weak self] result in
-
 			switch result {
 			case .success(let config):
 				self?.determineSummary(
@@ -283,7 +286,7 @@ extension RiskProvider: RiskProviding {
 						case .failure(let error):
 							Log.info("RiskProvider: Failed determining summary.", log: .riskDetection)
 							self.failOnTargetQueue(
-								error: .failedRiskDetection(error),
+								error: error,
 								completion: completion
 							)
 						}
@@ -293,7 +296,10 @@ extension RiskProvider: RiskProviding {
 				)
 			case .failure(let error):
 				Log.error(error.localizedDescription, log: .api)
-				self?.failOnTargetQueue(error: .missingAppConfig, completion: completion)
+				self?.failOnTargetQueue(
+					error: .missingAppConfig,
+					completion: completion
+				)
 				group.leave()
 			}
 		}
