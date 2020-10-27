@@ -1,7 +1,7 @@
 version: 2.1
 
 configuration:
-  - cache_key: &cache_key v4-{{ checksum "src/xcode/Gemfile.lock" }}
+  - cache_key: &cache_key v4-{{ checksum "~/src/xcode/Gemfile.lock" }}
   - xcode_version: &xcode_version 12.1.0
 
 commands:
@@ -23,15 +23,11 @@ commands:
           command: brew install swiftlint
       - run:
           name: Install dependencies
-          shell: /bin/zsh
-          command: cd src/xcode && bundle install --path=vendor --jobs=4
+          command: cd src/xcode && bundle install --path=~/src/xcode/vendor --jobs=4
       - save_cache:
           key: *cache_key
           paths:
-            - src/xcode/vendor
-            - /usr/local/Cellar/
-            - /usr/local/opt/
-            - /usr/local/bin/
+            - ~/src/xcode/vendor
 
 jobs:
   dependencies:
