@@ -72,7 +72,8 @@
     {
       "parallelizable" : true,
       "skippedTests" : [
-        "ENAUITests"
+        "ENAUITests",
+        "ENAUITests_06_DeltaOnboarding\/test_screenshotDeltaOnboardingV15View()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
