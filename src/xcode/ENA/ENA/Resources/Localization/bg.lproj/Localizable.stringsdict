@@ -79,16 +79,16 @@
 			<string>Един контакт с нисък риск</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
-			<string>%u контакта с нисък риск</string>
+			<string>%u контакти с нисък риск</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>%u контакта с нисък риск</string>
+			<string>%u контакти с нисък риск</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>%u контакта с нисък риск</string>
+			<string>%u контакти с нисък риск</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>%u контакта с нисък риск</string>
+			<string>%u контакти с нисък риск</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_High_Number_Contacts_Item_Title</key>
