@@ -29,7 +29,7 @@ commands:
       - save_cache:
           key: *cache_key
           paths:
-            - ~/src/xcode/vendor
+            - src/xcode/vendor
 
 jobs:
   dependencies:
