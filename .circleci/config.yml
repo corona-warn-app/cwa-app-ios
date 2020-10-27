@@ -34,6 +34,7 @@ jobs:
   dependencies:
     macos:
       xcode: *xcode_version
+    shell: /bin/zsh
     steps:
       - prepare-dependencies
       - persist_to_workspace:
@@ -43,6 +44,7 @@ jobs:
   build:
     macos:
       xcode: *xcode_version
+    shell: /bin/zsh
     steps:
       - attach_workspace:
           at: .
@@ -55,6 +57,7 @@ jobs:
   test:
     macos:
       xcode: *xcode_version
+    shell: /bin/zsh
     steps:
       - attach_workspace:
           at: .
@@ -104,6 +107,7 @@ jobs:
   snapshot:
     macos:
       xcode: *xcode_version
+    shell: /bin/zsh
     parameters:
       language:
         default: "de-DE"
@@ -127,6 +131,7 @@ jobs:
   collect-snapshots:
     macos:
       xcode: *xcode_version
+    shell: /bin/zsh
     steps:
       - attach_workspace:
           at: .
@@ -154,6 +159,7 @@ jobs:
   update-docs:
     macos:
       xcode: *xcode_version
+    shell: /bin/zsh
     steps:
       - attach_workspace:
           at: .
