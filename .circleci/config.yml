@@ -5,14 +5,8 @@ configuration:
   - xcode_version: &xcode_version 12.1.0
 
 commands:
-  prepare-dependencies:
+  install-tools:
     steps:
-      - checkout
-      - run:
-          name: fix SwiftPM #Solves an old Xcode 11 issue that seems to got reintroduced with Xcode 12: https://stackoverflow.com/questions/58125659/github-actions-xcodebuild-fails-due-to-server-fingerprint
-          command: for ip in $(dig @8.8.8.8 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts
-      - restore_cache:
-          key: *cache_key
       - run:
           name: Install swiftlint
           shell: /bin/zsh
@@ -21,6 +15,16 @@ commands:
           name: Install Bundler
           shell: /bin/zsh
           command: sudo gem install rake bundler:2.1.4
+
+  prepare-dependencies:
+    steps:
+      - checkout
+      - run:
+          name: fix SwiftPM #Solves an old Xcode 11 issue that seems to got reintroduced with Xcode 12: https://stackoverflow.com/questions/58125659/github-actions-xcodebuild-fails-due-to-server-fingerprint
+          command: for ip in $(dig @8.8.8.8 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts
+      - restore_cache:
+          key: *cache_key
+      - install-tools
       - run:
           name: Install dependencies
           shell: /bin/zsh
@@ -50,9 +54,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run:
-          name: Install swiftlint # chaching currently fails, needs some further tweaks
-          command: brew install swiftlint
+      - install-tools # chaching currently fails, needs some further tweaks
       - run:
           name: Build
           command: cd src/xcode && bundle exec fastlane build
@@ -62,9 +64,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run:
-          name: Install swiftlint # chaching currently fails, needs some further tweaks
-          command: brew install swiftlint
+      - install-tools # chaching currently fails, needs some further tweaks
       - run:
           name: Run Fastlane tests
           command: cd src/xcode && bundle exec fastlane test
@@ -120,9 +120,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run:
-          name: Install swiftlint # chaching currently fails, needs some further tweaks
-          command: brew install swiftlint
+      - install-tools # chaching currently fails, needs some further tweaks
       - run:
           name: Snapshot
           command: cd src/xcode && bundle exec fastlane run snapshot languages:<<parameters.language>> clear_previous_screenshots:"false" && cd -
@@ -151,9 +149,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run:
-          name: Install swiftlint # chaching currently fails, needs some further tweaks
-          command: brew install swiftlint
+      - install-tools # chaching currently fails, needs some further tweaks
       - run: ./scripts/switch_to_dev_env.sh
       - run:
           name: fastlane testflight
@@ -168,6 +164,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - install-tools # chaching currently fails, needs some further tweaks
       - add_ssh_keys:
           fingerprints:
             - "2c:ea:55:72:82:d9:8a:35:02:ac:25:a6:39:3c:e4:23"
