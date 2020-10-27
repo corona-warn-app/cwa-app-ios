@@ -25,7 +25,7 @@ commands:
       - run:
           name: Install dependencies
           shell: /bin/zsh
-          command: cd src/xcode && bundle install --path=~/src/xcode/vendor --jobs=4
+          command: cd src/xcode && bundle install --path=vendor --jobs=4
       - save_cache:
           key: *cache_key
           paths:
@@ -64,8 +64,7 @@ jobs:
           name: Install swiftlint # chaching currently fails, needs some further tweaks
           command: brew install swiftlint
       - run:
-          name: Tests
-          shell: /bin/zsh
+          name: Run Fastlane tests
           command: cd src/xcode && bundle exec fastlane test
       - restore_cache:
           key: sonar-cloud-v2
