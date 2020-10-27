@@ -64,44 +64,17 @@ extension XCUIApplication {
 		launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategory\(accessibililty.description())\(size)"]
 	}
 
-	// string localization
-	func getLocale(str: String) -> String {
-		if str.count == 2 {
-			return str
-		}
-		let start = str.index(str.startIndex, offsetBy: 1)
-		let end = str.index(start, offsetBy: 2)
-		let range = start..<end
-
-		let locale = str[range]
-		if locale == "en" {
-			return "Base"
-		}
-		return String(locale)
-	}
-
 	func localized(_ key: String) -> String {
-		guard let localeArgIdx = launchArguments.firstIndex(of: "-AppleLocale") else {
-			return ""
-		}
-		if localeArgIdx >= launchArguments.count {
-			return ""
-		}
-		let str = launchArguments[localeArgIdx + 1]
-		let locale = getLocale(str: str)
 		let testBundle = Bundle(for: Snapshot.self)
-		if let testBundlePath = testBundle.path(forResource: locale, ofType: "lproj") ?? testBundle.path(forResource: locale, ofType: "lproj"),
+		if let currentLanguage = currentLanguage,
+			let testBundlePath = testBundle.path(forResource: currentLanguage.localeCode, ofType: "lproj") ?? testBundle.path(forResource: currentLanguage.langCode, ofType: "lproj"),
 			let localizedBundle = Bundle(path: testBundlePath) {
 			return NSLocalizedString(key, bundle: localizedBundle, comment: "")
 		}
 		return ""
 	}
 
-
-}
-
-extension XCTestCase {
-	var currentLanguage: (langCode: String, localeCode: String)? {
+	private var currentLanguage: (langCode: String, localeCode: String)? {
 		guard let preferredLanguage = Locale.preferredLanguages.first else {
 			fatalError("Cant unwrap: Locale.preferredLanguages.first")
 		}
@@ -117,7 +90,9 @@ extension XCTestCase {
 		}
 		return (langCode, localeCode)
 	}
+}
 
+extension XCTestCase {
 	func wait(for seconds: TimeInterval = 0.2) {
 		let expectation = XCTestExpectation(description: "Pause test")
 		DispatchQueue.main.asyncAfter(deadline: .now() + seconds) { expectation.fulfill() }
