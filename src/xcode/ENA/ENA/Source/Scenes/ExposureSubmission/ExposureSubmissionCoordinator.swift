@@ -176,8 +176,9 @@ extension ExposureSubmissionCoordinator {
 			viewModel: .init(
 				testResult: testResult,
 				exposureSubmissionService: model.exposureSubmissionService,
-				onContinueWithSymptomsFlowButtonTap: { [weak self] in
-					self?.model.continueWithSymptomsFlowSelected(
+				onContinueWithSymptomsFlowButtonTap: { [weak self] isLoading in
+					self?.model.checkStateAndLoadCountries(
+						isLoading: isLoading,
 						onSuccess: {
 							self?.showSymptomsScreen()
 						}, onError: { error in
@@ -185,13 +186,11 @@ extension ExposureSubmissionCoordinator {
 						}
 					)
 				},
-				onContinueWithoutSymptomsFlowButtonTap: { [weak self] in
-					self?.model.continueWithoutSymptomsFlowSelected(
-						isLoading: { isLoading in
-
-						},
+				onContinueWithoutSymptomsFlowButtonTap: { [weak self] isLoading in
+					self?.model.checkStateAndLoadCountries(
+						isLoading: isLoading,
 						onSuccess: {
-							self?.showSymptomsScreen()
+							self?.showWarnOthersScreen()
 						},
 						onError: { error in
 							self?.showErrorAlert(for: error)
@@ -304,19 +303,11 @@ extension ExposureSubmissionCoordinator {
 
 	func showSymptomsScreen() {
 		let vc = createSymptomsViewController(
-			onPrimaryButtonTap: { [weak self] selectedSymptomsOption, isLoading in
+			onPrimaryButtonTap: { [weak self] selectedSymptomsOption in
 				guard let self = self else { return }
 
-				self.model.symptomsOptionSelected(
-					selectedSymptomsOption: selectedSymptomsOption,
-					isLoading: isLoading,
-					onSuccess: {
-						self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showWarnOthersScreen()
-					},
-					onError: { error in
-						self.showErrorAlert(for: error)
-					}
-				)
+				self.model.symptomsOptionSelected(selectedSymptomsOption)
+				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showWarnOthersScreen()
 			}
 		)
 
@@ -325,17 +316,9 @@ extension ExposureSubmissionCoordinator {
 
 	private func showSymptomsOnsetScreen() {
 		let vc = createSymptomsOnsetViewController(
-			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption, isLoading in
-				self?.model.symptomsOnsetOptionSelected(
-					selectedSymptomsOnsetOption: selectedSymptomsOnsetOption,
-					isLoading: isLoading,
-					onSuccess: {
-						self?.showWarnOthersScreen()
-					},
-					onError: { error in
-						self?.showErrorAlert(for: error)
-					}
-				)
+			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption in
+				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
+				self?.showWarnOthersScreen()
 			}
 		)
 
@@ -463,7 +446,7 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	private func createSymptomsViewController(
-		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsViewController.SymptomsOption, @escaping (Bool) -> Void) -> Void
+		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsViewController.SymptomsOption) -> Void
 	) -> ExposureSubmissionSymptomsViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSymptomsViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionSymptomsViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap)
@@ -471,7 +454,7 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	private func createSymptomsOnsetViewController(
-		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption, @escaping (Bool) -> Void) -> Void
+		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption) -> Void
 	) -> ExposureSubmissionSymptomsOnsetViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSymptomsOnsetViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionSymptomsOnsetViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap)

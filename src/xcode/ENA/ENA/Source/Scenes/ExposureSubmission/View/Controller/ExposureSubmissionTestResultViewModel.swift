@@ -25,8 +25,8 @@ class ExposureSubmissionTestResultViewModel {
 	init(
 		testResult: TestResult,
 		exposureSubmissionService: ExposureSubmissionService,
-		onContinueWithSymptomsFlowButtonTap: @escaping () -> Void,
-		onContinueWithoutSymptomsFlowButtonTap: @escaping () -> Void,
+		onContinueWithSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
+		onContinueWithoutSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onTestDeleted: @escaping () -> Void
 	) {
 		self.testResult = testResult
@@ -39,19 +39,6 @@ class ExposureSubmissionTestResultViewModel {
 	}
 
 	// MARK: - Internal
-
-	var testResult: TestResult {
-		didSet {
-			updateForCurrentTestResult()
-		}
-	}
-
-	var isLoading: Bool = false {
-		didSet {
-			navigationFooterItem.isPrimaryButtonEnabled = !isLoading
-			navigationFooterItem.isPrimaryButtonLoading = isLoading
-		}
-	}
 
 	@Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
 	@Published var shouldShowDeletionConfirmationAlert: Bool = false
@@ -70,37 +57,30 @@ class ExposureSubmissionTestResultViewModel {
 	func didTapPrimaryButton() {
 		switch testResult {
 		case .positive:
-			onContinueWithSymptomsFlowButtonTap()
+			onContinueWithSymptomsFlowButtonTap { [weak self] isLoading in
+				self?.primaryButtonIsLoading = isLoading
+			}
 		case .negative, .invalid, .expired:
 			shouldShowDeletionConfirmationAlert = true
 		case .pending:
-			refreshTest()
+			primaryButtonIsLoading = true
+
+			refreshTest { [weak self] in
+				self?.primaryButtonIsLoading = false
+			}
 		}
 	}
 
 	func didTapSecondaryButton() {
 		switch testResult {
 		case .positive:
-			onContinueWithoutSymptomsFlowButtonTap()
+			onContinueWithoutSymptomsFlowButtonTap { [weak self] isLoading in
+				self?.secondaryButtonIsLoading = isLoading
+			}
 		case .pending:
 			shouldShowDeletionConfirmationAlert = true
 		default:
 			break
-		}
-	}
-
-	func refreshTest() {
-		isLoading = true
-
-		exposureSubmissionService.getTestResult { [weak self] result in
-			self?.isLoading = false
-
-			switch result {
-			case let .failure(error):
-				self?.error = error
-			case let .success(testResult):
-				self?.testResult = testResult
-			}
 		}
 	}
 
@@ -113,12 +93,40 @@ class ExposureSubmissionTestResultViewModel {
 
 	private var exposureSubmissionService: ExposureSubmissionService
 
-	private let onContinueWithSymptomsFlowButtonTap: () -> Void
-	private let onContinueWithoutSymptomsFlowButtonTap: () -> Void
+	private let onContinueWithSymptomsFlowButtonTap: (@escaping (Bool) -> Void) -> Void
+	private let onContinueWithoutSymptomsFlowButtonTap: (@escaping (Bool) -> Void) -> Void
 	private let onTestDeleted: () -> Void
+
+	private var testResult: TestResult {
+		didSet {
+			updateForCurrentTestResult()
+		}
+	}
 
 	private var timeStamp: Int64? {
 		exposureSubmissionService.devicePairingSuccessfulTimestamp
+	}
+
+	private var primaryButtonIsLoading: Bool = false {
+		didSet {
+			DispatchQueue.main.async {
+				self.navigationFooterItem.isPrimaryButtonEnabled = !self.primaryButtonIsLoading
+				self.navigationFooterItem.isPrimaryButtonLoading = self.primaryButtonIsLoading
+
+				self.navigationFooterItem.isSecondaryButtonEnabled = !self.primaryButtonIsLoading
+			}
+		}
+	}
+
+	private var secondaryButtonIsLoading: Bool = false {
+		didSet {
+			DispatchQueue.main.async {
+				self.navigationFooterItem.isSecondaryButtonEnabled = !self.secondaryButtonIsLoading
+				self.navigationFooterItem.isSecondaryButtonLoading = self.secondaryButtonIsLoading
+
+				self.navigationFooterItem.isPrimaryButtonEnabled = !self.secondaryButtonIsLoading
+			}
+		}
 	}
 
 	private func updateForCurrentTestResult() {
@@ -152,6 +160,19 @@ class ExposureSubmissionTestResultViewModel {
 			navigationFooterItem.secondaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
 			navigationFooterItem.isSecondaryButtonEnabled = true
 			navigationFooterItem.isSecondaryButtonHidden = false
+		}
+	}
+
+	private func refreshTest(completion: @escaping () -> Void) {
+		exposureSubmissionService.getTestResult { [weak self] result in
+			completion()
+
+			switch result {
+			case let .failure(error):
+				self?.error = error
+			case let .success(testResult):
+				self?.testResult = testResult
+			}
 		}
 	}
 
