@@ -43,21 +43,17 @@ class AppInformationLegalTextsTest: XCTestCase {
 		let sourceText = try getText(fromFile: filename, withExtension: fileExtension, localization: sourceLocalizationID)
 		for id in targetLocalizationIDs {
 			let targetText = try getText(fromFile: filename, withExtension: fileExtension, localization: "\(id)")
-			XCTAssertEqual(targetText, sourceText)
+			XCTAssertEqual(targetText, sourceText, "File \(filename).\(fileExtension) for language \(id) incorrect")
 		}
 	}
 	
 	private func getText(fromFile: String, withExtension: String, localization: String) throws -> String {
 		let directory = localization + ".lproj"
-		guard let url = Bundle.main.url(forResource: fromFile, withExtension: withExtension) else {
+		guard let url = Bundle.main.url(forResource: fromFile, withExtension: withExtension, subdirectory: directory) else {
 			return ""
 		}
-		let data = try Data(contentsOf: url.deletingLastPathComponent()
-								.deletingLastPathComponent()
-								.appendingPathComponent(directory)
-								.appendingPathComponent(fromFile + "." + withExtension)
-		)
+		let data = try Data(contentsOf: url)
+		
 		return String(data: data, encoding: .utf8) ?? ""
 	}
-	
 }
