@@ -108,7 +108,6 @@ jobs:
   snapshot:
     macos:
       xcode: *xcode_version
-    shell: /bin/zsh
     parameters:
       language:
         default: "de-DE"
@@ -130,7 +129,6 @@ jobs:
   collect-snapshots:
     macos:
       xcode: *xcode_version
-    shell: /bin/zsh
     steps:
       - attach_workspace:
           at: .
@@ -205,13 +203,13 @@ workflows:
 
     beta-release:
       jobs:
-        - dependencies:
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
+        - dependencies
+            # filters:
+            #   tags:
+            #     only:
+            #       - /^v.*/
+            #   branches:
+            #     ignore: /.*/
         - test:
             requires:
               - dependencies
