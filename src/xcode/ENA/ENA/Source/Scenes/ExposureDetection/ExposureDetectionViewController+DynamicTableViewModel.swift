@@ -470,9 +470,12 @@ extension ExposureDetectionViewController {
 			standardGuideSection,
 			activeTracingSection(accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.activeTracingSection),
 			explanationSection(
-				text: AppStrings.ExposureDetection.explanationTextLow,
+				text: numberOfExposures > 0 ?
+					AppStrings.ExposureDetection.explanationTextLowWithEncounter :
+					AppStrings.ExposureDetection.explanationTextLowNoEncounter,
 				numberOfExposures: numberOfExposures,
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextLow
+				accessibilityIdentifier: numberOfExposures > 0 ? AccessibilityIdentifiers.ExposureDetection.explanationTextLowWithEncounter :
+					AccessibilityIdentifiers.ExposureDetection.explanationTextLowNoEncounter
 			)
 		])
 	}

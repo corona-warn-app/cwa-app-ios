@@ -413,7 +413,7 @@ extension ENAUITests_04_ExposureSubmissionUITests {
 
 	private func type(_ app: XCUIApplication, text: String) {
 		text.forEach {
-			app.keys[String($0)].tap()
+			app.keyboards.keys[String($0)].tap()
 		}
 	}
 
