@@ -207,7 +207,7 @@ workflows:
             filters:
               tags:
                 only:
-                  - /^test.*/
+                  - /^v.*/
               branches:
                 ignore: /.*/
         - test:
@@ -216,7 +216,7 @@ workflows:
             filters:
               tags:
                 only:
-                  - /^test.*/
+                  - /^v.*/
               branches:
                 ignore: /.*/
         - build:
@@ -225,7 +225,7 @@ workflows:
             filters:
               tags:
                 only:
-                  - /^test.*/
+                  - /^v.*/
               branches:
                 ignore: /.*/
         - snapshot:
@@ -237,7 +237,7 @@ workflows:
             filters:
               tags:
                 only:
-                  - /^test.*/
+                  - /^v.*/
               branches:
                 ignore: /.*/
         - collect-snapshots:
@@ -246,7 +246,7 @@ workflows:
             filters:
               tags:
                 only:
-                  - /^test.*/
+                  - /^v.*/
               branches:
                 ignore: /.*/
         - testflight-release:
