@@ -56,7 +56,7 @@ struct SAPDownloadedPackage {
 
 		func verify(_ package: SAPDownloadedPackage) -> Bool {
 			guard
-				let parsedSignatureFile = try? SAP_TEKSignatureList(serializedData: package.signature)
+				let parsedSignatureFile = try? SAP_External_Exposurenotification_TEKSignatureList(serializedData: package.signature)
 				else {
 				return false
 			}

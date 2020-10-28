@@ -24,18 +24,15 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		isScanningActivated: Bool,
 		onSuccess: @escaping (DeviceRegistrationKey) -> Void,
 		onError: @escaping (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void,
 		onCancel: @escaping () -> Void
 	) {
 		viewModel = ExposureSubmissionQRScannerViewModel(
-			isScanningActivated: isScanningActivated,
 			onSuccess: onSuccess,
-			onError: onError,
-			onCancel: onCancel
+			onError: onError
 		)
-
+		self.onCancelScannerView = onCancel
 		super.init(nibName: "ExposureSubmissionQRScannerViewController", bundle: .main)
 	}
 
@@ -50,30 +47,27 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 		super.viewDidLoad()
 
 		setupView()
+		viewModel.startCaptureSession()
+		setupNavigationBar()
 		updateToggleFlashAccessibility()
-		prepareScanning()
 	}
 
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-
 		setNeedsPreviewMaskUpdate()
 		updatePreviewMaskIfNeeded()
 	}
 	
 	// MARK: - Private
 
-	private let viewModel: ExposureSubmissionQRScannerViewModel
-
 	@IBOutlet private var focusView: ExposureSubmissionQRScannerFocusView!
 	@IBOutlet private var instructionLabel: DynamicTypeLabel!
 
-	private let flashButton = UIButton(type: .custom)
-
-	private var captureDevice: AVCaptureDevice?
-	private var previewLayer: AVCaptureVideoPreviewLayer? { didSet { setNeedsPreviewMaskUpdate() } }
+	private let viewModel: ExposureSubmissionQRScannerViewModel
+	private let onCancelScannerView: () -> Void
 
 	private var needsPreviewMaskUpdate: Bool = true
+	private var previewLayer: AVCaptureVideoPreviewLayer? { didSet { setNeedsPreviewMaskUpdate() } }
 
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionQRScanner.title
@@ -84,134 +78,71 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 		instructionLabel.layer.shadowRadius = 3
 		instructionLabel.layer.shadowOffset = .init(width: 0, height: 0)
 
-		navigationController?.overrideUserInterfaceStyle = .dark
+		// setup video capture layer
+		let captureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: viewModel.captureSession)
+		captureVideoPreviewLayer.frame = view.bounds
+		captureVideoPreviewLayer.videoGravity = .resizeAspectFill
+		view.layer.insertSublayer(captureVideoPreviewLayer, at: 0)
+		previewLayer = captureVideoPreviewLayer
+	}
 
+	private func setupNavigationBar() {
+		navigationController?.overrideUserInterfaceStyle = .dark
 		navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
 		navigationController?.navigationBar.shadowImage = UIImage()
 		if let image = UIImage.with(color: UIColor(white: 0, alpha: 0.5)) {
 			navigationController?.navigationBar.setBackgroundImage(image, for: .default)
 		}
 
+		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
+
+		let flashButton = UIButton(type: .custom)
 		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
 		flashButton.setImage(UIImage(systemName: "bolt"), for: .normal)
 		flashButton.setImage(UIImage(systemName: "bolt.fill"), for: .selected)
-
-		let flashBarButtonItem = UIBarButtonItem(customView: flashButton)
-		navigationItem.rightBarButtonItem = flashBarButtonItem
-
-		let cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
-		navigationItem.leftBarButtonItem = cancelBarButtonItem
+		flashButton.accessibilityLabel = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityLabel
+		flashButton.accessibilityTraits = [.button]
+		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: flashButton)
 	}
 
 	private func updateToggleFlashAccessibility() {
-		flashButton.accessibilityLabel = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityLabel
-		flashButton.accessibilityCustomActions?.removeAll()
-		flashButton.accessibilityTraits = [.button]
+		guard let flashButton = navigationItem.rightBarButtonItem?.customView as? UIButton else {
+			return
+		}
 
-		if flashButton.isSelected {
+		flashButton.accessibilityCustomActions?.removeAll()
+
+		switch viewModel.torchMode {
+		case .notAvailable:
+			flashButton.isEnabled = false
+			flashButton.isSelected = false
+			flashButton.accessibilityValue = nil
+		case .lightOn:
+			flashButton.isEnabled = true
+			flashButton.isSelected = true
 			flashButton.accessibilityValue = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityOnValue
 			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityDisableAction, target: self, selector: #selector(didToggleFlash))]
-		} else {
+		case .ligthOff:
+			flashButton.isEnabled = true
+			flashButton.isSelected = false
 			flashButton.accessibilityValue = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityOffValue
 			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityEnableAction, target: self, selector: #selector(didToggleFlash))]
 		}
 	}
 
-	private func prepareScanning() {
-		switch AVCaptureDevice.authorizationStatus(for: .video) {
-		case .authorized:
-			startScanning()
-		case .notDetermined:
-			AVCaptureDevice.requestAccess(for: .video) { isAllowed in
-				guard isAllowed else {
-					self.viewModel.onError(.cameraPermissionDenied) { [weak self] in
-						self?.viewModel.activateScanning()
-					}
-
-					return
-				}
-
-				self.startScanning()
-			}
-		default:
-			viewModel.onError(.cameraPermissionDenied) { [weak self] in
-				self?.viewModel.activateScanning()
-			}
-		}
-	}
-
-	// Make sure to get permission to use the camera before using this method.
-	private func startScanning() {
-		let captureSession = AVCaptureSession()
-
-		captureDevice = AVCaptureDevice.default(for: .video)
-		guard let captureDevice = captureDevice else {
-			viewModel.onError(.other) { [weak self] in
-				self?.viewModel.activateScanning()
-			}
-
-			return
-		}
-
-		guard let caputureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else {
-			viewModel.onError(.other) { [weak self] in
-				self?.viewModel.activateScanning()
-			}
-
-			return
-		}
-
-		let metadataOutput = AVCaptureMetadataOutput()
-
-		captureSession.addInput(caputureDeviceInput)
-		captureSession.addOutput(metadataOutput)
-
-		metadataOutput.metadataObjectTypes = [.qr]
-		metadataOutput.setMetadataObjectsDelegate(viewModel, queue: .main)
-
-		previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-		guard let previewLayer = previewLayer else { return }
-
-		DispatchQueue.main.async {
-			self.previewLayer?.frame = self.view.bounds
-			self.previewLayer?.videoGravity = .resizeAspectFill
-			self.view.layer.insertSublayer(previewLayer, at: 0)
-		}
-
-		captureSession.startRunning()
-	}
-
 	@objc
 	private func didToggleFlash() {
-		guard let device = captureDevice else { return }
-		guard device.hasTorch else { return }
-
-		do {
-			try device.lockForConfiguration()
-
-			if device.torchMode == .on {
-				device.torchMode = .off
-				flashButton.isSelected = false
-			} else {
-				do {
-					try device.setTorchModeOn(level: 1.0)
-					flashButton.isSelected = true
-				} catch {
-					Log.error(error.localizedDescription, log: .api)
-				}
+		viewModel.toggleFlash(completion: { [weak self] in
+			DispatchQueue.main.async {
+				self?.updateToggleFlashAccessibility()
 			}
-
-			device.unlockForConfiguration()
-
-			updateToggleFlashAccessibility()
-		} catch {
-			Log.error(error.localizedDescription, log: .api)
-		}
+		})
 	}
 
 	@objc
 	private func didTapCancel() {
-		viewModel.onCancel()
+		viewModel.stopCapturSession()
+		onCancelScannerView()
 	}
 
 	private func setNeedsPreviewMaskUpdate() {
@@ -222,16 +153,15 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 	}
 
 	private func updatePreviewMaskIfNeeded() {
-		guard needsPreviewMaskUpdate else { return }
-		needsPreviewMaskUpdate = false
-
-		guard let previewLayer = previewLayer else { return }
-		guard focusView.backdropOpacity > 0 else {
-			previewLayer.mask = nil
+		guard needsPreviewMaskUpdate,
+			  let previewLayer = previewLayer,
+			  focusView.backdropOpacity > 0 else {
+			needsPreviewMaskUpdate = false
+			self.previewLayer?.mask = nil
 			return
 		}
-		let backdropColor = UIColor(white: 0, alpha: 1 - max(0, min(focusView.backdropOpacity, 1)))
 
+		let backdropColor = UIColor(white: 0, alpha: 1 - max(0, min(focusView.backdropOpacity, 1)))
 		let focusPath = UIBezierPath(roundedRect: focusView.frame, cornerRadius: focusView.layer.cornerRadius)
 
 		let backdropPath = UIBezierPath(cgPath: focusPath.cgPath)

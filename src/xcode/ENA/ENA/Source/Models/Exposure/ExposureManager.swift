@@ -50,7 +50,23 @@ struct ExposureManagerState: Equatable {
 		if isUITesting {
 			self.authorized = true
 			self.enabled = true
-			self.status = .active
+
+			switch UserDefaults.standard.integer(forKey: "ENStatus") {
+			case ENStatus.active.rawValue:
+				self.status = .active
+			case ENStatus.disabled.rawValue:
+				self.status = .disabled
+			case ENStatus.bluetoothOff.rawValue:
+				self.status = .bluetoothOff
+			case ENStatus.restricted.rawValue:
+				self.status = .restricted
+			case ENStatus.paused.rawValue:
+				self.status = .paused
+			case ENStatus.unauthorized.rawValue:
+				self.status = .unauthorized
+			default :
+				self.status = .unknown // 0
+			}
 		}
 		#endif
 	}

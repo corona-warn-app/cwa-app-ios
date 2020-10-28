@@ -24,7 +24,7 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 
 	// MARK: - Init
 
-	init(appConfigurationResult: Result<SAP_ApplicationConfiguration, Error> = .success(SAP_ApplicationConfiguration())) {
+	init(appConfigurationResult: Result<SAP_Internal_ApplicationConfiguration, Error> = .success(SAP_Internal_ApplicationConfiguration())) {
 		self.appConfigurationResult = appConfigurationResult
 	}
 
@@ -42,7 +42,7 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 
 	// MARK: - Private
 
-	private var appConfigurationResult: Result<SAP_ApplicationConfiguration, Error>
+	private var appConfigurationResult: Result<SAP_Internal_ApplicationConfiguration, Error>
 
 }
 #endif
