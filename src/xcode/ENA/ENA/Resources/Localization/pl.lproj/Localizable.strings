@@ -584,7 +584,7 @@
 
 "ExposureSubmissionResult_testInvalid" = "Test zawiera błędy";
 
-"ExposureSubmissionResult_testInvalidDesc" = "Wystąpił problem z ustaleniem wyniku Twojego testu. Skontaktuj się z odpowiednim ośrodkiem wykonującym testy laboratorium, aby dowiedzieć się, jak dalej postępować.";
+"ExposureSubmissionResult_testInvalidDesc" = "Wystąpił problem z ustaleniem wyniku Twojego testu. Skontaktuj się z ośrodkiem wykonującym testy lub odpowiednim laboratorium, aby dowiedzieć się, jak dalej postępować.";
 
 "ExposureSubmissionResult_testExpired" = "Test zawiera błędy";
 
