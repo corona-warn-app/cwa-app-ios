@@ -87,7 +87,6 @@ class ExposureSubmissionCoordinatorModel {
 		}
 	}
 
-
 	func warnOthersConsentGiven(
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping () -> Void,

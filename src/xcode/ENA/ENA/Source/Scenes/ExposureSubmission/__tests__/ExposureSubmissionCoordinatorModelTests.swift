@@ -79,29 +79,134 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 	}
 
 	func testSymptomsOptionNoSelected() {
+		let exposureSubmissionService = MockExposureSubmissionService()
+		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
+			XCTAssertEqual(symptomsOnset, .nonSymptomatic)
+		}
+
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: MockExposureSubmissionService(),
+			exposureSubmissionService: exposureSubmissionService,
 			appConfigurationProvider: configProvider
 		)
 
 		model.symptomsOptionSelected(.no)
 
+		// Submit to check that correct symptoms onset is set
+		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+
 		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
 	}
 
 	func testSymptomsOptionPreferNotToSaySelected() {
+		let exposureSubmissionService = MockExposureSubmissionService()
+		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
+			XCTAssertEqual(symptomsOnset, .noInformation)
+		}
+
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: MockExposureSubmissionService(),
+			exposureSubmissionService: exposureSubmissionService,
 			appConfigurationProvider: configProvider
 		)
 
 		model.symptomsOptionSelected(.preferNotToSay)
 
+		// Submit to check that correct symptoms onset is set
+		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+
 		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
 	}
 
+	// MARK: -
+
+	func testSymptomsOnsetOptionExactDateSelected() throws {
+		let exposureSubmissionService = MockExposureSubmissionService()
+		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
+			XCTAssertEqual(symptomsOnset, .daysSinceOnset(1))
+		}
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: exposureSubmissionService,
+			appConfigurationProvider: configProvider
+		)
+
+		let yesterday = try XCTUnwrap(Calendar.gregorian().date(byAdding: .day, value: -1, to: Date()))
+
+		model.symptomsOnsetOptionSelected(.exactDate(yesterday))
+
+		// Submit to check that correct symptoms onset is set
+		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+	}
+
+	func testSymptomsOnsetOptionLastSevenDaysSelected() throws {
+		let exposureSubmissionService = MockExposureSubmissionService()
+		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
+			XCTAssertEqual(symptomsOnset, .lastSevenDays)
+		}
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: exposureSubmissionService,
+			appConfigurationProvider: configProvider
+		)
+
+		model.symptomsOnsetOptionSelected(.lastSevenDays)
+
+		// Submit to check that correct symptoms onset is set
+		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+	}
+
+	func testSymptomsOnsetOptionOneToTwoWeeksAgoSelected() throws {
+		let exposureSubmissionService = MockExposureSubmissionService()
+		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
+			XCTAssertEqual(symptomsOnset, .oneToTwoWeeksAgo)
+		}
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: exposureSubmissionService,
+			appConfigurationProvider: configProvider
+		)
+
+		model.symptomsOnsetOptionSelected(.oneToTwoWeeksAgo)
+
+		// Submit to check that correct symptoms onset is set
+		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+	}
+
+	func testSymptomsOnsetOptionMoreThanTwoWeeksAgoSelected() throws {
+		let exposureSubmissionService = MockExposureSubmissionService()
+		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
+			XCTAssertEqual(symptomsOnset, .moreThanTwoWeeksAgo)
+		}
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: exposureSubmissionService,
+			appConfigurationProvider: configProvider
+		)
+
+		model.symptomsOnsetOptionSelected(.moreThanTwoWeeksAgo)
+
+		// Submit to check that correct symptoms onset is set
+		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+	}
+
+	func testSymptomsOnsetOptionPreferNotToSaySelected() throws {
+		let exposureSubmissionService = MockExposureSubmissionService()
+		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
+			XCTAssertEqual(symptomsOnset, .symptomaticWithUnknownOnset)
+		}
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: exposureSubmissionService,
+			appConfigurationProvider: configProvider
+		)
+
+		model.symptomsOnsetOptionSelected(.preferNotToSay)
+
+		// Submit to check that correct symptoms onset is set
+		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+	}
 
 	// MARK: -
+
 	func testSuccessfulSubmit() {
 		let exposureSubmissionService = MockExposureSubmissionService()
 		exposureSubmissionService.submitExposureCallback = { _, _, completion in
