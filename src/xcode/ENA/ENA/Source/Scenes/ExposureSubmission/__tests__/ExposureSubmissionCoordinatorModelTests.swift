@@ -67,6 +67,175 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 	// MARK: -
 
+	func testCheckStateAndLoadCountriesSupportedCountriesLoadSucceeds() {
+		let exposureSubmissionService = MockExposureSubmissionService()
+		exposureSubmissionService.preconditionsCallback = { ExposureManagerState(authorized: true, enabled: true, status: .active) }
+		exposureSubmissionService.submitExposureCallback = { _, visitedCountries, _ in
+			XCTAssertEqual(visitedCountries, [Country(countryCode: "DE"), Country(countryCode: "IT"), Country(countryCode: "ES")])
+		}
+
+		var config = SAP_ApplicationConfiguration()
+		config.supportedCountries = ["DE", "IT", "ES"]
+
+		let provider = CachedAppConfigurationMock(
+			appConfigurationResult: .success(config)
+		)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: exposureSubmissionService,
+			appConfigurationProvider: provider
+		)
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is called")
+
+		let onErrorExpectation = expectation(description: "onError is not called")
+		onErrorExpectation.isInverted = true
+
+		model.checkStateAndLoadCountries(
+			isLoading: {
+				isLoadingValues.append($0)
+				isLoadingExpectation.fulfill()
+			},
+			onSuccess: { onSuccessExpectation.fulfill() },
+			onError: { _ in onErrorExpectation.fulfill() }
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+
+		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
+		XCTAssertEqual(model.supportedCountries, [Country(countryCode: "DE"), Country(countryCode: "IT"), Country(countryCode: "ES")])
+	}
+
+	func testCheckStateAndLoadCountriesSupportedCountriesLoadEmpty() {
+		let exposureSubmissionService = MockExposureSubmissionService()
+		exposureSubmissionService.preconditionsCallback = { ExposureManagerState(authorized: true, enabled: true, status: .active) }
+		exposureSubmissionService.submitExposureCallback = { _, visitedCountries, _ in
+			XCTAssertEqual(visitedCountries, [Country(countryCode: "DE")])
+		}
+
+		var config = SAP_ApplicationConfiguration()
+		config.supportedCountries = []
+
+		let provider = CachedAppConfigurationMock(
+			appConfigurationResult: .success(config)
+		)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: exposureSubmissionService,
+			appConfigurationProvider: provider
+		)
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is called")
+
+		let onErrorExpectation = expectation(description: "onError is not called")
+		onErrorExpectation.isInverted = true
+
+		model.checkStateAndLoadCountries(
+			isLoading: {
+				isLoadingValues.append($0)
+				isLoadingExpectation.fulfill()
+			},
+			onSuccess: { onSuccessExpectation.fulfill() },
+			onError: { _ in onErrorExpectation.fulfill() }
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+
+		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
+		XCTAssertEqual(model.supportedCountries, [Country(countryCode: "DE")])
+	}
+
+	func testCheckStateAndLoadCountriesSupportedCountriesLoadFails() {
+		let exposureSubmissionService = MockExposureSubmissionService()
+		exposureSubmissionService.preconditionsCallback = { ExposureManagerState(authorized: true, enabled: true, status: .active) }
+		exposureSubmissionService.submitExposureCallback = { _, visitedCountries, _ in
+			XCTAssert(visitedCountries.isEmpty)
+		}
+
+		let provider = CachedAppConfigurationMock(
+			appConfigurationResult: .failure(CachedAppConfiguration.CacheError.dataFetchError(message: "fake"))
+		)
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: exposureSubmissionService,
+			appConfigurationProvider: provider
+		)
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is not called")
+		onSuccessExpectation.isInverted = true
+
+		let onErrorExpectation = expectation(description: "onError is called")
+
+		model.checkStateAndLoadCountries(
+			isLoading: {
+				isLoadingValues.append($0)
+				isLoadingExpectation.fulfill()
+			},
+			onSuccess: { onSuccessExpectation.fulfill() },
+			onError: { _ in onErrorExpectation.fulfill() }
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+
+		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
+		XCTAssert(model.supportedCountries.isEmpty)
+	}
+
+	func testCheckStateAndLoadCountriesStateCheckFails() {
+		let exposureSubmissionService = MockExposureSubmissionService()
+		exposureSubmissionService.preconditionsCallback = { ExposureManagerState(authorized: false, enabled: false, status: .unknown) }
+
+		let model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: exposureSubmissionService,
+			appConfigurationProvider: CachedAppConfigurationMock()
+		)
+
+		let isLoadingExpectation = expectation(description: "isLoading is not called")
+		isLoadingExpectation.isInverted = true
+
+		let onSuccessExpectation = expectation(description: "onSuccess is not called")
+		onSuccessExpectation.isInverted = true
+
+		let onErrorExpectation = expectation(description: "onError is called")
+
+		model.checkStateAndLoadCountries(
+			isLoading: { _ in isLoadingExpectation.fulfill() },
+			onSuccess: { onSuccessExpectation.fulfill() },
+			onError: { error in
+				XCTAssertEqual(error, .enNotEnabled)
+				onErrorExpectation.fulfill()
+			}
+		)
+
+		waitForExpectations(timeout: .short)
+
+		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
+		XCTAssert(model.supportedCountries.isEmpty)
+	}
+
+	// MARK: -
+
 	func testSymptomsOptionYesSelected() {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
