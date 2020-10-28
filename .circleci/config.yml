@@ -207,7 +207,7 @@ workflows:
             filters:
               tags:
                 only:
-                  - /^v.*/
+                  - /^test.*/
               branches:
                 ignore: /.*/
         - test:
@@ -216,7 +216,7 @@ workflows:
             filters:
               tags:
                 only:
-                  - /^v.*/
+                  - /^test.*/
               branches:
                 ignore: /.*/
         - build:
@@ -225,7 +225,7 @@ workflows:
             filters:
               tags:
                 only:
-                  - /^v.*/
+                  - /^test.*/
               branches:
                 ignore: /.*/
         - snapshot:
@@ -237,7 +237,7 @@ workflows:
             filters:
               tags:
                 only:
-                  - /^v.*/
+                  - /^test.*/
               branches:
                 ignore: /.*/
         - collect-snapshots:
@@ -246,13 +246,13 @@ workflows:
             filters:
               tags:
                 only:
-                  - /^v.*/
+                  - /^test.*/
               branches:
                 ignore: /.*/
         - testflight-release:
             requires:
               - test
-            filters: # ensure we publish ONLY on (release) tags
+            filters:
               tags:
                 only:
                   - /^v.*/
