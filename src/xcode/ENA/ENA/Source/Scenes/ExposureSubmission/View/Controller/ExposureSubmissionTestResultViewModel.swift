@@ -42,7 +42,11 @@ class ExposureSubmissionTestResultViewModel {
 
 	@Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
 	@Published var shouldShowDeletionConfirmationAlert: Bool = false
-	@Published var error: Error?
+	@Published var error: ExposureSubmissionError?
+
+	var timeStamp: Int64? {
+		exposureSubmissionService.devicePairingSuccessfulTimestamp
+	}
 
 	lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
@@ -79,7 +83,7 @@ class ExposureSubmissionTestResultViewModel {
 			}
 		case .pending:
 			shouldShowDeletionConfirmationAlert = true
-		default:
+		case .negative, .invalid, .expired:
 			break
 		}
 	}
@@ -103,29 +107,21 @@ class ExposureSubmissionTestResultViewModel {
 		}
 	}
 
-	private var timeStamp: Int64? {
-		exposureSubmissionService.devicePairingSuccessfulTimestamp
-	}
-
 	private var primaryButtonIsLoading: Bool = false {
 		didSet {
-			DispatchQueue.main.async {
-				self.navigationFooterItem.isPrimaryButtonEnabled = !self.primaryButtonIsLoading
-				self.navigationFooterItem.isPrimaryButtonLoading = self.primaryButtonIsLoading
+			self.navigationFooterItem.isPrimaryButtonEnabled = !self.primaryButtonIsLoading
+			self.navigationFooterItem.isPrimaryButtonLoading = self.primaryButtonIsLoading
 
-				self.navigationFooterItem.isSecondaryButtonEnabled = !self.primaryButtonIsLoading
-			}
+			self.navigationFooterItem.isSecondaryButtonEnabled = !self.primaryButtonIsLoading
 		}
 	}
 
 	private var secondaryButtonIsLoading: Bool = false {
 		didSet {
-			DispatchQueue.main.async {
-				self.navigationFooterItem.isSecondaryButtonEnabled = !self.secondaryButtonIsLoading
-				self.navigationFooterItem.isSecondaryButtonLoading = self.secondaryButtonIsLoading
+			self.navigationFooterItem.isSecondaryButtonEnabled = !self.secondaryButtonIsLoading
+			self.navigationFooterItem.isSecondaryButtonLoading = self.secondaryButtonIsLoading
 
-				self.navigationFooterItem.isPrimaryButtonEnabled = !self.secondaryButtonIsLoading
-			}
+			self.navigationFooterItem.isPrimaryButtonEnabled = !self.secondaryButtonIsLoading
 		}
 	}
 
@@ -154,7 +150,6 @@ class ExposureSubmissionTestResultViewModel {
 			navigationFooterItem.secondaryButtonHasBorder = true
 		case .negative, .invalid, .expired:
 			navigationFooterItem.primaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
-			navigationFooterItem.isSecondaryButtonHidden = true
 		case .pending:
 			navigationFooterItem.primaryButtonTitle = AppStrings.ExposureSubmissionResult.refreshButton
 			navigationFooterItem.secondaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
@@ -165,14 +160,14 @@ class ExposureSubmissionTestResultViewModel {
 
 	private func refreshTest(completion: @escaping () -> Void) {
 		exposureSubmissionService.getTestResult { [weak self] result in
-			completion()
-
 			switch result {
 			case let .failure(error):
 				self?.error = error
 			case let .success(testResult):
 				self?.testResult = testResult
 			}
+
+			completion()
 		}
 	}
 
