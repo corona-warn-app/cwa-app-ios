@@ -122,13 +122,11 @@ final class ExposureDetection {
 				self.activityState = .detecting
 
 				if let exposureConfiguration = self.exposureConfiguration {
-					Log.info("ExposureDetection: Start detecting summary.", log: .riskDetection)
-
 					if !self.isDeviceTimeCorrect() {
-						Log.warning("ExposureDetection: Risk detection skipped due to wrong device time.", log: .riskDetection)
+						Log.warning("ExposureDetection: Detecting summary skipped due to wrong device time.", log: .riskDetection)
 						self.endPrematurely(reason: .wrongDeviceTime)
-
 					} else {
+						Log.info("ExposureDetection: Start detecting summary.", log: .riskDetection)
 						self.detectSummary(writtenPackages: writtenPackages, exposureConfiguration: exposureConfiguration)
 					}
 				} else {
