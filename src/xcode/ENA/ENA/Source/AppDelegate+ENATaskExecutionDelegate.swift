@@ -90,19 +90,22 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		// At this point we are already in background so it is safe to assume background mode is available.
 		riskProvider.configuration.detectionMode = .fromBackgroundStatus(.available)
 
-		riskProvider.requestRisk(userInitiated: false) { risk in
-			guard let risk = risk, risk.riskLevelHasChanged else {
+		riskProvider.requestRisk(userInitiated: false) { result in
+			switch result {
+			case .success(let risk):
+				if risk.riskLevelHasChanged {
+					UNUserNotificationCenter.current().presentNotification(
+						title: AppStrings.LocalNotifications.detectExposureTitle,
+						body: AppStrings.LocalNotifications.detectExposureBody,
+						identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier + ".risk-detection"
+					)
+					completion(true)
+				} else {
+					completion(false)
+				}
+			case .failure:
 				completion(false)
-				return
 			}
-
-			UNUserNotificationCenter.current().presentNotification(
-				title: AppStrings.LocalNotifications.detectExposureTitle,
-				body: AppStrings.LocalNotifications.detectExposureBody,
-				identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier + ".risk-detection"
-			)
-
-			completion(true)
 		}
 	}
 }

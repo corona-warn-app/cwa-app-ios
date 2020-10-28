@@ -24,7 +24,10 @@ platform :ios do
 
   before_all do
     setup_circle_ci
-    xcversion(version: "12.1")
+
+    if is_ci
+      xcversion(version: "12.1.0")
+    end
   end
 
   desc "Update license file"
@@ -58,10 +61,12 @@ platform :ios do
   lane :test do
     # Combined Unit & UI Tests
     run_tests(
-      scheme: "ENATests",
+      scheme: "ENA",
       xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=YES",
       testplan: "AllTests",
-      devices: ["iPhone 11"]
+      only_test_configurations: ["DE"],
+      devices: ["iPhone 11"],
+      prelaunch_simulator: true
     )
 
     swiftlint(
@@ -76,7 +81,7 @@ platform :ios do
     # Gather code coverage
     xcov(
       workspace: "ENA.xcworkspace",
-      scheme: "ENATests",
+      scheme: "ENA",
       markdown_report: true,
       html_report: false,
       output_directory: "fastlane/test_output"

@@ -21,14 +21,27 @@ import Foundation
 import ExposureNotification
 import UIKit
 
-enum RiskCalculation {
+protocol RiskCalculationProtocol {
+
+	func risk(
+		summary: CodableExposureDetectionSummary?,
+		configuration: SAP_Internal_ApplicationConfiguration,
+		dateLastExposureDetection: Date?,
+		activeTracing: ActiveTracing,
+		preconditions: ExposureManagerState,
+		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
+		providerConfiguration: RiskProvidingConfiguration
+	) -> Risk?
+}
+
+struct RiskCalculation: RiskCalculationProtocol {
 
 	// MARK: - Precondition Time Constants
 
 	/// Minimum duration (in hours) that tracing has to be active for in order to perform a valid risk calculation
-	static let minTracingActiveHours = TracingStatusHistory.minimumActiveHours
+	let minTracingActiveHours = TracingStatusHistory.minimumActiveHours
 	/// Count of days until a previously calculated exposure detection is considered outdated
-	static let exposureDetectionStaleThreshold = 2
+	let exposureDetectionStaleThreshold = 2
 
 	// MARK: - Risk Calculation Functions
 
@@ -53,16 +66,14 @@ enum RiskCalculation {
 		- dateLastExposureDetection: The date of the most recent exposure detection
 		- numberOfTracingActiveDays: A count of how many days tracing has been active for
 		- preconditions: Current state of the `ExposureManager`
-		- currentDate: The current `Date` to use in checks. Defaults to `Date()`
 	*/
-	private static func riskLevel(
+	private func riskLevel(
 		summary: CodableExposureDetectionSummary?,
-		configuration: SAP_ApplicationConfiguration,
+		configuration: SAP_Internal_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
 		activeTracing: ActiveTracing, // Get this from the `TracingStatusHistory`
 		preconditions: ExposureManagerState,
-		providerConfiguration: RiskProvidingConfiguration,
-		currentDate: Date = Date()
+		providerConfiguration: RiskProvidingConfiguration
 	) -> Result<RiskLevel, RiskLevelCalculationError> {
 
 		//
@@ -131,9 +142,9 @@ enum RiskCalculation {
 
 	/// Performs the raw risk calculation without checking any preconditions
 	/// - returns: weighted risk score
-	static func calculateRawRisk(
+	func calculateRawRisk(
 		summary: CodableExposureDetectionSummary,
-		configuration: SAP_ApplicationConfiguration
+		configuration: SAP_Internal_ApplicationConfiguration
 	) -> Double {
 		// "Fig" comments below point to figures in the docs: https://github.com/corona-warn-app/cwa-documentation/blob/master/solution_architecture.md#risk-score-calculation
 		let maximumRisk = summary.maximumRiskScoreFullRange
@@ -154,13 +165,12 @@ enum RiskCalculation {
 		return (normRiskScore * weightedAttenuation).rounded(to: 2)
 	}
 
-	static func risk(
+	func risk(
 		summary: CodableExposureDetectionSummary?,
-		configuration: SAP_ApplicationConfiguration,
+		configuration: SAP_Internal_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
 		activeTracing: ActiveTracing,
 		preconditions: ExposureManagerState,
-		currentDate: Date = Date(),
 		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
 		providerConfiguration: RiskProvidingConfiguration
 	) -> Risk? {
