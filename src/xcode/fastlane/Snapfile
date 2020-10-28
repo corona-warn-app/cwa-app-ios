@@ -7,15 +7,16 @@ devices([
 ])
 
 ios_version(
-  "14.0"
+  "14.1"
 )
 
 languages([
   "en-US",
   "de-DE",
-#  "bg-BG",
-#  "ro-RO",
-#  "pl-PL"
+  "bg-BG",
+  "ro-RO",
+  "pl-PL",
+  "tr-Tr"
 ])
 
 # The name of the scheme which contains the UI Tests
