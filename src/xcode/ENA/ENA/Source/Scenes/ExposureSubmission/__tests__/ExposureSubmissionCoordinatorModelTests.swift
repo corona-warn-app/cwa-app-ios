@@ -24,30 +24,13 @@ import XCTest
 // swiftlint:disable:next type_body_length
 class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
-	// default provider for a static app configuration
-	let configProvider = CachedAppConfiguration(client: CachingHTTPClientMock(), store: MockTestStore())
-
-	override func setUp() {
-		// No property needed, Store uses a common database file
-		let store = MockTestStore()
-		store.appConfig = nil
-		store.lastAppConfigETag = nil
-	}
-
-	override func tearDown() {
-		// No property needed, Store uses a common database file
-		let store = MockTestStore()
-		store.appConfig = nil
-		store.lastAppConfigETag = nil
-	}
-
 	func testExposureSubmissionServiceHasRegistrationToken() {
 		let exposureSubmissionService = MockExposureSubmissionService()
 		exposureSubmissionService.hasRegistrationTokenCallback = { true }
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: configProvider
+			appConfigurationProvider: CachedAppConfigurationMock()
 		)
 
 		XCTAssertTrue(model.exposureSubmissionServiceHasRegistrationToken)
@@ -59,7 +42,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: configProvider
+			appConfigurationProvider: CachedAppConfigurationMock()
 		)
 
 		XCTAssertFalse(model.exposureSubmissionServiceHasRegistrationToken)
@@ -239,7 +222,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 	func testSymptomsOptionYesSelected() {
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			appConfigurationProvider: configProvider
+			appConfigurationProvider: CachedAppConfigurationMock()
 		)
 
 		model.symptomsOptionSelected(.yes)
@@ -259,7 +242,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: configProvider
+			appConfigurationProvider: CachedAppConfigurationMock()
 		)
 
 		model.symptomsOptionSelected(.no)
@@ -284,7 +267,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: configProvider
+			appConfigurationProvider: CachedAppConfigurationMock()
 		)
 
 		model.symptomsOptionSelected(.preferNotToSay)
@@ -311,7 +294,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: configProvider
+			appConfigurationProvider: CachedAppConfigurationMock()
 		)
 
 		let yesterday = try XCTUnwrap(Calendar.gregorian().date(byAdding: .day, value: -1, to: Date()))
@@ -336,7 +319,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: configProvider
+			appConfigurationProvider: CachedAppConfigurationMock()
 		)
 
 		model.symptomsOnsetOptionSelected(.lastSevenDays)
@@ -359,7 +342,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: configProvider
+			appConfigurationProvider: CachedAppConfigurationMock()
 		)
 
 		model.symptomsOnsetOptionSelected(.oneToTwoWeeksAgo)
@@ -382,7 +365,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: configProvider
+			appConfigurationProvider: CachedAppConfigurationMock()
 		)
 
 		model.symptomsOnsetOptionSelected(.moreThanTwoWeeksAgo)
@@ -405,7 +388,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: configProvider
+			appConfigurationProvider: CachedAppConfigurationMock()
 		)
 
 		model.symptomsOnsetOptionSelected(.preferNotToSay)
@@ -426,7 +409,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: configProvider
+			appConfigurationProvider: CachedAppConfigurationMock()
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -461,7 +444,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: configProvider
+			appConfigurationProvider: CachedAppConfigurationMock()
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -496,7 +479,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: configProvider
+			appConfigurationProvider: CachedAppConfigurationMock()
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -533,7 +516,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: configProvider
+			appConfigurationProvider: CachedAppConfigurationMock()
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -570,7 +553,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: configProvider
+			appConfigurationProvider: CachedAppConfigurationMock()
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -612,7 +595,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: configProvider
+			appConfigurationProvider: CachedAppConfigurationMock()
 		)
 
 		let expectedIsLoadingValues = [true, false]
