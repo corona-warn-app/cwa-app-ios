@@ -111,9 +111,9 @@ extension AppDelegate: ENATaskExecutionDelegate {
 					if case .wrongDeviceTime = reason {
 						if !self.store.deviceTimeErrorWasShown {
 							UNUserNotificationCenter.current().presentNotification(
-								title: "---- Dummy Wrong Device Time -----",
-								body: "---- Dummy Wrong Device Time -----",
-								identifier: "---- Dummy Wrong Device Time -----"
+								title: AppStrings.WrongDeviceTime.errorPushNotificationTitle,
+								body: AppStrings.WrongDeviceTime.errorPushNotificationText,
+								identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier + ".device-time-check"
 							)
 							self.store.deviceTimeErrorWasShown = true
 						}
