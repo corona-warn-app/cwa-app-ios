@@ -25,8 +25,8 @@ platform :ios do
   before_all do
     setup_circle_ci
 
-    if is_ci?
-      xcversion(version: "12.1")
+    if is_ci
+      xcversion(version: "12.1.0")
     end
   end
 
@@ -65,7 +65,8 @@ platform :ios do
       xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=YES",
       testplan: "AllTests",
       only_test_configurations: ["DE"],
-      devices: ["iPhone 11"]
+      devices: ["iPhone 11"],
+      prelaunch_simulator: true
     )
 
     swiftlint(
