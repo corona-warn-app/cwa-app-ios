@@ -248,9 +248,13 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 	}
 
 	func testSymptomsOptionNoSelected() {
+		let submissionExpectation = expectation(description: "Submission is called")
+
 		let exposureSubmissionService = MockExposureSubmissionService()
 		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
 			XCTAssertEqual(symptomsOnset, .nonSymptomatic)
+
+			submissionExpectation.fulfill()
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
@@ -264,12 +268,18 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
 
 		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
+
+		waitForExpectations(timeout: .short)
 	}
 
 	func testSymptomsOptionPreferNotToSaySelected() {
+		let submissionExpectation = expectation(description: "Submission is called")
+
 		let exposureSubmissionService = MockExposureSubmissionService()
 		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
 			XCTAssertEqual(symptomsOnset, .noInformation)
+
+			submissionExpectation.fulfill()
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
@@ -283,14 +293,20 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
 
 		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
+
+		waitForExpectations(timeout: .short)
 	}
 
 	// MARK: -
 
 	func testSymptomsOnsetOptionExactDateSelected() throws {
+		let submissionExpectation = expectation(description: "Submission is called")
+
 		let exposureSubmissionService = MockExposureSubmissionService()
 		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
 			XCTAssertEqual(symptomsOnset, .daysSinceOnset(1))
+
+			submissionExpectation.fulfill()
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
@@ -304,12 +320,18 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		// Submit to check that correct symptoms onset is set
 		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+
+		waitForExpectations(timeout: .short)
 	}
 
 	func testSymptomsOnsetOptionLastSevenDaysSelected() throws {
+		let submissionExpectation = expectation(description: "Submission is called")
+
 		let exposureSubmissionService = MockExposureSubmissionService()
 		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
 			XCTAssertEqual(symptomsOnset, .lastSevenDays)
+
+			submissionExpectation.fulfill()
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
@@ -321,12 +343,18 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		// Submit to check that correct symptoms onset is set
 		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+
+		waitForExpectations(timeout: .short)
 	}
 
 	func testSymptomsOnsetOptionOneToTwoWeeksAgoSelected() throws {
+		let submissionExpectation = expectation(description: "Submission is called")
+
 		let exposureSubmissionService = MockExposureSubmissionService()
 		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
 			XCTAssertEqual(symptomsOnset, .oneToTwoWeeksAgo)
+
+			submissionExpectation.fulfill()
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
@@ -338,12 +366,18 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		// Submit to check that correct symptoms onset is set
 		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+
+		waitForExpectations(timeout: .short)
 	}
 
 	func testSymptomsOnsetOptionMoreThanTwoWeeksAgoSelected() throws {
+		let submissionExpectation = expectation(description: "Submission is called")
+
 		let exposureSubmissionService = MockExposureSubmissionService()
 		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
 			XCTAssertEqual(symptomsOnset, .moreThanTwoWeeksAgo)
+
+			submissionExpectation.fulfill()
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
@@ -355,12 +389,18 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		// Submit to check that correct symptoms onset is set
 		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+
+		waitForExpectations(timeout: .short)
 	}
 
 	func testSymptomsOnsetOptionPreferNotToSaySelected() throws {
+		let submissionExpectation = expectation(description: "Submission is called")
+
 		let exposureSubmissionService = MockExposureSubmissionService()
 		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
 			XCTAssertEqual(symptomsOnset, .symptomaticWithUnknownOnset)
+
+			submissionExpectation.fulfill()
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
@@ -372,6 +412,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		// Submit to check that correct symptoms onset is set
 		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+
+		waitForExpectations(timeout: .short)
 	}
 
 	// MARK: -
