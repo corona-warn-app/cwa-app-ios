@@ -23,20 +23,20 @@ import XCTest
 
 class ExposureSubmissionViewControllerTests: XCTestCase {
 
-	private func createVC() -> ExposureSubmissionTestResultViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionTestResultViewController(
-				coder: coder,
-				coordinator: MockExposureSubmissionCoordinator(),
+	private func createVC(testResult: TestResult) -> ExposureSubmissionTestResultViewController {
+		ExposureSubmissionTestResultViewController(
+			viewModel: ExposureSubmissionTestResultViewModel(
+				testResult: testResult,
 				exposureSubmissionService: MockExposureSubmissionService(),
-				testResult: nil
+				onContinueWithSymptomsFlowButtonTap: { _ in },
+				onContinueWithoutSymptomsFlowButtonTap: { _ in },
+				onTestDeleted: { }
 			)
-		}
+		)
 	}
 
 	func testPositiveState() {
-		let vc = createVC()
-		vc.testResult = .positive
+		let vc = createVC(testResult: .positive)
 		_ = vc.view
 		XCTAssertEqual(vc.dynamicTableViewModel.numberOfSection, 1)
 
@@ -47,4 +47,5 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 		XCTAssertNotNil(cell)
 		XCTAssertEqual(cell?.textLabel?.text, AppStrings.ExposureSubmissionResult.procedure)
 	}
+
 }
