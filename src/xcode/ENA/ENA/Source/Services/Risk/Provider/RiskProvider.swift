@@ -262,25 +262,26 @@ extension RiskProvider: RiskProviding {
 
 		group.enter()
 
+		var summary: SummaryMetadata?
+		var config: SAP_ApplicationConfiguration?
+
 		appConfigurationProvider.appConfiguration { [weak self] result in
 			guard let self = self else { return }
 
 			switch result {
-			case .success(let config):
+			case .success(let _config):
+				config = _config
+
 				self.determineSummary(
 					userInitiated: userInitiated,
 					ignoreCachedSummary: ignoreCachedSummary,
-					appConfiguration: config,
+					appConfiguration: _config,
 					completion: { [weak self] result in
 						guard let self = self else { return }
 
 						switch result {
-						case .success(let summary):
-							self._requestRiskLevel(
-								summary: summary,
-								appConfiguration: config,
-								completion: completion
-							)
+						case .success(let _summary):
+							summary = _summary
 						case .failure(let error):
 							Log.info("RiskProvider: Failed determining summary.", log: .riskDetection)
 							self.failOnTargetQueue(
@@ -309,6 +310,21 @@ extension RiskProvider: RiskProviding {
 			failOnTargetQueue(error: .timeout, completion: completion)
 			return
 		}
+
+		guard let _summary = summary else {
+			failOnTargetQueue(error: .failedToDetectSummary, completion: completion)
+			return
+		}
+		guard let _config = config else {
+			failOnTargetQueue(error: .missingAppConfig, completion: completion)
+			return
+		}
+
+		self._requestRiskLevel(
+			summary: _summary,
+			appConfiguration: _config,
+			completion: completion
+		)
 
 		cancellationToken = nil
 	}
