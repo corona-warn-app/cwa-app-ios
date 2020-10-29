@@ -132,14 +132,6 @@ extension RiskProvider: RiskProviding {
 		Log.info("RiskProvider: Determine summeries.", log: .riskDetection)
 
 		if !ignoreCachedSummary {
-			func completeWithCachedSummary() {
-				if let summary = store.summary {
-					completion(.success(summary))
-				} else {
-					completion(.failure(.missingCachedSummary))
-				}
-			}
-
 			// Here we are in automatic mode and thus we have to check the validity of the current summary.
 			let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
 				activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
@@ -148,7 +140,11 @@ extension RiskProvider: RiskProviding {
 			let shouldDetectExposures = (configuration.detectionMode == .manual && userInitiated) || configuration.detectionMode == .automatic
 
 			if !enoughTimeHasPassed || !self.exposureManagerState.isGood || !shouldDetectExposures {
-				completeWithCachedSummary()
+				if let summary = store.summary {
+					completion(.success(summary))
+				} else {
+					completion(.failure(.missingCachedSummary))
+				}
 				return
 			}
 		}
