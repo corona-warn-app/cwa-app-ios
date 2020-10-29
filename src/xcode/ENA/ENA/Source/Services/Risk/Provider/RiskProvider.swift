@@ -311,26 +311,22 @@ extension RiskProvider: RiskProviding {
 			return
 		}
 
-		guard let _summary = summary else {
-			failOnTargetQueue(error: .failedToDetectSummary, completion: completion)
-			return
-		}
-		guard let _config = config else {
-			failOnTargetQueue(error: .missingAppConfig, completion: completion)
-			return
-		}
-
 		self._requestRiskLevel(
-			summary: _summary,
-			appConfiguration: _config,
+			summary: summary,
+			appConfiguration: config,
 			completion: completion
 		)
 
 		cancellationToken = nil
 	}
 
-	private func _requestRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_ApplicationConfiguration, completion: Completion? = nil) {
+	private func _requestRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_ApplicationConfiguration?, completion: Completion? = nil) {
 		Log.info("RiskProvider: Apply risk calculation", log: .riskDetection)
+
+		guard let appConfiguration = appConfiguration else {
+			failOnTargetQueue(error: .missingAppConfig, completion: completion)
+			return
+		}
 
 		let activeTracing = store.tracingStatusHistory.activeTracing()
 
