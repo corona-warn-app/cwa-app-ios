@@ -269,7 +269,6 @@
 		941ADDB22518C3FB00E421D9 /* ENSettingEuTracingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941ADDB12518C3FB00E421D9 /* ENSettingEuTracingViewModel.swift */; };
 		941B68AE253F007100DC1962 /* Int+Increment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941B689E253EFF2300DC1962 /* Int+Increment.swift */; };
 		941F5ED02518E82800785F06 /* ENSettingEuTracingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941F5ECB2518E82100785F06 /* ENSettingEuTracingViewModelTests.swift */; };
-		9431B5742546BF1500058EFC /* ENAUITestsDeviceTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9431B5732546BF1500058EFC /* ENAUITestsDeviceTime.swift */; };
 		9488C3012521EE8E00504648 /* DeltaOnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488C3002521EE8E00504648 /* DeltaOnboardingNavigationController.swift */; };
 		948DCDC3252EFC9A00CDE020 /* ENAUITests_05_ExposureLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948DCDC2252EFC9A00CDE020 /* ENAUITests_05_ExposureLogging.swift */; };
 		94C24B3F25304B4400F8C004 /* ENAUITestsDeltaOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C24B3E25304B4400F8C004 /* ENAUITestsDeltaOnboarding.swift */; };
@@ -841,7 +840,6 @@
 		941ADDB12518C3FB00E421D9 /* ENSettingEuTracingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSettingEuTracingViewModel.swift; sourceTree = "<group>"; };
 		941B689E253EFF2300DC1962 /* Int+Increment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Increment.swift"; sourceTree = "<group>"; };
 		941F5ECB2518E82100785F06 /* ENSettingEuTracingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSettingEuTracingViewModelTests.swift; sourceTree = "<group>"; };
-		9431B5732546BF1500058EFC /* ENAUITestsDeviceTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsDeviceTime.swift; sourceTree = "<group>"; };
 		9488C3002521EE8E00504648 /* DeltaOnboardingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNavigationController.swift; sourceTree = "<group>"; };
 		948DCDC2252EFC9A00CDE020 /* ENAUITests_05_ExposureLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_05_ExposureLogging.swift; sourceTree = "<group>"; };
 		94C24B3E25304B4400F8C004 /* ENAUITestsDeltaOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsDeltaOnboarding.swift; sourceTree = "<group>"; };
@@ -1865,7 +1863,6 @@
 		85D7596224570491008175F0 /* ENAUITests */ = {
 			isa = PBXGroup;
 			children = (
-				9431B5722546BEDD00058EFC /* DeviceTime */,
 				941B68AD253F005600DC1962 /* Helper */,
 				94C24B3D25304AE100F8C004 /* DeltaOnboarding */,
 				948DCDC1252EFC4100CDE020 /* ExposureLogging */,
@@ -1965,14 +1962,6 @@
 				941B689E253EFF2300DC1962 /* Int+Increment.swift */,
 			);
 			path = Helper;
-			sourceTree = "<group>";
-		};
-		9431B5722546BEDD00058EFC /* DeviceTime */ = {
-			isa = PBXGroup;
-			children = (
-				9431B5732546BF1500058EFC /* ENAUITestsDeviceTime.swift */,
-			);
-			path = DeviceTime;
 			sourceTree = "<group>";
 		};
 		948DCDC1252EFC4100CDE020 /* ExposureLogging */ = {
@@ -3590,7 +3579,6 @@
 				948DCDC3252EFC9A00CDE020 /* ENAUITests_05_ExposureLogging.swift in Sources */,
 				85D7596424570491008175F0 /* ENAUITests.swift in Sources */,
 				941B68AE253F007100DC1962 /* Int+Increment.swift in Sources */,
-				9431B5742546BF1500058EFC /* ENAUITestsDeviceTime.swift in Sources */,
 				13E50469248E3CD20086641C /* ENAUITestsAppInformation.swift in Sources */,
 				01A1B45C252E077600841B63 /* TimeInterval+Convenience.swift in Sources */,
 				130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */,
