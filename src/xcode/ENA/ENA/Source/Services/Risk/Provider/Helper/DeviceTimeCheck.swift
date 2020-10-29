@@ -26,11 +26,15 @@ protocol DeviceTimeCheckProtocol {
 
 final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 
-	private let store: AppConfigCaching
+	// MARK: - Init
 
 	init(store: AppConfigCaching) {
 		self.store = store
 	}
+
+	// MARK: - Protocol DeviceTimeCheckProtocol
+
+	// MARK: - Internal
 
 	func checkAndPersistDeviceTimeFlags(serverTime: Date, deviceTime: Date) {
 		self.persistDeviceTimeCheckFlags(
@@ -49,33 +53,37 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 		store.deviceTimeErrorWasShown = false
 	}
 
+	// MARK: - Private
+
+	private let store: AppConfigCaching
+
 	private func persistDeviceTimeCheckFlags(
 		deviceTimeIsCorrect: Bool,
 		deviceTimeCheckKillSwitchIsActive: Bool
 	) {
 		store.deviceTimeIsCorrect = deviceTimeCheckKillSwitchIsActive ? true : deviceTimeIsCorrect
-		if deviceTimeIsCorrect {
+		if store.deviceTimeIsCorrect {
 			store.deviceTimeErrorWasShown = false
 		}
 	}
 
 	private func isDeviceTimeCorrect(serverTime: Date, deviceTime: Date) -> Bool {
-		if let serverTimeMinus2Hours = Calendar.current.date(byAdding: .hour, value: -2, to: serverTime),
-		   let serverTimePlus2Hours = Calendar.current.date(byAdding: .hour, value: 2, to: serverTime) {
-			return (serverTimeMinus2Hours ... serverTimePlus2Hours).contains(deviceTime)
-		} else {
+		guard let serverTimeMinus2Hours = Calendar.current.date(byAdding: .hour, value: -2, to: serverTime),
+			  let serverTimePlus2Hours = Calendar.current.date(byAdding: .hour, value: 2, to: serverTime) else {
 			return true
 		}
+		
+		return (serverTimeMinus2Hours ... serverTimePlus2Hours).contains(deviceTime)
 	}
 
 	private func isDeviceTimeCheckKillSwitchActive(config: SAP_ApplicationConfiguration?) -> Bool {
-		if let config = config {
-			let killSwitchFeature = config.appFeatures.appFeatures.first {
-				$0.label == "disable-device-time-check"
-			}
-			return killSwitchFeature?.value == 1
-		} else {
+		guard let config = config else {
 			return false
 		}
+
+		let killSwitchFeature = config.appFeatures.appFeatures.first {
+			$0.label == "disable-device-time-check"
+		}
+		return killSwitchFeature?.value == 1
 	}
 }

@@ -269,7 +269,9 @@ extension RiskProvider: RiskProviding {
 		appConfigurationProvider.appConfiguration { [weak self] result in
 			switch result {
 			case .success(let config):
-				self?.determineSummary(
+				guard let self = self else { return }
+
+				self.determineSummary(
 					userInitiated: userInitiated,
 					ignoreCachedSummary: ignoreCachedSummary,
 					appConfiguration: config,
@@ -296,7 +298,7 @@ extension RiskProvider: RiskProviding {
 				)
 			case .failure(let error):
 				Log.error(error.localizedDescription, log: .api)
-				self?.failOnTargetQueue(
+				self.failOnTargetQueue(
 					error: .missingAppConfig,
 					completion: completion
 				)
