@@ -111,7 +111,6 @@ extension URLSession {
 }
 
 extension URLSession.Response {
-	/// Raised when `URLSession` was unable to get an actual response.
 	enum Failure: Error {
 		/// The session received an `Error`. In that case the body and response is discarded.
 		case httpError(Error, HTTPURLResponse)

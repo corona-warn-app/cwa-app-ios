@@ -267,15 +267,15 @@ extension RiskProvider: RiskProviding {
 		group.enter()
 
 		appConfigurationProvider.appConfiguration { [weak self] result in
+			guard let self = self else { return }
+
 			switch result {
 			case .success(let config):
-				guard let self = self else { return }
-
 				self.determineSummary(
 					userInitiated: userInitiated,
 					ignoreCachedSummary: ignoreCachedSummary,
 					appConfiguration: config,
-					completion: { result in
+					completion: { [weak self] result in
 						guard let self = self else { return }
 
 						switch result {
