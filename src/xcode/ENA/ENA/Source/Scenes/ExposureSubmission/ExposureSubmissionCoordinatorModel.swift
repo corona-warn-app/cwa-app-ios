@@ -42,32 +42,35 @@ class ExposureSubmissionCoordinatorModel {
 		exposureSubmissionService.hasRegistrationToken()
 	}
 
-	func symptomsOptionSelected(
-		selectedSymptomsOption: ExposureSubmissionSymptomsViewController.SymptomsOption,
+	func checkStateAndLoadCountries(
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping () -> Void,
 		onError: @escaping (ExposureSubmissionError) -> Void
 	) {
+		if isExposureSubmissionServiceStateGood {
+			loadSupportedCountries(isLoading: isLoading, onSuccess: onSuccess, onError: onError)
+		} else {
+			onError(.enNotEnabled)
+		}
+	}
+
+	func symptomsOptionSelected(
+		_ selectedSymptomsOption: ExposureSubmissionSymptomsViewController.SymptomsOption
+	) {
 		switch selectedSymptomsOption {
 		case .yes:
 			shouldShowSymptomsOnsetScreen = true
-			onSuccess()
 		case .no:
 			symptomsOnset = .nonSymptomatic
 			shouldShowSymptomsOnsetScreen = false
-			loadSupportedCountries(isLoading: isLoading, onSuccess: onSuccess, onError: onError)
 		case .preferNotToSay:
 			symptomsOnset = .noInformation
 			shouldShowSymptomsOnsetScreen = false
-			loadSupportedCountries(isLoading: isLoading, onSuccess: onSuccess, onError: onError)
 		}
 	}
 
 	func symptomsOnsetOptionSelected(
-		selectedSymptomsOnsetOption: ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption,
-		isLoading: @escaping (Bool) -> Void,
-		onSuccess: @escaping () -> Void,
-		onError: @escaping (ExposureSubmissionError) -> Void
+		_ selectedSymptomsOnsetOption: ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption
 	) {
 		switch selectedSymptomsOnsetOption {
 		case .exactDate(let date):
@@ -82,10 +85,7 @@ class ExposureSubmissionCoordinatorModel {
 		case .preferNotToSay:
 			symptomsOnset = .symptomaticWithUnknownOnset
 		}
-
-		loadSupportedCountries(isLoading: isLoading, onSuccess: onSuccess, onError: onError)
 	}
-
 
 	func warnOthersConsentGiven(
 		isLoading: @escaping (Bool) -> Void,
@@ -123,23 +123,26 @@ class ExposureSubmissionCoordinatorModel {
 
 	private var symptomsOnset: SymptomsOnset = .noInformation
 
-	// Temporarily set to internal for quickfix: https://jira.itc.sap.com/browse/EXPOSUREAPP-3231
-	func loadSupportedCountries(
+	private var isExposureSubmissionServiceStateGood: Bool {
+		exposureSubmissionService.preconditions().isGood
+	}
+
+	private func loadSupportedCountries(
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping () -> Void,
 		onError: @escaping (ExposureSubmissionError) -> Void
 	) {
 		isLoading(true)
-		appConfigurationProvider.appConfiguration { result in
+		appConfigurationProvider.appConfiguration { [weak self] result in
 			isLoading(false)
 
 			switch result {
 			case .success(let config):
 				let countries = config.supportedCountries.compactMap({ Country(countryCode: $0) })
 				if countries.isEmpty {
-					self.supportedCountries = [.defaultCountry()]
+					self?.supportedCountries = [.defaultCountry()]
 				} else {
-					self.supportedCountries = countries
+					self?.supportedCountries = countries
 				}
 				onSuccess()
 			case .failure:
