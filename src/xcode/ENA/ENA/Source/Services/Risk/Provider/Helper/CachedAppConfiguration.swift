@@ -48,11 +48,7 @@ final class CachedAppConfiguration {
 		self.store = store
 		self.configurationDidChange = configurationDidChange
 
-		if let deviceTimeCheck = deviceTimeCheck {
-			self.deviceTimeCheck = deviceTimeCheck
-		} else {
-			self.deviceTimeCheck = DeviceTimeCheck(store: store)
-		}
+		self.deviceTimeCheck = deviceTimeCheck ?? DeviceTimeCheck(store: store)
 
 		guard shouldFetch() else { return }
 
