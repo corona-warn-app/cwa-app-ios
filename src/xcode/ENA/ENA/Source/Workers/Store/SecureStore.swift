@@ -238,6 +238,16 @@ final class SecureStore: Store {
 		get { kvStore["selectedServerEnvironment"] as ServerEnvironmentData? ?? serverEnvironment.defaultEnvironment() }
 		set { kvStore["selectedServerEnvironment"] = newValue }
 	}
+	
+	var warnOthersNotificationOneDelay: Int{
+		get { kvStore["wasDeviceTimeErrorShown"] as Int? ?? 7200 }
+		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
+	}
+	
+	var warnOthersNotificationTwoDelay: Int{
+		get { kvStore["wasDeviceTimeErrorShown"] as Int? ?? 14400 }
+		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
+	}
 
 	#if !RELEASE
 

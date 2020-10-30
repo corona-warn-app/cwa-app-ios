@@ -114,6 +114,12 @@ protocol Store: AnyObject {
 	var firstPlaybookExecution: Date? { get set }
 
 	var selectedServerEnvironment: ServerEnvironmentData { get set }
+	
+	/// Delay time in seconds, when the first notification to warn others will be shown,
+	var warnOthersNotificationOneDelay: Int { get set }
+	
+	/// Delay time in seconds, when the first notification to warn others will be shown,
+	var warnOthersNotificationTwoDelay: Int { get set }
 
 	func clearAll(key: String?)
 
