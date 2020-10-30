@@ -83,15 +83,12 @@ extension SAP_Internal_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.keys) }()
-      case 2: try { try decoder.decodeSingularBytesField(value: &self._requestPadding) }()
-      case 3: try { try decoder.decodeRepeatedStringField(value: &self.visitedCountries) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self._origin) }()
-      case 5: try { try decoder.decodeSingularBoolField(value: &self._consentToFederation) }()
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.keys)
+      case 2: try decoder.decodeSingularBytesField(value: &self._requestPadding)
+      case 3: try decoder.decodeRepeatedStringField(value: &self.visitedCountries)
+      case 4: try decoder.decodeSingularStringField(value: &self._origin)
+      case 5: try decoder.decodeSingularBoolField(value: &self._consentToFederation)
       default: break
       }
     }

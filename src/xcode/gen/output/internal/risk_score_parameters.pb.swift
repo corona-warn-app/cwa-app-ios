@@ -31,60 +31,48 @@ struct SAP_Internal_RiskScoreParameters {
 
   /// App-specific mapping
   var transmission: SAP_Internal_RiskScoreParameters.TransmissionRiskParameters {
-    get {return _storage._transmission ?? SAP_Internal_RiskScoreParameters.TransmissionRiskParameters()}
-    set {_uniqueStorage()._transmission = newValue}
+    get {return _transmission ?? SAP_Internal_RiskScoreParameters.TransmissionRiskParameters()}
+    set {_transmission = newValue}
   }
   /// Returns true if `transmission` has been explicitly set.
-  var hasTransmission: Bool {return _storage._transmission != nil}
+  var hasTransmission: Bool {return self._transmission != nil}
   /// Clears the value of `transmission`. Subsequent reads from it will return its default value.
-  mutating func clearTransmission() {_uniqueStorage()._transmission = nil}
+  mutating func clearTransmission() {self._transmission = nil}
 
-  var transmissionWeight: Double {
-    get {return _storage._transmissionWeight}
-    set {_uniqueStorage()._transmissionWeight = newValue}
-  }
+  var transmissionWeight: Double = 0
 
   var duration: SAP_Internal_RiskScoreParameters.DurationRiskParameters {
-    get {return _storage._duration ?? SAP_Internal_RiskScoreParameters.DurationRiskParameters()}
-    set {_uniqueStorage()._duration = newValue}
+    get {return _duration ?? SAP_Internal_RiskScoreParameters.DurationRiskParameters()}
+    set {_duration = newValue}
   }
   /// Returns true if `duration` has been explicitly set.
-  var hasDuration: Bool {return _storage._duration != nil}
+  var hasDuration: Bool {return self._duration != nil}
   /// Clears the value of `duration`. Subsequent reads from it will return its default value.
-  mutating func clearDuration() {_uniqueStorage()._duration = nil}
+  mutating func clearDuration() {self._duration = nil}
 
-  var durationWeight: Double {
-    get {return _storage._durationWeight}
-    set {_uniqueStorage()._durationWeight = newValue}
-  }
+  var durationWeight: Double = 0
 
   var daysSinceLastExposure: SAP_Internal_RiskScoreParameters.DaysSinceLastExposureRiskParameters {
-    get {return _storage._daysSinceLastExposure ?? SAP_Internal_RiskScoreParameters.DaysSinceLastExposureRiskParameters()}
-    set {_uniqueStorage()._daysSinceLastExposure = newValue}
+    get {return _daysSinceLastExposure ?? SAP_Internal_RiskScoreParameters.DaysSinceLastExposureRiskParameters()}
+    set {_daysSinceLastExposure = newValue}
   }
   /// Returns true if `daysSinceLastExposure` has been explicitly set.
-  var hasDaysSinceLastExposure: Bool {return _storage._daysSinceLastExposure != nil}
+  var hasDaysSinceLastExposure: Bool {return self._daysSinceLastExposure != nil}
   /// Clears the value of `daysSinceLastExposure`. Subsequent reads from it will return its default value.
-  mutating func clearDaysSinceLastExposure() {_uniqueStorage()._daysSinceLastExposure = nil}
+  mutating func clearDaysSinceLastExposure() {self._daysSinceLastExposure = nil}
 
-  var daysWeight: Double {
-    get {return _storage._daysWeight}
-    set {_uniqueStorage()._daysWeight = newValue}
-  }
+  var daysWeight: Double = 0
 
   var attenuation: SAP_Internal_RiskScoreParameters.AttenuationRiskParameters {
-    get {return _storage._attenuation ?? SAP_Internal_RiskScoreParameters.AttenuationRiskParameters()}
-    set {_uniqueStorage()._attenuation = newValue}
+    get {return _attenuation ?? SAP_Internal_RiskScoreParameters.AttenuationRiskParameters()}
+    set {_attenuation = newValue}
   }
   /// Returns true if `attenuation` has been explicitly set.
-  var hasAttenuation: Bool {return _storage._attenuation != nil}
+  var hasAttenuation: Bool {return self._attenuation != nil}
   /// Clears the value of `attenuation`. Subsequent reads from it will return its default value.
-  mutating func clearAttenuation() {_uniqueStorage()._attenuation = nil}
+  mutating func clearAttenuation() {self._attenuation = nil}
 
-  var attenuationWeight: Double {
-    get {return _storage._attenuationWeight}
-    set {_uniqueStorage()._attenuationWeight = newValue}
-  }
+  var attenuationWeight: Double = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -218,7 +206,10 @@ struct SAP_Internal_RiskScoreParameters {
 
   init() {}
 
-  fileprivate var _storage = _StorageClass.defaultInstance
+  fileprivate var _transmission: SAP_Internal_RiskScoreParameters.TransmissionRiskParameters? = nil
+  fileprivate var _duration: SAP_Internal_RiskScoreParameters.DurationRiskParameters? = nil
+  fileprivate var _daysSinceLastExposure: SAP_Internal_RiskScoreParameters.DaysSinceLastExposureRiskParameters? = nil
+  fileprivate var _attenuation: SAP_Internal_RiskScoreParameters.AttenuationRiskParameters? = nil
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -238,108 +229,59 @@ extension SAP_Internal_RiskScoreParameters: SwiftProtobuf.Message, SwiftProtobuf
     8: .standard(proto: "attenuation_weight"),
   ]
 
-  fileprivate class _StorageClass {
-    var _transmission: SAP_Internal_RiskScoreParameters.TransmissionRiskParameters? = nil
-    var _transmissionWeight: Double = 0
-    var _duration: SAP_Internal_RiskScoreParameters.DurationRiskParameters? = nil
-    var _durationWeight: Double = 0
-    var _daysSinceLastExposure: SAP_Internal_RiskScoreParameters.DaysSinceLastExposureRiskParameters? = nil
-    var _daysWeight: Double = 0
-    var _attenuation: SAP_Internal_RiskScoreParameters.AttenuationRiskParameters? = nil
-    var _attenuationWeight: Double = 0
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _transmission = source._transmission
-      _transmissionWeight = source._transmissionWeight
-      _duration = source._duration
-      _durationWeight = source._durationWeight
-      _daysSinceLastExposure = source._daysSinceLastExposure
-      _daysWeight = source._daysWeight
-      _attenuation = source._attenuation
-      _attenuationWeight = source._attenuationWeight
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularMessageField(value: &_storage._transmission) }()
-        case 2: try { try decoder.decodeSingularDoubleField(value: &_storage._transmissionWeight) }()
-        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._duration) }()
-        case 4: try { try decoder.decodeSingularDoubleField(value: &_storage._durationWeight) }()
-        case 5: try { try decoder.decodeSingularMessageField(value: &_storage._daysSinceLastExposure) }()
-        case 6: try { try decoder.decodeSingularDoubleField(value: &_storage._daysWeight) }()
-        case 7: try { try decoder.decodeSingularMessageField(value: &_storage._attenuation) }()
-        case 8: try { try decoder.decodeSingularDoubleField(value: &_storage._attenuationWeight) }()
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularMessageField(value: &self._transmission)
+      case 2: try decoder.decodeSingularDoubleField(value: &self.transmissionWeight)
+      case 3: try decoder.decodeSingularMessageField(value: &self._duration)
+      case 4: try decoder.decodeSingularDoubleField(value: &self.durationWeight)
+      case 5: try decoder.decodeSingularMessageField(value: &self._daysSinceLastExposure)
+      case 6: try decoder.decodeSingularDoubleField(value: &self.daysWeight)
+      case 7: try decoder.decodeSingularMessageField(value: &self._attenuation)
+      case 8: try decoder.decodeSingularDoubleField(value: &self.attenuationWeight)
+      default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._transmission {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if _storage._transmissionWeight != 0 {
-        try visitor.visitSingularDoubleField(value: _storage._transmissionWeight, fieldNumber: 2)
-      }
-      if let v = _storage._duration {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
-      if _storage._durationWeight != 0 {
-        try visitor.visitSingularDoubleField(value: _storage._durationWeight, fieldNumber: 4)
-      }
-      if let v = _storage._daysSinceLastExposure {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-      }
-      if _storage._daysWeight != 0 {
-        try visitor.visitSingularDoubleField(value: _storage._daysWeight, fieldNumber: 6)
-      }
-      if let v = _storage._attenuation {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-      }
-      if _storage._attenuationWeight != 0 {
-        try visitor.visitSingularDoubleField(value: _storage._attenuationWeight, fieldNumber: 8)
-      }
+    if let v = self._transmission {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    if self.transmissionWeight != 0 {
+      try visitor.visitSingularDoubleField(value: self.transmissionWeight, fieldNumber: 2)
+    }
+    if let v = self._duration {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    }
+    if self.durationWeight != 0 {
+      try visitor.visitSingularDoubleField(value: self.durationWeight, fieldNumber: 4)
+    }
+    if let v = self._daysSinceLastExposure {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    }
+    if self.daysWeight != 0 {
+      try visitor.visitSingularDoubleField(value: self.daysWeight, fieldNumber: 6)
+    }
+    if let v = self._attenuation {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+    }
+    if self.attenuationWeight != 0 {
+      try visitor.visitSingularDoubleField(value: self.attenuationWeight, fieldNumber: 8)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: SAP_Internal_RiskScoreParameters, rhs: SAP_Internal_RiskScoreParameters) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._transmission != rhs_storage._transmission {return false}
-        if _storage._transmissionWeight != rhs_storage._transmissionWeight {return false}
-        if _storage._duration != rhs_storage._duration {return false}
-        if _storage._durationWeight != rhs_storage._durationWeight {return false}
-        if _storage._daysSinceLastExposure != rhs_storage._daysSinceLastExposure {return false}
-        if _storage._daysWeight != rhs_storage._daysWeight {return false}
-        if _storage._attenuation != rhs_storage._attenuation {return false}
-        if _storage._attenuationWeight != rhs_storage._attenuationWeight {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs._transmission != rhs._transmission {return false}
+    if lhs.transmissionWeight != rhs.transmissionWeight {return false}
+    if lhs._duration != rhs._duration {return false}
+    if lhs.durationWeight != rhs.durationWeight {return false}
+    if lhs._daysSinceLastExposure != rhs._daysSinceLastExposure {return false}
+    if lhs.daysWeight != rhs.daysWeight {return false}
+    if lhs._attenuation != rhs._attenuation {return false}
+    if lhs.attenuationWeight != rhs.attenuationWeight {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -360,18 +302,15 @@ extension SAP_Internal_RiskScoreParameters.TransmissionRiskParameters: SwiftProt
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.appDefined1) }()
-      case 2: try { try decoder.decodeSingularEnumField(value: &self.appDefined2) }()
-      case 3: try { try decoder.decodeSingularEnumField(value: &self.appDefined3) }()
-      case 4: try { try decoder.decodeSingularEnumField(value: &self.appDefined4) }()
-      case 5: try { try decoder.decodeSingularEnumField(value: &self.appDefined5) }()
-      case 6: try { try decoder.decodeSingularEnumField(value: &self.appDefined6) }()
-      case 7: try { try decoder.decodeSingularEnumField(value: &self.appDefined7) }()
-      case 8: try { try decoder.decodeSingularEnumField(value: &self.appDefined8) }()
+      case 1: try decoder.decodeSingularEnumField(value: &self.appDefined1)
+      case 2: try decoder.decodeSingularEnumField(value: &self.appDefined2)
+      case 3: try decoder.decodeSingularEnumField(value: &self.appDefined3)
+      case 4: try decoder.decodeSingularEnumField(value: &self.appDefined4)
+      case 5: try decoder.decodeSingularEnumField(value: &self.appDefined5)
+      case 6: try decoder.decodeSingularEnumField(value: &self.appDefined6)
+      case 7: try decoder.decodeSingularEnumField(value: &self.appDefined7)
+      case 8: try decoder.decodeSingularEnumField(value: &self.appDefined8)
       default: break
       }
     }
@@ -434,18 +373,15 @@ extension SAP_Internal_RiskScoreParameters.DurationRiskParameters: SwiftProtobuf
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.eq0Min) }()
-      case 2: try { try decoder.decodeSingularEnumField(value: &self.gt0Le5Min) }()
-      case 3: try { try decoder.decodeSingularEnumField(value: &self.gt5Le10Min) }()
-      case 4: try { try decoder.decodeSingularEnumField(value: &self.gt10Le15Min) }()
-      case 5: try { try decoder.decodeSingularEnumField(value: &self.gt15Le20Min) }()
-      case 6: try { try decoder.decodeSingularEnumField(value: &self.gt20Le25Min) }()
-      case 7: try { try decoder.decodeSingularEnumField(value: &self.gt25Le30Min) }()
-      case 8: try { try decoder.decodeSingularEnumField(value: &self.gt30Min) }()
+      case 1: try decoder.decodeSingularEnumField(value: &self.eq0Min)
+      case 2: try decoder.decodeSingularEnumField(value: &self.gt0Le5Min)
+      case 3: try decoder.decodeSingularEnumField(value: &self.gt5Le10Min)
+      case 4: try decoder.decodeSingularEnumField(value: &self.gt10Le15Min)
+      case 5: try decoder.decodeSingularEnumField(value: &self.gt15Le20Min)
+      case 6: try decoder.decodeSingularEnumField(value: &self.gt20Le25Min)
+      case 7: try decoder.decodeSingularEnumField(value: &self.gt25Le30Min)
+      case 8: try decoder.decodeSingularEnumField(value: &self.gt30Min)
       default: break
       }
     }
@@ -508,18 +444,15 @@ extension SAP_Internal_RiskScoreParameters.DaysSinceLastExposureRiskParameters: 
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.ge14Days) }()
-      case 2: try { try decoder.decodeSingularEnumField(value: &self.ge12Lt14Days) }()
-      case 3: try { try decoder.decodeSingularEnumField(value: &self.ge10Lt12Days) }()
-      case 4: try { try decoder.decodeSingularEnumField(value: &self.ge8Lt10Days) }()
-      case 5: try { try decoder.decodeSingularEnumField(value: &self.ge6Lt8Days) }()
-      case 6: try { try decoder.decodeSingularEnumField(value: &self.ge4Lt6Days) }()
-      case 7: try { try decoder.decodeSingularEnumField(value: &self.ge2Lt4Days) }()
-      case 8: try { try decoder.decodeSingularEnumField(value: &self.ge0Lt2Days) }()
+      case 1: try decoder.decodeSingularEnumField(value: &self.ge14Days)
+      case 2: try decoder.decodeSingularEnumField(value: &self.ge12Lt14Days)
+      case 3: try decoder.decodeSingularEnumField(value: &self.ge10Lt12Days)
+      case 4: try decoder.decodeSingularEnumField(value: &self.ge8Lt10Days)
+      case 5: try decoder.decodeSingularEnumField(value: &self.ge6Lt8Days)
+      case 6: try decoder.decodeSingularEnumField(value: &self.ge4Lt6Days)
+      case 7: try decoder.decodeSingularEnumField(value: &self.ge2Lt4Days)
+      case 8: try decoder.decodeSingularEnumField(value: &self.ge0Lt2Days)
       default: break
       }
     }
@@ -582,18 +515,15 @@ extension SAP_Internal_RiskScoreParameters.AttenuationRiskParameters: SwiftProto
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.gt73Dbm) }()
-      case 2: try { try decoder.decodeSingularEnumField(value: &self.gt63Le73Dbm) }()
-      case 3: try { try decoder.decodeSingularEnumField(value: &self.gt51Le63Dbm) }()
-      case 4: try { try decoder.decodeSingularEnumField(value: &self.gt33Le51Dbm) }()
-      case 5: try { try decoder.decodeSingularEnumField(value: &self.gt27Le33Dbm) }()
-      case 6: try { try decoder.decodeSingularEnumField(value: &self.gt15Le27Dbm) }()
-      case 7: try { try decoder.decodeSingularEnumField(value: &self.gt10Le15Dbm) }()
-      case 8: try { try decoder.decodeSingularEnumField(value: &self.le10Dbm) }()
+      case 1: try decoder.decodeSingularEnumField(value: &self.gt73Dbm)
+      case 2: try decoder.decodeSingularEnumField(value: &self.gt63Le73Dbm)
+      case 3: try decoder.decodeSingularEnumField(value: &self.gt51Le63Dbm)
+      case 4: try decoder.decodeSingularEnumField(value: &self.gt33Le51Dbm)
+      case 5: try decoder.decodeSingularEnumField(value: &self.gt27Le33Dbm)
+      case 6: try decoder.decodeSingularEnumField(value: &self.gt15Le27Dbm)
+      case 7: try decoder.decodeSingularEnumField(value: &self.gt10Le15Dbm)
+      case 8: try decoder.decodeSingularEnumField(value: &self.le10Dbm)
       default: break
       }
     }

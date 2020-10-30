@@ -261,17 +261,14 @@ extension SAP_External_Exposurenotification_TemporaryExposureKeyExport: SwiftPro
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularFixed64Field(value: &self._startTimestamp) }()
-      case 2: try { try decoder.decodeSingularFixed64Field(value: &self._endTimestamp) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self._region) }()
-      case 4: try { try decoder.decodeSingularInt32Field(value: &self._batchNum) }()
-      case 5: try { try decoder.decodeSingularInt32Field(value: &self._batchSize) }()
-      case 6: try { try decoder.decodeRepeatedMessageField(value: &self.signatureInfos) }()
-      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.keys) }()
+      case 1: try decoder.decodeSingularFixed64Field(value: &self._startTimestamp)
+      case 2: try decoder.decodeSingularFixed64Field(value: &self._endTimestamp)
+      case 3: try decoder.decodeSingularStringField(value: &self._region)
+      case 4: try decoder.decodeSingularInt32Field(value: &self._batchNum)
+      case 5: try decoder.decodeSingularInt32Field(value: &self._batchSize)
+      case 6: try decoder.decodeRepeatedMessageField(value: &self.signatureInfos)
+      case 7: try decoder.decodeRepeatedMessageField(value: &self.keys)
       default: break
       }
     }
@@ -327,15 +324,12 @@ extension SAP_External_Exposurenotification_SignatureInfo: SwiftProtobuf.Message
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self._appBundleID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self._androidPackage) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self._verificationKeyVersion) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self._verificationKeyID) }()
-      case 5: try { try decoder.decodeSingularStringField(value: &self._signatureAlgorithm) }()
+      case 1: try decoder.decodeSingularStringField(value: &self._appBundleID)
+      case 2: try decoder.decodeSingularStringField(value: &self._androidPackage)
+      case 3: try decoder.decodeSingularStringField(value: &self._verificationKeyVersion)
+      case 4: try decoder.decodeSingularStringField(value: &self._verificationKeyID)
+      case 5: try decoder.decodeSingularStringField(value: &self._signatureAlgorithm)
       default: break
       }
     }
@@ -384,16 +378,13 @@ extension SAP_External_Exposurenotification_TemporaryExposureKey: SwiftProtobuf.
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularBytesField(value: &self._keyData) }()
-      case 2: try { try decoder.decodeSingularInt32Field(value: &self._transmissionRiskLevel) }()
-      case 3: try { try decoder.decodeSingularInt32Field(value: &self._rollingStartIntervalNumber) }()
-      case 4: try { try decoder.decodeSingularInt32Field(value: &self._rollingPeriod) }()
-      case 5: try { try decoder.decodeSingularEnumField(value: &self._reportType) }()
-      case 6: try { try decoder.decodeSingularSInt32Field(value: &self._daysSinceOnsetOfSymptoms) }()
+      case 1: try decoder.decodeSingularBytesField(value: &self._keyData)
+      case 2: try decoder.decodeSingularInt32Field(value: &self._transmissionRiskLevel)
+      case 3: try decoder.decodeSingularInt32Field(value: &self._rollingStartIntervalNumber)
+      case 4: try decoder.decodeSingularInt32Field(value: &self._rollingPeriod)
+      case 5: try decoder.decodeSingularEnumField(value: &self._reportType)
+      case 6: try decoder.decodeSingularSInt32Field(value: &self._daysSinceOnsetOfSymptoms)
       default: break
       }
     }

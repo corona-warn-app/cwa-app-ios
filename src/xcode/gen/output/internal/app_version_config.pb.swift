@@ -113,12 +113,9 @@ extension SAP_Internal_ApplicationVersionConfiguration: SwiftProtobuf.Message, S
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._ios) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._android) }()
+      case 1: try decoder.decodeSingularMessageField(value: &self._ios)
+      case 2: try decoder.decodeSingularMessageField(value: &self._android)
       default: break
       }
     }
@@ -151,12 +148,9 @@ extension SAP_Internal_ApplicationVersionInfo: SwiftProtobuf.Message, SwiftProto
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._latest) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._min) }()
+      case 1: try decoder.decodeSingularMessageField(value: &self._latest)
+      case 2: try decoder.decodeSingularMessageField(value: &self._min)
       default: break
       }
     }
@@ -190,13 +184,10 @@ extension SAP_Internal_SemanticVersion: SwiftProtobuf.Message, SwiftProtobuf._Me
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.major) }()
-      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.minor) }()
-      case 3: try { try decoder.decodeSingularUInt32Field(value: &self.patch) }()
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.major)
+      case 2: try decoder.decodeSingularUInt32Field(value: &self.minor)
+      case 3: try decoder.decodeSingularUInt32Field(value: &self.patch)
       default: break
       }
     }

@@ -104,11 +104,8 @@ extension SAP_External_Exposurenotification_TEKSignatureList: SwiftProtobuf.Mess
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.signatures) }()
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.signatures)
       default: break
       }
     }
@@ -139,14 +136,11 @@ extension SAP_External_Exposurenotification_TEKSignature: SwiftProtobuf.Message,
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._signatureInfo) }()
-      case 2: try { try decoder.decodeSingularInt32Field(value: &self._batchNum) }()
-      case 3: try { try decoder.decodeSingularInt32Field(value: &self._batchSize) }()
-      case 4: try { try decoder.decodeSingularBytesField(value: &self._signature) }()
+      case 1: try decoder.decodeSingularMessageField(value: &self._signatureInfo)
+      case 2: try decoder.decodeSingularInt32Field(value: &self._batchNum)
+      case 3: try decoder.decodeSingularInt32Field(value: &self._batchSize)
+      case 4: try decoder.decodeSingularBytesField(value: &self._signature)
       default: break
       }
     }

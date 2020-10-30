@@ -64,11 +64,8 @@ extension SAP_Internal_RiskScoreClassification: SwiftProtobuf.Message, SwiftProt
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.riskClasses) }()
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.riskClasses)
       default: break
       }
     }
@@ -99,14 +96,11 @@ extension SAP_Internal_RiskScoreClass: SwiftProtobuf.Message, SwiftProtobuf._Mes
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.label) }()
-      case 2: try { try decoder.decodeSingularInt32Field(value: &self.min) }()
-      case 3: try { try decoder.decodeSingularInt32Field(value: &self.max) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.url) }()
+      case 1: try decoder.decodeSingularStringField(value: &self.label)
+      case 2: try decoder.decodeSingularInt32Field(value: &self.min)
+      case 3: try decoder.decodeSingularInt32Field(value: &self.max)
+      case 4: try decoder.decodeSingularStringField(value: &self.url)
       default: break
       }
     }
