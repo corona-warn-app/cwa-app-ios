@@ -59,7 +59,7 @@ final class CachedAppConfiguration {
 		fetchConfig(with: etag)
 	}
 
-	private func fetchConfig(with etag: String?, compltanetion: Completion? = nil) {
+	private func fetchConfig(with etag: String?, completion: Completion? = nil) {
 		client.fetchAppConfiguration(etag: etag) { [weak self] result in
 			guard let self = self else { return }
 
