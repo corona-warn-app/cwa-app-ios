@@ -49,8 +49,8 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 	}
 
 	func resetDeviceTimeFlags() {
-		store.deviceTimeIsCorrect = true
-		store.deviceTimeErrorWasShown = false
+		store.isDeviceTimeCorrect = true
+		store.wasDeviceTimeErrorShown = false
 	}
 
 	// MARK: - Private
@@ -61,9 +61,9 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 		isDeviceTimeCorrect: Bool,
 		isDeviceTimeCheckKillSwitchActive: Bool
 	) {
-		store.deviceTimeIsCorrect = isDeviceTimeCheckKillSwitchActive ? true : isDeviceTimeCorrect
-		if store.deviceTimeIsCorrect {
-			store.deviceTimeErrorWasShown = false
+		store.isDeviceTimeCorrect = isDeviceTimeCheckKillSwitchActive ? true : isDeviceTimeCorrect
+		if store.isDeviceTimeCorrect {
+			store.wasDeviceTimeErrorShown = false
 		}
 	}
 

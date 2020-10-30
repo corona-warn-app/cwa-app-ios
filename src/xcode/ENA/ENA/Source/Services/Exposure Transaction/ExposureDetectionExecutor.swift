@@ -208,11 +208,11 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 /// Extension to have the device time SecureStore API available
 extension ExposureDetectionExecutor {
 	func isDeviceTimeCorrect() -> Bool {
-		return store.deviceTimeIsCorrect
+		return store.isDeviceTimeCorrect
 	}
 	
 	func hasDeviceTimeErrorBeenShown() -> Bool {
-		return store.deviceTimeErrorWasShown
+		return store.wasDeviceTimeErrorShown
 	}
 }
 

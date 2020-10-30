@@ -109,13 +109,13 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				switch error {
 				case .failedRiskDetection(let reason):
 					if case .wrongDeviceTime = reason {
-						if !self.store.deviceTimeErrorWasShown {
+						if !self.store.wasDeviceTimeErrorShown {
 							UNUserNotificationCenter.current().presentNotification(
 								title: AppStrings.WrongDeviceTime.errorPushNotificationTitle,
 								body: AppStrings.WrongDeviceTime.errorPushNotificationText,
 								identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier + ".device-time-check"
 							)
-							self.store.deviceTimeErrorWasShown = true
+							self.store.wasDeviceTimeErrorShown = true
 						}
 					}
 				default:
