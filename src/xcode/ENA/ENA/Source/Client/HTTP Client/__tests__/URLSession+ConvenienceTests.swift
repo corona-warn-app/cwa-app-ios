@@ -21,9 +21,7 @@ import XCTest
 final class URLSessionConvenienceTests: XCTestCase {
 	func testExecuteRequest_Success() {
 		let url = URL(staticString: "https://localhost:8080")
-		let dateFormatter = DateFormatter()
-		dateFormatter.locale = Locale(identifier: "us_US")
-		dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
+		let dateFormatter = ENAFormatter.httpDateHeaderFormatter
 		let dateString = "Wed, 07 Oct 2020 12:17:01 GMT"
 
 		let data = Data("hello".utf8)
@@ -91,9 +89,7 @@ final class URLSessionConvenienceTests: XCTestCase {
 
 	func testExecuteRequest_FailureWithError() {
 		let url = URL(staticString: "https://localhost:8080")
-		let dateFormatter = DateFormatter()
-		dateFormatter.locale = Locale(identifier: "us_US")
-		dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
+		let dateFormatter = ENAFormatter.httpDateHeaderFormatter
 		let dateString = "Wed, 07 Oct 2020 12:17:01 GMT"
 
 		let notConnectedError = NSError(

@@ -333,6 +333,7 @@
 		AB010D05253ECC9200DF1F61 /* RiskFailedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB010D03253ECC9200DF1F61 /* RiskFailedCollectionViewCell.xib */; };
 		AB1011592507C15000D392A2 /* TracingStatusHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1011572507C15000D392A2 /* TracingStatusHistory.swift */; };
 		AB10115B250926BB00D392A2 /* CountryKeypackageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB10115A250926BB00D392A2 /* CountryKeypackageDownloader.swift */; };
+		AB126873254C05A7006E9194 /* ENAFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB126872254C05A7006E9194 /* ENAFormatter.swift */; };
 		AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */; };
 		AB1886C4252DE1AF00D39BBE /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1886C3252DE1AE00D39BBE /* Logging.swift */; };
 		AB1886D1252DE51E00D39BBE /* Bundle+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1886D0252DE51E00D39BBE /* Bundle+Identifier.swift */; };
@@ -904,6 +905,7 @@
 		AB010D03253ECC9200DF1F61 /* RiskFailedCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RiskFailedCollectionViewCell.xib; sourceTree = "<group>"; };
 		AB1011572507C15000D392A2 /* TracingStatusHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracingStatusHistory.swift; sourceTree = "<group>"; };
 		AB10115A250926BB00D392A2 /* CountryKeypackageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryKeypackageDownloader.swift; sourceTree = "<group>"; };
+		AB126872254C05A7006E9194 /* ENAFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAFormatter.swift; sourceTree = "<group>"; };
 		AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerTests.swift; sourceTree = "<group>"; };
 		AB1886C3252DE1AE00D39BBE /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
 		AB1886D0252DE51E00D39BBE /* Bundle+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Identifier.swift"; sourceTree = "<group>"; };
@@ -1633,6 +1635,7 @@
 		51D420D524598AC200AD70CA /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				AB126871254C0598006E9194 /* Utils */,
 				353412CB2525EE4A0086D15C /* Globals.swift */,
 				AB1FCBCA2521FC21005930BA /* ServerEnvironment */,
 				B111EDEC2465B1F4001AEBB4 /* Client */,
@@ -2114,6 +2117,14 @@
 				AB1011572507C15000D392A2 /* TracingStatusHistory.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		AB126871254C0598006E9194 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				AB126872254C05A7006E9194 /* ENAFormatter.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		AB1885CF25238D9B00D39BBE /* __tests__ */ = {
@@ -3327,6 +3338,7 @@
 				01D6948B25026EC000B45BEA /* DatePickerOptionViewModel.swift in Sources */,
 				2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */,
 				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
+				AB126873254C05A7006E9194 /* ENAFormatter.swift in Sources */,
 				CDD87C56247556DE007CE6CA /* MainSettingsTableViewCell.swift in Sources */,
 				AB6289D4251BA4EC00CF61D2 /* String+Compare.swift in Sources */,
 				B153096C24706F2400A4A1BD /* URLSessionConfiguration+Default.swift in Sources */,
