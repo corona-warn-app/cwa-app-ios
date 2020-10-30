@@ -133,12 +133,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			detectionMode: .default
 		)
 
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			store: store
+		)
+
 		return RiskProvider(
 			configuration: config,
 			store: self.store,
 			exposureSummaryProvider: self,
 			appConfigurationProvider: appConfigurationProvider,
-			exposureManagerState: self.exposureManager.preconditions()
+			exposureManagerState: self.exposureManager.preconditions(),
+			keyPackageDownload: keyPackageDownload
 		)
 	}()
 

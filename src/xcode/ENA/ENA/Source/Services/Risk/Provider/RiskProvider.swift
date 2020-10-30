@@ -43,6 +43,7 @@ final class RiskProvider {
 	private var consumersQueue = DispatchQueue(label: "com.sap.RiskProvider.consumer")
 	private var cancellationToken: CancellationToken?
 	private let riskCalculation: RiskCalculationProtocol
+	private let keyPackageDownload: KeyPackageDownloadProtocol
 
 	private var _consumers: [RiskConsumer] = []
 	private var consumers: [RiskConsumer] {
@@ -58,7 +59,8 @@ final class RiskProvider {
 		appConfigurationProvider: AppConfigurationProviding,
 		exposureManagerState: ExposureManagerState,
 		targetQueue: DispatchQueue = .main,
-		riskCalculation: RiskCalculationProtocol = RiskCalculation()
+		riskCalculation: RiskCalculationProtocol = RiskCalculation(),
+		keyPackageDownload: KeyPackageDownloadProtocol
 	) {
 		self.configuration = configuration
 		self.store = store
@@ -67,6 +69,7 @@ final class RiskProvider {
 		self.exposureManagerState = exposureManagerState
 		self.targetQueue = targetQueue
 		self.riskCalculation = riskCalculation
+		self.keyPackageDownload = keyPackageDownload
 
 		self.$activityState
 			.removeDuplicates()
@@ -137,6 +140,7 @@ extension RiskProvider: RiskProviding {
 				lastExposureDetectionDate: store.summary?.date
 			)
 			if !enoughTimeHasPassed || !self.exposureManagerState.isGood {
+				Log.info("RiskProvider: Use summeries from cache.", log: .riskDetection)
 				completion(store.summary)
 				return
 			}
@@ -145,10 +149,13 @@ extension RiskProvider: RiskProviding {
 			let shouldDetectExposures = (configuration.detectionMode == .manual && userInitiated) || configuration.detectionMode == .automatic
 
 			if shouldDetectExposures == false {
+				Log.info("RiskProvider: Use summeries from cache.", log: .riskDetection)
 				completion(store.summary)
 				return
 			}
 		}
+
+		Log.info("RiskProvider: Start exposure detection.", log: .riskDetection)
 
 		// The summary is outdated: do a exposure detection
 		self.cancellationToken = exposureSummaryProvider.detectExposure(appConfiguration: appConfiguration, activityStateDelegate: self) { [weak self] detectedSummary in
@@ -159,6 +166,9 @@ extension RiskProvider: RiskProviding {
 
 				/// We were able to calculate a risk so we have to reset the deadman notification
 				UNUserNotificationCenter.current().resetDeadmanNotification()
+				
+				Log.info("RiskProvider: Use fresh exposure detection from ENF.", log: .riskDetection)
+
 				completion(self.store.summary)
 			} else {
 				completion(nil)
@@ -266,15 +276,22 @@ extension RiskProvider: RiskProviding {
 			case .success(let config):
 				appConfiguration = config
 
-				self?.determineSummary(userInitiated: userInitiated, ignoreCachedSummary: ignoreCachedSummary, appConfiguration: config) {
-					summary = $0
-					group.leave()
-				}
+				self?.keyPackageDownload.start(completion: { result in
+					switch result {
+					case .success:
+						self?.determineSummary(userInitiated: userInitiated, ignoreCachedSummary: ignoreCachedSummary, appConfiguration: config) {
+							summary = $0
+							group.leave()
+						}
+					case .failure(let error):
+						self?.failOnTargetQueue(error: .failedKeyPackageDownload(error), completion: completion)
+						group.leave()
+					}
+				})
+
 			case .failure(let error):
 				Log.error(error.localizedDescription, log: .api)
-
 				self?.failOnTargetQueue(error: .missingAppConfig, completion: completion)
-
 				group.leave()
 			}
 		}

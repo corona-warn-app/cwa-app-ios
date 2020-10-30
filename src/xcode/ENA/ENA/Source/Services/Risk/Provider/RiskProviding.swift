@@ -24,6 +24,7 @@ typealias RiskCalculationResult = Result<Risk, RiskCalculationError>
 enum RiskCalculationError: Error {
 	case timeout
 	case missingAppConfig
+	case failedKeyPackageDownload(KeyPackageDownloadError)
 	case failedRiskCalculation
 	case failedRiskDetection
 }
