@@ -91,7 +91,7 @@ final class CachedAppConfiguration {
 			}
 
 			if let serverTime = result.1 {
-				self.deviceTimeCheck.checkAndPersistDeviceTimeFlags(
+				self.deviceTimeCheck.updateDeviceTimeFlags(
 					serverTime: serverTime,
 					deviceTime: Date()
 				)

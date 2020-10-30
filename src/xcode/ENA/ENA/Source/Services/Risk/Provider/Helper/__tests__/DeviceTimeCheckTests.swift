@@ -30,7 +30,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 		let deviceTime = Date()
 
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
-		deviceTimeCheck.checkAndPersistDeviceTimeFlags(
+		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
 			deviceTime: deviceTime
 		)
@@ -50,7 +50,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 		}
 
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
-		deviceTimeCheck.checkAndPersistDeviceTimeFlags(
+		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
 			deviceTime: deviceTime
 		)
@@ -70,7 +70,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 		}
 
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
-		deviceTimeCheck.checkAndPersistDeviceTimeFlags(
+		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
 			deviceTime: deviceTime
 		)
@@ -90,7 +90,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 		}
 
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
-		deviceTimeCheck.checkAndPersistDeviceTimeFlags(
+		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
 			deviceTime: deviceTime
 		)
@@ -110,7 +110,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 		}
 
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
-		deviceTimeCheck.checkAndPersistDeviceTimeFlags(
+		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
 			deviceTime: deviceTime
 		)
@@ -130,7 +130,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 		}
 
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
-		deviceTimeCheck.checkAndPersistDeviceTimeFlags(
+		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
 			deviceTime: deviceTime
 		)

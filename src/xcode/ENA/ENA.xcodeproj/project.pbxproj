@@ -988,7 +988,7 @@
 		B19FD7122491A08500A9D56A /* SAP_SemanticVersion+Compare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_SemanticVersion+Compare.swift"; sourceTree = "<group>"; };
 		B19FD7142491A4A300A9D56A /* SAP_SemanticVersionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAP_SemanticVersionTests.swift; sourceTree = "<group>"; };
 		B1A31F6824DAE6C000E263DF /* DMKeyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyCell.swift; sourceTree = "<group>"; };
-		B1A9E70D246D73180024CC12 /* ExposureDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetection.swift; sourceTree = "<group>"; };
+		B1A9E70D246D73180024CC12 /* ExposureDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetection.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		B1A9E710246D782F0024CC12 /* SAPDownloadedPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAPDownloadedPackage.swift; sourceTree = "<group>"; };
 		B1AC51D524CED8820087C35B /* DetectionModeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionModeTests.swift; sourceTree = "<group>"; };
 		B1B9CF1E246ED2E8008F04F5 /* Sap_FilebucketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sap_FilebucketTests.swift; sourceTree = "<group>"; };
