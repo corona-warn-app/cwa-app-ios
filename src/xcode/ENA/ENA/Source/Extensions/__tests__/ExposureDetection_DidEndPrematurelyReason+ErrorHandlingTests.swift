@@ -50,6 +50,14 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 			Reason.noDiskSpace.errorAlertController(rootController: root)
 		)
 	}
+	
+	func testWrongDeviceTimeErrorAlert() {
+		let root = UIViewController()
+
+		XCTAssertNotNil(
+			Reason.wrongDeviceTime.errorAlertController(rootController: root)
+		)
+	}
 
 	// MARK: - Special ENError handling tests
 	
