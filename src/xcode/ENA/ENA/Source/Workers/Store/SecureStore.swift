@@ -248,6 +248,16 @@ final class SecureStore: Store {
 		get { kvStore["wasDeviceTimeErrorShown"] as Bool? ?? false }
 		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
 	}
+	
+	var warnOthersNotificationOneDelay: Int{
+		get { kvStore["wasDeviceTimeErrorShown"] as Int? ?? 7200 }
+		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
+	}
+	
+	var warnOthersNotificationTwoDelay: Int{
+		get { kvStore["wasDeviceTimeErrorShown"] as Int? ?? 14400 }
+		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
+	}
 
 	#if !RELEASE
 
