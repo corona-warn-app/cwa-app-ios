@@ -31,36 +31,6 @@
 			<string>Aveți un risc crescut de infectare deoarece ați fost expus ultima dată acum %u de zile pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.</string>
 		</dict>
 	</dict>
-	<key>ExposureDetection_NumberOfContacts</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<!--Plural form for ZERO.-->
-			<string>Nicio expunere până acum</string>
-			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>O expunere</string>
-			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>%u expuneri</string>
-			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>%u expuneri</string>
-			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>%u expuneri</string>
-			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>%u de expuneri</string>
-		</dict>
-	</dict>
 	<key>ExposureDetection_LastExposure</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -106,7 +76,7 @@
 			<string>Nicio expunere până acum</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>%u întâlnire cu risc redus</string>
+			<string>O întâlnire cu risc redus</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
 			<string>%u întâlniri cu risc redus</string>
@@ -136,7 +106,7 @@
 			<string>Nicio expunere până acum</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>%u expunere</string>
+			<string>O expunere</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
 			<string>%u expuneri</string>
@@ -208,7 +178,7 @@
 			<string>Actualizare în %02u:%2$#@seconds@ minute</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>Actualizare în %02u:%2$#@seconds@ de minute</string>
+			<string>Actualizare în %02u:%2$#@seconds@ minute</string>
 		</dict>
 		<key>seconds</key>
 		<dict>

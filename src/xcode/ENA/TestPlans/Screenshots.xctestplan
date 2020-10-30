@@ -1,0 +1,43 @@
+{
+  "configurations" : [
+    {
+      "id" : "E49DA41E-E8E3-4DAA-8D5E-903DF2089E55",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "mainThreadCheckerEnabled" : false,
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "ENAUITests_00_Onboarding\/test_0000_OnboardingFlow_DisablePermissions_normal_XXXL()",
+        "ENAUITests_00_Onboarding\/test_0001_OnboardingFlow_EnablePermissions_normal_XS()",
+        "ENAUITests_01_Home\/test_0010_HomeFlow_medium()",
+        "ENAUITests_01_Home\/test_0011_HomeFlow_extrasmall()",
+        "ENAUITests_01_Home\/test_0013_HomeFlow_extralarge()",
+        "ENAUITests_02_AppInformation",
+        "ENAUITests_03_Settings",
+        "ENAUITests_04_ExposureSubmissionUITests\/test_NavigateToHotlineVC()",
+        "ENAUITests_04_ExposureSubmissionUITests\/test_NavigateToIntroVC()",
+        "ENAUITests_04_ExposureSubmissionUITests\/test_QRCodeScanOpened()",
+        "ENAUITests_04_ExposureSubmissionUITests\/test_SubmitTAN_SecondaryFlowWithoutSymptomsScreens()",
+        "ENAUITests_04_ExposureSubmissionUITests\/test_SubmitTAN_SymptomsOnsetDateOption()",
+        "ENAUITests_04_ExposureSubmissionUITests\/test_SubmitTAN_SymptomsOptionNo()",
+        "ENAUITests_04_ExposureSubmissionUITests\/test_SubmitTAN_SymptomsOptionPreferNotToSay()",
+        "ENAUITests_06_DeltaOnboarding\/testDeltaOnboardingV15View()"
+      ],
+      "target" : {
+        "containerPath" : "container:ENA.xcodeproj",
+        "identifier" : "85D7595E24570491008175F0",
+        "name" : "ENAUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

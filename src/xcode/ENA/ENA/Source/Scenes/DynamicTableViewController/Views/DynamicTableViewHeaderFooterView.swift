@@ -22,8 +22,8 @@ class DynamicTableViewHeaderFooterView: UITableViewHeaderFooterView {
 	private let tapGestureRecognizer = DynamicTableHeaderFooterViewTapGestureRecognizer()
 
 	var block: (() -> Void)? {
-		set { tapGestureRecognizer.block = newValue }
 		get { tapGestureRecognizer.block }
+		set { tapGestureRecognizer.block = newValue }
 	}
 
 	override func awakeFromNib() {

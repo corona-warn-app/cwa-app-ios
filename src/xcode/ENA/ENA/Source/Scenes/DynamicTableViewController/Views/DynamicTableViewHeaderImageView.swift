@@ -23,13 +23,13 @@ class DynamicTableViewHeaderImageView: UITableViewHeaderFooterView {
 	private var heightConstraint: NSLayoutConstraint!
 
 	var image: UIImage? {
-		set { imageView.image = newValue }
 		get { imageView.image }
+		set { imageView.image = newValue }
 	}
 
 	var height: CGFloat {
-		set { heightConstraint.constant = newValue }
 		get { heightConstraint.constant }
+		set { heightConstraint.constant = newValue }
 	}
 
 	@available(*, unavailable)

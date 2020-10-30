@@ -56,7 +56,7 @@ struct SAPDownloadedPackage {
 
 		func verify(_ package: SAPDownloadedPackage) -> Bool {
 			guard
-				let parsedSignatureFile = try? SAP_TEKSignatureList(serializedData: package.signature)
+				let parsedSignatureFile = try? SAP_External_Exposurenotification_TEKSignatureList(serializedData: package.signature)
 				else {
 				return false
 			}
@@ -68,7 +68,7 @@ struct SAPDownloadedPackage {
 				guard
 					let signature = try? P256.Signing.ECDSASignature(derRepresentation: signatureData)
 				else {
-					logError(message: "Could not validate signature of downloaded package", level: .warning)
+					Log.warning("Could not validate signature of downloaded package", log: .api)
 					continue
 				}
 

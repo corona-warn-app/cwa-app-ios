@@ -24,6 +24,7 @@ final class MockTestStore: Store, AppConfigCaching {
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
 	var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
+	var shouldShowRiskStatusLoweredAlert: Bool = false
 	var summary: SummaryMetadata?
 	var tracingStatusHistory: TracingStatusHistory = []
 	var testResultReceivedTimeStamp: Int64?
@@ -56,16 +57,13 @@ final class MockTestStore: Store, AppConfigCaching {
 	var selectedServerEnvironment: ServerEnvironmentData = ServerEnvironment().defaultEnvironment()
 
 	#if !RELEASE
-
 	// Settings from the debug menu.
-
-	var fakeSQLiteError: Int32? = nil
-
+	var fakeSQLiteError: Int32?
 	#endif
 
 	// MARK: - AppConfigCaching
 	
 	var lastAppConfigETag: String?
 	var lastAppConfigFetch: Date?
-	var appConfig: SAP_ApplicationConfiguration?
+	var appConfig: SAP_Internal_ApplicationConfiguration?
 }

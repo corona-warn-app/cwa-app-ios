@@ -51,7 +51,7 @@ extension UNUserNotificationCenter {
 				
 				self.add(request) { error in
 					if error != nil {
-						logError(message: "Deadman notification could not be scheduled.")
+						Log.error("Deadman notification could not be scheduled.")
 					}
 				}
 			}

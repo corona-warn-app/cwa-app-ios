@@ -22,25 +22,22 @@ import Foundation
 
 final class CachingHTTPClientMock: CachingHTTPClient {
 
-	convenience init() {
-		let serverEnvironment = ServerEnvironment()
-		let store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
+	convenience init(store: Store = MockTestStore()) {
 		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
-
 		self.init(clientConfiguration: configuration)
 	}
 
-	static let staticAppConfig: SAP_ApplicationConfiguration = {
+	static let staticAppConfig: SAP_Internal_ApplicationConfiguration = {
 		let bundle = Bundle(for: CachingHTTPClientMock.self)
 		// there is a test for this (`testStaticAppConfiguration`), let's keep it short.
 		guard
 			let fixtureUrl = bundle.url(forResource: "de-config-int-2020-09-25", withExtension: nil),
 			let fixtureData = try? Data(contentsOf: fixtureUrl),
 			let bucket = SAPDownloadedPackage(compressedData: fixtureData),
-			let config = try? SAP_ApplicationConfiguration(serializedData: bucket.bin)
+			let config = try? SAP_Internal_ApplicationConfiguration(serializedData: bucket.bin)
 		else {
 			assertionFailure("check this!")
-			return SAP_ApplicationConfiguration()
+			return SAP_Internal_ApplicationConfiguration()
 		}
 		return config
 	}()

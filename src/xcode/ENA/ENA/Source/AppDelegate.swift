@@ -28,7 +28,6 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
-	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
 	var serverEnvironment: ServerEnvironment { get }
 }
 
@@ -38,13 +37,15 @@ extension AppDelegate: CoronaWarnAppDelegate {
 
 extension AppDelegate: ExposureSummaryProvider {
 	func detectExposure(
+		appConfiguration: SAP_Internal_ApplicationConfiguration,
 		activityStateDelegate: ActivityStateProviderDelegate? = nil,
 		completion: @escaping (ENExposureDetectionSummary?) -> Void
 	) -> CancellationToken {
+		Log.info("AppDelegate: Detect exposure.", log: .riskDetection)
 
 		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
-			appConfigurationProvider: appConfigurationProvider
+			appConfiguration: appConfiguration
 		)
 		
 		exposureDetection?
@@ -60,8 +61,10 @@ extension AppDelegate: ExposureSummaryProvider {
 		exposureDetection?.start { [weak self] result in
 			switch result {
 			case .success(let summary):
+				Log.info("AppDelegate: Detect exposure completed", log: .riskDetection)
 				completion(summary)
 			case .failure(let error):
+				Log.error("AppDelegate: Detect exposure failed", log: .riskDetection, error: error)
 				self?.showError(exposure: error)
 				completion(nil)
 			}
@@ -106,10 +109,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 
 	lazy var appConfigurationProvider: AppConfigurationProviding = {
+		#if DEBUG
+		if isUITesting {
+			// provide a static app configuration for ui tests to prevent validation errors
+			return CachedAppConfigurationMock()
+		}
+		#endif
 		// use a custom http client that uses/recognized caching mechanisms
 		let appFetchingClient = CachingHTTPClient(clientConfiguration: client.configuration)
-
-		return CachedAppConfiguration(client: appFetchingClient, store: store)
+		
+		return CachedAppConfiguration(client: appFetchingClient, store: store, configurationDidChange: { [weak self] in
+			// Recalculate risk with new app configuration
+			self?.riskProvider.requestRisk(userInitiated: false, ignoreCachedSummary: true)
+		})
 	}()
 
 	lazy var riskProvider: RiskProvider = {
@@ -147,9 +159,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
 	let client: HTTPClient
-
-	// TODO: REMOVE ME
-	var lastRiskCalculation: String = ""
 
 	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
 		ExposureDetectionExecutor(

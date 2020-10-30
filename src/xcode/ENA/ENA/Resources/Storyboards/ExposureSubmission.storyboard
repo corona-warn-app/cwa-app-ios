@@ -6,7 +6,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,17 +14,17 @@
             <objects>
                 <viewController storyboardIdentifier="ExposureSubmissionTanInputViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aFo-WD-gEN" customClass="ExposureSubmissionTanInputViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9jY-Vi-dC9">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qBb-LO-eZK">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8dd-c4-eqD">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="752"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="G88-yG-qxh">
-                                                <rect key="frame" x="16" y="16" width="382" height="720"/>
+                                                <rect key="frame" x="16" y="16" width="382" height="742"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" text="Headline" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0N-4y-Zcm" userLabel="Description" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
@@ -37,10 +36,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <view contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vX9-jY-8CQ">
-                                                        <rect key="frame" x="0.0" y="36.5" width="382" height="617.5"/>
+                                                        <rect key="frame" x="0.0" y="36.5" width="382" height="639.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFa-H0-7iG" customClass="ENATanInput" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="284" width="382" height="50"/>
+                                                                <rect key="frame" x="0.0" y="296.5" width="382" height="46.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" priority="250" constant="50" placeholder="YES" id="GoX-aD-BHg"/>
                                                                 </constraints>
@@ -55,7 +54,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="8rA-X0-4lX">
-                                                        <rect key="frame" x="0.0" y="670" width="382" height="50"/>
+                                                        <rect key="frame" x="0.0" y="692" width="382" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" text="Headline" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuS-ZV-gMr" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
@@ -115,180 +114,11 @@
                         <outlet property="errorView" destination="8rA-X0-4lX" id="RKU-K1-1cV"/>
                         <outlet property="scrollView" destination="qBb-LO-eZK" id="qoE-wM-nHa"/>
                         <outlet property="tanInput" destination="fFa-H0-7iG" id="fon-ur-kpf"/>
-                        <segue destination="JPa-EJ-yrk" kind="show" identifier="sentSegue" id="HlT-ix-3R2"/>
-                        <segue destination="IeT-ta-YWf" kind="show" identifier="warnOthersSegue" id="aeq-iH-Hkk"/>
-                        <segue destination="efh-V6-b47" kind="show" identifier="labResultsSegue" id="n8Y-d3-Pny"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cv3-qo-bBS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1706" y="461"/>
-        </scene>
-        <!--Testergebnis-->
-        <scene sceneID="Fhn-PD-wgg">
-            <objects>
-                <tableViewController storyboardIdentifier="ExposureSubmissionTestResultViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="efh-V6-b47" customClass="ExposureSubmissionTestResultViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="gbg-tE-mnF">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="ENA Background Color"/>
-                        <connections>
-                            <outlet property="dataSource" destination="efh-V6-b47" id="hBs-QM-9cu"/>
-                            <outlet property="delegate" destination="efh-V6-b47" id="Vg9-3e-Kw3"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Testergebnis" id="ZER-NQ-eAY" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
-                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <segue destination="IeT-ta-YWf" kind="show" identifier="warnOthersSegue" id="7vS-vS-v87"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="J9o-td-y9f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2480" y="461"/>
-        </scene>
-        <!--Test Registrieren-->
-        <scene sceneID="aO0-Xg-smX">
-            <objects>
-                <tableViewController storyboardIdentifier="ExposureSubmissionOverviewViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yc4-yu-NbP" customClass="ExposureSubmissionOverviewViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="I2D-eU-Ob2">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="ENA Background Color"/>
-                        <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <connections>
-                            <outlet property="dataSource" destination="yc4-yu-NbP" id="P1d-vH-Sus"/>
-                            <outlet property="delegate" destination="yc4-yu-NbP" id="KNh-bz-KJM"/>
-                        </connections>
-                    </tableView>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Test Registrieren" id="M8d-ii-EG4" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
-                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <segue destination="aFo-WD-gEN" kind="show" identifier="tanInputSegue" id="zPx-Mo-iVD"/>
-                        <segue destination="BYY-Kq-aHb" kind="show" identifier="qrScannerSegue" id="57u-UG-VMo"/>
-                        <segue destination="efh-V6-b47" kind="show" identifier="labResultSegue" id="4QH-h7-ntj"/>
-                        <segue destination="JDx-c2-PAb" kind="show" identifier="hotlineSegue" id="hxl-5U-J6A"/>
-                    </connections>
-                </tableViewController>
-                <barButtonItem style="plain" id="GIX-lF-ozK">
-                    <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="FaA-yn-Xch" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                        <rect key="frame" x="20" y="5" width="374" height="44"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <state key="normal" title="Button"/>
-                    </button>
-                </barButtonItem>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="G8O-g9-RSX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="934.78260869565224" y="460.71428571428567"/>
-        </scene>
-        <!--Exposure SubmissionQR Scanner Navigation Controller-->
-        <scene sceneID="HrB-NV-jDk">
-            <objects>
-                <navigationController storyboardIdentifier="ExposureSubmissionQRScannerNavigationController" modalPresentationStyle="fullScreen" interfaceStyle="dark" id="BYY-Kq-aHb" customClass="ExposureSubmissionQRScannerNavigationController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="aXv-uE-SC5"/>
-                    <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iPc-CN-Pgt">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="G7e-Tz-9aM" kind="relationship" relationship="rootViewController" id="pnr-FI-edt"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="y3I-G4-rEL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1706" y="-287"/>
-        </scene>
-        <!--QR-Code Scan-->
-        <scene sceneID="5MN-9W-Xff">
-            <objects>
-                <viewController id="G7e-Tz-9aM" customClass="ExposureSubmissionQRScannerViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="1rF-Kc-jE8">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R79-KI-RLB" customClass="ExposureSubmissionQRScannerFocusView" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="20.5" y="224" width="373" height="448"/>
-                                <color key="tintColor" name="ENA Text Contrast Color"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="8"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="backdropOpacity">
-                                        <real key="value" value="0.20000000000000001"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="999" text="Positionieren Sie den Rahmen über dem QR Code Ihres Dokuments" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTI-P6-3Zh" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="52" y="149.5" width="310.5" height="42.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <color key="textColor" name="ENA Text Contrast Color"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="SS3-oV-R9m"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="R79-KI-RLB" secondAttribute="bottom" id="2GO-5C-F0I"/>
-                            <constraint firstItem="aTI-P6-3Zh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="SS3-oV-R9m" secondAttribute="top" constant="32" id="9nw-Pu-4mr"/>
-                            <constraint firstItem="R79-KI-RLB" firstAttribute="centerX" secondItem="1rF-Kc-jE8" secondAttribute="centerX" id="HIc-Km-GCl"/>
-                            <constraint firstItem="R79-KI-RLB" firstAttribute="centerY" secondItem="1rF-Kc-jE8" secondAttribute="centerY" priority="900" id="INA-GV-JcS"/>
-                            <constraint firstItem="R79-KI-RLB" firstAttribute="width" secondItem="1rF-Kc-jE8" secondAttribute="width" multiplier="0.9" priority="999" id="V1e-cq-m2y"/>
-                            <constraint firstItem="R79-KI-RLB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1rF-Kc-jE8" secondAttribute="leadingMargin" id="hJX-27-e8f"/>
-                            <constraint firstItem="aTI-P6-3Zh" firstAttribute="width" secondItem="SS3-oV-R9m" secondAttribute="width" multiplier="0.75" id="kwW-lJ-oPc"/>
-                            <constraint firstItem="R79-KI-RLB" firstAttribute="top" secondItem="aTI-P6-3Zh" secondAttribute="bottom" constant="32" id="nCL-Dc-LAj"/>
-                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="R79-KI-RLB" secondAttribute="trailing" id="oZz-FW-hYH"/>
-                            <constraint firstItem="R79-KI-RLB" firstAttribute="height" secondItem="1rF-Kc-jE8" secondAttribute="height" multiplier="0.5" priority="999" id="uqD-w0-C0m"/>
-                            <constraint firstItem="aTI-P6-3Zh" firstAttribute="centerX" secondItem="1rF-Kc-jE8" secondAttribute="centerX" id="whd-Ii-ypq"/>
-                        </constraints>
-                        <edgeInsets key="layoutMargins" top="32" left="16" bottom="32" right="16"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="QR-Code Scan" largeTitleDisplayMode="never" id="Mky-1g-CYO">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="YEe-QI-wZs">
-                            <connections>
-                                <action selector="close" destination="G7e-Tz-9aM" id="RPm-4y-q6C"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" id="mLH-hK-j6V">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6dT-1D-1p0">
-                                <rect key="frame" x="374" y="8" width="20" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="bolt" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
-                                </state>
-                                <state key="selected" image="bolt.fill" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
-                                </state>
-                                <connections>
-                                    <action selector="toggleFlash" destination="G7e-Tz-9aM" eventType="touchUpInside" id="ELU-YH-Bxy"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="flashButton" destination="6dT-1D-1p0" id="JCv-OD-9wD"/>
-                        <outlet property="focusView" destination="R79-KI-RLB" id="mJb-2u-Vpe"/>
-                        <outlet property="instructionLabel" destination="aTI-P6-3Zh" id="lrH-Nw-wTD"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YpB-P0-Ufl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2480" y="-287"/>
         </scene>
         <!--Exposure Submission Navigation Controller-->
         <scene sceneID="woc-yd-Srs">
@@ -310,7 +140,7 @@
             <objects>
                 <viewController storyboardIdentifier="ExposureSubmissionWarnOthersViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IeT-ta-YWf" customClass="ExposureSubmissionWarnOthersViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="qAy-a1-zcN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" name="ENA Background Color"/>
                     </tableView>
@@ -320,9 +150,6 @@
                             <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
-                    <connections>
-                        <segue destination="JPa-EJ-yrk" kind="show" identifier="sentSegue" id="5YR-5A-F8h"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FGf-ff-3AK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -333,7 +160,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="ExposureSubmissionSuccessViewController" id="JPa-EJ-yrk" customClass="ExposureSubmissionSuccessViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="HD9-Sn-JvJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="ENA Background Color"/>
                         <connections>
@@ -376,10 +203,6 @@
                             <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
-                    <connections>
-                        <segue destination="yc4-yu-NbP" kind="show" identifier="overviewSegue" id="lCb-cl-Yp4"/>
-                        <segue destination="efh-V6-b47" kind="show" identifier="labResultSegue" id="F8Z-7e-umN"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aPQ-SJ-AWB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -390,7 +213,7 @@
             <objects>
                 <viewController restorationIdentifier="ExposureSubmissionHotlineViewController " storyboardIdentifier="ExposureSubmissionHotlineViewController" id="JDx-c2-PAb" customClass="ExposureSubmissionHotlineViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="Bij-4W-Ok4">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" name="ENA Background Color"/>
                     </tableView>
@@ -400,73 +223,10 @@
                             <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
-                    <connections>
-                        <segue destination="aFo-WD-gEN" kind="show" identifier="tanInputSegue" id="TMI-YH-9ne"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ggg-cK-ZYk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="935" y="1308"/>
-        </scene>
-        <!--Exposure Submission Warn Europe Consent View Controller-->
-        <scene sceneID="0su-8g-bvX">
-            <objects>
-                <viewController storyboardIdentifier="ExposureSubmissionWarnEuropeConsentViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9Qi-SJ-8c7" customClass="ExposureSubmissionWarnEuropeConsentViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="6dg-f2-C8X">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" name="ENA Background Color"/>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="g4g-aI-78s" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
-                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="J4s-ra-DuU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4271" y="155"/>
-        </scene>
-        <!--Exposure Submission Warn Europe Travel Confirmation View Controller-->
-        <scene sceneID="ZUi-jr-d20">
-            <objects>
-                <viewController storyboardIdentifier="ExposureSubmissionWarnEuropeTravelConfirmationViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wmD-vQ-Mt0" customClass="ExposureSubmissionWarnEuropeTravelConfirmationViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="srP-Ft-NM0">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" name="ENA Background Color"/>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="ITZ-jd-CGF" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
-                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RyV-gl-ieg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5004" y="155"/>
-        </scene>
-        <!--Exposure Submission Warn Europe Country Selection View Controller-->
-        <scene sceneID="Qgm-Oj-oFH">
-            <objects>
-                <viewController storyboardIdentifier="ExposureSubmissionWarnEuropeCountrySelectionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sD4-FE-cDd" customClass="ExposureSubmissionWarnEuropeCountrySelectionViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="Q2q-Rm-mbI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" name="ENA Background Color"/>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="5LU-2g-8cd" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
-                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6zU-QJ-wZh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5745" y="155"/>
         </scene>
         <!--Exposure Submission Symptoms View Controller-->
         <scene sceneID="Lgw-rw-O6o">
@@ -511,28 +271,14 @@
     </scenes>
     <designables>
         <designable name="DuS-ZV-gMr">
-            <size key="intrinsicContentSize" width="67" height="20.5"/>
+            <size key="intrinsicContentSize" width="70.5" height="20.5"/>
         </designable>
         <designable name="I0N-4y-Zcm">
-            <size key="intrinsicContentSize" width="67" height="20.5"/>
-        </designable>
-        <designable name="aTI-P6-3Zh">
-            <size key="intrinsicContentSize" width="509" height="20.5"/>
+            <size key="intrinsicContentSize" width="70.5" height="20.5"/>
         </designable>
     </designables>
-    <inferredMetricsTieBreakers>
-        <segue reference="5YR-5A-F8h"/>
-        <segue reference="7vS-vS-v87"/>
-        <segue reference="4QH-h7-ntj"/>
-        <segue reference="zPx-Mo-iVD"/>
-    </inferredMetricsTieBreakers>
     <resources>
-        <image name="bolt" catalog="system" width="101" height="128"/>
-        <image name="bolt.fill" catalog="system" width="101" height="128"/>
         <namedColor name="ENA Background Color">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="ENA Text Contrast Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ENA Text Primary 1 Color">
@@ -541,8 +287,5 @@
         <namedColor name="ENA Text Semantic Red Color">
             <color red="0.75294117647058822" green="0.058823529411764705" blue="0.17647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

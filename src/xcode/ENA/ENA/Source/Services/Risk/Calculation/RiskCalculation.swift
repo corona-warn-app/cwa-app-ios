@@ -21,14 +21,27 @@ import Foundation
 import ExposureNotification
 import UIKit
 
-enum RiskCalculation {
+protocol RiskCalculationProtocol {
+
+	func risk(
+		summary: CodableExposureDetectionSummary?,
+		configuration: SAP_Internal_ApplicationConfiguration,
+		dateLastExposureDetection: Date?,
+		activeTracing: ActiveTracing,
+		preconditions: ExposureManagerState,
+		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
+		providerConfiguration: RiskProvidingConfiguration
+	) -> Risk?
+}
+
+struct RiskCalculation: RiskCalculationProtocol {
 
 	// MARK: - Precondition Time Constants
 
 	/// Minimum duration (in hours) that tracing has to be active for in order to perform a valid risk calculation
-	static let minTracingActiveHours = TracingStatusHistory.minimumActiveHours
+	let minTracingActiveHours = TracingStatusHistory.minimumActiveHours
 	/// Count of days until a previously calculated exposure detection is considered outdated
-	static let exposureDetectionStaleThreshold = 2
+	let exposureDetectionStaleThreshold = 2
 
 	// MARK: - Risk Calculation Functions
 
@@ -53,26 +66,15 @@ enum RiskCalculation {
 		- dateLastExposureDetection: The date of the most recent exposure detection
 		- numberOfTracingActiveDays: A count of how many days tracing has been active for
 		- preconditions: Current state of the `ExposureManager`
-		- currentDate: The current `Date` to use in checks. Defaults to `Date()`
 	*/
-	private static func riskLevel(
+	private func riskLevel(
 		summary: CodableExposureDetectionSummary?,
-		configuration: SAP_ApplicationConfiguration,
+		configuration: SAP_Internal_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
 		activeTracing: ActiveTracing, // Get this from the `TracingStatusHistory`
 		preconditions: ExposureManagerState,
-		providerConfiguration: RiskProvidingConfiguration,
-		currentDate: Date = Date()
+		providerConfiguration: RiskProvidingConfiguration
 	) -> Result<RiskLevel, RiskLevelCalculationError> {
-		DispatchQueue.main.async {
-			let appDelegate = UIApplication.shared.delegate as? AppDelegate // TODO: Remove
-			appDelegate?.lastRiskCalculation = ""  // Reset; Append from here on
-			appDelegate?.lastRiskCalculation.append("configuration: \(configuration)\n")
-			appDelegate?.lastRiskCalculation.append("numberOfTracingActiveHours: \(activeTracing.inHours)\n")
-			appDelegate?.lastRiskCalculation.append("preconditions: \(preconditions)\n")
-			appDelegate?.lastRiskCalculation.append("currentDate: \(currentDate)\n")
-			appDelegate?.lastRiskCalculation.append("summary: \(String(describing: summary?.description))\n")
-		}
 
 		//
 		// Precondition 1 - Exposure Notifications must be turned on
@@ -117,19 +119,16 @@ enum RiskCalculation {
 
 		let riskScore = calculateRawRisk(summary: summary, configuration: configuration)
 
-		var isLow = false
 		var isIncreased = false
 
 		if riskRangeLow.contains(riskScore) {
-			isLow = true
+			riskLevels.append(.low)
 		} else if riskRangeHigh.contains(riskScore) {
 			isIncreased = true
+			riskLevels.append(.increased)
 		} else {
 			return .failure(.riskOutsideRange)
 		}
-
-		if isLow { riskLevels.append(.low) }
-		if isIncreased { riskLevels.append(.increased) }
 
 		// Depending on different conditions we return riskLevel
 		let state = (isUnknownOutdated, isIncreased, isUnknownInitial)
@@ -143,9 +142,9 @@ enum RiskCalculation {
 
 	/// Performs the raw risk calculation without checking any preconditions
 	/// - returns: weighted risk score
-	static func calculateRawRisk(
+	func calculateRawRisk(
 		summary: CodableExposureDetectionSummary,
-		configuration: SAP_ApplicationConfiguration
+		configuration: SAP_Internal_ApplicationConfiguration
 	) -> Double {
 		// "Fig" comments below point to figures in the docs: https://github.com/corona-warn-app/cwa-documentation/blob/master/solution_architecture.md#risk-score-calculation
 		let maximumRisk = summary.maximumRiskScoreFullRange
@@ -162,30 +161,16 @@ enum RiskCalculation {
 		// Fig 13 - 1
 		let weightedAttenuation = weightedAttenuationDurationsLow + weightedAttenuationDurationsMid + weightedAttenuationDurationsHigh + bucketOffset
 
-		// TODO: Remove
-		DispatchQueue.main.async {
-			let appDelegate = UIApplication.shared.delegate as? AppDelegate
-			appDelegate?.lastRiskCalculation.append("\n ===== Calculation =====\n")
-			appDelegate?.lastRiskCalculation.append("normRiskScore: \(normRiskScore)\n")
-			appDelegate?.lastRiskCalculation.append("weightedAttenuationDurationsLow: \(weightedAttenuationDurationsLow)\n")
-			appDelegate?.lastRiskCalculation.append("weightedAttenuationDurationsMid: \(weightedAttenuationDurationsMid)\n")
-			appDelegate?.lastRiskCalculation.append("weightedAttenuationDurationsHigh: \(weightedAttenuationDurationsHigh)\n")
-			appDelegate?.lastRiskCalculation.append("bucketOffset: \(bucketOffset)\n")
-			appDelegate?.lastRiskCalculation.append("weightedAttenuation: \(weightedAttenuation)\n")
-			appDelegate?.lastRiskCalculation.append("Final result: \((normRiskScore * weightedAttenuation).rounded(to: 2))\n")
-		}
-
 		// Round to two decimal places
 		return (normRiskScore * weightedAttenuation).rounded(to: 2)
 	}
 
-	static func risk(
+	func risk(
 		summary: CodableExposureDetectionSummary?,
-		configuration: SAP_ApplicationConfiguration,
+		configuration: SAP_Internal_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
 		activeTracing: ActiveTracing,
 		preconditions: ExposureManagerState,
-		currentDate: Date = Date(),
 		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
 		providerConfiguration: RiskProvidingConfiguration
 	) -> Risk? {
@@ -207,19 +192,10 @@ enum RiskCalculation {
 				exposureDetectionDate: dateLastExposureDetection ?? Date()
 			)
 
-			DispatchQueue.main.async {
-				// TODO: Remove
-				let appDelegate = UIApplication.shared.delegate as? AppDelegate
-				appDelegate?.lastRiskCalculation.append("\n ===== Risk =====\n")
-				appDelegate?.lastRiskCalculation.append("details: \(details)\n")
-				appDelegate?.lastRiskCalculation.append("summary: \(String(describing: summary?.description))\n")
-			}
-
 			var riskLevelHasChanged = false
-			if
-				let previousRiskLevel = previousRiskLevel,
-				let newRiskLevel = EitherLowOrIncreasedRiskLevel(with: level),
-				previousRiskLevel != newRiskLevel {
+			if let previousRiskLevel = previousRiskLevel,
+			   let newRiskLevel = EitherLowOrIncreasedRiskLevel(with: level),
+			   previousRiskLevel != newRiskLevel {
 				// If the newly calculated risk level is different than the stored level, set the flag to true.
 				// Note that we ignore all levels aside from low or increased risk
 				riskLevelHasChanged = true

@@ -38,7 +38,7 @@ extension HomeRiskViewConfigurator {
 			configure(riskView: riskView)
 		} else {
 			let error = "\(riskView) isn't conformed ViewType"
-			logError(message: error)
+			Log.error(error, log: .ui)
 			fatalError(error)
 		}
 	}

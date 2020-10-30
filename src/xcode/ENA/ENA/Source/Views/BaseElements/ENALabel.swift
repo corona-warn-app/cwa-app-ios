@@ -28,7 +28,7 @@ class ENALabel: DynamicTypeLabel {
 				self.style = style
 			} else {
 				self.style = .body
-				logError(message: "Invalid text style set for \(String(describing: ENALabel.self)): \(ibEnaStyle)")
+				Log.error("Invalid text style set for \(String(describing: ENALabel.self)): \(ibEnaStyle)", log: .ui)
 			}
 		}
 	}

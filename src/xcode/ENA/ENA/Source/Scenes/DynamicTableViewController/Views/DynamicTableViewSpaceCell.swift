@@ -24,6 +24,7 @@ class DynamicTableViewSpaceCell: UITableViewCell {
 	private lazy var heightConstraint: NSLayoutConstraint = self.contentView.heightAnchor.constraint(equalToConstant: 0)
 
 	var height: CGFloat {
+		get { heightConstraint.isActive ? heightConstraint.constant : UITableView.automaticDimension }
 		set {
 			if newValue == UITableView.automaticDimension {
 				heightConstraint.isActive = false
@@ -36,7 +37,6 @@ class DynamicTableViewSpaceCell: UITableViewCell {
 				heightConstraint.isActive = true
 			}
 		}
-		get { heightConstraint.isActive ? heightConstraint.constant : UITableView.automaticDimension }
 	}
 
 	override func prepareForReuse() {

@@ -39,21 +39,6 @@ class MockExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
 
 	func showTanScreen() { }
 
-	func showQRScreen(qrScannerDelegate: ExposureSubmissionQRScannerDelegate) { }
-
-	func showSymptomsScreen() { }
-
-	func showWarnOthersScreen() { }
-
 	func showThankYouScreen() { }
-
-	func showWarnEuropeScreen() { }
-
-	func showWarnEuropeTravelConfirmationScreen() { }
-
-	func showWarnEuropeCountrySelectionScreen() { }
-
-	// Temporarily added for quickfix: https://jira.itc.sap.com/browse/EXPOSUREAPP-3231
-	func loadSupportedCountries(isLoading: @escaping (Bool) -> Void, onSuccess: @escaping () -> Void, onError: @escaping (ExposureSubmissionError) -> Void) { }
 	
 }

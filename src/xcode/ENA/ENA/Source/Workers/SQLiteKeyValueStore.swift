@@ -61,7 +61,7 @@ final class SQLiteKeyValueStore {
 		databaseQueue?.inDatabase { db in
 			let dbhandle = OpaquePointer(db.sqliteHandle)
 			guard CWASQLite.sqlite3_key(dbhandle, key, Int32(key.count)) == SQLITE_OK else {
-				logError(message: "Unable to set Key")
+				Log.error("Unable to set Key", log: .localData)
 				isSuccess = false
 				return
 			}
@@ -123,7 +123,7 @@ final class SQLiteKeyValueStore {
 				return
 			} catch {
 				let message = "Failed to retrieve value from K/V SQLite store: \(error.localizedDescription)"
-				logError(message: message)
+				Log.error(message, log: .localData)
 				dbError = SQLiteStoreError.readError(message) as NSError
 			}
 		}
@@ -148,7 +148,7 @@ final class SQLiteKeyValueStore {
 					try db.executeUpdate("VACUUM", values: [])
 				} catch {
 					let message = "Failed to delete key from K/V SQLite store: \(error.localizedDescription)"
-					logError(message: message)
+					Log.error(message, log: .localData)
 					dbError = SQLiteStoreError.writeError(message) as NSError
 				}
 				return
@@ -160,7 +160,7 @@ final class SQLiteKeyValueStore {
 				try db.executeUpdate(upsertStmt, values: [key, data, data])
 			} catch {
 				let message = "Failed to insert key/V pair into K/V SQLite store: \(error.localizedDescription)"
-				logError(message: message)
+				Log.error(message, log: .localData)
 				dbError = SQLiteStoreError.writeError(message) as NSError
 			}
 		}
@@ -188,7 +188,7 @@ final class SQLiteKeyValueStore {
 			try FileManager.default.removeItem(at: directoryURL)
 			try FileManager.default.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
 		} catch {
-			logError(message: "Failed to delete database file")
+			Log.error("Failed to delete database file", log: .localData)
 			throw error
 		}
 	}
@@ -211,10 +211,10 @@ final class SQLiteKeyValueStore {
 			do {
 				try db.executeUpdate(deleteStmt, values: [])
 				try db.executeUpdate("VACUUM", values: [])
-				log(message: "Flushed SecureStore", level: .info)
+				Log.info("Flushed SecureStore", log: .localData)
 			} catch {
 				let message = "Failed to delete key from K/V SQLite store: \(error.localizedDescription)"
-				logError(message: message)
+				Log.error(message, log: .localData)
 				dbError = SQLiteStoreError.writeError(message) as NSError
 			}
 		}
@@ -251,7 +251,7 @@ final class SQLiteKeyValueStore {
 				let encoded = try JSONEncoder().encode(newValue)
 				try setData(encoded, for: key)
 			} catch {
-				logError(message: "Error when encoding value for inserting into K/V SQLite store: \(error.localizedDescription)")
+				Log.error("Error when encoding value for inserting into K/V SQLite store: \(error.localizedDescription)", log: .localData)
 			}
 		}
 	}

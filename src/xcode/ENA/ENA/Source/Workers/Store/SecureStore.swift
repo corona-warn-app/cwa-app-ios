@@ -209,6 +209,11 @@ final class SecureStore: Store {
 		set { kvStore["previousRiskLevel"] = newValue?.rawValue }
 	}
 
+	var shouldShowRiskStatusLoweredAlert: Bool {
+		get { kvStore["shouldShowRiskStatusLoweredAlert"] as Bool? ?? false }
+		set { kvStore["shouldShowRiskStatusLoweredAlert"] = newValue }
+	}
+
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks: Bool {
 		get { kvStore["userNeedsToBeInformedAboutHowRiskDetectionWorks"] as Bool? ?? true }
 		set { kvStore["userNeedsToBeInformedAboutHowRiskDetectionWorks"] = newValue }
@@ -257,12 +262,12 @@ extension SecureStore: AppConfigCaching {
 		set { kvStore["lastAppConfigFetch"] = newValue }
 	}
 
-	var appConfig: SAP_ApplicationConfiguration? {
+	var appConfig: SAP_Internal_ApplicationConfiguration? {
 		get {
-			guard let data = kvStore["SAP_ApplicationConfiguration"] else { return nil }
-			return try? SAP_ApplicationConfiguration(serializedData: data)
+			guard let data = kvStore["SAP_Internal_ApplicationConfiguration"] else { return nil }
+			return try? SAP_Internal_ApplicationConfiguration(serializedData: data)
 		}
-		set { kvStore["SAP_ApplicationConfiguration"] = try? newValue?.serializedData() }
+		set { kvStore["SAP_Internal_ApplicationConfiguration"] = try? newValue?.serializedData() }
 	}
 }
 
@@ -286,16 +291,16 @@ extension SecureStore {
 				// fetch existing key from keychain or generate a new one
 				let key: String
 				if let keyData = keychain.loadFromKeychain(key: SecureStore.keychainDatabaseKey) {
-					#if UITESTING // enabled in UI tests
-					if ProcessInfo.processInfo.arguments.contains(UITestingParameters.SecureStoreHandling.simulateMismatchingKey.rawValue) {
+					#if DEBUG
+					if isUITesting, ProcessInfo.processInfo.arguments.contains(UITestingParameters.SecureStoreHandling.simulateMismatchingKey.rawValue) {
 						// injecting a wrong key to simulate a mismatch, e.g. because of backup restoration or other reasons
 						key = "wrong 🔑"
-					} else {
-						key = String(decoding: keyData, as: UTF8.self)
+						try self.init(at: directoryURL, key: key, serverEnvironment: serverEnvironment)
+						return
 					}
-					#else
-					key = String(decoding: keyData, as: UTF8.self)
 					#endif
+
+					key = String(decoding: keyData, as: UTF8.self)
 				} else {
 					key = try keychain.generateDatabaseKey()
 				}
@@ -324,7 +329,7 @@ extension SecureStore {
 	/// This function clears the existing database key and removes any existing databases.
 	private static func performHardDatabaseReset(at path: String) {
 		do {
-			log(message: "⚠️ performing hard database reset ⚠️")
+			Log.info("⚠️ performing hard database reset ⚠️", log: .localData)
 			// remove database key
 			try KeychainHelper().clearInKeychain(key: SecureStore.keychainDatabaseKey)
 

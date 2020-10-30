@@ -10,6 +10,7 @@ import "internal/app_features.proto";
 import "internal/exposure_detection_parameters.proto";
 import "internal/key_download_parameters.proto";
 
+
 message ApplicationConfiguration {
 
   int32 minRiskScore = 1;
@@ -31,4 +32,5 @@ message ApplicationConfiguration {
 
   ExpsureDetectionParametersIOS iosExposureDetectionParameters = 10;
   ExpsureDetectionParametersAndroid androidExposureDetectionParameters= 11;
+
 }

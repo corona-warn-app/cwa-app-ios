@@ -42,15 +42,8 @@ protocol ExposureSubmissionCoordinating: class {
 
 	func showOverviewScreen()
 	func showTestResultScreen(with result: TestResult)
-	func showHotlineScreen()
 	func showTanScreen()
-	func showQRScreen(qrScannerDelegate: ExposureSubmissionQRScannerDelegate)
-	func showSymptomsScreen()
-	func showWarnOthersScreen()
 	func showThankYouScreen()
-
-	// Temporarily added for quickfix: https://jira.itc.sap.com/browse/EXPOSUREAPP-3231
-	func loadSupportedCountries(isLoading: @escaping (Bool) -> Void, onSuccess: @escaping () -> Void, onError: @escaping (ExposureSubmissionError) -> Void)
 
 }
 
@@ -71,6 +64,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	/// - NOTE: We keep a weak reference here to avoid a reference cycle.
 	///  (the navigationController holds a strong reference to the coordinator).
 	weak var navigationController: UINavigationController?
+
+	weak var presentedViewController: UIViewController?
 
 	var model: ExposureSubmissionCoordinatorModel!
 
@@ -105,11 +100,6 @@ extension ExposureSubmissionCoordinator {
 		setupDismissConfirmationOnSwipeDown(for: vc)
 	}
 
-	private func present(_ vc: UIViewController) {
-		self.navigationController?.present(vc, animated: true)
-		setupDismissConfirmationOnSwipeDown(for: vc)
-	}
-
 	private func setupDismissConfirmationOnSwipeDown(for vc: UIViewController) {
 		guard let vc = vc as? RequiresDismissConfirmation else {
 			return
@@ -125,17 +115,15 @@ extension ExposureSubmissionCoordinator {
 	/// and returns an ExposureSubmissionTestResultViewController.
 	/// Option 3: (default) return the ExposureSubmissionIntroViewController.
 	private func getInitialViewController(with result: TestResult? = nil) -> UIViewController {
-		#if UITESTING
-		if ProcessInfo.processInfo.arguments.contains("-negativeResult") {
+		#if DEBUG
+		if isUITesting, ProcessInfo.processInfo.arguments.contains("-negativeResult") {
 			return createTestResultViewController(with: .negative)
 		}
-
-		#else
+		#endif
 		// We got a test result and can jump straight into the test result view controller.
 		if let result = result, model.exposureSubmissionServiceHasRegistrationToken {
 			return createTestResultViewController(with: result)
 		}
-		#endif
 
 		// By default, we show the intro view.
 		return createIntroViewController()
@@ -146,7 +134,7 @@ extension ExposureSubmissionCoordinator {
 	func start(with result: TestResult? = nil) {
 		let initialVC = getInitialViewController(with: result)
 		guard let parentNavigationController = parentNavigationController else {
-			log(message: "Parent navigation controller not set.", level: .error, file: #file, line: #line, function: #function)
+			Log.error("Parent navigation controller not set.", log: .ui)
 			return
 		}
 
@@ -170,13 +158,50 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	func showOverviewScreen() {
-		let vc = createOverviewViewController()
+		let vc = ExposureSubmissionOverviewViewController(
+			onQRCodeButtonTap: { [weak self] in self?.showQRInfoScreen() },
+			onTANButtonTap: { [weak self] in self?.showTanScreen() },
+			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() }
+		)
 		push(vc)
 	}
 
-	func showTestResultScreen(with result: TestResult) {
-		let vc = createTestResultViewController(with: result)
+	func showTestResultScreen(with testResult: TestResult) {
+		let vc = createTestResultViewController(with: testResult)
 		push(vc)
+	}
+
+	func createTestResultViewController(with testResult: TestResult) -> ExposureSubmissionTestResultViewController {
+		return ExposureSubmissionTestResultViewController(
+			viewModel: .init(
+				testResult: testResult,
+				exposureSubmissionService: model.exposureSubmissionService,
+				onContinueWithSymptomsFlowButtonTap: { [weak self] isLoading in
+					self?.model.checkStateAndLoadCountries(
+						isLoading: isLoading,
+						onSuccess: {
+							self?.showSymptomsScreen()
+						}, onError: { error in
+							self?.showErrorAlert(for: error)
+						}
+					)
+				},
+				onContinueWithoutSymptomsFlowButtonTap: { [weak self] isLoading in
+					self?.model.checkStateAndLoadCountries(
+						isLoading: isLoading,
+						onSuccess: {
+							self?.showWarnOthersScreen()
+						},
+						onError: { error in
+							self?.showErrorAlert(for: error)
+						}
+					)
+				},
+				onTestDeleted: { [weak self] in
+					self?.dismiss()
+				}
+			)
+		)
 	}
 
 	func showHotlineScreen() {
@@ -189,45 +214,109 @@ extension ExposureSubmissionCoordinator {
 		push(vc)
 	}
 
-	func showQRScreen(qrScannerDelegate: ExposureSubmissionQRScannerDelegate) {
-		let vc = createQRScannerViewController(qrScannerDelegate: qrScannerDelegate)
-		present(vc)
+	private func showQRInfoScreen() {
+		let vc = ExposureSubmissionQRInfoViewController(onPrimaryButtonTap: { [weak self] isLoading in
+			self?.showDisclaimer(isLoading: isLoading)
+		})
+		push(vc)
+	}
+
+	private func showDisclaimer(isLoading: @escaping (Bool) -> Void) {
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmission.dataPrivacyTitle,
+			message: AppStrings.ExposureSubmission.dataPrivacyDisclaimer,
+			preferredStyle: .alert
+		)
+
+		let acceptAction = UIAlertAction(
+			title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle,
+			style: .default,
+			handler: { [weak self] _ in
+				self?.model.exposureSubmissionService.acceptPairing()
+				self?.showQRScreen(isLoading: isLoading)
+			}
+		)
+
+		alert.addAction(acceptAction)
+
+		alert.addAction(
+			.init(
+				title: AppStrings.ExposureSubmission.dataPrivacyDontAcceptTitle,
+				style: .cancel,
+				handler: { _ in
+					alert.dismiss(animated: true)
+				}
+			)
+		)
+		alert.preferredAction = acceptAction
+
+		navigationController?.present(alert, animated: true)
+	}
+
+	private func showQRScreen(isLoading: @escaping (Bool) -> Void) {
+		let scannerViewController = ExposureSubmissionQRScannerViewController(
+			onSuccess: { [weak self] deviceRegistrationKey in
+				self?.presentedViewController?.dismiss(animated: true) {
+					self?.getTestResults(for: deviceRegistrationKey, isLoading: isLoading)
+				}
+			},
+			onError: { [weak self] error, reactivateScanning in
+				switch error {
+				case .cameraPermissionDenied:
+					DispatchQueue.main.async {
+						let alert = UIAlertController.errorAlert(message: error.localizedDescription, completion: {
+							self?.presentedViewController?.dismiss(animated: true)
+						})
+						self?.presentedViewController?.present(alert, animated: true)
+					}
+				case .codeNotFound:
+					DispatchQueue.main.async {
+						let alert = UIAlertController.errorAlert(
+							title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
+							message: AppStrings.ExposureSubmissionError.qrAlreadyUsed,
+							okTitle: AppStrings.Common.alertActionCancel,
+							secondaryActionTitle: AppStrings.Common.alertActionRetry,
+							completion: { [weak self] in
+								self?.presentedViewController?.dismiss(animated: true)
+							},
+							secondaryActionCompletion: { reactivateScanning() }
+						)
+						self?.presentedViewController?.present(alert, animated: true)
+					}
+				default:
+					Log.error("QRScannerError.other occurred.", log: .ui)
+				}
+			},
+			onCancel: { [weak self] in
+				self?.presentedViewController?.dismiss(animated: true)
+			}
+		)
+
+		let qrScannerNavigationController = UINavigationController(rootViewController: scannerViewController)
+		qrScannerNavigationController.modalPresentationStyle = .fullScreen
+
+		navigationController?.present(qrScannerNavigationController, animated: true)
+		presentedViewController = qrScannerNavigationController
 	}
 
 	func showSymptomsScreen() {
 		let vc = createSymptomsViewController(
-			onPrimaryButtonTap: { [weak self] selectedSymptomsOption, isLoading in
+			onPrimaryButtonTap: { [weak self] selectedSymptomsOption in
 				guard let self = self else { return }
 
-				self.model.symptomsOptionSelected(
-					selectedSymptomsOption: selectedSymptomsOption,
-					isLoading: isLoading,
-					onSuccess: {
-						self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showWarnOthersScreen()
-					},
-					onError: { error in
-						self.showErrorAlert(for: error)
-					}
-				)
+				self.model.symptomsOptionSelected(selectedSymptomsOption)
+				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showWarnOthersScreen()
 			}
 		)
 
 		push(vc)
 	}
 
-	func showSymptomsOnsetScreen() {
+	private func showSymptomsOnsetScreen() {
 		let vc = createSymptomsOnsetViewController(
-			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption, isLoading in
-				self?.model.symptomsOnsetOptionSelected(
-					selectedSymptomsOnsetOption: selectedSymptomsOnsetOption,
-					isLoading: isLoading,
-					onSuccess: {
-						self?.showWarnOthersScreen()
-					},
-					onError: { error in
-						self?.showErrorAlert(for: error)
-					}
-				)
+			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption in
+				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
+				self?.showWarnOthersScreen()
 			}
 		)
 
@@ -256,22 +345,17 @@ extension ExposureSubmissionCoordinator {
 		push(vc)
 	}
 
-	// Temporarily added for quickfix: https://jira.itc.sap.com/browse/EXPOSUREAPP-3231
-	func loadSupportedCountries(isLoading: @escaping (Bool) -> Void, onSuccess: @escaping () -> Void, onError: @escaping (ExposureSubmissionError) -> Void) {
-		model.loadSupportedCountries(isLoading: isLoading, onSuccess: onSuccess, onError: onError)
-	}
-
 	// MARK: - UI-related helpers.
 
-	func showErrorAlert(for error: ExposureSubmissionError, onCompletion: (() -> Void)? = nil) {
-		logError(message: "error: \(error.localizedDescription)", level: .error)
+	private func showErrorAlert(for error: ExposureSubmissionError, onCompletion: (() -> Void)? = nil) {
+		Log.error("error: \(error.localizedDescription)", log: .ui)
 
-		guard let alert = navigationController?.setupErrorAlert(
+		let alert = UIAlertController.errorAlert(
 			message: error.localizedDescription,
 			secondaryActionTitle: error.faqURL != nil ? AppStrings.Common.errorAlertActionMoreInfo : nil,
 			secondaryActionCompletion: {
 				guard let url = error.faqURL else {
-					logError(message: "Unable to open FAQ page.", level: .error)
+					Log.error("Unable to open FAQ page.", log: .api)
 					return
 				}
 
@@ -280,13 +364,55 @@ extension ExposureSubmissionCoordinator {
 					options: [:]
 				)
 			}
-		) else { return }
+		)
 
 		navigationController?.present(alert, animated: true, completion: {
 			onCompletion?()
 		})
 	}
 
+	private func getTestResults(for key: DeviceRegistrationKey, isLoading: @escaping (Bool) -> Void) {
+		model.getTestResults(
+			for: key,
+			isLoading: isLoading,
+			onSuccess: { [weak self] in self?.showTestResultScreen(with: $0) },
+			onError: { [weak self] error in
+				let alert: UIAlertController
+
+				switch error {
+				case .qrDoesNotExist:
+					alert = UIAlertController.errorAlert(
+						title: AppStrings.ExposureSubmissionError.qrNotExistTitle,
+						message: error.localizedDescription
+					)
+
+					self?.navigationController?.present(alert, animated: true, completion: nil)
+				case .qrAlreadyUsed:
+					alert = UIAlertController.errorAlert(
+						title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
+						message: error.localizedDescription
+					)
+				case .qrExpired:
+					alert = UIAlertController.errorAlert(
+						title: AppStrings.ExposureSubmission.qrCodeExpiredTitle,
+						message: error.localizedDescription
+					)
+				default:
+					alert = UIAlertController.errorAlert(
+						message: error.localizedDescription,
+						secondaryActionTitle: AppStrings.Common.alertActionRetry,
+						secondaryActionCompletion: {
+							self?.getTestResults(for: key, isLoading: isLoading)
+						}
+					)
+				}
+
+				self?.navigationController?.present(alert, animated: true, completion: nil)
+
+				Log.error("An error occurred during result fetching: \(error)", log: .ui)
+			}
+		)
+	}
 }
 
 // MARK: - Creation.
@@ -305,12 +431,6 @@ extension ExposureSubmissionCoordinator {
 		}
 	}
 
-	private func createOverviewViewController() -> ExposureSubmissionOverviewViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionOverviewViewController.self) { coder in
-			ExposureSubmissionOverviewViewController(coder: coder, coordinator: self, exposureSubmissionService: self.model.exposureSubmissionService)
-		}
-	}
-
 	private func createTanInputViewController() -> ExposureSubmissionTanInputViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTanInputViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionTanInputViewController(coder: coder, coordinator: self, exposureSubmissionService: self.model.exposureSubmissionService)
@@ -323,27 +443,8 @@ extension ExposureSubmissionCoordinator {
 		}
 	}
 
-	private func createTestResultViewController(with result: TestResult) -> ExposureSubmissionTestResultViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionTestResultViewController(
-				coder: coder,
-				coordinator: self,
-				exposureSubmissionService: self.model.exposureSubmissionService,
-				testResult: result
-			)
-		}
-	}
-
-	private func createQRScannerViewController(qrScannerDelegate: ExposureSubmissionQRScannerDelegate) -> ExposureSubmissionQRScannerNavigationController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionQRScannerNavigationController.self) { coder -> UIViewController? in
-			let vc = ExposureSubmissionQRScannerNavigationController(coder: coder, coordinator: self, exposureSubmissionService: self.model.exposureSubmissionService)
-			vc?.scannerViewController?.delegate = qrScannerDelegate
-			return vc
-		}
-	}
-
 	private func createSymptomsViewController(
-		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsViewController.SymptomsOption, @escaping (Bool) -> Void) -> Void
+		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsViewController.SymptomsOption) -> Void
 	) -> ExposureSubmissionSymptomsViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSymptomsViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionSymptomsViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap)
@@ -351,7 +452,7 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	private func createSymptomsOnsetViewController(
-		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption, @escaping (Bool) -> Void) -> Void
+		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption) -> Void
 	) -> ExposureSubmissionSymptomsOnsetViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSymptomsOnsetViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionSymptomsOnsetViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap)

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ExposureSubmissionQRScannerViewController" customModule="ENA" customModuleProvider="target">
+            <connections>
+                <outlet property="focusView" destination="bFV-fX-VLT" id="qtL-7O-lvA"/>
+                <outlet property="instructionLabel" destination="iRT-ET-ZwE" id="aDg-FW-Ve6"/>
+                <outlet property="view" destination="eEg-oc-GGN" id="DWi-xV-TiQ"/>
+            </connections>
+        </placeholder>
+        <view contentMode="scaleToFill" interfaceStyle="dark" id="eEg-oc-GGN">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bFV-fX-VLT" customClass="ExposureSubmissionQRScannerFocusView" customModule="ENA" customModuleProvider="target">
+                    <rect key="frame" x="20.5" y="224" width="373" height="448"/>
+                    <color key="tintColor" name="ENA Text Contrast Color"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="backdropOpacity">
+                            <real key="value" value="0.20000000000000001"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="999" text="Positionieren Sie den Rahmen über dem QR Code Ihres Dokuments" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRT-ET-ZwE" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                    <rect key="frame" x="52" y="149.5" width="310.5" height="42.5"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                    <color key="textColor" name="ENA Text Contrast Color"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="xNN-fQ-FJq"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="bFV-fX-VLT" firstAttribute="centerX" secondItem="eEg-oc-GGN" secondAttribute="centerX" id="Brd-1y-1PU"/>
+                <constraint firstItem="bFV-fX-VLT" firstAttribute="top" secondItem="iRT-ET-ZwE" secondAttribute="bottom" constant="32" id="Jz7-hc-3Hg"/>
+                <constraint firstItem="iRT-ET-ZwE" firstAttribute="width" secondItem="xNN-fQ-FJq" secondAttribute="width" multiplier="0.75" id="bw2-me-7Q7"/>
+                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="bFV-fX-VLT" secondAttribute="bottom" id="d8l-0a-Tks"/>
+                <constraint firstItem="iRT-ET-ZwE" firstAttribute="centerX" secondItem="eEg-oc-GGN" secondAttribute="centerX" id="emE-DC-0ha"/>
+                <constraint firstItem="bFV-fX-VLT" firstAttribute="height" secondItem="eEg-oc-GGN" secondAttribute="height" multiplier="0.5" priority="999" id="f3t-6V-GVL"/>
+                <constraint firstItem="iRT-ET-ZwE" firstAttribute="top" relation="greaterThanOrEqual" secondItem="xNN-fQ-FJq" secondAttribute="top" constant="32" id="frd-TA-XXE"/>
+                <constraint firstItem="bFV-fX-VLT" firstAttribute="centerY" secondItem="eEg-oc-GGN" secondAttribute="centerY" priority="900" id="jb8-Je-jXA"/>
+                <constraint firstItem="bFV-fX-VLT" firstAttribute="width" secondItem="eEg-oc-GGN" secondAttribute="width" multiplier="0.9" priority="999" id="sEu-Cu-Phg"/>
+                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="bFV-fX-VLT" secondAttribute="trailing" id="yKZ-4p-wCp"/>
+                <constraint firstItem="bFV-fX-VLT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="eEg-oc-GGN" secondAttribute="leadingMargin" id="zuI-8W-9SN"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <edgeInsets key="layoutMargins" top="32" left="16" bottom="32" right="16"/>
+            <point key="canvasLocation" x="2187" y="360"/>
+        </view>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+    </objects>
+    <designables>
+        <designable name="iRT-ET-ZwE">
+            <size key="intrinsicContentSize" width="509" height="20.5"/>
+        </designable>
+    </designables>
+    <resources>
+        <namedColor name="ENA Text Contrast Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

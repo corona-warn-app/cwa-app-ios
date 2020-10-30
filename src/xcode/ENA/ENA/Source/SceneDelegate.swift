@@ -27,12 +27,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	private lazy var navigationController: UINavigationController = AppNavigationController()
 	private lazy var coordinator = Coordinator(self, navigationController)
 
-	var state: State = State(exposureManager: .init(), detectionMode: currentDetectionMode, risk: nil) {
+	var state: State = State(exposureManager: .init(), detectionMode: currentDetectionMode, risk: nil, riskDetectionFailed: false) {
 		didSet {
 			coordinator.updateState(
 				detectionMode: state.detectionMode,
-				exposureManagerState: state.exposureManager,
-				risk: state.risk)
+				exposureManagerState: state.exposureManager
+			)
 		}
 	}
 
@@ -49,25 +49,50 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		let window = UIWindow(windowScene: windowScene)
 		self.window = window
 
-		#if UITESTING
-		if let isOnboarded = UserDefaults.standard.string(forKey: "isOnboarded") {
-			store.isOnboarded = (isOnboarded != "NO")
+		#if DEBUG
+		
+		// Speed up animations for faster UI-Tests: https://pspdfkit.com/blog/2016/running-ui-tests-with-ludicrous-speed/#update-why-not-just-disable-animations-altogether
+		if isUITesting {
+			window.layer.speed = 100
 		}
-
-		if let onboardingVersion = UserDefaults.standard.string(forKey: "onboardingVersion") {
-			store.onboardingVersion = onboardingVersion
-		}
-
-		if let setCurrentOnboardingVersion = UserDefaults.standard.string(forKey: "setCurrentOnboardingVersion"), setCurrentOnboardingVersion == "YES" {
-			store.onboardingVersion = Bundle.main.appVersion
-		}
+		
+		setupOnboardingForTesting()
+		
 		#endif
 
 		exposureManager.resume(observer: self)
 
 		riskConsumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk
+			self?.state.riskDetectionFailed = false
+
+			#if DEBUG
+			if isUITesting, let uiTestRiskLevelEnv = UserDefaults.standard.string(forKey: "riskLevel") {
+				var uiTestRiskLevel: RiskLevel
+				var uiTestExposureNumber = 100
+				switch uiTestRiskLevelEnv {
+				case "increased":
+					uiTestRiskLevel = RiskLevel.increased
+				case "low":
+					uiTestRiskLevel = RiskLevel.low
+					uiTestExposureNumber = 7
+				case "unknownInitial":
+					uiTestRiskLevel = RiskLevel.unknownInitial
+				case "unknownOutdated":
+					uiTestRiskLevel = RiskLevel.unknownOutdated
+				default:
+					uiTestRiskLevel = RiskLevel.inactive
+
+				}
+				let uiTestRisk = Risk(level: uiTestRiskLevel, details: .init(daysSinceLastExposure: 1, numberOfExposures: uiTestExposureNumber, activeTracing: .init(interval: 14 * 86400), exposureDetectionDate: nil), riskLevelHasChanged: false)
+				self?.state.risk = uiTestRisk
+			}
+			#endif
 		}
+		riskConsumer.didFailCalculateRisk = {  [weak self] _ in
+			self?.state.riskDetectionFailed = true
+		}
+		
 		riskProvider.observeRisk(riskConsumer)
 
 		UNUserNotificationCenter.current().delegate = self
@@ -85,6 +110,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		riskProvider.requestRisk(userInitiated: false)
 
 		let state = exposureManager.preconditions()
+		
 		updateExposureState(state)
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
@@ -141,8 +167,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		if exposureManager.preconditions().status == .unknown {
 			exposureManager.activate { [weak self] error in
 				if let error = error {
-					// TODO: Error handling, if error occurs, what can we do?
-					logError(message: "Cannot activate the  ENManager. The reason is \(error)")
+					Log.error("Cannot activate the  ENManager. The reason is \(error)", log: .api)
 					return
 				}
 				self?.presentHomeVC()
@@ -168,6 +193,21 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	private func showOnboarding() {
 		coordinator.showOnboarding()
 	}
+	#if DEBUG
+	private func setupOnboardingForTesting() {
+		if let isOnboarded = UserDefaults.standard.string(forKey: "isOnboarded") {
+			store.isOnboarded = (isOnboarded != "NO")
+		}
+
+		if let onboardingVersion = UserDefaults.standard.string(forKey: "onboardingVersion") {
+			store.onboardingVersion = onboardingVersion
+		}
+
+		if let setCurrentOnboardingVersion = UserDefaults.standard.string(forKey: "setCurrentOnboardingVersion"), setCurrentOnboardingVersion == "YES" {
+			store.onboardingVersion = Bundle.main.appVersion
+		}
+	}
+	#endif
 
 	@objc
 	func isOnboardedDidChange(_: NSNotification) {
@@ -222,7 +262,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		status: \(newState.status)
 		authorizationStatus: \(ENManager.authorizationStatus)
 		"""
-		log(message: message)
+		Log.info(message, log: .api)
 
 		state.exposureManager = newState
 		updateExposureState(newState)
@@ -286,7 +326,7 @@ extension SceneDelegate: ExposureStateUpdating {
 
 extension SceneDelegate: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
-		log(message: "SceneDelegate got EnState update: \(state)")
+		Log.info("SceneDelegate got EnState update: \(state)", log: .api)
 		coordinator.updateEnState(state)
 	}
 }

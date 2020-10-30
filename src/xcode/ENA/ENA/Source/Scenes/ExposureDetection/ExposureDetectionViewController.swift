@@ -77,6 +77,11 @@ extension ExposureDetectionViewController {
 
 		consumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk
+			self?.state.riskDetectionFailed = false
+			self?.updateUI()
+		}
+		consumer.didFailCalculateRisk = { [weak self] _ in
+			self?.state.riskDetectionFailed = true
 			self?.updateUI()
 		}
 		consumer.didChangeActivityState = { [weak self] activityState in
@@ -160,7 +165,7 @@ extension ExposureDetectionViewController: ExposureStateUpdating {
 
 extension ExposureDetectionViewController {
 	func updateUI() {
-		dynamicTableViewModel = dynamicTableViewModel(for: state.riskLevel, isTracingEnabled: state.isTracingEnabled)
+		dynamicTableViewModel = dynamicTableViewModel(for: state.riskLevel, riskDetectionFailed: state.riskDetectionFailed, isTracingEnabled: state.isTracingEnabled)
 
 		updateCloseButton()
 		updateHeader()

@@ -39,11 +39,11 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Arka planda uygulamayı yenileme devre dışı bırakıldı";
 
-"Common_Deadman_AlertTitle" = "Risk Durumunuz";
+"Common_Deadman_AlertTitle" = "Maruz Kalma Kontrolü";
 
 "Common_Deadman_AlertBody" = "Risk durumunuzu kontrol etmek için lütfen Corona-Warn-App'i düzenli olarak açmayı unutmayın.";
 
-"Common_Tess_Relay_Description" = "İşitme engeli bulunan kişiler yardım hattı ile iletişime geçmek için Tess Relay hizmetlerini (Almanca yazı dili ile işaret dili arasında tercüme) kullanabilir. Yazılımı App Store/Google Play'den indirebilirsiniz.";
+"Common_Tess_Relay_Description" = "İşitme engeli bulunan kişiler yardım hattı ile iletişime geçmek için Tess Relay hizmetlerini (Almanca yazı dili ile işaret dili arasında tercüme) kullanabilir. Yazılımı App Store'dan indirebilirsiniz.";
 
 /* Accessibility */
 "AccessibilityLabel_Close" = "Kapat";
@@ -69,13 +69,13 @@
 
 "ExposureDetection_Refresh_24h" = "24 saatlik aralıklarla güncellenir";
 
-"ExposureDetection_LastRiskLevel" = "Son maruz kalma günlüğü: %@";
+"ExposureDetection_LastRiskLevel" = "Son maruz kalma kontrolü: %@";
 
 "ExposureDetection_OffText" = "Bugünkü risk durumunuzu değerlendirmek için maruz kalma günlüğünü etkinleştirin.";
 
 "ExposureDetection_OutdatedText" = "Maruz kalma günlüğü 48 saatten uzun süredir güncellenmedi. Lütfen hesaplamayı güncelleyin.";
 
-"ExposureDetection_UnknownText" = "Maruz kalma günlüğünü uzun süredir etkinleştirmediğiniz için enfeksiyon riskinizi hesaplayamıyoruz.";
+"ExposureDetection_UnknownText" = "Maruz kalma günlüğünü uzun süredir etkinleştirmediğiniz için enfeksiyon riskinizi hesaplayamadık.";
 
 "ExposureDetection_LoadingText" = "Güncel veriler indiriliyor ve kaydediliyor. Bu işlem birkaç dakika sürebilir.";
 
@@ -111,11 +111,13 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "Maruz kalma günlüğünü uzun süredir etkinleştirmediğiniz için enfeksiyon riskinizi hesaplayamıyoruz.\n\nEnfeksiyon riskiniz, akıllı telefonunuzda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.";
 
-"ExposureDetection_Explanation_Text_Low" = "Enfeksiyon riskiniz, maruz kalma günlüğünün verileri kullanılarak yerel olarak akıllı telefonunuzda hesaplanır. Hesaplamada COVID-19 tanısı konan kişilere maruz kalma mesafesi ve süresinin yanında potansiyel enfeksiyon bulaştırma durumu da göz önünde bulundurulur. Enfeksiyon riskiniz bir başkası tarafından görüntülenemez ya da bir başkasına aktarılamaz.";
+"ExposureDetection_Explanation_Text_Low_No_Encounter" = "Daha sonra COVID-19 tanısı konan kişilere maruz kaldığınıza dair bir günlük kaydı oluşturulmadığı veya bu kişilerle yalnızca kısa süreyle ve uzak mesafeden karşılaştığınız için enfeksiyon riskiniz düşüktür.";
+
+"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Enfeksiyon riskiniz, maruz kalma günlüğünün verileri kullanılarak yerel olarak akıllı telefonunuzda hesaplanır. Hesaplamada COVID-19 tanısı konan kişilere maruz kalma mesafesi ve süresinin yanında potansiyel enfeksiyon bulaştırma durumu da göz önünde bulundurulur. Enfeksiyon riskiniz bir başkası tarafından görüntülenemez ya da bir başkasına aktarılamaz.";
 
 "ExposureDetection_Explanation_Text_High" = "Bu nedenle enfeksiyon riskiniz artmış olarak derecelendirilmiştir.\nEnfeksiyon riskiniz, cihazınızda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.\nEve gittiğinizde lütfen aile fertleriniz veya ev arkadaşlarınızla yakın temastan kaçının.";
 
-"ExposureDetection_Explanation_FAQ_Link_Text" = "Daha fazla bilgi";
+"ExposureDetection_Explanation_FAQ_Link_Text" = "Daha fazla bilgi için lütfen SSS sayfamıza bakın.";
 
 "ExposureDetection_LowRiskExposure_Title" = "Düşük riskli karşılaşmalar";
 
@@ -127,13 +129,28 @@
 
 "ExposureDetection_Button_Refresh" = "Güncelle";
 
-"ExposureDetection_Risk_Status_Downloading_Title" = "Veri indiriliyor…";
+"ExposureDetection_Risk_Status_Downloading_Title" = "Veri indiriliyor …";
 
 "ExposureDetection_Risk_Status_Detecting_Title" = "Kontrol devam ediyor …";
 
-"ExposureDetection_Risk_Status_Downloading_Body" = "Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için çok teşekkür ederiz.";
+"ExposureDetection_Risk_Status_Downloading_Body" = "Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için teşekkür ederiz.";
 
-"ExposureDetection_Risk_Status_Detecting_Body" = "Maruz kalma verileriniz kontrol ediliyor. Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için çok teşekkür ederiz.";
+"ExposureDetection_Risk_Status_Detecting_Body" = "Maruz kalma verileriniz kontrol ediliyor. Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için teşekkür ederiz.";
+
+"ExposureDetection_Risk_Failed_Title" = "Maruz kalma kontrolü başarısız oldu";
+
+"ExposureDetection_Risk_Failed_Body" = "Rastgele kimliklerin sunucu ile senkronizasyonu başarısız oldu. Senkronizasyonu manüel olarak başlatabilirsiniz.";
+
+"ExposureDetection_Risk_Restart_Button_Title" = "Yeniden başlat";
+
+/* Exposure detection wrong device time */
+"ExposureDetection_WrongTime_Notification_Title" = "Maruz Kalma Kontrolü Yapılamıyor";
+
+"ExposureDetection_WrongTime_Notification_Body" = "Cihazınızın saati geçerli saat ile eşleşmiyor. Dolayısıyla risk durumunuz şu anda kontrol edilemiyor. Lütfen cihazınızın ayarlarında doğru saati ayarlayın.";
+
+"ExposureDetection_WrongTime_Notification_Popover_Title" = "Maruz Kalma Kontrolü Yapılamıyor";
+
+"ExposureDetection_WrongTime_Notification_Popover_Body" = "Cihazınızın saati geçerli saat ile eşleşmiyor. Dolayısıyla risk durumunuz şu anda kontrol edilemiyor. Lütfen cihazınızın ayarlarında doğru saati ayarlayın.";
 
 /* Active Tracing Section */
 "ExposureDetection_ActiveTracingSection_Title" = "Dönem günlüğe kaydedildi";
@@ -147,13 +164,9 @@
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Maruz kalma günlüğü son %1$u günü kapsar. Bu süre boyunca cihazınızdaki günlüğe kaydetme özelliği %2$u gün etkindi. Uygulama, enfeksiyondan korunma için artık ilgili olmadığından daha eski kayıtları otomatik olarak siler.";
 
 /* Exposure Detection Errors */
-"ExposureDetectionError_Alert_Title" = "Hata";
-
-"ExposureDetectionError_Alert_Action_Details" = "Ayrıntılar";
-
 "ExposureDetectionError_Alert_Message" = "Maruz kalma günlüğü sırasında bir hata oluştu.";
 
-"ExposureDetectionError_Alert_AppConfig_Missing_Message" = "İnternet bağlantınız kesildi. Lütfen bağlantıyı kontrol edin ve ardından uygulamayı yeniden açın.";
+"ExposureDetectionError_Alert_FullDiskSpace_Message" = "Mevcut veriler için yeterli boş bellek yok.\nRisk durumunuzun güncellenebilmesi için lütfen akıllı telefonunuzun belleğini boşaltın.";
 
 /* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
 "How_Risk_Detection_Works_Alert_Title" = "Maruz kalma günlüğü işlevi hakkında bilgi";
@@ -312,11 +325,11 @@
 
 "OnboardingInfo_privacyPage_normalText" = "Kimliğiniz gizli tutulacaktır.\nVerileriniz tamamen şifrelenir ve bir takma ad altında aktarılır.\n\nSorumlu kuruluş: GDPR, 4. madde, 7. paragraf:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nLütfen veri gizliliği düzenlemelerimizi okuyun.\n\nVeri gizliliği bilgileri:";
 
-"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Üç kişi akıllı telefonlarında maruz kalma günlüğünü etkinleştirdi ve birbirleri ile karşılaşmaları günlüğe kaydedilecektir.";
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Üç kişi cihazlarında maruz kalma günlüğünü etkinleştirdi ve birbirleri ile karşılaşmaları günlüğe kaydedilecektir.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_title" = "Maruz Kalma Günlüğünü Etkinleştirme";
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "Maruz kalma günlüğünüzü nasıl etkinleştirirsiniz?";
 
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Enfeksiyon riski taşıyıp taşımadığınızı belirlemek için maruz kalma günlüğü özelliğini etkinleştirmeniz gerekir.";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Tüm olası maruz kalmaları belirlemek için maruz kalma günlüğü özelliğini etkinleştirmeniz gerekir.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Maruz kalma günlüğü, akıllı telefonunuzun Bluetooth üzerinden diğer kullanıcıların şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimliği diğer kullanıcıların cihazlarına aktarmasıyla çalışır. Bu özellik dilediğiniz zaman devre dışı bırakılabilir. \n\nŞifrelenmiş rastgele kimliklerde diğer kişilere yalnızca tarih, süre ve yakınlık bilgileri (sinyal gücüne göre hesaplanır) gönderilir. Ad, adres ve konum gibi kişisel veriler hiçbir durumda kaydedilmez. Kişilerin kimlikleri rastgele kimliklere göre belirlenemez.";
 
@@ -362,7 +375,7 @@
 /* Exposure Submission */
 "ExposureSubmission_Hotline_Number" = "+498007540002";
 
-"ExposureSubmission_DataPrivacyTitle" = "Veri Gizliliği";
+"ExposureSubmission_DataPrivacyTitle" = "Onay";
 
 "ExposureSubmission_Continue_actionText" = "Sonraki";
 
@@ -370,7 +383,7 @@
 
 "ExposureSubmission_ConfirmDismissPopUpText" = "Girişleriniz kaydedilmeyecektir.";
 
-"ExposureSubmission_DataPrivacyDescription" = "\"Kabul Et\" seçeneğine dokunarak Uygulamanın koronavirüs testinizin durumunu sorgulamasına ve Uygulamada görüntülemesine izin verirsiniz. Bu özelliği, QR kod aldıysanız ve test sonucunuzun Uygulamanın sunucu sistemine aktarılmasına onay verdiyseniz kullanabilirsiniz. Testi yapan laboratuvar test sonucunuzu sunucuya kaydettiği anda sonucu Uygulamada görüntüleyebilirsiniz. Ayrıca bildirimleri etkinleştirirseniz Uygulama, kullanmadığınız sırada test sonucunuzun alındığını belirten bir bildirim gönderir. Ancak gizlilik nedenleriyle testin sonucu yalnızca Uygulamada görüntülenecektir. Uygulamada test kaydınızı silerek dilediğiniz zaman bu onayı geri çekebilirsiniz. Onayınızı geri çekmeniz, onayınızı geri çekmeden önce testi işlemenin hukuki niteliğini etkilemeyecektir. Menüde \"Veri Gizliliği Bilgileri\" başlığında daha fazla bilgiye erişebilirsiniz.";
+"ExposureSubmission_DataPrivacyDescription" = "\"Kabul Et\" seçeneğine dokunarak Uygulamanın koronavirüs testinizin durumunu sorgulamasına ve Uygulamada görüntülemesine izin verirsiniz. Bu özelliği, QR kod aldıysanız ve test sonucunuzun Uygulamanın sunucu sistemine aktarılmasına onay verdiyseniz kullanabilirsiniz. Testi yapan laboratuvar test sonucunuzu sunucuya kaydettiği anda sonucu Uygulamada görüntüleyebilirsiniz. Ayrıca bildirimleri etkinleştirirseniz Uygulama, kullanmadığınız sırada test sonucunuzun alındığını belirten bir bildirim gönderir. Ancak gizlilik nedenleriyle testin sonucu yalnızca Uygulamada görüntülenecektir. Uygulamada test kaydınızı silerek dilediğiniz zaman bu onayı geri çekebilirsiniz. Onayınızı geri çekmeniz, onayınızı geri çekmeden önce testi işlemenin hukuki niteliğini etkilemeyecektir. Menüde \"Veri Gizliliği\" başlığında daha fazla bilgiye erişebilirsiniz.";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Kabul Et";
 
@@ -400,7 +413,7 @@
 
 "ExposureSubmission_DispatchTitle" = "Seçim";
 
-"ExposureSubmission_DispatchDescription" = "Burada size sunulan özellikler neler?";
+"ExposureSubmission_DispatchDescription" = "Hangi bilgilere sahipsiniz?";
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR kod ile belgeleyin";
 
@@ -414,7 +427,7 @@
 
 "ExposureSubmissionDispatch_HotlineButtonDescription" = "Test sonucunuz %@ çıktıysa lütfen bizi arayın.";
 
-"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Pozitif";
+"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "COVID-19 Pozitif";
 
 "ExposureSubmissionHotline_Title" = "TAN Talebi";
 
@@ -439,6 +452,29 @@
 "ExposureSubmission_TANInputButtonTitle" = "TAN gir";
 
 "ExposureSubmissionHotline_imageDescription" = "Yardım hattı size bir TAN iletecektir.";
+
+/* Exposure Submission QR Code Info */
+"ExposureSubmissionQRInfo_title" = "QR Kod Tarama";
+
+"ExposureSubmissionQRInfo_imageDescription" = "Bir kişi bir QR kodun yanında akıllı telefon tutuyor. Okunan QR kod akıllı telefonun ekranında görünüyor.";
+
+"ExposureSubmissionQRInfo_instruction1" = "Lütfen yalnızca kendi testinizi tarayın.";
+
+"ExposureSubmissionQRInfo_instruction2" = "Her test %@ taranabilir.";
+
+"ExposureSubmissionQRInfo_instruction2_highlightedPhrase" = "yalnızca bir kez";
+
+"ExposureSubmissionQRInfo_instruction3" = "Uygulama aynı anda birden çok testi %@.";
+
+"ExposureSubmissionQRInfo_instruction3_highlightedPhrase" = "yönetemez";
+
+"ExposureSubmissionQRInfo_instruction4" = "Daha yakın zamanlı bir test varsa mevcut testi silin ve yakın zamanlı testin QR kodunu tarayın.";
+
+"ExposureSubmissionQRInfo_primaryButtonTitle" = "Sonraki";
+
+"ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title" = "QR kod artık geçerli değil";
+
+"ExposureSubmissionQRInfo_QRCodeExpired_Alert_Text" = "Testiniz 21 günden eski ve artık uygulamaya kaydedilemez. İlerleyen zamanlarda yeniden test yaptırırsanız lütfen QR kodu alır almaz tarayın.";
 
 /* Exposure Submission QR Code Scanner */
 "ExposureSubmissionQRScanner_title" = "QR Kod Tarama";
@@ -544,19 +580,23 @@
 
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Kendinizi iyi hissetmiyorsanız diğer insanları riske atmamak için işe gitmeyin.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Belirtileriniz kötüleşirse ilave SARS-CoV-2 testi yapılması gerekebilir.";
+"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Belirtileriniz kötüleşirse başka bir SARS-CoV-2 testinin yapılması gerekebilir.";
 
 "ExposureSubmissionResult_testInvalid" = "Testte hata var";
 
 "ExposureSubmissionResult_testInvalidDesc" = "Testinizi değerlendirirken bir problem oluştu. Lütfen sonraki adımlarınız için test merkezi veya laboratuvar ile görüşün.";
 
-"ExposureSubmissionResult_testRedeemed" = "Testte hata var";
+"ExposureSubmissionResult_testExpired" = "Testte hata var";
 
-"ExposureSubmissionResult_testRedeemedDesc" = "Testinizi değerlendirirken bir problem oluştu. QR kodunuzun süresi dolmuş.";
+"ExposureSubmissionResult_testExpiredDesc" = "Testinizi değerlendirirken bir problem oluştu. QR kodunuzun süresi dolmuş.";
 
 "ExposureSubmissionResult_testPending" = "Test sonucu henüz çıkmadı";
 
-"ExposureSubmissionResult_testPendingDesc" = "Test sonucunuz henüz çıkmadı.";
+"ExposureSubmissionResult_testPendingDesc_paragraph1" = "Lütfen sabırlı olun, değerlendirmenin tamamlanması birkaç gün sürebilir.\n\n";
+
+"ExposureSubmissionResult_testPendingDesc_paragraph2" = "Test sonucunuz uygulama dışından da tarafınıza iletilecektir. Testinizin pozitif sonuç vermesi halinde kamu sağlığı yetkilileri sizi bilgilendirecektir.\n\n";
+
+"ExposureSubmissionResult_testPendingDesc_paragraph3" = "Test sonucunun pozitif olması halinde sonucu uygulamaya kaydetmek ve diğer kullanıcıları uyarmak için lütfen \"TAN Talebi\" başlığının altında görüntülenen numarayı arayın.";
 
 "ExposureSubmissionResult_testRemove" = "Testi sil";
 
@@ -621,7 +661,7 @@
 "ExposureSubmissionSymptomsOnset_ContinueButton" = "Sonraki";
 
 /* ExposureSubmissionWarnOthers */
-"ExposureSubmissionWarnOthers_title" = "Diğer Kullanıcıları Uyarma";
+"ExposureSubmissionWarnOthers_title" = "Diğer Kullanıcıları Uyarın";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "Bir cihaz şifrelenmiş pozitif test tanısını sisteme aktarır.";
 
@@ -815,7 +855,7 @@
 
 "Home_Risk_Unknown_Title" = "Bilinmeyen Risk";
 
-"Home_Risk_Last_Activate_Item_Title" = "Son maruz kalma günlüğü: %@";
+"Home_Risk_Last_Activate_Item_Title" = "Son maruz kalma kontrolü: %@";
 
 "Home_Risk_Last_Activate_Item_Unknown_Title" = "Bilinmeyen Risk";
 
@@ -855,12 +895,19 @@
 
 "Home_Risk_Status_Detecting_Title" = "Kontrol devam ediyor …";
 
-"Home_Risk_Status_Downloading_Body" = "Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için çok teşekkür ederiz.";
+"Home_Risk_Status_Downloading_Body" = "Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için teşekkür ederiz.";
 
-"Home_Risk_Status_Detecting_Body" = "Maruz kalma verileriniz kontrol ediliyor. Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için çok teşekkür ederiz.";
+"Home_Risk_Status_Detecting_Body" = "Maruz kalma verileriniz kontrol ediliyor. Bu işlem birkaç dakika sürebilir. Gösterdiğiniz sabır için teşekkür ederiz.";
+
+/* Home exposure detection failed card */
+"Home_Risk_Failed_Title" = "Maruz kalma kontrolü başarısız oldu";
+
+"Home_Risk_Failed_Body" = "Rastgele kimliklerin sunucu ile senkronizasyonu başarısız oldu. Senkronizasyonu manüel olarak başlatabilirsiniz.";
+
+"Home_Risk_Restart_Button_Title" = "Yeniden başlat";
 
 /* Home Thank you card */
-"Home_Thank_You_Card_Title" = "Teşekkür ederiz!";
+"Home_Thank_You_Card_Title" = "Teşekkür ederiz";
 
 "Home_Thank_You_Card_Body" = "Desteğiniz sayesinde artık diğer kullanıcılar uyarılabilir ve buna uygun şekilde hareket edebilir.";
 
@@ -940,6 +987,13 @@
 "Home_resultCard_InvalidDesc" = "Testiniz değerlendirilemiyor.";
 
 "Home_resultCard_LoadingErrorTitle" = "Test sonucunuz yüklenemiyor.";
+
+/* Home Alert Risk Lowered */
+"Home_Alert_RiskStatusLowered_Title" = "Risk Durumunuzda Değişiklik";
+
+"Home_Alert_RiskStatusLowered_Message" = "Risk durumunuzun artmasına neden olan son maruz kalma 14 günden uzun süre önce gerçekleşti. Bu nedenle enfeksiyon riskiniz yeniden düşük olarak derecelendirildi.\n\nYapmanız gerekenler:\n1. Herhangi bir COVID-19 belirtiniz yoksa mesafe ve hijyen konusunda belirlenen kurallara riayet etmenizi öneririz.\n2. COVID-19 belirtiniz varsa doktorunuzu ziyaret edip test yaptırmanızı öneririz.";
+
+"Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "Tamam";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "Uygulama Hakkında";
@@ -1078,7 +1132,7 @@
 
 "RiskLegend_Legend1_Title" = "Maruz Kalma Günlüğü";
 
-"RiskLegend_Legend1_Text" = "Maruz kalma günlüğü, uygulamanın üç temel özelliğinden biridir. Bu özelliği etkinleştirdiğinizde, diğer kişilerin akıllı telefonlarıyla karşılaşmalarınız günlüğe kaydedilir. Başka bir işlem yapmanız gerekmez.";
+"RiskLegend_Legend1_Text" = "Maruz kalma günlüğü, uygulamanın üç temel özelliğinden biridir. Bu özelliği etkinleştirdiğinizde, diğer kişilerin cihazlarıyla karşılaşmalarınız günlüğe kaydedilir. Başka bir işlem yapmanız gerekmez.";
 
 "RiskLegend_Legend2_Title" = "Enfeksiyon Riski";
 
@@ -1124,7 +1178,7 @@
 
 "RiskLegend_Random_Text" = "Rastgele Kimlikler, rastgele oluşturulan rakam ve harf kombinasyonlarıdır. Yakın mesafedeki cihazlar arasında değiştirilir. Rastgele Kimlikler belirli bir kişiyi izlemek üzere kullanılamaz ve 14 günün sonunda otomatik olarak silinir. COVID-19 tanısı konan kişiler son 14 güne kadar rastgele kimliklerinin uygulamanın diğer kullanıcıları ile paylaşılmasını seçebilir.";
 
-"RiskLegend_Image1_AccLabel" = "Bir akıllı telefon farklı numaralandırılmış içerikler gösteriyor.";
+"RiskLegend_Image1_AccLabel" = "Bir cihaz farklı numaralandırılmış içerikler gösteriyor.";
 
 /* Update Message */
 "Update_Message_Title" = "Güncelleme var";

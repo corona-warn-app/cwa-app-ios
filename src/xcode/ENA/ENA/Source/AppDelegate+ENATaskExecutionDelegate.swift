@@ -67,9 +67,9 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		service.getTestResult { result in
 			switch result {
 			case .failure(let error):
-				logError(message: error.localizedDescription)
-			case .success(.pending), .success(.redeemed):
-				// Do not trigger notifications for pending or redeemed results.
+				Log.error(error.localizedDescription, log: .api)
+			case .success(.pending), .success(.expired):
+				// Do not trigger notifications for pending or expired results.
 				break
 			case .success:
 				UNUserNotificationCenter.current().presentNotification(
@@ -90,19 +90,22 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		// At this point we are already in background so it is safe to assume background mode is available.
 		riskProvider.configuration.detectionMode = .fromBackgroundStatus(.available)
 
-		riskProvider.requestRisk(userInitiated: false) { risk in
-			guard let risk = risk, risk.riskLevelHasChanged else {
+		riskProvider.requestRisk(userInitiated: false) { result in
+			switch result {
+			case .success(let risk):
+				if risk.riskLevelHasChanged {
+					UNUserNotificationCenter.current().presentNotification(
+						title: AppStrings.LocalNotifications.detectExposureTitle,
+						body: AppStrings.LocalNotifications.detectExposureBody,
+						identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier + ".risk-detection"
+					)
+					completion(true)
+				} else {
+					completion(false)
+				}
+			case .failure:
 				completion(false)
-				return
 			}
-
-			UNUserNotificationCenter.current().presentNotification(
-				title: AppStrings.LocalNotifications.detectExposureTitle,
-				body: AppStrings.LocalNotifications.detectExposureBody,
-				identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier + ".risk-detection"
-			)
-
-			completion(true)
 		}
 	}
 }
