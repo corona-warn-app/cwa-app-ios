@@ -138,7 +138,10 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMSQLiteErrorViewController(store: store)
 		case .listPendingNotifications:
 			vc = DMNotificationsViewController()
+		case .warnOtherNotifications:
+			vc = DMWarnOthersNotificationViewController()
 		}
+		
 		
 		if let vc = vc {
 			navigationController?.pushViewController(

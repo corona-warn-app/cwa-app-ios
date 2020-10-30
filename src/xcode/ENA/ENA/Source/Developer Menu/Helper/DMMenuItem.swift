@@ -36,20 +36,21 @@ enum DMMenuItem: Int, CaseIterable {
 	case serverEnvironment
 	case simulateNoDiskSpace
 	case listPendingNotifications
+	case warnOtherNotifications
 }
 
 extension DMMenuItem {
 	init?(indexPath: IndexPath) {
 		self.init(rawValue: indexPath.row)
 	}
-
+	
 	static func existingFromIndexPath(_ indexPath: IndexPath) -> DMMenuItem {
 		guard let item = self.init(indexPath: indexPath) else {
 			fatalError("Requested a menu item for an invalid index path. This is a programmer error.")
 		}
 		return item
 	}
-
+	
 	var title: String {
 		switch self {
 		case .keys: return "Keys"
@@ -67,6 +68,7 @@ extension DMMenuItem {
 		case .serverEnvironment: return "Server Environment"
 		case .simulateNoDiskSpace: return "Simulate SQLite Error"
 		case .listPendingNotifications: return "Pending Notifications"
+		case .warnOtherNotifications: return "Warn Others Notifications"
 		}
 	}
 	var subtitle: String {
@@ -86,6 +88,7 @@ extension DMMenuItem {
 		case .serverEnvironment: return "Select server environment"
 		case .simulateNoDiskSpace: return "Simulates SQLite returns defined error"
 		case .listPendingNotifications: return "List all pending Notifications"
+		case .warnOtherNotifications: return "Settings for the warn others notifications"
 		}
 	}
 }
