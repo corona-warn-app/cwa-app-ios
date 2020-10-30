@@ -38,11 +38,11 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 
 	func updateDeviceTimeFlags(serverTime: Date, deviceTime: Date) {
 		self.persistDeviceTimeCheckFlags(
-			deviceTimeIsCorrect: self.isDeviceTimeCorrect(
+			isDeviceTimeCorrect: self.isDeviceTimeCorrect(
 				serverTime: serverTime,
 				deviceTime: deviceTime
 			),
-			deviceTimeCheckKillSwitchIsActive: self.isDeviceTimeCheckKillSwitchActive(
+			isDeviceTimeCheckKillSwitchActive: self.isDeviceTimeCheckKillSwitchActive(
 				config: self.store.appConfig
 			)
 		)
@@ -58,21 +58,19 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 	private let store: AppConfigCaching
 
 	private func persistDeviceTimeCheckFlags(
-		deviceTimeIsCorrect: Bool,
-		deviceTimeCheckKillSwitchIsActive: Bool
+		isDeviceTimeCorrect: Bool,
+		isDeviceTimeCheckKillSwitchActive: Bool
 	) {
-		store.deviceTimeIsCorrect = deviceTimeCheckKillSwitchIsActive ? true : deviceTimeIsCorrect
+		store.deviceTimeIsCorrect = isDeviceTimeCheckKillSwitchActive ? true : isDeviceTimeCorrect
 		if store.deviceTimeIsCorrect {
 			store.deviceTimeErrorWasShown = false
 		}
 	}
 
 	private func isDeviceTimeCorrect(serverTime: Date, deviceTime: Date) -> Bool {
-		guard let serverTimeMinus2Hours = Calendar.current.date(byAdding: .hour, value: -2, to: serverTime),
-			  let serverTimePlus2Hours = Calendar.current.date(byAdding: .hour, value: 2, to: serverTime) else {
-			return true
-		}
-		
+		let twoHourIntevall: Double = 2 * 60 * 60
+		let serverTimeMinus2Hours = serverTime.addingTimeInterval(-twoHourIntevall)
+		let serverTimePlus2Hours = serverTime.addingTimeInterval(twoHourIntevall)
 		return (serverTimeMinus2Hours ... serverTimePlus2Hours).contains(deviceTime)
 	}
 

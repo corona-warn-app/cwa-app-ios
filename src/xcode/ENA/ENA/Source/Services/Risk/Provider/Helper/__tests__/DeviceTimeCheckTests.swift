@@ -42,12 +42,10 @@ final class DeviceTimeCheckTest: XCTestCase {
 	func test_WHEN_DeviceTimeIs2HoursInThePast_THEN_DeviceTimeIsCorrectIsSavedToStore() {
 		let fakeStore = MockTestStore()
 		fakeStore.appConfig = makeAppConfig(killSwitchIsOn: false)
+		let twoHourIntevall: Double = 2 * 60 * 60
 
 		let serverTime = Date()
-		guard let deviceTime = Calendar.current.date(byAdding: .hour, value: -2, to: serverTime) else {
-			XCTFail("Could not create date.")
-			return
-		}
+		let deviceTime = serverTime.addingTimeInterval(-twoHourIntevall)
 
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
 		deviceTimeCheck.updateDeviceTimeFlags(
@@ -62,12 +60,10 @@ final class DeviceTimeCheckTest: XCTestCase {
 	func test_WHEN_DeviceTimeIsOn2HoursInTheFuture_THEN_DeviceTimeIsCorrectIsSavedToStore() {
 		let fakeStore = MockTestStore()
 		fakeStore.appConfig = makeAppConfig(killSwitchIsOn: false)
+		let twoHourIntevall: Double = 2 * 60 * 60
 
 		let serverTime = Date()
-		guard let deviceTime = Calendar.current.date(byAdding: .hour, value: 2, to: serverTime) else {
-			XCTFail("Could not create date.")
-			return
-		}
+		let deviceTime = serverTime.addingTimeInterval(twoHourIntevall)
 
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
 		deviceTimeCheck.updateDeviceTimeFlags(
@@ -82,12 +78,10 @@ final class DeviceTimeCheckTest: XCTestCase {
 	func test_WHEN_DeviceTimeMoreThen2HoursInThePast_THEN_DeviceTimeIsNOTCorrectIsSavedToStore() {
 		let fakeStore = MockTestStore()
 		fakeStore.appConfig = makeAppConfig(killSwitchIsOn: false)
+		let twoHourOneSecondIntevall: Double = 2 * 60 * 60 + 1
 
 		let serverTime = Date()
-		guard let deviceTime = Calendar.current.date(byAdding: .minute, value: -121, to: serverTime) else {
-			XCTFail("Could not create date.")
-			return
-		}
+		let deviceTime = serverTime.addingTimeInterval(-twoHourOneSecondIntevall)
 
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
 		deviceTimeCheck.updateDeviceTimeFlags(
@@ -102,12 +96,10 @@ final class DeviceTimeCheckTest: XCTestCase {
 	func test_WHEN_DeviceTimeMoreThen2HoursInTheFuture_THEN_DeviceTimeIsNOTCorrectIsSavedToStore() {
 		let fakeStore = MockTestStore()
 		fakeStore.appConfig = makeAppConfig(killSwitchIsOn: false)
+		let twoHourOneSecondIntevall: Double = 2 * 60 * 60 + 1
 
 		let serverTime = Date()
-		guard let deviceTime = Calendar.current.date(byAdding: .minute, value: 121, to: serverTime) else {
-			XCTFail("Could not create date.")
-			return
-		}
+		let deviceTime = serverTime.addingTimeInterval(twoHourOneSecondIntevall)
 
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
 		deviceTimeCheck.updateDeviceTimeFlags(
