@@ -45,7 +45,8 @@ extension AppDelegate: ExposureSummaryProvider {
 
 		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
-			appConfiguration: appConfiguration
+			appConfiguration: appConfiguration,
+			deviceTimeCheck: DeviceTimeCheck(store: store)
 		)
 		
 		exposureDetection?

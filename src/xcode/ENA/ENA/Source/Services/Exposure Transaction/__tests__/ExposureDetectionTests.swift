@@ -69,7 +69,8 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		let startCompletionCalled = expectation(description: "start completion called")
 		let detection = ExposureDetection(
 			delegate: delegate,
-			appConfiguration: SAP_ApplicationConfiguration()
+			appConfiguration: SAP_ApplicationConfiguration(),
+			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
 		)
 		detection.start { _ in
 			startCompletionCalled.fulfill()
@@ -101,7 +102,8 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		let detection = ExposureDetection(
 			delegate: delegate,
 			countryKeypackageDownloader: packageDownloader,
-			appConfiguration: SAP_ApplicationConfiguration()
+			appConfiguration: SAP_ApplicationConfiguration(),
+			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
 		)
 
 		let expectationNoDaysAndHours = expectation(description: "completion with NoDaysAndHours error called.")
@@ -146,7 +148,8 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		let detection = ExposureDetection(
 			delegate: delegate,
 			countryKeypackageDownloader: packageDownloader,
-			appConfiguration: SAP_ApplicationConfiguration()
+			appConfiguration: SAP_ApplicationConfiguration(),
+			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
 		)
 
 		let expectationFailureResult = expectation(description: "Detection should fail.")
@@ -181,7 +184,8 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		let detection = ExposureDetection(
 			delegate: delegate,
 			countryKeypackageDownloader: packageDownloader,
-			appConfiguration: SAP_ApplicationConfiguration()
+			appConfiguration: SAP_ApplicationConfiguration(),
+			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
 		)
 
 		let expectationFailureResult = expectation(description: "Detection should fail.")

@@ -205,17 +205,6 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	}
 }
 
-/// Extension to have the device time SecureStore API available
-extension ExposureDetectionExecutor {
-	func isDeviceTimeCorrect() -> Bool {
-		return store.isDeviceTimeCorrect
-	}
-	
-	func hasDeviceTimeErrorBeenShown() -> Bool {
-		return store.wasDeviceTimeErrorShown
-	}
-}
-
 extension DownloadedPackagesStore {
 
 	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours, country: Country.ID, completion: @escaping (ExposureDetection.DidEndPrematurelyReason?) -> Void) {

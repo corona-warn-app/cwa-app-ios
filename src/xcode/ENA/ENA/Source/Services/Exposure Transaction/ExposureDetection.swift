@@ -28,6 +28,7 @@ final class ExposureDetection {
 	private var progress: Progress?
 	private var countryKeypackageDownloader: CountryKeypackageDownloading
 	private let appConfiguration: SAP_ApplicationConfiguration
+	private let deviceTimeCheck: DeviceTimeCheckProtocol
 
 	// There was a decision not to use the 2 letter code "EU", but instead "EUR".
 	// Please see this story for more informations: https://jira.itc.sap.com/browse/EXPOSUREBACK-151
@@ -37,10 +38,12 @@ final class ExposureDetection {
 	init(
 		delegate: ExposureDetectionDelegate,
 		countryKeypackageDownloader: CountryKeypackageDownloading? = nil,
-		appConfiguration: SAP_ApplicationConfiguration
+		appConfiguration: SAP_ApplicationConfiguration,
+		deviceTimeCheck: DeviceTimeCheckProtocol
 	) {
 		self.delegate = delegate
 		self.appConfiguration = appConfiguration
+		self.deviceTimeCheck = deviceTimeCheck
 
 		if let countryKeypackageDownloader = countryKeypackageDownloader {
 			self.countryKeypackageDownloader = countryKeypackageDownloader
@@ -122,7 +125,7 @@ final class ExposureDetection {
 				self.activityState = .detecting
 
 				if let exposureConfiguration = self.exposureConfiguration {
-					if !self.isDeviceTimeCorrect() {
+					if !self.deviceTimeCheck.isDeviceTimeCorrect {
 						Log.warning("ExposureDetection: Detecting summary skipped due to wrong device time.", log: .riskDetection)
 						self.endPrematurely(reason: .wrongDeviceTime)
 					} else {
@@ -136,11 +139,6 @@ final class ExposureDetection {
 				}
 			}
 		}
-	}
-
-	// MARK: Device time functions
-	private func isDeviceTimeCorrect() -> Bool {
-		return self.delegate?.isDeviceTimeCorrect() ?? true
 	}
 	
 	// MARK: Working with the Completion Handler

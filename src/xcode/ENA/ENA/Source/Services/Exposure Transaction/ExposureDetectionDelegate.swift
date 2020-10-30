@@ -60,8 +60,4 @@ protocol ExposureDetectionDelegate: AnyObject {
 		writtenPackages: WrittenPackages,
 		completion: @escaping DetectionHandler
 	) -> Progress
-	
-	func isDeviceTimeCorrect() -> Bool
-	
-	func hasDeviceTimeErrorBeenShown() -> Bool
 }
