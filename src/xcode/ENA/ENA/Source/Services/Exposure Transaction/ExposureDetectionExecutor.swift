@@ -35,22 +35,16 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		var daysAndHours = DaysAndHours(days: [], hours: [])
 		var errors = [Error]()
 
-		// We only want to download hours in case the hourly fetching mode is enabled.
-		// Enabling the hourly fetching mode is only possible for dev/test builds.
-		// Unfortunately this mode cannot be enabled in production due to technical limitations
-		// regarding the exposure notification framework.
-		if store.hourlyFetchingEnabled {
-			group.enter()
+		group.enter()
 
-			client.availableHours(day: .formattedToday(), country: country) { result in
-				switch result {
-				case let .success(hours):
-					daysAndHours.hours = hours
-				case let .failure(error):
-					errors.append(error)
-				}
-				group.leave()
+		client.availableHours(day: .formattedToday(), country: country) { result in
+			switch result {
+			case let .success(hours):
+				daysAndHours.hours = hours
+			case let .failure(error):
+				errors.append(error)
 			}
+			group.leave()
 		}
 
 		group.enter()
@@ -132,26 +126,22 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 			try fileManager.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
 			let writer = AppleFilesWriter(rootDir: rootDir)
 
-			if store.hourlyFetchingEnabled {
-				let allHourlyPackages = downloadedPackagesStore.hourlyPackages(for: .formattedToday(), country: country)
-				let recentThreeHoursPackages = allHourlyPackages.prefix(3)
+			let allHourlyPackages = downloadedPackagesStore.hourlyPackages(for: .formattedToday(), country: country)
+			for hourlyKeyPackage in allHourlyPackages {
+				let success = writer.writePackage(hourlyKeyPackage)
+				if !success {
+					return nil
+				}
+			}
 
-				for keyPackage in recentThreeHoursPackages {
+			let allDayKeyPackages = downloadedPackagesStore.allDays(country: country)
+			for dayKeyPackage in allDayKeyPackages {
+				let _keyPackage = autoreleasepool(invoking: { downloadedPackagesStore.package(for: dayKeyPackage, country: country) })
+
+				if let keyPackage = _keyPackage {
 					let success = writer.writePackage(keyPackage)
 					if !success {
 						return nil
-					}
-				}
-			} else {
-				let allDays = downloadedPackagesStore.allDays(country: country)
-
-				for day in allDays {
-					let _keyPackage = autoreleasepool(invoking: { downloadedPackagesStore.package(for: day, country: country) })
-					if let keyPackage = _keyPackage {
-						let success = writer.writePackage(keyPackage)
-						if !success {
-							return nil
-						}
 					}
 				}
 			}

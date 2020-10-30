@@ -265,6 +265,10 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 		}
 	}
 
+	func deleteOutdatedHours(now: String) throws {
+		// Delete all hours older then today
+	}
+
 	func package(for day: String, country: Country.ID) -> SAPDownloadedPackage? {
 		queue.sync {
 			let sql = """
