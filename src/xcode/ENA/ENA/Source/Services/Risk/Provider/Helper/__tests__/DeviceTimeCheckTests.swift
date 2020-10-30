@@ -36,7 +36,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 		)
 
 		XCTAssertTrue(fakeStore.isDeviceTimeCorrect)
-		XCTAssertFalse(fakeStore.deviceTimeErrorWasShown)
+		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
 	func test_WHEN_DeviceTimeIs2HoursInThePast_THEN_DeviceTimeIsCorrectIsSavedToStore() {
@@ -54,7 +54,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 		)
 
 		XCTAssertTrue(fakeStore.isDeviceTimeCorrect)
-		XCTAssertFalse(fakeStore.deviceTimeErrorWasShown)
+		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
 	func test_WHEN_DeviceTimeIsOn2HoursInTheFuture_THEN_DeviceTimeIsCorrectIsSavedToStore() {
@@ -72,7 +72,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 		)
 
 		XCTAssertTrue(fakeStore.isDeviceTimeCorrect)
-		XCTAssertFalse(fakeStore.deviceTimeErrorWasShown)
+		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
 	func test_WHEN_DeviceTimeMoreThen2HoursInThePast_THEN_DeviceTimeIsNOTCorrectIsSavedToStore() {
@@ -90,7 +90,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 		)
 
 		XCTAssertFalse(fakeStore.isDeviceTimeCorrect)
-		XCTAssertFalse(fakeStore.deviceTimeErrorWasShown)
+		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
 	func test_WHEN_DeviceTimeMoreThen2HoursInTheFuture_THEN_DeviceTimeIsNOTCorrectIsSavedToStore() {
@@ -108,7 +108,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 		)
 
 		XCTAssertFalse(fakeStore.isDeviceTimeCorrect)
-		XCTAssertFalse(fakeStore.deviceTimeErrorWasShown)
+		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
 	func test_WHEN_DeviceTimeMoreThen2HoursInTheFuture_AND_KillSwitchIsActive_THEN_DeviceTimeIsCorrectIsSavedToStore() {
@@ -128,19 +128,19 @@ final class DeviceTimeCheckTest: XCTestCase {
 		)
 
 		XCTAssertTrue(fakeStore.isDeviceTimeCorrect)
-		XCTAssertFalse(fakeStore.deviceTimeErrorWasShown)
+		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
 	func test_WHEN_ResetDeviceTimeFlagsToDefault_THEN_DeviceTimeIsCorrectIsSavedToStore() {
 		let fakeStore = MockTestStore()
 		fakeStore.isDeviceTimeCorrect = false
-		fakeStore.deviceTimeErrorWasShown = true
+		fakeStore.wasDeviceTimeErrorShown = true
 
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
 		deviceTimeCheck.resetDeviceTimeFlags()
 
 		XCTAssertTrue(fakeStore.isDeviceTimeCorrect)
-		XCTAssertFalse(fakeStore.deviceTimeErrorWasShown)
+		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
 	private func makeAppConfig(killSwitchIsOn: Bool) -> SAP_ApplicationConfiguration {
