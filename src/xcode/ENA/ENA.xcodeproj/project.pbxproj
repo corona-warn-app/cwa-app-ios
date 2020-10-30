@@ -3961,6 +3961,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.5.3;
 				MARKETING_VERSION = 1.6.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
