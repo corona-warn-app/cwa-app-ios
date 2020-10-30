@@ -22,7 +22,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct SAP_Internal_ExpsureDetectionParametersIOS {
+struct SAP_Internal_ExposureDetectionParametersIOS {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -34,7 +34,7 @@ struct SAP_Internal_ExpsureDetectionParametersIOS {
   init() {}
 }
 
-struct SAP_Internal_ExpsureDetectionParametersAndroid {
+struct SAP_Internal_ExposureDetectionParametersAndroid {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -52,8 +52,8 @@ struct SAP_Internal_ExpsureDetectionParametersAndroid {
 
 fileprivate let _protobuf_package = "SAP.internal"
 
-extension SAP_Internal_ExpsureDetectionParametersIOS: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ExpsureDetectionParametersIOS"
+extension SAP_Internal_ExposureDetectionParametersIOS: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ExposureDetectionParametersIOS"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "maxExposureDetectionsPerInterval"),
   ]
@@ -77,15 +77,15 @@ extension SAP_Internal_ExpsureDetectionParametersIOS: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: SAP_Internal_ExpsureDetectionParametersIOS, rhs: SAP_Internal_ExpsureDetectionParametersIOS) -> Bool {
+  static func ==(lhs: SAP_Internal_ExposureDetectionParametersIOS, rhs: SAP_Internal_ExposureDetectionParametersIOS) -> Bool {
     if lhs.maxExposureDetectionsPerInterval != rhs.maxExposureDetectionsPerInterval {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension SAP_Internal_ExpsureDetectionParametersAndroid: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ExpsureDetectionParametersAndroid"
+extension SAP_Internal_ExposureDetectionParametersAndroid: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ExposureDetectionParametersAndroid"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "maxExposureDetectionsPerInterval"),
     2: .same(proto: "overallTimeoutInSeconds"),
@@ -114,7 +114,7 @@ extension SAP_Internal_ExpsureDetectionParametersAndroid: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: SAP_Internal_ExpsureDetectionParametersAndroid, rhs: SAP_Internal_ExpsureDetectionParametersAndroid) -> Bool {
+  static func ==(lhs: SAP_Internal_ExposureDetectionParametersAndroid, rhs: SAP_Internal_ExposureDetectionParametersAndroid) -> Bool {
     if lhs.maxExposureDetectionsPerInterval != rhs.maxExposureDetectionsPerInterval {return false}
     if lhs.overallTimeoutInSeconds != rhs.overallTimeoutInSeconds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}

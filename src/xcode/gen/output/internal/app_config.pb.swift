@@ -100,8 +100,8 @@ struct SAP_Internal_ApplicationConfiguration {
   /// Clears the value of `androidKeyDownloadParameters`. Subsequent reads from it will return its default value.
   mutating func clearAndroidKeyDownloadParameters() {_uniqueStorage()._androidKeyDownloadParameters = nil}
 
-  var iosExposureDetectionParameters: SAP_Internal_ExpsureDetectionParametersIOS {
-    get {return _storage._iosExposureDetectionParameters ?? SAP_Internal_ExpsureDetectionParametersIOS()}
+  var iosExposureDetectionParameters: SAP_Internal_ExposureDetectionParametersIOS {
+    get {return _storage._iosExposureDetectionParameters ?? SAP_Internal_ExposureDetectionParametersIOS()}
     set {_uniqueStorage()._iosExposureDetectionParameters = newValue}
   }
   /// Returns true if `iosExposureDetectionParameters` has been explicitly set.
@@ -109,8 +109,8 @@ struct SAP_Internal_ApplicationConfiguration {
   /// Clears the value of `iosExposureDetectionParameters`. Subsequent reads from it will return its default value.
   mutating func clearIosExposureDetectionParameters() {_uniqueStorage()._iosExposureDetectionParameters = nil}
 
-  var androidExposureDetectionParameters: SAP_Internal_ExpsureDetectionParametersAndroid {
-    get {return _storage._androidExposureDetectionParameters ?? SAP_Internal_ExpsureDetectionParametersAndroid()}
+  var androidExposureDetectionParameters: SAP_Internal_ExposureDetectionParametersAndroid {
+    get {return _storage._androidExposureDetectionParameters ?? SAP_Internal_ExposureDetectionParametersAndroid()}
     set {_uniqueStorage()._androidExposureDetectionParameters = newValue}
   }
   /// Returns true if `androidExposureDetectionParameters` has been explicitly set.
@@ -155,8 +155,8 @@ extension SAP_Internal_ApplicationConfiguration: SwiftProtobuf.Message, SwiftPro
     var _supportedCountries: [String] = []
     var _iosKeyDownloadParameters: SAP_Internal_KeyDownloadParametersIOS? = nil
     var _androidKeyDownloadParameters: SAP_Internal_KeyDownloadParametersAndroid? = nil
-    var _iosExposureDetectionParameters: SAP_Internal_ExpsureDetectionParametersIOS? = nil
-    var _androidExposureDetectionParameters: SAP_Internal_ExpsureDetectionParametersAndroid? = nil
+    var _iosExposureDetectionParameters: SAP_Internal_ExposureDetectionParametersIOS? = nil
+    var _androidExposureDetectionParameters: SAP_Internal_ExposureDetectionParametersAndroid? = nil
 
     static let defaultInstance = _StorageClass()
 
