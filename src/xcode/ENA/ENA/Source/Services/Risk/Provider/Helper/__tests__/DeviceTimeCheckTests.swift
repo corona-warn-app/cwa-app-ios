@@ -145,7 +145,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 		fakeStore.deviceTimeErrorWasShown = true
 
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
-		deviceTimeCheck.resetDeviceTimeFlagsToDefault()
+		deviceTimeCheck.resetDeviceTimeFlags()
 
 		XCTAssertTrue(fakeStore.deviceTimeIsCorrect)
 		XCTAssertFalse(fakeStore.deviceTimeErrorWasShown)
