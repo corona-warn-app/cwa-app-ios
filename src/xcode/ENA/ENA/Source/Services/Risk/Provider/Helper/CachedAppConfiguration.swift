@@ -96,7 +96,7 @@ final class CachedAppConfiguration {
 					deviceTime: Date()
 				)
 			} else {
-				self.deviceTimeCheck.resetDeviceTimeFlagsToDefault()
+				self.deviceTimeCheck.resetDeviceTimeFlags()
 			}
 		}
 	}

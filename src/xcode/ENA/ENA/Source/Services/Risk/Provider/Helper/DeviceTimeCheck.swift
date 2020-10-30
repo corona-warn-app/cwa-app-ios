@@ -21,7 +21,7 @@ import Foundation
 
 protocol DeviceTimeCheckProtocol {
 	func checkAndPersistDeviceTimeFlags(serverTime: Date, deviceTime: Date)
-	func resetDeviceTimeFlagsToDefault()
+	func resetDeviceTimeFlags()
 }
 
 final class DeviceTimeCheck: DeviceTimeCheckProtocol {
@@ -48,7 +48,7 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 		)
 	}
 
-	func resetDeviceTimeFlagsToDefault() {
+	func resetDeviceTimeFlags() {
 		store.deviceTimeIsCorrect = true
 		store.deviceTimeErrorWasShown = false
 	}
