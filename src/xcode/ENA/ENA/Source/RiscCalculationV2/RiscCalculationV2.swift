@@ -19,9 +19,13 @@
 
 import Foundation
 
-class RiskCalculationV2 {
+final class RiskCalculationV2 {
 
 	// MARK: - Init
+
+	init(configuration: RiskCalculationConfiguration) {
+		self.configuration = configuration
+	}
 
 	// MARK: - Overrides
 
@@ -32,5 +36,7 @@ class RiskCalculationV2 {
 	// MARK: - Internal
 
 	// MARK: - Private
+
+	private let configuration: RiskCalculationConfiguration
 
 }

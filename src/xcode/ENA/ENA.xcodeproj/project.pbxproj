@@ -472,6 +472,8 @@
 		BA6C8B17254D729A008344F5 /* exposure-windows-risk-calculation.json in Resources */ = {isa = PBXBuildFile; fileRef = BA6C8A8F254D61F4008344F5 /* exposure-windows-risk-calculation.json */; };
 		BA6C8B24254D76ED008344F5 /* ExposureWindowTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AE3254D6598008344F5 /* ExposureWindowTestCase.swift */; };
 		BA6C8B2B254D76F7008344F5 /* TestCasesWithConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8A95254D62C3008344F5 /* TestCasesWithConfiguration.swift */; };
+		BA6C8B40254D7D2F008344F5 /* ExposureWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8B3F254D7D2F008344F5 /* ExposureWindow.swift */; };
+		BA6C8B51254D80DF008344F5 /* ExposureWindowTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8B50254D80DF008344F5 /* ExposureWindowTest.swift */; };
 		CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */; };
 		CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */; };
 		CD8638532477EBD400A5A07C /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8638522477EBD400A5A07C /* SettingsViewModel.swift */; };
@@ -1052,6 +1054,8 @@
 		BA6C8AF3254D65E1008344F5 /* ScanInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanInstance.swift; sourceTree = "<group>"; };
 		BA6C8B04254D6B1F008344F5 /* RiscCalculationV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiscCalculationV2.swift; sourceTree = "<group>"; };
 		BA6C8B0D254D6BF9008344F5 /* RiscCalculationV2Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiscCalculationV2Test.swift; sourceTree = "<group>"; };
+		BA6C8B3F254D7D2F008344F5 /* ExposureWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureWindow.swift; sourceTree = "<group>"; };
+		BA6C8B50254D80DF008344F5 /* ExposureWindowTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureWindowTest.swift; sourceTree = "<group>"; };
 		CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureManager.swift; sourceTree = "<group>"; };
 		CD678F6C246C43EE00B6A0F8 /* ClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientMock.swift; sourceTree = "<group>"; };
@@ -2749,6 +2753,7 @@
 		BA6C8B0C254D6BC9008344F5 /* __test__ */ = {
 			isa = PBXGroup;
 			children = (
+				BA6C8B50254D80DF008344F5 /* ExposureWindowTest.swift */,
 				BA6C8B32254D7738008344F5 /* Models */,
 				BA6C8A8F254D61F4008344F5 /* exposure-windows-risk-calculation.json */,
 				BA6C8B0D254D6BF9008344F5 /* RiscCalculationV2Test.swift */,
@@ -2761,6 +2766,7 @@
 			children = (
 				BA6C8AE3254D6598008344F5 /* ExposureWindowTestCase.swift */,
 				BA6C8A95254D62C3008344F5 /* TestCasesWithConfiguration.swift */,
+				BA6C8B3F254D7D2F008344F5 /* ExposureWindow.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3587,6 +3593,7 @@
 				A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */,
 				A1877CAB248F2532006FEFC0 /* SAPDownloadedPackageTests.swift in Sources */,
 				B1E23B8624FE4DD3006BCDA6 /* PublicKeyProviderTests.swift in Sources */,
+				BA6C8B40254D7D2F008344F5 /* ExposureWindow.swift in Sources */,
 				F2DC809424898CE600EDC40A /* DynamicTableViewControllerFooterTests.swift in Sources */,
 				B15382E5248273F30010F007 /* MockTestStore.swift in Sources */,
 				A32842672492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift in Sources */,
@@ -3661,6 +3668,7 @@
 				F22C6E252492082B00712A6B /* DynamicTableViewSpaceCellTests.swift in Sources */,
 				B1AC51D624CED8820087C35B /* DetectionModeTests.swift in Sources */,
 				B1FE13FE24896EF700D012E5 /* CachedAppConfigurationTests.swift in Sources */,
+				BA6C8B51254D80DF008344F5 /* ExposureWindowTest.swift in Sources */,
 				50BD2E7724FE26F400932566 /* AppInformationImprintTest.swift in Sources */,
 				A1E419602498243E0016E52A /* String+TodayTests.swift in Sources */,
 				35853E22251DED0F008FE983 /* CachingHTTPClientMock.swift in Sources */,

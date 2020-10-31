@@ -18,14 +18,14 @@
 //
 
 import Foundation
+import ExposureNotification
 
-struct ExposureWindow: Decodable {
+struct ExposureWindow {
 
-	// MARK: - Internal
+	let date: Date
+	let reportType: ENDiagnosisReportType
+	let infectiousness: ENInfectiousness
+	let calibrationConfidence: ENCalibrationConfidence
+	let scanInstances: [ENScanInstance]
 
-	let ageInDays: Int
-	let reportType: Int
-	let infectiousness: Int
-	let calibrationConfidence: Int
-	let scanInstances: [ScanInstance]
 }
