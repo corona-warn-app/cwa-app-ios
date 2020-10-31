@@ -2753,9 +2753,9 @@
 		BA6C8B0C254D6BC9008344F5 /* __test__ */ = {
 			isa = PBXGroup;
 			children = (
+				BA6C8A8F254D61F4008344F5 /* exposure-windows-risk-calculation.json */,
 				BA6C8B50254D80DF008344F5 /* ExposureWindowTest.swift */,
 				BA6C8B32254D7738008344F5 /* Models */,
-				BA6C8A8F254D61F4008344F5 /* exposure-windows-risk-calculation.json */,
 				BA6C8B0D254D6BF9008344F5 /* RiscCalculationV2Test.swift */,
 			);
 			path = __test__;
