@@ -19,25 +19,18 @@
 
 import Foundation
 
-struct TestCasesWithConfiguration: Decodable {
+class RiskCalculationV2 {
 
-	// MARK: - init
-	init() {
-		comment = "empty test cases"
-		defaultRiskCalculationConfiguration = nil
-		testCases = []
-	}
+	// MARK: - Init
 
-	// MARK: - Protocol Decodable
+	// MARK: - Overrides
 
-	enum CodingKeys: String, CodingKey {
-		case comment = "__comment__"
-		case defaultRiskCalculationConfiguration, testCases
-	}
+	// MARK: - Protocol <#Name#>
+
+	// MARK: - Public
 
 	// MARK: - Internal
 
-	let comment: String
-	let defaultRiskCalculationConfiguration: DefaultRiskCalculationConfiguration?
-	let testCases: [ExposureWindowTestCase]
+	// MARK: - Private
+
 }
