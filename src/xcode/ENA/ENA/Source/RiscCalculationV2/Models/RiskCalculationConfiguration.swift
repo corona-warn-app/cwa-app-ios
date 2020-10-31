@@ -19,25 +19,15 @@
 
 import Foundation
 
-struct TestCasesWithConfiguration: Decodable {
-
-	// MARK: - init
-	init() {
-		comment = "empty test cases"
-		defaultRiskCalculationConfiguration = nil
-		testCases = []
-	}
-
-	// MARK: - Protocol Decodable
-
-	enum CodingKeys: String, CodingKey {
-		case comment = "__comment__"
-		case defaultRiskCalculationConfiguration, testCases
-	}
+struct RiskCalculationConfiguration: Decodable {
 
 	// MARK: - Internal
 
-	let comment: String
-	let defaultRiskCalculationConfiguration: DefaultRiskCalculationConfiguration?
-	let testCases: [ExposureWindowTestCase]
+	let minutesAtAttenuationFilters: [MinutesAtAttenuationFilter]
+	let trlFilters: [TrlFilter]
+	let minutesAtAttenuationWeights: [MinutesAtAttenuationWeight]
+	let normalizedTimePerEWToRiskLevelMapping: [NormalizedTimePerToRiskLevelMapping]
+	let normalizedTimePerDayToRiskLevelMapping: [NormalizedTimePerToRiskLevelMapping]
+	let trlEncoding: TrlEncoding
+	let transmissionRiskLevelMultiplier: Double
 }

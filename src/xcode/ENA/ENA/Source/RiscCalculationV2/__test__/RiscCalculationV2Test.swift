@@ -45,5 +45,4 @@ class RiscCalculationV2Test: XCTestCase {
 		return TestCasesWithConfiguration()
 	}()
 
-
 }

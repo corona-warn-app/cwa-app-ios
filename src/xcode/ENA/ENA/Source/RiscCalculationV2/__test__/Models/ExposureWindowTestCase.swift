@@ -18,6 +18,7 @@
 //
 
 import Foundation
+@testable import ENA
 
 struct ExposureWindowTestCase: Decodable {
 
@@ -31,10 +32,13 @@ struct ExposureWindowTestCase: Decodable {
 	// MARK: - Internal
 
 	let testCaseDescription: String
-	let exposureWindows: [ExposureWindow]
-	let expTotalRiskLevel, expTotalMinimumDistinctEncountersWithLowRisk: Int
-	let expAgeOfMostRecentDateWithLowRisk, expAgeOfMostRecentDateWithHighRisk: Int?
+	let exposureWindows: [ENA.ExposureWindow]
+	let expTotalRiskLevel: Int
+	let expTotalMinimumDistinctEncountersWithLowRisk: Int
+	let expAgeOfMostRecentDateWithLowRisk: Int?
+	let expAgeOfMostRecentDateWithHighRisk: Int?
 	let expTotalMinimumDistinctEncountersWithHighRisk: Int
-	let expNumberOfExposureWindowsWithLowRisk, expNumberOfExposureWindowsWithHighRisk: Int?
+	let expNumberOfExposureWindowsWithLowRisk: Int?
+	let expNumberOfExposureWindowsWithHighRisk: Int?
 
 }

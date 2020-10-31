@@ -18,15 +18,28 @@
 //
 
 import Foundation
+@testable import ENA
 
-struct DefaultRiskCalculationConfiguration: Decodable {
+struct TestCasesWithConfiguration: Decodable {
+
+	// MARK: - init
+	init() {
+		comment = "empty test cases"
+		defaultRiskCalculationConfiguration = nil
+		testCases = []
+	}
+
+	// MARK: - Protocol Decodable
+
+	enum CodingKeys: String, CodingKey {
+		case comment = "__comment__"
+		case defaultRiskCalculationConfiguration
+		case testCases
+	}
 
 	// MARK: - Internal
 
-	let minutesAtAttenuationFilters: [MinutesAtAttenuationFilter]
-	let trlFilters: [TrlFilter]
-	let minutesAtAttenuationWeights: [MinutesAtAttenuationWeight]
-	let normalizedTimePerEWToRiskLevelMapping, normalizedTimePerDayToRiskLevelMapping: [NormalizedTimePerToRiskLevelMapping]
-	let trlEncoding: TrlEncoding
-	let transmissionRiskLevelMultiplier: Double
+	let comment: String
+	let defaultRiskCalculationConfiguration: ENA.RiskCalculationConfiguration?
+	let testCases: [ExposureWindowTestCase]
 }

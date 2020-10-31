@@ -457,8 +457,7 @@
 		B1FE13FF2489708200D012E5 /* CachedAppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13F824896DDB00D012E5 /* CachedAppConfiguration.swift */; };
 		B1FF6B6E2497D0B50041CF02 /* CWASQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = B1FF6B6C2497D0B50041CF02 /* CWASQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1FF6B772497D2330041CF02 /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DFCC2712484DC8400E2811D /* sqlite3.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BA6C8A96254D62C3008344F5 /* TestCasesWithConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8A95254D62C3008344F5 /* TestCasesWithConfiguration.swift */; };
-		BA6C8A9E254D634E008344F5 /* DefaultRiskCalculationConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8A9D254D634E008344F5 /* DefaultRiskCalculationConfiguration.swift */; };
+		BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8A9D254D634E008344F5 /* RiskCalculationConfiguration.swift */; };
 		BA6C8AA6254D63A0008344F5 /* MinutesAtAttenuationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AA5254D63A0008344F5 /* MinutesAtAttenuationFilter.swift */; };
 		BA6C8AAE254D6476008344F5 /* CWARange.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AAD254D6476008344F5 /* CWARange.swift */; };
 		BA6C8AB9254D64D3008344F5 /* MinutesAtAttenuationWeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AB8254D64D3008344F5 /* MinutesAtAttenuationWeight.swift */; };
@@ -466,12 +465,13 @@
 		BA6C8ACC254D6537008344F5 /* TrlEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8ACB254D6537008344F5 /* TrlEncoding.swift */; };
 		BA6C8AD4254D6552008344F5 /* TrlFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AD3254D6552008344F5 /* TrlFilter.swift */; };
 		BA6C8ADC254D657B008344F5 /* DropIfTrlInRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8ADB254D657B008344F5 /* DropIfTrlInRange.swift */; };
-		BA6C8AE4254D6598008344F5 /* ExposureWindowTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AE3254D6598008344F5 /* ExposureWindowTestCase.swift */; };
 		BA6C8AEC254D65C4008344F5 /* ExposureWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AEB254D65C4008344F5 /* ExposureWindow.swift */; };
 		BA6C8AF4254D65E1008344F5 /* ScanInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AF3254D65E1008344F5 /* ScanInstance.swift */; };
 		BA6C8B05254D6B1F008344F5 /* RiscCalculationV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8B04254D6B1F008344F5 /* RiscCalculationV2.swift */; };
 		BA6C8B0E254D6BF9008344F5 /* RiscCalculationV2Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8B0D254D6BF9008344F5 /* RiscCalculationV2Test.swift */; };
 		BA6C8B17254D729A008344F5 /* exposure-windows-risk-calculation.json in Resources */ = {isa = PBXBuildFile; fileRef = BA6C8A8F254D61F4008344F5 /* exposure-windows-risk-calculation.json */; };
+		BA6C8B24254D76ED008344F5 /* ExposureWindowTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AE3254D6598008344F5 /* ExposureWindowTestCase.swift */; };
+		BA6C8B2B254D76F7008344F5 /* TestCasesWithConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8A95254D62C3008344F5 /* TestCasesWithConfiguration.swift */; };
 		CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */; };
 		CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */; };
 		CD8638532477EBD400A5A07C /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8638522477EBD400A5A07C /* SettingsViewModel.swift */; };
@@ -1039,7 +1039,7 @@
 		B1FF6B6D2497D0B50041CF02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA6C8A8F254D61F4008344F5 /* exposure-windows-risk-calculation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "exposure-windows-risk-calculation.json"; sourceTree = "<group>"; };
 		BA6C8A95254D62C3008344F5 /* TestCasesWithConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCasesWithConfiguration.swift; sourceTree = "<group>"; };
-		BA6C8A9D254D634E008344F5 /* DefaultRiskCalculationConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRiskCalculationConfiguration.swift; sourceTree = "<group>"; };
+		BA6C8A9D254D634E008344F5 /* RiskCalculationConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationConfiguration.swift; sourceTree = "<group>"; };
 		BA6C8AA5254D63A0008344F5 /* MinutesAtAttenuationFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinutesAtAttenuationFilter.swift; sourceTree = "<group>"; };
 		BA6C8AAD254D6476008344F5 /* CWARange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWARange.swift; sourceTree = "<group>"; };
 		BA6C8AB8254D64D3008344F5 /* MinutesAtAttenuationWeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinutesAtAttenuationWeight.swift; sourceTree = "<group>"; };
@@ -2732,18 +2732,16 @@
 		BA6C8A94254D626C008344F5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BA6C8A95254D62C3008344F5 /* TestCasesWithConfiguration.swift */,
-				BA6C8A9D254D634E008344F5 /* DefaultRiskCalculationConfiguration.swift */,
-				BA6C8AA5254D63A0008344F5 /* MinutesAtAttenuationFilter.swift */,
 				BA6C8AAD254D6476008344F5 /* CWARange.swift */,
+				BA6C8ADB254D657B008344F5 /* DropIfTrlInRange.swift */,
+				BA6C8AEB254D65C4008344F5 /* ExposureWindow.swift */,
+				BA6C8AA5254D63A0008344F5 /* MinutesAtAttenuationFilter.swift */,
 				BA6C8AB8254D64D3008344F5 /* MinutesAtAttenuationWeight.swift */,
 				BA6C8AC3254D650C008344F5 /* NormalizedTimePerToRiskLevelMapping.swift */,
+				BA6C8A9D254D634E008344F5 /* RiskCalculationConfiguration.swift */,
+				BA6C8AF3254D65E1008344F5 /* ScanInstance.swift */,
 				BA6C8ACB254D6537008344F5 /* TrlEncoding.swift */,
 				BA6C8AD3254D6552008344F5 /* TrlFilter.swift */,
-				BA6C8ADB254D657B008344F5 /* DropIfTrlInRange.swift */,
-				BA6C8AE3254D6598008344F5 /* ExposureWindowTestCase.swift */,
-				BA6C8AEB254D65C4008344F5 /* ExposureWindow.swift */,
-				BA6C8AF3254D65E1008344F5 /* ScanInstance.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2751,10 +2749,20 @@
 		BA6C8B0C254D6BC9008344F5 /* __test__ */ = {
 			isa = PBXGroup;
 			children = (
-				BA6C8B0D254D6BF9008344F5 /* RiscCalculationV2Test.swift */,
+				BA6C8B32254D7738008344F5 /* Models */,
 				BA6C8A8F254D61F4008344F5 /* exposure-windows-risk-calculation.json */,
+				BA6C8B0D254D6BF9008344F5 /* RiscCalculationV2Test.swift */,
 			);
 			path = __test__;
+			sourceTree = "<group>";
+		};
+		BA6C8B32254D7738008344F5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BA6C8AE3254D6598008344F5 /* ExposureWindowTestCase.swift */,
+				BA6C8A95254D62C3008344F5 /* TestCasesWithConfiguration.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		CD8638512477EBAA00A5A07C /* Settings */ = {
@@ -3235,7 +3243,6 @@
 				51B5B41C246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift in Sources */,
 				B1EDFD8D248E74D000E7EAFF /* URL+StaticString.swift in Sources */,
 				A3E851B224ADD09900402485 /* CountdownTimer.swift in Sources */,
-				BA6C8A96254D62C3008344F5 /* TestCasesWithConfiguration.swift in Sources */,
 				EB08F1882541CE5700D11FA9 /* diagnosis_key_batch.pb.swift in Sources */,
 				011E13AE24680A4000973467 /* HTTPClient.swift in Sources */,
 				A1C683FA24AEC57400B90D12 /* DynamicTableViewTextViewCell.swift in Sources */,
@@ -3276,7 +3283,7 @@
 				71FE1C7B247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift in Sources */,
 				B1FC2D2024D9C8DF00083C81 /* SAP_TemporaryExposureKey+DeveloperMenu.swift in Sources */,
 				717D21E9248C022E00D9717E /* DynamicTableViewHtmlCell.swift in Sources */,
-				BA6C8A9E254D634E008344F5 /* DefaultRiskCalculationConfiguration.swift in Sources */,
+				BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */,
 				71FE1C82247AC30300851FEB /* ENATanInput.swift in Sources */,
 				7154EB4A247D21E200A467FF /* ExposureDetectionLongGuideCell.swift in Sources */,
 				51CE1B4A246016B0002CF42A /* UICollectionViewCell+Identifier.swift in Sources */,
@@ -3489,7 +3496,6 @@
 				51CE1B5524604DD2002CF42A /* HomeLayout.swift in Sources */,
 				B16457BD24DC3F4E002879EB /* DMKeysViewController.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
-				BA6C8AE4254D6598008344F5 /* ExposureWindowTestCase.swift in Sources */,
 				01C6AC0E252B1E990052814D /* ExposureSubmissionQRScannerViewModel.swift in Sources */,
 				B1C7EEB024941A6B00F1F284 /* RiskConsumer.swift in Sources */,
 				514C0A1A247C16D600F235F6 /* HomeInactiveRiskCellConfigurator.swift in Sources */,
@@ -3598,6 +3604,7 @@
 				B117521A248ACFFC00C3325C /* SAP_RiskScoreClass+LowAndHighTests.swift in Sources */,
 				9412FAFE252349EA0086E139 /* DeltaOnboardingViewControllerTests.swift in Sources */,
 				B11655932491437600316087 /* RiskProvidingConfigurationTests.swift in Sources */,
+				BA6C8B24254D76ED008344F5 /* ExposureWindowTestCase.swift in Sources */,
 				01A97DD32506769F00C07C37 /* DatePickerDayViewModelTests.swift in Sources */,
 				516E430024B777B20008CC30 /* HomeHighRiskCellConfiguratorTests.swift in Sources */,
 				F2DC809224898B1800EDC40A /* DynamicTableViewControllerHeaderTests.swift in Sources */,
@@ -3657,6 +3664,7 @@
 				50BD2E7724FE26F400932566 /* AppInformationImprintTest.swift in Sources */,
 				A1E419602498243E0016E52A /* String+TodayTests.swift in Sources */,
 				35853E22251DED0F008FE983 /* CachingHTTPClientMock.swift in Sources */,
+				BA6C8B2B254D76F7008344F5 /* TestCasesWithConfiguration.swift in Sources */,
 				2FC0356F24B342FA00E234AC /* UIViewcontroller+AlertTest.swift in Sources */,
 				F2DC809024898A9400EDC40A /* DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift in Sources */,
 				AB5F84BD24F92E92000400D4 /* SerialMigratorFake.swift in Sources */,
