@@ -308,6 +308,19 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.isScanningActivated, "Scanning is still enabled")
 	}
 
+	func testGIVEN_upperCasedHost_WHEN_extractGuid_THEN_isFound() {
+		// GIVEN
+		let viewModel = createViewModel()
+
+		// WHEN
+		let result = viewModel.extractGuid(from: "HTTPS://LOCALHOST/?\(validGuid)")
+
+		// THEN
+		XCTAssertNotNil(result)
+	}
+
+
+
 	private let validGuid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
 
 	private func createViewModel() -> ExposureSubmissionQRScannerViewModel {
