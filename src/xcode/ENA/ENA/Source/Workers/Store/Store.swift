@@ -115,6 +115,10 @@ protocol Store: AnyObject {
 
 	var selectedServerEnvironment: ServerEnvironmentData { get set }
 
+	var wasRecentDayKeyDownloadSuccessful: Bool { get set }
+
+	var wasRecentHourKeyDownloadSuccessful: Bool { get set }
+
 	func clearAll(key: String?)
 
 	#if !RELEASE

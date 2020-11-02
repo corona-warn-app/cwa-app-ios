@@ -193,6 +193,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		_: UIApplication,
 		didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
+
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
 		taskScheduler.delegate = self

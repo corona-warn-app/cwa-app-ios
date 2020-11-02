@@ -430,10 +430,10 @@ extension DownloadedPackagesSQLLiteStoreV1 {
 
 extension DownloadedPackagesStore {
 
-	func addFetchedDays(_ days: DaysResult, country: Country.ID) -> Result<Void, SQLiteErrorCode> {
+	func addFetchedDays(_ dayPackages: [String: SAPDownloadedPackage], country: Country.ID) -> Result<Void, SQLiteErrorCode> {
 		var errors = [SQLiteErrorCode]()
 
-		days.bucketsByDay.forEach { day, bucket in
+		dayPackages.forEach { day, bucket in
 			let result = self.set(country: country, day: day, package: bucket)
 
 			switch result {
@@ -451,11 +451,11 @@ extension DownloadedPackagesStore {
 		}
 	}
 
-	func addFetchedHours(_ hours: HoursResult, country: Country.ID) -> Result<Void, SQLiteErrorCode> {
+	func addFetchedHours(_ hourPackages: [Int: SAPDownloadedPackage], day: String, country: Country.ID) -> Result<Void, SQLiteErrorCode> {
 		var errors = [SQLiteErrorCode]()
 
-		hours.bucketsByHour.forEach { hour, bucket in
-			let result = self.set(country: country, hour: hour, day: hours.day, package: bucket)
+		hourPackages.forEach { hour, bucket in
+			let result = self.set(country: country, hour: hour, day: day, package: bucket)
 
 			switch result {
 			case .success:
