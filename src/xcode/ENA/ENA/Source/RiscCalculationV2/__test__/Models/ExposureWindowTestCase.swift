@@ -32,7 +32,7 @@ struct ExposureWindowTestCase: Decodable {
 	// MARK: - Internal
 
 	let testCaseDescription: String
-	let exposureWindows: [ENA.ExposureWindow]
+	let exposureWindows: [ExposureWindow]
 	let expTotalRiskLevel: CWARiskLevel
 	let expTotalMinimumDistinctEncountersWithLowRisk: Int
 	let expAgeOfMostRecentDateWithLowRisk: Int?
