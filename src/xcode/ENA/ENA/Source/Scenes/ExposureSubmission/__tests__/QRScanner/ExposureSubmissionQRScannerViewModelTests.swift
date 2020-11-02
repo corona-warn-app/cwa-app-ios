@@ -319,7 +319,16 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		XCTAssertNotNil(result)
 	}
 
+	func testGIVEN_invalidPath_WHEN_extractGuid_THEN_isFound() {
+		// GIVEN
+		let viewModel = createViewModel()
 
+		// WHEN
+		let result = viewModel.extractGuid(from: "https://localhost//?A9652E-3BE0486D-0678-40A8-BEFD-07846B41993C")
+
+		// THEN
+		XCTAssertNotNil(result)
+	}
 
 	private let validGuid = "3D6D08-3567F3F2-4DCF-43A3-8737-4CD1F87D6FDA"
 
