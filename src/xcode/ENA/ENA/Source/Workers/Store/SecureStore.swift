@@ -239,13 +239,13 @@ final class SecureStore: Store {
 		set { kvStore["selectedServerEnvironment"] = newValue }
 	}
 	
-	var warnOthersNotificationOneDelay: Int{
-		get { kvStore["wasDeviceTimeErrorShown"] as Int? ?? 7200 }
+	var warnOthersNotificationOneDelay: Int {
+		get { kvStore["wasDeviceTimeErrorShown"] as Int? ?? ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue }
 		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
 	}
 	
-	var warnOthersNotificationTwoDelay: Int{
-		get { kvStore["wasDeviceTimeErrorShown"] as Int? ?? 14400 }
+	var warnOthersNotificationTwoDelay: Int {
+		get { kvStore["wasDeviceTimeErrorShown"] as Int? ?? ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue }
 		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
 	}
 
@@ -293,7 +293,6 @@ extension SecureStore {
 	private convenience init(subDirectory: String, isRetry: Bool, serverEnvironment: ServerEnvironment) {
 		// swiftlint:disable:next force_try
 		let keychain = try! KeychainHelper()
-
 		do {
 			let directoryURL = try SecureStore.databaseDirectory(at: subDirectory)
 			let fileManager = FileManager.default
