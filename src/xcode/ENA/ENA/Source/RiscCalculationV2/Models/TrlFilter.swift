@@ -23,5 +23,6 @@ struct TrlFilter: Decodable {
 
 	// MARK: - Internal
 
-	let dropIfTrlInRange: DropIfTrlInRange
+	let dropIfTrlInRange: CWARange
+
 }

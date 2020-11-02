@@ -19,11 +19,6 @@
 
 import Foundation
 
-struct MinutesAtAttenuationFilter: Decodable {
-
-	// MARK: - Internal
-
-	let attenuationRange: CWARange
-	let dropIfMinutesInRange: CWARange
-
+enum RiskCalculationV2Error: Error {
+	case invalidConfiguration
 }

@@ -19,10 +19,18 @@
 
 import Foundation
 
-struct DropIfTrlInRange: Decodable {
+enum CWARiskLevel: Int, Decodable {
 
-	// MARK: - Internal
+	case low = 1
+	case high = 2
 
-	let min: Int
-	let max: Int
+	var eitherLowOrIncreasedRiskLevel: EitherLowOrIncreasedRiskLevel {
+		switch self {
+		case .low:
+			return .low
+		case .high:
+			return .increased
+		}
+	}
+
 }

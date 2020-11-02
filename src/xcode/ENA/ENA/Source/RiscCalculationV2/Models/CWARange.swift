@@ -23,7 +23,30 @@ struct CWARange: Decodable {
 
 	// MARK: - Internal
 
-	let min: Int
-	let max: Int
+	let min: Double
+	let max: Double
+
+	let minExclusive: Bool?
 	let maxExclusive: Bool?
+
+	func contains(_ value: Double) -> Bool {
+		let minExclusive = self.minExclusive ?? false
+		let maxExclusive = self.maxExclusive ?? false
+
+		if minExclusive && value <= min { return false }
+		if !minExclusive && value < min { return false }
+		if maxExclusive && value >= max { return false }
+		if !maxExclusive && value > max { return false }
+
+		return true
+	}
+
+	func contains(_ value: Int) -> Bool {
+		contains(Double(value))
+	}
+
+	func contains(_ value: UInt8) -> Bool {
+		contains(Double(value))
+	}
+
 }

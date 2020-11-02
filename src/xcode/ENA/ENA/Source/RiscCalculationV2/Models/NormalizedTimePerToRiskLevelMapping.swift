@@ -24,5 +24,6 @@ struct NormalizedTimePerToRiskLevelMapping: Decodable {
 	// MARK: - Internal
 	
 	let normalizedTimeRange: CWARange
-	let riskLevel: Int
+	let riskLevel: CWARiskLevel
+	
 }

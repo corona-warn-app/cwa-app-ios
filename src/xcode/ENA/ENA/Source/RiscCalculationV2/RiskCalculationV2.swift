@@ -27,6 +27,10 @@ final class RiskCalculationV2 {
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
 	) -> ExposureDetectionResult {
+		var filteredExposureWindows = exposureWindows.map { RiskCalculationWindow(exposureWindow: $0, configuration: configuration) }.filter {
+			!$0.isDroppedByMinutesAtAttenuation && !$0.isDroppedByTransmissionRiskLevel
+		}
+
 		return ExposureDetectionResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 0,
