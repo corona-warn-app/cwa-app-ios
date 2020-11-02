@@ -49,12 +49,32 @@ final class KeyPackageDownload: KeyPackageDownloadProtocol {
 	func start(completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void) {
 		Log.info("KeyPackageDownload: Start downloading packages to cache.", log: .riskDetection)
 
-		let countryId = "EUR"
+		let countryIds = ["EUR"]
 
-		downloadKeyPackages(
-			for: countryId,
-			completion: completion
-		)
+		let dispatchGroup = DispatchGroup()
+		var errors = [KeyPackageDownloadError]()
+
+		for countryId in countryIds {
+			dispatchGroup.enter()
+
+			downloadKeyPackages(for: countryId) { result in
+				switch result {
+				case .success:
+					break
+				case .failure(let error):
+					errors.append(error)
+				}
+				dispatchGroup.leave()
+			}
+		}
+
+		dispatchGroup.notify(queue: .main) {
+			if let error = errors.first {
+				completion(.failure(error))
+			} else {
+				completion(.success(()))
+			}
+		}
 	}
 
 	private func downloadKeyPackages(
