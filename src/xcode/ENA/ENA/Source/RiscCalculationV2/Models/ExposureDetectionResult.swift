@@ -29,6 +29,9 @@ struct ExposureDetectionResult {
 	let mostRecentDateWithLowRisk: Date
 	let mostRecentDateWithHighRisk: Date
 
+	let numberOfExposureWindowsWithLowRisk: Int
+	let numberOfExposureWindowsWithHighRisk: Int
+
 	let detectionDate: Date
 
 	var minimumDistinctEncountersWithCurrentRiskLevel: Int {
@@ -47,6 +50,14 @@ struct ExposureDetectionResult {
 		case .increased:
 			return mostRecentDateWithHighRisk
 		}
+	}
+
+	var ageInDaysOfMostRecentDateWithLowRisk: Int? {
+		Calendar.current.dateComponents([.day], from: mostRecentDateWithLowRisk, to: Date()).day
+	}
+
+	var ageInDaysOfMostRecentDateWithHighRisk: Int? {
+		Calendar.current.dateComponents([.day], from: mostRecentDateWithHighRisk, to: Date()).day
 	}
 
 }

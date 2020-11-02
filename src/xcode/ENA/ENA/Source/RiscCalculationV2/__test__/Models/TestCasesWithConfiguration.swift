@@ -22,13 +22,6 @@ import Foundation
 
 struct TestCasesWithConfiguration: Decodable {
 
-	// MARK: - init
-	init() {
-		comment = "empty test cases"
-		defaultRiskCalculationConfiguration = nil
-		testCases = []
-	}
-
 	// MARK: - Protocol Decodable
 
 	enum CodingKeys: String, CodingKey {
@@ -40,7 +33,7 @@ struct TestCasesWithConfiguration: Decodable {
 	// MARK: - Internal
 
 	let comment: String
-	let defaultRiskCalculationConfiguration: ENA.RiskCalculationConfiguration?
+	let defaultRiskCalculationConfiguration: ENA.RiskCalculationConfiguration
 	let testCases: [ExposureWindowTestCase]
 
 }

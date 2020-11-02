@@ -33,12 +33,28 @@ struct ExposureWindowTestCase: Decodable {
 
 	let testCaseDescription: String
 	let exposureWindows: [ENA.ExposureWindow]
-	let expTotalRiskLevel: Int
+	let expTotalRiskLevel: ExpectedRiskLevel
 	let expTotalMinimumDistinctEncountersWithLowRisk: Int
 	let expAgeOfMostRecentDateWithLowRisk: Int?
 	let expAgeOfMostRecentDateWithHighRisk: Int?
 	let expTotalMinimumDistinctEncountersWithHighRisk: Int
 	let expNumberOfExposureWindowsWithLowRisk: Int?
 	let expNumberOfExposureWindowsWithHighRisk: Int?
+
+}
+
+enum ExpectedRiskLevel: Int, Decodable {
+
+	case low = 1
+	case high = 2
+
+	var eitherLowOrIncreasedRiskLevel: EitherLowOrIncreasedRiskLevel {
+		switch self {
+		case .low:
+			return .low
+		case .high:
+			return .increased
+		}
+	}
 
 }

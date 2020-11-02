@@ -21,16 +21,22 @@ import Foundation
 
 final class RiskCalculationV2 {
 
-	// MARK: - Init
-
-	init(configuration: RiskCalculationConfiguration) {
-		self.configuration = configuration
-	}
-
 	// MARK: - Internal
 
-	// MARK: - Private
-
-	private let configuration: RiskCalculationConfiguration
+	func calculateRisk(
+		exposureWindows: [ExposureWindow],
+		configuration: RiskCalculationConfiguration
+	) -> ExposureDetectionResult {
+		return ExposureDetectionResult(
+			riskLevel: .low,
+			minimumDistinctEncountersWithLowRisk: 0,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: Date(),
+			mostRecentDateWithHighRisk: Date(),
+			numberOfExposureWindowsWithLowRisk: 0,
+			numberOfExposureWindowsWithHighRisk: 0,
+			detectionDate: Date()
+		)
+	}
 
 }

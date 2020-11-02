@@ -11,15 +11,44 @@ import XCTest
 
 class RiskCalculationV2Test: XCTestCase {
 
-	func testWHEN_loadJsonTestFile_THEN_testCasesWithConfigurationAreGreaterThanZero() {
+	func testWHEN_LoadingJsonTestFile_THEN_24TestCasesWithConfigurationAreReturned() {
 		// WHEN
+		let testCases = testCasesWithConfiguration.testCases
 
 		// THEN
-		XCTAssertGreaterThan(testCasesWithConfiguration.testCases.count, 0, "not tests found")
+		XCTAssertEqual(testCases.count, 24)
+	}
+
+	func testGIVEN_TestCases_WHEN_CalulatingRiskForEachTestCase_THEN_ResultIsCorrect() {
+		// GIVEN
+		let testCases = testCasesWithConfiguration.testCases
+
+		for testCase in testCases {
+			// WHEN
+			let riskCalculation = RiskCalculationV2()
+			let result = riskCalculation.calculateRisk(
+				exposureWindows: testCase.exposureWindows,
+				configuration: testCasesWithConfiguration.defaultRiskCalculationConfiguration
+			)
+
+			// THEN
+			XCTAssert(Calendar.current.isDate(result.detectionDate, inSameDayAs: Date()))
+
+			XCTAssertEqual(result.riskLevel, testCase.expTotalRiskLevel.eitherLowOrIncreasedRiskLevel)
+
+			XCTAssertEqual(result.minimumDistinctEncountersWithLowRisk, testCase.expTotalMinimumDistinctEncountersWithLowRisk)
+			XCTAssertEqual(result.minimumDistinctEncountersWithHighRisk, testCase.expTotalMinimumDistinctEncountersWithHighRisk)
+
+			XCTAssertEqual(result.ageInDaysOfMostRecentDateWithLowRisk, testCase.expAgeOfMostRecentDateWithLowRisk)
+			XCTAssertEqual(result.ageInDaysOfMostRecentDateWithHighRisk, testCase.expAgeOfMostRecentDateWithHighRisk)
+
+			XCTAssertEqual(result.numberOfExposureWindowsWithLowRisk, testCase.expNumberOfExposureWindowsWithLowRisk)
+			XCTAssertEqual(result.numberOfExposureWindowsWithHighRisk, testCase.expNumberOfExposureWindowsWithHighRisk)
+		}
 	}
 
 	lazy var testCasesWithConfiguration: TestCasesWithConfiguration = {
-		let testBundle = Bundle(for: RiscCalculationV2Test.self)
+		let testBundle = Bundle(for: RiskCalculationV2Test.self)
 		guard let urlJsonFile = testBundle.url(forResource: "exposure-windows-risk-calculation", withExtension: "json"),
 			  let data = try? Data(contentsOf: urlJsonFile) else {
 			XCTFail("Failed init json file for tests")
@@ -29,20 +58,16 @@ class RiskCalculationV2Test: XCTestCase {
 		do {
 			return try JSONDecoder().decode(TestCasesWithConfiguration.self, from: data)
 		} catch let DecodingError.keyNotFound(jsonKey, context) {
-			Log.error("missing key: \(jsonKey)")
-			Log.error("Debug Description: \(context.debugDescription)")
+			fatalError("missing key: \(jsonKey)\nDebug Description: \(context.debugDescription)")
 		} catch let DecodingError.valueNotFound(type, context) {
-			Log.error("Type not found \(type)")
-			Log.error("Debug Description: \(context.debugDescription)")
+			fatalError("Type not found \(type)\nDebug Description: \(context.debugDescription)")
 		} catch let DecodingError.typeMismatch(type, context) {
-			Log.error("Type mismatch found \(type)")
-			Log.error("Debug Description: \(context.debugDescription)")
+			fatalError("Type mismatch found \(type)\nDebug Description: \(context.debugDescription)")
 		} catch DecodingError.dataCorrupted(let context) {
-			Log.error("Debug Description: \(context.debugDescription)")
+			fatalError("Debug Description: \(context.debugDescription)")
 		} catch {
 			fatalError("Failed to parse JSON answer")
 		}
-		return TestCasesWithConfiguration()
 	}()
 
 }
