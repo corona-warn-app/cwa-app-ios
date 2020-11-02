@@ -25,16 +25,23 @@ protocol KeyPackageDownloadProtocol {
 
 enum KeyPackageDownloadError: Error {
 	case uncompletedDayPackages
-	case unavailableServerData
+	case uncompletedHourPackages
 	case noDiskSpace
 	case unableToWriteDiagnosisKeys
+	case downloadIsRunning
 }
 
 final class KeyPackageDownload: KeyPackageDownloadProtocol {
 
+	enum DownloadMode {
+		case daily
+		case hourly(String)
+	}
+
 	private let downloadedPackagesStore: DownloadedPackagesStore
 	private let client: Client
 	private let store: Store & AppConfigCaching
+	private var isKeyDownloadRunning = false
 
 	init(
 		downloadedPackagesStore: DownloadedPackagesStore,
@@ -49,181 +56,293 @@ final class KeyPackageDownload: KeyPackageDownloadProtocol {
 	func start(completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void) {
 		Log.info("KeyPackageDownload: Start downloading packages to cache.", log: .riskDetection)
 
+		guard isKeyDownloadRunning else {
+			Log.info("KeyPackageDownload: Download is already running.", log: .riskDetection)
+			completion(.failure(.downloadIsRunning))
+			return
+		}
+
+		isKeyDownloadRunning = true
+
 		let countryIds = ["EUR"]
 
 		let dispatchGroup = DispatchGroup()
 		var errors = [KeyPackageDownloadError]()
 
-		for countryId in countryIds {
-			dispatchGroup.enter()
+		dispatchGroup.enter()
+		startProcessingPackages(countryIds: countryIds, downloadMode: .daily) { result in
+			switch result {
+			case .success:
+				break
+			case .failure(let error):
+				errors.append(error)
+			}
 
-			downloadKeyPackages(for: countryId) { result in
-				switch result {
-				case .success:
-					break
-				case .failure(let error):
-					errors.append(error)
+			dispatchGroup.leave()
+		}
+
+		dispatchGroup.enter()
+		startProcessingPackages(countryIds: countryIds, downloadMode: .hourly(.formattedToday())) {result in
+			switch result {
+			case .success:
+				break
+			case .failure(let error):
+				errors.append(error)
+			}
+
+			dispatchGroup.leave()
+		}
+
+		dispatchGroup.notify(queue: .main) {
+			if let error = errors.first {
+				Log.error("KeyPackageDownload: Completed downloading packages with errors: \(errors).", log: .riskDetection)
+				completion(.failure(error))
+			} else {
+				Log.info("KeyPackageDownload: Completed downloading packages to cache.", log: .riskDetection)
+				completion(.success(()))
+			}
+
+			self.isKeyDownloadRunning = false
+		}
+	}
+
+	func startProcessingPackages(countryIds: [Country.ID], downloadMode: DownloadMode, completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void) {
+		Log.info("KeyPackageDownload: Start downloading hour packages to cache.", log: .riskDetection)
+
+		let dispatchGroup = DispatchGroup()
+		var errors = [KeyPackageDownloadError]()
+
+		for countryId in countryIds {
+			Log.info("KeyPackageDownload: Start downloading hour package with country id: \(countryId).", log: .riskDetection)
+
+			var shouldStartPackageDownload: Bool
+			switch downloadMode {
+			case .daily:
+				shouldStartPackageDownload = expectNewDayPackages(for: countryId)
+			case .hourly(let dayKey):
+				shouldStartPackageDownload = expectNewHourPackages(for: dayKey, counrtyId: countryId)
+			}
+
+			if shouldStartPackageDownload {
+				dispatchGroup.enter()
+
+				startDownloadPackages(for: countryId, downloadMode: downloadMode) { result in
+					switch result {
+					case .success:
+						Log.info("KeyPackageDownload: Succeded downloading hour packages for country id: \(countryId).", log: .riskDetection)
+					case .failure(let error):
+						Log.info("KeyPackageDownload: Failed downloading hour packages for country id: \(countryId).", log: .riskDetection)
+						errors.append(error)
+					}
+
+					dispatchGroup.leave()
 				}
-				dispatchGroup.leave()
 			}
 		}
 
 		dispatchGroup.notify(queue: .main) {
 			if let error = errors.first {
+				Log.error("KeyPackageDownload: Failed downloading hour packages with errors: \(errors).", log: .riskDetection)
+
+				self.updateRecentKeyDownloadFlags(to: false, downloadMode: downloadMode)
 				completion(.failure(error))
 			} else {
+				Log.info("KeyPackageDownload: Completed downloading hour packages to cache.", log: .riskDetection)
+
+				self.updateRecentKeyDownloadFlags(to: true, downloadMode: downloadMode)
 				completion(.success(()))
 			}
 		}
 	}
 
-	private func downloadKeyPackages(
-		for countryId: String,
-		completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void
-	) {
-		availableServerData(country: countryId) { [weak self] result in
+	private func updateRecentKeyDownloadFlags(to newValue: Bool, downloadMode: DownloadMode) {
+		switch downloadMode {
+		case .daily:
+			self.store.wasRecentDayKeyDownloadSuccessful = newValue
+		case .hourly:
+			self.store.wasRecentHourKeyDownloadSuccessful = newValue
+		}
+	}
+
+	private func startDownloadPackages(for countryId: Country.ID, downloadMode: DownloadMode, completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void) {
+		availableServerData(country: countryId, downloadMode: downloadMode) { [weak self] result in
 			guard let self = self else { return }
 
 			switch result {
-			case .success(let daysAndHours):
-				Log.info("KeyPackageDownload: Download available server data successful.", log: .riskDetection)
+			case .success(let availableHours):
+				let hoursDelta = self.serverDelta(country: countryId, for: Set(availableHours), downloadMode: downloadMode)
 
-				let _serverDelta = self.serverDelta(
-					country: countryId,
-					for: daysAndHours
-				)
+				self.downloadPackages(for: Array(hoursDelta), downloadMode: downloadMode, country: countryId) { [weak self] result in
+					guard let self = self else { return }
 
-				self.downloadAndStore(
-					country: countryId,
-					delta: _serverDelta,
-					completion: completion
-				)
+					switch result {
+					case .success(let hourPackages):
+						let result = self.persistPackages(hourPackages, downloadMode: downloadMode, country: countryId)
+
+						switch result {
+						case .success:
+							completion(.success(()))
+						case .failure(let error):
+							completion(.failure(error))
+						}
+					case .failure(let error):
+						completion(.failure(error))
+					}
+				}
 			case .failure(let error):
-				Log.info("KeyPackageDownload: Failed to download server data.", log: .riskDetection)
-
 				completion(.failure(error))
 			}
 		}
 	}
 
+	private func expectNewDayPackages(for country: Country.ID) -> Bool {
+		guard let yesterdayDate = Calendar.utcCalendar.date(byAdding: .day, value: -1, to: Date()) else {
+			fatalError("Could not create yesterdays date.")
+		}
+
+		let formatter = DateFormatter()
+		formatter.dateFormat = "YYYY-MM-DD"
+		formatter.timeZone = TimeZone.utcTimeZone
+
+		let yesterdayKeyString = formatter.string(from: yesterdayDate)
+		let dayExists = downloadedPackagesStore.allDays(country: country).contains(yesterdayKeyString)
+
+		let wasRecentDownloadSuccessful = store.wasRecentDayKeyDownloadSuccessful
+
+		return !dayExists || !wasRecentDownloadSuccessful
+	}
+
+	private func expectNewHourPackages(for dayKey: String, counrtyId: Country.ID) -> Bool {
+		guard let lastHourDate = Calendar.utcCalendar.date(byAdding: .hour, value: -1, to: Date()) else {
+			fatalError("Could not create last hour date.")
+		}
+
+		let formatter = DateFormatter()
+		formatter.dateFormat = "H"
+		formatter.timeZone = TimeZone.utcTimeZone
+
+		let lastHourKey = Int(formatter.string(from: lastHourDate)) ?? -1
+		let recentHourPackageExists = downloadedPackagesStore.hours(for: dayKey, country: counrtyId).contains(lastHourKey)
+
+		let wasRecentDownloadSuccessful = store.wasRecentHourKeyDownloadSuccessful
+
+		return !recentHourPackageExists || !wasRecentDownloadSuccessful
+	}
+
 	private func availableServerData(
 		country: Country.ID,
-		completion: @escaping (Result<DaysAndHours, KeyPackageDownloadError>) -> Void
+		downloadMode: DownloadMode,
+		completion: @escaping (Result<[String], KeyPackageDownloadError>) -> Void
 	) {
-		let group = DispatchGroup()
-
-		var daysAndHours = DaysAndHours(days: [], hours: [])
-		var errors = [Error]()
-
-		group.enter()
-
-		client.availableHours(day: .formattedToday(), country: country) { result in
-			switch result {
-			case let .success(hours):
-				daysAndHours.hours = hours
-			case let .failure(error):
-				errors.append(error)
+		switch downloadMode {
+		case .daily:
+			client.availableDays(forCountry: country) { result in
+				switch result {
+				case let .success(days):
+					completion(.success(days))
+				case .failure:
+					completion(.failure(.uncompletedDayPackages))
+				}
 			}
-			group.leave()
-		}
-
-		group.enter()
-
-		client.availableDays(forCountry: country) { result in
-			switch result {
-			case let .success(days):
-				daysAndHours.days = days
-			case let .failure(error):
-				errors.append(error)
+		case .hourly(let dayKey):
+			client.availableHours(day: dayKey, country: country) { result in
+				switch result {
+				case .success(let hours):
+					let packageKeys = hours.map { String($0) }
+					completion(.success(packageKeys))
+				case .failure:
+					completion(.failure(.uncompletedHourPackages))
+				}
 			}
-			group.leave()
-		}
-
-		group.notify(queue: .main) {
-			guard errors.isEmpty else {
-				let errorMessage = "Unable to determine available server data due to errors:\n \(errors.map { $0.localizedDescription }.joined(separator: "\n"))"
-				Log.error(errorMessage, log: .api)
-				completion(.failure(.unavailableServerData))
-				return
-			}
-			completion(.success(daysAndHours))
 		}
 	}
 
 	private func serverDelta(
 		country: Country.ID,
-		for remote: DaysAndHours
-	) -> DaysAndHours {
-		let localDays = Set(downloadedPackagesStore.allDays(country: country))
-		let localHours = Set(downloadedPackagesStore.hours(for: .formattedToday(), country: country))
+		for remotePackages: Set<String>,
+		downloadMode: DownloadMode
+	) -> Set<String> {
 
-		let delta = DeltaCalculationResult(
-			remoteDays: Set(remote.days),
-			remoteHours: Set(remote.hours),
-			localDays: localDays,
-			localHours: localHours
-		)
-
-		return DaysAndHours(
-			days: Array(delta.missingDays),
-			hours: Array(delta.missingHours)
-		)
+		switch downloadMode {
+		case .daily:
+			let localDays = Set(downloadedPackagesStore.allDays(country: country))
+			let deltaDays = remotePackages.subtracting(localDays)
+			return deltaDays
+		case .hourly(let dayKey):
+			let localHours = Set(downloadedPackagesStore.hours(for: dayKey, country: country).map { String($0) })
+			let deltaHours = remotePackages.subtracting(localHours)
+			return deltaHours
+		}
 	}
 
-	private func downloadAndStore(
+	private func downloadPackages(
+		for packageKeys: [String],
+		downloadMode: DownloadMode,
 		country: Country.ID,
-		delta: DaysAndHours,
-		completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void
-	) {
-		func storeDaysAndHours(_ fetchedDaysAndHours: FetchedDaysAndHours) {
-			guard fetchedDaysAndHours.days.errors.isEmpty else {
-				Log.info("KeyPackageDownload: Failed to download day packages.", log: .riskDetection)
+		completion: @escaping (Result<[String: SAPDownloadedPackage], KeyPackageDownloadError>) -> Void) {
 
-				completion(.failure(.uncompletedDayPackages))
-				return
-			}
-
-			// Risk detection should be executed regardles of failed hour packages.
-			// Because of that, this error is not propagated and the KeyPackageDownload
-			// is successful also with failed hour package download.
-			if !fetchedDaysAndHours.hours.errors.isEmpty {
-				Log.error("KeyPackageDownload: Failed to download hour packages.", log: .riskDetection)
-			}
-
-			Log.info("KeyPackageDownload: Download of key packages successful.", log: .riskDetection)
-
-			let daysResult = downloadedPackagesStore.addFetchedDays(
-				fetchedDaysAndHours.days,
-				country: country
+		switch downloadMode {
+		case .daily:
+			client.fetchDays(
+				packageKeys,
+				forCountry: country,
+				completion: { daysResult in
+					if daysResult.errors.isEmpty {
+						completion(.success(daysResult.bucketsByDay))
+					} else {
+						completion(.failure(.uncompletedDayPackages))
+					}
+				}
 			)
-			
-			_ = downloadedPackagesStore.addFetchedHours(
-				fetchedDaysAndHours.hours,
-				country: country
-			)
-			
-			switch daysResult {
-			case .success:
-				Log.info("KeyPackageDownload: Persistence of key packages successful.", log: .riskDetection)
-				completion(.success(()))
-			case .failure(let error):
-				Log.error("KeyPackageDownload: Persistence of key packages failed.", log: .riskDetection, error: error)
-				switch error {
-				case .sqlite_full:
-					completion(.failure(.noDiskSpace))
-				case .unknown:
-					completion(.failure(.unableToWriteDiagnosisKeys))
+		case .hourly(let dayKey):
+			let hourKeys = packageKeys.compactMap { Int($0) }
+			client.fetchHours(hourKeys, day: dayKey, country: country) { hoursResult in
+				if hoursResult.errors.isEmpty {
+					let keyPackages = Dictionary(
+						uniqueKeysWithValues: hoursResult.bucketsByHour.map { key, value in (String(key), value) }
+					)
+					completion(.success(keyPackages))
+				} else {
+					completion(.failure(.uncompletedHourPackages))
 				}
 			}
 		}
-		
-		client.fetchDays(
-			delta.days,
-			hours: delta.hours,
-			of: .formattedToday(),
-			country: country,
-			completion: storeDaysAndHours
-		)
+	}
+
+	private func persistPackages(_ keyPackages: [String: SAPDownloadedPackage], downloadMode: DownloadMode, country: Country.ID) -> Result<Void, KeyPackageDownloadError> {
+		var result: Result<Void, SQLiteErrorCode>
+
+		switch downloadMode {
+		case .daily:
+			result = downloadedPackagesStore.addFetchedDays(
+				keyPackages,
+				country: country
+			)
+		case .hourly(let dayKey):
+			let keyPackages = Dictionary(
+				uniqueKeysWithValues: keyPackages.map { key, value in (Int(key) ?? -1, value) }
+			)
+
+			result = downloadedPackagesStore.addFetchedHours(
+				keyPackages,
+				day: dayKey,
+				country: country
+			)
+		}
+
+		switch result {
+		case .success:
+			Log.info("KeyPackageDownload: Persistence of key packages successful.", log: .riskDetection)
+			return .success(())
+		case .failure(let error):
+			Log.error("KeyPackageDownload: Persistence of key packages failed.", log: .riskDetection, error: error)
+			switch error {
+			case .sqlite_full:
+				return .failure(.noDiskSpace)
+			case .unknown:
+				return .failure(.unableToWriteDiagnosisKeys)
+			}
+		}
 	}
 
 }

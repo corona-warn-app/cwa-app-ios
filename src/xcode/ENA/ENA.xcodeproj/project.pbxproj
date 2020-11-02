@@ -390,7 +390,6 @@
 		B16177E824802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16177E724802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift */; };
 		B161782524804AC3006E435A /* DownloadedPackagesSQLLiteStoreV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B161782424804AC3006E435A /* DownloadedPackagesSQLLiteStoreV1.swift */; };
 		B161782D248062CE006E435A /* DeltaCalculationResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B161782C248062CE006E435A /* DeltaCalculationResultTests.swift */; };
-		B161782E2480658F006E435A /* DeltaCalculationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B161782924805784006E435A /* DeltaCalculationResult.swift */; };
 		B163D1102499068D001A322C /* SettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B163D10F2499068D001A322C /* SettingsViewModelTests.swift */; };
 		B16457B524DC11EF002879EB /* DMLastSubmissionRequetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16457B424DC11EF002879EB /* DMLastSubmissionRequetViewController.swift */; };
 		B16457B924DC19F9002879EB /* DMSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16457B824DC19F9002879EB /* DMSettingsViewController.swift */; };
@@ -963,7 +962,6 @@
 		B1569DDE245D70990079FCD7 /* DMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMViewController.swift; sourceTree = "<group>"; };
 		B16177E724802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesSQLLiteStoreTests.swift; sourceTree = "<group>"; };
 		B161782424804AC3006E435A /* DownloadedPackagesSQLLiteStoreV1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesSQLLiteStoreV1.swift; sourceTree = "<group>"; };
-		B161782924805784006E435A /* DeltaCalculationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaCalculationResult.swift; sourceTree = "<group>"; };
 		B161782C248062CE006E435A /* DeltaCalculationResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaCalculationResultTests.swift; sourceTree = "<group>"; };
 		B163D10F2499068D001A322C /* SettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModelTests.swift; sourceTree = "<group>"; };
 		B163D11424993F64001A322C /* UIFont+DynamicTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+DynamicTypeTests.swift"; sourceTree = "<group>"; };
@@ -2372,7 +2370,6 @@
 			isa = PBXGroup;
 			children = (
 				B161782B248062A0006E435A /* __tests__ */,
-				B161782924805784006E435A /* DeltaCalculationResult.swift */,
 				B1A9E70D246D73180024CC12 /* ExposureDetection.swift */,
 				B10FD5F3246EAC1700E9D7F2 /* AppleFilesWriter.swift */,
 				B14D0CDE246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift */,
@@ -3148,7 +3145,6 @@
 				71330E43248109FD00EB10F6 /* DynamicTableViewCell.swift in Sources */,
 				B14D0CDD246E972400D5BEBC /* ExposureDetectionDelegate.swift in Sources */,
 				0144BDED250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift in Sources */,
-				B161782E2480658F006E435A /* DeltaCalculationResult.swift in Sources */,
 				B11E619B246EE4B0004A056A /* DynamicTypeLabel.swift in Sources */,
 				AB6289CF251BA01400CF61D2 /* Bundle+Version.swift in Sources */,
 				AB7420C2251B7D59006666AC /* DeltaOnboardingProtocols.swift in Sources */,

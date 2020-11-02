@@ -239,6 +239,16 @@ final class SecureStore: Store {
 		set { kvStore["selectedServerEnvironment"] = newValue }
 	}
 
+	var wasRecentDayKeyDownloadSuccessful: Bool {
+		get { kvStore["wasRecentDayKeyDownloadSuccessful"] as Bool? ?? false }
+		set { kvStore["wasRecentDayKeyDownloadSuccessful"] = newValue }
+	}
+
+	var wasRecentHourKeyDownloadSuccessful: Bool {
+		get { kvStore["wasRecentHourKeyDownloadSuccessful"] as Bool? ?? false }
+		set { kvStore["wasRecentHourKeyDownloadSuccessful"] = newValue }
+	}
+
 	#if !RELEASE
 
 	// Settings from the debug menu.
