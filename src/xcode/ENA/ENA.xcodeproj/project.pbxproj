@@ -493,6 +493,8 @@
 		EB858D2024E700D10048A0AA /* UIView+Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */; };
 		EB873540253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */; };
 		EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */; };
+		EBE7DF4A254C2DE8008A0648 /* key_download_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE7DF48254C2DE8008A0648 /* key_download_parameters.pb.swift */; };
+		EBE7DF4B254C2DE8008A0648 /* exposure_detection_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE7DF49254C2DE8008A0648 /* exposure_detection_parameters.pb.swift */; };
 		EE20EA072469883900770683 /* RiskLegend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE20EA062469883900770683 /* RiskLegend.storyboard */; };
 		EE22DB81247FB40A001B0A71 /* ENStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */; };
 		EE22DB82247FB40A001B0A71 /* ENSettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB80247FB409001B0A71 /* ENSettingModel.swift */; };
@@ -1064,6 +1066,8 @@
 		EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Screenshot.swift"; sourceTree = "<group>"; };
 		EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenter+DeadManSwitch.swift"; sourceTree = "<group>"; };
 		EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewController.swift; sourceTree = "<group>"; };
+		EBE7DF48254C2DE8008A0648 /* key_download_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = key_download_parameters.pb.swift; path = ../../../gen/output/internal/key_download_parameters.pb.swift; sourceTree = "<group>"; };
+		EBE7DF49254C2DE8008A0648 /* exposure_detection_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = exposure_detection_parameters.pb.swift; path = ../../../gen/output/internal/exposure_detection_parameters.pb.swift; sourceTree = "<group>"; };
 		EE20EA062469883900770683 /* RiskLegend.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RiskLegend.storyboard; sourceTree = "<group>"; };
 		EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENStateHandler.swift; sourceTree = "<group>"; };
 		EE22DB80247FB409001B0A71 /* ENSettingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSettingModel.swift; sourceTree = "<group>"; };
@@ -2244,6 +2248,8 @@
 		B102BDC12460405F00CD55A2 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				EBE7DF49254C2DE8008A0648 /* exposure_detection_parameters.pb.swift */,
+				EBE7DF48254C2DE8008A0648 /* key_download_parameters.pb.swift */,
 				EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */,
 				EB08F1832541CE5700D11FA9 /* temporary_exposure_key_export.pb.swift */,
 				EB08F1842541CE5700D11FA9 /* temporary_exposure_key_signature_list.pb.swift */,
@@ -3143,6 +3149,7 @@
 				AB6289CF251BA01400CF61D2 /* Bundle+Version.swift in Sources */,
 				AB7420C2251B7D59006666AC /* DeltaOnboardingProtocols.swift in Sources */,
 				7187A5582481231C00FCC755 /* DynamicTableViewAction.swift in Sources */,
+				EBE7DF4A254C2DE8008A0648 /* key_download_parameters.pb.swift in Sources */,
 				B16457B524DC11EF002879EB /* DMLastSubmissionRequetViewController.swift in Sources */,
 				A128F059248B459F00EC7F6C /* PublicKeyStore.swift in Sources */,
 				01D6948D2502717F00B45BEA /* DatePickerDayView.swift in Sources */,
@@ -3394,6 +3401,7 @@
 				9488C3012521EE8E00504648 /* DeltaOnboardingNavigationController.swift in Sources */,
 				71FE1C86247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift in Sources */,
 				1309194F247972C40066E329 /* PrivacyProtectionViewController.swift in Sources */,
+				EBE7DF4B254C2DE8008A0648 /* exposure_detection_parameters.pb.swift in Sources */,
 				CDCE11DB247D64D600F30825 /* NotificationSettingsOffTableViewCell.swift in Sources */,
 				EB08F17C2541CE3300D11FA9 /* submission_payload.pb.swift in Sources */,
 				51CE1B91246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift in Sources */,
@@ -3961,7 +3969,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.0;
 				MARKETING_VERSION = 1.7.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
