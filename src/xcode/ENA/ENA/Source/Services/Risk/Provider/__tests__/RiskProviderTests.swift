@@ -28,7 +28,7 @@ private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
 	var onDetectExposure: ((ExposureSummaryProvider.Completion) -> Void)?
 
 	func detectExposure(
-		appConfiguration: SAP_ApplicationConfiguration,
+		appConfiguration: SAP_Internal_ApplicationConfiguration,
 		activityStateDelegate: ActivityStateProviderDelegate? = nil,
 		completion: Completion
 	) -> CancellationToken {
@@ -177,8 +177,8 @@ final class RiskProviderTests: XCTestCase {
 			detectionRequested.fulfill()
 		}
 
-		let sapAppConfig = SAP_ApplicationConfiguration.with {
-			$0.exposureConfig = SAP_RiskScoreParameters()
+		let sapAppConfig = SAP_Internal_ApplicationConfiguration.with {
+			$0.exposureConfig = SAP_Internal_RiskScoreParameters()
 		}
 		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
 
@@ -228,8 +228,8 @@ final class RiskProviderTests: XCTestCase {
 			detectionRequested.fulfill()
 		}
 
-		let sapAppConfig = SAP_ApplicationConfiguration.with {
-			$0.exposureConfig = SAP_RiskScoreParameters()
+		let sapAppConfig = SAP_Internal_ApplicationConfiguration.with {
+			$0.exposureConfig = SAP_Internal_RiskScoreParameters()
 		}
 		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
 
@@ -472,7 +472,7 @@ final class RiskProviderTests: XCTestCase {
 struct RiskCalculationFake: RiskCalculationProtocol {
 	func risk(
 		summary: CodableExposureDetectionSummary?,
-		configuration: SAP_ApplicationConfiguration,
+		configuration: SAP_Internal_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
 		activeTracing: ActiveTracing,
 		preconditions: ExposureManagerState,

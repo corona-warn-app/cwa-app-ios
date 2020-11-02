@@ -98,7 +98,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		// -> Accept the alert.
 		XCTAssertTrue(app.alerts.firstMatch.exists)
-		app.alerts.buttons.firstMatch.tap()
+		app.alerts.buttons[app.localized("ExposureSubmissionDataPrivacy_AcceptTitle")].tap()
 
 		// QR Code Scanner Screen
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionQRScannerView"].waitForExistence(timeout: .medium))
@@ -413,7 +413,7 @@ extension ENAUITests_04_ExposureSubmissionUITests {
 
 	private func type(_ app: XCUIApplication, text: String) {
 		text.forEach {
-			app.keys[String($0)].tap()
+			app.keyboards.keys[String($0)].tap()
 		}
 	}
 

@@ -103,14 +103,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 		XCTAssertNotNil(navigationController)
 		XCTAssertNotNil(navigationController?.topViewController)
-		guard let vc = navigationController?.topViewController as? ExposureSubmissionTestResultViewController else {
-			XCTFail("Could not load presented view controller.")
-			return
-		}
-
-		XCTAssertNotNil(vc.coordinator)
-		XCTAssertNotNil(vc.exposureSubmissionService)
-		XCTAssertEqual(vc.testResult, result)
+		XCTAssertNotNil(navigationController?.topViewController as? ExposureSubmissionTestResultViewController)
 	}
 
 	func testDismiss() {
@@ -171,14 +164,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 		XCTAssertNotNil(navigationController)
 		XCTAssertNotNil(navigationController?.topViewController)
-		guard let vc = navigationController?.topViewController as? ExposureSubmissionTestResultViewController else {
-			XCTFail("Could not load presented view controller.")
-			return
-		}
-
-		XCTAssertNotNil(vc.coordinator)
-		XCTAssertNotNil(vc.exposureSubmissionService)
-		XCTAssertEqual(vc.testResult, result)
+		XCTAssertNotNil(navigationController?.topViewController as? ExposureSubmissionTestResultViewController)
 	}
 
 	func testShowHotlineScreen() {

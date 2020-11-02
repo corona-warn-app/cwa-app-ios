@@ -21,7 +21,7 @@ import Foundation
 
 /// A provider of the app configuration struct
 protocol AppConfigurationProviding: AnyObject {
-	typealias Completion = (Result<SAP_ApplicationConfiguration, Error>) -> Void
+	typealias Completion = (Result<SAP_Internal_ApplicationConfiguration, Error>) -> Void
 
 	/// Fetch the current app configuration, either the cached or a newly fetched one
 	/// - Parameters:
@@ -51,10 +51,10 @@ protocol AppConfigurationFetching {
 
 /// Helper struct to collect some required data. Better than anonymous tumples.
 struct AppConfigurationFetchingResponse {
-	let config: SAP_ApplicationConfiguration
+	let config: SAP_Internal_ApplicationConfiguration
 	let eTag: String?
 
-	init(_ config: SAP_ApplicationConfiguration, _ eTag: String? = nil) {
+	init(_ config: SAP_Internal_ApplicationConfiguration, _ eTag: String? = nil) {
 		self.config = config
 		self.eTag = eTag
 	}

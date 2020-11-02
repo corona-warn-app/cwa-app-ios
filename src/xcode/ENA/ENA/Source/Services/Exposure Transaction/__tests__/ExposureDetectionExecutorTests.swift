@@ -312,7 +312,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((mockSummary, nil)))
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfiguration: SAP_ApplicationConfiguration(),
+			appConfiguration: SAP_Internal_ApplicationConfiguration(),
 			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
 		)
 
@@ -344,7 +344,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((nil, expectedError)))
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfiguration: SAP_ApplicationConfiguration(),
+			appConfiguration: SAP_Internal_ApplicationConfiguration(),
 			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
 		)
 
@@ -388,7 +388,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		packageStore.set(country: "DE", day: "SomeDay", package: package)
 
 		let store = MockTestStore()
-		store.appConfig = SAP_ApplicationConfiguration()
+		store.appConfig = SAP_Internal_ApplicationConfiguration()
 
 		let sut = ExposureDetectionExecutor.makeWith(
 			packageStore: packageStore,
@@ -397,7 +397,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		)
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfiguration: SAP_ApplicationConfiguration(),
+			appConfiguration: SAP_Internal_ApplicationConfiguration(),
 			deviceTimeCheck: DeviceTimeCheck(store: store)
 		)
 

@@ -25,7 +25,7 @@ import Combine
 protocol ExposureSummaryProvider: AnyObject {
 	typealias Completion = (Result<ENExposureDetectionSummary, ExposureDetection.DidEndPrematurelyReason>) -> Void
 	func detectExposure(
-		appConfiguration: SAP_ApplicationConfiguration,
+		appConfiguration: SAP_Internal_ApplicationConfiguration,
 		activityStateDelegate: ActivityStateProviderDelegate?,
 		completion: @escaping Completion
 	) -> CancellationToken
@@ -126,7 +126,7 @@ extension RiskProvider: RiskProviding {
 	private func determineSummary(
 		userInitiated: Bool,
 		ignoreCachedSummary: Bool = false,
-		appConfiguration: SAP_ApplicationConfiguration,
+		appConfiguration: SAP_Internal_ApplicationConfiguration,
 		completion: @escaping (Result<SummaryMetadata, RiskCalculationError>) -> Void
 	) {
 		Log.info("RiskProvider: Determine summeries.", log: .riskDetection)
@@ -261,16 +261,16 @@ extension RiskProvider: RiskProviding {
 		let group = DispatchGroup()
 
 		group.enter()
-
+		
 		var summary: SummaryMetadata?
-		var config: SAP_ApplicationConfiguration?
-
+		var appConfiguration: SAP_Internal_ApplicationConfiguration?
+		
 		appConfigurationProvider.appConfiguration { [weak self] result in
 			guard let self = self else { return }
 
 			switch result {
 			case .success(let _config):
-				config = _config
+				appConfiguration = _config
 
 				self.determineSummary(
 					userInitiated: userInitiated,
@@ -313,14 +313,15 @@ extension RiskProvider: RiskProviding {
 
 		self._requestRiskLevel(
 			summary: summary,
-			appConfiguration: config,
+			appConfiguration: appConfiguration,
 			completion: completion
 		)
 
 		cancellationToken = nil
 	}
 
-	private func _requestRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_ApplicationConfiguration?, completion: Completion? = nil) {
+	private func _requestRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_Internal_ApplicationConfiguration?, completion: Completion? = nil) {
+
 		Log.info("RiskProvider: Apply risk calculation", log: .riskDetection)
 
 		guard let appConfiguration = appConfiguration else {

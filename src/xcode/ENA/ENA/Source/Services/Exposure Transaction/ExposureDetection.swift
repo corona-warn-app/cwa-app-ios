@@ -27,7 +27,7 @@ final class ExposureDetection {
 	private var completion: Completion?
 	private var progress: Progress?
 	private var countryKeypackageDownloader: CountryKeypackageDownloading
-	private let appConfiguration: SAP_ApplicationConfiguration
+	private let appConfiguration: SAP_Internal_ApplicationConfiguration
 	private let deviceTimeCheck: DeviceTimeCheckProtocol
 
 	// There was a decision not to use the 2 letter code "EU", but instead "EUR".
@@ -38,7 +38,7 @@ final class ExposureDetection {
 	init(
 		delegate: ExposureDetectionDelegate,
 		countryKeypackageDownloader: CountryKeypackageDownloading? = nil,
-		appConfiguration: SAP_ApplicationConfiguration,
+		appConfiguration: SAP_Internal_ApplicationConfiguration,
 		deviceTimeCheck: DeviceTimeCheckProtocol
 	) {
 		self.delegate = delegate
@@ -179,7 +179,7 @@ final class ExposureDetection {
 }
 
 private extension ENExposureConfiguration {
-	convenience init(from riskscoreParameters: SAP_RiskScoreParameters, minRiskScore: Int32) throws {
+	convenience init(from riskscoreParameters: SAP_Internal_RiskScoreParameters, minRiskScore: Int32) throws {
 		self.init()
 		minimumRiskScore = UInt8(clamping: minRiskScore)
 		minimumRiskScoreFullRange = Double(minRiskScore)
@@ -190,31 +190,31 @@ private extension ENExposureConfiguration {
 	}
 }
 
-private extension SAP_RiskLevel {
+private extension SAP_Internal_RiskLevel {
 	var asNumber: NSNumber {
 		NSNumber(value: rawValue)
 	}
 }
 
-private extension SAP_RiskScoreParameters.TransmissionRiskParameter {
+private extension SAP_Internal_RiskScoreParameters.TransmissionRiskParameters {
 	var asArray: [NSNumber] {
 		[appDefined1, appDefined2, appDefined3, appDefined4, appDefined5, appDefined6, appDefined7, appDefined8].map { $0.asNumber }
 	}
 }
 
-private extension SAP_RiskScoreParameters.DaysSinceLastExposureRiskParameter {
+private extension SAP_Internal_RiskScoreParameters.DaysSinceLastExposureRiskParameters {
 	var asArray: [NSNumber] {
 		[ge14Days, ge12Lt14Days, ge10Lt12Days, ge8Lt10Days, ge6Lt8Days, ge4Lt6Days, ge2Lt4Days, ge0Lt2Days].map { $0.asNumber }
 	}
 }
 
-private extension SAP_RiskScoreParameters.DurationRiskParameter {
+private extension SAP_Internal_RiskScoreParameters.DurationRiskParameters {
 	var asArray: [NSNumber] {
 		[eq0Min, gt0Le5Min, gt5Le10Min, gt10Le15Min, gt15Le20Min, gt20Le25Min, gt25Le30Min, gt30Min].map { $0.asNumber }
 	}
 }
 
-private extension SAP_RiskScoreParameters.AttenuationRiskParameter {
+private extension SAP_Internal_RiskScoreParameters.AttenuationRiskParameters {
 	var asArray: [NSNumber] {
 		[gt73Dbm, gt63Le73Dbm, gt51Le63Dbm, gt33Le51Dbm, gt27Le33Dbm, gt15Le27Dbm, gt10Le15Dbm, le10Dbm].map { $0.asNumber }
 	}
