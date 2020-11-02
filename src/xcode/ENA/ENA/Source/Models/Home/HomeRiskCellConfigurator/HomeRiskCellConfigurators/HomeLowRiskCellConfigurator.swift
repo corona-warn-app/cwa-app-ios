@@ -34,7 +34,6 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		numberRiskContacts: Int,
 		lastUpdateDate: Date?,
 		isButtonHidden: Bool,
-		detectionMode: DetectionMode,
 		manualExposureDetectionState: ManualExposureDetectionState?,
 		detectionInterval: Int,
 		activeTracing: ActiveTracing

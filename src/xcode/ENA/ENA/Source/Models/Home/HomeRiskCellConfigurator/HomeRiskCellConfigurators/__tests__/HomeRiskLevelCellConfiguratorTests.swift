@@ -80,15 +80,6 @@ class HomeRiskLevelCellConfiguratorTests: XCTestCase {
 	func test_riskLevelCell_shouldntBeEqual1() {
 		let date = Date()
 		let configurator1 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, lastUpdateDate: date, detectionInterval: 0)
-		let configurator2 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, lastUpdateDate: date, detectionInterval: 0)
-
-		let isEqual = configurator1 == configurator2
-		XCTAssertFalse(isEqual)
-	}
-
-	func test_riskLevelCell_shouldntBeEqual2() {
-		let date = Date()
-		let configurator1 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, lastUpdateDate: date, detectionInterval: 0)
 		let configurator2 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, lastUpdateDate: date.addingTimeInterval(100), detectionInterval: 0)
 
 		let isEqual = configurator1 == configurator2
