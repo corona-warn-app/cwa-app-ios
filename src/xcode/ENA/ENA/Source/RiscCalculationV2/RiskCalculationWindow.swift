@@ -33,7 +33,9 @@ class RiskCalculationWindow {
 
 	// MARK: - Internal
 
-	/// Tech spec for risk calculation based on exposure windows
+	let exposureWindow: ExposureWindow
+
+	/// Risk calculation based on exposure windows:
 	/// https://github.com/corona-warn-app/cwa-app-tech-spec/blob/512a4fd598179a98b32a73d9d86e6e536e67f7f8/docs/spec/exposure-windows.md#aggregate-results-from-exposure-windows
 
 	func riskLevel() throws -> CWARiskLevel {
@@ -71,30 +73,11 @@ class RiskCalculationWindow {
 		.contains(true)
 	}()
 
-	// MARK: - Private
-
-	private let exposureWindow: ExposureWindow
-	private let configuration: RiskCalculationConfiguration
-
-	private lazy var transmissionRiskValue: Double = {
-		Double(transmissionRiskLevel) * configuration.transmissionRiskLevelMultiplier
-	}()
-
-	private lazy var weightedMinutes: Double = {
-		return exposureWindow.scanInstances.map { scanInstance in
-			let weight = configuration.minutesAtAttenuationWeights
-				.first { $0.attenuationRange.contains(scanInstance.typicalAttenuation) }
-				.map { $0.weight } ?? 0
-
-			return Double(scanInstance.secondsSinceLastScan) * weight
-		}.reduce(0, +) / 60
-	}()
-
-	private lazy var normalizedTime: Double = {
+	lazy var normalizedTime: Double = {
 		return transmissionRiskValue * weightedMinutes
 	}()
 
-	private lazy var transmissionRiskLevel: Int = {
+	lazy var transmissionRiskLevel: Int = {
 		let infectiousnessOffset = exposureWindow.infectiousness == .high ?
 			configuration.trlEncoding.infectiousnessOffsetHigh :
 			configuration.trlEncoding.infectiousnessOffsetStandard
@@ -114,6 +97,24 @@ class RiskCalculationWindow {
 		}
 
 		return infectiousnessOffset + reportTypeOffset
+	}()
+
+	// MARK: - Private
+
+	private let configuration: RiskCalculationConfiguration
+
+	private lazy var transmissionRiskValue: Double = {
+		Double(transmissionRiskLevel) * configuration.transmissionRiskLevelMultiplier
+	}()
+
+	private lazy var weightedMinutes: Double = {
+		return exposureWindow.scanInstances.map { scanInstance in
+			let weight = configuration.minutesAtAttenuationWeights
+				.first { $0.attenuationRange.contains(scanInstance.typicalAttenuation) }
+				.map { $0.weight } ?? 0
+
+			return Double(scanInstance.secondsSinceLastScan) * weight
+		}.reduce(0, +) / 60
 	}()
 
 }

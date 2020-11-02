@@ -26,19 +26,87 @@ final class RiskCalculationV2 {
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) -> ExposureDetectionResult {
-		var filteredExposureWindows = exposureWindows.map { RiskCalculationWindow(exposureWindow: $0, configuration: configuration) }.filter {
-			!$0.isDroppedByMinutesAtAttenuation && !$0.isDroppedByTransmissionRiskLevel
+	) throws -> ExposureDetectionResult {
+		let filteredExposureWindows = exposureWindows
+			.map { RiskCalculationWindow(exposureWindow: $0, configuration: configuration) }
+			.filter { !$0.isDroppedByMinutesAtAttenuation && !$0.isDroppedByTransmissionRiskLevel }
+
+		// 1. Group `Exposure Windows by Date`
+		let exposureWindowsPerDate = Dictionary(grouping: filteredExposureWindows, by: { $0.exposureWindow.date })
+
+		// 2. Determine `Normalized Time per Date`
+		let normalizedTimePerDate = exposureWindowsPerDate.mapValues { windows in
+			windows
+				.map { $0.normalizedTime }
+				.reduce(0, +)
 		}
 
+		// 3. Determine `Risk Level per Date`
+		let riskLevelPerDate = try normalizedTimePerDate.mapValues { normalizedTime -> CWARiskLevel in
+			let riskLevel = configuration.normalizedTimePerDayToRiskLevelMapping
+				.first { $0.normalizedTimeRange.contains(normalizedTime) }
+				.map { $0.riskLevel }
+
+			guard let unwrappedRiskLevel = riskLevel else {
+				throw RiskCalculationV2Error.invalidConfiguration
+			}
+
+			return unwrappedRiskLevel
+		}
+
+		// 4. Determine `Minimum Distinct Encounters With Low Risk per Date`
+		let minimumDistinctEncountersWithLowRiskPerDate = try exposureWindowsPerDate.mapValues { windows -> Int in
+			let trlAndConfidenceCombinations = try windows
+				.filter { try $0.riskLevel() == .low }
+				.map { "\($0.transmissionRiskLevel)_\($0.exposureWindow.calibrationConfidence.rawValue)" }
+
+			return Set(trlAndConfidenceCombinations).count
+		}
+
+		// 5. Determine `Minimum Distinct Encounters With High Risk per Date`
+		let minimumDistinctEncountersWithHighRiskPerDate = try exposureWindowsPerDate.mapValues { windows -> Int in
+			let trlAndConfidenceCombinations = try windows
+				.filter { try $0.riskLevel() == .high }
+				.map { "\($0.transmissionRiskLevel)_\($0.exposureWindow.calibrationConfidence.rawValue)" }
+
+			return Set(trlAndConfidenceCombinations).count
+		}
+
+		// 6. Determine `Total Risk`
+		let riskLevel: EitherLowOrIncreasedRiskLevel = riskLevelPerDate.values.contains(.high) ? .increased : .low
+
+		// 7. Determine `Date of Most Recent Date with Low Risk`
+		let mostRecentDateWithLowRisk = riskLevelPerDate.filter { $0.value == .low }.keys.max()
+
+		// 8. Determine `Date of Most Recent Date with High Risk`
+		let mostRecentDateWithHighRisk = riskLevelPerDate.filter { $0.value == .high }.keys.max()
+
+		// 9. Determine `Total Minimum Distinct Encounters With Low Risk`
+		let minimumDistinctEncountersWithLowRisk = minimumDistinctEncountersWithLowRiskPerDate.values.reduce(0, +)
+
+		// 10. Determine `Total Minimum Distinct Encounters With High Risk`
+		let minimumDistinctEncountersWithHighRisk = minimumDistinctEncountersWithHighRiskPerDate.values.reduce(0, +)
+
+		let numberOfExposureWindowsWithLowRisk = try exposureWindowsPerDate.mapValues { windows -> Int in
+			try windows
+				.filter { try $0.riskLevel() == .low }
+				.count
+		}.values.reduce(0, +)
+
+		let numberOfExposureWindowsWithHighRisk = try exposureWindowsPerDate.mapValues { windows -> Int in
+			try windows
+				.filter { try $0.riskLevel() == .high }
+				.count
+		}.values.reduce(0, +)
+
 		return ExposureDetectionResult(
-			riskLevel: .low,
-			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: Date(),
-			mostRecentDateWithHighRisk: Date(),
-			numberOfExposureWindowsWithLowRisk: 0,
-			numberOfExposureWindowsWithHighRisk: 0,
+			riskLevel: riskLevel,
+			minimumDistinctEncountersWithLowRisk: minimumDistinctEncountersWithLowRisk,
+			minimumDistinctEncountersWithHighRisk: minimumDistinctEncountersWithHighRisk,
+			mostRecentDateWithLowRisk: mostRecentDateWithLowRisk,
+			mostRecentDateWithHighRisk: mostRecentDateWithHighRisk,
+			numberOfExposureWindowsWithLowRisk: numberOfExposureWindowsWithLowRisk,
+			numberOfExposureWindowsWithHighRisk: numberOfExposureWindowsWithHighRisk,
 			detectionDate: Date()
 		)
 	}

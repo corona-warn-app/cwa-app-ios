@@ -19,14 +19,14 @@ class RiskCalculationV2Test: XCTestCase {
 		XCTAssertEqual(testCases.count, 24)
 	}
 
-	func testGIVEN_TestCases_WHEN_CalulatingRiskForEachTestCase_THEN_ResultIsCorrect() {
+	func testGIVEN_TestCases_WHEN_CalulatingRiskForEachTestCase_THEN_ResultIsCorrect() throws {
 		// GIVEN
 		let testCases = testCasesWithConfiguration.testCases
 
 		for testCase in testCases {
 			// WHEN
 			let riskCalculation = RiskCalculationV2()
-			let result = riskCalculation.calculateRisk(
+			let result = try riskCalculation.calculateRisk(
 				exposureWindows: testCase.exposureWindows,
 				configuration: testCasesWithConfiguration.defaultRiskCalculationConfiguration
 			)
