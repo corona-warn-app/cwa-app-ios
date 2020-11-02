@@ -168,9 +168,11 @@ final class KeyPackageDownload: KeyPackageDownloadProtocol {
 		availableServerData(country: countryId, downloadMode: downloadMode) { [weak self] result in
 			guard let self = self else { return }
 
+			//TODO: Call cleanupPackages
+
 			switch result {
-			case .success(let availableHours):
-				let hoursDelta = self.serverDelta(country: countryId, for: Set(availableHours), downloadMode: downloadMode)
+			case .success(let availablePackages):
+				let hoursDelta = self.serverDelta(country: countryId, for: Set(availablePackages), downloadMode: downloadMode)
 
 				self.downloadPackages(for: Array(hoursDelta), downloadMode: downloadMode, country: countryId) { [weak self] result in
 					guard let self = self else { return }
@@ -193,6 +195,10 @@ final class KeyPackageDownload: KeyPackageDownloadProtocol {
 				completion(.failure(error))
 			}
 		}
+	}
+
+	private func cleanupPackages(serverPackages: [String], downloadMode: DownloadMode) {
+		// TODO: Delete packages which are in the cache but not in the serverPackages
 	}
 
 	private func expectNewDayPackages(for country: Country.ID) -> Bool {
