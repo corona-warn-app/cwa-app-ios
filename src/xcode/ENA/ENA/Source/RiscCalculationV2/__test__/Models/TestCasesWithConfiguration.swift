@@ -42,4 +42,5 @@ struct TestCasesWithConfiguration: Decodable {
 	let comment: String
 	let defaultRiskCalculationConfiguration: ENA.RiskCalculationConfiguration?
 	let testCases: [ExposureWindowTestCase]
+
 }

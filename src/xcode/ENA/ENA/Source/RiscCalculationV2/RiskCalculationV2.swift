@@ -27,12 +27,6 @@ final class RiskCalculationV2 {
 		self.configuration = configuration
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	// MARK: - Private

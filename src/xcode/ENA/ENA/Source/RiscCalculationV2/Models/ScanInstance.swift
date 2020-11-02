@@ -18,12 +18,24 @@
 //
 
 import Foundation
+import ExposureNotification
 
 struct ScanInstance: Decodable {
 
 	// MARK: - Internal
 
-	let typicalAttenuation: Int
-	let minAttenuation: Int
+	let minAttenuation: ENAttenuation
+	let typicalAttenuation: ENAttenuation
 	let secondsSinceLastScan: Int
+	
+}
+
+extension ScanInstance {
+
+	init(from scanInstance: ENScanInstance) {
+		minAttenuation = scanInstance.minimumAttenuation
+		typicalAttenuation = scanInstance.typicalAttenuation
+		secondsSinceLastScan = scanInstance.secondsSinceLastScan
+	}
+
 }

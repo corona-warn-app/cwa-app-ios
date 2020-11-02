@@ -19,16 +19,34 @@
 
 import Foundation
 
-struct RiskCalculationConfiguration: Decodable {
+struct ExposureDetectionResult {
 
-	// MARK: - Internal
+	let riskLevel: EitherLowOrIncreasedRiskLevel
 
-	let minutesAtAttenuationFilters: [MinutesAtAttenuationFilter]
-	let trlFilters: [TrlFilter]
-	let minutesAtAttenuationWeights: [MinutesAtAttenuationWeight]
-	let normalizedTimePerEWToRiskLevelMapping: [NormalizedTimePerToRiskLevelMapping]
-	let normalizedTimePerDayToRiskLevelMapping: [NormalizedTimePerToRiskLevelMapping]
-	let trlEncoding: TrlEncoding
-	let transmissionRiskLevelMultiplier: Double
-	
+	let minimumDistinctEncountersWithLowRisk: Int
+	let minimumDistinctEncountersWithHighRisk: Int
+
+	let mostRecentDateWithLowRisk: Date
+	let mostRecentDateWithHighRisk: Date
+
+	let detectionDate: Date
+
+	var minimumDistinctEncountersWithCurrentRiskLevel: Int {
+		switch riskLevel {
+		case .low:
+			return minimumDistinctEncountersWithLowRisk
+		case .increased:
+			return minimumDistinctEncountersWithHighRisk
+		}
+	}
+
+	var mostRecentDateWithCurrentRiskLevel: Date {
+		switch riskLevel {
+		case .low:
+			return mostRecentDateWithLowRisk
+		case .increased:
+			return mostRecentDateWithHighRisk
+		}
+	}
+
 }

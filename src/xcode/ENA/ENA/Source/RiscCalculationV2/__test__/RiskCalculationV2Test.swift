@@ -9,7 +9,7 @@
 import XCTest
 @testable import ENA
 
-class RiscCalculationV2Test: XCTestCase {
+class RiskCalculationV2Test: XCTestCase {
 
 	func testWHEN_loadJsonTestFile_THEN_testCasesWithConfigurationAreGreaterThanZero() {
 		// WHEN
@@ -19,7 +19,7 @@ class RiscCalculationV2Test: XCTestCase {
 	}
 
 	lazy var testCasesWithConfiguration: TestCasesWithConfiguration = {
-		let testBundle = Bundle(for: DynamicTableViewControllerFooterTests.self)
+		let testBundle = Bundle(for: RiscCalculationV2Test.self)
 		guard let urlJsonFile = testBundle.url(forResource: "exposure-windows-risk-calculation", withExtension: "json"),
 			  let data = try? Data(contentsOf: urlJsonFile) else {
 			XCTFail("Failed init json file for tests")
