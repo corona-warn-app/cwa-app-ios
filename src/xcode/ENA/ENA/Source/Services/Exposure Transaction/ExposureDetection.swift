@@ -31,8 +31,7 @@ final class ExposureDetection {
 	// There was a decision not to use the 2 letter code "EU", but instead "EUR".
 	// Please see this story for more informations: https://jira.itc.sap.com/browse/EXPOSUREBACK-151
 
-	// TODO: Implement list of countries.
-	private let country = "EUR"
+	private let countryList = ["EUR"]
 
 	// MARK: Creating a Transaction
 	init(
@@ -49,10 +48,12 @@ final class ExposureDetection {
 	}
 
 	private func writeKeyPackagesToFileSystem(completion: (WrittenPackages) -> Void) {
-		if let writtenPackages = self.delegate?.exposureDetectionWriteDownloadedPackages(country: country) {
-			completion(WrittenPackages(urls: writtenPackages.urls))
-		} else {
-			endPrematurely(reason: .unableToWriteDiagnosisKeys)
+		for country in countryList {
+			if let writtenPackages = self.delegate?.exposureDetectionWriteDownloadedPackages(country: country) {
+				completion(WrittenPackages(urls: writtenPackages.urls))
+			} else {
+				endPrematurely(reason: .unableToWriteDiagnosisKeys)
+			}
 		}
 	}
 
