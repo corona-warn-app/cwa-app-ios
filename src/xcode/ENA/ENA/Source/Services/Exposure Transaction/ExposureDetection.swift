@@ -76,15 +76,18 @@ final class ExposureDetection {
 	}
 
 	// MARK: - Private
-	
+
 	private func writeKeyPackagesToFileSystem(completion: (WrittenPackages) -> Void) {
+		var writtenPackages = WrittenPackages(urls: []) // collect all written packages
+		
 		for country in countryList {
-			if let writtenPackages = self.delegate?.exposureDetectionWriteDownloadedPackages(country: country) {
-				completion(WrittenPackages(urls: writtenPackages.urls))
+			if let packages = self.delegate?.exposureDetectionWriteDownloadedPackages(country: country) {
+				writtenPackages.urls.append(contentsOf: packages.urls)
 			} else {
 				endPrematurely(reason: .unableToWriteDiagnosisKeys)
 			}
 		}
+		completion(WrittenPackages(urls: writtenPackages.urls))
 	}
 
 	private var exposureConfiguration: ENExposureConfiguration? {
