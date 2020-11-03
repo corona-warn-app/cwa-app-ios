@@ -30,7 +30,7 @@ private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
 	func detectExposure(
 		appConfiguration: SAP_Internal_ApplicationConfiguration,
 		activityStateDelegate: ActivityStateProviderDelegate? = nil,
-		completion: Completion
+		completion: (ENExposureDetectionSummary?) -> Void
 	) -> CancellationToken {
 		let token = CancellationToken(onCancel: {})
 		onDetectExposure?(completion)
@@ -77,7 +77,7 @@ final class RiskProviderTests: XCTestCase {
 		exposureSummaryProvider.onDetectExposure = { completion in
 			store.summary = SummaryMetadata(detectionSummary: .init(), date: Date())
 			expectThatSummaryIsRequested.fulfill()
-			completion(.success(.init()))
+			completion(.init())
 		}
 
 		let riskProvider = RiskProvider(
@@ -130,7 +130,7 @@ final class RiskProviderTests: XCTestCase {
 		let expectThatSummaryIsRequested = expectation(description: "expectThatSummaryIsRequested")
 		exposureSummaryProvider.onDetectExposure = { completion in
 			expectThatSummaryIsRequested.fulfill()
-			completion(.success(.init()))
+			completion(.init())
 		}
 		expectThatSummaryIsRequested.isInverted = true
 
@@ -173,7 +173,7 @@ final class RiskProviderTests: XCTestCase {
 		let detectionRequested = expectation(description: "expectThatNoSummaryIsRequested")
 
 		exposureSummaryProvider.onDetectExposure = { completion in
-			completion(.success(ENExposureDetectionSummary()))
+			completion(ENExposureDetectionSummary())
 			detectionRequested.fulfill()
 		}
 
@@ -224,7 +224,7 @@ final class RiskProviderTests: XCTestCase {
 		let detectionRequested = expectation(description: "expectThatNoSummaryIsRequested")
 
 		exposureSummaryProvider.onDetectExposure = { completion in
-			completion(.failure(.noDaysAndHours))
+			completion(nil)
 			detectionRequested.fulfill()
 		}
 
@@ -248,7 +248,7 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		consumer.didCalculateRisk = { _ in
-			XCTFail("didCalculateRisk should not be called.")
+			XCTFail("didFailCalculateRisk should not be called.")
 		}
 
 		consumer.didFailCalculateRisk = { _ in
@@ -453,7 +453,7 @@ final class RiskProviderTests: XCTestCase {
 		let exposureSummaryProvider = ExposureSummaryProviderMock()
 
 		exposureSummaryProvider.onDetectExposure = { completion in
-			completion(.success(.init()))
+			completion(.init())
 		}
 
 		let appConfigurationProvider = CachedAppConfigurationMock(appConfigurationResult: .success(.riskCalculationAppConfig))

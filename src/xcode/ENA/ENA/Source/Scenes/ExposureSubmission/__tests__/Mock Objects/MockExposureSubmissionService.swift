@@ -24,7 +24,7 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Mock callbacks.
 
-	var submitExposureCallback: ((SymptomsOnset, [Country], @escaping ExposureSubmissionHandler) -> Void)?
+	var submitExposureCallback: ((@escaping ExposureSubmissionHandler) -> Void)?
 	var getRegistrationTokenCallback: ((DeviceRegistrationKey, @escaping RegistrationHandler) -> Void)?
 	var getTANForExposureSubmitCallback: ((Bool, @escaping TANHandler) -> Void)?
 	var getTestResultCallback: ((@escaping TestResultHandler) -> Void)?
@@ -36,7 +36,7 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 	// MARK: - ExposureSubmissionService methods.
 
 	func submitExposure(symptomsOnset: SymptomsOnset, visitedCountries: [Country], completionHandler: @escaping ExposureSubmissionHandler) {
-		submitExposureCallback?(symptomsOnset, visitedCountries, completionHandler)
+		submitExposureCallback?(completionHandler)
 	}
 
 	func getRegistrationToken(forKey deviceRegistrationKey: DeviceRegistrationKey, completion completeWith: @escaping RegistrationHandler) {

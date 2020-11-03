@@ -39,14 +39,13 @@ extension AppDelegate: ExposureSummaryProvider {
 	func detectExposure(
 		appConfiguration: SAP_Internal_ApplicationConfiguration,
 		activityStateDelegate: ActivityStateProviderDelegate? = nil,
-		completion: @escaping (Result<ENExposureDetectionSummary, ExposureDetection.DidEndPrematurelyReason>) -> Void
+		completion: @escaping (ENExposureDetectionSummary?) -> Void
 	) -> CancellationToken {
 		Log.info("AppDelegate: Detect exposure.", log: .riskDetection)
 
 		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
-			appConfiguration: appConfiguration,
-			deviceTimeCheck: DeviceTimeCheck(store: store)
+			appConfiguration: appConfiguration
 		)
 		
 		exposureDetection?
@@ -63,11 +62,11 @@ extension AppDelegate: ExposureSummaryProvider {
 			switch result {
 			case .success(let summary):
 				Log.info("AppDelegate: Detect exposure completed", log: .riskDetection)
-				completion(.success(summary))
+				completion(summary)
 			case .failure(let error):
 				Log.error("AppDelegate: Detect exposure failed", log: .riskDetection, error: error)
 				self?.showError(exposure: error)
-				completion(.failure(error))
+				completion(nil)
 			}
 			self?.exposureDetection = nil
 		}
