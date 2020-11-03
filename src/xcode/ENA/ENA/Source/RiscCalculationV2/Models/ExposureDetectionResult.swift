@@ -29,9 +29,6 @@ struct ExposureDetectionResult {
 	let mostRecentDateWithLowRisk: Date?
 	let mostRecentDateWithHighRisk: Date?
 
-	let numberOfExposureWindowsWithLowRisk: Int
-	let numberOfExposureWindowsWithHighRisk: Int
-
 	let detectionDate: Date
 
 	var minimumDistinctEncountersWithCurrentRiskLevel: Int {

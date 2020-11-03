@@ -87,26 +87,12 @@ final class RiskCalculationV2 {
 		// 10. Determine `Total Minimum Distinct Encounters With High Risk`
 		let minimumDistinctEncountersWithHighRisk = minimumDistinctEncountersWithHighRiskPerDate.values.reduce(0, +)
 
-		let numberOfExposureWindowsWithLowRisk = try exposureWindowsPerDate.mapValues { windows -> Int in
-			try windows
-				.filter { try $0.riskLevel() == .low }
-				.count
-		}.values.reduce(0, +)
-
-		let numberOfExposureWindowsWithHighRisk = try exposureWindowsPerDate.mapValues { windows -> Int in
-			try windows
-				.filter { try $0.riskLevel() == .high }
-				.count
-		}.values.reduce(0, +)
-
 		return ExposureDetectionResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: minimumDistinctEncountersWithLowRisk,
 			minimumDistinctEncountersWithHighRisk: minimumDistinctEncountersWithHighRisk,
 			mostRecentDateWithLowRisk: mostRecentDateWithLowRisk,
 			mostRecentDateWithHighRisk: mostRecentDateWithHighRisk,
-			numberOfExposureWindowsWithLowRisk: numberOfExposureWindowsWithLowRisk,
-			numberOfExposureWindowsWithHighRisk: numberOfExposureWindowsWithHighRisk,
 			detectionDate: Date()
 		)
 	}
