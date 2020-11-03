@@ -55,6 +55,8 @@ final class MockTestStore: Store, AppConfigCaching {
 	var hourlyFetchingEnabled: Bool = true
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
 	var selectedServerEnvironment: ServerEnvironmentData = ServerEnvironment().defaultEnvironment()
+	var wasRecentDayKeyDownloadSuccessful = false
+	var wasRecentHourKeyDownloadSuccessful = false
 
 	#if !RELEASE
 	// Settings from the debug menu.

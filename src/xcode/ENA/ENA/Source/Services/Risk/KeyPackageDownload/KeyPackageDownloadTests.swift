@@ -23,7 +23,11 @@ import XCTest
 
 final class KeyPackageDownloadTest: XCTestCase {
 	
-//	func testLocalDelta(){
-//		
-//	}
+	func test_When_NoLocalPackages_Then_ServerDeltaConsistsOfAllServerPackages() {
+		let store = MockTestStore()
+		let packagesStore: DownloadedPackagesSQLLiteStoreV1 = .inMemory()
+		let client = ClientMock()
+
+		let keyPackageDownload = KeyPackageDownload(downloadedPackagesStore: packagesStore, client: client, store: store)
+	}
 }

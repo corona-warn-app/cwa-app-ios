@@ -100,6 +100,7 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 		}
 	}
 
+	@discardableResult
 	func set(
 		country: Country.ID,
 		day: String,
@@ -198,6 +199,7 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 		}
 	}
 
+	@discardableResult
 	func set(
 		country: Country.ID,
 		hour: Int,
