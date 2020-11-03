@@ -269,18 +269,18 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 
 	private func serverDelta(
 		country: Country.ID,
-		for remotePackages: Set<String>,
+		for serverPackages: Set<String>,
 		downloadMode: DownloadMode
 	) -> Set<String> {
 
 		switch downloadMode {
 		case .daily:
 			let localDays = Set(downloadedPackagesStore.allDays(country: country))
-			let deltaDays = remotePackages.subtracting(localDays)
+			let deltaDays = serverPackages.subtracting(localDays)
 			return deltaDays
 		case .hourly(let dayKey):
 			let localHours = Set(downloadedPackagesStore.hours(for: dayKey, country: country).map { String($0) })
-			let deltaHours = remotePackages.subtracting(localHours)
+			let deltaHours = serverPackages.subtracting(localHours)
 			return deltaHours
 		}
 	}
