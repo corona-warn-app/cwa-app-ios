@@ -121,6 +121,10 @@ protocol Store: AnyObject {
 	/// Delay time in seconds, when the first notification to warn others will be shown,
 	var warnOthersNotificationTwoDelay: Int { get set }
 
+	var isDeviceTimeCorrect: Bool { get set }
+	
+	var wasDeviceTimeErrorShown: Bool { get set }
+
 	func clearAll(key: String?)
 
 	#if !RELEASE

@@ -28,6 +28,7 @@ final class ExposureDetection {
 	private var progress: Progress?
 	private var countryKeypackageDownloader: CountryKeypackageDownloading
 	private let appConfiguration: SAP_Internal_ApplicationConfiguration
+	private let deviceTimeCheck: DeviceTimeCheckProtocol
 
 	// There was a decision not to use the 2 letter code "EU", but instead "EUR".
 	// Please see this story for more informations: https://jira.itc.sap.com/browse/EXPOSUREBACK-151
@@ -37,10 +38,12 @@ final class ExposureDetection {
 	init(
 		delegate: ExposureDetectionDelegate,
 		countryKeypackageDownloader: CountryKeypackageDownloading? = nil,
-		appConfiguration: SAP_Internal_ApplicationConfiguration
+		appConfiguration: SAP_Internal_ApplicationConfiguration,
+		deviceTimeCheck: DeviceTimeCheckProtocol
 	) {
 		self.delegate = delegate
 		self.appConfiguration = appConfiguration
+		self.deviceTimeCheck = deviceTimeCheck
 
 		if let countryKeypackageDownloader = countryKeypackageDownloader {
 			self.countryKeypackageDownloader = countryKeypackageDownloader
@@ -108,10 +111,9 @@ final class ExposureDetection {
 
 		self.completion = completion
 		activityState = .downloading
-
+		
 		downloadKeyPackages { [weak self] in
 			guard let self = self else { return }
-
 			Log.info("ExposureDetection: Completed downloading packages.", log: .riskDetection)
 			Log.info("ExposureDetection: Start writing packages to file system.", log: .riskDetection)
 
@@ -123,9 +125,13 @@ final class ExposureDetection {
 				self.activityState = .detecting
 
 				if let exposureConfiguration = self.exposureConfiguration {
-					Log.info("ExposureDetection: Start detecting summary.", log: .riskDetection)
-
-					self.detectSummary(writtenPackages: writtenPackages, exposureConfiguration: exposureConfiguration)
+					if !self.deviceTimeCheck.isDeviceTimeCorrect {
+						Log.warning("ExposureDetection: Detecting summary skipped due to wrong device time.", log: .riskDetection)
+						self.endPrematurely(reason: .wrongDeviceTime)
+					} else {
+						Log.info("ExposureDetection: Start detecting summary.", log: .riskDetection)
+						self.detectSummary(writtenPackages: writtenPackages, exposureConfiguration: exposureConfiguration)
+					}
 				} else {
 					Log.error("ExposureDetection: End prematurely.", log: .riskDetection, error: DidEndPrematurelyReason.noExposureConfiguration)
 
@@ -134,7 +140,7 @@ final class ExposureDetection {
 			}
 		}
 	}
-
+	
 	// MARK: Working with the Completion Handler
 
 	// Ends the transaction prematurely with a given reason.
