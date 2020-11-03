@@ -216,14 +216,14 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 			}
 		}
 
-		// delete all entries one by one and check result
+		// delete the packages one by one
 		for country in countries {
 			XCTAssertEqual(store.allDays(country: country).count, days.count)
-			var loopCounter = 0
+			var deleteCounter = 0
 			for date in days {
 				store.deleteDayPackage(for: date, country: country)
-				loopCounter += 1
-				XCTAssertEqual(store.allDays(country: country).count, days.count - loopCounter)
+				deleteCounter += 1
+				XCTAssertEqual(store.allDays(country: country).count, days.count - deleteCounter)
 			}
 		}
 	}
@@ -251,19 +251,16 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 				}
 			}
 		}
-
+		// delete the packages one by one
 		for country in countries {
-			XCTAssertEqual(store.hours(for: days[0], country: country).count, hours.count)
+			for date in days {
+				var deleteCounter = 0
+				for hour in hours {
+					store.deleteHourPackage(for: date, hour: hour, country: country)
+					deleteCounter += 1
+					XCTAssertEqual(store.hours(for: date, country: country).count, hours.count - deleteCounter)
+				}
+			}
 		}
-		
-		store.deleteHourPackage(for: days[0], hour: 2, country: countries[0])
-		XCTAssertEqual(store.hours(for: days[0], country: countries[0]).count, hours.count - 1)
-		XCTAssertEqual(store.hours(for: days[1], country: countries[0]).count, hours.count)
-		XCTAssertEqual(store.hours(for: days[0], country: countries[1]).count, hours.count)
-		XCTAssertEqual(store.hours(for: days[1], country: countries[1]).count, hours.count)
-		
-		store.deleteHourPackage(for: days[1], hour: 2, country: countries[1])
-		XCTAssertEqual(store.hours(for: days[1], country: countries[1]).count, hours.count - 1)
-
 	}
 }
