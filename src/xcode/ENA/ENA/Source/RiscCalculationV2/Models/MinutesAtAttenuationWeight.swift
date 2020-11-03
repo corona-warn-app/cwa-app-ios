@@ -25,4 +25,5 @@ struct MinutesAtAttenuationWeight: Decodable {
 
 	let attenuationRange: CWARange
 	let weight: Double
+	
 }

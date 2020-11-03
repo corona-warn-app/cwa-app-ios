@@ -45,7 +45,7 @@ extension ExposureWindow {
 		scanInstances = try container.decode([ScanInstance].self, forKey: .scanInstances)
 
 		let ageInDays = try container.decode(Int.self, forKey: .date)
-		guard let date = Calendar.current.date(byAdding: .day, value: -ageInDays, to: Date()) else {
+		guard let date = Calendar.current.date(byAdding: .day, value: -ageInDays, to: Calendar.current.startOfDay(for: Date())) else {
 			fatalError("Date could not be generated")
 		}
 
