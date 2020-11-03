@@ -17,28 +17,14 @@
 // under the License.
 //
 
-@testable import ENA
+import Foundation
 
-class MockExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
+enum ENAFormatter {
 
-	// MARK: - Attributes.
-
-	weak var delegate: ExposureSubmissionCoordinatorDelegate?
-
-	// MARK: - ExposureSubmissionCoordinator methods.
-
-	func start(with: TestResult? = nil) { }
-
-	func dismiss() { }
-
-	func showOverviewScreen() { }
-
-	func showTestResultScreen(with result: TestResult) { }
-
-	func showHotlineScreen() { }
-
-	func showTanScreen() { }
-
-	func showThankYouScreen() { }
-	
+	static let httpDateHeaderFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.locale = Locale(identifier: "us_US")
+		dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
+		return dateFormatter
+	}()
 }
