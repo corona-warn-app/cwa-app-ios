@@ -28,7 +28,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		ExposureSubmissionQRScannerViewModel(onSuccess: { _ in }, onError: { _, _ in })
 	}
 
-	func testGIVEN_lowercasedURL_WHEN_extractGUID_THEN_isValidGUIDMatches() {
+	func testGIVEN_lowercasedURL_WHEN_extractGUID_THEN_isValidAndGuidMatch() {
 		// GIVEN
 		let viewModel = createViewModel()
 
@@ -40,7 +40,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
 	}
 
-	func testGIVEN_uppercasedURL_WHEN_extractGUID_THEN_isValidGUIDMatches() {
+	func testGIVEN_uppercasedURL_WHEN_extractGUID_THEN_isValidAndGuidMatch() {
 		// GIVEN
 		let viewModel = createViewModel()
 
@@ -52,7 +52,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
 	}
 
-	func testGIVEN_lowercasedDoubleSlashesURL_WHEN_extractGUID_THEN_isValidGUIDMatches() {
+	func testGIVEN_lowercasedURLWithDoublePathSlashes_WHEN_extractGUID_THEN_isValidAndGuidMatch() {
 		// GIVEN
 		let viewModel = createViewModel()
 
@@ -64,7 +64,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
 	}
 
-	func testGIVEN_lowercasedTrippleSlashesURL_WHEN_extractGUID_THEN_isValidGUIDMatches() {
+	func testGIVEN_lowercasedURLWithTripplePathSlashes_WHEN_extractGUID_THEN_isValidAndGuidMatch() {
 		// GIVEN
 		let viewModel = createViewModel()
 
@@ -76,7 +76,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
 	}
 
-	func testGIVEN_uppercasedDoubleSlashesURL_WHEN_extractGUID_THEN_isValidGUIDMatches() {
+	func testGIVEN_uppercasedURLWithDoublePathSlashes_WHEN_extractGUID_THEN_isValidAndGuidMatch() {
 		// GIVEN
 		let viewModel = createViewModel()
 
@@ -88,7 +88,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
 	}
 
-	func testGIVEN_lowercasedURLUppercaseGuid_WHEN_extractGUID_THEN_isValidGUIDMatches() {
+	func testGIVEN_lowercasedURLUppercaseGuid_WHEN_extractGUID_THEN_isValidAndGuidMatch() {
 		// GIVEN
 		let viewModel = createViewModel()
 
@@ -100,7 +100,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475ABC", guid)
 	}
 
-	func testGIVEN_lowercasedURLMixedGuid_WHEN_extractGUID_THEN_isValidGUIDMatches() {
+	func testGIVEN_lowercasedURLMixedGuid_WHEN_extractGUID_THEN_isValidAndGuidMatch() {
 		// GIVEN
 		let viewModel = createViewModel()
 
@@ -112,7 +112,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475abc", guid)
 	}
 
-	func testGIVEN_uppercasedUrlUppercasedGuid_WHEN_extractGUID_THEN_isValidGUIDMatches() {
+	func testGIVEN_uppercasedUrlUppercasedGuid_WHEN_extractGUID_THEN_isValidAndGuidMatch() {
 		// GIVEN
 		let viewModel = createViewModel()
 
@@ -124,7 +124,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475ABC", guid)
 	}
 
-	func testGIVEN_uppercasedUrlMixedcaseGuid_WHEN_extractGUID_THEN_isValidGUIDMatches() {
+	func testGIVEN_uppercasedUrlMixedcaseGuid_WHEN_extractGUID_THEN_isValidAndGuidMatch() {
 		// GIVEN
 		let viewModel = createViewModel()
 
