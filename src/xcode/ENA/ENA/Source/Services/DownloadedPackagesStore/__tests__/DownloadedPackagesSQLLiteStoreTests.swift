@@ -270,4 +270,55 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertEqual(store.allDays(country: "IT").count, 0)
 		XCTAssertEqual(database.lastErrorCode(), 0)
 	}
+	
+	func test_deleteDayPackage() {
+		store.open()
+
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
+
+		let package = SAPDownloadedPackage(
+			keysBin: keysBin,
+			signature: signature
+		)
+		
+		let days = ["2020-11-03", "2020-11-02", "2020-11-01", "2020-10-31", "2020-10-30", "2020-10-29", "2020-10-28", "2020-10-27"]
+
+		// Add days DE, IT
+		for date in days {
+			_ = store.set(country: "DE", day: date, package: package)
+			_ = store.set(country: "IT", day: date, package: package)
+		}
+
+		XCTAssertEqual(store.allDays(country: "DE").count, days.count)
+		XCTAssertEqual(store.allDays(country: "IT").count, days.count)
+			
+		store.deleteDayPackage(for: "2020-11-02", country: "DE")
+		store.deleteDayPackage(for: "2020-11-01", country: "DE")
+		store.deleteDayPackage(for: "2020-10-31", country: "DE")
+		XCTAssertEqual(store.allDays(country: "DE").count, 5)
+		XCTAssertEqual(store.allDays(country: "IT").count, 8)
+		
+		store.deleteDayPackage(for: "2020-11-02", country: "IT")
+		store.deleteDayPackage(for: "2020-11-01", country: "IT")
+		store.deleteDayPackage(for: "2020-10-31", country: "IT")
+		XCTAssertEqual(store.allDays(country: "IT").count, 5)
+		XCTAssertEqual(store.allDays(country: "DE").count, 5)
+	}
+	
+	func test_deleteHourPackage() {
+//		store.open()
+//
+//		let keysBin = Data("keys".utf8)
+//		let signature = Data("sig".utf8)
+//
+//		let package = SAPDownloadedPackage(
+//			keysBin: keysBin,
+//			signature: signature
+//		)
+//
+//		// Add days DE
+//		_ = store.set(country: "DE", hour: 1, day: "2020-11-03", package: package)
+
+	}
 }
