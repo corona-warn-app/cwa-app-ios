@@ -377,6 +377,42 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 			)
 		}
 	}
+	
+	func deleteDayPackage(for day: String, country: Country.ID) {
+		queue.sync {
+			let sql = """
+				DELETE FROM
+					Z_DOWNLOADED_PACKAGE
+				WHERE
+					Z_COUNTRY = :country AND
+					Z_HOUR IS NULL
+				;
+			"""
+			
+			let parameters: [String: Any] = ["country": country]
+			self.database.executeUpdate(sql, withParameterDictionary: parameters)
+			_commit()
+		}
+	}
+	
+	func deleteHourPackage(for day: String, hour: Int, country: Country.ID) {
+		queue.sync {
+			let sql = """
+				DELETE FROM Z_DOWNLOADED_PACKAGE
+				WHERE
+					Z_COUNTRY = :country AND
+					Z_DAY = :day AND
+					Z_HOUR IS NOT NULL
+				;
+			"""
+			let parameters: [String: Any] = [
+				"country": country,
+				"day": day
+			]
+			self.database.executeUpdate(sql, withParameterDictionary: parameters)
+			_commit()
+		}
+	}
 }
 
 private extension FMDatabase {

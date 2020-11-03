@@ -45,7 +45,9 @@ protocol DownloadedPackagesStoreV1: AnyObject {
 	func allDays(country: Country.ID) -> [String] // 2020-05-30
 	func hours(for day: String, country: Country.ID) -> [Int]
 	func reset()
-
+	func deleteHourPackage(for day: String, hour: Int, country: Country.ID)
+	func deleteDayPackage(for day: String, country: Country.ID)
+	
 	#if !RELEASE
 
 	var keyValueStore: Store? { get set }
