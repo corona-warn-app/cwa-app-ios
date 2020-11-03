@@ -24,7 +24,6 @@ class RiskCalculationV2Test: XCTestCase {
 		let testCases = testCasesWithConfiguration.testCases
 
 		for testCase in testCases {
-//		let testCase = try XCTUnwrap(testCases[3])
 
 			// WHEN
 			let riskCalculation = RiskCalculationV2()
@@ -34,7 +33,6 @@ class RiskCalculationV2Test: XCTestCase {
 			)
 
 			// THEN
-//			print("Running Test: \(testCase.testCaseDescription)")
 			XCTAssert(Calendar.current.isDate(result.detectionDate, inSameDayAs: Date()))
 
 			XCTAssertEqual(result.riskLevel, testCase.expTotalRiskLevel.eitherLowOrIncreasedRiskLevel)
@@ -44,15 +42,6 @@ class RiskCalculationV2Test: XCTestCase {
 
 			XCTAssertEqual(result.ageInDaysOfMostRecentDateWithLowRisk, testCase.expAgeOfMostRecentDateWithLowRisk)
 			XCTAssertEqual(result.ageInDaysOfMostRecentDateWithHighRisk, testCase.expAgeOfMostRecentDateWithHighRisk)
-
-			// test only made if values in test cases are != nil
-			if let expNumberOfExposureWindowsWithLowRisk = testCase.expNumberOfExposureWindowsWithLowRisk {
-				XCTAssertEqual(result.numberOfExposureWindowsWithLowRisk, expNumberOfExposureWindowsWithLowRisk)
-			}
-
-			if let expNumberOfExposureWindowsWithHighRisk = testCase.expNumberOfExposureWindowsWithHighRisk {
-				XCTAssertEqual(result.numberOfExposureWindowsWithHighRisk, expNumberOfExposureWindowsWithHighRisk)
-			}
 
 		}
 	}

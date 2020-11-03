@@ -22,23 +22,14 @@ import Foundation
 
 struct ExposureWindowTestCase: Decodable {
 
-	// MARK: - Protocol Decodable
-
-	enum CodingKeys: String, CodingKey {
-		case testCaseDescription = "description"
-		case exposureWindows, expTotalRiskLevel, expTotalMinimumDistinctEncountersWithLowRisk, expAgeOfMostRecentDateWithLowRisk, expAgeOfMostRecentDateWithHighRisk, expTotalMinimumDistinctEncountersWithHighRisk, expNumberOfExposureWindowsWithLowRisk, expNumberOfExposureWindowsWithHighRisk
-	}
-
 	// MARK: - Internal
 
-	let testCaseDescription: String
+	let description: String
 	let exposureWindows: [ExposureWindow]
 	let expTotalRiskLevel: CWARiskLevel
 	let expTotalMinimumDistinctEncountersWithLowRisk: Int
 	let expAgeOfMostRecentDateWithLowRisk: Int?
 	let expAgeOfMostRecentDateWithHighRisk: Int?
 	let expTotalMinimumDistinctEncountersWithHighRisk: Int
-	let expNumberOfExposureWindowsWithLowRisk: Int?
-	let expNumberOfExposureWindowsWithHighRisk: Int?
 
 }
