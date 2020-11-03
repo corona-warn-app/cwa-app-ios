@@ -1689,7 +1689,6 @@
 		51D420D524598AC200AD70CA /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				BA6C8A8E254D60E0008344F5 /* RiscCalculationV2 */,
 				353412CB2525EE4A0086D15C /* Globals.swift */,
 				AB1FCBCA2521FC21005930BA /* ServerEnvironment */,
 				B111EDEC2465B1F4001AEBB4 /* Client */,
@@ -2367,6 +2366,7 @@
 			children = (
 				A1E41959249817C70016E52A /* __tests__ */,
 				B1FE13D62487DEDD00D012E5 /* Calculation */,
+				BA6C8A8E254D60E0008344F5 /* CalculationV2 */,
 				B1FE13D92488216300D012E5 /* Provider */,
 				B1175212248A83AB00C3325C /* Risk.swift */,
 			);
@@ -2739,7 +2739,7 @@
 			path = CWASQLite;
 			sourceTree = "<group>";
 		};
-		BA6C8A8E254D60E0008344F5 /* RiscCalculationV2 */ = {
+		BA6C8A8E254D60E0008344F5 /* CalculationV2 */ = {
 			isa = PBXGroup;
 			children = (
 				BA6C8B0C254D6BC9008344F5 /* __test__ */,
@@ -2748,7 +2748,7 @@
 				01F52F91255067A000997A26 /* RiskCalculationV2Error.swift */,
 				BA6C8A94254D626C008344F5 /* Models */,
 			);
-			path = RiscCalculationV2;
+			path = CalculationV2;
 			sourceTree = "<group>";
 		};
 		BA6C8A94254D626C008344F5 /* Models */ = {
@@ -2776,8 +2776,8 @@
 				BA6C8B32254D7738008344F5 /* Models */,
 				BA6C8A8F254D61F4008344F5 /* exposure-windows-risk-calculation.json */,
 				BA6C8B50254D80DF008344F5 /* ExposureWindowTest.swift */,
-				0177F4B025503805009DD568 /* ScanInstanceTest.swift */,
 				BA6C8B0D254D6BF9008344F5 /* RiskCalculationV2Test.swift */,
+				0177F4B025503805009DD568 /* ScanInstanceTest.swift */,
 			);
 			path = __test__;
 			sourceTree = "<group>";
