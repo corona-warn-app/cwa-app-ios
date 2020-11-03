@@ -387,11 +387,12 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 					Z_DOWNLOADED_PACKAGE
 				WHERE
 					Z_COUNTRY = :country AND
+					Z_DAY = :day AND
 					Z_HOUR IS NULL
 				;
 			"""
 			
-			let parameters: [String: Any] = ["country": country]
+			let parameters: [String: Any] = ["country": country, "day": day]
 			self.database.executeUpdate(sql, withParameterDictionary: parameters)
 			_commit()
 		}
@@ -400,16 +401,18 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 	func deleteHourPackage(for day: String, hour: Int, country: Country.ID) {
 		queue.sync {
 			let sql = """
-				DELETE FROM Z_DOWNLOADED_PACKAGE
+				DELETE FROM
+					Z_DOWNLOADED_PACKAGE
 				WHERE
 					Z_COUNTRY = :country AND
 					Z_DAY = :day AND
-					Z_HOUR IS NOT NULL
+					Z_HOUR = :hour
 				;
 			"""
 			let parameters: [String: Any] = [
 				"country": country,
-				"day": day
+				"day": day,
+				"hour": hour
 			]
 			self.database.executeUpdate(sql, withParameterDictionary: parameters)
 			_commit()

@@ -286,43 +286,64 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 			signature: signature
 		)
 		
+		let countries = ["DE", "IT"]
 		let days = ["2020-11-03", "2020-11-02", "2020-11-01", "2020-10-31", "2020-10-30", "2020-10-29", "2020-10-28", "2020-10-27"]
 
 		// Add days DE, IT
-		for date in days {
-			_ = store.set(country: "DE", day: date, package: package)
-			_ = store.set(country: "IT", day: date, package: package)
+		for country in countries {
+			for date in days {
+				_ = store.set(country: country, day: date, package: package)
+			}
 		}
 
-		XCTAssertEqual(store.allDays(country: "DE").count, days.count)
-		XCTAssertEqual(store.allDays(country: "IT").count, days.count)
-			
-		store.deleteDayPackage(for: "2020-11-02", country: "DE")
-		store.deleteDayPackage(for: "2020-11-01", country: "DE")
-		store.deleteDayPackage(for: "2020-10-31", country: "DE")
-		XCTAssertEqual(store.allDays(country: "DE").count, 5)
-		XCTAssertEqual(store.allDays(country: "IT").count, 8)
-		
-		store.deleteDayPackage(for: "2020-11-02", country: "IT")
-		store.deleteDayPackage(for: "2020-11-01", country: "IT")
-		store.deleteDayPackage(for: "2020-10-31", country: "IT")
-		XCTAssertEqual(store.allDays(country: "IT").count, 5)
-		XCTAssertEqual(store.allDays(country: "DE").count, 5)
+		// delete all entries one by one and check result
+		for country in countries {
+			XCTAssertEqual(store.allDays(country: country).count, days.count)
+			var loopCounter = 0
+			for date in days {
+				store.deleteDayPackage(for: date, country: country)
+				loopCounter += 1
+				XCTAssertEqual(store.allDays(country: country).count, days.count - loopCounter)
+			}
+		}
 	}
 	
 	func test_deleteHourPackage() {
-//		store.open()
-//
-//		let keysBin = Data("keys".utf8)
-//		let signature = Data("sig".utf8)
-//
-//		let package = SAPDownloadedPackage(
-//			keysBin: keysBin,
-//			signature: signature
-//		)
-//
-//		// Add days DE
-//		_ = store.set(country: "DE", hour: 1, day: "2020-11-03", package: package)
+		store.open()
+
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
+
+		let package = SAPDownloadedPackage(
+			keysBin: keysBin,
+			signature: signature
+		)
+
+		let countries = ["DE", "IT"]
+		let days = ["2020-11-03", "2020-11-02"]
+		let hours = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 141, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+
+		// Add days DE, IT
+		for country in countries {
+			for date in days {
+				for hour in hours {
+					_ = store.set(country: country, hour: hour, day: date, package: package)
+				}
+			}
+		}
+
+		for country in countries {
+			XCTAssertEqual(store.hours(for: days[0], country: country).count, hours.count)
+		}
+		
+		store.deleteHourPackage(for: days[0], hour: 2, country: countries[0])
+		XCTAssertEqual(store.hours(for: days[0], country: countries[0]).count, hours.count - 1)
+		XCTAssertEqual(store.hours(for: days[1], country: countries[0]).count, hours.count)
+		XCTAssertEqual(store.hours(for: days[0], country: countries[1]).count, hours.count)
+		XCTAssertEqual(store.hours(for: days[1], country: countries[1]).count, hours.count)
+		
+		store.deleteHourPackage(for: days[1], hour: 2, country: countries[1])
+		XCTAssertEqual(store.hours(for: days[1], country: countries[1]).count, hours.count - 1)
 
 	}
 }
