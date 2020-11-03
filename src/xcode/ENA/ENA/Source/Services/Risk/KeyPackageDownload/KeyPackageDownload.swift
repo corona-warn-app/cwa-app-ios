@@ -31,7 +31,7 @@ enum KeyPackageDownloadError: Error {
 	case downloadIsRunning
 }
 
-final class KeyPackageDownload: KeyPackageDownloadProtocol {
+class KeyPackageDownload: KeyPackageDownloadProtocol {
 
 	enum DownloadMode {
 		case daily
@@ -101,6 +101,8 @@ final class KeyPackageDownload: KeyPackageDownloadProtocol {
 		}
 	}
 
+	// MARK: - Private
+
 	private func startProcessingPackages(countryIds: [Country.ID], downloadMode: DownloadMode, completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void) {
 
 		let dispatchGroup = DispatchGroup()
@@ -162,13 +164,13 @@ final class KeyPackageDownload: KeyPackageDownloadProtocol {
 		availableServerData(country: countryId, downloadMode: downloadMode) { [weak self] result in
 			guard let self = self else { return }
 
-			//TODO: Call cleanupPackages
 
 			switch result {
 			case .success(let availablePackages):
-				let hoursDelta = self.serverDelta(country: countryId, for: Set(availablePackages), downloadMode: downloadMode)
+				self.cleanupPackages(for: countryId, serverPackages: availablePackages, downloadMode: downloadMode)
+				let deltaPackages = self.serverDelta(country: countryId, for: Set(availablePackages), downloadMode: downloadMode)
 
-				self.downloadPackages(for: Array(hoursDelta), downloadMode: downloadMode, country: countryId) { [weak self] result in
+				self.downloadPackages(for: Array(deltaPackages), downloadMode: downloadMode, country: countryId) { [weak self] result in
 					guard let self = self else { return }
 
 					switch result {
@@ -191,8 +193,20 @@ final class KeyPackageDownload: KeyPackageDownloadProtocol {
 		}
 	}
 
-	private func cleanupPackages(serverPackages: [String], downloadMode: DownloadMode) {
-		// TODO: Delete packages which are in the cache but not in the serverPackages
+	private func cleanupPackages(for countryId: Country.ID, serverPackages: [String], downloadMode: DownloadMode) {
+		
+		let localDeltaPackages = self.localDelta(country: countryId, for: Set(serverPackages), downloadMode: downloadMode)
+		
+		for package in localDeltaPackages {
+			switch downloadMode {
+			case .daily:
+				downloadedPackagesStore.deleteDayPackage(for: package, country: countryId)
+			case .hourly(let keyDay):
+				// hourly packages for a day are deleted when the day package is stored. See func
+				// DownloadedPackagesSQLLiteStoreV1.set(  country: Country.ID,	day: String, package: SAPDownloadedPackage )
+				downloadedPackagesStore.deleteHourPackage(for: keyDay, hour: Int(package) ?? -1, country: countryId)
+			}
+		}
 	}
 
 	private func expectNewDayPackages(for country: Country.ID) -> Bool {
@@ -271,6 +285,24 @@ final class KeyPackageDownload: KeyPackageDownloadProtocol {
 		case .hourly(let dayKey):
 			let localHours = Set(downloadedPackagesStore.hours(for: dayKey, country: country).map { String($0) })
 			let deltaHours = remotePackages.subtracting(localHours)
+			return deltaHours
+		}
+	}
+	
+	private func localDelta(
+		country: Country.ID,
+		for remotePackages: Set<String>,
+		downloadMode: DownloadMode
+	) -> Set<String> {
+		
+		switch downloadMode {
+		case .daily:
+			let localDays = Set(downloadedPackagesStore.allDays(country: country))
+			let deltaDays = localDays.subtracting(remotePackages)
+			return deltaDays
+		case .hourly(let dayKey):
+			let localHours = Set(downloadedPackagesStore.hours(for: dayKey, country: country).map { String($0) })
+			let deltaHours = localHours.subtracting(remotePackages)
 			return deltaHours
 		}
 	}
