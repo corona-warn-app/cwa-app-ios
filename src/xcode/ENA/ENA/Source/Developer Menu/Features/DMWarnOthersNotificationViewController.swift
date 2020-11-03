@@ -30,7 +30,10 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	private var time1Label: UILabel!
 	private var time2Label: UILabel!
 	
-	init() {
+	private let store: Store
+	
+	init(store: Store) {
+		self.store = store
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -100,23 +103,77 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 			stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
 			stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
 			stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-			time1Textfield.widthAnchor.constraint(equalToConstant: 50),
-			time2Textfield.widthAnchor.constraint(equalToConstant: 50)
+			time1Textfield.widthAnchor.constraint(equalToConstant: 60),
+			time2Textfield.widthAnchor.constraint(equalToConstant: 60)
 		])
 		
+		// MARK: Set Default Value for the notification text filelds:
+		time1Textfield.text = "\(ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue)"
+		time2Textfield.text = "\(ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue)"
+		
+		//Set the keyboard type.
+		time1Textfield.keyboardType = .numberPad
+		time2Textfield.keyboardType = .numberPad
+		self.hideKeyboardWhenTappedAround()
 	}
 	
 	// MARK: Private API
 	@objc
 	private func scheduleNotificationsButtonTapped() {
-		print("Schedule button tapped.")
+		let time1Text = Int(time1Textfield.text ?? "")
+		let time2Text = Int(time2Textfield.text ?? "")
+		
+		// MARK: Create an alert when user enter the wrong values.
+		if time2Text ?? ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue <= time1Text ?? ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue {
+			
+			// Display second notification should be greater than first notification alert.
+			alertMessage(titleStr: "Please Enter the Correct Notification Time", messageStr: "Second notification time seconds should be greater than the first notification time seconds.")
+			
+			//Set default text values in both notification set textfileds.
+			time1Textfield.text = "\(ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue)"
+			time2Textfield.text = "\(ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue)"
+		} else {
+			// MARK: Save the notifications time into the SecureStore.
+			store.warnOthersNotificationOneDelay = time1Text ?? ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue
+			store.warnOthersNotificationOneDelay = time2Text ?? ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue
+			
+			//Display notification save alert.
+			alertMessage(titleStr: "Notifications time saved", messageStr: "Notification1 time \(time1Text ?? ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue) seconds & Notification2 time \(time2Text ?? ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue) seconds has saved into the secure store.")
+		}
+
 	}
 	
 	
 	@objc
 	private func resetNotificationsButtonTapped() {
-		print("Reset button tapped.")
+		time1Textfield.text = "\(ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue)"
+		time2Textfield.text = "\(ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue)"
 	}
 	
+}
+
+// MARK: Set the alert popups.
+extension DMWarnOthersNotificationViewController {
+	func alertMessage(titleStr: String, messageStr: String) {
+		// create the alert
+		let alert = UIAlertController(title: titleStr, message: messageStr, preferredStyle: UIAlertController.Style.alert)
+		// add an action button
+		alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+		// show the alert
+		self.present(alert, animated: true, completion: nil)
+	}
+}
+
+// MARK: Dismiss the keyboard
+extension DMWarnOthersNotificationViewController {
+	func hideKeyboardWhenTappedAround() {
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DMWarnOthersNotificationViewController.dismissKeyboard))
+		tap.cancelsTouchesInView = false
+		view.addGestureRecognizer(tap)
+	}
+	@objc
+	func dismissKeyboard() {
+		view.endEditing(true)
+	}
 }
 #endif
