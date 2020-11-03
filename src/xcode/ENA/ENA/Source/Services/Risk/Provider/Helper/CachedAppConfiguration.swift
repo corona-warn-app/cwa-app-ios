@@ -72,6 +72,10 @@ final class CachedAppConfiguration {
 					}
 					self?.completeOnMain(completion: completion, result: .success(config))
 				default:
+					// ensure reset
+					self?.store.lastAppConfigETag = nil
+					self?.store.lastAppConfigFetch = nil
+
 					self?.completeOnMain(completion: completion, result: .failure(error))
 				}
 			}
@@ -111,6 +115,9 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 	///   which does not easily return response headers. This requires further refactoring of `URLSession+Convenience.swift`.
 	/// - Returns: `true` is a network call should be done; `false` if cache should be used
 	private func shouldFetch() -> Bool {
+		if store.appConfig == nil { return true }
+
+		// naïve cache control
 		guard let lastFetch = store.lastAppConfigFetch else {
 			return true
 		}
