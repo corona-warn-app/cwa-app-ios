@@ -24,10 +24,8 @@ class RiskCalculationV2Test: XCTestCase {
 		let testCases = testCasesWithConfiguration.testCases
 
 		for testCase in testCases {
-
 			// WHEN
-			let riskCalculation = RiskCalculationV2()
-			let result = try riskCalculation.calculateRisk(
+			let result = try RiskCalculationV2().calculateRisk(
 				exposureWindows: testCase.exposureWindows,
 				configuration: testCasesWithConfiguration.defaultRiskCalculationConfiguration
 			)
@@ -42,11 +40,12 @@ class RiskCalculationV2Test: XCTestCase {
 
 			XCTAssertEqual(result.ageInDaysOfMostRecentDateWithLowRisk, testCase.expAgeOfMostRecentDateWithLowRisk)
 			XCTAssertEqual(result.ageInDaysOfMostRecentDateWithHighRisk, testCase.expAgeOfMostRecentDateWithHighRisk)
-
 		}
 	}
 
-	lazy var testCasesWithConfiguration: TestCasesWithConfiguration = {
+	// MARK: - Private
+
+	private lazy var testCasesWithConfiguration: TestCasesWithConfiguration = {
 		let testBundle = Bundle(for: RiskCalculationV2Test.self)
 		guard let urlJsonFile = testBundle.url(forResource: "exposure-windows-risk-calculation", withExtension: "json"),
 			  let data = try? Data(contentsOf: urlJsonFile) else {
@@ -68,56 +67,5 @@ class RiskCalculationV2Test: XCTestCase {
 			fatalError("Failed to parse JSON answer")
 		}
 	}()
-
-
-	func testGIVEN_dropExposureWindow_WHEN_riscCalculation_THEN_lowRisk() {
-		// GIVEN "description": "drop Exposure Windows that do not match minutesAtAttenuationFilters (< 10 minutes)"
-
-		let jsonData = """
-		{
-		  "ageInDays": 1,
-		  "reportType": 2,
-		  "infectiousness": 2,
-		  "calibrationConfidence": 0,
-		  "scanInstances": [
-			{
-			  "typicalAttenuation": 30,
-			  "minAttenuation": 25,
-			  "secondsSinceLastScan": 300
-			},
-			{
-			  "typicalAttenuation": 30,
-			  "minAttenuation": 25,
-			  "secondsSinceLastScan": 299
-			}
-		  ]
-		}
-		""".data(using: .utf8)!
-
-		let expsureWindow = try? JSONDecoder().decode(ExposureWindow.self, from: XCTUnwrap(jsonData))
-
-		let riskCalculation = RiskCalculationV2()
-		// WHEN
-		guard let result = try? riskCalculation.calculateRisk(
-			exposureWindows: [XCTUnwrap(expsureWindow)],
-			configuration: testCasesWithConfiguration.defaultRiskCalculationConfiguration
-		) else {
-			XCTFail("rik calulation failed")
-			fatalError("calculation failed")
-		}
-
-		// THEN
-		//		"expTotalRiskLevel": 1 -> hier wird eigentlich 0 oder 1_000 erwartet - der risk level mix ist hier das erste Problem ?
-		XCTAssertEqual(result.riskLevel, EitherLowOrIncreasedRiskLevel.low)
-		//		"expTotalMinimumDistinctEncountersWithLowRisk": 0,
-		XCTAssertEqual(result.minimumDistinctEncountersWithLowRisk, 0)
-		//		"expTotalMinimumDistinctEncountersWithHighRisk": 0
-		XCTAssertEqual(result.minimumDistinctEncountersWithHighRisk, 0)
-		//		"expAgeOfMostRecentDateWithLowRisk": null,
-		XCTAssertEqual(result.ageInDaysOfMostRecentDateWithLowRisk, nil)
-		//		"expAgeOfMostRecentDateWithHighRisk": null
-		XCTAssertEqual(result.ageInDaysOfMostRecentDateWithHighRisk, nil)
-
-	}
 
 }

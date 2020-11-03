@@ -12,7 +12,7 @@ import ExposureNotification
 
 class ScanInstanceTest: XCTestCase {
 
-	func testGIVEN_JsonScanInstance1_WHEN_Converted_THEN_ValuesMatch() throws {
+	func testGIVEN_JsonScanInstance_WHEN_Converted_THEN_ValuesMatch() throws {
 		// GIVEN
 		let jsonData = """
 			{

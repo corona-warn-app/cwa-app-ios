@@ -22,17 +22,8 @@ import Foundation
 
 struct TestCasesWithConfiguration: Decodable {
 
-	// MARK: - Protocol Decodable
-
-	enum CodingKeys: String, CodingKey {
-		case comment = "__comment__"
-		case defaultRiskCalculationConfiguration
-		case testCases
-	}
-
 	// MARK: - Internal
 
-	let comment: String
 	let defaultRiskCalculationConfiguration: ENA.RiskCalculationConfiguration
 	let testCases: [ExposureWindowTestCase]
 
