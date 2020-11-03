@@ -71,9 +71,6 @@ final class CachedAppConfiguration {
 						fatalError("App configuration cache broken!") // in `where` we trust
 					}
 					self?.completeOnMain(completion: completion, result: .success(config))
-
-					// keep track of last successful fetch
-					self?.store.lastAppConfigFetch = Date()
 				default:
 					self?.completeOnMain(completion: completion, result: .failure(error))
 				}
