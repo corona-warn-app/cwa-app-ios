@@ -219,11 +219,9 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		formatter.timeZone = TimeZone.utcTimeZone
 
 		let yesterdayKeyString = formatter.string(from: yesterdayDate)
-		let dayExists = downloadedPackagesStore.allDays(country: country).contains(yesterdayKeyString)
+		let yesterdayDayPackageExists = downloadedPackagesStore.allDays(country: country).contains(yesterdayKeyString)
 
-		let wasRecentDownloadSuccessful = store.wasRecentDayKeyDownloadSuccessful
-
-		return !dayExists || !wasRecentDownloadSuccessful
+		return !yesterdayDayPackageExists || !store.wasRecentDayKeyDownloadSuccessful
 	}
 
 	private func expectNewHourPackages(for dayKey: String, counrtyId: Country.ID) -> Bool {
@@ -236,11 +234,9 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		formatter.timeZone = TimeZone.utcTimeZone
 
 		let lastHourKey = Int(formatter.string(from: lastHourDate)) ?? -1
-		let recentHourPackageExists = downloadedPackagesStore.hours(for: dayKey, country: counrtyId).contains(lastHourKey)
+		let lastHourPackageExists = downloadedPackagesStore.hours(for: dayKey, country: counrtyId).contains(lastHourKey)
 
-		let wasRecentDownloadSuccessful = store.wasRecentHourKeyDownloadSuccessful
-
-		return !recentHourPackageExists || !wasRecentDownloadSuccessful
+		return !lastHourPackageExists || !store.wasRecentHourKeyDownloadSuccessful
 	}
 
 	private func availableServerData(
