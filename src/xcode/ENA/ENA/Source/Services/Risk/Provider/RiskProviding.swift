@@ -24,8 +24,10 @@ typealias RiskCalculationResult = Result<Risk, RiskCalculationError>
 enum RiskCalculationError: Error {
 	case timeout
 	case missingAppConfig
+	case missingCachedSummary
+	case failedToDetectSummary
 	case failedRiskCalculation
-	case failedRiskDetection
+	case failedRiskDetection(ExposureDetection.DidEndPrematurelyReason)
 }
 
 protocol RiskProviding: AnyObject {
