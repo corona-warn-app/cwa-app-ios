@@ -62,11 +62,9 @@ class CachingHTTPClient: AppConfigurationFetching {
 		session.GET(configuration.configurationURL, extraHeaders: headers) { result in
 			switch result {
 			case .success(let response):
-				let serverDate = response.httpResponse.dateHeader
-
 				// content not modified?
 				guard response.statusCode != 304 else {
-					completion((.failure(CachedAppConfiguration.CacheError.notModified), serverDate))
+					completion(.failure(CachedAppConfiguration.CacheError.notModified))
 					return
 				}
 
@@ -76,14 +74,14 @@ class CachingHTTPClient: AppConfigurationFetching {
 					let package = SAPDownloadedPackage(compressedData: data)
 				else {
 					let error = CachedAppConfiguration.CacheError.dataFetchError(message: "Failed to create downloaded package for app config.")
-					completion((.failure(error), serverDate))
+					completion(.failure(error))
 					return
 				}
 
 				// data verified?
 				guard self.packageVerifier(package) else {
 					let error = CachedAppConfiguration.CacheError.dataVerificationError(message: "Failed to verify app config signature")
-					completion((.failure(error), serverDate))
+					completion(.failure(error))
 					return
 				}
 
@@ -92,27 +90,13 @@ class CachingHTTPClient: AppConfigurationFetching {
 					let config = try SAP_Internal_ApplicationConfiguration(serializedData: package.bin)
 					let eTag = response.httpResponse.value(forHTTPHeaderField: "ETag")
 					let configurationResponse = AppConfigurationFetchingResponse(config, eTag)
-					completion((.success(configurationResponse), serverDate))
+					completion(.success(configurationResponse))
 				} catch {
-					completion((.failure(error), serverDate))
+					completion(.failure(error))
 				}
 			case .failure(let error):
-				var serverDate: Date?
-				if case let .httpError(_, httpResponse) = error {
-					serverDate = httpResponse.dateHeader
-				}
-				completion((.failure(error), serverDate))
+				completion(.failure(error))
 			}
-		}
-	}
-}
-
-extension HTTPURLResponse {
-	var dateHeader: Date? {
-		if let dateString = value(forHTTPHeaderField: "Date") {
-			return ENAFormatter.httpDateHeaderFormatter.date(from: dateString)
-		} else {
-			return nil
 		}
 	}
 }

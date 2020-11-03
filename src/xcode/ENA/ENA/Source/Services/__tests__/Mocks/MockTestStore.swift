@@ -55,8 +55,6 @@ final class MockTestStore: Store, AppConfigCaching {
 	var hourlyFetchingEnabled: Bool = true
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
 	var selectedServerEnvironment: ServerEnvironmentData = ServerEnvironment().defaultEnvironment()
-	var isDeviceTimeCorrect = true
-	var wasDeviceTimeErrorShown = false
 
 	#if !RELEASE
 	// Settings from the debug menu.

@@ -20,7 +20,7 @@
 import Foundation
 import ExposureNotification
 
-enum SymptomsOnset: Equatable {
+enum SymptomsOnset {
 
 	case noInformation
 	case nonSymptomatic

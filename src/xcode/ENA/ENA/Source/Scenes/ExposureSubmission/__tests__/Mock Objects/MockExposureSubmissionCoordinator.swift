@@ -39,6 +39,13 @@ class MockExposureSubmissionCoordinator: ExposureSubmissionCoordinating {
 
 	func showTanScreen() { }
 
+	func showSymptomsScreen() { }
+
+	func showWarnOthersScreen() { }
+
 	func showThankYouScreen() { }
+
+	// Temporarily added for quickfix: https://jira.itc.sap.com/browse/EXPOSUREAPP-3231
+	func loadSupportedCountries(isLoading: @escaping (Bool) -> Void, onSuccess: @escaping () -> Void, onError: @escaping (ExposureSubmissionError) -> Void) { }
 	
 }

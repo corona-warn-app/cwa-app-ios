@@ -45,7 +45,7 @@ enum ExposureSubmissionServiceFactory {
 			}
 
 			if isEnabled(.submitExposureSuccess) {
-				service.submitExposureCallback = { _, _, completeWith in
+				service.submitExposureCallback = { completeWith in
 					DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 						completeWith(nil)
 					}

@@ -312,8 +312,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((mockSummary, nil)))
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfiguration: SAP_Internal_ApplicationConfiguration(),
-			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
+			appConfiguration: SAP_Internal_ApplicationConfiguration()
 		)
 
 		_ = sut.exposureDetection(
@@ -344,8 +343,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((nil, expectedError)))
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfiguration: SAP_Internal_ApplicationConfiguration(),
-			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
+			appConfiguration: SAP_Internal_ApplicationConfiguration()
 		)
 
 		_ = sut.exposureDetection(
@@ -397,8 +395,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		)
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfiguration: SAP_Internal_ApplicationConfiguration(),
-			deviceTimeCheck: DeviceTimeCheck(store: store)
+			appConfiguration: SAP_Internal_ApplicationConfiguration()
 		)
 
 		XCTAssertNotEqual(packageStore.allDays(country: "DE").count, 0)

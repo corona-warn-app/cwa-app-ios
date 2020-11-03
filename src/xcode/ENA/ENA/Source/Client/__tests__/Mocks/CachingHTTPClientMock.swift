@@ -49,7 +49,7 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 	override func fetchAppConfiguration(etag: String? = nil, completion: @escaping CachingHTTPClient.AppConfigResultHandler) {
 		guard let handler = self.onFetchAppConfiguration else {
 			let response = AppConfigurationFetchingResponse(CachingHTTPClientMock.staticAppConfig, "fake")
-			completion((.success(response), nil))
+			completion(.success(response))
 			return
 		}
 		handler(etag, completion)
