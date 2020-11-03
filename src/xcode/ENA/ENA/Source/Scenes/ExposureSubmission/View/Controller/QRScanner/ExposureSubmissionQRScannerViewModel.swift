@@ -173,6 +173,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 			  input.count <= 150,
 			  let urlComponents = URLComponents(string: input),
 			  !urlComponents.path.contains(" "),
+			  urlComponents.path.components(separatedBy: "/").count == 2,	// one / will separate into two components
 			  urlComponents.scheme?.lowercased() == "https",
 			  urlComponents.host?.lowercased() == "localhost",
 			  let candidate = urlComponents.query,
