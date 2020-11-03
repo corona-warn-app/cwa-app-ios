@@ -26,15 +26,7 @@ extension ENInfectiousness: Codable { }
 
 struct ExposureWindow: Decodable {
 
-	let calibrationConfidence: ENCalibrationConfidence
-	let date: Date
-	let reportType: ENDiagnosisReportType
-	let infectiousness: ENInfectiousness
-	let scanInstances: [ScanInstance]
-
-}
-
-extension ExposureWindow {
+	// MARK: - Init
 
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -60,11 +52,21 @@ extension ExposureWindow {
 		self.scanInstances = exposureWindow.scanInstances.map { ScanInstance(from: $0) }
 	}
 
+	// MARK: - Protocol Codable
+
 	enum CodingKeys: String, CodingKey {
 
 		case calibrationConfidence, reportType, infectiousness, scanInstances
 		case date = "ageInDays"
 
 	}
+
+	// MARK: - Internal
+
+	let calibrationConfidence: ENCalibrationConfidence
+	let date: Date
+	let reportType: ENDiagnosisReportType
+	let infectiousness: ENInfectiousness
+	let scanInstances: [ScanInstance]
 
 }

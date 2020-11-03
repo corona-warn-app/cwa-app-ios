@@ -21,6 +21,17 @@ import Foundation
 
 struct TrlEncoding: Decodable {
 
+	// MARK: - Init
+
+	init(from trlEncoding: SAP_Internal_V2_TransmissionRiskLevelEncoding) {
+		self.infectiousnessOffsetStandard = Int(trlEncoding.infectiousnessOffsetStandard)
+		self.infectiousnessOffsetHigh = Int(trlEncoding.infectiousnessOffsetHigh)
+		self.reportTypeOffsetRecursive = Int(trlEncoding.reportTypeOffsetRecursive)
+		self.reportTypeOffsetSelfReport = Int(trlEncoding.reportTypeOffsetSelfReport)
+		self.reportTypeOffsetConfirmedClinicalDiagnosis = Int(trlEncoding.reportTypeOffsetConfirmedClinicalDiagnosis)
+		self.reportTypeOffsetConfirmedTest = Int(trlEncoding.reportTypeOffsetConfirmedTest)
+	}
+
 	// MARK: - Internal
 
 	let infectiousnessOffsetStandard: Int
@@ -29,4 +40,5 @@ struct TrlEncoding: Decodable {
 	let reportTypeOffsetSelfReport: Int
 	let reportTypeOffsetConfirmedClinicalDiagnosis: Int
 	let reportTypeOffsetConfirmedTest: Int
+	
 }

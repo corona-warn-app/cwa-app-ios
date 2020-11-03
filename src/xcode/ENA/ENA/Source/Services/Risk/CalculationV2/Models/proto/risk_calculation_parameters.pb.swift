@@ -20,23 +20,23 @@ private struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVer
   typealias Version = _2
 }
 
-struct Cwa_Internal_V2_RiskCalculationParameters {
+struct SAP_Internal_V2_RiskCalculationParameters {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var minutesAtAttenuationFilters: [Cwa_Internal_V2_MinutesAtAttenuationFilter] = []
+  var minutesAtAttenuationFilters: [SAP_Internal_V2_MinutesAtAttenuationFilter] = []
 
-  var trlFilters: [Cwa_Internal_V2_TrlFilter] = []
+  var trlFilters: [SAP_Internal_V2_TrlFilter] = []
 
-  var minutesAtAttenuationWeights: [Cwa_Internal_V2_MinutesAtAttenuationWeight] = []
+  var minutesAtAttenuationWeights: [SAP_Internal_V2_MinutesAtAttenuationWeight] = []
 
-  var normalizedTimePerEwtoRiskLevelMapping: [Cwa_Internal_V2_NormalizedTimeToRiskLevelMapping] = []
+  var normalizedTimePerEwtoRiskLevelMapping: [SAP_Internal_V2_NormalizedTimeToRiskLevelMapping] = []
 
-  var normalizedTimePerDayToRiskLevelMapping: [Cwa_Internal_V2_NormalizedTimeToRiskLevelMapping] = []
+  var normalizedTimePerDayToRiskLevelMapping: [SAP_Internal_V2_NormalizedTimeToRiskLevelMapping] = []
 
-  var trlEncoding: Cwa_Internal_V2_TransmissionRiskLevelEncoding {
-    get { return _trlEncoding ?? Cwa_Internal_V2_TransmissionRiskLevelEncoding() }
+  var trlEncoding: SAP_Internal_V2_TransmissionRiskLevelEncoding {
+    get { return _trlEncoding ?? SAP_Internal_V2_TransmissionRiskLevelEncoding() }
     set { _trlEncoding = newValue }
   }
   /// Returns true if `trlEncoding` has been explicitly set.
@@ -50,10 +50,10 @@ struct Cwa_Internal_V2_RiskCalculationParameters {
 
   init() {}
 
-  fileprivate var _trlEncoding: Cwa_Internal_V2_TransmissionRiskLevelEncoding?
+  fileprivate var _trlEncoding: SAP_Internal_V2_TransmissionRiskLevelEncoding?
 }
 
-struct Cwa_Internal_V2_Range {
+struct SAP_Internal_V2_Range {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -75,13 +75,13 @@ struct Cwa_Internal_V2_Range {
   init() {}
 }
 
-struct Cwa_Internal_V2_MinutesAtAttenuationFilter {
+struct SAP_Internal_V2_MinutesAtAttenuationFilter {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var attenuationRange: Cwa_Internal_V2_Range {
-    get { return _attenuationRange ?? Cwa_Internal_V2_Range() }
+  var attenuationRange: SAP_Internal_V2_Range {
+    get { return _attenuationRange ?? SAP_Internal_V2_Range() }
     set { _attenuationRange = newValue }
   }
   /// Returns true if `attenuationRange` has been explicitly set.
@@ -89,8 +89,8 @@ struct Cwa_Internal_V2_MinutesAtAttenuationFilter {
   /// Clears the value of `attenuationRange`. Subsequent reads from it will return its default value.
   mutating func clearAttenuationRange() { self._attenuationRange = nil }
 
-  var dropIfMinutesInRange: Cwa_Internal_V2_Range {
-    get { return _dropIfMinutesInRange ?? Cwa_Internal_V2_Range() }
+  var dropIfMinutesInRange: SAP_Internal_V2_Range {
+    get { return _dropIfMinutesInRange ?? SAP_Internal_V2_Range() }
     set { _dropIfMinutesInRange = newValue }
   }
   /// Returns true if `dropIfMinutesInRange` has been explicitly set.
@@ -102,17 +102,17 @@ struct Cwa_Internal_V2_MinutesAtAttenuationFilter {
 
   init() {}
 
-  fileprivate var _attenuationRange: Cwa_Internal_V2_Range?
-  fileprivate var _dropIfMinutesInRange: Cwa_Internal_V2_Range?
+  fileprivate var _attenuationRange: SAP_Internal_V2_Range?
+  fileprivate var _dropIfMinutesInRange: SAP_Internal_V2_Range?
 }
 
-struct Cwa_Internal_V2_TrlFilter {
+struct SAP_Internal_V2_TrlFilter {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var dropIfTrlInRange: Cwa_Internal_V2_Range {
-    get { return _dropIfTrlInRange ?? Cwa_Internal_V2_Range() }
+  var dropIfTrlInRange: SAP_Internal_V2_Range {
+    get { return _dropIfTrlInRange ?? SAP_Internal_V2_Range() }
     set { _dropIfTrlInRange = newValue }
   }
   /// Returns true if `dropIfTrlInRange` has been explicitly set.
@@ -124,16 +124,16 @@ struct Cwa_Internal_V2_TrlFilter {
 
   init() {}
 
-  fileprivate var _dropIfTrlInRange: Cwa_Internal_V2_Range?
+  fileprivate var _dropIfTrlInRange: SAP_Internal_V2_Range?
 }
 
-struct Cwa_Internal_V2_MinutesAtAttenuationWeight {
+struct SAP_Internal_V2_MinutesAtAttenuationWeight {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var attenuationRange: Cwa_Internal_V2_Range {
-    get { return _attenuationRange ?? Cwa_Internal_V2_Range() }
+  var attenuationRange: SAP_Internal_V2_Range {
+    get { return _attenuationRange ?? SAP_Internal_V2_Range() }
     set { _attenuationRange = newValue }
   }
   /// Returns true if `attenuationRange` has been explicitly set.
@@ -147,16 +147,16 @@ struct Cwa_Internal_V2_MinutesAtAttenuationWeight {
 
   init() {}
 
-  fileprivate var _attenuationRange: Cwa_Internal_V2_Range?
+  fileprivate var _attenuationRange: SAP_Internal_V2_Range?
 }
 
-struct Cwa_Internal_V2_NormalizedTimeToRiskLevelMapping {
+struct SAP_Internal_V2_NormalizedTimeToRiskLevelMapping {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var normalizedTimeRange: Cwa_Internal_V2_Range {
-    get { return _normalizedTimeRange ?? Cwa_Internal_V2_Range() }
+  var normalizedTimeRange: SAP_Internal_V2_Range {
+    get { return _normalizedTimeRange ?? SAP_Internal_V2_Range() }
     set { _normalizedTimeRange = newValue }
   }
   /// Returns true if `normalizedTimeRange` has been explicitly set.
@@ -164,7 +164,7 @@ struct Cwa_Internal_V2_NormalizedTimeToRiskLevelMapping {
   /// Clears the value of `normalizedTimeRange`. Subsequent reads from it will return its default value.
   mutating func clearNormalizedTimeRange() { self._normalizedTimeRange = nil }
 
-  var riskLevel: Cwa_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel = .unspecified
+  var riskLevel: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel = .unspecified
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -201,14 +201,14 @@ struct Cwa_Internal_V2_NormalizedTimeToRiskLevelMapping {
 
   init() {}
 
-  fileprivate var _normalizedTimeRange: Cwa_Internal_V2_Range?
+  fileprivate var _normalizedTimeRange: SAP_Internal_V2_Range?
 }
 
 #if swift(>=4.2)
 
-extension Cwa_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel: CaseIterable {
+extension SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Cwa_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel] = [
+  static var allCases: [SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel] = [
     .unspecified,
     .low,
     .high
@@ -217,7 +217,7 @@ extension Cwa_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel: CaseIterab
 
 #endif  // swift(>=4.2)
 
-struct Cwa_Internal_V2_TransmissionRiskLevelEncoding {
+struct SAP_Internal_V2_TransmissionRiskLevelEncoding {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -243,7 +243,7 @@ struct Cwa_Internal_V2_TransmissionRiskLevelEncoding {
 
 private let _protobuf_package = "cwa.internal.v2"
 
-extension Cwa_Internal_V2_RiskCalculationParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension SAP_Internal_V2_RiskCalculationParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".RiskCalculationParameters"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "minutesAtAttenuationFilters"),
@@ -298,7 +298,7 @@ extension Cwa_Internal_V2_RiskCalculationParameters: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func == (lhs: Cwa_Internal_V2_RiskCalculationParameters, rhs: Cwa_Internal_V2_RiskCalculationParameters) -> Bool {
+  static func == (lhs: SAP_Internal_V2_RiskCalculationParameters, rhs: SAP_Internal_V2_RiskCalculationParameters) -> Bool {
     if lhs.minutesAtAttenuationFilters != rhs.minutesAtAttenuationFilters { return false }
     if lhs.trlFilters != rhs.trlFilters { return false }
     if lhs.minutesAtAttenuationWeights != rhs.minutesAtAttenuationWeights { return false }
@@ -311,7 +311,7 @@ extension Cwa_Internal_V2_RiskCalculationParameters: SwiftProtobuf.Message, Swif
   }
 }
 
-extension Cwa_Internal_V2_Range: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension SAP_Internal_V2_Range: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Range"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "min"),
@@ -351,7 +351,7 @@ extension Cwa_Internal_V2_Range: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func == (lhs: Cwa_Internal_V2_Range, rhs: Cwa_Internal_V2_Range) -> Bool {
+  static func == (lhs: SAP_Internal_V2_Range, rhs: SAP_Internal_V2_Range) -> Bool {
     if lhs.min != rhs.min { return false }
     if lhs.minExclusive != rhs.minExclusive { return false }
     if lhs.max != rhs.max { return false }
@@ -361,7 +361,7 @@ extension Cwa_Internal_V2_Range: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   }
 }
 
-extension Cwa_Internal_V2_MinutesAtAttenuationFilter: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension SAP_Internal_V2_MinutesAtAttenuationFilter: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".MinutesAtAttenuationFilter"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "attenuationRange"),
@@ -391,7 +391,7 @@ extension Cwa_Internal_V2_MinutesAtAttenuationFilter: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func == (lhs: Cwa_Internal_V2_MinutesAtAttenuationFilter, rhs: Cwa_Internal_V2_MinutesAtAttenuationFilter) -> Bool {
+  static func == (lhs: SAP_Internal_V2_MinutesAtAttenuationFilter, rhs: SAP_Internal_V2_MinutesAtAttenuationFilter) -> Bool {
     if lhs._attenuationRange != rhs._attenuationRange { return false }
     if lhs._dropIfMinutesInRange != rhs._dropIfMinutesInRange { return false }
     if lhs.unknownFields != rhs.unknownFields { return false }
@@ -399,7 +399,7 @@ extension Cwa_Internal_V2_MinutesAtAttenuationFilter: SwiftProtobuf.Message, Swi
   }
 }
 
-extension Cwa_Internal_V2_TrlFilter: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension SAP_Internal_V2_TrlFilter: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".TrlFilter"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "dropIfTrlInRange")
@@ -424,14 +424,14 @@ extension Cwa_Internal_V2_TrlFilter: SwiftProtobuf.Message, SwiftProtobuf._Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func == (lhs: Cwa_Internal_V2_TrlFilter, rhs: Cwa_Internal_V2_TrlFilter) -> Bool {
+  static func == (lhs: SAP_Internal_V2_TrlFilter, rhs: SAP_Internal_V2_TrlFilter) -> Bool {
     if lhs._dropIfTrlInRange != rhs._dropIfTrlInRange { return false }
     if lhs.unknownFields != rhs.unknownFields { return false }
     return true
   }
 }
 
-extension Cwa_Internal_V2_MinutesAtAttenuationWeight: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension SAP_Internal_V2_MinutesAtAttenuationWeight: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".MinutesAtAttenuationWeight"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "attenuationRange"),
@@ -461,7 +461,7 @@ extension Cwa_Internal_V2_MinutesAtAttenuationWeight: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func == (lhs: Cwa_Internal_V2_MinutesAtAttenuationWeight, rhs: Cwa_Internal_V2_MinutesAtAttenuationWeight) -> Bool {
+  static func == (lhs: SAP_Internal_V2_MinutesAtAttenuationWeight, rhs: SAP_Internal_V2_MinutesAtAttenuationWeight) -> Bool {
     if lhs._attenuationRange != rhs._attenuationRange { return false }
     if lhs.weight != rhs.weight { return false }
     if lhs.unknownFields != rhs.unknownFields { return false }
@@ -469,7 +469,7 @@ extension Cwa_Internal_V2_MinutesAtAttenuationWeight: SwiftProtobuf.Message, Swi
   }
 }
 
-extension Cwa_Internal_V2_NormalizedTimeToRiskLevelMapping: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension SAP_Internal_V2_NormalizedTimeToRiskLevelMapping: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".NormalizedTimeToRiskLevelMapping"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "normalizedTimeRange"),
@@ -499,7 +499,7 @@ extension Cwa_Internal_V2_NormalizedTimeToRiskLevelMapping: SwiftProtobuf.Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func == (lhs: Cwa_Internal_V2_NormalizedTimeToRiskLevelMapping, rhs: Cwa_Internal_V2_NormalizedTimeToRiskLevelMapping) -> Bool {
+  static func == (lhs: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping, rhs: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping) -> Bool {
     if lhs._normalizedTimeRange != rhs._normalizedTimeRange { return false }
     if lhs.riskLevel != rhs.riskLevel { return false }
     if lhs.unknownFields != rhs.unknownFields { return false }
@@ -507,7 +507,7 @@ extension Cwa_Internal_V2_NormalizedTimeToRiskLevelMapping: SwiftProtobuf.Messag
   }
 }
 
-extension Cwa_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel: SwiftProtobuf._ProtoNameProviding {
+extension SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "UNSPECIFIED"),
     1: .same(proto: "LOW"),
@@ -515,7 +515,7 @@ extension Cwa_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel: SwiftProto
   ]
 }
 
-extension Cwa_Internal_V2_TransmissionRiskLevelEncoding: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension SAP_Internal_V2_TransmissionRiskLevelEncoding: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".TransmissionRiskLevelEncoding"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "infectiousnessOffsetStandard"),
@@ -565,7 +565,7 @@ extension Cwa_Internal_V2_TransmissionRiskLevelEncoding: SwiftProtobuf.Message, 
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func == (lhs: Cwa_Internal_V2_TransmissionRiskLevelEncoding, rhs: Cwa_Internal_V2_TransmissionRiskLevelEncoding) -> Bool {
+  static func == (lhs: SAP_Internal_V2_TransmissionRiskLevelEncoding, rhs: SAP_Internal_V2_TransmissionRiskLevelEncoding) -> Bool {
     if lhs.infectiousnessOffsetStandard != rhs.infectiousnessOffsetStandard { return false }
     if lhs.infectiousnessOffsetHigh != rhs.infectiousnessOffsetHigh { return false }
     if lhs.reportTypeOffsetRecursive != rhs.reportTypeOffsetRecursive { return false }

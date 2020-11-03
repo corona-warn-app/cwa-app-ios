@@ -21,6 +21,13 @@ import Foundation
 
 struct MinutesAtAttenuationWeight: Decodable {
 
+	// MARK: - Init
+
+	init(from minutesAtAttenuationWeight: SAP_Internal_V2_MinutesAtAttenuationWeight) {
+		self.attenuationRange = CWARange(from: minutesAtAttenuationWeight.attenuationRange)
+		self.weight = minutesAtAttenuationWeight.weight
+	}
+
 	// MARK: - Internal
 
 	let attenuationRange: CWARange

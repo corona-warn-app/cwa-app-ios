@@ -19,7 +19,14 @@
 
 import Foundation
 
-struct NormalizedTimePerToRiskLevelMapping: Decodable {
+struct NormalizedTimeToRiskLevelMapping: Decodable {
+
+	// MARK: - Init
+
+	init(from normalizedTimeToRiskLevelMapping: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping) {
+		self.normalizedTimeRange = CWARange(from: normalizedTimeToRiskLevelMapping.normalizedTimeRange)
+		self.riskLevel = CWARiskLevel(from: normalizedTimeToRiskLevelMapping.riskLevel)
+	}
 
 	// MARK: - Internal
 	

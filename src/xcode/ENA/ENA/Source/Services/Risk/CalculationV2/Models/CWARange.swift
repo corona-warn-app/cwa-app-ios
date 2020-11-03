@@ -21,6 +21,15 @@ import Foundation
 
 struct CWARange: Decodable {
 
+	// MARK: - Init
+
+	init(from range: SAP_Internal_V2_Range) {
+		self.min = range.min
+		self.max = range.max
+		self.minExclusive = range.minExclusive
+		self.maxExclusive = range.maxExclusive
+	}
+
 	// MARK: - Internal
 
 	let min: Double

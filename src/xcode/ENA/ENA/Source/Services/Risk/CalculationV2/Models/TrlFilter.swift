@@ -21,6 +21,12 @@ import Foundation
 
 struct TrlFilter: Decodable {
 
+	// MARK: - Init
+
+	init(from trlFilter: SAP_Internal_V2_TrlFilter) {
+		self.dropIfTrlInRange = CWARange(from: trlFilter.dropIfTrlInRange)
+	}
+
 	// MARK: - Internal
 
 	let dropIfTrlInRange: CWARange

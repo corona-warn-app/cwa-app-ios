@@ -21,6 +21,13 @@ import Foundation
 
 struct MinutesAtAttenuationFilter: Decodable {
 
+	// MARK: - Init
+
+	init(from minutesAtAttenuationFilter: SAP_Internal_V2_MinutesAtAttenuationFilter) {
+		self.attenuationRange = CWARange(from: minutesAtAttenuationFilter.attenuationRange)
+		self.dropIfMinutesInRange = CWARange(from: minutesAtAttenuationFilter.dropIfMinutesInRange)
+	}
+
 	// MARK: - Internal
 
 	let attenuationRange: CWARange
