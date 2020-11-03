@@ -22,7 +22,7 @@ import Combine
 
 final class ExposureSubmissionSymptomsViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, RequiresDismissConfirmation {
 
-	typealias PrimaryButtonHandler = (SymptomsOption, @escaping (Bool) -> Void) -> Void
+	typealias PrimaryButtonHandler = (SymptomsOption) -> Void
 
 	enum SymptomsOption {
 		case yes, no, preferNotToSay
@@ -59,12 +59,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 			fatalError("Primary button must not be enabled before the user has selected an option")
 		}
 
-		onPrimaryButtonTap(selectedSymptomsOption) { [weak self] isLoading in
-			DispatchQueue.main.async {
-				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
-				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
-			}
-		}
+		onPrimaryButtonTap(selectedSymptomsOption)
 	}
 
 	// MARK: - Private

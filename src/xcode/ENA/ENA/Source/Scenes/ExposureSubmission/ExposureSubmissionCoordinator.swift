@@ -43,12 +43,7 @@ protocol ExposureSubmissionCoordinating: class {
 	func showOverviewScreen()
 	func showTestResultScreen(with result: TestResult)
 	func showTanScreen()
-	func showSymptomsScreen()
-	func showWarnOthersScreen()
 	func showThankYouScreen()
-
-	// Temporarily added for quickfix: https://jira.itc.sap.com/browse/EXPOSUREAPP-3231
-	func loadSupportedCountries(isLoading: @escaping (Bool) -> Void, onSuccess: @escaping () -> Void, onError: @escaping (ExposureSubmissionError) -> Void)
 
 }
 
@@ -171,9 +166,42 @@ extension ExposureSubmissionCoordinator {
 		push(vc)
 	}
 
-	func showTestResultScreen(with result: TestResult) {
-		let vc = createTestResultViewController(with: result)
+	func showTestResultScreen(with testResult: TestResult) {
+		let vc = createTestResultViewController(with: testResult)
 		push(vc)
+	}
+
+	func createTestResultViewController(with testResult: TestResult) -> ExposureSubmissionTestResultViewController {
+		return ExposureSubmissionTestResultViewController(
+			viewModel: .init(
+				testResult: testResult,
+				exposureSubmissionService: model.exposureSubmissionService,
+				onContinueWithSymptomsFlowButtonTap: { [weak self] isLoading in
+					self?.model.checkStateAndLoadCountries(
+						isLoading: isLoading,
+						onSuccess: {
+							self?.showSymptomsScreen()
+						}, onError: { error in
+							self?.showErrorAlert(for: error)
+						}
+					)
+				},
+				onContinueWithoutSymptomsFlowButtonTap: { [weak self] isLoading in
+					self?.model.checkStateAndLoadCountries(
+						isLoading: isLoading,
+						onSuccess: {
+							self?.showWarnOthersScreen()
+						},
+						onError: { error in
+							self?.showErrorAlert(for: error)
+						}
+					)
+				},
+				onTestDeleted: { [weak self] in
+					self?.dismiss()
+				}
+			)
+		)
 	}
 
 	func showHotlineScreen() {
@@ -273,19 +301,11 @@ extension ExposureSubmissionCoordinator {
 
 	func showSymptomsScreen() {
 		let vc = createSymptomsViewController(
-			onPrimaryButtonTap: { [weak self] selectedSymptomsOption, isLoading in
+			onPrimaryButtonTap: { [weak self] selectedSymptomsOption in
 				guard let self = self else { return }
 
-				self.model.symptomsOptionSelected(
-					selectedSymptomsOption: selectedSymptomsOption,
-					isLoading: isLoading,
-					onSuccess: {
-						self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showWarnOthersScreen()
-					},
-					onError: { error in
-						self.showErrorAlert(for: error)
-					}
-				)
+				self.model.symptomsOptionSelected(selectedSymptomsOption)
+				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showWarnOthersScreen()
 			}
 		)
 
@@ -294,17 +314,9 @@ extension ExposureSubmissionCoordinator {
 
 	private func showSymptomsOnsetScreen() {
 		let vc = createSymptomsOnsetViewController(
-			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption, isLoading in
-				self?.model.symptomsOnsetOptionSelected(
-					selectedSymptomsOnsetOption: selectedSymptomsOnsetOption,
-					isLoading: isLoading,
-					onSuccess: {
-						self?.showWarnOthersScreen()
-					},
-					onError: { error in
-						self?.showErrorAlert(for: error)
-					}
-				)
+			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption in
+				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
+				self?.showWarnOthersScreen()
 			}
 		)
 
@@ -331,11 +343,6 @@ extension ExposureSubmissionCoordinator {
 	func showThankYouScreen() {
 		let vc = createSuccessViewController()
 		push(vc)
-	}
-
-	// Temporarily added for quickfix: https://jira.itc.sap.com/browse/EXPOSUREAPP-3231
-	func loadSupportedCountries(isLoading: @escaping (Bool) -> Void, onSuccess: @escaping () -> Void, onError: @escaping (ExposureSubmissionError) -> Void) {
-		model.loadSupportedCountries(isLoading: isLoading, onSuccess: onSuccess, onError: onError)
 	}
 
 	// MARK: - UI-related helpers.
@@ -436,19 +443,8 @@ extension ExposureSubmissionCoordinator {
 		}
 	}
 
-	private func createTestResultViewController(with result: TestResult) -> ExposureSubmissionTestResultViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionTestResultViewController(
-				coder: coder,
-				coordinator: self,
-				exposureSubmissionService: self.model.exposureSubmissionService,
-				testResult: result
-			)
-		}
-	}
-
 	private func createSymptomsViewController(
-		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsViewController.SymptomsOption, @escaping (Bool) -> Void) -> Void
+		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsViewController.SymptomsOption) -> Void
 	) -> ExposureSubmissionSymptomsViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSymptomsViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionSymptomsViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap)
@@ -456,7 +452,7 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	private func createSymptomsOnsetViewController(
-		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption, @escaping (Bool) -> Void) -> Void
+		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption) -> Void
 	) -> ExposureSubmissionSymptomsOnsetViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSymptomsOnsetViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionSymptomsOnsetViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap)
