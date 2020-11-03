@@ -42,6 +42,15 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 		setUpView()
 		setUpBindings()
+		
+		// (kga)
+		// - 1. Is result positive?
+		// - 2. Was user already informed about to warn others
+		// - 3. If no let's do our stuff
+		//		- Logic if to schedule
+		//		- Logic to schedule
+		
+		
 	}
 
 	override var navigationItem: UINavigationItem {

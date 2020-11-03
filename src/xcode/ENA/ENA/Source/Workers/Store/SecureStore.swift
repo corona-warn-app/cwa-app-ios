@@ -238,16 +238,6 @@ final class SecureStore: Store {
 		get { kvStore["selectedServerEnvironment"] as ServerEnvironmentData? ?? serverEnvironment.defaultEnvironment() }
 		set { kvStore["selectedServerEnvironment"] = newValue }
 	}
-	
-	var warnOthersNotificationOneDelay: Int {
-		get { kvStore["wasDeviceTimeErrorShown"] as Int? ?? ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue }
-		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
-	}
-	
-	var warnOthersNotificationTwoDelay: Int {
-		get { kvStore["wasDeviceTimeErrorShown"] as Int? ?? ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue }
-		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
-	}
 
 	#if !RELEASE
 
@@ -259,6 +249,19 @@ final class SecureStore: Store {
 	}
 
 	#endif
+}
+
+extension SecureStore {
+	
+	var warnOthersNotificationOneDelay: Int {
+		get { kvStore["wasDeviceTimeErrorShown"] as Int? ?? ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue }
+		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
+	}
+	
+	var warnOthersNotificationTwoDelay: Int {
+		get { kvStore["wasDeviceTimeErrorShown"] as Int? ?? ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue }
+		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
+	}
 }
 
 extension SecureStore: AppConfigCaching {
