@@ -23,38 +23,40 @@ final class RiskCalculationV2 {
 
 	// MARK: - Internal
 
+	/// Calculates the risk level based on exposure windows
+	/// https://github.com/corona-warn-app/cwa-app-tech-spec/blob/7779cabcff42afb437f743f1d9e35592ef989c52/docs/spec/exposure-windows.md#aggregate-results-from-exposure-windows
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
 	) throws -> ExposureDetectionResult {
+		/// 0. Filter by `Minutes at Attenuation` and `Transmission Risk Level`
 		let filteredExposureWindows = exposureWindows
 			.map { RiskCalculationWindow(exposureWindow: $0, configuration: configuration) }
 			.filter { !$0.isDroppedByMinutesAtAttenuation && !$0.isDroppedByTransmissionRiskLevel }
 
-		// 1. Group `Exposure Windows by Date`
+		/// 1. Group `Exposure Windows by Date`
 		let exposureWindowsPerDate = Dictionary(grouping: filteredExposureWindows, by: { $0.exposureWindow.date })
 
-		// 2. Determine `Normalized Time per Date`
+		/// 2. Determine `Normalized Time per Date`
 		let normalizedTimePerDate = exposureWindowsPerDate.mapValues { windows in
 			windows
 				.map { $0.normalizedTime }
 				.reduce(0, +)
 		}
 
-		// 3. Determine `Risk Level per Date`
+		/// 3. Determine `Risk Level per Date`
 		let riskLevelPerDate = try normalizedTimePerDate.mapValues { normalizedTime -> CWARiskLevel in
-			let riskLevel = configuration.normalizedTimePerDayToRiskLevelMapping
-				.first { $0.normalizedTimeRange.contains(normalizedTime) }
-				.map { $0.riskLevel }
-
-			guard let unwrappedRiskLevel = riskLevel else {
+			guard let riskLevel = configuration.normalizedTimePerDayToRiskLevelMapping
+					.first(where: { $0.normalizedTimeRange.contains(normalizedTime) })
+					.map({ $0.riskLevel })
+			else {
 				throw RiskCalculationV2Error.invalidConfiguration
 			}
 
-			return unwrappedRiskLevel
+			return riskLevel
 		}
 
-		// 4. Determine `Minimum Distinct Encounters With Low Risk per Date`
+		/// 4. Determine `Minimum Distinct Encounters With Low Risk per Date`
 		let minimumDistinctEncountersWithLowRiskPerDate = try exposureWindowsPerDate.mapValues { windows -> Int in
 			let trlAndConfidenceCombinations = try windows
 				.filter { try $0.riskLevel() == .low }
@@ -63,7 +65,7 @@ final class RiskCalculationV2 {
 			return Set(trlAndConfidenceCombinations).count
 		}
 
-		// 5. Determine `Minimum Distinct Encounters With High Risk per Date`
+		/// 5. Determine `Minimum Distinct Encounters With High Risk per Date`
 		let minimumDistinctEncountersWithHighRiskPerDate = try exposureWindowsPerDate.mapValues { windows -> Int in
 			let trlAndConfidenceCombinations = try windows
 				.filter { try $0.riskLevel() == .high }
@@ -72,19 +74,19 @@ final class RiskCalculationV2 {
 			return Set(trlAndConfidenceCombinations).count
 		}
 
-		// 6. Determine `Total Risk`
+		/// 6. Determine `Total Risk`
 		let riskLevel: EitherLowOrIncreasedRiskLevel = riskLevelPerDate.values.contains(.high) ? .increased : .low
 
-		// 7. Determine `Date of Most Recent Date with Low Risk`
+		/// 7. Determine `Date of Most Recent Date with Low Risk`
 		let mostRecentDateWithLowRisk = riskLevelPerDate.filter { $0.value == .low }.keys.max()
 
-		// 8. Determine `Date of Most Recent Date with High Risk`
+		/// 8. Determine `Date of Most Recent Date with High Risk`
 		let mostRecentDateWithHighRisk = riskLevelPerDate.filter { $0.value == .high }.keys.max()
 
-		// 9. Determine `Total Minimum Distinct Encounters With Low Risk`
+		/// 9. Determine `Total Minimum Distinct Encounters With Low Risk`
 		let minimumDistinctEncountersWithLowRisk = minimumDistinctEncountersWithLowRiskPerDate.values.reduce(0, +)
 
-		// 10. Determine `Total Minimum Distinct Encounters With High Risk`
+		/// 10. Determine `Total Minimum Distinct Encounters With High Risk`
 		let minimumDistinctEncountersWithHighRisk = minimumDistinctEncountersWithHighRiskPerDate.values.reduce(0, +)
 
 		return ExposureDetectionResult(

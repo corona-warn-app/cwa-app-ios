@@ -19,7 +19,9 @@
 
 import Foundation
 
-class RiskCalculationWindow {
+/// Determines the risk level for one exposure window
+/// https://github.com/corona-warn-app/cwa-app-tech-spec/blob/7779cabcff42afb437f743f1d9e35592ef989c52/docs/spec/exposure-windows.md#determine-risk-level-for-exposure-windows
+final class RiskCalculationWindow {
 
 	// MARK: - Init
 
@@ -35,21 +37,7 @@ class RiskCalculationWindow {
 
 	let exposureWindow: ExposureWindow
 
-	/// Risk calculation based on exposure windows:
-	/// https://github.com/corona-warn-app/cwa-app-tech-spec/blob/512a4fd598179a98b32a73d9d86e6e536e67f7f8/docs/spec/exposure-windows.md#aggregate-results-from-exposure-windows
-
-	func riskLevel() throws -> CWARiskLevel {
-		let riskLevel = configuration.normalizedTimePerEWToRiskLevelMapping
-			.first { $0.normalizedTimeRange.contains(normalizedTime) }
-			.map { $0.riskLevel }
-
-		guard let unwrappedRiskLevel = riskLevel else {
-			throw RiskCalculationV2Error.invalidConfiguration
-		}
-
-		return unwrappedRiskLevel
-	}
-
+	/// 1. Filter by `Minutes at Attenuation`
 	lazy var isDroppedByMinutesAtAttenuation: Bool = {
 		return configuration.minutesAtAttenuationFilters.map { filter in
 			let secondsAtAttenuation = exposureWindow.scanInstances
@@ -66,17 +54,7 @@ class RiskCalculationWindow {
 		.contains(true)
 	}()
 
-	lazy var isDroppedByTransmissionRiskLevel: Bool = {
-		return configuration.trlFilters.map {
-			$0.dropIfTrlInRange.contains(transmissionRiskLevel)
-		}
-		.contains(true)
-	}()
-
-	lazy var normalizedTime: Double = {
-		return transmissionRiskValue * weightedMinutes
-	}()
-
+	/// 2. Determine `Transmission Risk Level`
 	lazy var transmissionRiskLevel: Int = {
 		let infectiousnessOffset = exposureWindow.infectiousness == .high ?
 			configuration.trlEncoding.infectiousnessOffsetHigh :
@@ -99,14 +77,41 @@ class RiskCalculationWindow {
 		return infectiousnessOffset + reportTypeOffset
 	}()
 
+	/// 3. Filter by `Transmission Risk Level`
+	lazy var isDroppedByTransmissionRiskLevel: Bool = {
+		return configuration.trlFilters.map {
+			$0.dropIfTrlInRange.contains(transmissionRiskLevel)
+		}
+		.contains(true)
+	}()
+
+	/// 6. Determine `Normalized Time`
+	lazy var normalizedTime: Double = {
+		return transmissionRiskValue * weightedMinutes
+	}()
+
+	/// 7. Determine `Risk Level`
+	func riskLevel() throws -> CWARiskLevel {
+		guard let riskLevel = configuration.normalizedTimePerEWToRiskLevelMapping
+				.first(where: { $0.normalizedTimeRange.contains(normalizedTime) })
+				.map({ $0.riskLevel })
+		else {
+			throw RiskCalculationV2Error.invalidConfiguration
+		}
+
+		return riskLevel
+	}
+
 	// MARK: - Private
 
 	private let configuration: RiskCalculationConfiguration
 
+	/// 4. Determine `Transmission Risk Value`
 	private lazy var transmissionRiskValue: Double = {
 		Double(transmissionRiskLevel) * configuration.transmissionRiskLevelMultiplier
 	}()
 
+	/// 5. Determine `Weighted Minutes`
 	private lazy var weightedMinutes: Double = {
 		return exposureWindow.scanInstances.map { scanInstance in
 			let weight = configuration.minutesAtAttenuationWeights
