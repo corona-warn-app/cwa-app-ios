@@ -248,7 +248,7 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		consumer.didCalculateRisk = { _ in
-			XCTFail("didFailCalculateRisk should not be called.")
+			XCTFail("didCalculateRisk should not be called.")
 		}
 
 		consumer.didFailCalculateRisk = { _ in

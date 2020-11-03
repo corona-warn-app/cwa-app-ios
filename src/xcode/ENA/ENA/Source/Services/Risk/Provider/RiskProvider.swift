@@ -119,6 +119,14 @@ extension RiskProvider: RiskProviding {
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
 	func requestRisk(userInitiated: Bool, ignoreCachedSummary: Bool = false, completion: Completion? = nil) {
 		queue.async {
+
+			#if DEBUG
+			if isUITesting {
+				self._requestRiskLevel_Mock(userInitiated: userInitiated, completion: completion)
+				return
+			}
+			#endif
+
 			self._requestRiskLevel(userInitiated: userInitiated, ignoreCachedSummary: ignoreCachedSummary, completion: completion)
 		}
 	}
@@ -214,16 +222,10 @@ extension RiskProvider: RiskProviding {
 	private func _requestRiskLevel(userInitiated: Bool, ignoreCachedSummary: Bool, completion: Completion? = nil) {
 		Log.info("RiskProvider: Request risk level", log: .riskDetection)
 
-		#if DEBUG
-		if isUITesting {
-			_requestRiskLevel_Mock(userInitiated: userInitiated, completion: completion)
-			return
-		}
-		#endif
-
 		provideActivityState(.idle)
 		let tracingHistory = store.tracingStatusHistory
 		let numberOfEnabledHours = tracingHistory.activeTracing().inHours
+
 		let details = Risk.Details(
 			daysSinceLastExposure: store.summary?.summary.daysSinceLastExposure,
 			numberOfExposures: Int(store.summary?.summary.matchedKeyCount ?? 0),
@@ -311,13 +313,18 @@ extension RiskProvider: RiskProviding {
 			return
 		}
 
+		cancellationToken = nil
+
+		guard summary != nil else {
+			Log.info("RiskProvider: Failed determining summary.", log: .riskDetection)
+			return
+		}
+
 		self._requestRiskLevel(
 			summary: summary,
 			appConfiguration: appConfiguration,
 			completion: completion
 		)
-
-		cancellationToken = nil
 	}
 
 	private func _requestRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_Internal_ApplicationConfiguration?, completion: Completion? = nil) {
