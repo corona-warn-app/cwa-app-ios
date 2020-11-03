@@ -91,7 +91,7 @@ extension SubmissionError: ExposureSubmissionErrorTransformable {
 extension URLSession.Response.Failure: ExposureSubmissionErrorTransformable {
 	func toExposureSubmissionError() -> ExposureSubmissionError {
 		switch self {
-		case let .httpError(wrapped):
+		case let .httpError(wrapped, _):
 			return .httpError(wrapped.localizedDescription)
 		case .invalidResponse:
 			return .invalidResponse
