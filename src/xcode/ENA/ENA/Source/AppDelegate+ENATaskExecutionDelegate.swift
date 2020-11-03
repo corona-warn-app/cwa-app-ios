@@ -90,7 +90,9 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		// At this point we are already in background so it is safe to assume background mode is available.
 		riskProvider.configuration.detectionMode = .fromBackgroundStatus(.available)
 
-		riskProvider.requestRisk(userInitiated: false) { result in
+		riskProvider.requestRisk(userInitiated: false) { [weak self] result in
+			guard let self = self else { return }
+
 			switch result {
 			case .success(let risk):
 				if risk.riskLevelHasChanged {
@@ -103,7 +105,23 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				} else {
 					completion(false)
 				}
-			case .failure:
+			case .failure(let error):
+				switch error {
+				case .failedRiskDetection(let reason):
+					if case .wrongDeviceTime = reason {
+						if !self.store.wasDeviceTimeErrorShown {
+							UNUserNotificationCenter.current().presentNotification(
+								title: AppStrings.WrongDeviceTime.errorPushNotificationTitle,
+								body: AppStrings.WrongDeviceTime.errorPushNotificationText,
+								identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier + ".device-time-check"
+							)
+							self.store.wasDeviceTimeErrorShown = true
+						}
+					}
+				default:
+					break
+				}
+
 				completion(false)
 			}
 		}
