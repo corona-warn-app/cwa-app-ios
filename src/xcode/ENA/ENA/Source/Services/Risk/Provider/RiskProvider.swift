@@ -276,18 +276,22 @@ extension RiskProvider: RiskProviding {
 			case .success(let config):
 				appConfiguration = config
 
-				self?.keyPackageDownload.start(completion: { result in
-					switch result {
-					case .success:
-						self?.determineSummary(userInitiated: userInitiated, ignoreCachedSummary: ignoreCachedSummary, appConfiguration: config) {
-							summary = $0
+				// The result of a hour package download is not handled, because for the risk detection it is irrelevant if it fails or not.
+				self?.downloadHourPackages { [weak self] in
+
+					self?.downloadDayPackages(completion: { result in
+						switch result {
+						case .success:
+							self?.determineSummary(userInitiated: userInitiated, ignoreCachedSummary: ignoreCachedSummary, appConfiguration: config) {
+								summary = $0
+								group.leave()
+							}
+						case .failure(let error):
+							self?.failOnTargetQueue(error: error, completion: completion)
 							group.leave()
 						}
-					case .failure(let error):
-						self?.failOnTargetQueue(error: .failedKeyPackageDownload(error), completion: completion)
-						group.leave()
-					}
-				})
+					})
+				}
 
 			case .failure(let error):
 				Log.error(error.localizedDescription, log: .api)
@@ -318,6 +322,23 @@ extension RiskProvider: RiskProviding {
 			appConfiguration: unwrappedAppConfiguration,
 			completion: completion
 		)
+	}
+
+	private func downloadDayPackages(completion: @escaping (Result<Void, RiskCalculationError>) -> Void) {
+		keyPackageDownload.startDayPackagesDownload(completion: { result in
+			switch result {
+			case .success:
+				completion(.success(()))
+			case .failure(let error):
+				completion(.failure(.failedKeyPackageDownload(error)))
+			}
+		})
+	}
+
+	private func downloadHourPackages(completion: @escaping () -> Void) {
+		keyPackageDownload.startHourPackagesDownload(completion: { _ in
+			completion()
+		})
 	}
 
 	private func _requestRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_Internal_ApplicationConfiguration, completion: Completion? = nil) {
