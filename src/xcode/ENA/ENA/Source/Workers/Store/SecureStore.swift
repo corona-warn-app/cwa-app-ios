@@ -262,7 +262,7 @@ final class SecureStore: Store {
 }
 
 extension SecureStore {
-	
+
 	var warnOthersNotificationOneDelay: Int {
 		get { kvStore["wasDeviceTimeErrorShown"] as Int? ?? ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue }
 		set { kvStore["wasDeviceTimeErrorShown"] = newValue }

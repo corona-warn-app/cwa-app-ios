@@ -90,6 +90,7 @@ class ExposureSubmissionTestResultViewModel {
 
 	func deleteTest() {
 		exposureSubmissionService.deleteTest()
+		// (kga) Reset warn others
 		onTestDeleted()
 	}
 

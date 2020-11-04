@@ -269,6 +269,7 @@
 		94427A5025502B8900C36BE6 /* ENWarnOthersNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94427A4F25502B8900C36BE6 /* ENWarnOthersNotifications.swift */; };
 		9488C3012521EE8E00504648 /* DeltaOnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488C3002521EE8E00504648 /* DeltaOnboardingNavigationController.swift */; };
 		948DCDC3252EFC9A00CDE020 /* ENAUITests_05_ExposureLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948DCDC2252EFC9A00CDE020 /* ENAUITests_05_ExposureLogging.swift */; };
+		94B255A62551B7C800649B4C /* WarnOthers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B255A52551B7C800649B4C /* WarnOthers.swift */; };
 		94C24B3F25304B4400F8C004 /* ENAUITestsDeltaOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C24B3E25304B4400F8C004 /* ENAUITestsDeltaOnboarding.swift */; };
 		94F594622521CBF50077681B /* DeltaOnboardingV15ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F594612521CBF50077681B /* DeltaOnboardingV15ViewModel.swift */; };
 		A124E64A249BF4EF00E95F72 /* ExposureDetectionExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A124E648249BF4EB00E95F72 /* ExposureDetectionExecutorTests.swift */; };
@@ -849,6 +850,7 @@
 		94427A4F25502B8900C36BE6 /* ENWarnOthersNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENWarnOthersNotifications.swift; sourceTree = "<group>"; };
 		9488C3002521EE8E00504648 /* DeltaOnboardingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNavigationController.swift; sourceTree = "<group>"; };
 		948DCDC2252EFC9A00CDE020 /* ENAUITests_05_ExposureLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_05_ExposureLogging.swift; sourceTree = "<group>"; };
+		94B255A52551B7C800649B4C /* WarnOthers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarnOthers.swift; sourceTree = "<group>"; };
 		94C24B3E25304B4400F8C004 /* ENAUITestsDeltaOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsDeltaOnboarding.swift; sourceTree = "<group>"; };
 		94F594612521CBF50077681B /* DeltaOnboardingV15ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingV15ViewModel.swift; sourceTree = "<group>"; };
 		A124E648249BF4EB00E95F72 /* ExposureDetectionExecutorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionExecutorTests.swift; sourceTree = "<group>"; };
@@ -2135,6 +2137,7 @@
 			isa = PBXGroup;
 			children = (
 				AB1011572507C15000D392A2 /* TracingStatusHistory.swift */,
+				94B255A52551B7C800649B4C /* WarnOthers.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3408,6 +3411,7 @@
 				710021E0248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift in Sources */,
 				B14D0CDF246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift in Sources */,
 				B1D8CB2724DD44C6008C6010 /* DMTracingHistoryViewController.swift in Sources */,
+				94B255A62551B7C800649B4C /* WarnOthers.swift in Sources */,
 				71FE1C69247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift in Sources */,
 				B18755D124DC45CA00A9202E /* DMStoreViewController.swift in Sources */,
 				353412CC2525EE4A0086D15C /* Globals.swift in Sources */,
@@ -3993,7 +3997,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.0;
 				MARKETING_VERSION = 1.7.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
