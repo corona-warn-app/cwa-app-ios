@@ -210,4 +210,42 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 			}
 		}
 	}
+
+	func test_deleteWithCloseOpenDB() {
+		let unitTestStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "unittest")
+
+		unitTestStore.open()
+
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
+
+		let package = SAPDownloadedPackage(
+			keysBin: keysBin,
+			signature: signature
+		)
+
+		_ = unitTestStore.set(country: "DE", hour: 1, day: "2020-11-04", package: package)
+		_ = unitTestStore.set(country: "DE", hour: 2, day: "2020-11-04", package: package)
+		_ = unitTestStore.set(country: "DE", day: "2020-11-03", package: package)
+		_ = unitTestStore.set(country: "DE", day: "2020-11-02", package: package)
+		
+		XCTAssertEqual(unitTestStore.hourlyPackages(for: "2020-11-04", country: "DE").count, 2)
+		XCTAssertEqual(unitTestStore.hours(for: "2020-11-04", country: "DE").count, 2)
+		XCTAssertNotNil(unitTestStore.package(for: "2020-11-03", country: "DE"))
+		XCTAssertNotNil(unitTestStore.package(for: "2020-11-02", country: "DE"))
+		
+		unitTestStore.deleteDayPackage(for: "2020-11-02", country: "DE")
+		unitTestStore.deleteHourPackage(for: "2020-11-04", hour: 1, country: "DE")
+		
+		unitTestStore.close()
+		unitTestStore.open()
+
+		XCTAssertEqual(unitTestStore.hours(for: "2020-11-04", country: "DE").count, 1)
+		unitTestStore.deleteHourPackage(for: "2020-11-04", hour: 2, country: "DE")
+		XCTAssertEqual(unitTestStore.hours(for: "2020-11-04", country: "DE").count, 0)
+		
+		XCTAssertNotNil(unitTestStore.package(for: "2020-11-03", country: "DE"))
+		unitTestStore.deleteDayPackage(for: "2020-11-03", country: "DE")
+		XCTAssertNil(unitTestStore.package(for: "2020-11-03", country: "DE"))
+	}
 }

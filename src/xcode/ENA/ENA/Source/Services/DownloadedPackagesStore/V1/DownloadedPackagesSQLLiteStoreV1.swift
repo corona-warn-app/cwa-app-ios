@@ -394,7 +394,6 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 			
 			let parameters: [String: Any] = ["country": country, "day": day]
 			self.database.executeUpdate(sql, withParameterDictionary: parameters)
-			_commit()
 		}
 	}
 	
@@ -415,7 +414,6 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 				"hour": hour
 			]
 			self.database.executeUpdate(sql, withParameterDictionary: parameters)
-			_commit()
 		}
 	}
 }
