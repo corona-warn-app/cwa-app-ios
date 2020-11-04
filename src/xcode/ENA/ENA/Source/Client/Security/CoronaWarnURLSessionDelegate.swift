@@ -55,13 +55,13 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 			func accept() { completionHandler(.useCredential, URLCredential(trust: trust)) }
 
 			guard isValid else {
-				logError(message: "Server certificate is not valid. Rejecting challenge!")
+				Log.error("Server certificate is not valid. Rejecting challenge!", log: .api)
 				reject()
 				return
 			}
 
 			guard error == nil else {
-				logError(message: "Encountered error when evaluating server trust challenge, rejecting!")
+				Log.error("Encountered error when evaluating server trust challenge, rejecting!", log: .api)
 				reject()
 				return
 			}
@@ -73,7 +73,7 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 				SecTrustEvaluateWithError(trust, nil),
 				let remoteCertificate = SecTrustGetCertificateAtIndex(trust, 1)
 			else {
-				logError(message: "Could not trust or get certificate, rejecting!")
+				Log.error("Could not trust or get certificate, rejecting!", log: .api)
 				reject()
 				return
 			}
@@ -82,7 +82,7 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 				let remotePublicKey = SecCertificateCopyKey(remoteCertificate),
 				let remotePublicKeyData = SecKeyCopyExternalRepresentation(remotePublicKey, nil) as Data?
 			else {
-				logError(message: "Failed to get the remote server's public key!")
+				Log.error("Failed to get the remote server's public key!", log: .api)
 				reject()
 				return
 			}
@@ -90,7 +90,7 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 			let hashedRemotePublicKey = self.sha256ForRSA2048(data: remotePublicKeyData)
 			// We simply compare the two hashed keys, and reject the challenge if they do not match
 			guard hashedRemotePublicKey == localPublicKey else {
-				logError(message: "The server's public key did not match what we expected!")
+				Log.error("The server's public key did not match what we expected!", log: .api)
 				reject()
 				return
 			}

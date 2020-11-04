@@ -1,4 +1,4 @@
-#!zsh
+#!/usr/bin/env zsh
 set -euo pipefail
 
 function convert_file {
@@ -40,4 +40,5 @@ if [[ -d "$1" ]]; then
   sed "s|$2||" coverage.xml > $3
 else
   echo "[FAILURE] Coverage archive not found in $1. Check if tests job ran and xcov paths are up-to-date."
+  return 1
 fi

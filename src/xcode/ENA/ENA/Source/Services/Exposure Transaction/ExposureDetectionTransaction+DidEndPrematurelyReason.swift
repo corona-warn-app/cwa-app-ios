@@ -35,6 +35,8 @@ extension ExposureDetection {
 		case noSupportedCountries
 		/// Unable to save key packages due to missing disk space
 		case noDiskSpace
+		/// User has the wrong device time, no risk calculation possible
+		case wrongDeviceTime
 	}
 }
 
@@ -46,18 +48,25 @@ extension ExposureDetection.DidEndPrematurelyReason: LocalizedError {
 		case .unableToWriteDiagnosisKeys:
 			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: DignosisKeys"
 		case .noSummary(let error):
-			guard let enError = error as? ENError else {
+			if let enError = error as? ENError {
+				switch enError.code {
+				case .unsupported:
+					return AppStrings.Common.enError5Description
+				case .internal:
+					return AppStrings.Common.enError11Description
+				case .rateLimited:
+					return AppStrings.Common.enError13Description
+				default:
+					return AppStrings.ExposureDetectionError.errorAlertMessage + " EN Code: \(enError.code.rawValue)"
+				}
+
+			} else if let exposureDetectionError = error as? ExposureDetectionError {
+				switch exposureDetectionError {
+				case .isAlreadyRunning:
+					return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: ExposureDetectionIsAlreadyRunning"
+				}
+			} else {
 				return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoSummary"
-			}
-			switch enError.code {
-			case .unsupported:
-				return AppStrings.Common.enError5Description
-			case .internal:
-				return AppStrings.Common.enError11Description
-			case .rateLimited:
-				return AppStrings.Common.enError13Description
-			default:
-				return AppStrings.ExposureDetectionError.errorAlertMessage + " EN Code: \(enError.code.rawValue)"
 			}
 		case .noDaysAndHours:
 			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoDaysAndHours"
@@ -67,6 +76,9 @@ extension ExposureDetection.DidEndPrematurelyReason: LocalizedError {
 			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoSupportedCountries"
 		case .noDiskSpace:
 			return AppStrings.ExposureDetectionError.errorAlertFullDistSpaceMessage
+		case .wrongDeviceTime:
+			return AppStrings.ExposureDetectionError.errorAlertWrongDeviceTime
 		}
+		
 	}
 }

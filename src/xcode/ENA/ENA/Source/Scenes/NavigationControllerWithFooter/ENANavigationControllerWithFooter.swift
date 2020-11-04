@@ -207,7 +207,7 @@ extension ENANavigationControllerWithFooter {
 
 	private func transitionFooterView(to viewController: UIViewController?) {
 		if nil != firstResponder {
-			log(message: "[\(String(describing: Self.self))] Keyboard must be dismissed in `viewWillDisappear` of child before transitioning to another view controller!", level: .warning)
+			Log.warning("[\(String(describing: Self.self))] Keyboard must be dismissed in `viewWillDisappear` of child before transitioning to another view controller!", log: .ui)
 		}
 
 		transitionCoordinator?.animate(alongsideTransition: { context in

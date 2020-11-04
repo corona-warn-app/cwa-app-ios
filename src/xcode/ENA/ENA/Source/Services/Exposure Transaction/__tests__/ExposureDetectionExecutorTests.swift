@@ -312,7 +312,8 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((mockSummary, nil)))
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfigurationProvider: AppConfigurationProviderFake()
+			appConfiguration: SAP_Internal_ApplicationConfiguration(),
+			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
 		)
 
 		_ = sut.exposureDetection(
@@ -343,10 +344,11 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((nil, expectedError)))
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfigurationProvider: AppConfigurationProviderFake()
+			appConfiguration: SAP_Internal_ApplicationConfiguration(),
+			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
 		)
 
-		sut.exposureDetection(
+		_ = sut.exposureDetection(
 			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
 			writtenPackages: WrittenPackages(urls: []),
@@ -386,7 +388,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		packageStore.set(country: "DE", day: "SomeDay", package: package)
 
 		let store = MockTestStore()
-		store.appConfig = SAP_ApplicationConfiguration()
+		store.appConfig = SAP_Internal_ApplicationConfiguration()
 
 		let sut = ExposureDetectionExecutor.makeWith(
 			packageStore: packageStore,
@@ -395,17 +397,18 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		)
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfigurationProvider: AppConfigurationProviderFake()
+			appConfiguration: SAP_Internal_ApplicationConfiguration(),
+			deviceTimeCheck: DeviceTimeCheck(store: store)
 		)
 
 		XCTAssertNotEqual(packageStore.allDays(country: "DE").count, 0)
 		XCTAssertNotNil(store.appConfig)
 
-		sut.exposureDetection(
+		_ = sut.exposureDetection(
 			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
 			writtenPackages: WrittenPackages(urls: []),
-			completion: { result in
+			completion: { _ in
 
 				XCTAssertEqual(packageStore.allDays(country: "DE").count, 0)
 				XCTAssertNil(store.appConfig)

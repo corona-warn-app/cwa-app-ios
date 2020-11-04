@@ -23,9 +23,9 @@ import XCTest
 class EUSettingsViewControllerTests: XCTestCase {
 
 	func testDataReloadForSuccessfulDownload() {
-		var config = SAP_ApplicationConfiguration()
+		var config = SAP_Internal_ApplicationConfiguration()
 		config.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
-		let fakeResult: (Result<SAP_ApplicationConfiguration, Error>) = .success(config)
+		let fakeResult: (Result<SAP_Internal_ApplicationConfiguration, Error>) = .success(config)
 		let appConfigurationProviderStub = AppConfigurationProviderStub(result: fakeResult)
 
 		let vc = EUSettingsViewController(appConfigurationProvider: appConfigurationProviderStub)
@@ -35,7 +35,7 @@ class EUSettingsViewControllerTests: XCTestCase {
 	}
 
 	func testDataReloadForUnsuccessfulDownload() {
-		let fakeResult: (Result<SAP_ApplicationConfiguration, Error>) = .failure(URLSession.Response.Failure.noResponse)
+		let fakeResult: (Result<SAP_Internal_ApplicationConfiguration, Error>) = .failure(URLSession.Response.Failure.noResponse)
 		let appConfigurationProviderStub = AppConfigurationProviderStub(result: fakeResult)
 		let vc = EUSettingsViewController(appConfigurationProvider: appConfigurationProviderStub)
 		vc.viewDidLoad()
@@ -47,9 +47,9 @@ class EUSettingsViewControllerTests: XCTestCase {
 
 private class AppConfigurationProviderStub: AppConfigurationProviding {
 
-	let result: (Result<SAP_ApplicationConfiguration, Error>)
+	let result: (Result<SAP_Internal_ApplicationConfiguration, Error>)
 
-	init(result: (Result<SAP_ApplicationConfiguration, Error>)) {
+	init(result: (Result<SAP_Internal_ApplicationConfiguration, Error>)) {
 		self.result = result
 	}
 

@@ -67,9 +67,8 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 
 		group.notify(queue: .main) {
 			guard errors.isEmpty else {
-				logError(
-					message: "Unable to determine available data due to errors:\n \(errors.map { $0.localizedDescription }.joined(separator: "\n"))"
-				)
+				let errorMessage = "Unable to determine available data due to errors:\n \(errors.map { $0.localizedDescription }.joined(separator: "\n"))"
+				Log.error(errorMessage, log: .api)
 				completion(/* we are unable to determine the days and hours */ nil, country)
 				return
 			}

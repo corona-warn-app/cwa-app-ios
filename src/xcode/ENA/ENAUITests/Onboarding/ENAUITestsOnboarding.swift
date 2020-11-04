@@ -18,6 +18,7 @@
 //
 
 import XCTest
+import ExposureNotification
 
 class ENAUITests_00_Onboarding: XCTestCase {
 	var app: XCUIApplication!
@@ -28,6 +29,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		setupSnapshot(app)
 		app.setDefaults()
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.unknown.stringValue])
 	}
 
 	override func tearDownWithError() throws {
@@ -90,4 +92,42 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 	}
 
+	
+	// MARK: -
+
+	func test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S() throws {
+		var screenshotCounter = 0
+		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "YES"])
+		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
+		app.launch()
+		
+		let prefix = "OnboardingFlow_EnablePermission_"
+		
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		
+		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].tap()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		app.swipeUp()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		app.swipeUp()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		app.swipeUp()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		app.swipeUp()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		
+		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].tap()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		
+//		Onboarding ends here. Next screen is the home screen.
+	}
 }

@@ -37,7 +37,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	}
 
 	// MARK: Properties
-	var state: State {
+	private(set) var state: State {
 		didSet {
 			if state != oldValue {
 				homeViewController.setStateOfChildViewControllers()
@@ -59,6 +59,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	private var activeConfigurator: HomeActivateCellConfigurator!
 	private var testResultConfigurator = HomeTestResultCellConfigurator()
 	private var riskLevelConfigurator: HomeRiskLevelCellConfigurator?
+	private var failedConfigurator: HomeFailedCellConfigurator?
 	private var inactiveConfigurator: HomeInactiveRiskCellConfigurator?
 	private var countdownTimer: CountdownTimer?
 
@@ -97,7 +98,30 @@ final class HomeInteractor: RequiresAppDependencies {
 			self?.updateAndReloadRiskCellState(to: state)
 		}
 
+		riskConsumer.didCalculateRisk = { [weak self] risk in
+			self?.state.risk = risk
+			self?.state.riskDetectionFailed = false
+			self?.reloadActionSection()
+		}
+
+		riskConsumer.didFailCalculateRisk = { [weak self] _ in
+			self?.state.riskDetectionFailed = true
+			self?.reloadActionSection()
+		}
+
 		riskProvider.observeRisk(riskConsumer)
+	}
+
+	func updateDetectionMode(_ detectionMode: DetectionMode) {
+		state.detectionMode = detectionMode
+	}
+
+	func updateExposureManagerState(_ exposureManagerState: ExposureManagerState) {
+		state.exposureManagerState = exposureManagerState
+	}
+
+	func updateENStateHandlerState(_ enState: ENStateHandler.State) {
+		state.enState = enState
 	}
 
 	func updateAndReloadRiskCellState(to state: RiskProvider.ActivityState) {
@@ -185,11 +209,22 @@ extension HomeInteractor {
 	private var risk: Risk? { state.risk }
 	private var riskDetails: Risk.Details? { risk?.details }
 
-	// swiftlint:disable:next function_body_length
 	func setupRiskConfigurator() -> CollectionViewCellConfiguratorAny? {
 
 		let detectionIsAutomatic = detectionMode == .automatic
 		let dateLastExposureDetection = riskDetails?.exposureDetectionDate
+
+		if state.riskDetectionFailed {
+			let failedConfigurator = HomeFailedCellConfigurator(
+				previousRiskLevel: store.previousRiskLevel,
+				lastUpdateDate: dateLastExposureDetection
+			)
+			failedConfigurator.activeAction = { [weak self] in
+				guard let self = self else { return }
+				self.requestRisk(userInitiated: true)
+			}
+			return failedConfigurator
+		}
 
 		riskLevelConfigurator = nil
 		inactiveConfigurator = nil
@@ -303,7 +338,7 @@ extension HomeInteractor {
 
 			let thankYou = HomeThankYouRiskCellConfigurator()
 			actionsConfigurators.append(thankYou)
-			log(message: "Reached end of life state.", file: #file, line: #line, function: #function)
+			Log.info("Reached end of life state.", log: .localData)
 
 		} else if store.registrationToken != nil {
 			// This is shown when we registered a test.
@@ -421,12 +456,12 @@ extension HomeInteractor {
 
 			case .success(let result):
 				switch result {
-				case .redeemed:
+				case .expired:
 					self?.homeViewController.alertError(
-						message: AppStrings.ExposureSubmissionResult.testRedeemedDesc,
+						message: AppStrings.ExposureSubmissionResult.testExpiredDesc,
 						title: AppStrings.Home.resultCardLoadingErrorTitle,
 						completion: {
-							self?.testResult = .redeemed
+							self?.testResult = .expired
 							self?.reloadTestResult(with: .invalid)
 						}
 					)

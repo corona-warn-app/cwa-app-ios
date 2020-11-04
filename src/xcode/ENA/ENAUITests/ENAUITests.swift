@@ -16,6 +16,7 @@
 // under the License.
 
 import XCTest
+import ExposureNotification
 
 class ENAUITests: XCTestCase {
 	var app: XCUIApplication!
@@ -25,7 +26,7 @@ class ENAUITests: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
+		app.launchEnvironment["IsOnboarded"] = "NO"
 	}
 
 
@@ -50,24 +51,26 @@ class ENAUITests: XCTestCase {
 		let snapshotsActive = true
 
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launch()
 
-		//// ScreenShot_0001: Onboarding screen 1
+		// ScreenShot_0001: Onboarding screen 1
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingLetsGo"].waitForExistence(timeout: 5.0))
 		if snapshotsActive { snapshot("AppStore_0001") }
 
-		/// ScreenShot_0002: Homescreen (low risk)
+		// ScreenShot_0002: Homescreen (low risk)
 		try? navigateThroughOnboarding()
 		XCTAssertTrue(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 		if snapshotsActive { snapshot("AppStore_0002") }
 
-		//// ScreenShot_0003: Risk view (low risk)
+		// ScreenShot_0003: Risk view (low risk)
 		XCTAssertTrue(app.buttons["RiskLevelCollectionViewCell.topContainer"].waitForExistence(timeout: 5.0))
 		app.buttons["RiskLevelCollectionViewCell.topContainer"].tap()
 		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: 5.0))
 		if snapshotsActive { snapshot("AppStore_0003") }
 
-		//// ScreenShot_0004: Settings > Risk exposure
+		// ScreenShot_0004: Settings > Risk exposure
 		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
 		XCTAssertTrue(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 		app.swipeUp()
@@ -78,7 +81,7 @@ class ENAUITests: XCTestCase {
 		XCTAssertTrue(app.images["AppStrings.ExposureNotificationSetting.accLabelEnabled"].waitForExistence(timeout: 5.0))
 		if snapshotsActive { snapshot("AppStore_0004") }
 
-		//// ScreenShot_0005: Test Options
+		// ScreenShot_0005: Test Options
 		// todo: need accessibility for Settings (navigation bar back button)
 		XCTAssertTrue(app.navigationBars.buttons.element(boundBy: 0).waitForExistence(timeout: 5.0))
 		app.navigationBars.buttons.element(boundBy: 0).tap()
@@ -94,7 +97,7 @@ class ENAUITests: XCTestCase {
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitForExistence(timeout: 5.0))
 		if snapshotsActive { snapshot("AppStore_0005") }
 
-		//// ScreenShot_0007: Share screen
+		// ScreenShot_0007: Share screen
 		// todo: need accessibility for Back (navigation bar back button)
 		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
@@ -113,11 +116,12 @@ class ENAUITests: XCTestCase {
 		let snapshotsActive = true
 
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
-
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments.append(contentsOf: ["-negativeResult", "YES"])
 		app.launch()
 
-		/// ScreenShot_0006: Negative result
+		// ScreenShot_0006: Negative result
 		try? navigateThroughOnboarding()
 		XCTAssertTrue(app.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Home.submitCardButton"].tap()

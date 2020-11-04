@@ -46,7 +46,7 @@ final class DownloadedPackagesSQLLiteStoreV0 {
 
 extension DownloadedPackagesSQLLiteStoreV0: DownloadedPackagesStoreV0 {
 	func open() {
-		_ = queue.sync {
+		queue.sync {
 			self.database.open()
 			self.database.executeStatements(
 			"""
@@ -76,7 +76,6 @@ extension DownloadedPackagesSQLLiteStoreV0: DownloadedPackagesStoreV0 {
 		}
 	}
 
-	// swiftlint:disable:next function_body_length
 	func set(
 		day: String,
 		package: SAPDownloadedPackage

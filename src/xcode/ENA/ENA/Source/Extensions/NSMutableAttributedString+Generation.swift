@@ -19,12 +19,10 @@
 
 import Foundation
 
-
 extension NSMutableAttributedString {
 
 	/// Generates an attributed string from a normal text + attributed text injected into this text.
 	static func generateAttributedString(normalText: String, attributedText: [NSAttributedString]) -> NSMutableAttributedString {
-
 		let components = normalText.components(separatedBy: "%@")
 		let adjusted: NSMutableAttributedString = NSMutableAttributedString(string: "")
 

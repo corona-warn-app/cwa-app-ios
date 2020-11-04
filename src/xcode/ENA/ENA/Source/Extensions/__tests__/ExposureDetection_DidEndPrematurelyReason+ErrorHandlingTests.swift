@@ -37,7 +37,7 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 	
 	func testSummaryErrorCreatesAlert() {
 		let root = UIViewController()
-		
+
 		XCTAssertNotNil(
 			Reason.noSummary(ENError(.apiMisuse)).errorAlertController(rootController: root)
 		)
@@ -45,8 +45,17 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 	
 	func testNoStorageCapacityErrorAlert() {
 		let root = UIViewController()
+
 		XCTAssertNotNil(
 			Reason.noDiskSpace.errorAlertController(rootController: root)
+		)
+	}
+	
+	func testWrongDeviceTimeErrorAlert() {
+		let root = UIViewController()
+
+		XCTAssertNotNil(
+			Reason.wrongDeviceTime.errorAlertController(rootController: root)
 		)
 	}
 
@@ -62,7 +71,6 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 		let root = UIViewController()
 		let alert = Reason.noSummary(ENError(.unsupported)).errorAlertController(rootController: root)
 
-		XCTAssertEqual(alert?.title, AppStrings.ExposureDetectionError.errorAlertTitle)
 		XCTAssertEqual(alert?.message, AppStrings.Common.enError5Description)
 		XCTAssertEqual(alert?.actions.count, 2)
 		XCTAssertEqual(alert?.actions[0].title, AppStrings.Common.alertActionOk)
@@ -73,7 +81,6 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 		let root = UIViewController()
 		let alert = Reason.noSummary(ENError(.internal)).errorAlertController(rootController: root)
 
-		XCTAssertEqual(alert?.title, AppStrings.ExposureDetectionError.errorAlertTitle)
 		XCTAssertEqual(alert?.message, AppStrings.Common.enError11Description)
 		XCTAssertEqual(alert?.actions.count, 2)
 		XCTAssertEqual(alert?.actions[0].title, AppStrings.Common.alertActionOk)
@@ -84,7 +91,6 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 		let root = UIViewController()
 		let alert = Reason.noSummary(ENError(.rateLimited)).errorAlertController(rootController: root)
 
-		XCTAssertEqual(alert?.title, AppStrings.ExposureDetectionError.errorAlertTitle)
 		XCTAssertEqual(alert?.message, AppStrings.Common.enError13Description)
 		XCTAssertEqual(alert?.actions.count, 2)
 		XCTAssertEqual(alert?.actions[0].title, AppStrings.Common.alertActionOk)

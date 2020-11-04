@@ -62,7 +62,7 @@ final class DownloadedPackagesSQLLiteStoreV1 {
 
 extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 	func open() {
-		_ = queue.sync {
+		queue.sync {
 			self.database.open()
 
 			if self.database.tableExists("Z_DOWNLOADED_PACKAGE") {

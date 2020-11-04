@@ -42,7 +42,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	private let client: Client
 	private let consumer = RiskConsumer()
 	private let exposureSubmissionService: ExposureSubmissionService
-	private var keys = [SAP_TemporaryExposureKey]() {
+	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
 		didSet {
 			keys = self.keys.sorted()
 		}
@@ -92,6 +92,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		return cell
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let menuItem = DMMenuItem.existingFromIndexPath(indexPath)
 		let vc: UIViewController?
@@ -116,12 +117,10 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMStoreViewController(store: store)
 		case .lastSubmissionRequest:
 			vc = DMLastSubmissionRequestViewController(lastSubmissionRequest: UserDefaults.standard.dmLastSubmissionRequest)
-		case .lastRiskCalculation:
-			vc = DMLastRiskCalculationViewController(lastRisk: (UIApplication.shared.delegate as? AppDelegate)?.lastRiskCalculation)
 		case .settings:
 			vc = DMSettingsViewController(store: store)
 		case .errorLog:
-			vc = DMErrorsViewController()
+			vc = DMLogsViewController()
 		case .sendFakeRequest:
 			vc = nil
 			sendFakeRequest()

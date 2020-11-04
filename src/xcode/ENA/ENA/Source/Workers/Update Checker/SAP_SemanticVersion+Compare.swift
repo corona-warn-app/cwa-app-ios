@@ -19,8 +19,8 @@
 
 import Foundation
 
-extension SAP_SemanticVersion: Comparable {
-	static func < (lhs: SAP_SemanticVersion, rhs: SAP_SemanticVersion) -> Bool {
+extension SAP_Internal_SemanticVersion: Comparable {
+	static func < (lhs: SAP_Internal_SemanticVersion, rhs: SAP_Internal_SemanticVersion) -> Bool {
 		if lhs.major != rhs.major {
 			return lhs.major < rhs.major
 		}

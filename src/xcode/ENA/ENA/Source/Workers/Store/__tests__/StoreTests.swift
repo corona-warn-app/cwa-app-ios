@@ -181,6 +181,19 @@ final class StoreTests: XCTestCase {
 		XCTAssertEqual(tmpStore.tracingStatusHistory[0].date.description, testDate1.description)
 		XCTAssertEqual(tmpStore.tracingStatusHistory[1].on, false)
 		XCTAssertEqual(tmpStore.tracingStatusHistory[1].date.description, testDate2.description)
+
+		
+	}
+	
+	func testDeviceTimeSettings_initalAfterInitialization() {
+		XCTAssertEqual(store.isDeviceTimeCorrect, true)
+		XCTAssertEqual(store.wasDeviceTimeErrorShown, false)
+		
+		store.isDeviceTimeCorrect = false
+		store.wasDeviceTimeErrorShown = true
+		
+		XCTAssertEqual(store.isDeviceTimeCorrect, false)
+		XCTAssertEqual(store.wasDeviceTimeErrorShown, true)
 	}
 
 	func testValueToggles() throws {

@@ -31,36 +31,6 @@
 			<string>Masz podwyższone ryzyko zakażenia, ponieważ %u dni temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
 		</dict>
 	</dict>
-	<key>ExposureDetection_NumberOfContacts</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<!--Plural form for ZERO.-->
-			<string>Brak narażenia do tej pory</string>
-			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>Jedno narażenie</string>
-			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>%u narażenia</string>
-			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>%u narażeń</string>
-			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>%u narażenia</string>
-			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>%u narażenia</string>
-		</dict>
-	</dict>
 	<key>ExposureDetection_LastExposure</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -106,19 +76,19 @@
 			<string>Brak narażenia do tej pory</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>%u narażenie z niskim ryzykiem</string>
+			<string>Jeden kontakt z niskim ryzykiem</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
-			<string>%u narażeń z niskim ryzykiem</string>
+			<string>%u kontakty z niskim ryzykiem</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>%u narażeń z niskim ryzykiem</string>
+			<string>%u kontaktów z niskim ryzykiem</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>%u narażenia z niskim ryzykiem</string>
+			<string>%u kontakty z niskim ryzykiem</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>%u narażenia z niskim ryzykiem</string>
+			<string>%u kontaktu z niskim ryzykiem</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_High_Number_Contacts_Item_Title</key>
@@ -136,7 +106,7 @@
 			<string>Brak narażenia do tej pory</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>%u narażenie</string>
+			<string>Jedno narażenie</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
 			<string>%u narażenia</string>

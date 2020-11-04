@@ -20,6 +20,11 @@ import UIKit
 
 class DynamicTableViewIconCell: UITableViewCell {
 
+	enum Text {
+		case string(String)
+		case attributedString(NSAttributedString)
+	}
+
 	// MARK: - Overrides
 
 	override func awakeFromNib() {
@@ -29,7 +34,7 @@ class DynamicTableViewIconCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(image: UIImage?, text: String, tintColor: UIColor?, style: ENAFont = .body, iconWidth: CGFloat) {
+	func configure(image: UIImage?, text: Text, tintColor: UIColor?, style: ENAFont = .body, iconWidth: CGFloat, selectionStyle: UITableViewCell.SelectionStyle) {
 		if let tintColor = tintColor {
 			imageView?.tintColor = tintColor
 			imageView?.image = image?.withRenderingMode(.alwaysTemplate)
@@ -38,9 +43,17 @@ class DynamicTableViewIconCell: UITableViewCell {
 		}
 
 		(textLabel as? ENALabel)?.style = style.labelStyle
-		textLabel?.text = text
+
+		switch text {
+		case .string(let string):
+			textLabel?.text = string
+		case .attributedString(let attributedString):
+			textLabel?.attributedText = attributedString
+		}
 
 		imageViewWidthConstraint.constant = iconWidth
+
+		self.selectionStyle = selectionStyle
 	}
 
 	// MARK: - Private

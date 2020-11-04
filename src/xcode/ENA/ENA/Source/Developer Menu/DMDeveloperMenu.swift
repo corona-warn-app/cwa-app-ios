@@ -20,7 +20,6 @@ import UIKit
 
 protocol DMStore: AnyObject {
 	var dmLastSubmissionRequest: Data? { get set }
-	var dmErrorMessages: [String] { get set }
 }
 
 extension UserDefaults: DMStore {
@@ -30,14 +29,6 @@ extension UserDefaults: DMStore {
 		}
 		set {
 			set(newValue, forKey: "dmLastSubmissionRequest")
-		}
-	}
-	var dmErrorMessages: [String] {
-		get {
-			(array(forKey: "dmErrorMessages") ?? []) as [String]
-		}
-		set {
-			set(newValue, forKey: "dmErrorMessages")
 		}
 	}
 }

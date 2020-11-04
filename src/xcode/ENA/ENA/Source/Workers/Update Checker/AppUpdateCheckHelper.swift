@@ -48,13 +48,13 @@ final class AppUpdateCheckHelper {
 		appConfigurationProvider.appConfiguration { [weak self] result in
 			guard let self = self else { return }
 
-			var _versionInfo: SAP_ApplicationVersionConfiguration?
+			var _versionInfo: SAP_Internal_ApplicationVersionConfiguration?
 
 			switch result {
 			case .success(let applicationConfiguration):
 				_versionInfo = applicationConfiguration.appVersion
 			case .failure(let error):
-				logError(message: "Error while loading app configuration: \(error).")
+				Log.error("Error while loading app configuration: \(error).", log: .api)
 			}
 
 			guard let versionInfo = _versionInfo else {
@@ -114,8 +114,8 @@ final class AppUpdateCheckHelper {
 
 	func alertTypeFrom(
 		currentVersion: String,
-		minVersion: SAP_SemanticVersion,
-		latestVersion: SAP_SemanticVersion
+		minVersion: SAP_Internal_SemanticVersion,
+		latestVersion: SAP_Internal_SemanticVersion
 	) -> UpdateAlertType {
 		guard let currentSemanticVersion = currentVersion.semanticVersion else {
 			return .none

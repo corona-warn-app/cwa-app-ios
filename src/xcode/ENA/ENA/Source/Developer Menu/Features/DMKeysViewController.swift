@@ -47,7 +47,7 @@ final class DMKeysViewController: UITableViewController {
 	private let client: Client
 	private let store: Store
 	private let exposureManager: ExposureManager
-	private var keys = [SAP_TemporaryExposureKey]() {
+	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
 		didSet {
 			keys = self.keys.sorted()
 		}
@@ -105,7 +105,7 @@ final class DMKeysViewController: UITableViewController {
 		tableView.reloadData()
 		exposureManager.accessDiagnosisKeys { keys, _ in
 			guard let keys = keys else {
-				logError(message: "No keys retrieved in developer menu")
+				Log.error("No keys retrieved in developer menu", log: .api)
 				return
 			}
 			self.keys = keys.map { $0.sapKey }
@@ -178,7 +178,7 @@ private extension DateFormatter {
 	}
 }
 
-private extension SAP_TemporaryExposureKey {
+private extension SAP_External_Exposurenotification_TemporaryExposureKey {
 	private static let dateFormatter: DateFormatter = .rollingPeriodDateFormatter()
 
 	var rollingStartNumberDate: Date {

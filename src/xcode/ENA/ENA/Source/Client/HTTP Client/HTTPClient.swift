@@ -19,7 +19,6 @@ import ExposureNotification
 import Foundation
 import ZIPFoundation
 
-// swiftlint:disable file_length
 final class HTTPClient: Client {
 	// MARK: Creating
 	init(
@@ -134,16 +133,16 @@ final class HTTPClient: Client {
 					completeWith(.failure(.invalidResponse))
 					return
 				}
-				log(message: "got hour: \(hourData.count)")
+				Log.info("got hour: \(hourData.count)", log: .api)
 				guard let package = SAPDownloadedPackage(compressedData: hourData) else {
-					logError(message: "Failed to create signed package. For URL: \(url)")
+					Log.error("Failed to create signed package. For URL: \(url)", log: .api)
 					completeWith(.failure(.invalidResponse))
 					return
 				}
 				completeWith(.success(package))
 			case let .failure(error):
 				completeWith(.failure(error))
-				logError(message: "failed to get day: \(error)")
+				Log.error("failed to get day: \(error)", log: .api)
 			}
 		}
 	}
@@ -164,7 +163,7 @@ final class HTTPClient: Client {
 			case let .success(response):
 				
 				if response.statusCode == 400 {
-					completeWith(.failure(.qRNotExist))
+					completeWith(.failure(.qrDoesNotExist))
 					return
 				}
 				
@@ -174,7 +173,7 @@ final class HTTPClient: Client {
 				}
 				guard let testResultResponseData = response.body else {
 					completeWith(.failure(.invalidResponse))
-					logError(message: "Failed to register Device with invalid response")
+					Log.error("Failed to register Device with invalid response", log: .api)
 					return
 				}
 				do {
@@ -183,18 +182,18 @@ final class HTTPClient: Client {
 						from: testResultResponseData
 					)
 					guard let testResult = response.testResult else {
-						logError(message: "Failed to get test result with invalid response payload structure")
+						Log.error("Failed to get test result with invalid response payload structure", log: .api)
 						completeWith(.failure(.invalidResponse))
 						return
 					}
 					completeWith(.success(testResult))
 				} catch {
-					logError(message: "Failed to get test result with invalid response payload structure")
+					Log.error("Failed to get test result with invalid response payload structure", log: .api)
 					completeWith(.failure(.invalidResponse))
 				}
 			case let .failure(error):
 				completeWith(.failure(error))
-				logError(message: "Failed to get test result due to error: \(error).")
+				Log.error("Failed to get test result due to error: \(error).", log: .api)
 			}
 		}
 	}
@@ -225,8 +224,8 @@ final class HTTPClient: Client {
 				}
 				guard let tanResponseData = response.body else {
 					completeWith(.failure(.invalidResponse))
-					logError(message: "Failed to get TAN")
-					logError(message: String(response.statusCode))
+					Log.error("Failed to get TAN", log: .api)
+					Log.error(String(response.statusCode), log: .api)
 					return
 				}
 				do {
@@ -235,18 +234,18 @@ final class HTTPClient: Client {
 						from: tanResponseData
 					)
 					guard let tan = response.tan else {
-						logError(message: "Failed to get TAN because of invalid response payload structure")
+						Log.error("Failed to get TAN because of invalid response payload structure", log: .api)
 						completeWith(.failure(.invalidResponse))
 						return
 					}
 					completeWith(.success(tan))
 				} catch _ {
-					logError(message: "Failed to get TAN because of invalid response payload structure")
+					Log.error("Failed to get TAN because of invalid response payload structure", log: .api)
 					completeWith(.failure(.invalidResponse))
 				}
 			case let .failure(error):
 				completeWith(.failure(error))
-				logError(message: "Failed to get TAN due to error: \(error).")
+				Log.error("Failed to get TAN due to error: \(error).", log: .api)
 			}
 		}
 	}
@@ -271,7 +270,7 @@ final class HTTPClient: Client {
 					if type == "TELETAN" {
 						completeWith(.failure(.teleTanAlreadyUsed))
 					} else {
-						completeWith(.failure(.qRAlreadyUsed))
+						completeWith(.failure(.qrAlreadyUsed))
 					}
 					return
 				}
@@ -281,7 +280,7 @@ final class HTTPClient: Client {
 				}
 				guard let registerResponseData = response.body else {
 					completeWith(.failure(.invalidResponse))
-					logError(message: "Failed to register Device with invalid response")
+					Log.error("Failed to register Device with invalid response", log: .api)
 					return
 				}
 				
@@ -291,18 +290,18 @@ final class HTTPClient: Client {
 						from: registerResponseData
 					)
 					guard let registrationToken = response.registrationToken else {
-						logError(message: "Failed to register Device with invalid response payload structure")
+						Log.error("Failed to register Device with invalid response payload structure", log: .api)
 						completeWith(.failure(.invalidResponse))
 						return
 					}
 					completeWith(.success(registrationToken))
 				} catch _ {
-					logError(message: "Failed to register Device with invalid response payload structure")
+					Log.error("Failed to register Device with invalid response payload structure", log: .api)
 					completeWith(.failure(.invalidResponse))
 				}
 			case let .failure(error):
 				completeWith(.failure(error))
-				logError(message: "Failed to registerDevices due to error: \(error).")
+				Log.error("Failed to registerDevices due to error: \(error).", log: .api)
 			}
 		}
 	}
@@ -320,18 +319,18 @@ extension HTTPClient {
 			case let .success(response):
 				guard let dayData = response.body else {
 					completeWith(.failure(.invalidResponse))
-					logError(message: "Failed to download for URL '\(url)': invalid response")
+					Log.error("Failed to download for URL '\(url)': invalid response", log: .api)
 					return
 				}
 				guard let package = SAPDownloadedPackage(compressedData: dayData) else {
-					logError(message: "Failed to create signed package. For URL: \(url)")
+					Log.error("Failed to create signed package. For URL: \(url)", log: .api)
 					completeWith(.failure(.invalidResponse))
 					return
 				}
 				completeWith(.success(package))
 			case let .failure(error):
 				completeWith(.failure(error))
-				logError(message: "Failed to download for URL '\(url)' due to error: \(error).")
+				Log.error("Failed to download for URL '\(url)' due to error: \(error).", log: .api)
 			}
 		}
 	}
@@ -394,8 +393,8 @@ private extension URLRequest {
 		isFake: Bool
 	) throws -> URLRequest {
 		// construct the request
-		let submPayload = SAP_SubmissionPayload.with {
-			$0.padding = self.getSubmissionPadding(for: payload.exposureKeys)
+		let submPayload = SAP_Internal_SubmissionPayload.with {
+			$0.requestPadding = self.getSubmissionPadding(for: payload.exposureKeys)
 			$0.keys = payload.exposureKeys
 			/// Consent needs always set to be true https://jira.itc.sap.com/browse/EXPOSUREAPP-3125?focusedCommentId=1022122&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-1022122
 			$0.consentToFederation = true
@@ -573,7 +572,7 @@ private extension URLRequest {
 	/// This method recreates the request body of the submit keys request with a padding that fills up to resemble
 	/// a request with 14 +`n` keys. Note that the `n`parameter is currently set to 0, but can change in the future
 	/// when there will be support for 15 keys.
-	private static func getSubmissionPadding(for keys: [SAP_TemporaryExposureKey]) -> Data {
+	private static func getSubmissionPadding(for keys: [SAP_External_Exposurenotification_TemporaryExposureKey]) -> Data {
 		// This parameter denotes how many keys 14 + n have to be padded.
 		let n = 0
 		let paddedKeysAmount = 14 + n - keys.count

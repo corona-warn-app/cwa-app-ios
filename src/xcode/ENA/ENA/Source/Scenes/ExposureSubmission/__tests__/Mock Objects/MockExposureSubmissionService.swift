@@ -19,11 +19,12 @@
 
 import Foundation
 
+#if DEBUG
 class MockExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Mock callbacks.
 
-	var submitExposureCallback: ((@escaping ExposureSubmissionHandler) -> Void)?
+	var submitExposureCallback: ((SymptomsOnset, [Country], @escaping ExposureSubmissionHandler) -> Void)?
 	var getRegistrationTokenCallback: ((DeviceRegistrationKey, @escaping RegistrationHandler) -> Void)?
 	var getTANForExposureSubmitCallback: ((Bool, @escaping TANHandler) -> Void)?
 	var getTestResultCallback: ((@escaping TestResultHandler) -> Void)?
@@ -35,7 +36,7 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 	// MARK: - ExposureSubmissionService methods.
 
 	func submitExposure(symptomsOnset: SymptomsOnset, visitedCountries: [Country], completionHandler: @escaping ExposureSubmissionHandler) {
-		submitExposureCallback?(completionHandler)
+		submitExposureCallback?(symptomsOnset, visitedCountries, completionHandler)
 	}
 
 	func getRegistrationToken(forKey deviceRegistrationKey: DeviceRegistrationKey, completion completeWith: @escaping RegistrationHandler) {
@@ -76,3 +77,4 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 		acceptPairingCallback?()
 	}
 }
+#endif
