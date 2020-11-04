@@ -17,7 +17,7 @@
 // under the License.
 //
 
-import Foundation
+import UIKit
 
 /// The `WarnOthers` clsas  behaves as a facade and encaplsulate all relevant logic whether to schedule or not to schedule warn others notifications about a positiv test result.
 /// Notification scheduling - the app will inform the user 2 times to warn others.
@@ -85,7 +85,8 @@ class WarnOthers {
 	// MARK: - private API
 	private func scheduleNotifications() {
 		
-		// TODO: (mpu) - implement logic
+		// TODO: (pum) - Here Need to pass timerOne & timeTwo & remove hard coded values
+		UNUserNotificationCenter.current().scheduleWarnOthersNotification(timerOne: 7200, timerTwo: 14400)
 	}
 	
 }
