@@ -82,6 +82,9 @@ final class CachedAppConfiguration {
 						fatalError("App configuration cache broken!") // in `where` we trust
 					}
 					self.completeOnMain(completion: completion, result: .success(config))
+
+					// server response HTTP 304 is considered a 'successful fetch'
+					self.store.lastAppConfigFetch = Date()
 				default:
 					// ensure reset
 					self.store.lastAppConfigETag = nil
