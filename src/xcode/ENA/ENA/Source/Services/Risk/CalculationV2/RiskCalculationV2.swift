@@ -28,7 +28,7 @@ final class RiskCalculationV2 {
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) throws -> RiskCalculationResult {
+	) throws -> RiskCalculationV2Result {
 		/// 0. Filter by `Minutes at Attenuation` and `Transmission Risk Level`
 		let filteredExposureWindows = exposureWindows
 			.map { RiskCalculationWindow(exposureWindow: $0, configuration: configuration) }
@@ -89,7 +89,7 @@ final class RiskCalculationV2 {
 		/// 10. Determine `Total Minimum Distinct Encounters With High Risk`
 		let minimumDistinctEncountersWithHighRisk = minimumDistinctEncountersWithHighRiskPerDate.values.reduce(0, +)
 
-		return RiskCalculationResult(
+		return RiskCalculationV2Result(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: minimumDistinctEncountersWithLowRisk,
 			minimumDistinctEncountersWithHighRisk: minimumDistinctEncountersWithHighRisk,

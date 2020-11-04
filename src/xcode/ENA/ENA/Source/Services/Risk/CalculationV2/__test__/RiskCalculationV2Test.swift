@@ -38,8 +38,8 @@ class RiskCalculationV2Test: XCTestCase {
 			XCTAssertEqual(result.minimumDistinctEncountersWithLowRisk, testCase.expTotalMinimumDistinctEncountersWithLowRisk)
 			XCTAssertEqual(result.minimumDistinctEncountersWithHighRisk, testCase.expTotalMinimumDistinctEncountersWithHighRisk)
 
-			XCTAssertEqual(result.ageInDaysOfMostRecentDateWithLowRisk, testCase.expAgeOfMostRecentDateWithLowRisk)
-			XCTAssertEqual(result.ageInDaysOfMostRecentDateWithHighRisk, testCase.expAgeOfMostRecentDateWithHighRisk)
+			XCTAssertEqual(result.mostRecentDateWithLowRisk?.ageInDays, testCase.expAgeOfMostRecentDateWithLowRisk)
+			XCTAssertEqual(result.mostRecentDateWithHighRisk?.ageInDays, testCase.expAgeOfMostRecentDateWithHighRisk)
 		}
 	}
 
@@ -67,5 +67,13 @@ class RiskCalculationV2Test: XCTestCase {
 			fatalError("Failed to parse JSON answer")
 		}
 	}()
+
+}
+
+private extension Date {
+
+	var ageInDays: Int? {
+		return Calendar.current.dateComponents([.day], from: self, to: Date()).day
+	}
 
 }

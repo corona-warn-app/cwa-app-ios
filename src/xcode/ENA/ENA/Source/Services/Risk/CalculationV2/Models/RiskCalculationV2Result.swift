@@ -19,7 +19,7 @@
 
 import Foundation
 
-struct RiskCalculationResult {
+struct RiskCalculationV2Result {
 
 	// MARK: - Internal
 
@@ -49,22 +49,6 @@ struct RiskCalculationResult {
 		case .increased:
 			return mostRecentDateWithHighRisk
 		}
-	}
-
-	var ageInDaysOfMostRecentDateWithLowRisk: Int? {
-		guard let mostRecentDateWithLowRisk = mostRecentDateWithLowRisk else {
-			return nil
-		}
-
-		return Calendar.current.dateComponents([.day], from: mostRecentDateWithLowRisk, to: Date()).day
-	}
-
-	var ageInDaysOfMostRecentDateWithHighRisk: Int? {
-		guard let mostRecentDateWithHighRisk = mostRecentDateWithHighRisk else {
-			return nil
-		}
-
-		return Calendar.current.dateComponents([.day], from: mostRecentDateWithHighRisk, to: Date()).day
 	}
 
 }
