@@ -66,6 +66,8 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		isKeyDownloadRunning = true
 
 		startDownloadAllCountryPackages(countryIds: countryIds, downloadMode: .daily) { result in
+			self.isKeyDownloadRunning = false
+
 			switch result {
 			case .success:
 				Log.info("KeyPackageDownload: Completed downloading day packages to cache.", log: .riskDetection)
@@ -74,8 +76,6 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 				Log.error("KeyPackageDownload: Failed downloading day packages with error: \(error).", log: .riskDetection)
 				completion(.failure(error))
 			}
-
-			self.isKeyDownloadRunning = false
 		}
 	}
 
@@ -90,6 +90,8 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		isKeyDownloadRunning = true
 
 		startDownloadAllCountryPackages(countryIds: countryIds, downloadMode: .hourly(.formattedToday())) {result in
+			self.isKeyDownloadRunning = false
+
 			switch result {
 			case .success:
 				Log.info("KeyPackageDownload: Completed downloading hour packages.", log: .riskDetection)
