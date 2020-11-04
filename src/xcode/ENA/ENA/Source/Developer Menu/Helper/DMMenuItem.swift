@@ -23,6 +23,7 @@ import Foundation
 enum DMMenuItem: Int, CaseIterable {
 	case keys = 0
 	case checkSubmittedKeys
+	case appConfiguration
 	case backendConfiguration
 	case lastSubmissionRequest
 	case settings
@@ -54,6 +55,7 @@ extension DMMenuItem {
 		switch self {
 		case .keys: return "Keys"
 		case .checkSubmittedKeys: return "Check submitted Keys"
+		case .appConfiguration: return "App Configuration"
 		case .backendConfiguration: return "Backend Configuration"
 		case .lastSubmissionRequest: return "Last Submission Request"
 		case .settings: return "Developer Settings"
@@ -73,6 +75,7 @@ extension DMMenuItem {
 		switch self {
 		case .keys: return "View local Keys & generate test Keys"
 		case .checkSubmittedKeys: return "Check the state of your local keys"
+		case .appConfiguration: return "See the current app configuration"
 		case .backendConfiguration: return "See the current backend configuration"
 		case .lastSubmissionRequest: return "Export the last executed submission request"
 		case .settings: return "Adjust the Developer Settings (e.g: hourly mode)"
