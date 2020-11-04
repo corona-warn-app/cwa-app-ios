@@ -102,11 +102,14 @@ extension SAP_Internal_AttenuationDuration: SwiftProtobuf.Message, SwiftProtobuf
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._thresholds)
-      case 2: try decoder.decodeSingularMessageField(value: &self._weights)
-      case 3: try decoder.decodeSingularInt32Field(value: &self.defaultBucketOffset)
-      case 4: try decoder.decodeSingularInt32Field(value: &self.riskScoreNormalizationDivisor)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._thresholds) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._weights) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.defaultBucketOffset) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.riskScoreNormalizationDivisor) }()
       default: break
       }
     }
@@ -147,9 +150,12 @@ extension SAP_Internal_Thresholds: SwiftProtobuf.Message, SwiftProtobuf._Message
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularInt32Field(value: &self.lower)
-      case 2: try decoder.decodeSingularInt32Field(value: &self.upper)
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.lower) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.upper) }()
       default: break
       }
     }
@@ -183,10 +189,13 @@ extension SAP_Internal_Weights: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularDoubleField(value: &self.low)
-      case 2: try decoder.decodeSingularDoubleField(value: &self.mid)
-      case 3: try decoder.decodeSingularDoubleField(value: &self.high)
+      case 1: try { try decoder.decodeSingularDoubleField(value: &self.low) }()
+      case 2: try { try decoder.decodeSingularDoubleField(value: &self.mid) }()
+      case 3: try { try decoder.decodeSingularDoubleField(value: &self.high) }()
       default: break
       }
     }

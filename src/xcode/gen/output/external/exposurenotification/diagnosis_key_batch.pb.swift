@@ -147,8 +147,11 @@ extension SAP_External_Exposurenotification_DiagnosisKeyBatch: SwiftProtobuf.Mes
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.keys)
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.keys) }()
       default: break
       }
     }
@@ -183,15 +186,18 @@ extension SAP_External_Exposurenotification_DiagnosisKey: SwiftProtobuf.Message,
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularBytesField(value: &self.keyData)
-      case 2: try decoder.decodeSingularUInt32Field(value: &self.rollingStartIntervalNumber)
-      case 3: try decoder.decodeSingularUInt32Field(value: &self.rollingPeriod)
-      case 4: try decoder.decodeSingularInt32Field(value: &self.transmissionRiskLevel)
-      case 5: try decoder.decodeRepeatedStringField(value: &self.visitedCountries)
-      case 6: try decoder.decodeSingularStringField(value: &self.origin)
-      case 7: try decoder.decodeSingularEnumField(value: &self.reportType)
-      case 8: try decoder.decodeSingularSInt32Field(value: &self.daysSinceOnsetOfSymptoms)
+      case 1: try { try decoder.decodeSingularBytesField(value: &self.keyData) }()
+      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.rollingStartIntervalNumber) }()
+      case 3: try { try decoder.decodeSingularUInt32Field(value: &self.rollingPeriod) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.transmissionRiskLevel) }()
+      case 5: try { try decoder.decodeRepeatedStringField(value: &self.visitedCountries) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.origin) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self.reportType) }()
+      case 8: try { try decoder.decodeSingularSInt32Field(value: &self.daysSinceOnsetOfSymptoms) }()
       default: break
       }
     }
