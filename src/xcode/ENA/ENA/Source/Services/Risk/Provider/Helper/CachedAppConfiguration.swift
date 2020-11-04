@@ -98,9 +98,11 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 		let force = shouldFetch() || forceFetch
 
 		if let cachedVersion = store.appConfig, !force {
+			Log.debug("[App Config] fetching cached app configuration", log: .localData)
 			// use the cached version
 			completeOnMain(completion: completion, result: .success(cachedVersion))
 		} else {
+			Log.debug("[App Config] fetching fresh app configuration", log: .localData)
 			// fetch a new one
 			fetchConfig(with: store.lastAppConfigETag, completion: completion)
 		}
@@ -119,8 +121,10 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 
 		// naïve cache control
 		guard let lastFetch = store.lastAppConfigFetch else {
+			Log.debug("[Cache-Control] no last config fetch timestamp stored", log: .localData)
 			return true
 		}
+		Log.debug("[Cache-Control] timestamp >= 300s? \(lastFetch.distance(to: Date()) >= 300)", log: .localData)
 		return lastFetch.distance(to: Date()) >= 300
 	}
 }
