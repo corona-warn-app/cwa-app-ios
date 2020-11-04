@@ -21,53 +21,27 @@ import Foundation
 /// Every time the user wants to know the own risk the app creates an `ExposureDetection`.
 final class ExposureDetection {
 
+	// MARK: Properties
 	@Published var activityState: RiskProvider.ActivityState = .idle
 	private weak var delegate: ExposureDetectionDelegate?
 	private var completion: Completion?
 	private var progress: Progress?
 	private let appConfiguration: SAP_Internal_ApplicationConfiguration
+	private let deviceTimeCheck: DeviceTimeCheckProtocol
 
 	// There was a decision not to use the 2 letter code "EU", but instead "EUR".
 	// Please see this story for more informations: https://jira.itc.sap.com/browse/EXPOSUREBACK-151
+	private let country = "EUR"
 
-	private let countryList = ["EUR"]
-
-	// MARK: - Init
-	
+	// MARK: Creating a Transaction
 	init(
 		delegate: ExposureDetectionDelegate,
-		appConfiguration: SAP_Internal_ApplicationConfiguration
+		appConfiguration: SAP_Internal_ApplicationConfiguration,
+		deviceTimeCheck: DeviceTimeCheckProtocol
 	) {
 		self.delegate = delegate
 		self.appConfiguration = appConfiguration
-	}
-
-	typealias Completion = (Result<ENExposureDetectionSummary, DidEndPrematurelyReason>) -> Void
-
-	// MARK: - Public
-	
-	func start(completion: @escaping Completion) {
-		self.completion = completion
-
-		Log.info("ExposureDetection: Start writing packages to file system.", log: .riskDetection)
-
-		self.writeKeyPackagesToFileSystem { [weak self] writtenPackages in
-			guard let self = self else { return }
-
-			Log.info("ExposureDetection: Completed writing packages to file system.", log: .riskDetection)
-
-			self.activityState = .detecting
-
-			if let exposureConfiguration = self.exposureConfiguration {
-				Log.info("ExposureDetection: Start detecting summary.", log: .riskDetection)
-
-				self.detectSummary(writtenPackages: writtenPackages, exposureConfiguration: exposureConfiguration)
-			} else {
-				Log.error("ExposureDetection: End prematurely.", log: .riskDetection, error: DidEndPrematurelyReason.noExposureConfiguration)
-
-				self.endPrematurely(reason: .noExposureConfiguration)
-			}
-		}
+		self.deviceTimeCheck = deviceTimeCheck
 	}
 
 	func cancel() {
@@ -75,19 +49,12 @@ final class ExposureDetection {
 		progress?.cancel()
 	}
 
-	// MARK: - Private
-
 	private func writeKeyPackagesToFileSystem(completion: (WrittenPackages) -> Void) {
-		var writtenPackages = WrittenPackages(urls: []) // collect all written packages
-		
-		for country in countryList {
-			if let packages = self.delegate?.exposureDetectionWriteDownloadedPackages(country: country) {
-				writtenPackages.urls.append(contentsOf: packages.urls)
-			} else {
-				endPrematurely(reason: .unableToWriteDiagnosisKeys)
-			}
+		if let writtenPackages = self.delegate?.exposureDetectionWriteDownloadedPackages(country: country) {
+			completion(WrittenPackages(urls: writtenPackages.urls))
+		} else {
+			endPrematurely(reason: .unableToWriteDiagnosisKeys)
 		}
-		completion(WrittenPackages(urls: writtenPackages.urls))
 	}
 
 	private var exposureConfiguration: ENExposureConfiguration? {
@@ -117,6 +84,41 @@ final class ExposureDetection {
 			endPrematurely(reason: .noSummary(error))
 		}
 	}
+
+	typealias Completion = (Result<ENExposureDetectionSummary, DidEndPrematurelyReason>) -> Void
+
+    func start(completion: @escaping Completion) {
+        Log.info("ExposureDetection: Start downloading packages.", log: .riskDetection)
+
+        self.completion = completion
+
+        Log.info("ExposureDetection: Completed downloading packages.", log: .riskDetection)
+        Log.info("ExposureDetection: Start writing packages to file system.", log: .riskDetection)
+
+        self.activityState = .detecting
+
+        self.writeKeyPackagesToFileSystem { [weak self] writtenPackages in
+            guard let self = self else { return }
+
+            Log.info("ExposureDetection: Completed writing packages to file system.", log: .riskDetection)
+
+            if let exposureConfiguration = self.exposureConfiguration {
+                if !self.deviceTimeCheck.isDeviceTimeCorrect {
+                    Log.warning("ExposureDetection: Detecting summary skipped due to wrong device time.", log: .riskDetection)
+                    self.endPrematurely(reason: .wrongDeviceTime)
+                } else {
+                    Log.info("ExposureDetection: Start detecting summary.", log: .riskDetection)
+                    self.detectSummary(writtenPackages: writtenPackages, exposureConfiguration: exposureConfiguration)
+                }
+            } else {
+                Log.error("ExposureDetection: End prematurely.", log: .riskDetection, error: DidEndPrematurelyReason.noExposureConfiguration)
+
+                self.endPrematurely(reason: .noExposureConfiguration)
+            }
+        }
+    }
+	
+	// MARK: Working with the Completion Handler
 
 	// Ends the transaction prematurely with a given reason.
 	private func endPrematurely(reason: DidEndPrematurelyReason) {
@@ -153,7 +155,6 @@ final class ExposureDetection {
 	}
 }
 
-// MARK: - Protocol
 private extension ENExposureConfiguration {
 	convenience init(from riskscoreParameters: SAP_Internal_RiskScoreParameters, minRiskScore: Int32) throws {
 		self.init()

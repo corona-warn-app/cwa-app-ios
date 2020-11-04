@@ -190,19 +190,17 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 
 		let failureExpectation = expectation(description: "Package download failed.")
 
-		keyPackageDownload.startHourPackagesDownload { _ in
-
-			keyPackageDownload.startHourPackagesDownload { result in
-				switch result {
-				case .success:
-					XCTFail("Success result is not expected.")
-				case .failure(let error):
-					XCTAssertEqual(error, .downloadIsRunning)
-					failureExpectation.fulfill()
-				}
+		keyPackageDownload.startHourPackagesDownload { _ in }
+		keyPackageDownload.startHourPackagesDownload { result in
+			switch result {
+			case .success:
+				XCTFail("Success result is not expected.")
+			case .failure(let error):
+				XCTAssertEqual(error, .downloadIsRunning)
+				failureExpectation.fulfill()
 			}
 		}
-
+		
 		waitForExpectations(timeout: 1.0)
 	}
 

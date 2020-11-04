@@ -67,8 +67,6 @@
 
 "ExposureDetection_RefreshIn" = "Aktualisierung in %@";
 
-"ExposureDetection_Refresh_24h" = "Aktualisierung alle 24 Stunden";
-
 "ExposureDetection_LastRiskLevel" = "Letzte Risiko-Überprüfung: %@";
 
 "ExposureDetection_OffText" = "Aktivieren Sie die Risiko-Ermittlung, um Ihren heutigen Risikostatus zu berechnen.";
@@ -857,8 +855,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Risk_No_Date_Title" = "Unbekannt";
 
-"Home_Risk_Period_Update_Title" = "Aktualisierung alle %@\U00A0Stunden";
-
 "Home_Risk_Period_Disabled_Button_Title" = "Aktualisierung nur alle %@\U00A0Stunden";
 
 "Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
@@ -1234,3 +1230,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "DeltaOnboarding_Terms_Button" = "Nutzungsbedingungen anzeigen";
 
 "DeltaOnboarding_Terms_Description2" = "Die Nutzungsbedingungen und die Datenschutzerklärung finden Sie auch unter dem Menüpunkt „App-Informationen“ sowie in der App-Beschreibung Ihres App Stores. Die Änderungen haben keine Auswirkungen auf Ihre Nutzung der App. Wenn Sie die App weiter nutzen oder erneut öffnen, gehen wir davon aus, dass Sie mit den aktualisierten Nutzungsbedingungen einverstanden sind.";
+
+/* Warn other notifications */
+"WarnOthersNotification_Title" = "Helfen Sie mit!";
+"WarnOthersNotification_Description" = "Bitte warnen Sie andere und teilen Sie Ihr Testergebnis.";
+

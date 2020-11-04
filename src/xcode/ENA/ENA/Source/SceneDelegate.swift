@@ -270,7 +270,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 }
 
 extension SceneDelegate: CoordinatorDelegate {
-	/// Resets all stores and notifies the Onboarding.
+	/// Resets all stores and notifies the Onboarding and resets all pending notifications
 	func coordinatorUserDidRequestReset() {
 		do {
 			let newKey = try KeychainHelper().generateDatabaseKey()
@@ -284,6 +284,9 @@ extension SceneDelegate: CoordinatorDelegate {
 			self.exposureManager.resume(observer: self)
 			NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 		}
+		
+		// Remove all pending notifications
+		UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
 	}
 }
 

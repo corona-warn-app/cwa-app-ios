@@ -242,6 +242,16 @@ final class SecureStore: Store {
 	var wasRecentHourKeyDownloadSuccessful: Bool {
 		get { kvStore["wasRecentHourKeyDownloadSuccessful"] as Bool? ?? false }
 		set { kvStore["wasRecentHourKeyDownloadSuccessful"] = newValue }
+    }
+    
+	var isDeviceTimeCorrect: Bool {
+		get { kvStore["isDeviceTimeCorrect"] as Bool? ?? true }
+		set { kvStore["isDeviceTimeCorrect"] = newValue }
+	}
+
+	var wasDeviceTimeErrorShown: Bool {
+		get { kvStore["wasDeviceTimeErrorShown"] as Bool? ?? false }
+		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
 	}
 
 	#if !RELEASE

@@ -25,8 +25,10 @@ enum RiskCalculationError: Error {
 	case timeout
 	case missingAppConfig
 	case failedKeyPackageDownload(KeyPackageDownloadError)
+	case missingCachedSummary
+	case failedToDetectSummary
 	case failedRiskCalculation
-	case failedRiskDetection
+	case failedRiskDetection(ExposureDetection.DidEndPrematurelyReason)
 }
 
 protocol RiskProviding: AnyObject {

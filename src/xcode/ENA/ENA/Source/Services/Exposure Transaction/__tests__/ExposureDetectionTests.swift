@@ -24,7 +24,22 @@ import ExposureNotification
 final class ExposureDetectionTransactionTests: XCTestCase {
 
 	func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {
+		let rootDir = FileManager().temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+		try FileManager().createDirectory(atPath: rootDir.path, withIntermediateDirectories: true, attributes: nil)
+		let url0 = rootDir.appendingPathComponent("1").appendingPathExtension("sig")
+		let url1 = rootDir.appendingPathComponent("1").appendingPathExtension("bin")
+		try "url0".write(to: url0, atomically: true, encoding: .utf8)
+		try "url1".write(to: url1, atomically: true, encoding: .utf8)
+
+		let writtenPackages = WrittenPackages(urls: [url0, url1])
+
+		let writtenPackagesBeCalled = expectation(description: "writtenPackages called")
+
 		let delegate = ExposureDetectionDelegateMock()
+		delegate.writtenPackages = {
+			writtenPackagesBeCalled.fulfill()
+			return writtenPackages
+		}
 
 		let summaryResultBeCalled = expectation(description: "summaryResult called")
 		delegate.summaryResult = { _, _ in
@@ -35,7 +50,8 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		let startCompletionCalled = expectation(description: "start completion called")
 		let detection = ExposureDetection(
 			delegate: delegate,
-			appConfiguration: SAP_Internal_ApplicationConfiguration()
+			appConfiguration: SAP_Internal_ApplicationConfiguration(),
+			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
 		)
 		detection.start { _ in
 			startCompletionCalled.fulfill()
@@ -43,6 +59,7 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 
 		wait(
 			for: [
+				writtenPackagesBeCalled,
 				summaryResultBeCalled,
 				startCompletionCalled
 			],
@@ -50,6 +67,7 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 			enforceOrder: true
 		)
 	}
+
 }
 
 final class AppConfigurationProviderFake: AppConfigurationProviding {
@@ -85,6 +103,8 @@ final class MutableENExposureDetectionSummary: ENExposureDetectionSummary {
 
 private final class ExposureDetectionDelegateMock {
 	var detectSummaryWithConfigurationWasCalled = false
+	var deviceTimeCorrect = true
+	var deviceTimeIncorrectErrorMessageShown = false
 
 	// MARK: Types
 	struct SummaryError: Error { }
@@ -118,6 +138,14 @@ extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 
 		detectSummaryWithConfigurationWasCalled = true
 		return Progress()
+	}
+	
+	func isDeviceTimeCorrect() -> Bool {
+		return deviceTimeCorrect
+	}
+	
+	func hasDeviceTimeErrorBeenShown() -> Bool {
+		return deviceTimeIncorrectErrorMessageShown
 	}
 }
 

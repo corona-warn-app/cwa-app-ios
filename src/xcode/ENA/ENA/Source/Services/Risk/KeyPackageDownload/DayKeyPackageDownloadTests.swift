@@ -190,16 +190,14 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 
 		let failureExpectation = expectation(description: "Package download failed.")
 
-		keyPackageDownload.startDayPackagesDownload { _ in
-
-			keyPackageDownload.startDayPackagesDownload { result in
-				switch result {
-				case .success:
-					XCTFail("Success result is not expected.")
-				case .failure(let error):
-					XCTAssertEqual(error, .downloadIsRunning)
-					failureExpectation.fulfill()
-				}
+		keyPackageDownload.startDayPackagesDownload { _ in }
+		keyPackageDownload.startDayPackagesDownload { result in
+			switch result {
+			case .success:
+				XCTFail("Success result is not expected.")
+			case .failure(let error):
+				XCTAssertEqual(error, .downloadIsRunning)
+				failureExpectation.fulfill()
 			}
 		}
 
