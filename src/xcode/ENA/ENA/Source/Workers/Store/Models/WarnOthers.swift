@@ -34,10 +34,12 @@ class WarnOthers {
 	
 	private let store: Store
 	
+	// MARK: - Init
 	init(store: Store) {
 		self.store = store
 	}
 	
+	// MARK: - public
 	/// This function takes a `TestResult` as parameter to evaluate, if possible notifications need to be scheduled for the warn others notification process.
 	func evaluateNotificationState(testResult: TestResult) {
 		
