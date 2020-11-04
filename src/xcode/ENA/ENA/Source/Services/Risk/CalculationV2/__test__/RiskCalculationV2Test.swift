@@ -31,7 +31,7 @@ class RiskCalculationV2Test: XCTestCase {
 			)
 
 			// THEN
-			XCTAssert(Calendar.current.isDate(result.detectionDate, inSameDayAs: Date()))
+			XCTAssert(Calendar.current.isDate(result.calculationDate, inSameDayAs: Date()))
 
 			XCTAssertEqual(result.riskLevel, testCase.expTotalRiskLevel.eitherLowOrIncreasedRiskLevel)
 

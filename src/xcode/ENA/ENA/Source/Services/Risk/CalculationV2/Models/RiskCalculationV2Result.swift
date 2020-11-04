@@ -31,7 +31,7 @@ struct RiskCalculationV2Result {
 	let mostRecentDateWithLowRisk: Date?
 	let mostRecentDateWithHighRisk: Date?
 
-	let detectionDate: Date
+	let calculationDate: Date
 
 	var minimumDistinctEncountersWithCurrentRiskLevel: Int {
 		switch riskLevel {

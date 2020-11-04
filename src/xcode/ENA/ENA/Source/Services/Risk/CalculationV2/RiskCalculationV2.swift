@@ -95,7 +95,7 @@ final class RiskCalculationV2 {
 			minimumDistinctEncountersWithHighRisk: minimumDistinctEncountersWithHighRisk,
 			mostRecentDateWithLowRisk: mostRecentDateWithLowRisk,
 			mostRecentDateWithHighRisk: mostRecentDateWithHighRisk,
-			detectionDate: Date()
+			calculationDate: Date()
 		)
 	}
 
