@@ -52,7 +52,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
 	}
 
-	func testGIVEN_lowercasedURLWithDoublePathSlashes_WHEN_extractGUID_THEN_isValidAndGuidMatch() {
+	func testGIVEN_lowercasedURLWithDoublePathSlashes_WHEN_extractGUID_THEN_isInvalid() {
 		// GIVEN
 		let viewModel = createViewModel()
 
@@ -60,11 +60,10 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let guid = viewModel.extractGuid(from: "https://localhost//?123456-12345678-1234-4DA7-B166-B86D85475064")
 
 		// THEN
-		XCTAssertNotNil(guid)
-		XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
+		XCTAssertNil(guid)
 	}
 
-	func testGIVEN_lowercasedURLWithTripplePathSlashes_WHEN_extractGUID_THEN_isValidAndGuidMatch() {
+	func testGIVEN_lowercasedURLWithTripplePathSlashes_WHEN_extractGUID_THEN_isInvalid() {
 		// GIVEN
 		let viewModel = createViewModel()
 
@@ -72,11 +71,10 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let guid = viewModel.extractGuid(from: "https://localhost///?123456-12345678-1234-4DA7-B166-B86D85475064")
 
 		// THEN
-		XCTAssertNotNil(guid)
-		XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
+		XCTAssertNil(guid)
 	}
 
-	func testGIVEN_uppercasedURLWithDoublePathSlashes_WHEN_extractGUID_THEN_isValidAndGuidMatch() {
+	func testGIVEN_uppercasedURLWithDoublePathSlashes_WHEN_extractGUID_THEN_isInvalid() {
 		// GIVEN
 		let viewModel = createViewModel()
 
@@ -84,8 +82,7 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		let guid = viewModel.extractGuid(from: "HTTPS://LOCALHOST///?123456-12345678-1234-4DA7-B166-B86D85475064")
 
 		// THEN
-		XCTAssertNotNil(guid)
-		XCTAssertEqual("123456-12345678-1234-4DA7-B166-B86D85475064", guid)
+		XCTAssertNil(guid)
 	}
 
 	func testGIVEN_lowercasedURLUppercaseGuid_WHEN_extractGUID_THEN_isValidAndGuidMatch() {
@@ -212,6 +209,5 @@ final class ExposureSubmissionQRScannerViewModelGuidTests: XCTestCase {
 		// THEN
 		XCTAssertNil(guid)
 	}
-
 
 }
