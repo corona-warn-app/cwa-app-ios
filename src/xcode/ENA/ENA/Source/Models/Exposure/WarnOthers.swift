@@ -52,11 +52,6 @@ class WarnOthers {
 		scheduleNotifications()
 	}
 	
-	/// In case the user has informed others about the positive result, this function should be called to reset possible pending 'warn others' notifications
-	func cancelNotifications() {
-		// TODO: Implement cancel logic
-	}
-	
 	/// Returns the schedule timer time in seconds for timer one
 	func getNotificationTimerOne() -> Int {
 		return store.warnOthersNotificationOneDelay
@@ -73,13 +68,18 @@ class WarnOthers {
 	}
 	
 	/// Sets a new timer value for timer two in seconds
-	func setNotificationsTimerTwo(seconds: Int) {
+	func setNotificationTimerTwo(seconds: Int) {
 		store.warnOthersNotificationTwoDelay = seconds
 	}
 	
 	func reset() {
 		cancelNotifications()
 		storedResult = false
+	}
+	
+	/// In case the user has informed others about the positive result, this function should be called to reset possible pending 'warn others' notifications
+	func cancelNotifications() {
+		// TODO: Implement cancel logic
 	}
 	
 	// MARK: - private API
