@@ -468,6 +468,7 @@ extension DownloadedPackagesSQLLiteStoreV1 {
 
 extension DownloadedPackagesStore {
 
+	@discardableResult
 	func addFetchedDays(_ dayPackages: [String: SAPDownloadedPackage], country: Country.ID) -> Result<Void, SQLiteErrorCode> {
 		var errors = [SQLiteErrorCode]()
 
@@ -489,6 +490,7 @@ extension DownloadedPackagesStore {
 		}
 	}
 
+	@discardableResult
 	func addFetchedHours(_ hourPackages: [Int: SAPDownloadedPackage], day: String, country: Country.ID) -> Result<Void, SQLiteErrorCode> {
 		var errors = [SQLiteErrorCode]()
 

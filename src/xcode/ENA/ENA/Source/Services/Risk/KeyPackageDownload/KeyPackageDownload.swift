@@ -39,7 +39,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		case hourly(String)
 	}
 
-	private let countryIds = ["EUR"]
+	private let countryIds: [Country.ID]
 	private let downloadedPackagesStore: DownloadedPackagesStore
 	private let client: Client
 	private let store: Store & AppConfigCaching
@@ -48,24 +48,26 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 	init(
 		downloadedPackagesStore: DownloadedPackagesStore,
 		client: Client,
-		store: Store & AppConfigCaching
+		store: Store & AppConfigCaching,
+		countryIds: [Country.ID] = ["EUR"]
 	) {
 		self.downloadedPackagesStore = downloadedPackagesStore
 		self.client = client
 		self.store = store
+		self.countryIds = countryIds
 	}
 
 	func startDayPackagesDownload(completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void) {
 		Log.info("KeyPackageDownload: Start downloading day packages.", log: .riskDetection)
 
-		guard isKeyDownloadRunning else {
+		guard !isKeyDownloadRunning else {
 			Log.info("KeyPackageDownload: Failed downloading. A download is already running.", log: .riskDetection)
 			completion(.failure(.downloadIsRunning))
 			return
 		}
 		isKeyDownloadRunning = true
 
-		startProcessingPackages(countryIds: countryIds, downloadMode: .daily) { result in
+		startDownloadCountryPackages(countryIds: countryIds, downloadMode: .daily) { result in
 			switch result {
 			case .success:
 				Log.info("KeyPackageDownload: Completed downloading day packages to cache.", log: .riskDetection)
@@ -80,16 +82,16 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 	}
 
 	func startHourPackagesDownload(completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void) {
-		Log.info("KeyPackageDownload: Start downloading day packages.", log: .riskDetection)
+		Log.info("KeyPackageDownload: Start downloading hour packages.", log: .riskDetection)
 
-		guard isKeyDownloadRunning else {
+		guard !isKeyDownloadRunning else {
 			Log.info("KeyPackageDownload: Failed downloading. A download is already running.", log: .riskDetection)
 			completion(.failure(.downloadIsRunning))
 			return
 		}
 		isKeyDownloadRunning = true
 
-		startProcessingPackages(countryIds: countryIds, downloadMode: .hourly(.formattedToday())) {result in
+		startDownloadCountryPackages(countryIds: countryIds, downloadMode: .hourly(.formattedToday())) {result in
 			switch result {
 			case .success:
 				Log.info("KeyPackageDownload: Completed downloading hour packages.", log: .riskDetection)
@@ -103,13 +105,13 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 
 	// MARK: - Private
 
-	private func startProcessingPackages(countryIds: [Country.ID], downloadMode: DownloadMode, completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void) {
+	private func startDownloadCountryPackages(countryIds: [Country.ID], downloadMode: DownloadMode, completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void) {
 
 		let dispatchGroup = DispatchGroup()
 		var errors = [KeyPackageDownloadError]()
 
 		for countryId in countryIds {
-			Log.info("KeyPackageDownload: Start downloading hour package with country id: \(countryId).", log: .riskDetection)
+			Log.info("KeyPackageDownload: Start downloading key package with country id: \(countryId).", log: .riskDetection)
 
 			var shouldStartPackageDownload: Bool
 			switch downloadMode {
@@ -125,9 +127,9 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 				startDownloadPackages(for: countryId, downloadMode: downloadMode) { result in
 					switch result {
 					case .success:
-						Log.info("KeyPackageDownload: Succeded downloading hour packages for country id: \(countryId).", log: .riskDetection)
+						Log.info("KeyPackageDownload: Succeded downloading key packages for country id: \(countryId).", log: .riskDetection)
 					case .failure(let error):
-						Log.info("KeyPackageDownload: Failed downloading hour packages for country id: \(countryId).", log: .riskDetection)
+						Log.info("KeyPackageDownload: Failed downloading key packages for country id: \(countryId).", log: .riskDetection)
 						errors.append(error)
 					}
 
@@ -138,12 +140,12 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 
 		dispatchGroup.notify(queue: .main) {
 			if let error = errors.first {
-				Log.error("KeyPackageDownload: Failed downloading hour packages with errors: \(errors).", log: .riskDetection)
+				Log.error("KeyPackageDownload: Failed downloading key packages with errors: \(errors).", log: .riskDetection)
 
 				self.updateRecentKeyDownloadFlags(to: false, downloadMode: downloadMode)
 				completion(.failure(error))
 			} else {
-				Log.info("KeyPackageDownload: Completed downloading hour packages to cache.", log: .riskDetection)
+				Log.info("KeyPackageDownload: Completed downloading key packages to cache.", log: .riskDetection)
 
 				self.updateRecentKeyDownloadFlags(to: true, downloadMode: downloadMode)
 				completion(.success(()))
@@ -213,12 +215,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		guard let yesterdayDate = Calendar.utcCalendar.date(byAdding: .day, value: -1, to: Date()) else {
 			fatalError("Could not create yesterdays date.")
 		}
-
-		let formatter = DateFormatter()
-		formatter.dateFormat = "YYYY-MM-DD"
-		formatter.timeZone = TimeZone.utcTimeZone
-
-		let yesterdayKeyString = formatter.string(from: yesterdayDate)
+		let yesterdayKeyString = DateFormatter.packagesDateFormatter.string(from: yesterdayDate)
 		let yesterdayDayPackageExists = downloadedPackagesStore.allDays(country: country).contains(yesterdayKeyString)
 
 		return !yesterdayDayPackageExists || !store.wasRecentDayKeyDownloadSuccessful
@@ -228,12 +225,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		guard let lastHourDate = Calendar.utcCalendar.date(byAdding: .hour, value: -1, to: Date()) else {
 			fatalError("Could not create last hour date.")
 		}
-
-		let formatter = DateFormatter()
-		formatter.dateFormat = "H"
-		formatter.timeZone = TimeZone.utcTimeZone
-
-		let lastHourKey = Int(formatter.string(from: lastHourDate)) ?? -1
+		let lastHourKey = Int(DateFormatter.packagesDateFormatter.string(from: lastHourDate)) ?? -1
 		let lastHourPackageExists = downloadedPackagesStore.hours(for: dayKey, country: counrtyId).contains(lastHourKey)
 
 		return !lastHourPackageExists || !store.wasRecentHourKeyDownloadSuccessful
@@ -287,18 +279,18 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 	
 	private func localDelta(
 		country: Country.ID,
-		for remotePackages: Set<String>,
+		for serverPackages: Set<String>,
 		downloadMode: DownloadMode
 	) -> Set<String> {
 		
 		switch downloadMode {
 		case .daily:
 			let localDays = Set(downloadedPackagesStore.allDays(country: country))
-			let deltaDays = localDays.subtracting(remotePackages)
+			let deltaDays = localDays.subtracting(serverPackages)
 			return deltaDays
 		case .hourly(let dayKey):
 			let localHours = Set(downloadedPackagesStore.hours(for: dayKey, country: country).map { String($0) })
-			let deltaHours = localHours.subtracting(remotePackages)
+			let deltaHours = localHours.subtracting(serverPackages)
 			return deltaHours
 		}
 	}
