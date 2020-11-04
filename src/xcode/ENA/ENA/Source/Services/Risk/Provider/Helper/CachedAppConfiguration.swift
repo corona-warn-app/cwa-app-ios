@@ -40,7 +40,7 @@ final class CachedAppConfiguration {
 
 	init(
 		client: AppConfigurationFetching,
-		store: AppConfigCaching,
+		store: Store,
 		deviceTimeCheck: DeviceTimeCheckProtocol? = nil,
 		configurationDidChange: (() -> Void)? = nil
 	) {
