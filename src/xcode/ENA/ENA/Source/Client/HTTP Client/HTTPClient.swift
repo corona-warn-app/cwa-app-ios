@@ -35,6 +35,8 @@ final class HTTPClient: Client {
 	let configuration: Configuration
 	let session: URLSession
 	let packageVerifier: SAPDownloadedPackage.Verification
+	/// Naïve retry counter until this client will be refactored
+	private var retries: [URL: Int] = [:]
 
 	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
 		let keys = payload.exposureKeys
@@ -126,22 +128,41 @@ final class HTTPClient: Client {
 		completion completeWith: @escaping HourCompletionHandler
 	) {
 		let url = configuration.diagnosisKeysURL(day: day, hour: hour, forCountry: country)
+
+		var responseError: Failure?
+		defer {
+			// no guard in defer!
+			if let error = responseError {
+				let retryCount = retries[url] ?? 0
+				if retryCount > 2 {
+					completeWith(.failure(error))
+				} else {
+					retries[url] = retryCount.advanced(by: 1)
+					Log.debug("\(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
+					fetchHour(hour, day: day, country: country, completion: completeWith)
+				}
+			} else {
+				// no error, no retry - clean up
+				retries[url] = nil
+			}
+		}
+
 		session.GET(url) { result in
 			switch result {
 			case let .success(response):
 				guard let hourData = response.body else {
-					completeWith(.failure(.invalidResponse))
+					responseError = .invalidResponse
 					return
 				}
 				Log.info("got hour: \(hourData.count)", log: .api)
 				guard let package = SAPDownloadedPackage(compressedData: hourData) else {
 					Log.error("Failed to create signed package. For URL: \(url)", log: .api)
-					completeWith(.failure(.invalidResponse))
+					responseError = .invalidResponse
 					return
 				}
 				completeWith(.success(package))
 			case let .failure(error):
-				completeWith(.failure(error))
+				responseError = error
 				Log.error("failed to get day: \(error)", log: .api)
 			}
 		}
@@ -313,23 +334,41 @@ extension HTTPClient {
 	private func fetchDay(
 		from url: URL,
 		completion completeWith: @escaping DayCompletionHandler) {
-		
+
+		var responseError: Failure?
+		defer {
+			// no guard in defer!
+			if let error = responseError {
+				let retryCount = retries[url] ?? 0
+				if retryCount > 2 {
+					completeWith(.failure(error))
+				} else {
+					retries[url] = retryCount.advanced(by: 1)
+					Log.debug("\(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
+					fetchDay(from: url, completion: completeWith)
+				}
+			} else {
+				// no error, no retry - clean up
+				retries[url] = nil
+			}
+		}
+
 		session.GET(url) { result in
 			switch result {
 			case let .success(response):
 				guard let dayData = response.body else {
-					completeWith(.failure(.invalidResponse))
+					responseError = .invalidResponse
 					Log.error("Failed to download for URL '\(url)': invalid response", log: .api)
 					return
 				}
 				guard let package = SAPDownloadedPackage(compressedData: dayData) else {
 					Log.error("Failed to create signed package. For URL: \(url)", log: .api)
-					completeWith(.failure(.invalidResponse))
+					responseError = .invalidResponse
 					return
 				}
 				completeWith(.success(package))
 			case let .failure(error):
-				completeWith(.failure(error))
+				responseError = error
 				Log.error("Failed to download for URL '\(url)' due to error: \(error).", log: .api)
 			}
 		}
@@ -580,4 +619,5 @@ private extension URLRequest {
 		guard let data = (String.getRandomString(of: 28 * paddedKeysAmount)).data(using: .ascii) else { return Data() }
 		return data
 	}
+	// swiftlint:disable:next file_length
 }
