@@ -32,19 +32,15 @@ enum KeyPackageDownloadError: Error {
 }
 
 class KeyPackageDownload: KeyPackageDownloadProtocol {
-
+	
 	enum DownloadMode {
 		case daily
 		// Associated type: Key of the corresponding day.
 		case hourly(String)
 	}
-
-	private let countryIds: [Country.ID]
-	private let downloadedPackagesStore: DownloadedPackagesStore
-	private let client: Client
-	private let store: Store & AppConfigCaching
-	private var isKeyDownloadRunning = false
-
+	
+	// MARK: - Init
+	
 	init(
 		downloadedPackagesStore: DownloadedPackagesStore,
 		client: Client,
@@ -56,18 +52,20 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		self.store = store
 		self.countryIds = countryIds
 	}
-
+	
+	// MARK: - Protocol KeyPackageDownloadProtocol
+	
 	func startDayPackagesDownload(completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void) {
 		Log.info("KeyPackageDownload: Start downloading day packages.", log: .riskDetection)
-
+		
 		guard !isKeyDownloadRunning else {
 			Log.info("KeyPackageDownload: Failed downloading. A download is already running.", log: .riskDetection)
 			completion(.failure(.downloadIsRunning))
 			return
 		}
 		isKeyDownloadRunning = true
-
-		startDownloadCountryPackages(countryIds: countryIds, downloadMode: .daily) { result in
+		
+		startDownloadAllCountryPackages(countryIds: countryIds, downloadMode: .daily) { result in
 			switch result {
 			case .success:
 				Log.info("KeyPackageDownload: Completed downloading day packages to cache.", log: .riskDetection)
@@ -76,22 +74,22 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 				Log.error("KeyPackageDownload: Failed downloading day packages with error: \(error).", log: .riskDetection)
 				completion(.failure(error))
 			}
-
+			
 			self.isKeyDownloadRunning = false
 		}
 	}
-
+	
 	func startHourPackagesDownload(completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void) {
 		Log.info("KeyPackageDownload: Start downloading hour packages.", log: .riskDetection)
-
+		
 		guard !isKeyDownloadRunning else {
 			Log.info("KeyPackageDownload: Failed downloading. A download is already running.", log: .riskDetection)
 			completion(.failure(.downloadIsRunning))
 			return
 		}
 		isKeyDownloadRunning = true
-
-		startDownloadCountryPackages(countryIds: countryIds, downloadMode: .hourly(.formattedToday())) {result in
+		
+		startDownloadAllCountryPackages(countryIds: countryIds, downloadMode: .hourly(.formattedToday())) {result in
 			switch result {
 			case .success:
 				Log.info("KeyPackageDownload: Completed downloading hour packages.", log: .riskDetection)
@@ -102,17 +100,23 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 			}
 		}
 	}
-
+	
 	// MARK: - Private
-
-	private func startDownloadCountryPackages(countryIds: [Country.ID], downloadMode: DownloadMode, completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void) {
-
+	
+	private let countryIds: [Country.ID]
+	private let downloadedPackagesStore: DownloadedPackagesStore
+	private let client: Client
+	private let store: Store & AppConfigCaching
+	private var isKeyDownloadRunning = false
+	
+	private func startDownloadAllCountryPackages(countryIds: [Country.ID], downloadMode: DownloadMode, completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void) {
+		
 		let dispatchGroup = DispatchGroup()
 		var errors = [KeyPackageDownloadError]()
-
+		
 		for countryId in countryIds {
 			Log.info("KeyPackageDownload: Start downloading key package with country id: \(countryId).", log: .riskDetection)
-
+			
 			var shouldStartPackageDownload: Bool
 			switch downloadMode {
 			case .daily:
@@ -120,10 +124,10 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 			case .hourly(let dayKey):
 				shouldStartPackageDownload = expectNewHourPackages(for: dayKey, counrtyId: countryId)
 			}
-
+			
 			if shouldStartPackageDownload {
 				dispatchGroup.enter()
-
+				
 				startDownloadPackages(for: countryId, downloadMode: downloadMode) { result in
 					switch result {
 					case .success:
@@ -132,27 +136,27 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 						Log.info("KeyPackageDownload: Failed downloading key packages for country id: \(countryId).", log: .riskDetection)
 						errors.append(error)
 					}
-
+					
 					dispatchGroup.leave()
 				}
 			}
 		}
-
+		
 		dispatchGroup.notify(queue: .main) {
 			if let error = errors.first {
 				Log.error("KeyPackageDownload: Failed downloading key packages with errors: \(errors).", log: .riskDetection)
-
+				
 				self.updateRecentKeyDownloadFlags(to: false, downloadMode: downloadMode)
 				completion(.failure(error))
 			} else {
 				Log.info("KeyPackageDownload: Completed downloading key packages to cache.", log: .riskDetection)
-
+				
 				self.updateRecentKeyDownloadFlags(to: true, downloadMode: downloadMode)
 				completion(.success(()))
 			}
 		}
 	}
-
+	
 	private func updateRecentKeyDownloadFlags(to newValue: Bool, downloadMode: DownloadMode) {
 		switch downloadMode {
 		case .daily:
@@ -161,24 +165,24 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 			self.store.wasRecentHourKeyDownloadSuccessful = newValue
 		}
 	}
-
+	
 	private func startDownloadPackages(for countryId: Country.ID, downloadMode: DownloadMode, completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void) {
 		availableServerData(country: countryId, downloadMode: downloadMode) { [weak self] result in
 			guard let self = self else { return }
-
-
+			
+			
 			switch result {
 			case .success(let availablePackages):
 				self.cleanupPackages(for: countryId, serverPackages: availablePackages, downloadMode: downloadMode)
 				let deltaPackages = self.serverDelta(country: countryId, for: Set(availablePackages), downloadMode: downloadMode)
-
+				
 				self.downloadPackages(for: Array(deltaPackages), downloadMode: downloadMode, country: countryId) { [weak self] result in
 					guard let self = self else { return }
-
+					
 					switch result {
 					case .success(let hourPackages):
 						let result = self.persistPackages(hourPackages, downloadMode: downloadMode, country: countryId)
-
+						
 						switch result {
 						case .success:
 							completion(.success(()))
@@ -194,7 +198,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 			}
 		}
 	}
-
+	
 	private func cleanupPackages(for countryId: Country.ID, serverPackages: [String], downloadMode: DownloadMode) {
 		
 		let localDeltaPackages = self.localDelta(country: countryId, for: Set(serverPackages), downloadMode: downloadMode)
@@ -210,27 +214,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 			}
 		}
 	}
-
-	private func expectNewDayPackages(for country: Country.ID) -> Bool {
-		guard let yesterdayDate = Calendar.utcCalendar.date(byAdding: .day, value: -1, to: Date()) else {
-			fatalError("Could not create yesterdays date.")
-		}
-		let yesterdayKeyString = DateFormatter.packagesDateFormatter.string(from: yesterdayDate)
-		let yesterdayDayPackageExists = downloadedPackagesStore.allDays(country: country).contains(yesterdayKeyString)
-
-		return !yesterdayDayPackageExists || !store.wasRecentDayKeyDownloadSuccessful
-	}
-
-	private func expectNewHourPackages(for dayKey: String, counrtyId: Country.ID) -> Bool {
-		guard let lastHourDate = Calendar.utcCalendar.date(byAdding: .hour, value: -1, to: Date()) else {
-			fatalError("Could not create last hour date.")
-		}
-		let lastHourKey = Int(DateFormatter.packagesDateFormatter.string(from: lastHourDate)) ?? -1
-		let lastHourPackageExists = downloadedPackagesStore.hours(for: dayKey, country: counrtyId).contains(lastHourKey)
-
-		return !lastHourPackageExists || !store.wasRecentHourKeyDownloadSuccessful
-	}
-
+	
 	private func availableServerData(
 		country: Country.ID,
 		downloadMode: DownloadMode,
@@ -258,13 +242,103 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 			}
 		}
 	}
-
+	
+	private func downloadPackages(
+		for packageKeys: [String],
+		downloadMode: DownloadMode,
+		country: Country.ID,
+		completion: @escaping (Result<[String: SAPDownloadedPackage], KeyPackageDownloadError>) -> Void) {
+		
+		switch downloadMode {
+		case .daily:
+			client.fetchDays(
+				packageKeys,
+				forCountry: country,
+				completion: { daysResult in
+					if daysResult.errors.isEmpty {
+						completion(.success(daysResult.bucketsByDay))
+					} else {
+						completion(.failure(.uncompletedPackages))
+					}
+				}
+			)
+		case .hourly(let dayKey):
+			let hourKeys = packageKeys.compactMap { Int($0) }
+			client.fetchHours(hourKeys, day: dayKey, country: country) { hoursResult in
+				if hoursResult.errors.isEmpty {
+					let keyPackages = Dictionary(
+						uniqueKeysWithValues: hoursResult.bucketsByHour.map { key, value in (String(key), value) }
+					)
+					completion(.success(keyPackages))
+				} else {
+					completion(.failure(.uncompletedPackages))
+				}
+			}
+		}
+	}
+	
+	private func persistPackages(_ keyPackages: [String: SAPDownloadedPackage], downloadMode: DownloadMode, country: Country.ID) -> Result<Void, KeyPackageDownloadError> {
+		var result: Result<Void, SQLiteErrorCode>
+		
+		switch downloadMode {
+		case .daily:
+			result = downloadedPackagesStore.addFetchedDays(
+				keyPackages,
+				country: country
+			)
+		case .hourly(let dayKey):
+			let keyPackages = Dictionary(
+				uniqueKeysWithValues: keyPackages.map { key, value in (Int(key) ?? -1, value) }
+			)
+			
+			result = downloadedPackagesStore.addFetchedHours(
+				keyPackages,
+				day: dayKey,
+				country: country
+			)
+		}
+		
+		switch result {
+		case .success:
+			Log.info("KeyPackageDownload: Persistence of key packages successful.", log: .riskDetection)
+			return .success(())
+		case .failure(let error):
+			Log.error("KeyPackageDownload: Persistence of key packages failed.", log: .riskDetection, error: error)
+			switch error {
+			case .sqlite_full:
+				return .failure(.noDiskSpace)
+			case .unknown:
+				return .failure(.unableToWriteDiagnosisKeys)
+			}
+		}
+	}
+	
+	private func expectNewDayPackages(for country: Country.ID) -> Bool {
+		guard let yesterdayDate = Calendar.utcCalendar.date(byAdding: .day, value: -1, to: Date()) else {
+			fatalError("Could not create yesterdays date.")
+		}
+		let yesterdayKeyString = DateFormatter.packagesDateFormatter.string(from: yesterdayDate)
+		let yesterdayDayPackageExists = downloadedPackagesStore.allDays(country: country).contains(yesterdayKeyString)
+		
+		return !yesterdayDayPackageExists || !store.wasRecentDayKeyDownloadSuccessful
+	}
+	
+	private func expectNewHourPackages(for dayKey: String, counrtyId: Country.ID) -> Bool {
+		guard let lastHourDate = Calendar.utcCalendar.date(byAdding: .hour, value: -1, to: Date()) else {
+			fatalError("Could not create last hour date.")
+		}
+		let lastHourKey = Int(DateFormatter.packagesDateFormatter.string(from: lastHourDate)) ?? -1
+		let lastHourPackageExists = downloadedPackagesStore.hours(for: dayKey, country: counrtyId).contains(lastHourKey)
+		
+		return !lastHourPackageExists || !store.wasRecentHourKeyDownloadSuccessful
+	}
+	
 	private func serverDelta(
 		country: Country.ID,
 		for serverPackages: Set<String>,
 		downloadMode: DownloadMode
 	) -> Set<String> {
-
+		
 		switch downloadMode {
 		case .daily:
 			let localDays = Set(downloadedPackagesStore.allDays(country: country))
@@ -294,75 +368,4 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 			return deltaHours
 		}
 	}
-
-	private func downloadPackages(
-		for packageKeys: [String],
-		downloadMode: DownloadMode,
-		country: Country.ID,
-		completion: @escaping (Result<[String: SAPDownloadedPackage], KeyPackageDownloadError>) -> Void) {
-
-		switch downloadMode {
-		case .daily:
-			client.fetchDays(
-				packageKeys,
-				forCountry: country,
-				completion: { daysResult in
-					if daysResult.errors.isEmpty {
-						completion(.success(daysResult.bucketsByDay))
-					} else {
-						completion(.failure(.uncompletedPackages))
-					}
-				}
-			)
-		case .hourly(let dayKey):
-			let hourKeys = packageKeys.compactMap { Int($0) }
-			client.fetchHours(hourKeys, day: dayKey, country: country) { hoursResult in
-				if hoursResult.errors.isEmpty {
-					let keyPackages = Dictionary(
-						uniqueKeysWithValues: hoursResult.bucketsByHour.map { key, value in (String(key), value) }
-					)
-					completion(.success(keyPackages))
-				} else {
-					completion(.failure(.uncompletedPackages))
-				}
-			}
-		}
-	}
-
-	private func persistPackages(_ keyPackages: [String: SAPDownloadedPackage], downloadMode: DownloadMode, country: Country.ID) -> Result<Void, KeyPackageDownloadError> {
-		var result: Result<Void, SQLiteErrorCode>
-
-		switch downloadMode {
-		case .daily:
-			result = downloadedPackagesStore.addFetchedDays(
-				keyPackages,
-				country: country
-			)
-		case .hourly(let dayKey):
-			let keyPackages = Dictionary(
-				uniqueKeysWithValues: keyPackages.map { key, value in (Int(key) ?? -1, value) }
-			)
-
-			result = downloadedPackagesStore.addFetchedHours(
-				keyPackages,
-				day: dayKey,
-				country: country
-			)
-		}
-
-		switch result {
-		case .success:
-			Log.info("KeyPackageDownload: Persistence of key packages successful.", log: .riskDetection)
-			return .success(())
-		case .failure(let error):
-			Log.error("KeyPackageDownload: Persistence of key packages failed.", log: .riskDetection, error: error)
-			switch error {
-			case .sqlite_full:
-				return .failure(.noDiskSpace)
-			case .unknown:
-				return .failure(.unableToWriteDiagnosisKeys)
-			}
-		}
-	}
-
 }
