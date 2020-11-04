@@ -1,4 +1,3 @@
-
 enum OnboardingPageType: Int, CaseIterable {
 	case togetherAgainstCoronaPage = 0
 	case privacyPage = 1
