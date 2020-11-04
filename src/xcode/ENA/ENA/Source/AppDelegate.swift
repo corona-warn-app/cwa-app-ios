@@ -101,7 +101,7 @@ extension AppDelegate: ExposureSummaryProvider {
 }
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder,UIApplicationDelegate {
 
 	let store: Store & AppConfigCaching
 	let serverEnvironment: ServerEnvironment
