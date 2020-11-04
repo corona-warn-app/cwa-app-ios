@@ -1,0 +1,12 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: cwa-app-ios
+Upstream-Contact: The Corona Warn App Team <corona-warn-app.opensource@sap.com>
+Source: https://github.com/corona-warn-app/cwa-app-ios
+
+Files: **
+Copyright:  2020 SAP SE or an SAP affiliate company and cwa-app-ios contributors
+License: Apache-2.0
+
+Files: src/xcode/ENA/CWASQLite/sqlite3.c src/xcode/ENA/CWASQLite/sqlite3.h
+Copyright: No Copyright
+License: CC0-1.0
