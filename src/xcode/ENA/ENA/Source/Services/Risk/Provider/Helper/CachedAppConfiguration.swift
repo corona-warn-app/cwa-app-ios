@@ -34,12 +34,21 @@ final class CachedAppConfiguration {
 	/// The place where the app config and last etag is stored
 	private let store: AppConfigCaching
 
+	private let deviceTimeCheck: DeviceTimeCheckProtocol
+
 	private let configurationDidChange: (() -> Void)?
 
-	init(client: AppConfigurationFetching, store: AppConfigCaching, configurationDidChange: (() -> Void)? = nil) {
+	init(
+		client: AppConfigurationFetching,
+		store: AppConfigCaching,
+		deviceTimeCheck: DeviceTimeCheckProtocol? = nil,
+		configurationDidChange: (() -> Void)? = nil
+	) {
 		self.client = client
 		self.store = store
 		self.configurationDidChange = configurationDidChange
+
+		self.deviceTimeCheck = deviceTimeCheck ?? DeviceTimeCheck(store: store)
 
 		guard shouldFetch() else { return }
 
@@ -52,31 +61,42 @@ final class CachedAppConfiguration {
 
 	private func fetchConfig(with etag: String?, completion: Completion? = nil) {
 		client.fetchAppConfiguration(etag: etag) { [weak self] result in
-			switch result {
+			guard let self = self else { return }
+
+			switch result.0 {
 			case .success(let response):
-				self?.store.lastAppConfigETag = response.eTag
-				self?.store.appConfig = response.config
-				self?.completeOnMain(completion: completion, result: .success(response.config))
+				self.store.lastAppConfigETag = response.eTag
+				self.store.appConfig = response.config
+				self.completeOnMain(completion: completion, result: .success(response.config))
 
 				// keep track of last successful fetch
-				self?.store.lastAppConfigFetch = Date()
+				self.store.lastAppConfigFetch = Date()
 
-				self?.configurationDidChange?()
+				self.configurationDidChange?()
 			case .failure(let error):
 				switch error {
-				case CachedAppConfiguration.CacheError.notModified where self?.store.appConfig != nil:
+				case CachedAppConfiguration.CacheError.notModified where self.store.appConfig != nil:
 					Log.error("config not modified", log: .api)
 					// server is not modified and we have a cached config
-					guard let config = self?.store.appConfig else {
+					guard let config = self.store.appConfig else {
 						fatalError("App configuration cache broken!") // in `where` we trust
 					}
-					self?.completeOnMain(completion: completion, result: .success(config))
+					self.completeOnMain(completion: completion, result: .success(config))
 
 					// keep track of last successful fetch
-					self?.store.lastAppConfigFetch = Date()
+					self.store.lastAppConfigFetch = Date()
 				default:
-					self?.completeOnMain(completion: completion, result: .failure(error))
+					self.completeOnMain(completion: completion, result: .failure(error))
 				}
+			}
+
+			if let serverTime = result.1 {
+				self.deviceTimeCheck.updateDeviceTimeFlags(
+					serverTime: serverTime,
+					deviceTime: Date()
+				)
+			} else {
+				self.deviceTimeCheck.resetDeviceTimeFlags()
 			}
 		}
 	}
@@ -117,6 +137,6 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 		guard let lastFetch = store.lastAppConfigFetch else {
 			return true
 		}
-		return lastFetch.distance(to: Date()) >= 300
+		return abs(lastFetch.distance(to: Date())) >= 300
 	}
 }

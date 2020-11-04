@@ -332,7 +332,7 @@ enum AppStrings {
 	enum ExposureDetectionError {
 		static let errorAlertMessage = NSLocalizedString("ExposureDetectionError_Alert_Message", comment: "")
 		static let errorAlertFullDistSpaceMessage = NSLocalizedString("ExposureDetectionError_Alert_FullDiskSpace_Message", comment: "")
-
+		static let errorAlertWrongDeviceTime = NSLocalizedString("ExposureDetection_WrongTime_Notification_Popover_Body", comment: "")
 	}
 
 	enum Settings {
@@ -806,5 +806,11 @@ enum AppStrings {
 		static let termsButtonTitle = NSLocalizedString("DeltaOnboarding_Terms_Button", comment: "")
 		static let termsDescription2 = NSLocalizedString("DeltaOnboarding_Terms_Description2", comment: "")
 	}
+	
+	enum WrongDeviceTime {
+		static let errorPushNotificationTitle = NSLocalizedString("ExposureDetection_WrongTime_Notification_Title", comment: "")
+		static let errorPushNotificationText = NSLocalizedString("ExposureDetection_WrongTime_Notification_Body", comment: "")
+	}
+	
 	// swiftlint:disable:next file_length
 }
