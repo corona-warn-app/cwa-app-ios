@@ -37,7 +37,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		let expectedConfig = SAP_Internal_ApplicationConfiguration()
 		client.onFetchAppConfiguration = { _, completeWith in
 			let config = AppConfigurationFetchingResponse(expectedConfig, "etag")
-			completeWith(.success(config))
+			completeWith((.success(config), nil))
 			fetchedFromClientExpectation.fulfill()
 		}
 
@@ -101,7 +101,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			store.appConfig = updatedConfig
 
 			let config = AppConfigurationFetchingResponse(updatedConfig, "etag")
-			completeWith(.success(config))
+			completeWith((.success(config), nil))
 			fetchedFromClientExpectation.fulfill()
 		}
 
@@ -230,8 +230,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		let client = CachingHTTPClientMock(store: store)
 		client.onFetchAppConfiguration = { _, completeWith in
-			XCTAssertEqual(store.lastAppConfigETag, "etag")
-			completeWith(.failure(CachedAppConfiguration.CacheError.notModified))
+			completeWith((.failure(CachedAppConfiguration.CacheError.notModified), nil))
 			fetchedFromClientExpectation.fulfill()
 		}
 
@@ -272,7 +271,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			XCTAssertNil(store.appConfig)
 			XCTAssertNil(store.lastAppConfigETag)
 
-			completeWith(.failure(CachedAppConfiguration.CacheError.notModified))
+			completeWith((.failure(CachedAppConfiguration.CacheError.notModified), nil))
 			fetchedFromClientExpectation.fulfill()
 		}
 

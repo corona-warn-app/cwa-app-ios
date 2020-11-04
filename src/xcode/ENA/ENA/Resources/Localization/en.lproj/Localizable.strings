@@ -481,10 +481,6 @@
 
 "ExposureSubmissionQRScanner_instruction" = "Position the frame over the QR code of your document.";
 
-"ExposureSubmissionQRScanner_notFoundAlertTitle" = "Diagnosis cannot be found";
-
-"ExposureSubmissionQRScanner_notFoundAlertText" = "To make it easier to read the QR code, try to align the QR code vertically to the scanner, or turn on the flash.";
-
 "ExposureSubmissionQRScanner_otherError" = "An unknown error occurred.";
 
 "ExposureSubmissionQRScanner_cameraPermissionDenied" = "Allow the app to use the camera to scan the QR code.";

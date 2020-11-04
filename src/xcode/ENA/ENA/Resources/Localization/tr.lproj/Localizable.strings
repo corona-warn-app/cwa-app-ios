@@ -481,10 +481,6 @@
 
 "ExposureSubmissionQRScanner_instruction" = "Çerçeveyi belgenizin QR kodunun üzerine tutun.";
 
-"ExposureSubmissionQRScanner_notFoundAlertTitle" = "Tanı bulunamadı";
-
-"ExposureSubmissionQRScanner_notFoundAlertText" = "QR kodu okumayı kolaylaştırmak için QR kodu tarayıcıya dikey olarak hizalamaya çalışın veya flaşı açın.";
-
 "ExposureSubmissionQRScanner_otherError" = "Bilinmeyen bir hata oluştu.";
 
 "ExposureSubmissionQRScanner_cameraPermissionDenied" = "Uygulamanın QR kodu taramak için kamerayı kullanmasına izin verin.";

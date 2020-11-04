@@ -37,7 +37,7 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 	
 	func testSummaryErrorCreatesAlert() {
 		let root = UIViewController()
-		
+
 		XCTAssertNotNil(
 			Reason.noSummary(ENError(.apiMisuse)).errorAlertController(rootController: root)
 		)
@@ -45,8 +45,17 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 	
 	func testNoStorageCapacityErrorAlert() {
 		let root = UIViewController()
+
 		XCTAssertNotNil(
 			Reason.noDiskSpace.errorAlertController(rootController: root)
+		)
+	}
+	
+	func testWrongDeviceTimeErrorAlert() {
+		let root = UIViewController()
+
+		XCTAssertNotNil(
+			Reason.wrongDeviceTime.errorAlertController(rootController: root)
 		)
 	}
 
