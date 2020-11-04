@@ -362,7 +362,7 @@
 "OnboardingInfo_alwaysStayInformedPage_normalText" = "Możesz wówczas odizolować się, aby chronić innych, i dowiedzieć się, gdzie wykonać test.";
 
 /* Onboarding EU Keys */
-"onboardingInfo_enableLoggingOfContactsPage_euTitle" = "Rejestrowanie narażenia\nw różnych krajach";
+"onboardingInfo_enableLoggingOfContactsPage_euTitle" = "Rejestrowanie narażenia w różnych krajach";
 
 "onboardingInfo_enableLoggingOfContactsPage_euDescription" = "Wiele krajów współpracuje w zakresie aktywowania transgranicznych ostrzeżeń. Innymi słowy, można teraz analizować informacje o Twoim potencjalnym narażeniu na kontakt z użytkownikami oficjalnych aplikacji koronawirusowych we wszystkich uczestniczących krajach.\n\nGdy użytkownik prześle swój losowy identyfikator do serwera wymiany danych obsługiwanego wspólnie przez kraje uczestniczące, o potencjalnym narażeniu mogą zostać ostrzeżeni użytkownicy oficjalnych aplikacji koronawirusowych we wszystkich tych krajach.\n\nCodzienne pobieranie losowych identyfikatorów jest bezpłatne. To oznacza, że wolumen danych aplikacji nie będzie podlegał żadnym opłatom naliczanym przez operatorów komórkowych ani opłatom roamingowym w innych krajach europejskich. Aby uzyskać więcej informacji, skontaktuj się ze swoim operatorem komórkowym.";
 
@@ -480,10 +480,6 @@
 "ExposureSubmissionQRScanner_title" = "Skan kodu QR";
 
 "ExposureSubmissionQRScanner_instruction" = "Ustaw ramkę nad kodem QR swojego dokumentu.";
-
-"ExposureSubmissionQRScanner_notFoundAlertTitle" = "Nie można znaleźć diagnozy";
-
-"ExposureSubmissionQRScanner_notFoundAlertText" = "Aby ułatwić odczytanie kodu QR, spróbuj ustawić kod QR pionowo względem skanera lub włącz lampę błyskową.";
 
 "ExposureSubmissionQRScanner_otherError" = "Wystąpił nieznany błąd.";
 
@@ -976,7 +972,7 @@
 
 "Home_resultCard_LoadingTitle" = "Aktualizacja w toku …";
 
-"Home_resultCard_NegativeTitle" = "Diagnoza braku zakażenia";
+"Home_resultCard_NegativeTitle" = "Diagnoza: brak zakażenia";
 
 "Home_resultCard_NegativeDesc" = "Nie zdiagnozowano u Ciebie zakażenia wirusem SARS-CoV-2.";
 

@@ -481,10 +481,6 @@
 
 "ExposureSubmissionQRScanner_instruction" = "Позиционирайте рамката върху QR кода на Вашия документ.";
 
-"ExposureSubmissionQRScanner_notFoundAlertTitle" = "Не може да бъде намерена диагноза.";
-
-"ExposureSubmissionQRScanner_notFoundAlertText" = "За да улесните разчитането на QR кода, опитайте се да изравните вертикално QR кода със скенера или включете светкавицата.";
-
 "ExposureSubmissionQRScanner_otherError" = "Възникна неочаквана грешка.";
 
 "ExposureSubmissionQRScanner_cameraPermissionDenied" = "Разрешете на приложението да използва камерата, за да сканира QR кода.";
