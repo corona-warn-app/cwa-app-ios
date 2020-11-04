@@ -24,7 +24,7 @@
 		01678E9C249A5F08003B048B /* testStore.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 01678E9A249A521F003B048B /* testStore.sqlite */; };
 		016961992540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016961982540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift */; };
 		016961B32549649900FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016961AF2549630100FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift */; };
-		0177F48825501111009DD568 /* ExposureDetectionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177F48125501111009DD568 /* ExposureDetectionResult.swift */; };
+		0177F48825501111009DD568 /* RiskCalculationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177F48125501111009DD568 /* RiskCalculationResult.swift */; };
 		0177F48C25501111009DD568 /* risk_calculation_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177F48525501111009DD568 /* risk_calculation_parameters.pb.swift */; };
 		0177F4B125503805009DD568 /* ScanInstanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177F4B025503805009DD568 /* ScanInstanceTest.swift */; };
 		0177F4C8255064D0009DD568 /* CWARiskLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177F4C7255064D0009DD568 /* CWARiskLevel.swift */; };
@@ -598,7 +598,7 @@
 		01678E9A249A521F003B048B /* testStore.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = testStore.sqlite; sourceTree = "<group>"; };
 		016961982540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultViewModel.swift; sourceTree = "<group>"; };
 		016961AF2549630100FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultViewModelTests.swift; sourceTree = "<group>"; };
-		0177F48125501111009DD568 /* ExposureDetectionResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureDetectionResult.swift; sourceTree = "<group>"; };
+		0177F48125501111009DD568 /* RiskCalculationResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RiskCalculationResult.swift; sourceTree = "<group>"; };
 		0177F48525501111009DD568 /* risk_calculation_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = risk_calculation_parameters.pb.swift; sourceTree = "<group>"; };
 		0177F4B025503805009DD568 /* ScanInstanceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanInstanceTest.swift; sourceTree = "<group>"; };
 		0177F4C7255064D0009DD568 /* CWARiskLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWARiskLevel.swift; sourceTree = "<group>"; };
@@ -1216,14 +1216,6 @@
 			path = __test__;
 			sourceTree = "<group>";
 		};
-		0177F47F255010F8009DD568 /* proto */ = {
-			isa = PBXGroup;
-			children = (
-				0177F48525501111009DD568 /* risk_calculation_parameters.pb.swift */,
-			);
-			path = proto;
-			sourceTree = "<group>";
-		};
 		01A1B440252DE53800841B63 /* QRScanner */ = {
 			isa = PBXGroup;
 			children = (
@@ -1298,6 +1290,14 @@
 				01A97DD22506769F00C07C37 /* DatePickerDayViewModelTests.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		01F5300F2552EE8200997A26 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				0177F48525501111009DD568 /* risk_calculation_parameters.pb.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		13091950247972CF0066E329 /* PrivacyProtectionViewController */ = {
@@ -1894,6 +1894,7 @@
 				5107E3D72459B2D60042FC9B /* Frameworks */,
 				0DFCC2692484D7A700E2811D /* ENA-Bridging-Header.h */,
 				0DFCC26F2484DC8200E2811D /* ENATests-Bridging-Header.h */,
+				01F5300F2552EE8200997A26 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 1;
@@ -2777,7 +2778,7 @@
 			isa = PBXGroup;
 			children = (
 				BA6C8AAD254D6476008344F5 /* ENARange.swift */,
-				0177F48125501111009DD568 /* ExposureDetectionResult.swift */,
+				0177F48125501111009DD568 /* RiskCalculationResult.swift */,
 				BA6C8AEB254D65C4008344F5 /* ExposureWindow.swift */,
 				BA6C8AA5254D63A0008344F5 /* MinutesAtAttenuationFilter.swift */,
 				BA6C8AB8254D64D3008344F5 /* MinutesAtAttenuationWeight.swift */,
@@ -3472,7 +3473,7 @@
 				01D6948B25026EC000B45BEA /* DatePickerOptionViewModel.swift in Sources */,
 				2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */,
 				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
-				0177F48825501111009DD568 /* ExposureDetectionResult.swift in Sources */,
+				0177F48825501111009DD568 /* RiskCalculationResult.swift in Sources */,
 				AB126873254C05A7006E9194 /* ENAFormatter.swift in Sources */,
 				CDD87C56247556DE007CE6CA /* MainSettingsTableViewCell.swift in Sources */,
 				AB6289D4251BA4EC00CF61D2 /* String+Compare.swift in Sources */,
@@ -4116,7 +4117,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.0;
 				MARKETING_VERSION = 1.7.0;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",

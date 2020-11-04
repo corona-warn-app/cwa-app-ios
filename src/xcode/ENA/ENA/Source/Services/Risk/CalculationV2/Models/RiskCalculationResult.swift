@@ -19,7 +19,9 @@
 
 import Foundation
 
-struct ExposureDetectionResult {
+struct RiskCalculationResult {
+
+	// MARK: - Internal
 
 	let riskLevel: EitherLowOrIncreasedRiskLevel
 
