@@ -20,8 +20,6 @@
 import Foundation
 import ExposureNotification
 
-
-
 extension ENCalibrationConfidence: Codable { }
 extension ENDiagnosisReportType: Codable { }
 extension ENInfectiousness: Codable { }
@@ -82,7 +80,7 @@ struct ExposureWindow: Codable {
 		try container.encode(reportType, forKey: .reportType)
 		try container.encode(infectiousness, forKey: .infectiousness)
 		try container.encode(scanInstances, forKey: .scanInstances)
-		try container.encode(Calendar.current.dateComponents([.day], from: date, to: Calendar.current.startOfDay(for: Date())), forKey: .date)
+		try container.encode(Calendar.current.dateComponents([.day], from: date, to: Calendar.current.startOfDay(for: Date())).day, forKey: .date)
 	}
 
 	// MARK: - Internal

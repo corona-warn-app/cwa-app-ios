@@ -61,6 +61,8 @@ final class MockTestStore: Store, AppConfigCaching {
 	#if !RELEASE
 	// Settings from the debug menu.
 	var fakeSQLiteError: Int32?
+	var mostRecentRiskCalculation: RiskCalculationV2?
+	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration?
 	#endif
 
 	// MARK: - AppConfigCaching

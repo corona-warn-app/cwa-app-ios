@@ -13,6 +13,7 @@
 		0123D5992501385200A91838 /* ExposureSubmissionErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0123D5972501383100A91838 /* ExposureSubmissionErrorTests.swift */; };
 		013C411D2554414C00826C9F /* risk_calculation_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C411C2554414C00826C9F /* risk_calculation_parameters.pb.swift */; };
 		013C412825545C2D00826C9F /* DebugRiskCalculationV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C412725545C2D00826C9F /* DebugRiskCalculationV2.swift */; };
+		013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */; };
 		013DC102245DAC4E00EE58B0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
 		0144BDE1250924CC00B0857C /* SymptomsOnset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144BDE0250924CC00B0857C /* SymptomsOnset.swift */; };
 		0144BDE32509288B00B0857C /* SymptomsOnsetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144BDE22509288B00B0857C /* SymptomsOnsetTests.swift */; };
@@ -593,6 +594,7 @@
 		0123D5972501383100A91838 /* ExposureSubmissionErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionErrorTests.swift; sourceTree = "<group>"; };
 		013C411C2554414C00826C9F /* risk_calculation_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_calculation_parameters.pb.swift; path = ../../../gen/output/internal/v2/risk_calculation_parameters.pb.swift; sourceTree = "<group>"; };
 		013C412725545C2D00826C9F /* DebugRiskCalculationV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRiskCalculationV2.swift; sourceTree = "<group>"; };
+		013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDebugRiskCalculationViewController.swift; sourceTree = "<group>"; };
 		013DC101245DAC4E00EE58B0 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		0144BDE0250924CC00B0857C /* SymptomsOnset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsOnset.swift; sourceTree = "<group>"; };
 		0144BDE22509288B00B0857C /* SymptomsOnsetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsOnsetTests.swift; sourceTree = "<group>"; };
@@ -2562,6 +2564,7 @@
 			isa = PBXGroup;
 			children = (
 				01F52FF32552DB9600997A26 /* DMAppConfigurationViewController.swift */,
+				013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */,
 				B1F82DF124718C7300E2E56A /* DMBackendConfigurationViewController.swift */,
 				AB6289D8251C833100CF61D2 /* DMDeltaOnboardingViewController.swift */,
 				B1FC2D1C24D9C87F00083C81 /* DMKeysViewController.swift */,
@@ -3315,6 +3318,7 @@
 				85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */,
 				AB1886D1252DE51E00D39BBE /* Bundle+Identifier.swift in Sources */,
 				71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */,
+				013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */,
 				51F1255D24BDD75300126C86 /* HomeUnknown48hRiskCellConfigurator.swift in Sources */,
 				2FC951FE24DC23B9008D39F4 /* DMConfigurationCell.swift in Sources */,
 				A3552CC424DD6E16008C91BE /* AppDelegate+PlausibleDeniability.swift in Sources */,

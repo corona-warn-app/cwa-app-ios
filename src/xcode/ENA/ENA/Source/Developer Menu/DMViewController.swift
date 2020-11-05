@@ -132,6 +132,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .manuallyRequestRisk:
 			vc = nil
 			manuallyRequestRisk()
+		case .debugRiskCalculation:
+			vc = DMDebugRiskCalculationViewController(store: store)
 		case .onboardingVersion:
 			vc = makeOnboardingVersionViewController()
 		case .serverEnvironment:
