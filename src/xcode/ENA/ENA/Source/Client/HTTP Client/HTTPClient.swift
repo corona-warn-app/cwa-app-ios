@@ -128,7 +128,7 @@ final class HTTPClient: Client {
 		completion completeWith: @escaping HourCompletionHandler
 	) {
 		let url = configuration.diagnosisKeysURL(day: day, hour: hour, forCountry: country)
-		let config = URLSessionConfiguration.coronaWarnSessionConfiguration_WiFi_only()
+		let config = URLSessionConfiguration.coronaWarnSessionConfigurationWifiOnly()
 		session.configuration.allowsConstrainedNetworkAccess = config.allowsConstrainedNetworkAccess
 		session.configuration.allowsExpensiveNetworkAccess = config.allowsExpensiveNetworkAccess
 		var responseError: Failure?

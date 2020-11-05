@@ -35,7 +35,7 @@ extension URLSessionConfiguration {
 
 	/// CWA Session config but only valid in WiFi environments
 	/// - Returns: the same as `.coronaWarnSessionConfiguration` but only for WiFi connections
-	class func coronaWarnSessionConfiguration_WiFi_only() -> URLSessionConfiguration {
+	class func coronaWarnSessionConfigurationWifiOnly() -> URLSessionConfiguration {
 		let config = coronaWarnSessionConfiguration()
 		// no download over expensive network (cellular)
 		config.allowsExpensiveNetworkAccess = false
