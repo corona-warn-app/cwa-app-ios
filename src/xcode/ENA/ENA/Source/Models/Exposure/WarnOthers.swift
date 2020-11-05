@@ -76,6 +76,8 @@ class WarnOthers: OthersWarnable {
 	
 	func reset() {
 		cancelNotifications()
+		
+		// TODO: (kga) update secure store too
 		storedResult = false
 		Log.info("Warn others hav been resetted")
 	}

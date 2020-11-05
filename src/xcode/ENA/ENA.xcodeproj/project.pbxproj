@@ -1408,6 +1408,8 @@
 				354E305824EFF26E00526C9F /* Country.swift */,
 				941ADDB12518C3FB00E421D9 /* ENSettingEuTracingViewModel.swift */,
 				94B255A52551B7C800649B4C /* WarnOthers.swift */,
+				94427A4F25502B8900C36BE6 /* WarnOthersNotificationsTimer.swift */,
+				948AFE6B2553F0490019579A /* WarnOthersNotificationState.swift */,
 				948AFE662553DC5B0019579A /* OthersWarnable.swift */,
 			);
 			path = Exposure;
@@ -2446,8 +2448,6 @@
 				3598D99924FE280700483F1F /* CountryTests.swift */,
 				941F5ECB2518E82100785F06 /* ENSettingEuTracingViewModelTests.swift */,
 				948AFE5E2552F6F60019579A /* WarnOthersTests.swift */,
-				948AFE6B2553F0490019579A /* WarnOthersNotificationState.swift */,
-				94427A4F25502B8900C36BE6 /* WarnOthersNotificationsTimer.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
