@@ -17,6 +17,8 @@
 // under the License.
 //
 
+#if !RELEASE
+
 import UIKit
 
 class DMAppConfigurationViewController: UIViewController {
@@ -74,3 +76,5 @@ class DMAppConfigurationViewController: UIViewController {
 	}
 
 }
+
+#endif
