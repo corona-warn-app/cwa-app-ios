@@ -78,7 +78,6 @@ class WarnOthers: OthersWarnable {
 		storedResult = true
 		
 		scheduleNotifications()
-		Log.info("Warn Others: New notifications have been scheduled (\(store.warnOthersNotificationOneTimer)/\(store.warnOthersNotificationTwoTimer) seconds)")
 	}
 	
 	func reset() {
@@ -90,11 +89,14 @@ class WarnOthers: OthersWarnable {
 	/// In case the user has informed others about the positive result, this function should be called to reset possible pending 'warn others' notifications
 	func cancelNotifications() {
 		UNUserNotificationCenter.current().cancelWarnOthersNotification()
+		Log.info("Warn others: All notifications have been canceled")
 	}
 	
 	// MARK: - private API
 	private func scheduleNotifications() {
 		UNUserNotificationCenter.current().scheduleWarnOthersNotifications(timerOne: notificationOneTimer, timerTwo: notificationTwoTimer)
+		
+		Log.info("Warn Others: New notifications have been scheduled:  #1 \(store.warnOthersNotificationOneTimer)/ #2 \(store.warnOthersNotificationTwoTimer) seconds)")
 	}
 	
 }

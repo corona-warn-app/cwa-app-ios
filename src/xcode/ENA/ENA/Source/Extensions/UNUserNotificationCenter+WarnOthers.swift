@@ -33,7 +33,8 @@ extension UNUserNotificationCenter {
 	
 	/// Cancels the Warn Others Notificatoin
 	func cancelWarnOthersNotification() {
-		removePendingNotificationRequests(withIdentifiers: [UNUserNotificationCenter.warnOthersNotificationIdentifier])
+		removePendingNotificationRequests(withIdentifiers: [UNUserNotificationCenter.warnOthersNotificationIdentifier + "1",
+															UNUserNotificationCenter.warnOthersNotificationIdentifier + "2"])
 	}
 	
 	// MARK: - Private
