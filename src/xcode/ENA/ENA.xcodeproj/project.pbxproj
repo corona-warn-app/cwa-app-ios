@@ -270,7 +270,6 @@
 		9488C3012521EE8E00504648 /* DeltaOnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488C3002521EE8E00504648 /* DeltaOnboardingNavigationController.swift */; };
 		948AFE5F2552F6F60019579A /* WarnOthersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948AFE5E2552F6F60019579A /* WarnOthersTests.swift */; };
 		948AFE672553DC5B0019579A /* OthersWarnable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948AFE662553DC5B0019579A /* OthersWarnable.swift */; };
-		948AFE6C2553F0490019579A /* WarnOthersNotificationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948AFE6B2553F0490019579A /* WarnOthersNotificationState.swift */; };
 		948AFE7A2554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948AFE792554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift */; };
 		948DCDC3252EFC9A00CDE020 /* ENAUITests_05_ExposureLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948DCDC2252EFC9A00CDE020 /* ENAUITests_05_ExposureLogging.swift */; };
 		94B255A62551B7C800649B4C /* WarnOthers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B255A52551B7C800649B4C /* WarnOthers.swift */; };
@@ -855,7 +854,6 @@
 		9488C3002521EE8E00504648 /* DeltaOnboardingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNavigationController.swift; sourceTree = "<group>"; };
 		948AFE5E2552F6F60019579A /* WarnOthersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarnOthersTests.swift; sourceTree = "<group>"; };
 		948AFE662553DC5B0019579A /* OthersWarnable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersWarnable.swift; sourceTree = "<group>"; };
-		948AFE6B2553F0490019579A /* WarnOthersNotificationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarnOthersNotificationState.swift; sourceTree = "<group>"; };
 		948AFE792554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenter+WarnOthers.swift"; sourceTree = "<group>"; };
 		948DCDC2252EFC9A00CDE020 /* ENAUITests_05_ExposureLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_05_ExposureLogging.swift; sourceTree = "<group>"; };
 		94B255A52551B7C800649B4C /* WarnOthers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarnOthers.swift; sourceTree = "<group>"; };
@@ -1411,7 +1409,6 @@
 				941ADDB12518C3FB00E421D9 /* ENSettingEuTracingViewModel.swift */,
 				94B255A52551B7C800649B4C /* WarnOthers.swift */,
 				94427A4F25502B8900C36BE6 /* WarnOthersNotificationsTimer.swift */,
-				948AFE6B2553F0490019579A /* WarnOthersNotificationState.swift */,
 				948AFE662553DC5B0019579A /* OthersWarnable.swift */,
 			);
 			path = Exposure;
@@ -3422,7 +3419,6 @@
 				B10FD5F1246EAB1000E9D7F2 /* AppInformationViewController+DynamicTableViewModel.swift in Sources */,
 				51C7790E24867F22004582F8 /* RiskListItemView.swift in Sources */,
 				71CAB9D2248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift in Sources */,
-				948AFE6C2553F0490019579A /* WarnOthersNotificationState.swift in Sources */,
 				710021E0248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift in Sources */,
 				B14D0CDF246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift in Sources */,
 				B1D8CB2724DD44C6008C6010 /* DMTracingHistoryViewController.swift in Sources */,

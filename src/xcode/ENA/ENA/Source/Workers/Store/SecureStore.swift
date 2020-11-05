@@ -273,11 +273,6 @@ extension SecureStore {
 		set { kvStore["warnOthersNotificationTimerTwo"] = newValue }
 	}
 	
-	var warnOthersNotificationState: Int {
-		get { kvStore["warnOthersNotificationState"] as Int? ?? WarnOthersNotificationState.unscheduled.rawValue }
-		set { kvStore["warnOthersNotificationState"] = newValue }
-	}
-	
 	var warnOthersHasActiveTestResult: Bool {
 		get { kvStore["warnOthersHasActiveTestResult"] as Bool? ?? false }
 		set { kvStore["warnOthersHasActiveTestResult"] = newValue }

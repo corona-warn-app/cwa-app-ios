@@ -123,9 +123,6 @@ protocol Store: AnyObject {
 	
 	/// If there was a positive test result, this information will be stored for warn others
 	var warnOthersHasActiveTestResult: Bool { get set }
-	
-	/// To keep an eye on what is/was the state of the warn others notification, the latest state is stored
-	var warnOthersNotificationState: Int { get set }
 
 	var isDeviceTimeCorrect: Bool { get set }
 	
