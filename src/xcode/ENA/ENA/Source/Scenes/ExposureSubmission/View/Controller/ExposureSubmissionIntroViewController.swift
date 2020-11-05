@@ -53,15 +53,6 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
 	}
 
-	override func didMove(toParent parent: UIViewController?) {
-		// Make sure to update to the correct footer state based on the attached view controller
-		// This is especially important for iOS 14, since it allows the user to close multiple
-		// child view-controllers at once
-		if let parent = parent as? ExposureSubmissionNavigationController, parent.children.count == 1 {
-			footerView?.apply(navigationItem: navigationItem)
-		}
-	}
-
 	// MARK: - Setup helpers.
 
 	private func setupView() {
