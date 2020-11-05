@@ -27,12 +27,14 @@ protocol DownloadedPackagesStoreV1: AnyObject {
 	func open()
 	func close()
 
+	@discardableResult
 	func set(
 		country: Country.ID,
 		day: String,
 		package: SAPDownloadedPackage
 	) -> Result<Void, SQLiteErrorCode>
 
+	@discardableResult
 	func set(
 		country: Country.ID,
 		hour: Int,
