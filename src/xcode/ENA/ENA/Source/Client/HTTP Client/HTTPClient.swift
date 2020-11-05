@@ -128,7 +128,12 @@ final class HTTPClient: Client {
 		completion completeWith: @escaping HourCompletionHandler
 	) {
 		let url = configuration.diagnosisKeysURL(day: day, hour: hour, forCountry: country)
-
+		let config = URLSessionConfiguration.default
+		let session = URLSession(configuration: config)
+		config.allowsExpensiveNetworkAccess = false // no download over expensive network (cellular)
+		config.allowsConstrainedNetworkAccess = false // no download in case user has activated the low data mode
+		config.waitsForConnectivity = true // session shall wait for connectivity to become available
+		
 		var responseError: Failure?
 		defer {
 			// no guard in defer!
