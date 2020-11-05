@@ -89,14 +89,12 @@ class WarnOthers: OthersWarnable {
 	
 	/// In case the user has informed others about the positive result, this function should be called to reset possible pending 'warn others' notifications
 	func cancelNotifications() {
-		// TODO: Implement cancel logic
+		UNUserNotificationCenter.current().cancelWarnOthersNotification()
 	}
 	
 	// MARK: - private API
 	private func scheduleNotifications() {
-		
-		// TODO: (pum) - Here Need to pass timerOne & timeTwo & remove hard coded values
-		UNUserNotificationCenter.current().scheduleWarnOthersNotification(timerOne: 7200, timerTwo: 14400)
+		UNUserNotificationCenter.current().scheduleWarnOthersNotifications(timerOne: notificationOneTimer, timerTwo: notificationTwoTimer)
 	}
 	
 }

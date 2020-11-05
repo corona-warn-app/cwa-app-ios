@@ -26,9 +26,11 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController,
 
 	// MARK: - Initializers.
 
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating) {
+	init?(warnOthers: OthersWarnable, coder: NSCoder, coordinator: ExposureSubmissionCoordinating) {
 		self.coordinator = coordinator
 		super.init(coder: coder)
+		
+		warnOthers.cancelNotifications()
 	}
 
 	@available(*, unavailable)
