@@ -41,8 +41,8 @@ extension URLSessionConfiguration {
 		config.allowsExpensiveNetworkAccess = false
 		// no download in case user has activated the low data mode
 		config.allowsConstrainedNetworkAccess = false
-		// session shall wait for connectivity to become available
-		config.waitsForConnectivity = true
+		// session shall not wait for connectivity to become available; fail immediately
+		config.waitsForConnectivity = false
 		return config
 	}
 

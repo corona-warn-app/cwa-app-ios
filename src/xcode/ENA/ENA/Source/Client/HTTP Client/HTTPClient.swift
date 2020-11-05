@@ -129,8 +129,8 @@ final class HTTPClient: Client {
 	) {
 		let url = configuration.diagnosisKeysURL(day: day, hour: hour, forCountry: country)
 		let config = URLSessionConfiguration.coronaWarnSessionConfiguration_WiFi_only()
-		let session = URLSession(configuration: config)
-		
+		session.configuration.allowsConstrainedNetworkAccess = config.allowsConstrainedNetworkAccess
+		session.configuration.allowsExpensiveNetworkAccess = config.allowsExpensiveNetworkAccess
 		var responseError: Failure?
 		defer {
 			// no guard in defer!
