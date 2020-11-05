@@ -166,6 +166,8 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	@objc
 	private func resetNotificationsButtonTapped() {
 		warnOthers.reset()
+		alertMessage(titleStr: "Done", messageStr: "Warn others notifications can appear again.")
+
 	}
 }
 
