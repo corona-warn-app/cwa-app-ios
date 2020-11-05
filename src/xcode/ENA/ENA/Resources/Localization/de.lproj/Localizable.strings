@@ -1179,7 +1179,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "RiskLegend_Contact_Title" = "Risiko-Begegnung";
 
-"RiskLegend_Contact_Text" = "Begegnung mit einer infizierten Person, die ihr positives Testergebnis über die CWA mit anderen geteilt hat. Eine Begegnung muss bestimmte Kriterien hinsichtlich Dauer, Abstand und vermuteter Infektiosität der anderen Person erfüllen, um als Risiko-Begegnung eingestuft zu werden.";
+"RiskLegend_Contact_Text" = "Begegnung mit einer infizierten Person, die ihr positives Testergebnis über die App mit anderen geteilt hat. Eine Begegnung muss bestimmte Kriterien hinsichtlich Dauer, Abstand und vermuteter Infektiosität der anderen Person erfüllen, um als Risiko-Begegnung eingestuft zu werden.";
 
 "RiskLegend_Notification_Title" = "Risiko-Benachrichtigung";
 
