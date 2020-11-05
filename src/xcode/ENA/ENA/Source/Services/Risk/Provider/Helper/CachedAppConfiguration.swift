@@ -40,7 +40,7 @@ final class CachedAppConfiguration {
 
 	init(
 		client: AppConfigurationFetching,
-		store: AppConfigCaching,
+		store: Store,
 		deviceTimeCheck: DeviceTimeCheckProtocol? = nil,
 		configurationDidChange: (() -> Void)? = nil
 	) {
@@ -83,9 +83,13 @@ final class CachedAppConfiguration {
 					}
 					self.completeOnMain(completion: completion, result: .success(config))
 
-					// keep track of last successful fetch
+					// server response HTTP 304 is considered a 'successful fetch'
 					self.store.lastAppConfigFetch = Date()
 				default:
+					// ensure reset
+					self.store.lastAppConfigETag = nil
+					self.store.lastAppConfigFetch = nil
+
 					self.completeOnMain(completion: completion, result: .failure(error))
 				}
 			}
@@ -117,9 +121,11 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 		let force = shouldFetch() || forceFetch
 
 		if let cachedVersion = store.appConfig, !force {
+			Log.debug("[App Config] fetching cached app configuration", log: .localData)
 			// use the cached version
 			completeOnMain(completion: completion, result: .success(cachedVersion))
 		} else {
+			Log.debug("[App Config] fetching fresh app configuration", log: .localData)
 			// fetch a new one
 			fetchConfig(with: store.lastAppConfigETag, completion: completion)
 		}
@@ -134,9 +140,14 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 	///   which does not easily return response headers. This requires further refactoring of `URLSession+Convenience.swift`.
 	/// - Returns: `true` is a network call should be done; `false` if cache should be used
 	private func shouldFetch() -> Bool {
+		if store.appConfig == nil { return true }
+
+		// naïve cache control
 		guard let lastFetch = store.lastAppConfigFetch else {
+			Log.debug("[Cache-Control] no last config fetch timestamp stored", log: .localData)
 			return true
 		}
-		return abs(lastFetch.distance(to: Date())) >= 300
+        Log.debug("[Cache-Control] timestamp >= 300s? \(abs(lastFetch.distance(to: Date())) >= 300)", log: .localData)
+        return abs(lastFetch.distance(to: Date())) >= 300
 	}
 }
