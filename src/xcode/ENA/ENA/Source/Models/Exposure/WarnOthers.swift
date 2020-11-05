@@ -30,7 +30,34 @@ class WarnOthers: OthersWarnable {
 //	/// timerTwo represents a timer value in seconds
 //	var timerTwo: Int = ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue
 	
-	var storedResult = false
+	var storedResult: Bool {
+		get {
+			return store.warnOthersHasActiveTestResult
+		}
+		set {
+			store.warnOthersHasActiveTestResult = newValue
+		}
+	}
+	
+	/// Notification timer in seconds for notification one
+	var notificationOneTimer: Int {
+		get {
+			return store.warnOthersNotificationOneTimer
+		}
+		set {
+			store.warnOthersNotificationOneTimer = newValue
+		}
+	}
+	
+	/// Notification timer in seconds for notification two
+	var notificationTwoTimer: Int {
+		get {
+			return store.warnOthersNotificationTwoTimer
+		}
+		set {
+			store.warnOthersNotificationTwoTimer = newValue
+		}
+	}
 	
 	private let store: Store
 	
@@ -52,26 +79,6 @@ class WarnOthers: OthersWarnable {
 		
 		scheduleNotifications()
 		Log.info("Warn Others: New notifications have been scheduled (\(store.warnOthersNotificationOneTimer)/\(store.warnOthersNotificationTwoTimer) seconds)")
-	}
-	
-	/// Returns the schedule timer time in seconds for timer one
-	func getNotificationTimerOne() -> Int {
-		return store.warnOthersNotificationOneTimer
-	}
-	
-	/// Sets a new timer value for timer one in seconds
-	func setNotificationTimerOne(seconds: Int) {
-		store.warnOthersNotificationOneTimer = seconds
-	}
-	
-	/// Returns the schedule timer time in seconds for timer two
-	func getNotificationTimerTwo() -> Int {
-		return store.warnOthersNotificationTwoTimer
-	}
-	
-	/// Sets a new timer value for timer two in seconds
-	func setNotificationTimerTwo(seconds: Int) {
-		store.warnOthersNotificationTwoTimer = seconds
 	}
 	
 	func reset() {

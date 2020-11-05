@@ -21,11 +21,11 @@ import UIKit
 
 protocol OthersWarnable {
 	
+	var storedResult: Bool { get set }
+	var notificationOneTimer: Int { get set }
+	var notificationTwoTimer: Int { get set }
+	
 	func evaluateNotificationState(testResult: TestResult)
-	func getNotificationTimerOne() -> Int
-	func setNotificationTimerOne(seconds: Int)
-	func getNotificationTimerTwo() -> Int
-	func setNotificationTimerTwo(seconds: Int)
 	func reset()
 	func cancelNotifications()
 }
