@@ -19,7 +19,9 @@
 
 import Foundation
 
-struct ExposureDetectionResult {
+struct RiskCalculationV2Result {
+
+	// MARK: - Internal
 
 	let riskLevel: EitherLowOrIncreasedRiskLevel
 
@@ -29,7 +31,7 @@ struct ExposureDetectionResult {
 	let mostRecentDateWithLowRisk: Date?
 	let mostRecentDateWithHighRisk: Date?
 
-	let detectionDate: Date
+	let calculationDate: Date
 
 	var minimumDistinctEncountersWithCurrentRiskLevel: Int {
 		switch riskLevel {
@@ -47,22 +49,6 @@ struct ExposureDetectionResult {
 		case .increased:
 			return mostRecentDateWithHighRisk
 		}
-	}
-
-	var ageInDaysOfMostRecentDateWithLowRisk: Int? {
-		guard let mostRecentDateWithLowRisk = mostRecentDateWithLowRisk else {
-			return nil
-		}
-
-		return Calendar.current.dateComponents([.day], from: mostRecentDateWithLowRisk, to: Date()).day
-	}
-
-	var ageInDaysOfMostRecentDateWithHighRisk: Int? {
-		guard let mostRecentDateWithHighRisk = mostRecentDateWithHighRisk else {
-			return nil
-		}
-
-		return Calendar.current.dateComponents([.day], from: mostRecentDateWithHighRisk, to: Date()).day
 	}
 
 }
