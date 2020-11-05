@@ -452,10 +452,10 @@ extension RiskProvider: RiskProviding {
         }
 
         self.riskProvidingConfiguration = RiskProvidingConfiguration(
-            exposureDetectionValidityDuration: DateComponents(day: 2),
-            exposureDetectionInterval: exposureDetectionInterval,
-            detectionMode: .default
-        )
+			exposureDetectionValidityDuration: DateComponents(day: 2),
+			exposureDetectionInterval: exposureDetectionInterval,
+			detectionMode: riskProvidingConfiguration.detectionMode
+		)
     }
 }
 
