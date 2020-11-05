@@ -88,11 +88,8 @@ final class ExposureDetection {
 	typealias Completion = (Result<ENExposureDetectionSummary, DidEndPrematurelyReason>) -> Void
 
     func start(completion: @escaping Completion) {
-        Log.info("ExposureDetection: Start downloading packages.", log: .riskDetection)
-
         self.completion = completion
 
-        Log.info("ExposureDetection: Completed downloading packages.", log: .riskDetection)
         Log.info("ExposureDetection: Start writing packages to file system.", log: .riskDetection)
 
         self.activityState = .detecting
