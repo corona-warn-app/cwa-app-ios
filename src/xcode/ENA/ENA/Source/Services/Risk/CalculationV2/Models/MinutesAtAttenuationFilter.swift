@@ -19,7 +19,7 @@
 
 import Foundation
 
-struct MinutesAtAttenuationFilter: Decodable {
+struct MinutesAtAttenuationFilter: Codable {
 
 	// MARK: - Init
 

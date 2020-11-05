@@ -19,7 +19,7 @@
 
 import Foundation
 
-struct RiskCalculationConfiguration: Decodable {
+struct RiskCalculationConfiguration: Codable {
 
 	// MARK: - Init
 

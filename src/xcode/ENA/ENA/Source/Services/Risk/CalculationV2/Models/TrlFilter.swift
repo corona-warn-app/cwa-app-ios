@@ -19,7 +19,7 @@
 
 import Foundation
 
-struct TrlFilter: Decodable {
+struct TrlFilter: Codable {
 
 	// MARK: - Init
 

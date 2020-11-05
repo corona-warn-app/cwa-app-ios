@@ -18,7 +18,7 @@
 import Foundation
 import ExposureNotification
 
-enum EitherLowOrIncreasedRiskLevel: Int {
+enum EitherLowOrIncreasedRiskLevel: Int, Codable {
 	case low = 0
 	case increased = 1_000 /// so that increased > low + we have enough reserved values
 	var description: String {
@@ -124,6 +124,11 @@ protocol Store: AnyObject {
 	#if !RELEASE
 	/// Settings from the debug menu.
 	var fakeSQLiteError: Int32? { get set }
+
+	var mostRecentRiskCalculation: RiskCalculationV2? { get set }
+
+	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration? { get set }
+
 	#endif
 
 }

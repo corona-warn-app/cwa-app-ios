@@ -19,7 +19,7 @@
 
 import Foundation
 
-struct ENARange: Decodable {
+struct ENARange: Codable {
 
 	// MARK: - Init
 
