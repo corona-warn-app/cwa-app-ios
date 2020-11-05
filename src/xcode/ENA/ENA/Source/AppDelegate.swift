@@ -133,7 +133,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		)
 
 		return RiskProvider(
-			configuration: RiskProvidingConfiguration.defaultConfigufation,
+			configuration: RiskProvidingConfiguration.defaultConfiguration,
 			store: self.store,
 			exposureSummaryProvider: self,
 			appConfigurationProvider: appConfigurationProvider,

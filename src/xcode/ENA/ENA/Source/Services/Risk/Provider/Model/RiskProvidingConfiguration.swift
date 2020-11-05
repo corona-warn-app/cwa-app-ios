@@ -25,7 +25,7 @@ struct RiskProvidingConfiguration {
     static let defaultExposureDetectionsInterval = 24 / defaultMaxExposureDetectionsPerInterval
     private static let defaultMaxExposureDetectionsPerInterval = 1
 
-	static var defaultConfigufation: RiskProvidingConfiguration {
+	static var defaultConfiguration: RiskProvidingConfiguration {
 		return RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: DateComponents(day: 2),
 			exposureDetectionInterval: DateComponents(hour: defaultExposureDetectionsInterval),
