@@ -29,7 +29,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var serverEnvironment: ServerEnvironment { get }
-	var warnOthers: WarnOthers { get }
+	var warnOthers: OthersWarnable { get }
 }
 
 extension AppDelegate: CoronaWarnAppDelegate {
@@ -107,7 +107,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let store: Store & AppConfigCaching
 	let serverEnvironment: ServerEnvironment
 	
-	let warnOthers: WarnOthers
+	let warnOthers: OthersWarnable
 	
 	private let consumer = RiskConsumer()
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared

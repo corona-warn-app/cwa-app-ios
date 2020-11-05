@@ -22,7 +22,7 @@ import UIKit
 /// The `WarnOthers` clsas  behaves as a facade and encaplsulate all relevant logic whether to schedule or not to schedule warn others notifications about a positiv test result.
 /// Notification scheduling - the app will inform the user 2 times to warn others.
 /// WarnOthers always is related to one concrete test result, which always needs to be a positive one.
-class WarnOthers {
+class WarnOthers: OthersWarnable {
 	
 //	/// timerOne represents a timer value in seconds
 //	var timerOne: Int = ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue
@@ -37,6 +37,7 @@ class WarnOthers {
 	// MARK: - Init
 	init(store: Store) {
 		self.store = store
+		self.storedResult = store.warnOthersHasActiveTestResult
 	}
 	
 	// MARK: - public
@@ -50,31 +51,33 @@ class WarnOthers {
 		storedResult = true
 		
 		scheduleNotifications()
+		Log.info("Warn Others: New notifications have been scheduled (\(store.warnOthersNotificationOneTimer)/\(store.warnOthersNotificationTwoTimer) seconds)")
 	}
 	
 	/// Returns the schedule timer time in seconds for timer one
 	func getNotificationTimerOne() -> Int {
-		return store.warnOthersNotificationOneDelay
+		return store.warnOthersNotificationOneTimer
 	}
 	
 	/// Sets a new timer value for timer one in seconds
 	func setNotificationTimerOne(seconds: Int) {
-		store.warnOthersNotificationOneDelay = seconds
+		store.warnOthersNotificationOneTimer = seconds
 	}
 	
 	/// Returns the schedule timer time in seconds for timer two
 	func getNotificationTimerTwo() -> Int {
-		return store.warnOthersNotificationTwoDelay
+		return store.warnOthersNotificationTwoTimer
 	}
 	
 	/// Sets a new timer value for timer two in seconds
 	func setNotificationTimerTwo(seconds: Int) {
-		store.warnOthersNotificationTwoDelay = seconds
+		store.warnOthersNotificationTwoTimer = seconds
 	}
 	
 	func reset() {
 		cancelNotifications()
 		storedResult = false
+		Log.info("Warn others hav been resetted")
 	}
 	
 	/// In case the user has informed others about the positive result, this function should be called to reset possible pending 'warn others' notifications

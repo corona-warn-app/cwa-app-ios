@@ -108,8 +108,8 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		])
 		
 		// MARK: Set Default Value for the notification text filelds:
-		time1Textfield.text = "\(ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue)"
-		time2Textfield.text = "\(ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue)"
+		time1Textfield.text = "\(WarnOthersNotificationsTimer.timerOneTime.rawValue)"
+		time2Textfield.text = "\(WarnOthersNotificationsTimer.timerTwoTime.rawValue)"
 		
 		//Set the keyboard type.
 		time1Textfield.keyboardType = .numberPad
@@ -124,21 +124,21 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		let time2Text = Int(time2Textfield.text ?? "")
 		
 		// MARK: Create an alert when user enter the wrong values.
-		if time2Text ?? ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue <= time1Text ?? ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue {
+		if time2Text ?? WarnOthersNotificationsTimer.timerOneTime.rawValue <= time1Text ?? WarnOthersNotificationsTimer.timerTwoTime.rawValue {
 			
 			// Display second notification should be greater than first notification alert.
 			alertMessage(titleStr: "Please Enter the Correct Notification Time", messageStr: "Second notification time seconds should be greater than the first notification time seconds.")
 			
 			//Set default text values in both notification set textfileds.
-			time1Textfield.text = "\(ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue)"
-			time2Textfield.text = "\(ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue)"
+			time1Textfield.text = "\(WarnOthersNotificationsTimer.timerOneTime.rawValue)"
+			time2Textfield.text = "\(WarnOthersNotificationsTimer.timerTwoTime.rawValue)"
 		} else {
 			// MARK: Save the notifications time into the SecureStore.
-			store.warnOthersNotificationOneDelay = time1Text ?? ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue
-			store.warnOthersNotificationOneDelay = time2Text ?? ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue
+			store.warnOthersNotificationOneTimer = time1Text ?? WarnOthersNotificationsTimer.timerOneTime.rawValue
+			store.warnOthersNotificationOneTimer = time2Text ?? WarnOthersNotificationsTimer.timerTwoTime.rawValue
 			
 			//Display notification save alert.
-			alertMessage(titleStr: "Notifications time saved", messageStr: "Notification1 time \(time1Text ?? ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue) seconds & Notification2 time \(time2Text ?? ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue) seconds has saved into the secure store.")
+			alertMessage(titleStr: "Notifications time saved", messageStr: "Notification1 time \(time1Text ?? WarnOthersNotificationsTimer.timerOneTime.rawValue) seconds & Notification2 time \(time2Text ?? WarnOthersNotificationsTimer.timerTwoTime.rawValue) seconds has saved into the secure store.")
 		}
 
 	}
@@ -146,8 +146,8 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	
 	@objc
 	private func resetNotificationsButtonTapped() {
-		time1Textfield.text = "\(ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue)"
-		time2Textfield.text = "\(ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue)"
+		time1Textfield.text = "\(WarnOthersNotificationsTimer.timerOneTime.rawValue)"
+		time2Textfield.text = "\(WarnOthersNotificationsTimer.timerTwoTime.rawValue)"
 	}
 	
 }

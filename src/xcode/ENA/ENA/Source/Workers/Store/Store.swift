@@ -116,10 +116,16 @@ protocol Store: AnyObject {
 	var selectedServerEnvironment: ServerEnvironmentData { get set }
 	
 	/// Delay time in seconds, when the first notification to warn others will be shown,
-	var warnOthersNotificationOneDelay: Int { get set }
+	var warnOthersNotificationOneTimer: Int { get set }
 	
 	/// Delay time in seconds, when the first notification to warn others will be shown,
-	var warnOthersNotificationTwoDelay: Int { get set }
+	var warnOthersNotificationTwoTimer: Int { get set }
+	
+	/// If there was a positive test result, this information will be stored for warn others
+	var warnOthersHasActiveTestResult: Bool { get set }
+	
+	/// To keep an eye on what is/was the state of the warn others notification, the latest state is stored
+	var warnOthersNotificationState: Int { get set }
 
 	var isDeviceTimeCorrect: Bool { get set }
 	

@@ -25,6 +25,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	init?(
 		coder: NSCoder,
 		supportedCountries: [Country],
+		warnOthers: OthersWarnable,
 		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
 		self.viewModel = ExposureSubmissionWarnOthersViewModel(supportedCountries: supportedCountries)
@@ -49,6 +50,8 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+		
+		// TODO: (kga) cancel possible warn others notifications
 		onPrimaryButtonTap { [weak self] isLoading in
 			DispatchQueue.main.async {
 				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading

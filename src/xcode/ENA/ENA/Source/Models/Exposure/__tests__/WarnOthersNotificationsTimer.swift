@@ -20,10 +20,10 @@
 import Foundation
 
 /// Defines to deleay timer values for the first and the second notification to be shown. The values are seconds
-enum ENWarnOthersNotifications: Int {
+enum WarnOthersNotificationsTimer: Int {
 	
-	case notificationOneDefaultDelay = 7200
+	case timerOneTime = 7200
 	
-	case notificationTwoDefaultDelay = 14400
+	case timerTwoTime = 14400
 	
 }

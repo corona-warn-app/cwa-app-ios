@@ -263,14 +263,24 @@ final class SecureStore: Store {
 
 extension SecureStore {
 
-	var warnOthersNotificationOneDelay: Int {
-		get { kvStore["wasDeviceTimeErrorShown"] as Int? ?? ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue }
-		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
+	var warnOthersNotificationOneTimer: Int {
+		get { kvStore["warnOthersNotificationTimerOne"] as Int? ?? WarnOthersNotificationsTimer.timerOneTime.rawValue }
+		set { kvStore["warnOthersNotificationTimerOne"] = newValue }
 	}
 	
-	var warnOthersNotificationTwoDelay: Int {
-		get { kvStore["wasDeviceTimeErrorShown"] as Int? ?? ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue }
-		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
+	var warnOthersNotificationTwoTimer: Int {
+		get { kvStore["warnOthersNotificationTimerTwo"] as Int? ?? WarnOthersNotificationsTimer.timerTwoTime.rawValue }
+		set { kvStore["warnOthersNotificationTimerTwo"] = newValue }
+	}
+	
+	var warnOthersNotificationState: Int {
+		get { kvStore["warnOthersNotificationState"] as Int? ?? WarnOthersNotificationState.unscheduled.rawValue }
+		set { kvStore["warnOthersNotificationState"] = newValue }
+	}
+	
+	var warnOthersHasActiveTestResult: Bool {
+		get { kvStore["warnOthersHasActiveTestResult"] as Bool? ?? false }
+		set { kvStore["warnOthersHasActiveTestResult"] = newValue }
 	}
 }
 

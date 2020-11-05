@@ -68,16 +68,20 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	weak var presentedViewController: UIViewController?
 
 	var model: ExposureSubmissionCoordinatorModel!
+	
+	let warnOthers: OthersWarnable
 
 	// MARK: - Initializers.
 
 	init(
+		warnOthers: OthersWarnable,
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
 		delegate: ExposureSubmissionCoordinatorDelegate? = nil
 	) {
 		self.parentNavigationController = parentNavigationController
 		self.delegate = delegate
+		self.warnOthers = warnOthers
 
 		super.init()
 
@@ -172,8 +176,10 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	func createTestResultViewController(with testResult: TestResult) -> ExposureSubmissionTestResultViewController {
+		
 		return ExposureSubmissionTestResultViewController(
 			viewModel: .init(
+				warnOthers: warnOthers,
 				testResult: testResult,
 				exposureSubmissionService: model.exposureSubmissionService,
 				onContinueWithSymptomsFlowButtonTap: { [weak self] isLoading in
@@ -464,7 +470,7 @@ extension ExposureSubmissionCoordinator {
 		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
 	) -> ExposureSubmissionWarnOthersViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnOthersViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionWarnOthersViewController(coder: coder, supportedCountries: supportedCountries, onPrimaryButtonTap: onPrimaryButtonTap)
+			ExposureSubmissionWarnOthersViewController(coder: coder, supportedCountries: supportedCountries, warnOthers: self.warnOthers, onPrimaryButtonTap: onPrimaryButtonTap)
 		}
 	}
 

@@ -23,6 +23,7 @@ class ExposureSubmissionTestResultViewModel {
 	// MARK: - Init
 
 	init(
+		warnOthers: OthersWarnable,
 		testResult: TestResult,
 		exposureSubmissionService: ExposureSubmissionService,
 		onContinueWithSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
@@ -34,6 +35,7 @@ class ExposureSubmissionTestResultViewModel {
 		self.onContinueWithSymptomsFlowButtonTap = onContinueWithSymptomsFlowButtonTap
 		self.onContinueWithoutSymptomsFlowButtonTap = onContinueWithoutSymptomsFlowButtonTap
 		self.onTestDeleted = onTestDeleted
+		self.warnOthers = warnOthers
 
 		updateForCurrentTestResult()
 	}
@@ -90,8 +92,10 @@ class ExposureSubmissionTestResultViewModel {
 
 	func deleteTest() {
 		exposureSubmissionService.deleteTest()
-		// (kga) Reset warn others
 		onTestDeleted()
+		
+		// Update warn others model
+		self.warnOthers.reset()
 	}
 
 	// MARK: - Private
@@ -107,6 +111,8 @@ class ExposureSubmissionTestResultViewModel {
 			updateForCurrentTestResult()
 		}
 	}
+	
+	private var warnOthers: OthersWarnable
 
 	private var primaryButtonIsLoading: Bool = false {
 		didSet {
@@ -129,6 +135,9 @@ class ExposureSubmissionTestResultViewModel {
 	private func updateForCurrentTestResult() {
 		self.dynamicTableViewModel = DynamicTableViewModel([currentTestResultSection])
 		updateButtons()
+		
+		// Also update the warn others model
+		self.warnOthers.evaluateNotificationState(testResult: self.testResult)
 	}
 
 	private func updateButtons() {
