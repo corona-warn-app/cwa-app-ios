@@ -23,12 +23,9 @@ class RiskCalculationV2Test: XCTestCase {
 		// GIVEN
 		let testCases = testCasesWithConfiguration.testCases
 
-		let serverEnvironment = ServerEnvironment()
-		let store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
-
 		for testCase in testCases {
 			// WHEN
-			let result = try DebugRiskCalculationV2(riskCalculation: RiskCalculationV2(), store: store).calculateRisk(
+			let result = try RiskCalculationV2().calculateRisk(
 				exposureWindows: testCase.exposureWindows,
 				configuration: testCasesWithConfiguration.defaultRiskCalculationConfiguration
 			)
