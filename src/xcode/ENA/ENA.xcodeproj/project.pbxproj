@@ -66,7 +66,7 @@
 		01DB708525068167008F7244 /* Calendar+GregorianLocale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DB708425068167008F7244 /* Calendar+GregorianLocale.swift */; };
 		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
 		01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01E42990251DCDC90057FCBE /* Localizable.legal.strings */; };
-		01F52F8A2550679600997A26 /* RiskCalculationWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F52F892550679600997A26 /* RiskCalculationWindow.swift */; };
+		01F52F8A2550679600997A26 /* RiskCalculationExposureWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F52F892550679600997A26 /* RiskCalculationExposureWindow.swift */; };
 		01F52F92255067A000997A26 /* RiskCalculationV2Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F52F91255067A000997A26 /* RiskCalculationV2Error.swift */; };
 		01F52FFC2552E6F600997A26 /* ENARangeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F52FFB2552E6F600997A26 /* ENARangeTest.swift */; };
 		01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5F7212487B9C000229720 /* AppInformationViewController.swift */; };
@@ -641,7 +641,7 @@
 		01E4298F251DCDC90057FCBE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.legal.strings; sourceTree = "<group>"; };
 		01E42994251DCDCE0057FCBE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.legal.strings; sourceTree = "<group>"; };
 		01E42995251DCDD10057FCBE /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.legal.strings; sourceTree = "<group>"; };
-		01F52F892550679600997A26 /* RiskCalculationWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationWindow.swift; sourceTree = "<group>"; };
+		01F52F892550679600997A26 /* RiskCalculationExposureWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationExposureWindow.swift; sourceTree = "<group>"; };
 		01F52F91255067A000997A26 /* RiskCalculationV2Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationV2Error.swift; sourceTree = "<group>"; };
 		01F52FFB2552E6F600997A26 /* ENARangeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENARangeTest.swift; sourceTree = "<group>"; };
 		01F5F7212487B9C000229720 /* AppInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationViewController.swift; sourceTree = "<group>"; };
@@ -2768,7 +2768,7 @@
 			children = (
 				BA6C8B0C254D6BC9008344F5 /* __test__ */,
 				BA6C8B04254D6B1F008344F5 /* RiskCalculationV2.swift */,
-				01F52F892550679600997A26 /* RiskCalculationWindow.swift */,
+				01F52F892550679600997A26 /* RiskCalculationExposureWindow.swift */,
 				01F52F91255067A000997A26 /* RiskCalculationV2Error.swift */,
 				BA6C8A94254D626C008344F5 /* Models */,
 			);
@@ -3435,7 +3435,7 @@
 				EB08F17A2541CE3300D11FA9 /* risk_level.pb.swift in Sources */,
 				B1A31F6924DAE6C000E263DF /* DMKeyCell.swift in Sources */,
 				710224F42490E7A3000C5DEF /* ExposureSubmissionStepCell.swift in Sources */,
-				01F52F8A2550679600997A26 /* RiskCalculationWindow.swift in Sources */,
+				01F52F8A2550679600997A26 /* RiskCalculationExposureWindow.swift in Sources */,
 				AB7420CB251B7D93006666AC /* DeltaOnboardingV15ViewController.swift in Sources */,
 				B19FD7132491A08500A9D56A /* SAP_SemanticVersion+Compare.swift in Sources */,
 				B1B381432472EF8B0056BEEE /* HTTPClient+Configuration.swift in Sources */,
