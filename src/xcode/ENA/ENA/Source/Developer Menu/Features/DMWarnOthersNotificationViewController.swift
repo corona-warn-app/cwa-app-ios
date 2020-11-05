@@ -31,9 +31,11 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	private var time2Label: UILabel!
 	
 	private let store: Store
+	private var warnOthers: OthersWarnable
 	
-	init(store: Store) {
+	init(warnOthers: OthersWarnable, store: Store) {
 		self.store = store
+		self.warnOthers = warnOthers
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -59,17 +61,29 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		descriptionLabel.text = "You can use the two input fields below to maintain the time until the notifications will be shown. Time is maintained in seconds."
 		descriptionLabel.font = UIFont.enaFont(for: .subheadline)
 		
-		let setupButton = UIButton(frame: .zero)
-		setupButton.translatesAutoresizingMaskIntoConstraints = false
-		setupButton.setTitle("Schedule notifications", for: .normal)
-		setupButton.addTarget(self, action: #selector(scheduleNotificationsButtonTapped), for: .touchUpInside)
-		setupButton.setTitleColor(.enaColor(for: .buttonPrimary), for: .normal)
+		let saveButton = UIButton(frame: .zero)
+		saveButton.translatesAutoresizingMaskIntoConstraints = false
+		saveButton.setTitle("Save timer values", for: .normal)
+		saveButton.addTarget(self, action: #selector(scheduleNotificationsButtonTapped), for: .touchUpInside)
+		saveButton.setTitleColor(.enaColor(for: .buttonPrimary), for: .normal)
 		
-		let resetButton = UIButton(frame: .zero)
-		resetButton.translatesAutoresizingMaskIntoConstraints = false
-		resetButton.setTitle("Cancel notifications", for: .normal)
-		resetButton.addTarget(self, action: #selector(resetNotificationsButtonTapped), for: .touchUpInside)
-		resetButton.setTitleColor(.enaColor(for: .buttonDestructive), for: .normal)
+		let resetDefaultsButton = UIButton(frame: .zero)
+		resetDefaultsButton.translatesAutoresizingMaskIntoConstraints = false
+		resetDefaultsButton.setTitle("Reset values to default", for: .normal)
+		resetDefaultsButton.addTarget(self, action: #selector(resetDefaultsButtonTapped), for: .touchUpInside)
+		resetDefaultsButton.setTitleColor(.enaColor(for: .buttonDestructive), for: .normal)
+		
+		let descriptionLabelResetNotifications = UILabel(frame: .zero)
+		descriptionLabelResetNotifications.translatesAutoresizingMaskIntoConstraints = false
+		descriptionLabelResetNotifications.numberOfLines = 0
+		descriptionLabelResetNotifications.text = "If you want to let the notifications get scheduled again, press the reset button below and after that you go back to the corresponding views, they will be scheduled again."
+		descriptionLabelResetNotifications.font = UIFont.enaFont(for: .subheadline)
+		
+		let resetNotificationsButton = UIButton(frame: .zero)
+		resetNotificationsButton.translatesAutoresizingMaskIntoConstraints = false
+		resetNotificationsButton.setTitle("Reset notification state", for: .normal)
+		resetNotificationsButton.addTarget(self, action: #selector(resetNotificationsButtonTapped), for: .touchUpInside)
+		resetNotificationsButton.setTitleColor(.enaColor(for: .buttonDestructive), for: .normal)
 		
 		time1Label = UILabel(frame: .zero)
 		time1Label.translatesAutoresizingMaskIntoConstraints = false
@@ -90,8 +104,9 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		time2Textfield.translatesAutoresizingMaskIntoConstraints = false
 		time2Textfield.delegate = self
 		time2Textfield.borderStyle = .line
+	
 		
-		let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel, time1Label, time1Textfield, time2Label, time2Textfield, setupButton, resetButton])
+		let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel, time1Label, time1Textfield, time2Label, time2Textfield, saveButton, resetDefaultsButton, descriptionLabelResetNotifications, resetNotificationsButton])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .vertical
 		stackView.alignment = .center
@@ -108,48 +123,50 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		])
 		
 		// MARK: Set Default Value for the notification text filelds:
-		time1Textfield.text = "\(WarnOthersNotificationsTimer.timerOneTime.rawValue)"
-		time2Textfield.text = "\(WarnOthersNotificationsTimer.timerTwoTime.rawValue)"
+		time1Textfield.text = "\(warnOthers.notificationOneTimer)"
+		time2Textfield.text = "\(warnOthers.notificationTwoTimer)"
 		
 		//Set the keyboard type.
 		time1Textfield.keyboardType = .numberPad
 		time2Textfield.keyboardType = .numberPad
 		self.hideKeyboardWhenTappedAround()
+		
 	}
 	
 	// MARK: Private API
 	@objc
 	private func scheduleNotificationsButtonTapped() {
-		let time1Text = Int(time1Textfield.text ?? "")
-		let time2Text = Int(time2Textfield.text ?? "")
+		let time1 = Int(time1Textfield.text ?? "")
+		let time2 = Int(time2Textfield.text ?? "")
 		
-		// MARK: Create an alert when user enter the wrong values.
-		if time2Text ?? WarnOthersNotificationsTimer.timerOneTime.rawValue <= time1Text ?? WarnOthersNotificationsTimer.timerTwoTime.rawValue {
+		// Create an alert when user enter the wrong values.
+		if time2 ?? WarnOthersNotificationsTimer.timerOneTime.rawValue <= time1 ?? WarnOthersNotificationsTimer.timerTwoTime.rawValue {
 			
 			// Display second notification should be greater than first notification alert.
 			alertMessage(titleStr: "Please Enter the Correct Notification Time", messageStr: "Second notification time seconds should be greater than the first notification time seconds.")
-			
-			//Set default text values in both notification set textfileds.
-			time1Textfield.text = "\(WarnOthersNotificationsTimer.timerOneTime.rawValue)"
-			time2Textfield.text = "\(WarnOthersNotificationsTimer.timerTwoTime.rawValue)"
+
 		} else {
-			// MARK: Save the notifications time into the SecureStore.
-			store.warnOthersNotificationOneTimer = time1Text ?? WarnOthersNotificationsTimer.timerOneTime.rawValue
-			store.warnOthersNotificationOneTimer = time2Text ?? WarnOthersNotificationsTimer.timerTwoTime.rawValue
+			// Save the notifications time into the SecureStore.
+			warnOthers.notificationOneTimer = time1 ?? WarnOthersNotificationsTimer.timerOneTime.rawValue
+			warnOthers.notificationTwoTimer = time2 ?? WarnOthersNotificationsTimer.timerTwoTime.rawValue
 			
 			//Display notification save alert.
-			alertMessage(titleStr: "Notifications time saved", messageStr: "Notification1 time \(time1Text ?? WarnOthersNotificationsTimer.timerOneTime.rawValue) seconds & Notification2 time \(time2Text ?? WarnOthersNotificationsTimer.timerTwoTime.rawValue) seconds has saved into the secure store.")
+			alertMessage(titleStr: "Notifications time saved", messageStr: "Notification1 time \(time1 ?? WarnOthersNotificationsTimer.timerOneTime.rawValue) seconds & Notification2 time \(time2 ?? WarnOthersNotificationsTimer.timerTwoTime.rawValue) seconds has saved into the secure store.")
 		}
 
 	}
 	
 	
 	@objc
-	private func resetNotificationsButtonTapped() {
+	private func resetDefaultsButtonTapped() {
 		time1Textfield.text = "\(WarnOthersNotificationsTimer.timerOneTime.rawValue)"
 		time2Textfield.text = "\(WarnOthersNotificationsTimer.timerTwoTime.rawValue)"
 	}
 	
+	@objc
+	private func resetNotificationsButtonTapped() {
+		warnOthers.reset()
+	}
 }
 
 // MARK: Set the alert popups.
