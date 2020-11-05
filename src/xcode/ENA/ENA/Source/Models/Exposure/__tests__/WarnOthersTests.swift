@@ -37,22 +37,22 @@ class WarnOthersTests: XCTestCase {
 		
 		let warnOthers = WarnOthers(store: store)
 		
-		let defaultDelayOne = ENWarnOthersNotificationsTimer.notificationOneDefaultDelay.rawValue
-		XCTAssertEqual(warnOthers.getNotificationTimerOne(), defaultDelayOne, "Notification timer one has not the intial value of \(defaultDelayOne)")
+		let timerOneTime = WarnOthersNotificationsTimer.timerOneTime.rawValue
+		XCTAssertEqual(warnOthers.notificationOneTimer, timerOneTime, "Notification timer one has not the intial value of \(timerOneTime)")
 		
-		let defaultDelayTwo = ENWarnOthersNotificationsTimer.notificationTwoDefaultDelay.rawValue
-		XCTAssertEqual(warnOthers.getNotificationTimerTwo(), defaultDelayTwo, "Notification timer two has not the intial value of \(defaultDelayTwo)")
+		let timerTwoTime = WarnOthersNotificationsTimer.timerTwoTime.rawValue
+		XCTAssertEqual(warnOthers.notificationTwoTimer, timerTwoTime, "Notification timer two has not the intial value of \(timerTwoTime)")
 		
 		XCTAssertFalse(warnOthers.storedResult, "Inital value of storedResult should be 'false'")
 		
 		warnOthers.evaluateNotificationState(testResult: .positive)
 		XCTAssertTrue(warnOthers.storedResult, "Inital value of storedResult should be 'true'")
 		
-		warnOthers.setNotificationTimerOne(seconds: 42)
-		XCTAssertEqual(warnOthers.getNotificationTimerOne(), 42, "Notification timer one has not the intial value of '42'")
+		warnOthers.notificationOneTimer = 42
+		XCTAssertEqual(warnOthers.notificationOneTimer, 42, "Notification timer one has not the intial value of '42'")
 		
-		warnOthers.setNotificationTimerTwo(seconds: 42)
-		XCTAssertEqual(warnOthers.getNotificationTimerTwo(), 42, "Notification timer two has not the intial value of '42'")
+		warnOthers.notificationTwoTimer = 42
+		XCTAssertEqual(warnOthers.notificationTwoTimer, 42, "Notification timer two has not the intial value of '42'")
 		
 		warnOthers.reset()
 		XCTAssertFalse(warnOthers.storedResult, "Inital value of storedResult should be 'false'")

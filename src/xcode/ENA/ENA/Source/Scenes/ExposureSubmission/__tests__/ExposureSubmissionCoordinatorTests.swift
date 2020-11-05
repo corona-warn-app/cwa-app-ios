@@ -32,7 +32,10 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 	// MARK: - Setup and teardown methods.
 
-	override func setUp() {
+	private var store: SecureStore!
+	
+	override func setUpWithError() throws {
+		store = try SecureStore(at: URL(staticString: ":memory:"), key: "123456", serverEnvironment: ServerEnvironment())
 		parentNavigationController = UINavigationController()
 		exposureSubmissionService = MockExposureSubmissionService()
 		delegate = MockExposureSubmissionCoordinatorDelegate()
@@ -46,7 +49,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		delegate: ExposureSubmissionCoordinatorDelegate) -> ExposureSubmissionCoordinator {
 
 		return ExposureSubmissionCoordinator(
-			parentNavigationController: parentNavigationController,
+			warnOthers: WarnOthers(store: self.store), parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			delegate: delegate
 		)

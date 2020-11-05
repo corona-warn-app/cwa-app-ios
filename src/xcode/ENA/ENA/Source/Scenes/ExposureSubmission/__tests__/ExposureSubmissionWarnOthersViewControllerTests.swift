@@ -22,16 +22,19 @@ import XCTest
 @testable import ENA
 
 class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
-
-	override func setUp() {
-		super.setUp()
+	
+	private var store: SecureStore!
+	
+	override func setUpWithError() throws {
+		store = try SecureStore(at: URL(staticString: ":memory:"), key: "123456", serverEnvironment: ServerEnvironment())
 	}
 
 	private func createVC() -> ExposureSubmissionWarnOthersViewController {
+		
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnOthersViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionWarnOthersViewController(
 				coder: coder,
-				supportedCountries: ["DE", "IT", "ES", "NL", "CZ", "AT", "DK", "IE", "LV", "EE"].compactMap { Country(countryCode: $0) },
+				supportedCountries: ["DE", "IT", "ES", "NL", "CZ", "AT", "DK", "IE", "LV", "EE"].compactMap { Country(countryCode: $0) }, warnOthers: WarnOthers(store: self.store),
 				onPrimaryButtonTap: { _ in }
 			)
 		}
