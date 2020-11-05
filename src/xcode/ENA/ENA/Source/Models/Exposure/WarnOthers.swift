@@ -83,10 +83,8 @@ class WarnOthers: OthersWarnable {
 	
 	func reset() {
 		cancelNotifications()
-		
-		// TODO: (kga) update secure store too
 		storedResult = false
-		Log.info("Warn others hav been resetted")
+		Log.info("Warn others have been resetted")
 	}
 	
 	/// In case the user has informed others about the positive result, this function should be called to reset possible pending 'warn others' notifications
