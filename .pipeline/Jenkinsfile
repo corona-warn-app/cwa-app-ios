@@ -1,0 +1,5 @@
+#!/usr/bin/env groovy
+
+@Library(['piper-lib', 'cwa-remote-pipelines']) _
+
+cwaAppiOSPipeline script: this, customDefaults: ['cwa-mobile-clients-defaults.yml', 'ios/cwa-app-ios-config.yml']
