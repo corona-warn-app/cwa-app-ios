@@ -18,7 +18,7 @@
 import Foundation
 import FMDB
 
-enum SQLiteErrorCode: Error, Int32 {
+enum SQLiteErrorCode: Int32, Error {
 	case sqlite_full = 13
 	case unknown = -1
 }

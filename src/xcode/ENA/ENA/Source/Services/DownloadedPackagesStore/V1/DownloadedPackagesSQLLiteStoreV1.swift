@@ -396,7 +396,7 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 			self.database.executeUpdate(sql, withParameterDictionary: parameters)
 		}
 	}
-	
+
 	func deleteHourPackage(for day: String, hour: Int, country: Country.ID) {
 		queue.sync {
 			let sql = """
