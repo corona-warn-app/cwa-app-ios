@@ -476,7 +476,7 @@ extension ExposureSubmissionCoordinator {
 
 	private func createSuccessViewController() -> ExposureSubmissionSuccessViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSuccessViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionSuccessViewController(warnOthers: self.warnOthers ,coder: coder, coordinator: self)
+			ExposureSubmissionSuccessViewController(warnOthers: self.warnOthers, coder: coder, coordinator: self)
 		}
 	}
 

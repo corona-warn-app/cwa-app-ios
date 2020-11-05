@@ -51,7 +51,6 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		
-		// TODO: (kga) cancel possible warn others notifications
 		onPrimaryButtonTap { [weak self] isLoading in
 			DispatchQueue.main.async {
 				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
