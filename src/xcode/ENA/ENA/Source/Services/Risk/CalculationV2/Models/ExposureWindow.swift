@@ -20,28 +20,22 @@
 import Foundation
 import ExposureNotification
 
-extension ENCalibrationConfidence: Codable { }
-extension ENDiagnosisReportType: Codable { }
-extension ENInfectiousness: Codable { }
-
-struct ExposureWindow: Decodable {
+struct ExposureWindow {
 
 	// MARK: - Init
 
-	init(from decoder: Decoder) throws {
-		let container = try decoder.container(keyedBy: CodingKeys.self)
-
-		calibrationConfidence = try container.decode(ENCalibrationConfidence.self, forKey: .calibrationConfidence)
-		reportType = try container.decode(ENDiagnosisReportType.self, forKey: .reportType)
-		infectiousness = try container.decode(ENInfectiousness.self, forKey: .infectiousness)
-		scanInstances = try container.decode([ScanInstance].self, forKey: .scanInstances)
-
-		let ageInDays = try container.decode(Int.self, forKey: .date)
-		guard let date = Calendar.current.date(byAdding: .day, value: -ageInDays, to: Calendar.current.startOfDay(for: Date())) else {
-			fatalError("Date could not be generated")
-		}
-
+	init(
+		calibrationConfidence: ENCalibrationConfidence,
+		date: Date,
+		reportType: ENDiagnosisReportType,
+		infectiousness: ENInfectiousness,
+		scanInstances: [ScanInstance]
+	) {
+		self.calibrationConfidence = calibrationConfidence
 		self.date = date
+		self.reportType = reportType
+		self.infectiousness = infectiousness
+		self.scanInstances = scanInstances
 	}
 
 	init(from exposureWindow: ENExposureWindow) {
@@ -50,15 +44,6 @@ struct ExposureWindow: Decodable {
 		self.reportType = exposureWindow.diagnosisReportType
 		self.infectiousness = exposureWindow.infectiousness
 		self.scanInstances = exposureWindow.scanInstances.map { ScanInstance(from: $0) }
-	}
-
-	// MARK: - Protocol Codable
-
-	enum CodingKeys: String, CodingKey {
-
-		case calibrationConfidence, reportType, infectiousness, scanInstances
-		case date = "ageInDays"
-
 	}
 
 	// MARK: - Internal

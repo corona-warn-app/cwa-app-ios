@@ -18,10 +18,11 @@
 //
 
 import Foundation
+import ExposureNotification
 
 /// Determines the risk level for one exposure window
 /// https://github.com/corona-warn-app/cwa-app-tech-spec/blob/7779cabcff42afb437f743f1d9e35592ef989c52/docs/spec/exposure-windows.md#determine-risk-level-for-exposure-windows
-final class RiskCalculationWindow {
+final class RiskCalculationExposureWindow {
 
 	// MARK: - Init
 
@@ -35,7 +36,25 @@ final class RiskCalculationWindow {
 
 	// MARK: - Internal
 
-	let exposureWindow: ExposureWindow
+	var calibrationConfidence: ENCalibrationConfidence {
+		exposureWindow.calibrationConfidence
+	}
+
+	var date: Date {
+		exposureWindow.date
+	}
+
+	var reportType: ENDiagnosisReportType {
+		exposureWindow.reportType
+	}
+
+	var infectiousness: ENInfectiousness {
+		exposureWindow.infectiousness
+	}
+
+	var scanInstances: [ScanInstance] {
+		exposureWindow.scanInstances
+	}
 
 	/// 1. Filter by `Minutes at Attenuation`
 	lazy var isDroppedByMinutesAtAttenuation: Bool = {
@@ -104,6 +123,7 @@ final class RiskCalculationWindow {
 
 	// MARK: - Private
 
+	private let exposureWindow: ExposureWindow
 	private let configuration: RiskCalculationConfiguration
 
 	/// 4. Determine `Transmission Risk Value`
