@@ -67,12 +67,6 @@ class ENANavigationControllerWithFooter: UINavigationController {
 		updateAdditionalSafeAreaInsets()
 		layoutFooterView()
 	}
-
-	override func popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
-		let viewController = super.popToViewController(viewController, animated: animated)
-		transitionFooterView(to: topViewController)
-		return viewController
-	}
 }
 
 private extension ENANavigationControllerWithFooter {
@@ -155,6 +149,12 @@ extension ENANavigationControllerWithFooter {
 	override func setViewControllers(_ viewControllers: [UIViewController], animated: Bool) {
 		super.setViewControllers(viewControllers, animated: animated)
 		transitionFooterView(to: topViewController)
+	}
+
+	override func popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
+		let viewController = super.popToViewController(viewController, animated: animated)
+		transitionFooterView(to: topViewController)
+		return viewController
 	}
 }
 
