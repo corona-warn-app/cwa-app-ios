@@ -190,7 +190,7 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	private func _requestRiskLevel(userInitiated: Bool, ignoreCachedSummary: Bool, completion: @escaping Completion) {
+	private func _requestRiskLevel(userInitiated: Bool, ignoreCachedSummary: Bool, completion: @escaping Completion) {
 		let group = DispatchGroup()
 		group.enter()
 		
