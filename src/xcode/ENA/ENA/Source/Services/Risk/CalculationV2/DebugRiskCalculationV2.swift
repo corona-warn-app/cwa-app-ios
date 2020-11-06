@@ -21,22 +21,9 @@
 
 import Foundation
 
-struct blae {
-	private(set) var mappedExposureWindows: [RiskCalculationExposureWindow] = []
-	private(set) var filteredExposureWindows: [RiskCalculationExposureWindow] = []
-	private(set) var exposureWindowsPerDate: [Date: [RiskCalculationExposureWindow]] = [:]
-	private(set) var normalizedTimePerDate: [Date: Double] = [:]
-	private(set) var riskLevelPerDate: [Date: CWARiskLevel] = [:]
-	private(set) var minimumDistinctEncountersWithLowRiskPerDate: [Date: Int] = [:]
-	private(set) var minimumDistinctEncountersWithHighRiskPerDate: [Date: Int] = [:]
-	private(set) var riskLevel: EitherLowOrIncreasedRiskLevel = .low
-	private(set) var mostRecentDateWithLowRisk: Date?
-	private(set) var mostRecentDateWithHighRisk: Date?
-	private(set) var minimumDistinctEncountersWithLowRisk = 0
-	private(set) var minimumDistinctEncountersWithHighRisk = 0
-}
-
 final class DebugRiskCalculationV2 {
+
+	// MARK: - Init
 
 	init(
 		riskCalculation: RiskCalculationV2,
@@ -46,13 +33,9 @@ final class DebugRiskCalculationV2 {
 		self.store = store
 	}
 
-	private let riskCalculation: RiskCalculationV2
-	private let store: Store
-
 	// MARK: - Internal
 
-	/// Calculates the risk level based on exposure windows
-	/// https://github.com/corona-warn-app/cwa-app-tech-spec/blob/7779cabcff42afb437f743f1d9e35592ef989c52/docs/spec/exposure-windows.md#aggregate-results-from-exposure-windows
+	/// executes the risk calculation and writes the risk calculation values and it's configuration to the store
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
@@ -64,6 +47,11 @@ final class DebugRiskCalculationV2 {
 
 		return riskCalculationResult
 	}
+
+	// MARK: - Private
+
+	private let riskCalculation: RiskCalculationV2
+	private let store: Store
 
 }
 
