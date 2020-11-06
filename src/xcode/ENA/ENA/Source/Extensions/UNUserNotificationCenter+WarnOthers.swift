@@ -41,27 +41,9 @@ extension UNUserNotificationCenter {
 		return (Bundle.main.bundleIdentifier ?? "") + ".notifications.cwa-warnOthers-\(notification)"
 	}
 	
+	// (PUM)
 	private func createWarnOtherNotification(notification: Int, timer: Double) {
-		let content = UNMutableNotificationContent()
-		content.title = AppStrings.WarnOthersNotification.title
-		content.body = AppStrings.WarnOthersNotification.description
-		content.sound = .default
-		
-		let trigger = UNTimeIntervalNotificationTrigger(
-			timeInterval: timer,
-			repeats: false
-		)
-		
-		let request = UNNotificationRequest(
-			identifier: getUniqueWarnOthersNotificationIdentifier(notification: notification),
-			content: content,
-			trigger: trigger
-		)
-		
-		self.add(request) { error in
-			if error != nil {
-				Log.error("Warn others notification \(notification) could not be scheduled.")
-			}
+		UNUserNotificationCenter.current().presentNotification(title: AppStrings.WarnOthersNotification.title, body: AppStrings.WarnOthersNotification.description, identifier: getUniqueWarnOthersNotificationIdentifier(notification: notification), in: timer)
+	
 		}
-	}
 }

@@ -300,6 +300,12 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 		case UserNotificationAction.openExposureDetectionResults.rawValue,
 			 UserNotificationAction.openTestResults.rawValue:
 			showHome(animated: true)
+			
+		// (PUM)
+		case UserNotificationAction.openWarnOthersResults.rawValue,
+			 UserNotificationAction.openTestResults.rawValue:
+			showHome(animated: true)
+		
 		case UserNotificationAction.ignore.rawValue,
 			 UNNotificationDefaultActionIdentifier,
 			 UNNotificationDismissActionIdentifier:

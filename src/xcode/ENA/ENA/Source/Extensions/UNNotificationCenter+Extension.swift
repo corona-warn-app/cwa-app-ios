@@ -19,6 +19,7 @@ import UserNotifications
 
 public enum UserNotificationAction: String {
 	case openExposureDetectionResults = "View_Exposure_Detection_Results"
+	case openWarnOthersResults = "View_Warn_Others_Results"
 	case openTestResults = "View_Test_Results"
 	case ignore = "Ignore"
 }
@@ -68,8 +69,32 @@ extension UNUserNotificationCenter {
 			intentIdentifiers: [],
 			options: []
 		)
-
-		setNotificationCategories([category])
+		
+		
+		// (PUM)
+		// This is no the right place to do it so also here we call same identifier for both results. So check for the better solution.
+		let openWarnOthersActionIdentifier = UserNotificationAction.openWarnOthersResults
+		
+		let viewWarnOthersAction = UNNotificationAction(
+			identifier: openWarnOthersActionIdentifier.rawValue,
+			title: openWarnOthersActionIdentifier.rawValue,
+			options: [.authenticationRequired]
+		)
+		
+		let deleteWarnOthersAction = UNNotificationAction(
+			identifier: UserNotificationAction.ignore.rawValue,
+			title: UserNotificationAction.ignore.rawValue,
+			options: [.destructive]
+		)
+		
+		let categoryWarnOthers = UNNotificationCategory(
+			identifier: identifier,
+			actions: [viewWarnOthersAction, deleteWarnOthersAction],
+			intentIdentifiers: [],
+			options: []
+		)
+		
+		setNotificationCategories([categoryWarnOthers])
 
 	}
 }
