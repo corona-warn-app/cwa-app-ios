@@ -17,11 +17,17 @@
 
 import UserNotifications
 
-public enum UserNotificationAction: String {
-	case openExposureDetectionResults = "View_Exposure_Detection_Results"
-	case openWarnOthersResults = "View_Warn_Others_Results"
-	case openTestResults = "View_Test_Results"
-	case ignore = "Ignore"
+public enum ActionableNotificationIdentifier: String {
+	case testResult = "test-result"
+	case riskDetection = "risk-detection"
+	case deviceTimeCheck = "device-time-check"
+	case warnOthersReminder1 = "warn-others-reminder-1"
+	case warnOthersReminder2 = "warn-others-reminder-2"
+
+	var identifier: String {
+		let bundleIdentifier = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
+		return "\(bundleIdentifier).\(rawValue)"
+	}
 }
 
 extension UNUserNotificationCenter {
@@ -48,53 +54,6 @@ extension UNUserNotificationCenter {
 				Log.error(error.localizedDescription, log: .api)
 			}
 		}
-
-		let openActionIdentifier = UserNotificationAction.openExposureDetectionResults
-
-		let viewAction = UNNotificationAction(
-			identifier: openActionIdentifier.rawValue,
-			title: openActionIdentifier.rawValue,
-			options: [.authenticationRequired]
-		)
-
-		let deleteAction = UNNotificationAction(
-			identifier: UserNotificationAction.ignore.rawValue,
-			title: UserNotificationAction.ignore.rawValue,
-			options: [.destructive]
-		)
-
-		let category = UNNotificationCategory(
-			identifier: identifier,
-			actions: [viewAction, deleteAction],
-			intentIdentifiers: [],
-			options: []
-		)
-		
-		
-		// (PUM)
-		// This is no the right place to do it so also here we call same identifier for both results. So check for the better solution.
-		let openWarnOthersActionIdentifier = UserNotificationAction.openWarnOthersResults
-		
-		let viewWarnOthersAction = UNNotificationAction(
-			identifier: openWarnOthersActionIdentifier.rawValue,
-			title: openWarnOthersActionIdentifier.rawValue,
-			options: [.authenticationRequired]
-		)
-		
-		let deleteWarnOthersAction = UNNotificationAction(
-			identifier: UserNotificationAction.ignore.rawValue,
-			title: UserNotificationAction.ignore.rawValue,
-			options: [.destructive]
-		)
-		
-		let categoryWarnOthers = UNNotificationCategory(
-			identifier: identifier,
-			actions: [viewWarnOthersAction, deleteWarnOthersAction],
-			intentIdentifiers: [],
-			options: []
-		)
-		
-		setNotificationCategories([categoryWarnOthers])
-
 	}
+
 }

@@ -75,7 +75,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				UNUserNotificationCenter.current().presentNotification(
 					title: AppStrings.LocalNotifications.testResultsTitle,
 					body: AppStrings.LocalNotifications.testResultsBody,
-					identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier + ".test-result"
+					identifier: ActionableNotificationIdentifier.testResult.identifier
 				)
 			}
 
@@ -99,7 +99,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 					UNUserNotificationCenter.current().presentNotification(
 						title: AppStrings.LocalNotifications.detectExposureTitle,
 						body: AppStrings.LocalNotifications.detectExposureBody,
-						identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier + ".risk-detection"
+						identifier: ActionableNotificationIdentifier.riskDetection.identifier
 					)
 					completion(true)
 				} else {
@@ -113,7 +113,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 							UNUserNotificationCenter.current().presentNotification(
 								title: AppStrings.WrongDeviceTime.errorPushNotificationTitle,
 								body: AppStrings.WrongDeviceTime.errorPushNotificationText,
-								identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier + ".device-time-check"
+								identifier: ActionableNotificationIdentifier.deviceTimeCheck.identifier
 							)
 							self.store.wasDeviceTimeErrorShown = true
 						}

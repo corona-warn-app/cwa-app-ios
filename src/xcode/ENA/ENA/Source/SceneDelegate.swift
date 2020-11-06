@@ -296,20 +296,20 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 	}
 
 	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-		switch response.actionIdentifier {
-		case UserNotificationAction.openExposureDetectionResults.rawValue,
-			 UserNotificationAction.openTestResults.rawValue:
+		switch response.notification.request.identifier {
+		case ActionableNotificationIdentifier.testResult.identifier,
+			 ActionableNotificationIdentifier.riskDetection.identifier,
+			 ActionableNotificationIdentifier.deviceTimeCheck.identifier:
 			showHome(animated: true)
 			
-		// (PUM)
-		case UserNotificationAction.openWarnOthersResults.rawValue,
-			 UserNotificationAction.openTestResults.rawValue:
+		case ActionableNotificationIdentifier.warnOthersReminder1.identifier,
+			 ActionableNotificationIdentifier.warnOthersReminder2.identifier:
 			showHome(animated: true)
 		
-		case UserNotificationAction.ignore.rawValue,
-			 UNNotificationDefaultActionIdentifier,
+		case UNNotificationDefaultActionIdentifier,
 			 UNNotificationDismissActionIdentifier:
 			break
+
 		default: break
 		}
 

@@ -40,6 +40,7 @@ class WarnOthers: OthersWarnable {
 	}
 	
 	/// Notification timer in seconds for notification one
+	// TODO: These should both be TimeIntervals and be called ...TimeInterval
 	var notificationOneTimer: Int {
 		get {
 			return store.warnOthersNotificationOneTimer
@@ -94,7 +95,10 @@ class WarnOthers: OthersWarnable {
 	
 	// MARK: - private API
 	private func scheduleNotifications() {
-		UNUserNotificationCenter.current().scheduleWarnOthersNotifications(timerOne: notificationOneTimer, timerTwo: notificationTwoTimer)
+		UNUserNotificationCenter.current().scheduleWarnOthersNotifications(
+			timeIntervalOne: TimeInterval(notificationOneTimer),
+			timeIntervalTwo: TimeInterval(notificationTwoTimer)
+		)
 		
 		Log.info("Warn Others: New notifications have been scheduled:  #1 \(store.warnOthersNotificationOneTimer)/ #2 \(store.warnOthersNotificationTwoTimer) seconds)")
 	}

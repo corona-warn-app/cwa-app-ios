@@ -24,26 +24,28 @@ extension UNUserNotificationCenter {
 	// MARK: - Public
 	
 	/// Schedule a local notification to fire 2 hours if users has not warn to others. Scedule one more notification after 4 hours if still user has not share the keys.
-	func scheduleWarnOthersNotifications(timerOne: Int, timerTwo: Int) {
-		
-		// Setup the notifications
-		createWarnOtherNotification(notification: 1, timer: Double(timerOne))
-		createWarnOtherNotification(notification: 2, timer: Double(timerTwo))
+	func scheduleWarnOthersNotifications(timeIntervalOne: TimeInterval, timeIntervalTwo: TimeInterval) {
+		presentNotification(identifier: ActionableNotificationIdentifier.warnOthersReminder1.identifier, in: timeIntervalOne)
+		presentNotification(identifier: ActionableNotificationIdentifier.warnOthersReminder2.identifier, in: timeIntervalOne)
 	}
 	
 	/// Cancels the Warn Others Notificatoin
 	func cancelWarnOthersNotification() {
-		removePendingNotificationRequests(withIdentifiers: [getUniqueWarnOthersNotificationIdentifier(notification: 1), getUniqueWarnOthersNotificationIdentifier(notification: 2)])
+		removePendingNotificationRequests(withIdentifiers: [
+			ActionableNotificationIdentifier.warnOthersReminder1.identifier,
+			ActionableNotificationIdentifier.warnOthersReminder2.identifier
+		])
 	}
 	
 	// MARK: - Private
-	private func getUniqueWarnOthersNotificationIdentifier(notification: Int) -> String {
-		return (Bundle.main.bundleIdentifier ?? "") + ".notifications.cwa-warnOthers-\(notification)"
+	
+	private func presentNotification(identifier: String, in timeInterval: TimeInterval) {
+		UNUserNotificationCenter.current()
+			.presentNotification(
+				title: AppStrings.WarnOthersNotification.title,
+				body: AppStrings.WarnOthersNotification.description,
+				identifier: identifier,
+				in: timeInterval
+			)
 	}
-	
-	// (PUM)
-	private func createWarnOtherNotification(notification: Int, timer: Double) {
-		UNUserNotificationCenter.current().presentNotification(title: AppStrings.WarnOthersNotification.title, body: AppStrings.WarnOthersNotification.description, identifier: getUniqueWarnOthersNotificationIdentifier(notification: notification), in: timer)
-	
-		}
 }
