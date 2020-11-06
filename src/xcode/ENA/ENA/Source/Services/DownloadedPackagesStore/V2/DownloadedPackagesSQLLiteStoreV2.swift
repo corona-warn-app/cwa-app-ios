@@ -38,6 +38,10 @@ final class DownloadedPackagesSQLLiteStoreV2 {
 		self.latestVersion = latestVersion
 	}
 
+	deinit {
+		database.close()
+	}
+
 	private func _beginTransaction() {
 		database.beginExclusiveTransaction()
 	}
@@ -49,9 +53,7 @@ final class DownloadedPackagesSQLLiteStoreV2 {
 	// MARK: Properties
 
 	#if !RELEASE
-
 	var keyValueStore: Store?
-
 	#endif
 
 	private let latestVersion: Int
@@ -107,7 +109,7 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 	func set(country: Country.ID, hour: Int, day: String, etag: String?, package: SAPDownloadedPackage) throws {
 		try queue.sync {
 			let sql = """
-				INSERT INTO Z_DOWNLOADED_PACKAGE(
+				INSERT INTO Z_DOWNLOADED_PACKAGE (
 					Z_BIN,
 					Z_SIGNATURE,
 					Z_DAY,
@@ -142,6 +144,7 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 				"etag": etag ?? NSNull()
 			]
 			guard self.database.executeUpdate(sql, withParameterDictionary: parameters) else {
+				Log.debug("[SQLite] (\(database.lastErrorCode()) \(database.lastErrorMessage())", log: .localData)
 				throw SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
 			}
 		}
@@ -215,6 +218,7 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 			self._beginTransaction()
 
 			guard deleteHours(), insertDay() else {
+				Log.debug("[SQLite] (\(database.lastErrorCode()) \(database.lastErrorMessage())", log: .localData)
 				throw SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
 			}
 			self._commit()
