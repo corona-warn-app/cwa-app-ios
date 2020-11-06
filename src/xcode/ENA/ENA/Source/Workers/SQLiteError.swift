@@ -22,7 +22,7 @@ import Foundation
 /// A small subset of sqlite error codes.
 ///
 /// For further reference see [the complete list of errors](https://sqlite.org/rescode.html).
-enum SQLiteErrorCode: Int32 {
+enum SQLiteErrorCode: Int32, Error {
 	case sqlite_full = 13
 	case unknown = -1
 }
