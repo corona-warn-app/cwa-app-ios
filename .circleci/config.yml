@@ -13,9 +13,6 @@ commands:
       - run:
           name: Install Bundler
           command: sudo gem install rake bundler:2.1.4
-      - run:
-          name: Install Bundler
-          command: ls -ls /Applications
 
   prepare-dependencies:
     steps:
