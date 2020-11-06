@@ -122,7 +122,7 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 					:signature,
 					:day,
 					:hour,
-					:country
+					:country,
 					:etag
 				)
 				ON CONFLICT(
@@ -267,9 +267,7 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 					Z_HOUR
 				FROM Z_DOWNLOADED_PACKAGE
 				WHERE
-					Z_ETAG = :country
-				ORDER BY
-					Z_HOUR DESC
+					Z_ETAG = :etag
 				;
 			"""
 
