@@ -81,7 +81,7 @@ final class RiskProviderTests: XCTestCase {
 			completion(.success(.init()))
 		}
 
-		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStoreV1 .inMemory()
+		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
 		let client = ClientMock()
 		let keyPackageDownload = KeyPackageDownload(
@@ -145,7 +145,7 @@ final class RiskProviderTests: XCTestCase {
 		}
 		expectThatSummaryIsRequested.isInverted = true
 
-		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStoreV1 .inMemory()
+		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
 		let client = ClientMock()
 		let keyPackageDownload = KeyPackageDownload(
@@ -203,7 +203,7 @@ final class RiskProviderTests: XCTestCase {
 		}
 		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
 
-		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStoreV1 .inMemory()
+		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
 		let client = ClientMock()
 		let keyPackageDownload = KeyPackageDownload(
@@ -264,7 +264,7 @@ final class RiskProviderTests: XCTestCase {
 		}
 		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
 
-		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStoreV1 .inMemory()
+		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
 		let client = ClientMock()
 		let keyPackageDownload = KeyPackageDownload(
@@ -491,7 +491,7 @@ final class RiskProviderTests: XCTestCase {
 
 		let appConfigurationProvider = CachedAppConfigurationMock(appConfigurationResult: .success(.riskCalculationAppConfig))
 
-		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStoreV1 .inMemory()
+		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
 		let client = ClientMock()
 		let keyPackageDownload = KeyPackageDownload(

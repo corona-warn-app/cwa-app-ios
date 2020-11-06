@@ -20,7 +20,7 @@
 import XCTest
 @testable import ENA
 
-class DownloadedPackagesStoreErrorStub: DownloadedPackagesStoreV1 {
+class DownloadedPackagesStoreErrorStub: DownloadedPackagesStoreV2 {
 
 	private let error: SQLiteErrorCode
 
@@ -32,12 +32,16 @@ class DownloadedPackagesStoreErrorStub: DownloadedPackagesStoreV1 {
 
 	func close() { }
 
-	func set(country: Country.ID, day: String, package: SAPDownloadedPackage) -> Result<Void, SQLiteErrorCode> {
-		return .failure(error)
+	func set(country: Country.ID, hour: Int, day: String, etag: String?, package: SAPDownloadedPackage) throws {
+		throw error
 	}
 
-	func set(country: Country.ID, hour: Int, day: String, package: SAPDownloadedPackage) -> Result<Void, SQLiteErrorCode> {
-		return .failure(error)
+	func set(country: Country.ID, day: String, etag: String?, package: SAPDownloadedPackage) throws {
+		throw error
+	}
+
+	func packages(with ETag: String) -> [SAPDownloadedPackage]? {
+		nil
 	}
 
 	func package(for day: String, country: Country.ID) -> SAPDownloadedPackage? {
