@@ -37,6 +37,7 @@ extension URLSessionConfiguration {
 	/// - Returns: the same as `.coronaWarnSessionConfiguration` but only for WiFi connections
 	class func coronaWarnSessionConfigurationWifiOnly() -> URLSessionConfiguration {
 		let config = coronaWarnSessionConfiguration()
+		config.allowsCellularAccess = false
 		// no download over expensive network (cellular)
 		config.allowsExpensiveNetworkAccess = false
 		// no download in case user has activated the low data mode
@@ -45,7 +46,6 @@ extension URLSessionConfiguration {
 		config.waitsForConnectivity = false
 		return config
 	}
-
 
 	/// CWA Session config with caching policy `.useProtocolCachePolicy`
 	///
