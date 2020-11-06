@@ -97,7 +97,7 @@ final class HTTPClientWifiOnly: ClientWifiOnly {
 
 		hours.forEach { hour in
 			group.enter()
-			self.fetchHour(hour, day: day, country: country) { result in
+			fetchHour(hour, day: day, country: country) { result in
 				switch result {
 				case let .success(hourBucket):
 					buckets[hour] = hourBucket

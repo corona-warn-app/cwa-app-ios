@@ -19,7 +19,7 @@ import ExposureNotification
 import Foundation
 import ZIPFoundation
 
-class HTTPClient: Client {
+final class HTTPClient: Client {
 
 	// MARK: - Init
 
