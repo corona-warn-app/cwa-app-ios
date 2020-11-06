@@ -35,6 +35,7 @@ final class RiskCalculationV2: Codable {
 	private(set) var mostRecentDateWithHighRisk: Date?
 	private(set) var minimumDistinctEncountersWithLowRisk = 0
 	private(set) var minimumDistinctEncountersWithHighRisk = 0
+	private(set) var calculationDate = Date()
 
 	/// Calculates the risk level based on exposure windows
 	/// https://github.com/corona-warn-app/cwa-app-tech-spec/blob/7779cabcff42afb437f743f1d9e35592ef989c52/docs/spec/exposure-windows.md#aggregate-results-from-exposure-windows
@@ -104,13 +105,15 @@ final class RiskCalculationV2: Codable {
 		/// 10. Determine `Total Minimum Distinct Encounters With High Risk`
 		minimumDistinctEncountersWithHighRisk = minimumDistinctEncountersWithHighRiskPerDate.values.reduce(0, +)
 
+		calculationDate = Date()
+
 		return RiskCalculationV2Result(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: minimumDistinctEncountersWithLowRisk,
 			minimumDistinctEncountersWithHighRisk: minimumDistinctEncountersWithHighRisk,
 			mostRecentDateWithLowRisk: mostRecentDateWithLowRisk,
 			mostRecentDateWithHighRisk: mostRecentDateWithHighRisk,
-			calculationDate: Date()
+			calculationDate: calculationDate
 		)
 	}
 
