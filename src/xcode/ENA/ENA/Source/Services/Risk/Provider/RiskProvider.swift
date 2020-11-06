@@ -131,6 +131,11 @@ extension RiskProvider: RiskProviding {
 			}
 			#endif
 
+			// Erase optionality.
+			let completion: Completion = { result in
+				completion?(result)
+			}
+
 			self._requestRiskLevel(userInitiated: userInitiated, ignoreCachedSummary: ignoreCachedSummary, completion: completion)
 		}
 	}
@@ -157,13 +162,13 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	private func successOnTargetQueue(risk: Risk, completion: Completion? = nil) {
+	private func successOnTargetQueue(risk: Risk, completion: @escaping Completion) {
 		Log.info("RiskProvider: Risk detection and calculation was successful.", log: .riskDetection)
 
 		updateActivityState(.idle)
 
 		targetQueue.async {
-			completion?(.success(risk))
+			completion(.success(risk))
 		}
 
 		for consumer in consumers {
@@ -171,13 +176,13 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	private func failOnTargetQueue(error: RiskProviderError, completion: Completion? = nil) {
+	private func failOnTargetQueue(error: RiskProviderError, completion: @escaping Completion) {
 		Log.info("RiskProvider: Failed with error: \(error)", log: .riskDetection)
 
 		updateActivityState(.idle)
 
 		targetQueue.async {
-			completion?(.failure(error))
+			completion(.failure(error))
 		}
 
 		for consumer in consumers {
@@ -185,7 +190,7 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	private func _requestRiskLevel(userInitiated: Bool, ignoreCachedSummary: Bool, completion: Completion? = nil) {
+	private func _requestRiskLevel(userInitiated: Bool, ignoreCachedSummary: Bool, completion: @escaping Completion) {
 		let group = DispatchGroup()
 		group.enter()
 		
@@ -205,7 +210,7 @@ extension RiskProvider: RiskProviding {
 					switch result {
 					case .success:
 						if let risk = self.riskForMissingPreconditions() {
-							self.successOnTargetQueue(risk: risk)
+							self.successOnTargetQueue(risk: risk, completion: completion)
 							group.leave()
 							return
 						}
@@ -232,7 +237,8 @@ extension RiskProvider: RiskProviding {
 					}
 				}
 
-			case .failure:
+			case .failure(let error):
+				print("*** error: \(error)")
 				self.failOnTargetQueue(error: .missingAppConfig, completion: completion)
 				group.leave()
 			}
@@ -249,6 +255,13 @@ extension RiskProvider: RiskProviding {
 		}
 
 		cancellationToken = nil
+
+		guard summary != nil else {
+			// Dont call failOnTargetQueue(...).
+			// Summary can be nil at this point, when a risk was derived from cache.
+			Log.info("RiskProvider: Failed risk level calculation. Summary is missing.", log: .riskDetection)
+			return
+		}
 
 		self.calculateRiskLevel(
 			summary: summary,
@@ -368,14 +381,8 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	private func calculateRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_Internal_ApplicationConfiguration?, completion: Completion? = nil) {
+	private func calculateRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_Internal_ApplicationConfiguration?, completion: @escaping Completion) {
 		Log.info("RiskProvider: Calculate risk level", log: .riskDetection)
-
-		guard summary != nil else {
-			Log.info("RiskProvider: Failed risk level calculation. Summary is missing.", log: .riskDetection)
-			completion?(.failure(.failedToDetectSummary))
-			return
-		}
 
 		guard let appConfiguration = appConfiguration else {
 			failOnTargetQueue(error: .missingAppConfig, completion: completion)
@@ -483,11 +490,13 @@ extension RiskProvider {
 #if DEBUG
 extension RiskProvider {
 	private func _requestRiskLevel_Mock(userInitiated: Bool, completion: Completion? = nil) {
-		let risk = Risk.mocked
-
-		targetQueue.async {
-			completion?(.success(.mocked))
+		// Erase optionality.
+		let completion: Completion = { result in
+			completion?(result)
 		}
+
+		let risk = Risk.mocked
+		successOnTargetQueue(risk: risk, completion: completion)
 
 		for consumer in consumers {
 			_provideRiskResult(.success(risk), to: consumer)
