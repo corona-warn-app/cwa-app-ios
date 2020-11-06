@@ -126,7 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}()
 
 	lazy var riskProvider: RiskProvider = {
-		let exposureDetectionInterval = self.store.hourlyFetchingEnabled ? DateComponents(minute: 45) : DateComponents(hour: 24)
+		let exposureDetectionInterval = DateComponents(hour: 24)
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: DateComponents(day: 2),
@@ -134,12 +134,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			detectionMode: .default
 		)
 
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			store: store
+		)
+
 		return RiskProvider(
 			configuration: config,
 			store: self.store,
 			exposureSummaryProvider: self,
 			appConfigurationProvider: appConfigurationProvider,
-			exposureManagerState: self.exposureManager.preconditions()
+			exposureManagerState: self.exposureManager.preconditions(),
+			keyPackageDownload: keyPackageDownload
 		)
 	}()
 
@@ -187,6 +194,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		_: UIApplication,
 		didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
+
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
 		taskScheduler.delegate = self

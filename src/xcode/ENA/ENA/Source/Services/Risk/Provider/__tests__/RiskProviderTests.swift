@@ -39,6 +39,7 @@ private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
 
 }
 
+// swiftlint:disable:next type_body_length
 final class RiskProviderTests: XCTestCase {
 
 	func testExposureDetectionIsExecutedIfLastDetectionIsTooOldAndModeIsAutomatic() throws {
@@ -80,12 +81,22 @@ final class RiskProviderTests: XCTestCase {
 			completion(.success(.init()))
 		}
 
+		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStoreV1 .inMemory()
+		downloadedPackagesStore.open()
+		let client = ClientMock()
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			store: store
+		)
+		
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			keyPackageDownload: keyPackageDownload
 		)
 
 		riskProvider.requestRisk(userInitiated: false)
@@ -134,12 +145,22 @@ final class RiskProviderTests: XCTestCase {
 		}
 		expectThatSummaryIsRequested.isInverted = true
 
+		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStoreV1 .inMemory()
+		downloadedPackagesStore.open()
+		let client = ClientMock()
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			store: store
+		)
+		
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			keyPackageDownload: keyPackageDownload
 		)
 
 		let expectThatRiskIsReturned = expectation(description: "expectThatRiskIsReturned")
@@ -182,13 +203,23 @@ final class RiskProviderTests: XCTestCase {
 		}
 		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
 
+		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStoreV1 .inMemory()
+		downloadedPackagesStore.open()
+		let client = ClientMock()
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			store: store
+		)
+		
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
 			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake()
+			riskCalculation: RiskCalculationFake(),
+			keyPackageDownload: keyPackageDownload
 		)
 
 		let consumer = RiskConsumer()
@@ -233,13 +264,23 @@ final class RiskProviderTests: XCTestCase {
 		}
 		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
 
+		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStoreV1 .inMemory()
+		downloadedPackagesStore.open()
+		let client = ClientMock()
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			store: store
+		)
+		
 		let sut = RiskProvider(
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
 			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake()
+			riskCalculation: RiskCalculationFake(),
+			keyPackageDownload: keyPackageDownload
 		)
 
 		let consumer = RiskConsumer()
@@ -277,7 +318,6 @@ final class RiskProviderTests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: .long)
-
 		XCTAssertTrue(store.shouldShowRiskStatusLoweredAlert)
 	}
 
@@ -298,7 +338,6 @@ final class RiskProviderTests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: .long)
-
 		XCTAssertTrue(store.shouldShowRiskStatusLoweredAlert)
 	}
 
@@ -319,7 +358,6 @@ final class RiskProviderTests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: .long)
-
 		XCTAssertFalse(store.shouldShowRiskStatusLoweredAlert)
 	}
 
@@ -340,7 +378,6 @@ final class RiskProviderTests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: .long)
-
 		XCTAssertFalse(store.shouldShowRiskStatusLoweredAlert)
 	}
 
@@ -361,7 +398,6 @@ final class RiskProviderTests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: .long)
-
 		XCTAssertTrue(store.shouldShowRiskStatusLoweredAlert)
 	}
 
@@ -382,7 +418,6 @@ final class RiskProviderTests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: .long)
-
 		XCTAssertFalse(store.shouldShowRiskStatusLoweredAlert)
 	}
 
@@ -403,7 +438,6 @@ final class RiskProviderTests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: .long)
-
 		XCTAssertTrue(store.shouldShowRiskStatusLoweredAlert)
 	}
 
@@ -415,7 +449,7 @@ final class RiskProviderTests: XCTestCase {
 
 		let consumer = RiskConsumer()
 		riskProvider.observeRisk(consumer)
-
+		
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
@@ -424,7 +458,6 @@ final class RiskProviderTests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: .long)
-
 		XCTAssertFalse(store.shouldShowRiskStatusLoweredAlert)
 	}
 
@@ -458,12 +491,21 @@ final class RiskProviderTests: XCTestCase {
 
 		let appConfigurationProvider = CachedAppConfigurationMock(appConfigurationResult: .success(.riskCalculationAppConfig))
 
+		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStoreV1 .inMemory()
+		downloadedPackagesStore.open()
+		let client = ClientMock()
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			store: store
+		)
 		return RiskProvider(
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
 			appConfigurationProvider: appConfigurationProvider,
-			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			keyPackageDownload: keyPackageDownload
 		)
 	}
 
