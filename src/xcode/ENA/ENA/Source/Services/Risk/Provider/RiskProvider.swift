@@ -237,8 +237,7 @@ extension RiskProvider: RiskProviding {
 					}
 				}
 
-			case .failure(let error):
-				print("*** error: \(error)")
+			case .failure:
 				self.failOnTargetQueue(error: .missingAppConfig, completion: completion)
 				group.leave()
 			}

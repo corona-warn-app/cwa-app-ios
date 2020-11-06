@@ -321,4 +321,91 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 
 		waitForExpectations(timeout: 1.0)
 	}
+
+	func test_When_NoNewPackagesFoundOnServer_Then_StatusChangesFrom_Idle_To_CheckingForNewPackages_To_Idle() {
+		let store = MockTestStore()
+		store.wasRecentDayKeyDownloadSuccessful = true
+
+		guard let yesterdayDate = Calendar.utcCalendar.date(byAdding: .day, value: -1, to: Date()) else {
+			fatalError("Could not create yesterdays date.")
+		}
+		let yesterdayKeyString = DateFormatter.packagesDayDateFormatter.string(from: yesterdayDate)
+
+		let packagesStore: DownloadedPackagesSQLLiteStoreV1 = .inMemory()
+		packagesStore.open()
+		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+		let countryId = "IT"
+		packagesStore.addFetchedDays([yesterdayKeyString: dummyPackage], country: countryId)
+
+		let client = ClientMock()
+		client.availableDaysAndHours = DaysAndHours(days: [yesterdayKeyString], hours: [1, 2])
+		client.downloadedPackage = dummyPackage
+
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: packagesStore,
+			client: client,
+			store: store,
+			countryIds: ["IT"]
+		)
+
+		let statusDidChangeExpectation = expectation(description: "Status statusDidChange called twice. 1. dheckingForNewPackages, 2. idle")
+		statusDidChangeExpectation.expectedFulfillmentCount = 2
+		var numberOfStatusChanges = 0
+
+		keyPackageDownload.statusDidChange = { status in
+			if numberOfStatusChanges == 0 {
+				XCTAssertEqual(status, .checkingForNewPackages)
+			} else if numberOfStatusChanges == 1 {
+				XCTAssertEqual(status, .idle)
+			}
+
+			numberOfStatusChanges += 1
+			statusDidChangeExpectation.fulfill()
+		}
+
+		keyPackageDownload.startDayPackagesDownload { _ in }
+
+		waitForExpectations(timeout: 1.0)
+	}
+
+	func test_When_NewPackagesFoundOnServer_Then_StatusChangesFrom_Idle_To_Downloading_To_CheckingForNewPackages_To_Idle() {
+		let store = MockTestStore()
+
+		let packagesStore: DownloadedPackagesSQLLiteStoreV1 = .inMemory()
+		packagesStore.open()
+
+		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+
+		let client = ClientMock()
+		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-01", "2020-10-02", "2020-10-03"], hours: [1, 2])
+		client.downloadedPackage = dummyPackage
+
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: packagesStore,
+			client: client,
+			store: store,
+			countryIds: ["IT"]
+		)
+
+		let statusDidChangeExpectation = expectation(description: "Status statusDidChange called three times. 1. dheckingForNewPackages, 2. downloading, 3. idle")
+		statusDidChangeExpectation.expectedFulfillmentCount = 3
+		var numberOfStatusChanges = 0
+
+		keyPackageDownload.statusDidChange = { status in
+			if numberOfStatusChanges == 0 {
+				XCTAssertEqual(status, .checkingForNewPackages)
+			} else if numberOfStatusChanges == 1 {
+				XCTAssertEqual(status, .downloading)
+			} else if numberOfStatusChanges == 2 {
+				XCTAssertEqual(status, .idle)
+			}
+
+			numberOfStatusChanges += 1
+			statusDidChangeExpectation.fulfill()
+		}
+
+		keyPackageDownload.startDayPackagesDownload { _ in }
+
+		waitForExpectations(timeout: 1.0)
+	}
 }
