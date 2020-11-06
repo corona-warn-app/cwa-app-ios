@@ -23,20 +23,23 @@ protocol DownloadedPackagesStoreV2: AnyObject {
 	func open()
 	func close()
 
-	func set(country: Country.ID, hour: Int, day: String, etag: String?, package: SAPDownloadedPackage)
-	func set(country: Country.ID, day: String, etag: String?, package: SAPDownloadedPackage, completion: ((SQLiteErrorCode?) -> Void)?)
+	func set(country: Country.ID, hour: Int, day: String, etag: String?, package: SAPDownloadedPackage) throws
+	func set(country: Country.ID, day: String, etag: String?, package: SAPDownloadedPackage) throws
 
 	/// Fetch key packages with a given ETag
 	/// - Parameter ETag: The ETag to match
 	/// - Returns: A list of matching key packages or `nil` if no matching packages were found
 	func packages(with ETag: String) -> [SAPDownloadedPackage]?
+
 	func package(for day: String, country: Country.ID) -> SAPDownloadedPackage?
 	func hourlyPackages(for day: String, country: Country.ID) -> [SAPDownloadedPackage]
 	func allDays(country: Country.ID) -> [String] // 2020-05-30
 	func hours(for day: String, country: Country.ID) -> [Int]
 
 	func reset()
-	func deleteOutdatedDays(now: String) throws
+	
+	func deleteHourPackage(for day: String, hour: Int, country: Country.ID)
+	func deleteDayPackage(for day: String, country: Country.ID)
 
 	/// Deletes a given `SAPDownloadedPackage`.
 	/// - Parameter package: The package to remove from the store
@@ -47,4 +50,19 @@ protocol DownloadedPackagesStoreV2: AnyObject {
 	#if !RELEASE
 	var keyValueStore: Store? { get set }
 	#endif
+}
+
+extension DownloadedPackagesStoreV2 {
+
+	func addFetchedDays(_ dayPackages: [String: SAPDownloadedPackage], country: Country.ID, etag: String?) throws {
+		try dayPackages.forEach { day, bucket in
+			try self.set(country: country, day: day, etag: etag, package: bucket)
+		}
+	}
+
+	func addFetchedHours(_ hourPackages: [Int: SAPDownloadedPackage], day: String, country: Country.ID, etag: String?) throws {
+		try hourPackages.forEach { hour, bucket in
+			try self.set(country: country, hour: hour, day: day, etag: etag, package: bucket)
+		}
+	}
 }

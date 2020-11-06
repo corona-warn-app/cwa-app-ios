@@ -104,8 +104,8 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 
 	// MARK: - Write Operations
 
-	func set(country: Country.ID, hour: Int, day: String, etag: String?, package: SAPDownloadedPackage) {
-		queue.sync {
+	func set(country: Country.ID, hour: Int, day: String, etag: String?, package: SAPDownloadedPackage) throws {
+		try queue.sync {
 			let sql = """
 				INSERT INTO Z_DOWNLOADED_PACKAGE(
 					Z_BIN,
@@ -141,16 +141,17 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 				"country": country,
 				"etag": etag ?? NSNull()
 			]
-			self.database.executeUpdate(sql, withParameterDictionary: parameters)
+			guard self.database.executeUpdate(sql, withParameterDictionary: parameters) else {
+				throw SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+			}
 		}
 	}
 
-	func set(country: Country.ID, day: String, etag: String?, package: SAPDownloadedPackage, completion: ((SQLiteErrorCode?) -> Void)?) {
+	func set(country: Country.ID, day: String, etag: String?, package: SAPDownloadedPackage) throws {
 
 		#if !RELEASE
 		if let store = keyValueStore, let errorCode = store.fakeSQLiteError {
-			failAsyncWithError(completion: completion, errorCode: errorCode)
-			return
+			throw SQLiteErrorCode(rawValue: errorCode) ?? SQLiteErrorCode.unknown
 		}
 		#endif
 
@@ -210,23 +211,13 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 			)
 		}
 
-		queue.sync {
+		try queue.sync {
 			self._beginTransaction()
 
-			guard deleteHours() else {
-				self.database.rollback()
-				self.failAsyncWithError(completion: completion, errorCode: database.lastErrorCode())
-				return
+			guard deleteHours(), insertDay() else {
+				throw SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
 			}
-			guard insertDay() else {
-				self.database.rollback()
-				self.failAsyncWithError(completion: completion, errorCode: database.lastErrorCode())
-				return
-			}
-
 			self._commit()
-
-			self.completeAsync(completion: completion)
 		}
 	}
 
@@ -381,23 +372,40 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 
 	// MARK: - Remove/Delete Operations
 
-//	func delete(package: SAPDownloadedPackage) throws {
-//		// TODO: !!!
-//	}
-
-	func deleteOutdatedDays(now: String) throws {
-		let success: Bool = queue.sync {
+	func deleteDayPackage(for day: String, country: Country.ID) {
+		queue.sync {
 			let sql = """
-			DELETE
-				FROM
+				DELETE FROM
 					Z_DOWNLOADED_PACKAGE
 				WHERE
-					Z_DAY <= Date(:now, '-14 days');
+					Z_COUNTRY = :country AND
+					Z_DAY = :day AND
+					Z_HOUR IS NULL
+				;
 			"""
-			return self.database.executeUpdate(sql, withParameterDictionary: ["now": now])
+
+			let parameters: [String: Any] = ["country": country, "day": day]
+			self.database.executeUpdate(sql, withParameterDictionary: parameters)
 		}
-		guard success else {
-			throw StoreError(self.database.lastErrorMessage())
+	}
+
+	func deleteHourPackage(for day: String, hour: Int, country: Country.ID) {
+		queue.sync {
+			let sql = """
+				DELETE FROM
+					Z_DOWNLOADED_PACKAGE
+				WHERE
+					Z_COUNTRY = :country AND
+					Z_DAY = :day AND
+					Z_HOUR = :hour
+				;
+			"""
+			let parameters: [String: Any] = [
+				"country": country,
+				"day": day,
+				"hour": hour
+			]
+			self.database.executeUpdate(sql, withParameterDictionary: parameters)
 		}
 	}
 
@@ -410,24 +418,6 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 					VACUUM;
 				"""
 			)
-		}
-	}
-
-	// MARK: - Private Helpers
-
-	private func failAsyncWithError(completion: ((SQLiteErrorCode?) -> Void)?, errorCode: Int32) {
-		DispatchQueue.global().async {
-			if let error = SQLiteErrorCode(rawValue: errorCode) {
-				completion?(error)
-			} else {
-				completion?(.unknown)
-			}
-		}
-	}
-
-	private func completeAsync(completion: ((SQLiteErrorCode?) -> Void)?) {
-		DispatchQueue.global().async {
-			completion?(nil)
 		}
 	}
 }

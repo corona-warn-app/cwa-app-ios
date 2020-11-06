@@ -467,7 +467,7 @@ extension DownloadedPackagesSQLLiteStoreV1 {
 	}
 }
 
-extension DownloadedPackagesStore {
+extension DownloadedPackagesStoreV1 {
 
 	@discardableResult
 	func addFetchedDays(_ dayPackages: [String: SAPDownloadedPackage], country: Country.ID) -> Result<Void, SQLiteErrorCode> {

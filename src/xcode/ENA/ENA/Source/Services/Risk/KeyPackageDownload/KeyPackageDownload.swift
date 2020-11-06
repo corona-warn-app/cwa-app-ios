@@ -174,7 +174,8 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 
 					switch result {
 					case .success(let hourPackages):
-						let result = self.persistPackages(hourPackages, downloadMode: downloadMode, country: countryId)
+						let etag = "TODO" // TODO: !!!
+						let result = self.persistPackages(hourPackages, downloadMode: downloadMode, country: countryId, etag: etag)
 
 						switch result {
 						case .success:
@@ -226,40 +227,41 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		}
 	}
 
-	private func persistPackages(_ keyPackages: [String: SAPDownloadedPackage], downloadMode: DownloadMode, country: Country.ID) -> Result<Void, KeyPackageDownloadError> {
-		var result: Result<Void, SQLiteErrorCode>
+	private func persistPackages(_ keyPackages: [String: SAPDownloadedPackage], downloadMode: DownloadMode, country: Country.ID, etag: String?) -> Result<Void, KeyPackageDownloadError> {
+		do {
+			switch downloadMode {
+			case .daily:
+				try downloadedPackagesStore.addFetchedDays(
+					keyPackages,
+					country: country,
+					etag: etag
+				)
+			case .hourly(let dayKey):
+				let keyPackages = Dictionary(
+					uniqueKeysWithValues: keyPackages.map { key, value in (Int(key) ?? -1, value) }
+				)
 
-		switch downloadMode {
-		case .daily:
-			result = downloadedPackagesStore.addFetchedDays(
-				keyPackages,
-				country: country
-			)
-		case .hourly(let dayKey):
-			let keyPackages = Dictionary(
-				uniqueKeysWithValues: keyPackages.map { key, value in (Int(key) ?? -1, value) }
-			)
-
-			result = downloadedPackagesStore.addFetchedHours(
-				keyPackages,
-				day: dayKey,
-				country: country
-			)
-		}
-
-		switch result {
-		case .success:
-			Log.info("KeyPackageDownload: Persistence of key packages successful.", log: .riskDetection)
-			return .success(())
-		case .failure(let error):
-			Log.error("KeyPackageDownload: Persistence of key packages failed.", log: .riskDetection, error: error)
-			switch error {
-			case .sqlite_full:
-				return .failure(.noDiskSpace)
-			case .unknown:
-				return .failure(.unableToWriteDiagnosisKeys)
+				try downloadedPackagesStore.addFetchedHours(
+					keyPackages,
+					day: dayKey,
+					country: country,
+					etag: etag
+				)
 			}
+		} catch SQLiteErrorCode.sqlite_full {
+			Log.error("KeyPackageDownload: Persistence of key packages failed. Storage full", log: .riskDetection, error: SQLiteErrorCode.sqlite_full)
+				return .failure(.noDiskSpace)
+		} catch SQLiteErrorCode.unknown {
+			Log.error("KeyPackageDownload: Persistence of key packages failed. Unknown reason.", log: .riskDetection, error: SQLiteErrorCode.unknown)
+				return .failure(.unableToWriteDiagnosisKeys)
+		} catch {
+			Log.error("KeyPackageDownload: Persistence of key packages failed.", log: .riskDetection, error: error)
+			assertionFailure("Expected error of type SQLiteErrorCode.")
+			return .failure(.unableToWriteDiagnosisKeys)
 		}
+
+		Log.info("KeyPackageDownload: Persistence of key packages successful.", log: .riskDetection)
+		return .success(())
 	}
 
 	private func cleanupPackages(for countryId: Country.ID, serverPackages: [String], downloadMode: DownloadMode) {
