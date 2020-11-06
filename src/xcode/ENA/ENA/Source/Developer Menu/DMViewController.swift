@@ -56,6 +56,12 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		}
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		navigationController?.setToolbarHidden(true, animated: animated)
+	}
+
 	// MARK: Clear Registration Token of Submission
 	@objc
 	private func clearRegistrationToken() {
