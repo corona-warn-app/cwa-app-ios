@@ -98,6 +98,7 @@ class DMDebugRiskCalculationViewController: UIViewController {
 
 		let encoder = JSONEncoder()
 		encoder.outputFormatting = .prettyPrinted
+		encoder.dateEncodingStrategy = .iso8601
 
 		textView.text += "\n\nConfiguration:\n\n"
 		if let data = try? encoder.encode(mostRecentRiskCalculationConfiguration), let mostRecentRiskCalculationConfiguration = String(data: data, encoding: .utf8) {
