@@ -37,7 +37,7 @@ final class RiskProvider {
 	private var consumersQueue = DispatchQueue(label: "com.sap.RiskProvider.consumer")
 	private var cancellationToken: CancellationToken?
 	private let riskCalculation: RiskCalculationProtocol
-	private let keyPackageDownload: KeyPackageDownloadProtocol
+	private var keyPackageDownload: KeyPackageDownloadProtocol
 
 	private var _consumers: [RiskConsumer] = []
 	private var consumers: [RiskConsumer] {
@@ -64,6 +64,8 @@ final class RiskProvider {
 		self.targetQueue = targetQueue
 		self.riskCalculation = riskCalculation
 		self.keyPackageDownload = keyPackageDownload
+
+		self.registerForPackageDownloadStatusUpdate()
 	}
 
 	// MARK: Properties
@@ -111,7 +113,7 @@ extension RiskProvider: RiskProviding {
 	func requestRisk(userInitiated: Bool, ignoreCachedSummary: Bool = false, completion: Completion? = nil) {
 		Log.info("Riskprovider: Request risk was called. UserInitiated: \(userInitiated), ignoreCachedSummary: \(ignoreCachedSummary)", log: .riskDetection)
 
-		guard !activityState.isActive else {
+		guard activityState == .idle else {
 			Log.info("Riskprovider: Risk detection is allready running. Don't start new risk detection.", log: .riskDetection)
 			targetQueue.async {
 				completion?(.failure(.riskProviderIsRunning))
@@ -120,7 +122,7 @@ extension RiskProvider: RiskProviding {
 		}
 
 		queue.async {
-			self.updateActivityState(.downloading)
+			self.updateActivityState(.riskRequested)
 
 			#if DEBUG
 			if isUITesting {
@@ -197,15 +199,11 @@ extension RiskProvider: RiskProviding {
 			case .success(let _config):
 				appConfiguration = _config
 
-				self.updateActivityState(.downloading)
-
 				self.downloadKeyPackages { [weak self] result in
 					guard let self = self else { return }
 
 					switch result {
 					case .success:
-						self.updateActivityState(.detecting)
-
 						if let risk = self.riskForMissingPreconditions() {
 							self.successOnTargetQueue(risk: risk)
 							group.leave()
@@ -348,6 +346,8 @@ extension RiskProvider: RiskProviding {
 			}
 		}
 
+		self.updateActivityState(.detecting)
+
 		// The summary is outdated: do a exposure detection
 		self.cancellationToken = exposureSummaryProvider.detectExposure(appConfiguration: appConfiguration) { [weak self] result in
 			guard let self = self else { return }
@@ -452,16 +452,30 @@ extension RiskProvider: RiskProviding {
 			}
 		}
 	}
+
+	private func registerForPackageDownloadStatusUpdate() {
+		self.keyPackageDownload.statusDidChange = { [weak self] downloadStatus in
+			guard let self = self else { return }
+
+			switch downloadStatus {
+			case .downloading:
+				self.updateActivityState(.downloading)
+			default:
+				break
+			}
+		}
+	}
 }
 
 extension RiskProvider {
 	enum ActivityState {
 		case idle
+		case riskRequested
 		case downloading
 		case detecting
 
 		var isActive: Bool {
-			self != .idle
+			self == .downloading || self == .detecting
 		}
 	}
 }

@@ -19,14 +19,24 @@ import Foundation
 
 extension String {
 	static func formattedToday() -> String {
-		DateFormatter.packagesDateFormatter.string(from: Date())
+		DateFormatter.packagesDayDateFormatter.string(from: Date())
 	}
 }
 
 extension DateFormatter {
-	static var packagesDateFormatter: DateFormatter = {
+	static var packagesDayDateFormatter: DateFormatter = {
 		let formatter = DateFormatter()
 		formatter.dateFormat = "yyyy-MM-dd"
+		formatter.timeZone = TimeZone(abbreviation: "UTC")
+		formatter.locale = Locale(identifier: "en_US_POSIX")
+		formatter.calendar = Calendar(identifier: .gregorian)
+
+		return formatter
+	}()
+
+	static var packagesHourDateFormatter: DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "d"
 		formatter.timeZone = TimeZone(abbreviation: "UTC")
 		formatter.locale = Locale(identifier: "en_US_POSIX")
 		formatter.calendar = Calendar(identifier: .gregorian)
