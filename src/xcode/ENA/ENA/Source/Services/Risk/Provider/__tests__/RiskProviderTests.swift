@@ -313,9 +313,12 @@ final class RiskProviderTests: XCTestCase {
 	func testShouldShowRiskStatusLoweredAlertIntitiallyFalseIsSetToTrueWhenRiskStatusLowers() throws {
 		let store = MockTestStore()
 		store.shouldShowRiskStatusLoweredAlert = false
+
 		let riskProvider = try riskProviderChangingRiskLevel(from: .increased, to: .low, store: store)
+
 		let consumer = RiskConsumer()
 		riskProvider.observeRisk(consumer)
+
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
@@ -330,9 +333,12 @@ final class RiskProviderTests: XCTestCase {
 	func testShouldShowRiskStatusLoweredAlertIntitiallyTrueIsSetToTrueWhenRiskStatusLowers() throws {
 		let store = MockTestStore()
 		store.shouldShowRiskStatusLoweredAlert = true
+
 		let riskProvider = try riskProviderChangingRiskLevel(from: .increased, to: .low, store: store)
+
 		let consumer = RiskConsumer()
 		riskProvider.observeRisk(consumer)
+
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
@@ -347,9 +353,12 @@ final class RiskProviderTests: XCTestCase {
 	func testShouldShowRiskStatusLoweredAlertInitiallyFalseKeepsValueWhenRiskStatusRises() throws {
 		let store = MockTestStore()
 		store.shouldShowRiskStatusLoweredAlert = false
+
 		let riskProvider = try riskProviderChangingRiskLevel(from: .low, to: .increased, store: store)
+
 		let consumer = RiskConsumer()
 		riskProvider.observeRisk(consumer)
+
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
@@ -364,9 +373,12 @@ final class RiskProviderTests: XCTestCase {
 	func testShouldShowRiskStatusLoweredAlertInitiallyTrueIsSetToFalseWhenRiskStatusRises() throws {
 		let store = MockTestStore()
 		store.shouldShowRiskStatusLoweredAlert = true
+
 		let riskProvider = try riskProviderChangingRiskLevel(from: .low, to: .increased, store: store)
+
 		let consumer = RiskConsumer()
 		riskProvider.observeRisk(consumer)
+
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
@@ -381,9 +393,12 @@ final class RiskProviderTests: XCTestCase {
 	func testShouldShowRiskStatusLoweredAlertInitiallyTrueKeepsValueWhenRiskStatusStaysLow() throws {
 		let store = MockTestStore()
 		store.shouldShowRiskStatusLoweredAlert = true
+
 		let riskProvider = try riskProviderChangingRiskLevel(from: .low, to: .low, store: store)
+
 		let consumer = RiskConsumer()
 		riskProvider.observeRisk(consumer)
+
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
@@ -398,9 +413,12 @@ final class RiskProviderTests: XCTestCase {
 	func testShouldShowRiskStatusLoweredAlertInitiallyFalseKeepsValueWhenRiskStatusStaysLow() throws {
 		let store = MockTestStore()
 		store.shouldShowRiskStatusLoweredAlert = false
+
 		let riskProvider = try riskProviderChangingRiskLevel(from: .low, to: .low, store: store)
+
 		let consumer = RiskConsumer()
 		riskProvider.observeRisk(consumer)
+
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
@@ -415,9 +433,12 @@ final class RiskProviderTests: XCTestCase {
 	func testShouldShowRiskStatusLoweredAlertInitiallyTrueKeepsValueWhenRiskStatusStaysIncreased() throws {
 		let store = MockTestStore()
 		store.shouldShowRiskStatusLoweredAlert = true
+
 		let riskProvider = try riskProviderChangingRiskLevel(from: .increased, to: .increased, store: store)
+
 		let consumer = RiskConsumer()
 		riskProvider.observeRisk(consumer)
+
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
@@ -432,9 +453,12 @@ final class RiskProviderTests: XCTestCase {
 	func testShouldShowRiskStatusLoweredAlertInitiallyFalseKeepsValueWhenRiskStatusStaysIncrease() throws {
 		let store = MockTestStore()
 		store.shouldShowRiskStatusLoweredAlert = false
+
 		let riskProvider = try riskProviderChangingRiskLevel(from: .increased, to: .increased, store: store)
+
 		let consumer = RiskConsumer()
 		riskProvider.observeRisk(consumer)
+		
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")

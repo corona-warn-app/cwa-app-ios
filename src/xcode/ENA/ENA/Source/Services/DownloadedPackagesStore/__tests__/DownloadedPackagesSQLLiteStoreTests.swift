@@ -224,10 +224,10 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 			signature: signature
 		)
 
-		_ = unitTestStore.set(country: "DE", hour: 1, day: "2020-11-04", package: package)
-		_ = unitTestStore.set(country: "DE", hour: 2, day: "2020-11-04", package: package)
-		_ = unitTestStore.set(country: "DE", day: "2020-11-03", package: package)
-		_ = unitTestStore.set(country: "DE", day: "2020-11-02", package: package)
+		unitTestStore.set(country: "DE", hour: 1, day: "2020-11-04", package: package)
+		unitTestStore.set(country: "DE", hour: 2, day: "2020-11-04", package: package)
+		unitTestStore.set(country: "DE", day: "2020-11-03", package: package)
+		unitTestStore.set(country: "DE", day: "2020-11-02", package: package)
 		
 		XCTAssertEqual(unitTestStore.hourlyPackages(for: "2020-11-04", country: "DE").count, 2)
 		XCTAssertEqual(unitTestStore.hours(for: "2020-11-04", country: "DE").count, 2)

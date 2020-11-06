@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="ENA Background Color"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="banner" rowHeight="237" id="LI9-YJ-AcE" customClass="ImageTableViewCell" customModule="ENA" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="banner" rowHeight="237" id="LI9-YJ-AcE" customClass="ImageTableViewCell" customModule="ENA" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="414" height="237"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LI9-YJ-AcE" id="8X1-Gk-KTS">
@@ -40,7 +40,7 @@
                                     <outlet property="imageContainerView" destination="onr-QD-Bec" id="CFw-BE-tRm"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="actionCell" id="aOm-Ws-AhL" userLabel="actionCell" customClass="ActionTableViewCell" customModule="ENA" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="actionCell" id="aOm-Ws-AhL" userLabel="actionCell" customClass="ActionTableViewCell" customModule="ENA" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="292.5" width="414" height="123"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aOm-Ws-AhL" id="FA2-VR-f2Y">
@@ -321,7 +321,7 @@
                                     <outlet property="iconImageView2" destination="F0p-QZ-aDD" id="STv-lw-oW3"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tracingCell" id="Ip1-td-013" userLabel="tracingHistoryCell" customClass="TracingHistoryTableViewCell" customModule="ENA" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="tracingCell" id="Ip1-td-013" userLabel="tracingHistoryCell" customClass="TracingHistoryTableViewCell" customModule="ENA" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="960.5" width="414" height="170.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ip1-td-013" id="Udp-QI-MbE">
@@ -412,7 +412,7 @@
                                     <outlet property="titleLabel" destination="BAn-nl-BA0" id="lIw-PE-LG9"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" id="xbF-3o-4Hm" userLabel="descriptionCell" customClass="DescriptionTableViewCell" customModule="ENA" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="descriptionCell" id="xbF-3o-4Hm" userLabel="descriptionCell" customClass="DescriptionTableViewCell" customModule="ENA" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="1131" width="414" height="362"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xbF-3o-4Hm" id="cDL-9j-OWe">
