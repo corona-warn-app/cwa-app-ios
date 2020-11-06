@@ -429,7 +429,7 @@ private extension ExposureDetectionExecutor {
 	static func makeWith(
 		client: Client = ClientMock(),
 		packageStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory(),
-		store: Store & AppConfigCaching = MockTestStore(),
+		store: Store = MockTestStore(),
 		exposureDetector: MockExposureDetector = MockExposureDetector()
 	) -> ExposureDetectionExecutor {
 		ExposureDetectionExecutor(
