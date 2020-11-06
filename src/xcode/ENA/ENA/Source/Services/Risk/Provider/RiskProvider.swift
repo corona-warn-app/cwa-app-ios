@@ -111,10 +111,10 @@ extension RiskProvider: RiskProviding {
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
 	func requestRisk(userInitiated: Bool, ignoreCachedSummary: Bool = false, completion: Completion? = nil) {
-		Log.info("Riskprovider: Request risk was called. UserInitiated: \(userInitiated), ignoreCachedSummary: \(ignoreCachedSummary)", log: .riskDetection)
+		Log.info("RiskProvider: Request risk was called. UserInitiated: \(userInitiated), ignoreCachedSummary: \(ignoreCachedSummary)", log: .riskDetection)
 
 		guard activityState == .idle else {
-			Log.info("Riskprovider: Risk detection is allready running. Don't start new risk detection.", log: .riskDetection)
+			Log.info("RiskProvider: Risk detection is allready running. Don't start new risk detection.", log: .riskDetection)
 			targetQueue.async {
 				completion?(.failure(.riskProviderIsRunning))
 			}
@@ -158,7 +158,7 @@ extension RiskProvider: RiskProviding {
 	}
 
 	private func successOnTargetQueue(risk: Risk, completion: Completion? = nil) {
-		Log.info("Riskprovider: Risk detection and calculation was successful.", log: .riskDetection)
+		Log.info("RiskProvider: Risk detection and calculation was successful.", log: .riskDetection)
 
 		updateActivityState(.idle)
 
@@ -172,7 +172,7 @@ extension RiskProvider: RiskProviding {
 	}
 
 	private func failOnTargetQueue(error: RiskProviderError, completion: Completion? = nil) {
-		Log.info("Riskprovider: Failed with error: \(error)", log: .riskDetection)
+		Log.info("RiskProvider: Failed with error: \(error)", log: .riskDetection)
 
 		updateActivityState(.idle)
 
@@ -442,7 +442,7 @@ extension RiskProvider: RiskProviding {
 	}
 
 	private func updateActivityState(_ state: ActivityState) {
-		Log.info("Riskprovider: Update activity state to: \(state)", log: .riskDetection)
+		Log.info("RiskProvider: Update activity state to: \(state)", log: .riskDetection)
 
 		self.activityState = state
 

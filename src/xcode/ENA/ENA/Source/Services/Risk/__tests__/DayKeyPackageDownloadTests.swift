@@ -137,7 +137,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		guard let yesterdayDate = Calendar.utcCalendar.date(byAdding: .day, value: -1, to: Date()) else {
 			fatalError("Could not create yesterdays date.")
 		}
-		let yesterdayKeyString = DateFormatter.packagesDateFormatter.string(from: yesterdayDate)
+		let yesterdayKeyString = DateFormatter.packagesDayDateFormatter.string(from: yesterdayDate)
 		let countryId = "IT"
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
 

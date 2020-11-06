@@ -135,9 +135,14 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 		store.wasRecentDayKeyDownloadSuccessful = true
 
 		guard let lastHourDate = Calendar.utcCalendar.date(byAdding: .hour, value: -1, to: Date()) else {
-			fatalError("Could not create last hour date.")
+			XCTFail("Could not create last hour date.")
+			return
 		}
-		let lastHourKey = Int(DateFormatter.packagesDateFormatter.string(from: lastHourDate)) ?? -1
+		guard let lastHourKey = Int(DateFormatter.packagesHourDateFormatter.string(from: lastHourDate)) else {
+			XCTFail("Could not create last hour key from date.")
+			return
+		}
+		
 		let countryId = "IT"
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
 
