@@ -28,17 +28,18 @@ extension UNUserNotificationCenter {
 		
 		// Setup the notifications
 		createWarnOtherNotification(notification: 1, timer: Double(timerOne))
-		createWarnOtherNotification(notification: 2, timer: Double(timerOne))
+		createWarnOtherNotification(notification: 2, timer: Double(timerTwo))
 	}
 	
 	/// Cancels the Warn Others Notificatoin
 	func cancelWarnOthersNotification() {
-		removePendingNotificationRequests(withIdentifiers: [UNUserNotificationCenter.warnOthersNotificationIdentifier + "1", UNUserNotificationCenter.warnOthersNotificationIdentifier + "2"])
+		removePendingNotificationRequests(withIdentifiers: [getUniqueWarnOthersNotificationIdentifier(notification: 1), getUniqueWarnOthersNotificationIdentifier(notification: 2)])
 	}
 	
 	// MARK: - Private
-	
-	private static let warnOthersNotificationIdentifier = (Bundle.main.bundleIdentifier ?? "") + ".notifications.cwa-warnOthers"
+	private func getUniqueWarnOthersNotificationIdentifier(notification: Int) -> String {
+		return (Bundle.main.bundleIdentifier ?? "") + ".notifications.cwa-warnOthers-\(notification)"
+	}
 	
 	private func createWarnOtherNotification(notification: Int, timer: Double) {
 		let content = UNMutableNotificationContent()
@@ -52,7 +53,7 @@ extension UNUserNotificationCenter {
 		)
 		
 		let request = UNNotificationRequest(
-			identifier: UNUserNotificationCenter.warnOthersNotificationIdentifier+"\(notification)",
+			identifier: getUniqueWarnOthersNotificationIdentifier(notification: notification),
 			content: content,
 			trigger: trigger
 		)
