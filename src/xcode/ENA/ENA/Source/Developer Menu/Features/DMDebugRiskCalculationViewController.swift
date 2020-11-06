@@ -91,8 +91,8 @@ class DMDebugRiskCalculationViewController: UIViewController {
 		textView.text = "Most recent risk calculation: "
 
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .full
-		dateFormatter.timeStyle = .full
+		dateFormatter.dateStyle = .short
+		dateFormatter.timeStyle = .short
 
 		textView.text += dateFormatter.string(from: mostRecentRiskCalculation.calculationDate)
 
