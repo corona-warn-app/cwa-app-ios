@@ -100,18 +100,17 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 		}
 	}
 
+	@discardableResult
 	func set(
 		country: Country.ID,
 		day: String,
-		package: SAPDownloadedPackage,
-		completion: ((SQLiteErrorCode?) -> Void)? = nil
-	) {
+		package: SAPDownloadedPackage
+	) -> Result<Void, SQLiteErrorCode> {
 
 		#if !RELEASE
 
 		if let store = keyValueStore, let errorCode = store.fakeSQLiteError {
-			failAsyncWithError(completion: completion, errorCode: errorCode)
-			return
+			return .failure(error(for: errorCode))
 		}
 
 		#endif
@@ -174,44 +173,39 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 
 			guard deleteHours() else {
 				self.database.rollback()
-				self.failAsyncWithError(completion: completion, errorCode: database.lastErrorCode())
 				return
 			}
 			guard insertDay() else {
 				self.database.rollback()
-				self.failAsyncWithError(completion: completion, errorCode: database.lastErrorCode())
 				return
 			}
 
 			self._commit()
-
-			self.completeAsync(completion: completion)
 		}
 
-	}
-
-	private func failAsyncWithError(completion: ((SQLiteErrorCode?) -> Void)?, errorCode: Int32) {
-		DispatchQueue.global().async {
-			if let error = SQLiteErrorCode(rawValue: errorCode) {
-				completion?(error)
-			} else {
-				completion?(.unknown)
-			}
+		let lastErrorCode = database.lastErrorCode()
+		if lastErrorCode == 0 {
+			return .success(())
+		} else {
+			return .failure(error(for: lastErrorCode))
 		}
 	}
 
-	private func completeAsync(completion: ((SQLiteErrorCode?) -> Void)?) {
-		DispatchQueue.global().async {
-			completion?(nil)
+	private func error(for sqliteErrorCode: Int32) -> SQLiteErrorCode {
+		if let error = SQLiteErrorCode(rawValue: sqliteErrorCode) {
+			return error
+		} else {
+			return .unknown
 		}
 	}
 
+	@discardableResult
 	func set(
 		country: Country.ID,
 		hour: Int,
 		day: String,
 		package: SAPDownloadedPackage
-	) {
+	) -> Result<Void, SQLiteErrorCode> {
 		queue.sync {
 			let sql = """
 				INSERT INTO Z_DOWNLOADED_PACKAGE(
@@ -247,21 +241,12 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 			]
 			self.database.executeUpdate(sql, withParameterDictionary: parameters)
 		}
-	}
 
-	func deleteOutdatedDays(now: String) throws {
-		let success: Bool = queue.sync {
-			let sql = """
-			DELETE
-				FROM
-					Z_DOWNLOADED_PACKAGE
-				WHERE
-					Z_DAY <= Date(:now, '-14 days');
-			"""
-			return self.database.executeUpdate(sql, withParameterDictionary: ["now": now])
-		}
-		guard success else {
-			throw StoreError(self.database.lastErrorMessage())
+		let lastErrorCode = database.lastErrorCode()
+		if lastErrorCode == 0 {
+			return .success(())
+		} else {
+			return .failure(error(for: lastErrorCode))
 		}
 	}
 
@@ -394,6 +379,43 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 			)
 		}
 	}
+	
+	func deleteDayPackage(for day: String, country: Country.ID) {
+		queue.sync {
+			let sql = """
+				DELETE FROM
+					Z_DOWNLOADED_PACKAGE
+				WHERE
+					Z_COUNTRY = :country AND
+					Z_DAY = :day AND
+					Z_HOUR IS NULL
+				;
+			"""
+			
+			let parameters: [String: Any] = ["country": country, "day": day]
+			self.database.executeUpdate(sql, withParameterDictionary: parameters)
+		}
+	}
+
+	func deleteHourPackage(for day: String, hour: Int, country: Country.ID) {
+		queue.sync {
+			let sql = """
+				DELETE FROM
+					Z_DOWNLOADED_PACKAGE
+				WHERE
+					Z_COUNTRY = :country AND
+					Z_DAY = :day AND
+					Z_HOUR = :hour
+				;
+			"""
+			let parameters: [String: Any] = [
+				"country": country,
+				"day": day,
+				"hour": hour
+			]
+			self.database.executeUpdate(sql, withParameterDictionary: parameters)
+		}
+	}
 }
 
 private extension FMDatabase {
@@ -442,5 +464,52 @@ extension DownloadedPackagesSQLLiteStoreV1 {
 		let migrator = SerialMigrator(latestVersion: latestDBVersion, database: db, migrations: [migration0To1])
 		self.init(database: db, migrator: migrator, latestVersion: latestDBVersion)
 		self.open()
+	}
+}
+
+extension DownloadedPackagesStore {
+
+	@discardableResult
+	func addFetchedDays(_ dayPackages: [String: SAPDownloadedPackage], country: Country.ID) -> Result<Void, SQLiteErrorCode> {
+		var errors = [SQLiteErrorCode]()
+
+		dayPackages.forEach { day, bucket in
+			let result = self.set(country: country, day: day, package: bucket)
+
+			switch result {
+			case .success:
+				break
+			case .failure(let error):
+				errors.append(error)
+			}
+		}
+
+		if let error = errors.first {
+			return .failure(error)
+		} else {
+			return .success(())
+		}
+	}
+
+	@discardableResult
+	func addFetchedHours(_ hourPackages: [Int: SAPDownloadedPackage], day: String, country: Country.ID) -> Result<Void, SQLiteErrorCode> {
+		var errors = [SQLiteErrorCode]()
+
+		hourPackages.forEach { hour, bucket in
+			let result = self.set(country: country, hour: hour, day: day, package: bucket)
+
+			switch result {
+			case .success:
+				break
+			case .failure(let error):
+				errors.append(error)
+			}
+		}
+
+		if let error = errors.first {
+			return .failure(error)
+		} else {
+			return .success(())
+		}
 	}
 }

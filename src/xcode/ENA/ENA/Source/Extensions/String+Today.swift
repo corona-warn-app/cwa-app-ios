@@ -34,3 +34,20 @@ extension DateFormatter {
 		return formatter
 	}()
 }
+
+extension TimeZone {
+	static var utcTimeZone: TimeZone = {
+		guard let utcTimeZone = TimeZone(abbreviation: "UTC") else {
+			fatalError("Could not create UTC TimeZone.")
+		}
+		return utcTimeZone
+	}()
+}
+
+extension Calendar {
+	static var utcCalendar: Calendar = {
+		var utcCalendar = Calendar(identifier: .gregorian)
+		utcCalendar.timeZone = TimeZone.utcTimeZone
+		return utcCalendar
+	}()
+}

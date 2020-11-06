@@ -33,11 +33,13 @@ final class ClientMock {
 		availableDaysAndHours: DaysAndHours = DaysAndHours(days: [], hours: []),
 		downloadedPackage: SAPDownloadedPackage? = nil,
 		submissionError: SubmissionError? = nil,
-		urlRequestFailure: Client.Failure? = nil
+		availablePackageRequestFailure: Client.Failure? = nil,
+		fetchPackageRequestFailure: Client.Failure? = nil
 	) {
 		self.availableDaysAndHours = availableDaysAndHours
 		self.downloadedPackage = downloadedPackage
-		self.urlRequestFailure = urlRequestFailure
+		self.availablePackageRequestFailure = availablePackageRequestFailure
+		self.fetchPackageRequestFailure = fetchPackageRequestFailure
 
 		if let error = submissionError {
 			onSubmitCountries = { $2(.failure(error)) }
@@ -49,7 +51,8 @@ final class ClientMock {
 	// MARK: - Properties.
 
 	var submissionResponse: KeySubmissionResponse?
-	var urlRequestFailure: Client.Failure?
+	var availablePackageRequestFailure: Client.Failure?
+	var fetchPackageRequestFailure: Client.Failure?
 	var availableDaysAndHours: DaysAndHours = DaysAndHours(days: [], hours: [])
 	var downloadedPackage: SAPDownloadedPackage?
 	lazy var supportedCountries: [Country] = {
@@ -70,7 +73,7 @@ final class ClientMock {
 extension ClientMock: Client {
 
 	func availableDays(forCountry country: String, completion: @escaping AvailableDaysCompletionHandler) {
-		if let failure = urlRequestFailure {
+		if let failure = availablePackageRequestFailure {
 			completion(.failure(failure))
 			return
 		}
@@ -78,7 +81,7 @@ extension ClientMock: Client {
 	}
 
 	func availableHours(day: String, country: String, completion: @escaping AvailableHoursCompletionHandler) {
-		if let failure = urlRequestFailure {
+		if let failure = availablePackageRequestFailure {
 			completion(.failure(failure))
 			return
 		}
@@ -86,7 +89,7 @@ extension ClientMock: Client {
 	}
 
 	func fetchDay(_ day: String, forCountry country: String, completion: @escaping DayCompletionHandler) {
-		if let failure = urlRequestFailure {
+		if let failure = fetchPackageRequestFailure {
 			completion(.failure(failure))
 			return
 		}
@@ -94,7 +97,7 @@ extension ClientMock: Client {
 	}
 
 	func fetchHour(_ hour: Int, day: String, country: String, completion: @escaping HourCompletionHandler) {
-		if let failure = urlRequestFailure {
+		if let failure = fetchPackageRequestFailure {
 			completion(.failure(failure))
 			return
 		}

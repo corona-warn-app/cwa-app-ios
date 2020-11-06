@@ -38,42 +38,45 @@ protocol ActivityStateProviderDelegate: class {
 
 final class RiskProvider {
 
-	private let queue = DispatchQueue(label: "com.sap.RiskProvider")
-	private let targetQueue: DispatchQueue
-	private var consumersQueue = DispatchQueue(label: "com.sap.RiskProvider.consumer")
-	private var cancellationToken: CancellationToken?
-	private let riskCalculation: RiskCalculationProtocol
+    private let queue = DispatchQueue(label: "com.sap.RiskProvider")
+    private let targetQueue: DispatchQueue
+    private var consumersQueue = DispatchQueue(label: "com.sap.RiskProvider.consumer")
+    private var cancellationToken: CancellationToken?
+    private let riskCalculation: RiskCalculationProtocol
+    private let keyPackageDownload: KeyPackageDownloadProtocol
 
-	private var _consumers: [RiskConsumer] = []
-	private var consumers: [RiskConsumer] {
-		get { consumersQueue.sync { _consumers } }
-		set { consumersQueue.sync { _consumers = newValue } }
-	}
+    private var _consumers: [RiskConsumer] = []
+    private var consumers: [RiskConsumer] {
+        get { consumersQueue.sync { _consumers } }
+        set { consumersQueue.sync { _consumers = newValue } }
+    }
 
-	// MARK: Creating a Risk Level Provider
-	init(
-		configuration: RiskProvidingConfiguration,
-		store: Store,
-		exposureSummaryProvider: ExposureSummaryProvider,
-		appConfigurationProvider: AppConfigurationProviding,
-		exposureManagerState: ExposureManagerState,
-		targetQueue: DispatchQueue = .main,
-		riskCalculation: RiskCalculationProtocol = RiskCalculation()
-	) {
-		self.configuration = configuration
-		self.store = store
-		self.exposureSummaryProvider = exposureSummaryProvider
-		self.appConfigurationProvider = appConfigurationProvider
-		self.exposureManagerState = exposureManagerState
-		self.targetQueue = targetQueue
-		self.riskCalculation = riskCalculation
+    // MARK: Creating a Risk Level Provider
+    init(
+        configuration: RiskProvidingConfiguration,
+        store: Store,
+        exposureSummaryProvider: ExposureSummaryProvider,
+        appConfigurationProvider: AppConfigurationProviding,
+        exposureManagerState: ExposureManagerState,
+        targetQueue: DispatchQueue = .main,
+        riskCalculation: RiskCalculationProtocol = RiskCalculation(),
+        keyPackageDownload: KeyPackageDownloadProtocol
+    ) {
+        self.configuration = configuration
+        self.store = store
+        self.exposureSummaryProvider = exposureSummaryProvider
+        self.appConfigurationProvider = appConfigurationProvider
+        self.exposureManagerState = exposureManagerState
+        self.targetQueue = targetQueue
+        self.riskCalculation = riskCalculation
+        self.keyPackageDownload = keyPackageDownload
 
-		self.$activityState
-			.removeDuplicates()
-			.debounce(for: .milliseconds(250), scheduler: RunLoop.main)
-			.sink { [weak self] state in self?._provideActivityState(state) }
-			.store(in: &subscriptions)
-	}
+        self.$activityState
+            .removeDuplicates()
+            .debounce(for: .milliseconds(250), scheduler: RunLoop.main)
+            .sink { [weak self] state in self?._provideActivityState(state) }
+            .store(in: &subscriptions)
+    }
 
 	// MARK: Properties
 	private var subscriptions = Set<AnyCancellable>()
@@ -274,27 +277,46 @@ extension RiskProvider: RiskProviding {
 			case .success(let _config):
 				appConfiguration = _config
 
-				self.determineSummary(
-					userInitiated: userInitiated,
-					ignoreCachedSummary: ignoreCachedSummary,
-					appConfiguration: _config,
-					completion: { [weak self] result in
-						guard let self = self else { return }
+                func determineSummaries() {
+                    self.determineSummary(
+                        userInitiated: userInitiated,
+                        ignoreCachedSummary: ignoreCachedSummary,
+                        appConfiguration: _config,
+                        completion: { [weak self] result in
+                            guard let self = self else { return }
 
-						switch result {
-						case .success(let _summary):
-							summary = _summary
-						case .failure(let error):
-							Log.info("RiskProvider: Failed determining summary.", log: .riskDetection)
-							self.failOnTargetQueue(
-								error: error,
-								completion: completion
-							)
-						}
+                            switch result {
+                            case .success(let _summary):
+                                summary = _summary
+                            case .failure(let error):
+                                Log.info("RiskProvider: Failed determining summary.", log: .riskDetection)
+                                self.failOnTargetQueue(
+                                    error: error,
+                                    completion: completion
+                                )
+                            }
 
-						group.leave()
-					}
-				)
+                            group.leave()
+                        }
+                    )
+                }
+
+                // The result of a hour package download is not handled, because for the risk detection it is irrelevant if it fails or not.
+                self.downloadHourPackages { [weak self] in
+                    guard let self = self else { return }
+
+                    self.downloadDayPackages(completion: { result in
+                        switch result {
+                        case .success:
+                            determineSummaries()
+                        case .failure(let error):
+                            self.failOnTargetQueue(error: error, completion: completion)
+                            group.leave()
+                        }
+                    })
+                }
+
+
 			case .failure(let error):
 				Log.error(error.localizedDescription, log: .api)
 				self.failOnTargetQueue(
@@ -372,6 +394,23 @@ extension RiskProvider: RiskProviding {
 		/// We were able to calculate a risk so we have to reset the DeadMan Notification
 		UNUserNotificationCenter.current().resetDeadmanNotification()
 	}
+
+    private func downloadDayPackages(completion: @escaping (Result<Void, RiskCalculationError>) -> Void) {
+        keyPackageDownload.startDayPackagesDownload(completion: { result in
+            switch result {
+            case .success:
+                completion(.success(()))
+            case .failure(let error):
+                completion(.failure(.failedKeyPackageDownload(error)))
+            }
+        })
+    }
+
+    private func downloadHourPackages(completion: @escaping () -> Void) {
+        keyPackageDownload.startHourPackagesDownload(completion: { _ in
+            completion()
+        })
+    }
 
 	private func _provideRiskResult(_ result: RiskCalculationResult, to consumer: RiskConsumer?) {
 		#if DEBUG
