@@ -44,6 +44,23 @@ class DMAppConfigurationViewController: UIViewController {
 		setUp()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		navigationController?.setToolbarHidden(false, animated: animated)
+
+		let shareBarButtonItem = UIBarButtonItem(title: "Export", style: .plain, target: self, action: #selector(didTapExportButton))
+
+		setToolbarItems(
+			[
+				UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+				shareBarButtonItem,
+				UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+			],
+			animated: animated
+		)
+	}
+
 	// MARK: - Private
 
 	private let appConfiguration: AppConfigurationProviding
@@ -73,6 +90,12 @@ class DMAppConfigurationViewController: UIViewController {
 				self?.textView.text = error.localizedDescription
 			}
 		}
+	}
+
+	@objc
+	private func didTapExportButton() {
+		let activityViewController = UIActivityViewController(activityItems: [textView.text ?? ""], applicationActivities: nil)
+		present(activityViewController, animated: true, completion: nil)
 	}
 
 }
