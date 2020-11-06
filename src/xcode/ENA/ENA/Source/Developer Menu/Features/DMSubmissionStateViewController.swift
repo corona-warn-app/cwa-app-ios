@@ -229,8 +229,10 @@ private extension Client {
 	}
 
 	func fetchAllKeys(
-		completion completeWith: @escaping DaysAndHoursCompletionHandler
+		completion completeWith: @escaping (FetchedDaysAndHours) -> Void
 	) {
+		// FIXME: not working at the moment - we need an wifiOnlyClient here
+		/*
 		availableDaysAndHours { daysAndHours in
 
 			self.fetchDays(
@@ -241,6 +243,7 @@ private extension Client {
 				completion: completeWith
 			)
 		}
+*/
 	}
 }
 

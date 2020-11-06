@@ -44,11 +44,13 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 	init(
 		downloadedPackagesStore: DownloadedPackagesStore,
 		client: Client,
+		wifiClient: ClientWifiOnly,
 		store: Store & AppConfigCaching,
 		countryIds: [Country.ID] = ["EUR"]
 	) {
 		self.downloadedPackagesStore = downloadedPackagesStore
 		self.client = client
+		self.wifiClient = wifiClient
 		self.store = store
 		self.countryIds = countryIds
 	}
@@ -108,6 +110,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 	private let countryIds: [Country.ID]
 	private let downloadedPackagesStore: DownloadedPackagesStore
 	private let client: Client
+	private let wifiClient: ClientWifiOnly
 	private let store: Store & AppConfigCaching
 	private var isKeyDownloadRunning = false
 
@@ -213,7 +216,8 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 			)
 		case .hourly(let dayKey):
 			let hourKeys = packageKeys.compactMap { Int($0) }
-			client.fetchHours(hourKeys, day: dayKey, country: country) { hoursResult in
+
+			wifiClient.fetchHours(hourKeys, day: dayKey, country: country) { hoursResult in
 				if hoursResult.errors.isEmpty {
 					let keyPackages = Dictionary(
 						uniqueKeysWithValues: hoursResult.bucketsByHour.map { key, value in (String(key), value) }
