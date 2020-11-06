@@ -22,7 +22,6 @@ import Foundation
 final class ExposureDetection {
 
 	// MARK: Properties
-	@Published var activityState: RiskProvider.ActivityState = .idle
 	private weak var delegate: ExposureDetectionDelegate?
 	private var completion: Completion?
 	private var progress: Progress?
@@ -45,7 +44,6 @@ final class ExposureDetection {
 	}
 
 	func cancel() {
-		activityState = .idle
 		progress?.cancel()
 	}
 
@@ -92,8 +90,6 @@ final class ExposureDetection {
 
         Log.info("ExposureDetection: Start writing packages to file system.", log: .riskDetection)
 
-        self.activityState = .detecting
-
         self.writeKeyPackagesToFileSystem { [weak self] writtenPackages in
             guard let self = self else { return }
 
@@ -126,8 +122,6 @@ final class ExposureDetection {
 			"Tried to end a detection prematurely is only possible if a detection is currently running."
 		)
 
-		activityState = .idle
-
 		DispatchQueue.main.async {
 			self.completion?(.failure(reason))
 			self.completion = nil
@@ -142,9 +136,7 @@ final class ExposureDetection {
 			completion != nil,
 			"Tried report a summary but no completion handler is set."
 		)
-
-		activityState = .idle
-
+		
 		DispatchQueue.main.async {
 			self.completion?(.success(summary))
 			self.completion = nil

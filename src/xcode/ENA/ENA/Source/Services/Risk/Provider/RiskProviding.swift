@@ -19,10 +19,11 @@
 
 import Foundation
 
-typealias RiskCalculationResult = Result<Risk, RiskCalculationError>
+typealias RiskCalculationResult = Result<Risk, RiskProviderError>
 
-enum RiskCalculationError: Error {
+enum RiskProviderError: Error {
 	case timeout
+	case riskProviderIsRunning
 	case missingAppConfig
 	case failedKeyPackageDownload(KeyPackageDownloadError)
 	case missingCachedSummary
