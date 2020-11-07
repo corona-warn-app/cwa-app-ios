@@ -115,6 +115,8 @@
 		3598D99A24FE280700483F1F /* CountryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3598D99924FE280700483F1F /* CountryTests.swift */; };
 		35A7F081250A7CF8005E6C33 /* KeychainHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A7F080250A7CF8005E6C33 /* KeychainHelperTests.swift */; };
 		35BE8598251CE495005C2FD0 /* CachingHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BE8597251CE495005C2FD0 /* CachingHTTPClient.swift */; };
+		35C701EC2556BCB9008AEA91 /* Migration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C701EB2556BCB9008AEA91 /* Migration1To2.swift */; };
+		35C701F82556C01F008AEA91 /* Migration1To2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C701F32556C016008AEA91 /* Migration1To2Tests.swift */; };
 		35EA684225553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA684125553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift */; };
 		35EA684A25553B5C00335F73 /* DownloadedPackagesStoreV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA684925553B5C00335F73 /* DownloadedPackagesStoreV2.swift */; };
 		35EA68522555488600335F73 /* SQLiteError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA68512555488600335F73 /* SQLiteError.swift */; };
@@ -676,6 +678,8 @@
 		3598D99924FE280700483F1F /* CountryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTests.swift; sourceTree = "<group>"; };
 		35A7F080250A7CF8005E6C33 /* KeychainHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelperTests.swift; sourceTree = "<group>"; };
 		35BE8597251CE495005C2FD0 /* CachingHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingHTTPClient.swift; sourceTree = "<group>"; };
+		35C701EB2556BCB9008AEA91 /* Migration1To2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration1To2.swift; sourceTree = "<group>"; };
+		35C701F32556C016008AEA91 /* Migration1To2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration1To2Tests.swift; sourceTree = "<group>"; };
 		35EA684125553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesSQLLiteStoreV2.swift; sourceTree = "<group>"; };
 		35EA684925553B5C00335F73 /* DownloadedPackagesStoreV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesStoreV2.swift; sourceTree = "<group>"; };
 		35EA68512555488600335F73 /* SQLiteError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteError.swift; sourceTree = "<group>"; };
@@ -2193,17 +2197,10 @@
 		AB5F84A924F8F6C7000400D4 /* Migration */ = {
 			isa = PBXGroup;
 			children = (
-				AB5F84AA24F8F6C7000400D4 /* 0To1 */,
+				AB5F84BA24F92876000400D4 /* Migration0To1Tests.swift */,
+				35C701F32556C016008AEA91 /* Migration1To2Tests.swift */,
 			);
 			path = Migration;
-			sourceTree = "<group>";
-		};
-		AB5F84AA24F8F6C7000400D4 /* 0To1 */ = {
-			isa = PBXGroup;
-			children = (
-				AB5F84BA24F92876000400D4 /* Migration0To1Tests.swift */,
-			);
-			path = 0To1;
 			sourceTree = "<group>";
 		};
 		AB5F84AB24F8F6EB000400D4 /* Migration */ = {
@@ -2220,6 +2217,7 @@
 			isa = PBXGroup;
 			children = (
 				AB5F84B124F8F7E3000400D4 /* Migration0To1.swift */,
+				35C701EB2556BCB9008AEA91 /* Migration1To2.swift */,
 			);
 			path = Migrations;
 			sourceTree = "<group>";
@@ -3275,6 +3273,7 @@
 				71FE1C7A247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift in Sources */,
 				B1C7EEAE24941A3B00F1F284 /* ManualExposureDetectionState.swift in Sources */,
 				51486DA22485101500FCE216 /* RiskInactiveCollectionViewCell.swift in Sources */,
+				35C701EC2556BCB9008AEA91 /* Migration1To2.swift in Sources */,
 				710021DC248E44A6001F0B63 /* ENAFont.swift in Sources */,
 				B1FE13FF2489708200D012E5 /* CachedAppConfiguration.swift in Sources */,
 				EE22DB8B247FB43A001B0A71 /* ActionDetailTableViewCell.swift in Sources */,
@@ -3547,6 +3546,7 @@
 				AB3560A02547194C00C3F8E0 /* DeviceTimeCheckTests.swift in Sources */,
 				A128F04E2489ABEE00EC7F6C /* RiskCalculationTests.swift in Sources */,
 				01A1B442252DE57000841B63 /* ExposureSubmissionQRScannerViewModelTests.swift in Sources */,
+				35C701F82556C01F008AEA91 /* Migration1To2Tests.swift in Sources */,
 				BA92A45E255163460063B46F /* ExposureSubmissionQRScannerViewModelGuidTests.swift in Sources */,
 				AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */,
 				B16177E824802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift in Sources */,

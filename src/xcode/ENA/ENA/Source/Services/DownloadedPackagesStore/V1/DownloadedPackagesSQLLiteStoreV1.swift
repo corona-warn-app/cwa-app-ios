@@ -66,7 +66,7 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 			self.database.open()
 
 			if self.database.tableExists("Z_DOWNLOADED_PACKAGE") {
-				self.migrator.migrate()
+				try? self.migrator.migrate()
 			} else {
 				self.database.executeStatements(
 				"""

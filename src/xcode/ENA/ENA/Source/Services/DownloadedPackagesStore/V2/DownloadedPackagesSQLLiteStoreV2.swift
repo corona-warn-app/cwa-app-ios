@@ -65,12 +65,13 @@ final class DownloadedPackagesSQLLiteStoreV2 {
 
 extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 
-	func open() {
+	func open() { // might throw errors in future versions!
 		queue.sync {
 			self.database.open()
 
 			if self.database.tableExists("Z_DOWNLOADED_PACKAGE") {
-				self.migrator.migrate()
+				// tbd: what to do on errors?
+				try? self.migrator.migrate()
 			} else {
 				self.database.executeStatements(
 				"""
@@ -118,7 +119,7 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 					Z_HOUR,
 					Z_COUNTRY,
 					Z_ETAG,
-					Z_HASH,
+					Z_HASH
 				)
 				VALUES (
 					:bin,
@@ -149,7 +150,7 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 				"hash": SHA256.hash(data: package.bin)
 			]
 			guard self.database.executeUpdate(sql, withParameterDictionary: parameters) else {
-				Log.debug("[SQLite] (\(database.lastErrorCode()) \(database.lastErrorMessage())", log: .localData)
+				Log.debug("[SQLite] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				throw SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
 			}
 		}
@@ -226,7 +227,7 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 			self._beginTransaction()
 
 			guard deleteHours(), insertDay() else {
-				Log.debug("[SQLite] (\(database.lastErrorCode()) \(database.lastErrorMessage())", log: .localData)
+				Log.debug("[SQLite] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				throw SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
 			}
 			self._commit()
@@ -492,9 +493,9 @@ extension DownloadedPackagesSQLLiteStoreV2 {
 
 		let db = FMDatabase(url: storeURL)
 
-		let latestDBVersion = 1
-		let migration0To1 = Migration0To1(database: db)
-		let migrator = SerialMigrator(latestVersion: latestDBVersion, database: db, migrations: [migration0To1])
+		let latestDBVersion = 2
+		let migrations: [Migration] = [Migration0To1(database: db), Migration1To2(database: db)]
+		let migrator = SerialMigrator(latestVersion: latestDBVersion, database: db, migrations: migrations)
 		self.init(database: db, migrator: migrator, latestVersion: latestDBVersion)
 		self.open()
 	}
