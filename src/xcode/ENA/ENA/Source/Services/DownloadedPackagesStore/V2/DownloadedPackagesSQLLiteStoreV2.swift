@@ -383,7 +383,7 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 	// MARK: - Remove/Delete Operations
 
 	func delete(package: SAPDownloadedPackage) throws {
-		queue.sync {
+		try queue.sync {
 			let sql = """
 				DELETE FROM
 					Z_DOWNLOADED_PACKAGE
@@ -392,7 +392,10 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 				;
 			"""
 			let parameters = ["hash": SHA256.hash(data: package.bin)]
-			self.database.executeUpdate(sql, withParameterDictionary: parameters)
+			guard self.database.executeUpdate(sql, withParameterDictionary: parameters) else {
+				Log.debug("[SQLite] (\(database.lastErrorCode()) \(database.lastErrorMessage())", log: .localData)
+				throw SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+			}
 		}
 	}
 
