@@ -62,6 +62,8 @@ class DownloadedPackagesStoreErrorStub: DownloadedPackagesStoreV2 {
 
 	func reset() { }
 
+	func delete(package: SAPDownloadedPackage) throws { }
+
 	func deleteHourPackage(for day: String, hour: Int, country: Country.ID) { }
 
 	func deleteDayPackage(for day: String, country: Country.ID) { }

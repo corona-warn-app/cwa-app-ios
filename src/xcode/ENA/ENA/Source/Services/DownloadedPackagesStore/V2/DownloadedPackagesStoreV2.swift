@@ -44,7 +44,7 @@ protocol DownloadedPackagesStoreV2: AnyObject {
 	/// Deletes a given `SAPDownloadedPackage`.
 	/// - Parameter package: The package to remove from the store
 	/// - Throws: An error of type `SQLiteStoreError`
-//	func delete(package: SAPDownloadedPackage) throws
+	func delete(package: SAPDownloadedPackage) throws
 
 
 	#if !RELEASE

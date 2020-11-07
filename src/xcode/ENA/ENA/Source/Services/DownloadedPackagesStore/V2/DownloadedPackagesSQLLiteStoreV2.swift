@@ -17,6 +17,7 @@
 
 import FMDB
 import Foundation
+import CryptoKit
 
 final class DownloadedPackagesSQLLiteStoreV2 {
 
@@ -85,6 +86,7 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 						Z_HOUR INTEGER,
 						Z_COUNTRY STRING NOT NULL,
 						Z_ETAG STRING NULL,
+						Z_HASH STRING NULL,
 						PRIMARY KEY (
 							Z_COUNTRY,
 							Z_DAY,
@@ -115,7 +117,8 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 					Z_DAY,
 					Z_HOUR,
 					Z_COUNTRY,
-					Z_ETAG
+					Z_ETAG,
+					Z_HASH,
 				)
 				VALUES (
 					:bin,
@@ -123,7 +126,8 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 					:day,
 					:hour,
 					:country,
-					:etag
+					:etag,
+					:hash
 				)
 				ON CONFLICT(
 					Z_COUNTRY,
@@ -141,7 +145,8 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 				"day": day,
 				"hour": hour,
 				"country": country,
-				"etag": etag ?? NSNull()
+				"etag": etag ?? NSNull(),
+				"hash": SHA256.hash(data: package.bin)
 			]
 			guard self.database.executeUpdate(sql, withParameterDictionary: parameters) else {
 				Log.debug("[SQLite] (\(database.lastErrorCode()) \(database.lastErrorMessage())", log: .localData)
@@ -184,7 +189,8 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 							Z_DAY,
 							Z_HOUR,
 							Z_COUNTRY,
-							Z_ETAG
+							Z_ETAG,
+							Z_HASH
 						)
 						VALUES (
 							:bin,
@@ -192,7 +198,8 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 							:day,
 							NULL,
 							:country,
-							:etag
+							:etag,
+							:hash
 						)
 						ON CONFLICT (
 							Z_COUNTRY,
@@ -209,7 +216,8 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 					"signature": package.signature,
 					"day": day,
 					"country": country,
-					"etag": etag ?? NSNull()
+					"etag": etag ?? NSNull(),
+					"hash": SHA256.hash(data: package.bin)
 				]
 			)
 		}
@@ -373,6 +381,20 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 	}
 
 	// MARK: - Remove/Delete Operations
+
+	func delete(package: SAPDownloadedPackage) throws {
+		queue.sync {
+			let sql = """
+				DELETE FROM
+					Z_DOWNLOADED_PACKAGE
+				WHERE
+					Z_HASH = :hash
+				;
+			"""
+			let parameters = ["hash": SHA256.hash(data: package.bin)]
+			self.database.executeUpdate(sql, withParameterDictionary: parameters)
+		}
+	}
 
 	func deleteDayPackage(for day: String, country: Country.ID) {
 		queue.sync {
