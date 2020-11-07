@@ -22,6 +22,12 @@ import Foundation
 import XCTest
 
 final class DayKeyPackageDownloadTest: XCTestCase {
+
+	private lazy var dummyResponse: [String: PackageDownloadResponse] = {
+		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"tinfoil\"")
+		return ["2020-10-04": dummyResponse, "2020-10-01": dummyResponse]
+	}()
 	
 	func test_When_NoCachedDayPackages_Then_AllServerDayPackagesAreDownloaded() {
 		let store = MockTestStore()
@@ -61,13 +67,13 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+
 		let countryId = "IT"
-		try packagesStore.addFetchedDays(["2020-10-04": dummyPackage, "2020-10-01": dummyPackage], country: countryId, etag: nil)
+		try packagesStore.addFetchedDays(dummyResponse, country: countryId)
 
 		let client = ClientMock()
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02", "2020-10-01", "2020-10-03", "2020-10-04"], hours: [1, 2])
-		client.downloadedPackage = dummyPackage
+		client.downloadedPackage = try XCTUnwrap(dummyResponse.values.first)
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
@@ -98,13 +104,13 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+
 		let countryId = "IT"
-		try packagesStore.addFetchedDays(["2020-10-04": dummyPackage, "2020-10-01": dummyPackage], country: countryId, etag: nil)
+		try packagesStore.addFetchedDays(dummyResponse, country: countryId)
 
 		let client = ClientMock()
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02", "2020-10-03", "2020-10-04"], hours: [1, 2])
-		client.downloadedPackage = dummyPackage
+		client.downloadedPackage = try XCTUnwrap(dummyResponse.values.first)
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
@@ -138,12 +144,14 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 			fatalError("Could not create yesterdays date.")
 		}
 		let yesterdayKeyString = DateFormatter.packagesDateFormatter.string(from: yesterdayDate)
-		let countryId = "IT"
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
+		let countryId = "IT"
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		try packagesStore.addFetchedDays(["2020-10-04": dummyPackage, yesterdayKeyString: dummyPackage], country: countryId, etag: nil)
+
+		try packagesStore.addFetchedDays(["2020-10-04": dummyResponse, yesterdayKeyString: dummyResponse], country: countryId)
 
 		let client = ClientMock()
 
@@ -173,13 +181,13 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+
 		let countryId = "IT"
-		try packagesStore.addFetchedDays(["2020-10-04": dummyPackage, "2020-10-01": dummyPackage], country: countryId, etag: nil)
+		try packagesStore.addFetchedDays(dummyResponse, country: countryId)
 
 		let client = ClientMock()
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02", "2020-10-03", "2020-10-04"], hours: [1, 2])
-		client.downloadedPackage = dummyPackage
+		client.downloadedPackage = try XCTUnwrap(dummyResponse.values.first)
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,

@@ -19,6 +19,7 @@ import Foundation
 import ZIPFoundation
 import CryptoKit
 
+/// A combined binary file (zipped) and the corresponding verification signature.
 struct SAPDownloadedPackage {
 	// MARK: Creating a Key Package
 
@@ -40,7 +41,9 @@ struct SAPDownloadedPackage {
 	
 	// MARK: Properties
 
+	/// The zipped  key package
 	let bin: Data
+	/// The file-verification signature
 	let signature: Data
 
 	// MARK: - Verification

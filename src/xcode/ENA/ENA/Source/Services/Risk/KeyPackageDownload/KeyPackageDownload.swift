@@ -33,6 +33,7 @@ enum KeyPackageDownloadError: Error {
 
 class KeyPackageDownload: KeyPackageDownloadProtocol {
 
+	/// Download modes per day or hour of a given day
 	enum DownloadMode {
 		case daily
 		// Associated type: Key of the corresponding day.
@@ -174,8 +175,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 
 					switch result {
 					case .success(let hourPackages):
-						let etag = "TODO" // TODO: !!!
-						let result = self.persistPackages(hourPackages, downloadMode: downloadMode, country: countryId, etag: etag)
+						let result = self.persistPackages(hourPackages, downloadMode: downloadMode, country: countryId)
 
 						switch result {
 						case .success:
@@ -197,7 +197,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		for packageKeys: [String],
 		downloadMode: DownloadMode,
 		country: Country.ID,
-		completion: @escaping (Result<[String: SAPDownloadedPackage], KeyPackageDownloadError>) -> Void) {
+		completion: @escaping (Result<[String: PackageDownloadResponse], KeyPackageDownloadError>) -> Void) {
 
 		switch downloadMode {
 		case .daily:
@@ -227,14 +227,13 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		}
 	}
 
-	private func persistPackages(_ keyPackages: [String: SAPDownloadedPackage], downloadMode: DownloadMode, country: Country.ID, etag: String?) -> Result<Void, KeyPackageDownloadError> {
+	private func persistPackages(_ keyPackages: [String: PackageDownloadResponse], downloadMode: DownloadMode, country: Country.ID) -> Result<Void, KeyPackageDownloadError> {
 		do {
 			switch downloadMode {
 			case .daily:
 				try downloadedPackagesStore.addFetchedDays(
 					keyPackages,
-					country: country,
-					etag: etag
+					country: country
 				)
 			case .hourly(let dayKey):
 				let keyPackages = Dictionary(
@@ -244,16 +243,19 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 				try downloadedPackagesStore.addFetchedHours(
 					keyPackages,
 					day: dayKey,
-					country: country,
-					etag: etag
+					country: country
 				)
 			}
+		} catch SQLiteErrorCode.generalError {
+			Log.error("KeyPackageDownload: Persistence of key packages failed.", log: .riskDetection, error: SQLiteErrorCode.generalError)
+			assertionFailure("This is most likely a developer error. Check the logs!")
+			return .failure(.unableToWriteDiagnosisKeys)
 		} catch SQLiteErrorCode.sqlite_full {
 			Log.error("KeyPackageDownload: Persistence of key packages failed. Storage full", log: .riskDetection, error: SQLiteErrorCode.sqlite_full)
-				return .failure(.noDiskSpace)
+			return .failure(.noDiskSpace)
 		} catch SQLiteErrorCode.unknown {
 			Log.error("KeyPackageDownload: Persistence of key packages failed. Unknown reason.", log: .riskDetection, error: SQLiteErrorCode.unknown)
-				return .failure(.unableToWriteDiagnosisKeys)
+			return .failure(.unableToWriteDiagnosisKeys)
 		} catch {
 			Log.error("KeyPackageDownload: Persistence of key packages failed.", log: .riskDetection, error: error)
 			assertionFailure("Expected error of type SQLiteErrorCode.")

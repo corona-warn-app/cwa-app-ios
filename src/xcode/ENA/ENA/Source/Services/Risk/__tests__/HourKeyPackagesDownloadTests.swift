@@ -22,6 +22,12 @@ import Foundation
 import XCTest
 
 class HourKeyPackagesDownloadTests: XCTestCase {
+
+	private lazy var dummyHourResponse: [Int: PackageDownloadResponse] = {
+		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"tinfoil\"")
+		return [2: dummyResponse, 3: dummyResponse]
+	}()
 	
 	func test_When_NoCachedHourPackages_Then_AllServerHourPackagesAreDownloaded() {
 		let store = MockTestStore()
@@ -61,13 +67,13 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+
 		let countryId = "IT"
-		try packagesStore.addFetchedHours([2: dummyPackage, 3: dummyPackage], day: .formattedToday(), country: countryId, etag: nil)
+		try packagesStore.addFetchedHours(dummyHourResponse, day: .formattedToday(), country: countryId)
 
 		let client = ClientMock()
-		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-01", "2020-10-01"], hours: [1, 2, 3, 4])
-		client.downloadedPackage = dummyPackage
+		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-01", "2020-10-02"], hours: [1, 2, 3, 4])
+		client.downloadedPackage = try XCTUnwrap(dummyHourResponse.values.first)
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
@@ -98,13 +104,13 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+
 		let countryId = "IT"
-		try packagesStore.addFetchedHours([4: dummyPackage, 1: dummyPackage], day: .formattedToday(), country: countryId, etag: nil)
+		try packagesStore.addFetchedHours(dummyHourResponse, day: .formattedToday(), country: countryId)
 
 		let client = ClientMock()
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-01", "2020-10-02"], hours: [2, 3, 4])
-		client.downloadedPackage = dummyPackage
+		client.downloadedPackage = try XCTUnwrap(dummyHourResponse.values.first)
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
@@ -139,11 +145,11 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 		}
 		let lastHourKey = Int(DateFormatter.packagesDateFormatter.string(from: lastHourDate)) ?? -1
 		let countryId = "IT"
-		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+		let dummyPackage = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		try packagesStore.addFetchedHours([lastHourKey: dummyPackage], day: .formattedToday(), country: countryId, etag: nil)
+		try packagesStore.addFetchedHours([lastHourKey: dummyPackage], day: .formattedToday(), country: countryId)
 
 		let client = ClientMock()
 
@@ -173,13 +179,13 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+		let dummyPackage = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
 		let countryId = "IT"
-		try packagesStore.addFetchedDays(["2020-10-04": dummyPackage, "2020-10-01": dummyPackage], country: countryId, etag: nil)
+		try packagesStore.addFetchedDays(["2020-10-04": dummyPackage, "2020-10-01": dummyPackage], country: countryId)
 
 		let client = ClientMock()
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02", "2020-10-03", "2020-10-04"], hours: [1, 2])
-		client.downloadedPackage = dummyPackage
+		client.downloadedPackage = try XCTUnwrap(dummyHourResponse.values.first)
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,

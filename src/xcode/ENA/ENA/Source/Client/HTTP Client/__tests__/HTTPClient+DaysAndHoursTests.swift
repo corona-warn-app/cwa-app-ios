@@ -534,8 +534,8 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		waitForExpectations(timeout: 10, handler: nil)
 	}
 
-	private func assertPackageFormat(for downloadedPackage: SAPDownloadedPackage) {
-		XCTAssertEqual(downloadedPackage.bin.count, binFileSize)
-		XCTAssertEqual(downloadedPackage.signature.count, sigFileSize)
+	private func assertPackageFormat(for response: PackageDownloadResponse) {
+		XCTAssertEqual(response.package.bin.count, binFileSize)
+		XCTAssertEqual(response.package.signature.count, sigFileSize)
 	}
 }

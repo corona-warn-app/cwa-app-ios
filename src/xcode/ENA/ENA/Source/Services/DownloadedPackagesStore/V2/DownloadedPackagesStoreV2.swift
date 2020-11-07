@@ -54,15 +54,15 @@ protocol DownloadedPackagesStoreV2: AnyObject {
 
 extension DownloadedPackagesStoreV2 {
 
-	func addFetchedDays(_ dayPackages: [String: SAPDownloadedPackage], country: Country.ID, etag: String?) throws {
+	func addFetchedDays(_ dayPackages: [String: PackageDownloadResponse], country: Country.ID) throws {
 		try dayPackages.forEach { day, bucket in
-			try self.set(country: country, day: day, etag: etag, package: bucket)
+			try self.set(country: country, day: day, etag: bucket.etag, package: bucket.package)
 		}
 	}
 
-	func addFetchedHours(_ hourPackages: [Int: SAPDownloadedPackage], day: String, country: Country.ID, etag: String?) throws {
+	func addFetchedHours(_ hourPackages: [Int: PackageDownloadResponse], day: String, country: Country.ID) throws {
 		try hourPackages.forEach { hour, bucket in
-			try self.set(country: country, hour: hour, day: day, etag: etag, package: bucket)
+			try self.set(country: country, hour: hour, day: day, etag: bucket.etag, package: bucket.package)
 		}
 	}
 }
