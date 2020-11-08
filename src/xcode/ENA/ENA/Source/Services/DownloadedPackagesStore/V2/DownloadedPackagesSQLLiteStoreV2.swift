@@ -292,6 +292,33 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 		}
 	}
 
+	func packages(with etags: [String]) -> [SAPDownloadedPackage]? {
+		queue.sync {
+			let list = "(\(etags.map({ "\'\($0)\'" }).joined(separator: ",")))" // ('a','b','c')
+			// seems to be tho only way…
+			// https://stackoverflow.com/questions/8383684/passing-an-array-to-sqlite-where-in-clause-via-fmdb
+			let sql = """
+				SELECT
+					Z_BIN,
+					Z_SIGNATURE
+				FROM Z_DOWNLOADED_PACKAGE
+				WHERE
+					Z_ETAG
+				IN
+					\(list)
+				;
+			"""
+			let parameters: [String: Any] = [:]
+			guard let result = self.database.execute(query: sql, parameters: parameters) else {
+				return nil
+			}
+			defer { result.close() }
+			return result
+				.map { $0.downloadedPackage() }
+				.compactMap { $0 }
+		}
+	}
+
 	func hourlyPackages(for day: String, country: Country.ID) -> [SAPDownloadedPackage] {
 		queue.sync {
 			let sql = """
@@ -388,7 +415,7 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 	func delete(packages: [SAPDownloadedPackage]) throws {
 		try queue.sync {
 			let fingerprints = packages.map({ $0.fingerprint })
-			let hashlist = "(\(fingerprints.map({ "\'\($0)\'" }).joined(separator: ",")))"
+			let hashlist = "(\(fingerprints.map({ "\'\($0)\'" }).joined(separator: ",")))" // ('a','b','c')
 			// seems to be tho only way…
 			// https://stackoverflow.com/questions/8383684/passing-an-array-to-sqlite-where-in-clause-via-fmdb
 			let sql = """
@@ -402,7 +429,7 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 			"""
 
 			// to align with the other calls I'm using an empty dictionary here instead of `execute(:)` or others
-			let parameters: [AnyHashable: Any] = [:]
+			let parameters: [String: Any] = [:]
 			guard self.database.executeUpdate(sql, withParameterDictionary: parameters) else {
 				Log.error("[SQLite] (\(database.lastErrorCode()) \(database.lastErrorMessage())", log: .localData)
 				throw SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown

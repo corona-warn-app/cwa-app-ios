@@ -281,6 +281,45 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertEqual(packages.count, 5)
 	}
 
+	func testFetchByMultipleETags() throws {
+		let database = FMDatabase.inMemory()
+		let store = DownloadedPackagesSQLLiteStore(database: database, migrator: SerialMigratorFake(), latestVersion: 0)
+		store.open()
+
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
+
+		let package = SAPDownloadedPackage(
+			keysBin: keysBin,
+			signature: signature
+		)
+
+		// Add days
+		let etag = "\"66ac17747b947b61a066369384896c79\""
+		let etag2 = "\"d41d8cd98f00b204e9800998ecf8427e\""
+		try store.set(country: "DE", day: "2020-06-01", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-02", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-03", etag: etag, package: package)
+		try store.set(country: "IT", day: "2020-06-03", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-04", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-05", etag: etag2, package: package)
+		try store.set(country: "DE", day: "2020-06-06", etag: etag2, package: package)
+		try store.set(country: "IT", day: "2020-06-06", etag: etag2, package: package)
+		try store.set(country: "DE", day: "2020-06-07", etag: nil, package: package)
+
+		XCTAssertEqual(store.allDays(country: "DE").count, 7)
+		XCTAssertEqual(store.allDays(country: "IT").count, 2)
+
+		let packages1 = try XCTUnwrap(store.packages(with: etag))
+		XCTAssertEqual(packages1.count, 5)
+
+		let packages2 = try XCTUnwrap(store.packages(with: etag2))
+		XCTAssertEqual(packages2.count, 3)
+
+		let packages3 = try XCTUnwrap(store.packages(with: [etag, etag2]))
+		XCTAssertEqual(packages3.count, 8)
+	}
+
 	func testDeleteByHash() throws {
 		let database = FMDatabase.inMemory()
 		let store = DownloadedPackagesSQLLiteStore(database: database, migrator: SerialMigratorFake(), latestVersion: 0)

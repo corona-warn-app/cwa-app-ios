@@ -40,7 +40,11 @@ class DownloadedPackagesStoreErrorStub: DownloadedPackagesStoreV2 {
 		throw error
 	}
 
-	func packages(with ETag: String?) -> [SAPDownloadedPackage]? {
+	func packages(with etag: String?) -> [SAPDownloadedPackage]? {
+		nil
+	}
+
+	func packages(with etags: [String]) -> [SAPDownloadedPackage]? {
 		nil
 	}
 
