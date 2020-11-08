@@ -231,19 +231,7 @@ private extension Client {
 	func fetchAllKeys(
 		completion completeWith: @escaping (FetchedDaysAndHours) -> Void
 	) {
-		// FIXME: not working at the moment - we need an wifiOnlyClient here
-		/*
-		availableDaysAndHours { daysAndHours in
-
-			self.fetchDays(
-				daysAndHours.days,
-				hours: daysAndHours.hours,
-				of: .formattedToday(),
-				country: "DE",
-				completion: completeWith
-			)
-		}
-*/
+		Log.error("not woking at the momenet - we need a wifi only client here")
 	}
 }
 
