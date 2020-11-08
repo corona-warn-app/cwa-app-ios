@@ -24,8 +24,9 @@ struct SAPDownloadedPackage {
 	// MARK: Creating a Key Package
 
 	init(keysBin: Data, signature: Data) {
-		bin = keysBin
+		self.bin = keysBin
 		self.signature = signature
+		self.fingerprint = SHA256.hash(data: bin).compactMap { String(format: "%02x", $0) }.joined()
 	}
 
 	init?(compressedData: Data) {
@@ -45,6 +46,8 @@ struct SAPDownloadedPackage {
 	let bin: Data
 	/// The file-verification signature
 	let signature: Data
+	/// The SHA256 tring of the package `bin`
+	let fingerprint: String
 
 	// MARK: - Verification
 

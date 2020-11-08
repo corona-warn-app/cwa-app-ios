@@ -248,4 +248,78 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		unitTestStore.deleteDayPackage(for: "2020-11-03", country: "DE")
 		XCTAssertNil(unitTestStore.package(for: "2020-11-03", country: "DE"))
 	}
+
+	func testFetchByETag() throws {
+		let database = FMDatabase.inMemory()
+		let store = DownloadedPackagesSQLLiteStore(database: database, migrator: SerialMigratorFake(), latestVersion: 0)
+		store.open()
+
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
+
+		let package = SAPDownloadedPackage(
+			keysBin: keysBin,
+			signature: signature
+		)
+
+		// Add days
+		let etag = "\"66ac17747b947b61a066369384896c79\""
+		try store.set(country: "DE", day: "2020-06-01", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-02", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-03", etag: etag, package: package)
+		try store.set(country: "IT", day: "2020-06-03", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-04", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-05", etag: nil, package: package)
+		try store.set(country: "DE", day: "2020-06-06", etag: nil, package: package)
+		try store.set(country: "IT", day: "2020-06-06", etag: nil, package: package)
+		try store.set(country: "DE", day: "2020-06-07", etag: nil, package: package)
+
+		XCTAssertEqual(store.allDays(country: "DE").count, 7)
+		XCTAssertEqual(store.allDays(country: "IT").count, 2)
+
+		let packages = try XCTUnwrap(store.packages(with: etag))
+		XCTAssertEqual(packages.count, 5)
+	}
+
+	func testDeleteByHash() throws {
+		let database = FMDatabase.inMemory()
+		let store = DownloadedPackagesSQLLiteStore(database: database, migrator: SerialMigratorFake(), latestVersion: 0)
+		store.open()
+
+		var package: SAPDownloadedPackage {
+			let noise = Data("fake\(Int.random(in: 0..<Int.max))".utf8)
+			return SAPDownloadedPackage(keysBin: noise, signature: Data("sig".utf8))
+		}
+
+		// Add days
+		let etag = "\"66ac17747b947b61a066369384896c79\""
+		try store.set(country: "DE", day: "2020-06-01", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-02", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-03", etag: etag, package: package)
+		try store.set(country: "IT", day: "2020-06-03", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-04", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-05", etag: nil, package: package)
+		try store.set(country: "DE", day: "2020-06-06", etag: nil, package: package)
+		try store.set(country: "IT", day: "2020-06-06", etag: nil, package: package)
+		try store.set(country: "DE", day: "2020-06-07", etag: nil, package: package)
+
+		XCTAssertEqual(store.allDays(country: "DE").count, 7)
+		XCTAssertEqual(store.allDays(country: "IT").count, 2)
+
+		// fetch packages without etag
+		var packages = try XCTUnwrap(store.packages(with: nil))
+		XCTAssertEqual(packages.count, 4)
+
+		// test: delete single package
+		let last = try XCTUnwrap(packages.popLast()) // "DE" @ 2020-06-07
+		XCTAssertEqual(packages.count, 3)
+		try store.delete(package: last)
+		XCTAssertEqual(store.allDays(country: "DE").count, 6)
+		XCTAssertEqual(store.allDays(country: "IT").count, 2)
+
+		// test: delete multiple packages
+		try store.delete(packages: packages)
+		XCTAssertEqual(store.allDays(country: "DE").count, 4)
+		XCTAssertEqual(store.allDays(country: "IT").count, 1)
+	}
 }

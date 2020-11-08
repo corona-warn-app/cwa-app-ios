@@ -17,7 +17,6 @@
 
 import FMDB
 import Foundation
-import CryptoKit
 
 final class DownloadedPackagesSQLLiteStoreV2 {
 
@@ -147,10 +146,10 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 				"hour": hour,
 				"country": country,
 				"etag": etag ?? NSNull(),
-				"hash": SHA256.hash(data: package.bin)
+				"hash": package.fingerprint
 			]
 			guard self.database.executeUpdate(sql, withParameterDictionary: parameters) else {
-				Log.debug("[SQLite] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				Log.error("[SQLite] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				throw SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
 			}
 		}
@@ -218,7 +217,7 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 					"day": day,
 					"country": country,
 					"etag": etag ?? NSNull(),
-					"hash": SHA256.hash(data: package.bin)
+					"hash": package.fingerprint
 				]
 			)
 		}
@@ -227,7 +226,7 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 			self._beginTransaction()
 
 			guard deleteHours(), insertDay() else {
-				Log.debug("[SQLite] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				Log.error("[SQLite] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				throw SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
 			}
 			self._commit()
@@ -267,21 +266,20 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 		}
 	}
 
-	func packages(with etag: String) -> [SAPDownloadedPackage]? {
+	func packages(with etag: String?) -> [SAPDownloadedPackage]? {
 		queue.sync {
 			let sql = """
 				SELECT
 					Z_BIN,
-					Z_SIGNATURE,
-					Z_HOUR
+					Z_SIGNATURE
 				FROM Z_DOWNLOADED_PACKAGE
 				WHERE
-					Z_ETAG = :etag
+					Z_ETAG IS :etag
 				;
 			"""
 
 			let parameters: [String: Any] = [
-				"etag": etag
+				"etag": etag ?? NSNull()
 			]
 
 			guard let result = self.database.execute(query: sql, parameters: parameters) else {
@@ -384,17 +382,29 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 	// MARK: - Remove/Delete Operations
 
 	func delete(package: SAPDownloadedPackage) throws {
+		try delete(packages: [package])
+	}
+
+	func delete(packages: [SAPDownloadedPackage]) throws {
 		try queue.sync {
+			let fingerprints = packages.map({ $0.fingerprint })
+			let hashlist = "(\(fingerprints.map({ "\'\($0)\'" }).joined(separator: ",")))"
+			// seems to be tho only way…
+			// https://stackoverflow.com/questions/8383684/passing-an-array-to-sqlite-where-in-clause-via-fmdb
 			let sql = """
 				DELETE FROM
 					Z_DOWNLOADED_PACKAGE
 				WHERE
-					Z_HASH = :hash
+					Z_HASH
+				IN
+					\(hashlist)
 				;
 			"""
-			let parameters = ["hash": SHA256.hash(data: package.bin)]
+
+			// to align with the other calls I'm using an empty dictionary here instead of `execute(:)` or others
+			let parameters: [AnyHashable: Any] = [:]
 			guard self.database.executeUpdate(sql, withParameterDictionary: parameters) else {
-				Log.debug("[SQLite] (\(database.lastErrorCode()) \(database.lastErrorMessage())", log: .localData)
+				Log.error("[SQLite] (\(database.lastErrorCode()) \(database.lastErrorMessage())", log: .localData)
 				throw SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
 			}
 		}

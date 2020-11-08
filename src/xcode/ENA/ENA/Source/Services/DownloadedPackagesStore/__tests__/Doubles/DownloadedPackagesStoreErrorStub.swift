@@ -40,7 +40,7 @@ class DownloadedPackagesStoreErrorStub: DownloadedPackagesStoreV2 {
 		throw error
 	}
 
-	func packages(with ETag: String) -> [SAPDownloadedPackage]? {
+	func packages(with ETag: String?) -> [SAPDownloadedPackage]? {
 		nil
 	}
 
@@ -63,6 +63,8 @@ class DownloadedPackagesStoreErrorStub: DownloadedPackagesStoreV2 {
 	func reset() { }
 
 	func delete(package: SAPDownloadedPackage) throws { }
+
+	func delete(packages: [SAPDownloadedPackage]) throws { }
 
 	func deleteHourPackage(for day: String, hour: Int, country: Country.ID) { }
 
