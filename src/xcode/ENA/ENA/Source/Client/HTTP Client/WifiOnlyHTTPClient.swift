@@ -19,7 +19,7 @@ import ExposureNotification
 import Foundation
 import ZIPFoundation
 
-final class HTTPClientWifiOnly: ClientWifiOnly {
+final class WifiOnlyHTTPClient: ClientWifiOnly {
 
 	// MARK: - Init
 
