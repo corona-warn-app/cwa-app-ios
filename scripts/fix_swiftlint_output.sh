@@ -15,4 +15,5 @@ if [[ -f $1 ]]; then
     }
 else
     echo "Lintfile $1 not found. Check if linting was performed and paths are up to date"
+    exit 1
 fi
