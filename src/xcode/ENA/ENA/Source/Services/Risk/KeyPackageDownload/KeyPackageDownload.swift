@@ -31,6 +31,15 @@ enum KeyPackageDownloadError: Error {
 	case noDiskSpace
 	case unableToWriteDiagnosisKeys
 	case downloadIsRunning
+
+	var description: String {
+		switch self {
+		case .noDiskSpace:
+			return AppStrings.ExposureDetectionError.errorAlertFullDistSpaceMessage
+		default:
+			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: KeyPackageDownloadError"
+		}
+	}
 }
 
 enum KeyPackageDownloadStatus {
@@ -67,6 +76,9 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 
 	func startDayPackagesDownload(completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void) {
 		Log.info("KeyPackageDownload: Start downloading day packages.", log: .riskDetection)
+
+		completion(.failure(.noDiskSpace))
+		return
 
 		guard status == .idle else {
 			Log.info("KeyPackageDownload: Failed downloading. A download is already running.", log: .riskDetection)
