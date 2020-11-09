@@ -26,7 +26,6 @@ import UIKit
 class WarnOthers: OthersWarnable {
 	
 
-	
 	var hasStoredResult: Bool {
 
 		get {
