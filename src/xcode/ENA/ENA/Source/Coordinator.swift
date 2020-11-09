@@ -41,7 +41,6 @@ class Coordinator: RequiresAppDependencies {
 	private let rootViewController: UINavigationController
 
 	private var homeController: HomeViewController?
-	private var testResultViewController: ExposureSubmissionTestResultViewController?
 	private var settingsController: SettingsViewController?
 	private var exposureDetectionController: ExposureDetectionViewController?
 
