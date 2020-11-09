@@ -229,7 +229,7 @@ extension HomeInteractor {
 		riskLevelConfigurator = nil
 		inactiveConfigurator = nil
 
-        let detectionInterval = riskProvider.riskProvidingConfiguration.exposureDetectionInterval.hour ?? RiskProvidingConfiguration.defaultExposureDetectionsInterval
+		let detectionInterval = riskProvider.riskProvidingConfiguration.exposureDetectionInterval.hour ?? RiskProvidingConfiguration.defaultExposureDetectionsInterval
 
 		let riskLevel: RiskLevel? = state.exposureManagerState.enabled ? state.riskLevel : .inactive
 
