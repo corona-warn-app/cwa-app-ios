@@ -189,7 +189,15 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		coordinator.showHome(enStateHandler: enStateHandler, state: state)
 	}
-
+	
+	private func showPositiveTestResultFromNotification(animated _: Bool = false) {
+		guard warnOthers.hasStoredResult else {
+			return
+		}
+		coordinator.showPositiveTestResultFromNotification(with: .positive)
+	}
+	
+	
 	private func showOnboarding() {
 		coordinator.showOnboarding()
 	}
@@ -304,7 +312,7 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 			
 		case ActionableNotificationIdentifier.warnOthersReminder1.identifier,
 			 ActionableNotificationIdentifier.warnOthersReminder2.identifier:
-			showHome(animated: true)
+			 showPositiveTestResultFromNotification(animated: true)
 		
 		case UNNotificationDefaultActionIdentifier,
 			 UNNotificationDismissActionIdentifier:

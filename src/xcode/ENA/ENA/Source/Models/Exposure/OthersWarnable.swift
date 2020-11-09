@@ -21,7 +21,7 @@ import UIKit
 
 protocol OthersWarnable {
 	
-	var storedResult: Bool { get set }
+	var hasStoredResult: Bool { get set }
 	var notificationOneTimer: Int { get set }
 	var notificationTwoTimer: Int { get set }
 	

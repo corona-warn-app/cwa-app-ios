@@ -30,7 +30,7 @@ class WarnOthers: OthersWarnable {
 //	/// timerTwo represents a timer value in seconds
 //	var timerTwo: Int = ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue
 	
-	var storedResult: Bool {
+	var hasStoredResult: Bool {
 		get {
 			return store.warnOthersHasActiveTestResult
 		}
@@ -65,7 +65,7 @@ class WarnOthers: OthersWarnable {
 	// MARK: - Init
 	init(store: Store) {
 		self.store = store
-		self.storedResult = store.warnOthersHasActiveTestResult
+		self.hasStoredResult = store.warnOthersHasActiveTestResult
 	}
 	
 	// MARK: - public
@@ -73,17 +73,17 @@ class WarnOthers: OthersWarnable {
 	func evaluateNotificationState(testResult: TestResult) {
 		
 		// If incoming test restuls are others than positive, we don't deal with them
-		guard testResult == .positive, storedResult == false else { return }
+		guard testResult == .positive, hasStoredResult == false else { return }
 		
 		// We are "clean" to go. So lock the door until result was removed
-		storedResult = true
+		hasStoredResult = true
 		
 		scheduleNotifications()
 	}
 	
 	func reset() {
 		cancelNotifications()
-		storedResult = false
+		hasStoredResult = false
 		Log.info("Warn others have been resetted")
 	}
 	

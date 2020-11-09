@@ -41,6 +41,7 @@ class Coordinator: RequiresAppDependencies {
 	private let rootViewController: UINavigationController
 
 	private var homeController: HomeViewController?
+	private var testResultViewController: ExposureSubmissionTestResultViewController?
 	private var settingsController: SettingsViewController?
 	private var exposureDetectionController: ExposureDetectionViewController?
 
@@ -85,7 +86,14 @@ class Coordinator: RequiresAppDependencies {
 			#endif
 		})
 	}
-
+	
+	func showPositiveTestResultFromNotification(with result: TestResult) {
+		rootViewController.presentedViewController?.dismiss(animated: true, completion: {
+			self.showExposureSubmission(with: result)
+		})
+	}
+	
+	
 	func showOnboarding() {
 		rootViewController.navigationBar.prefersLargeTitles = false
 		rootViewController.setViewControllers(
