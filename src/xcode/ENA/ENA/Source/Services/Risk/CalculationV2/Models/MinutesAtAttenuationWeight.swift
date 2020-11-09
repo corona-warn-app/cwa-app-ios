@@ -19,7 +19,7 @@
 
 import Foundation
 
-struct MinutesAtAttenuationWeight: Decodable {
+struct MinutesAtAttenuationWeight: Codable {
 
 	// MARK: - Init
 

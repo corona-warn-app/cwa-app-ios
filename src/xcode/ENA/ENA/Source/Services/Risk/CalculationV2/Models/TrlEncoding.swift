@@ -19,7 +19,7 @@
 
 import Foundation
 
-struct TrlEncoding: Decodable {
+struct TrlEncoding: Codable {
 
 	// MARK: - Init
 

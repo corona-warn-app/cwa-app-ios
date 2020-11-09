@@ -19,7 +19,7 @@
 
 import Foundation
 
-struct NormalizedTimeToRiskLevelMapping: Decodable {
+struct NormalizedTimeToRiskLevelMapping: Codable {
 
 	// MARK: - Init
 

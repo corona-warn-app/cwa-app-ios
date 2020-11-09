@@ -19,7 +19,7 @@
 
 import Foundation
 
-enum CWARiskLevel: Int, Decodable {
+enum CWARiskLevel: Int, Codable {
 
 	// MARK: - Init
 

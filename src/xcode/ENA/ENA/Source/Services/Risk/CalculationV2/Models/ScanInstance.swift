@@ -20,7 +20,7 @@
 import Foundation
 import ExposureNotification
 
-struct ScanInstance: Decodable {
+struct ScanInstance: Codable {
 
 	// MARK: - Init
 
