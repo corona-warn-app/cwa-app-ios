@@ -32,9 +32,11 @@ final class DMSubmissionStateViewController: UITableViewController {
 	// MARK: Creating a submission state view controller
 	init(
 		client: Client,
+		wifiClient: WifiOnlyHTTPClient,
 		delegate: DMSubmissionStateViewControllerDelegate
 	) {
 		self.client = client
+		self.wifiClient = wifiClient
 		self.delegate = delegate
 		super.init(style: .plain)
 	}
@@ -79,6 +81,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 	// MARK: Properties
 	private weak var delegate: DMSubmissionStateViewControllerDelegate?
 	private let client: Client
+	private let wifiClient: WifiOnlyHTTPClient
 	private var checkResult = DMSubmittedKeysCheckResult(missingKeys: [], foundKeys: [])
 
 	// MARK: UIViewController
@@ -91,7 +94,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 			guard let localKeys = localKeys else {
 				fatalError("unable to get local diagnosis keys")
 			}
-			self.client.fetchAllKeys { downloadedPackages in
+			self.client.fetchDayResults(wifiClient: self.wifiClient) { downloadedPackages in
 				let allPackages = downloadedPackages.allKeyPackages
 				let allRemoteKeys = Array(allPackages
 					.compactMap { try? $0.keys() }
@@ -200,7 +203,9 @@ private extension Array where Element == SAP_External_Exposurenotification_Tempo
 
 private extension Client {
 	typealias AvailableDaysAndHoursCompletion = (DaysAndHours) -> Void
-	func availableDaysAndHours(
+	typealias DaysAndHoursCompletionHandler = (FetchedDaysAndHours) -> Void
+
+	private func availableDaysAndHours(
 		completion completeWith: @escaping AvailableDaysAndHoursCompletion
 	) {
 		let group = DispatchGroup()
@@ -228,10 +233,17 @@ private extension Client {
 		}
 	}
 
-	func fetchAllKeys(
-		completion completeWith: @escaping (FetchedDaysAndHours) -> Void
+	func fetchDayResults(
+		wifiClient: WifiOnlyHTTPClient,
+		completion completeWith: @escaping DaysAndHoursCompletionHandler
 	) {
-		Log.error("not woking at the momenet - we need a wifi only client here")
+		availableDaysAndHours { daysAndHours in
+			self.fetchDays(daysAndHours.days, forCountry: "DE") { daysResult in
+				wifiClient.fetchHours(daysAndHours.hours, day: .formattedToday(), country: "DE") { hoursResult in
+					completeWith(FetchedDaysAndHours(hours: hoursResult, days: daysResult))
+				}
+			}
+		}
 	}
 }
 
