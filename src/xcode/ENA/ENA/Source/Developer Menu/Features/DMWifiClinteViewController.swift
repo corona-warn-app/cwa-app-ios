@@ -41,6 +41,8 @@ class DMWifiClinteViewController: UIViewController {
 
 		setupView()
 		setupSwitch()
+
+		title = "Wifi mode 🎛"
 	}
 
 	// MARK: - Protocol <#Name#>
@@ -59,7 +61,7 @@ class DMWifiClinteViewController: UIViewController {
 
 		let label = UILabel(frame: .zero)
 		label.translatesAutoresizingMaskIntoConstraints = false
-		label.text = "turn wifi hourly keys download on"
+		label.text = "Hourly packages over WiFi only"
 		label.numberOfLines = 1
 		label.textAlignment = .center
 
