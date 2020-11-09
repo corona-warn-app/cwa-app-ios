@@ -108,7 +108,7 @@ extension RiskProvider: RiskProviding {
 		Log.info("RiskProvider: Request risk was called. UserInitiated: \(userInitiated), ignoreCachedSummary: \(ignoreCachedSummary)", log: .riskDetection)
 
 		guard activityState == .idle else {
-			Log.info("RiskProvider: Risk detection is allready running. Don't start new risk detection.", log: .riskDetection)
+			Log.info("RiskProvider: Risk detection is allready running. Don't start new risk detection", log: .riskDetection)
 			targetQueue.async {
 				completion?(.failure(.riskProviderIsRunning))
 			}
@@ -157,7 +157,7 @@ extension RiskProvider: RiskProviding {
 	}
 
 	private func successOnTargetQueue(risk: Risk, completion: @escaping Completion) {
-		Log.info("RiskProvider: Risk detection and calculation was successful.", log: .riskDetection)
+		Log.info("RiskProvider: Risk detection and calculation was successful", log: .riskDetection)
 
 		updateActivityState(.idle)
 
@@ -266,6 +266,7 @@ extension RiskProvider: RiskProviding {
 		completion: @escaping Completion
 	) {
 		if let risk = self.riskForMissingPreconditions() {
+			Log.info("RiskProvider: Determined Risk from preconditions", log: .riskDetection)
 			self.successOnTargetQueue(risk: risk, completion: completion)
 			return
 		}
@@ -308,6 +309,7 @@ extension RiskProvider: RiskProviding {
 		// 1. The exposureManagerState is bad (turned off, not authorized, etc.)
 		// 2. Tracing has not been active for at least 24 hours
 		guard self.exposureManagerState.isGood else {
+			Log.info("RiskProvider: Precondition not met for ExposureManagerState", log: .riskDetection)
 			return Risk(
 				level: .inactive,
 				details: details,
@@ -316,6 +318,7 @@ extension RiskProvider: RiskProviding {
 		}
 
 		guard numberOfEnabledHours >= TracingStatusHistory.minimumActiveHours else {
+			Log.info("RiskProvider: Precondition not met for minimumActiveHours", log: .riskDetection)
 			return Risk(
 				level: .unknownInitial,
 				details: details,
@@ -333,6 +336,7 @@ extension RiskProvider: RiskProviding {
 		completion: @escaping (Result<SummaryMetadata, RiskProviderError>) -> Void
 	) {
 		if let cachedSummary = loadSummaryFromCache(userInitiated: userInitiated, ignoreCachedSummary: ignoreCachedSummary) {
+			Log.info("RiskProvider: Loaded summary from cache", log: .riskDetection)
 			completion(.success(cachedSummary))
 		} else {
 			executeExposureDetection(appConfiguration: appConfiguration, completion: completion)

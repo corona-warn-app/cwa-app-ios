@@ -37,7 +37,7 @@ extension AppDelegate: CoronaWarnAppDelegate {
 
 extension AppDelegate {
 
-	func showError(_ error: RiskProviderError) {
+	func showError(_ riskProviderError: RiskProviderError) {
 		guard
 			let scene = UIApplication.shared.connectedScenes.first,
 			let delegate = scene.delegate as? SceneDelegate,
@@ -46,7 +46,10 @@ extension AppDelegate {
 			return
 		}
 
-		guard let alert = makeErrorAlert(for: error, rootController: rootController) else {
+		guard let alert = makeErrorAlert(
+				riskProviderError: riskProviderError,
+				rootController: rootController
+		) else {
 			return
 		}
 
@@ -64,13 +67,14 @@ extension AppDelegate {
 		}
 	}
 
-	private func makeErrorAlert(for error: RiskProviderError, rootController: UIViewController) -> UIAlertController? {
-		switch error {
+	private func makeErrorAlert(riskProviderError: RiskProviderError, rootController: UIViewController) -> UIAlertController? {
+		switch riskProviderError {
 		case .failedRiskDetection(let didEndPrematurelyReason):
 			switch didEndPrematurelyReason {
 			case let .noSummary(error):
-				return makeAlertControllerForENError(
-					error, localizedDescription: didEndPrematurelyReason.localizedDescription,
+				return makeAlertController(
+					enError: error,
+					localizedDescription: didEndPrematurelyReason.localizedDescription,
 					rootController: rootController
 				)
 			case .wrongDeviceTime:
@@ -90,8 +94,8 @@ extension AppDelegate {
 		}
 	}
 
-	private func makeAlertControllerForENError(_ error: Error?, localizedDescription: String, rootController: UIViewController) -> UIAlertController {
-		switch error {
+	private func makeAlertController(enError: Error?, localizedDescription: String, rootController: UIViewController) -> UIAlertController {
+		switch enError {
 		case let error as ENError:
 			let openFAQ: (() -> Void)? = {
 				guard let url = error.faqURL else { return nil }
