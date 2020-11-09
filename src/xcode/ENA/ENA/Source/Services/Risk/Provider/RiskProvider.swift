@@ -133,11 +133,6 @@ extension RiskProvider: RiskProviding {
 			}
 			#endif
 
-			// Erase optionality.
-			let completion: Completion = { result in
-				completion?(result)
-			}
-
 			self._requestRiskLevel(userInitiated: userInitiated, ignoreCachedSummary: ignoreCachedSummary, completion: completion)
 		}
 	}
@@ -164,13 +159,13 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	private func successOnTargetQueue(risk: Risk, completion: @escaping Completion) {
+	private func successOnTargetQueue(risk: Risk, completion: Completion?) {
 		Log.info("RiskProvider: Risk detection and calculation was successful.", log: .riskDetection)
 
 		updateActivityState(.idle)
 
 		targetQueue.async {
-			completion(.success(risk))
+			completion?(.success(risk))
 		}
 
 		for consumer in consumers {
@@ -178,13 +173,13 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	private func failOnTargetQueue(error: RiskProviderError, completion: @escaping Completion) {
+	private func failOnTargetQueue(error: RiskProviderError, completion: Completion?) {
 		Log.info("RiskProvider: Failed with error: \(error)", log: .riskDetection)
 
 		updateActivityState(.idle)
 
 		targetQueue.async {
-			completion(.failure(error))
+			completion?(.failure(error))
 		}
 
 		for consumer in consumers {
@@ -193,7 +188,7 @@ extension RiskProvider: RiskProviding {
 	}
 
 	// swiftlint:disable:next cyclomatic_complexity
-	private func _requestRiskLevel(userInitiated: Bool, ignoreCachedSummary: Bool, completion: @escaping Completion) {
+	private func _requestRiskLevel(userInitiated: Bool, ignoreCachedSummary: Bool, completion: Completion?) {
 		let group = DispatchGroup()
 		group.enter()
 		
@@ -398,7 +393,7 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	private func calculateRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_Internal_ApplicationConfiguration?, completion: @escaping Completion) {
+	private func calculateRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_Internal_ApplicationConfiguration?, completion: Completion?) {
 		Log.info("RiskProvider: Calculate risk level", log: .riskDetection)
 
 		guard let appConfiguration = appConfiguration else {
@@ -526,11 +521,6 @@ extension RiskProvider {
 #if DEBUG
 extension RiskProvider {
 	private func _requestRiskLevel_Mock(userInitiated: Bool, completion: Completion? = nil) {
-		// Erase optionality.
-		let completion: Completion = { result in
-			completion?(result)
-		}
-
 		let risk = Risk.mocked
 		successOnTargetQueue(risk: risk, completion: completion)
 
