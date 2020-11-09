@@ -311,7 +311,6 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		switch downloadMode {
 		case .daily:
 			client.availableDays(forCountry: country) { result in
-				print("availableServerData: \(result)")
 				switch result {
 				case let .success(days):
 					completion(.success(days))
