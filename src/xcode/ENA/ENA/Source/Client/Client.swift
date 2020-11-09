@@ -174,7 +174,6 @@ struct FetchedDaysAndHours {
 extension Client {
 	typealias FetchDaysCompletionHandler = (DaysResult) -> Void
 	typealias FetchHoursCompletionHandler = (HoursResult) -> Void
-	typealias DaysAndHoursCompletionHandler = (FetchedDaysAndHours) -> Void
 
 	/// Fetch the keys with the given days and country code
 	func fetchDays(
