@@ -106,7 +106,7 @@ struct DeltaOnboardingV15ViewModel {
 							text: AppStrings.DeltaOnboarding.termsButtonTitle,
 							style: .label,
 							action: .push(model: AppInformationModel.termsModel, withTitle: AppStrings.AppInformation.termsNavigation),
-							configure: { viewController, cell, IndexPath in
+							configure: { _, cell, _ in
 								cell.accessoryType = .disclosureIndicator
 								cell.selectionStyle = .default
 							}
