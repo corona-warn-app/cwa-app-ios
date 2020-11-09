@@ -25,7 +25,8 @@ class DMWifiClinteViewController: UIViewController {
 
 	// MARK: - Init
 
-	init() {
+	init(wifiClient: WifiOnlyHTTPClient) {
+		self.wifiClient = wifiClient
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -50,7 +51,7 @@ class DMWifiClinteViewController: UIViewController {
 	// MARK: - Private
 
 	private let wifiSwitch = UISwitch()
-//	private let wifiClient: WifiOnlyHTTPClient
+	private let wifiClient: WifiOnlyHTTPClient
 
 	private func setupView() {
 		view.backgroundColor = .systemBackground
