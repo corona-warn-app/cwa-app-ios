@@ -38,7 +38,3 @@ enum SQLiteErrorCode: Int32, Error {
 	/// If everything fails, it's aliens.
 	case unknown = -1
 }
-
-enum SQLiteError: Error {
-	case generalError(message: String)
-}
