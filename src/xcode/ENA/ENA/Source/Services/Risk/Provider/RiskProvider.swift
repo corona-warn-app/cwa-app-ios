@@ -271,6 +271,38 @@ extension RiskProvider: RiskProviding {
 			completion: completion
 		)
 	}
+	
+	private func determineRisk(
+		userInitiated: Bool,
+		ignoreCachedSummary: Bool,
+		appConfiguration: SAP_Internal_ApplicationConfiguration,
+		completion: @escaping Completion
+	) {
+		if let risk = self.riskForMissingPreconditions() {
+			self.successOnTargetQueue(risk: risk, completion: completion)
+			return
+		}
+
+		self.determineSummary(
+			userInitiated: userInitiated,
+			ignoreCachedSummary: ignoreCachedSummary,
+			appConfiguration: appConfiguration,
+			completion: { [weak self] result in
+				guard let self = self else { return }
+
+				switch result {
+				case .success(let summary):
+					self.calculateRiskLevel(
+						summary: summary,
+						appConfiguration: appConfiguration,
+						completion: completion
+					)
+				case .failure(let error):
+					self.failOnTargetQueue(error: error, completion: completion)
+				}
+			}
+		)
+	}
 
 	private func downloadKeyPackages(completion: @escaping (Result<Void, RiskProviderError>) -> Void) {
 		// The result of a hour package download is not handled, because for the risk detection it is irrelevant if it fails or not.
