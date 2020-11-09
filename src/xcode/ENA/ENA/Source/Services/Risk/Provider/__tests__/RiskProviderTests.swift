@@ -87,6 +87,7 @@ final class RiskProviderTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
+			wifiClient: client,
 			store: store
 		)
 		
@@ -151,6 +152,7 @@ final class RiskProviderTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
+			wifiClient: client,
 			store: store
 		)
 		
@@ -209,6 +211,7 @@ final class RiskProviderTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
+			wifiClient: client,
 			store: store
 		)
 		
@@ -270,6 +273,7 @@ final class RiskProviderTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
+			wifiClient: client,
 			store: store
 		)
 		
@@ -497,6 +501,7 @@ final class RiskProviderTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
+			wifiClient: client,
 			store: store
 		)
 		return RiskProvider(

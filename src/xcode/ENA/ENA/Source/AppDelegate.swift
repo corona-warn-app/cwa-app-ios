@@ -137,6 +137,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
+			wifiClient: wifiClient,
 			store: store
 		)
 
@@ -167,6 +168,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
 	let client: HTTPClient
+	let wifiClient: WifiOnlyHTTPClient
 
 	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
 		ExposureDetectionExecutor(
@@ -184,6 +186,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
 		self.client = HTTPClient(configuration: configuration)
+		self.wifiClient = WifiOnlyHTTPClient(configuration: configuration)
 
 		#if !RELEASE
 		downloadedPackagesStore.keyValueStore = self.store

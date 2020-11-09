@@ -20,7 +20,9 @@ import Foundation
 import ZIPFoundation
 
 final class HTTPClient: Client {
-	// MARK: Creating
+
+	// MARK: - Init
+
 	init(
 		configuration: Configuration,
 		packageVerifier: @escaping SAPDownloadedPackage.Verification = SAPDownloadedPackage.Verifier().verify,
@@ -31,41 +33,9 @@ final class HTTPClient: Client {
 		self.packageVerifier = packageVerifier
 	}
 
-	// MARK: Properties
-	let configuration: Configuration
-	let session: URLSession
-	let packageVerifier: SAPDownloadedPackage.Verification
-	/// Naïve retry counter until this client will be refactored
-	private var retries: [URL: Int] = [:]
+	// MARK: - Overrides
 
-	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
-		let keys = payload.exposureKeys
-		let countries = payload.visitedCountries
-		let tan = payload.tan
-		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: countries, tan: tan)
-		guard let request = try? URLRequest.keySubmissionRequest(configuration: configuration, payload: payload, isFake: isFake) else {
-			completion(.failure(SubmissionError.requestCouldNotBeBuilt))
-			return
-		}
-
-		session.response(for: request, isFake: isFake) { result in
-			#if !RELEASE
-			UserDefaults.standard.dmLastSubmissionRequest = request.httpBody
-			#endif
-
-			switch result {
-			case let .success(response):
-				switch response.statusCode {
-				case 200..<300: completion(.success(()))
-				case 400: completion(.failure(SubmissionError.invalidPayloadOrHeaders))
-				case 403: completion(.failure(SubmissionError.invalidTan))
-				default: completion(.failure(SubmissionError.serverError(response.statusCode)))
-				}
-			case let .failure(error):
-				completion(.failure(SubmissionError.other(error)))
-			}
-		}
-	}
+	// MARK: - Protocol Client
 
 	func availableDays(
 		forCountry country: String,
@@ -74,7 +44,7 @@ final class HTTPClient: Client {
 		let url = configuration.availableDaysURL(forCountry: country)
 		availableDays(from: url, completion: completeWith)
 	}
-	
+
 	func availableHours(
 		day: String,
 		country: String,
@@ -121,49 +91,58 @@ final class HTTPClient: Client {
 		fetchDay(from: url, completion: completeWith)
 	}
 
-	func fetchHour(
-		_ hour: Int,
-		day: String,
-		country: String,
-		completion completeWith: @escaping HourCompletionHandler
-	) {
-		let url = configuration.diagnosisKeysURL(day: day, hour: hour, forCountry: country)
+	func getRegistrationToken(forKey key: String, withType type: String, isFake: Bool = false, completion completeWith: @escaping RegistrationHandler) {
 
-		var responseError: Failure?
-		defer {
-			// no guard in defer!
-			if let error = responseError {
-				let retryCount = retries[url] ?? 0
-				if retryCount > 2 {
-					completeWith(.failure(error))
-				} else {
-					retries[url] = retryCount.advanced(by: 1)
-					Log.debug("\(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
-					fetchHour(hour, day: day, country: country, completion: completeWith)
-				}
-			} else {
-				// no error, no retry - clean up
-				retries[url] = nil
-			}
+		guard
+			let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
+				configuration: configuration,
+				key: key,
+				type: type,
+				headerValue: isFake ? 1 : 0
+			) else {
+				completeWith(.failure(.invalidResponse))
+				return
 		}
 
-		session.GET(url) { result in
+		session.response(for: registrationTokenRequest, isFake: isFake) { result in
 			switch result {
 			case let .success(response):
-				guard let hourData = response.body else {
-					responseError = .invalidResponse
+				if response.statusCode == 400 {
+					if type == "TELETAN" {
+						completeWith(.failure(.teleTanAlreadyUsed))
+					} else {
+						completeWith(.failure(.qrAlreadyUsed))
+					}
 					return
 				}
-				Log.info("got hour: \(hourData.count)", log: .api)
-				guard let package = SAPDownloadedPackage(compressedData: hourData) else {
-					Log.error("Failed to create signed package. For URL: \(url)", log: .api)
-					responseError = .invalidResponse
+				guard response.hasAcceptableStatusCode else {
+					completeWith(.failure(.serverError(response.statusCode)))
 					return
 				}
-				completeWith(.success(package))
+				guard let registerResponseData = response.body else {
+					completeWith(.failure(.invalidResponse))
+					Log.error("Failed to register Device with invalid response", log: .api)
+					return
+				}
+
+				do {
+					let response = try JSONDecoder().decode(
+						GetRegistrationTokenResponse.self,
+						from: registerResponseData
+					)
+					guard let registrationToken = response.registrationToken else {
+						Log.error("Failed to register Device with invalid response payload structure", log: .api)
+						completeWith(.failure(.invalidResponse))
+						return
+					}
+					completeWith(.success(registrationToken))
+				} catch _ {
+					Log.error("Failed to register Device with invalid response payload structure", log: .api)
+					completeWith(.failure(.invalidResponse))
+				}
 			case let .failure(error):
-				responseError = error
-				Log.error("failed to get day: \(error)", log: .api)
+				completeWith(.failure(error))
+				Log.error("Failed to registerDevices due to error: \(error).", log: .api)
 			}
 		}
 	}
@@ -178,16 +157,16 @@ final class HTTPClient: Client {
 				completeWith(.failure(.invalidResponse))
 				return
 		}
-		
+
 		session.response(for: testResultRequest, isFake: isFake) { result in
 			switch result {
 			case let .success(response):
-				
+
 				if response.statusCode == 400 {
 					completeWith(.failure(.qrDoesNotExist))
 					return
 				}
-				
+
 				guard response.hasAcceptableStatusCode else {
 					completeWith(.failure(.serverError(response.statusCode)))
 					return
@@ -218,9 +197,9 @@ final class HTTPClient: Client {
 			}
 		}
 	}
-	
+
 	func getTANForExposureSubmit(forDevice registrationToken: String, isFake: Bool = false, completion completeWith: @escaping TANHandler) {
-		
+
 		guard
 			let tanForExposureSubmitRequest = try? URLRequest.getTanForExposureSubmitRequest(
 				configuration: configuration,
@@ -230,11 +209,11 @@ final class HTTPClient: Client {
 				completeWith(.failure(.invalidResponse))
 				return
 		}
-		
+
 		session.response(for: tanForExposureSubmitRequest, isFake: isFake) { result in
 			switch result {
 			case let .success(response):
-				
+
 				if response.statusCode == 400 {
 					completeWith(.failure(.regTokenNotExist))
 					return
@@ -270,67 +249,48 @@ final class HTTPClient: Client {
 			}
 		}
 	}
-	
-	func getRegistrationToken(forKey key: String, withType type: String, isFake: Bool = false, completion completeWith: @escaping RegistrationHandler) {
-		
-		guard
-			let registrationTokenRequest = try? URLRequest.getRegistrationTokenRequest(
-				configuration: configuration,
-				key: key,
-				type: type,
-				headerValue: isFake ? 1 : 0
-			) else {
-				completeWith(.failure(.invalidResponse))
-				return
+
+	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {
+		let keys = payload.exposureKeys
+		let countries = payload.visitedCountries
+		let tan = payload.tan
+		let payload = CountrySubmissionPayload(exposureKeys: keys, visitedCountries: countries, tan: tan)
+		guard let request = try? URLRequest.keySubmissionRequest(configuration: configuration, payload: payload, isFake: isFake) else {
+			completion(.failure(SubmissionError.requestCouldNotBeBuilt))
+			return
 		}
-		
-		session.response(for: registrationTokenRequest, isFake: isFake) { result in
+
+		session.response(for: request, isFake: isFake) { result in
+			#if !RELEASE
+			UserDefaults.standard.dmLastSubmissionRequest = request.httpBody
+			#endif
+
 			switch result {
 			case let .success(response):
-				if response.statusCode == 400 {
-					if type == "TELETAN" {
-						completeWith(.failure(.teleTanAlreadyUsed))
-					} else {
-						completeWith(.failure(.qrAlreadyUsed))
-					}
-					return
-				}
-				guard response.hasAcceptableStatusCode else {
-					completeWith(.failure(.serverError(response.statusCode)))
-					return
-				}
-				guard let registerResponseData = response.body else {
-					completeWith(.failure(.invalidResponse))
-					Log.error("Failed to register Device with invalid response", log: .api)
-					return
-				}
-				
-				do {
-					let response = try JSONDecoder().decode(
-						GetRegistrationTokenResponse.self,
-						from: registerResponseData
-					)
-					guard let registrationToken = response.registrationToken else {
-						Log.error("Failed to register Device with invalid response payload structure", log: .api)
-						completeWith(.failure(.invalidResponse))
-						return
-					}
-					completeWith(.success(registrationToken))
-				} catch _ {
-					Log.error("Failed to register Device with invalid response payload structure", log: .api)
-					completeWith(.failure(.invalidResponse))
+				switch response.statusCode {
+				case 200..<300: completion(.success(()))
+				case 400: completion(.failure(SubmissionError.invalidPayloadOrHeaders))
+				case 403: completion(.failure(SubmissionError.invalidTan))
+				default: completion(.failure(SubmissionError.serverError(response.statusCode)))
 				}
 			case let .failure(error):
-				completeWith(.failure(error))
-				Log.error("Failed to registerDevices due to error: \(error).", log: .api)
+				completion(.failure(SubmissionError.other(error)))
 			}
 		}
 	}
-}
 
-// MARK: Extensions for private methods
+	// MARK: - Public
 
-extension HTTPClient {
+	// MARK: - Internal
+
+	let configuration: Configuration
+
+	// MARK: - Private
+
+	private let session: URLSession
+	private let packageVerifier: SAPDownloadedPackage.Verification
+	private var retries: [URL: Int] = [:]
+
 	private func fetchDay(
 		from url: URL,
 		completion completeWith: @escaping DayCompletionHandler) {
@@ -619,5 +579,4 @@ private extension URLRequest {
 		guard let data = (String.getRandomString(of: 28 * paddedKeysAmount)).data(using: .ascii) else { return Data() }
 		return data
 	}
-	// swiftlint:disable:next file_length
 }
