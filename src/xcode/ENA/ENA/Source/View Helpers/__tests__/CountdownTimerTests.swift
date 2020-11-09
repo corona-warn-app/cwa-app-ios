@@ -65,7 +65,7 @@ class CountdownTimerTests: XCTestCase {
 
 		let updateExpectation = self.expectation(description: "Calls update every second.")
 		updateExpectation.expectedFulfillmentCount = 3
-		countdownTimerTarget.updateCallback = { _, time in
+		countdownTimerTarget.updateCallback = { _, _ in
 			updateExpectation.fulfill()
 		}
 

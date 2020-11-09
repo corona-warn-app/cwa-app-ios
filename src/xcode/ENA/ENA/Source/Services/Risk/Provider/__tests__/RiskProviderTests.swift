@@ -272,7 +272,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -293,7 +293,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -314,7 +314,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -335,7 +335,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -356,7 +356,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -377,7 +377,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -398,7 +398,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -419,7 +419,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
