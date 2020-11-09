@@ -27,7 +27,6 @@ final class RiskProvider {
 	private let queue = DispatchQueue(label: "com.sap.RiskProvider")
 	private let targetQueue: DispatchQueue
 	private var consumersQueue = DispatchQueue(label: "com.sap.RiskProvider.consumer")
-	private var cancellationToken: CancellationToken?
 	private let riskCalculation: RiskCalculationProtocol
 	private var keyPackageDownload: KeyPackageDownloadProtocol
 	private let exposureDetectionExecutor: ExposureDetectionDelegate
@@ -222,13 +221,10 @@ extension RiskProvider: RiskProviding {
 		guard group.wait(timeout: .now() + .seconds(60 * 8)) == .success else {
 			updateActivityState(.idle)
 			exposureDetection?.cancel()
-			cancellationToken = nil
 			Log.info("RiskProvider: Canceled risk calculation due to timeout", log: .riskDetection)
 			failOnTargetQueue(error: .timeout, completion: completion)
 			return
 		}
-
-		cancellationToken = nil
 	}
 
 	private func downloadKeyPackages(completion: @escaping (Result<Void, RiskProviderError>) -> Void) {

@@ -23,21 +23,6 @@ import ExposureNotification
 
 private final class Summary: ENExposureDetectionSummary {}
 
-private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
-
-	var onDetectExposure: ((ExposureSummaryProvider.Completion) -> Void)?
-
-	func detectExposure(
-		appConfiguration: SAP_Internal_ApplicationConfiguration,
-		completion: Completion
-	) -> CancellationToken {
-		let token = CancellationToken(onCancel: {})
-		onDetectExposure?(completion)
-		return token
-	}
-
-}
-
 // swiftlint:disable:next type_body_length
 final class RiskProviderTests: XCTestCase {
 
