@@ -24,12 +24,6 @@ import UIKit
 /// WarnOthers always is related to one concrete test result, which always needs to be a positive one.
 class WarnOthers: OthersWarnable {
 	
-//	/// timerOne represents a timer value in seconds
-//	var timerOne: Int = ENWarnOthersNotifications.notificationOneDefaultDelay.rawValue
-//
-//	/// timerTwo represents a timer value in seconds
-//	var timerTwo: Int = ENWarnOthersNotifications.notificationTwoDefaultDelay.rawValue
-	
 	var storedResult: Bool {
 		get {
 			return store.warnOthersHasActiveTestResult
@@ -40,23 +34,22 @@ class WarnOthers: OthersWarnable {
 	}
 	
 	/// Notification timer in seconds for notification one
-	// TODO: These should both be TimeIntervals and be called ...TimeInterval
-	var notificationOneTimer: Int {
+	var notificationOneTimer: TimeInterval {
 		get {
-			return store.warnOthersNotificationOneTimer
+			return TimeInterval(store.warnOthersNotificationOneTimer)
 		}
 		set {
-			store.warnOthersNotificationOneTimer = newValue
+			store.warnOthersNotificationOneTimer = Int(newValue)
 		}
 	}
 	
 	/// Notification timer in seconds for notification two
-	var notificationTwoTimer: Int {
+	var notificationTwoTimer: TimeInterval {
 		get {
-			return store.warnOthersNotificationTwoTimer
+			return TimeInterval(store.warnOthersNotificationTwoTimer)
 		}
 		set {
-			store.warnOthersNotificationTwoTimer = newValue
+			store.warnOthersNotificationTwoTimer = Int(newValue)
 		}
 	}
 	
