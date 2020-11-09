@@ -338,26 +338,40 @@ extension RiskProvider: RiskProviding {
 		appConfiguration: SAP_Internal_ApplicationConfiguration,
 		completion: @escaping (Result<SummaryMetadata, RiskProviderError>) -> Void
 	) {
-		Log.info("RiskProvider: Determine summeries.", log: .riskDetection)
-		
-		if !ignoreCachedSummary {
-			// Here we are in automatic mode and thus we have to check the validity of the current summary.
-			let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
-				activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
-				lastExposureDetectionDate: store.summary?.date
-			)
-			let shouldDetectExposures = (configuration.detectionMode == .manual && userInitiated) || configuration.detectionMode == .automatic
+		if let cachedSummary = loadSummaryFromCache(userInitiated: userInitiated, ignoreCachedSummary: ignoreCachedSummary) {
+			completion(.success(cachedSummary))
+		} else {
+			executeExposureDetection(appConfiguration: appConfiguration, completion: completion)
+		}
+	}
 
-			if !enoughTimeHasPassed || !self.exposureManagerState.isGood || !shouldDetectExposures {
-				if let summary = store.summary {
-					completion(.success(summary))
-				} else {
-					completion(.failure(.missingCachedSummary))
-				}
-				return
-			}
+	private func loadSummaryFromCache(
+		userInitiated: Bool,
+		ignoreCachedSummary: Bool = false
+	) -> SummaryMetadata? {
+
+		guard !ignoreCachedSummary else {
+			return nil
 		}
 
+		// Here we are in automatic mode and thus we have to check the validity of the current summary.
+		let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
+			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
+			lastExposureDetectionDate: store.summary?.date
+		)
+		let shouldDetectExposures = (configuration.detectionMode == .manual && userInitiated) || configuration.detectionMode == .automatic
+
+		if !enoughTimeHasPassed || !self.exposureManagerState.isGood || !shouldDetectExposures {
+			return store.summary
+		} else {
+			return nil
+		}
+	}
+
+	private func executeExposureDetection(
+		appConfiguration: SAP_Internal_ApplicationConfiguration,
+		completion: @escaping (Result<SummaryMetadata, RiskProviderError>) -> Void
+	) {
 		self.updateActivityState(.detecting)
 
 		// The summary is outdated: do a exposure detection
