@@ -806,7 +806,12 @@ enum AppStrings {
 		static let termsButtonTitle = NSLocalizedString("DeltaOnboarding_Terms_Button", comment: "")
 		static let termsDescription2 = NSLocalizedString("DeltaOnboarding_Terms_Description2", comment: "")
 	}
-	
+
+	enum WarnOthersNotification {
+		static let title = NSLocalizedString("WarnOthersNotification_Title", comment: "")
+		static let description = NSLocalizedString("WarnOthersNotification_Description", comment: "")
+	}
+
 	enum WrongDeviceTime {
 		static let errorPushNotificationTitle = NSLocalizedString("ExposureDetection_WrongTime_Notification_Title", comment: "")
 		static let errorPushNotificationText = NSLocalizedString("ExposureDetection_WrongTime_Notification_Body", comment: "")
