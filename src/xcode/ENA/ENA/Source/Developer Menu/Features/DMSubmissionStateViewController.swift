@@ -94,7 +94,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 			guard let localKeys = localKeys else {
 				fatalError("unable to get local diagnosis keys")
 			}
-			self.client.fetchDayResults(wifiClient: self.wifiClient) { downloadedPackages in
+			self.client.fetchAllKeys(wifiClient: self.wifiClient) { downloadedPackages in
 				let allPackages = downloadedPackages.allKeyPackages
 				let allRemoteKeys = Array(allPackages
 					.compactMap { try? $0.keys() }
@@ -233,7 +233,7 @@ private extension Client {
 		}
 	}
 
-	func fetchDayResults(
+	func fetchAllKeys(
 		wifiClient: WifiOnlyHTTPClient,
 		completion completeWith: @escaping DaysAndHoursCompletionHandler
 	) {
