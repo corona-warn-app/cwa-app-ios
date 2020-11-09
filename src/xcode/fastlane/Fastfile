@@ -67,7 +67,7 @@ platform :ios do
       raise_if_swiftlint_error: true,
       reporter: "sonarqube"
     )
-    
+
     # Combined Unit & UI Tests
     run_tests(
       scheme: "ENA",
