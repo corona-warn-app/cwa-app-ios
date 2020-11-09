@@ -58,7 +58,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		let descriptionLabel = UILabel(frame: .zero)
 		descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 		descriptionLabel.numberOfLines = 0
-		descriptionLabel.text = "You can use the two input fields below to maintain the time until the notifications will be shown. Time is maintained in seconds."
+		descriptionLabel.text = "You can use the two input fields below to maintain the time until the notifications will be shown.\nTime is maintained in seconds."
 		descriptionLabel.font = UIFont.enaFont(for: .subheadline)
 		
 		let saveButton = UIButton(frame: .zero)
@@ -76,7 +76,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		let descriptionLabelResetNotifications = UILabel(frame: .zero)
 		descriptionLabelResetNotifications.translatesAutoresizingMaskIntoConstraints = false
 		descriptionLabelResetNotifications.numberOfLines = 0
-		descriptionLabelResetNotifications.text = "If you want to let the notifications get scheduled again, press the reset button below and after that you go back to the corresponding views, they will be scheduled again."
+		descriptionLabelResetNotifications.text = "If you want to let the notifications get scheduled again (eg. for testing purposes), just press the reset button below and after that you navigate back to the corresponding views of the app, the notifications will get scheduled again.\nYou can also check 'DM Pending Notifications', to check which ones are scheduled."
 		descriptionLabelResetNotifications.font = UIFont.enaFont(for: .subheadline)
 		
 		let resetNotificationsButton = UIButton(frame: .zero)
