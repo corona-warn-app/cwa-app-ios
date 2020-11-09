@@ -344,7 +344,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 		waitForExpectations(timeout: 1.0)
 	}
 	
-	func test_loadDayPackageWillCleanupHourPackages() throws {
+	func test_When_DownloadingDayPackage_Then_CleanupHourPackages() throws {
 		// Load day package for a particular day will cleanup
 		// all hour packages for exactely that day
 		
