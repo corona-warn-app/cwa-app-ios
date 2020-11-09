@@ -22,7 +22,7 @@ import ExposureNotification
 
 /// Determines the risk level for one exposure window
 /// https://github.com/corona-warn-app/cwa-app-tech-spec/blob/7779cabcff42afb437f743f1d9e35592ef989c52/docs/spec/exposure-windows.md#determine-risk-level-for-exposure-windows
-final class RiskCalculationExposureWindow {
+final class RiskCalculationExposureWindow: Codable {
 
 	// MARK: - Init
 
