@@ -41,6 +41,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
+			wifiClient: client,
 			store: store,
 			countryIds: [countryId]
 		)
@@ -78,6 +79,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
+			wifiClient: client,
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -115,6 +117,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
+			wifiClient: client,
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -158,6 +161,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
+			wifiClient: client,
 			store: store,
 			countryIds: [countryId]
 		)
@@ -192,6 +196,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
+			wifiClient: client,
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -224,6 +229,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
+			wifiClient: client,
 			store: store
 		)
 
@@ -254,6 +260,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
+			wifiClient: client,
 			store: store
 		)
 
@@ -283,6 +290,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
+			wifiClient: client,
 			store: store
 		)
 
@@ -312,6 +320,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
+			wifiClient: client,
 			store: store
 		)
 

@@ -63,14 +63,6 @@ protocol Client {
 		completion: @escaping DayCompletionHandler
 	)
 
-	/// Fetches the keys for a given `hour` of a specific `day`.
-	func fetchHour(
-		_ hour: Int,
-		day: String,
-		country: String,
-		completion: @escaping HourCompletionHandler
-	)
-
 	// MARK: Getting the Configuration
 
 	/// Gets the registration token
@@ -218,60 +210,4 @@ extension Client {
 		}
 	}
 
-	func fetchDays(
-		_ days: [String],
-		hours: [Int],
-		of day: String,
-		country: String,
-		completion completeWith: @escaping DaysAndHoursCompletionHandler
-	) {
-		let group = DispatchGroup()
-		var hoursResult = HoursResult(errors: [], bucketsByHour: [:], day: day)
-		var daysResult = DaysResult(errors: [], bucketsByDay: [:])
-
-		group.enter()
-		fetchDays(days, forCountry: country) { result in
-			daysResult = result
-			group.leave()
-		}
-
-		group.enter()
-		fetchHours(hours, day: day, country: country) { result in
-			hoursResult = result
-			group.leave()
-		}
-		group.notify(queue: .main) {
-			completeWith(FetchedDaysAndHours(hours: hoursResult, days: daysResult))
-		}
-	}
-
-	func fetchHours(
-		_ hours: [Int],
-		day: String,
-		country: String,
-		completion completeWith: @escaping FetchHoursCompletionHandler
-	) {
-		var errors = [Client.Failure]()
-		var buckets = [Int: PackageDownloadResponse]()
-		let group = DispatchGroup()
-
-		hours.forEach { hour in
-			group.enter()
-			self.fetchHour(hour, day: day, country: country) { result in
-				switch result {
-				case let .success(hourBucket):
-					buckets[hour] = hourBucket
-				case let .failure(error):
-					errors.append(error)
-				}
-				group.leave()
-			}
-		}
-
-		group.notify(queue: .main) {
-			completeWith(
-				HoursResult(errors: errors, bucketsByHour: buckets, day: day)
-			)
-		}
-	}
 }

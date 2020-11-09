@@ -70,6 +70,48 @@ final class ClientMock {
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
 }
 
+extension ClientMock: ClientWifiOnly {
+
+	func fetchHours(
+		_ hours: [Int],
+		day: String,
+		country: String,
+		completion completeWith: @escaping (HoursResult) -> Void
+	) {
+		var errors = [Client.Failure]()
+		var buckets = [Int: PackageDownloadResponse]()
+		let group = DispatchGroup()
+
+		hours.forEach { hour in
+			group.enter()
+			fetchHour(hour, day: day, country: country) { result in
+				switch result {
+				case let .success(hourBucket):
+					buckets[hour] = hourBucket
+				case let .failure(error):
+					errors.append(error)
+				}
+				group.leave()
+			}
+		}
+
+		group.notify(queue: .main) {
+			completeWith(
+				HoursResult(errors: errors, bucketsByHour: buckets, day: day)
+			)
+		}
+	}
+
+	func fetchHour(_ hour: Int, day: String, country: String, completion: @escaping HourCompletionHandler) {
+		if let failure = fetchPackageRequestFailure {
+			completion(.failure(failure))
+			return
+		}
+		completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
+	}
+
+}
+
 extension ClientMock: Client {
 
 	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
@@ -91,14 +133,6 @@ extension ClientMock: Client {
 	}
 
 	func fetchDay(_ day: String, forCountry country: String, completion: @escaping DayCompletionHandler) {
-		if let failure = fetchPackageRequestFailure {
-			completion(.failure(failure))
-			return
-		}
-		completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
-	}
-
-	func fetchHour(_ hour: Int, day: String, country: String, completion: @escaping HourCompletionHandler) {
 		if let failure = fetchPackageRequestFailure {
 			completion(.failure(failure))
 			return

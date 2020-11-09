@@ -156,7 +156,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		HTTPClient.makeWith(mock: stack).fetchHour(1, day: "2020-05-01", country: "IT") { result in
+		WifiOnlyHTTPClient.with(mock: stack).fetchHour(1, day: "2020-05-01", country: "IT") { result in
 			switch result {
 			case .success:
 				XCTFail("an invalid response should never cause success")
@@ -179,7 +179,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		HTTPClient.makeWith(mock: stack).fetchHour(1, day: "2020-05-01", country: "IT") { result in
+		WifiOnlyHTTPClient.with(mock: stack).fetchHour(1, day: "2020-05-01", country: "IT") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case let .success(sapPackage):
@@ -405,7 +405,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		}
 
 		let stack = MockNetworkStack(mockSession: session)
-		let client = HTTPClient.makeWith(mock: stack)
+		let client = WifiOnlyHTTPClient.with(mock: stack)
 		// We mock the connection, no need for read data!
 		client.fetchHour(1, day: "2020-0-0", country: "XXX") { result in
 			switch result {
@@ -461,7 +461,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		}
 
 		let stack = MockNetworkStack(mockSession: session)
-		let client = HTTPClient.makeWith(mock: stack)
+		let client = WifiOnlyHTTPClient.with(mock: stack)
 		// We mock the connection, no need for read data!
 		client.fetchHour(1, day: "2020-0-0", country: "XXX") { result in
 			switch result {
@@ -520,7 +520,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		}
 
 		let stack = MockNetworkStack(mockSession: session)
-		let client = HTTPClient.makeWith(mock: stack)
+		let client = WifiOnlyHTTPClient.with(mock: stack)
 		// We mock the connection, no need for read data!
 		client.fetchHour(1, day: "2020-0-0", country: "XXX") { result in
 			switch result {

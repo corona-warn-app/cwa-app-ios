@@ -41,6 +41,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
+			wifiClient: client,
 			store: store,
 			countryIds: [countryId]
 		)
@@ -78,6 +79,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
+			wifiClient: client,
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -115,6 +117,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
+			wifiClient: client,
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -156,6 +159,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
+			wifiClient: client,
 			store: store,
 			countryIds: [countryId]
 		)
@@ -190,6 +194,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
+			wifiClient: client,
 			store: store,
 			countryIds: ["IT"]
 		)
@@ -222,6 +227,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
+			wifiClient: client,
 			store: store
 		)
 
@@ -252,6 +258,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
+			wifiClient: client,
 			store: store
 		)
 
@@ -281,6 +288,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
+			wifiClient: client,
 			store: store
 		)
 
@@ -310,6 +318,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
 			client: client,
+			wifiClient: client,
 			store: store
 		)
 
