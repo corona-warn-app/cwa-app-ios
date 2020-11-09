@@ -19,7 +19,7 @@
 
 import FMDB
 
-final class Migration0To1: Migration {
+final class Migration1To2: Migration {
 
 	private let database: FMDatabase
 
@@ -31,15 +31,13 @@ final class Migration0To1: Migration {
 		let sql = """
 			BEGIN TRANSACTION;
 
-			ALTER
-				TABLE Z_DOWNLOADED_PACKAGE
-			ADD
-				Z_COUNTRY INTEGER;
+			-- add etag column
+			ALTER TABLE Z_DOWNLOADED_PACKAGE
+				ADD Z_ETAG STRING NULL;
 
-			UPDATE
-				Z_DOWNLOADED_PACKAGE
-			SET
-				Z_COUNTRY = "DE";
+			-- add hash column
+			ALTER TABLE Z_DOWNLOADED_PACKAGE
+				ADD Z_HASH STRING NULL;
 
 			ALTER TABLE
 				Z_DOWNLOADED_PACKAGE
@@ -57,6 +55,8 @@ final class Migration0To1: Migration {
 				Z_DAY TEXT NOT NULL,
 				Z_HOUR INTEGER,
 				Z_COUNTRY STRING NOT NULL,
+				Z_ETAG STRING NULL,
+				Z_HASH STRING NULL,
 				PRIMARY KEY (
 					Z_COUNTRY,
 					Z_DAY,
@@ -68,11 +68,6 @@ final class Migration0To1: Migration {
 				Z_DOWNLOADED_PACKAGE
 			SELECT * FROM
 				Z_DOWNLOADED_PACKAGE_OLD;
-
-			UPDATE
-				Z_DOWNLOADED_PACKAGE
-			SET
-				Z_COUNTRY = "DE";
 
 			DROP
 				TABLE Z_DOWNLOADED_PACKAGE_OLD;

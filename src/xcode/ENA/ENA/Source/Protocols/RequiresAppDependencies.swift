@@ -19,8 +19,8 @@
 import Foundation
 import UIKit
 
-typealias DownloadedPackagesStore = DownloadedPackagesStoreV1
-typealias DownloadedPackagesSQLLiteStore = DownloadedPackagesSQLLiteStoreV1
+typealias DownloadedPackagesStore = DownloadedPackagesStoreV2
+typealias DownloadedPackagesSQLLiteStore = DownloadedPackagesSQLLiteStoreV2
 
 protocol RequiresAppDependencies {
 	var client: HTTPClient { get }

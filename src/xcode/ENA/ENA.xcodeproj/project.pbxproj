@@ -115,6 +115,11 @@
 		3598D99A24FE280700483F1F /* CountryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3598D99924FE280700483F1F /* CountryTests.swift */; };
 		35A7F081250A7CF8005E6C33 /* KeychainHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A7F080250A7CF8005E6C33 /* KeychainHelperTests.swift */; };
 		35BE8598251CE495005C2FD0 /* CachingHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BE8597251CE495005C2FD0 /* CachingHTTPClient.swift */; };
+		35C701EC2556BCB9008AEA91 /* Migration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C701EB2556BCB9008AEA91 /* Migration1To2.swift */; };
+		35C701F82556C01F008AEA91 /* Migration1To2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C701F32556C016008AEA91 /* Migration1To2Tests.swift */; };
+		35EA684225553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA684125553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift */; };
+		35EA684A25553B5C00335F73 /* DownloadedPackagesStoreV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA684925553B5C00335F73 /* DownloadedPackagesStoreV2.swift */; };
+		35EA68522555488600335F73 /* SQLiteError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA68512555488600335F73 /* SQLiteError.swift */; };
 		4026C2DC24852B7600926FB4 /* AppInformationViewController+LegalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */; };
 		4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */; };
 		50B1D6E72551621C00684C3C /* DayKeyPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */; };
@@ -675,6 +680,11 @@
 		3598D99924FE280700483F1F /* CountryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTests.swift; sourceTree = "<group>"; };
 		35A7F080250A7CF8005E6C33 /* KeychainHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelperTests.swift; sourceTree = "<group>"; };
 		35BE8597251CE495005C2FD0 /* CachingHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingHTTPClient.swift; sourceTree = "<group>"; };
+		35C701EB2556BCB9008AEA91 /* Migration1To2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration1To2.swift; sourceTree = "<group>"; };
+		35C701F32556C016008AEA91 /* Migration1To2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration1To2Tests.swift; sourceTree = "<group>"; };
+		35EA684125553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesSQLLiteStoreV2.swift; sourceTree = "<group>"; };
+		35EA684925553B5C00335F73 /* DownloadedPackagesStoreV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesStoreV2.swift; sourceTree = "<group>"; };
+		35EA68512555488600335F73 /* SQLiteError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteError.swift; sourceTree = "<group>"; };
 		4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppInformationViewController+LegalModel.swift"; sourceTree = "<group>"; };
 		4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationLegalCell.swift; sourceTree = "<group>"; };
 		50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayKeyPackageDownloadTests.swift; sourceTree = "<group>"; };
@@ -1347,6 +1357,15 @@
 			name = TestPlans;
 			sourceTree = "<group>";
 		};
+		35EA68402554BEB200335F73 /* V2 */ = {
+			isa = PBXGroup;
+			children = (
+				35EA684925553B5C00335F73 /* DownloadedPackagesStoreV2.swift */,
+				35EA684125553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift */,
+			);
+			path = V2;
+			sourceTree = "<group>";
+		};
 		50BD2E6724FE26F300932566 /* __test__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -1583,6 +1602,7 @@
 				B120C7C524AFDAB900F68FF1 /* ActiveTracing.swift */,
 				A3FF84EB247BFAF00053E947 /* Hasher.swift */,
 				0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */,
+				35EA68512555488600335F73 /* SQLiteError.swift */,
 				016146902487A43E00660992 /* LinkHelper.swift */,
 				A128F058248B459F00EC7F6C /* PublicKeyStore.swift */,
 			);
@@ -2181,17 +2201,10 @@
 		AB5F84A924F8F6C7000400D4 /* Migration */ = {
 			isa = PBXGroup;
 			children = (
-				AB5F84AA24F8F6C7000400D4 /* 0To1 */,
+				AB5F84BA24F92876000400D4 /* Migration0To1Tests.swift */,
+				35C701F32556C016008AEA91 /* Migration1To2Tests.swift */,
 			);
 			path = Migration;
-			sourceTree = "<group>";
-		};
-		AB5F84AA24F8F6C7000400D4 /* 0To1 */ = {
-			isa = PBXGroup;
-			children = (
-				AB5F84BA24F92876000400D4 /* Migration0To1Tests.swift */,
-			);
-			path = 0To1;
 			sourceTree = "<group>";
 		};
 		AB5F84AB24F8F6EB000400D4 /* Migration */ = {
@@ -2208,6 +2221,7 @@
 			isa = PBXGroup;
 			children = (
 				AB5F84B124F8F7E3000400D4 /* Migration0To1.swift */,
+				35C701EB2556BCB9008AEA91 /* Migration1To2.swift */,
 			);
 			path = Migrations;
 			sourceTree = "<group>";
@@ -2618,6 +2632,7 @@
 		B1D431C9246C848E00E728AD /* DownloadedPackagesStore */ = {
 			isa = PBXGroup;
 			children = (
+				35EA68402554BEB200335F73 /* V2 */,
 				AB5F84C224FE2EF2000400D4 /* V1 */,
 				AB5F84C124FE2EEA000400D4 /* V0 */,
 				AB5F84AB24F8F6EB000400D4 /* Migration */,
@@ -3219,6 +3234,7 @@
 				01C6AC3A252B2A500052814D /* UIImage+Color.swift in Sources */,
 				853D987A24694A8700490DBA /* ENAButton.swift in Sources */,
 				CD8638532477EBD400A5A07C /* SettingsViewModel.swift in Sources */,
+				35EA684225553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift in Sources */,
 				2FC0357124B5B70700E234AC /* Error+FAQUrl.swift in Sources */,
 				51CE1BB52460AC83002CF42A /* UICollectionView+Dequeue.swift in Sources */,
 				B17F2D48248CEB4C00CAA38F /* DetectionMode.swift in Sources */,
@@ -3264,6 +3280,7 @@
 				71FE1C7A247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift in Sources */,
 				B1C7EEAE24941A3B00F1F284 /* ManualExposureDetectionState.swift in Sources */,
 				51486DA22485101500FCE216 /* RiskInactiveCollectionViewCell.swift in Sources */,
+				35C701EC2556BCB9008AEA91 /* Migration1To2.swift in Sources */,
 				710021DC248E44A6001F0B63 /* ENAFont.swift in Sources */,
 				B1FE13FF2489708200D012E5 /* CachedAppConfiguration.swift in Sources */,
 				EE22DB8B247FB43A001B0A71 /* ActionDetailTableViewCell.swift in Sources */,
@@ -3279,6 +3296,7 @@
 				71330E4724810A0C00EB10F6 /* DynamicTableViewFooter.swift in Sources */,
 				B1D431CB246C84A400E728AD /* DownloadedPackagesStoreV1.swift in Sources */,
 				714194EA247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift in Sources */,
+				35EA684A25553B5C00335F73 /* DownloadedPackagesStoreV2.swift in Sources */,
 				2F26CE2E248B9C4F00BE30EE /* UIViewController+BackButton.swift in Sources */,
 				A16714BB248D18D20031B111 /* SummaryMetadata.swift in Sources */,
 				51C779162486E5BA004582F8 /* RiskFindingPositiveCollectionViewCell.swift in Sources */,
@@ -3330,6 +3348,7 @@
 				35BE8598251CE495005C2FD0 /* CachingHTTPClient.swift in Sources */,
 				51CE1B4C246016D1002CF42A /* UICollectionReusableView+Identifier.swift in Sources */,
 				01B7232D24F8E0260064C0EB /* MultipleChoiceChoiceView.swift in Sources */,
+				35EA68522555488600335F73 /* SQLiteError.swift in Sources */,
 				710224EA248FA67F000C5DEF /* HomeTestResultCollectionViewCell.swift in Sources */,
 				9417BA95252B6B5100AD4053 /* DMSQLiteErrorViewController.swift in Sources */,
 				013DC102245DAC4E00EE58B0 /* Store.swift in Sources */,
@@ -3535,6 +3554,7 @@
 				AB3560A02547194C00C3F8E0 /* DeviceTimeCheckTests.swift in Sources */,
 				A128F04E2489ABEE00EC7F6C /* RiskCalculationTests.swift in Sources */,
 				01A1B442252DE57000841B63 /* ExposureSubmissionQRScannerViewModelTests.swift in Sources */,
+				35C701F82556C01F008AEA91 /* Migration1To2Tests.swift in Sources */,
 				BA92A45E255163460063B46F /* ExposureSubmissionQRScannerViewModelGuidTests.swift in Sources */,
 				AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */,
 				B16177E824802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift in Sources */,

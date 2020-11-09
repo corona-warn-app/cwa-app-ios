@@ -93,10 +93,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 			}
 			self.client.fetchAllKeys { downloadedPackages in
 				let allPackages = downloadedPackages.allKeyPackages
-				let allRemoteKeys = Array(allPackages
-					.compactMap { try? $0.keys() }
-					.joined()
-				)
+				let allRemoteKeys = Array(allPackages.compactMap { try? $0.package.keys() }.joined())
 
 				var foundKeys = [ENTemporaryExposureKey]()
 				var missingKeys = [ENTemporaryExposureKey]()
