@@ -9,7 +9,7 @@ commands:
     steps:
       - run:
           name: Install swiftlint
-          command: brew install swiftlint
+          command: brew install swiftlint && brew link --overwrite swiftlint
       - run:
           name: Install Bundler
           command: sudo gem install rake bundler:2.1.4
