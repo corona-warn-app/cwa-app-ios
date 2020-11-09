@@ -24,16 +24,12 @@ import XCTest
 class WarnOthersTests: XCTestCase {
 	
 	private var store: SecureStore!
-
-    override func setUpWithError() throws {
+	
+	override func setUpWithError() throws {
 		store = try SecureStore(at: URL(staticString: ":memory:"), key: "123456", serverEnvironment: ServerEnvironment())
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testWarnOthers_allVariablesAreInitial() throws {
+	}
+	
+	func testWarnOthers_allVariablesAreInitial() throws {
 		
 		let warnOthers = WarnOthers(store: store)
 		
@@ -56,8 +52,5 @@ class WarnOthersTests: XCTestCase {
 		
 		warnOthers.reset()
 		XCTAssertFalse(warnOthers.hasStoredResult, "Inital value of storedResult should be 'false'")
-		
-    }
-
-
+	}
 }
