@@ -46,7 +46,7 @@ struct SAPDownloadedPackage {
 	let bin: Data
 	/// The file-verification signature
 	let signature: Data
-	/// The SHA256 tring of the package `bin`
+	/// The SHA256 string of the package `bin`
 	let fingerprint: String
 
 	// MARK: - Verification
