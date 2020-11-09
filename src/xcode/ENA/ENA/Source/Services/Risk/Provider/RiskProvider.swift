@@ -62,7 +62,7 @@ final class RiskProvider {
         riskCalculation: RiskCalculationProtocol = RiskCalculation(),
         keyPackageDownload: KeyPackageDownloadProtocol
     ) {
-        self.configuration = configuration
+        self.riskProvidingConfiguration = configuration
         self.store = store
         self.exposureSummaryProvider = exposureSummaryProvider
         self.appConfigurationProvider = appConfigurationProvider
@@ -85,7 +85,8 @@ final class RiskProvider {
 	private let appConfigurationProvider: AppConfigurationProviding
 	@Published private(set) var activityState: ActivityState = .idle
 	var exposureManagerState: ExposureManagerState
-	var configuration: RiskProvidingConfiguration
+
+	var riskProvidingConfiguration: RiskProvidingConfiguration
 }
 
 private extension RiskConsumer {
@@ -114,7 +115,7 @@ extension RiskProvider: RiskProviding {
 	}
 
 	var manualExposureDetectionState: ManualExposureDetectionState? {
-		configuration.manualExposureDetectionState(
+		riskProvidingConfiguration.manualExposureDetectionState(
 			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
 			lastExposureDetectionDate: store.summary?.date)
 	}
@@ -144,11 +145,12 @@ extension RiskProvider: RiskProviding {
 
 		if !ignoreCachedSummary {
 			// Here we are in automatic mode and thus we have to check the validity of the current summary.
-			let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
+			let enoughTimeHasPassed = riskProvidingConfiguration.shouldPerformExposureDetection(
 				activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
 				lastExposureDetectionDate: store.summary?.date
 			)
-			let shouldDetectExposures = (configuration.detectionMode == .manual && userInitiated) || configuration.detectionMode == .automatic
+
+			let shouldDetectExposures = (riskProvidingConfiguration.detectionMode == .manual && userInitiated) || riskProvidingConfiguration.detectionMode == .automatic
 
 			if !enoughTimeHasPassed || !self.exposureManagerState.isGood || !shouldDetectExposures {
 				if let summary = store.summary {
@@ -185,7 +187,7 @@ extension RiskProvider: RiskProviding {
 	/// Case2: Date is in the past (could be .distantPast) (usually happens when no detection has been run before (e.g. fresh install).
 	/// For Case2, we need to calculate the remaining time until we reach a full 24h of tracing.
 	func nextExposureDetectionDate() -> Date {
-		let nextDate = configuration.nextExposureDetectionDate(
+		let nextDate = riskProvidingConfiguration.nextExposureDetectionDate(
 			lastExposureDetectionDate: store.summary?.date
 		)
 		switch nextDate {
@@ -276,6 +278,8 @@ extension RiskProvider: RiskProviding {
 			switch result {
 			case .success(let _config):
 				appConfiguration = _config
+
+                self.updateRiskProvidingConfiguration(with: _config)
 
                 func determineSummaries() {
                     self.determineSummary(
@@ -368,7 +372,7 @@ extension RiskProvider: RiskProviding {
 				activeTracing: activeTracing,
 				preconditions: exposureManagerState,
 				previousRiskLevel: store.previousRiskLevel,
-				providerConfiguration: configuration
+				providerConfiguration: riskProvidingConfiguration
 			) else {
 				Log.error("Serious error during risk calculation", log: .api)
 				failOnTargetQueue(error: .failedRiskCalculation, completion: completion)
@@ -433,6 +437,25 @@ extension RiskProvider: RiskProviding {
 			break
 		}
 	}
+
+    private func updateRiskProvidingConfiguration(with appConfig: SAP_Internal_ApplicationConfiguration) {
+        let maxExposureDetectionsPerInterval = Int(appConfig.iosExposureDetectionParameters.maxExposureDetectionsPerInterval)
+
+        var exposureDetectionInterval: DateComponents
+        if maxExposureDetectionsPerInterval == 0 {
+            // Deactivate exposure detection by setting a high, not reachable value.
+			// Int.max does not work. It leads to DateComponents.hour == nil.
+            exposureDetectionInterval = DateComponents(hour: Int.max.advanced(by: -1)) // a.k.a. 1 BER build
+        } else {
+            exposureDetectionInterval = DateComponents(hour: 24 / maxExposureDetectionsPerInterval)
+        }
+
+        self.riskProvidingConfiguration = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: DateComponents(day: 2),
+			exposureDetectionInterval: exposureDetectionInterval,
+			detectionMode: riskProvidingConfiguration.detectionMode
+		)
+    }
 }
 
 extension RiskProvider: ActivityStateProviderDelegate {

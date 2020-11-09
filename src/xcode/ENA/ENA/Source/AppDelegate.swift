@@ -106,7 +106,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let store: Store
 	let serverEnvironment: ServerEnvironment
 	
-	private let consumer = RiskConsumer()
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 
 	lazy var appConfigurationProvider: AppConfigurationProviding = {
@@ -126,13 +125,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}()
 
 	lazy var riskProvider: RiskProvider = {
-		let exposureDetectionInterval = DateComponents(hour: 24)
-
-		let config = RiskProvidingConfiguration(
-			exposureDetectionValidityDuration: DateComponents(day: 2),
-			exposureDetectionInterval: exposureDetectionInterval,
-			detectionMode: .default
-		)
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
@@ -142,11 +134,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		)
 
 		return RiskProvider(
-			configuration: config,
-			store: self.store,
+			configuration: .default,
+			store: store,
 			exposureSummaryProvider: self,
 			appConfigurationProvider: appConfigurationProvider,
-			exposureManagerState: self.exposureManager.preconditions(),
+			exposureManagerState: exposureManager.preconditions(),
 			keyPackageDownload: keyPackageDownload
 		)
 	}()
@@ -202,8 +194,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		taskScheduler.delegate = self
 
-		riskProvider.observeRisk(consumer)
-		
 		// Setup DeadmanNotification after AppLaunch
 		UNUserNotificationCenter.current().scheduleDeadmanNotificationIfNeeded()
 
