@@ -120,7 +120,21 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 	// MARK: - Private
 
 	private let configuration: HTTPClient.Configuration
-	private let session: URLSession
+	private var session: URLSession
 	private var retries: [URL: Int] = [:]
 
 }
+
+#if !RELEASE
+extension WifiOnlyHTTPClient {
+
+	func updateSession(wifiOnly: Bool) {
+		let sessionConfiguration: URLSessionConfiguration = wifiOnly ?
+			.coronaWarnSessionConfigurationWifiOnly() :
+			.coronaWarnSessionConfiguration()
+		session.invalidateAndCancel()
+		session = URLSession(configuration: sessionConfiguration)
+	}
+
+}
+#endif
