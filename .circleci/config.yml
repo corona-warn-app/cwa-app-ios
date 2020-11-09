@@ -2,14 +2,20 @@ version: 2.1
 
 configuration:
   - cache_key: &cache_key v7-{{ checksum "src/xcode/Gemfile.lock" }}
-  - xcode_version: &xcode_version 12.1.0
+  - xcode_version: &xcode_version 12.1.1
 
 commands:
   install-tools:
     steps:
       - run:
           name: Install swiftlint
-          command: brew install swiftlint
+          command: |
+            if command -v swiftlint &> /dev/null
+            then
+              brew unlink swiftlint
+            fi
+            brew install swiftlint
+            swiftlint version
       - run:
           name: Install Bundler
           command: sudo gem install rake bundler:2.1.4
