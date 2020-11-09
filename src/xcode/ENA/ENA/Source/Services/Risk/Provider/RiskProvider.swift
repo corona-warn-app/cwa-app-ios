@@ -190,6 +190,7 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	private func _requestRiskLevel(userInitiated: Bool, ignoreCachedSummary: Bool, completion: @escaping Completion) {
 		let group = DispatchGroup()
 		group.enter()
