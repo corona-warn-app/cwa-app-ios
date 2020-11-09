@@ -22,7 +22,7 @@ import ExposureNotification
 
 /// Determines the risk level for one exposure window
 /// https://github.com/corona-warn-app/cwa-app-tech-spec/blob/7779cabcff42afb437f743f1d9e35592ef989c52/docs/spec/exposure-windows.md#determine-risk-level-for-exposure-windows
-final class RiskCalculationExposureWindow: Codable {
+final class RiskCalculationExposureWindow {
 
 	// MARK: - Init
 
@@ -32,6 +32,37 @@ final class RiskCalculationExposureWindow: Codable {
 	) {
 		self.exposureWindow = exposureWindow
 		self.configuration = configuration
+	}
+
+	// MARK: - Protocol Codable
+
+	enum CodingKeys: String, CodingKey {
+		case exposureWindow, configuration, isDroppedByMinutesAtAttenuation, transmissionRiskLevel, isDroppedByTransmissionRiskLevel, transmissionRiskValue, weightedMinutes, normalizedTime, riskLevel
+	}
+
+	convenience init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+
+		let exposureWindow = try container.decode(ExposureWindow.self, forKey: .exposureWindow)
+		let configuration = try container.decode(RiskCalculationConfiguration.self, forKey: .configuration)
+
+		self.init(exposureWindow: exposureWindow, configuration: configuration)
+	}
+
+	func encode(to encoder: Encoder) throws {
+		var container = encoder.container(keyedBy: CodingKeys.self)
+
+		try container.encode(exposureWindow, forKey: .exposureWindow)
+		try container.encode(configuration, forKey: .configuration)
+
+		// Additional values are encoded to show them in the developer menu
+		try container.encode(isDroppedByMinutesAtAttenuation, forKey: .isDroppedByMinutesAtAttenuation)
+		try container.encode(transmissionRiskLevel, forKey: .transmissionRiskLevel)
+		try container.encode(isDroppedByTransmissionRiskLevel, forKey: .isDroppedByTransmissionRiskLevel)
+		try container.encode(transmissionRiskValue, forKey: .transmissionRiskValue)
+		try container.encode(weightedMinutes, forKey: .weightedMinutes)
+		try container.encode(normalizedTime, forKey: .normalizedTime)
+		try container.encode(riskLevel(), forKey: .riskLevel)
 	}
 
 	// MARK: - Internal
