@@ -1177,9 +1177,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "RiskLegend_Check_Text" = "Abfrage der Begegnungs-Aufzeichnung und Abgleich mit den gemeldeten Infektionen anderer Nutzerinnen und Nutzer. Die Risiko-Überprüfung erfolgt ungefähr alle zwei Stunden automatisch.";
 
-"RiskLegend_Contact_Title" = "Risiko-Begegnungen";
+"RiskLegend_Contact_Title" = "Risiko-Begegnung";
 
-"RiskLegend_Contact_Text" = "Jene Begegnungen mit einer Corona-positiv getesteten Person, die über einen längeren Zeitraum und in geringer Distanz stattfanden.";
+"RiskLegend_Contact_Text" = "Begegnung mit einer infizierten Person, die ihr positives Testergebnis über die App mit anderen geteilt hat. Eine Begegnung muss bestimmte Kriterien hinsichtlich Dauer, Abstand und vermuteter Infektiosität der anderen Person erfüllen, um als Risiko-Begegnung eingestuft zu werden.";
 
 "RiskLegend_Notification_Title" = "Risiko-Benachrichtigung";
 
