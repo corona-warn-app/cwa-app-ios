@@ -39,5 +39,5 @@ protocol RiskProviding: AnyObject {
 	func requestRisk(userInitiated: Bool, ignoreCachedSummary: Bool, completion: Completion?)
 	func nextExposureDetectionDate() -> Date
 
-	var configuration: RiskProvidingConfiguration { get set }
+	var riskProvidingConfiguration: RiskProvidingConfiguration { get set }
 }

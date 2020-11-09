@@ -23,7 +23,7 @@ import UIKit
 protocol CoronaWarnAppDelegate: AnyObject {
 	var client: HTTPClient { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
-	var store: Store & AppConfigCaching { get }
+	var store: Store { get }
 	var appConfigurationProvider: AppConfigurationProviding { get }
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
@@ -95,10 +95,9 @@ extension AppDelegate: ExposureSummaryProvider {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-	let store: Store & AppConfigCaching
+	let store: Store
 	let serverEnvironment: ServerEnvironment
 	
-	private let consumer = RiskConsumer()
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 
 	lazy var appConfigurationProvider: AppConfigurationProviding = {
@@ -118,26 +117,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}()
 
 	lazy var riskProvider: RiskProvider = {
-		let exposureDetectionInterval = DateComponents(hour: 24)
-
-		let config = RiskProvidingConfiguration(
-			exposureDetectionValidityDuration: DateComponents(day: 2),
-			exposureDetectionInterval: exposureDetectionInterval,
-			detectionMode: .default
-		)
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
+			wifiClient: wifiClient,
 			store: store
 		)
 
 		return RiskProvider(
-			configuration: config,
-			store: self.store,
+			configuration: .default,
+			store: store,
 			exposureSummaryProvider: self,
 			appConfigurationProvider: appConfigurationProvider,
-			exposureManagerState: self.exposureManager.preconditions(),
+			exposureManagerState: exposureManager.preconditions(),
 			keyPackageDownload: keyPackageDownload
 		)
 	}()
@@ -159,6 +152,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
 	let client: HTTPClient
+	let wifiClient: WifiOnlyHTTPClient
 
 	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
 		ExposureDetectionExecutor(
@@ -176,6 +170,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
 		self.client = HTTPClient(configuration: configuration)
+		self.wifiClient = WifiOnlyHTTPClient(configuration: configuration)
 
 		#if !RELEASE
 		downloadedPackagesStore.keyValueStore = self.store
@@ -191,8 +186,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		taskScheduler.delegate = self
 
-		riskProvider.observeRisk(consumer)
-		
 		// Setup DeadmanNotification after AppLaunch
 		UNUserNotificationCenter.current().scheduleDeadmanNotificationIfNeeded()
 

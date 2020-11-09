@@ -86,19 +86,29 @@ final class RiskProviderTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
+			wifiClient: client,
 			store: store
 		)
-		
+
+		var appConfig = SAP_Internal_ApplicationConfiguration()
+		var parameters = SAP_Internal_ExposureDetectionParametersIOS()
+		parameters.maxExposureDetectionsPerInterval = 1
+		appConfig.iosExposureDetectionParameters = parameters
+
+		let appConfigurationMock = CachedAppConfigurationMock(appConfigurationResult: .success(appConfig))
+
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
-			appConfigurationProvider: CachedAppConfigurationMock(),
+			appConfigurationProvider: appConfigurationMock,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			keyPackageDownload: keyPackageDownload
 		)
 
-		riskProvider.requestRisk(userInitiated: false)
+		riskProvider.requestRisk(userInitiated: false) { result in
+			print(result)
+		}
 
 		waitForExpectations(timeout: 1.0)
 	}
@@ -150,6 +160,7 @@ final class RiskProviderTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
+			wifiClient: client,
 			store: store
 		)
 		
@@ -208,6 +219,7 @@ final class RiskProviderTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
+			wifiClient: client,
 			store: store
 		)
 		
@@ -269,6 +281,7 @@ final class RiskProviderTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
+			wifiClient: client,
 			store: store
 		)
 		
@@ -312,7 +325,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -332,7 +345,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -352,7 +365,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -372,7 +385,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -392,7 +405,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -412,7 +425,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -432,7 +445,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -452,7 +465,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -496,6 +509,7 @@ final class RiskProviderTests: XCTestCase {
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
+			wifiClient: client,
 			store: store
 		)
 		return RiskProvider(

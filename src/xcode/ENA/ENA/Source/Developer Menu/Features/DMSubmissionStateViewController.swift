@@ -229,18 +229,9 @@ private extension Client {
 	}
 
 	func fetchAllKeys(
-		completion completeWith: @escaping DaysAndHoursCompletionHandler
+		completion completeWith: @escaping (FetchedDaysAndHours) -> Void
 	) {
-		availableDaysAndHours { daysAndHours in
-
-			self.fetchDays(
-				daysAndHours.days,
-				hours: daysAndHours.hours,
-				of: .formattedToday(),
-				country: "DE",
-				completion: completeWith
-			)
-		}
+		Log.error("not woking at the momenet - we need a wifi only client here")
 	}
 }
 

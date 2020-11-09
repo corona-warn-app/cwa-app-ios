@@ -105,7 +105,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	func sceneWillEnterForeground(_ scene: UIScene) {
 		let detectionMode = DetectionMode.fromBackgroundStatus()
-		riskProvider.configuration.detectionMode = detectionMode
+		riskProvider.riskProvidingConfiguration.detectionMode = detectionMode
 
 		riskProvider.requestRisk(userInitiated: false)
 

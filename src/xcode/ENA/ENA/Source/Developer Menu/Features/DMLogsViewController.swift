@@ -129,7 +129,13 @@ final class DMLogsViewController: UIViewController {
 
 	// MARK: Properties
 	/// Text view that displays the error messages.
-	private let textView = UITextView()
+	private let textView: UITextView = {
+		let view = UITextView()
+		view.isEditable = false
+		view.textAlignment = .natural
+		view.font = UIFont.monospacedSystemFont(ofSize: 12, weight: .regular)
+		return view
+	}()
 
 	private var segmentedControl: UISegmentedControl!
 
