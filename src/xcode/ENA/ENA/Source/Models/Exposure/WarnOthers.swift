@@ -25,7 +25,6 @@ import UIKit
 /// WarnOthers always is related to one concrete test result, which always needs to be a positive one.
 class WarnOthers: OthersWarnable {
 	
-
 	var hasStoredResult: Bool {
 
 		get {

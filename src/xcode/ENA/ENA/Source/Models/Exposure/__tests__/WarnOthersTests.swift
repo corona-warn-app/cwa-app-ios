@@ -37,16 +37,16 @@ class WarnOthersTests: XCTestCase {
 		
 		let warnOthers = WarnOthers(store: store)
 		
-		let timerOneTime = WarnOthersNotificationsTimer.timerOneTime.rawValue
+		let timerOneTime = TimeInterval(WarnOthersNotificationsTimer.timerOneTime.rawValue)
 		XCTAssertEqual(warnOthers.notificationOneTimer, timerOneTime, "Notification timer one has not the intial value of \(timerOneTime)")
 		
-		let timerTwoTime = WarnOthersNotificationsTimer.timerTwoTime.rawValue
-		XCTAssertEqual(warnOthers.notificationTwoTimer, timerTwoTime, "Notification timer two has not the intial value of \(timerTwoTime)")
+		let timerTwoTime = TimeInterval(WarnOthersNotificationsTimer.timerTwoTime.rawValue)
+		XCTAssertEqual(Double(warnOthers.notificationTwoTimer), timerTwoTime, "Notification timer two has not the intial value of \(timerTwoTime)")
 		
-		XCTAssertFalse(warnOthers.storedResult, "Inital value of storedResult should be 'false'")
+		XCTAssertFalse(warnOthers.hasStoredResult, "Inital value of storedResult should be 'false'")
 		
 		warnOthers.evaluateNotificationState(testResult: .positive)
-		XCTAssertTrue(warnOthers.storedResult, "Inital value of storedResult should be 'true'")
+		XCTAssertTrue(warnOthers.hasStoredResult, "Inital value of storedResult should be 'true'")
 		
 		warnOthers.notificationOneTimer = 42
 		XCTAssertEqual(warnOthers.notificationOneTimer, 42, "Notification timer one has not the intial value of '42'")
@@ -55,7 +55,7 @@ class WarnOthersTests: XCTestCase {
 		XCTAssertEqual(warnOthers.notificationTwoTimer, 42, "Notification timer two has not the intial value of '42'")
 		
 		warnOthers.reset()
-		XCTAssertFalse(warnOthers.storedResult, "Inital value of storedResult should be 'false'")
+		XCTAssertFalse(warnOthers.hasStoredResult, "Inital value of storedResult should be 'false'")
 		
     }
 
