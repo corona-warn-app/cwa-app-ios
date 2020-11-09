@@ -87,6 +87,13 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 
 	// MARK: - Internal
 
+	var isWifiOnlyActive: Bool {
+		let wifiOnlyConfiguration = URLSessionConfiguration.coronaWarnSessionConfigurationWifiOnly()
+		return session.configuration.allowsCellularAccess == wifiOnlyConfiguration.allowsCellularAccess &&
+			session.configuration.allowsExpensiveNetworkAccess == wifiOnlyConfiguration.allowsExpensiveNetworkAccess &&
+			session.configuration.allowsConstrainedNetworkAccess == wifiOnlyConfiguration.allowsConstrainedNetworkAccess
+	}
+
 	func fetchHours(
 		_ hours: [Int],
 		day: String,
