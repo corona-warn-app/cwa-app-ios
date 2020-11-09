@@ -40,6 +40,7 @@ class DMWifiClinteViewController: UIViewController {
 		super.viewDidLoad()
 
 		setupView()
+		setupSwitch()
 	}
 
 	// MARK: - Protocol <#Name#>
@@ -80,11 +81,16 @@ class DMWifiClinteViewController: UIViewController {
 		])
 	}
 
-	@objc
-	private func didToggleSwitch() {
-//		clien
+	private func setupSwitch() {
+		wifiSwitch.addTarget(self, action: #selector(didToggleSwitch(sender:)), for: .valueChanged)
+		wifiSwitch.isOn = wifiClient.isWifiOnlyActive
 	}
 
+	@objc
+	private func didToggleSwitch(sender: UISwitch) {
+		wifiClient.updateSession(wifiOnly: sender.isOn)
+		Log.info("HTTP Client mode changed to: \(wifiClient.isWifiOnlyActive ? "wifi only" : "all networks")")
+	}
 }
 
 #endif
