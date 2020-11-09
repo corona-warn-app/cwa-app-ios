@@ -104,6 +104,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 				store: store,
 				exposureManager: exposureManager
 			)
+		case .wifiClient:
+			vc = DMWifiClinteViewController()
 		case .checkSubmittedKeys:
 			vc = DMSubmissionStateViewController(
 				client: client,
