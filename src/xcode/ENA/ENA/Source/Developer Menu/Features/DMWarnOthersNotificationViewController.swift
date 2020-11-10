@@ -25,11 +25,11 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	
 	
 	// MARK: Properties
-	private var time1Textfield: UITextField!
-	private var time2Textfield: UITextField!
+	private var timeInterval1TextField: UITextField!
+	private var timeInterval2TextField: UITextField!
 	
-	private var time1Label: UILabel!
-	private var time2Label: UILabel!
+	private var timeInterval1Label: UILabel!
+	private var timeInterval2Label: UILabel!
 	
 	private let store: Store
 	private var warnOthersReminder: WarnOthersRemindable
@@ -79,11 +79,11 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		resetDefaultsButton.addTarget(self, action: #selector(resetDefaultsButtonTapped), for: .touchUpInside)
 		resetDefaultsButton.setTitleColor(.enaColor(for: .buttonDestructive), for: .normal)
 		
-		let descriptionLabelResetNotifications = UILabel(frame: .zero)
-		descriptionLabelResetNotifications.translatesAutoresizingMaskIntoConstraints = false
-		descriptionLabelResetNotifications.numberOfLines = 0
-		descriptionLabelResetNotifications.text = "If you want to let the notifications get scheduled again (eg. for testing purposes), just press the reset button below and after that you navigate back to the corresponding views of the app, the notifications will get scheduled again.\nYou can also check 'DM Pending Notifications', to check which ones are scheduled."
-		descriptionLabelResetNotifications.font = UIFont.enaFont(for: .subheadline)
+		let descriptionResetNotificationsLabel = UILabel(frame: .zero)
+		descriptionResetNotificationsLabel.translatesAutoresizingMaskIntoConstraints = false
+		descriptionResetNotificationsLabel.numberOfLines = 0
+		descriptionResetNotificationsLabel.text = "If you want to let the notifications get scheduled again (eg. for testing purposes), just press the reset button below and after that you navigate back to the corresponding views of the app, the notifications will get scheduled again.\nYou can also check 'DM Pending Notifications', to check which ones are scheduled."
+		descriptionResetNotificationsLabel.font = UIFont.enaFont(for: .subheadline)
 		
 		let resetNotificationsButton = UIButton(frame: .zero)
 		resetNotificationsButton.translatesAutoresizingMaskIntoConstraints = false
@@ -91,28 +91,27 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		resetNotificationsButton.addTarget(self, action: #selector(resetNotificationsButtonTapped), for: .touchUpInside)
 		resetNotificationsButton.setTitleColor(.enaColor(for: .buttonDestructive), for: .normal)
 		
-		time1Label = UILabel(frame: .zero)
-		time1Label.translatesAutoresizingMaskIntoConstraints = false
-		time1Label.numberOfLines = 0
-		time1Label.text = "Notification 1 time (sec)"
+		timeInterval1Label = UILabel(frame: .zero)
+		timeInterval1Label.translatesAutoresizingMaskIntoConstraints = false
+		timeInterval1Label.numberOfLines = 0
+		timeInterval1Label.text = "Notification 1 time (sec)"
 		
-		time2Label = UILabel(frame: .zero)
-		time2Label.translatesAutoresizingMaskIntoConstraints = false
-		time2Label.numberOfLines = 0
-		time2Label.text = "Notification 2 time (sec)"
+		timeInterval2Label = UILabel(frame: .zero)
+		timeInterval2Label.translatesAutoresizingMaskIntoConstraints = false
+		timeInterval2Label.numberOfLines = 0
+		timeInterval2Label.text = "Notification 2 time (sec)"
 		
-		time1Textfield = UITextField(frame: .zero)
-		time1Textfield.translatesAutoresizingMaskIntoConstraints = false
-		time1Textfield.delegate = self
-		time1Textfield.borderStyle = .line
+		timeInterval1TextField = UITextField(frame: .zero)
+		timeInterval1TextField.translatesAutoresizingMaskIntoConstraints = false
+		timeInterval1TextField.delegate = self
+		timeInterval1TextField.borderStyle = .line
 		
-		time2Textfield = UITextField(frame: .zero)
-		time2Textfield.translatesAutoresizingMaskIntoConstraints = false
-		time2Textfield.delegate = self
-		time2Textfield.borderStyle = .line
-	
+		timeInterval2TextField = UITextField(frame: .zero)
+		timeInterval2TextField.translatesAutoresizingMaskIntoConstraints = false
+		timeInterval2TextField.delegate = self
+		timeInterval2TextField.borderStyle = .line
 		
-		let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel, time1Label, time1Textfield, time2Label, time2Textfield, saveButton, resetDefaultsButton, descriptionLabelResetNotifications, resetNotificationsButton])
+		let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel, timeInterval1Label, timeInterval1TextField, timeInterval2Label, timeInterval2TextField, saveButton, resetDefaultsButton, descriptionResetNotificationsLabel, resetNotificationsButton])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .vertical
 		stackView.alignment = .center
@@ -124,17 +123,17 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 			stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
 			stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
 			stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-			time1Textfield.widthAnchor.constraint(equalToConstant: 70),
-			time2Textfield.widthAnchor.constraint(equalToConstant: 70)
+			timeInterval1TextField.widthAnchor.constraint(equalToConstant: 70),
+			timeInterval2TextField.widthAnchor.constraint(equalToConstant: 70)
 		])
 		
 		// Set Default Value for the notification text filelds:
-		time1Textfield.text = "\(warnOthersReminder.notificationOneTimeInterval)"
-		time2Textfield.text = "\(warnOthersReminder.notificationTwoTimeInterval)"
+		timeInterval1TextField.text = "\(warnOthersReminder.notificationOneTimeInterval)"
+		timeInterval2TextField.text = "\(warnOthersReminder.notificationTwoTimeInterval)"
 		
 		//Set the keyboard type.
-		time1Textfield.keyboardType = .numberPad
-		time2Textfield.keyboardType = .numberPad
+		timeInterval1TextField.keyboardType = .numberPad
+		timeInterval2TextField.keyboardType = .numberPad
 		self.hideKeyboardWhenTappedAround()
 		
 	}
@@ -142,22 +141,22 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	// MARK: - Private API
 	@objc
 	private func scheduleNotificationsButtonTapped() {
-		let time1 = Double(time1Textfield.text ?? "")
-		let time2 = Double(time2Textfield.text ?? "")
+		let timeInterval1 = Double(timeInterval1TextField.text ?? "")
+		let timeInterval2 = Double(timeInterval2TextField.text ?? "")
 		
 		// Create an alert when user enter the wrong values.
-		if time2 ?? WarnOthersNotificationsTimeInterval.intervalOne <= time1 ?? WarnOthersNotificationsTimeInterval.intervalTwo {
+		if timeInterval2 ?? WarnOthersNotificationsTimeInterval.intervalOne <= timeInterval1 ?? WarnOthersNotificationsTimeInterval.intervalTwo {
 			
 			// Display second notification should be greater than first notification alert.
 			alertMessage(title: "Please Enter the Correct Notification Time", message: "Second notification time seconds should be greater than the first notification time seconds.")
 
 		} else {
 			// Save the notifications time into the SecureStore.
-			warnOthersReminder.notificationOneTimeInterval = TimeInterval(time1 ?? WarnOthersNotificationsTimeInterval.intervalOne)
-			warnOthersReminder.notificationTwoTimeInterval = TimeInterval(time2 ?? WarnOthersNotificationsTimeInterval.intervalTwo)
+			warnOthersReminder.notificationOneTimeInterval = TimeInterval(timeInterval1 ?? WarnOthersNotificationsTimeInterval.intervalOne)
+			warnOthersReminder.notificationTwoTimeInterval = TimeInterval(timeInterval2 ?? WarnOthersNotificationsTimeInterval.intervalTwo)
 			
 			//Display notification save alert.
-			alertMessage(title: "Notifications time saved", message: "Notification1 time \(time1 ?? WarnOthersNotificationsTimeInterval.intervalOne) seconds & Notification2 time \(time2 ?? WarnOthersNotificationsTimeInterval.intervalTwo) seconds has saved into the secure store.")
+			alertMessage(title: "Notifications time saved", message: "Notification1 time \(timeInterval1 ?? WarnOthersNotificationsTimeInterval.intervalOne) seconds & Notification2 time \(timeInterval2 ?? WarnOthersNotificationsTimeInterval.intervalTwo) seconds has saved into the secure store.")
 		}
 
 	}
@@ -165,8 +164,8 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	
 	@objc
 	private func resetDefaultsButtonTapped() {
-		time1Textfield.text = "\(WarnOthersNotificationsTimeInterval.intervalOne)"
-		time2Textfield.text = "\(WarnOthersNotificationsTimeInterval.intervalTwo)"
+		timeInterval1TextField.text = "\(WarnOthersNotificationsTimeInterval.intervalOne)"
+		timeInterval2TextField.text = "\(WarnOthersNotificationsTimeInterval.intervalTwo)"
 	}
 	
 	@objc
@@ -181,9 +180,9 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 extension DMWarnOthersNotificationViewController {
 	func alertMessage(title: String, message: String) {
 		// create the alert
-		let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+		let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
 		// add an action button
-		alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+		alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 		// show the alert
 		self.present(alert, animated: true, completion: nil)
 	}
@@ -192,7 +191,7 @@ extension DMWarnOthersNotificationViewController {
 // MARK: - Dismiss the keyboard
 extension DMWarnOthersNotificationViewController {
 	func hideKeyboardWhenTappedAround() {
-		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DMWarnOthersNotificationViewController.dismissKeyboard))
+		let tap = UITapGestureRecognizer(target: self, action: #selector(DMWarnOthersNotificationViewController.dismissKeyboard))
 		tap.cancelsTouchesInView = false
 		view.addGestureRecognizer(tap)
 	}
