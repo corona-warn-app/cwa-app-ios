@@ -46,15 +46,12 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		
 		app.launch()
 		
-		// alert visible and thus blocking the UI Test? (DEV CODE!)
-		// "Information zur Funktionsweise der Risiko-Ermittlung"
-		// Note: risk detection is not active. Intended?
+		// The "Information zur Funktionsweise der Risiko-Ermittlung"
+		// appears on fresh installs (e.g. every CI-run) but not on already started apps.
+		// We dismiss it if present.
 		let alert = app.alerts.firstMatch
 		if alert.exists {
-			print("⚠️⚠️⚠️ ALERT BEGONE!!!")
 			alert.buttons.firstMatch.tap()
-		} else {
-			print("⚠️⚠️⚠️ no alert - this is what we want")
 		}
 
 		let tablesQuery = XCUIApplication().tables
