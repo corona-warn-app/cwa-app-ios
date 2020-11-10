@@ -147,6 +147,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 
 		let dispatchGroup = DispatchGroup()
 		var errors = [KeyPackageDownloadError]()
+		var didDownloadNewPackages = false
 
 		for countryId in countryIds {
 			Log.info("KeyPackageDownload: Start downloading key package with country id: \(countryId).", log: .riskDetection)
@@ -168,6 +169,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 					switch result {
 					case .success:
 						Log.info("KeyPackageDownload: Succeded downloading key packages for country id: \(countryId).", log: .riskDetection)
+						didDownloadNewPackages = true
 					case .failure(let error):
 						Log.info("KeyPackageDownload: Failed downloading key packages for country id: \(countryId).", log: .riskDetection)
 						errors.append(error)
@@ -179,6 +181,10 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		}
 
 		dispatchGroup.notify(queue: .main) {
+			if didDownloadNewPackages {
+				self.store.lastKeyPackageDownloadDate = Date()
+			}
+			
 			if let error = errors.first {
 				Log.error("KeyPackageDownload: Failed downloading key packages with errors: \(errors).", log: .riskDetection)
 
