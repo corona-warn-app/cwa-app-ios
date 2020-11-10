@@ -75,8 +75,10 @@ final class CachedAppConfiguration {
 				// keep track of last successful fetch
 				self.store.lastAppConfigFetch = Date()
 
-				// validate currently stored key packages
+				// update revokation list
 				let revokationList = self.store.appConfig?.revokationEtags ?? []
+				self.packageStore?.revokationList = revokationList // for future package-operations
+				// validate currently stored key packages
 				do {
 					try self.packageStore?.validateCachedKeyPackages(revokationList: revokationList)
 				} catch {
