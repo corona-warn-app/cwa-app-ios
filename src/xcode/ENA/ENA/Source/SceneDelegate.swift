@@ -197,7 +197,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		coordinator.showPositiveTestResultFromNotification(with: .positive)
 	}
 	
-	
 	private func showOnboarding() {
 		coordinator.showOnboarding()
 	}

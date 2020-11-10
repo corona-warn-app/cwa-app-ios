@@ -23,10 +23,10 @@ import XCTest
 
 class ExposureSubmissionViewControllerTests: XCTestCase {
 	
-	private var store: SecureStore!
+	private var store: Store!
 	
 	override func setUpWithError() throws {
-		store = try SecureStore(at: URL(staticString: ":memory:"), key: "123456", serverEnvironment: ServerEnvironment())
+		store = MockTestStore()
 	}
 
 	private func createVC(testResult: TestResult) -> ExposureSubmissionTestResultViewController {

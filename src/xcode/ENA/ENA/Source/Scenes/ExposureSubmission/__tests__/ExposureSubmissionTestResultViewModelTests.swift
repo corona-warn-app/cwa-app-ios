@@ -24,10 +24,10 @@ import XCTest
 // swiftlint:disable:next type_body_length
 class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	
-	private var store: SecureStore!
+	private var store: Store!
 	
 	override func setUpWithError() throws {
-		store = try SecureStore(at: URL(staticString: ":memory:"), key: "123456", serverEnvironment: ServerEnvironment())
+		store = MockTestStore()
 	}
 	
 	func testTimeStamp() {

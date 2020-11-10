@@ -34,7 +34,7 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnOthersViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionWarnOthersViewController(
 				coder: coder,
-				supportedCountries: ["DE", "IT", "ES", "NL", "CZ", "AT", "DK", "IE", "LV", "EE"].compactMap { Country(countryCode: $0) }, warnOthers: WarnOthersReminder(store: self.store),
+				supportedCountries: ["DE", "IT", "ES", "NL", "CZ", "AT", "DK", "IE", "LV", "EE"].compactMap { Country(countryCode: $0) },
 				onPrimaryButtonTap: { _ in }
 			)
 		}

@@ -49,7 +49,6 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		
 		onPrimaryButtonTap { [weak self] isLoading in
 			DispatchQueue.main.async {
 				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
