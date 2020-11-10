@@ -26,7 +26,7 @@ import UIKit
 class WarnOthers: OthersWarnable {
 	
 	var hasStoredResult: Bool {
-
+		
 		get {
 			return store.warnOthersHasActiveTestResult
 		}
@@ -54,14 +54,14 @@ class WarnOthers: OthersWarnable {
 			store.warnOthersNotificationTwoTimer = newValue
 		}
 	}
-		
+	
 	// MARK: - Init
 	init(store: Store) {
 		self.store = store
 		self.hasStoredResult = store.warnOthersHasActiveTestResult
 	}
 	
-	// MARK: - public
+	// MARK: - Internal
 	/// This function takes a `TestResult` as parameter to evaluate, if possible notifications need to be scheduled for the warn others notification process.
 	func evaluateNotificationState(testResult: TestResult) {
 		
@@ -86,7 +86,7 @@ class WarnOthers: OthersWarnable {
 		Log.info("Warn others: All notifications have been canceled")
 	}
 	
-	// MARK: - private API
+	// MARK: - Private
 	private let store: Store
 	
 	private func scheduleNotifications() {
@@ -94,8 +94,6 @@ class WarnOthers: OthersWarnable {
 			timeIntervalOne: TimeInterval(notificationOneTimer),
 			timeIntervalTwo: TimeInterval(notificationTwoTimer)
 		)
-		
 		Log.info("Warn Others: New notifications have been scheduled:  #1 \(store.warnOthersNotificationOneTimer)/ #2 \(store.warnOthersNotificationTwoTimer) seconds)")
 	}
-	
 }
