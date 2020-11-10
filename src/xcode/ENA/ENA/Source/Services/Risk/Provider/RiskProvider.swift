@@ -203,8 +203,14 @@ extension RiskProvider: RiskProviding {
 							ignoreCachedSummary: ignoreCachedSummary,
 							appConfiguration: appConfiguration) { result in
 
+							switch result {
+							case .success(let risk):
+								self.successOnTargetQueue(risk: risk, completion: completion)
+							case .failure(let error):
+								self.failOnTargetQueue(error: error, completion: completion)
+							}
+
 							group.leave()
-							completion(result)
 						}
 					case .failure(let error):
 						self.failOnTargetQueue(error: error, completion: completion)
@@ -263,7 +269,7 @@ extension RiskProvider: RiskProviding {
 	) {
 		if let risk = self.riskForMissingPreconditions() {
 			Log.info("RiskProvider: Determined Risk from preconditions", log: .riskDetection)
-			self.successOnTargetQueue(risk: risk, completion: completion)
+			completion(.success(risk))
 			return
 		}
 
@@ -282,7 +288,7 @@ extension RiskProvider: RiskProviding {
 						completion: completion
 					)
 				case .failure(let error):
-					self.failOnTargetQueue(error: error, completion: completion)
+					completion(.failure(error))
 				}
 			}
 		)
@@ -404,7 +410,7 @@ extension RiskProvider: RiskProviding {
 		Log.info("RiskProvider: Calculate risk level", log: .riskDetection)
 
 		guard let appConfiguration = appConfiguration else {
-			failOnTargetQueue(error: .missingAppConfig, completion: completion)
+			completion(.failure(.missingAppConfig))
 			return
 		}
 
@@ -421,7 +427,7 @@ extension RiskProvider: RiskProviding {
 				providerConfiguration: riskProvidingConfiguration
 			) else {
 			Log.error("Serious error during risk calculation", log: .riskDetection)
-			failOnTargetQueue(error: .failedRiskCalculation, completion: completion)
+			completion(.failure(.failedRiskCalculation))
 			return
 		}
 
@@ -438,7 +444,7 @@ extension RiskProvider: RiskProviding {
 			}
 		}
 
-		successOnTargetQueue(risk: risk, completion: completion)
+		completion(.success(risk))
 		savePreviousRiskLevel(risk)
 
 		/// We were able to calculate a risk so we have to reset the DeadMan Notification
