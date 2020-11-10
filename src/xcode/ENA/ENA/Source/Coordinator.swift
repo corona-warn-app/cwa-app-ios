@@ -52,7 +52,6 @@ class Coordinator: RequiresAppDependencies {
 		)
 	}()
 	
-
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
 	init(_ delegate: CoordinatorDelegate, _ rootViewController: UINavigationController) {
@@ -87,9 +86,12 @@ class Coordinator: RequiresAppDependencies {
 	}
 	
 	func showPositiveTestResultFromNotification(with result: TestResult) {
-		rootViewController.presentedViewController?.dismiss(animated: true, completion: {
+		guard ((rootViewController.presentedViewController?.dismiss(animated: true, completion: {
 			self.showExposureSubmission(with: result)
-		})
+		})) != nil) else {
+			self.showExposureSubmission(with: result)
+			return
+		}
 	}
 	
 	
