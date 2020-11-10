@@ -191,7 +191,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 	
 	private func showPositiveTestResultFromNotification(animated _: Bool = false) {
-		guard warnOthers.hasStoredResult else {
+		guard warnOthers.hasPositiveTestResult else {
 			return
 		}
 		coordinator.showPositiveTestResultFromNotification(with: .positive)

@@ -25,7 +25,7 @@ import UIKit
 /// WarnOthers always is related to one concrete test result, which always needs to be a positive one.
 class WarnOthersReminder: WarnOthersRemindable {
 	
-	var hasStoredResult: Bool {
+	var hasPositiveTestResult: Bool {
 		get {
 			return store.warnOthersHasActiveTestResult
 		}
@@ -57,7 +57,7 @@ class WarnOthersReminder: WarnOthersRemindable {
 	// MARK: - Init
 	init(store: Store) {
 		self.store = store
-		self.hasStoredResult = store.warnOthersHasActiveTestResult
+		self.hasPositiveTestResult = store.warnOthersHasActiveTestResult
 	}
 	
 	// MARK: - Internal
@@ -65,17 +65,17 @@ class WarnOthersReminder: WarnOthersRemindable {
 	func evaluateNotificationState(testResult: TestResult) {
 		
 		// If incoming test restuls are others than positive, we don't deal with them
-		guard testResult == .positive, hasStoredResult == false else { return }
+		guard testResult == .positive, hasPositiveTestResult == false else { return }
 		
 		// We are "clean" to go. So lock the door until result was removed
-		hasStoredResult = true
+		hasPositiveTestResult = true
 		
 		scheduleNotifications()
 	}
 	
 	func reset() {
 		cancelNotifications()
-		hasStoredResult = false
+		hasPositiveTestResult = false
 		Log.info("Warn others have been resetted")
 	}
 	
