@@ -61,6 +61,12 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 			}
 		}
 
+		#if !RELEASE
+		guard !disableHourlyDownload else {
+			return
+		}
+		#endif
+
 		session.GET(url) { result in
 			switch result {
 			case let .success(response):
