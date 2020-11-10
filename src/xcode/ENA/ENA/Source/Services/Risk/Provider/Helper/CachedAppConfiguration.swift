@@ -77,7 +77,12 @@ final class CachedAppConfiguration {
 
 				// validate currently stored key packages
 				let revokationList = self.store.appConfig?.revokationEtags ?? []
-				self.packageStore?.validateCachedKeyPackages(revokationList: revokationList)
+				do {
+					try self.packageStore?.validateCachedKeyPackages(revokationList: revokationList)
+				} catch {
+					Log.error("Error while removing invalidated key packages.", log: .localData, error: error)
+					// no further action - yet
+				}
 
 				self.configurationDidChange?()
 			case .failure(let error):

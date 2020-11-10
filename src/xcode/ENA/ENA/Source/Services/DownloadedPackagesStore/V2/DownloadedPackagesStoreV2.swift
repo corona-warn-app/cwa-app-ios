@@ -63,7 +63,7 @@ protocol DownloadedPackagesStoreV2: AnyObject {
 
 	/// Validates currently stored key packages with a given list of ETags to be revoked. Keys matching this etag will be removed.
 	/// - Parameter etags: The list of Etags to check for
-	func validateCachedKeyPackages(revokationList etags: [String])
+	func validateCachedKeyPackages(revokationList etags: [String]) throws
 
 
 	#if !RELEASE
@@ -85,17 +85,12 @@ extension DownloadedPackagesStoreV2 {
 		}
 	}
 
-	func validateCachedKeyPackages(revokationList etags: [String]) {
+	func validateCachedKeyPackages(revokationList etags: [String]) throws {
 		guard
 			!etags.isEmpty,
 			let packagesToRemove = packages(with: etags)
 		else { return } // nothing to do
 
-		do {
-			try delete(packages: packagesToRemove)
-		} catch {
-			Log.error("Error while removing invalidated key packages.", log: .localData, error: error)
-			// no further action - yet
-		}
+		try delete(packages: packagesToRemove)
 	}
 }
