@@ -54,32 +54,55 @@ class DMWifiClinteViewController: UIViewController {
 	// MARK: - Private
 
 	private let wifiSwitch = UISwitch()
+	private let disableSwicth = UISwitch()
 	private let wifiClient: WifiOnlyHTTPClient
 
 	private func setupView() {
 		view.backgroundColor = .systemBackground
 
-		let label = UILabel(frame: .zero)
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.text = "Hourly packages over WiFi only"
-		label.numberOfLines = 1
-		label.textAlignment = .center
+		let wifiOnlyLabel = UILabel(frame: .zero)
+		wifiOnlyLabel.translatesAutoresizingMaskIntoConstraints = false
+		wifiOnlyLabel.text = "Hourly packages over WiFi only"
+		wifiOnlyLabel.numberOfLines = 1
+		wifiOnlyLabel.textAlignment = .left
 
 		wifiSwitch.translatesAutoresizingMaskIntoConstraints = false
-		let stackView = UIStackView(arrangedSubviews: [label, wifiSwitch])
-		stackView.translatesAutoresizingMaskIntoConstraints = false
-		stackView.alignment = .center
-		stackView.distribution = .fillProportionally
-		stackView.axis = .horizontal
-		stackView.spacing = 4.0
 
-		view.addSubview(stackView)
+		let wifiOnlyStackView = UIStackView(arrangedSubviews: [wifiOnlyLabel, wifiSwitch])
+		wifiOnlyStackView.translatesAutoresizingMaskIntoConstraints = false
+		wifiOnlyStackView.alignment = .center
+		wifiOnlyStackView.distribution = .fillProportionally
+		wifiOnlyStackView.axis = .horizontal
+		wifiOnlyStackView.spacing = 4.0
 
+		let disableDownloadLabel = UILabel(frame: .zero)
+		disableDownloadLabel.translatesAutoresizingMaskIntoConstraints = false
+		disableDownloadLabel.text = "Disable hourly packages download"
+		disableDownloadLabel.numberOfLines = 1
+		disableDownloadLabel.textAlignment = .left
+
+		disableSwicth.translatesAutoresizingMaskIntoConstraints = false
+		let disableStackView = UIStackView(arrangedSubviews: [disableDownloadLabel, disableSwicth])
+		disableStackView.translatesAutoresizingMaskIntoConstraints = false
+		disableStackView.alignment = .center
+		disableStackView.distribution = .fill
+		disableStackView.axis = .horizontal
+		disableStackView.spacing = 4.0
+
+		let containerStackView = UIStackView(arrangedSubviews: [wifiOnlyStackView, disableStackView])
+		containerStackView.translatesAutoresizingMaskIntoConstraints = false
+		containerStackView.alignment = .top
+		containerStackView.distribution = .equalSpacing
+		containerStackView.axis = .vertical
+		containerStackView.spacing = 4.0
+		containerStackView.isLayoutMarginsRelativeArrangement = true
+
+		view.addSubview(containerStackView)
 		NSLayoutConstraint.activate([
-			view.layoutMarginsGuide.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-			view.layoutMarginsGuide.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
-			view.layoutMarginsGuide.topAnchor.constraint(equalTo: stackView.topAnchor),
-			stackView.heightAnchor.constraint(equalToConstant: 100.0)
+			view.layoutMarginsGuide.leadingAnchor.constraint(equalTo: containerStackView.leadingAnchor),
+			view.layoutMarginsGuide.trailingAnchor.constraint(equalTo: containerStackView.trailingAnchor),
+			view.layoutMarginsGuide.topAnchor.constraint(equalTo: containerStackView.topAnchor),
+			view.layoutMarginsGuide.bottomAnchor.constraint(greaterThanOrEqualTo: containerStackView.bottomAnchor)
 		])
 	}
 
@@ -92,6 +115,11 @@ class DMWifiClinteViewController: UIViewController {
 	private func didToggleSwitch(sender: UISwitch) {
 		wifiClient.updateSession(wifiOnly: sender.isOn)
 		Log.info("HTTP Client mode changed to: \(wifiClient.isWifiOnlyActive ? "wifi only" : "all networks")")
+	}
+
+	@objc
+	private func didToggleDisableSwicth(sender: UISwitch) {
+		Log.info("HTTP Client is: \(wifiClient.isWifiOnlyActive ? "enabled" : "disabled")")
 	}
 }
 
