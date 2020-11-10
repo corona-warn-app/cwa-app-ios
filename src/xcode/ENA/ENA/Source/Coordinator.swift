@@ -86,11 +86,12 @@ class Coordinator: RequiresAppDependencies {
 	}
 	
 	func showPositiveTestResultFromNotification(with result: TestResult) {
-		guard ((rootViewController.presentedViewController?.dismiss(animated: true, completion: {
+		if let presentedViewController = rootViewController.presentedViewController {
+			presentedViewController.dismiss(animated: true) {
+				self.showExposureSubmission(with: result)
+			}
+		} else {
 			self.showExposureSubmission(with: result)
-		})) != nil) else {
-			self.showExposureSubmission(with: result)
-			return
 		}
 	}
 	
