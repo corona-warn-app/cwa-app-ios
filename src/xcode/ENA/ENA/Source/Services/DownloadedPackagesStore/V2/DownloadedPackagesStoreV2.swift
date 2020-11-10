@@ -56,6 +56,15 @@ protocol DownloadedPackagesStoreV2: AnyObject {
 	/// - Throws: An error of type `SQLiteStoreError`
 	func delete(packages: [SAPDownloadedPackage]) throws
 
+	// MARK: - Package Invalidation
+
+	/// A list of invalid ETags to be removed/ignored. Defined in the AppConfiguration.
+	var revokationList: [String] { get set }
+
+	/// Validates currently stored key packages with a given list of ETags to be revoked. Keys matching this etag will be removed.
+	/// - Parameter etags: The list of Etags to check for
+	func validateCachedKeyPackages(revokationList etags: [String])
+
 
 	#if !RELEASE
 	var keyValueStore: Store? { get set }
@@ -73,6 +82,20 @@ extension DownloadedPackagesStoreV2 {
 	func addFetchedHours(_ hourPackages: [Int: PackageDownloadResponse], day: String, country: Country.ID) throws {
 		try hourPackages.forEach { hour, bucket in
 			try self.set(country: country, hour: hour, day: day, etag: bucket.etag, package: bucket.package)
+		}
+	}
+
+	func validateCachedKeyPackages(revokationList etags: [String]) {
+		guard
+			!etags.isEmpty,
+			let packagesToRemove = packages(with: etags)
+		else { return } // nothing to do
+
+		do {
+			try delete(packages: packagesToRemove)
+		} catch {
+			Log.error("Error while removing invalidated key packages.", log: .localData, error: error)
+			// no further action - yet
 		}
 	}
 }

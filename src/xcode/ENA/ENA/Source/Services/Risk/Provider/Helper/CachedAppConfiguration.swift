@@ -76,7 +76,8 @@ final class CachedAppConfiguration {
 				self.store.lastAppConfigFetch = Date()
 
 				// validate currently stored key packages
-				self.validateCachedKeyPackages(revokationList: self.store.appConfig?.revokationEtags ?? [])
+				let revokationList = self.store.appConfig?.revokationEtags ?? []
+				self.packageStore?.validateCachedKeyPackages(revokationList: revokationList)
 
 				self.configurationDidChange?()
 			case .failure(let error):
@@ -155,35 +156,5 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 		}
         Log.debug("[Cache-Control] timestamp >= 300s? \(abs(lastFetch.distance(to: Date())) >= 300)", log: .localData)
         return abs(lastFetch.distance(to: Date())) >= 300
-	}
-}
-
-// MARK: - Cache invalidation
-
-extension SAP_Internal_ApplicationConfiguration {
-	var revokationEtags: [String] {
-		let dayMeta = iosKeyDownloadParameters.cachedDayPackagesToUpdateOnEtagMismatch
-		let hourMeta = iosKeyDownloadParameters.cachedHourPackagesToUpdateOnEtagMismatch
-
-		var etags = dayMeta.map({ $0.etag })
-		etags.append(contentsOf: hourMeta.map({ $0.etag }))
-
-		return etags
-	}
-}
-
-extension CachedAppConfiguration {
-	func validateCachedKeyPackages(revokationList etags: [String]) {
-		guard
-			!etags.isEmpty,
-			let packagesToRemove = packageStore?.packages(with: etags)
-		else { return } // nothing to do
-
-		do {
-			try packageStore?.delete(packages: packagesToRemove)
-		} catch {
-			Log.error("Error while removing invalidated key packages.", log: .localData, error: error)
-			// no further action
-		}
 	}
 }

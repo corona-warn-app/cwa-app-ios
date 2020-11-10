@@ -56,6 +56,8 @@ final class DownloadedPackagesSQLLiteStoreV2 {
 	var keyValueStore: Store?
 	#endif
 
+	var revokationList: [String] = []
+	
 	private let latestVersion: Int
 	private let queue = DispatchQueue(label: "com.sap.DownloadedPackagesSQLLiteStore")
 	private let database: FMDatabase
@@ -109,6 +111,11 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 	// MARK: - Write Operations
 
 	func set(country: Country.ID, hour: Int, day: String, etag: String?, package: SAPDownloadedPackage) throws {
+		guard !revokationList.contains(etag ?? "") else {
+			// package is on block list. Ignore this set operation.
+			return
+		}
+
 		try queue.sync {
 			let sql = """
 				INSERT INTO Z_DOWNLOADED_PACKAGE (
@@ -156,6 +163,10 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 	}
 
 	func set(country: Country.ID, day: String, etag: String?, package: SAPDownloadedPackage) throws {
+		guard !revokationList.contains(etag ?? "") else {
+			// package is on block list. Ignore this set operation.
+			return
+		}
 
 		#if !RELEASE
 		if let store = keyValueStore, let errorCode = store.fakeSQLiteError {
