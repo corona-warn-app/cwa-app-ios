@@ -38,13 +38,13 @@ final class StringTodayTests: XCTestCase {
 			minute: 59,
 			second: 59
 		).date ?? .distantPast
-		let formatter = DateFormatter.packagesDateFormatter
+		let formatter = DateFormatter.packagesDayDateFormatter
 
 		XCTAssertEqual(formatter.string(from: date), "2020-06-16")
 	}
 
 	func testFormatterProperties() {
-		let formatter = DateFormatter.packagesDateFormatter
+		let formatter = DateFormatter.packagesDayDateFormatter
 
 		XCTAssertEqual(formatter.dateFormat, "yyyy-MM-dd")
 		XCTAssertEqual(formatter.timeZone, TimeZone(abbreviation: "UTC"))

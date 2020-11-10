@@ -60,7 +60,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		
 		#endif
 
-		exposureManager.resume(observer: self)
+		exposureManager.observeExposureNotificationStatus(observer: self)
 
 		riskConsumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk
@@ -281,7 +281,7 @@ extension SceneDelegate: CoordinatorDelegate {
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.open()
 		exposureManager.reset {
-			self.exposureManager.resume(observer: self)
+			self.exposureManager.observeExposureNotificationStatus(observer: self)
 			NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 		}
 		

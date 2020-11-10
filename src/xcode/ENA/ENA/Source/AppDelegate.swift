@@ -39,7 +39,6 @@ extension AppDelegate: CoronaWarnAppDelegate {
 extension AppDelegate: ExposureSummaryProvider {
 	func detectExposure(
 		appConfiguration: SAP_Internal_ApplicationConfiguration,
-		activityStateDelegate: ActivityStateProviderDelegate? = nil,
 		completion: @escaping (Result<ENExposureDetectionSummary, ExposureDetection.DidEndPrematurelyReason>) -> Void
 	) -> CancellationToken {
 		Log.info("AppDelegate: Detect exposure.", log: .riskDetection)
@@ -49,13 +48,6 @@ extension AppDelegate: ExposureSummaryProvider {
 			appConfiguration: appConfiguration,
 			deviceTimeCheck: DeviceTimeCheck(store: store)
 		)
-		
-		exposureDetection?
-			.$activityState
-			.removeDuplicates()
-			.subscribe(on: RunLoop.main)
-			.sink { activityStateDelegate?.provideActivityState($0) }
-			.store(in: &subscriptions)
 
 		let token = CancellationToken { [weak self] in
 			self?.exposureDetection?.cancel()

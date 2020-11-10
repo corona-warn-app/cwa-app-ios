@@ -29,7 +29,6 @@ private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
 
 	func detectExposure(
 		appConfiguration: SAP_Internal_ApplicationConfiguration,
-		activityStateDelegate: ActivityStateProviderDelegate? = nil,
 		completion: Completion
 	) -> CancellationToken {
 		let token = CancellationToken(onCancel: {})
