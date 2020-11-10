@@ -180,6 +180,11 @@ extension ExposureNotificationSettingViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let section = indexPath.section
+		let content = model.content[section]
+
+		guard content.cellType == .euTracingCell else { return }
+
 		let vc = EUSettingsViewController(appConfigurationProvider: appConfigurationProvider)
 		navigationController?.pushViewController(vc, animated: true)
 	}

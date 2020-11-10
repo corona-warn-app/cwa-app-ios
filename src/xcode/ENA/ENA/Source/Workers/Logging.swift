@@ -100,6 +100,7 @@ struct FileLogger {
 		let fileManager = FileManager.default
 		return fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
 	}()
+	private let logDateFormatter = ISO8601DateFormatter()
 
 	func makeWriteFileHandle(with logType: OSLogType) -> FileHandle? {
 		let fileManager = FileManager.default
@@ -128,7 +129,7 @@ struct FileLogger {
 	}
 
 	func log(_ logMessage: String, logType: OSLogType) {
-		let prefixedLogMessage = "\(logType.icon) \(Date().description(with: .init(identifier: "en_US_POSIX")))\n\(logMessage)\n\n"
+		let prefixedLogMessage = "\(logType.icon) \(logDateFormatter.string(from: Date()))\n\(logMessage)\n\n"
 
 		guard let fileHandle = makeWriteFileHandle(with: logType),
 			  let logMessageData = prefixedLogMessage.data(using: encoding) else {

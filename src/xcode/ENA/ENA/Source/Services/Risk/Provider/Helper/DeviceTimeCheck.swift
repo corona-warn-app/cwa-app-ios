@@ -12,7 +12,7 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 
 	// MARK: - Init
 
-	init(store: AppConfigCaching) {
+	init(store: Store) {
 		self.store = store
 	}
 
@@ -47,7 +47,7 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 
 	// MARK: - Private
 
-	private let store: AppConfigCaching
+	private let store: Store
 
 	private func persistDeviceTimeCheckFlags(
 		isDeviceTimeCorrect: Bool,

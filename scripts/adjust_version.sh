@@ -39,9 +39,6 @@ fi
 # Change to project root
 cd $script_dir/..
 
-# Replace version for xmake
-echo "${version}.${build_number}" > cfg/VERSION
-
 # Replace version in .pbxproj
 # Replace version
 MARKETING_VERSION="MARKETING_VERSION = $version;"

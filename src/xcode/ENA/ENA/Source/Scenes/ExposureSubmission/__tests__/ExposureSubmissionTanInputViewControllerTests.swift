@@ -21,7 +21,7 @@ class ExposureSubmissionTanInputViewControllerTests: XCTestCase {
 		_ = vc.view
 
 		let expectation = self.expectation(description: "Call getRegistration service method.")
-		service.getRegistrationTokenCallback = { deviceRegistrationKey, completion in
+		service.getRegistrationTokenCallback = { _, completion in
 			expectation.fulfill()
 			completion(.success(""))
 		}

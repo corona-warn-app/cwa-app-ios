@@ -34,7 +34,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	// MARK: UIViewController
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			// intentionally left blank
 		}
 	}

@@ -6,7 +6,7 @@ import UIKit
 protocol CoronaWarnAppDelegate: AnyObject {
 	var client: HTTPClient { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
-	var store: Store & AppConfigCaching { get }
+	var store: Store { get }
 	var appConfigurationProvider: AppConfigurationProviding { get }
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
@@ -86,7 +86,7 @@ extension AppDelegate: ExposureSummaryProvider {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-	let store: Store & AppConfigCaching
+	let store: Store
 	let serverEnvironment: ServerEnvironment
 	
 	private let consumer = RiskConsumer()

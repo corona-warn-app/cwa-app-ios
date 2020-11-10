@@ -6,13 +6,13 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	private let client: Client
 
 	private let downloadedPackagesStore: DownloadedPackagesStore
-	private let store: Store & AppConfigCaching
+	private let store: Store
 	private let exposureDetector: ExposureDetector
 
 	init(
 		client: Client,
 		downloadedPackagesStore: DownloadedPackagesStore,
-		store: Store & AppConfigCaching,
+		store: Store,
 		exposureDetector: ExposureDetector
 	) {
 		self.client = client
