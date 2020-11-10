@@ -49,9 +49,9 @@ final class DMWifiClientViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: "DMSwicthTableViewCell") as? DMSwitchTableViewCell else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: "DMSwitchTableViewCell") as? DMSwitchTableViewCell else {
 			let dummy = UITableViewCell(style: .default, reuseIdentifier: "DummyFallBackCell")
-			dummy.textLabel?.text = "Dummyfallbacl cell"
+			dummy.textLabel?.text = "Fallback cell"
 			return dummy
 		}
 		cell.configure(cellViewModel: viewModel.cellViewModel(for: indexPath))
