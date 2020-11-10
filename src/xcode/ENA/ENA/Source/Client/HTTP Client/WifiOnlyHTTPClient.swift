@@ -29,6 +29,7 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 	) {
 		self.configuration = configuration
 		self.session = session
+		self.disableHourlyDownload = false
 	}
 
 	// MARK: - Overrides
@@ -87,6 +88,8 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 
 	// MARK: - Internal
 
+	var disableHourlyDownload: Bool
+
 	var isWifiOnlyActive: Bool {
 		let wifiOnlyConfiguration = URLSessionConfiguration.coronaWarnSessionConfigurationWifiOnly()
 		return session.configuration.allowsCellularAccess == wifiOnlyConfiguration.allowsCellularAccess &&
@@ -129,7 +132,6 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 	private let configuration: HTTPClient.Configuration
 	private var session: URLSession
 	private var retries: [URL: Int] = [:]
-
 }
 
 #if !RELEASE

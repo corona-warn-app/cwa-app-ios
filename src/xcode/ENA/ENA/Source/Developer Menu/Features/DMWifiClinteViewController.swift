@@ -40,12 +40,10 @@ class DMWifiClinteViewController: UIViewController {
 		super.viewDidLoad()
 
 		setupView()
-		setupSwitch()
+		setupSwitches()
 
 		title = "Wifi mode 🎛"
 	}
-
-	// MARK: - Protocol <#Name#>
 
 	// MARK: - Public
 
@@ -54,7 +52,7 @@ class DMWifiClinteViewController: UIViewController {
 	// MARK: - Private
 
 	private let wifiSwitch = UISwitch()
-	private let disableSwicth = UISwitch()
+	private let disableSwitch = UISwitch()
 	private let wifiClient: WifiOnlyHTTPClient
 
 	private func setupView() {
@@ -81,8 +79,8 @@ class DMWifiClinteViewController: UIViewController {
 		disableDownloadLabel.numberOfLines = 1
 		disableDownloadLabel.textAlignment = .left
 
-		disableSwicth.translatesAutoresizingMaskIntoConstraints = false
-		let disableStackView = UIStackView(arrangedSubviews: [disableDownloadLabel, disableSwicth])
+		disableSwitch.translatesAutoresizingMaskIntoConstraints = false
+		let disableStackView = UIStackView(arrangedSubviews: [disableDownloadLabel, disableSwitch])
 		disableStackView.translatesAutoresizingMaskIntoConstraints = false
 		disableStackView.alignment = .center
 		disableStackView.distribution = .fill
@@ -106,9 +104,11 @@ class DMWifiClinteViewController: UIViewController {
 		])
 	}
 
-	private func setupSwitch() {
+	private func setupSwitches() {
 		wifiSwitch.addTarget(self, action: #selector(didToggleSwitch(sender:)), for: .valueChanged)
 		wifiSwitch.isOn = wifiClient.isWifiOnlyActive
+		disableSwitch.addTarget(self, action: #selector(didToggleDisableSwicth(sender:)), for: .valueChanged)
+		disableSwitch.isOn = wifiClient.disableHourlyDownload
 	}
 
 	@objc
@@ -119,7 +119,8 @@ class DMWifiClinteViewController: UIViewController {
 
 	@objc
 	private func didToggleDisableSwicth(sender: UISwitch) {
-		Log.info("HTTP Client is: \(wifiClient.isWifiOnlyActive ? "enabled" : "disabled")")
+		wifiClient.disableHourlyDownload = sender.isOn
+		Log.info("Hourly packages download: \(wifiClient.disableHourlyDownload ? "disabled" :"enabled")")
 	}
 }
 
