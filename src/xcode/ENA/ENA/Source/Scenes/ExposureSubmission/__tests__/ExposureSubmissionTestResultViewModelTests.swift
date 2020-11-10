@@ -35,7 +35,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		exposureSubmissionService.devicePairingSuccessfulTimestamp = 37
 		
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .positive,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .positive,
 			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
@@ -57,7 +57,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		)
 		
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .positive,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .positive,
 			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { _ in
 				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
@@ -91,7 +91,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			
 			
 			let model = ExposureSubmissionTestResultViewModel(
-				warnOthers: WarnOthers(store: self.store), testResult: testResult,
+				warnOthers: WarnOthersReminder(store: self.store), testResult: testResult,
 				exposureSubmissionService: exposureSubmissionService,
 				onContinueWithSymptomsFlowButtonTap: { _ in
 					onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
@@ -122,7 +122,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		onContinueWithSymptomsFlowButtonTapExpectation.isInverted = true
 		
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .pending,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .pending,
 			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { _ in
 				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
@@ -150,7 +150,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		}
 		
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .pending,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .pending,
 			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
@@ -190,7 +190,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		}
 		
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .pending,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .pending,
 			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
@@ -210,7 +210,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		)
 		
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .positive,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .positive,
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { isLoading in
 				isLoading(true)
@@ -236,7 +236,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		)
 		
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .positive,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .positive,
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { isLoading in
 				isLoading(true)
@@ -263,7 +263,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let exposureSubmissionService = MockExposureSubmissionService()
 		
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .pending,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .pending,
 			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
@@ -296,7 +296,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		)
 		
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .positive,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .positive,
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in
@@ -321,7 +321,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		onContinueWithoutSymptomsFlowButtonTapExpectation.isInverted = true
 		
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .pending,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .pending,
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill() },
@@ -346,7 +346,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onContinueWithoutSymptomsFlowButtonTapExpectation.isInverted = true
 			
 			let model = ExposureSubmissionTestResultViewModel(
-				warnOthers: WarnOthers(store: self.store), testResult: testResult,
+				warnOthers: WarnOthersReminder(store: self.store), testResult: testResult,
 				exposureSubmissionService: MockExposureSubmissionService(),
 				onContinueWithSymptomsFlowButtonTap: { _ in },
 				onContinueWithoutSymptomsFlowButtonTap: { _ in
@@ -371,7 +371,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		)
 		
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .positive,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .positive,
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { isLoading in
@@ -397,7 +397,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		)
 		
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .positive,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .positive,
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { isLoading in
@@ -427,7 +427,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let onTestDeletedCalledExpectation = expectation(description: "onTestDeleted closure is called")
 		
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .expired,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .expired,
 			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
@@ -443,7 +443,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	
 	func testNavigationFooterItemForPendingTestResult() {
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .pending,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .pending,
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
@@ -462,7 +462,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	
 	func testNavigationFooterItemForPositiveTestResult() {
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .positive,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .positive,
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
@@ -483,7 +483,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let testResults: [TestResult] = [.negative, .invalid, .expired]
 		for testResult in testResults {
 			let model = ExposureSubmissionTestResultViewModel(
-				warnOthers: WarnOthers(store: self.store), testResult: testResult,
+				warnOthers: WarnOthersReminder(store: self.store), testResult: testResult,
 				exposureSubmissionService: MockExposureSubmissionService(),
 				onContinueWithSymptomsFlowButtonTap: { _ in },
 				onContinueWithoutSymptomsFlowButtonTap: { _ in },
@@ -503,7 +503,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	
 	func testDynamicTableViewModelForPositiveTestResult() {
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .positive,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .positive,
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
@@ -532,7 +532,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	
 	func testDynamicTableViewModelForNegativeTestResult() {
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .negative,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .negative,
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
@@ -585,7 +585,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	
 	func testDynamicTableViewModelForInvalidTestResult() {
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .invalid,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .invalid,
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
@@ -618,7 +618,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	
 	func testDynamicTableViewModelForPendingTestResult() {
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .pending,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .pending,
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
@@ -647,7 +647,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	
 	func testDynamicTableViewModelForExpiredTestResult() {
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthers: WarnOthers(store: self.store), testResult: .invalid,
+			warnOthers: WarnOthersReminder(store: self.store), testResult: .invalid,
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },

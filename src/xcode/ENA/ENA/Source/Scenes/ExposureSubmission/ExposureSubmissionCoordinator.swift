@@ -69,12 +69,12 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 	var model: ExposureSubmissionCoordinatorModel!
 	
-	let warnOthers: OthersWarnable
+	let warnOthers: WarnOthersRemindable
 
 	// MARK: - Initializers.
 
 	init(
-		warnOthers: OthersWarnable,
+		warnOthers: WarnOthersRemindable,
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
 		delegate: ExposureSubmissionCoordinatorDelegate? = nil

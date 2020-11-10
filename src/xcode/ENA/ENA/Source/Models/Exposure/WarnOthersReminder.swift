@@ -23,7 +23,7 @@ import UIKit
 /// So you only need to pass the result into `evaluateNotificationState(testResult: TestResult)` and all scheduling is managed.
 /// Notification scheduling - the app will inform the user 2 times to warn others.
 /// WarnOthers always is related to one concrete test result, which always needs to be a positive one.
-class WarnOthers: OthersWarnable {
+class WarnOthersReminder: WarnOthersRemindable {
 	
 	var hasStoredResult: Bool {
 		

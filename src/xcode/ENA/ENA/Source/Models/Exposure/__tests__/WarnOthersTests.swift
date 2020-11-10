@@ -31,7 +31,7 @@ class WarnOthersTests: XCTestCase {
 	
 	func testWarnOthers_allVariablesAreInitial() throws {
 		
-		let warnOthers = WarnOthers(store: store)
+		let warnOthers = WarnOthersReminder(store: store)
 		
 		let timerOneTime = TimeInterval(WarnOthersNotificationsTimer.timerOneTime.rawValue)
 		XCTAssertEqual(warnOthers.notificationOneTimer, timerOneTime, "Notification timer one has not the intial value of \(timerOneTime)")

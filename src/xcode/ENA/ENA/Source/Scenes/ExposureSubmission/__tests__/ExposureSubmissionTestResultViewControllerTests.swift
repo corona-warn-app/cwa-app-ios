@@ -33,7 +33,7 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 	
 		ExposureSubmissionTestResultViewController(
 			viewModel: ExposureSubmissionTestResultViewModel(
-				warnOthers: WarnOthers(store: self.store), testResult: testResult,
+				warnOthers: WarnOthersReminder(store: self.store), testResult: testResult,
 				exposureSubmissionService: MockExposureSubmissionService(),
 				onContinueWithSymptomsFlowButtonTap: { _ in },
 				onContinueWithoutSymptomsFlowButtonTap: { _ in },

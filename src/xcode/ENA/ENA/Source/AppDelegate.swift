@@ -29,7 +29,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var serverEnvironment: ServerEnvironment { get }
-	var warnOthers: OthersWarnable { get }
+	var warnOthers: WarnOthersRemindable { get }
 }
 
 extension AppDelegate: CoronaWarnAppDelegate {
@@ -107,7 +107,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let store: Store
 	let serverEnvironment: ServerEnvironment
 	
-	let warnOthers: OthersWarnable
+	let warnOthers: WarnOthersRemindable
 	
 	private let consumer = RiskConsumer()
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
@@ -177,7 +177,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		self.serverEnvironment = ServerEnvironment()
 
 		self.store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
-		self.warnOthers = WarnOthers(store: self.store)
+		self.warnOthers = WarnOthersReminder(store: self.store)
 
 		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
 		self.client = HTTPClient(configuration: configuration)

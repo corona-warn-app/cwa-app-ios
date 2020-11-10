@@ -19,7 +19,7 @@
 
 import UIKit
 
-protocol OthersWarnable {
+protocol WarnOthersRemindable {
 	
 	var hasStoredResult: Bool { get set }
 

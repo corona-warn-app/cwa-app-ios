@@ -32,12 +32,12 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	private var time2Label: UILabel!
 	
 	private let store: Store
-	private var warnOthers: OthersWarnable
+	private var warnOthers: WarnOthersRemindable
 	
 	
 	// MARK: - Init
 	
-	init(warnOthers: OthersWarnable, store: Store) {
+	init(warnOthers: WarnOthersRemindable, store: Store) {
 		self.store = store
 		self.warnOthers = warnOthers
 		super.init(nibName: nil, bundle: nil)

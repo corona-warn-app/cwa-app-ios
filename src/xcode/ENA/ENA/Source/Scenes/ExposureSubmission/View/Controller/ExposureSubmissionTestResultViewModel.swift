@@ -23,7 +23,7 @@ class ExposureSubmissionTestResultViewModel {
 	// MARK: - Init
 
 	init(
-		warnOthers: OthersWarnable,
+		warnOthers: WarnOthersRemindable,
 		testResult: TestResult,
 		exposureSubmissionService: ExposureSubmissionService,
 		onContinueWithSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
@@ -112,7 +112,7 @@ class ExposureSubmissionTestResultViewModel {
 		}
 	}
 	
-	private var warnOthers: OthersWarnable
+	private var warnOthers: WarnOthersRemindable
 
 	private var primaryButtonIsLoading: Bool = false {
 		didSet {

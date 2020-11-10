@@ -23,11 +23,11 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController,
 	// MARK: - Attributes.
 
 	private(set) weak var coordinator: ExposureSubmissionCoordinating?
-	private let warnOthers: OthersWarnable
+	private let warnOthers: WarnOthersRemindable
 
 	// MARK: - Initializers.
 
-	init?(warnOthers: OthersWarnable, coder: NSCoder, coordinator: ExposureSubmissionCoordinating) {
+	init?(warnOthers: WarnOthersRemindable, coder: NSCoder, coordinator: ExposureSubmissionCoordinating) {
 		self.coordinator = coordinator
 		self.warnOthers = warnOthers
 		super.init(coder: coder)
