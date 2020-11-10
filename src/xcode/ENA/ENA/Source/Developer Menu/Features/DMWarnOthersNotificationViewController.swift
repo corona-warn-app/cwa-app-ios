@@ -23,6 +23,7 @@ import UIKit
 
 final class DMWarnOthersNotificationViewController: UIViewController, UITextFieldDelegate {
 	
+	
 	// MARK: Properties
 	private var time1Textfield: UITextField!
 	private var time2Textfield: UITextField!
@@ -32,6 +33,9 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	
 	private let store: Store
 	private var warnOthers: OthersWarnable
+	
+	
+	// MARK: - Init
 	
 	init(warnOthers: OthersWarnable, store: Store) {
 		self.store = store
@@ -44,6 +48,8 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		fatalError("init(coder:) has not been implemented")
 	}
 	
+	
+	// MARK: - Overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -122,7 +128,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 			time2Textfield.widthAnchor.constraint(equalToConstant: 60)
 		])
 		
-		// MARK: Set Default Value for the notification text filelds:
+		// Set Default Value for the notification text filelds:
 		time1Textfield.text = "\(warnOthers.notificationOneTimer)"
 		time2Textfield.text = "\(warnOthers.notificationTwoTimer)"
 		
@@ -133,7 +139,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		
 	}
 	
-	// MARK: Private API
+	// MARK: - Private API
 	@objc
 	private func scheduleNotificationsButtonTapped() {
 		let time1 = Int(time1Textfield.text ?? "")
@@ -171,7 +177,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	}
 }
 
-// MARK: Set the alert popups.
+// MARK: - Set the alert popups.
 extension DMWarnOthersNotificationViewController {
 	func alertMessage(titleStr: String, messageStr: String) {
 		// create the alert
@@ -183,7 +189,7 @@ extension DMWarnOthersNotificationViewController {
 	}
 }
 
-// MARK: Dismiss the keyboard
+// MARK: - Dismiss the keyboard
 extension DMWarnOthersNotificationViewController {
 	func hideKeyboardWhenTappedAround() {
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DMWarnOthersNotificationViewController.dismissKeyboard))

@@ -54,9 +54,7 @@ class WarnOthers: OthersWarnable {
 			store.warnOthersNotificationTwoTimer = newValue
 		}
 	}
-	
-	private let store: Store
-	
+		
 	// MARK: - Init
 	init(store: Store) {
 		self.store = store
@@ -89,6 +87,8 @@ class WarnOthers: OthersWarnable {
 	}
 	
 	// MARK: - private API
+	private let store: Store
+	
 	private func scheduleNotifications() {
 		UNUserNotificationCenter.current().scheduleWarnOthersNotifications(
 			timeIntervalOne: TimeInterval(notificationOneTimer),
