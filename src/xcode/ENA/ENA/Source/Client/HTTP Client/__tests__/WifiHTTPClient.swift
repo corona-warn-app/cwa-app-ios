@@ -61,4 +61,15 @@ class WifiHTTPClientTest: XCTestCase {
 		XCTAssertEqual(wifiClient.isWifiOnlyActive, true)
 	}
 
+	func testWHEN_WifiOnlyClient_THEN_disableHourlyDownloadIsFalse() {
+		// WHEN
+		let mockStore = MockTestStore()
+		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: mockStore)
+		let wifiClient = WifiOnlyHTTPClient(configuration: configuration)
+
+		// THEN
+		XCTAssertEqual(wifiClient.disableHourlyDownload, false)
+	}
+
+
 }
