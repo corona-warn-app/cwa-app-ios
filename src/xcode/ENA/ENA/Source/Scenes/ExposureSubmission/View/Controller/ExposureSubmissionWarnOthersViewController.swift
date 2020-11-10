@@ -25,7 +25,6 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	init?(
 		coder: NSCoder,
 		supportedCountries: [Country],
-		warnOthers: WarnOthersRemindable,
 		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
 		self.viewModel = ExposureSubmissionWarnOthersViewModel(supportedCountries: supportedCountries)

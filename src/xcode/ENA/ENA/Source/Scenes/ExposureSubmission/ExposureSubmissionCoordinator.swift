@@ -470,7 +470,7 @@ extension ExposureSubmissionCoordinator {
 		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
 	) -> ExposureSubmissionWarnOthersViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnOthersViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionWarnOthersViewController(coder: coder, supportedCountries: supportedCountries, warnOthers: self.warnOthers, onPrimaryButtonTap: onPrimaryButtonTap)
+			ExposureSubmissionWarnOthersViewController(coder: coder, supportedCountries: supportedCountries, onPrimaryButtonTap: onPrimaryButtonTap)
 		}
 	}
 
