@@ -29,6 +29,7 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 	) {
 		self.configuration = configuration
 		self.session = session
+		self.disableHourlyDownload = false
 	}
 
 	// MARK: - Overrides
@@ -60,6 +61,13 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 			}
 		}
 
+		#if !RELEASE
+		guard !disableHourlyDownload else {
+			responseError = .noResponse
+			return
+		}
+		#endif
+
 		session.GET(url) { result in
 			switch result {
 			case let .success(response):
@@ -78,7 +86,7 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 				completeWith(.success(payload))
 			case let .failure(error):
 				responseError = error
-				Log.error("failed to get day: \(error)", log: .api)
+				Log.error("failed to get hour: \(error)", log: .api)
 			}
 		}
 	}
@@ -86,6 +94,8 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 	// MARK: - Public
 
 	// MARK: - Internal
+
+	var disableHourlyDownload: Bool
 
 	var isWifiOnlyActive: Bool {
 		let wifiOnlyConfiguration = URLSessionConfiguration.coronaWarnSessionConfigurationWifiOnly()
@@ -129,7 +139,6 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 	private let configuration: HTTPClient.Configuration
 	private var session: URLSession
 	private var retries: [URL: Int] = [:]
-
 }
 
 #if !RELEASE
