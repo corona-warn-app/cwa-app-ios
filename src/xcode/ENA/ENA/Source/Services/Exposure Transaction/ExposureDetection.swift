@@ -84,27 +84,27 @@ final class ExposureDetection {
 		return configuration
 	}
 
-	private func detectSummary(writtenPackages: WrittenPackages, exposureConfiguration: ENExposureConfiguration) {
-		self.progress = self.delegate?.exposureDetection(
+	private func detectExposureWindows(writtenPackages: WrittenPackages, exposureConfiguration: ENExposureConfiguration) {
+		self.progress = self.delegate?.detectExposureWindows(
 			self,
 			detectSummaryWithConfiguration: exposureConfiguration,
 			writtenPackages: writtenPackages
 		) { [weak self] result in
 			writtenPackages.cleanUp()
-			self?.useSummaryResult(result)
+			self?.useExposureWindowsResult(result)
 		}
 	}
 
-	private func useSummaryResult(_ result: Result<ENExposureDetectionSummary, Error>) {
+	private func useExposureWindowsResult(_ result: Result<[ENExposureWindow], Error>) {
 		switch result {
-		case .success(let summary):
-			didDetectSummary(summary)
+		case .success(let exposureWindows):
+			didDetectExposureWindows(exposureWindows)
 		case .failure(let error):
 			endPrematurely(reason: .noSummary(error))
 		}
 	}
 
-	typealias Completion = (Result<ENExposureDetectionSummary, DidEndPrematurelyReason>) -> Void
+	typealias Completion = (Result<[ENExposureWindow], DidEndPrematurelyReason>) -> Void
 
 	func start(completion: @escaping Completion) {
 		Log.info("ExposureDetection: Start downloading packages.", log: .riskDetection)
@@ -161,18 +161,18 @@ final class ExposureDetection {
 	}
 
 	// Informs the delegate about a summary.
-	private func didDetectSummary(_ summary: ENExposureDetectionSummary) {
-		Log.info("ExposureDetection: Completed detecting summary.", log: .riskDetection)
+	private func didDetectExposureWindows(_ exposureWindows: [ENExposureWindow]) {
+		Log.info("ExposureDetection: Completed detecting exposure windows.", log: .riskDetection)
 
 		precondition(
 			completion != nil,
-			"Tried report a summary but no completion handler is set."
+			"Tried report exposure windows but no completion handler is set."
 		)
 
 		activityState = .idle
 
 		DispatchQueue.main.async {
-			self.completion?(.success(summary))
+			self.completion?(.success(exposureWindows))
 			self.completion = nil
 		}
 	}

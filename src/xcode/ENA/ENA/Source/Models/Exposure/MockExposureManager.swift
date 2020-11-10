@@ -77,6 +77,10 @@ extension MockExposureManager: ExposureManager {
 		Progress()
 	}
 
+	func getExposureWindows(summary: ENExposureDetectionSummary, completionHandler: @escaping ENGetExposureWindowsHandler) -> Progress {
+		Progress()
+	}
+
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
 		// swiftlint:disable:next force_unwrapping
 		completionHandler(diagnosisKeysResult!.0, diagnosisKeysResult!.1)
