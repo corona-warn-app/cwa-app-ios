@@ -20,6 +20,8 @@
 import Foundation
 
 protocol KeyPackageDownloadProtocol {
+	var statusDidChange: ((KeyPackageDownloadStatus) -> Void)? { get set }
+
 	func startDayPackagesDownload(completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void)
 	func startHourPackagesDownload(completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void)
 }
@@ -29,6 +31,21 @@ enum KeyPackageDownloadError: Error {
 	case noDiskSpace
 	case unableToWriteDiagnosisKeys
 	case downloadIsRunning
+
+	var description: String {
+		switch self {
+		case .noDiskSpace:
+			return AppStrings.ExposureDetectionError.errorAlertFullDistSpaceMessage
+		default:
+			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: KeyPackageDownloadError"
+		}
+	}
+}
+
+enum KeyPackageDownloadStatus {
+	case idle
+	case checkingForNewPackages
+	case downloading
 }
 
 class KeyPackageDownload: KeyPackageDownloadProtocol {
@@ -61,15 +78,16 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 	func startDayPackagesDownload(completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void) {
 		Log.info("KeyPackageDownload: Start downloading day packages.", log: .riskDetection)
 
-		guard !isKeyDownloadRunning else {
+		guard status == .idle else {
 			Log.info("KeyPackageDownload: Failed downloading. A download is already running.", log: .riskDetection)
 			completion(.failure(.downloadIsRunning))
 			return
 		}
-		isKeyDownloadRunning = true
 
-		startDownloadAllCountryPackages(countryIds: countryIds, downloadMode: .daily) { result in
-			self.isKeyDownloadRunning = false
+		status = .checkingForNewPackages
+
+		startDownloadAllCountryPackages(countryIds: countryIds, downloadMode: .daily) { [weak self] result in
+			self?.status = .idle
 
 			switch result {
 			case .success:
@@ -85,15 +103,16 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 	func startHourPackagesDownload(completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void) {
 		Log.info("KeyPackageDownload: Start downloading hour packages.", log: .riskDetection)
 
-		guard !isKeyDownloadRunning else {
+		guard status == .idle else {
 			Log.info("KeyPackageDownload: Failed downloading. A download is already running.", log: .riskDetection)
 			completion(.failure(.downloadIsRunning))
 			return
 		}
-		isKeyDownloadRunning = true
 
-		startDownloadAllCountryPackages(countryIds: countryIds, downloadMode: .hourly(.formattedToday())) {result in
-			self.isKeyDownloadRunning = false
+		status = .checkingForNewPackages
+
+		startDownloadAllCountryPackages(countryIds: countryIds, downloadMode: .hourly(.formattedToday())) { [weak self] result in
+			self?.status = .idle
 
 			switch result {
 			case .success:
@@ -106,6 +125,10 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		}
 	}
 
+	// MARK: - Internal
+
+	var statusDidChange: ((KeyPackageDownloadStatus) -> Void)?
+
 	// MARK: - Private
 
 	private let countryIds: [Country.ID]
@@ -113,7 +136,12 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 	private let client: Client
 	private let wifiClient: ClientWifiOnly
 	private let store: Store & AppConfigCaching
-	private var isKeyDownloadRunning = false
+
+	private var status: KeyPackageDownloadStatus = .idle {
+		didSet {
+			statusDidChange?(status)
+		}
+	}
 
 	private func startDownloadAllCountryPackages(countryIds: [Country.ID], downloadMode: DownloadMode, completion: @escaping (Result<Void, KeyPackageDownloadError>) -> Void) {
 
@@ -133,6 +161,8 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 
 			if shouldStartPackageDownload {
 				dispatchGroup.enter()
+
+				status = .downloading
 
 				startDownloadPackages(for: countryId, downloadMode: downloadMode) { result in
 					switch result {
@@ -354,7 +384,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		guard let yesterdayDate = Calendar.utcCalendar.date(byAdding: .day, value: -1, to: Date()) else {
 			fatalError("Could not create yesterdays date.")
 		}
-		let yesterdayKeyString = DateFormatter.packagesDateFormatter.string(from: yesterdayDate)
+		let yesterdayKeyString = DateFormatter.packagesDayDateFormatter.string(from: yesterdayDate)
 		let yesterdayDayPackageExists = downloadedPackagesStore.allDays(country: country).contains(yesterdayKeyString)
 
 		return !yesterdayDayPackageExists || !store.wasRecentDayKeyDownloadSuccessful
@@ -364,7 +394,10 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		guard let lastHourDate = Calendar.utcCalendar.date(byAdding: .hour, value: -1, to: Date()) else {
 			fatalError("Could not create last hour date.")
 		}
-		let lastHourKey = Int(DateFormatter.packagesDateFormatter.string(from: lastHourDate)) ?? -1
+		guard let lastHourKey = Int(DateFormatter.packagesHourDateFormatter.string(from: lastHourDate)) else {
+			fatalError("Could not create hour key from date.")
+		}
+
 		let lastHourPackageExists = downloadedPackagesStore.hours(for: dayKey, country: counrtyId).contains(lastHourKey)
 
 		return !lastHourPackageExists || !store.wasRecentHourKeyDownloadSuccessful

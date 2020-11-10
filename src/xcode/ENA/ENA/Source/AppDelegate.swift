@@ -36,67 +36,83 @@ extension AppDelegate: CoronaWarnAppDelegate {
 	// required - otherwise app will crash because cast will fail.
 }
 
-extension AppDelegate: ExposureSummaryProvider {
-	func detectExposure(
-		appConfiguration: SAP_Internal_ApplicationConfiguration,
-		activityStateDelegate: ActivityStateProviderDelegate? = nil,
-		completion: @escaping (Result<ENExposureDetectionSummary, ExposureDetection.DidEndPrematurelyReason>) -> Void
-	) -> CancellationToken {
-		Log.info("AppDelegate: Detect exposure.", log: .riskDetection)
+extension AppDelegate {
 
-		exposureDetection = ExposureDetection(
-			delegate: exposureDetectionExecutor,
-			appConfiguration: appConfiguration,
-			deviceTimeCheck: DeviceTimeCheck(store: store)
-		)
-		
-		exposureDetection?
-			.$activityState
-			.removeDuplicates()
-			.subscribe(on: RunLoop.main)
-			.sink { activityStateDelegate?.provideActivityState($0) }
-			.store(in: &subscriptions)
-
-		let token = CancellationToken { [weak self] in
-			self?.exposureDetection?.cancel()
-		}
-		exposureDetection?.start { [weak self] result in
-			switch result {
-			case .success(let summary):
-				Log.info("AppDelegate: Detect exposure completed", log: .riskDetection)
-				completion(.success(summary))
-			case .failure(let error):
-				Log.error("AppDelegate: Detect exposure failed", log: .riskDetection, error: error)
-				self?.showError(exposure: error)
-				completion(.failure(error))
-			}
-			self?.exposureDetection = nil
-		}
-		return token
-	}
-
-	private func showError(exposure didEndPrematurely: ExposureDetection.DidEndPrematurelyReason) {
-
+	func showError(_ riskProviderError: RiskProviderError) {
 		guard
 			let scene = UIApplication.shared.connectedScenes.first,
 			let delegate = scene.delegate as? SceneDelegate,
-			let rootController = delegate.window?.rootViewController,
-			let alert = didEndPrematurely.errorAlertController(rootController: rootController)
+			let rootController = delegate.window?.rootViewController
 		else {
 			return
 		}
 
-		func _showError() {
+		guard let alert = makeErrorAlert(
+				riskProviderError: riskProviderError,
+				rootController: rootController
+		) else {
+			return
+		}
+
+		func presentAlert() {
 			rootController.present(alert, animated: true, completion: nil)
 		}
 
 		if rootController.presentedViewController != nil {
 			rootController.dismiss(
 				animated: true,
-				completion: _showError
+				completion: presentAlert
 			)
 		} else {
-			rootController.present(alert, animated: true, completion: nil)
+			presentAlert()
+		}
+	}
+
+	private func makeErrorAlert(riskProviderError: RiskProviderError, rootController: UIViewController) -> UIAlertController? {
+		switch riskProviderError {
+		case .failedRiskDetection(let didEndPrematurelyReason):
+			switch didEndPrematurelyReason {
+			case let .noSummary(error):
+				return makeAlertController(
+					enError: error,
+					localizedDescription: didEndPrematurelyReason.localizedDescription,
+					rootController: rootController
+				)
+			case .wrongDeviceTime:
+				return rootController.setupErrorAlert(message: didEndPrematurelyReason.localizedDescription)
+			default:
+				return nil
+			}
+		case .failedKeyPackageDownload(let downloadError):
+			switch downloadError {
+			case .noDiskSpace:
+				return rootController.setupErrorAlert(message: downloadError.description)
+			default:
+				return nil
+			}
+		default:
+			return nil
+		}
+	}
+
+	private func makeAlertController(enError: Error?, localizedDescription: String, rootController: UIViewController) -> UIAlertController {
+		switch enError {
+		case let error as ENError:
+			let openFAQ: (() -> Void)? = {
+				guard let url = error.faqURL else { return nil }
+				return {
+					UIApplication.shared.open(url, options: [:])
+				}
+			}()
+			return rootController.setupErrorAlert(
+				message: localizedDescription,
+				secondaryActionTitle: AppStrings.Common.errorAlertActionMoreInfo,
+				secondaryActionCompletion: openFAQ
+			)
+		default:
+			return rootController.setupErrorAlert(
+				message: localizedDescription
+			)
 		}
 	}
 }
@@ -106,7 +122,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	let store: Store
 	let serverEnvironment: ServerEnvironment
-	
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 
 	lazy var appConfigurationProvider: AppConfigurationProviding = {
@@ -137,10 +152,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return RiskProvider(
 			configuration: .default,
 			store: store,
-			exposureSummaryProvider: self,
 			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: exposureManager.preconditions(),
-			keyPackageDownload: keyPackageDownload
+			keyPackageDownload: keyPackageDownload,
+			exposureDetectionExecutor: exposureDetectionExecutor
 		)
 	}()
 
@@ -156,7 +171,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	#endif
 
 	private var exposureDetection: ExposureDetection?
-	private var subscriptions = Set<AnyCancellable>()
+	private let consumer = RiskConsumer()
 
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
@@ -197,6 +212,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		// Setup DeadmanNotification after AppLaunch
 		UNUserNotificationCenter.current().scheduleDeadmanNotificationIfNeeded()
+
+		consumer.didFailCalculateRisk = { [weak self] error in
+			self?.showError(error)
+		}
+		riskProvider.observeRisk(consumer)
 
 		return true
 	}

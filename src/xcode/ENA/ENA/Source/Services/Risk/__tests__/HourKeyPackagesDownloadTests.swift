@@ -21,6 +21,7 @@
 import Foundation
 import XCTest
 
+// swiftlint:disable:next type_body_length
 class HourKeyPackagesDownloadTests: XCTestCase {
 
 	private lazy var dummyHourResponse: [Int: PackageDownloadResponse] = {
@@ -151,9 +152,14 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 		store.wasRecentDayKeyDownloadSuccessful = true
 
 		guard let lastHourDate = Calendar.utcCalendar.date(byAdding: .hour, value: -1, to: Date()) else {
-			fatalError("Could not create last hour date.")
+			XCTFail("Could not create last hour date.")
+			return
 		}
-		let lastHourKey = Int(DateFormatter.packagesDateFormatter.string(from: lastHourDate)) ?? -1
+		guard let lastHourKey = Int(DateFormatter.packagesHourDateFormatter.string(from: lastHourDate)) else {
+			XCTFail("Could not create last hour key from date.")
+			return
+		}
+		
 		let countryId = "IT"
 		let dummyPackage = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
 
@@ -343,11 +349,105 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 
 		waitForExpectations(timeout: 1.0)
 	}
-	
+
+	func test_When_NoNewPackagesFoundOnServer_Then_StatusChangesFrom_Idle_To_CheckingForNewPackages_To_Idle() throws {
+		let store = MockTestStore()
+		store.wasRecentHourKeyDownloadSuccessful = true
+
+		guard let lastHourDate = Calendar.utcCalendar.date(byAdding: .hour, value: -1, to: Date()) else {
+			fatalError("Could not create last hour date.")
+		}
+		guard let lastHourKey = Int(DateFormatter.packagesHourDateFormatter.string(from: lastHourDate)) else {
+			fatalError("Could not create hour key from date.")
+		}
+
+		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
+
+		let packagesStore: DownloadedPackagesSQLLiteStoreV2 = .inMemory()
+		packagesStore.open()
+		let countryId = "IT"
+		try packagesStore.addFetchedHours([lastHourKey: dummyResponse], day: .formattedToday(), country: countryId)
+
+		let client = ClientMock()
+		client.availableDaysAndHours = DaysAndHours(days: [], hours: [lastHourKey])
+		client.downloadedPackage = dummyResponse
+
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: packagesStore,
+			client: client,
+			wifiClient: client,
+			store: store,
+			countryIds: ["IT"]
+		)
+
+		let statusDidChangeExpectation = expectation(description: "Status statusDidChange called twice. 1. dheckingForNewPackages, 2. idle")
+		statusDidChangeExpectation.expectedFulfillmentCount = 2
+		var numberOfStatusChanges = 0
+
+		keyPackageDownload.statusDidChange = { status in
+			if numberOfStatusChanges == 0 {
+				XCTAssertEqual(status, .checkingForNewPackages)
+			} else if numberOfStatusChanges == 1 {
+				XCTAssertEqual(status, .idle)
+			}
+
+			numberOfStatusChanges += 1
+			statusDidChangeExpectation.fulfill()
+		}
+
+		keyPackageDownload.startHourPackagesDownload { _ in }
+
+		waitForExpectations(timeout: 1.0)
+	}
+
+	func test_When_NewPackagesFoundOnServer_Then_StatusChangesFrom_Idle_To_Downloading_To_CheckingForNewPackages_To_Idle() {
+		let store = MockTestStore()
+
+		let packagesStore: DownloadedPackagesSQLLiteStoreV2 = .inMemory()
+		packagesStore.open()
+
+		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
+
+		let client = ClientMock()
+		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-01", "2020-10-02", "2020-10-03"], hours: [1, 2])
+		client.downloadedPackage = dummyResponse
+
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: packagesStore,
+			client: client,
+			wifiClient: client,
+			store: store,
+			countryIds: ["IT"]
+		)
+		
+		let statusDidChangeExpectation = expectation(description: "Status statusDidChange called three times. 1. dheckingForNewPackages, 2. downloading, 3. idle")
+		statusDidChangeExpectation.expectedFulfillmentCount = 3
+		var numberOfStatusChanges = 0
+
+		keyPackageDownload.statusDidChange = { status in
+			if numberOfStatusChanges == 0 {
+				XCTAssertEqual(status, .checkingForNewPackages)
+			} else if numberOfStatusChanges == 1 {
+				XCTAssertEqual(status, .downloading)
+			} else if numberOfStatusChanges == 2 {
+				XCTAssertEqual(status, .idle)
+			}
+
+			numberOfStatusChanges += 1
+			statusDidChangeExpectation.fulfill()
+		}
+
+		keyPackageDownload.startHourPackagesDownload { _ in }
+
+		waitForExpectations(timeout: 1.0)
+	}
+
 	func test_When_DownloadingDayPackage_Then_CleanupHourPackages() throws {
 		// Load day package for a particular day will cleanup
 		// all hour packages for exactely that day
-		
+
 		let store = MockTestStore()
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
@@ -386,7 +486,8 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 			}
 		}
 
+		keyPackageDownload.startHourPackagesDownload { _ in }
+
 		waitForExpectations(timeout: 1.0)
 	}
-	
 }

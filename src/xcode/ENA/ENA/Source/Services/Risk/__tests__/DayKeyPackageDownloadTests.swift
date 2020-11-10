@@ -146,10 +146,11 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		guard let yesterdayDate = Calendar.utcCalendar.date(byAdding: .day, value: -1, to: Date()) else {
 			fatalError("Could not create yesterdays date.")
 		}
-		let yesterdayKeyString = DateFormatter.packagesDateFormatter.string(from: yesterdayDate)
+		let yesterdayKeyString = DateFormatter.packagesDayDateFormatter.string(from: yesterdayDate)
+		let countryId = "IT"
+
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
 		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
-		let countryId = "IT"
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
@@ -335,6 +336,98 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 				failureExpectation.fulfill()
 			}
 		}
+
+		waitForExpectations(timeout: 1.0)
+	}
+
+	func test_When_NoNewPackagesFoundOnServer_Then_StatusChangesFrom_Idle_To_CheckingForNewPackages_To_Idle() throws {
+		let store = MockTestStore()
+		store.wasRecentDayKeyDownloadSuccessful = true
+
+		guard let yesterdayDate = Calendar.utcCalendar.date(byAdding: .day, value: -1, to: Date()) else {
+			fatalError("Could not create yesterdays date.")
+		}
+		let yesterdayKeyString = DateFormatter.packagesDayDateFormatter.string(from: yesterdayDate)
+		let countryId = "IT"
+
+		let packagesStore: DownloadedPackagesSQLLiteStoreV2 = .inMemory()
+		packagesStore.open()
+
+		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
+		try packagesStore.addFetchedDays([yesterdayKeyString: dummyResponse], country: countryId)
+
+		let client = ClientMock()
+		client.availableDaysAndHours = DaysAndHours(days: [yesterdayKeyString], hours: [1, 2])
+		client.downloadedPackage = dummyResponse
+
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: packagesStore,
+			client: client,
+			wifiClient: client,
+			store: store,
+			countryIds: ["IT"]
+		)
+
+		let statusDidChangeExpectation = expectation(description: "Status statusDidChange called twice. 1. dheckingForNewPackages, 2. idle")
+		statusDidChangeExpectation.expectedFulfillmentCount = 2
+		var numberOfStatusChanges = 0
+
+		keyPackageDownload.statusDidChange = { status in
+			if numberOfStatusChanges == 0 {
+				XCTAssertEqual(status, .checkingForNewPackages)
+			} else if numberOfStatusChanges == 1 {
+				XCTAssertEqual(status, .idle)
+			}
+
+			numberOfStatusChanges += 1
+			statusDidChangeExpectation.fulfill()
+		}
+
+		keyPackageDownload.startDayPackagesDownload { _ in }
+
+		waitForExpectations(timeout: 1.0)
+	}
+
+	func test_When_NewPackagesFoundOnServer_Then_StatusChangesFrom_Idle_To_Downloading_To_CheckingForNewPackages_To_Idle() {
+		let store = MockTestStore()
+
+		let packagesStore: DownloadedPackagesSQLLiteStoreV2 = .inMemory()
+		packagesStore.open()
+
+		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
+
+		let client = ClientMock()
+		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-01", "2020-10-02", "2020-10-03"], hours: [1, 2])
+		client.downloadedPackage = dummyResponse
+
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: packagesStore,
+			client: client,
+			wifiClient: client,
+			store: store,
+			countryIds: ["IT"]
+		)
+
+		let statusDidChangeExpectation = expectation(description: "Status statusDidChange called three times. 1. dheckingForNewPackages, 2. downloading, 3. idle")
+		statusDidChangeExpectation.expectedFulfillmentCount = 3
+		var numberOfStatusChanges = 0
+
+		keyPackageDownload.statusDidChange = { status in
+			if numberOfStatusChanges == 0 {
+				XCTAssertEqual(status, .checkingForNewPackages)
+			} else if numberOfStatusChanges == 1 {
+				XCTAssertEqual(status, .downloading)
+			} else if numberOfStatusChanges == 2 {
+				XCTAssertEqual(status, .idle)
+			}
+
+			numberOfStatusChanges += 1
+			statusDidChangeExpectation.fulfill()
+		}
+
+		keyPackageDownload.startDayPackagesDownload { _ in }
 
 		waitForExpectations(timeout: 1.0)
 	}
