@@ -264,12 +264,12 @@ final class SecureStore: Store {
 extension SecureStore {
 
 	var warnOthersNotificationOneTimer: TimeInterval {
-		get { kvStore["warnOthersNotificationTimerOne"] as TimeInterval? ?? TimeInterval(WarnOthersNotificationsTimer.timerOneTime.rawValue) }
+		get { kvStore["warnOthersNotificationTimerOne"] as TimeInterval? ?? WarnOthersNotificationsTimeInterval.intervalOne }
 		set { kvStore["warnOthersNotificationTimerOne"] = newValue }
 	}
 	
 	var warnOthersNotificationTwoTimer: TimeInterval {
-		get { kvStore["warnOthersNotificationTimerTwo"] as TimeInterval? ?? TimeInterval(WarnOthersNotificationsTimer.timerTwoTime.rawValue) }
+		get { kvStore["warnOthersNotificationTimerTwo"] as TimeInterval? ?? WarnOthersNotificationsTimeInterval.intervalTwo }
 		set { kvStore["warnOthersNotificationTimerTwo"] = newValue }
 	}
 	

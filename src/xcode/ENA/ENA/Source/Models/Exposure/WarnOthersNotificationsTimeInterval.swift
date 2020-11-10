@@ -20,10 +20,10 @@
 import Foundation
 
 /// Defines two timer values for the first and the second notification to be shown. The values are meant to be seconds.
-enum WarnOthersNotificationsTimer: Double {
+enum WarnOthersNotificationsTimeInterval {
 	
-	case timerOneTime = 7200
+	static let intervalOne: TimeInterval = 7200
 	
-	case timerTwoTime = 14400
+	static let intervalTwo: TimeInterval = 14400
 	
 }

@@ -20,8 +20,8 @@ import Foundation
 
 final class MockTestStore: Store, AppConfigCaching {
 	
-	var warnOthersNotificationOneTimer: TimeInterval = TimeInterval(WarnOthersNotificationsTimer.timerOneTime.rawValue)
-	var warnOthersNotificationTwoTimer: TimeInterval = TimeInterval(WarnOthersNotificationsTimer.timerTwoTime.rawValue)
+	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
+	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
 	var warnOthersHasActiveTestResult: Bool = false
 	var isAllowedToPerformBackgroundFakeRequests = false
 	var firstPlaybookExecution: Date?

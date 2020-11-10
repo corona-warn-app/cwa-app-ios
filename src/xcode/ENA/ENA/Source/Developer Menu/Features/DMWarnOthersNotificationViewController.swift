@@ -146,18 +146,18 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		let time2 = Double(time2Textfield.text ?? "")
 		
 		// Create an alert when user enter the wrong values.
-		if time2 ?? WarnOthersNotificationsTimer.timerOneTime.rawValue <= time1 ?? WarnOthersNotificationsTimer.timerTwoTime.rawValue {
+		if time2 ?? WarnOthersNotificationsTimeInterval.intervalOne <= time1 ?? WarnOthersNotificationsTimeInterval.intervalTwo {
 			
 			// Display second notification should be greater than first notification alert.
 			alertMessage(titleStr: "Please Enter the Correct Notification Time", messageStr: "Second notification time seconds should be greater than the first notification time seconds.")
 
 		} else {
 			// Save the notifications time into the SecureStore.
-			warnOthers.notificationOneTimeInterval = TimeInterval(time1 ?? WarnOthersNotificationsTimer.timerOneTime.rawValue)
-			warnOthers.notificationTwoTimeInterval = TimeInterval(time2 ?? WarnOthersNotificationsTimer.timerTwoTime.rawValue)
+			warnOthers.notificationOneTimeInterval = TimeInterval(time1 ?? WarnOthersNotificationsTimeInterval.intervalOne)
+			warnOthers.notificationTwoTimeInterval = TimeInterval(time2 ?? WarnOthersNotificationsTimeInterval.intervalTwo)
 			
 			//Display notification save alert.
-			alertMessage(titleStr: "Notifications time saved", messageStr: "Notification1 time \(time1 ?? WarnOthersNotificationsTimer.timerOneTime.rawValue) seconds & Notification2 time \(time2 ?? WarnOthersNotificationsTimer.timerTwoTime.rawValue) seconds has saved into the secure store.")
+			alertMessage(titleStr: "Notifications time saved", messageStr: "Notification1 time \(time1 ?? WarnOthersNotificationsTimeInterval.intervalOne) seconds & Notification2 time \(time2 ?? WarnOthersNotificationsTimeInterval.intervalTwo) seconds has saved into the secure store.")
 		}
 
 	}
@@ -165,8 +165,8 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	
 	@objc
 	private func resetDefaultsButtonTapped() {
-		time1Textfield.text = "\(WarnOthersNotificationsTimer.timerOneTime.rawValue)"
-		time2Textfield.text = "\(WarnOthersNotificationsTimer.timerTwoTime.rawValue)"
+		time1Textfield.text = "\(WarnOthersNotificationsTimeInterval.intervalOne)"
+		time2Textfield.text = "\(WarnOthersNotificationsTimeInterval.intervalTwo)"
 	}
 	
 	@objc
