@@ -200,7 +200,6 @@ private extension Array where Element == SAP_External_Exposurenotification_Tempo
 
 private extension Client {
 	typealias AvailableDaysAndHoursCompletion = (DaysAndHours) -> Void
-	typealias DaysAndHoursCompletionHandler = (FetchedDaysAndHours) -> Void
 
 	private func availableDaysAndHours(
 		completion completeWith: @escaping AvailableDaysAndHoursCompletion
@@ -232,7 +231,7 @@ private extension Client {
 
 	func fetchAllKeys(
 		wifiClient: WifiOnlyHTTPClient,
-		completion completeWith: @escaping DaysAndHoursCompletionHandler
+		completion completeWith: @escaping FetchDaysAndHoursCompletionHandler
 	) {
 		availableDaysAndHours { daysAndHours in
 			self.fetchDays(daysAndHours.days, forCountry: "DE") { daysResult in
