@@ -66,7 +66,7 @@ final class CachedAppConfiguration {
 		client.fetchAppConfiguration(etag: etag) { [weak self] result in
 			guard let self = self else { return }
 
-			switch result.0 {
+			switch result.0 /* fyi, `result.1` would be the server time */{
 			case .success(let response):
 				self.store.lastAppConfigETag = response.eTag
 				self.store.appConfig = response.config
