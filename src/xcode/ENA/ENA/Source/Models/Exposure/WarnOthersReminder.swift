@@ -35,7 +35,7 @@ class WarnOthersReminder: WarnOthersRemindable {
 	}
 	
 	/// Notification timer in seconds for notification one
-	var notificationOneTimer: TimeInterval {
+	var notificationOneTimeInterval: TimeInterval {
 		get {
 			return TimeInterval(store.warnOthersNotificationOneTimer)
 		}
@@ -45,7 +45,7 @@ class WarnOthersReminder: WarnOthersRemindable {
 	}
 	
 	/// Notification timer in seconds for notification two
-	var notificationTwoTimer: TimeInterval {
+	var notificationTwoTimeInterval: TimeInterval {
 		get {
 			return TimeInterval(store.warnOthersNotificationTwoTimer)
 		}
@@ -90,8 +90,8 @@ class WarnOthersReminder: WarnOthersRemindable {
 	
 	private func scheduleNotifications() {
 		UNUserNotificationCenter.current().scheduleWarnOthersNotifications(
-			timeIntervalOne: TimeInterval(notificationOneTimer),
-			timeIntervalTwo: TimeInterval(notificationTwoTimer)
+			timeIntervalOne: TimeInterval(notificationOneTimeInterval),
+			timeIntervalTwo: TimeInterval(notificationTwoTimeInterval)
 		)
 		Log.info("Warn Others: New notifications have been scheduled:  #1 \(store.warnOthersNotificationOneTimer)/ #2 \(store.warnOthersNotificationTwoTimer) seconds)")
 	}

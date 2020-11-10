@@ -129,8 +129,8 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		])
 		
 		// Set Default Value for the notification text filelds:
-		time1Textfield.text = "\(warnOthers.notificationOneTimer)"
-		time2Textfield.text = "\(warnOthers.notificationTwoTimer)"
+		time1Textfield.text = "\(warnOthers.notificationOneTimeInterval)"
+		time2Textfield.text = "\(warnOthers.notificationTwoTimeInterval)"
 		
 		//Set the keyboard type.
 		time1Textfield.keyboardType = .numberPad
@@ -153,8 +153,8 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 
 		} else {
 			// Save the notifications time into the SecureStore.
-			warnOthers.notificationOneTimer = TimeInterval(time1 ?? WarnOthersNotificationsTimer.timerOneTime.rawValue)
-			warnOthers.notificationTwoTimer = TimeInterval(time2 ?? WarnOthersNotificationsTimer.timerTwoTime.rawValue)
+			warnOthers.notificationOneTimeInterval = TimeInterval(time1 ?? WarnOthersNotificationsTimer.timerOneTime.rawValue)
+			warnOthers.notificationTwoTimeInterval = TimeInterval(time2 ?? WarnOthersNotificationsTimer.timerTwoTime.rawValue)
 			
 			//Display notification save alert.
 			alertMessage(titleStr: "Notifications time saved", messageStr: "Notification1 time \(time1 ?? WarnOthersNotificationsTimer.timerOneTime.rawValue) seconds & Notification2 time \(time2 ?? WarnOthersNotificationsTimer.timerTwoTime.rawValue) seconds has saved into the secure store.")

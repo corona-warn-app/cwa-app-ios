@@ -23,8 +23,8 @@ protocol WarnOthersRemindable {
 	
 	var hasPositiveTestResult: Bool { get set }
 
-	var notificationOneTimer: TimeInterval { get set }
-	var notificationTwoTimer: TimeInterval { get set }
+	var notificationOneTimeInterval: TimeInterval { get set }
+	var notificationTwoTimeInterval: TimeInterval { get set }
 	
 	func evaluateNotificationState(testResult: TestResult)
 	func reset()
