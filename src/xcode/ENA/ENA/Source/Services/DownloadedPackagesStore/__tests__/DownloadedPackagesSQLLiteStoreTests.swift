@@ -442,4 +442,32 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertEqual(store.hours(for: "2020-06-04", country: "IT").count, 1)
 		XCTAssertEqual(store.hours(for: "2020-06-05", country: "IT").count, 1)
 	}
+
+	func testPackageStoreEvilData() throws {
+		let database = FMDatabase.inMemory()
+		let store = DownloadedPackagesSQLLiteStore(database: database, migrator: SerialMigratorFake(), latestVersion: 0)
+
+		// tags
+		let etag = "\"66ac17747b947b61a066369384896c79\""
+		let evil = "1;DROP TABLE Z_DOWNLOADED_PACKAGE"
+
+		store.open()
+
+		// dummy data
+		var package: SAPDownloadedPackage {
+			let noise = Data("fake\(Int.random(in: 0..<Int.max))".utf8)
+			return SAPDownloadedPackage(keysBin: noise, signature: Data("sig".utf8))
+		}
+
+		// Test day & hour packages
+		try store.set(country: "DE", day: "2020-06-01", etag: evil, package: package)
+		try store.set(country: "DE", hour: 1, day: "2020-06-02", etag: evil, package: package)
+		try store.set(country: "DE", day: "2020-06-03", etag: etag, package: package)
+		try store.set(country: "DE", hour: 1, day: "2020-06-04", etag: etag, package: package)
+
+		let evilETagPackages = try XCTUnwrap(store.packages(with: evil))
+		XCTAssertEqual(evilETagPackages.count, 2)
+		XCTAssertEqual(store.hours(for: "2020-06-02", country: "DE").count, 1)
+		XCTAssertEqual(store.hours(for: "2020-06-04", country: "DE").count, 1)
+	}
 }
