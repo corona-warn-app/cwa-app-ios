@@ -200,7 +200,6 @@ private extension Array where Element == SAP_External_Exposurenotification_Tempo
 
 private extension Client {
 	typealias AvailableDaysAndHoursCompletion = (DaysAndHours) -> Void
-	typealias DaysAndHoursCompletionHandler = (FetchedDaysAndHours) -> Void
 
 	private func availableDaysAndHours(
 		completion completeWith: @escaping AvailableDaysAndHoursCompletion
