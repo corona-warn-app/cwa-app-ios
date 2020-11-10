@@ -188,7 +188,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 
 		let countries = ["DE", "IT"]
 		let days = ["2020-11-03", "2020-11-02"]
-		let hours = Array<Int>(1...24)
+		let hours = [Int].init(1...24)
 
 		// Add days DE, IT
 		for country in countries {
