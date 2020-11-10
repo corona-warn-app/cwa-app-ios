@@ -254,6 +254,11 @@ final class SecureStore: Store {
 		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
 	}
 
+	var lastKeyPackageDownloadDate: Date {
+		get { kvStore["lastKeyPackageDownloadDate"] as Date? ?? .distantPast }
+		set { kvStore["lastKeyPackageDownloadDate"] = newValue }
+	}
+
 	#if !RELEASE
 
 	// Settings from the debug menu.
