@@ -67,13 +67,15 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 					responseError = .invalidResponse
 					return
 				}
-				Log.info("got hour: \(hourData.count)", log: .api)
+				Log.debug("got hour: \(hourData.count)", log: .api)
 				guard let package = SAPDownloadedPackage(compressedData: hourData) else {
 					Log.error("Failed to create signed package. For URL: \(url)", log: .api)
 					responseError = .invalidResponse
 					return
 				}
-				completeWith(.success(package))
+				let etag = response.httpResponse.allHeaderFields["ETag"] as? String
+				let payload = PackageDownloadResponse(package: package, etag: etag)
+				completeWith(.success(payload))
 			case let .failure(error):
 				responseError = error
 				Log.error("failed to get day: \(error)", log: .api)
@@ -92,7 +94,7 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 		completion completeWith: @escaping (HoursResult) -> Void
 	) {
 		var errors = [Client.Failure]()
-		var buckets = [Int: SAPDownloadedPackage]()
+		var buckets = [Int: PackageDownloadResponse]()
 		let group = DispatchGroup()
 
 		hours.forEach { hour in

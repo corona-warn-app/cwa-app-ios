@@ -22,10 +22,16 @@ import Foundation
 import XCTest
 
 final class DayKeyPackageDownloadTest: XCTestCase {
+
+	private lazy var dummyResponse: [String: PackageDownloadResponse] = {
+		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"tinfoil\"")
+		return ["2020-10-04": dummyResponse, "2020-10-01": dummyResponse]
+	}()
 	
 	func test_When_NoCachedDayPackages_Then_AllServerDayPackagesAreDownloaded() {
 		let store = MockTestStore()
-		let packagesStore: DownloadedPackagesSQLLiteStoreV1 = .inMemory()
+		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
 		let client = ClientMock()
 
@@ -57,18 +63,18 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		waitForExpectations(timeout: 1.0)
 	}
 
-	func test_When_CachedDayPackagesAvailable_Then_OnlyServerDeltaPackagesAreDownloaded() {
+	func test_When_CachedDayPackagesAvailable_Then_OnlyServerDeltaPackagesAreDownloaded() throws {
 		let store = MockTestStore()
 
-		let packagesStore: DownloadedPackagesSQLLiteStoreV1 = .inMemory()
+		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+
 		let countryId = "IT"
-		packagesStore.addFetchedDays(["2020-10-04": dummyPackage, "2020-10-01": dummyPackage], country: countryId)
+		try packagesStore.addFetchedDays(dummyResponse, country: countryId)
 
 		let client = ClientMock()
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02", "2020-10-01", "2020-10-03", "2020-10-04"], hours: [1, 2])
-		client.downloadedPackage = dummyPackage
+		client.downloadedPackage = try XCTUnwrap(dummyResponse.values.first)
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
@@ -95,18 +101,18 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		waitForExpectations(timeout: 1.0)
 	}
 
-	func test_When_ExpiredCachedDayPackagesAvailable_Then_ExpiredPackagesAreDeleted() {
+	func test_When_ExpiredCachedDayPackagesAvailable_Then_ExpiredPackagesAreDeleted() throws {
 		let store = MockTestStore()
 
-		let packagesStore: DownloadedPackagesSQLLiteStoreV1 = .inMemory()
+		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+
 		let countryId = "IT"
-		packagesStore.addFetchedDays(["2020-10-04": dummyPackage, "2020-10-01": dummyPackage], country: countryId)
+		try packagesStore.addFetchedDays(dummyResponse, country: countryId)
 
 		let client = ClientMock()
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02", "2020-10-03", "2020-10-04"], hours: [1, 2])
-		client.downloadedPackage = dummyPackage
+		client.downloadedPackage = try XCTUnwrap(dummyResponse.values.first)
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
@@ -133,7 +139,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		waitForExpectations(timeout: 1.0)
 	}
 
-	func test_When_ExpectNewDayPackagesIsFalse_Then_NoPackageDownloadIsTriggeredAndSuccessIsCalled() {
+	func test_When_ExpectNewDayPackagesIsFalse_Then_NoPackageDownloadIsTriggeredAndSuccessIsCalled() throws {
 		let store = MockTestStore()
 		store.wasRecentDayKeyDownloadSuccessful = true
 
@@ -142,11 +148,14 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		}
 		let yesterdayKeyString = DateFormatter.packagesDayDateFormatter.string(from: yesterdayDate)
 		let countryId = "IT"
-		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
 
-		let packagesStore: DownloadedPackagesSQLLiteStoreV1 = .inMemory()
+		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
+
+		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		packagesStore.addFetchedDays(["2020-10-04": dummyPackage, yesterdayKeyString: dummyPackage], country: countryId)
+
+		try packagesStore.addFetchedDays(["2020-10-04": dummyResponse, yesterdayKeyString: dummyResponse], country: countryId)
 
 		let client = ClientMock()
 
@@ -172,18 +181,18 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		waitForExpectations(timeout: 1.0)
 	}
 
-	func test_When_DayPackagesDownloadIsRunning_Then_downloadIsRunningErrorReturned() {
+	func test_When_DayPackagesDownloadIsRunning_Then_downloadIsRunningErrorReturned() throws {
 		let store = MockTestStore()
 
-		let packagesStore: DownloadedPackagesSQLLiteStoreV1 = .inMemory()
+		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+
 		let countryId = "IT"
-		packagesStore.addFetchedDays(["2020-10-04": dummyPackage, "2020-10-01": dummyPackage], country: countryId)
+		try packagesStore.addFetchedDays(dummyResponse, country: countryId)
 
 		let client = ClientMock()
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02", "2020-10-03", "2020-10-04"], hours: [1, 2])
-		client.downloadedPackage = dummyPackage
+		client.downloadedPackage = try XCTUnwrap(dummyResponse.values.first)
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
@@ -212,7 +221,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 	func test_When_DayPackagesDownloadFailes_Then_uncompletedPackagesErrorReturned() {
 		let store = MockTestStore()
 
-		let packagesStore: DownloadedPackagesSQLLiteStoreV1 = .inMemory()
+		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 
 		let client = ClientMock()
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02"], hours: [1])
@@ -243,7 +252,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 	func test_When_AvailableServerDayDataFetchFailes_Then_uncompletedPackagesErrorReturned() {
 		let store = MockTestStore()
 
-		let packagesStore: DownloadedPackagesSQLLiteStoreV1 = .inMemory()
+		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 
 		let client = ClientMock()
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02"], hours: [1])
@@ -331,7 +340,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		waitForExpectations(timeout: 1.0)
 	}
 
-	func test_When_NoNewPackagesFoundOnServer_Then_StatusChangesFrom_Idle_To_CheckingForNewPackages_To_Idle() {
+	func test_When_NoNewPackagesFoundOnServer_Then_StatusChangesFrom_Idle_To_CheckingForNewPackages_To_Idle() throws {
 		let store = MockTestStore()
 		store.wasRecentDayKeyDownloadSuccessful = true
 
@@ -339,16 +348,18 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 			fatalError("Could not create yesterdays date.")
 		}
 		let yesterdayKeyString = DateFormatter.packagesDayDateFormatter.string(from: yesterdayDate)
-
-		let packagesStore: DownloadedPackagesSQLLiteStoreV1 = .inMemory()
-		packagesStore.open()
-		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
 		let countryId = "IT"
-		packagesStore.addFetchedDays([yesterdayKeyString: dummyPackage], country: countryId)
+
+		let packagesStore: DownloadedPackagesSQLLiteStoreV2 = .inMemory()
+		packagesStore.open()
+
+		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
+		try packagesStore.addFetchedDays([yesterdayKeyString: dummyResponse], country: countryId)
 
 		let client = ClientMock()
 		client.availableDaysAndHours = DaysAndHours(days: [yesterdayKeyString], hours: [1, 2])
-		client.downloadedPackage = dummyPackage
+		client.downloadedPackage = dummyResponse
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,
@@ -381,14 +392,15 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 	func test_When_NewPackagesFoundOnServer_Then_StatusChangesFrom_Idle_To_Downloading_To_CheckingForNewPackages_To_Idle() {
 		let store = MockTestStore()
 
-		let packagesStore: DownloadedPackagesSQLLiteStoreV1 = .inMemory()
+		let packagesStore: DownloadedPackagesSQLLiteStoreV2 = .inMemory()
 		packagesStore.open()
 
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
 
 		let client = ClientMock()
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-01", "2020-10-02", "2020-10-03"], hours: [1, 2])
-		client.downloadedPackage = dummyPackage
+		client.downloadedPackage = dummyResponse
 
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: packagesStore,

@@ -31,7 +31,7 @@ final class ClientMock {
 	///		- urlRequestFailure: when set, calls (see above) will fail with this error
 	init(
 		availableDaysAndHours: DaysAndHours = DaysAndHours(days: [], hours: []),
-		downloadedPackage: SAPDownloadedPackage? = nil,
+		downloadedPackage: PackageDownloadResponse? = nil,
 		submissionError: SubmissionError? = nil,
 		availablePackageRequestFailure: Client.Failure? = nil,
 		fetchPackageRequestFailure: Client.Failure? = nil
@@ -54,7 +54,7 @@ final class ClientMock {
 	var availablePackageRequestFailure: Client.Failure?
 	var fetchPackageRequestFailure: Client.Failure?
 	var availableDaysAndHours: DaysAndHours = DaysAndHours(days: [], hours: [])
-	var downloadedPackage: SAPDownloadedPackage?
+	var downloadedPackage: PackageDownloadResponse?
 	lazy var supportedCountries: [Country] = {
 		// provide a default list of some countries
 		let codes = ["DE", "IT", "ES", "PL", "NL", "BE", "CZ", "AT", "DK", "IE", "LT", "LV", "EE"]
@@ -79,7 +79,7 @@ extension ClientMock: ClientWifiOnly {
 		completion completeWith: @escaping (HoursResult) -> Void
 	) {
 		var errors = [Client.Failure]()
-		var buckets = [Int: SAPDownloadedPackage]()
+		var buckets = [Int: PackageDownloadResponse]()
 		let group = DispatchGroup()
 
 		hours.forEach { hour in
@@ -107,12 +107,14 @@ extension ClientMock: ClientWifiOnly {
 			completion(.failure(failure))
 			return
 		}
-		completion(.success(downloadedPackage ?? SAPDownloadedPackage(keysBin: Data(), signature: Data())))
+		completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
 	}
 
 }
 
 extension ClientMock: Client {
+
+	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
 
 	func availableDays(forCountry country: String, completion: @escaping AvailableDaysCompletionHandler) {
 		if let failure = availablePackageRequestFailure {
@@ -135,7 +137,7 @@ extension ClientMock: Client {
 			completion(.failure(failure))
 			return
 		}
-		completion(.success(downloadedPackage ?? SAPDownloadedPackage(keysBin: Data(), signature: Data())))
+		completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
 	}
 
 	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {

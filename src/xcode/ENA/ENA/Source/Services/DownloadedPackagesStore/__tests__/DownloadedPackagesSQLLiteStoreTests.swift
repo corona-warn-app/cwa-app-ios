@@ -21,7 +21,7 @@ import XCTest
 
 final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 
-	private var store: DownloadedPackagesSQLLiteStoreV1 = .inMemory()
+	private var store: DownloadedPackagesSQLLiteStore = .inMemory()
 
 	override func tearDown() {
 		super.tearDown()
@@ -43,7 +43,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 			keysBin: keysBin,
 			signature: signature
 		)
-		store.set(country: "DE", day: "2020-06-12", package: package)
+		try store.set(country: "DE", day: "2020-06-12", etag: nil, package: package)
 		let packageOut = store.package(for: "2020-06-12", country: "DE")
 		XCTAssertNotNil(packageOut)
 		XCTAssertEqual(packageOut?.signature, signature)
@@ -62,11 +62,11 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 			keysBin: keysBin,
 			signature: signature
 		)
-		store.set(country: "DE", hour: 9, day: "2020-06-12", package: package)
+		try store.set(country: "DE", hour: 9, day: "2020-06-12", etag: nil, package: package)
 		let hourlyPackagesDE = store.hourlyPackages(for: "2020-06-12", country: "DE")
 		XCTAssertFalse(hourlyPackagesDE.isEmpty)
 
-		store.set(country: "IT", hour: 9, day: "2020-06-12", package: package)
+		try store.set(country: "IT", hour: 9, day: "2020-06-12", etag: nil, package: package)
 		let hourlyPackagesIT = store.hourlyPackages(for: "2020-06-12", country: "IT")
 		XCTAssertFalse(hourlyPackagesIT.isEmpty)
 	}
@@ -85,12 +85,12 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		)
 
 		// Add hours
-		store.set(country: "DE", hour: 1, day: "2020-06-12", package: package)
-		store.set(country: "DE", hour: 2, day: "2020-06-12", package: package)
-		store.set(country: "DE", hour: 3, day: "2020-06-12", package: package)
-		store.set(country: "DE", hour: 4, day: "2020-06-12", package: package)
-		store.set(country: "IT", hour: 1, day: "2020-06-12", package: package)
-		store.set(country: "IT", hour: 2, day: "2020-06-12", package: package)
+		try store.set(country: "DE", hour: 1, day: "2020-06-12", etag: nil, package: package)
+		try store.set(country: "DE", hour: 2, day: "2020-06-12", etag: nil, package: package)
+		try store.set(country: "DE", hour: 3, day: "2020-06-12", etag: nil, package: package)
+		try store.set(country: "DE", hour: 4, day: "2020-06-12", etag: nil, package: package)
+		try store.set(country: "IT", hour: 1, day: "2020-06-12", etag: nil, package: package)
+		try store.set(country: "IT", hour: 2, day: "2020-06-12", etag: nil, package: package)
 
 		// Assert that hours exist
 		let hourlyPackagesDE = store.hourlyPackages(for: "2020-06-12", country: "DE")
@@ -100,14 +100,14 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertEqual(hourlyPackagesIT.count, 2)
 
 		// Now add a full day
-		store.set(country: "DE", day: "2020-06-12", package: package)
+		try store.set(country: "DE", day: "2020-06-12", etag: nil, package: package)
 		XCTAssertTrue(store.hourlyPackages(for: "2020-06-12", country: "DE").isEmpty)
 
-		store.set(country: "IT", day: "2020-06-12", package: package)
+		try store.set(country: "IT", day: "2020-06-12", etag: nil, package: package)
 		XCTAssertTrue(store.hourlyPackages(for: "2020-06-12", country: "IT").isEmpty)
 	}
 
-	func test_ResetRemovesAllKeys() {
+	func test_ResetRemovesAllKeys() throws {
 		let database = FMDatabase.inMemory()
 		let store = DownloadedPackagesSQLLiteStore(database: database, migrator: SerialMigratorFake(), latestVersion: 0)
 		store.open()
@@ -121,15 +121,15 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		)
 
 		// Add days
-		store.set(country: "DE", day: "2020-06-01", package: package)
-		store.set(country: "DE", day: "2020-06-02", package: package)
-		store.set(country: "DE", day: "2020-06-03", package: package)
-		store.set(country: "IT", day: "2020-06-03", package: package)
-		store.set(country: "DE", day: "2020-06-04", package: package)
-		store.set(country: "DE", day: "2020-06-05", package: package)
-		store.set(country: "DE", day: "2020-06-06", package: package)
-		store.set(country: "IT", day: "2020-06-06", package: package)
-		store.set(country: "DE", day: "2020-06-07", package: package)
+		try store.set(country: "DE", day: "2020-06-01", etag: nil, package: package)
+		try store.set(country: "DE", day: "2020-06-02", etag: nil, package: package)
+		try store.set(country: "DE", day: "2020-06-03", etag: nil, package: package)
+		try store.set(country: "IT", day: "2020-06-03", etag: nil, package: package)
+		try store.set(country: "DE", day: "2020-06-04", etag: nil, package: package)
+		try store.set(country: "DE", day: "2020-06-05", etag: nil, package: package)
+		try store.set(country: "DE", day: "2020-06-06", etag: nil, package: package)
+		try store.set(country: "IT", day: "2020-06-06", etag: nil, package: package)
+		try store.set(country: "DE", day: "2020-06-07", etag: nil, package: package)
 
 		XCTAssertEqual(store.allDays(country: "DE").count, 7)
 		XCTAssertEqual(store.allDays(country: "IT").count, 2)
@@ -142,7 +142,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertEqual(database.lastErrorCode(), 0)
 	}
 	
-	func test_deleteDayPackage() {
+	func test_deleteDayPackage() throws {
 		store.open()
 
 		let keysBin = Data("keys".utf8)
@@ -159,7 +159,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		// Add days DE, IT
 		for country in countries {
 			for date in days {
-				_ = store.set(country: country, day: date, package: package)
+				try store.set(country: country, day: date, etag: nil, package: package)
 			}
 		}
 
@@ -175,7 +175,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		}
 	}
 	
-	func test_deleteHourPackage() {
+	func test_deleteHourPackage() throws {
 		store.open()
 
 		let keysBin = Data("keys".utf8)
@@ -194,7 +194,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		for country in countries {
 			for date in days {
 				for hour in hours {
-					_ = store.set(country: country, hour: hour, day: date, package: package)
+					try store.set(country: country, hour: hour, day: date, etag: nil, package: package)
 				}
 			}
 		}
@@ -211,7 +211,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		}
 	}
 
-	func test_deleteWithCloseOpenDB() {
+	func test_deleteWithCloseOpenDB() throws {
 		let unitTestStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "unittest")
 
 		unitTestStore.open()
@@ -224,10 +224,10 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 			signature: signature
 		)
 
-		unitTestStore.set(country: "DE", hour: 1, day: "2020-11-04", package: package)
-		unitTestStore.set(country: "DE", hour: 2, day: "2020-11-04", package: package)
-		unitTestStore.set(country: "DE", day: "2020-11-03", package: package)
-		unitTestStore.set(country: "DE", day: "2020-11-02", package: package)
+		try unitTestStore.set(country: "DE", hour: 1, day: "2020-11-04", etag: nil, package: package)
+		try unitTestStore.set(country: "DE", hour: 2, day: "2020-11-04", etag: nil, package: package)
+		try unitTestStore.set(country: "DE", day: "2020-11-03", etag: nil, package: package)
+		try unitTestStore.set(country: "DE", day: "2020-11-02", etag: nil, package: package)
 		
 		XCTAssertEqual(unitTestStore.hourlyPackages(for: "2020-11-04", country: "DE").count, 2)
 		XCTAssertEqual(unitTestStore.hours(for: "2020-11-04", country: "DE").count, 2)
@@ -247,5 +247,118 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertNotNil(unitTestStore.package(for: "2020-11-03", country: "DE"))
 		unitTestStore.deleteDayPackage(for: "2020-11-03", country: "DE")
 		XCTAssertNil(unitTestStore.package(for: "2020-11-03", country: "DE"))
+	}
+
+	func testFetchByETag() throws {
+		let database = FMDatabase.inMemory()
+		let store = DownloadedPackagesSQLLiteStore(database: database, migrator: SerialMigratorFake(), latestVersion: 0)
+		store.open()
+
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
+
+		let package = SAPDownloadedPackage(
+			keysBin: keysBin,
+			signature: signature
+		)
+
+		// Add days
+		let etag = "\"66ac17747b947b61a066369384896c79\""
+		try store.set(country: "DE", day: "2020-06-01", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-02", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-03", etag: etag, package: package)
+		try store.set(country: "IT", day: "2020-06-03", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-04", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-05", etag: nil, package: package)
+		try store.set(country: "DE", day: "2020-06-06", etag: nil, package: package)
+		try store.set(country: "IT", day: "2020-06-06", etag: nil, package: package)
+		try store.set(country: "DE", day: "2020-06-07", etag: nil, package: package)
+
+		XCTAssertEqual(store.allDays(country: "DE").count, 7)
+		XCTAssertEqual(store.allDays(country: "IT").count, 2)
+
+		let packages = try XCTUnwrap(store.packages(with: etag))
+		XCTAssertEqual(packages.count, 5)
+	}
+
+	func testFetchByMultipleETags() throws {
+		let database = FMDatabase.inMemory()
+		let store = DownloadedPackagesSQLLiteStore(database: database, migrator: SerialMigratorFake(), latestVersion: 0)
+		store.open()
+
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
+
+		let package = SAPDownloadedPackage(
+			keysBin: keysBin,
+			signature: signature
+		)
+
+		// Add days
+		let etag = "\"66ac17747b947b61a066369384896c79\""
+		let etag2 = "\"d41d8cd98f00b204e9800998ecf8427e\""
+		try store.set(country: "DE", day: "2020-06-01", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-02", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-03", etag: etag, package: package)
+		try store.set(country: "IT", day: "2020-06-03", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-04", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-05", etag: etag2, package: package)
+		try store.set(country: "DE", day: "2020-06-06", etag: etag2, package: package)
+		try store.set(country: "IT", day: "2020-06-06", etag: etag2, package: package)
+		try store.set(country: "DE", day: "2020-06-07", etag: nil, package: package)
+
+		XCTAssertEqual(store.allDays(country: "DE").count, 7)
+		XCTAssertEqual(store.allDays(country: "IT").count, 2)
+
+		let packages1 = try XCTUnwrap(store.packages(with: etag))
+		XCTAssertEqual(packages1.count, 5)
+
+		let packages2 = try XCTUnwrap(store.packages(with: etag2))
+		XCTAssertEqual(packages2.count, 3)
+
+		let packages3 = try XCTUnwrap(store.packages(with: [etag, etag2]))
+		XCTAssertEqual(packages3.count, 8)
+	}
+
+	func testDeleteByHash() throws {
+		let database = FMDatabase.inMemory()
+		let store = DownloadedPackagesSQLLiteStore(database: database, migrator: SerialMigratorFake(), latestVersion: 0)
+		store.open()
+
+		var package: SAPDownloadedPackage {
+			let noise = Data("fake\(Int.random(in: 0..<Int.max))".utf8)
+			return SAPDownloadedPackage(keysBin: noise, signature: Data("sig".utf8))
+		}
+
+		// Add days
+		let etag = "\"66ac17747b947b61a066369384896c79\""
+		try store.set(country: "DE", day: "2020-06-01", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-02", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-03", etag: etag, package: package)
+		try store.set(country: "IT", day: "2020-06-03", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-04", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-05", etag: nil, package: package)
+		try store.set(country: "DE", day: "2020-06-06", etag: nil, package: package)
+		try store.set(country: "IT", day: "2020-06-06", etag: nil, package: package)
+		try store.set(country: "DE", day: "2020-06-07", etag: nil, package: package)
+
+		XCTAssertEqual(store.allDays(country: "DE").count, 7)
+		XCTAssertEqual(store.allDays(country: "IT").count, 2)
+
+		// fetch packages without etag
+		var packages = try XCTUnwrap(store.packages(with: nil))
+		XCTAssertEqual(packages.count, 4)
+
+		// test: delete single package
+		let last = try XCTUnwrap(packages.popLast()) // "DE" @ 2020-06-07
+		XCTAssertEqual(packages.count, 3)
+		try store.delete(package: last)
+		XCTAssertEqual(store.allDays(country: "DE").count, 6)
+		XCTAssertEqual(store.allDays(country: "IT").count, 2)
+
+		// test: delete multiple packages
+		try store.delete(packages: packages)
+		XCTAssertEqual(store.allDays(country: "DE").count, 4)
+		XCTAssertEqual(store.allDays(country: "IT").count, 1)
 	}
 }

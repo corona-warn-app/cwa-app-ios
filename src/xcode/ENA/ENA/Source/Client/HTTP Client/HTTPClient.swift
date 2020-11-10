@@ -326,7 +326,9 @@ final class HTTPClient: Client {
 					responseError = .invalidResponse
 					return
 				}
-				completeWith(.success(package))
+				let etag = response.httpResponse.allHeaderFields["ETag"] as? String
+				let payload = PackageDownloadResponse(package: package, etag: etag)
+				completeWith(.success(payload))
 			case let .failure(error):
 				responseError = error
 				Log.error("Failed to download for URL '\(url)' due to error: \(error).", log: .api)

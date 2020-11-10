@@ -35,9 +35,9 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let downloadedPackageStore = DownloadedPackagesSQLLiteStore.openInMemory
 
 		// Below package is stored but should not be written to disk as hourly fetching is enabled
-		try downloadedPackageStore.set(country: "IT", day: todayString, package: .makePackage())
-		try downloadedPackageStore.set(country: "IT", hour: 3, day: todayString, package: .makePackage())
-		try downloadedPackageStore.set(country: "IT", hour: 4, day: todayString, package: .makePackage())
+		try downloadedPackageStore.set(country: "IT", day: todayString, etag: nil, package: .makePackage())
+		try downloadedPackageStore.set(country: "IT", hour: 3, day: todayString, etag: nil, package: .makePackage())
+		try downloadedPackageStore.set(country: "IT", hour: 4, day: todayString, etag: nil, package: .makePackage())
 
 		let sut = ExposureDetectionExecutor.makeWith(packageStore: downloadedPackageStore)
 
@@ -151,7 +151,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		)
 		let packageStore = DownloadedPackagesSQLLiteStore.inMemory()
 		packageStore.open()
-		packageStore.set(country: "DE", day: "SomeDay", package: package)
+		try packageStore.set(country: "DE", day: "SomeDay", etag: nil, package: package)
 
 		let store = MockTestStore()
 		store.appConfig = SAP_Internal_ApplicationConfiguration()
