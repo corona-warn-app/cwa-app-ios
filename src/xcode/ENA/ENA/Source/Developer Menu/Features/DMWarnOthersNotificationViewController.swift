@@ -149,7 +149,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		if time2 ?? WarnOthersNotificationsTimeInterval.intervalOne <= time1 ?? WarnOthersNotificationsTimeInterval.intervalTwo {
 			
 			// Display second notification should be greater than first notification alert.
-			alertMessage(titleStr: "Please Enter the Correct Notification Time", messageStr: "Second notification time seconds should be greater than the first notification time seconds.")
+			alertMessage(title: "Please Enter the Correct Notification Time", message: "Second notification time seconds should be greater than the first notification time seconds.")
 
 		} else {
 			// Save the notifications time into the SecureStore.
@@ -157,7 +157,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 			warnOthers.notificationTwoTimeInterval = TimeInterval(time2 ?? WarnOthersNotificationsTimeInterval.intervalTwo)
 			
 			//Display notification save alert.
-			alertMessage(titleStr: "Notifications time saved", messageStr: "Notification1 time \(time1 ?? WarnOthersNotificationsTimeInterval.intervalOne) seconds & Notification2 time \(time2 ?? WarnOthersNotificationsTimeInterval.intervalTwo) seconds has saved into the secure store.")
+			alertMessage(title: "Notifications time saved", message: "Notification1 time \(time1 ?? WarnOthersNotificationsTimeInterval.intervalOne) seconds & Notification2 time \(time2 ?? WarnOthersNotificationsTimeInterval.intervalTwo) seconds has saved into the secure store.")
 		}
 
 	}
@@ -172,16 +172,16 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	@objc
 	private func resetNotificationsButtonTapped() {
 		warnOthers.reset()
-		alertMessage(titleStr: "Done", messageStr: "Warn others notifications can appear again.")
+		alertMessage(title: "Done", message: "Warn others notifications can appear again.")
 
 	}
 }
 
 // MARK: - Set the alert popups.
 extension DMWarnOthersNotificationViewController {
-	func alertMessage(titleStr: String, messageStr: String) {
+	func alertMessage(title: String, message: String) {
 		// create the alert
-		let alert = UIAlertController(title: titleStr, message: messageStr, preferredStyle: UIAlertController.Style.alert)
+		let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
 		// add an action button
 		alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
 		// show the alert
