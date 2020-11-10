@@ -31,6 +31,15 @@ enum KeyPackageDownloadError: Error {
 	case noDiskSpace
 	case unableToWriteDiagnosisKeys
 	case downloadIsRunning
+
+	var description: String {
+		switch self {
+		case .noDiskSpace:
+			return AppStrings.ExposureDetectionError.errorAlertFullDistSpaceMessage
+		default:
+			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: KeyPackageDownloadError"
+		}
+	}
 }
 
 enum KeyPackageDownloadStatus {
