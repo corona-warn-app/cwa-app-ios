@@ -367,7 +367,7 @@ extension RiskProvider: RiskProviding {
 		let lastKeyPackageDownloadDate = store.lastKeyPackageDownloadDate
 		let lastExposureDetectionDate = store.summary?.date ?? .distantPast
 		let didDownloadNewPackagesSinceLastDetection = lastKeyPackageDownloadDate > lastExposureDetectionDate
-		let hoursSinceLastDetection = lastExposureDetectionDate.hoursSinceNow
+		let hoursSinceLastDetection = -lastExposureDetectionDate.hoursSinceNow
 		let lastDetectionMoreThan24HoursAgo = hoursSinceLastDetection > 24
 
 		return didDownloadNewPackagesSinceLastDetection || lastDetectionMoreThan24HoursAgo
