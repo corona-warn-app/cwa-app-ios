@@ -26,7 +26,6 @@ import UIKit
 class WarnOthersReminder: WarnOthersRemindable {
 	
 	var hasStoredResult: Bool {
-		
 		get {
 			return store.warnOthersHasActiveTestResult
 		}
