@@ -135,11 +135,12 @@ class ExposureSubmissionTestResultViewModel {
 	private func updateForCurrentTestResult() {
 		self.dynamicTableViewModel = DynamicTableViewModel([currentTestResultSection])
 		updateButtons()
-		
-		// Also update the warn others model
+	}
+	
+	func updateWarnOthers() {
 		self.warnOthers.evaluateNotificationState(testResult: self.testResult)
 	}
-
+	
 	private func updateButtons() {
 		// Make sure to reset buttons to default state.
 		navigationFooterItem.isPrimaryButtonLoading = false
