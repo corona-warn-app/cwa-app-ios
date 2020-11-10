@@ -28,9 +28,9 @@ private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
 	var onDetectExposure: ((ExposureSummaryProvider.Completion) -> Void)?
 
 	func detectExposure(
-		appConfiguration: SAP_ApplicationConfiguration,
+		appConfiguration: SAP_Internal_ApplicationConfiguration,
 		activityStateDelegate: ActivityStateProviderDelegate? = nil,
-		completion: (ENExposureDetectionSummary?) -> Void
+		completion: Completion
 	) -> CancellationToken {
 		let token = CancellationToken(onCancel: {})
 		onDetectExposure?(completion)
@@ -77,7 +77,7 @@ final class RiskProviderTests: XCTestCase {
 		exposureSummaryProvider.onDetectExposure = { completion in
 			store.summary = SummaryMetadata(detectionSummary: .init(), date: Date())
 			expectThatSummaryIsRequested.fulfill()
-			completion(.init())
+			completion(.success(.init()))
 		}
 
 		let riskProvider = RiskProvider(
@@ -130,7 +130,7 @@ final class RiskProviderTests: XCTestCase {
 		let expectThatSummaryIsRequested = expectation(description: "expectThatSummaryIsRequested")
 		exposureSummaryProvider.onDetectExposure = { completion in
 			expectThatSummaryIsRequested.fulfill()
-			completion(.init())
+			completion(.success(.init()))
 		}
 		expectThatSummaryIsRequested.isInverted = true
 
@@ -173,12 +173,12 @@ final class RiskProviderTests: XCTestCase {
 		let detectionRequested = expectation(description: "expectThatNoSummaryIsRequested")
 
 		exposureSummaryProvider.onDetectExposure = { completion in
-			completion(ENExposureDetectionSummary())
+			completion(.success(ENExposureDetectionSummary()))
 			detectionRequested.fulfill()
 		}
 
-		let sapAppConfig = SAP_ApplicationConfiguration.with {
-			$0.exposureConfig = SAP_RiskScoreParameters()
+		let sapAppConfig = SAP_Internal_ApplicationConfiguration.with {
+			$0.exposureConfig = SAP_Internal_RiskScoreParameters()
 		}
 		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
 
@@ -224,12 +224,12 @@ final class RiskProviderTests: XCTestCase {
 		let detectionRequested = expectation(description: "expectThatNoSummaryIsRequested")
 
 		exposureSummaryProvider.onDetectExposure = { completion in
-			completion(nil)
+			completion(.failure(.noDaysAndHours))
 			detectionRequested.fulfill()
 		}
 
-		let sapAppConfig = SAP_ApplicationConfiguration.with {
-			$0.exposureConfig = SAP_RiskScoreParameters()
+		let sapAppConfig = SAP_Internal_ApplicationConfiguration.with {
+			$0.exposureConfig = SAP_Internal_RiskScoreParameters()
 		}
 		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
 
@@ -248,7 +248,7 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		consumer.didCalculateRisk = { _ in
-			XCTFail("didFailCalculateRisk should not be called.")
+			XCTFail("didCalculateRisk should not be called.")
 		}
 
 		consumer.didFailCalculateRisk = { _ in
@@ -272,7 +272,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -293,7 +293,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -314,7 +314,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -335,7 +335,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -356,7 +356,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -377,7 +377,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -398,7 +398,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -419,7 +419,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -453,7 +453,7 @@ final class RiskProviderTests: XCTestCase {
 		let exposureSummaryProvider = ExposureSummaryProviderMock()
 
 		exposureSummaryProvider.onDetectExposure = { completion in
-			completion(.init())
+			completion(.success(.init()))
 		}
 
 		let appConfigurationProvider = CachedAppConfigurationMock(appConfigurationResult: .success(.riskCalculationAppConfig))
@@ -472,7 +472,7 @@ final class RiskProviderTests: XCTestCase {
 struct RiskCalculationFake: RiskCalculationProtocol {
 	func risk(
 		summary: CodableExposureDetectionSummary?,
-		configuration: SAP_ApplicationConfiguration,
+		configuration: SAP_Internal_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
 		activeTracing: ActiveTracing,
 		preconditions: ExposureManagerState,

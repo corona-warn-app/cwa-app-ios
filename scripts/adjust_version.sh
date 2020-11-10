@@ -1,4 +1,4 @@
-#!zsh
+#!/usr/bin/env zsh
 
 print_usage()
 {
@@ -39,9 +39,6 @@ fi
 # Change to project root
 cd $script_dir/..
 
-# Replace version for xmake
-echo "${version}.${build_number}" > cfg/VERSION
-
 # Replace version in .pbxproj
 # Replace version
 MARKETING_VERSION="MARKETING_VERSION = $version;"
@@ -52,4 +49,3 @@ mv tmp.pbxproj src/xcode/ENA/ENA.xcodeproj/project.pbxproj
 PROJECT_VERSION="CURRENT_PROJECT_VERSION = $build_number;"
 sed "s,CURRENT_PROJECT_VERSION.*,$PROJECT_VERSION,g" src/xcode/ENA/ENA.xcodeproj/project.pbxproj > tmp.pbxproj
 mv tmp.pbxproj src/xcode/ENA/ENA.xcodeproj/project.pbxproj
-

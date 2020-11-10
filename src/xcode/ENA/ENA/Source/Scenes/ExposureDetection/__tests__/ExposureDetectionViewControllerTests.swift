@@ -53,11 +53,100 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 							exposureDetectionDate: nil
 						),
 						riskLevelHasChanged: false),
-						previousRiskLevel: nil
+			previousRiskLevel: nil
 		)
 
 		guard let vc = createVC(with: state) else { return }
 		_ = vc.view
 		XCTAssertNotNil(vc.tableView)
 	}
+
+	func testGIVEN_lowRiskWithTwoEncounter_WHEN_createDynamicCell_THEN_lastCellHasLinkToFAQ() {
+		// GIVEN
+		let lowRisk = Risk(
+			level: .low,
+			details: .init(
+				daysSinceLastExposure: 1,
+				numberOfExposures: 2,
+				activeTracing: .init(interval: 14 * 86400),
+				exposureDetectionDate: nil
+			),
+			riskLevelHasChanged: false
+		)
+
+		let state = ExposureDetectionViewController.State(
+			riskDetectionFailed: false, exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			detectionMode: .automatic,
+			activityState: .idle,
+			risk: lowRisk,
+			previousRiskLevel: nil
+		)
+
+		guard let vc = createVC(with: state) else { return }
+		_ = vc.view
+		XCTAssertNotNil(vc.tableView)
+
+		// WHEN
+
+		let lowRiskCellModel = vc.dynamicTableViewModel(for: state.riskLevel, riskDetectionFailed: state.riskDetectionFailed, isTracingEnabled: state.isTracingEnabled)
+		let lastSection = lowRiskCellModel.numberOfSection - 1
+		let lastRow = lowRiskCellModel.numberOfRows(inSection: lastSection, for: vc) - 1
+
+		let dynamicCell = lowRiskCellModel.cell(at: IndexPath(row: lastRow, section: lastSection))
+		XCTAssertNotNil(dynamicCell)
+
+		// THEN
+		switch dynamicCell.action {
+		case .open(url: let url):
+			XCTAssertEqual(AppStrings.ExposureDetection.explanationFAQLink, url?.absoluteString)
+		default:
+			XCTFail("FAQ Link cell not found")
+		}
+	}
+
+	func testGIVEN_lowRiskWithNoEncounter_WHEN_createDynamicCell_THEN_lastCellHasNoLinkToFAQ() {
+		// GIVEN
+		let lowRisk = Risk(
+			level: .low,
+			details: .init(
+				daysSinceLastExposure: 1,
+				numberOfExposures: 0,
+				activeTracing: .init(interval: 14 * 86400),
+				exposureDetectionDate: nil
+			),
+			riskLevelHasChanged: false
+		)
+
+		let state = ExposureDetectionViewController.State(
+			riskDetectionFailed: false, exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			detectionMode: .automatic,
+			activityState: .idle,
+			risk: lowRisk,
+			previousRiskLevel: nil
+		)
+
+		guard let vc = createVC(with: state) else { return }
+		_ = vc.view
+		XCTAssertNotNil(vc.tableView)
+
+		// WHEN
+
+		let lowRiskCellModel = vc.dynamicTableViewModel(for: state.riskLevel, riskDetectionFailed: state.riskDetectionFailed, isTracingEnabled: state.isTracingEnabled)
+		let lastSection = lowRiskCellModel.numberOfSection - 1
+		let lastRow = lowRiskCellModel.numberOfRows(inSection: lastSection, for: vc) - 1
+
+		let dynamicCell = lowRiskCellModel.cell(at: IndexPath(row: lastRow, section: lastSection))
+		XCTAssertNotNil(dynamicCell)
+
+		// THEN
+		switch dynamicCell.action {
+		case .open(url: let url):
+			XCTAssertNotEqual(AppStrings.ExposureDetection.explanationFAQLink, url?.absoluteString)
+		default:
+			XCTAssert(true)
+		}
+
+	}
+
+
 }

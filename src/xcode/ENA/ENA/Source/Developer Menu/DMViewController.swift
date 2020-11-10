@@ -42,7 +42,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	private let client: Client
 	private let consumer = RiskConsumer()
 	private let exposureSubmissionService: ExposureSubmissionService
-	private var keys = [SAP_TemporaryExposureKey]() {
+	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
 		didSet {
 			keys = self.keys.sorted()
 		}
@@ -51,7 +51,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	// MARK: UIViewController
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			// intentionally left blank
 		}
 	}

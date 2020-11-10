@@ -25,8 +25,8 @@ platform :ios do
   before_all do
     setup_circle_ci
 
-    if is_ci?
-      xcversion(version: "12.1")
+    if is_ci
+      xcversion(version: "~> 12.1.0")
     end
   end
 
@@ -41,7 +41,7 @@ platform :ios do
       skip_codesigning: true,
       export_method: "ad-hoc",
       skip_package_ipa: true,
-      destination: "platform=iOS Simulator,OS=14.1,name=iPhone 11",
+      destination: "platform=iOS Simulator,OS=14.2,name=iPhone 11",
       scheme: "ENA"
     )
   end
@@ -52,22 +52,13 @@ platform :ios do
       skip_codesigning: true,
       export_method: "ad-hoc",
       skip_package_ipa: true,
-      destination: "platform=iOS Simulator,OS=14.1,name=iPhone 11",
+      destination: "platform=iOS Simulator,OS=14.2,name=iPhone 11",
       scheme: "ENACommunity"
     )
   end
 
   desc "Run tests"
   lane :test do
-    # Combined Unit & UI Tests
-    run_tests(
-      scheme: "ENATests",
-      xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=YES",
-      testplan: "AllTests",
-      only_test_configurations: ["DE"],
-      devices: ["iPhone 11"]
-    )
-
     swiftlint(
       mode: :lint,
       output_file: "swiftlint.result.json",
@@ -77,10 +68,20 @@ platform :ios do
       reporter: "sonarqube"
     )
 
+    # Combined Unit & UI Tests
+    run_tests(
+      scheme: "ENA",
+      xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=YES",
+      testplan: "AllTests",
+      only_test_configurations: ["DE"],
+      devices: ["iPhone 11"],
+      prelaunch_simulator: true
+    )
+
     # Gather code coverage
     xcov(
       workspace: "ENA.xcworkspace",
-      scheme: "ENATests",
+      scheme: "ENA",
       markdown_report: true,
       html_report: false,
       output_directory: "fastlane/test_output"

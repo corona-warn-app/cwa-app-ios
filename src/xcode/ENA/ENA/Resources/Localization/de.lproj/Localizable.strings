@@ -43,7 +43,7 @@
 
 "Common_Deadman_AlertBody" = "Bitte öffnen Sie die Corona-Warn-App, um die Risiko-Überprüfung anzustoßen.";
 
-"Common_Tess_Relay_Description" = "Gehörlose, schwerhörige und spätertaubte Menschen können zur telefonischen Kontaktaufnahme die Tess-Relay-Dienste (Dolmetschen in Gebärdensprache und deutscher Schriftsprache) nutzen. Die Software können Sie in Ihrem App Store / Play Store herunterladen.";
+"Common_Tess_Relay_Description" = "Gehörlose, schwerhörige und spätertaubte Menschen können zur telefonischen Kontaktaufnahme die Tess-Relay-Dienste (Dolmetschen in Gebärdensprache und deutscher Schriftsprache) nutzen. Die Software können Sie im App Store herunterladen.";
 
 /* Accessibility */
 "AccessibilityLabel_Close" = "Schließen";
@@ -111,11 +111,13 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
-"ExposureDetection_Explanation_Text_Low" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung des Abstands und der Dauer von Begegnungen mit nachweislich Corona-positiv getesteten Personen sowie deren vermutlicher Infektiosität lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Explanation_Text_Low_No_Encounter" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.";
+
+"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung des Abstands und der Dauer von Begegnungen mit nachweislich Corona-positiv getesteten Personen sowie deren vermutlicher Infektiosität lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
 "ExposureDetection_Explanation_Text_High" = "Die Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft.\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.\nWenn Sie nach Hause kommen, vermeiden Sie auch Begegnungen mit Familienmitgliedern und Mitbewohnern.";
 
-"ExposureDetection_Explanation_FAQ_Link_Text" = "Weitere Informationen";
+"ExposureDetection_Explanation_FAQ_Link_Text" = "Weitere Informationen finden Sie in den FAQ";
 
 "ExposureDetection_LowRiskExposure_Title" = "Begegnung mit niedrigem Risiko";
 
@@ -153,7 +155,7 @@
 /* Active Tracing Section */
 "ExposureDetection_ActiveTracingSection_Title" = "Ermittlungszeitraum";
 
-"ExposureDetection_ActiveTracingSection_Subtitle" = "Dieser Zeitraum wird berücksichtigt";
+"ExposureDetection_ActiveTracingSection_Subtitle" = "Dieser Zeitraum wird berücksichtigt.";
 
 /* There are two paragraphs in this section. The first one just contains text… */
 "ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-Ermittlung sollte daher dauerhaft aktiv sein.";
@@ -417,7 +419,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_DispatchTitle" = "Auswahl";
 
-"ExposureSubmission_DispatchDescription" = "Was liegt Ihnen vor?";
+"ExposureSubmission_DispatchDescription" = "Welche Informationen liegen Ihnen vor?";
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Dokument mit QR-Code";
 
@@ -431,7 +433,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_HotlineButtonDescription" = "Bitte rufen Sie uns an, falls Sie %@ getestet wurden.";
 
-"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Positiv";
+"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Corona-positiv";
 
 "ExposureSubmissionHotline_Title" = "TAN anfragen";
 
@@ -484,10 +486,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionQRScanner_title" = "QR-Code Scan";
 
 "ExposureSubmissionQRScanner_instruction" = "Positionieren Sie den Rahmen über dem QR-Code Ihres Dokuments.";
-
-"ExposureSubmissionQRScanner_notFoundAlertTitle" = "Befund wurde nicht gefunden";
-
-"ExposureSubmissionQRScanner_notFoundAlertText" = "Um das Lesen des QR-Codes zu erleichtern, versuchen Sie, den QR-Code vertikal zum Scanner auszurichten oder aktivieren Sie das Blitzlicht.";
 
 "ExposureSubmissionQRScanner_otherError" = "Ein unbekannter Fehler ist aufgetreten.";
 
@@ -1004,7 +1002,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Alert_RiskStatusLowered_Title" = "Änderung Ihres Risikostatus";
 
-"Home_Alert_RiskStatusLowered_Message" = "Die Risiko-Begegnung, die zu einem erhöhten Risiko für Sie geführt hat, liegt mehr als 14 Tage zurück. Daher wird das Infektionsrisiko wieder als niedrig für Sie eingestuft.\n\nSo verhalten Sie sich richtig:\n1. Wenn Sie keine Symptome von COVID aufweisen, halten Sie sich an die allgemein geltenden Verhaltensregeln zu Abstand und Hygiene.\n2. Wenn Sie Symptome von COVID aufweisen, empfehlen wir, dass Sie Ihren Arzt aufsuchen und sich testen lassen.";
+"Home_Alert_RiskStatusLowered_Message" = "Die Risiko-Begegnung, die zu einem erhöhten Risiko für Sie geführt hat, liegt mehr als 14 Tage zurück. Daher wird das Infektionsrisiko wieder als niedrig für Sie eingestuft.\n\nSo verhalten Sie sich richtig:\n1. Wenn Sie keine Symptome von COVID-19 aufweisen, halten Sie sich an die allgemein geltenden Verhaltensregeln zu Abstand und Hygiene.\n2. Wenn Sie Symptome von COVID-19 aufweisen, empfehlen wir, dass Sie Ihren Arzt aufsuchen und sich testen lassen.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
@@ -1236,3 +1234,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "DeltaOnboarding_Terms_Button" = "Nutzungsbedingungen anzeigen";
 
 "DeltaOnboarding_Terms_Description2" = "Die Nutzungsbedingungen und die Datenschutzerklärung finden Sie auch unter dem Menüpunkt „App-Informationen“ sowie in der App-Beschreibung Ihres App Stores. Die Änderungen haben keine Auswirkungen auf Ihre Nutzung der App. Wenn Sie die App weiter nutzen oder erneut öffnen, gehen wir davon aus, dass Sie mit den aktualisierten Nutzungsbedingungen einverstanden sind.";
+
+/* Warn other notifications */
+"WarnOthersNotification_Title" = "Helfen Sie mit!";
+"WarnOthersNotification_Description" = "Bitte warnen Sie andere und teilen Sie Ihr Testergebnis.";
+

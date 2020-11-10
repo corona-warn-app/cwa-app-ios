@@ -34,12 +34,21 @@ final class CachedAppConfiguration {
 	/// The place where the app config and last etag is stored
 	private let store: AppConfigCaching
 
+	private let deviceTimeCheck: DeviceTimeCheckProtocol
+
 	private let configurationDidChange: (() -> Void)?
 
-	init(client: AppConfigurationFetching, store: AppConfigCaching, configurationDidChange: (() -> Void)? = nil) {
+	init(
+		client: AppConfigurationFetching,
+		store: Store,
+		deviceTimeCheck: DeviceTimeCheckProtocol? = nil,
+		configurationDidChange: (() -> Void)? = nil
+	) {
 		self.client = client
 		self.store = store
 		self.configurationDidChange = configurationDidChange
+
+		self.deviceTimeCheck = deviceTimeCheck ?? DeviceTimeCheck(store: store)
 
 		guard shouldFetch() else { return }
 
@@ -52,37 +61,52 @@ final class CachedAppConfiguration {
 
 	private func fetchConfig(with etag: String?, completion: Completion? = nil) {
 		client.fetchAppConfiguration(etag: etag) { [weak self] result in
-			switch result {
+			guard let self = self else { return }
+
+			switch result.0 {
 			case .success(let response):
-				self?.store.lastAppConfigETag = response.eTag
-				self?.store.appConfig = response.config
-				self?.completeOnMain(completion: completion, result: .success(response.config))
+				self.store.lastAppConfigETag = response.eTag
+				self.store.appConfig = response.config
+				self.completeOnMain(completion: completion, result: .success(response.config))
 
 				// keep track of last successful fetch
-				self?.store.lastAppConfigFetch = Date()
+				self.store.lastAppConfigFetch = Date()
 
-				self?.configurationDidChange?()
+				self.configurationDidChange?()
 			case .failure(let error):
 				switch error {
-				case CachedAppConfiguration.CacheError.notModified where self?.store.appConfig != nil:
+				case CachedAppConfiguration.CacheError.notModified where self.store.appConfig != nil:
 					Log.error("config not modified", log: .api)
 					// server is not modified and we have a cached config
-					guard let config = self?.store.appConfig else {
+					guard let config = self.store.appConfig else {
 						fatalError("App configuration cache broken!") // in `where` we trust
 					}
-					self?.completeOnMain(completion: completion, result: .success(config))
+					self.completeOnMain(completion: completion, result: .success(config))
 
-					// keep track of last successful fetch
-					self?.store.lastAppConfigFetch = Date()
+					// server response HTTP 304 is considered a 'successful fetch'
+					self.store.lastAppConfigFetch = Date()
 				default:
-					self?.completeOnMain(completion: completion, result: .failure(error))
+					// ensure reset
+					self.store.lastAppConfigETag = nil
+					self.store.lastAppConfigFetch = nil
+
+					self.completeOnMain(completion: completion, result: .failure(error))
 				}
+			}
+
+			if let serverTime = result.1 {
+				self.deviceTimeCheck.updateDeviceTimeFlags(
+					serverTime: serverTime,
+					deviceTime: Date()
+				)
+			} else {
+				self.deviceTimeCheck.resetDeviceTimeFlags()
 			}
 		}
 	}
 
 	// Prevents failing main thread checks because UI is accessing the result directly.
-	private func completeOnMain(completion: Completion?, result: Result<SAP_ApplicationConfiguration, Error>) {
+	private func completeOnMain(completion: Completion?, result: Result<SAP_Internal_ApplicationConfiguration, Error>) {
 		DispatchQueue.main.async {
 			completion?(result)
 		}
@@ -97,9 +121,11 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 		let force = shouldFetch() || forceFetch
 
 		if let cachedVersion = store.appConfig, !force {
+			Log.debug("[App Config] fetching cached app configuration", log: .localData)
 			// use the cached version
 			completeOnMain(completion: completion, result: .success(cachedVersion))
 		} else {
+			Log.debug("[App Config] fetching fresh app configuration", log: .localData)
 			// fetch a new one
 			fetchConfig(with: store.lastAppConfigETag, completion: completion)
 		}
@@ -114,9 +140,14 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 	///   which does not easily return response headers. This requires further refactoring of `URLSession+Convenience.swift`.
 	/// - Returns: `true` is a network call should be done; `false` if cache should be used
 	private func shouldFetch() -> Bool {
+		if store.appConfig == nil { return true }
+
+		// naïve cache control
 		guard let lastFetch = store.lastAppConfigFetch else {
+			Log.debug("[Cache-Control] no last config fetch timestamp stored", log: .localData)
 			return true
 		}
-		return lastFetch.distance(to: Date()) >= 300
+        Log.debug("[Cache-Control] timestamp >= 300s? \(abs(lastFetch.distance(to: Date())) >= 300)", log: .localData)
+        return abs(lastFetch.distance(to: Date())) >= 300
 	}
 }

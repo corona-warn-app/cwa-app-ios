@@ -42,7 +42,7 @@ extension EitherLowOrIncreasedRiskLevel {
 	}
 }
 
-protocol Store: AnyObject {
+protocol StoreProtocol: AnyObject {
 	var isOnboarded: Bool { get set }
 	var onboardingVersion: String { get set }
 	var dateOfAcceptedPrivacyNotice: Date? { get set }
@@ -115,6 +115,10 @@ protocol Store: AnyObject {
 
 	var selectedServerEnvironment: ServerEnvironmentData { get set }
 
+	var isDeviceTimeCorrect: Bool { get set }
+	
+	var wasDeviceTimeErrorShown: Bool { get set }
+
 	func clearAll(key: String?)
 
 	#if !RELEASE
@@ -124,8 +128,11 @@ protocol Store: AnyObject {
 
 }
 
-protocol AppConfigCaching: Store {
+protocol AppConfigCaching: AnyObject {
 	var lastAppConfigETag: String? { get set }
 	var lastAppConfigFetch: Date? { get set }
-	var appConfig: SAP_ApplicationConfiguration? { get set }
+	var appConfig: SAP_Internal_ApplicationConfiguration? { get set }
 }
+
+/// Convenience protocol
+protocol Store: StoreProtocol, AppConfigCaching {}

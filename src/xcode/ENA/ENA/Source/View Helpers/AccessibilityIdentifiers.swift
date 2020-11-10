@@ -34,9 +34,9 @@ enum AccessibilityIdentifiers {
 	}
 
 	enum RiskCollectionViewCell {
-		static let topContainer =  "RiskLevelCollectionViewCell.topContainer"
+		static let topContainer = "RiskLevelCollectionViewCell.topContainer"
 		static let bodyLabel = "RiskLevelCollectionViewCell.bodyLabel"
-		static let detectionIntervalLabel =  "RiskLevelCollectionViewCell.detectionIntervalLabel"
+		static let detectionIntervalLabel = "RiskLevelCollectionViewCell.detectionIntervalLabel"
 		static let updateButton = "RiskLevelCollectionViewCell.updateButton"
 	}
 
@@ -85,7 +85,7 @@ enum AccessibilityIdentifiers {
 		static let legend3Text = "AppStrings.RiskLegend.legend3Text"
 		static let definitionsTitle = "AppStrings.RiskLegend.definitionsTitle"
 		static let storeTitle = "AppStrings.RiskLegend.storeTitle"
-		static let storeText =  "AppStrings.RiskLegend.storeText"
+		static let storeText = "AppStrings.RiskLegend.storeText"
 		static let checkTitle = "AppStrings.RiskLegend.checkTitle"
 		static let checkText = "AppStrings.RiskLegend.checkText"
 		static let contactTitle = "AppStrings.RiskLegend.contactTitle"
@@ -145,7 +145,8 @@ enum AccessibilityIdentifiers {
 		static let explanationTextOff = "AppStrings.ExposureDetection.explanationTextOff"
 		static let explanationTextOutdated = "AppStrings.ExposureDetection.explanationTextOutdated"
 		static let explanationTextUnknown = "AppStrings.ExposureDetection.explanationTextUnknown"
-		static let explanationTextLow = "AppStrings.ExposureDetection.explanationTextLow"
+		static let explanationTextLowNoEncounter = "AppStrings.ExposureDetection.explanationTextLowNoEncounter"
+		static let explanationTextLowWithEncounter = "AppStrings.ExposureDetection.explanationTextLowWithEncounter"
 		static let explanationTextHigh = "AppStrings.ExposureDetection.explanationTextHigh"
 
 		static let activeTracingSectionText = "AppStrings.ExposureDetection.activeTracingSectionText"

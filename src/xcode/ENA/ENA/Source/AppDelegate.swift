@@ -23,7 +23,7 @@ import UIKit
 protocol CoronaWarnAppDelegate: AnyObject {
 	var client: HTTPClient { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
-	var store: Store & AppConfigCaching { get }
+	var store: Store { get }
 	var appConfigurationProvider: AppConfigurationProviding { get }
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
@@ -37,15 +37,16 @@ extension AppDelegate: CoronaWarnAppDelegate {
 
 extension AppDelegate: ExposureSummaryProvider {
 	func detectExposure(
-		appConfiguration: SAP_ApplicationConfiguration,
+		appConfiguration: SAP_Internal_ApplicationConfiguration,
 		activityStateDelegate: ActivityStateProviderDelegate? = nil,
-		completion: @escaping (ENExposureDetectionSummary?) -> Void
+		completion: @escaping (Result<ENExposureDetectionSummary, ExposureDetection.DidEndPrematurelyReason>) -> Void
 	) -> CancellationToken {
 		Log.info("AppDelegate: Detect exposure.", log: .riskDetection)
 
 		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
-			appConfiguration: appConfiguration
+			appConfiguration: appConfiguration,
+			deviceTimeCheck: DeviceTimeCheck(store: store)
 		)
 		
 		exposureDetection?
@@ -62,11 +63,11 @@ extension AppDelegate: ExposureSummaryProvider {
 			switch result {
 			case .success(let summary):
 				Log.info("AppDelegate: Detect exposure completed", log: .riskDetection)
-				completion(summary)
+				completion(.success(summary))
 			case .failure(let error):
 				Log.error("AppDelegate: Detect exposure failed", log: .riskDetection, error: error)
 				self?.showError(exposure: error)
-				completion(nil)
+				completion(.failure(error))
 			}
 			self?.exposureDetection = nil
 		}
@@ -102,7 +103,7 @@ extension AppDelegate: ExposureSummaryProvider {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-	let store: Store & AppConfigCaching
+	let store: Store
 	let serverEnvironment: ServerEnvironment
 	
 	private let consumer = RiskConsumer()

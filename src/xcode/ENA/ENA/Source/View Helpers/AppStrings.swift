@@ -162,8 +162,6 @@ enum AppStrings {
 	enum ExposureSubmissionQRScanner {
 		static let title = NSLocalizedString("ExposureSubmissionQRScanner_title", comment: "")
 		static let instruction = NSLocalizedString("ExposureSubmissionQRScanner_instruction", comment: "")
-		static let alertCodeNotFoundTitle = NSLocalizedString("ExposureSubmissionQRScanner_notFoundAlertTitle", comment: "")
-		static let alertCodeNotFoundText = NSLocalizedString("ExposureSubmissionQRScanner_notFoundAlertText", comment: "")
 		static let otherError = NSLocalizedString("ExposureSubmissionQRScanner_otherError", comment: "")
 		static let cameraPermissionDenied = NSLocalizedString("ExposureSubmissionQRScanner_cameraPermissionDenied", comment: "")
 		static let flashButtonAccessibilityLabel = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash", comment: "")
@@ -307,7 +305,8 @@ enum AppStrings {
 		static let explanationTextOff = NSLocalizedString("ExposureDetection_Explanation_Text_Off", comment: "")
 		static let explanationTextOutdated = NSLocalizedString("ExposureDetection_Explanation_Text_Outdated", comment: "")
 		static let explanationTextUnknown = NSLocalizedString("ExposureDetection_Explanation_Text_Unknown", comment: "")
-		static let explanationTextLow = NSLocalizedString("ExposureDetection_Explanation_Text_Low", comment: "")
+		static let explanationTextLowNoEncounter = NSLocalizedString("ExposureDetection_Explanation_Text_Low_No_Encounter", comment: "")
+		static let explanationTextLowWithEncounter = NSLocalizedString("ExposureDetection_Explanation_Text_Low_With_Encounter", comment: "")
 		static let explanationTextHigh = NSLocalizedString("ExposureDetection_Explanation_Text_High", comment: "")
 		static let explanationTextHighDaysSinceLastExposure = NSLocalizedString("ExposureDetection_Explanation_Text_High_DaysSinceLastExposure", comment: "")
 		static let explanationFAQLink = NSLocalizedString("ExposureDetection_Explanation_FAQ_Link", tableName: "Localizable.links", comment: "")
@@ -333,7 +332,7 @@ enum AppStrings {
 	enum ExposureDetectionError {
 		static let errorAlertMessage = NSLocalizedString("ExposureDetectionError_Alert_Message", comment: "")
 		static let errorAlertFullDistSpaceMessage = NSLocalizedString("ExposureDetectionError_Alert_FullDiskSpace_Message", comment: "")
-
+		static let errorAlertWrongDeviceTime = NSLocalizedString("ExposureDetection_WrongTime_Notification_Popover_Body", comment: "")
 	}
 
 	enum Settings {
@@ -807,5 +806,16 @@ enum AppStrings {
 		static let termsButtonTitle = NSLocalizedString("DeltaOnboarding_Terms_Button", comment: "")
 		static let termsDescription2 = NSLocalizedString("DeltaOnboarding_Terms_Description2", comment: "")
 	}
+
+	enum WarnOthersNotification {
+		static let title = NSLocalizedString("WarnOthersNotification_Title", comment: "")
+		static let description = NSLocalizedString("WarnOthersNotification_Description", comment: "")
+	}
+
+	enum WrongDeviceTime {
+		static let errorPushNotificationTitle = NSLocalizedString("ExposureDetection_WrongTime_Notification_Title", comment: "")
+		static let errorPushNotificationText = NSLocalizedString("ExposureDetection_WrongTime_Notification_Body", comment: "")
+	}
+	
 	// swiftlint:disable:next file_length
 }

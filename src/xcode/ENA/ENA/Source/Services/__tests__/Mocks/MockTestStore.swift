@@ -55,6 +55,8 @@ final class MockTestStore: Store, AppConfigCaching {
 	var hourlyFetchingEnabled: Bool = true
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
 	var selectedServerEnvironment: ServerEnvironmentData = ServerEnvironment().defaultEnvironment()
+	var isDeviceTimeCorrect = true
+	var wasDeviceTimeErrorShown = false
 
 	#if !RELEASE
 	// Settings from the debug menu.
@@ -65,5 +67,5 @@ final class MockTestStore: Store, AppConfigCaching {
 	
 	var lastAppConfigETag: String?
 	var lastAppConfigFetch: Date?
-	var appConfig: SAP_ApplicationConfiguration?
+	var appConfig: SAP_Internal_ApplicationConfiguration?
 }

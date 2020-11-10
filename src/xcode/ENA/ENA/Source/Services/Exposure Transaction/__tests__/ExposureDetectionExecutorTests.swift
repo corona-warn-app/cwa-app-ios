@@ -312,7 +312,8 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((mockSummary, nil)))
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfiguration: SAP_ApplicationConfiguration()
+			appConfiguration: SAP_Internal_ApplicationConfiguration(),
+			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
 		)
 
 		_ = sut.exposureDetection(
@@ -343,7 +344,8 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((nil, expectedError)))
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfiguration: SAP_ApplicationConfiguration()
+			appConfiguration: SAP_Internal_ApplicationConfiguration(),
+			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
 		)
 
 		_ = sut.exposureDetection(
@@ -386,7 +388,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		packageStore.set(country: "DE", day: "SomeDay", package: package)
 
 		let store = MockTestStore()
-		store.appConfig = SAP_ApplicationConfiguration()
+		store.appConfig = SAP_Internal_ApplicationConfiguration()
 
 		let sut = ExposureDetectionExecutor.makeWith(
 			packageStore: packageStore,
@@ -395,7 +397,8 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		)
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfiguration: SAP_ApplicationConfiguration()
+			appConfiguration: SAP_Internal_ApplicationConfiguration(),
+			deviceTimeCheck: DeviceTimeCheck(store: store)
 		)
 
 		XCTAssertNotEqual(packageStore.allDays(country: "DE").count, 0)
@@ -426,7 +429,7 @@ private extension ExposureDetectionExecutor {
 	static func makeWith(
 		client: Client = ClientMock(),
 		packageStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory(),
-		store: Store & AppConfigCaching = MockTestStore(),
+		store: Store = MockTestStore(),
 		exposureDetector: MockExposureDetector = MockExposureDetector()
 	) -> ExposureDetectionExecutor {
 		ExposureDetectionExecutor(

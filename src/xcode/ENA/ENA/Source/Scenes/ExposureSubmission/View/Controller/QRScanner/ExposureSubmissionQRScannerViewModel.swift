@@ -24,15 +24,15 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	// MARK: - Init
 
 	init(
-		isScanningActivated: Bool,
 		onSuccess: @escaping (DeviceRegistrationKey) -> Void,
-		onError: @escaping (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void,
-		onCancel: @escaping () -> Void
+		onError: @escaping (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
 	) {
-		self.isScanningActivated = isScanningActivated
 		self.onSuccess = onSuccess
 		self.onError = onError
-		self.onCancel = onCancel
+		self.captureSession = AVCaptureSession()
+		self.captureDevice = AVCaptureDevice.default(for: .video)
+		super.init()
+		setupCaptureSession()
 	}
 
 	// MARK: - Protocol AVCaptureMetadataOutputObjectsDelegate
@@ -47,31 +47,117 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 
 	// MARK: - Internal
 
-	let onError: (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
-	let onCancel: () -> Void
+	enum TorchMode {
+		case notAvailable
+		case lightOn
+		case ligthOff
+	}
+
+	let captureSession: AVCaptureSession
+
+	var isScanningActivated: Bool {
+		captureSession.isRunning
+	}
+
+	/// get current torchMode by device state
+	var torchMode: TorchMode {
+		guard let device = captureDevice,
+			  device.hasTorch else {
+			return .notAvailable
+		}
+
+		switch device.torchMode {
+		case .off:
+			return .ligthOff
+		case .on:
+			return .lightOn
+		case .auto:
+			return .notAvailable
+		@unknown default:
+			return .notAvailable
+		}
+	}
 
 	func activateScanning() {
-		isScanningActivated = true
+		captureSession.startRunning()
 	}
 
 	func deactivateScanning() {
-		isScanningActivated = false
+		captureSession.stopRunning()
+	}
+
+	func startCaptureSession() {
+		#if DEBUG
+		if isUITesting {
+			activateScanning()
+			return
+		}
+		#endif
+		switch AVCaptureDevice.authorizationStatus(for: .video) {
+		case .authorized:
+			Log.info("AVCaptureDevice.authorized - enable qr code scanner")
+			activateScanning()
+		case .notDetermined:
+			AVCaptureDevice.requestAccess(for: .video) { [weak self] isAllowed in
+				guard isAllowed else {
+					self?.onError(.cameraPermissionDenied) {
+						Log.error("camera requestAccess denied - stop here we can't go on", log: .ui)
+					}
+					return
+				}
+				self?.activateScanning()
+			}
+		default:
+			onError(.cameraPermissionDenied) {
+				Log.info(".cameraPermissionDenied - stop here we can't go on", log: .ui)
+			}
+		}
+	}
+
+	func stopCapturSession() {
+		deactivateScanning()
+	}
+
+	/// toggle torchMode between on / off after finish call optional completion handler
+	func toggleFlash(completion: (() -> Void)? = nil ) {
+		guard let device = captureDevice,
+			  device.hasTorch else {
+			return
+		}
+
+		defer {
+			device.unlockForConfiguration()
+			completion?()
+		}
+
+		do {
+			try device.lockForConfiguration()
+
+			if device.torchMode == .on {
+				device.torchMode = .off
+			} else {
+				try device.setTorchModeOn(level: 1.0)
+			}
+
+		} catch {
+			Log.error(error.localizedDescription, log: .api)
+		}
 	}
 
 	func didScan(metadataObjects: [MetadataObject]) {
-		guard isScanningActivated else { return }
+		guard isScanningActivated else {
+			Log.info("Scanning not stopped from previous run")
+			return
+		}
+		deactivateScanning()
 
 		if let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject, let stringValue = code.stringValue {
-			deactivateScanning()
-
 			guard let extractedGuid = extractGuid(from: stringValue) else {
 				onError(.codeNotFound) { [weak self] in
 					self?.activateScanning()
 				}
-
 				return
 			}
-
 			onSuccess(.guid(extractedGuid))
 		}
 	}
@@ -83,27 +169,43 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	/// - the guid is a well formatted string (6-8-4-4-4-12) with length 43
 	///   (6 chars encode a random number, 32 chars for the uuid, 5 chars are separators)
 	func extractGuid(from input: String) -> String? {
-		guard
-			!input.isEmpty,
-			input.count <= 150,
-			let regex = try? NSRegularExpression(
-				pattern: "^https:\\/\\/localhost\\/\\?(?<GUID>[0-9A-Fa-f]{6}-[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})$"
-			),
-			let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count))
-		else { return nil }
-
-		guard let range = Range(match.range(withName: "GUID"), in: input) else { return nil }
-
-		let candidate = String(input[range])
-		guard !candidate.isEmpty, candidate.count == 43 else { return nil }
-
-		return candidate
+		guard !input.isEmpty,
+			  input.count <= 150,
+			  let urlComponents = URLComponents(string: input),
+			  !urlComponents.path.contains(" "),
+			  urlComponents.path.components(separatedBy: "/").count == 2,	// one / will separate into two components
+			  urlComponents.scheme?.lowercased() == "https",
+			  urlComponents.host?.lowercased() == "localhost",
+			  let candidate = urlComponents.query,
+			  candidate.count == 43,
+			  let matchings = candidate.range(
+				of: #"^[0-9A-Fa-f]{6}-[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$"#,
+				options: .regularExpression
+			  ) else {
+			return nil
+		}
+		return matchings.isEmpty ? nil : candidate
 	}
 
 	// MARK: - Private
 
-	private var isScanningActivated: Bool
-
 	private let onSuccess: (DeviceRegistrationKey) -> Void
+	private let onError: (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
+	private let captureDevice: AVCaptureDevice?
+
+	private func setupCaptureSession() {
+		guard let currentCaptureDevice = captureDevice,
+			let caputureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
+			onError(.cameraPermissionDenied) { Log.error("Failed to setup AVCaptureDeviceInput", log: .ui) }
+			return
+		}
+
+		let metadataOutput = AVCaptureMetadataOutput()
+		captureSession.addInput(caputureDeviceInput)
+		captureSession.addOutput(metadataOutput)
+		metadataOutput.metadataObjectTypes = [.qr]
+		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
+	}
+
 
 }
