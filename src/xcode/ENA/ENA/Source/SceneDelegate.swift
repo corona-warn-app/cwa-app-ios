@@ -311,12 +311,8 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 			
 		case ActionableNotificationIdentifier.warnOthersReminder1.identifier,
 			 ActionableNotificationIdentifier.warnOthersReminder2.identifier:
-			 showPositiveTestResultFromNotification(animated: true)
-		
-		case UNNotificationDefaultActionIdentifier,
-			 UNNotificationDismissActionIdentifier:
-			break
-
+			showPositiveTestResultFromNotification(animated: true)
+			
 		default: break
 		}
 
