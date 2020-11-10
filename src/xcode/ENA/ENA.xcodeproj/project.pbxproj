@@ -110,7 +110,7 @@
 		3539DAD1252B353C00489B1A /* CachedAppConfigurationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */; };
 		3539DAE3252B42EE00489B1A /* de-config-int-2020-09-25 in Resources */ = {isa = PBXBuildFile; fileRef = 35853E11251DDD33008FE983 /* de-config-int-2020-09-25 */; };
 		354E305924EFF26E00526C9F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354E305824EFF26E00526C9F /* Country.swift */; };
-		357B1858255A7F5C00584548 /* PackageKeyStore+CacheInvalidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357B1857255A7F5C00584548 /* PackageKeyStore+CacheInvalidation.swift */; };
+		357B1858255A7F5C00584548 /* AppConfig+CacheInvalidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357B1857255A7F5C00584548 /* AppConfig+CacheInvalidation.swift */; };
 		35853E12251DDD33008FE983 /* de-config-int-2020-09-25 in Resources */ = {isa = PBXBuildFile; fileRef = 35853E11251DDD33008FE983 /* de-config-int-2020-09-25 */; };
 		35853E22251DED0F008FE983 /* CachingHTTPClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35163D23251CFCCB00D220CA /* CachingHTTPClientMock.swift */; };
 		3598D99A24FE280700483F1F /* CountryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3598D99924FE280700483F1F /* CountryTests.swift */; };
@@ -679,7 +679,7 @@
 		353412CB2525EE4A0086D15C /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAppConfigurationMock.swift; sourceTree = "<group>"; };
 		354E305824EFF26E00526C9F /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
-		357B1857255A7F5C00584548 /* PackageKeyStore+CacheInvalidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PackageKeyStore+CacheInvalidation.swift"; sourceTree = "<group>"; };
+		357B1857255A7F5C00584548 /* AppConfig+CacheInvalidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppConfig+CacheInvalidation.swift"; sourceTree = "<group>"; };
 		35853E11251DDD33008FE983 /* de-config-int-2020-09-25 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "de-config-int-2020-09-25"; sourceTree = "<group>"; };
 		3598D99924FE280700483F1F /* CountryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTests.swift; sourceTree = "<group>"; };
 		35A7F080250A7CF8005E6C33 /* KeychainHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelperTests.swift; sourceTree = "<group>"; };
@@ -2643,7 +2643,7 @@
 				AB5F84C224FE2EF2000400D4 /* V1 */,
 				AB5F84C124FE2EEA000400D4 /* V0 */,
 				AB5F84AB24F8F6EB000400D4 /* Migration */,
-				357B1857255A7F5C00584548 /* PackageKeyStore+CacheInvalidation.swift */,
+				357B1857255A7F5C00584548 /* AppConfig+CacheInvalidation.swift */,
 				B16177E624802F85006E435A /* __tests__ */,
 			);
 			path = DownloadedPackagesStore;
@@ -3226,7 +3226,7 @@
 				51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */,
 				50F9130D253F1D7800DFE683 /* OnboardingPageType.swift in Sources */,
 				A372DA3B24BDA075003248BB /* ExposureSubmissionCoordinator.swift in Sources */,
-				357B1858255A7F5C00584548 /* PackageKeyStore+CacheInvalidation.swift in Sources */,
+				357B1858255A7F5C00584548 /* AppConfig+CacheInvalidation.swift in Sources */,
 				51FE277B2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift in Sources */,
 				0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */,
 				13BAE9B12472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift in Sources */,
