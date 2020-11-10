@@ -63,6 +63,7 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 
 		#if !RELEASE
 		guard !disableHourlyDownload else {
+			responseError = .noResponse
 			return
 		}
 		#endif
@@ -85,7 +86,7 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 				completeWith(.success(payload))
 			case let .failure(error):
 				responseError = error
-				Log.error("failed to get day: \(error)", log: .api)
+				Log.error("failed to get hour: \(error)", log: .api)
 			}
 		}
 	}
