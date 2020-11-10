@@ -22,6 +22,7 @@ import Foundation
 
 enum DMMenuItem: Int, CaseIterable {
 	case keys = 0
+	case wifiClient
 	case checkSubmittedKeys
 	case backendConfiguration
 	case lastSubmissionRequest
@@ -52,6 +53,7 @@ extension DMMenuItem {
 	var title: String {
 		switch self {
 		case .keys: return "Keys"
+		case .wifiClient: return "Hourly packages over Wifi only"
 		case .checkSubmittedKeys: return "Check submitted Keys"
 		case .backendConfiguration: return "Backend Configuration"
 		case .lastSubmissionRequest: return "Last Submission Request"
@@ -70,6 +72,7 @@ extension DMMenuItem {
 	var subtitle: String {
 		switch self {
 		case .keys: return "View local Keys & generate test Keys"
+		case .wifiClient: return "Change hourly packages network connection type"
 		case .checkSubmittedKeys: return "Check the state of your local keys"
 		case .backendConfiguration: return "See the current backend configuration"
 		case .lastSubmissionRequest: return "Export the last executed submission request"

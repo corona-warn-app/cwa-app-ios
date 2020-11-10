@@ -29,6 +29,13 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 		return [2: dummyResponse, 3: dummyResponse]
 	}()
 	
+	private lazy var dummyDayResponse: [String: PackageDownloadResponse] = {
+		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"tinfoil\"")
+		return ["placeholderDate": dummyResponse]
+	}()
+	
+	
 	func test_When_NoCachedHourPackages_Then_AllServerHourPackagesAreDownloaded() {
 		let store = MockTestStore()
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
@@ -336,4 +343,50 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 
 		waitForExpectations(timeout: 1.0)
 	}
+	
+	func test_When_DownloadingDayPackage_Then_CleanupHourPackages() throws {
+		// Load day package for a particular day will cleanup
+		// all hour packages for exactely that day
+		
+		let store = MockTestStore()
+
+		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
+		packagesStore.open()
+
+		let countryId = "IT"
+		// add hour packages for the day to the store
+		try packagesStore.addFetchedHours(dummyHourResponse, day: "2020-10-09", country: countryId)
+
+		let client = ClientMock()
+		// prepare server response: day package for the day
+		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-09"], hours: [])
+		client.downloadedPackage = try XCTUnwrap(dummyDayResponse.values.first)
+
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: packagesStore,
+			client: client,
+			wifiClient: client,
+			store: store,
+			countryIds: ["IT"]
+		)
+
+		let successExpectation = expectation(description: "Package download was successful.")
+
+		keyPackageDownload.startDayPackagesDownload { result in
+			switch result {
+			case .success:
+				let allHourKeys = packagesStore.hours(for: "2020-10-09", country: countryId)
+				// verify: no more hour packages for the day in the store
+				XCTAssertEqual(allHourKeys, [])
+				// verify: day package is in the store
+				XCTAssertTrue(packagesStore.allDays(country: "IT").contains("2020-10-09"))
+				successExpectation.fulfill()
+			case .failure(let error):
+				XCTFail("Failure callback is not expected: \(error)")
+			}
+		}
+
+		waitForExpectations(timeout: 1.0)
+	}
+	
 }
