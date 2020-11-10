@@ -87,6 +87,13 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 
 	// MARK: - Internal
 
+	var isWifiOnlyActive: Bool {
+		let wifiOnlyConfiguration = URLSessionConfiguration.coronaWarnSessionConfigurationWifiOnly()
+		return session.configuration.allowsCellularAccess == wifiOnlyConfiguration.allowsCellularAccess &&
+			session.configuration.allowsExpensiveNetworkAccess == wifiOnlyConfiguration.allowsExpensiveNetworkAccess &&
+			session.configuration.allowsConstrainedNetworkAccess == wifiOnlyConfiguration.allowsConstrainedNetworkAccess
+	}
+
 	func fetchHours(
 		_ hours: [Int],
 		day: String,
@@ -120,7 +127,21 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 	// MARK: - Private
 
 	private let configuration: HTTPClient.Configuration
-	private let session: URLSession
+	private var session: URLSession
 	private var retries: [URL: Int] = [:]
 
 }
+
+#if !RELEASE
+extension WifiOnlyHTTPClient {
+
+	func updateSession(wifiOnly: Bool) {
+		let sessionConfiguration: URLSessionConfiguration = wifiOnly ?
+			.coronaWarnSessionConfigurationWifiOnly() :
+			.coronaWarnSessionConfiguration()
+		session.invalidateAndCancel()
+		session = URLSession(configuration: sessionConfiguration)
+	}
+
+}
+#endif
