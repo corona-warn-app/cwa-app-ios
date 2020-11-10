@@ -22,10 +22,10 @@ import Foundation
 
 enum DMMenuItem: Int, CaseIterable {
 	case keys = 0
+	case wifiClient
 	case checkSubmittedKeys
 	case backendConfiguration
 	case lastSubmissionRequest
-	case settings
 	case manuallyRequestRisk
 	case errorLog
 	case purgeRegistrationToken
@@ -53,10 +53,10 @@ extension DMMenuItem {
 	var title: String {
 		switch self {
 		case .keys: return "Keys"
+		case .wifiClient: return "Hourly packages over Wifi only"
 		case .checkSubmittedKeys: return "Check submitted Keys"
 		case .backendConfiguration: return "Backend Configuration"
 		case .lastSubmissionRequest: return "Last Submission Request"
-		case .settings: return "Developer Settings"
 		case .manuallyRequestRisk: return "Manually Request Risk"
 		case .errorLog: return "Error Log"
 		case .purgeRegistrationToken: return "Purge Registration Token"
@@ -72,10 +72,10 @@ extension DMMenuItem {
 	var subtitle: String {
 		switch self {
 		case .keys: return "View local Keys & generate test Keys"
+		case .wifiClient: return "Change hourly packages network connection type"
 		case .checkSubmittedKeys: return "Check the state of your local keys"
 		case .backendConfiguration: return "See the current backend configuration"
 		case .lastSubmissionRequest: return "Export the last executed submission request"
-		case .settings: return "Adjust the Developer Settings (e.g: hourly mode)"
 		case .manuallyRequestRisk: return "Manually requests the current risk"
 		case .errorLog: return "View all errors logged by the app"
 		case .purgeRegistrationToken: return "Purge Registration Token"

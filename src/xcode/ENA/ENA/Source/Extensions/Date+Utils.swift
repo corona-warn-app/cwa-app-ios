@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,22 +15,13 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
 
-struct DeltaCalculationResult {
-	init(
-		remoteDays: Set<String>,
-		remoteHours: Set<Int>,
-		localDays: Set<String>,
-		localHours: Set<Int>
-	) {
-		missingDays = remoteDays.subtracting(localDays)
-		missingHours = remoteHours.subtracting(localHours)
+extension Date {
+
+	var hoursSinceNow: Double {
+		self.timeIntervalSinceNow / 60 / 60
 	}
-
-	// MARK: Properties
-
-	let missingDays: Set<String>
-	let missingHours: Set<Int>
 }
