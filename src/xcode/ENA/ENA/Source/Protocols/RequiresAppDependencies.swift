@@ -68,6 +68,6 @@ extension RequiresAppDependencies {
 	}
 	
 	var warnOthers: WarnOthersRemindable {
-		UIApplication.coronaWarnDelegate().warnOthers
+		UIApplication.coronaWarnDelegate().warnOthersReminder
 	}
 }
