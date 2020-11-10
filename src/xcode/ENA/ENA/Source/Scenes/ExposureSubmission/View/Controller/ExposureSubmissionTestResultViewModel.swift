@@ -23,7 +23,7 @@ class ExposureSubmissionTestResultViewModel {
 	// MARK: - Init
 
 	init(
-		warnOthers: WarnOthersRemindable,
+		warnOthersReminder: WarnOthersRemindable,
 		testResult: TestResult,
 		exposureSubmissionService: ExposureSubmissionService,
 		onContinueWithSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
@@ -35,7 +35,7 @@ class ExposureSubmissionTestResultViewModel {
 		self.onContinueWithSymptomsFlowButtonTap = onContinueWithSymptomsFlowButtonTap
 		self.onContinueWithoutSymptomsFlowButtonTap = onContinueWithoutSymptomsFlowButtonTap
 		self.onTestDeleted = onTestDeleted
-		self.warnOthers = warnOthers
+		self.warnOthersReminder = warnOthersReminder
 
 		updateForCurrentTestResult()
 	}
@@ -95,7 +95,7 @@ class ExposureSubmissionTestResultViewModel {
 		onTestDeleted()
 		
 		// Update warn others model
-		self.warnOthers.reset()
+		self.warnOthersReminder.reset()
 	}
 
 	// MARK: - Private
@@ -112,7 +112,7 @@ class ExposureSubmissionTestResultViewModel {
 		}
 	}
 	
-	private var warnOthers: WarnOthersRemindable
+	private var warnOthersReminder: WarnOthersRemindable
 
 	private var primaryButtonIsLoading: Bool = false {
 		didSet {
@@ -138,7 +138,7 @@ class ExposureSubmissionTestResultViewModel {
 	}
 	
 	func updateWarnOthers() {
-		self.warnOthers.evaluateNotificationState(testResult: self.testResult)
+		self.warnOthersReminder.evaluateNotificationState(testResult: self.testResult)
 	}
 	
 	private func updateButtons() {

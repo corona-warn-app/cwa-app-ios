@@ -434,7 +434,7 @@ extension HomeInteractor {
 		
 		// Do warn others evaluation
 		if let testResult = testResult {
-			self.warnOthers.evaluateNotificationState(testResult: testResult)
+			self.warnOthersReminder.evaluateNotificationState(testResult: testResult)
 		}
 		
 		// Avoid unnecessary loading.

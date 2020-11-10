@@ -23,13 +23,13 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController,
 	// MARK: - Attributes.
 
 	private(set) weak var coordinator: ExposureSubmissionCoordinating?
-	private let warnOthers: WarnOthersRemindable
+	private let warnOthersReminder: WarnOthersRemindable
 
 	// MARK: - Initializers.
 
-	init?(warnOthers: WarnOthersRemindable, coder: NSCoder, coordinator: ExposureSubmissionCoordinating) {
+	init?(warnOthersReminder: WarnOthersRemindable, coder: NSCoder, coordinator: ExposureSubmissionCoordinating) {
 		self.coordinator = coordinator
-		self.warnOthers = warnOthers
+		self.warnOthersReminder = warnOthersReminder
 		super.init(coder: coder)
 	}
 
@@ -42,7 +42,7 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController,
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		warnOthers.cancelNotifications()
+		warnOthersReminder.cancelNotifications()
 		
 		setupTitle()
 		setUpView()

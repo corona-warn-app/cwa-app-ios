@@ -32,14 +32,14 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	private var time2Label: UILabel!
 	
 	private let store: Store
-	private var warnOthers: WarnOthersRemindable
+	private var warnOthersReminder: WarnOthersRemindable
 	
 	
 	// MARK: - Init
 	
-	init(warnOthers: WarnOthersRemindable, store: Store) {
+	init(warnOthersReminder: WarnOthersRemindable, store: Store) {
 		self.store = store
-		self.warnOthers = warnOthers
+		self.warnOthersReminder = warnOthersReminder
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -129,8 +129,8 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		])
 		
 		// Set Default Value for the notification text filelds:
-		time1Textfield.text = "\(warnOthers.notificationOneTimeInterval)"
-		time2Textfield.text = "\(warnOthers.notificationTwoTimeInterval)"
+		time1Textfield.text = "\(warnOthersReminder.notificationOneTimeInterval)"
+		time2Textfield.text = "\(warnOthersReminder.notificationTwoTimeInterval)"
 		
 		//Set the keyboard type.
 		time1Textfield.keyboardType = .numberPad
@@ -153,8 +153,8 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 
 		} else {
 			// Save the notifications time into the SecureStore.
-			warnOthers.notificationOneTimeInterval = TimeInterval(time1 ?? WarnOthersNotificationsTimeInterval.intervalOne)
-			warnOthers.notificationTwoTimeInterval = TimeInterval(time2 ?? WarnOthersNotificationsTimeInterval.intervalTwo)
+			warnOthersReminder.notificationOneTimeInterval = TimeInterval(time1 ?? WarnOthersNotificationsTimeInterval.intervalOne)
+			warnOthersReminder.notificationTwoTimeInterval = TimeInterval(time2 ?? WarnOthersNotificationsTimeInterval.intervalTwo)
 			
 			//Display notification save alert.
 			alertMessage(title: "Notifications time saved", message: "Notification1 time \(time1 ?? WarnOthersNotificationsTimeInterval.intervalOne) seconds & Notification2 time \(time2 ?? WarnOthersNotificationsTimeInterval.intervalTwo) seconds has saved into the secure store.")
@@ -171,7 +171,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	
 	@objc
 	private func resetNotificationsButtonTapped() {
-		warnOthers.reset()
+		warnOthersReminder.reset()
 		alertMessage(title: "Done", message: "Warn others notifications can appear again.")
 
 	}

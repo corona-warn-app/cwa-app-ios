@@ -69,19 +69,19 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 	var model: ExposureSubmissionCoordinatorModel!
 	
-	let warnOthers: WarnOthersRemindable
+	let warnOthersReminder: WarnOthersRemindable
 
 	// MARK: - Initializers.
 
 	init(
-		warnOthers: WarnOthersRemindable,
+		warnOthersReminder: WarnOthersRemindable,
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
 		delegate: ExposureSubmissionCoordinatorDelegate? = nil
 	) {
 		self.parentNavigationController = parentNavigationController
 		self.delegate = delegate
-		self.warnOthers = warnOthers
+		self.warnOthersReminder = warnOthersReminder
 
 		super.init()
 
@@ -179,7 +179,7 @@ extension ExposureSubmissionCoordinator {
 		
 		return ExposureSubmissionTestResultViewController(
 			viewModel: .init(
-				warnOthers: warnOthers,
+				warnOthersReminder: warnOthersReminder,
 				testResult: testResult,
 				exposureSubmissionService: model.exposureSubmissionService,
 				onContinueWithSymptomsFlowButtonTap: { [weak self] isLoading in
@@ -476,7 +476,7 @@ extension ExposureSubmissionCoordinator {
 
 	private func createSuccessViewController() -> ExposureSubmissionSuccessViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSuccessViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionSuccessViewController(warnOthers: self.warnOthers, coder: coder, coordinator: self)
+			ExposureSubmissionSuccessViewController(warnOthersReminder: self.warnOthersReminder, coder: coder, coordinator: self)
 		}
 	}
 

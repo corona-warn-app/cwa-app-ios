@@ -49,7 +49,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		delegate: ExposureSubmissionCoordinatorDelegate) -> ExposureSubmissionCoordinator {
 
 		return ExposureSubmissionCoordinator(
-			warnOthers: WarnOthersReminder(store: self.store),
+			warnOthersReminder: WarnOthersReminder(store: self.store),
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			delegate: delegate

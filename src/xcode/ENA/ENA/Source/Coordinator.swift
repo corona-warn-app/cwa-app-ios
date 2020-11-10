@@ -211,7 +211,7 @@ extension Coordinator: HomeViewControllerDelegate {
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.
 		let coordinator = ExposureSubmissionCoordinator(
-			warnOthers: warnOthers,
+			warnOthersReminder: warnOthersReminder,
 			parentNavigationController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			delegate: self

@@ -139,7 +139,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .listPendingNotifications:
 			vc = DMNotificationsViewController()
 		case .warnOthersNotifications:
-			vc = DMWarnOthersNotificationViewController(warnOthers: warnOthers, store: store)
+			vc = DMWarnOthersNotificationViewController(warnOthersReminder: warnOthersReminder, store: store)
 		}
 		
 		
