@@ -76,4 +76,6 @@ class DownloadedPackagesStoreErrorStub: DownloadedPackagesStoreV2 {
 
 	var keyValueStore: Store?
 
+	var revokationList: [String] = []
+
 }
