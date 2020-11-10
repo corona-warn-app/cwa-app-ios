@@ -231,7 +231,7 @@ private extension Client {
 
 	func fetchAllKeys(
 		wifiClient: WifiOnlyHTTPClient,
-		completion completeWith: @escaping DaysAndHoursCompletionHandler
+		completion completeWith: @escaping FetchDaysAndHoursCompletionHandler
 	) {
 		availableDaysAndHours { daysAndHours in
 			self.fetchDays(daysAndHours.days, forCountry: "DE") { daysResult in
