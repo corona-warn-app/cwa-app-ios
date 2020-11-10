@@ -124,8 +124,8 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 			stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
 			stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
 			stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-			time1Textfield.widthAnchor.constraint(equalToConstant: 60),
-			time2Textfield.widthAnchor.constraint(equalToConstant: 60)
+			time1Textfield.widthAnchor.constraint(equalToConstant: 70),
+			time2Textfield.widthAnchor.constraint(equalToConstant: 70)
 		])
 		
 		// Set Default Value for the notification text filelds:
@@ -142,8 +142,8 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	// MARK: - Private API
 	@objc
 	private func scheduleNotificationsButtonTapped() {
-		let time1 = Int(time1Textfield.text ?? "")
-		let time2 = Int(time2Textfield.text ?? "")
+		let time1 = Double(time1Textfield.text ?? "")
+		let time2 = Double(time2Textfield.text ?? "")
 		
 		// Create an alert when user enter the wrong values.
 		if time2 ?? WarnOthersNotificationsTimer.timerOneTime.rawValue <= time1 ?? WarnOthersNotificationsTimer.timerTwoTime.rawValue {

@@ -20,7 +20,7 @@
 import Foundation
 
 /// Defines two timer values for the first and the second notification to be shown. The values are meant to be seconds.
-enum WarnOthersNotificationsTimer: Int {
+enum WarnOthersNotificationsTimer: Double {
 	
 	case timerOneTime = 7200
 	
