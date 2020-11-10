@@ -4176,10 +4176,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
-				INFOPLIST_FILE = ENA/Resources/Info.plist;
+				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "Apple Distribution";
 				IPHONE_APP_DEV_TEAM = 523TP53AQF;
-				IPHONE_APP_DIST_PROF_SPECIFIER = "match AdHoc de.rki.coronawarnapp";
+				IPHONE_APP_DIST_PROF_SPECIFIER = "match AdHoc de.rki.coronawarnapp-dev";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4191,7 +4191,7 @@
 					"-DSQLCIPHER_CRYPTO_CC",
 					"-DNDEBUG",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_STORE USE_DEV_PK_FOR_SIG_VERIFICATION";
