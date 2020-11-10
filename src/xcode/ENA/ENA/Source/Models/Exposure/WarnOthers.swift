@@ -41,7 +41,7 @@ class WarnOthers: OthersWarnable {
 			return TimeInterval(store.warnOthersNotificationOneTimer)
 		}
 		set {
-			store.warnOthersNotificationOneTimer = Int(newValue)
+			store.warnOthersNotificationOneTimer = newValue
 		}
 	}
 	
@@ -51,7 +51,7 @@ class WarnOthers: OthersWarnable {
 			return TimeInterval(store.warnOthersNotificationTwoTimer)
 		}
 		set {
-			store.warnOthersNotificationTwoTimer = Int(newValue)
+			store.warnOthersNotificationTwoTimer = newValue
 		}
 	}
 	

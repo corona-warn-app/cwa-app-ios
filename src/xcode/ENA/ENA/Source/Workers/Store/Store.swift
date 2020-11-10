@@ -116,10 +116,10 @@ protocol StoreProtocol: AnyObject {
 	var selectedServerEnvironment: ServerEnvironmentData { get set }
 	
 	/// Delay time in seconds, when the first notification to warn others will be shown,
-	var warnOthersNotificationOneTimer: Int { get set }
+	var warnOthersNotificationOneTimer: TimeInterval { get set }
 	
 	/// Delay time in seconds, when the first notification to warn others will be shown,
-	var warnOthersNotificationTwoTimer: Int { get set }
+	var warnOthersNotificationTwoTimer: TimeInterval { get set }
 	
 	/// If there was a positive test result, this information will be stored for warn others
 	var warnOthersHasActiveTestResult: Bool { get set }
