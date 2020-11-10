@@ -22,6 +22,7 @@ import UIKit
 
 protocol CoronaWarnAppDelegate: AnyObject {
 	var client: HTTPClient { get }
+	var wifiClient: WifiOnlyHTTPClient { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
 	var appConfigurationProvider: AppConfigurationProviding { get }

@@ -18,11 +18,6 @@
 import Foundation
 import FMDB
 
-enum SQLiteErrorCode: Int32, Error {
-	case sqlite_full = 13
-	case unknown = -1
-}
-
 protocol DownloadedPackagesStoreV1: AnyObject {
 	func open()
 	func close()

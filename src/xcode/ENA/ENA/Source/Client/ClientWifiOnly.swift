@@ -20,7 +20,7 @@ import Foundation
 
 protocol ClientWifiOnly {
 
-	typealias HourCompletionHandler = (Result<SAPDownloadedPackage, Client.Failure>) -> Void
+	typealias HourCompletionHandler = (Result<PackageDownloadResponse, Client.Failure>) -> Void
 
 	/// Fetches the keys for a given `hour` of a specific `day`.
 	func fetchHour(

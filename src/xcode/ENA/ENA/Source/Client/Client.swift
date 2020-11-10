@@ -29,7 +29,8 @@ protocol Client {
 	typealias RegistrationHandler = (Result<String, Failure>) -> Void
 	typealias TestResultHandler = (Result<Int, Failure>) -> Void
 	typealias TANHandler = (Result<String, Failure>) -> Void
-	typealias DayCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
+	typealias DayCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
+	typealias HourCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
 
 	// MARK: Interacting with a Client
@@ -128,6 +129,16 @@ extension SubmissionError: LocalizedError {
 	}
 }
 
+/// A container for a downloaded `SAPDownloadedPackage` and its corresponding `ETag`, if given.
+struct PackageDownloadResponse {
+	let package: SAPDownloadedPackage
+
+	/// The response ETag
+	///
+	/// This is used to identify and revoke packages.
+	let etag: String?
+}
+
 /// Combined model for a submit keys request
 struct CountrySubmissionPayload {
 
@@ -143,33 +154,36 @@ struct CountrySubmissionPayload {
 
 struct DaysResult {
 	let errors: [Client.Failure]
-	let bucketsByDay: [String: SAPDownloadedPackage]
+	let bucketsByDay: [String: PackageDownloadResponse]
 }
 
 struct HoursResult {
 	let errors: [Client.Failure]
-	let bucketsByHour: [Int: SAPDownloadedPackage]
+	let bucketsByHour: [Int: PackageDownloadResponse]
 	let day: String
 }
 
 struct FetchedDaysAndHours {
 	let hours: HoursResult
 	let days: DaysResult
-	var allKeyPackages: [SAPDownloadedPackage] {
+	var allKeyPackages: [PackageDownloadResponse] {
 		Array(hours.bucketsByHour.values) + Array(days.bucketsByDay.values)
 	}
 }
 
 extension Client {
+	typealias FetchDaysCompletionHandler = (DaysResult) -> Void
+	typealias FetchHoursCompletionHandler = (HoursResult) -> Void
+	typealias FetchDaysAndHoursCompletionHandler = (FetchedDaysAndHours) -> Void
 
 	/// Fetch the keys with the given days and country code
 	func fetchDays(
 			_ days: [String],
 			forCountry country: String,
-			completion completeWith: @escaping (DaysResult) -> Void
+			completion completeWith: @escaping FetchDaysCompletionHandler
 	) {
 		var errors = [Client.Failure]()
-		var buckets = [String: SAPDownloadedPackage]()
+		var buckets = [String: PackageDownloadResponse]()
 
 		let group = DispatchGroup()
 		for day in days {
