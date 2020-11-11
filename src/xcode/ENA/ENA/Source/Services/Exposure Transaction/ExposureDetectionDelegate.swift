@@ -36,22 +36,6 @@ protocol ExposureDetectionDelegate: AnyObject {
 	typealias DetectionHandler = (Result<ENExposureDetectionSummary, Error>) -> Void
 	typealias SupportedCountriesResult = Result<[Country], URLSession.Response.Failure>
 
-	func exposureDetection(
-		country: Country.ID,
-		determineAvailableData completion: @escaping (DaysAndHours?, Country.ID) -> Void
-	)
-
-	func exposureDetection(
-		country: Country.ID,
-		downloadDeltaFor remote: DaysAndHours
-	) -> DaysAndHours
-
-	func exposureDetection(
-		country: Country.ID,
-		downloadAndStore delta: DaysAndHours,
-		completion: @escaping (ExposureDetection.DidEndPrematurelyReason?) -> Void
-	)
-
 	func exposureDetectionWriteDownloadedPackages(country: Country.ID) -> WrittenPackages?
 
 	func detectExposureWindows(

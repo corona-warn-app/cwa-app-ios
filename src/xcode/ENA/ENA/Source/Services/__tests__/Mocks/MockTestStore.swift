@@ -52,9 +52,11 @@ final class MockTestStore: Store, AppConfigCaching {
 	var registrationToken: String?
 	var allowRiskChangesNotification: Bool = true
 	var allowTestsStatusNotification: Bool = true
-	var hourlyFetchingEnabled: Bool = true
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
 	var selectedServerEnvironment: ServerEnvironmentData = ServerEnvironment().defaultEnvironment()
+	var wasRecentDayKeyDownloadSuccessful = false
+	var wasRecentHourKeyDownloadSuccessful = false
+	var lastKeyPackageDownloadDate: Date = .distantPast
 	var isDeviceTimeCorrect = true
 	var wasDeviceTimeErrorShown = false
 

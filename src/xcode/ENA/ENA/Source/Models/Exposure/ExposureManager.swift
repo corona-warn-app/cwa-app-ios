@@ -132,7 +132,7 @@ protocol ExposureDetector {
 }
 
 protocol ExposureManagerObserving {
-	func resume(observer: ENAExposureManagerObserver)
+	func observeExposureNotificationStatus(observer: ENAExposureManagerObserver)
 	func alertForBluetoothOff(completion: @escaping () -> Void) -> UIAlertController?
 }
 
@@ -169,7 +169,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		super.init()
 	}
 
-	func resume(observer: ENAExposureManagerObserver) {
+	func observeExposureNotificationStatus(observer: ENAExposureManagerObserver) {
 		// previsously we had a precondion here. Removed for now to track down a bug.
 		guard exposureManagerObserver == nil else {
 			return

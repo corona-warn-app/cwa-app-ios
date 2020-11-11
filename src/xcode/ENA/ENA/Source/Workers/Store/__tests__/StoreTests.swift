@@ -150,7 +150,6 @@ final class StoreTests: XCTestCase {
 		XCTAssertTrue(tmpStore.isOnboarded)
 		XCTAssertEqual(tmpStore.dateOfAcceptedPrivacyNotice?.description, testDate1.description)
 		XCTAssertEqual(tmpStore.teleTan, "97RR2D5644")
-		XCTAssertFalse(tmpStore.hourlyFetchingEnabled)
 		XCTAssertEqual(tmpStore.tan, "97RR2D5644")
 		XCTAssertEqual(tmpStore.testGUID, "00000000-0000-4000-8000-000000000000")
 		XCTAssertTrue(tmpStore.devicePairingConsentAccept)
