@@ -31,9 +31,12 @@ class MockURLSessionDataTask: URLSessionDataTask {
 
 class MockUrlSession: URLSession {
 	typealias URLRequestObserver = ((URLRequest) -> Void)
-	let data: Data?
-	let nextResponse: URLResponse?
-	let error: Error?
+
+	var data: Data?
+	var nextResponse: URLResponse?
+	var error: Error?
+
+	var onPrepareResponse: (() -> Void)?
 	var onURLRequestObserver: URLRequestObserver?
 
 	init(
@@ -48,9 +51,14 @@ class MockUrlSession: URLSession {
 		self.onURLRequestObserver = urlRequestObserver
 	}
 
+	func prepareForDataTask(data: Data?, response: URLResponse?) {
+		self.data = data
+		self.nextResponse = response
+	}
+
 	override func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
 		onURLRequestObserver?(URLRequest(url: url))
-
+		onPrepareResponse?()
 		return MockURLSessionDataTask {
 			completionHandler(self.data, self.nextResponse, self.error)
 		}
@@ -58,7 +66,7 @@ class MockUrlSession: URLSession {
 
 	override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
 		onURLRequestObserver?(request)
-
+		onPrepareResponse?()
 		return MockURLSessionDataTask {
 			completionHandler(self.data, self.nextResponse, self.error)
 		}

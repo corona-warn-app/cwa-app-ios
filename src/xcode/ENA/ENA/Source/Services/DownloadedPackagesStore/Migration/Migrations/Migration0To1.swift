@@ -27,7 +27,7 @@ final class Migration0To1: Migration {
 		self.database = database
 	}
 
-	func execute(completed: (Bool) -> Void) {
+	func execute() throws {
 		let sql = """
 			BEGIN TRANSACTION;
 
@@ -80,7 +80,8 @@ final class Migration0To1: Migration {
 			COMMIT;
 		"""
 
-		let success = database.executeStatements(sql)
-		completed(success)
+		guard database.executeStatements(sql) else {
+			throw MigrationError.general(description: "(\(database.lastErrorCode())) \(database.lastErrorMessage())")
+		}
 	}
 }
