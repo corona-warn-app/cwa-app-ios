@@ -41,7 +41,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		#endif
 
-		exposureManager.resume(observer: self)
+		exposureManager.observeExposureNotificationStatus(observer: self)
 
 		riskConsumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk
@@ -86,7 +86,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	func sceneWillEnterForeground(_ scene: UIScene) {
 		let detectionMode = DetectionMode.fromBackgroundStatus()
-		riskProvider.configuration.detectionMode = detectionMode
+		riskProvider.riskProvidingConfiguration.detectionMode = detectionMode
 
 		riskProvider.requestRisk(userInitiated: false)
 
@@ -144,7 +144,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.open()
 		exposureManager.reset {
-			self.exposureManager.resume(observer: self)
+			self.exposureManager.observeExposureNotificationStatus(observer: self)
 			NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 		}
 

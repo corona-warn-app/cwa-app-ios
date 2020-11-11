@@ -1,4 +1,3 @@
-//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -15,19 +14,27 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-//
 
-import XCTest
-@testable import ENA
+import ExposureNotification
+import Foundation
 
-final class CancellationTokenTests: XCTestCase {
-    func testCallsBlockOnCancel() throws {
-		let onCancelWasCalled = expectation(description: "onCancel must be called")
-		onCancelWasCalled.assertForOverFulfill = true
-		let sut = CancellationToken {
-			onCancelWasCalled.fulfill()
-		}
-		sut.cancel()
-		waitForExpectations(timeout: .short)
-	}
+protocol ClientWifiOnly {
+
+	typealias HourCompletionHandler = (Result<PackageDownloadResponse, Client.Failure>) -> Void
+
+	/// Fetches the keys for a given `hour` of a specific `day`.
+	func fetchHour(
+		_ hour: Int,
+		day: String,
+		country: String,
+		completion: @escaping HourCompletionHandler
+	)
+
+	func fetchHours(
+		_ hours: [Int],
+		day: String,
+		country: String,
+		completion completeWith: @escaping (HoursResult) -> Void
+	)
+
 }

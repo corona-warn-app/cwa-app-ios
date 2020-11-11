@@ -50,7 +50,6 @@ protocol StoreProtocol: AnyObject {
 	var developerDistributionBaseURLOverride: String? { get set }
 	var developerVerificationBaseURLOverride: String? { get set }
 	var teleTan: String? { get set }
-	var hourlyFetchingEnabled: Bool { get set }
 
 	/// A secret allowing the client to upload the diagnosisKey set.
 	var tan: String? { get set }
@@ -124,7 +123,13 @@ protocol StoreProtocol: AnyObject {
 	/// If there was a positive test result, this information will be stored for warn others
 	var warnOthersHasActiveTestResult: Bool { get set }
 
-	var isDeviceTimeCorrect: Bool { get set }
+	var wasRecentDayKeyDownloadSuccessful: Bool { get set }
+
+	var wasRecentHourKeyDownloadSuccessful: Bool { get set }
+
+	var lastKeyPackageDownloadDate: Date { get set }
+
+    var isDeviceTimeCorrect: Bool { get set }
 	
 	var wasDeviceTimeErrorShown: Bool { get set }
 

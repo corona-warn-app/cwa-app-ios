@@ -33,8 +33,6 @@ extension ExposureDetection {
 		case unableToWriteDiagnosisKeys
 		/// Unable to get supported countries
 		case noSupportedCountries
-		/// Unable to save key packages due to missing disk space
-		case noDiskSpace
 		/// User has the wrong device time, no risk calculation possible
 		case wrongDeviceTime
 	}
@@ -74,8 +72,6 @@ extension ExposureDetection.DidEndPrematurelyReason: LocalizedError {
 			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoExposureConfiguration"
 		case .noSupportedCountries:
 			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoSupportedCountries"
-		case .noDiskSpace:
-			return AppStrings.ExposureDetectionError.errorAlertFullDistSpaceMessage
 		case .wrongDeviceTime:
 			return AppStrings.ExposureDetectionError.errorAlertWrongDeviceTime
 		}

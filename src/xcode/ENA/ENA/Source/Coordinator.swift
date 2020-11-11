@@ -131,6 +131,7 @@ class Coordinator: RequiresAppDependencies {
 		developerMenu = DMDeveloperMenu(
 			presentingViewController: controller,
 			client: client,
+			wifiClient: wifiClient,
 			store: store,
 			exposureManager: exposureManager,
 			developerStore: UserDefaults.standard,

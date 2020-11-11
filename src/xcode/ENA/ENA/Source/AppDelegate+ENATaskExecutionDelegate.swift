@@ -88,7 +88,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	private func executeExposureDetectionRequest(completion: @escaping ((Bool) -> Void)) {
 
 		// At this point we are already in background so it is safe to assume background mode is available.
-		riskProvider.configuration.detectionMode = .fromBackgroundStatus(.available)
+		riskProvider.riskProvidingConfiguration.detectionMode = .fromBackgroundStatus(.available)
 
 		riskProvider.requestRisk(userInitiated: false) { [weak self] result in
 			guard let self = self else { return }

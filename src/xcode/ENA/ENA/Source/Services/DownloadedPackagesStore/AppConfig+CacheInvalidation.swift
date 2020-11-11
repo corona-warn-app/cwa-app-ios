@@ -19,27 +19,15 @@
 
 import Foundation
 
-final class CancellationToken {
-	// MARK: Types
-	typealias Handler = () -> Void
 
-	// MARK: Creating a Cancellation Token
-	init(onCancel: @escaping Handler) {
-		self.onCancel = onCancel
-		isCancelled = false
-	}
+extension SAP_Internal_ApplicationConfiguration {
+	var revokationEtags: [String] {
+		let dayMeta = iosKeyDownloadParameters.cachedDayPackagesToUpdateOnEtagMismatch
+		let hourMeta = iosKeyDownloadParameters.cachedHourPackagesToUpdateOnEtagMismatch
 
-	// MARK: Properties
-	let onCancel: Handler
-	private var isCancelled: Bool
+		var etags = dayMeta.map({ $0.etag })
+		etags.append(contentsOf: hourMeta.map({ $0.etag }))
 
-	// MARK: Working with the Cancellation Token
-	func cancel() {
-		precondition(
-			isCancelled == false,
-			"Cancelling an already cancelled operation is not supported and indicates a programmer error."
-		)
-		isCancelled = true
-		onCancel()
+		return etags
 	}
 }
