@@ -55,11 +55,14 @@ final class CachedAppConfiguration {
 
 		guard shouldFetch() else { return }
 
+
+		// TODO: Is this check needed or just tinfoil wrapped in shrink wrapping?
+
 		// edge case: if no app config is cached, omit a potentially existing ETag to force fetch a new configuration
-		let etag = store.appConfig == nil ? nil : store.lastAppConfigETag
+//		let etag = store.appConfig == nil ? nil : store.lastAppConfigETag
 
 		// check for updated or fetch initial app configuration
-		fetchConfig(with: etag)
+		fetchConfig(with: store.appConfigMetadata?.lastAppConfigETag)
 	}
 
 	private func fetchConfig(with etag: String?, completion: Completion? = nil) {
