@@ -22,19 +22,7 @@
 import UIKit
 
 final class DMWarnOthersNotificationViewController: UIViewController, UITextFieldDelegate {
-	
-	
-	// MARK: Properties
-	private var timeInterval1TextField: UITextField!
-	private var timeInterval2TextField: UITextField!
-	
-	private var timeInterval1Label: UILabel!
-	private var timeInterval2Label: UILabel!
-	
-	private let store: Store
-	private var warnOthersReminder: WarnOthersRemindable
-	
-	
+
 	// MARK: - Init
 	
 	init(warnOthersReminder: WarnOthersRemindable, store: Store) {
@@ -47,9 +35,9 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-	
-	
+
 	// MARK: - Overrides
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -138,30 +126,36 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		
 	}
 	
-	// MARK: - Private API
+	// MARK: - Private
+
+	private var timeInterval1TextField: UITextField!
+	private var timeInterval2TextField: UITextField!
+
+	private var timeInterval1Label: UILabel!
+	private var timeInterval2Label: UILabel!
+
+	private let store: Store
+	private var warnOthersReminder: WarnOthersRemindable
+
 	@objc
 	private func scheduleNotificationsButtonTapped() {
-		let timeInterval1 = Double(timeInterval1TextField.text ?? "")
-		let timeInterval2 = Double(timeInterval2TextField.text ?? "")
+		let timeInterval1 = Double(timeInterval1TextField.text ?? "") ?? WarnOthersNotificationsTimeInterval.intervalOne
+		let timeInterval2 = Double(timeInterval2TextField.text ?? "") ?? WarnOthersNotificationsTimeInterval.intervalTwo
 		
 		// Create an alert when user enter the wrong values.
-		if timeInterval2 ?? WarnOthersNotificationsTimeInterval.intervalOne <= timeInterval1 ?? WarnOthersNotificationsTimeInterval.intervalTwo {
-			
+		if timeInterval2 <= timeInterval1 {
 			// Display second notification should be greater than first notification alert.
-			alertMessage(title: "Please Enter the Correct Notification Time", message: "Second notification time seconds should be greater than the first notification time seconds.")
-
+			showAlert(title: "Please Enter the Correct Notification Time", message: "Second notification time seconds should be greater than the first notification time seconds.")
 		} else {
 			// Save the notifications time into the SecureStore.
-			warnOthersReminder.notificationOneTimeInterval = TimeInterval(timeInterval1 ?? WarnOthersNotificationsTimeInterval.intervalOne)
-			warnOthersReminder.notificationTwoTimeInterval = TimeInterval(timeInterval2 ?? WarnOthersNotificationsTimeInterval.intervalTwo)
+			warnOthersReminder.notificationOneTimeInterval = TimeInterval(timeInterval1)
+			warnOthersReminder.notificationTwoTimeInterval = TimeInterval(timeInterval2)
 			
 			//Display notification save alert.
-			alertMessage(title: "Notifications time saved", message: "Notification1 time \(timeInterval1 ?? WarnOthersNotificationsTimeInterval.intervalOne) seconds & Notification2 time \(timeInterval2 ?? WarnOthersNotificationsTimeInterval.intervalTwo) seconds has saved into the secure store.")
+			showAlert(title: "Notifications time saved", message: "Notification1 time \(timeInterval1) seconds & Notification2 time \(timeInterval2) seconds has saved into the secure store.")
 		}
-
 	}
-	
-	
+
 	@objc
 	private func resetDefaultsButtonTapped() {
 		timeInterval1TextField.text = "\(WarnOthersNotificationsTimeInterval.intervalOne)"
@@ -171,33 +165,26 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	@objc
 	private func resetNotificationsButtonTapped() {
 		warnOthersReminder.reset()
-		alertMessage(title: "Done", message: "Warn others notifications can appear again.")
-
+		showAlert(title: "Done", message: "Warn others notifications can appear again.")
 	}
-}
 
-// MARK: - Set the alert popups.
-extension DMWarnOthersNotificationViewController {
-	func alertMessage(title: String, message: String) {
-		// create the alert
+	private func showAlert(title: String, message: String) {
 		let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-		// add an action button
 		alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-		// show the alert
 		self.present(alert, animated: true, completion: nil)
 	}
-}
 
-// MARK: - Dismiss the keyboard
-extension DMWarnOthersNotificationViewController {
-	func hideKeyboardWhenTappedAround() {
-		let tap = UITapGestureRecognizer(target: self, action: #selector(DMWarnOthersNotificationViewController.dismissKeyboard))
+	private func hideKeyboardWhenTappedAround() {
+		let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
 		tap.cancelsTouchesInView = false
 		view.addGestureRecognizer(tap)
 	}
+
 	@objc
-	func dismissKeyboard() {
+	private func dismissKeyboard() {
 		view.endEditing(true)
 	}
+
 }
+
 #endif

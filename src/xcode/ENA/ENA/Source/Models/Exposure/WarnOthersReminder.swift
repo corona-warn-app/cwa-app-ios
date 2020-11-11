@@ -25,6 +25,15 @@ import UIKit
 /// WarnOthers always is related to one concrete test result, which always needs to be a positive one.
 class WarnOthersReminder: WarnOthersRemindable {
 	
+	// MARK: - Init
+
+	init(store: Store) {
+		self.store = store
+		self.hasPositiveTestResult = store.warnOthersHasActiveTestResult
+	}
+
+	// MARK: - Protocol WarnOthersRemindable
+
 	var hasPositiveTestResult: Bool {
 		get {
 			return store.warnOthersHasActiveTestResult
@@ -33,34 +42,27 @@ class WarnOthersReminder: WarnOthersRemindable {
 			store.warnOthersHasActiveTestResult = newValue
 		}
 	}
-	
+
 	/// Notification timer in seconds for notification one
 	var notificationOneTimeInterval: TimeInterval {
 		get {
-			return TimeInterval(store.warnOthersNotificationOneTimer)
+			return store.warnOthersNotificationOneTimer
 		}
 		set {
 			store.warnOthersNotificationOneTimer = newValue
 		}
 	}
-	
+
 	/// Notification timer in seconds for notification two
 	var notificationTwoTimeInterval: TimeInterval {
 		get {
-			return TimeInterval(store.warnOthersNotificationTwoTimer)
+			return store.warnOthersNotificationTwoTimer
 		}
 		set {
 			store.warnOthersNotificationTwoTimer = newValue
 		}
 	}
-	
-	// MARK: - Init
-	init(store: Store) {
-		self.store = store
-		self.hasPositiveTestResult = store.warnOthersHasActiveTestResult
-	}
-	
-	// MARK: - Internal
+
 	/// This function takes a `TestResult` as parameter to evaluate, if possible notifications need to be scheduled for the warn others notification process.
 	func evaluateNotificationState(testResult: TestResult) {
 		
@@ -86,6 +88,7 @@ class WarnOthersReminder: WarnOthersRemindable {
 	}
 	
 	// MARK: - Private
+
 	private let store: Store
 	
 	private func scheduleNotifications() {
@@ -95,4 +98,5 @@ class WarnOthersReminder: WarnOthersRemindable {
 		)
 		Log.info("Warn Others: New notifications have been scheduled:  #1 \(store.warnOthersNotificationOneTimer)/ #2 \(store.warnOthersNotificationTwoTimer) seconds)")
 	}
+	
 }

@@ -35,7 +35,8 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		exposureSubmissionService.devicePairingSuccessfulTimestamp = 37
 		
 		let model = ExposureSubmissionTestResultViewModel(
-			warnOthersReminder: WarnOthersReminder(store: self.store), testResult: .positive,
+			warnOthersReminder: WarnOthersReminder(store: self.store),
+			testResult: .positive,
 			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
