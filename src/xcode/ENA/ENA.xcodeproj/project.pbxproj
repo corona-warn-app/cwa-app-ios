@@ -478,6 +478,9 @@
 		B1FE13FF2489708200D012E5 /* CachedAppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13F824896DDB00D012E5 /* CachedAppConfiguration.swift */; };
 		B1FF6B6E2497D0B50041CF02 /* CWASQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = B1FF6B6C2497D0B50041CF02 /* CWASQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1FF6B772497D2330041CF02 /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DFCC2712484DC8400E2811D /* sqlite3.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */; };
+		BA112E0A25559CDD007F5712 /* ClientWifiOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */; };
+		BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */; };
 		BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8A9D254D634E008344F5 /* RiskCalculationConfiguration.swift */; };
 		BA6C8AA6254D63A0008344F5 /* MinutesAtAttenuationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AA5254D63A0008344F5 /* MinutesAtAttenuationFilter.swift */; };
 		BA6C8AAE254D6476008344F5 /* ENARange.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AAD254D6476008344F5 /* ENARange.swift */; };
@@ -493,9 +496,6 @@
 		BA6C8B24254D76ED008344F5 /* ExposureWindowTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AE3254D6598008344F5 /* ExposureWindowTestCase.swift */; };
 		BA6C8B2B254D76F7008344F5 /* TestCasesWithConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8A95254D62C3008344F5 /* TestCasesWithConfiguration.swift */; };
 		BA6C8B51254D80DF008344F5 /* ExposureWindowTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8B50254D80DF008344F5 /* ExposureWindowTest.swift */; };
-		BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */; };
-		BA112E0A25559CDD007F5712 /* ClientWifiOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */; };
-		BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */; };
 		BA6D1634255AD2AA00ED3492 /* DMWifiClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D1633255AD2AA00ED3492 /* DMWifiClientViewModel.swift */; };
 		BA6D163A255AD35900ED3492 /* DMSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D1638255AD35900ED3492 /* DMSwitchTableViewCell.swift */; };
 		BA6D163B255AD35900ED3492 /* DMSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA6D1639255AD35900ED3492 /* DMSwitchTableViewCell.xib */; };
@@ -538,8 +538,6 @@
 		EB858D2024E700D10048A0AA /* UIView+Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */; };
 		EB873540253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */; };
 		EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */; };
-		EBE7DF4A254C2DE8008A0648 /* key_download_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE7DF48254C2DE8008A0648 /* key_download_parameters.pb.swift */; };
-		EBE7DF4B254C2DE8008A0648 /* exposure_detection_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE7DF49254C2DE8008A0648 /* exposure_detection_parameters.pb.swift */; };
 		EE20EA072469883900770683 /* RiskLegend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE20EA062469883900770683 /* RiskLegend.storyboard */; };
 		EE22DB81247FB40A001B0A71 /* ENStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */; };
 		EE22DB82247FB40A001B0A71 /* ENSettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB80247FB409001B0A71 /* ENSettingModel.swift */; };
@@ -1090,6 +1088,9 @@
 		B1FF6B6A2497D0B40041CF02 /* CWASQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CWASQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1FF6B6C2497D0B50041CF02 /* CWASQLite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CWASQLite.h; sourceTree = "<group>"; };
 		B1FF6B6D2497D0B50041CF02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WifiOnlyHTTPClient.swift; sourceTree = "<group>"; };
+		BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientWifiOnly.swift; sourceTree = "<group>"; };
+		BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWifiClientViewController.swift; sourceTree = "<group>"; };
 		BA6C8A8F254D61F4008344F5 /* exposure-windows-risk-calculation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "exposure-windows-risk-calculation.json"; sourceTree = "<group>"; };
 		BA6C8A95254D62C3008344F5 /* TestCasesWithConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCasesWithConfiguration.swift; sourceTree = "<group>"; };
 		BA6C8A9D254D634E008344F5 /* RiskCalculationConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationConfiguration.swift; sourceTree = "<group>"; };
@@ -1105,9 +1106,6 @@
 		BA6C8B04254D6B1F008344F5 /* RiskCalculationV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationV2.swift; sourceTree = "<group>"; };
 		BA6C8B0D254D6BF9008344F5 /* RiskCalculationV2Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationV2Test.swift; sourceTree = "<group>"; };
 		BA6C8B50254D80DF008344F5 /* ExposureWindowTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureWindowTest.swift; sourceTree = "<group>"; };
-		BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WifiOnlyHTTPClient.swift; sourceTree = "<group>"; };
-		BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientWifiOnly.swift; sourceTree = "<group>"; };
-		BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWifiClientViewController.swift; sourceTree = "<group>"; };
 		BA6D1633255AD2AA00ED3492 /* DMWifiClientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWifiClientViewModel.swift; sourceTree = "<group>"; };
 		BA6D1638255AD35900ED3492 /* DMSwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSwitchTableViewCell.swift; sourceTree = "<group>"; };
 		BA6D1639255AD35900ED3492 /* DMSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DMSwitchTableViewCell.xib; sourceTree = "<group>"; };
@@ -1156,8 +1154,6 @@
 		EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Screenshot.swift"; sourceTree = "<group>"; };
 		EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenter+DeadManSwitch.swift"; sourceTree = "<group>"; };
 		EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewController.swift; sourceTree = "<group>"; };
-		EBE7DF48254C2DE8008A0648 /* key_download_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = key_download_parameters.pb.swift; path = ../../../gen/output/internal/key_download_parameters.pb.swift; sourceTree = "<group>"; };
-		EBE7DF49254C2DE8008A0648 /* exposure_detection_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = exposure_detection_parameters.pb.swift; path = ../../../gen/output/internal/exposure_detection_parameters.pb.swift; sourceTree = "<group>"; };
 		EE20EA062469883900770683 /* RiskLegend.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RiskLegend.storyboard; sourceTree = "<group>"; };
 		EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENStateHandler.swift; sourceTree = "<group>"; };
 		EE22DB80247FB409001B0A71 /* ENSettingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSettingModel.swift; sourceTree = "<group>"; };
@@ -2627,7 +2623,6 @@
 				B16457BA24DC3309002879EB /* DMLogsViewController.swift */,
 				EB6B5D872539AE9400B0ED57 /* DMNotificationsViewController.swift */,
 				ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */,
-				B16457B824DC19F9002879EB /* DMSettingsViewController.swift */,
 				9417BA94252B6B5100AD4053 /* DMSQLiteErrorViewController.swift */,
 				B18755D024DC45CA00A9202E /* DMStoreViewController.swift */,
 				B1E8C99C2479D4E7006DC678 /* DMSubmissionStateViewController.swift */,
@@ -2878,6 +2873,8 @@
 				BA6C8A95254D62C3008344F5 /* TestCasesWithConfiguration.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
 		BA6D164D255ADD8600ED3492 /* DMWifiClient */ = {
 			isa = PBXGroup;
 			children = (
@@ -3354,7 +3351,6 @@
 				AB6289CF251BA01400CF61D2 /* Bundle+Version.swift in Sources */,
 				AB7420C2251B7D59006666AC /* DeltaOnboardingProtocols.swift in Sources */,
 				7187A5582481231C00FCC755 /* DynamicTableViewAction.swift in Sources */,
-				EBE7DF4A254C2DE8008A0648 /* key_download_parameters.pb.swift in Sources */,
 				B16457B524DC11EF002879EB /* DMLastSubmissionRequetViewController.swift in Sources */,
 				A128F059248B459F00EC7F6C /* PublicKeyStore.swift in Sources */,
 				01D6948D2502717F00B45BEA /* DatePickerDayView.swift in Sources */,
@@ -3632,7 +3628,6 @@
 				9488C3012521EE8E00504648 /* DeltaOnboardingNavigationController.swift in Sources */,
 				71FE1C86247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift in Sources */,
 				1309194F247972C40066E329 /* PrivacyProtectionViewController.swift in Sources */,
-				EBE7DF4B254C2DE8008A0648 /* exposure_detection_parameters.pb.swift in Sources */,
 				CDCE11DB247D64D600F30825 /* NotificationSettingsOffTableViewCell.swift in Sources */,
 				EB08F17C2541CE3300D11FA9 /* submission_payload.pb.swift in Sources */,
 				BA6C8AEC254D65C4008344F5 /* ExposureWindow.swift in Sources */,
