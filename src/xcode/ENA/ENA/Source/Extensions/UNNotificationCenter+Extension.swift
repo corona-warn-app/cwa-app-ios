@@ -47,29 +47,5 @@ extension UNUserNotificationCenter {
 				Log.error(error.localizedDescription, log: .api)
 			}
 		}
-
-		let openActionIdentifier = UserNotificationAction.openExposureDetectionResults
-
-		let viewAction = UNNotificationAction(
-			identifier: openActionIdentifier.rawValue,
-			title: openActionIdentifier.rawValue,
-			options: [.authenticationRequired]
-		)
-
-		let deleteAction = UNNotificationAction(
-			identifier: UserNotificationAction.ignore.rawValue,
-			title: UserNotificationAction.ignore.rawValue,
-			options: [.destructive]
-		)
-
-		let category = UNNotificationCategory(
-			identifier: identifier,
-			actions: [viewAction, deleteAction],
-			intentIdentifiers: [],
-			options: []
-		)
-
-		setNotificationCategories([category])
-
 	}
 }
