@@ -110,6 +110,8 @@ workflows:
       jobs:
         - testflight-release:
             filters:
-              branches:
+              tags:
                 only:
-                  - /rc\/.*/
+                  - /^v.*/
+              branches:
+                ignore: /.*/
