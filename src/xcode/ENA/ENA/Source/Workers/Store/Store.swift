@@ -118,6 +118,8 @@ protocol StoreProtocol: AnyObject {
 
 	var wasRecentHourKeyDownloadSuccessful: Bool { get set }
 
+	var lastKeyPackageDownloadDate: Date { get set }
+
     var isDeviceTimeCorrect: Bool { get set }
 	
 	var wasDeviceTimeErrorShown: Bool { get set }

@@ -56,6 +56,7 @@ final class MockTestStore: Store, AppConfigCaching {
 	var selectedServerEnvironment: ServerEnvironmentData = ServerEnvironment().defaultEnvironment()
 	var wasRecentDayKeyDownloadSuccessful = false
 	var wasRecentHourKeyDownloadSuccessful = false
+	var lastKeyPackageDownloadDate: Date = .distantPast
 	var isDeviceTimeCorrect = true
 	var wasDeviceTimeErrorShown = false
 

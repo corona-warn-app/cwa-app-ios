@@ -110,6 +110,7 @@
 		3539DAD1252B353C00489B1A /* CachedAppConfigurationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */; };
 		3539DAE3252B42EE00489B1A /* de-config-int-2020-09-25 in Resources */ = {isa = PBXBuildFile; fileRef = 35853E11251DDD33008FE983 /* de-config-int-2020-09-25 */; };
 		354E305924EFF26E00526C9F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354E305824EFF26E00526C9F /* Country.swift */; };
+		357B1858255A7F5C00584548 /* AppConfig+CacheInvalidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357B1857255A7F5C00584548 /* AppConfig+CacheInvalidation.swift */; };
 		35853E12251DDD33008FE983 /* de-config-int-2020-09-25 in Resources */ = {isa = PBXBuildFile; fileRef = 35853E11251DDD33008FE983 /* de-config-int-2020-09-25 */; };
 		35853E22251DED0F008FE983 /* CachingHTTPClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35163D23251CFCCB00D220CA /* CachingHTTPClientMock.swift */; };
 		3598D99A24FE280700483F1F /* CountryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3598D99924FE280700483F1F /* CountryTests.swift */; };
@@ -360,10 +361,12 @@
 		AB7420C2251B7D59006666AC /* DeltaOnboardingProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420C1251B7D59006666AC /* DeltaOnboardingProtocols.swift */; };
 		AB7420CB251B7D93006666AC /* DeltaOnboardingV15ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420CA251B7D93006666AC /* DeltaOnboardingV15ViewController.swift */; };
 		AB7420DD251B8101006666AC /* DeltaOnboardingCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420DC251B8101006666AC /* DeltaOnboardingCoordinatorTests.swift */; };
+		AB7E2A80255ACC06005C90F6 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7E2A7F255ACC06005C90F6 /* Date+Utils.swift */; };
 		AB8B0D3225305384009C067B /* Localizable.links.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB8B0D3425305384009C067B /* Localizable.links.strings */; };
 		AB8B0D4525306089009C067B /* Localizable.links.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB8B0D3425305384009C067B /* Localizable.links.strings */; };
 		AB8BC3472551B97700F3B5A7 /* DownloadedPackagesStoreErrorStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BC3462551B97700F3B5A7 /* DownloadedPackagesStoreErrorStub.swift */; };
 		AB8BC34F2551BBE100F3B5A7 /* HourKeyPackagesDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BC34E2551BBE100F3B5A7 /* HourKeyPackagesDownloadTests.swift */; };
+		ABC6B7ED255AEF77000A1AC0 /* RiskProviderAndNewKeyPackagesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC6B7E8255AEF74000A1AC0 /* RiskProviderAndNewKeyPackagesTests.swift */; };
 		ABD2F634254C533200DC1958 /* KeyPackageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD2F633254C533200DC1958 /* KeyPackageDownload.swift */; };
 		ABDA2792251CE308006BAE84 /* DMServerEnvironmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */; };
 		B103193224E18A0A00DD02EF /* DMMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B103193124E18A0A00DD02EF /* DMMenuItem.swift */; };
@@ -680,6 +683,7 @@
 		353412CB2525EE4A0086D15C /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAppConfigurationMock.swift; sourceTree = "<group>"; };
 		354E305824EFF26E00526C9F /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		357B1857255A7F5C00584548 /* AppConfig+CacheInvalidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppConfig+CacheInvalidation.swift"; sourceTree = "<group>"; };
 		35853E11251DDD33008FE983 /* de-config-int-2020-09-25 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "de-config-int-2020-09-25"; sourceTree = "<group>"; };
 		3598D99924FE280700483F1F /* CountryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTests.swift; sourceTree = "<group>"; };
 		35A7F080250A7CF8005E6C33 /* KeychainHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelperTests.swift; sourceTree = "<group>"; };
@@ -951,6 +955,7 @@
 		AB7420C1251B7D59006666AC /* DeltaOnboardingProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingProtocols.swift; sourceTree = "<group>"; };
 		AB7420CA251B7D93006666AC /* DeltaOnboardingV15ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingV15ViewController.swift; sourceTree = "<group>"; };
 		AB7420DC251B8101006666AC /* DeltaOnboardingCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingCoordinatorTests.swift; sourceTree = "<group>"; };
+		AB7E2A7F255ACC06005C90F6 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
 		AB8B0D3C253053A1009C067B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.links.strings; sourceTree = "<group>"; };
 		AB8B0D3D253053D5009C067B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.links.strings; sourceTree = "<group>"; };
 		AB8B0D3E253053DB009C067B /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.links.strings; sourceTree = "<group>"; };
@@ -959,6 +964,7 @@
 		AB8B0D41253053E5009C067B /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Localizable.links.strings; sourceTree = "<group>"; };
 		AB8BC3462551B97700F3B5A7 /* DownloadedPackagesStoreErrorStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesStoreErrorStub.swift; sourceTree = "<group>"; };
 		AB8BC34E2551BBE100F3B5A7 /* HourKeyPackagesDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourKeyPackagesDownloadTests.swift; sourceTree = "<group>"; };
+		ABC6B7E8255AEF74000A1AC0 /* RiskProviderAndNewKeyPackagesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskProviderAndNewKeyPackagesTests.swift; sourceTree = "<group>"; };
 		ABD2F633254C533200DC1958 /* KeyPackageDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPackageDownload.swift; sourceTree = "<group>"; };
 		ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMServerEnvironmentViewController.swift; sourceTree = "<group>"; };
 		B102BDC22460410600CD55A2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -1654,6 +1660,7 @@
 				B1EDFD8C248E74D000E7EAFF /* URL+StaticString.swift */,
 				B153096924706F1000A4A1BD /* URLSession+Default.swift */,
 				B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */,
+				AB7E2A7F255ACC06005C90F6 /* Date+Utils.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2643,6 +2650,7 @@
 				AB5F84C224FE2EF2000400D4 /* V1 */,
 				AB5F84C124FE2EEA000400D4 /* V0 */,
 				AB5F84AB24F8F6EB000400D4 /* Migration */,
+				357B1857255A7F5C00584548 /* AppConfig+CacheInvalidation.swift */,
 				B16177E624802F85006E435A /* __tests__ */,
 			);
 			path = DownloadedPackagesStore;
@@ -2712,6 +2720,7 @@
 			isa = PBXGroup;
 			children = (
 				B1FE13E1248824E900D012E5 /* RiskProviderTests.swift */,
+				ABC6B7E8255AEF74000A1AC0 /* RiskProviderAndNewKeyPackagesTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -3246,6 +3255,7 @@
 				51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */,
 				50F9130D253F1D7800DFE683 /* OnboardingPageType.swift in Sources */,
 				A372DA3B24BDA075003248BB /* ExposureSubmissionCoordinator.swift in Sources */,
+				357B1858255A7F5C00584548 /* AppConfig+CacheInvalidation.swift in Sources */,
 				51FE277B2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift in Sources */,
 				0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */,
 				13BAE9B12472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift in Sources */,
@@ -3509,6 +3519,7 @@
 				B19FD7112491A07000A9D56A /* String+SemanticVersion.swift in Sources */,
 				710ABB25247514BD00948792 /* UIViewController+Segue.swift in Sources */,
 				51CE1B5524604DD2002CF42A /* HomeLayout.swift in Sources */,
+				AB7E2A80255ACC06005C90F6 /* Date+Utils.swift in Sources */,
 				B16457BD24DC3F4E002879EB /* DMKeysViewController.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				01C6AC0E252B1E990052814D /* ExposureSubmissionQRScannerViewModel.swift in Sources */,
@@ -3585,6 +3596,7 @@
 				AB3560A02547194C00C3F8E0 /* DeviceTimeCheckTests.swift in Sources */,
 				A128F04E2489ABEE00EC7F6C /* RiskCalculationTests.swift in Sources */,
 				01A1B442252DE57000841B63 /* ExposureSubmissionQRScannerViewModelTests.swift in Sources */,
+				ABC6B7ED255AEF77000A1AC0 /* RiskProviderAndNewKeyPackagesTests.swift in Sources */,
 				35C701F82556C01F008AEA91 /* Migration1To2Tests.swift in Sources */,
 				BA92A45E255163460063B46F /* ExposureSubmissionQRScannerViewModelGuidTests.swift in Sources */,
 				AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */,
@@ -4236,10 +4248,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
-				INFOPLIST_FILE = ENA/Resources/Info.plist;
+				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "Apple Distribution";
 				IPHONE_APP_DEV_TEAM = 523TP53AQF;
-				IPHONE_APP_DIST_PROF_SPECIFIER = "match AdHoc de.rki.coronawarnapp";
+				IPHONE_APP_DIST_PROF_SPECIFIER = "match AdHoc de.rki.coronawarnapp-dev";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4251,7 +4263,7 @@
 					"-DSQLCIPHER_CRYPTO_CC",
 					"-DNDEBUG",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_STORE USE_DEV_PK_FOR_SIG_VERIFICATION";

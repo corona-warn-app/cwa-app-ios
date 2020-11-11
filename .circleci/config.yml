@@ -155,7 +155,7 @@ jobs:
           name: fastlane testflight
           command: cd src/xcode && bundle exec fastlane betaRelease --env TestFlight
       - run:
-          name: fastlane appcenter
+          name: fastlane appcenter and Mobile Device Cloud
           command: cd src/xcode && bundle exec fastlane adHocDistribution
   update-docs:
     macos:

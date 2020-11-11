@@ -197,11 +197,16 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		availableServerData(country: countryId, downloadMode: downloadMode) { [weak self] result in
 			guard let self = self else { return }
 
-
 			switch result {
 			case .success(let availablePackages):
 				self.cleanupPackages(for: countryId, serverPackages: availablePackages, downloadMode: downloadMode)
+
 				let deltaPackages = self.serverDelta(country: countryId, for: Set(availablePackages), downloadMode: downloadMode)
+
+				guard !deltaPackages.isEmpty else {
+					completion(.success(()))
+					return
+				}
 
 				self.downloadPackages(for: Array(deltaPackages), downloadMode: downloadMode, country: countryId) { [weak self] result in
 					guard let self = self else { return }
@@ -212,6 +217,8 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 
 						switch result {
 						case .success:
+							self.store.lastKeyPackageDownloadDate = Date()
+
 							completion(.success(()))
 						case .failure(let error):
 							completion(.failure(error))

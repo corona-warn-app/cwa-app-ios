@@ -333,7 +333,8 @@ extension RiskProvider: RiskProviding {
 		appConfiguration: SAP_Internal_ApplicationConfiguration,
 		completion: @escaping (Result<SummaryMetadata, RiskProviderError>) -> Void
 	) {
-		if let cachedSummary = loadSummaryFromCache(userInitiated: userInitiated, ignoreCachedSummary: ignoreCachedSummary) {
+		if shouldLoadSummaryFromCache(userInitiated: userInitiated, ignoreCachedSummary: ignoreCachedSummary),
+		   let cachedSummary = store.summary {
 			Log.info("RiskProvider: Loaded summary from cache", log: .riskDetection)
 			completion(.success(cachedSummary))
 		} else {
@@ -341,13 +342,13 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	private func loadSummaryFromCache(
+	private func shouldLoadSummaryFromCache(
 		userInitiated: Bool,
 		ignoreCachedSummary: Bool = false
-	) -> SummaryMetadata? {
+	) -> Bool {
 
 		guard !ignoreCachedSummary else {
-			return nil
+			return true
 		}
 
 		// Here we are in automatic mode and thus we have to check the validity of the current summary.
@@ -355,14 +356,21 @@ extension RiskProvider: RiskProviding {
 			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
 			lastExposureDetectionDate: store.summary?.date
 		)
+
 		let config = riskProvidingConfiguration
 		let shouldDetectExposures = (config.detectionMode == .manual && userInitiated) || config.detectionMode == .automatic
 
-		if !enoughTimeHasPassed || !self.exposureManagerState.isGood || !shouldDetectExposures {
-			return store.summary
-		} else {
-			return nil
-		}
+		return !enoughTimeHasPassed || !exposureManagerState.isGood || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackages
+	}
+
+	private var shouldDetectExposureBecauseOfNewPackages: Bool {
+		let lastKeyPackageDownloadDate = store.lastKeyPackageDownloadDate
+		let lastExposureDetectionDate = store.summary?.date ?? .distantPast
+		let didDownloadNewPackagesSinceLastDetection = lastKeyPackageDownloadDate > lastExposureDetectionDate
+		let hoursSinceLastDetection = -lastExposureDetectionDate.hoursSinceNow
+		let lastDetectionMoreThan24HoursAgo = hoursSinceLastDetection > 24
+
+		return didDownloadNewPackagesSinceLastDetection || lastDetectionMoreThan24HoursAgo
 	}
 
 	private func executeExposureDetection(

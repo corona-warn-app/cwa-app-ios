@@ -188,7 +188,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 
 		let countries = ["DE", "IT"]
 		let days = ["2020-11-03", "2020-11-02"]
-		let hours = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 141, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+		let hours = [Int].init(1...24)
 
 		// Add days DE, IT
 		for country in countries {
@@ -360,5 +360,114 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		try store.delete(packages: packages)
 		XCTAssertEqual(store.allDays(country: "DE").count, 4)
 		XCTAssertEqual(store.allDays(country: "IT").count, 1)
+	}
+
+	func testPackageStoreValidation() throws {
+		let database = FMDatabase.inMemory()
+		let store = DownloadedPackagesSQLLiteStore(database: database, migrator: SerialMigratorFake(), latestVersion: 0)
+		store.open()
+
+		// dummy data
+		var package: SAPDownloadedPackage {
+			let noise = Data("fake\(Int.random(in: 0..<Int.max))".utf8)
+			return SAPDownloadedPackage(keysBin: noise, signature: Data("sig".utf8))
+		}
+		let etag = "\"66ac17747b947b61a066369384896c79\""
+		let revokedEtag = "\"d41d8cd98f00b204e9800998ecf8427e\""
+
+		// validate empty store and revokation list
+		XCTAssertNoThrow(try store.validateCachedKeyPackages(revokationList: []))
+		XCTAssertNoThrow(try store.validateCachedKeyPackages(revokationList: [revokedEtag]))
+
+		// Add some data
+		try store.set(country: "DE", day: "2020-06-01", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-02", etag: etag, package: package)
+
+		XCTAssertNoThrow(try store.validateCachedKeyPackages(revokationList: [revokedEtag]))
+		XCTAssertEqual(store.allDays(country: "DE").count, 2)
+
+		// add some more data
+		try store.set(country: "DE", day: "2020-06-03", etag: revokedEtag, package: package)
+		try store.set(country: "IT", day: "2020-06-03", etag: revokedEtag, package: package)
+		try store.set(country: "DE", day: "2020-06-04", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-05", etag: nil, package: package)
+		try store.set(country: "DE", day: "2020-06-06", etag: nil, package: package)
+		try store.set(country: "IT", day: "2020-06-06", etag: nil, package: package)
+		try store.set(country: "DE", day: "2020-06-07", etag: nil, package: package)
+
+		XCTAssertEqual(store.allDays(country: "DE").count, 7)
+		XCTAssertEqual(store.allDays(country: "IT").count, 2)
+		XCTAssertNoThrow(try store.validateCachedKeyPackages(revokationList: [revokedEtag]))
+		// 2+4 new DE packages expected; 1 more removed
+		XCTAssertEqual(store.allDays(country: "DE").count, 6)
+		XCTAssertEqual(store.allDays(country: "IT").count, 1)
+	}
+
+	func testPackageStoreValidationOnSet() throws {
+		let database = FMDatabase.inMemory()
+		let store = DownloadedPackagesSQLLiteStore(database: database, migrator: SerialMigratorFake(), latestVersion: 0)
+
+		let etag = "\"66ac17747b947b61a066369384896c79\""
+		let revokedEtag = "\"d41d8cd98f00b204e9800998ecf8427e\""
+
+		store.revokationList = [revokedEtag]
+		store.open()
+
+		// dummy data
+		var package: SAPDownloadedPackage {
+			let noise = Data("fake\(Int.random(in: 0..<Int.max))".utf8)
+			return SAPDownloadedPackage(keysBin: noise, signature: Data("sig".utf8))
+		}
+
+		// Add some data
+		try store.set(country: "DE", day: "2020-06-01", etag: etag, package: package)
+		try store.set(country: "DE", day: "2020-06-02", etag: etag, package: package)
+
+		XCTAssertEqual(store.allDays(country: "DE").count, 2)
+
+		// add some more data
+		try store.set(country: "DE", day: "2020-06-03", etag: revokedEtag, package: package)
+		try store.set(country: "IT", day: "2020-06-06", etag: nil, package: package)
+		try store.set(country: "DE", day: "2020-06-07", etag: nil, package: package)
+
+		XCTAssertEqual(store.allDays(country: "DE").count, 3)
+		XCTAssertEqual(store.allDays(country: "IT").count, 1)
+
+		// 2 different 'set' implementations, so let's cover the 2nd as well
+		try store.set(country: "IT", hour: 1, day: "2020-06-03", etag: revokedEtag, package: package)
+		try store.set(country: "IT", hour: 1, day: "2020-06-04", etag: etag, package: package)
+		try store.set(country: "IT", hour: 1, day: "2020-06-05", etag: nil, package: package)
+
+		XCTAssertEqual(store.hours(for: "2020-06-03", country: "IT").count, 0)
+		XCTAssertEqual(store.hours(for: "2020-06-04", country: "IT").count, 1)
+		XCTAssertEqual(store.hours(for: "2020-06-05", country: "IT").count, 1)
+	}
+
+	func testPackageStoreEvilData() throws {
+		let database = FMDatabase.inMemory()
+		let store = DownloadedPackagesSQLLiteStore(database: database, migrator: SerialMigratorFake(), latestVersion: 0)
+
+		// tags
+		let etag = "\"66ac17747b947b61a066369384896c79\""
+		let evil = "1;DROP TABLE Z_DOWNLOADED_PACKAGE"
+
+		store.open()
+
+		// dummy data
+		var package: SAPDownloadedPackage {
+			let noise = Data("fake\(Int.random(in: 0..<Int.max))".utf8)
+			return SAPDownloadedPackage(keysBin: noise, signature: Data("sig".utf8))
+		}
+
+		// Test day & hour packages
+		try store.set(country: "DE", day: "2020-06-01", etag: evil, package: package)
+		try store.set(country: "DE", hour: 1, day: "2020-06-02", etag: evil, package: package)
+		try store.set(country: "DE", day: "2020-06-03", etag: etag, package: package)
+		try store.set(country: "DE", hour: 1, day: "2020-06-04", etag: etag, package: package)
+
+		let evilETagPackages = try XCTUnwrap(store.packages(with: evil))
+		XCTAssertEqual(evilETagPackages.count, 2)
+		XCTAssertEqual(store.hours(for: "2020-06-02", country: "DE").count, 1)
+		XCTAssertEqual(store.hours(for: "2020-06-04", country: "DE").count, 1)
 	}
 }

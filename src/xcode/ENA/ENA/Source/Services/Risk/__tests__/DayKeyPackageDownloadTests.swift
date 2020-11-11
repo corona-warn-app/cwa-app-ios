@@ -31,6 +31,8 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 	
 	func test_When_NoCachedDayPackages_Then_AllServerDayPackagesAreDownloaded() {
 		let store = MockTestStore()
+		store.lastKeyPackageDownloadDate = .distantPast
+
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
 		let client = ClientMock()
@@ -54,6 +56,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 				let allDayKeys = packagesStore.allDays(country: countryId)
 				XCTAssertEqual(allDayKeys, ["2020-10-01", "2020-10-02", "2020-10-03"])
 				XCTAssertEqual(packagesStore.hours(for: .formattedToday(), country: countryId).count, 0)
+				XCTAssertGreaterThan(store.lastKeyPackageDownloadDate, Date.distantPast)
 				successExpectation.fulfill()
 			case .failure(let error):
 				XCTFail("Failure callback is not expected: \(error)")
@@ -142,6 +145,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 	func test_When_ExpectNewDayPackagesIsFalse_Then_NoPackageDownloadIsTriggeredAndSuccessIsCalled() throws {
 		let store = MockTestStore()
 		store.wasRecentDayKeyDownloadSuccessful = true
+		store.lastKeyPackageDownloadDate = .distantPast
 
 		guard let yesterdayDate = Calendar.utcCalendar.date(byAdding: .day, value: -1, to: Date()) else {
 			fatalError("Could not create yesterdays date.")
@@ -173,6 +177,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 			switch result {
 			case .success:
 				successExpectation.fulfill()
+				XCTAssertEqual(store.lastKeyPackageDownloadDate, Date.distantPast)
 			case .failure(let error):
 				XCTFail("Failure callback is not expected: \(error)")
 			}
