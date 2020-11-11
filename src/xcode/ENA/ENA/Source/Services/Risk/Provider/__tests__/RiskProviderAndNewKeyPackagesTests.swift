@@ -72,7 +72,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 
 		var appConfig = SAP_Internal_ApplicationConfiguration()
 		var parameters = SAP_Internal_ExposureDetectionParametersIOS()
-		parameters.maxExposureDetectionsPerInterval = 1
+		parameters.maxExposureDetectionsPerInterval = 6
 		appConfig.iosExposureDetectionParameters = parameters
 
 		let appConfigurationMock = CachedAppConfigurationMock(appConfigurationResult: .success(appConfig))
@@ -149,7 +149,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 
 		var appConfig = SAP_Internal_ApplicationConfiguration()
 		var parameters = SAP_Internal_ExposureDetectionParametersIOS()
-		parameters.maxExposureDetectionsPerInterval = 1
+		parameters.maxExposureDetectionsPerInterval = 6
 		appConfig.iosExposureDetectionParameters = parameters
 
 		let appConfigurationMock = CachedAppConfigurationMock(appConfigurationResult: .success(appConfig))
@@ -227,7 +227,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 
 		var appConfig = SAP_Internal_ApplicationConfiguration()
 		var parameters = SAP_Internal_ExposureDetectionParametersIOS()
-		parameters.maxExposureDetectionsPerInterval = 1
+		parameters.maxExposureDetectionsPerInterval = 6
 		appConfig.iosExposureDetectionParameters = parameters
 
 		let appConfigurationMock = CachedAppConfigurationMock(appConfigurationResult: .success(appConfig))
@@ -304,7 +304,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 
 		var appConfig = SAP_Internal_ApplicationConfiguration()
 		var parameters = SAP_Internal_ExposureDetectionParametersIOS()
-		parameters.maxExposureDetectionsPerInterval = 1
+		parameters.maxExposureDetectionsPerInterval = 6
 		appConfig.iosExposureDetectionParameters = parameters
 
 		let appConfigurationMock = CachedAppConfigurationMock(appConfigurationResult: .success(appConfig))

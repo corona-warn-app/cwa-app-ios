@@ -22,10 +22,16 @@ import XCTest
 @testable import ENA
 
 class ExposureSubmissionSuccessViewControllerTests: XCTestCase {
+	
+	private var store: Store!
+	
+	override func setUpWithError() throws {
+		store = MockTestStore()
+	}
 
 	private func createVC() -> ExposureSubmissionSuccessViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSuccessViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionSuccessViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator())
+			ExposureSubmissionSuccessViewController(warnOthersReminder: WarnOthersReminder(store: self.store), coder: coder, coordinator: MockExposureSubmissionCoordinator())
 		}
 	}
 

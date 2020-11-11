@@ -271,6 +271,24 @@ final class SecureStore: Store {
 	#endif
 }
 
+extension SecureStore {
+
+	var warnOthersNotificationOneTimer: TimeInterval {
+		get { kvStore["warnOthersNotificationTimerOne"] as TimeInterval? ?? WarnOthersNotificationsTimeInterval.intervalOne }
+		set { kvStore["warnOthersNotificationTimerOne"] = newValue }
+	}
+	
+	var warnOthersNotificationTwoTimer: TimeInterval {
+		get { kvStore["warnOthersNotificationTimerTwo"] as TimeInterval? ?? WarnOthersNotificationsTimeInterval.intervalTwo }
+		set { kvStore["warnOthersNotificationTimerTwo"] = newValue }
+	}
+	
+	var warnOthersHasActiveTestResult: Bool {
+		get { kvStore["warnOthersHasActiveTestResult"] as Bool? ?? false }
+		set { kvStore["warnOthersHasActiveTestResult"] = newValue }
+	}
+}
+
 extension SecureStore: AppConfigCaching {
 	var lastAppConfigETag: String? {
 		get { kvStore["lastAppConfigETag"] as String? ?? nil }
@@ -303,7 +321,6 @@ extension SecureStore {
 	private convenience init(subDirectory: String, isRetry: Bool, serverEnvironment: ServerEnvironment) {
 		// swiftlint:disable:next force_try
 		let keychain = try! KeychainHelper()
-
 		do {
 			let directoryURL = try SecureStore.databaseDirectory(at: subDirectory)
 			let fileManager = FileManager.default
