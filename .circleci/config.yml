@@ -8,6 +8,9 @@ commands:
   install-tools:
     steps:
       - run:
+          name: Install swiftlint
+          command: brew tap-new $USER/local-tap && brew extract --version=0.40.3 swiftlint $USER/local-tap && brew install swiftlint@0.40.3
+      - run:
           name: Install Bundler
           command: sudo gem install rake bundler:2.1.4
 
