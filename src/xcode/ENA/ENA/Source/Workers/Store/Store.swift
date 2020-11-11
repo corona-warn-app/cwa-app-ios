@@ -62,8 +62,6 @@ protocol StoreProtocol: AnyObject {
 	var allowRiskChangesNotification: Bool { get set }
 	var allowTestsStatusNotification: Bool { get set }
 
-	var summary: SummaryMetadata? { get set }
-
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
 
@@ -94,7 +92,7 @@ protocol StoreProtocol: AnyObject {
 
 	var tracingStatusHistory: TracingStatusHistory { get set }
 
-	var previousRiskLevel: EitherLowOrIncreasedRiskLevel? { get set }
+	var riskCalculationResult: RiskCalculationV2Result? { get set }
 
 	/// Set to true whenever a risk calculation changes the risk from .increased to .low
 	var shouldShowRiskStatusLoweredAlert: Bool { get set }

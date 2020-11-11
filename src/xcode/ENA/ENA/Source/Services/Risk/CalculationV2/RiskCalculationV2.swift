@@ -19,7 +19,16 @@
 
 import Foundation
 
-final class RiskCalculationV2: Codable {
+protocol RiskCalculationV2Protocol {
+
+	func calculateRisk(
+		exposureWindows: [ExposureWindow],
+		configuration: RiskCalculationConfiguration
+	) throws -> RiskCalculationV2Result
+
+}
+
+final class RiskCalculationV2: RiskCalculationV2Protocol, Codable {
 
 	// MARK: - Internal
 

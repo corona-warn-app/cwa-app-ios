@@ -134,10 +134,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// use a custom http client that uses/recognized caching mechanisms
 		let appFetchingClient = CachingHTTPClient(clientConfiguration: client.configuration)
 		
-		let provider = CachedAppConfiguration(client: appFetchingClient, store: store, configurationDidChange: { [weak self] in
-			// Recalculate risk with new app configuration
-			self?.riskProvider.requestRisk(userInitiated: false, ignoreCachedSummary: true)
-		})
+		let provider = CachedAppConfiguration(client: appFetchingClient, store: store)
 		// used to remove invalidated key packages
 		provider.packageStore = downloadedPackagesStore
 		return provider

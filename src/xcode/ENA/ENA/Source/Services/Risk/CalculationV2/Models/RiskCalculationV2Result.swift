@@ -52,3 +52,35 @@ struct RiskCalculationV2Result {
 	}
 
 }
+
+extension Risk.Details {
+
+	init(
+		activeTracing: ActiveTracing,
+		riskCalculationResult: RiskCalculationV2Result?
+	) {
+		self.init(
+			daysSinceLastExposure: riskCalculationResult?.mostRecentDateWithCurrentRiskLevel?.ageInDays,
+			numberOfExposures: riskCalculationResult?.minimumDistinctEncountersWithCurrentRiskLevel ?? 0,
+			activeTracing: activeTracing,
+			exposureDetectionDate: riskCalculationResult?.calculationDate
+		)
+	}
+
+}
+
+extension Risk {
+
+	init(
+		activeTracing: ActiveTracing,
+		riskCalculationResult: RiskCalculationV2Result,
+		previousRiskCalculationResult: RiskCalculationV2Result?
+	) {
+		self.init(
+			level: riskCalculationResult.riskLevel == .increased ? .increased : .low,
+			details: Details(activeTracing: activeTracing, riskCalculationResult: riskCalculationResult),
+			riskLevelHasChanged: riskCalculationResult.riskLevel != previousRiskCalculationResult?.riskLevel
+		)
+	}
+
+}

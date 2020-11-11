@@ -94,7 +94,6 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 
 		progress.addChild(detectExposuresProgress, withPendingUnitCount: 1)
 
-
 		return progress
 	}
 

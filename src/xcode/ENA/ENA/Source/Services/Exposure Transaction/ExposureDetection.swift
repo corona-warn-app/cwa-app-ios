@@ -101,7 +101,7 @@ final class ExposureDetection {
                     self.endPrematurely(reason: .wrongDeviceTime)
                 } else {
                     Log.info("ExposureDetection: Start detecting summary.", log: .riskDetection)
-                    self.detectSummary(writtenPackages: writtenPackages, exposureConfiguration: exposureConfiguration)
+                    self.detectExposureWindows(writtenPackages: writtenPackages, exposureConfiguration: exposureConfiguration)
                 }
             } else {
                 Log.error("ExposureDetection: End prematurely.", log: .riskDetection, error: DidEndPrematurelyReason.noExposureConfiguration)

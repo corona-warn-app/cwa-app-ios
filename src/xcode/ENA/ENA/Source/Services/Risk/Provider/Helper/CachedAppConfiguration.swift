@@ -39,17 +39,13 @@ final class CachedAppConfiguration {
 
 	private let deviceTimeCheck: DeviceTimeCheckProtocol
 
-	private let configurationDidChange: (() -> Void)?
-
 	init(
 		client: AppConfigurationFetching,
 		store: Store,
-		deviceTimeCheck: DeviceTimeCheckProtocol? = nil,
-		configurationDidChange: (() -> Void)? = nil
+		deviceTimeCheck: DeviceTimeCheckProtocol? = nil
 	) {
 		self.client = client
 		self.store = store
-		self.configurationDidChange = configurationDidChange
 
 		self.deviceTimeCheck = deviceTimeCheck ?? DeviceTimeCheck(store: store)
 
@@ -85,8 +81,6 @@ final class CachedAppConfiguration {
 					Log.error("Error while removing invalidated key packages.", log: .localData, error: error)
 					// no further action - yet
 				}
-
-				self.configurationDidChange?()
 			case .failure(let error):
 				switch error {
 				case CachedAppConfiguration.CacheError.notModified where self.store.appConfig != nil:
