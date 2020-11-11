@@ -75,6 +75,10 @@ final class CachedAppConfiguration {
 					// keep track of last successful fetch
 					self?.store.lastAppConfigFetch = Date()
 				default:
+					// ensure reset
+					self?.store.lastAppConfigETag = nil
+					self?.store.lastAppConfigFetch = nil
+					
 					self?.completeOnMain(completion: completion, result: .failure(error))
 				}
 			}
