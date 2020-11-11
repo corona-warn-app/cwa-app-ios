@@ -71,15 +71,15 @@ final class CachedAppConfiguration {
 
 			switch result.0 /* fyi, `result.1` would be the server time */{
 			case .success(let response):
-				self.store.lastAppConfigETag = response.eTag
-				self.store.appConfig = response.config
-				self.completeOnMain(completion: completion, result: .success(response.config))
-
-				// keep track of last successful fetch
-				self.store.lastAppConfigFetch = Date()
+				let configMetadata = AppConfigMetadata(
+					lastAppConfigETag: response.eTag ?? "\"ReloadMe\"",
+					lastAppConfigFetch: Date(),
+					appConfig: response.config
+				)
+				self.store.appConfigMetadata = configMetadata
 
 				// update revokation list
-				let revokationList = self.store.appConfig?.revokationEtags ?? []
+				let revokationList = self.store.appConfigMetadata?.appConfig.revokationEtags ?? []
 				self.packageStore?.revokationList = revokationList // for future package-operations
 				// validate currently stored key packages
 				do {
@@ -89,23 +89,26 @@ final class CachedAppConfiguration {
 					// no further action - yet
 				}
 
+				self.completeOnMain(completion: completion, result: .success(response.config))
+
 				self.configurationDidChange?()
 			case .failure(let error):
 				switch error {
-				case CachedAppConfiguration.CacheError.notModified where self.store.appConfig != nil:
+				case CachedAppConfiguration.CacheError.notModified where self.store.appConfigMetadata != nil:
 					Log.error("config not modified", log: .api)
 					// server is not modified and we have a cached config
-					guard let config = self.store.appConfig else {
+					guard var appConfigMetadata = self.store.appConfigMetadata else {
 						fatalError("App configuration cache broken!") // in `where` we trust
 					}
-					self.completeOnMain(completion: completion, result: .success(config))
 
 					// server response HTTP 304 is considered a 'successful fetch'
-					self.store.lastAppConfigFetch = Date()
+					appConfigMetadata.refeshLastAppConfigFetchDate()
+					self.store.appConfigMetadata = appConfigMetadata
+
+					self.completeOnMain(completion: completion, result: .success(appConfigMetadata.appConfig))
 				default:
 					// ensure reset
-					self.store.lastAppConfigETag = nil
-					self.store.lastAppConfigFetch = nil
+					self.store.appConfigMetadata = nil
 
 					self.completeOnMain(completion: completion, result: .failure(error))
 				}
@@ -137,14 +140,14 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 	func appConfiguration(forceFetch: Bool = false, completion: @escaping Completion) {
 		let force = shouldFetch() || forceFetch
 
-		if let cachedVersion = store.appConfig, !force {
+		if let cachedVersion = store.appConfigMetadata, !force {
 			Log.debug("[App Config] fetching cached app configuration", log: .localData)
 			// use the cached version
-			completeOnMain(completion: completion, result: .success(cachedVersion))
+			completeOnMain(completion: completion, result: .success(cachedVersion.appConfig))
 		} else {
 			Log.debug("[App Config] fetching fresh app configuration", log: .localData)
 			// fetch a new one
-			fetchConfig(with: store.lastAppConfigETag, completion: completion)
+			fetchConfig(with: nil, completion: completion)
 		}
 	}
 
@@ -157,10 +160,10 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 	///   which does not easily return response headers. This requires further refactoring of `URLSession+Convenience.swift`.
 	/// - Returns: `true` is a network call should be done; `false` if cache should be used
 	private func shouldFetch() -> Bool {
-		if store.appConfig == nil { return true }
+		if store.appConfigMetadata == nil { return true }
 
 		// naïve cache control
-		guard let lastFetch = store.lastAppConfigFetch else {
+		guard let lastFetch = store.appConfigMetadata?.lastAppConfigFetch else {
 			Log.debug("[Cache-Control] no last config fetch timestamp stored", log: .localData)
 			return true
 		}

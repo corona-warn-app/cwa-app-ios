@@ -57,13 +57,13 @@ final class DMStoreViewController: UITableViewController {
 				store.previousRiskLevel?.description ?? ""
 			},
 			DMStoreItem(attribute: "lastAppConfigETag") { store in
-				store.lastAppConfigETag?.description ?? "<nil>"
+				store.appConfigMetadata?.lastAppConfigETag.description ?? "<nil>"
 			},
 			DMStoreItem(attribute: "lastAppConfigFetch") { store in
-				store.lastAppConfigFetch?.description ?? "<nil>"
+				store.appConfigMetadata?.lastAppConfigFetch.description ?? "<nil>"
 			},
 			DMStoreItem(attribute: "appConfig") { store in
-				store.appConfig?.debugDescription ?? "<nil>"
+				store.appConfigMetadata?.appConfig.debugDescription ?? "<nil>"
 			}
 		]
 	}()

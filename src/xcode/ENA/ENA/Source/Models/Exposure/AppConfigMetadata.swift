@@ -30,6 +30,20 @@ struct AppConfigMetadata: Codable {
 	var lastAppConfigFetch: Date
 	var appConfig: SAP_Internal_ApplicationConfiguration
 
+	init(
+		lastAppConfigETag: String,
+		lastAppConfigFetch: Date,
+		appConfig: SAP_Internal_ApplicationConfiguration
+	) {
+		self.lastAppConfigETag = lastAppConfigETag
+		self.lastAppConfigFetch = lastAppConfigFetch
+		self.appConfig = appConfig
+	}
+
+	mutating func refeshLastAppConfigFetchDate() {
+		lastAppConfigFetch = Date()
+	}
+
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 

@@ -54,7 +54,7 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 				deviceTime: deviceTime
 			),
 			isDeviceTimeCheckKillSwitchActive: self.isDeviceTimeCheckKillSwitchActive(
-				config: self.store.appConfig
+				config: self.store.appConfigMetadata?.appConfig
 			)
 		)
 	}

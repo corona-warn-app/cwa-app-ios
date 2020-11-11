@@ -77,9 +77,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 				downloadedPackagesStore.open()
 
 				// Clear the app config
-				store.appConfig = nil
-				store.lastAppConfigETag = nil
-				store.lastAppConfigFetch = nil
+				store.appConfigMetadata = nil
 			}
 		}
 
