@@ -188,6 +188,7 @@ extension RiskProvider: RiskProviding {
 
 			switch result {
 			case .success(let appConfiguration):
+				self.updateRiskProvidingConfiguration(with: appConfiguration)
 
 				self.downloadKeyPackages { [weak self] result in
 					guard let self = self else { return }

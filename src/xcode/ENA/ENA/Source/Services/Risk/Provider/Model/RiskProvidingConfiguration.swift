@@ -75,7 +75,7 @@ extension RiskProvidingConfiguration {
 			byAdding: exposureDetectionInterval,
 			to: lastExposureDetectionDate ?? .distantPast,
 			wrappingComponents: false
-			) ?? .distantPast
+		) ?? .distantPast
 		return potentialDate > currentDate ? .date(potentialDate) : .now
 	}
 
