@@ -47,11 +47,14 @@ final class CachedAppConfiguration {
 		deviceTimeCheck: DeviceTimeCheckProtocol? = nil,
 		configurationDidChange: (() -> Void)? = nil
 	) {
+		Log.debug("[App Config] CachedAppConfiguration init called", log: .localData)
+
 		self.client = client
 		self.store = store
 		self.configurationDidChange = configurationDidChange
 
 		self.deviceTimeCheck = deviceTimeCheck ?? DeviceTimeCheck(store: store)
+
 
 		guard shouldFetch() else { return }
 
@@ -60,6 +63,8 @@ final class CachedAppConfiguration {
 	}
 
 	private func fetchConfig(with etag: String?, completion: Completion? = nil) {
+		Log.debug("[App Config] fetchConfig called with etag:\(etag ?? "nil")", log: .localData)
+
 		client.fetchAppConfiguration(etag: etag) { [weak self] result in
 			guard let self = self else { return }
 
@@ -70,6 +75,15 @@ final class CachedAppConfiguration {
 					lastAppConfigFetch: Date(),
 					appConfig: response.config
 				)
+
+				// Skip processing of config if it didn't change.
+				guard self.store.appConfigMetadata?.lastAppConfigETag != configMetadata.lastAppConfigETag else {
+					Log.debug("[App Config] Skip processing app config, because it didn't change", log: .localData)
+					self.completeOnMain(completion: completion, result: .success(response.config))
+					return
+				}
+
+				Log.debug("[App Config] Persist new app configuration", log: .localData)
 				self.store.appConfigMetadata = configMetadata
 
 				// update revokation list
@@ -79,7 +93,7 @@ final class CachedAppConfiguration {
 				do {
 					try self.packageStore?.validateCachedKeyPackages(revokationList: revokationList)
 				} catch {
-					Log.error("Error while removing invalidated key packages.", log: .localData, error: error)
+					Log.error("[App Config] Error while removing invalidated key packages.", log: .localData, error: error)
 					// no further action - yet
 				}
 
@@ -89,13 +103,14 @@ final class CachedAppConfiguration {
 			case .failure(let error):
 				switch error {
 				case CachedAppConfiguration.CacheError.notModified where self.store.appConfigMetadata != nil:
-					Log.error("config not modified", log: .api)
+					Log.error("[App Config] Config not modified", log: .api)
 					// server is not modified and we have a cached config
 					guard var appConfigMetadata = self.store.appConfigMetadata else {
-						fatalError("App configuration cache broken!") // in `where` we trust
+						fatalError("[App Config] App configuration cache broken!") // in `where` we trust
 					}
 
 					// server response HTTP 304 is considered a 'successful fetch'
+					Log.debug("[App Config] Update lastAppConfigFetchDate of persisted app configuration", log: .localData)
 					appConfigMetadata.refeshLastAppConfigFetchDate()
 					self.store.appConfigMetadata = appConfigMetadata
 
@@ -129,6 +144,8 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 	fileprivate static let timestampKey = "LastAppConfigFetch"
 
 	func appConfiguration(forceFetch: Bool = false, completion: @escaping Completion) {
+		Log.debug("[App Config] Request app configuration forceFetch: \(forceFetch)", log: .localData)
+
 		let force = shouldFetch() || forceFetch
 
 		if let cachedVersion = store.appConfigMetadata, !force {
@@ -136,9 +153,9 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 			// use the cached version
 			completeOnMain(completion: completion, result: .success(cachedVersion.appConfig))
 		} else {
-			Log.debug("[App Config] fetching fresh app configuration", log: .localData)
+			Log.debug("[App Config] fetching fresh app configuration. forceFetch: \(forceFetch), force: \(force)", log: .localData)
 			// fetch a new one
-			fetchConfig(with: nil, completion: completion)
+			fetchConfig(with: store.appConfigMetadata?.lastAppConfigETag, completion: completion)
 		}
 	}
 
@@ -151,14 +168,19 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 	///   which does not easily return response headers. This requires further refactoring of `URLSession+Convenience.swift`.
 	/// - Returns: `true` is a network call should be done; `false` if cache should be used
 	private func shouldFetch() -> Bool {
-		if store.appConfigMetadata == nil { return true }
+		Log.debug("[App Config] shouldFetch called", log: .localData)
+
+		if store.appConfigMetadata == nil {
+			Log.debug("[App Config] store.appConfigMetadata is nil", log: .localData)
+			return true
+		}
 
 		// naïve cache control
 		guard let lastFetch = store.appConfigMetadata?.lastAppConfigFetch else {
-			Log.debug("[Cache-Control] no last config fetch timestamp stored", log: .localData)
+			Log.debug("[App Config] no last config fetch timestamp stored", log: .localData)
 			return true
 		}
-        Log.debug("[Cache-Control] timestamp >= 300s? \(abs(lastFetch.distance(to: Date())) >= 300)", log: .localData)
+        Log.debug("[App Config] timestamp >= 300s? \(abs(lastFetch.distance(to: Date())) >= 300)", log: .localData)
         return abs(lastFetch.distance(to: Date())) >= 300
 	}
 }
