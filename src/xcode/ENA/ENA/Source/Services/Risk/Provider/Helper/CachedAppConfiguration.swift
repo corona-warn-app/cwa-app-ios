@@ -41,6 +41,10 @@ final class CachedAppConfiguration {
 
 	private let configurationDidChange: (() -> Void)?
 
+	private var defaultAppConfigPath: URL? {
+		Bundle.main.url(forResource: "default_app_config", withExtension: "")
+	}
+
 	init(
 		client: AppConfigurationFetching,
 		store: Store,
@@ -100,11 +104,27 @@ final class CachedAppConfiguration {
 					// server response HTTP 304 is considered a 'successful fetch'
 					self.store.lastAppConfigFetch = Date()
 				default:
+					// try to provide the default configuration or return error response
+
 					// ensure reset
 					self.store.lastAppConfigETag = nil
-					self.store.lastAppConfigFetch = nil
 
-					self.completeOnMain(completion: completion, result: .failure(error))
+					guard
+						let url = self.defaultAppConfigPath,
+						let data = try? Data(contentsOf: url),
+						let defaultConfig = try? SAP_Internal_ApplicationConfiguration(serializedData: data)
+						// VALIDATION!!!
+					else {
+						assertionFailure("Should not happen. Check config deserialization!")
+						Log.error("Providing default app configuration failed! Initial HTTP error: \(error)")
+						self.store.lastAppConfigFetch = nil
+						self.completeOnMain(completion: completion, result: .failure(error))
+						return
+					}
+
+					// Let's stick to the default for 5 Minutes
+					self.store.lastAppConfigFetch = Date()
+					self.completeOnMain(completion: completion, result: .success(defaultConfig))
 				}
 			}
 
