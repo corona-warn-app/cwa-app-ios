@@ -30,8 +30,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		fetchedFromClientExpectation.assertForOverFulfill = true
 
 		let store = MockTestStore()
-		XCTAssertNil(store.appConfig)
-		XCTAssertNil(store.lastAppConfigETag)
+		XCTAssertNil(store.appConfigMetadata)
 
 		let client = CachingHTTPClientMock(store: store)
 		let expectedConfig = SAP_Internal_ApplicationConfiguration()
@@ -61,8 +60,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			completionExpectation.fulfill()
 		}
 
-		XCTAssertNotNil(store.appConfig)
-		XCTAssertNotNil(store.lastAppConfigETag)
+		XCTAssertNotNil(store.appConfigMetadata)
 
 		// Should not trigger another call (expectation) to the actual client or a new risk calculation
 		// Remember: `expectedFulfillmentCount = 1`
@@ -70,7 +68,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			switch response {
 			case .success(let config):
 				XCTAssertEqual(config, expectedConfig)
-				XCTAssertEqual(config, store.appConfig)
+				XCTAssertEqual(config, store.appConfigMetadata?.appConfig)
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			}
@@ -82,15 +80,19 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 	func testCacheDecay() throws {
 		let outdatedConfig = SAP_Internal_ApplicationConfiguration()
-		let updatedConfig = CachingHTTPClientMock.staticAppConfig
+		let updatedConfigMetaData = CachingHTTPClientMock.staticAppConfigMetadata
 
 		let store = MockTestStore()
-		store.appConfig = outdatedConfig
-		store.lastAppConfigFetch = 297.secondsAgo // close to the assumed 300 seconds default decay
+		let appConfigMetadata = AppConfigMetadata(
+			lastAppConfigETag: "\"OldETag\"",
+			lastAppConfigFetch: 297.secondsAgo ?? Date(), // close to the assumed 300 seconds default decay
+			appConfig: outdatedConfig
+		)
+		store.appConfigMetadata = appConfigMetadata
 
 		let client = CachingHTTPClientMock(store: store)
 
-		let lastFetch = try XCTUnwrap(store.lastAppConfigFetch)
+		let lastFetch = try XCTUnwrap(store.appConfigMetadata?.lastAppConfigFetch)
 		XCTAssertLessThan(Date().timeIntervalSince(lastFetch), 300)
 
 		let fetchedFromClientExpectation = expectation(description: "configuration fetched from client")
@@ -98,9 +100,9 @@ final class CachedAppConfigurationTests: XCTestCase {
 		fetchedFromClientExpectation.assertForOverFulfill = true
 
 		client.onFetchAppConfiguration = { _, completeWith in
-			store.appConfig = updatedConfig
+			store.appConfigMetadata = updatedConfigMetaData
 
-			let config = AppConfigurationFetchingResponse(updatedConfig, "etag")
+			let config = AppConfigurationFetchingResponse(updatedConfigMetaData.appConfig, "\"NewETag\"")
 			completeWith((.success(config), nil))
 			fetchedFromClientExpectation.fulfill()
 		}
@@ -126,7 +128,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			completionExpectation.fulfill()
 		}
 
-		XCTAssertEqual(store.appConfig, outdatedConfig)
+		XCTAssertEqual(store.appConfigMetadata?.appConfig, outdatedConfig)
 
 		// ensure cache decay
 		sleep(5)
@@ -136,8 +138,8 @@ final class CachedAppConfigurationTests: XCTestCase {
 		cache.appConfiguration { response in
 			switch response {
 			case .success(let config):
-				XCTAssertEqual(config, updatedConfig)
-				XCTAssertEqual(config, store.appConfig)
+				XCTAssertEqual(config, updatedConfigMetaData.appConfig)
+				XCTAssertEqual(config, store.appConfigMetadata?.appConfig)
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			}
@@ -149,8 +151,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 	func testFetch_nothingCached() throws {
 		let store = MockTestStore()
-		store.appConfig = nil
-		store.lastAppConfigETag = nil
+		store.appConfigMetadata = nil
 
 		let client = CachingHTTPClientMock(store: store)
 
@@ -165,8 +166,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		})
 
 		cache.appConfiguration { response in
-			XCTAssertNotNil(store.appConfig)
-			XCTAssertNotNil(store.lastAppConfigETag)
+			XCTAssertNotNil(store.appConfigMetadata)
 
 			switch response {
 			case .success(let config):
@@ -180,18 +180,15 @@ final class CachedAppConfigurationTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
-	func testCacheNotModfied_invalidCache() throws {
+	func testCacheExpired_invalidCache() throws {
 		let fetchedFromClientExpectation = expectation(description: "configuration fetched from client")
 		fetchedFromClientExpectation.expectedFulfillmentCount = 1
 
 		let store = MockTestStore()
-		store.lastAppConfigETag = "etag"
-		store.appConfig = nil
+		store.appConfigMetadata = CachingHTTPClientMock.staticAppConfigMetadata
 
 		let client = CachingHTTPClientMock(store: store)
 		client.onFetchAppConfiguration = { etag, completeWith in
-			XCTAssertNil(etag, "ETag should be reset!")
-
 			let config = CachingHTTPClientMock.staticAppConfig
 			let response = AppConfigurationFetchingResponse(config, "etag_2")
 			completeWith((.success(response), nil))
@@ -209,8 +206,8 @@ final class CachedAppConfigurationTests: XCTestCase {
 		cache.appConfiguration { response in
 			switch response {
 			case .success(let config):
-				XCTAssertEqual(config, store.appConfig)
-				XCTAssertEqual("etag_2", store.lastAppConfigETag)
+				XCTAssertEqual(config, store.appConfigMetadata?.appConfig)
+				XCTAssertEqual("etag_2", store.appConfigMetadata?.lastAppConfigETag)
 			case .failure(let error):
 				XCTFail("Expected no error, got: \(error)")
 			}
@@ -225,8 +222,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		fetchedFromClientExpectation.expectedFulfillmentCount = 1
 
 		let store = MockTestStore()
-		store.lastAppConfigETag = "etag"
-		store.appConfig = SAP_Internal_ApplicationConfiguration()
+		store.appConfigMetadata = CachingHTTPClientMock.staticAppConfigMetadata
 
 		let client = CachingHTTPClientMock(store: store)
 		client.onFetchAppConfiguration = { _, completeWith in
@@ -246,7 +242,8 @@ final class CachedAppConfigurationTests: XCTestCase {
 		cache.appConfiguration { response in
 			switch response {
 			case .success(let config):
-				XCTAssertEqual(config, store.appConfig)
+				XCTAssertEqual(config, store.appConfigMetadata?.appConfig)
+				XCTAssertEqual("\"SomeETag\"", store.appConfigMetadata?.lastAppConfigETag)
 			case .failure(let error):
 				XCTFail("Expected no error, got: \(error)")
 			}
@@ -263,13 +260,11 @@ final class CachedAppConfigurationTests: XCTestCase {
 		fetchedFromClientExpectation.expectedFulfillmentCount = 2
 
 		let store = MockTestStore()
-		XCTAssertNil(store.appConfig)
-		XCTAssertNil(store.lastAppConfigETag)
-		
+		XCTAssertNil(store.appConfigMetadata)
+
 		let client = CachingHTTPClientMock(store: store)
 		client.onFetchAppConfiguration = { _, completeWith in
-			XCTAssertNil(store.appConfig)
-			XCTAssertNil(store.lastAppConfigETag)
+			XCTAssertNil(store.appConfigMetadata)
 
 			completeWith((.failure(CachedAppConfiguration.CacheError.notModified), nil))
 			fetchedFromClientExpectation.fulfill()
@@ -285,8 +280,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		})
 
 		cache.appConfiguration { response in
-			XCTAssertNil(store.appConfig)
-			XCTAssertNil(store.lastAppConfigETag)
+			XCTAssertNil(store.appConfigMetadata)
 
 			switch response {
 			case .success:
@@ -309,7 +303,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 }
 
-private extension Int {
+extension Int {
 
 	/// A date n seconds ago
 	var secondsAgo: Date? {

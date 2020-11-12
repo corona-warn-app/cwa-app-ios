@@ -253,15 +253,13 @@ final class StoreTests: XCTestCase {
 
 	func testConfigCaching() throws {
 		let store = SecureStore(subDirectory: "test", serverEnvironment: ServerEnvironment())
-		XCTAssertNil(store.appConfig)
-		XCTAssertNil(store.lastAppConfigETag)
+		XCTAssertNil(store.appConfigMetadata)
 
 		let tag = "fake_\(Int.random(in: 100...999))"
-		store.lastAppConfigETag = tag
-		XCTAssertEqual(store.lastAppConfigETag, tag)
-
 		let config = CachingHTTPClientMock.staticAppConfig
-		store.appConfig = config
-		XCTAssertEqual(store.appConfig, config)
+		let appConfigMetadata = AppConfigMetadata(lastAppConfigETag: tag, lastAppConfigFetch: Date(), appConfig: config)
+		
+		store.appConfigMetadata = appConfigMetadata
+		XCTAssertEqual(store.appConfigMetadata, appConfigMetadata)
 	}
 }

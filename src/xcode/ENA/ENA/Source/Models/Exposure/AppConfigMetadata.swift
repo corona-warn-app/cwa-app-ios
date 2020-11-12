@@ -19,7 +19,7 @@
 
 import Foundation
 
-struct AppConfigMetadata: Codable {
+struct AppConfigMetadata: Codable, Equatable {
 	enum CodingKeys: String, CodingKey {
 		case lastAppConfigETag
 		case lastAppConfigFetch
