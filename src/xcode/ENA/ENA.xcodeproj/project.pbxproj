@@ -105,13 +105,13 @@
 		2FE15A3C249B8C0B0077BD8D /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */; };
 		2FF1D62E2487850200381FFB /* NSMutableAttributedString+Generation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */; };
 		2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */; };
-		352E0F14255D4D3F00DC3E20 /* default_app_config in Resources */ = {isa = PBXBuildFile; fileRef = 352E0F13255D4D3F00DC3E20 /* default_app_config */; };
 		352E0F19255D537C00DC3E20 /* AppConfiguration+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352E0F18255D537C00DC3E20 /* AppConfiguration+Validation.swift */; };
 		352F25A824EFCBDE00ACDFF3 /* ServerEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352F25A724EFCBDE00ACDFF3 /* ServerEnvironment.swift */; };
 		353412CC2525EE4A0086D15C /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353412CB2525EE4A0086D15C /* Globals.swift */; };
 		3539DAD1252B353C00489B1A /* CachedAppConfigurationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */; };
 		3539DAE3252B42EE00489B1A /* de-config-int-2020-09-25 in Resources */ = {isa = PBXBuildFile; fileRef = 35853E11251DDD33008FE983 /* de-config-int-2020-09-25 */; };
 		354E305924EFF26E00526C9F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354E305824EFF26E00526C9F /* Country.swift */; };
+		3562613E255D6F1100FDAD42 /* default_app_config_17 in Resources */ = {isa = PBXBuildFile; fileRef = 3562613D255D6F1100FDAD42 /* default_app_config_17 */; };
 		357B1858255A7F5C00584548 /* AppConfig+CacheInvalidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357B1857255A7F5C00584548 /* AppConfig+CacheInvalidation.swift */; };
 		35853E12251DDD33008FE983 /* de-config-int-2020-09-25 in Resources */ = {isa = PBXBuildFile; fileRef = 35853E11251DDD33008FE983 /* de-config-int-2020-09-25 */; };
 		35853E22251DED0F008FE983 /* CachingHTTPClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35163D23251CFCCB00D220CA /* CachingHTTPClientMock.swift */; };
@@ -687,12 +687,12 @@
 		35075C0E252637C300DE92F7 /* SmokeTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SmokeTests.xctestplan; path = TestPlans/SmokeTests.xctestplan; sourceTree = "<group>"; };
 		35163D23251CFCCB00D220CA /* CachingHTTPClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingHTTPClientMock.swift; sourceTree = "<group>"; };
 		3523CA31252DC617002E6DEC /* Screenshots.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Screenshots.xctestplan; path = TestPlans/Screenshots.xctestplan; sourceTree = "<group>"; };
-		352E0F13255D4D3F00DC3E20 /* default_app_config */ = {isa = PBXFileReference; lastKnownFileType = file; path = default_app_config; sourceTree = "<group>"; };
 		352E0F18255D537C00DC3E20 /* AppConfiguration+Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppConfiguration+Validation.swift"; sourceTree = "<group>"; };
 		352F25A724EFCBDE00ACDFF3 /* ServerEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerEnvironment.swift; sourceTree = "<group>"; };
 		353412CB2525EE4A0086D15C /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAppConfigurationMock.swift; sourceTree = "<group>"; };
 		354E305824EFF26E00526C9F /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		3562613D255D6F1100FDAD42 /* default_app_config_17 */ = {isa = PBXFileReference; lastKnownFileType = file; path = default_app_config_17; sourceTree = "<group>"; };
 		357B1857255A7F5C00584548 /* AppConfig+CacheInvalidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppConfig+CacheInvalidation.swift"; sourceTree = "<group>"; };
 		35853E11251DDD33008FE983 /* de-config-int-2020-09-25 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "de-config-int-2020-09-25"; sourceTree = "<group>"; };
 		3598D99924FE280700483F1F /* CountryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTests.swift; sourceTree = "<group>"; };
@@ -1990,7 +1990,7 @@
 				85D7594F24570491008175F0 /* Info.plist */,
 				B1221BDB2492BCEB00E6C4E4 /* Info_Debug.plist */,
 				01E25C6F24A3B52F007E33F8 /* Info_Testflight.plist */,
-				352E0F13255D4D3F00DC3E20 /* default_app_config */,
+				3562613D255D6F1100FDAD42 /* default_app_config_17 */,
 				85D75976245706BD008175F0 /* Assets */,
 				85D75975245706B0008175F0 /* Storyboards */,
 			);
@@ -3165,6 +3165,7 @@
 				01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */,
 				A328424D248B91E0006B1F09 /* HomeTestResultLoadingCell.xib in Resources */,
 				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
+				3562613E255D6F1100FDAD42 /* default_app_config_17 in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				51CE1B85246078B6002CF42A /* ActivateCollectionViewCell.xib in Resources */,
 				AB628A1F251CDADE00CF61D2 /* ServerEnvironments.json in Resources */,
@@ -3180,7 +3181,6 @@
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
 				711EFCC924935C79005FEF21 /* ExposureSubmissionTestResultHeaderView.xib in Resources */,
 				51CE1B88246078B6002CF42A /* RiskLevelCollectionViewCell.xib in Resources */,
-				352E0F14255D4D3F00DC3E20 /* default_app_config in Resources */,
 				710021DE248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib in Resources */,
 				51D420D024586AB300AD70CA /* Settings.storyboard in Resources */,
 				71F5418E248BEE08006DB793 /* privacy-policy.html in Resources */,

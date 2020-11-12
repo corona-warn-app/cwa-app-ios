@@ -43,7 +43,7 @@ final class CachedAppConfiguration {
 	private let configurationDidChange: (() -> Void)?
 
 	private var defaultAppConfigPath: URL? {
-		Bundle.main.url(forResource: "default_app_config", withExtension: "")
+		Bundle.main.url(forResource: "default_app_config_17", withExtension: "")
 	}
 
 	init(
@@ -106,10 +106,6 @@ final class CachedAppConfiguration {
 					self.store.lastAppConfigFetch = Date()
 				default:
 					// try to provide the default configuration or return error response
-
-					// ensure reset
-					self.store.lastAppConfigETag = nil
-
 					guard
 						let url = self.defaultAppConfigPath,
 						let data = try? Data(contentsOf: url),
@@ -118,13 +114,18 @@ final class CachedAppConfiguration {
 					else {
 						assertionFailure("Should not happen. Check config deserialization!")
 						Log.error("Providing default app configuration failed! Initial HTTP error: \(error)")
+						self.store.lastAppConfigETag = nil
 						self.store.lastAppConfigFetch = nil
 						self.completeOnMain(completion: completion, result: .failure(error))
 						return
 					}
-
 					// Let's stick to the default for 5 Minutes
+					// If you don't wanto to do this, nil out `lastAppConfigETag`
+					self.store.lastAppConfigETag = "default"
+					self.store.appConfig = defaultConfig
 					self.store.lastAppConfigFetch = Date()
+
+					Log.info("Providing canned app configuration 🥫", log: .localData)
 					self.completeOnMain(completion: completion, result: .success(defaultConfig))
 				}
 			}
