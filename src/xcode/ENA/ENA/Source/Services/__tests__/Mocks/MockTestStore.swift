@@ -63,7 +63,7 @@ final class MockTestStore: Store, AppConfigCaching {
 	var lastKeyPackageDownloadDate: Date = .distantPast
 	var isDeviceTimeCorrect = true
 	var wasDeviceTimeErrorShown = false
-	var isAllowedToAutomaticallyShareTestResults = false
+	var isSubmissionConsentGiven = false
 
 	#if !RELEASE
 	// Settings from the debug menu.

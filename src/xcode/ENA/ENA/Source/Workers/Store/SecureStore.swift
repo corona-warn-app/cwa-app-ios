@@ -259,9 +259,9 @@ final class SecureStore: Store {
 		set { kvStore["lastKeyPackageDownloadDate"] = newValue }
 	}
 	
-	var isAllowedToAutomaticallyShareTestResults: Bool {
-		get { kvStore["isAllowedToAutomaticallyShareTestResults"] as Bool? ?? false }
-		set { kvStore["isAllowedToAutomaticallyShareTestResults"] = newValue }
+	var isSubmissionConsentGiven: Bool {
+		get { kvStore["isSubmissionConsentGiven"] as Bool? ?? false }
+		set { kvStore["isSubmissionConsentGiven"] = newValue }
 	}
 	
 	#if !RELEASE

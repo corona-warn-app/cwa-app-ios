@@ -29,7 +29,7 @@ protocol ExposureSubmissionService: class {
 	var devicePairingConsentAcceptTimestamp: Int64? { get }
 	var devicePairingSuccessfulTimestamp: Int64? { get }
 	
-	var isAllowedToAutomaticallyShareTestResults: Bool { get set }
+	var isSubmissionConsentGiven: Bool { get set }
 	
 	func submitExposure(
 		symptomsOnset: SymptomsOnset,

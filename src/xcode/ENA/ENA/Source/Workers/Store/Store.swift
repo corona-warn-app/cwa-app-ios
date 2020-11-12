@@ -133,7 +133,7 @@ protocol StoreProtocol: AnyObject {
 	
 	var wasDeviceTimeErrorShown: Bool { get set }
 	
-	var isAllowedToAutomaticallyShareTestResults: Bool { get set }
+	var isSubmissionConsentGiven: Bool { get set }
 
 	func clearAll(key: String?)
 
