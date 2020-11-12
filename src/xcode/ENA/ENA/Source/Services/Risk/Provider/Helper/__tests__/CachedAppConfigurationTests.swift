@@ -188,7 +188,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		store.appConfigMetadata = CachingHTTPClientMock.staticAppConfigMetadata
 
 		let client = CachingHTTPClientMock(store: store)
-		client.onFetchAppConfiguration = { etag, completeWith in
+		client.onFetchAppConfiguration = { _, completeWith in
 			let config = CachingHTTPClientMock.staticAppConfig
 			let response = AppConfigurationFetchingResponse(config, "etag_2")
 			completeWith((.success(response), nil))
