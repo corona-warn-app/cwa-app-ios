@@ -151,7 +151,15 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				supportedCountries = []
 			}
 			
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+			var delay = 0.5
+			
+			#if DEBUG
+			if isUITesting {
+				delay = 1.5
+			}
+			#endif
+			
+			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 				let onboardings: [DeltaOnboarding] = [
 					DeltaOnboardingV15(store: self.store, supportedCountries: supportedCountries)
 				]
