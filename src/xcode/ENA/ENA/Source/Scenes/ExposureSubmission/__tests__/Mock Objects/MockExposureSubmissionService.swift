@@ -68,6 +68,8 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 	var devicePairingConsentAcceptTimestamp: Int64?
 
 	var devicePairingSuccessfulTimestamp: Int64?
+	
+	var isAllowedToAutomaticallyShareTestResults = false
 
 	func preconditions() -> ExposureManagerState {
 		return preconditionsCallback?() ?? ExposureManagerState(authorized: false, enabled: false, status: .unknown)

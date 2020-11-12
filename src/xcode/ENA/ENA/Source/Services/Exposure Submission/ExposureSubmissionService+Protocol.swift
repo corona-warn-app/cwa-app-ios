@@ -29,6 +29,8 @@ protocol ExposureSubmissionService: class {
 	var devicePairingConsentAcceptTimestamp: Int64? { get }
 	var devicePairingSuccessfulTimestamp: Int64? { get }
 	
+	var isAllowedToAutomaticallyShareTestResults: Bool { get set }
+	
 	func submitExposure(
 		symptomsOnset: SymptomsOnset,
 		visitedCountries: [Country],
@@ -53,5 +55,6 @@ protocol ExposureSubmissionService: class {
 	func preconditions() -> ExposureManagerState
 	func acceptPairing()
 	func fakeRequest(completionHandler: ExposureSubmissionHandler?)
+	
 
 }

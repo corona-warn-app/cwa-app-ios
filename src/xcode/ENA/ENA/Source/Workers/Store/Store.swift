@@ -132,6 +132,8 @@ protocol StoreProtocol: AnyObject {
     var isDeviceTimeCorrect: Bool { get set }
 	
 	var wasDeviceTimeErrorShown: Bool { get set }
+	
+	var isAllowedToAutomaticallyShareTestResults: Bool { get set }
 
 	func clearAll(key: String?)
 

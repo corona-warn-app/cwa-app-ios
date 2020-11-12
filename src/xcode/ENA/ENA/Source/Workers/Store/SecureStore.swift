@@ -258,7 +258,12 @@ final class SecureStore: Store {
 		get { kvStore["lastKeyPackageDownloadDate"] as Date? ?? .distantPast }
 		set { kvStore["lastKeyPackageDownloadDate"] = newValue }
 	}
-
+	
+	var isAllowedToAutomaticallyShareTestResults: Bool {
+		get { kvStore["isAllowedToAutomaticallyShareTestResults"] as Bool? ?? false }
+		set { kvStore["isAllowedToAutomaticallyShareTestResults"] = newValue }
+	}
+	
 	#if !RELEASE
 
 	// Settings from the debug menu.

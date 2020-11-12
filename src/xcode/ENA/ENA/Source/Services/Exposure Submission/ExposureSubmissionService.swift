@@ -39,6 +39,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		get { self.store.devicePairingSuccessfulTimestamp }
 		set { self.store.devicePairingSuccessfulTimestamp = newValue }
 	}
+	
+	var isAllowedToAutomaticallyShareTestResults: Bool {
+		get { self.store.isAllowedToAutomaticallyShareTestResults }
+		set { self.store.isAllowedToAutomaticallyShareTestResults = newValue }
+	}
 
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
