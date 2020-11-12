@@ -562,6 +562,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testAdded" = "Ihr Test wurde hinzugefügt.";
 
+// (PUM) Need to delete these keys after CI Approval
+"ExposureSubmissionResult_testAddedDesc" = "Ihr Test wurde in der Corona-Warn-App registriert.";
+// (PUM) Need to delete these keys after CI Approval
+
 "ExposureSubmissionResult_warnOthers" = "Andere warnen";
 
 "ExposureSubmissionResult_warnOthersDesc" = "Teilen Sie Ihre Zufalls-IDs und warnen Sie andere.\nHelfen Sie, das Infektionsrisiko für andere genauer zu bestimmen, indem Sie auch angeben, wann eventuelle Corona-Symptome zum ersten Mal aufgetreten sind.";
@@ -591,6 +595,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionResult_testPending" = "Ihr Testergebnis liegt noch nicht vor.";
 
 "ExposureSubmissionResult_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
+
+// (PUM) Need to delete these keys after CI Approval
+"ExposureSubmissionResult_testPendingDesc_paragraph1" = "Bitte gedulden Sie sich, die Auswertung kann einige Tage dauern.\n\n";
+
+"ExposureSubmissionResult_testPendingDesc_paragraph2" = "Sie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls Ihr Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.\n\n";
+
+"ExposureSubmissionResult_testPendingDesc_paragraph3" = "Falls Ihnen außerhalb der App ein positives Testergebnis mitgeteilt wurde, rufen Sie bitte die unter \"TAN anfragen\" angegebene Nummer an, um Ihr Testergebnis in der App registrieren und andere damit warnen zu können.";
+// (PUM) Need to delete these keys after CI Approval
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Einverständnis „Andere warnen“ erteilt";
 
