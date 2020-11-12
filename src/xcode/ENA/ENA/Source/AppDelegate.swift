@@ -75,7 +75,7 @@ extension AppDelegate {
 			switch didEndPrematurelyReason {
 			case let .noSummary(error):
 				return makeAlertController(
-					enError: error,
+					noSummaryError: error,
 					localizedDescription: didEndPrematurelyReason.localizedDescription,
 					rootController: rootController
 				)
@@ -96,11 +96,11 @@ extension AppDelegate {
 		}
 	}
 
-	private func makeAlertController(enError: Error?, localizedDescription: String, rootController: UIViewController) -> UIAlertController {
-		switch enError {
-		case let error as ENError:
+	private func makeAlertController(noSummaryError: Error?, localizedDescription: String, rootController: UIViewController) -> UIAlertController? {
+
+		if let enError = noSummaryError as? ENError {
 			let openFAQ: (() -> Void)? = {
-				guard let url = error.faqURL else { return nil }
+				guard let url = enError.faqURL else { return nil }
 				return {
 					UIApplication.shared.open(url, options: [:])
 				}
@@ -110,7 +110,12 @@ extension AppDelegate {
 				secondaryActionTitle: AppStrings.Common.errorAlertActionMoreInfo,
 				secondaryActionCompletion: openFAQ
 			)
-		default:
+		} else if let exposureDetectionError = noSummaryError as? ExposureDetectionError {
+			switch exposureDetectionError {
+			case .isAlreadyRunning:
+				return nil
+			}
+		} else {
 			return rootController.setupErrorAlert(
 				message: localizedDescription
 			)
