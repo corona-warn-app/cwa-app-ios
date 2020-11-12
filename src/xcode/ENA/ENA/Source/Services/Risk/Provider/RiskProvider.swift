@@ -325,9 +325,7 @@ extension RiskProvider: RiskProviding {
 		if !enoughTimeHasPassed || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackages,
 		   let riskCalculationResult = store.riskCalculationResult {
 			Log.info("RiskProvider: Not calculating new risk, using result of most recent risk calculation", log: .riskDetection)
-
-			// Using the same riskCalculationResult twice so that risk.riskLevelHasChanged is set to false
-			return Risk(activeTracing: tracingHistory.activeTracing(), riskCalculationResult: riskCalculationResult, previousRiskCalculationResult: riskCalculationResult)
+			return Risk(activeTracing: tracingHistory.activeTracing(), riskCalculationResult: riskCalculationResult)
 		}
 
 		return nil

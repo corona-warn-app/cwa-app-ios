@@ -74,12 +74,14 @@ extension Risk {
 	init(
 		activeTracing: ActiveTracing,
 		riskCalculationResult: RiskCalculationV2Result,
-		previousRiskCalculationResult: RiskCalculationV2Result?
+		previousRiskCalculationResult: RiskCalculationV2Result? = nil
 	) {
+		let riskLevelHasChanged = previousRiskCalculationResult?.riskLevel != nil && riskCalculationResult.riskLevel != previousRiskCalculationResult?.riskLevel
+
 		self.init(
 			level: riskCalculationResult.riskLevel == .increased ? .increased : .low,
 			details: Details(activeTracing: activeTracing, riskCalculationResult: riskCalculationResult),
-			riskLevelHasChanged: riskCalculationResult.riskLevel != previousRiskCalculationResult?.riskLevel
+			riskLevelHasChanged: riskLevelHasChanged
 		)
 	}
 
