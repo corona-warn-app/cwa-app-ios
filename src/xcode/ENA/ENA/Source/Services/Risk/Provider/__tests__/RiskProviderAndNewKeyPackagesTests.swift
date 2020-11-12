@@ -70,7 +70,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 			store: store
 		)
 
-		var appConfig = SAP_Internal_ApplicationConfiguration()
+		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		var parameters = SAP_Internal_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 6
 		appConfig.iosExposureDetectionParameters = parameters
@@ -147,7 +147,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 			store: store
 		)
 
-		var appConfig = SAP_Internal_ApplicationConfiguration()
+		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		var parameters = SAP_Internal_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 6
 		appConfig.iosExposureDetectionParameters = parameters
@@ -225,7 +225,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 			store: store
 		)
 
-		var appConfig = SAP_Internal_ApplicationConfiguration()
+		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		var parameters = SAP_Internal_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 6
 		appConfig.iosExposureDetectionParameters = parameters
@@ -302,7 +302,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 			store: store
 		)
 
-		var appConfig = SAP_Internal_ApplicationConfiguration()
+		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		var parameters = SAP_Internal_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 6
 		appConfig.iosExposureDetectionParameters = parameters

@@ -25,7 +25,7 @@ final class ExposureDetection {
 	private weak var delegate: ExposureDetectionDelegate?
 	private var completion: Completion?
 	private var progress: Progress?
-	private let appConfiguration: SAP_Internal_ApplicationConfiguration
+	private let appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS
 	private let deviceTimeCheck: DeviceTimeCheckProtocol
 
 	// There was a decision not to use the 2 letter code "EU", but instead "EUR".
@@ -35,7 +35,7 @@ final class ExposureDetection {
 	// MARK: Creating a Transaction
 	init(
 		delegate: ExposureDetectionDelegate,
-		appConfiguration: SAP_Internal_ApplicationConfiguration,
+		appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
 		deviceTimeCheck: DeviceTimeCheckProtocol
 	) {
 		self.delegate = delegate
@@ -53,14 +53,6 @@ final class ExposureDetection {
 		} else {
 			endPrematurely(reason: .unableToWriteDiagnosisKeys)
 		}
-	}
-
-	private var exposureConfiguration: ENExposureConfiguration? {
-		guard let configuration = try? ENExposureConfiguration(from: appConfiguration.exposureConfig, minRiskScore: appConfiguration.minRiskScore) else {
-			return nil
-		}
-
-		return configuration
 	}
 
 	private func detectExposureWindows(writtenPackages: WrittenPackages, exposureConfiguration: ENExposureConfiguration) {
@@ -95,19 +87,14 @@ final class ExposureDetection {
 
             Log.info("ExposureDetection: Completed writing packages to file system.", log: .riskDetection)
 
-            if let exposureConfiguration = self.exposureConfiguration {
-                if !self.deviceTimeCheck.isDeviceTimeCorrect {
-                    Log.warning("ExposureDetection: Detecting summary skipped due to wrong device time.", log: .riskDetection)
-                    self.endPrematurely(reason: .wrongDeviceTime)
-                } else {
-                    Log.info("ExposureDetection: Start detecting summary.", log: .riskDetection)
-                    self.detectExposureWindows(writtenPackages: writtenPackages, exposureConfiguration: exposureConfiguration)
-                }
-            } else {
-                Log.error("ExposureDetection: End prematurely.", log: .riskDetection, error: DidEndPrematurelyReason.noExposureConfiguration)
-
-                self.endPrematurely(reason: .noExposureConfiguration)
-            }
+			if !self.deviceTimeCheck.isDeviceTimeCorrect {
+				Log.warning("ExposureDetection: Detecting summary skipped due to wrong device time.", log: .riskDetection)
+				self.endPrematurely(reason: .wrongDeviceTime)
+			} else {
+				Log.info("ExposureDetection: Start detecting summary.", log: .riskDetection)
+				let exposureConfiguration = ENExposureConfiguration(from: appConfiguration.exposureConfiguration)
+				self.detectExposureWindows(writtenPackages: writtenPackages, exposureConfiguration: exposureConfiguration)
+			}
         }
     }
 	
@@ -141,47 +128,5 @@ final class ExposureDetection {
 			self.completion?(.success(exposureWindows))
 			self.completion = nil
 		}
-	}
-}
-
-private extension ENExposureConfiguration {
-	convenience init(from riskscoreParameters: SAP_Internal_RiskScoreParameters, minRiskScore: Int32) throws {
-		self.init()
-		minimumRiskScore = UInt8(clamping: minRiskScore)
-		minimumRiskScoreFullRange = Double(minRiskScore)
-		attenuationLevelValues = riskscoreParameters.attenuation.asArray
-		daysSinceLastExposureLevelValues = riskscoreParameters.daysSinceLastExposure.asArray
-		durationLevelValues = riskscoreParameters.duration.asArray
-		transmissionRiskLevelValues = riskscoreParameters.transmission.asArray
-	}
-}
-
-private extension SAP_Internal_RiskLevel {
-	var asNumber: NSNumber {
-		NSNumber(value: rawValue)
-	}
-}
-
-private extension SAP_Internal_RiskScoreParameters.TransmissionRiskParameters {
-	var asArray: [NSNumber] {
-		[appDefined1, appDefined2, appDefined3, appDefined4, appDefined5, appDefined6, appDefined7, appDefined8].map { $0.asNumber }
-	}
-}
-
-private extension SAP_Internal_RiskScoreParameters.DaysSinceLastExposureRiskParameters {
-	var asArray: [NSNumber] {
-		[ge14Days, ge12Lt14Days, ge10Lt12Days, ge8Lt10Days, ge6Lt8Days, ge4Lt6Days, ge2Lt4Days, ge0Lt2Days].map { $0.asNumber }
-	}
-}
-
-private extension SAP_Internal_RiskScoreParameters.DurationRiskParameters {
-	var asArray: [NSNumber] {
-		[eq0Min, gt0Le5Min, gt5Le10Min, gt10Le15Min, gt15Le20Min, gt20Le25Min, gt25Le30Min, gt30Min].map { $0.asNumber }
-	}
-}
-
-private extension SAP_Internal_RiskScoreParameters.AttenuationRiskParameters {
-	var asArray: [NSNumber] {
-		[gt73Dbm, gt63Le73Dbm, gt51Le63Dbm, gt33Le51Dbm, gt27Le33Dbm, gt15Le27Dbm, gt10Le15Dbm, le10Dbm].map { $0.asNumber }
 	}
 }

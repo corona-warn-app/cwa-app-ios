@@ -50,7 +50,7 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		let startCompletionCalled = expectation(description: "start completion called")
 		let detection = ExposureDetection(
 			delegate: delegate,
-			appConfiguration: SAP_Internal_ApplicationConfiguration(),
+			appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS(),
 			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
 		)
 		detection.start { _ in
@@ -72,11 +72,11 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 
 final class AppConfigurationProviderFake: AppConfigurationProviding {
 	func appConfiguration(forceFetch: Bool, completion: @escaping Completion) {
-		completion(.success(SAP_Internal_ApplicationConfiguration()))
+		completion(.success(SAP_Internal_V2_ApplicationConfigurationIOS()))
 	}
 
 	func appConfiguration(completion: @escaping Completion) {
-		completion(.success(SAP_Internal_ApplicationConfiguration()))
+		completion(.success(SAP_Internal_V2_ApplicationConfigurationIOS()))
 	}
 }
 

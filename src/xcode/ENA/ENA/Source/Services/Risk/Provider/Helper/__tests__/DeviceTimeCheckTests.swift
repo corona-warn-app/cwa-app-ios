@@ -143,7 +143,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
-	private func makeAppConfig(killSwitchIsOn: Bool) -> SAP_Internal_ApplicationConfiguration {
+	private func makeAppConfig(killSwitchIsOn: Bool) -> SAP_Internal_V2_ApplicationConfigurationIOS {
 		var killSwitchFeature = SAP_Internal_AppFeature()
 		killSwitchFeature.label = "disable-device-time-check"
 		killSwitchFeature.value = killSwitchIsOn ? 1 : 0
@@ -151,7 +151,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 		var fakeAppFeatures = SAP_Internal_AppFeatures()
 		fakeAppFeatures.appFeatures = [killSwitchFeature]
 
-		var fakeAppConfig = SAP_Internal_ApplicationConfiguration()
+		var fakeAppConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		fakeAppConfig.appFeatures = fakeAppFeatures
 
 		return fakeAppConfig

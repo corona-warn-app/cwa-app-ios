@@ -114,7 +114,7 @@ final class CachedAppConfiguration {
 	}
 
 	// Prevents failing main thread checks because UI is accessing the result directly.
-	private func completeOnMain(completion: Completion?, result: Result<SAP_Internal_ApplicationConfiguration, Error>) {
+	private func completeOnMain(completion: Completion?, result: Result<SAP_Internal_V2_ApplicationConfigurationIOS, Error>) {
 		DispatchQueue.main.async {
 			completion?(result)
 		}

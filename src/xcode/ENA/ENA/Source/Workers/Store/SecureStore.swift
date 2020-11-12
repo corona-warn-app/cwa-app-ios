@@ -300,12 +300,12 @@ extension SecureStore: AppConfigCaching {
 		set { kvStore["lastAppConfigFetch"] = newValue }
 	}
 
-	var appConfig: SAP_Internal_ApplicationConfiguration? {
+	var appConfig: SAP_Internal_V2_ApplicationConfigurationIOS? {
 		get {
-			guard let data = kvStore["SAP_Internal_ApplicationConfiguration"] else { return nil }
-			return try? SAP_Internal_ApplicationConfiguration(serializedData: data)
+			guard let data = kvStore["SAP_Internal_V2_ApplicationConfigurationIOS"] else { return nil }
+			return try? SAP_Internal_V2_ApplicationConfigurationIOS(serializedData: data)
 		}
-		set { kvStore["SAP_Internal_ApplicationConfiguration"] = try? newValue?.serializedData() }
+		set { kvStore["SAP_Internal_V2_ApplicationConfigurationIOS"] = try? newValue?.serializedData() }
 	}
 }
 

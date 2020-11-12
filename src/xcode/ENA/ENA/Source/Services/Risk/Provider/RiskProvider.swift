@@ -259,7 +259,7 @@ extension RiskProvider: RiskProviding {
 
 	private func determineRisk(
 		userInitiated: Bool,
-		appConfiguration: SAP_Internal_ApplicationConfiguration,
+		appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
 		completion: @escaping (Result<Risk, RiskProviderError>) -> Void
 	) {
 		if let risk = riskForMissingPreconditions(userInitiated: userInitiated) {
@@ -344,7 +344,7 @@ extension RiskProvider: RiskProviding {
 	}
 
 	private func executeExposureDetection(
-		appConfiguration: SAP_Internal_ApplicationConfiguration,
+		appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
 		completion: @escaping (Result<[ExposureWindow], RiskProviderError>) -> Void
 	) {
 		self.updateActivityState(.detecting)
@@ -376,7 +376,7 @@ extension RiskProvider: RiskProviding {
 		self.exposureDetection = _exposureDetection
 	}
 
-	private func calculateRiskLevel(exposureWindows: [ExposureWindow], appConfiguration: SAP_Internal_ApplicationConfiguration?, completion: (Result<Risk, RiskProviderError>) -> Void?) {
+	private func calculateRiskLevel(exposureWindows: [ExposureWindow], appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS?, completion: (Result<Risk, RiskProviderError>) -> Void?) {
 		Log.info("RiskProvider: Calculate risk level", log: .riskDetection)
 
 		guard let appConfiguration = appConfiguration else {
@@ -384,8 +384,7 @@ extension RiskProvider: RiskProviding {
 			return
 		}
 
-		// TODO: Use actual risk calculation parameters
-		let configuration = RiskCalculationConfiguration(from: SAP_Internal_V2_RiskCalculationParameters())
+		let configuration = RiskCalculationConfiguration(from: appConfiguration.riskCalculationParameters)
 
 		do {
 			let riskCalculationResult = try riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
@@ -434,8 +433,8 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-    private func updateRiskProvidingConfiguration(with appConfig: SAP_Internal_ApplicationConfiguration) {
-        let maxExposureDetectionsPerInterval = Int(appConfig.iosExposureDetectionParameters.maxExposureDetectionsPerInterval)
+    private func updateRiskProvidingConfiguration(with appConfig: SAP_Internal_V2_ApplicationConfigurationIOS) {
+        let maxExposureDetectionsPerInterval = Int(appConfig.exposureDetectionParameters.maxExposureDetectionsPerInterval)
 
         var exposureDetectionInterval: DateComponents
         if maxExposureDetectionsPerInterval == 0 {

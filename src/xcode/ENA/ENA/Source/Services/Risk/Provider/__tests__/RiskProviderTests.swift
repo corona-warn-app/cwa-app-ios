@@ -69,7 +69,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store
 		)
 
-		var appConfig = SAP_Internal_ApplicationConfiguration()
+		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		var parameters = SAP_Internal_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 1
 		appConfig.iosExposureDetectionParameters = parameters
@@ -184,7 +184,7 @@ final class RiskProviderTests: XCTestCase {
 
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success(ENExposureDetectionSummary()))
 
-		let sapAppConfig = SAP_Internal_ApplicationConfiguration.with {
+		let sapAppConfig = SAP_Internal_V2_ApplicationConfigurationIOS.with {
 			$0.exposureConfig = SAP_Internal_RiskScoreParameters()
 		}
 		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
@@ -239,7 +239,7 @@ final class RiskProviderTests: XCTestCase {
 
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .failure(DummyError()))
 
-		let sapAppConfig = SAP_Internal_ApplicationConfiguration.with {
+		let sapAppConfig = SAP_Internal_V2_ApplicationConfigurationIOS.with {
 			$0.exposureConfig = SAP_Internal_RiskScoreParameters()
 		}
 		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
@@ -494,7 +494,7 @@ final class RiskProviderTests: XCTestCase {
 struct RiskCalculationFake: RiskCalculationProtocol {
 	func risk(
 		summary: CodableExposureDetectionSummary?,
-		configuration: SAP_Internal_ApplicationConfiguration,
+		configuration: SAP_Internal_V2_ApplicationConfigurationIOS,
 		dateLastExposureDetection: Date?,
 		activeTracing: ActiveTracing,
 		preconditions: ExposureManagerState,

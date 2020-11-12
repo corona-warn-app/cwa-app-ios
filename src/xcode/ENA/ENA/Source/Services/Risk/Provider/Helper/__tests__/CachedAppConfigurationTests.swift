@@ -34,7 +34,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		XCTAssertNil(store.lastAppConfigETag)
 
 		let client = CachingHTTPClientMock(store: store)
-		let expectedConfig = SAP_Internal_ApplicationConfiguration()
+		let expectedConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		client.onFetchAppConfiguration = { _, completeWith in
 			let config = AppConfigurationFetchingResponse(expectedConfig, "etag")
 			completeWith((.success(config), nil))
@@ -81,7 +81,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 	}
 
 	func testCacheDecay() throws {
-		let outdatedConfig = SAP_Internal_ApplicationConfiguration()
+		let outdatedConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let updatedConfig = CachingHTTPClientMock.staticAppConfig
 
 		let store = MockTestStore()
@@ -226,7 +226,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		let store = MockTestStore()
 		store.lastAppConfigETag = "etag"
-		store.appConfig = SAP_Internal_ApplicationConfiguration()
+		store.appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 
 		let client = CachingHTTPClientMock(store: store)
 		client.onFetchAppConfiguration = { _, completeWith in

@@ -25,7 +25,7 @@ protocol RiskCalculationProtocol {
 
 	func risk(
 		summary: CodableExposureDetectionSummary?,
-		configuration: SAP_Internal_ApplicationConfiguration,
+		configuration: SAP_Internal_V2_ApplicationConfigurationIOS,
 		dateLastExposureDetection: Date?,
 		activeTracing: ActiveTracing,
 		preconditions: ExposureManagerState,
@@ -69,7 +69,7 @@ struct RiskCalculation: RiskCalculationProtocol {
 	*/
 	private func riskLevel(
 		summary: CodableExposureDetectionSummary?,
-		configuration: SAP_Internal_ApplicationConfiguration,
+		configuration: SAP_Internal_V2_ApplicationConfigurationIOS,
 		dateLastExposureDetection: Date?,
 		activeTracing: ActiveTracing, // Get this from the `TracingStatusHistory`
 		preconditions: ExposureManagerState,
@@ -144,7 +144,7 @@ struct RiskCalculation: RiskCalculationProtocol {
 	/// - returns: weighted risk score
 	func calculateRawRisk(
 		summary: CodableExposureDetectionSummary,
-		configuration: SAP_Internal_ApplicationConfiguration
+		configuration: SAP_Internal_V2_ApplicationConfigurationIOS
 	) -> Double {
 		// "Fig" comments below point to figures in the docs: https://github.com/corona-warn-app/cwa-documentation/blob/master/solution_architecture.md#risk-score-calculation
 		let maximumRisk = summary.maximumRiskScoreFullRange
@@ -167,7 +167,7 @@ struct RiskCalculation: RiskCalculationProtocol {
 
 	func risk(
 		summary: CodableExposureDetectionSummary?,
-		configuration: SAP_Internal_ApplicationConfiguration,
+		configuration: SAP_Internal_V2_ApplicationConfigurationIOS,
 		dateLastExposureDetection: Date?,
 		activeTracing: ActiveTracing,
 		preconditions: ExposureManagerState,
