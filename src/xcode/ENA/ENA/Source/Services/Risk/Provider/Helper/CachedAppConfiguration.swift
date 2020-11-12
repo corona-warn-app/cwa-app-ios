@@ -101,9 +101,6 @@ final class CachedAppConfiguration {
 
 					self.completeOnMain(completion: completion, result: .success(appConfigMetadata.appConfig))
 				default:
-					// ensure reset
-					self.store.appConfigMetadata = nil
-
 					self.completeOnMain(completion: completion, result: .failure(error))
 				}
 			}
