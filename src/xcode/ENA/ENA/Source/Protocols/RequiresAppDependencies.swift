@@ -32,7 +32,6 @@ protocol RequiresAppDependencies {
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
 	var serverEnvironment: ServerEnvironment { get }
-	var warnOthersReminder: WarnOthersRemindable { get }
 }
 
 extension RequiresAppDependencies {
@@ -70,9 +69,5 @@ extension RequiresAppDependencies {
 
 	var serverEnvironment: ServerEnvironment {
 		UIApplication.coronaWarnDelegate().serverEnvironment
-	}
-	
-	var warnOthersReminder: WarnOthersRemindable {
-		UIApplication.coronaWarnDelegate().warnOthersReminder
 	}
 }

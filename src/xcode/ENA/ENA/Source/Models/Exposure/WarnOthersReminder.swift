@@ -29,7 +29,6 @@ class WarnOthersReminder: WarnOthersRemindable {
 
 	init(store: Store) {
 		self.store = store
-		self.hasPositiveTestResult = store.warnOthersHasActiveTestResult
 	}
 
 	// MARK: - Protocol WarnOthersRemindable
