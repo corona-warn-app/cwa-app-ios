@@ -189,19 +189,9 @@ final class SecureStore: Store {
 		}
 	}
 
-	var summary: SummaryMetadata? {
-		get { kvStore["previousSummaryMetadata"] as SummaryMetadata? ?? nil }
-		set { kvStore["previousSummaryMetadata"] = newValue }
-	}
-
-	var previousRiskLevel: EitherLowOrIncreasedRiskLevel? {
-		get {
-			guard let value = kvStore["previousRiskLevel"] as Int? else {
-				return nil
-			}
-			return EitherLowOrIncreasedRiskLevel(rawValue: value)
-		}
-		set { kvStore["previousRiskLevel"] = newValue?.rawValue }
+	var riskCalculationResult: RiskCalculationV2Result? {
+		get { kvStore["riskCalculationResult"] as RiskCalculationV2Result? ?? nil }
+		set { kvStore["riskCalculationResult"] = newValue }
 	}
 
 	var shouldShowRiskStatusLoweredAlert: Bool {

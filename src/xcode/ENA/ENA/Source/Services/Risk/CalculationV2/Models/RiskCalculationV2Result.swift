@@ -19,7 +19,7 @@
 
 import Foundation
 
-struct RiskCalculationV2Result {
+struct RiskCalculationV2Result: Codable {
 
 	// MARK: - Internal
 

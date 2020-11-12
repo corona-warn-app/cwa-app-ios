@@ -316,7 +316,7 @@ extension RiskProvider: RiskProviding {
 		}
 
 		let enoughTimeHasPassed = riskProvidingConfiguration.shouldPerformExposureDetection(
-			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
+			activeTracingHours: numberOfEnabledHours,
 			lastExposureDetectionDate: store.riskCalculationResult?.calculationDate
 		)
 		let shouldDetectExposures = (riskProvidingConfiguration.detectionMode == .manual && userInitiated) || riskProvidingConfiguration.detectionMode == .automatic
@@ -324,6 +324,8 @@ extension RiskProvider: RiskProviding {
 		if !enoughTimeHasPassed || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackages,
 		   let riskCalculationResult = store.riskCalculationResult {
 			Log.info("RiskProvider: Not calculating new risk, using result of most recent risk calculation", log: .riskDetection)
+
+			// Using the same riskCalculationResult twice so that risk.riskLevelHasChanged is set to false
 			return Risk(activeTracing: tracingHistory.activeTracing(), riskCalculationResult: riskCalculationResult, previousRiskCalculationResult: riskCalculationResult)
 		}
 
@@ -377,118 +379,32 @@ extension RiskProvider: RiskProviding {
 		Log.info("RiskProvider: Calculate risk level", log: .riskDetection)
 
 		guard let appConfiguration = appConfiguration else {
-			completion?(.failure(.missingAppConfig))
+			completion(.failure(.missingAppConfig))
 			return
 		}
 
-		let activeTracing = store.tracingStatusHistory.activeTracing()
+		// TODO: Use actual risk calculation parameters
+		let configuration = RiskCalculationConfiguration(from: SAP_Internal_V2_RiskCalculationParameters())
 
+		do {
+			let riskCalculationResult = try riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
 
+			let risk = Risk(
+				activeTracing: store.tracingStatusHistory.activeTracing(),
+				riskCalculationResult: riskCalculationResult,
+				previousRiskCalculationResult: store.riskCalculationResult
+			)
 
+			store.riskCalculationResult = riskCalculationResult
+			checkIfRiskStatusLoweredAlertShouldBeShown(risk)
 
+			completion(.success(risk))
 
-
-		//
-		// Precondition 1 - Exposure Notifications must be turned on
-		let isInactive = !preconditions.isGood
-
-		// Precondition 2 - If tracing is active less than 1 day, risk is .unknownInitial
-		let isTracingActiveLess1Day = activeTracing.inHours < minTracingActiveHours
-
-		// Precondition 3 - Risk is unknownInitial if summary is not present
-		let isNoSummary = summary == nil
-
-		let isUnknownInitial = isTracingActiveLess1Day || isNoSummary
-
-		let isUnknownOutdated = !providerConfiguration.exposureDetectionIsValid(lastExposureDetectionDate: dateLastExposureDetection ?? .distantPast)
-
-		var riskLevels: [RiskLevel] = [.low]
-
-		// returns RiskLevel with higher priority
-		var riskLevel: RiskLevel {
-			riskLevels.max() ?? .inactive
+			/// We were able to calculate a risk so we have to reset the DeadMan Notification
+			UNUserNotificationCenter.current().resetDeadmanNotification()
+		} catch {
+			completion(.failure(.failedRiskCalculation))
 		}
-
-		if isInactive { riskLevels.append(.inactive) }
-		if isUnknownOutdated { riskLevels.append(.unknownOutdated) }
-		if isUnknownInitial { riskLevels.append(.unknownInitial) }
-
-		guard let summary = summary else { return .success(riskLevel) }
-
-		// Calculation low & increased risk levels
-		let riskScoreClasses = configuration.riskScoreClasses
-		let riskClasses = riskScoreClasses.riskClasses
-
-		guard
-			let riskScoreClassLow = riskClasses.low,
-			let riskScoreClassHigh = riskClasses.high
-		else {
-			return .failure(.undefinedRiskRange)
-		}
-
-		let riskRangeLow = Double(riskScoreClassLow.min)..<Double(riskScoreClassLow.max)
-		let riskRangeHigh = Double(riskScoreClassHigh.min)...Double(riskScoreClassHigh.max)
-
-		let riskScore = calculateRawRisk(summary: summary, configuration: configuration)
-
-		var isIncreased = false
-
-		if riskRangeLow.contains(riskScore) {
-			riskLevels.append(.low)
-		} else if riskRangeHigh.contains(riskScore) {
-			isIncreased = true
-			riskLevels.append(.increased)
-		} else {
-			return .failure(.riskOutsideRange)
-		}
-
-		// Depending on different conditions we return riskLevel
-		let state = (isUnknownOutdated, isIncreased, isUnknownInitial)
-		switch state {
-		case (true, true, false):
-			return .success(.unknownOutdated)
-		case (_, _, _):
-			return .success(riskLevel)
-		}
-
-
-		let configuration = RiskCalculationConfiguration(from: )
-		let riskCalculationResult = riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: appConfiguration)
-
-
-		guard
-			let risk = riskCalculation.risk(
-				summary: summary?.summary,
-				configuration: appConfiguration,
-				dateLastExposureDetection: summary?.date,
-				activeTracing: activeTracing,
-				preconditions: exposureManagerState,
-				previousRiskLevel: store.previousRiskLevel,
-				providerConfiguration: riskProvidingConfiguration
-			) else {
-			Log.error("Serious error during risk calculation", log: .riskDetection)
-			completion?(.failure(.failedRiskCalculation))
-			return
-		}
-
-		/// Only set shouldShowRiskStatusLoweredAlert if risk level has changed from increase to low or vice versa. Otherwise leave shouldShowRiskStatusLoweredAlert unchanged.
-		/// Scenario: Risk level changed from increased to low in the first risk calculation. In a second risk calculation it stays low. If the user does not open the app between these two calculations, the alert should still be shown.
-		if risk.riskLevelHasChanged {
-			switch risk.level {
-			case .low:
-				store.shouldShowRiskStatusLoweredAlert = true
-			case .increased:
-				store.shouldShowRiskStatusLoweredAlert = false
-			default:
-				break
-			}
-		}
-
-		completion?(.success(risk))
-		savePreviousRiskLevel(risk)
-
-		/// We were able to calculate a risk so we have to reset the DeadMan Notification
-		UNUserNotificationCenter.current().resetDeadmanNotification()
 	}
 
 	private func _provideRiskResult(_ result: RiskCalculationResult, to consumer: RiskConsumer?) {
@@ -502,14 +418,18 @@ extension RiskProvider: RiskProviding {
 		consumer?.provideRiskCalculationResult(result)
 	}
 
-	private func savePreviousRiskLevel(_ risk: Risk) {
-		switch risk.level {
-		case .low:
-			store.previousRiskLevel = .low
-		case .increased:
-			store.previousRiskLevel = .increased
-		default:
-			break
+	private func checkIfRiskStatusLoweredAlertShouldBeShown(_ risk: Risk) {
+		/// Only set shouldShowRiskStatusLoweredAlert if risk level has changed from increase to low or vice versa. Otherwise leave shouldShowRiskStatusLoweredAlert unchanged.
+		/// Scenario: Risk level changed from increased to low in the first risk calculation. In a second risk calculation it stays low. If the user does not open the app between these two calculations, the alert should still be shown.
+		if risk.riskLevelHasChanged {
+			switch risk.level {
+			case .low:
+				store.shouldShowRiskStatusLoweredAlert = true
+			case .increased:
+				store.shouldShowRiskStatusLoweredAlert = false
+			default:
+				break
+			}
 		}
 	}
 
@@ -581,7 +501,14 @@ extension RiskProvider {
 			_provideRiskResult(.success(risk), to: consumer)
 		}
 
-		savePreviousRiskLevel(risk)
+		store.riskCalculationResult = RiskCalculationV2Result(
+			riskLevel: risk.level == .increased ? .increased : .low,
+			minimumDistinctEncountersWithLowRisk: 0,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: nil,
+			mostRecentDateWithHighRisk: nil,
+			calculationDate: Date()
+		)
 	}
 }
 #endif
