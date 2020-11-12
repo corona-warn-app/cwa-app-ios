@@ -35,15 +35,13 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		))
 
 		let store = MockTestStore()
-		store.summary = SummaryMetadata(
-			summary: CodableExposureDetectionSummary(
-				daysSinceLastExposure: 0,
-				matchedKeyCount: 0,
-				maximumRiskScore: 0,
-				attenuationDurations: [],
-				maximumRiskScoreFullRange: 0
-			),
-			date: lastExposureDetectionDate
+		store.riskCalculationResult = RiskCalculationV2Result(
+			riskLevel: .low,
+			minimumDistinctEncountersWithLowRisk: 0,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: nil,
+			mostRecentDateWithHighRisk: nil,
+			calculationDate: lastExposureDetectionDate
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 		store.lastKeyPackageDownloadDate = .distantPast
@@ -71,9 +69,9 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		)
 
 		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
-		var parameters = SAP_Internal_ExposureDetectionParametersIOS()
+		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 6
-		appConfig.iosExposureDetectionParameters = parameters
+		appConfig.exposureDetectionParameters = parameters
 
 		let appConfigurationMock = CachedAppConfigurationMock(appConfigurationResult: .success(appConfig))
 
@@ -113,15 +111,13 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		))
 
 		let store = MockTestStore()
-		store.summary = SummaryMetadata(
-			summary: CodableExposureDetectionSummary(
-				daysSinceLastExposure: 0,
-				matchedKeyCount: 0,
-				maximumRiskScore: 0,
-				attenuationDurations: [],
-				maximumRiskScoreFullRange: 0
-			),
-			date: lastExposureDetectionDate
+		store.riskCalculationResult = RiskCalculationV2Result(
+			riskLevel: .low,
+			minimumDistinctEncountersWithLowRisk: 0,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: nil,
+			mostRecentDateWithHighRisk: nil,
+			calculationDate: lastExposureDetectionDate
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
@@ -148,9 +144,9 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		)
 
 		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
-		var parameters = SAP_Internal_ExposureDetectionParametersIOS()
+		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 6
-		appConfig.iosExposureDetectionParameters = parameters
+		appConfig.exposureDetectionParameters = parameters
 
 		let appConfigurationMock = CachedAppConfigurationMock(appConfigurationResult: .success(appConfig))
 
@@ -190,15 +186,13 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		))
 
 		let store = MockTestStore()
-		store.summary = SummaryMetadata(
-			summary: CodableExposureDetectionSummary(
-				daysSinceLastExposure: 0,
-				matchedKeyCount: 0,
-				maximumRiskScore: 0,
-				attenuationDurations: [],
-				maximumRiskScoreFullRange: 0
-			),
-			date: lastExposureDetectionDate
+		store.riskCalculationResult = RiskCalculationV2Result(
+			riskLevel: .low,
+			minimumDistinctEncountersWithLowRisk: 0,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: nil,
+			mostRecentDateWithHighRisk: nil,
+			calculationDate: lastExposureDetectionDate
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 		store.lastKeyPackageDownloadDate = .distantPast
@@ -226,9 +220,9 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		)
 
 		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
-		var parameters = SAP_Internal_ExposureDetectionParametersIOS()
+		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 6
-		appConfig.iosExposureDetectionParameters = parameters
+		appConfig.exposureDetectionParameters = parameters
 
 		let appConfigurationMock = CachedAppConfigurationMock(appConfigurationResult: .success(appConfig))
 
@@ -268,15 +262,13 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		))
 
 		let store = MockTestStore()
-		store.summary = SummaryMetadata(
-			summary: CodableExposureDetectionSummary(
-				daysSinceLastExposure: 0,
-				matchedKeyCount: 0,
-				maximumRiskScore: 0,
-				attenuationDurations: [],
-				maximumRiskScoreFullRange: 0
-			),
-			date: lastExposureDetectionDate
+		store.riskCalculationResult = RiskCalculationV2Result(
+			riskLevel: .low,
+			minimumDistinctEncountersWithLowRisk: 0,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: nil,
+			mostRecentDateWithHighRisk: nil,
+			calculationDate: lastExposureDetectionDate
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
@@ -303,9 +295,9 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		)
 
 		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
-		var parameters = SAP_Internal_ExposureDetectionParametersIOS()
+		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 6
-		appConfig.iosExposureDetectionParameters = parameters
+		appConfig.exposureDetectionParameters = parameters
 
 		let appConfigurationMock = CachedAppConfigurationMock(appConfigurationResult: .success(appConfig))
 

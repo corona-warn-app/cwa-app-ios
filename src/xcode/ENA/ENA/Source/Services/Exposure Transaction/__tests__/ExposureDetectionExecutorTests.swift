@@ -114,7 +114,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
 		)
 
-		_ = sut.exposureDetection(
+		_ = sut.detectExposureWindows(
 			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
 			writtenPackages: WrittenPackages(urls: []),
@@ -170,7 +170,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		XCTAssertNotEqual(packageStore.allDays(country: "DE").count, 0)
 		XCTAssertNotNil(store.appConfig)
 
-		_ = sut.exposureDetection(
+		_ = sut.detectExposureWindows(
 			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
 			writtenPackages: WrittenPackages(urls: []),

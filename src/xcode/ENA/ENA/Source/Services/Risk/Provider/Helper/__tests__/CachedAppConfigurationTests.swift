@@ -41,13 +41,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			fetchedFromClientExpectation.fulfill()
 		}
 
-		let configurationDidChangeExpectation = expectation(description: "Configuration did change")
-		configurationDidChangeExpectation.expectedFulfillmentCount = 1
-		configurationDidChangeExpectation.assertForOverFulfill = true
-
-		let cache = CachedAppConfiguration(client: client, store: store, configurationDidChange: {
-			configurationDidChangeExpectation.fulfill()
-		})
+		let cache = CachedAppConfiguration(client: client, store: store)
 
 		let completionExpectation = expectation(description: "app configuration completion called")
 		completionExpectation.expectedFulfillmentCount = 2
@@ -108,13 +102,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		let completionExpectation = expectation(description: "app configuration completion called")
 		completionExpectation.expectedFulfillmentCount = 2
 
-		let configurationDidChangeExpectation = expectation(description: "Configuration did change")
-		configurationDidChangeExpectation.expectedFulfillmentCount = 1
-		configurationDidChangeExpectation.assertForOverFulfill = true
-
-		let cache = CachedAppConfiguration(client: client, store: store, configurationDidChange: {
-			configurationDidChangeExpectation.fulfill()
-		})
+		let cache = CachedAppConfiguration(client: client, store: store)
 
 		cache.appConfiguration { response in
 			switch response {
@@ -156,13 +144,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		let completionExpectation = expectation(description: "app configuration completion called")
 
-		let configurationDidChangeExpectation = expectation(description: "Configuration did change")
-		configurationDidChangeExpectation.expectedFulfillmentCount = 1
-		configurationDidChangeExpectation.assertForOverFulfill = true
-
-		let cache = CachedAppConfiguration(client: client, store: store, configurationDidChange: {
-			configurationDidChangeExpectation.fulfill()
-		})
+		let cache = CachedAppConfiguration(client: client, store: store)
 
 		cache.appConfiguration { response in
 			XCTAssertNotNil(store.appConfig)
@@ -200,11 +182,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		let completionExpectation = expectation(description: "app configuration completion called")
 
-		let configurationDidChangeExpectation = expectation(description: "Configuration did not change")
-
-		let cache = CachedAppConfiguration(client: client, store: store, configurationDidChange: {
-			configurationDidChangeExpectation.fulfill()
-		})
+		let cache = CachedAppConfiguration(client: client, store: store)
 
 		cache.appConfiguration { response in
 			switch response {
@@ -236,12 +214,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		let completionExpectation = expectation(description: "app configuration completion called")
 
-		let configurationDidChangeExpectation = expectation(description: "Configuration did not change")
-		configurationDidChangeExpectation.isInverted = true
-
-		let cache = CachedAppConfiguration(client: client, store: store, configurationDidChange: {
-			configurationDidChangeExpectation.fulfill()
-		})
+		let cache = CachedAppConfiguration(client: client, store: store)
 
 		cache.appConfiguration { response in
 			switch response {
@@ -277,12 +250,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		let completionExpectation = expectation(description: "app configuration completion called")
 
-		let configurationDidChangeExpectation = expectation(description: "Configuration did not change")
-		configurationDidChangeExpectation.isInverted = true
-
-		let cache = CachedAppConfiguration(client: client, store: store, configurationDidChange: {
-			configurationDidChangeExpectation.fulfill()
-		})
+		let cache = CachedAppConfiguration(client: client, store: store)
 
 		cache.appConfiguration { response in
 			XCTAssertNil(store.appConfig)
