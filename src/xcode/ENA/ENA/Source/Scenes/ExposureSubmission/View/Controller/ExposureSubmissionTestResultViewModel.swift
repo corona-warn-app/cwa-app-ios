@@ -10,6 +10,7 @@ class ExposureSubmissionTestResultViewModel {
 	// MARK: - Init
 
 	init(
+		warnOthersReminder: WarnOthersRemindable,
 		testResult: TestResult,
 		exposureSubmissionService: ExposureSubmissionService,
 		onContinueWithSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
@@ -21,6 +22,7 @@ class ExposureSubmissionTestResultViewModel {
 		self.onContinueWithSymptomsFlowButtonTap = onContinueWithSymptomsFlowButtonTap
 		self.onContinueWithoutSymptomsFlowButtonTap = onContinueWithoutSymptomsFlowButtonTap
 		self.onTestDeleted = onTestDeleted
+		self.warnOthersReminder = warnOthersReminder
 
 		updateForCurrentTestResult()
 	}
@@ -78,6 +80,9 @@ class ExposureSubmissionTestResultViewModel {
 	func deleteTest() {
 		exposureSubmissionService.deleteTest()
 		onTestDeleted()
+		
+		// Update warn others model
+		self.warnOthersReminder.reset()
 	}
 
 	// MARK: - Private
@@ -93,6 +98,8 @@ class ExposureSubmissionTestResultViewModel {
 			updateForCurrentTestResult()
 		}
 	}
+	
+	private var warnOthersReminder: WarnOthersRemindable
 
 	private var primaryButtonIsLoading: Bool = false {
 		didSet {
@@ -116,7 +123,11 @@ class ExposureSubmissionTestResultViewModel {
 		self.dynamicTableViewModel = DynamicTableViewModel([currentTestResultSection])
 		updateButtons()
 	}
-
+	
+	func updateWarnOthers() {
+		self.warnOthersReminder.evaluateNotificationState(testResult: self.testResult)
+	}
+	
 	private func updateButtons() {
 		// Make sure to reset buttons to default state.
 		navigationFooterItem.isPrimaryButtonLoading = false

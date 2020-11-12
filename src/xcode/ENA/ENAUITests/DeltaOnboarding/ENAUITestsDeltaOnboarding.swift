@@ -31,7 +31,14 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		
 		app.launch()
 		
-		
+		// The "Information zur Funktionsweise der Risiko-Ermittlung"
+		// appears on fresh installs (e.g. every CI-run) but not on already started apps.
+		// We dismiss it if present.
+		let alert = app.alerts.firstMatch
+		if alert.exists {
+			alert.buttons.firstMatch.tap()
+		}
+
 		let tablesQuery = XCUIApplication().tables
 		XCTAssertTrue(tablesQuery.images["AppStrings.DeltaOnboarding.accImageLabel"].waitForExistence(timeout: 5.0))
 		

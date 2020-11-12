@@ -42,7 +42,7 @@ extension ExposureDetectionViewController {
 				return AppStrings.ExposureDetection.riskCardStatusDetectingTitle
 			case .downloading:
 				return AppStrings.ExposureDetection.riskCardStatusDownloadingTitle
-			case .idle:
+			case .idle, .riskRequested:
 				if !isTracingEnabled {
 					return AppStrings.ExposureDetection.off
 				}

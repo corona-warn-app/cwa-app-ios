@@ -12,9 +12,11 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	// MARK: Creating a developer menu view controller
 	init(
 		client: Client,
+		wifiClient: WifiOnlyHTTPClient,
 		exposureSubmissionService: ExposureSubmissionService
 	) {
 		self.client = client
+		self.wifiClient = wifiClient
 		self.exposureSubmissionService = exposureSubmissionService
 		super.init(style: .plain)
 		title = "👩🏾‍💻 Developer Menu 🧑‍💻"
@@ -34,6 +36,9 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			keys = self.keys.sorted()
 		}
 	}
+	
+	// internal because of protocol RequiresAppDependencies
+	let wifiClient: WifiOnlyHTTPClient
 
 	// MARK: UIViewController
 	override func viewDidLoad() {
@@ -91,9 +96,12 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 				store: store,
 				exposureManager: exposureManager
 			)
+		case .wifiClient:
+			vc = DMWifiClientViewController(wifiClient: wifiClient)
 		case .checkSubmittedKeys:
 			vc = DMSubmissionStateViewController(
 				client: client,
+				wifiClient: wifiClient,
 				delegate: self
 			)
 		case .backendConfiguration:
@@ -104,8 +112,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMStoreViewController(store: store)
 		case .lastSubmissionRequest:
 			vc = DMLastSubmissionRequestViewController(lastSubmissionRequest: UserDefaults.standard.dmLastSubmissionRequest)
-		case .settings:
-			vc = DMSettingsViewController(store: store)
 		case .errorLog:
 			vc = DMLogsViewController()
 		case .sendFakeRequest:
@@ -125,7 +131,10 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMSQLiteErrorViewController(store: store)
 		case .listPendingNotifications:
 			vc = DMNotificationsViewController()
+		case .warnOthersNotifications:
+			vc = DMWarnOthersNotificationViewController(warnOthersReminder: warnOthersReminder, store: store)
 		}
+		
 		
 		if let vc = vc {
 			navigationController?.pushViewController(

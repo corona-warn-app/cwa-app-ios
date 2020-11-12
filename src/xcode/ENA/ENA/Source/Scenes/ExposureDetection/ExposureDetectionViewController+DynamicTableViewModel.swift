@@ -147,14 +147,6 @@ private extension DynamicCell {
 		}
 	}
 
-	static func riskRefresh(text: String) -> DynamicCell {
-		.exposureDetectionCell(ReusableCellIdentifer.riskRefresh) { viewController, cell, _ in
-			let state = viewController.state
-			cell.backgroundColor = state.riskBackgroundColor
-			cell.textLabel?.text = AppStrings.ExposureDetection.refresh24h
-		}
-	}
-
 	static func riskLoading(text: String) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.riskLoading) { viewController, cell, _ in
 			let state = viewController.state
@@ -220,19 +212,6 @@ extension ExposureDetectionViewController {
 		riskSection(
 			isHidden: { (($0 as? Self)?.state.activityState.isActive ?? false) },
 			cells: cells
-		)
-	}
-
-	private var riskRefreshSection: DynamicSection {
-		riskSection(
-			isHidden: { viewController in
-				guard let state = (viewController as? ExposureDetectionViewController)?.state else { return true }
-				if state.activityState.isActive { return true }
-				return state.detectionMode != .automatic
-			},
-			cells: [
-				.riskRefresh(text: AppStrings.ExposureDetection.refreshingIn)
-			]
 		)
 	}
 
@@ -427,7 +406,6 @@ extension ExposureDetectionViewController {
 			riskDataSection(cells: [
 				.riskText(text: AppStrings.ExposureDetection.unknownText)
 			]),
-			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
 			explanationSection(
@@ -448,7 +426,6 @@ extension ExposureDetectionViewController {
 				.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
 				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 			]),
-			riskRefreshSection,
 			riskLoadingSection,
 			lowRiskExposureSection(
 				numberOfExposures,
@@ -476,7 +453,6 @@ extension ExposureDetectionViewController {
 				.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
 				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 			]),
-			riskRefreshSection,
 			riskLoadingSection,
 			.section(
 				header: .backgroundSpace(height: 16),

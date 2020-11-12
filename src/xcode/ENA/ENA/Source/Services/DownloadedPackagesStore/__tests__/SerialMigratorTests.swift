@@ -14,26 +14,25 @@ final class MigrationStub: Migration {
 		self.migration = migration
 	}
 
-	func execute(completed: (Bool) -> Void) {
-		migration()
-		completed(true)
+	func execute() throws {
+		migration() // always succeeds!
 	}
 }
 
 final class SerialMigratorTests: XCTestCase {
 
-	func testSerialMigratorWithNoMigrations() {
+	func testSerialMigratorWithNoMigrations() throws {
 		let database = makeDataBase()
 		insertDummyData(to: database)
 
 		let serialMigrator = SerialMigrator(latestVersion: 0, database: database, migrations: [])
-		serialMigrator.migrate()
+		try serialMigrator.migrate()
 
 		XCTAssertEqual(database.numberOfRows(for: "Z_SOME_TABLE"), 1)
 		XCTAssertEqual(database.numberOfColumns(for: "Z_SOME_TABLE"), 2)
 	}
 
-	func testSerialMigratorWithOneMigration() {
+	func testSerialMigratorWithOneMigration() throws {
 		let database = makeDataBase()
 		insertDummyData(to: database)
 
@@ -45,7 +44,7 @@ final class SerialMigratorTests: XCTestCase {
 		}
 
 		let serialMigrator = SerialMigrator(latestVersion: 1, database: database, migrations: [migration])
-		serialMigrator.migrate()
+		try serialMigrator.migrate()
 
 		waitForExpectations(timeout: 3.0)
 
@@ -53,7 +52,7 @@ final class SerialMigratorTests: XCTestCase {
 		XCTAssertEqual(database.numberOfColumns(for: "Z_SOME_TABLE"), 3)
 	}
 
-	func testSerialMigratorWithSeveralMigrations() {
+	func testSerialMigratorWithSeveralMigrations() throws {
 		let database = makeDataBase()
 		insertDummyData(to: database)
 
@@ -72,7 +71,7 @@ final class SerialMigratorTests: XCTestCase {
 		}
 
 		let serialMigrator = SerialMigrator(latestVersion: 2, database: database, migrations: [migration0To1, migration1To2])
-		serialMigrator.migrate()
+		try serialMigrator.migrate()
 
 		waitForExpectations(timeout: 3.0)
 
@@ -80,7 +79,7 @@ final class SerialMigratorTests: XCTestCase {
 		XCTAssertEqual(database.numberOfColumns(for: "Z_SOME_TABLE"), 4)
 	}
 
-	func testSerialMigratorWithSeveralMigrationsExecutingOnlyCurrentMigration() {
+	func testSerialMigratorWithSeveralMigrationsExecutingOnlyCurrentMigration() throws {
 		let database = makeDataBase()
 		insertDummyData(to: database)
 		database.userVersion = 1
@@ -97,7 +96,7 @@ final class SerialMigratorTests: XCTestCase {
 		}
 
 		let serialMigrator = SerialMigrator(latestVersion: 2, database: database, migrations: [migration0To1, migration1To2])
-		serialMigrator.migrate()
+		try serialMigrator.migrate()
 
 		waitForExpectations(timeout: 3.0)
 

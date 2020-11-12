@@ -6,6 +6,18 @@ import Foundation
 
 /// Used to configure a `RiskLevelProvider`.
 struct RiskProvidingConfiguration {
+
+    static let defaultExposureDetectionsInterval = 24 / defaultMaxExposureDetectionsPerInterval
+    private static let defaultMaxExposureDetectionsPerInterval = 1
+
+	static var `default`: RiskProvidingConfiguration {
+		return RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: DateComponents(day: 2),
+			exposureDetectionInterval: DateComponents(hour: defaultExposureDetectionsInterval),
+			detectionMode: .default
+		)
+	}
+
 	/// The duration a conducted exposure detection is considered valid.
 	var exposureDetectionValidityDuration: DateComponents
 
@@ -48,7 +60,7 @@ extension RiskProvidingConfiguration {
 			byAdding: exposureDetectionInterval,
 			to: lastExposureDetectionDate ?? .distantPast,
 			wrappingComponents: false
-			) ?? .distantPast
+		) ?? .distantPast
 		return potentialDate > currentDate ? .date(potentialDate) : .now
 	}
 

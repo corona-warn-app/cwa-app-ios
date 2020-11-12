@@ -19,8 +19,8 @@ class HomeLowRiskCellConfiguratorTests: XCTestCase {
 
 	func test_unknownRiskLevelCell_shouldHaveEqualHash() {
 		let date = Date()
-		let configurator1 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, detectionMode: .manual, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 0)))
-		let configurator2 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, detectionMode: .manual, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 0)))
+		let configurator1 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 0)))
+		let configurator2 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 0)))
 
 		let hash1 = configurator1.hashValue
 		let hash2 = configurator2.hashValue
@@ -32,21 +32,8 @@ class HomeLowRiskCellConfiguratorTests: XCTestCase {
 
 		let date = Date()
 
-		let configurator1 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, detectionMode: .manual, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 0)))
-		let configurator2 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, detectionMode: .manual, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 5)))
-
-		let hash1 = configurator1.hashValue
-		let hash2 = configurator2.hashValue
-
-		XCTAssertNotEqual(hash1, hash2)
-	}
-
-	func test_unknownRiskLevelCell_shouldHaveDifferentHash2() {
-
-		let date = Date()
-
-		let configurator1 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, detectionMode: .manual, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 0)))
-		let configurator2 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, detectionMode: .automatic, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 0)))
+		let configurator1 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 0)))
+		let configurator2 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 5)))
 
 		let hash1 = configurator1.hashValue
 		let hash2 = configurator2.hashValue
@@ -56,8 +43,8 @@ class HomeLowRiskCellConfiguratorTests: XCTestCase {
 
 	func test_unknownRiskLevelCell_shouldBeEqual() {
 		let date = Date()
-		let configurator1 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, detectionMode: .manual, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 0)))
-		let configurator2 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, detectionMode: .manual, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 0)))
+		let configurator1 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 0)))
+		let configurator2 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 0)))
 
 		let isEqual = configurator1 == configurator2
 		XCTAssertTrue(isEqual)
@@ -65,8 +52,8 @@ class HomeLowRiskCellConfiguratorTests: XCTestCase {
 
 	func test_unknownRiskLevelCell_shouldntBeEqual1() {
 		let date = Date()
-		let configurator1 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, detectionMode: .manual, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 0)))
-		let configurator2 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 3, lastUpdateDate: date, isButtonHidden: false, detectionMode: .manual, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 0)))
+		let configurator1 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 0)))
+		let configurator2 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 3, lastUpdateDate: date, isButtonHidden: false, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 0)))
 
 		let isEqual = configurator1 == configurator2
 
@@ -75,8 +62,8 @@ class HomeLowRiskCellConfiguratorTests: XCTestCase {
 
 	func test_unknownRiskLevelCell_shouldntBeEqual2() {
 		let date = Date()
-		let configurator1 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, detectionMode: .manual, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 0)))
-		let configurator2 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, detectionMode: .manual, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 4)))
+		let configurator1 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 0)))
+		let configurator2 = HomeLowRiskCellConfigurator(state: .idle, numberRiskContacts: 0, lastUpdateDate: date, isButtonHidden: false, manualExposureDetectionState: .possible, detectionInterval: 0, activeTracing: ActiveTracing(interval: .init(days: 4)))
 
 		let isEqual = configurator1 == configurator2
 

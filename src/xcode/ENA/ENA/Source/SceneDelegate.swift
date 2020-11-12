@@ -6,30 +6,11 @@ import BackgroundTasks
 import ExposureNotification
 import UIKit
 
-final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDependencies {
-	// MARK: Properties
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDependencies, ENAExposureManagerObserver, CoordinatorDelegate, UNUserNotificationCenterDelegate, ExposureStateUpdating, ENStateHandlerUpdating {
+
+	// MARK: - Protocol UIWindowSceneDelegate
 
 	var window: UIWindow?
-
-	private lazy var navigationController: UINavigationController = AppNavigationController()
-	private lazy var coordinator = Coordinator(self, navigationController)
-
-	var state: State = State(exposureManager: .init(), detectionMode: currentDetectionMode, risk: nil, riskDetectionFailed: false) {
-		didSet {
-			coordinator.updateState(
-				detectionMode: state.detectionMode,
-				exposureManagerState: state.exposureManager
-			)
-		}
-	}
-
-	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
-
-	private var enStateHandler: ENStateHandler?
-
-	// MARK: UISceneDelegate
-
-	private let riskConsumer = RiskConsumer()
 
 	func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions) {
 		guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -37,17 +18,17 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		self.window = window
 
 		#if DEBUG
-		
+
 		// Speed up animations for faster UI-Tests: https://pspdfkit.com/blog/2016/running-ui-tests-with-ludicrous-speed/#update-why-not-just-disable-animations-altogether
 		if isUITesting {
 			window.layer.speed = 100
 		}
-		
+
 		setupOnboardingForTesting()
-		
+
 		#endif
 
-		exposureManager.resume(observer: self)
+		exposureManager.observeExposureNotificationStatus(observer: self)
 
 		riskConsumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk
@@ -79,7 +60,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		riskConsumer.didFailCalculateRisk = {  [weak self] _ in
 			self?.state.riskDetectionFailed = true
 		}
-		
+
 		riskProvider.observeRisk(riskConsumer)
 
 		UNUserNotificationCenter.current().delegate = self
@@ -92,12 +73,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	func sceneWillEnterForeground(_ scene: UIScene) {
 		let detectionMode = DetectionMode.fromBackgroundStatus()
-		riskProvider.configuration.detectionMode = detectionMode
+		riskProvider.riskProvidingConfiguration.detectionMode = detectionMode
 
 		riskProvider.requestRisk(userInitiated: false)
 
 		let state = exposureManager.preconditions()
-		
+
 		updateExposureState(state)
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
@@ -114,12 +95,115 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		(UIApplication.shared.delegate as? AppDelegate)?.executeFakeRequestOnAppLaunch(probability: 0.0)
 	}
 
-	// MARK: Helper
+	// MARK: - Protocol ENAExposureManagerObserver
+
+	func exposureManager(
+		_: ENAExposureManager,
+		didChangeState newState: ExposureManagerState
+	) {
+		// Add the new state to the history
+		store.tracingStatusHistory = store.tracingStatusHistory.consumingState(newState)
+		riskProvider.exposureManagerState = newState
+
+		let message = """
+		New status of EN framework:
+		Authorized: \(newState.authorized)
+		enabled: \(newState.enabled)
+		status: \(newState.status)
+		authorizationStatus: \(ENManager.authorizationStatus)
+		"""
+		Log.info(message, log: .api)
+
+		state.exposureManager = newState
+		updateExposureState(newState)
+	}
+
+	// MARK: - Protocol CoordinatorDelegate
+
+	/// Resets all stores and notifies the Onboarding and resets all pending notifications
+	func coordinatorUserDidRequestReset() {
+		do {
+			let newKey = try KeychainHelper().generateDatabaseKey()
+			store.clearAll(key: newKey)
+		} catch {
+			fatalError("Creating new database key failed")
+		}
+		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
+		UIApplication.coronaWarnDelegate().downloadedPackagesStore.open()
+		exposureManager.reset {
+			self.exposureManager.observeExposureNotificationStatus(observer: self)
+			NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
+		}
+
+		// Remove all pending notifications
+		UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+	}
+
+	// MARK: - Protocol UNUserNotificationCenterDelegate
+
+	func userNotificationCenter(_: UNUserNotificationCenter, willPresent _: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+		completionHandler([.alert, .badge, .sound])
+	}
+
+	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+		switch response.notification.request.identifier {
+		case ActionableNotificationIdentifier.testResult.identifier,
+			 ActionableNotificationIdentifier.riskDetection.identifier,
+			 ActionableNotificationIdentifier.deviceTimeCheck.identifier:
+			showHome(animated: true)
+
+		case ActionableNotificationIdentifier.warnOthersReminder1.identifier,
+			 ActionableNotificationIdentifier.warnOthersReminder2.identifier:
+			showPositiveTestResultFromNotification(animated: true)
+
+		default: break
+		}
+
+		completionHandler()
+	}
+
+	// MARK: - Protocol ExposureStateUpdating
+
+	func updateExposureState(_ state: ExposureManagerState) {
+		riskProvider.exposureManagerState = state
+		riskProvider.requestRisk(userInitiated: false)
+		coordinator.updateExposureState(state)
+		enStateHandler?.updateExposureState(state)
+	}
+
+	// MARK: - Protocol ENStateHandlerUpdating
+
+	func updateEnState(_ state: ENStateHandler.State) {
+		Log.info("SceneDelegate got EnState update: \(state)", log: .api)
+		coordinator.updateEnState(state)
+	}
+
+	// MARK: - Internal
+
+	var state: State = State(exposureManager: .init(), detectionMode: currentDetectionMode, risk: nil, riskDetectionFailed: false) {
+		didSet {
+			coordinator.updateState(
+				detectionMode: state.detectionMode,
+				exposureManagerState: state.exposureManager
+			)
+		}
+	}
 
 	func requestUpdatedExposureState() {
 		let state = exposureManager.preconditions()
 		updateExposureState(state)
 	}
+
+	// MARK: - Private
+
+	private lazy var navigationController: UINavigationController = AppNavigationController()
+	private lazy var coordinator = Coordinator(self, navigationController)
+
+	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
+
+	private var enStateHandler: ENStateHandler?
+
+	private let riskConsumer = RiskConsumer()
 
 	private func setupUI() {
 		setupNavigationBarAppearance()
@@ -176,10 +260,18 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		coordinator.showHome(enStateHandler: enStateHandler, state: state)
 	}
-
+	
+	private func showPositiveTestResultFromNotification(animated _: Bool = false) {
+		guard warnOthersReminder.hasPositiveTestResult else {
+			return
+		}
+		coordinator.showPositiveTestResultFromNotification(with: .positive)
+	}
+	
 	private func showOnboarding() {
 		coordinator.showOnboarding()
 	}
+
 	#if DEBUG
 	private func setupOnboardingForTesting() {
 		if let isOnboarded = UserDefaults.standard.string(forKey: "isOnboarded") {
@@ -197,15 +289,20 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	#endif
 
 	@objc
-	func isOnboardedDidChange(_: NSNotification) {
+	private func isOnboardedDidChange(_: NSNotification) {
 		store.isOnboarded ? showHome() : showOnboarding()
 	}
 
-	private var privacyProtectionWindow: UIWindow?
-}
+	@objc
+	private func backgroundRefreshStatusDidChange() {
+		let detectionMode: DetectionMode = currentDetectionMode
+		state.detectionMode = detectionMode
+	}
 
-// MARK: Privacy Protection
-extension SceneDelegate {
+	// MARK: Privacy Protection
+
+	private var privacyProtectionWindow: UIWindow?
+
 	private func showPrivacyProtectionWindow() {
 		guard
 			let windowScene = window?.windowScene,
@@ -231,102 +328,12 @@ extension SceneDelegate {
 			self.privacyProtectionWindow = nil
 		}
 	}
-}
 
-extension SceneDelegate: ENAExposureManagerObserver {
-	func exposureManager(
-		_: ENAExposureManager,
-		didChangeState newState: ExposureManagerState
-	) {
-		// Add the new state to the history
-		store.tracingStatusHistory = store.tracingStatusHistory.consumingState(newState)
-		riskProvider.exposureManagerState = newState
-
-		let message = """
-		New status of EN framework:
-		Authorized: \(newState.authorized)
-		enabled: \(newState.enabled)
-		status: \(newState.status)
-		authorizationStatus: \(ENManager.authorizationStatus)
-		"""
-		Log.info(message, log: .api)
-
-		state.exposureManager = newState
-		updateExposureState(newState)
-	}
-}
-
-extension SceneDelegate: CoordinatorDelegate {
-	/// Resets all stores and notifies the Onboarding and resets all pending notifications
-	func coordinatorUserDidRequestReset() {
-		do {
-			let newKey = try KeychainHelper().generateDatabaseKey()
-			store.clearAll(key: newKey)
-		} catch {
-			fatalError("Creating new database key failed")
-		}
-		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
-		UIApplication.coronaWarnDelegate().downloadedPackagesStore.open()
-		exposureManager.reset {
-			self.exposureManager.resume(observer: self)
-			NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
-		}
-		
-		// Remove all pending notifications
-		UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-	}
-}
-
-extension SceneDelegate: UNUserNotificationCenterDelegate {
-	func userNotificationCenter(_: UNUserNotificationCenter, willPresent _: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-		completionHandler([.alert, .badge, .sound])
-	}
-
-	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-		switch response.actionIdentifier {
-		case UserNotificationAction.openExposureDetectionResults.rawValue,
-			 UserNotificationAction.openTestResults.rawValue:
-			showHome(animated: true)
-		case UserNotificationAction.ignore.rawValue,
-			 UNNotificationDefaultActionIdentifier,
-			 UNNotificationDismissActionIdentifier:
-			break
-		default: break
-		}
-
-		completionHandler()
-	}
 }
 
 private extension Array where Element == URLQueryItem {
 	func valueFor(queryItem named: String) -> String? {
 		first(where: { $0.name == named })?.value
-	}
-}
-
-
-extension SceneDelegate: ExposureStateUpdating {
-	func updateExposureState(_ state: ExposureManagerState) {
-		riskProvider.exposureManagerState = state
-		riskProvider.requestRisk(userInitiated: false)
-		coordinator.updateExposureState(state)
-		enStateHandler?.updateExposureState(state)
-	}
-}
-
-extension SceneDelegate: ENStateHandlerUpdating {
-	func updateEnState(_ state: ENStateHandler.State) {
-		Log.info("SceneDelegate got EnState update: \(state)", log: .api)
-		coordinator.updateEnState(state)
-	}
-}
-
-// MARK: Background Task
-extension SceneDelegate {
-	@objc
-	func backgroundRefreshStatusDidChange() {
-		let detectionMode: DetectionMode = currentDetectionMode
-		state.detectionMode = detectionMode
 	}
 }
 

@@ -60,7 +60,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				UNUserNotificationCenter.current().presentNotification(
 					title: AppStrings.LocalNotifications.testResultsTitle,
 					body: AppStrings.LocalNotifications.testResultsBody,
-					identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier + ".test-result"
+					identifier: ActionableNotificationIdentifier.testResult.identifier
 				)
 			}
 
@@ -73,7 +73,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	private func executeExposureDetectionRequest(completion: @escaping ((Bool) -> Void)) {
 
 		// At this point we are already in background so it is safe to assume background mode is available.
-		riskProvider.configuration.detectionMode = .fromBackgroundStatus(.available)
+		riskProvider.riskProvidingConfiguration.detectionMode = .fromBackgroundStatus(.available)
 
 		riskProvider.requestRisk(userInitiated: false) { [weak self] result in
 			guard let self = self else { return }
@@ -84,7 +84,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 					UNUserNotificationCenter.current().presentNotification(
 						title: AppStrings.LocalNotifications.detectExposureTitle,
 						body: AppStrings.LocalNotifications.detectExposureBody,
-						identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier + ".risk-detection"
+						identifier: ActionableNotificationIdentifier.riskDetection.identifier
 					)
 					completion(true)
 				} else {
@@ -98,7 +98,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 							UNUserNotificationCenter.current().presentNotification(
 								title: AppStrings.WrongDeviceTime.errorPushNotificationTitle,
 								body: AppStrings.WrongDeviceTime.errorPushNotificationText,
-								identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier + ".device-time-check"
+								identifier: ActionableNotificationIdentifier.deviceTimeCheck.identifier
 							)
 							self.store.wasDeviceTimeErrorShown = true
 						}

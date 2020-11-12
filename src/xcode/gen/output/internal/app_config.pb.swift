@@ -82,6 +82,42 @@ struct SAP_Internal_ApplicationConfiguration {
     set {_uniqueStorage()._supportedCountries = newValue}
   }
 
+  var iosKeyDownloadParameters: SAP_Internal_KeyDownloadParametersIOS {
+    get {return _storage._iosKeyDownloadParameters ?? SAP_Internal_KeyDownloadParametersIOS()}
+    set {_uniqueStorage()._iosKeyDownloadParameters = newValue}
+  }
+  /// Returns true if `iosKeyDownloadParameters` has been explicitly set.
+  var hasIosKeyDownloadParameters: Bool {return _storage._iosKeyDownloadParameters != nil}
+  /// Clears the value of `iosKeyDownloadParameters`. Subsequent reads from it will return its default value.
+  mutating func clearIosKeyDownloadParameters() {_uniqueStorage()._iosKeyDownloadParameters = nil}
+
+  var androidKeyDownloadParameters: SAP_Internal_KeyDownloadParametersAndroid {
+    get {return _storage._androidKeyDownloadParameters ?? SAP_Internal_KeyDownloadParametersAndroid()}
+    set {_uniqueStorage()._androidKeyDownloadParameters = newValue}
+  }
+  /// Returns true if `androidKeyDownloadParameters` has been explicitly set.
+  var hasAndroidKeyDownloadParameters: Bool {return _storage._androidKeyDownloadParameters != nil}
+  /// Clears the value of `androidKeyDownloadParameters`. Subsequent reads from it will return its default value.
+  mutating func clearAndroidKeyDownloadParameters() {_uniqueStorage()._androidKeyDownloadParameters = nil}
+
+  var iosExposureDetectionParameters: SAP_Internal_ExposureDetectionParametersIOS {
+    get {return _storage._iosExposureDetectionParameters ?? SAP_Internal_ExposureDetectionParametersIOS()}
+    set {_uniqueStorage()._iosExposureDetectionParameters = newValue}
+  }
+  /// Returns true if `iosExposureDetectionParameters` has been explicitly set.
+  var hasIosExposureDetectionParameters: Bool {return _storage._iosExposureDetectionParameters != nil}
+  /// Clears the value of `iosExposureDetectionParameters`. Subsequent reads from it will return its default value.
+  mutating func clearIosExposureDetectionParameters() {_uniqueStorage()._iosExposureDetectionParameters = nil}
+
+  var androidExposureDetectionParameters: SAP_Internal_ExposureDetectionParametersAndroid {
+    get {return _storage._androidExposureDetectionParameters ?? SAP_Internal_ExposureDetectionParametersAndroid()}
+    set {_uniqueStorage()._androidExposureDetectionParameters = newValue}
+  }
+  /// Returns true if `androidExposureDetectionParameters` has been explicitly set.
+  var hasAndroidExposureDetectionParameters: Bool {return _storage._androidExposureDetectionParameters != nil}
+  /// Clears the value of `androidExposureDetectionParameters`. Subsequent reads from it will return its default value.
+  mutating func clearAndroidExposureDetectionParameters() {_uniqueStorage()._androidExposureDetectionParameters = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -103,6 +139,10 @@ extension SAP_Internal_ApplicationConfiguration: SwiftProtobuf.Message, SwiftPro
     5: .same(proto: "appVersion"),
     6: .same(proto: "appFeatures"),
     7: .same(proto: "supportedCountries"),
+    8: .same(proto: "iosKeyDownloadParameters"),
+    9: .same(proto: "androidKeyDownloadParameters"),
+    10: .same(proto: "iosExposureDetectionParameters"),
+    11: .same(proto: "androidExposureDetectionParameters"),
   ]
 
   fileprivate class _StorageClass {
@@ -113,6 +153,10 @@ extension SAP_Internal_ApplicationConfiguration: SwiftProtobuf.Message, SwiftPro
     var _appVersion: SAP_Internal_ApplicationVersionConfiguration? = nil
     var _appFeatures: SAP_Internal_AppFeatures? = nil
     var _supportedCountries: [String] = []
+    var _iosKeyDownloadParameters: SAP_Internal_KeyDownloadParametersIOS? = nil
+    var _androidKeyDownloadParameters: SAP_Internal_KeyDownloadParametersAndroid? = nil
+    var _iosExposureDetectionParameters: SAP_Internal_ExposureDetectionParametersIOS? = nil
+    var _androidExposureDetectionParameters: SAP_Internal_ExposureDetectionParametersAndroid? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -126,6 +170,10 @@ extension SAP_Internal_ApplicationConfiguration: SwiftProtobuf.Message, SwiftPro
       _appVersion = source._appVersion
       _appFeatures = source._appFeatures
       _supportedCountries = source._supportedCountries
+      _iosKeyDownloadParameters = source._iosKeyDownloadParameters
+      _androidKeyDownloadParameters = source._androidKeyDownloadParameters
+      _iosExposureDetectionParameters = source._iosExposureDetectionParameters
+      _androidExposureDetectionParameters = source._androidExposureDetectionParameters
     }
   }
 
@@ -151,6 +199,10 @@ extension SAP_Internal_ApplicationConfiguration: SwiftProtobuf.Message, SwiftPro
         case 5: try { try decoder.decodeSingularMessageField(value: &_storage._appVersion) }()
         case 6: try { try decoder.decodeSingularMessageField(value: &_storage._appFeatures) }()
         case 7: try { try decoder.decodeRepeatedStringField(value: &_storage._supportedCountries) }()
+        case 8: try { try decoder.decodeSingularMessageField(value: &_storage._iosKeyDownloadParameters) }()
+        case 9: try { try decoder.decodeSingularMessageField(value: &_storage._androidKeyDownloadParameters) }()
+        case 10: try { try decoder.decodeSingularMessageField(value: &_storage._iosExposureDetectionParameters) }()
+        case 11: try { try decoder.decodeSingularMessageField(value: &_storage._androidExposureDetectionParameters) }()
         default: break
         }
       }
@@ -180,6 +232,18 @@ extension SAP_Internal_ApplicationConfiguration: SwiftProtobuf.Message, SwiftPro
       if !_storage._supportedCountries.isEmpty {
         try visitor.visitRepeatedStringField(value: _storage._supportedCountries, fieldNumber: 7)
       }
+      if let v = _storage._iosKeyDownloadParameters {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+      }
+      if let v = _storage._androidKeyDownloadParameters {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+      }
+      if let v = _storage._iosExposureDetectionParameters {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+      }
+      if let v = _storage._androidExposureDetectionParameters {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -196,6 +260,10 @@ extension SAP_Internal_ApplicationConfiguration: SwiftProtobuf.Message, SwiftPro
         if _storage._appVersion != rhs_storage._appVersion {return false}
         if _storage._appFeatures != rhs_storage._appFeatures {return false}
         if _storage._supportedCountries != rhs_storage._supportedCountries {return false}
+        if _storage._iosKeyDownloadParameters != rhs_storage._iosKeyDownloadParameters {return false}
+        if _storage._androidKeyDownloadParameters != rhs_storage._androidKeyDownloadParameters {return false}
+        if _storage._iosExposureDetectionParameters != rhs_storage._iosExposureDetectionParameters {return false}
+        if _storage._androidExposureDetectionParameters != rhs_storage._androidExposureDetectionParameters {return false}
         return true
       }
       if !storagesAreEqual {return false}

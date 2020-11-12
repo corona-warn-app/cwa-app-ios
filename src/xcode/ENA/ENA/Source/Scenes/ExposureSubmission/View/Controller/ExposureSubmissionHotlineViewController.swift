@@ -32,6 +32,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		setupButtons()
+		
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {

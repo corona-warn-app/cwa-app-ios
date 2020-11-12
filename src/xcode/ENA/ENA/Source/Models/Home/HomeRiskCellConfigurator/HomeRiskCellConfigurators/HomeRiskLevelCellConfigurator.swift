@@ -12,7 +12,6 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	var riskProviderState: RiskProvider.ActivityState
 	var isButtonEnabled: Bool
 	var isButtonHidden: Bool
-	var detectionIntervalLabelHidden: Bool
 	var lastUpdateDate: Date?
 	
 	var detectionInterval: Int
@@ -47,14 +46,12 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		state: RiskProvider.ActivityState,
 		isButtonEnabled: Bool,
 		isButtonHidden: Bool,
-		detectionIntervalLabelHidden: Bool,
 		lastUpdateDate: Date?,
 		detectionInterval: Int
 	) {
 		self.riskProviderState = state
 		self.isButtonEnabled = isButtonEnabled
 		self.isButtonHidden = isButtonHidden
-		self.detectionIntervalLabelHidden = detectionIntervalLabelHidden
 		self.lastUpdateDate = lastUpdateDate
 		self.detectionInterval = detectionInterval
 	}
@@ -83,19 +80,16 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 
 		cell.topContainer.isAccessibilityElement = true
 		cell.bodyLabel.isAccessibilityElement = true
-		cell.detectionIntervalLabel.isAccessibilityElement = true
 		cell.updateButton.isAccessibilityElement = true
 
 		cell.topContainer.accessibilityTraits = [.updatesFrequently, .button]
 		cell.bodyLabel.accessibilityTraits = [.updatesFrequently]
-		cell.detectionIntervalLabel.accessibilityTraits = [.updatesFrequently]
 		cell.updateButton.accessibilityTraits = [.updatesFrequently, .button]
 
 		cell.topContainer.accessibilityLabel = cell.titleLabel.text ?? ""
 
 		cell.topContainer.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.topContainer
 		cell.bodyLabel.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.bodyLabel
-		cell.detectionIntervalLabel.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.detectionIntervalLabel
 		cell.updateButton.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.updateButton
 	}
 
@@ -116,7 +110,6 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		hasher.combine(riskProviderState)
 		hasher.combine(isButtonEnabled)
 		hasher.combine(isButtonHidden)
-		hasher.combine(detectionIntervalLabelHidden)
 		hasher.combine(lastUpdateDate)
 		hasher.combine(detectionInterval)
 	}
@@ -125,7 +118,6 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		lhs.riskProviderState == rhs.riskProviderState &&
 		lhs.isButtonEnabled == rhs.isButtonEnabled &&
 		lhs.isButtonHidden == rhs.isButtonHidden &&
-		lhs.detectionIntervalLabelHidden == rhs.detectionIntervalLabelHidden &&
 		lhs.lastUpdateDate == rhs.lastUpdateDate &&
 		lhs.detectionInterval == rhs.detectionInterval
 	}

@@ -6,12 +6,14 @@ import Foundation
 import ZIPFoundation
 import CryptoKit
 
+/// A combined binary file (zipped) and the corresponding verification signature.
 struct SAPDownloadedPackage {
 	// MARK: Creating a Key Package
 
 	init(keysBin: Data, signature: Data) {
-		bin = keysBin
+		self.bin = keysBin
 		self.signature = signature
+		self.fingerprint = SHA256.hash(data: bin).compactMap { String(format: "%02x", $0) }.joined()
 	}
 
 	init?(compressedData: Data) {
@@ -27,8 +29,12 @@ struct SAPDownloadedPackage {
 	
 	// MARK: Properties
 
+	/// The zipped  key package
 	let bin: Data
+	/// The file-verification signature
 	let signature: Data
+	/// The SHA256 string of the package `bin`
+	let fingerprint: String
 
 	// MARK: - Verification
 

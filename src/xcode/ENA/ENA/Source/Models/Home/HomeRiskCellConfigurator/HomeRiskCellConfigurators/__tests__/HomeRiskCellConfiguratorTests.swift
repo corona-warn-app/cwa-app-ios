@@ -16,7 +16,6 @@ class HomeRiskCellConfiguratorTests: XCTestCase {
 			numberRiskContacts: 0,
 			lastUpdateDate: Date().addingTimeInterval(-8 * 60 * 60),
 			isButtonHidden: false,
-			detectionMode: .manual,
 			manualExposureDetectionState: .waiting,
 			detectionInterval: detectionInterval,
 			activeTracing: ActiveTracing(interval: .init(hours: 42))

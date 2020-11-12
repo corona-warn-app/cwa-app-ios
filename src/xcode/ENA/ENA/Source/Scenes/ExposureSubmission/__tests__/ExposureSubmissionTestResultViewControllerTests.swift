@@ -7,11 +7,18 @@ import XCTest
 @testable import ENA
 
 class ExposureSubmissionViewControllerTests: XCTestCase {
+	
+	private var store: Store!
+	
+	override func setUpWithError() throws {
+		store = MockTestStore()
+	}
 
 	private func createVC(testResult: TestResult) -> ExposureSubmissionTestResultViewController {
+	
 		ExposureSubmissionTestResultViewController(
 			viewModel: ExposureSubmissionTestResultViewModel(
-				testResult: testResult,
+				warnOthersReminder: WarnOthersReminder(store: self.store), testResult: testResult,
 				exposureSubmissionService: MockExposureSubmissionService(),
 				onContinueWithSymptomsFlowButtonTap: { _ in },
 				onContinueWithoutSymptomsFlowButtonTap: { _ in },

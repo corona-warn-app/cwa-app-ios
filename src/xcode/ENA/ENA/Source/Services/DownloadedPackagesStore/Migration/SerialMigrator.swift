@@ -5,7 +5,7 @@
 import FMDB
 
 protocol SerialMigratorProtocol {
-	func migrate()
+	func migrate() throws
 }
 
 final class SerialMigrator: SerialMigratorProtocol {
@@ -24,21 +24,21 @@ final class SerialMigrator: SerialMigratorProtocol {
 		self.migrations = migrations
 	}
 
-	func migrate() {
+	func migrate() throws {
 		if database.userVersion < latestVersion {
 			let userVersion = Int(database.userVersion)
+			Log.info("Migrating database from v\(userVersion) to v\(latestVersion)!", log: .localData)
 
-			migrations[userVersion].execute { [weak self] success in
-				if success {
-					self?.database.userVersion += 1
-					migrate()
-				} else {
-					Log.error("Migration failed from version \(database.userVersion) to version \(database.userVersion += 1)", log: .localData)
-					return
-				}
+			do {
+				try migrations[userVersion].execute()
+				self.database.userVersion += 1
+				try migrate()
+			} catch {
+				Log.error("Migration failed from version \(database.userVersion) to version \(database.userVersion.advanced(by: 1))", log: .localData)
+				throw error
 			}
 		} else {
-			return
+			Log.debug("No database migration needed.", log: .localData)
 		}
 	}
 }

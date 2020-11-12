@@ -74,7 +74,7 @@ extension MockExposureManager: ExposureManager {
 		completionHandler(diagnosisKeysResult!.0, diagnosisKeysResult!.1)
 	}
 
-	func resume(observer: ENAExposureManagerObserver) {
+	func observeExposureNotificationStatus(observer: ENAExposureManagerObserver) {
 		
 	}
 

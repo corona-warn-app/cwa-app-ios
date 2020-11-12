@@ -20,8 +20,6 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var chevronImageView: UIImageView!
 	@IBOutlet var bodyLabel: ENALabel!
 	@IBOutlet var updateButton: ENAButton!
-	@IBOutlet var detectionIntervalLabel: ENALabel!
-	@IBOutlet var detectionIntervalLabelContainer: UIView!
 
 	@IBOutlet var viewContainer: UIView!
 	@IBOutlet var topContainer: UIStackView!
@@ -71,12 +69,6 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 		updateButton.isAccessibilityElement = true
 		updateButton.accessibilityLabel = title
 		updateButton.accessibilityIdentifier = accessibilityIdentifier
-	}
-
-	func configureDetectionIntervalLabel(text: String, isHidden: Bool) {
-		detectionIntervalLabel.text = text
-		detectionIntervalLabel.isHidden = isHidden
-		detectionIntervalLabelContainer.isHidden = isHidden
 	}
 
 	func configureRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {

@@ -13,6 +13,9 @@ final class CachedAppConfiguration {
 		case notModified
 	}
 
+	/// A reference to the key package store to directly allow removal of invalidated key packages
+	weak var packageStore: DownloadedPackagesStore?
+
 	/// Most likely a HTTP client
 	private let client: AppConfigurationFetching
 
@@ -48,7 +51,7 @@ final class CachedAppConfiguration {
 		client.fetchAppConfiguration(etag: etag) { [weak self] result in
 			guard let self = self else { return }
 
-			switch result.0 {
+			switch result.0 /* fyi, `result.1` would be the server time */{
 			case .success(let response):
 				self.store.lastAppConfigETag = response.eTag
 				self.store.appConfig = response.config
@@ -56,6 +59,17 @@ final class CachedAppConfiguration {
 
 				// keep track of last successful fetch
 				self.store.lastAppConfigFetch = Date()
+
+				// update revokation list
+				let revokationList = self.store.appConfig?.revokationEtags ?? []
+				self.packageStore?.revokationList = revokationList // for future package-operations
+				// validate currently stored key packages
+				do {
+					try self.packageStore?.validateCachedKeyPackages(revokationList: revokationList)
+				} catch {
+					Log.error("Error while removing invalidated key packages.", log: .localData, error: error)
+					// no further action - yet
+				}
 
 				self.configurationDidChange?()
 			case .failure(let error):

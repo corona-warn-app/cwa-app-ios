@@ -7,9 +7,11 @@ import XCTest
 @testable import ENA
 
 class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
-
-	override func setUp() {
-		super.setUp()
+	
+	private var store: Store!
+	
+	override func setUpWithError() throws {
+		store = MockTestStore()
 	}
 
 	private func createVC() -> ExposureSubmissionWarnOthersViewController {

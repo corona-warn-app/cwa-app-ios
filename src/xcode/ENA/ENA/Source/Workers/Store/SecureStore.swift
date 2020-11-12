@@ -179,11 +179,6 @@ final class SecureStore: Store {
 		set { kvStore["previousSummaryMetadata"] = newValue }
 	}
 
-	var hourlyFetchingEnabled: Bool {
-		get { kvStore["hourlyFetchingEnabled"] as Bool? ?? false }
-		set { kvStore["hourlyFetchingEnabled"] = newValue }
-	}
-
 	var previousRiskLevel: EitherLowOrIncreasedRiskLevel? {
 		get {
 			guard let value = kvStore["previousRiskLevel"] as Int? else {
@@ -224,6 +219,16 @@ final class SecureStore: Store {
 		set { kvStore["selectedServerEnvironment"] = newValue }
 	}
 
+	var wasRecentDayKeyDownloadSuccessful: Bool {
+		get { kvStore["wasRecentDayKeyDownloadSuccessful"] as Bool? ?? false }
+		set { kvStore["wasRecentDayKeyDownloadSuccessful"] = newValue }
+	}
+
+	var wasRecentHourKeyDownloadSuccessful: Bool {
+		get { kvStore["wasRecentHourKeyDownloadSuccessful"] as Bool? ?? false }
+		set { kvStore["wasRecentHourKeyDownloadSuccessful"] = newValue }
+    }
+    
 	var isDeviceTimeCorrect: Bool {
 		get { kvStore["isDeviceTimeCorrect"] as Bool? ?? true }
 		set { kvStore["isDeviceTimeCorrect"] = newValue }
@@ -232,6 +237,11 @@ final class SecureStore: Store {
 	var wasDeviceTimeErrorShown: Bool {
 		get { kvStore["wasDeviceTimeErrorShown"] as Bool? ?? false }
 		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
+	}
+
+	var lastKeyPackageDownloadDate: Date {
+		get { kvStore["lastKeyPackageDownloadDate"] as Date? ?? .distantPast }
+		set { kvStore["lastKeyPackageDownloadDate"] = newValue }
 	}
 
 	#if !RELEASE
@@ -244,6 +254,24 @@ final class SecureStore: Store {
 	}
 
 	#endif
+}
+
+extension SecureStore {
+
+	var warnOthersNotificationOneTimer: TimeInterval {
+		get { kvStore["warnOthersNotificationTimerOne"] as TimeInterval? ?? WarnOthersNotificationsTimeInterval.intervalOne }
+		set { kvStore["warnOthersNotificationTimerOne"] = newValue }
+	}
+	
+	var warnOthersNotificationTwoTimer: TimeInterval {
+		get { kvStore["warnOthersNotificationTimerTwo"] as TimeInterval? ?? WarnOthersNotificationsTimeInterval.intervalTwo }
+		set { kvStore["warnOthersNotificationTimerTwo"] = newValue }
+	}
+	
+	var warnOthersHasActiveTestResult: Bool {
+		get { kvStore["warnOthersHasActiveTestResult"] as Bool? ?? false }
+		set { kvStore["warnOthersHasActiveTestResult"] = newValue }
+	}
 }
 
 extension SecureStore: AppConfigCaching {
@@ -278,7 +306,6 @@ extension SecureStore {
 	private convenience init(subDirectory: String, isRetry: Bool, serverEnvironment: ServerEnvironment) {
 		// swiftlint:disable:next force_try
 		let keychain = try! KeychainHelper()
-
 		do {
 			let directoryURL = try SecureStore.databaseDirectory(at: subDirectory)
 			let fileManager = FileManager.default

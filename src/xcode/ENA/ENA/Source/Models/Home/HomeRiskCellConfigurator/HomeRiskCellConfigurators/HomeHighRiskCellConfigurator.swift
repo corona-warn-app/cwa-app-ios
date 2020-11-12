@@ -29,7 +29,6 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			state: state,
 			isButtonEnabled: manualExposureDetectionState == .possible,
 			isButtonHidden: detectionMode == .automatic,
-			detectionIntervalLabelHidden: detectionMode != .automatic,
 			lastUpdateDate: lastUpdateDate,
 			detectionInterval: detectionInterval
 		)
@@ -53,10 +52,6 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.configureBackgroundColor(color: color)
 		cell.delegate = self
 		cell.configureBody(text: "", bodyColor: titleColor, isHidden: true)
-		cell.configureDetectionIntervalLabel(
-			text: String(format: AppStrings.Home.riskCardIntervalUpdateTitle, "\(detectionInterval)"),
-			isHidden: detectionIntervalLabelHidden
-		)
 
 		configureButton(for: cell)
 		setupAccessibility(cell)
@@ -100,7 +95,6 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		lhs.riskProviderState == rhs.riskProviderState &&
 		lhs.isButtonEnabled == rhs.isButtonEnabled &&
 		lhs.isButtonHidden == rhs.isButtonHidden &&
-		lhs.detectionIntervalLabelHidden == rhs.detectionIntervalLabelHidden &&
 		lhs.lastUpdateDate == rhs.lastUpdateDate &&
 		lhs.numberRiskContacts == rhs.numberRiskContacts &&
 		lhs.daysSinceLastExposure == rhs.daysSinceLastExposure &&

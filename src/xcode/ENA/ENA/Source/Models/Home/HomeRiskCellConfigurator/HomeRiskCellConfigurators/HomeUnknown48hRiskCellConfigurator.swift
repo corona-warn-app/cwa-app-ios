@@ -22,7 +22,6 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			state: state,
 			isButtonEnabled: manualExposureDetectionState == .possible,
 			isButtonHidden: detectionMode == .automatic,
-			detectionIntervalLabelHidden: detectionMode != .automatic,
 			lastUpdateDate: lastUpdateDate,
 			detectionInterval: detectionInterval
 		)
@@ -48,8 +47,6 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.configureBackgroundColor(color: .enaColor(for: .riskNeutral))
 		cell.configureBody(text: AppStrings.Home.riskCardUnknown48hBody, bodyColor: .enaColor(for: .textContrast), isHidden: riskProviderState.isActive)
 		configureButton(for: cell)
-		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, "\(detectionInterval)")
-		cell.configureDetectionIntervalLabel(text: intervalTitle, isHidden: detectionIntervalLabelHidden)
 	}
 
 	/// Adjusts the UI for the risk views of a given cell.
@@ -135,7 +132,6 @@ final class HomeUnknown48hRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		lhs.riskProviderState == rhs.riskProviderState &&
 		lhs.isButtonEnabled == rhs.isButtonEnabled &&
 		lhs.isButtonHidden == rhs.isButtonHidden &&
-		lhs.detectionIntervalLabelHidden == rhs.detectionIntervalLabelHidden &&
 		lhs.lastUpdateDate == rhs.lastUpdateDate &&
 		lhs.detectionInterval == rhs.detectionInterval &&
 		lhs.previousRiskLevel == rhs.previousRiskLevel

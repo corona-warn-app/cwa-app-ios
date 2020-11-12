@@ -216,7 +216,7 @@ extension HomeInteractor {
 		riskLevelConfigurator = nil
 		inactiveConfigurator = nil
 
-		let detectionInterval = (riskProvider.configuration.exposureDetectionInterval.day ?? 1) * 24
+		let detectionInterval = riskProvider.riskProvidingConfiguration.exposureDetectionInterval.hour ?? RiskProvidingConfiguration.defaultExposureDetectionsInterval
 
 		let riskLevel: RiskLevel? = state.exposureManagerState.enabled ? state.riskLevel : .inactive
 
@@ -260,7 +260,6 @@ extension HomeInteractor {
 				numberRiskContacts: state.numberRiskContacts,
 				lastUpdateDate: dateLastExposureDetection,
 				isButtonHidden: detectionIsAutomatic,
-				detectionMode: detectionMode,
 				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
 				detectionInterval: detectionInterval,
 				activeTracing: activeTracing
@@ -418,8 +417,15 @@ extension HomeInteractor {
 
 extension HomeInteractor {
 	func updateTestResults() {
+		
+		// Do warn others evaluation
+		if let testResult = testResult {
+			self.warnOthersReminder.evaluateNotificationState(testResult: testResult)
+		}
+		
 		// Avoid unnecessary loading.
 		guard testResult == nil || testResult != .positive else { return }
+		
 		guard store.registrationToken != nil else { return }
 
 		// Make sure to make the loading cell appear for at least `minRequestTime`.

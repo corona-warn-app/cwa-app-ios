@@ -10,8 +10,6 @@ extension ExposureDetection.DidEndPrematurelyReason {
 		switch self {
 		case let .noSummary(error):
 			return makeAlertControllerForENError(error, rootController: rootController)
-		case .noDiskSpace:
-			return rootController.setupErrorAlert(message: localizedDescription)
 		case .wrongDeviceTime:
 			return rootController.setupErrorAlert(message: localizedDescription)
 		default:

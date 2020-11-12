@@ -30,6 +30,10 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		setUpView()
 		setUpBindings()
 	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		viewModel.updateWarnOthers()
+	}
 
 	override var navigationItem: UINavigationItem {
 		viewModel.navigationFooterItem

@@ -5,11 +5,12 @@
 import Foundation
 import UIKit
 
-typealias DownloadedPackagesStore = DownloadedPackagesStoreV1
-typealias DownloadedPackagesSQLLiteStore = DownloadedPackagesSQLLiteStoreV1
+typealias DownloadedPackagesStore = DownloadedPackagesStoreV2
+typealias DownloadedPackagesSQLLiteStore = DownloadedPackagesSQLLiteStoreV2
 
 protocol RequiresAppDependencies {
 	var client: HTTPClient { get }
+	var wifiClient: WifiOnlyHTTPClient { get }
 	var store: Store { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
@@ -17,11 +18,16 @@ protocol RequiresAppDependencies {
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
 	var serverEnvironment: ServerEnvironment { get }
+	var warnOthersReminder: WarnOthersRemindable { get }
 }
 
 extension RequiresAppDependencies {
 	var client: HTTPClient {
 		UIApplication.coronaWarnDelegate().client
+	}
+
+	var wifiClient: WifiOnlyHTTPClient {
+		UIApplication.coronaWarnDelegate().wifiClient
 	}
 
 	var downloadedPackagesStore: DownloadedPackagesStore {
@@ -50,5 +56,9 @@ extension RequiresAppDependencies {
 
 	var serverEnvironment: ServerEnvironment {
 		UIApplication.coronaWarnDelegate().serverEnvironment
+	}
+	
+	var warnOthersReminder: WarnOthersRemindable {
+		UIApplication.coronaWarnDelegate().warnOthersReminder
 	}
 }
