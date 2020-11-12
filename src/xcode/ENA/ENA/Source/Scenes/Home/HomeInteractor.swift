@@ -430,8 +430,15 @@ extension HomeInteractor {
 
 extension HomeInteractor {
 	func updateTestResults() {
+		
+		// Do warn others evaluation
+		if let testResult = testResult {
+			self.warnOthersReminder.evaluateNotificationState(testResult: testResult)
+		}
+		
 		// Avoid unnecessary loading.
 		guard testResult == nil || testResult != .positive else { return }
+		
 		guard store.registrationToken != nil else { return }
 
 		// Make sure to make the loading cell appear for at least `minRequestTime`.
