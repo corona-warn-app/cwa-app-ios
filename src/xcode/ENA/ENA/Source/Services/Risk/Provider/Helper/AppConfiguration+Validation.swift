@@ -17,8 +17,59 @@
 // under the License.
 //
 
+import CryptoKit
 import Foundation
+import ZIPFoundation
 
-extension SAP_Internal_ApplicationConfiguration {
-	//
+
+extension Archive {
+
+	func extractAppConfiguration() throws -> SAP_Internal_ApplicationConfiguration {
+		guard let binEntry = self["default_app_config_ios.bin"] else {
+			throw FingerprintError.entryNotFound(entryID: "default_app_config_ios.bin")
+		}
+		guard let hashEntry = self["default_app_config_ios.sha256"] else {
+			throw FingerprintError.entryNotFound(entryID: "default_app_config_ios.sha256")
+		}
+
+		do {
+			let hash = try extractData(from: hashEntry)
+			let bin = try extractData(from: binEntry)
+
+			let hashString = String(data: hash, encoding: .utf8)
+			let config = try SAP_Internal_ApplicationConfiguration(serializedData: bin)
+
+			guard config.fingerprint == hashString else {
+				Log.error("Fingerprint mismatch", log: .localData)
+				throw FingerprintError.binaryNotValidated
+			}
+
+			return config
+		} catch {
+			Log.error("Extraction error: \(error)", log: .localData, error: error)
+			throw error
+		}
+	}
+}
+
+enum FingerprintError: Error {
+	case binaryNotValidated
+	case entryNotFound(entryID: String)
+}
+
+protocol Fingerprinting {
+	var fingerprint: String { get }
+}
+
+extension SAP_Internal_ApplicationConfiguration: Fingerprinting {
+
+	var fingerprint: String {
+		do {
+			let data = try serializedData()
+			return SHA256.hash(data: data).compactMap { String(format: "%02x", $0) }.joined()
+		} catch {
+			Log.error("Cannot fingerprint \(self)", log: .localData, error: error)
+			return ""
+		}
+	}
 }

@@ -20,7 +20,7 @@ import ZIPFoundation
 import CryptoKit
 
 /// A combined binary file (zipped) and the corresponding verification signature.
-struct SAPDownloadedPackage {
+struct SAPDownloadedPackage: Fingerprinting {
 	// MARK: Creating a Key Package
 
 	init(keysBin: Data, signature: Data) {
@@ -92,7 +92,7 @@ struct SAPDownloadedPackage {
 	}
 }
 
-private extension Archive {
+extension Archive {
 	typealias KeyPackage = (bin: Data, sig: Data)
 	enum KeyPackageError: Error {
 		case binNotFound

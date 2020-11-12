@@ -18,6 +18,7 @@
 //
 
 import Foundation
+import ZIPFoundation
 
 final class CachedAppConfiguration {
 
@@ -112,8 +113,8 @@ final class CachedAppConfiguration {
 					guard
 						let url = self.defaultAppConfigPath,
 						let data = try? Data(contentsOf: url),
-						let defaultConfig = try? SAP_Internal_ApplicationConfiguration(serializedData: data)
-						// VALIDATION!!!
+						let zip = Archive(data: data, accessMode: .read),
+						let defaultConfig = try? zip.extractAppConfiguration()
 					else {
 						assertionFailure("Should not happen. Check config deserialization!")
 						Log.error("Providing default app configuration failed! Initial HTTP error: \(error)")
