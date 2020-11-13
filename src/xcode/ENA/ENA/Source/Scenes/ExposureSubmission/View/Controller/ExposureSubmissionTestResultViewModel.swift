@@ -343,7 +343,7 @@ class ExposureSubmissionTestResultViewModel {
 					hairline: .none
 				)]
 		 ),
-		   .section(
+			.section(
 				separators: .all,
 				cells: [
 					.icon(
