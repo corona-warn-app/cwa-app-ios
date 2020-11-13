@@ -4,7 +4,7 @@ module Fastlane
       def self.run(params)
         require 'json'
         require 'open-uri'
-        
+
         # Dir.pwd should result in '/src/xcode' of the project.
         unless Dir.pwd.end_with?("/src/xcode")
           UI.user_error!("Please ensure that you execute fastlane in the /src/xcode folder.")
@@ -13,14 +13,11 @@ module Fastlane
         # Find the licenses.json that contains the information.
         licenses_file_path = File.expand_path("../../licenses.json", Dir.pwd)
 
-        # Build the path for the to be updated license file.
-        third_party_notices_path = File.expand_path("../../THIRD-PARTY-NOTICES", Dir.pwd)
-
         # Find the path to file that contains the swift model.
         swift_model_file_path = Dir.glob("#{Dir.pwd}/**/AppInformationViewController+LegalModel.swift")[0]
 
         # Read the json that is in the following form:
-        # 
+        #
         #    [{
         #        "component": "...",
         #        "licensor": "...",
@@ -34,9 +31,6 @@ module Fastlane
 
         full_licenses = {}
 
-        content = THIRD_PARTY_NOTICE_HEADER
-        
-        full_licenses_texts = ""
 
         licenses.each do |license_info|
           component = license_info['component']
@@ -48,7 +42,7 @@ module Fastlane
           unless component
             UI.user_error!("Missing \"component\" in license.")
           end
-          
+
           unless licensor
             UI.user_error!("Missing \"licensor\" in license for #{component}.")
           end
@@ -64,11 +58,6 @@ module Fastlane
           unless license_url
             UI.user_error!("Missing \"licenseUrl\" in license for #{component}.")
           end
-          
-          content += "Component: #{component}\n"
-          content += "Licensor:  #{licensor}\n"
-          content += "Website:   #{website}\n"
-          content += "License:   #{license}\n\n"
 
           begin
             license_text = open(license_url) { |f| f.read }
@@ -84,19 +73,10 @@ module Fastlane
             # Store the full text so it can be reused when writing the swift file.
             full_licenses[component] = license_text
 
-            full_licenses_texts += license_text
-            full_licenses_texts += "\n"
-            full_licenses_texts += SEPARATOR
           rescue
             UI.user_error!("Could not download the full license for #{license['component']}")
           end
         end
-        
-        content += SEPARATOR
-        content += full_licenses_texts
-
-        # Update the THIRD-PARTY-NOTICES file with the new content.
-        File.open(third_party_notices_path, "w") {|file| file.puts content }
 
         # Update the swift file.
         swift_content = File.read(swift_model_file_path)
@@ -109,7 +89,7 @@ module Fastlane
 
           license_text = full_licenses[component].lines.map(&:strip).join("\n")
           license_text.gsub!(/(.+)(?:\n)(\w+)/, '\1 \2')
-          
+
           swift_content += "\t\t.legal("
           swift_content += "title: \"#{component}\", "
           swift_content += "licensor: \"#{licensor}\", "
@@ -136,22 +116,5 @@ module Fastlane
     end
   end
 end
-
-SEPARATOR = "#{"-" * 80}\n"
-
-THIRD_PARTY_NOTICE_HEADER = 
-%{ThirdPartyNotices
------------------
-corona-warn-app/cwa-app-ios uses third-party software or other resources that
-may be distributed under licenses different from corona-warn-app/cwa-app-ios
-software.
-In the event that we overlooked to list a required notice, please bring this
-to our attention by contacting us via this email:
-corona-warn-app.opensource@sap.com
-
-
-Components:
------------
-}
 
 SWIFT_LEGAL_CELLS_DEFINITION = "private static let legalCells: [DynamicCell] = ["
