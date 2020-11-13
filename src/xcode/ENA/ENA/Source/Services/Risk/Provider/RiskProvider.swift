@@ -348,8 +348,16 @@ extension RiskProvider: RiskProviding {
 
 		let config = riskProvidingConfiguration
 		let shouldDetectExposures = (config.detectionMode == .manual && userInitiated) || config.detectionMode == .automatic
-
-		return !enoughTimeHasPassed || !exposureManagerState.isGood || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackages
+		
+		/// If the User is in manual mode and wants to refresh we should let him. Case: Manual Mode and Wifi disabled will lead to no new packages in the last 23 hours and 59 Minutes, but a refresh interval of 4 Hours should allow this.
+		let shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode = shouldDetectExposureBecauseOfNewPackages || (config.detectionMode == .manual && userInitiated)
+		
+		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: enoughTimeHasPassed = \(enoughTimeHasPassed)", log: .riskDetection)
+		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: exposureManagerState.isGood = \(exposureManagerState.isGood)", log: .riskDetection)
+		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: shouldDetectExposures = \(shouldDetectExposures)", log: .riskDetection)
+		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode = \(shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode)", log: .riskDetection)
+		
+		return !(enoughTimeHasPassed && exposureManagerState.isGood && shouldDetectExposures && shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode)
 	}
 
 	private var shouldDetectExposureBecauseOfNewPackages: Bool {
