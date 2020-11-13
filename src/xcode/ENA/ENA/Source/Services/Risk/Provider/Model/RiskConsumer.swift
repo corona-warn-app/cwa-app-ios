@@ -36,5 +36,5 @@ final class RiskConsumer: NSObject {
 	var didFailCalculateRisk: (RiskProviderError) -> Void = { _ in }
 
 	/// Called when loading status changed
-	var didChangeActivityState: ((_ activityState: RiskProvider.ActivityState) -> Void)?
+	var didChangeActivityState: ((_ activityState: RiskProviderActivityState) -> Void)?
 }

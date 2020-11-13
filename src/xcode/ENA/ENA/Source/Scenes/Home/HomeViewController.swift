@@ -21,8 +21,8 @@ import UIKit
 protocol HomeViewControllerDelegate: AnyObject {
 	func showRiskLegend()
 	func showExposureNotificationSetting(enState: ENStateHandler.State)
-	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProvider.ActivityState)
-	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProvider.ActivityState)
+	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProviderActivityState)
+	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProviderActivityState)
 	func showExposureSubmission(with result: TestResult?)
 	func showInviteFriends()
 	func showWebPage(from viewController: UIViewController, urlString: String)
@@ -39,21 +39,24 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		detectionMode: DetectionMode,
 		exposureManagerState: ExposureManagerState,
 		initialEnState: ENStateHandler.State,
-		risk: Risk?,
+		riskState: RiskState,
 		exposureSubmissionService: ExposureSubmissionService
 	) {
 		self.delegate = delegate
-		//self.enState = initialEnState
+
 		super.init(coder: coder)
+
 		self.homeInteractor = HomeInteractor(
 			homeViewController: self,
 			state: .init(
+				riskState: riskState,
 				detectionMode: detectionMode,
 				exposureManagerState: exposureManagerState,
-				enState: initialEnState,
-				risk: risk,
-				riskDetectionFailed: false
-			), exposureSubmissionService: exposureSubmissionService)
+				enState: initialEnState
+			),
+			exposureSubmissionService: exposureSubmissionService
+		)
+
 		navigationItem.largeTitleDisplayMode = .never
 		delegate.addToEnStateUpdateList(homeInteractor)
 	}

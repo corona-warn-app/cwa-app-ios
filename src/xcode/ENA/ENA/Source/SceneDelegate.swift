@@ -44,8 +44,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		exposureManager.observeExposureNotificationStatus(observer: self)
 
 		riskConsumer.didCalculateRisk = { [weak self] risk in
-			self?.state.risk = risk
-			self?.state.riskDetectionFailed = false
+			self?.state.riskState = .risk(risk)
 
 			#if DEBUG
 			if isUITesting, let uiTestRiskLevelEnv = UserDefaults.standard.string(forKey: "riskLevel") {
@@ -61,13 +60,19 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 					uiTestRiskLevel = .low
 
 				}
-				let uiTestRisk = Risk(level: uiTestRiskLevel, details: .init(daysSinceLastExposure: 1, numberOfExposures: uiTestExposureNumber, activeTracing: .init(interval: 14 * 86400), exposureDetectionDate: nil), riskLevelHasChanged: false)
-				self?.state.risk = uiTestRisk
+				let uiTestRisk = Risk(level: uiTestRiskLevel, details: .init(daysSinceLastExposure: 1, numberOfExposures: uiTestExposureNumber, activeTracing: .init(interval: 14 * 86400), exposureDetectionDate: Date()), riskLevelHasChanged: false)
+				self?.state.riskState = .risk(uiTestRisk)
 			}
 			#endif
 		}
-		riskConsumer.didFailCalculateRisk = {  [weak self] _ in
-			self?.state.riskDetectionFailed = true
+
+		riskConsumer.didFailCalculateRisk = { [weak self] error in
+			switch error {
+			case .inactive:
+				self?.state.riskState = .inactive
+			default:
+				self?.state.riskState = .detectionFailed
+			}
 		}
 
 		riskProvider.observeRisk(riskConsumer)
@@ -189,7 +194,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	// MARK: - Internal
 
-	var state: State = State(exposureManager: .init(), detectionMode: currentDetectionMode, risk: nil, riskDetectionFailed: false) {
+	var state: State = State(exposureManager: .init(), detectionMode: currentDetectionMode, riskState: .inactive) {
 		didSet {
 			coordinator.updateState(
 				detectionMode: state.detectionMode,

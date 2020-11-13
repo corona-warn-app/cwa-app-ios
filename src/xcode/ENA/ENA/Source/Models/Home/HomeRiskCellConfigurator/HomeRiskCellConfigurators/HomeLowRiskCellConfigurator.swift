@@ -30,7 +30,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
-		state: RiskProvider.ActivityState,
+		state: RiskProviderActivityState,
 		numberRiskContacts: Int,
 		lastUpdateDate: Date?,
 		isButtonHidden: Bool,

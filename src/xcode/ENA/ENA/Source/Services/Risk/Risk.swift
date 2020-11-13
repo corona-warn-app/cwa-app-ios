@@ -28,11 +28,11 @@ struct Risk: Equatable {
 extension Risk {
 	struct Details: Equatable {
 		var daysSinceLastExposure: Int?
-		var numberOfExposures: Int?
+		var numberOfExposures: Int
 		var numberOfHoursWithActiveTracing: Int { activeTracing.inHours }
 		var activeTracing: ActiveTracing
 		var numberOfDaysWithActiveTracing: Int { activeTracing.inDays }
-		var exposureDetectionDate: Date?
+		var exposureDetectionDate: Date
 	}
 }
 

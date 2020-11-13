@@ -76,12 +76,16 @@ extension ExposureDetectionViewController {
 		closeButton.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 
 		consumer.didCalculateRisk = { [weak self] risk in
-			self?.state.risk = risk
-			self?.state.riskDetectionFailed = false
+			self?.state.riskState = .risk(risk)
 			self?.updateUI()
 		}
-		consumer.didFailCalculateRisk = { [weak self] _ in
-			self?.state.riskDetectionFailed = true
+		consumer.didFailCalculateRisk = { [weak self] error in
+			switch error {
+			case .inactive:
+				self?.state.riskState = .inactive
+			default:
+				self?.state.riskState = .detectionFailed
+			}
 			self?.updateUI()
 		}
 		consumer.didChangeActivityState = { [weak self] activityState in
@@ -176,7 +180,7 @@ extension ExposureDetectionViewController {
 	}
 
 	private func updateCloseButton() {
-		if state.isTracingEnabled && state.riskLevel != .inactive && !state.riskDetectionFailed {
+		if case .risk = state.riskState, state.isTracingEnabled {
 			closeButton.setImage(UIImage(named: "Icons - Close - Contrast"), for: .normal)
 			closeButton.setImage(UIImage(named: "Icons - Close - Tap - Contrast"), for: .highlighted)
 		} else {

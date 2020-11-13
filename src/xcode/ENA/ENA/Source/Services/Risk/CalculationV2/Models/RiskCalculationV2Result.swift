@@ -57,13 +57,13 @@ extension Risk.Details {
 
 	init(
 		activeTracing: ActiveTracing,
-		riskCalculationResult: RiskCalculationV2Result?
+		riskCalculationResult: RiskCalculationV2Result
 	) {
 		self.init(
-			daysSinceLastExposure: riskCalculationResult?.mostRecentDateWithCurrentRiskLevel?.ageInDays,
-			numberOfExposures: riskCalculationResult?.minimumDistinctEncountersWithCurrentRiskLevel ?? 0,
+			daysSinceLastExposure: riskCalculationResult.mostRecentDateWithCurrentRiskLevel?.ageInDays,
+			numberOfExposures: riskCalculationResult.minimumDistinctEncountersWithCurrentRiskLevel,
 			activeTracing: activeTracing,
-			exposureDetectionDate: riskCalculationResult?.calculationDate
+			exposureDetectionDate: riskCalculationResult.calculationDate
 		)
 	}
 

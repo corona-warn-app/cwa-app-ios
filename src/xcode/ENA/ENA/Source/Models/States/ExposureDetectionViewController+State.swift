@@ -21,7 +21,8 @@ import UIKit
 
 extension ExposureDetectionViewController {
 	struct State {
-		var riskDetectionFailed: Bool
+
+		var riskState: RiskState
 
 		var exposureManagerState: ExposureManagerState = .init()
 
@@ -29,11 +30,26 @@ extension ExposureDetectionViewController {
 
 		var isTracingEnabled: Bool { exposureManagerState.enabled }
 		
-		var activityState: RiskProvider.ActivityState = .idle
+		var activityState: RiskProviderActivityState = .idle
 
-		var risk: Risk?
 		var riskLevel: RiskLevel {
-			risk?.level ?? .low
+			if case .risk(let risk) = riskState {
+				return risk.level
+			}
+
+			return .low
+		}
+
+		var riskDetectionFailed: Bool {
+			riskState == .detectionFailed
+		}
+
+		var riskDetails: Risk.Details? {
+			if case .risk(let risk) = riskState {
+				return risk.details
+			}
+
+			return nil
 		}
 
 		let previousRiskLevel: RiskLevel?

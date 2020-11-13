@@ -3,36 +3,60 @@
 // Copyright (c) 2020 SAP SE. All rights reserved.
 //
 
+enum RiskState: Equatable {
+	case risk(Risk)
+	case inactive
+	case detectionFailed
+}
+
 import Foundation
 extension HomeInteractor {
+
 	struct State: Equatable {
-		var riskDetectionFailed: Bool
+
+		// MARK: - Internal
+
+		var riskState: RiskState
+
 		var detectionMode: DetectionMode
 		var exposureManagerState: ExposureManagerState
 		var enState: ENStateHandler.State
 
-		var risk: Risk?
-		var riskLevel: RiskLevel? { risk?.level }
+		var riskLevel: RiskLevel? {
+			if case .risk(let risk) = riskState {
+				return risk.level
+			}
+
+			return nil
+		}
+
+		var riskDetectionFailed: Bool {
+			riskState == .detectionFailed
+		}
+
+		var riskDetails: Risk.Details? {
+			if case .risk(let risk) = riskState {
+				return risk.details
+			}
+
+			return nil
+		}
+
 		var numberRiskContacts: Int {
-			risk?.details.numberOfExposures ?? 0
+			if case .risk(let risk) = riskState {
+				return risk.details.numberOfExposures
+			}
+
+			return 0
 		}
 
 		var daysSinceLastExposure: Int? {
-			risk?.details.daysSinceLastExposure
+			if case .risk(let risk) = riskState {
+				return risk.details.daysSinceLastExposure
+			}
+
+			return nil
 		}
 
-		init(
-			detectionMode: DetectionMode,
-			exposureManagerState: ExposureManagerState,
-			enState: ENStateHandler.State,
-			risk: Risk?,
-			riskDetectionFailed: Bool
-		) {
-			self.detectionMode = detectionMode
-			self.exposureManagerState = exposureManagerState
-			self.enState = enState
-			self.risk = risk
-			self.riskDetectionFailed = riskDetectionFailed
-		}
 	}
 }
