@@ -69,11 +69,3 @@ class RiskCalculationV2Test: XCTestCase {
 	}()
 
 }
-
-private extension Date {
-
-	var ageInDays: Int? {
-		return Calendar.current.dateComponents([.day], from: self, to: Date()).day
-	}
-
-}

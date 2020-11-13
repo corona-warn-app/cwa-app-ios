@@ -27,9 +27,8 @@ final class MockTestStore: Store, AppConfigCaching {
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
-	var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
+	var riskCalculationResult: RiskCalculationV2Result?
 	var shouldShowRiskStatusLoweredAlert: Bool = false
-	var summary: SummaryMetadata?
 	var tracingStatusHistory: TracingStatusHistory = []
 	var testResultReceivedTimeStamp: Int64?
 	func clearAll(key: String?) {}
@@ -75,5 +74,5 @@ final class MockTestStore: Store, AppConfigCaching {
 	
 	var lastAppConfigETag: String?
 	var lastAppConfigFetch: Date?
-	var appConfig: SAP_Internal_ApplicationConfiguration?
+	var appConfig: SAP_Internal_V2_ApplicationConfigurationIOS?
 }

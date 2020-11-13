@@ -19,7 +19,7 @@
 
 import Foundation
 
-struct RiskCalculationV2Result {
+struct RiskCalculationV2Result: Codable {
 
 	// MARK: - Internal
 
@@ -49,6 +49,40 @@ struct RiskCalculationV2Result {
 		case .increased:
 			return mostRecentDateWithHighRisk
 		}
+	}
+
+}
+
+extension Risk.Details {
+
+	init(
+		activeTracing: ActiveTracing,
+		riskCalculationResult: RiskCalculationV2Result?
+	) {
+		self.init(
+			daysSinceLastExposure: riskCalculationResult?.mostRecentDateWithCurrentRiskLevel?.ageInDays,
+			numberOfExposures: riskCalculationResult?.minimumDistinctEncountersWithCurrentRiskLevel ?? 0,
+			activeTracing: activeTracing,
+			exposureDetectionDate: riskCalculationResult?.calculationDate
+		)
+	}
+
+}
+
+extension Risk {
+
+	init(
+		activeTracing: ActiveTracing,
+		riskCalculationResult: RiskCalculationV2Result,
+		previousRiskCalculationResult: RiskCalculationV2Result? = nil
+	) {
+		let riskLevelHasChanged = previousRiskCalculationResult?.riskLevel != nil && riskCalculationResult.riskLevel != previousRiskCalculationResult?.riskLevel
+
+		self.init(
+			level: riskCalculationResult.riskLevel == .increased ? .increased : .low,
+			details: Details(activeTracing: activeTracing, riskCalculationResult: riskCalculationResult),
+			riskLevelHasChanged: riskLevelHasChanged
+		)
 	}
 
 }

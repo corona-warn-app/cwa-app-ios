@@ -39,15 +39,13 @@ final class RiskProviderTests: XCTestCase {
 		))
 
 		let store = MockTestStore()
-		store.summary = SummaryMetadata(
-			summary: CodableExposureDetectionSummary(
-				daysSinceLastExposure: 0,
-				matchedKeyCount: 0,
-				maximumRiskScore: 0,
-				attenuationDurations: [],
-				maximumRiskScoreFullRange: 0
-			),
-			date: lastExposureDetectionDate
+		store.riskCalculationResult = RiskCalculationV2Result(
+			riskLevel: .low,
+			minimumDistinctEncountersWithLowRisk: 0,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: nil,
+			mostRecentDateWithHighRisk: nil,
+			calculationDate: lastExposureDetectionDate
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
@@ -57,7 +55,7 @@ final class RiskProviderTests: XCTestCase {
 			detectionMode: .automatic
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success(ENExposureDetectionSummary()))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
@@ -69,10 +67,10 @@ final class RiskProviderTests: XCTestCase {
 			store: store
 		)
 
-		var appConfig = SAP_Internal_ApplicationConfiguration()
-		var parameters = SAP_Internal_ExposureDetectionParametersIOS()
+		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
+		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 1
-		appConfig.iosExposureDetectionParameters = parameters
+		appConfig.exposureDetectionParameters = parameters
 
 		let appConfigurationMock = CachedAppConfigurationMock(appConfigurationResult: .success(appConfig))
 
@@ -90,7 +88,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false) { result in
 			switch result {
 			case .success:
-				XCTAssertTrue(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
+				XCTAssertTrue(exposureDetectionDelegateStub.exposureWindowsWereDetected)
 				requestRiskExpectation.fulfill()
 			case .failure:
 				XCTFail("Failure is not expected 1.")
@@ -113,15 +111,13 @@ final class RiskProviderTests: XCTestCase {
 		))
 
 		let store = MockTestStore()
-		store.summary = SummaryMetadata(
-			summary: CodableExposureDetectionSummary(
-				daysSinceLastExposure: 0,
-				matchedKeyCount: 0,
-				maximumRiskScore: 0,
-				attenuationDurations: [],
-				maximumRiskScoreFullRange: 0
-			),
-			date: lastExposureDetectionDate
+		store.riskCalculationResult = RiskCalculationV2Result(
+			riskLevel: .low,
+			minimumDistinctEncountersWithLowRisk: 0,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: nil,
+			mostRecentDateWithHighRisk: nil,
+			calculationDate: lastExposureDetectionDate
 		)
 		// Tracing was only active for one hour, there is not enough data to calculate risk,
 		// and we might get a rate limit error (ex. user reinstalls the app - losing tracing history - and risk is requested again)
@@ -133,7 +129,7 @@ final class RiskProviderTests: XCTestCase {
 			detectionMode: .automatic
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success(ENExposureDetectionSummary()))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
@@ -162,7 +158,7 @@ final class RiskProviderTests: XCTestCase {
 			case .success(let risk):
 				expectThatRiskIsReturned.fulfill()
 				XCTAssertEqual(risk.level, .unknownInitial, "Tracing was active for < 24 hours but risk is not .unknownInitial")
-				XCTAssertFalse(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
+				XCTAssertFalse(exposureDetectionDelegateStub.exposureWindowsWereDetected)
 			case .failure:
 				XCTFail("Failure not expected.")
 			}
@@ -174,7 +170,7 @@ final class RiskProviderTests: XCTestCase {
 		let duration = DateComponents(day: 1)
 
 		let store = MockTestStore()
-		store.summary = nil
+		store.riskCalculationResult = nil
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
 		let config = RiskProvidingConfiguration(
@@ -182,10 +178,10 @@ final class RiskProviderTests: XCTestCase {
 			exposureDetectionInterval: duration
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success(ENExposureDetectionSummary()))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 
-		let sapAppConfig = SAP_Internal_ApplicationConfiguration.with {
-			$0.exposureConfig = SAP_Internal_RiskScoreParameters()
+		let sapAppConfig = SAP_Internal_V2_ApplicationConfigurationIOS.with {
+			$0.exposureConfiguration = SAP_Internal_V2_ExposureConfiguration()
 		}
 		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
 
@@ -229,7 +225,7 @@ final class RiskProviderTests: XCTestCase {
 		let duration = DateComponents(day: 1)
 
 		let store = MockTestStore()
-		store.summary = nil
+		store.riskCalculationResult = nil
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
 		let config = RiskProvidingConfiguration(
@@ -239,8 +235,8 @@ final class RiskProviderTests: XCTestCase {
 
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .failure(DummyError()))
 
-		let sapAppConfig = SAP_Internal_ApplicationConfiguration.with {
-			$0.exposureConfig = SAP_Internal_RiskScoreParameters()
+		let sapAppConfig = SAP_Internal_V2_ApplicationConfigurationIOS.with {
+			$0.exposureConfiguration = SAP_Internal_V2_ExposureConfiguration()
 		}
 		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
 
@@ -266,7 +262,7 @@ final class RiskProviderTests: XCTestCase {
 
 		let consumer = RiskConsumer()
 		let didCalculateRiskFailedCalled = expectation(
-			description: "expect didCalculateFailedRisk to be called"
+			description: "expect didFailCalculateRisk to be called"
 		)
 
 		consumer.didCalculateRisk = { _ in
@@ -449,26 +445,29 @@ final class RiskProviderTests: XCTestCase {
 		let duration = DateComponents(day: 2)
 
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
-		store.previousRiskLevel = previousRiskLevel
 
 		let lastExposureDetectionDate = try XCTUnwrap(
 			Calendar.current.date(byAdding: .day, value: -1, to: Date(), wrappingComponents: false)
 		)
 
-		store.summary = SummaryMetadata(
-			summary: .summary(for: newRiskLevel),
-			date: lastExposureDetectionDate
+		store.riskCalculationResult = RiskCalculationV2Result(
+			riskLevel: previousRiskLevel,
+			minimumDistinctEncountersWithLowRisk: 0,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: nil,
+			mostRecentDateWithHighRisk: nil,
+			calculationDate: lastExposureDetectionDate
 		)
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
 			exposureDetectionInterval: duration,
-			detectionMode: .manual
+			detectionMode: .automatic
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success(ENExposureDetectionSummary()))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 
-		let appConfigurationProvider = CachedAppConfigurationMock(appConfigurationResult: .success(.riskCalculationAppConfig))
+		let appConfigurationProvider = CachedAppConfigurationMock(appConfigurationResult: .success(SAP_Internal_V2_ApplicationConfigurationIOS()))
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
@@ -484,6 +483,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store,
 			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskCalculation: RiskCalculationFake(riskLevel: newRiskLevel),
 			keyPackageDownload: keyPackageDownload,
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
@@ -491,37 +491,39 @@ final class RiskProviderTests: XCTestCase {
 
 }
 
-struct RiskCalculationFake: RiskCalculationProtocol {
-	func risk(
-		summary: CodableExposureDetectionSummary?,
-		configuration: SAP_Internal_ApplicationConfiguration,
-		dateLastExposureDetection: Date?,
-		activeTracing: ActiveTracing,
-		preconditions: ExposureManagerState,
-		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
-		providerConfiguration: RiskProvidingConfiguration
-	) -> Risk? {
-		let fakeRisk = Risk(
-			level: .low,
-			details: Risk.Details(
-				numberOfExposures: 0,
-				activeTracing: .init(interval: 336 * 3600),  // two weeks
-				exposureDetectionDate: Date()),
-			riskLevelHasChanged: true
-		)
-		return fakeRisk
+struct RiskCalculationFake: RiskCalculationV2Protocol {
+
+	internal init(riskLevel: EitherLowOrIncreasedRiskLevel = .low) {
+		self.riskLevel = riskLevel
 	}
+
+	let riskLevel: EitherLowOrIncreasedRiskLevel
+
+	func calculateRisk(
+		exposureWindows: [ExposureWindow],
+		configuration: RiskCalculationConfiguration
+	) throws -> RiskCalculationV2Result {
+		RiskCalculationV2Result(
+			riskLevel: riskLevel,
+			minimumDistinctEncountersWithLowRisk: 0,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: nil,
+			mostRecentDateWithHighRisk: nil,
+			calculationDate: Date()
+		)
+	}
+
 }
 
 final class ExposureDetectionDelegateStub: ExposureDetectionDelegate {
 
-	private let result: Result<ENExposureDetectionSummary, Error>
+	private let result: Result<[ENExposureWindow], Error>
 	private let keyPackagesToWrite: WrittenPackages
 
-	var exposureDetectionWasExecuted = false
+	var exposureWindowsWereDetected = false
 
 	init(
-		result: Result<ENExposureDetectionSummary, Error>,
+		result: Result<[ENExposureWindow], Error>,
 		keyPackagesToWrite: WrittenPackages = ExposureDetectionDelegateStub.defaultKeyPackages) {
 		self.result = result
 		self.keyPackagesToWrite = keyPackagesToWrite
@@ -531,8 +533,8 @@ final class ExposureDetectionDelegateStub: ExposureDetectionDelegate {
 		return keyPackagesToWrite
 	}
 
-	func exposureDetection(_ detection: ExposureDetection, detectSummaryWithConfiguration configuration: ENExposureConfiguration, writtenPackages: WrittenPackages, completion: @escaping DetectionHandler) -> Progress {
-		exposureDetectionWasExecuted = true
+	func detectExposureWindows(_ detection: ExposureDetection, detectSummaryWithConfiguration configuration: ENExposureConfiguration, writtenPackages: WrittenPackages, completion: @escaping (Result<[ENExposureWindow], Error>) -> Void) -> Progress {
+		exposureWindowsWereDetected = true
 		completion(result)
 		return Progress()
 	}

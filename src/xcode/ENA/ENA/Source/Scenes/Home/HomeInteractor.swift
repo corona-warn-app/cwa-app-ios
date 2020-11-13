@@ -216,7 +216,7 @@ extension HomeInteractor {
 
 		if state.riskDetectionFailed {
 			let failedConfigurator = HomeFailedCellConfigurator(
-				previousRiskLevel: store.previousRiskLevel,
+				previousRiskLevel: store.riskCalculationResult?.riskLevel,
 				lastUpdateDate: dateLastExposureDetection
 			)
 			failedConfigurator.activeAction = { [weak self] in
@@ -245,7 +245,7 @@ extension HomeInteractor {
 		case .inactive:
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
 				inactiveType: .noCalculationPossible,
-				previousRiskLevel: store.previousRiskLevel,
+				previousRiskLevel: store.riskCalculationResult?.riskLevel,
 				lastUpdateDate: dateLastExposureDetection
 			)
 			inactiveConfigurator?.activeAction = inActiveCellActionHandler
@@ -253,7 +253,7 @@ extension HomeInteractor {
 			if detectionMode == .automatic {
 				inactiveConfigurator = HomeInactiveRiskCellConfigurator(
 					inactiveType: .outdatedResults,
-					previousRiskLevel: store.previousRiskLevel,
+					previousRiskLevel: store.riskCalculationResult?.riskLevel,
 					lastUpdateDate: dateLastExposureDetection
 				)
 				inactiveConfigurator?.activeAction = inActiveCellActionHandler
@@ -264,7 +264,7 @@ extension HomeInteractor {
 					detectionInterval: detectionInterval,
 					detectionMode: detectionMode,
 					manualExposureDetectionState: riskProvider.manualExposureDetectionState,
-					previousRiskLevel: store.previousRiskLevel)
+					previousRiskLevel: store.riskCalculationResult?.riskLevel)
 			}
 		case .low:
 			let activeTracing = risk?.details.activeTracing ?? .init(interval: 0)
