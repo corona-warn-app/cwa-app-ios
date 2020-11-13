@@ -1,6 +1,5 @@
 //
-// Created by Hu, Hao on 06.06.20.
-// Copyright (c) 2020 SAP SE. All rights reserved.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -77,9 +76,7 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 				downloadedPackagesStore.open()
 
 				// Clear the app config
-				store.appConfig = nil
-				store.lastAppConfigETag = nil
-				store.lastAppConfigFetch = nil
+				store.appConfigMetadata = nil
 			}
 		}
 
