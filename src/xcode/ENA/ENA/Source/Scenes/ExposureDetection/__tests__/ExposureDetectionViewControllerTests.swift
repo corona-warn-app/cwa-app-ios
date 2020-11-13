@@ -45,7 +45,7 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 			riskDetectionFailed: false, exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			detectionMode: .automatic,
 			activityState: .idle,
-			risk: .init(level: .increased,
+			risk: .init(level: .high,
 						details: .init(
 							daysSinceLastExposure: 1,
 							numberOfExposures: 2,

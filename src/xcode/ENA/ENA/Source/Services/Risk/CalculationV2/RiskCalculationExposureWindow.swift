@@ -141,7 +141,7 @@ final class RiskCalculationExposureWindow: Codable {
 	}()
 
 	/// 7. Determine `Risk Level`
-	func riskLevel() throws -> CWARiskLevel {
+	func riskLevel() throws -> RiskLevel {
 		guard let riskLevel = configuration.normalizedTimePerEWToRiskLevelMapping
 				.first(where: { $0.normalizedTimeRange.contains(normalizedTime) })
 				.map({ $0.riskLevel })

@@ -52,17 +52,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 				var uiTestRiskLevel: RiskLevel
 				var uiTestExposureNumber = 100
 				switch uiTestRiskLevelEnv {
-				case "increased":
-					uiTestRiskLevel = RiskLevel.increased
+				case "high":
+					uiTestRiskLevel = .high
 				case "low":
-					uiTestRiskLevel = RiskLevel.low
+					uiTestRiskLevel = .low
 					uiTestExposureNumber = 7
-				case "unknownInitial":
-					uiTestRiskLevel = RiskLevel.unknownInitial
-				case "unknownOutdated":
-					uiTestRiskLevel = RiskLevel.unknownOutdated
 				default:
-					uiTestRiskLevel = RiskLevel.inactive
+					uiTestRiskLevel = .low
 
 				}
 				let uiTestRisk = Risk(level: uiTestRiskLevel, details: .init(daysSinceLastExposure: 1, numberOfExposures: uiTestExposureNumber, activeTracing: .init(interval: 14 * 86400), exposureDetectionDate: nil), riskLevelHasChanged: false)

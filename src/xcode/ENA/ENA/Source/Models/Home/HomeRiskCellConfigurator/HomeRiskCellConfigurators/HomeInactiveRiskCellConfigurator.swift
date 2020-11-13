@@ -19,7 +19,7 @@ import UIKit
 
 final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
-	private var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
+	private var previousRiskLevel: RiskLevel?
 	private var lastUpdateDate: Date?
 
 	enum InactiveType {
@@ -51,7 +51,7 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
 	init(
 		inactiveType: InactiveType,
-		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
+		previousRiskLevel: RiskLevel?,
 		lastUpdateDate: Date?
 	) {
 		self.inactiveType = inactiveType
@@ -73,7 +73,7 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		switch previousRiskLevel {
 		case .low?:
 			return AppStrings.Home.riskCardLastActiveItemLowTitle
-		case .increased?:
+		case .high?:
 			return AppStrings.Home.riskCardLastActiveItemHighTitle
 		default:
 			return AppStrings.Home.riskCardLastActiveItemUnknownTitle

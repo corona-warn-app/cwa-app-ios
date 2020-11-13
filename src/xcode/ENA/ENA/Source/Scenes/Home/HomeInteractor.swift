@@ -234,14 +234,6 @@ extension HomeInteractor {
 		let riskLevel: RiskLevel? = state.exposureManagerState.enabled ? state.riskLevel : .inactive
 
 		switch riskLevel {
-		case .unknownInitial:
-			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
-				state: riskCellActivityState,
-				lastUpdateDate: nil,
-				detectionInterval: detectionInterval,
-				detectionMode: detectionMode,
-				manualExposureDetectionState: riskProvider.manualExposureDetectionState
-			)
 		case .inactive:
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
 				inactiveType: .noCalculationPossible,
@@ -249,23 +241,6 @@ extension HomeInteractor {
 				lastUpdateDate: dateLastExposureDetection
 			)
 			inactiveConfigurator?.activeAction = inActiveCellActionHandler
-		case .unknownOutdated:
-			if detectionMode == .automatic {
-				inactiveConfigurator = HomeInactiveRiskCellConfigurator(
-					inactiveType: .outdatedResults,
-					previousRiskLevel: store.riskCalculationResult?.riskLevel,
-					lastUpdateDate: dateLastExposureDetection
-				)
-				inactiveConfigurator?.activeAction = inActiveCellActionHandler
-			} else {
-				riskLevelConfigurator = HomeUnknown48hRiskCellConfigurator(
-					state: riskCellActivityState,
-					lastUpdateDate: dateLastExposureDetection,
-					detectionInterval: detectionInterval,
-					detectionMode: detectionMode,
-					manualExposureDetectionState: riskProvider.manualExposureDetectionState,
-					previousRiskLevel: store.riskCalculationResult?.riskLevel)
-			}
 		case .low:
 			let activeTracing = risk?.details.activeTracing ?? .init(interval: 0)
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(
@@ -277,7 +252,7 @@ extension HomeInteractor {
 				detectionInterval: detectionInterval,
 				activeTracing: activeTracing
 			)
-		case .increased:
+		case .high:
 			riskLevelConfigurator = HomeHighRiskCellConfigurator(
 				state: riskCellActivityState,
 				numberRiskContacts: state.numberRiskContacts,
@@ -512,8 +487,7 @@ extension HomeInteractor: CountdownTimerDelegate {
 
 		// Schedule new countdown.
 		NotificationCenter.default.addObserver(self, selector: #selector(invalidateCountdownTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
-		let nextUpdate = self.riskProvider.nextExposureDetectionDate()
-		countdownTimer = CountdownTimer(countdownTo: nextUpdate)
+		countdownTimer = CountdownTimer(countdownTo: riskProvider.nextExposureDetectionDate)
 		countdownTimer?.delegate = self
 		countdownTimer?.start()
 	}

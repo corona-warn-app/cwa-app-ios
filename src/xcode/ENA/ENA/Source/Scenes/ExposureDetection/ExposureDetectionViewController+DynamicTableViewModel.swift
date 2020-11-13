@@ -29,11 +29,8 @@ extension ExposureDetectionViewController {
 		}
 
 		switch riskLevel {
-		case .unknownInitial: return unknownRiskModel
-		case .unknownOutdated: return outdatedRiskModel
-		case .inactive: return offModel
 		case .low: return lowRiskModel
-		case .increased: return highRiskModel
+		case .high: return highRiskModel
 		}
 	}
 }
@@ -393,38 +390,6 @@ extension ExposureDetectionViewController {
 			explanationSection(
 				text: AppStrings.ExposureDetection.explanationTextOff,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextOff)
-		])
-	}
-
-	private var outdatedRiskModel: DynamicTableViewModel {
-		DynamicTableViewModel([
-			riskDataSection(
-				cells: [
-					.riskText(text: AppStrings.ExposureDetection.outdatedText),
-					.riskLastRiskLevel(hasSeparator: false, text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "Icons_LetzteErmittlung-Light")),
-					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
-				]
-			),
-			riskLoadingSection,
-			standardGuideSection,
-			explanationSection(
-				text: AppStrings.ExposureDetection.explanationTextOutdated,
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextOutdated
-			)
-		])
-	}
-
-	private var unknownRiskModel: DynamicTableViewModel {
-		DynamicTableViewModel([
-			riskDataSection(cells: [
-				.riskText(text: AppStrings.ExposureDetection.unknownText)
-			]),
-			riskLoadingSection,
-			standardGuideSection,
-			explanationSection(
-				text: AppStrings.ExposureDetection.explanationTextUnknown,
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextUnknown
-			)
 		])
 	}
 

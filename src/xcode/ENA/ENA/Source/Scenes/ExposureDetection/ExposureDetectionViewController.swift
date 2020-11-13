@@ -207,11 +207,7 @@ extension ExposureDetectionViewController {
 			return
 		}
 
-		var mode = state.detectionMode
-		if .unknownOutdated == state.risk?.level { mode = .manual }
-
-		switch mode {
-
+		switch state.detectionMode {
 		// Automatic mode does not requred additional logic, this is often the default configuration.
 		case .automatic:
 			footerView.isHidden = true
@@ -221,7 +217,7 @@ extension ExposureDetectionViewController {
 		case .manual:
 			footerView.isHidden = false
 
-			let nextRefresh = riskProvider.nextExposureDetectionDate()
+			let nextRefresh = riskProvider.nextExposureDetectionDate
 			let now = Date()
 
 			// If there is not countdown and the next possible refresh date is in the future,

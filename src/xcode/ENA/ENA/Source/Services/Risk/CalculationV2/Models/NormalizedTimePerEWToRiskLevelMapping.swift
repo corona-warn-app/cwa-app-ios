@@ -25,12 +25,12 @@ struct NormalizedTimeToRiskLevelMapping: Codable {
 
 	init(from normalizedTimeToRiskLevelMapping: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping) {
 		self.normalizedTimeRange = ENARange(from: normalizedTimeToRiskLevelMapping.normalizedTimeRange)
-		self.riskLevel = CWARiskLevel(from: normalizedTimeToRiskLevelMapping.riskLevel)
+		self.riskLevel = RiskLevel(from: normalizedTimeToRiskLevelMapping.riskLevel)
 	}
 
 	// MARK: - Internal
 	
 	let normalizedTimeRange: ENARange
-	let riskLevel: CWARiskLevel
+	let riskLevel: RiskLevel
 	
 }

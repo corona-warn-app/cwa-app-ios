@@ -85,9 +85,9 @@ class ENAUITests_01_Home: XCTestCase {
 		//snapshot("ScreenShot_\(#function)")
 	}
 	
-	func test_screenshot_homescreen_riskCardIncreased() throws {
+	func test_screenshot_homescreen_riskCardHigh() throws {
 		var screenshotCounter = 0
-		let riskLevel = "increased"
+		let riskLevel = "high"
 		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launch()
@@ -128,31 +128,4 @@ class ENAUITests_01_Home: XCTestCase {
 
 	}
 	
-	func test_screenshot_homescreen_riskCardUnknownUnknownInitial() throws {
-		var screenshotCounter = 0
-		let riskLevel = "unknownInitial"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launch()
-
-		// only run if home screen is present
-		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
-		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		app.swipeUp()
-		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
-	
-	func test_screenshot_homescreen_riskCardUnknownUnknownOutdated() throws {
-		var screenshotCounter = 0
-		let riskLevel = "unknownOutdated"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launch()
-
-		// only run if home screen is present
-		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
-		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		app.swipeUp()
-		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
 }

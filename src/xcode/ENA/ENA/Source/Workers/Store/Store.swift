@@ -18,30 +18,6 @@
 import Foundation
 import ExposureNotification
 
-enum EitherLowOrIncreasedRiskLevel: Int, Codable {
-	case low = 0
-	case increased = 1_000 /// so that increased > low + we have enough reserved values
-	var description: String {
-		switch self {
-		case .low: return "low"
-		case .increased: return "increased"
-		}
-	}
-}
-
-extension EitherLowOrIncreasedRiskLevel {
-	init?(with risk: RiskLevel) {
-		switch risk {
-		case .low:
-			self = .low
-		case .increased:
-			self = .increased
-		default:
-			return nil
-		}
-	}
-}
-
 protocol StoreProtocol: AnyObject {
 	var isOnboarded: Bool { get set }
 	var onboardingVersion: String { get set }
@@ -94,7 +70,7 @@ protocol StoreProtocol: AnyObject {
 
 	var riskCalculationResult: RiskCalculationV2Result? { get set }
 
-	/// Set to true whenever a risk calculation changes the risk from .increased to .low
+	/// Set to true whenever a risk calculation changes the risk from .high to .low
 	var shouldShowRiskStatusLoweredAlert: Bool { get set }
 
 	/// `true` if the user needs to be informed about how risk detection works.

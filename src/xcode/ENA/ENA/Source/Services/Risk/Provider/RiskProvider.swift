@@ -98,7 +98,6 @@ extension RiskProvider: RiskProviding {
 
 	var manualExposureDetectionState: ManualExposureDetectionState? {
 		riskProvidingConfiguration.manualExposureDetectionState(
-			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
 			lastExposureDetectionDate: store.riskCalculationResult?.calculationDate)
 	}
 
@@ -129,27 +128,11 @@ extension RiskProvider: RiskProviding {
 	}
 
 	/// Returns the next possible date of a exposureDetection
-	/// Case1: Date is a valid date in the future
-	/// Case2: Date is in the past (could be .distantPast) (usually happens when no detection has been run before (e.g. fresh install).
-	/// For Case2, we need to calculate the remaining time until we reach a full 24h of tracing.
-	func nextExposureDetectionDate() -> Date {
-		let nextDate = riskProvidingConfiguration.nextExposureDetectionDate(
+	var nextExposureDetectionDate: Date {
+		riskProvidingConfiguration.nextExposureDetectionDate(
 			lastExposureDetectionDate: store.riskCalculationResult?.calculationDate
 		)
-		switch nextDate {
-		case .now:  // Occurs when no detection has been performed ever
-			let tracingHistory = store.tracingStatusHistory
-			let numberOfEnabledSeconds = tracingHistory.activeTracing().interval
-			let remainingTime = TracingStatusHistory.minimumActiveSeconds - numberOfEnabledSeconds
-			// To get a more robust Date when calculating the Date we need to drop precision, otherwise we will get dates differing in miliseconds
-			let timeInterval = Date().addingTimeInterval(remainingTime).timeIntervalSinceReferenceDate
-			let timeIntervalInSeconds = Int(timeInterval)
-			return Date(timeIntervalSinceReferenceDate: TimeInterval(timeIntervalInSeconds))
-		case .date(let date):
-			return date
-		}
 	}
-
 
 	private func successOnTargetQueue(risk: Risk, completion: Completion?) {
 		Log.info("RiskProvider: Risk detection and calculation was successful.", log: .riskDetection)
@@ -307,17 +290,7 @@ extension RiskProvider: RiskProviding {
 			)
 		}
 
-		if numberOfEnabledHours < TracingStatusHistory.minimumActiveHours {
-			Log.info("RiskProvider: Precondition not met for minimumActiveHours", log: .riskDetection)
-			return Risk(
-				level: .unknownInitial,
-				details: details,
-				riskLevelHasChanged: false // false because we don't want to trigger a notification
-			)
-		}
-
 		let enoughTimeHasPassed = riskProvidingConfiguration.shouldPerformExposureDetection(
-			activeTracingHours: numberOfEnabledHours,
 			lastExposureDetectionDate: store.riskCalculationResult?.calculationDate
 		)
 		let shouldDetectExposures = (riskProvidingConfiguration.detectionMode == .manual && userInitiated) || riskProvidingConfiguration.detectionMode == .automatic
@@ -413,12 +386,12 @@ extension RiskProvider: RiskProviding {
 
 	private func checkIfRiskStatusLoweredAlertShouldBeShown(_ risk: Risk) {
 		/// Only set shouldShowRiskStatusLoweredAlert if risk level has changed from increase to low or vice versa. Otherwise leave shouldShowRiskStatusLoweredAlert unchanged.
-		/// Scenario: Risk level changed from increased to low in the first risk calculation. In a second risk calculation it stays low. If the user does not open the app between these two calculations, the alert should still be shown.
+		/// Scenario: Risk level changed from high to low in the first risk calculation. In a second risk calculation it stays low. If the user does not open the app between these two calculations, the alert should still be shown.
 		if risk.riskLevelHasChanged {
 			switch risk.level {
 			case .low:
 				store.shouldShowRiskStatusLoweredAlert = true
-			case .increased:
+			case .high:
 				store.shouldShowRiskStatusLoweredAlert = false
 			default:
 				break
@@ -495,7 +468,7 @@ extension RiskProvider {
 		}
 
 		store.riskCalculationResult = RiskCalculationV2Result(
-			riskLevel: risk.level == .increased ? .increased : .low,
+			riskLevel: risk.level == .high ? .high : .low,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: nil,

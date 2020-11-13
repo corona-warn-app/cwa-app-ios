@@ -36,10 +36,10 @@ final class RiskCalculationV2: RiskCalculationV2Protocol, Codable {
 	private(set) var filteredExposureWindows: [RiskCalculationExposureWindow] = []
 	private(set) var exposureWindowsPerDate: [Date: [RiskCalculationExposureWindow]] = [:]
 	private(set) var normalizedTimePerDate: [Date: Double] = [:]
-	private(set) var riskLevelPerDate: [Date: CWARiskLevel] = [:]
+	private(set) var riskLevelPerDate: [Date: RiskLevel] = [:]
 	private(set) var minimumDistinctEncountersWithLowRiskPerDate: [Date: Int] = [:]
 	private(set) var minimumDistinctEncountersWithHighRiskPerDate: [Date: Int] = [:]
-	private(set) var riskLevel: EitherLowOrIncreasedRiskLevel = .low
+	private(set) var riskLevel: RiskLevel = .low
 	private(set) var mostRecentDateWithLowRisk: Date?
 	private(set) var mostRecentDateWithHighRisk: Date?
 	private(set) var minimumDistinctEncountersWithLowRisk = 0
@@ -70,7 +70,7 @@ final class RiskCalculationV2: RiskCalculationV2Protocol, Codable {
 		}
 
 		/// 3. Determine `Risk Level per Date`
-		riskLevelPerDate = try normalizedTimePerDate.mapValues { normalizedTime -> CWARiskLevel in
+		riskLevelPerDate = try normalizedTimePerDate.mapValues { normalizedTime -> RiskLevel in
 			guard let riskLevel = configuration.normalizedTimePerDayToRiskLevelMapping
 					.first(where: { $0.normalizedTimeRange.contains(normalizedTime) })
 					.map({ $0.riskLevel })
@@ -100,7 +100,7 @@ final class RiskCalculationV2: RiskCalculationV2Protocol, Codable {
 		}
 
 		/// 6. Determine `Total Risk`
-		riskLevel = riskLevelPerDate.values.contains(.high) ? .increased : .low
+		riskLevel = riskLevelPerDate.values.contains(.high) ? .high : .low
 
 		/// 7. Determine `Date of Most Recent Date with Low Risk`
 		mostRecentDateWithLowRisk = riskLevelPerDate.filter { $0.value == .low }.keys.max()

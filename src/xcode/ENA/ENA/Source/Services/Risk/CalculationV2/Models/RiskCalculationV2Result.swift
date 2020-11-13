@@ -23,7 +23,7 @@ struct RiskCalculationV2Result: Codable {
 
 	// MARK: - Internal
 
-	let riskLevel: EitherLowOrIncreasedRiskLevel
+	let riskLevel: RiskLevel
 
 	let minimumDistinctEncountersWithLowRisk: Int
 	let minimumDistinctEncountersWithHighRisk: Int
@@ -37,7 +37,7 @@ struct RiskCalculationV2Result: Codable {
 		switch riskLevel {
 		case .low:
 			return minimumDistinctEncountersWithLowRisk
-		case .increased:
+		case .high:
 			return minimumDistinctEncountersWithHighRisk
 		}
 	}
@@ -46,7 +46,7 @@ struct RiskCalculationV2Result: Codable {
 		switch riskLevel {
 		case .low:
 			return mostRecentDateWithLowRisk
-		case .increased:
+		case .high:
 			return mostRecentDateWithHighRisk
 		}
 	}
@@ -79,7 +79,7 @@ extension Risk {
 		let riskLevelHasChanged = previousRiskCalculationResult?.riskLevel != nil && riskCalculationResult.riskLevel != previousRiskCalculationResult?.riskLevel
 
 		self.init(
-			level: riskCalculationResult.riskLevel == .increased ? .increased : .low,
+			level: riskCalculationResult.riskLevel == .high ? .high : .low,
 			details: Details(activeTracing: activeTracing, riskCalculationResult: riskCalculationResult),
 			riskLevelHasChanged: riskLevelHasChanged
 		)

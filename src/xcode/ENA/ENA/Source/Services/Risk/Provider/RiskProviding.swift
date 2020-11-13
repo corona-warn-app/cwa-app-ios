@@ -35,9 +35,10 @@ enum RiskProviderError: Error {
 protocol RiskProviding: AnyObject {
 	typealias Completion = (RiskCalculationResult) -> Void
 
+	var nextExposureDetectionDate: Date { get }
+	var riskProvidingConfiguration: RiskProvidingConfiguration { get }
+
 	func observeRisk(_ consumer: RiskConsumer)
 	func requestRisk(userInitiated: Bool, completion: Completion?)
-	func nextExposureDetectionDate() -> Date
 
-	var riskProvidingConfiguration: RiskProvidingConfiguration { get set }
 }
