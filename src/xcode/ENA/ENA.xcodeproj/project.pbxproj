@@ -378,6 +378,7 @@
 		ABC6B7ED255AEF77000A1AC0 /* RiskProviderAndNewKeyPackagesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC6B7E8255AEF74000A1AC0 /* RiskProviderAndNewKeyPackagesTests.swift */; };
 		ABD2F634254C533200DC1958 /* KeyPackageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD2F633254C533200DC1958 /* KeyPackageDownload.swift */; };
 		ABDA2792251CE308006BAE84 /* DMServerEnvironmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */; };
+		ABFCE98A255C32EF0075FF13 /* AppConfigMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFCE989255C32EE0075FF13 /* AppConfigMetadata.swift */; };
 		B103193224E18A0A00DD02EF /* DMMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B103193124E18A0A00DD02EF /* DMMenuItem.swift */; };
 		B10F9B8B249961BC00C418F4 /* DynamicTypeLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10F9B89249961B500C418F4 /* DynamicTypeLabelTests.swift */; };
 		B10F9B8C249961CE00C418F4 /* UIFont+DynamicTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B163D11424993F64001A322C /* UIFont+DynamicTypeTests.swift */; };
@@ -520,6 +521,8 @@
 		EB858D2024E700D10048A0AA /* UIView+Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */; };
 		EB873540253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */; };
 		EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */; };
+		EBDE11B2255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDE11B1255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift */; };
+		EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDE11BA255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift */; };
 		EBE7DF4A254C2DE8008A0648 /* key_download_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE7DF48254C2DE8008A0648 /* key_download_parameters.pb.swift */; };
 		EBE7DF4B254C2DE8008A0648 /* exposure_detection_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE7DF49254C2DE8008A0648 /* exposure_detection_parameters.pb.swift */; };
 		EE20EA072469883900770683 /* RiskLegend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE20EA062469883900770683 /* RiskLegend.storyboard */; };
@@ -985,6 +988,7 @@
 		ABC6B7E8255AEF74000A1AC0 /* RiskProviderAndNewKeyPackagesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskProviderAndNewKeyPackagesTests.swift; sourceTree = "<group>"; };
 		ABD2F633254C533200DC1958 /* KeyPackageDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPackageDownload.swift; sourceTree = "<group>"; };
 		ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMServerEnvironmentViewController.swift; sourceTree = "<group>"; };
+		ABFCE989255C32EE0075FF13 /* AppConfigMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigMetadata.swift; sourceTree = "<group>"; };
 		B102BDC22460410600CD55A2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B103193124E18A0A00DD02EF /* DMMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMMenuItem.swift; sourceTree = "<group>"; };
 		B10F9B89249961B500C418F4 /* DynamicTypeLabelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicTypeLabelTests.swift; sourceTree = "<group>"; };
@@ -1120,6 +1124,8 @@
 		EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Screenshot.swift"; sourceTree = "<group>"; };
 		EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenter+DeadManSwitch.swift"; sourceTree = "<group>"; };
 		EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewController.swift; sourceTree = "<group>"; };
+		EBDE11B1255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDeviceTimeCheckViewController.swift; sourceTree = "<group>"; };
+		EBDE11BA255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDeviceTimeCheckViewModel.swift; sourceTree = "<group>"; };
 		EBE7DF48254C2DE8008A0648 /* key_download_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = key_download_parameters.pb.swift; path = ../../../gen/output/internal/key_download_parameters.pb.swift; sourceTree = "<group>"; };
 		EBE7DF49254C2DE8008A0648 /* exposure_detection_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = exposure_detection_parameters.pb.swift; path = ../../../gen/output/internal/exposure_detection_parameters.pb.swift; sourceTree = "<group>"; };
 		EE20EA062469883900770683 /* RiskLegend.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RiskLegend.storyboard; sourceTree = "<group>"; };
@@ -1454,6 +1460,7 @@
 				A16714BA248D18D20031B111 /* SummaryMetadata.swift */,
 				354E305824EFF26E00526C9F /* Country.swift */,
 				941ADDB12518C3FB00E421D9 /* ENSettingEuTracingViewModel.swift */,
+				ABFCE989255C32EE0075FF13 /* AppConfigMetadata.swift */,
 				94B255A52551B7C800649B4C /* WarnOthersReminder.swift */,
 				94427A4F25502B8900C36BE6 /* WarnOthersNotificationsTimeInterval.swift */,
 				948AFE662553DC5B0019579A /* WarnOthersRemindable.swift */,
@@ -2599,6 +2606,7 @@
 				B1E8C99C2479D4E7006DC678 /* DMSubmissionStateViewController.swift */,
 				B1D8CB2524DD4371008C6010 /* DMTracingHistoryViewController.swift */,
 				BA6D164D255ADD8600ED3492 /* DMWifiClient */,
+				EBDE11B6255EC2D7008C0F51 /* DMDeviceTimeCheck */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -2889,6 +2897,15 @@
 				EB7057D624E6BACA002235B4 /* InfoBoxView.xib */,
 			);
 			path = BackgroundAppRefresh;
+			sourceTree = "<group>";
+		};
+		EBDE11B6255EC2D7008C0F51 /* DMDeviceTimeCheck */ = {
+			isa = PBXGroup;
+			children = (
+				EBDE11B1255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift */,
+				EBDE11BA255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift */,
+			);
+			path = DMDeviceTimeCheck;
 			sourceTree = "<group>";
 		};
 		EE20EA0824699A3A00770683 /* RiskLegend */ = {
@@ -3434,6 +3451,7 @@
 				AB5F84B224F8F7E3000400D4 /* Migration0To1.swift in Sources */,
 				A3EE6E5D249BB9B900C64B61 /* UITestingParameters.swift in Sources */,
 				EB08F17A2541CE3300D11FA9 /* risk_level.pb.swift in Sources */,
+				EBDE11B2255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift in Sources */,
 				B1A31F6924DAE6C000E263DF /* DMKeyCell.swift in Sources */,
 				710224F42490E7A3000C5DEF /* ExposureSubmissionStepCell.swift in Sources */,
 				AB7420CB251B7D93006666AC /* DeltaOnboardingV15ViewController.swift in Sources */,
@@ -3444,6 +3462,7 @@
 				A3816086250633D7002286E9 /* RequiresDismissConfirmation.swift in Sources */,
 				51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */,
 				4026C2DC24852B7600926FB4 /* AppInformationViewController+LegalModel.swift in Sources */,
+				ABFCE98A255C32EF0075FF13 /* AppConfigMetadata.swift in Sources */,
 				01C6ABF42527273E0052814D /* String+Insertion.swift in Sources */,
 				EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */,
 				710ABB27247533FA00948792 /* DynamicTableViewController.swift in Sources */,
@@ -3510,6 +3529,7 @@
 				71B804492484D37300D53506 /* RiskLegendViewController.swift in Sources */,
 				01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */,
 				514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */,
+				EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */,
 				713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */,
 				01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */,
 				01C6AC32252B29C00052814D /* QRScannerError.swift in Sources */,

@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import XCTest
@@ -33,8 +18,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		fetchedFromClientExpectation.assertForOverFulfill = true
 
 		let store = MockTestStore()
-		XCTAssertNil(store.appConfig)
-		XCTAssertNil(store.lastAppConfigETag)
+		XCTAssertNil(store.appConfigMetadata)
 
 		let client = CachingHTTPClientMock(store: store)
 		let expectedConfig = SAP_Internal_ApplicationConfiguration()
@@ -60,8 +44,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			completionExpectation.fulfill()
 		}.store(in: &subscriptions)
 
-		XCTAssertNotNil(store.appConfig)
-		XCTAssertNotNil(store.lastAppConfigETag)
+		XCTAssertNotNil(store.appConfigMetadata)
 
 		// Should not trigger another call (expectation) to the actual client or a new risk calculation
 		// Remember: `expectedFulfillmentCount = 1`
@@ -313,7 +296,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 //	}
 }
 
-private extension Int {
+extension Int {
 
 	/// A date n seconds ago
 	var secondsAgo: Date? {

@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -267,6 +252,11 @@ final class SecureStore: Store {
 		get { kvStore["fakeSQLiteError"] as Int32? }
 		set { kvStore["fakeSQLiteError"] = newValue }
 	}
+	
+	var dmKillDeviceTimeCheck: Bool {
+		get { kvStore["dmKillDeviceTimeCheck"] as Bool? ?? false }
+		set { kvStore["dmKillDeviceTimeCheck"] = newValue }
+	}
 
 	#endif
 }
@@ -290,25 +280,11 @@ extension SecureStore {
 }
 
 extension SecureStore: AppConfigCaching {
-	var lastAppConfigETag: String? {
-		get { kvStore["lastAppConfigETag"] as String? ?? nil }
-		set { kvStore["lastAppConfigETag"] = newValue }
-	}
-
-	var lastAppConfigFetch: Date? {
-		get { kvStore["lastAppConfigFetch"] as Date? ?? nil }
-		set { kvStore["lastAppConfigFetch"] = newValue }
-	}
-
-	var appConfig: SAP_Internal_ApplicationConfiguration? {
-		get {
-			guard let data = kvStore["SAP_Internal_ApplicationConfiguration"] else { return nil }
-			return try? SAP_Internal_ApplicationConfiguration(serializedData: data)
-		}
-		set { kvStore["SAP_Internal_ApplicationConfiguration"] = try? newValue?.serializedData() }
+	var appConfigMetadata: AppConfigMetadata? {
+		get { kvStore["appConfigMetadata"] as AppConfigMetadata? ?? nil }
+		set { kvStore["appConfigMetadata"] = newValue }
 	}
 }
-
 
 extension SecureStore {
 

@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -61,19 +46,19 @@ final class CachedAppConfiguration {
 		deviceTimeCheck: DeviceTimeCheckProtocol? = nil,
 		configurationDidChange: (() -> Void)? = nil
 	) {
+		Log.debug("CachedAppConfiguration init called", log: .appConfig)
+
 		self.client = client
 		self.store = store
 		self.configurationDidChange = configurationDidChange
 
 		self.deviceTimeCheck = deviceTimeCheck ?? DeviceTimeCheck(store: store)
 
+
 		guard shouldFetch() else { return }
 
-		// edge case: if no app config is cached, omit a potentially existing ETag to force fetch a new configuration
-		let etag = store.appConfig == nil ? nil : store.lastAppConfigETag
-
 		// check for updated or fetch initial app configuration
-		getAppConfig(with: etag)
+		getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag)
 			.sink { config in
 				self.store.appConfig = config
 			}
@@ -95,7 +80,7 @@ final class CachedAppConfiguration {
 					self.store.lastAppConfigFetch = Date()
 
 					// update revokation list
-					let revokationList = self.store.appConfig?.revokationEtags ?? []
+					let revokationList = self.store.appConfigMetadata?.appConfig.revokationEtags ?? []
 					self.packageStore?.revokationList = revokationList // for future package-operations
 					// validate currently stored key packages
 					do {
@@ -160,16 +145,16 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 	func appConfiguration(forceFetch: Bool = false) -> AnyPublisher<SAP_Internal_ApplicationConfiguration, Never> {
 		let force = shouldFetch() || forceFetch
 
-		if let cachedVersion = store.appConfig, !force {
-			Log.debug("[App Config] fetching cached app configuration", log: .localData)
+		if let cachedVersion = store.appConfigMetadata, !force {
+			Log.debug("fetching cached app configuration", log: .appConfig)
 			// use the cached version
 			return Just(cachedVersion)
 				.receive(on: DispatchQueue.main)
 				.eraseToAnyPublisher()
 		} else {
-			Log.debug("[App Config] fetching fresh app configuration", log: .localData)
+			Log.debug("fetching fresh app configuration. forceFetch: \(forceFetch), force: \(force)", log: .appConfig)
 			// fetch a new one
-			return getAppConfig(with: store.lastAppConfigETag)
+			return getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag)
 				.receive(on: DispatchQueue.main)
 				.eraseToAnyPublisher()
 		}
@@ -184,14 +169,14 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 	///   which does not easily return response headers. This requires further refactoring of `URLSession+Convenience.swift`.
 	/// - Returns: `true` is a network call should be done; `false` if cache should be used
 	private func shouldFetch() -> Bool {
-		if store.appConfig == nil { return true }
+		if store.appConfigMetadata == nil { return true }
 
 		// naïve cache control
-		guard let lastFetch = store.lastAppConfigFetch else {
-			Log.debug("[Cache-Control] no last config fetch timestamp stored", log: .localData)
+		guard let lastFetch = store.appConfigMetadata?.lastAppConfigFetch else {
+			Log.debug("no last config fetch timestamp stored", log: .appConfig)
 			return true
 		}
-        Log.debug("[Cache-Control] timestamp >= 300s? \(abs(lastFetch.distance(to: Date())) >= 300)", log: .localData)
+        Log.debug("timestamp >= 300s? \(abs(lastFetch.distance(to: Date())) >= 300)", log: .appConfig)
         return abs(lastFetch.distance(to: Date())) >= 300
 	}
 }
