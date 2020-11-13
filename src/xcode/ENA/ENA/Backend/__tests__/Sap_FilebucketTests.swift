@@ -36,13 +36,13 @@ final class SapFileBucketTests: XCTestCase {
 		let bundle = Bundle(for: SapFileBucketTests.self)
 
 		let fixtureUrl = try XCTUnwrap(bundle.url(
-			forResource: "de-config-int-2020-09-25",
+			forResource: "config-wru-2020-11-13",
 			withExtension: nil
 		))
 
 		let fixtureData = try Data(contentsOf: fixtureUrl)
 		let bucket = try XCTUnwrap(SAPDownloadedPackage(compressedData: fixtureData))
 		let config = try SAP_Internal_V2_ApplicationConfigurationIOS(serializedData: bucket.bin)
-		XCTAssertEqual(config.supportedCountries, ["DE"])
+		XCTAssertEqual(config.supportedCountries, ["DE", "DK", "IE", "IT", "ES", "LV", "CZ", "HR"])
 	}
 }
