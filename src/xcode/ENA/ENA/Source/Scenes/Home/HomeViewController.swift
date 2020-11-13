@@ -151,10 +151,13 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				supportedCountries = []
 			}
 			
+			// As per feature requirement, the delta onboarding should appear with a slight delay of 0.5
 			var delay = 0.5
 			
 			#if DEBUG
 			if isUITesting {
+				// In UI Testing we need to increase the delaye slightly again.
+				// Otherwise UI Tests fail
 				delay = 1.5
 			}
 			#endif
