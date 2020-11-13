@@ -34,7 +34,7 @@ protocol ExposureSubmissionCoordinating: class {
 	/// Starts the coordinator and displays the initial root view controller.
 	/// The underlying implementation may decide which initial screen to show, currently the following options are possible:
 	/// - Case 1: When a valid test result is provided, the coordinator shows the test result screen.
-	/// - Case 2: (DEFAULT) The coordinator shows the intro screen.
+	/// - Case 2: (DEFAULT) The coordinator shows the screen "Fetch Test Result and Warn Others".
 	/// - Case 3: (UI-Testing) The coordinator may be configured to show other screens for UI-Testing.
 	/// For more information on the usage and configuration of the initial screen, check the concrete implementation of the method.
 	func start(with result: TestResult?)
