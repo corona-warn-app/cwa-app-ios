@@ -518,6 +518,8 @@
 		EB858D2024E700D10048A0AA /* UIView+Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */; };
 		EB873540253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */; };
 		EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */; };
+		EBDE11B2255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDE11B1255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift */; };
+		EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDE11BA255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift */; };
 		EBE7DF4A254C2DE8008A0648 /* key_download_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE7DF48254C2DE8008A0648 /* key_download_parameters.pb.swift */; };
 		EBE7DF4B254C2DE8008A0648 /* exposure_detection_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE7DF49254C2DE8008A0648 /* exposure_detection_parameters.pb.swift */; };
 		EE20EA072469883900770683 /* RiskLegend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE20EA062469883900770683 /* RiskLegend.storyboard */; };
@@ -1116,6 +1118,8 @@
 		EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Screenshot.swift"; sourceTree = "<group>"; };
 		EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenter+DeadManSwitch.swift"; sourceTree = "<group>"; };
 		EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewController.swift; sourceTree = "<group>"; };
+		EBDE11B1255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDeviceTimeCheckViewController.swift; sourceTree = "<group>"; };
+		EBDE11BA255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDeviceTimeCheckViewModel.swift; sourceTree = "<group>"; };
 		EBE7DF48254C2DE8008A0648 /* key_download_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = key_download_parameters.pb.swift; path = ../../../gen/output/internal/key_download_parameters.pb.swift; sourceTree = "<group>"; };
 		EBE7DF49254C2DE8008A0648 /* exposure_detection_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = exposure_detection_parameters.pb.swift; path = ../../../gen/output/internal/exposure_detection_parameters.pb.swift; sourceTree = "<group>"; };
 		EE20EA062469883900770683 /* RiskLegend.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RiskLegend.storyboard; sourceTree = "<group>"; };
@@ -2587,7 +2591,6 @@
 				B1FC2D1C24D9C87F00083C81 /* DMKeysViewController.swift */,
 				B16457B424DC11EF002879EB /* DMLastSubmissionRequetViewController.swift */,
 				B16457BA24DC3309002879EB /* DMLogsViewController.swift */,
-				EB6B5D872539AE9400B0ED57 /* DMNotificationsViewController.swift */,
 				ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */,
 				9417BA94252B6B5100AD4053 /* DMSQLiteErrorViewController.swift */,
 				EB6B5D872539AE9400B0ED57 /* DMNotificationsViewController.swift */,
@@ -2596,6 +2599,7 @@
 				B1E8C99C2479D4E7006DC678 /* DMSubmissionStateViewController.swift */,
 				B1D8CB2524DD4371008C6010 /* DMTracingHistoryViewController.swift */,
 				BA6D164D255ADD8600ED3492 /* DMWifiClient */,
+				EBDE11B6255EC2D7008C0F51 /* DMDeviceTimeCheck */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -2884,6 +2888,15 @@
 				EB7057D624E6BACA002235B4 /* InfoBoxView.xib */,
 			);
 			path = BackgroundAppRefresh;
+			sourceTree = "<group>";
+		};
+		EBDE11B6255EC2D7008C0F51 /* DMDeviceTimeCheck */ = {
+			isa = PBXGroup;
+			children = (
+				EBDE11B1255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift */,
+				EBDE11BA255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift */,
+			);
+			path = DMDeviceTimeCheck;
 			sourceTree = "<group>";
 		};
 		EE20EA0824699A3A00770683 /* RiskLegend */ = {
@@ -3428,6 +3441,7 @@
 				AB5F84B224F8F7E3000400D4 /* Migration0To1.swift in Sources */,
 				A3EE6E5D249BB9B900C64B61 /* UITestingParameters.swift in Sources */,
 				EB08F17A2541CE3300D11FA9 /* risk_level.pb.swift in Sources */,
+				EBDE11B2255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift in Sources */,
 				B1A31F6924DAE6C000E263DF /* DMKeyCell.swift in Sources */,
 				710224F42490E7A3000C5DEF /* ExposureSubmissionStepCell.swift in Sources */,
 				AB7420CB251B7D93006666AC /* DeltaOnboardingV15ViewController.swift in Sources */,
@@ -3505,6 +3519,7 @@
 				71B804492484D37300D53506 /* RiskLegendViewController.swift in Sources */,
 				01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */,
 				514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */,
+				EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */,
 				713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */,
 				01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */,
 				01C6AC32252B29C00052814D /* QRScannerError.swift in Sources */,

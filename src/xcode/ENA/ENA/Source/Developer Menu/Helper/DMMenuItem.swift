@@ -23,6 +23,7 @@ enum DMMenuItem: Int, CaseIterable {
 	case simulateNoDiskSpace
 	case listPendingNotifications
 	case warnOthersNotifications
+	case deviceTimeCheck
 }
 
 extension DMMenuItem {
@@ -55,6 +56,7 @@ extension DMMenuItem {
 		case .simulateNoDiskSpace: return "Simulate SQLite Error"
 		case .listPendingNotifications: return "Pending Notifications"
 		case .warnOthersNotifications: return "Warn Others Notifications"
+		case .deviceTimeCheck: return "Device Time Check"
 		}
 	}
 	var subtitle: String {
@@ -75,6 +77,7 @@ extension DMMenuItem {
 		case .simulateNoDiskSpace: return "Simulates SQLite returns defined error"
 		case .listPendingNotifications: return "List all pending Notifications"
 		case .warnOthersNotifications: return "Settings for the warn others notifications"
+		case .deviceTimeCheck: return "Enable or Disable Device Time Check"
 		}
 	}
 }
