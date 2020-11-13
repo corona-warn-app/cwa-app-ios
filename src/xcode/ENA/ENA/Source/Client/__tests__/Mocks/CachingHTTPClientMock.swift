@@ -31,7 +31,7 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 		let bundle = Bundle(for: CachingHTTPClientMock.self)
 		// there is a test for this (`testStaticAppConfiguration`), let's keep it short.
 		guard
-			let fixtureUrl = bundle.url(forResource: "de-config-int-2020-09-25", withExtension: nil),
+			let fixtureUrl = bundle.url(forResource: "config-wru-2020-11-13", withExtension: nil),
 			let fixtureData = try? Data(contentsOf: fixtureUrl),
 			let bucket = SAPDownloadedPackage(compressedData: fixtureData),
 			let config = try? SAP_Internal_V2_ApplicationConfigurationIOS(serializedData: bucket.bin)
