@@ -93,6 +93,10 @@ private final class ManagerSpy: NSObject, Manager {
 		return Progress()
 	}
 
+	func getExposureWindows(from summary: ENExposureDetectionSummary, completionHandler: @escaping ENGetExposureWindowsHandler) -> Progress {
+		Progress()
+	}
+
 	func activate(completionHandler: @escaping ENErrorHandler) { }
 
 	func invalidate() { }
