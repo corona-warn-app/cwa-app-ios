@@ -126,7 +126,8 @@ extension ExposureSubmissionCoordinator {
 		}
 
 		// By default, we show the intro view.
-		return createIntroViewController()
+//		return createIntroViewController()
+		return getOverviewScreen()
 	}
 
 	// MARK: - Public API.
@@ -173,7 +174,17 @@ extension ExposureSubmissionCoordinator {
 		let vc = ExposureSubmissionFetchTestResultViewController(viewModel: viewModel)
 		push(vc)
 	}
-
+	
+	func getOverviewScreen() -> ExposureSubmissionFetchTestResultViewController {
+		let viewModel = ExposureSubmissionFetchTestResultViewModel(
+			onQRCodeButtonTap: { [weak self] in self?.showQRInfoScreen() },
+			onTANButtonTap: { [weak self] in self?.showTanScreen() },
+			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() }
+		)
+		let vc = ExposureSubmissionFetchTestResultViewController(viewModel: viewModel)
+		return vc
+	}
+	
 	func showTestResultScreen(with testResult: TestResult) {
 		let vc = createTestResultViewController(with: testResult)
 		push(vc)
