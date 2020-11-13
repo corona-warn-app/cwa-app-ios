@@ -17,17 +17,16 @@
 // under the License.
 //
 
-import Foundation
+import UIKit
 
+protocol WarnOthersRemindable {
+	
+	var hasPositiveTestResult: Bool { get set }
 
-extension SAP_Internal_ApplicationConfiguration {
-	var revokationEtags: [String] {
-		let dayMeta = iosKeyDownloadParameters.revokedDayPackages
-		let hourMeta = iosKeyDownloadParameters.revokedHourPackages
-
-		var etags = dayMeta.map({ $0.etag })
-		etags.append(contentsOf: hourMeta.map({ $0.etag }))
-
-		return etags
-	}
+	var notificationOneTimeInterval: TimeInterval { get set }
+	var notificationTwoTimeInterval: TimeInterval { get set }
+	
+	func evaluateNotificationState(testResult: TestResult)
+	func reset()
+	func cancelNotifications()
 }
