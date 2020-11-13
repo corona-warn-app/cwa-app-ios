@@ -1,11 +1,5 @@
-// http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 #if !RELEASE
@@ -40,7 +34,7 @@ final class DMWifiClientViewModel {
 		case .wifiMode:
 			return DMSwitchCellViewModel(
 				labelText: "Disable hourly packages download",
-				isEnabled: { [wifiClient] in
+				isOn: { [wifiClient] in
 					wifiClient.disableHourlyDownload
 				}, toggle: { [wifiClient] in
 					wifiClient.disableHourlyDownload = !wifiClient.disableHourlyDownload
@@ -50,7 +44,7 @@ final class DMWifiClientViewModel {
 		case .disableClient:
 			return DMSwitchCellViewModel(
 				labelText: "Hourly packages over WiFi only",
-				isEnabled: { [wifiClient] in
+				isOn: { [wifiClient] in
 					return wifiClient.isWifiOnlyActive
 				},
 				toggle: { [wifiClient] in

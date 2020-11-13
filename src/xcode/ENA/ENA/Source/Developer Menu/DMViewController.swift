@@ -133,6 +133,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMNotificationsViewController()
 		case .warnOthersNotifications:
 			vc = DMWarnOthersNotificationViewController(warnOthersReminder: warnOthersReminder, store: store)
+		case .deviceTimeCheck:
+			vc = DMDeviceTimeCheckViewController(store: store)
 		}
 		
 		

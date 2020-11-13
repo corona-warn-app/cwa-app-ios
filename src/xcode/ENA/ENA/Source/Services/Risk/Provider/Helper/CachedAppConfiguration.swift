@@ -52,6 +52,15 @@ final class CachedAppConfiguration {
 
 		client.fetchAppConfiguration(etag: etag) { [weak self] result in
 			guard let self = self else { return }
+			
+			if let serverTime = result.1 {
+				self.deviceTimeCheck.updateDeviceTimeFlags(
+					serverTime: serverTime,
+					deviceTime: Date()
+				)
+			} else {
+				self.deviceTimeCheck.resetDeviceTimeFlags()
+			}
 
 			switch result.0 /* fyi, `result.1` would be the server time */{
 			case .success(let response):
@@ -103,15 +112,6 @@ final class CachedAppConfiguration {
 				default:
 					self.completeOnMain(completion: completion, result: .failure(error))
 				}
-			}
-
-			if let serverTime = result.1 {
-				self.deviceTimeCheck.updateDeviceTimeFlags(
-					serverTime: serverTime,
-					deviceTime: Date()
-				)
-			} else {
-				self.deviceTimeCheck.resetDeviceTimeFlags()
 			}
 		}
 	}
