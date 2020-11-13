@@ -54,9 +54,9 @@ class EUSettingsViewController: DynamicTableViewController {
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
-		setupDataSource()
 		setupTableView()
 		setupBackButton()
+		setupDataSource()
 	}
 
 	private func setupTableView() {

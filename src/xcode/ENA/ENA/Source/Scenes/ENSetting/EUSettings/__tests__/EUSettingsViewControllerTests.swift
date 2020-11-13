@@ -18,24 +18,43 @@
 //
 
 import XCTest
+import Combine
 @testable import ENA
 
 class EUSettingsViewControllerTests: XCTestCase {
 
+	private var subscriptions = [AnyCancellable]()
+
 	func testDataReloadForSuccessfulDownload() {
-		var config = SAP_Internal_ApplicationConfiguration()
-		config.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
-		let vc = EUSettingsViewController(appConfigurationProvider: CachedAppConfigurationMock(config: config))
-		vc.viewDidLoad()
+		let exp = expectation(description: "config fetched")
 
-		XCTAssertEqual(vc.tableView.numberOfRows(inSection: 1), 6)
+		var customConfig = SAP_Internal_ApplicationConfiguration()
+		customConfig.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
+		let configProvider = CachedAppConfigurationMock(with: customConfig)
+
+		let vc = EUSettingsViewController(appConfigurationProvider: configProvider)
+		vc.viewDidLoad()
+		vc.appConfigurationProvider.appConfiguration().sink { config in
+			XCTAssertEqual(config.supportedCountries.count, customConfig.supportedCountries.count)
+			XCTAssertEqual(vc.tableView.numberOfRows(inSection: 1), config.supportedCountries.count)
+			exp.fulfill()
+		}.store(in: &subscriptions)
+
+		waitForExpectations(timeout: .short)
 	}
 
-	func testDataReloadForUnsuccessfulDownload() {
-		let vc = EUSettingsViewController(appConfigurationProvider: CachedAppConfigurationMock())
+	func testDataForDefaultAppConfig() {
+		let exp = expectation(description: "config fetched")
+
+		let configProvider = CachedAppConfigurationMock()
+		let vc = EUSettingsViewController(appConfigurationProvider: configProvider)
 		vc.viewDidLoad()
+		vc.appConfigurationProvider.appConfiguration().sink { config in
+			// default config provides 0 countries but at least one cell is shown
+			XCTAssertEqual(vc.tableView.numberOfRows(inSection: 1), max(config.supportedCountries.count, 1))
+			exp.fulfill()
+		}.store(in: &subscriptions)
 
-		XCTAssertEqual(vc.tableView.numberOfRows(inSection: 1), 1)
+		waitForExpectations(timeout: .short)
 	}
-
 }

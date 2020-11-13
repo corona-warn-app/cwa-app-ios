@@ -20,7 +20,6 @@
 import XCTest
 @testable import ENA
 
-// swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
@@ -129,44 +128,6 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
 		XCTAssertEqual(model.supportedCountries, [Country(countryCode: "DE")])
-	}
-
-	func testCheckStateAndLoadCountriesSupportedCountriesLoadFails() {
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.preconditionsCallback = { ExposureManagerState(authorized: true, enabled: true, status: .active) }
-		exposureSubmissionService.submitExposureCallback = { _, visitedCountries, _ in
-			XCTAssert(visitedCountries.isEmpty)
-		}
-		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
-		)
-
-		let expectedIsLoadingValues = [true, false]
-		var isLoadingValues = [Bool]()
-
-		let isLoadingExpectation = expectation(description: "isLoading is called twice")
-		isLoadingExpectation.expectedFulfillmentCount = 2
-
-		let onSuccessExpectation = expectation(description: "onSuccess is not called")
-		onSuccessExpectation.isInverted = true
-
-		let onErrorExpectation = expectation(description: "onError is called")
-
-		model.checkStateAndLoadCountries(
-			isLoading: {
-				isLoadingValues.append($0)
-				isLoadingExpectation.fulfill()
-			},
-			onSuccess: { onSuccessExpectation.fulfill() },
-			onError: { _ in onErrorExpectation.fulfill() }
-		)
-
-		waitForExpectations(timeout: .short)
-		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
-
-		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
-		XCTAssert(model.supportedCountries.isEmpty)
 	}
 
 	func testCheckStateAndLoadCountriesStateCheckFails() {
