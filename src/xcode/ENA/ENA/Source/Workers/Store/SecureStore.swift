@@ -253,8 +253,8 @@ final class SecureStore: Store {
 		set { kvStore["fakeSQLiteError"] = newValue }
 	}
 	
-	var dmKillDeviceTimeCheck: Bool? {
-		get { kvStore["dmKillDeviceTimeCheck"] as Bool? }
+	var dmKillDeviceTimeCheck: Bool {
+		get { kvStore["dmKillDeviceTimeCheck"] as Bool? ?? false }
 		set { kvStore["dmKillDeviceTimeCheck"] = newValue }
 	}
 

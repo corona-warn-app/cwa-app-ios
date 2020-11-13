@@ -54,7 +54,7 @@ final class MockTestStore: Store, AppConfigCaching {
 	#if !RELEASE
 	// Settings from the debug menu.
 	var fakeSQLiteError: Int32?
-	var dmKillDeviceTimeCheck: Bool?
+	var dmKillDeviceTimeCheck = false
 	#endif
 
 	// MARK: - AppConfigCaching

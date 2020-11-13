@@ -72,7 +72,7 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 
 	private func isDeviceTimeCheckKillSwitchActive(config: SAP_Internal_ApplicationConfiguration?) -> Bool {
 		#if !RELEASE
-		if store.dmKillDeviceTimeCheck ?? false {
+		if store.dmKillDeviceTimeCheck {
 			return true
 		}
 		#endif
