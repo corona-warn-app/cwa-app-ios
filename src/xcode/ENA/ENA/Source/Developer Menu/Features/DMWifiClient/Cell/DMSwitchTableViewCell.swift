@@ -23,7 +23,7 @@ class DMSwitchTableViewCell: UITableViewCell {
 
 	func configure(cellViewModel: DMSwitchCellViewModel) {
 		infoLabel.text = cellViewModel.labelText
-		toggleSwitch.isOn = cellViewModel.isEnabled()
+		toggleSwitch.isOn = cellViewModel.isOn()
 		self.cellViewModel = cellViewModel
 	}
 

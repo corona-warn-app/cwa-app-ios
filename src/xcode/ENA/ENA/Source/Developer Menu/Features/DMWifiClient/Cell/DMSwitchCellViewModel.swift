@@ -10,7 +10,7 @@ import UIKit
 struct DMSwitchCellViewModel {
 
 	let labelText: String
-	let isEnabled: () -> Bool
+	let isOn: () -> Bool
 	let toggle: () -> Void
 
 }

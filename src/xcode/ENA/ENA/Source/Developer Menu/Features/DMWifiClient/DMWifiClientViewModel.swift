@@ -34,7 +34,7 @@ final class DMWifiClientViewModel {
 		case .wifiMode:
 			return DMSwitchCellViewModel(
 				labelText: "Disable hourly packages download",
-				isEnabled: { [wifiClient] in
+				isOn: { [wifiClient] in
 					wifiClient.disableHourlyDownload
 				}, toggle: { [wifiClient] in
 					wifiClient.disableHourlyDownload = !wifiClient.disableHourlyDownload
@@ -44,7 +44,7 @@ final class DMWifiClientViewModel {
 		case .disableClient:
 			return DMSwitchCellViewModel(
 				labelText: "Hourly packages over WiFi only",
-				isEnabled: { [wifiClient] in
+				isOn: { [wifiClient] in
 					return wifiClient.isWifiOnlyActive
 				},
 				toggle: { [wifiClient] in

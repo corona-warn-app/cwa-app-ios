@@ -34,7 +34,7 @@ final class DMDeviceTimeCheckViewModel {
 		case .killDeviceTimeCheck:
 			return DMSwitchCellViewModel(
 				labelText: "Disable device time check",
-				isEnabled: { [store] in
+				isOn: { [store] in
 					store.dmKillDeviceTimeCheck ?? false
 				}, toggle: { [store] in
 					store.dmKillDeviceTimeCheck = !(store.dmKillDeviceTimeCheck ?? false)
