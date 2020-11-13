@@ -11,7 +11,7 @@ class ExposureSubmissionFetchTestResultViewController: DynamicTableViewControlle
 	
 	// MARK: - Init
 
-	init(viewModel: ExposureSubmissionFetchTestResultViewModel) {
+	init(_ viewModel: ExposureSubmissionFetchTestResultViewModel) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
 	}
