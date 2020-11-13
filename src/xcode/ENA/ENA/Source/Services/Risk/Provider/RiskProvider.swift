@@ -38,7 +38,6 @@ final class RiskProvider {
 		set { consumersQueue.sync { _consumers = newValue } }
 	}
 
-	// To prevent any side effects with existing `consumers` I created a 2nd set for app config fetch.
 	private var subscriptions = [AnyCancellable]()
 
 	// MARK: Creating a Risk Level Provider
@@ -406,13 +405,8 @@ extension RiskProvider: RiskProviding {
 		self.exposureDetection = _exposureDetection
 	}
 
-	private func calculateRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_Internal_ApplicationConfiguration?, completion: Completion?) {
+	private func calculateRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_Internal_ApplicationConfiguration, completion: Completion?) {
 		Log.info("RiskProvider: Calculate risk level", log: .riskDetection)
-
-		guard let appConfiguration = appConfiguration else {
-			completion?(.failure(.missingAppConfig))
-			return
-		}
 
 		let activeTracing = store.tracingStatusHistory.activeTracing()
 

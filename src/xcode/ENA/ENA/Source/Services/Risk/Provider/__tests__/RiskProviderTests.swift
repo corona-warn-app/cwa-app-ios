@@ -76,7 +76,7 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(),
+			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
@@ -350,7 +350,9 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { _ in
+		consumer.didCalculateRisk = { risk in
+			XCTAssertTrue(risk.riskLevelHasChanged)
+			XCTAssertEqual(risk.level, .increased)
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -430,7 +432,9 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { _ in
+		consumer.didCalculateRisk = { risk in
+			XCTAssertFalse(risk.riskLevelHasChanged)
+			XCTAssertEqual(risk.level, .increased)
 			didCalculateRiskExpectation.fulfill()
 		}
 
