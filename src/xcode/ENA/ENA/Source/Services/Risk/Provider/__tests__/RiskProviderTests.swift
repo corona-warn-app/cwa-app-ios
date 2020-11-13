@@ -23,6 +23,7 @@ import ExposureNotification
 
 private final class Summary: ENExposureDetectionSummary {}
 
+// swiftlint:disable:next type_body_length
 final class RiskProviderTests: XCTestCase {
 
 	func testExposureDetectionIsExecutedIfLastDetectionIsTooOldAndModeIsAutomatic() throws {
