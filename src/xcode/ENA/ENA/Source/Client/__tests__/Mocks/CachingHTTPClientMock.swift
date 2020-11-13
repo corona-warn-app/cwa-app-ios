@@ -29,17 +29,7 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 
 	static let staticAppConfigMetadata: AppConfigMetadata = {
 		let bundle = Bundle(for: CachingHTTPClientMock.self)
-		// there is a test for this (`testStaticAppConfiguration`), let's keep it short.
-		guard
-			let fixtureUrl = bundle.url(forResource: "de-config-int-2020-09-25", withExtension: nil),
-			let fixtureData = try? Data(contentsOf: fixtureUrl),
-			let bucket = SAPDownloadedPackage(compressedData: fixtureData),
-			let config = try? SAP_Internal_ApplicationConfiguration(serializedData: bucket.bin)
-		else {
-			assertionFailure("check this!")
-			return AppConfigMetadata(lastAppConfigETag: "\"SomeETag\"", lastAppConfigFetch: .distantPast, appConfig: SAP_Internal_ApplicationConfiguration())
-		}
-		let configMetadata = AppConfigMetadata(lastAppConfigETag: "\"SomeETag\"", lastAppConfigFetch: .distantPast, appConfig: config)
+		let configMetadata = AppConfigMetadata(lastAppConfigETag: "\"SomeETag\"", lastAppConfigFetch: .distantPast, appConfig: CachingHTTPClientMock.staticAppConfig)
 		return configMetadata
 	}()
 

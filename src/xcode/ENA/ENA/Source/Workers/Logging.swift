@@ -13,6 +13,8 @@ extension OSLog {
     static let localData = OSLog(subsystem: subsystem, category: "localdata")
 	/// Risk Detection
 	static let riskDetection = OSLog(subsystem: subsystem, category: "riskdetection")
+	/// Risk Detection
+	static let appConfig = OSLog(subsystem: subsystem, category: "appconfig")
 }
 
 enum Log {
