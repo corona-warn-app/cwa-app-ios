@@ -26,7 +26,7 @@ class ExposureSubmissionFetchTestResultViewModel {
 	let onHotlineButtonTap: () -> Void
 		
 	
-	@Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
+//	var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
 	
 	var dynamicTableData: DynamicTableViewModel {
 		DynamicTableViewModel.with {

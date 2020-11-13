@@ -55,14 +55,6 @@ class ExposureSubmissionFetchTestResultViewController: DynamicTableViewControlle
 
 		tableView.register(
 			UINib(
-				nibName: String(describing: ExposureSubmissionTestResultHeaderView.self),
-				bundle: nil
-			),
-			forHeaderFooterViewReuseIdentifier: "test"
-		)
-
-		tableView.register(
-			UINib(
 				nibName: String(describing: ExposureSubmissionImageCardCell.self),
 				bundle: nil
 			),
@@ -96,52 +88,6 @@ private extension DynamicCell {
 		}
 	}
 }
-
-//private extension ExposureSubmissionOverviewViewController {
-//	func dynamicTableData() -> DynamicTableViewModel {
-//		var data = DynamicTableViewModel([])
-//
-//		let header = DynamicHeader.blank
-//
-//		data.add(
-//			.section(
-//				header: header,
-//				separators: .none,
-//				cells: [
-//					.body(
-//						text: AppStrings.ExposureSubmissionDispatch.description,
-//						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.description)
-//				]
-//			)
-//		)
-//
-//		data.add(DynamicSection.section(cells: [
-//			.imageCard(
-//				title: AppStrings.ExposureSubmissionDispatch.qrCodeButtonTitle,
-//				description: AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription,
-//				image: UIImage(named: "Illu_Submission_QRCode"),
-//				action: .execute { [weak self] _ in self?.onQRCodeButtonTap() },
-//				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
-//			),
-//			.imageCard(
-//				title: AppStrings.ExposureSubmissionDispatch.tanButtonTitle,
-//				description: AppStrings.ExposureSubmissionDispatch.tanButtonDescription,
-//				image: UIImage(named: "Illu_Submission_TAN"),
-//				action: .execute { [weak self] _ in self?.onTANButtonTap() },
-//				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.tanButtonDescription
-//			),
-//			.imageCard(
-//				title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
-//				attributedDescription: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription.inserting(emphasizedString: AppStrings.ExposureSubmissionDispatch.positiveWord),
-//				image: UIImage(named: "Illu_Submission_Anruf"),
-//				action: .execute { [weak self] _ in self?.onHotlineButtonTap() },
-//				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.hotlineButtonDescription
-//			)
-//		]))
-//
-//		return data
-//	}
-//}
 
 // MARK: - Cell reuse identifiers.
 
