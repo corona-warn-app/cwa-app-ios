@@ -53,7 +53,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 			detectionMode: .automatic
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success(ENExposureDetectionSummary()))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
@@ -89,7 +89,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false) { result in
 			switch result {
 			case .success:
-				XCTAssertFalse(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
+				XCTAssertFalse(exposureDetectionDelegateStub.exposureWindowsWereDetected)
 				requestRiskExpectation.fulfill()
 			case .failure:
 				XCTFail("Failure is not expected 1.")
@@ -128,7 +128,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 			detectionMode: .automatic
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success(ENExposureDetectionSummary()))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
@@ -164,7 +164,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false) { result in
 			switch result {
 			case .success:
-				XCTAssertTrue(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
+				XCTAssertTrue(exposureDetectionDelegateStub.exposureWindowsWereDetected)
 				requestRiskExpectation.fulfill()
 			case .failure:
 				XCTFail("Failure is not expected 1.")
@@ -204,7 +204,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 			detectionMode: .automatic
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success(ENExposureDetectionSummary()))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
@@ -240,7 +240,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false) { result in
 			switch result {
 			case .success:
-				XCTAssertTrue(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
+				XCTAssertTrue(exposureDetectionDelegateStub.exposureWindowsWereDetected)
 				requestRiskExpectation.fulfill()
 			case .failure:
 				XCTFail("Failure is not expected 1.")
@@ -279,7 +279,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 			detectionMode: .automatic
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success(ENExposureDetectionSummary()))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
@@ -315,7 +315,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false) { result in
 			switch result {
 			case .success:
-				XCTAssertTrue(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
+				XCTAssertTrue(exposureDetectionDelegateStub.exposureWindowsWereDetected)
 				requestRiskExpectation.fulfill()
 			case .failure:
 				XCTFail("Failure is not expected 1.")

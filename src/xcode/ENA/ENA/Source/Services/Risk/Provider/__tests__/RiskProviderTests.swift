@@ -55,7 +55,7 @@ final class RiskProviderTests: XCTestCase {
 			detectionMode: .automatic
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success(ENExposureDetectionSummary()))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
@@ -88,7 +88,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false) { result in
 			switch result {
 			case .success:
-				XCTAssertTrue(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
+				XCTAssertTrue(exposureDetectionDelegateStub.exposureWindowsWereDetected)
 				requestRiskExpectation.fulfill()
 			case .failure:
 				XCTFail("Failure is not expected 1.")
@@ -129,7 +129,7 @@ final class RiskProviderTests: XCTestCase {
 			detectionMode: .automatic
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success(ENExposureDetectionSummary()))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
@@ -158,7 +158,7 @@ final class RiskProviderTests: XCTestCase {
 			case .success(let risk):
 				expectThatRiskIsReturned.fulfill()
 				XCTAssertEqual(risk.level, .unknownInitial, "Tracing was active for < 24 hours but risk is not .unknownInitial")
-				XCTAssertFalse(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
+				XCTAssertFalse(exposureDetectionDelegateStub.exposureWindowsWereDetected)
 			case .failure:
 				XCTFail("Failure not expected.")
 			}
@@ -178,7 +178,7 @@ final class RiskProviderTests: XCTestCase {
 			exposureDetectionInterval: duration
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success(ENExposureDetectionSummary()))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 
 		let sapAppConfig = SAP_Internal_V2_ApplicationConfigurationIOS.with {
 			$0.exposureConfiguration = SAP_Internal_V2_ExposureConfiguration()
@@ -262,7 +262,7 @@ final class RiskProviderTests: XCTestCase {
 
 		let consumer = RiskConsumer()
 		let didCalculateRiskFailedCalled = expectation(
-			description: "expect didCalculateFailedRisk to be called"
+			description: "expect didFailCalculateRisk to be called"
 		)
 
 		consumer.didCalculateRisk = { _ in
@@ -462,10 +462,10 @@ final class RiskProviderTests: XCTestCase {
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
 			exposureDetectionInterval: duration,
-			detectionMode: .manual
+			detectionMode: .automatic
 		)
 
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success(ENExposureDetectionSummary()))
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 
 		let appConfigurationProvider = CachedAppConfigurationMock(appConfigurationResult: .success(SAP_Internal_V2_ApplicationConfigurationIOS()))
 
@@ -504,7 +504,7 @@ struct RiskCalculationFake: RiskCalculationV2Protocol {
 		configuration: RiskCalculationConfiguration
 	) throws -> RiskCalculationV2Result {
 		RiskCalculationV2Result(
-			riskLevel: .low,
+			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: nil,
@@ -517,13 +517,13 @@ struct RiskCalculationFake: RiskCalculationV2Protocol {
 
 final class ExposureDetectionDelegateStub: ExposureDetectionDelegate {
 
-	private let result: Result<ENExposureDetectionSummary, Error>
+	private let result: Result<[ENExposureWindow], Error>
 	private let keyPackagesToWrite: WrittenPackages
 
-	var exposureDetectionWasExecuted = false
+	var exposureWindowsWereDetected = false
 
 	init(
-		result: Result<ENExposureDetectionSummary, Error>,
+		result: Result<[ENExposureWindow], Error>,
 		keyPackagesToWrite: WrittenPackages = ExposureDetectionDelegateStub.defaultKeyPackages) {
 		self.result = result
 		self.keyPackagesToWrite = keyPackagesToWrite
@@ -533,14 +533,10 @@ final class ExposureDetectionDelegateStub: ExposureDetectionDelegate {
 		return keyPackagesToWrite
 	}
 
-	func exposureDetection(_ detection: ExposureDetection, detectSummaryWithConfiguration configuration: ENExposureConfiguration, writtenPackages: WrittenPackages, completion: @escaping DetectionHandler) -> Progress {
-		exposureDetectionWasExecuted = true
+	func detectExposureWindows(_ detection: ExposureDetection, detectSummaryWithConfiguration configuration: ENExposureConfiguration, writtenPackages: WrittenPackages, completion: @escaping (Result<[ENExposureWindow], Error>) -> Void) -> Progress {
+		exposureWindowsWereDetected = true
 		completion(result)
 		return Progress()
-	}
-
-	func detectExposureWindows(_ detection: ExposureDetection, detectSummaryWithConfiguration configuration: ENExposureConfiguration, writtenPackages: WrittenPackages, completion: @escaping (Result<[ENExposureWindow], Error>) -> Void) -> Progress {
-		Progress()
 	}
 
 	static var defaultKeyPackages: WrittenPackages {

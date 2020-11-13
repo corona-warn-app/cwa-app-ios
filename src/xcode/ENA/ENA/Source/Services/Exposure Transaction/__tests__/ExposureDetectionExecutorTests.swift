@@ -75,7 +75,12 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		// We provide a `MockExposureDetector` + a mock detection summary, and expect this to be returned
 		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
 		let mockExposureWindow = MutableENExposureWindow(calibrationConfidence: .medium, date: Date(), diagnosisReportType: .confirmedTest, infectiousness: .standard, scanInstances: [])
-		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector(exposureWindowsHandler: ([mockExposureWindow], nil)))
+		let sut = ExposureDetectionExecutor.makeWith(
+			exposureDetector: MockExposureDetector(
+				detectionHandler: (MutableENExposureDetectionSummary(), nil),
+				exposureWindowsHandler: ([mockExposureWindow], nil)
+			)
+		)
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
 			appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS(),
@@ -161,7 +166,9 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let sut = ExposureDetectionExecutor.makeWith(
 			packageStore: packageStore,
 			store: store,
-			exposureDetector: MockExposureDetector(exposureWindowsHandler: (nil, expectedError))
+			exposureDetector: MockExposureDetector(
+				detectionHandler: (nil, expectedError)
+			)
 		)
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
@@ -177,7 +184,6 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
 			writtenPackages: WrittenPackages(urls: []),
 			completion: { _ in
-
 				XCTAssertEqual(packageStore.allDays(country: "DE").count, 0)
 				XCTAssertNil(store.appConfig)
 				XCTAssertNil(store.lastAppConfigETag)
