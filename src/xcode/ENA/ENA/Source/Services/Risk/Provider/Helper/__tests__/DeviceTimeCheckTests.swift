@@ -9,7 +9,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 
 	func test_WHEN_CorrectDeviceTime_THEN_DeviceTimeIsCorrectIsSavedToStore() {
 		let fakeStore = MockTestStore()
-		fakeStore.appConfig = makeAppConfig(killSwitchIsOn: false)
+		fakeStore.appConfigMetadata = makeAppConfig(killSwitchIsOn: false)
 
 		let serverTime = Date()
 		let deviceTime = Date()
@@ -26,7 +26,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 
 	func test_WHEN_DeviceTimeIs2HoursInThePast_THEN_DeviceTimeIsCorrectIsSavedToStore() {
 		let fakeStore = MockTestStore()
-		fakeStore.appConfig = makeAppConfig(killSwitchIsOn: false)
+		fakeStore.appConfigMetadata = makeAppConfig(killSwitchIsOn: false)
 		let twoHourIntevall: Double = 2 * 60 * 60
 
 		let serverTime = Date()
@@ -44,7 +44,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 
 	func test_WHEN_DeviceTimeIsOn2HoursInTheFuture_THEN_DeviceTimeIsCorrectIsSavedToStore() {
 		let fakeStore = MockTestStore()
-		fakeStore.appConfig = makeAppConfig(killSwitchIsOn: false)
+		fakeStore.appConfigMetadata = makeAppConfig(killSwitchIsOn: false)
 		let twoHourIntevall: Double = 2 * 60 * 60
 
 		let serverTime = Date()
@@ -62,7 +62,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 
 	func test_WHEN_DeviceTimeMoreThen2HoursInThePast_THEN_DeviceTimeIsNOTCorrectIsSavedToStore() {
 		let fakeStore = MockTestStore()
-		fakeStore.appConfig = makeAppConfig(killSwitchIsOn: false)
+		fakeStore.appConfigMetadata = makeAppConfig(killSwitchIsOn: false)
 		let twoHourOneSecondIntevall: Double = 2 * 60 * 60 + 1
 
 		let serverTime = Date()
@@ -80,7 +80,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 
 	func test_WHEN_DeviceTimeMoreThen2HoursInTheFuture_THEN_DeviceTimeIsNOTCorrectIsSavedToStore() {
 		let fakeStore = MockTestStore()
-		fakeStore.appConfig = makeAppConfig(killSwitchIsOn: false)
+		fakeStore.appConfigMetadata = makeAppConfig(killSwitchIsOn: false)
 		let twoHourOneSecondIntevall: Double = 2 * 60 * 60 + 1
 
 		let serverTime = Date()
@@ -98,7 +98,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 
 	func test_WHEN_DeviceTimeMoreThen2HoursInTheFuture_AND_KillSwitchIsActive_THEN_DeviceTimeIsCorrectIsSavedToStore() {
 		let fakeStore = MockTestStore()
-		fakeStore.appConfig = makeAppConfig(killSwitchIsOn: true)
+		fakeStore.appConfigMetadata = makeAppConfig(killSwitchIsOn: true)
 
 		let serverTime = Date()
 		guard let deviceTime = Calendar.current.date(byAdding: .minute, value: 121, to: serverTime) else {
@@ -128,7 +128,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
-	private func makeAppConfig(killSwitchIsOn: Bool) -> SAP_Internal_ApplicationConfiguration {
+	private func makeAppConfig(killSwitchIsOn: Bool) -> AppConfigMetadata {
 		var killSwitchFeature = SAP_Internal_AppFeature()
 		killSwitchFeature.label = "disable-device-time-check"
 		killSwitchFeature.value = killSwitchIsOn ? 1 : 0
@@ -139,6 +139,8 @@ final class DeviceTimeCheckTest: XCTestCase {
 		var fakeAppConfig = SAP_Internal_ApplicationConfiguration()
 		fakeAppConfig.appFeatures = fakeAppFeatures
 
-		return fakeAppConfig
+		let configMetadata = AppConfigMetadata(lastAppConfigETag: "\"SomeETag\"", lastAppConfigFetch: Date(), appConfig: fakeAppConfig)
+
+		return configMetadata
 	}
 }

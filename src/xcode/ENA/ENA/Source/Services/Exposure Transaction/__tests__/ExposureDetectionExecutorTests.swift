@@ -9,6 +9,14 @@ import XCTest
 
 final class ExposureDetectionExecutorTests: XCTestCase {
 
+	private var dummyAppConfigMetadata: AppConfigMetadata {
+		AppConfigMetadata(
+			lastAppConfigETag: "ETag",
+			lastAppConfigFetch: Date(),
+			appConfig: SAP_Internal_ApplicationConfiguration()
+		)
+	}
+
 	// MARK: - Write Downloaded Package Tests
 
 	func testWriteDownloadedPackage() throws {
@@ -139,7 +147,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		try packageStore.set(country: "DE", day: "SomeDay", etag: nil, package: package)
 
 		let store = MockTestStore()
-		store.appConfig = SAP_Internal_ApplicationConfiguration()
+		store.appConfigMetadata = dummyAppConfigMetadata
 
 		let sut = ExposureDetectionExecutor.makeWith(
 			packageStore: packageStore,
@@ -153,7 +161,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		)
 
 		XCTAssertNotEqual(packageStore.allDays(country: "DE").count, 0)
-		XCTAssertNotNil(store.appConfig)
+		XCTAssertNotNil(store.appConfigMetadata)
 
 		_ = sut.exposureDetection(
 			exposureDetection,
@@ -162,9 +170,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 			completion: { _ in
 
 				XCTAssertEqual(packageStore.allDays(country: "DE").count, 0)
-				XCTAssertNil(store.appConfig)
-				XCTAssertNil(store.lastAppConfigETag)
-				XCTAssertNil(store.lastAppConfigFetch)
+				XCTAssertNil(store.appConfigMetadata)
 
 				completionExpectation.fulfill()
 			}

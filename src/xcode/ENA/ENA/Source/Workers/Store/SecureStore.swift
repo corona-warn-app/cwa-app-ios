@@ -275,25 +275,11 @@ extension SecureStore {
 }
 
 extension SecureStore: AppConfigCaching {
-	var lastAppConfigETag: String? {
-		get { kvStore["lastAppConfigETag"] as String? ?? nil }
-		set { kvStore["lastAppConfigETag"] = newValue }
-	}
-
-	var lastAppConfigFetch: Date? {
-		get { kvStore["lastAppConfigFetch"] as Date? ?? nil }
-		set { kvStore["lastAppConfigFetch"] = newValue }
-	}
-
-	var appConfig: SAP_Internal_ApplicationConfiguration? {
-		get {
-			guard let data = kvStore["SAP_Internal_ApplicationConfiguration"] else { return nil }
-			return try? SAP_Internal_ApplicationConfiguration(serializedData: data)
-		}
-		set { kvStore["SAP_Internal_ApplicationConfiguration"] = try? newValue?.serializedData() }
+	var appConfigMetadata: AppConfigMetadata? {
+		get { kvStore["appConfigMetadata"] as AppConfigMetadata? ?? nil }
+		set { kvStore["appConfigMetadata"] = newValue }
 	}
 }
-
 
 extension SecureStore {
 

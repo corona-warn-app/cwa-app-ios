@@ -58,7 +58,5 @@ final class MockTestStore: Store, AppConfigCaching {
 
 	// MARK: - AppConfigCaching
 	
-	var lastAppConfigETag: String?
-	var lastAppConfigFetch: Date?
-	var appConfig: SAP_Internal_ApplicationConfiguration?
+	var appConfigMetadata: AppConfigMetadata?
 }

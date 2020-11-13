@@ -88,12 +88,15 @@ extension RiskProvider: RiskProviding {
 	}
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
+	/// The completion is only used for the background fetch. Please use a consumer to get state updates.
 	func requestRisk(userInitiated: Bool, ignoreCachedSummary: Bool = false, completion: Completion? = nil) {
 		Log.info("RiskProvider: Request risk was called. UserInitiated: \(userInitiated), ignoreCachedSummary: \(ignoreCachedSummary)", log: .riskDetection)
 
 		guard activityState == .idle else {
 			Log.info("RiskProvider: Risk detection is allready running. Don't start new risk detection", log: .riskDetection)
 			targetQueue.async {
+				// This completion callback only affects the background fetch.
+				// (Since at the moment the background fetch is the only one using the completion)
 				completion?(.failure(.riskProviderIsRunning))
 			}
 			return

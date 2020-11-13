@@ -27,6 +27,12 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 		return config
 	}()
 
+	static let staticAppConfigMetadata: AppConfigMetadata = {
+		let bundle = Bundle(for: CachingHTTPClientMock.self)
+		let configMetadata = AppConfigMetadata(lastAppConfigETag: "\"SomeETag\"", lastAppConfigFetch: .distantPast, appConfig: CachingHTTPClientMock.staticAppConfig)
+		return configMetadata
+	}()
+
 	// MARK: AppConfigurationFetching
 
 	var onFetchAppConfiguration: ((String?, @escaping CachingHTTPClient.AppConfigResultHandler) -> Void)?
