@@ -16,6 +16,7 @@
 // under the License.
 
 import UIKit
+import Combine
 import UserNotifications
 import ExposureNotification
 
@@ -104,6 +105,8 @@ final class OnboardingInfoViewController: UIViewController {
 	private var onboardingInfos = OnboardingInfo.testData()
 	private var exposureManagerActivated = false
 
+	private var subscriptions = [AnyCancellable]()
+
 	@IBAction private func didTapNextButton(_: Any) {
 		nextButton.isUserInteractionEnabled = false
 		runActionForPageType(
@@ -155,21 +158,13 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	private func loadCountryList() {
-		appConfigurationProvider.appConfiguration { [weak self] result in
-			var supportedCountryIDs: [String]
-
-			switch result {
-			case .success(let applicationConfiguration):
-				supportedCountryIDs = applicationConfiguration.supportedCountries
-			case .failure(let error):
-				Log.error("Error while loading app configuration: \(error).", log: .api)
-				supportedCountryIDs = []
-			}
+		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
+			let supportedCountryIDs = configuration.supportedCountries
 
 			let supportedCountries = supportedCountryIDs.compactMap { Country(countryCode: $0) }
 			self?.supportedCountries = supportedCountries
 				.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
-		}
+		}.store(in: &subscriptions)
 	}
 
 	private func updateUI(exposureManagerState: ExposureManagerState) {

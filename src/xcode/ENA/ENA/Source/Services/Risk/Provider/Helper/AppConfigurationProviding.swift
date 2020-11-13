@@ -18,20 +18,20 @@
 //
 
 import Foundation
+import Combine
 
 /// A provider of the app configuration struct
 protocol AppConfigurationProviding: AnyObject {
 	typealias Completion = (Result<SAP_Internal_ApplicationConfiguration, Error>) -> Void
 
-	/// Fetch the current app configuration, either the cached or a newly fetched one
-	/// - Parameters:
-	///   - forceFetch: triggers a direct fetch ignoring the cache
-	///   - completion: result handler
-	func appConfiguration(forceFetch: Bool, completion: @escaping Completion)
 
-	/// Fetch the current app configuration, either the cached or a newly fetched one
-	/// - Parameter completion: result handler
-	func appConfiguration(completion: @escaping Completion)
+	/// App configuration publisher that provides the latest app config or a locally stored default config.
+	///
+	/// - Parameter forceFetch: triggers a direct fetch ignoring the cache
+	func appConfiguration(forceFetch: Bool) -> AnyPublisher<SAP_Internal_ApplicationConfiguration, Never>
+
+	/// App configuration publisher that provides the latest app config or a locally stored default config.
+	func appConfiguration() -> AnyPublisher<SAP_Internal_ApplicationConfiguration, Never>
 }
 
 /// Some requirements for app configuration handling

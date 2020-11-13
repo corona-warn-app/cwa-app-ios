@@ -75,12 +75,10 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		parameters.maxExposureDetectionsPerInterval = 6
 		appConfig.iosExposureDetectionParameters = parameters
 
-		let appConfigurationMock = CachedAppConfigurationMock(appConfigurationResult: .success(appConfig))
-
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: appConfigurationMock,
+			appConfigurationProvider: CachedAppConfigurationMock(config: appConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
@@ -152,12 +150,10 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		parameters.maxExposureDetectionsPerInterval = 6
 		appConfig.iosExposureDetectionParameters = parameters
 
-		let appConfigurationMock = CachedAppConfigurationMock(appConfigurationResult: .success(appConfig))
-
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: appConfigurationMock,
+			appConfigurationProvider: CachedAppConfigurationMock(config: appConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
@@ -230,12 +226,10 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		parameters.maxExposureDetectionsPerInterval = 6
 		appConfig.iosExposureDetectionParameters = parameters
 
-		let appConfigurationMock = CachedAppConfigurationMock(appConfigurationResult: .success(appConfig))
-
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: appConfigurationMock,
+			appConfigurationProvider: CachedAppConfigurationMock(config: appConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
@@ -307,12 +301,10 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		parameters.maxExposureDetectionsPerInterval = 6
 		appConfig.iosExposureDetectionParameters = parameters
 
-		let appConfigurationMock = CachedAppConfigurationMock(appConfigurationResult: .success(appConfig))
-
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: appConfigurationMock,
+			appConfigurationProvider: CachedAppConfigurationMock(config: appConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,

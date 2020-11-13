@@ -38,6 +38,9 @@ final class RiskProvider {
 		set { consumersQueue.sync { _consumers = newValue } }
 	}
 
+	// To prevent any side effects with existing `consumers` I created a 2nd set for app config fetch.
+	private var subscriptions = [AnyCancellable]()
+
 	// MARK: Creating a Risk Level Provider
 	init(
 		configuration: RiskProvidingConfiguration,
@@ -182,44 +185,36 @@ extension RiskProvider: RiskProviding {
 	private func _requestRiskLevel(userInitiated: Bool, ignoreCachedSummary: Bool, completion: Completion?) {
 		let group = DispatchGroup()
 		group.enter()
-
-		appConfigurationProvider.appConfiguration { [weak self] result in
+		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
 			guard let self = self else { return }
 
-			switch result {
-			case .success(let appConfiguration):
-				self.updateRiskProvidingConfiguration(with: appConfiguration)
+			self.updateRiskProvidingConfiguration(with: configuration)
 
-				self.downloadKeyPackages { [weak self] result in
-					guard let self = self else { return }
+			self.downloadKeyPackages { [weak self] result in
+				guard let self = self else { return }
 
-					switch result {
-					case .success:
-						self.determineRisk(
-							userInitiated: userInitiated,
-							ignoreCachedSummary: ignoreCachedSummary,
-							appConfiguration: appConfiguration) { result in
+				switch result {
+				case .success:
+					self.determineRisk(
+						userInitiated: userInitiated,
+						ignoreCachedSummary: ignoreCachedSummary,
+						appConfiguration: configuration) { result in
 
-							switch result {
-							case .success(let risk):
-								self.successOnTargetQueue(risk: risk, completion: completion)
-							case .failure(let error):
-								self.failOnTargetQueue(error: error, completion: completion)
-							}
-
-							group.leave()
+						switch result {
+						case .success(let risk):
+							self.successOnTargetQueue(risk: risk, completion: completion)
+						case .failure(let error):
+							self.failOnTargetQueue(error: error, completion: completion)
 						}
-					case .failure(let error):
-						self.failOnTargetQueue(error: error, completion: completion)
+
 						group.leave()
 					}
+				case .failure(let error):
+					self.failOnTargetQueue(error: error, completion: completion)
+					group.leave()
 				}
-
-			case .failure:
-				self.failOnTargetQueue(error: .missingAppConfig, completion: completion)
-				group.leave()
 			}
-		}
+		}.store(in: &subscriptions)
 
 		guard group.wait(timeout: .now() + .seconds(60 * 8)) == .success else {
 			updateActivityState(.idle)

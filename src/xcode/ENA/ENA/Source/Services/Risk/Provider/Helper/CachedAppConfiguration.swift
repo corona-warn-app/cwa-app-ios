@@ -18,6 +18,7 @@
 //
 
 import Foundation
+import Combine
 import ZIPFoundation
 
 final class CachedAppConfiguration {
@@ -28,6 +29,8 @@ final class CachedAppConfiguration {
 		/// HTTP 304 – Content on server has not changed from the given `If-None-Match` header in the request
 		case notModified
 	}
+
+	@Published var configuration: SAP_Internal_ApplicationConfiguration?
 
 	/// A reference to the key package store to directly allow removal of invalidated key packages
 	weak var packageStore: DownloadedPackagesStore?
@@ -42,8 +45,14 @@ final class CachedAppConfiguration {
 
 	private let configurationDidChange: (() -> Void)?
 
-	private var defaultAppConfigPath: URL? {
-		Bundle.main.url(forResource: "default_app_config_17", withExtension: "")
+	private var subscriptions = [AnyCancellable]()
+
+	/// The location of the default app configuration.
+	private var defaultAppConfigPath: URL {
+		guard let url = Bundle.main.url(forResource: "default_app_config_17", withExtension: "") else {
+			fatalError("Could not locate default app config")
+		}
+		return url
 	}
 
 	init(
@@ -64,87 +73,82 @@ final class CachedAppConfiguration {
 		let etag = store.appConfig == nil ? nil : store.lastAppConfigETag
 
 		// check for updated or fetch initial app configuration
-		fetchConfig(with: etag)
+		getAppConfig(with: etag)
+			.sink { config in
+				self.store.appConfig = config
+			}
+			.store(in: &subscriptions)
 	}
 
-	private func fetchConfig(with etag: String?, completion: Completion? = nil) {
-		client.fetchAppConfiguration(etag: etag) { [weak self] result in
-			guard let self = self else { return }
+	private func getAppConfig(with etag: String? = nil) -> Future<SAP_Internal_ApplicationConfiguration, Never> {
+		return Future { promise in
+			self.client.fetchAppConfiguration(etag: etag) { [weak self] result in
+				guard let self = self else { return }
 
-			switch result.0 /* fyi, `result.1` would be the server time */{
-			case .success(let response):
-				self.store.lastAppConfigETag = response.eTag
-				self.store.appConfig = response.config
-				self.completeOnMain(completion: completion, result: .success(response.config))
+				switch result.0 /* fyi, `result.1` would be the server time */{
+				case .success(let response):
+					self.store.lastAppConfigETag = response.eTag
+					self.store.appConfig = response.config
+					promise(.success(response.config))
 
-				// keep track of last successful fetch
-				self.store.lastAppConfigFetch = Date()
-
-				// update revokation list
-				let revokationList = self.store.appConfig?.revokationEtags ?? []
-				self.packageStore?.revokationList = revokationList // for future package-operations
-				// validate currently stored key packages
-				do {
-					try self.packageStore?.validateCachedKeyPackages(revokationList: revokationList)
-				} catch {
-					Log.error("Error while removing invalidated key packages.", log: .localData, error: error)
-					// no further action - yet
-				}
-
-				self.configurationDidChange?()
-			case .failure(let error):
-				switch error {
-				case CachedAppConfiguration.CacheError.notModified where self.store.appConfig != nil:
-					Log.error("config not modified", log: .api)
-					// server is not modified and we have a cached config
-					guard let config = self.store.appConfig else {
-						fatalError("App configuration cache broken!") // in `where` we trust
-					}
-					self.completeOnMain(completion: completion, result: .success(config))
-
-					// server response HTTP 304 is considered a 'successful fetch'
-					self.store.lastAppConfigFetch = Date()
-				default:
-					// try to provide the default configuration or return error response
-					guard
-						let url = self.defaultAppConfigPath,
-						let data = try? Data(contentsOf: url),
-						let zip = Archive(data: data, accessMode: .read),
-						let defaultConfig = try? zip.extractAppConfiguration()
-					else {
-						assertionFailure("Should not happen. Check config deserialization!")
-						Log.error("Providing default app configuration failed! Initial HTTP error: \(error)")
-						self.store.lastAppConfigETag = nil
-						self.store.lastAppConfigFetch = nil
-						self.completeOnMain(completion: completion, result: .failure(error))
-						return
-					}
-					// Let's stick to the default for 5 Minutes
-					// If you don't wanto to do this, nil out `lastAppConfigETag`
-					self.store.lastAppConfigETag = "default"
-					self.store.appConfig = defaultConfig
+					// keep track of last successful fetch
 					self.store.lastAppConfigFetch = Date()
 
-					Log.info("Providing canned app configuration 🥫", log: .localData)
-					self.completeOnMain(completion: completion, result: .success(defaultConfig))
+					// update revokation list
+					let revokationList = self.store.appConfig?.revokationEtags ?? []
+					self.packageStore?.revokationList = revokationList // for future package-operations
+					// validate currently stored key packages
+					do {
+						try self.packageStore?.validateCachedKeyPackages(revokationList: revokationList)
+					} catch {
+						Log.error("Error while removing invalidated key packages.", log: .localData, error: error)
+						// no further action - yet
+					}
+
+					self.configurationDidChange?()
+				case .failure(let error):
+					switch error {
+					case CachedAppConfiguration.CacheError.notModified where self.store.appConfig != nil:
+						Log.error("config not modified", log: .api)
+						// server is not modified and we have a cached config
+						guard let config = self.store.appConfig else {
+							fatalError("App configuration cache broken!") // in `where` we trust
+						}
+						// server response HTTP 304 is considered a 'successful fetch'
+						self.store.lastAppConfigFetch = Date()
+						promise(.success(config))
+
+					default:
+						// try to provide the default configuration or return error response
+						guard
+							let data = try? Data(contentsOf: self.defaultAppConfigPath),
+							let zip = Archive(data: data, accessMode: .read),
+							let defaultConfig = try? zip.extractAppConfiguration()
+						else {
+							Log.error("Could not provide static app configuration!", log: .localData, error: nil)
+							fatalError("Could not provide static app configuration!")
+						}
+						// Let's stick to the default for 5 Minutes
+						// If you don't wanto to do this, nil out `lastAppConfigETag`
+						self.store.lastAppConfigETag = "default"
+						self.store.appConfig = defaultConfig
+						self.store.lastAppConfigFetch = Date()
+
+						Log.info("Providing canned app configuration 🥫", log: .localData)
+						promise(.success(defaultConfig))
+					}
+				}
+
+				// time check ⌚️
+				if let serverTime = result.1 {
+					self.deviceTimeCheck.updateDeviceTimeFlags(
+						serverTime: serverTime,
+						deviceTime: Date()
+					)
+				} else {
+					self.deviceTimeCheck.resetDeviceTimeFlags()
 				}
 			}
-
-			if let serverTime = result.1 {
-				self.deviceTimeCheck.updateDeviceTimeFlags(
-					serverTime: serverTime,
-					deviceTime: Date()
-				)
-			} else {
-				self.deviceTimeCheck.resetDeviceTimeFlags()
-			}
-		}
-	}
-
-	// Prevents failing main thread checks because UI is accessing the result directly.
-	private func completeOnMain(completion: Completion?, result: Result<SAP_Internal_ApplicationConfiguration, Error>) {
-		DispatchQueue.main.async {
-			completion?(result)
 		}
 	}
 }
@@ -153,22 +157,26 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 
 	fileprivate static let timestampKey = "LastAppConfigFetch"
 
-	func appConfiguration(forceFetch: Bool = false, completion: @escaping Completion) {
+	func appConfiguration(forceFetch: Bool = false) -> AnyPublisher<SAP_Internal_ApplicationConfiguration, Never> {
 		let force = shouldFetch() || forceFetch
 
 		if let cachedVersion = store.appConfig, !force {
 			Log.debug("[App Config] fetching cached app configuration", log: .localData)
 			// use the cached version
-			completeOnMain(completion: completion, result: .success(cachedVersion))
+			return Just(cachedVersion)
+				.receive(on: DispatchQueue.main)
+				.eraseToAnyPublisher()
 		} else {
 			Log.debug("[App Config] fetching fresh app configuration", log: .localData)
 			// fetch a new one
-			fetchConfig(with: store.lastAppConfigETag, completion: completion)
+			return getAppConfig(with: store.lastAppConfigETag)
+				.receive(on: DispatchQueue.main)
+				.eraseToAnyPublisher()
 		}
 	}
 
-	func appConfiguration(completion: @escaping Completion) {
-		self.appConfiguration(forceFetch: false, completion: completion)
+	func appConfiguration() -> AnyPublisher<SAP_Internal_ApplicationConfiguration, Never> {
+		return appConfiguration(forceFetch: false)
 	}
 
 	/// Simple helper to simulate Cache-Control

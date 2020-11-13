@@ -60,13 +60,9 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		var config = SAP_Internal_ApplicationConfiguration()
 		config.supportedCountries = ["DE", "IT", "ES"]
 
-		let provider = CachedAppConfigurationMock(
-			appConfigurationResult: .success(config)
-		)
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: provider
+			appConfigurationProvider: CachedAppConfigurationMock(config: config)
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -103,16 +99,9 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			XCTAssertEqual(visitedCountries, [Country(countryCode: "DE")])
 		}
 
-		var config = SAP_Internal_ApplicationConfiguration()
-		config.supportedCountries = []
-
-		let provider = CachedAppConfigurationMock(
-			appConfigurationResult: .success(config)
-		)
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: provider
+			appConfigurationProvider: CachedAppConfigurationMock()
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -148,14 +137,9 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		exposureSubmissionService.submitExposureCallback = { _, visitedCountries, _ in
 			XCTAssert(visitedCountries.isEmpty)
 		}
-
-		let provider = CachedAppConfigurationMock(
-			appConfigurationResult: .failure(CachedAppConfiguration.CacheError.dataFetchError(message: "fake"))
-		)
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: provider
+			appConfigurationProvider: CachedAppConfigurationMock()
 		)
 
 		let expectedIsLoadingValues = [true, false]
