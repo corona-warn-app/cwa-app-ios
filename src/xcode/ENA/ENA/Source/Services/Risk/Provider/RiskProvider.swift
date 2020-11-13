@@ -360,10 +360,10 @@ extension RiskProvider: RiskProviding {
 		let config = riskProvidingConfiguration
 		let shouldDetectExposures = (config.detectionMode == .manual && userInitiated) || config.detectionMode == .automatic
 
-		Log.info("RiskProvider: Procondition fulfilled for fresh risk detection: enoughTimeHasPassed = \(enoughTimeHasPassed)", log: .riskDetection)
-		Log.info("RiskProvider: Procondition fulfilled for fresh risk detection: exposureManagerState.isGood = \(exposureManagerState.isGood)", log: .riskDetection)
-		Log.info("RiskProvider: Procondition fulfilled for fresh risk detection: shouldDetectExposures = \(shouldDetectExposures)", log: .riskDetection)
-		Log.info("RiskProvider: Procondition fulfilled for fresh risk detection: shouldDetectExposureBecauseOfNewPackages = \(shouldDetectExposureBecauseOfNewPackages)", log: .riskDetection)
+		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: enoughTimeHasPassed = \(enoughTimeHasPassed)", log: .riskDetection)
+		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: exposureManagerState.isGood = \(exposureManagerState.isGood)", log: .riskDetection)
+		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: shouldDetectExposures = \(shouldDetectExposures)", log: .riskDetection)
+		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: shouldDetectExposureBecauseOfNewPackages = \(shouldDetectExposureBecauseOfNewPackages)", log: .riskDetection)
 
 		return !enoughTimeHasPassed || !exposureManagerState.isGood || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackages
 	}
