@@ -167,7 +167,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		devicePairingConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
 	}
 
-
 	/// This method is called randomly sometimes in the foreground and from the background.
 	/// It represents the full-fledged dummy request needed to realize plausible deniability.
 	/// Nothing called in this method is considered a "real" request.
