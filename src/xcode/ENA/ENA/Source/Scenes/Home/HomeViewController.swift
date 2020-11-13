@@ -151,7 +151,18 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				supportedCountries = []
 			}
 			
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+			// As per feature requirement, the delta onboarding should appear with a slight delay of 0.5
+			var delay = 0.5
+			
+			#if DEBUG
+			if isUITesting {
+				// In UI Testing we need to increase the delaye slightly again.
+				// Otherwise UI Tests fail
+				delay = 1.5
+			}
+			#endif
+			
+			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 				let onboardings: [DeltaOnboarding] = [
 					DeltaOnboardingV15(store: self.store, supportedCountries: supportedCountries)
 				]
