@@ -480,7 +480,7 @@ final class RiskProviderTests: XCTestCase {
 		return RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(),
+			appConfigurationProvider: CachedAppConfigurationMock(with: .riskCalculationAppConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			keyPackageDownload: keyPackageDownload,
 			exposureDetectionExecutor: exposureDetectionDelegateStub
