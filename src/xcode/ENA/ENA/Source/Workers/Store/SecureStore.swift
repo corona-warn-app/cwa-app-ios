@@ -258,7 +258,12 @@ final class SecureStore: Store {
 		get { kvStore["lastKeyPackageDownloadDate"] as Date? ?? .distantPast }
 		set { kvStore["lastKeyPackageDownloadDate"] = newValue }
 	}
-
+	
+	var isSubmissionConsentGiven: Bool {
+		get { kvStore["isSubmissionConsentGiven"] as Bool? ?? false }
+		set { kvStore["isSubmissionConsentGiven"] = newValue }
+	}
+	
 	#if !RELEASE
 
 	// Settings from the debug menu.

@@ -71,6 +71,15 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.4"])
 		
 		app.launch()
+		
+		// The "Information zur Funktionsweise der Risiko-Ermittlung"
+		// appears on fresh installs (e.g. every CI-run) but not on already started apps.
+		// We dismiss it if present.
+		let alert = app.alerts.firstMatch
+		if alert.exists {
+			alert.buttons.firstMatch.tap()
+		}
+		
 		var screenshotCounter = 0
 		let screenshotLabel = "deltaOnboarding_V15"
 		

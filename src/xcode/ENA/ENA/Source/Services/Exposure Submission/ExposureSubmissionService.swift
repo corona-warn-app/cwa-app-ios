@@ -39,6 +39,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		get { self.store.devicePairingSuccessfulTimestamp }
 		set { self.store.devicePairingSuccessfulTimestamp = newValue }
 	}
+	
+	var isSubmissionConsentGiven: Bool {
+		get { self.store.isSubmissionConsentGiven }
+		set { self.store.isSubmissionConsentGiven = newValue }
+	}
 
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
@@ -161,7 +166,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		devicePairingConsentAccept = true
 		devicePairingConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
 	}
-
 
 	/// This method is called randomly sometimes in the foreground and from the background.
 	/// It represents the full-fledged dummy request needed to realize plausible deniability.
