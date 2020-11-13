@@ -26,7 +26,7 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 
 	private let config: SAP_Internal_ApplicationConfiguration
 
-	init(config: SAP_Internal_ApplicationConfiguration? = nil) {
+	init(with config: SAP_Internal_ApplicationConfiguration? = nil) {
 		guard
 			let url = Bundle.main.url(forResource: "default_app_config_17", withExtension: ""),
 			let data = try? Data(contentsOf: url),

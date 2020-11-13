@@ -62,7 +62,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock(config: config)
+			appConfigurationProvider: CachedAppConfigurationMock(with: config)
 		)
 
 		let expectedIsLoadingValues = [true, false]

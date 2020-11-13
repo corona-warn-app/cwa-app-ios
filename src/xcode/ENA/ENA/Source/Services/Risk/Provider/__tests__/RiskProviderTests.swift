@@ -198,7 +198,7 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(config: sapAppConfig),
+			appConfigurationProvider: CachedAppConfigurationMock(with: sapAppConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
@@ -252,7 +252,7 @@ final class RiskProviderTests: XCTestCase {
 		let sut = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(config: sapAppConfig),
+			appConfigurationProvider: CachedAppConfigurationMock(with: sapAppConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,

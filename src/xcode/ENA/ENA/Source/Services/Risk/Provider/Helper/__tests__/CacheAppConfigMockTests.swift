@@ -46,7 +46,7 @@ class CacheAppConfigMockTests: XCTestCase {
 		customConfig.supportedCountries = ["foo", "bar", "baz"]
 
 		let onFetch = expectation(description: "config fetched")
-		CachedAppConfigurationMock(config: customConfig).appConfiguration().sink { config in
+		CachedAppConfigurationMock(with: customConfig).appConfiguration().sink { config in
 			XCTAssertEqual(config, customConfig)
 			XCTAssertEqual(config.supportedCountries, customConfig.supportedCountries)
 			onFetch.fulfill()
