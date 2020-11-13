@@ -85,7 +85,7 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 		return (serverTimeMinus2Hours ... serverTimePlus2Hours).contains(deviceTime)
 	}
 
-	private func isDeviceTimeCheckKillSwitchActive(config: SAP_Internal_ApplicationConfiguration?) -> Bool {
+	private func isDeviceTimeCheckKillSwitchActive(config: SAP_Internal_V2_ApplicationConfigurationIOS?) -> Bool {
 		guard let config = config else {
 			return false
 		}

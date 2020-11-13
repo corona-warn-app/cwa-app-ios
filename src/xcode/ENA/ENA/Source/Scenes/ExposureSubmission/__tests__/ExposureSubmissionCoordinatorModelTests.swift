@@ -57,7 +57,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			XCTAssertEqual(visitedCountries, [Country(countryCode: "DE"), Country(countryCode: "IT"), Country(countryCode: "ES")])
 		}
 
-		var config = SAP_Internal_ApplicationConfiguration()
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = ["DE", "IT", "ES"]
 
 		let provider = CachedAppConfigurationMock(
@@ -103,7 +103,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			XCTAssertEqual(visitedCountries, [Country(countryCode: "DE")])
 		}
 
-		var config = SAP_Internal_ApplicationConfiguration()
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = []
 
 		let provider = CachedAppConfigurationMock(

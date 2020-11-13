@@ -189,19 +189,9 @@ final class SecureStore: Store {
 		}
 	}
 
-	var summary: SummaryMetadata? {
-		get { kvStore["previousSummaryMetadata"] as SummaryMetadata? ?? nil }
-		set { kvStore["previousSummaryMetadata"] = newValue }
-	}
-
-	var previousRiskLevel: EitherLowOrIncreasedRiskLevel? {
-		get {
-			guard let value = kvStore["previousRiskLevel"] as Int? else {
-				return nil
-			}
-			return EitherLowOrIncreasedRiskLevel(rawValue: value)
-		}
-		set { kvStore["previousRiskLevel"] = newValue?.rawValue }
+	var riskCalculationResult: RiskCalculationV2Result? {
+		get { kvStore["riskCalculationResult"] as RiskCalculationV2Result? ?? nil }
+		set { kvStore["riskCalculationResult"] = newValue }
 	}
 
 	var shouldShowRiskStatusLoweredAlert: Bool {
@@ -268,6 +258,16 @@ final class SecureStore: Store {
 		set { kvStore["fakeSQLiteError"] = newValue }
 	}
 
+	var mostRecentRiskCalculation: RiskCalculationV2? {
+		get { kvStore["mostRecentRiskCalculation"] as RiskCalculationV2? }
+		set { kvStore["mostRecentRiskCalculation"] = newValue }
+	}
+
+	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration? {
+		get { kvStore["mostRecentRiskCalculationConfiguration"] as RiskCalculationConfiguration? }
+		set { kvStore["mostRecentRiskCalculationConfiguration"] = newValue }
+	}
+
 	#endif
 }
 
@@ -300,12 +300,12 @@ extension SecureStore: AppConfigCaching {
 		set { kvStore["lastAppConfigFetch"] = newValue }
 	}
 
-	var appConfig: SAP_Internal_ApplicationConfiguration? {
+	var appConfig: SAP_Internal_V2_ApplicationConfigurationIOS? {
 		get {
-			guard let data = kvStore["SAP_Internal_ApplicationConfiguration"] else { return nil }
-			return try? SAP_Internal_ApplicationConfiguration(serializedData: data)
+			guard let data = kvStore["SAP_Internal_V2_ApplicationConfigurationIOS"] else { return nil }
+			return try? SAP_Internal_V2_ApplicationConfigurationIOS(serializedData: data)
 		}
-		set { kvStore["SAP_Internal_ApplicationConfiguration"] = try? newValue?.serializedData() }
+		set { kvStore["SAP_Internal_V2_ApplicationConfigurationIOS"] = try? newValue?.serializedData() }
 	}
 }
 

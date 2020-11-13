@@ -27,7 +27,7 @@ final class RiskProvider {
 	private let queue = DispatchQueue(label: "com.sap.RiskProvider")
 	private let targetQueue: DispatchQueue
 	private var consumersQueue = DispatchQueue(label: "com.sap.RiskProvider.consumer")
-	private let riskCalculation: RiskCalculationProtocol
+	private let riskCalculation: RiskCalculationV2Protocol
 	private var keyPackageDownload: KeyPackageDownloadProtocol
 	private let exposureDetectionExecutor: ExposureDetectionDelegate
 	private var exposureDetection: ExposureDetection?
@@ -45,7 +45,7 @@ final class RiskProvider {
 		appConfigurationProvider: AppConfigurationProviding,
 		exposureManagerState: ExposureManagerState,
 		targetQueue: DispatchQueue = .main,
-		riskCalculation: RiskCalculationProtocol = RiskCalculation(),
+		riskCalculation: RiskCalculationV2Protocol = RiskCalculationV2(),
 		keyPackageDownload: KeyPackageDownloadProtocol,
 		exposureDetectionExecutor: ExposureDetectionDelegate
 	) {
@@ -99,12 +99,12 @@ extension RiskProvider: RiskProviding {
 	var manualExposureDetectionState: ManualExposureDetectionState? {
 		riskProvidingConfiguration.manualExposureDetectionState(
 			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
-			lastExposureDetectionDate: store.summary?.date)
+			lastExposureDetectionDate: store.riskCalculationResult?.calculationDate)
 	}
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
-	func requestRisk(userInitiated: Bool, ignoreCachedSummary: Bool = false, completion: Completion? = nil) {
-		Log.info("RiskProvider: Request risk was called. UserInitiated: \(userInitiated), ignoreCachedSummary: \(ignoreCachedSummary)", log: .riskDetection)
+	func requestRisk(userInitiated: Bool, completion: Completion? = nil) {
+		Log.info("RiskProvider: Request risk was called. UserInitiated: \(userInitiated)", log: .riskDetection)
 
 		guard activityState == .idle else {
 			Log.info("RiskProvider: Risk detection is allready running. Don't start new risk detection", log: .riskDetection)
@@ -124,7 +124,7 @@ extension RiskProvider: RiskProviding {
 			}
 			#endif
 
-			self._requestRiskLevel(userInitiated: userInitiated, ignoreCachedSummary: ignoreCachedSummary, completion: completion)
+			self._requestRiskLevel(userInitiated: userInitiated, completion: completion)
 		}
 	}
 
@@ -134,7 +134,7 @@ extension RiskProvider: RiskProviding {
 	/// For Case2, we need to calculate the remaining time until we reach a full 24h of tracing.
 	func nextExposureDetectionDate() -> Date {
 		let nextDate = riskProvidingConfiguration.nextExposureDetectionDate(
-			lastExposureDetectionDate: store.summary?.date
+			lastExposureDetectionDate: store.riskCalculationResult?.calculationDate
 		)
 		switch nextDate {
 		case .now:  // Occurs when no detection has been performed ever
@@ -179,7 +179,7 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	private func _requestRiskLevel(userInitiated: Bool, ignoreCachedSummary: Bool, completion: Completion?) {
+	private func _requestRiskLevel(userInitiated: Bool, completion: Completion?) {
 		let group = DispatchGroup()
 		group.enter()
 
@@ -197,7 +197,6 @@ extension RiskProvider: RiskProviding {
 					case .success:
 						self.determineRisk(
 							userInitiated: userInitiated,
-							ignoreCachedSummary: ignoreCachedSummary,
 							appConfiguration: appConfiguration) { result in
 
 							switch result {
@@ -260,27 +259,24 @@ extension RiskProvider: RiskProviding {
 
 	private func determineRisk(
 		userInitiated: Bool,
-		ignoreCachedSummary: Bool,
-		appConfiguration: SAP_Internal_ApplicationConfiguration,
-		completion: @escaping Completion
+		appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
+		completion: @escaping (Result<Risk, RiskProviderError>) -> Void
 	) {
-		if let risk = self.riskForMissingPreconditions() {
+		if let risk = riskForMissingPreconditions(userInitiated: userInitiated) {
 			Log.info("RiskProvider: Determined Risk from preconditions", log: .riskDetection)
 			completion(.success(risk))
 			return
 		}
 
-		self.determineSummary(
-			userInitiated: userInitiated,
-			ignoreCachedSummary: ignoreCachedSummary,
+		self.executeExposureDetection(
 			appConfiguration: appConfiguration,
 			completion: { [weak self] result in
 				guard let self = self else { return }
 
 				switch result {
-				case .success(let summary):
+				case .success(let exposureWindows):
 					self.calculateRiskLevel(
-						summary: summary,
+						exposureWindows: exposureWindows,
 						appConfiguration: appConfiguration,
 						completion: completion
 					)
@@ -291,23 +287,18 @@ extension RiskProvider: RiskProviding {
 		)
 	}
 
-	private func riskForMissingPreconditions() -> Risk? {
-		let tracingHistory = self.store.tracingStatusHistory
+	private func riskForMissingPreconditions(userInitiated: Bool) -> Risk? {
+		let tracingHistory = store.tracingStatusHistory
 		let numberOfEnabledHours = tracingHistory.activeTracing().inHours
 
-		let details = Risk.Details(
-			daysSinceLastExposure: self.store.summary?.summary.daysSinceLastExposure,
-			numberOfExposures: Int(self.store.summary?.summary.matchedKeyCount ?? 0),
-			activeTracing: tracingHistory.activeTracing(),
-			exposureDetectionDate: self.store.summary?.date
-		)
+		let details = Risk.Details(activeTracing: tracingHistory.activeTracing(), riskCalculationResult: store.riskCalculationResult)
 
 		// Risk Calculation involves some potentially long running tasks, like exposure detection and
 		// fetching the configuration from the backend.
 		// However in some precondition cases we can return early, mainly:
 		// 1. The exposureManagerState is bad (turned off, not authorized, etc.)
 		// 2. Tracing has not been active for at least 24 hours
-		guard self.exposureManagerState.isGood else {
+		if !exposureManagerState.isGood {
 			Log.info("RiskProvider: Precondition not met for ExposureManagerState", log: .riskDetection)
 			return Risk(
 				level: .inactive,
@@ -316,7 +307,7 @@ extension RiskProvider: RiskProviding {
 			)
 		}
 
-		guard numberOfEnabledHours >= TracingStatusHistory.minimumActiveHours else {
+		if numberOfEnabledHours < TracingStatusHistory.minimumActiveHours {
 			Log.info("RiskProvider: Precondition not met for minimumActiveHours", log: .riskDetection)
 			return Risk(
 				level: .unknownInitial,
@@ -325,48 +316,24 @@ extension RiskProvider: RiskProviding {
 			)
 		}
 
-		return nil
-	}
-
-	private func determineSummary(
-		userInitiated: Bool,
-		ignoreCachedSummary: Bool = false,
-		appConfiguration: SAP_Internal_ApplicationConfiguration,
-		completion: @escaping (Result<SummaryMetadata, RiskProviderError>) -> Void
-	) {
-		if shouldLoadSummaryFromCache(userInitiated: userInitiated, ignoreCachedSummary: ignoreCachedSummary),
-		   let cachedSummary = store.summary {
-			Log.info("RiskProvider: Loaded summary from cache", log: .riskDetection)
-			completion(.success(cachedSummary))
-		} else {
-			executeExposureDetection(appConfiguration: appConfiguration, completion: completion)
-		}
-	}
-
-	private func shouldLoadSummaryFromCache(
-		userInitiated: Bool,
-		ignoreCachedSummary: Bool = false
-	) -> Bool {
-
-		guard !ignoreCachedSummary else {
-			return true
-		}
-
-		// Here we are in automatic mode and thus we have to check the validity of the current summary.
 		let enoughTimeHasPassed = riskProvidingConfiguration.shouldPerformExposureDetection(
-			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
-			lastExposureDetectionDate: store.summary?.date
+			activeTracingHours: numberOfEnabledHours,
+			lastExposureDetectionDate: store.riskCalculationResult?.calculationDate
 		)
+		let shouldDetectExposures = (riskProvidingConfiguration.detectionMode == .manual && userInitiated) || riskProvidingConfiguration.detectionMode == .automatic
 
-		let config = riskProvidingConfiguration
-		let shouldDetectExposures = (config.detectionMode == .manual && userInitiated) || config.detectionMode == .automatic
+		if !enoughTimeHasPassed || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackages,
+		   let riskCalculationResult = store.riskCalculationResult {
+			Log.info("RiskProvider: Not calculating new risk, using result of most recent risk calculation", log: .riskDetection)
+			return Risk(activeTracing: tracingHistory.activeTracing(), riskCalculationResult: riskCalculationResult)
+		}
 
-		return !enoughTimeHasPassed || !exposureManagerState.isGood || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackages
+		return nil
 	}
 
 	private var shouldDetectExposureBecauseOfNewPackages: Bool {
 		let lastKeyPackageDownloadDate = store.lastKeyPackageDownloadDate
-		let lastExposureDetectionDate = store.summary?.date ?? .distantPast
+		let lastExposureDetectionDate = store.riskCalculationResult?.calculationDate ?? .distantPast
 		let didDownloadNewPackagesSinceLastDetection = lastKeyPackageDownloadDate > lastExposureDetectionDate
 		let hoursSinceLastDetection = -lastExposureDetectionDate.hoursSinceNow
 		let lastDetectionMoreThan24HoursAgo = hoursSinceLastDetection > 24
@@ -375,12 +342,11 @@ extension RiskProvider: RiskProviding {
 	}
 
 	private func executeExposureDetection(
-		appConfiguration: SAP_Internal_ApplicationConfiguration,
-		completion: @escaping (Result<SummaryMetadata, RiskProviderError>) -> Void
+		appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
+		completion: @escaping (Result<[ExposureWindow], RiskProviderError>) -> Void
 	) {
 		self.updateActivityState(.detecting)
 
-		
 		// The summary is outdated: do a exposure detection
 		let _exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
@@ -388,19 +354,16 @@ extension RiskProvider: RiskProviding {
 			deviceTimeCheck: DeviceTimeCheck(store: store)
 		)
 
-		_exposureDetection.start { [weak self] result in
-			guard let self = self else { return }
-
+		_exposureDetection.start { result in
 			switch result {
-			case .success(let detectedSummary):
+			case .success(let detectedExposureWindows):
 				Log.info("RiskProvider: Detect exposure completed", log: .riskDetection)
 
-				let summary = SummaryMetadata(detectionSummary: detectedSummary, date: Date())
-				self.store.summary = summary
+				let exposureWindows = detectedExposureWindows.map { ExposureWindow(from: $0) }
 
 				/// We were able to calculate a risk so we have to reset the deadman notification
 				UNUserNotificationCenter.current().resetDeadmanNotification()
-				completion(.success(summary))
+				completion(.success(exposureWindows))
 			case .failure(let error):
 				Log.error("RiskProvider: Detect exposure failed", log: .riskDetection, error: error)
 
@@ -411,49 +374,30 @@ extension RiskProvider: RiskProviding {
 		self.exposureDetection = _exposureDetection
 	}
 
-	private func calculateRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_Internal_ApplicationConfiguration?, completion: Completion?) {
+	private func calculateRiskLevel(exposureWindows: [ExposureWindow], appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS, completion: (Result<Risk, RiskProviderError>) -> Void?) {
 		Log.info("RiskProvider: Calculate risk level", log: .riskDetection)
 
-		guard let appConfiguration = appConfiguration else {
-			completion?(.failure(.missingAppConfig))
-			return
+		let configuration = RiskCalculationConfiguration(from: appConfiguration.riskCalculationParameters)
+
+		do {
+			let riskCalculationResult = try riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
+
+			let risk = Risk(
+				activeTracing: store.tracingStatusHistory.activeTracing(),
+				riskCalculationResult: riskCalculationResult,
+				previousRiskCalculationResult: store.riskCalculationResult
+			)
+
+			store.riskCalculationResult = riskCalculationResult
+			checkIfRiskStatusLoweredAlertShouldBeShown(risk)
+
+			completion(.success(risk))
+
+			/// We were able to calculate a risk so we have to reset the DeadMan Notification
+			UNUserNotificationCenter.current().resetDeadmanNotification()
+		} catch {
+			completion(.failure(.failedRiskCalculation))
 		}
-
-		let activeTracing = store.tracingStatusHistory.activeTracing()
-
-		guard
-			let risk = riskCalculation.risk(
-				summary: summary?.summary,
-				configuration: appConfiguration,
-				dateLastExposureDetection: summary?.date,
-				activeTracing: activeTracing,
-				preconditions: exposureManagerState,
-				previousRiskLevel: store.previousRiskLevel,
-				providerConfiguration: riskProvidingConfiguration
-			) else {
-			Log.error("Serious error during risk calculation", log: .riskDetection)
-			completion?(.failure(.failedRiskCalculation))
-			return
-		}
-
-		/// Only set shouldShowRiskStatusLoweredAlert if risk level has changed from increase to low or vice versa. Otherwise leave shouldShowRiskStatusLoweredAlert unchanged.
-		/// Scenario: Risk level changed from increased to low in the first risk calculation. In a second risk calculation it stays low. If the user does not open the app between these two calculations, the alert should still be shown.
-		if risk.riskLevelHasChanged {
-			switch risk.level {
-			case .low:
-				store.shouldShowRiskStatusLoweredAlert = true
-			case .increased:
-				store.shouldShowRiskStatusLoweredAlert = false
-			default:
-				break
-			}
-		}
-
-		completion?(.success(risk))
-		savePreviousRiskLevel(risk)
-
-		/// We were able to calculate a risk so we have to reset the DeadMan Notification
-		UNUserNotificationCenter.current().resetDeadmanNotification()
 	}
 
 	private func _provideRiskResult(_ result: RiskCalculationResult, to consumer: RiskConsumer?) {
@@ -467,19 +411,23 @@ extension RiskProvider: RiskProviding {
 		consumer?.provideRiskCalculationResult(result)
 	}
 
-	private func savePreviousRiskLevel(_ risk: Risk) {
-		switch risk.level {
-		case .low:
-			store.previousRiskLevel = .low
-		case .increased:
-			store.previousRiskLevel = .increased
-		default:
-			break
+	private func checkIfRiskStatusLoweredAlertShouldBeShown(_ risk: Risk) {
+		/// Only set shouldShowRiskStatusLoweredAlert if risk level has changed from increase to low or vice versa. Otherwise leave shouldShowRiskStatusLoweredAlert unchanged.
+		/// Scenario: Risk level changed from increased to low in the first risk calculation. In a second risk calculation it stays low. If the user does not open the app between these two calculations, the alert should still be shown.
+		if risk.riskLevelHasChanged {
+			switch risk.level {
+			case .low:
+				store.shouldShowRiskStatusLoweredAlert = true
+			case .increased:
+				store.shouldShowRiskStatusLoweredAlert = false
+			default:
+				break
+			}
 		}
 	}
 
-    private func updateRiskProvidingConfiguration(with appConfig: SAP_Internal_ApplicationConfiguration) {
-        let maxExposureDetectionsPerInterval = Int(appConfig.iosExposureDetectionParameters.maxExposureDetectionsPerInterval)
+    private func updateRiskProvidingConfiguration(with appConfig: SAP_Internal_V2_ApplicationConfigurationIOS) {
+        let maxExposureDetectionsPerInterval = Int(appConfig.exposureDetectionParameters.maxExposureDetectionsPerInterval)
 
         var exposureDetectionInterval: DateComponents
         if maxExposureDetectionsPerInterval == 0 {
@@ -546,7 +494,14 @@ extension RiskProvider {
 			_provideRiskResult(.success(risk), to: consumer)
 		}
 
-		savePreviousRiskLevel(risk)
+		store.riskCalculationResult = RiskCalculationV2Result(
+			riskLevel: risk.level == .increased ? .increased : .low,
+			minimumDistinctEncountersWithLowRisk: 0,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: nil,
+			mostRecentDateWithHighRisk: nil,
+			calculationDate: Date()
+		)
 	}
 }
 #endif

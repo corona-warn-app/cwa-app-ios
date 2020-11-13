@@ -61,6 +61,12 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		}
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		navigationController?.setToolbarHidden(true, animated: animated)
+	}
+
 	// MARK: Clear Registration Token of Submission
 	@objc
 	private func clearRegistrationToken() {
@@ -117,6 +123,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 				wifiClient: wifiClient,
 				delegate: self
 			)
+		case .appConfiguration:
+			vc = DMAppConfigurationViewController(appConfiguration: appConfigurationProvider)
 		case .backendConfiguration:
 			vc = makeBackendConfigurationViewController()
 		case .tracingHistory:
@@ -136,6 +144,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .manuallyRequestRisk:
 			vc = nil
 			manuallyRequestRisk()
+		case .debugRiskCalculation:
+			vc = DMDebugRiskCalculationViewController(store: store)
 		case .onboardingVersion:
 			vc = makeOnboardingVersionViewController()
 		case .serverEnvironment:
@@ -198,7 +208,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 				title: "Purge Cache and request Risk",
 				style: .destructive
 			) { _ in
-				self.store.summary = nil
+				self.store.riskCalculationResult = nil
 				self.riskProvider.requestRisk(userInitiated: true)
 			}
 		)

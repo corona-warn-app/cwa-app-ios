@@ -1,4 +1,3 @@
-//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -15,14 +14,13 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-//
 
 import Foundation
 
-extension Array where Element == SAP_Internal_RiskScoreClass {
-	private func firstWhereLabel(is label: String) -> SAP_Internal_RiskScoreClass? {
-		first(where: { $0.label == label })
+extension Date {
+
+	var ageInDays: Int? {
+		return Calendar.current.dateComponents([.day], from: self, to: Date()).day
 	}
-	var low: SAP_Internal_RiskScoreClass? { firstWhereLabel(is: "LOW") }
-	var high: SAP_Internal_RiskScoreClass? { firstWhereLabel(is: "HIGH") }
+
 }

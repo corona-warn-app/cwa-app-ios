@@ -28,7 +28,7 @@ extension String {
 		return formatter
 	}()
 
-	var semanticVersion: SAP_Internal_SemanticVersion? {
+	var semanticVersion: SAP_Internal_V2_SemanticVersion? {
 		let versions: [UInt32] = components(separatedBy: ".")
 			.compactMap { type(of: self).semanticVersionComponentFormatter.number(from: $0)?.intValue }
 			.map(UInt32.init)
@@ -37,7 +37,7 @@ extension String {
 			return nil
 		}
 
-		return SAP_Internal_SemanticVersion.with {
+		return SAP_Internal_V2_SemanticVersion.with {
 			$0.major = versions[0]
 			$0.minor = versions[1]
 			$0.patch = versions[2]

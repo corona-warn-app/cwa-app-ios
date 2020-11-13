@@ -89,7 +89,7 @@ class CachingHTTPClient: AppConfigurationFetching {
 
 				// serialize config
 				do {
-					let config = try SAP_Internal_ApplicationConfiguration(serializedData: package.bin)
+					let config = try SAP_Internal_V2_ApplicationConfigurationIOS(serializedData: package.bin)
 					let eTag = response.httpResponse.value(forHTTPHeaderField: "ETag")
 					let configurationResponse = AppConfigurationFetchingResponse(config, eTag)
 					completion((.success(configurationResponse), serverDate))

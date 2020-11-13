@@ -182,7 +182,7 @@ extension Coordinator: HomeViewControllerDelegate {
 			detectionMode: state.detectionMode,
 			activityState: activityState,
 			risk: state.risk,
-			previousRiskLevel: store.previousRiskLevel
+			previousRiskLevel: store.riskCalculationResult?.riskLevel
 		)
 		let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
 			ExposureDetectionViewController(
@@ -202,7 +202,7 @@ extension Coordinator: HomeViewControllerDelegate {
 			detectionMode: state.detectionMode,
 			activityState: activityState,
 			risk: state.risk,
-			previousRiskLevel: store.previousRiskLevel
+			previousRiskLevel: store.riskCalculationResult?.riskLevel
 		)
 		exposureDetectionController?.state = state
 	}
