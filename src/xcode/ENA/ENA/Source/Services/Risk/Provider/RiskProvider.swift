@@ -374,13 +374,8 @@ extension RiskProvider: RiskProviding {
 		self.exposureDetection = _exposureDetection
 	}
 
-	private func calculateRiskLevel(exposureWindows: [ExposureWindow], appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS?, completion: (Result<Risk, RiskProviderError>) -> Void?) {
+	private func calculateRiskLevel(exposureWindows: [ExposureWindow], appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS, completion: (Result<Risk, RiskProviderError>) -> Void?) {
 		Log.info("RiskProvider: Calculate risk level", log: .riskDetection)
-
-		guard let appConfiguration = appConfiguration else {
-			completion(.failure(.missingAppConfig))
-			return
-		}
 
 		let configuration = RiskCalculationConfiguration(from: appConfiguration.riskCalculationParameters)
 
