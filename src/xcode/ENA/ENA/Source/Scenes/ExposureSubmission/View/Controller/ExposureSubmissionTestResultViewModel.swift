@@ -133,7 +133,7 @@ class ExposureSubmissionTestResultViewModel {
 	}
 
 	private func updateForCurrentTestResult() {
-		self.dynamicTableViewModel = DynamicTableViewModel([currentTestResultSection])
+		self.dynamicTableViewModel = DynamicTableViewModel(currentTestResultSections)
 		updateButtons()
 	}
 	
@@ -182,23 +182,24 @@ class ExposureSubmissionTestResultViewModel {
 		}
 	}
 
-	private var currentTestResultSection: DynamicSection {
+	private var currentTestResultSections: [DynamicSection] {
 		switch testResult {
 		case .positive:
-			return positiveTestResultSection
+			return positiveTestResultSections
 		case .negative:
-			return negativeTestResultSection
+			return negativeTestResultSections
 		case .invalid:
-			return invalidTestResultSection
+			return invalidTestResultSections
 		case .pending:
-			return pendingTestResultSection
+			return pendingTestResultSections
 		case .expired:
-			return expiredTestResultSection
+			return expiredTestResultSections
 		}
 	}
 
-	private var positiveTestResultSection: DynamicSection {
-		.section(
+	private var positiveTestResultSections: [DynamicSection] {
+		[
+		 .section(
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
@@ -212,7 +213,7 @@ class ExposureSubmissionTestResultViewModel {
 
 				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
-					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					description: nil,
 					icon: UIImage(named: "Icons_Grey_Check"),
 					hairline: .iconAttached
 				),
@@ -225,10 +226,12 @@ class ExposureSubmissionTestResultViewModel {
 				)
 			]
 		)
-	}
+	 ]
+  }
 
-	private var negativeTestResultSection: DynamicSection {
-		.section(
+	private var negativeTestResultSections: [DynamicSection] {
+		[
+		 .section(
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
@@ -243,7 +246,7 @@ class ExposureSubmissionTestResultViewModel {
 
 				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
-					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					description: nil,
 					icon: UIImage(named: "Icons_Grey_Check"),
 					hairline: .iconAttached
 				),
@@ -271,10 +274,12 @@ class ExposureSubmissionTestResultViewModel {
 				.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain, spacing: .large)
 			]
 		)
-	}
+	 ]
+ }
 
-	private var invalidTestResultSection: DynamicSection {
-		.section(
+	private var invalidTestResultSections: [DynamicSection] {
+		[
+		 .section(
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
@@ -288,7 +293,7 @@ class ExposureSubmissionTestResultViewModel {
 
 				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
-					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					description: nil,
 					icon: UIImage(named: "Icons_Grey_Check"),
 					hairline: .iconAttached
 				),
@@ -308,10 +313,12 @@ class ExposureSubmissionTestResultViewModel {
 				)
 			]
 		)
-	}
+	]
+ }
 
-	private var pendingTestResultSection: DynamicSection {
-		.section(
+	private var pendingTestResultSections: [DynamicSection] {
+		[
+		 .section(
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
@@ -321,29 +328,43 @@ class ExposureSubmissionTestResultViewModel {
 			cells: [
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-
+				
 				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
-					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					description: nil,
 					icon: UIImage(named: "Icons_Grey_Check"),
 					hairline: .iconAttached
 				),
-
+				
 				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testPending,
-					description:
-						AppStrings.ExposureSubmissionResult.testPendingDescParagraph1 +
-						AppStrings.ExposureSubmissionResult.testPendingDescParagraph2 +
-						AppStrings.ExposureSubmissionResult.testPendingDescParagraph3,
+					description: AppStrings.ExposureSubmissionResult.testPendingDesc,
 					icon: UIImage(named: "Icons_Grey_Wait"),
 					hairline: .none
-				)
-			]
-		)
+				)]
+		 ),
+		   .section(
+				separators: .all,
+				cells: [
+					.icon(
+						UIImage(imageLiteralResourceName: "Icons_consentCloud"),
+						// ToDo1: After creating the consent warnothers switch then based on that handel the "warnOthersConsentGiven" text string.
+						text: .string(AppStrings.ExposureSubmissionResult.warnOthersConsentGiven),
+						// ToDo2: After build the new consent screen change the action accordingly.
+						action: .push(model: AppInformationModel.termsModel, withTitle: AppStrings.AppInformation.termsNavigation),
+						configure: { _, cell, _ in
+							cell.accessoryType = .disclosureIndicator
+							cell.selectionStyle = .default
+						}
+					)
+				]
+			)
+		]
 	}
 
-	private var expiredTestResultSection: DynamicSection {
-		.section(
+	private var expiredTestResultSections: [DynamicSection] {
+		[
+		 .section(
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
@@ -357,7 +378,7 @@ class ExposureSubmissionTestResultViewModel {
 
 				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
-					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					description: nil,
 					icon: UIImage(named: "Icons_Grey_Check"),
 					hairline: .iconAttached
 				),
@@ -377,6 +398,6 @@ class ExposureSubmissionTestResultViewModel {
 				)
 			]
 		)
-	}
-
+	 ]
+  }
 }
