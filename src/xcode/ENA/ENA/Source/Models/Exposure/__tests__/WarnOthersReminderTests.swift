@@ -23,13 +23,17 @@ import XCTest
 
 class WarnOthersReminderTests: XCTestCase {
 	
-	private var store: Store!
-	
-	override func setUpWithError() throws {
-		store = MockTestStore()
+	override func tearDown() {
+		let store = MockTestStore()
+		let warnOthersReminder = WarnOthersReminder(store: store)
+		
+		// To ensure we have no scheduled warn others notifications leftovers
+		warnOthersReminder.reset()
 	}
 	
 	func testWarnOthers_allVariablesAreInitial() throws {
+		
+		let store = MockTestStore()
 		
 		let warnOthersReminder = WarnOthersReminder(store: store)
 		
@@ -40,6 +44,12 @@ class WarnOthersReminderTests: XCTestCase {
 		XCTAssertEqual(Double(warnOthersReminder.notificationTwoTimeInterval), timerTwoTime, "Notification timeInterval two has not the intial value of \(timerTwoTime)")
 		
 		XCTAssertFalse(warnOthersReminder.hasPositiveTestResult, "Inital value of hasPositiveTestResult should be 'false'")
+		
+	}
+	
+	func testWarnOthers_changedValuesShouldBeCorrect() throws {
+		let store = MockTestStore()
+		let warnOthersReminder = WarnOthersReminder(store: store)
 		
 		warnOthersReminder.evaluateNotificationState(testResult: .positive)
 		XCTAssertTrue(warnOthersReminder.hasPositiveTestResult, "Inital value of hasPositiveTestResult should be 'true'")
@@ -53,4 +63,28 @@ class WarnOthersReminderTests: XCTestCase {
 		warnOthersReminder.reset()
 		XCTAssertFalse(warnOthersReminder.hasPositiveTestResult, "Inital value of hasPositiveTestResult should be 'false'")
 	}
+	
+	
+	func testWarnOthers_SubmissionConsentGiven() throws {
+		
+		let store = MockTestStore()
+		store.isSubmissionConsentGiven = true
+		
+		let warnOthersReminder = WarnOthersReminder(store: store)
+		
+		XCTAssertTrue(warnOthersReminder.isSubmissionConsentGiven, "Submission consent given should be true")
+		
+	}
+	
+	func testWarnOthers_noSubmissionConsentGiven() throws {
+		
+		let store = MockTestStore()
+		store.isSubmissionConsentGiven = false
+		
+		let warnOthersReminder = WarnOthersReminder(store: store)
+		
+		XCTAssertFalse(warnOthersReminder.isSubmissionConsentGiven, "Submission consent given should be false")
+		
+	}
+	
 }
