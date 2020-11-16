@@ -146,7 +146,7 @@ final class RiskCalculationExposureWindow: Codable {
 				.first(where: { $0.normalizedTimeRange.contains(normalizedTime) })
 				.map({ $0.riskLevel })
 		else {
-			throw RiskCalculationV2Error.invalidConfiguration
+			throw RiskCalculationError.invalidConfiguration
 		}
 
 		return riskLevel

@@ -27,7 +27,7 @@ final class MockTestStore: Store, AppConfigCaching {
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
-	var riskCalculationResult: RiskCalculationV2Result?
+	var riskCalculationResult: RiskCalculationResult?
 	var shouldShowRiskStatusLoweredAlert: Bool = false
 	var tracingStatusHistory: TracingStatusHistory = []
 	var testResultReceivedTimeStamp: Int64?
@@ -66,7 +66,7 @@ final class MockTestStore: Store, AppConfigCaching {
 	#if !RELEASE
 	// Settings from the debug menu.
 	var fakeSQLiteError: Int32?
-	var mostRecentRiskCalculation: RiskCalculationV2?
+	var mostRecentRiskCalculation: RiskCalculation?
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration?
 	#endif
 

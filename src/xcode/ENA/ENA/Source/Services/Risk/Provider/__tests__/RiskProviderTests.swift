@@ -36,7 +36,7 @@ final class RiskProviderTests: XCTestCase {
 		))
 
 		let store = MockTestStore()
-		store.riskCalculationResult = RiskCalculationV2Result(
+		store.riskCalculationResult = RiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -379,7 +379,7 @@ final class RiskProviderTests: XCTestCase {
 			Calendar.current.date(byAdding: .day, value: -1, to: Date(), wrappingComponents: false)
 		)
 
-		store.riskCalculationResult = RiskCalculationV2Result(
+		store.riskCalculationResult = RiskCalculationResult(
 			riskLevel: previousRiskLevel,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -420,7 +420,7 @@ final class RiskProviderTests: XCTestCase {
 
 }
 
-struct RiskCalculationFake: RiskCalculationV2Protocol {
+struct RiskCalculationFake: RiskCalculationProtocol {
 
 	internal init(riskLevel: RiskLevel = .low) {
 		self.riskLevel = riskLevel
@@ -431,8 +431,8 @@ struct RiskCalculationFake: RiskCalculationV2Protocol {
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) throws -> RiskCalculationV2Result {
-		RiskCalculationV2Result(
+	) throws -> RiskCalculationResult {
+		RiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,

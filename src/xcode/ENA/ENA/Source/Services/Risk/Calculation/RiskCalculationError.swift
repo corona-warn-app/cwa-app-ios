@@ -19,6 +19,6 @@
 
 import Foundation
 
-enum RiskCalculationV2Error: Error {
+enum RiskCalculationError: Error {
 	case invalidConfiguration
 }

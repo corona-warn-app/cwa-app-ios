@@ -1,5 +1,5 @@
 //
-//  RiscCalculationV2Test.swift
+//  RiscCalculationTest.swift
 //  ENATests
 //
 //  Created by Kai-Marcel Teuber on 31.10.20.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import ENA
 
-class RiskCalculationV2Test: XCTestCase {
+class RiskCalculationTest: XCTestCase {
 
 	func testWHEN_LoadingJsonTestFile_THEN_24TestCasesWithConfigurationAreReturned() {
 		// WHEN
@@ -25,7 +25,7 @@ class RiskCalculationV2Test: XCTestCase {
 
 		for testCase in testCases {
 			// WHEN
-			let result = try RiskCalculationV2().calculateRisk(
+			let result = try RiskCalculation().calculateRisk(
 				exposureWindows: testCase.exposureWindows,
 				configuration: testCasesWithConfiguration.defaultRiskCalculationConfiguration
 			)
@@ -46,7 +46,7 @@ class RiskCalculationV2Test: XCTestCase {
 	// MARK: - Private
 
 	private lazy var testCasesWithConfiguration: TestCasesWithConfiguration = {
-		let testBundle = Bundle(for: RiskCalculationV2Test.self)
+		let testBundle = Bundle(for: RiskCalculationTest.self)
 		guard let urlJsonFile = testBundle.url(forResource: "exposure-windows-risk-calculation", withExtension: "json"),
 			  let data = try? Data(contentsOf: urlJsonFile) else {
 			XCTFail("Failed init json file for tests")

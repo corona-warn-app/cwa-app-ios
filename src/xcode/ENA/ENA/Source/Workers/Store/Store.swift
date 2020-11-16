@@ -68,7 +68,7 @@ protocol StoreProtocol: AnyObject {
 
 	var tracingStatusHistory: TracingStatusHistory { get set }
 
-	var riskCalculationResult: RiskCalculationV2Result? { get set }
+	var riskCalculationResult: RiskCalculationResult? { get set }
 
 	/// Set to true whenever a risk calculation changes the risk from .high to .low
 	var shouldShowRiskStatusLoweredAlert: Bool { get set }
@@ -113,7 +113,7 @@ protocol StoreProtocol: AnyObject {
 	/// Settings from the debug menu.
 	var fakeSQLiteError: Int32? { get set }
 
-	var mostRecentRiskCalculation: RiskCalculationV2? { get set }
+	var mostRecentRiskCalculation: RiskCalculation? { get set }
 
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration? { get set }
 

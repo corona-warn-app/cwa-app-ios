@@ -32,7 +32,7 @@ final class RiskProvider: RiskProviding {
 		appConfigurationProvider: AppConfigurationProviding,
 		exposureManagerState: ExposureManagerState,
 		targetQueue: DispatchQueue = .main,
-		riskCalculation: RiskCalculationV2Protocol = RiskCalculationV2(),
+		riskCalculation: RiskCalculationProtocol = RiskCalculation(),
 		keyPackageDownload: KeyPackageDownloadProtocol,
 		exposureDetectionExecutor: ExposureDetectionDelegate
 	) {
@@ -112,7 +112,7 @@ final class RiskProvider: RiskProviding {
 	private let store: Store
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let targetQueue: DispatchQueue
-	private let riskCalculation: RiskCalculationV2Protocol
+	private let riskCalculation: RiskCalculationProtocol
 	private let exposureDetectionExecutor: ExposureDetectionDelegate
 
 	private let queue = DispatchQueue(label: "com.sap.RiskProvider")
@@ -218,7 +218,7 @@ final class RiskProvider: RiskProviding {
 	private func determineRisk(
 		userInitiated: Bool,
 		appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
-		completion: @escaping (Result<Risk, RiskProviderError>) -> Void
+		completion: @escaping Completion
 	) {
 		// Risk Calculation involves some potentially long running tasks, like exposure detection and
 		// fetching the configuration from the backend.
@@ -303,7 +303,7 @@ final class RiskProvider: RiskProviding {
 		self.exposureDetection = _exposureDetection
 	}
 
-	private func calculateRiskLevel(exposureWindows: [ExposureWindow], appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS, completion: (Result<Risk, RiskProviderError>) -> Void?) {
+	private func calculateRiskLevel(exposureWindows: [ExposureWindow], appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS, completion: Completion) {
 		Log.info("RiskProvider: Calculate risk level", log: .riskDetection)
 
 		let configuration = RiskCalculationConfiguration(from: appConfiguration.riskCalculationParameters)
@@ -329,7 +329,7 @@ final class RiskProvider: RiskProviding {
 		}
 	}
 
-	private func _provideRiskResult(_ result: RiskCalculationResult, to consumer: RiskConsumer?) {
+	private func _provideRiskResult(_ result: RiskProviderResult, to consumer: RiskConsumer?) {
 		#if DEBUG
 		if isUITesting {
 			consumer?.provideRiskCalculationResult(.success(.mocked))
@@ -427,7 +427,7 @@ final class RiskProvider: RiskProviding {
 }
 
 private extension RiskConsumer {
-	func provideRiskCalculationResult(_ result: RiskCalculationResult) {
+	func provideRiskCalculationResult(_ result: RiskProviderResult) {
 		switch result {
 		case .success(let risk):
 			targetQueue.async { [weak self] in
@@ -451,7 +451,7 @@ extension RiskProvider {
 			_provideRiskResult(.success(risk), to: consumer)
 		}
 
-		store.riskCalculationResult = RiskCalculationV2Result(
+		store.riskCalculationResult = RiskCalculationResult(
 			riskLevel: risk.level == .high ? .high : .low,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,

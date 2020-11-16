@@ -19,7 +19,7 @@
 
 import Foundation
 
-struct RiskCalculationV2Result: Codable {
+struct RiskCalculationResult: Codable {
 
 	// MARK: - Internal
 
@@ -57,7 +57,7 @@ extension Risk.Details {
 
 	init(
 		activeTracing: ActiveTracing,
-		riskCalculationResult: RiskCalculationV2Result
+		riskCalculationResult: RiskCalculationResult
 	) {
 		self.init(
 			daysSinceLastExposure: riskCalculationResult.mostRecentDateWithCurrentRiskLevel?.ageInDays,
@@ -73,8 +73,8 @@ extension Risk {
 
 	init(
 		activeTracing: ActiveTracing,
-		riskCalculationResult: RiskCalculationV2Result,
-		previousRiskCalculationResult: RiskCalculationV2Result? = nil
+		riskCalculationResult: RiskCalculationResult,
+		previousRiskCalculationResult: RiskCalculationResult? = nil
 	) {
 		let riskLevelHasChanged = previousRiskCalculationResult?.riskLevel != nil && riskCalculationResult.riskLevel != previousRiskCalculationResult?.riskLevel
 

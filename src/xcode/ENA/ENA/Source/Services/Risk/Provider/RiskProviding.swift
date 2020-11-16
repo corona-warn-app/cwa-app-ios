@@ -19,7 +19,7 @@
 
 import Foundation
 
-typealias RiskCalculationResult = Result<Risk, RiskProviderError>
+typealias RiskProviderResult = Result<Risk, RiskProviderError>
 
 enum RiskProviderError: Error {
 	case inactive
@@ -43,7 +43,7 @@ enum RiskProviderActivityState {
 }
 
 protocol RiskProviding: AnyObject {
-	typealias Completion = (RiskCalculationResult) -> Void
+	typealias Completion = (RiskProviderResult) -> Void
 
 	var riskProvidingConfiguration: RiskProvidingConfiguration { get set }
 	var exposureManagerState: ExposureManagerState { get set }

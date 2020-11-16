@@ -19,16 +19,16 @@
 
 import Foundation
 
-protocol RiskCalculationV2Protocol {
+protocol RiskCalculationProtocol {
 
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) throws -> RiskCalculationV2Result
+	) throws -> RiskCalculationResult
 
 }
 
-final class RiskCalculationV2: RiskCalculationV2Protocol, Codable {
+final class RiskCalculation: RiskCalculationProtocol, Codable {
 
 	// MARK: - Internal
 
@@ -51,7 +51,7 @@ final class RiskCalculationV2: RiskCalculationV2Protocol, Codable {
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) throws -> RiskCalculationV2Result {
+	) throws -> RiskCalculationResult {
 		mappedExposureWindows = exposureWindows
 			.map { RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) }
 
@@ -75,7 +75,7 @@ final class RiskCalculationV2: RiskCalculationV2Protocol, Codable {
 					.first(where: { $0.normalizedTimeRange.contains(normalizedTime) })
 					.map({ $0.riskLevel })
 			else {
-				throw RiskCalculationV2Error.invalidConfiguration
+				throw RiskCalculationError.invalidConfiguration
 			}
 
 			return riskLevel
@@ -116,7 +116,7 @@ final class RiskCalculationV2: RiskCalculationV2Protocol, Codable {
 
 		calculationDate = Date()
 
-		return RiskCalculationV2Result(
+		return RiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: minimumDistinctEncountersWithLowRisk,
 			minimumDistinctEncountersWithHighRisk: minimumDistinctEncountersWithHighRisk,
