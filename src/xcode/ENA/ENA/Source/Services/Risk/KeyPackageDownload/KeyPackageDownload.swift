@@ -159,6 +159,8 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 				shouldStartPackageDownload = expectNewHourPackages(for: dayKey, counrtyId: countryId)
 			}
 
+			Log.debug("KeyPackageDownload: shouldStartPackageDownload: \(shouldStartPackageDownload)", log: .riskDetection)
+
 			if shouldStartPackageDownload {
 				dispatchGroup.enter()
 
@@ -227,10 +229,12 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 							completion(.failure(error))
 						}
 					case .failure(let error):
+						Log.error("KeyPackageDownload: Failed to download key packages.", log: .riskDetection, error: error)
 						completion(.failure(error))
 					}
 				}
 			case .failure(let error):
+				Log.error("KeyPackageDownload: Failed to check for available server data.", log: .riskDetection, error: error)
 				completion(.failure(error))
 			}
 		}
@@ -244,6 +248,8 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 
 		switch downloadMode {
 		case .daily:
+			Log.info("KeyPackageDownload: Fetch day packages from server.", log: .riskDetection)
+
 			client.fetchDays(
 				packageKeys,
 				forCountry: country,
@@ -256,6 +262,8 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 				}
 			)
 		case .hourly(let dayKey):
+			Log.info("KeyPackageDownload: Fetch hour packages from server.", log: .riskDetection)
+
 			let hourKeys = packageKeys.compactMap { Int($0) }
 
 			wifiClient.fetchHours(hourKeys, day: dayKey, country: country) { hoursResult in
@@ -326,8 +334,8 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 			case .daily:
 				downloadedPackagesStore.deleteDayPackage(for: package, country: countryId)
 			case .hourly(let keyDay):
-				// hourly packages for a day are deleted when the day package is stored. See func
-				// DownloadedPackagesSQLLiteStoreV1.set(  country: Country.ID,	day: String, package: SAPDownloadedPackage )
+				// Hourly packages for the last day are deleted when the last day package is stored. See func
+				// DownloadedPackagesSQLLiteStore.set(country: Country.ID, day: String, package: SAPDownloadedPackage)
 				downloadedPackagesStore.deleteHourPackage(for: keyDay, hour: Int(package) ?? -1, country: countryId)
 			}
 		}
@@ -338,11 +346,14 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 		downloadMode: DownloadMode,
 		completion: @escaping (Result<[String], KeyPackageDownloadError>) -> Void
 	) {
+		Log.info("KeyPackageDownload: Check for available server data.", log: .riskDetection)
+
 		switch downloadMode {
 		case .daily:
 			client.availableDays(forCountry: country) { result in
 				switch result {
 				case let .success(days):
+					Log.info("KeyPackageDownload: Server data is available for day packages.", log: .riskDetection)
 					completion(.success(days))
 				case .failure:
 					completion(.failure(.uncompletedPackages))
@@ -352,6 +363,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 			client.availableHours(day: dayKey, country: country) { result in
 				switch result {
 				case .success(let hours):
+					Log.info("KeyPackageDownload: Server data is available for hour packages.", log: .riskDetection)
 					let packageKeys = hours.map { String($0) }
 					completion(.success(packageKeys))
 				case .failure:
@@ -369,12 +381,22 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 
 		switch downloadMode {
 		case .daily:
+			Log.info("KeyPackageDownload: Calculate serverDelta for day packages.", log: .riskDetection)
+
 			let localDays = Set(downloadedPackagesStore.allDays(country: country))
+			Log.debug("KeyPackageDownload: localDays: \(localDays)", log: .riskDetection)
+			Log.debug("KeyPackageDownload: serverPackages: \(serverPackages)", log: .riskDetection)
 			let deltaDays = serverPackages.subtracting(localDays)
+			Log.debug("KeyPackageDownload: deltaDays: \(deltaDays)", log: .riskDetection)
 			return deltaDays
 		case .hourly(let dayKey):
+			Log.info("KeyPackageDownload: Calculate serverDelta for hour packages.", log: .riskDetection)
+
 			let localHours = Set(downloadedPackagesStore.hours(for: dayKey, country: country).map { String($0) })
+			Log.debug("KeyPackageDownload: localHours: \(localHours)", log: .riskDetection)
+			Log.debug("KeyPackageDownload: serverPackages: \(serverPackages)", log: .riskDetection)
 			let deltaHours = serverPackages.subtracting(localHours)
+			Log.debug("KeyPackageDownload: deltaHours: \(deltaHours)", log: .riskDetection)
 			return deltaHours
 		}
 	}
@@ -399,23 +421,45 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 
 	private func expectNewDayPackages(for country: Country.ID) -> Bool {
 		guard let yesterdayDate = Calendar.utcCalendar.date(byAdding: .day, value: -1, to: Date()) else {
+			Log.error("Could not create yesterdays date.", log: .riskDetection)
 			fatalError("Could not create yesterdays date.")
 		}
+		Log.debug("KeyPackageDownload: yesterdayDate: \(yesterdayDate)", log: .riskDetection)
+
 		let yesterdayKeyString = DateFormatter.packagesDayDateFormatter.string(from: yesterdayDate)
-		let yesterdayDayPackageExists = downloadedPackagesStore.allDays(country: country).contains(yesterdayKeyString)
+		Log.debug("KeyPackageDownload: yesterdayKeyString: \(yesterdayKeyString)", log: .riskDetection)
+
+		let cachedKeyPackages = downloadedPackagesStore.allDays(country: country)
+		Log.debug("KeyPackageDownload: cachedKeyPackages: \(cachedKeyPackages)", log: .riskDetection)
+
+		let yesterdayDayPackageExists = cachedKeyPackages.contains(yesterdayKeyString)
+
+		Log.info("KeyPackageDownload: Check for last day package. yesterdayDayPackageExists: \(yesterdayDayPackageExists)", log: .riskDetection)
+		Log.info("KeyPackageDownload: Check for success of last day package download. store.wasRecentDayKeyDownloadSuccessful: \(store.wasRecentDayKeyDownloadSuccessful)", log: .riskDetection)
 
 		return !yesterdayDayPackageExists || !store.wasRecentDayKeyDownloadSuccessful
 	}
 
 	private func expectNewHourPackages(for dayKey: String, counrtyId: Country.ID) -> Bool {
 		guard let lastHourDate = Calendar.utcCalendar.date(byAdding: .hour, value: -1, to: Date()) else {
+			Log.error("Could not create last hour date.", log: .riskDetection)
 			fatalError("Could not create last hour date.")
 		}
+		Log.debug("KeyPackageDownload: lastHourDate: \(lastHourDate)", log: .riskDetection)
+
 		guard let lastHourKey = Int(DateFormatter.packagesHourDateFormatter.string(from: lastHourDate)) else {
+			Log.error("Could not create hour key from date: \(lastHourDate)", log: .riskDetection)
 			fatalError("Could not create hour key from date.")
 		}
+		Log.debug("KeyPackageDownload: lastHourKey: \(lastHourKey)", log: .riskDetection)
 
-		let lastHourPackageExists = downloadedPackagesStore.hours(for: dayKey, country: counrtyId).contains(lastHourKey)
+		let cachedKeyPackages = downloadedPackagesStore.hours(for: dayKey, country: counrtyId)
+		Log.debug("KeyPackageDownload: cachedKeyPackages: \(cachedKeyPackages)", log: .riskDetection)
+
+		let lastHourPackageExists = cachedKeyPackages.contains(lastHourKey)
+
+		Log.info("KeyPackageDownload: Check for last hour package. lastHourPackageExists: \(lastHourPackageExists)", log: .riskDetection)
+		Log.info("KeyPackageDownload: Check for success of last hour package download. store.wasRecentHourKeyDownloadSuccessful: \(store.wasRecentHourKeyDownloadSuccessful)", log: .riskDetection)
 
 		return !lastHourPackageExists || !store.wasRecentHourKeyDownloadSuccessful
 	}
