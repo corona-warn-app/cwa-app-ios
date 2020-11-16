@@ -36,21 +36,41 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	init?(
 		coder: NSCoder,
 		delegate: HomeViewControllerDelegate,
-		detectionMode: DetectionMode,
 		exposureManagerState: ExposureManagerState,
 		initialEnState: ENStateHandler.State,
-		riskState: RiskState,
 		exposureSubmissionService: ExposureSubmissionService
 	) {
 		self.delegate = delegate
 
 		super.init(coder: coder)
 
+		var riskState: RiskState
+		if let riskCalculationResult = store.riskCalculationResult {
+			riskState = .risk(
+				Risk(
+					activeTracing: store.tracingStatusHistory.activeTracing(),
+					riskCalculationResult: riskCalculationResult
+				)
+			)
+		} else {
+			riskState = .risk(
+				Risk(
+					level: .low,
+					details: .init(
+						daysSinceLastExposure: 0,
+						numberOfExposures: 0,
+						activeTracing: store.tracingStatusHistory.activeTracing(),
+						exposureDetectionDate: Date()
+					),
+					riskLevelHasChanged: false
+				)
+			)
+		}
+
 		self.homeInteractor = HomeInteractor(
 			homeViewController: self,
 			state: .init(
 				riskState: riskState,
-				detectionMode: detectionMode,
 				exposureManagerState: exposureManagerState,
 				enState: initialEnState
 			),
@@ -214,12 +234,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		delegate?.setExposureDetectionState(state: homeInteractor.state, activityState: homeInteractor.riskProvider.activityState)
 	}
 
-	func updateState(
-		detectionMode: DetectionMode,
-		exposureManagerState: ExposureManagerState
+	func updateDetectionMode(
+		_ detectionMode: DetectionMode
 	) {
 		homeInteractor.updateDetectionMode(detectionMode)
-		homeInteractor.updateExposureManagerState(exposureManagerState)
 
 		reloadData(animatingDifferences: false)
 

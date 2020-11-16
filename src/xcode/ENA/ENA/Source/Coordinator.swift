@@ -63,15 +63,13 @@ class Coordinator: RequiresAppDependencies {
 		enStateUpdateList.removeAllObjects()
 	}
 
-	func showHome(enStateHandler: ENStateHandler, state: SceneDelegate.State) {
+	func showHome(enStateHandler: ENStateHandler) {
 		let homeController = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
 			HomeViewController(
 				coder: coder,
 				delegate: self,
-				detectionMode: state.detectionMode,
-				exposureManagerState: state.exposureManager,
+				exposureManagerState: exposureManager.preconditions(),
 				initialEnState: enStateHandler.state,
-				riskState: state.riskState,
 				exposureSubmissionService: self.exposureSubmissionService
 			)
 		}
@@ -114,14 +112,10 @@ class Coordinator: RequiresAppDependencies {
 		)
 	}
 
-	func updateState(
-		detectionMode: DetectionMode,
-		exposureManagerState: ExposureManagerState
+	func updateDetectionMode(
+		_ detectionMode: DetectionMode
 	) {
-		homeController?.updateState(
-			detectionMode: detectionMode,
-			exposureManagerState: exposureManagerState
-		)
+		homeController?.updateDetectionMode(detectionMode)
 	}
 
 	#if !RELEASE

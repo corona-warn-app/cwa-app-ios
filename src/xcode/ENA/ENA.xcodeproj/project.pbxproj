@@ -68,6 +68,7 @@
 		01D16C5E24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C5D24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift */; };
 		01D16C6024ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C5F24ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift */; };
 		01D16C6224ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C6124ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift */; };
+		01D3078A2562B03C00ADB67B /* RiskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D307892562B03B00ADB67B /* RiskState.swift */; };
 		01D6948B25026EC000B45BEA /* DatePickerOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948A25026EC000B45BEA /* DatePickerOptionViewModel.swift */; };
 		01D6948D2502717F00B45BEA /* DatePickerDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948C2502717F00B45BEA /* DatePickerDayView.swift */; };
 		01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948E2502729000B45BEA /* DatePickerDay.swift */; };
@@ -301,7 +302,6 @@
 		A1654EFF24B41FF600C0E115 /* DynamicCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1654EFD24B41FEF00C0E115 /* DynamicCellTests.swift */; };
 		A1654F0224B43E8500C0E115 /* DynamicTableViewTextViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1654F0024B43E7F00C0E115 /* DynamicTableViewTextViewCellTests.swift */; };
 		A16714AF248CA1B70031B111 /* Bundle+ReadPlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */; };
-		A16714BB248D18D20031B111 /* SummaryMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16714BA248D18D20031B111 /* SummaryMetadata.swift */; };
 		A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */; };
 		A17366552484978A006BE209 /* OnboardingInfoViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */; };
 		A1877CAB248F2532006FEFC0 /* SAPDownloadedPackageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1877CA9248F247D006FEFC0 /* SAPDownloadedPackageTests.swift */; };
@@ -566,7 +566,6 @@
 		FEDCE29E414945F14E7CE576 /* ENStateHandler+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCE1B8926528ED74CDE1B2 /* ENStateHandler+State.swift */; };
 		FEDCE50B4AC5E24D4E11AA52 /* RequiresAppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCE1600374711EC77FF572 /* RequiresAppDependencies.swift */; };
 		FEDCE6E2763B0BABFADF36BA /* ExposureDetectionViewController+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCE4BE82DC5BFE90575663 /* ExposureDetectionViewController+State.swift */; };
-		FEDCE77AED78E9C25999BB35 /* SceneDelegate+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCE838D90CB02C55E15237 /* SceneDelegate+State.swift */; };
 		FEDCECC1B2111AB537AEF7E5 /* HomeInteractor+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCEC452596E54A041BBCE9 /* HomeInteractor+State.swift */; };
 /* End PBXBuildFile section */
 
@@ -658,6 +657,7 @@
 		01D16C5D24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAppRefreshViewModelTests.swift; sourceTree = "<group>"; };
 		01D16C5F24ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBackgroundRefreshStatusProvider.swift; sourceTree = "<group>"; };
 		01D16C6124ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLowPowerModeStatusProvider.swift; sourceTree = "<group>"; };
+		01D307892562B03B00ADB67B /* RiskState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskState.swift; sourceTree = "<group>"; };
 		01D3ECFF2490230400551E65 /* StoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StoreTests.swift; sourceTree = "<group>"; };
 		01D6948A25026EC000B45BEA /* DatePickerOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerOptionViewModel.swift; sourceTree = "<group>"; };
 		01D6948C2502717F00B45BEA /* DatePickerDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDayView.swift; sourceTree = "<group>"; };
@@ -920,7 +920,6 @@
 		A1654EFD24B41FEF00C0E115 /* DynamicCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCellTests.swift; sourceTree = "<group>"; };
 		A1654F0024B43E7F00C0E115 /* DynamicTableViewTextViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewTextViewCellTests.swift; sourceTree = "<group>"; };
 		A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+ReadPlist.swift"; sourceTree = "<group>"; };
-		A16714BA248D18D20031B111 /* SummaryMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryMetadata.swift; sourceTree = "<group>"; };
 		A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStoreTests.swift; sourceTree = "<group>"; };
 		A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerUtils.swift; sourceTree = "<group>"; };
 		A1877CA9248F247D006FEFC0 /* SAPDownloadedPackageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAPDownloadedPackageTests.swift; sourceTree = "<group>"; };
@@ -1205,7 +1204,6 @@
 		FEDCE1600374711EC77FF572 /* RequiresAppDependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequiresAppDependencies.swift; sourceTree = "<group>"; };
 		FEDCE1B8926528ED74CDE1B2 /* ENStateHandler+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENStateHandler+State.swift"; sourceTree = "<group>"; };
 		FEDCE4BE82DC5BFE90575663 /* ExposureDetectionViewController+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ExposureDetectionViewController+State.swift"; sourceTree = "<group>"; };
-		FEDCE838D90CB02C55E15237 /* SceneDelegate+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SceneDelegate+State.swift"; sourceTree = "<group>"; };
 		FEDCEC452596E54A041BBCE9 /* HomeInteractor+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HomeInteractor+State.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1494,7 +1492,7 @@
 				514E81332461B97700636861 /* ExposureManager.swift */,
 				CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */,
 				518A69FA24687D5800444E66 /* RiskLevel.swift */,
-				A16714BA248D18D20031B111 /* SummaryMetadata.swift */,
+				01D307892562B03B00ADB67B /* RiskState.swift */,
 				354E305824EFF26E00526C9F /* Country.swift */,
 				941ADDB12518C3FB00E421D9 /* ENSettingEuTracingViewModel.swift */,
 				94B255A52551B7C800649B4C /* WarnOthersReminder.swift */,
@@ -3060,7 +3058,6 @@
 				FEDCE1B8926528ED74CDE1B2 /* ENStateHandler+State.swift */,
 				FEDCE4BE82DC5BFE90575663 /* ExposureDetectionViewController+State.swift */,
 				FEDCEC452596E54A041BBCE9 /* HomeInteractor+State.swift */,
-				FEDCE838D90CB02C55E15237 /* SceneDelegate+State.swift */,
 			);
 			path = States;
 			sourceTree = "<group>";
@@ -3395,6 +3392,7 @@
 				2FA9E39924D2F4350030561C /* ExposureSubmission+ErrorParsing.swift in Sources */,
 				514EE99D246D4CFB00DE4884 /* TableViewCellConfigurator.swift in Sources */,
 				AB5F84AD24F8F7A1000400D4 /* SerialMigrator.swift in Sources */,
+				01D3078A2562B03C00ADB67B /* RiskState.swift in Sources */,
 				01F52FF42552DB9600997A26 /* DMAppConfigurationViewController.swift in Sources */,
 				B1DDDABE24713BAD00A07175 /* SAPDownloadedPackage.swift in Sources */,
 				71FE1C7C247AC2B500851FEB /* ExposureSubmissionOverviewViewController.swift in Sources */,
@@ -3448,7 +3446,6 @@
 				714194EA247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift in Sources */,
 				35EA684A25553B5C00335F73 /* DownloadedPackagesStoreV2.swift in Sources */,
 				2F26CE2E248B9C4F00BE30EE /* UIViewController+BackButton.swift in Sources */,
-				A16714BB248D18D20031B111 /* SummaryMetadata.swift in Sources */,
 				51C779162486E5BA004582F8 /* RiskFindingPositiveCollectionViewCell.swift in Sources */,
 				EB6B5D882539AE9400B0ED57 /* DMNotificationsViewController.swift in Sources */,
 				B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */,
@@ -3687,7 +3684,6 @@
 				EB08F1792541CE3300D11FA9 /* attenuation_duration.pb.swift in Sources */,
 				B1221BE02492ECE800E6C4E4 /* CFDictionary+KeychainQuery.swift in Sources */,
 				94F594622521CBF50077681B /* DeltaOnboardingV15ViewModel.swift in Sources */,
-				FEDCE77AED78E9C25999BB35 /* SceneDelegate+State.swift in Sources */,
 				019357192525FAD00038F615 /* ExposureSubmissionQRInfoViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

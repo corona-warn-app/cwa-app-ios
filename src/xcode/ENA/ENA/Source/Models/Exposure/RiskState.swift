@@ -1,4 +1,3 @@
-//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -15,19 +14,13 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-//
 
 import Foundation
-import ExposureNotification
 
-struct SummaryMetadata: Codable {
-	let summary: CodableExposureDetectionSummary
-	let date: Date
-}
+enum RiskState: Equatable {
 
-extension SummaryMetadata {
-	init(detectionSummary: ENExposureDetectionSummary, date: Date = Date()) {
-		self.summary = CodableExposureDetectionSummary(with: detectionSummary)
-		self.date = date
-	}
+	case risk(Risk)
+	case inactive
+	case detectionFailed
+
 }

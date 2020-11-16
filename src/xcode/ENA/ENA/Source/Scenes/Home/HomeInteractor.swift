@@ -33,6 +33,7 @@ final class HomeInteractor: RequiresAppDependencies {
 		self.homeViewController = homeViewController
 		self.state = state
 		self.exposureSubmissionService = exposureSubmissionService
+		self.riskCellActivityState = riskProvider.activityState
 		observeRisk()
 	}
 
@@ -225,7 +226,9 @@ extension HomeInteractor {
 				previousRiskLevel: store.riskCalculationResult?.riskLevel,
 				lastUpdateDate: dateLastExposureDetection
 			)
-			inactiveConfigurator.activeAction = inActiveCellActionHandler
+			inactiveConfigurator.activeAction = { [weak self] in
+				self?.homeViewController.showExposureNotificationSetting()
+			}
 
 			return inactiveConfigurator
 		case .detectionFailed:
@@ -234,8 +237,7 @@ extension HomeInteractor {
 				lastUpdateDate: dateLastExposureDetection
 			)
 			failedConfigurator.activeAction = { [weak self] in
-				guard let self = self else { return }
-				self.requestRisk(userInitiated: true)
+				self?.requestRisk(userInitiated: true)
 			}
 
 			return failedConfigurator
@@ -264,8 +266,8 @@ extension HomeInteractor {
 			fatalError("The risk level has to be either .low or .high")
 		}
 
-		riskLevelConfigurator?.buttonAction = {
-			self.requestRisk(userInitiated: true)
+		riskLevelConfigurator?.buttonAction = { [weak self] in
+			self?.requestRisk(userInitiated: true)
 		}
 
 		return riskLevelConfigurator
@@ -464,12 +466,6 @@ extension HomeInteractor: ENStateHandlerUpdating {
 		self.state.enState = state
 		activeConfigurator.updateEnState(state)
 		updateActiveCell()
-	}
-}
-
-extension HomeInteractor {
-	private func inActiveCellActionHandler() {
-		homeViewController.showExposureNotificationSetting()
 	}
 }
 
