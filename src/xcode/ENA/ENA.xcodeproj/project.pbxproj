@@ -247,7 +247,6 @@
 		71FE1C71247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C70247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift */; };
 		71FE1C7A247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C73247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift */; };
 		71FE1C7B247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C74247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift */; };
-		71FE1C7C247AC2B500851FEB /* ExposureSubmissionOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C75247AC2B500851FEB /* ExposureSubmissionOverviewViewController.swift */; };
 		71FE1C7D247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C76247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift */; };
 		71FE1C7F247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */; };
 		71FE1C80247AC2B500851FEB /* ExposureSubmissionNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C79247AC2B500851FEB /* ExposureSubmissionNavigationController.swift */; };
@@ -835,7 +834,6 @@
 		71FE1C70247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHeaderImageView.swift; sourceTree = "<group>"; };
 		71FE1C73247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSuccessViewController.swift; sourceTree = "<group>"; };
 		71FE1C74247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRScannerViewController.swift; sourceTree = "<group>"; };
-		71FE1C75247AC2B500851FEB /* ExposureSubmissionOverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionOverviewViewController.swift; sourceTree = "<group>"; };
 		71FE1C76247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTanInputViewController.swift; sourceTree = "<group>"; };
 		71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultViewController.swift; sourceTree = "<group>"; };
 		71FE1C79247AC2B500851FEB /* ExposureSubmissionNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionNavigationController.swift; sourceTree = "<group>"; };
@@ -2143,7 +2141,6 @@
 				2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */,
 				503DB1A6255D822E00576E57 /* ExposureSubmissionFetchTestResultViewController.swift */,
 				503DB1AB255D826900576E57 /* ExposureSubmissionFetchTestResultViewModel.swift */,
-				71FE1C75247AC2B500851FEB /* ExposureSubmissionOverviewViewController.swift */,
 				71FE1C76247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift */,
 				71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */,
 				016961982540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift */,
@@ -3299,7 +3296,6 @@
 				514EE99D246D4CFB00DE4884 /* TableViewCellConfigurator.swift in Sources */,
 				AB5F84AD24F8F7A1000400D4 /* SerialMigrator.swift in Sources */,
 				B1DDDABE24713BAD00A07175 /* SAPDownloadedPackage.swift in Sources */,
-				71FE1C7C247AC2B500851FEB /* ExposureSubmissionOverviewViewController.swift in Sources */,
 				B1FE13EC24891CFE00D012E5 /* RiskProviding.swift in Sources */,
 				011E4B032483A92A002E6412 /* MockExposureManager.swift in Sources */,
 				2FE15A3C249B8C0B0077BD8D /* AccessibilityIdentifiers.swift in Sources */,
