@@ -232,7 +232,7 @@ final class RiskProvider: RiskProviding {
 
 		// 2. There is a previous risk that is still valid and should not be recalculated
 		if let risk = previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
-			Log.info("RiskProvider: Determined Risk from preconditions", log: .riskDetection)
+			Log.info("RiskProvider: Using risk from previous detection", log: .riskDetection)
 			completion(.success(risk))
 			return
 		}
