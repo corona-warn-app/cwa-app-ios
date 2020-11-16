@@ -334,7 +334,6 @@ extension RiskProvider: RiskProviding {
 			return true
 		}
 
-		// Here we are in automatic mode and thus we have to check the validity of the current summary.
 		let enoughTimeHasPassed = riskProvidingConfiguration.shouldPerformExposureDetection(
 			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
 			lastExposureDetectionDate: store.summary?.date
