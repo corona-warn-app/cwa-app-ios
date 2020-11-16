@@ -21,9 +21,6 @@ import XCTest
 import ExposureNotification
 @testable import ENA
 
-private final class Summary: ENExposureDetectionSummary {}
-
-// swiftlint:disable:next type_body_length
 final class RiskProviderTests: XCTestCase {
 
 	func testExposureDetectionIsExecutedIfLastDetectionIsTooOldAndModeIsAutomatic() throws {
@@ -95,74 +92,6 @@ final class RiskProviderTests: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
-	}
-
-	func testExposureDetectionIsNotExecutedIfTracingHasNotBeenEnabledLongEnough() throws {
-		let duration = DateComponents(day: 1)
-
-		let calendar = Calendar.current
-
-		let lastExposureDetectionDate = try XCTUnwrap(calendar.date(
-			byAdding: .day,
-			value: -3,
-			to: Date(),
-			wrappingComponents: false
-		))
-
-		let store = MockTestStore()
-		store.riskCalculationResult = RiskCalculationV2Result(
-			riskLevel: .low,
-			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: nil,
-			mostRecentDateWithHighRisk: nil,
-			calculationDate: lastExposureDetectionDate
-		)
-		// Tracing was only active for one hour, there is not enough data to calculate risk,
-		// and we might get a rate limit error (ex. user reinstalls the app - losing tracing history - and risk is requested again)
-		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(hours: -1)))]
-
-		let config = RiskProvidingConfiguration(
-			exposureDetectionValidityDuration: duration,
-			exposureDetectionInterval: duration,
-			detectionMode: .automatic
-		)
-
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
-
-		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
-		downloadedPackagesStore.open()
-		let client = ClientMock()
-		let keyPackageDownload = KeyPackageDownload(
-			downloadedPackagesStore: downloadedPackagesStore,
-			client: client,
-			wifiClient: client,
-			store: store
-		)
-
-		let riskProvider = RiskProvider(
-			configuration: config,
-			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(),
-			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(),
-			keyPackageDownload: keyPackageDownload,
-			exposureDetectionExecutor: exposureDetectionDelegateStub
-		)
-
-		let expectThatRiskIsReturned = expectation(description: "expectThatRiskIsReturned")
-		riskProvider.requestRisk(userInitiated: false) { result in
-
-			switch result {
-			case .success(let risk):
-				expectThatRiskIsReturned.fulfill()
-				XCTAssertEqual(risk.level, .unknownInitial, "Tracing was active for < 24 hours but risk is not .unknownInitial")
-				XCTAssertFalse(exposureDetectionDelegateStub.exposureWindowsWereDetected)
-			case .failure:
-				XCTFail("Failure not expected.")
-			}
-		}
 		waitForExpectations(timeout: 1.0)
 	}
 

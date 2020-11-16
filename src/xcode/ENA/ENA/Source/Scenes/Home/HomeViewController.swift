@@ -60,7 +60,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 						daysSinceLastExposure: 0,
 						numberOfExposures: 0,
 						activeTracing: store.tracingStatusHistory.activeTracing(),
-						exposureDetectionDate: Date()
+						exposureDetectionDate: nil
 					),
 					riskLevelHasChanged: false
 				)
