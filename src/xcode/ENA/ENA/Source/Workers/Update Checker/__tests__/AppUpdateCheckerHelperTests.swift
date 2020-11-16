@@ -15,7 +15,7 @@ final class AppUpdateCheckerHelperTests: XCTestCase {
 	override func setUp() {
 		super.setUp()
 		mockStore = MockTestStore()
-		sut = AppUpdateCheckHelper(appConfigurationProvider: AppConfigurationProviderFake(), store: mockStore)
+		sut = AppUpdateCheckHelper(appConfigurationProvider: CachedAppConfigurationMock(), store: mockStore)
 	}
 	
 	func testAlertType_none() {

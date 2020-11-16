@@ -3,46 +3,43 @@
 //
 
 import XCTest
+import Combine
 @testable import ENA
 
 class EUSettingsViewControllerTests: XCTestCase {
 
+	private var subscriptions = [AnyCancellable]()
+
 	func testDataReloadForSuccessfulDownload() {
-		var config = SAP_Internal_ApplicationConfiguration()
-		config.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
-		let fakeResult: (Result<SAP_Internal_ApplicationConfiguration, Error>) = .success(config)
-		let appConfigurationProviderStub = AppConfigurationProviderStub(result: fakeResult)
+		let exp = expectation(description: "config fetched")
 
-		let vc = EUSettingsViewController(appConfigurationProvider: appConfigurationProviderStub)
+		var customConfig = SAP_Internal_ApplicationConfiguration()
+		customConfig.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
+		let configProvider = CachedAppConfigurationMock(with: customConfig)
+
+		let vc = EUSettingsViewController(appConfigurationProvider: configProvider)
 		vc.viewDidLoad()
+		vc.appConfigurationProvider.appConfiguration().sink { config in
+			XCTAssertEqual(config.supportedCountries.count, customConfig.supportedCountries.count)
+			XCTAssertEqual(vc.tableView.numberOfRows(inSection: 1), config.supportedCountries.count)
+			exp.fulfill()
+		}.store(in: &subscriptions)
 
-		XCTAssert(vc.tableView.numberOfRows(inSection: 1) == 6)
+		waitForExpectations(timeout: .short)
 	}
 
-	func testDataReloadForUnsuccessfulDownload() {
-		let fakeResult: (Result<SAP_Internal_ApplicationConfiguration, Error>) = .failure(URLSession.Response.Failure.noResponse)
-		let appConfigurationProviderStub = AppConfigurationProviderStub(result: fakeResult)
-		let vc = EUSettingsViewController(appConfigurationProvider: appConfigurationProviderStub)
+	func testDataForDefaultAppConfig() {
+		let exp = expectation(description: "config fetched")
+
+		let configProvider = CachedAppConfigurationMock()
+		let vc = EUSettingsViewController(appConfigurationProvider: configProvider)
 		vc.viewDidLoad()
+		vc.appConfigurationProvider.appConfiguration().sink { config in
+			// default config provides 0 countries but at least one cell is shown
+			XCTAssertEqual(vc.tableView.numberOfRows(inSection: 1), max(config.supportedCountries.count, 1))
+			exp.fulfill()
+		}.store(in: &subscriptions)
 
-		XCTAssert(vc.tableView.numberOfRows(inSection: 1) == 1)
-	}
-
-}
-
-private class AppConfigurationProviderStub: AppConfigurationProviding {
-
-	let result: (Result<SAP_Internal_ApplicationConfiguration, Error>)
-
-	init(result: (Result<SAP_Internal_ApplicationConfiguration, Error>)) {
-		self.result = result
-	}
-
-	func appConfiguration(forceFetch: Bool, completion: @escaping Completion) {
-		completion(result)
-	}
-
-	func appConfiguration(completion: @escaping Completion) {
-		completion(result)
+		waitForExpectations(timeout: .short)
 	}
 }

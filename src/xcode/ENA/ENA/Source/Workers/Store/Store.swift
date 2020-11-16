@@ -125,6 +125,7 @@ protocol StoreProtocol: AnyObject {
 	#if !RELEASE
 	/// Settings from the debug menu.
 	var fakeSQLiteError: Int32? { get set }
+	var dmKillDeviceTimeCheck: Bool { get set }
 	#endif
 
 }

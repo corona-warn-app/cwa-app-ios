@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import Combine
 import UIKit
 
 class ExposureSubmissionCoordinatorModel {
@@ -107,6 +108,7 @@ class ExposureSubmissionCoordinatorModel {
 	// MARK: - Private
 
 	private var symptomsOnset: SymptomsOnset = .noInformation
+	private var subscriptions = [AnyCancellable]()
 
 	private var isExposureSubmissionServiceStateGood: Bool {
 		exposureSubmissionService.preconditions().isGood
@@ -118,22 +120,16 @@ class ExposureSubmissionCoordinatorModel {
 		onError: @escaping (ExposureSubmissionError) -> Void
 	) {
 		isLoading(true)
-		appConfigurationProvider.appConfiguration { [weak self] result in
+		appConfigurationProvider.appConfiguration().sink { [weak self] config in
 			isLoading(false)
-
-			switch result {
-			case .success(let config):
-				let countries = config.supportedCountries.compactMap({ Country(countryCode: $0) })
-				if countries.isEmpty {
-					self?.supportedCountries = [.defaultCountry()]
-				} else {
-					self?.supportedCountries = countries
-				}
-				onSuccess()
-			case .failure:
-				onError(.noAppConfiguration)
+			let countries = config.supportedCountries.compactMap({ Country(countryCode: $0) })
+			if countries.isEmpty {
+				self?.supportedCountries = [.defaultCountry()]
+			} else {
+				self?.supportedCountries = countries
 			}
-		}
+			onSuccess()
+		}.store(in: &subscriptions)
 	}
 
 	private func startSubmitProcess(

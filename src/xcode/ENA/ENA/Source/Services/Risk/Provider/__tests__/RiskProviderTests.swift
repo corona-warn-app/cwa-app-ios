@@ -59,12 +59,10 @@ final class RiskProviderTests: XCTestCase {
 		parameters.maxExposureDetectionsPerInterval = 1
 		appConfig.iosExposureDetectionParameters = parameters
 
-		let appConfigurationMock = CachedAppConfigurationMock(appConfigurationResult: .success(appConfig))
-
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: appConfigurationMock,
+			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
@@ -172,7 +170,6 @@ final class RiskProviderTests: XCTestCase {
 		let sapAppConfig = SAP_Internal_ApplicationConfiguration.with {
 			$0.exposureConfig = SAP_Internal_RiskScoreParameters()
 		}
-		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
@@ -187,7 +184,7 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: cachedAppConfig,
+			appConfigurationProvider: CachedAppConfigurationMock(with: sapAppConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
@@ -227,7 +224,6 @@ final class RiskProviderTests: XCTestCase {
 		let sapAppConfig = SAP_Internal_ApplicationConfiguration.with {
 			$0.exposureConfig = SAP_Internal_RiskScoreParameters()
 		}
-		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
@@ -242,7 +238,7 @@ final class RiskProviderTests: XCTestCase {
 		let sut = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: cachedAppConfig,
+			appConfigurationProvider: CachedAppConfigurationMock(with: sapAppConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
@@ -340,7 +336,9 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { _ in
+		consumer.didCalculateRisk = { risk in
+			XCTAssertTrue(risk.riskLevelHasChanged)
+			XCTAssertEqual(risk.level, .increased)
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -420,7 +418,9 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { _ in
+		consumer.didCalculateRisk = { risk in
+			XCTAssertFalse(risk.riskLevelHasChanged)
+			XCTAssertEqual(risk.level, .increased)
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -453,8 +453,6 @@ final class RiskProviderTests: XCTestCase {
 
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success(ENExposureDetectionSummary()))
 
-		let appConfigurationProvider = CachedAppConfigurationMock(appConfigurationResult: .success(.riskCalculationAppConfig))
-
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
 		let client = ClientMock()
@@ -467,7 +465,7 @@ final class RiskProviderTests: XCTestCase {
 		return RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: appConfigurationProvider,
+			appConfigurationProvider: CachedAppConfigurationMock(with: .riskCalculationAppConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			keyPackageDownload: keyPackageDownload,
 			exposureDetectionExecutor: exposureDetectionDelegateStub

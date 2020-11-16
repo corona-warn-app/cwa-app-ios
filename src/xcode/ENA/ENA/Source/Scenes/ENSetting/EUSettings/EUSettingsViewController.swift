@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import Combine
 import UIKit
 
 class EUSettingsViewController: DynamicTableViewController {
@@ -14,6 +15,7 @@ class EUSettingsViewController: DynamicTableViewController {
 	// MARK: - Private Attributes
 
 	private var viewModel = EUSettingsViewModel()
+	private var subscriptions = [AnyCancellable]()
 
 	init(appConfigurationProvider: AppConfigurationProviding) {
 		self.appConfigurationProvider = appConfigurationProvider
@@ -37,9 +39,9 @@ class EUSettingsViewController: DynamicTableViewController {
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
-		setupDataSource()
 		setupTableView()
 		setupBackButton()
+		setupDataSource()
 	}
 
 	private func setupTableView() {
@@ -59,18 +61,12 @@ class EUSettingsViewController: DynamicTableViewController {
 	// MARK: Data Source setup methods.
 
 	private func setupDataSource() {
-		appConfigurationProvider.appConfiguration { [weak self] result in
-			switch result {
-			case .success(let applicationConfiguration):
-				let supportedCountryIDs = applicationConfiguration.supportedCountries
-				let supportedCountries = supportedCountryIDs.compactMap { Country(countryCode: $0) }
-				self?.viewModel = EUSettingsViewModel(countries: supportedCountries)
-			case .failure(let error):
-				Log.error("Error while loading app configuration: \(error).", log: .api)
-				self?.viewModel = EUSettingsViewModel(countries: [])
-			}
+		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
+			let supportedCountryIDs = configuration.supportedCountries
+			let supportedCountries = supportedCountryIDs.compactMap { Country(countryCode: $0) }
+			self?.viewModel = EUSettingsViewModel(countries: supportedCountries)
 			self?.reloadCountrySection()
-		}
+		}.store(in: &subscriptions)
 	}
 
 	private func reloadCountrySection() {

@@ -23,6 +23,8 @@ final class RiskProvider {
 		set { consumersQueue.sync { _consumers = newValue } }
 	}
 
+	private var subscriptions = [AnyCancellable]()
+
 	// MARK: Creating a Risk Level Provider
 	init(
 		configuration: RiskProvidingConfiguration,
@@ -170,44 +172,36 @@ extension RiskProvider: RiskProviding {
 	private func _requestRiskLevel(userInitiated: Bool, ignoreCachedSummary: Bool, completion: Completion?) {
 		let group = DispatchGroup()
 		group.enter()
-
-		appConfigurationProvider.appConfiguration { [weak self] result in
+		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
 			guard let self = self else { return }
 
-			switch result {
-			case .success(let appConfiguration):
-				self.updateRiskProvidingConfiguration(with: appConfiguration)
+			self.updateRiskProvidingConfiguration(with: configuration)
 
-				self.downloadKeyPackages { [weak self] result in
-					guard let self = self else { return }
+			self.downloadKeyPackages { [weak self] result in
+				guard let self = self else { return }
 
-					switch result {
-					case .success:
-						self.determineRisk(
-							userInitiated: userInitiated,
-							ignoreCachedSummary: ignoreCachedSummary,
-							appConfiguration: appConfiguration) { result in
+				switch result {
+				case .success:
+					self.determineRisk(
+						userInitiated: userInitiated,
+						ignoreCachedSummary: ignoreCachedSummary,
+						appConfiguration: configuration) { result in
 
-							switch result {
-							case .success(let risk):
-								self.successOnTargetQueue(risk: risk, completion: completion)
-							case .failure(let error):
-								self.failOnTargetQueue(error: error, completion: completion)
-							}
-
-							group.leave()
+						switch result {
+						case .success(let risk):
+							self.successOnTargetQueue(risk: risk, completion: completion)
+						case .failure(let error):
+							self.failOnTargetQueue(error: error, completion: completion)
 						}
-					case .failure(let error):
-						self.failOnTargetQueue(error: error, completion: completion)
+
 						group.leave()
 					}
+				case .failure(let error):
+					self.failOnTargetQueue(error: error, completion: completion)
+					group.leave()
 				}
-
-			case .failure:
-				self.failOnTargetQueue(error: .missingAppConfig, completion: completion)
-				group.leave()
 			}
-		}
+		}.store(in: &subscriptions)
 
 		guard group.wait(timeout: .now() + .seconds(60 * 8)) == .success else {
 			updateActivityState(.idle)
@@ -347,13 +341,16 @@ extension RiskProvider: RiskProviding {
 
 		let config = riskProvidingConfiguration
 		let shouldDetectExposures = (config.detectionMode == .manual && userInitiated) || config.detectionMode == .automatic
-
+		
+		/// If the User is in manual mode and wants to refresh we should let him. Case: Manual Mode and Wifi disabled will lead to no new packages in the last 23 hours and 59 Minutes, but a refresh interval of 4 Hours should allow this.
+		let shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode = shouldDetectExposureBecauseOfNewPackages || (config.detectionMode == .manual && userInitiated)
+		
 		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: enoughTimeHasPassed = \(enoughTimeHasPassed)", log: .riskDetection)
 		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: exposureManagerState.isGood = \(exposureManagerState.isGood)", log: .riskDetection)
 		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: shouldDetectExposures = \(shouldDetectExposures)", log: .riskDetection)
-		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: shouldDetectExposureBecauseOfNewPackages = \(shouldDetectExposureBecauseOfNewPackages)", log: .riskDetection)
-
-		return !enoughTimeHasPassed || !exposureManagerState.isGood || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackages
+		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode = \(shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode)", log: .riskDetection)
+		
+		return !(enoughTimeHasPassed && exposureManagerState.isGood && shouldDetectExposures && shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode)
 	}
 
 	private var shouldDetectExposureBecauseOfNewPackages: Bool {
@@ -403,13 +400,8 @@ extension RiskProvider: RiskProviding {
 		self.exposureDetection = _exposureDetection
 	}
 
-	private func calculateRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_Internal_ApplicationConfiguration?, completion: Completion?) {
+	private func calculateRiskLevel(summary: SummaryMetadata?, appConfiguration: SAP_Internal_ApplicationConfiguration, completion: Completion?) {
 		Log.info("RiskProvider: Calculate risk level", log: .riskDetection)
-
-		guard let appConfiguration = appConfiguration else {
-			completion?(.failure(.missingAppConfig))
-			return
-		}
 
 		let activeTracing = store.tracingStatusHistory.activeTracing()
 

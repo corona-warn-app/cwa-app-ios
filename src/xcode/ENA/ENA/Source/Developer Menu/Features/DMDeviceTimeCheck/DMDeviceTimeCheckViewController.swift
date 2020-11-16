@@ -6,12 +6,12 @@
 
 import UIKit
 
-final class DMWifiClientViewController: UITableViewController {
+final class DMDeviceTimeCheckViewController: UITableViewController {
 
 	// MARK: - Init
 
-	init(wifiClient: WifiOnlyHTTPClient) {
-		self.viewModel = DMWifiClientViewModel(wifiClient: wifiClient)
+	init(store: Store) {
+		self.viewModel = DMDeviceTimeCheckViewModel(store: store)
 		super.init(style: .insetGrouped)
 	}
 
@@ -24,7 +24,7 @@ final class DMWifiClientViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupTableView()
-		title = "Wifi mode 🎛"
+		title = "Device Time Check 📱 🕰"
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -49,7 +49,7 @@ final class DMWifiClientViewController: UITableViewController {
 
 	// MARK: - Private
 
-	private let viewModel: DMWifiClientViewModel
+	private let viewModel: DMDeviceTimeCheckViewModel
 
 	private func setupTableView() {
 		tableView.register(UINib(nibName: "DMSwitchTableViewCell", bundle: nil), forCellReuseIdentifier: "DMSwitchTableViewCell")
