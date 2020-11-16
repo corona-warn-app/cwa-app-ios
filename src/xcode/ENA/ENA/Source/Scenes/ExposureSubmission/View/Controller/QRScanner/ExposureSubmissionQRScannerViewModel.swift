@@ -87,6 +87,21 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		captureSession.stopRunning()
 	}
 
+
+	func setupCaptureSession() {
+		guard let currentCaptureDevice = captureDevice,
+			let caputureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
+			onError(.cameraPermissionDenied) { Log.error("Failed to setup AVCaptureDeviceInput", log: .ui) }
+			return
+		}
+
+		let metadataOutput = AVCaptureMetadataOutput()
+		captureSession.addInput(caputureDeviceInput)
+		captureSession.addOutput(metadataOutput)
+		metadataOutput.metadataObjectTypes = [.qr]
+		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
+	}
+
 	func startCaptureSession() {
 		switch AVCaptureDevice.authorizationStatus(for: .video) {
 		case .authorized:
@@ -186,19 +201,5 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 
 	private let onSuccess: (DeviceRegistrationKey) -> Void
 	private let captureDevice: AVCaptureDevice?
-
-	func setupCaptureSession() {
-		guard let currentCaptureDevice = captureDevice,
-			let caputureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
-			onError(.cameraPermissionDenied) { Log.error("Failed to setup AVCaptureDeviceInput", log: .ui) }
-			return
-		}
-
-		let metadataOutput = AVCaptureMetadataOutput()
-		captureSession.addInput(caputureDeviceInput)
-		captureSession.addOutput(metadataOutput)
-		metadataOutput.metadataObjectTypes = [.qr]
-		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
-	}
 
 }
