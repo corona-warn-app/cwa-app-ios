@@ -5,7 +5,6 @@
 
 import Foundation
 import UIKit
-import Combine
 
 class ExposureSubmissionFetchTestResultViewController: DynamicTableViewController {
 	
@@ -48,7 +47,7 @@ class ExposureSubmissionFetchTestResultViewController: DynamicTableViewControlle
 		item.isPrimaryButtonHidden = true
 		item.isSecondaryButtonHidden = true
 
-		item.title = AppStrings.ExposureSubmissionDispatch.title // font too large
+		item.title = AppStrings.ExposureSubmissionDispatch.title
 		item.largeTitleDisplayMode = .automatic
 
 		return item

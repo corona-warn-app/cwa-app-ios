@@ -415,7 +415,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_GeneralErrorTitle" = "Fehler";
 
-"ExposureSubmission_DispatchTitle" = "Testergebnis abrufen und andere warnen";
+"ExposureSubmission_DispatchTitle" = "Testergebnis abrufen"; // und andere warnen";
 
 "ExposureSubmission_DispatchDescription" = "Rufen Sie über die App Ihr Testergebnis ab und warnen Sie anschließend Ihre Mitmenschen. So schützen Sie sich und andere und helfen, die Ausbreitung von Corona zu verhindern.";
 
