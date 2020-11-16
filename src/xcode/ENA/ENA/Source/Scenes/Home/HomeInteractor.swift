@@ -21,7 +21,8 @@ final class HomeInteractor: RequiresAppDependencies {
 		self.state = state
 		self.exposureSubmissionService = exposureSubmissionService
 
-		updateAndReloadRiskCellState(to: riskProvider.activityState)
+		riskCellActivityState = riskProvider.activityState
+
 		observeRisk()
 	}
 
