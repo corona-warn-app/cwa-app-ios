@@ -94,8 +94,8 @@ final class HomeInteractor: RequiresAppDependencies {
 		riskConsumer.didFailCalculateRisk = { [weak self] error in
 			guard let self = self else { return }
 
-			// Don't show allready running errors.
-			guard !self.errorIsAllreadyRunningError(error) else {
+			// Don't show already running errors.
+			guard !self.errorIsAlreadyRunningError(error) else {
 				return
 			}
 			self.state.riskDetectionFailed = true
@@ -174,7 +174,7 @@ final class HomeInteractor: RequiresAppDependencies {
 		return sections
 	}
 
-	private func errorIsAllreadyRunningError(_ error: RiskProviderError) -> Bool {
+	private func errorIsAlreadyRunningError(_ error: RiskProviderError) -> Bool {
 		switch error {
 		case .riskProviderIsRunning:
 			return true
