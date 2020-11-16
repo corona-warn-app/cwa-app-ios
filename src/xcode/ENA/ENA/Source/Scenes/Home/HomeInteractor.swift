@@ -20,6 +20,8 @@ final class HomeInteractor: RequiresAppDependencies {
 		self.homeViewController = homeViewController
 		self.state = state
 		self.exposureSubmissionService = exposureSubmissionService
+
+		updateAndReloadRiskCellState(to: riskProvider.activityState)
 		observeRisk()
 	}
 
@@ -112,6 +114,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	}
 
 	func updateAndReloadRiskCellState(to state: RiskProvider.ActivityState) {
+		Log.info("[HomeInteractor] Update and reload risk cell with state: \(state)")
 		riskCellActivityState = state
 		riskLevelConfigurator?.riskProviderState = state
 		reloadRiskCell()
@@ -275,7 +278,13 @@ extension HomeInteractor {
 				detectionInterval: detectionInterval
 			)
 		case .none:
-			riskLevelConfigurator = nil
+			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
+				state: riskCellActivityState,
+				lastUpdateDate: nil,
+				detectionInterval: detectionInterval,
+				detectionMode: detectionMode,
+				manualExposureDetectionState: riskProvider.manualExposureDetectionState
+			)
 		}
 
 		riskLevelConfigurator?.buttonAction = {
