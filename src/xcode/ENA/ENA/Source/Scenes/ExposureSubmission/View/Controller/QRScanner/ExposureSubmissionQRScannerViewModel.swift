@@ -89,6 +89,12 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 
 
 	func setupCaptureSession() {
+		#if DEBUG
+		if isUITesting {
+			activateScanning()
+			return
+		}
+		#endif
 		guard let currentCaptureDevice = captureDevice,
 			let caputureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
 			onError(.cameraPermissionDenied) { Log.error("Failed to setup AVCaptureDeviceInput", log: .ui) }
