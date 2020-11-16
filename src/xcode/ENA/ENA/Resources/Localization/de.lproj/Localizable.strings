@@ -435,8 +435,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_HotlineButtonDescription" = "Rufen Sie uns an und erhalten Sie eine TAN.";
 
-// "ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Corona-positiv";
-
 "ExposureSubmissionHotline_Title" = "TAN anfragen";
 
 "ExposureSubmissionHotline_Description" = "Bitte halten Sie zur TAN-Abfrage Ihren Befundbrief (sofern vorhanden) und Ihre Telefonnummer bereit.";
