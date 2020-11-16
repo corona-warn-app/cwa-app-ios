@@ -145,7 +145,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}()
 
 	lazy var riskProvider: RiskProvider = {
-
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
@@ -153,6 +152,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			store: store
 		)
 
+		#if !RELEASE
+		return RiskProvider(
+			configuration: .default,
+			store: store,
+			appConfigurationProvider: appConfigurationProvider,
+			exposureManagerState: exposureManager.preconditions(),
+			riskCalculation: DebugRiskCalculation(riskCalculation: RiskCalculation(), store: store),
+			keyPackageDownload: keyPackageDownload,
+			exposureDetectionExecutor: exposureDetectionExecutor
+		)
+		#else
 		return RiskProvider(
 			configuration: .default,
 			store: store,
@@ -161,6 +171,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			keyPackageDownload: keyPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor
 		)
+		#endif
+
 	}()
 
 	#if targetEnvironment(simulator) || COMMUNITY

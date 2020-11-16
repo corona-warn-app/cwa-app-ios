@@ -21,7 +21,7 @@
 
 import Foundation
 
-final class DebugRiskCalculation {
+final class DebugRiskCalculation: RiskCalculationProtocol {
 
 	// MARK: - Init
 
