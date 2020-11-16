@@ -415,9 +415,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_GeneralErrorTitle" = "Fehler";
 
-"ExposureSubmission_DispatchTitle" = "Auswahl";
+"ExposureSubmission_DispatchTitle" = "Testergebnis abrufen und andere warnen";
 
-"ExposureSubmission_DispatchDescription" = "Welche Informationen liegen Ihnen vor?";
+"ExposureSubmission_DispatchDescription" = "Rufen Sie über die App Ihr Testergebnis ab und warnen Sie anschließend Ihre Mitmenschen. So schützen Sie sich und andere und helfen, die Ausbreitung von Corona zu verhindern.";
+
+"ExposureSubmission_DispatchSectionHeadline" = "Sie haben sich bereits testen lassen?";
+
+"ExposureSubmission_DispatchSectionHeadline2" = "Ihr Test ist positiv?";
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Test mit QR-Code";
 

@@ -26,10 +26,24 @@ class ExposureSubmissionFetchTestResultViewModel {
 	let onHotlineButtonTap: () -> Void
 		
 	
-//	var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
-	
 	var dynamicTableData: DynamicTableViewModel {
-		DynamicTableViewModel.with {
+		return DynamicTableViewModel.with {
+			$0.add(.section(
+				header: .image(
+					UIImage(named: "Illu_Submission_Funktion1"),
+					accessibilityLabel: AppStrings.ExposureSubmissionIntroduction.accImageDescription,
+					accessibilityIdentifier: AccessibilityIdentifiers.General.image,
+					height: 200
+				),
+				separators: .none,
+				cells: [
+					.body(
+						text: AppStrings.ExposureSubmissionDispatch.description,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.description),
+					.title2(text: AppStrings.ExposureSubmissionDispatch.sectionHeadline,
+							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.sectionHeadline)
+				]
+			))
 			$0.add(DynamicSection.section(cells: [
 				.imageCard(
 					title: AppStrings.ExposureSubmissionDispatch.qrCodeButtonTitle,
@@ -38,6 +52,8 @@ class ExposureSubmissionFetchTestResultViewModel {
 					action: .execute { [weak self] _ in self?.onQRCodeButtonTap() },
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
 				),
+				.title2(text: AppStrings.ExposureSubmissionDispatch.sectionHeadline2,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.sectionHeadline2),
 				.imageCard(
 					title: AppStrings.ExposureSubmissionDispatch.tanButtonTitle,
 					description: AppStrings.ExposureSubmissionDispatch.tanButtonDescription,

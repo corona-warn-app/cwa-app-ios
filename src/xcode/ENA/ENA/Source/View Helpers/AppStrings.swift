@@ -138,6 +138,8 @@ enum AppStrings {
 	enum ExposureSubmissionDispatch {
 		static let title = NSLocalizedString("ExposureSubmission_DispatchTitle", comment: "")
 		static let description = NSLocalizedString("ExposureSubmission_DispatchDescription", comment: "")
+		static let sectionHeadline = NSLocalizedString("ExposureSubmission_DispatchSectionHeadline", comment: "")
+		static let sectionHeadline2 = NSLocalizedString("ExposureSubmission_DispatchSectionHeadline2", comment: "")
 		static let qrCodeButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_QRCodeButtonTitle", comment: "")
 		static let qrCodeButtonDescription = NSLocalizedString("ExposureSubmissionDispatch_QRCodeButtonDescription", comment: "")
 		static let tanButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_TANButtonTitle", comment: "")
