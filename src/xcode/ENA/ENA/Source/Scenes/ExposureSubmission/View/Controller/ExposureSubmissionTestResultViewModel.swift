@@ -125,7 +125,7 @@ class ExposureSubmissionTestResultViewModel {
 	}
 	
 	func updateWarnOthers() {
-		self.warnOthersReminder.evaluateNotificationState(testResult: self.testResult)
+		warnOthersReminder.evaluateNotificationState(testResult: testResult)
 	}
 	
 	private func updateButtons() {
@@ -163,6 +163,7 @@ class ExposureSubmissionTestResultViewModel {
 				self?.error = error
 			case let .success(testResult):
 				self?.testResult = testResult
+				self?.updateWarnOthers()
 			}
 
 			completion()
