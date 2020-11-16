@@ -39,7 +39,7 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 		let root = UIViewController()
 
 		XCTAssertNotNil(
-			Reason.noSummary(ENError(.apiMisuse)).errorAlertController(rootController: root)
+			Reason.noExposureWindows(ENError(.apiMisuse)).errorAlertController(rootController: root)
 		)
 	}
 	
@@ -55,13 +55,13 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 	
 	func testErrorDescription() {
 		XCTAssertTrue(
-			Reason.noSummary(ENError(.apiMisuse)).errorDescription?.contains("EN Code: 10") == true
+			Reason.noExposureWindows(ENError(.apiMisuse)).errorDescription?.contains("EN Code: 10") == true
 		)
 	}
 
 	func testError_ENError_Unsupported() {
 		let root = UIViewController()
-		let alert = Reason.noSummary(ENError(.unsupported)).errorAlertController(rootController: root)
+		let alert = Reason.noExposureWindows(ENError(.unsupported)).errorAlertController(rootController: root)
 
 		XCTAssertEqual(alert?.message, AppStrings.Common.enError5Description)
 		XCTAssertEqual(alert?.actions.count, 2)
@@ -71,7 +71,7 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 
 	func testError_ENError_Internal() {
 		let root = UIViewController()
-		let alert = Reason.noSummary(ENError(.internal)).errorAlertController(rootController: root)
+		let alert = Reason.noExposureWindows(ENError(.internal)).errorAlertController(rootController: root)
 
 		XCTAssertEqual(alert?.message, AppStrings.Common.enError11Description)
 		XCTAssertEqual(alert?.actions.count, 2)
@@ -81,7 +81,7 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 
 	func testError_ENError_RateLimit() {
 		let root = UIViewController()
-		let alert = Reason.noSummary(ENError(.rateLimited)).errorAlertController(rootController: root)
+		let alert = Reason.noExposureWindows(ENError(.rateLimited)).errorAlertController(rootController: root)
 
 		XCTAssertEqual(alert?.message, AppStrings.Common.enError13Description)
 		XCTAssertEqual(alert?.actions.count, 2)

@@ -22,9 +22,8 @@ extension ExposureDetection {
 	enum DidEndPrematurelyReason: Error {
 		/// Delegate was unable to provide an exposure manager to the transaction.
 		case noExposureManager
-		/// The actual exposure summary detection was started but did either produce an error
-		/// or no summary.
-		case noSummary(Error?)
+		/// The actual exposure summary detection was started but did either produce an error.
+		case noExposureWindows(Error)
 		/// It was not possible to determine the remote days and/or hours that can be loaded.
 		case noDaysAndHours
 		/// Unable to get exposure configuration
@@ -45,7 +44,7 @@ extension ExposureDetection.DidEndPrematurelyReason: LocalizedError {
 			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoExposureManager"
 		case .unableToWriteDiagnosisKeys:
 			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: DignosisKeys"
-		case .noSummary(let error):
+		case .noExposureWindows(let error):
 			if let enError = error as? ENError {
 				switch enError.code {
 				case .unsupported:

@@ -73,7 +73,7 @@ extension AppDelegate {
 		switch riskProviderError {
 		case .failedRiskDetection(let didEndPrematurelyReason):
 			switch didEndPrematurelyReason {
-			case let .noSummary(error):
+			case let .noExposureWindows(error):
 				return makeAlertController(
 					enError: error,
 					localizedDescription: didEndPrematurelyReason.localizedDescription,
