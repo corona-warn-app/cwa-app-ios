@@ -3,31 +3,33 @@
 //
 
 import Foundation
+import Combine
+import ZIPFoundation
 
 #if DEBUG
 final class CachedAppConfigurationMock: AppConfigurationProviding {
 
-	// MARK: - Init
+	private let config: SAP_Internal_ApplicationConfiguration
 
-	init(appConfigurationResult: Result<SAP_Internal_ApplicationConfiguration, Error> = .success(SAP_Internal_ApplicationConfiguration())) {
-		self.appConfigurationResult = appConfigurationResult
-	}
-
-	// MARK: - Protocol AppConfigurationProviding
-
-	func appConfiguration(forceFetch: Bool = false, completion: @escaping Completion) {
-		DispatchQueue.main.async {
-			completion(self.appConfigurationResult)
+	init(with config: SAP_Internal_ApplicationConfiguration? = nil) {
+		guard
+			let url = Bundle.main.url(forResource: "default_app_config_17", withExtension: ""),
+			let data = try? Data(contentsOf: url),
+			let zip = Archive(data: data, accessMode: .read),
+			let staticConfig = try? zip.extractAppConfiguration() else {
+			fatalError("Could not fetch static app config")
 		}
+		self.config = config ?? staticConfig
 	}
 
-	func appConfiguration(completion: @escaping Completion) {
-		self.appConfiguration(forceFetch: false, completion: completion)
+	func appConfiguration(forceFetch: Bool) -> AnyPublisher<SAP_Internal_ApplicationConfiguration, Never> {
+		return Just(config)
+			.receive(on: DispatchQueue.main)
+			.eraseToAnyPublisher()
 	}
 
-	// MARK: - Private
-
-	private var appConfigurationResult: Result<SAP_Internal_ApplicationConfiguration, Error>
-
+	func appConfiguration() -> AnyPublisher<SAP_Internal_ApplicationConfiguration, Never> {
+		return appConfiguration(forceFetch: false)
+	}
 }
 #endif

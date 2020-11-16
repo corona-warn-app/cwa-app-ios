@@ -3,6 +3,7 @@
 //
 
 import ExposureNotification
+import Combine
 import UIKit
 
 protocol HomeViewControllerDelegate: AnyObject {
@@ -57,6 +58,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	private var collectionView: UICollectionView! { view as? UICollectionView }
 	private var homeInteractor: HomeInteractor!
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
+
+	private var subscriptions = [AnyCancellable]()
 
 	private weak var delegate: HomeViewControllerDelegate?
 
@@ -126,31 +129,24 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	private func showDeltaOnboarding() {
-		appConfigurationProvider.appConfiguration { [weak self] result in
+		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
 			guard let self = self else { return }
-			
-			let supportedCountries: [Country]
-			
-			switch result {
-			case .success(let applicationConfiguration):
-				supportedCountries = applicationConfiguration.supportedCountries.compactMap({ Country(countryCode: $0) })
-			case .failure:
-				supportedCountries = []
-			}
-			
+
+			let supportedCountries = configuration.supportedCountries.compactMap({ Country(countryCode: $0) })
+			// TBD: delay still needed?
 			DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 				let onboardings: [DeltaOnboarding] = [
 					DeltaOnboardingV15(store: self.store, supportedCountries: supportedCountries)
 				]
-				
+
 				self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
 				self.deltaOnboardingCoordinator?.finished = { [weak self] in
 					self?.deltaOnboardingCoordinator = nil
 				}
-				
+
 				self.deltaOnboardingCoordinator?.startOnboarding()
 			}
-		}
+		}.store(in: &subscriptions)
 	}
 
 	/// This method sets up a background fetch alert, and presents it, if needed.

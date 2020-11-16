@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import Combine
 import ExposureNotification
 @testable import ENA
 
@@ -51,17 +52,6 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 			timeout: 1.0,
 			enforceOrder: true
 		)
-	}
-
-}
-
-final class AppConfigurationProviderFake: AppConfigurationProviding {
-	func appConfiguration(forceFetch: Bool, completion: @escaping Completion) {
-		completion(.success(SAP_Internal_ApplicationConfiguration()))
-	}
-
-	func appConfiguration(completion: @escaping Completion) {
-		completion(.success(SAP_Internal_ApplicationConfiguration()))
 	}
 }
 
