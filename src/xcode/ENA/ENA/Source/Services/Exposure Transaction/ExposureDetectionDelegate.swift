@@ -33,7 +33,6 @@ struct DaysAndHours {
 protocol ExposureDetectionDelegate: AnyObject {
 
 	typealias Completion = (DaysAndHours?) -> Void
-	typealias DetectionHandler = (Result<ENExposureDetectionSummary, Error>) -> Void
 	typealias SupportedCountriesResult = Result<[Country], URLSession.Response.Failure>
 
 	func exposureDetectionWriteDownloadedPackages(country: Country.ID) -> WrittenPackages?

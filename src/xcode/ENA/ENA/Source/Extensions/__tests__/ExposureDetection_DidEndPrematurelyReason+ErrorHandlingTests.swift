@@ -25,7 +25,7 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 
 	private typealias Reason = ExposureDetection.DidEndPrematurelyReason
 
-    func testNonSummaryReasonsShouldNotReturnAnAlert() {
+    func testNonExposureWindowReasonsShouldNotReturnAnAlert() {
 		let root = UIViewController()
 
 		XCTAssertNil(Reason.noDaysAndHours.errorAlertController(rootController: root))
@@ -35,7 +35,7 @@ final class ExposureDetection_DidEndPrematurelyReason_ErrorHandlingTests: XCTest
 		XCTAssertNil(Reason.unableToWriteDiagnosisKeys.errorAlertController(rootController: root))
 	}
 	
-	func testSummaryErrorCreatesAlert() {
+	func testNoSummaryErrorCreatesAlert() {
 		let root = UIViewController()
 
 		XCTAssertNotNil(

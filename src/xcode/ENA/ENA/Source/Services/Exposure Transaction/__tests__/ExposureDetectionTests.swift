@@ -41,9 +41,9 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 			return writtenPackages
 		}
 
-		let eposureWindowResultBeCalled = expectation(description: "summaryResult called")
+		let exposureWindowResultBeCalled = expectation(description: "exposureWindowResult called")
 		delegate.exposureWindowResult = { _, _ in
-			eposureWindowResultBeCalled.fulfill()
+			exposureWindowResultBeCalled.fulfill()
 			return .success([MutableENExposureWindow()])
 		}
 
@@ -60,7 +60,7 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		wait(
 			for: [
 				writtenPackagesBeCalled,
-				eposureWindowResultBeCalled,
+				exposureWindowResultBeCalled,
 				startCompletionCalled
 			],
 			timeout: 1.0,

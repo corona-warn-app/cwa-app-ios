@@ -115,7 +115,7 @@ final class ExposureDetection {
 		}
 	}
 
-	// Informs the delegate about a summary.
+	// Informs the delegate about the detected exposure windows.
 	private func didDetectExposureWindows(_ exposureWindows: [ENExposureWindow]) {
 		Log.info("ExposureDetection: Completed detecting exposure windows.", log: .riskDetection)
 
@@ -129,4 +129,5 @@ final class ExposureDetection {
 			self.completion = nil
 		}
 	}
+
 }

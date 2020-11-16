@@ -68,11 +68,11 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		try fileManager.removeItem(at: parentDir)
 	}
 
-	// MARK: - Detect Summary With Configuration Tests
+	// MARK: - Detect Exposure Windows With Configuration Tests
 
-	func testDetectSummaryWithConfiguration_Success() throws {
+	func testDetectExposureWindowsWithConfiguration_Success() throws {
 		// Test the case where the exector is asked to run an exposure detection
-		// We provide a `MockExposureDetector` + a mock detection summary, and expect this to be returned
+		// We provide a `MockExposureDetector` + a mock exposure window, and expect this to be returned
 		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
 		let mockExposureWindow = MutableENExposureWindow(calibrationConfidence: .medium, date: Date(), diagnosisReportType: .confirmedTest, infectiousness: .standard, scanInstances: [])
 		let sut = ExposureDetectionExecutor.makeWith(
@@ -109,7 +109,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		waitForExpectations(timeout: 2.0)
 	}
 
-	func testDetectSummaryWithConfiguration_Error() throws {
+	func testDetectExposureWindowsWithConfiguration_Error() throws {
 		// Test the case where the exector is asked to run an exposure detection
 		// We provide an `MockExposureDetector` with an error, and expect this to be returned
 		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
@@ -144,7 +144,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		waitForExpectations(timeout: 2.0)
 	}
 
-	func testDetectSummaryWithConfiguration_Error2BadParameter_ClearsCache() throws {
+	func testDetectExposureWindowsWithConfiguration_Error2BadParameter_ClearsCache() throws {
 		// Test the case where the exector is asked to run an exposure detection
 		// We provide an `MockExposureDetector` with an error, and expect this to be returned
 		let completionExpectation = expectation(description: "Expect that the completion handler is called.")

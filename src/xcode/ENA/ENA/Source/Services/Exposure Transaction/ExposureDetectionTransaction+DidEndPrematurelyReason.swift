@@ -22,7 +22,7 @@ extension ExposureDetection {
 	enum DidEndPrematurelyReason: Error {
 		/// Delegate was unable to provide an exposure manager to the transaction.
 		case noExposureManager
-		/// The actual exposure summary detection was started but did either produce an error.
+		/// The actual exposure detection was started but did produce an error.
 		case noExposureWindows(Error)
 		/// It was not possible to determine the remote days and/or hours that can be loaded.
 		case noDaysAndHours
@@ -43,7 +43,7 @@ extension ExposureDetection.DidEndPrematurelyReason: LocalizedError {
 		case .noExposureManager:
 			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoExposureManager"
 		case .unableToWriteDiagnosisKeys:
-			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: DignosisKeys"
+			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: DiagnosisKeys"
 		case .noExposureWindows(let error):
 			if let enError = error as? ENError {
 				switch enError.code {
@@ -63,7 +63,7 @@ extension ExposureDetection.DidEndPrematurelyReason: LocalizedError {
 					return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: ExposureDetectionIsAlreadyRunning"
 				}
 			} else {
-				return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoSummary"
+				return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoExposureWindows"
 			}
 		case .noDaysAndHours:
 			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoDaysAndHours"
