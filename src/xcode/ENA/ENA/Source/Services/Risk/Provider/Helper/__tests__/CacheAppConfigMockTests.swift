@@ -38,7 +38,7 @@ class CacheAppConfigMockTests: XCTestCase {
 			onFetch.fulfill()
 		}.store(in: &subscriptions)
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testCustomConfig() throws {
@@ -52,6 +52,6 @@ class CacheAppConfigMockTests: XCTestCase {
 			onFetch.fulfill()
 		}.store(in: &subscriptions)
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 	}
 }
