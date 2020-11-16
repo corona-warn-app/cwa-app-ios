@@ -22,7 +22,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-final class ExposureSubmissionQRScannerViewModelMock: ExposureSubmissionQRScannerViewModel {
+final class TestableExposureSubmissionQRScannerViewModel: ExposureSubmissionQRScannerViewModel {
 
 	private var fakeIsScanning: Bool = true
 
@@ -52,7 +52,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		// first onError call will happen on ViewModel init
 		onErrorExpectation.expectedFulfillmentCount = 1
 
-		let viewModel = ExposureSubmissionQRScannerViewModelMock(
+		let viewModel = TestableExposureSubmissionQRScannerViewModel(
 			onSuccess: { deviceRegistrationKey in
 				XCTAssertEqual(deviceRegistrationKey, .guid(guid))
 
