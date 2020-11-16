@@ -114,7 +114,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		XCTAssertNotNil(parentNavigationController.presentedViewController)
 
 		coordinator.dismiss()
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testShowOverview() {

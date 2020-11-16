@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import Combine
 import UIKit
 
 enum UpdateAlertType {
@@ -15,6 +16,7 @@ final class AppUpdateCheckHelper {
 	// MARK: Properties
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let store: Store
+	private var subscriptions = [AnyCancellable]()
 
 	/// The retained `NotificationCenter` observer that listens for `UIApplication.didBecomeActiveNotification` notifications.
 	var applicationDidBecomeActiveObserver: NSObjectProtocol?
@@ -30,31 +32,18 @@ final class AppUpdateCheckHelper {
 	}
 
 	func checkAppVersionDialog(for vc: UIViewController?) {
-		appConfigurationProvider.appConfiguration { [weak self] result in
+		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
 			guard let self = self else { return }
-
-			var _versionInfo: SAP_Internal_ApplicationVersionConfiguration?
-
-			switch result {
-			case .success(let applicationConfiguration):
-				_versionInfo = applicationConfiguration.appVersion
-			case .failure(let error):
-				Log.error("Error while loading app configuration: \(error).", log: .api)
-			}
-
-			guard let versionInfo = _versionInfo else {
-				return
-			}
-
+			
 			let alertType = self.alertTypeFrom(
 				currentVersion: Bundle.main.appVersion,
-				minVersion: versionInfo.ios.min,
-				latestVersion: versionInfo.ios.latest
+				minVersion: configuration.appVersion.ios.min,
+				latestVersion: configuration.appVersion.ios.latest
 			)
 
 			guard let alert = self.createAlert(alertType, vc: vc) else { return }
 			vc?.present(alert, animated: true, completion: nil)
-		}
+		}.store(in: &subscriptions)
 	}
 
 	private func setObserver(vc: UIViewController?, alertType: UpdateAlertType) {
