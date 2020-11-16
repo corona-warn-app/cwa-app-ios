@@ -24,7 +24,7 @@ import XCTest
 
 final class TestableExposureSubmissionQRScannerViewModel: ExposureSubmissionQRScannerViewModel {
 
-	private var fakeIsScanning: Bool = true
+	private var fakeIsScanning: Bool = false
 
 	override var isScanningActivated: Bool {
 		return fakeIsScanning
@@ -38,6 +38,20 @@ final class TestableExposureSubmissionQRScannerViewModel: ExposureSubmissionQRSc
 		fakeIsScanning = false
 	}
 
+	override func startCaptureSession() {
+		if isScanningActivated {
+			deactivateScanning()
+		} else {
+			activateScanning()
+		}
+	}
+
+	override func setupCaptureSession() {
+		guard isScanningActivated else {
+			onError(.cameraPermissionDenied, {})
+			return
+		}
+	}
 }
 
 final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
@@ -64,6 +78,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		)
 
 		let metaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://localhost/?\(guid)")
+		viewModel.activateScanning()
 		viewModel.didScan(metadataObjects: [metaDataObject])
 
 		// Check that scanning is deactivated after one successful scan
@@ -79,23 +94,14 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		onSuccessExpectation.isInverted = true
 
 		let onErrorExpectation = expectation(description: "onError called")
-		// first onError call will happen on ViewModel init
-		onErrorExpectation.expectedFulfillmentCount = 3
+		onErrorExpectation.expectedFulfillmentCount = 2
 
-		let viewModel = ExposureSubmissionQRScannerViewModel(
+		let viewModel = ExposureSubmissionQRScannerViewModelMock(
 			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},
 			onError: { error, _ in
-				switch error {
-				case .cameraPermissionDenied:
-					onErrorExpectation.fulfill()
-				case .codeNotFound:
-					onErrorExpectation.fulfill()
-
-				case .other:
-					XCTFail("unexpected error")
-				}
+				onErrorExpectation.fulfill()
 			}
 		)
 
@@ -107,6 +113,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		viewModel.didScan(metadataObjects: [metaDataObject])
 
 		waitForExpectations(timeout: .short)
+		XCTAssertEqual(viewModel.isScanningActivated, false)
 	}
 
 	func testScanningIsDeactivatedInitially() {
@@ -119,7 +126,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		// first onError call will happen on ViewModel init
 		onErrorExpectation.expectedFulfillmentCount = 1
 
-		let viewModel = ExposureSubmissionQRScannerViewModel(
+		let viewModel = ExposureSubmissionQRScannerViewModelMock(
 			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},
@@ -132,6 +139,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		viewModel.didScan(metadataObjects: [metaDataObject])
 
 		waitForExpectations(timeout: .short)
+		XCTAssertEqual(viewModel.isScanningActivated, false)
 	}
 
 	func testInitalUnsuccessfulScanWithSuccessfulRetry() {
@@ -142,10 +150,9 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		onSuccessExpectation.expectedFulfillmentCount = 1
 
 		let onErrorExpectation = expectation(description: "onError called")
-		// first onError call will happen on ViewModel init
 		onErrorExpectation.expectedFulfillmentCount = 2
 
-		let viewModel = ExposureSubmissionQRScannerViewModel(
+		let viewModel = ExposureSubmissionQRScannerViewModelMock(
 			onSuccess: { deviceRegistrationKey in
 				XCTAssertEqual(deviceRegistrationKey, .guid(validGuid))
 
@@ -175,6 +182,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		wait(for: [onErrorExpectation], timeout: .short)
 
 		let validMetaDataObject = FakeMetadataMachineReadableCodeObject(stringValue: "https://localhost/?\(validGuid)")
+		viewModel.activateScanning()
 		viewModel.didScan(metadataObjects: [validMetaDataObject])
 
 		wait(for: [onSuccessExpectation], timeout: .short)
