@@ -87,8 +87,8 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		captureSession.stopRunning()
 	}
 
-
 	func setupCaptureSession() {
+		/// this special case is need to avoid system alert while UI tests are running
 		#if DEBUG
 		if isUITesting {
 			activateScanning()
