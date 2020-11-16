@@ -102,7 +102,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},
-			onError: { error, _ in
+			onError: { _, _ in
 				onErrorExpectation.fulfill()
 			}
 		)
