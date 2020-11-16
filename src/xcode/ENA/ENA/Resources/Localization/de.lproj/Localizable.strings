@@ -419,19 +419,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_DispatchDescription" = "Welche Informationen liegen Ihnen vor?";
 
-"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Dokument mit QR-Code";
+"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Test mit QR-Code";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code Ihres Test-Dokuments scannen.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Rufen Sie Ihr Testergebnis ab, indem Sie den QR-Code scannen und warnen Sie andere.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "TAN";
+"ExposureSubmissionDispatch_TANButtonTitle" = "TAN-Eingabe";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "Registrieren Sie Ihren Test per manueller TAN-Eingabe.";
+"ExposureSubmissionDispatch_TANButtonDescription" = "Ihnen liegt eine TAN vor? Weiter zur TAN-Eingabe, um andere zu warnen.";
 
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "TAN anfragen";
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "Noch keine TAN?";
 
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Bitte rufen Sie uns an, falls Sie %@ getestet wurden.";
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Rufen Sie uns an und erhalten Sie eine TAN.";
 
-"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Corona-positiv";
+// "ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Corona-positiv";
 
 "ExposureSubmissionHotline_Title" = "TAN anfragen";
 

@@ -47,7 +47,7 @@ class ExposureSubmissionFetchTestResultViewModel {
 				),
 				.imageCard(
 					title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
-					attributedDescription: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription.inserting(emphasizedString: AppStrings.ExposureSubmissionDispatch.positiveWord),
+					description: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription,
 					image: UIImage(named: "Illu_Submission_Anruf"),
 					action: .execute { [weak self] _ in self?.onHotlineButtonTap() },
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.hotlineButtonDescription
@@ -66,7 +66,7 @@ private extension DynamicCell {
 		image: UIImage?,
 		action: DynamicAction,
 		accessibilityIdentifier: String? = nil) -> Self {
-		.identifier(ExposureSubmissionOverviewViewController.CustomCellReuseIdentifiers.imageCard, action: action) { _, cell, _ in
+		.identifier(ExposureSubmissionFetchTestResultViewController.CustomCellReuseIdentifiers.imageCard, action: action) { _, cell, _ in
 			guard let cell = cell as? ExposureSubmissionImageCardCell else { return }
 			cell.configure(
 				title: title,
