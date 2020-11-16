@@ -38,6 +38,7 @@ final class TestableExposureSubmissionQRScannerViewModel: ExposureSubmissionQRSc
 		fakeIsScanning = false
 	}
 
+	#if !targetEnvironment(simulator)
 	override func startCaptureSession() {
 		if isScanningActivated {
 			deactivateScanning()
@@ -45,13 +46,14 @@ final class TestableExposureSubmissionQRScannerViewModel: ExposureSubmissionQRSc
 			activateScanning()
 		}
 	}
-
+	
 	override func setupCaptureSession() {
 		guard isScanningActivated else {
 			onError(.cameraPermissionDenied, {})
 			return
 		}
 	}
+	#endif
 }
 
 final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
@@ -96,7 +98,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		let onErrorExpectation = expectation(description: "onError called")
 		onErrorExpectation.expectedFulfillmentCount = 2
 
-		let viewModel = ExposureSubmissionQRScannerViewModelMock(
+		let viewModel = TestableExposureSubmissionQRScannerViewModel(
 			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},
@@ -126,7 +128,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		// first onError call will happen on ViewModel init
 		onErrorExpectation.expectedFulfillmentCount = 1
 
-		let viewModel = ExposureSubmissionQRScannerViewModelMock(
+		let viewModel = TestableExposureSubmissionQRScannerViewModel(
 			onSuccess: { _ in
 				onSuccessExpectation.fulfill()
 			},
@@ -152,7 +154,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		let onErrorExpectation = expectation(description: "onError called")
 		onErrorExpectation.expectedFulfillmentCount = 2
 
-		let viewModel = ExposureSubmissionQRScannerViewModelMock(
+		let viewModel = TestableExposureSubmissionQRScannerViewModel(
 			onSuccess: { deviceRegistrationKey in
 				XCTAssertEqual(deviceRegistrationKey, .guid(validGuid))
 
