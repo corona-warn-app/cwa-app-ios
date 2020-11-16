@@ -56,7 +56,8 @@ final class RiskProvider: RiskProviding {
 
 	var manualExposureDetectionState: ManualExposureDetectionState? {
 		riskProvidingConfiguration.manualExposureDetectionState(
-			lastExposureDetectionDate: store.riskCalculationResult?.calculationDate)
+			lastExposureDetectionDate: store.riskCalculationResult?.calculationDate
+		)
 	}
 
 	/// Returns the next possible date of a exposureDetection
