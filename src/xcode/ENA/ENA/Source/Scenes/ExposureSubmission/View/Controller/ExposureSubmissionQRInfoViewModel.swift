@@ -40,7 +40,7 @@ struct ExposureSubmissionQRInfoViewModel {
 						),
 						.icon(
 							UIImage(imageLiteralResourceName: "Icons_QR4"),
-							text: .string(AppStrings.ExposureSubmissionQRInfo.instruction4)
+							text: .string(AppStrings.ExposureSubmissionQRInfo.instruction3) // will be refactored!
 						)
 					]
 				)

@@ -458,9 +458,15 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionHotline_imageDescription" = "Hotline teilt eine TAN mit.";
 
 /* Exposure Submission QR Code Info */
-"ExposureSubmissionQRInfo_title" = "QR-Code Scan";
+"ExposureSubmissionQRInfo_title" = "Ihr Einverständnis";
 
-"ExposureSubmissionQRInfo_imageDescription" = "Eine Person hält ein Smartphone vor einen QR-Code. Auf dem Smartphone sieht man das Einlesen des QR-Codes.";
+"ExposureSubmissionQRInfo_imageDescription" = "Eine Person hält ein Smartphone. Ein QR-Code auf einem Test symbolisiert den zu scannenden Code.";
+
+"ExposureSubmissionQRInfo_title_description" = "Bevor Sie Ihr Testergebnis abrufen und andere warnen können, ist Ihr Einverständnis erforderlich.";
+
+"ExposureSubmissionQRInfo_header_section_1" = "Testergebnis abrufen";
+
+"ExposureSubmissionQRInfo_body_section_1" = "Scannen Sie im nächsten Schritt den QR-Code auf Ihrem Test und rufen Sie Ihr Testergebnis ab.";
 
 "ExposureSubmissionQRInfo_instruction1" = "Bitte scannen Sie nur Ihren eigenen Test.";
 
@@ -472,9 +478,30 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_instruction3_highlightedPhrase" = "nicht";
 
-"ExposureSubmissionQRInfo_instruction4" = "Wenn Ihnen ein aktuellerer Test vorliegt, löschen Sie den vorhandenen Test und scannen Sie den QR-Code des aktuellen Tests ein.";
+"ExposureSubmissionQRInfo_header_section_2" = "Helfen Sie mit, indem Sie andere warnen, denen Sie begegnet sind!";
 
-"ExposureSubmissionQRInfo_primaryButtonTitle" = "Weiter";
+"ExposureSubmissionQRInfo_body_section_2" = "Wenn Sie positiv auf Corona getestet wurden, können Sie Ihre Mitmenschen über die App warnen. Die Warnung funktioniert in mehreren Ländern. Derzeit nehmen folgende Länder teil:";
+
+"ExposureSubmissionQRInfo_acknowledgement_title" = "Ihr Einverständnis";
+
+"ExposureSubmissionQRInfo_acknowledgement_1_1" = "Die App ruft Ihr Testergebnis ab.";
+
+"ExposureSubmissionQRInfo_acknowledgement_1_2" = "Wenn Sie es sich später anders überlegen, können Sie den Test in der App entfernen.";
+
+"ExposureSubmissionQRInfo_acknowledgement_2_1" = "Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer, denen Sie begegnet sind, zu warnen. Dies betrifft Nutzer von offiziellen Corona-Apps der
+oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
+
+"ExposureSubmissionQRInfo_acknowledgement_2_2" = "Sie können Ihr Einverständnis jederzeit zurücknehmen. Die Einstellung hierfür finden Sie unter „Test anzeigen“. Vor dem Teilen werden Sie nochmal auf Ihr Einverständnis hingewiesen und um Freigabe Ihres Testergebnisses gebeten.";
+
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Ihr Einverständnis ist freiwillig.";
+
+"ExposureSubmissionQRInfo_acknowledgement_4" = "Sie können Ihr Testergebnis auch abrufen, wenn Sie dies nicht teilen. Wenn Sie ihr Testergebnis teilen, helfen Sie jedoch mit, Ihre Mitmenschen vor Ansteckungen zu schützen.";
+
+"ExposureSubmissionQRInfo_acknowledgement_5" = "Ihre Identität bleibt geheim. Andere Nutzer erfahren nicht, wer sein Testergebnis geteilt hat.";
+
+"ExposureSubmissionQRInfo_acknowledgement_6" = "Sie können Ihr Einverständnis abgeben, wenn Sie mindestens 16 Jahre alt sind.";
+
+"ExposureSubmissionQRInfo_primaryButtonTitle" = "Einverstanden";
 
 "ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title" = "QR-Code nicht mehr gültig";
 
