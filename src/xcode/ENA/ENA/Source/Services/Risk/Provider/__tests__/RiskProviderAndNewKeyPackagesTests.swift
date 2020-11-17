@@ -86,16 +86,17 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		)
 
 		let requestRiskExpectation = expectation(description: "")
-		riskProvider.requestRisk(userInitiated: false) { result in
-			switch result {
-			case .success:
-				XCTAssertFalse(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
-				requestRiskExpectation.fulfill()
-			case .failure:
-				XCTFail("Failure is not expected 1.")
-			}
+		
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+		
+		consumer.didCalculateRisk = { _ in
+			XCTAssertFalse(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
+			requestRiskExpectation.fulfill()
 		}
-
+		
+		riskProvider.requestRisk(userInitiated: false)
+	
 		waitForExpectations(timeout: 1.0)
 	}
 
@@ -161,15 +162,16 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		)
 
 		let requestRiskExpectation = expectation(description: "")
-		riskProvider.requestRisk(userInitiated: false) { result in
-			switch result {
-			case .success:
-				XCTAssertTrue(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
-				requestRiskExpectation.fulfill()
-			case .failure:
-				XCTFail("Failure is not expected 1.")
-			}
+		
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+		
+		consumer.didCalculateRisk = { _ in
+			XCTAssertTrue(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
+			requestRiskExpectation.fulfill()
 		}
+		
+		riskProvider.requestRisk(userInitiated: false)
 
 		waitForExpectations(timeout: 1.0)
 	}
@@ -237,15 +239,16 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		)
 
 		let requestRiskExpectation = expectation(description: "")
-		riskProvider.requestRisk(userInitiated: false) { result in
-			switch result {
-			case .success:
-				XCTAssertTrue(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
-				requestRiskExpectation.fulfill()
-			case .failure:
-				XCTFail("Failure is not expected 1.")
-			}
+		
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+		
+		consumer.didCalculateRisk = { _ in
+			XCTAssertTrue(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
+			requestRiskExpectation.fulfill()
 		}
+		
+		riskProvider.requestRisk(userInitiated: false)
 
 		waitForExpectations(timeout: 1.0)
 	}
@@ -312,15 +315,16 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		)
 
 		let requestRiskExpectation = expectation(description: "")
-		riskProvider.requestRisk(userInitiated: false) { result in
-			switch result {
-			case .success:
-				XCTAssertTrue(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
-				requestRiskExpectation.fulfill()
-			case .failure:
-				XCTFail("Failure is not expected 1.")
-			}
+		
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+		
+		consumer.didCalculateRisk = { _ in
+			XCTAssertTrue(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
+			requestRiskExpectation.fulfill()
 		}
+		
+		riskProvider.requestRisk(userInitiated: false)
 
 		waitForExpectations(timeout: 1.0)
 	}
