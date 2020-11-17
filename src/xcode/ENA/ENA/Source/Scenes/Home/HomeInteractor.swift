@@ -422,7 +422,7 @@ extension HomeInteractor {
 extension HomeInteractor {
 	func updateTestResults() {
 		
-		// Do warn others evaluation
+		// Do warn others reminder evaluation
 		if let testResult = testResult {
 			self.warnOthersReminder.evaluateNotificationState(testResult: testResult)
 		}
