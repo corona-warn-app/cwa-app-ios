@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import ExposureNotification
 import Foundation
@@ -103,13 +90,21 @@ final class HomeInteractor: RequiresAppDependencies {
 		}
 
 		riskConsumer.didFailCalculateRisk = { [weak self] error in
-			switch error {
-			case .inactive:
-				self?.state.riskState = .inactive
-			default:
-				self?.state.riskState = .detectionFailed
+			guard let self = self else { return }
+
+			// Don't show already running errors.
+			guard !self.errorIsAlreadyRunningError(error) else {
+				return
 			}
-			self?.reloadActionSection()
+
+            switch error {
+            case .inactive:
+                self?.state.riskState = .inactive
+            default:
+                self?.state.riskState = .detectionFailed
+            }
+
+			self.reloadActionSection()
 		}
 
 		riskProvider.observeRisk(riskConsumer)
@@ -128,6 +123,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	}
 
 	func updateAndReloadRiskCellState(to state: RiskProviderActivityState) {
+		Log.info("[HomeInteractor] Update and reload risk cell with state: \(state)")
 		riskCellActivityState = state
 		riskLevelConfigurator?.riskProviderState = state
 		reloadRiskCell()
@@ -182,6 +178,25 @@ final class HomeInteractor: RequiresAppDependencies {
 		sections.append(contentsOf: [actionsSection, infoSection, settingsSection])
 
 		return sections
+	}
+
+	private func errorIsAlreadyRunningError(_ error: RiskProviderError) -> Bool {
+		switch error {
+		case .riskProviderIsRunning:
+			return true
+		case .failedKeyPackageDownload(let keyPackageDownloadError):
+			return keyPackageDownloadError == .downloadIsRunning
+		case .failedRiskDetection(let didEndPrematuralyReason):
+			if case let .noSummary(summaryError) = didEndPrematuralyReason {
+				if let exposureDetectionError = summaryError as? ExposureDetectionError {
+					return exposureDetectionError == .isAlreadyRunning
+				}
+			}
+		default:
+			break
+		}
+
+		return false
 	}
 }
 

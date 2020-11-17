@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors /
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import XCTest
@@ -69,12 +54,10 @@ final class RiskProviderTests: XCTestCase {
 		parameters.maxExposureDetectionsPerInterval = 1
 		appConfig.exposureDetectionParameters = parameters
 
-		let appConfigurationMock = CachedAppConfigurationMock(appConfigurationResult: .success(appConfig))
-
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: appConfigurationMock,
+			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
@@ -112,7 +95,6 @@ final class RiskProviderTests: XCTestCase {
 		let sapAppConfig = SAP_Internal_V2_ApplicationConfigurationIOS.with {
 			$0.exposureConfiguration = SAP_Internal_V2_ExposureConfiguration()
 		}
-		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
@@ -127,7 +109,7 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: cachedAppConfig,
+			appConfigurationProvider: CachedAppConfigurationMock(with: sapAppConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
@@ -167,7 +149,6 @@ final class RiskProviderTests: XCTestCase {
 		let sapAppConfig = SAP_Internal_V2_ApplicationConfigurationIOS.with {
 			$0.exposureConfiguration = SAP_Internal_V2_ExposureConfiguration()
 		}
-		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()
@@ -182,7 +163,7 @@ final class RiskProviderTests: XCTestCase {
 		let sut = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: cachedAppConfig,
+			appConfigurationProvider: CachedAppConfigurationMock(with: sapAppConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
@@ -280,7 +261,9 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { _ in
+		consumer.didCalculateRisk = { risk in
+			XCTAssertTrue(risk.riskLevelHasChanged)
+			XCTAssertEqual(risk.level, .increased)
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -360,7 +343,9 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { _ in
+		consumer.didCalculateRisk = { risk in
+			XCTAssertFalse(risk.riskLevelHasChanged)
+			XCTAssertEqual(risk.level, .increased)
 			didCalculateRiskExpectation.fulfill()
 		}
 

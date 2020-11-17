@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors /
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -89,6 +74,8 @@ final class RiskProvider: RiskProviding {
 
 			// Not using failOnTargetQueue to leave the activityState and consumers alone
 			targetQueue.async {
+				// This completion callback only affects the background fetch.
+				// (Since at the moment the background fetch is the only one using the completion)
 				completion?(.failure(.riskProviderIsRunning))
 			}
 			return
@@ -141,8 +128,7 @@ final class RiskProvider: RiskProviding {
 	private func _requestRiskLevel(userInitiated: Bool, completion: Completion?) {
 		let group = DispatchGroup()
 		group.enter()
-
-		appConfigurationProvider.appConfiguration { [weak self] result in
+		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
 			guard let self = self else { return }
 
 			switch result {
@@ -167,17 +153,15 @@ final class RiskProvider: RiskProviding {
 
 							group.leave()
 						}
-					case .failure(let error):
-						self.failOnTargetQueue(error: error, completion: completion)
+
 						group.leave()
 					}
+				case .failure(let error):
+					self.failOnTargetQueue(error: error, completion: completion)
+					group.leave()
 				}
-
-			case .failure:
-				self.failOnTargetQueue(error: .missingAppConfig, completion: completion)
-				group.leave()
 			}
-		}
+		}.store(in: &subscriptions)
 
 		guard group.wait(timeout: .now() + .seconds(60 * 8)) == .success else {
 			updateActivityState(.idle)

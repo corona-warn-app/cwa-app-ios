@@ -1,23 +1,9 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
+import Combine
 import UIKit
 
 enum UpdateAlertType {
@@ -30,6 +16,7 @@ final class AppUpdateCheckHelper {
 	// MARK: Properties
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let store: Store
+	private var subscriptions = [AnyCancellable]()
 
 	/// The retained `NotificationCenter` observer that listens for `UIApplication.didBecomeActiveNotification` notifications.
 	var applicationDidBecomeActiveObserver: NSObjectProtocol?
@@ -45,23 +32,18 @@ final class AppUpdateCheckHelper {
 	}
 
 	func checkAppVersionDialog(for vc: UIViewController?) {
-		appConfigurationProvider.appConfiguration { [weak self] result in
+		appConfigurationProvider.appConfiguration().sink { [weak self] applicationConfiguration in
 			guard let self = self else { return }
+			
+			let alertType = self.alertTypeFrom(
+				currentVersion: Bundle.main.appVersion,
+				minVersion: applicationConfiguration.minVersion,
+				latestVersion: applicationConfiguration.latestVersion
+			)
 
-			switch result {
-			case .success(let applicationConfiguration):
-				let alertType = self.alertTypeFrom(
-					currentVersion: Bundle.main.appVersion,
-					minVersion: applicationConfiguration.minVersion,
-					latestVersion: applicationConfiguration.latestVersion
-				)
-
-				guard let alert = self.createAlert(alertType, vc: vc) else { return }
-				vc?.present(alert, animated: true, completion: nil)
-			case .failure(let error):
-				Log.error("Error while loading app configuration: \(error).", log: .api)
-			}
-		}
+			guard let alert = self.createAlert(alertType, vc: vc) else { return }
+			vc?.present(alert, animated: true, completion: nil)
+		}.store(in: &subscriptions)
 	}
 
 	private func setObserver(vc: UIViewController?, alertType: UpdateAlertType) {

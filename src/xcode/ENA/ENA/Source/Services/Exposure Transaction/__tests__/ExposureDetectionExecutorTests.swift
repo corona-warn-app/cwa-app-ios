@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 @testable import ENA
@@ -23,6 +8,14 @@ import Foundation
 import XCTest
 
 final class ExposureDetectionExecutorTests: XCTestCase {
+
+	private var dummyAppConfigMetadata: AppConfigMetadata {
+		AppConfigMetadata(
+			lastAppConfigETag: "ETag",
+			lastAppConfigFetch: Date(),
+			appConfig: SAP_Internal_ApplicationConfiguration()
+		)
+	}
 
 	// MARK: - Write Downloaded Package Tests
 
@@ -161,7 +154,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		try packageStore.set(country: "DE", day: "SomeDay", etag: nil, package: package)
 
 		let store = MockTestStore()
-		store.appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
+		store.appConfigMetadata = dummyAppConfigMetadata
 
 		let sut = ExposureDetectionExecutor.makeWith(
 			packageStore: packageStore,
@@ -177,7 +170,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		)
 
 		XCTAssertNotEqual(packageStore.allDays(country: "DE").count, 0)
-		XCTAssertNotNil(store.appConfig)
+		XCTAssertNotNil(store.appConfigMetadata)
 
 		_ = sut.detectExposureWindows(
 			exposureDetection,
@@ -185,9 +178,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 			writtenPackages: WrittenPackages(urls: []),
 			completion: { _ in
 				XCTAssertEqual(packageStore.allDays(country: "DE").count, 0)
-				XCTAssertNil(store.appConfig)
-				XCTAssertNil(store.lastAppConfigETag)
-				XCTAssertNil(store.lastAppConfigFetch)
+				XCTAssertNil(store.appConfigMetadata)
 
 				completionExpectation.fulfill()
 			}
