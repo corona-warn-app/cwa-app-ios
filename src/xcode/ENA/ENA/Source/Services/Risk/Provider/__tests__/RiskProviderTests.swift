@@ -10,6 +10,47 @@ import ExposureNotification
 // swiftlint:disable:next type_body_length
 final class RiskProviderTests: XCTestCase {
 
+	func testGIVEN_RiskProvider_WHEN_addingAndRemovingConsumer_THEN_noCallback() throws {
+		let duration = DateComponents(day: 1)
+
+		let store = MockTestStore()
+		store.riskCalculationResult = nil
+
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: duration,
+			exposureDetectionInterval: duration
+		)
+
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+
+		let riskProvider = RiskProvider(
+			configuration: config,
+			store: store,
+			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskCalculation: RiskCalculationFake(),
+			keyPackageDownload: keyPackageDownloadMock(with: store),
+			exposureDetectionExecutor: exposureDetectionDelegateStub
+		)
+
+		let didCalculateRiskCalled = expectation(description: "expect didCalculateRisk to be called")
+		didCalculateRiskCalled.isInverted = true
+
+		let consumer = RiskConsumer()
+		consumer.didCalculateRisk = { _ in
+			XCTFail("Unexpected call")
+		}
+		consumer.didFailCalculateRisk = { _ in
+			XCTFail("didFailCalculateRisk should not be called.")
+		}
+
+		riskProvider.observeRisk(consumer)
+		riskProvider.removeRisk(consumer)
+		riskProvider.requestRisk(userInitiated: true)
+
+		waitForExpectations(timeout: 1.0)
+	}
+
 	func testExposureDetectionIsExecutedIfLastDetectionIsTooOldAndModeIsAutomatic() throws {
 		let duration = DateComponents(day: 1)
 
@@ -31,7 +72,6 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			calculationDate: lastExposureDetectionDate
 		)
-		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
@@ -41,15 +81,6 @@ final class RiskProviderTests: XCTestCase {
 
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 
-		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
-		downloadedPackagesStore.open()
-		let client = ClientMock()
-		let keyPackageDownload = KeyPackageDownload(
-			downloadedPackagesStore: downloadedPackagesStore,
-			client: client,
-			wifiClient: client,
-			store: store
-		)
 
 		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
@@ -59,10 +90,10 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
+			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
-			keyPackageDownload: keyPackageDownload,
+			keyPackageDownload: keyPackageDownloadMock(with: store),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -85,7 +116,6 @@ final class RiskProviderTests: XCTestCase {
 
 		let store = MockTestStore()
 		store.riskCalculationResult = nil
-		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
@@ -98,23 +128,13 @@ final class RiskProviderTests: XCTestCase {
 			$0.exposureConfiguration = SAP_Internal_V2_ExposureConfiguration()
 		}
 
-		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
-		downloadedPackagesStore.open()
-		let client = ClientMock()
-		let keyPackageDownload = KeyPackageDownload(
-			downloadedPackagesStore: downloadedPackagesStore,
-			client: client,
-			wifiClient: client,
-			store: store
-		)
-
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: sapAppConfig),
+			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
-			keyPackageDownload: keyPackageDownload,
+			keyPackageDownload: keyPackageDownloadMock(with: store),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -139,7 +159,6 @@ final class RiskProviderTests: XCTestCase {
 
 		let store = MockTestStore()
 		store.riskCalculationResult = nil
-		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
@@ -152,23 +171,13 @@ final class RiskProviderTests: XCTestCase {
 			$0.exposureConfiguration = SAP_Internal_V2_ExposureConfiguration()
 		}
 
-		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
-		downloadedPackagesStore.open()
-		let client = ClientMock()
-		let keyPackageDownload = KeyPackageDownload(
-			downloadedPackagesStore: downloadedPackagesStore,
-			client: client,
-			wifiClient: client,
-			store: store
-		)
-
 		let sut = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: sapAppConfig),
+			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
-			keyPackageDownload: keyPackageDownload,
+			keyPackageDownload: keyPackageDownloadMock(with: store),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -357,10 +366,21 @@ final class RiskProviderTests: XCTestCase {
 
 	// MARK: - Private
 
+	private func keyPackageDownloadMock(with store: Store) -> KeyPackageDownload {
+		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory()
+		downloadedPackagesStore.open()
+
+		let client = ClientMock()
+		return KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			wifiClient: client,
+			store: store
+		)
+	}
+
 	private func riskProviderChangingRiskLevel(from previousRiskLevel: RiskLevel, to newRiskLevel: RiskLevel, store: MockTestStore) throws -> RiskProvider {
 		let duration = DateComponents(day: 2)
-
-		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
 		let lastExposureDetectionDate = try XCTUnwrap(
 			Calendar.current.date(byAdding: .day, value: -1, to: Date(), wrappingComponents: false)
@@ -427,7 +447,7 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			calculationDate: lastExposureDetectionDate
 		)
-		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
+
 		store.lastKeyPackageDownloadDate = .distantPast
 
 		let exposureDetectionsInterval = 6
@@ -460,10 +480,10 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
+			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
-			keyPackageDownload: keyPackageDownload,
+			keyPackageDownload: keyPackageDownloadMock(with: store),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -501,7 +521,6 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			calculationDate: lastExposureDetectionDate
 		)
-		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
 		let exposureDetectionsInterval = 6
 		let config = RiskProvidingConfiguration(
@@ -574,7 +593,7 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			calculationDate: lastExposureDetectionDate
 		)
-		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
+
 		store.lastKeyPackageDownloadDate = .distantPast
 
 		let exposureDetectionsInterval = 6
@@ -607,10 +626,10 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
+			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
-			keyPackageDownload: keyPackageDownload,
+			keyPackageDownload: keyPackageDownloadMock(with: store),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -648,7 +667,6 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			calculationDate: lastExposureDetectionDate
 		)
-		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
 		let exposureDetectionsInterval = 6
 		let config = RiskProvidingConfiguration(
@@ -680,10 +698,10 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
+			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
-			keyPackageDownload: keyPackageDownload,
+			keyPackageDownload: keyPackageDownloadMock(with: store),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
