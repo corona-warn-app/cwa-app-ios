@@ -136,9 +136,11 @@ final class RiskProvider: RiskProviding {
 			
 			self.updateRiskProvidingConfiguration(with: appConfiguration)
 			
-			self.downloadKeyPackages { [weak self] result in
-				guard let self = self else { return }
-				
+			self.downloadKeyPackages { result in
+				defer {
+					group.leave()
+				}
+
 				switch result {
 				case .success:
 					self.determineRisk(
@@ -152,13 +154,9 @@ final class RiskProvider: RiskProviding {
 						case .failure(let error):
 							self.failOnTargetQueue(error: error, completion: completion)
 						}
-						
-						group.leave()
 					}
 				case .failure(let error):
 					self.failOnTargetQueue(error: error, completion: completion)
-					
-					group.leave()
 				}
 			}
 		}.store(in: &subscriptions)
