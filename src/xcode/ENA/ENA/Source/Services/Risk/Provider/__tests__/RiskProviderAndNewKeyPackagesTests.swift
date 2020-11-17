@@ -35,7 +35,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		))
 
 		let store = MockTestStore()
-		store.riskCalculationResult = RiskCalculationV2Result(
+		store.riskCalculationResult = RiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -111,7 +111,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		))
 
 		let store = MockTestStore()
-		store.riskCalculationResult = RiskCalculationV2Result(
+		store.riskCalculationResult = RiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -186,7 +186,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		))
 
 		let store = MockTestStore()
-		store.riskCalculationResult = RiskCalculationV2Result(
+		store.riskCalculationResult = RiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -262,7 +262,7 @@ class RiskProviderAndNewKeyPackagesTests: XCTestCase {
 		))
 
 		let store = MockTestStore()
-		store.riskCalculationResult = RiskCalculationV2Result(
+		store.riskCalculationResult = RiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,

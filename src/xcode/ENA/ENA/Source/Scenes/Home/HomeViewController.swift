@@ -21,8 +21,8 @@ import UIKit
 protocol HomeViewControllerDelegate: AnyObject {
 	func showRiskLegend()
 	func showExposureNotificationSetting(enState: ENStateHandler.State)
-	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProvider.ActivityState)
-	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProvider.ActivityState)
+	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProviderActivityState)
+	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProviderActivityState)
 	func showExposureSubmission(with result: TestResult?)
 	func showInviteFriends()
 	func showWebPage(from viewController: UIViewController, urlString: String)
@@ -36,24 +36,47 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	init?(
 		coder: NSCoder,
 		delegate: HomeViewControllerDelegate,
-		detectionMode: DetectionMode,
 		exposureManagerState: ExposureManagerState,
 		initialEnState: ENStateHandler.State,
-		risk: Risk?,
 		exposureSubmissionService: ExposureSubmissionService
 	) {
 		self.delegate = delegate
-		//self.enState = initialEnState
+
 		super.init(coder: coder)
+
+		var riskState: RiskState
+		if let riskCalculationResult = store.riskCalculationResult {
+			riskState = .risk(
+				Risk(
+					activeTracing: store.tracingStatusHistory.activeTracing(),
+					riskCalculationResult: riskCalculationResult
+				)
+			)
+		} else {
+			riskState = .risk(
+				Risk(
+					level: .low,
+					details: .init(
+						daysSinceLastExposure: 0,
+						numberOfExposures: 0,
+						activeTracing: store.tracingStatusHistory.activeTracing(),
+						exposureDetectionDate: nil
+					),
+					riskLevelHasChanged: false
+				)
+			)
+		}
+
 		self.homeInteractor = HomeInteractor(
 			homeViewController: self,
 			state: .init(
-				detectionMode: detectionMode,
+				riskState: riskState,
 				exposureManagerState: exposureManagerState,
-				enState: initialEnState,
-				risk: risk,
-				riskDetectionFailed: false
-			), exposureSubmissionService: exposureSubmissionService)
+				enState: initialEnState
+			),
+			exposureSubmissionService: exposureSubmissionService
+		)
+
 		navigationItem.largeTitleDisplayMode = .never
 		delegate.addToEnStateUpdateList(homeInteractor)
 	}
@@ -211,12 +234,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		delegate?.setExposureDetectionState(state: homeInteractor.state, activityState: homeInteractor.riskProvider.activityState)
 	}
 
-	func updateState(
-		detectionMode: DetectionMode,
-		exposureManagerState: ExposureManagerState
+	func updateDetectionMode(
+		_ detectionMode: DetectionMode
 	) {
 		homeInteractor.updateDetectionMode(detectionMode)
-		homeInteractor.updateExposureManagerState(exposureManagerState)
 
 		reloadData(animatingDifferences: false)
 

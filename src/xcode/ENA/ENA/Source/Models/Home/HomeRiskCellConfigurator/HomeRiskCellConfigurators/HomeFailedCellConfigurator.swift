@@ -22,7 +22,7 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: - Init
 
 	init(
-		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
+		previousRiskLevel: RiskLevel?,
 		lastUpdateDate: Date?
 	) {
 		self.previousRiskLevel = previousRiskLevel
@@ -43,7 +43,7 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 		switch previousRiskLevel {
 		case .low?:
 			return AppStrings.Home.riskCardLastActiveItemLowTitle
-		case .increased?:
+		case .high?:
 			return AppStrings.Home.riskCardLastActiveItemHighTitle
 		default:
 			return AppStrings.Home.riskCardLastActiveItemUnknownTitle
@@ -89,7 +89,7 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 
 	// MARK: - Private
 
-	private var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
+	private var previousRiskLevel: RiskLevel?
 	private var lastUpdateDate: Date?
 
 

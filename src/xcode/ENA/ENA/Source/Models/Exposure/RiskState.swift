@@ -1,4 +1,3 @@
-//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -15,22 +14,13 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-//
 
 import Foundation
 
-struct NormalizedTimeToRiskLevelMapping: Codable {
+enum RiskState: Equatable {
 
-	// MARK: - Init
+	case risk(Risk)
+	case inactive
+	case detectionFailed
 
-	init(from normalizedTimeToRiskLevelMapping: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping) {
-		self.normalizedTimeRange = ENARange(from: normalizedTimeToRiskLevelMapping.normalizedTimeRange)
-		self.riskLevel = CWARiskLevel(from: normalizedTimeToRiskLevelMapping.riskLevel)
-	}
-
-	// MARK: - Internal
-	
-	let normalizedTimeRange: ENARange
-	let riskLevel: CWARiskLevel
-	
 }

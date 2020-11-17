@@ -75,18 +75,6 @@ extension Array where Element == TracingStatusEntry {
 
 	// MARK: - Check Tracing History for Risk Calculation
 
-	/// Check the `TracingStatusHistory` if it has been turned on for `timeInterval` seconds
-	///
-	/// Typically used to check the tracing duration precondition for risk calculation
-	/// - parameter timeInterval: Seconds to use as the threshold. Defaults to 24 hours.
-	/// - parameter date: Date to use as the baseline. Defaults to `Date()`
-	func checkIfEnabled(
-		for continuousInterval: TimeInterval = Self.minimumActiveSeconds,
-		since date: Date = Date()
-	) -> Bool {
-		getContinuousEnabledInterval(since: date) > continuousInterval
-	}
-
 	/// Mark returns the active tracing info.
 	///
 	/// - parameter since: Date to use as the baseline. Defaults to `Date()`
@@ -153,10 +141,6 @@ extension Array where Element == TracingStatusEntry {
 
 	// MARK: - Constants for Tracing
 
-	/// The minimum count of hours tracing must have been active for risk calculation to work
-	static let minimumActiveHours = 24
-	/// The minimum count of seconds tracing must have been active for risk calculation to work
-	static var minimumActiveSeconds: TimeInterval { TimeInterval(minimumActiveHours * 60 * 60) }
 	/// The maximum count of days to keep tracing history for
 	static let maxStoredDays = 14
 	/// The maximum count of seconds to keep tracing history for

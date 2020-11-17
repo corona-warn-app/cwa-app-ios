@@ -189,8 +189,8 @@ final class SecureStore: Store {
 		}
 	}
 
-	var riskCalculationResult: RiskCalculationV2Result? {
-		get { kvStore["riskCalculationResult"] as RiskCalculationV2Result? ?? nil }
+	var riskCalculationResult: RiskCalculationResult? {
+		get { kvStore["riskCalculationResult"] as RiskCalculationResult? ?? nil }
 		set { kvStore["riskCalculationResult"] = newValue }
 	}
 
@@ -258,8 +258,8 @@ final class SecureStore: Store {
 		set { kvStore["fakeSQLiteError"] = newValue }
 	}
 
-	var mostRecentRiskCalculation: RiskCalculationV2? {
-		get { kvStore["mostRecentRiskCalculation"] as RiskCalculationV2? }
+	var mostRecentRiskCalculation: RiskCalculation? {
+		get { kvStore["mostRecentRiskCalculation"] as RiskCalculation? }
 		set { kvStore["mostRecentRiskCalculation"] = newValue }
 	}
 

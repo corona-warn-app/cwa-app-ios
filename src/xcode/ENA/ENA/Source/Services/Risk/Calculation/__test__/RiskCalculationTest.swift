@@ -1,15 +1,24 @@
+// Corona-Warn-App
 //
-//  RiscCalculationV2Test.swift
-//  ENATests
+// SAP SE and all other contributors
+// copyright owners license this file to you under the Apache
+// License, Version 2.0 (the "License"); you may not use this
+// file except in compliance with the License.
+// You may obtain a copy of the License at
 //
-//  Created by Kai-Marcel Teuber on 31.10.20.
-//  Copyright © 2020 SAP SE. All rights reserved.
+// http://www.apache.org/licenses/LICENSE-2.0
 //
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
 
 import XCTest
 @testable import ENA
 
-class RiskCalculationV2Test: XCTestCase {
+class RiskCalculationTest: XCTestCase {
 
 	func testWHEN_LoadingJsonTestFile_THEN_24TestCasesWithConfigurationAreReturned() {
 		// WHEN
@@ -25,7 +34,7 @@ class RiskCalculationV2Test: XCTestCase {
 
 		for testCase in testCases {
 			// WHEN
-			let result = try RiskCalculationV2().calculateRisk(
+			let result = try RiskCalculation().calculateRisk(
 				exposureWindows: testCase.exposureWindows,
 				configuration: testCasesWithConfiguration.defaultRiskCalculationConfiguration
 			)
@@ -33,7 +42,7 @@ class RiskCalculationV2Test: XCTestCase {
 			// THEN
 			XCTAssert(Calendar.current.isDate(result.calculationDate, inSameDayAs: Date()))
 
-			XCTAssertEqual(result.riskLevel, testCase.expTotalRiskLevel.eitherLowOrIncreasedRiskLevel)
+			XCTAssertEqual(result.riskLevel, testCase.expTotalRiskLevel)
 
 			XCTAssertEqual(result.minimumDistinctEncountersWithLowRisk, testCase.expTotalMinimumDistinctEncountersWithLowRisk)
 			XCTAssertEqual(result.minimumDistinctEncountersWithHighRisk, testCase.expTotalMinimumDistinctEncountersWithHighRisk)
@@ -46,7 +55,7 @@ class RiskCalculationV2Test: XCTestCase {
 	// MARK: - Private
 
 	private lazy var testCasesWithConfiguration: TestCasesWithConfiguration = {
-		let testBundle = Bundle(for: RiskCalculationV2Test.self)
+		let testBundle = Bundle(for: RiskCalculationTest.self)
 		guard let urlJsonFile = testBundle.url(forResource: "exposure-windows-risk-calculation", withExtension: "json"),
 			  let data = try? Data(contentsOf: urlJsonFile) else {
 			XCTFail("Failed init json file for tests")

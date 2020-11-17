@@ -63,15 +63,13 @@ class Coordinator: RequiresAppDependencies {
 		enStateUpdateList.removeAllObjects()
 	}
 
-	func showHome(enStateHandler: ENStateHandler, state: SceneDelegate.State) {
+	func showHome(enStateHandler: ENStateHandler) {
 		let homeController = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
 			HomeViewController(
 				coder: coder,
 				delegate: self,
-				detectionMode: state.detectionMode,
-				exposureManagerState: state.exposureManager,
+				exposureManagerState: exposureManager.preconditions(),
 				initialEnState: enStateHandler.state,
-				risk: state.risk,
 				exposureSubmissionService: self.exposureSubmissionService
 			)
 		}
@@ -114,14 +112,10 @@ class Coordinator: RequiresAppDependencies {
 		)
 	}
 
-	func updateState(
-		detectionMode: DetectionMode,
-		exposureManagerState: ExposureManagerState
+	func updateDetectionMode(
+		_ detectionMode: DetectionMode
 	) {
-		homeController?.updateState(
-			detectionMode: detectionMode,
-			exposureManagerState: exposureManagerState
-		)
+		homeController?.updateDetectionMode(detectionMode)
 	}
 
 	#if !RELEASE
@@ -175,13 +169,12 @@ extension Coordinator: HomeViewControllerDelegate {
 		rootViewController.pushViewController(vc, animated: true)
 	}
 
-	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProvider.ActivityState) {
+	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProviderActivityState) {
 		let state = ExposureDetectionViewController.State(
-			riskDetectionFailed: state.riskDetectionFailed,
+			riskState: state.riskState,
 			exposureManagerState: state.exposureManagerState,
 			detectionMode: state.detectionMode,
 			activityState: activityState,
-			risk: state.risk,
 			previousRiskLevel: store.riskCalculationResult?.riskLevel
 		)
 		let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
@@ -195,13 +188,12 @@ extension Coordinator: HomeViewControllerDelegate {
 		rootViewController.present(vc, animated: true)
 	}
 
-	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProvider.ActivityState) {
+	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProviderActivityState) {
 		let state = ExposureDetectionViewController.State(
-			riskDetectionFailed: state.riskDetectionFailed,
+			riskState: state.riskState,
 			exposureManagerState: state.exposureManagerState,
 			detectionMode: state.detectionMode,
 			activityState: activityState,
-			risk: state.risk,
 			previousRiskLevel: store.riskCalculationResult?.riskLevel
 		)
 		exposureDetectionController?.state = state

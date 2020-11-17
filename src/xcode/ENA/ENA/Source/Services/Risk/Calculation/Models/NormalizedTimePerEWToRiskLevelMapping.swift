@@ -19,33 +19,18 @@
 
 import Foundation
 
-enum CWARiskLevel: Int, Codable {
+struct NormalizedTimeToRiskLevelMapping: Codable {
 
 	// MARK: - Init
 
-	init(from riskLevel: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel) {
-		switch riskLevel {
-		case .low:
-			self = .low
-		case .high:
-			self = .high
-		default:
-			fatalError("Only low and high risk levels are supported")
-		}
+	init(from normalizedTimeToRiskLevelMapping: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping) {
+		self.normalizedTimeRange = ENARange(from: normalizedTimeToRiskLevelMapping.normalizedTimeRange)
+		self.riskLevel = RiskLevel(from: normalizedTimeToRiskLevelMapping.riskLevel)
 	}
 
 	// MARK: - Internal
-
-	case low = 1
-	case high = 2
-
-	var eitherLowOrIncreasedRiskLevel: EitherLowOrIncreasedRiskLevel {
-		switch self {
-		case .low:
-			return .low
-		case .high:
-			return .increased
-		}
-	}
-
+	
+	let normalizedTimeRange: ENARange
+	let riskLevel: RiskLevel
+	
 }

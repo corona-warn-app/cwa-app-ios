@@ -21,9 +21,6 @@ import XCTest
 import ExposureNotification
 @testable import ENA
 
-private final class Summary: ENExposureDetectionSummary {}
-
-// swiftlint:disable:next type_body_length
 final class RiskProviderTests: XCTestCase {
 
 	func testExposureDetectionIsExecutedIfLastDetectionIsTooOldAndModeIsAutomatic() throws {
@@ -39,7 +36,7 @@ final class RiskProviderTests: XCTestCase {
 		))
 
 		let store = MockTestStore()
-		store.riskCalculationResult = RiskCalculationV2Result(
+		store.riskCalculationResult = RiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -95,74 +92,6 @@ final class RiskProviderTests: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
-	}
-
-	func testExposureDetectionIsNotExecutedIfTracingHasNotBeenEnabledLongEnough() throws {
-		let duration = DateComponents(day: 1)
-
-		let calendar = Calendar.current
-
-		let lastExposureDetectionDate = try XCTUnwrap(calendar.date(
-			byAdding: .day,
-			value: -3,
-			to: Date(),
-			wrappingComponents: false
-		))
-
-		let store = MockTestStore()
-		store.riskCalculationResult = RiskCalculationV2Result(
-			riskLevel: .low,
-			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: nil,
-			mostRecentDateWithHighRisk: nil,
-			calculationDate: lastExposureDetectionDate
-		)
-		// Tracing was only active for one hour, there is not enough data to calculate risk,
-		// and we might get a rate limit error (ex. user reinstalls the app - losing tracing history - and risk is requested again)
-		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(hours: -1)))]
-
-		let config = RiskProvidingConfiguration(
-			exposureDetectionValidityDuration: duration,
-			exposureDetectionInterval: duration,
-			detectionMode: .automatic
-		)
-
-		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
-
-		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
-		downloadedPackagesStore.open()
-		let client = ClientMock()
-		let keyPackageDownload = KeyPackageDownload(
-			downloadedPackagesStore: downloadedPackagesStore,
-			client: client,
-			wifiClient: client,
-			store: store
-		)
-
-		let riskProvider = RiskProvider(
-			configuration: config,
-			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(),
-			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(),
-			keyPackageDownload: keyPackageDownload,
-			exposureDetectionExecutor: exposureDetectionDelegateStub
-		)
-
-		let expectThatRiskIsReturned = expectation(description: "expectThatRiskIsReturned")
-		riskProvider.requestRisk(userInitiated: false) { result in
-
-			switch result {
-			case .success(let risk):
-				expectThatRiskIsReturned.fulfill()
-				XCTAssertEqual(risk.level, .unknownInitial, "Tracing was active for < 24 hours but risk is not .unknownInitial")
-				XCTAssertFalse(exposureDetectionDelegateStub.exposureWindowsWereDetected)
-			case .failure:
-				XCTFail("Failure not expected.")
-			}
-		}
 		waitForExpectations(timeout: 1.0)
 	}
 
@@ -283,7 +212,7 @@ final class RiskProviderTests: XCTestCase {
 		let store = MockTestStore()
 		store.shouldShowRiskStatusLoweredAlert = false
 
-		let riskProvider = try riskProviderChangingRiskLevel(from: .increased, to: .low, store: store)
+		let riskProvider = try riskProviderChangingRiskLevel(from: .high, to: .low, store: store)
 
 		let consumer = RiskConsumer()
 		riskProvider.observeRisk(consumer)
@@ -303,7 +232,7 @@ final class RiskProviderTests: XCTestCase {
 		let store = MockTestStore()
 		store.shouldShowRiskStatusLoweredAlert = true
 
-		let riskProvider = try riskProviderChangingRiskLevel(from: .increased, to: .low, store: store)
+		let riskProvider = try riskProviderChangingRiskLevel(from: .high, to: .low, store: store)
 
 		let consumer = RiskConsumer()
 		riskProvider.observeRisk(consumer)
@@ -323,7 +252,7 @@ final class RiskProviderTests: XCTestCase {
 		let store = MockTestStore()
 		store.shouldShowRiskStatusLoweredAlert = false
 
-		let riskProvider = try riskProviderChangingRiskLevel(from: .low, to: .increased, store: store)
+		let riskProvider = try riskProviderChangingRiskLevel(from: .low, to: .high, store: store)
 
 		let consumer = RiskConsumer()
 		riskProvider.observeRisk(consumer)
@@ -343,7 +272,7 @@ final class RiskProviderTests: XCTestCase {
 		let store = MockTestStore()
 		store.shouldShowRiskStatusLoweredAlert = true
 
-		let riskProvider = try riskProviderChangingRiskLevel(from: .low, to: .increased, store: store)
+		let riskProvider = try riskProviderChangingRiskLevel(from: .low, to: .high, store: store)
 
 		let consumer = RiskConsumer()
 		riskProvider.observeRisk(consumer)
@@ -399,11 +328,11 @@ final class RiskProviderTests: XCTestCase {
 		XCTAssertFalse(store.shouldShowRiskStatusLoweredAlert)
 	}
 
-	func testShouldShowRiskStatusLoweredAlertInitiallyTrueKeepsValueWhenRiskStatusStaysIncreased() throws {
+	func testShouldShowRiskStatusLoweredAlertInitiallyTrueKeepsValueWhenRiskStatusStaysHigh() throws {
 		let store = MockTestStore()
 		store.shouldShowRiskStatusLoweredAlert = true
 
-		let riskProvider = try riskProviderChangingRiskLevel(from: .increased, to: .increased, store: store)
+		let riskProvider = try riskProviderChangingRiskLevel(from: .high, to: .high, store: store)
 
 		let consumer = RiskConsumer()
 		riskProvider.observeRisk(consumer)
@@ -423,7 +352,7 @@ final class RiskProviderTests: XCTestCase {
 		let store = MockTestStore()
 		store.shouldShowRiskStatusLoweredAlert = false
 
-		let riskProvider = try riskProviderChangingRiskLevel(from: .increased, to: .increased, store: store)
+		let riskProvider = try riskProviderChangingRiskLevel(from: .high, to: .high, store: store)
 
 		let consumer = RiskConsumer()
 		riskProvider.observeRisk(consumer)
@@ -441,7 +370,7 @@ final class RiskProviderTests: XCTestCase {
 
 	// MARK: - Private
 
-	private func riskProviderChangingRiskLevel(from previousRiskLevel: EitherLowOrIncreasedRiskLevel, to newRiskLevel: EitherLowOrIncreasedRiskLevel, store: MockTestStore) throws -> RiskProvider {
+	private func riskProviderChangingRiskLevel(from previousRiskLevel: RiskLevel, to newRiskLevel: RiskLevel, store: MockTestStore) throws -> RiskProvider {
 		let duration = DateComponents(day: 2)
 
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
@@ -450,7 +379,7 @@ final class RiskProviderTests: XCTestCase {
 			Calendar.current.date(byAdding: .day, value: -1, to: Date(), wrappingComponents: false)
 		)
 
-		store.riskCalculationResult = RiskCalculationV2Result(
+		store.riskCalculationResult = RiskCalculationResult(
 			riskLevel: previousRiskLevel,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -491,19 +420,19 @@ final class RiskProviderTests: XCTestCase {
 
 }
 
-struct RiskCalculationFake: RiskCalculationV2Protocol {
+struct RiskCalculationFake: RiskCalculationProtocol {
 
-	internal init(riskLevel: EitherLowOrIncreasedRiskLevel = .low) {
+	internal init(riskLevel: RiskLevel = .low) {
 		self.riskLevel = riskLevel
 	}
 
-	let riskLevel: EitherLowOrIncreasedRiskLevel
+	let riskLevel: RiskLevel
 
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) throws -> RiskCalculationV2Result {
-		RiskCalculationV2Result(
+	) throws -> RiskCalculationResult {
+		RiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,

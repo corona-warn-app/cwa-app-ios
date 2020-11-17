@@ -23,7 +23,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: Properties
 	var buttonAction: (() -> Void)?
 
-	var riskProviderState: RiskProvider.ActivityState
+	var riskProviderState: RiskProviderActivityState
 	var isButtonEnabled: Bool
 	var isButtonHidden: Bool
 	var lastUpdateDate: Date?
@@ -57,7 +57,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
-		state: RiskProvider.ActivityState,
+		state: RiskProviderActivityState,
 		isButtonEnabled: Bool,
 		isButtonHidden: Bool,
 		lastUpdateDate: Date?,

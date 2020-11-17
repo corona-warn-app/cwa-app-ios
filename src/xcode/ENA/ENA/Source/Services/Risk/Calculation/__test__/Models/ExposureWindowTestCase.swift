@@ -18,16 +18,18 @@
 //
 
 import Foundation
-import ExposureNotification
+@testable import ENA
 
-struct SummaryMetadata: Codable {
-	let summary: CodableExposureDetectionSummary
-	let date: Date
-}
+struct ExposureWindowTestCase: Decodable {
 
-extension SummaryMetadata {
-	init(detectionSummary: ENExposureDetectionSummary, date: Date = Date()) {
-		self.summary = CodableExposureDetectionSummary(with: detectionSummary)
-		self.date = date
-	}
+	// MARK: - Internal
+
+	let description: String
+	let exposureWindows: [ExposureWindow]
+	let expTotalRiskLevel: RiskLevel
+	let expTotalMinimumDistinctEncountersWithLowRisk: Int
+	let expAgeOfMostRecentDateWithLowRisk: Int?
+	let expAgeOfMostRecentDateWithHighRisk: Int?
+	let expTotalMinimumDistinctEncountersWithHighRisk: Int
+
 }

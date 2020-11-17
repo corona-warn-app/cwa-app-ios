@@ -21,7 +21,8 @@ import UIKit
 
 extension ExposureDetectionViewController {
 	struct State {
-		var riskDetectionFailed: Bool
+
+		var riskState: RiskState
 
 		var exposureManagerState: ExposureManagerState = .init()
 
@@ -29,20 +30,35 @@ extension ExposureDetectionViewController {
 
 		var isTracingEnabled: Bool { exposureManagerState.enabled }
 		
-		var activityState: RiskProvider.ActivityState = .idle
+		var activityState: RiskProviderActivityState = .idle
 
-		var risk: Risk?
 		var riskLevel: RiskLevel {
-			risk?.level ?? .unknownInitial
+			if case .risk(let risk) = riskState {
+				return risk.level
+			}
+
+			return .low
 		}
 
-		let previousRiskLevel: EitherLowOrIncreasedRiskLevel?
+		var riskDetectionFailed: Bool {
+			riskState == .detectionFailed
+		}
+
+		var riskDetails: Risk.Details? {
+			if case .risk(let risk) = riskState {
+				return risk.details
+			}
+
+			return nil
+		}
+
+		let previousRiskLevel: RiskLevel?
 
 		var actualRiskText: String {
 			switch previousRiskLevel {
 			case .low:
 				return AppStrings.ExposureDetection.low
-			case .increased:
+			case .high:
 				return AppStrings.ExposureDetection.high
 			default:
 				return AppStrings.ExposureDetection.unknown
@@ -89,51 +105,36 @@ extension ExposureDetectionViewController {
 private extension RiskLevel {
 	var text: String {
 		switch self {
-		case .unknownInitial: return AppStrings.ExposureDetection.unknown
-		case .unknownOutdated: return AppStrings.ExposureDetection.unknown
-		case .inactive: return AppStrings.ExposureDetection.off
 		case .low: return AppStrings.ExposureDetection.low
-		case .increased: return AppStrings.ExposureDetection.high
+		case .high: return AppStrings.ExposureDetection.high
 		}
 	}
 
 	var backgroundColor: UIColor {
 		switch self {
-		case .unknownInitial: return .enaColor(for: .riskNeutral)
-		case .unknownOutdated: return .enaColor(for: .riskNeutral)
-		case .inactive: return .enaColor(for: .background)
 		case .low: return .enaColor(for: .riskLow)
-		case .increased: return .enaColor(for: .riskHigh)
+		case .high: return .enaColor(for: .riskHigh)
 		}
 	}
 
 	var tintColor: UIColor {
 		switch self {
-		case .unknownInitial: return .enaColor(for: .riskNeutral)
-		case .unknownOutdated: return .enaColor(for: .riskNeutral)
-		case .inactive: return .enaColor(for: .riskNeutral)
 		case .low: return .enaColor(for: .riskLow)
-		case .increased: return .enaColor(for: .riskHigh)
+		case .high: return .enaColor(for: .riskHigh)
 		}
 	}
 
 	var contrastTintColor: UIColor {
 		switch self {
-		case .unknownInitial: return .enaColor(for: .textContrast)
-		case .unknownOutdated: return .enaColor(for: .textContrast)
-		case .inactive: return .enaColor(for: .riskNeutral)
 		case .low: return .enaColor(for: .textContrast)
-		case .increased: return .enaColor(for: .textContrast)
+		case .high: return .enaColor(for: .textContrast)
 		}
 	}
 
 	var contrastTextColor: UIColor {
 		switch self {
-		case .unknownInitial: return .enaColor(for: .textContrast)
-		case .unknownOutdated: return .enaColor(for: .textContrast)
-		case .inactive: return .enaColor(for: .textPrimary1)
 		case .low: return .enaColor(for: .textContrast)
-		case .increased: return .enaColor(for: .textContrast)
+		case .high: return .enaColor(for: .textContrast)
 		}
 	}
 }

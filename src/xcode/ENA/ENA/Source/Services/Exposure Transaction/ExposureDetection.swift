@@ -71,7 +71,7 @@ final class ExposureDetection {
 		case .success(let exposureWindows):
 			didDetectExposureWindows(exposureWindows)
 		case .failure(let error):
-			endPrematurely(reason: .noSummary(error))
+			endPrematurely(reason: .noExposureWindows(error))
 		}
 	}
 
@@ -88,10 +88,10 @@ final class ExposureDetection {
             Log.info("ExposureDetection: Completed writing packages to file system.", log: .riskDetection)
 
 			if !self.deviceTimeCheck.isDeviceTimeCorrect {
-				Log.warning("ExposureDetection: Detecting summary skipped due to wrong device time.", log: .riskDetection)
+				Log.warning("ExposureDetection: Detecting exposure windows skipped due to wrong device time.", log: .riskDetection)
 				self.endPrematurely(reason: .wrongDeviceTime)
 			} else {
-				Log.info("ExposureDetection: Start detecting summary.", log: .riskDetection)
+				Log.info("ExposureDetection: Start detecting exposure windows.", log: .riskDetection)
 				let exposureConfiguration = ENExposureConfiguration(from: appConfiguration.exposureConfiguration)
 				self.detectExposureWindows(writtenPackages: writtenPackages, exposureConfiguration: exposureConfiguration)
 			}
@@ -115,7 +115,7 @@ final class ExposureDetection {
 		}
 	}
 
-	// Informs the delegate about a summary.
+	// Informs the delegate about the detected exposure windows.
 	private func didDetectExposureWindows(_ exposureWindows: [ENExposureWindow]) {
 		Log.info("ExposureDetection: Completed detecting exposure windows.", log: .riskDetection)
 
@@ -129,4 +129,5 @@ final class ExposureDetection {
 			self.completion = nil
 		}
 	}
+
 }

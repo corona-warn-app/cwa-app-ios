@@ -19,11 +19,11 @@
 
 import Foundation
 
-struct RiskCalculationV2Result: Codable {
+struct RiskCalculationResult: Codable {
 
 	// MARK: - Internal
 
-	let riskLevel: EitherLowOrIncreasedRiskLevel
+	let riskLevel: RiskLevel
 
 	let minimumDistinctEncountersWithLowRisk: Int
 	let minimumDistinctEncountersWithHighRisk: Int
@@ -37,7 +37,7 @@ struct RiskCalculationV2Result: Codable {
 		switch riskLevel {
 		case .low:
 			return minimumDistinctEncountersWithLowRisk
-		case .increased:
+		case .high:
 			return minimumDistinctEncountersWithHighRisk
 		}
 	}
@@ -46,7 +46,7 @@ struct RiskCalculationV2Result: Codable {
 		switch riskLevel {
 		case .low:
 			return mostRecentDateWithLowRisk
-		case .increased:
+		case .high:
 			return mostRecentDateWithHighRisk
 		}
 	}
@@ -57,13 +57,13 @@ extension Risk.Details {
 
 	init(
 		activeTracing: ActiveTracing,
-		riskCalculationResult: RiskCalculationV2Result?
+		riskCalculationResult: RiskCalculationResult
 	) {
 		self.init(
-			daysSinceLastExposure: riskCalculationResult?.mostRecentDateWithCurrentRiskLevel?.ageInDays,
-			numberOfExposures: riskCalculationResult?.minimumDistinctEncountersWithCurrentRiskLevel ?? 0,
+			daysSinceLastExposure: riskCalculationResult.mostRecentDateWithCurrentRiskLevel?.ageInDays,
+			numberOfExposures: riskCalculationResult.minimumDistinctEncountersWithCurrentRiskLevel,
 			activeTracing: activeTracing,
-			exposureDetectionDate: riskCalculationResult?.calculationDate
+			exposureDetectionDate: riskCalculationResult.calculationDate
 		)
 	}
 
@@ -73,13 +73,13 @@ extension Risk {
 
 	init(
 		activeTracing: ActiveTracing,
-		riskCalculationResult: RiskCalculationV2Result,
-		previousRiskCalculationResult: RiskCalculationV2Result? = nil
+		riskCalculationResult: RiskCalculationResult,
+		previousRiskCalculationResult: RiskCalculationResult? = nil
 	) {
 		let riskLevelHasChanged = previousRiskCalculationResult?.riskLevel != nil && riskCalculationResult.riskLevel != previousRiskCalculationResult?.riskLevel
 
 		self.init(
-			level: riskCalculationResult.riskLevel == .increased ? .increased : .low,
+			level: riskCalculationResult.riskLevel == .high ? .high : .low,
 			details: Details(activeTracing: activeTracing, riskCalculationResult: riskCalculationResult),
 			riskLevelHasChanged: riskLevelHasChanged
 		)
