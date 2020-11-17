@@ -84,6 +84,10 @@ class ExposureSubmissionTestResultViewModel {
 		// Update warn others model
 		self.warnOthersReminder.reset()
 	}
+	
+	func updateWarnOthers() {
+		warnOthersReminder.evaluateNotificationState(testResult: testResult)
+	}
 
 	// MARK: - Private
 
@@ -122,10 +126,6 @@ class ExposureSubmissionTestResultViewModel {
 	private func updateForCurrentTestResult() {
 		self.dynamicTableViewModel = DynamicTableViewModel([currentTestResultSection])
 		updateButtons()
-	}
-	
-	func updateWarnOthers() {
-		warnOthersReminder.evaluateNotificationState(testResult: testResult)
 	}
 	
 	private func updateButtons() {
