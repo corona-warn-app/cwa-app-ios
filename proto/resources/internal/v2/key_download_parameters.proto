@@ -1,6 +1,6 @@
 // This file is auto-generated, DO NOT make any changes here
 syntax = "proto3";
-package SAP.internal;
+package SAP.internal.v2;
 
 
 message KeyDownloadParametersIOS {

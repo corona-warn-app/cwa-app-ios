@@ -258,7 +258,12 @@ final class SecureStore: Store {
 		get { kvStore["lastKeyPackageDownloadDate"] as Date? ?? .distantPast }
 		set { kvStore["lastKeyPackageDownloadDate"] = newValue }
 	}
-
+	
+	var isSubmissionConsentGiven: Bool {
+		get { kvStore["isSubmissionConsentGiven"] as Bool? ?? false }
+		set { kvStore["isSubmissionConsentGiven"] = newValue }
+	}
+	
 	#if !RELEASE
 
 	// Settings from the debug menu.
@@ -269,6 +274,24 @@ final class SecureStore: Store {
 	}
 
 	#endif
+}
+
+extension SecureStore {
+
+	var warnOthersNotificationOneTimer: TimeInterval {
+		get { kvStore["warnOthersNotificationTimerOne"] as TimeInterval? ?? WarnOthersNotificationsTimeInterval.intervalOne }
+		set { kvStore["warnOthersNotificationTimerOne"] = newValue }
+	}
+	
+	var warnOthersNotificationTwoTimer: TimeInterval {
+		get { kvStore["warnOthersNotificationTimerTwo"] as TimeInterval? ?? WarnOthersNotificationsTimeInterval.intervalTwo }
+		set { kvStore["warnOthersNotificationTimerTwo"] = newValue }
+	}
+	
+	var warnOthersHasActiveTestResult: Bool {
+		get { kvStore["warnOthersHasActiveTestResult"] as Bool? ?? false }
+		set { kvStore["warnOthersHasActiveTestResult"] = newValue }
+	}
 }
 
 extension SecureStore: AppConfigCaching {
@@ -303,7 +326,6 @@ extension SecureStore {
 	private convenience init(subDirectory: String, isRetry: Bool, serverEnvironment: ServerEnvironment) {
 		// swiftlint:disable:next force_try
 		let keychain = try! KeychainHelper()
-
 		do {
 			let directoryURL = try SecureStore.databaseDirectory(at: subDirectory)
 			let fileManager = FileManager.default

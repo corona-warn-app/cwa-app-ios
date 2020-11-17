@@ -27,6 +27,20 @@ class ExposureSubmissionServiceTests: XCTestCase {
 	let keys = [ENTemporaryExposureKey()]
 
 	// MARK: - Exposure Submission Tests
+	
+	func testIsisAutomaticSubmissionConsentGiven_correctValueExchangeBetweenServiceAndStore() {
+		
+		let store = MockTestStore()
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let client = ClientMock()
+		
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
+		
+		XCTAssertFalse(service.isSubmissionConsentGiven, "Expected value is 'false'")
+		
+		service.isSubmissionConsentGiven = true
+		XCTAssertTrue(store.isSubmissionConsentGiven, "Expected store value is 'true'")
+	}
 
 	func testSubmitExposure_Success() {
 		// Arrange

@@ -19,6 +19,10 @@ import Foundation
 @testable import ENA
 
 final class MockTestStore: Store, AppConfigCaching {
+	
+	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
+	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
+	var warnOthersHasActiveTestResult: Bool = false
 	var isAllowedToPerformBackgroundFakeRequests = false
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
@@ -59,6 +63,7 @@ final class MockTestStore: Store, AppConfigCaching {
 	var lastKeyPackageDownloadDate: Date = .distantPast
 	var isDeviceTimeCorrect = true
 	var wasDeviceTimeErrorShown = false
+	var isSubmissionConsentGiven = false
 
 	#if !RELEASE
 	// Settings from the debug menu.

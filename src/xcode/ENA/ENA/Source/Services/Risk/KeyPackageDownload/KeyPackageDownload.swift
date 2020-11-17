@@ -204,6 +204,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 				let deltaPackages = self.serverDelta(country: countryId, for: Set(availablePackages), downloadMode: downloadMode)
 
 				guard !deltaPackages.isEmpty else {
+					Log.info("KeyPackageDownload: Key packages are up to date. No download is triggered.", log: .riskDetection)
 					completion(.success(()))
 					return
 				}
@@ -217,10 +218,12 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 
 						switch result {
 						case .success:
+							Log.info("KeyPackageDownload: Downloaded key packages from server.", log: .riskDetection)
 							self.store.lastKeyPackageDownloadDate = Date()
 
 							completion(.success(()))
 						case .failure(let error):
+							Log.info("KeyPackageDownload: Failed downloading key packages from server.", log: .riskDetection)
 							completion(.failure(error))
 						}
 					case .failure(let error):
@@ -308,10 +311,17 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 	}
 
 	private func cleanupPackages(for countryId: Country.ID, serverPackages: [String], downloadMode: DownloadMode) {
+		Log.info("KeyPackageDownload: Start cleanup key packages.", log: .riskDetection)
 
 		let localDeltaPackages = self.localDelta(country: countryId, for: Set(serverPackages), downloadMode: downloadMode)
 
+		guard !localDeltaPackages.isEmpty else {
+			Log.info("KeyPackageDownload: No key packages removed during cleanup.", log: .riskDetection)
+			return
+		}
+
 		for package in localDeltaPackages {
+			Log.info("KeyPackageDownload: Key package removed during cleanup.", log: .riskDetection)
 			switch downloadMode {
 			case .daily:
 				downloadedPackagesStore.deleteDayPackage(for: package, country: countryId)

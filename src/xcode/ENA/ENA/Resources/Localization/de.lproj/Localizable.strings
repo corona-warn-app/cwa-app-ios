@@ -544,7 +544,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionIntroduction_ListItem4" = "Wenn Sie keine TAN haben, können Sie diese telefonisch anfragen.";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_Title" = "Testergebnis";
+"ExposureSubmissionResult_Title" = "Ihr Testergebnis";
 
 "ExposureSubmissionResult_CardSubTitle" = "IHR BEFUND";
 
@@ -560,9 +560,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_Procedure" = "Info zum Ablauf:";
 
-"ExposureSubmissionResult_testAdded" = "Test erfolgreich hinzugefügt";
+"ExposureSubmissionResult_testAdded" = "Ihr Test wurde hinzugefügt.";
 
+// (PUM) Need to delete these keys after CI Approval
 "ExposureSubmissionResult_testAddedDesc" = "Ihr Test wurde in der Corona-Warn-App registriert.";
+// (PUM) Need to delete these keys after CI Approval
 
 "ExposureSubmissionResult_warnOthers" = "Andere warnen";
 
@@ -590,13 +592,21 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testExpiredDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Ihr QR Code ist bereits abgelaufen.";
 
-"ExposureSubmissionResult_testPending" = "Testergebnis noch nicht verfügbar";
+"ExposureSubmissionResult_testPending" = "Ihr Testergebnis liegt noch nicht vor.";
 
+"ExposureSubmissionResult_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
+
+// (PUM) Need to delete these keys after CI Approval
 "ExposureSubmissionResult_testPendingDesc_paragraph1" = "Bitte gedulden Sie sich, die Auswertung kann einige Tage dauern.\n\n";
 
 "ExposureSubmissionResult_testPendingDesc_paragraph2" = "Sie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls Ihr Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.\n\n";
 
 "ExposureSubmissionResult_testPendingDesc_paragraph3" = "Falls Ihnen außerhalb der App ein positives Testergebnis mitgeteilt wurde, rufen Sie bitte die unter \"TAN anfragen\" angegebene Nummer an, um Ihr Testergebnis in der App registrieren und andere damit warnen zu können.";
+// (PUM) Need to delete these keys after CI Approval
+
+"ExposureSubmissionResult_WarnOthersConsentGiven" = "Einverständnis „Andere warnen“ erteilt";
+
+"ExposureSubmissionResult_WarnOthersConsentNotGiven" = "Einverständnis „Andere warnen“ nicht erteilt";
 
 "ExposureSubmissionResult_testRemove" = "Test entfernen";
 
@@ -688,7 +698,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registrierungsdatum unbekannt";
 
-"ExposureSubmissionResult_RegistrationDate" = "Registriert am";
+"ExposureSubmissionResult_RegistrationDate" = "Test hinzugefügt am";
 
 /* Exposure Submission */
 
@@ -1173,9 +1183,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "RiskLegend_Check_Text" = "Abfrage der Begegnungs-Aufzeichnung und Abgleich mit den gemeldeten Infektionen anderer Nutzerinnen und Nutzer. Die Risiko-Überprüfung erfolgt ungefähr alle zwei Stunden automatisch.";
 
-"RiskLegend_Contact_Title" = "Risiko-Begegnungen";
+"RiskLegend_Contact_Title" = "Risiko-Begegnung";
 
-"RiskLegend_Contact_Text" = "Jene Begegnungen mit einer Corona-positiv getesteten Person, die über einen längeren Zeitraum und in geringer Distanz stattfanden.";
+"RiskLegend_Contact_Text" = "Begegnung mit einer infizierten Person, die ihr positives Testergebnis über die App mit anderen geteilt hat. Eine Begegnung muss bestimmte Kriterien hinsichtlich Dauer, Abstand und vermuteter Infektiosität der anderen Person erfüllen, um als Risiko-Begegnung eingestuft zu werden.";
 
 "RiskLegend_Notification_Title" = "Risiko-Benachrichtigung";
 
@@ -1234,4 +1244,24 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Warn other notifications */
 "WarnOthersNotification_Title" = "Helfen Sie mit!";
 "WarnOthersNotification_Description" = "Bitte warnen Sie andere und teilen Sie Ihr Testergebnis.";
+
+/* Automatic sharing Consent */
+"AutomaticSharingConsent_Title" = "Ihr Einverständnis";
+
+"AutomaticSharingConsent_SwitchTitle" = "Andere warnen";
+
+"AutomaticSharingConsent_SwitchTitleDesc" = "Sie haben sich wie folgt einverstanden erklärt:";
+
+"AutomaticSharingConsent_Subtitle" = "Einverständnis";
+
+"AutomaticSharingConsent_DescriptionPart1" = "Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer zu warnen, denen Sie begegnet sind.";
+
+"AutomaticSharingConsent_DescriptionPart2" = "Die Warnung erreicht Nutzer von offiziellen Corona-Apps der folgenden teilnehmenden Länder:";
+
+"AutomaticSharingConsent_DescriptionPart3" = "Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
+
+"AutomaticSharingConsent_DescriptionPart4" = "Sie können Ihr Einverständnis zurücknehmen, indem Sie oben „Andere warnen“ deaktivieren.";
+
+"AutomaticSharingConsent_DataProcessingDetailInfo" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis.";
+
 
