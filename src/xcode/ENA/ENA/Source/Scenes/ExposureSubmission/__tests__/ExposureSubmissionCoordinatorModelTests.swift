@@ -1,26 +1,10 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import XCTest
 @testable import ENA
 
-// swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
@@ -57,16 +41,12 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			XCTAssertEqual(visitedCountries, [Country(countryCode: "DE"), Country(countryCode: "IT"), Country(countryCode: "ES")])
 		}
 
-		var config = SAP_Internal_ApplicationConfiguration()
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = ["DE", "IT", "ES"]
-
-		let provider = CachedAppConfigurationMock(
-			appConfigurationResult: .success(config)
-		)
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: provider
+			appConfigurationProvider: CachedAppConfigurationMock(with: config)
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -103,16 +83,12 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			XCTAssertEqual(visitedCountries, [Country(countryCode: "DE")])
 		}
 
-		var config = SAP_Internal_ApplicationConfiguration()
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = []
-
-		let provider = CachedAppConfigurationMock(
-			appConfigurationResult: .success(config)
-		)
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: provider
+			appConfigurationProvider: CachedAppConfigurationMock(with: config)
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -140,49 +116,6 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
 		XCTAssertEqual(model.supportedCountries, [Country(countryCode: "DE")])
-	}
-
-	func testCheckStateAndLoadCountriesSupportedCountriesLoadFails() {
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.preconditionsCallback = { ExposureManagerState(authorized: true, enabled: true, status: .active) }
-		exposureSubmissionService.submitExposureCallback = { _, visitedCountries, _ in
-			XCTAssert(visitedCountries.isEmpty)
-		}
-
-		let provider = CachedAppConfigurationMock(
-			appConfigurationResult: .failure(CachedAppConfiguration.CacheError.dataFetchError(message: "fake"))
-		)
-
-		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: provider
-		)
-
-		let expectedIsLoadingValues = [true, false]
-		var isLoadingValues = [Bool]()
-
-		let isLoadingExpectation = expectation(description: "isLoading is called twice")
-		isLoadingExpectation.expectedFulfillmentCount = 2
-
-		let onSuccessExpectation = expectation(description: "onSuccess is not called")
-		onSuccessExpectation.isInverted = true
-
-		let onErrorExpectation = expectation(description: "onError is called")
-
-		model.checkStateAndLoadCountries(
-			isLoading: {
-				isLoadingValues.append($0)
-				isLoadingExpectation.fulfill()
-			},
-			onSuccess: { onSuccessExpectation.fulfill() },
-			onError: { _ in onErrorExpectation.fulfill() }
-		)
-
-		waitForExpectations(timeout: .short)
-		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
-
-		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
-		XCTAssert(model.supportedCountries.isEmpty)
 	}
 
 	func testCheckStateAndLoadCountriesStateCheckFails() {

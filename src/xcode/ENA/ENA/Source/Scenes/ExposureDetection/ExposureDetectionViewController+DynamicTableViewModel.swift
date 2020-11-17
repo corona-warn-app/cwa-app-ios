@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import Foundation
 import UIKit
@@ -29,11 +16,8 @@ extension ExposureDetectionViewController {
 		}
 
 		switch riskLevel {
-		case .unknownInitial: return unknownRiskModel
-		case .unknownOutdated: return outdatedRiskModel
-		case .inactive: return offModel
 		case .low: return lowRiskModel
-		case .increased: return highRiskModel
+		case .high: return highRiskModel
 		}
 	}
 }
@@ -109,15 +93,14 @@ private extension DynamicCell {
 	static func riskContacts(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			let state = viewController.state
-			let risk = state.risk
-			cell.textLabel?.text = String(format: text, risk?.details.numberOfExposures ?? 0)
+			cell.textLabel?.text = String(format: text, state.riskDetails?.numberOfExposures ?? 0)
 			cell.imageView?.image = image
 		}
 	}
 
 	static func riskLastExposure(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
-			let daysSinceLastExposure = viewController.state.risk?.details.daysSinceLastExposure ?? 0
+			let daysSinceLastExposure = viewController.state.riskDetails?.daysSinceLastExposure ?? 0
 			cell.textLabel?.text = .localizedStringWithFormat(text, daysSinceLastExposure)
 			cell.imageView?.image = image
 		}
@@ -126,7 +109,7 @@ private extension DynamicCell {
 	static func riskStored(activeTracing: ActiveTracing, imageName: String) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			let state = viewController.state
-			var numberOfDaysStored = state.risk?.details.numberOfDaysWithActiveTracing ?? 0
+			var numberOfDaysStored = state.riskDetails?.numberOfDaysWithActiveTracing ?? 0
 			cell.textLabel?.text = activeTracing.localizedDuration
 			if numberOfDaysStored < 0 { numberOfDaysStored = 0 }
 			if numberOfDaysStored > 13 {
@@ -140,7 +123,7 @@ private extension DynamicCell {
 	static func riskRefreshed(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			var valueText: String
-			if let date: Date = viewController.state.risk?.details.exposureDetectionDate {
+			if let date: Date = viewController.state.riskDetails?.exposureDetectionDate {
 				valueText = relativeDateTimeFormatter.string(from: date)
 			} else {
 				valueText = AppStrings.ExposureDetection.refreshedNever
@@ -288,7 +271,7 @@ extension ExposureDetectionViewController {
 			comment: ""
 		)
 
-		let p1 = state.risk?.details.activeTracing.exposureDetectionActiveTracingSectionTextParagraph1 ?? ""
+		let p1 = state.riskDetails?.activeTracing.exposureDetectionActiveTracingSectionTextParagraph1 ?? ""
 
 		let body = [p0, p1].joined(separator: "\n\n")
 
@@ -339,7 +322,7 @@ extension ExposureDetectionViewController {
 	}
 
 	private func highRiskExplanationSection(daysSinceLastExposureText: String, explanationText: String, isActive: Bool, accessibilityIdentifier: String?) -> DynamicSection {
-		let daysSinceLastExposure = state.risk?.details.daysSinceLastExposure ?? 0
+		let daysSinceLastExposure = state.riskDetails?.daysSinceLastExposure ?? 0
 		return .section(
 			header: .backgroundSpace(height: 8),
 			footer: .backgroundSpace(height: 16),
@@ -396,41 +379,9 @@ extension ExposureDetectionViewController {
 		])
 	}
 
-	private var outdatedRiskModel: DynamicTableViewModel {
-		DynamicTableViewModel([
-			riskDataSection(
-				cells: [
-					.riskText(text: AppStrings.ExposureDetection.outdatedText),
-					.riskLastRiskLevel(hasSeparator: false, text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "Icons_LetzteErmittlung-Light")),
-					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
-				]
-			),
-			riskLoadingSection,
-			standardGuideSection,
-			explanationSection(
-				text: AppStrings.ExposureDetection.explanationTextOutdated,
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextOutdated
-			)
-		])
-	}
-
-	private var unknownRiskModel: DynamicTableViewModel {
-		DynamicTableViewModel([
-			riskDataSection(cells: [
-				.riskText(text: AppStrings.ExposureDetection.unknownText)
-			]),
-			riskLoadingSection,
-			standardGuideSection,
-			explanationSection(
-				text: AppStrings.ExposureDetection.explanationTextUnknown,
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextUnknown
-			)
-		])
-	}
-
 	private var lowRiskModel: DynamicTableViewModel {
-		let activeTracing = state.risk?.details.activeTracing ?? .init(interval: 0)
-		let numberOfExposures = state.risk?.details.numberOfExposures ?? 0
+		let activeTracing = state.riskDetails?.activeTracing ?? .init(interval: 0)
+		let numberOfExposures = state.riskDetails?.numberOfExposures ?? 0
 
 		return DynamicTableViewModel([
 			riskDataSection(
@@ -458,7 +409,7 @@ extension ExposureDetectionViewController {
 	}
 
 	private var highRiskModel: DynamicTableViewModel {
-		let activeTracing = state.risk?.details.activeTracing ?? .init(interval: 0)
+		let activeTracing = state.riskDetails?.activeTracing ?? .init(interval: 0)
 		return DynamicTableViewModel([
 			riskDataSection(cells: [
 				.riskContacts(text: AppStrings.Home.riskCardHighNumberContactsItemTitle, image: UIImage(named: "Icons_RisikoBegegnung")),

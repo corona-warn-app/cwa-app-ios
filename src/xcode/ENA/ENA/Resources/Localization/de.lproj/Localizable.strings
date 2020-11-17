@@ -858,8 +858,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Activate_Card_Bluetooth_Off_Title" = "Bluetooth deaktiviert";
 
-"Home_Activate_Card_Internet_Off_Title" = "Keine Internetverbindung";
-
 /* Home common card */
 "Home_Risk_Date_Item_Title" = "Aktualisiert: %@";
 
@@ -878,12 +876,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Home_Risk_Last_Activate_Item_High_Title" = "Erhöhtes Risiko";
 
 "Home_RiskCard_Update_Button" = "Aktualisieren";
-
-/* Home Unknown card */
-"Home_RiskCard_Unknown_Item_Title" = "Da Sie Ihre Begegnungs-Aufzeichnung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
-
-/* Home Unknown 48 card */
-"Home_RiskCard_Unknown48h_Body" = "Ihre Risiko-Berechnung wurde seit mehr als 48 Stunden nicht aktualisiert. Bitte aktualisieren Sie die Berechnung.";
 
 /* Home Inactive card */
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "Risiko-Ermittlung gestoppt";

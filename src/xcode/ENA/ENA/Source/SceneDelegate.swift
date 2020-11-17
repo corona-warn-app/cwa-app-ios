@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import BackgroundTasks
 import ExposureNotification
@@ -42,37 +29,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		#endif
 
 		exposureManager.observeExposureNotificationStatus(observer: self)
-
-		riskConsumer.didCalculateRisk = { [weak self] risk in
-			self?.state.risk = risk
-			self?.state.riskDetectionFailed = false
-
-			#if DEBUG
-			if isUITesting, let uiTestRiskLevelEnv = UserDefaults.standard.string(forKey: "riskLevel") {
-				var uiTestRiskLevel: RiskLevel
-				var uiTestExposureNumber = 100
-				switch uiTestRiskLevelEnv {
-				case "increased":
-					uiTestRiskLevel = RiskLevel.increased
-				case "low":
-					uiTestRiskLevel = RiskLevel.low
-					uiTestExposureNumber = 7
-				case "unknownInitial":
-					uiTestRiskLevel = RiskLevel.unknownInitial
-				case "unknownOutdated":
-					uiTestRiskLevel = RiskLevel.unknownOutdated
-				default:
-					uiTestRiskLevel = RiskLevel.inactive
-
-				}
-				let uiTestRisk = Risk(level: uiTestRiskLevel, details: .init(daysSinceLastExposure: 1, numberOfExposures: uiTestExposureNumber, activeTracing: .init(interval: 14 * 86400), exposureDetectionDate: nil), riskLevelHasChanged: false)
-				self?.state.risk = uiTestRisk
-			}
-			#endif
-		}
-		riskConsumer.didFailCalculateRisk = {  [weak self] _ in
-			self?.state.riskDetectionFailed = true
-		}
 
 		riskProvider.observeRisk(riskConsumer)
 
@@ -116,7 +72,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	) {
 		// Add the new state to the history
 		store.tracingStatusHistory = store.tracingStatusHistory.consumingState(newState)
-		riskProvider.exposureManagerState = newState
 
 		let message = """
 		New status of EN framework:
@@ -127,7 +82,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		"""
 		Log.info(message, log: .api)
 
-		state.exposureManager = newState
 		updateExposureState(newState)
 	}
 
@@ -192,15 +146,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	// MARK: - Internal
-
-	var state: State = State(exposureManager: .init(), detectionMode: currentDetectionMode, risk: nil, riskDetectionFailed: false) {
-		didSet {
-			coordinator.updateState(
-				detectionMode: state.detectionMode,
-				exposureManagerState: state.exposureManager
-			)
-		}
-	}
 
 	func requestUpdatedExposureState() {
 		let state = exposureManager.preconditions()
@@ -271,7 +216,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			fatalError("It should not happen.")
 		}
 
-		coordinator.showHome(enStateHandler: enStateHandler, state: state)
+		coordinator.showHome(enStateHandler: enStateHandler)
 	}
 	
 	private func showPositiveTestResultFromNotification(animated _: Bool = false) {
@@ -308,8 +253,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	@objc
 	private func backgroundRefreshStatusDidChange() {
-		let detectionMode: DetectionMode = currentDetectionMode
-		state.detectionMode = detectionMode
+		coordinator.updateDetectionMode(currentDetectionMode)
 	}
 
 	// MARK: Privacy Protection
