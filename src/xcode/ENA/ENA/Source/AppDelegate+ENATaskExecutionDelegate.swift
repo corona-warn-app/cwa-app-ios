@@ -71,6 +71,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	/// This method performs a check for the current exposure detection state. Only if the risk level has changed compared to the
 	/// previous state, a local notification is shown.
 	private func executeExposureDetectionRequest(completion: @escaping ((Bool) -> Void)) {
+		Log.info("[ENATaskExecutionDelegate] Execute exposure detection.", log: .riskDetection)
 
 		// At this point we are already in background so it is safe to assume background mode is available.
 		riskProvider.riskProvidingConfiguration.detectionMode = .fromBackgroundStatus(.available)
@@ -79,6 +80,8 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		riskProvider.observeRisk(backgroundTaskConsumer)
 
 		backgroundTaskConsumer.didCalculateRisk = { [weak self] risk in
+			Log.info("[ENATaskExecutionDelegate] Execute exposure detection did calculate risk.", log: .riskDetection)
+
 			guard let self = self else { return }
 			if risk.riskLevelHasChanged {
 				UNUserNotificationCenter.current().presentNotification(
@@ -86,10 +89,13 @@ extension AppDelegate: ENATaskExecutionDelegate {
 					body: AppStrings.LocalNotifications.detectExposureBody,
 					identifier: ActionableNotificationIdentifier.riskDetection.identifier
 				)
+				Log.info("[ENATaskExecutionDelegate] Risk has changed.", log: .riskDetection)
 				completion(true)
 			} else {
+				Log.info("[ENATaskExecutionDelegate] Risk has not changed.", log: .riskDetection)
 				completion(false)
 			}
+
 			self.riskProvider.removeRisk(self.backgroundTaskConsumer)
 		}
 
@@ -97,9 +103,13 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			guard let self = self else { return }
 
 			// Ignore already running errors.
+			// In other words: if the RiskProvider is already running, we wait for other callbacks.
 			guard !error.isAlreadyRunningError else {
+				Log.info("[ENATaskExecutionDelegate] Ignore already running error.", log: .riskDetection)
 				return
 			}
+
+			Log.error("[ENATaskExecutionDelegate] Exposure detection failed.", log: .riskDetection, error: error)
 
 			switch error {
 			case .failedRiskDetection(let reason):
@@ -120,5 +130,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			completion(false)
 			self.riskProvider.removeRisk(self.backgroundTaskConsumer)
 		}
+
+		riskProvider.requestRisk(userInitiated: false)
 	}
 }
