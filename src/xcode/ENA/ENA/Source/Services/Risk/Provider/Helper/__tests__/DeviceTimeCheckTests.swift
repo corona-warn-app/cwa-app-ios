@@ -129,7 +129,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 	}
 
 	private func makeAppConfig(killSwitchIsOn: Bool) -> AppConfigMetadata {
-		var killSwitchFeature = SAP_Internal_AppFeature()
+		var killSwitchFeature = SAP_Internal_V2_AppFeature()
 		killSwitchFeature.label = "disable-device-time-check"
 		killSwitchFeature.value = killSwitchIsOn ? 1 : 0
 

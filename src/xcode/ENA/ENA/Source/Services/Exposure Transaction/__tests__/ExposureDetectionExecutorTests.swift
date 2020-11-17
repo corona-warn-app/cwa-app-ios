@@ -13,7 +13,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		AppConfigMetadata(
 			lastAppConfigETag: "ETag",
 			lastAppConfigFetch: Date(),
-			appConfig: SAP_Internal_ApplicationConfiguration()
+			appConfig: SAP_Internal_V2_ApplicationConfigurationIOS()
 		)
 	}
 

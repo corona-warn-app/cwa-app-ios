@@ -20,6 +20,7 @@
 #if !RELEASE
 
 import UIKit
+import Combine
 
 class DMAppConfigurationViewController: UIViewController {
 
@@ -66,6 +67,8 @@ class DMAppConfigurationViewController: UIViewController {
 	private let appConfiguration: AppConfigurationProviding
 
 	private let textView = UITextView()
+	
+	private var subscriptions = [AnyCancellable]()
 
 	private func setUp() {
 		title = "🔬 App Configuration"
@@ -82,14 +85,9 @@ class DMAppConfigurationViewController: UIViewController {
 			view.bottomAnchor.constraint(equalTo: textView.bottomAnchor)
 		])
 
-		appConfiguration.appConfiguration { [weak self] result in
-			switch result {
-			case .success(let appConfig):
-				self?.textView.text = appConfig.textFormatString()
-			case .failure(let error):
-				self?.textView.text = error.localizedDescription
-			}
-		}
+		appConfiguration.appConfiguration().sink { [weak self] appConfig in
+			self?.textView.text = appConfig.textFormatString()
+		}.store(in: &subscriptions)
 	}
 
 	@objc

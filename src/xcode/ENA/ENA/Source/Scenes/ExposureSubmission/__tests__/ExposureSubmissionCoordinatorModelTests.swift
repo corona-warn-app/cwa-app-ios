@@ -86,13 +86,9 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = []
 
-		let provider = CachedAppConfigurationMock(
-			appConfigurationResult: .success(config)
-		)
-
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
+			appConfigurationProvider: CachedAppConfigurationMock(with: config)
 		)
 
 		let expectedIsLoadingValues = [true, false]

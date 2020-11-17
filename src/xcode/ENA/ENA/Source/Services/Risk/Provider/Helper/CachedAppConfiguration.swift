@@ -9,7 +9,7 @@ import ZIPFoundation
 final class CachedAppConfiguration {
 
 	private struct AppConfigResponse {
-		let config: SAP_Internal_ApplicationConfiguration
+		let config: SAP_Internal_V2_ApplicationConfigurationIOS
 		let etag: String?
 	}
 
@@ -20,7 +20,7 @@ final class CachedAppConfiguration {
 		case notModified
 	}
 
-	@Published var configuration: SAP_Internal_ApplicationConfiguration?
+	@Published var configuration: SAP_Internal_V2_ApplicationConfigurationIOS?
 
 	/// A reference to the key package store to directly allow removal of invalidated key packages
 	weak var packageStore: DownloadedPackagesStore?
@@ -95,7 +95,6 @@ final class CachedAppConfiguration {
 						// no further action - yet
 					}
 
-					self.configurationDidChange?()
 				case .failure(let error):
 					switch error {
 					case CachedAppConfiguration.CacheError.notModified where self.store.appConfigMetadata != nil:
@@ -148,7 +147,7 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 
 	fileprivate static let timestampKey = "LastAppConfigFetch"
 
-	func appConfiguration(forceFetch: Bool = false) -> AnyPublisher<SAP_Internal_ApplicationConfiguration, Never> {
+	func appConfiguration(forceFetch: Bool = false) -> AnyPublisher<SAP_Internal_V2_ApplicationConfigurationIOS, Never> {
 		let force = shouldFetch() || forceFetch
 
 		if let cachedVersion = store.appConfigMetadata?.appConfig, !force {
@@ -167,7 +166,7 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 		}
 	}
 
-	func appConfiguration() -> AnyPublisher<SAP_Internal_ApplicationConfiguration, Never> {
+	func appConfiguration() -> AnyPublisher<SAP_Internal_V2_ApplicationConfigurationIOS, Never> {
 		return appConfiguration(forceFetch: false)
 	}
 

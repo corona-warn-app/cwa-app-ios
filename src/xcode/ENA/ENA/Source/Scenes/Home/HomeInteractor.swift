@@ -99,9 +99,9 @@ final class HomeInteractor: RequiresAppDependencies {
 
             switch error {
             case .inactive:
-                self?.state.riskState = .inactive
+				self.state.riskState = .inactive
             default:
-                self?.state.riskState = .detectionFailed
+				self.state.riskState = .detectionFailed
             }
 
 			self.reloadActionSection()
@@ -187,8 +187,8 @@ final class HomeInteractor: RequiresAppDependencies {
 		case .failedKeyPackageDownload(let keyPackageDownloadError):
 			return keyPackageDownloadError == .downloadIsRunning
 		case .failedRiskDetection(let didEndPrematuralyReason):
-			if case let .noSummary(summaryError) = didEndPrematuralyReason {
-				if let exposureDetectionError = summaryError as? ExposureDetectionError {
+			if case let .noExposureWindows(exposureWindowsError) = didEndPrematuralyReason {
+				if let exposureDetectionError = exposureWindowsError as? ExposureDetectionError {
 					return exposureDetectionError == .isAlreadyRunning
 				}
 			}

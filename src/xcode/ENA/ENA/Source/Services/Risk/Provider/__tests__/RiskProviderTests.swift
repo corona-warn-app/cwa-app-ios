@@ -263,7 +263,7 @@ final class RiskProviderTests: XCTestCase {
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
 		consumer.didCalculateRisk = { risk in
 			XCTAssertTrue(risk.riskLevelHasChanged)
-			XCTAssertEqual(risk.level, .increased)
+			XCTAssertEqual(risk.level, .high)
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -331,7 +331,7 @@ final class RiskProviderTests: XCTestCase {
 		XCTAssertTrue(store.shouldShowRiskStatusLoweredAlert)
 	}
 
-	func testShouldShowRiskStatusLoweredAlertInitiallyFalseKeepsValueWhenRiskStatusStaysIncrease() throws {
+	func testShouldShowRiskStatusLoweredAlertInitiallyFalseKeepsValueWhenRiskStatusStaysHigh() throws {
 		let store = MockTestStore()
 		store.shouldShowRiskStatusLoweredAlert = false
 
@@ -345,7 +345,7 @@ final class RiskProviderTests: XCTestCase {
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
 		consumer.didCalculateRisk = { risk in
 			XCTAssertFalse(risk.riskLevelHasChanged)
-			XCTAssertEqual(risk.level, .increased)
+			XCTAssertEqual(risk.level, .high)
 			didCalculateRiskExpectation.fulfill()
 		}
 
@@ -381,7 +381,7 @@ final class RiskProviderTests: XCTestCase {
 
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 
-		let appConfigurationProvider = CachedAppConfigurationMock(appConfigurationResult: .success(SAP_Internal_V2_ApplicationConfigurationIOS()))
+		let appConfigurationProvider = CachedAppConfigurationMock()
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
 		downloadedPackagesStore.open()

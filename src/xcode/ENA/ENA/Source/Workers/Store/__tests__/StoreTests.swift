@@ -201,6 +201,7 @@ final class StoreTests: XCTestCase {
 
 	func testConfigCaching() throws {
 		let store = SecureStore(subDirectory: "test", serverEnvironment: ServerEnvironment())
+		store.appConfigMetadata = nil
 		XCTAssertNil(store.appConfigMetadata)
 
 		let tag = "fake_\(Int.random(in: 100...999))"

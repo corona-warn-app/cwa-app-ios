@@ -61,6 +61,7 @@ final class RiskProvider: RiskProviding {
 	}
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
+	/// The completion is only used for the background fetch. Please use a consumer to get state updates.
 	func requestRisk(userInitiated: Bool) {
 		requestRisk(userInitiated: userInitiated, completion: nil)
 	}
@@ -109,6 +110,8 @@ final class RiskProvider: RiskProviding {
 	private var keyPackageDownload: KeyPackageDownloadProtocol
 	private var exposureDetection: ExposureDetection?
 
+	private var subscriptions = [AnyCancellable]()
+	
 	private var _consumers: [RiskConsumer] = []
 	private var consumers: [RiskConsumer] {
 		get { consumersQueue.sync { _consumers } }
@@ -128,36 +131,33 @@ final class RiskProvider: RiskProviding {
 	private func _requestRiskLevel(userInitiated: Bool, completion: Completion?) {
 		let group = DispatchGroup()
 		group.enter()
-		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
+		appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
 			guard let self = self else { return }
-
-			switch result {
-			case .success(let appConfiguration):
-				self.updateRiskProvidingConfiguration(with: appConfiguration)
-
-				self.downloadKeyPackages { [weak self] result in
-					guard let self = self else { return }
-
-					switch result {
-					case .success:
-						self.determineRisk(
-							userInitiated: userInitiated,
-							appConfiguration: appConfiguration) { result in
-
-							switch result {
-							case .success(let risk):
-								self.successOnTargetQueue(risk: risk, completion: completion)
-							case .failure(let error):
-								self.failOnTargetQueue(error: error, completion: completion)
-							}
-
-							group.leave()
+			
+			self.updateRiskProvidingConfiguration(with: appConfiguration)
+			
+			self.downloadKeyPackages { [weak self] result in
+				guard let self = self else { return }
+				
+				switch result {
+				case .success:
+					self.determineRisk(
+						userInitiated: userInitiated,
+						appConfiguration: appConfiguration
+					) { result in
+						
+						switch result {
+						case .success(let risk):
+							self.successOnTargetQueue(risk: risk, completion: completion)
+						case .failure(let error):
+							self.failOnTargetQueue(error: error, completion: completion)
 						}
-
+						
 						group.leave()
 					}
 				case .failure(let error):
 					self.failOnTargetQueue(error: error, completion: completion)
+					
 					group.leave()
 				}
 			}
@@ -247,7 +247,16 @@ final class RiskProvider: RiskProviding {
 		)
 		let shouldDetectExposures = (riskProvidingConfiguration.detectionMode == .manual && userInitiated) || riskProvidingConfiguration.detectionMode == .automatic
 
-		if !enoughTimeHasPassed || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackages,
+		// If the User is in manual mode and wants to refresh we should let him. Case: Manual Mode and Wifi disabled will lead to no new packages in the last 23 hours and 59 Minutes, but a refresh interval of 4 Hours should allow this.
+		let shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode = shouldDetectExposureBecauseOfNewPackages || (riskProvidingConfiguration.detectionMode == .manual && userInitiated)
+
+		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: enoughTimeHasPassed = \(enoughTimeHasPassed)", log: .riskDetection)
+
+		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: shouldDetectExposures = \(shouldDetectExposures)", log: .riskDetection)
+
+		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode = \(shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode)", log: .riskDetection)
+		
+		if !enoughTimeHasPassed || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode,
 		   let riskCalculationResult = store.riskCalculationResult {
 			Log.info("RiskProvider: Not calculating new risk, using result of most recent risk calculation", log: .riskDetection)
 			return Risk(activeTracing: store.tracingStatusHistory.activeTracing(), riskCalculationResult: riskCalculationResult)
