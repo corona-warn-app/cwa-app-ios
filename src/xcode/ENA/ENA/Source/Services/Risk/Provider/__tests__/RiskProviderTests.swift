@@ -124,10 +124,6 @@ final class RiskProviderTests: XCTestCase {
 
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 
-		let sapAppConfig = SAP_Internal_V2_ApplicationConfigurationIOS.with {
-			$0.exposureConfiguration = SAP_Internal_V2_ExposureConfiguration()
-		}
-
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
@@ -166,10 +162,6 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .failure(DummyError()))
-
-		let sapAppConfig = SAP_Internal_V2_ApplicationConfigurationIOS.with {
-			$0.exposureConfiguration = SAP_Internal_V2_ExposureConfiguration()
-		}
 
 		let sut = RiskProvider(
 			configuration: config,
@@ -465,13 +457,6 @@ final class RiskProviderTests: XCTestCase {
 		let client = ClientMock()
 		client.fetchPackageRequestFailure = Client.Failure.noResponse
 
-		let keyPackageDownload = KeyPackageDownload(
-			downloadedPackagesStore: downloadedPackagesStore,
-			client: client,
-			wifiClient: client,
-			store: store
-		)
-
 		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 6
@@ -611,13 +596,6 @@ final class RiskProviderTests: XCTestCase {
 		let client = ClientMock()
 		client.fetchPackageRequestFailure = Client.Failure.noResponse
 
-		let keyPackageDownload = KeyPackageDownload(
-			downloadedPackagesStore: downloadedPackagesStore,
-			client: client,
-			wifiClient: client,
-			store: store
-		)
-
 		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 6
@@ -683,13 +661,6 @@ final class RiskProviderTests: XCTestCase {
 		let client = ClientMock()
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02", "2020-10-01", "2020-10-03", "2020-10-04"], hours: [1, 2])
 
-		let keyPackageDownload = KeyPackageDownload(
-			downloadedPackagesStore: downloadedPackagesStore,
-			client: client,
-			wifiClient: client,
-			store: store
-		)
-
 		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 6
@@ -718,7 +689,6 @@ final class RiskProviderTests: XCTestCase {
 
 		waitForExpectations(timeout: 1.0)
 	}
-
 
 }
 
