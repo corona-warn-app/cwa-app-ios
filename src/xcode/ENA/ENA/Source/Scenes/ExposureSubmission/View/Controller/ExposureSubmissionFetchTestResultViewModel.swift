@@ -26,7 +26,7 @@ class ExposureSubmissionFetchTestResultViewModel {
 	let onTANButtonTap: () -> Void
 	let onHotlineButtonTap: () -> Void
 
-	var dynamicTableData: DynamicTableViewModel {
+	var dynamicTableModel: DynamicTableViewModel {
 		return DynamicTableViewModel.with {
 			$0.add(.section(
 				header: .image(

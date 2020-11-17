@@ -161,7 +161,7 @@ extension ExposureSubmissionCoordinator {
 			if shouldDismiss { self?.navigationController?.dismiss(animated: true) }
 		}
 	}
-		
+	
 	func showTestResultScreen(with testResult: TestResult) {
 		let vc = createTestResultViewController(with: testResult)
 		push(vc)

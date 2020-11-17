@@ -66,7 +66,7 @@ class ExposureSubmissionFetchTestResultViewController: DynamicTableViewControlle
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.imageCard.rawValue
 		)
 
-		dynamicTableViewModel = viewModel.dynamicTableData
+		dynamicTableViewModel = viewModel.dynamicTableModel
 		tableView.separatorStyle = .none
 
 	}
