@@ -171,6 +171,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	private var exposureDetection: ExposureDetection?
 	private let consumer = RiskConsumer()
+	var backgroundTaskConsumer = RiskConsumer()
 
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 

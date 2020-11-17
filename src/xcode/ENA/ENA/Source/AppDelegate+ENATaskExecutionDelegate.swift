@@ -75,40 +75,50 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		// At this point we are already in background so it is safe to assume background mode is available.
 		riskProvider.riskProvidingConfiguration.detectionMode = .fromBackgroundStatus(.available)
 
-		riskProvider.requestRisk(userInitiated: false) { [weak self] result in
+		backgroundTaskConsumer = RiskConsumer()
+		riskProvider.observeRisk(backgroundTaskConsumer)
+
+		backgroundTaskConsumer.didCalculateRisk = { [weak self] risk in
 			guard let self = self else { return }
-
-			switch result {
-			case .success(let risk):
-				if risk.riskLevelHasChanged {
-					UNUserNotificationCenter.current().presentNotification(
-						title: AppStrings.LocalNotifications.detectExposureTitle,
-						body: AppStrings.LocalNotifications.detectExposureBody,
-						identifier: ActionableNotificationIdentifier.riskDetection.identifier
-					)
-					completion(true)
-				} else {
-					completion(false)
-				}
-			case .failure(let error):
-				switch error {
-				case .failedRiskDetection(let reason):
-					if case .wrongDeviceTime = reason {
-						if !self.store.wasDeviceTimeErrorShown {
-							UNUserNotificationCenter.current().presentNotification(
-								title: AppStrings.WrongDeviceTime.errorPushNotificationTitle,
-								body: AppStrings.WrongDeviceTime.errorPushNotificationText,
-								identifier: ActionableNotificationIdentifier.deviceTimeCheck.identifier
-							)
-							self.store.wasDeviceTimeErrorShown = true
-						}
-					}
-				default:
-					break
-				}
-
+			if risk.riskLevelHasChanged {
+				UNUserNotificationCenter.current().presentNotification(
+					title: AppStrings.LocalNotifications.detectExposureTitle,
+					body: AppStrings.LocalNotifications.detectExposureBody,
+					identifier: ActionableNotificationIdentifier.riskDetection.identifier
+				)
+				completion(true)
+			} else {
 				completion(false)
 			}
+			self.riskProvider.removeRisk(self.backgroundTaskConsumer)
+		}
+
+		backgroundTaskConsumer.didFailCalculateRisk = { [weak self] error in
+			guard let self = self else { return }
+
+			// Ignore already running errors.
+			guard !error.isAlreadyRunningError else {
+				return
+			}
+
+			switch error {
+			case .failedRiskDetection(let reason):
+				if case .wrongDeviceTime = reason {
+					if !self.store.wasDeviceTimeErrorShown {
+						UNUserNotificationCenter.current().presentNotification(
+							title: AppStrings.WrongDeviceTime.errorPushNotificationTitle,
+							body: AppStrings.WrongDeviceTime.errorPushNotificationText,
+							identifier: ActionableNotificationIdentifier.deviceTimeCheck.identifier
+						)
+						self.store.wasDeviceTimeErrorShown = true
+					}
+				}
+			default:
+				break
+			}
+
+			completion(false)
+			self.riskProvider.removeRisk(self.backgroundTaskConsumer)
 		}
 	}
 }

@@ -98,7 +98,7 @@ final class HomeInteractor: RequiresAppDependencies {
 			guard let self = self else { return }
 
 			// Don't show already running errors.
-			guard !self.errorIsAlreadyRunningError(error) else {
+			guard !error.isAlreadyRunningError else {
 				return
 			}
 			self.state.riskDetectionFailed = true
@@ -176,25 +176,6 @@ final class HomeInteractor: RequiresAppDependencies {
 		sections.append(contentsOf: [actionsSection, infoSection, settingsSection])
 
 		return sections
-	}
-
-	private func errorIsAlreadyRunningError(_ error: RiskProviderError) -> Bool {
-		switch error {
-		case .riskProviderIsRunning:
-			return true
-		case .failedKeyPackageDownload(let keyPackageDownloadError):
-			return keyPackageDownloadError == .downloadIsRunning
-		case .failedRiskDetection(let didEndPrematuralyReason):
-			if case let .noSummary(summaryError) = didEndPrematuralyReason {
-				if let exposureDetectionError = summaryError as? ExposureDetectionError {
-					return exposureDetectionError == .isAlreadyRunning
-				}
-			}
-		default:
-			break
-		}
-
-		return false
 	}
 }
 
