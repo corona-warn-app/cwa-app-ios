@@ -23,7 +23,7 @@ extension DateFormatter {
 
 	static var packagesHourDateFormatter: DateFormatter = {
 		let formatter = DateFormatter()
-		formatter.dateFormat = "d"
+		formatter.dateFormat = "H"
 		formatter.timeZone = TimeZone(abbreviation: "UTC")
 		formatter.locale = Locale(identifier: "en_US_POSIX")
 		formatter.calendar = Calendar(identifier: .gregorian)
