@@ -415,7 +415,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_GeneralErrorTitle" = "Fehler";
 
-"ExposureSubmission_DispatchTitle" = "Testergebnis abrufen"; // und andere warnen";
+/* Exposure Submission Dispatch */
+
+"ExposureSubmission_DispatchTitle" = "Testergebnis abrufen";
+
+"ExposureSubmissionIntroduction_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
 
 "ExposureSubmission_DispatchDescription" = "Rufen Sie über die App Ihr Testergebnis ab und warnen Sie anschließend Ihre Mitmenschen. So schützen Sie sich und andere und helfen, die Ausbreitung von Corona zu verhindern.";
 
@@ -434,6 +438,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "Noch keine TAN?";
 
 "ExposureSubmissionDispatch_HotlineButtonDescription" = "Rufen Sie uns an und erhalten Sie eine TAN.";
+
+/* Exposure Submission Hotline */
 
 "ExposureSubmissionHotline_Title" = "TAN anfragen";
 
@@ -525,25 +531,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionSuccess_listItem2_3" = "Bitte denken Sie hier auch besonders an Personen, die nicht automatisch durch die App informiert werden, da sie kein Smartphone besitzen oder die App nicht installiert haben.";
 
 "ExposureSubmissionSuccess_listItem2_4" = "Auch wenn Sie keine Krankheitszeichen mehr haben und sich wieder gesund fühlen, könnten Sie noch ansteckend sein.";
-
-/* Exposure Submission Introduction */
-"ExposureSubmissionIntroduction_Title" = "Info";
-
-"ExposureSubmissionIntroduction_SubTitle" = "So funktioniert das Corona-Warn-System";
-
-"ExposureSubmissionIntroduction_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
-
-"ExposureSubmissionIntroduction_Usage01" = "Damit die Corona-Warn-App funktioniert, sind wir auf die Mithilfe von Corona-positiv getesteten Personen angewiesen.";
-
-"ExposureSubmissionIntroduction_Usage02" = "Da nur verschlüsselte Zufalls-IDs ausgetauscht werden, bleiben Sie unerkannt. Sie können jetzt wie folgt vorgehen:";
-
-"ExposureSubmissionIntroduction_ListItem1" = "Wenn sich auf Ihrem Testdokument ein QR-Code befindet, können Sie diesen in der App scannen und den Test damit registrieren. Sobald das Ergebnis vorliegt, können Sie es in der App einsehen.";
-
-"ExposureSubmissionIntroduction_ListItem2" = "Wenn Sie Corona-positiv getestet wurden, können Sie andere warnen.";
-
-"ExposureSubmissionIntroduction_ListItem3" = "Wenn Ihnen für einen positiven Testbefund eine TAN mitgeteilt wurde, können Sie diese für die Registrierung des Tests nutzen.";
-
-"ExposureSubmissionIntroduction_ListItem4" = "Wenn Sie keine TAN haben, können Sie diese telefonisch anfragen.";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Testergebnis";

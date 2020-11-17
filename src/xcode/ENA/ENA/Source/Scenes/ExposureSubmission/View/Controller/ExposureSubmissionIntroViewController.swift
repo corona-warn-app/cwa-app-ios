@@ -1,7 +1,7 @@
 //
 // 🦠 Corona-Warn-App
 //
-//  ExposureSubmissionFetchTestResultViewController.swift
+//  ExposureSubmissionIntroViewController.swift
 
 import Foundation
 import UIKit

@@ -1,7 +1,7 @@
 //
 // 🦠 Corona-Warn-App
 //
-//  ExposureSubmissionFetchTestResultViewModel.swift
+//  ExposureSubmissionIntroViewModel.swift
 
 import Foundation
 import UIKit
@@ -31,7 +31,7 @@ class ExposureSubmissionIntroViewModel {
 			$0.add(.section(
 				header: .image(
 					UIImage(named: "Illu_Submission_Funktion1"),
-					accessibilityLabel: AppStrings.ExposureSubmissionIntroduction.accImageDescription,
+					accessibilityLabel: AppStrings.ExposureSubmissionDispatch.accImageDescription,
 					accessibilityIdentifier: AccessibilityIdentifiers.General.image,
 					height: 200
 				),
