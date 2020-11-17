@@ -210,6 +210,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	@objc
 	func refreshUIAfterResumingFromBackground() {
 		homeInteractor.refreshTimerAfterResumingFromBackground()
+		
+		// (kga) fix for not showing notifications if the app is resuming from background
+		homeInteractor.updateTestResults()
+		
 	}
 
 	// Called by HomeInteractor
