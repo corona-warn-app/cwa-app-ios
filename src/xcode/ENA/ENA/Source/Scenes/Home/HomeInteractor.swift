@@ -422,7 +422,7 @@ extension HomeInteractor {
 extension HomeInteractor {
 	func updateTestResults() {
 		
-		// Do warn others evaluation
+		// Do warn others reminder evaluation
 		if let testResult = testResult {
 			self.warnOthersReminder.evaluateNotificationState(testResult: testResult)
 		}
@@ -451,8 +451,8 @@ extension HomeInteractor {
 					}
 				)
 
-			case .success(let result):
-				switch result {
+			case .success(let testResult):
+				switch testResult {
 				case .expired:
 					self?.homeViewController.alertError(
 						message: AppStrings.ExposureSubmissionResult.testExpiredDesc,
@@ -462,13 +462,14 @@ extension HomeInteractor {
 							self?.reloadTestResult(with: .invalid)
 						}
 					)
-				default:
+				case .invalid, .negative, .positive, .pending:
 					let requestTime = Date().timeIntervalSince(requestStart)
 					let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
 					DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-						self?.testResult = result
-						self?.reloadTestResult(with: result)
+						self?.testResult = testResult
+						self?.reloadTestResult(with: testResult)
 					}
+					self?.warnOthersReminder.evaluateNotificationState(testResult: testResult)
 				}
 			}
 		}
