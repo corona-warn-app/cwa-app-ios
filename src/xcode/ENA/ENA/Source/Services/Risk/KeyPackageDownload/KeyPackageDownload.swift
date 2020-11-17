@@ -334,7 +334,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 			case .daily:
 				downloadedPackagesStore.deleteDayPackage(for: package, country: countryId)
 			case .hourly(let keyDay):
-				// Hourly packages for the last day are deleted when the last day package is stored. See func
+				// Hourly packages for a day are deleted when the day package is stored. See func
 				// DownloadedPackagesSQLLiteStore.set(country: Country.ID, day: String, package: SAPDownloadedPackage)
 				downloadedPackagesStore.deleteHourPackage(for: keyDay, hour: Int(package) ?? -1, country: countryId)
 			}
