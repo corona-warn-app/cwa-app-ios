@@ -126,7 +126,12 @@ extension ExposureSubmissionCoordinator {
 		}
 
 		// By default, we show the intro view.
-		return getFetchTestResultViewController()
+		let viewModel = ExposureSubmissionFetchTestResultViewModel(
+			onQRCodeButtonTap: { [weak self] in self?.showQRInfoScreen() },
+			onTANButtonTap: { [weak self] in self?.showTanScreen() },
+			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() }
+		)
+		return ExposureSubmissionFetchTestResultViewController(viewModel)
 	}
 
 	// MARK: - Public API.
@@ -156,17 +161,7 @@ extension ExposureSubmissionCoordinator {
 			if shouldDismiss { self?.navigationController?.dismiss(animated: true) }
 		}
 	}
-	
-	// New submission flow:
-	func getFetchTestResultViewController() -> ExposureSubmissionFetchTestResultViewController {
-		let viewModel = ExposureSubmissionFetchTestResultViewModel(
-			onQRCodeButtonTap: { [weak self] in self?.showQRInfoScreen() },
-			onTANButtonTap: { [weak self] in self?.showTanScreen() },
-			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() }
-		)
-		return ExposureSubmissionFetchTestResultViewController(viewModel)
-	}
-	
+		
 	func showTestResultScreen(with testResult: TestResult) {
 		let vc = createTestResultViewController(with: testResult)
 		push(vc)

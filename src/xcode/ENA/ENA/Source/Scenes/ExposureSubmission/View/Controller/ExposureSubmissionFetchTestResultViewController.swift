@@ -31,7 +31,7 @@ class ExposureSubmissionFetchTestResultViewController: DynamicTableViewControlle
 		navigationFooterItem
 	}
 
-	// MARK: - Public
+	// MARK: - Internal
 
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case imageCard = "imageCardCell"

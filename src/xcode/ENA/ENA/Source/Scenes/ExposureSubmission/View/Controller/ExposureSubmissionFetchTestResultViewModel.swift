@@ -20,11 +20,12 @@ class ExposureSubmissionFetchTestResultViewModel {
 		self.onHotlineButtonTap = onHotlineButtonTap
 	}
 	
+	// MARK: - Internal
+	
 	let onQRCodeButtonTap: () -> Void
 	let onTANButtonTap: () -> Void
 	let onHotlineButtonTap: () -> Void
-		
-	
+
 	var dynamicTableData: DynamicTableViewModel {
 		return DynamicTableViewModel.with {
 			$0.add(.section(
