@@ -60,11 +60,11 @@ class CountdownTimerTests: XCTestCase {
 		}
 
 		c.start()
-		self.waitForExpectations(timeout: 5.0)
+		self.waitForExpectations(timeout: 10.0)
 	}
 }
 
-class CountdownTimerTarget: CountdownTimerDelegate {
+private class CountdownTimerTarget: CountdownTimerDelegate {
 
 	var updateCallback: ((CountdownTimer, String) -> Void)?
 	var doneCallback: ((CountdownTimer, Bool) -> Void)?
