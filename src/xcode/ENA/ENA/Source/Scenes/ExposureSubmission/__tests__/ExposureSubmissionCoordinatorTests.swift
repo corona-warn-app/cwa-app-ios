@@ -78,7 +78,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 		XCTAssertNotNil(navigationController)
 		XCTAssertNotNil(navigationController?.topViewController)
-		guard let vc = navigationController?.topViewController as? ExposureSubmissionFetchTestResultViewController else {
+		guard let vc = navigationController?.topViewController as? ExposureSubmissionIntroViewController else {
 			XCTFail("Could not load presented view controller.")
 			return
 		}

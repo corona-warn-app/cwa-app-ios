@@ -126,12 +126,12 @@ extension ExposureSubmissionCoordinator {
 		}
 
 		// By default, we show the intro view.
-		let viewModel = ExposureSubmissionFetchTestResultViewModel(
+		let viewModel = ExposureSubmissionIntroViewModel(
 			onQRCodeButtonTap: { [weak self] in self?.showQRInfoScreen() },
 			onTANButtonTap: { [weak self] in self?.showTanScreen() },
 			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() }
 		)
-		return ExposureSubmissionFetchTestResultViewController(viewModel)
+		return ExposureSubmissionIntroViewController(viewModel)
 	}
 
 	// MARK: - Public API.

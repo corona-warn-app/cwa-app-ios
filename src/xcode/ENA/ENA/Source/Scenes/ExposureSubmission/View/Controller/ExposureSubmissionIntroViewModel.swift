@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionFetchTestResultViewModel {
+class ExposureSubmissionIntroViewModel {
 
 	// MARK: - Init
 	
@@ -44,7 +44,7 @@ class ExposureSubmissionFetchTestResultViewModel {
 							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.sectionHeadline)
 				]
 			))
-			$0.add(DynamicSection.section(cells: [
+			$0.add(.section(cells: [
 				.imageCard(
 					title: AppStrings.ExposureSubmissionDispatch.qrCodeButtonTitle,
 					description: AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription,
@@ -82,7 +82,7 @@ private extension DynamicCell {
 		image: UIImage?,
 		action: DynamicAction,
 		accessibilityIdentifier: String? = nil) -> Self {
-		.identifier(ExposureSubmissionFetchTestResultViewController.CustomCellReuseIdentifiers.imageCard, action: action) { _, cell, _ in
+		.identifier(ExposureSubmissionIntroViewController.CustomCellReuseIdentifiers.imageCard, action: action) { _, cell, _ in
 			guard let cell = cell as? ExposureSubmissionImageCardCell else { return }
 			cell.configure(
 				title: title,

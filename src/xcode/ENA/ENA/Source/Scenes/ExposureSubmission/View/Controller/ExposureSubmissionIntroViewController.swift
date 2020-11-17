@@ -6,11 +6,11 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionFetchTestResultViewController: DynamicTableViewController {
+class ExposureSubmissionIntroViewController: DynamicTableViewController {
 	
 	// MARK: - Init
 
-	init(_ viewModel: ExposureSubmissionFetchTestResultViewModel) {
+	init(_ viewModel: ExposureSubmissionIntroViewModel) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -39,7 +39,7 @@ class ExposureSubmissionFetchTestResultViewController: DynamicTableViewControlle
 
 	// MARK: - Private
 
-	private let viewModel: ExposureSubmissionFetchTestResultViewModel
+	private let viewModel: ExposureSubmissionIntroViewModel
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
