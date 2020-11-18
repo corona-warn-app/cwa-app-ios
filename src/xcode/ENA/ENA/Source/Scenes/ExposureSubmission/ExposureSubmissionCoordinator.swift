@@ -111,7 +111,7 @@ extension ExposureSubmissionCoordinator {
 	/// Option 1: (only for UITESTING) if the `-negativeResult` flag was passed, return ExposureSubmissionTestResultViewController
 	/// Option 2: if a test result was passed, the method checks further preconditions (e.g. the exposure submission service has a registration token)
 	/// and returns an ExposureSubmissionTestResultViewController.
-	/// Option 3: (default) return the ExposureSubmissionFetchTestResultViewController.
+	/// Option 3: (default) return the ExposureSubmissionIntroViewController.
 	private func getInitialViewController(with result: TestResult? = nil) -> UIViewController {
 		#if DEBUG
 		if isUITesting, ProcessInfo.processInfo.arguments.contains("-negativeResult") {
