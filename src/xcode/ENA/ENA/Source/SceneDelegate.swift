@@ -57,7 +57,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			}
 			#endif
 		}
-		riskConsumer.didFailCalculateRisk = {  [weak self] _ in
+		riskConsumer.didFailCalculateRisk = {  [weak self] error in
+			// Ignore already running errors.
+			guard !error.isAlreadyRunningError else {
+				return
+			}
+			
 			self?.state.riskDetectionFailed = true
 		}
 
