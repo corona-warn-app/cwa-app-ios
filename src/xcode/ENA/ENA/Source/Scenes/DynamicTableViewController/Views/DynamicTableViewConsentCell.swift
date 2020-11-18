@@ -24,8 +24,8 @@ class DynamicTableViewConsentCell: UITableViewCell {
 	lazy var subTitleLabel = ENALabel(frame: .zero)
 	lazy var descriptionPart1Label = ENALabel(frame: .zero)
 	lazy var descriptionPart2Label = ENALabel(frame: .zero)
-	lazy var seperatorView1 = UIView(frame: .zero)
-	lazy var seperatorView2 = UIView(frame: .zero)
+	lazy var seperatorView1 = UIView()
+	lazy var seperatorView2 = UIView()
 	lazy var flagIconsLabel = ENALabel(frame: .zero)
 	lazy var flagCountriesLabel = ENALabel(frame: .zero)
 	lazy var descriptionPart3Label = ENALabel(frame: .zero)
@@ -58,42 +58,71 @@ class DynamicTableViewConsentCell: UITableViewCell {
 		consentView.layer.cornerRadius = 16.0
 		consentView.setContentCompressionResistancePriority(.required, for: .vertical)
 
-		// MARK: - consentTitle adjustment.
+		// MARK: - Title adjustment.
 		subTitleLabel.style = .headline
 		subTitleLabel.textColor = .enaColor(for: .textPrimary1)
 		subTitleLabel.lineBreakMode = .byWordWrapping
 		subTitleLabel.numberOfLines = 0
+		subTitleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+		subTitleLabel.setContentHuggingPriority(.required, for: .vertical)
 		
-		// MARK: - Body adjustment.
-		descriptionPart1Label.style = .body
+		// MARK: - Description1 Body adjustment.
+		descriptionPart1Label.style = .headline
 		descriptionPart1Label.textColor = .enaColor(for: .textPrimary1)
 		descriptionPart1Label.lineBreakMode = .byWordWrapping
 		descriptionPart1Label.numberOfLines = 0
 		descriptionPart1Label.setContentCompressionResistancePriority(.required, for: .vertical)
+		descriptionPart1Label.setContentHuggingPriority(.required, for: .vertical)
 		
-		// MARK: - Body2 adjustment.
-		descriptionPart2Label.style = .body
+		// MARK: - Description2 Body adjustment.
+		descriptionPart2Label.style = .headline
 		descriptionPart2Label.textColor = .enaColor(for: .textPrimary1)
 		descriptionPart2Label.lineBreakMode = .byWordWrapping
 		descriptionPart2Label.numberOfLines = 0
+		descriptionPart2Label.setContentCompressionResistancePriority(.required, for: .vertical)
+		descriptionPart2Label.setContentHuggingPriority(.required, for: .vertical)
 		
-		// MARK: - Body3 adjustment.
-		descriptionPart3Label.style = .body
+		// MARK: - Description3 Body adjustment.
+		descriptionPart3Label.style = .headline
 		descriptionPart3Label.textColor = .enaColor(for: .textPrimary1)
 		descriptionPart3Label.lineBreakMode = .byWordWrapping
 		descriptionPart3Label.numberOfLines = 0
+		descriptionPart3Label.setContentCompressionResistancePriority(.required, for: .vertical)
+		descriptionPart3Label.setContentHuggingPriority(.required, for: .vertical)
 		
-		// MARK: - Body4 adjustment.
+		// MARK: - Description4 Body adjustment.
 		descriptionPart4Label.style = .body
 		descriptionPart4Label.textColor = .enaColor(for: .textPrimary1)
 		descriptionPart4Label.lineBreakMode = .byWordWrapping
 		descriptionPart4Label.numberOfLines = 0
+		descriptionPart4Label.setContentCompressionResistancePriority(.required, for: .vertical)
+		descriptionPart4Label.setContentHuggingPriority(.required, for: .vertical)
+		
+		// MARK: - Flag Icons Label adjustment.
+		flagIconsLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+		flagIconsLabel.setContentHuggingPriority(.required, for: .vertical)
+		flagIconsLabel.lineBreakMode = .byWordWrapping
+		flagIconsLabel.numberOfLines = 0
+		
+		// MARK: - Flag Countries Label adjustment.
+		flagCountriesLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+		flagCountriesLabel.setContentHuggingPriority(.required, for: .vertical)
+		flagCountriesLabel.style = .body
+		flagCountriesLabel.textColor = .enaColor(for: .textPrimary1)
+		flagCountriesLabel.lineBreakMode = .byWordWrapping
+		flagCountriesLabel.numberOfLines = 0
+		
+		// MARK: - Seperator View1 adjustment.
+		seperatorView1.backgroundColor = .enaColor(for: .hairline)
+		
+		// MARK: - Seperator View2 Body adjustment.
+		seperatorView2.backgroundColor = .enaColor(for: .hairline)
 		
 		// MARK: - Stackview adjustment.
-			consentStackView = UIStackView(frame: .zero)
-			consentStackView.axis = .vertical
-			consentStackView.spacing = 8
-			consentStackView.distribution = .fillProportionally
+		consentStackView = UIStackView(frame: .zero)
+		consentStackView.axis = .vertical
+		consentStackView.spacing = 20
+		consentStackView.distribution = .fillProportionally
 		contentView.addSubview(consentView)
 		consentView.addSubview(consentStackView)
 		
@@ -102,9 +131,12 @@ class DynamicTableViewConsentCell: UITableViewCell {
 			consentView, consentStackView
 		], to: false)
 		
-		[subTitleLabel, descriptionPart1Label, descriptionPart2Label, seperatorView1, flagIconsLabel, flagCountriesLabel, descriptionPart3Label, descriptionPart4Label].forEach {
+		[subTitleLabel, descriptionPart1Label, descriptionPart2Label, seperatorView1, flagIconsLabel, flagCountriesLabel,
+		 seperatorView2, descriptionPart3Label, descriptionPart4Label].forEach {
 			consentStackView.addArrangedSubview($0)
 		}
+		consentStackView.setCustomSpacing(10, after: seperatorView1)
+		consentStackView.setCustomSpacing(10, after: flagCountriesLabel)
 	}
 	
 	
@@ -120,19 +152,19 @@ class DynamicTableViewConsentCell: UITableViewCell {
 			consentStackView.topAnchor.constraint(equalTo: consentView.topAnchor, constant: 20),
 			consentStackView.trailingAnchor.constraint(equalTo: consentView.trailingAnchor, constant: -16),
 			consentStackView.leadingAnchor.constraint(equalTo: consentView.leadingAnchor, constant: 16),
-			consentStackView.bottomAnchor.constraint(equalTo: consentView.bottomAnchor, constant: -20)
+			consentStackView.bottomAnchor.constraint(equalTo: consentView.bottomAnchor, constant: -20),
+			seperatorView1.heightAnchor.constraint(equalToConstant: 1),
+			seperatorView2.heightAnchor.constraint(equalToConstant: 1)
 
 		])
-		consentStackView.setContentCompressionResistancePriority(.required, for: .horizontal)
-		consentStackView.setContentCompressionResistancePriority(.required, for: .vertical)
+		
 	}
 	
 	func configure(
 		subTitleLabel: NSMutableAttributedString,
 		descriptionPart1Label: NSMutableAttributedString,
 		descriptionPart2Label: NSMutableAttributedString,
-		flagIconsLabel: NSMutableAttributedString,
-		flagCountriesLabel: NSMutableAttributedString,
+		countries: [Country],
 		descriptionPart3Label: NSMutableAttributedString,
 		descriptionPart4Label: NSMutableAttributedString
 	) {
@@ -141,8 +173,21 @@ class DynamicTableViewConsentCell: UITableViewCell {
 		self.descriptionPart2Label.attributedText = descriptionPart2Label
 		self.descriptionPart3Label.attributedText = descriptionPart3Label
 		self.descriptionPart4Label.attributedText = descriptionPart4Label
-		self.flagIconsLabel.attributedText = flagIconsLabel
-		self.flagCountriesLabel.attributedText = flagCountriesLabel
+		self.flagCountriesLabel.text = countries.map { $0.localizedName }.joined(separator: ", ")
+		
+		let flagString = NSMutableAttributedString()
+		
+		countries
+			.compactMap { $0.flag?.withRenderingMode(.alwaysOriginal) }
+			.forEach { flag in
+				let imageAttachment = NSTextAttachment(image: flag)
+				let imageString = NSAttributedString(attachment: imageAttachment)
+				flagString.append(imageString)
+				flagString.append(NSAttributedString(string: " "))
+			}
+		
+		
+		self.flagIconsLabel.attributedText = flagString
 	}
 	
 }

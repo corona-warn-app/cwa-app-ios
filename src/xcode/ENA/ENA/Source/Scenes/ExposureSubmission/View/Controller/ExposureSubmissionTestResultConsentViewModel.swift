@@ -21,6 +21,15 @@ import Foundation
 import UIKit
 
 struct ExposureSubmissionTestResultConsentViewModel {
+	// MARK: - Init
+	
+	init(
+		supportedCountries: [Country] = ["DE", "IT", "ES", "PL", "NL", "BE", "CZ", "AT", "DK", "IE", "LT", "LV", "EE"].compactMap { Country(countryCode: $0) }
+		
+	) {
+		self.supportedCountries = supportedCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
+	}
+	
 	// MARK: - Internal
 	
 	var dynamicTableViewModel: DynamicTableViewModel {
@@ -47,13 +56,13 @@ struct ExposureSubmissionTestResultConsentViewModel {
 										subTitleLabel: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentSubTitle),
 										descriptionPart1Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPart1),
 										descriptionPart2Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPart2),
-										flagIconsLabel: NSMutableAttributedString(string: "Display Country Flag Icons"),
-										flagCountriesLabel: NSMutableAttributedString(string: "Display Country Flag Names"),
+										countries: supportedCountries,
 										descriptionPart3Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPart3),
 										descriptionPart4Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPart4)
 									)
 								}
-							}
+							},
+						.space(height: 20)
 					]
 				)
 			)
@@ -76,4 +85,8 @@ struct ExposureSubmissionTestResultConsentViewModel {
 			)
 		}
 	}
+	
+	// MARK: - Private
+	
+	private let supportedCountries: [Country]
 }
