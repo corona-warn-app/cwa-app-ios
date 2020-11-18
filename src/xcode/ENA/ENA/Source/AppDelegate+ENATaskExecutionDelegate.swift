@@ -71,44 +71,65 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	/// This method performs a check for the current exposure detection state. Only if the risk level has changed compared to the
 	/// previous state, a local notification is shown.
 	private func executeExposureDetectionRequest(completion: @escaping ((Bool) -> Void)) {
+		Log.info("[ENATaskExecutionDelegate] Execute exposure detection.", log: .riskDetection)
 
 		// At this point we are already in background so it is safe to assume background mode is available.
 		riskProvider.riskProvidingConfiguration.detectionMode = .fromBackgroundStatus(.available)
 
-		riskProvider.requestRisk(userInitiated: false) { [weak self] result in
+		riskProvider.observeRisk(backgroundTaskConsumer)
+
+		backgroundTaskConsumer.didCalculateRisk = { [weak self] risk in
+			Log.info("[ENATaskExecutionDelegate] Execute exposure detection did calculate risk.", log: .riskDetection)
+
 			guard let self = self else { return }
-
-			switch result {
-			case .success(let risk):
-				if risk.riskLevelHasChanged {
-					UNUserNotificationCenter.current().presentNotification(
-						title: AppStrings.LocalNotifications.detectExposureTitle,
-						body: AppStrings.LocalNotifications.detectExposureBody,
-						identifier: ActionableNotificationIdentifier.riskDetection.identifier
-					)
-					completion(true)
-				} else {
-					completion(false)
-				}
-			case .failure(let error):
-				switch error {
-				case .failedRiskDetection(let reason):
-					if case .wrongDeviceTime = reason {
-						if !self.store.wasDeviceTimeErrorShown {
-							UNUserNotificationCenter.current().presentNotification(
-								title: AppStrings.WrongDeviceTime.errorPushNotificationTitle,
-								body: AppStrings.WrongDeviceTime.errorPushNotificationText,
-								identifier: ActionableNotificationIdentifier.deviceTimeCheck.identifier
-							)
-							self.store.wasDeviceTimeErrorShown = true
-						}
-					}
-				default:
-					break
-				}
-
+			if risk.riskLevelHasChanged {
+				UNUserNotificationCenter.current().presentNotification(
+					title: AppStrings.LocalNotifications.detectExposureTitle,
+					body: AppStrings.LocalNotifications.detectExposureBody,
+					identifier: ActionableNotificationIdentifier.riskDetection.identifier
+				)
+				Log.info("[ENATaskExecutionDelegate] Risk has changed.", log: .riskDetection)
+				completion(true)
+			} else {
+				Log.info("[ENATaskExecutionDelegate] Risk has not changed.", log: .riskDetection)
 				completion(false)
 			}
+
+			self.riskProvider.removeRisk(self.backgroundTaskConsumer)
 		}
+
+		backgroundTaskConsumer.didFailCalculateRisk = { [weak self] error in
+			guard let self = self else { return }
+
+			// Ignore already running errors.
+			// In other words: if the RiskProvider is already running, we wait for other callbacks.
+			guard !error.isAlreadyRunningError else {
+				Log.info("[ENATaskExecutionDelegate] Ignore already running error.", log: .riskDetection)
+				return
+			}
+
+			Log.error("[ENATaskExecutionDelegate] Exposure detection failed.", log: .riskDetection, error: error)
+
+			switch error {
+			case .failedRiskDetection(let reason):
+				if case .wrongDeviceTime = reason {
+					if !self.store.wasDeviceTimeErrorShown {
+						UNUserNotificationCenter.current().presentNotification(
+							title: AppStrings.WrongDeviceTime.errorPushNotificationTitle,
+							body: AppStrings.WrongDeviceTime.errorPushNotificationText,
+							identifier: ActionableNotificationIdentifier.deviceTimeCheck.identifier
+						)
+						self.store.wasDeviceTimeErrorShown = true
+					}
+				}
+			default:
+				break
+			}
+
+			completion(false)
+			self.riskProvider.removeRisk(self.backgroundTaskConsumer)
+		}
+
+		riskProvider.requestRisk(userInitiated: false)
 	}
 }

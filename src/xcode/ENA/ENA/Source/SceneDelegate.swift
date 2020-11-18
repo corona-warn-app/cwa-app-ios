@@ -30,8 +30,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		exposureManager.observeExposureNotificationStatus(observer: self)
 
-		riskProvider.observeRisk(riskConsumer)
-
 		UNUserNotificationCenter.current().delegate = self
 
 		setupUI()
