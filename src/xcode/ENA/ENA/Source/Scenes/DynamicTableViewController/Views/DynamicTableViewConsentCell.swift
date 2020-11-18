@@ -125,7 +125,6 @@ class DynamicTableViewConsentCell: UITableViewCell {
 		contentView.addSubview(consentView)
 		consentView.addSubview(consentStackView)
 		
-		
 		UIView.translatesAutoresizingMaskIntoConstraints(for: [
 			consentView, consentStackView
 		], to: false)
@@ -181,14 +180,30 @@ class DynamicTableViewConsentCell: UITableViewCell {
 		countries
 			.compactMap { $0.flag?.withRenderingMode(.alwaysOriginal) }
 			.forEach { flag in
-				let imageAttachment = NSTextAttachment(image: flag)
+				let imageAttachment = NSTextAttachment()
+				imageAttachment.image = flag
+				imageAttachment.setImageHeight(height: 17)
 				let imageString = NSAttributedString(attachment: imageAttachment)
 				flagString.append(imageString)
-				flagString.append(NSAttributedString(string: " "))
+				flagString.append(NSAttributedString(string: "   "))
 			}
+
+		var style = NSMutableParagraphStyle()
+		style.lineSpacing = 10
+		flagString.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: flagString.length))
 		
 		
 		self.flagIconsLabel.attributedText = flagString
+
 	}
 	
+}
+
+extension NSTextAttachment {
+	func setImageHeight(height: CGFloat) {
+		guard let image = image else { return }
+		let ratio = image.size.width / image.size.height
+
+		bounds = CGRect(x: bounds.origin.x, y: bounds.origin.y, width: ratio * height, height: height)
+	}
 }
