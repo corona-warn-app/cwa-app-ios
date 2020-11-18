@@ -221,6 +221,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	@objc
 	func refreshUIAfterResumingFromBackground() {
 		homeInteractor.refreshTimerAfterResumingFromBackground()
+		homeInteractor.updateTestResults()
 	}
 
 	// Called by HomeInteractor

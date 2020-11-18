@@ -84,6 +84,10 @@ class ExposureSubmissionTestResultViewModel {
 		// Update warn others model
 		self.warnOthersReminder.reset()
 	}
+	
+	func updateWarnOthers() {
+		warnOthersReminder.evaluateNotificationState(testResult: testResult)
+	}
 
 	// MARK: - Private
 
@@ -124,10 +128,6 @@ class ExposureSubmissionTestResultViewModel {
 		updateButtons()
 	}
 	
-	func updateWarnOthers() {
-		self.warnOthersReminder.evaluateNotificationState(testResult: self.testResult)
-	}
-	
 	private func updateButtons() {
 		// Make sure to reset buttons to default state.
 		navigationFooterItem.isPrimaryButtonLoading = false
@@ -163,6 +163,7 @@ class ExposureSubmissionTestResultViewModel {
 				self?.error = error
 			case let .success(testResult):
 				self?.testResult = testResult
+				self?.updateWarnOthers()
 			}
 
 			completion()
