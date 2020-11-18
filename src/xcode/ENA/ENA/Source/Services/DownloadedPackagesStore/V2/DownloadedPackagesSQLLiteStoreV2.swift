@@ -439,7 +439,7 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 				;
 			"""
 			do {
-				try self.database.executeQuery(sql, values: fingerprints)
+				try database.executeUpdate(sql, values: fingerprints)
 			} catch {
 				Log.error("[SQLite] (\(database.lastErrorCode()) \(database.lastErrorMessage())", log: .localData)
 				throw SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
