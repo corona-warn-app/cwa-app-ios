@@ -27,14 +27,15 @@ class ExposureSubmissionTestResultConsentViewModel {
 	init(
 		supportedCountries: [Country] = ["DE", "IT", "ES", "PL", "NL", "BE", "CZ", "AT", "DK", "IE", "LT", "LV", "EE"].compactMap { Country(countryCode: $0) },
 		exposureSubmissionService: ExposureSubmissionService) {
+		
 		self.exposureSubmissionService = exposureSubmissionService
+		consentSwitch.isOn = self.exposureSubmissionService.isSubmissionConsentGiven
+		
 		self.supportedCountries = supportedCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
 	}
 
 
 	// MARK: - Properties
-	
-	private var exposureSubmissionService: ExposureSubmissionService
 	
 	@objc
 	func stateChanged(switchState: UISwitch) {
@@ -45,6 +46,10 @@ class ExposureSubmissionTestResultConsentViewModel {
 	// MARK: - Private
 		
 	private let supportedCountries: [Country]
+	
+	private var exposureSubmissionService: ExposureSubmissionService
+	
+	private let consentSwitch = UISwitch()
 	
 	// MARK: - Internal
 	
@@ -58,9 +63,9 @@ class ExposureSubmissionTestResultConsentViewModel {
 							text: AppStrings.AutomaticSharingConsent.switchTitle,
 							action: .push(model: AppInformationModel.termsModel, withTitle: AppStrings.AppInformation.termsNavigation),
 							configure: { _, cell, _ in
-								let consentSwitch = UISwitch()
-								cell.accessoryView = consentSwitch
-								consentSwitch.addTarget(self, action: #selector(self.stateChanged), for: .valueChanged)
+								
+								cell.accessoryView = self.consentSwitch
+								self.consentSwitch.addTarget(self, action: #selector(self.stateChanged), for: .valueChanged)
 							}
 						),
 						.body(text: AppStrings.AutomaticSharingConsent.switchTitleDescription),
