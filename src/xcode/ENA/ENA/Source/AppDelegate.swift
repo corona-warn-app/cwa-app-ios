@@ -119,6 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let warnOthersReminder: WarnOthersRemindable
 
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
+	let backgroundTaskConsumer = RiskConsumer()
 
 	lazy var appConfigurationProvider: AppConfigurationProviding = {
 		#if DEBUG
@@ -171,7 +172,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	private var exposureDetection: ExposureDetection?
 	private let consumer = RiskConsumer()
-	var backgroundTaskConsumer = RiskConsumer()
 
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 

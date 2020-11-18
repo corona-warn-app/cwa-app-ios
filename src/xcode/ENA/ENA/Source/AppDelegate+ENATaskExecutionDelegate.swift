@@ -76,7 +76,6 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		// At this point we are already in background so it is safe to assume background mode is available.
 		riskProvider.riskProvidingConfiguration.detectionMode = .fromBackgroundStatus(.available)
 
-		backgroundTaskConsumer = RiskConsumer()
 		riskProvider.observeRisk(backgroundTaskConsumer)
 
 		backgroundTaskConsumer.didCalculateRisk = { [weak self] risk in

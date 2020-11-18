@@ -99,6 +99,7 @@ final class HomeInteractor: RequiresAppDependencies {
 
 			// Don't show already running errors.
 			guard !error.isAlreadyRunningError else {
+				Log.info("[HomeInteractor] Ignore already running error.", log: .riskDetection)
 				return
 			}
 			self.state.riskDetectionFailed = true

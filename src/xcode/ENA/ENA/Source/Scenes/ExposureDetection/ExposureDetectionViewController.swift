@@ -70,6 +70,7 @@ extension ExposureDetectionViewController {
 		consumer.didFailCalculateRisk = { [weak self] error in
 			// Ignore already running errors.
 			guard !error.isAlreadyRunningError else {
+				Log.info("[ExposureDetectionViewController] Ignore already running error.", log: .riskDetection)
 				return
 			}
 			
