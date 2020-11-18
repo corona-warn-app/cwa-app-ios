@@ -48,7 +48,7 @@ class Coordinator: RequiresAppDependencies {
 		enStateUpdateList.removeAllObjects()
 	}
 
-	func showHome(enStateHandler: ENStateHandler, state: SceneDelegate.State) {
+	func showHome(enStateHandler: ENStateHandler) {
 //		let homeController = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
 //			HomeViewController(
 //				coder: coder,
