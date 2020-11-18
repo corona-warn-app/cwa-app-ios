@@ -60,7 +60,7 @@ class Coordinator: RequiresAppDependencies {
 //				exposureSubmissionService: self.exposureSubmissionService
 //			)
 //		}
-		let homeController = ExposureSubmissionTestResultConsentViewController()
+		let homeController = ExposureSubmissionTestResultConsentViewController(exposureSubmissionService: self.exposureSubmissionService)
 
 		//self.homeController = homeController
 

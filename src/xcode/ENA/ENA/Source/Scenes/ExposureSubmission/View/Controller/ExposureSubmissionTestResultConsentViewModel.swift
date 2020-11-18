@@ -20,15 +20,31 @@
 import Foundation
 import UIKit
 
-struct ExposureSubmissionTestResultConsentViewModel {
+
+class ExposureSubmissionTestResultConsentViewModel {
 	// MARK: - Init
 	
 	init(
-		supportedCountries: [Country] = ["DE", "IT", "ES", "PL", "NL", "BE", "CZ", "AT", "DK", "IE", "LT", "LV", "EE"].compactMap { Country(countryCode: $0) }
-		
-	) {
+		supportedCountries: [Country] = ["DE", "IT", "ES", "PL", "NL", "BE", "CZ", "AT", "DK", "IE", "LT", "LV", "EE"].compactMap { Country(countryCode: $0) },
+		exposureSubmissionService: ExposureSubmissionService) {
+		self.exposureSubmissionService = exposureSubmissionService
 		self.supportedCountries = supportedCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
 	}
+
+
+	// MARK: - Properties
+	
+	private var exposureSubmissionService: ExposureSubmissionService
+	
+	@objc
+	func stateChanged(switchState: UISwitch) {
+		Log.info("Switch state was changed to: \(switchState.isOn)")
+		exposureSubmissionService.isSubmissionConsentGiven = switchState.isOn
+	}
+		
+	// MARK: - Private
+		
+	private let supportedCountries: [Country]
 	
 	// MARK: - Internal
 	
@@ -44,6 +60,7 @@ struct ExposureSubmissionTestResultConsentViewModel {
 							configure: { _, cell, _ in
 								let consentSwitch = UISwitch()
 								cell.accessoryView = consentSwitch
+								consentSwitch.addTarget(self, action: #selector(self.stateChanged), for: .valueChanged)
 							}
 						),
 						.body(text: AppStrings.AutomaticSharingConsent.switchTitleDescription),
@@ -56,7 +73,7 @@ struct ExposureSubmissionTestResultConsentViewModel {
 										subTitleLabel: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentSubTitle),
 										descriptionPart1Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPart1),
 										descriptionPart2Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPart2),
-										countries: supportedCountries,
+										countries: self.supportedCountries,
 										descriptionPart3Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPart3),
 										descriptionPart4Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPart4)
 									)
@@ -85,8 +102,5 @@ struct ExposureSubmissionTestResultConsentViewModel {
 			)
 		}
 	}
-	
-	// MARK: - Private
-	
-	private let supportedCountries: [Country]
+
 }
