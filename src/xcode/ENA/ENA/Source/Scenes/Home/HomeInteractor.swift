@@ -469,7 +469,8 @@ extension HomeInteractor {
 						self?.testResult = testResult
 						self?.reloadTestResult(with: testResult)
 					}
-					self?.warnOthersReminder.evaluateNotificationState(testResult: testResult)
+					guard let store = self?.store else { return }
+					WarnOthersReminder(store: store).evaluateNotificationState(testResult: testResult)
 				}
 			}
 		}
