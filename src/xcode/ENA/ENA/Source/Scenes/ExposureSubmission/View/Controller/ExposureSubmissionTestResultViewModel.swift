@@ -338,7 +338,7 @@ class ExposureSubmissionTestResultViewModel {
 						UIImage(imageLiteralResourceName: "Icons_consentCloud"),
 						text: .string(self.exposureSubmissionService.isSubmissionConsentGiven ? AppStrings.ExposureSubmissionResult.warnOthersConsentGiven : AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven),
 						action: .execute { viewController in
-							let detailViewController = ExposureSubmissionTestResultConsentViewController(exposureSubmissionService: self.exposureSubmissionService)
+							let detailViewController = ExposureSubmissionTestResultConsentViewController(supportedCountries: [Country.defaultCountry()], exposureSubmissionService: self.exposureSubmissionService)
 							detailViewController.title = AppStrings.AutomaticSharingConsent.consentTitle
 							viewController.navigationController?.pushViewController(detailViewController, animated: true)
 						},

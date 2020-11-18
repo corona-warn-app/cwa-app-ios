@@ -86,7 +86,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 						.icon(
 							nil,
 							text: .string(AppStrings.AutomaticSharingConsent.dataProcessingDetailInfo),
-							action: .push(model: AppInformationModel.termsModel, withTitle: AppStrings.AppInformation.termsNavigation),
+							action: .push(model: AppInformationModel.privacyModel, withTitle: AppStrings.AppInformation.privacyTitle),
 							configure: { _, cell, _ in
 								cell.accessoryType = .disclosureIndicator
 								cell.selectionStyle = .default
