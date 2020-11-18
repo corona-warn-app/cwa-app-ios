@@ -11,6 +11,7 @@ class CountdownTimerTests: XCTestCase {
 	private var countdownTimerTarget: CountdownTimerTarget!
 
 	override func setUp() {
+		super.setUp()
 		countdownTimerTarget = CountdownTimerTarget()
 	}
 
