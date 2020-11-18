@@ -20,7 +20,6 @@ import UIKit
 class DynamicTableViewConsentCell: UITableViewCell {
 	
 	// MARK: - View elements.
-	//ToDo: Remove consent from the naming like: subTitleLabel
 	lazy var subTitleLabel = ENALabel(frame: .zero)
 	lazy var descriptionPart1Label = ENALabel(frame: .zero)
 	lazy var descriptionPart2Label = ENALabel(frame: .zero)
