@@ -61,6 +61,8 @@ extension RiskProvidingConfiguration {
 			to: lastExposureDetectionDate ?? .distantPast,
 			wrappingComponents: false
 		) ?? .distantPast
+		Log.debug("[RiskProvidingConfiguration] Exposure detection interval:\(exposureDetectionInterval)", log: .riskDetection)
+		Log.debug("[RiskProvidingConfiguration] Next potential detection date:\(potentialDate)", log: .riskDetection)
 		return potentialDate > currentDate ? .date(potentialDate) : .now
 	}
 
@@ -80,11 +82,13 @@ extension RiskProvidingConfiguration {
 	func shouldPerformExposureDetection(activeTracingHours: Int, lastExposureDetectionDate: Date?, currentDate: Date = Date()) -> Bool {
 		// Don't allow exposure detection within the first frame of exposureDetectionInterval
 		guard activeTracingHours >= TracingStatusHistory.minimumActiveHours else {
+			Log.info("[RiskProvidingConfiguration] Not enough tracing hours.", log: .riskDetection)
 			return false
 		}
 
 		if let lastExposureDetectionDate = lastExposureDetectionDate, lastExposureDetectionDate > currentDate {
 			// It is not valid to have a future exposure detection date.
+			Log.info("[RiskProvidingConfiguration] Last exposure date is in the future. Are you Marty McFly?", log: .riskDetection)
 			return true
 		}
 		let next = nextExposureDetectionDate(lastExposureDetectionDate: lastExposureDetectionDate, currentDate: currentDate)
@@ -93,6 +97,8 @@ extension RiskProvidingConfiguration {
 		case .now:
 			return true
 		case .date(let date):
+			Log.debug("[RiskProvidingConfiguration] Last exposure date :\(date)", log: .riskDetection)
+			Log.debug("[RiskProvidingConfiguration] Current date :\(currentDate)", log: .riskDetection)
 			return date <= currentDate
 		}
 	}

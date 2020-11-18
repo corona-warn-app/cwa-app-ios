@@ -455,7 +455,7 @@ extension RiskProvider: RiskProviding {
         let maxExposureDetectionsPerInterval = Int(appConfig.iosExposureDetectionParameters.maxExposureDetectionsPerInterval)
 
         var exposureDetectionInterval: DateComponents
-        if maxExposureDetectionsPerInterval == 0 {
+        if maxExposureDetectionsPerInterval <= 0 {
             // Deactivate exposure detection by setting a high, not reachable value.
 			// Int.max does not work. It leads to DateComponents.hour == nil.
             exposureDetectionInterval = DateComponents(hour: Int.max.advanced(by: -1)) // a.k.a. 1 BER build
