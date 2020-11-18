@@ -15,10 +15,10 @@ extension TimeInterval {
 	}
 
 	/// One second
-	static let short = 1.0
+	static let short = 2.0
 	/// Three seconds
-	static let medium = 3.0
+	static let medium = 5.0
 	/// Fife seconds
-	static let long = 5.0
+	static let long = 10.0
 
 }

@@ -45,13 +45,13 @@ class CountdownTimer {
 	// MARK: - Private Helpers.
 
 	private func action(_ timer: Timer? = nil) {
-		guard self.end >= Date() else {
+		guard end >= Date() else {
 			timer?.invalidate()
-			self.delegate?.countdownTimer(self, didEnd: true)
+			delegate?.countdownTimer(self, didEnd: true)
 			return
 		}
 
-		self.update()
+		update()
 	}
 
 	private func update() {
