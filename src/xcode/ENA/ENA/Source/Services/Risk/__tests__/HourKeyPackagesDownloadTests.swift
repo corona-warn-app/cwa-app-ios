@@ -68,7 +68,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_CachedHourPackagesAvailable_Then_OnlyServerDeltaPackagesAreDownloaded() throws {
@@ -106,7 +106,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_ExpiredCachedHourPackagesAvailable_Then_ExpiredPackagesAreDeleted() throws {
@@ -144,7 +144,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_ExpectNewHourPackagesIsFalse_Then_NoPackageDownloadIsTriggeredAndSuccessIsCalled() throws {
@@ -188,7 +188,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_HourPackagesDownloadIsRunning_Then_downloadIsRunningErrorReturned() throws {
@@ -225,7 +225,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 			}
 		}
 		
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_HourPackagesDownloadFailes_Then_uncompletedPackagesErrorReturned() {
@@ -256,7 +256,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_AvailableServerHourDataFetchFailes_Then_uncompletedPackagesErrorReturned() {
@@ -287,7 +287,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_PersistHourPackagesToDatabaseFails_Then_unableToWriteDiagnosisKeysErrorReturned() {
@@ -317,7 +317,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_PersistHourPackagesToDatabaseFailsBecauseOfDiskSpace_Then_noDiskSpaceErrorReturned() {
@@ -347,7 +347,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_NoNewPackagesFoundOnServer_Then_StatusChangesFrom_Idle_To_CheckingForNewPackages_To_Idle() throws {
@@ -398,7 +398,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 
 		keyPackageDownload.startHourPackagesDownload { _ in }
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_NewPackagesFoundOnServer_Then_StatusChangesFrom_Idle_To_Downloading_To_CheckingForNewPackages_To_Idle() {
@@ -441,7 +441,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 
 		keyPackageDownload.startHourPackagesDownload { _ in }
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_DownloadingDayPackage_Then_CleanupHourPackages() throws {
@@ -488,6 +488,6 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 
 		keyPackageDownload.startHourPackagesDownload { _ in }
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 }
