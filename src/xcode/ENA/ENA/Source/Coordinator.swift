@@ -49,20 +49,17 @@ class Coordinator: RequiresAppDependencies {
 	}
 
 	func showHome(enStateHandler: ENStateHandler) {
-//		let homeController = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
-//			HomeViewController(
-//				coder: coder,
-//				delegate: self,
-//				detectionMode: state.detectionMode,
-//				exposureManagerState: state.exposureManager,
-//				initialEnState: enStateHandler.state,
-//				risk: state.risk,
-//				exposureSubmissionService: self.exposureSubmissionService
-//			)
-//		}
-		let homeController = ExposureSubmissionTestResultConsentViewController(exposureSubmissionService: self.exposureSubmissionService)
+		let homeController = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
+			HomeViewController(
+				coder: coder,
+				delegate: self,
+				exposureManagerState: exposureManager.preconditions(),
+				initialEnState: enStateHandler.state,
+				exposureSubmissionService: self.exposureSubmissionService
+			)
+		}
 
-		//self.homeController = homeController
+		self.homeController = homeController
 
 		UIView.transition(with: rootViewController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
 			self.rootViewController.setViewControllers([homeController], animated: false)
