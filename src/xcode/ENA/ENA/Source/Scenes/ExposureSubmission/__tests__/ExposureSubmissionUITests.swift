@@ -82,16 +82,15 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].tap()
 
-		// TODO – Work in progress; test needs to be completed when all screens have been implemented
 		// QR Code Info Screen
 //		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionQRInfoView"].waitForExistence(timeout: .medium))
 //		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-//
-//		// -> Accept the alert.
+
+		// -> Accept the alert.
 //		XCTAssertTrue(app.alerts.firstMatch.exists)
 //		app.alerts.buttons[app.localized("ExposureSubmissionDataPrivacy_AcceptTitle")].tap()
-//
-//		// QR Code Scanner Screen
+
+		// QR Code Scanner Screen
 //		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionQRScannerView"].waitForExistence(timeout: .medium))
 	}
 
