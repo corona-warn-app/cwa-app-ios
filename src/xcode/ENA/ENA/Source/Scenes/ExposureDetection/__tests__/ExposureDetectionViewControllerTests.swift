@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -42,17 +27,21 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 
 	func testHighRiskState() {
 		let state = ExposureDetectionViewController.State(
-			riskDetectionFailed: false, exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskState: .risk(
+				.init(
+					level: .high,
+					details: .init(
+						daysSinceLastExposure: 1,
+						numberOfExposures: 2,
+						activeTracing: .init(interval: 14 * 86400),
+						exposureDetectionDate: nil
+					),
+					riskLevelHasChanged: false
+				)
+			),
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			detectionMode: .automatic,
 			activityState: .idle,
-			risk: .init(level: .increased,
-						details: .init(
-							daysSinceLastExposure: 1,
-							numberOfExposures: 2,
-							activeTracing: .init(interval: 14 * 86400),
-							exposureDetectionDate: nil
-						),
-						riskLevelHasChanged: false),
 			previousRiskLevel: nil
 		)
 
@@ -75,10 +64,10 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 		)
 
 		let state = ExposureDetectionViewController.State(
-			riskDetectionFailed: false, exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskState: .risk(lowRisk),
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			detectionMode: .automatic,
 			activityState: .idle,
-			risk: lowRisk,
 			previousRiskLevel: nil
 		)
 
@@ -118,10 +107,10 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 		)
 
 		let state = ExposureDetectionViewController.State(
-			riskDetectionFailed: false, exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskState: .risk(lowRisk),
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			detectionMode: .automatic,
 			activityState: .idle,
-			risk: lowRisk,
 			previousRiskLevel: nil
 		)
 

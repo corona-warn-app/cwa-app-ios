@@ -1,23 +1,9 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
+import Combine
 import UIKit
 
 class EUSettingsViewController: DynamicTableViewController {
@@ -29,6 +15,7 @@ class EUSettingsViewController: DynamicTableViewController {
 	// MARK: - Private Attributes
 
 	private var viewModel = EUSettingsViewModel()
+	private var subscriptions = [AnyCancellable]()
 
 	init(appConfigurationProvider: AppConfigurationProviding) {
 		self.appConfigurationProvider = appConfigurationProvider
@@ -52,9 +39,9 @@ class EUSettingsViewController: DynamicTableViewController {
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
-		setupDataSource()
 		setupTableView()
 		setupBackButton()
+		setupDataSource()
 	}
 
 	private func setupTableView() {
@@ -74,18 +61,12 @@ class EUSettingsViewController: DynamicTableViewController {
 	// MARK: Data Source setup methods.
 
 	private func setupDataSource() {
-		appConfigurationProvider.appConfiguration { [weak self] result in
-			switch result {
-			case .success(let applicationConfiguration):
-				let supportedCountryIDs = applicationConfiguration.supportedCountries
-				let supportedCountries = supportedCountryIDs.compactMap { Country(countryCode: $0) }
-				self?.viewModel = EUSettingsViewModel(countries: supportedCountries)
-			case .failure(let error):
-				Log.error("Error while loading app configuration: \(error).", log: .api)
-				self?.viewModel = EUSettingsViewModel(countries: [])
-			}
+		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
+			let supportedCountryIDs = configuration.supportedCountries
+			let supportedCountries = supportedCountryIDs.compactMap { Country(countryCode: $0) }
+			self?.viewModel = EUSettingsViewModel(countries: supportedCountries)
 			self?.reloadCountrySection()
-		}
+		}.store(in: &subscriptions)
 	}
 
 	private func reloadCountrySection() {

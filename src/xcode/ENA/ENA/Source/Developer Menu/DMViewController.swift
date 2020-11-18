@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 #if !RELEASE
 
@@ -59,6 +46,12 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		consumer.didCalculateRisk = { _ in
 			// intentionally left blank
 		}
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		navigationController?.setToolbarHidden(true, animated: animated)
 	}
 
 	// MARK: Clear Registration Token of Submission
@@ -117,6 +110,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 				wifiClient: wifiClient,
 				delegate: self
 			)
+		case .appConfiguration:
+			vc = DMAppConfigurationViewController(appConfiguration: appConfigurationProvider)
 		case .backendConfiguration:
 			vc = makeBackendConfigurationViewController()
 		case .tracingHistory:
@@ -136,6 +131,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .manuallyRequestRisk:
 			vc = nil
 			manuallyRequestRisk()
+		case .debugRiskCalculation:
+			vc = DMDebugRiskCalculationViewController(store: store)
 		case .onboardingVersion:
 			vc = makeOnboardingVersionViewController()
 		case .serverEnvironment:
@@ -146,8 +143,9 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMNotificationsViewController()
 		case .warnOthersNotifications:
 			vc = DMWarnOthersNotificationViewController(warnOthersReminder: WarnOthersReminder(store: store), store: store)
+		case .deviceTimeCheck:
+			vc = DMDeviceTimeCheckViewController(store: store)
 		}
-		
 		
 		if let vc = vc {
 			navigationController?.pushViewController(
@@ -198,7 +196,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 				title: "Purge Cache and request Risk",
 				style: .destructive
 			) { _ in
-				self.store.summary = nil
+				self.store.riskCalculationResult = nil
 				self.riskProvider.requestRisk(userInitiated: true)
 			}
 		)

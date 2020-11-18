@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 @testable import ENA
@@ -72,7 +57,7 @@ class CoordinatorTests: XCTestCase {
 	func test_coordinator_shouldShowHome() {
 		let delegate = MockStateHandlerObserverDelegate()
 		let enStateHandler = ENStateHandler(initialExposureManagerState: .init(), delegate: delegate)
-		coordinator.showHome(enStateHandler: enStateHandler, state: .init(exposureManager: .init(), detectionMode: .automatic, risk: nil, riskDetectionFailed: false))
+		coordinator.showHome(enStateHandler: enStateHandler)
 		let setViewControllersWasCalled = coordinator.mockNavigationController.setViewControllersWasCalled
 		XCTAssertTrue(setViewControllersWasCalled)
 	}
@@ -96,7 +81,7 @@ class CoordinatorTests: XCTestCase {
 	}
 	
 	func test_coordinator_shouldShowExposureDetection() {
-		let state = HomeInteractor.State(detectionMode: .automatic, exposureManagerState: .init(), enState: .unknown, risk: nil, riskDetectionFailed: false)
+		let state = HomeInteractor.State(riskState: .inactive, detectionMode: .automatic, exposureManagerState: .init(), enState: .unknown)
 		coordinator.showExposureDetection(state: state, activityState: .idle)
 		let presentWasCalled = coordinator.mockNavigationController.presentWasCalled
 		XCTAssertTrue(presentWasCalled)
