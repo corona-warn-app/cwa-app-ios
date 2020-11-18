@@ -62,12 +62,12 @@ final class RiskProvider: RiskProviding {
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
 	/// The completion is only used for the background fetch. Please use a consumer to get state updates.
-	func requestRisk(userInitiated: Bool) {
-		requestRisk(userInitiated: userInitiated, completion: nil)
+	func requestRisk(userInitiated: Bool, timeoutInterval: TimeInterval) {
+		requestRisk(userInitiated: userInitiated, completion: nil, timeoutInterval: timeoutInterval)
 	}
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
-	func requestRisk(userInitiated: Bool, completion: Completion?) {
+	func requestRisk(userInitiated: Bool, completion: Completion?, timeoutInterval: TimeInterval) {
 		Log.info("RiskProvider: Request risk was called. UserInitiated: \(userInitiated)", log: .riskDetection)
 
 		guard activityState == .idle else {
@@ -92,7 +92,7 @@ final class RiskProvider: RiskProviding {
 			}
 			#endif
 
-			self._requestRiskLevel(userInitiated: userInitiated, completion: completion)
+			self._requestRiskLevel(userInitiated: userInitiated, completion: completion, timeoutInterval: timeoutInterval)
 		}
 	}
 
@@ -128,7 +128,7 @@ final class RiskProvider: RiskProviding {
 		return didDownloadNewPackagesSinceLastDetection || lastDetectionMoreThan24HoursAgo
 	}
 
-	private func _requestRiskLevel(userInitiated: Bool, completion: Completion?) {
+	private func _requestRiskLevel(userInitiated: Bool, completion: Completion?, timeoutInterval: TimeInterval) {
 		let group = DispatchGroup()
 		group.enter()
 		appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
@@ -137,10 +137,6 @@ final class RiskProvider: RiskProviding {
 			self.updateRiskProvidingConfiguration(with: appConfiguration)
 			
 			self.downloadKeyPackages { result in
-				defer {
-					group.leave()
-				}
-
 				switch result {
 				case .success:
 					self.determineRisk(
@@ -154,14 +150,16 @@ final class RiskProvider: RiskProviding {
 						case .failure(let error):
 							self.failOnTargetQueue(error: error, completion: completion)
 						}
+						group.leave()
 					}
 				case .failure(let error):
 					self.failOnTargetQueue(error: error, completion: completion)
+					group.leave()
 				}
 			}
 		}.store(in: &subscriptions)
 
-		guard group.wait(timeout: .now() + .seconds(60 * 8)) == .success else {
+		guard group.wait(timeout: DispatchTime.now() + timeoutInterval) == .success else {
 			updateActivityState(.idle)
 			exposureDetection?.cancel()
 			Log.info("RiskProvider: Canceled risk calculation due to timeout", log: .riskDetection)

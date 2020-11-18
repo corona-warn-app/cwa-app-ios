@@ -10,6 +10,54 @@ import ExposureNotification
 // swiftlint:disable:next type_body_length
 final class RiskProviderTests: XCTestCase {
 
+
+	func testGIVEN_RiskProvider_WHEN_requestRisk_THEN_TimeoutWillTrigger() {
+		// GIVEN
+		let duration = DateComponents(day: 1)
+
+		let store = MockTestStore()
+		store.riskCalculationResult = nil
+
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: duration,
+			exposureDetectionInterval: duration
+		)
+
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+
+		let riskProvider = RiskProvider(
+			configuration: config,
+			store: store,
+			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskCalculation: RiskCalculationFake(),
+			keyPackageDownload: keyPackageDownloadMock(with: store),
+			exposureDetectionExecutor: exposureDetectionDelegateStub
+		)
+
+		let didCalculateRiskCalled = expectation(description: "expect didCalculateRisk to be called once")
+		didCalculateRiskCalled.expectedFulfillmentCount = 1
+
+		let didFailCalculateRiskCalled = expectation(description: "expect didFailCalculateRisk to be called")
+
+		let consumer = RiskConsumer()
+		consumer.didCalculateRisk = { _ in
+			didCalculateRiskCalled.fulfill()
+		}
+		consumer.didFailCalculateRisk = { _ in
+			didFailCalculateRiskCalled.fulfill()
+		}
+
+		riskProvider.observeRisk(consumer)
+
+		// WHEN
+		// use an timeout interval of -1 secounds to set timeout limit in the past
+		riskProvider.requestRisk(userInitiated: true, completion: nil, timeoutInterval: TimeInterval(-1.0))
+
+		// THEN
+		waitForExpectations(timeout: .medium)
+	}
+
 	func testGIVEN_RiskProvider_WHEN_addingAndRemovingConsumer_THEN_noCallback() throws {
 		let duration = DateComponents(day: 1)
 
