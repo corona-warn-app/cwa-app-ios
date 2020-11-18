@@ -22,12 +22,12 @@ import Combine
 
 class ExposureSubmissionTestResultConsentViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 	
+	
 	// MARK: - Init
 	
-	init(
-	) {
-		self.viewModel = ExposureSubmissionTestResultConsentViewModel()
-		
+	init(exposureSubmissionService: ExposureSubmissionService) {
+				
+		self.viewModel = ExposureSubmissionTestResultConsentViewModel(exposureSubmissionService: exposureSubmissionService)
 		super.init(nibName: nil, bundle: nil)
 	}
 	

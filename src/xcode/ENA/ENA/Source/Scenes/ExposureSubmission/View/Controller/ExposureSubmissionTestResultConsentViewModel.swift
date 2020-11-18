@@ -20,7 +20,24 @@
 import Foundation
 import UIKit
 
-struct ExposureSubmissionTestResultConsentViewModel {
+class ExposureSubmissionTestResultConsentViewModel {
+	
+	// MARK: - Properties
+	
+	private var exposureSubmissionService: ExposureSubmissionService
+	
+	// MARK: - Init
+	
+	init(exposureSubmissionService: ExposureSubmissionService) {
+		self.exposureSubmissionService = exposureSubmissionService
+	}
+	
+	@objc
+	func stateChanged(switchState: UISwitch) {
+		Log.info("Switch state was changed to: \(switchState.isOn)")
+		exposureSubmissionService.isSubmissionConsentGiven = switchState.isOn
+	}
+	
 	// MARK: - Internal
 	
 	var dynamicTableViewModel: DynamicTableViewModel {
@@ -35,6 +52,7 @@ struct ExposureSubmissionTestResultConsentViewModel {
 							configure: { _, cell, _ in
 								let consentSwitch = UISwitch()
 								cell.accessoryView = consentSwitch
+								consentSwitch.addTarget(self, action: #selector(self.stateChanged), for: .valueChanged)
 							}
 						),
 						.body(text: AppStrings.AutomaticSharingConsent.switchTitleDescription),
