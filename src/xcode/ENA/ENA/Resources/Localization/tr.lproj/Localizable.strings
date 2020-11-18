@@ -67,15 +67,13 @@
 
 "ExposureDetection_RefreshIn" = "%@ içinde güncelle";
 
-"ExposureDetection_Refresh_24h" = "24 saatlik aralıklarla güncellenir";
-
 "ExposureDetection_LastRiskLevel" = "Son maruz kalma kontrolü: %@";
 
 "ExposureDetection_OffText" = "Bugünkü risk durumunuzu değerlendirmek için maruz kalma günlüğünü etkinleştirin.";
 
 "ExposureDetection_OutdatedText" = "Maruz kalma günlüğü 48 saatten uzun süredir güncellenmedi. Lütfen hesaplamayı güncelleyin.";
 
-"ExposureDetection_UnknownText" = "Maruz kalma günlüğünü uzun süredir etkinleştirmediğiniz için enfeksiyon riskinizi hesaplayamadık.";
+"ExposureDetection_UnknownText" = "Maruz kalma günlüğünü uzun süredir etkinleştirmediğiniz için enfeksiyon riskinizi hesaplayamıyoruz.";
 
 "ExposureDetection_LoadingText" = "Güncel veriler indiriliyor ve kaydediliyor. Bu işlem birkaç dakika sürebilir.";
 
@@ -129,7 +127,7 @@
 
 "ExposureDetection_Button_Refresh" = "Güncelle";
 
-"ExposureDetection_Risk_Status_Downloading_Title" = "Veri indiriliyor …";
+"ExposureDetection_Risk_Status_Downloading_Title" = "Veri indiriliyor…";
 
 "ExposureDetection_Risk_Status_Detecting_Title" = "Kontrol devam ediyor …";
 
@@ -260,7 +258,7 @@
 
 "BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Arka planda uygulamayı yenileme özelliğini etkinleştirmek için lütfen düşük güç modunun devre dışı bırakılması gerektiğini unutmayın.";
 
-"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Düşük Güç Modunu Devre Dışı Bırakın";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Düşük Güç Modunu Devre Dışı Bırak";
 
 "BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Ayarları açın";
 
@@ -421,13 +419,13 @@
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "TAN'yi manuel olarak girerek kaydedin.";
+"ExposureSubmissionDispatch_TANButtonDescription" = "TAN'yi manüel olarak girerek kaydedin.";
 
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "TAN Talebi";
 
 "ExposureSubmissionDispatch_HotlineButtonDescription" = "Test sonucunuz %@ çıktıysa lütfen bizi arayın.";
 
-"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "COVID-19 Pozitif";
+"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "COVID-19";
 
 "ExposureSubmissionHotline_Title" = "TAN Talebi";
 
@@ -633,7 +631,7 @@
 
 "ExposureSubmissionSymptoms_AnswerOptionNo" = "Hayır";
 
-"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Bilgi yok";
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Beyan yok";
 
 "ExposureSubmissionSymptoms_ContinueButton" = "Sonraki";
 
@@ -652,12 +650,12 @@
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "2 haftadan uzun süre önce";
 
-"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Bilgi yok";
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Beyan yok";
 
 "ExposureSubmissionSymptomsOnset_ContinueButton" = "Sonraki";
 
 /* ExposureSubmissionWarnOthers */
-"ExposureSubmissionWarnOthers_title" = "Diğer Kullanıcıları Uyarın";
+"ExposureSubmissionWarnOthers_title" = "Diğer Kullanıcıları Uyarma";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "Bir cihaz şifrelenmiş pozitif test tanısını sisteme aktarır.";
 
@@ -758,7 +756,7 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Maruz kalma günlüğünde, karşılaşmaların günlüğe kaydedilebilmesi için sistem ayarlarında maruz kalma bildirimlerinin etkinleştirilmesi gerekir. \"Cihaz Ayarlarını Aç\"  -> \"Maruz Kalma Bildirimleri\" -> \"Maruz Kalma Bildirimlerini Paylaş\" seçeneğini belirleyin. Ardından \"Etkin Bölge Olarak Belirle\" seçeneğini belirleyerek uygulamayı maruz kalma bildirimleri için etkin uygulama olarak tanımlayın.";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "COVID-19 Maruz Kalma Bildirimlerini Etkinleştir ";
+"ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "COVID-19 Maruz Kalma Bildirimlerini Etkinleştir";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Maruz kalma günlüğünde, karşılaşmaların günlüğe kaydedilebilmesi için sistem ayarlarında COVID-19 Maruz Kalma Bildirimlerinin etkinleştirilmesi gerekir. \"Cihaz Ayarlarını Aç\" seçeneğini belirleyin ve ayarlarda \"COVID-19 Maruz Kalma Bildirimleri\" özelliğini etkinleştirin.";
 
@@ -778,7 +776,7 @@
 
 "ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Yetki";
 
-"ExposureNotificationSetting_AccLabel_Enabled" = "Üç kişi akıllı telefonlarında maruz kalma günlüğünü etkinleştirdi ve birbirleri ile karşılaşmaları günlüğe kaydedilecektir.";
+"ExposureNotificationSetting_AccLabel_Enabled" = "Üç kişi cihazlarında maruz kalma günlüğünü etkinleştirdi ve birbirleri ile karşılaşmaları günlüğe kaydedilecektir.";
 
 "ExposureNotificationSetting_AccLabel_Disabled" = "Bir kişi akıllı telefonunda maruz kalma günlüğünü devre dışı bıraktı. Bu nedenle iki diğer kişi ile karşılaşma günlüğe kaydedilmez.";
 
@@ -845,8 +843,6 @@
 
 "Home_Risk_No_Date_Title" = "Bilinmiyor";
 
-"Home_Risk_Period_Update_Title" = "%@\U00A0hours aralıkla güncellenir";
-
 "Home_Risk_Period_Disabled_Button_Title" = "Yalnızca %@\U00A0hours aralıkla güncellenir";
 
 "Home_Risk_Unknown_Title" = "Bilinmeyen Risk";
@@ -903,7 +899,7 @@
 "Home_Risk_Restart_Button_Title" = "Yeniden başlat";
 
 /* Home Thank you card */
-"Home_Thank_You_Card_Title" = "Teşekkür ederiz";
+"Home_Thank_You_Card_Title" = "Teşekkür ederiz!";
 
 "Home_Thank_You_Card_Body" = "Desteğiniz sayesinde artık diğer kullanıcılar uyarılabilir ve buna uygun şekilde hareket edebilir.";
 
@@ -1000,7 +996,7 @@
 
 "App_Information_About_Description" = "Robert Koch Institute (RKI), Almanya'nın federal kamu sağlığı kurumudur. RKI, Federal Hükûmet adına Corona-Warn-App uygulamasını yayınlamaktadır. Uygulama, daha önce açıklanan kamu sağlığı önlemlerine ilişkin dijital bir tamamlayıcı niteliğindedir: sosyal mesafe, hijyen uygulamaları ve yüz maskeleri.";
 
-"App_Information_About_Text" = "Uygulamayı kullanan herkes, enfeksiyon zincirlerinin takip edilmesine ve kırılmasına yardımcı olur. Uygulama, diğer kişilerle karşılaşmaları cihazınızda yerel olarak kaydeder. Daha sonra COVID-19 tanısı konan kişilerle karşılaşmışsanız size bildirim gönderilir. Kimliğiniz ve gizliliğiniz daima koruma altındadır.";
+"App_Information_About_Text" = "Uygulamayı kullanan kişiler, enfeksiyon zincirlerinin takip edilmesine ve kırılmasına yardımcı olur. Uygulama, diğer kişilerle karşılaşmaları cihazınızda yerel olarak kaydeder. Daha sonra COVID-19 tanısı konan kişilerle karşılaşmışsanız size bildirim gönderilir. Kimliğiniz ve gizliliğiniz daima koruma altındadır.";
 
 "App_Information_About_LinkText" = "Basitleştirilmiş Dilde ve İşaret Dilinde Uygulama Bilgileri";
 
@@ -1219,4 +1215,9 @@
 "DeltaOnboarding_Terms_Button" = "Kullanım koşullarını görüntüle";
 
 "DeltaOnboarding_Terms_Description2" = "Kullanım Koşulları ve gizlilik bildirimi \"Uygulama Bilgileri\" başlığındaki menüde ve uygulama mağazanızdaki uygulama açıklamasında yer almaktadır. Değişiklikler, uygulamayı nasıl kullandığınızı etkilemeyecektir. Uygulamayı kullanmaya devam eder veya uygulamayı yeniden açarsanız güncellenen Kullanım Koşullarını kabul ettiğinizi varsayacağız.";
+
+/* Warn other notifications */
+"WarnOthersNotification_Title" = "Yardımcı olabilirsiniz!";
+
+"WarnOthersNotification_Description" = "Lütfen test sonucunuzu paylaşın ve diğer kullanıcıları uyarın.";
 

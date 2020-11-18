@@ -61,24 +61,12 @@ final class RiskProvider: RiskProviding {
 	}
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
-	/// The completion is only used for the background fetch. Please use a consumer to get state updates.
 	func requestRisk(userInitiated: Bool) {
-		requestRisk(userInitiated: userInitiated, completion: nil)
-	}
-
-	/// Called by consumers to request the risk level. This method triggers the risk level process.
-	func requestRisk(userInitiated: Bool, completion: Completion?) {
 		Log.info("RiskProvider: Request risk was called. UserInitiated: \(userInitiated)", log: .riskDetection)
 
 		guard activityState == .idle else {
 			Log.info("RiskProvider: Risk detection is allready running. Don't start new risk detection", log: .riskDetection)
-
-			// Not using failOnTargetQueue to leave the activityState and consumers alone
-			targetQueue.async {
-				// This completion callback only affects the background fetch.
-				// (Since at the moment the background fetch is the only one using the completion)
-				completion?(.failure(.riskProviderIsRunning))
-			}
+			failOnTargetQueue(error: .riskProviderIsRunning, updateState: false)
 			return
 		}
 
@@ -87,16 +75,17 @@ final class RiskProvider: RiskProviding {
 
 			#if DEBUG
 			if isUITesting {
-				self._requestRiskLevel_Mock(userInitiated: userInitiated, completion: completion)
+				self._requestRiskLevel_Mock(userInitiated: userInitiated)
 				return
 			}
 			#endif
 
-			self._requestRiskLevel(userInitiated: userInitiated, completion: completion)
+			self._requestRiskLevel(userInitiated: userInitiated)
 		}
 	}
 
 	// MARK: - Private
+    private typealias Completion = (RiskProviderResult) -> Void
 
 	private let store: Store
 	private let appConfigurationProvider: AppConfigurationProviding
@@ -128,7 +117,7 @@ final class RiskProvider: RiskProviding {
 		return didDownloadNewPackagesSinceLastDetection || lastDetectionMoreThan24HoursAgo
 	}
 
-	private func _requestRiskLevel(userInitiated: Bool, completion: Completion?) {
+	private func _requestRiskLevel(userInitiated: Bool) {
 		let group = DispatchGroup()
 		group.enter()
 		appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
@@ -148,16 +137,15 @@ final class RiskProvider: RiskProviding {
 						
 						switch result {
 						case .success(let risk):
-							self.successOnTargetQueue(risk: risk, completion: completion)
+							self.successOnTargetQueue(risk: risk)
 						case .failure(let error):
-							self.failOnTargetQueue(error: error, completion: completion)
+							self.failOnTargetQueue(error: error)
 						}
 						
 						group.leave()
 					}
 				case .failure(let error):
-					self.failOnTargetQueue(error: error, completion: completion)
-					
+					self.failOnTargetQueue(error: error)
 					group.leave()
 				}
 			}
@@ -167,7 +155,7 @@ final class RiskProvider: RiskProviding {
 			updateActivityState(.idle)
 			exposureDetection?.cancel()
 			Log.info("RiskProvider: Canceled risk calculation due to timeout", log: .riskDetection)
-			failOnTargetQueue(error: .timeout, completion: completion)
+			failOnTargetQueue(error: .timeout)
 			return
 		}
 	}
@@ -211,7 +199,7 @@ final class RiskProvider: RiskProviding {
 		// 1. The exposureManagerState is bad (turned off, not authorized, etc.)
 		if !exposureManagerState.isGood {
 			Log.info("RiskProvider: Precondition not met for ExposureManagerState", log: .riskDetection)
-			failOnTargetQueue(error: .inactive, completion: completion)
+			failOnTargetQueue(error: .inactive)
 			return
 		}
 
@@ -351,7 +339,7 @@ final class RiskProvider: RiskProviding {
         let maxExposureDetectionsPerInterval = Int(appConfig.exposureDetectionParameters.maxExposureDetectionsPerInterval)
 
         var exposureDetectionInterval: DateComponents
-        if maxExposureDetectionsPerInterval == 0 {
+        if maxExposureDetectionsPerInterval <= 0 {
             // Deactivate exposure detection by setting a high, not reachable value.
 			// Int.max does not work. It leads to DateComponents.hour == nil.
             exposureDetectionInterval = DateComponents(hour: Int.max.advanced(by: -1)) // a.k.a. 1 BER build
@@ -366,27 +354,21 @@ final class RiskProvider: RiskProviding {
 		)
     }
 
-	private func successOnTargetQueue(risk: Risk, completion: Completion?) {
+	private func successOnTargetQueue(risk: Risk) {
 		Log.info("RiskProvider: Risk detection and calculation was successful.", log: .riskDetection)
 
 		updateActivityState(.idle)
-
-		targetQueue.async {
-			completion?(.success(risk))
-		}
 
 		for consumer in consumers {
 			_provideRiskResult(.success(risk), to: consumer)
 		}
 	}
 
-	private func failOnTargetQueue(error: RiskProviderError, completion: Completion?) {
+	private func failOnTargetQueue(error: RiskProviderError, updateState: Bool = true) {
 		Log.info("RiskProvider: Failed with error: \(error)", log: .riskDetection)
-
-		updateActivityState(.idle)
-
-		targetQueue.async {
-			completion?(.failure(error))
+		
+		if updateState {
+			updateActivityState(.idle)
 		}
 
 		for consumer in consumers {
@@ -437,9 +419,9 @@ private extension RiskConsumer {
 
 #if DEBUG
 extension RiskProvider {
-	private func _requestRiskLevel_Mock(userInitiated: Bool, completion: Completion? = nil) {
+	private func _requestRiskLevel_Mock(userInitiated: Bool) {
 		let risk = Risk.mocked
-		successOnTargetQueue(risk: risk, completion: completion)
+		successOnTargetQueue(risk: risk)
 
 		for consumer in consumers {
 			_provideRiskResult(.success(risk), to: consumer)

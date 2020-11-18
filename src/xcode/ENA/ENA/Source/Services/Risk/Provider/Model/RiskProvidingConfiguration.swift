@@ -43,6 +43,8 @@ extension RiskProvidingConfiguration {
 			to: lastExposureDetectionDate ?? .distantPast,
 			wrappingComponents: false
 		) ?? .distantPast
+        Log.debug("[RiskProvidingConfiguration] Next potential detection date: \(potentialDate)", log: .riskDetection)
+        Log.debug("[RiskProvidingConfiguration] Exposure detection interval: \(exposureDetectionInterval)", log: .riskDetection)
 		return max(potentialDate, currentDate)
 	}
 
@@ -59,6 +61,7 @@ extension RiskProvidingConfiguration {
 	///     - lastExposureDetectionDate: The timestamp when the last exposureDetection completed successfully.
 	///     - currentDate: Current timestamp.
 	func shouldPerformExposureDetection(lastExposureDetectionDate: Date?, currentDate: Date = Date()) -> Bool {
+        Log.debug("[RiskProvidingConfiguration] Last exposure date input: \(String(describing: lastExposureDetectionDate))", log: .riskDetection)
 		if let lastExposureDetectionDate = lastExposureDetectionDate, lastExposureDetectionDate > currentDate {
 			// It is not valid to have a future exposure detection date.
 			return true
