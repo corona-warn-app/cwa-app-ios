@@ -194,9 +194,11 @@ workflows:
       jobs:
         - dependencies:
             filters:
-              branches:
+              tags:
                 only:
-                  - /release/.*/
+                  - /^v.*/
+              branches:
+                ignore: /.*/
         - snapshot:
             matrix:
               parameters:
