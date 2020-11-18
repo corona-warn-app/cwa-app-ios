@@ -5,7 +5,7 @@
 import UIKit
 import Combine
 
-class ExposureSubmissionTestResultConsentViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+class ExposureSubmissionTestResultConsentViewController: DynamicTableViewController {
 	
 	
 	// MARK: - Init
@@ -29,28 +29,10 @@ class ExposureSubmissionTestResultConsentViewController: DynamicTableViewControl
 		setupView()
 	}
 	
-	override var navigationItem: UINavigationItem {
-		navigationFooterItem
-	}
-
 	// MARK: - Private
 	
 	private let viewModel: ExposureSubmissionTestResultConsentViewModel
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		
-		let item = ENANavigationFooterItem()
-		
-		item.isPrimaryButtonHidden = true
-		
-		item.primaryButtonTitle = AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle
-		item.isPrimaryButtonEnabled = false
-		item.isSecondaryButtonHidden = false
-		
-		item.title = AppStrings.AutomaticSharingConsent.consentTitle
-		
-		return item
-	}()
-	
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
 		cellBackgroundColor = .clear
@@ -62,10 +44,7 @@ class ExposureSubmissionTestResultConsentViewController: DynamicTableViewControl
 			DynamicTableViewConsentCell.self,
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.consentCell.rawValue
 		)
-
-		
 	}
-	
 }
 
 extension ExposureSubmissionTestResultConsentViewController {
