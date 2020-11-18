@@ -90,17 +90,12 @@ extension RiskProvider: RiskProviding {
 	}
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
-	/// The completion is only used for the background fetch. Please use a consumer to get state updates.
-	func requestRisk(userInitiated: Bool, ignoreCachedSummary: Bool = false, completion: Completion? = nil) {
+	func requestRisk(userInitiated: Bool, ignoreCachedSummary: Bool = false) {
 		Log.info("RiskProvider: Request risk was called. UserInitiated: \(userInitiated), ignoreCachedSummary: \(ignoreCachedSummary)", log: .riskDetection)
 
 		guard activityState == .idle else {
 			Log.info("RiskProvider: Risk detection is allready running. Don't start new risk detection", log: .riskDetection)
-			targetQueue.async {
-				// This completion callback only affects the background fetch.
-				// (Since at the moment the background fetch is the only one using the completion)
-				completion?(.failure(.riskProviderIsRunning))
-			}
+			failOnTargetQueue(error: .riskProviderIsRunning, updateState: false)
 			return
 		}
 
@@ -109,12 +104,12 @@ extension RiskProvider: RiskProviding {
 
 			#if DEBUG
 			if isUITesting {
-				self._requestRiskLevel_Mock(userInitiated: userInitiated, completion: completion)
+				self._requestRiskLevel_Mock(userInitiated: userInitiated)
 				return
 			}
 			#endif
 
-			self._requestRiskLevel(userInitiated: userInitiated, ignoreCachedSummary: ignoreCachedSummary, completion: completion)
+			self._requestRiskLevel(userInitiated: userInitiated, ignoreCachedSummary: ignoreCachedSummary)
 		}
 	}
 
@@ -141,27 +136,21 @@ extension RiskProvider: RiskProviding {
 	}
 
 
-	private func successOnTargetQueue(risk: Risk, completion: Completion?) {
+	private func successOnTargetQueue(risk: Risk) {
 		Log.info("RiskProvider: Risk detection and calculation was successful.", log: .riskDetection)
 
 		updateActivityState(.idle)
-
-		targetQueue.async {
-			completion?(.success(risk))
-		}
 
 		for consumer in consumers {
 			_provideRiskResult(.success(risk), to: consumer)
 		}
 	}
 
-	private func failOnTargetQueue(error: RiskProviderError, completion: Completion?) {
+	private func failOnTargetQueue(error: RiskProviderError, updateState: Bool = true) {
 		Log.info("RiskProvider: Failed with error: \(error)", log: .riskDetection)
 
-		updateActivityState(.idle)
-
-		targetQueue.async {
-			completion?(.failure(error))
+		if updateState {
+			updateActivityState(.idle)
 		}
 
 		for consumer in consumers {
@@ -169,7 +158,7 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	private func _requestRiskLevel(userInitiated: Bool, ignoreCachedSummary: Bool, completion: Completion?) {
+	private func _requestRiskLevel(userInitiated: Bool, ignoreCachedSummary: Bool) {
 		let group = DispatchGroup()
 		group.enter()
 		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
@@ -189,15 +178,15 @@ extension RiskProvider: RiskProviding {
 
 						switch result {
 						case .success(let risk):
-							self.successOnTargetQueue(risk: risk, completion: completion)
+							self.successOnTargetQueue(risk: risk)
 						case .failure(let error):
-							self.failOnTargetQueue(error: error, completion: completion)
+							self.failOnTargetQueue(error: error)
 						}
 
 						group.leave()
 					}
 				case .failure(let error):
-					self.failOnTargetQueue(error: error, completion: completion)
+					self.failOnTargetQueue(error: error)
 					group.leave()
 				}
 			}
@@ -207,7 +196,7 @@ extension RiskProvider: RiskProviding {
 			updateActivityState(.idle)
 			exposureDetection?.cancel()
 			Log.info("RiskProvider: Canceled risk calculation due to timeout", log: .riskDetection)
-			failOnTargetQueue(error: .timeout, completion: completion)
+			failOnTargetQueue(error: .timeout)
 			return
 		}
 	}
@@ -387,6 +376,8 @@ extension RiskProvider: RiskProviding {
 				let summary = SummaryMetadata(detectionSummary: detectedSummary, date: Date())
 				self.store.summary = summary
 
+				Log.info("RiskProvider: Persisted new summary to store at date: \(String(describing: self.store.summary?.date ?? nil)).", log: .riskDetection)
+
 				/// We were able to calculate a risk so we have to reset the deadman notification
 				UNUserNotificationCenter.current().resetDeadmanNotification()
 				completion(.success(summary))
@@ -466,7 +457,7 @@ extension RiskProvider: RiskProviding {
         let maxExposureDetectionsPerInterval = Int(appConfig.iosExposureDetectionParameters.maxExposureDetectionsPerInterval)
 
         var exposureDetectionInterval: DateComponents
-        if maxExposureDetectionsPerInterval == 0 {
+        if maxExposureDetectionsPerInterval <= 0 {
             // Deactivate exposure detection by setting a high, not reachable value.
 			// Int.max does not work. It leads to DateComponents.hour == nil.
             exposureDetectionInterval = DateComponents(hour: Int.max.advanced(by: -1)) // a.k.a. 1 BER build
@@ -522,9 +513,9 @@ extension RiskProvider {
 
 #if DEBUG
 extension RiskProvider {
-	private func _requestRiskLevel_Mock(userInitiated: Bool, completion: Completion? = nil) {
+	private func _requestRiskLevel_Mock(userInitiated: Bool) {
 		let risk = Risk.mocked
-		successOnTargetQueue(risk: risk, completion: completion)
+		successOnTargetQueue(risk: risk)
 
 		for consumer in consumers {
 			_provideRiskResult(.success(risk), to: consumer)

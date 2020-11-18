@@ -70,15 +70,16 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		let requestRiskExpectation = expectation(description: "")
-		riskProvider.requestRisk(userInitiated: false) { result in
-			switch result {
-			case .success:
-				XCTAssertTrue(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
-				requestRiskExpectation.fulfill()
-			case .failure:
-				XCTFail("Failure is not expected 1.")
-			}
+		
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+		
+		consumer.didCalculateRisk = { _ in
+			XCTAssertTrue(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
+			requestRiskExpectation.fulfill()
 		}
+		
+		riskProvider.requestRisk(userInitiated: false)
 
 		waitForExpectations(timeout: 1.0)
 	}
@@ -139,17 +140,18 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		let expectThatRiskIsReturned = expectation(description: "expectThatRiskIsReturned")
-		riskProvider.requestRisk(userInitiated: false) { result in
-
-			switch result {
-			case .success(let risk):
-				expectThatRiskIsReturned.fulfill()
-				XCTAssertEqual(risk.level, .unknownInitial, "Tracing was active for < 24 hours but risk is not .unknownInitial")
-				XCTAssertFalse(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
-			case .failure:
-				XCTFail("Failure not expected.")
-			}
+		
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+		
+		consumer.didCalculateRisk = { risk in
+			expectThatRiskIsReturned.fulfill()
+			XCTAssertEqual(risk.level, .unknownInitial, "Tracing was active for < 24 hours but risk is not .unknownInitial")
+			XCTAssertFalse(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
 		}
+		
+		riskProvider.requestRisk(userInitiated: false)
+
 		waitForExpectations(timeout: 1.0)
 	}
 

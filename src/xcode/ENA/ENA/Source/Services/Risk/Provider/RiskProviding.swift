@@ -15,13 +15,32 @@ enum RiskProviderError: Error {
 	case failedToDetectSummary
 	case failedRiskCalculation
 	case failedRiskDetection(ExposureDetection.DidEndPrematurelyReason)
+
+	var isAlreadyRunningError: Bool {
+		switch self {
+		case .riskProviderIsRunning:
+			return true
+		case .failedKeyPackageDownload(let keyPackageDownloadError):
+			return keyPackageDownloadError == .downloadIsRunning
+		case .failedRiskDetection(let didEndPrematuralyReason):
+			if case let .noSummary(summaryError) = didEndPrematuralyReason {
+				if let exposureDetectionError = summaryError as? ExposureDetectionError {
+					return exposureDetectionError == .isAlreadyRunning
+				}
+			}
+		default:
+			break
+		}
+
+		return false
+	}
 }
 
 protocol RiskProviding: AnyObject {
 	typealias Completion = (RiskCalculationResult) -> Void
 
 	func observeRisk(_ consumer: RiskConsumer)
-	func requestRisk(userInitiated: Bool, ignoreCachedSummary: Bool, completion: Completion?)
+	func requestRisk(userInitiated: Bool, ignoreCachedSummary: Bool)
 	func nextExposureDetectionDate() -> Date
 
 	var riskProvidingConfiguration: RiskProvidingConfiguration { get set }
