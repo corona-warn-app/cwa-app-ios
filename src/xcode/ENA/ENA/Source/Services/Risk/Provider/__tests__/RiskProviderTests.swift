@@ -52,7 +52,7 @@ final class RiskProviderTests: XCTestCase {
 
 		// WHEN
 		// use an timeout interval of -1 secounds to set timeout limit in the past
-		riskProvider.requestRisk(userInitiated: true, completion: nil, timeoutInterval: TimeInterval(-1.0))
+		riskProvider.requestRisk(userInitiated: true, timeoutInterval: TimeInterval(-1.0))
 
 		// THEN
 		waitForExpectations(timeout: .medium)
@@ -146,15 +146,16 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		let requestRiskExpectation = expectation(description: "")
-		riskProvider.requestRisk(userInitiated: false) { result in
-			switch result {
-			case .success:
-				XCTAssertTrue(exposureDetectionDelegateStub.exposureWindowsWereDetected)
-				requestRiskExpectation.fulfill()
-			case .failure:
-				XCTFail("Failure is not expected 1.")
-			}
+		
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+		
+		consumer.didCalculateRisk = { _ in
+			XCTAssertTrue(exposureDetectionDelegateStub.exposureWindowsWereDetected)
+			requestRiskExpectation.fulfill()
 		}
+		
+		riskProvider.requestRisk(userInitiated: false)
 
 		waitForExpectations(timeout: 1.0)
 	}
@@ -487,7 +488,7 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			calculationDate: lastExposureDetectionDate
 		)
-
+		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 		store.lastKeyPackageDownloadDate = .distantPast
 
 		let exposureDetectionsInterval = 6
@@ -505,6 +506,13 @@ final class RiskProviderTests: XCTestCase {
 		let client = ClientMock()
 		client.fetchPackageRequestFailure = Client.Failure.noResponse
 
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			wifiClient: client,
+			store: store
+		)
+
 		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 6
@@ -513,23 +521,24 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
+			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
-			keyPackageDownload: keyPackageDownloadMock(with: store),
+			keyPackageDownload: keyPackageDownload,
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
 		let requestRiskExpectation = expectation(description: "")
-		riskProvider.requestRisk(userInitiated: false) { result in
-			switch result {
-			case .success:
-				XCTAssertFalse(exposureDetectionDelegateStub.exposureWindowsWereDetected)
-				requestRiskExpectation.fulfill()
-			case .failure:
-				XCTFail("Failure is not expected 1.")
-			}
+
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+
+		consumer.didCalculateRisk = { _ in
+			XCTAssertFalse(exposureDetectionDelegateStub.exposureWindowsWereDetected)
+			requestRiskExpectation.fulfill()
 		}
+
+		riskProvider.requestRisk(userInitiated: false)
 
 		waitForExpectations(timeout: 1.0)
 	}
@@ -554,6 +563,7 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			calculationDate: lastExposureDetectionDate
 		)
+		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
 		let exposureDetectionsInterval = 6
 		let config = RiskProvidingConfiguration(
@@ -593,15 +603,16 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		let requestRiskExpectation = expectation(description: "")
-		riskProvider.requestRisk(userInitiated: false) { result in
-			switch result {
-			case .success:
-				XCTAssertTrue(exposureDetectionDelegateStub.exposureWindowsWereDetected)
-				requestRiskExpectation.fulfill()
-			case .failure:
-				XCTFail("Failure is not expected 1.")
-			}
+
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+
+		consumer.didCalculateRisk = { _ in
+			XCTAssertTrue(exposureDetectionDelegateStub.exposureWindowsWereDetected)
+			requestRiskExpectation.fulfill()
 		}
+
+		riskProvider.requestRisk(userInitiated: false)
 
 		waitForExpectations(timeout: 1.0)
 	}
@@ -626,7 +637,7 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			calculationDate: lastExposureDetectionDate
 		)
-
+		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 		store.lastKeyPackageDownloadDate = .distantPast
 
 		let exposureDetectionsInterval = 6
@@ -644,6 +655,13 @@ final class RiskProviderTests: XCTestCase {
 		let client = ClientMock()
 		client.fetchPackageRequestFailure = Client.Failure.noResponse
 
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			wifiClient: client,
+			store: store
+		)
+
 		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 6
@@ -652,23 +670,24 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
+			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
-			keyPackageDownload: keyPackageDownloadMock(with: store),
+			keyPackageDownload: keyPackageDownload,
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
 		let requestRiskExpectation = expectation(description: "")
-		riskProvider.requestRisk(userInitiated: false) { result in
-			switch result {
-			case .success:
-				XCTAssertTrue(exposureDetectionDelegateStub.exposureWindowsWereDetected)
-				requestRiskExpectation.fulfill()
-			case .failure:
-				XCTFail("Failure is not expected 1.")
-			}
+
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+
+		consumer.didCalculateRisk = { _ in
+			XCTAssertTrue(exposureDetectionDelegateStub.exposureWindowsWereDetected)
+			requestRiskExpectation.fulfill()
 		}
+
+		riskProvider.requestRisk(userInitiated: false)
 
 		waitForExpectations(timeout: 1.0)
 	}
@@ -693,6 +712,7 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			calculationDate: lastExposureDetectionDate
 		)
+		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
 		let exposureDetectionsInterval = 6
 		let config = RiskProvidingConfiguration(
@@ -709,6 +729,13 @@ final class RiskProviderTests: XCTestCase {
 		let client = ClientMock()
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02", "2020-10-01", "2020-10-03", "2020-10-04"], hours: [1, 2])
 
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			wifiClient: client,
+			store: store
+		)
+
 		var appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 6
@@ -717,23 +744,24 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
+			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
-			keyPackageDownload: keyPackageDownloadMock(with: store),
+			keyPackageDownload: keyPackageDownload,
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
 		let requestRiskExpectation = expectation(description: "")
-		riskProvider.requestRisk(userInitiated: false) { result in
-			switch result {
-			case .success:
-				XCTAssertTrue(exposureDetectionDelegateStub.exposureWindowsWereDetected)
-				requestRiskExpectation.fulfill()
-			case .failure:
-				XCTFail("Failure is not expected 1.")
-			}
+
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+
+		consumer.didCalculateRisk = { _ in
+			XCTAssertTrue(exposureDetectionDelegateStub.exposureWindowsWereDetected)
+			requestRiskExpectation.fulfill()
 		}
+
+		riskProvider.requestRisk(userInitiated: false)
 
 		waitForExpectations(timeout: 1.0)
 	}

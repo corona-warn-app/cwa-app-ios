@@ -119,6 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let warnOthersReminder: WarnOthersRemindable
 
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
+	let backgroundTaskConsumer = RiskConsumer()
 
 	lazy var appConfigurationProvider: AppConfigurationProviding = {
 		#if DEBUG
