@@ -376,6 +376,8 @@ extension RiskProvider: RiskProviding {
 				let summary = SummaryMetadata(detectionSummary: detectedSummary, date: Date())
 				self.store.summary = summary
 
+				Log.info("RiskProvider: Persisted new summary to store at date: \(String(describing: self.store.summary?.date ?? nil)).", log: .riskDetection)
+
 				/// We were able to calculate a risk so we have to reset the deadman notification
 				UNUserNotificationCenter.current().resetDeadmanNotification()
 				completion(.success(summary))
