@@ -153,6 +153,8 @@ class DynamicTableViewConsentCell: UITableViewCell {
 			consentStackView.trailingAnchor.constraint(equalTo: consentView.trailingAnchor, constant: -16),
 			consentStackView.leadingAnchor.constraint(equalTo: consentView.leadingAnchor, constant: 16),
 			consentStackView.bottomAnchor.constraint(equalTo: consentView.bottomAnchor, constant: -20),
+			flagIconsLabel.leadingAnchor.constraint(equalTo: consentView.leadingAnchor, constant: 30),
+			flagIconsLabel.trailingAnchor.constraint(equalTo: consentView.trailingAnchor, constant: -30),
 			seperatorView1.heightAnchor.constraint(equalToConstant: 1),
 			seperatorView2.heightAnchor.constraint(equalToConstant: 1)
 
