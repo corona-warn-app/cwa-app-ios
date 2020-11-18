@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionIntroViewController: DynamicTableViewController {
+class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 	
 	// MARK: - Init
 
@@ -25,6 +25,8 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
+		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
+		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
 	}
 
 	override var navigationItem: UINavigationItem {
