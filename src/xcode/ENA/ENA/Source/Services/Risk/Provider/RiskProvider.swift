@@ -95,7 +95,7 @@ extension RiskProvider: RiskProviding {
 
 		guard activityState == .idle else {
 			Log.info("RiskProvider: Risk detection is allready running. Don't start new risk detection", log: .riskDetection)
-			failOnTargetQueue(error: .riskProviderIsRunning)
+			failOnTargetQueue(error: .riskProviderIsRunning, updateState: false)
 			return
 		}
 
@@ -146,10 +146,12 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	private func failOnTargetQueue(error: RiskProviderError) {
+	private func failOnTargetQueue(error: RiskProviderError, updateState: Bool = true) {
 		Log.info("RiskProvider: Failed with error: \(error)", log: .riskDetection)
 
-		updateActivityState(.idle)
+		if updateState {
+			updateActivityState(.idle)
+		}
 
 		for consumer in consumers {
 			_provideRiskResult(.failure(error), to: consumer)
