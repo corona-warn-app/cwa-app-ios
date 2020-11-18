@@ -20,5 +20,7 @@ extension TimeInterval {
 	static let medium = 5.0
 	/// ten seconds
 	static let long = 10.0
+	// twentyfive seconds
+	static let extraLong = 25.0
 
 }
