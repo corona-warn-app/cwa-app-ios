@@ -44,9 +44,7 @@ class WarnOthersReminder: WarnOthersRemindable {
 	}
 	
 	var isSubmissionConsentGiven: Bool {
-		get {
 			return store.isSubmissionConsentGiven
-		}
 	}
 
 	/// Notification timer in seconds for notification one
