@@ -83,7 +83,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].tap()
 
 		// TODO – Work in progress; test needs to be completed when all screens have been implemented
-//		// QR Code Info Screen
+		// QR Code Info Screen
 //		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionQRInfoView"].waitForExistence(timeout: .medium))
 //		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 //
@@ -262,15 +262,11 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		launch()
 
-		// Open Intro screen.
+		// Start Submission Flow
 		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
 
-		// Click next button.
-		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-
-		// Click TAN button.
+		// Overview Screen: click TAN button.
 		XCTAssertTrue(app
 			.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"]
 			.waitForExistence(timeout: .medium)
@@ -312,13 +308,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
 		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		
-		// Click next button.
-		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		
-		// Click TAN button.
+				
+		// Overview Screen: click TAN button.
 		XCTAssertTrue(app
 						.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"]
 						.waitForExistence(timeout: .medium)
@@ -365,11 +356,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
 
-		// Click next button.
-		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-
-		// Click TAN button.
+		// Overview Screen: click TAN button.
 		XCTAssertTrue(app
 						.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"]
 						.waitForExistence(timeout: .medium)
