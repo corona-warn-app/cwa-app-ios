@@ -49,6 +49,9 @@ class RiskCalculationTest: XCTestCase {
 
 			XCTAssertEqual(result.mostRecentDateWithLowRisk?.ageInDays, testCase.expAgeOfMostRecentDateWithLowRisk)
 			XCTAssertEqual(result.mostRecentDateWithHighRisk?.ageInDays, testCase.expAgeOfMostRecentDateWithHighRisk)
+
+			XCTAssertEqual(result.numberOfDaysWithLowRisk, testCase.expNumberOfDaysWithLowRisk)
+			XCTAssertEqual(result.numberOfDaysWithHighRisk, testCase.expNumberOfDaysWithHighRisk)
 		}
 	}
 

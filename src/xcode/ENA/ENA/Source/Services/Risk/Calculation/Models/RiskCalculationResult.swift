@@ -31,6 +31,9 @@ struct RiskCalculationResult: Codable {
 	let mostRecentDateWithLowRisk: Date?
 	let mostRecentDateWithHighRisk: Date?
 
+	let numberOfDaysWithLowRisk: Int
+	let numberOfDaysWithHighRisk: Int
+
 	let calculationDate: Date
 
 	var minimumDistinctEncountersWithCurrentRiskLevel: Int {
