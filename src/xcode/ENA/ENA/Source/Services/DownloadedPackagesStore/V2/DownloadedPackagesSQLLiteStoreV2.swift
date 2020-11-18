@@ -36,6 +36,12 @@ final class DownloadedPackagesSQLLiteStoreV2 {
 		self.database = database
 		self.migrator = migrator
 		self.latestVersion = latestVersion
+		#if DEBUG
+		if ProcessInfo.processInfo.arguments.contains("-SQLLog") {
+			// trace executed SQL statements
+			database.traceExecution = true
+		}
+		#endif
 	}
 
 	deinit {
