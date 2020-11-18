@@ -96,7 +96,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.removeRisk(consumer)
 		riskProvider.requestRisk(userInitiated: true)
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testExposureDetectionIsExecutedIfLastDetectionIsTooOldAndModeIsAutomatic() throws {
@@ -157,7 +157,7 @@ final class RiskProviderTests: XCTestCase {
 		
 		riskProvider.requestRisk(userInitiated: false)
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testThatDetectionIsRequested() throws {
@@ -196,7 +196,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.observeRisk(consumer)
 		riskProvider.requestRisk(userInitiated: true)
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testThatDetectionFails() throws {
@@ -238,7 +238,7 @@ final class RiskProviderTests: XCTestCase {
 		sut.observeRisk(consumer)
 		sut.requestRisk(userInitiated: true)
 		
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testShouldShowRiskStatusLoweredAlertIntitiallyFalseIsSetToTrueWhenRiskStatusLowers() throws {
@@ -540,7 +540,7 @@ final class RiskProviderTests: XCTestCase {
 
 		riskProvider.requestRisk(userInitiated: false)
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_didDownloadNewPackages_And_LastDetectionIsLessThen24HoursAgo_Then_DetectionIsExecuted() throws {
@@ -614,7 +614,7 @@ final class RiskProviderTests: XCTestCase {
 
 		riskProvider.requestRisk(userInitiated: false)
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_didNotDownloadNewPackages_And_LastDetectionIsMoreThen24HoursAgo_Then_DetectionIsExecuted() throws {
@@ -689,7 +689,7 @@ final class RiskProviderTests: XCTestCase {
 
 		riskProvider.requestRisk(userInitiated: false)
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_didDownloadNewPackages_And_LastDetectionIsMoreThen24HoursAgo_Then_DetectionIsExecuted() throws {
@@ -763,7 +763,7 @@ final class RiskProviderTests: XCTestCase {
 
 		riskProvider.requestRisk(userInitiated: false)
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 }
