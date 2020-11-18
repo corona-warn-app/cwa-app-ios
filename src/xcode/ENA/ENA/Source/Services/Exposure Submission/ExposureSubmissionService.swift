@@ -4,6 +4,7 @@
 
 import ExposureNotification
 import Foundation
+import Combine
 
 class ENAExposureSubmissionService: ExposureSubmissionService {
 

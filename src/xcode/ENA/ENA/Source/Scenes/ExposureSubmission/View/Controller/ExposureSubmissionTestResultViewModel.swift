@@ -336,10 +336,12 @@ class ExposureSubmissionTestResultViewModel {
 				cells: [
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_consentCloud"),
-						// ToDo1: After creating the consent warnothers switch then based on that handel the "warnOthersConsentGiven" text string.
-						text: .string(AppStrings.ExposureSubmissionResult.warnOthersConsentGiven),
-						// ToDo2: After build the new consent screen change the action accordingly.
-						action: .push(model: AppInformationModel.termsModel, withTitle: AppStrings.AppInformation.termsNavigation),
+						text: .string(self.exposureSubmissionService.isSubmissionConsentGiven ? AppStrings.ExposureSubmissionResult.warnOthersConsentGiven : AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven),
+						action: .execute { viewController in
+							let detailViewController = ExposureSubmissionTestResultConsentViewController(exposureSubmissionService: self.exposureSubmissionService)
+							detailViewController.title = AppStrings.AutomaticSharingConsent.consentTitle
+							viewController.navigationController?.pushViewController(detailViewController, animated: true)
+						},
 						configure: { _, cell, _ in
 							cell.accessoryType = .disclosureIndicator
 							cell.selectionStyle = .default

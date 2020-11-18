@@ -52,11 +52,14 @@ class ExposureSubmissionTestResultConsentViewController: DynamicTableViewControl
 	
 	private let viewModel: ExposureSubmissionTestResultConsentViewModel
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		
 		let item = ENANavigationFooterItem()
 		
+		item.isPrimaryButtonHidden = true
+		
 		item.primaryButtonTitle = AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle
-		item.isPrimaryButtonEnabled = true
-		item.isSecondaryButtonHidden = true
+		item.isPrimaryButtonEnabled = false
+		item.isSecondaryButtonHidden = false
 		
 		item.title = AppStrings.AutomaticSharingConsent.consentTitle
 		
