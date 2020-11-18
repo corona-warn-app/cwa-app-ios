@@ -10,7 +10,6 @@ import ExposureNotification
 // swiftlint:disable:next type_body_length
 final class RiskProviderTests: XCTestCase {
 
-
 	func testGIVEN_RiskProvider_WHEN_requestRisk_THEN_TimeoutWillTrigger() {
 		// GIVEN
 		let duration = DateComponents(day: 1)
@@ -36,6 +35,7 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		let didCalculateRiskCalled = expectation(description: "expect didCalculateRisk to be called once")
+		// this callback was unexpected - calculation doesn't gets canceled after download timeout triggered
 		didCalculateRiskCalled.expectedFulfillmentCount = 1
 
 		let didFailCalculateRiskCalled = expectation(description: "expect didFailCalculateRisk to be called")
