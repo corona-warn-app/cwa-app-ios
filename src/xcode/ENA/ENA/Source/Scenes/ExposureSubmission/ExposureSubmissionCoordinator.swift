@@ -39,8 +39,6 @@ protocol ExposureSubmissionCoordinating: class {
 	/// For more information on the usage and configuration of the initial screen, check the concrete implementation of the method.
 	func start(with result: TestResult?)
 	func dismiss()
-
-//	func showOverviewScreen()
 	func showTestResultScreen(with result: TestResult)
 	func showTanScreen()
 	func showThankYouScreen()

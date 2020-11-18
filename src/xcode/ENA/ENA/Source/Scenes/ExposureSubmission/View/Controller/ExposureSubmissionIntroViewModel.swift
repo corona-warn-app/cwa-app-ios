@@ -40,8 +40,9 @@ class ExposureSubmissionIntroViewModel {
 					.body(
 						text: AppStrings.ExposureSubmissionDispatch.description,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.description),
-					.title2(text: AppStrings.ExposureSubmissionDispatch.sectionHeadline,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.sectionHeadline)
+					.title2(
+						text: AppStrings.ExposureSubmissionDispatch.sectionHeadline,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.sectionHeadline)
 				]
 			))
 			$0.add(.section(cells: [
@@ -89,7 +90,8 @@ private extension DynamicCell {
 				description: description ?? "",
 				attributedDescription: attributedDescription,
 				image: image,
-				accessibilityIdentifier: accessibilityIdentifier)
+				accessibilityIdentifier: accessibilityIdentifier
+			)
 		}
 	}
 }
