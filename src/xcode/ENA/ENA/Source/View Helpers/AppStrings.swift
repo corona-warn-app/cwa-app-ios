@@ -85,6 +85,8 @@ enum AppStrings {
 	enum ExposureSubmissionTestresultAvailable {
 		static let title = NSLocalizedString("ExposureSubmissionTestresultAvailable_Title", comment: "")
 		static let accImageDescription = NSLocalizedString("ExposureSubmissionTestresultAvailable_AccImageDescription", comment: "")
+		static let consentGranted = NSLocalizedString("ExposureSubmissionTestresultAvailable_Consent_granted", comment: "")
+		static let consentNotGranted = NSLocalizedString("ExposureSubmissionTestresultAvailable_Consent_not_given", comment: "")
 		static let listItem1 = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem1", comment: "")
 		static let listItem2 = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem2", comment: "")
 	}
