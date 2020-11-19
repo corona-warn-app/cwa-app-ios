@@ -49,6 +49,18 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		titleLabel.text = "Warn others notification settings"
 		titleLabel.font = UIFont.enaFont(for: .headline)
 		
+		let currentSubmissionConsentStatusTitleLabel = UILabel(frame: .zero)
+		currentSubmissionConsentStatusTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+		currentSubmissionConsentStatusTitleLabel.numberOfLines = 0
+		currentSubmissionConsentStatusTitleLabel.text = "Current status of submission consent given"
+		currentSubmissionConsentStatusTitleLabel.font = UIFont.enaFont(for: .headline)
+		
+		let currentSubmissionConsentStatusStateLabel = UILabel(frame: .zero)
+		currentSubmissionConsentStatusStateLabel.translatesAutoresizingMaskIntoConstraints = false
+		currentSubmissionConsentStatusStateLabel.numberOfLines = 0
+		currentSubmissionConsentStatusStateLabel.text = store.isSubmissionConsentGiven ? "🟢 Consent given 👍" : "🔴 Consent not given 👎"
+		currentSubmissionConsentStatusStateLabel.font = UIFont.enaFont(for: .subheadline)
+		
 		let descriptionLabel = UILabel(frame: .zero)
 		descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 		descriptionLabel.numberOfLines = 0
@@ -99,7 +111,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		timeInterval2TextField.delegate = self
 		timeInterval2TextField.borderStyle = .line
 		
-		let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel, timeInterval1Label, timeInterval1TextField, timeInterval2Label, timeInterval2TextField, saveButton, resetDefaultsButton, descriptionResetNotificationsLabel, resetNotificationsButton])
+		let stackView = UIStackView(arrangedSubviews: [currentSubmissionConsentStatusTitleLabel, currentSubmissionConsentStatusStateLabel, titleLabel, descriptionLabel, timeInterval1Label, timeInterval1TextField, timeInterval2Label, timeInterval2TextField, saveButton, resetDefaultsButton, descriptionResetNotificationsLabel, resetNotificationsButton])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .vertical
 		stackView.alignment = .center
