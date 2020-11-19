@@ -583,6 +583,8 @@ oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome m
 
 "ExposureSubmissionTestresultAvailable_ListItem2" = "Bitte geben Sie Ihr Testergebnis im nächsten Schritt frei, indem Sie „Teilen“ antippen.";
 
+"ExposureSubmissionTestresultAvailable_primaryButtonTitle" = "Weiter";
+
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Ihr Testergebnis";
 
