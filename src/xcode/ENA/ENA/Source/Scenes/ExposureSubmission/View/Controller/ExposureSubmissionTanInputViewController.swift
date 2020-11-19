@@ -56,6 +56,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, ENANavigationC
 		navigationFooterItem?.isPrimaryButtonEnabled = false
 		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
 		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
+		footerView?.isHidden = false
 
 		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
 		errorView.alpha = 0

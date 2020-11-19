@@ -45,6 +45,7 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANav
 
 		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
 		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
+		footerView?.isHidden = false
 	}
 
 	override var navigationItem: UINavigationItem {
