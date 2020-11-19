@@ -212,6 +212,7 @@
 		5222AA70255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5222AA6F255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift */; };
 		524C4292256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524C4291256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift */; };
 		52CAAC012562B82E00239DCB /* DynamicTableViewConsentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52CAAC002562B82E00239DCB /* DynamicTableViewConsentCell.swift */; };
+		52EAAB3025668DF300204373 /* ExposureSubmissionTestResultConsentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EAAB2F25668DF300204373 /* ExposureSubmissionTestResultConsentUITests.swift */; };
 		710021DC248E44A6001F0B63 /* ENAFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710021DB248E44A6001F0B63 /* ENAFont.swift */; };
 		710021DE248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 710021DD248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib */; };
 		710021E0248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710021DF248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift */; };
@@ -821,6 +822,7 @@
 		5222AA6F255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultConsentViewModel.swift; sourceTree = "<group>"; };
 		524C4291256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultConsentViewModelTests.swift; sourceTree = "<group>"; };
 		52CAAC002562B82E00239DCB /* DynamicTableViewConsentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewConsentCell.swift; sourceTree = "<group>"; };
+		52EAAB2F25668DF300204373 /* ExposureSubmissionTestResultConsentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultConsentUITests.swift; sourceTree = "<group>"; };
 		710021DB248E44A6001F0B63 /* ENAFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAFont.swift; sourceTree = "<group>"; };
 		710021DD248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExposureSubmissionImageCardCell.xib; sourceTree = "<group>"; };
 		710021DF248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionImageCardCell.swift; sourceTree = "<group>"; };
@@ -2159,6 +2161,7 @@
 				01A1B460252E17F900841B63 /* ExposureSubmissionCoordinatorModelTests.swift */,
 				01A23684251A22E90043D9F8 /* ExposureSubmissionQRInfoModelTests.swift */,
 				524C4291256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift */,
+				52EAAB2F25668DF300204373 /* ExposureSubmissionTestResultConsentUITests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -3843,6 +3846,7 @@
 				BA6C8B51254D80DF008344F5 /* ExposureWindowTest.swift in Sources */,
 				50BD2E7724FE26F400932566 /* AppInformationImprintTest.swift in Sources */,
 				AB8BC3472551B97700F3B5A7 /* DownloadedPackagesStoreErrorStub.swift in Sources */,
+				52EAAB3025668DF300204373 /* ExposureSubmissionTestResultConsentUITests.swift in Sources */,
 				50B1D6E72551621C00684C3C /* DayKeyPackageDownloadTests.swift in Sources */,
 				A1E419602498243E0016E52A /* String+TodayTests.swift in Sources */,
 				35853E22251DED0F008FE983 /* CachingHTTPClientMock.swift in Sources */,
