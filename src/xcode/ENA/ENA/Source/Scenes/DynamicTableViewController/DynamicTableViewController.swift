@@ -8,7 +8,7 @@ import UIKit
 class DynamicTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	var dynamicTableViewModel = DynamicTableViewModel([])
 
-	@IBInspectable var cellBackgroundColor: UIColor?
+	@IBInspectable var cellBackgroundColor: UIColor? = .clear
 
 	@IBOutlet private(set) lazy var tableView: UITableView! = self.view as? UITableView
 
