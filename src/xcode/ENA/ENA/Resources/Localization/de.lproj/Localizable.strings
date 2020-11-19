@@ -570,6 +570,16 @@ oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome m
 
 "ExposureSubmissionIntroduction_ListItem4" = "Wenn Sie keine TAN haben, können Sie diese telefonisch anfragen.";
 
+/* Exposure Submission Testresult available*/
+"ExposureSubmissionTestresultAvailable_Title" = "Ihr Testergebnis liegt vor";
+
+"ExposureSubmissionTestresultAvailable_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
+
+"ExposureSubmissionTestresultAvailable_ListItem1" = "Vielen Dank, dass Sie mithelfen, andere zu warnen und damit einverstanden sind, Ihr Testergebnis zu teilen.";
+
+"ExposureSubmissionTestresultAvailable_ListItem2" = "Bitte geben Sie Ihr Testergebnis im nächsten Schritt frei, indem Sie „Teilen“ antippen.";
+
+
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Ihr Testergebnis";
 

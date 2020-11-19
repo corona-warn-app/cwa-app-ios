@@ -82,6 +82,13 @@ enum AppStrings {
 		static let listItem4 = NSLocalizedString("ExposureSubmissionIntroduction_ListItem4", comment: "")
 	}
 
+	enum ExposureSubmissionTestresultAvailable {
+		static let title = NSLocalizedString("ExposureSubmissionTestresultAvailable_Title", comment: "")
+		static let accImageDescription = NSLocalizedString("ExposureSubmissionTestresultAvailable_AccImageDescription", comment: "")
+		static let listItem1 = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem1", comment: "")
+		static let listItem2 = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem2", comment: "")
+	}
+
 	enum ExposureSubmissionResult {
 		static let title = NSLocalizedString("ExposureSubmissionResult_Title", comment: "")
 		static let card_title = NSLocalizedString("ExposureSubmissionResult_CardTitle", comment: "")
