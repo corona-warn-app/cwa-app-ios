@@ -5,7 +5,7 @@
 import UIKit
 import Combine
 
-class ExposureSubmissionTestResultViewController: DynamicTableViewController {
+class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 
 	// MARK: - Init
 
@@ -37,6 +37,16 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController {
 
 	override var navigationItem: UINavigationItem {
 		viewModel.navigationFooterItem
+	}
+	
+	// MARK: - Protocol ENANavigationControllerWithFooterChild
+
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+		viewModel.didTapPrimaryButton()
+	}
+
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
+		viewModel.didTapSecondaryButton()
 	}
 
 	// MARK: - Private
