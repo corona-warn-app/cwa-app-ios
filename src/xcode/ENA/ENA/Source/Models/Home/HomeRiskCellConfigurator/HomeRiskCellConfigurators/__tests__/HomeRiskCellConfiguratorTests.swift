@@ -13,7 +13,7 @@ class HomeRiskCellConfiguratorTests: XCTestCase {
 		let detectionInterval = 24
         let configurator = HomeLowRiskCellConfigurator(
 			state: .idle,
-			numberRiskContacts: 0,
+			numberOfDaysWithLowRisk: 0,
 			lastUpdateDate: Date().addingTimeInterval(-8 * 60 * 60),
 			isButtonHidden: false,
 			manualExposureDetectionState: .waiting,
@@ -62,8 +62,8 @@ class HomeRiskCellConfiguratorTests: XCTestCase {
 		let detectionInterval = 24
 		let configurator = HomeHighRiskCellConfigurator(
 			state: .idle,
-			numberRiskContacts: 10,
-			mostRecentDateWithRiskLevel: Date(),
+			numberOfDaysWithHighRisk: 10,
+			mostRecentDateWithHighRisk: Date(),
 			lastUpdateDate: Date().addingTimeInterval(-3 * 60 * 60),
 			manualExposureDetectionState: .waiting,
 			detectionMode: .manual,
