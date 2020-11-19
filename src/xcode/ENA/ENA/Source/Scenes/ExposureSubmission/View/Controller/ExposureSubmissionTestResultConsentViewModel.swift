@@ -10,7 +10,6 @@ class ExposureSubmissionTestResultConsentViewModel {
 	// MARK: - Init
 	
 	init(
-		//ToDo: Pass this supported countries into the cordinator wherte we setup this VC.
 		supportedCountries: [Country],
 		exposureSubmissionService: ExposureSubmissionService
 	) {
