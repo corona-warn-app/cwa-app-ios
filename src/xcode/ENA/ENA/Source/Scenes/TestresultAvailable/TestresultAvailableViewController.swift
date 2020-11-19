@@ -3,8 +3,9 @@
 //
 
 import Foundation
+import UIKit
 
-final class TestresultAvailableViewController: DynamicTableViewController {
+final class TestresultAvailableViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 
 	// MARK: - Init
 
@@ -20,14 +21,38 @@ final class TestresultAvailableViewController: DynamicTableViewController {
 
 	// MARK: - Overrides
 
-	// MARK: - Protocol <#Name#>
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		setupTableView()
+	}
 
-	// MARK: - Public
+	override var navigationItem: UINavigationItem {
+		navigationFooterItem
+	}
 
-	// MARK: - Internal
+	// MARK: - Protocol ENANavigationControllerWithFooterChild
+
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+		viewModel.didTapPrimaryFooterButton()
+	}
 
 	// MARK: - Private
 
 	private let viewModel: TestresultAvailableViewModel
+
+	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		let item = ENANavigationFooterItem()
+		item.primaryButtonTitle = AppStrings.ExposureSubmissionTestresultAvailable.primaryButtonTitle
+		item.isPrimaryButtonEnabled = true
+		item.isSecondaryButtonHidden = true
+		item.title = AppStrings.ExposureSubmissionTestresultAvailable.title
+		return item
+	}()
+
+	private func setupTableView() {
+		view.backgroundColor = .enaColor(for: .background)
+		tableView.separatorStyle = .none
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
+	}
 
 }
