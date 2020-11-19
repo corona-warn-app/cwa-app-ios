@@ -155,6 +155,12 @@ enum AccessibilityIdentifiers {
 		static let infectionRiskExplanationSection = "AppStrings.ExposureDetection.infectionRiskExplanationSection"
 	}
 
+	enum ExposureSubmissionQRInfo {
+		static let headerSection1 = "AppStrings.ExposureSubmissionQRInfo.headerSection1"
+		static let headerSection2 = "AppStrings.ExposureSubmissionQRInfo.headerSection2"
+		static let acknowledgementTitle = "ExposureSubmissionQRInfo_acknowledgement_title"
+	}
+
 	enum ExposureSubmissionDispatch {
 		static let description = "AppStrings.ExposureSubmissionDispatch.description"
 		static let qrCodeButtonDescription = "AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"

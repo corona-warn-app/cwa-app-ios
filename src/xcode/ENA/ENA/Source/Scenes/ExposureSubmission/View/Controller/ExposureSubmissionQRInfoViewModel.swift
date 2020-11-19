@@ -23,42 +23,81 @@ struct ExposureSubmissionQRInfoViewModel {
 	// MARK: - Internal
 
 	var dynamicTableViewModel: DynamicTableViewModel {
-		DynamicTableViewModel.with {
-			$0.add(
-				.section(
-					header: .image(
-						UIImage(imageLiteralResourceName: "Illu_Submission_QRPrimer"),
-						accessibilityLabel: AppStrings.ExposureSubmissionQRInfo.imageDescription,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription,
-						height: 250
-					),
-					cells: [
-						.icon(
-							UIImage(imageLiteralResourceName: "Icons_QR1"),
-							text: .string(AppStrings.ExposureSubmissionQRInfo.instruction1)
-						),
-						.icon(
-							UIImage(imageLiteralResourceName: "Icons_QR2"),
-							text: .attributedString(
-								AppStrings.ExposureSubmissionQRInfo.instruction2
-									.inserting(emphasizedString: AppStrings.ExposureSubmissionQRInfo.instruction2HighlightedPhrase)
-							)
-						),
-						.icon(
-							UIImage(imageLiteralResourceName: "Icons_QR3"),
-							text: .attributedString(
-								AppStrings.ExposureSubmissionQRInfo.instruction3
-									.inserting(emphasizedString: AppStrings.ExposureSubmissionQRInfo.instruction3HighlightedPhrase)
-							)
-						),
-						.icon(
-							UIImage(imageLiteralResourceName: "Icons_QR4"),
-							text: .string(AppStrings.ExposureSubmissionQRInfo.instruction3) // will be refactored!
-						)
-					]
+		var model = DynamicTableViewModel([])
+
+		// Ihr Einverständnis
+		model.add(
+			.section(
+			   header: .image(
+				   UIImage(imageLiteralResourceName: "Illu_Appinfo_Datenschutz_2"),
+				   accessibilityLabel: AppStrings.ExposureSubmissionQRInfo.imageDescription,
+				   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription,
+				   height: 250
+			   ),
+			   cells: [
+				.body(text: AppStrings.ExposureSubmissionQRInfo.titleDescription)
+			])
+		)
+
+		// Testergebnis abrufen
+		model.add(
+			.section(cells: [
+				.title2(text: AppStrings.ExposureSubmissionQRInfo.headerSection1,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.headerSection1),
+				.body(text: AppStrings.ExposureSubmissionQRInfo.bodySection1),
+				.icon(
+					UIImage(imageLiteralResourceName: "Icons_QR1"),
+					text: .string(AppStrings.ExposureSubmissionQRInfo.instruction1)
+				),
+				.icon(
+					UIImage(imageLiteralResourceName: "Icons_QR2"),
+					text: .attributedString(
+						AppStrings.ExposureSubmissionQRInfo.instruction2
+							.inserting(emphasizedString: AppStrings.ExposureSubmissionQRInfo.instruction2HighlightedPhrase)
+					)
 				)
-			)
-		}
+			])
+		)
+
+		// Helfen Sie mit, …
+		model.add(
+			.section(cells: [
+				.title2(text: AppStrings.ExposureSubmissionQRInfo.headerSection2,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.headerSection2),
+				.body(text: AppStrings.ExposureSubmissionQRInfo.bodySection2)
+			])
+		)
+
+		// 'Flags'
+		model.add(
+			.section(separators: .all, cells: [
+				.body(text: "TODO: flags")
+			])
+		)
+
+		// Ihr Einverständnis
+		model.add(
+			.section(cells: [
+				.title2(text: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle),
+				.body(text: "todo"),
+				.bulletPoint(text: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgement1_1)\n\n\(AppStrings.ExposureSubmissionQRInfo.acknowledgement1_2)", spacing: .large), // dev code!
+				.bulletPoint(text: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgement2_1)\n\n\(AppStrings.ExposureSubmissionQRInfo.acknowledgement2_2)", spacing: .large),
+				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, spacing: .large),
+				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement4, spacing: .large),
+				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, spacing: .large),
+				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, spacing: .large)
+			])
+		)
+
+		// Even more info
+		model.add(
+			.section(separators: .all, cells: [
+				.body(text: "TODO: data privacy statement")
+			])
+		)
+
+		return model
 	}
 
 }
