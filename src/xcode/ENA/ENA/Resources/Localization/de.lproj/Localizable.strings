@@ -484,6 +484,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_acknowledgement_title" = "Ihr Einverständnis";
 
+"ExposureSubmissionQRInfo_acknowledgement_body" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+
 "ExposureSubmissionQRInfo_acknowledgement_1_1" = "Die App ruft Ihr Testergebnis ab.";
 
 "ExposureSubmissionQRInfo_acknowledgement_1_2" = "Wenn Sie es sich später anders überlegen, können Sie den Test in der App entfernen.";
