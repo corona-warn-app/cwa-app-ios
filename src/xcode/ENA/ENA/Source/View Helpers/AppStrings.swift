@@ -687,8 +687,6 @@ enum AppStrings {
 		static let legend2HighColor = NSLocalizedString("RiskLegend_Legend2_High_Color", comment: "")
 		static let legend2Low = NSLocalizedString("RiskLegend_Legend2_Low", comment: "")
 		static let legend2LowColor = NSLocalizedString("RiskLegend_Legend2_Low_Color", comment: "")
-		static let legend2Unknown = NSLocalizedString("RiskLegend_Legend2_Unknown", comment: "")
-		static let legend2UnknownColor = NSLocalizedString("RiskLegend_Legend2_Unknown_Color", comment: "")
 		static let legend3Title = NSLocalizedString("RiskLegend_Legend3_Title", comment: "")
 		static let legend3Text = NSLocalizedString("RiskLegend_Legend3_Text", comment: "")
 		static let definitionsTitle = NSLocalizedString("RiskLegend_Definitions_Title", comment: "")
