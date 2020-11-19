@@ -100,9 +100,18 @@ private extension DynamicCell {
 
 	static func riskLastExposure(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
-			let mostRecentDateWithRiskLevel = viewController.state.riskDetails?.mostRecentDateWithRiskLevel
-			cell.textLabel?.text = .localizedStringWithFormat(text, mostRecentDateWithRiskLevel)
 			cell.imageView?.image = image
+
+			guard let mostRecentDateWithHighRisk = viewController.state.riskDetails?.mostRecentDateWithRiskLevel else {
+				cell.textLabel?.text = ""
+				return
+			}
+
+			let dateFormatter = DateFormatter()
+			dateFormatter.dateStyle = .medium
+
+			let formattedMostRecentDateWithHighRisk = dateFormatter.string(from: mostRecentDateWithHighRisk)
+			cell.textLabel?.text = .localizedStringWithFormat(text, formattedMostRecentDateWithHighRisk)
 		}
 	}
 
@@ -322,7 +331,26 @@ extension ExposureDetectionViewController {
 	}
 
 	private func highRiskExplanationSection(mostRecentDateWithRiskLevelText: String, explanationText: String, isActive: Bool, accessibilityIdentifier: String?) -> DynamicSection {
-		let mostRecentDateWithRiskLevel = state.riskDetails?.mostRecentDateWithRiskLevel ?? 0
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .medium
+
+		guard let mostRecentDateWithHighRisk = state.riskDetails?.mostRecentDateWithRiskLevel else {
+			return .section(
+				header: .backgroundSpace(height: 8),
+				footer: .backgroundSpace(height: 16),
+				cells: [
+					.header(
+						title: AppStrings.ExposureDetection.explanationTitle,
+						subtitle: AppStrings.ExposureDetection.explanationSubtitle
+					),
+					.body(
+						text: explanationText,
+						accessibilityIdentifier: accessibilityIdentifier)
+				]
+			)
+		}
+
+		let formattedMostRecentDateWithHighRisk = dateFormatter.string(from: mostRecentDateWithHighRisk)
 		return .section(
 			header: .backgroundSpace(height: 8),
 			footer: .backgroundSpace(height: 16),
@@ -333,9 +361,9 @@ extension ExposureDetectionViewController {
 				),
 				.body(
 					text: [
-						.localizedStringWithFormat(mostRecentDateWithRiskLevelText, mostRecentDateWithRiskLevel),
+						.localizedStringWithFormat(mostRecentDateWithRiskLevelText, formattedMostRecentDateWithHighRisk),
 						explanationText
-					].joined(),
+					].joined(separator: " "),
 					accessibilityIdentifier: accessibilityIdentifier)
 			]
 		)
@@ -436,7 +464,7 @@ extension ExposureDetectionViewController {
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.activeTracingSectionText
 			),
 			highRiskExplanationSection(
-				mostRecentDateWithRiskLevelText: AppStrings.ExposureDetection.explanationTextHighDaysSinceLastExposure,
+				mostRecentDateWithRiskLevelText: AppStrings.ExposureDetection.explanationTextHighDateOfLastExposure,
 				explanationText: AppStrings.ExposureDetection.explanationTextHigh,
 				isActive: true,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextHigh
