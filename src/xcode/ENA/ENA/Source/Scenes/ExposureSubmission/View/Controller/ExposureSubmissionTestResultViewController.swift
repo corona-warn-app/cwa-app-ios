@@ -10,10 +10,11 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	// MARK: - Init
 
 	init(
-		viewModel: ExposureSubmissionTestResultViewModel
+		viewModel: ExposureSubmissionTestResultViewModel,
+		exposureSubmissionService: ExposureSubmissionService
 	) {
 		self.viewModel = viewModel
-
+		self.exposureSubmissionService = exposureSubmissionService
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -50,6 +51,8 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	}
 
 	// MARK: - Private
+	
+	private let exposureSubmissionService: ExposureSubmissionService
 
 	private let viewModel: ExposureSubmissionTestResultViewModel
 
@@ -76,6 +79,18 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	}
 
 	private func setUpBindings() {
+		
+		// (kga) Probably not needed later
+		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { [self] (isConsentGiven) in
+			self.viewModel.updateSubmissionConsentLabel()
+			self.dynamicTableViewModel = dynamicTableViewModel
+			self.tableView.reloadData()
+			// (kga) remove
+			Log.info("Consent Given value changed, reload data;")
+			
+		}.store(in: &bindings)
+		
+		
 		viewModel.$dynamicTableViewModel
 			.sink { [weak self] dynamicTableViewModel in
 				self?.dynamicTableViewModel = dynamicTableViewModel

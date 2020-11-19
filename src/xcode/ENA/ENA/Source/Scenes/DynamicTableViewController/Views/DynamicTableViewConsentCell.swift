@@ -180,12 +180,9 @@ class DynamicTableViewConsentCell: UITableViewCell {
 		let style = NSMutableParagraphStyle()
 		style.lineSpacing = 10
 		flagString.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: flagString.length))
-		
-		
+				
 		self.flagIconsLabel.attributedText = flagString
-
 	}
-	
 }
 
 extension NSTextAttachment {

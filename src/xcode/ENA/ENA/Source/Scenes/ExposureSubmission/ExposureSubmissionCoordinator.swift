@@ -191,7 +191,7 @@ extension ExposureSubmissionCoordinator {
 				onTestDeleted: { [weak self] in
 					self?.dismiss()
 				}
-			)
+			), exposureSubmissionService: self.model.exposureSubmissionService
 		)
 	}
 

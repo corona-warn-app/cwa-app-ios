@@ -24,9 +24,17 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 		self.onContinueWithoutSymptomsFlowButtonTap = onContinueWithoutSymptomsFlowButtonTap
 		self.onTestDeleted = onTestDeleted
 		self.warnOthersReminder = warnOthersReminder
+
 		
 		updateForCurrentTestResult()
 		loadSupportedCountries()
+		
+		updateSubmissionConsentLabel()
+		
+		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { (isConsentGiven) in
+			self.submissionConsentLabelPublisher = isConsentGiven ? "Party" : "No Party"
+		}
+			
 	}
 	
 	// MARK: - Internal
@@ -92,6 +100,13 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 	}
 	
 	// MARK: - Private
+	
+	// (kga) move to internal
+	@Published var submissionConsentLabelPublisher: String = "🤣"
+	
+	var submissionConsentLabel: String = "abc"
+	
+	private var cancellables: Set<AnyCancellable> = []
 	
 	private var exposureSubmissionService: ExposureSubmissionService
 	
@@ -342,7 +357,7 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 				cells: [
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_consentCloud"),
-						text: .string(self.exposureSubmissionService.isSubmissionConsentGiven ? AppStrings.ExposureSubmissionResult.warnOthersConsentGiven : AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven),
+						text: .string(self.submissionConsentLabelPublisher),
 						action: .execute { viewController in
 							let detailViewController = ExposureSubmissionTestResultConsentViewController(supportedCountries: self.supportedCountries ?? [], exposureSubmissionService: self.exposureSubmissionService)
 							detailViewController.title = AppStrings.AutomaticSharingConsent.consentTitle
@@ -405,6 +420,13 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 			self?.supportedCountries = supportedCountries
 				.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
 		}.store(in: &subscriptions)
-		
+	}
+	
+	func updateSubmissionConsentLabel() {
+		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
+			let labelText = isSubmissionConsentGiven ? "Moinsen" : "Nicht Moinsen"
+			Log.info("getSubmissionConsentLabel -> \(labelText)")
+			self.submissionConsentLabel = labelText
+		}.store(in: &cancellables)
 	}
 }
