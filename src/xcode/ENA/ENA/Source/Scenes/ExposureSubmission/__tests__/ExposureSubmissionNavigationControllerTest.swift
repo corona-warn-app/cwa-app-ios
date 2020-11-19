@@ -71,14 +71,14 @@ final class ExposureSubmissionNavigationControllerTest: XCTestCase {
 	func testSecondaryButtonAction() {
 		let vc = createVC()
 		_ = vc.view
-
+		
 		let child = MockExposureSubmissionNavigationControllerChild()
 		let expectation = self.expectation(description: "Button action executed.")
 		child.didTapSecondButtonCallback = { expectation.fulfill() }
-
-		vc.pushViewController(child, animated: false)	
+		
+		vc.pushViewController(child, animated: false)
 		vc.footerView.secondaryButton.sendActions(for: .touchUpInside)
-
+		
 		waitForExpectations(timeout: .short)
 	}
 
