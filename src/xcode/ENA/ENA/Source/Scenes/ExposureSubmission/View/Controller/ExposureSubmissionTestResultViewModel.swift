@@ -356,8 +356,8 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 				separators: .all,
 				cells: [
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_consentCloud"),
-						text: .string(self.submissionConsentLabelPublisher),
+						UIImage(imageLiteralResourceName: "Icons_Grey_Warnen"),
+						text: .string(self.getSCLabel()),
 						action: .execute { viewController in
 							let detailViewController = ExposureSubmissionTestResultConsentViewController(supportedCountries: self.supportedCountries ?? [], exposureSubmissionService: self.exposureSubmissionService)
 							detailViewController.title = AppStrings.AutomaticSharingConsent.consentTitle
@@ -428,5 +428,9 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 			Log.info("getSubmissionConsentLabel -> \(labelText)")
 			self.submissionConsentLabel = labelText
 		}.store(in: &cancellables)
+	}
+	
+	func getSCLabel() -> String {
+		return self.submissionConsentLabel
 	}
 }

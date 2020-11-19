@@ -22,3 +22,19 @@ extension ENStatus {
 		String(describing: self.rawValue)
 	}
 }
+
+extension TestResult {
+	// MARK: - Init
+	
+	init?(stringValue: String) {
+		guard let rawValue = Int(stringValue) else {
+			fatalError("Could not convert String to Int")
+		}
+		
+		self.init(rawValue: rawValue)
+	}
+	
+	var stringValue: String {
+		String(describing: self.rawValue)
+	}
+}
