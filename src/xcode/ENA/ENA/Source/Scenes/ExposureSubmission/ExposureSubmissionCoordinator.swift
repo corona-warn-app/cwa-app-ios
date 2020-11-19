@@ -109,13 +109,20 @@ extension ExposureSubmissionCoordinator {
 			return createTestResultViewController(with: .negative)
 		}
 		#endif
-		// We got a test result and can jump straight into the test result view controller.
-		if let result = result, model.exposureSubmissionServiceHasRegistrationToken {
-			return createTestResultViewController(with: result)
-		}
 
-		// By default, we show the intro view.
-		return createIntroViewController()
+		// FIXME: for the moment show new view controller here -> late only if testresult ist available
+		//
+		let viewModel = TestresultAvailableViewModel(store)
+		let testresultAvailableViewController = TestresultAvailableViewController(viewModel)
+		return testresultAvailableViewController
+
+//		// We got a test result and can jump straight into the test result view controller.
+//		if let result = result, model.exposureSubmissionServiceHasRegistrationToken {
+//			return createTestResultViewController(with: result)
+//		}
+//
+//		// By default, we show the intro view.
+//		return createIntroViewController()
 	}
 
 	// MARK: - Public API.
