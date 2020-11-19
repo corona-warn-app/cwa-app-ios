@@ -25,6 +25,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
+		footerView?.isHidden = true
 		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
 		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
 	}
