@@ -105,8 +105,16 @@ extension ExposureSubmissionCoordinator {
 	/// Option 3: (default) return the ExposureSubmissionIntroViewController.
 	private func getInitialViewController(with result: TestResult? = nil) -> UIViewController {
 		#if DEBUG
-		if isUITesting, ProcessInfo.processInfo.arguments.contains("-negativeResult") {
-			return createTestResultViewController(with: .negative)
+		if isUITesting {
+			model.exposureSubmissionService.isSubmissionConsentGiven = false
+			if UserDefaults.standard.string(forKey: "isSubmissionConsentGiven") == "YES" {
+				model.exposureSubmissionService.isSubmissionConsentGiven = true
+			}
+			
+			if let testResultStringValue = UserDefaults.standard.string(forKey: "testResult"),
+			   let testResult = TestResult(stringValue: testResultStringValue) {
+				return createTestResultViewController(with: testResult)
+			}
 		}
 		#endif
 		// We got a test result and can jump straight into the test result view controller.

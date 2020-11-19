@@ -341,7 +341,7 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 				separators: .all,
 				cells: [
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_consentCloud"),
+						UIImage(imageLiteralResourceName: "Icons_Grey_Warnen"),
 						text: .string(self.exposureSubmissionService.isSubmissionConsentGiven ? AppStrings.ExposureSubmissionResult.warnOthersConsentGiven : AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven),
 						action: .execute { viewController in
 							let detailViewController = ExposureSubmissionTestResultConsentViewController(supportedCountries: self.supportedCountries ?? [], exposureSubmissionService: self.exposureSubmissionService)
