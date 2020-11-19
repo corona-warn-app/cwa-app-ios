@@ -12,8 +12,8 @@ struct Risk: Equatable {
 
 extension Risk {
 	struct Details: Equatable {
-		var daysSinceLastExposure: Int?
-		var numberOfExposures: Int
+		var mostRecentDateWithRiskLevel: Date?
+		var numberOfDaysWithRiskLevel: Int
 		var numberOfHoursWithActiveTracing: Int { activeTracing.inHours }
 		var activeTracing: ActiveTracing
 		var numberOfDaysWithActiveTracing: Int { activeTracing.inDays }
@@ -26,7 +26,7 @@ extension Risk {
 	static let mocked = Risk(
 		level: .low,
 		details: Risk.Details(
-			numberOfExposures: 0,
+			numberOfDaysWithRiskLevel: 0,
 			activeTracing: .init(interval: 336 * 3600),  // two weeks
 			exposureDetectionDate: Date()),
 		riskLevelHasChanged: true

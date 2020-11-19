@@ -54,6 +54,15 @@ struct RiskCalculationResult: Codable {
 		}
 	}
 
+	var numberOfDaysWithCurrentRiskLevel: Int {
+		switch riskLevel {
+		case .low:
+			return numberOfDaysWithLowRisk
+		case .high:
+			return numberOfDaysWithHighRisk
+		}
+	}
+
 }
 
 extension Risk.Details {
@@ -63,8 +72,8 @@ extension Risk.Details {
 		riskCalculationResult: RiskCalculationResult
 	) {
 		self.init(
-			daysSinceLastExposure: riskCalculationResult.mostRecentDateWithCurrentRiskLevel?.ageInDays,
-			numberOfExposures: riskCalculationResult.minimumDistinctEncountersWithCurrentRiskLevel,
+			mostRecentDateWithRiskLevel: riskCalculationResult.mostRecentDateWithCurrentRiskLevel,
+			numberOfDaysWithRiskLevel: riskCalculationResult.numberOfDaysWithCurrentRiskLevel,
 			activeTracing: activeTracing,
 			exposureDetectionDate: riskCalculationResult.calculationDate
 		)

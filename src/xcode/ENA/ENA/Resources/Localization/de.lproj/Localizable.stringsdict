@@ -26,30 +26,6 @@
 			<string>Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor %u Tagen mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.</string>
 		</dict>
 	</dict>
-	<key>ExposureDetection_LastExposure</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<string>%u Tage seit letzter Risiko-Begegnung</string>
-			<key>one</key>
-			<string>%u Tag seit letzter Risiko-Begegnung</string>
-			<key>few</key>
-			<string>%u Tage seit letzter Risiko-Begegnung</string>
-			<key>many</key>
-			<string>%u Tage seit letzter Risiko-Begegnung</string>
-			<key>two</key>
-			<string>%u Tage seit letzter Risiko-Begegnung</string>
-			<key>other</key>
-			<string>%u Tage seit letzter Risiko-Begegnung</string>
-		</dict>
-	</dict>
 	<key>Home_Risk_Low_Number_Contacts_Item_Title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -63,15 +39,15 @@
 			<key>zero</key>
 			<string>Keine Risiko-Begegnungen</string>
 			<key>one</key>
-			<string>Eine Begegnung mit niedrigem Risiko</string>
+			<string>%u Tag mit Begegnungen mit niedrigem Risiko</string>
 			<key>few</key>
-			<string>%u Begegnungen mit niedrigem Risiko</string>
+			<string>%u Tage mit Begegnungen mit niedrigem Risiko</string>
 			<key>many</key>
-			<string>%u Begegnungen mit niedrigem Risiko</string>
+			<string>%u Tage mit Begegnungen mit niedrigem Risiko</string>
 			<key>two</key>
-			<string>%u Begegnungen mit niedrigem Risiko</string>
+			<string>%u Tage mit Begegnungen mit niedrigem Risiko</string>
 			<key>other</key>
-			<string>%u Begegnungen mit niedrigem Risiko</string>
+			<string>%u Tage mit Begegnungen mit niedrigem Risiko</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_High_Number_Contacts_Item_Title</key>
@@ -85,41 +61,17 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<string>Keine Risiko-Begegnungen</string>
+			<string>Kein Tag mit Begegnungen mit erhöhtem Risiko</string>
 			<key>one</key>
-			<string>Eine Risiko-Begegnung</string>
+			<string>%u Tag mit Begegnungen mit erhöhtem Risiko</string>
 			<key>few</key>
-			<string>%u Risiko-Begegnungen</string>
+			<string>%u Tage mit Begegnungen mit erhöhtem Risiko</string>
 			<key>many</key>
-			<string>%u Risiko-Begegnungen</string>
+			<string>%u Tage mit Begegnungen mit erhöhtem Risiko</string>
 			<key>two</key>
-			<string>%u Risiko-Begegnungen</string>
+			<string>%u Tage mit Begegnungen mit erhöhtem Risiko</string>
 			<key>other</key>
-			<string>%u Risiko-Begegnungen</string>
-		</dict>
-	</dict>
-	<key>Home_Risk_Last_Contact_Item_Title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<string>Weniger als einen Tag seit letzter Risiko-Begegnung</string>
-			<key>one</key>
-			<string>%u Tag seit letzter Risiko-Begegnung</string>
-			<key>few</key>
-			<string>%u Tage seit letzter Risiko-Begegnung</string>
-			<key>many</key>
-			<string>%u Tage seit letzter Risiko-Begegnung</string>
-			<key>two</key>
-			<string>%u Tage seit letzter Risiko-Begegnung</string>
-			<key>other</key>
-			<string>%u Tage seit letzter Risiko-Begegnung</string>
+			<string>%u Tage mit Begegnungen mit erhöhtem Risiko</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_Status_Counter_Label</key>

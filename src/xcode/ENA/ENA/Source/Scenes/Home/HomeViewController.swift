@@ -45,8 +45,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				Risk(
 					level: .low,
 					details: .init(
-						daysSinceLastExposure: 0,
-						numberOfExposures: 0,
+						mostRecentDateWithRiskLevel: nil,
+						numberOfDaysWithRiskLevel: 0,
 						activeTracing: store.tracingStatusHistory.activeTracing(),
 						exposureDetectionDate: nil
 					),

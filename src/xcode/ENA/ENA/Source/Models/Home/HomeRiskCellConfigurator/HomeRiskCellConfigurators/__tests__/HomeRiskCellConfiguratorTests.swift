@@ -63,7 +63,7 @@ class HomeRiskCellConfiguratorTests: XCTestCase {
 		let configurator = HomeHighRiskCellConfigurator(
 			state: .idle,
 			numberRiskContacts: 10,
-			daysSinceLastExposure: 1,
+			mostRecentDateWithRiskLevel: Date(),
 			lastUpdateDate: Date().addingTimeInterval(-3 * 60 * 60),
 			manualExposureDetectionState: .waiting,
 			detectionMode: .manual,

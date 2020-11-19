@@ -59,6 +59,8 @@
 
 "ExposureDetection_High" = "Erhöhtes Risiko";
 
+"ExposureDetection_LastExposure" = "Zuletzt am: %@";
+
 "ExposureDetection_Refreshed" = "Aktualisiert: %@";
 
 "ExposureDetection_Refreshed_Never" = "Unbekannt";
@@ -856,6 +858,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Home_Risk_Period_Disabled_Button_Title" = "Aktualisierung nur alle %@\U00A0Stunden";
 
 "Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
+
+"Home_Risk_Last_Contact_Item_Title" = "Zuletzt am %@";
 
 "Home_Risk_Last_Activate_Item_Title" = "Letzte Risiko-Überprüfung: %@";
 
