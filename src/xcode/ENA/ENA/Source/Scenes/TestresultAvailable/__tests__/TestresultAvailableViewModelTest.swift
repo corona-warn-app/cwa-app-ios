@@ -56,4 +56,34 @@ class TestresultAvailableViewModelTest: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	func testGIVEN_ViewModel_WHEN_GetIconCellActionTigger_THEN_ExpectationFulfill() {
+		// GIVEN
+		let mockStore = MockTestStore()
+		let expectationFulFill = expectation(description: "primary button code execute")
+		let expectationNotFulFill = expectation(description: "consent cell conde excecute")
+		expectationNotFulFill.isInverted = true
+
+		let viewModel = TestresultAvailableViewModel(
+			mockStore,
+			didTapConsentCell: {
+				expectationFulFill.fulfill()
+			},
+			didTapPrimaryFooterButton: {
+				expectationNotFulFill.fulfill()
+			})
+
+		let iconCell = viewModel.dynamicTableViewModel.cell(at: IndexPath(row: 0, section: 1))
+
+		// WHEN
+		switch iconCell.action {
+		case .execute(block: let block):
+			block( UIViewController() )
+		default:
+			XCTFail("unknown action type")
+		}
+
+		// THEN
+		waitForExpectations(timeout: .medium)
+	}
+
 }
