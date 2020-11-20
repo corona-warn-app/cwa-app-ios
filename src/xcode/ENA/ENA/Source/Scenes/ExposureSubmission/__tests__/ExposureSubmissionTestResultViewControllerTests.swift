@@ -23,7 +23,8 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 				exposureSubmissionService: MockExposureSubmissionService(),
 				onContinueWithSymptomsFlowButtonTap: { _ in },
 				onContinueWithoutSymptomsFlowButtonTap: { _ in },
-				onTestDeleted: { }
+				onTestDeleted: { },
+				onSubmissionConsentButtonTap: { }
 			), exposureSubmissionService: MockExposureSubmissionService()
 		)
 	}
