@@ -54,9 +54,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 							color: nil,
 							accessibilityIdentifier: nil,
 							accessibilityTraits: .header,
-							action: .push(model: AppInformationModel.termsModel, withTitle: AppStrings.AppInformation.termsNavigation),
 							configure: { _, cell, _ in
-							
 								cell.accessoryView = self.consentSwitch
 								self.consentSwitch.onTintColor = .enaColor(for: .tint)
 								self.consentSwitch.addTarget(self, action: #selector(self.consentStateChanged), for: .valueChanged)

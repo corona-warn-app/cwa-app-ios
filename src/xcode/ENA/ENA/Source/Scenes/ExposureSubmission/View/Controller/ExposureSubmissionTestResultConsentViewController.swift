@@ -42,6 +42,7 @@ class ExposureSubmissionTestResultConsentViewController: DynamicTableViewControl
 		
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
+		hidesBottomBarWhenPushed = true
 		
 		tableView.register(
 			DynamicTableViewConsentCell.self,

@@ -633,7 +633,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onSubmissionConsentButtonTap: { }
 		)
 		
-		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 1)
+		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 2)
 		XCTAssertNotNil(model.dynamicTableViewModel.section(0).header)
 		
 		let section = model.dynamicTableViewModel.section(0)
@@ -651,6 +651,14 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let thirdItem = cells[2]
 		id = thirdItem.cellReuseIdentifier
 		XCTAssertEqual(id.rawValue, "stepCell")
+		
+		let section2 = model.dynamicTableViewModel.section(1)
+		let iconCell = section2.cells
+		XCTAssertEqual(iconCell.count, 1)
+		
+		let iconCellFirstItem = iconCell[0]
+		let iconId = iconCellFirstItem.cellReuseIdentifier
+		XCTAssertEqual(iconId.rawValue, "iconCell")
 	}
 	
 	func testDynamicTableViewModelForExpiredTestResult() {
