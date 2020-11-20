@@ -18,6 +18,7 @@ class DynamicTableViewConsentCell: UITableViewCell {
 	lazy var descriptionPart4Label = ENALabel(frame: .zero)
 	lazy var consentView = UIView(frame: .zero)
 	lazy var consentStackView = UIStackView(frame: .zero)
+	lazy var countriesStackView = UIStackView(frame: .zero)
 	
 	
 	// MARK: - Init
@@ -43,6 +44,18 @@ class DynamicTableViewConsentCell: UITableViewCell {
 		consentView.backgroundColor = .enaColor(for: .separator)
 		consentView.layer.cornerRadius = 16.0
 		consentView.setContentCompressionResistancePriority(.required, for: .vertical)
+		contentView.addSubview(consentView)
+		
+		// MARK: - Stackview adjustment.
+		consentStackView.axis = .vertical
+		consentStackView.spacing = 20
+		consentStackView.distribution = .fillProportionally
+		consentStackView.isLayoutMarginsRelativeArrangement = true
+		consentView.addSubview(consentStackView)
+		
+		UIView.translatesAutoresizingMaskIntoConstraints(for: [
+			consentView, consentStackView
+		], to: false)
 
 		// MARK: - Title adjustment.
 		subTitleLabel.style = .headline
@@ -84,11 +97,18 @@ class DynamicTableViewConsentCell: UITableViewCell {
 		descriptionPart4Label.setContentCompressionResistancePriority(.required, for: .vertical)
 		descriptionPart4Label.setContentHuggingPriority(.required, for: .vertical)
 		
+		// MARK: - Countries StackView Body adjustment.
+		countriesStackView.axis = .vertical
+		countriesStackView.spacing = 8
+		countriesStackView.isLayoutMarginsRelativeArrangement = true
+		countriesStackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+		
 		// MARK: - Flag Icons Label adjustment.
 		flagIconsLabel.setContentCompressionResistancePriority(.required, for: .vertical)
 		flagIconsLabel.setContentHuggingPriority(.required, for: .vertical)
 		flagIconsLabel.lineBreakMode = .byWordWrapping
 		flagIconsLabel.numberOfLines = 0
+		countriesStackView.addArrangedSubview(flagIconsLabel)
 		
 		// MARK: - Flag Countries Label adjustment.
 		flagCountriesLabel.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -97,6 +117,7 @@ class DynamicTableViewConsentCell: UITableViewCell {
 		flagCountriesLabel.textColor = .enaColor(for: .textPrimary1)
 		flagCountriesLabel.lineBreakMode = .byWordWrapping
 		flagCountriesLabel.numberOfLines = 0
+		countriesStackView.addArrangedSubview(flagCountriesLabel)
 		
 		// MARK: - Seperator View1 adjustment.
 		seperatorView1.backgroundColor = .enaColor(for: .hairline)
@@ -104,20 +125,7 @@ class DynamicTableViewConsentCell: UITableViewCell {
 		// MARK: - Seperator View2 Body adjustment.
 		seperatorView2.backgroundColor = .enaColor(for: .hairline)
 		
-		// MARK: - Stackview adjustment.
-		consentStackView = UIStackView(frame: .zero)
-		consentStackView.axis = .vertical
-		consentStackView.spacing = 20
-		consentStackView.distribution = .fillProportionally
-		contentView.addSubview(consentView)
-		consentView.addSubview(consentStackView)
-		
-		UIView.translatesAutoresizingMaskIntoConstraints(for: [
-			consentView, consentStackView
-		], to: false)
-		
-		[subTitleLabel, descriptionPart1Label, descriptionPart2Label, seperatorView1, flagIconsLabel, flagCountriesLabel,
-		 seperatorView2, descriptionPart3Label, descriptionPart4Label].forEach {
+		[subTitleLabel, descriptionPart1Label, descriptionPart2Label, seperatorView1, countriesStackView, seperatorView2, descriptionPart3Label, descriptionPart4Label].forEach {
 			consentStackView.addArrangedSubview($0)
 		}
 		consentStackView.setCustomSpacing(16, after: seperatorView1)
@@ -138,10 +146,6 @@ class DynamicTableViewConsentCell: UITableViewCell {
 			consentStackView.trailingAnchor.constraint(equalTo: consentView.trailingAnchor, constant: -16),
 			consentStackView.leadingAnchor.constraint(equalTo: consentView.leadingAnchor, constant: 16),
 			consentStackView.bottomAnchor.constraint(equalTo: consentView.bottomAnchor, constant: -20),
-			flagIconsLabel.leadingAnchor.constraint(equalTo: consentView.leadingAnchor, constant: 30),
-			flagIconsLabel.trailingAnchor.constraint(equalTo: consentView.trailingAnchor, constant: -30),
-			flagCountriesLabel.leadingAnchor.constraint(equalTo: consentView.leadingAnchor, constant: 30),
-			flagCountriesLabel.trailingAnchor.constraint(equalTo: consentView.trailingAnchor, constant: -30),
 			seperatorView1.heightAnchor.constraint(equalToConstant: 1),
 			seperatorView2.heightAnchor.constraint(equalToConstant: 1)
 
