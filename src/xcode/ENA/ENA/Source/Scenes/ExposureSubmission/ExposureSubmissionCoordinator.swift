@@ -129,7 +129,7 @@ extension ExposureSubmissionCoordinator {
 
 		/// The navigation controller keeps a strong reference to the coordinator. The coordinator only reaches reference count 0
 		/// when UIKit dismisses the navigationController.
-		let navigationController = createNavigationController(rootViewController: initialVC)
+		let navigationController = ExposureSubmissionNavigationController(coordinator: self, rootViewController: initialVC)
 		parentNavigationController.present(navigationController, animated: true)
 		self.navigationController = navigationController
 	}
