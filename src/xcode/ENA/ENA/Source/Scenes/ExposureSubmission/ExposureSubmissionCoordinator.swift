@@ -417,12 +417,6 @@ extension ExposureSubmissionCoordinator {
 
 extension ExposureSubmissionCoordinator {
 
-	private func createNavigationController(rootViewController vc: UIViewController) -> ExposureSubmissionNavigationController {
-		return AppStoryboard.exposureSubmission.initiateInitial { coder in
-			ExposureSubmissionNavigationController(coder: coder, coordinator: self, rootViewController: vc)
-		}
-	}
-
 	private func createIntroViewController() -> ExposureSubmissionIntroViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionIntroViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionIntroViewController(coder: coder, coordinator: self)
