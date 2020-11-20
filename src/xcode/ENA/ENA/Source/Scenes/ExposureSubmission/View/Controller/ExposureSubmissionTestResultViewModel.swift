@@ -16,7 +16,7 @@ class ExposureSubmissionTestResultViewModel {
 		onContinueWithSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onContinueWithoutSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onTestDeleted: @escaping () -> Void,
-		onSubmissionConsentButtonTap: @escaping () -> Void
+		onSubmissionConsentButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
 		self.testResult = testResult
 		self.exposureSubmissionService = exposureSubmissionService
@@ -106,7 +106,7 @@ class ExposureSubmissionTestResultViewModel {
 	private let onContinueWithSymptomsFlowButtonTap: (@escaping (Bool) -> Void) -> Void
 	private let onContinueWithoutSymptomsFlowButtonTap: (@escaping (Bool) -> Void) -> Void
 	private let onTestDeleted: () -> Void
-	private let onSubmissionConsentButtonTap: () -> Void
+	private let onSubmissionConsentButtonTap: (@escaping (Bool) -> Void) -> Void
 	
 	private var testResult: TestResult {
 		didSet {
@@ -344,12 +344,15 @@ class ExposureSubmissionTestResultViewModel {
 			.section(
 				separators: .all,
 				cells: [
+					
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Grey_Warnen"),
 						text: .string(self.submissionConsentLabel),
 						// (kga) Refactor to Coordinator
 						action: .execute { viewController in
-							self.onSubmissionConsentButtonTap()
+							self.onSubmissionConsentButtonTap() { [weak self] isLoading in
+								//self?.primaryButtonIsLoading = isLoading
+				}
 						},
 						configure: { _, cell, _ in
 							cell.accessoryType = .disclosureIndicator

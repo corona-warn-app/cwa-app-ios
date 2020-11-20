@@ -199,11 +199,16 @@ extension ExposureSubmissionCoordinator {
 				onTestDeleted: { [weak self] in
 					self?.dismiss()
 				},
-				onSubmissionConsentButtonTap: { [weak self] in
-					
+				onSubmissionConsentButtonTap: { [weak self] isLoading in
 					self?.model.checkStateAndLoadCountries(
+						isLoading: isLoading,
+						onSuccess: {
+							self?.showTestResultSubmissionConsentScreen()
+						},
+						onError: { error in
+							self?.showErrorAlert(for: error)
+						}
 					)
-					self?.showTestResultSubmissionConsentScreen()
 				}
 			), exposureSubmissionService: self.model.exposureSubmissionService
 		)
