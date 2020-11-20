@@ -501,6 +501,7 @@
 		BA6D1640255ADD0500ED3492 /* DMSwitchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D163F255ADD0400ED3492 /* DMSwitchCellViewModel.swift */; };
 		BA8BBA08255A90690034D4BC /* WifiHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BBA07255A90690034D4BC /* WifiHTTPClient.swift */; };
 		BA92A45E255163460063B46F /* ExposureSubmissionQRScannerViewModelGuidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA92A45D255163460063B46F /* ExposureSubmissionQRScannerViewModelGuidTests.swift */; };
+		BA9DD53F2567BDAC00C326FF /* TestresultAvailableViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9DD53E2567BDAC00C326FF /* TestresultAvailableViewModelTest.swift */; };
 		BAD962FB25668F4000FAB615 /* TestresultAvailableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FA25668F4000FAB615 /* TestresultAvailableViewController.swift */; };
 		BAD9630025668F8E00FAB615 /* TestresultAvailableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FF25668F8E00FAB615 /* TestresultAvailableViewModel.swift */; };
 		CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */; };
@@ -1114,6 +1115,7 @@
 		BA6D163F255ADD0400ED3492 /* DMSwitchCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSwitchCellViewModel.swift; sourceTree = "<group>"; };
 		BA8BBA07255A90690034D4BC /* WifiHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiHTTPClient.swift; sourceTree = "<group>"; };
 		BA92A45D255163460063B46F /* ExposureSubmissionQRScannerViewModelGuidTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRScannerViewModelGuidTests.swift; sourceTree = "<group>"; };
+		BA9DD53E2567BDAC00C326FF /* TestresultAvailableViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestresultAvailableViewModelTest.swift; sourceTree = "<group>"; };
 		BAD962FA25668F4000FAB615 /* TestresultAvailableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestresultAvailableViewController.swift; sourceTree = "<group>"; };
 		BAD962FF25668F8E00FAB615 /* TestresultAvailableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestresultAvailableViewModel.swift; sourceTree = "<group>"; };
 		CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
@@ -2894,9 +2896,18 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		BA9DD53D2567BD9100C326FF /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BA9DD53E2567BDAC00C326FF /* TestresultAvailableViewModelTest.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		BAD962F925668E5D00FAB615 /* TestresultAvailable */ = {
 			isa = PBXGroup;
 			children = (
+				BA9DD53D2567BD9100C326FF /* __tests__ */,
 				BAD962FA25668F4000FAB615 /* TestresultAvailableViewController.swift */,
 				BAD962FF25668F8E00FAB615 /* TestresultAvailableViewModel.swift */,
 			);
@@ -3753,6 +3764,7 @@
 				B10F9B8B249961BC00C418F4 /* DynamicTypeLabelTests.swift in Sources */,
 				CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */,
 				A3E851B524ADDAC000402485 /* CountdownTimerTests.swift in Sources */,
+				BA9DD53F2567BDAC00C326FF /* TestresultAvailableViewModelTest.swift in Sources */,
 				F2DC808E248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift in Sources */,
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
 				B1C7EE4624938EB700F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandlingTests.swift in Sources */,
