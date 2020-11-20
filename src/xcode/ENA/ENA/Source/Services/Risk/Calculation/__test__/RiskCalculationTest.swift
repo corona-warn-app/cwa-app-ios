@@ -52,6 +52,17 @@ class RiskCalculationTest: XCTestCase {
 
 			XCTAssertEqual(result.numberOfDaysWithLowRisk, testCase.expNumberOfDaysWithLowRisk)
 			XCTAssertEqual(result.numberOfDaysWithHighRisk, testCase.expNumberOfDaysWithHighRisk)
+
+			switch result.riskLevel {
+			case .low:
+				XCTAssertEqual(result.minimumDistinctEncountersWithCurrentRiskLevel, result.minimumDistinctEncountersWithLowRisk)
+				XCTAssertEqual(result.mostRecentDateWithCurrentRiskLevel, result.mostRecentDateWithLowRisk)
+				XCTAssertEqual(result.numberOfDaysWithCurrentRiskLevel, result.numberOfDaysWithLowRisk)
+			case .high:
+				XCTAssertEqual(result.minimumDistinctEncountersWithCurrentRiskLevel, result.minimumDistinctEncountersWithHighRisk)
+				XCTAssertEqual(result.mostRecentDateWithCurrentRiskLevel, result.mostRecentDateWithHighRisk)
+				XCTAssertEqual(result.numberOfDaysWithCurrentRiskLevel, result.numberOfDaysWithHighRisk)
+			}
 		}
 	}
 
