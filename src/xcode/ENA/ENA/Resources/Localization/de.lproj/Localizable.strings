@@ -53,6 +53,8 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "Risiko-Ermittlung gestoppt";
 
+"ExposureDetection_Unknown" = "Unbekanntes Risiko";
+
 "ExposureDetection_Low" = "Niedriges Risiko";
 
 "ExposureDetection_High" = "Erhöhtes Risiko";

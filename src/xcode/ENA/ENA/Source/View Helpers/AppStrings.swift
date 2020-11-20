@@ -258,6 +258,7 @@ enum AppStrings {
 
 	enum ExposureDetection {
 		static let off = NSLocalizedString("ExposureDetection_Off", comment: "")
+		static let unknown = NSLocalizedString("ExposureDetection_Unknown", comment: "")
 		static let low = NSLocalizedString("ExposureDetection_Low", comment: "")
 		static let high = NSLocalizedString("ExposureDetection_High", comment: "")
 
