@@ -103,7 +103,9 @@ private extension DynamicCell {
 			cell.imageView?.image = image
 
 			guard let mostRecentDateWithHighRisk = viewController.state.riskDetails?.mostRecentDateWithRiskLevel else {
+				assertionFailure("mostRecentDateWithRiskLevel must be set on high risk state")
 				cell.textLabel?.text = ""
+
 				return
 			}
 
@@ -335,6 +337,8 @@ extension ExposureDetectionViewController {
 		dateFormatter.dateStyle = .medium
 
 		guard let mostRecentDateWithHighRisk = state.riskDetails?.mostRecentDateWithRiskLevel else {
+			assertionFailure("mostRecentDateWithRiskLevel must be set on high risk state")
+
 			return .section(
 				header: .backgroundSpace(height: 8),
 				footer: .backgroundSpace(height: 16),
