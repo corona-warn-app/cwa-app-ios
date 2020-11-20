@@ -198,11 +198,22 @@ extension ExposureSubmissionCoordinator {
 				},
 				onTestDeleted: { [weak self] in
 					self?.dismiss()
+				},
+				onSubmissionConsentButtonTap: { [weak self] in
+					
+					self?.model.checkStateAndLoadCountries(
+					)
+					self?.showTestResultSubmissionConsentScreen()
 				}
 			), exposureSubmissionService: self.model.exposureSubmissionService
 		)
 	}
 
+	func showTestResultSubmissionConsentScreen() {
+		let vc = createTestResultConsentViewController()
+		push(vc)
+	}
+	
 	func showHotlineScreen() {
 		let vc = createHotlineViewController()
 		push(vc)
@@ -471,6 +482,10 @@ extension ExposureSubmissionCoordinator {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSuccessViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionSuccessViewController(warnOthersReminder: self.warnOthersReminder, coder: coder, coordinator: self)
 		}
+	}
+	
+	private func createTestResultConsentViewController() -> ExposureSubmissionTestResultConsentViewController {
+		return ExposureSubmissionTestResultConsentViewController(supportedCountries: self.model.supportedCountries, exposureSubmissionService: self.model.exposureSubmissionService)
 	}
 
 }

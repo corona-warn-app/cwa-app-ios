@@ -5,7 +5,7 @@
 import UIKit
 import Combine
 
-class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
+class ExposureSubmissionTestResultViewModel {
 	
 	// MARK: - Init
 	
@@ -15,17 +15,17 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 		exposureSubmissionService: ExposureSubmissionService,
 		onContinueWithSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onContinueWithoutSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
-		onTestDeleted: @escaping () -> Void
+		onTestDeleted: @escaping () -> Void,
+		onSubmissionConsentButtonTap: @escaping () -> Void
 	) {
 		self.testResult = testResult
 		self.exposureSubmissionService = exposureSubmissionService
 		self.onContinueWithSymptomsFlowButtonTap = onContinueWithSymptomsFlowButtonTap
 		self.onContinueWithoutSymptomsFlowButtonTap = onContinueWithoutSymptomsFlowButtonTap
 		self.onTestDeleted = onTestDeleted
+		self.onSubmissionConsentButtonTap = onSubmissionConsentButtonTap
 		self.warnOthersReminder = warnOthersReminder
-		
 		updateForCurrentTestResult()
-		loadSupportedCountries()
 		updateSubmissionConsentLabel()
 	}
 	
@@ -106,6 +106,7 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 	private let onContinueWithSymptomsFlowButtonTap: (@escaping (Bool) -> Void) -> Void
 	private let onContinueWithoutSymptomsFlowButtonTap: (@escaping (Bool) -> Void) -> Void
 	private let onTestDeleted: () -> Void
+	private let onSubmissionConsentButtonTap: () -> Void
 	
 	private var testResult: TestResult {
 		didSet {
@@ -346,10 +347,9 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Grey_Warnen"),
 						text: .string(self.submissionConsentLabel),
+						// (kga) Refactor to Coordinator
 						action: .execute { viewController in
-							let detailViewController = ExposureSubmissionTestResultConsentViewController(supportedCountries: self.supportedCountries ?? [], exposureSubmissionService: self.exposureSubmissionService)
-							detailViewController.title = AppStrings.AutomaticSharingConsent.consentTitle
-							viewController.navigationController?.pushViewController(detailViewController, animated: true)
+							self.onSubmissionConsentButtonTap()
 						},
 						configure: { _, cell, _ in
 							cell.accessoryType = .disclosureIndicator
@@ -398,16 +398,6 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 				]
 			)
 		]
-	}
-	
-	private func loadSupportedCountries() {
-		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
-			let supportedCountryIDs = configuration.supportedCountries
-			
-			let supportedCountries = supportedCountryIDs.compactMap { Country(countryCode: $0) }
-			self?.supportedCountries = supportedCountries
-				.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
-		}.store(in: &subscriptions)
 	}
 	
 	func updateSubmissionConsentLabel() {
