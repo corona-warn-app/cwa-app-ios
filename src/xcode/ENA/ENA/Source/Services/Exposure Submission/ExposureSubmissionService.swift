@@ -6,6 +6,12 @@ import ExposureNotification
 import Foundation
 import Combine
 
+/// The `ENASubmissionSubmission Service` provides functions and attributes to access relevant information
+/// around the exposure submission process.
+/// Especially, when it comes to the `submissionConsent`, then only this service should be used to modify (change) the value of the current
+/// state. It wraps around the `SecureStore` binding.
+/// The consent value is published using the `isSubmissionConsentGivenPublisher` and the rest of the application can simply subscribe to
+/// it to stay in sync.
 class ENAExposureSubmissionService: ExposureSubmissionService {
 	
 	// MARK: - Init
@@ -42,12 +48,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		isSubmissionConsentGiven = consentGiven
 	}
 	
-	// (kga)
-//	var isSubmissionConsentGiven: Bool {
-//		get { self.store.isSubmissionConsentGiven }
-//		set { self.store.isSubmissionConsentGiven = newValue }
-//	}
-
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
 	/// __Extension for plausible deniability__:

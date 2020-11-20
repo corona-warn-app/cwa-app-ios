@@ -15,10 +15,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 	) {
 		
 		self.exposureSubmissionService = exposureSubmissionService
-		// (kga)
-		// consentSwitch.isOn = self.exposureSubmissionService.isSubmissionConsentGiven
 		
-				
 		self.supportedCountries = supportedCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
 		
 		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
@@ -30,9 +27,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 	// MARK: - Properties
 	
 	@objc
-	func stateChanged(switchState: UISwitch) {
-		Log.info("Switch state was changed to: \(switchState.isOn)")
-		// (kga)
+	func consentStateChanged(switchState: UISwitch) {
 		exposureSubmissionService.setSubmissionConsentGiven(consentGiven: switchState.isOn)
 	}
 		
@@ -64,7 +59,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 							
 								cell.accessoryView = self.consentSwitch
 								self.consentSwitch.onTintColor = .enaColor(for: .tint)
-								self.consentSwitch.addTarget(self, action: #selector(self.stateChanged), for: .valueChanged)
+								self.consentSwitch.addTarget(self, action: #selector(self.consentStateChanged), for: .valueChanged)
 							}
 						),
 						.body(text: AppStrings.AutomaticSharingConsent.switchTitleDescription),

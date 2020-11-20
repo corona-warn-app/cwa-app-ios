@@ -17,24 +17,16 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 		onContinueWithoutSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onTestDeleted: @escaping () -> Void
 	) {
-		
 		self.testResult = testResult
 		self.exposureSubmissionService = exposureSubmissionService
 		self.onContinueWithSymptomsFlowButtonTap = onContinueWithSymptomsFlowButtonTap
 		self.onContinueWithoutSymptomsFlowButtonTap = onContinueWithoutSymptomsFlowButtonTap
 		self.onTestDeleted = onTestDeleted
 		self.warnOthersReminder = warnOthersReminder
-
 		
 		updateForCurrentTestResult()
 		loadSupportedCountries()
-		
 		updateSubmissionConsentLabel()
-		
-		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { (isConsentGiven) in
-			self.submissionConsentLabelPublisher = isConsentGiven ? "Party" : "No Party"
-		}
-			
 	}
 	
 	// MARK: - Internal
@@ -101,10 +93,7 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 	
 	// MARK: - Private
 	
-	// (kga) move to internal
-	@Published var submissionConsentLabelPublisher: String = "🤣"
-	
-	var submissionConsentLabel: String = "abc"
+	private var submissionConsentLabel: String = ""
 	
 	private var cancellables: Set<AnyCancellable> = []
 	
@@ -186,7 +175,6 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 				self?.testResult = testResult
 				self?.updateWarnOthers()
 			}
-			
 			completion()
 		}
 	}
@@ -357,7 +345,7 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 				cells: [
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Grey_Warnen"),
-						text: .string(self.getSCLabel()),
+						text: .string(self.submissionConsentLabel),
 						action: .execute { viewController in
 							let detailViewController = ExposureSubmissionTestResultConsentViewController(supportedCountries: self.supportedCountries ?? [], exposureSubmissionService: self.exposureSubmissionService)
 							detailViewController.title = AppStrings.AutomaticSharingConsent.consentTitle
@@ -424,13 +412,10 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 	
 	func updateSubmissionConsentLabel() {
 		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
-			let labelText = isSubmissionConsentGiven ? "Moinsen" : "Nicht Moinsen"
-			Log.info("getSubmissionConsentLabel -> \(labelText)")
+			let labelText = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionResult.warnOthersConsentGiven : AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven
 			self.submissionConsentLabel = labelText
+			
+			self.updateForCurrentTestResult()
 		}.store(in: &cancellables)
-	}
-	
-	func getSCLabel() -> String {
-		return self.submissionConsentLabel
 	}
 }
