@@ -34,13 +34,11 @@ protocol ExposureSubmissionCoordinating: class {
 	/// Starts the coordinator and displays the initial root view controller.
 	/// The underlying implementation may decide which initial screen to show, currently the following options are possible:
 	/// - Case 1: When a valid test result is provided, the coordinator shows the test result screen.
-	/// - Case 2: (DEFAULT) The coordinator shows the intro screen.
+	/// - Case 2: (DEFAULT) The coordinator shows the screen "Fetch Test Result and Warn Others".
 	/// - Case 3: (UI-Testing) The coordinator may be configured to show other screens for UI-Testing.
 	/// For more information on the usage and configuration of the initial screen, check the concrete implementation of the method.
 	func start(with result: TestResult?)
 	func dismiss()
-
-	func showOverviewScreen()
 	func showTestResultScreen(with result: TestResult)
 	func showTanScreen()
 	func showThankYouScreen()
@@ -130,7 +128,12 @@ extension ExposureSubmissionCoordinator {
 		}
 
 		// By default, we show the intro view.
-		return createIntroViewController()
+		let viewModel = ExposureSubmissionIntroViewModel(
+			onQRCodeButtonTap: { [weak self] in self?.showQRInfoScreen() },
+			onTANButtonTap: { [weak self] in self?.showTanScreen() },
+			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() }
+		)
+		return ExposureSubmissionIntroViewController(viewModel)
 	}
 
 	// MARK: - Public API.
@@ -160,16 +163,7 @@ extension ExposureSubmissionCoordinator {
 			if shouldDismiss { self?.navigationController?.dismiss(animated: true) }
 		}
 	}
-
-	func showOverviewScreen() {
-		let vc = ExposureSubmissionOverviewViewController(
-			onQRCodeButtonTap: { [weak self] in self?.showQRInfoScreen() },
-			onTANButtonTap: { [weak self] in self?.showTanScreen() },
-			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() }
-		)
-		push(vc)
-	}
-
+	
 	func showTestResultScreen(with testResult: TestResult) {
 		let vc = createTestResultViewController(with: testResult)
 		push(vc)
@@ -428,12 +422,6 @@ extension ExposureSubmissionCoordinator {
 	private func createNavigationController(rootViewController vc: UIViewController) -> ExposureSubmissionNavigationController {
 		return AppStoryboard.exposureSubmission.initiateInitial { coder in
 			ExposureSubmissionNavigationController(coder: coder, coordinator: self, rootViewController: vc)
-		}
-	}
-
-	private func createIntroViewController() -> ExposureSubmissionIntroViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionIntroViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionIntroViewController(coder: coder, coordinator: self)
 		}
 	}
 
