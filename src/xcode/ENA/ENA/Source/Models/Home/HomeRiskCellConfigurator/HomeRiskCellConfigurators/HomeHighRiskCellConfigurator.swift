@@ -73,9 +73,8 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.configureTitle(title: AppStrings.Home.riskCardHighTitle, titleColor: titleColor)
 
 		var formattedMostRecentDateWithHighRisk = ""
+		assert(mostRecentDateWithHighRisk != nil, "mostRecentDateWithHighRisk must be set on high risk state")
 		if let mostRecentDateWithHighRisk = mostRecentDateWithHighRisk {
-			assertionFailure("mostRecentDateWithRiskLevel must be set on high risk state")
-
 			let dateFormatter = DateFormatter()
 			dateFormatter.dateStyle = .medium
 			formattedMostRecentDateWithHighRisk = dateFormatter.string(from: mostRecentDateWithHighRisk)
