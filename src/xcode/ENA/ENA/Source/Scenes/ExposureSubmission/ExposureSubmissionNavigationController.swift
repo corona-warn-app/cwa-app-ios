@@ -7,14 +7,17 @@ import UIKit
 
 final class ExposureSubmissionNavigationController: ENANavigationControllerWithFooter, UINavigationControllerDelegate {
 
-	// MARK: - Init
+	// MARK: - Attributes.
 
-	init(
-		coordinator: ExposureSubmissionCoordinating,
-		rootViewController: UIViewController
-	) {
+	private let coordinator: ExposureSubmissionCoordinating
+	private var rootViewController: UIViewController?
+
+	// MARK: - Initializers.
+
+	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, rootViewController: UIViewController? = nil) {
 		self.coordinator = coordinator
-		super.init(rootViewController: rootViewController)
+		self.rootViewController = rootViewController
+		super.init(coder: coder)
 	}
 
 	@available(*, unavailable)
@@ -22,10 +25,12 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Overrides
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		if let rootVC = rootViewController {
+			setViewControllers([rootVC], animated: false)
+		}
 
 		let closeButton = UIButton(type: .custom)
 		closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)
@@ -38,7 +43,6 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 
 		navigationItem.rightBarButtonItem = barButtonItem
 		navigationBar.accessibilityIdentifier = AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle
-		navigationBar.prefersLargeTitles = true
 
 		delegate = self
 	}
@@ -57,20 +61,6 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 		coordinator.delegate?.exposureSubmissionCoordinatorWillDisappear(coordinator)
 	}
 
-	// MARK: - Protocol UINavigationControllerDelegate
-
-	func navigationController(_: UINavigationController, willShow viewController: UIViewController, animated _: Bool) {
-		applyDefaultRightBarButtonItem(to: viewController)
-	}
-
-	// MARK: - Public
-
-	// MARK: - Internal
-
-	// MARK: - Private
-
-	private let coordinator: ExposureSubmissionCoordinating
-
 	private func applyDefaultRightBarButtonItem(to viewController: UIViewController?) {
 		if let viewController = viewController,
 			viewController.navigationItem.rightBarButtonItem == nil ||
@@ -82,5 +72,11 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 	@objc
 	func close() {
 		self.coordinator.dismiss()
+	}
+}
+
+extension ExposureSubmissionNavigationController {
+	func navigationController(_: UINavigationController, willShow viewController: UIViewController, animated _: Bool) {
+		applyDefaultRightBarButtonItem(to: viewController)
 	}
 }

@@ -112,25 +112,17 @@ extension ExposureSubmissionCoordinator {
 
 		// FIXME: for the moment show new view controller here -> late only if testresult ist available
 		//
-		let viewModel = TestresultAvailableViewModel(
-			store,
-			didTapConsentCell: {
-				Log.debug("consent cell hit")
-			},
-			didTapPrimaryFooterButton: {
-				Log.debug("primary footer button hit")
-			}
-		)
+		let viewModel = TestresultAvailableViewModel(store)
 		let testresultAvailableViewController = TestresultAvailableViewController(viewModel)
 		return testresultAvailableViewController
 
-		// We got a test result and can jump straight into the test result view controller.
-		if let result = result, model.exposureSubmissionServiceHasRegistrationToken {
-			return createTestResultViewController(with: result)
-		}
-
-		// By default, we show the intro view.
-		return createIntroViewController()
+//		// We got a test result and can jump straight into the test result view controller.
+//		if let result = result, model.exposureSubmissionServiceHasRegistrationToken {
+//			return createTestResultViewController(with: result)
+//		}
+//
+//		// By default, we show the intro view.
+//		return createIntroViewController()
 	}
 
 	// MARK: - Public API.
@@ -144,7 +136,7 @@ extension ExposureSubmissionCoordinator {
 
 		/// The navigation controller keeps a strong reference to the coordinator. The coordinator only reaches reference count 0
 		/// when UIKit dismisses the navigationController.
-		let navigationController = ExposureSubmissionNavigationController(coordinator: self, rootViewController: initialVC)
+		let navigationController = createNavigationController(rootViewController: initialVC)
 		parentNavigationController.present(navigationController, animated: true)
 		self.navigationController = navigationController
 	}
