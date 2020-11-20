@@ -53,8 +53,6 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "Risiko-Ermittlung gestoppt";
 
-"ExposureDetection_Unknown" = "Unbekanntes Risiko";
-
 "ExposureDetection_Low" = "Niedriges Risiko";
 
 "ExposureDetection_High" = "Erhöhtes Risiko";
@@ -858,8 +856,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Home_Risk_No_Date_Title" = "Unbekannt";
 
 "Home_Risk_Period_Disabled_Button_Title" = "Aktualisierung nur alle %@\U00A0Stunden";
-
-"Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
 
 "Home_Risk_Last_Contact_Item_Title" = "Zuletzt am %@";
 
