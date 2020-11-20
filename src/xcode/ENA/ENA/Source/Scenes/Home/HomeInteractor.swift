@@ -119,10 +119,6 @@ final class HomeInteractor: RequiresAppDependencies {
 		state.exposureManagerState = exposureManagerState
 	}
 
-	func updateENStateHandlerState(_ enState: ENStateHandler.State) {
-		state.enState = enState
-	}
-
 	func updateAndReloadRiskCellState(to state: RiskProviderActivityState) {
 		Log.info("[HomeInteractor] Update and reload risk cell with state: \(state)")
 		riskCellActivityState = state
@@ -239,21 +235,20 @@ extension HomeInteractor {
 
 			return failedConfigurator
 		case .risk(let risk) where risk.level == .low:
-			let activeTracing = risk.details.activeTracing
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(
 				state: riskCellActivityState,
-				numberRiskContacts: state.numberRiskContacts,
+				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				lastUpdateDate: dateLastExposureDetection,
 				isButtonHidden: detectionIsAutomatic,
 				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
 				detectionInterval: detectionInterval,
-				activeTracing: activeTracing
+				activeTracing: risk.details.activeTracing
 			)
 		case .risk(let risk) where risk.level == .high:
 			riskLevelConfigurator = HomeHighRiskCellConfigurator(
 				state: riskCellActivityState,
-				numberRiskContacts: state.numberRiskContacts,
-				daysSinceLastExposure: state.daysSinceLastExposure,
+				numberOfDaysWithHighRisk: risk.details.numberOfDaysWithRiskLevel,
+				mostRecentDateWithHighRisk: risk.details.mostRecentDateWithRiskLevel,
 				lastUpdateDate: dateLastExposureDetection,
 				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
 				detectionMode: detectionMode,

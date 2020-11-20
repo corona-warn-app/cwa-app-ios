@@ -92,7 +92,7 @@ final class RiskCalculationExposureWindow: Codable {
 		return configuration.minutesAtAttenuationFilters.map { filter in
 			let secondsAtAttenuation = exposureWindow.scanInstances
 				.filter { scanInstance in
-					filter.attenuationRange.contains(scanInstance.typicalAttenuation)
+					filter.attenuationRange.contains(scanInstance.minAttenuation)
 				}
 				.map { $0.secondsSinceLastScan }
 				.reduce(0, +)
@@ -166,7 +166,7 @@ final class RiskCalculationExposureWindow: Codable {
 	private lazy var weightedMinutes: Double = {
 		return exposureWindow.scanInstances.map { scanInstance in
 			let weight = configuration.minutesAtAttenuationWeights
-				.first { $0.attenuationRange.contains(scanInstance.typicalAttenuation) }
+				.first { $0.attenuationRange.contains(scanInstance.minAttenuation) }
 				.map { $0.weight } ?? 0
 
 			return Double(scanInstance.secondsSinceLastScan) * weight

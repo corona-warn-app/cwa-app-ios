@@ -15,37 +15,9 @@ extension HomeInteractor {
 		var exposureManagerState: ExposureManagerState
 		var enState: ENStateHandler.State
 
-		var riskLevel: RiskLevel? {
-			if case .risk(let risk) = riskState {
-				return risk.level
-			}
-
-			return nil
-		}
-
-		var riskDetectionFailed: Bool {
-			riskState == .detectionFailed
-		}
-
 		var riskDetails: Risk.Details? {
 			if case .risk(let risk) = riskState {
 				return risk.details
-			}
-
-			return nil
-		}
-
-		var numberRiskContacts: Int {
-			if case .risk(let risk) = riskState {
-				return risk.details.numberOfExposures
-			}
-
-			return 0
-		}
-
-		var daysSinceLastExposure: Int? {
-			if case .risk(let risk) = riskState {
-				return risk.details.daysSinceLastExposure
 			}
 
 			return nil
