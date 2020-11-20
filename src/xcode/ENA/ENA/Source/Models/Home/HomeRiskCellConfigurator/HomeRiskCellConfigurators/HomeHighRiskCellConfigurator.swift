@@ -72,7 +72,6 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	private func setupNormalCellState(for cell: RiskLevelCollectionViewCell) -> [HomeRiskViewConfiguratorAny] {
 		cell.configureTitle(title: AppStrings.Home.riskCardHighTitle, titleColor: titleColor)
 
-
 		var formattedMostRecentDateWithHighRisk = ""
 		if let mostRecentDateWithHighRisk = mostRecentDateWithHighRisk {
 			let dateFormatter = DateFormatter()
