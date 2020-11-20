@@ -14,6 +14,25 @@ enum RiskProviderError: Error {
 	case failedKeyPackageDownload(KeyPackageDownloadError)
 	case failedRiskCalculation
 	case failedRiskDetection(ExposureDetection.DidEndPrematurelyReason)
+
+	var isAlreadyRunningError: Bool {
+		switch self {
+		case .riskProviderIsRunning:
+			return true
+		case .failedKeyPackageDownload(let keyPackageDownloadError):
+			return keyPackageDownloadError == .downloadIsRunning
+		case .failedRiskDetection(let didEndPrematuralyReason):
+			if case let .noExposureWindows(exposureWindowsError) = didEndPrematuralyReason {
+				if let exposureDetectionError = exposureWindowsError as? ExposureDetectionError {
+					return exposureDetectionError == .isAlreadyRunning
+				}
+			}
+		default:
+			break
+		}
+
+		return false
+	}
 }
 
 enum RiskProviderActivityState {
@@ -28,7 +47,6 @@ enum RiskProviderActivityState {
 }
 
 protocol RiskProviding: AnyObject {
-	typealias Completion = (RiskProviderResult) -> Void
 
 	var riskProvidingConfiguration: RiskProvidingConfiguration { get set }
 	var exposureManagerState: ExposureManagerState { get set }
@@ -40,6 +58,4 @@ protocol RiskProviding: AnyObject {
 	func removeRisk(_ consumer: RiskConsumer)
 
 	func requestRisk(userInitiated: Bool)
-	func requestRisk(userInitiated: Bool, completion: Completion?)
-
 }

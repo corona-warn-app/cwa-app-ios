@@ -8,7 +8,11 @@ import Combine
 
 class EUSettingsViewControllerTests: XCTestCase {
 
-	private var subscriptions = [AnyCancellable]()
+	private var subscriptions: [AnyCancellable] = []
+
+	override func setUp() {
+		subscriptions = [AnyCancellable]()
+	}
 
 	func testDataReloadForSuccessfulDownload() {
 		let exp = expectation(description: "config fetched")
@@ -25,7 +29,7 @@ class EUSettingsViewControllerTests: XCTestCase {
 			exp.fulfill()
 		}.store(in: &subscriptions)
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testDataForDefaultAppConfig() {
@@ -40,6 +44,6 @@ class EUSettingsViewControllerTests: XCTestCase {
 			exp.fulfill()
 		}.store(in: &subscriptions)
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 	}
 }

@@ -10,11 +10,10 @@ commands:
       - run:
           name: Install swiftlint
           command: |
-            if command -v swiftlint &> /dev/null
+            if ! command -v swiftlint &> /dev/null
             then
-              brew unlink swiftlint
+              brew install swiftlint
             fi
-            brew install swiftlint
             swiftlint version
       - run:
           name: Install Bundler
@@ -194,9 +193,11 @@ workflows:
       jobs:
         - dependencies:
             filters:
-              branches:
+              tags:
                 only:
-                  - /release/.*/
+                  - /^v.*/
+              branches:
+                ignore: /.*/
         - snapshot:
             matrix:
               parameters:
