@@ -26,7 +26,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		XCTAssertEqual(model.timeStamp, exposureSubmissionService.devicePairingSuccessfulTimestamp)
@@ -51,7 +51,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			},
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
@@ -86,7 +86,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				},
 				onContinueWithoutSymptomsFlowButtonTap: { _ in },
 				onTestDeleted: { },
-				onSubmissionConsentButtonTap: { }
+				onSubmissionConsentButtonTap: { _ in }
 			)
 			
 			XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
@@ -118,7 +118,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			},
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
@@ -145,7 +145,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonLoading)
@@ -186,7 +186,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		model.didTapPrimaryButton()
@@ -211,7 +211,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			},
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		model.didTapPrimaryButton()
@@ -239,7 +239,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			},
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		model.didTapPrimaryButton()
@@ -262,7 +262,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		exposureSubmissionService.getTestResultCallback = { completion in
@@ -298,7 +298,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill()
 			},
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
@@ -322,7 +322,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill() },
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
@@ -350,7 +350,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 					onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill()
 				},
 				onTestDeleted: { },
-				onSubmissionConsentButtonTap: { }
+				onSubmissionConsentButtonTap: { _ in }
 			)
 			
 			XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
@@ -378,7 +378,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill()
 			},
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		model.didTapSecondaryButton()
@@ -406,7 +406,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill()
 			},
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		model.didTapSecondaryButton()
@@ -434,7 +434,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onTestDeleted: {
 				onTestDeletedCalledExpectation.fulfill()
 			},
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		model.deleteTest()
@@ -449,7 +449,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonLoading)
@@ -469,7 +469,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonLoading)
@@ -491,7 +491,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				onContinueWithSymptomsFlowButtonTap: { _ in },
 				onContinueWithoutSymptomsFlowButtonTap: { _ in },
 				onTestDeleted: { },
-				onSubmissionConsentButtonTap: { }
+				onSubmissionConsentButtonTap: { _ in }
 			)
 			
 			XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonLoading)
@@ -512,7 +512,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 1)
@@ -542,7 +542,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 1)
@@ -596,7 +596,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 1)
@@ -630,7 +630,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 2)
@@ -668,7 +668,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
 			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { }
+			onSubmissionConsentButtonTap: { _ in }
 		)
 		
 		XCTAssertEqual(model.dynamicTableViewModel.numberOfSection, 1)

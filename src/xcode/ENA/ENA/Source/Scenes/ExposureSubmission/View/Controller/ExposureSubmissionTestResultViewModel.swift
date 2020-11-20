@@ -352,7 +352,7 @@ class ExposureSubmissionTestResultViewModel {
 						action: .execute { viewController in
 							self.onSubmissionConsentButtonTap() { [weak self] isLoading in
 								//self?.primaryButtonIsLoading = isLoading
-				}
+							}
 						},
 						configure: { _, cell, _ in
 							cell.accessoryType = .disclosureIndicator
