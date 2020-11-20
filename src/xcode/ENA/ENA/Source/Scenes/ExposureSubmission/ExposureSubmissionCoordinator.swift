@@ -106,9 +106,9 @@ extension ExposureSubmissionCoordinator {
 	private func getInitialViewController(with result: TestResult? = nil) -> UIViewController {
 		#if DEBUG
 		if isUITesting {
-			model.exposureSubmissionService.isSubmissionConsentGiven = false
+			model.exposureSubmissionService.setSubmissionConsentGiven(consentGiven: false)
 			if UserDefaults.standard.string(forKey: "isSubmissionConsentGiven") == "YES" {
-				model.exposureSubmissionService.isSubmissionConsentGiven = true
+				model.exposureSubmissionService.setSubmissionConsentGiven(consentGiven: true)
 			}
 			
 			if let testResultStringValue = UserDefaults.standard.string(forKey: "testResult"),
@@ -199,7 +199,7 @@ extension ExposureSubmissionCoordinator {
 				onTestDeleted: { [weak self] in
 					self?.dismiss()
 				}
-			)
+			), exposureSubmissionService: self.model.exposureSubmissionService
 		)
 	}
 

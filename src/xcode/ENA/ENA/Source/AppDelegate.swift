@@ -116,6 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let serverEnvironment: ServerEnvironment
 
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
+	let backgroundTaskConsumer = RiskConsumer()
 
 	lazy var appConfigurationProvider: AppConfigurationProviding = {
 		#if DEBUG

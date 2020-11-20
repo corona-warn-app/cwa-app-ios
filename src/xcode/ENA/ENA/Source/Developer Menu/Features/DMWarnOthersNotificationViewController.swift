@@ -46,20 +46,27 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		let titleLabel = UILabel(frame: .zero)
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
 		titleLabel.numberOfLines = 0
-		titleLabel.text = "Warn others notification settings"
+		titleLabel.text = "\n\nWarn others notification settings"
 		titleLabel.font = UIFont.enaFont(for: .headline)
 		
 		let currentSubmissionConsentStatusTitleLabel = UILabel(frame: .zero)
 		currentSubmissionConsentStatusTitleLabel.translatesAutoresizingMaskIntoConstraints = false
 		currentSubmissionConsentStatusTitleLabel.numberOfLines = 0
-		currentSubmissionConsentStatusTitleLabel.text = "Current status of submission consent given"
+		currentSubmissionConsentStatusTitleLabel.text = "Current status of submission consent granted\n"
 		currentSubmissionConsentStatusTitleLabel.font = UIFont.enaFont(for: .headline)
 		
 		let currentSubmissionConsentStatusStateLabel = UILabel(frame: .zero)
 		currentSubmissionConsentStatusStateLabel.translatesAutoresizingMaskIntoConstraints = false
 		currentSubmissionConsentStatusStateLabel.numberOfLines = 0
-		currentSubmissionConsentStatusStateLabel.text = store.isSubmissionConsentGiven ? "🟢 Consent given 👍" : "🔴 Consent not given 👎"
-		currentSubmissionConsentStatusStateLabel.font = UIFont.enaFont(for: .subheadline)
+		currentSubmissionConsentStatusStateLabel.text = store.isSubmissionConsentGiven ? "🟢 Consent granted 👍" : "🔴 Consent not given 👎"
+		currentSubmissionConsentStatusStateLabel.font = UIFont.enaFont(for: .title2)
+		
+		let currentSubmissionConsentStatusStateDescription = UILabel(frame: .zero)
+		currentSubmissionConsentStatusStateDescription.translatesAutoresizingMaskIntoConstraints = false
+		currentSubmissionConsentStatusStateDescription.numberOfLines = 0
+		currentSubmissionConsentStatusStateDescription.text = "\n⚠️ If SubmissionConsent is granted (🟢), then no warn others notifications will be scheduled!"
+		currentSubmissionConsentStatusStateDescription.font = UIFont.enaFont(for: .subheadline)
+		
 		
 		let descriptionLabel = UILabel(frame: .zero)
 		descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -111,7 +118,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		timeInterval2TextField.delegate = self
 		timeInterval2TextField.borderStyle = .line
 		
-		let stackView = UIStackView(arrangedSubviews: [currentSubmissionConsentStatusTitleLabel, currentSubmissionConsentStatusStateLabel, titleLabel, descriptionLabel, timeInterval1Label, timeInterval1TextField, timeInterval2Label, timeInterval2TextField, saveButton, resetDefaultsButton, descriptionResetNotificationsLabel, resetNotificationsButton])
+		let stackView = UIStackView(arrangedSubviews: [currentSubmissionConsentStatusTitleLabel, currentSubmissionConsentStatusStateLabel, currentSubmissionConsentStatusStateDescription, titleLabel, descriptionLabel, timeInterval1Label, timeInterval1TextField, timeInterval2Label, timeInterval2TextField, saveButton, resetDefaultsButton, descriptionResetNotificationsLabel, resetNotificationsButton])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .vertical
 		stackView.alignment = .center

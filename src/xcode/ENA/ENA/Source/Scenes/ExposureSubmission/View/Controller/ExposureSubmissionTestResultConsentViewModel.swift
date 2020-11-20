@@ -4,7 +4,7 @@
 
 import Foundation
 import UIKit
-
+import Combine
 
 class ExposureSubmissionTestResultConsentViewModel {
 	// MARK: - Init
@@ -15,21 +15,25 @@ class ExposureSubmissionTestResultConsentViewModel {
 	) {
 		
 		self.exposureSubmissionService = exposureSubmissionService
-		consentSwitch.isOn = self.exposureSubmissionService.isSubmissionConsentGiven
 		
 		self.supportedCountries = supportedCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
+		
+		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
+			self.consentSwitch.isOn = isSubmissionConsentGiven
+		}.store(in: &cancellables)
 	}
 
 
 	// MARK: - Properties
 	
 	@objc
-	func stateChanged(switchState: UISwitch) {
-		Log.info("Switch state was changed to: \(switchState.isOn)")
-		exposureSubmissionService.isSubmissionConsentGiven = switchState.isOn
+	func consentStateChanged(switchState: UISwitch) {
+		exposureSubmissionService.setSubmissionConsentGiven(consentGiven: switchState.isOn)
 	}
 		
 	// MARK: - Private
+	
+	private var cancellables: Set<AnyCancellable> = []
 		
 	private let supportedCountries: [Country]
 	
@@ -53,7 +57,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 							configure: { _, cell, _ in
 								cell.accessoryView = self.consentSwitch
 								self.consentSwitch.onTintColor = .enaColor(for: .tint)
-								self.consentSwitch.addTarget(self, action: #selector(self.stateChanged), for: .valueChanged)
+								self.consentSwitch.addTarget(self, action: #selector(self.consentStateChanged), for: .valueChanged)
 							}
 						),
 						.body(text: AppStrings.AutomaticSharingConsent.switchTitleDescription),

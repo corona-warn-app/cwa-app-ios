@@ -17,7 +17,6 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 		onContinueWithoutSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onTestDeleted: @escaping () -> Void
 	) {
-		
 		self.testResult = testResult
 		self.exposureSubmissionService = exposureSubmissionService
 		self.onContinueWithSymptomsFlowButtonTap = onContinueWithSymptomsFlowButtonTap
@@ -27,6 +26,7 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 		
 		updateForCurrentTestResult()
 		loadSupportedCountries()
+		updateSubmissionConsentLabel()
 	}
 	
 	// MARK: - Internal
@@ -92,6 +92,10 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 	}
 	
 	// MARK: - Private
+	
+	private var submissionConsentLabel: String = ""
+	
+	private var cancellables: Set<AnyCancellable> = []
 	
 	private var exposureSubmissionService: ExposureSubmissionService
 	
@@ -171,7 +175,6 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 				self?.testResult = testResult
 				self?.updateWarnOthers()
 			}
-			
 			completion()
 		}
 	}
@@ -342,7 +345,7 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 				cells: [
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Grey_Warnen"),
-						text: .string(self.exposureSubmissionService.isSubmissionConsentGiven ? AppStrings.ExposureSubmissionResult.warnOthersConsentGiven : AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven),
+						text: .string(self.submissionConsentLabel),
 						action: .execute { viewController in
 							let detailViewController = ExposureSubmissionTestResultConsentViewController(supportedCountries: self.supportedCountries ?? [], exposureSubmissionService: self.exposureSubmissionService)
 							detailViewController.title = AppStrings.AutomaticSharingConsent.consentTitle
@@ -405,6 +408,14 @@ class ExposureSubmissionTestResultViewModel: RequiresAppDependencies {
 			self?.supportedCountries = supportedCountries
 				.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
 		}.store(in: &subscriptions)
-		
+	}
+	
+	func updateSubmissionConsentLabel() {
+		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
+			let labelText = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionResult.warnOthersConsentGiven : AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven
+			self.submissionConsentLabel = labelText
+			
+			self.updateForCurrentTestResult()
+		}.store(in: &cancellables)
 	}
 }
