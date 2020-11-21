@@ -76,17 +76,32 @@ struct ExposureSubmissionQRInfoViewModel {
 		)
 
 		// Ihr Einverständnis
+		let bulletPoints: [NSAttributedString] = {
+			var points = [NSAttributedString]()
+			// highlighted texts
+//			let attributes: [NSAttributedString.Key: Any] = [
+//
+//			]
+
+			points.append(NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgement3))
+			points.append(NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgement4))
+			points.append(NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgement5))
+			points.append(NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgement6))
+			return points
+		}()
 		model.add(
 			.section(cells: [
-				.title2(text: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle),
-				.body(text: "todo"),
-				.bulletPoint(text: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgement1_1)\n\n\(AppStrings.ExposureSubmissionQRInfo.acknowledgement1_2)", spacing: .large), // dev code!
-				.bulletPoint(text: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgement2_1)\n\n\(AppStrings.ExposureSubmissionQRInfo.acknowledgement2_2)", spacing: .large),
-				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, spacing: .large),
-				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement4, spacing: .large),
-				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, spacing: .large),
-				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, spacing: .large)
+				.acknowledgement(title: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle),
+								 description: NSAttributedString(string: "TODO"),
+								 bulletPoints: bulletPoints,
+								 accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle)
+
+//				.bulletPoint(text: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgement1_1)\n\n\(AppStrings.ExposureSubmissionQRInfo.acknowledgement1_2)", spacing: .large), // dev code!
+//				.bulletPoint(text: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgement2_1)\n\n\(AppStrings.ExposureSubmissionQRInfo.acknowledgement2_2)", spacing: .large),
+//				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, spacing: .large),
+//				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement4, spacing: .large),
+//				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, spacing: .large),
+//				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, spacing: .large)
 			])
 		)
 
@@ -100,4 +115,23 @@ struct ExposureSubmissionQRInfoViewModel {
 		return model
 	}
 
+}
+
+extension DynamicCell {
+	
+	static func acknowledgement(
+		title: NSAttributedString,
+		description: NSAttributedString?,
+		bulletPoints: [NSAttributedString],
+		accessibilityIdentifier: String? = nil,
+		configure: CellConfigurator? = nil
+	) -> Self {
+		.identifier(ExposureSubmissionQRInfoViewController.ReuseIdentifiers.acknowledgement) { viewController, cell, indexPath in
+			guard let cell = cell as? DynamicAcknowledgementCell else {
+				fatalError("could not initialize cell of type `ExposureSubmissionQRAcknowledgementCell`")
+			}
+			cell.configure(title: title, description: description, bulletPoints: bulletPoints, accessibilityIdentifier: accessibilityIdentifier)
+			configure?(viewController, cell, indexPath)
+		}
+	}
 }

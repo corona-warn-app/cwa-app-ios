@@ -18,7 +18,7 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+class ExposureSubmissionQRInfoViewController: DynamicTableViewController {
 	
 	// MARK: - Init
 
@@ -52,15 +52,10 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANav
 		navigationFooterItem
 	}
 
-	// MARK: - Protocol ENANavigationControllerWithFooterChild
+	// MARK: - Internal
 
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		onPrimaryButtonTap { [weak self] isLoading in
-			DispatchQueue.main.async {
-				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
-				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
-			}
-		}
+	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case acknowledgement = "acknowledgementCell"
 	}
 
 	// MARK: - Private
@@ -84,8 +79,25 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANav
 		view.backgroundColor = .enaColor(for: .background)
 		cellBackgroundColor = .clear
 
+		tableView.register(
+			UINib(nibName: String(describing: DynamicAcknowledgementCell.self), bundle: nil),
+			forCellReuseIdentifier: ReuseIdentifiers.acknowledgement.rawValue
+		)
+
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
 	}
+}
 
+// MARK: - Protocol ENANavigationControllerWithFooterChild
+extension ExposureSubmissionQRInfoViewController: ENANavigationControllerWithFooterChild {
+
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+		onPrimaryButtonTap { [weak self] isLoading in
+			DispatchQueue.main.async {
+				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+			}
+		}
+	}
 }
