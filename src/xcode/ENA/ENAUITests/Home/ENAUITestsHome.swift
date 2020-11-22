@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import XCTest
@@ -85,9 +70,9 @@ class ENAUITests_01_Home: XCTestCase {
 		//snapshot("ScreenShot_\(#function)")
 	}
 	
-	func test_screenshot_homescreen_riskCardIncreased() throws {
+	func test_screenshot_homescreen_riskCardHigh() throws {
 		var screenshotCounter = 0
-		let riskLevel = "increased"
+		let riskLevel = "high"
 		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launch()
@@ -128,31 +113,4 @@ class ENAUITests_01_Home: XCTestCase {
 
 	}
 	
-	func test_screenshot_homescreen_riskCardUnknownUnknownInitial() throws {
-		var screenshotCounter = 0
-		let riskLevel = "unknownInitial"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launch()
-
-		// only run if home screen is present
-		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
-		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		app.swipeUp()
-		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
-	
-	func test_screenshot_homescreen_riskCardUnknownUnknownOutdated() throws {
-		var screenshotCounter = 0
-		let riskLevel = "unknownOutdated"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
-		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
-		app.launch()
-
-		// only run if home screen is present
-		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
-		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		app.swipeUp()
-		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
 }

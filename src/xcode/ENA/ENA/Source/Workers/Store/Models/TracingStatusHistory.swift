@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors /
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -74,18 +59,6 @@ extension Array where Element == TracingStatusEntry {
 	}
 
 	// MARK: - Check Tracing History for Risk Calculation
-
-	/// Check the `TracingStatusHistory` if it has been turned on for `timeInterval` seconds
-	///
-	/// Typically used to check the tracing duration precondition for risk calculation
-	/// - parameter timeInterval: Seconds to use as the threshold. Defaults to 24 hours.
-	/// - parameter date: Date to use as the baseline. Defaults to `Date()`
-	func checkIfEnabled(
-		for continuousInterval: TimeInterval = Self.minimumActiveSeconds,
-		since date: Date = Date()
-	) -> Bool {
-		getContinuousEnabledInterval(since: date) > continuousInterval
-	}
 
 	/// Mark returns the active tracing info.
 	///
@@ -153,10 +126,6 @@ extension Array where Element == TracingStatusEntry {
 
 	// MARK: - Constants for Tracing
 
-	/// The minimum count of hours tracing must have been active for risk calculation to work
-	static let minimumActiveHours = 24
-	/// The minimum count of seconds tracing must have been active for risk calculation to work
-	static var minimumActiveSeconds: TimeInterval { TimeInterval(minimumActiveHours * 60 * 60) }
 	/// The maximum count of days to keep tracing history for
 	static let maxStoredDays = 14
 	/// The maximum count of seconds to keep tracing history for

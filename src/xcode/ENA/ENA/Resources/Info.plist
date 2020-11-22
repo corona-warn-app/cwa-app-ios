@@ -19,7 +19,7 @@
 	<key>ENDeveloperRegion</key>
 	<string>DE</string>
 	<key>ENAPIVersion</key>
-	<integer>1</integer>
+	<integer>2</integer>
 	<key>CFBundleName</key>
 	<string>ENA</string>
 	<key>CFBundlePackageType</key>

@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import Combine
 import ExposureNotification
@@ -73,9 +60,9 @@ extension AppDelegate {
 		switch riskProviderError {
 		case .failedRiskDetection(let didEndPrematurelyReason):
 			switch didEndPrematurelyReason {
-			case let .noSummary(error):
+			case let .noExposureWindows(error):
 				return makeAlertController(
-					enError: error,
+					noSummaryError: error,
 					localizedDescription: didEndPrematurelyReason.localizedDescription,
 					rootController: rootController
 				)
@@ -96,11 +83,11 @@ extension AppDelegate {
 		}
 	}
 
-	private func makeAlertController(enError: Error?, localizedDescription: String, rootController: UIViewController) -> UIAlertController {
-		switch enError {
-		case let error as ENError:
+	private func makeAlertController(noSummaryError: Error?, localizedDescription: String, rootController: UIViewController) -> UIAlertController? {
+
+		if let enError = noSummaryError as? ENError {
 			let openFAQ: (() -> Void)? = {
-				guard let url = error.faqURL else { return nil }
+				guard let url = enError.faqURL else { return nil }
 				return {
 					UIApplication.shared.open(url, options: [:])
 				}
@@ -110,7 +97,12 @@ extension AppDelegate {
 				secondaryActionTitle: AppStrings.Common.errorAlertActionMoreInfo,
 				secondaryActionCompletion: openFAQ
 			)
-		default:
+		} else if let exposureDetectionError = noSummaryError as? ExposureDetectionError {
+			switch exposureDetectionError {
+			case .isAlreadyRunning:
+				return nil
+			}
+		} else {
 			return rootController.setupErrorAlert(
 				message: localizedDescription
 			)
@@ -127,6 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let warnOthersReminder: WarnOthersRemindable
 
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
+	let backgroundTaskConsumer = RiskConsumer()
 
 	lazy var appConfigurationProvider: AppConfigurationProviding = {
 		#if DEBUG
@@ -138,17 +131,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// use a custom http client that uses/recognized caching mechanisms
 		let appFetchingClient = CachingHTTPClient(clientConfiguration: client.configuration)
 		
-		let provider = CachedAppConfiguration(client: appFetchingClient, store: store, configurationDidChange: { [weak self] in
-			// Recalculate risk with new app configuration
-			self?.riskProvider.requestRisk(userInitiated: false, ignoreCachedSummary: true)
-		})
+		let provider = CachedAppConfiguration(client: appFetchingClient, store: store)
 		// used to remove invalidated key packages
 		provider.packageStore = downloadedPackagesStore
 		return provider
 	}()
 
 	lazy var riskProvider: RiskProvider = {
-
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
@@ -156,6 +145,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			store: store
 		)
 
+		#if !RELEASE
+		return RiskProvider(
+			configuration: .default,
+			store: store,
+			appConfigurationProvider: appConfigurationProvider,
+			exposureManagerState: exposureManager.preconditions(),
+			riskCalculation: DebugRiskCalculation(riskCalculation: RiskCalculation(), store: store),
+			keyPackageDownload: keyPackageDownload,
+			exposureDetectionExecutor: exposureDetectionExecutor
+		)
+		#else
 		return RiskProvider(
 			configuration: .default,
 			store: store,
@@ -164,6 +164,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			keyPackageDownload: keyPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor
 		)
+		#endif
+
 	}()
 
 	#if targetEnvironment(simulator) || COMMUNITY

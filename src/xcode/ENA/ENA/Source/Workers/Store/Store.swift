@@ -1,46 +1,9 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import Foundation
 import ExposureNotification
-
-enum EitherLowOrIncreasedRiskLevel: Int {
-	case low = 0
-	case increased = 1_000 /// so that increased > low + we have enough reserved values
-	var description: String {
-		switch self {
-		case .low: return "low"
-		case .increased: return "increased"
-		}
-	}
-}
-
-extension EitherLowOrIncreasedRiskLevel {
-	init?(with risk: RiskLevel) {
-		switch risk {
-		case .low:
-			self = .low
-		case .increased:
-			self = .increased
-		default:
-			return nil
-		}
-	}
-}
 
 protocol StoreProtocol: AnyObject {
 	var isOnboarded: Bool { get set }
@@ -61,8 +24,6 @@ protocol StoreProtocol: AnyObject {
 
 	var allowRiskChangesNotification: Bool { get set }
 	var allowTestsStatusNotification: Bool { get set }
-
-	var summary: SummaryMetadata? { get set }
 
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
@@ -94,9 +55,9 @@ protocol StoreProtocol: AnyObject {
 
 	var tracingStatusHistory: TracingStatusHistory { get set }
 
-	var previousRiskLevel: EitherLowOrIncreasedRiskLevel? { get set }
+	var riskCalculationResult: RiskCalculationResult? { get set }
 
-	/// Set to true whenever a risk calculation changes the risk from .increased to .low
+	/// Set to true whenever a risk calculation changes the risk from .high to .low
 	var shouldShowRiskStatusLoweredAlert: Bool { get set }
 
 	/// `true` if the user needs to be informed about how risk detection works.
@@ -140,14 +101,18 @@ protocol StoreProtocol: AnyObject {
 	#if !RELEASE
 	/// Settings from the debug menu.
 	var fakeSQLiteError: Int32? { get set }
+
+	var mostRecentRiskCalculation: RiskCalculation? { get set }
+
+	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration? { get set }
+
+	var dmKillDeviceTimeCheck: Bool { get set }
 	#endif
 
 }
 
 protocol AppConfigCaching: AnyObject {
-	var lastAppConfigETag: String? { get set }
-	var lastAppConfigFetch: Date? { get set }
-	var appConfig: SAP_Internal_ApplicationConfiguration? { get set }
+	var appConfigMetadata: AppConfigMetadata? { get set }
 }
 
 /// Convenience protocol

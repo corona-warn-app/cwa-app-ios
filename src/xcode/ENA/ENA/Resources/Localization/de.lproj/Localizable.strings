@@ -492,6 +492,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_acknowledgement_title" = "Ihr Einverständnis";
 
+"ExposureSubmissionQRInfo_acknowledgement_body" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+
 "ExposureSubmissionQRInfo_acknowledgement_1_1" = "Die App ruft Ihr Testergebnis ab.";
 
 "ExposureSubmissionQRInfo_acknowledgement_1_2" = "Wenn Sie es sich später anders überlegen, können Sie den Test in der App entfernen.";
@@ -874,8 +876,6 @@ oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome m
 
 "Home_Activate_Card_Bluetooth_Off_Title" = "Bluetooth deaktiviert";
 
-"Home_Activate_Card_Internet_Off_Title" = "Keine Internetverbindung";
-
 /* Home common card */
 "Home_Risk_Date_Item_Title" = "Aktualisiert: %@";
 
@@ -894,12 +894,6 @@ oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome m
 "Home_Risk_Last_Activate_Item_High_Title" = "Erhöhtes Risiko";
 
 "Home_RiskCard_Update_Button" = "Aktualisieren";
-
-/* Home Unknown card */
-"Home_RiskCard_Unknown_Item_Title" = "Da Sie Ihre Begegnungs-Aufzeichnung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
-
-/* Home Unknown 48 card */
-"Home_RiskCard_Unknown48h_Body" = "Ihre Risiko-Berechnung wurde seit mehr als 48 Stunden nicht aktualisiert. Bitte aktualisieren Sie die Berechnung.";
 
 /* Home Inactive card */
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "Risiko-Ermittlung gestoppt";
@@ -1197,7 +1191,7 @@ oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome m
 
 "RiskLegend_Check_Title" = "Risiko-Überprüfung";
 
-"RiskLegend_Check_Text" = "Abfrage der Begegnungs-Aufzeichnung und Abgleich mit den gemeldeten Infektionen anderer Nutzerinnen und Nutzer. Die Risiko-Überprüfung erfolgt ungefähr alle zwei Stunden automatisch.";
+"RiskLegend_Check_Text" = "Abfrage der Begegnungs-Aufzeichnung und Abgleich mit den gemeldeten Infektionen anderer Nutzerinnen und Nutzer. Ihr Risiko wird mehrmals täglich automatisch überprüft.";
 
 "RiskLegend_Contact_Title" = "Risiko-Begegnung";
 

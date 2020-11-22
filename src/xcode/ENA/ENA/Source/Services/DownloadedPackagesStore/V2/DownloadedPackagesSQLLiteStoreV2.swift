@@ -36,6 +36,12 @@ final class DownloadedPackagesSQLLiteStoreV2 {
 		self.database = database
 		self.migrator = migrator
 		self.latestVersion = latestVersion
+		#if DEBUG
+		if ProcessInfo.processInfo.arguments.contains("-SQLLog") {
+			// trace executed SQL statements
+			database.traceExecution = true
+		}
+		#endif
 	}
 
 	deinit {
@@ -305,9 +311,8 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 
 	func packages(with etags: [String]) -> [SAPDownloadedPackage]? {
 		queue.sync {
-			let list = "(\(etags.map({ "\'\($0)\'" }).joined(separator: ",")))" // ('a','b','c')
-			// seems to be tho only way…
-			// https://stackoverflow.com/questions/8383684/passing-an-array-to-sqlite-where-in-clause-via-fmdb
+			// ['a', 'b', 'c'] --> ?, ?, ?
+			let params = Array(repeating: "?", count: etags.count).joined(separator: ", ")
 			let sql = """
 				SELECT
 					Z_BIN,
@@ -316,17 +321,18 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 				WHERE
 					Z_ETAG
 				IN
-					\(list)
+					(\(params))
 				;
 			"""
-			let parameters: [String: Any] = [:]
-			guard let result = self.database.execute(query: sql, parameters: parameters) else {
-				return nil
+			do {
+				let result = try self.database.executeQuery(sql, values: etags)
+				return result
+					.map { $0.downloadedPackage() }
+					.compactMap { $0 }
+			} catch {
+				Log.error("[SQLite] (\(database.lastErrorCode()): \(database.lastErrorMessage()))", log: .localData)
+				return nil // tbd: throws
 			}
-			defer { result.close() }
-			return result
-				.map { $0.downloadedPackage() }
-				.compactMap { $0 }
 		}
 	}
 
@@ -424,24 +430,23 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 	}
 
 	func delete(packages: [SAPDownloadedPackage]) throws {
+		guard !packages.isEmpty else { return }
 		try queue.sync {
 			let fingerprints = packages.map({ $0.fingerprint })
-			let hashlist = "(\(fingerprints.map({ "\'\($0)\'" }).joined(separator: ",")))" // ('a','b','c')
-			// seems to be tho only way…
-			// https://stackoverflow.com/questions/8383684/passing-an-array-to-sqlite-where-in-clause-via-fmdb
+			// ['a', 'b', 'c'] --> ?, ?, ?
+			let params = Array(repeating: "?", count: fingerprints.count).joined(separator: ", ")
 			let sql = """
 				DELETE FROM
 					Z_DOWNLOADED_PACKAGE
 				WHERE
 					Z_HASH
 				IN
-					\(hashlist)
+					(\(params))
 				;
 			"""
-
-			// to align with the other calls I'm using an empty dictionary here instead of `execute(:)` or others
-			let parameters: [String: Any] = [:]
-			guard self.database.executeUpdate(sql, withParameterDictionary: parameters) else {
+			do {
+				try database.executeUpdate(sql, values: fingerprints)
+			} catch {
 				Log.error("[SQLite] (\(database.lastErrorCode()) \(database.lastErrorMessage())", log: .localData)
 				throw SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
 			}
