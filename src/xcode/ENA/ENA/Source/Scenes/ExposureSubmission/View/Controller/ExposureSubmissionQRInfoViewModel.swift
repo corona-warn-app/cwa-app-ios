@@ -76,32 +76,12 @@ struct ExposureSubmissionQRInfoViewModel {
 		)
 
 		// Ihr Einverständnis
-		let bulletPoints: [NSAttributedString] = {
-			var points = [NSAttributedString]()
-			// highlighted texts
-//			let attributes: [NSAttributedString.Key: Any] = [
-//
-//			]
-
-			points.append(NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgement3))
-			points.append(NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgement4))
-			points.append(NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgement5))
-			points.append(NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgement6))
-			return points
-		}()
 		model.add(
 			.section(cells: [
 				.acknowledgement(title: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle),
 								 description: NSAttributedString(string: "TODO"),
 								 bulletPoints: bulletPoints,
 								 accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle)
-
-//				.bulletPoint(text: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgement1_1)\n\n\(AppStrings.ExposureSubmissionQRInfo.acknowledgement1_2)", spacing: .large), // dev code!
-//				.bulletPoint(text: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgement2_1)\n\n\(AppStrings.ExposureSubmissionQRInfo.acknowledgement2_2)", spacing: .large),
-//				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, spacing: .large),
-//				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement4, spacing: .large),
-//				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, spacing: .large),
-//				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, spacing: .large)
 			])
 		)
 
@@ -115,6 +95,33 @@ struct ExposureSubmissionQRInfoViewModel {
 		return model
 	}
 
+	// MARK: - Private
+
+	private var bulletPoints: [NSAttributedString] {
+		var points = [NSAttributedString]()
+
+		// highlighted texts
+		let attributes: [NSAttributedString.Key: Any] = [
+			.font: UIFont.preferredFont(forTextStyle: .headline)
+		]
+
+		// Don't forget the tab for all paragraphs after the first!
+		let ack1 = NSMutableAttributedString(string: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgement1_1)\n\t\(AppStrings.ExposureSubmissionQRInfo.acknowledgement1_2)")
+		ack1.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.ExposureSubmissionQRInfo.acknowledgement1_1.count))
+
+		let ack2 = NSMutableAttributedString(string: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgement2_1)\n\t\(AppStrings.ExposureSubmissionQRInfo.acknowledgement2_2)")
+		ack2.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.ExposureSubmissionQRInfo.acknowledgement2_1.count))
+
+		points.append(ack1)
+		points.append(ack2)
+
+		// simpler strings
+		points.append(NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgement3))
+		points.append(NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgement4))
+		points.append(NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgement5))
+		points.append(NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgement6))
+		return points
+	}
 }
 
 extension DynamicCell {
