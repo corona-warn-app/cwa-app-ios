@@ -1,7 +1,6 @@
 //
 // 🦠 Corona-Warn-App
 //
-//  ExposureSubmissionIntroViewController.swift
 
 import Foundation
 import UIKit
@@ -73,5 +72,4 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 		tableView.separatorStyle = .none
 
 	}
-
 }

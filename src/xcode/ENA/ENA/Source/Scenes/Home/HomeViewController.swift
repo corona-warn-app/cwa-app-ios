@@ -1,28 +1,16 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import ExposureNotification
+import Combine
 import UIKit
 
 protocol HomeViewControllerDelegate: AnyObject {
 	func showRiskLegend()
 	func showExposureNotificationSetting(enState: ENStateHandler.State)
-	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProvider.ActivityState)
-	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProvider.ActivityState)
+	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProviderActivityState)
+	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProviderActivityState)
 	func showExposureSubmission(with result: TestResult?)
 	func showInviteFriends()
 	func showWebPage(from viewController: UIViewController, urlString: String)
@@ -36,24 +24,47 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	init?(
 		coder: NSCoder,
 		delegate: HomeViewControllerDelegate,
-		detectionMode: DetectionMode,
 		exposureManagerState: ExposureManagerState,
 		initialEnState: ENStateHandler.State,
-		risk: Risk?,
 		exposureSubmissionService: ExposureSubmissionService
 	) {
 		self.delegate = delegate
-		//self.enState = initialEnState
+
 		super.init(coder: coder)
+
+		var riskState: RiskState
+		if let riskCalculationResult = store.riskCalculationResult {
+			riskState = .risk(
+				Risk(
+					activeTracing: store.tracingStatusHistory.activeTracing(),
+					riskCalculationResult: riskCalculationResult
+				)
+			)
+		} else {
+			riskState = .risk(
+				Risk(
+					level: .low,
+					details: .init(
+						daysSinceLastExposure: 0,
+						numberOfExposures: 0,
+						activeTracing: store.tracingStatusHistory.activeTracing(),
+						exposureDetectionDate: nil
+					),
+					riskLevelHasChanged: false
+				)
+			)
+		}
+
 		self.homeInteractor = HomeInteractor(
 			homeViewController: self,
 			state: .init(
-				detectionMode: detectionMode,
+				riskState: riskState,
 				exposureManagerState: exposureManagerState,
-				enState: initialEnState,
-				risk: risk,
-				riskDetectionFailed: false
-			), exposureSubmissionService: exposureSubmissionService)
+				enState: initialEnState
+			),
+			exposureSubmissionService: exposureSubmissionService
+		)
+
 		navigationItem.largeTitleDisplayMode = .never
 		delegate.addToEnStateUpdateList(homeInteractor)
 	}
@@ -70,6 +81,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	private var collectionView: UICollectionView! { view as? UICollectionView }
 	private var homeInteractor: HomeInteractor!
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
+
+	private var subscriptions = [AnyCancellable]()
 
 	private weak var delegate: HomeViewControllerDelegate?
 
@@ -139,17 +152,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	private func showDeltaOnboarding() {
-		appConfigurationProvider.appConfiguration { [weak self] result in
+		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
 			guard let self = self else { return }
-			
-			let supportedCountries: [Country]
-			
-			switch result {
-			case .success(let applicationConfiguration):
-				supportedCountries = applicationConfiguration.supportedCountries.compactMap({ Country(countryCode: $0) })
-			case .failure:
-				supportedCountries = []
-			}
+
+			let supportedCountries = configuration.supportedCountries.compactMap({ Country(countryCode: $0) })
 			
 			// As per feature requirement, the delta onboarding should appear with a slight delay of 0.5
 			var delay = 0.5
@@ -166,15 +172,15 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				let onboardings: [DeltaOnboarding] = [
 					DeltaOnboardingV15(store: self.store, supportedCountries: supportedCountries)
 				]
-				
+
 				self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
 				self.deltaOnboardingCoordinator?.finished = { [weak self] in
 					self?.deltaOnboardingCoordinator = nil
 				}
-				
+
 				self.deltaOnboardingCoordinator?.startOnboarding()
 			}
-		}
+		}.store(in: &subscriptions)
 	}
 
 	/// This method sets up a background fetch alert, and presents it, if needed.
@@ -215,6 +221,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	@objc
 	func refreshUIAfterResumingFromBackground() {
 		homeInteractor.refreshTimerAfterResumingFromBackground()
+		homeInteractor.updateTestResults()
 	}
 
 	// Called by HomeInteractor
@@ -222,12 +229,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		delegate?.setExposureDetectionState(state: homeInteractor.state, activityState: homeInteractor.riskProvider.activityState)
 	}
 
-	func updateState(
-		detectionMode: DetectionMode,
-		exposureManagerState: ExposureManagerState
+	func updateDetectionMode(
+		_ detectionMode: DetectionMode
 	) {
 		homeInteractor.updateDetectionMode(detectionMode)
-		homeInteractor.updateExposureManagerState(exposureManagerState)
 
 		reloadData(animatingDifferences: false)
 

@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import UIKit
@@ -63,15 +48,13 @@ class Coordinator: RequiresAppDependencies {
 		enStateUpdateList.removeAllObjects()
 	}
 
-	func showHome(enStateHandler: ENStateHandler, state: SceneDelegate.State) {
+	func showHome(enStateHandler: ENStateHandler) {
 		let homeController = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
 			HomeViewController(
 				coder: coder,
 				delegate: self,
-				detectionMode: state.detectionMode,
-				exposureManagerState: state.exposureManager,
+				exposureManagerState: exposureManager.preconditions(),
 				initialEnState: enStateHandler.state,
-				risk: state.risk,
 				exposureSubmissionService: self.exposureSubmissionService
 			)
 		}
@@ -114,14 +97,10 @@ class Coordinator: RequiresAppDependencies {
 		)
 	}
 
-	func updateState(
-		detectionMode: DetectionMode,
-		exposureManagerState: ExposureManagerState
+	func updateDetectionMode(
+		_ detectionMode: DetectionMode
 	) {
-		homeController?.updateState(
-			detectionMode: detectionMode,
-			exposureManagerState: exposureManagerState
-		)
+		homeController?.updateDetectionMode(detectionMode)
 	}
 
 	#if !RELEASE
@@ -175,14 +154,13 @@ extension Coordinator: HomeViewControllerDelegate {
 		rootViewController.pushViewController(vc, animated: true)
 	}
 
-	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProvider.ActivityState) {
+	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProviderActivityState) {
 		let state = ExposureDetectionViewController.State(
-			riskDetectionFailed: state.riskDetectionFailed,
+			riskState: state.riskState,
 			exposureManagerState: state.exposureManagerState,
 			detectionMode: state.detectionMode,
 			activityState: activityState,
-			risk: state.risk,
-			previousRiskLevel: store.previousRiskLevel
+			previousRiskLevel: store.riskCalculationResult?.riskLevel
 		)
 		let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
 			ExposureDetectionViewController(
@@ -195,14 +173,13 @@ extension Coordinator: HomeViewControllerDelegate {
 		rootViewController.present(vc, animated: true)
 	}
 
-	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProvider.ActivityState) {
+	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProviderActivityState) {
 		let state = ExposureDetectionViewController.State(
-			riskDetectionFailed: state.riskDetectionFailed,
+			riskState: state.riskState,
 			exposureManagerState: state.exposureManagerState,
 			detectionMode: state.detectionMode,
 			activityState: activityState,
-			risk: state.risk,
-			previousRiskLevel: store.previousRiskLevel
+			previousRiskLevel: store.riskCalculationResult?.riskLevel
 		)
 		exposureDetectionController?.state = state
 	}
