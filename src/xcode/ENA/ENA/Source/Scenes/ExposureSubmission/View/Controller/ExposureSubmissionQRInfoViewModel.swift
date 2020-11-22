@@ -66,7 +66,7 @@ struct ExposureSubmissionQRInfoViewModel {
 		model.add(
 			.section(cells: [
 				.acknowledgement(title: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle),
-								 description: NSAttributedString(string: "TODO"),
+								 description: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementBody),
 								 bulletPoints: bulletPoints,
 								 accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle)
 			])
@@ -75,7 +75,11 @@ struct ExposureSubmissionQRInfoViewModel {
 		// Even more info
 		model.add(
 			.section(separators: .all, cells: [
-				.body(text: "TODO: data privacy statement")
+				.body(text: AppStrings.AutomaticSharingConsent.dataProcessingDetailInfo,
+					  style: .label,
+					  accessibilityIdentifier: "",
+					  accessibilityTraits: .link,
+					  action: DynamicAction.open(url: URL(staticString: "https://example.com")))
 			])
 		)
 
