@@ -108,7 +108,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 			onError: { _ in onErrorExpectation.fulfill() }
 		)
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
 
 		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
