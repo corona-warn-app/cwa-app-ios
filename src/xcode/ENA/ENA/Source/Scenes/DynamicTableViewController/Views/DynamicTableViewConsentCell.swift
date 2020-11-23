@@ -43,14 +43,12 @@ class DynamicTableViewConsentCell: UITableViewCell {
 		// MARK: - Add consent view
 		consentView.backgroundColor = .enaColor(for: .separator)
 		consentView.layer.cornerRadius = 16.0
-		consentView.setContentCompressionResistancePriority(.required, for: .vertical)
 		contentView.addSubview(consentView)
 		
 		// MARK: - Stackview adjustment.
 		consentStackView.axis = .vertical
 		consentStackView.spacing = 20
-		consentStackView.distribution = .fillProportionally
-		consentStackView.isLayoutMarginsRelativeArrangement = true
+		consentStackView.distribution = .fill
 		consentView.addSubview(consentStackView)
 		
 		UIView.translatesAutoresizingMaskIntoConstraints(for: [
@@ -62,40 +60,30 @@ class DynamicTableViewConsentCell: UITableViewCell {
 		subTitleLabel.textColor = .enaColor(for: .textPrimary1)
 		subTitleLabel.lineBreakMode = .byWordWrapping
 		subTitleLabel.numberOfLines = 0
-		subTitleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
-		subTitleLabel.setContentHuggingPriority(.required, for: .vertical)
 		
 		// MARK: - Description1 Body adjustment.
 		descriptionPart1Label.style = .headline
 		descriptionPart1Label.textColor = .enaColor(for: .textPrimary1)
 		descriptionPart1Label.lineBreakMode = .byWordWrapping
 		descriptionPart1Label.numberOfLines = 0
-		descriptionPart1Label.setContentCompressionResistancePriority(.required, for: .vertical)
-		descriptionPart1Label.setContentHuggingPriority(.required, for: .vertical)
 		
 		// MARK: - Description2 Body adjustment.
 		descriptionPart2Label.style = .headline
 		descriptionPart2Label.textColor = .enaColor(for: .textPrimary1)
 		descriptionPart2Label.lineBreakMode = .byWordWrapping
 		descriptionPart2Label.numberOfLines = 0
-		descriptionPart2Label.setContentCompressionResistancePriority(.required, for: .vertical)
-		descriptionPart2Label.setContentHuggingPriority(.required, for: .vertical)
 		
 		// MARK: - Description3 Body adjustment.
 		descriptionPart3Label.style = .headline
 		descriptionPart3Label.textColor = .enaColor(for: .textPrimary1)
 		descriptionPart3Label.lineBreakMode = .byWordWrapping
 		descriptionPart3Label.numberOfLines = 0
-		descriptionPart3Label.setContentCompressionResistancePriority(.required, for: .vertical)
-		descriptionPart3Label.setContentHuggingPriority(.required, for: .vertical)
 		
 		// MARK: - Description4 Body adjustment.
 		descriptionPart4Label.style = .body
 		descriptionPart4Label.textColor = .enaColor(for: .textPrimary1)
 		descriptionPart4Label.lineBreakMode = .byWordWrapping
 		descriptionPart4Label.numberOfLines = 0
-		descriptionPart4Label.setContentCompressionResistancePriority(.required, for: .vertical)
-		descriptionPart4Label.setContentHuggingPriority(.required, for: .vertical)
 		
 		// MARK: - Countries StackView Body adjustment.
 		countriesStackView.axis = .vertical
@@ -104,15 +92,11 @@ class DynamicTableViewConsentCell: UITableViewCell {
 		countriesStackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
 		
 		// MARK: - Flag Icons Label adjustment.
-		flagIconsLabel.setContentCompressionResistancePriority(.required, for: .vertical)
-		flagIconsLabel.setContentHuggingPriority(.required, for: .vertical)
 		flagIconsLabel.lineBreakMode = .byWordWrapping
 		flagIconsLabel.numberOfLines = 0
 		countriesStackView.addArrangedSubview(flagIconsLabel)
 		
 		// MARK: - Flag Countries Label adjustment.
-		flagCountriesLabel.setContentCompressionResistancePriority(.required, for: .vertical)
-		flagCountriesLabel.setContentHuggingPriority(.required, for: .vertical)
 		flagCountriesLabel.style = .body
 		flagCountriesLabel.textColor = .enaColor(for: .textPrimary1)
 		flagCountriesLabel.lineBreakMode = .byWordWrapping
@@ -130,6 +114,7 @@ class DynamicTableViewConsentCell: UITableViewCell {
 		}
 		consentStackView.setCustomSpacing(16, after: seperatorView1)
 		consentStackView.setCustomSpacing(16, after: flagCountriesLabel)
+		consentStackView.setNeedsUpdateConstraints()
 	}
 	
 	
