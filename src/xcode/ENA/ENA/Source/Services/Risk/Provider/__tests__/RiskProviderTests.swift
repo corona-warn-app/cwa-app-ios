@@ -118,6 +118,8 @@ final class RiskProviderTests: XCTestCase {
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: nil,
 			mostRecentDateWithHighRisk: nil,
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate
 		)
 
@@ -433,6 +435,8 @@ final class RiskProviderTests: XCTestCase {
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: nil,
 			mostRecentDateWithHighRisk: nil,
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate
 		)
 
@@ -486,6 +490,8 @@ final class RiskProviderTests: XCTestCase {
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: nil,
 			mostRecentDateWithHighRisk: nil,
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
@@ -561,6 +567,8 @@ final class RiskProviderTests: XCTestCase {
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: nil,
 			mostRecentDateWithHighRisk: nil,
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
@@ -635,6 +643,8 @@ final class RiskProviderTests: XCTestCase {
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: nil,
 			mostRecentDateWithHighRisk: nil,
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
@@ -710,6 +720,8 @@ final class RiskProviderTests: XCTestCase {
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: nil,
 			mostRecentDateWithHighRisk: nil,
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
@@ -786,6 +798,8 @@ private struct RiskCalculationFake: RiskCalculationProtocol {
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: nil,
 			mostRecentDateWithHighRisk: nil,
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: 0,
 			calculationDate: Date()
 		)
 	}

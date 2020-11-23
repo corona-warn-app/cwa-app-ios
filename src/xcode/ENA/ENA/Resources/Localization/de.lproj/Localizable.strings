@@ -59,6 +59,8 @@
 
 "ExposureDetection_High" = "Erhöhtes Risiko";
 
+"ExposureDetection_LastExposure" = "Zuletzt am %@";
+
 "ExposureDetection_Refreshed" = "Aktualisiert: %@";
 
 "ExposureDetection_Refreshed_Never" = "Unbekannt";
@@ -112,6 +114,8 @@
 "ExposureDetection_Explanation_Text_Low_No_Encounter" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.";
 
 "ExposureDetection_Explanation_Text_Low_With_Encounter" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung des Abstands und der Dauer von Begegnungen mit nachweislich Corona-positiv getesteten Personen sowie deren vermutlicher Infektiosität lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+
+"ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt am %@ mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.";
 
 "ExposureDetection_Explanation_Text_High" = "Die Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft.\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.\nWenn Sie nach Hause kommen, vermeiden Sie auch Begegnungen mit Familienmitgliedern und Mitbewohnern.";
 
@@ -855,7 +859,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Risk_Period_Disabled_Button_Title" = "Aktualisierung nur alle %@\U00A0Stunden";
 
-"Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
+"Home_Risk_Last_Contact_Item_Title" = "Zuletzt am %@";
 
 "Home_Risk_Last_Activate_Item_Title" = "Letzte Risiko-Überprüfung: %@";
 
@@ -1146,10 +1150,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "RiskLegend_Legend2_Low" = "Niedriges Risiko";
 
 "RiskLegend_Legend2_Low_Color" = "Grün";
-
-"RiskLegend_Legend2_Unknown" = "Unbekanntes Risiko";
-
-"RiskLegend_Legend2_Unknown_Color" = "Grau";
 
 "RiskLegend_Legend3_Title" = "Benachrichtigung anderer";
 

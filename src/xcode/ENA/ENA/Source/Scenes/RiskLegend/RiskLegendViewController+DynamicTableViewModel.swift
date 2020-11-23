@@ -45,12 +45,7 @@ extension RiskLegendViewController {
 						color: .enaColor(for: .riskLow),
 						text: AppStrings.RiskLegend.legend2Low,
 						accessibilityLabelColor: AppStrings.RiskLegend.legend2LowColor,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2LowColor),
-					.dotBodyCell(
-						color: .enaColor(for: .riskNeutral),
-						text: AppStrings.RiskLegend.legend2Unknown,
-						accessibilityLabelColor: AppStrings.RiskLegend.legend2UnknownColor,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2UnknownColor)
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2LowColor)
 				]
 			),
 			.section(

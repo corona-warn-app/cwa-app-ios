@@ -29,6 +29,8 @@ final class RiskCalculation: RiskCalculationProtocol, Codable {
 	private(set) var mostRecentDateWithHighRisk: Date?
 	private(set) var minimumDistinctEncountersWithLowRisk = 0
 	private(set) var minimumDistinctEncountersWithHighRisk = 0
+	private(set) var numberOfDaysWithLowRisk = 0
+	private(set) var numberOfDaysWithHighRisk = 0
 	private(set) var calculationDate = Date()
 
 	/// Calculates the risk level based on exposure windows
@@ -99,6 +101,12 @@ final class RiskCalculation: RiskCalculationProtocol, Codable {
 		/// 10. Determine `Total Minimum Distinct Encounters With High Risk`
 		minimumDistinctEncountersWithHighRisk = minimumDistinctEncountersWithHighRiskPerDate.values.reduce(0, +)
 
+		/// 11. Determine `Number of Days With Low Risk`
+		numberOfDaysWithLowRisk = riskLevelPerDate.filter { $0.value == .low }.count
+
+		/// 12. Determine `Number of Days With High Risk`
+		numberOfDaysWithHighRisk = riskLevelPerDate.filter { $0.value == .high }.count
+
 		calculationDate = Date()
 
 		return RiskCalculationResult(
@@ -107,6 +115,8 @@ final class RiskCalculation: RiskCalculationProtocol, Codable {
 			minimumDistinctEncountersWithHighRisk: minimumDistinctEncountersWithHighRisk,
 			mostRecentDateWithLowRisk: mostRecentDateWithLowRisk,
 			mostRecentDateWithHighRisk: mostRecentDateWithHighRisk,
+			numberOfDaysWithLowRisk: numberOfDaysWithLowRisk,
+			numberOfDaysWithHighRisk: numberOfDaysWithHighRisk,
 			calculationDate: calculationDate
 		)
 	}

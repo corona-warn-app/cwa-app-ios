@@ -430,6 +430,8 @@ extension RiskProvider {
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: nil,
 			mostRecentDateWithHighRisk: nil,
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: 0,
 			calculationDate: Date()
 		)
 	}

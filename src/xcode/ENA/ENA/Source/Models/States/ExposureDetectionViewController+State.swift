@@ -7,6 +7,7 @@ import Foundation
 import UIKit
 
 extension ExposureDetectionViewController {
+
 	struct State {
 
 		var riskState: RiskState
@@ -86,10 +87,13 @@ extension ExposureDetectionViewController {
 		var titleTextColor: UIColor {
 			!isTracingEnabled || riskDetectionFailed ? .enaColor(for: .textPrimary1) : riskLevel.contrastTextColor
 		}
+
 	}
+
 }
 
 private extension RiskLevel {
+
 	var text: String {
 		switch self {
 		case .low: return AppStrings.ExposureDetection.low
@@ -124,4 +128,5 @@ private extension RiskLevel {
 		case .high: return .enaColor(for: .textContrast)
 		}
 	}
+
 }
