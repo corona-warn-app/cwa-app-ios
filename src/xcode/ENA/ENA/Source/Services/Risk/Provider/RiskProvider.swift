@@ -319,8 +319,8 @@ extension RiskProvider: RiskProviding {
 		ignoreCachedSummary: Bool = false
 	) -> Bool {
 
-		guard !ignoreCachedSummary else {
-			return true
+		if ignoreCachedSummary {
+			return false
 		}
 
 		let enoughTimeHasPassed = riskProvidingConfiguration.shouldPerformExposureDetection(
