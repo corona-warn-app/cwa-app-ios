@@ -587,6 +587,15 @@ oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome m
 
 "ExposureSubmissionTestresultAvailable_primaryButtonTitle" = "Weiter";
 
+"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Achtung:\n Sie sind dabei den Vorgang abzubrechen. Sie haben Ihre Mitmenschen noch nicht gewarnt. Bitte schützen Sie Ihre Mitmenschen und schließen Sie den Vorgang ab.";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertMessage" = "Möchten Sie den Vorgang wirklich abbrechen?";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Abbrechen";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Fortsetzen";
+
+
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Ihr Testergebnis";
 
