@@ -25,7 +25,7 @@ class EUSettingsViewControllerTests: XCTestCase {
 			exp.fulfill()
 		}.store(in: &subscriptions)
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testDataForDefaultAppConfig() {
@@ -40,6 +40,6 @@ class EUSettingsViewControllerTests: XCTestCase {
 			exp.fulfill()
 		}.store(in: &subscriptions)
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 	}
 }

@@ -81,7 +81,7 @@ final class RiskProviderTests: XCTestCase {
 		
 		riskProvider.requestRisk(userInitiated: false)
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testExposureDetectionIsNotExecutedIfTracingHasNotBeenEnabledLongEnough() throws {
@@ -152,7 +152,7 @@ final class RiskProviderTests: XCTestCase {
 		
 		riskProvider.requestRisk(userInitiated: false)
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testThatDetectionIsRequested() throws {
@@ -206,7 +206,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.observeRisk(consumer)
 		riskProvider.requestRisk(userInitiated: true)
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testThatDetectionFails() throws {
@@ -263,7 +263,7 @@ final class RiskProviderTests: XCTestCase {
 		sut.observeRisk(consumer)
 		sut.requestRisk(userInitiated: true)
 		
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testShouldShowRiskStatusLoweredAlertIntitiallyFalseIsSetToTrueWhenRiskStatusLowers() throws {
