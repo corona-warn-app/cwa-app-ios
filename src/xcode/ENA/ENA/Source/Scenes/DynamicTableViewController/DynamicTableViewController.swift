@@ -132,7 +132,7 @@ extension DynamicTableViewController {
 		}
 	}
 
-	final func execute(action: DynamicAction) {
+	final func execute(action: DynamicAction, cell: UITableViewCell? = nil) {
 		switch action {
 		case let .open(url):
 			if let url = url { UIApplication.shared.open(url) }
@@ -144,7 +144,7 @@ extension DynamicTableViewController {
 			performSegue(withIdentifier: segueIdentifier, sender: nil)
 
 		case let .execute(block):
-			block(self)
+			block(self, cell)
 
 		case .none:
 			break
@@ -259,13 +259,15 @@ extension DynamicTableViewController {
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		let content = dynamicTableViewModel.cell(at: indexPath)
-		execute(action: content.action)
+		let dynamicCell = dynamicTableViewModel.cell(at: indexPath)
+		let cell = tableView.cellForRow(at: indexPath)
+		execute(action: dynamicCell.action, cell: cell)
 	}
 
 	func tableView(_: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-		let content = dynamicTableViewModel.cell(at: indexPath)
-		execute(action: content.accessoryAction)
+		let dynamicCell = dynamicTableViewModel.cell(at: indexPath)
+		guard let cell = tableView.cellForRow(at: indexPath) else { return }
+		execute(action: dynamicCell.accessoryAction, cell: cell)
 	}
 }
 

@@ -348,10 +348,14 @@ class ExposureSubmissionTestResultViewModel {
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Grey_Warnen"),
 						text: .string(self.submissionConsentLabel),
-						// (kga) Refactor to Coordinator
-						action: .execute { viewController in
-							self.onSubmissionConsentButtonTap() { [weak self] isLoading in
-								//self?.primaryButtonIsLoading = isLoading
+						action: .execute { viewController, cell in
+							self.onSubmissionConsentButtonTap { isLoading in
+								let activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+								activityIndicatorView.startAnimating()
+								cell?.accessoryView = isLoading ? activityIndicatorView : nil
+								cell?.isUserInteractionEnabled = !isLoading
+								self.navigationFooterItem.isPrimaryButtonEnabled = !isLoading
+								self.navigationFooterItem.isSecondaryButtonEnabled = !isLoading
 							}
 						},
 						configure: { _, cell, _ in
