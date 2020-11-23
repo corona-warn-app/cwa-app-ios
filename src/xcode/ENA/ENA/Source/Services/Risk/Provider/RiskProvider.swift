@@ -319,10 +319,10 @@ extension RiskProvider: RiskProviding {
 		ignoreCachedSummary: Bool = false
 	) -> Bool {
 
-		guard !ignoreCachedSummary else {
+		if ignoreCachedSummary {
 			return false
 		}
-		
+
 		let enoughTimeHasPassed = riskProvidingConfiguration.shouldPerformExposureDetection(
 			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
 			lastExposureDetectionDate: store.summary?.date
