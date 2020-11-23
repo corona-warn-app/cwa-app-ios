@@ -108,10 +108,35 @@ extension ExposureSubmissionCoordinator {
 		if isUITesting, ProcessInfo.processInfo.arguments.contains("-negativeResult") {
 			return createTestResultViewController(with: .negative)
 		}
-		#endif
+		#else
 		// We got a test result and can jump straight into the test result view controller.
 		if let result = result, model.exposureSubmissionServiceHasRegistrationToken {
 			return createTestResultViewController(with: result)
+		}
+		#endif
+
+		// By default, we show the intro view.
+		return createIntroViewController()
+	}
+
+	/// method to get an instace of TestresultvailableViewController
+	func createTestResultavailableViewController() -> UIViewController {
+		let viewModel = TestresultAvailableViewModel(
+			store,
+			didTapConsentCell: {
+				Log.debug("consent cell hit")
+			},
+			didTapPrimaryFooterButton: {
+				Log.debug("primary footer button hit")
+			},
+			presentDismissAlert: { [weak self] in
+				self?.presentTestresultCloseAlert()
+			}
+		)
+		let testresultAvailableViewController = TestresultAvailableViewController(viewModel)
+		return testresultAvailableViewController
+	}
+
 	func presentTestresultCloseAlert() {
 		guard let navigationController = navigationController else {
 			Log.error("Can't present TestresultCloseAlert - missing navigationController")
@@ -156,7 +181,7 @@ extension ExposureSubmissionCoordinator {
 			rootViewController: initialVC
 		)
 		parentNavigationController.present(exposureSubmissionNavigationController, animated: true)
-		self.navigationController = exposureSubmissionNavigationController
+		navigationController = exposureSubmissionNavigationController
 	}
 
 	func dismiss() {
@@ -361,7 +386,7 @@ extension ExposureSubmissionCoordinator {
 		push(vc)
 	}
 
-	// MARK: - UI-related helpers.
+	// MARK: - Private
 
 	private func showErrorAlert(for error: ExposureSubmissionError, onCompletion: (() -> Void)? = nil) {
 		Log.error("error: \(error.localizedDescription)", log: .ui)
