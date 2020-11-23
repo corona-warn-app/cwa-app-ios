@@ -57,5 +57,13 @@ protocol RiskProviding: AnyObject {
 	func observeRisk(_ consumer: RiskConsumer)
 	func removeRisk(_ consumer: RiskConsumer)
 
-	func requestRisk(userInitiated: Bool)
+	func requestRisk(userInitiated: Bool, timeoutInterval: TimeInterval)
+}
+
+extension RiskProviding {
+
+	func requestRisk(userInitiated: Bool) {
+		requestRisk(userInitiated: userInitiated, timeoutInterval: TimeInterval(60 * 8))
+	}
+
 }

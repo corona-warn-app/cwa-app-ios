@@ -9,6 +9,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 	var app: XCUIApplication!
 
 	override func setUp() {
+		super.setUp()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)

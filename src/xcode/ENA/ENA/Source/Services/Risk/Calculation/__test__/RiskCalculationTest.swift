@@ -28,7 +28,7 @@ class RiskCalculationTest: XCTestCase {
 		XCTAssertEqual(testCases.count, 24)
 	}
 
-	func testGIVEN_TestCases_WHEN_CalulatingRiskForEachTestCase_THEN_ResultIsCorrect() throws {
+	func testGIVEN_TestCases_WHEN_CalculatingRiskForEachTestCase_THEN_ResultIsCorrect() throws {
 		// GIVEN
 		let testCases = testCasesWithConfiguration.testCases
 
@@ -49,6 +49,20 @@ class RiskCalculationTest: XCTestCase {
 
 			XCTAssertEqual(result.mostRecentDateWithLowRisk?.ageInDays, testCase.expAgeOfMostRecentDateWithLowRisk)
 			XCTAssertEqual(result.mostRecentDateWithHighRisk?.ageInDays, testCase.expAgeOfMostRecentDateWithHighRisk)
+
+			XCTAssertEqual(result.numberOfDaysWithLowRisk, testCase.expNumberOfDaysWithLowRisk)
+			XCTAssertEqual(result.numberOfDaysWithHighRisk, testCase.expNumberOfDaysWithHighRisk)
+
+			switch result.riskLevel {
+			case .low:
+				XCTAssertEqual(result.minimumDistinctEncountersWithCurrentRiskLevel, result.minimumDistinctEncountersWithLowRisk)
+				XCTAssertEqual(result.mostRecentDateWithCurrentRiskLevel, result.mostRecentDateWithLowRisk)
+				XCTAssertEqual(result.numberOfDaysWithCurrentRiskLevel, result.numberOfDaysWithLowRisk)
+			case .high:
+				XCTAssertEqual(result.minimumDistinctEncountersWithCurrentRiskLevel, result.minimumDistinctEncountersWithHighRisk)
+				XCTAssertEqual(result.mostRecentDateWithCurrentRiskLevel, result.mostRecentDateWithHighRisk)
+				XCTAssertEqual(result.numberOfDaysWithCurrentRiskLevel, result.numberOfDaysWithHighRisk)
+			}
 		}
 	}
 

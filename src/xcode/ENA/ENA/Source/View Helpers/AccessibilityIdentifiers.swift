@@ -66,7 +66,6 @@ enum AccessibilityIdentifiers {
 		static let legend2RiskLevels = "AppStrings.RiskLegend.legend2RiskLevels"
 		static let legend2High = "AppStrings.RiskLegend.legend2High"
 		static let legend2LowColor = "AppStrings.RiskLegend.legend2LowColor"
-		static let legend2UnknownColor = "AppStrings.RiskLegend.legend2UnknownColor"
 		static let legend3Text = "AppStrings.RiskLegend.legend3Text"
 		static let definitionsTitle = "AppStrings.RiskLegend.definitionsTitle"
 		static let storeTitle = "AppStrings.RiskLegend.storeTitle"

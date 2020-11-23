@@ -96,13 +96,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 299
 						}
 					]
@@ -112,7 +112,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 0,
 			"expAgeOfMostRecentDateWithLowRisk": null,
 			"expAgeOfMostRecentDateWithHighRisk": null,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 0
+			"expTotalMinimumDistinctEncountersWithHighRisk": 0,
+			"expNumberOfDaysWithLowRisk": 0,
+			"expNumberOfDaysWithHighRisk": 0
 		},
 		{
 			"description": "keep Exposure Windows that match minutesAtAttenuationFilters (>= 10 minutes)",
@@ -124,13 +126,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -140,7 +142,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 1,
 			"expAgeOfMostRecentDateWithLowRisk": 1,
 			"expAgeOfMostRecentDateWithHighRisk": null,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 0
+			"expTotalMinimumDistinctEncountersWithHighRisk": 0,
+			"expNumberOfDaysWithLowRisk": 1,
+			"expNumberOfDaysWithHighRisk": 0
 		},
 		{
 			"description": "drop Exposure Windows that do not match minutesAtAttenuationFilters (>= 73 dB)",
@@ -152,13 +156,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 73,
-							"minAttenuation": 25,
+							"minAttenuation": 73,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 73,
-							"minAttenuation": 25,
+							"minAttenuation": 73,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -168,7 +172,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 0,
 			"expAgeOfMostRecentDateWithLowRisk": null,
 			"expAgeOfMostRecentDateWithHighRisk": null,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 0
+			"expTotalMinimumDistinctEncountersWithHighRisk": 0,
+			"expNumberOfDaysWithLowRisk": 0,
+			"expNumberOfDaysWithHighRisk": 0
 		},
 		{
 			"description": "keep Exposure Windows that match minutesAtAttenuationFilters (< 73 dB)",
@@ -180,13 +186,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 72,
-							"minAttenuation": 25,
+							"minAttenuation": 72,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 72,
-							"minAttenuation": 25,
+							"minAttenuation": 72,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -196,7 +202,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 1,
 			"expAgeOfMostRecentDateWithLowRisk": 1,
 			"expAgeOfMostRecentDateWithHighRisk": null,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 0
+			"expTotalMinimumDistinctEncountersWithHighRisk": 0,
+			"expNumberOfDaysWithLowRisk": 1,
+			"expNumberOfDaysWithHighRisk": 0
 		},
 		{
 			"description": "drop Exposure Windows that do not match trlFilters (<= 2)",
@@ -208,13 +216,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -224,7 +232,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 0,
 			"expAgeOfMostRecentDateWithLowRisk": null,
 			"expAgeOfMostRecentDateWithHighRisk": null,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 0
+			"expTotalMinimumDistinctEncountersWithHighRisk": 0,
+			"expNumberOfDaysWithLowRisk": 0,
+			"expNumberOfDaysWithHighRisk": 0
 		},
 		{
 			"description": "keep Exposure Windows that match trlFilters (> 2)",
@@ -236,13 +246,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -252,7 +262,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 1,
 			"expAgeOfMostRecentDateWithLowRisk": 1,
 			"expAgeOfMostRecentDateWithHighRisk": null,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 0
+			"expTotalMinimumDistinctEncountersWithHighRisk": 0,
+			"expNumberOfDaysWithLowRisk": 1,
+			"expNumberOfDaysWithHighRisk": 0
 		},
 		{
 			"description": "identify Exposure Window as Low Risk based on normalizedTime (< 15)",
@@ -264,18 +276,18 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 299
 						}
 					]
@@ -285,7 +297,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 1,
 			"expAgeOfMostRecentDateWithLowRisk": 1,
 			"expAgeOfMostRecentDateWithHighRisk": null,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 0
+			"expTotalMinimumDistinctEncountersWithHighRisk": 0,
+			"expNumberOfDaysWithLowRisk": 1,
+			"expNumberOfDaysWithHighRisk": 0
 		},
 		{
 			"description": "identify Exposure Window as High Risk based on normalizedTime (>= 15)",
@@ -297,18 +311,18 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -318,7 +332,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 0,
 			"expAgeOfMostRecentDateWithLowRisk": null,
 			"expAgeOfMostRecentDateWithHighRisk": 1,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 1
+			"expTotalMinimumDistinctEncountersWithHighRisk": 1,
+			"expNumberOfDaysWithLowRisk": 0,
+			"expNumberOfDaysWithHighRisk": 1
 		},
 		{
 			"description": "identify the most recent date with Low Risk",
@@ -330,13 +346,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -348,13 +364,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -366,13 +382,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -382,7 +398,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 3,
 			"expAgeOfMostRecentDateWithLowRisk": 2,
 			"expAgeOfMostRecentDateWithHighRisk": null,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 0
+			"expTotalMinimumDistinctEncountersWithHighRisk": 0,
+			"expNumberOfDaysWithLowRisk": 3,
+			"expNumberOfDaysWithHighRisk": 0
 		},
 		{
 			"description": "count Exposure Windows with same Date/TRL/CallibrationConfidence only once towards distinct encounters with Low Risk",
@@ -394,13 +412,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -412,13 +430,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -428,7 +446,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 1,
 			"expAgeOfMostRecentDateWithLowRisk": 1,
 			"expAgeOfMostRecentDateWithHighRisk": null,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 0
+			"expTotalMinimumDistinctEncountersWithHighRisk": 0,
+			"expNumberOfDaysWithLowRisk": 1,
+			"expNumberOfDaysWithHighRisk": 0
 		},
 		{
 			"description": "count Exposure Windows with same Date/TRL but different CallibrationConfidence separately towards distinct encounters with Low Risk",
@@ -440,13 +460,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -458,13 +478,13 @@
 					"calibrationConfidence": 1,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -474,7 +494,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 2,
 			"expAgeOfMostRecentDateWithLowRisk": 1,
 			"expAgeOfMostRecentDateWithHighRisk": null,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 0
+			"expTotalMinimumDistinctEncountersWithHighRisk": 0,
+			"expNumberOfDaysWithLowRisk": 1,
+			"expNumberOfDaysWithHighRisk": 0
 		},
 		{
 			"description": "count Exposure Windows with same Date/CallibrationConfidence but different TRL separately towards distinct encounters with Low Risk",
@@ -486,13 +508,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -504,13 +526,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -520,7 +542,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 2,
 			"expAgeOfMostRecentDateWithLowRisk": 1,
 			"expAgeOfMostRecentDateWithHighRisk": null,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 0
+			"expTotalMinimumDistinctEncountersWithHighRisk": 0,
+			"expNumberOfDaysWithLowRisk": 1,
+			"expNumberOfDaysWithHighRisk": 0
 		},
 		{
 			"description": "count Exposure Windows with same TRL/CallibrationConfidence but different Date separately towards distinct encounters with Low Risk",
@@ -532,13 +556,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -550,13 +574,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -566,7 +590,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 2,
 			"expAgeOfMostRecentDateWithLowRisk": 1,
 			"expAgeOfMostRecentDateWithHighRisk": null,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 0
+			"expTotalMinimumDistinctEncountersWithHighRisk": 0,
+			"expNumberOfDaysWithLowRisk": 2,
+			"expNumberOfDaysWithHighRisk": 0
 		},
 		{
 			"description": "determine High Risk in total if there are sufficient Exposure Windows with a Low Risk",
@@ -578,13 +604,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -596,13 +622,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -614,13 +640,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -630,7 +656,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 1,
 			"expAgeOfMostRecentDateWithLowRisk": null,
 			"expAgeOfMostRecentDateWithHighRisk": 1,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 0
+			"expTotalMinimumDistinctEncountersWithHighRisk": 0,
+			"expNumberOfDaysWithLowRisk": 0,
+			"expNumberOfDaysWithHighRisk": 1
 		},
 		{
 			"description": "identify the most recent date with High Risk",
@@ -642,13 +670,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						}
 					]
@@ -660,13 +688,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						}
 					]
@@ -678,13 +706,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						}
 					]
@@ -694,7 +722,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 0,
 			"expAgeOfMostRecentDateWithLowRisk": null,
 			"expAgeOfMostRecentDateWithHighRisk": 2,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 3
+			"expTotalMinimumDistinctEncountersWithHighRisk": 3,
+			"expNumberOfDaysWithLowRisk": 0,
+			"expNumberOfDaysWithHighRisk": 3
 		},
 		{
 			"description": "count Exposure Windows with same Date/TRL/CallibrationConfidence only once towards distinct encounters with High Risk",
@@ -706,13 +736,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						}
 					]
@@ -724,13 +754,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						}
 					]
@@ -740,7 +770,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 0,
 			"expAgeOfMostRecentDateWithLowRisk": null,
 			"expAgeOfMostRecentDateWithHighRisk": 1,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 1
+			"expTotalMinimumDistinctEncountersWithHighRisk": 1,
+			"expNumberOfDaysWithLowRisk": 0,
+			"expNumberOfDaysWithHighRisk": 1
 		},
 		{
 			"description": "count Exposure Windows with same Date/TRL but different CallibrationConfidence separately towards distinct encounters with High Risk",
@@ -752,13 +784,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						}
 					]
@@ -770,13 +802,13 @@
 					"calibrationConfidence": 1,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						}
 					]
@@ -786,7 +818,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 0,
 			"expAgeOfMostRecentDateWithLowRisk": null,
 			"expAgeOfMostRecentDateWithHighRisk": 1,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 2
+			"expTotalMinimumDistinctEncountersWithHighRisk": 2,
+			"expNumberOfDaysWithLowRisk": 0,
+			"expNumberOfDaysWithHighRisk": 1
 		},
 		{
 			"description": "count Exposure Windows with same Date/CallibrationConfidence but different TRL separately towards distinct encounters with High Risk",
@@ -798,13 +832,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						}
 					]
@@ -816,13 +850,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						}
 					]
@@ -832,7 +866,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 0,
 			"expAgeOfMostRecentDateWithLowRisk": null,
 			"expAgeOfMostRecentDateWithHighRisk": 1,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 2
+			"expTotalMinimumDistinctEncountersWithHighRisk": 2,
+			"expNumberOfDaysWithLowRisk": 0,
+			"expNumberOfDaysWithHighRisk": 1
 		},
 		{
 			"description": "count Exposure Windows with same TRL/CallibrationConfidence but different Date separately towards distinct encounters with High Risk",
@@ -844,13 +880,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						}
 					]
@@ -862,13 +898,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						}
 					]
@@ -878,7 +914,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 0,
 			"expAgeOfMostRecentDateWithLowRisk": null,
 			"expAgeOfMostRecentDateWithHighRisk": 1,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 2
+			"expTotalMinimumDistinctEncountersWithHighRisk": 2,
+			"expNumberOfDaysWithLowRisk": 0,
+			"expNumberOfDaysWithHighRisk": 2
 		},
 		{
 			"description": "determine High Risk in total if there is at least one Exposure Window with High Risk",
@@ -890,13 +928,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -908,13 +946,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						},
 						{
-							"typicalAttenuation": 30,
-							"minAttenuation": 25,
+							"minAttenuation": 30,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 420
 						}
 					]
@@ -924,7 +962,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 1,
 			"expAgeOfMostRecentDateWithLowRisk": 2,
 			"expAgeOfMostRecentDateWithHighRisk": 1,
-			"expTotalMinimumDistinctEncountersWithHighRisk": 1
+			"expTotalMinimumDistinctEncountersWithHighRisk": 1,
+			"expNumberOfDaysWithLowRisk": 1,
+			"expNumberOfDaysWithHighRisk": 1
 		},
 		{
 			"description": "handle empty set of Exposure Windows",
@@ -933,7 +973,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 0,
 			"expTotalMinimumDistinctEncountersWithHighRisk": 0,
 			"expAgeOfMostRecentDateWithLowRisk": null,
-			"expAgeOfMostRecentDateWithHighRisk": null
+			"expAgeOfMostRecentDateWithHighRisk": null,
+			"expNumberOfDaysWithLowRisk": 0,
+			"expNumberOfDaysWithHighRisk": 0
 		},
 		{
 			"description": "handle empty set of Scan Instances (should never happen)",
@@ -950,10 +992,12 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 0,
 			"expTotalMinimumDistinctEncountersWithHighRisk": 0,
 			"expAgeOfMostRecentDateWithLowRisk": null,
-			"expAgeOfMostRecentDateWithHighRisk": null
+			"expAgeOfMostRecentDateWithHighRisk": null,
+			"expNumberOfDaysWithLowRisk": 0,
+			"expNumberOfDaysWithHighRisk": 0
 		},
 		{
-			"description": "handle a typicalAttenuation of zero (should never happen)",
+			"description": "handle a typicalAttenuation: of zero (should never happen)",
 			"exposureWindows": [
 				{
 					"ageInDays": 1,
@@ -962,13 +1006,13 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 0,
-							"minAttenuation": 25,
+							"minAttenuation": 0,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 70,
-							"minAttenuation": 25,
+							"minAttenuation": 70,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -978,7 +1022,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 1,
 			"expTotalMinimumDistinctEncountersWithHighRisk": 0,
 			"expAgeOfMostRecentDateWithLowRisk": 1,
-			"expAgeOfMostRecentDateWithHighRisk": null
+			"expAgeOfMostRecentDateWithHighRisk": null,
+			"expNumberOfDaysWithLowRisk": 1,
+			"expNumberOfDaysWithHighRisk": 0
 		},
 		{
 			"description": "handle secondsSinceLastScan of zero (should never happen)",
@@ -990,18 +1036,18 @@
 					"calibrationConfidence": 0,
 					"scanInstances": [
 						{
-							"typicalAttenuation": 70,
-							"minAttenuation": 25,
+							"minAttenuation": 70,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 0
 						},
 						{
-							"typicalAttenuation": 70,
-							"minAttenuation": 25,
+							"minAttenuation": 70,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						},
 						{
-							"typicalAttenuation": 70,
-							"minAttenuation": 25,
+							"minAttenuation": 70,
+							"typicalAttenuation": 25,
 							"secondsSinceLastScan": 300
 						}
 					]
@@ -1011,7 +1057,9 @@
 			"expTotalMinimumDistinctEncountersWithLowRisk": 1,
 			"expTotalMinimumDistinctEncountersWithHighRisk": 0,
 			"expAgeOfMostRecentDateWithLowRisk": 1,
-			"expAgeOfMostRecentDateWithHighRisk": null
+			"expAgeOfMostRecentDateWithHighRisk": null,
+			"expNumberOfDaysWithLowRisk": 1,
+			"expNumberOfDaysWithHighRisk": 0
 		}
 	]
 }
