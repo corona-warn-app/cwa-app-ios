@@ -533,19 +533,17 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionIntroduction_SubTitle" = "So funktioniert das Corona-Warn-System";
 
-"ExposureSubmissionIntroduction_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
+"ExposureSubmissionIntroduction_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System. Teilen Sie Ihr Testergebnis in der App und warnen Sie Ihre Mitmenschen.";
 
-"ExposureSubmissionIntroduction_Usage01" = "Damit die Corona-Warn-App funktioniert, sind wir auf die Mithilfe von Corona-positiv getesteten Personen angewiesen.";
+"ExposureSubmissionIntroduction_Usage01" = "Damit die Corona-Warn-App funktioniert, sind wir auf die Mithilfe von Corona-positiv getesteten Personen angewiesen. ";
 
 "ExposureSubmissionIntroduction_Usage02" = "Da nur verschlüsselte Zufalls-IDs ausgetauscht werden, bleiben Sie unerkannt. Sie können jetzt wie folgt vorgehen:";
 
-"ExposureSubmissionIntroduction_ListItem1" = "Wenn sich auf Ihrem Testdokument ein QR-Code befindet, können Sie diesen in der App scannen und den Test damit registrieren. Sobald das Ergebnis vorliegt, können Sie es in der App einsehen.";
+"ExposureSubmissionIntroduction_ListItem1" = "Wenn sich auf Ihrem Testdokument ein QR-Code befindet, können Sie diesen in der  App scannen und so Ihren Test registrieren. Sobald das Testergebnis vorliegt, wird es automatisch in der App anzeigt.";
 
-"ExposureSubmissionIntroduction_ListItem2" = "Wenn Sie Corona-positiv getestet wurden, können Sie andere warnen.";
+"ExposureSubmissionIntroduction_ListItem3" = "Wenn Sie zusammen mit Ihrem Testdokument eine TAN erhalten haben, können Sie diese in der App eingeben, um Ihren Test in der App zu registrieren. Sobald das Testergebnis vorliegt, wird es automatisch in der App anzeigt.";
 
-"ExposureSubmissionIntroduction_ListItem3" = "Wenn Ihnen für einen positiven Testbefund eine TAN mitgeteilt wurde, können Sie diese für die Registrierung des Tests nutzen.";
-
-"ExposureSubmissionIntroduction_ListItem4" = "Wenn Sie keine TAN haben, können Sie diese telefonisch anfragen.";
+"ExposureSubmissionIntroduction_ListItem4" = "Wenn Sie keine TAN erhalten haben und positiv getestet wurden, können Sie über die Hotline eine teleTAN anfordern. Mit dieser teleTAN können Sie dann Ihr Testergebnis in der App hochladen.";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Testergebnis";
