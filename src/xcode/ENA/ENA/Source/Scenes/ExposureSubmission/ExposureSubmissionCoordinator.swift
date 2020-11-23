@@ -112,13 +112,31 @@ extension ExposureSubmissionCoordinator {
 		// We got a test result and can jump straight into the test result view controller.
 		if let result = result, model.exposureSubmissionServiceHasRegistrationToken {
 			return createTestResultViewController(with: result)
+	func presentTestresultCloseAlert() {
+		guard let navigationController = navigationController else {
+			Log.error("Can't present TestresultCloseAlert - missing navigationController")
+			return
 		}
 
-		// By default, we show the intro view.
-		return createIntroViewController()
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmissionTestresultAvailable.closeAlertTitle,
+			message: AppStrings.ExposureSubmissionTestresultAvailable.closeAlertMessage,
+			preferredStyle: .alert)
+		alert.addAction(UIAlertAction(
+			title: AppStrings.ExposureSubmissionTestresultAvailable.closeAlertButtonClose,
+			style: .cancel,
+			handler: { [weak self] _ in
+				self?.dismiss()
+			})
+		)
+		alert.addAction(UIAlertAction(
+							title: AppStrings.ExposureSubmissionTestresultAvailable.closeAlertButtonContinue,
+							style: .default)
+		)
+		navigationController.present(alert, animated: true, completion: nil)
 	}
 
-	// MARK: - Public API.
+	// MARK: - Protocol ExposureSubmissionCoordinating
 
 	func start(with result: TestResult? = nil) {
 		let initialVC = getInitialViewController(with: result)

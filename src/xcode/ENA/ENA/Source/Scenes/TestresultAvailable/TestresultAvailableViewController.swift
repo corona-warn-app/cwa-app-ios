@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-final class TestresultAvailableViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+final class TestresultAvailableViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
 
 	// MARK: - Init
 
@@ -34,6 +34,12 @@ final class TestresultAvailableViewController: DynamicTableViewController, ENANa
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		viewModel.didTapPrimaryFooterButton()
+	}
+
+	// MARK: Protocol DismissHandling
+	/// called on close button & swip down dismiss
+	func presentDismiss(dismiss: @escaping () -> Void) {
+		viewModel.presentDismissAlert()
 	}
 
 	// MARK: - Private
