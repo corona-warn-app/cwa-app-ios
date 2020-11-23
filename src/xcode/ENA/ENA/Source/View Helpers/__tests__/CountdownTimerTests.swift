@@ -27,7 +27,7 @@ class CountdownTimerTests: XCTestCase {
 		}
 
 		c.start()
-		self.waitForExpectations(timeout: 3.0)
+		self.waitForExpectations(timeout: .long)
 	}
 
 	func test_callsDoneWhenEndInPast() {
@@ -41,7 +41,7 @@ class CountdownTimerTests: XCTestCase {
 		}
 
 		c.start()
-		self.waitForExpectations(timeout: 3.0)
+		self.waitForExpectations(timeout: .long)
 	}
 
 	func test_countsDown() {
@@ -61,7 +61,7 @@ class CountdownTimerTests: XCTestCase {
 		}
 
 		c.start()
-		self.waitForExpectations(timeout: 10.0)
+		self.waitForExpectations(timeout: .long)
 	}
 }
 
