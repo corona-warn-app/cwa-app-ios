@@ -13,9 +13,11 @@ class DynamicAcknowledgementCell: UITableViewCell {
 
 	@IBOutlet var contentStackView: UIStackView!
 
+	static let reuseIdentifier = "DynamicAcknowledgementCell"
+
 	override func prepareForInterfaceBuilder() {
 		super.prepareForInterfaceBuilder()
-		guard nil != cardView else { return }
+		guard cardView != nil else { return }
 		setup()
 	}
 

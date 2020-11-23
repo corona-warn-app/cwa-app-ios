@@ -144,6 +144,7 @@ enum AccessibilityIdentifiers {
 		static let headerSection1 = "AppStrings.ExposureSubmissionQRInfo.headerSection1"
 		static let headerSection2 = "AppStrings.ExposureSubmissionQRInfo.headerSection2"
 		static let acknowledgementTitle = "ExposureSubmissionQRInfo_acknowledgement_title"
+		static let countryList = "ExposureSubmissionQRInfo_countryList"
 	}
 
 	enum ExposureSubmissionDispatch {

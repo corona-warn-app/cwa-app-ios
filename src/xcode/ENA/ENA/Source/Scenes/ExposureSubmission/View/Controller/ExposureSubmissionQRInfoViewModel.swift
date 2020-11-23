@@ -12,6 +12,8 @@ struct ExposureSubmissionQRInfoViewModel {
 	var dynamicTableViewModel: DynamicTableViewModel {
 		var model = DynamicTableViewModel([])
 
+		let countryList = [Country]()
+
 		// Ihr Einverständnis
 		model.add(
 			.section(
@@ -58,7 +60,7 @@ struct ExposureSubmissionQRInfoViewModel {
 		// 'Flags'
 		model.add(
 			.section(separators: .all, cells: [
-				.body(text: "TODO: flags")
+				.countries(countries: countryList, accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.countryList)
 			])
 		)
 
@@ -130,9 +132,23 @@ extension DynamicCell {
 	) -> Self {
 		.identifier(ExposureSubmissionQRInfoViewController.ReuseIdentifiers.acknowledgement) { viewController, cell, indexPath in
 			guard let cell = cell as? DynamicAcknowledgementCell else {
-				fatalError("could not initialize cell of type `ExposureSubmissionQRAcknowledgementCell`")
+				fatalError("could not initialize cell of type `DynamicAcknowledgementCell`")
 			}
 			cell.configure(title: title, description: description, bulletPoints: bulletPoints, accessibilityIdentifier: accessibilityIdentifier)
+			configure?(viewController, cell, indexPath)
+		}
+	}
+
+	static func countries(
+		countries: [Country],
+		accessibilityIdentifier: String? = nil,
+		configure: CellConfigurator? = nil
+	) -> Self {
+		.identifier(ExposureSubmissionQRInfoViewController.ReuseIdentifiers.countries) { viewController, cell, indexPath in
+			guard let cell = cell as? LabeledCountriesCell else {
+				fatalError("could not initialize cell of type `LabeledCountriesCell`")
+			}
+			cell.configure(countriesList: countries, accessibilityIdentifier: accessibilityIdentifier)
 			configure?(viewController, cell, indexPath)
 		}
 	}
