@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-protocol DismissPreventing {
+protocol DismissHandling {
 	/// if a view controller fulfulls this protocol and is member a ExposureSubmissionNavigationController and
 	/// on top of the viewcontrollers stack - presentDismiss action (swipe down or close button) will call this
 	/// function
@@ -18,7 +18,7 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 	// MARK: - Init
 
 	init(
-		coordinator: ExposureSubmissionCoordinating,
+		coordinator: ExposureSubmissionCoordinating? = nil,
 		dismissClosure: @escaping () -> Void,
 		isModalInPresentation: Bool,
 		rootViewController: UIViewController
@@ -66,7 +66,8 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 		super.viewWillDisappear(animated)
 
 		// Check if the ExposureSubmissionNavigationController is popped from its parent.
-		guard self.isMovingFromParent || self.isBeingDismissed else { return }
+		guard self.isMovingFromParent || self.isBeingDismissed,
+			  let coordinator = coordinator else { return }
 		coordinator.delegate?.exposureSubmissionCoordinatorWillDisappear(coordinator)
 	}
 
@@ -80,8 +81,8 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 
 	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
 		guard let topViewController = viewControllers.last,
-			  let dismissableViewController = topViewController as? DismissPreventing  else {
-			Log.debug("ViewController found doesn't conforms to protocol DismissPreventing -> stop")
+			  let dismissableViewController = topViewController as? DismissHandling  else {
+			Log.debug("ViewController found doesn't conforms to protocol DismissHandling -> stop")
 			dismissClosure()
 			return
 		}
@@ -91,13 +92,9 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 		})
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
-	private let coordinator: ExposureSubmissionCoordinating
+	private let coordinator: ExposureSubmissionCoordinating?
 	private let dismissClosure: () -> Void
 
 	private func applyDefaultRightBarButtonItem(to viewController: UIViewController?) {
