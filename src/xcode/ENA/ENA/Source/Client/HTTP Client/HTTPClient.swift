@@ -281,26 +281,31 @@ final class HTTPClient: Client {
 	private func fetchDay(
 		from url: URL,
 		completion completeWith: @escaping DayCompletionHandler) {
-
 		var responseError: Failure?
-		defer {
-			// no guard in defer!
-			if let error = responseError {
-				let retryCount = retries[url] ?? 0
-				if retryCount > 2 {
-					completeWith(.failure(error))
-				} else {
-					retries[url] = retryCount.advanced(by: 1)
-					Log.debug("\(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
-					fetchDay(from: url, completion: completeWith)
-				}
-			} else {
-				// no error, no retry - clean up
-				retries[url] = nil
-			}
-		}
 
-		session.GET(url) { result in
+		session.GET(url) { [weak self] result in
+			guard let self = self else {
+				completeWith(.failure(.noResponse))
+				return
+			}
+
+			defer {
+				// no guard in defer!
+				if let error = responseError {
+					let retryCount = self.retries[url] ?? 0
+					if retryCount > 2 {
+						completeWith(.failure(error))
+					} else {
+						self.retries[url] = retryCount.advanced(by: 1)
+						Log.debug("\(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
+						self.fetchDay(from: url, completion: completeWith)
+					}
+				} else {
+					// no error, no retry - clean up
+					self.retries[url] = nil
+				}
+			}
+
 			switch result {
 			case let .success(response):
 				guard let dayData = response.body else {
