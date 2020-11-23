@@ -12,16 +12,19 @@ struct TestresultAvailableViewModel {
 	init(
 		_ store: Store,
 		didTapConsentCell: @escaping () -> Void,
-		didTapPrimaryFooterButton: @escaping () -> Void
+		didTapPrimaryFooterButton: @escaping () -> Void,
+		presentDismissAlert: @escaping () -> Void
 	) {
 		self.store = store
 		self.didTapConsentCell = didTapConsentCell
 		self.didTapPrimaryFooterButton = didTapPrimaryFooterButton
+		self.presentDismissAlert = presentDismissAlert
 	}
 
 	// MARK: - Internal
 
 	let didTapPrimaryFooterButton: () -> Void
+	let presentDismissAlert: () -> Void
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
