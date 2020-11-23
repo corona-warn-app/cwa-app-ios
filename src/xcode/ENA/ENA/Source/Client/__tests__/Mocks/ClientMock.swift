@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 @testable import ENA
 import ExposureNotification
@@ -31,13 +18,15 @@ final class ClientMock {
 	///		- urlRequestFailure: when set, calls (see above) will fail with this error
 	init(
 		availableDaysAndHours: DaysAndHours = DaysAndHours(days: [], hours: []),
-		downloadedPackage: SAPDownloadedPackage? = nil,
+		downloadedPackage: PackageDownloadResponse? = nil,
 		submissionError: SubmissionError? = nil,
-		urlRequestFailure: Client.Failure? = nil
+		availablePackageRequestFailure: Client.Failure? = nil,
+		fetchPackageRequestFailure: Client.Failure? = nil
 	) {
 		self.availableDaysAndHours = availableDaysAndHours
 		self.downloadedPackage = downloadedPackage
-		self.urlRequestFailure = urlRequestFailure
+		self.availablePackageRequestFailure = availablePackageRequestFailure
+		self.fetchPackageRequestFailure = fetchPackageRequestFailure
 
 		if let error = submissionError {
 			onSubmitCountries = { $2(.failure(error)) }
@@ -49,9 +38,10 @@ final class ClientMock {
 	// MARK: - Properties.
 
 	var submissionResponse: KeySubmissionResponse?
-	var urlRequestFailure: Client.Failure?
+	var availablePackageRequestFailure: Client.Failure?
+	var fetchPackageRequestFailure: Client.Failure?
 	var availableDaysAndHours: DaysAndHours = DaysAndHours(days: [], hours: [])
-	var downloadedPackage: SAPDownloadedPackage?
+	var downloadedPackage: PackageDownloadResponse?
 	lazy var supportedCountries: [Country] = {
 		// provide a default list of some countries
 		let codes = ["DE", "IT", "ES", "PL", "NL", "BE", "CZ", "AT", "DK", "IE", "LT", "LV", "EE"]
@@ -67,10 +57,54 @@ final class ClientMock {
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
 }
 
+extension ClientMock: ClientWifiOnly {
+
+	func fetchHours(
+		_ hours: [Int],
+		day: String,
+		country: String,
+		completion completeWith: @escaping (HoursResult) -> Void
+	) {
+		var errors = [Client.Failure]()
+		var buckets = [Int: PackageDownloadResponse]()
+		let group = DispatchGroup()
+
+		hours.forEach { hour in
+			group.enter()
+			fetchHour(hour, day: day, country: country) { result in
+				switch result {
+				case let .success(hourBucket):
+					buckets[hour] = hourBucket
+				case let .failure(error):
+					errors.append(error)
+				}
+				group.leave()
+			}
+		}
+
+		group.notify(queue: .main) {
+			completeWith(
+				HoursResult(errors: errors, bucketsByHour: buckets, day: day)
+			)
+		}
+	}
+
+	func fetchHour(_ hour: Int, day: String, country: String, completion: @escaping HourCompletionHandler) {
+		if let failure = fetchPackageRequestFailure {
+			completion(.failure(failure))
+			return
+		}
+		completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
+	}
+
+}
+
 extension ClientMock: Client {
 
+	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
+
 	func availableDays(forCountry country: String, completion: @escaping AvailableDaysCompletionHandler) {
-		if let failure = urlRequestFailure {
+		if let failure = availablePackageRequestFailure {
 			completion(.failure(failure))
 			return
 		}
@@ -78,7 +112,7 @@ extension ClientMock: Client {
 	}
 
 	func availableHours(day: String, country: String, completion: @escaping AvailableHoursCompletionHandler) {
-		if let failure = urlRequestFailure {
+		if let failure = availablePackageRequestFailure {
 			completion(.failure(failure))
 			return
 		}
@@ -86,19 +120,11 @@ extension ClientMock: Client {
 	}
 
 	func fetchDay(_ day: String, forCountry country: String, completion: @escaping DayCompletionHandler) {
-		if let failure = urlRequestFailure {
+		if let failure = fetchPackageRequestFailure {
 			completion(.failure(failure))
 			return
 		}
-		completion(.success(downloadedPackage ?? SAPDownloadedPackage(keysBin: Data(), signature: Data())))
-	}
-
-	func fetchHour(_ hour: Int, day: String, country: String, completion: @escaping HourCompletionHandler) {
-		if let failure = urlRequestFailure {
-			completion(.failure(failure))
-			return
-		}
-		completion(.success(downloadedPackage ?? SAPDownloadedPackage(keysBin: Data(), signature: Data())))
+		completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
 	}
 
 	func submit(payload: CountrySubmissionPayload, isFake: Bool, completion: @escaping KeySubmissionResponse) {

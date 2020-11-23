@@ -1,39 +1,20 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
-import Foundation
 import UIKit
+import Combine
 
 class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 
-	// MARK: - Attributes.
+	// MARK: - Init
 
-	var testResult: TestResult?
-	var timeStamp: Int64?
-	private(set) weak var coordinator: ExposureSubmissionCoordinating?
-	private(set) weak var exposureSubmissionService: ExposureSubmissionService?
+	init(
+		viewModel: ExposureSubmissionTestResultViewModel
+	) {
+		self.viewModel = viewModel
 
-	// MARK: - Initializers.
-
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, exposureSubmissionService: ExposureSubmissionService, testResult: TestResult?) {
-		self.coordinator = coordinator
-		self.exposureSubmissionService = exposureSubmissionService
-		self.testResult = testResult
-		super.init(coder: coder)
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)
@@ -41,72 +22,48 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - View Lifecycle methods.
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		setupButtons()
-	}
-	
+	// MARK: - Overrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		setupView()
+
+		setUpView()
+		setUpBindings()
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		viewModel.updateWarnOthers()
 	}
 
-	// MARK: - View Setup Helper methods.
-
-	private func setupView() {
-		setupDynamicTableView()
-		setupNavigationBar()
-		timeStamp = exposureSubmissionService?.devicePairingSuccessfulTimestamp
+	override var navigationItem: UINavigationItem {
+		viewModel.navigationFooterItem
 	}
 
-	private func setupButtons() {
-		guard let result = testResult else { return }
+	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
-		// Make sure to reset all button loading states.
-		self.navigationFooterItem?.isPrimaryButtonLoading = false
-		self.navigationFooterItem?.isSecondaryButtonLoading = false
-
-		// Make sure to reset buttons to default state.
-		self.navigationFooterItem?.isPrimaryButtonEnabled = true
-		self.navigationFooterItem?.isPrimaryButtonHidden = false
-
-		self.navigationFooterItem?.isSecondaryButtonEnabled = false
-		self.navigationFooterItem?.isSecondaryButtonHidden = true
-
-		switch result {
-		case .positive:
-			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.primaryButtonTitle
-			navigationFooterItem?.secondaryButtonTitle = AppStrings.ExposureSubmissionResult.secondaryButtonTitle
-			navigationFooterItem?.isSecondaryButtonEnabled = true
-			navigationFooterItem?.isSecondaryButtonHidden = false
-			navigationFooterItem?.secondaryButtonHasBorder = true
-		case .negative, .invalid, .expired:
-			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
-			navigationFooterItem?.isSecondaryButtonHidden = true
-			navigationFooterItem?.secondaryButtonHasBorder = false
-		case .pending:
-			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.refreshButton
-			navigationFooterItem?.secondaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
-			navigationFooterItem?.isSecondaryButtonEnabled = true
-			navigationFooterItem?.isSecondaryButtonHidden = false
-			navigationFooterItem?.secondaryButtonHasBorder = false
-		}
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+		viewModel.didTapPrimaryButton()
 	}
 
-	private func setupNavigationBar() {
-		navigationItem.hidesBackButton = true
-		navigationController?.navigationItem.largeTitleDisplayMode = .always
-		navigationItem.title = AppStrings.ExposureSubmissionResult.title
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
+		viewModel.didTapSecondaryButton()
 	}
 
-	private func setupDynamicTableView() {
-		guard let result = testResult else {
-			Log.error( "No test result.", log: .ui)
-			return
-		}
+	// MARK: - Private
+
+	private let viewModel: ExposureSubmissionTestResultViewModel
+
+	private var bindings: [AnyCancellable] = []
+
+	private func setUpView() {
+		view.backgroundColor = .enaColor(for: .background)
+		cellBackgroundColor = .clear
+
+		setUpDynamicTableView()
+	}
+
+	private func setUpDynamicTableView() {
+		tableView.separatorStyle = .none
 
 		tableView.register(
 			UINib(nibName: String(describing: ExposureSubmissionTestResultHeaderView.self), bundle: nil),
@@ -116,81 +73,67 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 			UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil),
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue
 		)
-
-		dynamicTableViewModel = dynamicTableViewModel(for: result)
 	}
 
-	// MARK: - Convenience methods for buttons.
+	private func setUpBindings() {
+		viewModel.$dynamicTableViewModel
+			.sink { [weak self] dynamicTableViewModel in
+				self?.dynamicTableViewModel = dynamicTableViewModel
+				self?.tableView.reloadData()
+			}
+			.store(in: &bindings)
 
-	private func deleteTest() {
+		viewModel.$shouldShowDeletionConfirmationAlert
+			.sink { [weak self] shouldShowDeletionConfirmationAlert in
+				guard let self = self, shouldShowDeletionConfirmationAlert else { return }
+
+				self.viewModel.shouldShowDeletionConfirmationAlert = false
+
+				self.showDeletionConfirmationAlert()
+			}
+			.store(in: &bindings)
+
+		viewModel.$error
+			.sink { [weak self] error in
+				guard let self = self, let error = error else { return }
+
+				self.viewModel.error = nil
+
+				let alert = self.setupErrorAlert(message: error.localizedDescription)
+				self.present(alert, animated: true)
+			}
+			.store(in: &bindings)
+	}
+
+	private func showDeletionConfirmationAlert() {
 		let alert = UIAlertController(
 			title: AppStrings.ExposureSubmissionResult.removeAlert_Title,
 			message: AppStrings.ExposureSubmissionResult.removeAlert_Text,
 			preferredStyle: .alert
 		)
 
-		let cancel = UIAlertAction(
+		let cancelAction = UIAlertAction(
 			title: AppStrings.Common.alertActionCancel,
 			style: .cancel,
-			handler: { _ in alert.dismiss(animated: true, completion: nil) }
-		)
-
-		let delete = UIAlertAction(
-			title: AppStrings.Common.alertActionRemove,
-			style: .destructive,
 			handler: { _ in
-				self.exposureSubmissionService?.deleteTest()
-				self.navigationController?.dismiss(animated: true, completion: nil)
+				alert.dismiss(animated: true)
 			}
 		)
 
-		alert.addAction(delete)
-		alert.addAction(cancel)
+		let deleteAction = UIAlertAction(
+			title: AppStrings.Common.alertActionRemove,
+			style: .destructive,
+			handler: { [weak self] _ in
+				self?.viewModel.deleteTest()
+			}
+		)
+
+		alert.addAction(deleteAction)
+		alert.addAction(cancelAction)
 
 		present(alert, animated: true, completion: nil)
 	}
 
-	private func refreshTest() {
-		navigationFooterItem?.isPrimaryButtonEnabled = false
-		navigationFooterItem?.isPrimaryButtonLoading = true
-		exposureSubmissionService?
-			.getTestResult { result in
-				switch result {
-				case let .failure(error):
-
-					let alert = self.setupErrorAlert(message: error.localizedDescription)
-					
-					self.present(alert, animated: true, completion: {
-						self.navigationFooterItem?.isPrimaryButtonEnabled = true
-						self.navigationFooterItem?.isPrimaryButtonLoading = false
-					})
-				case let .success(testResult):
-					self.refreshView(for: testResult)
-				}
-			}
-	}
-
-	private func refreshView(for result: TestResult) {
-		self.testResult = result
-		self.dynamicTableViewModel = self.dynamicTableViewModel(for: result)
-		self.tableView.reloadData()
-		self.setupButtons()
-	}
-
-	/// Check if the ENManager is enabled correctly, otherwise, show an alert.
-	private func checkExposureSubmissionPreconditions(onSuccess: () -> Void) {
-		if let state = exposureSubmissionService?.preconditions() {
-			if !state.isGood {
-				let alert = self.setupErrorAlert(
-					message: ExposureSubmissionError.enNotEnabled.localizedDescription
-				)
-				self.present(alert, animated: true, completion: nil)
-				return
-			}
-
-			onSuccess()
-		}
-	}
 }
 
 // MARK: - Custom HeaderReuseIdentifiers.
@@ -206,266 +149,5 @@ extension ExposureSubmissionTestResultViewController {
 extension ExposureSubmissionTestResultViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case stepCell
-	}
-}
-
-// MARK: ENANavigationControllerWithFooterChild methods.
-
-extension ExposureSubmissionTestResultViewController {
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		guard let result = testResult else { return }
-
-		switch result {
-		case .positive:
-			checkExposureSubmissionPreconditions { [weak self] in
-				self?.coordinator?.showSymptomsScreen()
-			}
-		case .negative, .invalid, .expired:
-			deleteTest()
-		case .pending:
-			refreshTest()
-		}
-	}
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
-		guard let result = testResult else { return }
-		switch result {
-		case .positive:
-			checkExposureSubmissionPreconditions { [weak self] in
-				// Temporarily loading countries here as quickfix: https://jira.itc.sap.com/browse/EXPOSUREAPP-3231
-				self?.coordinator?.loadSupportedCountries(
-					isLoading: { isLoading in
-						self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
-						self?.navigationFooterItem?.isSecondaryButtonEnabled = !isLoading
-						self?.navigationFooterItem?.isSecondaryButtonLoading = isLoading
-					},
-					onSuccess: {
-						self?.coordinator?.showWarnOthersScreen()
-					},
-					onError: { _ in
-						guard let self = self else { return }
-
-						let alert = self.setupErrorAlert(
-							message: ExposureSubmissionError.noAppConfiguration.localizedDescription
-						)
-						self.present(alert, animated: true)
-					}
-				)
-			}
-		case .pending:
-			deleteTest()
-		default:
-			// Secondary button is only active for pending result state.
-			break
-		}
-	}
-}
-
-// MARK: - DynamicTableViewModel convenience setup methods.
-
-private extension ExposureSubmissionTestResultViewController {
-	private func dynamicTableViewModel(for result: TestResult) -> DynamicTableViewModel {
-		DynamicTableViewModel.with {
-			$0.add(
-				testResultSection(for: result)
-			)
-		}
-	}
-
-	private func testResultSection(for result: TestResult) -> DynamicSection {
-		switch result {
-		case .positive:
-			return positiveTestResultSection()
-		case .negative:
-			return negativeTestResultSection()
-		case .invalid:
-			return invalidTestResultSection()
-		case .pending:
-			return pendingTestResultSection()
-		case .expired:
-			return expiredTestResultSection()
-		}
-	}
-
-	private func positiveTestResultSection() -> DynamicSection {
-		.section(
-			header: .identifier(
-				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive, timeStamp: self.timeStamp)
-				}
-			),
-			separators: .none,
-			cells: [
-				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testAdded,
-					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
-					icon: UIImage(named: "Icons_Grey_Check"),
-					hairline: .iconAttached
-				),
-
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.warnOthers,
-					description: AppStrings.ExposureSubmissionResult.warnOthersDesc,
-					icon: UIImage(named: "Icons_Grey_Warnen"),
-					hairline: .none
-				)
-			]
-		)
-	}
-
-	private func negativeTestResultSection() -> DynamicSection {
-		.section(
-			header: .identifier(
-				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .negative, timeStamp: self.timeStamp)
-				}
-			),
-			separators: .none,
-			cells: [
-				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-
-
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testAdded,
-					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
-					icon: UIImage(named: "Icons_Grey_Check"),
-					hairline: .iconAttached
-				),
-
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testNegative,
-					description: AppStrings.ExposureSubmissionResult.testNegativeDesc,
-					icon: UIImage(named: "Icons_Grey_Error"),
-					hairline: .topAttached
-				),
-
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testRemove,
-					description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
-					icon: UIImage(named: "Icons_Grey_Entfernen"),
-					hairline: .none
-				),
-
-				.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.furtherInfos_Title),
-
-				.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1, spacing: .large),
-				.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2, spacing: .large),
-				.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3, spacing: .large),
-				.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain, spacing: .large)
-			]
-		)
-	}
-
-	private func invalidTestResultSection() -> DynamicSection {
-		.section(
-			header: .identifier(
-				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid, timeStamp: self.timeStamp)
-				}
-			),
-			separators: .none,
-			cells: [
-				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testAdded,
-					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
-					icon: UIImage(named: "Icons_Grey_Check"),
-					hairline: .iconAttached
-				),
-
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testInvalid,
-					description: AppStrings.ExposureSubmissionResult.testInvalidDesc,
-					icon: UIImage(named: "Icons_Grey_Error"),
-					hairline: .topAttached
-				),
-
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testRemove,
-					description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
-					icon: UIImage(named: "Icons_Grey_Entfernen"),
-					hairline: .none
-				)
-			]
-		)
-	}
-
-	private func expiredTestResultSection() -> DynamicSection {
-		.section(
-			header: .identifier(
-				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid, timeStamp: self.timeStamp)
-				}
-			),
-			separators: .none,
-			cells: [
-				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testAdded,
-					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
-					icon: UIImage(named: "Icons_Grey_Check"),
-					hairline: .iconAttached
-				),
-
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testExpired,
-					description: AppStrings.ExposureSubmissionResult.testExpiredDesc,
-					icon: UIImage(named: "Icons_Grey_Error"),
-					hairline: .topAttached
-				),
-
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testRemove,
-					description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
-					icon: UIImage(named: "Icons_Grey_Entfernen"),
-					hairline: .none
-				)
-			]
-		)
-	}
-
-	private func pendingTestResultSection() -> DynamicSection {
-		.section(
-			header: .identifier(
-				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .pending, timeStamp: self.timeStamp)
-				}
-			),
-			cells: [
-				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testAdded,
-					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
-					icon: UIImage(named: "Icons_Grey_Check"),
-					hairline: .iconAttached
-				),
-
-				ExposureSubmissionDynamicCell.stepCell(
-					title: AppStrings.ExposureSubmissionResult.testPending,
-					description:
-						AppStrings.ExposureSubmissionResult.testPendingDescParagraph1 +
-						AppStrings.ExposureSubmissionResult.testPendingDescParagraph2 +
-						AppStrings.ExposureSubmissionResult.testPendingDescParagraph3,
-					icon: UIImage(named: "Icons_Grey_Wait"),
-					hairline: .none
-				)
-			]
-		)
 	}
 }

@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -194,11 +179,6 @@ final class SecureStore: Store {
 		set { kvStore["previousSummaryMetadata"] = newValue }
 	}
 
-	var hourlyFetchingEnabled: Bool {
-		get { kvStore["hourlyFetchingEnabled"] as Bool? ?? false }
-		set { kvStore["hourlyFetchingEnabled"] = newValue }
-	}
-
 	var previousRiskLevel: EitherLowOrIncreasedRiskLevel? {
 		get {
 			guard let value = kvStore["previousRiskLevel"] as Int? else {
@@ -239,6 +219,31 @@ final class SecureStore: Store {
 		set { kvStore["selectedServerEnvironment"] = newValue }
 	}
 
+	var wasRecentDayKeyDownloadSuccessful: Bool {
+		get { kvStore["wasRecentDayKeyDownloadSuccessful"] as Bool? ?? false }
+		set { kvStore["wasRecentDayKeyDownloadSuccessful"] = newValue }
+	}
+
+	var wasRecentHourKeyDownloadSuccessful: Bool {
+		get { kvStore["wasRecentHourKeyDownloadSuccessful"] as Bool? ?? false }
+		set { kvStore["wasRecentHourKeyDownloadSuccessful"] = newValue }
+    }
+    
+	var isDeviceTimeCorrect: Bool {
+		get { kvStore["isDeviceTimeCorrect"] as Bool? ?? true }
+		set { kvStore["isDeviceTimeCorrect"] = newValue }
+	}
+
+	var wasDeviceTimeErrorShown: Bool {
+		get { kvStore["wasDeviceTimeErrorShown"] as Bool? ?? false }
+		set { kvStore["wasDeviceTimeErrorShown"] = newValue }
+	}
+
+	var lastKeyPackageDownloadDate: Date {
+		get { kvStore["lastKeyPackageDownloadDate"] as Date? ?? .distantPast }
+		set { kvStore["lastKeyPackageDownloadDate"] = newValue }
+	}
+
 	#if !RELEASE
 
 	// Settings from the debug menu.
@@ -247,30 +252,39 @@ final class SecureStore: Store {
 		get { kvStore["fakeSQLiteError"] as Int32? }
 		set { kvStore["fakeSQLiteError"] = newValue }
 	}
+	
+	var dmKillDeviceTimeCheck: Bool {
+		get { kvStore["dmKillDeviceTimeCheck"] as Bool? ?? false }
+		set { kvStore["dmKillDeviceTimeCheck"] = newValue }
+	}
 
 	#endif
 }
 
-extension SecureStore: AppConfigCaching {
-	var lastAppConfigETag: String? {
-		get { kvStore["lastAppConfigETag"] as String? ?? nil }
-		set { kvStore["lastAppConfigETag"] = newValue }
-	}
+extension SecureStore {
 
-	var lastAppConfigFetch: Date? {
-		get { kvStore["lastAppConfigFetch"] as Date? ?? nil }
-		set { kvStore["lastAppConfigFetch"] = newValue }
+	var warnOthersNotificationOneTimer: TimeInterval {
+		get { kvStore["warnOthersNotificationTimerOne"] as TimeInterval? ?? WarnOthersNotificationsTimeInterval.intervalOne }
+		set { kvStore["warnOthersNotificationTimerOne"] = newValue }
 	}
-
-	var appConfig: SAP_Internal_ApplicationConfiguration? {
-		get {
-			guard let data = kvStore["SAP_Internal_ApplicationConfiguration"] else { return nil }
-			return try? SAP_Internal_ApplicationConfiguration(serializedData: data)
-		}
-		set { kvStore["SAP_Internal_ApplicationConfiguration"] = try? newValue?.serializedData() }
+	
+	var warnOthersNotificationTwoTimer: TimeInterval {
+		get { kvStore["warnOthersNotificationTimerTwo"] as TimeInterval? ?? WarnOthersNotificationsTimeInterval.intervalTwo }
+		set { kvStore["warnOthersNotificationTimerTwo"] = newValue }
+	}
+	
+	var warnOthersHasActiveTestResult: Bool {
+		get { kvStore["warnOthersHasActiveTestResult"] as Bool? ?? false }
+		set { kvStore["warnOthersHasActiveTestResult"] = newValue }
 	}
 }
 
+extension SecureStore: AppConfigCaching {
+	var appConfigMetadata: AppConfigMetadata? {
+		get { kvStore["appConfigMetadata"] as AppConfigMetadata? ?? nil }
+		set { kvStore["appConfigMetadata"] = newValue }
+	}
+}
 
 extension SecureStore {
 
@@ -283,7 +297,6 @@ extension SecureStore {
 	private convenience init(subDirectory: String, isRetry: Bool, serverEnvironment: ServerEnvironment) {
 		// swiftlint:disable:next force_try
 		let keychain = try! KeychainHelper()
-
 		do {
 			let directoryURL = try SecureStore.databaseDirectory(at: subDirectory)
 			let fileManager = FileManager.default

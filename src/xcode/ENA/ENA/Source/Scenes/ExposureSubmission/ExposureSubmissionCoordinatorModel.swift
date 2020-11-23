@@ -1,23 +1,9 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
+import Combine
 import UIKit
 
 class ExposureSubmissionCoordinatorModel {
@@ -42,32 +28,35 @@ class ExposureSubmissionCoordinatorModel {
 		exposureSubmissionService.hasRegistrationToken()
 	}
 
-	func symptomsOptionSelected(
-		selectedSymptomsOption: ExposureSubmissionSymptomsViewController.SymptomsOption,
+	func checkStateAndLoadCountries(
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping () -> Void,
 		onError: @escaping (ExposureSubmissionError) -> Void
 	) {
+		if isExposureSubmissionServiceStateGood {
+			loadSupportedCountries(isLoading: isLoading, onSuccess: onSuccess, onError: onError)
+		} else {
+			onError(.enNotEnabled)
+		}
+	}
+
+	func symptomsOptionSelected(
+		_ selectedSymptomsOption: ExposureSubmissionSymptomsViewController.SymptomsOption
+	) {
 		switch selectedSymptomsOption {
 		case .yes:
 			shouldShowSymptomsOnsetScreen = true
-			onSuccess()
 		case .no:
 			symptomsOnset = .nonSymptomatic
 			shouldShowSymptomsOnsetScreen = false
-			loadSupportedCountries(isLoading: isLoading, onSuccess: onSuccess, onError: onError)
 		case .preferNotToSay:
 			symptomsOnset = .noInformation
 			shouldShowSymptomsOnsetScreen = false
-			loadSupportedCountries(isLoading: isLoading, onSuccess: onSuccess, onError: onError)
 		}
 	}
 
 	func symptomsOnsetOptionSelected(
-		selectedSymptomsOnsetOption: ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption,
-		isLoading: @escaping (Bool) -> Void,
-		onSuccess: @escaping () -> Void,
-		onError: @escaping (ExposureSubmissionError) -> Void
+		_ selectedSymptomsOnsetOption: ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption
 	) {
 		switch selectedSymptomsOnsetOption {
 		case .exactDate(let date):
@@ -82,10 +71,7 @@ class ExposureSubmissionCoordinatorModel {
 		case .preferNotToSay:
 			symptomsOnset = .symptomaticWithUnknownOnset
 		}
-
-		loadSupportedCountries(isLoading: isLoading, onSuccess: onSuccess, onError: onError)
 	}
-
 
 	func warnOthersConsentGiven(
 		isLoading: @escaping (Bool) -> Void,
@@ -122,30 +108,28 @@ class ExposureSubmissionCoordinatorModel {
 	// MARK: - Private
 
 	private var symptomsOnset: SymptomsOnset = .noInformation
+	private var subscriptions = [AnyCancellable]()
 
-	// Temporarily set to internal for quickfix: https://jira.itc.sap.com/browse/EXPOSUREAPP-3231
-	func loadSupportedCountries(
+	private var isExposureSubmissionServiceStateGood: Bool {
+		exposureSubmissionService.preconditions().isGood
+	}
+
+	private func loadSupportedCountries(
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping () -> Void,
 		onError: @escaping (ExposureSubmissionError) -> Void
 	) {
 		isLoading(true)
-		appConfigurationProvider.appConfiguration { result in
+		appConfigurationProvider.appConfiguration().sink { [weak self] config in
 			isLoading(false)
-
-			switch result {
-			case .success(let config):
-				let countries = config.supportedCountries.compactMap({ Country(countryCode: $0) })
-				if countries.isEmpty {
-					self.supportedCountries = [.defaultCountry()]
-				} else {
-					self.supportedCountries = countries
-				}
-				onSuccess()
-			case .failure:
-				onError(.noAppConfiguration)
+			let countries = config.supportedCountries.compactMap({ Country(countryCode: $0) })
+			if countries.isEmpty {
+				self?.supportedCountries = [.defaultCountry()]
+			} else {
+				self?.supportedCountries = countries
 			}
-		}
+			onSuccess()
+		}.store(in: &subscriptions)
 	}
 
 	private func startSubmitProcess(

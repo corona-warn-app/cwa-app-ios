@@ -1,25 +1,17 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
+import Combine
+import ZIPFoundation
 
 final class CachedAppConfiguration {
+
+	private struct AppConfigResponse {
+		let config: SAP_Internal_ApplicationConfiguration
+		let etag: String?
+	}
 
 	enum CacheError: Error {
 		case dataFetchError(message: String?)
@@ -28,67 +20,130 @@ final class CachedAppConfiguration {
 		case notModified
 	}
 
+	@Published var configuration: SAP_Internal_ApplicationConfiguration?
+
+	/// A reference to the key package store to directly allow removal of invalidated key packages
+	weak var packageStore: DownloadedPackagesStore?
+
 	/// Most likely a HTTP client
 	private let client: AppConfigurationFetching
 
 	/// The place where the app config and last etag is stored
 	private let store: AppConfigCaching
 
+	private let deviceTimeCheck: DeviceTimeCheckProtocol
+
 	private let configurationDidChange: (() -> Void)?
 
-	init(client: AppConfigurationFetching, store: AppConfigCaching, configurationDidChange: (() -> Void)? = nil) {
+	private var subscriptions = [AnyCancellable]()
+
+	/// The location of the default app configuration.
+	private var defaultAppConfigPath: URL {
+		guard let url = Bundle.main.url(forResource: "default_app_config_17", withExtension: "") else {
+			fatalError("Could not locate default app config")
+		}
+		return url
+	}
+
+	init(
+		client: AppConfigurationFetching,
+		store: Store,
+		deviceTimeCheck: DeviceTimeCheckProtocol? = nil,
+		configurationDidChange: (() -> Void)? = nil
+	) {
+		Log.debug("CachedAppConfiguration init called", log: .appConfig)
+
 		self.client = client
 		self.store = store
 		self.configurationDidChange = configurationDidChange
 
+		self.deviceTimeCheck = deviceTimeCheck ?? DeviceTimeCheck(store: store)
+
+
 		guard shouldFetch() else { return }
 
-		// edge case: if no app config is cached, omit a potentially existing ETag to force fetch a new configuration
-		let etag = store.appConfig == nil ? nil : store.lastAppConfigETag
-
 		// check for updated or fetch initial app configuration
-		fetchConfig(with: etag)
+		getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag)
+			.sink { response in
+				self.store.appConfigMetadata = AppConfigMetadata(
+					lastAppConfigETag: response.etag ?? "\"ReloadMe\"",
+					lastAppConfigFetch: Date(),
+					appConfig: response.config
+				)
+			}
+			.store(in: &subscriptions)
 	}
 
-	private func fetchConfig(with etag: String?, completion: Completion? = nil) {
-		client.fetchAppConfiguration(etag: etag) { [weak self] result in
-			switch result {
-			case .success(let response):
-				self?.store.lastAppConfigETag = response.eTag
-				self?.store.appConfig = response.config
-				self?.completeOnMain(completion: completion, result: .success(response.config))
+	private func getAppConfig(with etag: String? = nil) -> Future<AppConfigResponse, Never> {
+		return Future { promise in
+			self.client.fetchAppConfiguration(etag: etag) { [weak self] result in
+				guard let self = self else { return }
 
-				// keep track of last successful fetch
-				self?.store.lastAppConfigFetch = Date()
+				switch result.0 {
+				case .success(let response):
+					self.store.appConfigMetadata = AppConfigMetadata(
+						lastAppConfigETag: response.eTag ?? "\"ReloadMe\"",
+						lastAppConfigFetch: Date(),
+						appConfig: response.config
+					)
+					promise(.success(AppConfigResponse(config: response.config, etag: response.eTag)))
 
-				self?.configurationDidChange?()
-			case .failure(let error):
-				switch error {
-				case CachedAppConfiguration.CacheError.notModified where self?.store.appConfig != nil:
-					Log.error("config not modified", log: .api)
-					// server is not modified and we have a cached config
-					guard let config = self?.store.appConfig else {
-						fatalError("App configuration cache broken!") // in `where` we trust
+					// update revokation list
+					let revokationList = self.store.appConfigMetadata?.appConfig.revokationEtags ?? []
+					self.packageStore?.revokationList = revokationList // for future package-operations
+					// validate currently stored key packages
+					do {
+						try self.packageStore?.validateCachedKeyPackages(revokationList: revokationList)
+					} catch {
+						Log.error("Error while removing invalidated key packages.", log: .localData, error: error)
+						// no further action - yet
 					}
-					self?.completeOnMain(completion: completion, result: .success(config))
 
-					// keep track of last successful fetch
-					self?.store.lastAppConfigFetch = Date()
-				default:
-					// ensure reset
-					self?.store.lastAppConfigETag = nil
-					self?.store.lastAppConfigFetch = nil
-					
-					self?.completeOnMain(completion: completion, result: .failure(error))
+					self.configurationDidChange?()
+				case .failure(let error):
+					switch error {
+					case CachedAppConfiguration.CacheError.notModified where self.store.appConfigMetadata != nil:
+						Log.error("config not modified", log: .api)
+						// server is not modified and we have a cached config
+						guard let meta = self.store.appConfigMetadata else {
+							fatalError("App configuration cache broken!") // in `where` we trust
+						}
+						// server response HTTP 304 is considered a 'successful fetch'
+						self.store.appConfigMetadata?.refeshLastAppConfigFetchDate()
+						promise(.success(AppConfigResponse(config: meta.appConfig, etag: meta.lastAppConfigETag)))
+
+					default:
+						// try to provide the default configuration or return error response
+						guard
+							let data = try? Data(contentsOf: self.defaultAppConfigPath),
+							let zip = Archive(data: data, accessMode: .read),
+							let defaultConfig = try? zip.extractAppConfiguration()
+						else {
+							Log.error("Could not provide static app configuration!", log: .localData, error: nil)
+							fatalError("Could not provide static app configuration!")
+						}
+						// Let's stick to the default for 5 Minute
+						self.store.appConfigMetadata = AppConfigMetadata(
+							lastAppConfigETag: "\"default\"",
+							lastAppConfigFetch: Date(),
+							appConfig: defaultConfig
+						)
+
+						Log.info("Providing canned app configuration 🥫", log: .localData)
+						promise(.success(AppConfigResponse(config: defaultConfig, etag: self.store.appConfigMetadata?.lastAppConfigETag)))
+					}
+				}
+
+				// time check ⌚️
+				if let serverTime = result.1 {
+					self.deviceTimeCheck.updateDeviceTimeFlags(
+						serverTime: serverTime,
+						deviceTime: Date()
+					)
+				} else {
+					self.deviceTimeCheck.resetDeviceTimeFlags()
 				}
 			}
-		}
-	}
-
-	// Prevents failing main thread checks because UI is accessing the result directly.
-	private func completeOnMain(completion: Completion?, result: Result<SAP_Internal_ApplicationConfiguration, Error>) {
-		DispatchQueue.main.async {
-			completion?(result)
 		}
 	}
 }
@@ -97,20 +152,27 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 
 	fileprivate static let timestampKey = "LastAppConfigFetch"
 
-	func appConfiguration(forceFetch: Bool = false, completion: @escaping Completion) {
+	func appConfiguration(forceFetch: Bool = false) -> AnyPublisher<SAP_Internal_ApplicationConfiguration, Never> {
 		let force = shouldFetch() || forceFetch
 
-		if let cachedVersion = store.appConfig, !force {
+		if let cachedVersion = store.appConfigMetadata?.appConfig, !force {
+			Log.debug("fetching cached app configuration", log: .appConfig)
 			// use the cached version
-			completeOnMain(completion: completion, result: .success(cachedVersion))
+			return Just(cachedVersion)
+				.receive(on: DispatchQueue.main)
+				.eraseToAnyPublisher()
 		} else {
+			Log.debug("fetching fresh app configuration. forceFetch: \(forceFetch), force: \(force)", log: .appConfig)
 			// fetch a new one
-			fetchConfig(with: store.lastAppConfigETag, completion: completion)
+			return getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag)
+				.map({ $0.config })
+				.receive(on: DispatchQueue.main)
+				.eraseToAnyPublisher()
 		}
 	}
 
-	func appConfiguration(completion: @escaping Completion) {
-		self.appConfiguration(forceFetch: false, completion: completion)
+	func appConfiguration() -> AnyPublisher<SAP_Internal_ApplicationConfiguration, Never> {
+		return appConfiguration(forceFetch: false)
 	}
 
 	/// Simple helper to simulate Cache-Control
@@ -118,9 +180,14 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 	///   which does not easily return response headers. This requires further refactoring of `URLSession+Convenience.swift`.
 	/// - Returns: `true` is a network call should be done; `false` if cache should be used
 	private func shouldFetch() -> Bool {
-		guard let lastFetch = store.lastAppConfigFetch else {
+		if store.appConfigMetadata == nil { return true }
+
+		// naïve cache control
+		guard let lastFetch = store.appConfigMetadata?.lastAppConfigFetch else {
+			Log.debug("no last config fetch timestamp stored", log: .appConfig)
 			return true
 		}
-		return lastFetch.distance(to: Date()) >= 300
+        Log.debug("timestamp >= 300s? \(abs(lastFetch.distance(to: Date())) >= 300)", log: .appConfig)
+        return abs(lastFetch.distance(to: Date())) >= 300
 	}
 }

@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 #if !RELEASE
 
@@ -25,9 +12,11 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	// MARK: Creating a developer menu view controller
 	init(
 		client: Client,
+		wifiClient: WifiOnlyHTTPClient,
 		exposureSubmissionService: ExposureSubmissionService
 	) {
 		self.client = client
+		self.wifiClient = wifiClient
 		self.exposureSubmissionService = exposureSubmissionService
 		super.init(style: .plain)
 		title = "👩🏾‍💻 Developer Menu 🧑‍💻"
@@ -47,11 +36,14 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			keys = self.keys.sorted()
 		}
 	}
+	
+	// internal because of protocol RequiresAppDependencies
+	let wifiClient: WifiOnlyHTTPClient
 
 	// MARK: UIViewController
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			// intentionally left blank
 		}
 	}
@@ -104,9 +96,12 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 				store: store,
 				exposureManager: exposureManager
 			)
+		case .wifiClient:
+			vc = DMWifiClientViewController(wifiClient: wifiClient)
 		case .checkSubmittedKeys:
 			vc = DMSubmissionStateViewController(
 				client: client,
+				wifiClient: wifiClient,
 				delegate: self
 			)
 		case .backendConfiguration:
@@ -117,8 +112,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMStoreViewController(store: store)
 		case .lastSubmissionRequest:
 			vc = DMLastSubmissionRequestViewController(lastSubmissionRequest: UserDefaults.standard.dmLastSubmissionRequest)
-		case .settings:
-			vc = DMSettingsViewController(store: store)
 		case .errorLog:
 			vc = DMLogsViewController()
 		case .sendFakeRequest:
@@ -138,7 +131,12 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMSQLiteErrorViewController(store: store)
 		case .listPendingNotifications:
 			vc = DMNotificationsViewController()
+		case .warnOthersNotifications:
+			vc = DMWarnOthersNotificationViewController(warnOthersReminder: warnOthersReminder, store: store)
+		case .deviceTimeCheck:
+			vc = DMDeviceTimeCheckViewController(store: store)
 		}
+		
 		
 		if let vc = vc {
 			navigationController?.pushViewController(

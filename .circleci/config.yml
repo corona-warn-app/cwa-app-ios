@@ -2,7 +2,7 @@ version: 2.1
 
 configuration:
   - cache_key: &cache_key v7-{{ checksum "src/xcode/Gemfile.lock" }}
-  - xcode_version: &xcode_version 12.1.0
+  - xcode_version: &xcode_version 12.1.1
 
 commands:
   install-tools:
@@ -10,11 +10,11 @@ commands:
       - run:
           name: Install swiftlint
           command: |
-            if command -v swiftlint &> /dev/null
+            if ! command -v swiftlint &> /dev/null
             then
-              brew unlink swiftlint
+              brew install swiftlint
             fi
-            brew tap-new $USER/local-tap && brew extract --version=0.40.3 swiftlint $USER/local-tap && brew install swiftlint@0.40.3
+            swiftlint version
       - run:
           name: Install Bundler
           command: sudo gem install rake bundler:2.1.4
@@ -154,7 +154,7 @@ jobs:
           name: fastlane testflight
           command: cd src/xcode && bundle exec fastlane betaRelease --env TestFlight
       - run:
-          name: fastlane appcenter
+          name: fastlane appcenter and Mobile Device Cloud
           command: cd src/xcode && bundle exec fastlane adHocDistribution
   update-docs:
     macos:
@@ -193,9 +193,11 @@ workflows:
       jobs:
         - dependencies:
             filters:
-              branches:
+              tags:
                 only:
-                  - /release/.*/
+                  - /^v.*/
+              branches:
+                ignore: /.*/
         - snapshot:
             matrix:
               parameters:

@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 #if !RELEASE
 import UIKit
@@ -44,6 +31,7 @@ final class DMDeveloperMenu {
 	init(
 		presentingViewController: UIViewController,
 		client: Client,
+		wifiClient: WifiOnlyHTTPClient,
 		store: Store,
 		exposureManager: ExposureManager,
 		developerStore: DMStore,
@@ -51,6 +39,7 @@ final class DMDeveloperMenu {
 		serverEnvironment: ServerEnvironment
 	) {
 		self.client = client
+		self.wifiClient = wifiClient
 		self.presentingViewController = presentingViewController
 		self.store = store
 		self.exposureManager = exposureManager
@@ -62,6 +51,7 @@ final class DMDeveloperMenu {
 	// MARK: Properties
 	private let presentingViewController: UIViewController
 	private let client: Client
+	private let wifiClient: WifiOnlyHTTPClient
 	private let store: Store
 	private let exposureManager: ExposureManager
 	private let exposureSubmissionService: ExposureSubmissionService
@@ -90,6 +80,7 @@ final class DMDeveloperMenu {
 	 func showDeveloperMenu() {
 		let vc = DMViewController(
 			client: client,
+			wifiClient: wifiClient,
 			exposureSubmissionService: exposureSubmissionService
 		)
 		let navigationController = UINavigationController(

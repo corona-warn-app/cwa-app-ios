@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -62,9 +47,11 @@ class CachingHTTPClient: AppConfigurationFetching {
 		session.GET(configuration.configurationURL, extraHeaders: headers) { result in
 			switch result {
 			case .success(let response):
+				let serverDate = response.httpResponse.dateHeader
+
 				// content not modified?
 				guard response.statusCode != 304 else {
-					completion(.failure(CachedAppConfiguration.CacheError.notModified))
+					completion((.failure(CachedAppConfiguration.CacheError.notModified), serverDate))
 					return
 				}
 
@@ -74,14 +61,14 @@ class CachingHTTPClient: AppConfigurationFetching {
 					let package = SAPDownloadedPackage(compressedData: data)
 				else {
 					let error = CachedAppConfiguration.CacheError.dataFetchError(message: "Failed to create downloaded package for app config.")
-					completion(.failure(error))
+					completion((.failure(error), serverDate))
 					return
 				}
 
 				// data verified?
 				guard self.packageVerifier(package) else {
 					let error = CachedAppConfiguration.CacheError.dataVerificationError(message: "Failed to verify app config signature")
-					completion(.failure(error))
+					completion((.failure(error), serverDate))
 					return
 				}
 
@@ -90,13 +77,27 @@ class CachingHTTPClient: AppConfigurationFetching {
 					let config = try SAP_Internal_ApplicationConfiguration(serializedData: package.bin)
 					let eTag = response.httpResponse.value(forHTTPHeaderField: "ETag")
 					let configurationResponse = AppConfigurationFetchingResponse(config, eTag)
-					completion(.success(configurationResponse))
+					completion((.success(configurationResponse), serverDate))
 				} catch {
-					completion(.failure(error))
+					completion((.failure(error), serverDate))
 				}
 			case .failure(let error):
-				completion(.failure(error))
+				var serverDate: Date?
+				if case let .httpError(_, httpResponse) = error {
+					serverDate = httpResponse.dateHeader
+				}
+				completion((.failure(error), serverDate))
 			}
+		}
+	}
+}
+
+extension HTTPURLResponse {
+	var dateHeader: Date? {
+		if let dateString = value(forHTTPHeaderField: "Date") {
+			return ENAFormatter.httpDateHeaderFormatter.date(from: dateString)
+		} else {
+			return nil
 		}
 	}
 }

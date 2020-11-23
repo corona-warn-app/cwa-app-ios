@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 #if !RELEASE
 
@@ -32,9 +19,11 @@ final class DMSubmissionStateViewController: UITableViewController {
 	// MARK: Creating a submission state view controller
 	init(
 		client: Client,
+		wifiClient: WifiOnlyHTTPClient,
 		delegate: DMSubmissionStateViewControllerDelegate
 	) {
 		self.client = client
+		self.wifiClient = wifiClient
 		self.delegate = delegate
 		super.init(style: .plain)
 	}
@@ -79,6 +68,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 	// MARK: Properties
 	private weak var delegate: DMSubmissionStateViewControllerDelegate?
 	private let client: Client
+	private let wifiClient: WifiOnlyHTTPClient
 	private var checkResult = DMSubmittedKeysCheckResult(missingKeys: [], foundKeys: [])
 
 	// MARK: UIViewController
@@ -91,12 +81,9 @@ final class DMSubmissionStateViewController: UITableViewController {
 			guard let localKeys = localKeys else {
 				fatalError("unable to get local diagnosis keys")
 			}
-			self.client.fetchAllKeys { downloadedPackages in
+			self.client.fetchAllKeys(wifiClient: self.wifiClient) { downloadedPackages in
 				let allPackages = downloadedPackages.allKeyPackages
-				let allRemoteKeys = Array(allPackages
-					.compactMap { try? $0.keys() }
-					.joined()
-				)
+				let allRemoteKeys = Array(allPackages.compactMap { try? $0.package.keys() }.joined())
 
 				var foundKeys = [ENTemporaryExposureKey]()
 				var missingKeys = [ENTemporaryExposureKey]()
@@ -200,7 +187,8 @@ private extension Array where Element == SAP_External_Exposurenotification_Tempo
 
 private extension Client {
 	typealias AvailableDaysAndHoursCompletion = (DaysAndHours) -> Void
-	func availableDaysAndHours(
+
+	private func availableDaysAndHours(
 		completion completeWith: @escaping AvailableDaysAndHoursCompletion
 	) {
 		let group = DispatchGroup()
@@ -229,17 +217,15 @@ private extension Client {
 	}
 
 	func fetchAllKeys(
-		completion completeWith: @escaping DaysAndHoursCompletionHandler
+		wifiClient: WifiOnlyHTTPClient,
+		completion completeWith: @escaping (FetchedDaysAndHours) -> Void
 	) {
 		availableDaysAndHours { daysAndHours in
-
-			self.fetchDays(
-				daysAndHours.days,
-				hours: daysAndHours.hours,
-				of: .formattedToday(),
-				country: "DE",
-				completion: completeWith
-			)
+			self.fetchDays(daysAndHours.days, forCountry: "DE") { daysResult in
+				wifiClient.fetchHours(daysAndHours.hours, day: .formattedToday(), country: "DE") { hoursResult in
+					completeWith(FetchedDaysAndHours(hours: hoursResult, days: daysResult))
+				}
+			}
 		}
 	}
 }

@@ -1,26 +1,11 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import FMDB
 
 protocol SerialMigratorProtocol {
-	func migrate()
+	func migrate() throws
 }
 
 final class SerialMigrator: SerialMigratorProtocol {
@@ -39,21 +24,21 @@ final class SerialMigrator: SerialMigratorProtocol {
 		self.migrations = migrations
 	}
 
-	func migrate() {
+	func migrate() throws {
 		if database.userVersion < latestVersion {
 			let userVersion = Int(database.userVersion)
+			Log.info("Migrating database from v\(userVersion) to v\(latestVersion)!", log: .localData)
 
-			migrations[userVersion].execute { [weak self] success in
-				if success {
-					self?.database.userVersion += 1
-					migrate()
-				} else {
-					Log.error("Migration failed from version \(database.userVersion) to version \(database.userVersion += 1)", log: .localData)
-					return
-				}
+			do {
+				try migrations[userVersion].execute()
+				self.database.userVersion += 1
+				try migrate()
+			} catch {
+				Log.error("Migration failed from version \(database.userVersion) to version \(database.userVersion.advanced(by: 1))", log: .localData)
+				throw error
 			}
 		} else {
-			return
+			Log.debug("No database migration needed.", log: .localData)
 		}
 	}
 }

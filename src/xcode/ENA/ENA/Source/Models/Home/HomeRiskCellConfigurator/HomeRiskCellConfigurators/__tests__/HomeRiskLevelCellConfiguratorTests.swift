@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -34,8 +19,8 @@ class HomeRiskLevelCellConfiguratorTests: XCTestCase {
 
 	func test_riskLevelCell_shouldHaveEqualHash() {
 		let date = Date()
-		let configurator1 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, detectionIntervalLabelHidden: false, lastUpdateDate: date, detectionInterval: 0)
-		let configurator2 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, detectionIntervalLabelHidden: false, lastUpdateDate: date, detectionInterval: 0)
+		let configurator1 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, lastUpdateDate: date, detectionInterval: 0)
+		let configurator2 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, lastUpdateDate: date, detectionInterval: 0)
 
 		let hash1 = configurator1.hashValue
 		let hash2 = configurator2.hashValue
@@ -47,8 +32,8 @@ class HomeRiskLevelCellConfiguratorTests: XCTestCase {
 
 		let date = Date()
 
-		let configurator1 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, detectionIntervalLabelHidden: false, lastUpdateDate: date, detectionInterval: 0)
-		let configurator2 = HomeRiskLevelCellConfigurator(state: .downloading, isButtonEnabled: false, isButtonHidden: false, detectionIntervalLabelHidden: false, lastUpdateDate: date, detectionInterval: 0)
+		let configurator1 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, lastUpdateDate: date, detectionInterval: 0)
+		let configurator2 = HomeRiskLevelCellConfigurator(state: .downloading, isButtonEnabled: false, isButtonHidden: false, lastUpdateDate: date, detectionInterval: 0)
 
 		let hash1 = configurator1.hashValue
 		let hash2 = configurator2.hashValue
@@ -60,8 +45,8 @@ class HomeRiskLevelCellConfiguratorTests: XCTestCase {
 
 		let date = Date()
 
-		let configurator1 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, detectionIntervalLabelHidden: false, lastUpdateDate: date, detectionInterval: 0)
-		let configurator2 = HomeRiskLevelCellConfigurator(state: .detecting, isButtonEnabled: false, isButtonHidden: false, detectionIntervalLabelHidden: false, lastUpdateDate: date.addingTimeInterval(-10), detectionInterval: 0)
+		let configurator1 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, lastUpdateDate: date, detectionInterval: 0)
+		let configurator2 = HomeRiskLevelCellConfigurator(state: .detecting, isButtonEnabled: false, isButtonHidden: false, lastUpdateDate: date.addingTimeInterval(-10), detectionInterval: 0)
 
 		let hash1 = configurator1.hashValue
 		let hash2 = configurator2.hashValue
@@ -70,8 +55,8 @@ class HomeRiskLevelCellConfiguratorTests: XCTestCase {
 
 	func test_riskLevelCell_shouldBeEqual() {
 		let date = Date()
-		let configurator1 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, detectionIntervalLabelHidden: false, lastUpdateDate: date, detectionInterval: 0)
-		let configurator2 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, detectionIntervalLabelHidden: false, lastUpdateDate: date, detectionInterval: 0)
+		let configurator1 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, lastUpdateDate: date, detectionInterval: 0)
+		let configurator2 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, lastUpdateDate: date, detectionInterval: 0)
 
 		let isEqual = configurator1 == configurator2
 		XCTAssertTrue(isEqual)
@@ -79,17 +64,8 @@ class HomeRiskLevelCellConfiguratorTests: XCTestCase {
 
 	func test_riskLevelCell_shouldntBeEqual1() {
 		let date = Date()
-		let configurator1 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, detectionIntervalLabelHidden: false, lastUpdateDate: date, detectionInterval: 0)
-		let configurator2 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, detectionIntervalLabelHidden: true, lastUpdateDate: date, detectionInterval: 0)
-
-		let isEqual = configurator1 == configurator2
-		XCTAssertFalse(isEqual)
-	}
-
-	func test_riskLevelCell_shouldntBeEqual2() {
-		let date = Date()
-		let configurator1 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, detectionIntervalLabelHidden: false, lastUpdateDate: date, detectionInterval: 0)
-		let configurator2 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, detectionIntervalLabelHidden: false, lastUpdateDate: date.addingTimeInterval(100), detectionInterval: 0)
+		let configurator1 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, lastUpdateDate: date, detectionInterval: 0)
+		let configurator2 = HomeRiskLevelCellConfigurator(state: .idle, isButtonEnabled: false, isButtonHidden: false, lastUpdateDate: date.addingTimeInterval(100), detectionInterval: 0)
 
 		let isEqual = configurator1 == configurator2
 		XCTAssertFalse(isEqual)

@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import Foundation
 import ExposureNotification
@@ -42,7 +29,7 @@ extension EitherLowOrIncreasedRiskLevel {
 	}
 }
 
-protocol Store: AnyObject {
+protocol StoreProtocol: AnyObject {
 	var isOnboarded: Bool { get set }
 	var onboardingVersion: String { get set }
 	var dateOfAcceptedPrivacyNotice: Date? { get set }
@@ -50,7 +37,6 @@ protocol Store: AnyObject {
 	var developerDistributionBaseURLOverride: String? { get set }
 	var developerVerificationBaseURLOverride: String? { get set }
 	var teleTan: String? { get set }
-	var hourlyFetchingEnabled: Bool { get set }
 
 	/// A secret allowing the client to upload the diagnosisKey set.
 	var tan: String? { get set }
@@ -114,18 +100,39 @@ protocol Store: AnyObject {
 	var firstPlaybookExecution: Date? { get set }
 
 	var selectedServerEnvironment: ServerEnvironmentData { get set }
+	
+	/// Delay time in seconds, when the first notification to warn others will be shown,
+	var warnOthersNotificationOneTimer: TimeInterval { get set }
+	
+	/// Delay time in seconds, when the first notification to warn others will be shown,
+	var warnOthersNotificationTwoTimer: TimeInterval { get set }
+	
+	/// If there was a positive test result, this information will be stored for warn others
+	var warnOthersHasActiveTestResult: Bool { get set }
+
+	var wasRecentDayKeyDownloadSuccessful: Bool { get set }
+
+	var wasRecentHourKeyDownloadSuccessful: Bool { get set }
+
+	var lastKeyPackageDownloadDate: Date { get set }
+
+    var isDeviceTimeCorrect: Bool { get set }
+	
+	var wasDeviceTimeErrorShown: Bool { get set }
 
 	func clearAll(key: String?)
 
 	#if !RELEASE
 	/// Settings from the debug menu.
 	var fakeSQLiteError: Int32? { get set }
+	var dmKillDeviceTimeCheck: Bool { get set }
 	#endif
 
 }
 
-protocol AppConfigCaching: Store {
-	var lastAppConfigETag: String? { get set }
-	var lastAppConfigFetch: Date? { get set }
-	var appConfig: SAP_Internal_ApplicationConfiguration? { get set }
+protocol AppConfigCaching: AnyObject {
+	var appConfigMetadata: AppConfigMetadata? { get set }
 }
+
+/// Convenience protocol
+protocol Store: StoreProtocol, AppConfigCaching {}

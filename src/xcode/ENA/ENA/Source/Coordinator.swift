@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import UIKit
@@ -51,7 +36,7 @@ class Coordinator: RequiresAppDependencies {
 			store: self.store
 		)
 	}()
-
+	
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
 	init(_ delegate: CoordinatorDelegate, _ rootViewController: UINavigationController) {
@@ -84,7 +69,18 @@ class Coordinator: RequiresAppDependencies {
 			#endif
 		})
 	}
-
+	
+	func showPositiveTestResultFromNotification(with result: TestResult) {
+		if let presentedViewController = rootViewController.presentedViewController {
+			presentedViewController.dismiss(animated: true) {
+				self.showExposureSubmission(with: result)
+			}
+		} else {
+			self.showExposureSubmission(with: result)
+		}
+	}
+	
+	
 	func showOnboarding() {
 		rootViewController.navigationBar.prefersLargeTitles = false
 		rootViewController.setViewControllers(
@@ -120,6 +116,7 @@ class Coordinator: RequiresAppDependencies {
 		developerMenu = DMDeveloperMenu(
 			presentingViewController: controller,
 			client: client,
+			wifiClient: wifiClient,
 			store: store,
 			exposureManager: exposureManager,
 			developerStore: UserDefaults.standard,
@@ -200,6 +197,7 @@ extension Coordinator: HomeViewControllerDelegate {
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.
 		let coordinator = ExposureSubmissionCoordinator(
+			warnOthersReminder: warnOthersReminder,
 			parentNavigationController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			delegate: self

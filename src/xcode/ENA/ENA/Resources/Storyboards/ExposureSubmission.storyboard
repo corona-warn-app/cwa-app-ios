@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -119,30 +119,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cv3-qo-bBS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1706" y="461"/>
-        </scene>
-        <!--Testergebnis-->
-        <scene sceneID="Fhn-PD-wgg">
-            <objects>
-                <tableViewController storyboardIdentifier="ExposureSubmissionTestResultViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="efh-V6-b47" customClass="ExposureSubmissionTestResultViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="gbg-tE-mnF">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="ENA Background Color"/>
-                        <connections>
-                            <outlet property="dataSource" destination="efh-V6-b47" id="hBs-QM-9cu"/>
-                            <outlet property="delegate" destination="efh-V6-b47" id="Vg9-3e-Kw3"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Testergebnis" id="ZER-NQ-eAY" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
-                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="J9o-td-y9f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2480" y="461"/>
         </scene>
         <!--Exposure Submission Navigation Controller-->
         <scene sceneID="woc-yd-Srs">

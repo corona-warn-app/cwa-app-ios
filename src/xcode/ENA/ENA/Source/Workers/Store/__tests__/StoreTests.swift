@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import XCTest
@@ -150,7 +135,6 @@ final class StoreTests: XCTestCase {
 		XCTAssertTrue(tmpStore.isOnboarded)
 		XCTAssertEqual(tmpStore.dateOfAcceptedPrivacyNotice?.description, testDate1.description)
 		XCTAssertEqual(tmpStore.teleTan, "97RR2D5644")
-		XCTAssertFalse(tmpStore.hourlyFetchingEnabled)
 		XCTAssertEqual(tmpStore.tan, "97RR2D5644")
 		XCTAssertEqual(tmpStore.testGUID, "00000000-0000-4000-8000-000000000000")
 		XCTAssertTrue(tmpStore.devicePairingConsentAccept)
@@ -181,6 +165,19 @@ final class StoreTests: XCTestCase {
 		XCTAssertEqual(tmpStore.tracingStatusHistory[0].date.description, testDate1.description)
 		XCTAssertEqual(tmpStore.tracingStatusHistory[1].on, false)
 		XCTAssertEqual(tmpStore.tracingStatusHistory[1].date.description, testDate2.description)
+
+		
+	}
+	
+	func testDeviceTimeSettings_initalAfterInitialization() {
+		XCTAssertEqual(store.isDeviceTimeCorrect, true)
+		XCTAssertEqual(store.wasDeviceTimeErrorShown, false)
+		
+		store.isDeviceTimeCorrect = false
+		store.wasDeviceTimeErrorShown = true
+		
+		XCTAssertEqual(store.isDeviceTimeCorrect, false)
+		XCTAssertEqual(store.wasDeviceTimeErrorShown, true)
 	}
 
 	func testValueToggles() throws {
@@ -241,15 +238,13 @@ final class StoreTests: XCTestCase {
 
 	func testConfigCaching() throws {
 		let store = SecureStore(subDirectory: "test", serverEnvironment: ServerEnvironment())
-		XCTAssertNil(store.appConfig)
-		XCTAssertNil(store.lastAppConfigETag)
+		XCTAssertNil(store.appConfigMetadata)
 
 		let tag = "fake_\(Int.random(in: 100...999))"
-		store.lastAppConfigETag = tag
-		XCTAssertEqual(store.lastAppConfigETag, tag)
-
 		let config = CachingHTTPClientMock.staticAppConfig
-		store.appConfig = config
-		XCTAssertEqual(store.appConfig, config)
+		let appConfigMetadata = AppConfigMetadata(lastAppConfigETag: tag, lastAppConfigFetch: Date(), appConfig: config)
+		
+		store.appConfigMetadata = appConfigMetadata
+		XCTAssertEqual(store.appConfigMetadata, appConfigMetadata)
 	}
 }

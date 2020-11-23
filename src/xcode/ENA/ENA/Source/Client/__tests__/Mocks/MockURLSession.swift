@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import Foundation
 
@@ -31,9 +18,12 @@ class MockURLSessionDataTask: URLSessionDataTask {
 
 class MockUrlSession: URLSession {
 	typealias URLRequestObserver = ((URLRequest) -> Void)
-	let data: Data?
-	let nextResponse: URLResponse?
-	let error: Error?
+
+	var data: Data?
+	var nextResponse: URLResponse?
+	var error: Error?
+
+	var onPrepareResponse: (() -> Void)?
 	var onURLRequestObserver: URLRequestObserver?
 
 	init(
@@ -48,9 +38,14 @@ class MockUrlSession: URLSession {
 		self.onURLRequestObserver = urlRequestObserver
 	}
 
+	func prepareForDataTask(data: Data?, response: URLResponse?) {
+		self.data = data
+		self.nextResponse = response
+	}
+
 	override func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
 		onURLRequestObserver?(URLRequest(url: url))
-
+		onPrepareResponse?()
 		return MockURLSessionDataTask {
 			completionHandler(self.data, self.nextResponse, self.error)
 		}
@@ -58,7 +53,7 @@ class MockUrlSession: URLSession {
 
 	override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
 		onURLRequestObserver?(request)
-
+		onPrepareResponse?()
 		return MockURLSessionDataTask {
 			completionHandler(self.data, self.nextResponse, self.error)
 		}

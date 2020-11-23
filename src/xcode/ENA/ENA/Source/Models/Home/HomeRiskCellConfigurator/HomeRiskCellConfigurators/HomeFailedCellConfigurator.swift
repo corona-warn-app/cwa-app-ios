@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import UIKit
 
@@ -22,9 +9,11 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: - Init
 
 	init(
+		state: RiskProvider.ActivityState,
 		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
 		lastUpdateDate: Date?
 	) {
+		self.riskProviderState = state
 		self.previousRiskLevel = previousRiskLevel
 		self.lastUpdateDate = lastUpdateDate
 	}
@@ -34,6 +23,7 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: - Internal
 
 	var activeAction: (() -> Void)?
+	var riskProviderState: RiskProvider.ActivityState
 
 	let title = AppStrings.Home.riskCardFailedCalculationTitle
 	let body = AppStrings.Home.riskCardFailedCalculationBody
@@ -71,7 +61,6 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 		// Configuring the UI.
 
 		configureUI(for: cell)
-		configureRiskViewsUI(for: cell)
 
 		setupAccessibility(cell)
 
@@ -92,6 +81,10 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 	private var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 	private var lastUpdateDate: Date?
 
+	private let titleColor: UIColor = .enaColor(for: .textPrimary1)
+	private let iconTintColor: UIColor = .enaColor(for: .riskNeutral)
+	private let color: UIColor = .enaColor(for: .background)
+	private let separatorColor: UIColor = .enaColor(for: .hairline)
 
 	private static let lastUpdateDateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
@@ -111,14 +104,39 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 
 	/// Adjusts the UI for the given cell, including setting text and adjusting colors.
 	private func configureUI(for cell: RiskFailedCollectionViewCell) {
-		cell.configureTitle(title: title, titleColor: .enaColor(for: .textPrimary1))
-		cell.configureBody(text: body, bodyColor: .enaColor(for: .textPrimary1))
-		cell.configureBackgroundColor(color: .enaColor(for: .background))
-		cell.configureActiveButton(title: buttonTitle)
+		switch riskProviderState {
+		case .downloading:
+			cell.configureTitle(title: AppStrings.Home.riskCardStatusDownloadingTitle, titleColor: titleColor)
+			cell.configureBackgroundColor(color: .enaColor(for: .background))
+			cell.bodyLabel.isHidden = true
+			cell.activeButton.isHidden = true
+
+			let itemCellConfigurator = makeConfiguratorsForProcessingState()
+			cell.configureRiskViews(cellConfigurators: [itemCellConfigurator])
+		case .detecting:
+			cell.configureTitle(title: AppStrings.Home.riskCardStatusDetectingTitle, titleColor: titleColor)
+			cell.configureBackgroundColor(color: .enaColor(for: .background))
+			cell.configureActiveButton(title: buttonTitle)
+			cell.bodyLabel.isHidden = true
+			cell.activeButton.isHidden = true
+
+			let itemCellConfigurator = makeConfiguratorsForProcessingState()
+			cell.configureRiskViews(cellConfigurators: [itemCellConfigurator])
+		default:
+			cell.configureTitle(title: title, titleColor: .enaColor(for: .textPrimary1))
+			cell.configureBody(text: body, bodyColor: .enaColor(for: .textPrimary1))
+			cell.configureBackgroundColor(color: .enaColor(for: .background))
+			cell.configureActiveButton(title: buttonTitle)
+			cell.activeButton.isHidden = false
+			cell.bodyLabel.isHidden = false
+
+			let itemCellConfigurators = makeConfiguratorsForNormalState()
+			cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
+		}
+
 	}
 
-	/// Adjusts the UI for the risk views of a given cell.
-	private func configureRiskViewsUI(for cell: RiskFailedCollectionViewCell) {
+	private func makeConfiguratorsForNormalState() -> [HomeRiskImageItemViewConfigurator] {
 		let activateItemTitle = String(format: AppStrings.Home.riskCardLastActiveItemTitle, previousRiskTitle)
 		let dateTitle = String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString)
 
@@ -126,26 +144,36 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 			// Card for the last state of the risk state.
 			HomeRiskImageItemViewConfigurator(
 				title: activateItemTitle,
-				titleColor: .enaColor(for: .textPrimary1),
+				titleColor: titleColor,
 				iconImageName: "Icons_LetzteErmittlung-Light",
-				iconTintColor: .enaColor(for: .riskNeutral),
-				color: .enaColor(for: .background),
-				separatorColor: .enaColor(for: .hairline)
+				iconTintColor: iconTintColor,
+				color: color,
+				separatorColor: separatorColor
 			),
 
 			// Card for the last exposure date.
 			HomeRiskImageItemViewConfigurator(
 				title: dateTitle,
-				titleColor: .enaColor(for: .textPrimary1),
+				titleColor: titleColor,
 				iconImageName: "Icons_Aktualisiert",
-				iconTintColor: .enaColor(for: .riskNeutral),
-				color: .enaColor(for: .background),
-				separatorColor: .enaColor(for: .hairline)
+				iconTintColor: iconTintColor,
+				color: color,
+				separatorColor: separatorColor
 			)
 
 		]
 
-		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
+		return itemCellConfigurators
+	}
+
+	private func makeConfiguratorsForProcessingState() -> HomeRiskLoadingItemViewConfigurator {
+		return HomeRiskLoadingItemViewConfigurator(
+			title: AppStrings.Home.riskCardStatusDetectingBody,
+			titleColor: titleColor,
+			isActivityIndicatorOn: true,
+			color: color,
+			separatorColor: separatorColor
+		)
 	}
 }
 

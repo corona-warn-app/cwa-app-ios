@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -75,7 +60,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				UNUserNotificationCenter.current().presentNotification(
 					title: AppStrings.LocalNotifications.testResultsTitle,
 					body: AppStrings.LocalNotifications.testResultsBody,
-					identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier + ".test-result"
+					identifier: ActionableNotificationIdentifier.testResult.identifier
 				)
 			}
 
@@ -86,26 +71,65 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	/// This method performs a check for the current exposure detection state. Only if the risk level has changed compared to the
 	/// previous state, a local notification is shown.
 	private func executeExposureDetectionRequest(completion: @escaping ((Bool) -> Void)) {
+		Log.info("[ENATaskExecutionDelegate] Execute exposure detection.", log: .riskDetection)
 
 		// At this point we are already in background so it is safe to assume background mode is available.
-		riskProvider.configuration.detectionMode = .fromBackgroundStatus(.available)
+		riskProvider.riskProvidingConfiguration.detectionMode = .fromBackgroundStatus(.available)
 
-		riskProvider.requestRisk(userInitiated: false) { result in
-			switch result {
-			case .success(let risk):
-				if risk.riskLevelHasChanged {
-					UNUserNotificationCenter.current().presentNotification(
-						title: AppStrings.LocalNotifications.detectExposureTitle,
-						body: AppStrings.LocalNotifications.detectExposureBody,
-						identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier + ".risk-detection"
-					)
-					completion(true)
-				} else {
-					completion(false)
-				}
-			case .failure:
+		riskProvider.observeRisk(backgroundTaskConsumer)
+
+		backgroundTaskConsumer.didCalculateRisk = { [weak self] risk in
+			Log.info("[ENATaskExecutionDelegate] Execute exposure detection did calculate risk.", log: .riskDetection)
+
+			guard let self = self else { return }
+			if risk.riskLevelHasChanged {
+				UNUserNotificationCenter.current().presentNotification(
+					title: AppStrings.LocalNotifications.detectExposureTitle,
+					body: AppStrings.LocalNotifications.detectExposureBody,
+					identifier: ActionableNotificationIdentifier.riskDetection.identifier
+				)
+				Log.info("[ENATaskExecutionDelegate] Risk has changed.", log: .riskDetection)
+				completion(true)
+			} else {
+				Log.info("[ENATaskExecutionDelegate] Risk has not changed.", log: .riskDetection)
 				completion(false)
 			}
+
+			self.riskProvider.removeRisk(self.backgroundTaskConsumer)
 		}
+
+		backgroundTaskConsumer.didFailCalculateRisk = { [weak self] error in
+			guard let self = self else { return }
+
+			// Ignore already running errors.
+			// In other words: if the RiskProvider is already running, we wait for other callbacks.
+			guard !error.isAlreadyRunningError else {
+				Log.info("[ENATaskExecutionDelegate] Ignore already running error.", log: .riskDetection)
+				return
+			}
+
+			Log.error("[ENATaskExecutionDelegate] Exposure detection failed.", log: .riskDetection, error: error)
+
+			switch error {
+			case .failedRiskDetection(let reason):
+				if case .wrongDeviceTime = reason {
+					if !self.store.wasDeviceTimeErrorShown {
+						UNUserNotificationCenter.current().presentNotification(
+							title: AppStrings.WrongDeviceTime.errorPushNotificationTitle,
+							body: AppStrings.WrongDeviceTime.errorPushNotificationText,
+							identifier: ActionableNotificationIdentifier.deviceTimeCheck.identifier
+						)
+						self.store.wasDeviceTimeErrorShown = true
+					}
+				}
+			default:
+				break
+			}
+
+			completion(false)
+			self.riskProvider.removeRisk(self.backgroundTaskConsumer)
+		}
+
+		riskProvider.requestRisk(userInitiated: false)
 	}
 }

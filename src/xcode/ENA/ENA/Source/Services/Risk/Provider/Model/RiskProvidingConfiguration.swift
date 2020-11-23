@@ -1,26 +1,23 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors /
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
 
 /// Used to configure a `RiskLevelProvider`.
 struct RiskProvidingConfiguration {
+
+    static let defaultExposureDetectionsInterval = 24 / defaultMaxExposureDetectionsPerInterval
+    private static let defaultMaxExposureDetectionsPerInterval = 1
+
+	static var `default`: RiskProvidingConfiguration {
+		return RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: DateComponents(day: 2),
+			exposureDetectionInterval: DateComponents(hour: defaultExposureDetectionsInterval),
+			detectionMode: .default
+		)
+	}
+
 	/// The duration a conducted exposure detection is considered valid.
 	var exposureDetectionValidityDuration: DateComponents
 
@@ -63,7 +60,9 @@ extension RiskProvidingConfiguration {
 			byAdding: exposureDetectionInterval,
 			to: lastExposureDetectionDate ?? .distantPast,
 			wrappingComponents: false
-			) ?? .distantPast
+		) ?? .distantPast
+		Log.debug("[RiskProvidingConfiguration] Exposure detection interval: \(exposureDetectionInterval)", log: .riskDetection)
+		Log.debug("[RiskProvidingConfiguration] Next potential detection date: \(potentialDate)", log: .riskDetection)
 		return potentialDate > currentDate ? .date(potentialDate) : .now
 	}
 
@@ -81,13 +80,17 @@ extension RiskProvidingConfiguration {
 	///     - lastExposureDetectionDate: The timestamp when the last exposureDetection completed successfully.
 	///     - currentDate: Current timestamp.
 	func shouldPerformExposureDetection(activeTracingHours: Int, lastExposureDetectionDate: Date?, currentDate: Date = Date()) -> Bool {
+		Log.debug("[RiskProvidingConfiguration] Last exposure date input: \(String(describing: lastExposureDetectionDate))", log: .riskDetection)
+
 		// Don't allow exposure detection within the first frame of exposureDetectionInterval
 		guard activeTracingHours >= TracingStatusHistory.minimumActiveHours else {
+			Log.info("[RiskProvidingConfiguration] Not enough tracing hours.", log: .riskDetection)
 			return false
 		}
 
 		if let lastExposureDetectionDate = lastExposureDetectionDate, lastExposureDetectionDate > currentDate {
 			// It is not valid to have a future exposure detection date.
+			Log.info("[RiskProvidingConfiguration] Last exposure date is in the future. Are you Marty McFly?", log: .riskDetection)
 			return true
 		}
 		let next = nextExposureDetectionDate(lastExposureDetectionDate: lastExposureDetectionDate, currentDate: currentDate)
@@ -96,6 +99,8 @@ extension RiskProvidingConfiguration {
 		case .now:
 			return true
 		case .date(let date):
+			Log.debug("[RiskProvidingConfiguration] Last exposure date from nextExposureDetectionDate:\(date)", log: .riskDetection)
+			Log.debug("[RiskProvidingConfiguration] Current date :\(currentDate)", log: .riskDetection)
 			return date <= currentDate
 		}
 	}

@@ -1,20 +1,6 @@
 //
-// Corona-Warn-App
+// 🦠 Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 enum AccessibilityIdentifiers {
 
@@ -34,9 +20,9 @@ enum AccessibilityIdentifiers {
 	}
 
 	enum RiskCollectionViewCell {
-		static let topContainer =  "RiskLevelCollectionViewCell.topContainer"
+		static let topContainer = "RiskLevelCollectionViewCell.topContainer"
 		static let bodyLabel = "RiskLevelCollectionViewCell.bodyLabel"
-		static let detectionIntervalLabel =  "RiskLevelCollectionViewCell.detectionIntervalLabel"
+		static let detectionIntervalLabel = "RiskLevelCollectionViewCell.detectionIntervalLabel"
 		static let updateButton = "RiskLevelCollectionViewCell.updateButton"
 	}
 
@@ -85,7 +71,7 @@ enum AccessibilityIdentifiers {
 		static let legend3Text = "AppStrings.RiskLegend.legend3Text"
 		static let definitionsTitle = "AppStrings.RiskLegend.definitionsTitle"
 		static let storeTitle = "AppStrings.RiskLegend.storeTitle"
-		static let storeText =  "AppStrings.RiskLegend.storeText"
+		static let storeText = "AppStrings.RiskLegend.storeText"
 		static let checkTitle = "AppStrings.RiskLegend.checkTitle"
 		static let checkText = "AppStrings.RiskLegend.checkText"
 		static let contactTitle = "AppStrings.RiskLegend.contactTitle"

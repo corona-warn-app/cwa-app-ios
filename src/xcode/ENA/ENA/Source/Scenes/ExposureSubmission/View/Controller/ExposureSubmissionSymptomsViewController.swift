@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import UIKit
@@ -22,7 +7,7 @@ import Combine
 
 final class ExposureSubmissionSymptomsViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, RequiresDismissConfirmation {
 
-	typealias PrimaryButtonHandler = (SymptomsOption, @escaping (Bool) -> Void) -> Void
+	typealias PrimaryButtonHandler = (SymptomsOption) -> Void
 
 	enum SymptomsOption {
 		case yes, no, preferNotToSay
@@ -59,12 +44,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 			fatalError("Primary button must not be enabled before the user has selected an option")
 		}
 
-		onPrimaryButtonTap(selectedSymptomsOption) { [weak self] isLoading in
-			DispatchQueue.main.async {
-				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
-				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
-			}
-		}
+		onPrimaryButtonTap(selectedSymptomsOption)
 	}
 
 	// MARK: - Private

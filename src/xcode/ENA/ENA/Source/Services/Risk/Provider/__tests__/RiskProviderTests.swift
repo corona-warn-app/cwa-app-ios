@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors /
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import XCTest
@@ -23,22 +8,7 @@ import ExposureNotification
 
 private final class Summary: ENExposureDetectionSummary {}
 
-private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
-
-	var onDetectExposure: ((ExposureSummaryProvider.Completion) -> Void)?
-
-	func detectExposure(
-		appConfiguration: SAP_Internal_ApplicationConfiguration,
-		activityStateDelegate: ActivityStateProviderDelegate? = nil,
-		completion: (ENExposureDetectionSummary?) -> Void
-	) -> CancellationToken {
-		let token = CancellationToken(onCancel: {})
-		onDetectExposure?(completion)
-		return token
-	}
-
-}
-
+// swiftlint:disable:next type_body_length
 final class RiskProviderTests: XCTestCase {
 
 	func testExposureDetectionIsExecutedIfLastDetectionIsTooOldAndModeIsAutomatic() throws {
@@ -71,26 +41,47 @@ final class RiskProviderTests: XCTestCase {
 			exposureDetectionInterval: duration,
 			detectionMode: .automatic
 		)
-		let exposureSummaryProvider = ExposureSummaryProviderMock()
 
-		let expectThatSummaryIsRequested = expectation(description: "expectThatSummaryIsRequested")
-		exposureSummaryProvider.onDetectExposure = { completion in
-			store.summary = SummaryMetadata(detectionSummary: .init(), date: Date())
-			expectThatSummaryIsRequested.fulfill()
-			completion(.init())
-		}
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success(ENExposureDetectionSummary()))
+
+		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
+		downloadedPackagesStore.open()
+		let client = ClientMock()
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			wifiClient: client,
+			store: store
+		)
+
+		var appConfig = SAP_Internal_ApplicationConfiguration()
+		var parameters = SAP_Internal_ExposureDetectionParametersIOS()
+		parameters.maxExposureDetectionsPerInterval = 1
+		appConfig.iosExposureDetectionParameters = parameters
 
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			exposureSummaryProvider: exposureSummaryProvider,
-			appConfigurationProvider: CachedAppConfigurationMock(),
-			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
+			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskCalculation: RiskCalculationFake(),
+			keyPackageDownload: keyPackageDownload,
+			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
+		let requestRiskExpectation = expectation(description: "")
+		
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+		
+		consumer.didCalculateRisk = { _ in
+			XCTAssertTrue(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
+			requestRiskExpectation.fulfill()
+		}
+		
 		riskProvider.requestRisk(userInitiated: false)
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testExposureDetectionIsNotExecutedIfTracingHasNotBeenEnabledLongEnough() throws {
@@ -125,35 +116,43 @@ final class RiskProviderTests: XCTestCase {
 			exposureDetectionInterval: duration,
 			detectionMode: .automatic
 		)
-		let exposureSummaryProvider = ExposureSummaryProviderMock()
 
-		let expectThatSummaryIsRequested = expectation(description: "expectThatSummaryIsRequested")
-		exposureSummaryProvider.onDetectExposure = { completion in
-			expectThatSummaryIsRequested.fulfill()
-			completion(.init())
-		}
-		expectThatSummaryIsRequested.isInverted = true
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success(ENExposureDetectionSummary()))
+
+		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
+		downloadedPackagesStore.open()
+		let client = ClientMock()
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			wifiClient: client,
+			store: store
+		)
 
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			exposureSummaryProvider: exposureSummaryProvider,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskCalculation: RiskCalculationFake(),
+			keyPackageDownload: keyPackageDownload,
+			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
 		let expectThatRiskIsReturned = expectation(description: "expectThatRiskIsReturned")
-		riskProvider.requestRisk(userInitiated: false) { result in
-
-			switch result {
-			case .success(let risk):
-				expectThatRiskIsReturned.fulfill()
-				XCTAssertEqual(risk.level, .unknownInitial, "Tracing was active for < 24 hours but risk is not .unknownInitial")
-			case .failure:
-				XCTFail("Failure not expected.")
-			}
+		
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+		
+		consumer.didCalculateRisk = { risk in
+			expectThatRiskIsReturned.fulfill()
+			XCTAssertEqual(risk.level, .unknownInitial, "Tracing was active for < 24 hours but risk is not .unknownInitial")
+			XCTAssertFalse(exposureDetectionDelegateStub.exposureDetectionWasExecuted)
 		}
-		waitForExpectations(timeout: 1.0)
+		
+		riskProvider.requestRisk(userInitiated: false)
+
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testThatDetectionIsRequested() throws {
@@ -168,27 +167,30 @@ final class RiskProviderTests: XCTestCase {
 			exposureDetectionInterval: duration
 		)
 
-		let exposureSummaryProvider = ExposureSummaryProviderMock()
-
-		let detectionRequested = expectation(description: "expectThatNoSummaryIsRequested")
-
-		exposureSummaryProvider.onDetectExposure = { completion in
-			completion(ENExposureDetectionSummary())
-			detectionRequested.fulfill()
-		}
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success(ENExposureDetectionSummary()))
 
 		let sapAppConfig = SAP_Internal_ApplicationConfiguration.with {
 			$0.exposureConfig = SAP_Internal_RiskScoreParameters()
 		}
-		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
+
+		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
+		downloadedPackagesStore.open()
+		let client = ClientMock()
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			wifiClient: client,
+			store: store
+		)
 
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			exposureSummaryProvider: exposureSummaryProvider,
-			appConfigurationProvider: cachedAppConfig,
+			appConfigurationProvider: CachedAppConfigurationMock(with: sapAppConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake()
+			riskCalculation: RiskCalculationFake(),
+			keyPackageDownload: keyPackageDownload,
+			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
 		let consumer = RiskConsumer()
@@ -204,7 +206,7 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.observeRisk(consumer)
 		riskProvider.requestRisk(userInitiated: true)
 
-		wait(for: [detectionRequested, didCalculateRiskCalled], timeout: 1.0, enforceOrder: true)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testThatDetectionFails() throws {
@@ -219,27 +221,30 @@ final class RiskProviderTests: XCTestCase {
 			exposureDetectionInterval: duration
 		)
 
-		let exposureSummaryProvider = ExposureSummaryProviderMock()
-
-		let detectionRequested = expectation(description: "expectThatNoSummaryIsRequested")
-
-		exposureSummaryProvider.onDetectExposure = { completion in
-			completion(nil)
-			detectionRequested.fulfill()
-		}
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .failure(DummyError()))
 
 		let sapAppConfig = SAP_Internal_ApplicationConfiguration.with {
 			$0.exposureConfig = SAP_Internal_RiskScoreParameters()
 		}
-		let cachedAppConfig = CachedAppConfigurationMock(appConfigurationResult: .success(sapAppConfig))
+
+		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
+		downloadedPackagesStore.open()
+		let client = ClientMock()
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			wifiClient: client,
+			store: store
+		)
 
 		let sut = RiskProvider(
 			configuration: config,
 			store: store,
-			exposureSummaryProvider: exposureSummaryProvider,
-			appConfigurationProvider: cachedAppConfig,
+			appConfigurationProvider: CachedAppConfigurationMock(with: sapAppConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake()
+			riskCalculation: RiskCalculationFake(),
+			keyPackageDownload: keyPackageDownload,
+			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
 		let consumer = RiskConsumer()
@@ -248,7 +253,7 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		consumer.didCalculateRisk = { _ in
-			XCTFail("didFailCalculateRisk should not be called.")
+			XCTFail("didCalculateRisk should not be called.")
 		}
 
 		consumer.didFailCalculateRisk = { _ in
@@ -257,7 +262,8 @@ final class RiskProviderTests: XCTestCase {
 
 		sut.observeRisk(consumer)
 		sut.requestRisk(userInitiated: true)
-		wait(for: [detectionRequested, didCalculateRiskFailedCalled], timeout: 1.0, enforceOrder: true)
+		
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testShouldShowRiskStatusLoweredAlertIntitiallyFalseIsSetToTrueWhenRiskStatusLowers() throws {
@@ -272,12 +278,11 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
 		waitForExpectations(timeout: .long)
-
 		XCTAssertTrue(store.shouldShowRiskStatusLoweredAlert)
 	}
 
@@ -293,12 +298,11 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
 		waitForExpectations(timeout: .long)
-
 		XCTAssertTrue(store.shouldShowRiskStatusLoweredAlert)
 	}
 
@@ -314,12 +318,11 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
 		waitForExpectations(timeout: .long)
-
 		XCTAssertFalse(store.shouldShowRiskStatusLoweredAlert)
 	}
 
@@ -336,11 +339,12 @@ final class RiskProviderTests: XCTestCase {
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
 		consumer.didCalculateRisk = { risk in
+			XCTAssertTrue(risk.riskLevelHasChanged)
+			XCTAssertEqual(risk.level, .increased)
 			didCalculateRiskExpectation.fulfill()
 		}
 
 		waitForExpectations(timeout: .long)
-
 		XCTAssertFalse(store.shouldShowRiskStatusLoweredAlert)
 	}
 
@@ -356,12 +360,11 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
 		waitForExpectations(timeout: .long)
-
 		XCTAssertTrue(store.shouldShowRiskStatusLoweredAlert)
 	}
 
@@ -377,12 +380,11 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
 		waitForExpectations(timeout: .long)
-
 		XCTAssertFalse(store.shouldShowRiskStatusLoweredAlert)
 	}
 
@@ -398,12 +400,11 @@ final class RiskProviderTests: XCTestCase {
 		riskProvider.requestRisk(userInitiated: false)
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
-		consumer.didCalculateRisk = { risk in
+		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
 		}
 
 		waitForExpectations(timeout: .long)
-
 		XCTAssertTrue(store.shouldShowRiskStatusLoweredAlert)
 	}
 
@@ -420,11 +421,12 @@ final class RiskProviderTests: XCTestCase {
 
 		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
 		consumer.didCalculateRisk = { risk in
+			XCTAssertFalse(risk.riskLevelHasChanged)
+			XCTAssertEqual(risk.level, .increased)
 			didCalculateRiskExpectation.fulfill()
 		}
 
 		waitForExpectations(timeout: .long)
-
 		XCTAssertFalse(store.shouldShowRiskStatusLoweredAlert)
 	}
 
@@ -450,20 +452,25 @@ final class RiskProviderTests: XCTestCase {
 			exposureDetectionInterval: duration,
 			detectionMode: .manual
 		)
-		let exposureSummaryProvider = ExposureSummaryProviderMock()
 
-		exposureSummaryProvider.onDetectExposure = { completion in
-			completion(.init())
-		}
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success(ENExposureDetectionSummary()))
 
-		let appConfigurationProvider = CachedAppConfigurationMock(appConfigurationResult: .success(.riskCalculationAppConfig))
-
+		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore .inMemory()
+		downloadedPackagesStore.open()
+		let client = ClientMock()
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			wifiClient: client,
+			store: store
+		)
 		return RiskProvider(
 			configuration: config,
 			store: store,
-			exposureSummaryProvider: exposureSummaryProvider,
-			appConfigurationProvider: appConfigurationProvider,
-			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
+			appConfigurationProvider: CachedAppConfigurationMock(with: .riskCalculationAppConfig),
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			keyPackageDownload: keyPackageDownload,
+			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 	}
 
@@ -490,3 +497,53 @@ struct RiskCalculationFake: RiskCalculationProtocol {
 		return fakeRisk
 	}
 }
+
+final class ExposureDetectionDelegateStub: ExposureDetectionDelegate {
+
+	private let result: Result<ENExposureDetectionSummary, Error>
+	private let keyPackagesToWrite: WrittenPackages
+
+	var exposureDetectionWasExecuted = false
+
+	init(
+		result: Result<ENExposureDetectionSummary, Error>,
+		keyPackagesToWrite: WrittenPackages = ExposureDetectionDelegateStub.defaultKeyPackages) {
+		self.result = result
+		self.keyPackagesToWrite = keyPackagesToWrite
+	}
+
+	func exposureDetectionWriteDownloadedPackages(country: Country.ID) -> WrittenPackages? {
+		return keyPackagesToWrite
+	}
+
+	func exposureDetection(_ detection: ExposureDetection, detectSummaryWithConfiguration configuration: ENExposureConfiguration, writtenPackages: WrittenPackages, completion: @escaping DetectionHandler) -> Progress {
+		exposureDetectionWasExecuted = true
+		completion(result)
+		return Progress()
+	}
+
+	static var defaultKeyPackages: WrittenPackages {
+		guard let rootDir = try? ExposureDetectionDelegateStub.createRootDirectory() else {
+			fatalError("Could not create root directory.")
+		}
+		let writer = AppleFilesWriter(rootDir: rootDir)
+
+		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
+		_ = writer.writePackage(dummyPackage)
+		return writer.writtenPackages
+	}
+
+	static func createRootDirectory() throws -> URL {
+		let fm = FileManager()
+		let tempDir = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+
+		try fm.createDirectory(
+			atPath: tempDir.path,
+			withIntermediateDirectories: true,
+			attributes: nil
+		)
+		return tempDir
+	}
+}
+
+struct DummyError: Error { }

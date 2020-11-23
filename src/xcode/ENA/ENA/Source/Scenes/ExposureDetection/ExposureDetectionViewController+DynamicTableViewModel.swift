@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import Foundation
 import UIKit
@@ -160,14 +147,6 @@ private extension DynamicCell {
 		}
 	}
 
-	static func riskRefresh(text: String) -> DynamicCell {
-		.exposureDetectionCell(ReusableCellIdentifer.riskRefresh) { viewController, cell, _ in
-			let state = viewController.state
-			cell.backgroundColor = state.riskBackgroundColor
-			cell.textLabel?.text = AppStrings.ExposureDetection.refresh24h
-		}
-	}
-
 	static func riskLoading(text: String) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.riskLoading) { viewController, cell, _ in
 			let state = viewController.state
@@ -233,19 +212,6 @@ extension ExposureDetectionViewController {
 		riskSection(
 			isHidden: { (($0 as? Self)?.state.activityState.isActive ?? false) },
 			cells: cells
-		)
-	}
-
-	private var riskRefreshSection: DynamicSection {
-		riskSection(
-			isHidden: { viewController in
-				guard let state = (viewController as? ExposureDetectionViewController)?.state else { return true }
-				if state.activityState.isActive { return true }
-				return state.detectionMode != .automatic
-			},
-			cells: [
-				.riskRefresh(text: AppStrings.ExposureDetection.refreshingIn)
-			]
 		)
 	}
 
@@ -440,7 +406,6 @@ extension ExposureDetectionViewController {
 			riskDataSection(cells: [
 				.riskText(text: AppStrings.ExposureDetection.unknownText)
 			]),
-			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
 			explanationSection(
@@ -461,7 +426,6 @@ extension ExposureDetectionViewController {
 				.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
 				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 			]),
-			riskRefreshSection,
 			riskLoadingSection,
 			lowRiskExposureSection(
 				numberOfExposures,
@@ -489,7 +453,6 @@ extension ExposureDetectionViewController {
 				.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
 				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 			]),
-			riskRefreshSection,
 			riskLoadingSection,
 			.section(
 				header: .backgroundSpace(height: 16),

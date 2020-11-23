@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import Combine
 import ExposureNotification
@@ -22,79 +9,103 @@ import UIKit
 
 protocol CoronaWarnAppDelegate: AnyObject {
 	var client: HTTPClient { get }
+	var wifiClient: WifiOnlyHTTPClient { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
-	var store: Store & AppConfigCaching { get }
+	var store: Store { get }
 	var appConfigurationProvider: AppConfigurationProviding { get }
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var serverEnvironment: ServerEnvironment { get }
+	var warnOthersReminder: WarnOthersRemindable { get }
 }
 
 extension AppDelegate: CoronaWarnAppDelegate {
 	// required - otherwise app will crash because cast will fail.
 }
 
-extension AppDelegate: ExposureSummaryProvider {
-	func detectExposure(
-		appConfiguration: SAP_Internal_ApplicationConfiguration,
-		activityStateDelegate: ActivityStateProviderDelegate? = nil,
-		completion: @escaping (ENExposureDetectionSummary?) -> Void
-	) -> CancellationToken {
-		Log.info("AppDelegate: Detect exposure.", log: .riskDetection)
+extension AppDelegate {
 
-		exposureDetection = ExposureDetection(
-			delegate: exposureDetectionExecutor,
-			appConfiguration: appConfiguration
-		)
-		
-		exposureDetection?
-			.$activityState
-			.removeDuplicates()
-			.subscribe(on: RunLoop.main)
-			.sink { activityStateDelegate?.provideActivityState($0) }
-			.store(in: &subscriptions)
-
-		let token = CancellationToken { [weak self] in
-			self?.exposureDetection?.cancel()
-		}
-		exposureDetection?.start { [weak self] result in
-			switch result {
-			case .success(let summary):
-				Log.info("AppDelegate: Detect exposure completed", log: .riskDetection)
-				completion(summary)
-			case .failure(let error):
-				Log.error("AppDelegate: Detect exposure failed", log: .riskDetection, error: error)
-				self?.showError(exposure: error)
-				completion(nil)
-			}
-			self?.exposureDetection = nil
-		}
-		return token
-	}
-
-	private func showError(exposure didEndPrematurely: ExposureDetection.DidEndPrematurelyReason) {
-
+	func showError(_ riskProviderError: RiskProviderError) {
 		guard
 			let scene = UIApplication.shared.connectedScenes.first,
 			let delegate = scene.delegate as? SceneDelegate,
-			let rootController = delegate.window?.rootViewController,
-			let alert = didEndPrematurely.errorAlertController(rootController: rootController)
+			let rootController = delegate.window?.rootViewController
 		else {
 			return
 		}
 
-		func _showError() {
+		guard let alert = makeErrorAlert(
+				riskProviderError: riskProviderError,
+				rootController: rootController
+		) else {
+			return
+		}
+
+		func presentAlert() {
 			rootController.present(alert, animated: true, completion: nil)
 		}
 
 		if rootController.presentedViewController != nil {
 			rootController.dismiss(
 				animated: true,
-				completion: _showError
+				completion: presentAlert
 			)
 		} else {
-			rootController.present(alert, animated: true, completion: nil)
+			presentAlert()
+		}
+	}
+
+	private func makeErrorAlert(riskProviderError: RiskProviderError, rootController: UIViewController) -> UIAlertController? {
+		switch riskProviderError {
+		case .failedRiskDetection(let didEndPrematurelyReason):
+			switch didEndPrematurelyReason {
+			case let .noSummary(error):
+				return makeAlertController(
+					noSummaryError: error,
+					localizedDescription: didEndPrematurelyReason.localizedDescription,
+					rootController: rootController
+				)
+			case .wrongDeviceTime:
+				return rootController.setupErrorAlert(message: didEndPrematurelyReason.localizedDescription)
+			default:
+				return nil
+			}
+		case .failedKeyPackageDownload(let downloadError):
+			switch downloadError {
+			case .noDiskSpace:
+				return rootController.setupErrorAlert(message: downloadError.description)
+			default:
+				return nil
+			}
+		default:
+			return nil
+		}
+	}
+
+	private func makeAlertController(noSummaryError: Error?, localizedDescription: String, rootController: UIViewController) -> UIAlertController? {
+
+		if let enError = noSummaryError as? ENError {
+			let openFAQ: (() -> Void)? = {
+				guard let url = enError.faqURL else { return nil }
+				return {
+					UIApplication.shared.open(url, options: [:])
+				}
+			}()
+			return rootController.setupErrorAlert(
+				message: localizedDescription,
+				secondaryActionTitle: AppStrings.Common.errorAlertActionMoreInfo,
+				secondaryActionCompletion: openFAQ
+			)
+		} else if let exposureDetectionError = noSummaryError as? ExposureDetectionError {
+			switch exposureDetectionError {
+			case .isAlreadyRunning:
+				return nil
+			}
+		} else {
+			return rootController.setupErrorAlert(
+				message: localizedDescription
+			)
 		}
 	}
 }
@@ -102,11 +113,13 @@ extension AppDelegate: ExposureSummaryProvider {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-	let store: Store & AppConfigCaching
+	let store: Store
 	let serverEnvironment: ServerEnvironment
-	
-	private let consumer = RiskConsumer()
+
+	let warnOthersReminder: WarnOthersRemindable
+
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
+	let backgroundTaskConsumer = RiskConsumer()
 
 	lazy var appConfigurationProvider: AppConfigurationProviding = {
 		#if DEBUG
@@ -118,27 +131,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// use a custom http client that uses/recognized caching mechanisms
 		let appFetchingClient = CachingHTTPClient(clientConfiguration: client.configuration)
 		
-		return CachedAppConfiguration(client: appFetchingClient, store: store, configurationDidChange: { [weak self] in
+		let provider = CachedAppConfiguration(client: appFetchingClient, store: store, configurationDidChange: { [weak self] in
 			// Recalculate risk with new app configuration
 			self?.riskProvider.requestRisk(userInitiated: false, ignoreCachedSummary: true)
 		})
+		// used to remove invalidated key packages
+		provider.packageStore = downloadedPackagesStore
+		return provider
 	}()
 
 	lazy var riskProvider: RiskProvider = {
-		let exposureDetectionInterval = self.store.hourlyFetchingEnabled ? DateComponents(minute: 45) : DateComponents(hour: 24)
 
-		let config = RiskProvidingConfiguration(
-			exposureDetectionValidityDuration: DateComponents(day: 2),
-			exposureDetectionInterval: exposureDetectionInterval,
-			detectionMode: .default
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			wifiClient: wifiClient,
+			store: store
 		)
 
 		return RiskProvider(
-			configuration: config,
-			store: self.store,
-			exposureSummaryProvider: self,
+			configuration: .default,
+			store: store,
 			appConfigurationProvider: appConfigurationProvider,
-			exposureManagerState: self.exposureManager.preconditions()
+			exposureManagerState: exposureManager.preconditions(),
+			keyPackageDownload: keyPackageDownload,
+			exposureDetectionExecutor: exposureDetectionExecutor
 		)
 	}()
 
@@ -154,11 +171,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	#endif
 
 	private var exposureDetection: ExposureDetection?
-	private var subscriptions = Set<AnyCancellable>()
+	private let consumer = RiskConsumer()
 
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
 	let client: HTTPClient
+	let wifiClient: WifiOnlyHTTPClient
 
 	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
 		ExposureDetectionExecutor(
@@ -173,9 +191,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		self.serverEnvironment = ServerEnvironment()
 
 		self.store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
+		self.warnOthersReminder = WarnOthersReminder(store: self.store)
 
 		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
 		self.client = HTTPClient(configuration: configuration)
+		self.wifiClient = WifiOnlyHTTPClient(configuration: configuration)
 
 		#if !RELEASE
 		downloadedPackagesStore.keyValueStore = self.store
@@ -186,14 +206,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		_: UIApplication,
 		didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
+
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
 		taskScheduler.delegate = self
 
-		riskProvider.observeRisk(consumer)
-		
 		// Setup DeadmanNotification after AppLaunch
 		UNUserNotificationCenter.current().scheduleDeadmanNotificationIfNeeded()
+
+		consumer.didFailCalculateRisk = { [weak self] error in
+			self?.showError(error)
+		}
+		riskProvider.observeRisk(consumer)
 
 		return true
 	}

@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import ExposureNotification
 import Foundation
@@ -29,8 +16,8 @@ protocol Client {
 	typealias RegistrationHandler = (Result<String, Failure>) -> Void
 	typealias TestResultHandler = (Result<Int, Failure>) -> Void
 	typealias TANHandler = (Result<String, Failure>) -> Void
-	typealias DayCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
-	typealias HourCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
+	typealias DayCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
+	typealias HourCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
 
 	// MARK: Interacting with a Client
@@ -61,14 +48,6 @@ protocol Client {
 		_ day: String,
 		forCountry country: String,
 		completion: @escaping DayCompletionHandler
-	)
-
-	/// Fetches the keys for a given `hour` of a specific `day`.
-	func fetchHour(
-		_ hour: Int,
-		day: String,
-		country: String,
-		completion: @escaping HourCompletionHandler
 	)
 
 	// MARK: Getting the Configuration
@@ -137,6 +116,16 @@ extension SubmissionError: LocalizedError {
 	}
 }
 
+/// A container for a downloaded `SAPDownloadedPackage` and its corresponding `ETag`, if given.
+struct PackageDownloadResponse {
+	let package: SAPDownloadedPackage
+
+	/// The response ETag
+	///
+	/// This is used to identify and revoke packages.
+	let etag: String?
+}
+
 /// Combined model for a submit keys request
 struct CountrySubmissionPayload {
 
@@ -152,34 +141,35 @@ struct CountrySubmissionPayload {
 
 struct DaysResult {
 	let errors: [Client.Failure]
-	let bucketsByDay: [String: SAPDownloadedPackage]
+	let bucketsByDay: [String: PackageDownloadResponse]
 }
 
 struct HoursResult {
 	let errors: [Client.Failure]
-	let bucketsByHour: [Int: SAPDownloadedPackage]
+	let bucketsByHour: [Int: PackageDownloadResponse]
 	let day: String
 }
 
 struct FetchedDaysAndHours {
 	let hours: HoursResult
 	let days: DaysResult
-	var allKeyPackages: [SAPDownloadedPackage] {
+	var allKeyPackages: [PackageDownloadResponse] {
 		Array(hours.bucketsByHour.values) + Array(days.bucketsByDay.values)
 	}
 }
 
 extension Client {
+	typealias FetchDaysCompletionHandler = (DaysResult) -> Void
 	typealias FetchHoursCompletionHandler = (HoursResult) -> Void
 
 	/// Fetch the keys with the given days and country code
 	func fetchDays(
 			_ days: [String],
 			forCountry country: String,
-			completion completeWith: @escaping (DaysResult) -> Void
+			completion completeWith: @escaping FetchDaysCompletionHandler
 	) {
 		var errors = [Client.Failure]()
-		var buckets = [String: SAPDownloadedPackage]()
+		var buckets = [String: PackageDownloadResponse]()
 
 		let group = DispatchGroup()
 		for day in days {
@@ -206,62 +196,4 @@ extension Client {
 		}
 	}
 
-	func fetchDays(
-		_ days: [String],
-		hours: [Int],
-		of day: String,
-		country: String,
-		completion completeWith: @escaping DaysAndHoursCompletionHandler
-	) {
-		let group = DispatchGroup()
-		var hoursResult = HoursResult(errors: [], bucketsByHour: [:], day: day)
-		var daysResult = DaysResult(errors: [], bucketsByDay: [:])
-
-		group.enter()
-		fetchDays(days, forCountry: country) { result in
-			daysResult = result
-			group.leave()
-		}
-
-		group.enter()
-		fetchHours(hours, day: day, country: country) { result in
-			hoursResult = result
-			group.leave()
-		}
-		group.notify(queue: .main) {
-			completeWith(FetchedDaysAndHours(hours: hoursResult, days: daysResult))
-		}
-	}
-
-	func fetchHours(
-		_ hours: [Int],
-		day: String,
-		country: String,
-		completion completeWith: @escaping FetchHoursCompletionHandler
-	) {
-		var errors = [Client.Failure]()
-		var buckets = [Int: SAPDownloadedPackage]()
-		let group = DispatchGroup()
-
-		hours.forEach { hour in
-			group.enter()
-			self.fetchHour(hour, day: day, country: country) { result in
-				switch result {
-				case let .success(hourBucket):
-					buckets[hour] = hourBucket
-				case let .failure(error):
-					errors.append(error)
-				}
-				group.leave()
-			}
-		}
-
-		group.notify(queue: .main) {
-			completeWith(
-				HoursResult(errors: errors, bucketsByHour: buckets, day: day)
-			)
-		}
-	}
-
-	typealias DaysAndHoursCompletionHandler = (FetchedDaysAndHours) -> Void
 }

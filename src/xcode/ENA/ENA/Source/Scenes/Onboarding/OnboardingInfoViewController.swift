@@ -1,21 +1,9 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import UIKit
+import Combine
 import UserNotifications
 import ExposureNotification
 
@@ -104,6 +92,8 @@ final class OnboardingInfoViewController: UIViewController {
 	private var onboardingInfos = OnboardingInfo.testData()
 	private var exposureManagerActivated = false
 
+	private var subscriptions = [AnyCancellable]()
+
 	@IBAction private func didTapNextButton(_: Any) {
 		nextButton.isUserInteractionEnabled = false
 		runActionForPageType(
@@ -155,21 +145,13 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	private func loadCountryList() {
-		appConfigurationProvider.appConfiguration { [weak self] result in
-			var supportedCountryIDs: [String]
-
-			switch result {
-			case .success(let applicationConfiguration):
-				supportedCountryIDs = applicationConfiguration.supportedCountries
-			case .failure(let error):
-				Log.error("Error while loading app configuration: \(error).", log: .api)
-				supportedCountryIDs = []
-			}
+		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
+			let supportedCountryIDs = configuration.supportedCountries
 
 			let supportedCountries = supportedCountryIDs.compactMap { Country(countryCode: $0) }
 			self?.supportedCountries = supportedCountries
 				.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
-		}
+		}.store(in: &subscriptions)
 	}
 
 	private func updateUI(exposureManagerState: ExposureManagerState) {
