@@ -10,11 +10,10 @@ class ExposureSubmissionTestResultConsentViewController: DynamicTableViewControl
 	// MARK: - Init
 	
 	init(
-		supportedCountries: [Country],
-		exposureSubmissionService: ExposureSubmissionService
+		_ viewModel: ExposureSubmissionTestResultConsentViewModel
 	) {
 				
-		self.viewModel = ExposureSubmissionTestResultConsentViewModel(supportedCountries: supportedCountries, exposureSubmissionService: exposureSubmissionService)
+		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
 	}
 	

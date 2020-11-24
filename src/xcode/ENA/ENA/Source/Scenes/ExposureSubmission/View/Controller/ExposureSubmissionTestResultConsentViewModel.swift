@@ -53,7 +53,10 @@ class ExposureSubmissionTestResultConsentViewModel {
 							color: nil,
 							accessibilityIdentifier: nil,
 							accessibilityTraits: .header,
-							configure: { _, cell, _ in
+							configure: {[weak self] _, cell, _ in
+								guard let self = self else {
+									return
+								}
 								cell.accessoryView = self.consentSwitch
 								self.consentSwitch.onTintColor = .enaColor(for: .tint)
 								self.consentSwitch.addTarget(self, action: #selector(self.consentStateChanged), for: .valueChanged)
@@ -63,7 +66,10 @@ class ExposureSubmissionTestResultConsentViewModel {
 						.custom(
 							withIdentifier: ExposureSubmissionTestResultConsentViewController.CustomCellReuseIdentifiers.consentCell,
 							action: .none,
-							accessoryAction: .none) { _, cell, _ in
+							accessoryAction: .none) {[weak self] _, cell, _ in
+								guard let self = self else {
+									return
+								}
 								if let consentCell = cell as? DynamicTableViewConsentCell {
 									consentCell.configure(
 										subTitleLabel: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentSubTitle),

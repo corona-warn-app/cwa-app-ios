@@ -211,6 +211,7 @@
 		5222AA68255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5222AA67255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift */; };
 		5222AA70255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5222AA6F255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift */; };
 		524C4292256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524C4291256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift */; };
+		5270E9B8256D20A900B08606 /* NSTextAttachment+ImageHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5270E9B7256D20A900B08606 /* NSTextAttachment+ImageHeight.swift */; };
 		52CAAC012562B82E00239DCB /* DynamicTableViewConsentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52CAAC002562B82E00239DCB /* DynamicTableViewConsentCell.swift */; };
 		52EAAB512566BB0500204373 /* ExposureSubmission+TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA9E39224D2F2920030561C /* ExposureSubmission+TestResult.swift */; };
 		710021DC248E44A6001F0B63 /* ENAFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710021DB248E44A6001F0B63 /* ENAFont.swift */; };
@@ -821,6 +822,7 @@
 		5222AA67255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultConsentViewController.swift; sourceTree = "<group>"; };
 		5222AA6F255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultConsentViewModel.swift; sourceTree = "<group>"; };
 		524C4291256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultConsentViewModelTests.swift; sourceTree = "<group>"; };
+		5270E9B7256D20A900B08606 /* NSTextAttachment+ImageHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+ImageHeight.swift"; sourceTree = "<group>"; };
 		52CAAC002562B82E00239DCB /* DynamicTableViewConsentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewConsentCell.swift; sourceTree = "<group>"; };
 		710021DB248E44A6001F0B63 /* ENAFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAFont.swift; sourceTree = "<group>"; };
 		710021DD248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExposureSubmissionImageCardCell.xib; sourceTree = "<group>"; };
@@ -1741,6 +1743,7 @@
 				B153096924706F1000A4A1BD /* URLSession+Default.swift */,
 				B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */,
 				AB7E2A7F255ACC06005C90F6 /* Date+Utils.swift */,
+				5270E9B7256D20A900B08606 /* NSTextAttachment+ImageHeight.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3527,6 +3530,7 @@
 				710224EA248FA67F000C5DEF /* HomeTestResultCollectionViewCell.swift in Sources */,
 				9417BA95252B6B5100AD4053 /* DMSQLiteErrorViewController.swift in Sources */,
 				013DC102245DAC4E00EE58B0 /* Store.swift in Sources */,
+				5270E9B8256D20A900B08606 /* NSTextAttachment+ImageHeight.swift in Sources */,
 				B1FE13EF24891D0C00D012E5 /* RiskProvidingConfiguration.swift in Sources */,
 				51CE1B89246078B6002CF42A /* RiskLevelCollectionViewCell.swift in Sources */,
 				B1F82DF224718C7300E2E56A /* DMBackendConfigurationViewController.swift in Sources */,

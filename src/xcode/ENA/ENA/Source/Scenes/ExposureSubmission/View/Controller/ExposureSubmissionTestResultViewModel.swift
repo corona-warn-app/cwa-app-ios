@@ -348,7 +348,10 @@ class ExposureSubmissionTestResultViewModel {
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Grey_Warnen"),
 						text: .string(self.submissionConsentLabel),
-						action: .execute { _, cell in
+						action: .execute {[weak self] _, cell in
+							guard let self = self else {
+								return
+							}
 							self.onSubmissionConsentButtonTap { isLoading in
 								let activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
 								activityIndicatorView.startAnimating()

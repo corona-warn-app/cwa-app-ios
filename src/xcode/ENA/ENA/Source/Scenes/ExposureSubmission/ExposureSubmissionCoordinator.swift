@@ -490,7 +490,8 @@ extension ExposureSubmissionCoordinator {
 	}
 	
 	private func createTestResultConsentViewController() -> ExposureSubmissionTestResultConsentViewController {
-		return ExposureSubmissionTestResultConsentViewController(supportedCountries: self.model.supportedCountries, exposureSubmissionService: self.model.exposureSubmissionService)
+		let viewModel = ExposureSubmissionTestResultConsentViewModel(supportedCountries: self.model.supportedCountries, exposureSubmissionService: self.model.exposureSubmissionService)
+		return ExposureSubmissionTestResultConsentViewController(viewModel)
 	}
 
 }
