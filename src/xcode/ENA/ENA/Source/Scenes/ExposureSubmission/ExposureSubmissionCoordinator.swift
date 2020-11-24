@@ -130,8 +130,8 @@ extension ExposureSubmissionCoordinator {
 	func createTestResultavailableViewController() -> UIViewController {
 		let viewModel = TestResultAvailableViewModel(
 			store,
-			didTapConsentCell: {
-				Log.debug("consent cell hit")
+			didTapConsentCell: { [weak self] in
+				self?.presentTestResultConsentViewController()
 			},
 			didTapPrimaryFooterButton: {
 				Log.debug("primary footer button hit")
