@@ -97,7 +97,7 @@ struct ExposureSubmissionQRInfoViewModel {
 
 	// MARK: - Private
 
-	let countries: [Country]
+	private let countries: [Country]
 
 	private var bulletPoints: [NSAttributedString] {
 		var points = [NSAttributedString]()

@@ -7,11 +7,11 @@ import UIKit
 @IBDesignable
 class DynamicAcknowledgementCell: UITableViewCell {
 
-	@IBOutlet var cardView: UIView!
-	@IBOutlet var titleLabel: ENALabel!
-	@IBOutlet var descriptionLabel: ENALabel!
+	@IBOutlet private var cardView: UIView!
+	@IBOutlet private var titleLabel: ENALabel!
+	@IBOutlet private var descriptionLabel: ENALabel!
 
-	@IBOutlet var contentStackView: UIStackView!
+	@IBOutlet private var contentStackView: UIStackView!
 
 	static let reuseIdentifier = "DynamicAcknowledgementCell"
 

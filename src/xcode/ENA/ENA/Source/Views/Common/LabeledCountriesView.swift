@@ -7,6 +7,8 @@ import UIKit
 @IBDesignable
 class LabeledCountriesView: UIView {
 
+	// MARK: - Properties
+
 	var countries: [Country] = [] {
 		didSet {
 			update()
@@ -21,6 +23,8 @@ class LabeledCountriesView: UIView {
 	let flagLabel = ENALabel()
 	let nameLabel = ENALabel()
 
+	// MARK: - Init
+
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		setup()
@@ -30,6 +34,8 @@ class LabeledCountriesView: UIView {
 		super.init(coder: coder)
 		setup()
 	}
+
+	// MARK: - Private
 
 	private func setup() {
 		translatesAutoresizingMaskIntoConstraints = false
