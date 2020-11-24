@@ -7,7 +7,7 @@ import UIKit
 @IBDesignable
 class LabeledCountriesCell: UITableViewCell {
 
-	@IBOutlet var countriesView: LabeledCountriesView!
+	@IBOutlet private var countriesView: LabeledCountriesView!
 
 	static let reuseIdentifier = "LabeledCountriesCell"
 
