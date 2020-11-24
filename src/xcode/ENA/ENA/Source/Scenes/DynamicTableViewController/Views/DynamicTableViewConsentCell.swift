@@ -35,6 +35,7 @@ class DynamicTableViewConsentCell: UITableViewCell {
 	}
 	
 	private func setup() {
+		isAccessibilityElement = false
 		
 		// MARK: - General cell setup.
 		selectionStyle = .none
@@ -115,6 +116,7 @@ class DynamicTableViewConsentCell: UITableViewCell {
 		consentStackView.setCustomSpacing(16, after: seperatorView1)
 		consentStackView.setCustomSpacing(16, after: flagCountriesLabel)
 		consentStackView.setNeedsUpdateConstraints()
+		accessibilityElements = [subTitleLabel, descriptionPart1Label, descriptionPart2Label, flagCountriesLabel, descriptionPart3Label, descriptionPart4Label]
 	}
 	
 	
