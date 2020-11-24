@@ -81,7 +81,7 @@
 
 "ExposureDetection_Behavior_Title" = "Verhalten";
 
-"ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig";
+"ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig:";
 
 "ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig mit Seife für 20 Sekunden.";
 
@@ -103,7 +103,7 @@
 
 "ExposureDetection_Explanation_Title" = "Infektionsrisiko";
 
-"ExposureDetection_Explanation_Subtitle" = "So wird Ihr Risiko ermittelt";
+"ExposureDetection_Explanation_Subtitle" = "So wird Ihr Risiko ermittelt.";
 
 "ExposureDetection_Explanation_Text_Off" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
