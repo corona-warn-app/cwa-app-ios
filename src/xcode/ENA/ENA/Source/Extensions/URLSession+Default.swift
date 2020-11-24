@@ -18,7 +18,7 @@ extension URLSession {
 		return URLSession(
 			configuration: .coronaWarnSessionConfiguration(),
 			delegate: coronaWarnURLSessionDelegate,
-			delegateQueue: .main
+			delegateQueue: nil
 		)
 		
 	}
