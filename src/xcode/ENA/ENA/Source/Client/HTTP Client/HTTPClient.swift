@@ -39,32 +39,34 @@ final class HTTPClient: Client {
 	) {
 		let url = configuration.availableHoursURL(day: day, country: country)
 
-		session.GET(url) { result in
-			switch result {
-			case let .success(response):
-				// We accept 404 responses since this can happen in case there
-				// have not been any new cases reported on that day.
-				// We don't report this as an error to simplify things for the consumer.
-				guard response.statusCode != 404 else {
-					completeWith(.success([]))
-					return
-				}
+		session.GET(url) { [weak self] result in
+			self?.queue.async {
+				switch result {
+				case let .success(response):
+					// We accept 404 responses since this can happen in case there
+					// have not been any new cases reported on that day.
+					// We don't report this as an error to simplify things for the consumer.
+					guard response.statusCode != 404 else {
+						completeWith(.success([]))
+						return
+					}
 
-				guard let data = response.body else {
-					completeWith(.failure(.invalidResponse))
-					return
-				}
+					guard let data = response.body else {
+						completeWith(.failure(.invalidResponse))
+						return
+					}
 
-				do {
-					let decoder = JSONDecoder()
-					let hours = try decoder.decode([Int].self, from: data)
-					completeWith(.success(hours))
-				} catch {
-					completeWith(.failure(.invalidResponse))
-					return
+					do {
+						let decoder = JSONDecoder()
+						let hours = try decoder.decode([Int].self, from: data)
+						completeWith(.success(hours))
+					} catch {
+						completeWith(.failure(.invalidResponse))
+						return
+					}
+				case let .failure(error):
+					completeWith(.failure(error))
 				}
-			case let .failure(error):
-				completeWith(.failure(error))
 			}
 		}
 	}
