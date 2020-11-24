@@ -11,7 +11,7 @@ import CryptoKit
 final class HTTPClientDaysAndHoursTests: XCTestCase {
 	let binFileSize = 501
 	let sigFileSize = 144
-	let expectationsTimeout: TimeInterval = 2
+	let expectationsTimeout: TimeInterval = 5
 	let mockUrl = URL(staticString: "http://example.com")
 	let tan = "1234"
 
@@ -166,7 +166,8 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		WifiOnlyHTTPClient.with(mock: stack).fetchHour(1, day: "2020-05-01", country: "IT") { result in
+		let httpClient = WifiOnlyHTTPClient.with(mock: stack)
+		httpClient.fetchHour(1, day: "2020-05-01", country: "IT") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case let .success(sapPackage):
@@ -190,7 +191,8 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		HTTPClient.makeWith(mock: stack).fetchDay("2020-05-01", forCountry: "IT") { result in
+		let httpClient = HTTPClient.makeWith(mock: stack)
+		httpClient.fetchDay("2020-05-01", forCountry: "IT") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case let .success(sapPackage):
@@ -212,7 +214,8 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		HTTPClient.makeWith(mock: stack).fetchDay("2020-05-01", forCountry: "IT") { result in
+		let httpClient = HTTPClient.makeWith(mock: stack)
+		httpClient.fetchDay("2020-05-01", forCountry: "IT") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success:
