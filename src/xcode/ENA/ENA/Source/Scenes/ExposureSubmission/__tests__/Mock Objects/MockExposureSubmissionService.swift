@@ -19,6 +19,10 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 	var acceptPairingCallback: (() -> Void)?
 
 	// MARK: - ExposureSubmissionService methods.
+	
+	func setSubmissionConsentGiven(consentGiven: Bool) {
+		self.isSubmissionConsentGiven = consentGiven
+	}
 
 	func submitExposure(symptomsOnset: SymptomsOnset, visitedCountries: [Country], completionHandler: @escaping ExposureSubmissionHandler) {
 		submitExposureCallback?(symptomsOnset, visitedCountries, completionHandler)
@@ -54,7 +58,10 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 
 	var devicePairingSuccessfulTimestamp: Int64?
 	
-	var isSubmissionConsentGiven = false
+	// Needed to use a publisher in the protocal
+	@Published var isSubmissionConsentGiven: Bool = false
+	
+	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { $isSubmissionConsentGiven }
 
 	func preconditions() -> ExposureManagerState {
 		return preconditionsCallback?() ?? ExposureManagerState(authorized: false, enabled: false, status: .unknown)

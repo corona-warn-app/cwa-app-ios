@@ -105,8 +105,16 @@ extension ExposureSubmissionCoordinator {
 	/// Option 3: (default) return the ExposureSubmissionIntroViewController.
 	private func getInitialViewController(with result: TestResult? = nil) -> UIViewController {
 		#if DEBUG
-		if isUITesting, ProcessInfo.processInfo.arguments.contains("-negativeResult") {
-			return createTestResultViewController(with: .negative)
+		if isUITesting {
+			model.exposureSubmissionService.setSubmissionConsentGiven(consentGiven: false)
+			if UserDefaults.standard.string(forKey: "isSubmissionConsentGiven") == "YES" {
+				model.exposureSubmissionService.setSubmissionConsentGiven(consentGiven: true)
+			}
+			
+			if let testResultStringValue = UserDefaults.standard.string(forKey: "testResult"),
+			   let testResult = TestResult(stringValue: testResultStringValue) {
+				return createTestResultViewController(with: testResult)
+			}
 		}
 		#endif
 		// We got a test result and can jump straight into the test result view controller.
@@ -238,11 +246,27 @@ extension ExposureSubmissionCoordinator {
 				},
 				onTestDeleted: { [weak self] in
 					self?.dismiss()
+				},
+				onSubmissionConsentButtonTap: { [weak self] isLoading in
+					self?.model.checkStateAndLoadCountries(
+						isLoading: isLoading,
+						onSuccess: {
+							self?.showTestResultSubmissionConsentScreen()
+						},
+						onError: { error in
+							self?.showErrorAlert(for: error)
+						}
+					)
 				}
-			)
+			), exposureSubmissionService: self.model.exposureSubmissionService
 		)
 	}
 
+	func showTestResultSubmissionConsentScreen() {
+		let vc = createTestResultConsentViewController()
+		push(vc)
+	}
+	
 	func showHotlineScreen() {
 		let vc = createHotlineViewController()
 		push(vc)
@@ -505,6 +529,11 @@ extension ExposureSubmissionCoordinator {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSuccessViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionSuccessViewController(warnOthersReminder: self.warnOthersReminder, coder: coder, coordinator: self)
 		}
+	}
+	
+	private func createTestResultConsentViewController() -> ExposureSubmissionTestResultConsentViewController {
+		let viewModel = ExposureSubmissionTestResultConsentViewModel(supportedCountries: self.model.supportedCountries, exposureSubmissionService: self.model.exposureSubmissionService)
+		return ExposureSubmissionTestResultConsentViewController(viewModel)
 	}
 
 }

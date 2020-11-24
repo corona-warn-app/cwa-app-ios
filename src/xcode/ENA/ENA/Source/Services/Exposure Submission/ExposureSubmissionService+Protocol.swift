@@ -14,8 +14,9 @@ protocol ExposureSubmissionService: class {
 	var devicePairingConsentAcceptTimestamp: Int64? { get }
 	var devicePairingSuccessfulTimestamp: Int64? { get }
 	
-	/// Indicates wether the user allowed to submit test results automatically to the federation gateway or not. Defaults to `false`.
-	var isSubmissionConsentGiven: Bool { get set }
+	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { get }
+	
+	func setSubmissionConsentGiven(consentGiven: Bool)
 	
 	func submitExposure(
 		symptomsOnset: SymptomsOnset,

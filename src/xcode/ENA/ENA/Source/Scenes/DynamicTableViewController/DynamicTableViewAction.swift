@@ -10,5 +10,5 @@ enum DynamicAction {
 	case call(number: String)
 	case open(url: URL?)
 	case perform(segue: SegueIdentifiers)
-	case execute(block: (_ viewController: UIViewController) -> Void)
+	case execute(block: (_ viewController: UIViewController, _ cell: UITableViewCell?) -> Void)
 }

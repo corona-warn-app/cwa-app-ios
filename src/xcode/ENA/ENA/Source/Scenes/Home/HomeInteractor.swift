@@ -410,7 +410,7 @@ extension HomeInteractor {
 		
 		// Do warn others reminder evaluation
 		if let testResult = testResult {
-			self.warnOthersReminder.evaluateNotificationState(testResult: testResult)
+			WarnOthersReminder(store: store).evaluateNotificationState(testResult: testResult)
 		}
 		
 		// Avoid unnecessary loading.
@@ -455,7 +455,8 @@ extension HomeInteractor {
 						self?.testResult = testResult
 						self?.reloadTestResult(with: testResult)
 					}
-					self?.warnOthersReminder.evaluateNotificationState(testResult: testResult)
+					guard let store = self?.store else { return }
+					WarnOthersReminder(store: store).evaluateNotificationState(testResult: testResult)
 				}
 			}
 		}

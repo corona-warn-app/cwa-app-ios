@@ -21,7 +21,8 @@ import UIKit
 
 /// The `WarnOthers` class  behaves as a facade and encaplsulate all relevant logic whether to schedule or not to schedule warn others notifications about a positiv test result.
 /// So you only need to pass the result into `evaluateNotificationState(testResult: TestResult)` and all scheduling is managed.
-/// Notification scheduling - the app will inform the user 2 times to warn others.
+///
+/// Notification scheduling - the app will inform the user 2 times to warn others. These notifications only will get scheduled, if the user not yet has given consent to warn others.
 /// WarnOthers always is related to one concrete test result, which always needs to be a positive one.
 class WarnOthersReminder: WarnOthersRemindable {
 	
@@ -29,7 +30,6 @@ class WarnOthersReminder: WarnOthersRemindable {
 
 	init(store: Store) {
 		self.store = store
-		self.hasPositiveTestResult = store.warnOthersHasActiveTestResult
 	}
 
 	// MARK: - Protocol WarnOthersRemindable
@@ -41,6 +41,10 @@ class WarnOthersReminder: WarnOthersRemindable {
 		set {
 			store.warnOthersHasActiveTestResult = newValue
 		}
+	}
+	
+	var isSubmissionConsentGiven: Bool {
+			return store.isSubmissionConsentGiven
 	}
 
 	/// Notification timer in seconds for notification one
@@ -71,6 +75,8 @@ class WarnOthersReminder: WarnOthersRemindable {
 		
 		// We are "clean" to go. So lock the door until result was removed
 		hasPositiveTestResult = true
+		
+		guard !isSubmissionConsentGiven else { return }
 		
 		scheduleNotifications()
 	}
