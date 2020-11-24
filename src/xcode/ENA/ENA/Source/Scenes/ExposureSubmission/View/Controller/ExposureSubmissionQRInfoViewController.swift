@@ -8,7 +8,7 @@ import UIKit
 class ExposureSubmissionQRInfoViewController: DynamicTableViewController {
 	
 	// MARK: - Init
-
+	
 	init(
 		supportedCountries: [Country],
 		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
