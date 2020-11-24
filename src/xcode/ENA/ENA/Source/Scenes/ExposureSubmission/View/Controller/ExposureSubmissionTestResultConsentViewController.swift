@@ -29,7 +29,13 @@ class ExposureSubmissionTestResultConsentViewController: DynamicTableViewControl
 		self.title = AppStrings.AutomaticSharingConsent.consentTitle
 		setupView()
 	}
-	
+
+	// MARK: - Internal
+
+	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case consentCell = "ConsentCellReuseIdentifier"
+	}
+
 	// MARK: - Private
 	
 	private let viewModel: ExposureSubmissionTestResultConsentViewModel
@@ -46,11 +52,5 @@ class ExposureSubmissionTestResultConsentViewController: DynamicTableViewControl
 			DynamicTableViewConsentCell.self,
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.consentCell.rawValue
 		)
-	}
-}
-
-extension ExposureSubmissionTestResultConsentViewController {
-	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case consentCell
 	}
 }
