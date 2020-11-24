@@ -77,7 +77,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 	private func setUpBindings() {
 		viewModel.$dynamicTableViewModel
-			.receive(on: RunLoop.main)
 			.sink { [weak self] dynamicTableViewModel in
 				self?.dynamicTableViewModel = dynamicTableViewModel
 				self?.tableView.reloadData()
@@ -85,7 +84,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 			.store(in: &bindings)
 
 		viewModel.$shouldShowDeletionConfirmationAlert
-			.receive(on: RunLoop.main)
 			.sink { [weak self] shouldShowDeletionConfirmationAlert in
 				guard let self = self, shouldShowDeletionConfirmationAlert else { return }
 
@@ -96,7 +94,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 			.store(in: &bindings)
 
 		viewModel.$error
-			.receive(on: RunLoop.main)
 			.sink { [weak self] error in
 				guard let self = self, let error = error else { return }
 

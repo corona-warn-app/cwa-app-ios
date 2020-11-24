@@ -320,15 +320,9 @@ extension ExposureSubmissionCoordinator {
 			onPrimaryButtonTap: { [weak self] isLoading in
 				self?.model.warnOthersConsentGiven(
 					isLoading: isLoading,
-					onSuccess: {
-						DispatchQueue.main.async {
-							self?.showThankYouScreen()
-						}
-					},
+					onSuccess: { self?.showThankYouScreen() },
 					onError: { error in
-						DispatchQueue.main.async {
-							self?.showErrorAlert(for: error)
-						}
+						self?.showErrorAlert(for: error)
 					}
 				)
 			}
@@ -372,11 +366,7 @@ extension ExposureSubmissionCoordinator {
 		model.getTestResults(
 			for: key,
 			isLoading: isLoading,
-			onSuccess: { [weak self] testResult in
-				DispatchQueue.main.async {
-					self?.showTestResultScreen(with: testResult)
-				}
-			},
+			onSuccess: { [weak self] in self?.showTestResultScreen(with: $0) },
 			onError: { [weak self] error in
 				let alert: UIAlertController
 
@@ -408,9 +398,7 @@ extension ExposureSubmissionCoordinator {
 					)
 				}
 
-				DispatchQueue.main.async {
-					self?.navigationController?.present(alert, animated: true, completion: nil)
-				}
+				self?.navigationController?.present(alert, animated: true, completion: nil)
 
 				Log.error("An error occurred during result fetching: \(error)", log: .ui)
 			}

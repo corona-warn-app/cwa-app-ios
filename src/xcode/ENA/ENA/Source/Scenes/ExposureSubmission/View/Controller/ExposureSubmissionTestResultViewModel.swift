@@ -51,9 +51,7 @@ class ExposureSubmissionTestResultViewModel {
 		switch testResult {
 		case .positive:
 			onContinueWithSymptomsFlowButtonTap { [weak self] isLoading in
-				DispatchQueue.main.async {
-					self?.primaryButtonIsLoading = isLoading
-				}
+				self?.primaryButtonIsLoading = isLoading
 			}
 		case .negative, .invalid, .expired:
 			shouldShowDeletionConfirmationAlert = true
@@ -70,9 +68,7 @@ class ExposureSubmissionTestResultViewModel {
 		switch testResult {
 		case .positive:
 			onContinueWithoutSymptomsFlowButtonTap { [weak self] isLoading in
-				DispatchQueue.main.async {
-					self?.secondaryButtonIsLoading = isLoading
-				}
+				self?.secondaryButtonIsLoading = isLoading
 			}
 		case .pending:
 			shouldShowDeletionConfirmationAlert = true
@@ -162,17 +158,15 @@ class ExposureSubmissionTestResultViewModel {
 
 	private func refreshTest(completion: @escaping () -> Void) {
 		exposureSubmissionService.getTestResult { [weak self] result in
-			DispatchQueue.main.async {
-				switch result {
-				case let .failure(error):
-					self?.error = error
-				case let .success(testResult):
-					self?.testResult = testResult
-					self?.updateWarnOthers()
-				}
-
-				completion()
+			switch result {
+			case let .failure(error):
+				self?.error = error
+			case let .success(testResult):
+				self?.testResult = testResult
+				self?.updateWarnOthers()
 			}
+
+			completion()
 		}
 	}
 
