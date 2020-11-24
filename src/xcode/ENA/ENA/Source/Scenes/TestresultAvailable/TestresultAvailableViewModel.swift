@@ -32,8 +32,7 @@ struct TestresultAvailableViewModel {
 				header: .image(
 					UIImage(named: "Illu_Testresult_available"),
 					accessibilityLabel: AppStrings.ExposureSubmissionTestresultAvailable.accImageDescription,
-					accessibilityIdentifier: AccessibilityIdentifiers.General.image,
-					height: 290
+					accessibilityIdentifier: AccessibilityIdentifiers.General.image
 				),
 				separators: .none,
 				cells: []

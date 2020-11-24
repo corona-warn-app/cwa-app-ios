@@ -105,7 +105,16 @@ extension DynamicTableViewController {
 				view?.imageView?.accessibilityLabel = label
 			}
 			view?.imageView?.accessibilityIdentifier = accessibilityIdentifier
-			view?.height = height
+			if let imageWidth = image?.size.width,
+			   let imageHeight = image?.size.height {
+				// view.bounds.size.width will not be set at that point
+				// tableviews always use full screen, so it might work to use screen size here
+				let cellWidth = UIScreen.main.bounds.size.width
+				let ratio = imageHeight / imageWidth
+				view?.height = cellWidth * ratio
+			} else {
+				view?.height = height ?? 250.0
+			}
 			return view
 
 		case let .view(view):
@@ -128,6 +137,7 @@ extension DynamicTableViewController {
 			return block(self)
 
 		default:
+			Log.error("Missing dynamic header type: \(String(describing: headerFooter))")
 			return nil
 		}
 	}
