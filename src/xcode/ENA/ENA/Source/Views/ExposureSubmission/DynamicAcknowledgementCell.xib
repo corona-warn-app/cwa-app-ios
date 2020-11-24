@@ -22,7 +22,7 @@
                         <rect key="frame" x="16" y="11" width="288" height="279"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUg-0H-Sk7" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="8" y="8" width="56" height="26.5"/>
+                                <rect key="frame" x="20" y="20" width="56" height="26.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -31,7 +31,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tKs-GT-vKw" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="8" y="42.5" width="41.5" height="20.5"/>
+                                <rect key="frame" x="20" y="66.5" width="41.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -40,21 +40,21 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="kF4-oZ-I3Y">
-                                <rect key="frame" x="8" y="71" width="272" height="200"/>
+                                <rect key="frame" x="20" y="107" width="248" height="152"/>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" name="ENA Separator Color"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JUg-0H-Sk7" secondAttribute="trailing" constant="8" id="1ko-qc-e3b"/>
-                            <constraint firstItem="JUg-0H-Sk7" firstAttribute="leading" secondItem="ZL0-dN-ZbB" secondAttribute="leading" constant="8" id="20X-0j-qPM"/>
-                            <constraint firstItem="tKs-GT-vKw" firstAttribute="leading" secondItem="ZL0-dN-ZbB" secondAttribute="leading" constant="8" id="Ile-wc-Dsg"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tKs-GT-vKw" secondAttribute="trailing" constant="8" id="Po6-W5-9aS"/>
-                            <constraint firstItem="tKs-GT-vKw" firstAttribute="top" secondItem="JUg-0H-Sk7" secondAttribute="bottom" constant="8" id="Stx-yx-7TL"/>
-                            <constraint firstAttribute="bottom" secondItem="kF4-oZ-I3Y" secondAttribute="bottom" constant="8" id="akP-Vc-nUh"/>
-                            <constraint firstItem="kF4-oZ-I3Y" firstAttribute="leading" secondItem="ZL0-dN-ZbB" secondAttribute="leading" constant="8" id="jBf-Vr-i2Z"/>
-                            <constraint firstItem="kF4-oZ-I3Y" firstAttribute="top" secondItem="tKs-GT-vKw" secondAttribute="bottom" constant="8" id="mFA-iT-SHt"/>
-                            <constraint firstAttribute="trailing" secondItem="kF4-oZ-I3Y" secondAttribute="trailing" constant="8" id="ofc-yX-RGb"/>
-                            <constraint firstItem="JUg-0H-Sk7" firstAttribute="top" secondItem="ZL0-dN-ZbB" secondAttribute="top" constant="8" id="tcn-CM-E4T"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JUg-0H-Sk7" secondAttribute="trailing" constant="20" id="1ko-qc-e3b"/>
+                            <constraint firstItem="JUg-0H-Sk7" firstAttribute="leading" secondItem="ZL0-dN-ZbB" secondAttribute="leading" constant="20" id="20X-0j-qPM"/>
+                            <constraint firstItem="tKs-GT-vKw" firstAttribute="leading" secondItem="ZL0-dN-ZbB" secondAttribute="leading" constant="20" id="Ile-wc-Dsg"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tKs-GT-vKw" secondAttribute="trailing" constant="20" id="Po6-W5-9aS"/>
+                            <constraint firstItem="tKs-GT-vKw" firstAttribute="top" secondItem="JUg-0H-Sk7" secondAttribute="bottom" constant="20" id="Stx-yx-7TL"/>
+                            <constraint firstAttribute="bottom" secondItem="kF4-oZ-I3Y" secondAttribute="bottom" constant="20" id="akP-Vc-nUh"/>
+                            <constraint firstItem="kF4-oZ-I3Y" firstAttribute="leading" secondItem="ZL0-dN-ZbB" secondAttribute="leading" constant="20" id="jBf-Vr-i2Z"/>
+                            <constraint firstItem="kF4-oZ-I3Y" firstAttribute="top" secondItem="tKs-GT-vKw" secondAttribute="bottom" constant="20" id="mFA-iT-SHt"/>
+                            <constraint firstAttribute="trailing" secondItem="kF4-oZ-I3Y" secondAttribute="trailing" constant="20" id="ofc-yX-RGb"/>
+                            <constraint firstItem="JUg-0H-Sk7" firstAttribute="top" secondItem="ZL0-dN-ZbB" secondAttribute="top" constant="20" id="tcn-CM-E4T"/>
                         </constraints>
                     </view>
                 </subviews>
