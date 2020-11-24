@@ -23,7 +23,6 @@ class ExposureSubmissionTestResultConsentViewModel {
 		}.store(in: &cancellables)
 	}
 
-
 	// MARK: - Properties
 	
 	@objc

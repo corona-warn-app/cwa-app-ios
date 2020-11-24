@@ -7,7 +7,6 @@ import Combine
 
 class ExposureSubmissionTestResultConsentViewController: DynamicTableViewController {
 	
-	
 	// MARK: - Init
 	
 	init(

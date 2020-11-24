@@ -120,7 +120,6 @@ class DynamicTableViewConsentCell: UITableViewCell {
 	
 	private func setupConstraints() {
 		let marginGuide = contentView.layoutMarginsGuide
-		
 
 		NSLayoutConstraint.activate([
 			consentView.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor),
