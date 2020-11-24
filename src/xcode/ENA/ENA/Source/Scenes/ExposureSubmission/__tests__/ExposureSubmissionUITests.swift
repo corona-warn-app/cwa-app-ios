@@ -90,6 +90,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 	}
 	
 	func test_Switch_consentSubmission() {
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments.append(contentsOf: ["-testResult", TestResult.pending.stringValue])
 		launch()
 		
