@@ -82,7 +82,7 @@ struct ExposureSubmissionQRInfoViewModel {
 				.body(
 					text: AppStrings.AutomaticSharingConsent.dataProcessingDetailInfo,
 					style: DynamicCell.TextCellStyle.label,
-					accessibilityIdentifier: "",
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.dataProcessingDetailInfo,
 					accessibilityTraits: UIAccessibilityTraits.link,
 					action: .push(model: AppInformationModel.privacyModel, withTitle: AppStrings.AppInformation.privacyTitle),
 					configure: { _, cell, _ in

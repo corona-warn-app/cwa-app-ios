@@ -32,6 +32,9 @@ class DynamicAcknowledgementCell: UITableViewCell {
 
 		self.accessibilityIdentifier = accessibilityIdentifier
 
+		// pruning stack view before setting (new) label
+		contentStackView.removeAllArrangedSubviews()
+
 		bulletPoints.forEach { string in
 			let label = ENALabel()
 			label.style = .body
