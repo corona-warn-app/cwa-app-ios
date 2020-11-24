@@ -7,12 +7,14 @@ import UIKit
 
 struct ExposureSubmissionQRInfoViewModel {
 
+	init(supportedCountries: [Country]) {
+		countries = supportedCountries
+	}
+
 	// MARK: - Internal
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		var model = DynamicTableViewModel([])
-
-		let countryList = [Country]()
 
 		// Ihr Einverständnis
 		model.add(
@@ -60,7 +62,7 @@ struct ExposureSubmissionQRInfoViewModel {
 		// 'Flags'
 		model.add(
 			.section(separators: .all, cells: [
-				.countries(countries: countryList, accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.countryList)
+				.countries(countries: countries, accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.countryList)
 			])
 		)
 
@@ -93,6 +95,8 @@ struct ExposureSubmissionQRInfoViewModel {
 	}
 
 	// MARK: - Private
+
+	let countries: [Country]
 
 	private var bulletPoints: [NSAttributedString] {
 		var points = [NSAttributedString]()

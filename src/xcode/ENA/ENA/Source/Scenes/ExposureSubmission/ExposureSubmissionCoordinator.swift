@@ -200,9 +200,11 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	private func showQRInfoScreen() {
-		let vc = ExposureSubmissionQRInfoViewController(onPrimaryButtonTap: { [weak self] isLoading in
-			self?.showDisclaimer(isLoading: isLoading)
-		})
+		let vc = ExposureSubmissionQRInfoViewController(
+			supportedCountries: model.supportedCountries,
+			onPrimaryButtonTap: { [weak self] isLoading in
+				self?.showDisclaimer(isLoading: isLoading)
+			})
 		push(vc)
 	}
 

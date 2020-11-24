@@ -10,9 +10,10 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController {
 	// MARK: - Init
 
 	init(
+		supportedCountries: [Country],
 		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
-		self.viewModel = ExposureSubmissionQRInfoViewModel()
+		self.viewModel = ExposureSubmissionQRInfoViewModel(supportedCountries: supportedCountries)
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 
 		super.init(nibName: nil, bundle: nil)
