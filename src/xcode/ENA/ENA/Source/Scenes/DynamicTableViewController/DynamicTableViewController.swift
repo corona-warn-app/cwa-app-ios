@@ -105,7 +105,9 @@ extension DynamicTableViewController {
 				view?.imageView?.accessibilityLabel = label
 			}
 			view?.imageView?.accessibilityIdentifier = accessibilityIdentifier
-			if let imageWidth = image?.size.width,
+			if let height = height {
+				view?.height = height
+			} else if let imageWidth = image?.size.width,
 			   let imageHeight = image?.size.height {
 				// view.bounds.size.width will not be set at that point
 				// tableviews always use full screen, so it might work to use screen size here
@@ -113,7 +115,7 @@ extension DynamicTableViewController {
 				let ratio = imageHeight / imageWidth
 				view?.height = cellWidth * ratio
 			} else {
-				view?.height = height ?? 250.0
+				view?.height = 250.0
 			}
 			return view
 
