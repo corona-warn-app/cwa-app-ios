@@ -36,7 +36,7 @@ final class RiskTests: XCTestCase {
 extension RiskTests {
 	func mockDetails(activeTracing: ActiveTracing) -> Risk.Details {
 		Risk.Details(
-			numberOfExposures: 0,
+			numberOfDaysWithRiskLevel: 0,
 			activeTracing: activeTracing,
 			exposureDetectionDate: Date()
 		)

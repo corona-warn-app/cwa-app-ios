@@ -28,7 +28,7 @@ class DeltaOnboardingCoordinatorTests: XCTestCase {
 
 		sut_DeltaOnboardingCoordinator.startOnboarding()
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_OneOnboardingIsCurrent_Then_DeltaOnboardingIsShown() {
@@ -53,7 +53,7 @@ class DeltaOnboardingCoordinatorTests: XCTestCase {
 		sut_DeltaOnboardingCoordinator.startOnboarding()
 		deltaViewControllerDummy.finished?()
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_TwoOnboardingsAreCurrent_Then_DeltaOnboardingIsShownTwice() {
@@ -83,7 +83,7 @@ class DeltaOnboardingCoordinatorTests: XCTestCase {
 		deltaViewControllerDummy110.finished?()
 		deltaViewControllerDummy120.finished?()
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_OneOfTwoOnboardingsIsCurrent_Then_DeltaOnboardingIsShownOnce() {
@@ -113,7 +113,7 @@ class DeltaOnboardingCoordinatorTests: XCTestCase {
 		deltaViewControllerDummy100.finished?()
 		deltaViewControllerDummy110.finished?()
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 	
 }

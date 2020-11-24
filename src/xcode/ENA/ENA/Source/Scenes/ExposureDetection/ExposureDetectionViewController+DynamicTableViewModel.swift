@@ -93,16 +93,27 @@ private extension DynamicCell {
 	static func riskContacts(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			let state = viewController.state
-			cell.textLabel?.text = String(format: text, state.riskDetails?.numberOfExposures ?? 0)
+			cell.textLabel?.text = String(format: text, state.riskDetails?.numberOfDaysWithRiskLevel ?? 0)
 			cell.imageView?.image = image
 		}
 	}
 
 	static func riskLastExposure(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
-			let daysSinceLastExposure = viewController.state.riskDetails?.daysSinceLastExposure ?? 0
-			cell.textLabel?.text = .localizedStringWithFormat(text, daysSinceLastExposure)
 			cell.imageView?.image = image
+
+			guard let mostRecentDateWithHighRisk = viewController.state.riskDetails?.mostRecentDateWithRiskLevel else {
+				assertionFailure("mostRecentDateWithRiskLevel must be set on high risk state")
+				cell.textLabel?.text = ""
+
+				return
+			}
+
+			let dateFormatter = DateFormatter()
+			dateFormatter.dateStyle = .medium
+
+			let formattedMostRecentDateWithHighRisk = dateFormatter.string(from: mostRecentDateWithHighRisk)
+			cell.textLabel?.text = .localizedStringWithFormat(text, formattedMostRecentDateWithHighRisk)
 		}
 	}
 
@@ -321,8 +332,29 @@ extension ExposureDetectionViewController {
 		)
 	}
 
-	private func highRiskExplanationSection(daysSinceLastExposureText: String, explanationText: String, isActive: Bool, accessibilityIdentifier: String?) -> DynamicSection {
-		let daysSinceLastExposure = state.riskDetails?.daysSinceLastExposure ?? 0
+	private func highRiskExplanationSection(mostRecentDateWithRiskLevelText: String, explanationText: String, isActive: Bool, accessibilityIdentifier: String?) -> DynamicSection {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .medium
+
+		guard let mostRecentDateWithHighRisk = state.riskDetails?.mostRecentDateWithRiskLevel else {
+			assertionFailure("mostRecentDateWithRiskLevel must be set on high risk state")
+
+			return .section(
+				header: .backgroundSpace(height: 8),
+				footer: .backgroundSpace(height: 16),
+				cells: [
+					.header(
+						title: AppStrings.ExposureDetection.explanationTitle,
+						subtitle: AppStrings.ExposureDetection.explanationSubtitle
+					),
+					.body(
+						text: explanationText,
+						accessibilityIdentifier: accessibilityIdentifier)
+				]
+			)
+		}
+
+		let formattedMostRecentDateWithHighRisk = dateFormatter.string(from: mostRecentDateWithHighRisk)
 		return .section(
 			header: .backgroundSpace(height: 8),
 			footer: .backgroundSpace(height: 16),
@@ -333,9 +365,9 @@ extension ExposureDetectionViewController {
 				),
 				.body(
 					text: [
-						.localizedStringWithFormat(daysSinceLastExposureText, daysSinceLastExposure),
+						.localizedStringWithFormat(mostRecentDateWithRiskLevelText, formattedMostRecentDateWithHighRisk),
 						explanationText
-					].joined(),
+					].joined(separator: " "),
 					accessibilityIdentifier: accessibilityIdentifier)
 			]
 		)
@@ -381,7 +413,7 @@ extension ExposureDetectionViewController {
 
 	private var lowRiskModel: DynamicTableViewModel {
 		let activeTracing = state.riskDetails?.activeTracing ?? .init(interval: 0)
-		let numberOfExposures = state.riskDetails?.numberOfExposures ?? 0
+		let numberOfExposures = state.riskDetails?.numberOfDaysWithRiskLevel ?? 0
 
 		return DynamicTableViewModel([
 			riskDataSection(
@@ -436,7 +468,7 @@ extension ExposureDetectionViewController {
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.activeTracingSectionText
 			),
 			highRiskExplanationSection(
-				daysSinceLastExposureText: AppStrings.ExposureDetection.explanationTextHighDaysSinceLastExposure,
+				mostRecentDateWithRiskLevelText: AppStrings.ExposureDetection.explanationTextHighDateOfLastExposure,
 				explanationText: AppStrings.ExposureDetection.explanationTextHigh,
 				isActive: true,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextHigh

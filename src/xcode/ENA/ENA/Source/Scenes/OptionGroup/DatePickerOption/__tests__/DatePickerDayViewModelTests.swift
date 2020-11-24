@@ -140,7 +140,7 @@ class DatePickerDayViewModelTests: XCTestCase {
 
 		viewModel.onTap()
 
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: .medium)
 	}
 
 	func testTapOnMoreThan21DaysAgoDate() {
@@ -155,7 +155,7 @@ class DatePickerDayViewModelTests: XCTestCase {
 
 		viewModel.onTap()
 
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: .medium)
 	}
 
     func testTapOnUpTo21DaysAgoDate() {
@@ -169,7 +169,7 @@ class DatePickerDayViewModelTests: XCTestCase {
 
 		viewModel.onTap()
 
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: .medium)
 	}
 
     func testTapOnTodayDate() {
@@ -183,7 +183,7 @@ class DatePickerDayViewModelTests: XCTestCase {
 
 		viewModel.onTap()
 
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: .medium)
 	}
 
     func testChangeTodayFromNotSelectedToSelected() {

@@ -31,8 +31,8 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 				.init(
 					level: .high,
 					details: .init(
-						daysSinceLastExposure: 1,
-						numberOfExposures: 2,
+						mostRecentDateWithRiskLevel: Date(),
+						numberOfDaysWithRiskLevel: 2,
 						activeTracing: .init(interval: 14 * 86400),
 						exposureDetectionDate: nil
 					),
@@ -55,8 +55,8 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 		let lowRisk = Risk(
 			level: .low,
 			details: .init(
-				daysSinceLastExposure: 1,
-				numberOfExposures: 2,
+				mostRecentDateWithRiskLevel: Date(),
+				numberOfDaysWithRiskLevel: 2,
 				activeTracing: .init(interval: 14 * 86400),
 				exposureDetectionDate: nil
 			),
@@ -98,8 +98,8 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 		let lowRisk = Risk(
 			level: .low,
 			details: .init(
-				daysSinceLastExposure: 1,
-				numberOfExposures: 0,
+				mostRecentDateWithRiskLevel: Date(),
+				numberOfDaysWithRiskLevel: 0,
 				activeTracing: .init(interval: 14 * 86400),
 				exposureDetectionDate: nil
 			),

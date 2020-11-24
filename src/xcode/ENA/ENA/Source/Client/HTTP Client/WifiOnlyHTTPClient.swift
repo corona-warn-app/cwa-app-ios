@@ -44,31 +44,37 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 	) {
 		let url = configuration.diagnosisKeysURL(day: day, hour: hour, forCountry: country)
 		var responseError: Client.Failure?
-		defer {
-			// no guard in defer!
-			if let error = responseError {
-				let retryCount = retries[url] ?? 0
-				if retryCount > 2 {
-					completeWith(.failure(error))
-				} else {
-					retries[url] = retryCount.advanced(by: 1)
-					Log.debug("\(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
-					fetchHour(hour, day: day, country: country, completion: completeWith)
-				}
-			} else {
-				// no error, no retry - clean up
-				retries[url] = nil
+
+		session.GET(url) { [weak self] result in
+			guard let self = self else {
+				completeWith(.failure(.noResponse))
+				return
 			}
-		}
 
-		#if !RELEASE
-		guard !disableHourlyDownload else {
-			responseError = .noResponse
-			return
-		}
-		#endif
+			defer {
+				// no guard in defer!
+				if let error = responseError {
+					let retryCount = self.retries[url] ?? 0
+					if retryCount > 2 {
+						completeWith(.failure(error))
+					} else {
+						self.retries[url] = retryCount.advanced(by: 1)
+						Log.debug("\(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
+						self.fetchHour(hour, day: day, country: country, completion: completeWith)
+					}
+				} else {
+					// no error, no retry - clean up
+					self.retries[url] = nil
+				}
+			}
 
-		session.GET(url) { result in
+			#if !RELEASE
+			guard !self.disableHourlyDownload else {
+				responseError = .noResponse
+				return
+			}
+			#endif
+
 			switch result {
 			case let .success(response):
 				guard let hourData = response.body else {
@@ -86,6 +92,7 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 				completeWith(.success(payload))
 			case let .failure(error):
 				responseError = error
+
 				Log.error("failed to get hour: \(error)", log: .api)
 			}
 		}
