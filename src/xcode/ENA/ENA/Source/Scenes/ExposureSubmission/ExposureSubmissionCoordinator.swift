@@ -115,7 +115,7 @@ extension ExposureSubmissionCoordinator {
 		}
 
 		// By default, we show the intro view.
-		return createTestResultavailableViewController()
+		return createIntroViewController()
 	}
 
 	/// method to get an instace of TestresultvailableViewController
