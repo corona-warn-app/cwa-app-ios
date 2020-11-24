@@ -28,7 +28,7 @@ class ExposureSubmissionTestResultConsentViewModelTests: XCTestCase {
 		
 		let fourthItem = cells[2]
 		id = fourthItem.cellReuseIdentifier
-		XCTAssertEqual(id.rawValue, "consentCell")
+		XCTAssertEqual(id.rawValue, "ConsentCellReuseIdentifier")
 		
 		let fifthItem = cells[3]
 		id = fifthItem.cellReuseIdentifier
