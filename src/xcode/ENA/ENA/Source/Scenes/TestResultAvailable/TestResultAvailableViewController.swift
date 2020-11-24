@@ -5,11 +5,11 @@
 import Foundation
 import UIKit
 
-final class TestresultAvailableViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
+final class TestResultAvailableViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
 
 	// MARK: - Init
 
-	init(_ viewModel: TestresultAvailableViewModel) {
+	init(_ viewModel: TestResultAvailableViewModel) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -44,7 +44,7 @@ final class TestresultAvailableViewController: DynamicTableViewController, ENANa
 
 	// MARK: - Private
 
-	private let viewModel: TestresultAvailableViewModel
+	private let viewModel: TestResultAvailableViewModel
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()

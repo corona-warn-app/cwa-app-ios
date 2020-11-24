@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class TestresultAvailableViewModelTest: XCTestCase {
+class TestResultAvailableViewModelTest: XCTestCase {
 	
 	func testGIVEN_ViewModel_WHEN_PrimaryButtonClosureCalled_THEN_ExpectationFulfill() {
 		// GIVEN
@@ -14,7 +14,7 @@ class TestresultAvailableViewModelTest: XCTestCase {
 		let expectationNotFulFill = expectation(description: "consent cell conde excecute")
 		expectationNotFulFill.isInverted = true
 		
-		let viewModel = TestresultAvailableViewModel(
+		let viewModel = TestResultAvailableViewModel(
 			mockStore,
 			didTapConsentCell: {
 				expectationNotFulFill.fulfill()
@@ -38,7 +38,7 @@ class TestresultAvailableViewModelTest: XCTestCase {
 		let expectationNotFulFill = expectation(description: "consent cell conde excecute")
 		expectationNotFulFill.isInverted = true
 		
-		let viewModel = TestresultAvailableViewModel(
+		let viewModel = TestResultAvailableViewModel(
 			mockStore,
 			didTapConsentCell: {
 				expectationNotFulFill.fulfill()
@@ -67,7 +67,7 @@ class TestresultAvailableViewModelTest: XCTestCase {
 		let expectationNotFulFill = expectation(description: "consent cell conde excecute")
 		expectationNotFulFill.isInverted = true
 		
-		let viewModel = TestresultAvailableViewModel(
+		let viewModel = TestResultAvailableViewModel(
 			mockStore,
 			didTapConsentCell: {
 				expectationFulFill.fulfill()

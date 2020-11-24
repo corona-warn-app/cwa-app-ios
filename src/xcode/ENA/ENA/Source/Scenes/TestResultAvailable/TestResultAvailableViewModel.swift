@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-struct TestresultAvailableViewModel {
+struct TestResultAvailableViewModel {
 
 	// MARK: - Init
 
