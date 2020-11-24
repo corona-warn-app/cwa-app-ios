@@ -581,9 +581,9 @@ oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome m
 
 "ExposureSubmissionTestresultAvailable_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
 
-"ExposureSubmissionTestresultAvailable_Consent_granted" = "Einverständnis\n“Andere warnen” erteilt";
+"ExposureSubmissionTestresultAvailable_Consent_granted" = "Einverständnis\n„Andere warnen” erteilt";
 
-"ExposureSubmissionTestresultAvailable_Consent_not_given" = "Einverständnis\n“Andere warnen” nicht erteilt";
+"ExposureSubmissionTestresultAvailable_Consent_not_given" = "Einverständnis\n„Andere warnen” nicht erteilt";
 
 "ExposureSubmissionTestresultAvailable_ListItem1" = "Vielen Dank, dass Sie mithelfen, andere zu warnen und damit einverstanden sind, Ihr Testergebnis zu teilen.";
 
