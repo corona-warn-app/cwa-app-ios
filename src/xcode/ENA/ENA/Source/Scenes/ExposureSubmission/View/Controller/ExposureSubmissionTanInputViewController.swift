@@ -86,23 +86,23 @@ extension ExposureSubmissionTanInputViewController {
 		let teleTan = tanInput.text
 
 		exposureSubmissionService?.getRegistrationToken(forKey: .teleTan(teleTan)) { result in
+			DispatchQueue.main.async {
+				switch result {
+				case let .failure(error):
+					let alert = self.setupErrorAlert(
+						message: error.localizedDescription,
+						completion: {
+							self.navigationFooterItem?.isPrimaryButtonLoading = false
+							self.navigationFooterItem?.isPrimaryButtonEnabled = true
+							self.tanInput.becomeFirstResponder()
+						}
+					)
+					self.present(alert, animated: true, completion: nil)
 
-			switch result {
-			case let .failure(error):
-
-				let alert = self.setupErrorAlert(
-					message: error.localizedDescription,
-					completion: {
-						self.navigationFooterItem?.isPrimaryButtonLoading = false
-						self.navigationFooterItem?.isPrimaryButtonEnabled = true
-						self.tanInput.becomeFirstResponder()
-					}
-				)
-				self.present(alert, animated: true, completion: nil)
-
-			case .success:
-				// A TAN always indicates a positive test result.
-				self.coordinator?.showTestResultScreen(with: .positive)
+				case .success:
+					// A TAN always indicates a positive test result.
+					self.coordinator?.showTestResultScreen(with: .positive)
+				}
 			}
 		}
 

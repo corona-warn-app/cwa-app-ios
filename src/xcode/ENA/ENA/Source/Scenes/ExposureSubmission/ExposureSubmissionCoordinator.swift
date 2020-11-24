@@ -320,9 +320,15 @@ extension ExposureSubmissionCoordinator {
 			onPrimaryButtonTap: { [weak self] isLoading in
 				self?.model.warnOthersConsentGiven(
 					isLoading: isLoading,
-					onSuccess: { self?.showThankYouScreen() },
+					onSuccess: {
+						DispatchQueue.main.async {
+							self?.showThankYouScreen()
+						}
+					},
 					onError: { error in
-						self?.showErrorAlert(for: error)
+						DispatchQueue.main.async {
+							self?.showErrorAlert(for: error)
+						}
 					}
 				)
 			}
@@ -366,41 +372,47 @@ extension ExposureSubmissionCoordinator {
 		model.getTestResults(
 			for: key,
 			isLoading: isLoading,
-			onSuccess: { [weak self] in self?.showTestResultScreen(with: $0) },
+			onSuccess: { [weak self] testResult in
+				DispatchQueue.main.async {
+					self?.showTestResultScreen(with: testResult)
+				}
+			},
 			onError: { [weak self] error in
-				let alert: UIAlertController
+				DispatchQueue.main.async {
+					let alert: UIAlertController
 
-				switch error {
-				case .qrDoesNotExist:
-					alert = UIAlertController.errorAlert(
-						title: AppStrings.ExposureSubmissionError.qrNotExistTitle,
-						message: error.localizedDescription
-					)
+					switch error {
+					case .qrDoesNotExist:
+						alert = UIAlertController.errorAlert(
+							title: AppStrings.ExposureSubmissionError.qrNotExistTitle,
+							message: error.localizedDescription
+						)
+
+						self?.navigationController?.present(alert, animated: true, completion: nil)
+					case .qrAlreadyUsed:
+						alert = UIAlertController.errorAlert(
+							title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
+							message: error.localizedDescription
+						)
+					case .qrExpired:
+						alert = UIAlertController.errorAlert(
+							title: AppStrings.ExposureSubmission.qrCodeExpiredTitle,
+							message: error.localizedDescription
+						)
+					default:
+						alert = UIAlertController.errorAlert(
+							message: error.localizedDescription,
+							secondaryActionTitle: AppStrings.Common.alertActionRetry,
+							secondaryActionCompletion: {
+								self?.getTestResults(for: key, isLoading: isLoading)
+							}
+						)
+					}
 
 					self?.navigationController?.present(alert, animated: true, completion: nil)
-				case .qrAlreadyUsed:
-					alert = UIAlertController.errorAlert(
-						title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
-						message: error.localizedDescription
-					)
-				case .qrExpired:
-					alert = UIAlertController.errorAlert(
-						title: AppStrings.ExposureSubmission.qrCodeExpiredTitle,
-						message: error.localizedDescription
-					)
-				default:
-					alert = UIAlertController.errorAlert(
-						message: error.localizedDescription,
-						secondaryActionTitle: AppStrings.Common.alertActionRetry,
-						secondaryActionCompletion: {
-							self?.getTestResults(for: key, isLoading: isLoading)
-						}
-					)
+
+					Log.error("An error occurred during result fetching: \(error)", log: .ui)
 				}
-
-				self?.navigationController?.present(alert, animated: true, completion: nil)
-
-				Log.error("An error occurred during result fetching: \(error)", log: .ui)
 			}
 		)
 	}

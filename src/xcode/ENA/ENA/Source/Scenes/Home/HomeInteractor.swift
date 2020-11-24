@@ -425,37 +425,39 @@ extension HomeInteractor {
 		let minRequestTime: TimeInterval = 0.5
 
 		self.exposureSubmissionService.getTestResult { [weak self] result in
-			switch result {
-			case .failure(let error):
-				// When we fail here, trigger an alert and set the state to pending.
-				self?.homeViewController.alertError(
-					message: error.localizedDescription,
-					title: AppStrings.Home.resultCardLoadingErrorTitle,
-					completion: {
-						self?.testResult = .pending
-						self?.reloadTestResult(with: .pending)
-					}
-				)
-
-			case .success(let testResult):
-				switch testResult {
-				case .expired:
+			DispatchQueue.main.async {
+				switch result {
+				case .failure(let error):
+					// When we fail here, trigger an alert and set the state to pending.
 					self?.homeViewController.alertError(
-						message: AppStrings.ExposureSubmissionResult.testExpiredDesc,
+						message: error.localizedDescription,
 						title: AppStrings.Home.resultCardLoadingErrorTitle,
 						completion: {
-							self?.testResult = .expired
-							self?.reloadTestResult(with: .invalid)
+							self?.testResult = .pending
+							self?.reloadTestResult(with: .pending)
 						}
 					)
-				case .invalid, .negative, .positive, .pending:
-					let requestTime = Date().timeIntervalSince(requestStart)
-					let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
-					DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-						self?.testResult = testResult
-						self?.reloadTestResult(with: testResult)
+
+				case .success(let testResult):
+					switch testResult {
+					case .expired:
+						self?.homeViewController.alertError(
+							message: AppStrings.ExposureSubmissionResult.testExpiredDesc,
+							title: AppStrings.Home.resultCardLoadingErrorTitle,
+							completion: {
+								self?.testResult = .expired
+								self?.reloadTestResult(with: .invalid)
+							}
+						)
+					case .invalid, .negative, .positive, .pending:
+						let requestTime = Date().timeIntervalSince(requestStart)
+						let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
+						DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+							self?.testResult = testResult
+							self?.reloadTestResult(with: testResult)
+						}
+						self?.warnOthersReminder.evaluateNotificationState(testResult: testResult)
 					}
-					self?.warnOthersReminder.evaluateNotificationState(testResult: testResult)
 				}
 			}
 		}
