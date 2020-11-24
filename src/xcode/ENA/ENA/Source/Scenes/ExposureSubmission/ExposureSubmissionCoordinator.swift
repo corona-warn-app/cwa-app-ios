@@ -129,7 +129,7 @@ extension ExposureSubmissionCoordinator {
 	/// method to get an instace of TestresultvailableViewController
 	func createTestResultavailableViewController() -> UIViewController {
 		let viewModel = TestResultAvailableViewModel(
-			store,
+			exposureSubmissionService: model.exposureSubmissionService,
 			didTapConsentCell: { [weak self] in
 				self?.presentTestResultConsentViewController()
 			},

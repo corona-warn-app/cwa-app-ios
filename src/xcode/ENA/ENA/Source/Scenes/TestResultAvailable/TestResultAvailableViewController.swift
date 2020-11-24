@@ -24,6 +24,7 @@ final class TestResultAvailableViewController: DynamicTableViewController, ENANa
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupTableView()
+		setupViewModel()
 	}
 
 	override var navigationItem: UINavigationItem {
@@ -59,6 +60,17 @@ final class TestResultAvailableViewController: DynamicTableViewController, ENANa
 		view.backgroundColor = .enaColor(for: .background)
 		tableView.separatorStyle = .none
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
+	}
+
+	private func setupViewModel() {
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
+		viewModel.refreshTableView = { [weak self] in
+			guard let self = self else {
+				return
+			}
+			self.dynamicTableViewModel = self.viewModel.dynamicTableViewModel
+			self.tableView?.reloadData()
+		}
 	}
 
 }

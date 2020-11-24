@@ -4,27 +4,37 @@
 
 import Foundation
 import UIKit
+import Combine
 
-struct TestResultAvailableViewModel {
+final class TestResultAvailableViewModel {
 
 	// MARK: - Init
 
 	init(
-		_ store: Store,
+		exposureSubmissionService: ExposureSubmissionService,
 		didTapConsentCell: @escaping () -> Void,
 		didTapPrimaryFooterButton: @escaping () -> Void,
 		presentDismissAlert: @escaping () -> Void
 	) {
-		self.store = store
+		self.exposureSubmissionService = exposureSubmissionService
 		self.didTapConsentCell = didTapConsentCell
 		self.didTapPrimaryFooterButton = didTapPrimaryFooterButton
 		self.presentDismissAlert = presentDismissAlert
+
+		exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { [weak self] newValue in
+			self?.currentState = newValue ?
+				AppStrings.ExposureSubmissionTestresultAvailable.consentGranted :
+				AppStrings.ExposureSubmissionTestresultAvailable.consentNotGranted
+			self?.refreshTableView?()
+		}.store(in: &cancellables)
 	}
 
 	// MARK: - Internal
 
 	let didTapPrimaryFooterButton: () -> Void
 	let presentDismissAlert: () -> Void
+	var currentState: String = AppStrings.ExposureSubmissionTestresultAvailable.consentNotGranted
+	var refreshTableView: (() -> Void)?
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
@@ -40,11 +50,10 @@ struct TestResultAvailableViewModel {
 			.section(
 				separators: .all,
 				cells: [
-					.icon(UIImage(named: "Icons_Grey_Warnen"), text: store.isSubmissionConsentGiven ?
-							.string(AppStrings.ExposureSubmissionTestresultAvailable.consentGranted) :
-							.string(AppStrings.ExposureSubmissionTestresultAvailable.consentNotGranted),
-						  action: .execute { _ in
-							didTapConsentCell()
+					.icon(UIImage(named: "Icons_Grey_Warnen"),
+						  text: .string(currentState),
+						  action: .execute { [weak self] _, _ in
+							self?.didTapConsentCell()
 						  },
 						  configure: { _, cell, _ in
 							cell.accessoryType = .disclosureIndicator
@@ -65,7 +74,8 @@ struct TestResultAvailableViewModel {
 
 	// MARK: - Private
 
-	private let store: Store
+	private let exposureSubmissionService: ExposureSubmissionService
+	private var cancellables: Set<AnyCancellable> = []
 	private let didTapConsentCell: () -> Void
 
 }
