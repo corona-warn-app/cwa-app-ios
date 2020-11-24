@@ -7,41 +7,29 @@ import UIKit
 import Combine
 
 class ExposureSubmissionTestResultConsentViewModel {
+
 	// MARK: - Init
 	
 	init(
 		supportedCountries: [Country],
-		exposureSubmissionService: ExposureSubmissionService
+		exposureSubmissionService: ExposureSubmissionService,
+		presentDismissAlert: @escaping () -> Void
 	) {
-		
-		self.exposureSubmissionService = exposureSubmissionService
-		
 		self.supportedCountries = supportedCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
-		
+		self.exposureSubmissionService = exposureSubmissionService
+		self.presentDismissAlert = presentDismissAlert
+
 		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
 			self.consentSwitch.isOn = isSubmissionConsentGiven
 		}.store(in: &cancellables)
 	}
 
-	// MARK: - Properties
-	
-	@objc
-	func consentStateChanged(switchState: UISwitch) {
-		exposureSubmissionService.setSubmissionConsentGiven(consentGiven: switchState.isOn)
-	}
-		
-	// MARK: - Private
-	
-	private var cancellables: Set<AnyCancellable> = []
-		
-	private let supportedCountries: [Country]
-	
-	private var exposureSubmissionService: ExposureSubmissionService
-	
-	private let consentSwitch = UISwitch()
-	
+	// MARK: - Public
+
 	// MARK: - Internal
-	
+
+	let presentDismissAlert: () -> Void
+
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel.with {
 			$0.add(
@@ -107,10 +95,23 @@ class ExposureSubmissionTestResultConsentViewModel {
 					cells:[
 						.space(height: 50)
 					]
-					
+
 				)
 			)
 		}
 	}
-	
+
+	// MARK: - Private
+
+	private let consentSwitch = UISwitch()
+	private let supportedCountries: [Country]
+
+	private var cancellables: Set<AnyCancellable> = []
+	private var exposureSubmissionService: ExposureSubmissionService
+
+	@objc
+	private func consentStateChanged(switchState: UISwitch) {
+		exposureSubmissionService.setSubmissionConsentGiven(consentGiven: switchState.isOn)
+	}
+
 }

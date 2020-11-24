@@ -5,8 +5,8 @@
 import UIKit
 import Combine
 
-class ExposureSubmissionTestResultConsentViewController: DynamicTableViewController {
-	
+class ExposureSubmissionTestResultConsentViewController: DynamicTableViewController, DismissHandling {
+
 	// MARK: - Init
 	
 	init(
@@ -28,6 +28,12 @@ class ExposureSubmissionTestResultConsentViewController: DynamicTableViewControl
 		super.viewDidLoad()
 		self.title = AppStrings.AutomaticSharingConsent.consentTitle
 		setupView()
+	}
+
+	// MARK: - Protocol DismissHandling
+
+	func presentDismiss(dismiss: @escaping () -> Void) {
+		viewModel.presentDismissAlert()
 	}
 
 	// MARK: - Internal
