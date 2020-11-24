@@ -37,11 +37,11 @@ struct ExposureSubmissionQRInfoViewModel {
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.headerSection1),
 				.body(text: AppStrings.ExposureSubmissionQRInfo.bodySection1),
 				.icon(
-					UIImage(imageLiteralResourceName: "Icons_QR1"),
+					UIImage(imageLiteralResourceName: "Icons - FaceID"),
 					text: .string(AppStrings.ExposureSubmissionQRInfo.instruction1)
 				),
 				.icon(
-					UIImage(imageLiteralResourceName: "Icons_QR2"),
+					UIImage(imageLiteralResourceName: "Icons - Once"),
 					text: .attributedString(
 						AppStrings.ExposureSubmissionQRInfo.instruction2
 							.inserting(emphasizedString: AppStrings.ExposureSubmissionQRInfo.instruction2HighlightedPhrase)
