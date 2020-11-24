@@ -79,15 +79,16 @@ struct ExposureSubmissionQRInfoViewModel {
 		// Even more info
 		model.add(
 			.section(separators: .all, cells: [
-				.icon(
-					nil,
-					text: .string(AppStrings.AutomaticSharingConsent.dataProcessingDetailInfo),
+				.body(
+					text: AppStrings.AutomaticSharingConsent.dataProcessingDetailInfo,
+					style: DynamicCell.TextCellStyle.label,
+					accessibilityIdentifier: "",
+					accessibilityTraits: UIAccessibilityTraits.link,
 					action: .push(model: AppInformationModel.privacyModel, withTitle: AppStrings.AppInformation.privacyTitle),
 					configure: { _, cell, _ in
 						cell.accessoryType = .disclosureIndicator
 						cell.selectionStyle = .default
-					}
-				)
+					})
 			])
 		)
 
