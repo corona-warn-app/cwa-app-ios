@@ -378,41 +378,41 @@ extension ExposureSubmissionCoordinator {
 				}
 			},
 			onError: { [weak self] error in
-				DispatchQueue.main.async {
-					let alert: UIAlertController
+				let alert: UIAlertController
 
-					switch error {
-					case .qrDoesNotExist:
-						alert = UIAlertController.errorAlert(
-							title: AppStrings.ExposureSubmissionError.qrNotExistTitle,
-							message: error.localizedDescription
-						)
-
-						self?.navigationController?.present(alert, animated: true, completion: nil)
-					case .qrAlreadyUsed:
-						alert = UIAlertController.errorAlert(
-							title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
-							message: error.localizedDescription
-						)
-					case .qrExpired:
-						alert = UIAlertController.errorAlert(
-							title: AppStrings.ExposureSubmission.qrCodeExpiredTitle,
-							message: error.localizedDescription
-						)
-					default:
-						alert = UIAlertController.errorAlert(
-							message: error.localizedDescription,
-							secondaryActionTitle: AppStrings.Common.alertActionRetry,
-							secondaryActionCompletion: {
-								self?.getTestResults(for: key, isLoading: isLoading)
-							}
-						)
-					}
+				switch error {
+				case .qrDoesNotExist:
+					alert = UIAlertController.errorAlert(
+						title: AppStrings.ExposureSubmissionError.qrNotExistTitle,
+						message: error.localizedDescription
+					)
 
 					self?.navigationController?.present(alert, animated: true, completion: nil)
-
-					Log.error("An error occurred during result fetching: \(error)", log: .ui)
+				case .qrAlreadyUsed:
+					alert = UIAlertController.errorAlert(
+						title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
+						message: error.localizedDescription
+					)
+				case .qrExpired:
+					alert = UIAlertController.errorAlert(
+						title: AppStrings.ExposureSubmission.qrCodeExpiredTitle,
+						message: error.localizedDescription
+					)
+				default:
+					alert = UIAlertController.errorAlert(
+						message: error.localizedDescription,
+						secondaryActionTitle: AppStrings.Common.alertActionRetry,
+						secondaryActionCompletion: {
+							self?.getTestResults(for: key, isLoading: isLoading)
+						}
+					)
 				}
+
+				DispatchQueue.main.async {
+					self?.navigationController?.present(alert, animated: true, completion: nil)
+				}
+
+				Log.error("An error occurred during result fetching: \(error)", log: .ui)
 			}
 		)
 	}
