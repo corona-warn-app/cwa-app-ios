@@ -164,8 +164,6 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 			if shouldStartPackageDownload {
 				dispatchGroup.enter()
 
-				status = .downloading
-
 				startDownloadPackages(for: countryId, downloadMode: downloadMode) { result in
 					switch result {
 					case .success:
@@ -210,6 +208,8 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 					completion(.success(()))
 					return
 				}
+
+				self.status = .downloading
 
 				self.downloadPackages(for: Array(deltaPackages), downloadMode: downloadMode, country: countryId) { [weak self] result in
 					guard let self = self else { return }
@@ -360,7 +360,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 				}
 			}
 		case .hourly(let dayKey):
-			client.availableHours(day: dayKey, country: country) { result in
+			wifiClient.availableHours(day: dayKey, country: country) { result in
 				switch result {
 				case .success(let hours):
 					Log.info("KeyPackageDownload: Server data is available for hour packages.", log: .riskDetection)
@@ -384,19 +384,19 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 			Log.info("KeyPackageDownload: Calculate serverDelta for day packages.", log: .riskDetection)
 
 			let localDays = Set(downloadedPackagesStore.allDays(country: country))
-			Log.debug("KeyPackageDownload: localDays: \(localDays)", log: .riskDetection)
-			Log.debug("KeyPackageDownload: serverPackages: \(serverPackages)", log: .riskDetection)
+			Log.debug("KeyPackageDownload: localDays: \(localDays.sorted())", log: .riskDetection)
+			Log.debug("KeyPackageDownload: serverPackages: \(serverPackages.sorted())", log: .riskDetection)
 			let deltaDays = serverPackages.subtracting(localDays)
-			Log.debug("KeyPackageDownload: deltaDays: \(deltaDays)", log: .riskDetection)
+			Log.debug("KeyPackageDownload: deltaDays: \(deltaDays.sorted())", log: .riskDetection)
 			return deltaDays
 		case .hourly(let dayKey):
 			Log.info("KeyPackageDownload: Calculate serverDelta for hour packages.", log: .riskDetection)
 
 			let localHours = Set(downloadedPackagesStore.hours(for: dayKey, country: country).map { String($0) })
-			Log.debug("KeyPackageDownload: localHours: \(localHours)", log: .riskDetection)
-			Log.debug("KeyPackageDownload: serverPackages: \(serverPackages)", log: .riskDetection)
+			Log.debug("KeyPackageDownload: localHours: \(localHours.sorted())", log: .riskDetection)
+			Log.debug("KeyPackageDownload: serverPackages: \(serverPackages.sorted())", log: .riskDetection)
 			let deltaHours = serverPackages.subtracting(localHours)
-			Log.debug("KeyPackageDownload: deltaHours: \(deltaHours)", log: .riskDetection)
+			Log.debug("KeyPackageDownload: deltaHours: \(deltaHours.sorted())", log: .riskDetection)
 			return deltaHours
 		}
 	}
