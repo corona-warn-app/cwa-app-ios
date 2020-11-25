@@ -1,0 +1,22 @@
+{
+  "images" : [
+    {
+      "filename" : "iOS-light-Ergebnis-liegt-vor-Einverstaendnis_428.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "iOS-dark-Ergebnis-liegt-vor-Einverstaendnis_428.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

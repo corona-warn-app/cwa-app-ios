@@ -499,8 +499,11 @@
 		BA6D163A255AD35900ED3492 /* DMSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D1638255AD35900ED3492 /* DMSwitchTableViewCell.swift */; };
 		BA6D163B255AD35900ED3492 /* DMSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA6D1639255AD35900ED3492 /* DMSwitchTableViewCell.xib */; };
 		BA6D1640255ADD0500ED3492 /* DMSwitchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D163F255ADD0400ED3492 /* DMSwitchCellViewModel.swift */; };
-		BA8BBA08255A90690034D4BC /* WifiHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BBA07255A90690034D4BC /* WifiHTTPClient.swift */; };
+		BA8BBA08255A90690034D4BC /* WifiHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */; };
 		BA92A45E255163460063B46F /* ExposureSubmissionQRScannerViewModelGuidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA92A45D255163460063B46F /* ExposureSubmissionQRScannerViewModelGuidTests.swift */; };
+		BA9DD53F2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9DD53E2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift */; };
+		BAD962FB25668F4000FAB615 /* TestResultAvailableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */; };
+		BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */; };
 		CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */; };
 		CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */; };
 		CD8638532477EBD400A5A07C /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8638522477EBD400A5A07C /* SettingsViewModel.swift */; };
@@ -1110,8 +1113,11 @@
 		BA6D1638255AD35900ED3492 /* DMSwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSwitchTableViewCell.swift; sourceTree = "<group>"; };
 		BA6D1639255AD35900ED3492 /* DMSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DMSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		BA6D163F255ADD0400ED3492 /* DMSwitchCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSwitchCellViewModel.swift; sourceTree = "<group>"; };
-		BA8BBA07255A90690034D4BC /* WifiHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiHTTPClient.swift; sourceTree = "<group>"; };
+		BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiHTTPClientTests.swift; sourceTree = "<group>"; };
 		BA92A45D255163460063B46F /* ExposureSubmissionQRScannerViewModelGuidTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRScannerViewModelGuidTests.swift; sourceTree = "<group>"; };
+		BA9DD53E2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewModelTest.swift; sourceTree = "<group>"; };
+		BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewController.swift; sourceTree = "<group>"; };
+		BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewModel.swift; sourceTree = "<group>"; };
 		CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureManager.swift; sourceTree = "<group>"; };
 		CD678F6C246C43EE00B6A0F8 /* ClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientMock.swift; sourceTree = "<group>"; };
@@ -2010,19 +2016,20 @@
 			isa = PBXGroup;
 			children = (
 				71176E30248957B1004B0C9F /* App */,
-				71F76D0E24767AF100515A01 /* DynamicTableViewController */,
-				7143D07424990A3100608DDE /* NavigationControllerWithFooter */,
-				EE20EA0824699A3A00770683 /* RiskLegend */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
-				51D420AF2458308400AD70CA /* Onboarding */,
-				51D420C124583D3100AD70CA /* Home */,
-				514E81312461946E00636861 /* ExposureDetection */,
-				EE278B2E245F2C58008B06F9 /* FriendsInvite */,
-				CD99A398245B229F00BF12AF /* ExposureSubmission */,
+				71F76D0E24767AF100515A01 /* DynamicTableViewController */,
 				858F6F71245AEC05009FFD33 /* ENSetting */,
-				51D420C224583D7B00AD70CA /* Settings */,
-				13091950247972CF0066E329 /* PrivacyProtectionViewController */,
+				514E81312461946E00636861 /* ExposureDetection */,
+				CD99A398245B229F00BF12AF /* ExposureSubmission */,
+				EE278B2E245F2C58008B06F9 /* FriendsInvite */,
+				51D420C124583D3100AD70CA /* Home */,
+				7143D07424990A3100608DDE /* NavigationControllerWithFooter */,
+				51D420AF2458308400AD70CA /* Onboarding */,
 				01B7232524F8128B0064C0EB /* OptionGroup */,
+				13091950247972CF0066E329 /* PrivacyProtectionViewController */,
+				EE20EA0824699A3A00770683 /* RiskLegend */,
+				51D420C224583D7B00AD70CA /* Settings */,
+				BAD962F925668E5D00FAB615 /* TestResultAvailable */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -2736,7 +2743,7 @@
 				A1E419502495A6EA0016E52A /* HTTPClient+TANForExposureSubmitTests.swift */,
 				A1877CA9248F247D006FEFC0 /* SAPDownloadedPackageTests.swift */,
 				B1EAEC8D247118CB003BE9A2 /* URLSession+ConvenienceTests.swift */,
-				BA8BBA07255A90690034D4BC /* WifiHTTPClient.swift */,
+				BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -2887,6 +2894,24 @@
 				BA6D1639255AD35900ED3492 /* DMSwitchTableViewCell.xib */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		BA9DD53D2567BD9100C326FF /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BA9DD53E2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		BAD962F925668E5D00FAB615 /* TestResultAvailable */ = {
+			isa = PBXGroup;
+			children = (
+				BA9DD53D2567BD9100C326FF /* __tests__ */,
+				BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */,
+				BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */,
+			);
+			path = TestResultAvailable;
 			sourceTree = "<group>";
 		};
 		CD8638512477EBAA00A5A07C /* Settings */ = {
@@ -3471,6 +3496,7 @@
 				2F3218D0248063E300A7AC0A /* UIView+Convenience.swift in Sources */,
 				01734B5F255D6C4500E60A8B /* app_config_ios.pb.swift in Sources */,
 				B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */,
+				BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */,
 				AB010CFE253ECB6B00DF1F61 /* HomeFailedCellConfigurator.swift in Sources */,
 				710ABB23247513E300948792 /* DynamicTypeTableViewCell.swift in Sources */,
 				71FE1C7D247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift in Sources */,
@@ -3508,6 +3534,7 @@
 				01B7232D24F8E0260064C0EB /* MultipleChoiceChoiceView.swift in Sources */,
 				35EA68522555488600335F73 /* SQLiteError.swift in Sources */,
 				710224EA248FA67F000C5DEF /* HomeTestResultCollectionViewCell.swift in Sources */,
+				BAD962FB25668F4000FAB615 /* TestResultAvailableViewController.swift in Sources */,
 				9417BA95252B6B5100AD4053 /* DMSQLiteErrorViewController.swift in Sources */,
 				013DC102245DAC4E00EE58B0 /* Store.swift in Sources */,
 				B1FE13EF24891D0C00D012E5 /* RiskProvidingConfiguration.swift in Sources */,
@@ -3737,6 +3764,7 @@
 				B10F9B8B249961BC00C418F4 /* DynamicTypeLabelTests.swift in Sources */,
 				CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */,
 				A3E851B524ADDAC000402485 /* CountdownTimerTests.swift in Sources */,
+				BA9DD53F2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift in Sources */,
 				F2DC808E248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift in Sources */,
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
 				B1C7EE4624938EB700F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandlingTests.swift in Sources */,
@@ -3790,7 +3818,7 @@
 				B1218920248AD79900496210 /* ClientMock.swift in Sources */,
 				AB5F84BB24F92876000400D4 /* Migration0To1Tests.swift in Sources */,
 				50DC527B24FEB5CA00F6D8EB /* AppInformationModelTest.swift in Sources */,
-				BA8BBA08255A90690034D4BC /* WifiHTTPClient.swift in Sources */,
+				BA8BBA08255A90690034D4BC /* WifiHTTPClientTests.swift in Sources */,
 				A1BABD0E24A57CFC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift in Sources */,
 				EE22DB8F247FB46C001B0A71 /* ENStateTests.swift in Sources */,
 				B1DDDABC247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift in Sources */,

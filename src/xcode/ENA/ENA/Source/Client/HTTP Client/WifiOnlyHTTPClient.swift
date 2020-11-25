@@ -36,6 +36,51 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 
 	// MARK: - Protocol ClientWifiOnly
 
+	func availableHours(
+		day: String,
+		country: String,
+		completion completeWith: @escaping AvailableHoursCompletionHandler
+	) {
+		let url = configuration.availableHoursURL(day: day, country: country)
+
+		session.GET(url) { [weak self] result in
+			self?.queue.async {
+				switch result {
+				case let .success(response):
+					// We accept 404 responses since this can happen in case there
+					// have not been any new cases reported on that day.
+					// We don't report this as an error to simplify things for the consumer.
+					guard response.statusCode != 404 else {
+						completeWith(.success([]))
+						return
+					}
+
+					guard let data = response.body else {
+						completeWith(.failure(.invalidResponse))
+						return
+					}
+
+					do {
+						let decoder = JSONDecoder()
+						let hours = try decoder.decode([Int].self, from: data)
+						completeWith(.success(hours))
+					} catch {
+						completeWith(.failure(.invalidResponse))
+						return
+					}
+				case let .failure(error):
+					if case .noResponse = error {
+						Log.error("failed to get availableHours: \(error). This error occurs when fetching availableHours was triggered without WIFI connection.", log: .api)
+					} else {
+						Log.error("failed to get availableHours: \(error)", log: .api)
+					}
+
+					completeWith(.failure(error))
+				}
+			}
+		}
+	}
+
 	func fetchHour(
 		_ hour: Int,
 		day: String,
@@ -94,7 +139,11 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 				case let .failure(error):
 					responseError = error
 
-					Log.error("failed to get hour: \(error)", log: .api)
+					if case .noResponse = error {
+						Log.error("failed to get hour: \(error). This error occurs when download of hour packages was triggered without WIFI connection.", log: .api)
+					} else {
+						Log.error("failed to get hour: \(error)", log: .api)
+					}
 				}
 			}
 		}

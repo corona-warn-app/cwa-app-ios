@@ -5,19 +5,30 @@
 import Foundation
 import UIKit
 
-final class ExposureSubmissionNavigationController: ENANavigationControllerWithFooter, UINavigationControllerDelegate {
+protocol DismissHandling {
+	/// if a view controller fulfulls this protocol and is member a ExposureSubmissionNavigationController and
+	/// on top of the viewcontrollers stack - presentDismiss action (swipe down or close button) will call this
+	/// function
+	/// otherwise no reaction is possible and the dismiss logic depends on the navigation controller
+	func presentDismiss(dismiss: @escaping () -> Void)
+}
 
-	// MARK: - Attributes.
+final class ExposureSubmissionNavigationController: ENANavigationControllerWithFooter, UINavigationControllerDelegate, UIAdaptivePresentationControllerDelegate {
 
-	private let coordinator: ExposureSubmissionCoordinating
-	private var rootViewController: UIViewController?
+	// MARK: - Init
 
-	// MARK: - Initializers.
-
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, rootViewController: UIViewController? = nil) {
+	init(
+		coordinator: ExposureSubmissionCoordinating? = nil,
+		dismissClosure: @escaping () -> Void,
+		isModalInPresentation: Bool,
+		rootViewController: UIViewController
+	) {
 		self.coordinator = coordinator
-		self.rootViewController = rootViewController
-		super.init(coder: coder)
+		self.dismissClosure = dismissClosure
+		super.init(rootViewController: rootViewController)
+		// init default UIAdaptivePresentation delegate
+		self.presentationController?.delegate = isModalInPresentation ? self :  nil
+		self.isModalInPresentation = isModalInPresentation
 	}
 
 	@available(*, unavailable)
@@ -25,17 +36,15 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Overrides
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		if let rootVC = rootViewController {
-			setViewControllers([rootVC], animated: false)
-		}
 
 		let closeButton = UIButton(type: .custom)
 		closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)
 		closeButton.setImage(UIImage(named: "Icons - Close - Tap"), for: .highlighted)
-		closeButton.addTarget(self, action: #selector(close), for: .primaryActionTriggered)
+		closeButton.addTarget(self, action: #selector(closeButtonHit), for: .primaryActionTriggered)
 
 		let barButtonItem = UIBarButtonItem(customView: closeButton)
 		barButtonItem.accessibilityLabel = AppStrings.AccessibilityLabel.close
@@ -43,13 +52,13 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 
 		navigationItem.rightBarButtonItem = barButtonItem
 		navigationBar.accessibilityIdentifier = AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle
+		navigationBar.prefersLargeTitles = true
 
 		delegate = self
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-
 		applyDefaultRightBarButtonItem(to: topViewController)
 	}
 
@@ -57,26 +66,48 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 		super.viewWillDisappear(animated)
 
 		// Check if the ExposureSubmissionNavigationController is popped from its parent.
-		guard self.isMovingFromParent || self.isBeingDismissed else { return }
+		guard self.isMovingFromParent || self.isBeingDismissed,
+			  let coordinator = coordinator else { return }
 		coordinator.delegate?.exposureSubmissionCoordinatorWillDisappear(coordinator)
 	}
 
+	// MARK: - Protocol UINavigationControllerDelegate
+
+	func navigationController(_: UINavigationController, willShow viewController: UIViewController, animated _: Bool) {
+		applyDefaultRightBarButtonItem(to: viewController)
+	}
+
+	// MARK: - Protocol UIAdaptivePresentationControllerDelegate
+
+	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+		guard let topViewController = viewControllers.last,
+			  let dismissableViewController = topViewController as? DismissHandling  else {
+			Log.debug("ViewController found doesn't conforms to protocol DismissHandling -> stop")
+			dismissClosure()
+			return
+		}
+
+		dismissableViewController.presentDismiss(dismiss: { [weak self] in
+			self?.closeButtonHit()
+		})
+	}
+
+	// MARK: - Private
+
+	private let coordinator: ExposureSubmissionCoordinating?
+	private let dismissClosure: () -> Void
+
 	private func applyDefaultRightBarButtonItem(to viewController: UIViewController?) {
 		if let viewController = viewController,
-			viewController.navigationItem.rightBarButtonItem == nil ||
-				viewController.navigationItem.rightBarButtonItem == navigationItem.rightBarButtonItem {
+		   viewController.navigationItem.rightBarButtonItem == nil ||
+			viewController.navigationItem.rightBarButtonItem == navigationItem.rightBarButtonItem {
 			viewController.navigationItem.rightBarButtonItem = navigationItem.rightBarButtonItem
 		}
 	}
 
 	@objc
-	func close() {
-		self.coordinator.dismiss()
-	}
-}
-
-extension ExposureSubmissionNavigationController {
-	func navigationController(_: UINavigationController, willShow viewController: UIViewController, animated _: Bool) {
-		applyDefaultRightBarButtonItem(to: viewController)
+	func closeButtonHit() {
+		guard let presentationController = self.presentationController else { return }
+		presentationControllerDidAttemptToDismiss(presentationController)
 	}
 }
