@@ -68,7 +68,7 @@ class WarnOthersReminder: WarnOthersRemindable {
 	}
 
 	/// This function takes a `TestResult` as parameter to evaluate, if possible notifications need to be scheduled for the warn others notification process.
-	func showingTestResult(_ testResult: TestResult) {
+	func evaluateShowingTestResult(_ testResult: TestResult) {
 		// If incoming test restuls are others than positive, we don't deal with them
 		guard testResult == .positive, !positiveTestResultWasShown else { return }
 		

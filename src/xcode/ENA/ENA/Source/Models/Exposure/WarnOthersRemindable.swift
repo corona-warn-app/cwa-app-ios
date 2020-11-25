@@ -28,7 +28,7 @@ protocol WarnOthersRemindable {
 	var notificationOneTimeInterval: TimeInterval { get set }
 	var notificationTwoTimeInterval: TimeInterval { get set }
 	
-	func showingTestResult(_ testResult: TestResult)
+	func evaluateShowingTestResult(_ testResult: TestResult)
 	func reset()
 	func cancelNotifications()
 

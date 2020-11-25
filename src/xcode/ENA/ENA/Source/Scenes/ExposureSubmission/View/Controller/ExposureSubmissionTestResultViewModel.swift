@@ -88,7 +88,7 @@ class ExposureSubmissionTestResultViewModel {
 	}
 	
 	func updateWarnOthers() {
-		warnOthersReminder.showingTestResult(testResult)
+		warnOthersReminder.evaluateShowingTestResult(testResult)
 	}
 	
 	// MARK: - Private
