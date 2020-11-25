@@ -196,7 +196,7 @@ final class RiskProvider: RiskProviding {
 		// 1. The exposureManagerState is bad (turned off, not authorized, etc.)
 		if !exposureManagerState.isGood {
 			Log.info("RiskProvider: Precondition not met for ExposureManagerState", log: .riskDetection)
-			failOnTargetQueue(error: .inactive)
+			completion(.failure(.inactive))
 			return
 		}
 
