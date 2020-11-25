@@ -39,32 +39,34 @@ final class HTTPClient: Client {
 	) {
 		let url = configuration.availableHoursURL(day: day, country: country)
 
-		session.GET(url) { result in
-			switch result {
-			case let .success(response):
-				// We accept 404 responses since this can happen in case there
-				// have not been any new cases reported on that day.
-				// We don't report this as an error to simplify things for the consumer.
-				guard response.statusCode != 404 else {
-					completeWith(.success([]))
-					return
-				}
+		session.GET(url) { [weak self] result in
+			self?.queue.async {
+				switch result {
+				case let .success(response):
+					// We accept 404 responses since this can happen in case there
+					// have not been any new cases reported on that day.
+					// We don't report this as an error to simplify things for the consumer.
+					guard response.statusCode != 404 else {
+						completeWith(.success([]))
+						return
+					}
 
-				guard let data = response.body else {
-					completeWith(.failure(.invalidResponse))
-					return
-				}
+					guard let data = response.body else {
+						completeWith(.failure(.invalidResponse))
+						return
+					}
 
-				do {
-					let decoder = JSONDecoder()
-					let hours = try decoder.decode([Int].self, from: data)
-					completeWith(.success(hours))
-				} catch {
-					completeWith(.failure(.invalidResponse))
-					return
+					do {
+						let decoder = JSONDecoder()
+						let hours = try decoder.decode([Int].self, from: data)
+						completeWith(.success(hours))
+					} catch {
+						completeWith(.failure(.invalidResponse))
+						return
+					}
+				case let .failure(error):
+					completeWith(.failure(error))
 				}
-			case let .failure(error):
-				completeWith(.failure(error))
 			}
 		}
 	}
@@ -278,52 +280,56 @@ final class HTTPClient: Client {
 	private let packageVerifier: SAPDownloadedPackage.Verification
 	private var retries: [URL: Int] = [:]
 
+	private let queue = DispatchQueue(label: "com.sap.HTTPClient")
+
 	private func fetchDay(
 		from url: URL,
 		completion completeWith: @escaping DayCompletionHandler) {
 		var responseError: Failure?
-
+ 
 		session.GET(url) { [weak self] result in
-			guard let self = self else {
-				completeWith(.failure(.noResponse))
-				return
-			}
+			self?.queue.async {
+				guard let self = self else {
+					completeWith(.failure(.noResponse))
+					return
+				}
 
-			defer {
-				// no guard in defer!
-				if let error = responseError {
-					let retryCount = self.retries[url] ?? 0
-					if retryCount > 2 {
-						completeWith(.failure(error))
+				defer {
+					// no guard in defer!
+					if let error = responseError {
+						let retryCount = self.retries[url] ?? 0
+						if retryCount > 2 {
+							completeWith(.failure(error))
+						} else {
+							self.retries[url] = retryCount.advanced(by: 1)
+							Log.debug("\(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
+							self.fetchDay(from: url, completion: completeWith)
+						}
 					} else {
-						self.retries[url] = retryCount.advanced(by: 1)
-						Log.debug("\(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
-						self.fetchDay(from: url, completion: completeWith)
+						// no error, no retry - clean up
+						self.retries[url] = nil
 					}
-				} else {
-					// no error, no retry - clean up
-					self.retries[url] = nil
 				}
-			}
 
-			switch result {
-			case let .success(response):
-				guard let dayData = response.body else {
-					responseError = .invalidResponse
-					Log.error("Failed to download for URL '\(url)': invalid response", log: .api)
-					return
+				switch result {
+				case let .success(response):
+					guard let dayData = response.body else {
+						responseError = .invalidResponse
+						Log.error("Failed to download for URL '\(url)': invalid response", log: .api)
+						return
+					}
+					guard let package = SAPDownloadedPackage(compressedData: dayData) else {
+						Log.error("Failed to create signed package. For URL: \(url)", log: .api)
+						responseError = .invalidResponse
+						return
+					}
+					let etag = response.httpResponse.allHeaderFields["ETag"] as? String
+					let payload = PackageDownloadResponse(package: package, etag: etag)
+					completeWith(.success(payload))
+				case let .failure(error):
+					responseError = error
+					Log.error("Failed to download for URL '\(url)' due to error: \(error).", log: .api)
 				}
-				guard let package = SAPDownloadedPackage(compressedData: dayData) else {
-					Log.error("Failed to create signed package. For URL: \(url)", log: .api)
-					responseError = .invalidResponse
-					return
-				}
-				let etag = response.httpResponse.allHeaderFields["ETag"] as? String
-				let payload = PackageDownloadResponse(package: package, etag: etag)
-				completeWith(.success(payload))
-			case let .failure(error):
-				responseError = error
-				Log.error("Failed to download for URL '\(url)' due to error: \(error).", log: .api)
 			}
 		}
 	}
@@ -332,31 +338,33 @@ final class HTTPClient: Client {
 		from url: URL,
 		completion completeWith: @escaping AvailableDaysCompletionHandler
 	) {
-		session.GET(url) { result in
-			switch result {
-			case let .success(response):
-				guard let data = response.body else {
-					completeWith(.failure(.invalidResponse))
-					return
+		session.GET(url) { [weak self] result in
+			self?.queue.async {
+				switch result {
+				case let .success(response):
+					guard let data = response.body else {
+						completeWith(.failure(.invalidResponse))
+						return
+					}
+					guard response.hasAcceptableStatusCode else {
+						completeWith(.failure(.invalidResponse))
+						return
+					}
+					do {
+						let decoder = JSONDecoder()
+						let days = try decoder
+							.decode(
+								[String].self,
+								from: data
+						)
+						completeWith(.success(days))
+					} catch {
+						completeWith(.failure(.invalidResponse))
+						return
+					}
+				case let .failure(error):
+					completeWith(.failure(error))
 				}
-				guard response.hasAcceptableStatusCode else {
-					completeWith(.failure(.invalidResponse))
-					return
-				}
-				do {
-					let decoder = JSONDecoder()
-					let days = try decoder
-						.decode(
-							[String].self,
-							from: data
-					)
-					completeWith(.success(days))
-				} catch {
-					completeWith(.failure(.invalidResponse))
-					return
-				}
-			case let .failure(error):
-				completeWith(.failure(error))
 			}
 		}
 	}
