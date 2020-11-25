@@ -10,10 +10,6 @@ class EUSettingsViewControllerTests: XCTestCase {
 
 	private var subscriptions: [AnyCancellable] = []
 
-	override func setUp() {
-		subscriptions = [AnyCancellable]()
-	}
-
 	func testDataReloadForSuccessfulDownload() {
 		let exp = expectation(description: "config fetched")
 

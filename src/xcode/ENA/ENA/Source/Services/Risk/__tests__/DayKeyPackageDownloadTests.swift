@@ -63,7 +63,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_CachedDayPackagesAvailable_Then_OnlyServerDeltaPackagesAreDownloaded() throws {
@@ -101,7 +101,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_ExpiredCachedDayPackagesAvailable_Then_ExpiredPackagesAreDeleted() throws {
@@ -139,7 +139,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_ExpectNewDayPackagesIsFalse_Then_NoPackageDownloadIsTriggeredAndSuccessIsCalled() throws {
@@ -183,7 +183,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_DayPackagesDownloadIsRunning_Then_downloadIsRunningErrorReturned() throws {
@@ -220,7 +220,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_DayPackagesDownloadFailes_Then_uncompletedPackagesErrorReturned() {
@@ -251,7 +251,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_AvailableServerDayDataFetchFailes_Then_uncompletedPackagesErrorReturned() {
@@ -282,7 +282,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_PersistDayPackagesToDatabaseFails_Then_unableToWriteDiagnosisKeysErrorReturned() {
@@ -312,7 +312,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_PersistDayPackagesToDatabaseFailsBecauseOfDiskSpace_Then_noDiskSpaceErrorReturned() {
@@ -342,7 +342,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_NoNewPackagesFoundOnServer_Then_StatusChangesFrom_Idle_To_CheckingForNewPackages_To_Idle() throws {
@@ -391,7 +391,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 
 		keyPackageDownload.startDayPackagesDownload { _ in }
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func test_When_NewPackagesFoundOnServer_Then_StatusChangesFrom_Idle_To_Downloading_To_CheckingForNewPackages_To_Idle() {
@@ -434,6 +434,6 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 
 		keyPackageDownload.startDayPackagesDownload { _ in }
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 }

@@ -33,6 +33,9 @@ enum PublicKeyEnv {
 	case development
 
 	/// Returns the string representation of the PK.
+	/// Note that the values are taken from the regular PK in PEM format but without the first 36 characters,
+	/// which denote PEM header information. These 36 characters are typically:
+	/// `MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE`
 	///
 	/// We don't want to rely on `rawValue` but make accessing the key an explicit action.
 	var stringRepresentation: StaticString {

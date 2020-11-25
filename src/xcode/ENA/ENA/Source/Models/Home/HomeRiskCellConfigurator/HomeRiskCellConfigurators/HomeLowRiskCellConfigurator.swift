@@ -5,9 +5,9 @@
 import UIKit
 
 final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
-	private var numberRiskContacts: Int
-	private var numberDays: Int { activeTracing.inDays }
-	private var totalDays: Int { activeTracing.maximumNumberOfDays }
+	private var numberOfDaysWithLowRisk: Int
+	private var numberOfActiveDays: Int { activeTracing.inDays }
+	private var maximumNumberOfActiveDays: Int { activeTracing.maximumNumberOfDays }
 	private let activeTracing: ActiveTracing
 
 	private let titleColor: UIColor = .enaColor(for: .textContrast)
@@ -18,15 +18,16 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	init(
 		state: RiskProviderActivityState,
-		numberRiskContacts: Int,
+		numberOfDaysWithLowRisk: Int,
 		lastUpdateDate: Date?,
 		isButtonHidden: Bool,
 		manualExposureDetectionState: ManualExposureDetectionState?,
 		detectionInterval: Int,
 		activeTracing: ActiveTracing
 	) {
-		self.numberRiskContacts = numberRiskContacts
+		self.numberOfDaysWithLowRisk = numberOfDaysWithLowRisk
 		self.activeTracing = activeTracing
+
 		super.init(
 			state: state,
 			isButtonEnabled: manualExposureDetectionState == .possible,
@@ -85,8 +86,10 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	private func setupNormalCellState(for cell: RiskLevelCollectionViewCell) -> [HomeRiskImageItemViewConfigurator] {
 		var itemCellConfigurators: [HomeRiskImageItemViewConfigurator] = []
+
 		cell.configureTitle(title: AppStrings.Home.riskCardLowTitle, titleColor: titleColor)
-		let numberContactsTitle = String(format: AppStrings.Home.riskCardLowNumberContactsItemTitle, numberRiskContacts)
+		let numberContactsTitle = String(format: AppStrings.Home.riskCardLowNumberContactsItemTitle, numberOfDaysWithLowRisk)
+
 		itemCellConfigurators.append(
 			HomeRiskImageItemViewConfigurator(
 				title: numberContactsTitle,
@@ -97,7 +100,8 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 				separatorColor: separatorColor
 			)
 		)
-		let progressImage: String = numberDays >= totalDays ? "Icons_TracingCircleFull - Dark" : "Icons_TracingCircle-Dark_Step \(activeTracing.inDays)"
+
+		let progressImage: String = numberOfActiveDays >= maximumNumberOfActiveDays ? "Icons_TracingCircleFull - Dark" : "Icons_TracingCircle-Dark_Step \(activeTracing.inDays)"
 		itemCellConfigurators.append(
 			HomeRiskImageItemViewConfigurator(
 				title: activeTracing.localizedDuration,
@@ -128,9 +132,9 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	override func hash(into hasher: inout Swift.Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(numberRiskContacts)
-		hasher.combine(numberDays)
-		hasher.combine(totalDays)
+		hasher.combine(numberOfDaysWithLowRisk)
+		hasher.combine(numberOfActiveDays)
+		hasher.combine(maximumNumberOfActiveDays)
 	}
 
 	static func == (lhs: HomeLowRiskCellConfigurator, rhs: HomeLowRiskCellConfigurator) -> Bool {
@@ -138,9 +142,9 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		lhs.isButtonEnabled == rhs.isButtonEnabled &&
 		lhs.isButtonHidden == rhs.isButtonHidden &&
 		lhs.lastUpdateDate == rhs.lastUpdateDate &&
-		lhs.numberRiskContacts == rhs.numberRiskContacts &&
-		lhs.numberDays == rhs.numberDays &&
-		lhs.totalDays == rhs.totalDays &&
+		lhs.numberOfDaysWithLowRisk == rhs.numberOfDaysWithLowRisk &&
+		lhs.numberOfActiveDays == rhs.numberOfActiveDays &&
+		lhs.maximumNumberOfActiveDays == rhs.maximumNumberOfActiveDays &&
 		lhs.detectionInterval == rhs.detectionInterval
 	}
 }

@@ -59,6 +59,8 @@
 
 "ExposureDetection_High" = "Erhöhtes Risiko";
 
+"ExposureDetection_LastExposure" = "Zuletzt am %@";
+
 "ExposureDetection_Refreshed" = "Aktualisiert: %@";
 
 "ExposureDetection_Refreshed_Never" = "Unbekannt";
@@ -79,7 +81,7 @@
 
 "ExposureDetection_Behavior_Title" = "Verhalten";
 
-"ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig";
+"ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig:";
 
 "ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig mit Seife für 20 Sekunden.";
 
@@ -101,7 +103,7 @@
 
 "ExposureDetection_Explanation_Title" = "Infektionsrisiko";
 
-"ExposureDetection_Explanation_Subtitle" = "So wird Ihr Risiko ermittelt";
+"ExposureDetection_Explanation_Subtitle" = "So wird Ihr Risiko ermittelt.";
 
 "ExposureDetection_Explanation_Text_Off" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
@@ -112,6 +114,8 @@
 "ExposureDetection_Explanation_Text_Low_No_Encounter" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.";
 
 "ExposureDetection_Explanation_Text_Low_With_Encounter" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung des Abstands und der Dauer von Begegnungen mit nachweislich Corona-positiv getesteten Personen sowie deren vermutlicher Infektiosität lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+
+"ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt am %@ mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.";
 
 "ExposureDetection_Explanation_Text_High" = "Die Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft.\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.\nWenn Sie nach Hause kommen, vermeiden Sie auch Begegnungen mit Familienmitgliedern und Mitbewohnern.";
 
@@ -316,7 +320,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mehr Schutz für Sie und uns alle. Mit der Corona-Warn-App durchbrechen wir Infektionsketten schneller.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in Ihrer Nähe waren.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufalls-IDs austauschen. Und zwar ohne dabei auf persönliche Daten zuzugreifen.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in Ihrer Nähe waren.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufalls-IDs austauschen. Persönliche Daten werden dabei nicht ausgetauscht";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informationen zur App in leichter Sprache und Gebärdensprache";
 
@@ -883,7 +887,7 @@ oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome m
 
 "Home_Risk_Period_Disabled_Button_Title" = "Aktualisierung nur alle %@\U00A0Stunden";
 
-"Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
+"Home_Risk_Last_Contact_Item_Title" = "Zuletzt am %@";
 
 "Home_Risk_Last_Activate_Item_Title" = "Letzte Risiko-Überprüfung: %@";
 
@@ -977,9 +981,9 @@ oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome m
 
 "Home_SubmitCard_Button" = "Nächste Schritte";
 
-"Home_InfoCard_ShareTitle" = "Corona-Warn-App teilen";
+"Home_InfoCard_ShareTitle" = "Corona-Warn-App empfehlen";
 
-"Home_InfoCard_ShareBody" = "Je mehr Menschen mitmachen, desto besser durchbrechen wir Infektionsketten. Laden Sie Familie, Freunde und Bekannte ein!";
+"Home_InfoCard_ShareBody" = "Je mehr Menschen mitmachen, desto besser durchbrechen wir Infektionsketten. Verschicken Sie einen Link auf die Corona-Warn-App an Familie, Freunde und Bekannte!";
 
 "Home_InfoCard_AboutTitle" = "Häufige Fragen";
 
@@ -1174,10 +1178,6 @@ oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome m
 "RiskLegend_Legend2_Low" = "Niedriges Risiko";
 
 "RiskLegend_Legend2_Low_Color" = "Grün";
-
-"RiskLegend_Legend2_Unknown" = "Unbekanntes Risiko";
-
-"RiskLegend_Legend2_Unknown_Color" = "Grau";
 
 "RiskLegend_Legend3_Title" = "Benachrichtigung anderer";
 
