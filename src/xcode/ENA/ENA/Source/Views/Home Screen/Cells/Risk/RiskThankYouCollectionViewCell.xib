@@ -25,9 +25,6 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" insetsLayoutMarginsFromSafeArea="NO" text="Title 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4vH-2n-zB9" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                         <rect key="frame" x="16" y="0.0" width="396" height="0.0"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="396" id="1G9-J5-58I"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
                                         <nil key="highlightedColor"/>
@@ -37,15 +34,9 @@
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="250" insetsLayoutMarginsFromSafeArea="NO" image="Illu_Home_VielenDank" translatesAutoresizingMaskIntoConstraints="NO" id="gib-Lj-L9x">
                                         <rect key="frame" x="0.0" y="16" width="428" height="63"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="428" id="tbX-mJ-qbn"/>
-                                        </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="249" verticalCompressionResistancePriority="249" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MjR-ul-n67" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                         <rect key="frame" x="16" y="95" width="396" height="0.0"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="396" id="4V1-eh-VOd"/>
-                                        </constraints>
                                         <string key="text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
@@ -56,9 +47,6 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" insetsLayoutMarginsFromSafeArea="NO" text="Title 2 Note" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kx4-69-edp" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                         <rect key="frame" x="16" y="111" width="396" height="26.5"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="396" id="R8C-hP-Svj"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
                                         <nil key="highlightedColor"/>
@@ -68,15 +56,9 @@
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8VS-I3-yNF">
                                         <rect key="frame" x="16" y="153.5" width="396" height="200"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="396" id="CnU-bg-G4G"/>
-                                        </constraints>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" insetsLayoutMarginsFromSafeArea="NO" text="Title 2 More Info" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5t-z9-0Jg" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                         <rect key="frame" x="16" y="369.5" width="396" height="26.5"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="396" id="npX-wo-3KQ"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
                                         <nil key="highlightedColor"/>
@@ -86,24 +68,16 @@
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BEI-EV-nwa">
                                         <rect key="frame" x="16" y="412" width="396" height="57"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="396" id="0DF-hU-67w"/>
-                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="MjR-ul-n67" firstAttribute="leading" secondItem="7r0-tC-NXI" secondAttribute="leading" constant="16" id="4nn-M2-7jm"/>
-                                    <constraint firstAttribute="trailing" secondItem="4vH-2n-zB9" secondAttribute="trailing" constant="16" id="65J-Ng-0fH"/>
-                                    <constraint firstAttribute="trailing" secondItem="BEI-EV-nwa" secondAttribute="trailing" constant="16" id="6Pw-a2-cVx"/>
-                                    <constraint firstAttribute="trailing" secondItem="t5t-z9-0Jg" secondAttribute="trailing" constant="16" id="FFn-Up-vBm"/>
-                                    <constraint firstAttribute="trailing" secondItem="8VS-I3-yNF" secondAttribute="trailing" constant="16" id="XGS-Ox-l1K"/>
-                                    <constraint firstAttribute="trailing" secondItem="kx4-69-edp" secondAttribute="trailing" constant="16" id="YoB-oe-8lQ"/>
-                                    <constraint firstItem="4vH-2n-zB9" firstAttribute="leading" secondItem="7r0-tC-NXI" secondAttribute="leading" constant="16" id="fbh-ip-bcI"/>
-                                    <constraint firstItem="t5t-z9-0Jg" firstAttribute="leading" secondItem="7r0-tC-NXI" secondAttribute="leading" constant="16" id="kPB-Zq-kBj"/>
-                                    <constraint firstItem="BEI-EV-nwa" firstAttribute="leading" secondItem="7r0-tC-NXI" secondAttribute="leading" constant="16" id="lxH-nk-hEG"/>
-                                    <constraint firstItem="kx4-69-edp" firstAttribute="leading" secondItem="7r0-tC-NXI" secondAttribute="leading" constant="16" id="lyL-hk-6Ea"/>
-                                    <constraint firstItem="8VS-I3-yNF" firstAttribute="leading" secondItem="7r0-tC-NXI" secondAttribute="leading" constant="16" id="o0u-sH-UlZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="MjR-ul-n67" secondAttribute="trailing" constant="16" id="w0b-bi-Ee6"/>
+                                    <constraint firstItem="kx4-69-edp" firstAttribute="width" secondItem="7r0-tC-NXI" secondAttribute="width" constant="-32" id="8c2-yH-TJV"/>
+                                    <constraint firstItem="8VS-I3-yNF" firstAttribute="width" secondItem="7r0-tC-NXI" secondAttribute="width" constant="-32" id="BNd-wh-VW7"/>
+                                    <constraint firstItem="gib-Lj-L9x" firstAttribute="width" secondItem="7r0-tC-NXI" secondAttribute="width" id="G9J-5j-jAl"/>
+                                    <constraint firstItem="4vH-2n-zB9" firstAttribute="width" secondItem="7r0-tC-NXI" secondAttribute="width" constant="-32" id="N0u-C4-7lb"/>
+                                    <constraint firstItem="MjR-ul-n67" firstAttribute="width" secondItem="7r0-tC-NXI" secondAttribute="width" constant="-32" id="lw3-3X-mG2"/>
+                                    <constraint firstItem="BEI-EV-nwa" firstAttribute="width" secondItem="7r0-tC-NXI" secondAttribute="width" constant="-32" id="m7m-Ve-ja7"/>
+                                    <constraint firstItem="t5t-z9-0Jg" firstAttribute="width" secondItem="7r0-tC-NXI" secondAttribute="width" constant="-32" id="owV-FI-ZCt"/>
                                 </constraints>
                             </stackView>
                         </subviews>
