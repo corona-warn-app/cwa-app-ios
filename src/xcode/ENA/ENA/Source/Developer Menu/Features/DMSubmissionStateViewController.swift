@@ -189,8 +189,8 @@ private extension Client {
 	typealias AvailableDaysAndHoursCompletion = (DaysAndHours) -> Void
 
 	private func availableDaysAndHours(
-		completion completeWith: @escaping AvailableDaysAndHoursCompletion,
-		wifiClient: WifiOnlyHTTPClient
+		wifiClient: WifiOnlyHTTPClient,
+		completion completeWith: @escaping AvailableDaysAndHoursCompletion
 	) {
 		let group = DispatchGroup()
 
@@ -222,14 +222,14 @@ private extension Client {
 		completion completeWith: @escaping (FetchedDaysAndHours) -> Void
 	) {
 		availableDaysAndHours(
+			wifiClient: wifiClient,
 			completion: { daysAndHours in
 				self.fetchDays(daysAndHours.days, forCountry: "DE") { daysResult in
 					wifiClient.fetchHours(daysAndHours.hours, day: .formattedToday(), country: "DE") { hoursResult in
 						completeWith(FetchedDaysAndHours(hours: hoursResult, days: daysResult))
 					}
 				}
-			},
-			wifiClient: wifiClient
+			}
 		)
 	}
 }
