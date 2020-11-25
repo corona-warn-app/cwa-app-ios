@@ -576,6 +576,30 @@ oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome m
 
 "ExposureSubmissionIntroduction_ListItem4" = "Wenn Sie keine TAN haben, können Sie diese telefonisch anfragen.";
 
+/* Exposure Submission Testresult available*/
+"ExposureSubmissionTestresultAvailable_Title" = "Ihr Testergebnis liegt vor";
+
+"ExposureSubmissionTestresultAvailable_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
+
+"ExposureSubmissionTestresultAvailable_Consent_granted" = "Einverständnis\n„Andere warnen” erteilt";
+
+"ExposureSubmissionTestresultAvailable_Consent_not_given" = "Einverständnis\n„Andere warnen” nicht erteilt";
+
+"ExposureSubmissionTestresultAvailable_ListItem1" = "Vielen Dank, dass Sie mithelfen, andere zu warnen und damit einverstanden sind, Ihr Testergebnis zu teilen.";
+
+"ExposureSubmissionTestresultAvailable_ListItem2" = "Bitte geben Sie Ihr Testergebnis im nächsten Schritt frei, indem Sie „Teilen“ antippen.";
+
+"ExposureSubmissionTestresultAvailable_primaryButtonTitle" = "Weiter";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Achtung:\n Sie sind dabei den Vorgang abzubrechen. Sie haben Ihre Mitmenschen noch nicht gewarnt. Bitte schützen Sie Ihre Mitmenschen und schließen Sie den Vorgang ab.";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertMessage" = "Möchten Sie den Vorgang wirklich abbrechen?";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Abbrechen";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Fortsetzen";
+
+
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Ihr Testergebnis";
 
