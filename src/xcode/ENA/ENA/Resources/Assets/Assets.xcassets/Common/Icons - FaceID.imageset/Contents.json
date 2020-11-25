@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Icons - Home - ErhohtesRisiko@1x.pdf",
+      "filename" : "Icon_Einverstaendnis_Test_Scannen_light.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,6 +11,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "Icon_Einverstaendnis_Test_Scannen_dark.pdf",
       "idiom" : "universal"
     }
   ],
