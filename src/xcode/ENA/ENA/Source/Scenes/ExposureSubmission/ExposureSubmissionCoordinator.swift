@@ -203,41 +203,10 @@ extension ExposureSubmissionCoordinator {
 		let vc = ExposureSubmissionQRInfoViewController(
 			supportedCountries: model.supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
-				self?.showDisclaimer(isLoading: isLoading)
-			})
-		push(vc)
-	}
-
-	private func showDisclaimer(isLoading: @escaping (Bool) -> Void) {
-		let alert = UIAlertController(
-			title: AppStrings.ExposureSubmission.dataPrivacyTitle,
-			message: AppStrings.ExposureSubmission.dataPrivacyDisclaimer,
-			preferredStyle: .alert
-		)
-
-		let acceptAction = UIAlertAction(
-			title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle,
-			style: .default,
-			handler: { [weak self] _ in
 				self?.model.exposureSubmissionService.acceptPairing()
 				self?.showQRScreen(isLoading: isLoading)
-			}
-		)
-
-		alert.addAction(acceptAction)
-
-		alert.addAction(
-			.init(
-				title: AppStrings.ExposureSubmission.dataPrivacyDontAcceptTitle,
-				style: .cancel,
-				handler: { _ in
-					alert.dismiss(animated: true)
-				}
-			)
-		)
-		alert.preferredAction = acceptAction
-
-		navigationController?.present(alert, animated: true)
+			})
+		push(vc)
 	}
 
 	private func showQRScreen(isLoading: @escaping (Bool) -> Void) {
