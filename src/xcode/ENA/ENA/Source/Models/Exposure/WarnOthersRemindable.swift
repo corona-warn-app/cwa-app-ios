@@ -22,6 +22,8 @@ import UIKit
 protocol WarnOthersRemindable {
 	
 	var hasPositiveTestResult: Bool { get set }
+	
+	var isSubmissionConsentGiven: Bool { get }
 
 	var notificationOneTimeInterval: TimeInterval { get set }
 	var notificationTwoTimeInterval: TimeInterval { get set }

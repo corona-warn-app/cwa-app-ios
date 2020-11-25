@@ -43,7 +43,7 @@ struct TestResultAvailableViewModel {
 					.icon(UIImage(named: "Icons_Grey_Warnen"), text: store.isSubmissionConsentGiven ?
 							.string(AppStrings.ExposureSubmissionTestresultAvailable.consentGranted) :
 							.string(AppStrings.ExposureSubmissionTestresultAvailable.consentNotGranted),
-						  action: .execute { _ in
+						  action: .execute { _, _  in
 							didTapConsentCell()
 						  },
 						  configure: { _, cell, _ in

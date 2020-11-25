@@ -10,10 +10,11 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	// MARK: - Init
 
 	init(
-		viewModel: ExposureSubmissionTestResultViewModel
+		viewModel: ExposureSubmissionTestResultViewModel,
+		exposureSubmissionService: ExposureSubmissionService
 	) {
 		self.viewModel = viewModel
-
+		self.exposureSubmissionService = exposureSubmissionService
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -38,7 +39,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	override var navigationItem: UINavigationItem {
 		viewModel.navigationFooterItem
 	}
-
+	
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
@@ -50,6 +51,8 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	}
 
 	// MARK: - Private
+	
+	private let exposureSubmissionService: ExposureSubmissionService
 
 	private let viewModel: ExposureSubmissionTestResultViewModel
 
@@ -76,6 +79,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	}
 
 	private func setUpBindings() {
+		
 		viewModel.$dynamicTableViewModel
 			.sink { [weak self] dynamicTableViewModel in
 				self?.dynamicTableViewModel = dynamicTableViewModel

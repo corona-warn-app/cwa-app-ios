@@ -83,7 +83,7 @@ class TestResultAvailableViewModelTest: XCTestCase {
 		// WHEN
 		switch iconCell.action {
 		case .execute(block: let block):
-			block( UIViewController() )
+			block( UIViewController(), nil )
 		default:
 			XCTFail("unknown action type")
 		}
