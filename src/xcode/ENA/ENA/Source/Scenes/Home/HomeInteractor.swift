@@ -331,7 +331,7 @@ extension HomeInteractor {
 				let testResultLoadingCellConfigurator = HomeTestResultLoadingCellConfigurator()
 				actionsConfigurators.append(testResultLoadingCellConfigurator)
 
-			case .positive:
+			case .positive where exposureSubmissionService.positiveTestResultWasShown:
 				let findingPositiveRiskCellConfigurator = setupFindingPositiveRiskCellConfigurator()
 				actionsConfigurators.append(findingPositiveRiskCellConfigurator)
 
