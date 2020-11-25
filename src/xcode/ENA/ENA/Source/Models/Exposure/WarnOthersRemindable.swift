@@ -21,14 +21,15 @@ import UIKit
 
 protocol WarnOthersRemindable {
 	
-	var hasPositiveTestResult: Bool { get set }
+	var positiveTestResultWasShown: Bool { get }
 	
 	var isSubmissionConsentGiven: Bool { get }
 
 	var notificationOneTimeInterval: TimeInterval { get set }
 	var notificationTwoTimeInterval: TimeInterval { get set }
 	
-	func evaluateNotificationState(testResult: TestResult)
+	func showingTestResult(_ testResult: TestResult)
 	func reset()
 	func cancelNotifications()
+
 }
