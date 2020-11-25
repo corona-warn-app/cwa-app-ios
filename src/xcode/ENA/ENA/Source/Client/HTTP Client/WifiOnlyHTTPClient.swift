@@ -69,6 +69,12 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 						return
 					}
 				case let .failure(error):
+					if case .noResponse = error {
+						Log.error("failed to get availableHours: \(error). This error occurs when fetching availableHours was triggered without WIFI connection.", log: .api)
+					} else {
+						Log.error("failed to get availableHours: \(error)", log: .api)
+					}
+
 					completeWith(.failure(error))
 				}
 			}
@@ -133,7 +139,11 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 				case let .failure(error):
 					responseError = error
 
-					Log.error("failed to get hour: \(error)", log: .api)
+					if case .noResponse = error {
+						Log.error("failed to get hour: \(error). This error occurs when download of hour packages was triggered without WIFI connection.", log: .api)
+					} else {
+						Log.error("failed to get hour: \(error)", log: .api)
+					}
 				}
 			}
 		}
