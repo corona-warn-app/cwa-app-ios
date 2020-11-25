@@ -39,7 +39,7 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Odświeżanie aplikacji w tle dezaktywowane";
 
-"Common_Deadman_AlertTitle" = "Sprawdzanie narażeń";
+"Common_Deadman_AlertTitle" = "Sprawdzanie narażenia";
 
 "Common_Deadman_AlertBody" = "Pamiętaj, aby regularnie otwierać aplikację Corona-Warn-App w celu sprawdzenia swojego statusu ryzyka.";
 
@@ -59,6 +59,8 @@
 
 "ExposureDetection_High" = "Podwyższone ryzyko";
 
+"ExposureDetection_LastExposure" = "Ostatnio dnia %@";
+
 "ExposureDetection_Refreshed" = "Zaktualizowano: %@";
 
 "ExposureDetection_Refreshed_Never" = "Nieznane";
@@ -71,9 +73,9 @@
 
 "ExposureDetection_OffText" = "Aktywuj rejestrowanie narażenia, aby już dziś ocenić swoje ryzyko.";
 
-"ExposureDetection_OutdatedText" = "Rejestrowanie narażenia nie było aktualizowane przez okres dłuższy niż 24 godziny. Aktualizuj obliczenie.";
+"ExposureDetection_OutdatedText" = "Rejestrowanie obliczenia ryzyka nie było aktualizowane przez okres dłuższy niż 48 godzin. Aktualizuj obliczenie.";
 
-"ExposureDetection_UnknownText" = "Ponieważ nie aktywowałeś(-aś) rejestrowania narażenia na wystarczająco długi czas, nie możemy obliczyć Twojego ryzyka zakażenia.";
+"ExposureDetection_UnknownText" = "Nie możemy jeszcze podać ryzyka zakażenia, ponieważ nie mamy jeszcze wystarczającej ilości danych.";
 
 "ExposureDetection_LoadingText" = "Bieżące dane są pobierane i sprawdzane. Może to potrwać kilka minut.";
 
@@ -113,11 +115,13 @@
 
 "ExposureDetection_Explanation_Text_Low_With_Encounter" = "Ryzyko zakażenia jest obliczane lokalnie na Twoim smartfonie na podstawie danych rejestrowania narażenia. Ta kalkulacja uwzględnia również dystans i czas trwania narażenia na kontakt z osobami, u których zdiagnozowano COVID-19, a także potencjalną podatność na zakażenie. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.";
 
+"ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Masz podwyższone ryzyko zakażenia, ponieważ w dniu %@ byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.";
+
 "ExposureDetection_Explanation_Text_High" = "Dlatego Twoje ryzyko zakażenia zostało ocenione jako podwyższone.\nRyzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie w urządzeniu. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.\nPo powrocie do domu unikaj również bliskiego kontaktu z członkami rodziny lub gospodarstwa domowego.";
 
 "ExposureDetection_Explanation_FAQ_Link_Text" = "Więcej informacji znajduje się na naszej stronie „Często zadawane pytania”.";
 
-"ExposureDetection_LowRiskExposure_Title" = "Bliskie kontakty z niskim ryzykiem";
+"ExposureDetection_LowRiskExposure_Title" = "Narażenia z niskim ryzykiem";
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "Dlaczego Twoje ryzyko zakażenia jest niskie";
 
@@ -311,7 +315,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Większa ochrona dla Ciebie i dla nas wszystkich. Korzystając z aplikacji Corona-Warn-App, możemy znacznie szybciej przerwać łańcuchy zakażeń.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Zmień swoje urządzenie w system ostrzegania przed koronawirusem. Zapoznaj się ze swoim statusem ryzyka i dowiedz się, czy miałeś(-aś) bliski kontakt z osobą, u której w ciągu ostatnich 14 dni zdiagnozowano COVID-19. \n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich urządzeniami bez uzyskiwania dostępu do danych osobowych.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Zmień swoje urządzenie w system ostrzegania przed koronawirusem. Zapoznaj się ze swoim statusem ryzyka i dowiedz się, czy miałeś(-aś) bliski kontakt z osobą, u której w ciągu ostatnich 14 dni zdiagnozowano COVID-19. \n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informacja o aplikacji w języku uproszczonym i języku migowym";
 
@@ -383,9 +387,9 @@
 
 "ExposureSubmission_DataPrivacyDescription" = "By tapping “Accept”, you consent to the App querying the status of your coronavirus test and displaying it in the App. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the App’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the App. If you have enabled notifications, you will also receive a notification outside the App telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the App. You can withdraw this consent at any time by deleting your test registration in the App. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy”.";
 
-"ExposureSubmissionDataPrivacy_AcceptTitle" = "Akceptuj";
+"ExposureSubmissionDataPrivacy_AcceptTitle" = "Zezwól";
 
-"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Nie akceptuj";
+"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Nie zezwalaj";
 
 "ExposureSubmission_Submit" = "Wpisz TAN";
 
@@ -425,7 +429,7 @@
 
 "ExposureSubmissionDispatch_HotlineButtonDescription" = "Zadzwoń do nas, jeśli Twój wynik testu to %@.";
 
-"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "COVID-19";
+"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Zakażenie COVID-19";
 
 "ExposureSubmissionHotline_Title" = "Poproś o TAN";
 
@@ -562,7 +566,7 @@
 
 "ExposureSubmissionResult_warnOthersDesc" = "Udostępnij swoje losowe identyfikatory, aby ostrzegać innych.\nPomóż innym dokładniej ocenić ryzyko zakażenia, wysyłając informację, gdy dostrzeżesz u siebie objawy koronawirusa.";
 
-"ExposureSubmissionResult_testNegative" = "Diagnoza braku zakażenia";
+"ExposureSubmissionResult_testNegative" = "Diagnoza: brak zakażenia";
 
 "ExposureSubmissionResult_testNegativeDesc" = "Wynik laboratoryjny nie potwierdza, że masz koronawirusa SARS-CoV-2.";
 
@@ -586,9 +590,9 @@
 
 "ExposureSubmissionResult_testPending" = "Wynik testu nie jest jeszcze dostępny";
 
-"ExposureSubmissionResult_testPendingDesc_paragraph1" = "Prosimy o cierpliwość. Ustalenie wyniku może potrwać kilka dni.\n\n";
+"ExposureSubmissionResult_testPendingDesc_paragraph1" = "Prosimy o cierpliwość. Ustalenie wyniku może potrwać kilka dni.";
 
-"ExposureSubmissionResult_testPendingDesc_paragraph2" = "Wynik testu otrzymasz również poza aplikacją. Organ ds. zdrowia publicznego powiadomi Cię, jeśli wynik testu będzie pozytywny.\n\n";
+"ExposureSubmissionResult_testPendingDesc_paragraph2" = "Wynik testu otrzymasz również poza aplikacją. Organ ds. zdrowia publicznego powiadomi Cię, jeśli wynik testu będzie pozytywny.";
 
 "ExposureSubmissionResult_testPendingDesc_paragraph3" = "W przypadku pozytywnego wyniku testu zadzwoń na numer podany w sekcji „Poproś o TAN”, aby zarejestrować swój wynik w aplikacji i ostrzec innych.";
 
@@ -655,7 +659,7 @@
 "ExposureSubmissionSymptomsOnset_ContinueButton" = "Dalej";
 
 /* ExposureSubmissionWarnOthers */
-"ExposureSubmissionWarnOthers_title" = "Ostrzeganie innych";
+"ExposureSubmissionWarnOthers_title" = "Ostrzegaj innych";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "Zaszyfrowana diagnoza zakażenia jest przesyłana do systemu.";
 
@@ -707,7 +711,7 @@
 
 "ExposureSubmissionError_RegTokenNotExist" = "Nie można wygenerować numeru TAN do przesłania. Skontaktuj się z techniczną infolinią, wybierając opcje: Informacje o aplikacji -> Infolinia techniczna.";
 
-"ExposureSubmissionError_other" = "Wystąpił błąd połączenia. Kod błędu dla pomocy technicznej: ";
+"ExposureSubmissionError_other" = "Wystąpił błąd połączenia. Kod błędu dla pomocy technicznej:";
 
 "ExposureSubmissionError_otherend" = "Spróbuj ponownie.";
 
@@ -756,7 +760,7 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Aby rejestrowanie narażenia było możliwe, należy aktywować funkcję powiadamiania o narażeniu w ustawieniach systemu w celu umożliwienia rejestracji kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” -> „Powiadomienia o narażeniu” -> „Udostępnij informacje o narażeniu”. Następnie zdefiniuj aplikację jako aktywną dla powiadomień o narażeniu wybierając opcję ”Określ jako region aktywny”.";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "Aktywuj powiadomienia o narażeniu na COVID-19 ";
+"ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "Aktywuj powiadomienia o narażeniu na COVID-19";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Rejestrowanie narażenia wymaga aktywacji powiadomień o narażeniu na COVID-19, tak by możliwe było rejestrowanie kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” i aktywuj „Powiadomienia o narażeniu na COVID-19” w ustawieniach.";
 
@@ -776,7 +780,7 @@
 
 "ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Autoryzacja";
 
-"ExposureNotificationSetting_AccLabel_Enabled" = "Trzy osoby aktywowały rejestrowanie narażenia na swoich urządzeniach, które będą rejestrować ich wzajemne kontakty.";
+"ExposureNotificationSetting_AccLabel_Enabled" = "Trzy osoby aktywowały rejestrowanie narażenia na swoich smartfonach, które będą rejestrować ich wzajemne kontakty.";
 
 "ExposureNotificationSetting_AccLabel_Disabled" = "Jedna osoba dezaktywowała rejestrowanie narażenia na swoim smartfonie, więc kontakt z dwiema pozostałymi osobami nie jest rejestrowany.";
 
@@ -836,8 +840,6 @@
 
 "Home_Activate_Card_Bluetooth_Off_Title" = "Bluetooth wyłączony";
 
-"Home_Activate_Card_Internet_Off_Title" = "Brak połączenia z Internetem";
-
 /* Home common card */
 "Home_Risk_Date_Item_Title" = "Zaktualizowano: %@";
 
@@ -845,7 +847,7 @@
 
 "Home_Risk_Period_Disabled_Button_Title" = "Aktualizacja tylko co %@\U00A0godzin(y)";
 
-"Home_Risk_Unknown_Title" = "Nieznane ryzyko";
+"Home_Risk_Last_Contact_Item_Title" = "Ostatnio dnia %@";
 
 "Home_Risk_Last_Activate_Item_Title" = "Ostatnie sprawdzenie narażenia: %@";
 
@@ -856,12 +858,6 @@
 "Home_Risk_Last_Activate_Item_High_Title" = "Podwyższone ryzyko";
 
 "Home_RiskCard_Update_Button" = "Aktualizuj";
-
-/* Home Unknown card */
-"Home_RiskCard_Unknown_Item_Title" = "Ponieważ rejestrowanie narażenia nie było włączone przez wystarczająco długi czas, nie możemy obliczyć Twojego ryzyka zakażenia.";
-
-/* Home Unknown 48 card */
-"Home_RiskCard_Unknown48h_Body" = "Rejestrowanie narażenia nie było aktualizowane przez okres dłuższy niż 24 godziny. Aktualizuj obliczenie.";
 
 /* Home Inactive card */
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "Rejestrowanie narażenia zatrzymane";
@@ -968,7 +964,7 @@
 
 "Home_resultCard_LoadingTitle" = "Aktualizacja w toku …";
 
-"Home_resultCard_NegativeTitle" = "Diagnoza braku zakażenia";
+"Home_resultCard_NegativeTitle" = "Diagnoza: brak zakażenia";
 
 "Home_resultCard_NegativeDesc" = "Nie zdiagnozowano u Ciebie zakażenia wirusem SARS-CoV-2.";
 
@@ -1016,7 +1012,7 @@
 
 "App_Information_Contact_Hotline_Text" = "+49 800 7540001";
 
-"App_Information_Contact_Hotline_Number" = "+498007540001";
+"App_Information_Contact_Hotline_Number" = "+49 800 7540001";
 
 "App_Information_Contact_Hotline_Description" = "Nasz zespół obsługi klienta jest gotowy do pomocy.";
 
@@ -1140,10 +1136,6 @@
 
 "RiskLegend_Legend2_Low_Color" = "Zielony";
 
-"RiskLegend_Legend2_Unknown" = "Nieznane ryzyko";
-
-"RiskLegend_Legend2_Unknown_Color" = "Szary";
-
 "RiskLegend_Legend3_Title" = "Powiadamianie innych użytkowników";
 
 "RiskLegend_Legend3_Text" = "Inną kluczową funkcją jest rejestracja testu i pobranie wyniku. W przypadku zdiagnozowania u Ciebie COVID-19 będziesz mieć możliwość powiadomienia innych i przerwania łańcucha zakażeń.";
@@ -1156,11 +1148,11 @@
 
 "RiskLegend_Check_Title" = "Sprawdzanie narażenia";
 
-"RiskLegend_Check_Text" = "Dane dziennika narażeń są pobierane i synchronizowane ze zgłoszonymi zakażeniami innych użytkowników. Sprawdzanie narażeń jest wykonywane automatycznie mniej więcej co dwie godziny.";
+"RiskLegend_Check_Text" = "Odczytanie danych dziennika narażeń i porównanie ze zgłoszonymi zakażeniami innych użytkowników. Ryzyko jest sprawdzane automatycznie kilka razy dziennie.";
 
-"RiskLegend_Contact_Title" = "Narażenia";
+"RiskLegend_Contact_Title" = "Ryzyko narażenia";
 
-"RiskLegend_Contact_Text" = "Bliskie kontakty o dość długim czasie trwania z osobami, u których zdiagnozowano COVID-19.";
+"RiskLegend_Contact_Text" = "Narażenie na kontakt z osobą zakażoną, która udostępniła innym pozytywny wynik swojego testu za pośrednictwem aplikacji. Narażenie musi spełniać określone kryteria dotyczące czasu trwania, odległości i podejrzenia zakaźności drugiej osoby, aby zostało zaklasyfikowane jako narażenie wysokiego ryzyka.";
 
 "RiskLegend_Notification_Title" = "Powiadomienie o narażeniu";
 
