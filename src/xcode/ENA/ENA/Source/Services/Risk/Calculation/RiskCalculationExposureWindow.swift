@@ -91,6 +91,7 @@ final class RiskCalculationExposureWindow: Codable {
 	lazy var isDroppedByMinutesAtAttenuation: Bool = {
 		return configuration.minutesAtAttenuationFilters.map { filter in
 			let secondsAtAttenuation = exposureWindow.scanInstances
+				.filter { $0.secondsSinceLastScan >= 0 }
 				.filter { scanInstance in
 					filter.attenuationRange.contains(scanInstance.minAttenuation)
 				}
@@ -164,13 +165,15 @@ final class RiskCalculationExposureWindow: Codable {
 
 	/// 5. Determine `Weighted Minutes`
 	private lazy var weightedMinutes: Double = {
-		return exposureWindow.scanInstances.map { scanInstance in
-			let weight = configuration.minutesAtAttenuationWeights
-				.first { $0.attenuationRange.contains(scanInstance.minAttenuation) }
-				.map { $0.weight } ?? 0
+		return exposureWindow.scanInstances
+			.filter { $0.secondsSinceLastScan >= 0 }
+			.map { scanInstance in
+				let weight = configuration.minutesAtAttenuationWeights
+					.first { $0.attenuationRange.contains(scanInstance.minAttenuation) }
+					.map { $0.weight } ?? 0
 
-			return Double(scanInstance.secondsSinceLastScan) * weight
-		}.reduce(0, +) / 60
+				return Double(scanInstance.secondsSinceLastScan) * weight
+			}.reduce(0, +) / 60
 	}()
 
 }
