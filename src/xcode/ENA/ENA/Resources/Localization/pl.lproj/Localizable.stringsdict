@@ -1,66 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ExposureDetection_Explanation_Text_High_DaysSinceLastExposure</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>Masz podwyższone ryzyko zakażenia, ponieważ jeden dzień temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
-			<key>zero</key>
-			<!--Plural form for ZERO.-->
-			<string>Masz podwyższone ryzyko zakażenia, ponieważ %u dni temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
-			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>Masz podwyższone ryzyko zakażenia, ponieważ %u dni temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
-			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>Masz podwyższone ryzyko zakażenia, ponieważ %u dni temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
-			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>Masz podwyższone ryzyko zakażenia, ponieważ %u dni temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
-			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>Masz podwyższone ryzyko zakażenia, ponieważ %u dni temu byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.</string>
-		</dict>
-	</dict>
-	<key>ExposureDetection_LastExposure</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<!--Plural form for ZERO.-->
-			<string>%u dni od ostatniego narażenia</string>
-			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>%u dzień od ostatniego narażenia</string>
-			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>%u dni od ostatniego narażenia</string>
-			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>%u dni od ostatniego narażenia</string>
-			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>%u dni od ostatniego narażenia</string>
-			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>%u dnia od ostatniego narażenia</string>
-		</dict>
-	</dict>
 	<key>Home_Risk_Low_Number_Contacts_Item_Title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -76,19 +16,19 @@
 			<string>Brak narażenia do tej pory</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Jeden kontakt z niskim ryzykiem</string>
+			<string>Narażenia z niskim ryzykiem w ciągu %u dnia</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
-			<string>%u kontakty z niskim ryzykiem</string>
+			<string>Narażenia z niskim ryzykiem w ciągu %u dni</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>%u kontaktów z niskim ryzykiem</string>
+			<string>Narażenia z niskim ryzykiem w ciągu %u dni</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>%u kontakty z niskim ryzykiem</string>
+			<string>Narażenia z niskim ryzykiem w ciągu %u dni</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>%u kontaktu z niskim ryzykiem</string>
+			<string>Narażenia z niskim ryzykiem w ciągu %u dnia</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_High_Number_Contacts_Item_Title</key>
@@ -103,52 +43,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Brak narażenia do tej pory</string>
+			<string>Narażenia w ciągu %u dni z podwyższonym ryzykiem</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Jedno narażenie</string>
+			<string>Narażenia w ciągu %u dnia z podwyższonym ryzykiem</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
-			<string>%u narażenia</string>
+			<string>Narażenia w ciągu %u dni z podwyższonym ryzykiem</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>%u narażeń</string>
+			<string>Narażenia w ciągu %u dni z podwyższonym ryzykiem</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>%u narażenia</string>
+			<string>Narażenia w ciągu %u dni z podwyższonym ryzykiem</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>%u narażenia</string>
-		</dict>
-	</dict>
-	<key>Home_Risk_Last_Contact_Item_Title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<!--Plural form for ZERO.-->
-			<string>Mniej niż jeden dzień od ostatniego narażenia</string>
-			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>%u dzień od ostatniego narażenia</string>
-			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>%u dni od ostatniego narażenia</string>
-			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>%u dni od ostatniego narażenia</string>
-			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>%u dni od ostatniego narażenia</string>
-			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>%u dnia od ostatniego narażenia</string>
+			<string>Narażenia w ciągu %u dnia z podwyższonym ryzykiem</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_Status_Counter_Label</key>
