@@ -70,7 +70,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 		super.init()
 
-		self.model = ExposureSubmissionCoordinatorModel(
+		model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			appConfigurationProvider: appConfigurationProvider
 		)
@@ -126,7 +126,48 @@ extension ExposureSubmissionCoordinator {
 		return createIntroViewController()
 	}
 
-	// MARK: - Public API.
+	/// method to get an instace of TestresultvailableViewController
+	func createTestResultavailableViewController() -> UIViewController {
+		let viewModel = TestResultAvailableViewModel(
+			store,
+			didTapConsentCell: {
+				Log.debug("consent cell hit")
+			},
+			didTapPrimaryFooterButton: {
+				Log.debug("primary footer button hit")
+			},
+			presentDismissAlert: { [weak self] in
+				self?.presentTestresultCloseAlert()
+			}
+		)
+		return TestResultAvailableViewController(viewModel)
+	}
+
+	func presentTestresultCloseAlert() {
+		guard let navigationController = navigationController else {
+			Log.error("Can't present TestresultCloseAlert - missing navigationController")
+			return
+		}
+
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmissionTestresultAvailable.closeAlertTitle,
+			message: AppStrings.ExposureSubmissionTestresultAvailable.closeAlertMessage,
+			preferredStyle: .alert)
+		alert.addAction(UIAlertAction(
+			title: AppStrings.ExposureSubmissionTestresultAvailable.closeAlertButtonClose,
+			style: .cancel,
+			handler: { [weak self] _ in
+				self?.dismiss()
+			})
+		)
+		alert.addAction(UIAlertAction(
+							title: AppStrings.ExposureSubmissionTestresultAvailable.closeAlertButtonContinue,
+							style: .default)
+		)
+		navigationController.present(alert, animated: true, completion: nil)
+	}
+
+	// MARK: - Protocol ExposureSubmissionCoordinating
 
 	func start(with result: TestResult? = nil) {
 		let initialVC = getInitialViewController(with: result)
@@ -137,9 +178,16 @@ extension ExposureSubmissionCoordinator {
 
 		/// The navigation controller keeps a strong reference to the coordinator. The coordinator only reaches reference count 0
 		/// when UIKit dismisses the navigationController.
-		let navigationController = createNavigationController(rootViewController: initialVC)
-		parentNavigationController.present(navigationController, animated: true)
-		self.navigationController = navigationController
+		let exposureSubmissionNavigationController = ExposureSubmissionNavigationController(
+			coordinator: self,
+			dismissClosure: { [weak self] in
+				self?.navigationController?.dismiss(animated: true)
+			},
+			isModalInPresentation: true,
+			rootViewController: initialVC
+		)
+		parentNavigationController.present(exposureSubmissionNavigationController, animated: true)
+		navigationController = exposureSubmissionNavigationController
 	}
 
 	func dismiss() {
@@ -360,7 +408,7 @@ extension ExposureSubmissionCoordinator {
 		push(vc)
 	}
 
-	// MARK: - UI-related helpers.
+	// MARK: - Private
 
 	private func showErrorAlert(for error: ExposureSubmissionError, onCompletion: (() -> Void)? = nil) {
 		Log.error("error: \(error.localizedDescription)", log: .ui)
@@ -433,12 +481,6 @@ extension ExposureSubmissionCoordinator {
 // MARK: - Creation.
 
 extension ExposureSubmissionCoordinator {
-
-	private func createNavigationController(rootViewController vc: UIViewController) -> ExposureSubmissionNavigationController {
-		return AppStoryboard.exposureSubmission.initiateInitial { coder in
-			ExposureSubmissionNavigationController(coder: coder, coordinator: self, rootViewController: vc)
-		}
-	}
 
 	private func createIntroViewController() -> ExposureSubmissionIntroViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionIntroViewController.self) { coder -> UIViewController? in
