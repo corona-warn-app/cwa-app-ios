@@ -126,8 +126,8 @@ extension ExposureSubmissionCoordinator {
 		return createIntroViewController()
 	}
 
-	/// method to get an instace of TestresultvailableViewController
-	func createTestResultavailableViewController() -> UIViewController {
+	/// method to get an instace of TestResultAvailableViewController
+	func createTestResultAvailableViewController() -> UIViewController {
 		let viewModel = TestResultAvailableViewModel(
 			store,
 			didTapConsentCell: {
@@ -137,13 +137,13 @@ extension ExposureSubmissionCoordinator {
 				Log.debug("primary footer button hit")
 			},
 			presentDismissAlert: { [weak self] in
-				self?.presentTestresultCloseAlert()
+				self?.presentTestResultCloseAlert()
 			}
 		)
 		return TestResultAvailableViewController(viewModel)
 	}
 
-	func presentTestresultCloseAlert() {
+	func presentTestResultCloseAlert() {
 		guard let navigationController = navigationController else {
 			Log.error("Can't present TestresultCloseAlert - missing navigationController")
 			return
