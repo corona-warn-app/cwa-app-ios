@@ -409,12 +409,12 @@ final class RiskProviderTests: XCTestCase {
 
 	// MARK: - RiskProvider stress test
 
-	func test_When_RequestRiskIsCalledFromDifferentThreads_Then_ItReturnsWithAlreadyRunningErrorOrCalculatedRisk() throws {
+	func test_When_RequestRiskIsCalledFromDifferentThreads_Then_ItReturnsWithAlreadyRunningErrorOrCalculatedRisk() {
 
 		let numberOfRequestRiskCalls = 30
 		let numberOfExecuteENABackgroundTask = 10
 
-		let riskProvider = try makeSomeRiskProvider()
+		let riskProvider = makeSomeRiskProvider()
 		let riskConsumer = RiskConsumer()
 		riskProvider.observeRisk(riskConsumer)
 
@@ -454,7 +454,7 @@ final class RiskProviderTests: XCTestCase {
 
 	// MARK: - Private
 
-	private func makeSomeRiskProvider() throws -> RiskProvider {
+	private func makeSomeRiskProvider() -> RiskProvider {
 		let duration = DateComponents(day: 1)
 
 		let store = MockTestStore()
