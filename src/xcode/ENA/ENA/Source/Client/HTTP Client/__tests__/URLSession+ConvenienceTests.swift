@@ -40,7 +40,7 @@ final class URLSessionConvenienceTests: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testExecuteRequest_SuccessAcceptsNotFound() {
@@ -71,7 +71,7 @@ final class URLSessionConvenienceTests: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testExecuteRequest_FailureWithError() {
@@ -113,6 +113,6 @@ final class URLSessionConvenienceTests: XCTestCase {
 			}
 		}
 
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 }

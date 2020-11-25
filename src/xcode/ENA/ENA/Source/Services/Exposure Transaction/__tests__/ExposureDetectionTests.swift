@@ -49,7 +49,7 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 				exposureWindowResultBeCalled,
 				startCompletionCalled
 			],
-			timeout: 1.0,
+			timeout: .medium,
 			enforceOrder: true
 		)
 	}

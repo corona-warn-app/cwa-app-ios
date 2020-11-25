@@ -146,7 +146,7 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 			}
 		}
 
-		let result = group.wait(timeout: .now() + 15)
+		let result = group.wait(timeout: .now() + .extraLong)
 		XCTAssert(result == .success)
 		for j in 0...1000 {
 			if j.isMultiple(of: 2) {

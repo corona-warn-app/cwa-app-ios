@@ -44,49 +44,58 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 	) {
 		let url = configuration.diagnosisKeysURL(day: day, hour: hour, forCountry: country)
 		var responseError: Client.Failure?
-		defer {
-			// no guard in defer!
-			if let error = responseError {
-				let retryCount = retries[url] ?? 0
-				if retryCount > 2 {
-					completeWith(.failure(error))
-				} else {
-					retries[url] = retryCount.advanced(by: 1)
-					Log.debug("\(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
-					fetchHour(hour, day: day, country: country, completion: completeWith)
-				}
-			} else {
-				// no error, no retry - clean up
-				retries[url] = nil
-			}
-		}
 
-		#if !RELEASE
-		guard !disableHourlyDownload else {
-			responseError = .noResponse
-			return
-		}
-		#endif
-
-		session.GET(url) { result in
-			switch result {
-			case let .success(response):
-				guard let hourData = response.body else {
-					responseError = .invalidResponse
+		session.GET(url) { [weak self] result in
+			self?.queue.async {
+				guard let self = self else {
+					completeWith(.failure(.noResponse))
 					return
 				}
-				Log.debug("got hour: \(hourData.count)", log: .api)
-				guard let package = SAPDownloadedPackage(compressedData: hourData) else {
-					Log.error("Failed to create signed package. For URL: \(url)", log: .api)
-					responseError = .invalidResponse
+
+				defer {
+					// no guard in defer!
+					if let error = responseError {
+						let retryCount = self.retries[url] ?? 0
+						if retryCount > 2 {
+							completeWith(.failure(error))
+						} else {
+							self.retries[url] = retryCount.advanced(by: 1)
+							Log.debug("\(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
+							self.fetchHour(hour, day: day, country: country, completion: completeWith)
+						}
+					} else {
+						// no error, no retry - clean up
+						self.retries[url] = nil
+					}
+				}
+
+				#if !RELEASE
+				guard !self.disableHourlyDownload else {
+					responseError = .noResponse
 					return
 				}
-				let etag = response.httpResponse.allHeaderFields["ETag"] as? String
-				let payload = PackageDownloadResponse(package: package, etag: etag)
-				completeWith(.success(payload))
-			case let .failure(error):
-				responseError = error
-				Log.error("failed to get hour: \(error)", log: .api)
+				#endif
+
+				switch result {
+				case let .success(response):
+					guard let hourData = response.body else {
+						responseError = .invalidResponse
+						return
+					}
+					Log.debug("got hour: \(hourData.count)", log: .api)
+					guard let package = SAPDownloadedPackage(compressedData: hourData) else {
+						Log.error("Failed to create signed package. For URL: \(url)", log: .api)
+						responseError = .invalidResponse
+						return
+					}
+					let etag = response.httpResponse.allHeaderFields["ETag"] as? String
+					let payload = PackageDownloadResponse(package: package, etag: etag)
+					completeWith(.success(payload))
+				case let .failure(error):
+					responseError = error
+
+					Log.error("failed to get hour: \(error)", log: .api)
+				}
 			}
 		}
 	}
@@ -139,6 +148,9 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 	private let configuration: HTTPClient.Configuration
 	private var session: URLSession
 	private var retries: [URL: Int] = [:]
+
+	private let queue = DispatchQueue(label: "com.sap.WifiOnlyHTTPClient")
+
 }
 
 #if !RELEASE
