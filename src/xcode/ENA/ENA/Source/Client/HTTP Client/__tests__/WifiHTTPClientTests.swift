@@ -73,7 +73,7 @@ class WifiHTTPClientTest: XCTestCase {
 
 	func testGIVEN_WifiOnlyClient_WHEN_DisableHourlyDownloadIsTrue_THEN_NoRequestIsSent() throws {
 		let stack = MockNetworkStack( httpStatus: 200, responseData: nil)
-		let wifiOnlyHTTPClient = WifiOnlyHTTPClient.with(mock: stack)
+		let wifiOnlyHTTPClient = WifiOnlyHTTPClient.makeWith(mock: stack)
 		let successExpectation = expectation(description: "ignore request")
 
 		// WHEN

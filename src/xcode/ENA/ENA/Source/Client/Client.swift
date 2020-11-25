@@ -32,13 +32,6 @@ protocol Client {
 		completion: @escaping AvailableDaysCompletionHandler
 	)
 
-	/// Determines hours that can be downloaded for a given day.
-	func availableHours(
-		day: String,
-		country: String,
-		completion: @escaping AvailableHoursCompletionHandler
-	)
-
 	/// Fetches the keys for a given day and country code
 	/// - Parameters:
 	///   - day: The day that the keys belong to
