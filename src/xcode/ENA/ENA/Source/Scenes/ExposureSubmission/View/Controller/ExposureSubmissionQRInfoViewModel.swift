@@ -42,10 +42,7 @@ struct ExposureSubmissionQRInfoViewModel {
 				),
 				.icon(
 					UIImage(imageLiteralResourceName: "Icons - Once"),
-					text: .attributedString(
-						AppStrings.ExposureSubmissionQRInfo.instruction2
-							.inserting(emphasizedString: AppStrings.ExposureSubmissionQRInfo.instruction2HighlightedPhrase)
-					)
+					text: .string(AppStrings.ExposureSubmissionQRInfo.instruction2)
 				)
 			])
 		)

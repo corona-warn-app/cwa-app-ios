@@ -16,5 +16,5 @@ class LabeledCountriesCell: UITableViewCell {
 
 		self.accessibilityIdentifier = accessibilityIdentifier
 	}
-    
+
 }
