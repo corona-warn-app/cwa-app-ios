@@ -189,7 +189,8 @@ private extension Client {
 	typealias AvailableDaysAndHoursCompletion = (DaysAndHours) -> Void
 
 	private func availableDaysAndHours(
-		completion completeWith: @escaping AvailableDaysAndHoursCompletion
+		completion completeWith: @escaping AvailableDaysAndHoursCompletion,
+		wifiClient: WifiOnlyHTTPClient
 	) {
 		let group = DispatchGroup()
 
@@ -204,7 +205,7 @@ private extension Client {
 		}
 
 		group.enter()
-		availableHours(day: .formattedToday(), country: "DE") { result in
+		wifiClient.availableHours(day: .formattedToday(), country: "DE") { result in
 			if case let .success(hours) = result {
 				daysAndHours.hours = hours
 			}
@@ -220,13 +221,16 @@ private extension Client {
 		wifiClient: WifiOnlyHTTPClient,
 		completion completeWith: @escaping (FetchedDaysAndHours) -> Void
 	) {
-		availableDaysAndHours { daysAndHours in
-			self.fetchDays(daysAndHours.days, forCountry: "DE") { daysResult in
-				wifiClient.fetchHours(daysAndHours.hours, day: .formattedToday(), country: "DE") { hoursResult in
-					completeWith(FetchedDaysAndHours(hours: hoursResult, days: daysResult))
+		availableDaysAndHours(
+			completion: { daysAndHours in
+				self.fetchDays(daysAndHours.days, forCountry: "DE") { daysResult in
+					wifiClient.fetchHours(daysAndHours.hours, day: .formattedToday(), country: "DE") { hoursResult in
+						completeWith(FetchedDaysAndHours(hours: hoursResult, days: daysResult))
+					}
 				}
-			}
-		}
+			},
+			wifiClient: wifiClient
+		)
 	}
 }
 
