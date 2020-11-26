@@ -192,8 +192,6 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		}.store(in: &cancellables)
 	}
 	
-	private var currentStatusLabelText = ""
-	
 	@objc
 	private func scheduleNotificationsButtonTapped() {
 		let timeInterval1 = Double(timeInterval1TextField.text ?? "") ?? WarnOthersNotificationsTimeInterval.intervalOne
