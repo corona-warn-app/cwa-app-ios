@@ -22,7 +22,8 @@ final class TestResultAvailableViewModel {
 		self.presentDismissAlert = presentDismissAlert
 		
 		exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { [weak self] consentGranted in
-			self?.dynamicTableViewModel = self?.createDynamicTableViewModel(consentGranted)
+			guard let self = self else { return }
+			self.dynamicTableViewModel = self.createDynamicTableViewModel(consentGranted)
 		}.store(in: &cancellables)
 	}
 	
@@ -30,10 +31,8 @@ final class TestResultAvailableViewModel {
 	
 	let didTapPrimaryFooterButton: () -> Void
 	let presentDismissAlert: () -> Void
-	
-	@Published var dynamicTableViewModel: DynamicTableViewModel?
-	var currentState: String = AppStrings.ExposureSubmissionTestresultAvailable.consentNotGranted
-	var dynamicTableviewModelPublisher: Published<DynamicTableViewModel?>.Publisher { $dynamicTableViewModel }
+
+	@Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
 	
 	// MARK: - Private
 	
