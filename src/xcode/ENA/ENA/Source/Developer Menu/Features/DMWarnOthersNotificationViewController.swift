@@ -61,13 +61,13 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		titleLabel.text = "\n\nWarn others notification settings"
 		titleLabel.font = UIFont.enaFont(for: .headline)
 		
-		currentSubmissionConsentStatusTitleLabel = UILabel(frame: .zero)
+		let currentSubmissionConsentStatusTitleLabel = UILabel(frame: .zero)
 		currentSubmissionConsentStatusTitleLabel.translatesAutoresizingMaskIntoConstraints = false
 		currentSubmissionConsentStatusTitleLabel.numberOfLines = 0
-		currentSubmissionConsentStatusTitleLabel.text = "Current status of submission consent granted\n"
+		currentSubmissionConsentStatusTitleLabel.text = "Current status of submission consent\n"
 		currentSubmissionConsentStatusTitleLabel.font = UIFont.enaFont(for: .headline)
 		
-		let currentSubmissionConsentStatusStateLabel = UILabel(frame: .zero)
+		currentSubmissionConsentStatusStateLabel = UILabel(frame: .zero)
 		currentSubmissionConsentStatusStateLabel.translatesAutoresizingMaskIntoConstraints = false
 		currentSubmissionConsentStatusStateLabel.numberOfLines = 0
 		currentSubmissionConsentStatusStateLabel.font = UIFont.enaFont(for: .title2)
@@ -178,7 +178,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	private let store: Store
 	private var warnOthersReminder: WarnOthersRemindable
 	
-	private var currentSubmissionConsentStatusTitleLabel = UILabel()
+	private var currentSubmissionConsentStatusStateLabel = UILabel()
 	
 	@objc
 	private func consentStateChanged(switchState: UISwitch) {
@@ -188,7 +188,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	
 	private func updateConsentStatusLabel() {
 		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
-			self.currentSubmissionConsentStatusTitleLabel.text = isSubmissionConsentGiven ? "🟢 Consent granted 👍" : "🔴 Consent not given 👎"
+			self.currentSubmissionConsentStatusStateLabel.text = isSubmissionConsentGiven ? "🟢 Consent granted 👍" : "🔴 Consent not given 👎"
 		}.store(in: &cancellables)
 	}
 	
