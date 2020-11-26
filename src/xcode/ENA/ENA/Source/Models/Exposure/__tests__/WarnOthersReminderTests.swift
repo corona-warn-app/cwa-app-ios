@@ -43,7 +43,7 @@ class WarnOthersReminderTests: XCTestCase {
 		let timerTwoTime = WarnOthersNotificationsTimeInterval.intervalTwo
 		XCTAssertEqual(Double(warnOthersReminder.notificationTwoTimeInterval), timerTwoTime, "Notification timeInterval two has not the intial value of \(timerTwoTime)")
 		
-		XCTAssertFalse(warnOthersReminder.positiveTestResultWasShown, "Inital value of hasPositiveTestResult should be 'false'")
+		XCTAssertFalse(warnOthersReminder.positiveTestResultWasShown, "Inital value of positiveTestResultWasShown should be 'false'")
 		
 	}
 	
@@ -52,7 +52,7 @@ class WarnOthersReminderTests: XCTestCase {
 		let warnOthersReminder = WarnOthersReminder(store: store)
 		
 		warnOthersReminder.evaluateShowingTestResult(.positive)
-		XCTAssertTrue(warnOthersReminder.positiveTestResultWasShown, "Inital value of hasPositiveTestResult should be 'true'")
+		XCTAssertTrue(warnOthersReminder.positiveTestResultWasShown, "Inital value of positiveTestResultWasShown should be 'true'")
 		
 		warnOthersReminder.notificationOneTimeInterval = TimeInterval(42)
 		XCTAssertEqual(warnOthersReminder.notificationOneTimeInterval, TimeInterval(42), "Notification timeInterval one has not the intial value of '42'")
@@ -61,7 +61,7 @@ class WarnOthersReminderTests: XCTestCase {
 		XCTAssertEqual(warnOthersReminder.notificationTwoTimeInterval, TimeInterval(43), "Notification timeInterval two has not the intial value of '43'")
 		
 		warnOthersReminder.reset()
-		XCTAssertFalse(warnOthersReminder.positiveTestResultWasShown, "Inital value of hasPositiveTestResult should be 'false'")
+		XCTAssertFalse(warnOthersReminder.positiveTestResultWasShown, "Inital value of positiveTestResultWasShown should be 'false'")
 	}
 	
 	
