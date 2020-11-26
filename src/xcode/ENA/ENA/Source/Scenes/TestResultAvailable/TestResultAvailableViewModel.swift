@@ -4,30 +4,49 @@
 
 import Foundation
 import UIKit
+import Combine
 
-struct TestResultAvailableViewModel {
-
+final class TestResultAvailableViewModel {
+	
 	// MARK: - Init
-
+	
 	init(
-		_ store: Store,
+		exposureSubmissionService: ExposureSubmissionService,
 		didTapConsentCell: @escaping () -> Void,
 		didTapPrimaryFooterButton: @escaping () -> Void,
 		presentDismissAlert: @escaping () -> Void
 	) {
-		self.store = store
+		self.exposureSubmissionService = exposureSubmissionService
 		self.didTapConsentCell = didTapConsentCell
 		self.didTapPrimaryFooterButton = didTapPrimaryFooterButton
 		self.presentDismissAlert = presentDismissAlert
+		
+		exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { [weak self] consentGranted in
+			guard let self = self else { return }
+			self.dynamicTableViewModel = self.createDynamicTableViewModel(consentGranted)
+		}.store(in: &cancellables)
 	}
-
+	
 	// MARK: - Internal
-
+	
 	let didTapPrimaryFooterButton: () -> Void
 	let presentDismissAlert: () -> Void
 
-	var dynamicTableViewModel: DynamicTableViewModel {
-		DynamicTableViewModel([
+	@Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
+	
+	// MARK: - Private
+	
+	private let exposureSubmissionService: ExposureSubmissionService
+	private var cancellables: Set<AnyCancellable> = []
+	private let didTapConsentCell: () -> Void
+	
+	private func createDynamicTableViewModel(_ consentGiven: Bool) -> DynamicTableViewModel {
+		let consentStateString = consentGiven ?
+			AppStrings.ExposureSubmissionTestresultAvailable.consentGranted :
+			AppStrings.ExposureSubmissionTestresultAvailable.consentNotGranted
+		
+		return DynamicTableViewModel([
+			// header illustatrion image with automatic height resizing
 			.section(
 				header: .image(
 					UIImage(named: "Illu_Testresult_available"),
@@ -37,14 +56,15 @@ struct TestResultAvailableViewModel {
 				separators: .none,
 				cells: []
 			),
+			// section with the sate conset
+			// tap will open give consent screen
 			.section(
 				separators: .all,
 				cells: [
-					.icon(UIImage(named: "Icons_Grey_Warnen"), text: store.isSubmissionConsentGiven ?
-							.string(AppStrings.ExposureSubmissionTestresultAvailable.consentGranted) :
-							.string(AppStrings.ExposureSubmissionTestresultAvailable.consentNotGranted),
-						  action: .execute { _, _  in
-							didTapConsentCell()
+					.icon(UIImage(named: "Icons_Grey_Warnen"),
+						  text: .string(consentStateString),
+						  action: .execute { [weak self] _, _ in
+							self?.didTapConsentCell()
 						  },
 						  configure: { _, cell, _ in
 							cell.accessoryType = .disclosureIndicator
@@ -52,20 +72,15 @@ struct TestResultAvailableViewModel {
 					)
 				]
 			),
+			// section with information texts
 			.section(
 				separators: .none,
 				cells: [
-				   .body(text: AppStrings.ExposureSubmissionTestresultAvailable.listItem1),
-				   .headline(text: AppStrings.ExposureSubmissionTestresultAvailable.listItem2)
-			   ]
+					.body(text: AppStrings.ExposureSubmissionTestresultAvailable.listItem1),
+					.headline(text: AppStrings.ExposureSubmissionTestresultAvailable.listItem2)
+				]
 			)
-
 		])
 	}
-
-	// MARK: - Private
-
-	private let store: Store
-	private let didTapConsentCell: () -> Void
-
+	
 }

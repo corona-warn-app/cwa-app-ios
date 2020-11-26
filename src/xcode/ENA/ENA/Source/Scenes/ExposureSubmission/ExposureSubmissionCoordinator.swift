@@ -135,9 +135,9 @@ extension ExposureSubmissionCoordinator {
 	/// method to get an instace of TestResultAvailableViewController
 	func createTestResultAvailableViewController(testResult: TestResult) -> UIViewController {
 		let viewModel = TestResultAvailableViewModel(
-			store,
-			didTapConsentCell: {
-				Log.debug("consent cell hit")
+			exposureSubmissionService: model.exposureSubmissionService,
+			didTapConsentCell: { [weak self] in
+				self?.presentTestResultConsentViewController()
 			},
 			didTapPrimaryFooterButton: { [weak self] in
 				self?.showTestResultScreen(with: testResult)
@@ -171,6 +171,19 @@ extension ExposureSubmissionCoordinator {
 							style: .default)
 		)
 		navigationController.present(alert, animated: true, completion: nil)
+	}
+
+	func presentTestResultConsentViewController() {
+		let viewModel = ExposureSubmissionTestResultConsentViewModel(
+			supportedCountries: model.supportedCountries,
+			exposureSubmissionService: model.exposureSubmissionService,
+			presentDismissAlert: { [weak self] in
+				self?.presentTestResultCloseAlert()
+			}
+		)
+
+		let consentGivenViewController = ExposureSubmissionTestResultConsentViewController(viewModel)
+		push(consentGivenViewController)
 	}
 
 	// MARK: - Protocol ExposureSubmissionCoordinating
@@ -538,7 +551,11 @@ extension ExposureSubmissionCoordinator {
 	}
 	
 	private func createTestResultConsentViewController() -> ExposureSubmissionTestResultConsentViewController {
-		let viewModel = ExposureSubmissionTestResultConsentViewModel(supportedCountries: self.model.supportedCountries, exposureSubmissionService: self.model.exposureSubmissionService)
+		let viewModel = ExposureSubmissionTestResultConsentViewModel(
+			supportedCountries: self.model.supportedCountries,
+			exposureSubmissionService: self.model.exposureSubmissionService,
+			presentDismissAlert: {}
+		)
 		return ExposureSubmissionTestResultConsentViewController(viewModel)
 	}
 
