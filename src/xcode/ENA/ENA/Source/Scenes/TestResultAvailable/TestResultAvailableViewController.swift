@@ -4,6 +4,7 @@
 
 import Foundation
 import UIKit
+import Combine
 
 final class TestResultAvailableViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
 
@@ -46,6 +47,7 @@ final class TestResultAvailableViewController: DynamicTableViewController, ENANa
 	// MARK: - Private
 
 	private let viewModel: TestResultAvailableViewModel
+	private var bindings: Set<AnyCancellable> = []
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
@@ -59,18 +61,18 @@ final class TestResultAvailableViewController: DynamicTableViewController, ENANa
 	private func setupTableView() {
 		view.backgroundColor = .enaColor(for: .background)
 		tableView.separatorStyle = .none
-		dynamicTableViewModel = viewModel.dynamicTableViewModel
 	}
 
 	private func setupViewModel() {
-		dynamicTableViewModel = viewModel.dynamicTableViewModel
-		viewModel.refreshTableView = { [weak self] in
-			guard let self = self else {
+		viewModel.dynamicTableviewModelPublisher.sink { [weak self] dynamicTableViewModel in
+			guard let dynamicTableViewModel = dynamicTableViewModel,
+				let self = self else {
+				Log.debug("Faile to get dynamic tableview model - return early")
 				return
 			}
-			self.dynamicTableViewModel = self.viewModel.dynamicTableViewModel
+			self.dynamicTableViewModel = dynamicTableViewModel
 			self.tableView?.reloadData()
-		}
+		}.store(in: &bindings)
 	}
 
 }
