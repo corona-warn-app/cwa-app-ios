@@ -831,5 +831,14 @@ enum AppStrings {
 		static let dataProcessingDetailInfo = NSLocalizedString("AutomaticSharingConsent_DataProcessingDetailInfo", comment: "")
 	}
 	
+	enum ThankYouScreen {
+		static let title = NSLocalizedString("Thank_You_Title", comment: "")
+		static let subTitle = NSLocalizedString("Thank_You_SubTitle", comment: "")
+		static let description1 = NSLocalizedString("Thank_You_Description1", comment: "")
+		static let description2 = NSLocalizedString("Thank_You_Description2", comment: "")
+		static let continueButton = NSLocalizedString("Thank_You_Continue_Button", comment: "")
+		static let cancelButton = NSLocalizedString("Thank_You_Cancel_Button", comment: "")
+	}
+	
 	// swiftlint:disable:next file_length
 }

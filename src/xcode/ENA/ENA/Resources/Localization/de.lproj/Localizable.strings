@@ -1297,4 +1297,15 @@ oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome m
 
 "AutomaticSharingConsent_DataProcessingDetailInfo" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis.";
 
+/* Thank you screen */
+"Thank_You_Title" = "Vielen Dank!";
 
+"Thank_You_SubTitle" = "Vielen Dank, dass Sie mithelfen, die Verbreitung von Corona zu bekämpfen!";
+
+"Thank_You_Description1" = "Ihre Mitmenschen werden jetzt gewarnt.";
+
+"Thank_You_Description2" = "Bitte helfen Sie nun, die Genauigkeit der Warnungen zu verbessern. Geben Sie hierfür im nächsten Schritt an, wann Sie erstmals Symptome hatten. Sie können diesen Schritt jederzeit abbrechen.";
+
+"Thank_You_Continue_Button" = "Weiter mit Symptom-Erfassung";
+
+"Thank_You_Cancel_Button" = "Beenden";
