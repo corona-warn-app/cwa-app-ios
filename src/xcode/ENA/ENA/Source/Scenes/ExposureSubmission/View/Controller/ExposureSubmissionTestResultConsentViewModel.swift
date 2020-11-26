@@ -18,10 +18,6 @@ class ExposureSubmissionTestResultConsentViewModel {
 		self.supportedCountries = supportedCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
 		self.exposureSubmissionService = exposureSubmissionService
 		self.presentDismissAlert = presentDismissAlert
-
-		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
-			self.consentSwitch.isOn = isSubmissionConsentGiven
-		}.store(in: &cancellables)
 	}
 
 	// MARK: - Public
@@ -45,9 +41,14 @@ class ExposureSubmissionTestResultConsentViewModel {
 								guard let self = self else {
 									return
 								}
-								cell.accessoryView = self.consentSwitch
-								self.consentSwitch.onTintColor = .enaColor(for: .tint)
-								self.consentSwitch.addTarget(self, action: #selector(self.consentStateChanged), for: .valueChanged)
+								let toggleSwitch = UISwitch()
+								cell.accessoryView = toggleSwitch
+								toggleSwitch.onTintColor = .enaColor(for: .tint)
+								toggleSwitch.addTarget(self, action: #selector(self.consentStateChanged), for: .valueChanged)
+								
+								self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
+									toggleSwitch.isOn = isSubmissionConsentGiven
+								}.store(in: &self.cancellables)
 							}
 						),
 						.body(text: AppStrings.AutomaticSharingConsent.switchTitleDescription),
@@ -103,7 +104,6 @@ class ExposureSubmissionTestResultConsentViewModel {
 
 	// MARK: - Private
 
-	private let consentSwitch = UISwitch()
 	private let supportedCountries: [Country]
 
 	private var cancellables: Set<AnyCancellable> = []
