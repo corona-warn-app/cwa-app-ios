@@ -71,13 +71,14 @@ class TestResultAvailableViewModelTest: XCTestCase {
 	
 	func testGIVEN_ViewModel_WHEN_GetIconCellActionTigger_THEN_ExpectationFulfill() {
 		// GIVEN
-		let mockStore = MockTestStore()
+		let exposureSubmissionService = MockExposureSubmissionService()
 		let expectationFulFill = expectation(description: "primary button code execute")
-		let expectationNotFulFill = expectation(description: "consent cell conde excecute")
+		let expectationNotFulFill = expectation(description: "consent cell code excecute")
 		expectationNotFulFill.isInverted = true
-		
+		var bindings: Set<AnyCancellable> = []
+
 		let viewModel = TestResultAvailableViewModel(
-			mockStore,
+			exposureSubmissionService: exposureSubmissionService,
 			didTapConsentCell: {
 				expectationFulFill.fulfill()
 			},
@@ -87,10 +88,22 @@ class TestResultAvailableViewModelTest: XCTestCase {
 			presentDismissAlert: {}
 		)
 		
-		let iconCell = viewModel.dynamicTableViewModel.cell(at: IndexPath(row: 0, section: 1))
+		var resultDynamicTableViewModel: DynamicTableViewModel?
+		let waitForCombineExpectation = expectation(description: "dynamic tableview mode did load")
+		viewModel.dynamicTableviewModelPublisher.sink { dynamicTableViewModel in
+			guard let dynamicTableViewModel = dynamicTableViewModel else {
+				XCTFail("failed to get dynamicTableViewModel")
+				return
+			}
+			resultDynamicTableViewModel = dynamicTableViewModel
+			waitForCombineExpectation.fulfill()
+		}.store(in: &bindings)
+	
+		wait(for: [waitForCombineExpectation], timeout: .medium)
+		let iconCell = resultDynamicTableViewModel?.cell(at: IndexPath(row: 0, section: 1))
 		
 		// WHEN
-		switch iconCell.action {
+		switch iconCell?.action {
 		case .execute(block: let block):
 			block( UIViewController(), nil )
 		default:
@@ -98,7 +111,6 @@ class TestResultAvailableViewModelTest: XCTestCase {
 		}
 		
 		// THEN
-		waitForExpectations(timeout: .medium)
+		wait(for: [expectationFulFill, expectationNotFulFill], timeout: .medium)
 	}
-	
 }
