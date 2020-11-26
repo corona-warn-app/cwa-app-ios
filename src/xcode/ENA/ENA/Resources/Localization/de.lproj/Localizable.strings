@@ -1309,3 +1309,34 @@ oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome m
 "Thank_You_Continue_Button" = "Weiter mit Symptom-Erfassung";
 
 "Thank_You_Cancel_Button" = "Beenden";
+
+/* Test result screen (positive test result) */
+"TestResultPositive_NoConsent_Title" = "Bitte helfen Sie mit!";
+
+"TestResultPositive_NoConsent_Info1" = "Helfen Sie mit, Ihre Mitmenschen vor Ansteckungen zu schützen und teilen Sie Ihr Testergebnis.";
+
+"TestResultPositive_NoConsent_Info2" = "Ihre Identität bleibt dabei geheim. Andere Nutzer erfahren nicht, wer das Testergebnis geteilt hat.";
+
+"TestResultPositive_NoConsent_Info3" = "Bitte beachten Sie unbedingt die Hinweise des zuständigen Gesundheitsamtes und bleiben Sie zu Hause, um andere Personen nicht anzustecken.";
+
+"TestResultPositive_NoConsent_PrimaryButton" = "Andere warnen";
+
+"TestResultPositive_NoConsent_SecondaryButton" = "Abbrechen";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_Title" = "Sie wollen keine Warnung verschicken?";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_Description" = "Nur wenn Sie Ihr Testergebnis teilen, helfen Sie mit, Ihre Mitmenschen zu warnen.";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne" = "Nicht warnen";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo" = "Warnen";
+
+"TestResultPositive_WithConsent_Title" = "Vielen Dank, dass Sie mithelfen, die Verbreitung von Corona zu bekämpfen.";
+
+"TestResultPositive_WithConsent_Info1" = "Ihre Mitmenschen werden jetzt gewarnt.";
+
+"TestResultPositive_WithConsent_Info2" = "Bitte helfen Sie nun, die Genauigkeit der Warnungen zu verbessern. Geben Sie hierfür im nächsten Schritt an, wann Sie erstmals Symptome hatten. Sie können diesen Schritt jederzeit abbrechen.";
+
+"TestResultPositive_WithConsent_PrimaryButton" = "Weiter mit Symptom-Erfassung";
+
+"TestResultPositive_WithConsent_SecondaryButton" = "Beenden";

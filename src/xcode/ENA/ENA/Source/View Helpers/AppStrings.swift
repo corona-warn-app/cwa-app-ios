@@ -199,6 +199,24 @@ enum AppStrings {
 		static let hotlineDetailDescription = NSLocalizedString("ExposureSubmission_PhoneDetailDescription", comment: "")
 		static let imageDescription = NSLocalizedString("ExposureSubmissionHotline_imageDescription", comment: "")
 	}
+	
+	enum ExposureSubmissionPositiveTestResult {
+		static let noConsentTitle = NSLocalizedString("TestResultPositive_NoConsent_Title", comment: "")
+		static let noConsentInfo1 = NSLocalizedString("TestResultPositive_NoConsent_Info1", comment: "")
+		static let noConsentInfo2 = NSLocalizedString("TestResultPositive_NoConsent_Info2", comment: "")
+		static let noConsentInfo3 = NSLocalizedString("TestResultPositive_NoConsent_Info3", comment: "")
+		static let noConsentPrimaryButtonTitle = NSLocalizedString("TestResultPositive_NoConsent_PrimaryButton", comment: "")
+		static let noConsentSecondaryButtonTitle = NSLocalizedString("TestResultPositive_NoConsent_SecondaryButton", comment: "")
+		static let noConsentAlertTitle = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_Title", comment: "")
+		static let noConsentAlertDescription = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_Description", comment: "")
+		static let noConsentAlertButton1 = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne", comment: "")
+		static let noConsentAlertButton2 = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo", comment: "")
+		static let withConsentTitle = NSLocalizedString("TestResultPositive_WithConsent_Title", comment: "")
+		static let withConsentInfo1 = NSLocalizedString("TestResultPositive_WithConsent_Info1", comment: "")
+		static let withConsentInfo2 = NSLocalizedString("TestResultPositive_WithConsent_Info2", comment: "")
+		static let withConsentPrimaryButtonTitle = NSLocalizedString("TestResultPositive_WithConsent_PrimaryButton", comment: "")
+		static let withConsentSecondaryButtonTitle = NSLocalizedString("TestResultPositive_WithConsent_SecondaryButton", comment: "")
+	}
 
 	enum ExposureSubmissionSymptoms {
 		static let title = NSLocalizedString("ExposureSubmissionSymptoms_Title", comment: "")
