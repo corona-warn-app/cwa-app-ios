@@ -3,19 +3,19 @@
 //
 
 import XCTest
+import Combine
 @testable import ENA
 
 class TestResultAvailableViewModelTest: XCTestCase {
 	
 	func testGIVEN_ViewModel_WHEN_PrimaryButtonClosureCalled_THEN_ExpectationFulfill() {
 		// GIVEN
-		let mockStore = MockTestStore()
 		let expectationFulFill = expectation(description: "primary button code execute")
-		let expectationNotFulFill = expectation(description: "consent cell conde excecute")
+		let expectationNotFulFill = expectation(description: "consent cell code excecute")
 		expectationNotFulFill.isInverted = true
 		
 		let viewModel = TestResultAvailableViewModel(
-			mockStore,
+			exposureSubmissionService: MockExposureSubmissionService(),
 			didTapConsentCell: {
 				expectationNotFulFill.fulfill()
 			},
@@ -34,12 +34,13 @@ class TestResultAvailableViewModelTest: XCTestCase {
 	
 	func testGIVEN_ViewModel_WHEN_getDynamicTableViewModel_THEN_SectionsAndCellMatchExpectation() {
 		// GIVEN
-		let mockStore = MockTestStore()
-		let expectationNotFulFill = expectation(description: "consent cell conde excecute")
+		let exposureSubmissionService = MockExposureSubmissionService()
+		let expectationNotFulFill = expectation(description: "consent cell code excecute")
 		expectationNotFulFill.isInverted = true
-		
+		var bindings: Set<AnyCancellable> = []
+
 		let viewModel = TestResultAvailableViewModel(
-			mockStore,
+			exposureSubmissionService: exposureSubmissionService,
 			didTapConsentCell: {
 				expectationNotFulFill.fulfill()
 			},
@@ -50,14 +51,22 @@ class TestResultAvailableViewModelTest: XCTestCase {
 		)
 		
 		// WHEN
-		let dynamicTableViewModel = viewModel.dynamicTableViewModel
+		var resultDynamicTableViewModel: DynamicTableViewModel?
 		
+		viewModel.dynamicTableviewModelPublisher.sink { dynamicTableViewModel in
+			guard let dynamicTableViewModel = dynamicTableViewModel else {
+				XCTFail("failed to get dynamicTableViewModel")
+				return
+			}
+			resultDynamicTableViewModel = dynamicTableViewModel
+		}.store(in: &bindings)
+
 		// THEN
-		XCTAssertEqual(3, dynamicTableViewModel.numberOfSection)
-		XCTAssertEqual(0, dynamicTableViewModel.numberOfRows(section: 0))
-		XCTAssertEqual(1, dynamicTableViewModel.numberOfRows(section: 1))
-		XCTAssertEqual(2, dynamicTableViewModel.numberOfRows(section: 2))
 		waitForExpectations(timeout: .short)
+		XCTAssertEqual(3, resultDynamicTableViewModel?.numberOfSection)
+		XCTAssertEqual(0, resultDynamicTableViewModel?.numberOfRows(section: 0))
+		XCTAssertEqual(1, resultDynamicTableViewModel?.numberOfRows(section: 1))
+		XCTAssertEqual(2, resultDynamicTableViewModel?.numberOfRows(section: 2))
 	}
 	
 	func testGIVEN_ViewModel_WHEN_GetIconCellActionTigger_THEN_ExpectationFulfill() {
