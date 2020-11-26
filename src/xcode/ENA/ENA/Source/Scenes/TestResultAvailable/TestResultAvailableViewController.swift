@@ -64,9 +64,8 @@ final class TestResultAvailableViewController: DynamicTableViewController, ENANa
 	}
 
 	private func setupViewModel() {
-		viewModel.dynamicTableviewModelPublisher.sink { [weak self] dynamicTableViewModel in
-			guard let dynamicTableViewModel = dynamicTableViewModel,
-				let self = self else {
+		viewModel.$dynamicTableViewModel.sink { [weak self] dynamicTableViewModel in
+			guard let self = self else {
 				Log.debug("Faile to get dynamic tableview model - return early")
 				return
 			}

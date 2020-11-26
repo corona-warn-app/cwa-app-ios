@@ -53,11 +53,7 @@ class TestResultAvailableViewModelTest: XCTestCase {
 		// WHEN
 		var resultDynamicTableViewModel: DynamicTableViewModel?
 		
-		viewModel.dynamicTableviewModelPublisher.sink { dynamicTableViewModel in
-			guard let dynamicTableViewModel = dynamicTableViewModel else {
-				XCTFail("failed to get dynamicTableViewModel")
-				return
-			}
+		viewModel.$dynamicTableViewModel.sink { dynamicTableViewModel in
 			resultDynamicTableViewModel = dynamicTableViewModel
 		}.store(in: &bindings)
 
@@ -90,11 +86,7 @@ class TestResultAvailableViewModelTest: XCTestCase {
 		
 		var resultDynamicTableViewModel: DynamicTableViewModel?
 		let waitForCombineExpectation = expectation(description: "dynamic tableview mode did load")
-		viewModel.dynamicTableviewModelPublisher.sink { dynamicTableViewModel in
-			guard let dynamicTableViewModel = dynamicTableViewModel else {
-				XCTFail("failed to get dynamicTableViewModel")
-				return
-			}
+		viewModel.$dynamicTableViewModel.sink { dynamicTableViewModel in
 			resultDynamicTableViewModel = dynamicTableViewModel
 			waitForCombineExpectation.fulfill()
 		}.store(in: &bindings)
