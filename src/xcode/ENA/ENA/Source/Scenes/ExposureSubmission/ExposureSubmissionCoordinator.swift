@@ -117,24 +117,30 @@ extension ExposureSubmissionCoordinator {
 			}
 		}
 		#endif
+
 		// We got a test result and can jump straight into the test result view controller.
-		if let result = result, model.exposureSubmissionServiceHasRegistrationToken {
-			return createTestResultViewController(with: result)
+		if let testResult = result, model.exposureSubmissionServiceHasRegistrationToken {
+			// For a positive test result we show the test result available screen if it wasn't shown before
+			if testResult == .positive && !model.exposureSubmissionService.positiveTestResultWasShown {
+				return createTestResultAvailableViewController(testResult: testResult)
+			} else {
+				return createTestResultViewController(with: testResult)
+			}
 		}
 
 		// By default, we show the intro view.
 		return createIntroViewController()
 	}
 
-	/// method to get an instace of TestresultvailableViewController
-	func createTestResultavailableViewController() -> UIViewController {
+	/// method to get an instace of TestResultAvailableViewController
+	func createTestResultAvailableViewController(testResult: TestResult) -> UIViewController {
 		let viewModel = TestResultAvailableViewModel(
 			exposureSubmissionService: model.exposureSubmissionService,
 			didTapConsentCell: { [weak self] in
 				self?.presentTestResultConsentViewController()
 			},
-			didTapPrimaryFooterButton: {
-				Log.debug("primary footer button hit")
+			didTapPrimaryFooterButton: { [weak self] in
+				self?.showTestResultScreen(with: testResult)
 			},
 			presentDismissAlert: { [weak self] in
 				self?.presentTestResultCloseAlert()

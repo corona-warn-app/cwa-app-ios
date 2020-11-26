@@ -278,10 +278,11 @@ extension SecureStore {
 		set { kvStore["warnOthersNotificationTimerTwo"] = newValue }
 	}
 	
-	var warnOthersHasActiveTestResult: Bool {
+	var positiveTestResultWasShown: Bool {
 		get { kvStore["warnOthersHasActiveTestResult"] as Bool? ?? false }
 		set { kvStore["warnOthersHasActiveTestResult"] = newValue }
 	}
+
 }
 
 extension SecureStore: AppConfigCaching {

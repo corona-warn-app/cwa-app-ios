@@ -80,9 +80,6 @@ protocol StoreProtocol: AnyObject {
 	
 	/// Delay time in seconds, when the first notification to warn others will be shown,
 	var warnOthersNotificationTwoTimer: TimeInterval { get set }
-	
-	/// If there was a positive test result, this information will be stored for warn others
-	var warnOthersHasActiveTestResult: Bool { get set }
 
 	var wasRecentDayKeyDownloadSuccessful: Bool { get set }
 
@@ -93,6 +90,8 @@ protocol StoreProtocol: AnyObject {
     var isDeviceTimeCorrect: Bool { get set }
 	
 	var wasDeviceTimeErrorShown: Bool { get set }
+
+	var positiveTestResultWasShown: Bool { get set }
 	
 	var isSubmissionConsentGiven: Bool { get set }
 

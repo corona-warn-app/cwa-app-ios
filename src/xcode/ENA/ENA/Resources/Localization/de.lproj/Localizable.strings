@@ -1019,11 +1019,13 @@ oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome m
 "Home_AppInformationCard_Version" = "Version";
 
 /* Home Result Card */
-"Home_resultCard_ResultAvailableTitle" = "Ihr Ergebnis liegt vor";
+"Home_resultCard_ResultAvailableTitle" = "Ihr Testergebnis liegt vor";
 
 "Home_resultCard_ResultUnvailableTitle" = "Ergebnis liegt noch nicht vor";
 
 "Home_resultCard_ShowResultButton" = "Test anzeigen";
+
+"Home_resultCard_RetrieveResultButton" = "Testergebnis abrufen";
 
 "Home_resultCard_LoadingBody" = "Es werden aktuelle Daten heruntergeladen. Dies kann mehrere Minuten dauern.";
 
@@ -1038,6 +1040,10 @@ oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome m
 "Home_resultCard_InvalidTitle" = "Fehlerhafter Test";
 
 "Home_resultCard_InvalidDesc" = "Ihr Test konnte nicht ausgewertet werden.";
+
+"Home_resultCard_AvailableSubtitle" = "Sie können Ihr Testergebnis nun abrufen.";
+
+"Home_resultCard_AvailableDesc" = "Warnen Sie Ihre Mitmenschen, wenn Sie positiv auf Corona getestet wurden.";
 
 "Home_resultCard_LoadingErrorTitle" = "Ihr Testergebnis konnte nicht geladen werden.";
 
