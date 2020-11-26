@@ -448,7 +448,7 @@ final class RiskProviderTests: XCTestCase {
 			appDelegate.executeENABackgroundTask { _ in }
 		}
 
-		waitForExpectations(timeout: 20)
+		waitForExpectations(timeout: .extraLong)
 	}
 
 
