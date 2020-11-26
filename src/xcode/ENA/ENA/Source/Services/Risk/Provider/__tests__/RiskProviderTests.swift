@@ -30,7 +30,7 @@ final class RiskProviderTests: XCTestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
-			keyPackageDownload: keyPackageDownloadMock(with: store),
+			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -77,7 +77,7 @@ final class RiskProviderTests: XCTestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
-			keyPackageDownload: keyPackageDownloadMock(with: store),
+			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -143,7 +143,7 @@ final class RiskProviderTests: XCTestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
-			keyPackageDownload: keyPackageDownloadMock(with: store),
+			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -181,7 +181,7 @@ final class RiskProviderTests: XCTestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
-			keyPackageDownload: keyPackageDownloadMock(with: store),
+			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -220,7 +220,7 @@ final class RiskProviderTests: XCTestCase {
 			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
-			keyPackageDownload: keyPackageDownloadMock(with: store),
+			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -407,9 +407,82 @@ final class RiskProviderTests: XCTestCase {
 		XCTAssertFalse(store.shouldShowRiskStatusLoweredAlert)
 	}
 
+	// MARK: - RiskProvider stress test
+
+	func test_When_RequestRiskIsCalledFromDifferentThreads_Then_ItReturnsWithAlreadyRunningErrorOrCalculatedRisk() {
+
+		let numberOfRequestRiskCalls = 30
+		let numberOfExecuteENABackgroundTask = 10
+
+		let riskProvider = makeSomeRiskProvider()
+		let riskConsumer = RiskConsumer()
+		riskProvider.observeRisk(riskConsumer)
+
+		let didCallbackExpectation = expectation(description: "Called didCalculateRisk or didFailCalculateRisk.")
+		didCallbackExpectation.expectedFulfillmentCount = numberOfRequestRiskCalls + numberOfExecuteENABackgroundTask
+		riskConsumer.didCalculateRisk = { _ in
+			didCallbackExpectation.fulfill()
+		}
+
+		riskConsumer.didFailCalculateRisk = { error in
+			didCallbackExpectation.fulfill()
+
+			if error.isAlreadyRunningError {
+				return
+			}
+
+			XCTFail("Error besides of isAlreadyRunningError should not happen.")
+		}
+
+		let concurrentQueue = DispatchQueue(label: "RiskProviderStressTest", attributes: .concurrent)
+		for _ in 0...numberOfRequestRiskCalls - 1 {
+			concurrentQueue.async {
+				riskProvider.requestRisk(userInitiated: false)
+			}
+		}
+
+		let appDelegate = AppDelegate()
+		appDelegate.riskProvider = riskProvider
+
+		for _ in 0...numberOfExecuteENABackgroundTask - 1 {
+			appDelegate.executeENABackgroundTask { _ in }
+		}
+
+		waitForExpectations(timeout: .extraLong)
+	}
+
+
 	// MARK: - Private
 
-	private func keyPackageDownloadMock(with store: Store) -> KeyPackageDownload {
+	private func makeSomeRiskProvider() -> RiskProvider {
+		let duration = DateComponents(day: 1)
+
+		let store = MockTestStore()
+		store.riskCalculationResult = nil
+
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: duration,
+			exposureDetectionInterval: duration
+		)
+
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+
+		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory()
+		downloadedPackagesStore.open()
+
+		return RiskProvider(
+			configuration: config,
+			store: store,
+			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskCalculation: RiskCalculationFake(),
+			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
+			exposureDetectionExecutor: exposureDetectionDelegateStub
+		)
+
+	}
+
+	private func makeKeyPackageDownloadMock(with store: Store) -> KeyPackageDownload {
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory()
 		downloadedPackagesStore.open()
 
