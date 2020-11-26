@@ -1291,16 +1291,6 @@ oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome m
 
 "AutomaticSharingConsent_SwitchTitleDesc" = "Sie haben sich wie folgt einverstanden erklärt:";
 
-"AutomaticSharingConsent_Subtitle" = "Einverständnis";
-
-"AutomaticSharingConsent_DescriptionPart1" = "Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer zu warnen, denen Sie begegnet sind.";
-
-"AutomaticSharingConsent_DescriptionPart2" = "Die Warnung erreicht Nutzer von offiziellen Corona-Apps der folgenden teilnehmenden Länder:";
-
-"AutomaticSharingConsent_DescriptionPart3" = "Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
-
-"AutomaticSharingConsent_DescriptionPart4" = "Sie können Ihr Einverständnis zurücknehmen, indem Sie oben „Andere warnen“ deaktivieren.";
-
 "AutomaticSharingConsent_DataProcessingDetailInfo" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis.";
 
 
