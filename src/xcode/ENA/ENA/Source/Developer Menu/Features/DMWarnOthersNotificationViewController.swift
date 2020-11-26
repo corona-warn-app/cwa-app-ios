@@ -70,7 +70,6 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		let currentSubmissionConsentStatusStateLabel = UILabel(frame: .zero)
 		currentSubmissionConsentStatusStateLabel.translatesAutoresizingMaskIntoConstraints = false
 		currentSubmissionConsentStatusStateLabel.numberOfLines = 0
-		currentSubmissionConsentStatusStateLabel.text = ""
 		currentSubmissionConsentStatusStateLabel.font = UIFont.enaFont(for: .title2)
 		
 		let currentSubmissionConsentStatusStateDescription = UILabel(frame: .zero)
