@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 #if !RELEASE
@@ -36,11 +21,6 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		self.warnOthersReminder = warnOthersReminder
 		self.exposureSubmissionService = exposureSubmissionService
 		super.init(nibName: nil, bundle: nil)
-		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
-			self.consentSwitch.isOn = isSubmissionConsentGiven
-			self.updateConsentStatusLabel()
-		}.store(in: &cancellables)
-		
 	}
 	
 	@available(*, unavailable)
@@ -148,16 +128,19 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 			timeInterval2TextField.widthAnchor.constraint(equalToConstant: 70)
 		])
 		
-		updateConsentStatusLabel()
-		
 		// Set Default Value for the notification text filelds:
 		timeInterval1TextField.text = "\(warnOthersReminder.notificationOneTimeInterval)"
 		timeInterval2TextField.text = "\(warnOthersReminder.notificationTwoTimeInterval)"
 		
-		//Set the keyboard type.
+		// Set the keyboard type.
 		timeInterval1TextField.keyboardType = .numberPad
 		timeInterval2TextField.keyboardType = .numberPad
 		self.hideKeyboardWhenTappedAround()
+		
+		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
+			self.consentSwitch.isOn = isSubmissionConsentGiven
+			self.currentSubmissionConsentStatusStateLabel.text = isSubmissionConsentGiven ? "🟢 Consent granted 👍" : "🔴 Consent not given 👎"
+		}.store(in: &cancellables)
 		
 	}
 	
@@ -183,13 +166,6 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	@objc
 	private func consentStateChanged(switchState: UISwitch) {
 		exposureSubmissionService.setSubmissionConsentGiven(consentGiven: switchState.isOn)
-		updateConsentStatusLabel()
-	}
-	
-	private func updateConsentStatusLabel() {
-		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
-			self.currentSubmissionConsentStatusStateLabel.text = isSubmissionConsentGiven ? "🟢 Consent granted 👍" : "🔴 Consent not given 👎"
-		}.store(in: &cancellables)
 	}
 	
 	@objc
