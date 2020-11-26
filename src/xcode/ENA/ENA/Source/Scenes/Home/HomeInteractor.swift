@@ -331,7 +331,7 @@ extension HomeInteractor {
 				let testResultLoadingCellConfigurator = HomeTestResultLoadingCellConfigurator()
 				actionsConfigurators.append(testResultLoadingCellConfigurator)
 
-			case .positive:
+			case .positive where exposureSubmissionService.positiveTestResultWasShown:
 				let findingPositiveRiskCellConfigurator = setupFindingPositiveRiskCellConfigurator()
 				actionsConfigurators.append(findingPositiveRiskCellConfigurator)
 
@@ -407,12 +407,6 @@ extension HomeInteractor {
 
 extension HomeInteractor {
 	func updateTestResults() {
-		
-		// Do warn others reminder evaluation
-		if let testResult = testResult {
-			WarnOthersReminder(store: store).evaluateNotificationState(testResult: testResult)
-		}
-		
 		// Avoid unnecessary loading.
 		guard testResult == nil || testResult != .positive else { return }
 		
@@ -455,8 +449,6 @@ extension HomeInteractor {
 						self?.testResult = testResult
 						self?.reloadTestResult(with: testResult)
 					}
-					guard let store = self?.store else { return }
-					WarnOthersReminder(store: store).evaluateNotificationState(testResult: testResult)
 				}
 			}
 		}
