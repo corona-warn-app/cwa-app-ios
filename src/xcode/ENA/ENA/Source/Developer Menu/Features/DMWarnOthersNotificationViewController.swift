@@ -20,15 +20,27 @@
 #if !RELEASE
 
 import UIKit
+import Combine
 
 final class DMWarnOthersNotificationViewController: UIViewController, UITextFieldDelegate {
-
+	
 	// MARK: - Init
 	
-	init(warnOthersReminder: WarnOthersRemindable, store: Store) {
+	init(
+		warnOthersReminder: WarnOthersRemindable,
+		store: Store,
+		exposureSubmissionService: ExposureSubmissionService
+	) {
+		
 		self.store = store
 		self.warnOthersReminder = warnOthersReminder
+		self.exposureSubmissionService = exposureSubmissionService
 		super.init(nibName: nil, bundle: nil)
+		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
+			self.consentSwitch.isOn = isSubmissionConsentGiven
+			self.updateConsentStatusLabel()
+		}.store(in: &cancellables)
+		
 	}
 	
 	@available(*, unavailable)
@@ -49,7 +61,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		titleLabel.text = "\n\nWarn others notification settings"
 		titleLabel.font = UIFont.enaFont(for: .headline)
 		
-		let currentSubmissionConsentStatusTitleLabel = UILabel(frame: .zero)
+		currentSubmissionConsentStatusTitleLabel = UILabel(frame: .zero)
 		currentSubmissionConsentStatusTitleLabel.translatesAutoresizingMaskIntoConstraints = false
 		currentSubmissionConsentStatusTitleLabel.numberOfLines = 0
 		currentSubmissionConsentStatusTitleLabel.text = "Current status of submission consent granted\n"
@@ -58,7 +70,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		let currentSubmissionConsentStatusStateLabel = UILabel(frame: .zero)
 		currentSubmissionConsentStatusStateLabel.translatesAutoresizingMaskIntoConstraints = false
 		currentSubmissionConsentStatusStateLabel.numberOfLines = 0
-		currentSubmissionConsentStatusStateLabel.text = store.isSubmissionConsentGiven ? "🟢 Consent granted 👍" : "🔴 Consent not given 👎"
+		currentSubmissionConsentStatusStateLabel.text = ""
 		currentSubmissionConsentStatusStateLabel.font = UIFont.enaFont(for: .title2)
 		
 		let currentSubmissionConsentStatusStateDescription = UILabel(frame: .zero)
@@ -118,7 +130,10 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		timeInterval2TextField.delegate = self
 		timeInterval2TextField.borderStyle = .line
 		
-		let stackView = UIStackView(arrangedSubviews: [currentSubmissionConsentStatusTitleLabel, currentSubmissionConsentStatusStateLabel, currentSubmissionConsentStatusStateDescription, titleLabel, descriptionLabel, timeInterval1Label, timeInterval1TextField, timeInterval2Label, timeInterval2TextField, saveButton, resetDefaultsButton, descriptionResetNotificationsLabel, resetNotificationsButton])
+		consentSwitch.onTintColor = .enaColor(for: .tint)
+		consentSwitch.addTarget(self, action: #selector(self.consentStateChanged), for: .valueChanged)
+		
+		let stackView = UIStackView(arrangedSubviews: [currentSubmissionConsentStatusTitleLabel, currentSubmissionConsentStatusStateLabel, consentSwitch, currentSubmissionConsentStatusStateDescription, titleLabel, descriptionLabel, timeInterval1Label, timeInterval1TextField, timeInterval2Label, timeInterval2TextField, saveButton, resetDefaultsButton, descriptionResetNotificationsLabel, resetNotificationsButton])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .vertical
 		stackView.alignment = .center
@@ -134,6 +149,8 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 			timeInterval2TextField.widthAnchor.constraint(equalToConstant: 70)
 		])
 		
+		updateConsentStatusLabel()
+		
 		// Set Default Value for the notification text filelds:
 		timeInterval1TextField.text = "\(warnOthersReminder.notificationOneTimeInterval)"
 		timeInterval2TextField.text = "\(warnOthersReminder.notificationTwoTimeInterval)"
@@ -147,6 +164,12 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	
 	// MARK: - Private
 
+	private let consentSwitch = UISwitch()
+	
+	private var cancellables: Set<AnyCancellable> = []
+	
+	private var exposureSubmissionService: ExposureSubmissionService
+	
 	private var timeInterval1TextField: UITextField!
 	private var timeInterval2TextField: UITextField!
 
@@ -155,7 +178,23 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 
 	private let store: Store
 	private var warnOthersReminder: WarnOthersRemindable
-
+	
+	private var currentSubmissionConsentStatusTitleLabel = UILabel()
+	
+	@objc
+	private func consentStateChanged(switchState: UISwitch) {
+		exposureSubmissionService.setSubmissionConsentGiven(consentGiven: switchState.isOn)
+		updateConsentStatusLabel()
+	}
+	
+	private func updateConsentStatusLabel() {
+		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
+			self.currentSubmissionConsentStatusTitleLabel.text = isSubmissionConsentGiven ? "🟢 Consent granted 👍" : "🔴 Consent not given 👎"
+		}.store(in: &cancellables)
+	}
+	
+	private var currentStatusLabelText = ""
+	
 	@objc
 	private func scheduleNotificationsButtonTapped() {
 		let timeInterval1 = Double(timeInterval1TextField.text ?? "") ?? WarnOthersNotificationsTimeInterval.intervalOne
