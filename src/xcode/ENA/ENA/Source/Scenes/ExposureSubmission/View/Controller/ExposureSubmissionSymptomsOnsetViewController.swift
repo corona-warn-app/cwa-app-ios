@@ -5,13 +5,16 @@
 import UIKit
 import Combine
 
-class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, RequiresDismissConfirmation {
-
+class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
 
 	// MARK: - Init
 
-	init(onPrimaryButtonTap: @escaping (SymptomsOnsetOption) -> Void) {
+	init(
+		onPrimaryButtonTap: @escaping (SymptomsOnsetOption) -> Void,
+		presentCancelAlert: @escaping () -> Void
+	) {
 		self.onPrimaryButtonTap = onPrimaryButtonTap
+		self.presentCancelAlert = presentCancelAlert
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -41,8 +44,14 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 
 		onPrimaryButtonTap(selectedSymptomsOnsetSelectionOption)
 	}
-	// MARK - Interbal
-	// MARK: - Interbal
+	
+	// MARK: - Protocol DismissHandling
+
+	func presentDismiss(dismiss: @escaping () -> Void) {
+		presentCancelAlert()
+	}
+	
+	// MARK: - Internal
 	
 	enum SymptomsOnsetOption {
 		case exactDate(Date)
@@ -55,7 +64,8 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 	// MARK: - Private
 
 	private let onPrimaryButtonTap: (SymptomsOnsetOption) -> Void
-
+	private let presentCancelAlert: () -> Void
+	
 	private var symptomsOnsetButtonStateSubscription: AnyCancellable?
 	private var optionGroupSelectionSubscription: AnyCancellable?
 

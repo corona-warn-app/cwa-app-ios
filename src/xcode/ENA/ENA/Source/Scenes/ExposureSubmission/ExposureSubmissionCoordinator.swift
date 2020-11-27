@@ -382,20 +382,29 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	func showSymptomsScreen() {
-		let vc = ExposureSubmissionSymptomsViewController { [weak self] selectedSymptomsOption in
-			guard let self = self else { return }
-			
-			self.model.symptomsOptionSelected(selectedSymptomsOption)
-			self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showWarnOthersScreen()
-		}
+		let vc = ExposureSubmissionSymptomsViewController(
+			onPrimaryButtonTap: { [weak self] selectedSymptomsOption in
+				guard let self = self else { return }
+				
+				self.model.symptomsOptionSelected(selectedSymptomsOption)
+				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showWarnOthersScreen()
+			},
+			presentCancelAlert: { [weak self] in
+				self?.presentSubmissionSymptomsCancelAlert()
+			}
+		)
 		push(vc)
 	}
 
 	private func showSymptomsOnsetScreen() {
-		let vc = ExposureSubmissionSymptomsOnsetViewController {[weak self] selectedSymptomsOnsetOption in
-			self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
-			self?.showWarnOthersScreen()
-		}
+		let vc = ExposureSubmissionSymptomsOnsetViewController(
+			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption in
+				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
+				self?.showWarnOthersScreen()
+			}, presentCancelAlert: { [weak self] in
+				self?.presentSubmissionSymptomsCancelAlert()
+			}
+		)
 		push(vc)
 	}
 
@@ -412,8 +421,33 @@ extension ExposureSubmissionCoordinator {
 				)
 			}
 		)
-
 		push(vc)
+	}
+	
+	func presentSubmissionSymptomsCancelAlert() {
+		guard let navigationController = navigationController else {
+			Log.error("Can't present SubmissionSymptomsCancelAlert - missing navigationController")
+			return
+		}
+		
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmissionSymptomsCancelAlert.title,
+			message: AppStrings.ExposureSubmissionSymptomsCancelAlert.message,
+			preferredStyle: .alert)
+
+		alert.addAction(UIAlertAction(
+							title: AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton,
+							style: .cancel,
+							handler: { [weak self] _ in
+								self?.dismiss()
+							})
+		)
+
+		alert.addAction(UIAlertAction(
+							title: AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton,
+							style: .default)
+		)
+		navigationController.present(alert, animated: true, completion: nil)
 	}
 
 	func showThankYouScreen() {

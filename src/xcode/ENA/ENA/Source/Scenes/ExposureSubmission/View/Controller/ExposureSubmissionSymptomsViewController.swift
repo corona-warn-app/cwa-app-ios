@@ -5,13 +5,16 @@
 import UIKit
 import Combine
 
-final class ExposureSubmissionSymptomsViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, RequiresDismissConfirmation {
-
+final class ExposureSubmissionSymptomsViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
 
 	// MARK: - Init
 
-	init(onPrimaryButtonTap: @escaping (SymptomsOption) -> Void) {
+	init(
+		onPrimaryButtonTap: @escaping (SymptomsOption) -> Void,
+		presentCancelAlert: @escaping () -> Void
+	) {
 		self.onPrimaryButtonTap = onPrimaryButtonTap
+		self.presentCancelAlert = presentCancelAlert
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -41,6 +44,13 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 		onPrimaryButtonTap(selectedSymptomsOption)
 	}
+	
+	// MARK: - Protocol DismissHandling
+	
+	func presentDismiss(dismiss: @escaping () -> Void) {
+		presentCancelAlert()
+	}
+	
 	// MARK: - Internal
 	
 	enum SymptomsOption {
@@ -50,6 +60,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 	// MARK: - Private
 
 	private let onPrimaryButtonTap: (SymptomsOption) -> Void
+	private let presentCancelAlert: () -> Void
 	
 	private var selectedSymptomsOptionConfirmationButtonStateSubscription: AnyCancellable?
 	private var optionGroupSelectionSubscription: AnyCancellable?
@@ -81,7 +92,6 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 			}
 		}
 	}
-
 
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionSymptoms.title
