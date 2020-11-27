@@ -39,7 +39,7 @@
                                                         <rect key="frame" x="0.0" y="36.5" width="382" height="639.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFa-H0-7iG" customClass="ENATanInput" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="296.5" width="382" height="46.5"/>
+                                                                <rect key="frame" x="0.0" y="295" width="382" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" priority="250" constant="50" placeholder="YES" id="GoX-aD-BHg"/>
                                                                 </constraints>
@@ -213,26 +213,6 @@
             </objects>
             <point key="canvasLocation" x="3" y="1185"/>
         </scene>
-        <!--Exposure Submission Symptoms View Controller-->
-        <scene sceneID="Lgw-rw-O6o">
-            <objects>
-                <viewController storyboardIdentifier="ExposureSubmissionSymptomsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4ga-Ze-MIR" customClass="ExposureSubmissionSymptomsViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="INM-ZL-85W">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" name="ENA Background Color"/>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="1Sc-xx-W46" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
-                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="R6e-pz-aeF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6525" y="155"/>
-        </scene>
         <!--Exposure Submission Symptoms Onset View Controller-->
         <scene sceneID="eBG-mG-fVf">
             <objects>
@@ -256,10 +236,10 @@
     </scenes>
     <designables>
         <designable name="DuS-ZV-gMr">
-            <size key="intrinsicContentSize" width="70.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="67" height="20.5"/>
         </designable>
         <designable name="I0N-4y-Zcm">
-            <size key="intrinsicContentSize" width="70.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="67" height="20.5"/>
         </designable>
     </designables>
     <resources>

@@ -7,21 +7,12 @@ import Combine
 
 final class ExposureSubmissionSymptomsViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, RequiresDismissConfirmation {
 
-	typealias PrimaryButtonHandler = (SymptomsOption) -> Void
-
-	enum SymptomsOption {
-		case yes, no, preferNotToSay
-	}
 
 	// MARK: - Init
 
-	init?(
-		coder: NSCoder,
-		onPrimaryButtonTap: @escaping PrimaryButtonHandler
-	) {
+	init(onPrimaryButtonTap: @escaping (SymptomsOption) -> Void) {
 		self.onPrimaryButtonTap = onPrimaryButtonTap
-
-		super.init(coder: coder)
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)
@@ -46,10 +37,18 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 		onPrimaryButtonTap(selectedSymptomsOption)
 	}
+	// MARK: - Internal
+	
+	enum SymptomsOption {
+		case yes, no, preferNotToSay
+	}
 
 	// MARK: - Private
 
-	private let onPrimaryButtonTap: PrimaryButtonHandler
+	private let onPrimaryButtonTap: (SymptomsOption) -> Void
+	
+	private var selectedSymptomsOptionConfirmationButtonStateSubscription: AnyCancellable?
+	private var optionGroupSelectionSubscription: AnyCancellable?
 
 	@Published private var selectedSymptomsOption: SymptomsOption?
 
@@ -70,8 +69,6 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 		}
 	}
 
-	private var selectedSymptomsOptionConfirmationButtonStateSubscription: AnyCancellable?
-	private var optionGroupSelectionSubscription: AnyCancellable?
 
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionSymptoms.title

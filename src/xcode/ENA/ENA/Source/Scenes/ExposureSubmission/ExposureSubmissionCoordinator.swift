@@ -382,26 +382,20 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	func showSymptomsScreen() {
-		let vc = createSymptomsViewController(
-			onPrimaryButtonTap: { [weak self] selectedSymptomsOption in
-				guard let self = self else { return }
-
-				self.model.symptomsOptionSelected(selectedSymptomsOption)
-				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showWarnOthersScreen()
-			}
-		)
-
+		let vc = ExposureSubmissionSymptomsViewController { [weak self] selectedSymptomsOption in
+			guard let self = self else { return }
+			
+			self.model.symptomsOptionSelected(selectedSymptomsOption)
+			self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showWarnOthersScreen()
+		}
 		push(vc)
 	}
 
 	private func showSymptomsOnsetScreen() {
-		let vc = createSymptomsOnsetViewController(
-			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption in
-				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
-				self?.showWarnOthersScreen()
-			}
-		)
-
+		let vc = ExposureSubmissionSymptomsOnsetViewController {[weak self] selectedSymptomsOnsetOption in
+			self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
+			self?.showWarnOthersScreen()
+		}
 		push(vc)
 	}
 
@@ -516,22 +510,6 @@ extension ExposureSubmissionCoordinator {
 	private func createHotlineViewController() -> ExposureSubmissionHotlineViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionHotlineViewController(coder: coder, coordinator: self)
-		}
-	}
-
-	private func createSymptomsViewController(
-		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsViewController.SymptomsOption) -> Void
-	) -> ExposureSubmissionSymptomsViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSymptomsViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionSymptomsViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap)
-		}
-	}
-
-	private func createSymptomsOnsetViewController(
-		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption) -> Void
-	) -> ExposureSubmissionSymptomsOnsetViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSymptomsOnsetViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionSymptomsOnsetViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap)
 		}
 	}
 

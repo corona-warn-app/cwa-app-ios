@@ -7,25 +7,12 @@ import Combine
 
 class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, RequiresDismissConfirmation {
 
-	typealias PrimaryButtonHandler = (SymptomsOnsetOption) -> Void
-
-	enum SymptomsOnsetOption {
-		case exactDate(Date)
-		case lastSevenDays
-		case oneToTwoWeeksAgo
-		case moreThanTwoWeeksAgo
-		case preferNotToSay
-	}
 
 	// MARK: - Init
 
-	init?(
-		coder: NSCoder,
-		onPrimaryButtonTap: @escaping PrimaryButtonHandler
-	) {
+	init(onPrimaryButtonTap: @escaping (SymptomsOnsetOption) -> Void) {
 		self.onPrimaryButtonTap = onPrimaryButtonTap
-
-		super.init(coder: coder)
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)
@@ -50,10 +37,23 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 
 		onPrimaryButtonTap(selectedSymptomsOnsetSelectionOption)
 	}
+	// MARK - Interbal
+	// MARK: - Interbal
+	
+	enum SymptomsOnsetOption {
+		case exactDate(Date)
+		case lastSevenDays
+		case oneToTwoWeeksAgo
+		case moreThanTwoWeeksAgo
+		case preferNotToSay
+	}
 
 	// MARK: - Private
 
-	private let onPrimaryButtonTap: PrimaryButtonHandler
+	private let onPrimaryButtonTap: (SymptomsOnsetOption) -> Void
+
+	private var symptomsOnsetButtonStateSubscription: AnyCancellable?
+	private var optionGroupSelectionSubscription: AnyCancellable?
 
 	@Published private var selectedSymptomsOnsetOption: SymptomsOnsetOption?
 
@@ -77,9 +77,6 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 			}
 		}
 	}
-
-	private var symptomsOnsetButtonStateSubscription: AnyCancellable?
-	private var optionGroupSelectionSubscription: AnyCancellable?
 
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionSymptomsOnset.title
