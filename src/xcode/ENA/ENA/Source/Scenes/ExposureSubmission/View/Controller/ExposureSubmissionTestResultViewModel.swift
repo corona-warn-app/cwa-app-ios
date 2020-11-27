@@ -236,23 +236,32 @@ class ExposureSubmissionTestResultViewModel {
 				),
 				separators: .none,
 				cells: [
-					.title2(text: "Moinsen - nein danke!",
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-//					.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-//							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
+					.title2(text: AppStrings.ExposureSubmissionPositiveTestResult.noConsentTitle,
+							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.noConsentTitle),
 					
 					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testAdded,
+						title: AppStrings.ExposureSubmissionPositiveTestResult.noConsentInfo1,
 						description: nil,
-						icon: UIImage(named: "Icons_Grey_Check"),
+						icon: UIImage(named: "Icons - Warnen"),
+						iconTint: .enaColor(for: .riskHigh),
 						hairline: .iconAttached
 					),
-					
+					// TODO: (kga) Change icon if delivered by UX Team
 					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.warnOthers,
-						description: AppStrings.ExposureSubmissionResult.warnOthersDesc,
-						icon: UIImage(named: "Icons_Grey_Warnen"),
-						hairline: .none
+						style: .body,
+						title: AppStrings.ExposureSubmissionPositiveTestResult.noConsentInfo2,
+						icon: UIImage(named: "Icons - Warnen"),
+						iconTint: .enaColor(for: .riskHigh),
+						hairline: .iconAttached,
+						bottomSpacing: .normal
+					),
+					ExposureSubmissionDynamicCell.stepCell(
+						style: .body,
+						title: AppStrings.ExposureSubmissionPositiveTestResult.noConsentInfo3,
+						icon: UIImage(named: "Icons - Home"),
+						iconTint: .enaColor(for: .riskHigh),
+						hairline: .iconAttached,
+						bottomSpacing: .normal
 					)
 				]
 			)
