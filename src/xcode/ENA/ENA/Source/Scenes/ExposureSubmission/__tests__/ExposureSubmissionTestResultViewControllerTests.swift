@@ -29,6 +29,7 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 		)
 	}
 
+	// (kga) rework test
 	func testPositiveState() {
 		let vc = createVC(testResult: .positive)
 		_ = vc.view

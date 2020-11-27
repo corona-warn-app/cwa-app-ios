@@ -26,7 +26,7 @@ class ExposureSubmissionTestResultViewModel {
 		self.onSubmissionConsentButtonTap = onSubmissionConsentButtonTap
 		self.warnOthersReminder = warnOthersReminder
 		updateForCurrentTestResult()
-		updateSubmissionConsentLabel()
+		updateSubmissionConsentContent()
 	}
 	
 	// MARK: - Internal
@@ -92,6 +92,9 @@ class ExposureSubmissionTestResultViewModel {
 	}
 	
 	// MARK: - Private
+	
+	// (kga)
+	private var currentpositiveTestResultSection: [DynamicSection] = []
 	
 	private var submissionConsentLabel: String = ""
 	
@@ -180,10 +183,11 @@ class ExposureSubmissionTestResultViewModel {
 		}
 	}
 	
+	// (kga) refactor for both cases
 	private var currentTestResultSections: [DynamicSection] {
 		switch testResult {
 		case .positive:
-			return positiveTestResultSections
+			return currentpositiveTestResultSection
 		case .negative:
 			return negativeTestResultSections
 		case .invalid:
@@ -195,7 +199,10 @@ class ExposureSubmissionTestResultViewModel {
 		}
 	}
 	
-	private var positiveTestResultSections: [DynamicSection] {
+	// (kga) Rework for 3622 and 3623
+	/// This is the positive result section which will be shown, if the user
+	/// has GIVEN submission consent to share the positive test result with others
+	private var positiveTestResultSectionsWithSubmissionConsent: [DynamicSection] {
 		[
 			.section(
 				header: .identifier(
@@ -206,8 +213,46 @@ class ExposureSubmissionTestResultViewModel {
 				),
 				separators: .none,
 				cells: [
-					.title2(text: AppStrings.ExposureSubmissionResult.procedure,
+					.title2(text: "Moinsen ja bitte",
 							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
+//					.title2(text: AppStrings.ExposureSubmissionResult.procedure,
+//							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
+					
+					ExposureSubmissionDynamicCell.stepCell(
+						title: AppStrings.ExposureSubmissionResult.testAdded,
+						description: nil,
+						icon: UIImage(named: "Icons_Grey_Check"),
+						hairline: .iconAttached
+					),
+					
+					ExposureSubmissionDynamicCell.stepCell(
+						title: AppStrings.ExposureSubmissionResult.warnOthers,
+						description: AppStrings.ExposureSubmissionResult.warnOthersDesc,
+						icon: UIImage(named: "Icons_Grey_Warnen"),
+						hairline: .none
+					)
+				]
+			)
+		]
+	}
+	
+	/// This is the positive result section which will be shown, if the user
+	/// has NOT GIVEN submission consent to share the positive test result with others
+	private var positiveTestResultSectionsWithoutSubmissionConsent: [DynamicSection] {
+		[
+			.section(
+				header: .identifier(
+					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+					configure: { view, _ in
+						(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive, timeStamp: self.timeStamp)
+					}
+				),
+				separators: .none,
+				cells: [
+					.title2(text: "Moinsen - nein danke!",
+							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
+//					.title2(text: AppStrings.ExposureSubmissionResult.procedure,
+//							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
 					
 					ExposureSubmissionDynamicCell.stepCell(
 						title: AppStrings.ExposureSubmissionResult.testAdded,
@@ -410,10 +455,15 @@ class ExposureSubmissionTestResultViewModel {
 		]
 	}
 	
-	func updateSubmissionConsentLabel() {
+	private func updateSubmissionConsentContent() {
 		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
+			
+			// Pending Test Result consent Label
 			let labelText = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionResult.warnOthersConsentGiven : AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven
 			self.submissionConsentLabel = labelText
+			
+			// Positive Test result section
+			self.currentpositiveTestResultSection = isSubmissionConsentGiven ? self.positiveTestResultSectionsWithSubmissionConsent : self.positiveTestResultSectionsWithoutSubmissionConsent
 			
 			self.updateForCurrentTestResult()
 		}.store(in: &cancellables)
