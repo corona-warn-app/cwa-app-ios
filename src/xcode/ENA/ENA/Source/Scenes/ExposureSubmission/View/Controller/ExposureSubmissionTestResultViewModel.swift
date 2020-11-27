@@ -94,7 +94,11 @@ class ExposureSubmissionTestResultViewModel {
 	// MARK: - Private
 	
 	// (kga)
-	private var activePositiveTestResultSection: [DynamicSection] = []
+	private var currentPositiveTestResultSection: [DynamicSection] = []
+	
+	private var currentPositiveTestResultPrimaryButtonTitle: String = ""
+	
+	private var currentPositiveTestResultSecondaryButtonTitle: String = ""
 	
 	private var submissionConsentLabel: String = ""
 	
@@ -158,8 +162,8 @@ class ExposureSubmissionTestResultViewModel {
 		
 		switch testResult {
 		case .positive:
-			navigationFooterItem.primaryButtonTitle = AppStrings.ExposureSubmissionResult.primaryButtonTitle
-			navigationFooterItem.secondaryButtonTitle = AppStrings.ExposureSubmissionResult.secondaryButtonTitle
+			navigationFooterItem.primaryButtonTitle = currentPositiveTestResultPrimaryButtonTitle
+			navigationFooterItem.secondaryButtonTitle = currentPositiveTestResultSecondaryButtonTitle
 			navigationFooterItem.isSecondaryButtonEnabled = true
 			navigationFooterItem.isSecondaryButtonHidden = false
 			navigationFooterItem.secondaryButtonHasBorder = true
@@ -190,7 +194,7 @@ class ExposureSubmissionTestResultViewModel {
 	private var currentTestResultSections: [DynamicSection] {
 		switch testResult {
 		case .positive:
-			return activePositiveTestResultSection
+			return currentPositiveTestResultSection
 		case .negative:
 			return negativeTestResultSections
 		case .invalid:
@@ -462,7 +466,12 @@ class ExposureSubmissionTestResultViewModel {
 			self.submissionConsentLabel = labelText
 			
 			// Positive Test result section
-			self.activePositiveTestResultSection = isSubmissionConsentGiven ? self.positiveTestResultSectionsWithSubmissionConsent : self.positiveTestResultSectionsWithoutSubmissionConsent
+			self.currentPositiveTestResultSection = isSubmissionConsentGiven ? self.positiveTestResultSectionsWithSubmissionConsent : self.positiveTestResultSectionsWithoutSubmissionConsent
+			
+			// Button labels of positve test result primary and secondary button
+			self.currentPositiveTestResultPrimaryButtonTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionPositiveTestResult.withConsentPrimaryButtonTitle : AppStrings.ExposureSubmissionPositiveTestResult.noConsentPrimaryButtonTitle
+			
+			self.currentPositiveTestResultSecondaryButtonTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionPositiveTestResult.withConsentSecondaryButtonTitle : AppStrings.ExposureSubmissionPositiveTestResult.noConsentSecondaryButtonTitle
 			
 			self.updateForCurrentTestResult()
 		}.store(in: &cancellables)
