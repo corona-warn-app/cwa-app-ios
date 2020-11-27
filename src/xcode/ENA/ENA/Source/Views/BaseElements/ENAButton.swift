@@ -9,7 +9,7 @@ import UIKit
 class ENAButton: DynamicTypeButton {
 	@IBInspectable var color: UIColor?
 
-	@IBInspectable var isTransparent: Bool = false { didSet { applyStyle() } }
+	@IBInspectable var hasBackground: Bool = true { didSet { applyStyle() } }
 	@IBInspectable var isInverted: Bool = false { didSet { applyStyle() } }
 	@IBInspectable var isLoading: Bool = false { didSet { applyStyle() } }
 	@IBInspectable var hasBorder: Bool = false { didSet {
@@ -89,7 +89,7 @@ class ENAButton: DynamicTypeButton {
 
 	private func applyStyle() {
 		let style: Style
-		if isTransparent {
+		if !hasBackground {
 			style = .transparent
 		} else if isInverted {
 			style = .contrast

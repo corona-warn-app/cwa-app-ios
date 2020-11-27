@@ -17,4 +17,5 @@ class ENANavigationFooterItem: UINavigationItem {
 	@IBInspectable dynamic var isSecondaryButtonLoading: Bool = false
 	@IBInspectable dynamic var secondaryButtonTitle: String = ""
 	@IBInspectable dynamic var secondaryButtonHasBorder: Bool = false
+	@IBInspectable dynamic var secondaryButtonHasBackground: Bool = false
 }
