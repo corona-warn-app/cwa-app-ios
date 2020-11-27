@@ -11,14 +11,15 @@ struct WrittenPackages {
 
 	var urls: [URL]
 	func cleanUp() {
-		guard let firstUrl = urls.first else {
+		guard let directoryURL = urls.first?.deletingLastPathComponent() else {
 			return
 		}
 		
 		let fileManager = FileManager()
+		Log.info("Removing: \(directoryURL)", log: .localData)
 		
 		// Remove the whole directory, instead of removing each file and than forget to remove the directory
-		try? fileManager.removeItem(at: firstUrl.deletingLastPathComponent())
+		try? fileManager.removeItem(at: directoryURL)
 		
 	}
 
