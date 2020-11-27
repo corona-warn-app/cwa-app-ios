@@ -960,7 +960,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Finding_Positive_Card_Share_Item_Title" = "Teilen Sie Ihre Zufalls-IDs, damit andere gewarnt werden können.";
 
-"Home_Finding_Positive_Card_Button" = "Weiter";
+"Home_Finding_Positive_Card_Button" = "Andere warnen";
 
 /* Home Submit card */
 "Home_SubmitCard_Title" = "Wurden Sie getestet?";
