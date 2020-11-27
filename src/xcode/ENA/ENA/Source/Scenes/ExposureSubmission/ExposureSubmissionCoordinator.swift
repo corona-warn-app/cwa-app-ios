@@ -29,6 +29,7 @@ protocol ExposureSubmissionCoordinating: class {
 	func showTestResultScreen(with result: TestResult)
 	func showTanScreen()
 	func showThankYouScreen()
+	func showNewThankYouScreen()
 
 }
 
@@ -407,7 +408,19 @@ extension ExposureSubmissionCoordinator {
 		let vc = createSuccessViewController()
 		push(vc)
 	}
+	
+	// (PUM)New Thank You Screen
+	func showNewThankYouScreen() {
+		let thankYouVC = ExposureSubmissionThankYouViewController { [weak self] in
+			self?.showSymptomsScreen()
+		} onSecondaryButtonTap: { [weak self] in
+			self?.dismiss()
+		}
+		push(thankYouVC)
 
+	}
+	
+	
 	// MARK: - Private
 
 	private func showErrorAlert(for error: ExposureSubmissionError, onCompletion: (() -> Void)? = nil) {

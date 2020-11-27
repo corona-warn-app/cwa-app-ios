@@ -62,7 +62,9 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 	// MARK: - ENANavigationControllerWithFooterChild methods.
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		coordinator?.showOverviewScreen()
+		//coordinator?.showOverviewScreen()
+		//(PUM) Make chnages here before creating the pull request
+		coordinator?.showNewThankYouScreen()
 	}
 }
 
