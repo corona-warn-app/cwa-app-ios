@@ -31,14 +31,6 @@
 
 "ExposureSubmissionQRInfo_acknowledgement_2_2" = "Sie können Ihr Einverständnis jederzeit zurücknehmen. Die Einstellung hierfür finden Sie unter „Test anzeigen“. Vor dem Teilen werden Sie nochmal auf Ihr Einverständnis hingewiesen und um Freigabe Ihres Testergebnisses gebeten.";
 
-"ExposureSubmissionQRInfo_acknowledgement_3" = "Ihr Einverständnis ist freiwillig.";
-
-"ExposureSubmissionQRInfo_acknowledgement_4" = "Sie können Ihr Testergebnis auch abrufen, wenn Sie dies nicht teilen. Wenn Sie ihr Testergebnis teilen, helfen Sie jedoch mit, Ihre Mitmenschen vor Ansteckungen zu schützen.";
-
-"ExposureSubmissionQRInfo_acknowledgement_5" = "Ihre Identität bleibt geheim. Andere Nutzer erfahren nicht, wer sein Testergebnis geteilt hat.";
-
-"ExposureSubmissionQRInfo_acknowledgement_6" = "Sie können Ihr Einverständnis abgeben, wenn Sie mindestens 16 Jahre alt sind.";
-
 /* Automatic share submission result consent */
 
 "AutomaticSharingConsent_Subtitle" = "Einverständnis";
