@@ -213,24 +213,11 @@ class ExposureSubmissionTestResultViewModel {
 				),
 				separators: .none,
 				cells: [
-					.title2(text: "Moinsen ja bitte",
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-//					.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-//							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testAdded,
-						description: nil,
-						icon: UIImage(named: "Icons_Grey_Check"),
-						hairline: .iconAttached
-					),
-					
-					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.warnOthers,
-						description: AppStrings.ExposureSubmissionResult.warnOthersDesc,
-						icon: UIImage(named: "Icons_Grey_Warnen"),
-						hairline: .none
-					)
+					.title2(text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentTitle,
+							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentTitle),
+					.headline(text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentInfo1,
+							  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentInfo1),
+					.body(text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentInfo2, accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentInfo2)
 				]
 			)
 		]
