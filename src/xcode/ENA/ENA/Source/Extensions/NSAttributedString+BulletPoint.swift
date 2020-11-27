@@ -8,7 +8,8 @@ extension NSAttributedString {
 
 	/// Prefixes an attributed string with a bullet point (\u{2022}).
 	///
-	///  Line breaks will add further bullet points, tabs (`\t`) will not.
+	///  Line breaks will add further bullet points, tabs on line-start (`\t`) will not. Example:
+	///  `"TEXT_A\n\tTEXT_B"` would create a 2 paragraph text with one bullet point.
 	///
 	/// - Parameters:
 	///   - from: The initial attributed string.
