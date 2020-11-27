@@ -717,6 +717,15 @@ oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome m
 
 "ExposureSubmissionSymptomsOnset_ContinueButton" = "Weiter";
 
+/* ExposureSubmissionSymptoms - Cancel alert */
+"ExposureSubmissionSymptoms_CancelAlertTitle" = "Wollen Sie die Angaben zu Symptomen abbrechen?";
+
+"ExposureSubmissionSymptoms_CancelAlertMessage" = "Mit der Angabe des Symptom-Beginns können Sie Ihre Mitmenschen noch genauer warnen.";
+
+"ExposureSubmissionSymptoms_CancelAlertButtonCancel" = "Abbrechen";
+
+"ExposureSubmissionSymptoms_CancelAlertButtonContinue" = "Fortsetzen";
+
 /* ExposureSubmissionWarnOthers */
 
 "ExposureSubmissionWarnOthers_title" = "Andere warnen";
