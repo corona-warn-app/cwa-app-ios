@@ -15,14 +15,21 @@ protocol ExposureSubmissionService: class {
 	var devicePairingSuccessfulTimestamp: Int64? { get }
 
 	var positiveTestResultWasShown: Bool { get set }
+
+	var supportedCountries: [Country] { get set }
+	var symptomsOnset: SymptomsOnset { get set }
 	
 	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { get }
 	
 	func setSubmissionConsentGiven(consentGiven: Bool)
-	
+
+	func loadSupportedCountries(
+		isLoading: @escaping (Bool) -> Void,
+		onSuccess: @escaping () -> Void,
+		onError: @escaping (ExposureSubmissionError) -> Void
+	)
+
 	func submitExposure(
-		symptomsOnset: SymptomsOnset,
-		visitedCountries: [Country],
 		completionHandler: @escaping ExposureSubmissionHandler
 	)
 

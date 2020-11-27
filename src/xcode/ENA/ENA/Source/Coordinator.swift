@@ -32,6 +32,7 @@ class Coordinator: RequiresAppDependencies {
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		ExposureSubmissionServiceFactory.create(
 			diagnosiskeyRetrieval: self.exposureManager,
+			appConfigurationProvider: appConfigurationProvider,
 			client: self.client,
 			store: self.store
 		)

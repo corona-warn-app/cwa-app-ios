@@ -175,7 +175,7 @@ extension ExposureSubmissionCoordinator {
 
 	func presentTestResultConsentViewController() {
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
-			supportedCountries: model.supportedCountries,
+			supportedCountries: model.exposureSubmissionService.supportedCountries,
 			exposureSubmissionService: model.exposureSubmissionService,
 			presentDismissAlert: { [weak self] in
 				self?.presentTestResultCloseAlert()
@@ -407,7 +407,7 @@ extension ExposureSubmissionCoordinator {
 
 	func showWarnOthersScreen() {
 		let vc = createWarnOthersViewController(
-			supportedCountries: model.supportedCountries,
+			supportedCountries: model.exposureSubmissionService.supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
 				self?.model.warnOthersConsentGiven(
 					isLoading: isLoading,
@@ -552,7 +552,7 @@ extension ExposureSubmissionCoordinator {
 	
 	private func createTestResultConsentViewController() -> ExposureSubmissionTestResultConsentViewController {
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
-			supportedCountries: self.model.supportedCountries,
+			supportedCountries: self.model.exposureSubmissionService.supportedCountries,
 			exposureSubmissionService: self.model.exposureSubmissionService,
 			presentDismissAlert: {}
 		)

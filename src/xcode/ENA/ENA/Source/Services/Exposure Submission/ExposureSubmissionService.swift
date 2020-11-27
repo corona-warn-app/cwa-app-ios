@@ -16,15 +16,21 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	
 	// MARK: - Init
 
-	init(diagnosiskeyRetrieval: DiagnosisKeysRetrieval, client: Client, store: Store) {
+	init(
+		diagnosiskeyRetrieval: DiagnosisKeysRetrieval,
+		appConfigurationProvider: AppConfigurationProviding,
+		client: Client,
+		store: Store
+	) {
 		self.diagnosiskeyRetrieval = diagnosiskeyRetrieval
+		self.appConfigurationProvider = appConfigurationProvider
 		self.client = client
 		self.store = store
+
 		self.isSubmissionConsentGiven = store.isSubmissionConsentGiven
 		self.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
 			self.store.isSubmissionConsentGiven = isSubmissionConsentGiven
-		}.store(in: &cancellables)
-		
+		}.store(in: &subscriptions)
 	}
 
 	// MARK: - Protocol ExposureSubmissionService
@@ -43,6 +49,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		get { self.store.positiveTestResultWasShown }
 		set { self.store.positiveTestResultWasShown = newValue }
 	}
+
+	var supportedCountries: [Country] = []
+	var symptomsOnset: SymptomsOnset = .noInformation
 	
 	// Needed to use a publisher in the protocol
 	@Published var isSubmissionConsentGiven: Bool
@@ -52,14 +61,31 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	func setSubmissionConsentGiven(consentGiven: Bool) {
 		isSubmissionConsentGiven = consentGiven
 	}
+
+	func loadSupportedCountries(
+		isLoading: @escaping (Bool) -> Void,
+		onSuccess: @escaping () -> Void,
+		onError: @escaping (ExposureSubmissionError) -> Void
+	) {
+		isLoading(true)
+		appConfigurationProvider.appConfiguration().sink { [weak self] config in
+			isLoading(false)
+			let countries = config.supportedCountries.compactMap({ Country(countryCode: $0) })
+			if countries.isEmpty {
+				self?.supportedCountries = [.defaultCountry()]
+			} else {
+				self?.supportedCountries = countries
+			}
+			onSuccess()
+
+		}.store(in: &subscriptions)
+	}
 	
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
 	/// __Extension for plausible deniability__:
 	/// We prepend a fake request in order to guarantee the V+V+S sequence. Please kindly check `getTestResult` for more information.
 	func submitExposure(
-		symptomsOnset: SymptomsOnset,
-		visitedCountries: [Country],
 		completionHandler: @escaping ExposureSubmissionHandler
 	) {
 		Log.info("Started exposure submission...", log: .api)
@@ -79,11 +105,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				self.submitExposureCleanup()
 				return
 			}
-			let processedKeys = keys.processedForSubmission(with: symptomsOnset)
+			let processedKeys = keys.processedForSubmission(with: self.symptomsOnset)
 
 			// Request needs to be prepended by the fake request.
 			self._fakeVerificationServerRequest(completion: { _ in
-				self._submitExposure(processedKeys, visitedCountries: visitedCountries, completionHandler: completionHandler)
+				self._submitExposure(processedKeys, visitedCountries: self.supportedCountries, completionHandler: completionHandler)
 			})
 		}
 	}
@@ -194,11 +220,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Private
 	
-	private var cancellables: Set<AnyCancellable> = []
+	private var subscriptions: Set<AnyCancellable> = []
 
 	private static var fakeSubmissionTan: String { return UUID().uuidString }
 
 	private let diagnosiskeyRetrieval: DiagnosisKeysRetrieval
+	private let appConfigurationProvider: AppConfigurationProviding
 	private let client: Client
 	private let store: Store
 

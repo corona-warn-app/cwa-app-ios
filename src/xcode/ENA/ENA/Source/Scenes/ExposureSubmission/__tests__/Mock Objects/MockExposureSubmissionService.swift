@@ -9,7 +9,7 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Mock callbacks.
 
-	var submitExposureCallback: ((SymptomsOnset, [Country], @escaping ExposureSubmissionHandler) -> Void)?
+	var submitExposureCallback: ((@escaping ExposureSubmissionHandler) -> Void)?
 	var getRegistrationTokenCallback: ((DeviceRegistrationKey, @escaping RegistrationHandler) -> Void)?
 	var getTANForExposureSubmitCallback: ((Bool, @escaping TANHandler) -> Void)?
 	var getTestResultCallback: ((@escaping TestResultHandler) -> Void)?
@@ -24,8 +24,16 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 		self.isSubmissionConsentGiven = consentGiven
 	}
 
-	func submitExposure(symptomsOnset: SymptomsOnset, visitedCountries: [Country], completionHandler: @escaping ExposureSubmissionHandler) {
-		submitExposureCallback?(symptomsOnset, visitedCountries, completionHandler)
+	func loadSupportedCountries(
+		isLoading: @escaping (Bool) -> Void,
+		onSuccess: @escaping () -> Void,
+		onError: @escaping (ExposureSubmissionError) -> Void
+	) {
+		
+	}
+
+	func submitExposure(completionHandler: @escaping ExposureSubmissionHandler) {
+		submitExposureCallback?(completionHandler)
 	}
 
 	func getRegistrationToken(forKey deviceRegistrationKey: DeviceRegistrationKey, completion completeWith: @escaping RegistrationHandler) {
@@ -55,10 +63,12 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 	func fakeRequest(completionHandler: ExposureSubmissionHandler?) { }
 
 	var devicePairingConsentAcceptTimestamp: Int64?
-
 	var devicePairingSuccessfulTimestamp: Int64?
 
 	var positiveTestResultWasShown: Bool = false
+
+	var supportedCountries: [Country] = []
+	var symptomsOnset: SymptomsOnset = .noInformation
 	
 	// Needed to use a publisher in the protocol
 	@Published var isSubmissionConsentGiven: Bool = false
