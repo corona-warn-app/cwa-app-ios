@@ -6,7 +6,6 @@ import UIKit
 
 extension NSAttributedString {
 
-
 	/// Prefixes an attributed string with a bullet point (\u{2022}).
 	///
 	///  Line breaks will add further bullet points, tabs (`\t`) will not.
