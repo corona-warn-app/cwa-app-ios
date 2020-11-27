@@ -56,13 +56,13 @@ class ExposureSubmissionThankYouViewController: DynamicTableViewController, ENAN
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
 		
-		item.primaryButtonTitle = AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle
-		item.secondaryButtonTitle = "Beenden"
+		item.primaryButtonTitle = AppStrings.ThankYouScreen.continueButton
+		item.secondaryButtonTitle = AppStrings.ThankYouScreen.cancelButton
 		item.isPrimaryButtonEnabled = true
 		item.isSecondaryButtonEnabled = true
 		item.secondaryButtonHasBackground = true
 		
-		item.title = "Vielen Dank!"
+		item.title = AppStrings.ThankYouScreen.title
 		
 		return item
 	}()

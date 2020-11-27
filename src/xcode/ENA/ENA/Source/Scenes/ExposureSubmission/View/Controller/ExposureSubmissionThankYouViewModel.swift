@@ -14,13 +14,13 @@ struct ExposureSubmissionThankYouViewModel {
 			$0.add(
 				.section(
 					header: .image(
-						UIImage(imageLiteralResourceName: "Illu_Submission_VielenDank"),
+						UIImage(imageLiteralResourceName: "Illu_Submission_ThankYou"),
 						accessibilityLabel: AppStrings.ExposureSubmissionQRInfo.imageDescription,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription
 					), cells: [
-						.body(text: "Vielen Dank: Subtitle"),
-						.body(text: "Vielen Dank: Body1"),
-						.body(text: "Vielen Dank: Body2")
+						.title1(text: AppStrings.ThankYouScreen.subTitle, accessibilityIdentifier: nil),
+						.headline(text: AppStrings.ThankYouScreen.description1),
+						.body(text: AppStrings.ThankYouScreen.description2)
 					]
 				)
 			)

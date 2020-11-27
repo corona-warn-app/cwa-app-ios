@@ -63,7 +63,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		//coordinator?.showOverviewScreen()
-		//(PUM) Make chnages here before creating the pull request
+		// TODO: (PUM) Make changes here before creating the pull request to make the proper navigation flow.
 		coordinator?.showNewThankYouScreen()
 	}
 }

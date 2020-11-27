@@ -428,7 +428,7 @@ extension ExposureSubmissionCoordinator {
 		push(vc)
 	}
 	
-	// (PUM)New Thank You Screen
+	// TODO: (PUM)New Thank You Screen. Do things here when make it proper navigation.
 	func showNewThankYouScreen() {
 		let thankYouVC = ExposureSubmissionThankYouViewController { [weak self] in
 			self?.showSymptomsScreen()
