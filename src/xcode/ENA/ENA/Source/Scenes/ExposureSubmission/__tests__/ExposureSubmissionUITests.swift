@@ -74,7 +74,32 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		// QR Code Scanner Screen
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionQRScannerView"].waitForExistence(timeout: .medium))
 	}
-
+	
+	func test_Switch_consentSubmission() {
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: ["-testResult", TestResult.pending.stringValue])
+		launch()
+		
+		// Open pending test result screen.
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionResult.procedure"].waitForExistence(timeout: .medium))
+		
+		// check the consent string is given or not based on the switch state.
+		let consentNotGivenCell = app.tables.firstMatch.cells.staticTexts[app.localized("ExposureSubmissionResult_WarnOthersConsentNotGiven")]
+		XCTAssertTrue(consentNotGivenCell.waitForExistence(timeout: .medium))
+		consentNotGivenCell.tap()
+		let consentSwitch = app.switches.firstMatch
+		XCTAssertTrue(consentSwitch.waitForExistence(timeout: .medium))
+		XCTAssertEqual(consentSwitch.value as? String, "0")
+		consentSwitch.tap()
+		XCTAssertEqual(consentSwitch.value as? String, "1")
+		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
+		
+		let consentGivenCell = app.tables.firstMatch.cells.staticTexts[app.localized("ExposureSubmissionResult_WarnOthersConsentGiven")]
+		XCTAssertTrue(consentGivenCell.waitForExistence(timeout: .long))
+	}
+	
 	func test_SubmitTAN_SymptomsOptionNo() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		navigateToSymptomsScreen()

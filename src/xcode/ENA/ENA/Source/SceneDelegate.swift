@@ -218,9 +218,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 	
 	private func showPositiveTestResultFromNotification(animated _: Bool = false) {
-		guard warnOthersReminder.hasPositiveTestResult else {
+		let warnOthersReminder = WarnOthersReminder(store: store)
+		guard warnOthersReminder.positiveTestResultWasShown else {
 			return
 		}
+
 		coordinator.showPositiveTestResultFromNotification(with: .positive)
 	}
 	

@@ -140,6 +140,7 @@ class ExposureSubmissionCoordinatorModel {
 				self?.supportedCountries = countries
 			}
 			onSuccess()
+			
 		}.store(in: &subscriptions)
 	}
 

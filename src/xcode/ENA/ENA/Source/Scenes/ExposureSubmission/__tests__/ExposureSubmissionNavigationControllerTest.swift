@@ -12,14 +12,12 @@ final class ExposureSubmissionNavigationControllerTest: XCTestCase {
 		let rootVC = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self) { coder -> UIViewController? in
 			return ExposureSubmissionHotlineViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator())
 		}
-		
-		return AppStoryboard.exposureSubmission.initiateInitial { coder in
-			ExposureSubmissionNavigationController(
-				coder: coder,
-				coordinator: MockExposureSubmissionCoordinator(),
-				rootViewController: rootVC
-			)
-		}
+
+		return ExposureSubmissionNavigationController(
+			dismissClosure: {},
+			isModalInPresentation: false,
+			rootViewController: rootVC
+		)
 	}
 
 	func testSetupSecondaryButton() {

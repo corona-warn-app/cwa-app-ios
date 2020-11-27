@@ -50,7 +50,7 @@ class ExposureSubmissionIntroViewModel {
 					title: AppStrings.ExposureSubmissionDispatch.qrCodeButtonTitle,
 					description: AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription,
 					image: UIImage(named: "Illu_Submission_QRCode"),
-					action: .execute { [weak self] _ in self?.onQRCodeButtonTap() },
+					action: .execute { [weak self] _, _ in self?.onQRCodeButtonTap() },
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
 				),
 				.title2(text: AppStrings.ExposureSubmissionDispatch.sectionHeadline2,
@@ -59,14 +59,14 @@ class ExposureSubmissionIntroViewModel {
 					title: AppStrings.ExposureSubmissionDispatch.tanButtonTitle,
 					description: AppStrings.ExposureSubmissionDispatch.tanButtonDescription,
 					image: UIImage(named: "Illu_Submission_TAN"),
-					action: .execute { [weak self] _ in self?.onTANButtonTap() },
+					action: .execute { [weak self] _, _ in self?.onTANButtonTap() },
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.tanButtonDescription
 				),
 				.imageCard(
 					title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
 					description: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription,
 					image: UIImage(named: "Illu_Submission_Anruf"),
-					action: .execute { [weak self] _ in self?.onHotlineButtonTap() },
+					action: .execute { [weak self] _, _ in self?.onHotlineButtonTap() },
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.hotlineButtonDescription
 				)
 			]))

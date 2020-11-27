@@ -59,6 +59,8 @@
 
 "ExposureDetection_High" = "Risc crescut";
 
+"ExposureDetection_LastExposure" = "Cel mai recent pe %@";
+
 "ExposureDetection_Refreshed" = "Actualizată: %@";
 
 "ExposureDetection_Refreshed_Never" = "Necunoscut";
@@ -71,9 +73,9 @@
 
 "ExposureDetection_OffText" = "Activați înregistrarea în jurnal a expunerilor pentru a evalua astăzi starea riscului.";
 
-"ExposureDetection_OutdatedText" = "Înregistrarea în jurnal a expunerilor dvs. nu a fost actualizată timp de peste 48 de ore. Actualizați calculul.";
+"ExposureDetection_OutdatedText" = "Înregistrarea în jurnal a calculului riscului dvs. nu a fost actualizată timp de peste 48 de ore. Actualizați calculul.";
 
-"ExposureDetection_UnknownText" = "Deoarece nu ați activat un timp suficient de lung înregistrarea în jurnal a expunerilor, nu putem calcula riscul dvs. de infectare.";
+"ExposureDetection_UnknownText" = "Deoarece nu ați activat un timp suficient de lung înregistrarea în jurnal a expunerilor, nu am putut calcula riscul dvs. de infectare.";
 
 "ExposureDetection_LoadingText" = "Datele curente sunt în curs de descărcare și verificare. Aceasta poate dura mai multe minute.";
 
@@ -113,11 +115,13 @@
 
 "ExposureDetection_Explanation_Text_Low_With_Encounter" = "Riscul de infectare este calculat local pe smartphone-ul dvs., utilizând datele de înregistrare în jurnal a expunerilor. Calculul poate ține cont și de distanța și durata expunerii la persoane diagnosticate cu COVID-19, precum și de potențiala contagiozitate a acestora. Riscul dvs. de infectare nu poate fi observat sau transmis mai departe niciunei alte persoane.";
 
+"ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Aveți un risc crescut de infectare deoarece ați fost expus ultima dată pe %@ pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.";
+
 "ExposureDetection_Explanation_Text_High" = "Prin urmare, riscul dvs. de infectare a fost clasificat ca fiind crescut.\nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe dispozitivul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.\nCând ajungeți acasă, evitați contactul strâns cu membrii familiei sau cu cei din gospodăria dvs.";
 
 "ExposureDetection_Explanation_FAQ_Link_Text" = "Pentru mai multe informații, consultați pagina noastră de întrebări frecvente.";
 
-"ExposureDetection_LowRiskExposure_Title" = "Întâlniri cu risc redus";
+"ExposureDetection_LowRiskExposure_Title" = "Expuneri cu risc redus";
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "De ce riscul dvs. de infectare este redus";
 
@@ -172,21 +176,21 @@
 "How_Risk_Detection_Works_Alert_Message" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă.\nÎnregistrarea în jurnal a expunerilor acoperă ultimele %1$u zile.\nAplicația șterge automat înregistrările mai vechi din jurnal, întrucât acestea nu mai sunt relevante pentru prevenirea infectării.\n\nPentru mai multe informații, consultați pagina noastră de întrebări frecvente.";
 
 /* Settings */
-"Settings_Notification_StatusActive" = "Pornite";
+"Settings_Notification_StatusActive" = "Pornită";
 
-"Settings_Notification_StatusInactive" = "Oprite";
+"Settings_Notification_StatusInactive" = "Oprită";
 
-"Settings_BackgroundAppRefresh_StatusActive" = "Pornite";
+"Settings_BackgroundAppRefresh_StatusActive" = "Pornită";
 
-"Settings_BackgroundAppRefresh_StatusInactive" = "Oprite";
+"Settings_BackgroundAppRefresh_StatusInactive" = "Oprită";
 
 "Settings_StatusEnable" = "Activare";
 
 "Settings_StatusDisable" = "Dezactivare";
 
-"Settings_KontaktProtokollStatusActive" = "Activă";
+"Settings_KontaktProtokollStatusActive" = "Activ";
 
-"Settings_KontaktProtokollStatusInactive" = "Oprită";
+"Settings_KontaktProtokollStatusInactive" = "Oprit";
 
 "Settings_Tracing_Label" = "Înregistrarea în jurnal a expunerilor";
 
@@ -219,7 +223,7 @@
 
 "NotificationSettings_Off_EnableNotifications" = "Notificări";
 
-"NotificationSettings_Off_StatusInactive" = "Oprite";
+"NotificationSettings_Off_StatusInactive" = "Oprită";
 
 "NotificationSettings_Off_InfoTitle" = "Activați Notificările";
 
@@ -252,13 +256,13 @@
 
 "BackgroundAppRefreshSettings_Status_Off" = "Oprită";
 
-"BackgroundAppRefreshSettings_InfoBox_Title" = "Activarea împrospătării aplicației în fundal";
+"BackgroundAppRefreshSettings_InfoBox_Title" = "Activați împrospătarea aplicației în fundal";
 
 "BackgroundAppRefreshSettings_InfoBox_Description" = "Trebuie să activați împrospătarea aplicației în fundal atât în setările generale ale iPhone-ului, cât și în setările aplicației Corona-Warn.";
 
 "BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Rețineți că trebuie să fie dezactivat modul de consum redus pentru a putea activa împrospătarea aplicației în fundal.";
 
-"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Dezactivare Mod consum redus";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Dezactivați mod consum redus";
 
 "BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Deschideți Configurări";
 
@@ -311,13 +315,13 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mai multă protecție pentru dvs. și pentru noi toți. Utilizând Corona-Warn-App putem întrerupe mai ușor lanțul de infectare.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Transformați-vă dispozitivul într-un sistem de avertizare împotriva coronavirusului. Obțineți un sumar al stării de risc și aflați dacă ați intrat în contact strâns cu persoane diagnosticate cu COVID-19 în ultimele 14 zile. \n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin dispozitivele acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Transformați-vă dispozitivul într-un sistem de avertizare împotriva coronavirusului. Obțineți un sumar al stării de risc și aflați dacă ați intrat în contact strâns cu persoane diagnosticate cu COVID-19 în ultimele 14 zile. \n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informații despre aplicație în limbaj simplificat și în limbajul semnelor";
 
 "OnboardingInfo_privacyPage_imageDescription" = "O femeie utilizează Corona-Warn-App pe smartphone. O pictogramă care arată un lacăt pe un fundal în formă de scut simbolizează datele criptate.";
 
-"OnboardingInfo_privacyPage_title" = "Confidențialitatea datelor";
+"OnboardingInfo_privacyPage_title" = "Confidențialitate";
 
 "OnboardingInfo_privacyPage_boldText" = "";
 
@@ -364,7 +368,7 @@
 
 "onboardingInfo_enableLoggingOfContactsPage_euDescription" = "Mai multe țări s-au asociat pentru a susține avertizarea la nivel transnațional. Cu alte cuvinte, acum poate fi luată în considerare posibila dvs. expunere la utilizatori ai aplicațiilor oficiale anticoronavirus din toate țările participante.\n\nCând un utilizator transmite ID-urile sale aleatorii la serverul de schimb operat în comun de țările participante, utilizatorii aplicațiilor oficiale anticoronavirus din toate aceste țări pot fi avertizați de posibila expunere.\n\nDescărcarea zilnică a ID-urilor aleatorii este, în mod normal, gratuită pentru dvs. Aceasta înseamnă că volumul de date cauzat de aplicație nu va fi taxat de operatorii de date mobile și nu veți suporta tarife de roaming în alte țări europene. Pentru mai multe informații, contactați operatorul dvs. de date mobile.";
 
-"onboardingInfo_enableLoggingOfContactsPage_participatingCountriesTitle" = "În prezent participă următoarele țări:";
+"onboardingInfo_enableLoggingOfContactsPage_participatingCountriesTitle" = "În prezent participă următoare țări:";
 
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuTitle" = "Țări participante";
 
@@ -383,9 +387,9 @@
 
 "ExposureSubmission_DataPrivacyDescription" = "By tapping “Accept”, you consent to the App querying the status of your coronavirus test and displaying it in the App. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the App’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the App. If you have enabled notifications, you will also receive a notification outside the App telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the App. You can withdraw this consent at any time by deleting your test registration in the App. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy”.";
 
-"ExposureSubmissionDataPrivacy_AcceptTitle" = "Accept";
+"ExposureSubmissionDataPrivacy_AcceptTitle" = "Permiteți";
 
-"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Nu accept";
+"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Nu permiteți";
 
 "ExposureSubmission_Submit" = "Introduceți TAN";
 
@@ -425,7 +429,7 @@
 
 "ExposureSubmissionDispatch_HotlineButtonDescription" = "Vă rugăm să ne contactați dacă ați fost testat %@.";
 
-"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "COVID-19";
+"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Pozitiv la COVID-19";
 
 "ExposureSubmissionHotline_Title" = "Solicitare TAN";
 
@@ -558,7 +562,7 @@
 
 "ExposureSubmissionResult_testAddedDesc" = "Testul dvs. a fost stocat în Corona-Warn-App.";
 
-"ExposureSubmissionResult_warnOthers" = "Avertizarea altor persoane";
+"ExposureSubmissionResult_warnOthers" = "Avertizarea altora";
 
 "ExposureSubmissionResult_warnOthersDesc" = "Partajați ID-urile dvs. aleatorii și avertizați-i pe ceilalți.\nAjutați la stabilirea riscului de infectare pentru ceilalți cu mai multă acuratețe, indicând momentul în care ați observat prima dată simptomele de coronavirus.";
 
@@ -586,9 +590,9 @@
 
 "ExposureSubmissionResult_testPending" = "Rezultatul testului nu este încă disponibil";
 
-"ExposureSubmissionResult_testPendingDesc_paragraph1" = "Vă rugăm să aveți răbdare, deoarece evaluarea poate dura câteva zile.\n\n";
+"ExposureSubmissionResult_testPendingDesc_paragraph1" = "Vă rugăm să aveți răbdare, deoarece evaluarea poate dura câteva zile.";
 
-"ExposureSubmissionResult_testPendingDesc_paragraph2" = "De asemenea, veți primi rezultatul testului în afara aplicației. Autoritățile de sănătate publică vă vor anunța dacă testul dvs. este pozitiv.\n\n";
+"ExposureSubmissionResult_testPendingDesc_paragraph2" = "De asemenea, veți primi rezultatul testului în afara aplicației. Autoritățile de sănătate publică vă vor anunța dacă testul dvs. este pozitiv.";
 
 "ExposureSubmissionResult_testPendingDesc_paragraph3" = "În cazul unui rezultat pozitiv, apelați numărul indicat la „Solicitare TAN” pentru a vă înregistra rezultatul în aplicație și pentru a-i avertiza pe ceilalți.";
 
@@ -655,7 +659,7 @@
 "ExposureSubmissionSymptomsOnset_ContinueButton" = "Înainte";
 
 /* ExposureSubmissionWarnOthers */
-"ExposureSubmissionWarnOthers_title" = "Avertizarea altora";
+"ExposureSubmissionWarnOthers_title" = "Avertizați-i pe ceilalți";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "Un dispozitiv transmite un diagnostic de test pozitiv criptat către sistem.";
 
@@ -722,7 +726,7 @@
 "ExposureSubmissionError_noAppConfiguration" = "Conexiunea dvs. la internet a fost pierdută. Verificați conexiunea și apoi redeschideți aplicația.";
 
 /* Tracing Enable/Disable Settings */
-"ExposureNotificationSetting_TracingSettingTitle" = "Înregistrarea expunerilor";
+"ExposureNotificationSetting_TracingSettingTitle" = "Înregistrarea în jurnal a expunerilor";
 
 "ExposureNotificationSetting_EnableTracing" = "Înregistrarea în jurnal a expunerilor";
 
@@ -768,7 +772,7 @@
 
 "ExposureNotificationSetting_ParentalControls_OSENSetting" = "Activați Înregistrarea în jurnal a expunerilor la COVID-19 și Notificări";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Pentru înregistrarea în jurnal a expunerilor, trebuie activate înregistrarea în jurnal a expunerilor la COVID-19 și notificările în setările sistemului, pentru ca întâlnirile să poată fi înregistrate în jurnal. Vă rugăm să activați „Înregistrarea în jurnal a expunerilor la COVID-19 și Notificări” în setările sistemului dvs.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Pentru înregistrarea în jurnal a expunerilor, trebuie activate înregistrarea în jurnal a expunerilor la COVID-19 și notificările în setările sistemului, pentru a putea fi înregistrate întâlnirile. Vă rugăm să activați „Înregistrarea în jurnal a expunerilor la COVID-19 și Notificări” în setările sistemului dvs.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Autorizație necesară";
 
@@ -776,7 +780,7 @@
 
 "ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Autorizație";
 
-"ExposureNotificationSetting_AccLabel_Enabled" = "Trei persoane și-au activat pe dispozitiv înregistrarea în jurnal a expunerilor, ceea ce va duce la înregistrarea întâlnirilor lor.";
+"ExposureNotificationSetting_AccLabel_Enabled" = "Trei persoane și-au activat pe smartphone înregistrarea în jurnal a expunerilor, ceea ce va duce la înregistrarea întâlnirilor lor.";
 
 "ExposureNotificationSetting_AccLabel_Disabled" = "O persoană și-a dezactivat de pe smartphone înregistrarea în jurnal a expunerilor și, prin urmare, întâlnirea cu alte două persoane nu este înregistrată.";
 
@@ -836,8 +840,6 @@
 
 "Home_Activate_Card_Bluetooth_Off_Title" = "Bluetooth oprit";
 
-"Home_Activate_Card_Internet_Off_Title" = "Fără conexiune la internet";
-
 /* Home common card */
 "Home_Risk_Date_Item_Title" = "Actualizată: %@";
 
@@ -845,7 +847,7 @@
 
 "Home_Risk_Period_Disabled_Button_Title" = "Actualizată la fiecare %@\U00A0ore";
 
-"Home_Risk_Unknown_Title" = "Risc necunoscut";
+"Home_Risk_Last_Contact_Item_Title" = "Cel mai recent pe %@";
 
 "Home_Risk_Last_Activate_Item_Title" = "Ultima verificare a expunerilor: %@";
 
@@ -856,12 +858,6 @@
 "Home_Risk_Last_Activate_Item_High_Title" = "Risc crescut";
 
 "Home_RiskCard_Update_Button" = "Actualizare";
-
-/* Home Unknown card */
-"Home_RiskCard_Unknown_Item_Title" = "Deoarece nu ați avut activată un timp suficient de lung înregistrarea în jurnal a expunerilor, nu putem calcula riscul dvs. de infectare.";
-
-/* Home Unknown 48 card */
-"Home_RiskCard_Unknown48h_Body" = "Înregistrarea în jurnal a expunerilor dvs. nu a fost actualizată timp de peste 48 de ore. Actualizați calculul.";
 
 /* Home Inactive card */
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "Înregistrarea în jurnal a expunerilor a fost oprită";
@@ -1016,7 +1012,7 @@
 
 "App_Information_Contact_Hotline_Text" = "+49 800 7540001";
 
-"App_Information_Contact_Hotline_Number" = "+498007540001";
+"App_Information_Contact_Hotline_Number" = "+49 800 7540001";
 
 "App_Information_Contact_Hotline_Description" = "Serviciul clienți vă stă la dispoziție.";
 
@@ -1049,7 +1045,7 @@
 "App_Information_Legal_Navigation" = "Mențiuni legale";
 
 /* App Information - Privacy */
-"App_Information_Privacy_Navigation" = "Confidențialitatea datelor";
+"App_Information_Privacy_Navigation" = "Confidențialitate";
 
 "App_Information_Legal_ImageDescription" = "O mână ține un smartphone pe al cărui ecran este afișat un corp mare de text. Lângă text este afișat un cântar care simbolizează mențiunile legale.";
 
@@ -1140,10 +1136,6 @@
 
 "RiskLegend_Legend2_Low_Color" = "Verde";
 
-"RiskLegend_Legend2_Unknown" = "Risc necunoscut";
-
-"RiskLegend_Legend2_Unknown_Color" = "Gri";
-
 "RiskLegend_Legend3_Title" = "Notificarea altor utilizatori";
 
 "RiskLegend_Legend3_Text" = "O altă caracteristică centrală este înregistrarea testului și primirea rezultatului. Dacă sunteți diagnosticat cu COVID-19, îi puteți notifica pe ceilalți și puteți întrerupe lanțul de infectare.";
@@ -1156,11 +1148,11 @@
 
 "RiskLegend_Check_Title" = "Verificarea expunerii";
 
-"RiskLegend_Check_Text" = "Datele jurnalului de expuneri sunt citite și sincronizate cu infectările raportate de alți utilizatori. Verificarea expunerii este efectuată automat, aproximativ la fiecare două ore.";
+"RiskLegend_Check_Text" = "Datele jurnalului de expuneri sunt citite și sincronizate cu infectările raportate de alți utilizatori. Riscul dvs. este verificat automat de mai multe ori pe zi.";
 
-"RiskLegend_Contact_Title" = "Expuneri";
+"RiskLegend_Contact_Title" = "Risc de expunere";
 
-"RiskLegend_Contact_Text" = "Întâlniri de o durată lungă și în strânsă proximitate cu o persoană diagnosticată cu COVID-19.";
+"RiskLegend_Contact_Text" = "Expunerea la o persoană infectată care și-a împărtășit rezultatul pozitiv al testului cu alte persoane prin intermediul aplicației. O expunere trebuie să îndeplinească anumite criterii cu privire la durată, distanță și contagiozitatea suspectată a celeilalte persoane pentru a fi clasificată ca expunere cu risc ridicat.";
 
 "RiskLegend_Notification_Title" = "Notificarea de expunere";
 
@@ -1200,7 +1192,7 @@
 
 "DeltaOnboarding_Headline" = "Înregistrare transnațională a expunerilor în jurnal";
 
-"DeltaOnboarding_Description" = "Funcționalitatea aplicației Corona-Warn a fost extinsă. Mai multe țări colaborează pentru a susține alarmele transnaționale printr-un server de schimb comun. De exemplu, contactele cu utilizatorii unei aplicații oficiale anticoronavirus din alte țări participante pot fi, de asemenea, luate în considerare pentru înregistrarea în jurnal a expunerilor.\n\nPentru aceasta, aplicația descarcă o listă care este actualizată zilnic de ID-uri aleatorii ale tuturor utilizatorilor care și-au partajat ID-urile aleatorii prin propria aplicație. Această listă este apoi comparată cu ID-urile aleatorii înregistrate de smartphone-ul dvs.\n\nDescărcarea zilnică a listei de ID-uri aleatorii este, de obicei, gratuită pentru dvs. În mod specific, aceasta înseamnă că operatorii de rețele mobile nu vor percepe costuri pentru datele utilizate de aplicație în acest context și nu vor fi aplicate costuri de roaming pentru această opțiune în alte țări UE. Contactați operatorul rețelei mobile pentru mai multe informații.";
+"DeltaOnboarding_Description" = "Funcționalitatea aplicației Corona-Warn a fost extinsă. Mai multe țări colaborează pentru a susține alarmele transnaționale printr-un server de schimb comun. De exemplu, contactele cu utilizatorii unei aplicații oficiale anticoronavirus din alte țări participante pot fi, de asemenea, luate în considerare pentru înregistrarea în jurnal a expunerilor.\n\nPentru aceasta, aplicația descarcă o listă care este actualizată zilnic de ID-uri aleatorii ale tuturor utilizatorilor care și-au partajat ID-urile aleatorii prin propria aplicație. Această listă este apoi comparată cu ID-urile aleatorii înregistrate de smartphone-ul dvs.\n\nDescărcarea zilnică a listei de ID-uri aleatorii este, de obicei, gratuită pentru dvs. În mod specific, aceasta înseamnă că operatorii de rețele mobile nu vor percepe costuri pentru datele utilizate de aplicație în acest context și nici nu vor fi aplicate costuri de roaming pentru această opțiune în alte țări UE. Contactați operatorul rețelei mobile pentru mai multe informații.";
 
 "DeltaOnboarding_ParticipatingCountries" = "În prezent participă următoare țări:";
 

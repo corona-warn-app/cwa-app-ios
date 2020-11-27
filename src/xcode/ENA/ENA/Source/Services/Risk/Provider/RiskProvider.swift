@@ -53,11 +53,11 @@ final class RiskProvider: RiskProviding {
 	}
 
 	func observeRisk(_ consumer: RiskConsumer) {
-		consumers.append(consumer)
+		consumers.insert(consumer)
 	}
 
 	func removeRisk(_ consumer: RiskConsumer) {
-		consumers.removeAll(where: { $0 === consumer })
+		consumers.remove(consumer)
 	}
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
@@ -101,8 +101,8 @@ final class RiskProvider: RiskProviding {
 
 	private var subscriptions = [AnyCancellable]()
 	
-	private var _consumers: [RiskConsumer] = []
-	private var consumers: [RiskConsumer] {
+	private var _consumers: Set<RiskConsumer> = Set<RiskConsumer>()
+	private var consumers: Set<RiskConsumer> {
 		get { consumersQueue.sync { _consumers } }
 		set { consumersQueue.sync { _consumers = newValue } }
 	}
