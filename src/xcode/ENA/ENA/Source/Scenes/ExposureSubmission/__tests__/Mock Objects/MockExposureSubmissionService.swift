@@ -13,7 +13,6 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 	var getRegistrationTokenCallback: ((DeviceRegistrationKey, @escaping RegistrationHandler) -> Void)?
 	var getTANForExposureSubmitCallback: ((Bool, @escaping TANHandler) -> Void)?
 	var getTestResultCallback: ((@escaping TestResultHandler) -> Void)?
-	var hasRegistrationTokenCallback: (() -> Bool)?
 	var deleteTestCallback: (() -> Void)?
 	var preconditionsCallback: (() -> ExposureManagerState)?
 	var acceptPairingCallback: (() -> Void)?
@@ -52,15 +51,13 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 		getTestResultCallback?(completion)
 	}
 
-	func hasRegistrationToken() -> Bool {
-		return hasRegistrationTokenCallback?() ?? false
-	}
-
 	func deleteTest() {
 		deleteTestCallback?()
 	}
 
 	func fakeRequest(completionHandler: ExposureSubmissionHandler?) { }
+
+	var hasRegistrationToken: Bool = false
 
 	var devicePairingConsentAcceptTimestamp: Int64?
 	var devicePairingSuccessfulTimestamp: Int64?
@@ -75,7 +72,7 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 	
 	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { $isSubmissionConsentGiven }
 
-	func preconditions() -> ExposureManagerState {
+	var exposureManagerState: ExposureManagerState {
 		return preconditionsCallback?() ?? ExposureManagerState(authorized: false, enabled: false, status: .unknown)
 	}
 

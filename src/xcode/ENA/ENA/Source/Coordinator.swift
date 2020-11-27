@@ -54,7 +54,7 @@ class Coordinator: RequiresAppDependencies {
 			HomeViewController(
 				coder: coder,
 				delegate: self,
-				exposureManagerState: exposureManager.preconditions(),
+				exposureManagerState: exposureManager.exposureManagerState,
 				initialEnState: enStateHandler.state,
 				exposureSubmissionService: self.exposureSubmissionService
 			)

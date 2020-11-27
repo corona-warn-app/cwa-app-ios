@@ -11,6 +11,9 @@ protocol ExposureSubmissionService: class {
 	typealias TestResultHandler = (Result<TestResult, ExposureSubmissionError>) -> Void
 	typealias TANHandler = (Result<String, ExposureSubmissionError>) -> Void
 
+	var exposureManagerState: ExposureManagerState { get }
+	var hasRegistrationToken: Bool { get }
+
 	var devicePairingConsentAcceptTimestamp: Int64? { get }
 	var devicePairingSuccessfulTimestamp: Int64? { get }
 
@@ -46,9 +49,7 @@ protocol ExposureSubmissionService: class {
 	///   - useStoredRegistration: flag to show if a separate registration is needed (`false`) or an existing registration token is used (`true`)
 	///   - completion: a `TestResultHandler`
 	func getTestResult(forKey deviceRegistrationKey: DeviceRegistrationKey, useStoredRegistration: Bool, completion: @escaping TestResultHandler)
-	func hasRegistrationToken() -> Bool
 	func deleteTest()
-	func preconditions() -> ExposureManagerState
 	func acceptPairing()
 	func fakeRequest(completionHandler: ExposureSubmissionHandler?)
 	

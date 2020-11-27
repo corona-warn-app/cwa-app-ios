@@ -22,16 +22,12 @@ class ExposureSubmissionCoordinatorModel {
 
 	var shouldShowSymptomsOnsetScreen = false
 
-	var exposureSubmissionServiceHasRegistrationToken: Bool {
-		exposureSubmissionService.hasRegistrationToken()
-	}
-
 	func checkStateAndLoadCountries(
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping () -> Void,
 		onError: @escaping (ExposureSubmissionError) -> Void
 	) {
-		if isExposureSubmissionServiceStateGood {
+		if exposureSubmissionService.exposureManagerState.isGood {
 			exposureSubmissionService.loadSupportedCountries(isLoading: isLoading, onSuccess: onSuccess, onError: onError)
 		} else {
 			onError(.enNotEnabled)
@@ -104,10 +100,6 @@ class ExposureSubmissionCoordinatorModel {
 	}
 
 	// MARK: - Private
-
-	private var isExposureSubmissionServiceStateGood: Bool {
-		exposureSubmissionService.preconditions().isGood
-	}
 
 	private func startSubmitProcess(
 		isLoading: @escaping (Bool) -> Void,

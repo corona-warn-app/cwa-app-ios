@@ -52,6 +52,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	var supportedCountries: [Country] = []
 	var symptomsOnset: SymptomsOnset = .noInformation
+
+	var hasRegistrationToken: Bool {
+		guard let token = store.registrationToken, !token.isEmpty else {
+			return false
+		}
+		return true
+	}
 	
 	// Needed to use a publisher in the protocol
 	@Published var isSubmissionConsentGiven: Bool
@@ -176,13 +183,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	func hasRegistrationToken() -> Bool {
-		guard let token = store.registrationToken, !token.isEmpty else {
-			return false
-		}
-		return true
-	}
-
 	func deleteTest() {
 		store.registrationToken = nil
 		store.testResultReceivedTimeStamp = nil
@@ -192,8 +192,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.isAllowedToSubmitDiagnosisKeys = false
 	}
 
-	func preconditions() -> ExposureManagerState {
-		diagnosiskeyRetrieval.preconditions()
+	var exposureManagerState: ExposureManagerState {
+		diagnosiskeyRetrieval.exposureManagerState
 	}
 
 	func acceptPairing() {

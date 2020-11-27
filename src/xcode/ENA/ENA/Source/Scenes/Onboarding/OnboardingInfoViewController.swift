@@ -53,7 +53,7 @@ final class OnboardingInfoViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		let preconditions = exposureManager.preconditions()
+		let preconditions = exposureManager.exposureManagerState
 		updateUI(exposureManagerState: preconditions)
 	}
 	
@@ -363,7 +363,7 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 	
 	private func runIgnoreActionForPageType(completion: @escaping () -> Void) {
-		guard pageType == .enableLoggingOfContactsPage, !exposureManager.preconditions().authorized else {
+		guard pageType == .enableLoggingOfContactsPage, !exposureManager.exposureManagerState.authorized else {
 			completion()
 			return
 		}
