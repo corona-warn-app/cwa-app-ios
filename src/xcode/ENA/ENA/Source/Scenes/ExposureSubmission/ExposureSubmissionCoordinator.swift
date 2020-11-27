@@ -202,7 +202,6 @@ extension ExposureSubmissionCoordinator {
 			dismissClosure: { [weak self] in
 				self?.navigationController?.dismiss(animated: true)
 			},
-			isModalInPresentation: true,
 			rootViewController: initialVC
 		)
 		parentNavigationController.present(exposureSubmissionNavigationController, animated: true)

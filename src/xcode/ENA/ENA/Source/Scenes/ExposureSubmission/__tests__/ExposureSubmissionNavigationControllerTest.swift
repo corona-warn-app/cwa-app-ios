@@ -15,7 +15,6 @@ final class ExposureSubmissionNavigationControllerTest: XCTestCase {
 
 		return ExposureSubmissionNavigationController(
 			dismissClosure: {},
-			isModalInPresentation: false,
 			rootViewController: rootVC
 		)
 	}
