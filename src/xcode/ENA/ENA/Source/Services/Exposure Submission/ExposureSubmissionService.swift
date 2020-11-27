@@ -38,8 +38,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		get { self.store.devicePairingSuccessfulTimestamp }
 		set { self.store.devicePairingSuccessfulTimestamp = newValue }
 	}
+
+	var positiveTestResultWasShown: Bool {
+		get { self.store.positiveTestResultWasShown }
+		set { self.store.positiveTestResultWasShown = newValue }
+	}
 	
-	// Needed to use a publisher in the protocal
+	// Needed to use a publisher in the protocol
 	@Published var isSubmissionConsentGiven: Bool
 	
 	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { $isSubmissionConsentGiven }
