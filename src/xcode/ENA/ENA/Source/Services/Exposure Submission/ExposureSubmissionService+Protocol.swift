@@ -13,6 +13,8 @@ protocol ExposureSubmissionService: class {
 
 	var devicePairingConsentAcceptTimestamp: Int64? { get }
 	var devicePairingSuccessfulTimestamp: Int64? { get }
+
+	var positiveTestResultWasShown: Bool { get set }
 	
 	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { get }
 	

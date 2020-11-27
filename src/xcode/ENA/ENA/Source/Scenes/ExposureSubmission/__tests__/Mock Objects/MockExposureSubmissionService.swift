@@ -57,8 +57,10 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 	var devicePairingConsentAcceptTimestamp: Int64?
 
 	var devicePairingSuccessfulTimestamp: Int64?
+
+	var positiveTestResultWasShown: Bool = false
 	
-	// Needed to use a publisher in the protocal
+	// Needed to use a publisher in the protocol
 	@Published var isSubmissionConsentGiven: Bool = false
 	
 	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { $isSubmissionConsentGiven }

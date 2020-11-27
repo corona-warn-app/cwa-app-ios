@@ -199,6 +199,24 @@ enum AppStrings {
 		static let hotlineDetailDescription = NSLocalizedString("ExposureSubmission_PhoneDetailDescription", comment: "")
 		static let imageDescription = NSLocalizedString("ExposureSubmissionHotline_imageDescription", comment: "")
 	}
+	
+	enum ExposureSubmissionPositiveTestResult {
+		static let noConsentTitle = NSLocalizedString("TestResultPositive_NoConsent_Title", comment: "")
+		static let noConsentInfo1 = NSLocalizedString("TestResultPositive_NoConsent_Info1", comment: "")
+		static let noConsentInfo2 = NSLocalizedString("TestResultPositive_NoConsent_Info2", comment: "")
+		static let noConsentInfo3 = NSLocalizedString("TestResultPositive_NoConsent_Info3", comment: "")
+		static let noConsentPrimaryButtonTitle = NSLocalizedString("TestResultPositive_NoConsent_PrimaryButton", comment: "")
+		static let noConsentSecondaryButtonTitle = NSLocalizedString("TestResultPositive_NoConsent_SecondaryButton", comment: "")
+		static let noConsentAlertTitle = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_Title", comment: "")
+		static let noConsentAlertDescription = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_Description", comment: "")
+		static let noConsentAlertButton1 = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne", comment: "")
+		static let noConsentAlertButton2 = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo", comment: "")
+		static let withConsentTitle = NSLocalizedString("TestResultPositive_WithConsent_Title", comment: "")
+		static let withConsentInfo1 = NSLocalizedString("TestResultPositive_WithConsent_Info1", comment: "")
+		static let withConsentInfo2 = NSLocalizedString("TestResultPositive_WithConsent_Info2", comment: "")
+		static let withConsentPrimaryButtonTitle = NSLocalizedString("TestResultPositive_WithConsent_PrimaryButton", comment: "")
+		static let withConsentSecondaryButtonTitle = NSLocalizedString("TestResultPositive_WithConsent_SecondaryButton", comment: "")
+	}
 
 	enum ExposureSubmissionSymptoms {
 		static let title = NSLocalizedString("ExposureSubmissionSymptoms_Title", comment: "")
@@ -649,11 +667,14 @@ enum AppStrings {
 		static let resultCardLoadingBody = NSLocalizedString("Home_resultCard_LoadingBody", comment: "")
 		static let resultCardLoadingTitle = NSLocalizedString("Home_resultCard_LoadingTitle", comment: "")
 		static let resultCardShowResultButton = NSLocalizedString("Home_resultCard_ShowResultButton", comment: "")
+		static let resultCardRetrieveResultButton = NSLocalizedString("Home_resultCard_RetrieveResultButton", comment: "")
 		static let resultCardNegativeTitle = NSLocalizedString("Home_resultCard_NegativeTitle", comment: "")
 		static let resultCardNegativeDesc = NSLocalizedString("Home_resultCard_NegativeDesc", comment: "")
 		static let resultCardPendingDesc = NSLocalizedString("Home_resultCard_PendingDesc", comment: "")
 		static let resultCardInvalidTitle = NSLocalizedString("Home_resultCard_InvalidTitle", comment: "")
 		static let resultCardInvalidDesc = NSLocalizedString("Home_resultCard_InvalidDesc", comment: "")
+		static let resultCardAvailableSubtitle = NSLocalizedString("Home_resultCard_AvailableSubtitle", comment: "")
+		static let resultCardAvailableDesc = NSLocalizedString("Home_resultCard_AvailableDesc", comment: "")
 		static let resultCardLoadingErrorTitle = NSLocalizedString("Home_resultCard_LoadingErrorTitle", comment: "")
 
 		static let riskStatusLoweredAlertTitle = NSLocalizedString("Home_Alert_RiskStatusLowered_Title", comment: "")
@@ -823,12 +844,21 @@ enum AppStrings {
 		static let consentTitle = NSLocalizedString("AutomaticSharingConsent_Title", comment: "")
 		static let switchTitle = NSLocalizedString("AutomaticSharingConsent_SwitchTitle", comment: "")
 		static let switchTitleDescription = NSLocalizedString("AutomaticSharingConsent_SwitchTitleDesc", comment: "")
-		static let consentSubTitle = NSLocalizedString("AutomaticSharingConsent_Subtitle", comment: "")
-		static let consentDescriptionPart1 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart1", comment: "")
-		static let consentDescriptionPart2 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart2", comment: "")
-		static let consentDescriptionPart3 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart3", comment: "")
-		static let consentDescriptionPart4 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart4", comment: "")
+		static let consentSubTitle = NSLocalizedString("AutomaticSharingConsent_Subtitle", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPart1 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart1", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPart2 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart2", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPart3 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart3", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPart4 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart4", tableName: "Localizable.legal", comment: "")
 		static let dataProcessingDetailInfo = NSLocalizedString("AutomaticSharingConsent_DataProcessingDetailInfo", comment: "")
+	}
+	
+	enum ThankYouScreen {
+		static let title = NSLocalizedString("Thank_You_Title", comment: "")
+		static let subTitle = NSLocalizedString("Thank_You_SubTitle", comment: "")
+		static let description1 = NSLocalizedString("Thank_You_Description1", comment: "")
+		static let description2 = NSLocalizedString("Thank_You_Description2", comment: "")
+		static let continueButton = NSLocalizedString("Thank_You_Continue_Button", comment: "")
+		static let cancelButton = NSLocalizedString("Thank_You_Cancel_Button", comment: "")
 	}
 	
 	// swiftlint:disable:next file_length

@@ -118,33 +118,39 @@ extension ExposureSubmissionCoordinator {
 			}
 		}
 		#endif
+
 		// We got a test result and can jump straight into the test result view controller.
-		if let result = result, model.exposureSubmissionServiceHasRegistrationToken {
-			return createTestResultViewController(with: result)
+		if let testResult = result, model.exposureSubmissionServiceHasRegistrationToken {
+			// For a positive test result we show the test result available screen if it wasn't shown before
+			if testResult == .positive && !model.exposureSubmissionService.positiveTestResultWasShown {
+				return createTestResultAvailableViewController(testResult: testResult)
+			} else {
+				return createTestResultViewController(with: testResult)
+			}
 		}
 
 		// By default, we show the intro view.
 		return createIntroViewController()
 	}
 
-	/// method to get an instace of TestresultvailableViewController
-	func createTestResultavailableViewController() -> UIViewController {
+	/// method to get an instace of TestResultAvailableViewController
+	func createTestResultAvailableViewController(testResult: TestResult) -> UIViewController {
 		let viewModel = TestResultAvailableViewModel(
-			store,
-			didTapConsentCell: {
-				Log.debug("consent cell hit")
+			exposureSubmissionService: model.exposureSubmissionService,
+			didTapConsentCell: { [weak self] in
+				self?.presentTestResultConsentViewController()
 			},
-			didTapPrimaryFooterButton: {
-				Log.debug("primary footer button hit")
+			didTapPrimaryFooterButton: { [weak self] in
+				self?.showTestResultScreen(with: testResult)
 			},
 			presentDismissAlert: { [weak self] in
-				self?.presentTestresultCloseAlert()
+				self?.presentTestResultCloseAlert()
 			}
 		)
 		return TestResultAvailableViewController(viewModel)
 	}
 
-	func presentTestresultCloseAlert() {
+	func presentTestResultCloseAlert() {
 		guard let navigationController = navigationController else {
 			Log.error("Can't present TestresultCloseAlert - missing navigationController")
 			return
@@ -166,6 +172,19 @@ extension ExposureSubmissionCoordinator {
 							style: .default)
 		)
 		navigationController.present(alert, animated: true, completion: nil)
+	}
+
+	func presentTestResultConsentViewController() {
+		let viewModel = ExposureSubmissionTestResultConsentViewModel(
+			supportedCountries: model.supportedCountries,
+			exposureSubmissionService: model.exposureSubmissionService,
+			presentDismissAlert: { [weak self] in
+				self?.presentTestResultCloseAlert()
+			}
+		)
+
+		let consentGivenViewController = ExposureSubmissionTestResultConsentViewController(viewModel)
+		push(consentGivenViewController)
 	}
 
 	// MARK: - Protocol ExposureSubmissionCoordinating
@@ -545,7 +564,11 @@ extension ExposureSubmissionCoordinator {
 	}
 	
 	private func createTestResultConsentViewController() -> ExposureSubmissionTestResultConsentViewController {
-		let viewModel = ExposureSubmissionTestResultConsentViewModel(supportedCountries: self.model.supportedCountries, exposureSubmissionService: self.model.exposureSubmissionService)
+		let viewModel = ExposureSubmissionTestResultConsentViewModel(
+			supportedCountries: self.model.supportedCountries,
+			exposureSubmissionService: self.model.exposureSubmissionService,
+			presentDismissAlert: {}
+		)
 		return ExposureSubmissionTestResultConsentViewController(viewModel)
 	}
 

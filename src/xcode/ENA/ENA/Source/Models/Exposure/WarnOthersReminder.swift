@@ -34,17 +34,17 @@ class WarnOthersReminder: WarnOthersRemindable {
 
 	// MARK: - Protocol WarnOthersRemindable
 
-	var hasPositiveTestResult: Bool {
+	var positiveTestResultWasShown: Bool {
 		get {
-			return store.warnOthersHasActiveTestResult
+			return store.positiveTestResultWasShown
 		}
 		set {
-			store.warnOthersHasActiveTestResult = newValue
+			store.positiveTestResultWasShown = newValue
 		}
 	}
 	
 	var isSubmissionConsentGiven: Bool {
-			return store.isSubmissionConsentGiven
+		return store.isSubmissionConsentGiven
 	}
 
 	/// Notification timer in seconds for notification one
@@ -68,13 +68,12 @@ class WarnOthersReminder: WarnOthersRemindable {
 	}
 
 	/// This function takes a `TestResult` as parameter to evaluate, if possible notifications need to be scheduled for the warn others notification process.
-	func evaluateNotificationState(testResult: TestResult) {
-		
+	func evaluateShowingTestResult(_ testResult: TestResult) {
 		// If incoming test restuls are others than positive, we don't deal with them
-		guard testResult == .positive, hasPositiveTestResult == false else { return }
+		guard testResult == .positive, !positiveTestResultWasShown else { return }
 		
 		// We are "clean" to go. So lock the door until result was removed
-		hasPositiveTestResult = true
+		positiveTestResultWasShown = true
 		
 		guard !isSubmissionConsentGiven else { return }
 		
@@ -83,7 +82,7 @@ class WarnOthersReminder: WarnOthersRemindable {
 	
 	func reset() {
 		cancelNotifications()
-		hasPositiveTestResult = false
+		positiveTestResultWasShown = false
 		Log.info("Warn others have been resetted")
 	}
 	
