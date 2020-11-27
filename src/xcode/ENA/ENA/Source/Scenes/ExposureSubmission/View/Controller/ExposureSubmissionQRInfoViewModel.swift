@@ -69,7 +69,11 @@ struct ExposureSubmissionQRInfoViewModel {
 				.acknowledgement(title: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle),
 								 description: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementBody),
 								 bulletPoints: bulletPoints,
-								 accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle)
+								 accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle),
+				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, alignment: .legal),
+				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement4, alignment: .legal),
+				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, alignment: .legal),
+				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, alignment: .legal)
 			])
 		)
 
@@ -114,11 +118,6 @@ struct ExposureSubmissionQRInfoViewModel {
 		points.append(ack1)
 		points.append(ack2)
 
-		// simpler strings
-		points.append(NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgement3))
-		points.append(NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgement4))
-		points.append(NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgement5))
-		points.append(NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgement6))
 		return points
 	}
 }
