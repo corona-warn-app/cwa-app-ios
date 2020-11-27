@@ -27,6 +27,10 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 		setupView()
 	}
+	
+	override var navigationItem: UINavigationItem {
+		navigationFooterItem
+	}
 
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
@@ -51,6 +55,15 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 	private var optionGroupSelectionSubscription: AnyCancellable?
 
 	@Published private var selectedSymptomsOption: SymptomsOption?
+
+	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		let item = ENANavigationFooterItem()
+		item.primaryButtonTitle = AppStrings.ExposureSubmissionTestresultAvailable.primaryButtonTitle
+		item.isPrimaryButtonEnabled = true
+		item.isSecondaryButtonHidden = true
+		item.title = AppStrings.ExposureSubmissionTestresultAvailable.title
+		return item
+	}()
 
 	private var optionGroupSelection: OptionGroupViewModel.Selection? {
 		didSet {
