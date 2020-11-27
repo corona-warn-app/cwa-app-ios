@@ -461,6 +461,8 @@ class ExposureSubmissionTestResultViewModel {
 	private func updateSubmissionConsentContent() {
 		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
 			
+			Log.info("TestResult Screen: Update content for submission content given = \(isSubmissionConsentGiven)")
+			
 			// Pending Test Result consent Label
 			let labelText = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionResult.warnOthersConsentGiven : AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven
 			self.submissionConsentLabel = labelText
