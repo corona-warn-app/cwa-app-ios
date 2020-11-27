@@ -94,7 +94,7 @@ class ExposureSubmissionTestResultViewModel {
 	// MARK: - Private
 	
 	// (kga)
-	private var currentpositiveTestResultSection: [DynamicSection] = []
+	private var activePositiveTestResultSection: [DynamicSection] = []
 	
 	private var submissionConsentLabel: String = ""
 	
@@ -107,9 +107,12 @@ class ExposureSubmissionTestResultViewModel {
 	private var subscriptions = [AnyCancellable]()
 	
 	private let onContinueWithSymptomsFlowButtonTap: (@escaping (Bool) -> Void) -> Void
+	
 	private let onContinueWithoutSymptomsFlowButtonTap: (@escaping (Bool) -> Void) -> Void
-	private let onTestDeleted: () -> Void
+	
 	private let onSubmissionConsentButtonTap: (@escaping (Bool) -> Void) -> Void
+	
+	private let onTestDeleted: () -> Void
 	
 	private var testResult: TestResult {
 		didSet {
@@ -187,7 +190,7 @@ class ExposureSubmissionTestResultViewModel {
 	private var currentTestResultSections: [DynamicSection] {
 		switch testResult {
 		case .positive:
-			return currentpositiveTestResultSection
+			return activePositiveTestResultSection
 		case .negative:
 			return negativeTestResultSections
 		case .invalid:
@@ -459,7 +462,7 @@ class ExposureSubmissionTestResultViewModel {
 			self.submissionConsentLabel = labelText
 			
 			// Positive Test result section
-			self.currentpositiveTestResultSection = isSubmissionConsentGiven ? self.positiveTestResultSectionsWithSubmissionConsent : self.positiveTestResultSectionsWithoutSubmissionConsent
+			self.activePositiveTestResultSection = isSubmissionConsentGiven ? self.positiveTestResultSectionsWithSubmissionConsent : self.positiveTestResultSectionsWithoutSubmissionConsent
 			
 			self.updateForCurrentTestResult()
 		}.store(in: &cancellables)
