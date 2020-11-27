@@ -8,41 +8,16 @@ import XCTest
 // swiftlint:disable:next type_body_length
 class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
-	func testExposureSubmissionServiceHasRegistrationToken() {
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.hasRegistrationTokenCallback = { true }
-
-		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
-		)
-
-		XCTAssertTrue(model.exposureSubmissionServiceHasRegistrationToken)
-	}
-
-	func testExposureSubmissionServiceHasNoRegistrationToken() {
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.hasRegistrationTokenCallback = { false }
-
-		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
-		)
-
-		XCTAssertFalse(model.exposureSubmissionServiceHasRegistrationToken)
-	}
-
-	// MARK: -
-
 	func testCheckStateAndLoadCountriesSupportedCountriesLoadSucceeds() {
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.preconditionsCallback = { ExposureManagerState(authorized: true, enabled: true, status: .active) }
-		exposureSubmissionService.submitExposureCallback = { _, visitedCountries, _ in
-			XCTAssertEqual(visitedCountries, [Country(countryCode: "DE"), Country(countryCode: "IT"), Country(countryCode: "ES")])
-		}
-
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = ["DE", "IT", "ES"]
+
+		let exposureSubmissionService = ENAExposureSubmissionService(
+			diagnosiskeyRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
+			appConfigurationProvider: CachedAppConfigurationMock(with: config),
+			client: ClientMock(),
+			store: MockTestStore()
+		)
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
@@ -73,18 +48,19 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
 
 		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
-		XCTAssertEqual(model.supportedCountries, [Country(countryCode: "DE"), Country(countryCode: "IT"), Country(countryCode: "ES")])
+		XCTAssertEqual(model.exposureSubmissionService.supportedCountries, [Country(countryCode: "DE"), Country(countryCode: "IT"), Country(countryCode: "ES")])
 	}
 
 	func testCheckStateAndLoadCountriesSupportedCountriesLoadEmpty() {
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.preconditionsCallback = { ExposureManagerState(authorized: true, enabled: true, status: .active) }
-		exposureSubmissionService.submitExposureCallback = { _, visitedCountries, _ in
-			XCTAssertEqual(visitedCountries, [Country(countryCode: "DE")])
-		}
-
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = []
+
+		let exposureSubmissionService = ENAExposureSubmissionService(
+			diagnosiskeyRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
+			appConfigurationProvider: CachedAppConfigurationMock(with: config),
+			client: ClientMock(),
+			store: MockTestStore()
+		)
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
@@ -115,12 +91,12 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
 
 		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
-		XCTAssertEqual(model.supportedCountries, [Country(countryCode: "DE")])
+		XCTAssertEqual(model.exposureSubmissionService.supportedCountries, [Country(countryCode: "DE")])
 	}
 
 	func testCheckStateAndLoadCountriesStateCheckFails() {
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.preconditionsCallback = { ExposureManagerState(authorized: false, enabled: false, status: .unknown) }
+		exposureSubmissionService.exposureManagerState = ExposureManagerState(authorized: false, enabled: false, status: .unknown)
 
 		let model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
@@ -147,7 +123,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 
 		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
-		XCTAssert(model.supportedCountries.isEmpty)
+		XCTAssert(model.exposureSubmissionService.supportedCountries.isEmpty)
 	}
 
 	// MARK: -
@@ -167,9 +143,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let submissionExpectation = expectation(description: "Submission is called")
 
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
-			XCTAssertEqual(symptomsOnset, .nonSymptomatic)
-
+		exposureSubmissionService.submitExposureCallback = { _ in
 			submissionExpectation.fulfill()
 		}
 
@@ -184,6 +158,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
 
 		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
+		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .nonSymptomatic)
 
 		waitForExpectations(timeout: .short)
 	}
@@ -192,9 +167,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let submissionExpectation = expectation(description: "Submission is called")
 
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
-			XCTAssertEqual(symptomsOnset, .noInformation)
-
+		exposureSubmissionService.submitExposureCallback = { _ in
 			submissionExpectation.fulfill()
 		}
 
@@ -209,6 +182,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
 
 		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
+		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .noInformation)
 
 		waitForExpectations(timeout: .short)
 	}
@@ -219,9 +193,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let submissionExpectation = expectation(description: "Submission is called")
 
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
-			XCTAssertEqual(symptomsOnset, .daysSinceOnset(1))
-
+		exposureSubmissionService.submitExposureCallback = { _ in
 			submissionExpectation.fulfill()
 		}
 
@@ -237,6 +209,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		// Submit to check that correct symptoms onset is set
 		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
 
+		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .daysSinceOnset(1))
+
 		waitForExpectations(timeout: .short)
 	}
 
@@ -244,9 +218,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let submissionExpectation = expectation(description: "Submission is called")
 
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
-			XCTAssertEqual(symptomsOnset, .lastSevenDays)
-
+		exposureSubmissionService.submitExposureCallback = { _ in
 			submissionExpectation.fulfill()
 		}
 
@@ -260,6 +232,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		// Submit to check that correct symptoms onset is set
 		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
 
+		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .lastSevenDays)
+
 		waitForExpectations(timeout: .short)
 	}
 
@@ -267,9 +241,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let submissionExpectation = expectation(description: "Submission is called")
 
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
-			XCTAssertEqual(symptomsOnset, .oneToTwoWeeksAgo)
-
+		exposureSubmissionService.submitExposureCallback = { _ in
 			submissionExpectation.fulfill()
 		}
 
@@ -283,6 +255,9 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		// Submit to check that correct symptoms onset is set
 		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
 
+		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .oneToTwoWeeksAgo)
+
+
 		waitForExpectations(timeout: .short)
 	}
 
@@ -290,9 +265,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let submissionExpectation = expectation(description: "Submission is called")
 
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
-			XCTAssertEqual(symptomsOnset, .moreThanTwoWeeksAgo)
-
+		exposureSubmissionService.submitExposureCallback = { _ in
 			submissionExpectation.fulfill()
 		}
 
@@ -306,6 +279,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		// Submit to check that correct symptoms onset is set
 		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
 
+		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .moreThanTwoWeeksAgo)
+
 		waitForExpectations(timeout: .short)
 	}
 
@@ -313,9 +288,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let submissionExpectation = expectation(description: "Submission is called")
 
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
-			XCTAssertEqual(symptomsOnset, .symptomaticWithUnknownOnset)
-
+		exposureSubmissionService.submitExposureCallback = { _ in
 			submissionExpectation.fulfill()
 		}
 
@@ -329,6 +302,8 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		// Submit to check that correct symptoms onset is set
 		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
 
+		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .symptomaticWithUnknownOnset)
+
 		waitForExpectations(timeout: .short)
 	}
 
@@ -336,7 +311,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 	func testSuccessfulSubmit() {
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { _, _, completion in
+		exposureSubmissionService.submitExposureCallback = { completion in
 			completion(nil)
 		}
 
@@ -371,7 +346,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 	func testSuccessfulSubmitWithoutKeys() {
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { _, _, completion in
+		exposureSubmissionService.submitExposureCallback = { completion in
 			completion(.noKeys)
 		}
 
@@ -406,7 +381,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 	func testFailingSubmitWithNotAuthorizedError() {
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { _, _, completion in
+		exposureSubmissionService.submitExposureCallback = { completion in
 			completion(.notAuthorized)
 		}
 
@@ -443,7 +418,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 	func testFailingSubmitWithInternalError() {
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { _, _, completion in
+		exposureSubmissionService.submitExposureCallback = { completion in
 			completion(.internal)
 		}
 
