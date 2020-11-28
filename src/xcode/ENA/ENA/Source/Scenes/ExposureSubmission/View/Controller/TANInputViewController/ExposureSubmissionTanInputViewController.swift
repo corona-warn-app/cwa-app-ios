@@ -5,6 +5,7 @@
 import Foundation
 import UIKit
 
+@available(*, deprecated)
 class ExposureSubmissionTanInputViewController: UIViewController, ENANavigationControllerWithFooterChild, ENATanInputDelegate {
 
 	// MARK: - Init
