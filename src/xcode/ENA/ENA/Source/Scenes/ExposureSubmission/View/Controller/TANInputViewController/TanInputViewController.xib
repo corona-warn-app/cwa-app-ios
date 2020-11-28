@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TanInputViewController" customModule="ENA" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="QwF-uS-knw">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oK8-fN-Pma">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oji-ug-i4M">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="FJC-MP-vxd">
+                                    <rect key="frame" x="16" y="16" width="382" height="786"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" text="Headline" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJU-Sq-0tA" userLabel="Description" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                        <view contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mwa-Ci-YLP">
+                                            <rect key="frame" x="0.0" y="36.5" width="382" height="683.5"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFY-U5-JJA" customClass="ENATanInput" customModule="ENA" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="317" width="382" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" priority="250" constant="50" placeholder="YES" id="X0s-q9-krC"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="BFY-U5-JJA" secondAttribute="bottom" id="2OC-Di-HtG"/>
+                                                <constraint firstAttribute="trailing" secondItem="BFY-U5-JJA" secondAttribute="trailing" id="L4I-hf-Bte"/>
+                                                <constraint firstItem="BFY-U5-JJA" firstAttribute="leading" secondItem="Mwa-Ci-YLP" secondAttribute="leading" id="PRW-zP-zsO"/>
+                                                <constraint firstItem="BFY-U5-JJA" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Mwa-Ci-YLP" secondAttribute="top" id="YUt-0N-2Nm"/>
+                                                <constraint firstItem="BFY-U5-JJA" firstAttribute="centerY" secondItem="Mwa-Ci-YLP" secondAttribute="centerY" id="g9W-bU-E8Q"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Xrn-XE-w0o">
+                                            <rect key="frame" x="0.0" y="736" width="382" height="50"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" text="Headline" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tnX-Y2-1ea" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="ENA Text Semantic Red Color"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="tnX-Y2-1ea" firstAttribute="centerY" secondItem="Xrn-XE-w0o" secondAttribute="centerY" id="7tb-wT-5oi"/>
+                                                <constraint firstItem="tnX-Y2-1ea" firstAttribute="leading" secondItem="Xrn-XE-w0o" secondAttribute="leading" id="Txt-cB-dgw"/>
+                                                <constraint firstAttribute="bottom" secondItem="tnX-Y2-1ea" secondAttribute="bottom" id="bUN-zy-Ngv"/>
+                                                <constraint firstAttribute="trailing" secondItem="tnX-Y2-1ea" secondAttribute="trailing" id="by8-zl-sHk"/>
+                                                <constraint firstItem="tnX-Y2-1ea" firstAttribute="top" secondItem="Xrn-XE-w0o" secondAttribute="top" id="cOz-LW-JsK"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="FJC-MP-vxd" firstAttribute="leading" secondItem="Oji-ug-i4M" secondAttribute="leadingMargin" id="SmO-PP-wMw"/>
+                                <constraint firstItem="FJC-MP-vxd" firstAttribute="top" secondItem="Oji-ug-i4M" secondAttribute="topMargin" id="VmM-om-vqi"/>
+                                <constraint firstAttribute="bottomMargin" secondItem="FJC-MP-vxd" secondAttribute="bottom" id="cKj-7q-1xf"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="FJC-MP-vxd" secondAttribute="trailing" id="dou-MF-Ldy"/>
+                            </constraints>
+                            <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Oji-ug-i4M" firstAttribute="width" secondItem="oK8-fN-Pma" secondAttribute="width" id="IJl-d6-qpV"/>
+                        <constraint firstAttribute="trailing" secondItem="Oji-ug-i4M" secondAttribute="trailing" id="U2N-2M-Lhi"/>
+                        <constraint firstItem="Oji-ug-i4M" firstAttribute="leading" secondItem="oK8-fN-Pma" secondAttribute="leading" id="U7s-PL-e1N"/>
+                        <constraint firstItem="Oji-ug-i4M" firstAttribute="top" secondItem="oK8-fN-Pma" secondAttribute="top" id="j54-WN-QW3"/>
+                        <constraint firstAttribute="bottom" secondItem="Oji-ug-i4M" secondAttribute="bottom" id="np3-lj-4dB"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Utf-lk-Slw"/>
+            <color key="backgroundColor" name="ENA Background Color"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="oK8-fN-Pma" secondAttribute="bottom" id="5c3-jQ-hfe"/>
+                <constraint firstItem="oK8-fN-Pma" firstAttribute="leading" secondItem="QwF-uS-knw" secondAttribute="leading" id="BTX-Nd-Okd"/>
+                <constraint firstItem="oK8-fN-Pma" firstAttribute="top" secondItem="QwF-uS-knw" secondAttribute="top" id="CzV-2d-vk8"/>
+                <constraint firstAttribute="trailing" secondItem="oK8-fN-Pma" secondAttribute="trailing" id="Tst-QX-HCb"/>
+                <constraint firstItem="Oji-ug-i4M" firstAttribute="height" secondItem="Utf-lk-Slw" secondAttribute="height" priority="750" id="imQ-6P-92T"/>
+            </constraints>
+            <point key="canvasLocation" x="-26" y="-492"/>
+        </view>
+    </objects>
+    <designables>
+        <designable name="IJU-Sq-0tA">
+            <size key="intrinsicContentSize" width="67" height="20.5"/>
+        </designable>
+        <designable name="tnX-Y2-1ea">
+            <size key="intrinsicContentSize" width="67" height="20.5"/>
+        </designable>
+    </designables>
+    <resources>
+        <namedColor name="ENA Background Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Text Primary 1 Color">
+            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Text Semantic Red Color">
+            <color red="0.75294117647058822" green="0.058823529411764705" blue="0.17647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
