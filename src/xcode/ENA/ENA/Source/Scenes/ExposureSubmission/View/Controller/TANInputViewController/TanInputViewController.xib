@@ -9,7 +9,17 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TanInputViewController" customModule="ENA" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TanInputViewController" customModule="ENA" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="Oji-ug-i4M" id="ZI2-Sa-EZY"/>
+                <outlet property="descriptionLabel" destination="IJU-Sq-0tA" id="alT-Gv-Zrg"/>
+                <outlet property="errorLabel" destination="tnX-Y2-1ea" id="NgY-Yn-qZS"/>
+                <outlet property="errorView" destination="Xrn-XE-w0o" id="WpV-QF-BFj"/>
+                <outlet property="scrollView" destination="oK8-fN-Pma" id="z9j-8M-r2q"/>
+                <outlet property="tanInput" destination="BFY-U5-JJA" id="tox-3h-nRG"/>
+                <outlet property="view" destination="QwF-uS-knw" id="Qjs-yO-45C"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="QwF-uS-knw">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>

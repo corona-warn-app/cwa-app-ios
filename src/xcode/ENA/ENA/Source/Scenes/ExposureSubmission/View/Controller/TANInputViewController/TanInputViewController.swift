@@ -8,10 +8,13 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 
 	// MARK: - Init
 
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, exposureSubmissionService: ExposureSubmissionService) {
+	init(
+		coordinator: ExposureSubmissionCoordinating,
+		exposureSubmissionService: ExposureSubmissionService
+	) {
 		self.coordinator = coordinator
 		self.exposureSubmissionService = exposureSubmissionService
-		super.init(coder: coder)
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)

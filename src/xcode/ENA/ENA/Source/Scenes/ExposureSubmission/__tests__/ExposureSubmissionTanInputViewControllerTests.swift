@@ -5,7 +5,7 @@
 import Foundation
 import XCTest
 @testable import ENA
-class ExposureSubmissionTanInputViewControllerTests: XCTestCase {
+class TanInputViewControllerTests: XCTestCase {
 
 	private var service: MockExposureSubmissionService!
 
@@ -14,10 +14,12 @@ class ExposureSubmissionTanInputViewControllerTests: XCTestCase {
 		service = MockExposureSubmissionService()
 	}
 
-	private func createVC() -> ExposureSubmissionTanInputViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTanInputViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionTanInputViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator(), exposureSubmissionService: self.service)
-		}
+	private func createVC() -> TanInputViewController {
+		return TanInputViewController(coordinator: MockExposureSubmissionCoordinator(), exposureSubmissionService: self.service)
+//		AppStoryboard.exposureSubmission.initiate(viewControllerType: TanInputViewController.self) { coder -> UIViewController? in
+
+		//			TanInputViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator(), exposureSubmissionService: self.service)
+//		}
 	}
 
 	func testTanInputSuccess() {
