@@ -14,6 +14,8 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	) {
 		self.coordinator = coordinator
 		self.exposureSubmissionService = exposureSubmissionService
+		self.viewModel = TanInputViewModel()
+		
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -26,14 +28,12 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		navigationItem.title = AppStrings.ExposureSubmissionTanEntry.title
-
-		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionTanEntry.submit
-		navigationFooterItem?.isPrimaryButtonEnabled = false
-
 		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
 		errorView.alpha = 0
+	}
+	
+	override var navigationItem: UINavigationItem {
+		navigationFooterItem
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -93,8 +93,10 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	// MARK: - Public
 	
 	// MARK: - Internal
+	
+	let viewModel: TanInputViewModel
 
-	var initialTan: String?
+	private var initialTan: String?
 	
 	@discardableResult
 	func submitTan() -> Bool {
@@ -143,10 +145,13 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	private(set) weak var exposureSubmissionService: ExposureSubmissionService?
 	private(set) weak var coordinator: ExposureSubmissionCoordinating?
 
-	// MARK: - Attributes.
+	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		let item = ENANavigationFooterItem()
+		item.primaryButtonTitle = AppStrings.ExposureSubmissionTanEntry.submit
+		item.isPrimaryButtonEnabled = false
+		item.isSecondaryButtonHidden = true
+		item.title = AppStrings.ExposureSubmissionTanEntry.title
+		return item
+	}()
 
-
-	// MARK: - Initializers.
-
-	// MARK: - View lifecycle methods.
 }

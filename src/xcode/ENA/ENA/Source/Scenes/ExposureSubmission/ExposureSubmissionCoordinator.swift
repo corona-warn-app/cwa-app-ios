@@ -292,7 +292,7 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	func showTanScreen() {
-		let vc = createTanInputViewController()
+		let vc = TanInputViewController(coordinator: self, exposureSubmissionService: self.model.exposureSubmissionService)
 		push(vc)
 	}
 
@@ -504,12 +504,6 @@ extension ExposureSubmissionCoordinator {
 	private func createIntroViewController() -> ExposureSubmissionIntroViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionIntroViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionIntroViewController(coder: coder, coordinator: self)
-		}
-	}
-
-	private func createTanInputViewController() -> ExposureSubmissionTanInputViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTanInputViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionTanInputViewController(coder: coder, coordinator: self, exposureSubmissionService: self.model.exposureSubmissionService)
 		}
 	}
 

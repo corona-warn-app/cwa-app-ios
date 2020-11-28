@@ -16,5 +16,7 @@ final class TanInputViewModel {
 	
 	// MARK: - Internal
 	
+	var initialTAN: String?
+	
 	// MARK: - Private
 }
