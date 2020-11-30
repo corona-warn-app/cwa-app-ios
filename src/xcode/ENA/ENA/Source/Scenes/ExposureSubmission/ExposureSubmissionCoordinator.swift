@@ -28,7 +28,6 @@ protocol ExposureSubmissionCoordinating: class {
 	func showTestResultScreen(with result: TestResult)
 	func showTanScreen()
 	func showThankYouScreen()
-	func showNewThankYouScreen()
 
 }
 
@@ -147,7 +146,8 @@ extension ExposureSubmissionCoordinator {
 		let viewModel = ExposureSubmissionIntroViewModel(
 			onQRCodeButtonTap: { [weak self] in self?.showQRInfoScreen() },
 			onTANButtonTap: { [weak self] in self?.showTanScreen() },
-			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() }
+			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() },
+			onThankYouScreen: { self.showThankYouScreen() }
 		)
 		return ExposureSubmissionIntroViewController(viewModel)
 	}
@@ -395,14 +395,8 @@ extension ExposureSubmissionCoordinator {
 	func showWarnOthersScreen() {
 		let vc = createWarnOthersViewController(
 			supportedCountries: model.supportedCountries,
-			onPrimaryButtonTap: { [weak self] isLoading in
-				self?.model.warnOthersConsentGiven(
-					isLoading: isLoading,
-					onSuccess: { self?.showThankYouScreen() },
-					onError: { error in
-						self?.showErrorAlert(for: error)
-					}
-				)
+			onPrimaryButtonTap: { _ in
+				self.showThankYouScreen()
 			}
 		)
 		push(vc)
@@ -429,13 +423,8 @@ extension ExposureSubmissionCoordinator {
 		navigationController?.present(alert, animated: true, completion: nil)
 	}
 
-	func showThankYouScreen() {
-		let vc = createSuccessViewController()
-		push(vc)
-	}
 	
-	// TODO: (PUM)New Thank You Screen. Do things here when make it proper navigation.
-	func showNewThankYouScreen() {
+	func showThankYouScreen() {
 		let thankYouVC = ExposureSubmissionThankYouViewController { [weak self] in
 			self?.showSymptomsScreen()
 		} onSecondaryButtonTap: { [weak self] in
