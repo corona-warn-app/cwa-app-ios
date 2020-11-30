@@ -205,7 +205,6 @@ extension ExposureSubmissionCoordinator {
 			dismissClosure: { [weak self] in
 				self?.navigationController?.dismiss(animated: true)
 			},
-			isModalInPresentation: true,
 			rootViewController: initialVC
 		)
 		parentNavigationController.present(exposureSubmissionNavigationController, animated: true)
@@ -347,26 +346,29 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	func showSymptomsScreen() {
-		let vc = createSymptomsViewController(
+		let vc = ExposureSubmissionSymptomsViewController(
 			onPrimaryButtonTap: { [weak self] selectedSymptomsOption in
 				guard let self = self else { return }
-
+				
 				self.model.symptomsOptionSelected(selectedSymptomsOption)
 				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showWarnOthersScreen()
+			},
+			presentCancelAlert: { [weak self] in
+				self?.presentSubmissionSymptomsCancelAlert()
 			}
 		)
-
 		push(vc)
 	}
 
 	private func showSymptomsOnsetScreen() {
-		let vc = createSymptomsOnsetViewController(
+		let vc = ExposureSubmissionSymptomsOnsetViewController(
 			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption in
 				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
 				self?.showWarnOthersScreen()
+			}, presentCancelAlert: { [weak self] in
+				self?.presentSubmissionSymptomsCancelAlert()
 			}
 		)
-
 		push(vc)
 	}
 
@@ -383,8 +385,28 @@ extension ExposureSubmissionCoordinator {
 				)
 			}
 		)
-
 		push(vc)
+	}
+	
+	func presentSubmissionSymptomsCancelAlert() {
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmissionSymptomsCancelAlert.title,
+			message: AppStrings.ExposureSubmissionSymptomsCancelAlert.message,
+			preferredStyle: .alert)
+
+		alert.addAction(UIAlertAction(
+							title: AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton,
+							style: .cancel,
+							handler: { [weak self] _ in
+								self?.dismiss()
+							})
+		)
+
+		alert.addAction(UIAlertAction(
+							title: AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton,
+							style: .default)
+		)
+		navigationController?.present(alert, animated: true, completion: nil)
 	}
 
 	func showThankYouScreen() {
@@ -475,22 +497,6 @@ extension ExposureSubmissionCoordinator {
 	private func createHotlineViewController() -> ExposureSubmissionHotlineViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionHotlineViewController(coder: coder, coordinator: self)
-		}
-	}
-
-	private func createSymptomsViewController(
-		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsViewController.SymptomsOption) -> Void
-	) -> ExposureSubmissionSymptomsViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSymptomsViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionSymptomsViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap)
-		}
-	}
-
-	private func createSymptomsOnsetViewController(
-		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption) -> Void
-	) -> ExposureSubmissionSymptomsOnsetViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSymptomsOnsetViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionSymptomsOnsetViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap)
 		}
 	}
 
