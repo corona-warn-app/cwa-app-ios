@@ -424,11 +424,6 @@ extension ExposureSubmissionCoordinator {
 	}
 	
 	func presentSubmissionSymptomsCancelAlert() {
-		guard let navigationController = navigationController else {
-			Log.error("Can't present SubmissionSymptomsCancelAlert - missing navigationController")
-			return
-		}
-		
 		let alert = UIAlertController(
 			title: AppStrings.ExposureSubmissionSymptomsCancelAlert.title,
 			message: AppStrings.ExposureSubmissionSymptomsCancelAlert.message,
@@ -446,7 +441,7 @@ extension ExposureSubmissionCoordinator {
 							title: AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton,
 							style: .default)
 		)
-		navigationController.present(alert, animated: true, completion: nil)
+		navigationController?.present(alert, animated: true, completion: nil)
 	}
 
 	func showThankYouScreen() {
