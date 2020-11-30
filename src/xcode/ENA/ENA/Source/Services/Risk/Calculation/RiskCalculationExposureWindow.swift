@@ -49,11 +49,11 @@ final class RiskCalculationExposureWindow: Codable {
 		self.init(exposureWindow: exposureWindow, configuration: configuration)
 	}
 
-	// encode data to json - used for debugging help
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
 		try container.encode(exposureWindow, forKey: .exposureWindow)
+		try container.encode(configuration, forKey: .configuration)
 
 		// Additional values are encoded to show them in the developer menu
 		try container.encode(isDroppedByMinutesAtAttenuation, forKey: .isDroppedByMinutesAtAttenuation)
