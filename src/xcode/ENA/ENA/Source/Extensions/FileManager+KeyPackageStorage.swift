@@ -5,7 +5,7 @@
 import Foundation
 
 /// This extension handles creating a key package directory and file clean up before new files get written to disk.
-/// New Keyfiles only get written just before a Riskcalculation and since wie have .allreadyRunning this point of time is the safest to remove old keypackages that might gotten left behind.
+/// New keyfiles only get written just before a risk calculation is run and since this point of time is the safest to remove old keypackages that might gotten left behind.
 /// Keyfiles could be left behind if the App gets killed during the riskcalculation.
 extension FileManager {
 		
