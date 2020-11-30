@@ -8,10 +8,20 @@ import UIKit
 final class DynamicTableViewBulletPointCell: UITableViewCell {
 	
 	
-	// Spacing will get divded by two and applied to top and bottom
+	/// Spacing will get divded by two and applied to top and bottom
 	enum Spacing: CGFloat {
 		case large = 16
 		case normal = 6
+	}
+
+	/// Bullet point alignment
+	enum Alignment {
+		/// Default alignment. No offset.
+		case normal
+		/// Adding 12 points extra alignment - FOR JUSTICE!
+		case legal
+		/// Custom alignment to be added to the default value.
+		case custom(value: CGFloat)
 	}
 	
 	// MARK: - Init
@@ -28,59 +38,70 @@ final class DynamicTableViewBulletPointCell: UITableViewCell {
 	
 	// MARK: - Internal
 
-	func configure(text: String, spacing: Spacing, accessibilityTraits: UIAccessibilityTraits, accessibilityIdentifier: String? = nil) {
-		contentLabel.text = text
+	func configure(attributedString text: NSAttributedString, spacing: Spacing, alignment: Alignment = .normal, accessibilityTraits: UIAccessibilityTraits, accessibilityIdentifier: String? = nil) {
+		contentLabel.attributedText = text.bulletPointString(bulletPointFont: contentLabel.font)
 		self.accessibilityIdentifier = accessibilityIdentifier
 		self.accessibilityTraits = accessibilityTraits
-		accessibilityLabel = text
-		stackViewBottomSpacingConstraint?.constant = -(spacing.rawValue / 2)
-		stackViewTopSpacingConstraint?.constant = spacing.rawValue / 2
+		accessibilityLabel = text.string
+
+		bottomSpacingConstraint?.constant = -(spacing.rawValue / 2)
+		topSpacingConstraint?.constant = spacing.rawValue / 2
+
+		// adjust alignment, if needed
+		switch alignment {
+		case .legal:
+			leadingConstraint?.constant = offset + 12
+			setNeedsUpdateConstraints()
+		case .custom(let value):
+			leadingConstraint?.constant = offset + value
+			setNeedsUpdateConstraints()
+		default:
+			break
+		}
 		layoutIfNeeded()
+	}
+
+	func configure(text: String, spacing: Spacing, alignment: Alignment = .normal, accessibilityTraits: UIAccessibilityTraits, accessibilityIdentifier: String? = nil) {
+		configure(
+			attributedString: NSAttributedString(string: text),
+			spacing: spacing,
+			alignment: alignment,
+			accessibilityTraits: accessibilityTraits,
+			accessibilityIdentifier: accessibilityIdentifier)
 	}
 
 	// MARK: - Private
 
-	private var stackView = UIStackView()
 	private var contentLabel = ENALabel()
-	private var stackViewTopSpacingConstraint: NSLayoutConstraint?
-	private var stackViewBottomSpacingConstraint: NSLayoutConstraint?
+	private var topSpacingConstraint: NSLayoutConstraint?
+	private var bottomSpacingConstraint: NSLayoutConstraint?
+	private var leadingConstraint: NSLayoutConstraint?
+
+	/// Leading/Trailing anchor offset
+	private let offset: CGFloat = 24
 
 	private func setUp() {
 		selectionStyle = .none
 		backgroundColor = .enaColor(for: .background)
 
-		stackView.axis = .horizontal
-		stackView.alignment = .firstBaseline
-		stackView.distribution = .fill
-		stackView.spacing = 16
-		
-		stackView.translatesAutoresizingMaskIntoConstraints = false
-		contentView.addSubview(stackView)
-		
-		
-		stackViewBottomSpacingConstraint = stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-		stackViewTopSpacingConstraint = stackView.topAnchor.constraint(equalTo: contentView.topAnchor)
-
-		NSLayoutConstraint.activate([
-			stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
-			stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
-			stackViewBottomSpacingConstraint,
-			stackViewTopSpacingConstraint
-			].compactMap { $0 }
-		)
-		
-		let pointLabel = ENALabel()
-		pointLabel.textColor = .enaColor(for: .textPrimary1)
-		pointLabel.style = .body
-		pointLabel.numberOfLines = 1
-		pointLabel.text = "•"
-		pointLabel.setContentHuggingPriority(.required, for: .horizontal)
-		stackView.addArrangedSubview(pointLabel)
-		
 		contentLabel.textColor = .enaColor(for: .textPrimary1)
 		contentLabel.style = .body
 		contentLabel.numberOfLines = 0
-		stackView.addArrangedSubview(contentLabel)
+
+		contentLabel.translatesAutoresizingMaskIntoConstraints = false
+		contentView.addSubview(contentLabel)
+		
+		bottomSpacingConstraint = contentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+		topSpacingConstraint = contentLabel.topAnchor.constraint(equalTo: contentView.topAnchor)
+		leadingConstraint = contentLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: offset)
+
+		NSLayoutConstraint.activate([
+			contentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -offset),
+			leadingConstraint,
+			bottomSpacingConstraint,
+			topSpacingConstraint
+			].compactMap { $0 }
+		)
 	}
 	
 }

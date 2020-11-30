@@ -7,41 +7,25 @@ import UIKit
 import Combine
 
 class ExposureSubmissionTestResultConsentViewModel {
+
 	// MARK: - Init
 	
 	init(
 		supportedCountries: [Country],
-		exposureSubmissionService: ExposureSubmissionService
+		exposureSubmissionService: ExposureSubmissionService,
+		presentDismissAlert: @escaping () -> Void
 	) {
-		
-		self.exposureSubmissionService = exposureSubmissionService
-		
 		self.supportedCountries = supportedCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
-		
-		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
-			self.consentSwitch.isOn = isSubmissionConsentGiven
-		}.store(in: &cancellables)
+		self.exposureSubmissionService = exposureSubmissionService
+		self.presentDismissAlert = presentDismissAlert
 	}
 
-	// MARK: - Properties
-	
-	@objc
-	func consentStateChanged(switchState: UISwitch) {
-		exposureSubmissionService.setSubmissionConsentGiven(consentGiven: switchState.isOn)
-	}
-		
-	// MARK: - Private
-	
-	private var cancellables: Set<AnyCancellable> = []
-		
-	private let supportedCountries: [Country]
-	
-	private var exposureSubmissionService: ExposureSubmissionService
-	
-	private let consentSwitch = UISwitch()
-	
+	// MARK: - Public
+
 	// MARK: - Internal
-	
+
+	let presentDismissAlert: () -> Void
+
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel.with {
 			$0.add(
@@ -57,9 +41,14 @@ class ExposureSubmissionTestResultConsentViewModel {
 								guard let self = self else {
 									return
 								}
-								cell.accessoryView = self.consentSwitch
-								self.consentSwitch.onTintColor = .enaColor(for: .tint)
-								self.consentSwitch.addTarget(self, action: #selector(self.consentStateChanged), for: .valueChanged)
+								let toggleSwitch = UISwitch()
+								cell.accessoryView = toggleSwitch
+								toggleSwitch.onTintColor = .enaColor(for: .tint)
+								toggleSwitch.addTarget(self, action: #selector(self.consentStateChanged), for: .valueChanged)
+								
+								self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
+									toggleSwitch.isOn = isSubmissionConsentGiven
+								}.store(in: &self.cancellables)
 							}
 						),
 						.body(text: AppStrings.AutomaticSharingConsent.switchTitleDescription),
@@ -107,10 +96,22 @@ class ExposureSubmissionTestResultConsentViewModel {
 					cells:[
 						.space(height: 50)
 					]
-					
+
 				)
 			)
 		}
 	}
-	
+
+	// MARK: - Private
+
+	private let supportedCountries: [Country]
+
+	private var cancellables: Set<AnyCancellable> = []
+	private var exposureSubmissionService: ExposureSubmissionService
+
+	@objc
+	private func consentStateChanged(switchState: UISwitch) {
+		exposureSubmissionService.setSubmissionConsentGiven(consentGiven: switchState.isOn)
+	}
+
 }

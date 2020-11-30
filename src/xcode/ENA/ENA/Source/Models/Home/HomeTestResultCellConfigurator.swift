@@ -22,8 +22,9 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 		case .invalid: configureTestResultInvalid(cell: cell)
 		case .pending: configureTestResultPending(cell: cell)
 		case .negative: configureTestResultNegative(cell: cell)
-		default:
-			Log.info("Unsupported state for \(String(describing: Self.self))", log: .ui)
+		case .positive: configureTestResultAvailable(cell: cell)
+		case .expired:
+			Log.info("Unsupported test result state .expired for \(String(describing: Self.self))", log: .ui)
 		}
 	}
 
@@ -68,6 +69,18 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 			button: AppStrings.Home.resultCardShowResultButton,
 			image: UIImage(named: "Illu_Hand_with_phone-pending"),
 			tintColor: .enaColor(for: .textPrimary2),
+			accessibilityIdentifier: AccessibilityIdentifiers.Home.resultCardShowResultButton
+		)
+	}
+
+	private func configureTestResultAvailable(cell: HomeTestResultCollectionViewCell) {
+		cell.configure(
+			title: AppStrings.Home.resultCardResultAvailableTitle,
+			subtitle: AppStrings.Home.resultCardAvailableSubtitle,
+			description: AppStrings.Home.resultCardAvailableDesc,
+			button: AppStrings.Home.resultCardRetrieveResultButton,
+			image: UIImage(named: "Illu_Hand_with_phone-error"),
+			tintColor: .enaColor(for: .textSemanticGray),
 			accessibilityIdentifier: AccessibilityIdentifiers.Home.resultCardShowResultButton
 		)
 	}
