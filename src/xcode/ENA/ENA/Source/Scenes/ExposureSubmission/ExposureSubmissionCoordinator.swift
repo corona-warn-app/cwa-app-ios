@@ -4,6 +4,7 @@
 
 import Foundation
 import UIKit
+import Combine
 
 /// Coordinator for the exposure submission flow.
 /// This protocol hides the creation of view controllers and their transitions behind a slim interface.
@@ -66,14 +67,29 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		self.parentNavigationController = parentNavigationController
 		self.delegate = delegate
 		self.warnOthersReminder = warnOthersReminder
-
+		self.exposureSubmissionService = exposureSubmissionService
+		
 		super.init()
+		
+		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
+			self.isSubmissionConsentGiven = isSubmissionConsentGiven
+		}
+
+		
 
 		model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			appConfigurationProvider: appConfigurationProvider
 		)
 	}
+	
+	// MARK: - Private
+	
+	private var isSubmissionConsentGiven: Bool = false
+	
+	private var cancellables: Set<AnyCancellable> = []
+	
+	private let exposureSubmissionService: ExposureSubmissionService
 
 }
 
@@ -272,7 +288,10 @@ extension ExposureSubmissionCoordinator {
 						}
 					)
 				}
-			), exposureSubmissionService: self.model.exposureSubmissionService
+			), exposureSubmissionService: self.model.exposureSubmissionService,
+			presentCancelAlert: { [weak self] in
+				self?.presentPositiveTestResultCancelAlert()
+			}
 		)
 	}
 
@@ -404,8 +423,38 @@ extension ExposureSubmissionCoordinator {
 
 	}
 	
+
+	// MARK: - Internal
 	
-	// MARK: - Private
+	func presentPositiveTestResultCancelAlert() {
+		guard let navigationController = navigationController else {
+			Log.error("Can't present SubmissionSymptomsCancelAlert - missing navigationController")
+			return
+		}
+		
+		// (kga) Add propper texts
+		let alertTitle = isSubmissionConsentGiven ? "Consent Given" : "No Consent"
+		let alertMessage = isSubmissionConsentGiven ? "Moinsen Mit" : "Moinsen Ohne"
+		
+		let alert = UIAlertController(
+			title: alertTitle,
+			message: alertMessage,
+			preferredStyle: .alert)
+		
+		alert.addAction(UIAlertAction(
+							title: "Action 1",
+							style: .cancel,
+							handler: { [weak self] _ in
+								self?.dismiss()
+							})
+		)
+		
+		alert.addAction(UIAlertAction(
+							title: "Action 2",
+							style: .default)
+		)
+		navigationController.present(alert, animated: true, completion: nil)
+	}
 
 	private func showErrorAlert(for error: ExposureSubmissionError, onCompletion: (() -> Void)? = nil) {
 		Log.error("error: \(error.localizedDescription)", log: .ui)
