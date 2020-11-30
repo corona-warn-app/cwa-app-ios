@@ -20,15 +20,14 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 	init(
 		coordinator: ExposureSubmissionCoordinating? = nil,
 		dismissClosure: @escaping () -> Void,
-		isModalInPresentation: Bool,
 		rootViewController: UIViewController
 	) {
 		self.coordinator = coordinator
 		self.dismissClosure = dismissClosure
 		super.init(rootViewController: rootViewController)
 		// init default UIAdaptivePresentation delegate
-		self.presentationController?.delegate = isModalInPresentation ? self :  nil
-		self.isModalInPresentation = isModalInPresentation
+		self.presentationController?.delegate = self
+		self.isModalInPresentation = true
 	}
 
 	@available(*, unavailable)

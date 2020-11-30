@@ -5,23 +5,17 @@
 import UIKit
 import Combine
 
-final class ExposureSubmissionSymptomsViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, RequiresDismissConfirmation {
-
-	typealias PrimaryButtonHandler = (SymptomsOption) -> Void
-
-	enum SymptomsOption {
-		case yes, no, preferNotToSay
-	}
+final class ExposureSubmissionSymptomsViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
 
 	// MARK: - Init
 
-	init?(
-		coder: NSCoder,
-		onPrimaryButtonTap: @escaping PrimaryButtonHandler
+	init(
+		onPrimaryButtonTap: @escaping (SymptomsOption) -> Void,
+		presentCancelAlert: @escaping () -> Void
 	) {
 		self.onPrimaryButtonTap = onPrimaryButtonTap
-
-		super.init(coder: coder)
+		self.presentCancelAlert = presentCancelAlert
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)
@@ -36,6 +30,10 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 		setupView()
 	}
+	
+	override var navigationItem: UINavigationItem {
+		navigationFooterItem
+	}
 
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
@@ -46,12 +44,37 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 		onPrimaryButtonTap(selectedSymptomsOption)
 	}
+	
+	// MARK: - Protocol DismissHandling
+	
+	func presentDismiss(dismiss: @escaping () -> Void) {
+		presentCancelAlert()
+	}
+	
+	// MARK: - Internal
+	
+	enum SymptomsOption {
+		case yes, no, preferNotToSay
+	}
 
 	// MARK: - Private
 
-	private let onPrimaryButtonTap: PrimaryButtonHandler
+	private let onPrimaryButtonTap: (SymptomsOption) -> Void
+	private let presentCancelAlert: () -> Void
+	
+	private var selectedSymptomsOptionConfirmationButtonStateSubscription: AnyCancellable?
+	private var optionGroupSelectionSubscription: AnyCancellable?
 
 	@Published private var selectedSymptomsOption: SymptomsOption?
+
+	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		let item = ENANavigationFooterItem()
+		item.primaryButtonTitle = AppStrings.ExposureSubmissionTestresultAvailable.primaryButtonTitle
+		item.isPrimaryButtonEnabled = true
+		item.isSecondaryButtonHidden = true
+		item.title = AppStrings.ExposureSubmissionTestresultAvailable.title
+		return item
+	}()
 
 	private var optionGroupSelection: OptionGroupViewModel.Selection? {
 		didSet {
@@ -69,9 +92,6 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 			}
 		}
 	}
-
-	private var selectedSymptomsOptionConfirmationButtonStateSubscription: AnyCancellable?
-	private var optionGroupSelectionSubscription: AnyCancellable?
 
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionSymptoms.title

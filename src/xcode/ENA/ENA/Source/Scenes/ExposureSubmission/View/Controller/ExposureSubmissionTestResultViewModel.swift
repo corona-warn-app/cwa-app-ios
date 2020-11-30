@@ -34,6 +34,7 @@ class ExposureSubmissionTestResultViewModel {
 	@Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
 	@Published var shouldShowDeletionConfirmationAlert: Bool = false
 	@Published var error: ExposureSubmissionError?
+	@Published var shouldShowPositivTestResultAlert: Bool = false
 	
 	var timeStamp: Int64? {
 		exposureSubmissionService.devicePairingSuccessfulTimestamp
@@ -57,12 +58,12 @@ class ExposureSubmissionTestResultViewModel {
 			// continue with collecting onset of symptoms.
 			// Otherwise we continue with the warn others process
 			if isSubmissionConsentGiven {
-				Log.info("Positive Test Result: Next > 'onset of symptoms'.")
+				Log.info("Positive Test Result: Next -> 'onset of symptoms'.")
 				onContinueWithSymptomsFlowButtonTap { [weak self] isLoading in
 					self?.primaryButtonIsLoading = isLoading
 				}
 			} else {
-				Log.info("Positive Test Result: Next > 'warn others'.")
+				Log.info("Positive Test Result: Next -> 'warn others'.")
 				onContinueWarnOthersButtonTap { [weak self] isLoading in
 					self?.secondaryButtonIsLoading = isLoading
 				}
@@ -82,7 +83,8 @@ class ExposureSubmissionTestResultViewModel {
 	func didTapSecondaryButton() {
 		switch testResult {
 		case .positive:
-			// (kga) Update next step based on consten state
+			// (kga) Update next step based on consent state
+			self.shouldShowPositivTestResultAlert = true
 			onContinueWarnOthersButtonTap { [weak self] isLoading in
 				self?.secondaryButtonIsLoading = isLoading
 			}

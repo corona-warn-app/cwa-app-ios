@@ -4,6 +4,7 @@
 
 import Foundation
 import UIKit
+import Combine
 
 /// Coordinator for the exposure submission flow.
 /// This protocol hides the creation of view controllers and their transitions behind a slim interface.
@@ -65,14 +66,29 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		self.parentNavigationController = parentNavigationController
 		self.delegate = delegate
 		self.warnOthersReminder = warnOthersReminder
-
+		self.exposureSubmissionService = exposureSubmissionService
+		
 		super.init()
+		
+		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
+			self.isSubmissionConsentGiven = isSubmissionConsentGiven
+		}
+
+		
 
 		model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			appConfigurationProvider: appConfigurationProvider
 		)
 	}
+	
+	// MARK: - Private
+	
+	private var isSubmissionConsentGiven: Bool = false
+	
+	private var cancellables: Set<AnyCancellable> = []
+	
+	private let exposureSubmissionService: ExposureSubmissionService
 
 }
 
@@ -206,7 +222,6 @@ extension ExposureSubmissionCoordinator {
 			dismissClosure: { [weak self] in
 				self?.navigationController?.dismiss(animated: true)
 			},
-			isModalInPresentation: true,
 			rootViewController: initialVC
 		)
 		parentNavigationController.present(exposureSubmissionNavigationController, animated: true)
@@ -272,7 +287,10 @@ extension ExposureSubmissionCoordinator {
 						}
 					)
 				}
-			), exposureSubmissionService: self.model.exposureSubmissionService
+			), exposureSubmissionService: self.model.exposureSubmissionService,
+			presentCancelAlert: { [weak self] in
+				self?.presentPositiveTestResultCancelAlert()
+			}
 		)
 	}
 
@@ -348,26 +366,29 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	func showSymptomsScreen() {
-		let vc = createSymptomsViewController(
+		let vc = ExposureSubmissionSymptomsViewController(
 			onPrimaryButtonTap: { [weak self] selectedSymptomsOption in
 				guard let self = self else { return }
-
+				
 				self.model.symptomsOptionSelected(selectedSymptomsOption)
 				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showWarnOthersScreen()
+			},
+			presentCancelAlert: { [weak self] in
+				self?.presentSubmissionSymptomsCancelAlert()
 			}
 		)
-
 		push(vc)
 	}
 
 	private func showSymptomsOnsetScreen() {
-		let vc = createSymptomsOnsetViewController(
+		let vc = ExposureSubmissionSymptomsOnsetViewController(
 			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption in
 				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
 				self?.showWarnOthersScreen()
+			}, presentCancelAlert: { [weak self] in
+				self?.presentSubmissionSymptomsCancelAlert()
 			}
 		)
-
 		push(vc)
 	}
 
@@ -378,8 +399,28 @@ extension ExposureSubmissionCoordinator {
 				self.showThankYouScreen()
 			}
 		)
-
 		push(vc)
+	}
+	
+	func presentSubmissionSymptomsCancelAlert() {
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmissionSymptomsCancelAlert.title,
+			message: AppStrings.ExposureSubmissionSymptomsCancelAlert.message,
+			preferredStyle: .alert)
+
+		alert.addAction(UIAlertAction(
+							title: AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton,
+							style: .cancel,
+							handler: { [weak self] _ in
+								self?.dismiss()
+							})
+		)
+
+		alert.addAction(UIAlertAction(
+							title: AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton,
+							style: .default)
+		)
+		navigationController?.present(alert, animated: true, completion: nil)
 	}
 
 	
@@ -393,8 +434,38 @@ extension ExposureSubmissionCoordinator {
 
 	}
 	
+
+	// MARK: - Internal
 	
-	// MARK: - Private
+	func presentPositiveTestResultCancelAlert() {
+		guard let navigationController = navigationController else {
+			Log.error("Can't present SubmissionSymptomsCancelAlert - missing navigationController")
+			return
+		}
+		
+		// (kga) Add propper texts
+		let alertTitle = isSubmissionConsentGiven ? "Consent Given" : "No Consent"
+		let alertMessage = isSubmissionConsentGiven ? "Moinsen Mit" : "Moinsen Ohne"
+		
+		let alert = UIAlertController(
+			title: alertTitle,
+			message: alertMessage,
+			preferredStyle: .alert)
+		
+		alert.addAction(UIAlertAction(
+							title: "Action 1",
+							style: .cancel,
+							handler: { [weak self] _ in
+								self?.dismiss()
+							})
+		)
+		
+		alert.addAction(UIAlertAction(
+							title: "Action 2",
+							style: .default)
+		)
+		navigationController.present(alert, animated: true, completion: nil)
+	}
 
 	private func showErrorAlert(for error: ExposureSubmissionError, onCompletion: (() -> Void)? = nil) {
 		Log.error("error: \(error.localizedDescription)", log: .ui)
@@ -477,22 +548,6 @@ extension ExposureSubmissionCoordinator {
 	private func createHotlineViewController() -> ExposureSubmissionHotlineViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionHotlineViewController(coder: coder, coordinator: self)
-		}
-	}
-
-	private func createSymptomsViewController(
-		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsViewController.SymptomsOption) -> Void
-	) -> ExposureSubmissionSymptomsViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSymptomsViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionSymptomsViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap)
-		}
-	}
-
-	private func createSymptomsOnsetViewController(
-		onPrimaryButtonTap: @escaping (ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption) -> Void
-	) -> ExposureSubmissionSymptomsOnsetViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSymptomsOnsetViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionSymptomsOnsetViewController(coder: coder, onPrimaryButtonTap: onPrimaryButtonTap)
 		}
 	}
 
