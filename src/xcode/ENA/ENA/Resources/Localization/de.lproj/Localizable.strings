@@ -1336,13 +1336,3 @@ oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome m
 "TestResultPositive_WithConsent_PrimaryButton" = "Weiter mit Symptom-Erfassung";
 
 "TestResultPositive_WithConsent_SecondaryButton" = "Beenden";
-
-/* Alert box: No collection of onset of symptoms */
-
-"Alert_NoCollection_OnSetOfSymptoms_Title" = "Wollen Sie die Symptom-Erfassung abbrechen?";
-
-"Alert_NoCollection_OnSetOfSymptoms_Description" = "Wenn Sie Angaben zu Ihren Symptomen machen, können Sie andere noch genauer warnen.";
-
-"Alert_NoCollection_OnSetOfSymptoms_ButtonLeft" = "Ja";
-
-"Alert_NoCollection_OnSetOfSymptoms_ButtonRight" = "Nein";
