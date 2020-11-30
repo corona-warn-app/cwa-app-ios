@@ -46,7 +46,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	private var detectionMode: DetectionMode { state.detectionMode }
 	private(set) var sections: SectionConfiguration = []
 
-	private var activeConfigurator: HomeActivateCellConfigurator!
+	private var activeConfigurator: HomeActivateCellConfigurator?
 	private var testResultConfigurator = HomeTestResultCellConfigurator()
 	private var riskLevelConfigurator: HomeRiskLevelCellConfigurator?
 	private var failedConfigurator: HomeFailedCellConfigurator?
@@ -303,8 +303,10 @@ extension HomeInteractor {
 		// MARK: - Add cards that are always shown.
 
 		// Active card.
-		activeConfigurator = setupActiveConfigurator()
-		actionsConfigurators.append(activeConfigurator)
+		let _activeConfigurator = setupActiveConfigurator()
+		_activeConfigurator.updateEnState(state.enState)
+		actionsConfigurators.append(_activeConfigurator)
+		activeConfigurator = _activeConfigurator
 
 		// MARK: - Add cards depending on result state.
 
@@ -466,7 +468,7 @@ extension HomeInteractor {
 extension HomeInteractor: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		self.state.enState = state
-		activeConfigurator.updateEnState(state)
+		activeConfigurator?.updateEnState(state)
 		updateActiveCell()
 	}
 }
