@@ -24,7 +24,11 @@ extension FileManager {
 	
 	private func removeOldKeypackages() {
 		Log.debug("Removing \(keyPackageURL())", log: .localData)
-		try? removeItem(at: keyPackageURL()) // Delete the whole dir to make sure no old data is left behind
+		do {
+			try removeItem(at: keyPackageURL()) // Delete the whole dir to make sure no old data is left behind
+		} catch {
+			Log.error("Error while removing: \(keyPackageURL()): \(error)", log: .localData)
+		}
 		removeOrphanedKeyPackages()
 	}
 		
