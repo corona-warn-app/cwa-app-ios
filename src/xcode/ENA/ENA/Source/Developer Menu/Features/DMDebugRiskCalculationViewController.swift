@@ -66,35 +66,22 @@ class DMDebugRiskCalculationViewController: UIViewController {
 			view.trailingAnchor.constraint(equalTo: textView.trailingAnchor),
 			view.bottomAnchor.constraint(equalTo: textView.bottomAnchor)
 		])
-
-		guard let mostRecentRiskCalculationConfiguration = store.mostRecentRiskCalculationConfiguration,
-			  let mostRecentRiskCalculation = store.mostRecentRiskCalculation else {
-			textView.text = "No risk calculation run yet."
-			return
-		}
-
-		textView.text = "Most recent risk calculation: "
+		
+		let riscCalculationDebugHelper = RiscCalculationDebugHelper(
+			configuration: store.mostRecentRiskCalculation,
+			mostRecentRiskCalculation: mostRecentRiskCalculation)
 
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .short
 		dateFormatter.timeStyle = .short
 
-		textView.text += dateFormatter.string(from: mostRecentRiskCalculation.calculationDate)
-
 		let encoder = JSONEncoder()
 		encoder.outputFormatting = .prettyPrinted
 		encoder.dateEncodingStrategy = .iso8601
-
-		textView.text += "\n\nConfiguration:\n\n"
-		if let data = try? encoder.encode(mostRecentRiskCalculationConfiguration),
-		   let mostRecentRiskCalculationConfiguration = String(data: data, encoding: .utf8) {
-			textView.text += mostRecentRiskCalculationConfiguration
-		}
-
-		textView.text += "\n\n\nValues:\n\n"
-		if let data = try? encoder.encode(mostRecentRiskCalculation),
-		   let mostRecentRiskCalculation = String(data: data, encoding: .utf8) {
-			textView.text += mostRecentRiskCalculation
+		
+		if let data = try? encoder.encode(riscCalculationDebugHelper),
+		   let jsonString = String(data: data, encoding: .utf8) {
+			textView.text = jsonString
 		}
 	}
 
@@ -104,6 +91,13 @@ class DMDebugRiskCalculationViewController: UIViewController {
 		present(activityViewController, animated: true, completion: nil)
 	}
 
+}
+
+struct  RiscCalculationDebugHelper: Codable {
+	
+	let configuration: RiskCalculationConfiguration
+	let mostRecentRiskCalculation: RiskCalculation?
+	
 }
 
 #endif
