@@ -73,7 +73,7 @@ class DMDebugRiskCalculationViewController: UIViewController {
 
 		guard let mostRecentRiskCalculationConfiguration = store.mostRecentRiskCalculationConfiguration,
 			  let mostRecentRiskCalculation = store.mostRecentRiskCalculation else {
-			textView.text = "missing configuration - stop here"
+			textView.text = "No risk calculation run yet."
 			return
 		}
 
