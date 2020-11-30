@@ -455,8 +455,12 @@ extension ExposureSubmissionCoordinator {
 		}
 		
 		// (kga) Add propper texts
-		let alertTitle = isSubmissionConsentGiven ? "Consent Given" : "No Consent"
-		let alertMessage = isSubmissionConsentGiven ? "Moinsen Mit" : "Moinsen Ohne"
+		let alertTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.title : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertTitle
+		let alertMessage = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.message : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertDescription
+		
+		let alertButtonLeft = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton: AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonLeft
+		
+		let alertButtonRight = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonRight
 		
 		let alert = UIAlertController(
 			title: alertTitle,
@@ -464,7 +468,7 @@ extension ExposureSubmissionCoordinator {
 			preferredStyle: .alert)
 		
 		alert.addAction(UIAlertAction(
-							title: "Action 1",
+							title: alertButtonLeft,
 							style: .cancel,
 							handler: { [weak self] _ in
 								self?.dismiss()
@@ -472,7 +476,7 @@ extension ExposureSubmissionCoordinator {
 		)
 		
 		alert.addAction(UIAlertAction(
-							title: "Action 2",
+							title: alertButtonRight,
 							style: .default)
 		)
 		navigationController.present(alert, animated: true, completion: nil)
