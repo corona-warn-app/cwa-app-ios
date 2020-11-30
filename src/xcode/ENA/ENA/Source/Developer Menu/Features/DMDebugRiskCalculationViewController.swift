@@ -66,10 +66,15 @@ class DMDebugRiskCalculationViewController: UIViewController {
 			view.trailingAnchor.constraint(equalTo: textView.trailingAnchor),
 			view.bottomAnchor.constraint(equalTo: textView.bottomAnchor)
 		])
-		
+
+		guard let mostRecentRiskCalculationConfiguration = store.mostRecentRiskCalculationConfiguration else {
+			textView.text = "missing configuration - stop here"
+			return
+		}
+
 		let riscCalculationDebugHelper = RiscCalculationDebugHelper(
-			configuration: store.mostRecentRiskCalculation,
-			mostRecentRiskCalculation: mostRecentRiskCalculation)
+			configuration: mostRecentRiskCalculationConfiguration,
+			mostRecentRiskCalculation: store.mostRecentRiskCalculation)
 
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .short
