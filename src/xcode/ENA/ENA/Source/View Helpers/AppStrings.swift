@@ -858,11 +858,5 @@ enum AppStrings {
 		static let cancelButton = NSLocalizedString("Thank_You_Cancel_Button", comment: "")
 	}
 	
-	enum AlertNoCollectionOnSetOfSymptoms {
-		static let title = NSLocalizedString("Alert_NoCollection_OnSetOfSymptoms_Title", comment: "")
-		static let description = NSLocalizedString("Alert_NoCollection_OnSetOfSymptoms_Description", comment: "")
-		static let buttonLeft = NSLocalizedString("Alert_NoCollection_OnSetOfSymptoms_ButtonLeft", comment: "")
-		static let buttonRight = NSLocalizedString("Alert_NoCollection_OnSetOfSymptoms_ButtonRight", comment: "")
-	}
 	// swiftlint:disable:next file_length
 }
