@@ -240,6 +240,13 @@ enum AppStrings {
 		static let continueButton = NSLocalizedString("ExposureSubmissionSymptomsOnset_ContinueButton", comment: "")
 	}
 	
+	enum ExposureSubmissionSymptomsCancelAlert {
+		static let title = NSLocalizedString("ExposureSubmissionSymptoms_CancelAlertTitle", comment: "")
+		static let message = NSLocalizedString("ExposureSubmissionSymptoms_CancelAlertMessage", comment: "")
+		static let cancelButton = NSLocalizedString("ExposureSubmissionSymptoms_CancelAlertButtonCancel", comment: "")
+		static let continueButton = NSLocalizedString("ExposureSubmissionSymptoms_CancelAlertButtonContinue", comment: "")
+	}
+	
 	enum ExposureSubmissionWarnOthers {
 		static let title = NSLocalizedString("ExposureSubmissionWarnOthers_title", comment: "")
 		static let accImageDescription = NSLocalizedString("ExposureSubmissionWarnOthers_AccImageDescription", comment: "")

@@ -690,6 +690,15 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSymptomsOnset_ContinueButton" = "Weiter";
 
+/* ExposureSubmissionSymptoms - Cancel alert */
+"ExposureSubmissionSymptoms_CancelAlertTitle" = "Wollen Sie die Symptom-Erfassung abbrechen?";
+
+"ExposureSubmissionSymptoms_CancelAlertMessage" = "Wenn Sie Angaben zu Ihren Symptomen machen, können Sie andere noch genauer warnen.";
+
+"ExposureSubmissionSymptoms_CancelAlertButtonCancel" = "Ja";
+
+"ExposureSubmissionSymptoms_CancelAlertButtonContinue" = "Nein";
+
 /* ExposureSubmissionWarnOthers */
 
 "ExposureSubmissionWarnOthers_title" = "Andere warnen";
