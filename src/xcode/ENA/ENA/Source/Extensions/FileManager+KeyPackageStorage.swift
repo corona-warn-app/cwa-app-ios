@@ -12,7 +12,7 @@ extension FileManager {
 	// MARK: - Internal
 	
 	func createKeyPackageDirectory() throws-> URL {
-		removeOldKeypackages()
+		removeOldKeyPackages()
 		
 		let url = keyPackageURL().appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
@@ -22,7 +22,7 @@ extension FileManager {
 	
 	// MARK: - Private
 	
-	private func removeOldKeypackages() {
+	private func removeOldKeyPackages() {
 		Log.debug("Removing \(keyPackageURL())", log: .localData)
 		do {
 			try removeItem(at: keyPackageURL()) // Delete the whole dir to make sure no old data is left behind
