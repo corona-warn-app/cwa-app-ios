@@ -76,10 +76,6 @@ class DMDebugRiskCalculationViewController: UIViewController {
 			configuration: mostRecentRiskCalculationConfiguration,
 			mostRecentRiskCalculation: store.mostRecentRiskCalculation)
 
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .short
-		dateFormatter.timeStyle = .short
-
 		let encoder = JSONEncoder()
 		encoder.outputFormatting = .prettyPrinted
 		encoder.dateEncodingStrategy = .iso8601
