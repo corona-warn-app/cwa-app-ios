@@ -145,7 +145,9 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	private func loadCountryList() {
-		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
+		// force loading app configuration regardless the cached state. If, for some
+		// reason no app configuration is available, we'll use a minimal default config.
+		appConfigurationProvider.appConfiguration(forceFetch: true).sink { [weak self] configuration in
 			let supportedCountryIDs = configuration.supportedCountries
 
 			let supportedCountries = supportedCountryIDs.compactMap { Country(countryCode: $0) }
