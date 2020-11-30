@@ -40,14 +40,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 	}
 
 	// MARK: - Private
-
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		//coordinator?.showOverviewScreen()
-		// TODO: (PUM) Make changes here before creating the pull request to make the proper navigation flow.
-		// FIX: (PUM) coordinator?.showNewThankYouScreen()
-	}
-
+	
 	private let viewModel: ExposureSubmissionIntroViewModel
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
