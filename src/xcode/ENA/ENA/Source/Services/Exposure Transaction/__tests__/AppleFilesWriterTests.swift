@@ -9,14 +9,8 @@ final class AppleFilesWriterTests: XCTestCase {
 
 	private class func createRootDir() throws -> URL {
 		let fm = FileManager()
-		let tempDir = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 
-		try fm.createDirectory(
-			atPath: tempDir.path,
-			withIntermediateDirectories: true,
-			attributes: nil
-		)
-		return tempDir
+		return try fm.createKeyPackageDirectory()
 	}
 
 	private var rootDir: URL!
@@ -27,10 +21,6 @@ final class AppleFilesWriterTests: XCTestCase {
 			try FileManager().removeItem(at: rootDir)
 		}
 		rootDir = try type(of: self).createRootDir()
-	}
-
-	override func tearDownWithError() throws {
-		try FileManager().removeItem(at: rootDir)
 	}
 
 	func testWriterWithoutPackagesDoesNothing() throws {
@@ -73,13 +63,7 @@ final class AppleFilesWriterTests: XCTestCase {
 		XCTAssertEqual(writtenFiles?.count, 2)
 
 		writer.writtenPackages.cleanUp()
-		
-		let contentsOfRootDir = try? FileManager().contentsOfDirectory(
-			at: rootDir,
-			includingPropertiesForKeys: nil,
-			options: .skipsHiddenFiles
-		)
-
-		XCTAssertTrue(contentsOfRootDir?.isEmpty == true)
+	
+		XCTAssertFalse(FileManager().fileExists(atPath: rootDir.path))
 	}
 }
