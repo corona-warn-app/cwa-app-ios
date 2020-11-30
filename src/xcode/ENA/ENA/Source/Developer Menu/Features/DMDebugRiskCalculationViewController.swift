@@ -98,11 +98,9 @@ class DMDebugRiskCalculationViewController: UIViewController {
 
 }
 
-struct  RiscCalculationDebugHelper: Codable {
-	
+struct  RiscCalculationDebugHelper: Encodable {
 	let configuration: RiskCalculationConfiguration
 	let mostRecentRiskCalculation: RiskCalculation?
-	
 }
 
 #endif
