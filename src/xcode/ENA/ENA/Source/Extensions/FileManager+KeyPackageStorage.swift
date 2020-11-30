@@ -28,7 +28,7 @@ extension FileManager {
 		removeOrphanedKeyPackages()
 	}
 		
-	/// Deletes all *bin or *sig files inside the tmp directory of the appcointaner. The Riskcalculation has to write the keyfiles to disk and cleans them up
+	/// Deletes all *bin or *sig files inside the tmp directory of the appcontainer. The Riskcalculation has to write the keyfiles to disk and cleans them up
 	/// under normal conditions. BUT if the  Riskcalculation is killed (watchdog or user force quits the app) thoose keyfiles can remain on Disk. This
 	/// functions finds and removes old keyfiles.
 	/// This has to be done since in versions < 1.8 just got written directly into the tmp directory.
