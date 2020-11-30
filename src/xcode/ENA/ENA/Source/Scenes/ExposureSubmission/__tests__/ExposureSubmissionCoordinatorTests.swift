@@ -72,7 +72,18 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 			return
 		}
 
-		XCTAssertNotNil(vc.coordinator)
+		vc.viewDidLoad()
+		XCTAssertNotNil(vc.dynamicTableViewModel)
+		XCTAssertEqual(vc.dynamicTableViewModel.numberOfSection, 2)
+		
+		let section1 = vc.dynamicTableViewModel.section(0)
+		XCTAssertNotNil(section1)
+		XCTAssertEqual(section1.cells.count, 2)
+		
+		let section2 = vc.dynamicTableViewModel.section(1)
+		XCTAssertNotNil(section2)
+		XCTAssertEqual(section2.cells.count, 4)
+
 	}
 
 	func testStart_withResult() {
