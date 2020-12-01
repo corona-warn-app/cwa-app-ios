@@ -106,6 +106,15 @@ struct ExposureSubmissionWarnOthersViewModel {
 }
 
 extension DynamicCell {
+
+	/// A `DynamicAcknowledgementCell` to display a list of acknowledgements the user is informed about.
+	/// - Parameters:
+	///   - title: The title/header for the legal foo.
+	///   - description: Optional description text.
+	///   - textBlocks: A list of strings to be shown.
+	///   - accessibilityIdentifier: Optional, but highly recommended, accessibility identifier.
+	///   - configure: Optional custom cell configuration
+	/// - Returns: A `DynamicCell` to display legal texts
 	static func legal(
 		title: NSAttributedString,
 		description: NSAttributedString?,

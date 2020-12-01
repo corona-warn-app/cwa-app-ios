@@ -125,7 +125,15 @@ struct ExposureSubmissionQRInfoViewModel {
 }
 
 extension DynamicCell {
-	
+
+	/// A `DynamicAcknowledgementCell` to display a list of acknowledgements the user is informed about.
+	/// - Parameters:
+	///   - title: The title/header for the legal foo.
+	///   - description: Optional description text.
+	///   - bulletPoints: A list of strings to be prefixed with bullet points.
+	///   - accessibilityIdentifier: Optional, but highly recommended, accessibility identifier.
+	///   - configure: Optional custom cell configuration
+	/// - Returns: A `DynamicCell` to display legal texts
 	static func acknowledgement(
 		title: NSAttributedString,
 		description: NSAttributedString?,
@@ -142,6 +150,13 @@ extension DynamicCell {
 		}
 	}
 
+
+	/// A `LabelledCountriesCell` that displays a list of country flags and their localized names as simple list below.
+	/// - Parameters:
+	///   - countries: The countries to display
+	///   - accessibilityIdentifier: Optional, but highly recommended, accessibility identifier.
+	///   - configure: Optional custom cell configuration
+	/// - Returns: A `DynamicCell` to display country flags and names
 	static func countries(
 		countries: [Country],
 		accessibilityIdentifier: String? = nil,
