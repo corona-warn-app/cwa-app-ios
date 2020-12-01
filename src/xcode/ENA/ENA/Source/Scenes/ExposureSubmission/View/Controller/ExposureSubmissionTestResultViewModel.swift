@@ -22,7 +22,6 @@ class ExposureSubmissionTestResultViewModel {
 		self.testResult = testResult
 		self.exposureSubmissionService = exposureSubmissionService
 		self.onContinueWithSymptomsFlowButtonTap = onContinueWithSymptomsFlowButtonTap
-		// (kga) Fix right next controller (warn others)
 		self.onContinueWarnOthersButtonTap = onContinueWithoutSymptomsFlowButtonTap
 		self.onContinueHomeButtonTap = onContinueHomeButtonTap
 		self.onTestDeleted = onTestDeleted
@@ -111,7 +110,6 @@ class ExposureSubmissionTestResultViewModel {
 	
 	// MARK: - Private
 	
-	// (kga)
 	private var isSubmissionConsentGiven: Bool = false
 	
 	private var currentPositiveTestResultSection: [DynamicSection] = []
@@ -213,7 +211,6 @@ class ExposureSubmissionTestResultViewModel {
 		}
 	}
 	
-	// (kga) refactor for both cases
 	private var currentTestResultSections: [DynamicSection] {
 		switch testResult {
 		case .positive:
@@ -229,7 +226,6 @@ class ExposureSubmissionTestResultViewModel {
 		}
 	}
 	
-	// (kga) Rework for 3622 and 3623
 	/// This is the positive result section which will be shown, if the user
 	/// has GIVEN submission consent to share the positive test result with others
 	private var positiveTestResultSectionsWithSubmissionConsent: [DynamicSection] {

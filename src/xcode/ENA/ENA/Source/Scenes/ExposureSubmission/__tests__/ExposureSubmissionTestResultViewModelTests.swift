@@ -157,8 +157,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonHidden)
 		XCTAssertFalse(model.navigationFooterItem.secondaryButtonHasBorder)
 		
-		// (kga) Update tests for new secondary background color thingy
-		
 		model.didTapPrimaryButton()
 		
 		waitForExpectations(timeout: .short)
