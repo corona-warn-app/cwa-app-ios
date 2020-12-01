@@ -7,6 +7,8 @@ import UIKit
 
 struct ExposureSubmissionWarnOthersViewModel {
 
+	// MARK: - Properties
+
 	private let countries: [Country]
 	private let acknowledgementString: NSAttributedString = {
 		let boldText = AppStrings.ExposureSubmissionWarnOthers.acknowledgement_1_1
@@ -21,6 +23,8 @@ struct ExposureSubmissionWarnOthersViewModel {
 
 		return string
 	}()
+
+	// MARK: - Init
 
 	init(supportedCountries: [Country]) {
 		countries = supportedCountries
