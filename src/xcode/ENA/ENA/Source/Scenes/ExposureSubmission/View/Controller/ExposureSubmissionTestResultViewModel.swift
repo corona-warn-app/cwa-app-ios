@@ -273,7 +273,7 @@ class ExposureSubmissionTestResultViewModel {
 					ExposureSubmissionDynamicCell.stepCell(
 						style: .body,
 						title: AppStrings.ExposureSubmissionPositiveTestResult.noConsentInfo2,
-						icon: UIImage(named: "Icons - Warnen"),
+						icon: UIImage(named: "Icons - Lock"),
 						iconTint: .enaColor(for: .riskHigh),
 						hairline: .iconAttached,
 						bottomSpacing: .normal
