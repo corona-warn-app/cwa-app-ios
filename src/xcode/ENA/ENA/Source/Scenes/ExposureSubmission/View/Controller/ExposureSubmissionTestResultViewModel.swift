@@ -84,11 +84,8 @@ class ExposureSubmissionTestResultViewModel {
 	func didTapSecondaryButton() {
 		switch testResult {
 		case .positive:
-		
 			// In both cases first an abort alert will be shown
 			self.shouldShowPositivTestResultAlert = true
-		
-			//onContinueHomeButtonTap()
 		case .pending:
 			shouldShowDeletionConfirmationAlert = true
 		case .negative, .invalid, .expired:
