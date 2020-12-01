@@ -50,6 +50,9 @@ final class MockTestStore: Store, AppConfigCaching {
 	var isDeviceTimeCorrect = true
 	var wasDeviceTimeErrorShown = false
 	var isSubmissionConsentGiven = false
+	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]?
+	var submissionCountries: [Country]?
+	var submissionSymptomsOnset: SymptomsOnset?
 
 	#if !RELEASE
 	// Settings from the debug menu.
