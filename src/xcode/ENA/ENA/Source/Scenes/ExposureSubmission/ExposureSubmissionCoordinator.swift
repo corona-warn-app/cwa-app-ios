@@ -98,16 +98,7 @@ extension ExposureSubmissionCoordinator {
 
 	private func push(_ vc: UIViewController) {
 		self.navigationController?.pushViewController(vc, animated: true)
-		setupDismissConfirmationOnSwipeDown(for: vc)
-	}
-
-	private func setupDismissConfirmationOnSwipeDown(for vc: UIViewController) {
-		guard let vc = vc as? RequiresDismissConfirmation else {
-			return
-		}
-
-		vc.navigationController?.presentationController?.delegate = self
-		vc.isModalInPresentation = true
+		
 	}
 
 	/// This method selects the correct initial view controller among the following options:
