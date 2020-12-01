@@ -74,8 +74,6 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			self.isSubmissionConsentGiven = isSubmissionConsentGiven
 		}
 
-		
-
 		model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
 			appConfigurationProvider: appConfigurationProvider
@@ -290,7 +288,8 @@ extension ExposureSubmissionCoordinator {
 						}
 					)
 				}
-			), exposureSubmissionService: self.model.exposureSubmissionService,
+			),
+			exposureSubmissionService: self.model.exposureSubmissionService,
 			presentCancelAlert: { [weak self] in
 				self?.presentPositiveTestResultCancelAlert()
 			}
