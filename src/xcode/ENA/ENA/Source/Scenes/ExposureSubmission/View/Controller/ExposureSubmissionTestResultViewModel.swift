@@ -15,6 +15,7 @@ class ExposureSubmissionTestResultViewModel {
 		exposureSubmissionService: ExposureSubmissionService,
 		onContinueWithSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onContinueWithoutSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
+		onContinueHomeButtonTap: @escaping () -> Void,
 		onTestDeleted: @escaping () -> Void,
 		onSubmissionConsentButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
@@ -22,6 +23,7 @@ class ExposureSubmissionTestResultViewModel {
 		self.exposureSubmissionService = exposureSubmissionService
 		self.onContinueWithSymptomsFlowButtonTap = onContinueWithSymptomsFlowButtonTap
 		self.onContinueWarnOthersButtonTap = onContinueWithoutSymptomsFlowButtonTap
+		self.onContinueHomeButtonTap = onContinueHomeButtonTap
 		self.onTestDeleted = onTestDeleted
 		self.onSubmissionConsentButtonTap = onSubmissionConsentButtonTap
 		self.warnOthersReminder = warnOthersReminder
@@ -53,9 +55,8 @@ class ExposureSubmissionTestResultViewModel {
 	func didTapPrimaryButton() {
 		switch testResult {
 		case .positive:
-			// (kga) Update next step based on consten state
-			// In case the user has given exposure submission consent, we
-			// continue with collecting onset of symptoms.
+			// Determine next step based on consent state. In case the user has given exposure
+			// submission consent, we continue with collecting onset of symptoms.
 			// Otherwise we continue with the warn others process
 			if isSubmissionConsentGiven {
 				Log.info("Positive Test Result: Next -> 'onset of symptoms'.")
@@ -65,7 +66,7 @@ class ExposureSubmissionTestResultViewModel {
 			} else {
 				Log.info("Positive Test Result: Next -> 'warn others'.")
 				onContinueWarnOthersButtonTap { [weak self] isLoading in
-					self?.secondaryButtonIsLoading = isLoading
+					self?.primaryButtonIsLoading = isLoading
 				}
 			}
 			
@@ -83,11 +84,8 @@ class ExposureSubmissionTestResultViewModel {
 	func didTapSecondaryButton() {
 		switch testResult {
 		case .positive:
-			// (kga) Update next step based on consent state
+			// In both cases first an abort alert will be shown
 			self.shouldShowPositivTestResultAlert = true
-			onContinueWarnOthersButtonTap { [weak self] isLoading in
-				self?.secondaryButtonIsLoading = isLoading
-			}
 		case .pending:
 			shouldShowDeletionConfirmationAlert = true
 		case .negative, .invalid, .expired:
@@ -109,8 +107,7 @@ class ExposureSubmissionTestResultViewModel {
 	
 	// MARK: - Private
 	
-	// (kga)
-	private var isSubmissionConsentGiven: Bool = false;
+	private var isSubmissionConsentGiven: Bool = false
 	
 	private var currentPositiveTestResultSection: [DynamicSection] = []
 	
@@ -133,6 +130,8 @@ class ExposureSubmissionTestResultViewModel {
 	private let onContinueWarnOthersButtonTap: (@escaping (Bool) -> Void) -> Void
 	
 	private let onSubmissionConsentButtonTap: (@escaping (Bool) -> Void) -> Void
+	
+	private let onContinueHomeButtonTap: () -> Void
 	
 	private let onTestDeleted: () -> Void
 	
@@ -185,6 +184,7 @@ class ExposureSubmissionTestResultViewModel {
 			navigationFooterItem.isSecondaryButtonEnabled = true
 			navigationFooterItem.isSecondaryButtonHidden = false
 			navigationFooterItem.secondaryButtonHasBorder = true
+			navigationFooterItem.secondaryButtonHasBackground = true
 		case .negative, .invalid, .expired:
 			navigationFooterItem.primaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
 		case .pending:
@@ -208,7 +208,6 @@ class ExposureSubmissionTestResultViewModel {
 		}
 	}
 	
-	// (kga) refactor for both cases
 	private var currentTestResultSections: [DynamicSection] {
 		switch testResult {
 		case .positive:
@@ -224,7 +223,6 @@ class ExposureSubmissionTestResultViewModel {
 		}
 	}
 	
-	// (kga) Rework for 3622 and 3623
 	/// This is the positive result section which will be shown, if the user
 	/// has GIVEN submission consent to share the positive test result with others
 	private var positiveTestResultSectionsWithSubmissionConsent: [DynamicSection] {
@@ -275,7 +273,7 @@ class ExposureSubmissionTestResultViewModel {
 					ExposureSubmissionDynamicCell.stepCell(
 						style: .body,
 						title: AppStrings.ExposureSubmissionPositiveTestResult.noConsentInfo2,
-						icon: UIImage(named: "Icons - Warnen"),
+						icon: UIImage(named: "Icons - Lock"),
 						iconTint: .enaColor(for: .riskHigh),
 						hairline: .iconAttached,
 						bottomSpacing: .normal

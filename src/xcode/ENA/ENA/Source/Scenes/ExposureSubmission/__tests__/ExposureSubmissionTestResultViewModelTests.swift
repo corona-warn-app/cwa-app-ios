@@ -25,6 +25,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -50,6 +51,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 			},
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -85,6 +87,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 					onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 				},
 				onContinueWithoutSymptomsFlowButtonTap: { _ in },
+				onContinueHomeButtonTap: { },
 				onTestDeleted: { },
 				onSubmissionConsentButtonTap: { _ in }
 			)
@@ -117,6 +120,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 			},
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -144,6 +148,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -156,8 +161,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		XCTAssertTrue(model.navigationFooterItem.isSecondaryButtonEnabled)
 		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonHidden)
 		XCTAssertFalse(model.navigationFooterItem.secondaryButtonHasBorder)
-		
-		// (kga) Update tests for new secondary background color thingy
 		
 		model.didTapPrimaryButton()
 		
@@ -187,6 +190,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -212,6 +216,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 			},
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -240,6 +245,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 			},
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -263,6 +269,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -297,8 +304,9 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in
-				onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill()
+			onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill()
 			},
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -323,6 +331,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill() },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -351,6 +360,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				onContinueWithoutSymptomsFlowButtonTap: { _ in
 					onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill()
 				},
+				onContinueHomeButtonTap: { },
 				onTestDeleted: { },
 				onSubmissionConsentButtonTap: { _ in }
 			)
@@ -379,6 +389,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				
 				onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill()
 			},
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -407,6 +418,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				
 				onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill()
 			},
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -433,6 +445,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: {
 				onTestDeletedCalledExpectation.fulfill()
 			},
@@ -450,6 +463,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -470,6 +484,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -492,6 +507,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				exposureSubmissionService: MockExposureSubmissionService(),
 				onContinueWithSymptomsFlowButtonTap: { _ in },
 				onContinueWithoutSymptomsFlowButtonTap: { _ in },
+				onContinueHomeButtonTap: { },
 				onTestDeleted: { },
 				onSubmissionConsentButtonTap: { _ in }
 			)
@@ -513,6 +529,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -543,6 +560,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -597,6 +615,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -631,6 +650,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -669,6 +689,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)

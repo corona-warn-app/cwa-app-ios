@@ -53,9 +53,9 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	}
 
 	// MARK: - Protocol DismissHandling
-		func presentDismiss(dismiss: @escaping () -> Void) {
-			presentCancelAlert()
-		}
+	func presentDismiss(dismiss: @escaping () -> Void) {
+		presentCancelAlert()
+	}
 	
 	// MARK: - Private
 	
@@ -113,7 +113,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 				self.viewModel.shouldShowPositivTestResultAlert = false
 				
 				self.presentCancelAlert()
-				
+						
 			}
 			.store(in: &bindings)
 
