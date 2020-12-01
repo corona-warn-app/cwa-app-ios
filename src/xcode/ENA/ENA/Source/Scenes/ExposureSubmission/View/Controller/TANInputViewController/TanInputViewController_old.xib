@@ -112,7 +112,7 @@
                 <constraint firstAttribute="trailing" secondItem="oK8-fN-Pma" secondAttribute="trailing" id="Tst-QX-HCb"/>
                 <constraint firstItem="Oji-ug-i4M" firstAttribute="height" secondItem="Utf-lk-Slw" secondAttribute="height" priority="750" id="imQ-6P-92T"/>
             </constraints>
-            <point key="canvasLocation" x="-26" y="-492"/>
+            <point key="canvasLocation" x="126" y="-521"/>
         </view>
     </objects>
     <designables>

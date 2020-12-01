@@ -12,7 +12,6 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		viewModel: TanInputViewModel
 	) {
 		self.viewModel = viewModel
-
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -25,11 +24,11 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
-		errorView.alpha = 0
+//		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
+//		errorView.alpha = 0
 		footerView?.isHidden = false
 
-		tanInput.delegate = self
+//		tanInput.delegate = self
 
 		viewModel.togglePrimaryButton = { [weak self] in
 			self?.togglePrimaryNavigationButton()
@@ -42,16 +41,15 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
+
 		DispatchQueue.main.async { [weak self] in
-			self?.tanInput.becomeFirstResponder()
+			self?.tanInputView.becomeFirstResponder()
+//			self?.tanInput.becomeFirstResponder()
 		}
 	}
 
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-		tanInput.resignFirstResponder()
-	}
-	
+//
+
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 	
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
@@ -97,7 +95,6 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	func togglePrimaryNavigationButton() {
 		navigationFooterItem?.isPrimaryButtonLoading.toggle()
 		navigationFooterItem?.isPrimaryButtonEnabled.toggle()
-//		navigationFooterItem?.isPrimaryButtonLoading = loading
 	}
 
 	// MARK: - Private
@@ -109,7 +106,21 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	@IBOutlet var errorView: UIView!
 	@IBOutlet var tanInput: ENATanInput!
 
-	private(set) weak var coordinator: ExposureSubmissionCoordinating?
+	private lazy var tanInputView: TanInputView = {
+		let tanInputView = TanInputView(frame: .zero, viewModel: viewModel)
+		tanInputView.isUserInteractionEnabled = true
+		tanInputView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(tanInputView)
+
+		NSLayoutConstraint.activate([
+			tanInputView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			tanInputView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+//			tanInputView.heightAnchor.constraint(equalToConstant: 50.0),
+			tanInputView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			tanInputView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+		])
+		return tanInputView
+	}()
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()

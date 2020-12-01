@@ -50,6 +50,12 @@ final class TanInputViewModel {
 		return true
 	}
 
+	var text: String = ""
+
+	var currentTextIsValid: Bool {
+		return isValid(text)
+	}
+
 	func isValid(_ tan: String) -> Bool {
 		let count = tan.count
 		let digitGroups = { groups.split(separator: ",").compactMap({ Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }) }()
@@ -72,7 +78,7 @@ final class TanInputViewModel {
 	private let testGotResultSubmitted: () -> Void
 
 	private var groups: String = "3,3,4"
-	private var digitGroups: [Int] { groups.split(separator: ",").compactMap({ Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }) }
+	var digitGroups: [Int] { groups.split(separator: ",").compactMap({ Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }) }
 
 	private func calculateChecksum(input: String) -> Character? {
 		let hash = Hasher.sha256(input)
