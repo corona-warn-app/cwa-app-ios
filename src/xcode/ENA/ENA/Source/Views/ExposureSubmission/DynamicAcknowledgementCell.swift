@@ -30,7 +30,7 @@ class DynamicAcknowledgementCell: UITableViewCell {
 		// create a fake label to get the default font for these
 		let label = ENALabel()
 		// 'bulletized' strings
-		let textBlocks = bulletPoints.map({ $0.bulletPointString(bulletPointFont: label.font)})
+		let textBlocks = bulletPoints.map({ $0.bulletPointString(bulletPointFont: label.font) })
 		configure(title: title, description: description, textBlocks: textBlocks, accessibilityIdentifier: accessibilityIdentifier)
 	}
 

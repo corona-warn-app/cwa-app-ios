@@ -80,7 +80,7 @@ struct ExposureSubmissionWarnOthersViewModel {
 				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, alignment: .legal),
 				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, alignment: .legal),
 				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, alignment: .legal),
-				.space(height: 16),
+				.space(height: 16)
 			])
 		)
 
@@ -97,7 +97,7 @@ struct ExposureSubmissionWarnOthersViewModel {
 						cell.accessoryType = .disclosureIndicator
 						cell.selectionStyle = .default
 					}),
-				.space(height: 12),
+				.space(height: 12)
 			])
 		)
 
