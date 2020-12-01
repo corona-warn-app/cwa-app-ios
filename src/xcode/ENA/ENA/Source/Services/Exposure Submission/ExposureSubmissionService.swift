@@ -50,8 +50,20 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		set { self.store.positiveTestResultWasShown = newValue }
 	}
 
-	var supportedCountries: [Country] = []
-	var symptomsOnset: SymptomsOnset = .noInformation
+	var temporaryExposureKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? {
+		get { self.store.submissionKeys }
+		set { self.store.submissionKeys = newValue }
+	}
+
+	var supportedCountries: [Country] {
+		get { self.store.submissionCountries }
+		set { self.store.submissionCountries = newValue }
+	}
+
+	var symptomsOnset: SymptomsOnset {
+		get { self.store.submissionSymptomsOnset }
+		set { self.store.submissionSymptomsOnset = newValue }
+	}
 
 	var hasRegistrationToken: Bool {
 		guard let token = store.registrationToken, !token.isEmpty else {

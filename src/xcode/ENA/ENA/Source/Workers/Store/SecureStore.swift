@@ -251,13 +251,13 @@ final class SecureStore: Store {
 		}
 	}
 
-	var submissionCountries: [Country]? {
-		get { kvStore["submissionCountries"] as [Country]? }
+	var submissionCountries: [Country] {
+		get { kvStore["submissionCountries"] as [Country]? ?? [.defaultCountry()] }
 		set { kvStore["submissionCountries"] = newValue }
 	}
 
-	var submissionSymptomsOnset: SymptomsOnset? {
-		get { kvStore["submissionSymptomsOnset"] as SymptomsOnset? }
+	var submissionSymptomsOnset: SymptomsOnset {
+		get { kvStore["submissionSymptomsOnset"] as SymptomsOnset? ?? .noInformation }
 		set { kvStore["submissionSymptomsOnset"] = newValue }
 	}
 	
