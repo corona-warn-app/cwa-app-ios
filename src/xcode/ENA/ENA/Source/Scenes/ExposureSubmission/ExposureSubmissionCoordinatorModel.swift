@@ -16,7 +16,7 @@ class ExposureSubmissionCoordinatorModel {
 
 		// Initial loading of country list
 		// This is an intermediate solution until further refactoring has been done
-		loadSupportedCountries { _ in
+		exposureSubmissionService.loadSupportedCountries { _ in
 			// no op
 		} onSuccess: {
 			Log.debug("[Coordinator] initial country list loaded", log: .riskDetection)
