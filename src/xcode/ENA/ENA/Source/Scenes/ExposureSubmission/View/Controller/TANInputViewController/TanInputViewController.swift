@@ -9,13 +9,10 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	// MARK: - Init
 
 	init(
-		coordinator: ExposureSubmissionCoordinating,
-		exposureSubmissionService: ExposureSubmissionService
+		viewModel: TanInputViewModel
 	) {
-		self.coordinator = coordinator
-		self.exposureSubmissionService = exposureSubmissionService
-		self.viewModel = TanInputViewModel()
-		
+		self.viewModel = viewModel
+
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -30,6 +27,13 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		super.viewDidLoad()
 		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
 		errorView.alpha = 0
+		footerView?.isHidden = false
+
+		tanInput.delegate = self
+
+		viewModel.togglePrimaryButton = { [weak self] in
+			self?.togglePrimaryNavigationButton()
+		}
 	}
 	
 	override var navigationItem: UINavigationItem {
@@ -38,15 +42,8 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-
-		if let tan = initialTan {
-			tanInput.clear()
-			tanInput.insertText(tan)
-			initialTan = nil
-		} else {
-			DispatchQueue.main.async {
-				self.tanInput.becomeFirstResponder()
-			}
+		DispatchQueue.main.async { [weak self] in
+			self?.tanInput.becomeFirstResponder()
 		}
 	}
 
@@ -59,7 +56,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		tanInput.resignFirstResponder()
-		submitTan()
+		viewModel.submitTan(tanInput.text)
 	}
 	
 	// MARK: - Protocol ENATanInputDelegate
@@ -87,7 +84,8 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	}
 
 	func enaTanInputDidTapReturn(_ tanInput: ENATanInput) -> Bool {
-		return submitTan()
+//		return submitTan()
+		return false
 	}
 
 	// MARK: - Public
@@ -96,41 +94,10 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	
 	let viewModel: TanInputViewModel
 
-	private var initialTan: String?
-	
-	@discardableResult
-	func submitTan() -> Bool {
-		guard tanInput.isValid && tanInput.isChecksumValid else { return false }
-
-		navigationFooterItem?.isPrimaryButtonLoading = true
-		navigationFooterItem?.isPrimaryButtonEnabled = false
-
-		// If teleTAN is correct, show Alert Controller
-		// to check permissions to request TAN.
-		let teleTan = tanInput.text
-
-		exposureSubmissionService?.getRegistrationToken(forKey: .teleTan(teleTan)) { result in
-
-			switch result {
-			case let .failure(error):
-
-				let alert = self.setupErrorAlert(
-					message: error.localizedDescription,
-					completion: {
-						self.navigationFooterItem?.isPrimaryButtonLoading = false
-						self.navigationFooterItem?.isPrimaryButtonEnabled = true
-						self.tanInput.becomeFirstResponder()
-					}
-				)
-				self.present(alert, animated: true, completion: nil)
-
-			case .success:
-				// A TAN always indicates a positive test result.
-				self.coordinator?.showTestResultScreen(with: .positive)
-			}
-		}
-
-		return true
+	func togglePrimaryNavigationButton() {
+		navigationFooterItem?.isPrimaryButtonLoading.toggle()
+		navigationFooterItem?.isPrimaryButtonEnabled.toggle()
+//		navigationFooterItem?.isPrimaryButtonLoading = loading
 	}
 
 	// MARK: - Private
@@ -140,9 +107,8 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	@IBOutlet private var descriptionLabel: UILabel!
 	@IBOutlet var errorLabel: UILabel!
 	@IBOutlet var errorView: UIView!
-	@IBOutlet var tanInput: ENATanInput! { didSet { tanInput.delegate = self } }
+	@IBOutlet var tanInput: ENATanInput!
 
-	private(set) weak var exposureSubmissionService: ExposureSubmissionService?
 	private(set) weak var coordinator: ExposureSubmissionCoordinating?
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {

@@ -285,8 +285,39 @@ extension ExposureSubmissionCoordinator {
 	}
 
 	func showTanScreen() {
-		let vc = TanInputViewController(coordinator: self, exposureSubmissionService: self.model.exposureSubmissionService)
+		let tanInputViewModel = TanInputViewModel(
+			exposureSubmissionService: model.exposureSubmissionService,
+			presentInvalidTanAlert: { [weak self] localizedDescription in
+				self?.presentTanInvalidAlert(localizedDescription: localizedDescription)
+			},
+			testGotResultSubmitted: { [weak self] in
+				// A TAN always indicates a positive test result.
+				self?.showTestResultScreen(with: .positive)
+			}
+		)
+
+		let vc = TanInputViewController(
+			viewModel: tanInputViewModel
+		)
 		push(vc)
+	}
+
+	private func presentTanInvalidAlert(localizedDescription: String) {
+		let alert = UIAlertController(title: AppStrings.ExposureSubmission.generalErrorTitle, message: localizedDescription, preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .cancel))
+		navigationController?.present(alert, animated: true, completion: nil)
+
+/*
+		let alert = self.setupErrorAlert(
+			message: localizedDescription,
+			completion: {
+				self.navigationFooterItem?.isPrimaryButtonLoading = false
+				self.navigationFooterItem?.isPrimaryButtonEnabled = true
+				self.tanInput.becomeFirstResponder()
+			}
+		)
+		self.present(alert, animated: true, completion: nil)
+*/
 	}
 
 	private func showQRInfoScreen() {
