@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import ExposureNotification
 
 typealias RiskProviderResult = Result<Risk, RiskProviderError>
 
@@ -26,6 +27,33 @@ enum RiskProviderError: Error {
 				if let exposureDetectionError = exposureWindowsError as? ExposureDetectionError {
 					return exposureDetectionError == .isAlreadyRunning
 				}
+			}
+		default:
+			break
+		}
+
+		return false
+	}
+
+	var shouldBeDisplayedToUser: Bool {
+		!isENError16DataInaccessible
+	}
+
+	private var isENError16DataInaccessible: Bool {
+		switch self {
+		case .failedRiskDetection(let didEndPrematuralyReason):
+			switch didEndPrematuralyReason {
+			case let .noExposureWindows(error):
+				if let enError = error as? ENError {
+					switch enError.code {
+					case .dataInaccessible:
+						return true
+					default:
+						break
+					}
+				}
+			default:
+				break
 			}
 		default:
 			break

@@ -102,6 +102,11 @@ final class HomeInteractor: RequiresAppDependencies {
 				return
 			}
 
+			guard error.shouldBeDisplayedToUser else {
+				Log.info("[HomeInteractor] Don't show error to user: \(error).", log: .riskDetection)
+				return
+			}
+
             switch error {
             case .inactive:
 				self.state.riskState = .inactive
