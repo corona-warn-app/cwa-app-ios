@@ -5,17 +5,19 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionThankYouViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
-	
+class ExposureSubmissionThankYouViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
+
 	// MARK: - Init
 	
 	init(
 		onPrimaryButtonTap: (@escaping() -> Void),
-		onSecondaryButtonTap: (@escaping() -> Void)
+		onSecondaryButtonTap: (@escaping() -> Void),
+		onCancelAlert: (@escaping() -> Void)
 	) {
 		self.viewModel = ExposureSubmissionThankYouViewModel()
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 		self.onSecondaryButtonTap = onSecondaryButtonTap
+		self.onCancelAlert = onCancelAlert
 		
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -47,11 +49,18 @@ class ExposureSubmissionThankYouViewController: DynamicTableViewController, ENAN
 		onSecondaryButtonTap()
 	}
 	
+	// MARK: - Protocol DismissHandling
+	
+	func presentDismiss(dismiss: @escaping () -> Void) {
+		onCancelAlert()
+	}
+	
 	// MARK: - Private
 	
 	private let viewModel: ExposureSubmissionThankYouViewModel
 	private let onPrimaryButtonTap: (() -> Void)
 	private let onSecondaryButtonTap: (() -> Void)
+	private let onCancelAlert: (() -> Void)
 	
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()

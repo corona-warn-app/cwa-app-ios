@@ -395,8 +395,8 @@ extension ExposureSubmissionCoordinator {
 	func showWarnOthersScreen() {
 		let vc = createWarnOthersViewController(
 			supportedCountries: model.supportedCountries,
-			onPrimaryButtonTap: { _ in
-				self.showThankYouScreen()
+			onPrimaryButtonTap: { [weak self] _ in
+				self?.showThankYouScreen()
 			}
 		)
 		push(vc)
@@ -428,8 +428,11 @@ extension ExposureSubmissionCoordinator {
 		let thankYouVC = ExposureSubmissionThankYouViewController { [weak self] in
 			self?.showSymptomsScreen()
 		} onSecondaryButtonTap: { [weak self] in
-			self?.dismiss()
+			self?.presentPositiveTestResultCancelAlert()
+		} onCancelAlert: { [weak self] in
+			self?.presentPositiveTestResultCancelAlert()
 		}
+
 		push(thankYouVC)
 
 	}
