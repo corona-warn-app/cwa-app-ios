@@ -189,6 +189,7 @@ class ExposureSubmissionTestResultViewModel {
 			navigationFooterItem.isSecondaryButtonEnabled = true
 			navigationFooterItem.isSecondaryButtonHidden = false
 			navigationFooterItem.secondaryButtonHasBorder = true
+			navigationFooterItem.secondaryButtonHasBackground = true
 		case .negative, .invalid, .expired:
 			navigationFooterItem.primaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
 		case .pending:
