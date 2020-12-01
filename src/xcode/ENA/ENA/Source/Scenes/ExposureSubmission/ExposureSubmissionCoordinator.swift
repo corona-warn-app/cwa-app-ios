@@ -36,6 +36,7 @@ protocol ExposureSubmissionCoordinatorDelegate: class {
 	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinating)
 }
 
+// swiftlint:disable file_length
 /// Concrete implementation of the ExposureSubmissionCoordinator protocol.
 class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, RequiresAppDependencies {
 
@@ -72,7 +73,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		
 		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
 			self.isSubmissionConsentGiven = isSubmissionConsentGiven
-		}
+		}.store(in: &cancellables)
 
 		model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
@@ -430,7 +431,6 @@ extension ExposureSubmissionCoordinator {
 
 	}
 	
-
 	// MARK: - Internal
 	
 	func presentPositiveTestResultCancelAlert() {

@@ -5,6 +5,7 @@
 import UIKit
 import Combine
 
+// swiftlint:disable:next type_body_length
 class ExposureSubmissionTestResultViewModel {
 	
 	// MARK: - Init
