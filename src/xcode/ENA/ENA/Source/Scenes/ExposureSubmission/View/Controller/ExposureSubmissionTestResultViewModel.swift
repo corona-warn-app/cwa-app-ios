@@ -269,7 +269,6 @@ class ExposureSubmissionTestResultViewModel {
 						iconTint: .enaColor(for: .riskHigh),
 						hairline: .iconAttached
 					),
-					// TODO: (kga) Change icon if delivered by UX Team
 					ExposureSubmissionDynamicCell.stepCell(
 						style: .body,
 						title: AppStrings.ExposureSubmissionPositiveTestResult.noConsentInfo2,

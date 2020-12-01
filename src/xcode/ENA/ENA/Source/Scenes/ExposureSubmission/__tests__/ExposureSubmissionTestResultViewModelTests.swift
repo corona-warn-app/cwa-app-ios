@@ -204,7 +204,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	}
 	
 	
-	// (kga) zusätzlichen Fall isSubmissionConsentGiven = false
 	func testDidTapPrimaryButtonOnPositiveTestResultUpdatesButtonsLoadingStateTrue() {
 		let onContinueWithSymptomsFlowButtonTapExpectation = expectation(
 			description: "onContinueWithoutSymptomsFlowButtonTap closure is called"
@@ -236,7 +235,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonEnabled)
 	}
 	
-	// (kga) zusätzlichen Fall isSubmissionConsentGiven = false
 	func testDidTapPrimaryButtonOnPositiveTestResultUpdatesButtonsLoadingStateFalse() {
 		let onContinueWithSymptomsFlowButtonTapExpectation = expectation(
 			description: "onContinueWithoutSymptomsFlowButtonTap closure is not called"
@@ -303,38 +301,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonLoading)
 		XCTAssertTrue(model.navigationFooterItem.isSecondaryButtonEnabled)
 	}
-	
-	// (kga)
-	/*
-	func testDidTapSecondaryButtonOnPositiveTestResult() {
-		let onContinueWithoutSymptomsFlowButtonTapExpectation = expectation(
-			description: "onContinueWithoutSymptomsFlowButtonTap closure is called"
-		)
 		
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.isSubmissionConsentGiven = true
-		
-		let model = ExposureSubmissionTestResultViewModel(
-			warnOthersReminder: WarnOthersReminder(store: self.store), testResult: .positive,
-			exposureSubmissionService: exposureSubmissionService,
-			onContinueWithSymptomsFlowButtonTap: { _ in },
-			onContinueWithoutSymptomsFlowButtonTap: { _ in
-			onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill()
-			},
-			onContinueHomeButtonTap: { },
-			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { _ in }
-		)
-		
-		XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
-		
-		model.didTapSecondaryButton()
-		
-		XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
-		
-		waitForExpectations(timeout: .short)
-	} */
-	
 	func testDidTapSecondaryButtonOnPendingTestResult() {
 		let onContinueWithoutSymptomsFlowButtonTapExpectation = expectation(
 			description: "onContinueWithoutSymptomsFlowButtonTap closure is not called"
