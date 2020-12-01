@@ -510,8 +510,6 @@ extension ExposureSubmissionCoordinator {
 	}
 	
 	
-	
-
 	private func showErrorAlert(for error: ExposureSubmissionError, onCompletion: (() -> Void)? = nil) {
 		Log.error("error: \(error.localizedDescription)", log: .ui)
 
