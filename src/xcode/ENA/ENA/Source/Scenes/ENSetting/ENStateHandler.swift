@@ -54,20 +54,20 @@ final class ENStateHandler {
 		case .disabled:
 			return .disabled
 		case .restricted:
-			return differentiateRestrictedCase()
+			return differentiateWithAuthorizationStatus()
 		case .unknown:
 			return .disabled
 		case .paused:
 			return .disabled
 		case .unauthorized:
-			return .notAuthorized
+			return differentiateWithAuthorizationStatus()
 		@unknown default:
 			Log.error("New state was added that is not being covered by ENStateHandler", log: .api)
 			return .unknown
 		}
 	}
 
-	private func differentiateRestrictedCase() -> State {
+	private func differentiateWithAuthorizationStatus() -> State {
 		switch ENManager.authorizationStatus {
 		case .notAuthorized:
 			return .notAuthorized
