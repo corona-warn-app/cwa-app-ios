@@ -142,11 +142,10 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .listPendingNotifications:
 			vc = DMNotificationsViewController()
 		case .warnOthersNotifications:
-			vc = DMWarnOthersNotificationViewController(warnOthersReminder: warnOthersReminder, store: store)
+			vc = DMWarnOthersNotificationViewController(warnOthersReminder: WarnOthersReminder(store: store), store: store, exposureSubmissionService: exposureSubmissionService)
 		case .deviceTimeCheck:
 			vc = DMDeviceTimeCheckViewController(store: store)
 		}
-		
 		
 		if let vc = vc {
 			navigationController?.pushViewController(

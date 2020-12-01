@@ -211,4 +211,10 @@ final class StoreTests: XCTestCase {
 		store.appConfigMetadata = appConfigMetadata
 		XCTAssertEqual(store.appConfigMetadata, appConfigMetadata)
 	}
+	
+	func testConsentForAutomaticSharingTestResults_initial() throws {
+		let store = SecureStore(subDirectory: "test", serverEnvironment: ServerEnvironment())
+		XCTAssertFalse(store.isSubmissionConsentGiven, "isAllowedToAutomaticallyShareTestResults should be 'false' after initialization")
+
+	}
 }

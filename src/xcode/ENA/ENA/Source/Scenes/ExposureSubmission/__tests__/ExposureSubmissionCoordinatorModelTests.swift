@@ -118,7 +118,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		XCTAssertEqual(model.supportedCountries, [Country(countryCode: "DE")])
 	}
 
-	func testCheckStateAndLoadCountriesStateCheckFails() {
+	func testCheckStateAndLoadCountriesStateCheckFails() throws {
 		let exposureSubmissionService = MockExposureSubmissionService()
 		exposureSubmissionService.preconditionsCallback = { ExposureManagerState(authorized: false, enabled: false, status: .unknown) }
 
@@ -147,7 +147,10 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 
 		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
-		XCTAssert(model.supportedCountries.isEmpty)
+		// there is always a default country
+		XCTAssertFalse(model.supportedCountries.isEmpty)
+		let country = try XCTUnwrap(model.supportedCountries.first)
+		XCTAssertEqual(country, .defaultCountry())
 	}
 
 	// MARK: -

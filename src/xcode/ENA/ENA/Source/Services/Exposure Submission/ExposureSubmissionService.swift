@@ -4,15 +4,27 @@
 
 import ExposureNotification
 import Foundation
+import Combine
 
+/// The `ENASubmissionSubmission Service` provides functions and attributes to access relevant information
+/// around the exposure submission process.
+/// Especially, when it comes to the `submissionConsent`, then only this service should be used to modify (change) the value of the current
+/// state. It wraps around the `SecureStore` binding.
+/// The consent value is published using the `isSubmissionConsentGivenPublisher` and the rest of the application can simply subscribe to
+/// it to stay in sync.
 class ENAExposureSubmissionService: ExposureSubmissionService {
-
+	
 	// MARK: - Init
 
 	init(diagnosiskeyRetrieval: DiagnosisKeysRetrieval, client: Client, store: Store) {
 		self.diagnosiskeyRetrieval = diagnosiskeyRetrieval
 		self.client = client
 		self.store = store
+		self.isSubmissionConsentGiven = store.isSubmissionConsentGiven
+		self.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
+			self.store.isSubmissionConsentGiven = isSubmissionConsentGiven
+		}.store(in: &cancellables)
+		
 	}
 
 	// MARK: - Protocol ExposureSubmissionService
@@ -27,6 +39,20 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		set { self.store.devicePairingSuccessfulTimestamp = newValue }
 	}
 
+	var positiveTestResultWasShown: Bool {
+		get { self.store.positiveTestResultWasShown }
+		set { self.store.positiveTestResultWasShown = newValue }
+	}
+	
+	// Needed to use a publisher in the protocol
+	@Published var isSubmissionConsentGiven: Bool
+	
+	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { $isSubmissionConsentGiven }
+	
+	func setSubmissionConsentGiven(consentGiven: Bool) {
+		isSubmissionConsentGiven = consentGiven
+	}
+	
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
 	/// __Extension for plausible deniability__:
@@ -149,7 +175,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		devicePairingConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
 	}
 
-
 	/// This method is called randomly sometimes in the foreground and from the background.
 	/// It represents the full-fledged dummy request needed to realize plausible deniability.
 	/// Nothing called in this method is considered a "real" request.
@@ -168,6 +193,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	static let fakeRegistrationToken = "63b4d3ff-e0de-4bd4-90c1-17c2bb683a2f"
 
 	// MARK: - Private
+	
+	private var cancellables: Set<AnyCancellable> = []
 
 	private static var fakeSubmissionTan: String { return UUID().uuidString }
 

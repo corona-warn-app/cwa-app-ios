@@ -233,7 +233,12 @@ final class SecureStore: Store {
 		get { kvStore["lastKeyPackageDownloadDate"] as Date? ?? .distantPast }
 		set { kvStore["lastKeyPackageDownloadDate"] = newValue }
 	}
-
+	
+	var isSubmissionConsentGiven: Bool {
+		get { kvStore["isSubmissionConsentGiven"] as Bool? ?? false }
+		set { kvStore["isSubmissionConsentGiven"] = newValue }
+	}
+	
 	#if !RELEASE
 
 	// Settings from the debug menu.
@@ -273,10 +278,11 @@ extension SecureStore {
 		set { kvStore["warnOthersNotificationTimerTwo"] = newValue }
 	}
 	
-	var warnOthersHasActiveTestResult: Bool {
+	var positiveTestResultWasShown: Bool {
 		get { kvStore["warnOthersHasActiveTestResult"] as Bool? ?? false }
 		set { kvStore["warnOthersHasActiveTestResult"] = newValue }
 	}
+
 }
 
 extension SecureStore: AppConfigCaching {
