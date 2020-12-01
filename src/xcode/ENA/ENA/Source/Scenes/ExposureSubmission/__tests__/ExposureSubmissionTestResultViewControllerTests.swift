@@ -30,7 +30,6 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 		)
 	}
 
-	// (kga) rework test
 	func testPositiveState() {
 		let vc = createVC(testResult: .positive)
 		_ = vc.view
@@ -41,7 +40,7 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 
 		let cell = vc.tableView(vc.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? DynamicTypeTableViewCell
 		XCTAssertNotNil(cell)
-		XCTAssertEqual(cell?.textLabel?.text, AppStrings.ExposureSubmissionResult.procedure)
+		XCTAssertEqual(cell?.textLabel?.text, AppStrings.ExposureSubmissionPositiveTestResult.noConsentTitle)
 	}
 
 }
