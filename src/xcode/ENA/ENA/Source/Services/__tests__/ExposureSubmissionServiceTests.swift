@@ -39,13 +39,19 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		service.setSubmissionConsentGiven(consentGiven: true)
+
 		let expectation = self.expectation(description: "Success")
 
 		// Act
-		service.submitExposure {
-			// no `ExposureSubmissionError`
-			XCTAssertNil($0)
-			expectation.fulfill()
+		service.getTemporaryExposureKeys { error in
+			XCTAssertNil(error)
+
+			service.submitExposure { error in
+				XCTAssertNil(error)
+
+				expectation.fulfill()
+			}
 		}
 
 		waitForExpectations(timeout: expectationsTimeout)
@@ -59,18 +65,22 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		service.setSubmissionConsentGiven(consentGiven: true)
+
 		let expectation = self.expectation(description: "NoKeys")
 
 		// Act
-		service.submitExposure { error in
-			defer { expectation.fulfill() }
-			guard let error = error else {
-				XCTFail("error expected")
-				return
-			}
-			guard case ExposureSubmissionError.noKeys = error else {
-				XCTFail("We expect error to be of type expectationsTimeout")
-				return
+		service.getTemporaryExposureKeys { _ in
+			service.submitExposure { error in
+				defer { expectation.fulfill() }
+				guard let error = error else {
+					XCTFail("error expected")
+					return
+				}
+				guard case ExposureSubmissionError.noKeys = error else {
+					XCTFail("We expect error to be of type expectationsTimeout")
+					return
+				}
 			}
 		}
 
@@ -85,18 +95,22 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		service.setSubmissionConsentGiven(consentGiven: true)
+
 		let expectation = self.expectation(description: "EmptyKeys")
 
 		// Act
-		service.submitExposure { error in
-			defer { expectation.fulfill() }
-			guard let error = error else {
-				XCTFail("error expected")
-				return
-			}
-			guard case ExposureSubmissionError.noKeys = error else {
-				XCTFail("We expect error to be of type noKeys")
-				return
+		service.getTemporaryExposureKeys { _ in
+			service.submitExposure { error in
+				defer { expectation.fulfill() }
+				guard let error = error else {
+					XCTFail("error expected")
+					return
+				}
+				guard case ExposureSubmissionError.noKeys = error else {
+					XCTFail("We expect error to be of type noKeys")
+					return
+				}
 			}
 		}
 
@@ -112,19 +126,23 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		service.setSubmissionConsentGiven(consentGiven: true)
+
 		let expectation = self.expectation(description: "invalidPayloadOrHeaders Error")
 
 		// Act
-		service.submitExposure { error in
-			defer { expectation.fulfill() }
-			guard let error = error else {
-				XCTFail("error expected")
-				return
-			}
+		service.getTemporaryExposureKeys { _ in
+			service.submitExposure { error in
+				defer { expectation.fulfill() }
+				guard let error = error else {
+					XCTFail("error expected")
+					return
+				}
 
-			guard case ExposureSubmissionError.invalidPayloadOrHeaders = error else {
-				XCTFail("We expect error to be of type invalidPayloadOrHeaders")
-				return
+				guard case ExposureSubmissionError.invalidPayloadOrHeaders = error else {
+					XCTFail("We expect error to be of type invalidPayloadOrHeaders")
+					return
+				}
 			}
 		}
 
@@ -140,14 +158,18 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		service.setSubmissionConsentGiven(consentGiven: true)
+
 		let expectation = self.expectation(description: "InvalidRegToken")
 
 		// Act
-		service.submitExposure {error in
-			defer {
-				expectation.fulfill()
+		service.getTemporaryExposureKeys { _ in
+			service.submitExposure { error in
+				defer {
+					expectation.fulfill()
+				}
+				XCTAssertEqual(error, .noRegistrationToken)
 			}
-			XCTAssertEqual(error, .noRegistrationToken)
 		}
 
 		waitForExpectations(timeout: expectationsTimeout)
@@ -311,13 +333,17 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		let expectation = self.expectation(description: "Correct error description received.")
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		service.setSubmissionConsentGiven(consentGiven: true)
+
 
 		// Execute test.
 		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
 
-		service.submitExposure { error in
-			expectation.fulfill()
-			XCTAssertEqual(error?.localizedDescription, controlTest)
+		service.getTemporaryExposureKeys { _ in
+			service.submitExposure { error in
+				expectation.fulfill()
+				XCTAssertEqual(error?.localizedDescription, controlTest)
+			}
 		}
 
 		waitForExpectations(timeout: .short)
@@ -333,13 +359,16 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		store.registrationToken = "dummyRegistrationToken"
 		let expectation = self.expectation(description: "Correct error description received.")
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		service.setSubmissionConsentGiven(consentGiven: true)
 
 		// Execute test.
 		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
 
-		service.submitExposure { error in
-			expectation.fulfill()
-			XCTAssertEqual(error?.localizedDescription, controlTest)
+		service.getTemporaryExposureKeys { _ in
+			service.submitExposure { error in
+				expectation.fulfill()
+				XCTAssertEqual(error?.localizedDescription, controlTest)
+			}
 		}
 
 		waitForExpectations(timeout: .short)
@@ -363,24 +392,28 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		client.onGetTANForExposureSubmit = { _, _, completion in completion(.success(tan)) }
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		service.setSubmissionConsentGiven(consentGiven: true)
+
 		let expectation = self.expectation(description: "all callbacks called")
 		expectation.expectedFulfillmentCount = 2
 
 		// Execute test.
 
-		service.submitExposure { result in
-			expectation.fulfill()
-			XCTAssertNotNil(result)
-
-			// Retry.
-			client.onSubmitCountries = { $2(.success(())) }
-			client.onGetTANForExposureSubmit = { _, isFake, completion in
-				XCTAssertTrue(isFake, "When executing the real request, instead of using the stored TAN, we have made a request to the server.")
-				completion(.failure(.fakeResponse))
-			}
+		service.getTemporaryExposureKeys { _ in
 			service.submitExposure { result in
 				expectation.fulfill()
-				XCTAssertNil(result)
+				XCTAssertNotNil(result)
+
+				// Retry.
+				client.onSubmitCountries = { $2(.success(())) }
+				client.onGetTANForExposureSubmit = { _, isFake, completion in
+					XCTAssertTrue(isFake, "When executing the real request, instead of using the stored TAN, we have made a request to the server.")
+					completion(.failure(.fakeResponse))
+				}
+				service.submitExposure { result in
+					expectation.fulfill()
+					XCTAssertNil(result)
+				}
 			}
 		}
 
@@ -521,9 +554,13 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Run test.
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
-		service.submitExposure { error in
-			expectation.fulfill()
-			XCTAssertNil(error)
+		service.setSubmissionConsentGiven(consentGiven: true)
+
+		service.getTemporaryExposureKeys { _ in
+			service.submitExposure { error in
+				expectation.fulfill()
+				XCTAssertNil(error)
+			}
 		}
 
 		waitForExpectations(timeout: .short)
