@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionThankYouViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
+class ExposureSubmissionThankYouViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling, RequiresDismissConfirmation {
 
 	// MARK: - Init
 	
