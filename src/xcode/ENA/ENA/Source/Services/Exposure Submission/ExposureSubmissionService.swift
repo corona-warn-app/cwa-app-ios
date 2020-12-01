@@ -125,7 +125,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		Log.info("Started exposure submission...", log: .api)
 
 		guard let keys = self.temporaryExposureKeys, !keys.isEmpty else {
-			Log.info("No temporary exposure keys to submit.", log: .api)
+			Log.info("Cancelled submission: No temporary exposure keys to submit.", log: .api)
 
 			completion(.noKeys)
 			// We perform a cleanup in order to set the correct
