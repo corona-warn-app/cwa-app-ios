@@ -95,6 +95,12 @@ protocol StoreProtocol: AnyObject {
 	
 	var isSubmissionConsentGiven: Bool { get set }
 
+	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? { get set }
+
+	var submissionCountries: [Country]? { get set }
+
+	var submissionSymptomsOnset: SymptomsOnset? { get set }
+
 	func clearAll(key: String?)
 
 	#if !RELEASE
