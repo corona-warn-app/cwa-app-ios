@@ -15,13 +15,16 @@ class ExposureSubmissionTestResultViewModel {
 		exposureSubmissionService: ExposureSubmissionService,
 		onContinueWithSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onContinueWithoutSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
+		onContinueHomeButtonTap: @escaping () -> Void,
 		onTestDeleted: @escaping () -> Void,
 		onSubmissionConsentButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
 		self.testResult = testResult
 		self.exposureSubmissionService = exposureSubmissionService
 		self.onContinueWithSymptomsFlowButtonTap = onContinueWithSymptomsFlowButtonTap
+		// (kga) Fix right next controller (warn others)
 		self.onContinueWarnOthersButtonTap = onContinueWithoutSymptomsFlowButtonTap
+		self.onContinueHomeButtonTap = onContinueHomeButtonTap
 		self.onTestDeleted = onTestDeleted
 		self.onSubmissionConsentButtonTap = onSubmissionConsentButtonTap
 		self.warnOthersReminder = warnOthersReminder
@@ -53,9 +56,8 @@ class ExposureSubmissionTestResultViewModel {
 	func didTapPrimaryButton() {
 		switch testResult {
 		case .positive:
-			// (kga) Update next step based on consten state
-			// In case the user has given exposure submission consent, we
-			// continue with collecting onset of symptoms.
+			// Determine next step based on consent state. In case the user has given exposure
+			// submission consent, we continue with collecting onset of symptoms.
 			// Otherwise we continue with the warn others process
 			if isSubmissionConsentGiven {
 				Log.info("Positive Test Result: Next -> 'onset of symptoms'.")
@@ -65,7 +67,7 @@ class ExposureSubmissionTestResultViewModel {
 			} else {
 				Log.info("Positive Test Result: Next -> 'warn others'.")
 				onContinueWarnOthersButtonTap { [weak self] isLoading in
-					self?.secondaryButtonIsLoading = isLoading
+					self?.primaryButtonIsLoading = isLoading
 				}
 			}
 			
@@ -83,11 +85,11 @@ class ExposureSubmissionTestResultViewModel {
 	func didTapSecondaryButton() {
 		switch testResult {
 		case .positive:
-			// (kga) Update next step based on consent state
+		
+			// In both cases first an abort alert will be shown
 			self.shouldShowPositivTestResultAlert = true
-			onContinueWarnOthersButtonTap { [weak self] isLoading in
-				self?.secondaryButtonIsLoading = isLoading
-			}
+		
+			//onContinueHomeButtonTap()
 		case .pending:
 			shouldShowDeletionConfirmationAlert = true
 		case .negative, .invalid, .expired:
@@ -110,7 +112,7 @@ class ExposureSubmissionTestResultViewModel {
 	// MARK: - Private
 	
 	// (kga)
-	private var isSubmissionConsentGiven: Bool = false;
+	private var isSubmissionConsentGiven: Bool = false
 	
 	private var currentPositiveTestResultSection: [DynamicSection] = []
 	
@@ -133,6 +135,8 @@ class ExposureSubmissionTestResultViewModel {
 	private let onContinueWarnOthersButtonTap: (@escaping (Bool) -> Void) -> Void
 	
 	private let onSubmissionConsentButtonTap: (@escaping (Bool) -> Void) -> Void
+	
+	private let onContinueHomeButtonTap: () -> Void
 	
 	private let onTestDeleted: () -> Void
 	

@@ -273,6 +273,9 @@ extension ExposureSubmissionCoordinator {
 						}
 					)
 				},
+				onContinueHomeButtonTap: { [weak self] in
+					self?.dismiss()
+				},
 				onTestDeleted: { [weak self] in
 					self?.dismiss()
 				},
@@ -443,13 +446,14 @@ extension ExposureSubmissionCoordinator {
 			return
 		}
 		
-		// (kga) Add propper texts
 		let alertTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.title : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertTitle
 		let alertMessage = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.message : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertDescription
 		
-		let alertButtonLeft = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton: AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonLeft
+		let alertButtonLeft = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton :
+			AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonLeft
 		
-		let alertButtonRight = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonRight
+		let alertButtonRight = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton :
+			AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonRight
 		
 		let alert = UIAlertController(
 			title: alertTitle,

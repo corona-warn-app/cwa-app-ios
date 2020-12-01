@@ -113,7 +113,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 				self.viewModel.shouldShowPositivTestResultAlert = false
 				
 				self.presentCancelAlert()
-				
+						
 			}
 			.store(in: &bindings)
 
