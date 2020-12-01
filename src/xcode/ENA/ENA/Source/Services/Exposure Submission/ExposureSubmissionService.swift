@@ -111,6 +111,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			}
 
 			self?.temporaryExposureKeys = keys?.map { $0.sapKey }
+			completion(nil)
 		}
 	}
 	
