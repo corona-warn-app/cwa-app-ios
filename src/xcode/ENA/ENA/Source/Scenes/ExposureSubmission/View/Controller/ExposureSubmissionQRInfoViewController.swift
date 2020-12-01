@@ -43,7 +43,7 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController {
 	// MARK: - Internal
 
 	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case acknowledgement = "DynamicAcknowledgementCell"
+		case legal = "DynamicAcknowledgementCell"
 		case countries = "LabeledCountriesCell"
 	}
 
@@ -70,7 +70,7 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController {
 
 		tableView.register(
 			UINib(nibName: String(describing: DynamicAcknowledgementCell.self), bundle: nil),
-			forCellReuseIdentifier: ReuseIdentifiers.acknowledgement.rawValue
+			forCellReuseIdentifier: ReuseIdentifiers.legal.rawValue
 		)
 
 		tableView.register(

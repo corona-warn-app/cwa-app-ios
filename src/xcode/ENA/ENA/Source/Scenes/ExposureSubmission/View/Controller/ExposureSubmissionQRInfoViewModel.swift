@@ -33,8 +33,10 @@ struct ExposureSubmissionQRInfoViewModel {
 		// Testergebnis abrufen
 		model.add(
 			.section(cells: [
-				.title2(text: AppStrings.ExposureSubmissionQRInfo.headerSection1,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.headerSection1),
+				.headline(
+					text: AppStrings.ExposureSubmissionQRInfo.headerSection1,
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.headerSection1
+				),
 				.body(text: AppStrings.ExposureSubmissionQRInfo.bodySection1),
 				.icon(
 					UIImage(imageLiteralResourceName: "Icons - FaceID"),
@@ -131,7 +133,7 @@ extension DynamicCell {
 		accessibilityIdentifier: String? = nil,
 		configure: CellConfigurator? = nil
 	) -> Self {
-		.identifier(ExposureSubmissionQRInfoViewController.ReuseIdentifiers.acknowledgement) { viewController, cell, indexPath in
+		.identifier(ExposureSubmissionQRInfoViewController.ReuseIdentifiers.legal) { viewController, cell, indexPath in
 			guard let cell = cell as? DynamicAcknowledgementCell else {
 				fatalError("could not initialize cell of type `DynamicAcknowledgementCell`")
 			}
