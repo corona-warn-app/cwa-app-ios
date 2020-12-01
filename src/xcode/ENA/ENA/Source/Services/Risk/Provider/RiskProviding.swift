@@ -40,26 +40,13 @@ enum RiskProviderError: Error {
 	}
 
 	private var isENError16DataInaccessible: Bool {
-		switch self {
-		case .failedRiskDetection(let didEndPrematuralyReason):
-			switch didEndPrematuralyReason {
-			case let .noExposureWindows(error):
-				if let enError = error as? ENError {
-					switch enError.code {
-					case .dataInaccessible:
-						return true
-					default:
-						break
-					}
-				}
-			default:
-				break
-			}
-		default:
-			break
+		guard case let .failedRiskDetection(didEndPrematuralyReason) = self,
+			  case let .noExposureWindows(noExposureWindowsError) = didEndPrematuralyReason,
+			  let enError = noExposureWindowsError as? ENError else {
+			return false
 		}
 
-		return false
+		return enError.code == .dataInaccessible
 	}
 }
 
