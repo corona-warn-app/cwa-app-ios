@@ -430,9 +430,9 @@ extension ExposureSubmissionCoordinator {
 		let thankYouVC = ExposureSubmissionThankYouViewController { [weak self] in
 			self?.showSymptomsScreen()
 		} onSecondaryButtonTap: { [weak self] in
-			self?.presentPositiveTestResultCancelAlert()
-		} onCancelAlert: { [weak self] in
-			self?.presentPositiveTestResultCancelAlert()
+			self?.presentThankYouCancelAlert()
+		} presentCancelAlert: { [weak self] in
+			self?.presentThankYouCancelAlert()
 		}
 
 		push(thankYouVC)
@@ -476,6 +476,41 @@ extension ExposureSubmissionCoordinator {
 		)
 		navigationController.present(alert, animated: true, completion: nil)
 	}
+	
+	
+	func presentThankYouCancelAlert() {
+		guard let navigationController = navigationController else {
+			Log.error("Can't present ThankYouCancelAlert - missing navigationController")
+			return
+		}
+		
+		let alertTitle = AppStrings.ExposureSubmissionSymptomsCancelAlert.title
+		let alertMessage = AppStrings.ExposureSubmissionSymptomsCancelAlert.message
+		let alertButtonLeft = AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton
+		let alertButtonRight = AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton
+		
+		let alert = UIAlertController(
+			title: alertTitle,
+			message: alertMessage,
+			preferredStyle: .alert)
+		
+		alert.addAction(UIAlertAction(
+							title: alertButtonLeft,
+							style: .cancel,
+							handler: { [weak self] _ in
+								self?.dismiss()
+							})
+		)
+		
+		alert.addAction(UIAlertAction(
+							title: alertButtonRight,
+							style: .default)
+		)
+		navigationController.present(alert, animated: true, completion: nil)
+	}
+	
+	
+	
 
 	private func showErrorAlert(for error: ExposureSubmissionError, onCompletion: (() -> Void)? = nil) {
 		Log.error("error: \(error.localizedDescription)", log: .ui)

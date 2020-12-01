@@ -12,12 +12,12 @@ class ExposureSubmissionThankYouViewController: DynamicTableViewController, ENAN
 	init(
 		onPrimaryButtonTap: (@escaping() -> Void),
 		onSecondaryButtonTap: (@escaping() -> Void),
-		onCancelAlert: (@escaping() -> Void)
+		presentCancelAlert: (@escaping() -> Void)
 	) {
 		self.viewModel = ExposureSubmissionThankYouViewModel()
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 		self.onSecondaryButtonTap = onSecondaryButtonTap
-		self.onCancelAlert = onCancelAlert
+		self.presentCancelAlert = presentCancelAlert
 		
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -52,7 +52,7 @@ class ExposureSubmissionThankYouViewController: DynamicTableViewController, ENAN
 	// MARK: - Protocol DismissHandling
 	
 	func presentDismiss(dismiss: @escaping () -> Void) {
-		onCancelAlert()
+		presentCancelAlert()
 	}
 	
 	// MARK: - Private
@@ -60,7 +60,7 @@ class ExposureSubmissionThankYouViewController: DynamicTableViewController, ENAN
 	private let viewModel: ExposureSubmissionThankYouViewModel
 	private let onPrimaryButtonTap: (() -> Void)
 	private let onSecondaryButtonTap: (() -> Void)
-	private let onCancelAlert: (() -> Void)
+	private let presentCancelAlert: (() -> Void)
 	
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
