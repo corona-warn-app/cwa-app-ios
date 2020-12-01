@@ -96,8 +96,22 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				self?.supportedCountries = countries
 			}
 			onSuccess()
-
 		}.store(in: &subscriptions)
+	}
+
+	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler) {
+		Log.info("Getting temporary exposure keys...", log: .api)
+
+		diagnosiskeyRetrieval.accessDiagnosisKeys { [weak self] keys, error in
+			if let error = error {
+				Log.error("Error while retrieving temporary exposure keys: \(error.localizedDescription)", log: .api)
+				completion(self?.parseError(error))
+
+				return
+			}
+
+			self?.temporaryExposureKeys = keys?.map { $0.sapKey }
+		}
 	}
 	
 	/// This method submits the exposure keys. Additionally, after successful completion,
@@ -105,32 +119,26 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// __Extension for plausible deniability__:
 	/// We prepend a fake request in order to guarantee the V+V+S sequence. Please kindly check `getTestResult` for more information.
 	func submitExposure(
-		completionHandler: @escaping ExposureSubmissionHandler
+		completion: @escaping ExposureSubmissionHandler
 	) {
 		Log.info("Started exposure submission...", log: .api)
 
-		diagnosiskeyRetrieval.accessDiagnosisKeys { keys, error in
-			if let error = error {
-				Log.error("Error while retrieving diagnosis keys: \(error.localizedDescription)", log: .api)
-				completionHandler(self.parseError(error))
-				return
-			}
+		guard let keys = self.temporaryExposureKeys, !keys.isEmpty else {
+			Log.info("No temporary exposure keys to submit.", log: .api)
 
-			guard let keys = keys, !keys.isEmpty else {
-				completionHandler(.noKeys)
-				// We perform a cleanup in order to set the correct
-				// timestamps, despite not having communicated with the backend,
-				// in order to show the correct screens.
-				self.submitExposureCleanup()
-				return
-			}
-			let processedKeys = keys.map { $0.sapKey }.processedForSubmission(with: self.symptomsOnset)
-
-			// Request needs to be prepended by the fake request.
-			self._fakeVerificationServerRequest(completion: { _ in
-				self._submitExposure(processedKeys, visitedCountries: self.supportedCountries, completionHandler: completionHandler)
-			})
+			completion(.noKeys)
+			// We perform a cleanup in order to set the correct
+			// timestamps, despite not having communicated with the backend,
+			// in order to show the correct screens.
+			self.submitExposureCleanup()
+			return
 		}
+		let processedKeys = keys.processedForSubmission(with: self.symptomsOnset)
+
+		// Request needs to be prepended by the fake request.
+		self._fakeVerificationServerRequest(completion: { _ in
+			self._submitExposure(processedKeys, visitedCountries: self.supportedCountries, completion: completion)
+		})
 	}
 
 	/// Stores the provided key, retrieves the registration token and deletes the key.
@@ -325,14 +333,14 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private func _submitExposure(
 		_ keys: [SAP_External_Exposurenotification_TemporaryExposureKey],
 		visitedCountries: [Country],
-		completionHandler: @escaping ExposureSubmissionHandler
+		completion: @escaping ExposureSubmissionHandler
 	) {
 		self._getTANForExposureSubmit(hasConsent: true, completion: { result in
 			switch result {
 			case let .failure(error):
-				completionHandler(error)
+				completion(error)
 			case let .success(tan):
-				self._submit(keys, with: tan, visitedCountries: visitedCountries, completion: completionHandler)
+				self._submit(keys, with: tan, visitedCountries: visitedCountries, completion: completion)
 			}
 		})
 	}
@@ -408,6 +416,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.registrationToken = nil
 		store.isAllowedToSubmitDiagnosisKeys = false
 		store.tan = nil
+
+		temporaryExposureKeys = nil
+		supportedCountries = []
+		symptomsOnset = .noInformation
+
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
 		Log.info("Exposure submission cleanup.", log: .api)
 	}

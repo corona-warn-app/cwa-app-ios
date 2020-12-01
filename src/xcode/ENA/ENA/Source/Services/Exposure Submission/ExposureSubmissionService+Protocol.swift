@@ -32,9 +32,8 @@ protocol ExposureSubmissionService: class {
 		onError: @escaping (ExposureSubmissionError) -> Void
 	)
 
-	func submitExposure(
-		completionHandler: @escaping ExposureSubmissionHandler
-	)
+	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler)
+	func submitExposure(completion: @escaping ExposureSubmissionHandler)
 
 	func getRegistrationToken(
 		forKey deviceRegistrationKey: DeviceRegistrationKey,
