@@ -124,14 +124,22 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	) {
 		Log.info("Started exposure submission...", log: .api)
 
+		guard isSubmissionConsentGiven else {
+			Log.info("Cancelled submission: Submission consent not given.", log: .api)
+			completion(.noSubmissionConsent)
+
+			return
+		}
+
 		guard let keys = self.temporaryExposureKeys, !keys.isEmpty else {
 			Log.info("Cancelled submission: No temporary exposure keys to submit.", log: .api)
-
 			completion(.noKeys)
+
 			// We perform a cleanup in order to set the correct
 			// timestamps, despite not having communicated with the backend,
 			// in order to show the correct screens.
 			self.submitExposureCleanup()
+
 			return
 		}
 		let processedKeys = keys.processedForSubmission(with: self.symptomsOnset)
@@ -308,7 +316,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 
 		if !store.devicePairingConsentAccept {
-			completeWith(.failure(.noConsent))
+			completeWith(.failure(.noDevicePairingConsent))
 			return
 		}
 

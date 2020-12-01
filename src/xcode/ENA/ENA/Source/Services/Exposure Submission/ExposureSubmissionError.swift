@@ -10,7 +10,8 @@ enum ExposureSubmissionError: Error, Equatable {
 	case enNotEnabled
 	case notAuthorized
 	case noKeys
-	case noConsent
+	case noSubmissionConsent
+	case noDevicePairingConsent
 	case noAppConfiguration
 	case invalidTan
 	case invalidResponse
