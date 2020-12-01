@@ -112,7 +112,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				self.submitExposureCleanup()
 				return
 			}
-			let processedKeys = keys.processedForSubmission(with: self.symptomsOnset)
+			let processedKeys = keys.map { $0.sapKey }.processedForSubmission(with: self.symptomsOnset)
 
 			// Request needs to be prepended by the fake request.
 			self._fakeVerificationServerRequest(completion: { _ in

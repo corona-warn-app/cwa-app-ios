@@ -5,15 +5,15 @@
 import Foundation
 import ExposureNotification
 
-extension Array where Element: ENTemporaryExposureKey {
+extension Array where Element == SAP_External_Exposurenotification_TemporaryExposureKey {
 
-	/// Prepare an array of `ENTemporaryExposureKey` for exposure submission.
+	/// Prepare an array of `SAP_External_Exposurenotification_TemporaryExposureKey` for exposure submission.
 	func processedForSubmission(with symptomsOnset: SymptomsOnset, today: Date = Date()) -> [SAP_External_Exposurenotification_TemporaryExposureKey] {
 		/// 1. Group exposure keys by the day their rolling period started in the UTC time zone
 		let groupedExposureKeys: [Int: Self] = Dictionary(grouping: self, by: {
 			/// Use the rolling start number to get the date the rolling period started.
 			/// The rollingStartNumber is the unix timestamp divided by 600, giving the amount of 10-minute-intervals that passed since 01.01.1970 00:00 UTC.
-			let startDate = Date(timeIntervalSince1970: Double($0.rollingStartNumber) * 600)
+			let startDate = Date(timeIntervalSince1970: Double($0.rollingStartIntervalNumber) * 600)
 
 			/// Make sure to use a calendar in UTC time zone with 24 hour days and leap seconds etc. in sync with the gregorian calendar
 			var calendar = Calendar(identifier: .gregorian)
@@ -30,16 +30,15 @@ extension Array where Element: ENTemporaryExposureKey {
 		var processedExposureKeys = [SAP_External_Exposurenotification_TemporaryExposureKey]()
 		for (ageInDays, exposureKeys) in groupedExposureKeys where ageInDays >= 0 && ageInDays <= 14 {
 			for exposureKey in exposureKeys {
-				/// Convert to SAP key struct for submission
-				var sapExposureKey = exposureKey.sapKey
+				var processedExposureKey = exposureKey
 
 				/// Assign corresponding transmission risk level
-				sapExposureKey.transmissionRiskLevel = symptomsOnset.transmissionRiskVector[ageInDays]
+				processedExposureKey.transmissionRiskLevel = symptomsOnset.transmissionRiskVector[ageInDays]
 
 				/// Assign corresponding days since onset of symptoms
-				sapExposureKey.daysSinceOnsetOfSymptoms = symptomsOnset.daysSinceOnsetOfSymptomsVector[ageInDays]
+				processedExposureKey.daysSinceOnsetOfSymptoms = symptomsOnset.daysSinceOnsetOfSymptomsVector[ageInDays]
 
-				processedExposureKeys.append(sapExposureKey)
+				processedExposureKeys.append(processedExposureKey)
 			}
 		}
 
