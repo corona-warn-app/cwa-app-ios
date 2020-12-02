@@ -278,5 +278,9 @@ enum AccessibilityIdentifiers {
 	enum DatePickerOption {
 		static let day = "AppStrings.DatePickerOption.day"
 	}
+	
+	enum ThankYouScreen {
+		static let accImageDescription = "AppStrings.ThankYouScreen.accImageDescription"
+	}
 
 }

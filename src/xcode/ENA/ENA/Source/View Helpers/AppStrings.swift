@@ -858,6 +858,7 @@ enum AppStrings {
 		static let description2 = NSLocalizedString("Thank_You_Description2", comment: "")
 		static let continueButton = NSLocalizedString("Thank_You_Continue_Button", comment: "")
 		static let cancelButton = NSLocalizedString("Thank_You_Cancel_Button", comment: "")
+		static let accImageDescription = NSLocalizedString("Thank_You_AccImageDescription", comment: "")
 	}
 	
 	// swiftlint:disable:next file_length

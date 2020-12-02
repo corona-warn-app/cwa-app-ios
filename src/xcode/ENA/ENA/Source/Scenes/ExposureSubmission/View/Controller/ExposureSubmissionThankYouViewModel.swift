@@ -14,9 +14,9 @@ struct ExposureSubmissionThankYouViewModel {
 			$0.add(
 				.section(
 					header: .image(
-						UIImage(imageLiteralResourceName: "Illu_Submission_ThankYou"),
-						accessibilityLabel: AppStrings.ExposureSubmissionQRInfo.imageDescription,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription
+						UIImage(named: "Illu_Submission_ThankYou"),
+						accessibilityLabel: AppStrings.ThankYouScreen.accImageDescription,
+						accessibilityIdentifier: AccessibilityIdentifiers.ThankYouScreen.accImageDescription
 					), cells: [
 						.title1(text: AppStrings.ThankYouScreen.subTitle, accessibilityIdentifier: nil),
 						.headline(text: AppStrings.ThankYouScreen.description1),
