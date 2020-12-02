@@ -268,14 +268,14 @@ class ExposureSubmissionTestResultViewModel {
 						description: nil,
 						icon: UIImage(named: "Icons - Warnen"),
 						iconTint: .enaColor(for: .riskHigh),
-						hairline: .iconAttached
+						hairline: .none
 					),
 					ExposureSubmissionDynamicCell.stepCell(
 						style: .body,
 						title: AppStrings.ExposureSubmissionPositiveTestResult.noConsentInfo2,
 						icon: UIImage(named: "Icons - Lock"),
 						iconTint: .enaColor(for: .riskHigh),
-						hairline: .iconAttached,
+						hairline: .none,
 						bottomSpacing: .normal
 					),
 					ExposureSubmissionDynamicCell.stepCell(
@@ -283,7 +283,7 @@ class ExposureSubmissionTestResultViewModel {
 						title: AppStrings.ExposureSubmissionPositiveTestResult.noConsentInfo3,
 						icon: UIImage(named: "Icons - Home"),
 						iconTint: .enaColor(for: .riskHigh),
-						hairline: .iconAttached,
+						hairline: .none,
 						bottomSpacing: .normal
 					)
 				]
