@@ -559,9 +559,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionTestresultAvailable_Consent_not_given" = "Einverständnis\n„Andere warnen” nicht erteilt";
 
-"ExposureSubmissionTestresultAvailable_ListItem1" = "Vielen Dank, dass Sie mithelfen, andere zu warnen und damit einverstanden sind, Ihr Testergebnis zu teilen.";
+"ExposureSubmissionTestresultAvailable_ListItem1WithConsent" = "Vielen Dank, dass Sie mithelfen, andere zu warnen und damit einverstanden sind, Ihr Testergebnis zu teilen.";
 
-"ExposureSubmissionTestresultAvailable_ListItem2" = "Bitte geben Sie Ihr Testergebnis im nächsten Schritt frei, indem Sie „Teilen“ antippen.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "Bitte geben Sie Ihr Testergebnis im nächsten Schritt frei, indem Sie „Teilen“ antippen.";
+
+"ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Sie haben sich entschieden, Ihr Testergebnis nicht zu teilen. Ihre Mitmenschen werden nicht gewarnt.";
+
+"ExposureSubmissionTestresultAvailable_ListItem2WithoutConsent" = "Sie können im Anschluss Ihr Testergebnis doch noch teilen und mithelfen, die Verbreitung von Corona zu bekämpfen und Ihre Mitmenschen zu schützen.";
 
 "ExposureSubmissionTestresultAvailable_primaryButtonTitle" = "Weiter";
 
