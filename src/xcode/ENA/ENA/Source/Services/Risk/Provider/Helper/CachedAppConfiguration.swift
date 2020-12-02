@@ -58,7 +58,7 @@ final class CachedAppConfiguration {
 		guard shouldFetch() else { return }
 
 		// check for updated or fetch initial app configuration
-		_ = getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag)
+		getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag).sink(receiveValue: { _ in }).store(in: &subscriptions)
 	}
 
 	private func getAppConfig(with etag: String? = nil) -> Future<AppConfigResponse, Never> {
