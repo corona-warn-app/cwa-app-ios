@@ -18,7 +18,7 @@ protocol ExposureSubmissionService: class {
 	
 	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { get }
 	
-	func setSubmissionConsentGiven(consentGiven: Bool)
+	var isSubmissionConsentGiven: Bool { get set }
 	
 	func submitExposure(
 		symptomsOnset: SymptomsOnset,
