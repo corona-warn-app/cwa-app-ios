@@ -66,11 +66,17 @@ extension ExposureDetectionViewController {
 			self?.state.riskState = .risk(risk)
 			self?.updateUI()
 		}
+
 		consumer.didFailCalculateRisk = { [weak self] error in
 
 			// Ignore already running errors.
 			guard !error.isAlreadyRunningError else {
 				Log.info("[ExposureDetectionViewController] Ignore already running error.", log: .riskDetection)
+				return
+			}
+
+			guard error.shouldBeDisplayedToUser else {
+				Log.info("[ExposureDetectionViewController] Don't show error to user: \(error).", log: .riskDetection)
 				return
 			}
 			
@@ -83,6 +89,7 @@ extension ExposureDetectionViewController {
 			
 			self?.updateUI()
 		}
+		
 		consumer.didChangeActivityState = { [weak self] activityState in
 			self?.state.activityState = activityState
 		}
