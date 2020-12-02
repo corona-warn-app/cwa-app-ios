@@ -30,9 +30,8 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	) -> WrittenPackages? {
 
 		let fileManager = FileManager()
-		let rootDir = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		do {
-			try fileManager.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
+			let rootDir = try fileManager.createKeyPackageDirectory()
 			let writer = AppleFilesWriter(rootDir: rootDir)
 
 			let allHourlyPackages = downloadedPackagesStore.hourlyPackages(for: .formattedToday(), country: country)

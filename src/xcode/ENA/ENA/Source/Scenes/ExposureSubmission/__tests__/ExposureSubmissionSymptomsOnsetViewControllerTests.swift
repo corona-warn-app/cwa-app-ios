@@ -8,9 +8,7 @@ import XCTest
 class ExposureSubmissionSymptomsOnsetViewControllerTests: XCTestCase {
 
 	private func createVC() -> ExposureSubmissionSymptomsOnsetViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSymptomsOnsetViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionSymptomsOnsetViewController(coder: coder, onPrimaryButtonTap: { _  in })
-		}
+		ExposureSubmissionSymptomsOnsetViewController(onPrimaryButtonTap: { _ in }, presentCancelAlert: { })
 	}
 
 	func testCellsOnScreen() {
