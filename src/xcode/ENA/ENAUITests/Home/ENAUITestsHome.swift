@@ -14,6 +14,7 @@ class ENAUITests_01_Home: XCTestCase {
 		app.setDefaults()
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
+		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
 	}
 
 	override func tearDownWithError() throws {
