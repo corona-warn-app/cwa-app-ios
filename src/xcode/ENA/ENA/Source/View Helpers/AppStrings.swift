@@ -348,6 +348,7 @@ enum AppStrings {
 
 		static let buttonEnable = NSLocalizedString("ExposureDetection_Button_Enable", comment: "")
 		static let buttonRefresh = NSLocalizedString("ExposureDetection_Button_Refresh", comment: "")
+		static let buttonTitleRestart = NSLocalizedString("ExposureDetection_Button_Title_Restart", comment: "")
 
 		static let riskCardStatusDownloadingTitle = NSLocalizedString("ExposureDetection_Risk_Status_Downloading_Title", comment: "")
 		static let riskCardStatusDownloadingBody = NSLocalizedString("ExposureDetection_Risk_Status_Downloading_Body", comment: "")
