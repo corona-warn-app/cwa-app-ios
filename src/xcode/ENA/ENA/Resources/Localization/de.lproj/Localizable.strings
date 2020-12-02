@@ -1290,6 +1290,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Thank_You_Cancel_Button" = "Beenden";
 
+"Thank_You_AccImageDescription" = "Mehrere Personen, die auf ihr Smartphone schauen";
+
 /* Test result screen (positive test result) */
 "TestResultPositive_NoConsent_Title" = "Bitte helfen Sie mit!";
 
