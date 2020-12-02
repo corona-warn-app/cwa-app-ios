@@ -418,22 +418,18 @@ private extension RiskConsumer {
 extension RiskProvider {
 	private func _requestRiskLevel_Mock(userInitiated: Bool) {
 		let risk = Risk.mocked
-		successOnTargetQueue(risk: risk)
-
-		for consumer in consumers {
-			_provideRiskResult(.success(risk), to: consumer)
-		}
 
 		store.riskCalculationResult = RiskCalculationResult(
 			riskLevel: risk.level == .high ? .high : .low,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: nil,
-			mostRecentDateWithHighRisk: nil,
+			mostRecentDateWithLowRisk: Date(), //risk.details.mostRecentDateWithRiskLevel,
+			mostRecentDateWithHighRisk: Date(), //risk.details.mostRecentDateWithRiskLevel,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: Date()
 		)
+		successOnTargetQueue(risk: risk)
 	}
 }
 #endif
