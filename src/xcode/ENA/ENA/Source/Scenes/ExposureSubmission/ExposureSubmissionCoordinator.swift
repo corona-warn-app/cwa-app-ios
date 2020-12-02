@@ -27,7 +27,6 @@ protocol ExposureSubmissionCoordinating: class {
 	func dismiss()
 	func showTestResultScreen(with result: TestResult)
 	func showTanScreen()
-	func showThankYouScreen()
 
 }
 
@@ -136,8 +135,7 @@ extension ExposureSubmissionCoordinator {
 		let viewModel = ExposureSubmissionIntroViewModel(
 			onQRCodeButtonTap: { [weak self] in self?.showQRInfoScreen() },
 			onTANButtonTap: { [weak self] in self?.showTanScreen() },
-			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() },
-			onThankYouScreen: { self.showThankYouScreen() }
+			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() }
 		)
 		return ExposureSubmissionIntroViewController(viewModel)
 	}
