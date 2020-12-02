@@ -2,19 +2,16 @@
 // 🦠 Corona-Warn-App
 //
 
+import Foundation
 import UIKit
 
 class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+	
+	// MARK: - Init
 
-	// MARK: - Attributes.
-
-	private(set) weak var coordinator: ExposureSubmissionCoordinating?
-
-	// MARK: - Initializers.
-
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating) {
-		super.init(coder: coder)
-		self.coordinator = coordinator
+	init(_ viewModel: ExposureSubmissionIntroViewModel) {
+		self.viewModel = viewModel
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)
@@ -22,78 +19,57 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - View lifecycle methods.
+	// MARK: - Overrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmission.continueText
-
 		setupView()
-		setupBackButton()
-	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-
+		footerView?.isHidden = true
 		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
 		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
 	}
 
-	// MARK: - Setup helpers.
+	override var navigationItem: UINavigationItem {
+		navigationFooterItem
+	}
+
+	// MARK: - Internal
+
+	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case imageCard = "imageCardCell"
+	}
+
+	// MARK: - Private
+
+	private let viewModel: ExposureSubmissionIntroViewModel
+
+	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		let item = ENANavigationFooterItem()
+
+		item.isPrimaryButtonHidden = true
+		item.isSecondaryButtonHidden = true
+
+		item.title = AppStrings.ExposureSubmissionDispatch.title
+		item.largeTitleDisplayMode = .automatic
+
+		return item
+	}()
 
 	private func setupView() {
-		setupTitle()
-		setupTableView()
-	}
-
-	private func setupTitle() {
-		navigationItem.largeTitleDisplayMode = .always
-		title = AppStrings.ExposureSubmissionIntroduction.title
-	}
-
-	private func setupTableView() {
-		tableView.dataSource = self
-		tableView.delegate = self
-		tableView.register(UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
-		dynamicTableViewModel = .intro
-	}
-
-	// MARK: - ENANavigationControllerWithFooterChild methods.
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		coordinator?.showOverviewScreen()
-	}
-}
-
-private extension DynamicTableViewModel {
-	static let intro = DynamicTableViewModel([
-		.navigationSubtitle(text: AppStrings.ExposureSubmissionIntroduction.subTitle,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionIntroduction.subTitle),
-		.section(
-			header: .image(
-				UIImage(named: "Illu_Submission_Funktion1"),
-				accessibilityLabel: AppStrings.ExposureSubmissionIntroduction.accImageDescription,
-				accessibilityIdentifier: AccessibilityIdentifiers.General.image,
-				height: 200
+		view.backgroundColor = .enaColor(for: .background)
+		cellBackgroundColor = .clear
+		hidesBottomBarWhenPushed = true
+		
+		tableView.register(
+			UINib(
+				nibName: String(describing: ExposureSubmissionImageCardCell.self),
+				bundle: nil
 			),
-			separators: .none,
-			cells: [
-				.headline(text: AppStrings.ExposureSubmissionIntroduction.usage01,
-						  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionIntroduction.usage01),
-				.body(text: AppStrings.ExposureSubmissionIntroduction.usage02,
-					  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionIntroduction.usage02),
-				.bulletPoint(text: AppStrings.ExposureSubmissionIntroduction.listItem1, spacing: .large),
-				.bulletPoint(text: AppStrings.ExposureSubmissionIntroduction.listItem2, spacing: .large),
-				.bulletPoint(text: AppStrings.ExposureSubmissionIntroduction.listItem3, spacing: .large),
-				.bulletPoint(text: AppStrings.ExposureSubmissionIntroduction.listItem4, spacing: .large)
-			]
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.imageCard.rawValue
 		)
-	])
-}
 
-private extension ExposureSubmissionIntroViewController {
-	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case stepCell
+		dynamicTableViewModel = viewModel.dynamicTableModel
+		tableView.separatorStyle = .none
+
 	}
 }

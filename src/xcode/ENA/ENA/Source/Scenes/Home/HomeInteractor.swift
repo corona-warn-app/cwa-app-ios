@@ -102,6 +102,11 @@ final class HomeInteractor: RequiresAppDependencies {
 				return
 			}
 
+			guard error.shouldBeDisplayedToUser else {
+				Log.info("[HomeInteractor] Don't show error to user: \(error).", log: .riskDetection)
+				return
+			}
+
             switch error {
             case .inactive:
 				self.state.riskState = .inactive
@@ -333,7 +338,7 @@ extension HomeInteractor {
 				let testResultLoadingCellConfigurator = HomeTestResultLoadingCellConfigurator()
 				actionsConfigurators.append(testResultLoadingCellConfigurator)
 
-			case .positive:
+			case .positive where exposureSubmissionService.positiveTestResultWasShown:
 				let findingPositiveRiskCellConfigurator = setupFindingPositiveRiskCellConfigurator()
 				actionsConfigurators.append(findingPositiveRiskCellConfigurator)
 
@@ -409,12 +414,6 @@ extension HomeInteractor {
 
 extension HomeInteractor {
 	func updateTestResults() {
-		
-		// Do warn others reminder evaluation
-		if let testResult = testResult {
-			self.warnOthersReminder.evaluateNotificationState(testResult: testResult)
-		}
-		
 		// Avoid unnecessary loading.
 		guard testResult == nil || testResult != .positive else { return }
 		
@@ -457,7 +456,6 @@ extension HomeInteractor {
 						self?.testResult = testResult
 						self?.reloadTestResult(with: testResult)
 					}
-					self?.warnOthersReminder.evaluateNotificationState(testResult: testResult)
 				}
 			}
 		}

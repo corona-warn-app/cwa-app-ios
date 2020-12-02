@@ -1,0 +1,646 @@
+%PDF-1.7
+
+1 0 obj
+  << /Length 2 0 R
+     /FunctionType 4
+     /Domain [ 0.000000 1.000000 ]
+     /Range [ 0.000000 1.000000 0.000000 1.000000 0.000000 1.000000 ]
+  >>
+stream
+{  0.741180 exch 0.878433 exch 0.976471 exch dup 0.000000 gt { exch pop exch pop exch pop dup 0.000000 sub -1.003971 mul 0.741180 add exch dup 0.000000 sub 0.000000 mul 0.878433 add exch dup 0.000000 sub 0.000000 mul 0.976471 add exch } if dup 0.003906 gt { exch pop exch pop exch pop dup 0.003906 sub 0.000000 mul 0.737259 add exch dup 0.003906 sub 0.000000 mul 0.878433 add exch dup 0.003906 sub 0.000000 mul 0.976471 add exch } if dup 0.007812 gt { exch pop exch pop exch pop dup 0.007812 sub -1.003714 mul 0.737259 add exch dup 0.007812 sub -1.003714 mul 0.878433 add exch dup 0.007812 sub -1.003714 mul 0.976471 add exch } if dup 0.011719 gt { exch pop exch pop exch pop dup 0.011719 sub -1.003970 mul 0.733337 add exch dup 0.011719 sub 0.000000 mul 0.874512 add exch dup 0.011719 sub 0.000000 mul 0.972549 add exch } if dup 0.015625 gt { exch pop exch pop exch pop dup 0.015625 sub -1.003970 mul 0.729416 add exch dup 0.015625 sub 0.000000 mul 0.874512 add exch dup 0.015625 sub 0.000000 mul 0.972549 add exch } if dup 0.019531 gt { exch pop exch pop exch pop dup 0.019531 sub 0.000000 mul 0.725494 add exch dup 0.019531 sub 0.000000 mul 0.874512 add exch dup 0.019531 sub 0.000000 mul 0.972549 add exch } if dup 0.023437 gt { exch pop exch pop exch pop dup 0.023437 sub -1.003714 mul 0.725494 add exch dup 0.023437 sub -1.003714 mul 0.874512 add exch dup 0.023437 sub 0.000000 mul 0.972549 add exch } if dup 0.027344 gt { exch pop exch pop exch pop dup 0.027344 sub -1.003970 mul 0.721573 add exch dup 0.027344 sub 0.000000 mul 0.870590 add exch dup 0.027344 sub 0.000000 mul 0.972549 add exch } if dup 0.031250 gt { exch pop exch pop exch pop dup 0.031250 sub -1.003970 mul 0.717651 add exch dup 0.031250 sub 0.000000 mul 0.870590 add exch dup 0.031250 sub -1.003970 mul 0.972549 add exch } if dup 0.035156 gt { exch pop exch pop exch pop dup 0.035156 sub 0.000000 mul 0.713730 add exch dup 0.035156 sub 0.000000 mul 0.870590 add exch dup 0.035156 sub 0.000000 mul 0.968628 add exch } if dup 0.039062 gt { exch pop exch pop exch pop dup 0.039062 sub -1.003714 mul 0.713730 add exch dup 0.039062 sub -1.003714 mul 0.870590 add exch dup 0.039062 sub 0.000000 mul 0.968628 add exch } if dup 0.042969 gt { exch pop exch pop exch pop dup 0.042969 sub -1.003970 mul 0.709808 add exch dup 0.042969 sub 0.000000 mul 0.866669 add exch dup 0.042969 sub 0.000000 mul 0.968628 add exch } if dup 0.046875 gt { exch pop exch pop exch pop dup 0.046875 sub -1.003970 mul 0.705887 add exch dup 0.046875 sub 0.000000 mul 0.866669 add exch dup 0.046875 sub 0.000000 mul 0.968628 add exch } if dup 0.050781 gt { exch pop exch pop exch pop dup 0.050781 sub 0.000000 mul 0.701965 add exch dup 0.050781 sub 0.000000 mul 0.866669 add exch dup 0.050781 sub 0.000000 mul 0.968628 add exch } if dup 0.054687 gt { exch pop exch pop exch pop dup 0.054687 sub -1.003714 mul 0.701965 add exch dup 0.054687 sub -1.003714 mul 0.866669 add exch dup 0.054687 sub 0.000000 mul 0.968628 add exch } if dup 0.058594 gt { exch pop exch pop exch pop dup 0.058594 sub -1.003970 mul 0.698044 add exch dup 0.058594 sub 0.000000 mul 0.862747 add exch dup 0.058594 sub 0.000000 mul 0.968628 add exch } if dup 0.062500 gt { exch pop exch pop exch pop dup 0.062500 sub -1.003971 mul 0.694122 add exch dup 0.062500 sub 0.000000 mul 0.862747 add exch dup 0.062500 sub -1.003971 mul 0.968628 add exch } if dup 0.066406 gt { exch pop exch pop exch pop dup 0.066406 sub 0.000000 mul 0.690201 add exch dup 0.066406 sub 0.000000 mul 0.862747 add exch dup 0.066406 sub 0.000000 mul 0.964706 add exch } if dup 0.070312 gt { exch pop exch pop exch pop dup 0.070312 sub -1.003713 mul 0.690201 add exch dup 0.070312 sub 0.000000 mul 0.862747 add exch dup 0.070312 sub 0.000000 mul 0.964706 add exch } if dup 0.074219 gt { exch pop exch pop exch pop dup 0.074219 sub -1.003971 mul 0.686279 add exch dup 0.074219 sub -1.003971 mul 0.862747 add exch dup 0.074219 sub 0.000000 mul 0.964706 add exch } if dup 0.078125 gt { exch pop exch pop exch pop dup 0.078125 sub 0.000000 mul 0.682358 add exch dup 0.078125 sub 0.000000 mul 0.858826 add exch dup 0.078125 sub 0.000000 mul 0.964706 add exch } if dup 0.082031 gt { exch pop exch pop exch pop dup 0.082031 sub -1.003969 mul 0.682358 add exch dup 0.082031 sub 0.000000 mul 0.858826 add exch dup 0.082031 sub 0.000000 mul 0.964706 add exch } if dup 0.085937 gt { exch pop exch pop exch pop dup 0.085937 sub -1.003713 mul 0.678436 add exch dup 0.085937 sub 0.000000 mul 0.858826 add exch dup 0.085937 sub -1.003713 mul 0.964706 add exch } if dup 0.089844 gt { exch pop exch pop exch pop dup 0.089844 sub 0.000000 mul 0.674515 add exch dup 0.089844 sub 0.000000 mul 0.858826 add exch dup 0.089844 sub 0.000000 mul 0.960785 add exch } if dup 0.093750 gt { exch pop exch pop exch pop dup 0.093750 sub -1.003971 mul 0.674515 add exch dup 0.093750 sub -1.003971 mul 0.858826 add exch dup 0.093750 sub 0.000000 mul 0.960785 add exch } if dup 0.097656 gt { exch pop exch pop exch pop dup 0.097656 sub -1.003969 mul 0.670593 add exch dup 0.097656 sub 0.000000 mul 0.854904 add exch dup 0.097656 sub 0.000000 mul 0.960785 add exch } if dup 0.101562 gt { exch pop exch pop exch pop dup 0.101562 sub -1.003713 mul 0.666672 add exch dup 0.101562 sub 0.000000 mul 0.854904 add exch dup 0.101562 sub 0.000000 mul 0.960785 add exch } if dup 0.105469 gt { exch pop exch pop exch pop dup 0.105469 sub 0.000000 mul 0.662750 add exch dup 0.105469 sub 0.000000 mul 0.854904 add exch dup 0.105469 sub 0.000000 mul 0.960785 add exch } if dup 0.109375 gt { exch pop exch pop exch pop dup 0.109375 sub -1.003971 mul 0.662750 add exch dup 0.109375 sub -1.003971 mul 0.854904 add exch dup 0.109375 sub -1.003971 mul 0.960785 add exch } if dup 0.113281 gt { exch pop exch pop exch pop dup 0.113281 sub -1.003969 mul 0.658829 add exch dup 0.113281 sub 0.000000 mul 0.850983 add exch dup 0.113281 sub 0.000000 mul 0.956863 add exch } if dup 0.117187 gt { exch pop exch pop exch pop dup 0.117187 sub -1.003713 mul 0.654907 add exch dup 0.117187 sub 0.000000 mul 0.850983 add exch dup 0.117187 sub 0.000000 mul 0.956863 add exch } if dup 0.121094 gt { exch pop exch pop exch pop dup 0.121094 sub 0.000000 mul 0.650986 add exch dup 0.121094 sub 0.000000 mul 0.850983 add exch dup 0.121094 sub 0.000000 mul 0.956863 add exch } if dup 0.125000 gt { exch pop exch pop exch pop dup 0.125000 sub -1.003971 mul 0.650986 add exch dup 0.125000 sub -1.003971 mul 0.850983 add exch dup 0.125000 sub 0.000000 mul 0.956863 add exch } if dup 0.128906 gt { exch pop exch pop exch pop dup 0.128906 sub -1.003971 mul 0.647064 add exch dup 0.128906 sub 0.000000 mul 0.847061 add exch dup 0.128906 sub 0.000000 mul 0.956863 add exch } if dup 0.132812 gt { exch pop exch pop exch pop dup 0.132812 sub -1.003711 mul 0.643143 add exch dup 0.132812 sub 0.000000 mul 0.847061 add exch dup 0.132812 sub -1.003711 mul 0.956863 add exch } if dup 0.136719 gt { exch pop exch pop exch pop dup 0.136719 sub 0.000000 mul 0.639221 add exch dup 0.136719 sub 0.000000 mul 0.847061 add exch dup 0.136719 sub 0.000000 mul 0.952942 add exch } if dup 0.140625 gt { exch pop exch pop exch pop dup 0.140625 sub -1.003971 mul 0.639221 add exch dup 0.140625 sub -1.003971 mul 0.847061 add exch dup 0.140625 sub 0.000000 mul 0.952942 add exch } if dup 0.144531 gt { exch pop exch pop exch pop dup 0.144531 sub 0.000000 mul 0.635300 add exch dup 0.144531 sub 0.000000 mul 0.843140 add exch dup 0.144531 sub 0.000000 mul 0.952942 add exch } if dup 0.148437 gt { exch pop exch pop exch pop dup 0.148437 sub -1.003711 mul 0.635300 add exch dup 0.148437 sub 0.000000 mul 0.843140 add exch dup 0.148437 sub 0.000000 mul 0.952942 add exch } if dup 0.152344 gt { exch pop exch pop exch pop dup 0.152344 sub -1.003971 mul 0.631378 add exch dup 0.152344 sub 0.000000 mul 0.843140 add exch dup 0.152344 sub 0.000000 mul 0.952942 add exch } if dup 0.156250 gt { exch pop exch pop exch pop dup 0.156250 sub -1.003971 mul 0.627457 add exch dup 0.156250 sub 0.000000 mul 0.843140 add exch dup 0.156250 sub 0.000000 mul 0.952942 add exch } if dup 0.160156 gt { exch pop exch pop exch pop dup 0.160156 sub 0.000000 mul 0.623535 add exch dup 0.160156 sub 0.000000 mul 0.843140 add exch dup 0.160156 sub 0.000000 mul 0.952942 add exch } if dup 0.164062 gt { exch pop exch pop exch pop dup 0.164062 sub -1.003711 mul 0.623535 add exch dup 0.164062 sub -1.003711 mul 0.843140 add exch dup 0.164062 sub -1.003711 mul 0.952942 add exch } if dup 0.167969 gt { exch pop exch pop exch pop dup 0.167969 sub -1.003971 mul 0.619614 add exch dup 0.167969 sub 0.000000 mul 0.839218 add exch dup 0.167969 sub 0.000000 mul 0.949020 add exch } if dup 0.171875 gt { exch pop exch pop exch pop dup 0.171875 sub -1.003971 mul 0.615692 add exch dup 0.171875 sub 0.000000 mul 0.839218 add exch dup 0.171875 sub 0.000000 mul 0.949020 add exch } if dup 0.175781 gt { exch pop exch pop exch pop dup 0.175781 sub 0.000000 mul 0.611771 add exch dup 0.175781 sub 0.000000 mul 0.839218 add exch dup 0.175781 sub 0.000000 mul 0.949020 add exch } if dup 0.179687 gt { exch pop exch pop exch pop dup 0.179687 sub -1.003711 mul 0.611771 add exch dup 0.179687 sub -1.003711 mul 0.839218 add exch dup 0.179687 sub 0.000000 mul 0.949020 add exch } if dup 0.183594 gt { exch pop exch pop exch pop dup 0.183594 sub -1.003971 mul 0.607849 add exch dup 0.183594 sub 0.000000 mul 0.835297 add exch dup 0.183594 sub 0.000000 mul 0.949020 add exch } if dup 0.187500 gt { exch pop exch pop exch pop dup 0.187500 sub -1.003971 mul 0.603928 add exch dup 0.187500 sub 0.000000 mul 0.835297 add exch dup 0.187500 sub -1.003971 mul 0.949020 add exch } if dup 0.191406 gt { exch pop exch pop exch pop dup 0.191406 sub 0.000000 mul 0.600006 add exch dup 0.191406 sub 0.000000 mul 0.835297 add exch dup 0.191406 sub 0.000000 mul 0.945099 add exch } if dup 0.195312 gt { exch pop exch pop exch pop dup 0.195312 sub -1.003711 mul 0.600006 add exch dup 0.195312 sub -1.003711 mul 0.835297 add exch dup 0.195312 sub 0.000000 mul 0.945099 add exch } if dup 0.199219 gt { exch pop exch pop exch pop dup 0.199219 sub -1.003971 mul 0.596085 add exch dup 0.199219 sub 0.000000 mul 0.831375 add exch dup 0.199219 sub 0.000000 mul 0.945099 add exch } if dup 0.203125 gt { exch pop exch pop exch pop dup 0.203125 sub -1.003971 mul 0.592163 add exch dup 0.203125 sub 0.000000 mul 0.831375 add exch dup 0.203125 sub 0.000000 mul 0.945099 add exch } if dup 0.207031 gt { exch pop exch pop exch pop dup 0.207031 sub 0.000000 mul 0.588242 add exch dup 0.207031 sub 0.000000 mul 0.831375 add exch dup 0.207031 sub 0.000000 mul 0.945099 add exch } if dup 0.210937 gt { exch pop exch pop exch pop dup 0.210937 sub -1.003711 mul 0.588242 add exch dup 0.210937 sub -1.003711 mul 0.831375 add exch dup 0.210937 sub -1.003711 mul 0.945099 add exch } if dup 0.214844 gt { exch pop exch pop exch pop dup 0.214844 sub 0.000000 mul 0.584320 add exch dup 0.214844 sub 0.000000 mul 0.827454 add exch dup 0.214844 sub 0.000000 mul 0.941177 add exch } if dup 0.218750 gt { exch pop exch pop exch pop dup 0.218750 sub -1.003971 mul 0.584320 add exch dup 0.218750 sub 0.000000 mul 0.827454 add exch dup 0.218750 sub 0.000000 mul 0.941177 add exch } if dup 0.222656 gt { exch pop exch pop exch pop dup 0.222656 sub -1.003971 mul 0.580399 add exch dup 0.222656 sub 0.000000 mul 0.827454 add exch dup 0.222656 sub 0.000000 mul 0.941177 add exch } if dup 0.226562 gt { exch pop exch pop exch pop dup 0.226562 sub -1.003711 mul 0.576477 add exch dup 0.226562 sub 0.000000 mul 0.827454 add exch dup 0.226562 sub 0.000000 mul 0.941177 add exch } if dup 0.230469 gt { exch pop exch pop exch pop dup 0.230469 sub 0.000000 mul 0.572556 add exch dup 0.230469 sub -1.003971 mul 0.827454 add exch dup 0.230469 sub 0.000000 mul 0.941177 add exch } if dup 0.234375 gt { exch pop exch pop exch pop dup 0.234375 sub -1.003971 mul 0.572556 add exch dup 0.234375 sub 0.000000 mul 0.823532 add exch dup 0.234375 sub -1.003971 mul 0.941177 add exch } if dup 0.238281 gt { exch pop exch pop exch pop dup 0.238281 sub -1.003971 mul 0.568634 add exch dup 0.238281 sub 0.000000 mul 0.823532 add exch dup 0.238281 sub 0.000000 mul 0.937256 add exch } if dup 0.242187 gt { exch pop exch pop exch pop dup 0.242187 sub -1.003711 mul 0.564713 add exch dup 0.242187 sub 0.000000 mul 0.823532 add exch dup 0.242187 sub 0.000000 mul 0.937256 add exch } if dup 0.246094 gt { exch pop exch pop exch pop dup 0.246094 sub 0.000000 mul 0.560791 add exch dup 0.246094 sub 0.000000 mul 0.823532 add exch dup 0.246094 sub 0.000000 mul 0.937256 add exch } if dup 0.250000 gt { exch pop exch pop exch pop dup 0.250000 sub -1.003968 mul 0.560791 add exch dup 0.250000 sub -1.003968 mul 0.823532 add exch dup 0.250000 sub 0.000000 mul 0.937256 add exch } if dup 0.253906 gt { exch pop exch pop exch pop dup 0.253906 sub -1.003975 mul 0.556870 add exch dup 0.253906 sub 0.000000 mul 0.819611 add exch dup 0.253906 sub 0.000000 mul 0.937256 add exch } if dup 0.257812 gt { exch pop exch pop exch pop dup 0.257812 sub -1.003715 mul 0.552948 add exch dup 0.257812 sub 0.000000 mul 0.819611 add exch dup 0.257812 sub 0.000000 mul 0.937256 add exch } if dup 0.261719 gt { exch pop exch pop exch pop dup 0.261719 sub 0.000000 mul 0.549026 add exch dup 0.261719 sub 0.000000 mul 0.819611 add exch dup 0.261719 sub 0.000000 mul 0.937256 add exch } if dup 0.265625 gt { exch pop exch pop exch pop dup 0.265625 sub -1.003968 mul 0.549026 add exch dup 0.265625 sub -1.003968 mul 0.819611 add exch dup 0.265625 sub -1.003968 mul 0.937256 add exch } if dup 0.269531 gt { exch pop exch pop exch pop dup 0.269531 sub -1.003975 mul 0.545105 add exch dup 0.269531 sub 0.000000 mul 0.815689 add exch dup 0.269531 sub 0.000000 mul 0.933334 add exch } if dup 0.273437 gt { exch pop exch pop exch pop dup 0.273437 sub 0.000000 mul 0.541183 add exch dup 0.273437 sub 0.000000 mul 0.815689 add exch dup 0.273437 sub 0.000000 mul 0.933334 add exch } if dup 0.277344 gt { exch pop exch pop exch pop dup 0.277344 sub -1.003968 mul 0.541183 add exch dup 0.277344 sub 0.000000 mul 0.815689 add exch dup 0.277344 sub 0.000000 mul 0.933334 add exch } if dup 0.281250 gt { exch pop exch pop exch pop dup 0.281250 sub -1.003968 mul 0.537262 add exch dup 0.281250 sub -1.003968 mul 0.815689 add exch dup 0.281250 sub 0.000000 mul 0.933334 add exch } if dup 0.285156 gt { exch pop exch pop exch pop dup 0.285156 sub 0.000000 mul 0.533340 add exch dup 0.285156 sub 0.000000 mul 0.811768 add exch dup 0.285156 sub 0.000000 mul 0.933334 add exch } if dup 0.289062 gt { exch pop exch pop exch pop dup 0.289062 sub -1.003715 mul 0.533340 add exch dup 0.289062 sub 0.000000 mul 0.811768 add exch dup 0.289062 sub -1.003715 mul 0.933334 add exch } if dup 0.292969 gt { exch pop exch pop exch pop dup 0.292969 sub -1.003968 mul 0.529419 add exch dup 0.292969 sub 0.000000 mul 0.811768 add exch dup 0.292969 sub 0.000000 mul 0.929413 add exch } if dup 0.296875 gt { exch pop exch pop exch pop dup 0.296875 sub -1.003968 mul 0.525497 add exch dup 0.296875 sub -1.003968 mul 0.811768 add exch dup 0.296875 sub 0.000000 mul 0.929413 add exch } if dup 0.300781 gt { exch pop exch pop exch pop dup 0.300781 sub 0.000000 mul 0.521576 add exch dup 0.300781 sub 0.000000 mul 0.807846 add exch dup 0.300781 sub 0.000000 mul 0.929413 add exch } if dup 0.304687 gt { exch pop exch pop exch pop dup 0.304687 sub -1.003715 mul 0.521576 add exch dup 0.304687 sub 0.000000 mul 0.807846 add exch dup 0.304687 sub 0.000000 mul 0.929413 add exch } if dup 0.308594 gt { exch pop exch pop exch pop dup 0.308594 sub -1.003968 mul 0.517654 add exch dup 0.308594 sub 0.000000 mul 0.807846 add exch dup 0.308594 sub 0.000000 mul 0.929413 add exch } if dup 0.312500 gt { exch pop exch pop exch pop dup 0.312500 sub -1.003968 mul 0.513733 add exch dup 0.312500 sub 0.000000 mul 0.807846 add exch dup 0.312500 sub -1.003968 mul 0.929413 add exch } if dup 0.316406 gt { exch pop exch pop exch pop dup 0.316406 sub 0.000000 mul 0.509811 add exch dup 0.316406 sub 0.000000 mul 0.807846 add exch dup 0.316406 sub 0.000000 mul 0.925491 add exch } if dup 0.320312 gt { exch pop exch pop exch pop dup 0.320312 sub -1.003715 mul 0.509811 add exch dup 0.320312 sub -1.003715 mul 0.807846 add exch dup 0.320312 sub 0.000000 mul 0.925491 add exch } if dup 0.324219 gt { exch pop exch pop exch pop dup 0.324219 sub -1.003968 mul 0.505890 add exch dup 0.324219 sub 0.000000 mul 0.803925 add exch dup 0.324219 sub 0.000000 mul 0.925491 add exch } if dup 0.328125 gt { exch pop exch pop exch pop dup 0.328125 sub 0.000000 mul 0.501968 add exch dup 0.328125 sub -1.003968 mul 0.803925 add exch dup 0.328125 sub -1.003968 mul 0.925491 add exch } if dup 0.332031 gt { exch pop exch pop exch pop dup 0.332031 sub 1.003975 mul 0.501968 add exch dup 0.332031 sub -1.003975 mul 0.800003 add exch dup 0.332031 sub -1.003975 mul 0.921570 add exch } if dup 0.335937 gt { exch pop exch pop exch pop dup 0.335937 sub 0.000000 mul 0.505890 add exch dup 0.335937 sub -1.003715 mul 0.796082 add exch dup 0.335937 sub -2.007430 mul 0.917648 add exch } if dup 0.339844 gt { exch pop exch pop exch pop dup 0.339844 sub 0.000000 mul 0.505890 add exch dup 0.339844 sub -1.003968 mul 0.792160 add exch dup 0.339844 sub -1.003968 mul 0.909805 add exch } if dup 0.343750 gt { exch pop exch pop exch pop dup 0.343750 sub 0.000000 mul 0.505890 add exch dup 0.343750 sub -1.003968 mul 0.788239 add exch dup 0.343750 sub -1.003968 mul 0.905884 add exch } if dup 0.347656 gt { exch pop exch pop exch pop dup 0.347656 sub 1.003975 mul 0.505890 add exch dup 0.347656 sub -1.003975 mul 0.784317 add exch dup 0.347656 sub -2.007950 mul 0.901962 add exch } if dup 0.351562 gt { exch pop exch pop exch pop dup 0.351562 sub 0.000000 mul 0.509811 add exch dup 0.351562 sub -1.003715 mul 0.780396 add exch dup 0.351562 sub -1.003715 mul 0.894119 add exch } if dup 0.355469 gt { exch pop exch pop exch pop dup 0.355469 sub 1.003968 mul 0.509811 add exch dup 0.355469 sub -1.003968 mul 0.776474 add exch dup 0.355469 sub -1.003968 mul 0.890198 add exch } if dup 0.359375 gt { exch pop exch pop exch pop dup 0.359375 sub 0.000000 mul 0.513733 add exch dup 0.359375 sub -1.003968 mul 0.772552 add exch dup 0.359375 sub -2.007935 mul 0.886276 add exch } if dup 0.363281 gt { exch pop exch pop exch pop dup 0.363281 sub 0.000000 mul 0.513733 add exch dup 0.363281 sub -1.003975 mul 0.768631 add exch dup 0.363281 sub -1.003975 mul 0.878433 add exch } if dup 0.367187 gt { exch pop exch pop exch pop dup 0.367187 sub 0.000000 mul 0.513733 add exch dup 0.367187 sub -1.003715 mul 0.764709 add exch dup 0.367187 sub -2.007430 mul 0.874512 add exch } if dup 0.371094 gt { exch pop exch pop exch pop dup 0.371094 sub 1.003968 mul 0.513733 add exch dup 0.371094 sub -2.007935 mul 0.760788 add exch dup 0.371094 sub -1.003968 mul 0.866669 add exch } if dup 0.375000 gt { exch pop exch pop exch pop dup 0.375000 sub 0.000000 mul 0.517654 add exch dup 0.375000 sub -1.003968 mul 0.752945 add exch dup 0.375000 sub -2.007935 mul 0.862747 add exch } if dup 0.378906 gt { exch pop exch pop exch pop dup 0.378906 sub 1.003975 mul 0.517654 add exch dup 0.378906 sub -1.003975 mul 0.749023 add exch dup 0.378906 sub -1.003975 mul 0.854904 add exch } if dup 0.382812 gt { exch pop exch pop exch pop dup 0.382812 sub 0.000000 mul 0.521576 add exch dup 0.382812 sub -1.003715 mul 0.745102 add exch dup 0.382812 sub -1.003715 mul 0.850983 add exch } if dup 0.386719 gt { exch pop exch pop exch pop dup 0.386719 sub 0.000000 mul 0.521576 add exch dup 0.386719 sub -1.003968 mul 0.741180 add exch dup 0.386719 sub -1.003968 mul 0.847061 add exch } if dup 0.390625 gt { exch pop exch pop exch pop dup 0.390625 sub 0.000000 mul 0.521576 add exch dup 0.390625 sub -1.003968 mul 0.737259 add exch dup 0.390625 sub -2.007935 mul 0.843140 add exch } if dup 0.394531 gt { exch pop exch pop exch pop dup 0.394531 sub 1.003975 mul 0.521576 add exch dup 0.394531 sub -1.003975 mul 0.733337 add exch dup 0.394531 sub -1.003975 mul 0.835297 add exch } if dup 0.398437 gt { exch pop exch pop exch pop dup 0.398437 sub 0.000000 mul 0.525497 add exch dup 0.398437 sub -1.003715 mul 0.729416 add exch dup 0.398437 sub -2.007430 mul 0.831375 add exch } if dup 0.402344 gt { exch pop exch pop exch pop dup 0.402344 sub 1.003968 mul 0.525497 add exch dup 0.402344 sub -1.003968 mul 0.725494 add exch dup 0.402344 sub -1.003968 mul 0.823532 add exch } if dup 0.406250 gt { exch pop exch pop exch pop dup 0.406250 sub 0.000000 mul 0.529419 add exch dup 0.406250 sub -1.003968 mul 0.721573 add exch dup 0.406250 sub -1.003968 mul 0.819611 add exch } if dup 0.410156 gt { exch pop exch pop exch pop dup 0.410156 sub 1.003975 mul 0.529419 add exch dup 0.410156 sub -2.007950 mul 0.717651 add exch dup 0.410156 sub -2.007950 mul 0.815689 add exch } if dup 0.414062 gt { exch pop exch pop exch pop dup 0.414062 sub 0.000000 mul 0.533340 add exch dup 0.414062 sub -1.003715 mul 0.709808 add exch dup 0.414062 sub -1.003715 mul 0.807846 add exch } if dup 0.417969 gt { exch pop exch pop exch pop dup 0.417969 sub 0.000000 mul 0.533340 add exch dup 0.417969 sub -1.003968 mul 0.705887 add exch dup 0.417969 sub -1.003968 mul 0.803925 add exch } if dup 0.421875 gt { exch pop exch pop exch pop dup 0.421875 sub 0.000000 mul 0.533340 add exch dup 0.421875 sub -1.003968 mul 0.701965 add exch dup 0.421875 sub -2.007935 mul 0.800003 add exch } if dup 0.425781 gt { exch pop exch pop exch pop dup 0.425781 sub 1.003975 mul 0.533340 add exch dup 0.425781 sub -1.003975 mul 0.698044 add exch dup 0.425781 sub -1.003975 mul 0.792160 add exch } if dup 0.429687 gt { exch pop exch pop exch pop dup 0.429687 sub 0.000000 mul 0.537262 add exch dup 0.429687 sub -1.003715 mul 0.694122 add exch dup 0.429687 sub -2.007430 mul 0.788239 add exch } if dup 0.433594 gt { exch pop exch pop exch pop dup 0.433594 sub 1.003968 mul 0.537262 add exch dup 0.433594 sub -1.003968 mul 0.690201 add exch dup 0.433594 sub -1.003968 mul 0.780396 add exch } if dup 0.437500 gt { exch pop exch pop exch pop dup 0.437500 sub 0.000000 mul 0.541183 add exch dup 0.437500 sub -1.003968 mul 0.686279 add exch dup 0.437500 sub -2.007935 mul 0.776474 add exch } if dup 0.441406 gt { exch pop exch pop exch pop dup 0.441406 sub 0.000000 mul 0.541183 add exch dup 0.441406 sub -1.003975 mul 0.682358 add exch dup 0.441406 sub -1.003975 mul 0.768631 add exch } if dup 0.445312 gt { exch pop exch pop exch pop dup 0.445312 sub 0.000000 mul 0.541183 add exch dup 0.445312 sub -1.003715 mul 0.678436 add exch dup 0.445312 sub -1.003715 mul 0.764709 add exch } if dup 0.449219 gt { exch pop exch pop exch pop dup 0.449219 sub 1.003968 mul 0.541183 add exch dup 0.449219 sub -1.003968 mul 0.674515 add exch dup 0.449219 sub -1.003968 mul 0.760788 add exch } if dup 0.453125 gt { exch pop exch pop exch pop dup 0.453125 sub 0.000000 mul 0.545105 add exch dup 0.453125 sub -1.003968 mul 0.670593 add exch dup 0.453125 sub -2.007935 mul 0.756866 add exch } if dup 0.457031 gt { exch pop exch pop exch pop dup 0.457031 sub 1.003975 mul 0.545105 add exch dup 0.457031 sub -2.007950 mul 0.666672 add exch dup 0.457031 sub -1.003975 mul 0.749023 add exch } if dup 0.460937 gt { exch pop exch pop exch pop dup 0.460937 sub 0.000000 mul 0.549026 add exch dup 0.460937 sub -1.003715 mul 0.658829 add exch dup 0.460937 sub -2.007430 mul 0.745102 add exch } if dup 0.464844 gt { exch pop exch pop exch pop dup 0.464844 sub 0.000000 mul 0.549026 add exch dup 0.464844 sub -1.003968 mul 0.654907 add exch dup 0.464844 sub -1.003968 mul 0.737259 add exch } if dup 0.468750 gt { exch pop exch pop exch pop dup 0.468750 sub 0.000000 mul 0.549026 add exch dup 0.468750 sub -1.003968 mul 0.650986 add exch dup 0.468750 sub -2.007935 mul 0.733337 add exch } if dup 0.472656 gt { exch pop exch pop exch pop dup 0.472656 sub 1.003975 mul 0.549026 add exch dup 0.472656 sub -1.003975 mul 0.647064 add exch dup 0.472656 sub -1.003975 mul 0.725494 add exch } if dup 0.476562 gt { exch pop exch pop exch pop dup 0.476562 sub 0.000000 mul 0.552948 add exch dup 0.476562 sub -1.003715 mul 0.643143 add exch dup 0.476562 sub -1.003715 mul 0.721573 add exch } if dup 0.480469 gt { exch pop exch pop exch pop dup 0.480469 sub 1.003968 mul 0.552948 add exch dup 0.480469 sub -1.003968 mul 0.639221 add exch dup 0.480469 sub -1.003968 mul 0.717651 add exch } if dup 0.484375 gt { exch pop exch pop exch pop dup 0.484375 sub 0.000000 mul 0.556870 add exch dup 0.484375 sub -1.003968 mul 0.635300 add exch dup 0.484375 sub -2.007935 mul 0.713730 add exch } if dup 0.488281 gt { exch pop exch pop exch pop dup 0.488281 sub 1.003975 mul 0.556870 add exch dup 0.488281 sub -1.003975 mul 0.631378 add exch dup 0.488281 sub -1.003975 mul 0.705887 add exch } if dup 0.492187 gt { exch pop exch pop exch pop dup 0.492187 sub 0.000000 mul 0.560791 add exch dup 0.492187 sub -1.003715 mul 0.627457 add exch dup 0.492187 sub -2.007430 mul 0.701965 add exch } if dup 0.496094 gt { exch pop exch pop exch pop dup 0.496094 sub 0.000000 mul 0.560791 add exch dup 0.496094 sub -1.003968 mul 0.623535 add exch dup 0.496094 sub -1.003968 mul 0.694122 add exch } if dup 0.500000 gt { exch pop exch pop exch pop dup 0.500000 sub 0.000000 mul 0.560791 add exch dup 0.500000 sub -1.003968 mul 0.619614 add exch dup 0.500000 sub -1.003968 mul 0.690201 add exch } if dup 0.503906 gt { exch pop exch pop exch pop dup 0.503906 sub 1.003968 mul 0.560791 add exch dup 0.503906 sub -2.007935 mul 0.615692 add exch dup 0.503906 sub -2.007935 mul 0.686279 add exch } if dup 0.507812 gt { exch pop exch pop exch pop dup 0.507812 sub 0.000000 mul 0.564713 add exch dup 0.507812 sub -1.003722 mul 0.607849 add exch dup 0.507812 sub -1.003722 mul 0.678436 add exch } if dup 0.511719 gt { exch pop exch pop exch pop dup 0.511719 sub 1.003968 mul 0.564713 add exch dup 0.511719 sub -1.003968 mul 0.603928 add exch dup 0.511719 sub -1.003968 mul 0.674515 add exch } if dup 0.515625 gt { exch pop exch pop exch pop dup 0.515625 sub 0.000000 mul 0.568634 add exch dup 0.515625 sub -1.003968 mul 0.600006 add exch dup 0.515625 sub -2.007935 mul 0.670593 add exch } if dup 0.519531 gt { exch pop exch pop exch pop dup 0.519531 sub 0.000000 mul 0.568634 add exch dup 0.519531 sub -1.003968 mul 0.596085 add exch dup 0.519531 sub -1.003968 mul 0.662750 add exch } if dup 0.523437 gt { exch pop exch pop exch pop dup 0.523437 sub 0.000000 mul 0.568634 add exch dup 0.523437 sub -1.003722 mul 0.592163 add exch dup 0.523437 sub -2.007445 mul 0.658829 add exch } if dup 0.527344 gt { exch pop exch pop exch pop dup 0.527344 sub 1.003968 mul 0.568634 add exch dup 0.527344 sub -1.003968 mul 0.588242 add exch dup 0.527344 sub -1.003968 mul 0.650986 add exch } if dup 0.531250 gt { exch pop exch pop exch pop dup 0.531250 sub 0.000000 mul 0.572556 add exch dup 0.531250 sub -1.003968 mul 0.584320 add exch dup 0.531250 sub -2.007935 mul 0.647064 add exch } if dup 0.535156 gt { exch pop exch pop exch pop dup 0.535156 sub 1.003722 mul 0.572556 add exch dup 0.535156 sub -1.003722 mul 0.580399 add exch dup 0.535156 sub -1.003722 mul 0.639221 add exch } if dup 0.539063 gt { exch pop exch pop exch pop dup 0.539063 sub 0.000000 mul 0.576477 add exch dup 0.539063 sub -1.003968 mul 0.576477 add exch dup 0.539063 sub -1.003968 mul 0.635300 add exch } if dup 0.542969 gt { exch pop exch pop exch pop dup 0.542969 sub 0.000000 mul 0.576477 add exch dup 0.542969 sub -2.007935 mul 0.572556 add exch dup 0.542969 sub -1.003968 mul 0.631378 add exch } if dup 0.546875 gt { exch pop exch pop exch pop dup 0.546875 sub 0.000000 mul 0.576477 add exch dup 0.546875 sub -1.003968 mul 0.564713 add exch dup 0.546875 sub -2.007935 mul 0.627457 add exch } if dup 0.550781 gt { exch pop exch pop exch pop dup 0.550781 sub 1.003968 mul 0.576477 add exch dup 0.550781 sub -1.003968 mul 0.560791 add exch dup 0.550781 sub -1.003968 mul 0.619614 add exch } if dup 0.554687 gt { exch pop exch pop exch pop dup 0.554687 sub 0.000000 mul 0.580399 add exch dup 0.554687 sub -1.003722 mul 0.556870 add exch dup 0.554687 sub -2.007445 mul 0.615692 add exch } if dup 0.558594 gt { exch pop exch pop exch pop dup 0.558594 sub 1.003968 mul 0.580399 add exch dup 0.558594 sub -1.003968 mul 0.552948 add exch dup 0.558594 sub -1.003968 mul 0.607849 add exch } if dup 0.562500 gt { exch pop exch pop exch pop dup 0.562500 sub 0.000000 mul 0.584320 add exch dup 0.562500 sub -1.003968 mul 0.549026 add exch dup 0.562500 sub -1.003968 mul 0.603928 add exch } if dup 0.566406 gt { exch pop exch pop exch pop dup 0.566406 sub 1.003968 mul 0.584320 add exch dup 0.566406 sub -1.003968 mul 0.545105 add exch dup 0.566406 sub -2.007935 mul 0.600006 add exch } if dup 0.570312 gt { exch pop exch pop exch pop dup 0.570312 sub 0.000000 mul 0.588242 add exch dup 0.570312 sub -1.003722 mul 0.541183 add exch dup 0.570312 sub -1.003722 mul 0.592163 add exch } if dup 0.574219 gt { exch pop exch pop exch pop dup 0.574219 sub 0.000000 mul 0.588242 add exch dup 0.574219 sub -1.003968 mul 0.537262 add exch dup 0.574219 sub -2.007935 mul 0.588242 add exch } if dup 0.578125 gt { exch pop exch pop exch pop dup 0.578125 sub 0.000000 mul 0.588242 add exch dup 0.578125 sub -1.003968 mul 0.533340 add exch dup 0.578125 sub -1.003968 mul 0.580399 add exch } if dup 0.582031 gt { exch pop exch pop exch pop dup 0.582031 sub 1.003722 mul 0.588242 add exch dup 0.582031 sub -1.003722 mul 0.529419 add exch dup 0.582031 sub -1.003722 mul 0.576477 add exch } if dup 0.585938 gt { exch pop exch pop exch pop dup 0.585938 sub 0.000000 mul 0.592163 add exch dup 0.585938 sub -2.007935 mul 0.525497 add exch dup 0.585938 sub -2.007935 mul 0.572556 add exch } if dup 0.589844 gt { exch pop exch pop exch pop dup 0.589844 sub 1.003968 mul 0.592163 add exch dup 0.589844 sub -1.003968 mul 0.517654 add exch dup 0.589844 sub -1.003968 mul 0.564713 add exch } if dup 0.593750 gt { exch pop exch pop exch pop dup 0.593750 sub 0.000000 mul 0.596085 add exch dup 0.593750 sub -1.003968 mul 0.513733 add exch dup 0.593750 sub -2.007935 mul 0.560791 add exch } if dup 0.597656 gt { exch pop exch pop exch pop dup 0.597656 sub 0.000000 mul 0.596085 add exch dup 0.597656 sub -1.003968 mul 0.509811 add exch dup 0.597656 sub -1.003968 mul 0.552948 add exch } if dup 0.601562 gt { exch pop exch pop exch pop dup 0.601562 sub 0.000000 mul 0.596085 add exch dup 0.601562 sub -1.003722 mul 0.505890 add exch dup 0.601562 sub -1.003722 mul 0.549026 add exch } if dup 0.605469 gt { exch pop exch pop exch pop dup 0.605469 sub 1.003968 mul 0.596085 add exch dup 0.605469 sub -1.007874 mul 0.501968 add exch dup 0.605469 sub -1.003968 mul 0.545105 add exch } if dup 0.609375 gt { exch pop exch pop exch pop dup 0.609375 sub 0.000000 mul 0.600006 add exch dup 0.609375 sub -1.003968 mul 0.498032 add exch dup 0.609375 sub -2.007935 mul 0.541183 add exch } if dup 0.613281 gt { exch pop exch pop exch pop dup 0.613281 sub 1.003968 mul 0.600006 add exch dup 0.613281 sub -1.003968 mul 0.494110 add exch dup 0.613281 sub -1.003968 mul 0.533340 add exch } if dup 0.617187 gt { exch pop exch pop exch pop dup 0.617187 sub 0.000000 mul 0.603928 add exch dup 0.617187 sub -1.003722 mul 0.490189 add exch dup 0.617187 sub -2.007445 mul 0.529419 add exch } if dup 0.621094 gt { exch pop exch pop exch pop dup 0.621094 sub 0.000000 mul 0.603928 add exch dup 0.621094 sub -1.003968 mul 0.486267 add exch dup 0.621094 sub -1.003968 mul 0.521576 add exch } if dup 0.625000 gt { exch pop exch pop exch pop dup 0.625000 sub 0.000000 mul 0.603928 add exch dup 0.625000 sub -1.003968 mul 0.482346 add exch dup 0.625000 sub -2.007935 mul 0.517654 add exch } if dup 0.628906 gt { exch pop exch pop exch pop dup 0.628906 sub 1.003722 mul 0.603928 add exch dup 0.628906 sub -1.003722 mul 0.478424 add exch dup 0.628906 sub -1.003722 mul 0.509811 add exch } if dup 0.632813 gt { exch pop exch pop exch pop dup 0.632813 sub 0.000000 mul 0.607849 add exch dup 0.632813 sub -2.007935 mul 0.474503 add exch dup 0.632813 sub -1.003968 mul 0.505890 add exch } if dup 0.636719 gt { exch pop exch pop exch pop dup 0.636719 sub 1.003968 mul 0.607849 add exch dup 0.636719 sub -1.003968 mul 0.466660 add exch dup 0.636719 sub -1.007874 mul 0.501968 add exch } if dup 0.640625 gt { exch pop exch pop exch pop dup 0.640625 sub 0.000000 mul 0.611771 add exch dup 0.640625 sub -1.003968 mul 0.462738 add exch dup 0.640625 sub -2.007935 mul 0.498032 add exch } if dup 0.644531 gt { exch pop exch pop exch pop dup 0.644531 sub 0.000000 mul 0.611771 add exch dup 0.644531 sub -1.003968 mul 0.458817 add exch dup 0.644531 sub -1.003968 mul 0.490189 add exch } if dup 0.648437 gt { exch pop exch pop exch pop dup 0.648437 sub 1.003722 mul 0.611771 add exch dup 0.648437 sub -1.003722 mul 0.454895 add exch dup 0.648437 sub -2.007445 mul 0.486267 add exch } if dup 0.652344 gt { exch pop exch pop exch pop dup 0.652344 sub 0.000000 mul 0.615692 add exch dup 0.652344 sub -1.003968 mul 0.450974 add exch dup 0.652344 sub -1.003968 mul 0.478424 add exch } if dup 0.656250 gt { exch pop exch pop exch pop dup 0.656250 sub 0.000000 mul 0.615692 add exch dup 0.656250 sub -1.003968 mul 0.447052 add exch dup 0.656250 sub -1.003968 mul 0.474503 add exch } if dup 0.660156 gt { exch pop exch pop exch pop dup 0.660156 sub 1.003968 mul 0.615692 add exch dup 0.660156 sub -1.003968 mul 0.443130 add exch dup 0.660156 sub -2.007935 mul 0.470581 add exch } if dup 0.664062 gt { exch pop exch pop exch pop dup 0.664062 sub 0.000000 mul 0.619614 add exch dup 0.664062 sub -1.003722 mul 0.439209 add exch dup 0.664062 sub -1.003722 mul 0.462738 add exch } if dup 0.667969 gt { exch pop exch pop exch pop dup 0.667969 sub 1.003968 mul 0.619614 add exch dup 0.667969 sub -1.003968 mul 0.435287 add exch dup 0.667969 sub -1.003968 mul 0.458817 add exch } if dup 0.671875 gt { exch pop exch pop exch pop dup 0.671875 sub 0.000000 mul 0.623535 add exch dup 0.671875 sub -2.007935 mul 0.431366 add exch dup 0.671875 sub -2.007935 mul 0.454895 add exch } if dup 0.675781 gt { exch pop exch pop exch pop dup 0.675781 sub 0.000000 mul 0.623535 add exch dup 0.675781 sub -1.003722 mul 0.423523 add exch dup 0.675781 sub -1.003722 mul 0.447052 add exch } if dup 0.679688 gt { exch pop exch pop exch pop dup 0.679688 sub 0.000000 mul 0.623535 add exch dup 0.679688 sub -1.003968 mul 0.419601 add exch dup 0.679688 sub -2.007935 mul 0.443130 add exch } if dup 0.683594 gt { exch pop exch pop exch pop dup 0.683594 sub 1.003968 mul 0.623535 add exch dup 0.683594 sub -1.003968 mul 0.415680 add exch dup 0.683594 sub -1.003968 mul 0.435287 add exch } if dup 0.687500 gt { exch pop exch pop exch pop dup 0.687500 sub 0.000000 mul 0.627457 add exch dup 0.687500 sub -1.003968 mul 0.411758 add exch dup 0.687500 sub -2.007935 mul 0.431366 add exch } if dup 0.691406 gt { exch pop exch pop exch pop dup 0.691406 sub 1.003968 mul 0.627457 add exch dup 0.691406 sub -1.003968 mul 0.407837 add exch dup 0.691406 sub -1.003968 mul 0.423523 add exch } if dup 0.695312 gt { exch pop exch pop exch pop dup 0.695312 sub 0.000000 mul 0.631378 add exch dup 0.695312 sub -1.003722 mul 0.403915 add exch dup 0.695312 sub -1.003722 mul 0.419601 add exch } if dup 0.699219 gt { exch pop exch pop exch pop dup 0.699219 sub 0.000000 mul 0.631378 add exch dup 0.699219 sub -1.003968 mul 0.399994 add exch dup 0.699219 sub -1.003968 mul 0.415680 add exch } if dup 0.703125 gt { exch pop exch pop exch pop dup 0.703125 sub 0.000000 mul 0.631378 add exch dup 0.703125 sub -1.003968 mul 0.396072 add exch dup 0.703125 sub -2.007935 mul 0.411758 add exch } if dup 0.707031 gt { exch pop exch pop exch pop dup 0.707031 sub 1.003968 mul 0.631378 add exch dup 0.707031 sub -1.003968 mul 0.392151 add exch dup 0.707031 sub -1.003968 mul 0.403915 add exch } if dup 0.710937 gt { exch pop exch pop exch pop dup 0.710937 sub 0.000000 mul 0.635300 add exch dup 0.710937 sub -1.003722 mul 0.388229 add exch dup 0.710937 sub -2.007445 mul 0.399994 add exch } if dup 0.714844 gt { exch pop exch pop exch pop dup 0.714844 sub 1.003968 mul 0.635300 add exch dup 0.714844 sub -1.003968 mul 0.384308 add exch dup 0.714844 sub -1.003968 mul 0.392151 add exch } if dup 0.718750 gt { exch pop exch pop exch pop dup 0.718750 sub 0.000000 mul 0.639221 add exch dup 0.718750 sub -2.007935 mul 0.380386 add exch dup 0.718750 sub -2.007935 mul 0.388229 add exch } if dup 0.722656 gt { exch pop exch pop exch pop dup 0.722656 sub 1.003722 mul 0.639221 add exch dup 0.722656 sub -1.003722 mul 0.372543 add exch dup 0.722656 sub -1.003722 mul 0.380386 add exch } if dup 0.726563 gt { exch pop exch pop exch pop dup 0.726563 sub 0.000000 mul 0.643143 add exch dup 0.726563 sub -1.003968 mul 0.368622 add exch dup 0.726563 sub -1.003968 mul 0.376465 add exch } if dup 0.730469 gt { exch pop exch pop exch pop dup 0.730469 sub 0.000000 mul 0.643143 add exch dup 0.730469 sub -1.003968 mul 0.364700 add exch dup 0.730469 sub -2.007935 mul 0.372543 add exch } if dup 0.734375 gt { exch pop exch pop exch pop dup 0.734375 sub 0.000000 mul 0.643143 add exch dup 0.734375 sub -1.003968 mul 0.360779 add exch dup 0.734375 sub -1.003968 mul 0.364700 add exch } if dup 0.738281 gt { exch pop exch pop exch pop dup 0.738281 sub 1.003968 mul 0.643143 add exch dup 0.738281 sub -1.003968 mul 0.356857 add exch dup 0.738281 sub -1.003968 mul 0.360779 add exch } if dup 0.742187 gt { exch pop exch pop exch pop dup 0.742187 sub 0.000000 mul 0.647064 add exch dup 0.742187 sub -1.003722 mul 0.352936 add exch dup 0.742187 sub -2.007445 mul 0.356857 add exch } if dup 0.746094 gt { exch pop exch pop exch pop dup 0.746094 sub 1.003968 mul 0.647064 add exch dup 0.746094 sub -1.003968 mul 0.349014 add exch dup 0.746094 sub -1.003968 mul 0.349014 add exch } if dup 0.750000 gt { exch pop exch pop exch pop dup 0.750000 sub 0.000000 mul 0.650986 add exch dup 0.750000 sub -1.003968 mul 0.345093 add exch dup 0.750000 sub -2.007935 mul 0.345093 add exch } if dup 0.753906 gt { exch pop exch pop exch pop dup 0.753906 sub 0.000000 mul 0.650986 add exch dup 0.753906 sub -1.003968 mul 0.341171 add exch dup 0.753906 sub -1.003968 mul 0.337250 add exch } if dup 0.757812 gt { exch pop exch pop exch pop dup 0.757812 sub 0.000000 mul 0.650986 add exch dup 0.757812 sub -2.007445 mul 0.337250 add exch dup 0.757812 sub -1.003722 mul 0.333328 add exch } if dup 0.761719 gt { exch pop exch pop exch pop dup 0.761719 sub 1.003968 mul 0.650986 add exch dup 0.761719 sub -1.003968 mul 0.329407 add exch dup 0.761719 sub -1.003968 mul 0.329407 add exch } if dup 0.765625 gt { exch pop exch pop exch pop dup 0.765625 sub 0.000000 mul 0.654907 add exch dup 0.765625 sub -1.003968 mul 0.325485 add exch dup 0.765625 sub -2.007935 mul 0.325485 add exch } if dup 0.769531 gt { exch pop exch pop exch pop dup 0.769531 sub 1.003968 mul 0.654907 add exch dup 0.769531 sub -1.003968 mul 0.321564 add exch dup 0.769531 sub -1.003968 mul 0.317642 add exch } if dup 0.773437 gt { exch pop exch pop exch pop dup 0.773437 sub 0.000000 mul 0.658829 add exch dup 0.773437 sub -1.003722 mul 0.317642 add exch dup 0.773437 sub -2.007445 mul 0.313721 add exch } if dup 0.777344 gt { exch pop exch pop exch pop dup 0.777344 sub 0.000000 mul 0.658829 add exch dup 0.777344 sub -1.003968 mul 0.313721 add exch dup 0.777344 sub -1.003968 mul 0.305878 add exch } if dup 0.781250 gt { exch pop exch pop exch pop dup 0.781250 sub 0.000000 mul 0.658829 add exch dup 0.781250 sub -1.003968 mul 0.309799 add exch dup 0.781250 sub -2.007935 mul 0.301956 add exch } if dup 0.785156 gt { exch pop exch pop exch pop dup 0.785156 sub 1.003968 mul 0.658829 add exch dup 0.785156 sub -1.003968 mul 0.305878 add exch dup 0.785156 sub -1.003968 mul 0.294113 add exch } if dup 0.789062 gt { exch pop exch pop exch pop dup 0.789062 sub 0.000000 mul 0.662750 add exch dup 0.789062 sub -1.003722 mul 0.301956 add exch dup 0.789062 sub -1.003722 mul 0.290192 add exch } if dup 0.792969 gt { exch pop exch pop exch pop dup 0.792969 sub 1.003968 mul 0.662750 add exch dup 0.792969 sub -1.003968 mul 0.298035 add exch dup 0.792969 sub -1.003968 mul 0.286270 add exch } if dup 0.796875 gt { exch pop exch pop exch pop dup 0.796875 sub 0.000000 mul 0.666672 add exch dup 0.796875 sub -1.003968 mul 0.294113 add exch dup 0.796875 sub -2.007935 mul 0.282349 add exch } if dup 0.800781 gt { exch pop exch pop exch pop dup 0.800781 sub 1.003968 mul 0.666672 add exch dup 0.800781 sub -2.007935 mul 0.290192 add exch dup 0.800781 sub -1.003968 mul 0.274506 add exch } if dup 0.804687 gt { exch pop exch pop exch pop dup 0.804687 sub 0.000000 mul 0.670593 add exch dup 0.804687 sub -1.003722 mul 0.282349 add exch dup 0.804687 sub -2.007445 mul 0.270584 add exch } if dup 0.808594 gt { exch pop exch pop exch pop dup 0.808594 sub 0.000000 mul 0.670593 add exch dup 0.808594 sub -1.003968 mul 0.278427 add exch dup 0.808594 sub -1.003968 mul 0.262741 add exch } if dup 0.812500 gt { exch pop exch pop exch pop dup 0.812500 sub 0.000000 mul 0.670593 add exch dup 0.812500 sub -1.003968 mul 0.274506 add exch dup 0.812500 sub -1.003968 mul 0.258820 add exch } if dup 0.816406 gt { exch pop exch pop exch pop dup 0.816406 sub 1.003968 mul 0.670593 add exch dup 0.816406 sub -1.003968 mul 0.270584 add exch dup 0.816406 sub -2.007935 mul 0.254898 add exch } if dup 0.820312 gt { exch pop exch pop exch pop dup 0.820312 sub 0.000000 mul 0.674515 add exch dup 0.820312 sub -1.003722 mul 0.266663 add exch dup 0.820312 sub -1.003722 mul 0.247055 add exch } if dup 0.824219 gt { exch pop exch pop exch pop dup 0.824219 sub 1.003968 mul 0.674515 add exch dup 0.824219 sub -1.003968 mul 0.262741 add exch dup 0.824219 sub -2.007935 mul 0.243134 add exch } if dup 0.828125 gt { exch pop exch pop exch pop dup 0.828125 sub 0.000000 mul 0.678436 add exch dup 0.828125 sub -1.003968 mul 0.258820 add exch dup 0.828125 sub -1.003968 mul 0.235291 add exch } if dup 0.832031 gt { exch pop exch pop exch pop dup 0.832031 sub 0.000000 mul 0.678436 add exch dup 0.832031 sub -1.003968 mul 0.254898 add exch dup 0.832031 sub -1.003968 mul 0.231369 add exch } if dup 0.835937 gt { exch pop exch pop exch pop dup 0.835937 sub 0.000000 mul 0.678436 add exch dup 0.835937 sub -1.003722 mul 0.250977 add exch dup 0.835937 sub -2.007445 mul 0.227448 add exch } if dup 0.839844 gt { exch pop exch pop exch pop dup 0.839844 sub 1.003968 mul 0.678436 add exch dup 0.839844 sub -1.003968 mul 0.247055 add exch dup 0.839844 sub -1.003968 mul 0.219604 add exch } if dup 0.843750 gt { exch pop exch pop exch pop dup 0.843750 sub 0.000000 mul 0.682358 add exch dup 0.843750 sub -1.003968 mul 0.243134 add exch dup 0.843750 sub -2.007935 mul 0.215683 add exch } if dup 0.847656 gt { exch pop exch pop exch pop dup 0.847656 sub 1.003968 mul 0.682358 add exch dup 0.847656 sub -2.007935 mul 0.239212 add exch dup 0.847656 sub -1.003968 mul 0.207840 add exch } if dup 0.851562 gt { exch pop exch pop exch pop dup 0.851562 sub 0.000000 mul 0.686279 add exch dup 0.851562 sub -1.003722 mul 0.231369 add exch dup 0.851562 sub -1.003722 mul 0.203918 add exch } if dup 0.855469 gt { exch pop exch pop exch pop dup 0.855469 sub 0.000000 mul 0.686279 add exch dup 0.855469 sub -1.003968 mul 0.227448 add exch dup 0.855469 sub -1.003968 mul 0.199997 add exch } if dup 0.859375 gt { exch pop exch pop exch pop dup 0.859375 sub 0.000000 mul 0.686279 add exch dup 0.859375 sub -1.003968 mul 0.223526 add exch dup 0.859375 sub -2.007935 mul 0.196075 add exch } if dup 0.863281 gt { exch pop exch pop exch pop dup 0.863281 sub 1.003968 mul 0.686279 add exch dup 0.863281 sub -1.003968 mul 0.219604 add exch dup 0.863281 sub -1.003968 mul 0.188232 add exch } if dup 0.867187 gt { exch pop exch pop exch pop dup 0.867187 sub 0.000000 mul 0.690201 add exch dup 0.867187 sub -1.003722 mul 0.215683 add exch dup 0.867187 sub -2.007445 mul 0.184311 add exch } if dup 0.871094 gt { exch pop exch pop exch pop dup 0.871094 sub 1.003968 mul 0.690201 add exch dup 0.871094 sub -1.003968 mul 0.211761 add exch dup 0.871094 sub -1.003968 mul 0.176468 add exch } if dup 0.875000 gt { exch pop exch pop exch pop dup 0.875000 sub 0.000000 mul 0.694122 add exch dup 0.875000 sub -1.003968 mul 0.207840 add exch dup 0.875000 sub -2.007935 mul 0.172546 add exch } if dup 0.878906 gt { exch pop exch pop exch pop dup 0.878906 sub 0.000000 mul 0.694122 add exch dup 0.878906 sub -1.003968 mul 0.203918 add exch dup 0.878906 sub -1.003968 mul 0.164703 add exch } if dup 0.882812 gt { exch pop exch pop exch pop dup 0.882812 sub 1.003722 mul 0.694122 add exch dup 0.882812 sub -1.003722 mul 0.199997 add exch dup 0.882812 sub -1.003722 mul 0.160782 add exch } if dup 0.886719 gt { exch pop exch pop exch pop dup 0.886719 sub 0.000000 mul 0.698044 add exch dup 0.886719 sub -2.007935 mul 0.196075 add exch dup 0.886719 sub -2.007935 mul 0.156860 add exch } if dup 0.890625 gt { exch pop exch pop exch pop dup 0.890625 sub 0.000000 mul 0.698044 add exch dup 0.890625 sub -1.003968 mul 0.188232 add exch dup 0.890625 sub -1.003968 mul 0.149017 add exch } if dup 0.894531 gt { exch pop exch pop exch pop dup 0.894531 sub 1.003968 mul 0.698044 add exch dup 0.894531 sub -1.003968 mul 0.184311 add exch dup 0.894531 sub -1.003968 mul 0.145096 add exch } if dup 0.898437 gt { exch pop exch pop exch pop dup 0.898437 sub 0.000000 mul 0.701965 add exch dup 0.898437 sub -1.003799 mul 0.180389 add exch dup 0.898437 sub -2.007598 mul 0.141174 add exch } if dup 0.902344 gt { exch pop exch pop exch pop dup 0.902344 sub 1.003891 mul 0.701965 add exch dup 0.902344 sub -1.003891 mul 0.176468 add exch dup 0.902344 sub -1.003891 mul 0.133331 add exch } if dup 0.906250 gt { exch pop exch pop exch pop dup 0.906250 sub 0.000000 mul 0.705887 add exch dup 0.906250 sub -1.003922 mul 0.172546 add exch dup 0.906250 sub -2.007843 mul 0.129410 add exch } if dup 0.910156 gt { exch pop exch pop exch pop dup 0.910156 sub 0.000000 mul 0.705887 add exch dup 0.910156 sub -1.003891 mul 0.168625 add exch dup 0.910156 sub -1.003891 mul 0.121567 add exch } if dup 0.914062 gt { exch pop exch pop exch pop dup 0.914062 sub 0.000000 mul 0.705887 add exch dup 0.914062 sub -1.003922 mul 0.164703 add exch dup 0.914062 sub -1.003924 mul 0.117645 add exch } if dup 0.917969 gt { exch pop exch pop exch pop dup 0.917969 sub 1.003891 mul 0.705887 add exch dup 0.917969 sub -1.003891 mul 0.160782 add exch dup 0.917969 sub -1.003887 mul 0.113724 add exch } if dup 0.921875 gt { exch pop exch pop exch pop dup 0.921875 sub 0.000000 mul 0.709808 add exch dup 0.921875 sub -1.003922 mul 0.156860 add exch dup 0.921875 sub -2.007845 mul 0.109802 add exch } if dup 0.925781 gt { exch pop exch pop exch pop dup 0.925781 sub 1.003891 mul 0.709808 add exch dup 0.925781 sub -1.003891 mul 0.152939 add exch dup 0.925781 sub -1.003891 mul 0.101959 add exch } if dup 0.929688 gt { exch pop exch pop exch pop dup 0.929688 sub 0.000000 mul 0.713730 add exch dup 0.929688 sub -1.003922 mul 0.149017 add exch dup 0.929688 sub -2.007843 mul 0.098038 add exch } if dup 0.933594 gt { exch pop exch pop exch pop dup 0.933594 sub 0.000000 mul 0.713730 add exch dup 0.933594 sub -2.007782 mul 0.145096 add exch dup 0.933594 sub -1.003891 mul 0.090195 add exch } if dup 0.937500 gt { exch pop exch pop exch pop dup 0.937500 sub 0.000000 mul 0.713730 add exch dup 0.937500 sub -1.003922 mul 0.137253 add exch dup 0.937500 sub -2.007841 mul 0.086273 add exch } if dup 0.941406 gt { exch pop exch pop exch pop dup 0.941406 sub 1.003891 mul 0.713730 add exch dup 0.941406 sub -1.003891 mul 0.133331 add exch dup 0.941406 sub -1.003893 mul 0.078430 add exch } if dup 0.945312 gt { exch pop exch pop exch pop dup 0.945312 sub 0.000000 mul 0.717651 add exch dup 0.945312 sub -1.003922 mul 0.129410 add exch dup 0.945312 sub -1.003922 mul 0.074509 add exch } if dup 0.949219 gt { exch pop exch pop exch pop dup 0.949219 sub 1.003891 mul 0.717651 add exch dup 0.949219 sub -1.003891 mul 0.125488 add exch dup 0.949219 sub -1.003891 mul 0.070587 add exch } if dup 0.953125 gt { exch pop exch pop exch pop dup 0.953125 sub 0.000000 mul 0.721573 add exch dup 0.953125 sub -1.003922 mul 0.121567 add exch dup 0.953125 sub -2.007843 mul 0.066666 add exch } if dup 0.957031 gt { exch pop exch pop exch pop dup 0.957031 sub 1.003891 mul 0.721573 add exch dup 0.957031 sub -1.003893 mul 0.117645 add exch dup 0.957031 sub -1.003892 mul 0.058823 add exch } if dup 0.960938 gt { exch pop exch pop exch pop dup 0.960938 sub 0.000000 mul 0.725494 add exch dup 0.960938 sub -1.003918 mul 0.113724 add exch dup 0.960938 sub -2.007841 mul 0.054901 add exch } if dup 0.964844 gt { exch pop exch pop exch pop dup 0.964844 sub 0.000000 mul 0.725494 add exch dup 0.964844 sub -1.003893 mul 0.109802 add exch dup 0.964844 sub -1.003891 mul 0.047058 add exch } if dup 0.968750 gt { exch pop exch pop exch pop dup 0.968750 sub 0.000000 mul 0.725494 add exch dup 0.968750 sub -1.003922 mul 0.105881 add exch dup 0.968750 sub -2.007844 mul 0.043137 add exch } if dup 0.972656 gt { exch pop exch pop exch pop dup 0.972656 sub 1.003891 mul 0.725494 add exch dup 0.972656 sub -1.003891 mul 0.101959 add exch dup 0.972656 sub -1.003891 mul 0.035294 add exch } if dup 0.976562 gt { exch pop exch pop exch pop dup 0.976562 sub 0.000000 mul 0.729416 add exch dup 0.976562 sub -1.003922 mul 0.098038 add exch dup 0.976562 sub -1.003922 mul 0.031372 add exch } if dup 0.980469 gt { exch pop exch pop exch pop dup 0.980469 sub 1.003891 mul 0.729416 add exch dup 0.980469 sub -2.007782 mul 0.094116 add exch dup 0.980469 sub -2.007782 mul 0.027451 add exch } if dup 0.984375 gt { exch pop exch pop exch pop dup 0.984375 sub 0.000000 mul 0.733337 add exch dup 0.984375 sub -1.003924 mul 0.086273 add exch dup 0.984375 sub -1.003919 mul 0.019608 add exch } if dup 0.988281 gt { exch pop exch pop exch pop dup 0.988281 sub 0.000000 mul 0.733337 add exch dup 0.988281 sub -1.003887 mul 0.082352 add exch dup 0.988281 sub -1.003891 mul 0.015686 add exch } if dup 0.992188 gt { exch pop exch pop exch pop dup 0.992188 sub 0.000000 mul 0.733337 add exch dup 0.992188 sub -1.003908 mul 0.078430 add exch dup 0.992188 sub -2.007813 mul 0.011765 add exch } if dup 0.996094 gt { exch pop exch pop exch pop dup 0.996094 sub 1.003906 mul 0.733337 add exch dup 0.996094 sub -1.003906 mul 0.074509 add exch dup 0.996094 sub -1.003907 mul 0.003922 add exch } if dup 1.000000 gt { exch pop exch pop exch pop 0.737259 exch 0.070587 exch 0.000000 exch } if pop }
+endstream
+endobj
+
+2 0 obj
+  50243
+endobj
+
+3 0 obj
+  << /BBox [ 0.000000 0.000000 428.000000 308.000000 ]
+     /Resources << >>
+     /Subtype /Form
+     /Length 4 0 R
+     /Group << /Type /Group
+               /S /Transparency
+            >>
+     /Type /XObject
+  >>
+stream
+/DeviceRGB CS
+/DeviceRGB cs
+q
+1.000000 0.000000 -0.000000 1.000000 32.300903 163.475830 cm
+0.964706 0.721569 0.576471 scn
+4.526970 13.683133 m
+7.159723 10.184798 8.476099 0.594537 2.820397 1.137382 c
+-2.235003 1.624219 0.955173 11.266180 1.413976 13.157520 c
+1.915657 15.242735 2.035717 13.472029 2.468792 14.648193 c
+f
+n
+Q
+q
+1.000000 0.000000 -0.000000 1.000000 52.752930 225.265381 cm
+0.964706 0.721569 0.576471 scn
+0.887589 12.140747 m
+0.000000 0.844393 l
+10.359495 -0.000032 l
+12.160402 12.011497 l
+0.887589 12.140747 l
+h
+f
+n
+Q
+q
+1.000000 0.000000 -0.000000 1.000000 48.988403 223.717896 cm
+0.964706 0.721569 0.576471 scn
+18.047642 23.007069 m
+18.253460 4.593410 0.651756 5.162107 0.000000 22.834740 c
+0.064318 40.886501 17.644583 41.050213 18.047642 23.007069 c
+h
+f
+n
+Q
+q
+1.000000 0.000000 -0.000000 1.000000 38.657959 65.113159 cm
+0.549020 0.549020 0.596078 scn
+3.770006 109.913208 m
+-3.982465 80.737427 2.346432 38.537659 4.065869 4.717537 c
+9.352815 4.459038 l
+9.352815 4.459038 13.259065 59.346733 14.746956 71.819252 c
+15.197183 75.606247 16.603605 83.701538 17.311104 87.217102 c
+17.366846 87.484222 17.949997 88.638840 17.992874 87.277420 c
+18.284451 78.656525 21.993460 69.117950 22.700958 59.626778 c
+24.351789 37.447670 23.665730 22.036880 24.244593 3.743858 c
+24.244593 3.743858 30.320509 -0.000046 30.329084 0.038734 c
+31.692627 5.118210 35.791828 47.081020 35.890450 53.379749 c
+35.911892 54.672237 38.008663 81.556000 31.628309 109.034317 c
+3.770006 109.913208 l
+h
+f
+n
+Q
+q
+1.000000 0.000000 -0.000000 1.000000 32.488159 171.784180 cm
+0.776000 0.416000 0.380000 scn
+63.092144 10.079494 m
+65.218933 9.316925 69.270966 14.685059 66.320915 16.119720 c
+59.447453 19.467266 53.645962 29.552988 52.972767 30.289707 c
+48.406185 35.696617 45.091660 47.354870 39.911911 53.412331 c
+35.718372 56.811577 35.555431 55.717270 31.087471 56.682327 c
+27.730066 52.210316 21.984318 54.812527 20.333488 56.609089 c
+20.136246 56.824501 19.600262 56.570312 19.510218 56.622013 c
+12.212260 55.717270 8.211677 51.249565 4.468365 44.097794 c
+1.968536 39.319893 0.343432 31.573578 0.167630 26.205442 c
+-0.132521 17.015846 -0.025325 10.088104 0.454917 3.698902 c
+0.502084 3.095741 3.151989 3.263771 5.827620 3.677364 c
+5.840484 3.677364 7.474162 25.231764 7.487025 25.240381 c
+8.370327 30.199230 10.308445 37.217449 11.208898 40.306496 c
+10.925899 31.047970 10.664338 15.874149 9.395128 4.121120 c
+9.330811 3.543808 9.416568 2.453808 9.935401 2.509815 c
+9.935401 2.509815 26.722416 0.127331 33.565861 1.501678 c
+34.547783 1.699860 37.888031 2.053135 37.956638 2.772621 c
+39.080063 14.456718 35.752674 27.295444 36.507339 40.306496 c
+38.694153 32.073341 52.711208 13.797554 63.092144 10.079494 c
+h
+f
+n
+Q
+q
+1.000000 0.000000 -0.000000 1.000000 40.755615 222.431274 cm
+0.290000 0.290000 0.290000 scn
+4.270720 3.588062 m
+5.106855 4.010273 4.652340 3.932724 7.143593 4.880550 c
+9.163180 5.647427 11.542949 5.345848 12.143250 5.918850 c
+13.403885 7.125172 14.004188 9.524893 13.549674 11.670425 c
+13.305265 12.833666 12.850749 13.311886 12.602053 13.604851 c
+7.014957 20.213778 10.513860 30.876808 10.513860 30.876808 c
+10.513860 30.876808 13.686885 24.354048 25.422789 20.006977 c
+25.422789 20.006977 24.976849 16.952396 23.287428 14.776707 c
+23.163078 14.617300 21.893869 13.432520 21.868143 11.601494 c
+21.846703 9.804934 21.863857 7.986832 23.115915 5.251064 c
+24.646685 1.907825 28.441448 1.145260 31.297171 2.334347 c
+33.432529 3.221855 34.264378 5.384621 34.337273 7.512920 c
+34.337273 7.512920 28.497190 7.099323 29.796415 13.669474 c
+30.765474 18.611090 31.863171 29.390446 26.949270 35.555618 c
+26.880663 35.641785 26.812057 35.727951 26.739164 35.809807 c
+26.691998 35.874432 26.636257 35.939056 26.576227 35.999374 c
+26.477606 36.115696 26.370409 36.227715 26.267500 36.339729 c
+26.168879 36.443127 26.065968 36.542217 25.967346 36.645618 c
+24.432289 38.179371 22.421278 39.316761 19.801390 39.855297 c
+19.801390 39.855297 9.819224 41.113319 8.176970 35.223881 c
+8.176970 35.223881 5.445597 33.806450 5.158309 28.623569 c
+4.875310 23.440689 5.762899 21.557964 5.981581 17.585716 c
+6.243141 12.760424 6.221701 8.404736 0.000000 8.374578 c
+-0.000000 8.378885 0.591727 5.565567 4.270720 3.588062 c
+h
+f
+n
+Q
+q
+1.000000 0.000000 -0.000000 1.000000 93.838379 176.851929 cm
+0.290000 0.290000 0.290000 scn
+0.001037 1.259226 m
+-0.028978 0.578516 0.597054 0.057209 1.270250 0.151991 c
+3.066867 0.414797 6.600073 1.560810 6.758725 1.517727 c
+7.907874 1.061049 11.183806 15.226727 11.402488 16.058228 c
+11.466806 16.303801 11.393907 16.575220 11.115195 16.911268 c
+10.840772 17.243008 10.403409 17.389486 9.983198 17.311937 c
+8.954109 17.118063 6.158420 16.613991 5.000695 16.368418 c
+4.164561 16.191778 4.074515 16.161625 3.834394 15.222417 c
+3.028275 12.081669 0.039632 1.965784 0.005329 1.276457 c
+0.001042 1.272148 0.001037 1.263535 0.001037 1.259226 c
+h
+f*
+n
+Q
+q
+1.000000 0.000000 -0.000000 1.000000 98.061768 174.649414 cm
+0.964706 0.721569 0.576471 scn
+5.776973 11.957594 m
+5.198110 12.448740 4.752171 10.389376 3.787398 10.208427 c
+3.367186 10.130877 2.938399 9.997321 2.535338 9.812065 c
+1.540550 9.359694 0.798745 8.480798 0.395684 7.459732 c
+-2.374285 0.415667 10.472200 3.177286 5.776973 11.957594 c
+h
+f
+n
+Q
+q
+1.000000 0.000000 -0.000000 1.000000 41.177612 57.672729 cm
+0.290000 0.290000 0.290000 scn
+7.240314 17.056601 m
+1.344490 16.009686 l
+1.494566 13.976168 -2.167276 4.954577 2.000535 1.882757 c
+3.775713 0.573032 5.173560 0.000036 7.454708 1.796598 c
+11.541049 5.014901 7.330359 15.251426 7.244601 17.060913 c
+f
+n
+Q
+q
+1.000000 0.000000 -0.000000 1.000000 62.511719 61.110718 cm
+0.290000 0.290000 0.290000 scn
+0.425024 11.111064 m
+0.570811 9.965060 -0.664096 1.809483 0.515069 1.051224 c
+0.900977 0.598853 1.351201 0.413590 1.561307 0.344658 c
+7.688674 0.232643 14.669328 0.112016 20.796696 0.000000 c
+24.257008 3.705128 7.161269 5.040694 7.547177 11.171387 c
+5.171697 11.149845 2.796216 11.132606 0.425024 11.111064 c
+h
+f
+n
+Q
+
+endstream
+endobj
+
+4 0 obj
+  5930
+endobj
+
+5 0 obj
+  << /BBox [ 0.000000 0.000000 428.000000 308.000000 ]
+     /Resources << >>
+     /Subtype /Form
+     /Length 6 0 R
+     /Group << /Type /Group
+               /S /Transparency
+            >>
+     /Type /XObject
+  >>
+stream
+/DeviceRGB CS
+/DeviceRGB cs
+q
+1.000000 0.000000 -0.000000 1.000000 32.304321 58.331787 cm
+0.000000 0.000000 0.000000 scn
+0.000000 204.066772 m
+72.962418 204.066772 l
+72.962418 0.000015 l
+0.000000 0.000015 l
+0.000000 204.066772 l
+h
+f
+n
+Q
+
+endstream
+endobj
+
+6 0 obj
+  237
+endobj
+
+7 0 obj
+  << /BBox [ 0.000000 0.000000 428.000000 308.000000 ]
+     /Resources << /Pattern << /P1 << /Matrix [ 0.588949 -41.013508 41.013508 0.588949 218.328781 221.106613 ]
+                                      /Shading << /Coords [ 0.000000 0.000000 1.000000 0.000000 ]
+                                                  /Extend [ true true ]
+                                                  /Domain [ 0.000000 1.000000 ]
+                                                  /ShadingType 2
+                                                  /ColorSpace /DeviceRGB
+                                                  /Function 1 0 R
+                                               >>
+                                      /PatternType 2
+                                      /Type /Pattern
+                                   >> >>
+                   /XObject << /X1 3 0 R >>
+                   /ExtGState << /E1 << /SMask << /Type /Mask
+                                                  /G 5 0 R
+                                                  /S /Alpha
+                                               >>
+                                        /Type /ExtGState
+                                     >> >>
+                >>
+     /Subtype /Form
+     /Length 8 0 R
+     /Group << /Type /Group
+               /S /Transparency
+            >>
+     /Type /XObject
+  >>
+stream
+/DeviceRGB CS
+/DeviceRGB cs
+q
+1.000000 0.000000 -0.000000 1.000000 77.829346 155.135498 cm
+0.937255 0.956863 0.968627 scn
+26.220865 0.000042 m
+40.702251 0.000042 52.441730 11.739521 52.441730 26.220907 c
+52.441730 40.702290 40.702251 52.441772 26.220865 52.441772 c
+11.739482 52.441772 0.000000 40.702290 0.000000 26.220907 c
+0.000000 11.739521 11.739482 0.000042 26.220865 0.000042 c
+h
+f
+n
+Q
+q
+1.000000 0.000000 -0.000000 1.000000 85.809570 163.115845 cm
+0.866667 0.909804 0.933333 scn
+18.240604 -0.000008 m
+28.314613 -0.000008 36.481209 8.166588 36.481209 18.240597 c
+36.481209 28.314606 28.314613 36.481201 18.240604 36.481201 c
+8.166596 36.481201 0.000000 28.314606 0.000000 18.240597 c
+0.000000 8.166588 8.166596 -0.000008 18.240604 -0.000008 c
+h
+f
+n
+Q
+q
+/E1 gs
+/X1 Do
+Q
+q
+1.000000 0.000000 -0.000000 1.000000 147.448120 37.671143 cm
+0.913725 0.941176 0.960784 scn
+131.104340 -0.000061 m
+203.511261 -0.000061 262.208679 58.697357 262.208679 131.104279 c
+262.208679 203.511215 203.511261 262.208618 131.104340 262.208618 c
+58.697407 262.208618 0.000000 203.511215 0.000000 131.104279 c
+0.000000 58.697357 58.697407 -0.000061 131.104340 -0.000061 c
+h
+f
+n
+Q
+q
+1.000000 0.000000 -0.000000 1.000000 187.349609 79.852417 cm
+0.760784 0.839216 0.882353 scn
+91.203003 0.000000 m
+141.573044 0.000000 182.406036 40.577774 182.406036 90.632996 c
+182.406036 140.688217 141.573044 181.265991 91.203003 181.265991 c
+40.832966 181.265991 0.000000 140.688217 0.000000 90.632996 c
+0.000000 40.577774 40.832966 0.000000 91.203003 0.000000 c
+h
+f
+n
+Q
+q
+1.000000 0.000000 -0.000000 1.000000 197.485718 63.878174 cm
+0.964706 0.721569 0.576471 scn
+47.275276 21.013275 m
+47.483734 32.982338 48.022259 44.916649 47.848541 56.920448 c
+47.501110 81.883484 46.024521 106.811790 45.051708 131.740097 c
+32.735222 134.693268 24.118885 136.690994 24.118885 136.690994 c
+24.118885 136.690994 1.501033 142.823196 0.059187 132.313354 c
+-1.382659 121.803520 23.997297 113.673569 23.997297 113.673569 c
+27.662712 112.335976 l
+27.697437 99.272499 l
+27.697437 99.272499 3.429265 75.629707 4.002529 67.273949 c
+4.575793 58.918198 17.656633 61.141769 17.656633 61.141769 c
+17.656633 61.141769 7.806934 39.670403 12.896824 33.190788 c
+16.631725 28.430954 21.078848 29.872826 21.078848 29.872826 c
+21.078848 29.872826 9.422489 21.378082 13.296364 12.275345 c
+14.998784 8.279877 27.263145 5.865204 27.263145 5.865204 c
+47.327389 4.353882 l
+46.424065 9.930176 46.702011 15.471725 47.275276 21.013275 c
+h
+f*
+n
+Q
+q
+1.000000 0.000000 -0.000000 1.000000 224.984253 22.048828 cm
+0.973000 0.973000 0.973000 scn
+95.864838 2.997192 m
+20.558788 0.513046 l
+12.880525 0.252472 6.470401 6.280457 6.209826 13.941345 c
+0.008140 201.850281 l
+-0.252435 209.528549 5.775543 215.938675 13.436434 216.199249 c
+88.742455 218.683395 l
+96.420723 218.943970 102.830864 212.916016 103.091438 205.255127 c
+109.293106 17.346161 l
+109.553680 9.667892 103.543106 3.240402 95.864838 2.997192 c
+h
+f
+n
+Q
+q
+1.000000 0.000000 -0.000000 1.000000 222.290771 19.721436 cm
+0.290000 0.290000 0.290000 scn
+20.993690 0.234695 m
+17.432507 0.616882 14.114540 2.128204 11.456680 4.612350 c
+8.225556 7.635010 6.366784 11.752106 6.210439 16.164505 c
+0.008779 204.073471 l
+-0.286539 213.210953 6.905310 220.889221 16.042791 221.184540 c
+91.348816 223.668686 l
+95.778580 223.807663 99.999908 222.226822 103.231033 219.204163 c
+106.462158 216.181488 108.320908 212.064423 108.477249 207.652039 c
+114.678932 19.743057 l
+114.974251 10.605576 107.799774 2.927307 98.644928 2.631989 c
+23.338873 0.165222 l
+22.539778 0.130478 21.758043 0.165222 20.993690 0.234695 c
+h
+93.120728 218.266098 m
+92.599579 218.318222 92.061058 218.335587 91.539902 218.318222 c
+16.233879 215.834076 l
+10.049578 215.625610 5.185511 210.431488 5.393970 204.264557 c
+11.595656 16.355591 l
+11.699886 13.367676 12.950632 10.588211 15.139459 8.538361 c
+17.328285 6.488495 20.177223 5.411453 23.165146 5.515686 c
+98.471199 7.999817 l
+104.655502 8.208267 109.519569 13.402390 109.311104 19.569321 c
+103.109421 207.478302 l
+103.005188 210.466232 101.754448 213.245697 99.565620 215.295547 c
+97.776344 216.997955 95.535385 218.005524 93.120728 218.266098 c
+h
+f
+n
+Q
+q
+1.000000 0.000000 -0.000000 1.000000 321.435181 -63.187500 cm
+0.964706 0.721569 0.576471 scn
+180.564896 93.584106 m
+93.741501 125.791107 l
+93.741501 125.791107 72.878159 136.109863 68.378899 156.243591 c
+64.366051 174.223236 45.639435 218.712006 37.874317 231.931824 c
+35.007996 239.957520 30.248161 251.196960 24.619751 256.582184 c
+23.143162 257.989288 22.118248 259.778564 21.701328 261.741547 c
+20.311598 268.290649 17.254183 282.048981 15.829708 282.118469 c
+13.970943 282.222687 4.677129 282.674347 1.480749 271.278564 c
+-1.715632 259.882751 -0.221687 238.637268 10.774557 232.209778 c
+10.774557 232.209778 11.035138 229.812485 11.486800 225.695404 c
+12.633328 192.828278 15.343295 107.377182 15.360666 107.064484 c
+15.794957 96.884705 14.283639 95.929276 12.442245 92.437576 c
+33.757240 84.724564 166.893417 0.524292 166.893417 0.524292 c
+174.936493 51.874832 l
+180.564896 93.584106 l
+h
+f*
+n
+Q
+q
+0.999897 0.014358 -0.014358 0.999897 259.938416 180.181519 cm
+/Pattern cs
+/P1 scn
+21.169487 14.197344 m
+21.169487 10.609915 l
+21.834843 10.372108 22.313545 9.743280 22.313545 8.997570 c
+22.313545 8.054356 21.542734 7.288494 20.597431 7.288494 c
+19.648092 7.288494 18.881313 8.054356 18.881313 8.997570 c
+18.881313 9.743280 19.360046 10.372078 20.025400 10.609915 c
+20.025400 14.197344 l
+18.556761 14.318150 17.222019 14.898710 16.163132 15.789505 c
+13.615320 13.250097 l
+13.919588 12.617262 13.809922 11.835278 13.282643 11.307247 c
+12.609192 10.642149 11.525959 10.642149 10.852508 11.307247 c
+10.183089 11.976353 10.183089 13.056602 10.852508 13.725739 c
+11.383967 14.249731 12.166966 14.358576 12.807975 14.056271 c
+15.355783 16.595678 l
+14.459172 17.651770 13.879020 18.981936 13.757313 20.441097 c
+10.150645 20.441097 l
+9.915416 19.775999 9.282445 19.300386 8.535952 19.300386 c
+7.586613 19.300386 6.819836 20.066223 6.819836 21.009434 c
+6.819836 21.952646 7.586613 22.718513 8.535952 22.718513 c
+9.282445 22.718513 9.915327 22.242870 10.150645 21.577801 c
+13.757313 21.577801 l
+13.878901 23.036964 14.459172 24.367130 15.355783 25.423218 c
+12.807975 27.962631 l
+12.166966 27.660328 11.383967 27.768993 10.852508 28.293163 c
+10.183089 28.962269 10.183089 30.042547 10.852508 30.711653 c
+11.525959 31.376751 12.609192 31.376751 13.282643 30.711653 c
+13.810070 30.183622 13.919588 29.401638 13.615320 28.768806 c
+16.163132 26.229364 l
+17.222019 27.120188 18.556761 27.700636 20.025400 27.821556 c
+20.025400 31.408985 l
+19.360046 31.646791 18.881313 32.275620 18.881313 33.021332 c
+18.881313 33.964542 19.648092 34.730408 20.597431 34.730408 c
+21.542734 34.730408 22.313545 33.964542 22.313545 33.021332 c
+22.313545 32.275620 21.834843 31.646820 21.169487 31.408985 c
+21.169487 27.821556 l
+22.836908 27.684372 24.333960 26.954922 25.449636 25.842407 c
+35.158051 35.512363 l
+31.433710 39.224777 26.285364 41.518311 20.597431 41.518311 c
+9.221591 41.518311 0.000000 32.336079 0.000000 21.009434 c
+0.000000 9.682819 9.221591 0.500587 20.597431 0.500587 c
+26.285364 0.500587 31.433710 2.794121 35.158051 6.506508 c
+25.449636 16.176491 l
+24.333960 15.063976 22.836908 14.334383 21.169487 14.197344 c
+h
+f
+n
+Q
+q
+0.999555 0.029828 -0.029828 0.999555 240.522995 51.979343 cm
+0.188235 0.486275 0.964706 scn
+0.000000 16.597534 m
+0.000000 17.702103 0.895431 18.597534 2.000000 18.597534 c
+81.500374 18.597534 l
+82.604950 18.597534 83.500374 17.702105 83.500374 16.597534 c
+83.500374 4.483429 l
+83.500374 3.378860 82.604942 2.483429 81.500374 2.483429 c
+1.999997 2.483429 l
+0.895427 2.483429 0.000000 3.378860 0.000000 4.483429 c
+0.000000 16.597534 l
+h
+f
+n
+Q
+q
+0.999555 0.029828 -0.029828 0.999555 240.522995 30.005589 cm
+0.188235 0.486275 0.964706 scn
+0.000000 16.597534 m
+0.000000 17.702103 0.895431 18.597534 2.000000 18.597534 c
+81.500374 18.597534 l
+82.604950 18.597534 83.500374 17.702105 83.500374 16.597534 c
+83.500374 4.483429 l
+83.500374 3.378860 82.604942 2.483429 81.500374 2.483429 c
+1.999997 2.483429 l
+0.895427 2.483429 0.000000 3.378860 0.000000 4.483429 c
+0.000000 16.597534 l
+h
+f
+n
+Q
+q
+0.999344 0.036230 -0.036230 0.999344 243.554169 145.293808 cm
+0.768627 0.768627 0.768627 scn
+0.000000 9.460327 m
+72.442940 9.460327 l
+72.442940 2.620101 l
+0.000000 2.620101 l
+0.000000 9.460327 l
+h
+f
+n
+Q
+q
+0.999344 0.036230 -0.036230 0.999344 243.995605 133.113892 cm
+0.768627 0.768627 0.768627 scn
+0.000000 9.107422 m
+62.702076 9.107422 l
+62.702076 2.267196 l
+0.000000 2.267196 l
+0.000000 9.107422 l
+h
+f
+n
+Q
+q
+0.999344 0.036230 -0.036230 0.999344 244.440857 120.829666 cm
+0.768627 0.768627 0.768627 scn
+0.000000 8.859497 m
+55.861847 8.859497 l
+55.861847 2.019271 l
+0.000000 2.019271 l
+0.000000 8.859497 l
+h
+f
+n
+Q
+
+endstream
+endobj
+
+8 0 obj
+  8750
+endobj
+
+9 0 obj
+  << /BBox [ 0.000000 0.000000 428.000000 308.000000 ]
+     /Resources << >>
+     /Subtype /Form
+     /Length 10 0 R
+     /Group << /Type /Group
+               /S /Transparency
+            >>
+     /Type /XObject
+  >>
+stream
+/DeviceRGB CS
+/DeviceRGB cs
+q
+1.000000 0.000000 -0.000000 1.000000 0.000000 0.000000 cm
+0.000000 0.000000 0.000000 scn
+0.000000 308.000000 m
+428.000000 308.000000 l
+428.000000 0.000000 l
+0.000000 0.000000 l
+0.000000 308.000000 l
+h
+f
+n
+Q
+
+endstream
+endobj
+
+10 0 obj
+  237
+endobj
+
+11 0 obj
+  << /XObject << /X1 7 0 R >>
+     /ExtGState << /E1 << /SMask << /Type /Mask
+                                    /G 9 0 R
+                                    /S /Alpha
+                                 >>
+                          /Type /ExtGState
+                       >> >>
+  >>
+endobj
+
+12 0 obj
+  << /Length 13 0 R >>
+stream
+/DeviceRGB CS
+/DeviceRGB cs
+q
+/E1 gs
+/X1 Do
+Q
+
+endstream
+endobj
+
+13 0 obj
+  46
+endobj
+
+14 0 obj
+  << /Annots []
+     /Type /Page
+     /MediaBox [ 0.000000 0.000000 428.000000 308.000000 ]
+     /Resources 11 0 R
+     /Contents 12 0 R
+     /Parent 15 0 R
+  >>
+endobj
+
+15 0 obj
+  << /Kids [ 14 0 R ]
+     /Count 1
+     /Type /Pages
+  >>
+endobj
+
+16 0 obj
+  << /Type /Catalog
+     /Pages 15 0 R
+  >>
+endobj
+
+xref
+0 17
+0000000000 65535 f
+0000000010 00000 n
+0000050437 00000 n
+0000050461 00000 n
+0000056641 00000 n
+0000056664 00000 n
+0000057151 00000 n
+0000057173 00000 n
+0000067307 00000 n
+0000067330 00000 n
+0000067818 00000 n
+0000067841 00000 n
+0000068140 00000 n
+0000068244 00000 n
+0000068266 00000 n
+0000068445 00000 n
+0000068521 00000 n
+trailer
+<< /ID [ (some) (id) ]
+   /Root 16 0 R
+   /Size 17
+>>
+startxref
+68582
+%%EOF

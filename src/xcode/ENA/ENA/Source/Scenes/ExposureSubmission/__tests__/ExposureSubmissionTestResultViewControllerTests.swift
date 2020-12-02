@@ -10,6 +10,7 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 	
 	private var store: Store!
 	
+	
 	override func setUpWithError() throws {
 		store = MockTestStore()
 	}
@@ -22,8 +23,9 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 				exposureSubmissionService: MockExposureSubmissionService(),
 				onContinueWithSymptomsFlowButtonTap: { _ in },
 				onContinueWithoutSymptomsFlowButtonTap: { _ in },
-				onTestDeleted: { }
-			)
+				onTestDeleted: { },
+				onSubmissionConsentButtonTap: { _ in }
+			), exposureSubmissionService: MockExposureSubmissionService()
 		)
 	}
 

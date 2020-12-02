@@ -60,6 +60,7 @@ class Coordinator: RequiresAppDependencies {
 		}
 
 		self.homeController = homeController
+
 		UIView.transition(with: rootViewController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
 			self.rootViewController.setViewControllers([homeController], animated: false)
 			#if !RELEASE
@@ -189,7 +190,7 @@ extension Coordinator: HomeViewControllerDelegate {
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.
 		let coordinator = ExposureSubmissionCoordinator(
-			warnOthersReminder: warnOthersReminder,
+			warnOthersReminder: WarnOthersReminder(store: store),
 			parentNavigationController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			delegate: self

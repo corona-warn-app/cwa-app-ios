@@ -9,17 +9,14 @@ final class ExposureSubmissionNavigationControllerTest: XCTestCase {
 
 	private func createVC() -> ExposureSubmissionNavigationController {
 		// rootVC needs to be a ENANavigationControllerWithFooterChild to support buttons.
-		let rootVC = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionIntroViewController.self) { coder -> UIViewController? in
-			return ExposureSubmissionIntroViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator())
+		let rootVC = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self) { coder -> UIViewController? in
+			return ExposureSubmissionHotlineViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator())
 		}
 
-		return AppStoryboard.exposureSubmission.initiateInitial { coder in
-			ExposureSubmissionNavigationController(
-				coder: coder,
-				coordinator: MockExposureSubmissionCoordinator(),
-				rootViewController: rootVC
-			)
-		}
+		return ExposureSubmissionNavigationController(
+			dismissClosure: {},
+			rootViewController: rootVC
+		)
 	}
 
 	func testSetupSecondaryButton() {
@@ -56,14 +53,14 @@ final class ExposureSubmissionNavigationControllerTest: XCTestCase {
 	func testSecondaryButtonAction() {
 		let vc = createVC()
 		_ = vc.view
-
+		
 		let child = MockExposureSubmissionNavigationControllerChild()
 		let expectation = self.expectation(description: "Button action executed.")
 		child.didTapSecondButtonCallback = { expectation.fulfill() }
-
+		
 		vc.pushViewController(child, animated: false)
 		vc.footerView.secondaryButton.sendActions(for: .touchUpInside)
-
+		
 		waitForExpectations(timeout: .short)
 	}
 
@@ -80,4 +77,5 @@ final class ExposureSubmissionNavigationControllerTest: XCTestCase {
 
 		waitForExpectations(timeout: .short)
 	}
+	
 }
