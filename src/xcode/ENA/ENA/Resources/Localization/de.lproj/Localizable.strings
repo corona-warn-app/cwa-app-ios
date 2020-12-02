@@ -648,9 +648,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSymptoms_Title" = "Symptome";
 
-"ExposureSubmissionSymptoms_Introduction" = "Wenn Sie angeben, ob und wann eventuelle Corona-Symptome bei Ihnen aufgetreten sind, kann das Infektionsrisiko von anderen App-Nutzern genauer berechnet werden. Sie müssen keine Angabe machen, wählen Sie dazu „Keine Angabe“.";
+"ExposureSubmissionSymptoms_Introduction" = "Wenn Sie angeben, ob und wann eventuelle Corona-Symptome bei Ihnen aufgetreten sind, kann das Infektionsrisiko von anderen App-Nutzern genauer berechnet werden. Die Angabe von Symptomen ist freiwillig. Wenn Sie keine Symptome mitteilen wollen, wählen Sie „Keine Angabe“.";
 
-"ExposureSubmissionSymptoms_Description" = "Sind bei Ihnen in den letzten Tagen folgende Symptome aufgetreten?";
+"ExposureSubmissionSymptoms_Description" = "Sind bei Ihnen in den letzten Tagen eines oder mehrere der folgenden Symptome aufgetreten?";
 
 "ExposureSubmissionSymptoms_Symptom0" = "Erhöhte Temperatur oder Fieber";
 
@@ -680,11 +680,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSymptomsOnset_Title" = "Symptom-Beginn";
 
-"ExposureSubmissionSymptomsOnset_Subtitle" = "Wann sind die Symptome bei Ihnen aufgetreten?";
+"ExposureSubmissionSymptomsOnset_Subtitle" = "Wann sind die Symptome bei Ihnen zum ersten Mal aufgetreten?";
 
-"ExposureSubmissionSymptomsOnset_Description" = "Machen Sie Ihre Angaben so genau wie möglich.";
+"ExposureSubmissionSymptomsOnset_Description" = "Bitte geben Sie das Datum so genau wie möglich an.";
 
-"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Genaues Datum";
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Datum";
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "In den letzten 7 Tagen";
 
