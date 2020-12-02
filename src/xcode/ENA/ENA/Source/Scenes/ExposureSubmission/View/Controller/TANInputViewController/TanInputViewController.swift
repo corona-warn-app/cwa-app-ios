@@ -30,7 +30,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 //		errorView.alpha = 0
 		footerView?.isHidden = false
 
-		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeShown(note:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeShown(note:)), name: UIResponder.keyboardDidShowNotification, object: nil)
 
 //		viewModel.togglePrimaryButton = { [weak self] in
 //			self?.togglePrimaryNavigationButton()
@@ -137,8 +137,8 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 			stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 15.0),
 			stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: 15.0),
 			stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-			scrollView.topAnchor.constraint(equalTo: stackView.topAnchor),
-			scrollView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 15)
+			stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 15),
+			stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 4)
 		])
 
 		descriptionLabel = UILabel(frame: .zero)
@@ -165,14 +165,62 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	func keyboardWillBeShown(note: Notification) {
 		let key = UIResponder.keyboardFrameEndUserInfoKey
 		guard let userInfo = note.userInfo,
+			  let footerView = footerView,
 			  let keyboardFrame = userInfo[key] as? CGRect else { return }
 
+		let convertedRect = footerView.convert(footerView.bounds, to: scrollView)
+
+//
+//		let keyboardViewEndFrame = view.convert(keyboardFrame, from: view.window)
+//		let combinedFrame = footViewFrame.union(keyboardViewEndFrame)
+//		let inset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom, right: 0)
+
+		if convertedRect.intersects(stackView.frame) {
+			let delta = max((keyboardFrame.origin.y - (stackView.frame.origin.y + stackView.frame.size.height)), 0)
+
+			Log.debug("Scrolling required \(delta)")
+			let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: delta, right: 0.0)
+			scrollView.contentInsetAdjustmentBehavior = .always
+			scrollView.contentInset = contentInset
+			scrollView.scrollIndicatorInsets = contentInset
+			// on top of the scrollView -> tan entry shoudl be centered ?
+			var convertedErrorFrame = descriptionLabel.convert(descriptionLabel.frame, to: scrollView)
+//			convertedErrorFrame.origin.y -= view.layoutMargins.top
+
+			scrollView.scrollRectToVisible(convertedErrorFrame, animated: true)
+		}
+		return
+
+//		let convFrame = view.convert(errorLabel.frame, to: view)
+
+//		if keyboardFrame.intersects(convFrame) {
+//			Log.debug("Keyboard hides error label - we need to scroll it up")
+//
+//			let yDeltaInset = keyboardFrame.origin.y - errorLabel.frame.origin.y
+//
+//			let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: yDeltaInset, right: 0.0)
+//			scrollView.contentInsetAdjustmentBehavior = .always
+//			scrollView.contentInset = contentInset
+//			scrollView.scrollIndicatorInsets = contentInset
+
+
+//		} else {
+//			Log.debug("Keyboard doen't hides error label - we don't need to scroll")
+//		}
+
+//		let bottomOffset = CGPoint(x: 0, y: scrollView.contentSize.height - scrollView.bounds.size.height)
+//		scrollView.setContentOffset(bottomOffset, animated: true)
+//
+//		return
+
+/*
 		let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardFrame.height, right: 0.0)
 		scrollView.contentInsetAdjustmentBehavior = .always
 		scrollView.contentInset = contentInset
 		scrollView.scrollIndicatorInsets = contentInset
 
 		scrollView.scrollRectToVisible(errorLabel.frame, animated: true)
+*/
 	}
 
 }

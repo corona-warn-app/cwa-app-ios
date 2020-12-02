@@ -8,7 +8,10 @@ class TanInputView: UIControl, UIKeyInput {
 
 	// MARK: - Init
 
-	init(frame: CGRect, viewModel: TanInputViewModel) {
+	init(
+		frame: CGRect,
+		viewModel: TanInputViewModel
+	) {
 		self.viewModel = viewModel
 		super.init(frame: frame)
 
@@ -34,7 +37,7 @@ class TanInputView: UIControl, UIKeyInput {
 
 	// MARK: - Private
 
-	var viewModel: TanInputViewModel?
+	let viewModel: TanInputViewModel
 
 	private let textColor = UIColor.enaColor(for: .textPrimary1)
 	private let validColor = UIColor.enaColor(for: .textSemanticGray)
@@ -62,8 +65,6 @@ class TanInputView: UIControl, UIKeyInput {
 	private lazy var characterSet: CharacterSet = CharacterSet(charactersIn: self.allowedCharacters.uppercased())
 
 	private func setup() {
-		guard let viewModel = viewModel else { return }
-
 		stackView = UIStackView()
 
 		stackView.isUserInteractionEnabled = false
@@ -213,7 +214,6 @@ class TanInputView: UIControl, UIKeyInput {
 	// MARK: - Protocl UIKeyInput
 
 	var hasText: Bool {
-		guard let viewModel = viewModel else { return true }
 		return !viewModel.text.isEmpty
 	}
 	
@@ -224,8 +224,7 @@ class TanInputView: UIControl, UIKeyInput {
 		}
 
 		for character in text.trimmingCharacters(in: .whitespacesAndNewlines).map({ $0.uppercased() }) {
-			guard let viewModel = viewModel,
-				  !viewModel.currentTextIsValid && !isInputBlocked else {
+			guard !viewModel.currentTextIsValid && !isInputBlocked else {
 				return
 			}
 
@@ -242,8 +241,7 @@ class TanInputView: UIControl, UIKeyInput {
 	}
 
 	func deleteBackward() {
-		guard let viewModel = viewModel,
-			!viewModel.text.isEmpty else {
+		guard !viewModel.text.isEmpty else {
 				return
 			}
 		isInputBlocked = false
@@ -256,7 +254,7 @@ class TanInputView: UIControl, UIKeyInput {
 
 	func clear() {
 		inputLabels.forEach { $0.clear() }
-		viewModel?.text = ""
+		viewModel.text = ""
 
 		//			delegate?.enaTanInput?(self, didChange: self.text, isValid: isValid, isChecksumValid: isChecksumValid, isBlocked: isInputBlocked)
 	}

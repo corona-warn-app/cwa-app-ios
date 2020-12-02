@@ -71,6 +71,8 @@ final class TanInputViewModel {
 		return tan.last == calculateChecksum(input: testString)
 	}
 
+
+
 	// MARK: - Private
 
 	private let exposureSubmissionService: ExposureSubmissionService
