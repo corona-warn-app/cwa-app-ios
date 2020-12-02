@@ -131,6 +131,8 @@
 
 "ExposureDetection_Button_Refresh" = "Aktualisieren";
 
+"ExposureDetection_Button_Title_Restart" = "Erneut starten";
+
 "ExposureDetection_Risk_Status_Downloading_Title" = "Daten werden heruntergeladen …";
 
 "ExposureDetection_Risk_Status_Detecting_Title" = "Prüfung läuft …";
