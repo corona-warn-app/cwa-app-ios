@@ -29,13 +29,13 @@ struct RiskProvidingConfiguration {
 }
 
 extension RiskProvidingConfiguration {
-	func exposureDetectionValidUntil(lastExposureDetectionDate: Date?) -> Date {
-		Calendar.current.date(
-			byAdding: exposureDetectionValidityDuration,
-			to: lastExposureDetectionDate ?? .distantPast,
-			wrappingComponents: false
-			) ?? .distantPast
-	}
+//	func exposureDetectionValidUntil(lastExposureDetectionDate: Date?) -> Date {
+//		Calendar.current.date(
+//			byAdding: exposureDetectionValidityDuration,
+//			to: lastExposureDetectionDate ?? .distantPast,
+//			wrappingComponents: false
+//			) ?? .distantPast
+//	}
 
 	func nextExposureDetectionDate(lastExposureDetectionDate: Date?, currentDate: Date = Date()) -> Date {
 		let potentialDate = Calendar.current.date(
@@ -48,12 +48,12 @@ extension RiskProvidingConfiguration {
 		return max(potentialDate, currentDate)
 	}
 
-	func exposureDetectionIsValid(lastExposureDetectionDate: Date = .distantPast, currentDate: Date = Date()) -> Bool {
-		// It is not valid to have a future exposure detection date
-		guard lastExposureDetectionDate <= currentDate else { return false }
-
-		return currentDate < exposureDetectionValidUntil(lastExposureDetectionDate: lastExposureDetectionDate)
-	}
+//	func exposureDetectionIsValid(lastExposureDetectionDate: Date = .distantPast, currentDate: Date = Date()) -> Bool {
+//		// It is not valid to have a future exposure detection date
+//		guard lastExposureDetectionDate <= currentDate else { return false }
+//
+//		return currentDate < exposureDetectionValidUntil(lastExposureDetectionDate: lastExposureDetectionDate)
+//	}
 
 	/// Checks, whether a new exposureDetection may be triggered
 	///
