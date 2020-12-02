@@ -27,6 +27,7 @@ final class TanInputViewModel {
 	// MARK: - Internal
 
 	var togglePrimaryButton: () -> Void = {}
+	var digitGroups: [Int] { groups.split(separator: ",").compactMap({ Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }) }
 
 	@discardableResult
 	func submitTan(_ tanInput: String) -> Bool {
@@ -71,8 +72,6 @@ final class TanInputViewModel {
 		return tan.last == calculateChecksum(input: testString)
 	}
 
-
-
 	// MARK: - Private
 
 	private let exposureSubmissionService: ExposureSubmissionService
@@ -80,7 +79,6 @@ final class TanInputViewModel {
 	private let testGotResultSubmitted: () -> Void
 
 	private var groups: String = "3,3,4"
-	var digitGroups: [Int] { groups.split(separator: ",").compactMap({ Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }) }
 
 	private func calculateChecksum(input: String) -> Character? {
 		let hash = Hasher.sha256(input)

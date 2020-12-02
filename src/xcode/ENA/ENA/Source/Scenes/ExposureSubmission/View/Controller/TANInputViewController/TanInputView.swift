@@ -37,7 +37,7 @@ class TanInputView: UIControl, UIKeyInput {
 
 	// MARK: - Private
 
-	let viewModel: TanInputViewModel
+	private let viewModel: TanInputViewModel
 
 	private let textColor = UIColor.enaColor(for: .textPrimary1)
 	private let validColor = UIColor.enaColor(for: .textSemanticGray)
