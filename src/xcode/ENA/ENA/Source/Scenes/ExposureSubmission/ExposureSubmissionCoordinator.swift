@@ -283,7 +283,12 @@ extension ExposureSubmissionCoordinator {
 			),
 			exposureSubmissionService: self.model.exposureSubmissionService,
 			presentCancelAlert: { [weak self] in
-				self?.presentPositiveTestResultCancelAlert()
+				if testResult == TestResult.positive {
+					self?.presentPositiveTestResultCancelAlert()
+				} else {
+					self?.dismiss()
+				}
+				
 			}
 		)
 	}
@@ -438,21 +443,21 @@ extension ExposureSubmissionCoordinator {
 			Log.error("Can't present SubmissionSymptomsCancelAlert - missing navigationController")
 			return
 		}
-		
+
 		let alertTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.title : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertTitle
 		let alertMessage = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.message : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertDescription
-		
+
 		let alertButtonCancel = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton :
 			AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonDontWarn
-		
+
 		let alertButtonGo = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton :
 			AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonWarn
-		
+
 		let alert = UIAlertController(
 			title: alertTitle,
 			message: alertMessage,
 			preferredStyle: .alert)
-		
+
 		alert.addAction(UIAlertAction(
 							title: alertButtonCancel,
 							style: .default,
@@ -464,7 +469,7 @@ extension ExposureSubmissionCoordinator {
 							title: alertButtonGo,
 							style: .cancel)
 		)
-		
+
 		navigationController.present(alert, animated: true, completion: nil)
 	}
 	
