@@ -555,7 +555,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Exposure Submission Testresult available*/
 "ExposureSubmissionTestresultAvailable_Title" = "Ihr Testergebnis liegt vor";
 
-"ExposureSubmissionTestresultAvailable_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
+"ExposureSubmissionTestresultAvailable_AccImageDescription" = "Eine Frau hält ihr Smartphone in der Hand. Es überträgt ein Signal an ein weiteres Smartphone.";
 
 "ExposureSubmissionTestresultAvailable_Consent_granted" = "Einverständnis\n„Andere warnen” erteilt";
 
@@ -694,7 +694,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Keine Angabe";
 
-"ExposureSubmissionSymptomsOnset_ContinueButton" = "Weiter";
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "Fertig";
 
 /* ExposureSubmissionSymptoms - Cancel alert */
 "ExposureSubmissionSymptoms_CancelAlertTitle" = "Wollen Sie die Symptom-Erfassung abbrechen?";
@@ -1289,6 +1289,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Thank_You_Continue_Button" = "Weiter mit Symptom-Erfassung";
 
 "Thank_You_Cancel_Button" = "Beenden";
+
+"Thank_You_AccImageDescription" = "Mehrere Personen, die auf ihr Smartphone schauen";
 
 /* Test result screen (positive test result) */
 "TestResultPositive_NoConsent_Title" = "Bitte helfen Sie mit!";
