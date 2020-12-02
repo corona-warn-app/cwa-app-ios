@@ -356,64 +356,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			waitForExpectations(timeout: .short)
 		}
 	}
-	/*
-	func testDidTapSecondaryButtonOnPositiveTestResultUpdatesButtonsLoadingStateTrue() {
-		let onContinueWithoutSymptomsFlowButtonTapExpectation = expectation(
-			description: "onContinueWithoutSymptomsFlowButtonTap closure is called"
-		)
-		
-		let model = ExposureSubmissionTestResultViewModel(
-			warnOthersReminder: WarnOthersReminder(store: self.store), testResult: .positive,
-			exposureSubmissionService: MockExposureSubmissionService(),
-			onContinueWithSymptomsFlowButtonTap: { _ in },
-			onContinueWithoutSymptomsFlowButtonTap: { isLoading in
-				isLoading(true)
-				
-				onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill()
-			},
-			onContinueHomeButtonTap: { },
-			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { _ in }
-		)
-		
-		model.didTapSecondaryButton()
-		
-		waitForExpectations(timeout: .short)
-		
-		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonEnabled)
-		XCTAssertTrue(model.navigationFooterItem.isSecondaryButtonLoading)
-		XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonEnabled)
-	}
-	
-	func testDidTapSecondaryButtonOnPositiveTestResultUpdatesButtonsLoadingStateFalse() {
-		let onContinueWithoutSymptomsFlowButtonTapExpectation = expectation(
-			description: "onContinueWithoutSymptomsFlowButtonTap closure is not called"
-		)
-		
-		let model = ExposureSubmissionTestResultViewModel(
-			warnOthersReminder: WarnOthersReminder(store: self.store), testResult: .positive,
-			exposureSubmissionService: MockExposureSubmissionService(),
-			onContinueWithSymptomsFlowButtonTap: { _ in },
-			onContinueWithoutSymptomsFlowButtonTap: { isLoading in
-				isLoading(true)
-				isLoading(false)
-				
-				onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill()
-			},
-			onContinueHomeButtonTap: { },
-			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { _ in }
-		)
-		
-		model.didTapSecondaryButton()
-		
-		waitForExpectations(timeout: .short)
-		
-		XCTAssertTrue(model.navigationFooterItem.isSecondaryButtonEnabled)
-		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonLoading)
-		XCTAssertTrue(model.navigationFooterItem.isPrimaryButtonEnabled)
-	}
-*/
 	
 	func testDeletion() {
 		let serviceDeleteTestCalledExpectation = expectation(description: "deleteTest on exposure submission service is called")
