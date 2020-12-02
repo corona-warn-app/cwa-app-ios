@@ -65,13 +65,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		self.parentNavigationController = parentNavigationController
 		self.delegate = delegate
 		self.warnOthersReminder = warnOthersReminder
-		self.exposureSubmissionService = exposureSubmissionService
 		
 		super.init()
-		
-		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
-			self.isSubmissionConsentGiven = isSubmissionConsentGiven
-		}.store(in: &cancellables)
 
 		model = ExposureSubmissionCoordinatorModel(
 			exposureSubmissionService: exposureSubmissionService,
@@ -93,11 +88,11 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	
 	// MARK: - Private
 	
-	private var isSubmissionConsentGiven: Bool = false
-	
-	private var cancellables: Set<AnyCancellable> = []
-	
-	private let exposureSubmissionService: ExposureSubmissionService
+//	private var isSubmissionConsentGiven: Bool = false
+//
+//	private var cancellables: Set<AnyCancellable> = []
+//
+//	private let exposureSubmissionService: ExposureSubmissionService
 
 }
 
@@ -390,34 +385,37 @@ extension ExposureSubmissionCoordinator {
 			Log.error("Can't present SubmissionSymptomsCancelAlert - missing navigationController")
 			return
 		}
-
-		let alertTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.title : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertTitle
-		let alertMessage = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.message : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertDescription
-
-		let alertButtonCancel = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton :
-			AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonDontWarn
-
-		let alertButtonGo = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton :
-			AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonWarn
-
-		let alert = UIAlertController(
-			title: alertTitle,
-			message: alertMessage,
-			preferredStyle: .alert)
-
-		alert.addAction(UIAlertAction(
-							title: alertButtonCancel,
-							style: .default,
-							handler: { [weak self] _ in
-								self?.dismiss()
-							})
-		)
-		alert.addAction(UIAlertAction(
-							title: alertButtonGo,
-							style: .cancel)
-		)
-
-		navigationController.present(alert, animated: true, completion: nil)
+		var cancellables: Set<AnyCancellable> = []
+		model.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
+			
+			let alertTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.title : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertTitle
+			let alertMessage = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.message : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertDescription
+			
+			let alertButtonCancel = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton :
+				AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonDontWarn
+			
+			let alertButtonGo = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton :
+				AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonWarn
+			
+			let alert = UIAlertController(
+				title: alertTitle,
+				message: alertMessage,
+				preferredStyle: .alert)
+			
+			alert.addAction(UIAlertAction(
+								title: alertButtonCancel,
+								style: .default,
+								handler: { [weak self] _ in
+									self?.dismiss()
+								})
+			)
+			alert.addAction(UIAlertAction(
+								title: alertButtonGo,
+								style: .cancel)
+			)
+			
+			navigationController.present(alert, animated: true, completion: nil)
+		}.store(in: &cancellables)
 	}
 	
 	/// method to get an instace of TestResultAvailableViewController
