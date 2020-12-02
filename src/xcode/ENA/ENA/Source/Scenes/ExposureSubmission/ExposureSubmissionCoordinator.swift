@@ -227,6 +227,11 @@ extension ExposureSubmissionCoordinator {
 			if shouldDismiss { self?.navigationController?.dismiss(animated: true) }
 		}
 	}
+
+	private func showTestResultAvailableScreen(with testResult: TestResult) {
+		let vc = createTestResultAvailableViewController(testResult: testResult)
+		push(vc)
+	}
 	
 	func showTestResultScreen(with testResult: TestResult) {
 		let vc = createTestResultViewController(with: testResult)
@@ -526,7 +531,14 @@ extension ExposureSubmissionCoordinator {
 		model.getTestResults(
 			for: key,
 			isLoading: isLoading,
-			onSuccess: { [weak self] in self?.showTestResultScreen(with: $0) },
+			onSuccess: { [weak self] testResult in
+				switch testResult {
+				case .positive:
+					self?.showTestResultAvailableScreen(with: testResult)
+				case .pending, .negative, .invalid, .expired:
+					self?.showTestResultScreen(with: testResult)
+				}
+			},
 			onError: { [weak self] error in
 				let alert: UIAlertController
 
