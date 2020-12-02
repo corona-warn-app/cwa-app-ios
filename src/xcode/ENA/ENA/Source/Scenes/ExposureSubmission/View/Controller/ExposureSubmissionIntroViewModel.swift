@@ -13,13 +13,11 @@ class ExposureSubmissionIntroViewModel {
 	init(
 		onQRCodeButtonTap: @escaping () -> Void,
 		onTANButtonTap: @escaping () -> Void,
-		onHotlineButtonTap: @escaping () -> Void,
-		onThankYouScreen: @escaping () -> Void
+		onHotlineButtonTap: @escaping () -> Void
 	) {
 		self.onQRCodeButtonTap = onQRCodeButtonTap
 		self.onTANButtonTap = onTANButtonTap
 		self.onHotlineButtonTap = onHotlineButtonTap
-		self.onThankYouScreen = onThankYouScreen
 	}
 	
 	// MARK: - Internal
@@ -27,7 +25,6 @@ class ExposureSubmissionIntroViewModel {
 	let onQRCodeButtonTap: () -> Void
 	let onTANButtonTap: () -> Void
 	let onHotlineButtonTap: () -> Void
-	let onThankYouScreen: () -> Void
 
 	var dynamicTableModel: DynamicTableViewModel {
 		return DynamicTableViewModel.with {

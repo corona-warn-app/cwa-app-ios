@@ -27,7 +27,6 @@ protocol ExposureSubmissionCoordinating: class {
 	func dismiss()
 	func showTestResultScreen(with result: TestResult)
 	func showTanScreen()
-	func showThankYouScreen()
 
 }
 
@@ -136,8 +135,7 @@ extension ExposureSubmissionCoordinator {
 		let viewModel = ExposureSubmissionIntroViewModel(
 			onQRCodeButtonTap: { [weak self] in self?.showQRInfoScreen() },
 			onTANButtonTap: { [weak self] in self?.showTanScreen() },
-			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() },
-			onThankYouScreen: { self.showThankYouScreen() }
+			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() }
 		)
 		return ExposureSubmissionIntroViewController(viewModel)
 	}
@@ -228,6 +226,11 @@ extension ExposureSubmissionCoordinator {
 		vc.attemptDismiss { [weak self] shouldDismiss in
 			if shouldDismiss { self?.navigationController?.dismiss(animated: true) }
 		}
+	}
+
+	private func showTestResultAvailableScreen(with testResult: TestResult) {
+		let vc = createTestResultAvailableViewController(testResult: testResult)
+		push(vc)
 	}
 	
 	func showTestResultScreen(with testResult: TestResult) {
@@ -533,7 +536,14 @@ extension ExposureSubmissionCoordinator {
 		model.getTestResults(
 			for: key,
 			isLoading: isLoading,
-			onSuccess: { [weak self] in self?.showTestResultScreen(with: $0) },
+			onSuccess: { [weak self] testResult in
+				switch testResult {
+				case .positive:
+					self?.showTestResultAvailableScreen(with: testResult)
+				case .pending, .negative, .invalid, .expired:
+					self?.showTestResultScreen(with: testResult)
+				}
+			},
 			onError: { [weak self] error in
 				let alert: UIAlertController
 
