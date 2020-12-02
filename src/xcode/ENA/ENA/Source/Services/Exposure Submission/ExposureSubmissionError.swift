@@ -15,6 +15,7 @@ enum ExposureSubmissionError: Error, Equatable {
 	case invalidTan
 	case invalidResponse
 	case noResponse
+	case noNetworkConnection
 	case teleTanAlreadyUsed
 	case qrAlreadyUsed
 	case regTokenNotExist
@@ -50,6 +51,8 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.ExposureSubmissionError.invalidResponse
 		case .noResponse:
 			return AppStrings.ExposureSubmissionError.noResponse
+		case .noNetworkConnection:
+			return AppStrings.ExposureSubmissionError.noNetworkConnection
 		case .noAppConfiguration:
 			return AppStrings.ExposureSubmissionError.noAppConfiguration
 		case .qrAlreadyUsed:
