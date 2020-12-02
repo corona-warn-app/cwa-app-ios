@@ -14,7 +14,6 @@ enum ExposureSubmissionError: Error, Equatable {
 	case noAppConfiguration
 	case invalidTan
 	case invalidResponse
-	case noResponse
 	case noNetworkConnection
 	case teleTanAlreadyUsed
 	case qrAlreadyUsed
@@ -30,6 +29,11 @@ enum ExposureSubmissionError: Error, Equatable {
 	case invalidPayloadOrHeaders
 	case requestCouldNotBeBuilt
 	case qrExpired
+
+	/// **[Deprecated]** Legacy state to indicate no (meaningful) response was given.
+	///
+	/// This had multiple reasons (offline, invalid payload, etc.) and was ambiguous. Please consider another state (e.g. `invalidResponse` or `noNetworkConnection`) and refactor existing solutions!
+	case noResponse
 }
 
 extension ExposureSubmissionError: LocalizedError {
