@@ -41,7 +41,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController {
 	// MARK: - Internal
 
 	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case acknowledgement = "DynamicAcknowledgementCell"
+		case acknowledgement = "DynamicLegalCell"
 		case countries = "LabeledCountriesCell"
 	}
 
@@ -67,7 +67,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController {
 		cellBackgroundColor = .clear
 
 		tableView.register(
-			UINib(nibName: String(describing: DynamicAcknowledgementCell.self), bundle: nil),
+			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
 			forCellReuseIdentifier: ReuseIdentifiers.acknowledgement.rawValue
 		)
 

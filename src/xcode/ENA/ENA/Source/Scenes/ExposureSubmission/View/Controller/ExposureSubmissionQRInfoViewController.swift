@@ -69,7 +69,7 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController {
 		cellBackgroundColor = .clear
 
 		tableView.register(
-			UINib(nibName: String(describing: DynamicAcknowledgementCell.self), bundle: nil),
+			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
 			forCellReuseIdentifier: ReuseIdentifiers.legal.rawValue
 		)
 

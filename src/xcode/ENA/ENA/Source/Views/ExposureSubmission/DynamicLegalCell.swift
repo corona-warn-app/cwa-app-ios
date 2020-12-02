@@ -5,7 +5,7 @@
 import UIKit
 
 @IBDesignable
-class DynamicAcknowledgementCell: UITableViewCell {
+class DynamicLegalCell: UITableViewCell {
 
 	@IBOutlet private var cardView: UIView!
 	@IBOutlet private var titleLabel: ENALabel!
@@ -13,7 +13,7 @@ class DynamicAcknowledgementCell: UITableViewCell {
 
 	@IBOutlet private var contentStackView: UIStackView!
 
-	static let reuseIdentifier = "DynamicAcknowledgementCell"
+	static let reuseIdentifier = "DynamicLegalCell"
 
 	override func prepareForInterfaceBuilder() {
 		super.prepareForInterfaceBuilder()

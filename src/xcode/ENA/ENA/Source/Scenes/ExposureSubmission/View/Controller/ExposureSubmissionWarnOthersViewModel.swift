@@ -111,7 +111,7 @@ struct ExposureSubmissionWarnOthersViewModel {
 
 extension DynamicCell {
 
-	/// A `DynamicAcknowledgementCell` to display a list of acknowledgements the user is informed about.
+	/// A `DynamicLegalCell` to display a list of acknowledgements the user is informed about.
 	/// - Parameters:
 	///   - title: The title/header for the legal foo.
 	///   - description: Optional description text.
@@ -127,8 +127,8 @@ extension DynamicCell {
 		configure: CellConfigurator? = nil
 	) -> Self {
 		.identifier(ExposureSubmissionQRInfoViewController.ReuseIdentifiers.legal) { viewController, cell, indexPath in
-			guard let cell = cell as? DynamicAcknowledgementCell else {
-				fatalError("could not initialize cell of type `DynamicAcknowledgementCell`")
+			guard let cell = cell as? DynamicLegalCell else {
+				fatalError("could not initialize cell of type `DynamicLegalCell`")
 			}
 			cell.configure(title: title, description: description, textBlocks: textBlocks, accessibilityIdentifier: accessibilityIdentifier)
 			configure?(viewController, cell, indexPath)
