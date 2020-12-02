@@ -76,8 +76,10 @@ enum AppStrings {
 		static let accImageDescription = NSLocalizedString("ExposureSubmissionTestresultAvailable_AccImageDescription", comment: "")
 		static let consentGranted = NSLocalizedString("ExposureSubmissionTestresultAvailable_Consent_granted", comment: "")
 		static let consentNotGranted = NSLocalizedString("ExposureSubmissionTestresultAvailable_Consent_not_given", comment: "")
-		static let listItem1 = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem1", comment: "")
-		static let listItem2 = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem2", comment: "")
+		static let listItem1WithConsent = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem1WithConsent", comment: "")
+		static let listItem2WithConsent = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem2WithConsent", comment: "")
+		static let listItem1WithoutConsent = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent", comment: "")
+		static let listItem2WithoutConsent = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem2WithoutConsent", comment: "")
 		static let primaryButtonTitle = NSLocalizedString("ExposureSubmissionTestresultAvailable_primaryButtonTitle", comment: "")
 		static let closeAlertTitle = NSLocalizedString("ExposureSubmissionTestresultAvailable_CloseAlertTitle", comment: "")
 		static let closeAlertMessage = NSLocalizedString("ExposureSubmissionTestresultAvailable_CloseAlertMessage", comment: "")
@@ -346,6 +348,7 @@ enum AppStrings {
 
 		static let buttonEnable = NSLocalizedString("ExposureDetection_Button_Enable", comment: "")
 		static let buttonRefresh = NSLocalizedString("ExposureDetection_Button_Refresh", comment: "")
+		static let buttonTitleRestart = NSLocalizedString("ExposureDetection_Button_Title_Restart", comment: "")
 
 		static let riskCardStatusDownloadingTitle = NSLocalizedString("ExposureDetection_Risk_Status_Downloading_Title", comment: "")
 		static let riskCardStatusDownloadingBody = NSLocalizedString("ExposureDetection_Risk_Status_Downloading_Body", comment: "")

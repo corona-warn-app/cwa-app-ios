@@ -1,9 +1,10 @@
 /* ExposureSubmissionWarnOthers */
 
-"ExposureSubmissionWarnOthers_consentTitle" = "Einwilligungserklärung";
+"ExposureSubmissionWarnOthers_acknowledgement_1_1" = "Die App teilt Ihr Testergebnis, um Nutzer von offiziellen Corona-Apps, denen Sie begegnet sind, zu warnen. Die Warnung funktioniert in den oben genannten Ländern. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
 
-"ExposureSubmissionWarnOthers_consentDescription" = "Indem Sie „Einverstanden“ antippen, willigen Sie ein, dass Ihre Zufalls-IDs der letzten 14 Tage und eventuelle Angaben zum Symptombeginn an das Serversystem der App übermittelt werden. Diese Informationen werden verwendet, um das Infektionsrisiko für Nutzer der App, mit denen Sie Kontakt hatten, zu bewerten und diese im Falle eines bestehenden Infektionsrisikos zu warnen. Damit auch die Nutzer von offiziellen Corona-Apps der anderen teilnehmenden Länder gewarnt werden können, werden diese Informationen vom Serversystem der App auch dem von den teilnehmenden Ländern gemeinsam betriebenen Austausch-Server bereitgestellt.\n\nWeder andere Nutzer noch das RKI oder die Gesundheitsbehörden teilnehmender Länder können anhand der übermittelten Daten auf Ihre Identität, Ihren Namen oder andere persönliche Angaben schließen.\n\nDie Übermittlung der Zufalls-IDs und der eventuellen Angaben zum Symptombeginn zur länderübergreifenden Warnung ist freiwillig. Wenn Sie die Daten nicht übermitteln, entstehen Ihnen keine Nachteile. Da weder nachvollzogen noch kontrolliert werden kann, ob und wie Sie die App verwenden, erfährt außer Ihnen auch niemand, ob Sie Ihre Zufalls-IDs zur Verfügung stellen.\n\nSie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt.\n\nWeitere Informationen – auch zu den teilnehmenden Ländern und datenschutzrechtlich verantwortlichen Gesundheitsbehörden – finden Sie unter dem Menüpunkt „App-Informationen“ > „Datenschutz“.";
+"ExposureSubmissionWarnOthers_acknowledgement_1_2" = "Bitte geben Sie Ihr Testergebnis (genauer gesagt: Ihrer Zufalls-IDs der letzten 14 Tage) im nächsten Schritt frei, indem Sie „Teilen“ antippen.";
 
+"ExposureSubmissionWarnOthers_acknowledgement_footer" = "Sie können Ihr Einverständnis nach bereits erfolgter Warnung zurücknehmen, indem Sie die App löschen.";
 
 /* DeltaOnboarding */
 
