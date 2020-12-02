@@ -24,15 +24,17 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-//		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
+		view.backgroundColor = .systemBackground
+		setupViews()
+
 //		errorView.alpha = 0
 		footerView?.isHidden = false
 
-//		tanInput.delegate = self
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeShown(note:)), name: UIResponder.keyboardWillShowNotification, object: nil)
 
-		viewModel.togglePrimaryButton = { [weak self] in
-			self?.togglePrimaryNavigationButton()
-		}
+//		viewModel.togglePrimaryButton = { [weak self] in
+//			self?.togglePrimaryNavigationButton()
+//		}
 	}
 	
 	override var navigationItem: UINavigationItem {
@@ -44,21 +46,18 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 
 		DispatchQueue.main.async { [weak self] in
 			self?.tanInputView.becomeFirstResponder()
-//			self?.tanInput.becomeFirstResponder()
 		}
 	}
-
-//
 
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 	
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		tanInput.resignFirstResponder()
-		viewModel.submitTan(tanInput.text)
+		tanInputView.resignFirstResponder()
+//		viewModel.submitTan(tanInput.text)
 	}
 	
 	// MARK: - Protocol ENATanInputDelegate
-
+/*
 	func enaTanInputDidBeginEditing(_ tanInput: ENATanInput) {
 		let rect = contentView.convert(tanInput.frame, from: tanInput)
 		scrollView.scrollRectToVisible(rect, animated: true)
@@ -89,8 +88,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	// MARK: - Public
 	
 	// MARK: - Internal
-	
-	let viewModel: TanInputViewModel
+*/
 
 	func togglePrimaryNavigationButton() {
 		navigationFooterItem?.isPrimaryButtonLoading.toggle()
@@ -99,28 +97,14 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 
 	// MARK: - Private
 	
-	@IBOutlet private var scrollView: UIScrollView!
-	@IBOutlet private var contentView: UIView!
-	@IBOutlet private var descriptionLabel: UILabel!
-	@IBOutlet var errorLabel: UILabel!
-	@IBOutlet var errorView: UIView!
-	@IBOutlet var tanInput: ENATanInput!
+	private let viewModel: TanInputViewModel
 
-	private lazy var tanInputView: TanInputView = {
-		let tanInputView = TanInputView(frame: .zero, viewModel: viewModel)
-		tanInputView.isUserInteractionEnabled = true
-		tanInputView.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(tanInputView)
+	private var descriptionLabel: UILabel!
+	private var tanInputView: TanInputView!
+	private var errorLabel: UILabel!
 
-		NSLayoutConstraint.activate([
-			tanInputView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			tanInputView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-//			tanInputView.heightAnchor.constraint(equalToConstant: 50.0),
-			tanInputView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-			tanInputView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-		])
-		return tanInputView
-	}()
+	private var scrollView: UIScrollView!
+	private var stackView: UIStackView!
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
@@ -130,5 +114,65 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		item.title = AppStrings.ExposureSubmissionTanEntry.title
 		return item
 	}()
+
+	func setupViews() {
+		scrollView = UIScrollView(frame: view.frame)
+		scrollView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(scrollView)
+
+		NSLayoutConstraint.activate([
+			view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+			view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+			view.topAnchor.constraint(equalTo: scrollView.topAnchor),
+			view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+		])
+
+		stackView = UIStackView()
+		stackView.axis = .vertical
+		stackView.spacing = 40.0
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+		scrollView.addSubview(stackView)
+
+		NSLayoutConstraint.activate([
+			stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 15.0),
+			stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: 15.0),
+			stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+			scrollView.topAnchor.constraint(equalTo: stackView.topAnchor),
+			scrollView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 15)
+		])
+
+		descriptionLabel = UILabel(frame: .zero)
+		descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
+		descriptionLabel.numberOfLines = 0
+
+		tanInputView = TanInputView(frame: .zero, viewModel: viewModel)
+		tanInputView.isUserInteractionEnabled = true
+		tanInputView.translatesAutoresizingMaskIntoConstraints = false
+
+
+		errorLabel = UILabel(frame: .zero)
+		errorLabel.translatesAutoresizingMaskIntoConstraints = false
+		errorLabel.text = "no error yet"
+		errorLabel.numberOfLines = 0
+
+		stackView.addArrangedSubview(descriptionLabel)
+		stackView.addArrangedSubview(tanInputView)
+		stackView.addArrangedSubview(errorLabel)
+	}
+
+	@objc
+	func keyboardWillBeShown(note: Notification) {
+		let key = UIResponder.keyboardFrameEndUserInfoKey
+		guard let userInfo = note.userInfo,
+			  let keyboardFrame = userInfo[key] as? CGRect else { return }
+
+		let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardFrame.height, right: 0.0)
+		scrollView.contentInsetAdjustmentBehavior = .always
+		scrollView.contentInset = contentInset
+		scrollView.scrollIndicatorInsets = contentInset
+
+		scrollView.scrollRectToVisible(errorLabel.frame, animated: true)
+	}
 
 }

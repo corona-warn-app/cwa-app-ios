@@ -12,7 +12,6 @@ class TanInputView: UIControl, UIKeyInput {
 		self.viewModel = viewModel
 		super.init(frame: frame)
 
-		backgroundColor = .red
 		setup()
 		//		setupAccessibility()
 	}
@@ -35,7 +34,7 @@ class TanInputView: UIControl, UIKeyInput {
 
 	// MARK: - Private
 
-	private let viewModel: TanInputViewModel
+	var viewModel: TanInputViewModel?
 
 	private let textColor = UIColor.enaColor(for: .textPrimary1)
 	private let validColor = UIColor.enaColor(for: .textSemanticGray)
@@ -63,7 +62,7 @@ class TanInputView: UIControl, UIKeyInput {
 	private lazy var characterSet: CharacterSet = CharacterSet(charactersIn: self.allowedCharacters.uppercased())
 
 	private func setup() {
-		guard stackView == nil else { return }
+		guard let viewModel = viewModel else { return }
 
 		stackView = UIStackView()
 
@@ -213,7 +212,10 @@ class TanInputView: UIControl, UIKeyInput {
 
 	// MARK: - Protocl UIKeyInput
 
-	var hasText: Bool { !viewModel.text.isEmpty }
+	var hasText: Bool {
+		guard let viewModel = viewModel else { return true }
+		return !viewModel.text.isEmpty
+	}
 	
 	func insertText(_ text: String) {
 		if text == "\n" {
@@ -222,7 +224,10 @@ class TanInputView: UIControl, UIKeyInput {
 		}
 
 		for character in text.trimmingCharacters(in: .whitespacesAndNewlines).map({ $0.uppercased() }) {
-			guard !viewModel.currentTextIsValid && !isInputBlocked else { return }
+			guard let viewModel = viewModel,
+				  !viewModel.currentTextIsValid && !isInputBlocked else {
+				return
+			}
 
 			let label = inputLabels[viewModel.text.count]
 
@@ -237,7 +242,10 @@ class TanInputView: UIControl, UIKeyInput {
 	}
 
 	func deleteBackward() {
-		guard !viewModel.text.isEmpty else { return }
+		guard let viewModel = viewModel,
+			!viewModel.text.isEmpty else {
+				return
+			}
 		isInputBlocked = false
 
 		viewModel.text = String(viewModel.text[..<viewModel.text.index(before: viewModel.text.endIndex)])
@@ -248,7 +256,7 @@ class TanInputView: UIControl, UIKeyInput {
 
 	func clear() {
 		inputLabels.forEach { $0.clear() }
-		viewModel.text = ""
+		viewModel?.text = ""
 
 		//			delegate?.enaTanInput?(self, didChange: self.text, isValid: isValid, isChecksumValid: isChecksumValid, isBlocked: isInputBlocked)
 	}
