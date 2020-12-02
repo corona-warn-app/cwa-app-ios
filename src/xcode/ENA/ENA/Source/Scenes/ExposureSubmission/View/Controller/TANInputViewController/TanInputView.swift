@@ -210,7 +210,6 @@ class TanInputView: UIControl, UIKeyInput {
 	}
 	*/
 
-
 	// MARK: - Protocl UIKeyInput
 
 	var hasText: Bool {
@@ -224,15 +223,14 @@ class TanInputView: UIControl, UIKeyInput {
 		}
 
 		for character in text.trimmingCharacters(in: .whitespacesAndNewlines).map({ $0.uppercased() }) {
-			guard !viewModel.currentTextIsValid && !isInputBlocked else {
+			guard !viewModel.isValid && !isInputBlocked else {
 				return
 			}
 
 			let label = inputLabels[viewModel.text.count]
-
-			viewModel.text += "\(character)"
+			viewModel.appendCharacter(character)
+			// upadtes a single boxed label
 			label.text = "\(character)"
-
 			label.isValid = character.rangeOfCharacter(from: characterSet) != nil
 			isInputBlocked = !label.isValid
 		}
@@ -245,8 +243,7 @@ class TanInputView: UIControl, UIKeyInput {
 				return
 			}
 		isInputBlocked = false
-
-		viewModel.text = String(viewModel.text[..<viewModel.text.index(before: viewModel.text.endIndex)])
+		viewModel.deletLastCharacter()
 		inputLabels[viewModel.text.count].clear()
 
 		//			delegate?.enaTanInput?(self, didChange: self.text, isValid: isValid, isChecksumValid: isChecksumValid, isBlocked: isInputBlocked)
@@ -254,7 +251,7 @@ class TanInputView: UIControl, UIKeyInput {
 
 	func clear() {
 		inputLabels.forEach { $0.clear() }
-		viewModel.text = ""
+		viewModel.clearAllCharacters()
 
 		//			delegate?.enaTanInput?(self, didChange: self.text, isValid: isValid, isChecksumValid: isChecksumValid, isBlocked: isInputBlocked)
 	}

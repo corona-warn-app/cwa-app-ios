@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import Combine
 
 final class TanInputViewModel {
 	
@@ -26,13 +27,17 @@ final class TanInputViewModel {
 	
 	// MARK: - Internal
 
+	@Published private(set) var text: String = ""
+
 	var togglePrimaryButton: () -> Void = {}
-	var digitGroups: [Int] { groups.split(separator: ",").compactMap({ Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }) }
+	var digitGroups: [Int] {
+		groups.split(separator: ",").compactMap { Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }
+	}
 
 	@discardableResult
 	func submitTan(_ tanInput: String) -> Bool {
 		// isChecksumValid will perfome isValid internal
-		guard isChecksumValid(tanInput) else {
+		guard isChecksumValid else {
 			return false
 		}
 
@@ -51,25 +56,32 @@ final class TanInputViewModel {
 		return true
 	}
 
-	var text: String = ""
 
-	var currentTextIsValid: Bool {
-		return isValid(text)
+	func appendCharacter(_ char: String) {
+		text += char
 	}
 
-	func isValid(_ tan: String) -> Bool {
-		let count = tan.count
+	func deletLastCharacter() {
+		text = String(text.dropLast())
+	}
+
+	func clearAllCharacters() {
+		text = ""
+	}
+
+	var isValid: Bool {
+		let count = text.count
 		let digitGroups = { groups.split(separator: ",").compactMap({ Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }) }()
 		let numberOfDigits = { digitGroups.reduce(0) { $0 + $1 } }()
 		return count == numberOfDigits
 	}
 
-	func isChecksumValid(_ tan: String) -> Bool {
-		guard isValid(tan) else { return false }
-		let start = tan.index(tan.startIndex, offsetBy: 0)
-		let end = tan.index(tan.startIndex, offsetBy: tan.count - 2)
-		let testString = String(tan[start...end])
-		return tan.last == calculateChecksum(input: testString)
+	var isChecksumValid: Bool {
+		guard isValid else { return false }
+		let start = text.index(text.startIndex, offsetBy: 0)
+		let end = text.index(text.startIndex, offsetBy: text.count - 2)
+		let testString = String(text[start...end])
+		return text.last == calculateChecksum(input: testString)
 	}
 
 	// MARK: - Private

@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import Combine
 
 class TanInputViewController: UIViewController, ENANavigationControllerWithFooterChild, ENATanInputDelegate {
 
@@ -26,6 +27,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		super.viewDidLoad()
 		view.backgroundColor = .systemBackground
 		setupViews()
+		setupViewModel()
 
 //		errorView.alpha = 0
 		footerView?.isHidden = false
@@ -33,7 +35,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		// disable keyboadr notifications for the moment
 //		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeShown(note:)), name: UIResponder.keyboardWillShowNotification, object: nil)
 
-//		viewModel.togglePrimaryButton = { [weak self] in
+//		viewModel.togglePrimaryButton = { [weak self] onOff in
 //			self?.togglePrimaryNavigationButton()
 //		}
 	}
@@ -99,6 +101,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	// MARK: - Private
 	
 	private let viewModel: TanInputViewModel
+	private var bindings: Set<AnyCancellable> = []
 
 	private var descriptionLabel: UILabel!
 	private var tanInputView: TanInputView!
@@ -116,7 +119,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		return item
 	}()
 
-	func setupViews() {
+	private func setupViews() {
 		scrollView = UIScrollView(frame: view.frame)
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(scrollView)
@@ -160,6 +163,16 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		stackView.addArrangedSubview(descriptionLabel)
 		stackView.addArrangedSubview(tanInputView)
 		stackView.addArrangedSubview(errorLabel)
+	}
+
+	private func setupViewModel() {
+		viewModel.$text.sink { [weak self] newText in
+			Log.debug("Viewmodel did uodate to: \(newText)")
+			DispatchQueue.main.async {
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = self?.viewModel.isChecksumValid ?? false
+			}
+
+		}.store(in: &bindings)
 	}
 
 	@objc
