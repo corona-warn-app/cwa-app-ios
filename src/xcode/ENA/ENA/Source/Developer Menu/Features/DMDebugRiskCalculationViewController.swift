@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 #if !RELEASE
@@ -64,8 +49,12 @@ class DMDebugRiskCalculationViewController: UIViewController {
 	// MARK: - Private
 
 	private let store: Store
-
 	private let textView = UITextView()
+
+	private struct  RiskCalculationDebugHelper: Encodable {
+		let configuration: RiskCalculationConfiguration
+		let mostRecentRiskCalculation: RiskCalculation
+	}
 
 	private func setUp() {
 		title = "🐞🥊 🦠🧮"
@@ -88,26 +77,18 @@ class DMDebugRiskCalculationViewController: UIViewController {
 			return
 		}
 
-		textView.text = "Most recent risk calculation: "
-
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .short
-		dateFormatter.timeStyle = .short
-
-		textView.text += dateFormatter.string(from: mostRecentRiskCalculation.calculationDate)
+		let riskCalculationDebugHelper = RiskCalculationDebugHelper(
+			configuration: mostRecentRiskCalculationConfiguration,
+			mostRecentRiskCalculation: mostRecentRiskCalculation
+		)
 
 		let encoder = JSONEncoder()
 		encoder.outputFormatting = .prettyPrinted
 		encoder.dateEncodingStrategy = .iso8601
-
-		textView.text += "\n\nConfiguration:\n\n"
-		if let data = try? encoder.encode(mostRecentRiskCalculationConfiguration), let mostRecentRiskCalculationConfiguration = String(data: data, encoding: .utf8) {
-			textView.text += mostRecentRiskCalculationConfiguration
-		}
-
-		textView.text += "\n\n\nValues:\n\n"
-		if let data = try? encoder.encode(mostRecentRiskCalculation), let mostRecentRiskCalculation = String(data: data, encoding: .utf8) {
-			textView.text += mostRecentRiskCalculation
+		
+		if let data = try? encoder.encode(riskCalculationDebugHelper),
+		   let jsonString = String(data: data, encoding: .utf8) {
+			textView.text = jsonString
 		}
 	}
 
@@ -116,7 +97,7 @@ class DMDebugRiskCalculationViewController: UIViewController {
 		let activityViewController = UIActivityViewController(activityItems: [textView.text ?? ""], applicationActivities: nil)
 		present(activityViewController, animated: true, completion: nil)
 	}
-
+	
 }
 
 #endif

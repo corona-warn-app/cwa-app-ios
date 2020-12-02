@@ -94,7 +94,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 							accessibilityTraits: [.button],
 							hairline: .topAttached,
 							bottomSpacing: .normal,
-							action: .execute { [weak self] _ in self?.callHotline() }
+							action: .execute { [weak self] _, _ in self?.callHotline() }
 						),
 						ExposureSubmissionDynamicCell.stepCell(
 							style: .footnote,
