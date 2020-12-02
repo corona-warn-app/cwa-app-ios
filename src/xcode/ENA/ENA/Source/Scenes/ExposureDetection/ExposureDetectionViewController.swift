@@ -66,11 +66,17 @@ extension ExposureDetectionViewController {
 			self?.state.riskState = .risk(risk)
 			self?.updateUI()
 		}
+
 		consumer.didFailCalculateRisk = { [weak self] error in
 
 			// Ignore already running errors.
 			guard !error.isAlreadyRunningError else {
 				Log.info("[ExposureDetectionViewController] Ignore already running error.", log: .riskDetection)
+				return
+			}
+
+			guard error.shouldBeDisplayedToUser else {
+				Log.info("[ExposureDetectionViewController] Don't show error to user: \(error).", log: .riskDetection)
 				return
 			}
 			
@@ -83,6 +89,7 @@ extension ExposureDetectionViewController {
 			
 			self?.updateUI()
 		}
+		
 		consumer.didChangeActivityState = { [weak self] activityState in
 			self?.state.activityState = activityState
 		}
@@ -199,10 +206,16 @@ extension ExposureDetectionViewController {
 	/// - Parameters:
 	///   - time: formatted time string <hh:mm:ss>  that is displayed as remaining time.
 	private func updateCheckButton(_ time: String? = nil) {
-		if !state.isTracingEnabled {
+		if !state.isTracingEnabled || state.riskDetectionFailed {
 			footerView.isHidden = false
 			checkButton.isEnabled = true
-			checkButton.setTitle(AppStrings.ExposureDetection.buttonEnable, for: .normal)
+
+			if !state.isTracingEnabled {
+				checkButton.setTitle(AppStrings.ExposureDetection.buttonEnable, for: .normal)
+			} else if state.riskDetectionFailed {
+				checkButton.setTitle(AppStrings.ExposureDetection.buttonTitleRestart, for: .normal)
+			}
+
 			return
 		}
 
