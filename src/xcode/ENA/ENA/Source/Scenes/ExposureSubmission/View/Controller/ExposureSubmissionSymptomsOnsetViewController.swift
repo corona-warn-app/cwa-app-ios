@@ -102,6 +102,8 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 	}
 
 	private func setupView() {
+		view.backgroundColor = .enaColor(for: .background)
+		
 		navigationItem.title = AppStrings.ExposureSubmissionSymptomsOnset.title
 		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionSymptomsOnset.continueButton
 
@@ -113,8 +115,8 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 	}
 
 	private func setupTableView() {
-		tableView.delegate = self
-		tableView.dataSource = self
+		cellBackgroundColor = .clear
+		tableView.separatorStyle = .none
 
 		tableView.register(
 			DynamicTableViewOptionGroupCell.self,
