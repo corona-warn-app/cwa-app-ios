@@ -294,8 +294,10 @@ extension ExposureSubmissionCoordinator {
 			supportedCountries: model.exposureSubmissionService.supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
 				self?.model.exposureSubmissionService.acceptPairing()
+				self?.model.exposureSubmissionService.setSubmissionConsentGiven(consentGiven: true)
 				self?.showQRScreen(isLoading: isLoading)
-			})
+			}
+		)
 		push(vc)
 	}
 
@@ -376,6 +378,7 @@ extension ExposureSubmissionCoordinator {
 		let vc = createWarnOthersViewController(
 			supportedCountries: model.exposureSubmissionService.supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
+				self?.model.exposureSubmissionService.setSubmissionConsentGiven(consentGiven: true)
 				self?.model.warnOthersConsentGiven(
 					isLoading: isLoading,
 					onSuccess: { self?.showThankYouScreen() },
