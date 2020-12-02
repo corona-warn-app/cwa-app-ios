@@ -442,11 +442,11 @@ extension ExposureSubmissionCoordinator {
 		let alertTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.title : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertTitle
 		let alertMessage = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.message : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertDescription
 		
-		let alertButtonLeft = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton :
-			AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonLeft
+		let alertButtonCancel = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton :
+			AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonDontWarn
 		
-		let alertButtonRight = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton :
-			AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonRight
+		let alertButtonGo = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton :
+			AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonWarn
 		
 		let alert = UIAlertController(
 			title: alertTitle,
@@ -454,20 +454,19 @@ extension ExposureSubmissionCoordinator {
 			preferredStyle: .alert)
 		
 		alert.addAction(UIAlertAction(
-							title: alertButtonLeft,
-							style: .cancel,
+							title: alertButtonCancel,
+							style: .default,
 							handler: { [weak self] _ in
 								self?.dismiss()
 							})
 		)
-		
 		alert.addAction(UIAlertAction(
-							title: alertButtonRight,
-							style: .default)
+							title: alertButtonGo,
+							style: .cancel)
 		)
+		
 		navigationController.present(alert, animated: true, completion: nil)
 	}
-	
 	
 	func presentThankYouCancelAlert() {
 		guard let navigationController = navigationController else {
