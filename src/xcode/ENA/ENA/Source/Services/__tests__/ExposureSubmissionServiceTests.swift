@@ -442,6 +442,84 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		XCTAssertFalse(service.hasRegistrationToken)
 	}
 
+	func testLoadSupportedCountriesLoadSucceeds() {
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		config.supportedCountries = ["DE", "IT", "ES"]
+
+		let store = MockTestStore()
+		let service = ENAExposureSubmissionService(
+			diagnosiskeyRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
+			appConfigurationProvider: CachedAppConfigurationMock(with: config),
+			client: ClientMock(),
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store)
+		)
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is called")
+
+		let onErrorExpectation = expectation(description: "onError is not called")
+		onErrorExpectation.isInverted = true
+
+		service.loadSupportedCountries(
+			isLoading: {
+				isLoadingValues.append($0)
+				isLoadingExpectation.fulfill()
+			},
+			onSuccess: { onSuccessExpectation.fulfill() },
+			onError: { _ in onErrorExpectation.fulfill() }
+		)
+
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+
+		XCTAssertEqual(service.supportedCountries, [Country(countryCode: "DE"), Country(countryCode: "IT"), Country(countryCode: "ES")])
+	}
+
+	func testLoadSupportedCountriesLoadEmpty() {
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		config.supportedCountries = []
+
+		let store = MockTestStore()
+		let service = ENAExposureSubmissionService(
+			diagnosiskeyRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
+			appConfigurationProvider: CachedAppConfigurationMock(with: config),
+			client: ClientMock(),
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store)
+		)
+
+		let expectedIsLoadingValues = [true, false]
+		var isLoadingValues = [Bool]()
+
+		let isLoadingExpectation = expectation(description: "isLoading is called twice")
+		isLoadingExpectation.expectedFulfillmentCount = 2
+
+		let onSuccessExpectation = expectation(description: "onSuccess is called")
+
+		let onErrorExpectation = expectation(description: "onError is not called")
+		onErrorExpectation.isInverted = true
+
+		service.loadSupportedCountries(
+			isLoading: {
+				isLoadingValues.append($0)
+				isLoadingExpectation.fulfill()
+			},
+			onSuccess: { onSuccessExpectation.fulfill() },
+			onError: { _ in onErrorExpectation.fulfill() }
+		)
+
+		waitForExpectations(timeout: .medium)
+		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
+
+		XCTAssertEqual(service.supportedCountries, [Country(countryCode: "DE")])
+	}
+
 	// MARK: Plausible deniability tests.
 
 	func test_getTestResultPlaybookPositive() {
