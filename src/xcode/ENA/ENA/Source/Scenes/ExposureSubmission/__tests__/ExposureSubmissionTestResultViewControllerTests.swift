@@ -16,7 +16,6 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 	}
 
 	private func createVC(testResult: TestResult) -> ExposureSubmissionTestResultViewController {
-	
 		ExposureSubmissionTestResultViewController(
 			viewModel: ExposureSubmissionTestResultViewModel(
 				warnOthersReminder: WarnOthersReminder(store: self.store), testResult: testResult,
@@ -26,7 +25,9 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 				onContinueHomeButtonTap: { },
 				onTestDeleted: { },
 				onSubmissionConsentButtonTap: { _ in }
-			), exposureSubmissionService: MockExposureSubmissionService(), presentCancelAlert: { }
+			),
+			exposureSubmissionService: MockExposureSubmissionService(),
+			onDismiss: { }
 		)
 	}
 

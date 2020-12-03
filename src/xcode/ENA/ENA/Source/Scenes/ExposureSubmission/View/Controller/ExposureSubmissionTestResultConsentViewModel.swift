@@ -13,18 +13,18 @@ class ExposureSubmissionTestResultConsentViewModel {
 	init(
 		supportedCountries: [Country],
 		exposureSubmissionService: ExposureSubmissionService,
-		presentDismissAlert: (() -> Void)?
+		onDismiss: (() -> Void)?
 	) {
 		self.supportedCountries = supportedCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
 		self.exposureSubmissionService = exposureSubmissionService
-		self.presentDismissAlert = presentDismissAlert
+		self.onDismiss = onDismiss
 	}
 
 	// MARK: - Public
 
 	// MARK: - Internal
 
-	let presentDismissAlert: (() -> Void)?
+	let onDismiss: (() -> Void)?
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel.with {

@@ -252,7 +252,8 @@ class ExposureSubmissionTestResultViewModel {
 						description: nil,
 						icon: UIImage(named: "Icons - Warnen"),
 						iconTint: .enaColor(for: .riskHigh),
-						hairline: .none
+						hairline: .none,
+						bottomSpacing: .normal
 					),
 					ExposureSubmissionDynamicCell.stepCell(
 						style: .body,

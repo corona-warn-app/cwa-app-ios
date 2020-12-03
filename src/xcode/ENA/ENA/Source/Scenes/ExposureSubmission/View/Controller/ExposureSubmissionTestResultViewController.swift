@@ -12,11 +12,12 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	init(
 		viewModel: ExposureSubmissionTestResultViewModel,
 		exposureSubmissionService: ExposureSubmissionService,
-		presentCancelAlert: @escaping () -> Void
+		onDismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.exposureSubmissionService = exposureSubmissionService
-		self.presentCancelAlert = presentCancelAlert
+		self.onDismiss = onDismiss
+
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -54,15 +55,13 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 	// MARK: - Protocol DismissHandling
 	func presentDismiss(dismiss: @escaping () -> Void) {
-		presentCancelAlert()
+		onDismiss()
 	}
 	
 	// MARK: - Private
 	
-	private let presentCancelAlert: () -> Void
-	
+	private let onDismiss: () -> Void
 	private let exposureSubmissionService: ExposureSubmissionService
-
 	private let viewModel: ExposureSubmissionTestResultViewModel
 
 	private var bindings: [AnyCancellable] = []
@@ -111,7 +110,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 				
 				self.viewModel.shouldShowPositivTestResultAlert = false
 				
-				self.presentCancelAlert()
+				self.onDismiss()
 						
 			}
 			.store(in: &bindings)

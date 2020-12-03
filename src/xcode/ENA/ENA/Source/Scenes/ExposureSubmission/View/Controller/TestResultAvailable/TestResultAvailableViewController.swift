@@ -47,7 +47,7 @@ final class TestResultAvailableViewController: DynamicTableViewController, ENANa
 
 	/// called on close button & swipe down dismiss
 	func presentDismiss(dismiss: @escaping () -> Void) {
-		viewModel.presentDismissAlert()
+		viewModel.onDismiss()
 	}
 
 	// MARK: - Private

@@ -11,10 +11,10 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 
 	init(
 		onPrimaryButtonTap: @escaping (SymptomsOnsetOption, @escaping (Bool) -> Void) -> Void,
-		presentCancelAlert: @escaping () -> Void
+		onDismiss: @escaping () -> Void
 	) {
 		self.onPrimaryButtonTap = onPrimaryButtonTap
-		self.presentCancelAlert = presentCancelAlert
+		self.onDismiss = onDismiss
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -53,7 +53,7 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 	// MARK: - Protocol DismissHandling
 
 	func presentDismiss(dismiss: @escaping () -> Void) {
-		presentCancelAlert()
+		onDismiss()
 	}
 	
 	// MARK: - Internal
@@ -69,7 +69,7 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 	// MARK: - Private
 
 	private let onPrimaryButtonTap: (SymptomsOnsetOption, @escaping (Bool) -> Void) -> Void
-	private let presentCancelAlert: () -> Void
+	private let onDismiss: () -> Void
 	
 	private var symptomsOnsetButtonStateSubscription: AnyCancellable?
 	private var optionGroupSelectionSubscription: AnyCancellable?

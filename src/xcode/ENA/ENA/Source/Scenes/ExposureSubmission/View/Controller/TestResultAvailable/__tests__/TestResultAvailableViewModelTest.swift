@@ -22,7 +22,7 @@ class TestResultAvailableViewModelTest: XCTestCase {
 			didTapPrimaryFooterButton: { _ in
 				expectationFulFill.fulfill()
 			},
-			presentDismissAlert: {}
+			onDismiss: {}
 		)
 		
 		// WHEN
@@ -47,7 +47,7 @@ class TestResultAvailableViewModelTest: XCTestCase {
 			didTapPrimaryFooterButton: { _ in
 				expectationNotFulFill.fulfill()
 			},
-			presentDismissAlert: {}
+			onDismiss: {}
 		)
 		
 		// WHEN
@@ -81,7 +81,7 @@ class TestResultAvailableViewModelTest: XCTestCase {
 			didTapPrimaryFooterButton: { _ in
 				expectationNotFulFill.fulfill()
 			},
-			presentDismissAlert: {}
+			onDismiss: {}
 		)
 		
 		var resultDynamicTableViewModel: DynamicTableViewModel?

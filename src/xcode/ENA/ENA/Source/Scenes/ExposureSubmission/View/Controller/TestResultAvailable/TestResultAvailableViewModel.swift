@@ -14,12 +14,12 @@ final class TestResultAvailableViewModel {
 		exposureSubmissionService: ExposureSubmissionService,
 		didTapConsentCell: @escaping (@escaping (Bool) -> Void) -> Void,
 		didTapPrimaryFooterButton: @escaping (@escaping (Bool) -> Void) -> Void,
-		presentDismissAlert: @escaping () -> Void
+		onDismiss: @escaping () -> Void
 	) {
 		self.exposureSubmissionService = exposureSubmissionService
 		self.didTapConsentCell = didTapConsentCell
 		self.didTapPrimaryFooterButton = didTapPrimaryFooterButton
-		self.presentDismissAlert = presentDismissAlert
+		self.onDismiss = onDismiss
 		
 		exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { [weak self] consentGranted in
 			guard let self = self else { return }
@@ -30,7 +30,7 @@ final class TestResultAvailableViewModel {
 	// MARK: - Internal
 	
 	let didTapPrimaryFooterButton: (@escaping (Bool) -> Void) -> Void
-	let presentDismissAlert: () -> Void
+	let onDismiss: () -> Void
 
 	@Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
 
