@@ -34,7 +34,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		model.symptomsOptionSelected(.no)
 
 		// Submit to check that correct symptoms onset is set
-		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+		model.submitExposure(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
 
 		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
 		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .nonSymptomatic)
@@ -58,7 +58,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		model.symptomsOptionSelected(.preferNotToSay)
 
 		// Submit to check that correct symptoms onset is set
-		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+		model.submitExposure(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
 
 		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
 		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .noInformation)
@@ -86,7 +86,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		model.symptomsOnsetOptionSelected(.exactDate(yesterday))
 
 		// Submit to check that correct symptoms onset is set
-		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+		model.submitExposure(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
 
 		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .daysSinceOnset(1))
 
@@ -109,7 +109,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		model.symptomsOnsetOptionSelected(.lastSevenDays)
 
 		// Submit to check that correct symptoms onset is set
-		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+		model.submitExposure(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
 
 		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .lastSevenDays)
 
@@ -132,7 +132,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		model.symptomsOnsetOptionSelected(.oneToTwoWeeksAgo)
 
 		// Submit to check that correct symptoms onset is set
-		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+		model.submitExposure(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
 
 		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .oneToTwoWeeksAgo)
 
@@ -156,7 +156,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		model.symptomsOnsetOptionSelected(.moreThanTwoWeeksAgo)
 
 		// Submit to check that correct symptoms onset is set
-		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+		model.submitExposure(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
 
 		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .moreThanTwoWeeksAgo)
 
@@ -179,7 +179,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		model.symptomsOnsetOptionSelected(.preferNotToSay)
 
 		// Submit to check that correct symptoms onset is set
-		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+		model.submitExposure(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
 
 		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .symptomaticWithUnknownOnset)
 
@@ -210,7 +210,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let onErrorExpectation = expectation(description: "onError is not called")
 		onErrorExpectation.isInverted = true
 
-		model.warnOthersConsentGiven(
+		model.submitExposure(
 			isLoading: {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()
@@ -245,7 +245,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let onErrorExpectation = expectation(description: "onError is not called")
 		onErrorExpectation.isInverted = true
 
-		model.warnOthersConsentGiven(
+		model.submitExposure(
 			isLoading: {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()
@@ -282,7 +282,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let onErrorExpectation = expectation(description: "onError is not called")
 		onErrorExpectation.isInverted = true
 
-		model.warnOthersConsentGiven(
+		model.submitExposure(
 			isLoading: {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()
@@ -317,7 +317,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let onErrorExpectation = expectation(description: "onError is called")
 
-		model.warnOthersConsentGiven(
+		model.submitExposure(
 			isLoading: {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()
