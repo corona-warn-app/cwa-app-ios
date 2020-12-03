@@ -502,51 +502,50 @@
 			The risk of infection is calculated exclusively offline in the app and is not
 			passed on to the COVID-19 exposure notification system or any other recipient
 			(including the RKI, other health authorities in Germany or other countries,
-			Apple, Google and other third parties). 
+			Apple, Google and other third parties).
 			<p>
 			</p>
 		</p>
 		<h3>
-			b. Registering a test
+			b. Retrieving a test result
 			<p>
 			</p>
 		</h3>
 		<p>
-			If you have been tested for coronavirus, you can register your test in the
-			app. The app will then notify you as soon as the test result is available.
-			For this to work, the testing laboratory needs to be connected to the
-			server system and, as part of the testing procedure, you must have agreed
-			separately to the laboratory transmitting your test result to the server
-			system (test result database). It is not possible to display test results
-			from laboratories that are not connected to the server system. If you have
-			not received a QR code, then you cannot use this feature.
+			If you have taken a coronavirus test, you can retrieve your test result
+			via the app. The app will notify you as soon as your test result is available.
+			For this to work, the testing laboratory needs to be connected to the server
+			system and, as part of the testing procedure, you must have given separate
+			consent to your test result being sent. It is not possible to display test
+			results from laboratories that are not connected to the server system. If
+			you have not received a QR code, then you cannot use this feature either.
 			<p>
 			</p>
 		</p>
 		<p>
 			<u>
-				Registering a test
+				Scanning the QR code
 				<p>
 				</p>
 			</u>
 		</p>
 		<p>
-			To be able to retrieve your test result in the app, you must first register
-			your test. Your doctor or the testing facility will provide you with a QR
-			code for this purpose. This QR code contains a code number which the app
-			can read. To register your test, you will need to scan the QR code in the
-			app using your smartphone’s camera. After reading the code number, the app
-			‘hashes’ it. This means that the app performs a certain mathematical
-			procedure in order to convert the code number in such a way that it can no
-			longer be identified. As soon as your smartphone is connected to the
-			internet, the app will transmit the hashed code number to the server
-			system. In return, the app receives a token from the server system, i.e. a
-			digital access key that is stored in the app. The token is linked to the
-			hashed code number in the server system. The app then deletes the hashed
-			code number on your smartphone. This completes the registration of your
-			test. The server system will only issue a token once for each hashed code
-			number. This ensures that your QR code cannot be used by other users of the
-			app to retrieve test results.
+			In order to retrieve your test result via the app, you will need to scan
+			the QR code using your smartphone’s camera. The QR code contains a code
+			number that is read during scanning and is assigned to your test. After
+			reading the code number, the app ‘hashes’ it. This means that the app
+			performs a certain mathematical procedure in order to convert the code
+			number in such a way that it can no longer be identified. However, it
+			is still possible to clearly assign the hashed code number to your
+			test result. As soon as your smartphone is connected to the internet,
+			the app will transmit the hashed code number to the server system. The
+			server system then provides a digital access key (a so-called token),
+			which is stored in the app. The token is linked to the hashed code number
+			in the server system. The app now deletes the code number that has been
+			hashed on your smartphone and keeps only the token. Once the QR code
+			has been used in this way, it becomes invalid and can no longer be used
+			by anyone. This ensures that no other users can use your QR code to
+			retrieve your test result.
 			<p>
 			</p>
 		</p>

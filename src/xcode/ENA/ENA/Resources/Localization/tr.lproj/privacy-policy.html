@@ -447,38 +447,39 @@
 			üzere) aktarılmaz.
 		</p>
 		<br><h3>
-			b. Test kaydetme
+			b. Test sonucu çağırın
 		</h3>
 		<p>
-			Korona testi yaptırdıysanız, testinizi Uygulamaya kaydedebilirsiniz. Test
-			sonucu hazır olur olmaz, Uygulama sizi bu konuda bilgilendirecektir. Ancak
-			bu bilgilendirme, test laboratuvarının sunucu sistemine bağlı olmasını ve
-			sizin ayrıca, test sonuçlarınızın test süreci kapsamında laboratuvar
-			tarafından sunucu sistemine (test sonuçları veritabanı) aktarılmasına onay
-			vermenizi gerektirir. Uygulamanın sunucu sistemine bağlı olmayan
-			laboratuvarlardan gönderilen test sonuçları görüntülenemez. Bir QR kod
-			almadıysanız, bu işlevi kullanamazsınız.
+			Bir korona testi yaptırdıysanız, test sonucunuzu Uygulama üzerinden
+			görüntüleyebilirsiniz. Test sonucunuz hazır olur olmaz, Uygulama sizi
+			bu konuda bilgilendirecektir. Ancak bu bilgilendirme, test laboratuvarının
+			sunucu sistemine bağlı olmasını ve ayrıca test süreci kapsamında sizin
+			test sonuçlarınızın aktarılmasına onay vermenizi gerektirir. Uygulamanın
+			sunucu sistemine bağlı olmayan laboratuvarlardan gönderilen test
+			sonuçları görüntülenemez. Bir QR kod almadıysanız, bu işlevi yine
+			aynı şekilde kullanamazsınız.
 		</p>
 		<p>
-			<u>Test kaydı</u>
+			<u>QR kodu tarayın</u>
 		</p>
 		<p>
-			Test sonucunu Uygulama aracılığıyla çağırmak için, testinizi
-			kaydetmelisiniz. Bunun için doktorunuzdan veya testin yapıldığı tesisten
-			bir QR kod alırsınız. Bu QR kod, Uygulama ile okunabilen bir kod numarası
-			içerir. Bu testi kaydetmek için, bu QR kodu akıllı telefonunuzun
-			kamerasıyla Uygulamaya taramanız gerekir. Okunan kod numarası, Uygulama
-			tarafından karma hale getirilir. Bunun anlamı, kod numarasının spesifik bir
-			matematik yöntemi ile sürece yabancılaştırılması ve böylece artık tanınmaz
-			hale gelmesidir. Akıllı telefonunuz internete bağlanır bağlanmaz, Uygulama
-			bu karma kod numarasını sunucu sistemine iletir. Bunun karşılığında
-			Uygulama, sunucu sisteminden bir belirteç, yani bir dijital erişim kodu
-			alır ve bu da Uygulamaya kaydedilir. Belirteç, sunucu sistemindeki karma
-			kod numarasına bağlıdır. Uygulama daha sonra akıllı telefonunuzdaki karma
-			kod numarasını siler. Testinizin kaydedilmesi böylece tamamlanmış olur. Her
-			bir karma kod numarası için sunucu sistemi yalnızca bir kez bir belirteç
-			verir. Bu sayede QR kodunuzun Uygulamanın diğer kullanıcıları tarafından
-			test sonuçlarını sorgulamak için kullanılmasının önüne geçilir.
+			Test sonucunu Uygulama aracılığıyla çağırmak için, bu QR kodu akıllı
+			telefonunuzun kamerasıyla taramanız gerekir. Bu QR kod, bir kod
+			numarası içerir, bu kod numarası tarama işlemiyle okunur ve testinize
+			ataması yapılır. Okunan kod numarası, Uygulama tarafından karma hale
+			getirilir. Bunun anlamı, kod numarasının spesifik bir matematik yöntemi
+			ile sürece yabancılaştırılması ve böylece artık tanınmaz hale gelmesidir.
+			Bu karma kod numarasının test sonucunuza benzersiz olarak atanması,
+			hâlâ mümkündür. Akıllı telefonunuz internete bağlanır bağlanmaz, Uygulama
+			bu karma kod numarasını sunucu sistemine iletir. Bunun üzerine sunucu
+			sistemi bir dijital erişim kodu, yani bir belirteç (token) sunar ve bu
+			belirteç Uygulamaya kaydedilir. Belirteç, sunucu sistemindeki karma kod
+			numarasına bağlıdır. Uygulama daha sonra akıllı telefonunuzdaki karma kod
+			numarasını siler ve sadece belirteci tutar. Böylece QR kod artık kullanılmış
+			(geçersiz) olur, yani artık kimse tarafından kullanılamaz. Bu sayede
+			QR kodunuzun test sonucunu sorgulamak için başka bir kullanıcı tarafından
+			kullanılmasının önüne geçilmiş olur.
+
 		</p>
 		<p>
 			<u>Test sonucunun saklanması</u>
