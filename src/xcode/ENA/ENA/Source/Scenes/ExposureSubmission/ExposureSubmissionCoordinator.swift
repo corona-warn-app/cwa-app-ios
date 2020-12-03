@@ -399,13 +399,15 @@ extension ExposureSubmissionCoordinator {
 			supportedCountries: model.exposureSubmissionService.supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
 				self?.model.exposureSubmissionService.setSubmissionConsentGiven(consentGiven: true)
-				self?.model.warnOthersConsentGiven(
-					isLoading: isLoading,
-					onSuccess: { self?.showThankYouScreen() },
-					onError: { error in
+				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
+					isLoading(false)
+
+					if let error = error {
 						self?.showErrorAlert(for: error)
+					} else {
+						self?.showThankYouScreen()
 					}
-				)
+				}
 			}
 		)
 		push(vc)
