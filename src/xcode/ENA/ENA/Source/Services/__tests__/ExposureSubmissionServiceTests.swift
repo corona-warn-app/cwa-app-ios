@@ -22,7 +22,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		
 		XCTAssertFalse(service.isSubmissionConsentGiven, "Expected value is 'false'")
 		
@@ -38,7 +38,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		store.registrationToken = "dummyRegistrationToken"
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.setSubmissionConsentGiven(consentGiven: true)
 
 		let expectation = self.expectation(description: "Success")
@@ -64,7 +64,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let store = MockTestStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.setSubmissionConsentGiven(consentGiven: true)
 
 		let expectation = self.expectation(description: "NoKeys")
@@ -94,7 +94,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let store = MockTestStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.setSubmissionConsentGiven(consentGiven: true)
 
 		let expectation = self.expectation(description: "EmptyKeys")
@@ -125,7 +125,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		store.registrationToken = "dummyRegistrationToken"
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.setSubmissionConsentGiven(consentGiven: true)
 
 		let expectation = self.expectation(description: "invalidPayloadOrHeaders Error")
@@ -157,7 +157,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let store = MockTestStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.setSubmissionConsentGiven(consentGiven: true)
 
 		let expectation = self.expectation(description: "InvalidRegToken")
@@ -185,7 +185,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		store.registrationToken = "dummyRegistrationToken"
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
 		// Execute test.
@@ -207,11 +207,14 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		// Initialize.
 		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		let store = MockTestStore()
 		let service = ENAExposureSubmissionService(
 			diagnosiskeyRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil)),
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			client: ClientMock(),
-			store: MockTestStore()
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store)
 		)
 
 		// Execute test.
@@ -232,11 +235,14 @@ class ExposureSubmissionServiceTests: XCTestCase {
 	func testGetTestResult_fetchRegistrationToken() throws {
 		// Initialize.
 		let expectation = self.expectation(description: "Expect to receive a result.")
+
+		let store = MockTestStore()
 		let service = ENAExposureSubmissionService(
 			diagnosiskeyRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil)),
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			client: ClientMock(),
-			store: MockTestStore()
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store)
 		)
 
 		// Execute test.
@@ -265,7 +271,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			completeWith(.success(expiredTestResultValue))
 		}
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		let expectation = self.expectation(description: "Expect to receive a result.")
 		let expectationToFailWithExpired = self.expectation(description: "Expect to fail with error of type .qrExpired")
 
@@ -301,7 +307,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			completeWith(.success(unknownTestResultValue))
 		}
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		let expectation = self.expectation(description: "Expect to receive a result.")
 		let expectationToFailWithOther = self.expectation(description: "Expect to fail with error of type .other(_)")
 
@@ -332,7 +338,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		store.registrationToken = "dummyRegistrationToken"
 
 		let expectation = self.expectation(description: "Correct error description received.")
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.setSubmissionConsentGiven(consentGiven: true)
 
 
@@ -358,7 +364,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let store = MockTestStore()
 		store.registrationToken = "dummyRegistrationToken"
 		let expectation = self.expectation(description: "Correct error description received.")
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.setSubmissionConsentGiven(consentGiven: true)
 
 		// Execute test.
@@ -391,7 +397,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let client = ClientMock(submissionError: .serverError(500))
 		client.onGetTANForExposureSubmit = { _, _, completion in completion(.success(tan)) }
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.setSubmissionConsentGiven(consentGiven: true)
 
 		let expectation = self.expectation(description: "all callbacks called")
@@ -429,7 +435,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let store = MockTestStore()
 		store.registrationToken = registrationToken
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		XCTAssertTrue(service.hasRegistrationToken)
 
 		service.deleteTest()
@@ -501,7 +507,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		// Run test.
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.getRegistrationToken(forKey: .guid("test-key")) { response in
 			switch response {
 			case .failure(let error):
@@ -553,7 +559,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		// Run test.
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.setSubmissionConsentGiven(consentGiven: true)
 
 		service.getTemporaryExposureKeys { _ in
@@ -597,7 +603,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		// Run test.
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.fakeRequest()
 
 		waitForExpectations(timeout: .short)
@@ -655,7 +661,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		// Run test.
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.getTestResult { response in
 			switch response {
 			case .failure(let error):

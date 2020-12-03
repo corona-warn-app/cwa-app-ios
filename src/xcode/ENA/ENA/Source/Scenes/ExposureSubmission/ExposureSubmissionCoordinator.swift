@@ -140,7 +140,7 @@ extension ExposureSubmissionCoordinator {
 		let viewModel = TestResultAvailableViewModel(
 			exposureSubmissionService: model.exposureSubmissionService,
 			didTapConsentCell: { [weak self] isLoading in
-				self?.model.checkStateAndLoadCountries(
+				self?.model.exposureSubmissionService.loadSupportedCountries(
 					isLoading: isLoading,
 					onSuccess: {
 						self?.showTestResultSubmissionConsentScreen(
@@ -250,7 +250,7 @@ extension ExposureSubmissionCoordinator {
 				testResult: testResult,
 				exposureSubmissionService: model.exposureSubmissionService,
 				onContinueWithSymptomsFlowButtonTap: { [weak self] isLoading in
-					self?.model.checkStateAndLoadCountries(
+					self?.model.exposureSubmissionService.loadSupportedCountries(
 						isLoading: isLoading,
 						onSuccess: {
 							self?.showSymptomsScreen()
@@ -260,7 +260,7 @@ extension ExposureSubmissionCoordinator {
 					)
 				},
 				onContinueWithoutSymptomsFlowButtonTap: { [weak self] isLoading in
-					self?.model.checkStateAndLoadCountries(
+					self?.model.exposureSubmissionService.loadSupportedCountries(
 						isLoading: isLoading,
 						onSuccess: {
 							self?.showWarnOthersScreen()
@@ -274,7 +274,7 @@ extension ExposureSubmissionCoordinator {
 					self?.dismiss()
 				},
 				onSubmissionConsentButtonTap: { [weak self] isLoading in
-					self?.model.checkStateAndLoadCountries(
+					self?.model.exposureSubmissionService.loadSupportedCountries(
 						isLoading: isLoading,
 						onSuccess: {
 							self?.showTestResultSubmissionConsentScreen(presentDismissAlert: nil)

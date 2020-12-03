@@ -33,18 +33,6 @@ class ExposureSubmissionCoordinatorModel {
 
 	var shouldShowSymptomsOnsetScreen = false
 
-	func checkStateAndLoadCountries(
-		isLoading: @escaping (Bool) -> Void,
-		onSuccess: @escaping () -> Void,
-		onError: @escaping (ExposureSubmissionError) -> Void
-	) {
-		if exposureSubmissionService.exposureManagerState.isGood {
-			exposureSubmissionService.loadSupportedCountries(isLoading: isLoading, onSuccess: onSuccess, onError: onError)
-		} else {
-			onError(.enNotEnabled)
-		}
-	}
-
 	func symptomsOptionSelected(
 		_ selectedSymptomsOption: ExposureSubmissionSymptomsViewController.SymptomsOption
 	) {
