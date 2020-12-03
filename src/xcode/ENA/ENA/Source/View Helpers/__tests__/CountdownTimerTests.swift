@@ -45,7 +45,7 @@ class CountdownTimerTests: XCTestCase {
 	}
 
 	func test_countsDown() {
-		let end = Date().addingTimeInterval(2.0)
+		let end = Date().addingTimeInterval(3.0)
 		let c = CountdownTimer(countdownTo: end)
 		c.delegate = countdownTimerTarget
 
@@ -56,12 +56,13 @@ class CountdownTimerTests: XCTestCase {
 		}
 
 		let doneExpectation = self.expectation(description: "Calls done when finished.")
-		countdownTimerTarget.doneCallback = { _, _ in
+		countdownTimerTarget.doneCallback = { _, finished in
+			XCTAssertTrue(finished)
 			doneExpectation.fulfill()
 		}
 
 		c.start()
-		self.waitForExpectations(timeout: .long)
+		self.waitForExpectations(timeout: .extraLong) // just add enough buffer
 	}
 }
 
