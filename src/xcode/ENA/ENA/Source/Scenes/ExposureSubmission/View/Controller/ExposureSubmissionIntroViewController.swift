@@ -40,7 +40,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 	}
 
 	// MARK: - Private
-
+	
 	private let viewModel: ExposureSubmissionIntroViewModel
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {

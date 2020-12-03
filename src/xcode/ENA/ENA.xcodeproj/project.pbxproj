@@ -218,6 +218,8 @@
 		51FE277F247535E300BB8144 /* RiskLoadingItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE277E247535E300BB8144 /* RiskLoadingItemView.swift */; };
 		5222AA68255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5222AA67255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift */; };
 		5222AA70255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5222AA6F255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift */; };
+		523D5E75256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523D5E74256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift */; };
+		523D5E7A256FE04000EF67EA /* ExposureSubmissionThankYouViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523D5E79256FE04000EF67EA /* ExposureSubmissionThankYouViewModel.swift */; };
 		524C4292256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524C4291256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift */; };
 		5270E9B8256D20A900B08606 /* NSTextAttachment+ImageHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5270E9B7256D20A900B08606 /* NSTextAttachment+ImageHeight.swift */; };
 		52CAAC012562B82E00239DCB /* DynamicTableViewConsentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52CAAC002562B82E00239DCB /* DynamicTableViewConsentCell.swift */; };
@@ -844,6 +846,8 @@
 		51FE277E247535E300BB8144 /* RiskLoadingItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLoadingItemView.swift; sourceTree = "<group>"; };
 		5222AA67255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultConsentViewController.swift; sourceTree = "<group>"; };
 		5222AA6F255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultConsentViewModel.swift; sourceTree = "<group>"; };
+		523D5E74256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionThankYouViewController.swift; sourceTree = "<group>"; };
+		523D5E79256FE04000EF67EA /* ExposureSubmissionThankYouViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionThankYouViewModel.swift; sourceTree = "<group>"; };
 		524C4291256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultConsentViewModelTests.swift; sourceTree = "<group>"; };
 		5270E9B7256D20A900B08606 /* NSTextAttachment+ImageHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+ImageHeight.swift"; sourceTree = "<group>"; };
 		52CAAC002562B82E00239DCB /* DynamicTableViewConsentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewConsentCell.swift; sourceTree = "<group>"; };
@@ -2262,6 +2266,8 @@
 				5222AA6F255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift */,
 				019357162525FAD00038F615 /* ExposureSubmissionQRInfoViewController.swift */,
 				019357172525FAD00038F615 /* ExposureSubmissionQRInfoViewModel.swift */,
+				523D5E74256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift */,
+				523D5E79256FE04000EF67EA /* ExposureSubmissionThankYouViewModel.swift */,
 				01C6AC2D252B23FC0052814D /* QRScanner */,
 				2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */,
 				EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */,
@@ -3451,12 +3457,14 @@
 				B1A89F3A24819CD300DA1CEC /* HomeRiskImageItemViewConfigurator.swift in Sources */,
 				B1A89F3924819CC200DA1CEC /* ExposureStateUpdating.swift in Sources */,
 				AB5F84B024F8F7C3000400D4 /* Migration.swift in Sources */,
+				523D5E75256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift in Sources */,
 				B1C6ECFF247F089E0066138F /* RiskImageItemView.swift in Sources */,
 				51486DA62485237200FCE216 /* RiskThankYouCollectionViewCell.swift in Sources */,
 				71330E43248109FD00EB10F6 /* DynamicTableViewCell.swift in Sources */,
 				B14D0CDD246E972400D5BEBC /* ExposureDetectionDelegate.swift in Sources */,
 				0144BDED250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift in Sources */,
 				B11E619B246EE4B0004A056A /* DynamicTypeLabel.swift in Sources */,
+				523D5E7A256FE04000EF67EA /* ExposureSubmissionThankYouViewModel.swift in Sources */,
 				01734B60255D6C4500E60A8B /* exposure_detection_parameters.pb.swift in Sources */,
 				AB6289CF251BA01400CF61D2 /* Bundle+Version.swift in Sources */,
 				AB7420C2251B7D59006666AC /* DeltaOnboardingProtocols.swift in Sources */,
