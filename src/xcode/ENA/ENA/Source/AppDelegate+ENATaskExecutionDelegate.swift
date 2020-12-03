@@ -41,8 +41,13 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	/// This method executes a  test result fetch, and if it is successful, and the test result is different from the one that was previously
 	/// part of the app, a local notification is shown.
 	private func executeFetchTestResults(completion: @escaping ((Bool) -> Void)) {
-
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, appConfigurationProvider: appConfigurationProvider, client: client, store: store)
+		let service = ENAExposureSubmissionService(
+			diagnosiskeyRetrieval: exposureManager,
+			appConfigurationProvider: appConfigurationProvider,
+			client: client,
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store)
+		)
 
 		guard store.registrationToken != nil && store.testResultReceivedTimeStamp == nil else {
 			completion(false)

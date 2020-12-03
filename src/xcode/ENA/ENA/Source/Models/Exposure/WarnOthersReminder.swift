@@ -83,13 +83,13 @@ class WarnOthersReminder: WarnOthersRemindable {
 	func reset() {
 		cancelNotifications()
 		positiveTestResultWasShown = false
-		Log.info("Warn others have been resetted")
+		Log.info("Warn others reminders have been reset")
 	}
 	
 	/// In case the user has informed others about the positive result, this function should be called to reset possible pending 'warn others' notifications
 	func cancelNotifications() {
 		UNUserNotificationCenter.current().cancelWarnOthersNotification()
-		Log.info("Warn others: All notifications have been canceled")
+		Log.info("Warn others reminder: All notifications have been canceled")
 	}
 	
 	// MARK: - Private
@@ -101,7 +101,7 @@ class WarnOthersReminder: WarnOthersRemindable {
 			timeIntervalOne: TimeInterval(notificationOneTimeInterval),
 			timeIntervalTwo: TimeInterval(notificationTwoTimeInterval)
 		)
-		Log.info("Warn Others: New notifications have been scheduled:  #1 \(store.warnOthersNotificationOneTimer)/ #2 \(store.warnOthersNotificationTwoTimer) seconds)")
+		Log.info("Warn others reminder: New notifications have been scheduled:  #1 \(store.warnOthersNotificationOneTimer)/ #2 \(store.warnOthersNotificationTwoTimer) seconds)")
 	}
 	
 }

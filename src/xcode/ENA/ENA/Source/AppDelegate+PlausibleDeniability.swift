@@ -75,7 +75,8 @@ extension AppDelegate {
 			diagnosiskeyRetrieval: exposureManager,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
-			store: store
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store)
 		)
 		let group = DispatchGroup()
 

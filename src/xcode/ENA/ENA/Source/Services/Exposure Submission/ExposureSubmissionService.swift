@@ -20,12 +20,14 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		diagnosiskeyRetrieval: DiagnosisKeysRetrieval,
 		appConfigurationProvider: AppConfigurationProviding,
 		client: Client,
-		store: Store
+		store: Store,
+		warnOthersReminder: WarnOthersRemindable
 	) {
 		self.diagnosiskeyRetrieval = diagnosiskeyRetrieval
 		self.appConfigurationProvider = appConfigurationProvider
 		self.client = client
 		self.store = store
+		self.warnOthersReminder = warnOthersReminder
 
 		self.isSubmissionConsentGiven = store.isSubmissionConsentGiven
 		self.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
@@ -257,6 +259,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let client: Client
 	private let store: Store
+	private let warnOthersReminder: WarnOthersRemindable
 
 	private var devicePairingConsentAccept: Bool {
 		get { self.store.devicePairingConsentAccept }
@@ -422,6 +425,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	// `submitExposure` flow. Removes the registrationToken,
 	// and isAllowedToSubmitDiagnosisKeys.
 	private func submitExposureCleanup() {
+		warnOthersReminder.cancelNotifications()
+
 		store.registrationToken = nil
 		store.isAllowedToSubmitDiagnosisKeys = false
 		store.tan = nil

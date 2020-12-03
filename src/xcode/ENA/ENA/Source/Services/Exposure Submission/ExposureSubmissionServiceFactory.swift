@@ -21,7 +21,8 @@ enum ExposureSubmissionServiceFactory {
 					diagnosiskeyRetrieval: diagnosiskeyRetrieval,
 					appConfigurationProvider: appConfigurationProvider,
 					client: client,
-					store: store
+					store: store,
+					warnOthersReminder: WarnOthersReminder(store: store)
 				)
 			}
 
@@ -51,7 +52,8 @@ enum ExposureSubmissionServiceFactory {
 			diagnosiskeyRetrieval: diagnosiskeyRetrieval,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
-			store: store
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store)
 		)
 
 		return service
