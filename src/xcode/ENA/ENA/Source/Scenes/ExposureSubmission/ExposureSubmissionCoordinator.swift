@@ -173,7 +173,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 					onSuccess: {
 						self?.showTestResultSubmissionConsentScreen(
 							onDismiss: {
-								self?.presentTestResultAvailableCloseAlert()
+								self?.showTestResultAvailableCloseAlert()
 							}
 						)
 					},
@@ -202,7 +202,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				}
 			},
 			onDismiss: { [weak self] in
-				self?.presentTestResultAvailableCloseAlert()
+				self?.showTestResultAvailableCloseAlert()
 			}
 		)
 		return TestResultAvailableViewController(viewModel)
@@ -253,7 +253,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			exposureSubmissionService: self.model.exposureSubmissionService,
 			onDismiss: { [weak self] isLoading in
 				if testResult == TestResult.positive {
-					self?.presentPositiveTestResultCancelAlert(isLoading: isLoading)
+					self?.showPositiveTestResultCancelAlert(isLoading: isLoading)
 				} else {
 					self?.dismiss()
 				}
@@ -374,7 +374,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.showSymptomsScreen()
 			},
 			onDismiss: { [weak self] isLoading in
-				self?.presentThankYouCancelAlert(isLoading: isLoading)
+				self?.showThankYouCancelAlert(isLoading: isLoading)
 			}
 		)
 
@@ -392,7 +392,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showWarnOthersScreen()
 			},
 			onDismiss: { [weak self] isLoading in
-				self?.presentSubmissionSymptomsCancelAlert(isLoading: isLoading)
+				self?.showSubmissionSymptomsCancelAlert(isLoading: isLoading)
 			}
 		)
 
@@ -406,7 +406,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.submitExposureAndDismiss(isLoading: isLoading)
 			},
 			onDismiss: { [weak self] isLoading in
-				self?.presentSubmissionSymptomsCancelAlert(isLoading: isLoading)
+				self?.showSubmissionSymptomsCancelAlert(isLoading: isLoading)
 			}
 		)
 
@@ -415,10 +415,16 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 	// MARK: Cancel Alerts
 
-	private func presentTestResultAvailableCloseAlert() {
+	private func showTestResultAvailableCloseAlert() {
+		let isSubmissionConsentGiven = self.model.exposureSubmissionService.isSubmissionConsentGiven
+
+		let alertTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionTestResultAvailable.closeAlertTitle : AppStrings.ExposureSubmissionTestResultAvailable.noConsentCloseAlertTitle
+
+		let alertMessage = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionTestResultAvailable.closeAlertMessage : AppStrings.ExposureSubmissionTestResultAvailable.noConsentCloseAlertMessage
+
 		let alert = UIAlertController(
-			title: AppStrings.ExposureSubmissionTestResultAvailable.closeAlertTitle,
-			message: AppStrings.ExposureSubmissionTestResultAvailable.closeAlertMessage,
+			title: alertTitle,
+			message: alertMessage,
 			preferredStyle: .alert
 		)
 
@@ -442,16 +448,16 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		navigationController?.present(alert, animated: true, completion: nil)
 	}
 
-	private func presentPositiveTestResultCancelAlert(isLoading: @escaping (Bool) -> Void) {
+	private func showPositiveTestResultCancelAlert(isLoading: @escaping (Bool) -> Void) {
 		let isSubmissionConsentGiven = self.model.exposureSubmissionService.isSubmissionConsentGiven
 
 		let alertTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.title : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertTitle
 		let alertMessage = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.message : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertDescription
 
-		let alertButtonCancel = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton :
+		let cancelAlertButtonTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton :
 			AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonDontWarn
 
-		let alertButtonGo = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton :
+		let continueAlertButtonTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton :
 			AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonWarn
 
 		let alert = UIAlertController(
@@ -461,7 +467,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 		alert.addAction(
 			UIAlertAction(
-				title: alertButtonCancel,
+				title: cancelAlertButtonTitle,
 				style: .default,
 				handler: { [weak self] _ in
 					self?.submitExposureAndDismiss(isLoading: isLoading)
@@ -470,7 +476,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		)
 		alert.addAction(
 			UIAlertAction(
-				title: alertButtonGo,
+				title: continueAlertButtonTitle,
 				style: .cancel
 			)
 		)
@@ -478,11 +484,11 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		navigationController?.present(alert, animated: true, completion: nil)
 	}
 	
-	private func presentThankYouCancelAlert(isLoading: @escaping (Bool) -> Void) {
+	private func showThankYouCancelAlert(isLoading: @escaping (Bool) -> Void) {
 		let alertTitle = AppStrings.ExposureSubmissionSymptomsCancelAlert.title
 		let alertMessage = AppStrings.ExposureSubmissionSymptomsCancelAlert.message
-		let alertButtonLeft = AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton
-		let alertButtonRight = AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton
+		let cancelAlertButtonTitle = AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton
+		let continueAlertButtonTitle = AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton
 		
 		let alert = UIAlertController(
 			title: alertTitle,
@@ -492,7 +498,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		
 		alert.addAction(
 			UIAlertAction(
-				title: alertButtonLeft,
+				title: cancelAlertButtonTitle,
 				style: .cancel,
 				handler: { [weak self] _ in
 					self?.submitExposureAndDismiss(isLoading: isLoading)
@@ -502,7 +508,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		
 		alert.addAction(
 			UIAlertAction(
-				title: alertButtonRight,
+				title: continueAlertButtonTitle,
 				style: .default
 			)
 		)
@@ -510,7 +516,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		navigationController?.present(alert, animated: true, completion: nil)
 	}
 
-	private func presentSubmissionSymptomsCancelAlert(isLoading: @escaping (Bool) -> Void) {
+	private func showSubmissionSymptomsCancelAlert(isLoading: @escaping (Bool) -> Void) {
 		let alert = UIAlertController(
 			title: AppStrings.ExposureSubmissionSymptomsCancelAlert.title,
 			message: AppStrings.ExposureSubmissionSymptomsCancelAlert.message,

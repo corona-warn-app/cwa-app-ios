@@ -73,30 +73,23 @@ class ExposureSubmissionCoordinatorModel {
 	) {
 		isLoading(true)
 
-		DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+		exposureSubmissionService.submitExposure { error in
 			isLoading(false)
-			onError(.invalidPayloadOrHeaders)
+
+			switch error {
+			// If the user doesn`t allow the TEKs to be shared with the app, we stay on the screen (https://jira.itc.sap.com/browse/EXPOSUREAPP-2293)
+			case .notAuthorized:
+				return
+
+			// We continue the regular flow even if there are no keys collected.
+			case .none, .noKeys:
+				onSuccess()
+
+			case .some(let error):
+				Log.error("error: \(error.localizedDescription)", log: .api)
+				onError(error)
+			}
 		}
-
-		return
-
-//		exposureSubmissionService.submitExposure { error in
-//			isLoading(false)
-//
-//			switch error {
-//			// If the user doesn`t allow the TEKs to be shared with the app, we stay on the screen (https://jira.itc.sap.com/browse/EXPOSUREAPP-2293)
-//			case .notAuthorized:
-//				return
-//
-//			// We continue the regular flow even if there are no keys collected.
-//			case .none, .noKeys:
-//				onSuccess()
-//
-//			case .some(let error):
-//				Log.error("error: \(error.localizedDescription)", log: .api)
-//				onError(error)
-//			}
-//		}
 	}
 
 	func getTestResults(
