@@ -15,32 +15,6 @@ final class RiskProvidingConfigurationTests: XCTestCase {
 		detectionMode: .default
 	)
 
-	// MARK: - Calculating exposure valid until Date
-
-	func testExposureDetectionValidUntil_Now() {
-		// Test the case where the last exposure detection was exactly two days ago.
-		// We should get now back
-		let now = Date()
-		let twoDaysPast = Calendar.current.date(byAdding: DateComponents(day: -2), to: now)
-		XCTAssertEqual(config.exposureDetectionValidUntil(lastExposureDetectionDate: twoDaysPast), now)
-	}
-
-	func testExposureDetectionValidUntil_NilLastDetectionDate() {
-		// Test the case where the last exposure detection date is nil.
-		// We should get .distantPast + validityDuration back
-		let now = Date.distantPast
-		let until = Calendar.current.date(byAdding: validityDuration, to: now)
-		XCTAssertEqual(config.exposureDetectionValidUntil(lastExposureDetectionDate: nil), until)
-	}
-
-	func testExposureDetectionValidUntil_NowLastDetectionDate() {
-		// Test the case where the last exposure detection was right now.
-		// We should get .distantPast + validityDuration back
-		let now = Date()
-		let until = Calendar.current.date(byAdding: validityDuration, to: now)
-		XCTAssertEqual(config.exposureDetectionValidUntil(lastExposureDetectionDate: now), until)
-	}
-
 	// MARK: - Calculating next exposure detection date
 
 	func testGetNextExposureDetectionDate_NoExposurePerformedInPast() {
@@ -64,32 +38,6 @@ final class RiskProvidingConfigurationTests: XCTestCase {
 		// Test the case where everything just works and you get a valid next date in the future.
 		let now = Date()
 		XCTAssertFalse(config.shouldPerformExposureDetection(lastExposureDetectionDate: now, currentDate: now))
-	}
-
-	// MARK: - Calculating exposure valid bool
-
-	func testExposureDetectionIsValid_PastLastDetection() {
-		// Test the case when last detection was performed less than validityDuration ago
-		let lastDetection = Calendar.current.date(byAdding: DateComponents(day: -1), to: Date()) ?? .distantPast
-		XCTAssertTrue(config.exposureDetectionIsValid(lastExposureDetectionDate: lastDetection))
-	}
-
-	func testExposureDetectionIsValid_LastDetectionNow() {
-		// Test the case when last detection was performed at this instant
-		// It should be valid
-		let now = Date()
-		XCTAssertTrue(config.exposureDetectionIsValid(lastExposureDetectionDate: now, currentDate: now))
-	}
-
-	func testExposureDetectionIsValid_LastDetectionFuture() {
-		// Test the case when last detection was performed in the future.
-		// This is invalid.
-		XCTAssertFalse(config.exposureDetectionIsValid(lastExposureDetectionDate: Date().addingTimeInterval(10000)))
-	}
-
-	func testExposureDetectionIsValid_LastDetectionDistantPast() {
-		// Test the case when last detection was performed in the past
-		XCTAssertFalse(config.exposureDetectionIsValid(lastExposureDetectionDate: .distantPast))
 	}
 
 	// MARK: - Should perform exposure detection tests
