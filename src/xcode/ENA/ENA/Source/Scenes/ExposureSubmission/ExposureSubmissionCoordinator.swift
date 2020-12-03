@@ -75,24 +75,13 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 	
 	// MARK: - Internal
-		
-	func showTanScreen() {
-		let vc = createTanInputViewController()
-		push(vc)
-	}
-	
+
 	func showTestResultScreen(with testResult: TestResult) {
 		let vc = createTestResultViewController(with: testResult)
 		push(vc)
 	}
 	
 	// MARK: - Private
-	
-//	private var isSubmissionConsentGiven: Bool = false
-//
-//	private var cancellables: Set<AnyCancellable> = []
-//
-//	private let exposureSubmissionService: ExposureSubmissionService
 
 }
 
