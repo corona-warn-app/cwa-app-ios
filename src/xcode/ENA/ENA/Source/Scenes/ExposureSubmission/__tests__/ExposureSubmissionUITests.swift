@@ -130,12 +130,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
-
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionSuccessView"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		
+		// NewSubmissionFlow: Add the test here
 	}
 
 	func test_SubmitTAN_SymptomsOptionPreferNotToSay() {
@@ -168,12 +164,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
-
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionSuccessView"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		
+		// NewSubmissionFlow: Add the test here
 	}
 
 	func test_SubmitTAN_SymptomsOnsetDateOption() {
@@ -252,12 +244,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
-
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionSuccessView"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		
+		// NewSubmissionFlow: Add the test here
 	}
 
 	func test_SubmitTAN_SecondaryFlowWithoutSymptomsScreens() {
@@ -292,11 +280,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionSuccessView"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		// NewSubmissionFlow: Add the test for the cancel Alert
 	}
 	
 	func test_screenshot_SubmitTAN() {
@@ -338,13 +322,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionSuccessView"].waitForExistence(timeout: .medium))
-		
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		// NewSubmissionFlow: Add the test here
 	}
 
 	func test_screenshot_SubmissionNotPossible() {
@@ -456,6 +434,10 @@ extension ENAUITests_04_ExposureSubmissionUITests {
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
 		// Click next to warn others.
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		
+		// Click next to Symptoms Screen.
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 	}

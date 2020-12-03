@@ -165,7 +165,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	
 	@objc
 	private func consentStateChanged(switchState: UISwitch) {
-		exposureSubmissionService.setSubmissionConsentGiven(consentGiven: switchState.isOn)
+		exposureSubmissionService.isSubmissionConsentGiven = switchState.isOn
 	}
 	
 	@objc

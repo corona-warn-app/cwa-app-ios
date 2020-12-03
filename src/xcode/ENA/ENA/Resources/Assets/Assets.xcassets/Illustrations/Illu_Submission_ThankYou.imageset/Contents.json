@@ -1,0 +1,26 @@
+{
+  "images" : [
+    {
+      "filename" : "VielenDank_GemeinsamCoronabekaempfen_Light_428.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "VielenDank_GemeinsamCoronabekaempfen_Dark_428.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true,
+    "template-rendering-intent" : "original"
+  }
+}
