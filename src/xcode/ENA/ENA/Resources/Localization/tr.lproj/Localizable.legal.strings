@@ -16,3 +16,38 @@
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Rıza beyanı";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Diğer katılımcı ülkelerdeki uygulama kullanıcılarıyla bir riskli temasa maruz kalıp kalmadığınızı ve bu nedenle bir enfeksiyon riski olup olmadığını öğrenmek için, maruz kalma günlüğünü etkinleştirmeniz gerekmektedir.“Maruz kalma günlüğünü etkinleştir” tuşuna tıkladığınızda, uygulamanızdaki maruz kalma günlüğünü ve ilgili veri işlemenin etkinleştirilmesini kabul etmiş olursunuz.\n\nMaruz kama günlüğünü kullanabilmek için, ayrıca iPhone’unuzdakiApple tarafından sağlanan “Maruz kalma bildirimleri” işlevini de etkinleştirmeniz ve Corona-Warn-App’ı kullanıma açmanız gerekir.\n\nBunun ardından iPhone’unuz sürekli olarak rastgele kimlik numaraları oluşturur ve bunları Bluetooth aracılığıyla göndererek çevrenizdeki akıllı telefonlar tarafından alınabilmelerini sağlar. Öte yandan, kendi iPhone’unuz da diğer akıllı telefonlardan rastgele kimlik numaraları alır. Kendi rastgele kimlik numaralarınız ve diğer akıllı telefonlardan alınan kimlik numaraları, iPhone’unuz tarafından kaydedilir ve orada 14 gün boyunca saklanır.\n\nEnfeksiyon riskinin değerlendirmesinde uygulama, diğer kişileri uyarmak için kendi test sonuçlarını (daha doğrusu, kendi rastgele kimliklerini) resmi Korona uygulaması aracılığıyla paylaşan tüm kullanıcıların rastgele kimlik no'larını içeren ve günlük olarak güncellenen listeler indirir. Daha sonra bu listeler, iPhone’unuz tarafından kaydedilen rastgele kimlik numaraları ile karşılaştırılır.\n\nBir riske maruz kalma tespit edilirse, Korona uygulaması sizi bu konuda bilgilendirir. Böyle bir durumda uygulama, iPhone’unuz tarafından kaydedilen maruz kalma verilerine (temasın tarihi, süresi ve Bluetooth sinyal gücü) erişir. Diğer kullanıcıya olan mekânsal mesafe, Bluetooth sinyal gücü üzerinden elde edilir (sinyal ne kadar güçlüyse, mesafe o kadar kısadır).Bu veriler, enfeksiyon riskinizi hesaplamak ve nasıl davranmanız gerektiği konusunda size önerilerde bulunmak üzere uygulama tarafından değerlendirilir. Bu değerlendirme işlemi, sadece kendi akıllı telefonunuzda gerçekleştirilir.\n\nSizden başka hiç kimse (RKI (Robert Koch Enstitüsü) veya katılımcı ülkelerin sağlık kurumu yetkilileri bile), enfeksiyon riskine maruz kalıp kalmadığınızı ve sizin için nasıl bir enfeksiyon riskinin saptandığını öğrenemez.\n\nMaruz kalma günlüğüne vermiş olduğunuz rıza beyanını iptal etmek için, istediğiniz zaman uygulamadaki kaydırıcıyı kullanarak, işlevi devre dışı bırakabilir veya uygulamayı silebilirsiniz. Maruz kalma günlüğünü tekrar kullanmak isterseniz, kaydırıcıyı yeniden etkinleştirebilir veya uygulamayı yeniden yükleyebilirsiniz. Maruz kalma günlüğünü devre dışı bırakırsanız, uygulama, artık riskle karşılaşıp karşılaşmadığınızı denetleyemez. Rastgele kimlik numaralarının gönderilmesini ve tarafınızdan alınmasını durdurmak için, iPhone’unuzdakimaruz kalma bildirimleri işlevini devre dışı bırakmanız gerekir. Lütfen iPhone’unuzdaki bu işlev tarafından kaydedilen kendinize ait ve dışarıdan gelen rastgele kimlik numaralarının uygulama tarafından silinmediğini unutmayın. Bunları, sadece iPhone’unuzun ayarlarından kalıcı olarak silebilirsiniz.\n\nUygulamanın veri gizliliği beyanını (sınır ötesi maruz kalma günlüğü için veri işlemeye ilişkin bilgiler de dahil) “Uygulama bilgileri” > ”Veri gizliliği” menü öğeleri altında bulabilirsiniz.";
+
+/* Exposure Submission QR Code Info */
+
+"ExposureSubmissionQRInfo_acknowledgement_title" = "Rıza beyanınız";
+
+"ExposureSubmissionQRInfo_acknowledgement_body" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
+
+"ExposureSubmissionQRInfo_acknowledgement_1_1" = "Uygulama, test sonucunuzu çağırır.";
+
+"ExposureSubmissionQRInfo_acknowledgement_1_2" = "Daha sonra fikrinizi değiştirirseniz, söz konusu testi Uygulamadan kaldırabilirsiniz.";
+
+"ExposureSubmissionQRInfo_acknowledgement_2_1" = "Korona testiniz pozitif çıkmışsa, Uygulama karşılaştığınız kullanıcıları uyarmak üzere test sonucunuzu paylaşır. Bu, yukarıda belirtilen ülkelerdeki resmi Korona uygulamalarının kullanıcıları için geçerlidir. Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
+
+"ExposureSubmissionQRInfo_acknowledgement_2_2" = "Verdiğiniz rıza beyanını istediğiniz zaman geri alabilirsiniz. Bunun ayarını, “Testi göster” altında bulabilirsiniz. Paylaşmadan önce, rıza beyanınıza ilişkin yeniden bilgilendirilecek ve test sonucunuzu yayınlamaya izin vermeniz istenecektir.";
+
+/* Automatic share submission result consent */
+
+"AutomaticSharingConsent_Subtitle" = "Rıza beyanı";
+
+"AutomaticSharingConsent_DescriptionPart1" = "Korona testiniz pozitif çıkmışsa, Uygulama karşılaştığınız kullanıcıları uyarmak üzere test sonucunuzu paylaşır.";
+
+"AutomaticSharingConsent_DescriptionPart2" = "Bu uyarı, yukarıda belirtilen ülkelerdeki resmi Korona uygulamalarının kullanıcılarına ulaşabilir:";
+
+"AutomaticSharingConsent_DescriptionPart3" = "Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
+
+"AutomaticSharingConsent_DescriptionPart4" = "Yukarıdaki “Diğerlerini uyarın” seçeneğini devre dışı bırakarak, verdiğiniz rıza beyanını geri alabilirsiniz.";
+
+/* ExposureSubmissionWarnOthers */
+
+"ExposureSubmissionWarnOthers_acknowledgement_1_1" = "Uygulama, karşılaştığınız resmi Korona uygulamaları kullanıcıları uyarmak üzere onlara test sonucunuzu paylaşır. Uyarı, yukarıda sözü geçen ülkelerde çalışır. Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
+
+"ExposureSubmissionWarnOthers_acknowledgement_1_2" = "Lütfen bir sonraki adımda “Paylaş”a tıklayarak test sonucunuzu (daha doğrusu: Son 14 güne ait rastgele kimlik no'larınız) paylaşın.";
+
+"ExposureSubmissionWarnOthers_acknowledgement_footer" = "Uyarı gerçekleştikten sonra, Uygulamayı silerek verdiğiniz rıza beyanını da geri alabilirsiniz.";
+
