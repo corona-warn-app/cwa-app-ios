@@ -55,6 +55,14 @@ final class TestResultAvailableViewModel {
 		let consentStateString = consentGiven ?
 			AppStrings.ExposureSubmissionTestresultAvailable.consentGranted :
 			AppStrings.ExposureSubmissionTestresultAvailable.consentNotGranted
+
+		let listItem1String = consentGiven ?
+			AppStrings.ExposureSubmissionTestresultAvailable.listItem1WithConsent :
+			AppStrings.ExposureSubmissionTestresultAvailable.listItem1WithoutConsent
+
+		let listItem2String = consentGiven ?
+			AppStrings.ExposureSubmissionTestresultAvailable.listItem2WithConsent :
+			AppStrings.ExposureSubmissionTestresultAvailable.listItem2WithoutConsent
 		
 		return DynamicTableViewModel([
 			// header illustration image with automatic height resizing
@@ -94,8 +102,8 @@ final class TestResultAvailableViewModel {
 			.section(
 				separators: .none,
 				cells: [
-					.body(text: AppStrings.ExposureSubmissionTestresultAvailable.listItem1),
-					.headline(text: AppStrings.ExposureSubmissionTestresultAvailable.listItem2)
+					.body(text: listItem1String),
+					consentGiven ? .headline(text: listItem2String) : .body(text: listItem2String)
 				]
 			)
 		])

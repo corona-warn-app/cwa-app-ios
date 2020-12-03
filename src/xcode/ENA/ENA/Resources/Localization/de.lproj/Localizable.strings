@@ -131,6 +131,8 @@
 
 "ExposureDetection_Button_Refresh" = "Aktualisieren";
 
+"ExposureDetection_Button_Title_Restart" = "Erneut starten";
+
 "ExposureDetection_Risk_Status_Downloading_Title" = "Daten werden heruntergeladen …";
 
 "ExposureDetection_Risk_Status_Detecting_Title" = "Prüfung läuft …";
@@ -553,15 +555,19 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Exposure Submission Testresult available*/
 "ExposureSubmissionTestresultAvailable_Title" = "Ihr Testergebnis liegt vor";
 
-"ExposureSubmissionTestresultAvailable_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
+"ExposureSubmissionTestresultAvailable_AccImageDescription" = "Eine Frau hält ihr Smartphone in der Hand. Es überträgt ein Signal an ein weiteres Smartphone.";
 
 "ExposureSubmissionTestresultAvailable_Consent_granted" = "Einverständnis\n„Andere warnen” erteilt";
 
 "ExposureSubmissionTestresultAvailable_Consent_not_given" = "Einverständnis\n„Andere warnen” nicht erteilt";
 
-"ExposureSubmissionTestresultAvailable_ListItem1" = "Vielen Dank, dass Sie mithelfen, andere zu warnen und damit einverstanden sind, Ihr Testergebnis zu teilen.";
+"ExposureSubmissionTestresultAvailable_ListItem1WithConsent" = "Vielen Dank, dass Sie mithelfen, andere zu warnen und damit einverstanden sind, Ihr Testergebnis zu teilen.";
 
-"ExposureSubmissionTestresultAvailable_ListItem2" = "Bitte geben Sie Ihr Testergebnis im nächsten Schritt frei, indem Sie „Teilen“ antippen.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "Bitte geben Sie Ihr Testergebnis im nächsten Schritt frei, indem Sie „Teilen“ antippen.";
+
+"ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Sie haben sich entschieden, Ihr Testergebnis nicht zu teilen. Ihre Mitmenschen werden nicht gewarnt.";
+
+"ExposureSubmissionTestresultAvailable_ListItem2WithoutConsent" = "Sie können im Anschluss Ihr Testergebnis doch noch teilen und mithelfen, die Verbreitung von Corona zu bekämpfen und Ihre Mitmenschen zu schützen.";
 
 "ExposureSubmissionTestresultAvailable_primaryButtonTitle" = "Weiter";
 
@@ -642,9 +648,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSymptoms_Title" = "Symptome";
 
-"ExposureSubmissionSymptoms_Introduction" = "Wenn Sie angeben, ob und wann eventuelle Corona-Symptome bei Ihnen aufgetreten sind, kann das Infektionsrisiko von anderen App-Nutzern genauer berechnet werden. Sie müssen keine Angabe machen, wählen Sie dazu „Keine Angabe“.";
+"ExposureSubmissionSymptoms_Introduction" = "Wenn Sie angeben, ob und wann eventuelle Corona-Symptome bei Ihnen aufgetreten sind, kann das Infektionsrisiko von anderen App-Nutzern genauer berechnet werden. Die Angabe von Symptomen ist freiwillig. Wenn Sie keine Symptome mitteilen wollen, wählen Sie „Keine Angabe“.";
 
-"ExposureSubmissionSymptoms_Description" = "Sind bei Ihnen in den letzten Tagen folgende Symptome aufgetreten?";
+"ExposureSubmissionSymptoms_Description" = "Sind bei Ihnen in den letzten Tagen eines oder mehrere der folgenden Symptome aufgetreten?";
 
 "ExposureSubmissionSymptoms_Symptom0" = "Erhöhte Temperatur oder Fieber";
 
@@ -674,11 +680,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSymptomsOnset_Title" = "Symptom-Beginn";
 
-"ExposureSubmissionSymptomsOnset_Subtitle" = "Wann sind die Symptome bei Ihnen aufgetreten?";
+"ExposureSubmissionSymptomsOnset_Subtitle" = "Wann sind die Symptome bei Ihnen zum ersten Mal aufgetreten?";
 
-"ExposureSubmissionSymptomsOnset_Description" = "Machen Sie Ihre Angaben so genau wie möglich.";
+"ExposureSubmissionSymptomsOnset_Description" = "Bitte geben Sie das Datum so genau wie möglich an.";
 
-"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Genaues Datum";
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Datum";
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "In den letzten 7 Tagen";
 
@@ -688,7 +694,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Keine Angabe";
 
-"ExposureSubmissionSymptomsOnset_ContinueButton" = "Weiter";
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "Fertig";
 
 /* ExposureSubmissionSymptoms - Cancel alert */
 "ExposureSubmissionSymptoms_CancelAlertTitle" = "Wollen Sie die Symptom-Erfassung abbrechen?";
@@ -707,13 +713,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Helfen Sie mit!";
 
-"ExposureSubmissionWarnOthers_description" = "Als Nächstes können Sie dafür sorgen, dass Ihre Mitmenschen vor einer möglichen Infektion gewarnt werden.\n\nHierfür können Sie Ihre eigenen Zufalls-IDs der letzten 14 Tage und optional auch Angaben zum ersten Auftreten von eventuellen Corona-Symptomen an den von den teilnehmenden Ländern gemeinsam betriebenen Austausch-Server übertragen. Von dort werden Ihre Zufalls-IDs und eventuelle weitere Angaben an die Nutzer der jeweiligen offiziellen Corona-Apps verteilt. So können die anderen Nutzer, mit denen Sie Kontakt hatten, vor einer eventuellen Ansteckung gewarnt werden.\n\nEs werden nur Zufalls-IDs und eventuelle Angaben zum Symptombeginn übertragen. Es werden keine persönlichen Daten wie Ihr Name, Ihre Adresse oder Ihr Aufenthaltsort mitgeteilt.";
+"ExposureSubmissionWarnOthers_description" = "Da Sie positiv auf Corona getestet wurden, können Sie Ihre Mitmenschen über die App warnen.";
 
-"ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Folgende Länder nehmen derzeit an der länderübergreifenden Risiko-Ermittlung teil:";
-
-"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "App-Nutzung ab 16 Jahren";
-
-"ExposureSubmissionWarnOthers_consentUnderagesText" = "Die App-Nutzung ist ab 16 Jahren gestattet und richtet sich an Personen, die sich in Deutschland aufhalten.";
+"ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Die Warnung funktioniert in mehreren Ländern. Derzeit nehmen folgende Länder teil:";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Einverstanden";
 
@@ -1287,6 +1289,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Thank_You_Continue_Button" = "Weiter mit Symptom-Erfassung";
 
 "Thank_You_Cancel_Button" = "Beenden";
+
+"Thank_You_AccImageDescription" = "Mehrere Personen, die auf ihr Smartphone schauen";
 
 /* Test result screen (positive test result) */
 "TestResultPositive_NoConsent_Title" = "Bitte helfen Sie mit!";

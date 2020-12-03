@@ -76,8 +76,10 @@ enum AppStrings {
 		static let accImageDescription = NSLocalizedString("ExposureSubmissionTestresultAvailable_AccImageDescription", comment: "")
 		static let consentGranted = NSLocalizedString("ExposureSubmissionTestresultAvailable_Consent_granted", comment: "")
 		static let consentNotGranted = NSLocalizedString("ExposureSubmissionTestresultAvailable_Consent_not_given", comment: "")
-		static let listItem1 = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem1", comment: "")
-		static let listItem2 = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem2", comment: "")
+		static let listItem1WithConsent = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem1WithConsent", comment: "")
+		static let listItem2WithConsent = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem2WithConsent", comment: "")
+		static let listItem1WithoutConsent = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent", comment: "")
+		static let listItem2WithoutConsent = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem2WithoutConsent", comment: "")
 		static let primaryButtonTitle = NSLocalizedString("ExposureSubmissionTestresultAvailable_primaryButtonTitle", comment: "")
 		static let closeAlertTitle = NSLocalizedString("ExposureSubmissionTestresultAvailable_CloseAlertTitle", comment: "")
 		static let closeAlertMessage = NSLocalizedString("ExposureSubmissionTestresultAvailable_CloseAlertMessage", comment: "")
@@ -199,8 +201,8 @@ enum AppStrings {
 		static let noConsentSecondaryButtonTitle = NSLocalizedString("TestResultPositive_NoConsent_SecondaryButton", comment: "")
 		static let noConsentAlertTitle = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_Title", comment: "")
 		static let noConsentAlertDescription = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_Description", comment: "")
-		static let noConsentAlertButton1 = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne", comment: "")
-		static let noConsentAlertButton2 = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo", comment: "")
+		static let noConsentAlertButtonDontWarn = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne", comment: "")
+		static let noConsentAlertButtonWarn = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo", comment: "")
 		static let withConsentTitle = NSLocalizedString("TestResultPositive_WithConsent_Title", comment: "")
 		static let withConsentInfo1 = NSLocalizedString("TestResultPositive_WithConsent_Info1", comment: "")
 		static let withConsentInfo2 = NSLocalizedString("TestResultPositive_WithConsent_Info2", comment: "")
@@ -346,6 +348,7 @@ enum AppStrings {
 
 		static let buttonEnable = NSLocalizedString("ExposureDetection_Button_Enable", comment: "")
 		static let buttonRefresh = NSLocalizedString("ExposureDetection_Button_Refresh", comment: "")
+		static let buttonTitleRestart = NSLocalizedString("ExposureDetection_Button_Title_Restart", comment: "")
 
 		static let riskCardStatusDownloadingTitle = NSLocalizedString("ExposureDetection_Risk_Status_Downloading_Title", comment: "")
 		static let riskCardStatusDownloadingBody = NSLocalizedString("ExposureDetection_Risk_Status_Downloading_Body", comment: "")
@@ -856,6 +859,7 @@ enum AppStrings {
 		static let description2 = NSLocalizedString("Thank_You_Description2", comment: "")
 		static let continueButton = NSLocalizedString("Thank_You_Continue_Button", comment: "")
 		static let cancelButton = NSLocalizedString("Thank_You_Cancel_Button", comment: "")
+		static let accImageDescription = NSLocalizedString("Thank_You_AccImageDescription", comment: "")
 	}
 	
 	// swiftlint:disable:next file_length

@@ -28,8 +28,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.client = client
 		self.store = store
 		self.warnOthersReminder = warnOthersReminder
-
-		self.isSubmissionConsentGiven = store.isSubmissionConsentGiven
+		self._isSubmissionConsentGiven = store.isSubmissionConsentGiven
+		
 		self.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
 			self.store.isSubmissionConsentGiven = isSubmissionConsentGiven
 		}.store(in: &subscriptions)
@@ -75,12 +75,17 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	}
 	
 	// Needed to use a publisher in the protocol
-	@Published var isSubmissionConsentGiven: Bool
+	@Published private var _isSubmissionConsentGiven: Bool
 	
-	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { $isSubmissionConsentGiven }
+	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { $_isSubmissionConsentGiven }
 	
-	func setSubmissionConsentGiven(consentGiven: Bool) {
-		isSubmissionConsentGiven = consentGiven
+	var isSubmissionConsentGiven: Bool {
+		get {
+			return _isSubmissionConsentGiven
+		}
+		set {
+			_isSubmissionConsentGiven = newValue
+		}
 	}
 
 	func loadSupportedCountries(
