@@ -72,6 +72,7 @@ class ExposureSubmissionThankYouViewController: DynamicTableViewController, ENAN
 		item.secondaryButtonHasBackground = true
 		
 		item.title = AppStrings.ThankYouScreen.title
+		item.hidesBackButton = true
 		
 		return item
 	}()
