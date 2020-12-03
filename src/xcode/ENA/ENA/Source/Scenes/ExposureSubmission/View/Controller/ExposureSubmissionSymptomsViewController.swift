@@ -51,6 +51,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 		onDismiss { [weak self] isLoading in
 			DispatchQueue.main.async {
 				self?.view.isUserInteractionEnabled = !isLoading
+				self?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
 				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
 				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
 			}
