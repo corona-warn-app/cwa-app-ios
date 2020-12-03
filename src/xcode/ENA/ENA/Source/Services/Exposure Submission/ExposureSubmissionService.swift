@@ -22,7 +22,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.store = store
 		self._isSubmissionConsentGiven = store.isSubmissionConsentGiven
 		self.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
-			self.store.isSubmissionConsentGiven = self._isSubmissionConsentGiven
+			self.store.isSubmissionConsentGiven = isSubmissionConsentGiven
 		}.store(in: &cancellables)
 		
 	}
