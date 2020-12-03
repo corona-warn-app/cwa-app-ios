@@ -160,6 +160,24 @@ enum AccessibilityIdentifiers {
 		static let procedure = "AppStrings.ExposureSubmissionResult.procedure"
 		static let furtherInfos_Title = "AppStrings.ExposureSubmissionResult.furtherInfos_Title"
 	}
+	
+	enum ExposureSubmissionPositiveTestResult {
+		static let noConsentTitle = "TestResultPositive_NoConsent_Title"
+		static let noConsentInfo1 = "TestResultPositive_NoConsent_Info1"
+		static let noConsentInfo2 = "TestResultPositive_NoConsent_Info2"
+		static let noConsentInfo3 = "TestResultPositive_NoConsent_Info3"
+		static let noConsentPrimaryButtonTitle = "TestResultPositive_NoConsent_PrimaryButton"
+		static let noConsentSecondaryButtonTitle = "TestResultPositive_NoConsent_SecondaryButton"
+		static let noConsentAlertTitle = "TestResultPositive_NoConsent_AlertNotWarnOthers_Title"
+		static let noConsentAlertDescription = "TestResultPositive_NoConsent_AlertNotWarnOthers_Description"
+		static let noConsentAlertButton1 = "TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne"
+		static let noConsentAlertButton2 = "TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo"
+		static let withConsentTitle = "TestResultPositive_WithConsent_Title"
+		static let withConsentInfo1 = "TestResultPositive_WithConsent_Info1"
+		static let withConsentInfo2 = "TestResultPositive_WithConsent_Info2"
+		static let withConsentPrimaryButtonTitle = "TestResultPositive_WithConsent_PrimaryButton"
+		static let withConsentSecondaryButtonTitle = "TestResultPositive_WithConsent_SecondaryButton"
+	}
 
 	enum ExposureSubmissionSuccess {
 		static let accImageDescription = "AppStrings.ExposureSubmissionSuccess.accImageDescription"
@@ -259,6 +277,10 @@ enum AccessibilityIdentifiers {
 
 	enum DatePickerOption {
 		static let day = "AppStrings.DatePickerOption.day"
+	}
+	
+	enum ThankYouScreen {
+		static let accImageDescription = "AppStrings.ThankYouScreen.accImageDescription"
 	}
 
 }
