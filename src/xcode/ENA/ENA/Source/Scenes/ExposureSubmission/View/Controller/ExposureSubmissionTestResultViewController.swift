@@ -5,16 +5,18 @@
 import UIKit
 import Combine
 
-class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
 
 	// MARK: - Init
 
 	init(
 		viewModel: ExposureSubmissionTestResultViewModel,
-		exposureSubmissionService: ExposureSubmissionService
+		exposureSubmissionService: ExposureSubmissionService,
+		presentCancelAlert: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.exposureSubmissionService = exposureSubmissionService
+		self.presentCancelAlert = presentCancelAlert
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -50,7 +52,14 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		viewModel.didTapSecondaryButton()
 	}
 
+	// MARK: - Protocol DismissHandling
+	func presentDismiss(dismiss: @escaping () -> Void) {
+		presentCancelAlert()
+	}
+	
 	// MARK: - Private
+	
+	private let presentCancelAlert: () -> Void
 	
 	private let exposureSubmissionService: ExposureSubmissionService
 
@@ -94,6 +103,17 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 				self.viewModel.shouldShowDeletionConfirmationAlert = false
 
 				self.showDeletionConfirmationAlert()
+			}
+			.store(in: &bindings)
+		
+		viewModel.$shouldShowPositivTestResultAlert
+			.sink { [weak self] shouldShowPositivTestResultAlert in
+				guard let self = self, shouldShowPositivTestResultAlert else { return }
+				
+				self.viewModel.shouldShowPositivTestResultAlert = false
+				
+				self.presentCancelAlert()
+						
 			}
 			.store(in: &bindings)
 
