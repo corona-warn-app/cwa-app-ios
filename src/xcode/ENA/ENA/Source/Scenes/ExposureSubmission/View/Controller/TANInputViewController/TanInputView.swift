@@ -42,16 +42,16 @@ class TanInputView: UIControl, UIKeyInput {
 		}
 
 		for character in text.trimmingCharacters(in: .whitespacesAndNewlines).map({ $0.uppercased() }) {
-			guard !viewModel.isValid && !isInputBlocked else {
+			guard !viewModel.isValid && !viewModel.isInputBlocked else {
 				return
 			}
 
 			let label = inputLabels[viewModel.text.count]
-			viewModel.appendCharacter(character)
 			// upadtes a single boxed label
 			label.text = "\(character)"
 			label.isValid = character.rangeOfCharacter(from: characterSet) != nil
-			isInputBlocked = !label.isValid
+			viewModel.isInputBlocked = !label.isValid
+			viewModel.appendCharacter(character)
 		}
 	}
 
@@ -59,7 +59,7 @@ class TanInputView: UIControl, UIKeyInput {
 		guard !viewModel.text.isEmpty else {
 				return
 			}
-		isInputBlocked = false
+		viewModel.isInputBlocked = false
 		viewModel.deletLastCharacter()
 		inputLabels[viewModel.text.count].clear()
 	}
@@ -87,7 +87,6 @@ class TanInputView: UIControl, UIKeyInput {
 	private var stackViewWidthConstraint: NSLayoutConstraint!
 	private var boxWidthConstraint: NSLayoutConstraint!
 	private var boxHeightConstraint: NSLayoutConstraint!
-	private var isInputBlocked: Bool = false
 
 	private var stackViews: [UIStackView] { stackView.arrangedSubviews.compactMap({ $0 as? UIStackView }) }
 	private var labels: [UILabel] { stackViews.flatMap({ $0.arrangedSubviews }).compactMap({ $0 as? UILabel }) }

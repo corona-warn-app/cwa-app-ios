@@ -56,7 +56,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		tanInputView.resignFirstResponder()
-//		viewModel.submitTan(tanInput.text)
+		viewModel.submitTan()
 	}
 	
 	// MARK: - Protocol ENATanInputDelegate
@@ -65,33 +65,11 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		let rect = contentView.convert(tanInput.frame, from: tanInput)
 		scrollView.scrollRectToVisible(rect, animated: true)
 	}
-
-	func enaTanInput(_ tanInput: ENATanInput, didChange text: String, isValid: Bool, isChecksumValid: Bool, isBlocked: Bool) {
-		navigationFooterItem?.isPrimaryButtonEnabled = (isValid && isChecksumValid)
-
-		UIView.animate(withDuration: CATransaction.animationDuration()) {
-
-			var errorTexts = [String]()
-
-			if isValid && !isChecksumValid { errorTexts.append(AppStrings.ExposureSubmissionTanEntry.invalidError) }
-			if isBlocked { errorTexts.append(AppStrings.ExposureSubmissionTanEntry.invalidCharacterError) }
-
-			self.errorView.alpha = errorTexts.isEmpty ? 0 : 1
-			self.errorLabel.text = errorTexts.joined(separator: "\n\n")
-
-			self.view.layoutIfNeeded()
-		}
-	}
-
-	func enaTanInputDidTapReturn(_ tanInput: ENATanInput) -> Bool {
-//		return submitTan()
-		return false
-	}
+*/
 
 	// MARK: - Public
 	
 	// MARK: - Internal
-*/
 
 	func togglePrimaryNavigationButton() {
 		navigationFooterItem?.isPrimaryButtonLoading.toggle()
@@ -167,11 +145,19 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 
 	private func setupViewModel() {
 		viewModel.$text.sink { [weak self] newText in
-			Log.debug("Viewmodel did uodate to: \(newText)")
+			Log.debug("viewModel text did uodate to: \(newText)")
 			DispatchQueue.main.async {
 				self?.navigationFooterItem?.isPrimaryButtonEnabled = self?.viewModel.isChecksumValid ?? false
 			}
 
+		}.store(in: &bindings)
+
+		viewModel.$errorText.sink { [weak self] newErrorText in
+			Log.debug("viewModel errorText did uodate to: \(newErrorText)")
+
+			DispatchQueue.main.async {
+				self?.errorLabel.text = newErrorText.isEmpty ? nil : newErrorText
+			}
 		}.store(in: &bindings)
 	}
 

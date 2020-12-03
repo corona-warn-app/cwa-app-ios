@@ -20,15 +20,15 @@ final class TanInputViewModel {
 	}
 	
 	// MARK: - Overrides
-	
-	// MARK: - Protocol ENATanInputDelegate
 
 	// MARK: - Public
-	
-	// MARK: - Internal
 
 	@Published private(set) var text: String = ""
+	@Published private(set) var errorText: String = ""
 
+	// MARK: - Internal
+
+	var isInputBlocked: Bool = false
 	var togglePrimaryButton: () -> Void = {}
 	var digitGroups: [Int] {
 		groups.split(separator: ",").compactMap { Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }
@@ -56,13 +56,14 @@ final class TanInputViewModel {
 		return true
 	}
 
-
 	func appendCharacter(_ char: String) {
 		text += char
+		updateErrorText()
 	}
 
 	func deletLastCharacter() {
 		text = String(text.dropLast())
+		updateErrorText()
 	}
 
 	func handleReturnKey() {
@@ -85,6 +86,14 @@ final class TanInputViewModel {
 	}
 
 	// MARK: - Private
+
+	private func updateErrorText() {
+		let errors = [
+			isValid && !isChecksumValid  ? AppStrings.ExposureSubmissionTanEntry.invalidError : nil,
+			isInputBlocked ? AppStrings.ExposureSubmissionTanEntry.invalidCharacterError : nil
+		].compactMap { $0 }
+		errorText = errors.joined(separator: "\n\n")
+	}
 
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let presentInvalidTanAlert: (String) -> Void
