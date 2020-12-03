@@ -395,7 +395,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showWarnOthersScreen()
 			},
 			onDismiss: { [weak self] in
-				self?.presentSubmissionSymptomsCancelAlert()
+				self?.presentSubmissionSymptomsCancelAlert(isLoading: { _ in })
 			}
 		)
 
@@ -406,20 +406,10 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		let vc = ExposureSubmissionSymptomsOnsetViewController(
 			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption, isLoading in
 				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
-				self?.model.submitExposure(
-					isLoading: isLoading,
-					onSuccess: { [weak self] in
-						self?.dismiss()
-					},
-					onError: { [weak self] error in
-						self?.showErrorAlert(for: error) {
-							self?.dismiss()
-						}
-					}
-				)
+				self?.submitExposureAndDismiss(isLoading: isLoading)
 			},
-			onDismiss: { [weak self] in
-				self?.presentSubmissionSymptomsCancelAlert()
+			onDismiss: { [weak self] isLoading in
+				self?.presentSubmissionSymptomsCancelAlert(isLoading: isLoading)
 			}
 		)
 
@@ -523,7 +513,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		navigationController?.present(alert, animated: true, completion: nil)
 	}
 
-	private func presentSubmissionSymptomsCancelAlert() {
+	private func presentSubmissionSymptomsCancelAlert(isLoading: @escaping (Bool) -> Void) {
 		let alert = UIAlertController(
 			title: AppStrings.ExposureSubmissionSymptomsCancelAlert.title,
 			message: AppStrings.ExposureSubmissionSymptomsCancelAlert.message,
@@ -535,7 +525,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				title: AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton,
 				style: .cancel,
 				handler: { [weak self] _ in
-					self?.dismiss()
+					self?.submitExposureAndDismiss(isLoading: isLoading)
 				}
 			)
 		)
@@ -556,6 +546,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		let alert = UIAlertController.errorAlert(
 			message: error.localizedDescription,
 			secondaryActionTitle: error.faqURL != nil ? AppStrings.Common.errorAlertActionMoreInfo : nil,
+			completion: onCompletion,
 			secondaryActionCompletion: {
 				guard let url = error.faqURL else {
 					Log.error("Unable to open FAQ page.", log: .api)
@@ -569,9 +560,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			}
 		)
 
-		navigationController?.present(alert, animated: true, completion: {
-			onCompletion?()
-		})
+		navigationController?.present(alert, animated: true)
 	}
 
 	// MARK: Test Result Helper
@@ -622,6 +611,20 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.navigationController?.present(alert, animated: true, completion: nil)
 
 				Log.error("An error occurred during result fetching: \(error)", log: .ui)
+			}
+		)
+	}
+
+	private func submitExposureAndDismiss(isLoading: @escaping (Bool) -> Void) {
+		self.model.submitExposure(
+			isLoading: isLoading,
+			onSuccess: { [weak self] in
+				self?.dismiss()
+			},
+			onError: { [weak self] error in
+				self?.showErrorAlert(for: error) {
+					self?.dismiss()
+				}
 			}
 		)
 	}
