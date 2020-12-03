@@ -475,7 +475,11 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				title: cancelAlertButtonTitle,
 				style: .default,
 				handler: { [weak self] _ in
-					self?.submitExposureAndDismiss(isLoading: isLoading)
+					if isSubmissionConsentGiven {
+						self?.submitExposureAndDismiss(isLoading: isLoading)
+					} else {
+						self?.dismiss()
+					}
 				}
 			)
 		)
