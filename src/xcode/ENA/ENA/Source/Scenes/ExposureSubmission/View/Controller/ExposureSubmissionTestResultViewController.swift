@@ -12,7 +12,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	init(
 		viewModel: ExposureSubmissionTestResultViewModel,
 		exposureSubmissionService: ExposureSubmissionService,
-		onDismiss: @escaping () -> Void
+		onDismiss: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
 		self.viewModel = viewModel
 		self.exposureSubmissionService = exposureSubmissionService
@@ -54,13 +54,20 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	}
 
 	// MARK: - Protocol DismissHandling
-	func presentDismiss(dismiss: @escaping () -> Void) {
-		onDismiss()
+
+	func wasAttemptedToBeDismissed() {
+		onDismiss { [weak self] isLoading in
+			DispatchQueue.main.async {
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+				self?.navigationFooterItem?.isSecondaryButtonEnabled = !isLoading
+				self?.navigationFooterItem?.isSecondaryButtonLoading = isLoading
+			}
+		}
 	}
 	
 	// MARK: - Private
 	
-	private let onDismiss: () -> Void
+	private let onDismiss: (@escaping (Bool) -> Void) -> Void
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let viewModel: ExposureSubmissionTestResultViewModel
 
@@ -104,14 +111,13 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 			}
 			.store(in: &bindings)
 		
-		viewModel.$shouldShowPositivTestResultAlert
-			.sink { [weak self] shouldShowPositivTestResultAlert in
-				guard let self = self, shouldShowPositivTestResultAlert else { return }
+		viewModel.$shouldAttemptToDismiss
+			.sink { [weak self] shouldAttemptToDismiss in
+				guard let self = self, shouldAttemptToDismiss else { return }
 				
-				self.viewModel.shouldShowPositivTestResultAlert = false
+				self.viewModel.shouldAttemptToDismiss = false
 				
-				self.onDismiss()
-						
+				self.wasAttemptedToBeDismissed()
 			}
 			.store(in: &bindings)
 

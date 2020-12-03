@@ -46,7 +46,7 @@ final class TestResultAvailableViewController: DynamicTableViewController, ENANa
 	// MARK: Protocol DismissHandling
 
 	/// called on close button & swipe down dismiss
-	func presentDismiss(dismiss: @escaping () -> Void) {
+	func wasAttemptedToBeDismissed() {
 		viewModel.onDismiss()
 	}
 

@@ -53,7 +53,7 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 	
 	// MARK: - Protocol DismissHandling
 
-	func presentDismiss(dismiss: @escaping () -> Void) {
+	func wasAttemptedToBeDismissed() {
 		onDismiss { [weak self] isLoading in
 			DispatchQueue.main.async {
 				self?.view.isUserInteractionEnabled = !isLoading

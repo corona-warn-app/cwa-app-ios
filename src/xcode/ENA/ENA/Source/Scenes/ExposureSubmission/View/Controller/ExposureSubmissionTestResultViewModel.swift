@@ -36,7 +36,7 @@ class ExposureSubmissionTestResultViewModel {
 	@Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
 	@Published var shouldShowDeletionConfirmationAlert: Bool = false
 	@Published var error: ExposureSubmissionError?
-	@Published var shouldShowPositivTestResultAlert: Bool = false
+	@Published var shouldAttemptToDismiss: Bool = false
 	
 	var timeStamp: Int64? {
 		exposureSubmissionService.devicePairingSuccessfulTimestamp
@@ -84,8 +84,7 @@ class ExposureSubmissionTestResultViewModel {
 	func didTapSecondaryButton() {
 		switch testResult {
 		case .positive:
-			// In both cases first an abort alert will be shown
-			self.shouldShowPositivTestResultAlert = true
+			self.shouldAttemptToDismiss = true
 		case .pending:
 			shouldShowDeletionConfirmationAlert = true
 		case .negative, .invalid, .expired:

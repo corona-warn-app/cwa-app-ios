@@ -11,8 +11,8 @@ class ExposureSubmissionThankYouViewController: DynamicTableViewController, ENAN
 	
 	init(
 		onPrimaryButtonTap: (@escaping() -> Void),
-		onSecondaryButtonTap: (@escaping() -> Void),
-		onDismiss: (@escaping() -> Void)
+		onSecondaryButtonTap: (@escaping(@escaping (Bool) -> Void) -> Void),
+		onDismiss: (@escaping(@escaping (Bool) -> Void) -> Void)
 	) {
 		self.viewModel = ExposureSubmissionThankYouViewModel()
 		self.onPrimaryButtonTap = onPrimaryButtonTap
@@ -46,21 +46,33 @@ class ExposureSubmissionThankYouViewController: DynamicTableViewController, ENAN
 	}
 	
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
-		onSecondaryButtonTap()
+		onSecondaryButtonTap { [weak self] isLoading in
+			DispatchQueue.main.async {
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+				self?.navigationFooterItem?.isSecondaryButtonEnabled = !isLoading
+				self?.navigationFooterItem?.isSecondaryButtonLoading = isLoading
+			}
+		}
 	}
 	
 	// MARK: - Protocol DismissHandling
 	
-	func presentDismiss(dismiss: @escaping () -> Void) {
-		onDismiss()
+	func wasAttemptedToBeDismissed() {
+		onDismiss { [weak self] isLoading in
+			DispatchQueue.main.async {
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+				self?.navigationFooterItem?.isSecondaryButtonEnabled = !isLoading
+				self?.navigationFooterItem?.isSecondaryButtonLoading = isLoading
+			}
+		}
 	}
 	
 	// MARK: - Private
 	
 	private let viewModel: ExposureSubmissionThankYouViewModel
 	private let onPrimaryButtonTap: (() -> Void)
-	private let onSecondaryButtonTap: (() -> Void)
-	private let onDismiss: (() -> Void)
+	private let onSecondaryButtonTap: ((@escaping (Bool) -> Void) -> Void)
+	private let onDismiss: ((@escaping (Bool) -> Void) -> Void)
 	
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()

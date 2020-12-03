@@ -11,7 +11,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 	init(
 		onPrimaryButtonTap: @escaping (SymptomsOption) -> Void,
-		onDismiss: @escaping () -> Void
+		onDismiss: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 		self.onDismiss = onDismiss
@@ -47,8 +47,14 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 	
 	// MARK: - Protocol DismissHandling
 	
-	func presentDismiss(dismiss: @escaping () -> Void) {
-		onDismiss()
+	func wasAttemptedToBeDismissed() {
+		onDismiss { [weak self] isLoading in
+			DispatchQueue.main.async {
+				self?.view.isUserInteractionEnabled = !isLoading
+				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+			}
+		}
 	}
 	
 	// MARK: - Internal
@@ -60,7 +66,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 	// MARK: - Private
 
 	private let onPrimaryButtonTap: (SymptomsOption) -> Void
-	private let onDismiss: () -> Void
+	private let onDismiss: (@escaping (Bool) -> Void) -> Void
 	
 	private var selectedSymptomsOptionConfirmationButtonStateSubscription: AnyCancellable?
 	private var optionGroupSelectionSubscription: AnyCancellable?

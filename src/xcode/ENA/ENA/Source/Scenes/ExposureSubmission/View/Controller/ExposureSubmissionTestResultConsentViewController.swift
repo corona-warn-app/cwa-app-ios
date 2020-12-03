@@ -32,7 +32,7 @@ class ExposureSubmissionTestResultConsentViewController: DynamicTableViewControl
 
 	// MARK: - Protocol DismissHandling
 
-	func presentDismiss(dismiss: @escaping () -> Void) {
+	func wasAttemptedToBeDismissed() {
 		viewModel.onDismiss?()
 	}
 
