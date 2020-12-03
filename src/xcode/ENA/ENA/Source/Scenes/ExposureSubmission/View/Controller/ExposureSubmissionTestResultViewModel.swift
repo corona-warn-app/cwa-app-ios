@@ -58,7 +58,7 @@ class ExposureSubmissionTestResultViewModel {
 			// Determine next step based on consent state. In case the user has given exposure
 			// submission consent, we continue with collecting onset of symptoms.
 			// Otherwise we continue with the warn others process
-			if exposureSubmissionService.isSubmissionConsentGiven {
+			if isSubmissionConsentGiven {
 				Log.info("Positive Test Result: Next -> 'onset of symptoms'.")
 				onContinueWithSymptomsFlowButtonTap { [weak self] isLoading in
 					self?.primaryButtonIsLoading = isLoading
@@ -121,6 +121,8 @@ class ExposureSubmissionTestResultViewModel {
 	
 	private let onTestDeleted: () -> Void
 
+	private var isSubmissionConsentGiven: Bool = false
+
 	private var cancellables: Set<AnyCancellable> = []
 	
 	private var primaryButtonIsLoading: Bool = false {
@@ -159,10 +161,10 @@ class ExposureSubmissionTestResultViewModel {
 		
 		switch testResult {
 		case .positive:
-			navigationFooterItem.primaryButtonTitle = exposureSubmissionService.isSubmissionConsentGiven ?
+			navigationFooterItem.primaryButtonTitle = isSubmissionConsentGiven ?
 				AppStrings.ExposureSubmissionPositiveTestResult.withConsentPrimaryButtonTitle :
 				AppStrings.ExposureSubmissionPositiveTestResult.noConsentPrimaryButtonTitle
-			navigationFooterItem.secondaryButtonTitle = exposureSubmissionService.isSubmissionConsentGiven ?
+			navigationFooterItem.secondaryButtonTitle = isSubmissionConsentGiven ?
 				AppStrings.ExposureSubmissionPositiveTestResult.withConsentSecondaryButtonTitle :
 				AppStrings.ExposureSubmissionPositiveTestResult.noConsentSecondaryButtonTitle
 			navigationFooterItem.isSecondaryButtonEnabled = true
@@ -195,7 +197,7 @@ class ExposureSubmissionTestResultViewModel {
 	private var currentTestResultSections: [DynamicSection] {
 		switch testResult {
 		case .positive:
-			return exposureSubmissionService.isSubmissionConsentGiven ? positiveTestResultSectionsWithSubmissionConsent : positiveTestResultSectionsWithoutSubmissionConsent
+			return isSubmissionConsentGiven ? positiveTestResultSectionsWithSubmissionConsent : positiveTestResultSectionsWithoutSubmissionConsent
 		case .negative:
 			return negativeTestResultSections
 		case .invalid:
@@ -395,7 +397,7 @@ class ExposureSubmissionTestResultViewModel {
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Grey_Warnen"),
 						text: .string(
-							exposureSubmissionService.isSubmissionConsentGiven ?
+							isSubmissionConsentGiven ?
 										AppStrings.ExposureSubmissionResult.warnOthersConsentGiven :
 										AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven
 						),
@@ -464,6 +466,7 @@ class ExposureSubmissionTestResultViewModel {
 	private func bindToSubmissionConsent() {
 		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
 			Log.info("TestResult Screen: Update content for submission consent given = \(isSubmissionConsentGiven)")
+			self.isSubmissionConsentGiven = isSubmissionConsentGiven
 			self.updateForCurrentTestResult()
 		}.store(in: &cancellables)
 	}

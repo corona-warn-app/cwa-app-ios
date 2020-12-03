@@ -36,6 +36,24 @@ enum ExposureSubmissionServiceFactory {
 				}
 			}
 
+			if isEnabled(.loadSupportedCountriesSuccess) {
+				service.loadSupportedCountriesCallback = { isLoading, onSuccess, _ in
+					isLoading(true)
+					DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+						isLoading(false)
+						onSuccess()
+					}
+				}
+			}
+
+			if isEnabled(.getTemporaryExposureKeysSuccess) {
+				service.getTemporaryExposureKeysCallback = { completeWith in
+					DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+						completeWith(nil)
+					}
+				}
+			}
+
 			if isEnabled(.submitExposureSuccess) {
 				service.submitExposureCallback = { completeWith in
 					DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

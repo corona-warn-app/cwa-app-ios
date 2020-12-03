@@ -9,6 +9,7 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Mock callbacks.
 
+	var loadSupportedCountriesCallback: (((@escaping (Bool) -> Void), (@escaping () -> Void), (@escaping (ExposureSubmissionError) -> Void)) -> Void)?
 	var getTemporaryExposureKeysCallback: ((@escaping ExposureSubmissionHandler) -> Void)?
 	var submitExposureCallback: ((@escaping ExposureSubmissionHandler) -> Void)?
 	var getRegistrationTokenCallback: ((DeviceRegistrationKey, @escaping RegistrationHandler) -> Void)?
@@ -47,7 +48,7 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 		onSuccess: @escaping () -> Void,
 		onError: @escaping (ExposureSubmissionError) -> Void
 	) {
-		
+		loadSupportedCountriesCallback?(isLoading, onSuccess, onError)
 	}
 
 	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler) {
