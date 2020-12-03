@@ -60,6 +60,7 @@ extension URLSession {
 			   error.domain == NSURLErrorDomain,
 			   error.code == NSURLErrorNotConnectedToInternet {
 				completion(.failure(.noNetworkConnection))
+				return
 			}
 
 			guard let response = response as? HTTPURLResponse else {
