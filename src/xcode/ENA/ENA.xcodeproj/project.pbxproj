@@ -2257,24 +2257,24 @@
 		A372DA3824BDA035003248BB /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				BAB1239A25729FEA00A179FB /* TANInputViewController */,
+				2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */,
 				503DB1A6255D822E00576E57 /* ExposureSubmissionIntroViewController.swift */,
 				503DB1AB255D826900576E57 /* ExposureSubmissionIntroViewModel.swift */,
-				71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */,
-				016961982540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift */,
-				5222AA67255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift */,
-				5222AA6F255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift */,
 				019357162525FAD00038F615 /* ExposureSubmissionQRInfoViewController.swift */,
 				019357172525FAD00038F615 /* ExposureSubmissionQRInfoViewModel.swift */,
+				71FE1C73247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift */,
+				EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */,
+				EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */,
+				5222AA67255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift */,
+				5222AA6F255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift */,
+				71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */,
+				016961982540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift */,
 				523D5E74256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift */,
 				523D5E79256FE04000EF67EA /* ExposureSubmissionThankYouViewModel.swift */,
-				01C6AC2D252B23FC0052814D /* QRScanner */,
-				2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */,
-				EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */,
-				EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */,
 				A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */,
 				01A236792519D1E80043D9F8 /* ExposureSubmissionWarnOthersViewModel.swift */,
-				71FE1C73247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift */,
+				01C6AC2D252B23FC0052814D /* QRScanner */,
+				BAB1239A25729FEA00A179FB /* TANInputViewController */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

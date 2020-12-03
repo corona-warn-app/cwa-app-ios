@@ -35,14 +35,14 @@ final class TanInputViewModel {
 	}
 
 	@discardableResult
-	func submitTan(_ tanInput: String) -> Bool {
+	func submitTan() -> Bool {
 		// isChecksumValid will perfome isValid internal
 		guard isChecksumValid else {
 			return false
 		}
 
 		togglePrimaryButton()
-		exposureSubmissionService.getRegistrationToken(forKey: .teleTan(tanInput)) { [weak self] result in
+		exposureSubmissionService.getRegistrationToken(forKey: .teleTan(text)) { [weak self] result in
 			switch result {
 			case let .failure(error):
 				// If teleTAN is incorrect, show Alert Controller
@@ -65,8 +65,8 @@ final class TanInputViewModel {
 		text = String(text.dropLast())
 	}
 
-	func clearAllCharacters() {
-		text = ""
+	func handleReturnKey() {
+		submitTan()
 	}
 
 	var isValid: Bool {

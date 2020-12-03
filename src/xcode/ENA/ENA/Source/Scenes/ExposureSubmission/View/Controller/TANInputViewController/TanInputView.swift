@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -29,7 +29,40 @@ class TanInputView: UIControl, UIKeyInput {
 		true
 	}
 
-	// MARK: - Protocol <#Name#>
+	// MARK: - Protocl UIKeyInput
+
+	var hasText: Bool {
+		return !viewModel.text.isEmpty
+	}
+
+	func insertText(_ text: String) {
+		guard text != "\n" else {
+			viewModel.submitTan()
+			return
+		}
+
+		for character in text.trimmingCharacters(in: .whitespacesAndNewlines).map({ $0.uppercased() }) {
+			guard !viewModel.isValid && !isInputBlocked else {
+				return
+			}
+
+			let label = inputLabels[viewModel.text.count]
+			viewModel.appendCharacter(character)
+			// upadtes a single boxed label
+			label.text = "\(character)"
+			label.isValid = character.rangeOfCharacter(from: characterSet) != nil
+			isInputBlocked = !label.isValid
+		}
+	}
+
+	func deleteBackward() {
+		guard !viewModel.text.isEmpty else {
+				return
+			}
+		isInputBlocked = false
+		viewModel.deletLastCharacter()
+		inputLabels[viewModel.text.count].clear()
+	}
 
 	// MARK: - Public
 
@@ -38,7 +71,7 @@ class TanInputView: UIControl, UIKeyInput {
 	// MARK: - Private
 
 	private let viewModel: TanInputViewModel
-
+	private let allowedCharacters: String = "23456789ABCDEFGHJKMNPQRSTUVWXYZ"
 	private let textColor = UIColor.enaColor(for: .textPrimary1)
 	private let validColor = UIColor.enaColor(for: .textSemanticGray)
 	private let invalidColor = UIColor.enaColor(for: .textSemanticRed)
@@ -54,14 +87,12 @@ class TanInputView: UIControl, UIKeyInput {
 	private var stackViewWidthConstraint: NSLayoutConstraint!
 	private var boxWidthConstraint: NSLayoutConstraint!
 	private var boxHeightConstraint: NSLayoutConstraint!
-
 	private var isInputBlocked: Bool = false
 
 	private var stackViews: [UIStackView] { stackView.arrangedSubviews.compactMap({ $0 as? UIStackView }) }
 	private var labels: [UILabel] { stackViews.flatMap({ $0.arrangedSubviews }).compactMap({ $0 as? UILabel }) }
 	private var inputLabels: [ENATanInputLabel] { labels.compactMap({ $0 as? ENATanInputLabel }) }
 
-	private let allowedCharacters: String = "23456789ABCDEFGHJKMNPQRSTUVWXYZ"
 	private lazy var characterSet: CharacterSet = CharacterSet(charactersIn: self.allowedCharacters.uppercased())
 
 	private func setup() {
@@ -98,10 +129,8 @@ class TanInputView: UIControl, UIKeyInput {
 		stackViewWidthConstraint = stackView.widthAnchor.constraint(equalTo: widthAnchor)
 
 		UIView.translatesAutoresizingMaskIntoConstraints(for: [stackView] + stackViews + labels, to: false)
-
 		updateAxis(.horizontal)
-
-		addTapTargetToBecomeFirstResponder()
+		addTarget(self, action: #selector(becomeFirstResponder), for: .touchUpInside)
 	}
 
 	private func createGroup(count: Int, hasDash: Bool) -> UIStackView {
@@ -192,10 +221,6 @@ class TanInputView: UIControl, UIKeyInput {
 		boxHeightConstraint.isActive = true
 	}
 
-	private func addTapTargetToBecomeFirstResponder() {
-		addTarget(self, action: #selector(becomeFirstResponder), for: .touchUpInside)
-	}
-
 	/*
 	@discardableResult
 	override func becomeFirstResponder() -> Bool {
@@ -209,51 +234,5 @@ class TanInputView: UIControl, UIKeyInput {
 	return super.resignFirstResponder()
 	}
 	*/
-
-	// MARK: - Protocl UIKeyInput
-
-	var hasText: Bool {
-		return !viewModel.text.isEmpty
-	}
-	
-	func insertText(_ text: String) {
-		if text == "\n" {
-			//				if delegate?.enaTanInputDidTapReturn?(self) ?? true { _ = resignFirstResponder() }
-			return
-		}
-
-		for character in text.trimmingCharacters(in: .whitespacesAndNewlines).map({ $0.uppercased() }) {
-			guard !viewModel.isValid && !isInputBlocked else {
-				return
-			}
-
-			let label = inputLabels[viewModel.text.count]
-			viewModel.appendCharacter(character)
-			// upadtes a single boxed label
-			label.text = "\(character)"
-			label.isValid = character.rangeOfCharacter(from: characterSet) != nil
-			isInputBlocked = !label.isValid
-		}
-
-		//			delegate?.enaTanInput?(self, didChange: self.text, isValid: isValid, isChecksumValid: isChecksumValid, isBlocked: isInputBlocked)
-	}
-
-	func deleteBackward() {
-		guard !viewModel.text.isEmpty else {
-				return
-			}
-		isInputBlocked = false
-		viewModel.deletLastCharacter()
-		inputLabels[viewModel.text.count].clear()
-
-		//			delegate?.enaTanInput?(self, didChange: self.text, isValid: isValid, isChecksumValid: isChecksumValid, isBlocked: isInputBlocked)
-	}
-
-	func clear() {
-		inputLabels.forEach { $0.clear() }
-		viewModel.clearAllCharacters()
-
-		//			delegate?.enaTanInput?(self, didChange: self.text, isValid: isValid, isChecksumValid: isChecksumValid, isBlocked: isInputBlocked)
-	}
 
 }
