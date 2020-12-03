@@ -127,7 +127,6 @@ extension ExposureSubmissionCoordinator {
 	
 	private func push(_ vc: UIViewController) {
 		self.navigationController?.pushViewController(vc, animated: true)
-		
 	}
 
 	/// This method selects the correct initial view controller among the following options:
@@ -245,8 +244,8 @@ extension ExposureSubmissionCoordinator {
 	func showTanScreen() {
 		let tanInputViewModel = TanInputViewModel(
 			exposureSubmissionService: model.exposureSubmissionService,
-			presentInvalidTanAlert: { [weak self] localizedDescription in
-				self?.presentTanInvalidAlert(localizedDescription: localizedDescription)
+			presentInvalidTanAlert: { [weak self] localizedDescription, completion  in
+				self?.presentTanInvalidAlert(localizedDescription: localizedDescription, completion: completion)
 			},
 			testGotResultSubmitted: { [weak self] in
 				// A TAN always indicates a positive test result.
@@ -260,10 +259,17 @@ extension ExposureSubmissionCoordinator {
 		push(vc)
 	}
 
-	private func presentTanInvalidAlert(localizedDescription: String) {
+	private func presentTanInvalidAlert(localizedDescription: String, completion: @escaping () -> Void) {
 		let alert = UIAlertController(title: AppStrings.ExposureSubmission.generalErrorTitle, message: localizedDescription, preferredStyle: .alert)
-		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .cancel))
-		navigationController?.present(alert, animated: true, completion: nil)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .cancel,
+				handler: { _ in
+					completion()
+				})
+		)
+		navigationController?.present(alert, animated: true)
 
 /*
 		let alert = self.setupErrorAlert(

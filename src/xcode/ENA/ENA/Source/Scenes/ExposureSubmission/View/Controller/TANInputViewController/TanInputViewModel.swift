@@ -11,7 +11,7 @@ final class TanInputViewModel {
 	
 	init(
 		exposureSubmissionService: ExposureSubmissionService,
-		presentInvalidTanAlert: @escaping (String) -> Void,
+		presentInvalidTanAlert: @escaping (String, @escaping () -> Void) -> Void,
 		testGotResultSubmitted: @escaping () -> Void
 	) {
 		self.exposureSubmissionService = exposureSubmissionService
@@ -60,15 +60,17 @@ final class TanInputViewModel {
 
 		isPrimaryBarButtonDisabled = true
 		exposureSubmissionService.getRegistrationToken(forKey: .teleTan(text)) { [weak self] result in
+
 			switch result {
 			case let .failure(error):
 				// If teleTAN is incorrect, show Alert Controller
-				self?.presentInvalidTanAlert(error.localizedDescription)
 				self?.isPrimaryBarButtonDisabled = false
+				self?.presentInvalidTanAlert(error.localizedDescription) {
+					Log.debug("Debug alert completion")
+				}
 
 			case .success:
 				self?.testGotResultSubmitted()
-				self?.isPrimaryBarButtonDisabled = false
 			}
 		}
 	}
@@ -98,7 +100,7 @@ final class TanInputViewModel {
 	}
 
 	private let exposureSubmissionService: ExposureSubmissionService
-	private let presentInvalidTanAlert: (String) -> Void
+	private let presentInvalidTanAlert: (String, @escaping () -> Void) -> Void
 	private let testGotResultSubmitted: () -> Void
 
 	private var groups: String = "3,3,4"

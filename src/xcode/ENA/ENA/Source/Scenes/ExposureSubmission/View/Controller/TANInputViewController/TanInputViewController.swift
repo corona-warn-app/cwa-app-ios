@@ -27,7 +27,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		super.viewDidLoad()
 		view.backgroundColor = .systemBackground
 		setupViews()
-		setupViewModel()
+		setupViewModelBindings()
 
 		footerView?.isHidden = false
 
@@ -140,12 +140,13 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		stackView.addArrangedSubview(errorLabel)
 	}
 
-	private func setupViewModel() {
+	private func setupViewModelBindings() {
 		// viewModel will notify controller to enabled / disabler Primary Footer Button
 		// this will happend while ExposureSubmissionService is making a network request
 		viewModel.$isPrimaryBarButtonDisabled.sink { [weak self] isDisabled in
 			DispatchQueue.main.async {
 				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isDisabled
+				self?.navigationFooterItem?.isPrimaryButtonLoading = isDisabled
 			}
 		}.store(in: &bindings)
 
