@@ -85,6 +85,4 @@ class TanInputViewModelTests: XCTestCase {
 		XCTAssertFalse(isChecksumValid)
 	}
 
-
-
 }
