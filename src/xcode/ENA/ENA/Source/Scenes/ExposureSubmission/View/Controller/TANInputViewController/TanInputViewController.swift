@@ -126,6 +126,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		descriptionLabel = UILabel(frame: .zero)
 		descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
+		descriptionLabel.textColor = .enaColor(for: .textPrimary1)
 		descriptionLabel.numberOfLines = 0
 
 		tanInputView = TanInputView(frame: .zero, viewModel: viewModel)
@@ -136,6 +137,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		errorLabel = UILabel(frame: .zero)
 		errorLabel.translatesAutoresizingMaskIntoConstraints = false
 		errorLabel.text = "no error yet"
+		errorLabel.textColor = .enaColor(for: .textSemanticRed)
 		errorLabel.numberOfLines = 0
 
 		stackView.addArrangedSubview(descriptionLabel)
