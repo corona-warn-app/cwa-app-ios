@@ -420,7 +420,7 @@ extension RiskProvider {
 		let risk = Risk.mocked
 
 		store.riskCalculationResult = RiskCalculationResult(
-			riskLevel: risk.level == .high ? .high : .low,
+			riskLevel: risk.level == .low ? .low : .high,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: Date(), //risk.details.mostRecentDateWithRiskLevel,
