@@ -11,12 +11,10 @@ class ExposureSubmissionThankYouViewController: DynamicTableViewController, ENAN
 	
 	init(
 		onPrimaryButtonTap: (@escaping() -> Void),
-		onSecondaryButtonTap: (@escaping(@escaping (Bool) -> Void) -> Void),
 		onDismiss: (@escaping(@escaping (Bool) -> Void) -> Void)
 	) {
 		self.viewModel = ExposureSubmissionThankYouViewModel()
 		self.onPrimaryButtonTap = onPrimaryButtonTap
-		self.onSecondaryButtonTap = onSecondaryButtonTap
 		self.onDismiss = onDismiss
 		
 		super.init(nibName: nil, bundle: nil)
@@ -46,13 +44,7 @@ class ExposureSubmissionThankYouViewController: DynamicTableViewController, ENAN
 	}
 	
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
-		onSecondaryButtonTap { [weak self] isLoading in
-			DispatchQueue.main.async {
-				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
-				self?.navigationFooterItem?.isSecondaryButtonEnabled = !isLoading
-				self?.navigationFooterItem?.isSecondaryButtonLoading = isLoading
-			}
-		}
+		wasAttemptedToBeDismissed()
 	}
 	
 	// MARK: - Protocol DismissHandling
@@ -72,7 +64,6 @@ class ExposureSubmissionThankYouViewController: DynamicTableViewController, ENAN
 	
 	private let viewModel: ExposureSubmissionThankYouViewModel
 	private let onPrimaryButtonTap: (() -> Void)
-	private let onSecondaryButtonTap: ((@escaping (Bool) -> Void) -> Void)
 	private let onDismiss: ((@escaping (Bool) -> Void) -> Void)
 	
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {

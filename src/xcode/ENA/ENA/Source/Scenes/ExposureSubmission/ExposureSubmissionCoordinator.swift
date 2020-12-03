@@ -373,9 +373,6 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			onPrimaryButtonTap: { [weak self] in
 				self?.showSymptomsScreen()
 			},
-			onSecondaryButtonTap: { [weak self] isLoading in
-				self?.presentThankYouCancelAlert(isLoading: isLoading)
-			},
 			onDismiss: { [weak self] isLoading in
 				self?.presentThankYouCancelAlert(isLoading: isLoading)
 			}
