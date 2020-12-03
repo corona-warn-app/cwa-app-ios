@@ -183,15 +183,21 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				)
 			},
 			didTapPrimaryFooterButton: { [weak self] isLoading in
-				isLoading(true)
+				guard let self = self else { return }
 
-				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
+				guard self.model.exposureSubmissionService.isSubmissionConsentGiven else {
+					self.showTestResultScreen(with: testResult)
+					return
+				}
+
+				isLoading(true)
+				self.model.exposureSubmissionService.getTemporaryExposureKeys { error in
 					isLoading(false)
 
 					if let error = error {
-						self?.showErrorAlert(for: error)
+						self.showErrorAlert(for: error)
 					} else {
-						self?.showTestResultScreen(with: testResult)
+						self.showTestResultScreen(with: testResult)
 					}
 				}
 			},
