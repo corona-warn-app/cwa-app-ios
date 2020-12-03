@@ -261,22 +261,6 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 	// MARK: Screen Flow
 
-	private func showTestResultAvailableScreen(with testResult: TestResult) {
-		let vc = createTestResultAvailableViewController(testResult: testResult)
-		push(vc)
-	}
-
-	private func showTestResultSubmissionConsentScreen(presentDismissAlert: (() -> Void)?) {
-		let vc = ExposureSubmissionTestResultConsentViewController(
-			viewModel: ExposureSubmissionTestResultConsentViewModel(
-				supportedCountries: model.exposureSubmissionService.supportedCountries,
-				exposureSubmissionService: model.exposureSubmissionService,
-				presentDismissAlert: presentDismissAlert
-			)
-		)
-		push(vc)
-	}
-	
 	private func showHotlineScreen() {
 		let vc = createHotlineViewController()
 		push(vc)
@@ -291,6 +275,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.showQRScreen(isLoading: isLoading)
 			}
 		)
+
 		push(vc)
 	}
 
@@ -324,7 +309,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 						)
 						self?.presentedViewController?.present(alert, animated: true)
 					}
-				default:
+				case .other:
 					Log.error("QRScannerError.other occurred.", log: .ui)
 				}
 			},
@@ -340,32 +325,24 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		presentedViewController = qrScannerNavigationController
 	}
 
-	private func showSymptomsScreen() {
-		let vc = ExposureSubmissionSymptomsViewController(
-			onPrimaryButtonTap: { [weak self] selectedSymptomsOption in
-				guard let self = self else { return }
-				
-				self.model.symptomsOptionSelected(selectedSymptomsOption)
-				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showWarnOthersScreen()
-			},
-			presentCancelAlert: { [weak self] in
-				self?.presentSubmissionSymptomsCancelAlert()
-			}
-		)
+	private func showTestResultAvailableScreen(with testResult: TestResult) {
+		let vc = createTestResultAvailableViewController(testResult: testResult)
 		push(vc)
 	}
 
-	private func showSymptomsOnsetScreen() {
-		let vc = ExposureSubmissionSymptomsOnsetViewController(
-			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption in
-				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
-				self?.showWarnOthersScreen()
-			}, presentCancelAlert: { [weak self] in
-				self?.presentSubmissionSymptomsCancelAlert()
-			}
+	private func showTestResultSubmissionConsentScreen(presentDismissAlert: (() -> Void)?) {
+		let vc = ExposureSubmissionTestResultConsentViewController(
+			viewModel: ExposureSubmissionTestResultConsentViewModel(
+				supportedCountries: model.exposureSubmissionService.supportedCountries,
+				exposureSubmissionService: model.exposureSubmissionService,
+				presentDismissAlert: presentDismissAlert
+			)
 		)
+
 		push(vc)
 	}
+
+	// MARK: Late consent
 
 	private func showWarnOthersScreen() {
 		let vc = createWarnOthersViewController(
@@ -383,6 +360,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				}
 			}
 		)
+
 		push(vc)
 	}
 
@@ -396,7 +374,37 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		}
 
 		push(thankYouVC)
+	}
 
+	// MARK: Symptoms
+
+	private func showSymptomsScreen() {
+		let vc = ExposureSubmissionSymptomsViewController(
+			onPrimaryButtonTap: { [weak self] selectedSymptomsOption in
+				guard let self = self else { return }
+				
+				self.model.symptomsOptionSelected(selectedSymptomsOption)
+				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showWarnOthersScreen()
+			},
+			presentCancelAlert: { [weak self] in
+				self?.presentSubmissionSymptomsCancelAlert()
+			}
+		)
+
+		push(vc)
+	}
+
+	private func showSymptomsOnsetScreen() {
+		let vc = ExposureSubmissionSymptomsOnsetViewController(
+			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption in
+				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
+				self?.showWarnOthersScreen()
+			}, presentCancelAlert: { [weak self] in
+				self?.presentSubmissionSymptomsCancelAlert()
+			}
+		)
+
+		push(vc)
 	}
 
 	// MARK: Cancel Alerts
