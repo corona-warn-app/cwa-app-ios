@@ -25,6 +25,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -37,6 +38,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		getTestResultExpectation.isInverted = true
 		
 		let exposureSubmissionService = MockExposureSubmissionService()
+		exposureSubmissionService.isSubmissionConsentGiven = true
 		exposureSubmissionService.getTestResultCallback = { _ in getTestResultExpectation.fulfill() }
 		
 		let onContinueWithSymptomsFlowButtonTapExpectation = expectation(
@@ -50,6 +52,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 			},
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -85,6 +88,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 					onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 				},
 				onContinueWithoutSymptomsFlowButtonTap: { _ in },
+				onContinueHomeButtonTap: { },
 				onTestDeleted: { },
 				onSubmissionConsentButtonTap: { _ in }
 			)
@@ -117,6 +121,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 			},
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -144,6 +149,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -185,6 +191,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -196,20 +203,25 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		XCTAssertEqual(model.error, .internal)
 	}
 	
+	
 	func testDidTapPrimaryButtonOnPositiveTestResultUpdatesButtonsLoadingStateTrue() {
 		let onContinueWithSymptomsFlowButtonTapExpectation = expectation(
 			description: "onContinueWithoutSymptomsFlowButtonTap closure is called"
 		)
 		
+		let exposureSubmissionService = MockExposureSubmissionService()
+		exposureSubmissionService.isSubmissionConsentGiven = true
+		
 		let model = ExposureSubmissionTestResultViewModel(
 			warnOthersReminder: WarnOthersReminder(store: self.store), testResult: .positive,
-			exposureSubmissionService: MockExposureSubmissionService(),
+			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { isLoading in
 				isLoading(true)
 				
 				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 			},
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -228,9 +240,12 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			description: "onContinueWithoutSymptomsFlowButtonTap closure is not called"
 		)
 		
+		let exposureSubmissionService = MockExposureSubmissionService()
+		exposureSubmissionService.isSubmissionConsentGiven = true
+		
 		let model = ExposureSubmissionTestResultViewModel(
 			warnOthersReminder: WarnOthersReminder(store: self.store), testResult: .positive,
-			exposureSubmissionService: MockExposureSubmissionService(),
+			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { isLoading in
 				isLoading(true)
 				isLoading(false)
@@ -238,6 +253,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 			},
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -261,6 +277,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -284,32 +301,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonLoading)
 		XCTAssertTrue(model.navigationFooterItem.isSecondaryButtonEnabled)
 	}
-	
-	func testDidTapSecondaryButtonOnPositiveTestResult() {
-		let onContinueWithoutSymptomsFlowButtonTapExpectation = expectation(
-			description: "onContinueWithoutSymptomsFlowButtonTap closure is called"
-		)
 		
-		let model = ExposureSubmissionTestResultViewModel(
-			warnOthersReminder: WarnOthersReminder(store: self.store), testResult: .positive,
-			exposureSubmissionService: MockExposureSubmissionService(),
-			onContinueWithSymptomsFlowButtonTap: { _ in },
-			onContinueWithoutSymptomsFlowButtonTap: { _ in
-				onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill()
-			},
-			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { _ in }
-		)
-		
-		XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
-		
-		model.didTapSecondaryButton()
-		
-		XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
-		
-		waitForExpectations(timeout: .short)
-	}
-	
 	func testDidTapSecondaryButtonOnPendingTestResult() {
 		let onContinueWithoutSymptomsFlowButtonTapExpectation = expectation(
 			description: "onContinueWithoutSymptomsFlowButtonTap closure is not called"
@@ -321,6 +313,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill() },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -349,6 +342,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				onContinueWithoutSymptomsFlowButtonTap: { _ in
 					onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill()
 				},
+				onContinueHomeButtonTap: { },
 				onTestDeleted: { },
 				onSubmissionConsentButtonTap: { _ in }
 			)
@@ -361,61 +355,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			
 			waitForExpectations(timeout: .short)
 		}
-	}
-	
-	func testDidTapSecondaryButtonOnPositiveTestResultUpdatesButtonsLoadingStateTrue() {
-		let onContinueWithoutSymptomsFlowButtonTapExpectation = expectation(
-			description: "onContinueWithoutSymptomsFlowButtonTap closure is called"
-		)
-		
-		let model = ExposureSubmissionTestResultViewModel(
-			warnOthersReminder: WarnOthersReminder(store: self.store), testResult: .positive,
-			exposureSubmissionService: MockExposureSubmissionService(),
-			onContinueWithSymptomsFlowButtonTap: { _ in },
-			onContinueWithoutSymptomsFlowButtonTap: { isLoading in
-				isLoading(true)
-				
-				onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill()
-			},
-			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { _ in }
-		)
-		
-		model.didTapSecondaryButton()
-		
-		waitForExpectations(timeout: .short)
-		
-		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonEnabled)
-		XCTAssertTrue(model.navigationFooterItem.isSecondaryButtonLoading)
-		XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonEnabled)
-	}
-	
-	func testDidTapSecondaryButtonOnPositiveTestResultUpdatesButtonsLoadingStateFalse() {
-		let onContinueWithoutSymptomsFlowButtonTapExpectation = expectation(
-			description: "onContinueWithoutSymptomsFlowButtonTap closure is not called"
-		)
-		
-		let model = ExposureSubmissionTestResultViewModel(
-			warnOthersReminder: WarnOthersReminder(store: self.store), testResult: .positive,
-			exposureSubmissionService: MockExposureSubmissionService(),
-			onContinueWithSymptomsFlowButtonTap: { _ in },
-			onContinueWithoutSymptomsFlowButtonTap: { isLoading in
-				isLoading(true)
-				isLoading(false)
-				
-				onContinueWithoutSymptomsFlowButtonTapExpectation.fulfill()
-			},
-			onTestDeleted: { },
-			onSubmissionConsentButtonTap: { _ in }
-		)
-		
-		model.didTapSecondaryButton()
-		
-		waitForExpectations(timeout: .short)
-		
-		XCTAssertTrue(model.navigationFooterItem.isSecondaryButtonEnabled)
-		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonLoading)
-		XCTAssertTrue(model.navigationFooterItem.isPrimaryButtonEnabled)
 	}
 	
 	func testDeletion() {
@@ -431,6 +370,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: {
 				onTestDeletedCalledExpectation.fulfill()
 			},
@@ -448,6 +388,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -468,6 +409,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -490,6 +432,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				exposureSubmissionService: MockExposureSubmissionService(),
 				onContinueWithSymptomsFlowButtonTap: { _ in },
 				onContinueWithoutSymptomsFlowButtonTap: { _ in },
+				onContinueHomeButtonTap: { },
 				onTestDeleted: { },
 				onSubmissionConsentButtonTap: { _ in }
 			)
@@ -511,6 +454,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -520,7 +464,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		
 		let section = model.dynamicTableViewModel.section(0)
 		let cells = section.cells
-		XCTAssertEqual(cells.count, 3)
+		XCTAssertEqual(cells.count, 4)
 		
 		let firstItem = cells[0]
 		var id = firstItem.cellReuseIdentifier
@@ -533,6 +477,10 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let thirdItem = cells[2]
 		id = thirdItem.cellReuseIdentifier
 		XCTAssertEqual(id.rawValue, "stepCell")
+		
+		let fourthItem = cells[3]
+		id = fourthItem.cellReuseIdentifier
+		XCTAssertEqual(id.rawValue, "stepCell")
 	}
 	
 	func testDynamicTableViewModelForNegativeTestResult() {
@@ -541,6 +489,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -595,6 +544,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -629,6 +579,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)
@@ -667,6 +618,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onContinueWithSymptomsFlowButtonTap: { _ in },
 			onContinueWithoutSymptomsFlowButtonTap: { _ in },
+			onContinueHomeButtonTap: { },
 			onTestDeleted: { },
 			onSubmissionConsentButtonTap: { _ in }
 		)

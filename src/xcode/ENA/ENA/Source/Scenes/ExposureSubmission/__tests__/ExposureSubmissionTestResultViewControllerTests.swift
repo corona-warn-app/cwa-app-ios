@@ -23,9 +23,10 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 				exposureSubmissionService: MockExposureSubmissionService(),
 				onContinueWithSymptomsFlowButtonTap: { _ in },
 				onContinueWithoutSymptomsFlowButtonTap: { _ in },
+				onContinueHomeButtonTap: { },
 				onTestDeleted: { },
 				onSubmissionConsentButtonTap: { _ in }
-			), exposureSubmissionService: MockExposureSubmissionService()
+			), exposureSubmissionService: MockExposureSubmissionService(), presentCancelAlert: { }
 		)
 	}
 
@@ -39,7 +40,7 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 
 		let cell = vc.tableView(vc.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? DynamicTypeTableViewCell
 		XCTAssertNotNil(cell)
-		XCTAssertEqual(cell?.textLabel?.text, AppStrings.ExposureSubmissionResult.procedure)
+		XCTAssertEqual(cell?.textLabel?.text, AppStrings.ExposureSubmissionPositiveTestResult.noConsentTitle)
 	}
 
 }

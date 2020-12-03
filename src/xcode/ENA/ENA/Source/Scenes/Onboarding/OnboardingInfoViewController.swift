@@ -191,6 +191,7 @@ final class OnboardingInfoViewController: UIViewController {
 			linkTextView.adjustsFontForContentSizeCategory = true
 			linkTextView.textContainerInset = .zero
 			linkTextView.textContainer.lineFragmentPadding = .zero
+			linkTextView.backgroundColor = .clear
 		} else {
 			linkTextView.isHidden = true
 		}
