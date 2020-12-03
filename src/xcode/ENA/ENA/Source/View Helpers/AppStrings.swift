@@ -201,8 +201,8 @@ enum AppStrings {
 		static let noConsentSecondaryButtonTitle = NSLocalizedString("TestResultPositive_NoConsent_SecondaryButton", comment: "")
 		static let noConsentAlertTitle = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_Title", comment: "")
 		static let noConsentAlertDescription = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_Description", comment: "")
-		static let noConsentAlertButton1 = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne", comment: "")
-		static let noConsentAlertButton2 = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo", comment: "")
+		static let noConsentAlertButtonDontWarn = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne", comment: "")
+		static let noConsentAlertButtonWarn = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo", comment: "")
 		static let withConsentTitle = NSLocalizedString("TestResultPositive_WithConsent_Title", comment: "")
 		static let withConsentInfo1 = NSLocalizedString("TestResultPositive_WithConsent_Info1", comment: "")
 		static let withConsentInfo2 = NSLocalizedString("TestResultPositive_WithConsent_Info2", comment: "")
@@ -859,6 +859,7 @@ enum AppStrings {
 		static let description2 = NSLocalizedString("Thank_You_Description2", comment: "")
 		static let continueButton = NSLocalizedString("Thank_You_Continue_Button", comment: "")
 		static let cancelButton = NSLocalizedString("Thank_You_Cancel_Button", comment: "")
+		static let accImageDescription = NSLocalizedString("Thank_You_AccImageDescription", comment: "")
 	}
 	
 	// swiftlint:disable:next file_length
