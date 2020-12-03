@@ -105,12 +105,15 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		let vc = createTestResultViewController(with: testResult)
 		push(vc)
 	}
-	
-	// MARK: - Private
+
+	// MARK: - Internal
 
 	/// - NOTE: We keep a weak reference here to avoid a reference cycle.
 	///  (the navigationController holds a strong reference to the coordinator).
-	private weak var navigationController: UINavigationController?
+	weak var navigationController: UINavigationController?
+	
+	// MARK: - Private
+
 	private weak var parentNavigationController: UINavigationController?
 	private weak var presentedViewController: UIViewController?
 
