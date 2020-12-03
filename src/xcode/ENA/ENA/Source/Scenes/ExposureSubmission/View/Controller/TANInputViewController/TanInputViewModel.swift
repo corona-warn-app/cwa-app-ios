@@ -26,6 +26,7 @@ final class TanInputViewModel {
 	@Published private(set) var text: String = ""
 	@Published private(set) var errorText: String = ""
 	@Published private(set) var isPrimaryBarButtonDisabled: Bool = false
+	@Published var tanInputViewIsFirstResponder: Bool = false
 
 	// MARK: - Internal
 

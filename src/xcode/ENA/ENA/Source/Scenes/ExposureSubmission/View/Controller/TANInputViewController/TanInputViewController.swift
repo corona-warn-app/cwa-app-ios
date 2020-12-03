@@ -76,9 +76,8 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	private let viewModel: TanInputViewModel
 	private var bindings: Set<AnyCancellable> = []
 
-	private var descriptionLabel: UILabel!
 	private var tanInputView: TanInputView!
-	private var errorLabel: UILabel!
+	private var errorLabel: ENALabel!
 
 	private var scrollView: UIScrollView!
 	private var stackView: UIStackView!
@@ -106,7 +105,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 
 		stackView = UIStackView()
 		stackView.axis = .vertical
-		stackView.spacing = 35.0
+		stackView.spacing = 18.0
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		scrollView.addSubview(stackView)
 
@@ -118,9 +117,10 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 			stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
 		])
 
-		descriptionLabel = UILabel(frame: .zero)
-		descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+		let descriptionLabel = ENALabel()
+		descriptionLabel.style = .headline
 		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
+		descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 		descriptionLabel.textColor = .enaColor(for: .textPrimary1)
 		descriptionLabel.numberOfLines = 0
 
@@ -128,10 +128,10 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		tanInputView.isUserInteractionEnabled = true
 		tanInputView.translatesAutoresizingMaskIntoConstraints = false
 
-
-		errorLabel = UILabel(frame: .zero)
+		errorLabel = ENALabel()
+		errorLabel.style = .headline
+		errorLabel.text = nil
 		errorLabel.translatesAutoresizingMaskIntoConstraints = false
-		errorLabel.text = "no error yet"
 		errorLabel.textColor = .enaColor(for: .textSemanticRed)
 		errorLabel.numberOfLines = 0
 
@@ -162,20 +162,24 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 				self?.errorLabel.text = newErrorText.isEmpty ? nil : newErrorText
 			}
 		}.store(in: &bindings)
-	}
 
-	@objc
-	func keyboardWillBeShown(note: Notification) {
-		guard let footerView = footerView else { return }
-		// calculate the offset needed to push up scrollview
-		// because we use that special footerView - calculation ist based in it
-		// otherwise we should have used the keyboard frame
-		let footerViewRect = footerView.convert(footerView.bounds, to: scrollView)
-		if footerViewRect.intersects(stackView.frame) {
-			let delta = footerViewRect.height - (stackView.frame.origin.y + stackView.frame.size.height) + scrollView.contentOffset.y
-			let bottomOffset = CGPoint(x: 0, y: delta)
-			scrollView.setContentOffset(bottomOffset, animated: true)
-		}
+		viewModel.$tanInputViewIsFirstResponder.sink { [weak self] isFirstResponder in
+			guard isFirstResponder,
+				  let self = self,
+				  let footerView = self.footerView else { return }
+			// calculate the offset needed to push up scrollview
+			// because we use that special footerView - calculation ist based in it
+			// otherwise we should have used the keyboard frame
+			DispatchQueue.main.async {
+				let footerViewRect = footerView.convert(footerView.bounds, to: self.scrollView)
+				if footerViewRect.intersects(self.stackView.frame) {
+					Log.debug("we need to scroll TanInputView a little bit up - it got hidden")
+					let delta = footerViewRect.height - (self.stackView.frame.origin.y + self.stackView.frame.size.height) + self.scrollView.contentOffset.y
+					let bottomOffset = CGPoint(x: 0, y: delta)
+					self.scrollView.setContentOffset(bottomOffset, animated: true)
+				}
+			}
+		}.store(in: &bindings)
 	}
 
 }
