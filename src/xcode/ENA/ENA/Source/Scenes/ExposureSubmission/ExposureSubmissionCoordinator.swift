@@ -314,6 +314,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				}
 			},
 			onCancel: { [weak self] in
+				self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
 				self?.presentedViewController?.dismiss(animated: true)
 			}
 		)
