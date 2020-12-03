@@ -655,12 +655,6 @@ extension ExposureSubmissionCoordinator {
 		}
 	}
 
-	private func createSuccessViewController() -> ExposureSubmissionSuccessViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSuccessViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionSuccessViewController(warnOthersReminder: self.warnOthersReminder, coder: coder, coordinator: self)
-		}
-	}
-
 }
 
 extension ExposureSubmissionCoordinator: UIAdaptivePresentationControllerDelegate {
