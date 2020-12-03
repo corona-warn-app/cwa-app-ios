@@ -76,7 +76,7 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 		item.primaryButtonTitle = AppStrings.ExposureSubmissionSymptomsOnset.continueButton
 		item.isPrimaryButtonEnabled = true
 		item.isSecondaryButtonHidden = true
-		item.title = AppStrings.ExposureSubmissionTestresultAvailable.title
+		item.title = AppStrings.ExposureSubmissionTestResultAvailable.title
 		return item
 	}()
 

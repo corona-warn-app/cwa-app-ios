@@ -58,24 +58,11 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			appConfigurationProvider: appConfigurationProvider
 		)
 	}
-	
-	// MARK: - Internal
-		
-	/// - NOTE: The delegate is called by the `viewWillDisappear(_:)` method of the `navigationController`.
-	weak var delegate: ExposureSubmissionCoordinatorDelegate?
-	weak var parentNavigationController: UINavigationController?
-
-	/// - NOTE: We keep a weak reference here to avoid a reference cycle.
-	///  (the navigationController holds a strong reference to the coordinator).
-	weak var navigationController: UINavigationController?
-
-	weak var presentedViewController: UIViewController?
-
-	var model: ExposureSubmissionCoordinatorModel!
-
-	let warnOthersReminder: WarnOthersRemindable
 
 	// MARK: - Protocol ExposureSubmissionCoordinating
+
+	/// - NOTE: The delegate is called by the `viewWillDisappear(_:)` method of the `navigationController`.
+	weak var delegate: ExposureSubmissionCoordinatorDelegate?
 
 	func start(with result: TestResult? = nil) {
 		let initialVC = getInitialViewController(with: result)
@@ -120,11 +107,22 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 	
 	// MARK: - Private
+
+	/// - NOTE: We keep a weak reference here to avoid a reference cycle.
+	///  (the navigationController holds a strong reference to the coordinator).
+	private weak var navigationController: UINavigationController?
+	private weak var parentNavigationController: UINavigationController?
+	private weak var presentedViewController: UIViewController?
+
+	private var model: ExposureSubmissionCoordinatorModel!
+	private let warnOthersReminder: WarnOthersRemindable
 	
 	private func push(_ vc: UIViewController) {
 		self.navigationController?.pushViewController(vc, animated: true)
 		
 	}
+
+	// MARK: Initial Screens
 
 	/// This method selects the correct initial view controller among the following options:
 	/// Option 1: (only for UITESTING) if the `-negativeResult` flag was passed, return ExposureSubmissionTestResultViewController
@@ -203,14 +201,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		)
 		return TestResultAvailableViewController(viewModel)
 	}
-
-	private func showTestResultAvailableScreen(with testResult: TestResult) {
-		let vc = createTestResultAvailableViewController(testResult: testResult)
-		push(vc)
-	}
 	
 	private func createTestResultViewController(with testResult: TestResult) -> ExposureSubmissionTestResultViewController {
-		
 		return ExposureSubmissionTestResultViewController(
 			viewModel: .init(
 				warnOthersReminder: warnOthersReminder,
@@ -265,6 +257,13 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				
 			}
 		)
+	}
+
+	// MARK: Screen Flow
+
+	private func showTestResultAvailableScreen(with testResult: TestResult) {
+		let vc = createTestResultAvailableViewController(testResult: testResult)
+		push(vc)
 	}
 
 	private func showTestResultSubmissionConsentScreen(presentDismissAlert: (() -> Void)?) {
@@ -386,7 +385,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		)
 		push(vc)
 	}
-		
+
 	private func showThankYouScreen() {
 		let thankYouVC = ExposureSubmissionThankYouViewController { [weak self] in
 			self?.showSymptomsScreen()
@@ -399,109 +398,100 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		push(thankYouVC)
 
 	}
-	
+
+	// MARK: Cancel Alerts
+
 	private func presentSubmissionSymptomsCancelAlert() {
 		let alert = UIAlertController(
 			title: AppStrings.ExposureSubmissionSymptomsCancelAlert.title,
 			message: AppStrings.ExposureSubmissionSymptomsCancelAlert.message,
-			preferredStyle: .alert)
-
-		alert.addAction(UIAlertAction(
-							title: AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton,
-							style: .cancel,
-							handler: { [weak self] _ in
-								self?.dismiss()
-							})
+			preferredStyle: .alert
 		)
 
-		alert.addAction(UIAlertAction(
-							title: AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton,
-							style: .default)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton,
+				style: .cancel,
+				handler: { [weak self] _ in
+					self?.dismiss()
+				}
+			)
 		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton,
+				style: .default
+			)
+		)
+
 		navigationController?.present(alert, animated: true, completion: nil)
 	}
-	
+
 	private func presentPositiveTestResultCancelAlert() {
-		guard let navigationController = navigationController else {
-			Log.error("Can't present SubmissionSymptomsCancelAlert - missing navigationController")
-			return
-		}
-		
 		let isSubmissionConsentGiven = self.model.exposureSubmissionService.isSubmissionConsentGiven
-		
+
 		let alertTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.title : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertTitle
 		let alertMessage = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.message : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertDescription
-		
+
 		let alertButtonCancel = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton :
 			AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonDontWarn
-		
+
 		let alertButtonGo = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton :
 			AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertButtonWarn
-		
+
 		let alert = UIAlertController(
 			title: alertTitle,
 			message: alertMessage,
 			preferredStyle: .alert)
-		
-		alert.addAction(UIAlertAction(
-							title: alertButtonCancel,
-							style: .default,
-							handler: { [weak self] _ in
-								self?.dismiss()
-							})
+
+		alert.addAction(
+			UIAlertAction(
+				title: alertButtonCancel,
+				style: .default,
+				handler: { [weak self] _ in
+					self?.dismiss()
+				}
+			)
 		)
-		alert.addAction(UIAlertAction(
-							title: alertButtonGo,
-							style: .cancel)
+		alert.addAction(
+			UIAlertAction(
+				title: alertButtonGo,
+				style: .cancel
+			)
 		)
-		
-		navigationController.present(alert, animated: true, completion: nil)
-		
+
+		navigationController?.present(alert, animated: true, completion: nil)
 	}
 
 	private func presentTestResultCloseAlert() {
-		guard let navigationController = navigationController else {
-			Log.error("Can't present TestresultCloseAlert - missing navigationController")
-			return
-		}
-
 		let alert = UIAlertController(
-			title: AppStrings.ExposureSubmissionTestresultAvailable.closeAlertTitle,
-			message: AppStrings.ExposureSubmissionTestresultAvailable.closeAlertMessage,
-			preferredStyle: .alert)
-		alert.addAction(UIAlertAction(
-			title: AppStrings.ExposureSubmissionTestresultAvailable.closeAlertButtonClose,
-			style: .cancel,
-			handler: { [weak self] _ in
-				self?.dismiss()
-			})
-		)
-		alert.addAction(UIAlertAction(
-							title: AppStrings.ExposureSubmissionTestresultAvailable.closeAlertButtonContinue,
-							style: .default)
-		)
-		navigationController.present(alert, animated: true, completion: nil)
-	}
-
-	private func presentTestResultConsentViewController() {
-		let viewModel = ExposureSubmissionTestResultConsentViewModel(
-			supportedCountries: model.exposureSubmissionService.supportedCountries,
-			exposureSubmissionService: model.exposureSubmissionService,
-			presentDismissAlert: { [weak self] in
-				self?.presentTestResultCloseAlert()
-			}
+			title: AppStrings.ExposureSubmissionTestResultAvailable.closeAlertTitle,
+			message: AppStrings.ExposureSubmissionTestResultAvailable.closeAlertMessage,
+			preferredStyle: .alert
 		)
 
-		let consentGivenViewController = ExposureSubmissionTestResultConsentViewController(viewModel: viewModel)
-		push(consentGivenViewController)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.ExposureSubmissionTestResultAvailable.closeAlertButtonClose,
+				style: .cancel,
+				handler: { [weak self] _ in
+					self?.dismiss()
+				}
+			)
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.ExposureSubmissionTestResultAvailable.closeAlertButtonContinue,
+				style: .default
+			)
+		)
+
+		navigationController?.present(alert, animated: true, completion: nil)
 	}
 	
 	private func presentThankYouCancelAlert() {
-		guard let navigationController = navigationController else {
-			Log.error("Can't present ThankYouCancelAlert - missing navigationController")
-			return
-		}
-		
 		let alertTitle = AppStrings.ExposureSubmissionSymptomsCancelAlert.title
 		let alertMessage = AppStrings.ExposureSubmissionSymptomsCancelAlert.message
 		let alertButtonLeft = AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton
@@ -510,21 +500,27 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		let alert = UIAlertController(
 			title: alertTitle,
 			message: alertMessage,
-			preferredStyle: .alert)
-		
-		alert.addAction(UIAlertAction(
-							title: alertButtonLeft,
-							style: .cancel,
-							handler: { [weak self] _ in
-								self?.dismiss()
-							})
+			preferredStyle: .alert
 		)
 		
-		alert.addAction(UIAlertAction(
-							title: alertButtonRight,
-							style: .default)
+		alert.addAction(
+			UIAlertAction(
+				title: alertButtonLeft,
+				style: .cancel,
+				handler: { [weak self] _ in
+					self?.dismiss()
+				}
+			)
 		)
-		navigationController.present(alert, animated: true, completion: nil)
+		
+		alert.addAction(
+			UIAlertAction(
+				title: alertButtonRight,
+				style: .default
+			)
+		)
+
+		navigationController?.present(alert, animated: true, completion: nil)
 	}
 	
 	
@@ -551,6 +547,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			onCompletion?()
 		})
 	}
+
+	// MARK: Test Result Helper
 
 	private func getTestResults(for key: DeviceRegistrationKey, isLoading: @escaping (Bool) -> Void) {
 		model.getTestResults(
@@ -601,6 +599,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			}
 		)
 	}
+
 }
 
 // MARK: - Creation.

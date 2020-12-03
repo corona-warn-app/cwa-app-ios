@@ -37,10 +37,10 @@ final class TestResultAvailableViewModel {
 	lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
 
-		item.primaryButtonTitle = AppStrings.ExposureSubmissionTestresultAvailable.primaryButtonTitle
+		item.primaryButtonTitle = AppStrings.ExposureSubmissionTestResultAvailable.primaryButtonTitle
 		item.isPrimaryButtonEnabled = true
 		item.isSecondaryButtonHidden = true
-		item.title = AppStrings.ExposureSubmissionTestresultAvailable.title
+		item.title = AppStrings.ExposureSubmissionTestResultAvailable.title
 
 		return item
 	}()
@@ -53,23 +53,23 @@ final class TestResultAvailableViewModel {
 	
 	private func createDynamicTableViewModel(_ consentGiven: Bool) -> DynamicTableViewModel {
 		let consentStateString = consentGiven ?
-			AppStrings.ExposureSubmissionTestresultAvailable.consentGranted :
-			AppStrings.ExposureSubmissionTestresultAvailable.consentNotGranted
+			AppStrings.ExposureSubmissionTestResultAvailable.consentGranted :
+			AppStrings.ExposureSubmissionTestResultAvailable.consentNotGranted
 
 		let listItem1String = consentGiven ?
-			AppStrings.ExposureSubmissionTestresultAvailable.listItem1WithConsent :
-			AppStrings.ExposureSubmissionTestresultAvailable.listItem1WithoutConsent
+			AppStrings.ExposureSubmissionTestResultAvailable.listItem1WithConsent :
+			AppStrings.ExposureSubmissionTestResultAvailable.listItem1WithoutConsent
 
 		let listItem2String = consentGiven ?
-			AppStrings.ExposureSubmissionTestresultAvailable.listItem2WithConsent :
-			AppStrings.ExposureSubmissionTestresultAvailable.listItem2WithoutConsent
+			AppStrings.ExposureSubmissionTestResultAvailable.listItem2WithConsent :
+			AppStrings.ExposureSubmissionTestResultAvailable.listItem2WithoutConsent
 		
 		return DynamicTableViewModel([
 			// header illustration image with automatic height resizing
 			.section(
 				header: .image(
 					UIImage(named: "Illu_Testresult_available"),
-					accessibilityLabel: AppStrings.ExposureSubmissionTestresultAvailable.accImageDescription,
+					accessibilityLabel: AppStrings.ExposureSubmissionTestResultAvailable.accImageDescription,
 					accessibilityIdentifier: AccessibilityIdentifiers.General.image
 				),
 				separators: .none,

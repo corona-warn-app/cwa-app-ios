@@ -71,7 +71,7 @@ enum AppStrings {
 		static let invalidError = NSLocalizedString("ExposureSubmissionTanEntry_InvalidError", comment: "")
 	}
 
-	enum ExposureSubmissionTestresultAvailable {
+	enum ExposureSubmissionTestResultAvailable {
 		static let title = NSLocalizedString("ExposureSubmissionTestresultAvailable_Title", comment: "")
 		static let accImageDescription = NSLocalizedString("ExposureSubmissionTestresultAvailable_AccImageDescription", comment: "")
 		static let consentGranted = NSLocalizedString("ExposureSubmissionTestresultAvailable_Consent_granted", comment: "")

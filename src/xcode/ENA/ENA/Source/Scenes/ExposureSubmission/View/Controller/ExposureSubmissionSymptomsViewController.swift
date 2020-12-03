@@ -69,10 +69,10 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
-		item.primaryButtonTitle = AppStrings.ExposureSubmissionTestresultAvailable.primaryButtonTitle
+		item.primaryButtonTitle = AppStrings.ExposureSubmissionTestResultAvailable.primaryButtonTitle
 		item.isPrimaryButtonEnabled = true
 		item.isSecondaryButtonHidden = true
-		item.title = AppStrings.ExposureSubmissionTestresultAvailable.title
+		item.title = AppStrings.ExposureSubmissionTestResultAvailable.title
 		return item
 	}()
 
