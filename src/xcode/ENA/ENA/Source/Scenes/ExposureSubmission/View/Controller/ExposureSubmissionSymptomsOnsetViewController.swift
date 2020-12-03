@@ -10,7 +10,7 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 	// MARK: - Init
 
 	init(
-		onPrimaryButtonTap: @escaping (SymptomsOnsetOption) -> Void,
+		onPrimaryButtonTap: @escaping (SymptomsOnsetOption, @escaping (Bool) -> Void) -> Void,
 		presentCancelAlert: @escaping () -> Void
 	) {
 		self.onPrimaryButtonTap = onPrimaryButtonTap
@@ -42,7 +42,12 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 			fatalError("Primary button must not be enabled before the user has selected an option")
 		}
 
-		onPrimaryButtonTap(selectedSymptomsOnsetSelectionOption)
+		onPrimaryButtonTap(selectedSymptomsOnsetSelectionOption) { [weak self] isLoading in
+			DispatchQueue.main.async {
+				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+			}
+		}
 	}
 	
 	// MARK: - Protocol DismissHandling
@@ -63,7 +68,7 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 
 	// MARK: - Private
 
-	private let onPrimaryButtonTap: (SymptomsOnsetOption) -> Void
+	private let onPrimaryButtonTap: (SymptomsOnsetOption, @escaping (Bool) -> Void) -> Void
 	private let presentCancelAlert: () -> Void
 	
 	private var symptomsOnsetButtonStateSubscription: AnyCancellable?

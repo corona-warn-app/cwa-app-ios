@@ -363,13 +363,17 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	private func showThankYouScreen() {
-		let thankYouVC = ExposureSubmissionThankYouViewController { [weak self] in
-			self?.showSymptomsScreen()
-		} onSecondaryButtonTap: { [weak self] in
-			self?.presentThankYouCancelAlert()
-		} presentCancelAlert: { [weak self] in
-			self?.presentThankYouCancelAlert()
-		}
+		let thankYouVC = ExposureSubmissionThankYouViewController(
+			onPrimaryButtonTap: { [weak self] in
+				self?.showSymptomsScreen()
+			},
+			onSecondaryButtonTap: { [weak self] in
+				self?.presentThankYouCancelAlert()
+			},
+			presentCancelAlert: { [weak self] in
+				self?.presentThankYouCancelAlert()
+			}
+		)
 
 		push(thankYouVC)
 	}
@@ -394,9 +398,19 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 	private func showSymptomsOnsetScreen() {
 		let vc = ExposureSubmissionSymptomsOnsetViewController(
-			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption in
+			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption, isLoading in
 				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
-				self?.showWarnOthersScreen()
+				self?.model.submitExposure(
+					isLoading: isLoading,
+					onSuccess: { [weak self] in
+						self?.dismiss()
+					},
+					onError: { [weak self] error in
+						self?.showErrorAlert(for: error) {
+							self?.dismiss()
+						}
+					}
+				)
 			}, presentCancelAlert: { [weak self] in
 				self?.presentSubmissionSymptomsCancelAlert()
 			}
