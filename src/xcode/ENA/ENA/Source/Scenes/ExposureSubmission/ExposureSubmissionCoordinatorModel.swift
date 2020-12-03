@@ -66,41 +66,7 @@ class ExposureSubmissionCoordinatorModel {
 		}
 	}
 
-	func warnOthersConsentGiven(
-		isLoading: @escaping (Bool) -> Void,
-		onSuccess: @escaping () -> Void,
-		onError: @escaping (ExposureSubmissionError) -> Void
-	) {
-		startSubmitProcess(
-			isLoading: isLoading,
-			onSuccess: onSuccess,
-			onError: onError
-		)
-	}
-
-	func getTestResults(
-		for key: DeviceRegistrationKey,
-		isLoading: @escaping (Bool) -> Void,
-		onSuccess: @escaping (TestResult) -> Void,
-		onError: @escaping (ExposureSubmissionError) -> Void
-	) {
-		isLoading(true)
-
-		exposureSubmissionService.getTestResult(forKey: key, useStoredRegistration: false, completion: { result in
-			isLoading(false)
-
-			switch result {
-			case let .failure(error):
-				onError(error)
-			case let .success(testResult):
-				onSuccess(testResult)
-			}
-		})
-	}
-
-	// MARK: - Private
-
-	private func startSubmitProcess(
+	func submitExposure(
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping () -> Void,
 		onError: @escaping (ExposureSubmissionError) -> Void
@@ -124,6 +90,26 @@ class ExposureSubmissionCoordinatorModel {
 				onError(error)
 			}
 		}
+	}
+
+	func getTestResults(
+		for key: DeviceRegistrationKey,
+		isLoading: @escaping (Bool) -> Void,
+		onSuccess: @escaping (TestResult) -> Void,
+		onError: @escaping (ExposureSubmissionError) -> Void
+	) {
+		isLoading(true)
+
+		exposureSubmissionService.getTestResult(forKey: key, useStoredRegistration: false, completion: { result in
+			isLoading(false)
+
+			switch result {
+			case let .failure(error):
+				onError(error)
+			case let .success(testResult):
+				onSuccess(testResult)
+			}
+		})
 	}
 
 }
