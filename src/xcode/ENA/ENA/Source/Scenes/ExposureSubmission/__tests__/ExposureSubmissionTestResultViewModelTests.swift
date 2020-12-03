@@ -318,8 +318,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		
 		XCTAssertTrue(model.shouldShowDeletionConfirmationAlert)
 		XCTAssertFalse(model.shouldAttemptToDismiss)
-		
-		waitForExpectations(timeout: .short)
 	}
 	
 	func testDidTapSecondaryButtonOnNegativeInvalidOrExpiredTestResult() {
@@ -342,8 +340,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			
 			XCTAssertFalse(model.shouldShowDeletionConfirmationAlert)
 			XCTAssertFalse(model.shouldAttemptToDismiss)
-			
-			waitForExpectations(timeout: .short)
 		}
 	}
 	
@@ -351,13 +347,15 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		let serviceDeleteTestCalledExpectation = expectation(description: "deleteTest on exposure submission service is called")
 		
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.deleteTestCallback = { serviceDeleteTestCalledExpectation.fulfill() }
+		exposureSubmissionService.deleteTestCallback = {
+			serviceDeleteTestCalledExpectation.fulfill()
+		}
 		
 		let onTestDeletedCalledExpectation = expectation(description: "onTestDeleted closure is called")
 
 		let model = ExposureSubmissionTestResultViewModel(
 			testResult: .expired,
-			exposureSubmissionService: MockExposureSubmissionService(),
+			exposureSubmissionService: exposureSubmissionService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { _ in },
