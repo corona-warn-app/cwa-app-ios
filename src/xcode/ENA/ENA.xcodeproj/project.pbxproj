@@ -2063,7 +2063,6 @@
 				13091950247972CF0066E329 /* PrivacyProtectionViewController */,
 				EE20EA0824699A3A00770683 /* RiskLegend */,
 				51D420C224583D7B00AD70CA /* Settings */,
-				BAD962F925668E5D00FAB615 /* TestResultAvailable */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -2247,6 +2246,7 @@
 				019357162525FAD00038F615 /* ExposureSubmissionQRInfoViewController.swift */,
 				019357172525FAD00038F615 /* ExposureSubmissionQRInfoViewModel.swift */,
 				01C6AC2D252B23FC0052814D /* QRScanner */,
+				BAD962F925668E5D00FAB615 /* TestResultAvailable */,
 				2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */,
 				EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */,
 				EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */,

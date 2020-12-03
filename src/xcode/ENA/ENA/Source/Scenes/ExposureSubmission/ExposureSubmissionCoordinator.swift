@@ -135,15 +135,37 @@ extension ExposureSubmissionCoordinator {
 		return ExposureSubmissionIntroViewController(viewModel)
 	}
 
-	/// method to get an instace of TestResultAvailableViewController
+	/// method to get an instance of TestResultAvailableViewController
 	func createTestResultAvailableViewController(testResult: TestResult) -> UIViewController {
 		let viewModel = TestResultAvailableViewModel(
 			exposureSubmissionService: model.exposureSubmissionService,
-			didTapConsentCell: { [weak self] in
-				self?.presentTestResultConsentViewController()
+			didTapConsentCell: { [weak self] isLoading in
+				self?.model.checkStateAndLoadCountries(
+					isLoading: isLoading,
+					onSuccess: {
+						self?.showTestResultSubmissionConsentScreen(
+							presentDismissAlert: {
+								self?.presentTestResultCloseAlert()
+							}
+						)
+					},
+					onError: { error in
+						self?.showErrorAlert(for: error)
+					}
+				)
 			},
-			didTapPrimaryFooterButton: { [weak self] in
-				self?.showTestResultScreen(with: testResult)
+			didTapPrimaryFooterButton: { [weak self] isLoading in
+				isLoading(true)
+
+				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
+					isLoading(false)
+
+					if let error = error {
+						self?.showErrorAlert(for: error)
+					} else {
+						self?.showTestResultScreen(with: testResult)
+					}
+				}
 			},
 			presentDismissAlert: { [weak self] in
 				self?.presentTestResultCloseAlert()
@@ -174,19 +196,6 @@ extension ExposureSubmissionCoordinator {
 							style: .default)
 		)
 		navigationController.present(alert, animated: true, completion: nil)
-	}
-
-	func presentTestResultConsentViewController() {
-		let viewModel = ExposureSubmissionTestResultConsentViewModel(
-			supportedCountries: model.exposureSubmissionService.supportedCountries,
-			exposureSubmissionService: model.exposureSubmissionService,
-			presentDismissAlert: { [weak self] in
-				self?.presentTestResultCloseAlert()
-			}
-		)
-
-		let consentGivenViewController = ExposureSubmissionTestResultConsentViewController(viewModel)
-		push(consentGivenViewController)
 	}
 
 	// MARK: - Protocol ExposureSubmissionCoordinating
@@ -268,7 +277,7 @@ extension ExposureSubmissionCoordinator {
 					self?.model.checkStateAndLoadCountries(
 						isLoading: isLoading,
 						onSuccess: {
-							self?.showTestResultSubmissionConsentScreen()
+							self?.showTestResultSubmissionConsentScreen(presentDismissAlert: nil)
 						},
 						onError: { error in
 							self?.showErrorAlert(for: error)
@@ -279,8 +288,14 @@ extension ExposureSubmissionCoordinator {
 		)
 	}
 
-	func showTestResultSubmissionConsentScreen() {
-		let vc = createTestResultConsentViewController()
+	func showTestResultSubmissionConsentScreen(presentDismissAlert: (() -> Void)?) {
+		let vc = ExposureSubmissionTestResultConsentViewController(
+			viewModel: ExposureSubmissionTestResultConsentViewModel(
+				supportedCountries: model.exposureSubmissionService.supportedCountries,
+				exposureSubmissionService: model.exposureSubmissionService,
+				presentDismissAlert: presentDismissAlert
+			)
+		)
 		push(vc)
 	}
 	
@@ -528,15 +543,6 @@ extension ExposureSubmissionCoordinator {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionSuccessViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionSuccessViewController(warnOthersReminder: self.warnOthersReminder, coder: coder, coordinator: self)
 		}
-	}
-	
-	private func createTestResultConsentViewController() -> ExposureSubmissionTestResultConsentViewController {
-		let viewModel = ExposureSubmissionTestResultConsentViewModel(
-			supportedCountries: self.model.exposureSubmissionService.supportedCountries,
-			exposureSubmissionService: self.model.exposureSubmissionService,
-			presentDismissAlert: {}
-		)
-		return ExposureSubmissionTestResultConsentViewController(viewModel)
 	}
 
 }

@@ -29,7 +29,6 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController,
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		warnOthersReminder.cancelNotifications()
 		
 		setupTitle()
 		setUpView()

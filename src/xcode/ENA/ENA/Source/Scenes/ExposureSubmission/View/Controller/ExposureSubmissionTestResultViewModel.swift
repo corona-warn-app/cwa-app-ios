@@ -25,6 +25,7 @@ class ExposureSubmissionTestResultViewModel {
 		self.onTestDeleted = onTestDeleted
 		self.onSubmissionConsentButtonTap = onSubmissionConsentButtonTap
 		self.warnOthersReminder = warnOthersReminder
+
 		updateForCurrentTestResult()
 		updateSubmissionConsentLabel()
 	}
