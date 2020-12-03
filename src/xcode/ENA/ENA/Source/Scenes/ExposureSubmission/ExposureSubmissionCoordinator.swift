@@ -205,9 +205,20 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	private func createTestResultViewController(with testResult: TestResult) -> ExposureSubmissionTestResultViewController {
 		return ExposureSubmissionTestResultViewController(
 			viewModel: .init(
-				warnOthersReminder: warnOthersReminder,
 				testResult: testResult,
 				exposureSubmissionService: model.exposureSubmissionService,
+				warnOthersReminder: warnOthersReminder,
+				onSubmissionConsentCellTap: { [weak self] isLoading in
+					self?.model.exposureSubmissionService.loadSupportedCountries(
+						isLoading: isLoading,
+						onSuccess: {
+							self?.showTestResultSubmissionConsentScreen(presentDismissAlert: nil)
+						},
+						onError: { error in
+							self?.showErrorAlert(for: error)
+						}
+					)
+				},
 				onContinueWithSymptomsFlowButtonTap: { [weak self] isLoading in
 					self?.model.exposureSubmissionService.loadSupportedCountries(
 						isLoading: isLoading,
@@ -218,7 +229,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 						}
 					)
 				},
-				onContinueWithoutSymptomsFlowButtonTap: { [weak self] isLoading in
+				onContinueWarnOthersButtonTap: { [weak self] isLoading in
 					self?.model.exposureSubmissionService.loadSupportedCountries(
 						isLoading: isLoading,
 						onSuccess: {
@@ -229,22 +240,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 						}
 					)
 				},
-				onContinueHomeButtonTap: { [weak self] in
-					self?.dismiss()
-				},
 				onTestDeleted: { [weak self] in
 					self?.dismiss()
-				},
-				onSubmissionConsentButtonTap: { [weak self] isLoading in
-					self?.model.exposureSubmissionService.loadSupportedCountries(
-						isLoading: isLoading,
-						onSuccess: {
-							self?.showTestResultSubmissionConsentScreen(presentDismissAlert: nil)
-						},
-						onError: { error in
-							self?.showErrorAlert(for: error)
-						}
-					)
 				}
 			),
 			exposureSubmissionService: self.model.exposureSubmissionService,

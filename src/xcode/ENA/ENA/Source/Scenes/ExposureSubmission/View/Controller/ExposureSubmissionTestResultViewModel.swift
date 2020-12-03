@@ -11,26 +11,24 @@ class ExposureSubmissionTestResultViewModel {
 	// MARK: - Init
 	
 	init(
-		warnOthersReminder: WarnOthersRemindable,
 		testResult: TestResult,
 		exposureSubmissionService: ExposureSubmissionService,
+		warnOthersReminder: WarnOthersRemindable,
+		onSubmissionConsentCellTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onContinueWithSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
-		onContinueWithoutSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
-		onContinueHomeButtonTap: @escaping () -> Void,
-		onTestDeleted: @escaping () -> Void,
-		onSubmissionConsentButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
+		onContinueWarnOthersButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
+		onTestDeleted: @escaping () -> Void
 	) {
 		self.testResult = testResult
 		self.exposureSubmissionService = exposureSubmissionService
-		self.onContinueWithSymptomsFlowButtonTap = onContinueWithSymptomsFlowButtonTap
-		self.onContinueWarnOthersButtonTap = onContinueWithoutSymptomsFlowButtonTap
-		self.onContinueHomeButtonTap = onContinueHomeButtonTap
-		self.onTestDeleted = onTestDeleted
-		self.onSubmissionConsentButtonTap = onSubmissionConsentButtonTap
 		self.warnOthersReminder = warnOthersReminder
+		self.onSubmissionConsentCellTap = onSubmissionConsentCellTap
+		self.onContinueWithSymptomsFlowButtonTap = onContinueWithSymptomsFlowButtonTap
+		self.onContinueWarnOthersButtonTap = onContinueWarnOthersButtonTap
+		self.onTestDeleted = onTestDeleted
 
 		updateForCurrentTestResult()
-		updateSubmissionConsentContent()
+		bindToSubmissionConsent()
 	}
 	
 	// MARK: - Internal
@@ -60,7 +58,7 @@ class ExposureSubmissionTestResultViewModel {
 			// Determine next step based on consent state. In case the user has given exposure
 			// submission consent, we continue with collecting onset of symptoms.
 			// Otherwise we continue with the warn others process
-			if isSubmissionConsentGiven {
+			if exposureSubmissionService.isSubmissionConsentGiven {
 				Log.info("Positive Test Result: Next -> 'onset of symptoms'.")
 				onContinueWithSymptomsFlowButtonTap { [weak self] isLoading in
 					self?.primaryButtonIsLoading = isLoading
@@ -108,42 +106,23 @@ class ExposureSubmissionTestResultViewModel {
 	}
 	
 	// MARK: - Private
-	
-	private var isSubmissionConsentGiven: Bool = false
-	
-	private var currentPositiveTestResultSection: [DynamicSection] = []
-	
-	private var currentPositiveTestResultPrimaryButtonTitle: String = ""
-	
-	private var currentPositiveTestResultSecondaryButtonTitle: String = ""
-	
-	private var submissionConsentLabel: String = ""
-	
-	private var cancellables: Set<AnyCancellable> = []
-	
-	private var exposureSubmissionService: ExposureSubmissionService
-	
-	private var supportedCountries: [Country]?
-	
-	private var subscriptions = [AnyCancellable]()
-	
-	private let onContinueWithSymptomsFlowButtonTap: (@escaping (Bool) -> Void) -> Void
-	
-	private let onContinueWarnOthersButtonTap: (@escaping (Bool) -> Void) -> Void
-	
-	private let onSubmissionConsentButtonTap: (@escaping (Bool) -> Void) -> Void
-	
-	private let onContinueHomeButtonTap: () -> Void
-	
-	private let onTestDeleted: () -> Void
-	
+
 	private var testResult: TestResult {
 		didSet {
 			updateForCurrentTestResult()
 		}
 	}
 	
+	private var exposureSubmissionService: ExposureSubmissionService
 	private var warnOthersReminder: WarnOthersRemindable
+
+	private let onSubmissionConsentCellTap: (@escaping (Bool) -> Void) -> Void
+	private let onContinueWithSymptomsFlowButtonTap: (@escaping (Bool) -> Void) -> Void
+	private let onContinueWarnOthersButtonTap: (@escaping (Bool) -> Void) -> Void
+	
+	private let onTestDeleted: () -> Void
+
+	private var cancellables: Set<AnyCancellable> = []
 	
 	private var primaryButtonIsLoading: Bool = false {
 		didSet {
@@ -181,8 +160,12 @@ class ExposureSubmissionTestResultViewModel {
 		
 		switch testResult {
 		case .positive:
-			navigationFooterItem.primaryButtonTitle = currentPositiveTestResultPrimaryButtonTitle
-			navigationFooterItem.secondaryButtonTitle = currentPositiveTestResultSecondaryButtonTitle
+			navigationFooterItem.primaryButtonTitle = exposureSubmissionService.isSubmissionConsentGiven ?
+				AppStrings.ExposureSubmissionPositiveTestResult.withConsentPrimaryButtonTitle :
+				AppStrings.ExposureSubmissionPositiveTestResult.noConsentPrimaryButtonTitle
+			navigationFooterItem.secondaryButtonTitle = exposureSubmissionService.isSubmissionConsentGiven ?
+				AppStrings.ExposureSubmissionPositiveTestResult.withConsentSecondaryButtonTitle :
+				AppStrings.ExposureSubmissionPositiveTestResult.noConsentSecondaryButtonTitle
 			navigationFooterItem.isSecondaryButtonEnabled = true
 			navigationFooterItem.isSecondaryButtonHidden = false
 			navigationFooterItem.secondaryButtonHasBorder = true
@@ -213,7 +196,7 @@ class ExposureSubmissionTestResultViewModel {
 	private var currentTestResultSections: [DynamicSection] {
 		switch testResult {
 		case .positive:
-			return currentPositiveTestResultSection
+			return exposureSubmissionService.isSubmissionConsentGiven ? positiveTestResultSectionsWithSubmissionConsent : positiveTestResultSectionsWithoutSubmissionConsent
 		case .negative:
 			return negativeTestResultSections
 		case .invalid:
@@ -409,15 +392,18 @@ class ExposureSubmissionTestResultViewModel {
 			.section(
 				separators: .all,
 				cells: [
-					
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Grey_Warnen"),
-						text: .string(self.submissionConsentLabel),
+						text: .string(
+							exposureSubmissionService.isSubmissionConsentGiven ?
+										AppStrings.ExposureSubmissionResult.warnOthersConsentGiven :
+										AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven
+						),
 						action: .execute {[weak self] _, cell in
 							guard let self = self else {
 								return
 							}
-							self.onSubmissionConsentButtonTap { isLoading in
+							self.onSubmissionConsentCellTap { isLoading in
 								let activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
 								activityIndicatorView.startAnimating()
 								cell?.accessoryView = isLoading ? activityIndicatorView : nil
@@ -475,26 +461,11 @@ class ExposureSubmissionTestResultViewModel {
 		]
 	}
 	
-	private func updateSubmissionConsentContent() {
+	private func bindToSubmissionConsent() {
 		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
-			
-			self.isSubmissionConsentGiven = isSubmissionConsentGiven
-			
 			Log.info("TestResult Screen: Update content for submission consent given = \(isSubmissionConsentGiven)")
-			
-			// Pending Test Result consent Label
-			let labelText = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionResult.warnOthersConsentGiven : AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven
-			self.submissionConsentLabel = labelText
-			
-			// Positive Test result section
-			self.currentPositiveTestResultSection = isSubmissionConsentGiven ? self.positiveTestResultSectionsWithSubmissionConsent : self.positiveTestResultSectionsWithoutSubmissionConsent
-			
-			// Button labels of positve test result primary and secondary button
-			self.currentPositiveTestResultPrimaryButtonTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionPositiveTestResult.withConsentPrimaryButtonTitle : AppStrings.ExposureSubmissionPositiveTestResult.noConsentPrimaryButtonTitle
-			
-			self.currentPositiveTestResultSecondaryButtonTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionPositiveTestResult.withConsentSecondaryButtonTitle : AppStrings.ExposureSubmissionPositiveTestResult.noConsentSecondaryButtonTitle
-			
 			self.updateForCurrentTestResult()
 		}.store(in: &cancellables)
 	}
+
 }

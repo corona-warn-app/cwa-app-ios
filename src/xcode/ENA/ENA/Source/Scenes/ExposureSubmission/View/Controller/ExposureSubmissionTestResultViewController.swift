@@ -88,7 +88,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	}
 
 	private func setUpBindings() {
-		
 		viewModel.$dynamicTableViewModel
 			.sink { [weak self] dynamicTableViewModel in
 				self?.dynamicTableViewModel = dynamicTableViewModel
