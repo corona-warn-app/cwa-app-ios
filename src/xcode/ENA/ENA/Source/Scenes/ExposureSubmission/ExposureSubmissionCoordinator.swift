@@ -163,7 +163,6 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		return ExposureSubmissionIntroViewController(viewModel)
 	}
 
-	/// method to get an instance of TestResultAvailableViewController
 	private func createTestResultAvailableViewController(testResult: TestResult) -> UIViewController {
 		let viewModel = TestResultAvailableViewModel(
 			exposureSubmissionService: model.exposureSubmissionService,
@@ -195,7 +194,13 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 					isLoading(false)
 
 					if let error = error {
-						self.showErrorAlert(for: error)
+						// User selected "Don't Share" / "Nicht teilen"
+						if case .notAuthorized = error {
+							self.model.exposureSubmissionService.isSubmissionConsentGiven = false
+							self.showTestResultScreen(with: testResult)
+						} else {
+							self.showErrorAlert(for: error)
+						}
 					} else {
 						self.showTestResultScreen(with: testResult)
 					}
