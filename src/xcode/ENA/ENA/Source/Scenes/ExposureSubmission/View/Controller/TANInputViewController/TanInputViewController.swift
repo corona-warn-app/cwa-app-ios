@@ -141,12 +141,15 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	}
 
 	private func setupViewModel() {
+		// viewModel will notify controller to enabled / disabler Primary Footer Button
+		// this will happend while ExposureSubmissionService is making a network request
 		viewModel.$isPrimaryBarButtonDisabled.sink { [weak self] isDisabled in
 			DispatchQueue.main.async {
 				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isDisabled
 			}
 		}.store(in: &bindings)
 
+		// wieModel will notify about text (tan) changes here
 		viewModel.$text.sink { [weak self] newText in
 			Log.debug("viewModel text did uodate to: \(newText)")
 			DispatchQueue.main.async {
@@ -155,6 +158,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 
 		}.store(in: &bindings)
 
+		// viewModel will notify about changes on errorText
 		viewModel.$errorText.sink { [weak self] newErrorText in
 			Log.debug("viewModel errorText did uodate to: \(newErrorText)")
 
@@ -163,6 +167,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 			}
 		}.store(in: &bindings)
 
+		// viewModel will notify that tanInputView has become the first responder
 		viewModel.$tanInputViewIsFirstResponder.sink { [weak self] isFirstResponder in
 			guard isFirstResponder,
 				  let self = self,

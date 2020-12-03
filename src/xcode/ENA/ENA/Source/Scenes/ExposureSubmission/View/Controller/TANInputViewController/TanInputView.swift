@@ -31,14 +31,14 @@ class TanInputView: UIControl, UIKeyInput {
 
 	@discardableResult
 	override func becomeFirstResponder() -> Bool {
-		viewModel.tanInputViewIsFirstResponder = true
-		return super.becomeFirstResponder()
+		viewModel.tanInputViewIsFirstResponder = super.becomeFirstResponder()
+		return viewModel.tanInputViewIsFirstResponder
 	}
 
 	@discardableResult
 	override func resignFirstResponder() -> Bool {
-		viewModel.tanInputViewIsFirstResponder = false
-		return super.resignFirstResponder()
+		viewModel.tanInputViewIsFirstResponder = !super.resignFirstResponder()
+		return viewModel.tanInputViewIsFirstResponder
 	}
 
 	// MARK: - Protocl UIKeyInput
