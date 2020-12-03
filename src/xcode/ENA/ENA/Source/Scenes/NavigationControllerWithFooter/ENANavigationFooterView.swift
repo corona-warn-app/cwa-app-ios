@@ -71,6 +71,12 @@ class ENANavigationFooterView: ENAFooterView {
 		get { secondaryButton.hasBorder }
 		set { secondaryButton.hasBorder = newValue }
 	}
+	
+	var secondaryButtonHasBackground: Bool {
+		get { secondaryButton.hasBackground }
+		set { secondaryButton.hasBackground = newValue }
+	}
+	
 
 	private let spacing: CGFloat = 8
 
@@ -138,7 +144,7 @@ extension ENANavigationFooterView {
 	private func setupSecondaryButton() {
 		secondaryButton = ENAButton(type: .custom)
 		secondaryButton.setTitle("Secondary Button", for: .normal)
-		secondaryButton.isTransparent = true
+		secondaryButton.hasBackground = true
 		secondaryButton.addTarget(self, action: #selector(didTapSecondaryButton), for: .primaryActionTriggered)
 	}
 }
@@ -177,6 +183,7 @@ extension ENANavigationFooterView {
 			isSecondaryButtonEnabled = navigationItem.isSecondaryButtonEnabled
 			isSecondaryButtonLoading = navigationItem.isSecondaryButtonLoading
 			secondaryButtonHasBorder = navigationItem.secondaryButtonHasBorder
+			secondaryButtonHasBackground = navigationItem.secondaryButtonHasBackground
 			if !isSecondaryButtonHidden { secondaryButtonTitle = navigationItem.secondaryButtonTitle }
 			
 		} else {
@@ -189,6 +196,7 @@ extension ENANavigationFooterView {
 			isSecondaryButtonEnabled = false
 			isSecondaryButtonLoading = false
 			secondaryButtonHasBorder = false
+			secondaryButtonHasBackground = false
 			if !isSecondaryButtonHidden { secondaryButtonTitle = nil }
 		}
 	}
