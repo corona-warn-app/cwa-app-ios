@@ -5,7 +5,7 @@
 import UIKit
 import Combine
 
-class TanInputViewController: UIViewController, ENANavigationControllerWithFooterChild, ENATanInputDelegate {
+class TanInputViewController: UIViewController, ENANavigationControllerWithFooterChild {
 
 	// MARK: - Init
 
@@ -29,15 +29,10 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		setupViews()
 		setupViewModel()
 
-//		errorView.alpha = 0
 		footerView?.isHidden = false
 
 		// disable keyboadr notifications for the moment
 //		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeShown(note:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-
-//		viewModel.togglePrimaryButton = { [weak self] onOff in
-//			self?.togglePrimaryNavigationButton()
-//		}
 	}
 	
 	override var navigationItem: UINavigationItem {
@@ -146,6 +141,12 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	}
 
 	private func setupViewModel() {
+		viewModel.$isPrimaryBarButtonDisabled.sink { [weak self] isDisabled in
+			DispatchQueue.main.async {
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isDisabled
+			}
+		}.store(in: &bindings)
+
 		viewModel.$text.sink { [weak self] newText in
 			Log.debug("viewModel text did uodate to: \(newText)")
 			DispatchQueue.main.async {

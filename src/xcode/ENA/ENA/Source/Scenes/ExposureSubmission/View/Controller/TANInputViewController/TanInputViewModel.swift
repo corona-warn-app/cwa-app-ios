@@ -25,50 +25,15 @@ final class TanInputViewModel {
 
 	@Published private(set) var text: String = ""
 	@Published private(set) var errorText: String = ""
+	@Published private(set) var isPrimaryBarButtonDisabled: Bool = false
 
 	// MARK: - Internal
 
 	var isInputBlocked: Bool = false
-	var togglePrimaryButton: () -> Void = {}
-	var digitGroups: [Int] {
+
+	lazy var digitGroups: [Int] = {
 		groups.split(separator: ",").compactMap { Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }
-	}
-
-	@discardableResult
-	func submitTan() -> Bool {
-		// isChecksumValid will perfome isValid internal
-		guard isChecksumValid else {
-			return false
-		}
-
-		togglePrimaryButton()
-		exposureSubmissionService.getRegistrationToken(forKey: .teleTan(text)) { [weak self] result in
-			switch result {
-			case let .failure(error):
-				// If teleTAN is incorrect, show Alert Controller
-				self?.presentInvalidTanAlert(error.localizedDescription)
-				self?.togglePrimaryButton()
-
-			case .success:
-				self?.testGotResultSubmitted()
-			}
-		}
-		return true
-	}
-
-	func appendCharacter(_ char: String) {
-		text += char
-		updateErrorText()
-	}
-
-	func deletLastCharacter() {
-		text = String(text.dropLast())
-		updateErrorText()
-	}
-
-	func handleReturnKey() {
-		submitTan()
-	}
+	}()
 
 	var isValid: Bool {
 		let count = text.count
@@ -83,6 +48,42 @@ final class TanInputViewModel {
 		let end = text.index(text.startIndex, offsetBy: text.count - 2)
 		let testString = String(text[start...end])
 		return text.last == calculateChecksum(input: testString)
+	}
+
+	func submitTan() {
+		// isChecksumValid will perfome isValid internal
+		guard isChecksumValid else {
+			Log.debug("tried to submit tan \(text), but ist'n invalid")
+			return
+		}
+
+		isPrimaryBarButtonDisabled = true
+		exposureSubmissionService.getRegistrationToken(forKey: .teleTan(text)) { [weak self] result in
+			switch result {
+			case let .failure(error):
+				// If teleTAN is incorrect, show Alert Controller
+				self?.presentInvalidTanAlert(error.localizedDescription)
+				self?.isPrimaryBarButtonDisabled = false
+
+			case .success:
+				self?.testGotResultSubmitted()
+				self?.isPrimaryBarButtonDisabled = false
+			}
+		}
+	}
+
+	func appendCharacter(_ char: String) {
+		text += char
+		updateErrorText()
+	}
+
+	func deletLastCharacter() {
+		text = String(text.dropLast())
+		updateErrorText()
+	}
+
+	func handleReturnKey() {
+		submitTan()
 	}
 
 	// MARK: - Private
