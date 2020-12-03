@@ -45,7 +45,7 @@ class CountdownTimerTests: XCTestCase {
 	}
 
 	func test_countsDown() {
-		let end = Date().addingTimeInterval(3.0)
+		let end = Date().addingTimeInterval(2.0)
 		let c = CountdownTimer(countdownTo: end)
 		c.delegate = countdownTimerTarget
 
