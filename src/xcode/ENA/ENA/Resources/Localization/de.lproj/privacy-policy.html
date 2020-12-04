@@ -253,9 +253,9 @@
 			über den Datenschutz verarbeitet werden.
 		</p>
 		<p>
-			Wenn Sie sich infiziert haben und freiwillig eine länderübergreifende
+			Wenn Sie Corona-positiv getestet sind und eine länderübergreifende
 			Warnung auslösen, können auch die Nutzer der offiziellen Corona-Apps
-			anderer teilnehmender Länder, mit denen Sie Kontakt hatten, gewarnt werden.
+			anderer Länder, denen Sie begegnet sind, gewarnt werden.
 			In diesem Fall sind das RKI und die zuständigen Gesundheitsbehörden der am
 			länderübergreifenden Warnsystem teilnehmenden Länder für die
 			Datenverarbeitung gemeinsam verantwortlich. Einzelheiten erfahren Sie unter
@@ -267,19 +267,19 @@
 		<p>
 			Die Nutzung der App ist freiwillig. Es ist allein Ihre Entscheidung, ob Sie
 			die App installieren, welche App-Funktionen Sie nutzen und ob Sie Daten mit
-			anderen teilen. Alle App-Funktionen, die eine Datenweitergabe Ihrer Begegnungs- 
-			und Gesundheitsdaten erfordern, holen vorher Ihre ausdrückliche Einwilligung ein. 
-			Falls Sie eine Einwilligung nicht erteilen oder nachträglich widerrufen, entstehen Ihnen
+			anderen teilen. Alle App-Funktionen, die eine Weitergabe Ihrer Begegnungs- 
+			oder Gesundheitsdaten erfordern, holen vorher Ihr ausdrückliches Einverständnis ein. 
+			Falls Sie ein Einverständnis nicht erteilen oder nachträglich zurücknehmen, entstehen Ihnen
 			keine Nachteile.
 		</p>
 		<p>&nbsp;</p><h2>
 			3. Auf welcher Rechtsgrundlage werden Ihre Daten verarbeitet?
 		</h2><br>
 		<p>
-			Ihre Daten werden grundsätzlich auf Grundlage einer von Ihnen erteilten
-			ausdrücklichen Einwilligung verarbeitet. Die Rechtsgrundlage ist Art. 6
+			Ihre Daten werden grundsätzlich nur verarbeitet, wenn Sie zuvor Ihr ausdrückliches 
+			Einverständnis erteilt haben. Die Rechtsgrundlage ist Art. 6
 			Abs. 1 S. 1 lit. a DSGVO sowie im Falle von Gesundheitsdaten Art. 9 Abs. 2
-			lit. a DSGVO. Sie können eine erteilte Einwilligung jederzeit widerrufen.
+			lit. a DSGVO. Sie können ein einmal erteiltes Einverständnis jederzeit wieder zurücknehmen (sogenanntes Widerrufsrecht).
 			Weitere Informationen zu Ihrem Widerrufsrecht finden Sie unter Punkt 12.
 			Die Verarbeitung von Zugriffsdaten für den Abruf der täglichen Statistiken 
 			(siehe hierzu Punkt 6 d.) erfolgt im Rahmen der Information der Öffentlichkeit 
@@ -297,8 +297,8 @@
 			5. Welche Daten werden verarbeitet?
 		</h2><br>
 		<p>
-			Die App ist so programmiert, dass so wenig personenbezogene Daten wie
-			möglich verarbeitet werden. Das bedeutet, dass die App keine Daten erfasst,
+			Das gesamte System der App ist so programmiert, dass so wenig personenbezogene Daten wie
+			möglich verarbeitet werden. Das bedeutet, dass das System keine Daten erfasst,
 			die es dem RKI oder anderen Nutzern ermöglichen, auf Ihre Identität, Ihren
 			Namen, Ihren Standort oder andere persönliche Details zu schließen. Die App
 			verzichtet daher auch auf jegliche Auswertung Ihres Nutzungsverhaltens
@@ -423,7 +423,7 @@
 			Gesundheitsdaten sind alle Daten, die Informationen zum Gesundheitszustand
 			einer Person enthalten. Dazu gehören nicht nur Angaben zu früheren und
 			aktuellen Krankheiten, sondern auch zu Krankheitsrisiken einer Person (z.
-			B. das Risiko, dass eine Person sich mit dem Coronavirus infiziert hat).
+			B. das Risiko, dass eine Person sich mit dem Coronavirus angesteckt hat).
 			Die App verarbeitet Gesundheitsdaten in folgenden Fällen:
 		</p>
 		<br><ul>
@@ -431,13 +431,10 @@
 				wenn eine Risiko-Begegnung erkannt wird
 			</li>
 			<li>
-				wenn Sie einen Test oder einen positiven Befundbrief registrieren
+				wenn Sie über die App ein Testergebnis abrufen
 			</li>
 			<li>
-				wenn Sie in der App ein positives Testergebnis abrufen
-			</li>
-			<li>
-				wenn Sie Ihre Begegnungen über die App vor einer möglichen Infektion
+				wenn Sie Ihre Begegnungen über die App vor einer möglichen Ansteckung
 				warnen
 			</li>
 			<li>
@@ -455,16 +452,16 @@
 		</h3>
 		<p>
 			Die Risiko-Ermittlung ist eine Hauptfunktion der App. Sie dient dazu, Sie
-			bei möglichen Kontakten mit Corona-positiv getesteten Personen
-			(Risiko-Begegnungen) länderübergreifend zu warnen, das für Sie bestehende
-			Infektionsrisiko zu bewerten und Ihnen entsprechende Verhaltens- und
+			bei möglichen Begegnungen mit Corona-positiv getesteten Personen
+			(Risiko-Begegnungen) länderübergreifend zu warnen, Ihr persönliches
+			Ansteckungsrisiko zu bewerten und Ihnen Verhaltens- und
 			Gesundheitshinweise zu geben.
 		</p>
 		<p>
-			Hierzu ruft die App im Hintergrundbetrieb vom Serversystem mehrmals täglich 
+			Hierzu ruft die App vom Serversystem mehrmals täglich 
 			eine aktuelle Liste mit den Zufalls-IDs und eventuellen Angaben zum
 			Symptombeginn von Nutzern ab, die Corona-positiv getestet wurden und
-			freiwillig über die offizielle Corona-App eines am länderübergreifenden
+			über die offizielle Corona-App eines am länderübergreifenden
 			Warnsystem teilnehmenden Landes (siehe hierzu Punkt 7) eine Warnung
 			ausgelöst haben (im Folgenden: <strong>Positiv-Liste</strong>). Die
 			Zufalls-IDs in der Positiv-Liste enthalten zusätzlich einen
@@ -472,60 +469,55 @@
 			Punkt 6 c.).
 		</p>
 		<p>
-			Die App gibt die Zufalls-IDs an das COVID-19-Benachrichtigungssystem
-			weiter, welches diese mit den aufgezeichneten Zufalls-IDs abgleicht. Wenn
+			Die App gibt die Zufalls-IDs aus der Positiv-Liste an das COVID-19-Benachrichtigungssystem
+			weiter, welches diese mit den aufgezeichneten Zufalls-IDs Ihrer Begegnungen abgleicht. Wenn
 			das COVID-19-Benachrichtigungssystem dabei eine Übereinstimmung feststellt,
 			übergibt es der App die zu der jeweiligen Risiko-Begegnung aufgezeichneten
-			Begegnungsdaten. Diese und die Angaben in der Positiv-Liste
+			Begegnungsdaten. Diese Begegnungsdaten und die Angaben in der Positiv-Liste
 			(Übertragungsrisiko-Wert, Angaben zum Symptombeginn) werden von der App
-			bewertet, um Ihr Infektionsrisiko zu ermitteln. Der Bewertungsalgorithmus,
-			der festlegt, wie diese Informationen bewertet werden (beispielsweise
-			welchen Einfluss die Dauer eines Kontakts auf das Infektionsrisiko hat),
-			basiert auf den aktuellen wissenschaftlichen Erkenntnissen des RKI. Bei
-			neuen Erkenntnissen kann das RKI den Bewertungsalgorithmus aktualisieren,
-			indem die Bewertungseinstellungen der App angepasst werden. Die neuen
-			Bewertungseinstellungen werden in diesem Fall zusammen mit der
+			bewertet, um Ihr Ansteckungsrisiko zu ermitteln. Die Regeln für die Bewertung dieser Informationen (beispielsweise
+			welchen Einfluss die Dauer eines Kontakts auf das Ansteckungsrisiko hat),
+			basieren auf den aktuellen wissenschaftlichen Erkenntnissen des RKI. Bei
+			neuen Erkenntnissen kann das RKI die Bewertungsregeln aktualisieren,
+			indem die Bewertungs-Einstellungen der App angepasst werden. Die neuen
+			Bewertungs-Einstellungen werden in diesem Fall zusammen mit der
 			Positiv-Liste an die App übermittelt.
 		</p>
 		<p>
-			Das Infektionsrisiko wird ausschließlich innerhalb der App berechnet und
+			Das Ansteckungsrisiko wird ausschließlich offline in der App berechnet und
 			weder an das COVID-19-Benachrichtigungssystem noch an sonstige Empfänger
 			(auch nicht an das RKI, andere Gesundheitsbehörden in Deutschland oder
 			anderen Ländern, Apple, Google und sonstige Dritte) weitergegeben.
 		</p>
 		<br><h3>
-			b. Test registrieren
+			b. Testergebnis abrufen
 		</h3>
 		<p>
-			Wenn Sie auf Corona getestet wurden, können Sie Ihren Test in der App
-			registrieren. Die App benachrichtigt Sie dann, sobald das Testergebnis
+			Wenn Sie einen Corona Test gemacht haben, können Sie Ihr Testergebnis über die App
+			abrufen. Die App benachrichtigt Sie, sobald Ihr Testergebnis
 			vorliegt. Dies setzt voraus, dass das Testlabor an das Serversystem
-			angeschlossen ist und Sie im Rahmen der Testdurchführung gesondert in die
-			Übermittlung Ihres Testergebnisses durch das Labor an das Serversystem
-			(Testergebnis-Datenbank) eingewilligt haben. Testergebnisse von Laboren,
+			angeschlossen ist und Sie im Rahmen der Testdurchführung gesondert Ihr Einverständnis
+			zur Übermittlung Ihres Testergebnisses erteilt haben. Testergebnisse von Laboren,
 			die nicht an das Serversystem der App angeschlossen sind, können nicht
 			angezeigt werden. Wenn Sie keinen QR-Code erhalten haben, können Sie diese
-			Funktion nicht nutzen.
+			Funktion ebenfalls nicht nutzen.
 		</p>
 		<p>
-			<u>Testregistrierung</u>
+			<u>Scan des QR-Codes</u>
 		</p>
 		<p>
-			Damit Sie das Testergebnis per App abrufen können, müssen Sie Ihren Test
-			registrieren. Hierzu erhalten Sie von Ihrem Arzt bzw. der Testeinrichtung
-			einen QR-Code. Dieser QR-Code enthält eine Kennzahl, die mit der App
-			ausgelesen werden kann. Zur Testregistrierung müssen Sie den QR-Code in der
-			App mit der Kamera Ihres Smartphones scannen. Die ausgelesene Kennzahl wird
+			Damit Sie das Testergebnis per App abrufen können, müssen Sie den QR-Code 
+			mit der Kamera Ihres Smartphones scannen. Der QR-Code enthält eine Kennzahl, 
+			die beim Scannen ausgelesen wird und Ihrem Test zugeordnet ist.  Die ausgelesene Kennzahl wird
 			von der App gehasht. Das bedeutet, dass die Kennzahl nach einem bestimmten
 			mathematischen Verfahren so verfremdet wird, dass sie nicht mehr erkennbar
-			ist. Sobald Ihr Smartphone eine Verbindung zum Internet hat, wird die
-			gehashte Kennzahl von der App an das Serversystem übermittelt. Im Gegenzug
-			erhält die App vom Serversystem einen Token, also einen digitalen
-			Zugangsschlüssel, der in der App gespeichert wird. Das Token ist auf dem
-			Serversystem mit der gehashten Kennzahl verknüpft. Die App löscht dann die
-			auf Ihrem Smartphone gehashte Kennzahl. Die Registrierung Ihres Tests ist
-			damit abgeschlossen. Das Serversystem wird für jede gehashte Kennzahl nur
-			ein einziges Mal einen Token vergeben. Auf diese Weise wird sichergestellt,
+			ist. Die eindeutige Zuordnung der gehashten Kennzahl zu Ihrem Testergebnis ist 
+			aber weiterhin möglichSobald Ihr Smartphone eine Verbindung zum Internet hat, wird die
+			gehashte Kennzahl von der App an das Serversystem übermittelt. Das Serversystem stellt sodann einen digitalen
+			Zugangsschlüssel (ein sogenanntes Token) zur Verfügung, der in der App gespeichert wird. Das Token ist auf dem
+			Serversystem mit der gehashten Kennzahl verknüpft. Die App löscht nun die
+			auf Ihrem Smartphone gehashte Kennzahl und behält nur das Token. Der QR-Code ist damit verbraucht (ungültig), 
+			das heißt er kann von niemanden mehr verwendet werden. So ist sichergestellt,
 			dass Ihr QR-Code nicht von anderen Nutzern der App für die Abfrage von
 			Testergebnissen verwendet werden kann.
 		</p>
@@ -997,7 +989,7 @@
 		</p>
 		<p>&nbsp;</p>
 		<p>
-			Stand: 15.11.2020
+			Stand: 09.12.2020
 		</p>
 
 	</body>
