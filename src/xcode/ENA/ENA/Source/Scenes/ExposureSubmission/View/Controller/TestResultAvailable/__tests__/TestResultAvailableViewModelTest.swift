@@ -16,17 +16,17 @@ class TestResultAvailableViewModelTest: XCTestCase {
 		
 		let viewModel = TestResultAvailableViewModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			didTapConsentCell: { _ in
+			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
-			didTapPrimaryFooterButton: { _ in
+			onPrimaryButtonTap: { _ in
 				expectationFulFill.fulfill()
 			},
 			onDismiss: {}
 		)
 		
 		// WHEN
-		viewModel.didTapPrimaryFooterButton({ _ in })
+		viewModel.onPrimaryButtonTap({ _ in })
 		
 		// THEN
 		waitForExpectations(timeout: .medium)
@@ -41,10 +41,10 @@ class TestResultAvailableViewModelTest: XCTestCase {
 
 		let viewModel = TestResultAvailableViewModel(
 			exposureSubmissionService: exposureSubmissionService,
-			didTapConsentCell: { _ in
+			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
-			didTapPrimaryFooterButton: { _ in
+			onPrimaryButtonTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
 			onDismiss: {}
@@ -75,10 +75,10 @@ class TestResultAvailableViewModelTest: XCTestCase {
 
 		let viewModel = TestResultAvailableViewModel(
 			exposureSubmissionService: exposureSubmissionService,
-			didTapConsentCell: { _ in
+			onSubmissionConsentCellTap: { _ in
 				expectationFulFill.fulfill()
 			},
-			didTapPrimaryFooterButton: { _ in
+			onPrimaryButtonTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
 			onDismiss: {}

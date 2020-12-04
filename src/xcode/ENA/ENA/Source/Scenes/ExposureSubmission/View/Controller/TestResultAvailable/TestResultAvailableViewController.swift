@@ -37,7 +37,7 @@ final class TestResultAvailableViewController: DynamicTableViewController, ENANa
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		viewModel.didTapPrimaryFooterButton { [weak self] isLoading in
+		viewModel.onPrimaryButtonTap { [weak self] isLoading in
 			self?.viewModel.navigationFooterItem.isPrimaryButtonEnabled = !isLoading
 			self?.viewModel.navigationFooterItem.isPrimaryButtonLoading = isLoading
 		}

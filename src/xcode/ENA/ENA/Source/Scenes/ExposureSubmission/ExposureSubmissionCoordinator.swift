@@ -82,15 +82,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	func dismiss() {
-		guard let presentedViewController = navigationController?.viewControllers.last else { return }
-		guard let vc = presentedViewController as? RequiresDismissConfirmation else {
-			navigationController?.dismiss(animated: true)
-			return
-		}
-
-		vc.attemptDismiss { [weak self] shouldDismiss in
-			if shouldDismiss { self?.navigationController?.dismiss(animated: true) }
-		}
+		navigationController?.dismiss(animated: true)
 	}
 
 	func showTanScreen() {
@@ -173,7 +165,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	private func createTestResultAvailableViewController(testResult: TestResult) -> UIViewController {
 		let viewModel = TestResultAvailableViewModel(
 			exposureSubmissionService: model.exposureSubmissionService,
-			didTapConsentCell: { [weak self] isLoading in
+			onSubmissionConsentCellTap: { [weak self] isLoading in
 				self?.model.exposureSubmissionService.loadSupportedCountries(
 					isLoading: isLoading,
 					onSuccess: { supportedCountries in
@@ -186,7 +178,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 					}
 				)
 			},
-			didTapPrimaryFooterButton: { [weak self] isLoading in
+			onPrimaryButtonTap: { [weak self] isLoading in
 				guard let self = self else { return }
 
 				guard self.model.exposureSubmissionService.isSubmissionConsentGiven else {
@@ -349,7 +341,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	// MARK: Late consent
 
 	private func showWarnOthersScreen(supportedCountries: [Country]) {
-		let vc = createWarnOthersViewController(
+		let vc = ExposureSubmissionWarnOthersViewController(
 			supportedCountries: supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
 				self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
@@ -653,15 +645,6 @@ extension ExposureSubmissionCoordinator {
 	private func createHotlineViewController() -> ExposureSubmissionHotlineViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionHotlineViewController(coder: coder, coordinator: self)
-		}
-	}
-
-	private func createWarnOthersViewController(
-		supportedCountries: [Country],
-		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
-	) -> ExposureSubmissionWarnOthersViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnOthersViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionWarnOthersViewController(coder: coder, supportedCountries: supportedCountries, onPrimaryButtonTap: onPrimaryButtonTap)
 		}
 	}
 

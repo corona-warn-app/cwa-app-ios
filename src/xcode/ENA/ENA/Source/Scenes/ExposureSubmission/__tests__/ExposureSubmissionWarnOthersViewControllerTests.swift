@@ -15,13 +15,10 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 	}
 
 	private func createVC() -> ExposureSubmissionWarnOthersViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionWarnOthersViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionWarnOthersViewController(
-				coder: coder,
-				supportedCountries: ["DE", "IT", "ES", "NL", "CZ", "AT", "DK", "IE", "LV", "EE"].compactMap { Country(countryCode: $0) },
-				onPrimaryButtonTap: { _ in }
-			)
-		}
+		ExposureSubmissionWarnOthersViewController(
+			supportedCountries: ["DE", "IT", "ES", "NL", "CZ", "AT", "DK", "IE", "LV", "EE"].compactMap { Country(countryCode: $0) },
+			onPrimaryButtonTap: { _ in }
+		)
 	}
 
 	func testDynamicTableViewModel() {

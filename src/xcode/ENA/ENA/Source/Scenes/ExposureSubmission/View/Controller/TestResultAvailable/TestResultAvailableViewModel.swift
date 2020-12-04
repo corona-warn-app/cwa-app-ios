@@ -12,13 +12,13 @@ final class TestResultAvailableViewModel {
 	
 	init(
 		exposureSubmissionService: ExposureSubmissionService,
-		didTapConsentCell: @escaping (@escaping (Bool) -> Void) -> Void,
-		didTapPrimaryFooterButton: @escaping (@escaping (Bool) -> Void) -> Void,
+		onSubmissionConsentCellTap: @escaping (@escaping (Bool) -> Void) -> Void,
+		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onDismiss: @escaping () -> Void
 	) {
 		self.exposureSubmissionService = exposureSubmissionService
-		self.didTapConsentCell = didTapConsentCell
-		self.didTapPrimaryFooterButton = didTapPrimaryFooterButton
+		self.onSubmissionConsentCellTap = onSubmissionConsentCellTap
+		self.onPrimaryButtonTap = onPrimaryButtonTap
 		self.onDismiss = onDismiss
 		
 		exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { [weak self] consentGranted in
@@ -29,7 +29,7 @@ final class TestResultAvailableViewModel {
 	
 	// MARK: - Internal
 	
-	let didTapPrimaryFooterButton: (@escaping (Bool) -> Void) -> Void
+	let onPrimaryButtonTap: (@escaping (Bool) -> Void) -> Void
 	let onDismiss: () -> Void
 
 	@Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
@@ -49,7 +49,7 @@ final class TestResultAvailableViewModel {
 	
 	private let exposureSubmissionService: ExposureSubmissionService
 	private var cancellables: Set<AnyCancellable> = []
-	private let didTapConsentCell: (@escaping (Bool) -> Void) -> Void
+	private let onSubmissionConsentCellTap: (@escaping (Bool) -> Void) -> Void
 	
 	private func createDynamicTableViewModel(_ consentGiven: Bool) -> DynamicTableViewModel {
 		let consentStateString = consentGiven ?
@@ -84,7 +84,7 @@ final class TestResultAvailableViewModel {
 						  action: .execute { [weak self] _, cell in
 							guard let self = self else { return }
 
-							self.didTapConsentCell { isLoading in
+							self.onSubmissionConsentCellTap { isLoading in
 								let activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
 								activityIndicatorView.startAnimating()
 								cell?.accessoryView = isLoading ? activityIndicatorView : nil
