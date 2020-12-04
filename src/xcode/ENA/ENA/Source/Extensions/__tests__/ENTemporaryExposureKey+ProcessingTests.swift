@@ -82,7 +82,7 @@ final class ExposureKeysProcessingTests: XCTestCase {
 	}
 	
 	func testSubmissionPreprocess_NoKeys() {
-		let keys = [ENTemporaryExposureKey]()
+		let keys = [SAP_External_Exposurenotification_TemporaryExposureKey]()
 		let processedKeys = keys.processedForSubmission(with: .noInformation)
 		
 		XCTAssertEqual(processedKeys.count, 0)
@@ -174,14 +174,17 @@ final class ExposureKeysProcessingTests: XCTestCase {
 
 extension ExposureKeysProcessingTests {
 	
-	private func makeMockKey(daysUntilToday: Int, today: Date = Date(timeIntervalSinceReferenceDate: 0)) -> ENTemporaryExposureKey {
+	private func makeMockKey(daysUntilToday: Int, today: Date = Date(timeIntervalSinceReferenceDate: 0)) -> SAP_External_Exposurenotification_TemporaryExposureKey {
 		var calendar = Calendar(identifier: .gregorian)
 		// swiftlint:disable:next force_unwrapping
 		calendar.timeZone = TimeZone(secondsFromGMT: 0)!
 		
 		guard let date = calendar.date(byAdding: .day, value: -daysUntilToday, to: today) else { fatalError("Could not create date") }
+
+		var key = SAP_External_Exposurenotification_TemporaryExposureKey()
+		key.rollingStartIntervalNumber = Int32(date.timeIntervalSince1970 / 600)
 		
-		return TemporaryExposureKeyMock(rollingStartNumber: ENIntervalNumber(date.timeIntervalSince1970 / 600))
+		return key
 	}
 
 	private func assertCorrectProcessing(on processedKeys: [SAP_External_Exposurenotification_TemporaryExposureKey], for days: [Int], with symptomsOnset: SymptomsOnset) {

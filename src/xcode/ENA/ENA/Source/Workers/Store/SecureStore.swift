@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import ExposureNotification
 
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
@@ -237,6 +238,27 @@ final class SecureStore: Store {
 	var isSubmissionConsentGiven: Bool {
 		get { kvStore["isSubmissionConsentGiven"] as Bool? ?? false }
 		set { kvStore["isSubmissionConsentGiven"] = newValue }
+	}
+
+	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? {
+		get {
+			(kvStore["submissionKeys"] as [Data]?)?.compactMap {
+				try? SAP_External_Exposurenotification_TemporaryExposureKey(serializedData: $0)
+			}
+		}
+		set {
+			kvStore["submissionKeys"] = newValue?.compactMap { try? $0.serializedData() }
+		}
+	}
+
+	var submissionCountries: [Country] {
+		get { kvStore["submissionCountries"] as [Country]? ?? [.defaultCountry()] }
+		set { kvStore["submissionCountries"] = newValue }
+	}
+
+	var submissionSymptomsOnset: SymptomsOnset {
+		get { kvStore["submissionSymptomsOnset"] as SymptomsOnset? ?? .noInformation }
+		set { kvStore["submissionSymptomsOnset"] = newValue }
 	}
 	
 	#if !RELEASE

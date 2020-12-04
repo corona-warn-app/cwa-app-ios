@@ -10,7 +10,7 @@ protocol DismissHandling {
 	/// on top of the viewcontrollers stack - presentDismiss action (swipe down or close button) will call this
 	/// function
 	/// otherwise no reaction is possible and the dismiss logic depends on the navigation controller
-	func presentDismiss(dismiss: @escaping () -> Void)
+	func wasAttemptedToBeDismissed()
 }
 
 final class ExposureSubmissionNavigationController: ENANavigationControllerWithFooter, UINavigationControllerDelegate, UIAdaptivePresentationControllerDelegate {
@@ -86,9 +86,7 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 			return
 		}
 
-		dismissableViewController.presentDismiss(dismiss: { [weak self] in
-			self?.closeButtonHit()
-		})
+		dismissableViewController.wasAttemptedToBeDismissed()
 	}
 
 	// MARK: - Private

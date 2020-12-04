@@ -16,17 +16,19 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 	}
 
 	private func createVC(testResult: TestResult) -> ExposureSubmissionTestResultViewController {
-	
 		ExposureSubmissionTestResultViewController(
 			viewModel: ExposureSubmissionTestResultViewModel(
-				warnOthersReminder: WarnOthersReminder(store: self.store), testResult: testResult,
+				testResult: testResult,
 				exposureSubmissionService: MockExposureSubmissionService(),
-				onContinueWithSymptomsFlowButtonTap: { _ in },
-				onContinueWithoutSymptomsFlowButtonTap: { _ in },
-				onContinueHomeButtonTap: { },
-				onTestDeleted: { },
-				onSubmissionConsentButtonTap: { _ in }
-			), exposureSubmissionService: MockExposureSubmissionService(), presentCancelAlert: { }
+				warnOthersReminder: WarnOthersReminder(store: self.store),
+				onSubmissionConsentCellTap: { _ in },
+				onContinueWithSymptomsFlowButtonTap: { },
+				onContinueWarnOthersButtonTap: { _ in },
+				onChangeToPositiveTestResult: { },
+				onTestDeleted: { }
+			),
+			exposureSubmissionService: MockExposureSubmissionService(),
+			onDismiss: { _, _ in }
 		)
 	}
 

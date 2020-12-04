@@ -6,6 +6,11 @@ import Foundation
 import UIKit
 
 enum ExposureSubmissionDynamicCell {
+
+	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case stepCell
+	}
+
 	static func stepCell(
 		title: String,
 		description: String?,
@@ -15,7 +20,7 @@ enum ExposureSubmissionDynamicCell {
 		bottomSpacing: ExposureSubmissionStepCell.Spacing = .large,
 		action: DynamicAction = .none
 	) -> DynamicCell {
-		.identifier(ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell, action: action) { _, cell, _ in
+		.identifier(CustomCellReuseIdentifiers.stepCell, action: action) { _, cell, _ in
 			guard let cell = cell as? ExposureSubmissionStepCell else { return }
 			cell.configure(title: title, description: description, icon: icon, iconTint: iconTint, hairline: hairline, bottomSpacing: bottomSpacing)
 		}
@@ -34,7 +39,7 @@ enum ExposureSubmissionDynamicCell {
 		bottomSpacing: ExposureSubmissionStepCell.Spacing = .large,
 		action: DynamicAction = .none
 	) -> DynamicCell {
-		.identifier(ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell, action: action) { _, cell, _ in
+		.identifier(CustomCellReuseIdentifiers.stepCell, action: action) { _, cell, _ in
 			guard let cell = cell as? ExposureSubmissionStepCell else { return }
 			cell.configure(style: style, color: color, title: title, icon: icon, iconTint: iconTint, hairline: hairline, bottomSpacing: bottomSpacing)
 			cell.titleLabel.accessibilityLabel = [iconAccessibilityLabel, cell.titleLabel.accessibilityLabel]

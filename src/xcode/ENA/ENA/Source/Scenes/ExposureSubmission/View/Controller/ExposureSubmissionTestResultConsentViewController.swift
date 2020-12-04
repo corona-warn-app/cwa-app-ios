@@ -10,7 +10,7 @@ class ExposureSubmissionTestResultConsentViewController: DynamicTableViewControl
 	// MARK: - Init
 	
 	init(
-		_ viewModel: ExposureSubmissionTestResultConsentViewModel
+		viewModel: ExposureSubmissionTestResultConsentViewModel
 	) {
 				
 		self.viewModel = viewModel
@@ -32,8 +32,8 @@ class ExposureSubmissionTestResultConsentViewController: DynamicTableViewControl
 
 	// MARK: - Protocol DismissHandling
 
-	func presentDismiss(dismiss: @escaping () -> Void) {
-		viewModel.presentDismissAlert()
+	func wasAttemptedToBeDismissed() {
+		viewModel.onDismiss?()
 	}
 
 	// MARK: - Internal

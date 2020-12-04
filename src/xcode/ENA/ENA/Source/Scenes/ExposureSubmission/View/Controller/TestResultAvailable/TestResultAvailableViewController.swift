@@ -12,6 +12,7 @@ final class TestResultAvailableViewController: DynamicTableViewController, ENANa
 
 	init(_ viewModel: TestResultAvailableViewModel) {
 		self.viewModel = viewModel
+
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -24,39 +25,35 @@ final class TestResultAvailableViewController: DynamicTableViewController, ENANa
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
 		setupTableView()
 		setupViewModel()
 	}
 
 	override var navigationItem: UINavigationItem {
-		navigationFooterItem
+		viewModel.navigationFooterItem
 	}
 
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		viewModel.didTapPrimaryFooterButton()
+		viewModel.onPrimaryButtonTap { [weak self] isLoading in
+			self?.viewModel.navigationFooterItem.isPrimaryButtonEnabled = !isLoading
+			self?.viewModel.navigationFooterItem.isPrimaryButtonLoading = isLoading
+		}
 	}
 
 	// MARK: Protocol DismissHandling
-	/// called on close button & swip down dismiss
-	func presentDismiss(dismiss: @escaping () -> Void) {
-		viewModel.presentDismissAlert()
+
+	/// called on close button & swipe down dismiss
+	func wasAttemptedToBeDismissed() {
+		viewModel.onDismiss()
 	}
 
 	// MARK: - Private
 
 	private let viewModel: TestResultAvailableViewModel
 	private var bindings: Set<AnyCancellable> = []
-
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-		item.primaryButtonTitle = AppStrings.ExposureSubmissionTestresultAvailable.primaryButtonTitle
-		item.isPrimaryButtonEnabled = true
-		item.isSecondaryButtonHidden = true
-		item.title = AppStrings.ExposureSubmissionTestresultAvailable.title
-		return item
-	}()
 
 	private func setupTableView() {
 		view.backgroundColor = .enaColor(for: .background)
