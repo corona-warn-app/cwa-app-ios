@@ -7,7 +7,7 @@ import XCTest
 
 class ExposureSubmissionQRInfoModelTests: XCTestCase {
 
-	func testDynamicTableVIewModel() {
+	func testDynamicTableViewModel() {
 		let viewModel = ExposureSubmissionQRInfoViewModel(supportedCountries: [])
 
 		let dynamicTableViewModel = viewModel.dynamicTableViewModel
