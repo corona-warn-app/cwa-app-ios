@@ -38,28 +38,28 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	// MARK: - Protocol ExposureSubmissionService
 
 	private(set) var devicePairingConsentAcceptTimestamp: Int64? {
-		get { self.store.devicePairingConsentAcceptTimestamp }
-		set { self.store.devicePairingConsentAcceptTimestamp = newValue }
+		get { store.devicePairingConsentAcceptTimestamp }
+		set { store.devicePairingConsentAcceptTimestamp = newValue }
 	}
 
 	private(set) var devicePairingSuccessfulTimestamp: Int64? {
-		get { self.store.devicePairingSuccessfulTimestamp }
-		set { self.store.devicePairingSuccessfulTimestamp = newValue }
+		get { store.devicePairingSuccessfulTimestamp }
+		set { store.devicePairingSuccessfulTimestamp = newValue }
 	}
 
 	var positiveTestResultWasShown: Bool {
-		get { self.store.positiveTestResultWasShown }
-		set { self.store.positiveTestResultWasShown = newValue }
+		get { store.positiveTestResultWasShown }
+		set { store.positiveTestResultWasShown = newValue }
 	}
 
 	var supportedCountries: [Country] {
-		get { self.store.submissionCountries }
-		set { self.store.submissionCountries = newValue }
+		get { store.submissionCountries }
+		set { store.submissionCountries = newValue }
 	}
 
 	var symptomsOnset: SymptomsOnset {
-		get { self.store.submissionSymptomsOnset }
-		set { self.store.submissionSymptomsOnset = newValue }
+		get { store.submissionSymptomsOnset }
+		set { store.submissionSymptomsOnset = newValue }
 	}
 
 	var hasRegistrationToken: Bool {
@@ -130,7 +130,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			return
 		}
 
-		guard let keys = self.temporaryExposureKeys, !keys.isEmpty else {
+		guard let keys = temporaryExposureKeys, !keys.isEmpty else {
 			Log.info("Cancelled submission: No temporary exposure keys to submit.", log: .api)
 			completion(.noKeys)
 
@@ -141,7 +141,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 			return
 		}
-		let processedKeys = keys.processedForSubmission(with: self.symptomsOnset)
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset)
 
 		// Request needs to be prepended by the fake request.
 		_fakeVerificationServerRequest(completion: { _ in
@@ -261,13 +261,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	@Published private var _isSubmissionConsentGiven: Bool
 
 	private var devicePairingConsentAccept: Bool {
-		get { self.store.devicePairingConsentAccept }
-		set { self.store.devicePairingConsentAccept = newValue }
+		get { store.devicePairingConsentAccept }
+		set { store.devicePairingConsentAccept = newValue }
 	}
 
 	private var temporaryExposureKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? {
-		get { self.store.submissionKeys }
-		set { self.store.submissionKeys = newValue }
+		get { store.submissionKeys }
+		set { store.submissionKeys = newValue }
 	}
 
 	// MARK: methods for handling the API calls.
@@ -351,7 +351,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		visitedCountries: [Country],
 		completion: @escaping ExposureSubmissionHandler
 	) {
-		self._getTANForExposureSubmit(hasConsent: true, completion: { result in
+		_getTANForExposureSubmit(hasConsent: true, completion: { result in
 			switch result {
 			case let .failure(error):
 				completion(error)
@@ -467,7 +467,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	/// This method is convenience for sending a V + S request pattern.
 	private func _fakeVerificationAndSubmissionServerRequest(completionHandler: ExposureSubmissionHandler? = nil) {
-		self._fakeVerificationServerRequest { _ in
+		_fakeVerificationServerRequest { _ in
 			self._fakeSubmissionServerRequest { _ in
 				completionHandler?(.fakeResponse)
 			}
