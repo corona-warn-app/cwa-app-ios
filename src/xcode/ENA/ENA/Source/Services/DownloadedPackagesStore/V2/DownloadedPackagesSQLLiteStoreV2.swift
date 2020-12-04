@@ -436,7 +436,7 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 	func delete(packages: [SAPDownloadedPackage]) throws {
 		guard !packages.isEmpty else { return }
 
-		Log.info("Delete key packages: \(packages.map{ $0.fingerprint })", log: .localData)
+		Log.info("Delete key packages with fingerprint: \(packages.map { $0.fingerprint })", log: .localData)
 
 		// Reset the download flags to ensure that the KeyPackageDownload will download packages after revoked packages were deleted.
 		keyValueStore?.wasRecentDayKeyDownloadSuccessful = false
