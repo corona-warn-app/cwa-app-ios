@@ -141,7 +141,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		
 		let exposureSubmissionService = MockExposureSubmissionService()
 		exposureSubmissionService.getTestResultCallback = { completion in
-			completion(.success(.positive))
+			completion(.success(.negative))
 			getTestResultExpectation.fulfill()
 		}
 
@@ -175,8 +175,8 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		
 		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonLoading)
 		XCTAssertTrue(model.navigationFooterItem.isSecondaryButtonEnabled)
-		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonHidden)
-		XCTAssertTrue(model.navigationFooterItem.secondaryButtonHasBorder)
+		XCTAssertTrue(model.navigationFooterItem.isSecondaryButtonHidden)
+		XCTAssertFalse(model.navigationFooterItem.secondaryButtonHasBorder)
 	}
 	
 	func testDidTapPrimaryButtonOnPendingTestResultSetsError() {
