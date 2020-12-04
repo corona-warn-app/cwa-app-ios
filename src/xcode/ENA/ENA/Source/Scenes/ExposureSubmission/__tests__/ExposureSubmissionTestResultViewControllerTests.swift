@@ -22,7 +22,7 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 				exposureSubmissionService: MockExposureSubmissionService(),
 				warnOthersReminder: WarnOthersReminder(store: self.store),
 				onSubmissionConsentCellTap: { _ in },
-				onContinueWithSymptomsFlowButtonTap: { _ in },
+				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },
 				onTestDeleted: { }
 			),

@@ -5,7 +5,6 @@
 import XCTest
 @testable import ENA
 
-// swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	
@@ -24,7 +23,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { _ in },
+			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onTestDeleted: { }
 		)
@@ -49,7 +48,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { _ in
+			onContinueWithSymptomsFlowButtonTap: {
 				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 			},
 			onContinueWarnOthersButtonTap: { _ in },
@@ -84,7 +83,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				exposureSubmissionService: exposureSubmissionService,
 				warnOthersReminder: WarnOthersReminder(store: self.store),
 				onSubmissionConsentCellTap: { _ in },
-				onContinueWithSymptomsFlowButtonTap: { _ in
+				onContinueWithSymptomsFlowButtonTap: {
 					onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 				},
 				onContinueWarnOthersButtonTap: { _ in },
@@ -117,7 +116,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { _ in
+			onContinueWithSymptomsFlowButtonTap: {
 				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 			},
 			onContinueWarnOthersButtonTap: { _ in },
@@ -147,7 +146,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { _ in },
+			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onTestDeleted: { }
 		)
@@ -189,7 +188,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { _ in },
+			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onTestDeleted: { }
 		)
@@ -199,70 +198,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 		
 		XCTAssertEqual(model.error, .internal)
-	}
-	
-	
-	func testDidTapPrimaryButtonOnPositiveTestResultUpdatesButtonsLoadingStateTrue() {
-		let onContinueWithSymptomsFlowButtonTapExpectation = expectation(
-			description: "onContinueWithoutSymptomsFlowButtonTap closure is called"
-		)
-		
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.isSubmissionConsentGiven = true
-
-		let model = ExposureSubmissionTestResultViewModel(
-			testResult: .positive,
-			exposureSubmissionService: exposureSubmissionService,
-			warnOthersReminder: WarnOthersReminder(store: self.store),
-			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { isLoading in
-				isLoading(true)
-
-				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
-			},
-			onContinueWarnOthersButtonTap: { _ in },
-			onTestDeleted: { }
-		)
-		
-		model.didTapPrimaryButton()
-		
-		waitForExpectations(timeout: .short)
-		
-		XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonEnabled)
-		XCTAssertTrue(model.navigationFooterItem.isPrimaryButtonLoading)
-		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonEnabled)
-	}
-	
-	func testDidTapPrimaryButtonOnPositiveTestResultUpdatesButtonsLoadingStateFalse() {
-		let onContinueWithSymptomsFlowButtonTapExpectation = expectation(
-			description: "onContinueWithoutSymptomsFlowButtonTap closure is not called"
-		)
-		
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.isSubmissionConsentGiven = true
-
-		let model = ExposureSubmissionTestResultViewModel(
-			testResult: .positive,
-			exposureSubmissionService: exposureSubmissionService,
-			warnOthersReminder: WarnOthersReminder(store: self.store),
-			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { isLoading in
-				isLoading(true)
-				isLoading(false)
-
-				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
-			},
-			onContinueWarnOthersButtonTap: { _ in },
-			onTestDeleted: { }
-		)
-		
-		model.didTapPrimaryButton()
-		
-		waitForExpectations(timeout: .short)
-		
-		XCTAssertTrue(model.navigationFooterItem.isPrimaryButtonEnabled)
-		XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonLoading)
-		XCTAssertTrue(model.navigationFooterItem.isSecondaryButtonEnabled)
 	}
 	
 	func testDidTapPrimaryButtonOnPendingTestResultUpdatesButtonsLoadingState() {
@@ -275,7 +210,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { _ in },
+			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onTestDeleted: { }
 		)
@@ -306,7 +241,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { _ in },
+			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onTestDeleted: { }
 		)
@@ -328,7 +263,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				exposureSubmissionService: MockExposureSubmissionService(),
 				warnOthersReminder: WarnOthersReminder(store: self.store),
 				onSubmissionConsentCellTap: { _ in },
-				onContinueWithSymptomsFlowButtonTap: { _ in },
+				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },
 				onTestDeleted: { }
 			)
@@ -358,7 +293,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: exposureSubmissionService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { _ in },
+			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onTestDeleted: {
 				onTestDeletedCalledExpectation.fulfill()
@@ -376,7 +311,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { _ in },
+			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onTestDeleted: { }
 		)
@@ -397,7 +332,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { _ in },
+			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onTestDeleted: { }
 		)
@@ -420,7 +355,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				exposureSubmissionService: MockExposureSubmissionService(),
 				warnOthersReminder: WarnOthersReminder(store: self.store),
 				onSubmissionConsentCellTap: { _ in },
-				onContinueWithSymptomsFlowButtonTap: { _ in },
+				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },
 				onTestDeleted: { }
 			)
@@ -442,7 +377,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { _ in },
+			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onTestDeleted: { }
 		)
@@ -477,7 +412,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { _ in },
+			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onTestDeleted: { }
 		)
@@ -532,7 +467,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { _ in },
+			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onTestDeleted: { }
 		)
@@ -567,7 +502,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { _ in },
+			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onTestDeleted: { }
 		)
@@ -606,7 +541,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			exposureSubmissionService: MockExposureSubmissionService(),
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { _ in },
+			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
 			onTestDeleted: { }
 		)

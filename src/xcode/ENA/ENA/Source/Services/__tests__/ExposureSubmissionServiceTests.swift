@@ -463,22 +463,19 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		let onSuccessExpectation = expectation(description: "onSuccess is called")
 
-		let onErrorExpectation = expectation(description: "onError is not called")
-		onErrorExpectation.isInverted = true
-
 		service.loadSupportedCountries(
 			isLoading: {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()
 			},
-			onSuccess: { onSuccessExpectation.fulfill() },
-			onError: { _ in onErrorExpectation.fulfill() }
+			onSuccess: { supportedCountries in
+				XCTAssertEqual(supportedCountries, [Country(countryCode: "DE"), Country(countryCode: "IT"), Country(countryCode: "ES")])
+				onSuccessExpectation.fulfill()
+			}
 		)
 
 		waitForExpectations(timeout: .short)
 		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
-
-		XCTAssertEqual(service.supportedCountries, [Country(countryCode: "DE"), Country(countryCode: "IT"), Country(countryCode: "ES")])
 	}
 
 	func testLoadSupportedCountriesLoadEmpty() {
@@ -502,22 +499,19 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		let onSuccessExpectation = expectation(description: "onSuccess is called")
 
-		let onErrorExpectation = expectation(description: "onError is not called")
-		onErrorExpectation.isInverted = true
-
 		service.loadSupportedCountries(
 			isLoading: {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()
 			},
-			onSuccess: { onSuccessExpectation.fulfill() },
-			onError: { _ in onErrorExpectation.fulfill() }
+			onSuccess: { supportedCountries in
+				XCTAssertEqual(supportedCountries, [Country(countryCode: "DE")])
+				onSuccessExpectation.fulfill()
+			}
 		)
 
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
-
-		XCTAssertEqual(service.supportedCountries, [Country(countryCode: "DE")])
 	}
 
 	// MARK: Plausible deniability tests.
