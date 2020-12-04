@@ -90,6 +90,8 @@ extension URLSession.Response.Failure: ExposureSubmissionErrorTransformable {
 			return .qrDoesNotExist
 		case .noResponse:
 			return .noResponse
+		case .noNetworkConnection:
+			return .noNetworkConnection
 		case let .serverError(code):
 			return .serverError(code)
 		case .fakeResponse:

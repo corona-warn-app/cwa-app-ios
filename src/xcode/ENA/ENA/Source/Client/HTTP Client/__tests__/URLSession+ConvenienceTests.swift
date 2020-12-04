@@ -74,14 +74,14 @@ final class URLSessionConvenienceTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
-	func testExecuteRequest_FailureWithError() {
+	func testExecuteRequest_FailuresWithError() {
 		let url = URL(staticString: "https://localhost:8080")
 		let dateFormatter = ENAFormatter.httpDateHeaderFormatter
 		let dateString = "Wed, 07 Oct 2020 12:17:01 GMT"
 
 		let notConnectedError = NSError(
 			domain: NSURLErrorDomain,
-			code: NSURLErrorNotConnectedToInternet,
+			code: NSURLErrorUnknown,
 			userInfo: nil
 		)
 		let data = Data("hello".utf8)
@@ -97,17 +97,54 @@ final class URLSessionConvenienceTests: XCTestCase {
 		)
 		let request = URLRequest(url: url)
 
-		let expectation = self.expectation(description: "Fails")
+		let expectation = self.expectation(description: "goto fail")
 		session.response(for: request) { result in
 			switch result {
 			case .success:
-				XCTFail("should succeed")
+				XCTFail("should fail")
 			case let .failure(error):
 				if case let .httpError(_, httpResponse) = error {
 					XCTAssertNotNil(httpResponse.dateHeader)
 					XCTAssertEqual(httpResponse.dateHeader, dateFormatter.date(from: dateString))
 				} else {
 					XCTFail("Expected an httpError with httpResponse.")
+				}
+				expectation.fulfill()
+			}
+		}
+
+		waitForExpectations(timeout: .medium)
+	}
+
+	func testExecuteRequest_NoConnectionError() {
+		let url = URL(staticString: "https://localhost:8080")
+		let notConnectedError = NSError(
+			domain: NSURLErrorDomain,
+			code: NSURLErrorNotConnectedToInternet,
+			userInfo: nil
+		)
+		let session = MockUrlSession(
+			data: nil,
+			nextResponse: HTTPURLResponse(
+				url: url,
+				statusCode: 500,
+				httpVersion: nil,
+				headerFields: nil
+			),
+			error: notConnectedError
+		)
+		let request = URLRequest(url: url)
+
+		let expectation = self.expectation(description: "goto fail")
+		session.response(for: request) { result in
+			switch result {
+			case .success:
+				XCTFail("should fail")
+			case let .failure(error):
+				if case .noNetworkConnection = error {
+					XCTAssertTrue(true) // expected this error without response - obviously
+				} else {
+					XCTFail("Expected an `noNetworkConnection` error, got \(error)")
 				}
 				expectation.fulfill()
 			}
