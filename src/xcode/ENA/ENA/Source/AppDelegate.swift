@@ -207,9 +207,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		self.client = HTTPClient(configuration: configuration)
 		self.wifiClient = WifiOnlyHTTPClient(configuration: configuration)
 
-		#if !RELEASE
 		downloadedPackagesStore.keyValueStore = self.store
-		#endif
 	}
 
 	func application(
