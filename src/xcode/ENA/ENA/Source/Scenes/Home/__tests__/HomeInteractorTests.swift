@@ -16,7 +16,7 @@ final class HomeInteractorTests: XCTestCase {
 		store.registrationToken = "dummyRegistrationToken"
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		let delegate = HomeViewControllerDelegateDummy()
 		let exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .active)
 

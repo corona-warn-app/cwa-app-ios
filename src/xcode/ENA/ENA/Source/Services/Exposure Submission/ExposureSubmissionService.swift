@@ -17,13 +17,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	// MARK: - Init
 
 	init(
-		diagnosiskeyRetrieval: DiagnosisKeysRetrieval,
+		diagnosisKeysRetrieval: DiagnosisKeysRetrieval,
 		appConfigurationProvider: AppConfigurationProviding,
 		client: Client,
 		store: Store,
 		warnOthersReminder: WarnOthersRemindable
 	) {
-		self.diagnosiskeyRetrieval = diagnosiskeyRetrieval
+		self.diagnosisKeysRetrieval = diagnosisKeysRetrieval
 		self.appConfigurationProvider = appConfigurationProvider
 		self.client = client
 		self.store = store
@@ -105,7 +105,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler) {
 		Log.info("Getting temporary exposure keys...", log: .api)
 
-		diagnosiskeyRetrieval.accessDiagnosisKeys { [weak self] keys, error in
+		diagnosisKeysRetrieval.accessDiagnosisKeys { [weak self] keys, error in
 			if let error = error {
 				Log.error("Error while retrieving temporary exposure keys: \(error.localizedDescription)", log: .api)
 				completion(self?.parseError(error))
@@ -225,7 +225,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	}
 
 	var exposureManagerState: ExposureManagerState {
-		diagnosiskeyRetrieval.exposureManagerState
+		diagnosisKeysRetrieval.exposureManagerState
 	}
 
 	func acceptPairing() {
@@ -256,7 +256,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	private static var fakeSubmissionTan: String { return UUID().uuidString }
 
-	private let diagnosiskeyRetrieval: DiagnosisKeysRetrieval
+	private let diagnosisKeysRetrieval: DiagnosisKeysRetrieval
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let client: Client
 	private let store: Store
@@ -281,7 +281,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		_ completeWith: @escaping ENAExposureSubmissionService.TestResultHandler
 	) {
 		client.getTestResult(forDevice: registrationToken, isFake: false) { result in
-
 			switch result {
 			case let .failure(error):
 				completeWith(.failure(self.parseError(error)))
