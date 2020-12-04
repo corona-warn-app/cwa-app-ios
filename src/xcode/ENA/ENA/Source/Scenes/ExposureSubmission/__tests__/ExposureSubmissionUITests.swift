@@ -131,7 +131,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
 		
-		// NewSubmissionFlow: Add the test here
+		// (1) NewSubmissionFlow: Add the test here
 	}
 
 	func test_SubmitTAN_SymptomsOptionPreferNotToSay() {
@@ -165,7 +165,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
 		
-		// NewSubmissionFlow: Add the test here
+		// (2) NewSubmissionFlow: Add the test here
 	}
 
 	func test_SubmitTAN_SymptomsOnsetDateOption() {
@@ -245,7 +245,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
 		
-		// NewSubmissionFlow: Add the test here
+		// (3) NewSubmissionFlow: Add the test here
 	}
 
 	func test_SubmitTAN_SecondaryFlowWithoutSymptomsScreens() {
@@ -322,7 +322,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		
-		// NewSubmissionFlow: Add the test here
+		// (4) NewSubmissionFlow: Add the test here
 	}
 
 	func test_screenshot_SubmissionNotPossible() {
