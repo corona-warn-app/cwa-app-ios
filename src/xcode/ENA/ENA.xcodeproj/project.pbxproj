@@ -139,8 +139,8 @@
 		35BE8598251CE495005C2FD0 /* CachingHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BE8597251CE495005C2FD0 /* CachingHTTPClient.swift */; };
 		35C701EC2556BCB9008AEA91 /* Migration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C701EB2556BCB9008AEA91 /* Migration1To2.swift */; };
 		35C701F82556C01F008AEA91 /* Migration1To2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C701F32556C016008AEA91 /* Migration1To2Tests.swift */; };
-		35D16DDE2567FB980069AD1B /* DynamicAcknowledgementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D16DDC2567FB980069AD1B /* DynamicAcknowledgementCell.swift */; };
-		35D16DDF2567FB980069AD1B /* DynamicAcknowledgementCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35D16DDD2567FB980069AD1B /* DynamicAcknowledgementCell.xib */; };
+		35D16DDE2567FB980069AD1B /* DynamicLegalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D16DDC2567FB980069AD1B /* DynamicLegalCell.swift */; };
+		35D16DDF2567FB980069AD1B /* DynamicLegalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35D16DDD2567FB980069AD1B /* DynamicLegalCell.xib */; };
 		35EA684225553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA684125553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift */; };
 		35EA684A25553B5C00335F73 /* DownloadedPackagesStoreV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA684925553B5C00335F73 /* DownloadedPackagesStoreV2.swift */; };
 		35EA68522555488600335F73 /* SQLiteError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA68512555488600335F73 /* SQLiteError.swift */; };
@@ -757,8 +757,8 @@
 		35BE8597251CE495005C2FD0 /* CachingHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingHTTPClient.swift; sourceTree = "<group>"; };
 		35C701EB2556BCB9008AEA91 /* Migration1To2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration1To2.swift; sourceTree = "<group>"; };
 		35C701F32556C016008AEA91 /* Migration1To2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration1To2Tests.swift; sourceTree = "<group>"; };
-		35D16DDC2567FB980069AD1B /* DynamicAcknowledgementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicAcknowledgementCell.swift; sourceTree = "<group>"; };
-		35D16DDD2567FB980069AD1B /* DynamicAcknowledgementCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DynamicAcknowledgementCell.xib; sourceTree = "<group>"; };
+		35D16DDC2567FB980069AD1B /* DynamicLegalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLegalCell.swift; sourceTree = "<group>"; };
+		35D16DDD2567FB980069AD1B /* DynamicLegalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DynamicLegalCell.xib; sourceTree = "<group>"; };
 		35EA684125553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesSQLLiteStoreV2.swift; sourceTree = "<group>"; };
 		35EA684925553B5C00335F73 /* DownloadedPackagesStoreV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesStoreV2.swift; sourceTree = "<group>"; };
 		35EA68512555488600335F73 /* SQLiteError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteError.swift; sourceTree = "<group>"; };
@@ -1740,7 +1740,6 @@
 				AB6289CE251BA01400CF61D2 /* Bundle+Version.swift */,
 				01DB708425068167008F7244 /* Calendar+GregorianLocale.swift */,
 				0190B224255C423600CF4244 /* Date+Age.swift */,
-				AB7E2A7F255ACC06005C90F6 /* Date+Utils.swift */,
 				51895EDB245E16CD0085DA38 /* ENAColor.swift */,
 				710021DB248E44A6001F0B63 /* ENAFont.swift */,
 				01734B6D255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift */,
@@ -1940,8 +1939,8 @@
 				710021DD248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib */,
 				710224F32490E7A3000C5DEF /* ExposureSubmissionStepCell.swift */,
 				710224ED2490E2FC000C5DEF /* ExposureSubmissionStepCell.xib */,
-				35D16DDC2567FB980069AD1B /* DynamicAcknowledgementCell.swift */,
-				35D16DDD2567FB980069AD1B /* DynamicAcknowledgementCell.xib */,
+				35D16DDC2567FB980069AD1B /* DynamicLegalCell.swift */,
+				35D16DDD2567FB980069AD1B /* DynamicLegalCell.xib */,
 				351E630A256C5B9C00D89B29 /* LabeledCountriesCell.swift */,
 				351E630B256C5B9C00D89B29 /* LabeledCountriesCell.xib */,
 			);
@@ -3347,7 +3346,7 @@
 				51B5B414246DF07300DC5D3E /* RiskImageItemView.xib in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
 				711EFCC924935C79005FEF21 /* ExposureSubmissionTestResultHeaderView.xib in Resources */,
-				35D16DDF2567FB980069AD1B /* DynamicAcknowledgementCell.xib in Resources */,
+				35D16DDF2567FB980069AD1B /* DynamicLegalCell.xib in Resources */,
 				51CE1B88246078B6002CF42A /* RiskLevelCollectionViewCell.xib in Resources */,
 				710021DE248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib in Resources */,
 				51D420D024586AB300AD70CA /* Settings.storyboard in Resources */,
@@ -3713,7 +3712,7 @@
 				710021E0248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift in Sources */,
 				B14D0CDF246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift in Sources */,
 				B1D8CB2724DD44C6008C6010 /* DMTracingHistoryViewController.swift in Sources */,
-				35D16DDE2567FB980069AD1B /* DynamicAcknowledgementCell.swift in Sources */,
+				35D16DDE2567FB980069AD1B /* DynamicLegalCell.swift in Sources */,
 				94B255A62551B7C800649B4C /* WarnOthersReminder.swift in Sources */,
 				71FE1C69247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift in Sources */,
 				B18755D124DC45CA00A9202E /* DMStoreViewController.swift in Sources */,
