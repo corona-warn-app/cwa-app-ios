@@ -81,7 +81,7 @@
 
 "ExposureDetection_Behavior_Title" = "Guidelines";
 
-"ExposureDetection_Behavior_Subtitle" = "This is what you should do";
+"ExposureDetection_Behavior_Subtitle" = "This is what you should do:";
 
 "ExposureDetection_Guide_Hands" = "Wash your hands regularly, with soap, for 20 seconds.";
 
@@ -103,7 +103,7 @@
 
 "ExposureDetection_Explanation_Title" = "Risk of Infection";
 
-"ExposureDetection_Explanation_Subtitle" = "This is how your risk is calculated";
+"ExposureDetection_Explanation_Subtitle" = "This is how your risk is calculated.";
 
 "ExposureDetection_Explanation_Text_Off" = "Your risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.";
 
@@ -130,6 +130,8 @@
 "ExposureDetection_Button_Enable" = "Activate Exposure Logging";
 
 "ExposureDetection_Button_Refresh" = "Update";
+
+"ExposureDetection_Button_Title_Restart" = "Restart";
 
 "ExposureDetection_Risk_Status_Downloading_Title" = "Data is being downloaded…";
 
@@ -333,7 +335,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To identify any possible exposure, you need to enable exposure logging.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Exposure logging works by your smartphone receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. This feature can be disabled at any time. \n\nEncrypted random IDs only pass information about date, duration, and proximity to other persons (calculated by signal strength). Personal data such as name, address, and location is never recorded. Individuals cannot be identified based on the random IDs.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Exposure logging works by your iPhone receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. This feature can be disabled at any time. \n\nEncrypted random IDs only pass information about date, duration, and proximity to other persons (calculated by signal strength). Personal data such as name, address, and location is never recorded. Individuals cannot be identified based on the random IDs.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Age Limit: 16 and Up";
 
@@ -366,7 +368,7 @@
 /* Onboarding EU Keys */
 "onboardingInfo_enableLoggingOfContactsPage_euTitle" = "Transnational Exposure Logging";
 
-"onboardingInfo_enableLoggingOfContactsPage_euDescription" = "Several countries have teamed up to enable transnational warnings. In other words, your potential exposure to users of the official corona apps in all participating countries can now be taken into account.\n\nWhen a user submits their random IDs to the exchange server jointly operated by the participating countries, users of the official corona apps in all these countries can be warned of potential exposure.\n\nThe daily download of random IDs is normally free of charge for you. This means the data volume caused by the app will not be charged by cellular carriers, nor will you incur any roaming fees in other European countries. For more information, please contact your cellular carrier.";
+"onboardingInfo_enableLoggingOfContactsPage_euDescription" = "Several countries have teamed up to enable transnational warnings. In other words, your potential exposure to users of the official corona apps in all participating countries can now be taken into account.\n\nWhen a user submits their positive test result (more specifically: their random IDs) to warn others through the exchange server jointly operated by the participating countries, all users of the official corona apps in all these countries can be warned of their potential exposure.\n\nThe daily downloads of lists of random IDs from users who have shared positive test results are usually free of charge for you. Specifically, this means that mobile network operators do not charge you for the data used by the app in this context, nor do they apply roaming charges for this in other EU countries. Please contact your mobile network operator for more information.";
 
 "onboardingInfo_enableLoggingOfContactsPage_participatingCountriesTitle" = "The following countries currently participate:";
 
@@ -413,24 +415,30 @@
 
 "ExposureSubmission_GeneralErrorTitle" = "Error";
 
-"ExposureSubmission_DispatchTitle" = "Selection";
+/* Exposure Submission Dispatch */
+"ExposureSubmission_DispatchTitle" = "Retrieve Test Result";
 
-"ExposureSubmission_DispatchDescription" = "What information do you have?";
+"ExposureSubmissionIntroduction_AccImageDescription" = "A device transmits an encrypted positive test diagnosis to the system.";
 
-"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Document with QR code";
+"ExposureSubmission_DispatchDescription" = "Retrieve your test result through the app and then warn others. You’ll protect yourself and help to stop the spread of coronavirus.";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Register your test by scanning the QR code of your test document.";
+"ExposureSubmission_DispatchSectionHeadline" = "Have you been tested?";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "TAN";
+"ExposureSubmission_DispatchSectionHeadline2" = "Did you test positive for coronavirus?";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "Register your test by entering your TAN manually.";
+"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Test with QR Code";
 
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "Request TAN";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Scan your QR code to retrieve your test result and then warn others.";
 
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Please call us if you were tested %@.";
+"ExposureSubmissionDispatch_TANButtonTitle" = "TAN Entry";
 
-"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Positive for COVID-19";
+"ExposureSubmissionDispatch_TANButtonDescription" = "Do you have a TAN? Continue to enter your TAN, so you can warn others.";
 
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "No TAN yet?";
+
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Call us and get a TAN.";
+
+/* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Request TAN";
 
 "ExposureSubmissionHotline_Description" = "Please keep your test result (if available) and your phone number ready to request a TAN.";
@@ -456,23 +464,37 @@
 "ExposureSubmissionHotline_imageDescription" = "Hotline communicates a TAN.";
 
 /* Exposure Submission QR Code Info */
-"ExposureSubmissionQRInfo_title" = "QR Code Scan";
+"ExposureSubmissionQRInfo_title" = "Your Consent";
 
-"ExposureSubmissionQRInfo_imageDescription" = "A person is holding a smartphone next to a QR code. The read QR code appears on the smartphone screen.";
+"ExposureSubmissionQRInfo_imageDescription" = "A person is holding a smartphone. A QR code on a test symbolizes the code to be scanned.";
+
+"ExposureSubmissionQRInfo_title_description" = "Your consent is needed before you can retrieve your test result and warn others.";
+
+"ExposureSubmissionQRInfo_header_section_1" = "Retrieve Test Result";
+
+"ExposureSubmissionQRInfo_body_section_1" = "In the next step, scan the QR code on your test and retrieve your test result.";
 
 "ExposureSubmissionQRInfo_instruction1" = "Please only scan your own test.";
 
-"ExposureSubmissionQRInfo_instruction2" = "Every test can be scanned %@.";
-
-"ExposureSubmissionQRInfo_instruction2_highlightedPhrase" = "only once";
+"ExposureSubmissionQRInfo_instruction2" = "Your test can only be scanned once. The app cannot manage multiple tests at the same time.";
 
 "ExposureSubmissionQRInfo_instruction3" = "The app can%@ manage multiple tests at the same time.";
 
 "ExposureSubmissionQRInfo_instruction3_highlightedPhrase" = "not";
 
-"ExposureSubmissionQRInfo_instruction4" = "If a more current test is available, delete the existing test and scan the QR code of the current test.";
+"ExposureSubmissionQRInfo_header_section_2" = "Please help others you have encountered by warning them!";
 
-"ExposureSubmissionQRInfo_primaryButtonTitle" = "Next";
+"ExposureSubmissionQRInfo_body_section_2" = "If you have been diagnosed with coronavirus, you can warn others through the app. The warning function works in several countries. The following countries are currently participating:";
+
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Your consent is voluntary.";
+
+"ExposureSubmissionQRInfo_acknowledgement_4" = "You can retrieve your test result even if you do not choose to share it. But if you share your test result, you will help to protect others against infection.";
+
+"ExposureSubmissionQRInfo_acknowledgement_5" = "Your identity will remain secret. Other users will not know who shared their test results.";
+
+"ExposureSubmissionQRInfo_acknowledgement_6" = "You must be at least 16 years old to grant your consent.";
+
+"ExposureSubmissionQRInfo_primaryButtonTitle" = "Accept";
 
 "ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title" = "QR code no longer valid";
 
@@ -498,7 +520,7 @@
 "ExposureSubmissionQRScanner_CameraFlash_Disable" = "Turn off camera flash";
 
 /* Exposure Submission Success */
-"ExposureSubmissionSuccess_Title" = "Thank you!";
+"ExposureSubmissionSuccess_Title" = "Thank you";
 
 "ExposureSubmissionSuccess_AccImageDescription" = "Everyone in the group is cheering because someone has shared their test result.";
 
@@ -522,27 +544,35 @@
 
 "ExposureSubmissionSuccess_listItem2_4" = "Even when you no longer have any symptoms and you feel well again, you could still be infectious.";
 
-/* Exposure Submission Introduction */
-"ExposureSubmissionIntroduction_Title" = "Information";
+/* Exposure Submission Testresult available */
+"ExposureSubmissionTestresultAvailable_Title" = "Your test result is available";
 
-"ExposureSubmissionIntroduction_SubTitle" = "This is how the Corona-Warn-App works";
+"ExposureSubmissionTestresultAvailable_AccImageDescription" = "A woman holds her smartphone in her hand. It is sending a signal to another smartphone.";
 
-"ExposureSubmissionIntroduction_AccImageDescription" = "A device transmits an encrypted positive test diagnosis to the system.";
+"ExposureSubmissionTestresultAvailable_Consent_granted" = "Consent\n“Warn others” granted";
 
-"ExposureSubmissionIntroduction_Usage01" = "For the app to work well, we rely on the support of persons who were diagnosed with COVID-19.";
+"ExposureSubmissionTestresultAvailable_Consent_not_given" = "Consent\n“Warn others” not granted";
 
-"ExposureSubmissionIntroduction_Usage02" = "Since the app only exchanges encrypted random IDs, it is impossible for you to be identified. You can now proceed as follows:";
+"ExposureSubmissionTestresultAvailable_ListItem1WithConsent" = "Thank you for agreeing to share your test result and helping to warn others as a result.";
 
-"ExposureSubmissionIntroduction_ListItem1" = "If there is a QR code in your test document, you can scan this and register the test. As soon as the result is available, you can view it in the app.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "In the next step, please share your test result by tapping “Share”.";
 
-"ExposureSubmissionIntroduction_ListItem2" = "If you have been diagnosed with COVID-19, you can warn others.";
+"ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "You have chosen to not share your test results. Others will not be warned.";
 
-"ExposureSubmissionIntroduction_ListItem3" = "If you were given a TAN for a positive diagnosis, you can use this to register the test.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithoutConsent" = "In the next step, you have the opportunity to change your mind and share your test result after all, to help stop the spread of coronavirus and protect others.";
 
-"ExposureSubmissionIntroduction_ListItem4" = "If you do not have a TAN, you can request one by telephone.";
+"ExposureSubmissionTestresultAvailable_primaryButtonTitle" = "Next";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Important:\nYou are about to cancel this process. You have not warned others yet. Please complete the process and help to protect others.";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertMessage" = "Do you really want to cancel the process?";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Cancel";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Continue";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_Title" = "Test Result";
+"ExposureSubmissionResult_Title" = "Your Test Result";
 
 "ExposureSubmissionResult_CardSubTitle" = "Your Diagnosis";
 
@@ -558,9 +588,7 @@
 
 "ExposureSubmissionResult_Procedure" = "How this works:";
 
-"ExposureSubmissionResult_testAdded" = "Test added successfully";
-
-"ExposureSubmissionResult_testAddedDesc" = "Your test has been stored in the Corona-Warn-App.";
+"ExposureSubmissionResult_testAdded" = "Your test has been added.";
 
 "ExposureSubmissionResult_warnOthers" = "Warning Others";
 
@@ -588,13 +616,13 @@
 
 "ExposureSubmissionResult_testExpiredDesc" = "There was a problem evaluating your test. Your QR code has already expired.";
 
-"ExposureSubmissionResult_testPending" = "Test result is not yet available";
+"ExposureSubmissionResult_testPending" = "Your test result is not available yet.";
 
-"ExposureSubmissionResult_testPendingDesc_paragraph1" = "Please be patient, as the evaluation may take several days.";
+"ExposureSubmissionResult_testPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.";
 
-"ExposureSubmissionResult_testPendingDesc_paragraph2" = "You will also receive your test result outside of the app. The public health authorities will notify you, should your test be positive.";
+"ExposureSubmissionResult_WarnOthersConsentGiven" = "Consent “Warn others” granted";
 
-"ExposureSubmissionResult_testPendingDesc_paragraph3" = "In the event of a positive test result, please call the number shown under \"Request TAN\" to register your result in the app and warn others.";
+"ExposureSubmissionResult_WarnOthersConsentNotGiven" = "Consent “Warn others” not granted";
 
 "ExposureSubmissionResult_testRemove" = "Delete test";
 
@@ -611,9 +639,9 @@
 /* ExposureSubmissionSymptoms */
 "ExposureSubmissionSymptoms_Title" = "Symptoms";
 
-"ExposureSubmissionSymptoms_Introduction" = "You can indicate whether and when you noticed any corona symptoms, to allow the App to calculate more accurately the risk of infection to other app users. If you do not want to provide that information, just select “no answer”.";
+"ExposureSubmissionSymptoms_Introduction" = "You can indicate whether and when you noticed any corona symptoms, to allow the App to calculate more accurately the risk of infection to other app users. This step is voluntary. If you do not want to provide information about your symptoms, select “No answer”.";
 
-"ExposureSubmissionSymptoms_Description" = "Have you experienced one or more of the following symptoms?";
+"ExposureSubmissionSymptoms_Description" = "Have you experienced one or more of the following symptoms in the last few days?";
 
 "ExposureSubmissionSymptoms_Symptom0" = "Increased temperature or fever";
 
@@ -642,11 +670,11 @@
 /* ExposureSubmissionSymptomsOnset */
 "ExposureSubmissionSymptomsOnset_Title" = "Start of Symptoms";
 
-"ExposureSubmissionSymptomsOnset_Subtitle" = "When did you first start to experience these symptoms?";
+"ExposureSubmissionSymptomsOnset_Subtitle" = "When did you first notice the symptoms?";
 
-"ExposureSubmissionSymptomsOnset_Description" = "Answer the question as accurately as possible.";
+"ExposureSubmissionSymptomsOnset_Description" = "Please specify the date as accurately as possible.";
 
-"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Exact date";
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Date";
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "In the last 7 days";
 
@@ -656,7 +684,16 @@
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "No statement";
 
-"ExposureSubmissionSymptomsOnset_ContinueButton" = "Next";
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "That’s it!";
+
+/* ExposureSubmissionSymptoms - Cancel alert */
+"ExposureSubmissionSymptoms_CancelAlertTitle" = "Do you want to cancel entering your symptoms?";
+
+"ExposureSubmissionSymptoms_CancelAlertMessage" = "If you provide information about your symptoms, you can warn others more exactly.";
+
+"ExposureSubmissionSymptoms_CancelAlertButtonCancel" = "Yes";
+
+"ExposureSubmissionSymptoms_CancelAlertButtonContinue" = "No";
 
 /* ExposureSubmissionWarnOthers */
 "ExposureSubmissionWarnOthers_title" = "Warn Others";
@@ -665,13 +702,9 @@
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "You can help!";
 
-"ExposureSubmissionWarnOthers_description" = "If you wish, you can now ensure that others are warned of possible infection.\n\nTo do so, you can transmit your own random IDs from the last 14 days – and, optionally, information about when you first noticed coronavirus symptoms – to the joint exchange server operated by the participating countries. From there, your random IDs and any additional information will be distributed to the users of the relevant official coronavirus apps. In this way, any other users with whom you have had contact can be warned of a possible infection.\n\nThe only information transmitted will be your random IDs and any optional information you provide about the onset of your symptoms. No personal data such as your name, address or location will be disclosed.";
+"ExposureSubmissionWarnOthers_description" = "Because you tested positive for coronavirus, you can now warn others through the app.";
 
-"ExposureSubmissionWarnOthers_supportedCountriesTitle" = "The following countries currently participate in transnational exposure logging:";
-
-"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Age 16 Warning";
-
-"ExposureSubmissionWarnOthers_consentUnderagesText" = "The use of this app is intended for persons who are at least 16 years of age and who reside in Germany.";
+"ExposureSubmissionWarnOthers_supportedCountriesTitle" = "The warning function works in several countries. The following countries are currently participating:";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Accept";
 
@@ -682,7 +715,7 @@
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registration date unknown";
 
-"ExposureSubmissionResult_RegistrationDate" = "Registered on";
+"ExposureSubmissionResult_RegistrationDate" = "Test added on";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "A technical error occurred while sending your data. Please contact the technical hotline. You will find the phone number under App Information.";
@@ -742,7 +775,7 @@
 
 "ExposureNotificationSetting_DescriptionText1" = "You need to enable the exposure logging feature so that the app can determine whether you are at risk after encountering an infected app user. The exposure logging feature works transnationally, meaning any possible exposure involving users is also detected by other official coronavirus apps.";
 
-"ExposureNotificationSetting_DescriptionText2" = "The exposure logging feature works by your smartphone receiving encrypted random IDs from other users via Bluetooth and passing your own random IDs to their smartphones. Every day, the app downloads a list containing the random IDs – along with any voluntary information about the onset of symptoms – of all users who have tested positive for the virus and voluntarily shared this information via their app. This list is then compared with the random IDs of other users that have been recorded by your smartphone, in order to calculate the likelihood that you have also been infected and to warn you if necessary. You can use the toggle switch to disable exposure logging at any time.";
+"ExposureNotificationSetting_DescriptionText2" = "Exposure logging works by your iPhone receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. Every day, the app downloads lists containing the random IDs – along with any voluntary information about the onset of symptoms – of all users who have tested positive for the virus and voluntarily shared their test results (more specifically: their random IDs) via their app. These lists are then compared with the random IDs of other users that have been recorded by your iPhone, in order to calculate the likelihood that you have also been infected and to warn you if necessary. You can use the toggle switch to disable exposure logging at any time.";
 
 "ExposureNotificationSetting_DescriptionText3" = "The app never collects personal data such as your name, address or location, nor is this information passed on to other users. It is not possible to use random IDs to draw conclusions about individual persons.";
 
@@ -811,7 +844,7 @@
 
 "ExposureNotificationSetting_EU_Desc_1" = "Several countries are working together to enable transnational alerts via a joint exchange server. For example, contacts with users of an official coronavirus app from other participating countries can also be taken into account for exposure logging.";
 
-"ExposureNotificationSetting_EU_Desc_2" = "To do this, the app downloads a list, which is updated daily, of the random IDs of all users who have shared their random IDs via their own app. This list is then compared with the random IDs recorded by your smartphone. The daily download of the list with the random IDs is usually free of charge for you – you will not be charged for the data used by the app in this context, will roaming charges apply for this in other EU countries.";
+"ExposureNotificationSetting_EU_Desc_2" = "To do this, the app downloads a list, which is updated daily, of the random IDs of all users who have shared their test results to warn others via their own app. This list is then compared with the random IDs recorded by your iPhone. The list downloads are usually free of charge for you. Specifically, this means that mobile network operators do not charge you for the data used by the app in this context, nor do they apply roaming charges for this in other EU countries. Please contact your mobile network operator for more information.";
 
 "ExposureNotificationSetting_EU_Desc_3" = "The following countries currently participate in transnational exposure logging:";
 
@@ -930,14 +963,14 @@
 
 "Home_Finding_Positive_Card_Share_Item_Title" = "Share your random IDs so that others can be warned.";
 
-"Home_Finding_Positive_Card_Button" = "Next";
+"Home_Finding_Positive_Card_Button" = "Warning Others";
 
 /* Home Submit card */
 "Home_SubmitCard_Title" = "Have you been tested?";
 
-"Home_SubmitCard_Body" = "Help to break the infection chain by notifying others.";
+"Home_SubmitCard_Body" = "Help protect yourself and others.";
 
-"Home_SubmitCard_Button" = "Learn More and Help";
+"Home_SubmitCard_Button" = "Next Steps";
 
 "Home_InfoCard_ShareTitle" = "Share the Corona-Warn-App";
 
@@ -954,11 +987,13 @@
 "Home_AppInformationCard_Version" = "Version";
 
 /* Home Result Card */
-"Home_resultCard_ResultAvailableTitle" = "Your result is available";
+"Home_resultCard_ResultAvailableTitle" = "Your Test Result Is Available";
 
 "Home_resultCard_ResultUnvailableTitle" = "Your result is not yet available";
 
 "Home_resultCard_ShowResultButton" = "Display Test";
+
+"Home_resultCard_RetrieveResultButton" = "Retrieve Test Result";
 
 "Home_resultCard_LoadingBody" = "Current data is being downloaded.\nThis can take several minutes.";
 
@@ -973,6 +1008,10 @@
 "Home_resultCard_InvalidTitle" = "Invalid test";
 
 "Home_resultCard_InvalidDesc" = "Your test cannot be evaluated.";
+
+"Home_resultCard_AvailableSubtitle" = "You can now retrieve your test result.";
+
+"Home_resultCard_AvailableDesc" = "If you have tested positive for coronavirus, you can warn others.";
 
 "Home_resultCard_LoadingErrorTitle" = "Your test result cannot be loaded.";
 
@@ -1192,7 +1231,7 @@
 
 "DeltaOnboarding_Headline" = "Transnational Exposure Logging";
 
-"DeltaOnboarding_Description" = "The functionality of the Corona-Warn-App has been extended. Several countries are now working together to enable transnational alerts via a joint exchange server. For example, contacts with users of an official coronavirus app from other participating countries can now also be taken into account for exposure logging.\n\nTo do this, the app downloads a list, which is updated daily, of the random IDs of all users who have shared their random IDs via their own app. This list is then compared with the random IDs recorded by your smartphone.\n\nThe daily download of the list with the random IDs is usually free of charge for you. Specifically, this means that mobile network operators do not charge you for the data used by the app in this context, nor do they apply roaming charges for this in other EU countries. Please contact your mobile network operator for more information.";
+"DeltaOnboarding_Description" = "The features of the Corona-Warn-App have been enhanced. Many countries have joined up to enable international warnings, based on a jointly-operated exchange server. Exposure to users of official corona apps in other participating countries can now be taken into account when calculating your exposure risk.\n\nTo do this, the app downloads a list, which is updated daily, of the random IDs of all users who have shared their test results to warn others via their own app. This list is then compared with the random IDs recorded by your iPhone.\n\nThe list downloads are usually free of charge for you. Specifically, this means that mobile network operators do not charge you for the data used by the app in this context, nor do they apply roaming charges for this in other EU countries. Please contact your mobile network operator for more information.";
 
 "DeltaOnboarding_ParticipatingCountries" = "The following countries currently participate:";
 
@@ -1212,4 +1251,59 @@
 "WarnOthersNotification_Title" = "You can help!";
 
 "WarnOthersNotification_Description" = "Please share your test result and warn others.";
+
+/* Automatic sharing Consent */
+"AutomaticSharingConsent_Title" = "Your Consent";
+
+"AutomaticSharingConsent_SwitchTitle" = "Warn Others";
+
+"AutomaticSharingConsent_SwitchTitleDesc" = "You have granted the following consent:";
+
+"AutomaticSharingConsent_DataProcessingDetailInfo" = "Detailed Information on Data Processing and Your Consent";
+
+/* Thank you screen */
+"Thank_You_Title" = "Thank you";
+
+"Thank_You_SubTitle" = "Thank you for helping to stop the spread of coronavirus.";
+
+"Thank_You_Description1" = "Others will now be warned.";
+
+"Thank_You_Description2" = "You can now help to improve the accuracy of the warnings. To do so, in the next step, tell us when you first developed symptoms. You can cancel this step at any time.";
+
+"Thank_You_Continue_Button" = "Enter Symptoms";
+
+"Thank_You_Cancel_Button" = "Exit";
+
+"Thank_You_AccImageDescription" = "Several people are looking at their smartphones.";
+
+/* Test result screen (positive test result) */
+"TestResultPositive_NoConsent_Title" = "Please help all of us!";
+
+"TestResultPositive_NoConsent_Info1" = "Share your test result and help protect others against infection.";
+
+"TestResultPositive_NoConsent_Info2" = "Your identity will remain secret. Other users will not know who shared their test results.";
+
+"TestResultPositive_NoConsent_Info3" = "Please be sure to follow the instructions from your public health authority and stay home, so you don’t infect others.";
+
+"TestResultPositive_NoConsent_PrimaryButton" = "Warning Others";
+
+"TestResultPositive_NoConsent_SecondaryButton" = "Cancel";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_Title" = "Don’t you want to send a warning?";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_Description" = "You have to share your test result if you want to warn others.";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne" = "Do not warn others";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo" = "Warn others";
+
+"TestResultPositive_WithConsent_Title" = "Thank you for helping to stop the spread of coronavirus.";
+
+"TestResultPositive_WithConsent_Info1" = "Others will now be warned.";
+
+"TestResultPositive_WithConsent_Info2" = "You can now help to improve the accuracy of the warnings. To do so, in the next step, tell us when you first developed symptoms. You can cancel this step at any time.";
+
+"TestResultPositive_WithConsent_PrimaryButton" = "Enter Symptoms";
+
+"TestResultPositive_WithConsent_SecondaryButton" = "Exit";
 
