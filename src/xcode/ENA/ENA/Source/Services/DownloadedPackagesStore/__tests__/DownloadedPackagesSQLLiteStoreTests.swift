@@ -354,6 +354,12 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		let store = DownloadedPackagesSQLLiteStore(database: database, migrator: SerialMigratorFake(), latestVersion: 0)
 		store.open()
 
+		let keyValueStore = MockTestStore()
+		keyValueStore.wasRecentDayKeyDownloadSuccessful = true
+		keyValueStore.wasRecentHourKeyDownloadSuccessful = true
+
+		store.keyValueStore = keyValueStore
+
 		// dummy data
 		var package: SAPDownloadedPackage {
 			let noise = Data("fake\(Int.random(in: 0..<Int.max))".utf8)
@@ -388,6 +394,9 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		// 2+4 new DE packages expected; 1 more removed
 		XCTAssertEqual(store.allDays(country: "DE").count, 6)
 		XCTAssertEqual(store.allDays(country: "IT").count, 1)
+
+		XCTAssertFalse(keyValueStore.wasRecentDayKeyDownloadSuccessful)
+		XCTAssertFalse(keyValueStore.wasRecentHourKeyDownloadSuccessful)
 	}
 
 	func testPackageStoreValidationOnSet() throws {
