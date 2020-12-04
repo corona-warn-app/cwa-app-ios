@@ -12,7 +12,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	init(
 		viewModel: ExposureSubmissionTestResultViewModel,
 		exposureSubmissionService: ExposureSubmissionService,
-		onDismiss: @escaping (@escaping (Bool) -> Void) -> Void
+		onDismiss: @escaping (TestResult, @escaping (Bool) -> Void) -> Void
 	) {
 		self.viewModel = viewModel
 		self.exposureSubmissionService = exposureSubmissionService
@@ -35,7 +35,9 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		setUpBindings()
 	}
 	
-	override func viewWillAppear(_ animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		
 		viewModel.updateWarnOthers()
 	}
 
@@ -56,7 +58,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	// MARK: - Protocol DismissHandling
 
 	func wasAttemptedToBeDismissed() {
-		onDismiss { [weak self] isLoading in
+		onDismiss(viewModel.testResult) { [weak self] isLoading in
 			DispatchQueue.main.async {
 				self?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
 				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
@@ -68,7 +70,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	
 	// MARK: - Private
 	
-	private let onDismiss: (@escaping (Bool) -> Void) -> Void
+	private let onDismiss: (TestResult, @escaping (Bool) -> Void) -> Void
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let viewModel: ExposureSubmissionTestResultViewModel
 

@@ -17,6 +17,7 @@ class ExposureSubmissionTestResultViewModel {
 		onSubmissionConsentCellTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onContinueWithSymptomsFlowButtonTap: @escaping () -> Void,
 		onContinueWarnOthersButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
+		onChangeToPositiveTestResult: @escaping () -> Void,
 		onTestDeleted: @escaping () -> Void
 	) {
 		self.testResult = testResult
@@ -25,6 +26,7 @@ class ExposureSubmissionTestResultViewModel {
 		self.onSubmissionConsentCellTap = onSubmissionConsentCellTap
 		self.onContinueWithSymptomsFlowButtonTap = onContinueWithSymptomsFlowButtonTap
 		self.onContinueWarnOthersButtonTap = onContinueWarnOthersButtonTap
+		self.onChangeToPositiveTestResult = onChangeToPositiveTestResult
 		self.onTestDeleted = onTestDeleted
 
 		updateForCurrentTestResult()
@@ -37,6 +39,12 @@ class ExposureSubmissionTestResultViewModel {
 	@Published var shouldShowDeletionConfirmationAlert: Bool = false
 	@Published var error: ExposureSubmissionError?
 	@Published var shouldAttemptToDismiss: Bool = false
+
+	var testResult: TestResult {
+		didSet {
+			updateForCurrentTestResult()
+		}
+	}
 	
 	var timeStamp: Int64? {
 		exposureSubmissionService.devicePairingSuccessfulTimestamp
@@ -103,12 +111,6 @@ class ExposureSubmissionTestResultViewModel {
 	}
 	
 	// MARK: - Private
-
-	private var testResult: TestResult {
-		didSet {
-			updateForCurrentTestResult()
-		}
-	}
 	
 	private var exposureSubmissionService: ExposureSubmissionService
 	private var warnOthersReminder: WarnOthersRemindable
@@ -116,7 +118,8 @@ class ExposureSubmissionTestResultViewModel {
 	private let onSubmissionConsentCellTap: (@escaping (Bool) -> Void) -> Void
 	private let onContinueWithSymptomsFlowButtonTap: () -> Void
 	private let onContinueWarnOthersButtonTap: (@escaping (Bool) -> Void) -> Void
-	
+
+	private let onChangeToPositiveTestResult: () -> Void
 	private let onTestDeleted: () -> Void
 
 	private var isSubmissionConsentGiven: Bool = false
@@ -184,6 +187,9 @@ class ExposureSubmissionTestResultViewModel {
 			switch result {
 			case let .failure(error):
 				self?.error = error
+			// Positive test results are not shown immediately
+			case let .success(testResult) where testResult == .positive:
+				self?.onChangeToPositiveTestResult()
 			case let .success(testResult):
 				self?.testResult = testResult
 				self?.updateWarnOthers()

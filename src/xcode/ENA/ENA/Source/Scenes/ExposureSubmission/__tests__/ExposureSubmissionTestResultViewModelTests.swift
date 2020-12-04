@@ -25,6 +25,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
+			onChangeToPositiveTestResult: { },
 			onTestDeleted: { }
 		)
 		
@@ -52,6 +53,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 			},
 			onContinueWarnOthersButtonTap: { _ in },
+			onChangeToPositiveTestResult: { },
 			onTestDeleted: { }
 		)
 		
@@ -87,6 +89,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 					onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 				},
 				onContinueWarnOthersButtonTap: { _ in },
+				onChangeToPositiveTestResult: { },
 				onTestDeleted: { }
 			)
 			
@@ -120,6 +123,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 			},
 			onContinueWarnOthersButtonTap: { _ in },
+			onChangeToPositiveTestResult: { },
 			onTestDeleted: { }
 		)
 		
@@ -148,6 +152,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
+			onChangeToPositiveTestResult: { },
 			onTestDeleted: { }
 		)
 		
@@ -190,6 +195,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
+			onChangeToPositiveTestResult: { },
 			onTestDeleted: { }
 		)
 		
@@ -212,6 +218,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
+			onChangeToPositiveTestResult: { },
 			onTestDeleted: { }
 		)
 		
@@ -243,6 +250,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
+			onChangeToPositiveTestResult: { },
 			onTestDeleted: { }
 		)
 		
@@ -265,6 +273,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },
+				onChangeToPositiveTestResult: { },
 				onTestDeleted: { }
 			)
 			
@@ -295,6 +304,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
+			onChangeToPositiveTestResult: { },
 			onTestDeleted: {
 				onTestDeletedCalledExpectation.fulfill()
 			}
@@ -313,6 +323,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
+			onChangeToPositiveTestResult: { },
 			onTestDeleted: { }
 		)
 		
@@ -334,6 +345,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
+			onChangeToPositiveTestResult: { },
 			onTestDeleted: { }
 		)
 		
@@ -357,6 +369,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },
+				onChangeToPositiveTestResult: { },
 				onTestDeleted: { }
 			)
 			
@@ -379,6 +392,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
+			onChangeToPositiveTestResult: { },
 			onTestDeleted: { }
 		)
 		
@@ -414,6 +428,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
+			onChangeToPositiveTestResult: { },
 			onTestDeleted: { }
 		)
 		
@@ -469,6 +484,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
+			onChangeToPositiveTestResult: { },
 			onTestDeleted: { }
 		)
 		
@@ -504,6 +520,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
+			onChangeToPositiveTestResult: { },
 			onTestDeleted: { }
 		)
 		
@@ -543,6 +560,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
+			onChangeToPositiveTestResult: { },
 			onTestDeleted: { }
 		)
 		

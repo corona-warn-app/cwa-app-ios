@@ -243,12 +243,15 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 						}
 					)
 				},
+				onChangeToPositiveTestResult: { [weak self] in
+					self?.showTestResultAvailableScreen(with: .positive)
+				},
 				onTestDeleted: { [weak self] in
 					self?.dismiss()
 				}
 			),
 			exposureSubmissionService: self.model.exposureSubmissionService,
-			onDismiss: { [weak self] isLoading in
+			onDismiss: { [weak self] testResult, isLoading in
 				if testResult == TestResult.positive {
 					self?.showPositiveTestResultCancelAlert(isLoading: isLoading)
 				} else {

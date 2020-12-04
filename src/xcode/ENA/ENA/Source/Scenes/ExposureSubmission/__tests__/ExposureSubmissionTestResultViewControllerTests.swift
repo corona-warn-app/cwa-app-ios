@@ -24,10 +24,11 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },
+				onChangeToPositiveTestResult: { },
 				onTestDeleted: { }
 			),
 			exposureSubmissionService: MockExposureSubmissionService(),
-			onDismiss: { _ in }
+			onDismiss: { _, _ in }
 		)
 	}
 
