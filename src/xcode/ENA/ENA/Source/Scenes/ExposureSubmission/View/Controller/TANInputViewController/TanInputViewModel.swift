@@ -12,11 +12,13 @@ final class TanInputViewModel {
 	init(
 		exposureSubmissionService: ExposureSubmissionService,
 		presentInvalidTanAlert: @escaping (String, @escaping () -> Void) -> Void,
-		testGotResultSubmitted: @escaping () -> Void
+		tanSuccessfullyTransferred: @escaping () -> Void,
+		givenTan: String = ""
 	) {
 		self.exposureSubmissionService = exposureSubmissionService
 		self.presentInvalidTanAlert = presentInvalidTanAlert
-		self.testGotResultSubmitted = testGotResultSubmitted
+		self.tanSuccessfullyTransferred = tanSuccessfullyTransferred
+		self.text = givenTan
 	}
 	
 	// MARK: - Overrides
@@ -67,11 +69,10 @@ final class TanInputViewModel {
 				self?.isPrimaryBarButtonDisabled = false
 				self?.presentInvalidTanAlert(error.localizedDescription) {
 					self?.didDissMissInvalidTanAlert?()
-//					Log.debug("Debug alert completion")
 				}
 
 			case .success:
-				self?.testGotResultSubmitted()
+				self?.tanSuccessfullyTransferred()
 			}
 		}
 	}
@@ -102,7 +103,7 @@ final class TanInputViewModel {
 
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let presentInvalidTanAlert: (String, @escaping () -> Void) -> Void
-	private let testGotResultSubmitted: () -> Void
+	private let tanSuccessfullyTransferred: () -> Void
 
 	private var groups: String = "3,3,4"
 

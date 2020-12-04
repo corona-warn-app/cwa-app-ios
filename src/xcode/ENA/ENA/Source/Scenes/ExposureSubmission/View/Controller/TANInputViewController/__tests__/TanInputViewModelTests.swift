@@ -11,78 +11,54 @@ class TanInputViewModelTests: XCTestCase {
 		// GIVEN
 		let viewModel = TanInputViewModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			presentInvalidTanAlert: { _ in },
-			presentTestResultScreen: { }
+			presentInvalidTanAlert: { _, _  in },
+			tanSuccessfullyTransferred: { },
+			givenTan: "234567893D"
 		)
 
-		let tanToValidate = "234567893D"
-		/* use original tanView to compare results here */
-		let tanView = ENATanInput()
-		tanView.awakeFromNib()
-		tanView.insertText(tanToValidate)
-
 		//WHEN
-		let isValid = viewModel.isValid(tanToValidate)
-		let isChecksumValid = viewModel.isChecksumValid(tanToValidate)
+		let isValid = viewModel.isValid
+		let isChecksumValid = viewModel.isChecksumValid
 
 		//THEN
-		XCTAssertEqual(isValid, tanView.isValid)
-		XCTAssertEqual(isChecksumValid, tanView.isChecksumValid)
-
-		XCTAssertTrue(isValid)
-		XCTAssertTrue(isChecksumValid)
+		XCTAssertTrue(isValid, "tan format is invalid")
+		XCTAssertTrue(isChecksumValid, "tan checksum is invalid")
 	}
 
 	func testGIVEN_ValidFormattedTanWithInvalidChecksum_WHEN_isValidIsChecksumValid_THEN_isInvalidChcksumIsInvalid() {
 		// GIVEN
 		let viewModel = TanInputViewModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			presentInvalidTanAlert: { _ in },
-			presentTestResultScreen: { }
+			presentInvalidTanAlert: { _, _  in },
+			tanSuccessfullyTransferred: { },
+			givenTan: "ZBYKEVDBNU"
 		)
 
-		let tanToValidate = "ZBYKEVDBNU"
-		/* use original tanView to compare results here */
-		let tanView = ENATanInput()
-		tanView.awakeFromNib()
-		tanView.insertText(tanToValidate)
-
 		//WHEN
-		let isValid = viewModel.isValid(tanToValidate)
-		let isChecksumValid = viewModel.isChecksumValid(tanToValidate)
+		let isValid = viewModel.isValid
+		let isChecksumValid = viewModel.isChecksumValid
 
 		//THEN
-		XCTAssertEqual(isValid, tanView.isValid)
-		XCTAssertEqual(isChecksumValid, tanView.isChecksumValid)
-
-		XCTAssertTrue(isValid)
-		XCTAssertFalse(isChecksumValid)
+		XCTAssertTrue(isValid, "tan format is invalid")
+		XCTAssertFalse(isChecksumValid, "tan checksum is valid")
 	}
 
 	func testGIVEN_wrongCharacterTanString_WHEN_isValidCheck_THEN_isInvalidChecksumIsInvalid() {
 		// GIVEN
 		let viewModel = TanInputViewModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			presentInvalidTanAlert: { _ in },
-			presentTestResultScreen: { }
+			presentInvalidTanAlert: { _, _  in },
+			tanSuccessfullyTransferred: { },
+			givenTan: "ZBYKEVDBNL"
 		)
 
-		let tanToValidate = "ZBYKEVDBNL"
-		/* use original tanView to compare results here */
-		let tanView = ENATanInput()
-		tanView.awakeFromNib()
-		tanView.insertText(tanToValidate)
-
 		//WHEN
-		let isValid = viewModel.isValid(tanToValidate)
-		let isChecksumValid = viewModel.isChecksumValid(tanToValidate)
+		let isValid = viewModel.isValid
+		let isChecksumValid = viewModel.isChecksumValid
 
 		//THEN
-		XCTAssertEqual(isValid, tanView.isValid)
-		XCTAssertEqual(isChecksumValid, tanView.isChecksumValid)
-
-		XCTAssertTrue(isValid)
-		XCTAssertFalse(isChecksumValid)
+		XCTAssertTrue(isValid, "tan format is invalid")
+		XCTAssertFalse(isChecksumValid, "tan checksum is valid")
 	}
 
 }

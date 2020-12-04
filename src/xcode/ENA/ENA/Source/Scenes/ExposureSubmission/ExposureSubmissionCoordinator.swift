@@ -96,7 +96,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			presentInvalidTanAlert: { [weak self] localizedDescription, completion  in
 				self?.presentTanInvalidAlert(localizedDescription: localizedDescription, completion: completion)
 			},
-			testGotResultSubmitted: { [weak self] in
+			tanSuccessfullyTransferred: { [weak self] in
 				// A TAN always indicates a positive test result.
 				self?.showTestResultScreen(with: .positive)
 			}
