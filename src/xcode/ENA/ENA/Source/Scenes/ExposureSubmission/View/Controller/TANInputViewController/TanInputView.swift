@@ -16,7 +16,7 @@ class TanInputView: UIControl, UIKeyInput {
 		super.init(frame: frame)
 
 		setup()
-		//		setupAccessibility()
+		setupAccessibility()
 	}
 
 	required init?(coder: NSCoder) {
@@ -91,6 +91,7 @@ class TanInputView: UIControl, UIKeyInput {
 	private var stackViews: [UIStackView] { stackView.arrangedSubviews.compactMap({ $0 as? UIStackView }) }
 	private var labels: [UILabel] { stackViews.flatMap({ $0.arrangedSubviews }).compactMap({ $0 as? UILabel }) }
 	private var inputLabels: [ENATanInputLabel] { labels.compactMap({ $0 as? ENATanInputLabel }) }
+	private var numberOfDigits: Int { viewModel.digitGroups.reduce(0) { $0 + $1 } }
 
 	private lazy var characterSet: CharacterSet = CharacterSet(charactersIn: self.allowedCharacters.uppercased())
 
@@ -130,6 +131,18 @@ class TanInputView: UIControl, UIKeyInput {
 		UIView.translatesAutoresizingMaskIntoConstraints(for: [stackView] + stackViews + labels, to: false)
 		updateAxis(.horizontal)
 		addTarget(self, action: #selector(becomeFirstResponder), for: .touchUpInside)
+	}
+
+	private func setupAccessibility() {
+		labels.forEach { label in
+			label.isAccessibilityElement = false
+		}
+
+		inputLabels.enumerated().forEach { index, label in
+			label.isAccessibilityElement = true
+			label.accessibilityTraits = .updatesFrequently
+			label.accessibilityHint = String(format: AppStrings.ENATanInput.characterIndex, index + 1, numberOfDigits)
+		}
 	}
 
 	private func createGroup(count: Int, hasDash: Bool) -> UIStackView {
