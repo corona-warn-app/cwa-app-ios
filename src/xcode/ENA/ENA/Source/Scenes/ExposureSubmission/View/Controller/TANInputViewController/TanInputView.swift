@@ -29,18 +29,6 @@ class TanInputView: UIControl, UIKeyInput {
 		true
 	}
 
-	@discardableResult
-	override func becomeFirstResponder() -> Bool {
-		viewModel.tanInputViewIsFirstResponder = super.becomeFirstResponder()
-		return viewModel.tanInputViewIsFirstResponder
-	}
-
-	@discardableResult
-	override func resignFirstResponder() -> Bool {
-		viewModel.tanInputViewIsFirstResponder = !super.resignFirstResponder()
-		return viewModel.tanInputViewIsFirstResponder
-	}
-
 	// MARK: - Protocl UIKeyInput
 
 	var hasText: Bool {

@@ -53,14 +53,6 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		tanInputView.resignFirstResponder()
 		viewModel.submitTan()
 	}
-	
-	// MARK: - Protocol ENATanInputDelegate
-/*
-	func enaTanInputDidBeginEditing(_ tanInput: ENATanInput) {
-		let rect = contentView.convert(tanInput.frame, from: tanInput)
-		scrollView.scrollRectToVisible(rect, animated: true)
-	}
-*/
 
 	// MARK: - Public
 	
@@ -91,10 +83,40 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		return item
 	}()
 
+	private var observer: NSKeyValueObservation?
+
 	private func setupViews() {
+		// scrolliew needs respect footerView, this gets done with a bottom insert by 55
 		scrollView = UIScrollView(frame: view.frame)
+		scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 55, right: 0.0)
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(scrollView)
+
+		// scrollview content size will chnage if we set the errorLabel to a text
+		// we need to scroll content area to show the error if the footerView intersects with the error label
+		// if the error label resets to nil  we will scroll back to a minus top value to make sure scrollview
+		// is in top position (-103 is basically the default value)
+		observer = scrollView.observe(\UIScrollView.contentSize, options: .new, changeHandler: { [weak self] scrollView, _ in
+			if self?.errorLabel.text != nil {
+				guard let self = self,
+					  let footerView = self.footerView else {
+					return
+				}
+
+				DispatchQueue.main.async {
+					let footerViewRect = footerView.convert(footerView.bounds, to: scrollView)
+					if footerViewRect.intersects(self.stackView.frame) {
+						Log.debug("ContentSize changed - we might need to scroll to the visible rect by now")
+						let delta = footerViewRect.height - (self.stackView.frame.origin.y + self.stackView.frame.size.height) + scrollView.contentOffset.y
+						let bottomOffset = CGPoint(x: 0, y: delta)
+						scrollView.setContentOffset(bottomOffset, animated: true)
+					}
+				}
+			} else {
+				let bottomOffset = CGPoint(x: 0, y: -103)
+				scrollView.setContentOffset(bottomOffset, animated: true)
+			}
+		})
 
 		NSLayoutConstraint.activate([
 			view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
@@ -166,25 +188,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 			DispatchQueue.main.async {
 				self?.errorLabel.text = newErrorText.isEmpty ? nil : newErrorText
 			}
-		}.store(in: &bindings)
 
-		// viewModel will notify that tanInputView has become the first responder
-		viewModel.$tanInputViewIsFirstResponder.sink { [weak self] isFirstResponder in
-			guard isFirstResponder,
-				  let self = self,
-				  let footerView = self.footerView else { return }
-			// calculate the offset needed to push up scrollview
-			// because we use that special footerView - calculation ist based in it
-			// otherwise we should have used the keyboard frame
-			DispatchQueue.main.async {
-				let footerViewRect = footerView.convert(footerView.bounds, to: self.scrollView)
-				if footerViewRect.intersects(self.stackView.frame) {
-					Log.debug("we need to scroll TanInputView a little bit up - it got hidden")
-					let delta = footerViewRect.height - (self.stackView.frame.origin.y + self.stackView.frame.size.height) + self.scrollView.contentOffset.y
-					let bottomOffset = CGPoint(x: 0, y: delta)
-					self.scrollView.setContentOffset(bottomOffset, animated: true)
-				}
-			}
 		}.store(in: &bindings)
 	}
 
