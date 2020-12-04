@@ -52,11 +52,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		set { self.store.positiveTestResultWasShown = newValue }
 	}
 
-	var temporaryExposureKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? {
-		get { self.store.submissionKeys }
-		set { self.store.submissionKeys = newValue }
-	}
-
 	var supportedCountries: [Country] {
 		get { self.store.submissionCountries }
 		set { self.store.submissionCountries = newValue }
@@ -73,9 +68,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 		return true
 	}
-	
-	// Needed to use a publisher in the protocol
-	@Published private var _isSubmissionConsentGiven: Bool
 	
 	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { $_isSubmissionConsentGiven }
 	
@@ -145,14 +137,14 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			// We perform a cleanup in order to set the correct
 			// timestamps, despite not having communicated with the backend,
 			// in order to show the correct screens.
-			self.submitExposureCleanup()
+			submitExposureCleanup()
 
 			return
 		}
 		let processedKeys = keys.processedForSubmission(with: self.symptomsOnset)
 
 		// Request needs to be prepended by the fake request.
-		self._fakeVerificationServerRequest(completion: { _ in
+		_fakeVerificationServerRequest(completion: { _ in
 			self._submitExposure(processedKeys, visitedCountries: self.supportedCountries, completion: completion)
 		})
 	}
@@ -266,9 +258,16 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let store: Store
 	private let warnOthersReminder: WarnOthersRemindable
 
+	@Published private var _isSubmissionConsentGiven: Bool
+
 	private var devicePairingConsentAccept: Bool {
 		get { self.store.devicePairingConsentAccept }
 		set { self.store.devicePairingConsentAccept = newValue }
+	}
+
+	private var temporaryExposureKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? {
+		get { self.store.submissionKeys }
+		set { self.store.submissionKeys = newValue }
 	}
 
 	// MARK: methods for handling the API calls.

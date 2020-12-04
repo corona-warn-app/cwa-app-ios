@@ -50,6 +50,5 @@ protocol ExposureSubmissionService: class {
 	func deleteTest()
 	func acceptPairing()
 	func fakeRequest(completionHandler: ExposureSubmissionHandler?)
-	
 
 }
