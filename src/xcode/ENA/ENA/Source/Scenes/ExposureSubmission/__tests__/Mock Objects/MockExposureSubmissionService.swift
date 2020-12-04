@@ -9,7 +9,7 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Mock callbacks.
 
-	var loadSupportedCountriesCallback: (((@escaping (Bool) -> Void), (@escaping () -> Void), (@escaping (ExposureSubmissionError) -> Void)) -> Void)?
+	var loadSupportedCountriesCallback: (((@escaping (Bool) -> Void), (@escaping ([Country]) -> Void)) -> Void)?
 	var getTemporaryExposureKeysCallback: ((@escaping ExposureSubmissionHandler) -> Void)?
 	var submitExposureCallback: ((@escaping ExposureSubmissionHandler) -> Void)?
 	var getRegistrationTokenCallback: ((DeviceRegistrationKey, @escaping RegistrationHandler) -> Void)?
@@ -20,6 +20,7 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - ExposureSubmissionService properties.
 
+	var exposureManagerState: ExposureManagerState = ExposureManagerState(authorized: false, enabled: false, status: .unknown)
 	var hasRegistrationToken: Bool = false
 
 	var devicePairingConsentAcceptTimestamp: Int64?
@@ -27,15 +28,11 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 
 	var positiveTestResultWasShown: Bool = false
 
-	var supportedCountries: [Country] = []
 	var symptomsOnset: SymptomsOnset = .noInformation
 
 	// Needed to use a publisher in the protocol
 	@Published var isSubmissionConsentGiven: Bool = false
-
 	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { $isSubmissionConsentGiven }
-
-	var exposureManagerState: ExposureManagerState = ExposureManagerState(authorized: false, enabled: false, status: .unknown)
 
 	// MARK: - ExposureSubmissionService methods.
 	
@@ -43,12 +40,8 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 		self.isSubmissionConsentGiven = consentGiven
 	}
 
-	func loadSupportedCountries(
-		isLoading: @escaping (Bool) -> Void,
-		onSuccess: @escaping () -> Void,
-		onError: @escaping (ExposureSubmissionError) -> Void
-	) {
-		loadSupportedCountriesCallback?(isLoading, onSuccess, onError)
+	func loadSupportedCountries(isLoading: @escaping (Bool) -> Void, onSuccess: @escaping ([Country]) -> Void) {
+		loadSupportedCountriesCallback?(isLoading, onSuccess)
 	}
 
 	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler) {

@@ -10,26 +10,20 @@ class ExposureSubmissionCoordinatorModel {
 
 	// MARK: - Init
 
-	init(exposureSubmissionService: ExposureSubmissionService, appConfigurationProvider: AppConfigurationProviding) {
+	init(exposureSubmissionService: ExposureSubmissionService) {
 		self.exposureSubmissionService = exposureSubmissionService
-		self.appConfigurationProvider = appConfigurationProvider
 
-		// Initial loading of country list
-		// This is an intermediate solution until further refactoring has been done
+		// Try to load current country list initially to make it virtually impossible the user has to wait for it later.
 		exposureSubmissionService.loadSupportedCountries { _ in
 			// no op
-		} onSuccess: {
+		} onSuccess: { _ in
 			Log.debug("[Coordinator] initial country list loaded", log: .riskDetection)
-		} onError: { error in
-			Log.error("[Coordinator] Error during initial country load", log: .riskDetection, error: error)
 		}
-
 	}
 
 	// MARK: - Internal
 
 	let exposureSubmissionService: ExposureSubmissionService
-	let appConfigurationProvider: AppConfigurationProviding
 
 	var shouldShowSymptomsOnsetScreen = false
 

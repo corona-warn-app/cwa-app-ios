@@ -19,18 +19,12 @@ protocol ExposureSubmissionService: class {
 
 	var positiveTestResultWasShown: Bool { get set }
 
-	var supportedCountries: [Country] { get set }
 	var symptomsOnset: SymptomsOnset { get set }
 
 	var isSubmissionConsentGiven: Bool { get set }
 	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { get }
 
-	func loadSupportedCountries(
-		isLoading: @escaping (Bool) -> Void,
-		onSuccess: @escaping () -> Void,
-		onError: @escaping (ExposureSubmissionError) -> Void
-	)
-
+	func loadSupportedCountries(isLoading: @escaping (Bool) -> Void, onSuccess: @escaping ([Country]) -> Void)
 	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler)
 	func submitExposure(completion: @escaping ExposureSubmissionHandler)
 

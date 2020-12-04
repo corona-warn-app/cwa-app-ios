@@ -53,10 +53,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		
 		super.init()
 
-		model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: appConfigurationProvider
-		)
+		model = ExposureSubmissionCoordinatorModel(exposureSubmissionService: exposureSubmissionService)
 	}
 
 	// MARK: - Protocol ExposureSubmissionCoordinating
@@ -159,7 +156,14 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 		// By default, we show the intro view.
 		let viewModel = ExposureSubmissionIntroViewModel(
-			onQRCodeButtonTap: { [weak self] in self?.showQRInfoScreen() },
+			onQRCodeButtonTap: { [weak self] isLoading in
+				self?.model.exposureSubmissionService.loadSupportedCountries(
+					isLoading: isLoading,
+					onSuccess: { supportedCountries in
+						self?.showQRInfoScreen(supportedCountries: supportedCountries)
+					}
+				)
+			},
 			onTANButtonTap: { [weak self] in self?.showTanScreen() },
 			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() }
 		)
@@ -172,15 +176,13 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			didTapConsentCell: { [weak self] isLoading in
 				self?.model.exposureSubmissionService.loadSupportedCountries(
 					isLoading: isLoading,
-					onSuccess: {
+					onSuccess: { supportedCountries in
 						self?.showTestResultSubmissionConsentScreen(
+							supportedCountries: supportedCountries,
 							onDismiss: {
 								self?.showTestResultAvailableCloseAlert()
 							}
 						)
-					},
-					onError: { error in
-						self?.showErrorAlert(for: error)
 					}
 				)
 			},
@@ -225,32 +227,19 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				onSubmissionConsentCellTap: { [weak self] isLoading in
 					self?.model.exposureSubmissionService.loadSupportedCountries(
 						isLoading: isLoading,
-						onSuccess: {
-							self?.showTestResultSubmissionConsentScreen(onDismiss: nil)
-						},
-						onError: { error in
-							self?.showErrorAlert(for: error)
+						onSuccess: { supportedCountries in
+							self?.showTestResultSubmissionConsentScreen(supportedCountries: supportedCountries, onDismiss: nil)
 						}
 					)
 				},
-				onContinueWithSymptomsFlowButtonTap: { [weak self] isLoading in
-					self?.model.exposureSubmissionService.loadSupportedCountries(
-						isLoading: isLoading,
-						onSuccess: {
-							self?.showSymptomsScreen()
-						}, onError: { error in
-							self?.showErrorAlert(for: error)
-						}
-					)
+				onContinueWithSymptomsFlowButtonTap: { [weak self] in
+					self?.showSymptomsScreen()
 				},
 				onContinueWarnOthersButtonTap: { [weak self] isLoading in
 					self?.model.exposureSubmissionService.loadSupportedCountries(
 						isLoading: isLoading,
-						onSuccess: {
-							self?.showWarnOthersScreen()
-						},
-						onError: { error in
-							self?.showErrorAlert(for: error)
+						onSuccess: { supportedCountries in
+							self?.showWarnOthersScreen(supportedCountries: supportedCountries)
 						}
 					)
 				},
@@ -277,9 +266,9 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		push(vc)
 	}
 
-	private func showQRInfoScreen() {
+	private func showQRInfoScreen(supportedCountries: [Country]) {
 		let vc = ExposureSubmissionQRInfoViewController(
-			supportedCountries: model.exposureSubmissionService.supportedCountries,
+			supportedCountries: supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
 				self?.model.exposureSubmissionService.acceptPairing()
 				self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
@@ -342,10 +331,10 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		push(vc)
 	}
 
-	private func showTestResultSubmissionConsentScreen(onDismiss: (() -> Void)?) {
+	private func showTestResultSubmissionConsentScreen(supportedCountries: [Country], onDismiss: (() -> Void)?) {
 		let vc = ExposureSubmissionTestResultConsentViewController(
 			viewModel: ExposureSubmissionTestResultConsentViewModel(
-				supportedCountries: model.exposureSubmissionService.supportedCountries,
+				supportedCountries: supportedCountries,
 				exposureSubmissionService: model.exposureSubmissionService,
 				onDismiss: onDismiss
 			)
@@ -356,9 +345,9 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 	// MARK: Late consent
 
-	private func showWarnOthersScreen() {
+	private func showWarnOthersScreen(supportedCountries: [Country]) {
 		let vc = createWarnOthersViewController(
-			supportedCountries: model.exposureSubmissionService.supportedCountries,
+			supportedCountries: supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
 				self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
 				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in

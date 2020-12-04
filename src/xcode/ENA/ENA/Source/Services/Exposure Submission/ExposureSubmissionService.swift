@@ -52,7 +52,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		set { store.positiveTestResultWasShown = newValue }
 	}
 
-	var supportedCountries: [Country] {
+	private var supportedCountries: [Country] {
 		get { store.submissionCountries }
 		set { store.submissionCountries = newValue }
 	}
@@ -82,19 +82,23 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	func loadSupportedCountries(
 		isLoading: @escaping (Bool) -> Void,
-		onSuccess: @escaping () -> Void,
-		onError: @escaping (ExposureSubmissionError) -> Void
+		onSuccess: @escaping ([Country]) -> Void
 	) {
 		isLoading(true)
+
 		appConfigurationProvider.appConfiguration().sink { [weak self] config in
+			guard let self = self else { return }
+
 			isLoading(false)
+
 			let countries = config.supportedCountries.compactMap({ Country(countryCode: $0) })
 			if countries.isEmpty {
-				self?.supportedCountries = [.defaultCountry()]
+				self.supportedCountries = [.defaultCountry()]
 			} else {
-				self?.supportedCountries = countries
+				self.supportedCountries = countries
 			}
-			onSuccess()
+
+			onSuccess(self.supportedCountries)
 		}.store(in: &subscriptions)
 	}
 

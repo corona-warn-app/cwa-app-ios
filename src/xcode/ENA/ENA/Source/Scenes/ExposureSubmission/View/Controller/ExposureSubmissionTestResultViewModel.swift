@@ -15,7 +15,7 @@ class ExposureSubmissionTestResultViewModel {
 		exposureSubmissionService: ExposureSubmissionService,
 		warnOthersReminder: WarnOthersRemindable,
 		onSubmissionConsentCellTap: @escaping (@escaping (Bool) -> Void) -> Void,
-		onContinueWithSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
+		onContinueWithSymptomsFlowButtonTap: @escaping () -> Void,
 		onContinueWarnOthersButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onTestDeleted: @escaping () -> Void
 	) {
@@ -60,9 +60,7 @@ class ExposureSubmissionTestResultViewModel {
 			// Otherwise we continue with the warn others process
 			if isSubmissionConsentGiven {
 				Log.info("Positive Test Result: Next -> 'onset of symptoms'.")
-				onContinueWithSymptomsFlowButtonTap { [weak self] isLoading in
-					self?.primaryButtonIsLoading = isLoading
-				}
+				onContinueWithSymptomsFlowButtonTap()
 			} else {
 				Log.info("Positive Test Result: Next -> 'warn others'.")
 				onContinueWarnOthersButtonTap { [weak self] isLoading in
@@ -116,7 +114,7 @@ class ExposureSubmissionTestResultViewModel {
 	private var warnOthersReminder: WarnOthersRemindable
 
 	private let onSubmissionConsentCellTap: (@escaping (Bool) -> Void) -> Void
-	private let onContinueWithSymptomsFlowButtonTap: (@escaping (Bool) -> Void) -> Void
+	private let onContinueWithSymptomsFlowButtonTap: () -> Void
 	private let onContinueWarnOthersButtonTap: (@escaping (Bool) -> Void) -> Void
 	
 	private let onTestDeleted: () -> Void

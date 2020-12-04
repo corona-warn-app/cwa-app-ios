@@ -37,11 +37,11 @@ enum ExposureSubmissionServiceFactory {
 			}
 
 			if isEnabled(.loadSupportedCountriesSuccess) {
-				service.loadSupportedCountriesCallback = { isLoading, onSuccess, _ in
+				service.loadSupportedCountriesCallback = { isLoading, onSuccess in
 					isLoading(true)
 					DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 						isLoading(false)
-						onSuccess()
+						onSuccess([.defaultCountry()])
 					}
 				}
 			}
