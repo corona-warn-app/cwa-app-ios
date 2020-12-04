@@ -44,7 +44,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		riskProvider.requestRisk(userInitiated: false)
 
-		let state = exposureManager.preconditions()
+		let state = exposureManager.exposureManagerState
 
 		updateExposureState(state)
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
@@ -146,7 +146,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	// MARK: - Internal
 
 	func requestUpdatedExposureState() {
-		let state = exposureManager.preconditions()
+		let state = exposureManager.exposureManagerState
 		updateExposureState(state)
 	}
 
@@ -191,7 +191,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	private func showHome(animated _: Bool = false) {
-		if exposureManager.preconditions().status == .unknown {
+		if exposureManager.exposureManagerState.status == .unknown {
 			exposureManager.activate { [weak self] error in
 				if let error = error {
 					Log.error("Cannot activate the  ENManager. The reason is \(error)", log: .api)
@@ -206,7 +206,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	private func presentHomeVC() {
 		enStateHandler = ENStateHandler(
-			initialExposureManagerState: exposureManager.preconditions(),
+			initialExposureManagerState: exposureManager.exposureManagerState,
 			delegate: self
 		)
 

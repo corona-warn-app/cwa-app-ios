@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionQRInfoViewController: DynamicTableViewController {
+class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 	
 	// MARK: - Init
 	
@@ -38,6 +38,17 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController {
 
 	override var navigationItem: UINavigationItem {
 		navigationFooterItem
+	}
+
+	// MARK: - Protocol ENANavigationControllerWithFooterChild
+
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+		onPrimaryButtonTap { [weak self] isLoading in
+			DispatchQueue.main.async {
+				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+			}
+		}
 	}
 
 	// MARK: - Internal
@@ -80,18 +91,5 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController {
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
-	}
-}
-
-// MARK: - Protocol ENANavigationControllerWithFooterChild
-extension ExposureSubmissionQRInfoViewController: ENANavigationControllerWithFooterChild {
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		onPrimaryButtonTap { [weak self] isLoading in
-			DispatchQueue.main.async {
-				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
-				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
-			}
-		}
 	}
 }

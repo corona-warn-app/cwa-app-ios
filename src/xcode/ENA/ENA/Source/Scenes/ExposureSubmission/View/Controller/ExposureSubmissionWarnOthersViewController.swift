@@ -5,19 +5,18 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionWarnOthersViewController: DynamicTableViewController {
+class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 	
 	// MARK: - Init
 
-	init?(
-		coder: NSCoder,
+	init(
 		supportedCountries: [Country],
 		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
 		self.viewModel = ExposureSubmissionWarnOthersViewModel(supportedCountries: supportedCountries)
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 
-		super.init(coder: coder)
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)
@@ -31,11 +30,21 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController {
 		super.viewDidLoad()
 
 		setupView()
-		footerView?.isHidden = false
 	}
 
 	override var navigationItem: UINavigationItem {
 		navigationFooterItem
+	}
+
+	// MARK: - Protocol ENANavigationControllerWithFooterChild
+
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+		onPrimaryButtonTap { [weak self] isLoading in
+			DispatchQueue.main.async {
+				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+			}
+		}
 	}
 
 	// MARK: - Internal
@@ -79,30 +88,5 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController {
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
 	}
+
 }
-
-// MARK: - Cell reuse identifiers.
-
-extension ExposureSubmissionWarnOthersViewController {
-	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case roundedCell
-	}
-}
-
-// MARK: - Protocol ENANavigationControllerWithFooterChild
-extension ExposureSubmissionWarnOthersViewController: ENANavigationControllerWithFooterChild {
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		onPrimaryButtonTap { [weak self] isLoading in
-			DispatchQueue.main.async {
-				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
-				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
-			}
-		}
-	}
-}
-
-// MARK: - RequiresDismissConfirmation.
-
-/// - NOTE: Marker protocol.
-extension ExposureSubmissionWarnOthersViewController: RequiresDismissConfirmation { }

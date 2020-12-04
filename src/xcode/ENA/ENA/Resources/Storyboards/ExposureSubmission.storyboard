@@ -39,7 +39,7 @@
                                                         <rect key="frame" x="0.0" y="36.5" width="382" height="639.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFa-H0-7iG" customClass="ENATanInput" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="295" width="382" height="50"/>
+                                                                <rect key="frame" x="0.0" y="296.5" width="382" height="46.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" priority="250" constant="50" placeholder="YES" id="GoX-aD-BHg"/>
                                                                 </constraints>
@@ -120,56 +120,6 @@
             </objects>
             <point key="canvasLocation" x="900" y="461"/>
         </scene>
-        <!--Exposure Submission Warn Others View Controller-->
-        <scene sceneID="igU-n1-vwl">
-            <objects>
-                <viewController storyboardIdentifier="ExposureSubmissionWarnOthersViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IeT-ta-YWf" customClass="ExposureSubmissionWarnOthersViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="qAy-a1-zcN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" name="ENA Background Color"/>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="T7L-wJ-1am" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
-                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FGf-ff-3AK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1832" y="1185"/>
-        </scene>
-        <!--Exposure Submission Success View Controller-->
-        <scene sceneID="zv8-zc-C7a">
-            <objects>
-                <tableViewController storyboardIdentifier="ExposureSubmissionSuccessViewController" id="JPa-EJ-yrk" customClass="ExposureSubmissionSuccessViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="HD9-Sn-JvJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="ENA Background Color"/>
-                        <connections>
-                            <outlet property="dataSource" destination="JPa-EJ-yrk" id="DbL-Ed-TSp"/>
-                            <outlet property="delegate" destination="JPa-EJ-yrk" id="KPx-jr-z1H"/>
-                        </connections>
-                    </tableView>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="pUU-DO-TYc" userLabel="Navigation Item" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
-                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <segue destination="rcw-oT-76I" kind="unwind" identifier="overviewSegue" unwindAction="unwindToExposureSubmissionIntro:" id="i3b-od-C0r"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ppu-53-PcK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="rcw-oT-76I" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="1833" y="461"/>
-        </scene>
         <!--Exposure Submission Hotline View Controller-->
         <scene sceneID="e6l-dg-IW3">
             <objects>
@@ -193,10 +143,10 @@
     </scenes>
     <designables>
         <designable name="DuS-ZV-gMr">
-            <size key="intrinsicContentSize" width="67" height="20.5"/>
+            <size key="intrinsicContentSize" width="70.5" height="20.5"/>
         </designable>
         <designable name="I0N-4y-Zcm">
-            <size key="intrinsicContentSize" width="67" height="20.5"/>
+            <size key="intrinsicContentSize" width="70.5" height="20.5"/>
         </designable>
     </designables>
     <resources>

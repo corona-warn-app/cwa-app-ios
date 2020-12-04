@@ -16,17 +16,17 @@ class TestResultAvailableViewModelTest: XCTestCase {
 		
 		let viewModel = TestResultAvailableViewModel(
 			exposureSubmissionService: MockExposureSubmissionService(),
-			didTapConsentCell: {
+			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
-			didTapPrimaryFooterButton: {
+			onPrimaryButtonTap: { _ in
 				expectationFulFill.fulfill()
 			},
-			presentDismissAlert: {}
+			onDismiss: {}
 		)
 		
 		// WHEN
-		viewModel.didTapPrimaryFooterButton()
+		viewModel.onPrimaryButtonTap({ _ in })
 		
 		// THEN
 		waitForExpectations(timeout: .medium)
@@ -41,13 +41,13 @@ class TestResultAvailableViewModelTest: XCTestCase {
 
 		let viewModel = TestResultAvailableViewModel(
 			exposureSubmissionService: exposureSubmissionService,
-			didTapConsentCell: {
+			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
-			didTapPrimaryFooterButton: {
+			onPrimaryButtonTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
-			presentDismissAlert: {}
+			onDismiss: {}
 		)
 		
 		// WHEN
@@ -75,13 +75,13 @@ class TestResultAvailableViewModelTest: XCTestCase {
 
 		let viewModel = TestResultAvailableViewModel(
 			exposureSubmissionService: exposureSubmissionService,
-			didTapConsentCell: {
+			onSubmissionConsentCellTap: { _ in
 				expectationFulFill.fulfill()
 			},
-			didTapPrimaryFooterButton: {
+			onPrimaryButtonTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
-			presentDismissAlert: {}
+			onDismiss: {}
 		)
 		
 		var resultDynamicTableViewModel: DynamicTableViewModel?

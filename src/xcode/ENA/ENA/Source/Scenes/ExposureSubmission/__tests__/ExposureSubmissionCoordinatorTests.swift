@@ -88,7 +88,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 	func testStart_withResult() {
 		let result = TestResult.negative
-		exposureSubmissionService.hasRegistrationTokenCallback = { true }
+		exposureSubmissionService.hasRegistrationToken = true
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
