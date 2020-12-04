@@ -393,11 +393,11 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 	private func showSymptomsScreen() {
 		let vc = ExposureSubmissionSymptomsViewController(
-			onPrimaryButtonTap: { [weak self] selectedSymptomsOption in
+			onPrimaryButtonTap: { [weak self] selectedSymptomsOption, isLoading in
 				guard let self = self else { return }
 				
 				self.model.symptomsOptionSelected(selectedSymptomsOption)
-				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.showWarnOthersScreen()
+				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitExposureAndDismiss(isLoading: isLoading)
 			},
 			onDismiss: { [weak self] isLoading in
 				self?.showSubmissionSymptomsCancelAlert(isLoading: isLoading)

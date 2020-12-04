@@ -10,7 +10,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 	// MARK: - Init
 
 	init(
-		onPrimaryButtonTap: @escaping (SymptomsOption) -> Void,
+		onPrimaryButtonTap: @escaping (SymptomsOption, @escaping (Bool) -> Void) -> Void,
 		onDismiss: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
 		self.onPrimaryButtonTap = onPrimaryButtonTap
@@ -42,7 +42,11 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 			fatalError("Primary button must not be enabled before the user has selected an option")
 		}
 
-		onPrimaryButtonTap(selectedSymptomsOption)
+		onPrimaryButtonTap(selectedSymptomsOption) { [weak self] isLoading in
+			DispatchQueue.main.async {
+				self?.updateForLoadingState(isLoading: isLoading)
+			}
+		}
 	}
 	
 	// MARK: - Protocol DismissHandling
@@ -50,10 +54,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 	func wasAttemptedToBeDismissed() {
 		onDismiss { [weak self] isLoading in
 			DispatchQueue.main.async {
-				self?.view.isUserInteractionEnabled = !isLoading
-				self?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
-				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
-				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+				self?.updateForLoadingState(isLoading: isLoading)
 			}
 		}
 	}
@@ -66,7 +67,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 	// MARK: - Private
 
-	private let onPrimaryButtonTap: (SymptomsOption) -> Void
+	private let onPrimaryButtonTap: (SymptomsOption, @escaping (Bool) -> Void) -> Void
 	private let onDismiss: (@escaping (Bool) -> Void) -> Void
 	
 	private var selectedSymptomsOptionConfirmationButtonStateSubscription: AnyCancellable?
@@ -175,6 +176,13 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 				)
 			)
 		}
+	}
+
+	private func updateForLoadingState(isLoading: Bool) {
+		view.isUserInteractionEnabled = !isLoading
+		navigationItem.rightBarButtonItem?.isEnabled = !isLoading
+		navigationFooterItem?.isPrimaryButtonLoading = isLoading
+		navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
 	}
 
 }
