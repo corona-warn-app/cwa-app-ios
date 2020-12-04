@@ -30,6 +30,7 @@ final class TanInputViewModel {
 	// MARK: - Internal
 
 	var isInputBlocked: Bool = false
+	var didDissMissInvalidTanAlert: (() -> Void)?
 
 	lazy var digitGroups: [Int] = {
 		groups.split(separator: ",").compactMap { Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }
@@ -65,7 +66,8 @@ final class TanInputViewModel {
 				// If teleTAN is incorrect, show Alert Controller
 				self?.isPrimaryBarButtonDisabled = false
 				self?.presentInvalidTanAlert(error.localizedDescription) {
-					Log.debug("Debug alert completion")
+					self?.didDissMissInvalidTanAlert?()
+//					Log.debug("Debug alert completion")
 				}
 
 			case .success:

@@ -28,11 +28,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		view.backgroundColor = .systemBackground
 		setupViews()
 		setupViewModelBindings()
-
 		footerView?.isHidden = false
-
-		// disable keyboadr notifications for the moment
-//		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeShown(note:)), name: UIResponder.keyboardWillShowNotification, object: nil)
 	}
 	
 	override var navigationItem: UINavigationItem {
@@ -52,15 +48,6 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		tanInputView.resignFirstResponder()
 		viewModel.submitTan()
-	}
-
-	// MARK: - Public
-	
-	// MARK: - Internal
-
-	func togglePrimaryNavigationButton() {
-		navigationFooterItem?.isPrimaryButtonLoading.toggle()
-		navigationFooterItem?.isPrimaryButtonEnabled.toggle()
 	}
 
 	// MARK: - Private
@@ -190,6 +177,12 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 			}
 
 		}.store(in: &bindings)
+
+		viewModel.didDissMissInvalidTanAlert = { [weak self] in
+			self?.navigationFooterItem?.isPrimaryButtonLoading = false
+			self?.navigationFooterItem?.isPrimaryButtonEnabled = true
+			self?.tanInputView.becomeFirstResponder()
+		}
 	}
 
 }
