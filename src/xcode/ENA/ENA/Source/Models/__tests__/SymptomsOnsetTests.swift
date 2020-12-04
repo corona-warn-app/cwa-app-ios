@@ -365,4 +365,20 @@ final class SymptomsOnsetTests: XCTestCase {
 		}
 	}
 
+	// MARK: - Codable
+
+	func testEncodingAndDecodingNoInformation() throws {
+		let symptomsOnsets: [SymptomsOnset] = [.noInformation, .nonSymptomatic, .symptomaticWithUnknownOnset, .lastSevenDays, .oneToTwoWeeksAgo, .moreThanTwoWeeksAgo, .daysSinceOnset(-1), .daysSinceOnset(0), .daysSinceOnset(17), .daysSinceOnset(Int.max)]
+
+		let encoder = JSONEncoder()
+		let decoder = JSONDecoder()
+
+		for symptomsOnset in symptomsOnsets {
+			let encodedSymptomsOnset = try encoder.encode(symptomsOnset)
+			let decodedSymptomsOnset = try decoder.decode(SymptomsOnset.self, from: encodedSymptomsOnset)
+
+			XCTAssertEqual(decodedSymptomsOnset, symptomsOnset)
+		}
+	}
+
 }
