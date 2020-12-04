@@ -33,8 +33,10 @@ struct ExposureSubmissionQRInfoViewModel {
 		// Testergebnis abrufen
 		model.add(
 			.section(cells: [
-				.title2(text: AppStrings.ExposureSubmissionQRInfo.headerSection1,
-						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.headerSection1),
+				.headline(
+					text: AppStrings.ExposureSubmissionQRInfo.headerSection1,
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.headerSection1
+				),
 				.body(text: AppStrings.ExposureSubmissionQRInfo.bodySection1),
 				.icon(
 					UIImage(imageLiteralResourceName: "Icons - FaceID"),
@@ -123,7 +125,15 @@ struct ExposureSubmissionQRInfoViewModel {
 }
 
 extension DynamicCell {
-	
+
+	/// A `DynamicLegalCell` to display a list of acknowledgements the user is informed about.
+	/// - Parameters:
+	///   - title: The title/header for the legal foo.
+	///   - description: Optional description text.
+	///   - bulletPoints: A list of strings to be prefixed with bullet points.
+	///   - accessibilityIdentifier: Optional, but highly recommended, accessibility identifier.
+	///   - configure: Optional custom cell configuration
+	/// - Returns: A `DynamicCell` to display legal texts
 	static func acknowledgement(
 		title: NSAttributedString,
 		description: NSAttributedString?,
@@ -131,15 +141,22 @@ extension DynamicCell {
 		accessibilityIdentifier: String? = nil,
 		configure: CellConfigurator? = nil
 	) -> Self {
-		.identifier(ExposureSubmissionQRInfoViewController.ReuseIdentifiers.acknowledgement) { viewController, cell, indexPath in
-			guard let cell = cell as? DynamicAcknowledgementCell else {
-				fatalError("could not initialize cell of type `DynamicAcknowledgementCell`")
+		.identifier(ExposureSubmissionQRInfoViewController.ReuseIdentifiers.legal) { viewController, cell, indexPath in
+			guard let cell = cell as? DynamicLegalCell else {
+				fatalError("could not initialize cell of type `DynamicLegalCell`")
 			}
 			cell.configure(title: title, description: description, bulletPoints: bulletPoints, accessibilityIdentifier: accessibilityIdentifier)
 			configure?(viewController, cell, indexPath)
 		}
 	}
 
+
+	/// A `LabelledCountriesCell` that displays a list of country flags and their localized names as simple list below.
+	/// - Parameters:
+	///   - countries: The countries to display
+	///   - accessibilityIdentifier: Optional, but highly recommended, accessibility identifier.
+	///   - configure: Optional custom cell configuration
+	/// - Returns: A `DynamicCell` to display country flags and names
 	static func countries(
 		countries: [Country],
 		accessibilityIdentifier: String? = nil,
