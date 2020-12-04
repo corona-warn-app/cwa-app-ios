@@ -163,6 +163,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
 		let stack = MockNetworkStack(
 			httpStatus: 200,
+			headerFields: ["etAg": "\"SomeEtag\""],
 			responseData: try Data(contentsOf: url)
 		)
 
@@ -188,6 +189,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
 		let stack = MockNetworkStack(
 			httpStatus: 200,
+			headerFields: ["etAg": "\"SomeEtag\""],
 			responseData: try Data(contentsOf: url)
 		)
 
@@ -339,13 +341,15 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			url: URL(string: "https://example.com")!,
 			statusCode: 500,
 			httpVersion: "HTTP/2",
-			headerFields: nil)
+			headerFields: nil
+		)
 		let successfulResponse = HTTPURLResponse(
 			// swiftlint:disable:next force_unwrapping
 			url: URL(string: "https://example.com")!,
 			statusCode: 200,
 			httpVersion: "HTTP/2",
-			headerFields: nil)
+			headerFields: ["etAg": "\"SomeEtag\""]
+		)
 		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
 		let validPayload = try Data(contentsOf: url)
@@ -485,13 +489,15 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			url: URL(string: "https://example.com")!,
 			statusCode: 500,
 			httpVersion: "HTTP/2",
-			headerFields: nil)
+			headerFields: nil
+		)
 		let successfulResponse = HTTPURLResponse(
 			// swiftlint:disable:next force_unwrapping
 			url: URL(string: "https://example.com")!,
 			statusCode: 200,
 			httpVersion: "HTTP/2",
-			headerFields: nil)
+			headerFields: ["etAg": "\"SomeEtag\""]
+		)
 		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
 		let validPayload = try Data(contentsOf: url)
@@ -529,6 +535,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 	}
 
 	private func assertPackageFormat(for response: PackageDownloadResponse) {
+		XCTAssertNotNil(response.etag)
 		XCTAssertEqual(response.package.bin.count, binFileSize)
 		XCTAssertEqual(response.package.signature.count, sigFileSize)
 	}
