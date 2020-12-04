@@ -81,7 +81,7 @@
 
 "ExposureDetection_Behavior_Title" = "Насоки";
 
-"ExposureDetection_Behavior_Subtitle" = "Ето какво трябва да направите";
+"ExposureDetection_Behavior_Subtitle" = "Ето какво трябва да направите:";
 
 "ExposureDetection_Guide_Hands" = "Мийте редовно ръцете си със сапун в продължение на 20 сек.";
 
@@ -103,7 +103,7 @@
 
 "ExposureDetection_Explanation_Title" = "Риск от заразяване";
 
-"ExposureDetection_Explanation_Subtitle" = "Ето как се изчислява Вашето ниво на риск";
+"ExposureDetection_Explanation_Subtitle" = "Ето как се изчислява Вашето ниво на риск.";
 
 "ExposureDetection_Explanation_Text_Off" = "Рискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани на вашето локално устройство. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.";
 
@@ -130,6 +130,8 @@
 "ExposureDetection_Button_Enable" = "Активиране на регистрирането на излагания на риск";
 
 "ExposureDetection_Button_Refresh" = "Актуализиране";
+
+"ExposureDetection_Button_Title_Restart" = "Рестартиране";
 
 "ExposureDetection_Risk_Status_Downloading_Title" = "Данните се изтеглят...";
 
@@ -333,7 +335,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "За да разберете дали е възможно да сте се заразили, трябва да активирате регистрирането на излагания на риск от заразяване.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "То се извършва чрез Bluetooth връзка, при която Вашето устройство получава криптираните случайни идентификатори на други потребители и изпраща до техните устройства Вашите случайни идентификатори. Функцията може да бъде дезактивирана по всяко време. \n\nКриптираните случайни ИД кодове предават само информация за дата, продължителност и близост на контакта с други лица (изчислена чрез силата на сигнала). Лични данни от типа на име, адрес и местоположение не се записват, а самоличността Ви не може да бъде определена по идентификаторите.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Регистрирането на излаганията на риск се извършва с помощта на Bluetooth връзка, при която Вашият iPhone получава криптираните случайни идентификатори на други потребители и изпраща до техните устройства Вашите случайни идентификатори. Функцията може да бъде дезактивирана по всяко време. \n\nКриптираните случайни ИД кодове предават само информация за дата, продължителност и близост на контакта с други лица (изчислена чрез силата на сигнала). Лични данни от типа на име, адрес и местоположение не се записват, а самоличността Ви не може да бъде определена по идентификаторите.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Минимална възраст: 16 год.";
 
@@ -366,7 +368,7 @@
 /* Onboarding EU Keys */
 "onboardingInfo_enableLoggingOfContactsPage_euTitle" = "Международно регистриране на излаганията";
 
-"onboardingInfo_enableLoggingOfContactsPage_euDescription" = "Няколко държави се обединиха, за да можете да получавате транснационални предупреждения. С други думи вече вземаме предвид и потенциалните Ви контакти с потребителите на официалните приложения за борба с коронавируса във всички участващи държави.\n\nКогато даден потребител сподели своите случайно генерирани идентификатори със сървъра за обмен, съвместно поддържан от участващите държави, останалите потребители на официалните приложения във всички тях ще бъдат предупредени за евентуален риск от заразяване.\n\nЕжедневното изтегляне на случайни ИД обикновено е безплатно за Вас. Това означава, че мобилните оператори не таксуват използваните от приложението данни и не начисляват за тях такси за роуминг в други държави от ЕС. За повече подробности се обърнете към своя мобилен оператор.";
+"onboardingInfo_enableLoggingOfContactsPage_euDescription" = "Няколко държави обединиха усилия, за да направят възможни международните предупреждения. С други думи, вече могат да се вземат под внимание потенциалните Ви контакти с потребители на официалните приложения за проследяване на разпространението на коронавируса във всички участващи държави.\n\nКогато даден потребител сподели своя положителен резултат от тест (и по-конкретно своите случайно генерирани идентификатори) посредством сървъра за обмен, съвместно поддържан от участващите държави, останалите потребители на официалните приложения във всички тях ще бъдат предупредени за евентуален риск от заразяване.\n\nЕжедневното изтегляне на списъци със случайни идентификатори от потребители, споделили положителни резултати от тестове, обикновено е безплатно за Вас. Това означава, че мобилните оператори не таксуват използваните от приложението данни в този контекст и не начисляват за тях такси за роуминг в други държави от ЕС. За повече подробности се обърнете към своя мобилен оператор.";
 
 "onboardingInfo_enableLoggingOfContactsPage_participatingCountriesTitle" = "В момента в обмена участват следните държави:";
 
@@ -413,24 +415,30 @@
 
 "ExposureSubmission_GeneralErrorTitle" = "Грешка";
 
-"ExposureSubmission_DispatchTitle" = "Избор";
+/* Exposure Submission Dispatch */
+"ExposureSubmission_DispatchTitle" = "Извличане на резултат от тест";
 
-"ExposureSubmission_DispatchDescription" = "С каква информация разполагате?";
+"ExposureSubmissionIntroduction_AccImageDescription" = "Устройство предава на системата информация за положителен резултат от тест.";
 
-"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Документ с QR код";
+"ExposureSubmission_DispatchDescription" = "Получете резултата от Вашия тест чрез приложението и предупредете останалите. По този начин предпазвате себе си и помагате да се спре разпространението на коронавируса.";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Регистрирайте теста си, като сканирате QR кода на документа.";
+"ExposureSubmission_DispatchSectionHeadline" = "Правили ли сте си тест?";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "ТАН код";
+"ExposureSubmission_DispatchSectionHeadline2" = "Положителен ли е Вашият резултат от теста за коронавирус?";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "Регистрирайте теста си, като въведете ТАН кода ръчно.";
+"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Тест с QR код";
 
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "Заявка за ТАН код";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Сканирайте Вашия QR код, за да получите резултата от теста и да предупредите останалите.";
 
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Моля, обадете ни се, ако резултатът от теста Ви е %@.";
+"ExposureSubmissionDispatch_TANButtonTitle" = "Въвеждане на ТАН код";
 
-"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Положителен резултат за COVID-19";
+"ExposureSubmissionDispatch_TANButtonDescription" = "Имате TAN код? Въведете го, за да предупредите останалите.";
 
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "Все още нямате TAN код?";
+
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Позвънете ни, за да получите TAN код.";
+
+/* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Заявка за ТАН код";
 
 "ExposureSubmissionHotline_Description" = "За да заявите ТАН код, подгответе резултата от своя тест (ако е наличен) и телефонния си номер.";
@@ -456,23 +464,37 @@
 "ExposureSubmissionHotline_imageDescription" = "След като се обадите на горещата линия, ще получите ТАН код.";
 
 /* Exposure Submission QR Code Info */
-"ExposureSubmissionQRInfo_title" = "Сканиране на QR кода";
+"ExposureSubmissionQRInfo_title" = "Вашето съгласие";
 
-"ExposureSubmissionQRInfo_imageDescription" = "Човек държи смартфон до QR код. Прочетеният QR код се появява на екрана на смартфона.";
+"ExposureSubmissionQRInfo_imageDescription" = "Човек държи смартфон. QR кодът на теста е кодът, който трябва да бъде сканиран.";
+
+"ExposureSubmissionQRInfo_title_description" = "За да можете да получите резултата от Вашия тест и да предупредите останалите, трябва да дадете своето съгласие.";
+
+"ExposureSubmissionQRInfo_header_section_1" = "Извличане на резултат от тест";
+
+"ExposureSubmissionQRInfo_body_section_1" = "В следващата стъпка сканирайте QR кода от Вашия тест, за да получите резултата.";
 
 "ExposureSubmissionQRInfo_instruction1" = "Моля, сканирайте само Вашия собствен тест.";
 
-"ExposureSubmissionQRInfo_instruction2" = "Всеки тест може да бъде сканиран %@.";
-
-"ExposureSubmissionQRInfo_instruction2_highlightedPhrase" = "само веднъж";
+"ExposureSubmissionQRInfo_instruction2" = "Можете да сканирате Вашия тест само веднъж. Приложението не може да обработва няколко теста едновременно.";
 
 "ExposureSubmissionQRInfo_instruction3" = "В приложението %@ може да се обработват няколко теста едновременно.";
 
 "ExposureSubmissionQRInfo_instruction3_highlightedPhrase" = "не";
 
-"ExposureSubmissionQRInfo_instruction4" = "Ако съществува нов тест, изтрийте съществуващия и сканирайте QR кода на най-новия тест.";
+"ExposureSubmissionQRInfo_header_section_2" = "Моля, помогнете на хората, с които сте имали контакт, като ги предупредите!";
 
-"ExposureSubmissionQRInfo_primaryButtonTitle" = "Напред";
+"ExposureSubmissionQRInfo_body_section_2" = "Ако Ви е поставена диагноза \"коронавирус\", можете да предупредите останалите с помощта на приложението. Функцията за предупреждаване работи в няколко държави. Към момента това са:";
+
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Вашето съгласие е доброволно.";
+
+"ExposureSubmissionQRInfo_acknowledgement_4" = "Можете да получите резултата от Вашия тест, без да е необходимо да го споделяте, но ако споделите резултата си, ще помогнете на другите да се предпазят от заразяване.";
+
+"ExposureSubmissionQRInfo_acknowledgement_5" = "Вашата самоличност няма да бъде разкрита. Другите потребители няма да знаят кой е споделил резултатите си от теста.";
+
+"ExposureSubmissionQRInfo_acknowledgement_6" = "За да дадете съгласието си, трябва да имате навършени 16 години.";
+
+"ExposureSubmissionQRInfo_primaryButtonTitle" = "Приемам";
 
 "ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title" = "QR кодът вече не е валиден";
 
@@ -522,27 +544,35 @@
 
 "ExposureSubmissionSuccess_listItem2_4" = "Може все още да сте носител на заразата дори ако вече не проявявате симптоми и отново се чувствате добре.";
 
-/* Exposure Submission Introduction */
-"ExposureSubmissionIntroduction_Title" = "Информация";
+/* Exposure Submission Testresult available */
+"ExposureSubmissionTestresultAvailable_Title" = "Резултатът от теста Ви е готов";
 
-"ExposureSubmissionIntroduction_SubTitle" = "Ето как работи приложението Corona-Warn-App";
+"ExposureSubmissionTestresultAvailable_AccImageDescription" = "Жена държи смартфон в ръката си. Той изпраща сигнал към друг смартфон.";
 
-"ExposureSubmissionIntroduction_AccImageDescription" = "Устройство предава на системата информация за положителен резултат от тест.";
+"ExposureSubmissionTestresultAvailable_Consent_granted" = "Съгласие\n“Предупредете другите” е дадено";
 
-"ExposureSubmissionIntroduction_Usage01" = "За да работи добре приложението, разчитаме на подкрепата на хората, диагностицирани с COVID-19.";
+"ExposureSubmissionTestresultAvailable_Consent_not_given" = "Съгласие\n“Предупредете другите” не е дадено";
 
-"ExposureSubmissionIntroduction_Usage02" = "Тъй като приложението обменя само криптирани случайни идентификатори, самоличността Ви няма как да бъде определена. Можете да направите следното:";
+"ExposureSubmissionTestresultAvailable_ListItem1WithConsent" = "Благодарим Ви, че се съгласихте да споделите резултата от Вашия тест и да помогнете, като предупредите останалите.";
 
-"ExposureSubmissionIntroduction_ListItem1" = "Ако в документа с резултата от теста Ви има QR код, можете да го сканирате и да регистрирате теста си. В момента, в който резултатът бъде готов, ще можете да го видите в приложението.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "В следващата стъпка, моля, споделете резултата от теста си, като натиснете \"Споделяне\".";
 
-"ExposureSubmissionIntroduction_ListItem2" = "Ако Ви е поставена диагноза COVID-19, можете да предупредите останалите потребители.";
+"ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Избрали сте да не споделяте резултатите от теста си. Останалите няма да бъдат предупредени.";
 
-"ExposureSubmissionIntroduction_ListItem3" = "Ако Ви е предоставен ТАН код за положителен резултат, може да го използвате, за да регистрирате теста.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithoutConsent" = "В следващата стъпка можете да промените решението си и да споделите резултата от теста си, за да помогнете да се спре разпространението на коронавируса и да предпазите останалите.";
 
-"ExposureSubmissionIntroduction_ListItem4" = "Ако не разполагате с ТАН код, по телефона може да заявите да Ви бъде предоставен такъв.";
+"ExposureSubmissionTestresultAvailable_primaryButtonTitle" = "Напред";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Важно:\nНа път сте да отмените този процес. Все още не сте предупредили останалите. Моля, завършете процеса, за да помогнете на останалите да се предпазят.";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertMessage" = "Потвърждавате ли, че желаете да отмените процеса?";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Отказ";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Напред";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_Title" = "Резултат от тест";
+"ExposureSubmissionResult_Title" = "Резултатът от Вашия тест";
 
 "ExposureSubmissionResult_CardSubTitle" = "Вашата диагноза";
 
@@ -558,9 +588,7 @@
 
 "ExposureSubmissionResult_Procedure" = "Как работи:";
 
-"ExposureSubmissionResult_testAdded" = "Тестът е добавен успешно";
-
-"ExposureSubmissionResult_testAddedDesc" = "Вашият тест е запазен в приложението Corona-Warn-App.";
+"ExposureSubmissionResult_testAdded" = "Вашият тест е добавен.";
 
 "ExposureSubmissionResult_warnOthers" = "Предупредете другите";
 
@@ -588,13 +616,13 @@
 
 "ExposureSubmissionResult_testExpiredDesc" = "Възникнаха грешки при проверката на Вашия тест. Този QR код вече е изтекъл.";
 
-"ExposureSubmissionResult_testPending" = "Все още няма резултат от теста";
+"ExposureSubmissionResult_testPending" = "Все още няма резултат от теста Ви.";
 
-"ExposureSubmissionResult_testPendingDesc_paragraph1" = "Моля, имайте предвид, че определянето на резултата може да отнеме няколко дни.";
+"ExposureSubmissionResult_testPendingDesc" = "Резултатът от Вашия тест ще се покаже в приложението веднага щом бъде готов.";
 
-"ExposureSubmissionResult_testPendingDesc_paragraph2" = "Ще получите резултата и извън приложението – службата за обществено здравеопазване ще Ви уведоми, ако Вашият тест е положителен.";
+"ExposureSubmissionResult_WarnOthersConsentGiven" = "Съгласие “Предупредете другите” е дадено";
 
-"ExposureSubmissionResult_testPendingDesc_paragraph3" = "При положителен тест, моля позвънете на посочения телефон за \"Заявка за ТАН код\", за да регистрирате резултата в приложението и да предупредите останалите потребители.";
+"ExposureSubmissionResult_WarnOthersConsentNotGiven" = "Съгласие “Предупредете другите” не е дадено";
 
 "ExposureSubmissionResult_testRemove" = "Изтриване на тест";
 
@@ -611,9 +639,9 @@
 /* ExposureSubmissionSymptoms */
 "ExposureSubmissionSymptoms_Title" = "Симптоми";
 
-"ExposureSubmissionSymptoms_Introduction" = "Можете да посочвате дали и кога сте проявили симпотми на COVID-19, за да позволите на приложението да оценява по-точно риска от заразяване за останалите потребители. Ако не желаете да предоставяте такава информация, просто изберете \"Без отговор\".";
+"ExposureSubmissionSymptoms_Introduction" = "Може да посочите дали и кога сте проявили симптоми на коронавирус, за да позволите на приложението да оцени по-точно риска от заразяване за останалите потребители. Тази стъпка не е задължителна. Ако не желаете да предоставите такава информация, просто изберете \"Без отговор\".";
 
-"ExposureSubmissionSymptoms_Description" = "Имали ли сте един или повече от следните симптоми?";
+"ExposureSubmissionSymptoms_Description" = "Имали ли сте един или повече от следните симптоми през последните няколко дни?";
 
 "ExposureSubmissionSymptoms_Symptom0" = "Повишена температура или треска";
 
@@ -642,11 +670,11 @@
 /* ExposureSubmissionSymptomsOnset */
 "ExposureSubmissionSymptomsOnset_Title" = "Начало на симптомите";
 
-"ExposureSubmissionSymptomsOnset_Subtitle" = "Кога се появиха за първи път тези симптоми?";
+"ExposureSubmissionSymptomsOnset_Subtitle" = "Кога забелязахте симптомите за първи път?";
 
-"ExposureSubmissionSymptomsOnset_Description" = "Отговорете на въпроса възможно най-точно.";
+"ExposureSubmissionSymptomsOnset_Description" = "Моля, посочете датата възможно най-точно.";
 
-"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Точна дата";
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Дата";
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "През последните 7 дни";
 
@@ -656,7 +684,16 @@
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Без отговор";
 
-"ExposureSubmissionSymptomsOnset_ContinueButton" = "Напред";
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "Това е всичко!";
+
+/* ExposureSubmissionSymptoms - Cancel alert */
+"ExposureSubmissionSymptoms_CancelAlertTitle" = "Искате ли да отмените въвеждането на Вашите симптоми?";
+
+"ExposureSubmissionSymptoms_CancelAlertMessage" = "Ако предоставите информация за Вашите симптоми, тя може да служи като по-точно предупреждение за останалите.";
+
+"ExposureSubmissionSymptoms_CancelAlertButtonCancel" = "Да";
+
+"ExposureSubmissionSymptoms_CancelAlertButtonContinue" = "Не";
 
 /* ExposureSubmissionWarnOthers */
 "ExposureSubmissionWarnOthers_title" = "Предупредете другите";
@@ -665,13 +702,9 @@
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Можете да помогнете!";
 
-"ExposureSubmissionWarnOthers_description" = "Ако желаете, вече можете да помогнете и околните да бъдат предупредени за възможно заразяване.\n\nЗа трябва да споделите със съвместния сървър за обмен на данни, поддържан от участващите държави, своите случайни идентификатори от последните 14 дни и, по желание, кога за пръв път сте забелязали симптомите на коронавирусната инфекция. От там вашите уникални ИД и всяка допълнителна информация се разпращат до потребителите на съответните официални приложения за борба с коронавируса. По този начин и чуждестранните потребители, с които сте били в контакт, ще бъдат предупредени за възможно заразяване.\n\nСподелят се единствено Вашите случайни идентификатори и информацията за развитието на симптомите, която доброволно сте споделили. Не се разкриват лични данни като име, адрес или местоположение.";
+"ExposureSubmissionWarnOthers_description" = "Тъй като тестът Ви за коронавирус е положителен, можете да предупредите останалите чрез приложението.";
 
-"ExposureSubmissionWarnOthers_supportedCountriesTitle" = "В момента в международното регистриране на излаганията на риск от заразяване участват следните държави:";
-
-"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Минимална възраст: 16 год.";
-
-"ExposureSubmissionWarnOthers_consentUnderagesText" = "Употребата на това приложение е предназначено за лица, навършили 16 години, с постоянно пребиваване в Германия.";
+"ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Функцията за предупреждаване работи в няколко държави. Към момента това са:";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Приемам";
 
@@ -682,7 +715,7 @@
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Датата на регистрация е неизвестна";
 
-"ExposureSubmissionResult_RegistrationDate" = "Регистрирано на";
+"ExposureSubmissionResult_RegistrationDate" = "Дата на добавяне на теста";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "Възникна техническа грешка при изпращането на данните Ви. Моля, обадете се на горещата линия за технически въпроси. Може да намерите телефонния номер в раздел “За приложението”.";
@@ -742,7 +775,7 @@
 
 "ExposureNotificationSetting_DescriptionText1" = "За да може приложението да определи дали има риск да сте се заразили след контакт със заразен потребител, трябва да активирате регистрирането на излаганията на риск от заразяване. Тази функция работи на територията на множество държави, което означава, че се вземат предвид и контактите Ви с потребителите на други официални приложения за борба с коронавируса.";
 
-"ExposureNotificationSetting_DescriptionText2" = "За да работи функцията за регистриране на излаганията на риск Вашето устройство получава криптирани случайно генерирани идентификатори от други потребители по Bluetooth и предава на техните устройства Вашите случайно генерирани ИД. Приложението всеки ден изтегля списък със случайните ИД и евентуални доброволно споделени данни за симптоми на всички потребители с положителен тест за вируса, които са се съгласили да споделят тази информация чрез приложението. След това този списък се сравнява със случайните ИД на други потребители, получени от Вашето устройство, за да се провери доколко е вероятно и Вие да сте се заразили и да Ви предупреди, ако е нужно. Можете да активирате и дезактивирате регистрирането на излаганията на риск по всяко време.";
+"ExposureNotificationSetting_DescriptionText2" = "При регистрирането на излаганията на риск Вашият iPhone получава чрез Bluetooth криптирани случайно генерирани идентификатори от други потребители и предава на техните устройства Вашите случайно генерирани ИД. Приложението всеки ден изтегля списъци със случайните ИД, както и всички доброволно споделени данни за поява на симптоми, на всички потребители с положителен тест за вируса, които са се съгласили да споделят своите резултати (и по-конкретно своите случайни ИД) чрез приложението. След това тези списъци се сравняват със случайните ИД на други потребители, записани от Вашия iPhone, за да се провери вероятността да сте се заразили и за да получите предупреждение, ако това е необходимо. Можете да активирате и дезактивирате регистрирането на излаганията на риск по всяко време.";
 
 "ExposureNotificationSetting_DescriptionText3" = "Приложението никога не събира лични данни като Вашето име, адрес или местоположение и не предава подобна информация на останалите потребители. Самоличността на отделните потребители не може да бъде определена по техните случайни ИД.";
 
@@ -811,7 +844,7 @@
 
 "ExposureNotificationSetting_EU_Desc_1" = "Няколко държави обединиха усилия, за да можете да получавате международни предупреждения чрез съвместен сървър за обмен на данни. Така при определянето на риска от заразяване се вземат предвид и контактите Ви с потребители на официалните приложения за борба с коронавируса и в други държави.";
 
-"ExposureNotificationSetting_EU_Desc_2" = "За целта приложението изтегля и всеки ден актуализира списъка със случайните идентификатори на потребителите, които са избрали да ги споделят чрез собствените си приложения. После този списък се сравнява със случайните ИД, записани от вашето устройство. Ежедневната актуализация на списъка обикновено е безплатна за Вас – използваните от приложението данни не се таксуват и за тях не се начисляват такси за роуминг в други държави от ЕС.";
+"ExposureNotificationSetting_EU_Desc_2" = "За тази цел приложението изтегля списък на всички споделени в приложението случайни идентификатори на потребители, който се актуализира ежедневно. След това този списък се сравнява със случайните идентификатори, записани от Вашия iPhone. Изтеглянето на списъците обикновено е безплатно за Вас. Това означава, че мобилните оператори не таксуват използваните от приложението данни в този контекст и не начисляват за тях такси за роуминг в други държави от ЕС. За повече подробности се обърнете към своя мобилен оператор.";
 
 "ExposureNotificationSetting_EU_Desc_3" = "В момента в международното регистриране на излаганията на риск от заразяване участват следните държави:";
 
@@ -930,14 +963,14 @@
 
 "Home_Finding_Positive_Card_Share_Item_Title" = "Споделете своите случайни ИД кодове, за да предупредите останалите потребители.";
 
-"Home_Finding_Positive_Card_Button" = "Напред";
+"Home_Finding_Positive_Card_Button" = "Предупредете другите";
 
 /* Home Submit card */
 "Home_SubmitCard_Title" = "Правили ли сте си тест?";
 
-"Home_SubmitCard_Body" = "Помогнете за прекъсването на веригата на заразяване, като уведомите останалите потребители.";
+"Home_SubmitCard_Body" = "Пазете се и помогнете и на другите да се предпазят.";
 
-"Home_SubmitCard_Button" = "Научете повече и помогнете";
+"Home_SubmitCard_Button" = "Следващи стъпки";
 
 "Home_InfoCard_ShareTitle" = "Споделете приложението Corona-Warn-App";
 
@@ -960,6 +993,8 @@
 
 "Home_resultCard_ShowResultButton" = "Показване на тест";
 
+"Home_resultCard_RetrieveResultButton" = "Извличане на резултат от тест";
+
 "Home_resultCard_LoadingBody" = "Извършва се изтегляне на актуалните данни.\nТова може да отнеме няколко минути.";
 
 "Home_resultCard_LoadingTitle" = "Извършва се актуализиране...";
@@ -973,6 +1008,10 @@
 "Home_resultCard_InvalidTitle" = "Невалиден тест";
 
 "Home_resultCard_InvalidDesc" = "Не може да бъде определен резултат от теста Ви.";
+
+"Home_resultCard_AvailableSubtitle" = "Вече можете да получите резултата от Вашия тест.";
+
+"Home_resultCard_AvailableDesc" = "Ако резултатът от Вашия тест за коронавирус е положителен, можете да предупредите останалите.";
 
 "Home_resultCard_LoadingErrorTitle" = "Резултатът от Вашия тест не може да бъде зареден.";
 
@@ -1192,7 +1231,7 @@
 
 "DeltaOnboarding_Headline" = "Международно регистриране на излаганията";
 
-"DeltaOnboarding_Description" = "Разширихме функциите на Corona-Warn-App. Вече няколко държави работят заедно, за да може да получавате международни предупреждения чрез съвместния сървър за обмен на данни. Сега при определянето на Вашия риск от заразяване се вземат предвид и контактите Ви с потребителите на официалните приложения за борба с коронавируса във всички участващи държави.\n\nЗа целта приложението ежедневно изтегля списък със случайните идентификатори на всички потребители, избрали да ги споделят през своето приложение. Този списък се сравнява със случайните ИД, записани от вашето устройство.\n\nЕжедневното изтегляне на списъка обикновено е безплатно за Вас. Това означава, че мобилните оператори не Ви таксуват за данните, които приложението използва, и не начисляват за тях такси за роуминг в други държави от ЕС. За повече подробности се обърнете към своя мобилен оператор.";
+"DeltaOnboarding_Description" = "Разширихме функциите на Corona-Warn-App. Много държави работят заедно, за да може да получавате международни предупреждения чрез съвместния сървър за обмен на данни. Сега при определянето на Вашия риск от заразяване се вземат предвид и контактите Ви с потребителите на официалните приложения за борба с коронавируса във всички участващи държави.\n\nЗа целта приложението ежедневно изтегля списък със случайните идентификатори на всички потребители, избрали да споделят резултатите си от тестовете през своето приложение. След това този списък се сравнява със случайните ИД, записани от Вашия iPhone.\n\nЕжедневното изтегляне на списъка обикновено е безплатно за Вас. Това означава, че мобилните оператори не Ви таксуват за данните, които приложението използва, и не начисляват за тях такси за роуминг в други държави от ЕС. За повече подробности се обърнете към своя мобилен оператор.";
 
 "DeltaOnboarding_ParticipatingCountries" = "В момента в обмена участват следните държави:";
 
@@ -1212,4 +1251,59 @@
 "WarnOthersNotification_Title" = "Можете да помогнете!";
 
 "WarnOthersNotification_Description" = "Моля, споделете резултата от теста си и предупредете останалите потребители.";
+
+/* Automatic sharing Consent */
+"AutomaticSharingConsent_Title" = "Вашето съгласие";
+
+"AutomaticSharingConsent_SwitchTitle" = "Предупредете другите";
+
+"AutomaticSharingConsent_SwitchTitleDesc" = "Дадохте следното съгласие:";
+
+"AutomaticSharingConsent_DataProcessingDetailInfo" = "Подробна информация за обработването на данни и Вашето съгласие";
+
+/* Thank you screen */
+"Thank_You_Title" = "Благодарим Ви!";
+
+"Thank_You_SubTitle" = "Благодарим Ви, че помагате да се спре разпространението на коронавируса.";
+
+"Thank_You_Description1" = "Другите потребители ще бъдат предупредени.";
+
+"Thank_You_Description2" = "Сега можете да помогнете за подобряване на точността на предупрежденията. За тази цел, в следващата стъпка ни кажете кога развихте първите симптоми. Можете да отмените стъпката във всеки един момент.";
+
+"Thank_You_Continue_Button" = "Въведете симптоми";
+
+"Thank_You_Cancel_Button" = "Изход";
+
+"Thank_You_AccImageDescription" = "Няколко души гледат смартфоните си.";
+
+/* Test result screen (positive test result) */
+"TestResultPositive_NoConsent_Title" = "Моля, помогнете на всички нас!";
+
+"TestResultPositive_NoConsent_Info1" = "Споделете резултата от Вашия тест и помогнете на другите да се предпазят от заразяване.";
+
+"TestResultPositive_NoConsent_Info2" = "Вашата самоличност няма да бъде разкрита. Другите потребители няма да знаят кой е споделил резултатите си от теста.";
+
+"TestResultPositive_NoConsent_Info3" = "Моля, следвайте инструкциите на Вашия лекар и си останете вкъщи, за да не заразявате други хора.";
+
+"TestResultPositive_NoConsent_PrimaryButton" = "Предупредете другите";
+
+"TestResultPositive_NoConsent_SecondaryButton" = "Отказ";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_Title" = "Не искате ли да изпратите предупреждение?";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_Description" = "Ако искате да предупредите останалите, трябва да споделите резултата от Вашия тест.";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne" = "Не предупреждавай другите";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo" = "Предупреди другите";
+
+"TestResultPositive_WithConsent_Title" = "Благодарим Ви, че помагате да се спре разпространението на коронавируса.";
+
+"TestResultPositive_WithConsent_Info1" = "Другите потребители ще бъдат предупредени.";
+
+"TestResultPositive_WithConsent_Info2" = "Сега можете да помогнете за подобряване на точността на предупрежденията. За тази цел, в следващата стъпка ни кажете кога развихте първите симптоми. Можете да отмените стъпката във всеки един момент.";
+
+"TestResultPositive_WithConsent_PrimaryButton" = "Въведете симптоми";
+
+"TestResultPositive_WithConsent_SecondaryButton" = "Изход";
 
