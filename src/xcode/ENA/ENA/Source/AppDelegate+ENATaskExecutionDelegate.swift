@@ -20,6 +20,11 @@ extension AppDelegate: ENATaskExecutionDelegate {
 
 		group.enter()
 		DispatchQueue.global().async {
+			self.executeSubmitTemporaryExposureKeys { _ in group.leave() }
+		}
+
+		group.enter()
+		DispatchQueue.global().async {
 			self.executeFetchTestResults { _ in group.leave() }
 		}
 
@@ -34,6 +39,35 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		}
 
 		group.notify(queue: .main) {
+			completion(true)
+		}
+	}
+
+	/// This method attempts a submission of temporary exposure keys. The exposure submission service itself checks
+	/// whether a submission should actually be executed.
+	private func executeSubmitTemporaryExposureKeys(completion: @escaping ((Bool) -> Void)) {
+		Log.info("[ENATaskExecutionDelegate] Attempt submission of temporary exposure keys.", log: .api)
+
+		let service = ENAExposureSubmissionService(
+			diagnosiskeyRetrieval: exposureManager,
+			appConfigurationProvider: appConfigurationProvider,
+			client: client,
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store)
+		)
+
+		service.submitExposure { error in
+			switch error {
+			case .noSubmissionConsent:
+				Log.info("[ENATaskExecutionDelegate] Submission: no consent given", log: .api)
+			case .noKeys:
+				Log.info("[ENATaskExecutionDelegate] Submission: no keys to submit", log: .api)
+			case .some(let error):
+				Log.error("[ENATaskExecutionDelegate] Submission error: \(error.localizedDescription)", log: .api)
+			case .none:
+				Log.info("[ENATaskExecutionDelegate] Submission successful", log: .api)
+			}
+
 			completion(true)
 		}
 	}
