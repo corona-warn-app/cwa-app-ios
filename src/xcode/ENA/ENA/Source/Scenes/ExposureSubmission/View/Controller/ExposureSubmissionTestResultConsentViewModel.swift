@@ -66,7 +66,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 										descriptionPart2Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPart2),
 										countries: self.supportedCountries,
 										descriptionPart3Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPart3),
-										descriptionPart4Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPart4)
+										descriptionPart4Label: NSMutableAttributedString(string: "\(AppStrings.AutomaticSharingConsent.consentDescriptionPart4) \(AppStrings.AutomaticSharingConsent.consentDescriptionPart5)")
 									)
 								}
 							},
