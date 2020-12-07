@@ -9,14 +9,30 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Mock callbacks.
 
-	var submitExposureCallback: ((SymptomsOnset, [Country], @escaping ExposureSubmissionHandler) -> Void)?
+	var loadSupportedCountriesCallback: (((@escaping (Bool) -> Void), (@escaping ([Country]) -> Void)) -> Void)?
+	var getTemporaryExposureKeysCallback: ((@escaping ExposureSubmissionHandler) -> Void)?
+	var submitExposureCallback: ((@escaping ExposureSubmissionHandler) -> Void)?
 	var getRegistrationTokenCallback: ((DeviceRegistrationKey, @escaping RegistrationHandler) -> Void)?
 	var getTANForExposureSubmitCallback: ((Bool, @escaping TANHandler) -> Void)?
 	var getTestResultCallback: ((@escaping TestResultHandler) -> Void)?
-	var hasRegistrationTokenCallback: (() -> Bool)?
 	var deleteTestCallback: (() -> Void)?
-	var preconditionsCallback: (() -> ExposureManagerState)?
 	var acceptPairingCallback: (() -> Void)?
+
+	// MARK: - ExposureSubmissionService properties.
+
+	var exposureManagerState: ExposureManagerState = ExposureManagerState(authorized: false, enabled: false, status: .unknown)
+	var hasRegistrationToken: Bool = false
+
+	var devicePairingConsentAcceptTimestamp: Int64?
+	var devicePairingSuccessfulTimestamp: Int64?
+
+	var positiveTestResultWasShown: Bool = false
+
+	var symptomsOnset: SymptomsOnset = .noInformation
+
+	// Needed to use a publisher in the protocol
+	@Published var isSubmissionConsentGiven: Bool = false
+	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { $isSubmissionConsentGiven }
 
 	// MARK: - ExposureSubmissionService methods.
 	
@@ -24,8 +40,16 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 		self.isSubmissionConsentGiven = consentGiven
 	}
 
-	func submitExposure(symptomsOnset: SymptomsOnset, visitedCountries: [Country], completionHandler: @escaping ExposureSubmissionHandler) {
-		submitExposureCallback?(symptomsOnset, visitedCountries, completionHandler)
+	func loadSupportedCountries(isLoading: @escaping (Bool) -> Void, onSuccess: @escaping ([Country]) -> Void) {
+		loadSupportedCountriesCallback?(isLoading, onSuccess)
+	}
+
+	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler) {
+		getTemporaryExposureKeysCallback?(completion)
+	}
+
+	func submitExposure(completion: @escaping ExposureSubmissionHandler) {
+		submitExposureCallback?(completion)
 	}
 
 	func getRegistrationToken(forKey deviceRegistrationKey: DeviceRegistrationKey, completion completeWith: @escaping RegistrationHandler) {
@@ -44,33 +68,15 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 		getTestResultCallback?(completion)
 	}
 
-	func hasRegistrationToken() -> Bool {
-		return hasRegistrationTokenCallback?() ?? false
-	}
-
 	func deleteTest() {
 		deleteTestCallback?()
 	}
 
 	func fakeRequest(completionHandler: ExposureSubmissionHandler?) { }
 
-	var devicePairingConsentAcceptTimestamp: Int64?
-
-	var devicePairingSuccessfulTimestamp: Int64?
-
-	var positiveTestResultWasShown: Bool = false
-	
-	// Needed to use a publisher in the protocol
-	@Published var isSubmissionConsentGiven: Bool = false
-	
-	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { $isSubmissionConsentGiven }
-
-	func preconditions() -> ExposureManagerState {
-		return preconditionsCallback?() ?? ExposureManagerState(authorized: false, enabled: false, status: .unknown)
-	}
-
 	func acceptPairing() {
 		acceptPairingCallback?()
 	}
+
 }
 #endif

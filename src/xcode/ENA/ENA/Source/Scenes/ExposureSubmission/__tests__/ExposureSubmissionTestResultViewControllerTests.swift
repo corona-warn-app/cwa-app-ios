@@ -16,16 +16,19 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 	}
 
 	private func createVC(testResult: TestResult) -> ExposureSubmissionTestResultViewController {
-	
 		ExposureSubmissionTestResultViewController(
 			viewModel: ExposureSubmissionTestResultViewModel(
-				warnOthersReminder: WarnOthersReminder(store: self.store), testResult: testResult,
+				testResult: testResult,
 				exposureSubmissionService: MockExposureSubmissionService(),
-				onContinueWithSymptomsFlowButtonTap: { _ in },
-				onContinueWithoutSymptomsFlowButtonTap: { _ in },
-				onTestDeleted: { },
-				onSubmissionConsentButtonTap: { _ in }
-			), exposureSubmissionService: MockExposureSubmissionService()
+				warnOthersReminder: WarnOthersReminder(store: self.store),
+				onSubmissionConsentCellTap: { _ in },
+				onContinueWithSymptomsFlowButtonTap: { },
+				onContinueWarnOthersButtonTap: { _ in },
+				onChangeToPositiveTestResult: { },
+				onTestDeleted: { }
+			),
+			exposureSubmissionService: MockExposureSubmissionService(),
+			onDismiss: { _, _ in }
 		)
 	}
 
@@ -39,7 +42,7 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 
 		let cell = vc.tableView(vc.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? DynamicTypeTableViewCell
 		XCTAssertNotNil(cell)
-		XCTAssertEqual(cell?.textLabel?.text, AppStrings.ExposureSubmissionResult.procedure)
+		XCTAssertEqual(cell?.textLabel?.text, AppStrings.ExposureSubmissionPositiveTestResult.noConsentTitle)
 	}
 
 }

@@ -17,7 +17,7 @@ final class MockDiagnosisKeysRetrieval {
 }
 
 extension MockDiagnosisKeysRetrieval: DiagnosisKeysRetrieval {
-	func preconditions() -> ExposureManagerState {
+	var exposureManagerState: ExposureManagerState {
 		return .init(authorized: true, enabled: true, status: .active)
 	}
 

@@ -55,19 +55,10 @@ final class CachedAppConfiguration {
 
 		self.deviceTimeCheck = deviceTimeCheck ?? DeviceTimeCheck(store: store)
 
-
 		guard shouldFetch() else { return }
 
 		// check for updated or fetch initial app configuration
-		getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag)
-			.sink { response in
-				self.store.appConfigMetadata = AppConfigMetadata(
-					lastAppConfigETag: response.etag ?? "\"ReloadMe\"",
-					lastAppConfigFetch: Date(),
-					appConfig: response.config
-				)
-			}
-			.store(in: &subscriptions)
+		getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag).sink(receiveValue: { _ in }).store(in: &subscriptions)
 	}
 
 	private func getAppConfig(with etag: String? = nil) -> Future<AppConfigResponse, Never> {
@@ -109,7 +100,14 @@ final class CachedAppConfiguration {
 						promise(.success(AppConfigResponse(config: meta.appConfig, etag: meta.lastAppConfigETag)))
 
 					default:
-						// try to provide the default configuration or return error response
+						// Try to provide the cached app config.
+						if let cachedAppConfig = self.store.appConfigMetadata {
+							Log.info("Providing cached app configuration", log: .localData)
+							promise(.success(AppConfigResponse(config: cachedAppConfig.appConfig, etag: cachedAppConfig.lastAppConfigETag)))
+							return
+						}
+
+						// If there is no cached config, provide the default configuration.
 						guard
 							let data = try? Data(contentsOf: self.defaultAppConfigPath),
 							let zip = Archive(data: data, accessMode: .read),
@@ -118,14 +116,8 @@ final class CachedAppConfiguration {
 							Log.error("Could not provide static app configuration!", log: .localData, error: nil)
 							fatalError("Could not provide static app configuration!")
 						}
-						// Let's stick to the default for 5 Minute
-						self.store.appConfigMetadata = AppConfigMetadata(
-							lastAppConfigETag: "\"default\"",
-							lastAppConfigFetch: Date(),
-							appConfig: defaultConfig
-						)
 
-						Log.info("Providing canned app configuration 🥫", log: .localData)
+						Log.info("Providing default app configuration 🥫", log: .localData)
 						promise(.success(AppConfigResponse(config: defaultConfig, etag: self.store.appConfigMetadata?.lastAppConfigETag)))
 					}
 				}

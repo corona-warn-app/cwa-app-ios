@@ -152,7 +152,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			configuration: .default,
 			store: store,
 			appConfigurationProvider: appConfigurationProvider,
-			exposureManagerState: exposureManager.preconditions(),
+			exposureManagerState: exposureManager.exposureManagerState,
 			riskCalculation: DebugRiskCalculation(riskCalculation: RiskCalculation(), store: store),
 			keyPackageDownload: keyPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor
@@ -162,7 +162,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			configuration: .default,
 			store: store,
 			appConfigurationProvider: appConfigurationProvider,
-			exposureManagerState: exposureManager.preconditions(),
+			exposureManagerState: exposureManager.exposureManagerState,
 			keyPackageDownload: keyPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor
 		)

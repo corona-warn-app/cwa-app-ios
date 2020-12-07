@@ -575,6 +575,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionTestresultAvailable_CloseAlertMessage" = "Möchten Sie den Vorgang wirklich abbrechen?";
 
+"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertTitle" = "Wollen Sie wirklich abbrechen?";
+
+"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertMessage" = "Ihre bisherigen Angaben werden nicht gespeichert.";
+
 "ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Abbrechen";
 
 "ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Fortsetzen";

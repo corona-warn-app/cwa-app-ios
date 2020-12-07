@@ -97,20 +97,23 @@ extension ENManager: Manager {
 
 protocol ExposureManagerLifeCycle {
 	typealias CompletionHandler = ((ExposureNotificationError?) -> Void)
+
+	var exposureManagerState: ExposureManagerState { get }
+
 	func invalidate(handler:(() -> Void)?)
 	func activate(completion: @escaping CompletionHandler)
 	func enable(completion: @escaping CompletionHandler)
 	func disable(completion: @escaping CompletionHandler)
-	func preconditions() -> ExposureManagerState
 	func reset(handler: (() -> Void)?)
 	func requestUserNotificationsPermissions(completionHandler: @escaping (() -> Void))
 }
 
 
 protocol DiagnosisKeysRetrieval {
+	var exposureManagerState: ExposureManagerState { get }
+
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
-	func preconditions() -> ExposureManagerState
 }
 
 protocol ExposureDetector {
@@ -167,7 +170,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		statusObservation = observe(\.manager.exposureNotificationStatus, options: .new) { [weak self] _, _ in
 			guard let self = self else { return }
 			DispatchQueue.main.async {
-				observer.exposureManager(self, didChangeState: self.preconditions())
+				observer.exposureManager(self, didChangeState: self.exposureManagerState)
 			}
 		}
 	}
@@ -217,10 +220,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		manager.exposureNotificationEnabled ? disable(completion: completion) : completion(nil)
 	}
 
-
-	/// Returns an instance of the OptionSet `Preconditions`
-	/// Only if `Preconditions.all()`
-	func preconditions() -> ExposureManagerState {
+	var exposureManagerState: ExposureManagerState {
 		.init(
 			authorized: type(of: manager).authorizationStatus == .authorized,
 			enabled: manager.exposureNotificationEnabled,
