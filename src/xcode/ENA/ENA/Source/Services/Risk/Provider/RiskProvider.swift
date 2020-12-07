@@ -419,16 +419,31 @@ extension RiskProvider {
 	private func _requestRiskLevel_Mock(userInitiated: Bool) {
 		let risk = Risk.mocked
 
-		store.riskCalculationResult = RiskCalculationResult(
-			riskLevel: risk.level == .low ? .low : .high,
-			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: Date(), //risk.details.mostRecentDateWithRiskLevel,
-			mostRecentDateWithHighRisk: Date(), //risk.details.mostRecentDateWithRiskLevel,
-			numberOfDaysWithLowRisk: 0,
-			numberOfDaysWithHighRisk: 0,
-			calculationDate: Date()
-		)
+		switch risk.level {
+		case .high:
+			store.riskCalculationResult = RiskCalculationResult(
+				riskLevel: .high,
+				minimumDistinctEncountersWithLowRisk: 0,
+				minimumDistinctEncountersWithHighRisk: 0,
+				mostRecentDateWithLowRisk: risk.details.mostRecentDateWithRiskLevel,
+				mostRecentDateWithHighRisk: risk.details.mostRecentDateWithRiskLevel,
+				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
+				numberOfDaysWithHighRisk: risk.details.numberOfDaysWithRiskLevel,
+				calculationDate: Date()
+			)
+		default:
+			store.riskCalculationResult = RiskCalculationResult(
+				riskLevel: .low,
+				minimumDistinctEncountersWithLowRisk: 0,
+				minimumDistinctEncountersWithHighRisk: 0,
+				mostRecentDateWithLowRisk: nil,
+				mostRecentDateWithHighRisk: nil,
+				numberOfDaysWithLowRisk: 0,
+				numberOfDaysWithHighRisk: 0,
+				calculationDate: Date()
+			)
+
+		}
 		successOnTargetQueue(risk: risk)
 	}
 }

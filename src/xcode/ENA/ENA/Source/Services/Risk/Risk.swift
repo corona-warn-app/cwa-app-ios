@@ -24,10 +24,10 @@ extension Risk {
 #if DEBUG
 extension Risk {
 	static let mocked = Risk(
-		level: UserDefaults.standard.string(forKey: "-riskLevel") == "low" ? .low : .high,
+		level: UserDefaults.standard.string(forKey: "riskLevel") == "low" ? .low : .high,
 		details: Risk.Details(
-			mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -3600),
-			numberOfDaysWithRiskLevel: 1,
+			mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
+			numberOfDaysWithRiskLevel: UserDefaults.standard.string(forKey: "riskLevel") == "low" ? 0 : 1,
 			activeTracing: .init(interval: 336 * 3600),  // two weeks
 			exposureDetectionDate: Date()),
 		riskLevelHasChanged: true
