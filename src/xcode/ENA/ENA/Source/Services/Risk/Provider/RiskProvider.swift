@@ -436,13 +436,12 @@ extension RiskProvider {
 				riskLevel: .low,
 				minimumDistinctEncountersWithLowRisk: 0,
 				minimumDistinctEncountersWithHighRisk: 0,
-				mostRecentDateWithLowRisk: nil,
+				mostRecentDateWithLowRisk: risk.details.mostRecentDateWithRiskLevel,
 				mostRecentDateWithHighRisk: nil,
-				numberOfDaysWithLowRisk: 0,
+				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				numberOfDaysWithHighRisk: 0,
 				calculationDate: Date()
 			)
-
 		}
 		successOnTargetQueue(risk: risk)
 	}
