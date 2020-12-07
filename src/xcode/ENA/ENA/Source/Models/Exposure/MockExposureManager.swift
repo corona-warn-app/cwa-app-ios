@@ -56,7 +56,7 @@ extension MockExposureManager: ExposureManager {
 		completion(exposureNotificationError)
 	}
 
-	func preconditions() -> ExposureManagerState {
+	var exposureManagerState: ExposureManagerState {
 		ExposureManagerState(authorized: true, enabled: true, status: .active)
 	}
 

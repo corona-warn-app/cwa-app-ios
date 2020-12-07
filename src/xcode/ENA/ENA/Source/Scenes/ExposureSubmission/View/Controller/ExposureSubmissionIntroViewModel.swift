@@ -11,7 +11,7 @@ class ExposureSubmissionIntroViewModel {
 	// MARK: - Init
 	
 	init(
-		onQRCodeButtonTap: @escaping () -> Void,
+		onQRCodeButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onTANButtonTap: @escaping () -> Void,
 		onHotlineButtonTap: @escaping () -> Void
 	) {
@@ -22,7 +22,7 @@ class ExposureSubmissionIntroViewModel {
 	
 	// MARK: - Internal
 	
-	let onQRCodeButtonTap: () -> Void
+	let onQRCodeButtonTap: (@escaping (Bool) -> Void) -> Void
 	let onTANButtonTap: () -> Void
 	let onHotlineButtonTap: () -> Void
 
@@ -50,7 +50,12 @@ class ExposureSubmissionIntroViewModel {
 					title: AppStrings.ExposureSubmissionDispatch.qrCodeButtonTitle,
 					description: AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription,
 					image: UIImage(named: "Illu_Submission_QRCode"),
-					action: .execute { [weak self] _, _ in self?.onQRCodeButtonTap() },
+					action: .execute { [weak self] _, cell in
+						self?.onQRCodeButtonTap { isLoading in
+							// Disable repeated tapping again while country list is loading
+							cell?.isUserInteractionEnabled = !isLoading
+						}
+					},
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
 				),
 				.title2(text: AppStrings.ExposureSubmissionDispatch.sectionHeadline2,

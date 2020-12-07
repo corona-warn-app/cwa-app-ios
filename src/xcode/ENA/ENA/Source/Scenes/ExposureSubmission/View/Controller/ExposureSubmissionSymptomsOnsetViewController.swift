@@ -10,11 +10,11 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 	// MARK: - Init
 
 	init(
-		onPrimaryButtonTap: @escaping (SymptomsOnsetOption) -> Void,
-		presentCancelAlert: @escaping () -> Void
+		onPrimaryButtonTap: @escaping (SymptomsOnsetOption, @escaping (Bool) -> Void) -> Void,
+		onDismiss: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
 		self.onPrimaryButtonTap = onPrimaryButtonTap
-		self.presentCancelAlert = presentCancelAlert
+		self.onDismiss = onDismiss
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -42,13 +42,26 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 			fatalError("Primary button must not be enabled before the user has selected an option")
 		}
 
-		onPrimaryButtonTap(selectedSymptomsOnsetSelectionOption)
+		onPrimaryButtonTap(selectedSymptomsOnsetSelectionOption) { [weak self] isLoading in
+			DispatchQueue.main.async {
+				self?.view.isUserInteractionEnabled = !isLoading
+				self?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
+				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+			}
+		}
 	}
 	
 	// MARK: - Protocol DismissHandling
 
-	func presentDismiss(dismiss: @escaping () -> Void) {
-		presentCancelAlert()
+	func wasAttemptedToBeDismissed() {
+		onDismiss { [weak self] isLoading in
+			DispatchQueue.main.async {
+				self?.view.isUserInteractionEnabled = !isLoading
+				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+			}
+		}
 	}
 	
 	// MARK: - Internal
@@ -63,8 +76,8 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 
 	// MARK: - Private
 
-	private let onPrimaryButtonTap: (SymptomsOnsetOption) -> Void
-	private let presentCancelAlert: () -> Void
+	private let onPrimaryButtonTap: (SymptomsOnsetOption, @escaping (Bool) -> Void) -> Void
+	private let onDismiss: (@escaping (Bool) -> Void) -> Void
 	
 	private var symptomsOnsetButtonStateSubscription: AnyCancellable?
 	private var optionGroupSelectionSubscription: AnyCancellable?
@@ -76,7 +89,7 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 		item.primaryButtonTitle = AppStrings.ExposureSubmissionSymptomsOnset.continueButton
 		item.isPrimaryButtonEnabled = true
 		item.isSecondaryButtonHidden = true
-		item.title = AppStrings.ExposureSubmissionTestresultAvailable.title
+		item.title = AppStrings.ExposureSubmissionTestResultAvailable.title
 		return item
 	}()
 
@@ -102,6 +115,8 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 	}
 
 	private func setupView() {
+		view.backgroundColor = .enaColor(for: .background)
+		
 		navigationItem.title = AppStrings.ExposureSubmissionSymptomsOnset.title
 		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionSymptomsOnset.continueButton
 
@@ -113,8 +128,8 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 	}
 
 	private func setupTableView() {
-		tableView.delegate = self
-		tableView.dataSource = self
+		cellBackgroundColor = .clear
+		tableView.separatorStyle = .none
 
 		tableView.register(
 			DynamicTableViewOptionGroupCell.self,

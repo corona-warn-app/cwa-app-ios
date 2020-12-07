@@ -9,15 +9,14 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	
 	// MARK: - Init
 
-	init?(
-		coder: NSCoder,
+	init(
 		supportedCountries: [Country],
 		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
 		self.viewModel = ExposureSubmissionWarnOthersViewModel(supportedCountries: supportedCountries)
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 
-		super.init(coder: coder)
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)
@@ -33,6 +32,10 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 		setupView()
 	}
 
+	override var navigationItem: UINavigationItem {
+		navigationFooterItem
+	}
+
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
@@ -44,41 +47,46 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 		}
 	}
 
+	// MARK: - Internal
+
+	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case acknowledgement = "DynamicLegalCell"
+		case countries = "LabeledCountriesCell"
+	}
+
 	// MARK: - Private
 
 	private let viewModel: ExposureSubmissionWarnOthersViewModel
 	private let onPrimaryButtonTap: (@escaping (Bool) -> Void) -> Void
 
+	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		let item = ENANavigationFooterItem()
+
+		item.primaryButtonTitle = AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle
+		item.isPrimaryButtonEnabled = true
+		item.isSecondaryButtonHidden = true
+
+		item.title = AppStrings.ExposureSubmissionQRInfo.title
+
+		return item
+	}()
+
 	private func setupView() {
-		navigationItem.title = AppStrings.ExposureSubmissionWarnOthers.title
-		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionWarnOthers.continueButton
-
-		setupTableView()
-	}
-
-	private func setupTableView() {
-		tableView.delegate = self
-		tableView.dataSource = self
+		view.backgroundColor = .enaColor(for: .background)
+		cellBackgroundColor = .clear
 
 		tableView.register(
-			DynamicTableViewRoundedCell.self,
-			forCellReuseIdentifier: CustomCellReuseIdentifiers.roundedCell.rawValue
+			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
+			forCellReuseIdentifier: ReuseIdentifiers.acknowledgement.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: LabeledCountriesCell.self), bundle: nil),
+			forCellReuseIdentifier: ReuseIdentifiers.countries.rawValue
 		)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
+		tableView.separatorStyle = .none
 	}
 
 }
-
-// MARK: - Cell reuse identifiers.
-
-extension ExposureSubmissionWarnOthersViewController {
-	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case roundedCell
-	}
-}
-
-// MARK: - RequiresDismissConfirmation.
-
-/// - NOTE: Marker protocol.
-extension ExposureSubmissionWarnOthersViewController: RequiresDismissConfirmation { }

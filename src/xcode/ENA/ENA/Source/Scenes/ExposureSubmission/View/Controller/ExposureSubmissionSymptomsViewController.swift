@@ -10,11 +10,11 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 	// MARK: - Init
 
 	init(
-		onPrimaryButtonTap: @escaping (SymptomsOption) -> Void,
-		presentCancelAlert: @escaping () -> Void
+		onPrimaryButtonTap: @escaping (SymptomsOption, @escaping (Bool) -> Void) -> Void,
+		onDismiss: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
 		self.onPrimaryButtonTap = onPrimaryButtonTap
-		self.presentCancelAlert = presentCancelAlert
+		self.onDismiss = onDismiss
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -42,13 +42,21 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 			fatalError("Primary button must not be enabled before the user has selected an option")
 		}
 
-		onPrimaryButtonTap(selectedSymptomsOption)
+		onPrimaryButtonTap(selectedSymptomsOption) { [weak self] isLoading in
+			DispatchQueue.main.async {
+				self?.updateForLoadingState(isLoading: isLoading)
+			}
+		}
 	}
 	
 	// MARK: - Protocol DismissHandling
 	
-	func presentDismiss(dismiss: @escaping () -> Void) {
-		presentCancelAlert()
+	func wasAttemptedToBeDismissed() {
+		onDismiss { [weak self] isLoading in
+			DispatchQueue.main.async {
+				self?.updateForLoadingState(isLoading: isLoading)
+			}
+		}
 	}
 	
 	// MARK: - Internal
@@ -59,8 +67,8 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 	// MARK: - Private
 
-	private let onPrimaryButtonTap: (SymptomsOption) -> Void
-	private let presentCancelAlert: () -> Void
+	private let onPrimaryButtonTap: (SymptomsOption, @escaping (Bool) -> Void) -> Void
+	private let onDismiss: (@escaping (Bool) -> Void) -> Void
 	
 	private var selectedSymptomsOptionConfirmationButtonStateSubscription: AnyCancellable?
 	private var optionGroupSelectionSubscription: AnyCancellable?
@@ -69,10 +77,10 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
-		item.primaryButtonTitle = AppStrings.ExposureSubmissionTestresultAvailable.primaryButtonTitle
+		item.primaryButtonTitle = AppStrings.ExposureSubmissionTestResultAvailable.primaryButtonTitle
 		item.isPrimaryButtonEnabled = true
 		item.isSecondaryButtonHidden = true
-		item.title = AppStrings.ExposureSubmissionTestresultAvailable.title
+		item.title = AppStrings.ExposureSubmissionTestResultAvailable.title
 		return item
 	}()
 
@@ -94,6 +102,8 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 	}
 
 	private func setupView() {
+		view.backgroundColor = .enaColor(for: .background)
+
 		navigationItem.title = AppStrings.ExposureSubmissionSymptoms.title
 		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionSymptoms.continueButton
 
@@ -105,8 +115,8 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 	}
 
 	private func setupTableView() {
-		tableView.delegate = self
-		tableView.dataSource = self
+		cellBackgroundColor = .clear
+		tableView.separatorStyle = .none
 
 		tableView.register(
 			DynamicTableViewOptionGroupCell.self,
@@ -166,6 +176,13 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 				)
 			)
 		}
+	}
+
+	private func updateForLoadingState(isLoading: Bool) {
+		view.isUserInteractionEnabled = !isLoading
+		navigationItem.rightBarButtonItem?.isEnabled = !isLoading
+		navigationFooterItem?.isPrimaryButtonLoading = isLoading
+		navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
 	}
 
 }

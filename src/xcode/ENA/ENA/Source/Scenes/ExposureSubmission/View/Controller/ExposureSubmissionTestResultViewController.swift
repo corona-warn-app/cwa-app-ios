@@ -12,11 +12,12 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	init(
 		viewModel: ExposureSubmissionTestResultViewModel,
 		exposureSubmissionService: ExposureSubmissionService,
-		presentCancelAlert: @escaping () -> Void
+		onDismiss: @escaping (TestResult, @escaping (Bool) -> Void) -> Void
 	) {
 		self.viewModel = viewModel
 		self.exposureSubmissionService = exposureSubmissionService
-		self.presentCancelAlert = presentCancelAlert
+		self.onDismiss = onDismiss
+
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -34,7 +35,9 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		setUpBindings()
 	}
 	
-	override func viewWillAppear(_ animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		
 		viewModel.updateWarnOthers()
 	}
 
@@ -53,16 +56,22 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	}
 
 	// MARK: - Protocol DismissHandling
-	func presentDismiss(dismiss: @escaping () -> Void) {
-		presentCancelAlert()
+
+	func wasAttemptedToBeDismissed() {
+		onDismiss(viewModel.testResult) { [weak self] isLoading in
+			DispatchQueue.main.async {
+				self?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+				self?.navigationFooterItem?.isSecondaryButtonEnabled = !isLoading
+				self?.navigationFooterItem?.isSecondaryButtonLoading = isLoading
+			}
+		}
 	}
 	
 	// MARK: - Private
 	
-	private let presentCancelAlert: () -> Void
-	
+	private let onDismiss: (TestResult, @escaping (Bool) -> Void) -> Void
 	private let exposureSubmissionService: ExposureSubmissionService
-
 	private let viewModel: ExposureSubmissionTestResultViewModel
 
 	private var bindings: [AnyCancellable] = []
@@ -88,7 +97,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	}
 
 	private func setUpBindings() {
-		
 		viewModel.$dynamicTableViewModel
 			.sink { [weak self] dynamicTableViewModel in
 				self?.dynamicTableViewModel = dynamicTableViewModel
@@ -106,14 +114,13 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 			}
 			.store(in: &bindings)
 		
-		viewModel.$shouldShowPositivTestResultAlert
-			.sink { [weak self] shouldShowPositivTestResultAlert in
-				guard let self = self, shouldShowPositivTestResultAlert else { return }
+		viewModel.$shouldAttemptToDismiss
+			.sink { [weak self] shouldAttemptToDismiss in
+				guard let self = self, shouldAttemptToDismiss else { return }
 				
-				self.viewModel.shouldShowPositivTestResultAlert = false
+				self.viewModel.shouldAttemptToDismiss = false
 				
-				self.presentCancelAlert()
-						
+				self.wasAttemptedToBeDismissed()
 			}
 			.store(in: &bindings)
 

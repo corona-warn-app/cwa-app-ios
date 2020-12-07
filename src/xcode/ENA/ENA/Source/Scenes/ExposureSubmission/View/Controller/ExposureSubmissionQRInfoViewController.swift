@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionQRInfoViewController: DynamicTableViewController {
+class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 	
 	// MARK: - Init
 	
@@ -40,10 +40,21 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController {
 		navigationFooterItem
 	}
 
+	// MARK: - Protocol ENANavigationControllerWithFooterChild
+
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+		onPrimaryButtonTap { [weak self] isLoading in
+			DispatchQueue.main.async {
+				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+			}
+		}
+	}
+
 	// MARK: - Internal
 
 	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case acknowledgement = "DynamicAcknowledgementCell"
+		case legal = "DynamicLegalCell"
 		case countries = "LabeledCountriesCell"
 	}
 
@@ -69,8 +80,8 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController {
 		cellBackgroundColor = .clear
 
 		tableView.register(
-			UINib(nibName: String(describing: DynamicAcknowledgementCell.self), bundle: nil),
-			forCellReuseIdentifier: ReuseIdentifiers.acknowledgement.rawValue
+			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
+			forCellReuseIdentifier: ReuseIdentifiers.legal.rawValue
 		)
 
 		tableView.register(
@@ -80,18 +91,5 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController {
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
-	}
-}
-
-// MARK: - Protocol ENANavigationControllerWithFooterChild
-extension ExposureSubmissionQRInfoViewController: ENANavigationControllerWithFooterChild {
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		onPrimaryButtonTap { [weak self] isLoading in
-			DispatchQueue.main.async {
-				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
-				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
-			}
-		}
 	}
 }
