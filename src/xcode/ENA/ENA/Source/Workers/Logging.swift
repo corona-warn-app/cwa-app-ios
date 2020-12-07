@@ -7,14 +7,16 @@ extension OSLog {
 
     /// API interactions
     static let api = OSLog(subsystem: subsystem, category: "api")
-    /// Exoplanet UI
+    /// UI
     static let ui = OSLog(subsystem: subsystem, category: "ui")
     /// Local data & caches
     static let localData = OSLog(subsystem: subsystem, category: "localdata")
 	/// Risk Detection
 	static let riskDetection = OSLog(subsystem: subsystem, category: "riskdetection")
-	/// Risk Detection
+	/// App Config
 	static let appConfig = OSLog(subsystem: subsystem, category: "appconfig")
+	/// Contact Diary
+	static let contactdiary = OSLog(subsystem: subsystem, category: "contactdiary")
 }
 
 enum Log {

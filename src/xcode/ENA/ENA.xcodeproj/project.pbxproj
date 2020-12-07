@@ -36,9 +36,21 @@
 		01734B6E255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01734B6D255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift */; };
 		0177F48825501111009DD568 /* RiskCalculationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177F48125501111009DD568 /* RiskCalculationResult.swift */; };
 		0177F4B125503805009DD568 /* ScanInstanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177F4B025503805009DD568 /* ScanInstanceTest.swift */; };
+		0190986A257E64A70065D050 /* DiaryOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909845257E61350065D050 /* DiaryOverviewTableViewController.swift */; };
+		0190986E257E64B40065D050 /* DiaryOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909844257E61350065D050 /* DiaryOverviewViewModel.swift */; };
+		01909874257E64BD0065D050 /* DiaryDayTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909862257E63810065D050 /* DiaryDayTableViewController.swift */; };
+		01909875257E64BD0065D050 /* DiaryAddAndEditEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190984C257E62C70065D050 /* DiaryAddAndEditEntryViewController.swift */; };
+		01909876257E64BD0065D050 /* DiaryAddAndEditEntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909851257E62CB0065D050 /* DiaryAddAndEditEntryViewModel.swift */; };
+		01909877257E64BD0065D050 /* DiaryEditEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909834257E606C0065D050 /* DiaryEditEntriesTableViewController.swift */; };
+		01909878257E64BD0065D050 /* DiaryEditEntriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190983C257E60760065D050 /* DiaryEditEntriesViewModel.swift */; };
+		01909879257E64BD0065D050 /* DiaryDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909863257E63810065D050 /* DiaryDayViewModel.swift */; };
+		0190987D257E64C70065D050 /* DiaryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190982B257E5AF70065D050 /* DiaryCoordinator.swift */; };
+		01909882257E675D0065D050 /* DiaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909881257E675D0065D050 /* DiaryService.swift */; };
+		01909888257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909886257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift */; };
+		01909889257E7B900065D050 /* ExposureSubmissionQRInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909887257E7B900065D050 /* ExposureSubmissionQRInfoViewModel.swift */; };
 		0190B225255C423600CF4244 /* Date+Age.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190B224255C423600CF4244 /* Date+Age.swift */; };
-		019357182525FAD00038F615 /* ExposureSubmissionQRInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019357162525FAD00038F615 /* ExposureSubmissionQRInfoViewController.swift */; };
-		019357192525FAD00038F615 /* ExposureSubmissionQRInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019357172525FAD00038F615 /* ExposureSubmissionQRInfoViewModel.swift */; };
+		019357182525FAD00038F615 /* DiaryInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019357162525FAD00038F615 /* DiaryInfoViewController.swift */; };
+		019357192525FAD00038F615 /* DiaryInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019357172525FAD00038F615 /* DiaryInfoViewModel.swift */; };
 		019BFC6C24C9901A0053973D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCC2702484DC8400E2811D /* sqlite3.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		01A1B442252DE57000841B63 /* ExposureSubmissionQRScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1B441252DE54600841B63 /* ExposureSubmissionQRScannerViewModelTests.swift */; };
 		01A1B44A252DFD7800841B63 /* MetadataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1B449252DFD7700841B63 /* MetadataObject.swift */; };
@@ -646,9 +658,21 @@
 		01734B6D255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENExposureConfiguration+Convenience.swift"; sourceTree = "<group>"; };
 		0177F48125501111009DD568 /* RiskCalculationResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RiskCalculationResult.swift; sourceTree = "<group>"; };
 		0177F4B025503805009DD568 /* ScanInstanceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanInstanceTest.swift; sourceTree = "<group>"; };
+		0190982B257E5AF70065D050 /* DiaryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCoordinator.swift; sourceTree = "<group>"; };
+		01909834257E606C0065D050 /* DiaryEditEntriesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesTableViewController.swift; sourceTree = "<group>"; };
+		0190983C257E60760065D050 /* DiaryEditEntriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesViewModel.swift; sourceTree = "<group>"; };
+		01909844257E61350065D050 /* DiaryOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewViewModel.swift; sourceTree = "<group>"; };
+		01909845257E61350065D050 /* DiaryOverviewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewTableViewController.swift; sourceTree = "<group>"; };
+		0190984C257E62C70065D050 /* DiaryAddAndEditEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryViewController.swift; sourceTree = "<group>"; };
+		01909851257E62CB0065D050 /* DiaryAddAndEditEntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryViewModel.swift; sourceTree = "<group>"; };
+		01909862257E63810065D050 /* DiaryDayTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayTableViewController.swift; sourceTree = "<group>"; };
+		01909863257E63810065D050 /* DiaryDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayViewModel.swift; sourceTree = "<group>"; };
+		01909881257E675D0065D050 /* DiaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryService.swift; sourceTree = "<group>"; };
+		01909886257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRInfoViewController.swift; sourceTree = "<group>"; };
+		01909887257E7B900065D050 /* ExposureSubmissionQRInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRInfoViewModel.swift; sourceTree = "<group>"; };
 		0190B224255C423600CF4244 /* Date+Age.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Age.swift"; sourceTree = "<group>"; };
-		019357162525FAD00038F615 /* ExposureSubmissionQRInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRInfoViewController.swift; sourceTree = "<group>"; };
-		019357172525FAD00038F615 /* ExposureSubmissionQRInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRInfoViewModel.swift; sourceTree = "<group>"; };
+		019357162525FAD00038F615 /* DiaryInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewController.swift; sourceTree = "<group>"; };
+		019357172525FAD00038F615 /* DiaryInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModel.swift; sourceTree = "<group>"; };
 		01A1B441252DE54600841B63 /* ExposureSubmissionQRScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRScannerViewModelTests.swift; sourceTree = "<group>"; };
 		01A1B449252DFD7700841B63 /* MetadataObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataObject.swift; sourceTree = "<group>"; };
 		01A1B451252DFD9400841B63 /* FakeMetadataMachineReadableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMetadataMachineReadableObject.swift; sourceTree = "<group>"; };
@@ -1299,6 +1323,65 @@
 				01734B57255D6C4500E60A8B /* semantic_version.pb.swift */,
 			);
 			name = v2;
+			sourceTree = "<group>";
+		};
+		0190982A257E5A9D0065D050 /* ContactDiary */ = {
+			isa = PBXGroup;
+			children = (
+				0190982B257E5AF70065D050 /* DiaryCoordinator.swift */,
+				0190982C257E5B340065D050 /* Info */,
+				0190982D257E5B4F0065D050 /* Overview */,
+				0190982E257E5B5E0065D050 /* Day */,
+				0190982F257E5B7F0065D050 /* AddAndEditEntry */,
+				01909830257E5CCF0065D050 /* EditEntries */,
+				01909881257E675D0065D050 /* DiaryService.swift */,
+			);
+			path = ContactDiary;
+			sourceTree = "<group>";
+		};
+		0190982C257E5B340065D050 /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				019357162525FAD00038F615 /* DiaryInfoViewController.swift */,
+				019357172525FAD00038F615 /* DiaryInfoViewModel.swift */,
+			);
+			path = Info;
+			sourceTree = "<group>";
+		};
+		0190982D257E5B4F0065D050 /* Overview */ = {
+			isa = PBXGroup;
+			children = (
+				01909845257E61350065D050 /* DiaryOverviewTableViewController.swift */,
+				01909844257E61350065D050 /* DiaryOverviewViewModel.swift */,
+			);
+			path = Overview;
+			sourceTree = "<group>";
+		};
+		0190982E257E5B5E0065D050 /* Day */ = {
+			isa = PBXGroup;
+			children = (
+				01909862257E63810065D050 /* DiaryDayTableViewController.swift */,
+				01909863257E63810065D050 /* DiaryDayViewModel.swift */,
+			);
+			path = Day;
+			sourceTree = "<group>";
+		};
+		0190982F257E5B7F0065D050 /* AddAndEditEntry */ = {
+			isa = PBXGroup;
+			children = (
+				0190984C257E62C70065D050 /* DiaryAddAndEditEntryViewController.swift */,
+				01909851257E62CB0065D050 /* DiaryAddAndEditEntryViewModel.swift */,
+			);
+			path = AddAndEditEntry;
+			sourceTree = "<group>";
+		};
+		01909830257E5CCF0065D050 /* EditEntries */ = {
+			isa = PBXGroup;
+			children = (
+				01909834257E606C0065D050 /* DiaryEditEntriesTableViewController.swift */,
+				0190983C257E60760065D050 /* DiaryEditEntriesViewModel.swift */,
+			);
+			path = EditEntries;
 			sourceTree = "<group>";
 		};
 		01A1B440252DE53800841B63 /* QRScanner */ = {
@@ -2055,6 +2138,7 @@
 			children = (
 				71176E30248957B1004B0C9F /* App */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
+				0190982A257E5A9D0065D050 /* ContactDiary */,
 				71F76D0E24767AF100515A01 /* DynamicTableViewController */,
 				858F6F71245AEC05009FFD33 /* ENSetting */,
 				514E81312461946E00636861 /* ExposureDetection */,
@@ -2241,13 +2325,13 @@
 			children = (
 				503DB1A6255D822E00576E57 /* ExposureSubmissionIntroViewController.swift */,
 				503DB1AB255D826900576E57 /* ExposureSubmissionIntroViewModel.swift */,
+				01909886257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift */,
+				01909887257E7B900065D050 /* ExposureSubmissionQRInfoViewModel.swift */,
 				71FE1C76247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift */,
 				71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */,
 				016961982540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift */,
 				5222AA67255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift */,
 				5222AA6F255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift */,
-				019357162525FAD00038F615 /* ExposureSubmissionQRInfoViewController.swift */,
-				019357172525FAD00038F615 /* ExposureSubmissionQRInfoViewModel.swift */,
 				523D5E74256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift */,
 				523D5E79256FE04000EF67EA /* ExposureSubmissionThankYouViewModel.swift */,
 				01C6AC2D252B23FC0052814D /* QRScanner */,
@@ -3417,6 +3501,7 @@
 				B1C7EE4424938E9E00F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandling.swift in Sources */,
 				B1A89F3A24819CD300DA1CEC /* HomeRiskImageItemViewConfigurator.swift in Sources */,
 				B1A89F3924819CC200DA1CEC /* ExposureStateUpdating.swift in Sources */,
+				01909877257E64BD0065D050 /* DiaryEditEntriesTableViewController.swift in Sources */,
 				AB5F84B024F8F7C3000400D4 /* Migration.swift in Sources */,
 				523D5E75256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift in Sources */,
 				B1C6ECFF247F089E0066138F /* RiskImageItemView.swift in Sources */,
@@ -3430,6 +3515,7 @@
 				AB6289CF251BA01400CF61D2 /* Bundle+Version.swift in Sources */,
 				AB7420C2251B7D59006666AC /* DeltaOnboardingProtocols.swift in Sources */,
 				7187A5582481231C00FCC755 /* DynamicTableViewAction.swift in Sources */,
+				01909889257E7B900065D050 /* ExposureSubmissionQRInfoViewModel.swift in Sources */,
 				B16457B524DC11EF002879EB /* DMLastSubmissionRequetViewController.swift in Sources */,
 				A128F059248B459F00EC7F6C /* PublicKeyStore.swift in Sources */,
 				01D6948D2502717F00B45BEA /* DatePickerDayView.swift in Sources */,
@@ -3446,6 +3532,7 @@
 				0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */,
 				13BAE9B12472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift in Sources */,
 				515BBDEB2484F8E500CDB674 /* HomeThankYouRiskCellConfigurator.swift in Sources */,
+				0190987D257E64C70065D050 /* DiaryCoordinator.swift in Sources */,
 				514C0A0D247AFB0200F235F6 /* RiskTextItemView.swift in Sources */,
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
 				AB7420AC251B67A8006666AC /* DeltaOnboardingV15.swift in Sources */,
@@ -3497,6 +3584,7 @@
 				01734B6E255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift in Sources */,
 				01B7232924F812DF0064C0EB /* OptionView.swift in Sources */,
 				514C0A16247C164700F235F6 /* HomeHighRiskCellConfigurator.swift in Sources */,
+				01909874257E64BD0065D050 /* DiaryDayTableViewController.swift in Sources */,
 				71FE1C7B247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift in Sources */,
 				B1FC2D2024D9C8DF00083C81 /* SAP_TemporaryExposureKey+DeveloperMenu.swift in Sources */,
 				717D21E9248C022E00D9717E /* DynamicTableViewHtmlCell.swift in Sources */,
@@ -3517,6 +3605,7 @@
 				710021DC248E44A6001F0B63 /* ENAFont.swift in Sources */,
 				B1FE13FF2489708200D012E5 /* CachedAppConfiguration.swift in Sources */,
 				EE22DB8B247FB43A001B0A71 /* ActionDetailTableViewCell.swift in Sources */,
+				01909875257E64BD0065D050 /* DiaryAddAndEditEntryViewController.swift in Sources */,
 				948AFE7A2554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift in Sources */,
 				AB1011592507C15000D392A2 /* TracingStatusHistory.swift in Sources */,
 				71FE1C71247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift in Sources */,
@@ -3543,7 +3632,7 @@
 				B1741B4E2462C21F006275D9 /* DMViewController.swift in Sources */,
 				EB2394A024E5492900E71225 /* BackgroundAppRefreshViewModel.swift in Sources */,
 				71CAB9D4248AB33500F516A5 /* DynamicTypeSymbolImageView.swift in Sources */,
-				019357182525FAD00038F615 /* ExposureSubmissionQRInfoViewController.swift in Sources */,
+				019357182525FAD00038F615 /* DiaryInfoViewController.swift in Sources */,
 				EE22DB8C247FB43A001B0A71 /* DescriptionTableViewCell.swift in Sources */,
 				2F3218D0248063E300A7AC0A /* UIView+Convenience.swift in Sources */,
 				01734B5F255D6C4500E60A8B /* app_config_ios.pb.swift in Sources */,
@@ -3557,6 +3646,7 @@
 				2F80CFDB247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift in Sources */,
 				BA6D163A255AD35900ED3492 /* DMSwitchTableViewCell.swift in Sources */,
 				941ADDB02518C2B200E421D9 /* EuTracingTableViewCell.swift in Sources */,
+				01909879257E64BD0065D050 /* DiaryDayViewModel.swift in Sources */,
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
 				01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */,
 				B1741B582462EBDB006275D9 /* HomeViewController.swift in Sources */,
@@ -3615,6 +3705,7 @@
 				ABFCE98A255C32EF0075FF13 /* AppConfigMetadata.swift in Sources */,
 				01C6ABF42527273E0052814D /* String+Insertion.swift in Sources */,
 				EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */,
+				0190986A257E64A70065D050 /* DiaryOverviewTableViewController.swift in Sources */,
 				710ABB27247533FA00948792 /* DynamicTableViewController.swift in Sources */,
 				B184A380248FFCBE007180F6 /* SecureStore.swift in Sources */,
 				713EA26124798AD100AB7EE8 /* InsetTableViewCell.swift in Sources */,
@@ -3641,6 +3732,7 @@
 				0DD260FF248D549B007C3B2C /* KeychainHelper.swift in Sources */,
 				352F25A824EFCBDE00ACDFF3 /* ServerEnvironment.swift in Sources */,
 				AB5F84BE24FE2DC9000400D4 /* DownloadedPackagesSQLLiteStoreV0.swift in Sources */,
+				01909876257E64BD0065D050 /* DiaryAddAndEditEntryViewModel.swift in Sources */,
 				BA6C8ACC254D6537008344F5 /* TrlEncoding.swift in Sources */,
 				2FA9E39724D2F3C70030561C /* ExposureSubmissionError.swift in Sources */,
 				941ADDB22518C3FB00E421D9 /* ENSettingEuTracingViewModel.swift in Sources */,
@@ -3670,6 +3762,7 @@
 				2FA9E39324D2F2920030561C /* ExposureSubmission+TestResult.swift in Sources */,
 				94092541254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift in Sources */,
 				EB17144625716EA80088D7A9 /* FileManager+KeyPackageStorage.swift in Sources */,
+				0190986E257E64B40065D050 /* DiaryOverviewViewModel.swift in Sources */,
 				EE22DB89247FB43A001B0A71 /* TracingHistoryTableViewCell.swift in Sources */,
 				71B804472484CC0800D53506 /* ENALabel.swift in Sources */,
 				71FE1C7F247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift in Sources */,
@@ -3694,6 +3787,7 @@
 				713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */,
 				01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */,
 				01C6AC32252B29C00052814D /* QRScannerError.swift in Sources */,
+				01909878257E64BD0065D050 /* DiaryEditEntriesViewModel.swift in Sources */,
 				EB7D205424E6A3320089264C /* InfoBoxView.swift in Sources */,
 				B10FD5F1246EAB1000E9D7F2 /* AppInformationViewController+DynamicTableViewModel.swift in Sources */,
 				51C7790E24867F22004582F8 /* RiskListItemView.swift in Sources */,
@@ -3740,6 +3834,7 @@
 				B16457BD24DC3F4E002879EB /* DMKeysViewController.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				01C6AC0E252B1E990052814D /* ExposureSubmissionQRScannerViewModel.swift in Sources */,
+				01909882257E675D0065D050 /* DiaryService.swift in Sources */,
 				B1C7EEB024941A6B00F1F284 /* RiskConsumer.swift in Sources */,
 				514C0A1A247C16D600F235F6 /* HomeInactiveRiskCellConfigurator.swift in Sources */,
 				01DB708525068167008F7244 /* Calendar+GregorianLocale.swift in Sources */,
@@ -3770,6 +3865,7 @@
 				3539DAD1252B353C00489B1A /* CachedAppConfigurationMock.swift in Sources */,
 				B14D0CD9246E946E00D5BEBC /* ExposureDetection.swift in Sources */,
 				B161782524804AC3006E435A /* DownloadedPackagesSQLLiteStoreV1.swift in Sources */,
+				01909888257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift in Sources */,
 				51CE1BBF2460B222002CF42A /* HomeRiskCellConfigurator.swift in Sources */,
 				BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */,
 				EE22DB82247FB40A001B0A71 /* ENSettingModel.swift in Sources */,
@@ -3786,7 +3882,7 @@
 				EB08F1792541CE3300D11FA9 /* attenuation_duration.pb.swift in Sources */,
 				B1221BE02492ECE800E6C4E4 /* CFDictionary+KeychainQuery.swift in Sources */,
 				94F594622521CBF50077681B /* DeltaOnboardingV15ViewModel.swift in Sources */,
-				019357192525FAD00038F615 /* ExposureSubmissionQRInfoViewModel.swift in Sources */,
+				019357192525FAD00038F615 /* DiaryInfoViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
