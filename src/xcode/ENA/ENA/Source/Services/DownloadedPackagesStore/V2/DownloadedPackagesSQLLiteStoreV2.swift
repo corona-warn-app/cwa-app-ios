@@ -176,10 +176,12 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 			throw StoreError.revokedPackage
 		}
 
+		#if !RELEASE
 		if let store = keyValueStore, let errorCode = store.fakeSQLiteError {
 			let sqliteError = SQLiteErrorCode(rawValue: errorCode) ?? SQLiteErrorCode.unknown
 			throw StoreError.sqliteError(sqliteError)
 		}
+		#endif
 
 		func deleteHours() -> Bool {
 			database.executeUpdate(
