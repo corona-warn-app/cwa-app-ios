@@ -29,7 +29,7 @@ class TanInputView: UIControl, UIKeyInput {
 		true
 	}
 
-	// MARK: - Protocl UIKeyInput
+	// MARK: - Protocol UIKeyInput
 
 	var hasText: Bool {
 		return !viewModel.text.isEmpty
