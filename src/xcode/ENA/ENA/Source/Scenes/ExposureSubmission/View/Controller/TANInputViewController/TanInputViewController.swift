@@ -73,7 +73,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	private var observer: NSKeyValueObservation?
 
 	private func setupViews() {
-		// scrolliew needs respect footerView, this gets done with a bottom insert by 55
+		// scrollView needs respect footerView, this gets done with a bottom insert by 55
 		scrollView = UIScrollView(frame: view.frame)
 		scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 55, right: 0.0)
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
