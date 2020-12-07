@@ -159,7 +159,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 			}
 		}.store(in: &bindings)
 
-		// wieModel will notify about text (tan) changes here
+		// viewModel will notify about text (tan) changes here
 		viewModel.$text.sink { [weak self] newText in
 			Log.debug("viewModel text did uodate to: \(newText)")
 			DispatchQueue.main.async {
