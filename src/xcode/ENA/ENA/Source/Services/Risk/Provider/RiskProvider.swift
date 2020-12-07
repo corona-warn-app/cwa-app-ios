@@ -311,11 +311,16 @@ final class RiskProvider: RiskProviding {
 	private func _provideRiskResult(_ result: RiskProviderResult, to consumer: RiskConsumer?) {
 		#if DEBUG
 		if isUITesting {
-			consumer?.provideRiskCalculationResult(.success(.mocked))
+			switch UserDefaults.standard.string(forKey: "riskLevel") {
+			case "inactive":
+				consumer?.provideRiskCalculationResult(.failure(.inactive))
+			default:
+				consumer?.provideRiskCalculationResult(.success(.mocked))
+			}
 			return
 		}
 		#endif
-
+		
 		consumer?.provideRiskCalculationResult(result)
 	}
 
@@ -436,7 +441,7 @@ extension RiskProvider {
 				riskLevel: .low,
 				minimumDistinctEncountersWithLowRisk: 0,
 				minimumDistinctEncountersWithHighRisk: 0,
-				mostRecentDateWithLowRisk: risk.details.mostRecentDateWithRiskLevel,
+				mostRecentDateWithLowRisk: nil, //risk.details.mostRecentDateWithRiskLevel,
 				mostRecentDateWithHighRisk: nil,
 				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				numberOfDaysWithHighRisk: 0,
