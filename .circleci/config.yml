@@ -241,12 +241,12 @@ workflows:
                 language: ["de-DE", "en-EN", "bg-BG", "ro-RO", "pl-PL", "tr-TR"]
             requires:
               - dependencies
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
+            # filters:
+            #   tags:
+            #     only:
+            #       - /^v.*/
+            #   branches:
+            #     ignore: /.*/
         - collect-snapshots:
             requires:
               - snapshot
