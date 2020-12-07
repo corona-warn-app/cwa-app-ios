@@ -216,7 +216,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.devicePairingConsentAccept = false
 		store.devicePairingSuccessfulTimestamp = nil
 		store.devicePairingConsentAcceptTimestamp = nil
-		store.isAllowedToSubmitDiagnosisKeys = false
 	}
 
 	var exposureManagerState: ExposureManagerState {
@@ -424,13 +423,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	}
 
 	// This method removes all left over persisted objects part of the
-	// `submitExposure` flow. Removes the registrationToken,
-	// and isAllowedToSubmitDiagnosisKeys.
+	// `submitExposure` flow.
 	private func submitExposureCleanup() {
 		warnOthersReminder.cancelNotifications()
 
 		store.registrationToken = nil
-		store.isAllowedToSubmitDiagnosisKeys = false
 		store.tan = nil
 
 		temporaryExposureKeys = nil
