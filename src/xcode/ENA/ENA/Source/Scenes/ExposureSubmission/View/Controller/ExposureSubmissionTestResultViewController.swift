@@ -78,7 +78,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 	private func setUpView() {
 		view.backgroundColor = .enaColor(for: .background)
-		cellBackgroundColor = .clear
 
 		setUpDynamicTableView()
 	}
