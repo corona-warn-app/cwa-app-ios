@@ -250,12 +250,12 @@ workflows:
         - collect-snapshots:
             requires:
               - snapshot
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
+            # filters:
+            #   tags:
+            #     only:
+            #       - /^v.*/
+            #   branches:
+            #     ignore: /.*/
         - testflight-release:
             requires:
               - test
