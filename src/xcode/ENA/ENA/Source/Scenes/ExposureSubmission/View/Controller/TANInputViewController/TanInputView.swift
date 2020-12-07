@@ -29,7 +29,7 @@ class TanInputView: UIControl, UIKeyInput {
 		true
 	}
 
-	// MARK: - Protocl UIKeyInput
+	// MARK: - Protocol UIKeyInput
 
 	var hasText: Bool {
 		return !viewModel.text.isEmpty
@@ -47,7 +47,7 @@ class TanInputView: UIControl, UIKeyInput {
 			}
 
 			let label = inputLabels[viewModel.text.count]
-			// upadtes a single boxed label
+			// updates a single boxed label
 			label.text = "\(character)"
 			label.isValid = character.rangeOfCharacter(from: characterSet) != nil
 			viewModel.isInputBlocked = !label.isValid
