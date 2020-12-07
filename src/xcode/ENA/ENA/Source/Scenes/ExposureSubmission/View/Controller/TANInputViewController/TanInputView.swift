@@ -163,11 +163,8 @@ class TanInputView: UIControl, UIKeyInput {
 	}
 
 	private func createLabel() -> ENATanInputLabel {
-		let label = ENATanInputLabel()
-
+		let label = ENATanInputLabel(validColor: validColor, invalidColor: invalidColor)
 		label.textColor = textColor
-		label.validColor = validColor
-		label.invalidColor = invalidColor
 
 		label.clipsToBounds = true
 		label.backgroundColor = boxColor

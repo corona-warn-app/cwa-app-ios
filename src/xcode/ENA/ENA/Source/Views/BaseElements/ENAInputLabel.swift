@@ -7,28 +7,31 @@ import UIKit
 
 final class ENATanInputLabel: UILabel {
 
-	private let lineWidth: CGFloat = 3
+	// MARK: - Init
 
-	var validColor: UIColor?
-	var invalidColor: UIColor?
+	init(
+		validColor: UIColor?,
+		invalidColor: UIColor?
+	) {
+		self.validColor = validColor
+		self.invalidColor = invalidColor
+		super.init(frame: .zero)
+		updateAccessibilityLabel()
+	}
 
-	var isEmpty: Bool { false != text?.isEmpty }
-	var isValid: Bool = true { didSet { setNeedsDisplay() ; updateAccessibilityLabel() } }
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	// MARK: - Overrides
 
 	override var text: String? { didSet { updateAccessibilityLabel() } }
-
-	private var lineColor: UIColor { (isValid ? validColor : invalidColor) ?? textColor }
 
 	override var layoutMargins: UIEdgeInsets { didSet { invalidateIntrinsicContentSize() ; setNeedsLayout() } }
 
 	override var intrinsicContentSize: CGSize {
 		let size = super.intrinsicContentSize
 		return CGSize(width: size.width + layoutMargins.left + layoutMargins.right, height: size.height + layoutMargins.top + layoutMargins.bottom)
-	}
-
-	convenience init() {
-		self.init(frame: .zero)
-		updateAccessibilityLabel()
 	}
 
 	override func draw(_ rect: CGRect) {
@@ -56,10 +59,23 @@ final class ENATanInputLabel: UILabel {
 		super.drawText(in: rect.inset(by: insets))
 	}
 
+	// MARK: - Internal
+
+	let validColor: UIColor?
+	let invalidColor: UIColor?
+
+	var isEmpty: Bool { false != text?.isEmpty }
+	var isValid: Bool = true { didSet { setNeedsDisplay() ; updateAccessibilityLabel() } }
+
 	func clear() {
 		text = ""
 		isValid = true
 	}
+
+	// MARK: - Private
+
+	private let lineWidth: CGFloat = 3
+	private var lineColor: UIColor { (isValid ? validColor : invalidColor) ?? textColor }
 
 	private func updateAccessibilityLabel() {
 		accessibilityLabel = AppStrings.ExposureSubmissionTanEntry.textField
