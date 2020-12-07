@@ -53,6 +53,16 @@ extension URLSession {
 				return
 			}
 
+			// Handling `NSURLErrorDomain` separately. The error handling below
+			// requires `HTTPURLResponse` to pass to caller.
+			// Further codes can be found in `NS_ERROR_ENUM(NSURLErrorDomain)` @ `NSURLError.h`
+			if let error = error as NSError?,
+			   error.domain == NSURLErrorDomain,
+			   error.code == NSURLErrorNotConnectedToInternet {
+				completion(.failure(.noNetworkConnection))
+				return
+			}
+
 			guard let response = response as? HTTPURLResponse else {
 				completion(.failure(.noResponse))
 				return
@@ -101,15 +111,19 @@ extension URLSession.Response {
 	enum Failure: Error {
 		/// The session received an `Error`.
 		case httpError(Error, HTTPURLResponse)
-		/// The session did not receive an error but nor either an `HTTPURLResponse`/HTTP body.
-		case noResponse
 		case teleTanAlreadyUsed
 		case qrAlreadyUsed
 		case qrDoesNotExist
 		case regTokenNotExist
 		case invalidResponse
+		case noNetworkConnection
 		case serverError(Int)
 		case fakeResponse
+
+		/// **[Deprecated]** Legacy state to indicate no (meaningful) response was given.
+		///
+		/// This had multiple reasons (offline, invalid payload, etc.) and was ambiguous. Please consider another state (e.g. `invalidResponse` or `noNetworkConnection`) and refactor existing solutions!
+		case noResponse
 	}
 
 	typealias Completion = (Result<URLSession.Response, Failure>) -> Void

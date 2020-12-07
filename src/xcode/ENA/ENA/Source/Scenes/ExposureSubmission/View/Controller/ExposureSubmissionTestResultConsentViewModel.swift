@@ -13,18 +13,18 @@ class ExposureSubmissionTestResultConsentViewModel {
 	init(
 		supportedCountries: [Country],
 		exposureSubmissionService: ExposureSubmissionService,
-		presentDismissAlert: @escaping () -> Void
+		onDismiss: (() -> Void)?
 	) {
 		self.supportedCountries = supportedCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
 		self.exposureSubmissionService = exposureSubmissionService
-		self.presentDismissAlert = presentDismissAlert
+		self.onDismiss = onDismiss
 	}
 
 	// MARK: - Public
 
 	// MARK: - Internal
 
-	let presentDismissAlert: () -> Void
+	let onDismiss: (() -> Void)?
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel.with {
@@ -60,13 +60,22 @@ class ExposureSubmissionTestResultConsentViewModel {
 									return
 								}
 								if let consentCell = cell as? DynamicTableViewConsentCell {
+									// We use this model in two places but require one super important sentence just once. This HACK figures out which 'mode' we use.
+									// For reference
+									// text needed here: https://www.figma.com/file/BpLyzxHZVa6a8BbSdcL76V/CWA_Submission_Flow_v02?node-id=388%3A3251
+									// but not here: https://www.figma.com/file/BpLyzxHZVa6a8BbSdcL76V/CWA_Submission_Flow_v02?node-id=388%3A3183
+									var part4: String = AppStrings.AutomaticSharingConsent.consentDescriptionPart4
+									if self.onDismiss != nil {
+										part4.append(" \(AppStrings.AutomaticSharingConsent.consentDescriptionPart5)")
+									}
+
 									consentCell.configure(
 										subTitleLabel: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentSubTitle),
 										descriptionPart1Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPart1),
 										descriptionPart2Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPart2),
 										countries: self.supportedCountries,
 										descriptionPart3Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPart3),
-										descriptionPart4Label: NSMutableAttributedString(string: AppStrings.AutomaticSharingConsent.consentDescriptionPart4)
+										descriptionPart4Label: NSMutableAttributedString(string: part4)
 									)
 								}
 							},
@@ -111,7 +120,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 
 	@objc
 	private func consentStateChanged(switchState: UISwitch) {
-		exposureSubmissionService.setSubmissionConsentGiven(consentGiven: switchState.isOn)
+		exposureSubmissionService.isSubmissionConsentGiven = switchState.isOn
 	}
 
 }

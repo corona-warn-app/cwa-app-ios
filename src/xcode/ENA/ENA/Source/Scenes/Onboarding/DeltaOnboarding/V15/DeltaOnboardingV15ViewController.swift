@@ -95,8 +95,3 @@ extension DeltaOnboardingV15ViewController {
 		case roundedCell
 	}
 }
-
-// MARK: - RequiresDismissConfirmation.
-
-/// - NOTE: Marker protocol.
-extension DeltaOnboardingV15ViewController: RequiresDismissConfirmation { }

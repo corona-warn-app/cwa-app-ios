@@ -61,7 +61,7 @@ extension AppDelegate {
 			switch didEndPrematurelyReason {
 			case let .noExposureWindows(error):
 				return makeAlertController(
-					noSummaryError: error,
+					noExposureWindowsError: error,
 					localizedDescription: didEndPrematurelyReason.localizedDescription,
 					rootController: rootController
 				)
@@ -82,21 +82,26 @@ extension AppDelegate {
 		}
 	}
 
-	private func makeAlertController(noSummaryError: Error?, localizedDescription: String, rootController: UIViewController) -> UIAlertController? {
+	private func makeAlertController(noExposureWindowsError: Error?, localizedDescription: String, rootController: UIViewController) -> UIAlertController? {
 
-		if let enError = noSummaryError as? ENError {
-			let openFAQ: (() -> Void)? = {
-				guard let url = enError.faqURL else { return nil }
-				return {
-					UIApplication.shared.open(url, options: [:])
-				}
-			}()
-			return rootController.setupErrorAlert(
-				message: localizedDescription,
-				secondaryActionTitle: AppStrings.Common.errorAlertActionMoreInfo,
-				secondaryActionCompletion: openFAQ
-			)
-		} else if let exposureDetectionError = noSummaryError as? ExposureDetectionError {
+		if let enError = noExposureWindowsError as? ENError {
+			switch enError.code {
+			case .dataInaccessible:
+				return nil
+			default:
+				let openFAQ: (() -> Void)? = {
+					guard let url = enError.faqURL else { return nil }
+					return {
+						UIApplication.shared.open(url, options: [:])
+					}
+				}()
+				return rootController.setupErrorAlert(
+					message: localizedDescription,
+					secondaryActionTitle: AppStrings.Common.errorAlertActionMoreInfo,
+					secondaryActionCompletion: openFAQ
+				)
+			}
+		} else if let exposureDetectionError = noExposureWindowsError as? ExposureDetectionError {
 			switch exposureDetectionError {
 			case .isAlreadyRunning:
 				return nil
@@ -147,7 +152,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			configuration: .default,
 			store: store,
 			appConfigurationProvider: appConfigurationProvider,
-			exposureManagerState: exposureManager.preconditions(),
+			exposureManagerState: exposureManager.exposureManagerState,
 			riskCalculation: DebugRiskCalculation(riskCalculation: RiskCalculation(), store: store),
 			keyPackageDownload: keyPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor
@@ -157,7 +162,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			configuration: .default,
 			store: store,
 			appConfigurationProvider: appConfigurationProvider,
-			exposureManagerState: exposureManager.preconditions(),
+			exposureManagerState: exposureManager.exposureManagerState,
 			keyPackageDownload: keyPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor
 		)

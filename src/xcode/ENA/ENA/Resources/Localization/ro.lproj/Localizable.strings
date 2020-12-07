@@ -81,7 +81,7 @@
 
 "ExposureDetection_Behavior_Title" = "Instrucțiuni";
 
-"ExposureDetection_Behavior_Subtitle" = "Iată ce trebuie să faceți";
+"ExposureDetection_Behavior_Subtitle" = "Iată ce trebuie să faceți:";
 
 "ExposureDetection_Guide_Hands" = "Spălați-vă frecvent pe mâini cu săpun timp de 20 de secunde.";
 
@@ -130,6 +130,8 @@
 "ExposureDetection_Button_Enable" = "Activați înregistrarea în jurnal a expunerilor";
 
 "ExposureDetection_Button_Refresh" = "Actualizare";
+
+"ExposureDetection_Button_Title_Restart" = "Relansare";
 
 "ExposureDetection_Risk_Status_Downloading_Title" = "Datele sunt în curs de descărcare...";
 
@@ -333,7 +335,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Pentru a identifica orice posibilă expunere, trebuie să activați caracteristica de înregistrare în jurnal a expunerilor.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Înregistrarea în jurnal a expunerilor funcționează astfel: smartphone-ul dvs. primește prin Bluetooth ID-uri aleatorii criptate ale altor utilizatori și transmite propriul dvs. ID aleatoriu către dispozitivele acestora. Această caracteristică poate fi oricând dezactivată. \n\nID-urile aleatorii criptate transmit informații doar despre dată, durată și proximitatea față de alte persoane (calculate utilizând intensitatea semnalului). Datele personale, precum numele, adresa și locația, nu sunt înregistrate niciodată. Nu se pot identifica persoane individuale pe baza ID-urilor aleatorii.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Înregistrarea în jurnal a expunerilor funcționează astfel: iPhone-ul dvs. primește prin Bluetooth ID-uri aleatorii criptate ale altor utilizatori și transmite propriul dvs. ID aleatoriu către dispozitivele acestora. Această caracteristică poate fi oricând dezactivată. \n\nID-urile aleatorii criptate transmit informații doar despre dată, durată și proximitatea față de alte persoane (calculate utilizând intensitatea semnalului). Datele personale, precum numele, adresa și locația, nu sunt înregistrate niciodată. Nu se pot identifica persoane individuale pe baza ID-urilor aleatorii.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Limita de vârstă: începând cu 16 ani";
 
@@ -366,7 +368,7 @@
 /* Onboarding EU Keys */
 "onboardingInfo_enableLoggingOfContactsPage_euTitle" = "Înregistrare transnațională a expunerilor în jurnal";
 
-"onboardingInfo_enableLoggingOfContactsPage_euDescription" = "Mai multe țări s-au asociat pentru a susține avertizarea la nivel transnațional. Cu alte cuvinte, acum poate fi luată în considerare posibila dvs. expunere la utilizatori ai aplicațiilor oficiale anticoronavirus din toate țările participante.\n\nCând un utilizator transmite ID-urile sale aleatorii la serverul de schimb operat în comun de țările participante, utilizatorii aplicațiilor oficiale anticoronavirus din toate aceste țări pot fi avertizați de posibila expunere.\n\nDescărcarea zilnică a ID-urilor aleatorii este, în mod normal, gratuită pentru dvs. Aceasta înseamnă că volumul de date cauzat de aplicație nu va fi taxat de operatorii de date mobile și nu veți suporta tarife de roaming în alte țări europene. Pentru mai multe informații, contactați operatorul dvs. de date mobile.";
+"onboardingInfo_enableLoggingOfContactsPage_euDescription" = "Mai multe țări s-au asociat pentru a susține avertizarea la nivel transnațional. Cu alte cuvinte, acum poate fi luată în considerare posibila dvs. expunere la utilizatori ai aplicațiilor oficiale anticoronavirus din toate țările participante.\n\nCând un utilizator transmite rezultatul pozitiv al testului său (mai exact: ID-urile sale aleatorii) pentru a-i avertiza pe ceilalți prin intermediul serverului de schimb operat în comun de țările participante, toți utilizatorii aplicațiilor oficiale anticoronavirus din toate aceste țări pot fi avertizați de posibila expunere.\n\nDescărcările zilnice ale listelor cu ID-uri aleatorii de la utilizatori care au partajat rezultate pozitive ale testelor sunt, de obicei, gratuite pentru dvs. În mod specific, aceasta înseamnă că operatorii de rețele mobile nu percep costuri pentru datele utilizate de aplicație în acest context și nu aplică niciun fel de costuri de roaming pentru această opțiune în alte țări UE. Contactați operatorul rețelei mobile pentru mai multe informații.";
 
 "onboardingInfo_enableLoggingOfContactsPage_participatingCountriesTitle" = "În prezent participă următoare țări:";
 
@@ -413,24 +415,30 @@
 
 "ExposureSubmission_GeneralErrorTitle" = "Eroare";
 
-"ExposureSubmission_DispatchTitle" = "Selecție";
+/* Exposure Submission Dispatch */
+"ExposureSubmission_DispatchTitle" = "Aflarea rezultatului testului";
 
-"ExposureSubmission_DispatchDescription" = "Ce informații aveți?";
+"ExposureSubmissionIntroduction_AccImageDescription" = "Un dispozitiv transmite un diagnostic de test pozitiv criptat către sistem.";
 
-"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Document cu cod QR";
+"ExposureSubmission_DispatchDescription" = "Aflați rezultatul testului dvs. prin intermediul aplicației și avertizați-i pe ceilalți. Vă veți proteja și veți opri răspândirea coronavirusului.";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Înregistrați-vă testul scanând codul QR al documentului de testare.";
+"ExposureSubmission_DispatchSectionHeadline" = "Ați fost testat?";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "TAN";
+"ExposureSubmission_DispatchSectionHeadline2" = "Ați fost testat pozitiv la coronavirus?";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "Înregistrați-vă testul introducând manual codul TAN.";
+"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Testarea cu cod QR";
 
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "Solicitare TAN";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Scanați codul dvs. QR pentru a afla rezultatul testului dvs. și a-i avertiza pe ceilalți.";
 
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Vă rugăm să ne contactați dacă ați fost testat %@.";
+"ExposureSubmissionDispatch_TANButtonTitle" = "Intrare TAN";
 
-"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Pozitiv la COVID-19";
+"ExposureSubmissionDispatch_TANButtonDescription" = "Aveți un cod TAN? Continuați să introduceți codul dvs. TAN pentru a-i putea avertiza pe ceilalți.";
 
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "Nu aveți un cod TAN încă?";
+
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Sunați-ne și obțineți un cod TAN.";
+
+/* Exposure Submission Hotline */
 "ExposureSubmissionHotline_Title" = "Solicitare TAN";
 
 "ExposureSubmissionHotline_Description" = "Vă rugăm să aveți la îndemână rezultatul testului (dacă este disponibil) și numărul de telefon pentru a solicita un cod TAN.";
@@ -456,23 +464,37 @@
 "ExposureSubmissionHotline_imageDescription" = "Serviciul hotline vă comunică un cod TAN.";
 
 /* Exposure Submission QR Code Info */
-"ExposureSubmissionQRInfo_title" = "Scanare cod QR";
+"ExposureSubmissionQRInfo_title" = "Consimțământul dvs.";
 
-"ExposureSubmissionQRInfo_imageDescription" = "O persoană ține un smartphone lângă un cod QR. Codul QR citit apare pe ecranul smartphone-ului.";
+"ExposureSubmissionQRInfo_imageDescription" = "O persoană ține în mână un smartphone. Un cod QR de pe un test simbolizează codul care va fi scanat.";
+
+"ExposureSubmissionQRInfo_title_description" = "Consimțământul dvs. este necesar înainte de a putea regăsi rezultatul testului dvs. și a-i avertiza pe ceilalți.";
+
+"ExposureSubmissionQRInfo_header_section_1" = "Aflarea rezultatului testului";
+
+"ExposureSubmissionQRInfo_body_section_1" = "La pasul următor, scanați codul QR de pe testul dvs. și aflați rezultatul testului.";
 
 "ExposureSubmissionQRInfo_instruction1" = "Vă rugăm să scanați doar codul propriului dvs. test.";
 
-"ExposureSubmissionQRInfo_instruction2" = "Fiecare test poate fi scanat %@.";
-
-"ExposureSubmissionQRInfo_instruction2_highlightedPhrase" = "o singură dată";
+"ExposureSubmissionQRInfo_instruction2" = "Testul dvs. poate fi scanat o singură dată. Aplicația nu poate gestiona mai multe teste simultan.";
 
 "ExposureSubmissionQRInfo_instruction3" = "Aplicația %@ poate gestiona mai multe teste simultan.";
 
 "ExposureSubmissionQRInfo_instruction3_highlightedPhrase" = "nu";
 
-"ExposureSubmissionQRInfo_instruction4" = "Dacă este disponibil un test mai recent, ștergeți testul existent și scanați codul QR al testului curent.";
+"ExposureSubmissionQRInfo_header_section_2" = "Vă rugăm să îi ajutați pe ceilalți cu care v-ați întâlnit, avertizându-i!";
 
-"ExposureSubmissionQRInfo_primaryButtonTitle" = "Înainte";
+"ExposureSubmissionQRInfo_body_section_2" = "Dacă ați fost diagnosticat cu coronavirus, puteți să îi avertizați pe ceilalți prin intermediul aplicației. Funcția de avertizare funcționează în câteva țări. Următoarele țări participă în prezent:";
+
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Consimțământul dvs. este voluntar.";
+
+"ExposureSubmissionQRInfo_acknowledgement_4" = "Puteți afla rezultatul testului dvs. chiar dacă nu alegeți să îl partajați. Dar dacă partajați rezultatul testului dvs., veți ajuta la protejarea celorlalți împotriva infecției.";
+
+"ExposureSubmissionQRInfo_acknowledgement_5" = "Identitatea dvs. va rămâne secretă. Alți utilizatori nu vor ști cine a partajat rezultatele testelor respective.";
+
+"ExposureSubmissionQRInfo_acknowledgement_6" = "Trebuie să aveți cel puțin 16 ani pentru a vă acorda consimțământul.";
+
+"ExposureSubmissionQRInfo_primaryButtonTitle" = "Accept";
 
 "ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title" = "Codul QR nu mai este valabil";
 
@@ -498,7 +520,7 @@
 "ExposureSubmissionQRScanner_CameraFlash_Disable" = "Oprire bliț cameră";
 
 /* Exposure Submission Success */
-"ExposureSubmissionSuccess_Title" = "Vă mulțumim!";
+"ExposureSubmissionSuccess_Title" = "Vă mulţumim";
 
 "ExposureSubmissionSuccess_AccImageDescription" = "Toată lumea din grup aclamă deoarece o persoană și-a împărtășit rezultatul testului.";
 
@@ -522,27 +544,35 @@
 
 "ExposureSubmissionSuccess_listItem2_4" = "Chiar și când nu mai aveți simptome și vă simțiți din nou bine, tot puteți să fiți contagios.";
 
-/* Exposure Submission Introduction */
-"ExposureSubmissionIntroduction_Title" = "Informații";
+/* Exposure Submission Testresult available */
+"ExposureSubmissionTestresultAvailable_Title" = "Rezultatul testului dvs. este disponibil";
 
-"ExposureSubmissionIntroduction_SubTitle" = "Modul în care funcționează Corona-Warn-App";
+"ExposureSubmissionTestresultAvailable_AccImageDescription" = "O femeie își ține în mână smartphone-ul. Acesta trimite un semnal către un alt smartphone.";
 
-"ExposureSubmissionIntroduction_AccImageDescription" = "Un dispozitiv transmite un diagnostic de test pozitiv criptat către sistem.";
+"ExposureSubmissionTestresultAvailable_Consent_granted" = "Consimțământ\n„Avertizați-i pe ceilalți” acordat";
 
-"ExposureSubmissionIntroduction_Usage01" = "Pentru ca aplicația să funcționeze bine, ne bazăm pe susținerea persoanelor care au fost diagnosticate cu COVID-19.";
+"ExposureSubmissionTestresultAvailable_Consent_not_given" = "Consimțământ\n„Avertizați-i pe ceilalți” neacordat";
 
-"ExposureSubmissionIntroduction_Usage02" = "Deoarece prin aplicație sunt schimbate doar ID-uri aleatorii criptate, este imposibil să fiți identificat. Acum puteți continua astfel:";
+"ExposureSubmissionTestresultAvailable_ListItem1WithConsent" = "Vă mulțumim pentru că sunteți de acord să partajați rezultatul testului dvs. și să ajutați astfel la avertizarea celorlalți.";
 
-"ExposureSubmissionIntroduction_ListItem1" = "Dacă există un cod QR în documentul dvs. de testare, îl puteți scana și înregistra testul. Imediat ce rezultatul este disponibil, îl puteți vedea în aplicație.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "La pasul următor, partajați rezultatul testului dvs. apăsând „Partajare”.";
 
-"ExposureSubmissionIntroduction_ListItem2" = "Dacă ați fost diagnosticat cu COVID-19, îi puteți avertiza pe ceilalți.";
+"ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Ați ales să nu partajați rezultatele testului dvs. Ceilalți nu vor fi avertizați.";
 
-"ExposureSubmissionIntroduction_ListItem3" = "Dacă ați primit un cod TAN pentru un diagnostic pozitiv, îl puteți utiliza pentru a înregistra testul.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithoutConsent" = "La pasul următor, aveți ocazia să vă răzgândiți și să partajați totuși rezultatul testului dvs., pentru a ajuta la oprirea răspândirii coronavirusului și a-i proteja pe ceilalți.";
 
-"ExposureSubmissionIntroduction_ListItem4" = "Dacă nu aveți un cod TAN, îl puteți solicita telefonic.";
+"ExposureSubmissionTestresultAvailable_primaryButtonTitle" = "Înainte";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Important:\nSunteți pe punctul de a anula acest proces. Încă nu i-ați avertizat pe ceilalți. Vă rugăm să finalizați procesul și să ajutați la protejarea celorlalți.";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertMessage" = "Sigur doriți să anulați acest proces?";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Anulare";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Continuare";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_Title" = "Rezultat test";
+"ExposureSubmissionResult_Title" = "Rezultatul testului dvs.";
 
 "ExposureSubmissionResult_CardSubTitle" = "Diagnosticul dvs.";
 
@@ -558,9 +588,7 @@
 
 "ExposureSubmissionResult_Procedure" = "Cum funcționează:";
 
-"ExposureSubmissionResult_testAdded" = "Test adăugat cu succes";
-
-"ExposureSubmissionResult_testAddedDesc" = "Testul dvs. a fost stocat în Corona-Warn-App.";
+"ExposureSubmissionResult_testAdded" = "Testul dvs. a fost adăugat.";
 
 "ExposureSubmissionResult_warnOthers" = "Avertizarea altora";
 
@@ -588,13 +616,13 @@
 
 "ExposureSubmissionResult_testExpiredDesc" = "A apărut o problemă la evaluarea testului dvs. Codul dvs. QR a expirat deja.";
 
-"ExposureSubmissionResult_testPending" = "Rezultatul testului nu este încă disponibil";
+"ExposureSubmissionResult_testPending" = "Rezultatul testului dvs. nu este încă disponibil.";
 
-"ExposureSubmissionResult_testPendingDesc_paragraph1" = "Vă rugăm să aveți răbdare, deoarece evaluarea poate dura câteva zile.";
+"ExposureSubmissionResult_testPendingDesc" = "Imediat ce devine disponibil, rezultatul testului dvs. va fi afișat în aplicație.";
 
-"ExposureSubmissionResult_testPendingDesc_paragraph2" = "De asemenea, veți primi rezultatul testului în afara aplicației. Autoritățile de sănătate publică vă vor anunța dacă testul dvs. este pozitiv.";
+"ExposureSubmissionResult_WarnOthersConsentGiven" = "Consimțământ „Avertizați-i pe ceilalți” acordat";
 
-"ExposureSubmissionResult_testPendingDesc_paragraph3" = "În cazul unui rezultat pozitiv, apelați numărul indicat la „Solicitare TAN” pentru a vă înregistra rezultatul în aplicație și pentru a-i avertiza pe ceilalți.";
+"ExposureSubmissionResult_WarnOthersConsentNotGiven" = "Consimțământ „Avertizați-i pe ceilalți” neacordat";
 
 "ExposureSubmissionResult_testRemove" = "Ștergere test";
 
@@ -611,9 +639,9 @@
 /* ExposureSubmissionSymptoms */
 "ExposureSubmissionSymptoms_Title" = "Simptome";
 
-"ExposureSubmissionSymptoms_Introduction" = "Puteți indica momentul când și dacă ați observat simptomele specifice coronavirusului pentru a-i permite aplicației să calculeze mai exact riscul de infectare al altor utilizatori ai aplicației. Dacă nu doriți să furnizați aceste informații, selectați „Nu răspund”.";
+"ExposureSubmissionSymptoms_Introduction" = "Puteți indica momentul când și dacă ați observat simptomele specifice coronavirusului pentru a-i permite aplicației să calculeze mai exact riscul de infectare al altor utilizatori ai aplicației. Acest pas este voluntar. Dacă nu doriți să furnizați informații despre simptomele dvs., selectați „Nu răspund”.";
 
-"ExposureSubmissionSymptoms_Description" = "Ați resimțit unul sau mai multe dintre următoarele simptome?";
+"ExposureSubmissionSymptoms_Description" = "Ați resimțit unul sau mai multe dintre următoarele simptome în ultimele zile?";
 
 "ExposureSubmissionSymptoms_Symptom0" = "Temperatură crescută sau febră";
 
@@ -642,11 +670,11 @@
 /* ExposureSubmissionSymptomsOnset */
 "ExposureSubmissionSymptomsOnset_Title" = "Începutul simptomelor";
 
-"ExposureSubmissionSymptomsOnset_Subtitle" = "Când ați început să resimțiți aceste simptome?";
+"ExposureSubmissionSymptomsOnset_Subtitle" = "Când ați observat pentru prima dată simptomele?";
 
-"ExposureSubmissionSymptomsOnset_Description" = "Răspundeți la întrebare cât mai precis cu putință.";
+"ExposureSubmissionSymptomsOnset_Description" = "Specificați data cât mai exact posibil.";
 
-"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Data exactă";
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Dată";
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "În ultimele 7 zile";
 
@@ -656,7 +684,16 @@
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Nu comentez";
 
-"ExposureSubmissionSymptomsOnset_ContinueButton" = "Înainte";
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "Asta e tot!";
+
+/* ExposureSubmissionSymptoms - Cancel alert */
+"ExposureSubmissionSymptoms_CancelAlertTitle" = "Doriți să anulați introducerea simptomelor dvs.?";
+
+"ExposureSubmissionSymptoms_CancelAlertMessage" = "Dacă furnizați informații despre simptomele dvs., îi puteți avertiza pe ceilalți într-un mod mai exact.";
+
+"ExposureSubmissionSymptoms_CancelAlertButtonCancel" = "Da";
+
+"ExposureSubmissionSymptoms_CancelAlertButtonContinue" = "Nu";
 
 /* ExposureSubmissionWarnOthers */
 "ExposureSubmissionWarnOthers_title" = "Avertizați-i pe ceilalți";
@@ -665,13 +702,9 @@
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Puteți fi de ajutor!";
 
-"ExposureSubmissionWarnOthers_description" = "Dacă doriți, acum puteți să vă asigurați că alte persoane sunt avertizate de posibila infectare.\n\nPentru aceasta, puteți transmite ID-urile dvs. aleatorii din ultimele 14 zile – și, opțional, informații despre momentul în care ați observat prima dată simptomele de coronavirus – către serverul de schimb operat în comun de țările participante. De aici, ID-urile aleatorii și informațiile suplimentare vor fi distribuite către utilizatorii aplicațiilor oficiale relevante împotriva coronavirusului. În acest mod, orice alt utilizator cu care ați avut contact poate fi avertizat de o posibilă infectare.\n\nSingurele informații transmise vor fi doar ID-urile aleatorii și orice informații opționale pe care le furnizați despre debutul simptomelor. Nu vor fi dezvăluite niciun fel de date personale, cum ar fi numele, adresa sau locația dvs.";
+"ExposureSubmissionWarnOthers_description" = "Deoarece ați fost testat pozitiv la coronavirus, acum puteți să îi avertizați pe ceilalți prin intermediul aplicației.";
 
-"ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Următoarele țări participă în prezent la înregistrarea în jurnal a expunerilor la nivel transnațional:";
-
-"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Avertizare: peste 16 ani";
-
-"ExposureSubmissionWarnOthers_consentUnderagesText" = "Utilizarea acestei aplicații este destinată persoanelor care au vârsta de cel puțin 16 ani și care locuiesc în Germania.";
+"ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Funcția de avertizare funcționează în câteva țări. Următoarele țări participă în prezent:";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Accept";
 
@@ -682,7 +715,7 @@
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Data înregistrării este necunoscută";
 
-"ExposureSubmissionResult_RegistrationDate" = "Înregistrat la";
+"ExposureSubmissionResult_RegistrationDate" = "Test adăugat pe";
 
 /* Exposure Submission */
 "ExposureSubmissionError_ErrorPrefix" = "A apărut o eroare tehnică la trimiterea datelor dvs. Contactaţi hotline-ul tehnic. Veți găsi numărul de telefon accesând Informații aplicație.";
@@ -742,7 +775,7 @@
 
 "ExposureNotificationSetting_DescriptionText1" = "Trebuie să activați caracteristica de înregistrare în jurnal a expunerilor, pentru ca aplicația să poată determina dacă aveți risc de infectare după ce ați întâlnit un utilizator al aplicației care este infectat. Caracteristica de înregistrare în jurnal a expunerilor funcționează la nivel transnațional, ceea ce înseamnă că orice expunere posibilă care îi implică pe utilizatori este detectată și de alte aplicații oficiale împotriva coronavirusului.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Caracteristica de înregistrare în jurnal a expunerilor funcționează astfel: smartphone-ul dvs. primește prin Bluetooth ID-uri aleatorii criptate ale altor utilizatori și transmite propriul dvs. ID aleatoriu către smartphone-urile acestora. În fiecare zi, aplicația descarcă o listă ce conține ID-uri aleatorii – împreună cu orice alte informații voluntare despre debutul simptomelor – ale tuturor utilizatorilor testați pozitiv la virus și care au împărtășit voluntar aceste informații prin aplicația lor. Apoi, lista este comparată cu ID-urile aleatorii ale altor utilizatori care au fost înregistrate de smartphone-ul dvs., pentru a calcula probabilitatea ca și dvs. să fi fost infectat și să vă avertizeze dacă este necesar. Puteți utiliza comutatorul pentru a dezactiva în orice moment înregistrarea în jurnal a expunerilor.";
+"ExposureNotificationSetting_DescriptionText2" = "Înregistrarea în jurnal a expunerilor funcționează astfel: iPhone-ul dvs. primește prin Bluetooth ID-uri aleatorii criptate ale altor utilizatori și transmite propriul dvs. ID aleatoriu către dispozitivele acestora. În fiecare zi, aplicația descarcă liste ce conțin ID-uri aleatorii – împreună cu orice alte informații voluntare despre debutul simptomelor – ale tuturor utilizatorilor testați pozitiv la virus și care au partajat voluntar rezultatele testelor lor (mai exact: ID-urile lor aleatorii) prin intermediul aplicației lor. Apoi, aceste liste sunt comparate cu ID-urile aleatorii ale altor utilizatori care au fost înregistrate de iPhone-ul dvs., pentru a calcula probabilitatea ca și dvs. să fi fost infectat și să vă avertizeze dacă este necesar. Puteți utiliza comutatorul pentru a dezactiva în orice moment înregistrarea în jurnal a expunerilor.";
 
 "ExposureNotificationSetting_DescriptionText3" = "Aplicația nu colectează niciodată date personale, precum numele, adresa sau locația dvs., iar aceste informații nu sunt transmise niciodată altor utilizatori. Nu se pot utiliza ID-urile aleatorii pentru a trage concluzii despre persoane individuale.";
 
@@ -811,7 +844,7 @@
 
 "ExposureNotificationSetting_EU_Desc_1" = "Mai multe țări colaborează pentru a susține alarmele transnaționale printr-un server de schimb comun. De exemplu, contactele cu utilizatorii unei aplicații oficiale anticoronavirus din alte țări participante pot fi, de asemenea, luate în considerare pentru înregistrarea în jurnal a expunerilor.";
 
-"ExposureNotificationSetting_EU_Desc_2" = "Pentru aceasta, aplicația descarcă o listă care este actualizată zilnic de ID-uri aleatorii ale tuturor utilizatorilor care și-au partajat ID-urile aleatorii prin propria aplicație. Această listă este apoi comparată cu ID-urile aleatorii înregistrate de smartphone-ul dvs. Descărcarea zilnică a listei de ID-uri aleatorii este, de obicei, gratuită pentru dvs. – nu veți suporta costuri pentru datele utilizate de aplicație în acest context și nu vor fi aplicate costuri de roaming pentru această opțiune în alte țări UE.";
+"ExposureNotificationSetting_EU_Desc_2" = "Pentru aceasta, aplicația descarcă o listă, care este actualizată zilnic, de ID-uri aleatorii ale tuturor utilizatorilor care și-au partajat rezultatele testelor pentru a-i avertiza pe ceilalți prin intermediul propriei aplicații. Apoi, această listă este comparată cu ID-urile aleatorii înregistrate de iPhone-ul dvs. Descărcările listelor sunt, de obicei, gratuite pentru dvs. În mod specific, aceasta înseamnă că operatorii de rețele mobile nu percep costuri pentru datele utilizate de aplicație în acest context și nu aplică niciun fel de costuri de roaming pentru această opțiune în alte țări UE. Contactați operatorul rețelei mobile pentru mai multe informații.";
 
 "ExposureNotificationSetting_EU_Desc_3" = "Următoarele țări participă în prezent la înregistrarea în jurnal a expunerilor la nivel transnațional:";
 
@@ -930,14 +963,14 @@
 
 "Home_Finding_Positive_Card_Share_Item_Title" = "Trimiteți ID-ul dvs. aleatoriu pentru a-i avertiza și pe alții.";
 
-"Home_Finding_Positive_Card_Button" = "Înainte";
+"Home_Finding_Positive_Card_Button" = "Avertizarea altora";
 
 /* Home Submit card */
 "Home_SubmitCard_Title" = "Ați fost testat?";
 
-"Home_SubmitCard_Body" = "Ajutați la întreruperea lanțului de infectare prin notificarea altor persoane.";
+"Home_SubmitCard_Body" = "Ajutați la protejarea dvs. și a celorlalți.";
 
-"Home_SubmitCard_Button" = "Aflați mai multe și ajutor";
+"Home_SubmitCard_Button" = "Pașii următori";
 
 "Home_InfoCard_ShareTitle" = "Partajați Corona-Warn-App";
 
@@ -954,11 +987,13 @@
 "Home_AppInformationCard_Version" = "Versiune";
 
 /* Home Result Card */
-"Home_resultCard_ResultAvailableTitle" = "Rezultatul dvs. este disponibil";
+"Home_resultCard_ResultAvailableTitle" = "Rezultatul testului dvs. este disponibil";
 
 "Home_resultCard_ResultUnvailableTitle" = "Rezultatul dvs. nu este încă disponibil";
 
 "Home_resultCard_ShowResultButton" = "Afișare test";
+
+"Home_resultCard_RetrieveResultButton" = "Aflați rezultatul testului";
 
 "Home_resultCard_LoadingBody" = "Datele curente sunt în curs de descărcare.\nAceasta poate dura mai multe minute.";
 
@@ -973,6 +1008,10 @@
 "Home_resultCard_InvalidTitle" = "Test nevalid";
 
 "Home_resultCard_InvalidDesc" = "Testul dvs. nu poate fi evaluat.";
+
+"Home_resultCard_AvailableSubtitle" = "Acum puteți afla rezultatul testului dvs.";
+
+"Home_resultCard_AvailableDesc" = "Dacă ați fost testat pozitiv la coronavirus, îi puteți avertiza pe ceilalți.";
 
 "Home_resultCard_LoadingErrorTitle" = "Rezultatul testului dvs. nu poate fi încărcat.";
 
@@ -1192,7 +1231,7 @@
 
 "DeltaOnboarding_Headline" = "Înregistrare transnațională a expunerilor în jurnal";
 
-"DeltaOnboarding_Description" = "Funcționalitatea aplicației Corona-Warn a fost extinsă. Mai multe țări colaborează pentru a susține alarmele transnaționale printr-un server de schimb comun. De exemplu, contactele cu utilizatorii unei aplicații oficiale anticoronavirus din alte țări participante pot fi, de asemenea, luate în considerare pentru înregistrarea în jurnal a expunerilor.\n\nPentru aceasta, aplicația descarcă o listă care este actualizată zilnic de ID-uri aleatorii ale tuturor utilizatorilor care și-au partajat ID-urile aleatorii prin propria aplicație. Această listă este apoi comparată cu ID-urile aleatorii înregistrate de smartphone-ul dvs.\n\nDescărcarea zilnică a listei de ID-uri aleatorii este, de obicei, gratuită pentru dvs. În mod specific, aceasta înseamnă că operatorii de rețele mobile nu vor percepe costuri pentru datele utilizate de aplicație în acest context și nici nu vor fi aplicate costuri de roaming pentru această opțiune în alte țări UE. Contactați operatorul rețelei mobile pentru mai multe informații.";
+"DeltaOnboarding_Description" = "Caracteristicile aplicației Corona-Warn au fost extinse. Multe țări s-au asociat pentru a susține avertizarea la nivel internațional, pe baza unui server de schimb operat în comun. Acum poate fi luată în considerare posibila expunere la utilizatori ai aplicațiilor oficiale anticoronavirus din alte țări participante când se calculează riscul dvs. de expunere.\n\nPentru aceasta, aplicația descarcă o listă, care este actualizată zilnic, de ID-uri aleatorii ale tuturor utilizatorilor care și-au partajat ID-urile aleatorii prin intermediul propriei aplicații. Această listă este apoi comparată cu ID-urile aleatorii înregistrate de iPhone-ul dvs.\n\nDescărcările listelor sunt, de obicei, gratuite pentru dvs. În mod specific, aceasta înseamnă că operatorii de rețele mobile nu percep costuri pentru datele utilizate de aplicație în acest context și nu aplică niciun fel de costuri de roaming pentru această opțiune în alte țări UE. Contactați operatorul rețelei mobile pentru mai multe informații.";
 
 "DeltaOnboarding_ParticipatingCountries" = "În prezent participă următoare țări:";
 
@@ -1212,4 +1251,59 @@
 "WarnOthersNotification_Title" = "Puteți fi de ajutor!";
 
 "WarnOthersNotification_Description" = "Vă rugăm să partajați rezultatul testului dvs. pentru a-i avertiza pe ceilalți.";
+
+/* Automatic sharing Consent */
+"AutomaticSharingConsent_Title" = "Consimțământul dvs.";
+
+"AutomaticSharingConsent_SwitchTitle" = "Avertizați-i pe ceilalți";
+
+"AutomaticSharingConsent_SwitchTitleDesc" = "Ați acordat următorul consimțământ:";
+
+"AutomaticSharingConsent_DataProcessingDetailInfo" = "Informații detaliate privind Prelucrarea datelor și Consimțământul dvs.";
+
+/* Thank you screen */
+"Thank_You_Title" = "Vă mulţumim";
+
+"Thank_You_SubTitle" = "Vă mulțumim pentru ajutorul dat la oprirea răspândirii coronavirusului.";
+
+"Thank_You_Description1" = "Ceilalți nu vor fi avertizați.";
+
+"Thank_You_Description2" = "Acum puteți ajuta la îmbunătățirea preciziei avertizărilor. Pentru aceasta, la pasul următor, spuneți-ne când ați dezvoltat simptome pentru prima dată. Puteți anula acest pas în orice moment.";
+
+"Thank_You_Continue_Button" = "Introducere simptome";
+
+"Thank_You_Cancel_Button" = "Ieșire";
+
+"Thank_You_AccImageDescription" = "Câteva persoane se uită la smartphone-urile lor.";
+
+/* Test result screen (positive test result) */
+"TestResultPositive_NoConsent_Title" = "Să ne ajutăm împreună!";
+
+"TestResultPositive_NoConsent_Info1" = "Partajați rezultatul testului dvs. și ajutați la protejarea celorlalți împotriva infecției.";
+
+"TestResultPositive_NoConsent_Info2" = "Identitatea dvs. va rămâne secretă. Alți utilizatori nu vor ști cine a partajat rezultatele testelor respective.";
+
+"TestResultPositive_NoConsent_Info3" = "Asigurați-vă că urmați instrucțiunile direcției dvs. de sănătate publică și că stați acasă, pentru a nu-i infecta pe ceilalți.";
+
+"TestResultPositive_NoConsent_PrimaryButton" = "Avertizarea altora";
+
+"TestResultPositive_NoConsent_SecondaryButton" = "Anulare";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_Title" = "Doriți să trimiteți o avertizare?";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_Description" = "Trebuie să partajați rezultatul testului dvs. dacă doriți să îi avertizați pe ceilalți.";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne" = "Nu îi avertizați pe ceilalți";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo" = "Avertizați-i pe ceilalți";
+
+"TestResultPositive_WithConsent_Title" = "Vă mulțumim pentru ajutorul dat la oprirea răspândirii coronavirusului.";
+
+"TestResultPositive_WithConsent_Info1" = "Ceilalți nu vor fi avertizați.";
+
+"TestResultPositive_WithConsent_Info2" = "Acum puteți ajuta la îmbunătățirea preciziei avertizărilor. Pentru aceasta, la pasul următor, spuneți-ne când ați dezvoltat simptome pentru prima dată. Puteți anula acest pas în orice moment.";
+
+"TestResultPositive_WithConsent_PrimaryButton" = "Introducere simptome";
+
+"TestResultPositive_WithConsent_SecondaryButton" = "Ieșire";
 

@@ -5,28 +5,32 @@
 import UIKit
 import Combine
 
+// swiftlint:disable:next type_body_length
 class ExposureSubmissionTestResultViewModel {
 	
 	// MARK: - Init
 	
 	init(
-		warnOthersReminder: WarnOthersRemindable,
 		testResult: TestResult,
 		exposureSubmissionService: ExposureSubmissionService,
-		onContinueWithSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
-		onContinueWithoutSymptomsFlowButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
-		onTestDeleted: @escaping () -> Void,
-		onSubmissionConsentButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
+		warnOthersReminder: WarnOthersRemindable,
+		onSubmissionConsentCellTap: @escaping (@escaping (Bool) -> Void) -> Void,
+		onContinueWithSymptomsFlowButtonTap: @escaping () -> Void,
+		onContinueWarnOthersButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
+		onChangeToPositiveTestResult: @escaping () -> Void,
+		onTestDeleted: @escaping () -> Void
 	) {
 		self.testResult = testResult
 		self.exposureSubmissionService = exposureSubmissionService
-		self.onContinueWithSymptomsFlowButtonTap = onContinueWithSymptomsFlowButtonTap
-		self.onContinueWithoutSymptomsFlowButtonTap = onContinueWithoutSymptomsFlowButtonTap
-		self.onTestDeleted = onTestDeleted
-		self.onSubmissionConsentButtonTap = onSubmissionConsentButtonTap
 		self.warnOthersReminder = warnOthersReminder
+		self.onSubmissionConsentCellTap = onSubmissionConsentCellTap
+		self.onContinueWithSymptomsFlowButtonTap = onContinueWithSymptomsFlowButtonTap
+		self.onContinueWarnOthersButtonTap = onContinueWarnOthersButtonTap
+		self.onChangeToPositiveTestResult = onChangeToPositiveTestResult
+		self.onTestDeleted = onTestDeleted
+
 		updateForCurrentTestResult()
-		updateSubmissionConsentLabel()
+		bindToSubmissionConsent()
 	}
 	
 	// MARK: - Internal
@@ -34,6 +38,13 @@ class ExposureSubmissionTestResultViewModel {
 	@Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
 	@Published var shouldShowDeletionConfirmationAlert: Bool = false
 	@Published var error: ExposureSubmissionError?
+	@Published var shouldAttemptToDismiss: Bool = false
+
+	var testResult: TestResult {
+		didSet {
+			updateForCurrentTestResult()
+		}
+	}
 	
 	var timeStamp: Int64? {
 		exposureSubmissionService.devicePairingSuccessfulTimestamp
@@ -52,9 +63,19 @@ class ExposureSubmissionTestResultViewModel {
 	func didTapPrimaryButton() {
 		switch testResult {
 		case .positive:
-			onContinueWithSymptomsFlowButtonTap { [weak self] isLoading in
-				self?.primaryButtonIsLoading = isLoading
+			// Determine next step based on consent state. In case the user has given exposure
+			// submission consent, we continue with collecting onset of symptoms.
+			// Otherwise we continue with the warn others process
+			if isSubmissionConsentGiven {
+				Log.info("Positive Test Result: Next -> 'onset of symptoms'.")
+				onContinueWithSymptomsFlowButtonTap()
+			} else {
+				Log.info("Positive Test Result: Next -> 'warn others'.")
+				onContinueWarnOthersButtonTap { [weak self] isLoading in
+					self?.primaryButtonIsLoading = isLoading
+				}
 			}
+			
 		case .negative, .invalid, .expired:
 			shouldShowDeletionConfirmationAlert = true
 		case .pending:
@@ -69,9 +90,7 @@ class ExposureSubmissionTestResultViewModel {
 	func didTapSecondaryButton() {
 		switch testResult {
 		case .positive:
-			onContinueWithoutSymptomsFlowButtonTap { [weak self] isLoading in
-				self?.secondaryButtonIsLoading = isLoading
-			}
+			self.shouldAttemptToDismiss = true
 		case .pending:
 			shouldShowDeletionConfirmationAlert = true
 		case .negative, .invalid, .expired:
@@ -93,28 +112,19 @@ class ExposureSubmissionTestResultViewModel {
 	
 	// MARK: - Private
 	
-	private var submissionConsentLabel: String = ""
-	
-	private var cancellables: Set<AnyCancellable> = []
-	
 	private var exposureSubmissionService: ExposureSubmissionService
-	
-	private var supportedCountries: [Country]?
-	
-	private var subscriptions = [AnyCancellable]()
-	
-	private let onContinueWithSymptomsFlowButtonTap: (@escaping (Bool) -> Void) -> Void
-	private let onContinueWithoutSymptomsFlowButtonTap: (@escaping (Bool) -> Void) -> Void
-	private let onTestDeleted: () -> Void
-	private let onSubmissionConsentButtonTap: (@escaping (Bool) -> Void) -> Void
-	
-	private var testResult: TestResult {
-		didSet {
-			updateForCurrentTestResult()
-		}
-	}
-	
 	private var warnOthersReminder: WarnOthersRemindable
+
+	private let onSubmissionConsentCellTap: (@escaping (Bool) -> Void) -> Void
+	private let onContinueWithSymptomsFlowButtonTap: () -> Void
+	private let onContinueWarnOthersButtonTap: (@escaping (Bool) -> Void) -> Void
+
+	private let onChangeToPositiveTestResult: () -> Void
+	private let onTestDeleted: () -> Void
+
+	private var isSubmissionConsentGiven: Bool = false
+
+	private var cancellables: Set<AnyCancellable> = []
 	
 	private var primaryButtonIsLoading: Bool = false {
 		didSet {
@@ -152,11 +162,16 @@ class ExposureSubmissionTestResultViewModel {
 		
 		switch testResult {
 		case .positive:
-			navigationFooterItem.primaryButtonTitle = AppStrings.ExposureSubmissionResult.primaryButtonTitle
-			navigationFooterItem.secondaryButtonTitle = AppStrings.ExposureSubmissionResult.secondaryButtonTitle
+			navigationFooterItem.primaryButtonTitle = isSubmissionConsentGiven ?
+				AppStrings.ExposureSubmissionPositiveTestResult.withConsentPrimaryButtonTitle :
+				AppStrings.ExposureSubmissionPositiveTestResult.noConsentPrimaryButtonTitle
+			navigationFooterItem.secondaryButtonTitle = isSubmissionConsentGiven ?
+				AppStrings.ExposureSubmissionPositiveTestResult.withConsentSecondaryButtonTitle :
+				AppStrings.ExposureSubmissionPositiveTestResult.noConsentSecondaryButtonTitle
 			navigationFooterItem.isSecondaryButtonEnabled = true
 			navigationFooterItem.isSecondaryButtonHidden = false
 			navigationFooterItem.secondaryButtonHasBorder = true
+			navigationFooterItem.secondaryButtonHasBackground = true
 		case .negative, .invalid, .expired:
 			navigationFooterItem.primaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
 		case .pending:
@@ -172,6 +187,9 @@ class ExposureSubmissionTestResultViewModel {
 			switch result {
 			case let .failure(error):
 				self?.error = error
+			// Positive test results are not shown immediately
+			case let .success(testResult) where testResult == .positive:
+				self?.onChangeToPositiveTestResult()
 			case let .success(testResult):
 				self?.testResult = testResult
 				self?.updateWarnOthers()
@@ -183,7 +201,7 @@ class ExposureSubmissionTestResultViewModel {
 	private var currentTestResultSections: [DynamicSection] {
 		switch testResult {
 		case .positive:
-			return positiveTestResultSections
+			return isSubmissionConsentGiven ? positiveTestResultSectionsWithSubmissionConsent : positiveTestResultSectionsWithoutSubmissionConsent
 		case .negative:
 			return negativeTestResultSections
 		case .invalid:
@@ -195,7 +213,9 @@ class ExposureSubmissionTestResultViewModel {
 		}
 	}
 	
-	private var positiveTestResultSections: [DynamicSection] {
+	/// This is the positive result section which will be shown, if the user
+	/// has GIVEN submission consent to share the positive test result with others
+	private var positiveTestResultSectionsWithSubmissionConsent: [DynamicSection] {
 		[
 			.section(
 				header: .identifier(
@@ -206,21 +226,55 @@ class ExposureSubmissionTestResultViewModel {
 				),
 				separators: .none,
 				cells: [
-					.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
+					.title2(text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentTitle,
+							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentTitle),
+					.headline(text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentInfo1,
+							  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentInfo1),
+					.body(text: AppStrings.ExposureSubmissionPositiveTestResult.withConsentInfo2, accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.withConsentInfo2)
+				]
+			)
+		]
+	}
+	
+	/// This is the positive result section which will be shown, if the user
+	/// has NOT GIVEN submission consent to share the positive test result with others
+	private var positiveTestResultSectionsWithoutSubmissionConsent: [DynamicSection] {
+		[
+			.section(
+				header: .identifier(
+					ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+					configure: { view, _ in
+						(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive, timeStamp: self.timeStamp)
+					}
+				),
+				separators: .none,
+				cells: [
+					.title2(text: AppStrings.ExposureSubmissionPositiveTestResult.noConsentTitle,
+							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionPositiveTestResult.noConsentTitle),
 					
 					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.testAdded,
+						title: AppStrings.ExposureSubmissionPositiveTestResult.noConsentInfo1,
 						description: nil,
-						icon: UIImage(named: "Icons_Grey_Check"),
-						hairline: .iconAttached
+						icon: UIImage(named: "Icons - Warnen"),
+						iconTint: .enaColor(for: .riskHigh),
+						hairline: .none,
+						bottomSpacing: .normal
 					),
-					
 					ExposureSubmissionDynamicCell.stepCell(
-						title: AppStrings.ExposureSubmissionResult.warnOthers,
-						description: AppStrings.ExposureSubmissionResult.warnOthersDesc,
-						icon: UIImage(named: "Icons_Grey_Warnen"),
-						hairline: .none
+						style: .body,
+						title: AppStrings.ExposureSubmissionPositiveTestResult.noConsentInfo2,
+						icon: UIImage(named: "Icons - Lock"),
+						iconTint: .enaColor(for: .riskHigh),
+						hairline: .none,
+						bottomSpacing: .normal
+					),
+					ExposureSubmissionDynamicCell.stepCell(
+						style: .body,
+						title: AppStrings.ExposureSubmissionPositiveTestResult.noConsentInfo3,
+						icon: UIImage(named: "Icons - Home"),
+						iconTint: .enaColor(for: .riskHigh),
+						hairline: .none,
+						bottomSpacing: .normal
 					)
 				]
 			)
@@ -344,15 +398,18 @@ class ExposureSubmissionTestResultViewModel {
 			.section(
 				separators: .all,
 				cells: [
-					
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Grey_Warnen"),
-						text: .string(self.submissionConsentLabel),
+						text: .string(
+							isSubmissionConsentGiven ?
+										AppStrings.ExposureSubmissionResult.warnOthersConsentGiven :
+										AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven
+						),
 						action: .execute {[weak self] _, cell in
 							guard let self = self else {
 								return
 							}
-							self.onSubmissionConsentButtonTap { isLoading in
+							self.onSubmissionConsentCellTap { isLoading in
 								let activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
 								activityIndicatorView.startAnimating()
 								cell?.accessoryView = isLoading ? activityIndicatorView : nil
@@ -410,12 +467,12 @@ class ExposureSubmissionTestResultViewModel {
 		]
 	}
 	
-	func updateSubmissionConsentLabel() {
+	private func bindToSubmissionConsent() {
 		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
-			let labelText = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionResult.warnOthersConsentGiven : AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven
-			self.submissionConsentLabel = labelText
-			
+			Log.info("TestResult Screen: Update content for submission consent given = \(isSubmissionConsentGiven)")
+			self.isSubmissionConsentGiven = isSubmissionConsentGiven
 			self.updateForCurrentTestResult()
 		}.store(in: &cancellables)
 	}
+
 }

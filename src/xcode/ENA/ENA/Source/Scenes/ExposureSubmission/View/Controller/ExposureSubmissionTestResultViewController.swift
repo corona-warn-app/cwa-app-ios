@@ -5,16 +5,19 @@
 import UIKit
 import Combine
 
-class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
 
 	// MARK: - Init
 
 	init(
 		viewModel: ExposureSubmissionTestResultViewModel,
-		exposureSubmissionService: ExposureSubmissionService
+		exposureSubmissionService: ExposureSubmissionService,
+		onDismiss: @escaping (TestResult, @escaping (Bool) -> Void) -> Void
 	) {
 		self.viewModel = viewModel
 		self.exposureSubmissionService = exposureSubmissionService
+		self.onDismiss = onDismiss
+
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -32,7 +35,9 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		setUpBindings()
 	}
 	
-	override func viewWillAppear(_ animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		
 		viewModel.updateWarnOthers()
 	}
 
@@ -50,10 +55,23 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		viewModel.didTapSecondaryButton()
 	}
 
+	// MARK: - Protocol DismissHandling
+
+	func wasAttemptedToBeDismissed() {
+		onDismiss(viewModel.testResult) { [weak self] isLoading in
+			DispatchQueue.main.async {
+				self?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+				self?.navigationFooterItem?.isSecondaryButtonEnabled = !isLoading
+				self?.navigationFooterItem?.isSecondaryButtonLoading = isLoading
+			}
+		}
+	}
+	
 	// MARK: - Private
 	
+	private let onDismiss: (TestResult, @escaping (Bool) -> Void) -> Void
 	private let exposureSubmissionService: ExposureSubmissionService
-
 	private let viewModel: ExposureSubmissionTestResultViewModel
 
 	private var bindings: [AnyCancellable] = []
@@ -79,7 +97,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	}
 
 	private func setUpBindings() {
-		
 		viewModel.$dynamicTableViewModel
 			.sink { [weak self] dynamicTableViewModel in
 				self?.dynamicTableViewModel = dynamicTableViewModel
@@ -94,6 +111,16 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 				self.viewModel.shouldShowDeletionConfirmationAlert = false
 
 				self.showDeletionConfirmationAlert()
+			}
+			.store(in: &bindings)
+		
+		viewModel.$shouldAttemptToDismiss
+			.sink { [weak self] shouldAttemptToDismiss in
+				guard let self = self, shouldAttemptToDismiss else { return }
+				
+				self.viewModel.shouldAttemptToDismiss = false
+				
+				self.wasAttemptedToBeDismissed()
 			}
 			.store(in: &bindings)
 

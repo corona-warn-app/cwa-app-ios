@@ -2,7 +2,7 @@ version: 2.1
 
 configuration:
   - cache_key: &cache_key v7-{{ checksum "src/xcode/Gemfile.lock" }}
-  - xcode_version: &xcode_version 12.1.1
+  - xcode_version: &xcode_version 12.2.0
 
 commands:
   install-tools:
@@ -75,7 +75,7 @@ jobs:
           name: Convert coverage information to SonarCloud format
           shell: /bin/zsh
           command: |
-            ./scripts/xcov_to_sonar.sh src/xcode/fastlane/test_output/action_0.xccovarchive/ $CIRCLE_WORKING_DIRECTORY/ src/xcode/fastlane/test_output/coverage.xml
+            ./scripts/xcov_to_sonar.sh src/xcode/fastlane/test_output/xccovarchive-0.xccovarchive/ $CIRCLE_WORKING_DIRECTORY/ src/xcode/fastlane/test_output/coverage.xml
       - run:
           name: Fix SwiftLint output for SonarCloud
           shell: /bin/zsh
