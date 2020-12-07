@@ -47,11 +47,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		set { store.devicePairingSuccessfulTimestamp = newValue }
 	}
 
-	var positiveTestResultWasShown: Bool {
-		get { store.positiveTestResultWasShown }
-		set { store.positiveTestResultWasShown = newValue }
-	}
-
 	private var supportedCountries: [Country] {
 		get { store.submissionCountries }
 		set { store.submissionCountries = newValue }
