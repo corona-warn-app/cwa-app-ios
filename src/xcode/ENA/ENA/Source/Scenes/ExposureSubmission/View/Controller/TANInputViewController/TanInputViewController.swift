@@ -79,7 +79,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(scrollView)
 
-		// scrollview content size will chnage if we set the errorLabel to a text
+		// scrollView content size will chnage if we set the errorLabel to a text
 		// we need to scroll content area to show the error if the footerView intersects with the error label
 		// if the error label resets to nil  we will scroll back to a minus top value to make sure scrollView
 		// is in top position (-103 is basically the default value)
