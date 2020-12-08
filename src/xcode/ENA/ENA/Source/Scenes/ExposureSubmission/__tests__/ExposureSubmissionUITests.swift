@@ -5,6 +5,8 @@
 import XCTest
 import ExposureNotification
 
+// swiftlint:disable file_length
+// swiftlint:disable:next type_body_length
 class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 	// MARK: - Attributes.
