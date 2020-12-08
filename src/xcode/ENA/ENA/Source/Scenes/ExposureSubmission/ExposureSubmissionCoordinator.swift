@@ -151,7 +151,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		// We got a test result and can jump straight into the test result view controller.
 		if let testResult = result, model.exposureSubmissionService.hasRegistrationToken {
 			// For a positive test result we show the test result available screen if it wasn't shown before
-			if testResult == .positive && !model.exposureSubmissionService.positiveTestResultWasShown {
+			if testResult == .positive && !warnOthersReminder.positiveTestResultWasShown {
 				return createTestResultAvailableViewController(testResult: testResult)
 			} else {
 				return createTestResultViewController(with: testResult)

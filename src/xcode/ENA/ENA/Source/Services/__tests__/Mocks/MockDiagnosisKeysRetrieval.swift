@@ -6,20 +6,21 @@ import Foundation
 import ExposureNotification
 
 #if DEBUG
-final class MockDiagnosisKeysRetrieval {
+final class MockDiagnosisKeysRetrieval: DiagnosisKeysRetrieval {
 
 	typealias MockDiagnosisKeysResult = ([ENTemporaryExposureKey]?, Error?)
-	let diagnosisKeysResult: MockDiagnosisKeysResult
 
-	init(diagnosisKeysResult: MockDiagnosisKeysResult) {
+	// MARK: - Init
+
+	init(
+		diagnosisKeysResult: MockDiagnosisKeysResult,
+		exposureManagerState: ExposureManagerState = .init(authorized: true, enabled: true, status: .active)
+	) {
 		self.diagnosisKeysResult = diagnosisKeysResult
+		self.exposureManagerState = exposureManagerState
 	}
-}
 
-extension MockDiagnosisKeysRetrieval: DiagnosisKeysRetrieval {
-	var exposureManagerState: ExposureManagerState {
-		return .init(authorized: true, enabled: true, status: .active)
-	}
+	// MARK: - Protocol DiagnosisKeysRetrieval
 
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
 		completionHandler(diagnosisKeysResult.0, diagnosisKeysResult.1)
@@ -28,5 +29,11 @@ extension MockDiagnosisKeysRetrieval: DiagnosisKeysRetrieval {
 	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
 		completionHandler(diagnosisKeysResult.0, diagnosisKeysResult.1)
 	}
+
+	// MARK: - Internal
+
+	let diagnosisKeysResult: MockDiagnosisKeysResult
+	let exposureManagerState: ExposureManagerState
+
 }
 #endif

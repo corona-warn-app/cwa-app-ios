@@ -79,6 +79,10 @@ class ExposureSubmissionCoordinatorModel {
 			case .none, .noKeys:
 				onSuccess()
 
+			// We don't show an error if the submission consent was not given, because we assume that the submission already happend in the background.
+			case .noSubmissionConsent:
+				onSuccess()
+
 			case .some(let error):
 				Log.error("error: \(error.localizedDescription)", log: .api)
 				onError(error)

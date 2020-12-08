@@ -15,11 +15,13 @@ final class HomeInteractor: RequiresAppDependencies {
 	init(
 		homeViewController: HomeViewController,
 		state: State,
-		exposureSubmissionService: ExposureSubmissionService
+		exposureSubmissionService: ExposureSubmissionService,
+		warnOthersReminder: WarnOthersReminder
 	) {
 		self.homeViewController = homeViewController
 		self.state = state
 		self.exposureSubmissionService = exposureSubmissionService
+		self.warnOthersReminder = warnOthersReminder
 
 		self.riskProviderActivityState = riskProvider.activityState
 
@@ -41,6 +43,8 @@ final class HomeInteractor: RequiresAppDependencies {
 
 	private unowned var homeViewController: HomeViewController
 	private let exposureSubmissionService: ExposureSubmissionService
+	private let warnOthersReminder: WarnOthersReminder
+
 	var enStateHandler: ENStateHandler?
 
 	private var detectionMode: DetectionMode { state.detectionMode }
@@ -338,7 +342,7 @@ extension HomeInteractor {
 				let testResultLoadingCellConfigurator = HomeTestResultLoadingCellConfigurator()
 				actionsConfigurators.append(testResultLoadingCellConfigurator)
 
-			case .positive where exposureSubmissionService.positiveTestResultWasShown:
+			case .positive where warnOthersReminder.positiveTestResultWasShown:
 				let findingPositiveRiskCellConfigurator = setupFindingPositiveRiskCellConfigurator()
 				actionsConfigurators.append(findingPositiveRiskCellConfigurator)
 

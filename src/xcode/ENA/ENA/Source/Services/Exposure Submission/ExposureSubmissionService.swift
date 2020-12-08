@@ -17,13 +17,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	// MARK: - Init
 
 	init(
-		diagnosiskeyRetrieval: DiagnosisKeysRetrieval,
+		diagnosisKeysRetrieval: DiagnosisKeysRetrieval,
 		appConfigurationProvider: AppConfigurationProviding,
 		client: Client,
 		store: Store,
 		warnOthersReminder: WarnOthersRemindable
 	) {
-		self.diagnosiskeyRetrieval = diagnosiskeyRetrieval
+		self.diagnosisKeysRetrieval = diagnosisKeysRetrieval
 		self.appConfigurationProvider = appConfigurationProvider
 		self.client = client
 		self.store = store
@@ -45,11 +45,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private(set) var devicePairingSuccessfulTimestamp: Int64? {
 		get { store.devicePairingSuccessfulTimestamp }
 		set { store.devicePairingSuccessfulTimestamp = newValue }
-	}
-
-	var positiveTestResultWasShown: Bool {
-		get { store.positiveTestResultWasShown }
-		set { store.positiveTestResultWasShown = newValue }
 	}
 
 	private var supportedCountries: [Country] {
@@ -105,7 +100,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler) {
 		Log.info("Getting temporary exposure keys...", log: .api)
 
-		diagnosiskeyRetrieval.accessDiagnosisKeys { [weak self] keys, error in
+		diagnosisKeysRetrieval.accessDiagnosisKeys { [weak self] keys, error in
 			if let error = error {
 				Log.error("Error while retrieving temporary exposure keys: \(error.localizedDescription)", log: .api)
 				completion(self?.parseError(error))
@@ -221,11 +216,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.devicePairingConsentAccept = false
 		store.devicePairingSuccessfulTimestamp = nil
 		store.devicePairingConsentAcceptTimestamp = nil
-		store.isAllowedToSubmitDiagnosisKeys = false
 	}
 
 	var exposureManagerState: ExposureManagerState {
-		diagnosiskeyRetrieval.exposureManagerState
+		diagnosisKeysRetrieval.exposureManagerState
 	}
 
 	func acceptPairing() {
@@ -256,7 +250,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	private static var fakeSubmissionTan: String { return UUID().uuidString }
 
-	private let diagnosiskeyRetrieval: DiagnosisKeysRetrieval
+	private let diagnosisKeysRetrieval: DiagnosisKeysRetrieval
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let client: Client
 	private let store: Store
@@ -281,7 +275,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		_ completeWith: @escaping ENAExposureSubmissionService.TestResultHandler
 	) {
 		client.getTestResult(forDevice: registrationToken, isFake: false) { result in
-
 			switch result {
 			case let .failure(error):
 				completeWith(.failure(self.parseError(error)))
@@ -430,15 +423,14 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	}
 
 	// This method removes all left over persisted objects part of the
-	// `submitExposure` flow. Removes the registrationToken,
-	// and isAllowedToSubmitDiagnosisKeys.
+	// `submitExposure` flow.
 	private func submitExposureCleanup() {
 		warnOthersReminder.cancelNotifications()
 
 		store.registrationToken = nil
-		store.isAllowedToSubmitDiagnosisKeys = false
 		store.tan = nil
 
+		isSubmissionConsentGiven = false
 		temporaryExposureKeys = nil
 		supportedCountries = []
 		symptomsOnset = .noInformation
