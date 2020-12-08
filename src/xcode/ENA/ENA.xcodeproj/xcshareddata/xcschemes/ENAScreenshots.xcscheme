@@ -54,7 +54,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "# Ensure the hardware keyboard is DISCONNECTED from the simulators to prevent issues where the software keyboard is not shown.&#10;# Solution stolen from: https://stackoverflow.com/a/57269479/194585&#10;&#10;#killall Simulator&#10;&#10;#defaults write com.apple.iphonesimulator ConnectHardwareKeyboard -bool false&#10;">
+               scriptText = "# Ensure the hardware keyboard is DISCONNECTED from the simulators to prevent issues where the software keyboard is not shown.&#10;# Solution stolen from: https://stackoverflow.com/a/57269479/194585&#10;&#10;killall Simulator&#10;&#10;defaults write com.apple.iphonesimulator ConnectHardwareKeyboard -bool false&#10;">
             </ActionContent>
          </ExecutionAction>
          <ExecutionAction
