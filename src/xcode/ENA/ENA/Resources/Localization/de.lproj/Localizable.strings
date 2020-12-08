@@ -1333,3 +1333,16 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "TestResultPositive_WithConsent_PrimaryButton" = "Weiter mit Symptom-Erfassung";
 
 "TestResultPositive_WithConsent_SecondaryButton" = "Beenden";
+
+/* Contact Diary*/
+
+/* Overview*/
+
+/* ActionSheet */
+"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Info";
+
+"ContactDiary_Overview_ActionSheet_ExportActionTitle" = "Einträge exportieren";
+
+"ContactDiary_Overview_ActionSheet_EditPersonTitle" = "Personen bearbeiten";
+
+"ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Orte bearbeiten";

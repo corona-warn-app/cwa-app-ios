@@ -83,27 +83,27 @@ class DiaryOverviewTableViewController: UITableViewController {
 	private func onMore() {
 		let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 		
-		let infoAction = UIAlertAction(title: "XXXInfo", style: .default, handler: { [weak self] _ in
+		let infoAction = UIAlertAction(title: AppStrings.ContactDiary.Overview.ActionSheet.infoActionTitle, style: .default, handler: { [weak self] _ in
 			self?.onInfoButtonTap()
 		})
 		actionSheet.addAction(infoAction)
 		
-		let exportAction = UIAlertAction(title: "XXXEinträge exportieren", style: .default, handler: { [weak self] _ in
+		let exportAction = UIAlertAction(title: AppStrings.ContactDiary.Overview.ActionSheet.exportActionTitle, style: .default, handler: { [weak self] _ in
 			self?.onExportButtonTap()
 		})
 		actionSheet.addAction(exportAction)
 
-		let editPerson = UIAlertAction(title: "XXXPersonen bearbeiten", style: .default, handler: { [weak self] _ in
+		let editPerson = UIAlertAction(title: AppStrings.ContactDiary.Overview.ActionSheet.editPersonTitle, style: .default, handler: { [weak self] _ in
 			self?.onEditContactPersonsButtonTap()
 		})
 		actionSheet.addAction(editPerson)
 		
-		let editLocation = UIAlertAction(title: "XXXOrte bearbeiten", style: .default, handler: { [weak self] _ in
+		let editLocation = UIAlertAction(title: AppStrings.ContactDiary.Overview.ActionSheet.editLocationTitle, style: .default, handler: { [weak self] _ in
 			self?.onEditLocationsButtonTap()
 		})
 		actionSheet.addAction(editLocation)
 		
-		let cancelAction = UIAlertAction(title: "XXXAbbrechen", style: .cancel, handler: nil)
+		let cancelAction = UIAlertAction(title: AppStrings.Common.alertActionCancel, style: .cancel, handler: nil)
 		actionSheet.addAction(cancelAction)
 		
 		present(actionSheet, animated: true, completion: nil)
