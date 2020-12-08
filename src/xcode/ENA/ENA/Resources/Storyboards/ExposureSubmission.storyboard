@@ -5,121 +5,9 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tan Input-->
-        <scene sceneID="xja-bU-byS">
-            <objects>
-                <viewController storyboardIdentifier="ExposureSubmissionTanInputViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aFo-WD-gEN" customClass="ExposureSubmissionTanInputViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="9jY-Vi-dC9">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qBb-LO-eZK">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8dd-c4-eqD">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="G88-yG-qxh">
-                                                <rect key="frame" x="16" y="16" width="382" height="742"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" text="Headline" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0N-4y-Zcm" userLabel="Description" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" name="ENA Text Primary 1 Color"/>
-                                                        <nil key="highlightedColor"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </label>
-                                                    <view contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vX9-jY-8CQ">
-                                                        <rect key="frame" x="0.0" y="36.5" width="382" height="639.5"/>
-                                                        <subviews>
-                                                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFa-H0-7iG" customClass="ENATanInput" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="296.5" width="382" height="46.5"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" priority="250" constant="50" placeholder="YES" id="GoX-aD-BHg"/>
-                                                                </constraints>
-                                                            </view>
-                                                        </subviews>
-                                                        <constraints>
-                                                            <constraint firstItem="fFa-H0-7iG" firstAttribute="centerY" secondItem="vX9-jY-8CQ" secondAttribute="centerY" id="M7Y-WJ-EZ1"/>
-                                                            <constraint firstItem="fFa-H0-7iG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vX9-jY-8CQ" secondAttribute="top" id="SBf-Am-jRa"/>
-                                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fFa-H0-7iG" secondAttribute="bottom" id="SYw-SF-POX"/>
-                                                            <constraint firstItem="fFa-H0-7iG" firstAttribute="leading" secondItem="vX9-jY-8CQ" secondAttribute="leading" id="oqd-Qz-YHD"/>
-                                                            <constraint firstAttribute="trailing" secondItem="fFa-H0-7iG" secondAttribute="trailing" id="qmJ-4I-hAe"/>
-                                                        </constraints>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="8rA-X0-4lX">
-                                                        <rect key="frame" x="0.0" y="692" width="382" height="50"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" text="Headline" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuS-ZV-gMr" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <color key="textColor" name="ENA Text Semantic Red Color"/>
-                                                                <nil key="highlightedColor"/>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
-                                                                </userDefinedRuntimeAttributes>
-                                                            </label>
-                                                        </subviews>
-                                                        <constraints>
-                                                            <constraint firstItem="DuS-ZV-gMr" firstAttribute="leading" secondItem="8rA-X0-4lX" secondAttribute="leading" id="HVw-3C-6Is"/>
-                                                            <constraint firstAttribute="bottom" secondItem="DuS-ZV-gMr" secondAttribute="bottom" id="Tkm-Cx-CrY"/>
-                                                            <constraint firstAttribute="trailing" secondItem="DuS-ZV-gMr" secondAttribute="trailing" id="dTS-hr-w0X"/>
-                                                            <constraint firstItem="DuS-ZV-gMr" firstAttribute="centerY" secondItem="8rA-X0-4lX" secondAttribute="centerY" id="mcA-Ye-y6A"/>
-                                                            <constraint firstItem="DuS-ZV-gMr" firstAttribute="top" secondItem="8rA-X0-4lX" secondAttribute="top" id="qRS-Bk-uXe"/>
-                                                        </constraints>
-                                                    </view>
-                                                </subviews>
-                                            </stackView>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="G88-yG-qxh" firstAttribute="leading" secondItem="8dd-c4-eqD" secondAttribute="leadingMargin" id="4nG-QC-uAm"/>
-                                            <constraint firstAttribute="bottomMargin" secondItem="G88-yG-qxh" secondAttribute="bottom" id="aYY-1D-qZY"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="G88-yG-qxh" secondAttribute="trailing" id="hgK-Wf-aEE"/>
-                                            <constraint firstItem="G88-yG-qxh" firstAttribute="top" secondItem="8dd-c4-eqD" secondAttribute="topMargin" id="vgq-S1-2zA"/>
-                                        </constraints>
-                                        <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="8dd-c4-eqD" firstAttribute="width" secondItem="qBb-LO-eZK" secondAttribute="width" id="ELv-EI-zGS"/>
-                                    <constraint firstItem="8dd-c4-eqD" firstAttribute="leading" secondItem="qBb-LO-eZK" secondAttribute="leading" id="Nos-Kg-LdY"/>
-                                    <constraint firstItem="8dd-c4-eqD" firstAttribute="top" secondItem="qBb-LO-eZK" secondAttribute="top" id="Up1-sg-3We"/>
-                                    <constraint firstAttribute="trailing" secondItem="8dd-c4-eqD" secondAttribute="trailing" id="gPz-04-YmI"/>
-                                    <constraint firstAttribute="bottom" secondItem="8dd-c4-eqD" secondAttribute="bottom" id="xgX-OZ-Wl2"/>
-                                </constraints>
-                            </scrollView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="9Ma-84-jrP"/>
-                        <color key="backgroundColor" name="ENA Background Color"/>
-                        <constraints>
-                            <constraint firstItem="8dd-c4-eqD" firstAttribute="height" secondItem="9Ma-84-jrP" secondAttribute="height" priority="750" id="1MX-BT-sha"/>
-                            <constraint firstItem="qBb-LO-eZK" firstAttribute="leading" secondItem="9jY-Vi-dC9" secondAttribute="leading" id="4nE-3V-PkZ"/>
-                            <constraint firstAttribute="bottom" secondItem="qBb-LO-eZK" secondAttribute="bottom" id="Ug8-Ry-sdW"/>
-                            <constraint firstItem="qBb-LO-eZK" firstAttribute="top" secondItem="9jY-Vi-dC9" secondAttribute="top" id="iVl-35-kt4"/>
-                            <constraint firstAttribute="trailing" secondItem="qBb-LO-eZK" secondAttribute="trailing" id="rg6-Mu-abO"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Tan Input" id="V3g-Ep-y0w" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <connections>
-                        <outlet property="contentView" destination="8dd-c4-eqD" id="JeN-jy-4Cu"/>
-                        <outlet property="descriptionLabel" destination="I0N-4y-Zcm" id="vie-3g-ShQ"/>
-                        <outlet property="errorLabel" destination="DuS-ZV-gMr" id="4BV-KR-afu"/>
-                        <outlet property="errorView" destination="8rA-X0-4lX" id="RKU-K1-1cV"/>
-                        <outlet property="scrollView" destination="qBb-LO-eZK" id="qoE-wM-nHa"/>
-                        <outlet property="tanInput" destination="fFa-H0-7iG" id="fon-ur-kpf"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cv3-qo-bBS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="900" y="461"/>
-        </scene>
         <!--Exposure Submission Hotline View Controller-->
         <scene sceneID="e6l-dg-IW3">
             <objects>
@@ -130,34 +18,15 @@
                         <color key="backgroundColor" name="ENA Background Color"/>
                     </tableView>
                     <navigationItem key="navigationItem" id="esH-XN-Att" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
-                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ggg-cK-ZYk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="900" y="1185"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="DuS-ZV-gMr">
-            <size key="intrinsicContentSize" width="70.5" height="20.5"/>
-        </designable>
-        <designable name="I0N-4y-Zcm">
-            <size key="intrinsicContentSize" width="70.5" height="20.5"/>
-        </designable>
-    </designables>
     <resources>
         <namedColor name="ENA Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="ENA Text Primary 1 Color">
-            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="ENA Text Semantic Red Color">
-            <color red="0.75294117647058822" green="0.058823529411764705" blue="0.17647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

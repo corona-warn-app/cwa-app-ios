@@ -20,7 +20,6 @@ protocol StoreProtocol: AnyObject {
 	var devicePairingConsentAccept: Bool { get set }
 	var devicePairingConsentAcceptTimestamp: Int64? { get set }
 	var devicePairingSuccessfulTimestamp: Int64? { get set }
-	var isAllowedToSubmitDiagnosisKeys: Bool { get set }
 
 	var allowRiskChangesNotification: Bool { get set }
 	var allowTestsStatusNotification: Bool { get set }

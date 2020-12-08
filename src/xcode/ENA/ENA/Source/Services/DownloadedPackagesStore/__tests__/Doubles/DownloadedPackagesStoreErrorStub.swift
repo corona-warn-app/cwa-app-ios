@@ -22,9 +22,9 @@ import XCTest
 
 class DownloadedPackagesStoreErrorStub: DownloadedPackagesStoreV2 {
 
-	private let error: SQLiteErrorCode
+	private let error: DownloadedPackagesSQLLiteStore.StoreError
 
-	init(error: SQLiteErrorCode) {
+	init(error: DownloadedPackagesSQLLiteStore.StoreError) {
 		self.error = error
 	}
 
