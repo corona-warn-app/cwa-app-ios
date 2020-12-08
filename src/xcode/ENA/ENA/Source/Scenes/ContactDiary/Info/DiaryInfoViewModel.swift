@@ -12,18 +12,24 @@ struct DiaryInfoViewModel {
 	var dynamicTableViewModel: DynamicTableViewModel {
 		var model = DynamicTableViewModel([])
 
-		// Ihr Einverständnis
+		// Contact diary
 		model.add(
 			.section(
 			   header: .image(
-				   UIImage(imageLiteralResourceName: "Illu_Appinfo_Datenschutz_2"),
-				   accessibilityLabel: AppStrings.ExposureSubmissionQRInfo.imageDescription,
-				   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription,
-				   height: 250
-			   ),
-			   cells: [
-				.body(text: AppStrings.ExposureSubmissionQRInfo.titleDescription)
-			])
+				UIImage(imageLiteralResourceName: "Illu_ContactDiary-Information"),
+				accessibilityLabel: AppStrings.ContactDiaryInformation.imageDescription,
+				accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.imageDescription
+			),
+				cells: [
+					.title2(
+						text: AppStrings.ContactDiaryInformation.descriptionTitle,
+						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.descriptionTitle
+					),
+					.subheadline(
+						text: AppStrings.ContactDiaryInformation.descriptionSubHeadline,
+						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.descriptionSubHeadline)
+				]
+			)
 		)
 
 		// Testergebnis abrufen

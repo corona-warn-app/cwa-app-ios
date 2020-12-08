@@ -40,7 +40,12 @@ enum AccessibilityIdentifiers {
 		static let infoCardAboutTitle = "AppStrings.Home.infoCardAboutTitle"
 		static let appInformationCardTitle = "AppStrings.Home.appInformationCardTitle"
 		static let settingsCardTitle = "AppStrings.Home.settingsCardTitle"
+	}
 
+	enum ContactDiaryInformation {
+		static let imageDescription = "AppStrings.ContactDiaryInformation.imageDescription"
+		static let descriptionTitle = "AppStrings.ContactDiaryInformation.descriptionTitle"
+		static let descriptionSubHeadline = "AppStrings.ContactDiaryInformation.descriptionSubHeadline"
 	}
 
 	enum Onboarding {

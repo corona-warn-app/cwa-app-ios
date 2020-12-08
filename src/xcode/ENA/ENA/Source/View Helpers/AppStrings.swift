@@ -688,6 +688,13 @@ enum AppStrings {
 		static let riskStatusLoweredAlertPrimaryButtonTitle = NSLocalizedString("Home_Alert_RiskStatusLowered_PrimaryButtonTitle", comment: "")
 	}
 
+	enum ContactDiaryInformation {
+		static let title = NSLocalizedString("ContactDiary_Information_Title", comment: "")
+		static let imageDescription = NSLocalizedString("ContactDiary_Information_ImageDescription", comment: "")
+		static let descriptionTitle = NSLocalizedString("ContactDiary_Information_DescriptionTitle", comment: "")
+		static let descriptionSubHeadline = NSLocalizedString("ContactDiary_Information_DescriptionSubHeadline", comment: "")
+	}
+
 	enum InviteFriends {
 		static let title = NSLocalizedString("InviteFriends_Title", comment: "")
 		static let description = NSLocalizedString("InviteFriends_Description", comment: "")

@@ -68,7 +68,7 @@ class DiaryInfoViewController: DynamicTableViewController, ENANavigationControll
 		item.isPrimaryButtonEnabled = true
 		item.isSecondaryButtonHidden = true
 
-		item.title = AppStrings.ExposureSubmissionQRInfo.title
+		item.title = AppStrings.ContactDiaryInformation.title
 
 		return item
 	}()
