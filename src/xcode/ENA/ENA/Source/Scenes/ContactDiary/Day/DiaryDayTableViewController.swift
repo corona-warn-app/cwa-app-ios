@@ -9,11 +9,10 @@ class DiaryDayTableViewController: UITableViewController {
 	// MARK: - Init
 
 	init(
-		diaryDay: DiaryDay,
 		diaryDayService: DiaryDayService,
 		onAddEntryCellTap: @escaping (DiaryDay) -> Void
 	) {
-		self.viewModel = DiaryDayViewModel(diaryDay: diaryDay, diaryDayService: diaryDayService)
+		self.viewModel = DiaryDayViewModel(diaryDayService: diaryDayService)
 		self.onAddEntryCellTap = onAddEntryCellTap
 
 		super.init(style: .plain)
