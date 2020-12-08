@@ -576,28 +576,24 @@
 			</li>
 		</ul><br>
 		<p>
-			Möglicherweise bittet Sie Ihr Smartphone zunächst um Erlaubnis, dass es
-			Ihre eigenen Zufalls-IDs aus dem COVID-19-Benachrichtigungssystem an die
-			App weitergeben darf.
+			Vor der Weitergabe Ihres Testergebnisses (genauer gesagt: der Übermittlung Ihrer 
+			Zufalls-IDs) an das Serversystem fügt die App den Daten einen 
+			Übertragungsrisiko-Wert und eine Angabe zur Art der durchgeführten Tests
+			hinzu. Da die Warnfunktion der App nur bei im Labor bestätigten Testergebnissen
+			genutzt werden kann, ist die Art des Tests für alle Nutzer gleich. Der
+			Übertragungsrisiko-Wert ist ein Schätzwert zur Ansteckungswahrscheinlichkeit
+			an den einzelnen Tagen des 14-Tage-Zeitraums. Da die Ansteckungswahrscheinlichkeit
+			von der Dauer und dem Verlauf der Infektion abhängt, kann so beispielsweise
+			berücksichtigt werden, dass am Tag einer Risiko-Begegnung die Gefahr einer Ansteckung
+			in der Regel je geringer ist, desto mehr Zeit seit Symptombeginn verstrichen ist.
+			Diese zusätzlichen Übertragungsrisiko-Werte ermöglichen eine genauere Bestimmung der 
+			Ansteckungswahrscheinlichkeit für andere Nutzer.
 		</p>
 		<p>
-			Vor der Übermittlung der Zufalls-IDs an das Serversystem fügt die App den
-			Zufalls-IDs jeweils einen Übertragungsrisiko-Wert und eine Angabe zur Art
-			der Diagnose hinzu (siehe hierzu auch Punkt 6 a.). Da die Warnfunktion der
-			App nur bei im Labor bestätigten Diagnosen genutzt werden kann, ist die
-			Diagnoseart für alle Nutzer gleich. Der Übertragungsrisiko-Wert ist ein
-			Schätzwert zur Ansteckungswahrscheinlichkeit an dem Tag, an dem die
-			jeweilige Zufalls-ID verwendet worden ist. Da die
-			Ansteckungswahrscheinlichkeit von der Dauer und dem Verlauf der Infektion
-			abhängt, kann so beispielsweise berücksichtigt werden, dass am Tag einer
-			Risiko-Begegnung die Gefahr einer Ansteckung in der Regel je geringer ist,
-			desto mehr Zeit seit Symptombeginn verstrichen ist.
-		</p>
-		<p>
-			Die abgefragten Angaben zum Symptombeginn sind optional. Diese Angaben
-			können jedoch helfen, den Übertragungsrisiko-Wert genauer zu berechnen.
+			Die in der App abgefragten Angaben zum Symptombeginn sind optional. Diese Angaben
+			können jedoch helfen, den Übertragungsrisiko-Wert noch genauer zu berechnen.
 			Wenn Sie keine Angaben machen, werden die Übertragungsrisiko-Werte unter
-			Annahme eines typischen Infektionsverlaufs berechnet, d. h. je mehr Zeit
+			Annahme eines typischen Infektionsverlaufs berechnet, das heißt je mehr Zeit
 			seit Verwendung einer Zufalls-ID vergangen ist, desto kleiner ist der
 			zugehörige Übertragungsrisiko-Wert.
 		</p>
@@ -617,15 +613,16 @@
 			TeleTAN zur Eingabe in der App mitzuteilen. Ihre Handy-/Telefonnummer und
 			Ihr Name werden nur zu diesem Zweck vorübergehend gespeichert und
 			spätestens nach einer Stunde gelöscht. Unmittelbar nach Ihrem Anruf wird
-			der Hotline-Mitarbeiter über einen speziellen Zugang zum Serversystem Ihre
-			TeleTAN erzeugen und Sie zurückrufen, um Ihnen diese mitzuteilen. Eine
+			der Hotline-Mitarbeiter über einen speziellen Zugang zum Serversystem eine
+			einmalige TeleTAN erzeugen und Sie zurückrufen, um Ihnen diese mitzuteilen. Eine
 			TeleTAN ist nur eine Stunde gültig und wird daher unmittelbar nach der
 			Weitergabe an Sie, spätestens aber nach Ablauf einer Stunde, von der
 			Hotline gelöscht. Nach Eingabe einer gültigen TeleTAN in der App wird diese
-			zur Verifizierung an das Serversystem übermittelt. Bei erfolgreicher
-			Verifizierung erhält die App vom Serversystem einen Token, also einen
-			digitalen Zugangsschlüssel, der in der App gespeichert wird. Mit diesem
-			Token fordert die App beim Serversystem dann eine TAN an.
+			an das Serversystem übermittelt. VerifizierungAnhand der TeleTAN wird somit 
+			die Überprüfung ermöglicht, dass tatsächlich ein positives Testergebnis vorliegt
+			und Falschmeldungen können vermieden werden. Anschließend erhält die App
+			vom Serversystem einen Token, inwie dies auch nach dem Scan eines gültigen 
+			QR-Codes der Fall ist (siehe oben Punkt 6 b. unter „Testergebnis abrufen“).
 		</p>
 		<br><h3>
 			d. Informatorische Nutzung der App
