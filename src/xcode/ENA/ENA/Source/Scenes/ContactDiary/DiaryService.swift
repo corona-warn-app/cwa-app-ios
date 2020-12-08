@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import Combine
 
 struct ContactPersonEncounter {
 	let id: Int
@@ -17,6 +18,8 @@ struct LocationVisit {
 }
 
 protocol DiaryStoring {
+
+	var diaryDaysPublisher: Published<[DiaryDay]>.Publisher { get }
 
 	@discardableResult
 	func addContactPerson(name: String) -> Int
@@ -37,18 +40,26 @@ protocol DiaryStoring {
 	func removeAllLocations()
 	func removeAllContactPersons()
 
-	func fetchDays() -> [DiaryDay]
-
 }
 
 class MockDiaryStore: DiaryStoring {
 
+	// MARK: - Init
+
+	init() {
+		updateDays()
+	}
+
 	// MARK: - Protocol DiaryStoring
+
+	var diaryDaysPublisher: Published<[DiaryDay]>.Publisher { $diaryDays }
 
 	@discardableResult
 	func addContactPerson(name: String) -> Int {
 		let id = contactPersons.map { $0.id }.max() ?? -1 + 1
 		contactPersons.append(DiaryContactPerson(id: id, name: name))
+
+		updateDays()
 
 		return id
 	}
@@ -58,6 +69,8 @@ class MockDiaryStore: DiaryStoring {
 		let id = locations.map { $0.id }.max() ?? -1 + 1
 		locations.append(DiaryLocation(id: id, name: name))
 
+		updateDays()
+
 		return id
 	}
 
@@ -65,6 +78,8 @@ class MockDiaryStore: DiaryStoring {
 	func addContactPersonEncounter(contactPersonId: Int, date: String) -> Int {
 		let id = contactPersonEncounters.map { $0.id }.max() ?? -1 + 1
 		contactPersonEncounters.append(ContactPersonEncounter(id: id, date: date, contactPersonId: contactPersonId))
+
+		updateDays()
 
 		return id
 	}
@@ -74,45 +89,72 @@ class MockDiaryStore: DiaryStoring {
 		let id = locationVisits.map { $0.id }.max() ?? -1 + 1
 		locationVisits.append(LocationVisit(id: id, date: date, locationId: locationId))
 
+		updateDays()
+
 		return id
 	}
 
 	func updateContactPerson(id: Int, name: String) {
 		guard let index = contactPersons.firstIndex(where: { $0.id == id }) else { return }
 		contactPersons[index] = DiaryContactPerson(id: id, name: name)
+
+		updateDays()
 	}
 
 	func updateLocation(id: Int, name: String) {
 		guard let index = locations.firstIndex(where: { $0.id == id }) else { return }
 		locations[index] = DiaryLocation(id: id, name: name)
+
+		updateDays()
 	}
 
 	func removeContactPerson(id: Int) {
 		contactPersons.removeAll { $0.id == id }
+
+		updateDays()
 	}
 
 	func removeLocation(id: Int) {
 		locations.removeAll { $0.id == id }
+
+		updateDays()
 	}
 
 	func removeContactPersonEncounter(id: Int) {
 		contactPersonEncounters.removeAll { $0.id == id }
+
+		updateDays()
 	}
 
 	func removeLocationVisit(id: Int) {
 		locationVisits.removeAll { $0.id == id }
+
+		updateDays()
 	}
 
 	func removeAllLocations() {
 		locations.removeAll()
+
+		updateDays()
 	}
 
 	func removeAllContactPersons() {
 		contactPersons.removeAll()
+
+		updateDays()
 	}
 
-	func fetchDays() -> [DiaryDay] {
+	// MARK: - Private
 
+	@Published private var diaryDays: [DiaryDay] = []
+
+	private var contactPersons = [DiaryContactPerson]()
+	private var locations = [DiaryLocation]()
+
+	private var contactPersonEncounters = [ContactPersonEncounter]()
+	private var locationVisits = [LocationVisit]()
+
+	private func updateDays() {
 		var diaryDays = [DiaryDay]()
 
 		let dateFormatter = ISO8601DateFormatter()
@@ -139,16 +181,8 @@ class MockDiaryStore: DiaryStoring {
 			diaryDays.append(DiaryDay(dateString: dateString, entries: contactPersonEntries + locationEntries))
 		}
 
-		return diaryDays
+		self.diaryDays = diaryDays
 	}
-
-	// MARK: - Private
-
-	private var contactPersons = [DiaryContactPerson]()
-	private var locations = [DiaryLocation]()
-
-	private var contactPersonEncounters = [ContactPersonEncounter]()
-	private var locationVisits = [LocationVisit]()
 
 }
 
@@ -159,6 +193,10 @@ class DiaryService {
 
 	init(store: DiaryStoring) {
 		self.store = store
+
+		store.diaryDaysPublisher.sink { [weak self] in
+			self?.days = $0
+		}.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -198,6 +236,8 @@ class DiaryService {
 
 	private let store: DiaryStoring
 
+	private var subscriptions: [AnyCancellable] = []
+
 }
 
 class DiaryDayService {
@@ -207,9 +247,20 @@ class DiaryDayService {
 	init(day: DiaryDay, store: DiaryStoring) {
 		self.day = day
 		self.store = store
+
+		store.diaryDaysPublisher
+			.sink { [weak self] days in
+				guard let day = days.first(where: { $0.dateString == day.dateString }) else {
+					return
+				}
+
+				self?.day = day
+			}.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
+
+	@Published private(set) var day: DiaryDay
 
 	func select(entry: DiaryEntry) {
 		switch entry {
@@ -250,8 +301,9 @@ class DiaryDayService {
 
 	// MARK: - Private
 
-	private let day: DiaryDay
 	private let store: DiaryStoring
+
+	private var subscriptions: [AnyCancellable] = []
 
 }
 
