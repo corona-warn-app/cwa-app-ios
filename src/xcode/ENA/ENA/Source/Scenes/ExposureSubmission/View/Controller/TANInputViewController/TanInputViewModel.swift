@@ -31,16 +31,13 @@ final class TanInputViewModel {
 
 	// MARK: - Internal
 
+	let digitGroups: [Int] = [3, 3, 4]
+
 	var isInputBlocked: Bool = false
 	var didDissMissInvalidTanAlert: (() -> Void)?
 
-	lazy var digitGroups: [Int] = {
-		groups.split(separator: ",").compactMap { Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }
-	}()
-
 	var isValid: Bool {
 		let count = text.count
-		let digitGroups = { groups.split(separator: ",").compactMap({ Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }) }()
 		let numberOfDigits = { digitGroups.reduce(0) { $0 + $1 } }()
 		return count == numberOfDigits
 	}
@@ -104,8 +101,6 @@ final class TanInputViewModel {
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let presentInvalidTanAlert: (String, @escaping () -> Void) -> Void
 	private let tanSuccessfullyTransferred: () -> Void
-
-	private var groups: String = "3,3,4"
 
 	private func calculateChecksum(input: String) -> Character? {
 		let hash = Hasher.sha256(input)
