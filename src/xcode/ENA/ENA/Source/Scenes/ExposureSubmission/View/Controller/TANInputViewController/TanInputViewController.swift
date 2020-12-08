@@ -73,16 +73,16 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	private var observer: NSKeyValueObservation?
 
 	private func setupViews() {
-		// scrollView needs respect footerView, this gets done with a bottom insert by 55
+		// scrollView needs to respect footerView, this gets done with a bottom insert by 55
 		scrollView = UIScrollView(frame: view.frame)
 		scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 55, right: 0.0)
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(scrollView)
 
-		// scrollView content size will chnage if we set the errorLabel to a text
-		// we need to scroll content area to show the error if the footerView intersects with the error label
-		// if the error label resets to nil  we will scroll back to a minus top value to make sure scrollView
-		// is in top position (-103 is basically the default value)
+		// Scrollview content size will change if we set the errorLabel to a text.
+		// We need to scroll the content area to show the error, if the footerview intersects with the error label.
+		// Ff the errorlabel resets to empty we will scroll back to a negatic top value to make sure scrollview
+		// is in top position (-103 is basically the default value).
 		observer = scrollView.observe(\UIScrollView.contentSize, options: .new, changeHandler: { [weak self] scrollView, _ in
 			if self?.errorLabel.text != nil {
 				guard let self = self,
@@ -119,7 +119,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		scrollView.addSubview(stackView)
 
 		NSLayoutConstraint.activate([
-			stackView.widthAnchor.constraint(equalTo: view.widthAnchor),
+			stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
 			stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 15.0),
 			stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: 15.0),
 			stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 15),
