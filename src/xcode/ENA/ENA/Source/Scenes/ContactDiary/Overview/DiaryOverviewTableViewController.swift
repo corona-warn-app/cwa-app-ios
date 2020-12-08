@@ -65,8 +65,8 @@ class DiaryOverviewTableViewController: UITableViewController {
 
 	// MARK: - Private
 
-	let viewModel: DiaryOverviewViewModel
-	let onCellSelection: (DiaryDay) -> Void
+	private let viewModel: DiaryOverviewViewModel
+	private let onCellSelection: (DiaryDay) -> Void
 	private let onInfoButtonTap: () -> Void
 	private let onExportButtonTap: () -> Void
 	private let onEditContactPersonsButtonTap: () -> Void

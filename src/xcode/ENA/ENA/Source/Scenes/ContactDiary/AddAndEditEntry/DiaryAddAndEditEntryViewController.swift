@@ -32,7 +32,7 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 
 	// MARK: - Private
 
-	let viewModel: DiaryAddAndEditEntryViewModel
-	let onPrimaryButtonTap: () -> Void
+	private let viewModel: DiaryAddAndEditEntryViewModel
+	private let onPrimaryButtonTap: () -> Void
 
 }

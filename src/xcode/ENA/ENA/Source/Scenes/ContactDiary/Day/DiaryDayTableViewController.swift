@@ -58,7 +58,7 @@ class DiaryDayTableViewController: UITableViewController {
 
 	// MARK: - Private
 
-	let viewModel: DiaryDayViewModel
-	let onAddEntryCellTap: (DiaryDay) -> Void
+	private let viewModel: DiaryDayViewModel
+	private let onAddEntryCellTap: (DiaryDay) -> Void
 
 }

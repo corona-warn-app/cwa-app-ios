@@ -59,8 +59,8 @@ class DiaryEditEntriesTableViewController: UITableViewController {
 
 	// MARK: - Private
 
-	let viewModel: DiaryEditEntriesViewModel
-	let onCellSelection: (DiaryEntry) -> Void
-	let onDismiss: () -> Void
+	private let viewModel: DiaryEditEntriesViewModel
+	private let onCellSelection: (DiaryEntry) -> Void
+	private let onDismiss: () -> Void
 
 }
