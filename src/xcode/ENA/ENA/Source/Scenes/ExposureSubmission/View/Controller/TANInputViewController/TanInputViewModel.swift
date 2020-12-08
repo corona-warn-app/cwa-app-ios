@@ -59,7 +59,7 @@ final class TanInputViewModel {
 	func submitTan() {
 		// isChecksumValid will perfome isValid internal
 		guard isChecksumValid else {
-			Log.debug("tried to submit tan \(text), but ist'n invalid")
+			Log.debug("tried to submit tan \(text), but it is invalid")
 			return
 		}
 
@@ -86,7 +86,7 @@ final class TanInputViewModel {
 		updateErrorText()
 	}
 
-	func deletLastCharacter() {
+	func deleteLastCharacter() {
 		text = String(text.dropLast())
 		updateErrorText()
 	}

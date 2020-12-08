@@ -60,7 +60,7 @@ class TanInputView: UIControl, UIKeyInput {
 				return
 			}
 		viewModel.isInputBlocked = false
-		viewModel.deletLastCharacter()
+		viewModel.deleteLastCharacter()
 		inputLabels[viewModel.text.count].clear()
 	}
 
@@ -102,7 +102,7 @@ class TanInputView: UIControl, UIKeyInput {
 
 		// Generate character groups
 		for (index, numberOfDigitsInGroup) in viewModel.digitGroups.enumerated() {
-			let groupView = createGroup(count: numberOfDigitsInGroup, hasDash: index < viewModel.digitGroups.count - 1)
+			let groupView = createGroupStackView(count: numberOfDigitsInGroup, hasDash: index < viewModel.digitGroups.count - 1)
 			stackView.addArrangedSubview(groupView)
 		}
 
@@ -141,7 +141,7 @@ class TanInputView: UIControl, UIKeyInput {
 		}
 	}
 
-	private func createGroup(count: Int, hasDash: Bool) -> UIStackView {
+	private func createGroupStackView(count: Int, hasDash: Bool) -> UIStackView {
 		let stackView = UIStackView()
 
 		stackView.spacing = spacing
