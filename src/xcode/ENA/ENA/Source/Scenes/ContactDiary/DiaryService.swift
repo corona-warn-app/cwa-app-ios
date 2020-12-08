@@ -201,6 +201,12 @@ class DiaryService {
 
 	@Published private(set) var days: [DiaryDay] = []
 
+	let store: DiaryStoring
+
+	var exportString: String {
+		"These are your exported diary entries."
+	}
+
 	func update(entry: DiaryEntry) {
 		switch entry {
 		case .location(let location):
@@ -231,8 +237,6 @@ class DiaryService {
 	func removeObsoleteDays() {}
 
 	// MARK: - Private
-
-	private let store: DiaryStoring
 
 	private var subscriptions: [AnyCancellable] = []
 

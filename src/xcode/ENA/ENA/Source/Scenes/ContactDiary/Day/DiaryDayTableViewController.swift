@@ -10,7 +10,7 @@ class DiaryDayTableViewController: UITableViewController {
 
 	init(
 		diaryDayService: DiaryDayService,
-		onAddEntryCellTap: @escaping (DiaryDay) -> Void
+		onAddEntryCellTap: @escaping (DiaryDay, DiaryEntryType) -> Void
 	) {
 		self.viewModel = DiaryDayViewModel(diaryDayService: diaryDayService)
 		self.onAddEntryCellTap = onAddEntryCellTap
@@ -58,6 +58,6 @@ class DiaryDayTableViewController: UITableViewController {
 	// MARK: - Private
 
 	private let viewModel: DiaryDayViewModel
-	private let onAddEntryCellTap: (DiaryDay) -> Void
+	private let onAddEntryCellTap: (DiaryDay, DiaryEntryType) -> Void
 
 }

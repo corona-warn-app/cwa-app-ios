@@ -9,12 +9,12 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		diaryEntry: DiaryEntry?,
+		mode: DiaryAddAndEditEntryViewModel.Mode,
 		diaryService: DiaryService,
-		onPrimaryButtonTap: @escaping () -> Void
+		onDismiss: @escaping () -> Void
 	) {
-		self.viewModel = DiaryAddAndEditEntryViewModel(diaryEntry: diaryEntry, diaryService: diaryService)
-		self.onPrimaryButtonTap = onPrimaryButtonTap
+		self.viewModel = DiaryAddAndEditEntryViewModel(mode: mode, diaryService: diaryService)
+		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -33,6 +33,6 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 	// MARK: - Private
 
 	private let viewModel: DiaryAddAndEditEntryViewModel
-	private let onPrimaryButtonTap: () -> Void
+	private let onDismiss: () -> Void
 
 }

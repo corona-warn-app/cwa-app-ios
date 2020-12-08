@@ -260,6 +260,11 @@ final class SecureStore: Store {
 		get { kvStore["submissionSymptomsOnset"] as SymptomsOnset? ?? .noInformation }
 		set { kvStore["submissionSymptomsOnset"] = newValue }
 	}
+
+	var diaryInfoScreenShown: Bool {
+		get { kvStore["diaryInfoScreenShown"] as Bool? ?? false }
+		set { kvStore["diaryInfoScreenShown"] = newValue }
+	}
 	
 	#if !RELEASE
 
