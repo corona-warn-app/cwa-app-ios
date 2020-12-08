@@ -855,6 +855,7 @@ enum AppStrings {
 		static let consentDescriptionPart2 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart2", tableName: "Localizable.legal", comment: "")
 		static let consentDescriptionPart3 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart3", tableName: "Localizable.legal", comment: "")
 		static let consentDescriptionPart4 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart4", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPart5 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart5", tableName: "Localizable.legal", comment: "")
 		static let dataProcessingDetailInfo = NSLocalizedString("AutomaticSharingConsent_DataProcessingDetailInfo", comment: "")
 	}
 	

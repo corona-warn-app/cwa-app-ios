@@ -293,7 +293,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 	func test_When_PersistHourPackagesToDatabaseFails_Then_unableToWriteDiagnosisKeysErrorReturned() {
 		let store = MockTestStore()
 
-		let packagesStore = DownloadedPackagesStoreErrorStub(error: .unknown)
+		let packagesStore = DownloadedPackagesStoreErrorStub(error: DownloadedPackagesSQLLiteStore.StoreError.sqliteError(.unknown))
 
 		let client = ClientMock()
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02"], hours: [1])
@@ -323,7 +323,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 	func test_When_PersistHourPackagesToDatabaseFailsBecauseOfDiskSpace_Then_noDiskSpaceErrorReturned() {
 		let store = MockTestStore()
 
-		let packagesStore = DownloadedPackagesStoreErrorStub(error: .sqlite_full)
+		let packagesStore = DownloadedPackagesStoreErrorStub(error: DownloadedPackagesSQLLiteStore.StoreError.sqliteError(.sqlite_full))
 
 		let client = ClientMock()
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-02"], hours: [1])

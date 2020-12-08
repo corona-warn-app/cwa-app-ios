@@ -65,31 +65,50 @@ protocol DownloadedPackagesStoreV2: AnyObject {
 	/// - Parameter etags: The list of Etags to check for
 	func validateCachedKeyPackages(revokationList etags: [String]) throws
 
-
-	#if !RELEASE
 	var keyValueStore: Store? { get set }
-	#endif
 }
 
 extension DownloadedPackagesStoreV2 {
 
 	func addFetchedDays(_ dayPackages: [String: PackageDownloadResponse], country: Country.ID) throws {
+		var revokedPackageError: Error?
 		try dayPackages.forEach { day, bucket in
-			try self.set(country: country, day: day, etag: bucket.etag, package: bucket.package)
+			do {
+				try self.set(country: country, day: day, etag: bucket.etag, package: bucket.package)
+			} catch DownloadedPackagesSQLLiteStore.StoreError.revokedPackage {
+				revokedPackageError = DownloadedPackagesSQLLiteStore.StoreError.revokedPackage
+			}
+		}
+		if let revokedPackageError = revokedPackageError {
+			throw revokedPackageError
 		}
 	}
 
 	func addFetchedHours(_ hourPackages: [Int: PackageDownloadResponse], day: String, country: Country.ID) throws {
+		var revokedPackageError: Error?
 		try hourPackages.forEach { hour, bucket in
-			try self.set(country: country, hour: hour, day: day, etag: bucket.etag, package: bucket.package)
+			do {
+				try self.set(country: country, hour: hour, day: day, etag: bucket.etag, package: bucket.package)
+			} catch DownloadedPackagesSQLLiteStore.StoreError.revokedPackage {
+				revokedPackageError = DownloadedPackagesSQLLiteStore.StoreError.revokedPackage
+			}
+		}
+
+		if let revokedPackageError = revokedPackageError {
+			throw revokedPackageError
 		}
 	}
 
 	func validateCachedKeyPackages(revokationList etags: [String]) throws {
+		Log.info("Validate cached key packages based on revokation list (etags): \(etags)", log: .localData)
+
 		guard
 			!etags.isEmpty,
 			let packagesToRemove = packages(with: etags)
-		else { return } // nothing to do
+		else {
+			Log.info("No package found to revoke.", log: .localData)
+			return
+		}
 
 		try delete(packages: packagesToRemove)
 	}

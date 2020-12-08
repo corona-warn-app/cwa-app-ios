@@ -38,7 +38,6 @@ final class MockTestStore: Store, AppConfigCaching {
 	var devicePairingConsentAccept: Bool = false
 	var devicePairingConsentAcceptTimestamp: Int64?
 	var devicePairingSuccessfulTimestamp: Int64?
-	var isAllowedToSubmitDiagnosisKeys: Bool = false
 	var registrationToken: String?
 	var allowRiskChangesNotification: Bool = true
 	var allowTestsStatusNotification: Bool = true
