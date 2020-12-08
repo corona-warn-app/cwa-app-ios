@@ -10,10 +10,18 @@ class DiaryOverviewTableViewController: UITableViewController {
 
 	init(
 		diaryService: DiaryService,
-		onCellSelection: @escaping (DiaryDay) -> Void
+		onCellSelection: @escaping (DiaryDay) -> Void,
+		onInfoButtonTap: @escaping () -> Void,
+		onExportButtonTap: @escaping () -> Void,
+		onEditContactPersonsButtonTap: @escaping () -> Void,
+		onEditLocationsButtonTap: @escaping () -> Void
 	) {
 		self.viewModel = DiaryOverviewViewModel(diaryService: diaryService)
 		self.onCellSelection = onCellSelection
+		self.onInfoButtonTap = onInfoButtonTap
+		self.onExportButtonTap = onExportButtonTap
+		self.onEditContactPersonsButtonTap = onEditContactPersonsButtonTap
+		self.onEditLocationsButtonTap = onEditLocationsButtonTap
 
 		super.init(style: .plain)
 	}
@@ -59,5 +67,9 @@ class DiaryOverviewTableViewController: UITableViewController {
 
 	let viewModel: DiaryOverviewViewModel
 	let onCellSelection: (DiaryDay) -> Void
+	private let onInfoButtonTap: () -> Void
+	private let onExportButtonTap: () -> Void
+	private let onEditContactPersonsButtonTap: () -> Void
+	private let onEditLocationsButtonTap: () -> Void
 
 }
