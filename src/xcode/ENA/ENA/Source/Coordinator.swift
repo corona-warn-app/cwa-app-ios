@@ -29,6 +29,8 @@ class Coordinator: RequiresAppDependencies {
 	private var settingsController: SettingsViewController?
 	private var exposureDetectionController: ExposureDetectionViewController?
 
+	private var diaryCoordinator: DiaryCoordinator?
+
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		ExposureSubmissionServiceFactory.create(
 			diagnosisKeysRetrieval: self.exposureManager,
@@ -201,13 +203,13 @@ extension Coordinator: HomeViewControllerDelegate {
 	}
 
 	func showDiary() {
-		let coordinator = DiaryCoordinator(
+		diaryCoordinator = DiaryCoordinator(
 			store: store,
 			diaryStore: MockDiaryStore(),
 			parentNavigationController: rootViewController
 		)
 
-		coordinator.start()
+		diaryCoordinator?.start()
 	}
 
 	func showInviteFriends() {
