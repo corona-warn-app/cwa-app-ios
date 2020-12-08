@@ -430,6 +430,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.registrationToken = nil
 		store.tan = nil
 
+		isSubmissionConsentGiven = false
 		temporaryExposureKeys = nil
 		supportedCountries = []
 		symptomsOnset = .noInformation
