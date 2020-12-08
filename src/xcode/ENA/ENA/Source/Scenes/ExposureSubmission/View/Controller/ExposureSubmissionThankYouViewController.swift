@@ -83,7 +83,6 @@ class ExposureSubmissionThankYouViewController: DynamicTableViewController, ENAN
 	
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
-		cellBackgroundColor = .clear
 		
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
