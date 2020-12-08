@@ -354,6 +354,12 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		let store = DownloadedPackagesSQLLiteStore(database: database, migrator: SerialMigratorFake(), latestVersion: 0)
 		store.open()
 
+		let keyValueStore = MockTestStore()
+		keyValueStore.wasRecentDayKeyDownloadSuccessful = true
+		keyValueStore.wasRecentHourKeyDownloadSuccessful = true
+
+		store.keyValueStore = keyValueStore
+
 		// dummy data
 		var package: SAPDownloadedPackage {
 			let noise = Data("fake\(Int.random(in: 0..<Int.max))".utf8)
@@ -388,6 +394,9 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		// 2+4 new DE packages expected; 1 more removed
 		XCTAssertEqual(store.allDays(country: "DE").count, 6)
 		XCTAssertEqual(store.allDays(country: "IT").count, 1)
+
+		XCTAssertFalse(keyValueStore.wasRecentDayKeyDownloadSuccessful)
+		XCTAssertFalse(keyValueStore.wasRecentHourKeyDownloadSuccessful)
 	}
 
 	func testPackageStoreValidationOnSet() throws {
@@ -413,7 +422,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertEqual(store.allDays(country: "DE").count, 2)
 
 		// add some more data
-		try store.set(country: "DE", day: "2020-06-03", etag: revokedEtag, package: package)
+		XCTAssertThrowsError(try store.set(country: "DE", day: "2020-06-03", etag: revokedEtag, package: package))
 		try store.set(country: "IT", day: "2020-06-06", etag: nil, package: package)
 		try store.set(country: "DE", day: "2020-06-07", etag: nil, package: package)
 
@@ -421,7 +430,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertEqual(store.allDays(country: "IT").count, 1)
 
 		// 2 different 'set' implementations, so let's cover the 2nd as well
-		try store.set(country: "IT", hour: 1, day: "2020-06-03", etag: revokedEtag, package: package)
+		XCTAssertThrowsError(try store.set(country: "IT", hour: 1, day: "2020-06-03", etag: revokedEtag, package: package))
 		try store.set(country: "IT", hour: 1, day: "2020-06-04", etag: etag, package: package)
 		try store.set(country: "IT", hour: 1, day: "2020-06-05", etag: nil, package: package)
 
