@@ -13,12 +13,12 @@ final class TanInputViewModel {
 		exposureSubmissionService: ExposureSubmissionService,
 		presentInvalidTanAlert: @escaping (String, @escaping () -> Void) -> Void,
 		tanSuccessfullyTransferred: @escaping () -> Void,
-		givenTan: String = ""
+		givenTan: String? = nil
 	) {
 		self.exposureSubmissionService = exposureSubmissionService
 		self.presentInvalidTanAlert = presentInvalidTanAlert
 		self.tanSuccessfullyTransferred = tanSuccessfullyTransferred
-		self.text = givenTan
+		self.text = givenTan ?? ""
 	}
 	
 	// MARK: - Overrides
@@ -67,14 +67,13 @@ final class TanInputViewModel {
 				self?.presentInvalidTanAlert(error.localizedDescription) {
 					self?.didDissMissInvalidTanAlert?()
 				}
-
 			case .success:
 				self?.tanSuccessfullyTransferred()
 			}
 		}
 	}
 
-	func appendCharacter(_ char: String) {
+	func addCharacter(_ char: String) {
 		text += char
 		updateErrorText()
 	}
@@ -82,10 +81,6 @@ final class TanInputViewModel {
 	func deletLastCharacter() {
 		text = String(text.dropLast())
 		updateErrorText()
-	}
-
-	func handleReturnKey() {
-		submitTan()
 	}
 
 	// MARK: - Private

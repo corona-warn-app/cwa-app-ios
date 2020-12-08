@@ -51,7 +51,7 @@ class TanInputView: UIControl, UIKeyInput {
 			label.text = "\(character)"
 			label.isValid = character.rangeOfCharacter(from: characterSet) != nil
 			viewModel.isInputBlocked = !label.isValid
-			viewModel.appendCharacter(character)
+			viewModel.addCharacter(character)
 		}
 	}
 
@@ -63,10 +63,6 @@ class TanInputView: UIControl, UIKeyInput {
 		viewModel.deletLastCharacter()
 		inputLabels[viewModel.text.count].clear()
 	}
-
-	// MARK: - Public
-
-	// MARK: - Internal
 
 	// MARK: - Private
 
