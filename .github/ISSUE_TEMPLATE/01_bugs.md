@@ -17,13 +17,15 @@ Also, be sure to check our documentation first: <URL>
 * [ ] Bug is not mentioned in the [FAQ](https://www.coronawarn.app/en/faq/)
 * [ ] Bug is not already reported in another issue
 
+## Technical details
+
+- Device name:
+- iOS Version:
+- App Version:
+
 ## Describe the bug
 
 <!-- Describe your issue, but please be descriptive! Thanks again 🙌 ❤️ -->
-
-## Expected behaviour
-
-<!-- A clear and concise description of what you expected to happen. -->
 
 ## Steps to reproduce the issue
 
@@ -36,10 +38,9 @@ Also, be sure to check our documentation first: <URL>
 4. See error
 -->
 
-## Technical details
+## Expected behaviour
 
-- iOS Version:
-- Device:
+<!-- A clear and concise description of what you expected to happen. -->
 
 ## Possible Fix
 
