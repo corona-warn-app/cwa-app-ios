@@ -525,29 +525,24 @@
 			<u>Hinterlegung des Testergebnisses</u>
 		</p>
 		<p>
-			Sobald dem Testlabor das Testergebnis vorliegt, hinterlegt es das Ergebnis
-			unter Angabe der gehashten Kennzahl in der vom RKI betriebenen
-			Testergebnis-Datenbank. Die Testergebnis-Datenbank befindet sich auf einem
-			speziellen Server innerhalb des Serversystems. Das Testlabor erzeugt die
-			gehashte Kennzahl ebenfalls auf Basis der an Sie im ausgegebenen QR-Code
-			enthaltenen Kennzahl unter Verwendung des gleichen mathematischen
-			Verfahrens, das auch die App einsetzt.
+			Sobald Ihr Testergebnis vorliegt, wird es vom Labor nur unter Angabe 
+			der gehashten Kennzahl in der vom RKI betriebenen Testergebnis-Datenbank
+			hinterlegt. Die Testergebnis-Datenbank befindet sich auf einem
+			speziellen Server innerhalb des Serversystems. Das Labor erzeugt die
+			gehashte Kennzahl auf Basis auf Basis des gleichen QR-Codes, 
+			den auch Sie erhalten haben.
 		</p>
 		<p>
 			<u>Abruf des Testergebnisses</u>
 		</p>
 		<p>
-			Die App fragt bei dem Serversystem unter Verwendung des Tokens regelmäßig
-			den Status des registrierten Tests ab. Das Serversystem ordnet das Token
-			dann der gehashten Kennzahl zu und übermittelt diese an die
-			Testergebnis-Datenbank. Diese prüft, ob zu der gehashten Kennzahl ein
-			Testergebnis abgelegt ist und gibt das Ergebnis zurück. Das Serversystem
-			leitet den Status sowie das von der Testergebnis-Datenbank abgefragte
-			Testergebnis selbst (also ob Ihr Befund positiv oder negativ ist) dann an
-			die App weiter. Wenn Sie die Mitteilungen zum Teststatus in der App
-			aktiviert haben (unter „Einstellungen“ &gt; „Mitteilungen“), erhalten Sie
-			eine entsprechende Benachrichtigung. Das Testergebnis wird Ihnen angezeigt,
-			wenn Sie die App öffnen.
+			Die App fragt bei dem Serversystem unter Verwendung des in der App gespeicherten Tokens 
+			regelmäßig den Status des registrierten Tests ab. Das Serversystem teilt der App 
+			dann den aktuellen Status (Ergebnis liegt noch nicht vor / Ergebnis liegt vor) mit.
+			Sobald Ihr Testergebnis vorliegt, wird auch der Befund (Corona-positiv oder Corona-negativ) 
+			an die App übermittelt. Falls Sie die Mitteilungen zum Teststatus aktiviert haben 
+			(unter „Einstellungen“ &gt; „Mitteilungen“), erhalten Sie eine Benachrichtigung.
+			Das Testergebnis wird erst angezeigt, wenn Sie die App öffnen.
 		</p>
 		<p>
 			Wenn Sie Corona-positiv getestet wurden, fordert die App bei dem
