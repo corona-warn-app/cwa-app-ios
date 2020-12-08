@@ -80,7 +80,6 @@ class TanInputView: UIControl, UIKeyInput {
 	private let font: UIFont = UIFont.enaFont(for: .title2)
 
 	private var stackView: UIStackView!
-	private var stackViewWidthConstraint: NSLayoutConstraint!
 	private var boxWidthConstraint: NSLayoutConstraint!
 	private var boxHeightConstraint: NSLayoutConstraint!
 
@@ -122,7 +121,6 @@ class TanInputView: UIControl, UIKeyInput {
 		stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
 		stackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 		stackView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-		stackViewWidthConstraint = stackView.widthAnchor.constraint(equalTo: widthAnchor)
 
 		UIView.translatesAutoresizingMaskIntoConstraints(for: [stackView] + stackViews + labels, to: false)
 		updateAxis(.horizontal)
@@ -204,8 +202,6 @@ class TanInputView: UIControl, UIKeyInput {
 		}
 
 		inputLabels.forEach { $0.layoutMargins = insets }
-
-		stackViewWidthConstraint.isActive = false
 
 		updateBoxSize()
 	}
