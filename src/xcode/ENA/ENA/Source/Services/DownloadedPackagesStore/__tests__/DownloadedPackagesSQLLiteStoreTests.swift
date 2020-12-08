@@ -422,7 +422,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertEqual(store.allDays(country: "DE").count, 2)
 
 		// add some more data
-		try? store.set(country: "DE", day: "2020-06-03", etag: revokedEtag, package: package)
+		XCTAssertThrowsError(try store.set(country: "DE", day: "2020-06-03", etag: revokedEtag, package: package))
 		try store.set(country: "IT", day: "2020-06-06", etag: nil, package: package)
 		try store.set(country: "DE", day: "2020-06-07", etag: nil, package: package)
 
@@ -430,7 +430,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertEqual(store.allDays(country: "IT").count, 1)
 
 		// 2 different 'set' implementations, so let's cover the 2nd as well
-		try? store.set(country: "IT", hour: 1, day: "2020-06-03", etag: revokedEtag, package: package)
+		XCTAssertThrowsError(try store.set(country: "IT", hour: 1, day: "2020-06-03", etag: revokedEtag, package: package))
 		try store.set(country: "IT", hour: 1, day: "2020-06-04", etag: etag, package: package)
 		try store.set(country: "IT", hour: 1, day: "2020-06-05", etag: nil, package: package)
 
