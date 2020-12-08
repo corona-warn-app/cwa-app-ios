@@ -96,7 +96,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertEqual(consentSwitch.value as? String, "1")
 		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
 		
-		let consentGivenCell = app.tables.firstMatch.cells.staticTexts[app.localized("ExposureSubmissionResult_WarnOthersConsentGiven")]
+		let consentGivenCell = app.tables.firstMatch.cells[AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentGivenCell]
 		XCTAssertTrue(consentGivenCell.waitForExistence(timeout: .long))
 	}
 	
