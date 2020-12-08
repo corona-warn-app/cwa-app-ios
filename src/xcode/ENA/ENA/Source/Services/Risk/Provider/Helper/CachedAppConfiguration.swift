@@ -73,7 +73,6 @@ final class CachedAppConfiguration {
 						lastAppConfigFetch: Date(),
 						appConfig: response.config
 					)
-					promise(.success(AppConfigResponse(config: response.config, etag: response.eTag)))
 
 					// update revokation list
 					let revokationList = self.store.appConfigMetadata?.appConfig.revokationEtags ?? []
@@ -85,6 +84,8 @@ final class CachedAppConfiguration {
 						Log.error("Error while removing invalidated key packages.", log: .localData, error: error)
 						// no further action - yet
 					}
+
+					promise(.success(AppConfigResponse(config: response.config, etag: response.eTag)))
 
 				case .failure(let error):
 					switch error {
