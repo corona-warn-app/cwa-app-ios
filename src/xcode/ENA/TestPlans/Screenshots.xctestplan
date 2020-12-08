@@ -1,11 +1,10 @@
 {
   "configurations" : [
     {
-      "id" : "E49DA41E-E8E3-4DAA-8D5E-903DF2089E55",
-      "name" : "DE",
+      "id" : "0E0E0978-2717-4490-8723-B6BDF33AD923",
+      "name" : "Configuration 1",
       "options" : {
-        "language" : "de",
-        "region" : "DE"
+
       }
     }
   ],
