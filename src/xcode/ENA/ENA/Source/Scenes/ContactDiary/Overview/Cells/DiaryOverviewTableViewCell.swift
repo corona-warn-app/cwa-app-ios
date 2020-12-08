@@ -17,8 +17,7 @@ class DiaryOverviewTableViewCell: UITableViewCell {
 
 	func configure(day: DiaryDay) {
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .medium
-		dateFormatter.timeStyle = .none
+		dateFormatter.setLocalizedDateFormatFromTemplate("EEEEddMMyy")
 
 		dateLabel.text = dateFormatter.string(from: day.date)
 	}

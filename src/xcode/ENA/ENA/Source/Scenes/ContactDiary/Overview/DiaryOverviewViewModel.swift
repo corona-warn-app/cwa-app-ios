@@ -7,8 +7,14 @@ import UIKit
 
 struct DiaryOverviewViewModel {
 
+	// MARK: - Internal
+
+	var numberOfDays: Int {
+		diaryService.days.count
+	}
+
 	// MARK: - Private
 
-	let diaryService: DiaryService
+	private let diaryService: DiaryService
 
 }

@@ -23,7 +23,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 		self.onEditContactPersonsButtonTap = onEditContactPersonsButtonTap
 		self.onEditLocationsButtonTap = onEditLocationsButtonTap
 
-		super.init(style: .plain)
+		super.init(style: .grouped)
 	}
 
 	@available(*, unavailable)
@@ -36,7 +36,11 @@ class DiaryOverviewTableViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		tableView.register(UINib(nibName: String(describing: DiaryOverviewTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: DiaryOverviewTableViewCell.self))
+		setupTableView()
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationItem.largeTitleDisplayMode = .always
+
+		navigationItem.title = "Kontakt-Tagebuch"
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -46,7 +50,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return viewModel.diaryService.days.count
+		return viewModel.numberOfDays
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -65,6 +69,10 @@ class DiaryOverviewTableViewController: UITableViewController {
 		onCellSelection(viewModel.diaryService.days[indexPath.row])
 	}
 
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		"Tragen Sie ein, mit wem Sie sich getroffen haben und wo Sie gewesen sind. "
+	}
+
 	// MARK: - Private
 
 	private let viewModel: DiaryOverviewViewModel
@@ -73,5 +81,14 @@ class DiaryOverviewTableViewController: UITableViewController {
 	private let onExportButtonTap: () -> Void
 	private let onEditContactPersonsButtonTap: () -> Void
 	private let onEditLocationsButtonTap: () -> Void
+
+	private func setupTableView() {
+		tableView.register(
+			UINib(nibName: String(describing: DiaryOverviewTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: DiaryOverviewTableViewCell.self)
+		)
+
+		tableView.separatorStyle = .none
+	}
 
 }
