@@ -57,7 +57,6 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
-		cellBackgroundColor = .clear
 		hidesBottomBarWhenPushed = true
 		
 		tableView.register(
