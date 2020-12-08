@@ -12,6 +12,7 @@ protocol HomeViewControllerDelegate: AnyObject {
 	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProviderActivityState)
 	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProviderActivityState)
 	func showExposureSubmission(with result: TestResult?)
+	func showDiary()
 	func showInviteFriends()
 	func showWebPage(from viewController: UIViewController, urlString: String)
 	func showAppInformation()
@@ -265,6 +266,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	func showExposureSubmission(with result: TestResult? = nil) {
 		delegate?.showExposureSubmission(with: result)
+	}
+
+	func showDiary() {
+		delegate?.showDiary()
 	}
 
 	func showExposureNotificationSetting() {

@@ -290,6 +290,12 @@ extension HomeInteractor {
 		return submitConfigurator
 	}
 
+	func setupDiaryConfigurator() -> HomeDiaryCellConfigurator {
+		let diaryConfigurator = HomeDiaryCellConfigurator()
+		diaryConfigurator.primaryAction = homeViewController.showDiary
+		return diaryConfigurator
+	}
+
 	func setupFindingPositiveRiskCellConfigurator() -> HomeFindingPositiveRiskCellConfigurator {
 		let configurator = HomeFindingPositiveRiskCellConfigurator()
 		configurator.nextAction = {
@@ -362,6 +368,9 @@ extension HomeInteractor {
 			let submitCellConfigurator = setupSubmitConfigurator()
 			actionsConfigurators.append(submitCellConfigurator)
 		}
+
+		let diaryConfigurator = setupDiaryConfigurator()
+		actionsConfigurators.append(diaryConfigurator)
 
 		return actionsConfigurators
 	}

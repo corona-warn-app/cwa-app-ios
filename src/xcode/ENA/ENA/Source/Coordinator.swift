@@ -200,6 +200,16 @@ extension Coordinator: HomeViewControllerDelegate {
 		coordinator.start(with: result)
 	}
 
+	func showDiary() {
+		let coordinator = DiaryCoordinator(
+			store: store,
+			diaryStore: MockDiaryStore(),
+			parentNavigationController: rootViewController
+		)
+
+		coordinator.start()
+	}
+
 	func showInviteFriends() {
 		rootViewController.pushViewController(
 			FriendsInviteController.initiate(for: .inviteFriends),

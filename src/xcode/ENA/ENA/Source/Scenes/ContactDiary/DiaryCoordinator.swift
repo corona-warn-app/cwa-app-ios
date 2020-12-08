@@ -21,10 +21,7 @@ class DiaryCoordinator {
 	// MARK: - Internal
 
 	func start() {
-		let diaryNavigationController = UINavigationController(rootViewController: overviewScreen)
-		parentNavigationController?.pushViewController(diaryNavigationController, animated: true)
-
-		navigationController = diaryNavigationController
+		parentNavigationController?.pushViewController(overviewScreen, animated: true)
 
 		if !infoScreenShown {
 			showInfoScreen()
@@ -37,7 +34,6 @@ class DiaryCoordinator {
 	private let diaryService: DiaryService
 
 	private weak var parentNavigationController: UINavigationController?
-	private var navigationController: UINavigationController?
 
 	private var infoScreenShown: Bool {
 		get { store.diaryInfoScreenShown }
@@ -70,11 +66,11 @@ class DiaryCoordinator {
 	private func showInfoScreen() {
 		let vc = DiaryInfoViewController(
 			onPrimaryButtonTap: { [weak self] in
-				self?.navigationController?.dismiss(animated: true)
+				self?.parentNavigationController?.dismiss(animated: true)
 			}
 		)
 
-		navigationController?.present(vc, animated: true) {
+		parentNavigationController?.present(vc, animated: true) {
 			self.infoScreenShown = true
 		}
 	}
@@ -87,7 +83,7 @@ class DiaryCoordinator {
 			}
 		)
 
-		navigationController?.pushViewController(vc, animated: true)
+		parentNavigationController?.pushViewController(vc, animated: true)
 	}
 
 	private func showAddAndEditEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode) {
@@ -95,11 +91,11 @@ class DiaryCoordinator {
 			mode: mode,
 			diaryService: diaryService,
 			onDismiss: { [weak self] in
-				self?.navigationController?.dismiss(animated: true)
+				self?.parentNavigationController?.dismiss(animated: true)
 			}
 		)
 
-		navigationController?.present(vc, animated: true)
+		parentNavigationController?.present(vc, animated: true)
 	}
 
 	private func showEditEntriesScreen(type: DiaryEntryType) {
@@ -109,11 +105,11 @@ class DiaryCoordinator {
 				self?.showAddAndEditEntryScreen(mode: .edit(entry))
 			},
 			onDismiss: { [weak self] in
-				self?.navigationController?.dismiss(animated: true)
+				self?.parentNavigationController?.dismiss(animated: true)
 			}
 		)
 
-		navigationController?.present(vc, animated: true)
+		parentNavigationController?.present(vc, animated: true)
 	}
 
 	private func showExportActivity() {
@@ -121,7 +117,7 @@ class DiaryCoordinator {
 			activityItems: [diaryService.exportString],
 			applicationActivities: nil
 		)
-		navigationController?.present(activityViewController, animated: true, completion: nil)
+		parentNavigationController?.present(activityViewController, animated: true, completion: nil)
 	}
 	
 }
