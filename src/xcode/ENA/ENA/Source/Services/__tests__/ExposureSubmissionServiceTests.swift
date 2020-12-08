@@ -40,6 +40,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.isSubmissionConsentGiven = true
+		service.symptomsOnset = .lastSevenDays
 
 		let expectation = self.expectation(description: "Success")
 
@@ -56,7 +57,13 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: expectationsTimeout)
 
 		XCTAssertNil(store.registrationToken)
-		
+		XCTAssertNil(store.tan)
+
+		XCTAssertFalse(service.isSubmissionConsentGiven)
+		XCTAssertNil(store.submissionKeys)
+		XCTAssertTrue(store.submissionCountries.isEmpty)
+		XCTAssertEqual(store.submissionSymptomsOnset, .noInformation)
+		XCTAssertNotNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
 	}
 
 	func testSubmitExposure_NoSubmissionConsent() {
@@ -80,6 +87,15 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: expectationsTimeout)
+
+		XCTAssertNil(store.registrationToken)
+		XCTAssertNil(store.tan)
+
+		XCTAssertFalse(service.isSubmissionConsentGiven)
+		XCTAssertNil(store.submissionKeys)
+		XCTAssertFalse(store.submissionCountries.isEmpty)
+		XCTAssertEqual(store.submissionSymptomsOnset, .noInformation)
+		XCTAssertNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
 	}
 
 	func testSubmitExposure_NoKeys() {
@@ -103,6 +119,8 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: expectationsTimeout)
+
+		XCTAssertFalse(service.isSubmissionConsentGiven)
 	}
 
 	func testSubmitExposure_EmptyKeys() {
@@ -150,6 +168,8 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: expectationsTimeout)
+
+		XCTAssertTrue(service.isSubmissionConsentGiven)
 	}
 
 	func testSubmitExposure_NoRegToken() {
