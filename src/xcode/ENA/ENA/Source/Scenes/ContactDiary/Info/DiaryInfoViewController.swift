@@ -10,9 +10,9 @@ class DiaryInfoViewController: DynamicTableViewController, ENANavigationControll
 	// MARK: - Init
 	
 	init(
-		onPrimaryButtonTap: @escaping () -> Void
+		onDismiss: @escaping () -> Void
 	) {
-		self.onPrimaryButtonTap = onPrimaryButtonTap
+		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -29,8 +29,14 @@ class DiaryInfoViewController: DynamicTableViewController, ENANavigationControll
 
 		setupView()
 
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(
+			onTap: { [weak self] in
+				self?.onDismiss()
+			}
+		)
+		navigationController?.navigationBar.prefersLargeTitles = true
+
 		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
-		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
 		footerView?.isHidden = false
 	}
 
@@ -41,7 +47,7 @@ class DiaryInfoViewController: DynamicTableViewController, ENANavigationControll
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		onPrimaryButtonTap()
+		onDismiss()
 	}
 
 	// MARK: - Internal
@@ -53,7 +59,7 @@ class DiaryInfoViewController: DynamicTableViewController, ENANavigationControll
 	// MARK: - Private
 
 	private let viewModel = DiaryInfoViewModel()
-	private let onPrimaryButtonTap: () -> Void
+	private let onDismiss: () -> Void
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()

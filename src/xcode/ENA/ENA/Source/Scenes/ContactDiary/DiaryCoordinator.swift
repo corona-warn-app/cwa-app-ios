@@ -23,9 +23,9 @@ class DiaryCoordinator {
 	func start() {
 		parentNavigationController?.pushViewController(overviewScreen, animated: true)
 
-		if !infoScreenShown {
+//		if !infoScreenShown {
 			showInfoScreen()
-		}
+//		}
 	}
 
 	// MARK: - Private
@@ -64,30 +64,33 @@ class DiaryCoordinator {
 	}()
 
 	private func showInfoScreen() {
-		let vc = DiaryInfoViewController(
-			onPrimaryButtonTap: { [weak self] in
-				self?.parentNavigationController?.dismiss(animated: true)
+		let navigationController = ENANavigationControllerWithFooter()
+
+		let viewController = DiaryInfoViewController(
+			onDismiss: {
+				navigationController.dismiss(animated: true)
 			}
 		)
+		navigationController.viewControllers = [viewController]
 
-		parentNavigationController?.present(vc, animated: true) {
+		parentNavigationController?.present(navigationController, animated: true) {
 			self.infoScreenShown = true
 		}
 	}
 
 	private func showDayScreen(day: DiaryDay) {
-		let vc = DiaryDayTableViewController(
+		let viewController = DiaryDayTableViewController(
 			diaryDayService: DiaryDayService(day: day, store: diaryService.store),
 			onAddEntryCellTap: { [weak self] day, entryType in
 				self?.showAddAndEditEntryScreen(mode: .add(day, entryType))
 			}
 		)
 
-		parentNavigationController?.pushViewController(vc, animated: true)
+		parentNavigationController?.pushViewController(viewController, animated: true)
 	}
 
 	private func showAddAndEditEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode) {
-		let vc = DiaryAddAndEditEntryViewController(
+		let viewController = DiaryAddAndEditEntryViewController(
 			mode: mode,
 			diaryService: diaryService,
 			onDismiss: { [weak self] in
@@ -95,11 +98,11 @@ class DiaryCoordinator {
 			}
 		)
 
-		parentNavigationController?.present(vc, animated: true)
+		parentNavigationController?.present(viewController, animated: true)
 	}
 
 	private func showEditEntriesScreen(type: DiaryEntryType) {
-		let vc = DiaryEditEntriesTableViewController(
+		let viewController = DiaryEditEntriesTableViewController(
 			diaryService: diaryService,
 			onCellSelection: { [weak self] entry in
 				self?.showAddAndEditEntryScreen(mode: .edit(entry))
@@ -109,15 +112,15 @@ class DiaryCoordinator {
 			}
 		)
 
-		parentNavigationController?.present(vc, animated: true)
+		parentNavigationController?.present(viewController, animated: true)
 	}
 
 	private func showExportActivity() {
-		let activityViewController = UIActivityViewController(
+		let viewController = UIActivityViewController(
 			activityItems: [diaryService.exportString],
 			applicationActivities: nil
 		)
-		parentNavigationController?.present(activityViewController, animated: true, completion: nil)
+		parentNavigationController?.present(viewController, animated: true, completion: nil)
 	}
 	
 }
