@@ -2,9 +2,10 @@
   "configurations" : [
     {
       "id" : "E49DA41E-E8E3-4DAA-8D5E-903DF2089E55",
-      "name" : "Configuration 1",
+      "name" : "DE",
       "options" : {
-
+        "language" : "de",
+        "region" : "DE"
       }
     }
   ],
