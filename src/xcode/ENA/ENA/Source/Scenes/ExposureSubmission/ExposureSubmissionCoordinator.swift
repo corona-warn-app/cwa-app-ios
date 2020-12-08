@@ -39,7 +39,7 @@ protocol ExposureSubmissionCoordinatorDelegate: class {
 // swiftlint:disable:next type_body_length
 class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, RequiresAppDependencies {
 
-	// MARK: - Initializers.
+	// MARK: - Init
 
 	init(
 		warnOthersReminder: WarnOthersRemindable,
@@ -85,13 +85,26 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		navigationController?.dismiss(animated: true)
 	}
 
-	func showTanScreen() {
-		let vc = createTanInputViewController()
+	func showTestResultScreen(with testResult: TestResult) {
+		let vc = createTestResultViewController(with: testResult)
 		push(vc)
 	}
 
-	func showTestResultScreen(with testResult: TestResult) {
-		let vc = createTestResultViewController(with: testResult)
+	func showTanScreen() {
+		let tanInputViewModel = TanInputViewModel(
+			exposureSubmissionService: model.exposureSubmissionService,
+			presentInvalidTanAlert: { [weak self] localizedDescription, completion  in
+				self?.presentTanInvalidAlert(localizedDescription: localizedDescription, completion: completion)
+			},
+			tanSuccessfullyTransferred: { [weak self] in
+				// A TAN always indicates a positive test result.
+				self?.showTestResultScreen(with: .positive)
+			}
+		)
+
+		let vc = TanInputViewController(
+			viewModel: tanInputViewModel
+		)
 		push(vc)
 	}
 
@@ -100,7 +113,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	/// - NOTE: We keep a weak reference here to avoid a reference cycle.
 	///  (the navigationController holds a strong reference to the coordinator).
 	weak var navigationController: UINavigationController?
-	
+
 	// MARK: - Private
 
 	private weak var parentNavigationController: UINavigationController?
@@ -111,7 +124,6 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	
 	private func push(_ vc: UIViewController) {
 		self.navigationController?.pushViewController(vc, animated: true)
-		
 	}
 
 	// MARK: Initial Screens
@@ -259,6 +271,20 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	private func showHotlineScreen() {
 		let vc = createHotlineViewController()
 		push(vc)
+	}
+
+	private func presentTanInvalidAlert(localizedDescription: String, completion: @escaping () -> Void) {
+		let alert = UIAlertController(title: AppStrings.ExposureSubmission.generalErrorTitle, message: localizedDescription, preferredStyle: .alert)
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .cancel,
+				handler: { _ in
+					completion()
+				})
+		)
+		navigationController?.present(alert, animated: true)
+
 	}
 
 	private func showQRInfoScreen(supportedCountries: [Country]) {
@@ -636,12 +662,6 @@ extension ExposureSubmissionCoordinator {
 	
 	// MARK: - Private
 
-	private func createTanInputViewController() -> ExposureSubmissionTanInputViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTanInputViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionTanInputViewController(coder: coder, coordinator: self, exposureSubmissionService: self.model.exposureSubmissionService)
-		}
-	}
-
 	private func createHotlineViewController() -> ExposureSubmissionHotlineViewController {
 		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self) { coder -> UIViewController? in
 			ExposureSubmissionHotlineViewController(coder: coder, coordinator: self)
@@ -651,6 +671,7 @@ extension ExposureSubmissionCoordinator {
 }
 
 extension ExposureSubmissionCoordinator: UIAdaptivePresentationControllerDelegate {
+
 	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
 		dismiss()
 	}
