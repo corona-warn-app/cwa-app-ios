@@ -102,6 +102,11 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 	
 	func test_SubmitTAN_SymptomsOptionNo() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		navigateToSymptomsScreen()
 
 		let optionYes = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionYes"]
@@ -131,8 +136,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
 		
-		// (1) NewSubmissionFlow: Add the test here
-		
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
@@ -143,6 +146,11 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 	func test_SubmitTAN_SymptomsOptionPreferNotToSay() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		navigateToSymptomsScreen()
 
 		let optionYes = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionYes"]
@@ -172,8 +180,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
 		
-		// (2) NewSubmissionFlow: Add the test here
-		
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
@@ -183,6 +189,11 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 	func test_SubmitTAN_SymptomsOnsetDateOption() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		navigateToSymptomsOnsetScreen()
 
 		let optionExactDate = app.buttons["AppStrings.DatePickerOption.day"].firstMatch
@@ -258,18 +269,19 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
 		
-		// (3) NewSubmissionFlow: Add the test here
-		
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionThankYouView"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		
 	}
 
 	func test_SubmitTAN_CancelOnTestResultScreen() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
 		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
 		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		launch()
@@ -299,8 +311,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 
-		// NewSubmissionFlow: Add the test for the presentPositiveTestResultCancelAlert
-		
 		app.alerts["Sie wollen keine Warnung verschicken?"].buttons["Nicht warnen"].tap()
 		
 		waitForNonExistence(of: app.buttons["AppStrings.ExposureSubmission.primaryButton"], timeout: .long)
@@ -310,10 +320,12 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 	func test_SubmitTAN_SecondaryFlowWithoutSymptomsScreens() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
 		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
 		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		launch()
-
+		
 		// Start Submission Flow
 		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
@@ -339,8 +351,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 
-		// NewSubmissionFlow: Add the test for the presentPositiveTestResultCancelAlert
-		
 		app.alerts["Sie wollen keine Warnung verschicken?"].buttons["Warnen"].tap()
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		
@@ -392,7 +402,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		
-		// (4) NewSubmissionFlow: Add the test here
 		app.alerts["Sie wollen keine Warnung verschicken?"].buttons["Warnen"].tap()
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		
@@ -447,7 +456,90 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		snapshot("error_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
+	
+	// Navigate to the Thank You screen after getting the positive test result.
+	func test_ThankYouScreen_withWarnOthers() {
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
+		app.launchArguments.append(contentsOf: ["-testResult", TestResult.positive.stringValue])
+		launch()
+		
+		// Open Intro screen.
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		
+		// Open Test Result screen.
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionTestResultView"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		
+		// Open Warn Others screen.
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
+		// Open Thank You screen.
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionThankYouView"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
+		app.alerts["Wollen Sie die Symptom-Erfassung abbrechen?"].buttons["Nein"].tap()
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
+		app.alerts["Wollen Sie die Symptom-Erfassung abbrechen?"].buttons["Ja"].tap()
+		
+		waitForNonExistence(of: app.buttons["AppStrings.ExposureSubmission.primaryButton"], timeout: .long)
+		
+	}
+
+	// Navigate to the Thank You screen with alert on Test Result Screen.
+	func test_ThankYouScreen_WarnOthersFromAlert() {
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
+		app.launchArguments.append(contentsOf: ["-testResult", TestResult.positive.stringValue])
+		launch()
+		
+		// Open Intro screen.
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		
+		// Open Test Result screen.
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionTestResultView"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
+		
+		app.alerts["Sie wollen keine Warnung verschicken?"].buttons["Nicht warnen"].tap()
+		waitForNonExistence(of: app.buttons["AppStrings.ExposureSubmission.primaryButton"], timeout: .long)
+		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionTestResultView"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
+				
+		app.alerts["Sie wollen keine Warnung verschicken?"].buttons["Warnen"].tap()
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		
+		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionThankYouView"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		
+		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
+		
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
+		
+		app.alerts["Wollen Sie die Symptom-Erfassung abbrechen?"].buttons["Nein"].tap()
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
+		
+		app.alerts["Wollen Sie die Symptom-Erfassung abbrechen?"].buttons["Ja"].tap()
+		
+		waitForNonExistence(of: app.buttons["AppStrings.ExposureSubmission.primaryButton"], timeout: .long)
+		
+	}
 }
 
 // MARK: - Helpers.
