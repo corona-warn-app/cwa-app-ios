@@ -307,19 +307,25 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 					country: country
 				)
 			}
-		} catch SQLiteErrorCode.generalError {
-			Log.error("KeyPackageDownload: Persistence of \(downloadMode.title) key packages failed.", log: .riskDetection, error: SQLiteErrorCode.generalError)
-			assertionFailure("This is most likely a developer error. Check the logs!")
-			return .failure(.unableToWriteDiagnosisKeys)
-		} catch SQLiteErrorCode.sqlite_full {
-			Log.error("KeyPackageDownload: Persistence of \(downloadMode.title) key packages failed. Storage full", log: .riskDetection, error: SQLiteErrorCode.sqlite_full)
-			return .failure(.noDiskSpace)
-		} catch SQLiteErrorCode.unknown {
-			Log.error("KeyPackageDownload: Persistence of \(downloadMode.title) key packages failed. Unknown reason.", log: .riskDetection, error: SQLiteErrorCode.unknown)
+		} catch DownloadedPackagesSQLLiteStore.StoreError.sqliteError(let sqliteError) {
+			switch sqliteError {
+			case .generalError:
+				Log.error("KeyPackageDownload: Persistence of \(downloadMode.title) key packages failed.", log: .riskDetection, error: SQLiteErrorCode.generalError)
+				assertionFailure("This is most likely a developer error. Check the logs!")
+				return .failure(.unableToWriteDiagnosisKeys)
+			case .sqlite_full:
+				Log.error("KeyPackageDownload: Persistence of \(downloadMode.title) key packages failed. Storage full", log: .riskDetection, error: SQLiteErrorCode.sqlite_full)
+				return .failure(.noDiskSpace)
+			case .unknown:
+				Log.error("KeyPackageDownload: Persistence of \(downloadMode.title) key packages failed. Unknown reason.", log: .riskDetection, error: SQLiteErrorCode.unknown)
+				return .failure(.unableToWriteDiagnosisKeys)
+			}
+		} catch DownloadedPackagesSQLLiteStore.StoreError.revokedPackage {
+			Log.error("KeyPackageDownload: Persistence of \(downloadMode.title) key packages failed. Revoked key package.", log: .riskDetection, error: DownloadedPackagesSQLLiteStore.StoreError.revokedPackage)
 			return .failure(.unableToWriteDiagnosisKeys)
 		} catch {
-			Log.error("KeyPackageDownload: Persistence of \(downloadMode.title) key packages failed.", log: .riskDetection, error: error)
-			assertionFailure("Expected error of type SQLiteErrorCode.")
+			Log.error("KeyPackageDownload: Persistence of \(downloadMode.title) key packages failed. Unexpected error happened.", log: .riskDetection, error: error)
+			assertionFailure("Unexpected error.")
 			return .failure(.unableToWriteDiagnosisKeys)
 		}
 

@@ -10,13 +10,13 @@ final class HomeInteractorTests: XCTestCase {
 
 	func test_When_updateEnStateIsCalledImmediatelyAfterInit_Then_HomeInteractorDoesNotCrash() {
 		let keys = [ENTemporaryExposureKey()]
-		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let keysRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let client = ClientMock()
 		let store = MockTestStore()
 		store.registrationToken = "dummyRegistrationToken"
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keysRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		let delegate = HomeViewControllerDelegateDummy()
 		let exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .active)
 
@@ -35,7 +35,8 @@ final class HomeInteractorTests: XCTestCase {
 		let homeInteractor = HomeInteractor(
 			homeViewController: homeController,
 			state: homeInteractorState,
-			exposureSubmissionService: service
+			exposureSubmissionService: service,
+			warnOthersReminder: WarnOthersReminder(store: store)
 		)
 
 		homeInteractor.updateEnState(.enabled)

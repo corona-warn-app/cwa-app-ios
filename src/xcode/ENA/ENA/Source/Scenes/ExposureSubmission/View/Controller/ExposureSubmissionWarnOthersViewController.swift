@@ -66,7 +66,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 		item.isPrimaryButtonEnabled = true
 		item.isSecondaryButtonHidden = true
 
-		item.title = AppStrings.ExposureSubmissionQRInfo.title
+		item.title = AppStrings.ExposureSubmissionWarnOthers.title
 
 		return item
 	}()

@@ -111,7 +111,6 @@ final class StoreTests: XCTestCase {
 		XCTAssertTrue(tmpStore.devicePairingConsentAccept)
 		XCTAssertEqual(tmpStore.devicePairingConsentAcceptTimestamp, testTimeStamp)
 		XCTAssertEqual(tmpStore.devicePairingSuccessfulTimestamp, testTimeStamp)
-		XCTAssertTrue(tmpStore.isAllowedToSubmitDiagnosisKeys)
 		XCTAssertTrue(tmpStore.allowRiskChangesNotification)
 		XCTAssertTrue(tmpStore.allowTestsStatusNotification)
 		XCTAssertEqual(tmpStore.registrationToken, "")
@@ -149,10 +148,6 @@ final class StoreTests: XCTestCase {
 		let isOnboarded = store.isOnboarded
 		store.isOnboarded.toggle()
 		XCTAssertNotEqual(isOnboarded, store.isOnboarded)
-
-		let isAllowedToSubmitDiagnosisKeys = store.isAllowedToSubmitDiagnosisKeys
-		store.isAllowedToSubmitDiagnosisKeys.toggle()
-		XCTAssertNotEqual(isAllowedToSubmitDiagnosisKeys, store.isAllowedToSubmitDiagnosisKeys)
 
 		let allowRiskChangesNotification = store.allowRiskChangesNotification
 		store.allowRiskChangesNotification.toggle()
