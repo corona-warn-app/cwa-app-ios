@@ -23,9 +23,9 @@ class DiaryCoordinator {
 	func start() {
 		parentNavigationController?.pushViewController(overviewScreen, animated: true)
 
-//		if !infoScreenShown {
+		if !infoScreenShown {
 			showInfoScreen()
-//		}
+		}
 	}
 
 	// MARK: - Private
@@ -90,6 +90,8 @@ class DiaryCoordinator {
 	}
 
 	private func showAddAndEditEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode) {
+		let navigationController = UINavigationController()
+
 		let viewController = DiaryAddAndEditEntryViewController(
 			mode: mode,
 			diaryService: diaryService,
@@ -97,11 +99,14 @@ class DiaryCoordinator {
 				self?.parentNavigationController?.dismiss(animated: true)
 			}
 		)
+		navigationController.viewControllers = [viewController]
 
-		parentNavigationController?.present(viewController, animated: true)
+		parentNavigationController?.present(navigationController, animated: true)
 	}
 
 	private func showEditEntriesScreen(type: DiaryEntryType) {
+		let navigationController = UINavigationController()
+
 		let viewController = DiaryEditEntriesTableViewController(
 			diaryService: diaryService,
 			onCellSelection: { [weak self] entry in
@@ -111,8 +116,9 @@ class DiaryCoordinator {
 				self?.parentNavigationController?.dismiss(animated: true)
 			}
 		)
+		navigationController.viewControllers = [viewController]
 
-		parentNavigationController?.present(viewController, animated: true)
+		parentNavigationController?.present(navigationController, animated: true)
 	}
 
 	private func showExportActivity() {

@@ -28,6 +28,13 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(
+			onTap: { [weak self] in
+				self?.onDismiss()
+			}
+		)
+		navigationController?.navigationBar.prefersLargeTitles = true
 	}
 
 	// MARK: - Private
