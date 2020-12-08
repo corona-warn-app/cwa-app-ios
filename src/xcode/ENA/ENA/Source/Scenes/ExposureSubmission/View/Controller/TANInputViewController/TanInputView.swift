@@ -114,7 +114,12 @@ class TanInputView: UIControl, UIKeyInput {
 		if let firstLabel = inputLabels.first {
 			boxWidthConstraint = firstLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 0)
 			boxHeightConstraint = firstLabel.heightAnchor.constraint(equalToConstant: 0)
-			inputLabels[1...].forEach { $0.widthAnchor.constraint(equalTo: firstLabel.widthAnchor).isActive = true }
+			inputLabels[1...].forEach {
+				NSLayoutConstraint.activate([
+					$0.widthAnchor.constraint(equalTo: firstLabel.widthAnchor),
+					$0.heightAnchor.constraint(equalTo: firstLabel.heightAnchor)
+				])
+			}
 		}
 
 		addSubview(stackView)
