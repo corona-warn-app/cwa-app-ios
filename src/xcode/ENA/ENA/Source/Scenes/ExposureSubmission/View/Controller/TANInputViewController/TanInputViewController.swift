@@ -150,22 +150,18 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	}
 
 	private func setupViewModelBindings() {
-		// viewModel will notify controller to enabled / disabler Primary Footer Button
-		// this will happend while ExposureSubmissionService is making a network request
-		viewModel.$isPrimaryBarButtonDisabled.sink { [weak self] isDisabled in
+		// viewModel will notify controller to enabled / disabler primary footer button
+		viewModel.$isPrimaryButtonEnabled.sink { [weak self] isEnabled in
 			DispatchQueue.main.async {
-				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isDisabled
-				self?.navigationFooterItem?.isPrimaryButtonLoading = isDisabled
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = isEnabled
 			}
 		}.store(in: &bindings)
 
-		// viewModel will notify about text (tan) changes here
-		viewModel.$text.sink { [weak self] newText in
-			Log.debug("viewModel text did uodate to: \(newText)")
+		// viewModel will notify controller to enable / disable loadingIndicator on primary footer button
+		viewModel.$isPrimaryBarButtonIsLoading.sink { [weak self] isLoading in
 			DispatchQueue.main.async {
-				self?.navigationFooterItem?.isPrimaryButtonEnabled = self?.viewModel.isChecksumValid ?? false
+				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
 			}
-
 		}.store(in: &bindings)
 
 		// viewModel will notify about changes on errorText

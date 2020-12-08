@@ -25,9 +25,15 @@ final class TanInputViewModel {
 
 	// MARK: - Public
 
-	@Published private(set) var text: String = ""
 	@Published private(set) var errorText: String = ""
-	@Published private(set) var isPrimaryBarButtonDisabled: Bool = false
+	@Published private(set) var isPrimaryButtonEnabled: Bool = false
+	@Published private(set) var isPrimaryBarButtonIsLoading: Bool = false
+
+	private(set) var text: String = "" {
+		didSet {
+			isPrimaryButtonEnabled = isChecksumValid
+		}
+	}
 
 	// MARK: - Internal
 
@@ -57,13 +63,15 @@ final class TanInputViewModel {
 			return
 		}
 
-		isPrimaryBarButtonDisabled = true
+		isPrimaryButtonEnabled = false
+		isPrimaryBarButtonIsLoading = true
 		exposureSubmissionService.getRegistrationToken(forKey: .teleTan(text)) { [weak self] result in
 
 			switch result {
 			case let .failure(error):
 				// If teleTAN is incorrect, show Alert Controller
-				self?.isPrimaryBarButtonDisabled = false
+				self?.isPrimaryButtonEnabled = true
+				self?.isPrimaryBarButtonIsLoading = false
 				self?.presentInvalidTanAlert(error.localizedDescription) {
 					self?.didDissMissInvalidTanAlert?()
 				}
