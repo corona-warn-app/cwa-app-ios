@@ -296,6 +296,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			showExposureDetection()
 		case is RiskFailedCollectionViewCell:
 			showExposureDetection()
+		case is HomeDiaryCollectionViewCell:
+			showDiary()
 		case is RiskThankYouCollectionViewCell:
 			return
 		default:
@@ -358,7 +360,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			RiskFindingPositiveCollectionViewCell.self,
 			RiskThankYouCollectionViewCell.self,
 			InfoCollectionViewCell.self,
-			HomeTestResultLoadingCell.self
+			HomeTestResultLoadingCell.self,
+			HomeDiaryCollectionViewCell.self
 		]
 
 		collectionView.register(cellTypes: cellTypes)

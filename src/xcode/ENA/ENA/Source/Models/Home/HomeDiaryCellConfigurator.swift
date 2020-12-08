@@ -9,7 +9,7 @@ class HomeDiaryCellConfigurator: CollectionViewCellConfigurator {
 
 	var primaryAction: (() -> Void)?
 
-	func configure(cell: HomeTestResultCollectionViewCell) {
+	func configure(cell: HomeDiaryCollectionViewCell) {
 		cell.delegate = self
 
 		cell.configure(
@@ -33,8 +33,8 @@ class HomeDiaryCellConfigurator: CollectionViewCellConfigurator {
 
 }
 
-extension HomeDiaryCellConfigurator: HomeTestResultCollectionViewCellDelegate {
-	func testResultCollectionViewCellPrimaryActionTriggered(_ collectionViewCell: HomeTestResultCollectionViewCell) {
+extension HomeDiaryCellConfigurator: HomeDiaryCollectionViewCellDelegate {
+	func diaryCollectionViewCellPrimaryActionTriggered(_ collectionViewCell: HomeDiaryCollectionViewCell) {
 		primaryAction?()
 	}
 }
