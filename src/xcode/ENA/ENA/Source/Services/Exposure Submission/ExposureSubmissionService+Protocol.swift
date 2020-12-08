@@ -17,8 +17,6 @@ protocol ExposureSubmissionService: class {
 	var devicePairingConsentAcceptTimestamp: Int64? { get }
 	var devicePairingSuccessfulTimestamp: Int64? { get }
 
-	var positiveTestResultWasShown: Bool { get set }
-
 	var symptomsOnset: SymptomsOnset { get set }
 
 	var isSubmissionConsentGiven: Bool { get set }

@@ -43,3 +43,5 @@
 "AutomaticSharingConsent_DescriptionPart3" = "Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
 
 "AutomaticSharingConsent_DescriptionPart4" = "Sie können Ihr Einverständnis zurücknehmen, indem Sie oben „Andere warnen“ deaktivieren.";
+
+"AutomaticSharingConsent_DescriptionPart5" = "Ihr Testergebnis wird Ihnen anschließend angezeigt.";

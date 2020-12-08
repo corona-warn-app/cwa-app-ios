@@ -9,7 +9,7 @@ enum ExposureSubmissionServiceFactory {
 	/// Will return a mock service in UI tests if and only if the .useMock parameter is passed to the application.
 	/// If the parameter is _not_ provided, the factory will instantiate a regular ENAExposureSubmissionService.
 	static func create(
-		diagnosiskeyRetrieval: DiagnosisKeysRetrieval,
+		diagnosisKeysRetrieval: DiagnosisKeysRetrieval,
 		appConfigurationProvider: AppConfigurationProviding,
 		client: Client,
 		store: Store
@@ -18,7 +18,7 @@ enum ExposureSubmissionServiceFactory {
 		if isUITesting {
 			guard isEnabled(.useMock) else {
 				return ENAExposureSubmissionService(
-					diagnosiskeyRetrieval: diagnosiskeyRetrieval,
+					diagnosisKeysRetrieval: diagnosisKeysRetrieval,
 					appConfigurationProvider: appConfigurationProvider,
 					client: client,
 					store: store,
@@ -67,7 +67,7 @@ enum ExposureSubmissionServiceFactory {
 		#endif
 
 		let service = ENAExposureSubmissionService(
-			diagnosiskeyRetrieval: diagnosiskeyRetrieval,
+			diagnosisKeysRetrieval: diagnosisKeysRetrieval,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
 			store: store,

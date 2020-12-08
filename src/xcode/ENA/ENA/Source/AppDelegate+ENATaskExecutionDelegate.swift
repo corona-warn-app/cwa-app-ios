@@ -49,7 +49,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		Log.info("[ENATaskExecutionDelegate] Attempt submission of temporary exposure keys.", log: .api)
 
 		let service = ENAExposureSubmissionService(
-			diagnosiskeyRetrieval: exposureManager,
+			diagnosisKeysRetrieval: exposureManager,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
 			store: store,
@@ -76,7 +76,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	/// part of the app, a local notification is shown.
 	private func executeFetchTestResults(completion: @escaping ((Bool) -> Void)) {
 		let service = ENAExposureSubmissionService(
-			diagnosiskeyRetrieval: exposureManager,
+			diagnosisKeysRetrieval: exposureManager,
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
 			store: store,
