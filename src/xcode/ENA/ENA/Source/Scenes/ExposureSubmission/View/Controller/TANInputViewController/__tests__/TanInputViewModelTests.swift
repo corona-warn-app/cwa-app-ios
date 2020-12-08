@@ -17,7 +17,7 @@ class TanInputViewModelTests: XCTestCase {
 		)
 
 		//WHEN
-		let isValid = viewModel.isValid
+		let isValid = viewModel.isNumberOfDigitsReached
 		let isChecksumValid = viewModel.isChecksumValid
 
 		//THEN
@@ -35,7 +35,7 @@ class TanInputViewModelTests: XCTestCase {
 		)
 
 		//WHEN
-		let isValid = viewModel.isValid
+		let isValid = viewModel.isNumberOfDigitsReached
 		let isChecksumValid = viewModel.isChecksumValid
 
 		//THEN
@@ -53,7 +53,7 @@ class TanInputViewModelTests: XCTestCase {
 		)
 
 		//WHEN
-		let isValid = viewModel.isValid
+		let isValid = viewModel.isNumberOfDigitsReached
 		let isChecksumValid = viewModel.isChecksumValid
 
 		//THEN

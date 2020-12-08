@@ -36,14 +36,14 @@ final class TanInputViewModel {
 	var isInputBlocked: Bool = false
 	var didDissMissInvalidTanAlert: (() -> Void)?
 
-	var isValid: Bool {
+	var isNumberOfDigitsReached: Bool {
 		let count = text.count
 		let numberOfDigits = { digitGroups.reduce(0) { $0 + $1 } }()
 		return count == numberOfDigits
 	}
 
 	var isChecksumValid: Bool {
-		guard isValid else { return false }
+		guard isNumberOfDigitsReached else { return false }
 		let start = text.index(text.startIndex, offsetBy: 0)
 		let end = text.index(text.startIndex, offsetBy: text.count - 2)
 		let testString = String(text[start...end])
@@ -92,7 +92,7 @@ final class TanInputViewModel {
 
 	private func updateErrorText() {
 		let errors = [
-			isValid && !isChecksumValid  ? AppStrings.ExposureSubmissionTanEntry.invalidError : nil,
+			isNumberOfDigitsReached && !isChecksumValid  ? AppStrings.ExposureSubmissionTanEntry.invalidError : nil,
 			isInputBlocked ? AppStrings.ExposureSubmissionTanEntry.invalidCharacterError : nil
 		].compactMap { $0 }
 		errorText = errors.joined(separator: "\n\n")

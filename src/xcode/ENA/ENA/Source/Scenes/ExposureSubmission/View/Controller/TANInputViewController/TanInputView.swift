@@ -42,7 +42,7 @@ class TanInputView: UIControl, UIKeyInput {
 		}
 
 		for character in text.trimmingCharacters(in: .whitespacesAndNewlines).map({ $0.uppercased() }) {
-			guard !viewModel.isValid && !viewModel.isInputBlocked else {
+			guard !viewModel.isNumberOfDigitsReached && !viewModel.isInputBlocked else {
 				return
 			}
 
