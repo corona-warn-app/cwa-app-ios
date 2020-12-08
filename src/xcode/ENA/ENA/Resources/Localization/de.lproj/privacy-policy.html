@@ -724,9 +724,9 @@
 			</li>
 			<li>
 				Die App muss auf Ihrem Smartphone im Hintergrundbetrieb laufen können,
-				um Ihr Infektionsrisiko automatisch zu ermitteln und den Status eines
-				registrierten Tests abfragen zu können. Wenn Sie den Hintergrundbetrieb
-				deaktivieren, müssen Sie alle Aktionen in der App selbst starten.
+				um Ihr Ansteckungsrisiko automatisch zu ermitteln und den Status Ihres
+				Tests abfragen zu können. Wenn Sie den Hintergrundbetrieb deaktivieren, 
+				müssen Sie alle Aktionen in der App selbst starten.
 			</li>
 		</ul><br>
 		<br><h3>
@@ -747,7 +747,7 @@
 				sucht. Standortdaten werden dabei jedoch nicht erhoben.
 			</li>
 			<li>
-				Um über Änderungen Ihres Infektionsrisikos und den Status von
+				Um über Änderungen Ihres Ansteckungsrisikos und den Status von
 				Testergebnissen benachrichtigt werden zu können, muss die
 				Benachrichtigungsfunktion aktiviert sein. Die Benachrichtigungsfunktion
 				ist im Betriebssystem standardmäßig aktiviert.
@@ -758,8 +758,8 @@
 		</p>
 		<br><ul>
 			<li>
-				Die Funktion „Test registrieren“ benötigt Zugriff auf die Kamera, um
-				den QR-Code auslesen zu können.
+				Die Funktion „Testergebnis abrufen“ benötigt Zugriff auf die Kamera, um
+				den QR-Code scannen zu können.
 			</li>
 		</ul><br>
 		<br><h3>
@@ -774,9 +774,8 @@
 				Das COVID-19-Benachrichtigungssystem von iOS (Begegnungsmitteilungen)
 			</li>
 			<li>
-				Um über Änderungen Ihres Infektionsrisikos und den Status von
-				Testergebnissen benachrichtigt werden zu können, müssen Mitteilungen
-				aktiviert sein.
+				Um über Änderungen Ihres Ansteckungsrisikos und den Test-Status
+				benachrichtigt werden zu können, müssen Mitteilungen aktiviert sein.	
 			</li>
 		</ul><br>
 		<p>
@@ -784,8 +783,8 @@
 		</p>
 		<br><ul>
 			<li>
-				Die Funktion „Test registrieren“ benötigt Zugriff auf die Kamera, um
-				den QR-Code auslesen zu können.
+				Die Funktion „Testergebnis abrufen“ benötigt Zugriff auf die Kamera, um
+				den QR-Code scannen zu können.
 			</li>
 		</ul><br>
 		<p>&nbsp;</p><h2>
@@ -795,7 +794,8 @@
 			Die Speicherdauer richtet sich danach, für welche Zwecke bzw.
 			App-Funktionen Ihre Daten jeweils gespeichert worden sind. Bei der
 			Festlegung der Speicherdauer berücksichtigt das RKI die aktuellen
-			wissenschaftlichen Erkenntnisse zur Inkubationszeit (bis zu 14 Tage) und
+			wissenschaftlichen Erkenntnisse zur Inkubationszeit (Dauer von der Ansteckung 
+			bis zum Ausbruch der Krankheit), die bis zu 14 Tage beträgt und
 			zur Dauer des Ansteckungsrisikos für Mitmenschen einer infizierten Person
 			nach dem Ende der Inkubationszeit. Soweit unter Punkt 6 keine kürzere
 			Speicherdauer genannt wird, gelten folgende Fristen:
@@ -804,11 +804,11 @@
 			a. Daten auf Ihrem Smartphone
 		</h3>
 		<p>
-			Die abgerufenen Positiv-Listen werden nach 14 Tagen aus dem App-Speicher
-			gelöscht. Das in der App ermittelte Infektionsrisiko (z. B. „niedriges
+			Die Positiv-Listen werden nach 14 Tagen aus dem App-Speicher
+			gelöscht. Das für Sie ermittelte Ansteckungsrisiko (z. B. „niedriges
 			Risiko“) wird nach jeder Aktualisierung, spätestens aber nach 14 Tagen aus
-			dem App-Speicher gelöscht. Sofern Sie einen Corona-positiven Test
-			registriert haben, wird das Token im App-Speicher gelöscht, sobald Sie eine
+			dem App-Speicher gelöscht. Sofern Sie ein positives Testergebnis
+			abgerufen haben, wird das Token im App-Speicher gelöscht, sobald Sie eine
 			Warnung auslösen.
 		</p>
 		<br><h3>
@@ -816,19 +816,19 @@
 		</h3>
 		<p>
 			Positiv-Listen werden nach 14 Tagen von allen Serversystemen
-			(einschließlich Austausch-Server) gelöscht. Alle anderen Daten werden
+			(einschließlich dem Austausch-Server) gelöscht. Alle anderen Daten werden
 			spätestens nach 21 Tagen gelöscht.
 		</p>
 		<p>&nbsp;</p><h2>
 			10. An wen werden Ihre Daten weitergegeben?
 		</h2><br>
 		<p>
-			Wenn Sie andere Nutzer über die App warnen, werden Ihre Zufalls-IDs der
-			letzten 14 Tage sowie optionale Angaben zum Symptombeginn an die jeweils
+			Wenn Sie andere Nutzer über die App warnen, werden Ihr Testergebnis (in Form Ihrer
+			Zufalls-IDs der letzten 14 Tage) sowie optionale Angaben zum Symptombeginn an die jeweils
 			verantwortlichen Gesundheitsbehörden der am Austausch-Server teilnehmenden
 			Länder und von dort an die Serversysteme der an den länderübergreifenden
 			Warnungen teilnehmenden Corona-Apps weitergegeben. Die Serversysteme der
-			nationalen Corona-Apps verteilen Ihre Daten dann als Bestandteil der
+			nationalen Corona-Apps verteilen diese Informationen dann als Bestandteil der
 			Positiv-Listen an ihre jeweiligen eigenen Nutzer.
 		</p>
 		<p>
@@ -857,31 +857,31 @@
 				11. Werden Ihre Daten in Länder außerhalb der EU übermittelt?
 		</h2><br>
 		<p>
-			Wenn Sie eine Warnung auslösen, können die am gemeinsamen Austausch-Server
-			angebundenen Corona-Apps die aktuellen Positiv-Listen weltweit abrufen, so
-			dass auch Nutzer etwa im Urlaub oder auf Geschäftsreise gewarnt werden
-			können. Im Übrigen werden die von der App übermittelten Daten
+			Wenn Sie eine Warnung auslösen, können die aktuellen Positiv-Listen
+			unabhängig vom Aufenthaltsort des Nutzers (etwa im Urlaub oder auf Geschäftsreise) 
+			abgerufen werden. Im Übrigen werden die von der App übermittelten Daten
 			ausschließlich auf Servern in Deutschland oder in einem anderem Land in der
 			EU (oder dem Europäischen Wirtschaftsraum) verarbeitet, die somit den
 			strengen Anforderungen der Datenschutz-Grundverordnung (DSGVO) unterliegen.
 		</p>
 		<p>&nbsp;</p><h2>
-				12. Wie können Sie Ihre Einwilligungen widerrufen?
+				12. Wie können Sie Ihr Einverständnis zurücknehmen?
 		</h2><br>
 		<p>
-			Ihnen steht das Recht zu, die in der App erteilten Einwilligungen gegenüber
-			dem RKI jederzeit mit Wirkung für die Zukunft zu widerrufen. Die
-			Rechtmäßigkeit der Verarbeitung bis zum Widerruf wird dadurch jedoch nicht
-			berührt.
+			Ihnen steht das Recht zu, ein in der App erteiltes Einverständnis gegenüber
+			dem RKI jederzeit mit Wirkung für die Zukunft zurückzunehmen. Sofern die jeweilige
+			Verarbeitung Ihrer Daten bereits durchgeführt worden ist, kann die Verarbeitung 
+			jedoch nicht mehr rückgängig gemacht werden. Insbesondere hat das RKI keine Möglichkeit,
+			Ihre bereits an andere Nutzer übermittelten Zufalls-IDs von deren Smartphones zu löschen.
 		</p>
 		<br><h3>
-			a. Einwilligung für die Risiko-Ermittlung
+			a. Einveständnis „Risiko-Ermittlung“
 		</h3>
 		<p>
-			Zum Widerruf Ihrer Einwilligung können Sie die Risiko-Ermittlung
-			deaktivieren oder die App löschen. Wenn Sie die Risiko-Ermittlung wieder
-			nutzen möchten, können Sie die Funktion erneut aktivieren oder die App
-			erneut installieren.
+			Ihr Einverständnis in die Risiko-Ermittlung können Sie jederzeit zurücknehmen, 
+			indem Sie diese Funktion in den Einstellungen der App deaktivieren oder 
+			die App löschen. Wenn Sie die Risiko-Ermittlung wieder nutzen möchten, 
+			können Sie die Funktion erneut aktivieren oder die App erneut installieren.	
 		</p>
 		<br><h3>
 			b. Einwilligung für die Testregistrierung
