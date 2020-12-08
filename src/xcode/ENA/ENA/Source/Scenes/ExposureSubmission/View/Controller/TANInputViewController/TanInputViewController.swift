@@ -119,9 +119,9 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		scrollView.addSubview(stackView)
 
 		NSLayoutConstraint.activate([
+			stackView.widthAnchor.constraint(equalTo: view.widthAnchor),
 			stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 15.0),
 			stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: 15.0),
-			stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
 			stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 15),
 			stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
 		])
@@ -139,7 +139,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 
 		errorLabel = ENALabel()
 		errorLabel.style = .headline
-		errorLabel.text = nil
+		errorLabel.text = ""
 		errorLabel.translatesAutoresizingMaskIntoConstraints = false
 		errorLabel.textColor = .enaColor(for: .textSemanticRed)
 		errorLabel.numberOfLines = 0
@@ -169,7 +169,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 			Log.debug("viewModel errorText did uodate to: \(newErrorText)")
 
 			DispatchQueue.main.async {
-				self?.errorLabel.text = newErrorText.isEmpty ? nil : newErrorText
+				self?.errorLabel.text = newErrorText
 			}
 
 		}.store(in: &bindings)
