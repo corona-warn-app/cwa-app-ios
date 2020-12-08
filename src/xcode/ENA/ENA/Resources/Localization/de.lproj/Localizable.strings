@@ -992,6 +992,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_SubmitCard_Button" = "Nächste Schritte";
 
+/* Home Diary card */
+"Home_DiaryCard_Title" = "Kontakt-Tagebuch";
+
+"Home_DiaryCard_Body" = "Merken Sie sich, wo Sie waren und wen Sie getroffen haben.";
+
+"Home_DiaryCard_Button" = "Tagebuch führen";
+
 "Home_InfoCard_ShareTitle" = "Corona-Warn-App empfehlen";
 
 "Home_InfoCard_ShareBody" = "Je mehr Menschen mitmachen, desto besser durchbrechen wir Infektionsketten. Verschicken Sie einen Link auf die Corona-Warn-App an Familie, Freunde und Bekannte!";
