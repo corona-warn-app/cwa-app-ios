@@ -35,6 +35,12 @@ class DiaryOverviewTableViewController: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		let moreImage = UIImage(named: "Icons_More_Circle")
+		let rightBarButton = UIBarButtonItem(image: moreImage, style: .plain, target: self, action: #selector(onMore))
+		rightBarButton.tintColor = .enaColor(for: .tint)
+		self.navigationItem.setRightBarButton(rightBarButton, animated: false)
+
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -72,4 +78,34 @@ class DiaryOverviewTableViewController: UITableViewController {
 	private let onEditContactPersonsButtonTap: () -> Void
 	private let onEditLocationsButtonTap: () -> Void
 
+	
+	@objc
+	private func onMore() {
+		let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+		
+		let infoAction = UIAlertAction(title: "XXXInfo", style: .default, handler: { [weak self] _ in
+			self?.onInfoButtonTap()
+		})
+		actionSheet.addAction(infoAction)
+		
+		let exportAction = UIAlertAction(title: "XXXEinträge exportieren", style: .default, handler: { [weak self] _ in
+			self?.onExportButtonTap()
+		})
+		actionSheet.addAction(exportAction)
+
+		let editPerson = UIAlertAction(title: "XXXPersonen bearbeiten", style: .default, handler: { [weak self] _ in
+			self?.onEditContactPersonsButtonTap()
+		})
+		actionSheet.addAction(editPerson)
+		
+		let editLocation = UIAlertAction(title: "XXXOrte bearbeiten", style: .default, handler: { [weak self] _ in
+			self?.onEditLocationsButtonTap()
+		})
+		actionSheet.addAction(editLocation)
+		
+		let cancelAction = UIAlertAction(title: "XXXAbbrechen", style: .cancel, handler: nil)
+		actionSheet.addAction(cancelAction)
+		
+		present(actionSheet, animated: true, completion: nil)
+	}
 }
