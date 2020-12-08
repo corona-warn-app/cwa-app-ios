@@ -17,10 +17,9 @@ class ContactDiaryStoreSchemaV1 {
 		self.queue = queue
 	}
 
-	func create() {
+	func create() -> Result<Void, SQLiteErrorCode> {
 		queue.sync {
-			self.database.executeStatements(
-			"""
+			let sql = """
 				PRAGMA locking_mode=EXCLUSIVE;
 				PRAGMA auto_vacuum=2;
 				PRAGMA journal_mode=WAL;
@@ -49,8 +48,14 @@ class ContactDiaryStoreSchemaV1 {
 					FOREIGN KEY(locationId) REFERENCES Location(id)
 				);
 			"""
-			)
+
+			guard self.database.executeStatements(sql) else {
+				Log.error("[SQLite] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+			}
+
 			self.database.userVersion = 1
+			return .success(())
 		}
 	}
 }
