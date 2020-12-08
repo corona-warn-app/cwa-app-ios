@@ -19,7 +19,7 @@ struct LocationVisit {
 
 protocol DiaryStoring {
 
-	var diaryDaysPublisher: Published<[DiaryDay]>.Publisher { get }
+	var diaryDaysPublisher: CurrentValueSubject<[DiaryDay], Never> { get }
 
 	@discardableResult
 	func addContactPerson(name: String) -> Int
@@ -52,7 +52,7 @@ class MockDiaryStore: DiaryStoring {
 
 	// MARK: - Protocol DiaryStoring
 
-	var diaryDaysPublisher: Published<[DiaryDay]>.Publisher { $diaryDays }
+	var diaryDaysPublisher = CurrentValueSubject<[DiaryDay], Never>([])
 
 	@discardableResult
 	func addContactPerson(name: String) -> Int {
@@ -146,8 +146,6 @@ class MockDiaryStore: DiaryStoring {
 
 	// MARK: - Private
 
-	@Published private var diaryDays: [DiaryDay] = []
-
 	private var contactPersons = [DiaryContactPerson]()
 	private var locations = [DiaryLocation]()
 
@@ -181,7 +179,7 @@ class MockDiaryStore: DiaryStoring {
 			diaryDays.append(DiaryDay(dateString: dateString, entries: contactPersonEntries + locationEntries))
 		}
 
-		self.diaryDays = diaryDays
+		diaryDaysPublisher.send(diaryDays)
 	}
 
 }
