@@ -117,16 +117,21 @@ jobs:
       language:
         default: "de-DE"
         type: string
+      darkmode:
+        default: false
+        type: boolean
     steps:
       - attach_workspace:
           at: .
       - install-tools # chaching currently fails, needs some further tweaks
       - run:
           name: Snapshot
-          command: cd src/xcode && bundle exec fastlane run snapshot languages:<<parameters.language>> clear_previous_screenshots:"false" && cd -
+          command: cd src/xcode && bundle exec fastlane run snapshot languages:<<parameters.language>> dark_mode:<<parameters.darkmode>> clear_previous_screenshots:"false" && cd -
       - run:
           name: Rename overview html
-          command: mv src/xcode/screenshots/screenshots.html src/xcode/screenshots/screenshots-<<parameters.language>>.html
+          command: |
+            mode=$([ <<parameters.darkmode>> == true ] && "dark" || "light")
+            mv src/xcode/screenshots/screenshots.html src/xcode/screenshots/screenshots-<<parameters.language>>-${mode}.html
       - persist_to_workspace:
           root: .
           paths:
@@ -191,17 +196,19 @@ workflows:
 
     snapshot-all:
       jobs:
-        - dependencies:
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
+        - dependencies
+        # - dependencies:
+        #     filters:
+        #       tags:
+        #         only:
+        #           - /^v.*/
+        #       branches:
+        #         ignore: /.*/
         - snapshot:
             matrix:
               parameters:
                 language: ["de-DE", "en-EN", "bg-BG", "ro-RO", "pl-PL", "tr-TR"]
+                darkmode: [true, false]
             requires:
               - dependencies
         - collect-snapshots:
@@ -239,6 +246,7 @@ workflows:
             matrix:
               parameters:
                 language: ["de-DE", "en-EN", "bg-BG", "ro-RO", "pl-PL", "tr-TR"]
+                darkmode: [true, false]
             requires:
               - dependencies
             filters:
