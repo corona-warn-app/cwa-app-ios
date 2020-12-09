@@ -49,6 +49,7 @@ private final class HomeViewControllerDelegateDummy: HomeViewControllerDelegate 
 	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProviderActivityState) { }
 	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProviderActivityState) { }
 	func showExposureSubmission(with result: TestResult?) { }
+	func showDiary() { }
 	func showInviteFriends() { }
 	func showWebPage(from viewController: UIViewController, urlString: String) { }
 	func showAppInformation() { }
