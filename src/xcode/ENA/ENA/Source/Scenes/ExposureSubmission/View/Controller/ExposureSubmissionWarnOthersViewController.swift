@@ -66,14 +66,13 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 		item.isPrimaryButtonEnabled = true
 		item.isSecondaryButtonHidden = true
 
-		item.title = AppStrings.ExposureSubmissionQRInfo.title
+		item.title = AppStrings.ExposureSubmissionWarnOthers.title
 
 		return item
 	}()
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
-		cellBackgroundColor = .clear
 
 		tableView.register(
 			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),

@@ -10,19 +10,19 @@ import XCTest
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 class ExposureSubmissionServiceTests: XCTestCase {
+
 	let expectationsTimeout: TimeInterval = 2
 	let keys = [ENTemporaryExposureKey()]
 
-	// MARK: - Exposure Submission Tests
+	// MARK: - Exposure Submission
 	
-	func testIsisAutomaticSubmissionConsentGiven_correctValueExchangeBetweenServiceAndStore() {
-		
+	func testIsSubmissionConsentGiven_correctValueExchangeBetweenServiceAndStore() {
 		let store = MockTestStore()
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		
 		XCTAssertFalse(service.isSubmissionConsentGiven, "Expected value is 'false'")
 		
@@ -38,8 +38,9 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		store.registrationToken = "dummyRegistrationToken"
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.isSubmissionConsentGiven = true
+		service.symptomsOnset = .lastSevenDays
 
 		let expectation = self.expectation(description: "Success")
 
@@ -49,12 +50,52 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 			service.submitExposure { error in
 				XCTAssertNil(error)
-
 				expectation.fulfill()
 			}
 		}
 
 		waitForExpectations(timeout: expectationsTimeout)
+
+		XCTAssertNil(store.registrationToken)
+		XCTAssertNil(store.tan)
+
+		XCTAssertFalse(service.isSubmissionConsentGiven)
+		XCTAssertNil(store.submissionKeys)
+		XCTAssertTrue(store.submissionCountries.isEmpty)
+		XCTAssertEqual(store.submissionSymptomsOnset, .noInformation)
+		XCTAssertNotNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
+	}
+
+	func testSubmitExposure_NoSubmissionConsent() {
+		// Arrange
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfigurationProvider = CachedAppConfigurationMock()
+
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		service.isSubmissionConsentGiven = false
+
+		let expectation = self.expectation(description: "NoSubmissionConsent")
+
+		// Act
+		service.getTemporaryExposureKeys { _ in
+			service.submitExposure { error in
+				XCTAssertEqual(error, .noSubmissionConsent)
+				expectation.fulfill()
+			}
+		}
+
+		waitForExpectations(timeout: expectationsTimeout)
+
+		XCTAssertNil(store.registrationToken)
+		XCTAssertNil(store.tan)
+
+		XCTAssertFalse(service.isSubmissionConsentGiven)
+		XCTAssertNil(store.submissionKeys)
+		XCTAssertFalse(store.submissionCountries.isEmpty)
+		XCTAssertEqual(store.submissionSymptomsOnset, .noInformation)
+		XCTAssertNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
 	}
 
 	func testSubmitExposure_NoKeys() {
@@ -64,7 +105,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let store = MockTestStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.isSubmissionConsentGiven = true
 
 		let expectation = self.expectation(description: "NoKeys")
@@ -72,29 +113,24 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Act
 		service.getTemporaryExposureKeys { _ in
 			service.submitExposure { error in
-				defer { expectation.fulfill() }
-				guard let error = error else {
-					XCTFail("error expected")
-					return
-				}
-				guard case ExposureSubmissionError.noKeys = error else {
-					XCTFail("We expect error to be of type expectationsTimeout")
-					return
-				}
+				XCTAssertEqual(error, .noKeys)
+				expectation.fulfill()
 			}
 		}
 
 		waitForExpectations(timeout: expectationsTimeout)
+
+		XCTAssertFalse(service.isSubmissionConsentGiven)
 	}
 
 	func testSubmitExposure_EmptyKeys() {
 		// Arrange
-		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil))
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.isSubmissionConsentGiven = true
 
 		let expectation = self.expectation(description: "EmptyKeys")
@@ -102,15 +138,8 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Act
 		service.getTemporaryExposureKeys { _ in
 			service.submitExposure { error in
-				defer { expectation.fulfill() }
-				guard let error = error else {
-					XCTFail("error expected")
-					return
-				}
-				guard case ExposureSubmissionError.noKeys = error else {
-					XCTFail("We expect error to be of type noKeys")
-					return
-				}
+				XCTAssertEqual(error, .noKeys)
+				expectation.fulfill()
 			}
 		}
 
@@ -125,7 +154,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		store.registrationToken = "dummyRegistrationToken"
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.isSubmissionConsentGiven = true
 
 		let expectation = self.expectation(description: "invalidPayloadOrHeaders Error")
@@ -133,47 +162,131 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Act
 		service.getTemporaryExposureKeys { _ in
 			service.submitExposure { error in
-				defer { expectation.fulfill() }
-				guard let error = error else {
-					XCTFail("error expected")
-					return
-				}
-
-				guard case ExposureSubmissionError.invalidPayloadOrHeaders = error else {
-					XCTFail("We expect error to be of type invalidPayloadOrHeaders")
-					return
-				}
+				XCTAssertEqual(error, .invalidPayloadOrHeaders)
+				expectation.fulfill()
 			}
 		}
 
 		waitForExpectations(timeout: expectationsTimeout)
+
+		XCTAssertTrue(service.isSubmissionConsentGiven)
 	}
 
 	func testSubmitExposure_NoRegToken() {
-		// Arrange
-
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let client = ClientMock()
 		let store = MockTestStore()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.isSubmissionConsentGiven = true
 
 		let expectation = self.expectation(description: "InvalidRegToken")
 
-		// Act
 		service.getTemporaryExposureKeys { _ in
 			service.submitExposure { error in
-				defer {
-					expectation.fulfill()
-				}
 				XCTAssertEqual(error, .noRegistrationToken)
+				expectation.fulfill()
 			}
 		}
 
 		waitForExpectations(timeout: expectationsTimeout)
 	}
+
+	func testCorrectErrorForRequestCouldNotBeBuilt() {
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let appConfigurationProvider = CachedAppConfigurationMock()
+		let client = ClientMock(submissionError: .requestCouldNotBeBuilt)
+		let store = MockTestStore()
+		store.registrationToken = "dummyRegistrationToken"
+
+		let expectation = self.expectation(description: "Correct error description received.")
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		service.isSubmissionConsentGiven = true
+
+		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
+
+		service.getTemporaryExposureKeys { _ in
+			service.submitExposure { error in
+				expectation.fulfill()
+				XCTAssertEqual(error?.localizedDescription, controlTest)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testCorrectErrorForInvalidPayloadOrHeaders() {
+		// Initialize.
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let appConfigurationProvider = CachedAppConfigurationMock()
+		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
+		let store = MockTestStore()
+		store.registrationToken = "dummyRegistrationToken"
+		let expectation = self.expectation(description: "Correct error description received.")
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		service.isSubmissionConsentGiven = true
+
+		// Execute test.
+		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
+
+		service.getTemporaryExposureKeys { _ in
+			service.submitExposure { error in
+				expectation.fulfill()
+				XCTAssertEqual(error?.localizedDescription, controlTest)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	/// The submit exposure flow consists of two steps:
+	/// 1. Getting a submission tan
+	/// 2. Submitting the keys
+	/// In this test, we make the 2. step fail and retry the full submission. The test makes sure that we do not burn the tan when the second step fails.
+	func test_partialSubmissionFailure() {
+		let tan = "dummyTan"
+		let registrationToken = "dummyRegistrationToken"
+
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let appConfigurationProvider = CachedAppConfigurationMock()
+		let store = MockTestStore()
+		store.registrationToken = registrationToken
+
+		// Force submission error. (Which should result in a 4xx, not a 5xx!)
+		let client = ClientMock(submissionError: .serverError(500))
+		client.onGetTANForExposureSubmit = { _, _, completion in completion(.success(tan)) }
+
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		service.isSubmissionConsentGiven = true
+
+		let expectation = self.expectation(description: "all callbacks called")
+		expectation.expectedFulfillmentCount = 2
+
+		// Execute test.
+
+		service.getTemporaryExposureKeys { _ in
+			service.submitExposure { result in
+				expectation.fulfill()
+				XCTAssertNotNil(result)
+
+				// Retry.
+				client.onSubmitCountries = { $2(.success(())) }
+				client.onGetTANForExposureSubmit = { _, isFake, completion in
+					XCTAssertTrue(isFake, "When executing the real request, instead of using the stored TAN, we have made a request to the server.")
+					completion(.failure(.fakeResponse))
+				}
+				service.submitExposure { result in
+					expectation.fulfill()
+					XCTAssertNil(result)
+				}
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	// MARK: - Test Result
 
 	func testGetTestResult_success() {
 
@@ -185,7 +298,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		store.registrationToken = "dummyRegistrationToken"
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		let expectation = self.expectation(description: "Expect to receive a result.")
 
 		// Execute test.
@@ -210,7 +323,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		let store = MockTestStore()
 		let service = ENAExposureSubmissionService(
-			diagnosiskeyRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil)),
+			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil)),
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			client: ClientMock(),
 			store: store,
@@ -238,7 +351,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		let store = MockTestStore()
 		let service = ENAExposureSubmissionService(
-			diagnosiskeyRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil)),
+			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil)),
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			client: ClientMock(),
 			store: store,
@@ -252,7 +365,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			case .success(let testResult):
-				XCTAssertEqual(testResult, TestResult.positive)
+				XCTAssertEqual(testResult, .positive)
 			}
 		}
 
@@ -271,7 +384,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			completeWith(.success(expiredTestResultValue))
 		}
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		let expectation = self.expectation(description: "Expect to receive a result.")
 		let expectationToFailWithExpired = self.expectation(description: "Expect to fail with error of type .qrExpired")
 
@@ -307,7 +420,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			completeWith(.success(unknownTestResultValue))
 		}
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		let expectation = self.expectation(description: "Expect to receive a result.")
 		let expectationToFailWithOther = self.expectation(description: "Expect to fail with error of type .other(_)")
 
@@ -328,105 +441,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
-	func testCorrectErrorForRequestCouldNotBeBuilt() {
-
-		// Initialize.
-		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let appConfigurationProvider = CachedAppConfigurationMock()
-		let client = ClientMock(submissionError: .requestCouldNotBeBuilt)
-		let store = MockTestStore()
-		store.registrationToken = "dummyRegistrationToken"
-
-		let expectation = self.expectation(description: "Correct error description received.")
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
-		service.isSubmissionConsentGiven = true
-
-
-		// Execute test.
-		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - The submission request could not be built correctly."
-
-		service.getTemporaryExposureKeys { _ in
-			service.submitExposure { error in
-				expectation.fulfill()
-				XCTAssertEqual(error?.localizedDescription, controlTest)
-			}
-		}
-
-		waitForExpectations(timeout: .short)
-	}
-
-	func testCorrectErrorForInvalidPayloadOrHeaders() {
-
-		// Initialize.
-		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let appConfigurationProvider = CachedAppConfigurationMock()
-		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
-		let store = MockTestStore()
-		store.registrationToken = "dummyRegistrationToken"
-		let expectation = self.expectation(description: "Correct error description received.")
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
-		service.isSubmissionConsentGiven = true
-
-		// Execute test.
-		let controlTest = "\(AppStrings.ExposureSubmissionError.errorPrefix) - Received an invalid payload or headers."
-
-		service.getTemporaryExposureKeys { _ in
-			service.submitExposure { error in
-				expectation.fulfill()
-				XCTAssertEqual(error?.localizedDescription, controlTest)
-			}
-		}
-
-		waitForExpectations(timeout: .short)
-	}
-
-	/// The submit exposure flow consists of two steps:
-	/// 1. Getting a submission tan
-	/// 2. Submitting the keys
-	/// In this test, we make the 2. step fail and retry the full submission. The test makes sure that we do not burn the tan when the second step fails.
-	func test_partialSubmissionFailure() {
-		let tan = "dummyTan"
-		let registrationToken = "dummyRegistrationToken"
-
-		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let appConfigurationProvider = CachedAppConfigurationMock()
-		let store = MockTestStore()
-		store.registrationToken = registrationToken
-
-		// Force submission error. (Which should result in a 4xx, not a 5xx!)
-		let client = ClientMock(submissionError: .serverError(500))
-		client.onGetTANForExposureSubmit = { _, _, completion in completion(.success(tan)) }
-
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
-		service.isSubmissionConsentGiven = true
-
-		let expectation = self.expectation(description: "all callbacks called")
-		expectation.expectedFulfillmentCount = 2
-
-		// Execute test.
-
-		service.getTemporaryExposureKeys { _ in
-			service.submitExposure { result in
-				expectation.fulfill()
-				XCTAssertNotNil(result)
-
-				// Retry.
-				client.onSubmitCountries = { $2(.success(())) }
-				client.onGetTANForExposureSubmit = { _, isFake, completion in
-					XCTAssertTrue(isFake, "When executing the real request, instead of using the stored TAN, we have made a request to the server.")
-					completion(.failure(.fakeResponse))
-				}
-				service.submitExposure { result in
-					expectation.fulfill()
-					XCTAssertNil(result)
-				}
-			}
-		}
-
-		waitForExpectations(timeout: .short)
-	}
-
-	func testServiceHelperFunctions() throws {
+	func testDeleteTest() throws {
 		let client = ClientMock()
 		let registrationToken = "dummyRegistrationToken"
 
@@ -435,12 +450,14 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let store = MockTestStore()
 		store.registrationToken = registrationToken
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		XCTAssertTrue(service.hasRegistrationToken)
 
 		service.deleteTest()
 		XCTAssertFalse(service.hasRegistrationToken)
 	}
+
+	// MARK: - Country Loading
 
 	func testLoadSupportedCountriesLoadSucceeds() {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
@@ -448,7 +465,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		let store = MockTestStore()
 		let service = ENAExposureSubmissionService(
-			diagnosiskeyRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
+			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
 			appConfigurationProvider: CachedAppConfigurationMock(with: config),
 			client: ClientMock(),
 			store: store,
@@ -484,7 +501,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		let store = MockTestStore()
 		let service = ENAExposureSubmissionService(
-			diagnosiskeyRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
+			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: ([], nil)),
 			appConfigurationProvider: CachedAppConfigurationMock(with: config),
 			client: ClientMock(),
 			store: store,
@@ -514,7 +531,53 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
 	}
 
-	// MARK: Plausible deniability tests.
+	// MARK: - Properties
+
+	func testExposureManagerState() {
+		let exposureManagerState = ExposureManagerState(authorized: false, enabled: true, status: .unknown)
+
+		let store = MockTestStore()
+		let service = ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(
+				diagnosisKeysResult: ([], nil),
+				exposureManagerState: exposureManagerState
+			),
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			client: ClientMock(),
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store)
+		)
+
+		XCTAssertEqual(service.exposureManagerState, exposureManagerState)
+	}
+
+	func testAcceptPairing() {
+		let exposureManagerState = ExposureManagerState(authorized: false, enabled: true, status: .unknown)
+
+		let store = MockTestStore()
+		let service = ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(
+				diagnosisKeysResult: ([], nil),
+				exposureManagerState: exposureManagerState
+			),
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			client: ClientMock(),
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store)
+		)
+
+		XCTAssertFalse(store.devicePairingConsentAccept)
+		XCTAssertNil(store.devicePairingConsentAcceptTimestamp)
+		XCTAssertNil(service.devicePairingConsentAcceptTimestamp)
+
+		service.acceptPairing()
+
+		XCTAssertTrue(store.devicePairingConsentAccept)
+		XCTAssertNotNil(store.devicePairingConsentAcceptTimestamp)
+		XCTAssertNotNil(service.devicePairingConsentAcceptTimestamp)
+	}
+
+	// MARK: - Plausible Deniability
 
 	func test_getTestResultPlaybookPositive() {
 		getTestResultPlaybookTest(with: .positive)
@@ -579,7 +642,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		// Run test.
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.getRegistrationToken(forKey: .guid("test-key")) { response in
 			switch response {
 			case .failure(let error):
@@ -631,7 +694,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		// Run test.
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.isSubmissionConsentGiven = true
 
 		service.getTemporaryExposureKeys { _ in
@@ -675,7 +738,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		// Run test.
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.fakeRequest()
 
 		waitForExpectations(timeout: .short)
@@ -733,7 +796,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		// Run test.
 
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
 		service.getTestResult { response in
 			switch response {
 			case .failure(let error):

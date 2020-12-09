@@ -26,8 +26,6 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 	var devicePairingConsentAcceptTimestamp: Int64?
 	var devicePairingSuccessfulTimestamp: Int64?
 
-	var positiveTestResultWasShown: Bool = false
-
 	var symptomsOnset: SymptomsOnset = .noInformation
 
 	// Needed to use a publisher in the protocol

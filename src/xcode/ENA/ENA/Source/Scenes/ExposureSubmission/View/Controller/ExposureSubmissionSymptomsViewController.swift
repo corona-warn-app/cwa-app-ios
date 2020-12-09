@@ -115,7 +115,6 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 	}
 
 	private func setupTableView() {
-		cellBackgroundColor = .clear
 		tableView.separatorStyle = .none
 
 		tableView.register(
