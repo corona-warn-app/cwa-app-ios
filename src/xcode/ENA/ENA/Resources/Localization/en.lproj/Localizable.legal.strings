@@ -29,7 +29,7 @@
 
 "ExposureSubmissionQRInfo_acknowledgement_2_1" = "If you have tested positive for coronavirus, the app will share your test result in order to warn other users whom you have encountered. This includes users of the official coronavirus apps of the countries mentioned above. If you provide additional information about the onset of your symptoms, this will also be shared.";
 
-"ExposureSubmissionQRInfo_acknowledgement_2_2" = "You can withdraw your consent at any time. The setting for this can be found under “Display test”. Before sharing your test result, you will be reminded of your consent and asked to confirm your willingness to share your test result.";
+"ExposureSubmissionQRInfo_acknowledgement_2_2" = "You can withdraw your consent at any time. The setting for this can be found under “Display Test”. Before sharing your test result, you will be reminded of your consent and asked to confirm your willingness to share your test result.";
 
 /* Automatic share submission result consent */
 
@@ -41,7 +41,9 @@
 
 "AutomaticSharingConsent_DescriptionPart3" = "If you provide additional information about the onset of your symptoms, this will also be shared.";
 
-"AutomaticSharingConsent_DescriptionPart4" = "You can withdraw your consent by disabling “Warn others” above.";
+"AutomaticSharingConsent_DescriptionPart4" = "You can withdraw your consent by disabling “Warn Others” above.";
+
+"AutomaticSharingConsent_DescriptionPart5" = "Your test result will then be shown to you.";
 
 /* ExposureSubmissionWarnOthers */
 
