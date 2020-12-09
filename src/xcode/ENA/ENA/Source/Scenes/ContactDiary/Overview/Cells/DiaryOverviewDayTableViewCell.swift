@@ -44,9 +44,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			encountersVisitsStackView.addArrangedSubview(entryStackView)
 		}
 
-		if encountersVisitsStackView.arrangedSubviews.isEmpty {
-			encountersVisitsContainerStackView.isHidden = true
-		}
+		encountersVisitsContainerStackView.isHidden = encountersVisitsStackView.arrangedSubviews.isEmpty
 	}
 
 	// MARK: - Private
