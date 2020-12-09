@@ -871,6 +871,9 @@ enum AppStrings {
 	
 	enum ContactDiary {
 		enum Overview {
+			static let title = NSLocalizedString("ContactDiary_Overview_Title", comment: "")
+			static let description = NSLocalizedString("ContactDiary_Overview_Description", comment: "")
+
 			enum ActionSheet {
 				static let infoActionTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_InfoActionTitle", comment: "")
 				static let exportActionTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_ExportActionTitle", comment: "")

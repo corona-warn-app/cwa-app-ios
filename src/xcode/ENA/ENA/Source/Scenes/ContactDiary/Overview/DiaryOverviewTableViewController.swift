@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import Combine
 
 class DiaryOverviewTableViewController: UITableViewController {
 
@@ -16,14 +17,20 @@ class DiaryOverviewTableViewController: UITableViewController {
 		onEditContactPersonsButtonTap: @escaping () -> Void,
 		onEditLocationsButtonTap: @escaping () -> Void
 	) {
-		self.viewModel = DiaryOverviewViewModel(diaryService: diaryService)
+		self.diaryService = diaryService
 		self.onCellSelection = onCellSelection
 		self.onInfoButtonTap = onInfoButtonTap
 		self.onExportButtonTap = onExportButtonTap
 		self.onEditContactPersonsButtonTap = onEditContactPersonsButtonTap
 		self.onEditLocationsButtonTap = onEditLocationsButtonTap
 
-		super.init(style: .grouped)
+		super.init(style: .plain)
+
+		diaryService.$days
+			.sink { [weak self] _ in
+				self?.tableView.reloadData()
+			}
+			.store(in: &subscriptions)
 	}
 
 	@available(*, unavailable)
@@ -37,66 +44,93 @@ class DiaryOverviewTableViewController: UITableViewController {
 		super.viewDidLoad()
 
 		setupTableView()
-		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.largeTitleDisplayMode = .always
 
-		navigationItem.title = "Kontakt-Tagebuch"
+		navigationItem.title = AppStrings.ContactDiary.Overview.title
 		
 		let moreImage = UIImage(named: "Icons_More_Circle")
 		let rightBarButton = UIBarButtonItem(image: moreImage, style: .plain, target: self, action: #selector(onMore))
 		rightBarButton.tintColor = .enaColor(for: .tint)
 		self.navigationItem.setRightBarButton(rightBarButton, animated: false)
-
 	}
 
 	// MARK: - Protocol UITableViewDataSource
 
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		return 1
+		return 2
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return viewModel.numberOfDays
+		switch section {
+		case 0:
+			return 1
+		case 1:
+			return diaryService.days.count
+		default:
+			fatalError()
+		}
+
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DiaryOverviewTableViewCell.self), for: indexPath) as? DiaryOverviewTableViewCell else {
-			fatalError("Could not dequeue cell")
+		switch indexPath.section {
+		case 0:
+			return descriptionCell(at: indexPath)
+		case 1:
+			return dayCell(at: indexPath)
+		default:
+			fatalError()
 		}
-
-		cell.configure(day: viewModel.diaryService.days[indexPath.row])
-
-		return cell
 	}
 
 	// MARK: - Protocol UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		onCellSelection(viewModel.diaryService.days[indexPath.row])
-	}
-
-	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		"Tragen Sie ein, mit wem Sie sich getroffen haben und wo Sie gewesen sind. "
+		onCellSelection(diaryService.days[indexPath.row])
 	}
 
 	// MARK: - Private
 
-	private let viewModel: DiaryOverviewViewModel
+	private let diaryService: DiaryService
 	private let onCellSelection: (DiaryDay) -> Void
 	private let onInfoButtonTap: () -> Void
 	private let onExportButtonTap: () -> Void
 	private let onEditContactPersonsButtonTap: () -> Void
 	private let onEditLocationsButtonTap: () -> Void
 
+	private var subscriptions = [AnyCancellable]()
+
 	private func setupTableView() {
 		tableView.register(
-			UINib(nibName: String(describing: DiaryOverviewTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: DiaryOverviewTableViewCell.self)
+			UINib(nibName: String(describing: DiaryOverviewDescriptionTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: DiaryOverviewDescriptionTableViewCell.self)
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: DiaryOverviewDayTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: DiaryOverviewDayTableViewCell.self)
 		)
 
 		tableView.separatorStyle = .none
 	}
 
+	private func descriptionCell(at indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DiaryOverviewDescriptionTableViewCell.self), for: indexPath) as? DiaryOverviewDescriptionTableViewCell else {
+			fatalError("Could not dequeue DiaryOverviewDescriptionTableViewCell")
+		}
+
+		return cell
+	}
+
+	private func dayCell(at indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DiaryOverviewDayTableViewCell.self), for: indexPath) as? DiaryOverviewDayTableViewCell else {
+			fatalError("Could not dequeue DiaryOverviewDayTableViewCell")
+		}
+
+		cell.configure(day: diaryService.days[indexPath.row])
+
+		return cell
+	}
 	
 	@objc
 	private func onMore() {
