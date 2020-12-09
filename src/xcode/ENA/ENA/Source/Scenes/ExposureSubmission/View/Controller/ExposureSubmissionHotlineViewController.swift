@@ -43,6 +43,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 
 	private func setUpView() {
 		title = AppStrings.ExposureSubmissionHotline.title
+		footerView?.isHidden = false
 		setupButtons()
 		setupTableView()
 		setupBackButton()
