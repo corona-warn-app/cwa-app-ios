@@ -132,7 +132,11 @@ jobs:
              *) use_dark_mode=false ;;
             esac
             cd src/xcode
-            bundle exec fastlane run snapshot languages:<<parameters.language>> dark_mode:${use_dark_mode} clear_previous_screenshots:"false"
+            bundle exec fastlane run snapshot \
+              languages:<<parameters.language>> \
+              dark_mode:${use_dark_mode} \
+              clear_previous_screenshots:"false" \
+              output_directory:screenshots/screenshots-<<parameters.language>>-<<parameters.displaymode>>
             cd -
       - run:
           name: Rename overview html
