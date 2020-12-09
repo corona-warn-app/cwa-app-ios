@@ -138,9 +138,6 @@ jobs:
               clear_previous_screenshots:"false" \
               output_directory:screenshots/screenshots-<<parameters.language>>-<<parameters.displaymode>>
             cd -
-      - run:
-          name: Rename overview html
-          command: mv src/xcode/screenshots/screenshots.html src/xcode/screenshots/screenshots-<<parameters.language>>-<<parameters.displaymode>>.html
       - persist_to_workspace:
           root: .
           paths:
