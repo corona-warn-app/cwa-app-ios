@@ -697,6 +697,8 @@ enum AppStrings {
 		static let itemPersonTitle = NSLocalizedString("ContactDiary_Information_Item_Person_Title", comment: "")
 		static let itemContactTitle = NSLocalizedString("ContactDiary_Information_Item_Location_Title", comment: "")
 		static let itemLockTitle = NSLocalizedString("ContactDiary_Information_Item_Lock_Title", comment: "")
+
+		static let dataPrivacyTitle = NSLocalizedString("ContactDiary_Information_Dataprivacy_Title", comment: "")
 	}
 
 	enum InviteFriends {

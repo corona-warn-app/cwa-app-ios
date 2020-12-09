@@ -12,13 +12,16 @@ struct DiaryInfoViewModel {
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 
-		// Contact diary
+			// Illustration with information text
 			.section(
-			   header: .image(
-				UIImage(imageLiteralResourceName: "Illu_ContactDiary-Information"),
-				accessibilityLabel: AppStrings.ContactDiaryInformation.imageDescription,
-				accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.imageDescription
-			),
+				header:
+					.image(
+						UIImage(
+							imageLiteralResourceName: "Illu_ContactDiary-Information"
+						),
+						accessibilityLabel: AppStrings.ContactDiaryInformation.imageDescription,
+						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.imageDescription
+					),
 				cells: [
 					.title2(
 						text: AppStrings.ContactDiaryInformation.descriptionTitle,
@@ -49,10 +52,30 @@ struct DiaryInfoViewModel {
 						UIImage(imageLiteralResourceName: "Icons_Lock"),
 						text: .string(AppStrings.ContactDiaryInformation.itemLockTitle)
 					)
+				]
+			),
 
+			// Disclaimer cell
+			.section(
+				separators: .all,
+				cells: [
+					.body(
+						text: AppStrings.ContactDiaryInformation.dataPrivacyTitle,
+						style: DynamicCell.TextCellStyle.label,
+						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.datavivacyTitle,
+						accessibilityTraits: UIAccessibilityTraits.link,
+						action: .push(
+							model: AppInformationModel.privacyModel,
+							withTitle: AppStrings.AppInformation.privacyTitle
+						),
+						configure: { _, cell, _ in
+							cell.accessoryType = .disclosureIndicator
+							cell.selectionStyle = .default
+						})
 				]
 			)
 		])
+
 /*
 		// Testergebnis abrufen
 		model.add(

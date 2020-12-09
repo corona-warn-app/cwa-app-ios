@@ -46,6 +46,8 @@ enum AccessibilityIdentifiers {
 		static let imageDescription = "AppStrings.ContactDiaryInformation.imageDescription"
 		static let descriptionTitle = "AppStrings.ContactDiaryInformation.descriptionTitle"
 		static let descriptionSubHeadline = "AppStrings.ContactDiaryInformation.descriptionSubHeadline"
+		static let datavivacyTitle = "AppStrings.ContactDiaryInformation.dataPrivacyTitle"
+
 	}
 
 	enum Onboarding {
