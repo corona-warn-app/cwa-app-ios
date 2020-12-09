@@ -870,6 +870,7 @@ enum AppStrings {
 	}
 	
 	enum ContactDiary {
+
 		enum Overview {
 			static let title = NSLocalizedString("ContactDiary_Overview_Title", comment: "")
 			static let description = NSLocalizedString("ContactDiary_Overview_Description", comment: "")
@@ -881,6 +882,18 @@ enum AppStrings {
 				static let editLocationTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_EditLocationTitle", comment: "")
 			}
 		}
+
+		enum Day {
+			static let contactPersonsSegment = NSLocalizedString("ContactDiary_Day_ContactPersonsSegment", comment: "")
+			static let addContactPerson = NSLocalizedString("ContactDiary_Day_AddContactPerson", comment: "")
+			static let contactPersonsEmptyTitle = NSLocalizedString("ContactDiary_Day_ContactPersonsEmptyTitle", comment: "")
+			static let contactPersonsEmptyDescription = NSLocalizedString("ContactDiary_Day_ContactPersonsEmptyDescription", comment: "")
+			static let locationsSegment = NSLocalizedString("ContactDiary_Day_LocationsSegment", comment: "")
+			static let addLocation = NSLocalizedString("ContactDiary_Day_AddLocation", comment: "")
+			static let locationsEmptyTitle = NSLocalizedString("ContactDiary_Day_LocationsEmptyTitle", comment: "")
+			static let locationsEmptyDescription = NSLocalizedString("ContactDiary_Day_LocationsEmptyDescription", comment: "")
+		}
+
 	}
 	
 	// swiftlint:disable:next file_length
