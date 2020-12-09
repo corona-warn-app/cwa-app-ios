@@ -108,11 +108,6 @@ final class SecureStore: Store {
 		set { kvStore["devicePairingSuccessfulTimestamp"] = newValue }
 	}
 
-	var isAllowedToSubmitDiagnosisKeys: Bool {
-		get { kvStore["isAllowedToSubmitDiagnosisKeys"] as Bool? ?? false }
-		set { kvStore["isAllowedToSubmitDiagnosisKeys"] = newValue }
-	}
-
 	var isOnboarded: Bool {
 		get { kvStore["isOnboarded"] as Bool? ?? false }
 		set { kvStore["isOnboarded"] = newValue }

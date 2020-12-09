@@ -62,7 +62,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				exposureManagerState: exposureManagerState,
 				enState: initialEnState
 			),
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			warnOthersReminder: WarnOthersReminder(store: store)
 		)
 
 		navigationItem.largeTitleDisplayMode = .never
