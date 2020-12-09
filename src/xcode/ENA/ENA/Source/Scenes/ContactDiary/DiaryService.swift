@@ -30,14 +30,22 @@ protocol DiaryStoring {
 	@discardableResult
 	func addLocationVisit(locationId: Int64, date: String) -> Result<Int64, SQLiteErrorCode>
 
+	@discardableResult
 	func updateContactPerson(id: Int64, name: String) -> Result<Void, SQLiteErrorCode>
+	@discardableResult
 	func updateLocation(id: Int64, name: String) -> Result<Void, SQLiteErrorCode>
 
+	@discardableResult
 	func removeContactPerson(id: Int64) -> Result<Void, SQLiteErrorCode>
+	@discardableResult
 	func removeLocation(id: Int64) -> Result<Void, SQLiteErrorCode>
+	@discardableResult
 	func removeContactPersonEncounter(id: Int64) -> Result<Void, SQLiteErrorCode>
+	@discardableResult
 	func removeLocationVisit(id: Int64) -> Result<Void, SQLiteErrorCode>
+	@discardableResult
 	func removeAllLocations() -> Result<Void, SQLiteErrorCode>
+	@discardableResult
 	func removeAllContactPersons() -> Result<Void, SQLiteErrorCode>
 
 }

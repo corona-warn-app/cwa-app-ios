@@ -37,14 +37,14 @@ class ContactDiaryStoreV1: DiaryStoring {
 	}
 
 	private func openAndSetup() {
-		Log.info("[ContactDiaryStore] Open and setup database.", log: .localData)
-
-		guard database.open() else {
-			Log.error("[ContactDiaryStore] Database could not be opened", log: .localData)
-			return
-		}
-
 		queue.sync {
+			Log.info("[ContactDiaryStore] Open and setup database.", log: .localData)
+
+			guard database.open() else {
+				Log.error("[ContactDiaryStore] Database could not be opened", log: .localData)
+				return
+			}
+
 			let sql = """
 				PRAGMA locking_mode=EXCLUSIVE;
 				PRAGMA auto_vacuum=2;
@@ -78,6 +78,8 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
+			updateDiaryDays()
+
 			return .success(database.lastInsertRowId)
 		}
 	}
@@ -102,6 +104,8 @@ class ContactDiaryStoreV1: DiaryStoring {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
+
+			updateDiaryDays()
 
 			return .success(database.lastInsertRowId)
 		}
@@ -131,6 +135,8 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
+			updateDiaryDays()
+
 			return .success(database.lastInsertRowId)
 		}
 	}
@@ -159,6 +165,8 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
+			updateDiaryDays()
+
 			return .success(database.lastInsertRowId)
 		}
 	}
@@ -179,6 +187,8 @@ class ContactDiaryStoreV1: DiaryStoring {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
+
+			updateDiaryDays()
 
 			return .success(())
 		}
@@ -201,6 +211,8 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
+			updateDiaryDays()
+
 			return .success(())
 		}
 	}
@@ -220,6 +232,8 @@ class ContactDiaryStoreV1: DiaryStoring {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
+
+			updateDiaryDays()
 
 			return .success(())
 		}
@@ -241,6 +255,8 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
+			updateDiaryDays()
+
 			return .success(())
 		}
 	}
@@ -260,6 +276,8 @@ class ContactDiaryStoreV1: DiaryStoring {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
+
+			updateDiaryDays()
 
 			return .success(())
 		}
@@ -281,6 +299,8 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
+			updateDiaryDays()
+
 			return .success(())
 		}
 	}
@@ -298,6 +318,8 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
+			updateDiaryDays()
+
 			return .success(())
 		}
 	}
@@ -314,6 +336,8 @@ class ContactDiaryStoreV1: DiaryStoring {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
+
+			updateDiaryDays()
 
 			return .success(())
 		}

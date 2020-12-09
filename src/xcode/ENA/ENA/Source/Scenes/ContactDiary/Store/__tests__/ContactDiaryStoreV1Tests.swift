@@ -274,36 +274,36 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		XCTAssertNil(fetchLocationVisitResult2)
 	}
 
-	func test_When_removeAllLocations_Then_AllLocationsAreDeleted() {
+	func test_When_removeAllContactPersons_Then_AllContactPersonsAreDeleted() {
 		let database = FMDatabase.inMemory()
 		let store = makeContactDiaryStore(with: database)
 
-		let addLocation1Result = store.addLocation(name: "Nicht hier")
-		guard case let .success(location1Id) = addLocation1Result else {
-			XCTFail("Failed to add Location")
+		let addContactPerson1Result = store.addContactPerson(name: "Some Person")
+		guard case let .success(contactPerson1Id) = addContactPerson1Result else {
+			XCTFail("Failed to add ContactPerson")
 			return
 		}
 
-		let addLocation2Result = store.addLocation(name: "Woanders")
-		guard case let .success(location2Id) = addLocation2Result else {
-			XCTFail("Failed to add Location")
+		let addContactPerson2Result = store.addContactPerson(name: "Other Person")
+		guard case let .success(contactPerson2Id) = addContactPerson2Result else {
+			XCTFail("Failed to add ContactPerson")
 			return
 		}
 
-		let fetchLocation1ResultBeforeDelete = fetchEntries(for: "Location", with: location1Id, from: database)
-		XCTAssertNotNil(fetchLocation1ResultBeforeDelete)
-		let fetchLocation2ResultBeforeDelete = fetchEntries(for: "Location", with: location2Id, from: database)
-		XCTAssertNotNil(fetchLocation2ResultBeforeDelete)
+		let fetchPerson1ResultBeforeDelete = fetchEntries(for: "ContactPerson", with: contactPerson1Id, from: database)
+		XCTAssertNotNil(fetchPerson1ResultBeforeDelete)
+		let fetchPerson2ResultBeforeDelete = fetchEntries(for: "ContactPerson", with: contactPerson2Id, from: database)
+		XCTAssertNotNil(fetchPerson2ResultBeforeDelete)
 
-		let removeResult = store.removeAllLocations()
+		let removeResult = store.removeAllContactPersons()
 		if case let .failure(error) = removeResult {
 			XCTFail("Error not expected: \(error)")
 		}
 
-		let fetchLocation1ResultAfterDelete = fetchEntries(for: "Location", with: location1Id, from: database)
-		XCTAssertNil(fetchLocation1ResultAfterDelete)
-		let fetchLocation2ResultAfterDelete = fetchEntries(for: "Location", with: location2Id, from: database)
-		XCTAssertNil(fetchLocation2ResultAfterDelete)
+		let fetchPerson1ResultAfterDelete = fetchEntries(for: "ContactPerson", with: contactPerson1Id, from: database)
+		XCTAssertNil(fetchPerson1ResultAfterDelete)
+		let fetchPerson2ResultAfterDelete = fetchEntries(for: "ContactPerson", with: contactPerson2Id, from: database)
+		XCTAssertNil(fetchPerson2ResultAfterDelete)
 	}
 
 	private func fetchEntries(for table: String, with id: Int64, from database: FMDatabase) -> FMResultSet? {
