@@ -34,8 +34,13 @@ clear_previous_screenshots(false)
 stop_after_first_error(true)
 number_of_retries(2)
 
+headless(false)
+erase_simulator(true)
+
 # Remove the '#' to set the status bar to 9:41 AM, and show full battery and reception.
 override_status_bar(true)
+
+localize_simulator(true)
 
 disable_slide_to_type(true)
 
