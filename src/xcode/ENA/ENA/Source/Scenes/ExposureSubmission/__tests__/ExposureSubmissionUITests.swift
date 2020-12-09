@@ -5,6 +5,7 @@
 import XCTest
 import ExposureNotification
 
+
 class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 	// MARK: - Attributes.
@@ -84,9 +85,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
 		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionResult.procedure"].waitForExistence(timeout: .medium))
-		
-		// check the consent string is given or not based on the switch state.
-		let consentNotGivenCell = app.tables.firstMatch.cells.staticTexts[app.localized("ExposureSubmissionResult_WarnOthersConsentNotGiven")]
+
+		let consentNotGivenCell = app.tables.firstMatch.cells[AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentNotGivenCell]
 		XCTAssertTrue(consentNotGivenCell.waitForExistence(timeout: .medium))
 		consentNotGivenCell.tap()
 		let consentSwitch = app.switches.firstMatch
@@ -96,7 +96,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertEqual(consentSwitch.value as? String, "1")
 		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
 		
-		let consentGivenCell = app.tables.firstMatch.cells.staticTexts[app.localized("ExposureSubmissionResult_WarnOthersConsentGiven")]
+		let consentGivenCell = app.tables.firstMatch.cells[AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentGivenCell]
 		XCTAssertTrue(consentGivenCell.waitForExistence(timeout: .long))
 	}
 	
