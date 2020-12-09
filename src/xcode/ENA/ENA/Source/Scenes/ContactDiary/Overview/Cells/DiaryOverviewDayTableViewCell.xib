@@ -58,7 +58,7 @@
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="Qc1-jl-ZTB">
                                                 <rect key="frame" x="0.0" y="5" width="288" height="11"/>
-                                                <directionalEdgeInsets key="directionalLayoutMargins" top="16" leading="16" bottom="8" trailing="16"/>
+                                                <directionalEdgeInsets key="directionalLayoutMargins" top="20" leading="16" bottom="4" trailing="8"/>
                                             </stackView>
                                         </subviews>
                                         <directionalEdgeInsets key="directionalLayoutMargins" top="4" leading="0.0" bottom="0.0" trailing="0.0"/>
