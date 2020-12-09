@@ -92,9 +92,61 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		XCTAssertNil(store.tan)
 
 		XCTAssertFalse(service.isSubmissionConsentGiven)
-		XCTAssertNil(store.submissionKeys)
+		XCTAssertEqual(store.submissionKeys, [])
 		XCTAssertFalse(store.submissionCountries.isEmpty)
 		XCTAssertEqual(store.submissionSymptomsOnset, .noInformation)
+		XCTAssertNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
+	}
+
+	func testSubmitExposure_KeysNotShared() {
+		// Arrange
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfigurationProvider = CachedAppConfigurationMock()
+
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		service.isSubmissionConsentGiven = true
+
+		let expectation = self.expectation(description: "KeysNotShared")
+
+		// Act
+		service.submitExposure { error in
+			XCTAssertEqual(error, .keysNotShared)
+			expectation.fulfill()
+		}
+
+		waitForExpectations(timeout: expectationsTimeout)
+
+		XCTAssertTrue(service.isSubmissionConsentGiven)
+		XCTAssertNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
+	}
+
+	func testSubmitExposure_KeysNotSharedDueToNotAuthorizedError() {
+		// Arrange
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, ENError(.notAuthorized)))
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfigurationProvider = CachedAppConfigurationMock()
+
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		service.isSubmissionConsentGiven = true
+
+		let expectation = self.expectation(description: "KeysNotShared")
+
+		// Act
+		service.getTemporaryExposureKeys { error in
+			XCTAssertEqual(error, .notAuthorized)
+
+			service.submitExposure { error in
+				XCTAssertEqual(error, .keysNotShared)
+				expectation.fulfill()
+			}
+		}
+
+		waitForExpectations(timeout: expectationsTimeout)
+
+		XCTAssertTrue(service.isSubmissionConsentGiven)
 		XCTAssertNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
 	}
 
@@ -121,6 +173,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: expectationsTimeout)
 
 		XCTAssertFalse(service.isSubmissionConsentGiven)
+		XCTAssertNotNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
 	}
 
 	func testSubmitExposure_EmptyKeys() {
@@ -144,6 +197,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: expectationsTimeout)
+		XCTAssertNotNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
 	}
 
 	func testExposureSubmission_InvalidPayloadOrHeaders() {
