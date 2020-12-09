@@ -359,6 +359,17 @@ class DiaryDay {
 
 	@Published private(set) var entries: [DiaryEntry]
 
+	var selectedEntries: [DiaryEntry] {
+		entries.filter {
+			switch $0 {
+			case .location(let location):
+				return location.visitId != nil
+			case .contactPerson(let contactPerson):
+				return contactPerson.encounterId != nil
+			}
+		}
+	}
+
 	var date: Date {
 		let dateFormatter = ISO8601DateFormatter()
 		dateFormatter.formatOptions = [.withFullDate]

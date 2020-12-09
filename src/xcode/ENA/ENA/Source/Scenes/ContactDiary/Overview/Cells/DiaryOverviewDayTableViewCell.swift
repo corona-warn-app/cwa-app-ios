@@ -13,7 +13,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 
 		encountersVisitsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-		for entry in day.entries {
+		for entry in day.selectedEntries {
 			let imageView = UIImageView()
 			NSLayoutConstraint.activate([
 				imageView.widthAnchor.constraint(equalToConstant: 32),
@@ -31,10 +31,10 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			entryStackView.addArrangedSubview(label)
 
 			switch entry {
-			case .contactPerson(let contactPerson) where contactPerson.encounterId != nil:
+			case .contactPerson(let contactPerson):
 				imageView.image = UIImage(named: "Icons_Diary_ContactPerson")
 				label.text = contactPerson.name
-			case .location(let location) where location.visitId != nil:
+			case .location(let location):
 				imageView.image = UIImage(named: "Icons_Diary_Location")
 				label.text = location.name
 			default:
