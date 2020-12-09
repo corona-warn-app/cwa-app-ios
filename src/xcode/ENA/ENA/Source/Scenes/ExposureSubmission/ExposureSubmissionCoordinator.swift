@@ -232,7 +232,9 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 					self?.model.exposureSubmissionService.loadSupportedCountries(
 						isLoading: isLoading,
 						onSuccess: { supportedCountries in
-							self?.showTestResultSubmissionConsentScreen(supportedCountries: supportedCountries, onDismiss: nil)
+							self?.showTestResultSubmissionConsentScreen(supportedCountries: supportedCountries, onDismiss: {
+								self?.dismiss()
+							})
 						}
 					)
 				},
