@@ -159,6 +159,8 @@ enum AccessibilityIdentifiers {
 	enum ExposureSubmissionResult {
 		static let procedure = "AppStrings.ExposureSubmissionResult.procedure"
 		static let furtherInfos_Title = "AppStrings.ExposureSubmissionResult.furtherInfos_Title"
+		static let warnOthersConsentGivenCell = "AppStrings.ExposureSubmissionResult.warnOthersConsentGiven"
+		static let warnOthersConsentNotGivenCell = "AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven"
 	}
 	
 	enum ExposureSubmissionPositiveTestResult {
@@ -190,6 +192,9 @@ enum AccessibilityIdentifiers {
 		static let imageDescription = "AppStrings.ExposureSubmissionHotline.imageDescription"
 		static let description = "AppStrings.ExposureSubmissionHotline.description"
 		static let sectionTitle = "AppStrings.ExposureSubmissionHotline.sectionTitle"
+		static let primaryButton = "AppStrings.ExposureSubmissionHotline.callButtonTitle"
+		static let secondaryButton = "AppStrings.ExposureSubmissionHotline.tanInputButtonTitle"
+
 	}
 
 	enum ExposureSubmissionIntroduction {
