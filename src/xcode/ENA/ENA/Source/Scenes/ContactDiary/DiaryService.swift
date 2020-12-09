@@ -76,7 +76,7 @@ class MockDiaryStore: DiaryStoring {
 
 	@discardableResult
 	func addContactPersonEncounter(contactPersonId: Int, date: String) -> Int {
-		let id = contactPersonEncounters.map { $0.id }.max() ?? -1 + 1
+		let id = (contactPersonEncounters.map { $0.id }.max() ?? -1) + 1
 		contactPersonEncounters.append(ContactPersonEncounter(id: id, date: date, contactPersonId: contactPersonId))
 
 		updateDays()
@@ -86,7 +86,7 @@ class MockDiaryStore: DiaryStoring {
 
 	@discardableResult
 	func addLocationVisit(locationId: Int, date: String) -> Int {
-		let id = locationVisits.map { $0.id }.max() ?? -1 + 1
+		let id = (locationVisits.map { $0.id }.max() ?? -1) + 1
 		locationVisits.append(LocationVisit(id: id, date: date, locationId: locationId))
 
 		updateDays()
@@ -296,6 +296,10 @@ class DiaryDayService {
 
 	@Published private(set) var day: DiaryDay
 
+	func toggle(entry: DiaryEntry) {
+		entry.isSelected ? deselect(entry: entry) : select(entry: entry)
+	}
+
 	func select(entry: DiaryEntry) {
 		switch entry {
 		case .location(let location):
@@ -451,6 +455,10 @@ struct DiaryLocation {
 	let name: String
 	let visitId: Int?
 
+	var isSelected: Bool {
+		visitId != nil
+	}
+
 }
 
 struct DiaryContactPerson {
@@ -476,5 +484,9 @@ struct DiaryContactPerson {
 	let id: Int
 	let name: String
 	let encounterId: Int?
+
+	var isSelected: Bool {
+		encounterId != nil
+	}
 
 }

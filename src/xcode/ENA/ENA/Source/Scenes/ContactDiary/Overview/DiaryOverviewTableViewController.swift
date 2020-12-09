@@ -74,9 +74,9 @@ class DiaryOverviewTableViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch indexPath.section {
 		case 0:
-			return descriptionCell(at: indexPath)
+			return descriptionCell(forRowAt: indexPath)
 		case 1:
-			return dayCell(at: indexPath)
+			return dayCell(forRowAt: indexPath)
 		default:
 			fatalError("Invalid section")
 		}
@@ -85,6 +85,10 @@ class DiaryOverviewTableViewController: UITableViewController {
 	// MARK: - Protocol UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		guard indexPath.section == 1 else {
+			return
+		}
+
 		onCellSelection(diaryService.days[indexPath.row])
 	}
 
@@ -115,7 +119,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 		tableView.estimatedRowHeight = 60
 	}
 
-	private func descriptionCell(at indexPath: IndexPath) -> UITableViewCell {
+	private func descriptionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DiaryOverviewDescriptionTableViewCell.self), for: indexPath) as? DiaryOverviewDescriptionTableViewCell else {
 			fatalError("Could not dequeue DiaryOverviewDescriptionTableViewCell")
 		}
@@ -123,7 +127,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 		return cell
 	}
 
-	private func dayCell(at indexPath: IndexPath) -> UITableViewCell {
+	private func dayCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DiaryOverviewDayTableViewCell.self), for: indexPath) as? DiaryOverviewDayTableViewCell else {
 			fatalError("Could not dequeue DiaryOverviewDayTableViewCell")
 		}

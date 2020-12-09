@@ -11,10 +11,10 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 	func configure(entry: DiaryEntry) {
 		switch entry {
 		case .contactPerson(let contactPerson):
-			imageView.image = contactPerson.isSelected ? UIImage(named: "Icons_Diary_ContactPerson") : 
+			checkboxImageView.image = contactPerson.isSelected ? UIImage(named: "Diary_Checkmark_Selected") : UIImage(named: "Diary_Checkmark_Unselected")
 			label.text = contactPerson.name
 		case .location(let location):
-			imageView.image = UIImage(named: "Icons_Diary_Location")
+			checkboxImageView.image = location.isSelected ? UIImage(named: "Diary_Checkmark_Selected") : UIImage(named: "Diary_Checkmark_Unselected")
 			label.text = location.name
 		}
 	}
@@ -22,6 +22,6 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 	// MARK: - Private
 
 	@IBOutlet private weak var label: ENALabel!
-	@IBOutlet private weak var imageView: UIImageView!
+	@IBOutlet private weak var checkboxImageView: UIImageView!
 
 }
