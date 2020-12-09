@@ -8,8 +8,6 @@ import UIKit
 class DynamicTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	var dynamicTableViewModel = DynamicTableViewModel([])
 
-	@IBInspectable var cellBackgroundColor: UIColor? = .clear
-
 	@IBOutlet private(set) lazy var tableView: UITableView! = self.view as? UITableView
 
 	override func loadView() {
@@ -260,10 +258,6 @@ extension DynamicTableViewController {
 			if isFirst && section.separators == .all { cell.addSeparator(.top) }
 			if isLast && section.separators == .all { cell.addSeparator(.bottom) }
 			if !isLast { cell.addSeparator(.inBetween) }
-		}
-
-		if let cellBackgroundColor = cellBackgroundColor {
-			cell.backgroundColor = cellBackgroundColor
 		}
 
 		return cell
