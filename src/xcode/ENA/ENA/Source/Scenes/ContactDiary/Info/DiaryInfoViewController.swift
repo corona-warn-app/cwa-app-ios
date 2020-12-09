@@ -64,7 +64,7 @@ class DiaryInfoViewController: DynamicTableViewController, ENANavigationControll
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
 
-		item.primaryButtonTitle = AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle
+		item.primaryButtonTitle = AppStrings.ContactDiaryInformation.primaryButtonTitle
 		item.isPrimaryButtonEnabled = true
 		item.isSecondaryButtonHidden = true
 
