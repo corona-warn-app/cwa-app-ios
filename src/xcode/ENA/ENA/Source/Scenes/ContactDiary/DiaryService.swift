@@ -152,11 +152,11 @@ class MockDiaryStore: DiaryStoring {
 
 	private var contactPersons = [
 		DiaryContactPerson(id: 0, name: "Andreas"),
-		DiaryContactPerson(id: 1, name: "Artur"),
+		DiaryContactPerson(id: 1, name: "Marcus"),
 		DiaryContactPerson(id: 2, name: "Carsten"),
-		DiaryContactPerson(id: 3, name: "Kai"),
+		DiaryContactPerson(id: 3, name: "Artur"),
 		DiaryContactPerson(id: 4, name: "Karsten"),
-		DiaryContactPerson(id: 5, name: "Marcus"),
+		DiaryContactPerson(id: 5, name: "Kai"),
 		DiaryContactPerson(id: 6, name: "Nick"),
 		DiaryContactPerson(id: 7, name: "Omar"),
 		DiaryContactPerson(id: 8, name: "Pascal"),
@@ -190,19 +190,23 @@ class MockDiaryStore: DiaryStoring {
 			guard let date = Calendar.current.date(byAdding: .day, value: -dayDifference, to: Date()) else { continue }
 			let dateString = dateFormatter.string(from: date)
 
-			let contactPersonEntries = contactPersons.map { contactPerson -> DiaryEntry in
-				let encounterId = contactPersonEncounters.first { $0.date == dateString && $0.contactPersonId == contactPerson.id }?.id
+			let contactPersonEntries = contactPersons
+				.sorted { $0.name < $1.name }
+				.map { contactPerson -> DiaryEntry in
+					let encounterId = contactPersonEncounters.first { $0.date == dateString && $0.contactPersonId == contactPerson.id }?.id
 
-				let contactPerson = DiaryContactPerson(id: contactPerson.id, name: contactPerson.name, encounterId: encounterId)
-				return DiaryEntry.contactPerson(contactPerson)
-			}
+					let contactPerson = DiaryContactPerson(id: contactPerson.id, name: contactPerson.name, encounterId: encounterId)
+					return DiaryEntry.contactPerson(contactPerson)
+				}
 
-			let locationEntries = locations.map { location -> DiaryEntry in
-				let visitId = locationVisits.first { $0.date == dateString && $0.locationId == location.id }?.id
+			let locationEntries = locations
+				.sorted { $0.name < $1.name }
+				.map { location -> DiaryEntry in
+					let visitId = locationVisits.first { $0.date == dateString && $0.locationId == location.id }?.id
 
-				let location = DiaryLocation(id: location.id, name: location.name, visitId: visitId)
-				return DiaryEntry.location(location)
-			}
+					let location = DiaryLocation(id: location.id, name: location.name, visitId: visitId)
+					return DiaryEntry.location(location)
+				}
 
 			diaryDays.append(DiaryDay(dateString: dateString, entries: contactPersonEntries + locationEntries))
 		}
