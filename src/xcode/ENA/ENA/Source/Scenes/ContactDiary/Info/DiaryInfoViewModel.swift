@@ -10,10 +10,9 @@ struct DiaryInfoViewModel {
 	// MARK: - Internal
 
 	var dynamicTableViewModel: DynamicTableViewModel {
-		var model = DynamicTableViewModel([])
+		DynamicTableViewModel([
 
 		// Contact diary
-		model.add(
 			.section(
 			   header: .image(
 				UIImage(imageLiteralResourceName: "Illu_ContactDiary-Information"),
@@ -27,11 +26,34 @@ struct DiaryInfoViewModel {
 					),
 					.subheadline(
 						text: AppStrings.ContactDiaryInformation.descriptionSubHeadline,
-						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.descriptionSubHeadline)
+						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.descriptionSubHeadline
+					),
+					.space(
+						height: 15.0
+					),
+					.icon(
+						UIImage(imageLiteralResourceName: "Icons_Contact"),
+						text: .string(AppStrings.ContactDiaryInformation.itemPersonTitle)
+					),
+					.space(
+						height: 15.0
+					),
+					.icon(
+						UIImage(imageLiteralResourceName: "Icons_Location"),
+						text: .string(AppStrings.ContactDiaryInformation.itemContactTitle)
+					),
+					.space(
+						height: 15.0
+					),
+					.icon(
+						UIImage(imageLiteralResourceName: "Icons_Lock"),
+						text: .string(AppStrings.ContactDiaryInformation.itemLockTitle)
+					)
+
 				]
 			)
-		)
-
+		])
+/*
 		// Testergebnis abrufen
 		model.add(
 			.section(cells: [
@@ -91,6 +113,7 @@ struct DiaryInfoViewModel {
 		)
 
 		return model
+*/
 	}
 
 	// MARK: - Private
