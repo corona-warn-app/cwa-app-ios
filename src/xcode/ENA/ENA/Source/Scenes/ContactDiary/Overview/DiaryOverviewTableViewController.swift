@@ -111,6 +111,8 @@ class DiaryOverviewTableViewController: UITableViewController {
 		)
 
 		tableView.separatorStyle = .none
+		tableView.rowHeight = UITableView.automaticDimension
+		tableView.estimatedRowHeight = 60
 	}
 
 	private func descriptionCell(at indexPath: IndexPath) -> UITableViewCell {
