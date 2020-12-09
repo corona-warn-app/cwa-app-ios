@@ -193,6 +193,9 @@ enum AccessibilityIdentifiers {
 		static let imageDescription = "AppStrings.ExposureSubmissionHotline.imageDescription"
 		static let description = "AppStrings.ExposureSubmissionHotline.description"
 		static let sectionTitle = "AppStrings.ExposureSubmissionHotline.sectionTitle"
+		static let primaryButton = "AppStrings.ExposureSubmissionHotline.callButtonTitle"
+		static let secondaryButton = "AppStrings.ExposureSubmissionHotline.tanInputButtonTitle"
+
 	}
 
 	enum ExposureSubmissionIntroduction {

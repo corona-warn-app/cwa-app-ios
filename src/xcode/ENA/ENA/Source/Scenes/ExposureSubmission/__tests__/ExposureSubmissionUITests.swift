@@ -51,6 +51,9 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		)
 		app.buttons["AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"].tap()
 		XCTAssertNotNil(app.navigationBars.firstMatch.title)
+
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmissionHotline.callButtonTitle"].waitForExistence(timeout: 2.0))
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmissionHotline.tanInputButtonTitle"].waitForExistence(timeout: 2.0))
 	}
 
 	func test_QRCodeScanOpened() throws {
