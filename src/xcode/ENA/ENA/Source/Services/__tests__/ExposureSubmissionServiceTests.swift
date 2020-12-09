@@ -113,7 +113,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Act
 		service.getTemporaryExposureKeys { _ in
 			service.submitExposure { error in
-				XCTAssertEqual(error, .noKeys)
+				XCTAssertEqual(error, .noKeysCollected)
 				expectation.fulfill()
 			}
 		}
@@ -138,7 +138,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Act
 		service.getTemporaryExposureKeys { _ in
 			service.submitExposure { error in
-				XCTAssertEqual(error, .noKeys)
+				XCTAssertEqual(error, .noKeysCollected)
 				expectation.fulfill()
 			}
 		}
