@@ -20,10 +20,6 @@ class ContactDiaryStoreSchemaV1 {
 	func create() -> Result<Void, SQLiteErrorCode> {
 		queue.sync {
 			let sql = """
-				PRAGMA locking_mode=EXCLUSIVE;
-				PRAGMA auto_vacuum=2;
-				PRAGMA journal_mode=WAL;
-
 				CREATE TABLE IF NOT EXISTS ContactPerson (
 					id INTEGER PRIMARY KEY,
 					name STRING NOT NULL
@@ -38,14 +34,14 @@ class ContactDiaryStoreSchemaV1 {
 					id INTEGER PRIMARY KEY,
 					date STRING NOT NULL,
 					contactPersonId INTEGER NOT NULL,
-					FOREIGN KEY(contactPersonId) REFERENCES ContactPerson(id)
+					FOREIGN KEY(contactPersonId) REFERENCES ContactPerson(id) ON DELETE CASCADE
 				);
 
 				CREATE TABLE IF NOT EXISTS LocationVisit (
 					id INTEGER PRIMARY KEY,
 					date STRING NOT NULL,
 					locationId INTEGER NOT NULL,
-					FOREIGN KEY(locationId) REFERENCES Location(id)
+					FOREIGN KEY(locationId) REFERENCES Location(id) ON DELETE CASCADE
 				);
 			"""
 

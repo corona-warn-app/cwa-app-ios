@@ -6,15 +6,15 @@ import Foundation
 import Combine
 
 struct ContactPersonEncounter {
-	let id: Int
+	let id: Int64
 	let date: String
-	let contactPersonId: Int
+	let contactPersonId: Int64
 }
 
 struct LocationVisit {
-	let id: Int
+	let id: Int64
 	let date: String
-	let locationId: Int
+	let locationId: Int64
 }
 
 protocol DiaryStoring {
@@ -22,23 +22,23 @@ protocol DiaryStoring {
 	var diaryDaysPublisher: Published<[DiaryDay]>.Publisher { get }
 
 	@discardableResult
-	func addContactPerson(name: String) -> Int
+	func addContactPerson(name: String) -> Result<Int64, SQLiteErrorCode>
 	@discardableResult
-	func addLocation(name: String) -> Int
+	func addLocation(name: String) -> Result<Int64, SQLiteErrorCode>
 	@discardableResult
-	func addContactPersonEncounter(contactPersonId: Int, date: String) -> Int
+	func addContactPersonEncounter(contactPersonId: Int64, date: String) -> Result<Int64, SQLiteErrorCode>
 	@discardableResult
-	func addLocationVisit(locationId: Int, date: String) -> Int
+	func addLocationVisit(locationId: Int64, date: String) -> Result<Int64, SQLiteErrorCode>
 
-	func updateContactPerson(id: Int, name: String)
-	func updateLocation(id: Int, name: String)
+	func updateContactPerson(id: Int64, name: String) -> Result<Void, SQLiteErrorCode>
+	func updateLocation(id: Int64, name: String) -> Result<Void, SQLiteErrorCode>
 
-	func removeContactPerson(id: Int)
-	func removeLocation(id: Int)
-	func removeContactPersonEncounter(id: Int)
-	func removeLocationVisit(id: Int)
-	func removeAllLocations()
-	func removeAllContactPersons()
+	func removeContactPerson(id: Int64) -> Result<Void, SQLiteErrorCode>
+	func removeLocation(id: Int64) -> Result<Void, SQLiteErrorCode>
+	func removeContactPersonEncounter(id: Int64) -> Result<Void, SQLiteErrorCode>
+	func removeLocationVisit(id: Int64) -> Result<Void, SQLiteErrorCode>
+	func removeAllLocations() -> Result<Void, SQLiteErrorCode>
+	func removeAllContactPersons() -> Result<Void, SQLiteErrorCode>
 
 }
 
@@ -55,93 +55,109 @@ class MockDiaryStore: DiaryStoring {
 	var diaryDaysPublisher: Published<[DiaryDay]>.Publisher { $diaryDays }
 
 	@discardableResult
-	func addContactPerson(name: String) -> Int {
+	func addContactPerson(name: String) -> Result<Int64, SQLiteErrorCode> {
 		let id = contactPersons.map { $0.id }.max() ?? -1 + 1
 		contactPersons.append(DiaryContactPerson(id: id, name: name))
 
 		updateDays()
 
-		return id
+		return .success(id)
 	}
 
 	@discardableResult
-	func addLocation(name: String) -> Int {
+	func addLocation(name: String) -> Result<Int64, SQLiteErrorCode> {
 		let id = locations.map { $0.id }.max() ?? -1 + 1
 		locations.append(DiaryLocation(id: id, name: name))
 
 		updateDays()
 
-		return id
+		return .success(id)
 	}
 
 	@discardableResult
-	func addContactPersonEncounter(contactPersonId: Int, date: String) -> Int {
+	func addContactPersonEncounter(contactPersonId: Int64, date: String) -> Result<Int64, SQLiteErrorCode> {
 		let id = contactPersonEncounters.map { $0.id }.max() ?? -1 + 1
 		contactPersonEncounters.append(ContactPersonEncounter(id: id, date: date, contactPersonId: contactPersonId))
 
 		updateDays()
 
-		return id
+		return .success(id)
 	}
 
 	@discardableResult
-	func addLocationVisit(locationId: Int, date: String) -> Int {
+	func addLocationVisit(locationId: Int64, date: String) -> Result<Int64, SQLiteErrorCode> {
 		let id = locationVisits.map { $0.id }.max() ?? -1 + 1
 		locationVisits.append(LocationVisit(id: id, date: date, locationId: locationId))
 
 		updateDays()
 
-		return id
+		return .success(id)
 	}
 
-	func updateContactPerson(id: Int, name: String) {
-		guard let index = contactPersons.firstIndex(where: { $0.id == id }) else { return }
+	func updateContactPerson(id: Int64, name: String) -> Result<Void, SQLiteErrorCode> {
+		guard let index = contactPersons.firstIndex(where: { $0.id == id }) else { return .success(()) }
 		contactPersons[index] = DiaryContactPerson(id: id, name: name)
 
 		updateDays()
+
+		return .success(())
 	}
 
-	func updateLocation(id: Int, name: String) {
-		guard let index = locations.firstIndex(where: { $0.id == id }) else { return }
+	func updateLocation(id: Int64, name: String) -> Result<Void, SQLiteErrorCode> {
+		guard let index = locations.firstIndex(where: { $0.id == id }) else { return .success(()) }
 		locations[index] = DiaryLocation(id: id, name: name)
 
 		updateDays()
+
+		return .success(())
 	}
 
-	func removeContactPerson(id: Int) {
+	func removeContactPerson(id: Int64) -> Result<Void, SQLiteErrorCode> {
 		contactPersons.removeAll { $0.id == id }
 
 		updateDays()
+
+		return .success(())
 	}
 
-	func removeLocation(id: Int) {
+	func removeLocation(id: Int64) -> Result<Void, SQLiteErrorCode> {
 		locations.removeAll { $0.id == id }
 
 		updateDays()
+
+		return .success(())
 	}
 
-	func removeContactPersonEncounter(id: Int) {
+	func removeContactPersonEncounter(id: Int64) -> Result<Void, SQLiteErrorCode> {
 		contactPersonEncounters.removeAll { $0.id == id }
 
 		updateDays()
+
+		return .success(())
 	}
 
-	func removeLocationVisit(id: Int) {
+	func removeLocationVisit(id: Int64) -> Result<Void, SQLiteErrorCode> {
 		locationVisits.removeAll { $0.id == id }
 
 		updateDays()
+
+		return .success(())
 	}
 
-	func removeAllLocations() {
+	func removeAllLocations() -> Result<Void, SQLiteErrorCode> {
 		locations.removeAll()
 
 		updateDays()
+
+		return .success(())
 	}
 
-	func removeAllContactPersons() {
+	func removeAllContactPersons() -> Result<Void, SQLiteErrorCode> {
 		contactPersons.removeAll()
 
 		updateDays()
+
+		return .success(())
 	}
 
 	// MARK: - Private
@@ -291,11 +307,15 @@ class DiaryDayService {
 	func add(entry: DiaryEntry.New) {
 		switch entry {
 		case .location(let location):
-			let id = store.addLocation(name: location.name)
-			store.addLocationVisit(locationId: id, date: day.dateString)
+			let result = store.addLocation(name: location.name)
+			if case let .success(id) = result {
+				store.addLocationVisit(locationId: id, date: day.dateString)
+			}
 		case .contactPerson(let contactPerson):
-			let id = store.addContactPerson(name: contactPerson.name)
-			store.addContactPersonEncounter(contactPersonId: id, date: day.dateString)
+			let result = store.addContactPerson(name: contactPerson.name)
+			if case let .success(id) = result {
+				store.addContactPersonEncounter(contactPersonId: id, date: day.dateString)
+			}
 		}
 	}
 
@@ -387,7 +407,7 @@ struct DiaryLocation {
 
 	// MARK: - Init
 
-	init(id: Int, name: String, visitId: Int? = nil) {
+	init(id: Int64, name: String, visitId: Int64? = nil) {
 		self.id = id
 		self.name = name
 		self.visitId = visitId
@@ -395,9 +415,9 @@ struct DiaryLocation {
 
 	// MARK: - Internal
 
-	let id: Int
+	let id: Int64
 	let name: String
-	let visitId: Int?
+	let visitId: Int64?
 
 }
 
@@ -413,7 +433,7 @@ struct DiaryContactPerson {
 
 	// MARK: - Init
 
-	init(id: Int, name: String, encounterId: Int? = nil) {
+	init(id: Int64, name: String, encounterId: Int64? = nil) {
 		self.id = id
 		self.name = name
 		self.encounterId = encounterId
@@ -421,8 +441,8 @@ struct DiaryContactPerson {
 
 	// MARK: - Internal
 
-	let id: Int
+	let id: Int64
 	let name: String
-	let encounterId: Int?
+	let encounterId: Int64?
 
 }
