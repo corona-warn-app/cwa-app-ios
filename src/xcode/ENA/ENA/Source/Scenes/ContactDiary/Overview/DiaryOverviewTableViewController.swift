@@ -67,9 +67,8 @@ class DiaryOverviewTableViewController: UITableViewController {
 		case 1:
 			return diaryService.days.count
 		default:
-			fatalError()
+			fatalError("Invalid section")
 		}
-
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -79,7 +78,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 		case 1:
 			return dayCell(at: indexPath)
 		default:
-			fatalError()
+			fatalError("Invalid section")
 		}
 	}
 
