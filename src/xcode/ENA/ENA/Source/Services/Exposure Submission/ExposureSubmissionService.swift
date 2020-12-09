@@ -47,11 +47,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		set { store.devicePairingSuccessfulTimestamp = newValue }
 	}
 
-	private var supportedCountries: [Country] {
-		get { store.submissionCountries }
-		set { store.submissionCountries = newValue }
-	}
-
 	var symptomsOnset: SymptomsOnset {
 		get { store.submissionSymptomsOnset }
 		set { store.submissionSymptomsOnset = newValue }
@@ -108,7 +103,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return
 			}
 
-			self?.temporaryExposureKeys = keys?.map { $0.sapKey }
+			// Empty array means successful key retrieval without keys
+			self?.temporaryExposureKeys = keys?.map { $0.sapKey } ?? []
 			completion(nil)
 		}
 	}
@@ -129,9 +125,16 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			return
 		}
 
-		guard let keys = temporaryExposureKeys, !keys.isEmpty else {
+		guard let keys = temporaryExposureKeys else {
 			Log.info("Cancelled submission: No temporary exposure keys to submit.", log: .api)
-			completion(.noKeys)
+			completion(.keysNotShared)
+
+			return
+		}
+
+		guard !keys.isEmpty else {
+			Log.info("Cancelled submission: No temporary exposure keys to submit.", log: .api)
+			completion(.noKeysCollected)
 
 			// We perform a cleanup in order to set the correct
 			// timestamps, despite not having communicated with the backend,
@@ -266,6 +269,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private var temporaryExposureKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? {
 		get { store.submissionKeys }
 		set { store.submissionKeys = newValue }
+	}
+
+	private var supportedCountries: [Country] {
+		get { store.submissionCountries }
+		set { store.submissionCountries = newValue }
 	}
 
 	// MARK: methods for handling the API calls.
