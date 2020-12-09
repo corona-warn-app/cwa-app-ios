@@ -37,8 +37,6 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			case .location(let location):
 				imageView.image = UIImage(named: "Icons_Diary_Location")
 				label.text = location.name
-			default:
-				continue
 			}
 
 			encountersVisitsStackView.addArrangedSubview(entryStackView)
