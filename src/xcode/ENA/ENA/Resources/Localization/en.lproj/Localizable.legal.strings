@@ -43,6 +43,8 @@
 
 "AutomaticSharingConsent_DescriptionPart4" = "You can withdraw your consent by disabling “Warn others” above.";
 
+"AutomaticSharingConsent_DescriptionPart5" = "Your test result will then be shown to you.";
+
 /* ExposureSubmissionWarnOthers */
 
 "ExposureSubmissionWarnOthers_acknowledgement_1_1" = "The app will share your test result in order to warn other users of official coronavirus apps whom you have encountered. The warning will work in the countries mentioned above. If you provide additional information about the onset of your symptoms, this will also be shared.";
