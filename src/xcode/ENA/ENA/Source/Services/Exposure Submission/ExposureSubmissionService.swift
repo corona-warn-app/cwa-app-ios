@@ -242,6 +242,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			})
 		}
 	}
+	
+	func reset() {
+		Log.info("ExposureSubmissionServce: isConsentGiven value resetted to 'false'")
+		isSubmissionConsentGiven = false
+	}
 
 	// MARK: - Internal
 
