@@ -4,5 +4,5 @@
 ## Link to Jira
 <!-- Please add the link to the related Jira issue -->
 
-## Screenshot
-<!-- Please add a screenshot depicting the current state of the implementation -->
+## Screenshots
+<!-- Please add screenshot (light & dark mode) depicting the current state of the implementation -->
