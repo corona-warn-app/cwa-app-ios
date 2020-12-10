@@ -5,7 +5,7 @@
 import UIKit
 import Combine
 
-class ExposureSubmissionTestResultConsentViewController: DynamicTableViewController {
+class ExposureSubmissionTestResultConsentViewController: DynamicTableViewController, DismissHandling {
 
 	// MARK: - Init
 	
@@ -30,6 +30,11 @@ class ExposureSubmissionTestResultConsentViewController: DynamicTableViewControl
 		self.navigationController?.navigationItem.rightBarButtonItem = nil
 		setupView()
 	}
+	
+	// MARK: - Protocol DismissHandling
+
+	// We implement the protocol function without any code here to prevent dismissing the screen by draging down
+	func wasAttemptedToBeDismissed() {}
 
 	// MARK: - Internal
 
