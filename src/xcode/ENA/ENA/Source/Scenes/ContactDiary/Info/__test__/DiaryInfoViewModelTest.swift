@@ -38,7 +38,7 @@ class DiaryInfoViewModelTest: XCTestCase {
 	}
 
 	/// test if number of cells in information section (0) is correct
-	func testGIVEN_ViewModel_WHEN_GetNumberOfCellsInSectionZero_THEN_CountMatchExpectations() {
+	func testGIVEN_ViewModel_WHEN_GetNumberOfCellsInInformationSection_THEN_CountMatchExpectations() {
 		// GIVEN
 		let viewModel = DiaryInfoViewModel(presentDisclaimer: {})
 
@@ -48,4 +48,50 @@ class DiaryInfoViewModelTest: XCTestCase {
 		// THEN
 		XCTAssertEqual(numberOfCells, 8)
 	}
+
+	/// test if number of cells in legal section (1) is correct
+	func testGIVEN_ViewModel_WHEN_GetNumberOfCellsInLegalSection_THEN_CountMatchExpectations() {
+		// GIVEN
+		let viewModel = DiaryInfoViewModel(presentDisclaimer: {})
+
+		// WHEN
+		let numberOfCells = viewModel.dynamicTableViewModel.numberOfRows(section: 1)
+
+		// THEN
+		XCTAssertEqual(numberOfCells, 1)
+	}
+
+	/// test if number of cells in disclaimer section (1) is correct
+	func testGIVEN_ViewModel_WHEN_GetNumberOfCellsInDisclaimerSection_THEN_CountMatchExpectations() {
+		// GIVEN
+		let viewModel = DiaryInfoViewModel(presentDisclaimer: {})
+
+		// WHEN
+		let numberOfCells = viewModel.dynamicTableViewModel.numberOfRows(section: 2)
+
+		// THEN
+		XCTAssertEqual(numberOfCells, 1)
+	}
+
+	/// test if action on disclaimer cell will trigger view model closure
+	func testGIVEN_ViewModel_WHEN_GetDisclaimerCell_THEN_ActionWillTrigger() {
+		// GIVEN
+		let disclaimerHitExpectation = expectation(description: "trigger closure in view model")
+		let viewModel = DiaryInfoViewModel(presentDisclaimer: {
+			disclaimerHitExpectation.fulfill()
+		})
+
+		// WHEN
+		let cellAction = viewModel.dynamicTableViewModel.cell(at: IndexPath(row: 0, section: 2))
+		switch cellAction.action {
+		case .execute(let block):
+			block(UIViewController(), nil)
+		default:
+			XCTFail("wrong cell action found")
+		}
+
+		// THEN
+		waitForExpectations(timeout: .medium)
+	}
+
 }
