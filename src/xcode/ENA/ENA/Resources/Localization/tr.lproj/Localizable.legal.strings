@@ -1,4 +1,4 @@
-ExposureSubmissionQRInfo_acknowledgement_2_2/* ExposureSubmissionWarnOthers */
+/* ExposureSubmissionWarnOthers */
 
 "ExposureSubmissionWarnOthers_consentTitle" = "Onay beyanı";
 
@@ -52,4 +52,3 @@ ExposureSubmissionQRInfo_acknowledgement_2_2/* ExposureSubmissionWarnOthers */
 "ExposureSubmissionWarnOthers_acknowledgement_1_2" = "Lütfen bir sonraki adımda “Paylaş”a tıklayarak test sonucunuzu (daha doğrusu: Son 14 güne ait rastgele kimlik no'larınız) paylaşın.";
 
 "ExposureSubmissionWarnOthers_acknowledgement_footer" = "Uyarı gerçekleştikten sonra, Uygulamayı silerek verdiğiniz rıza beyanını da geri alabilirsiniz.";
-
