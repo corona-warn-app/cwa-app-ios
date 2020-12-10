@@ -5,4 +5,4 @@
 <!-- Please add the link to the related Jira issue -->
 
 ## Screenshots
-<!-- Please add screenshot (light & dark mode) depicting the current state of the implementation -->
+<!-- Please add screenshots (light & dark mode) depicting the current state of the implementation -->
