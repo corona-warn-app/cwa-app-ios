@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Diary_Checkmark_Selected.pdf",
+      "filename" : "Diary_Checkmark_Unselected.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Diary_Checkmark_Unselected_Dark.pdf",
       "idiom" : "universal"
     }
   ],

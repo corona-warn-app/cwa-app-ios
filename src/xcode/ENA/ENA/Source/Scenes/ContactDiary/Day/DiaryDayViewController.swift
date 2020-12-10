@@ -32,6 +32,8 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.title = viewModel.day.formattedDate
 
+		view.backgroundColor = .enaColor(for: .darkBackground)
+
 		setupSegmentedControl()
 		setupTableView()
 

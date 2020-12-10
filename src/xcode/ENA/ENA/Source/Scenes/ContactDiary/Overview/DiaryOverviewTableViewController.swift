@@ -44,9 +44,11 @@ class DiaryOverviewTableViewController: UITableViewController {
 		super.viewDidLoad()
 
 		setupTableView()
-		navigationItem.largeTitleDisplayMode = .always
 
+		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.title = AppStrings.ContactDiary.Overview.title
+
+		view.backgroundColor = .enaColor(for: .darkBackground)
 		
 		let moreImage = UIImage(named: "Icons_More_Circle")
 		let rightBarButton = UIBarButtonItem(image: moreImage, style: .plain, target: self, action: #selector(onMore))

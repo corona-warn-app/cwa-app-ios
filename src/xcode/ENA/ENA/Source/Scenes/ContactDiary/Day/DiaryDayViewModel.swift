@@ -15,9 +15,7 @@ class DiaryDayViewModel {
 
 		store.diaryDaysPublisher
 			.sink { [weak self] days in
-				guard let day = days.first(where: { $0.dateString == day.dateString }) else {
-					return
-				}
+				guard let day = days.first(where: { $0.dateString == day.dateString }) else { return }
 
 				self?.day = day
 			}.store(in: &subscriptions)

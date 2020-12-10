@@ -3,6 +3,16 @@
     {
       "filename" : "Illu_Diary_Location_Empty.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Illu_Diary_Location_Empty_Dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

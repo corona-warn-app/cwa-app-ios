@@ -3,6 +3,16 @@
     {
       "filename" : "Icons_Diary_ContactPerson.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Icons_Diary_ContactPerson_Dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

@@ -3,6 +3,16 @@
     {
       "filename" : "Diary_Add.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Diary_Add_Dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

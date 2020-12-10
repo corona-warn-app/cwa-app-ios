@@ -44,7 +44,7 @@
                                 <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="16" bottom="8" trailing="16"/>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" name="ENA Separator Color"/>
+                        <color key="backgroundColor" name="ENA Cell Background Color"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="Hye-vn-7dV" secondAttribute="bottom" constant="8" id="OVR-1v-x9h"/>
                             <constraint firstAttribute="trailing" secondItem="Hye-vn-7dV" secondAttribute="trailing" id="Wit-Qr-f26"/>
@@ -84,7 +84,7 @@
     </designables>
     <resources>
         <image name="Checkmark_Unselected" width="20" height="20"/>
-        <namedColor name="ENA Separator Color">
+        <namedColor name="ENA Cell Background Color">
             <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
