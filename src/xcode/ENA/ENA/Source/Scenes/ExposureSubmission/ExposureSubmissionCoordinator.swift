@@ -380,6 +380,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 						if case .notAuthorized = error {
 							self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
 						} else {
+							self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
 							self?.showErrorAlert(for: error)
 						}
 					} else {
