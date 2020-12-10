@@ -436,8 +436,8 @@ extension RiskProvider {
 				riskLevel: .low,
 				minimumDistinctEncountersWithLowRisk: 0,
 				minimumDistinctEncountersWithHighRisk: 0,
-				mostRecentDateWithLowRisk: nil, //risk.details.mostRecentDateWithRiskLevel,
-				mostRecentDateWithHighRisk: nil,
+				mostRecentDateWithLowRisk: risk.details.mostRecentDateWithRiskLevel,
+				mostRecentDateWithHighRisk: risk.details.mostRecentDateWithRiskLevel,
 				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				numberOfDaysWithHighRisk: 0,
 				calculationDate: Date()
