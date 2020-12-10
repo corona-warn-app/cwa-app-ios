@@ -65,8 +65,18 @@ class DiaryCoordinator {
 
 	private func showInfoScreen() {
 		let navigationController = ENANavigationControllerWithFooter()
-
 		let viewController = DiaryInfoViewController(
+			viewModel: DiaryInfoViewModel(
+				presentDisclaimer: {
+					let detailViewController = AppInformationDetailViewController()
+					detailViewController.title = AppStrings.AppInformation.privacyTitle
+					detailViewController.dynamicTableViewModel = AppInformationModel.privacyModel
+					detailViewController.separatorStyle = .none
+					// hides the footerview as well
+					detailViewController.hidesBottomBarWhenPushed = true
+					navigationController.pushViewController(detailViewController, animated: true)
+				}
+			),
 			onDismiss: {
 				navigationController.dismiss(animated: true)
 			}

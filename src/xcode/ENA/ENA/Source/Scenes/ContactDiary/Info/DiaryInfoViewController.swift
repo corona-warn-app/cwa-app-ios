@@ -10,8 +10,10 @@ class DiaryInfoViewController: DynamicTableViewController, ENANavigationControll
 	// MARK: - Init
 	
 	init(
+		viewModel: DiaryInfoViewModel,
 		onDismiss: @escaping () -> Void
 	) {
+		self.viewModel = viewModel
 		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
@@ -35,9 +37,7 @@ class DiaryInfoViewController: DynamicTableViewController, ENANavigationControll
 			}
 		)
 		navigationController?.navigationBar.prefersLargeTitles = true
-
 		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
-		footerView?.isHidden = false
 	}
 
 	override var navigationItem: UINavigationItem {
@@ -52,14 +52,14 @@ class DiaryInfoViewController: DynamicTableViewController, ENANavigationControll
 
 	// MARK: - Internal
 
-	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case legal = "DynamicLegalCell"
-	}
-
 	// MARK: - Private
 
-	private let viewModel = DiaryInfoViewModel()
+	private let viewModel: DiaryInfoViewModel
 	private let onDismiss: () -> Void
+
+	private enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case legal = "DynamicLegalCell"
+	}
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()

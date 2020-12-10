@@ -7,6 +7,12 @@ import UIKit
 
 struct DiaryInfoViewModel {
 
+	init(
+		presentDisclaimer: @escaping () -> Void
+	) {
+		self.presentDisclaimer = presentDisclaimer
+	}
+
 	// MARK: - Internal
 
 	var dynamicTableViewModel: DynamicTableViewModel {
@@ -71,10 +77,9 @@ struct DiaryInfoViewModel {
 						style: DynamicCell.TextCellStyle.label,
 						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.dataPrivacyTitle,
 						accessibilityTraits: UIAccessibilityTraits.link,
-						action: .push(
-							model: AppInformationModel.privacyModel,
-							withTitle: AppStrings.AppInformation.privacyTitle
-						),
+						action: .execute { _, _ in
+							presentDisclaimer()
+						},
 						configure: { _, cell, _ in
 							cell.accessoryType = .disclosureIndicator
 							cell.selectionStyle = .default
@@ -85,5 +90,7 @@ struct DiaryInfoViewModel {
 	}
 
 	// MARK: - Private
+
+	private let presentDisclaimer: () -> Void
 
 }
