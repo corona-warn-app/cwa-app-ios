@@ -68,7 +68,10 @@ struct DiaryInfoViewModel {
 				.acknowledgement(
 					title: NSAttributedString(string: AppStrings.ContactDiary.Information.legalHeadline_1),
 					description: NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_1),
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle,
+					configure: { _, cell, _ in
+						cell.backgroundColor = .enaColor(for: .background)
+					}
 				)
 			]),
 			// Disclaimer cell
