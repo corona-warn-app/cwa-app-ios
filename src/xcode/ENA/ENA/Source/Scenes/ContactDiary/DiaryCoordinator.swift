@@ -64,7 +64,9 @@ class DiaryCoordinator {
 	}()
 
 	private func showInfoScreen() {
-		let navigationController = ENANavigationControllerWithFooter()
+		// Promise the navigation view controller will be available,
+		// this is needed to resolve an inset issue with large titles
+		var navigationController: ENANavigationControllerWithFooter!
 		let viewController = DiaryInfoViewController(
 			viewModel: DiaryInfoViewModel(
 				presentDisclaimer: {
@@ -81,8 +83,9 @@ class DiaryCoordinator {
 				navigationController.dismiss(animated: true)
 			}
 		)
-		navigationController.viewControllers = [viewController]
-
+		// We need to use UINavigationController(rootViewController: UIViewController) here,
+		// otherwise the inset of the navigation title is wrong
+		navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
 		parentNavigationController?.present(navigationController, animated: true) {
 			self.infoScreenShown = true
 		}
