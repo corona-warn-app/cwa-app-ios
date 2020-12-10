@@ -39,6 +39,7 @@ enum AccessibilityIdentifiers {
 		static let infoCardAboutTitle = "AppStrings.Home.infoCardAboutTitle"
 		static let appInformationCardTitle = "AppStrings.Home.appInformationCardTitle"
 		static let settingsCardTitle = "AppStrings.Home.settingsCardTitle"
+		static let thankYouCard = "AppStrings.Home.thankYouCard"
 
 	}
 

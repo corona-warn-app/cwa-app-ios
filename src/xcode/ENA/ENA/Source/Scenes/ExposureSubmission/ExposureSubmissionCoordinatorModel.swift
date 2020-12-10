@@ -81,6 +81,7 @@ class ExposureSubmissionCoordinatorModel {
 
 			// We don't show an error if the submission consent was not given, because we assume that the submission already happend in the background.
 			case .noSubmissionConsent:
+				Log.info("Consent Not Given", log: .ui)
 				onSuccess()
 
 			case .some(let error):

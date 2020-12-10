@@ -26,6 +26,7 @@ final class RiskThankYouCollectionViewCell: HomeCardCollectionViewCell {
 		stackView.setCustomSpacing(8.0, after: noteLabel)
 		stackView.setCustomSpacing(22.0, after: riskViewStackView)
 		stackView.setCustomSpacing(8.0, after: furtherInfoLabel)
+		accessibilityIdentifier = AccessibilityIdentifiers.Home.thankYouCard
 	}
 
 	func configureBackgroundColor(color: UIColor) {
