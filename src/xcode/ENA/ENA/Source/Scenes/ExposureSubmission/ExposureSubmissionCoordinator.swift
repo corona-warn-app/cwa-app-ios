@@ -183,7 +183,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 					onSuccess: { supportedCountries in
 						self?.showTestResultSubmissionConsentScreen(
 							supportedCountries: supportedCountries,
-							onDismiss: nil
+							testResultAvailability: .available
 						)
 					}
 				)
@@ -230,7 +230,10 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 					self?.model.exposureSubmissionService.loadSupportedCountries(
 						isLoading: isLoading,
 						onSuccess: { supportedCountries in
-							self?.showTestResultSubmissionConsentScreen(supportedCountries: supportedCountries, onDismiss: nil)
+							self?.showTestResultSubmissionConsentScreen(
+								supportedCountries: supportedCountries,
+								testResultAvailability: .notAvailabile
+							)
 						}
 					)
 				},
@@ -350,12 +353,12 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		push(vc)
 	}
 
-	private func showTestResultSubmissionConsentScreen(supportedCountries: [Country], onDismiss: (() -> Void)?) {
+	private func showTestResultSubmissionConsentScreen(supportedCountries: [Country], testResultAvailability: TestResultAvailability) {
 		let vc = ExposureSubmissionTestResultConsentViewController(
 			viewModel: ExposureSubmissionTestResultConsentViewModel(
 				supportedCountries: supportedCountries,
 				exposureSubmissionService: model.exposureSubmissionService,
-				onDismiss: onDismiss
+				testResultAvailability: testResultAvailability
 			)
 		)
 
