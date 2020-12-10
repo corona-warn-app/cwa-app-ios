@@ -75,6 +75,10 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 	func acceptPairing() {
 		acceptPairingCallback?()
 	}
+	
+	func reset() {
+		isSubmissionConsentGiven = false
+	}
 
 }
 #endif
