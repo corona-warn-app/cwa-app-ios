@@ -45,6 +45,8 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		viewModel.$selectedEntryType
 			.receive(on: RunLoop.main)
 			.sink { [weak self] _ in
+				// Scrolling to top prevents table view from flickering while reloading
+				self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
 				self?.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
