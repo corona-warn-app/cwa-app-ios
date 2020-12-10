@@ -274,77 +274,6 @@ class DiaryService {
 
 }
 
-class DiaryDayService {
-
-	// MARK: - Init
-
-	init(day: DiaryDay, store: DiaryStoring) {
-		self.day = day
-		self.store = store
-
-		store.diaryDaysPublisher
-			.sink { [weak self] days in
-				guard let day = days.first(where: { $0.dateString == day.dateString }) else {
-					return
-				}
-
-				self?.day = day
-			}.store(in: &subscriptions)
-	}
-
-	// MARK: - Internal
-
-	@Published private(set) var day: DiaryDay
-
-	func toggle(entry: DiaryEntry) {
-		entry.isSelected ? deselect(entry: entry) : select(entry: entry)
-	}
-
-	func select(entry: DiaryEntry) {
-		switch entry {
-		case .location(let location):
-			store.addLocationVisit(locationId: location.id, date: day.dateString)
-		case .contactPerson(let contactPerson):
-			store.addContactPersonEncounter(contactPersonId: contactPerson.id, date: day.dateString)
-		}
-	}
-
-	func deselect(entry: DiaryEntry) {
-		switch entry {
-		case .location(let location):
-			guard let visitId = location.visitId else {
-				Log.error("Trying to deselect unselected location", log: .contactdiary)
-				return
-			}
-			store.removeLocationVisit(id: visitId)
-		case .contactPerson(let contactPerson):
-			guard let encounterId = contactPerson.encounterId else {
-				Log.error("Trying to deselect unselected contact person", log: .contactdiary)
-				return
-			}
-			store.removeContactPersonEncounter(id: encounterId)
-		}
-	}
-
-	func add(entry: DiaryEntry.New) {
-		switch entry {
-		case .location(let location):
-			let id = store.addLocation(name: location.name)
-			store.addLocationVisit(locationId: id, date: day.dateString)
-		case .contactPerson(let contactPerson):
-			let id = store.addContactPerson(name: contactPerson.name)
-			store.addContactPersonEncounter(contactPersonId: id, date: day.dateString)
-		}
-	}
-
-	// MARK: - Private
-
-	private let store: DiaryStoring
-
-	private var subscriptions: [AnyCancellable] = []
-
-}
-
 class DiaryDay {
 
 	// MARK: - Init
@@ -367,9 +296,9 @@ class DiaryDay {
 		entries.filter {
 			switch $0 {
 			case .location(let location):
-				return location.visitId != nil
+				return location.isSelected
 			case .contactPerson(let contactPerson):
-				return contactPerson.encounterId != nil
+				return contactPerson.isSelected
 			}
 		}
 	}
@@ -427,6 +356,15 @@ enum DiaryEntry {
 		case .contactPerson(let contactPerson):
 			return contactPerson.encounterId != nil
 		}
+	}
+
+	var type: DiaryEntryType {
+		switch self {
+			case .location:
+				return .location
+		 case .contactPerson:
+			return .contactPerson
+		 }
 	}
 
 }

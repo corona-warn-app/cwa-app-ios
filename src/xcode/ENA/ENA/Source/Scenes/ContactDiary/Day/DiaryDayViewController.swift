@@ -5,24 +5,18 @@
 import UIKit
 import Combine
 
-class DiaryDayTableViewController: UITableViewController {
+class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 	// MARK: - Init
 
 	init(
-		diaryDayService: DiaryDayService,
+		viewModel: DiaryDayViewModel,
 		onAddEntryCellTap: @escaping (DiaryDay, DiaryEntryType) -> Void
 	) {
-		self.diaryDayService = diaryDayService
+		self.viewModel = viewModel
 		self.onAddEntryCellTap = onAddEntryCellTap
 
-		super.init(style: .plain)
-
-		diaryDayService.$day
-			.sink { [weak self] _ in
-				self?.tableView.reloadData()
-			}
-			.store(in: &subscriptions)
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)
@@ -36,29 +30,44 @@ class DiaryDayTableViewController: UITableViewController {
 		super.viewDidLoad()
 
 		navigationItem.largeTitleDisplayMode = .always
-		navigationItem.title = diaryDayService.day.formattedDate
+		navigationItem.title = viewModel.day.formattedDate
 
+		setupSegmentedControl()
 		setupTableView()
+
+		viewModel.$day
+			.receive(on: RunLoop.main)
+			.sink { [weak self] _ in
+				self?.tableView.reloadData()
+			}
+			.store(in: &subscriptions)
+
+		viewModel.$selectedEntryType
+			.receive(on: RunLoop.main)
+			.sink { [weak self] _ in
+				self?.tableView.reloadData()
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Protocol UITableViewDataSource
 
-	override func numberOfSections(in tableView: UITableView) -> Int {
+	func numberOfSections(in tableView: UITableView) -> Int {
 		return 2
 	}
 
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		switch section {
 		case 0:
 			return 1
 		case 1:
-			return diaryDayService.day.entries.count
+			return viewModel.entriesOfSelectedType.count
 		default:
 			fatalError("Invalid section")
 		}
 	}
 
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch indexPath.section {
 		case 0:
 			return addCell(forRowAt: indexPath)
@@ -71,12 +80,12 @@ class DiaryDayTableViewController: UITableViewController {
 
 	// MARK: - Protocol UITableViewDelegate
 
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		switch indexPath.section {
 		case 0:
-			onAddEntryCellTap(diaryDayService.day, .contactPerson)
+			onAddEntryCellTap(viewModel.day, viewModel.selectedEntryType)
 		case 1:
-			diaryDayService.toggle(entry: diaryDayService.day.entries[indexPath.row])
+			viewModel.toggle(entry: viewModel.entriesOfSelectedType[indexPath.row])
 		default:
 			fatalError("Invalid section")
 		}
@@ -84,10 +93,21 @@ class DiaryDayTableViewController: UITableViewController {
 
 	// MARK: - Private
 
-	private let diaryDayService: DiaryDayService
+	private let viewModel: DiaryDayViewModel
 	private let onAddEntryCellTap: (DiaryDay, DiaryEntryType) -> Void
 
 	private var subscriptions = [AnyCancellable]()
+
+	@IBOutlet weak var segmentedControl: UISegmentedControl!
+	@IBOutlet weak var tableView: UITableView!
+
+	private func setupSegmentedControl() {
+		segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline)], for: .normal)
+		segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline, weight: .bold)], for: .selected)
+
+		segmentedControl.setTitle(AppStrings.ContactDiary.Day.contactPersonsSegment, forSegmentAt: 0)
+		segmentedControl.setTitle(AppStrings.ContactDiary.Day.locationsSegment, forSegmentAt: 1)
+	}
 
 	private func setupTableView() {
 		tableView.register(
@@ -100,6 +120,9 @@ class DiaryDayTableViewController: UITableViewController {
 			forCellReuseIdentifier: String(describing: DiaryDayEntryTableViewCell.self)
 		)
 
+		tableView.delegate = self
+		tableView.dataSource = self
+
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 60
@@ -110,7 +133,7 @@ class DiaryDayTableViewController: UITableViewController {
 			fatalError("Could not dequeue DiaryDayAddTableViewCell")
 		}
 
-		cell.configure(entryType: .contactPerson)
+		cell.configure(entryType: viewModel.selectedEntryType)
 
 		return cell
 	}
@@ -120,9 +143,18 @@ class DiaryDayTableViewController: UITableViewController {
 			fatalError("Could not dequeue DiaryDayEntryTableViewCell")
 		}
 
-		cell.configure(entry: diaryDayService.day.entries[indexPath.row])
+		cell.configure(entry: viewModel.entriesOfSelectedType[indexPath.row])
 
 		return cell
+	}
+
+	@IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+		switch sender.selectedSegmentIndex {
+		case 0:
+			viewModel.selectedEntryType = .contactPerson
+		default:
+			viewModel.selectedEntryType = .location
+		}
 	}
 
 }

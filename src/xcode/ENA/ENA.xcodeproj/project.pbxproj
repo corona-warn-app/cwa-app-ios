@@ -37,7 +37,7 @@
 		0177F48825501111009DD568 /* RiskCalculationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177F48125501111009DD568 /* RiskCalculationResult.swift */; };
 		0177F4B125503805009DD568 /* ScanInstanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177F4B025503805009DD568 /* ScanInstanceTest.swift */; };
 		0190986A257E64A70065D050 /* DiaryOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909845257E61350065D050 /* DiaryOverviewTableViewController.swift */; };
-		01909874257E64BD0065D050 /* DiaryDayTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909862257E63810065D050 /* DiaryDayTableViewController.swift */; };
+		01909874257E64BD0065D050 /* DiaryDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909862257E63810065D050 /* DiaryDayViewController.swift */; };
 		01909875257E64BD0065D050 /* DiaryAddAndEditEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190984C257E62C70065D050 /* DiaryAddAndEditEntryViewController.swift */; };
 		01909876257E64BD0065D050 /* DiaryAddAndEditEntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909851257E62CB0065D050 /* DiaryAddAndEditEntryViewModel.swift */; };
 		01909877257E64BD0065D050 /* DiaryEditEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909834257E606C0065D050 /* DiaryEditEntriesTableViewController.swift */; };
@@ -96,6 +96,8 @@
 		01F2A5BA2581181A00DA96A6 /* DiaryDayAddTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F2A5B82581181A00DA96A6 /* DiaryDayAddTableViewCell.xib */; };
 		01F2A5C32581183800DA96A6 /* DiaryDayEntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F2A5C12581183800DA96A6 /* DiaryDayEntryTableViewCell.swift */; };
 		01F2A5C42581183800DA96A6 /* DiaryDayEntryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F2A5C22581183800DA96A6 /* DiaryDayEntryTableViewCell.xib */; };
+		01F2A5D5258208C500DA96A6 /* DiaryDayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F2A5D4258208C500DA96A6 /* DiaryDayViewController.xib */; };
+		01F2A5DD25820EE700DA96A6 /* DiaryDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F2A5DC25820EE700DA96A6 /* DiaryDayViewModel.swift */; };
 		01F52F8A2550679600997A26 /* RiskCalculationExposureWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F52F892550679600997A26 /* RiskCalculationExposureWindow.swift */; };
 		01F52F92255067A000997A26 /* RiskCalculationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F52F91255067A000997A26 /* RiskCalculationError.swift */; };
 		01F52FF42552DB9600997A26 /* DMAppConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F52FF32552DB9600997A26 /* DMAppConfigurationViewController.swift */; };
@@ -676,7 +678,7 @@
 		01909845257E61350065D050 /* DiaryOverviewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewTableViewController.swift; sourceTree = "<group>"; };
 		0190984C257E62C70065D050 /* DiaryAddAndEditEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryViewController.swift; sourceTree = "<group>"; };
 		01909851257E62CB0065D050 /* DiaryAddAndEditEntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryViewModel.swift; sourceTree = "<group>"; };
-		01909862257E63810065D050 /* DiaryDayTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayTableViewController.swift; sourceTree = "<group>"; };
+		01909862257E63810065D050 /* DiaryDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayViewController.swift; sourceTree = "<group>"; };
 		01909881257E675D0065D050 /* DiaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryService.swift; sourceTree = "<group>"; };
 		01909886257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRInfoViewController.swift; sourceTree = "<group>"; };
 		01909887257E7B900065D050 /* ExposureSubmissionQRInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRInfoViewModel.swift; sourceTree = "<group>"; };
@@ -730,6 +732,8 @@
 		01F2A5B82581181A00DA96A6 /* DiaryDayAddTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryDayAddTableViewCell.xib; sourceTree = "<group>"; };
 		01F2A5C12581183800DA96A6 /* DiaryDayEntryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayEntryTableViewCell.swift; sourceTree = "<group>"; };
 		01F2A5C22581183800DA96A6 /* DiaryDayEntryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryDayEntryTableViewCell.xib; sourceTree = "<group>"; };
+		01F2A5D4258208C500DA96A6 /* DiaryDayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryDayViewController.xib; sourceTree = "<group>"; };
+		01F2A5DC25820EE700DA96A6 /* DiaryDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayViewModel.swift; sourceTree = "<group>"; };
 		01F52F892550679600997A26 /* RiskCalculationExposureWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationExposureWindow.swift; sourceTree = "<group>"; };
 		01F52F91255067A000997A26 /* RiskCalculationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationError.swift; sourceTree = "<group>"; };
 		01F52FF32552DB9600997A26 /* DMAppConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMAppConfigurationViewController.swift; sourceTree = "<group>"; };
@@ -1384,7 +1388,9 @@
 		0190982E257E5B5E0065D050 /* Day */ = {
 			isa = PBXGroup;
 			children = (
-				01909862257E63810065D050 /* DiaryDayTableViewController.swift */,
+				01909862257E63810065D050 /* DiaryDayViewController.swift */,
+				01F2A5D4258208C500DA96A6 /* DiaryDayViewController.xib */,
+				01F2A5DC25820EE700DA96A6 /* DiaryDayViewModel.swift */,
 				01F2A5B62581177100DA96A6 /* Cells */,
 			);
 			path = Day;
@@ -3464,6 +3470,7 @@
 				13156CFD248C19D000AFC472 /* usage.html in Resources */,
 				51486DA72485237200FCE216 /* RiskThankYouCollectionViewCell.xib in Resources */,
 				2F785752248506BD00323A9C /* HomeTestResultCollectionViewCell.xib in Resources */,
+				01F2A5D5258208C500DA96A6 /* DiaryDayViewController.xib in Resources */,
 				EE269508248FCB0300BAE234 /* InfoPlist.strings in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
 				EB7057D724E6BACA002235B4 /* InfoBoxView.xib in Resources */,
@@ -3655,12 +3662,13 @@
 				B1175213248A83AB00C3325C /* Risk.swift in Sources */,
 				A36D07B92486D61C00E46F96 /* HomeCardCellButtonDelegate.swift in Sources */,
 				B1A89F3824819C2B00DA1CEC /* HomeInteractor.swift in Sources */,
+				01F2A5DD25820EE700DA96A6 /* DiaryDayViewModel.swift in Sources */,
 				2F3D953C2518BCE9002B2C81 /* EUSettingsViewModel.swift in Sources */,
 				01F2A54F257FC0A000DA96A6 /* HomeDiaryCollectionViewCell.swift in Sources */,
 				01734B6E255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift in Sources */,
 				01B7232924F812DF0064C0EB /* OptionView.swift in Sources */,
 				514C0A16247C164700F235F6 /* HomeHighRiskCellConfigurator.swift in Sources */,
-				01909874257E64BD0065D050 /* DiaryDayTableViewController.swift in Sources */,
+				01909874257E64BD0065D050 /* DiaryDayViewController.swift in Sources */,
 				71FE1C7B247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift in Sources */,
 				B1FC2D2024D9C8DF00083C81 /* SAP_TemporaryExposureKey+DeveloperMenu.swift in Sources */,
 				717D21E9248C022E00D9717E /* DynamicTableViewHtmlCell.swift in Sources */,
