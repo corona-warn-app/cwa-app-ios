@@ -46,6 +46,8 @@ class DiaryDayEmptyView: UIView {
 		titleLabel.textColor = .enaColor(for: .textPrimary1)
 		titleLabel.textAlignment = .center
 		titleLabel.numberOfLines = 0
+		titleLabel.adjustsFontSizeToFitWidth = true
+		titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
 		titleLabel.text = viewModel.title
 		stackView.addArrangedSubview(titleLabel)
 
@@ -54,6 +56,8 @@ class DiaryDayEmptyView: UIView {
 		descriptionLabel.textColor = .enaColor(for: .textPrimary2)
 		descriptionLabel.textAlignment = .center
 		descriptionLabel.numberOfLines = 0
+		descriptionLabel.adjustsFontSizeToFitWidth = true
+		descriptionLabel.setContentCompressionResistancePriority(.required, for: .vertical)
 		descriptionLabel.text = viewModel.description
 		stackView.addArrangedSubview(descriptionLabel)
 
@@ -61,11 +65,13 @@ class DiaryDayEmptyView: UIView {
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 
 		NSLayoutConstraint.activate([
-			imageView.widthAnchor.constraint(equalToConstant: 200),
-			imageView.heightAnchor.constraint(equalToConstant: 200),
+			imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
+			imageView.widthAnchor.constraint(lessThanOrEqualToConstant: 200),
 			stackView.widthAnchor.constraint(lessThanOrEqualToConstant: 280),
-			stackView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 50),
-			stackView.trailingAnchor.constraint(greaterThanOrEqualTo: trailingAnchor, constant: 50),
+			stackView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 16),
+			stackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -16),
+			stackView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 16),
+			stackView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -16),
 			stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
 			stackView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 30)
 		])
