@@ -38,21 +38,24 @@ struct DiaryInfoViewModel {
 						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.descriptionSubHeadline
 					),
 					.space(
-						height: 15.0
+						height: 15.0,
+						color: .enaColor(for: .background)
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Contact"),
 						text: .string(AppStrings.ContactDiaryInformation.itemPersonTitle)
 					),
 					.space(
-						height: 15.0
+						height: 15.0,
+						color: .enaColor(for: .background)
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Location"),
 						text: .string(AppStrings.ContactDiaryInformation.itemContactTitle)
 					),
 					.space(
-						height: 15.0
+						height: 15.0,
+						color: .enaColor(for: .background)
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Lock"),
