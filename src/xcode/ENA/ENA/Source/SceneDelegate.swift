@@ -86,7 +86,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	// MARK: - Protocol CoordinatorDelegate
 
 	/// Resets all stores and notifies the Onboarding and resets all pending notifications
-	func coordinatorUserDidRequestReset() {
+	func coordinatorUserDidRequestReset(exposureSubmissionService: ExposureSubmissionService) {
+		
+		exposureSubmissionService.reset()
+		
 		do {
 			let newKey = try KeychainHelper().generateDatabaseKey()
 			store.clearAll(key: newKey)
