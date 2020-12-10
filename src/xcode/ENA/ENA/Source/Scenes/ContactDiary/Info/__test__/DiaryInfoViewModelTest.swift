@@ -37,4 +37,15 @@ class DiaryInfoViewModelTest: XCTestCase {
 		}
 	}
 
+	/// test if number of cells in information section (0) is correct
+	func testGIVEN_ViewModel_WHEN_GetNumberOfCellsInSectionZero_THEN_CountMatchExpectations() {
+		// GIVEN
+		let viewModel = DiaryInfoViewModel(presentDisclaimer: {})
+
+		// WHEN
+		let numberOfCells = viewModel.dynamicTableViewModel.numberOfRows(section: 0)
+
+		// THEN
+		XCTAssertEqual(numberOfCells, 8)
+	}
 }
