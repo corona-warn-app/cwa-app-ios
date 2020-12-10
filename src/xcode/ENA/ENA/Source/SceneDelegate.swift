@@ -163,7 +163,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	private func setupUI() {
 		setupNavigationBarAppearance()
-
+		setupAlertViewAppearance()
+		
 		if store.isOnboarded {
 			showHome()
 		} else {
@@ -188,6 +189,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .largeTitle).scaledFont(size: 28, weight: .bold),
 			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)
 		]
+	}
+	
+	private func setupAlertViewAppearance() {
+		UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .enaColor(for: .tint)
 	}
 
 	private func showHome(animated _: Bool = false) {
