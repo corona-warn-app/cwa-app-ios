@@ -12,7 +12,7 @@ class DiaryDayTableViewController: UITableViewController {
 		diaryDayService: DiaryDayService,
 		onAddEntryCellTap: @escaping (DiaryDay, DiaryEntryType) -> Void
 	) {
-		self.viewModel = DiaryDayViewModel(diaryDayService: diaryDayService)
+		self.diaryDayService = diaryDayService
 		self.onAddEntryCellTap = onAddEntryCellTap
 
 		super.init(style: .plain)
@@ -27,6 +27,9 @@ class DiaryDayTableViewController: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		navigationItem.largeTitleDisplayMode = .always
+		navigationItem.title = diaryDayService.day.formattedDate
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -57,7 +60,7 @@ class DiaryDayTableViewController: UITableViewController {
 
 	// MARK: - Private
 
-	private let viewModel: DiaryDayViewModel
+	private let diaryDayService: DiaryDayService
 	private let onAddEntryCellTap: (DiaryDay, DiaryEntryType) -> Void
 
 }
