@@ -217,7 +217,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 	func testSuccessfulSubmitWithoutKeys() {
 		let exposureSubmissionService = MockExposureSubmissionService()
 		exposureSubmissionService.submitExposureCallback = { completion in
-			completion(.noKeys)
+			completion(.noKeysCollected)
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(

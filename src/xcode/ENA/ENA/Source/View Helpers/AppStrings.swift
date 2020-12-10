@@ -279,7 +279,7 @@ enum AppStrings {
 	}
 
 	enum ExposureSubmissionError {
-		static let noKeys = NSLocalizedString("ExposureSubmissionError_NoKeys", comment: "")
+		static let noKeysCollected = NSLocalizedString("ExposureSubmissionError_NoKeys", comment: "")
 		static let invalidTan = NSLocalizedString("ExposureSubmissionError_InvalidTan", comment: "")
 		static let enNotEnabled = NSLocalizedString("ExposureSubmissionError_EnNotEnabled", comment: "")
 		static let noRegistrationToken = NSLocalizedString("ExposureSubmissionError_NoRegistrationToken", comment: "")
