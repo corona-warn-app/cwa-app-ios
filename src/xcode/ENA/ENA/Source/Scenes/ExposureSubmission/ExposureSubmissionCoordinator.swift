@@ -183,9 +183,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 					onSuccess: { supportedCountries in
 						self?.showTestResultSubmissionConsentScreen(
 							supportedCountries: supportedCountries,
-							onDismiss: {
-								self?.showTestResultAvailableCloseAlert()
-							}
+							onDismiss: nil
 						)
 					}
 				)
