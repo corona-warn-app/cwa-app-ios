@@ -82,8 +82,8 @@ class DiaryInfoViewModelTest: XCTestCase {
 		})
 
 		// WHEN
-		let cellAction = viewModel.dynamicTableViewModel.cell(at: IndexPath(row: 0, section: 2))
-		switch cellAction.action {
+		let cell = viewModel.dynamicTableViewModel.cell(at: IndexPath(row: 0, section: 2))
+		switch cell.action {
 		case .execute(let block):
 			block(UIViewController(), nil)
 		default:
