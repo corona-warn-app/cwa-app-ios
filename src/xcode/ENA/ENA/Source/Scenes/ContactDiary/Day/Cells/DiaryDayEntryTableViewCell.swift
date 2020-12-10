@@ -17,6 +17,12 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 			checkboxImageView.image = location.isSelected ? UIImage(named: "Diary_Checkmark_Selected") : UIImage(named: "Diary_Checkmark_Unselected")
 			label.text = location.name
 		}
+
+		if entry.isSelected {
+			accessibilityTraits = [.button, .selected]
+		} else {
+			accessibilityTraits = [.button]
+		}
 	}
 
 	// MARK: - Private

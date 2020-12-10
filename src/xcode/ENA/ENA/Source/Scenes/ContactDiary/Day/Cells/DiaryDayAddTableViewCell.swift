@@ -15,6 +15,8 @@ class DiaryDayAddTableViewCell: UITableViewCell {
 		case .location:
 			label.text = AppStrings.ContactDiary.Day.addLocation
 		}
+
+		accessibilityTraits = [.button]
 	}
 
 	// MARK: - Private
