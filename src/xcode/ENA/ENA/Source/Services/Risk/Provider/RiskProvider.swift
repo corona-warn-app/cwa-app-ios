@@ -310,13 +310,8 @@ final class RiskProvider: RiskProviding {
 
 	private func _provideRiskResult(_ result: RiskProviderResult, to consumer: RiskConsumer?) {
 		#if DEBUG
-		if isUITesting {
-			switch UserDefaults.standard.string(forKey: "riskLevel") {
-			case "inactive":
-				consumer?.provideRiskCalculationResult(.failure(.inactive))
-			default:
-				consumer?.provideRiskCalculationResult(.success(.mocked))
-			}
+		if isUITesting && UserDefaults.standard.string(forKey: "riskLevel") == "inactive" {
+			consumer?.provideRiskCalculationResult(.failure(.inactive))
 			return
 		}
 		#endif
