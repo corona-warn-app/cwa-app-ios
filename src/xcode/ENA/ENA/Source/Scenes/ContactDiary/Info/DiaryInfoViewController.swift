@@ -64,11 +64,11 @@ class DiaryInfoViewController: DynamicTableViewController, ENANavigationControll
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
 
-		item.primaryButtonTitle = AppStrings.ContactDiaryInformation.primaryButtonTitle
+		item.primaryButtonTitle = AppStrings.ContactDiary.Information.primaryButtonTitle
 		item.isPrimaryButtonEnabled = true
 		item.isSecondaryButtonHidden = true
 
-		item.title = AppStrings.ContactDiaryInformation.title
+		item.title = AppStrings.ContactDiary.Information.title
 
 		return item
 	}()

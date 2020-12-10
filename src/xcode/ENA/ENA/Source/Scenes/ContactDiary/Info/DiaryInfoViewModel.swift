@@ -25,16 +25,16 @@ struct DiaryInfoViewModel {
 						UIImage(
 							imageLiteralResourceName: "Illu_ContactDiary-Information"
 						),
-						accessibilityLabel: AppStrings.ContactDiaryInformation.imageDescription,
+						accessibilityLabel: AppStrings.ContactDiary.Information.imageDescription,
 						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.imageDescription
 					),
 				cells: [
 					.title2(
-						text: AppStrings.ContactDiaryInformation.descriptionTitle,
+						text: AppStrings.ContactDiary.Information.descriptionTitle,
 						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.descriptionTitle
 					),
 					.subheadline(
-						text: AppStrings.ContactDiaryInformation.descriptionSubHeadline,
+						text: AppStrings.ContactDiary.Information.descriptionSubHeadline,
 						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.descriptionSubHeadline
 					),
 					.space(
@@ -43,7 +43,7 @@ struct DiaryInfoViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Contact"),
-						text: .string(AppStrings.ContactDiaryInformation.itemPersonTitle)
+						text: .string(AppStrings.ContactDiary.Information.itemPersonTitle)
 					),
 					.space(
 						height: 15.0,
@@ -51,7 +51,7 @@ struct DiaryInfoViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Location"),
-						text: .string(AppStrings.ContactDiaryInformation.itemContactTitle)
+						text: .string(AppStrings.ContactDiary.Information.itemContactTitle)
 					),
 					.space(
 						height: 15.0,
@@ -59,15 +59,15 @@ struct DiaryInfoViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Lock"),
-						text: .string(AppStrings.ContactDiaryInformation.itemLockTitle)
+						text: .string(AppStrings.ContactDiary.Information.itemLockTitle)
 					)
 				]
 			),
 			// Legal text
 			.section(cells: [
 				.acknowledgement(
-					title: NSAttributedString(string: AppStrings.ContactDiaryInformation.legalHeadline_1),
-					description: NSAttributedString(string: AppStrings.ContactDiaryInformation.legalText_1),
+					title: NSAttributedString(string: AppStrings.ContactDiary.Information.legalHeadline_1),
+					description: NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_1),
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle
 				)
 			]),
@@ -76,7 +76,7 @@ struct DiaryInfoViewModel {
 				separators: .all,
 				cells: [
 					.body(
-						text: AppStrings.ContactDiaryInformation.dataPrivacyTitle,
+						text: AppStrings.ContactDiary.Information.dataPrivacyTitle,
 						style: DynamicCell.TextCellStyle.label,
 						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.dataPrivacyTitle,
 						accessibilityTraits: UIAccessibilityTraits.link,
