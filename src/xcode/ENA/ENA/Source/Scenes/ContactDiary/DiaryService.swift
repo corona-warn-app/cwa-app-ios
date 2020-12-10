@@ -150,22 +150,22 @@ class MockDiaryStore: DiaryStoring {
 
 	// MARK: - Private
 
-	private var contactPersons = [
-		DiaryContactPerson(id: 0, name: "Andreas"),
-		DiaryContactPerson(id: 1, name: "Marcus"),
-		DiaryContactPerson(id: 2, name: "Carsten"),
-		DiaryContactPerson(id: 3, name: "Artur"),
-		DiaryContactPerson(id: 4, name: "Karsten"),
-		DiaryContactPerson(id: 5, name: "Kai"),
-		DiaryContactPerson(id: 6, name: "Nick"),
-		DiaryContactPerson(id: 7, name: "Omar"),
-		DiaryContactPerson(id: 8, name: "Pascal"),
-		DiaryContactPerson(id: 9, name: "Puneet")
+	private var contactPersons: [DiaryContactPerson] = [
+//		DiaryContactPerson(id: 0, name: "Andreas"),
+//		DiaryContactPerson(id: 1, name: "Marcus"),
+//		DiaryContactPerson(id: 2, name: "Carsten"),
+//		DiaryContactPerson(id: 3, name: "Artur"),
+//		DiaryContactPerson(id: 4, name: "Karsten"),
+//		DiaryContactPerson(id: 5, name: "Kai"),
+//		DiaryContactPerson(id: 6, name: "Nick"),
+//		DiaryContactPerson(id: 7, name: "Omar"),
+//		DiaryContactPerson(id: 8, name: "Pascal"),
+//		DiaryContactPerson(id: 9, name: "Puneet")
 	]
 
-	private var locations = [
-		DiaryLocation(id: 0, name: "Supermarkt"),
-		DiaryLocation(id: 1, name: "Bäckerei")
+	private var locations: [DiaryLocation] = [
+//		DiaryLocation(id: 0, name: "Supermarkt"),
+//		DiaryLocation(id: 1, name: "Bäckerei")
 	]
 
 	private var contactPersonEncounters = [

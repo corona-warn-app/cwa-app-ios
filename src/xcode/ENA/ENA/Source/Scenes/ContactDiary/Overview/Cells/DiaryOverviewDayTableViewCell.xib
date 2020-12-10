@@ -80,7 +80,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
-                <color key="backgroundColor" name="ENA Background Color"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="Eyw-oN-Ew5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="3Sl-II-nWY"/>
                     <constraint firstAttribute="trailing" secondItem="Eyw-oN-Ew5" secondAttribute="trailing" constant="16" id="9ma-Z9-Y8d"/>
@@ -90,7 +90,7 @@
                 <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="32" bottom="8" trailing="32"/>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <color key="backgroundColor" name="ENA Background Color"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="24" bottom="8" trailing="24"/>
             <connections>
                 <outlet property="dateLabel" destination="UAS-Bk-PQl" id="96b-bf-GYh"/>
@@ -107,9 +107,6 @@
     </designables>
     <resources>
         <image name="Icons_Chevron_plain" width="7" height="12"/>
-        <namedColor name="ENA Background Color">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="ENA Hairline Color">
             <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

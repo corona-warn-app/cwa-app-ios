@@ -38,7 +38,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		viewModel.$day
 			.receive(on: RunLoop.main)
 			.sink { [weak self] _ in
-				self?.tableView.reloadData()
+				self?.updateForSelectedEntryType()
 			}
 			.store(in: &subscriptions)
 
@@ -47,7 +47,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 			.sink { [weak self] _ in
 				// Scrolling to top prevents table view from flickering while reloading
 				self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-				self?.tableView.reloadData()
+				self?.updateForSelectedEntryType()
 			}
 			.store(in: &subscriptions)
 	}
@@ -148,6 +148,16 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		cell.configure(entry: viewModel.entriesOfSelectedType[indexPath.row])
 
 		return cell
+	}
+
+	private func updateForSelectedEntryType() {
+		tableView.reloadData()
+
+		if viewModel.entriesOfSelectedType.isEmpty {
+			tableView.backgroundView = DiaryDayEmptyView(entryType: viewModel.selectedEntryType)
+		} else {
+			tableView.backgroundView = nil
+		}
 	}
 
 	@IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {

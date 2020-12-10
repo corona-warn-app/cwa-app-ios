@@ -58,7 +58,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
-                <color key="backgroundColor" name="ENA Background Color"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="1nm-Ky-YXw" firstAttribute="top" secondItem="cch-YX-JfG" secondAttribute="top" constant="19" id="0o6-q0-X7h"/>
                     <constraint firstAttribute="bottom" secondItem="1nm-Ky-YXw" secondAttribute="bottom" constant="19" id="Up7-Uh-TG1"/>
@@ -68,7 +68,7 @@
                 <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="32" bottom="8" trailing="32"/>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="Jlf-FG-HgM"/>
-            <color key="backgroundColor" name="ENA Background Color"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="24" bottom="8" trailing="24"/>
             <connections>
                 <outlet property="label" destination="VaD-d6-UT4" id="ElH-wJ-0uX"/>
@@ -83,9 +83,6 @@
     </designables>
     <resources>
         <image name="Diary_Add" width="32" height="32"/>
-        <namedColor name="ENA Background Color">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="ENA Separator Color">
             <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
