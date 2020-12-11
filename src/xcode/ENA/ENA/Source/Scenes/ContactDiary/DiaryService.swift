@@ -360,9 +360,9 @@ enum DiaryEntry {
 
 	var type: DiaryEntryType {
 		switch self {
-			case .location:
-				return .location
-		 case .contactPerson:
+		case .location:
+			return .location
+		case .contactPerson:
 			return .contactPerson
 		 }
 	}

@@ -1341,6 +1341,32 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_Overview_Description" = "Tragen Sie ein, mit wem Sie sich getroffen haben und wo Sie gewesen sind. ";
 
+/* ActionSheet */
+"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Info";
+
+"ContactDiary_Overview_ActionSheet_ExportActionTitle" = "Einträge exportieren";
+
+"ContactDiary_Overview_ActionSheet_EditPersonTitle" = "Personen bearbeiten";
+
+"ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Orte bearbeiten";
+
+/* Day */
+"ContactDiary_Day_ContactPersonsSegment" = "Personen";
+
+"ContactDiary_Day_AddContactPerson" = "Person hinzufügen";
+
+"ContactDiary_Day_ContactPersonsEmptyTitle" = "Noch keine Personen vorhanden";
+
+"ContactDiary_Day_ContactPersonsEmptyDescription" = "Legen Sie eine Person an und fügen Sie sie in Ihrem Kontakt-Tagebuch hinzu.";
+
+"ContactDiary_Day_LocationsSegment" = "Orte";
+
+"ContactDiary_Day_AddLocation" = "Ort hinzufügen";
+
+"ContactDiary_Day_LocationsEmptyTitle" = "Noch keine Orte vorhanden";
+
+"ContactDiary_Day_LocationsEmptyDescription" = "Legen Sie einen Ort an und fügen Sie ihn in Ihrem Kontakt-Tagebuch hinzu. ";
+
 /* Information */
 "ContactDiary_Information_Title" = "Kontakt-Tagebuch";
 
@@ -1360,21 +1386,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_Information_PrimaryButton_Title" = "Tagebuch führen";
 
-/* ActionSheet */
-"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Info";
+/* AddEditEntry */
 
-"ContactDiary_Overview_ActionSheet_ExportActionTitle" = "Einträge exportieren";
+"ContactDiary_AddEditEntry_LocationTitle" = "Ort";
 
-"ContactDiary_Overview_ActionSheet_EditPersonTitle" = "Personen bearbeiten";
-
-"ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Orte bearbeiten";
-
-/* Day */
-"ContactDiary_Day_ContactPersonsSegment" = "Personen";
-"ContactDiary_Day_AddContactPerson" = "Person hinzufügen";
-"ContactDiary_Day_ContactPersonsEmptyTitle" = "Noch keine Personen vorhanden";
-"ContactDiary_Day_ContactPersonsEmptyDescription" = "Legen Sie eine Person an und fügen Sie sie in Ihrem Kontakt-Tagebuch hinzu.";
-"ContactDiary_Day_LocationsSegment" = "Orte";
-"ContactDiary_Day_AddLocation" = "Ort hinzufügen";
-"ContactDiary_Day_LocationsEmptyTitle" = "Noch keine Orte vorhanden";
-"ContactDiary_Day_LocationsEmptyDescription" = "Legen Sie einen Ort an und fügen Sie ihn in Ihrem Kontakt-Tagebuch hinzu. ";
+"ContactDiary_AddEditEntry_PersonTitle" = "Person";

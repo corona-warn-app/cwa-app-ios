@@ -907,6 +907,12 @@ enum AppStrings {
 			static let dataPrivacyTitle = NSLocalizedString("ContactDiary_Information_Dataprivacy_Title", comment: "")
 			static let primaryButtonTitle = NSLocalizedString("ContactDiary_Information_PrimaryButton_Title", comment: "")
 		}
+
+		enum AddEditEntry {
+			static let locationTitle = NSLocalizedString("ContactDiary_AddEditEntry_LocationTitle", comment: "")
+			static let personTitle = NSLocalizedString("ContactDiary_AddEditEntry_PersonTitle", comment: "")
+		}
+
 	}
 	
 	// swiftlint:disable:next file_length
