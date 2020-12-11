@@ -909,8 +909,15 @@ enum AppStrings {
 		}
 
 		enum AddEditEntry {
-			static let locationTitle = NSLocalizedString("ContactDiary_AddEditEntry_LocationTitle", comment: "")
-			static let personTitle = NSLocalizedString("ContactDiary_AddEditEntry_PersonTitle", comment: "")
+			enum location {
+				static let title = NSLocalizedString("ContactDiary_AddEditEntry_LocationTitle", comment: "")
+				static let placeholder = NSLocalizedString("ContactDiary_AddEditEntry_LocationPlaceholder", comment: "")
+			}
+
+			enum person {
+				static let title = NSLocalizedString("ContactDiary_AddEditEntry_PersonTitle", comment: "")
+				static let placeholder = NSLocalizedString("ContactDiary_AddEditEntry_PersonPlaceholder", comment: "")
+			}
 		}
 
 	}

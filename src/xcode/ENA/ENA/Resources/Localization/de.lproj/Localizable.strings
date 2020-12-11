@@ -1387,7 +1387,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ContactDiary_Information_PrimaryButton_Title" = "Tagebuch führen";
 
 /* AddEditEntry */
-
+/*  - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Ort";
 
+"ContactDiary_AddEditEntry_LocationPlaceholder" = "Ort";
+
+/*  - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Person";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder" = "Person";
+
