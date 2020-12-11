@@ -29,6 +29,19 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		service.isSubmissionConsentGiven = true
 		XCTAssertTrue(store.isSubmissionConsentGiven, "Expected store value is 'true'")
 	}
+	
+	func testReset_shouldResetValues() {
+		let store = MockTestStore()
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let client = ClientMock()
+		let appConfigurationProvider = CachedAppConfigurationMock()
+		
+		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		
+		service.isSubmissionConsentGiven = true
+		service.reset()
+		XCTAssertFalse(store.isSubmissionConsentGiven, "Expected store value is 'false'")
+	}
 
 	func testSubmitExposure_Success() {
 		// Arrange
