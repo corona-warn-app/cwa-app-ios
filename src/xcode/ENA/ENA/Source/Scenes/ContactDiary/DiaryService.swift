@@ -50,7 +50,8 @@ protocol DiaryStoring {
 	func removeAllLocations() -> DiaryStoringVoidResult
 	@discardableResult
 	func removeAllContactPersons() -> DiaryStoringVoidResult
-
+	@discardableResult
+	func cleanup() -> DiaryStoringVoidResult
 }
 
 protocol DiaryProviding {
@@ -72,7 +73,7 @@ class MockDiaryStore: DiaryStoring, DiaryProviding {
 	var diaryDaysPublisher: Published<[DiaryDay]>.Publisher { $diaryDays }
 
 	@discardableResult
-	func addContactPerson(name: String) -> Result<Int64, SQLiteErrorCode> {
+	func addContactPerson(name: String) -> DiaryStoringResult {
 		let id = contactPersons.map { $0.id }.max() ?? -1 + 1
 		contactPersons.append(DiaryContactPerson(id: id, name: name))
 
@@ -82,7 +83,7 @@ class MockDiaryStore: DiaryStoring, DiaryProviding {
 	}
 
 	@discardableResult
-	func addLocation(name: String) -> Result<Int64, SQLiteErrorCode> {
+	func addLocation(name: String) -> DiaryStoringResult {
 		let id = locations.map { $0.id }.max() ?? -1 + 1
 		locations.append(DiaryLocation(id: id, name: name))
 
@@ -92,7 +93,7 @@ class MockDiaryStore: DiaryStoring, DiaryProviding {
 	}
 
 	@discardableResult
-	func addContactPersonEncounter(contactPersonId: Int64, date: String) -> Result<Int64, SQLiteErrorCode> {
+	func addContactPersonEncounter(contactPersonId: Int64, date: String) -> DiaryStoringResult {
 		let id = contactPersonEncounters.map { $0.id }.max() ?? -1 + 1
 		contactPersonEncounters.append(ContactPersonEncounter(id: id, date: date, contactPersonId: contactPersonId))
 
@@ -102,7 +103,7 @@ class MockDiaryStore: DiaryStoring, DiaryProviding {
 	}
 
 	@discardableResult
-	func addLocationVisit(locationId: Int64, date: String) -> Result<Int64, SQLiteErrorCode> {
+	func addLocationVisit(locationId: Int64, date: String) -> DiaryStoringResult {
 		let id = locationVisits.map { $0.id }.max() ?? -1 + 1
 		locationVisits.append(LocationVisit(id: id, date: date, locationId: locationId))
 
@@ -111,7 +112,7 @@ class MockDiaryStore: DiaryStoring, DiaryProviding {
 		return .success(id)
 	}
 
-	func updateContactPerson(id: Int64, name: String) -> Result<Void, SQLiteErrorCode> {
+	func updateContactPerson(id: Int64, name: String) -> DiaryStoringVoidResult {
 		guard let index = contactPersons.firstIndex(where: { $0.id == id }) else { return .success(()) }
 		contactPersons[index] = DiaryContactPerson(id: id, name: name)
 
@@ -120,7 +121,7 @@ class MockDiaryStore: DiaryStoring, DiaryProviding {
 		return .success(())
 	}
 
-	func updateLocation(id: Int64, name: String) -> Result<Void, SQLiteErrorCode> {
+	func updateLocation(id: Int64, name: String) -> DiaryStoringVoidResult {
 		guard let index = locations.firstIndex(where: { $0.id == id }) else { return .success(()) }
 		locations[index] = DiaryLocation(id: id, name: name)
 
@@ -129,7 +130,7 @@ class MockDiaryStore: DiaryStoring, DiaryProviding {
 		return .success(())
 	}
 
-	func removeContactPerson(id: Int64) -> Result<Void, SQLiteErrorCode> {
+	func removeContactPerson(id: Int64) -> DiaryStoringVoidResult {
 		contactPersons.removeAll { $0.id == id }
 
 		updateDays()
@@ -137,7 +138,7 @@ class MockDiaryStore: DiaryStoring, DiaryProviding {
 		return .success(())
 	}
 
-	func removeLocation(id: Int64) -> Result<Void, SQLiteErrorCode> {
+	func removeLocation(id: Int64) -> DiaryStoringVoidResult {
 		locations.removeAll { $0.id == id }
 
 		updateDays()
@@ -145,7 +146,7 @@ class MockDiaryStore: DiaryStoring, DiaryProviding {
 		return .success(())
 	}
 
-	func removeContactPersonEncounter(id: Int64) -> Result<Void, SQLiteErrorCode> {
+	func removeContactPersonEncounter(id: Int64) -> DiaryStoringVoidResult {
 		contactPersonEncounters.removeAll { $0.id == id }
 
 		updateDays()
@@ -153,7 +154,7 @@ class MockDiaryStore: DiaryStoring, DiaryProviding {
 		return .success(())
 	}
 
-	func removeLocationVisit(id: Int64) -> Result<Void, SQLiteErrorCode> {
+	func removeLocationVisit(id: Int64) -> DiaryStoringVoidResult {
 		locationVisits.removeAll { $0.id == id }
 
 		updateDays()
@@ -161,7 +162,7 @@ class MockDiaryStore: DiaryStoring, DiaryProviding {
 		return .success(())
 	}
 
-	func removeAllLocations() -> Result<Void, SQLiteErrorCode> {
+	func removeAllLocations() -> DiaryStoringVoidResult {
 		locations.removeAll()
 
 		updateDays()
@@ -169,11 +170,15 @@ class MockDiaryStore: DiaryStoring, DiaryProviding {
 		return .success(())
 	}
 
-	func removeAllContactPersons() -> Result<Void, SQLiteErrorCode> {
+	func removeAllContactPersons() -> DiaryStoringVoidResult {
 		contactPersons.removeAll()
 
 		updateDays()
 
+		return .success(())
+	}
+
+	func cleanup() -> DiaryStoringVoidResult {
 		return .success(())
 	}
 

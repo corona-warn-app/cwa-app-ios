@@ -398,6 +398,17 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		let personEncounterId = addPersonEncounter(personId: emmaHicksPersonId, date: seventeenDaysAgo, store: store)
 		let locationVisitId = addLocationVisit(locationId: kincardineLocationId, date: seventeenDaysAgo, store: store)
 
+		let personEncouterBeforeCleanupResult = fetchEntries(for: "ContactPersonEncounter", with: personEncounterId, from: database)
+		XCTAssertNotNil(personEncouterBeforeCleanupResult)
+
+		let locationVisitBeforeCleanupResult = fetchEntries(for: "LocationVisit", with: locationVisitId, from: database)
+		XCTAssertNotNil(locationVisitBeforeCleanupResult)
+
+		let cleanupResult = store.cleanup()
+		guard case .success = cleanupResult else {
+			fatalError("Failed to cleanup store.")
+		}
+
 		let personEncouterResult = fetchEntries(for: "ContactPersonEncounter", with: personEncounterId, from: database)
 		XCTAssertNil(personEncouterResult)
 

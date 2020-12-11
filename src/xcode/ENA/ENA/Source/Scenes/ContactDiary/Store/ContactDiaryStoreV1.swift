@@ -2,6 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
+import Foundation
+import UIKit
 import FMDB
 import Combine
 
@@ -34,7 +36,10 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		openAndSetup()
 
 		createSchemaIfNeeded(schema: schema)
-		_ = cleanupAndUpdate()
+		_ = cleanup()
+		_ = updateDiaryDays()
+
+		registerToDidFinishLaunchingNotification()
 	}
 
 	private func createSchemaIfNeeded(schema: ContactDiaryStoreSchemaV1) {
@@ -61,6 +66,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return
 			}
 		}
+	}
+
+	private func registerToDidFinishLaunchingNotification() {
+		NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActiveNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
+	}
+
+	@objc
+	private func didBecomeActiveNotification(_ notification: Notification) {
+		_ = cleanup()
 	}
 
 	private func fetchContactPersons(for date: String) -> Result<[DiaryContactPerson], SQLiteErrorCode> {
@@ -125,23 +139,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return .success(locations)
 	}
 
-	private func cleanupAndUpdate() -> Result<Void, SQLiteErrorCode> {
-		let cleanupResult = cleanup()
-		guard case .success = cleanupResult else {
-			Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-			return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
-		}
-
-		let updateDiaryDaysResult = updateDiaryDays()
-		guard case .success = updateDiaryDaysResult else {
-			Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-			return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
-		}
-
-		return .success(())
-	}
-
-	private func updateDiaryDays() -> Result<Void, SQLiteErrorCode> {
+	private func updateDiaryDays() -> DiaryStoringVoidResult {
 		var diaryDays = [DiaryDay]()
 
 		for index in 0...dataRetentionPeriodInDays {
@@ -184,7 +182,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return .success(())
 	}
 
-	private func cleanup() -> Result<Void, SQLiteErrorCode> {
+	func cleanup() -> DiaryStoringVoidResult {
 		Log.info("[ContactDiaryStore] Cleanup old entries.", log: .localData)
 
 		guard database.beginExclusiveTransaction() else {
@@ -218,7 +216,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return .success(())
 	}
 
-	func addContactPerson(name: String) -> Result<Int64, SQLiteErrorCode> {
+	func addContactPerson(name: String) -> DiaryStoringResult {
 		queue.sync {
 			Log.info("[ContactDiaryStore] Add ContactPerson.", log: .localData)
 
@@ -238,8 +236,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			let cleanupAndUpdateResult = self.cleanupAndUpdate()
-			guard case .success = cleanupAndUpdateResult else {
+			let updateDiaryDaysResult = updateDiaryDays()
+			guard case .success = updateDiaryDaysResult else {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
@@ -248,7 +246,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 	}
 
-	func addLocation(name: String) -> Result<Int64, SQLiteErrorCode> {
+	func addLocation(name: String) -> DiaryStoringResult {
 		queue.sync {
 			Log.info("[ContactDiaryStore] Add Location.", log: .localData)
 
@@ -269,8 +267,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			let cleanupAndUpdateResult = self.cleanupAndUpdate()
-			guard case .success = cleanupAndUpdateResult else {
+			let updateDiaryDaysResult = updateDiaryDays()
+			guard case .success = updateDiaryDaysResult else {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
@@ -279,7 +277,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 	}
 
-	func addContactPersonEncounter(contactPersonId: Int64, date: String) -> Result<Int64, SQLiteErrorCode> {
+	func addContactPersonEncounter(contactPersonId: Int64, date: String) -> DiaryStoringResult {
 		queue.sync {
 			Log.info("[ContactDiaryStore] Add ContactPersonEncounter.", log: .localData)
 
@@ -303,8 +301,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			let cleanupAndUpdateResult = self.cleanupAndUpdate()
-			guard case .success = cleanupAndUpdateResult else {
+			let updateDiaryDaysResult = updateDiaryDays()
+			guard case .success = updateDiaryDaysResult else {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
@@ -313,7 +311,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 	}
 
-	func addLocationVisit(locationId: Int64, date: String) -> Result<Int64, SQLiteErrorCode> {
+	func addLocationVisit(locationId: Int64, date: String) -> DiaryStoringResult {
 		queue.sync {
 			Log.info("[ContactDiaryStore] Add LocationVisit.", log: .localData)
 
@@ -337,8 +335,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			let cleanupAndUpdateResult = self.cleanupAndUpdate()
-			guard case .success = cleanupAndUpdateResult else {
+			let updateDiaryDaysResult = updateDiaryDays()
+			guard case .success = updateDiaryDaysResult else {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
@@ -347,7 +345,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 	}
 
-	func updateContactPerson(id: Int64, name: String) -> Result<Void, SQLiteErrorCode> {
+	func updateContactPerson(id: Int64, name: String) -> DiaryStoringVoidResult {
 		queue.sync {
 			Log.info("[ContactDiaryStore] Update ContactPerson with id: \(id).", log: .localData)
 
@@ -364,8 +362,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			let cleanupAndUpdateResult = self.cleanupAndUpdate()
-			guard case .success = cleanupAndUpdateResult else {
+			let updateDiaryDaysResult = updateDiaryDays()
+			guard case .success = updateDiaryDaysResult else {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
@@ -374,7 +372,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 	}
 
-	func updateLocation(id: Int64, name: String) -> Result<Void, SQLiteErrorCode> {
+	func updateLocation(id: Int64, name: String) -> DiaryStoringVoidResult {
 		queue.sync {
 			Log.info("[ContactDiaryStore] Update Location with id: \(id).", log: .localData)
 
@@ -391,8 +389,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			let cleanupAndUpdateResult = self.cleanupAndUpdate()
-			guard case .success = cleanupAndUpdateResult else {
+			let updateDiaryDaysResult = updateDiaryDays()
+			guard case .success = updateDiaryDaysResult else {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
@@ -401,7 +399,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 	}
 
-	func removeContactPerson(id: Int64) -> Result<Void, SQLiteErrorCode> {
+	func removeContactPerson(id: Int64) -> DiaryStoringVoidResult {
 		queue.sync {
 			Log.info("[ContactDiaryStore] Remove ContactPerson with id: \(id).", log: .localData)
 
@@ -417,8 +415,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			let cleanupAndUpdateResult = self.cleanupAndUpdate()
-			guard case .success = cleanupAndUpdateResult else {
+			let updateDiaryDaysResult = updateDiaryDays()
+			guard case .success = updateDiaryDaysResult else {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
@@ -427,7 +425,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 	}
 
-	func removeLocation(id: Int64) -> Result<Void, SQLiteErrorCode> {
+	func removeLocation(id: Int64) -> DiaryStoringVoidResult {
 		queue.sync {
 			Log.info("[ContactDiaryStore] Remove Location with id: \(id).", log: .localData)
 
@@ -443,8 +441,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			let cleanupAndUpdateResult = self.cleanupAndUpdate()
-			guard case .success = cleanupAndUpdateResult else {
+			let updateDiaryDaysResult = updateDiaryDays()
+			guard case .success = updateDiaryDaysResult else {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
@@ -453,7 +451,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 	}
 
-	func removeContactPersonEncounter(id: Int64) -> Result<Void, SQLiteErrorCode> {
+	func removeContactPersonEncounter(id: Int64) -> DiaryStoringVoidResult {
 		queue.sync {
 			Log.info("[ContactDiaryStore] Remove ContactPersonEncounter with id: \(id).", log: .localData)
 
@@ -469,8 +467,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			let cleanupAndUpdateResult = self.cleanupAndUpdate()
-			guard case .success = cleanupAndUpdateResult else {
+			let updateDiaryDaysResult = updateDiaryDays()
+			guard case .success = updateDiaryDaysResult else {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
@@ -479,7 +477,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 	}
 
-	func removeLocationVisit(id: Int64) -> Result<Void, SQLiteErrorCode> {
+	func removeLocationVisit(id: Int64) -> DiaryStoringVoidResult {
 		queue.sync {
 			Log.info("[ContactDiaryStore] Remove LocationVisit with id: \(id).", log: .localData)
 
@@ -495,17 +493,16 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			let cleanupAndUpdateResult = self.cleanupAndUpdate()
-			guard case .success = cleanupAndUpdateResult else {
+			let updateDiaryDaysResult = updateDiaryDays()
+			guard case .success = updateDiaryDaysResult else {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
-
 			return .success(())
 		}
 	}
 
-	func removeAllLocations() -> Result<Void, SQLiteErrorCode> {
+	func removeAllLocations() -> DiaryStoringVoidResult {
 		queue.sync {
 			Log.info("[ContactDiaryStore] Remove all Locations", log: .localData)
 
@@ -518,8 +515,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			let cleanupAndUpdateResult = self.cleanupAndUpdate()
-			guard case .success = cleanupAndUpdateResult else {
+			let updateDiaryDaysResult = updateDiaryDays()
+			guard case .success = updateDiaryDaysResult else {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
@@ -528,7 +525,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 	}
 
-	func removeAllContactPersons() -> Result<Void, SQLiteErrorCode> {
+	func removeAllContactPersons() -> DiaryStoringVoidResult {
 		queue.sync {
 			Log.info("[ContactDiaryStore] Remove all ContactPersons", log: .localData)
 
@@ -541,13 +538,36 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			let cleanupAndUpdateResult = self.cleanupAndUpdate()
-			guard case .success = cleanupAndUpdateResult else {
+			let updateDiaryDaysResult = updateDiaryDays()
+			guard case .success = updateDiaryDaysResult else {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
 			return .success(())
 		}
+	}
+}
+
+extension ContactDiaryStoreV1 {
+	convenience init(fileName: String) {
+		let fileManager = FileManager()
+		guard let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+			fatalError("unable to determine document dir")
+		}
+		let storeURL = documentDir
+				.appendingPathComponent(fileName)
+				.appendingPathExtension("sqlite3")
+
+		let db = FMDatabase(url: storeURL)
+
+		let queue = DispatchQueue(label: "ContactDiaryStoreSchemaV1TestsQueue")
+		let schema = ContactDiaryStoreSchemaV1(database: db, queue: queue)
+
+		self.init(
+			database: db,
+			queue: queue,
+			schema: schema
+		)
 	}
 }
