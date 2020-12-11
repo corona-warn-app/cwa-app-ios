@@ -10,6 +10,8 @@ import Combine
 // swiftlint:disable:next type_body_length
 class ContactDiaryStoreV1Tests: XCTestCase {
 
+	private var subscriptions = [AnyCancellable]()
+
 	func test_When_addContactPerson_Then_ContactPersonIsPersisted() {
 		let database = FMDatabase.inMemory()
 		let store = makeContactDiaryStore(with: database)
@@ -308,8 +310,6 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		XCTAssertNil(fetchPerson2ResultAfterDelete)
 	}
 
-	private var subscriptions = [AnyCancellable]()
-
 	func test_When_sinkOnDiaryDays_Then_diaryDaysAreReturned() {
 		let database = FMDatabase.inMemory()
 		let store = makeContactDiaryStore(with: database)
@@ -382,7 +382,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		}.store(in: &subscriptions)
 	}
 
-	func test_When_StoreIsCalled_Then_EntriesOlderThen16DaysAreDeleted() {
+	func test_When_cleanupIsCalled_Then_EntriesOlderThen16DaysAreDeleted() {
 		let database = FMDatabase.inMemory()
 		let store = makeContactDiaryStore(with: database)
 
@@ -414,6 +414,63 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 
 		let locationVisitResult = fetchEntries(for: "LocationVisit", with: locationVisitId, from: database)
 		XCTAssertNil(locationVisitResult)
+	}
+
+	func test_OrderIsCorrect() {
+		let database = FMDatabase.inMemory()
+		let store = makeContactDiaryStore(with: database)
+
+		addContactPerson(name: "Adam Sandale", to: store)
+		addContactPerson(name: "Adam Sandale", to: store)
+		addContactPerson(name: "Emma Hicks", to: store)
+
+		addLocation(name: "Amsterdam", to: store)
+		addLocation(name: "Berlin", to: store)
+		addLocation(name: "Berlin", to: store)
+
+		store.diaryDaysPublisher.sink { diaryDays in
+			let storedNames: [String] =
+				diaryDays[0].entries.map { entry in
+					switch entry {
+					case .contactPerson(let person):
+						return person.name
+					case .location(let location):
+						return location.name
+					}
+				}
+
+			let expectedNames = [
+				"Adam Sandale",
+				"Adam Sandale",
+				"Emma Hicks",
+				"Amsterdam",
+				"Berlin",
+				"Berlin"
+			]
+
+			XCTAssertEqual(storedNames, expectedNames)
+
+			let storedIds: [Int64] =
+				diaryDays[0].entries.map { entry in
+					switch entry {
+					case .contactPerson(let person):
+						return person.id
+					case .location(let location):
+						return location.id
+					}
+				}
+
+			let expectedIds = [
+				Int64(1),
+				Int64(2),
+				Int64(3),
+				Int64(1),
+				Int64(2),
+				Int64(3)
+			]
+
+			XCTAssertEqual(storedIds, expectedIds)
+		}.store(in: &subscriptions)
 	}
 
 	private func checkLocationEntry(entry: DiaryEntry, name: String, id: Int64, isSelected: Bool) {
