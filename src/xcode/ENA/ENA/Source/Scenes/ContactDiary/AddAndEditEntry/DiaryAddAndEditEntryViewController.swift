@@ -32,7 +32,6 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		setupView()
 		navigationItem.rightBarButtonItem = CloseBarButtonItem(
 			onTap: { [weak self] in
 				self?.onDismiss()
@@ -41,12 +40,17 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.largeTitleDisplayMode = .always
 
+		setupView()
 		setupBindiungs()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		entryTextField.becomeFirstResponder()
+	}
+
+	override var navigationItem: UINavigationItem {
+		navigationFooterItem
 	}
 
 	// MARK: - Private
@@ -57,11 +61,22 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 	private var entryTextField: DiaryEntryTextFiled!
 	private var bindings: [AnyCancellable] = []
 
+	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		let item = ENANavigationFooterItem()
+
+		item.primaryButtonTitle = AppStrings.ContactDiary.Information.primaryButtonTitle
+		item.isPrimaryButtonEnabled = true
+		item.isSecondaryButtonHidden = true
+
+		item.title = viewModel.title
+
+		return item
+	}()
+
 	private func setupView() {
 		title = viewModel.title
 
 		let scrollView = UIScrollView(frame: view.frame)
-		scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 55, right: 0.0)
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(scrollView)
 
@@ -85,8 +100,14 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 		])
 
 		entryTextField = DiaryEntryTextFiled(frame: .zero, xDeltaInset: 14.0)
-		entryTextField.placeholder = "Bezeichung"
+		entryTextField.placeholder = viewModel.placeholderText
 		entryTextField.textColor = .enaColor(for: .textPrimary1)
+		entryTextField.autocorrectionType = .no
+		entryTextField.autocapitalizationType = .sentences
+		entryTextField.spellCheckingType = .no
+		entryTextField.smartQuotesType = .no
+		entryTextField.keyboardAppearance = .default
+
 		entryTextField.translatesAutoresizingMaskIntoConstraints = false
 		entryTextField.isUserInteractionEnabled = true
 		contentView.addSubview(entryTextField)

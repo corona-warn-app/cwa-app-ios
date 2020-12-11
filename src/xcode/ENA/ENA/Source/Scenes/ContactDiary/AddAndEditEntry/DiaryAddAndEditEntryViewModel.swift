@@ -57,14 +57,36 @@ class DiaryAddAndEditEntryViewModel {
 		}
 	}
 
+	var placeholderText: String {
+		switch mode {
+		case .add(_, let entryType):
+			return placeholderText(from: entryType)
+		case .edit(let entry):
+			return placeholderText(from: entry.type)
+		}
+	}
+
 	// MARK: - Private
 
+	// Unfortunately, Swift does not currently have KeyPath support for static let,
+	// so we need to go that way
 	private func titleText(from type: DiaryEntryType) -> String {
 		switch type {
 		case .location:
-			return AppStrings.ContactDiary.AddEditEntry.locationTitle
+			return AppStrings.ContactDiary.AddEditEntry.location.title
 		case .contactPerson:
-			return AppStrings.ContactDiary.AddEditEntry.personTitle
+			return AppStrings.ContactDiary.AddEditEntry.person.title
+		}
+	}
+
+	// Unfortunately, Swift does not currently have KeyPath support for static let,
+	// so we need to go that way
+	private func placeholderText(from type: DiaryEntryType) -> String {
+		switch type {
+		case .location:
+			return AppStrings.ContactDiary.AddEditEntry.location.placeholder
+		case .contactPerson:
+			return AppStrings.ContactDiary.AddEditEntry.person.placeholder
 		}
 	}
 

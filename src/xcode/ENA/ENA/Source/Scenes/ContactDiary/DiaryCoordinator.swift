@@ -111,7 +111,7 @@ class DiaryCoordinator {
 			}
 		)
 
-		let navigationController = UINavigationController(rootViewController: viewController)
+		let navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
 		parentNavigationController?.present(navigationController, animated: true)
 	}
 
@@ -126,7 +126,7 @@ class DiaryCoordinator {
 			}
 		)
 
-		let navigationController = UINavigationController(rootViewController: viewController)
+		let navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
 		parentNavigationController?.present(navigationController, animated: true)
 	}
 
