@@ -282,7 +282,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		group.enter()
 
 		model.exposureSubmissionService.loadSupportedCountries { _ in
-			group.leave()
+			//
 		} onSuccess: { countries in
 			vc = ExposureSubmissionWarnOthersViewController(
 				supportedCountries: countries,
@@ -298,6 +298,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 					}
 				}
 			)
+			group.leave()
 		}
 
 		group.wait()
