@@ -284,7 +284,9 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		// get list of supported countries and create warn others view controller
 		appConfigurationProvider
 			.supportedCountries()
-			.sink(receiveValue: { countries in
+			.sink(receiveCompletion: { _ in
+				group.leave()
+			}, receiveValue: { countries in
 				vc = ExposureSubmissionWarnOthersViewController(
 					supportedCountries: countries,
 					onPrimaryButtonTap: { [weak self] isLoading in
@@ -299,7 +301,6 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 						}
 					}
 				)
-				group.leave()
 			})
 			.store(in: &subscriptions)
 
