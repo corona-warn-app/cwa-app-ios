@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import Combine
 
 class DiaryAddAndEditEntryViewController: UIViewController {
 
@@ -39,6 +40,8 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 		)
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.largeTitleDisplayMode = .always
+
+		setupBindiungs()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -50,7 +53,9 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 
 	private let viewModel: DiaryAddAndEditEntryViewModel
 	private let onDismiss: () -> Void
+
 	private var entryTextField: DiaryEntryTextFiled!
+	private var bindings: [AnyCancellable] = []
 
 	private func setupView() {
 		title = viewModel.title
@@ -92,6 +97,12 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 			entryTextField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 39.0),
 			entryTextField.heightAnchor.constraint(greaterThanOrEqualToConstant: 40.0)
 		])
+	}
+
+	private func setupBindiungs() {
+		viewModel.$textInput.sink { [entryTextField] newText in
+			entryTextField?.text = newText
+		}.store(in: &bindings)
 	}
 
 }

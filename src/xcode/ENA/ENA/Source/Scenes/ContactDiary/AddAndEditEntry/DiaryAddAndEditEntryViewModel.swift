@@ -4,10 +4,31 @@
 
 import Foundation
 import UIKit
+import Combine
 
-struct DiaryAddAndEditEntryViewModel {
+class DiaryAddAndEditEntryViewModel {
 
 	// MARK: - Init
+
+	init(
+		mode: Mode,
+		diaryService: DiaryService
+	) {
+		self.mode = mode
+		self.diaryService = diaryService
+
+		switch mode {
+		case .add:
+			self.textInput = ""
+		case .edit(let entry):
+			switch entry {
+			case .location(let location):
+				self.textInput = location.name
+			case .contactPerson(let person):
+				self.textInput = person.name
+			}
+		}
+	}
 
 	// MARK: - Overrides
 
@@ -17,6 +38,16 @@ struct DiaryAddAndEditEntryViewModel {
 
 	// MARK: - Internal
 
+	enum Mode {
+		case add(DiaryDay, DiaryEntryType)
+		case edit(DiaryEntry)
+	}
+
+	let mode: Mode
+	let diaryService: DiaryService
+
+	@Published private(set) var textInput: String
+
 	var title: String {
 		switch mode {
 		case .add(_, let entryType):
@@ -25,14 +56,6 @@ struct DiaryAddAndEditEntryViewModel {
 			return titleText(from: entry.type)
 		}
 	}
-
-	enum Mode {
-		case add(DiaryDay, DiaryEntryType)
-		case edit(DiaryEntry)
-	}
-
-	let mode: Mode
-	let diaryService: DiaryService
 
 	// MARK: - Private
 
