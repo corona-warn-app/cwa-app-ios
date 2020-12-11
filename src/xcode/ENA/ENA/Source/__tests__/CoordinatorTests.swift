@@ -26,7 +26,7 @@ private class MockNavigationController: UINavigationController {
 }
 
 private class MockCoordinatorDelegate: CoordinatorDelegate {
-	func coordinatorUserDidRequestReset() { }
+	func coordinatorUserDidRequestReset(exposureSubmissionService: ExposureSubmissionService) { }
 }
 
 class MockCoordinator: Coordinator {

@@ -13,19 +13,15 @@ class ExposureSubmissionTestResultConsentViewModel {
 	init(
 		supportedCountries: [Country],
 		exposureSubmissionService: ExposureSubmissionService,
-		onDismiss: (() -> Void)?
+		testResultAvailability: TestResultAvailability
 	) {
 		self.supportedCountries = supportedCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
 		self.exposureSubmissionService = exposureSubmissionService
-		self.onDismiss = onDismiss
+		self.testResultAvailability = testResultAvailability
 	}
 
 	// MARK: - Public
-
-	// MARK: - Internal
-
-	let onDismiss: (() -> Void)?
-
+	
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel.with {
 			$0.add(
@@ -65,7 +61,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 									// text needed here: https://www.figma.com/file/BpLyzxHZVa6a8BbSdcL76V/CWA_Submission_Flow_v02?node-id=388%3A3251
 									// but not here: https://www.figma.com/file/BpLyzxHZVa6a8BbSdcL76V/CWA_Submission_Flow_v02?node-id=388%3A3183
 									var part4: String = AppStrings.AutomaticSharingConsent.consentDescriptionPart4
-									if self.onDismiss != nil {
+									if self.testResultAvailability == .available {
 										part4.append(" \(AppStrings.AutomaticSharingConsent.consentDescriptionPart5)")
 									}
 
@@ -114,6 +110,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 	// MARK: - Private
 
 	private let supportedCountries: [Country]
+	private let testResultAvailability: TestResultAvailability
 
 	private var cancellables: Set<AnyCancellable> = []
 	private var exposureSubmissionService: ExposureSubmissionService
@@ -123,4 +120,11 @@ class ExposureSubmissionTestResultConsentViewModel {
 		exposureSubmissionService.isSubmissionConsentGiven = switchState.isOn
 	}
 
+}
+
+// MARK: - TestResultAvailability
+
+enum TestResultAvailability {
+	case available
+	case notAvailabile
 }
