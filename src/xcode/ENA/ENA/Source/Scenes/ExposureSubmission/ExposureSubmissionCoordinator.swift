@@ -374,9 +374,15 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
 				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
 					isLoading(false)
-
+					
 					if let error = error {
-						self?.showErrorAlert(for: error)
+						// User selected "Don't Share" / "Nicht teilen"
+						if case .notAuthorized = error {
+							self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
+						} else {
+							self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
+							self?.showErrorAlert(for: error)
+						}
 					} else {
 						self?.showThankYouScreen()
 					}
