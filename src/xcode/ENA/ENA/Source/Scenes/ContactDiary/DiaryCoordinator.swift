@@ -55,10 +55,10 @@ class DiaryCoordinator {
 				self?.showExportActivity()
 			},
 			onEditContactPersonsButtonTap: { [weak self] in
-				self?.showEditEntriesScreen(type: .contactPerson)
+				self?.showEditEntriesScreen(entryType: .contactPerson)
 			},
 			onEditLocationsButtonTap: { [weak self] in
-				self?.showEditEntriesScreen(type: .location)
+				self?.showEditEntriesScreen(entryType: .location)
 			}
 		)
 	}()
@@ -117,11 +117,12 @@ class DiaryCoordinator {
 		parentNavigationController?.present(navigationController, animated: true)
 	}
 
-	private func showEditEntriesScreen(type: DiaryEntryType) {
+	private func showEditEntriesScreen(entryType: DiaryEntryType) {
 		let navigationController = UINavigationController()
 
-		let viewController = DiaryEditEntriesTableViewController(
-			diaryService: diaryService,
+		let viewController = DiaryEditEntriesViewController(
+			entryType: entryType,
+			store: diaryService.store,
 			onCellSelection: { [weak self] entry in
 				self?.showAddAndEditEntryScreen(mode: .edit(entry))
 			},
