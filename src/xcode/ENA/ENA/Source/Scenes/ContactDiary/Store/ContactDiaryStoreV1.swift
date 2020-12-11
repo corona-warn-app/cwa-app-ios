@@ -353,7 +353,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 			let sql = """
 				UPDATE ContactPerson
-				SET name = ?
+				SET name = SUBSTR(?, 1, 250)
 				WHERE id = ?
 			"""
 
@@ -380,7 +380,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 			let sql = """
 				UPDATE Location
-				SET name = ?
+				SET name = SUBSTR(?, 1, 250)
 				WHERE id = ?
 			"""
 

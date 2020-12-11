@@ -487,7 +487,18 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		}
 
 		let expectedName = String(repeating: "Y", count: 250)
+
 		XCTAssertEqual(name, expectedName)
+
+		let updateResult = store.updateContactPerson(id: personId, name: stringWith251Chars)
+
+		guard case .success = updateResult,
+			  let contactPersonUpdated = fetchEntries(for: "ContactPerson", with: personId, from: database),
+			  let nameUpdated = contactPersonUpdated.string(forColumn: "name")  else {
+			fatalError("An error is not expected.")
+		}
+
+		XCTAssertEqual(nameUpdated, expectedName)
 	}
 
 	func test_When_LocationNameIsToLong_Then_LocationNameIsTruncated() {
@@ -504,7 +515,18 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		}
 
 		let expectedName = String(repeating: "Y", count: 250)
+		
 		XCTAssertEqual(name, expectedName)
+
+		let updateResult = store.updateLocation(id: locationId, name: stringWith251Chars)
+
+		guard case .success = updateResult,
+			  let locationUpdated = fetchEntries(for: "Location", with: locationId, from: database),
+			  let nameUpdated = locationUpdated.string(forColumn: "name")  else {
+			fatalError("An error is not expected.")
+		}
+
+		XCTAssertEqual(nameUpdated, expectedName)
 	}
 
 	private func checkLocationEntry(entry: DiaryEntry, name: String, id: Int64, isSelected: Bool) {
