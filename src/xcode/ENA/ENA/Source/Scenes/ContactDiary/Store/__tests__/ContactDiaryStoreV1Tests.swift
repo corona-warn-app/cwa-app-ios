@@ -515,7 +515,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		}
 
 		let expectedName = String(repeating: "Y", count: 250)
-		
+
 		XCTAssertEqual(name, expectedName)
 
 		let updateResult = store.updateLocation(id: locationId, name: stringWith251Chars)
@@ -625,4 +625,5 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		return dateFormatter
 	}()
 
+	// swiftlint:disable:next file_length
 }
