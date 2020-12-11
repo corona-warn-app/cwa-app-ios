@@ -32,14 +32,14 @@ class ContactDiaryStoreSchemaV1 {
 
 				CREATE TABLE IF NOT EXISTS ContactPersonEncounter (
 					id INTEGER PRIMARY KEY,
-					date STRING NOT NULL,
+					date TEXT NOT NULL,
 					contactPersonId INTEGER NOT NULL,
 					FOREIGN KEY(contactPersonId) REFERENCES ContactPerson(id) ON DELETE CASCADE
 				);
 
 				CREATE TABLE IF NOT EXISTS LocationVisit (
 					id INTEGER PRIMARY KEY,
-					date STRING NOT NULL,
+					date TEXT NOT NULL,
 					locationId INTEGER NOT NULL,
 					FOREIGN KEY(locationId) REFERENCES Location(id) ON DELETE CASCADE
 				);

@@ -4,8 +4,10 @@
 
 import XCTest
 import FMDB
+import Combine
 @testable import ENA
 
+// swiftlint:disable:next type_body_length
 class ContactDiaryStoreV1Tests: XCTestCase {
 
 	func test_When_addContactPerson_Then_ContactPersonIsPersisted() {
@@ -59,7 +61,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			return
 		}
 
-		let result = store.addContactPersonEncounter(contactPersonId: contactPersonId, date: "Some Date")
+		let result = store.addContactPersonEncounter(contactPersonId: contactPersonId, date: "2020-12-10")
 
 		if case let .failure(error) = result {
 			XCTFail("Error not expected: \(error)")
@@ -74,7 +76,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 
 		let fetchedContactPersonId = contactPersonEncounter.longLongInt(forColumn: "contactPersonId")
 
-		XCTAssertEqual(date, "Some Date")
+		XCTAssertEqual(date, "2020-12-10")
 		XCTAssertEqual(fetchedContactPersonId, contactPersonId)
 	}
 
@@ -89,7 +91,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			return
 		}
 
-		let result = store.addLocationVisit(locationId: locationId, date: "Some Date")
+		let result = store.addLocationVisit(locationId: locationId, date: "2020-12-10")
 
 		if case let .failure(error) = result {
 			XCTFail("Error not expected: \(error)")
@@ -104,7 +106,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 
 		let fetchedLocationId = locationVisit.longLongInt(forColumn: "locationId")
 
-		XCTAssertEqual(date, "Some Date")
+		XCTAssertEqual(date, "2020-12-10")
 		XCTAssertEqual(fetchedLocationId, locationId)
 	}
 
@@ -172,7 +174,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			return
 		}
 
-		let addEncounterResult = store.addContactPersonEncounter(contactPersonId: contactPersonId, date: "Some Date")
+		let addEncounterResult = store.addContactPersonEncounter(contactPersonId: contactPersonId, date: "2020-12-10")
 		guard case let .success(encounterId) = addEncounterResult else {
 			XCTFail("Failed to add ContactPersonEncounter")
 			return
@@ -200,7 +202,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			return
 		}
 
-		let addLocationVisitResult = store.addLocationVisit(locationId: locationId, date: "Some Date")
+		let addLocationVisitResult = store.addLocationVisit(locationId: locationId, date: "2020-12-10")
 		guard case let .success(locationVisitId) = addLocationVisitResult else {
 			XCTFail("Failed to add LocationVisit")
 			return
@@ -228,7 +230,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			return
 		}
 
-		let addEncounterResult = store.addContactPersonEncounter(contactPersonId: contactPersonId, date: "Some Date")
+		let addEncounterResult = store.addContactPersonEncounter(contactPersonId: contactPersonId, date: "2020-12-10")
 		guard case let .success(encounterId) = addEncounterResult else {
 			XCTFail("Failed to add ContactPersonEncounter")
 			return
@@ -256,7 +258,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			return
 		}
 
-		let addLocationVisitResult = store.addLocationVisit(locationId: locationId, date: "Some Date")
+		let addLocationVisitResult = store.addLocationVisit(locationId: locationId, date: "2020-12-10")
 		guard case let .success(locationVisitId) = addLocationVisitResult else {
 			XCTFail("Failed to add LocationVisit")
 			return
@@ -306,6 +308,121 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		XCTAssertNil(fetchPerson2ResultAfterDelete)
 	}
 
+	private var subscriptions = [AnyCancellable]()
+
+	func test_When_sinkOnDiaryDays_Then_diaryDaysAreReturned() {
+		let database = FMDatabase.inMemory()
+		let store = makeContactDiaryStore(with: database)
+
+		let today = Date()
+
+		guard let tenDaysAgo = Calendar.utcCalendar.date(byAdding: .day, value: -10, to: today),
+			  let sixteenDaysAgo = Calendar.utcCalendar.date(byAdding: .day, value: -16, to: today),
+			  let seventeenDaysAgo = Calendar.utcCalendar.date(byAdding: .day, value: -17, to: today) else {
+			fatalError("Could not create test dates.")
+		}
+
+		let emmaHicksPersonId = addContactPerson(name: "Emma Hicks", to: store)
+		let maryBarryPersonId = addContactPerson(name: "Mary Barry", to: store)
+
+		let conistonLocationId = addLocation(name: "Coniston", to: store)
+		let kincardineLocationId = addLocation(name: "Kincardine", to: store)
+
+		// Today
+		addLocationVisit(locationId: conistonLocationId, date: today, store: store)
+		addLocationVisit(locationId: kincardineLocationId, date: today, store: store)
+		addPersonEncounter(personId: emmaHicksPersonId, date: today, store: store)
+
+		// 10 days ago
+		addLocationVisit(locationId: kincardineLocationId, date: tenDaysAgo, store: store)
+		addPersonEncounter(personId: maryBarryPersonId, date: tenDaysAgo, store: store)
+
+		// 16 days ago (should not be persisted)
+		addPersonEncounter(personId: maryBarryPersonId, date: sixteenDaysAgo, store: store)
+		addPersonEncounter(personId: emmaHicksPersonId, date: sixteenDaysAgo, store: store)
+
+		// 17 days ago (should not be persisted)
+		addLocationVisit(locationId: kincardineLocationId, date: seventeenDaysAgo, store: store)
+		addLocationVisit(locationId: conistonLocationId, date: seventeenDaysAgo, store: store)
+
+		store.diaryDaysPublisher.sink { diaryDays in
+			// Only the last 16 days + today should be returned.
+			XCTAssertEqual(diaryDays.count, 17)
+
+			for diaryDay in diaryDays {
+				XCTAssertEqual(diaryDay.entries.count, 4)
+			}
+
+			// Test the data for today
+			let todayDiaryDay = diaryDays[0]
+
+			self.checkPersonEntry(entry: todayDiaryDay.entries[0], name: "Emma Hicks", id: emmaHicksPersonId, isSelected: true)
+			self.checkPersonEntry(entry: todayDiaryDay.entries[1], name: "Mary Barry", id: maryBarryPersonId, isSelected: false)
+
+			self.checkLocationEntry(entry: todayDiaryDay.entries[2], name: "Coniston", id: conistonLocationId, isSelected: true)
+			self.checkLocationEntry(entry: todayDiaryDay.entries[3], name: "Kincardine", id: kincardineLocationId, isSelected: true)
+
+			// Test the data for ten days ago
+			let tenDaysAgoDiaryDay = diaryDays[10]
+
+			self.checkPersonEntry(entry: tenDaysAgoDiaryDay.entries[0], name: "Emma Hicks", id: emmaHicksPersonId, isSelected: false)
+			self.checkPersonEntry(entry: tenDaysAgoDiaryDay.entries[1], name: "Mary Barry", id: maryBarryPersonId, isSelected: true)
+
+			self.checkLocationEntry(entry: tenDaysAgoDiaryDay.entries[2], name: "Coniston", id: conistonLocationId, isSelected: false)
+			self.checkLocationEntry(entry: tenDaysAgoDiaryDay.entries[3], name: "Kincardine", id: kincardineLocationId, isSelected: true)
+
+			// Test the data for sixteen days ago
+			let sixteenDaysAgoDiaryDay = diaryDays[16]
+			self.checkPersonEntry(entry: sixteenDaysAgoDiaryDay.entries[0], name: "Emma Hicks", id: emmaHicksPersonId, isSelected: true)
+			self.checkPersonEntry(entry: sixteenDaysAgoDiaryDay.entries[1], name: "Mary Barry", id: maryBarryPersonId, isSelected: true)
+
+			self.checkLocationEntry(entry: sixteenDaysAgoDiaryDay.entries[2], name: "Coniston", id: conistonLocationId, isSelected: false)
+			self.checkLocationEntry(entry: sixteenDaysAgoDiaryDay.entries[3], name: "Kincardine", id: kincardineLocationId, isSelected: false)
+
+		}.store(in: &subscriptions)
+	}
+
+	func test_When_StoreIsCalled_Then_EntriesOlderThen16DaysAreDeleted() {
+		let database = FMDatabase.inMemory()
+		let store = makeContactDiaryStore(with: database)
+
+		let today = Date()
+
+		guard let seventeenDaysAgo = Calendar.utcCalendar.date(byAdding: .day, value: -17, to: today) else {
+			fatalError("Could not create test dates.")
+		}
+
+		let emmaHicksPersonId = addContactPerson(name: "Emma Hicks", to: store)
+		let kincardineLocationId = addLocation(name: "Kincardine", to: store)
+
+		let personEncounterId = addPersonEncounter(personId: emmaHicksPersonId, date: seventeenDaysAgo, store: store)
+		let locationVisitId = addLocationVisit(locationId: kincardineLocationId, date: seventeenDaysAgo, store: store)
+
+		let personEncouterResult = fetchEntries(for: "ContactPersonEncounter", with: personEncounterId, from: database)
+		XCTAssertNil(personEncouterResult)
+
+		let locationVisitResult = fetchEntries(for: "LocationVisit", with: locationVisitId, from: database)
+		XCTAssertNil(locationVisitResult)
+	}
+
+	private func checkLocationEntry(entry: DiaryEntry, name: String, id: Int64, isSelected: Bool) {
+		guard case .location(let location) = entry else {
+			fatalError("Not expected")
+		}
+		XCTAssertEqual(location.name, name)
+		XCTAssertEqual(location.id, id)
+		XCTAssertEqual(entry.isSelected, isSelected)
+	}
+
+	private func checkPersonEntry(entry: DiaryEntry, name: String, id: Int64, isSelected: Bool) {
+		guard case .contactPerson(let person) = entry else {
+			fatalError("Not expected")
+		}
+		XCTAssertEqual(person.name, name)
+		XCTAssertEqual(person.id, id)
+		XCTAssertEqual(entry.isSelected, isSelected)
+	}
+
 	private func fetchEntries(for table: String, with id: Int64, from database: FMDatabase) -> FMResultSet? {
 		let sql =
 		"""
@@ -329,6 +446,44 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		return result
 	}
 
+	@discardableResult
+	private func addContactPerson(name: String, to store: ContactDiaryStoreV1) -> Int64 {
+		let addContactPersonResult = store.addContactPerson(name: name)
+		guard case let .success(contactPersonId) = addContactPersonResult else {
+			fatalError("Failed to add ContactPerson")
+		}
+		return contactPersonId
+	}
+
+	@discardableResult
+	private func addLocation(name: String, to store: ContactDiaryStoreV1) -> Int64 {
+		let addLocationResult = store.addLocation(name: name)
+		guard case let .success(locationId) = addLocationResult else {
+			fatalError("Failed to add Location")
+		}
+		return locationId
+	}
+
+	@discardableResult
+	private func addLocationVisit(locationId: Int64, date: Date, store: ContactDiaryStoreV1) -> Int64 {
+		let dateString = dateFormatter.string(from: date)
+		let addLocationVisitResult = store.addLocationVisit(locationId: locationId, date: dateString)
+		guard case let .success(locationVisitId) = addLocationVisitResult else {
+			fatalError("Failed to add LocationVisit")
+		}
+		return locationVisitId
+	}
+
+	@discardableResult
+	private func addPersonEncounter(personId: Int64, date: Date, store: ContactDiaryStoreV1) -> Int64 {
+		let dateString = dateFormatter.string(from: date)
+		let addEncounterResult = store.addContactPersonEncounter(contactPersonId: personId, date: dateString)
+		guard case let .success(encounterId) = addEncounterResult else {
+			fatalError("Failed to add ContactPersonEncounter")
+		}
+		return encounterId
+	}
+
 	private func makeContactDiaryStore(with database: FMDatabase) -> ContactDiaryStoreV1 {
 		let queue = DispatchQueue(label: "ContactDiaryStoreSchemaV1TestsQueue")
 		let schema = ContactDiaryStoreSchemaV1(database: database, queue: queue)
@@ -339,4 +494,11 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			schema: schema
 		)
 	}
+
+	private var dateFormatter: ISO8601DateFormatter = {
+		let dateFormatter = ISO8601DateFormatter()
+		dateFormatter.formatOptions = [.withFullDate]
+		return dateFormatter
+	}()
+
 }

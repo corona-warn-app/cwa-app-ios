@@ -17,40 +17,49 @@ struct LocationVisit {
 	let locationId: Int64
 }
 
+typealias DiaryStoringProviding = DiaryStoring & DiaryProviding
+
 protocol DiaryStoring {
 
-	var diaryDaysPublisher: Published<[DiaryDay]>.Publisher { get }
+	typealias DiaryStoringResult = Result<Int64, SQLiteErrorCode>
+	typealias DiaryStoringVoidResult = Result<Void, SQLiteErrorCode>
 
 	@discardableResult
-	func addContactPerson(name: String) -> Result<Int64, SQLiteErrorCode>
+	func addContactPerson(name: String) -> DiaryStoringResult
 	@discardableResult
-	func addLocation(name: String) -> Result<Int64, SQLiteErrorCode>
+	func addLocation(name: String) -> DiaryStoringResult
 	@discardableResult
-	func addContactPersonEncounter(contactPersonId: Int64, date: String) -> Result<Int64, SQLiteErrorCode>
+	func addContactPersonEncounter(contactPersonId: Int64, date: String) -> DiaryStoringResult
 	@discardableResult
-	func addLocationVisit(locationId: Int64, date: String) -> Result<Int64, SQLiteErrorCode>
+	func addLocationVisit(locationId: Int64, date: String) -> DiaryStoringResult
 
 	@discardableResult
-	func updateContactPerson(id: Int64, name: String) -> Result<Void, SQLiteErrorCode>
+	func updateContactPerson(id: Int64, name: String) -> DiaryStoringVoidResult
 	@discardableResult
-	func updateLocation(id: Int64, name: String) -> Result<Void, SQLiteErrorCode>
+	func updateLocation(id: Int64, name: String) -> DiaryStoringVoidResult
 
 	@discardableResult
-	func removeContactPerson(id: Int64) -> Result<Void, SQLiteErrorCode>
+	func removeContactPerson(id: Int64) -> DiaryStoringVoidResult
 	@discardableResult
-	func removeLocation(id: Int64) -> Result<Void, SQLiteErrorCode>
+	func removeLocation(id: Int64) -> DiaryStoringVoidResult
 	@discardableResult
-	func removeContactPersonEncounter(id: Int64) -> Result<Void, SQLiteErrorCode>
+	func removeContactPersonEncounter(id: Int64) -> DiaryStoringVoidResult
 	@discardableResult
-	func removeLocationVisit(id: Int64) -> Result<Void, SQLiteErrorCode>
+	func removeLocationVisit(id: Int64) -> DiaryStoringVoidResult
 	@discardableResult
-	func removeAllLocations() -> Result<Void, SQLiteErrorCode>
+	func removeAllLocations() -> DiaryStoringVoidResult
 	@discardableResult
-	func removeAllContactPersons() -> Result<Void, SQLiteErrorCode>
+	func removeAllContactPersons() -> DiaryStoringVoidResult
 
 }
 
-class MockDiaryStore: DiaryStoring {
+protocol DiaryProviding {
+
+	var diaryDaysPublisher: Published<[DiaryDay]>.Publisher { get }
+
+}
+
+class MockDiaryStore: DiaryStoring, DiaryProviding {
 
 	// MARK: - Init
 
@@ -215,7 +224,7 @@ class DiaryService {
 
 	// MARK: - Init
 
-	init(store: DiaryStoring) {
+	init(store: DiaryStoringProviding) {
 		self.store = store
 
 		store.diaryDaysPublisher.sink { [weak self] in
@@ -258,7 +267,7 @@ class DiaryService {
 
 	// MARK: - Private
 
-	private let store: DiaryStoring
+	private let store: DiaryStoringProviding
 
 	private var subscriptions: [AnyCancellable] = []
 
@@ -268,7 +277,7 @@ class DiaryDayService {
 
 	// MARK: - Init
 
-	init(day: DiaryDay, store: DiaryStoring) {
+	init(day: DiaryDay, store: DiaryStoringProviding) {
 		self.day = day
 		self.store = store
 
@@ -329,7 +338,7 @@ class DiaryDayService {
 
 	// MARK: - Private
 
-	private let store: DiaryStoring
+	private let store: DiaryStoringProviding
 
 	private var subscriptions: [AnyCancellable] = []
 

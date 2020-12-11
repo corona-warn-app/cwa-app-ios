@@ -5,7 +5,16 @@
 import FMDB
 import Combine
 
-class ContactDiaryStoreV1: DiaryStoring {
+// swiftlint:disable:next type_body_length
+class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
+
+	private let dataRetentionPeriodInDays = 16
+
+	private var dateFormatter: ISO8601DateFormatter = {
+		let dateFormatter = ISO8601DateFormatter()
+		dateFormatter.formatOptions = [.withFullDate]
+		return dateFormatter
+	}()
 
 	var diaryDaysPublisher: Published<[DiaryDay]>.Publisher { $diaryDays }
 
@@ -25,15 +34,11 @@ class ContactDiaryStoreV1: DiaryStoring {
 		openAndSetup()
 
 		createSchemaIfNeeded(schema: schema)
-		updateDiaryDays()
+		_ = cleanupAndUpdate()
 	}
 
-	func createSchemaIfNeeded(schema: ContactDiaryStoreSchemaV1) {
+	private func createSchemaIfNeeded(schema: ContactDiaryStoreSchemaV1) {
 		_ = schema.create()
-	}
-
-	private func updateDiaryDays() {
-
 	}
 
 	private func openAndSetup() {
@@ -58,6 +63,161 @@ class ContactDiaryStoreV1: DiaryStoring {
 		}
 	}
 
+	private func fetchContactPersons(for date: String) -> Result<[DiaryContactPerson], SQLiteErrorCode> {
+		var contactPersons = [DiaryContactPerson]()
+
+		let sql = """
+				SELECT ContactPerson.id AS contactPersonId, ContactPerson.name, ContactPersonEncounter.id AS contactPersonEncounterId
+				FROM ContactPerson
+				LEFT JOIN ContactPersonEncounter
+				ON ContactPersonEncounter.contactPersonId = ContactPerson.id
+				AND ContactPersonEncounter.date = ?
+			"""
+
+		do {
+			let result = try self.database.executeQuery(sql, values: [date])
+
+			while result.next() {
+				let encounterId = result.longLongInt(forColumn: "contactPersonEncounterId")
+				let contactPerson = DiaryContactPerson(
+					id: result.longLongInt(forColumn: "contactPersonId"),
+					name: result.string(forColumn: "name") ?? "",
+					encounterId: encounterId == 0 ? nil : encounterId
+				)
+				contactPersons.append(contactPerson)
+			}
+		} catch {
+			Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+			return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+		}
+
+		return .success(contactPersons)
+	}
+
+	private func fetchLocations(for date: String) -> Result<[DiaryLocation], SQLiteErrorCode> {
+		var locations = [DiaryLocation]()
+
+		let sql = """
+				SELECT Location.id AS locationId, Location.name, LocationVisit.id AS locationVisitId
+				FROM Location
+				LEFT JOIN LocationVisit
+				ON Location.id = LocationVisit.locationId
+				AND LocationVisit.date = ?
+			"""
+
+		do {
+			let result = try self.database.executeQuery(sql, values: [date])
+
+			while result.next() {
+				let visitId = result.longLongInt(forColumn: "locationVisitId")
+				let contactPerson = DiaryLocation(
+					id: result.longLongInt(forColumn: "locationId"),
+					name: result.string(forColumn: "name") ?? "",
+					visitId: visitId == 0 ? nil : visitId
+				)
+				locations.append(contactPerson)
+			}
+		} catch {
+			Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+			return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+		}
+
+		return .success(locations)
+	}
+
+	private func cleanupAndUpdate() -> Result<Void, SQLiteErrorCode> {
+		let cleanupResult = cleanup()
+		guard case .success = cleanupResult else {
+			Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+			return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+		}
+
+		let updateDiaryDaysResult = updateDiaryDays()
+		guard case .success = updateDiaryDaysResult else {
+			Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+			return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+		}
+
+		return .success(())
+	}
+
+	private func updateDiaryDays() -> Result<Void, SQLiteErrorCode> {
+		var diaryDays = [DiaryDay]()
+
+		for index in 0...dataRetentionPeriodInDays {
+			guard let date = Calendar.utcCalendar.date(byAdding: .day, value: -index, to: Date()) else {
+				continue
+			}
+			let dateString = dateFormatter.string(from: date)
+
+			let contactPersonsResult = fetchContactPersons(for: dateString)
+
+			var personDiaryEntries: [DiaryEntry]
+			switch contactPersonsResult {
+			case .success(let contactPersons):
+				personDiaryEntries = contactPersons.map {
+					return DiaryEntry.contactPerson($0)
+				}
+			case .failure(let error):
+				return .failure(error)
+			}
+
+			let locationsResult = fetchLocations(for: dateString)
+
+			var locationDiaryEntries: [DiaryEntry]
+			switch locationsResult {
+			case .success(let locations):
+				locationDiaryEntries = locations.map {
+					return DiaryEntry.location($0)
+				}
+			case .failure(let error):
+				return .failure(error)
+			}
+
+			let diaryEntries = personDiaryEntries + locationDiaryEntries
+			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries)
+			diaryDays.append(diaryDay)
+		}
+
+		self.diaryDays = diaryDays
+
+		return .success(())
+	}
+
+	private func cleanup() -> Result<Void, SQLiteErrorCode> {
+		Log.info("[ContactDiaryStore] Cleanup old entries.", log: .localData)
+
+		guard database.beginExclusiveTransaction() else {
+			Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+			return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+		}
+
+		let sqlContactPersonEncounter = """
+				DELETE FROM ContactPersonEncounter
+				WHERE date < date('now','-\(dataRetentionPeriodInDays) days')
+			"""
+
+		let sqlLocationVisit = """
+				DELETE FROM LocationVisit
+				WHERE date < date('now','-\(dataRetentionPeriodInDays) days')
+			"""
+
+		do {
+			try self.database.executeUpdate(sqlContactPersonEncounter, values: nil)
+			try self.database.executeUpdate(sqlLocationVisit, values: nil)
+		} catch {
+			Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+			return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+		}
+
+		guard database.commit() else {
+			Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+			return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+		}
+
+		return .success(())
+	}
+
 	func addContactPerson(name: String) -> Result<Int64, SQLiteErrorCode> {
 		queue.sync {
 			Log.info("[ContactDiaryStore] Add ContactPerson.", log: .localData)
@@ -78,7 +238,11 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			updateDiaryDays()
+			let cleanupAndUpdateResult = self.cleanupAndUpdate()
+			guard case .success = cleanupAndUpdateResult else {
+				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+			}
 
 			return .success(database.lastInsertRowId)
 		}
@@ -105,7 +269,11 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			updateDiaryDays()
+			let cleanupAndUpdateResult = self.cleanupAndUpdate()
+			guard case .success = cleanupAndUpdateResult else {
+				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+			}
 
 			return .success(database.lastInsertRowId)
 		}
@@ -121,13 +289,13 @@ class ContactDiaryStoreV1: DiaryStoring {
 					contactPersonId
 				)
 				VALUES (
-					:date,
+					date(:dateString),
 					:contactPersonId
 				);
 			"""
 
 			let parameters: [String: Any] = [
-				"date": date,
+				"dateString": date,
 				"contactPersonId": contactPersonId
 			]
 			guard self.database.executeUpdate(sql, withParameterDictionary: parameters) else {
@@ -135,7 +303,11 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			updateDiaryDays()
+			let cleanupAndUpdateResult = self.cleanupAndUpdate()
+			guard case .success = cleanupAndUpdateResult else {
+				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+			}
 
 			return .success(database.lastInsertRowId)
 		}
@@ -151,13 +323,13 @@ class ContactDiaryStoreV1: DiaryStoring {
 					locationId
 				)
 				VALUES (
-					:date,
+					date(:dateString),
 					:locationId
 				);
 			"""
 
 			let parameters: [String: Any] = [
-				"date": date,
+				"dateString": date,
 				"locationId": locationId
 			]
 			guard self.database.executeUpdate(sql, withParameterDictionary: parameters) else {
@@ -165,7 +337,11 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			updateDiaryDays()
+			let cleanupAndUpdateResult = self.cleanupAndUpdate()
+			guard case .success = cleanupAndUpdateResult else {
+				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+			}
 
 			return .success(database.lastInsertRowId)
 		}
@@ -188,7 +364,11 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			updateDiaryDays()
+			let cleanupAndUpdateResult = self.cleanupAndUpdate()
+			guard case .success = cleanupAndUpdateResult else {
+				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+			}
 
 			return .success(())
 		}
@@ -211,7 +391,11 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			updateDiaryDays()
+			let cleanupAndUpdateResult = self.cleanupAndUpdate()
+			guard case .success = cleanupAndUpdateResult else {
+				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+			}
 
 			return .success(())
 		}
@@ -233,7 +417,11 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			updateDiaryDays()
+			let cleanupAndUpdateResult = self.cleanupAndUpdate()
+			guard case .success = cleanupAndUpdateResult else {
+				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+			}
 
 			return .success(())
 		}
@@ -255,7 +443,11 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			updateDiaryDays()
+			let cleanupAndUpdateResult = self.cleanupAndUpdate()
+			guard case .success = cleanupAndUpdateResult else {
+				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+			}
 
 			return .success(())
 		}
@@ -277,7 +469,11 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			updateDiaryDays()
+			let cleanupAndUpdateResult = self.cleanupAndUpdate()
+			guard case .success = cleanupAndUpdateResult else {
+				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+			}
 
 			return .success(())
 		}
@@ -299,7 +495,11 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			updateDiaryDays()
+			let cleanupAndUpdateResult = self.cleanupAndUpdate()
+			guard case .success = cleanupAndUpdateResult else {
+				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+			}
 
 			return .success(())
 		}
@@ -318,7 +518,11 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			updateDiaryDays()
+			let cleanupAndUpdateResult = self.cleanupAndUpdate()
+			guard case .success = cleanupAndUpdateResult else {
+				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+			}
 
 			return .success(())
 		}
@@ -337,7 +541,11 @@ class ContactDiaryStoreV1: DiaryStoring {
 				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			updateDiaryDays()
+			let cleanupAndUpdateResult = self.cleanupAndUpdate()
+			guard case .success = cleanupAndUpdateResult else {
+				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+			}
 
 			return .success(())
 		}
