@@ -147,20 +147,27 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 			Log.debug("fetching cached app configuration", log: .appConfig)
 			// use the cached version
 			return Just(cachedVersion)
-				.receive(on: DispatchQueue.main)
 				.eraseToAnyPublisher()
 		} else {
 			Log.debug("fetching fresh app configuration. forceFetch: \(forceFetch), force: \(force)", log: .appConfig)
 			// fetch a new one
 			return getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag)
 				.map({ $0.config })
-				.receive(on: DispatchQueue.main)
 				.eraseToAnyPublisher()
 		}
 	}
 
 	func appConfiguration() -> AnyPublisher<SAP_Internal_V2_ApplicationConfigurationIOS, Never> {
 		return appConfiguration(forceFetch: false)
+	}
+
+	func supportedCountries() -> AnyPublisher<[Country], Never> {
+		return appConfiguration()
+			.map({ config -> [Country] in
+				let countries = config.supportedCountries.compactMap({ Country(countryCode: $0) })
+				return countries.isEmpty ? [.defaultCountry()] : countries
+			})
+			.eraseToAnyPublisher()
 	}
 
 	/// Simple helper to simulate Cache-Control
