@@ -281,28 +281,24 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		let group = DispatchGroup()
 		group.enter()
 
-		// get list of supported countries and create warn others view controller
-		appConfigurationProvider
-			.supportedCountries()
-			.sink(receiveCompletion: { _ in
-				group.leave()
-			}, receiveValue: { countries in
-				vc = ExposureSubmissionWarnOthersViewController(
-					supportedCountries: countries,
-					onPrimaryButtonTap: { [weak self] isLoading in
-						self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
-						self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
-							isLoading(false)
-							if let error = error {
-								self?.showErrorAlert(for: error)
-							} else {
-								self?.showThankYouScreen()
-							}
+		model.exposureSubmissionService.loadSupportedCountries { _ in
+			group.leave()
+		} onSuccess: { countries in
+			vc = ExposureSubmissionWarnOthersViewController(
+				supportedCountries: countries,
+				onPrimaryButtonTap: { [weak self] isLoading in
+					self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
+					self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
+						isLoading(false)
+						if let error = error {
+							self?.showErrorAlert(for: error)
+						} else {
+							self?.showThankYouScreen()
 						}
 					}
-				)
-			})
-			.store(in: &subscriptions)
+				}
+			)
+		}
 
 		group.wait()
 		// swiftlint:disable:next force_unwrapping
