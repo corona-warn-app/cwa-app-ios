@@ -139,6 +139,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
 		
+		// This may fail in future because of the Thank You card. So, just check the home screen
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		waitForNonExistence(of: app.buttons["AppStrings.ExposureSubmission.primaryButton"], timeout: .long)
 	}
 
@@ -178,7 +180,11 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
+		
+		// This may fail in future because of the Thank You card. So, just check the home screen
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		waitForNonExistence(of: app.buttons["AppStrings.ExposureSubmission.primaryButton"], timeout: .long)
+		
 	}
 
 	func test_SubmitTAN_SymptomsOnsetDateOption() {
@@ -263,7 +269,11 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
+		
+		// This may fail in future because of the Thank You card. So, just check the home screen
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		waitForNonExistence(of: app.buttons["AppStrings.ExposureSubmission.primaryButton"], timeout: .long)
+		
 	}
 
 	func test_SubmitTAN_CancelOnTestResultScreen() {
