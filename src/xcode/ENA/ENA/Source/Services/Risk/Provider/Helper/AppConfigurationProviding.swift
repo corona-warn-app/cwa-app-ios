@@ -18,7 +18,7 @@ protocol AppConfigurationProviding: AnyObject {
 	/// App configuration publisher that provides the latest app config or a locally stored default config.
 	func appConfiguration() -> AnyPublisher<SAP_Internal_V2_ApplicationConfigurationIOS, Never>
 
-	/// The list of partner coutries provided by the app config, or the default country.
+	/// The list of partner countries provided by the app config, or the default country.
 	func supportedCountries() -> AnyPublisher<[Country], Never>
 }
 
