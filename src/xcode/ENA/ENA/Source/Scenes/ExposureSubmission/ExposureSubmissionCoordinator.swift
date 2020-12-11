@@ -108,39 +108,19 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		push(vc)
 	}
 
-	// MARK: - Internal
-
-	/// - NOTE: We keep a weak reference here to avoid a reference cycle.
-	///  (the navigationController holds a strong reference to the coordinator).
-	weak var navigationController: UINavigationController?
-
-	// MARK: - Private
-
-	private weak var parentNavigationController: UINavigationController?
-	private weak var presentedViewController: UIViewController?
-
-	private var model: ExposureSubmissionCoordinatorModel!
-	private let warnOthersReminder: WarnOthersRemindable
-	
-	private func push(_ vc: UIViewController) {
-		self.navigationController?.pushViewController(vc, animated: true)
-	}
-
-	// MARK: Initial Screens
-
 	/// This method selects the correct initial view controller among the following options:
 	/// Option 1: (only for UITESTING) if the `-negativeResult` flag was passed, return ExposureSubmissionTestResultViewController
 	/// Option 2: if a test result was passed, the method checks further preconditions (e.g. the exposure submission service has a registration token)
 	/// and returns an ExposureSubmissionTestResultViewController.
 	/// Option 3: (default) return the ExposureSubmissionIntroViewController.
-	private func getInitialViewController(with result: TestResult? = nil) -> UIViewController {
+	func getInitialViewController(with result: TestResult? = nil) -> UIViewController {
 		#if DEBUG
 		if isUITesting {
 			model.exposureSubmissionService.isSubmissionConsentGiven = false
 			if UserDefaults.standard.string(forKey: "isSubmissionConsentGiven") == "YES" {
 				model.exposureSubmissionService.isSubmissionConsentGiven = true
 			}
-			
+
 			if let testResultStringValue = UserDefaults.standard.string(forKey: "testResult"),
 			   let testResult = TestResult(stringValue: testResultStringValue) {
 				return createTestResultViewController(with: testResult)
@@ -151,8 +131,12 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		// We got a test result and can jump straight into the test result view controller.
 		if let testResult = result, model.exposureSubmissionService.hasRegistrationToken {
 			// For a positive test result we show the test result available screen if it wasn't shown before
-			if testResult == .positive && !warnOthersReminder.positiveTestResultWasShown {
-				return createTestResultAvailableViewController(testResult: testResult)
+			if testResult == .positive {
+				if !warnOthersReminder.positiveTestResultWasShown {
+					return createTestResultAvailableViewController(testResult: testResult)
+				} else {
+					return createWarnOthersViewController()
+				}
 			} else {
 				return createTestResultViewController(with: testResult)
 			}
@@ -173,6 +157,28 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		)
 		return ExposureSubmissionIntroViewController(viewModel)
 	}
+
+	// MARK: - Internal
+
+	/// - NOTE: We keep a weak reference here to avoid a reference cycle.
+	///  (the navigationController holds a strong reference to the coordinator).
+	weak var navigationController: UINavigationController?
+
+	// MARK: - Private
+
+	private weak var parentNavigationController: UINavigationController?
+	private weak var presentedViewController: UIViewController?
+
+	private var model: ExposureSubmissionCoordinatorModel!
+	private let warnOthersReminder: WarnOthersRemindable
+	
+	private func push(_ vc: UIViewController) {
+		self.navigationController?.pushViewController(vc, animated: true)
+	}
+
+	private var subscriptions = [AnyCancellable]()
+
+	// MARK: Initial Screens
 
 	private func createTestResultAvailableViewController(testResult: TestResult) -> UIViewController {
 		let viewModel = TestResultAvailableViewModel(
@@ -265,6 +271,26 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				
 			}
 		)
+	}
+
+	private func createWarnOthersViewController() -> ExposureSubmissionWarnOthersViewController {
+		// ugly but works for the moment
+		// refactoring more of the coordinator-logic to facilitate combine would help
+		let vc = ExposureSubmissionWarnOthersViewController(
+			supportedCountries: model.exposureSubmissionService.supportedCountries,
+			onPrimaryButtonTap: { [weak self] isLoading in
+				self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
+				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
+					isLoading(false)
+					if let error = error {
+						self?.showErrorAlert(for: error)
+					} else {
+						self?.showThankYouScreen()
+					}
+				}
+			}
+		)
+		return vc
 	}
 
 	// MARK: Screen Flow
