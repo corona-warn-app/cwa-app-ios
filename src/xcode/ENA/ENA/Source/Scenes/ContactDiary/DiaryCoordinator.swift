@@ -90,8 +90,6 @@ class DiaryCoordinator {
 	}
 
 	private func showAddAndEditEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode) {
-		let navigationController = UINavigationController()
-
 		let viewController = DiaryAddAndEditEntryViewController(
 			mode: mode,
 			diaryService: diaryService,
@@ -99,14 +97,12 @@ class DiaryCoordinator {
 				self?.parentNavigationController?.dismiss(animated: true)
 			}
 		)
-		navigationController.viewControllers = [viewController]
 
+		let navigationController = UINavigationController(rootViewController: viewController)
 		parentNavigationController?.present(navigationController, animated: true)
 	}
 
 	private func showEditEntriesScreen(type: DiaryEntryType) {
-		let navigationController = UINavigationController()
-
 		let viewController = DiaryEditEntriesTableViewController(
 			diaryService: diaryService,
 			onCellSelection: { [weak self] entry in
@@ -116,8 +112,8 @@ class DiaryCoordinator {
 				self?.parentNavigationController?.dismiss(animated: true)
 			}
 		)
-		navigationController.viewControllers = [viewController]
 
+		let navigationController = UINavigationController(rootViewController: viewController)
 		parentNavigationController?.present(navigationController, animated: true)
 	}
 
