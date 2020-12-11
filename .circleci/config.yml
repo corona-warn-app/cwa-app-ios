@@ -117,16 +117,27 @@ jobs:
       language:
         default: "de-DE"
         type: string
+      displaymode:
+        default: "light"
+        type: string
     steps:
       - attach_workspace:
           at: .
       - install-tools # chaching currently fails, needs some further tweaks
       - run:
           name: Snapshot
-          command: cd src/xcode && bundle exec fastlane run snapshot languages:<<parameters.language>> clear_previous_screenshots:"false" && cd -
-      - run:
-          name: Rename overview html
-          command: mv src/xcode/screenshots/screenshots.html src/xcode/screenshots/screenshots-<<parameters.language>>.html
+          command: |
+            case <<parameters.displaymode>> in
+             "dark") use_dark_mode=true ;;
+             *) use_dark_mode=false ;;
+            esac
+            cd src/xcode
+            bundle exec fastlane run snapshot \
+              languages:<<parameters.language>> \
+              dark_mode:${use_dark_mode} \
+              clear_previous_screenshots:"false" \
+              output_directory:screenshots/screenshots-<<parameters.language>>-<<parameters.displaymode>>
+            cd -
       - persist_to_workspace:
           root: .
           paths:
@@ -202,6 +213,7 @@ workflows:
             matrix:
               parameters:
                 language: ["de-DE", "en-EN", "bg-BG", "ro-RO", "pl-PL", "tr-TR"]
+                displaymode: ["dark", "light"]
             requires:
               - dependencies
         - collect-snapshots:
@@ -239,6 +251,7 @@ workflows:
             matrix:
               parameters:
                 language: ["de-DE", "en-EN", "bg-BG", "ro-RO", "pl-PL", "tr-TR"]
+                displaymode: ["dark", "light"]
             requires:
               - dependencies
             filters:
