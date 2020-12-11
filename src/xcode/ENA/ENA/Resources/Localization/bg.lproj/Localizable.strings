@@ -387,7 +387,7 @@
 
 "ExposureSubmission_ConfirmDismissPopUpText" = "Въведените от Вас данни няма да бъдат запазени.";
 
-"ExposureSubmission_DataPrivacyDescription" = "By tapping “Accept”, you consent to the App querying the status of your coronavirus test and displaying it in the App. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the App’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the App. If you have enabled notifications, you will also receive a notification outside the App telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the App. You can withdraw this consent at any time by deleting your test registration in the App. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy”.";
+"ExposureSubmission_DataPrivacyDescription" = "By tapping “Accept”, you consent to the app querying the status of your coronavirus test and displaying it in the app. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the app’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the app. If you have enabled notifications, you will also receive a notification outside the app telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the app. You can withdraw this consent at any time by deleting your test registration in the app. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy”.";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Разрешавам";
 
@@ -395,7 +395,7 @@
 
 "ExposureSubmission_Submit" = "Въведете ТАН код";
 
-"ExposureSubmissionTanEntry_Title" = "Въвеждане на ТАН код";
+"ExposureSubmissionTanEntry_Title" = "Въведете ТАН код";
 
 "ExposureSubmissionTanEntry_EntryField" = "Поле за въвеждане на ТАН код";
 
@@ -430,9 +430,9 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Сканирайте Вашия QR код, за да получите резултата от теста и да предупредите останалите.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "Въвеждане на ТАН код";
+"ExposureSubmissionDispatch_TANButtonTitle" = "Въведете ТАН код";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "Имате TAN код? Въведете го, за да предупредите останалите.";
+"ExposureSubmissionDispatch_TANButtonDescription" = "Имате TAN код? Въведете го тук, за да предупредите останалите.";
 
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "Все още нямате TAN код?";
 
@@ -490,7 +490,7 @@
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Можете да получите резултата от Вашия тест, без да е необходимо да го споделяте, но ако споделите резултата си, ще помогнете на другите да се предпазят от заразяване.";
 
-"ExposureSubmissionQRInfo_acknowledgement_5" = "Вашата самоличност няма да бъде разкрита. Другите потребители няма да знаят кой е споделил резултатите си от теста.";
+"ExposureSubmissionQRInfo_acknowledgement_5" = "Вашата самоличност няма да бъде разкрита. Другите потребители няма да узнаят кой е споделил резултата от теста си.";
 
 "ExposureSubmissionQRInfo_acknowledgement_6" = "За да дадете съгласието си, трябва да имате навършени 16 години.";
 
@@ -557,7 +557,7 @@
 
 "ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "В следващата стъпка, моля, споделете резултата от теста си, като натиснете \"Споделяне\".";
 
-"ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Избрали сте да не споделяте резултатите от теста си. Останалите няма да бъдат предупредени.";
+"ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Избрали сте да не споделяте резултата от теста си. Останалите няма да бъдат предупредени.";
 
 "ExposureSubmissionTestresultAvailable_ListItem2WithoutConsent" = "В следващата стъпка можете да промените решението си и да споделите резултата от теста си, за да помогнете да се спре разпространението на коронавируса и да предпазите останалите.";
 
@@ -566,6 +566,10 @@
 "ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Важно:\nНа път сте да отмените този процес. Все още не сте предупредили останалите. Моля, завършете процеса, за да помогнете на останалите да се предпазят.";
 
 "ExposureSubmissionTestresultAvailable_CloseAlertMessage" = "Потвърждавате ли, че желаете да отмените процеса?";
+
+"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertTitle" = "Желаете ли да отмените?";
+
+"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertMessage" = "Въведените от Вас данни няма да бъдат запазени.";
 
 "ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Отказ";
 
@@ -974,7 +978,7 @@
 
 "Home_InfoCard_ShareTitle" = "Споделете приложението Corona-Warn-App";
 
-"Home_InfoCard_ShareBody" = "Колкото повече хора използват приложението, толкова по-бързо можем да прекъснем веригата на заразяване. Предложете на семейството и приятелите си да изтеглят приложението.";
+"Home_InfoCard_ShareBody" = "Колкото повече хора използват приложението, толкова по-бързо можем да прекъснем веригите на заразяване. Предложете на семейството и приятелите си да изтеглят приложението.";
 
 "Home_InfoCard_AboutTitle" = "ЧЗВ";
 
@@ -1106,7 +1110,7 @@
 
 "InviteFriends_Title" = "Да се преборим с коронавируса заедно";
 
-"InviteFriends_Description" = "Колкото повече хора използват приложението, толкова по-бързо можем да прекъснем веригата на заразяване. Предложете на семейството и приятелите си да изтеглят приложението.";
+"InviteFriends_Description" = "Колкото повече хора използват приложението, толкова по-бързо можем да прекъснем веригите на заразяване. Предложете на семейството и приятелите си да изтеглят приложението.";
 
 "InviteFriends_Button" = "Изпращане на линк за изтегляне";
 
@@ -1281,7 +1285,7 @@
 
 "TestResultPositive_NoConsent_Info1" = "Споделете резултата от Вашия тест и помогнете на другите да се предпазят от заразяване.";
 
-"TestResultPositive_NoConsent_Info2" = "Вашата самоличност няма да бъде разкрита. Другите потребители няма да знаят кой е споделил резултатите си от теста.";
+"TestResultPositive_NoConsent_Info2" = "Вашата самоличност няма да бъде разкрита. Другите потребители няма да узнаят кой е споделил резултата от теста си.";
 
 "TestResultPositive_NoConsent_Info3" = "Моля, следвайте инструкциите на Вашия лекар и си останете вкъщи, за да не заразявате други хора.";
 

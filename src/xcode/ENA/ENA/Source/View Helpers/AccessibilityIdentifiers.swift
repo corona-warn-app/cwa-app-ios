@@ -10,6 +10,7 @@ enum AccessibilityIdentifiers {
 		static let descriptionText1 = "AppStrings.ExposureNotificationSetting.descriptionText1"
 		static let descriptionText2 = "AppStrings.ExposureNotificationSetting.descriptionText2"
 		static let descriptionText3 = "AppStrings.ExposureNotificationSetting.descriptionText3"
+		static let descriptionText4 = "AppStrings.ExposureNotificationSetting.descriptionText4"
 		static let enableTracing = "AppStrings.ExposureNotificationSetting.enableTracing"
 	}
 
