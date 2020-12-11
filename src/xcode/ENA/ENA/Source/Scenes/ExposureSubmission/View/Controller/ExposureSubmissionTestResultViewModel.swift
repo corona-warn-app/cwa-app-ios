@@ -421,6 +421,9 @@ class ExposureSubmissionTestResultViewModel {
 						configure: { _, cell, _ in
 							cell.accessoryType = .disclosureIndicator
 							cell.selectionStyle = .default
+							cell.accessibilityIdentifier = self.isSubmissionConsentGiven ?
+								AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentGivenCell :
+								AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentNotGivenCell
 						}
 					)
 				]
