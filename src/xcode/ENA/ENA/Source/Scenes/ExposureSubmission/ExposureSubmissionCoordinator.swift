@@ -126,6 +126,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		self.navigationController?.pushViewController(vc, animated: true)
 	}
 
+	private var subscriptions = [AnyCancellable]()
+
 	// MARK: Initial Screens
 
 	/// This method selects the correct initial view controller among the following options:
@@ -151,8 +153,12 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		// We got a test result and can jump straight into the test result view controller.
 		if let testResult = result, model.exposureSubmissionService.hasRegistrationToken {
 			// For a positive test result we show the test result available screen if it wasn't shown before
-			if testResult == .positive && !warnOthersReminder.positiveTestResultWasShown {
-				return createTestResultAvailableViewController(testResult: testResult)
+			if testResult == .positive {
+				if !warnOthersReminder.positiveTestResultWasShown {
+					return createTestResultAvailableViewController(testResult: testResult)
+				} else {
+					return createWarnOthersViewController()
+				}
 			} else {
 				return createTestResultViewController(with: testResult)
 			}
@@ -264,6 +270,45 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				
 			}
 		)
+	}
+
+	private func createWarnOthersViewController() -> ExposureSubmissionWarnOthersViewController {
+		var vc: ExposureSubmissionWarnOthersViewController?
+
+		// ugly but works for the moment
+		// refactoring more of the coordinator-logic to facilitate combine would help
+		let group = DispatchGroup()
+		group.enter()
+
+		// get list of supported countries and create warn others view controller
+		appConfigurationProvider
+			.supportedCountries()
+			.sink(
+				receiveCompletion: { foo in
+					// no op
+				},
+				receiveValue: { countries in
+					vc = ExposureSubmissionWarnOthersViewController(
+						supportedCountries: countries,
+						onPrimaryButtonTap: { [weak self] isLoading in
+							self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
+							self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
+								isLoading(false)
+								if let error = error {
+									self?.showErrorAlert(for: error)
+								} else {
+									self?.showThankYouScreen()
+								}
+							}
+						}
+					)
+					group.leave()
+				})
+			.store(in: &subscriptions)
+
+		group.wait()
+		// swiftlint:disable:next force_unwrapping
+		return vc!
 	}
 
 	// MARK: Screen Flow
