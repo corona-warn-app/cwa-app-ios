@@ -47,19 +47,53 @@ final class CachedAppConfigurationTests: XCTestCase {
 			completionExpectation.fulfill()
 		}.store(in: &subscriptions)
 
-//		cache.$configuration.
-//		cache.appConfiguration { response in
-//			switch response {
-//			case .success(let config):
-//				XCTAssertEqual(config, expectedConfig)
-//				XCTAssertEqual(config, store.appConfig)
-//			case .failure(let error):
-//				XCTFail(error.localizedDescription)
-//			}
-//			completionExpectation.fulfill()
-//		}
-
 		waitForExpectations(timeout: .medium)
+	}
+
+	func testCacheSupportedCountries() throws {
+		let store = MockTestStore()
+		var config = CachingHTTPClientMock.staticAppConfig
+		config.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
+
+		let client = CachingHTTPClientMock(store: store)
+		client.onFetchAppConfiguration = { _, completeWith in
+			let config = AppConfigurationFetchingResponse(config, "etag")
+			completeWith((.success(config), nil))
+		}
+
+		let gotValue = expectation(description: "got countries list")
+
+		let cache = CachedAppConfiguration(client: client, store: store)
+		cache
+			.supportedCountries()
+			.sink { countries in
+				XCTAssertEqual(countries.count, 6)
+				gotValue.fulfill()
+			}
+			.store(in: &subscriptions)
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testCacheEmptySupportedCountries() throws {
+		let store = MockTestStore()
+		var config = CachingHTTPClientMock.staticAppConfig
+		config.supportedCountries = []
+		let client = CachingHTTPClientMock(store: store)
+
+		let gotValue = expectation(description: "got countries list")
+
+		let cache = CachedAppConfiguration(client: client, store: store)
+		cache
+			.supportedCountries()
+			.sink { countries in
+				XCTAssertEqual(countries.count, 1)
+				XCTAssertEqual(countries.first, .defaultCountry())
+				gotValue.fulfill()
+			}
+			.store(in: &subscriptions)
+
+		waitForExpectations(timeout: .short)
 	}
 
 //	func testCacheDecay() throws {
