@@ -189,7 +189,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
 		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		launch()
-		navigateToSymptomsScreen()
+		navigateToSymptomsOnsetScreen()
 
 		let optionExactDate = app.buttons["AppStrings.DatePickerOption.day"].firstMatch
 		let optionLastSevenDays = app.buttons["AppStrings.ExposureSubmissionSymptomsOnset.answerOptionLastSevenDays"]
