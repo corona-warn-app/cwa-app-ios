@@ -32,11 +32,17 @@ class DiaryDayViewModel {
 		}
 	}
 
-	func toggle(entry: DiaryEntry) {
+	func toggleSelection(of entry: DiaryEntry) {
 		entry.isSelected ? deselect(entry: entry) : select(entry: entry)
 	}
 
-	func select(entry: DiaryEntry) {
+	// MARK: - Private
+
+	private let store: DiaryStoring
+
+	private var subscriptions: [AnyCancellable] = []
+
+	private func select(entry: DiaryEntry) {
 		switch entry {
 		case .location(let location):
 			store.addLocationVisit(locationId: location.id, date: day.dateString)
@@ -45,7 +51,7 @@ class DiaryDayViewModel {
 		}
 	}
 
-	func deselect(entry: DiaryEntry) {
+	private func deselect(entry: DiaryEntry) {
 		switch entry {
 		case .location(let location):
 			guard let visitId = location.visitId else {
@@ -61,22 +67,5 @@ class DiaryDayViewModel {
 			store.removeContactPersonEncounter(id: encounterId)
 		}
 	}
-
-	func add(entry: DiaryEntry.New) {
-		switch entry {
-		case .location(let location):
-			let id = store.addLocation(name: location.name)
-			store.addLocationVisit(locationId: id, date: day.dateString)
-		case .contactPerson(let contactPerson):
-			let id = store.addContactPerson(name: contactPerson.name)
-			store.addContactPersonEncounter(contactPersonId: id, date: day.dateString)
-		}
-	}
-
-	// MARK: - Private
-
-	private let store: DiaryStoring
-
-	private var subscriptions: [AnyCancellable] = []
 
 }
