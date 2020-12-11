@@ -32,11 +32,11 @@ class DynamicLegalCell: UITableViewCell {
 	///   - description: Optional description text.
 	///   - bulletPoints: A list of strings to be prefixed with bullet points.
 	///   - accessibilityIdentifier: Optional, but highly recommended, accessibility identifier.
-	func configure(title: NSAttributedString, description: NSAttributedString?, bulletPoints: [NSAttributedString], accessibilityIdentifier: String? = nil) {
+	func configure(title: NSAttributedString, description: NSAttributedString?, bulletPoints: [NSAttributedString]?, accessibilityIdentifier: String? = nil) {
 		// create a fake label to get the default font for these
 		let label = ENALabel()
 		// 'bulletized' strings
-		let textBlocks = bulletPoints.map({ $0.bulletPointString(bulletPointFont: label.font) })
+		let textBlocks = bulletPoints?.map({ $0.bulletPointString(bulletPointFont: label.font) }) ?? []
 		configure(title: title, description: description, textBlocks: textBlocks, accessibilityIdentifier: accessibilityIdentifier)
 	}
 
