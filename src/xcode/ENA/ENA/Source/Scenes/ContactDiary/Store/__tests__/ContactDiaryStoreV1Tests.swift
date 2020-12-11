@@ -473,6 +473,40 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		}.store(in: &subscriptions)
 	}
 
+	func test_When_ContactPersonNameIsToLong_Then_ContactPersonNameIsTruncated() {
+		let database = FMDatabase.inMemory()
+		let store = makeContactDiaryStore(with: database)
+
+		let stringWith251Chars = String(repeating: "Y", count: 251) //(0...250).map { "Y" }
+
+		let addPersonResult = store.addContactPerson(name: stringWith251Chars)
+		guard case .success(let personId) = addPersonResult,
+			  let contactPerson = fetchEntries(for: "ContactPerson", with: personId, from: database),
+			  let name = contactPerson.string(forColumn: "name")else {
+			fatalError("An error is not expected.")
+		}
+
+		let expectedName = String(repeating: "Y", count: 250)
+		XCTAssertEqual(name, expectedName)
+	}
+
+	func test_When_LocationNameIsToLong_Then_LocationNameIsTruncated() {
+		let database = FMDatabase.inMemory()
+		let store = makeContactDiaryStore(with: database)
+
+		let stringWith251Chars = String(repeating: "Y", count: 251)
+
+		let addLocationResult = store.addLocation(name: stringWith251Chars)
+		guard case .success(let locationId) = addLocationResult,
+			  let location = fetchEntries(for: "Location", with: locationId, from: database),
+			  let name = location.string(forColumn: "name")else {
+			fatalError("An error is not expected.")
+		}
+
+		let expectedName = String(repeating: "Y", count: 250)
+		XCTAssertEqual(name, expectedName)
+	}
+
 	private func checkLocationEntry(entry: DiaryEntry, name: String, id: Int64, isSelected: Bool) {
 		guard case .location(let location) = entry else {
 			fatalError("Not expected")

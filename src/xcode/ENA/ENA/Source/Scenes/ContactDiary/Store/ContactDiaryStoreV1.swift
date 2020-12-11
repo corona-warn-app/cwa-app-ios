@@ -227,7 +227,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 					name
 				)
 				VALUES (
-					:name
+					SUBSTR(:name, 1, 250)
 				);
 			"""
 			let parameters: [String: Any] = [
@@ -257,7 +257,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 					name
 				)
 				VALUES (
-					:name
+					SUBSTR(:name, 1, 250)
 				);
 			"""
 
