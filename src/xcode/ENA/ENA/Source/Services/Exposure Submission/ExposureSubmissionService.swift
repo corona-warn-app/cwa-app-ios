@@ -276,7 +276,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		set { store.submissionKeys = newValue }
 	}
 
-	private var supportedCountries: [Country] {
+	private(set) var supportedCountries: [Country] {
 		get { store.submissionCountries }
 		set { store.submissionCountries = newValue }
 	}

@@ -274,36 +274,23 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	private func createWarnOthersViewController() -> ExposureSubmissionWarnOthersViewController {
-		var vc: ExposureSubmissionWarnOthersViewController?
-
 		// ugly but works for the moment
 		// refactoring more of the coordinator-logic to facilitate combine would help
-		let group = DispatchGroup()
-		group.enter()
-
-		model.exposureSubmissionService.loadSupportedCountries { _ in
-			//
-		} onSuccess: { countries in
-			vc = ExposureSubmissionWarnOthersViewController(
-				supportedCountries: countries,
-				onPrimaryButtonTap: { [weak self] isLoading in
-					self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
-					self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
-						isLoading(false)
-						if let error = error {
-							self?.showErrorAlert(for: error)
-						} else {
-							self?.showThankYouScreen()
-						}
+		let vc = ExposureSubmissionWarnOthersViewController(
+			supportedCountries: model.exposureSubmissionService.supportedCountries,
+			onPrimaryButtonTap: { [weak self] isLoading in
+				self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
+				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
+					isLoading(false)
+					if let error = error {
+						self?.showErrorAlert(for: error)
+					} else {
+						self?.showThankYouScreen()
 					}
 				}
-			)
-			group.leave()
-		}
-
-		group.wait()
-		// swiftlint:disable:next force_unwrapping
-		return vc!
+			}
+		)
+		return vc
 	}
 
 	// MARK: Screen Flow

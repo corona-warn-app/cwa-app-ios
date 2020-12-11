@@ -20,6 +20,8 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - ExposureSubmissionService properties.
 
+	var supportedCountries: [Country] = []
+
 	var exposureManagerState: ExposureManagerState = ExposureManagerState(authorized: false, enabled: false, status: .unknown)
 	var hasRegistrationToken: Bool = false
 
