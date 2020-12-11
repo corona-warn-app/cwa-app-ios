@@ -284,7 +284,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		appConfigurationProvider
 			.supportedCountries()
 			.sink(
-				receiveCompletion: { foo in
+				receiveCompletion: { _ in
 					// no op
 				},
 				receiveValue: { countries in
