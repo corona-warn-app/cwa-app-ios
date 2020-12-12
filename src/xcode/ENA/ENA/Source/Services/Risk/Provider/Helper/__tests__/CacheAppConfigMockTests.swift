@@ -54,4 +54,36 @@ class CacheAppConfigMockTests: XCTestCase {
 
 		waitForExpectations(timeout: .medium)
 	}
+
+	func testCacheSupportedCountries() throws {
+		var config = CachingHTTPClientMock.staticAppConfig
+		config.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
+
+		let gotValue = expectation(description: "got countries list")
+
+		CachedAppConfigurationMock(with: config)
+			.supportedCountries()
+			.sink { countries in
+				XCTAssertEqual(countries.count, 6)
+				gotValue.fulfill()
+			}
+			.store(in: &subscriptions)
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testCacheEmptySupportedCountries() throws {
+		let gotValue = expectation(description: "got countries list")
+
+		CachedAppConfigurationMock(with: CachingHTTPClientMock.staticAppConfig)
+			.supportedCountries()
+			.sink { countries in
+				XCTAssertEqual(countries.count, 1)
+				XCTAssertEqual(countries.first, .defaultCountry())
+				gotValue.fulfill()
+			}
+			.store(in: &subscriptions)
+
+		waitForExpectations(timeout: .short)
+	}
 }
