@@ -27,8 +27,12 @@ class ExposureSubmissionTestResultConsentViewController: DynamicTableViewControl
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.title = AppStrings.AutomaticSharingConsent.consentTitle
-		self.navigationController?.navigationItem.rightBarButtonItem = nil
 		setupView()
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		self.navigationItem.rightBarButtonItem = nil
 	}
 	
 	// MARK: - Protocol DismissHandling
