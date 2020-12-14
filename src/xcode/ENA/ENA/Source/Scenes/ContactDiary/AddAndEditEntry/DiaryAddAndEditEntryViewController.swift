@@ -147,6 +147,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	@objc
 	private func textValueChanged(sender: UITextField) {
 		viewModel.update(sender.text)
+		navigationFooterItem.isPrimaryButtonEnabled = !(sender.text?.isEmpty ?? true)
 	}
 
 }
