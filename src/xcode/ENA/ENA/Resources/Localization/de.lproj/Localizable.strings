@@ -1371,10 +1371,17 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "Personen";
+
 "ContactDiary_Day_AddContactPerson" = "Person hinzufügen";
+
 "ContactDiary_Day_ContactPersonsEmptyTitle" = "Noch keine Personen vorhanden";
+
 "ContactDiary_Day_ContactPersonsEmptyDescription" = "Legen Sie eine Person an und fügen Sie sie in Ihrem Kontakt-Tagebuch hinzu.";
+
 "ContactDiary_Day_LocationsSegment" = "Orte";
+
 "ContactDiary_Day_AddLocation" = "Ort hinzufügen";
+
 "ContactDiary_Day_LocationsEmptyTitle" = "Noch keine Orte vorhanden";
+
 "ContactDiary_Day_LocationsEmptyDescription" = "Legen Sie einen Ort an und fügen Sie ihn in Ihrem Kontakt-Tagebuch hinzu. ";
