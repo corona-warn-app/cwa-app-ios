@@ -687,4 +687,6 @@ extension ContactDiaryStoreV1 {
 			key: key
 		)
 	}
+
+	// swiftlint:disable:next file_length
 }
