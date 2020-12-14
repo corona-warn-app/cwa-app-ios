@@ -12,10 +12,12 @@ class DiaryAddAndEditEntryViewModel {
 
 	init(
 		mode: Mode,
-		diaryService: DiaryService
+		diaryService: DiaryService,
+		dismiss: @escaping () -> Void
 	) {
 		self.mode = mode
 		self.diaryService = diaryService
+		self.dismiss = dismiss
 
 		switch mode {
 		case .add:
@@ -38,12 +40,32 @@ class DiaryAddAndEditEntryViewModel {
 	}
 
 	let mode: Mode
+	// is store maybe enougth?
 	let diaryService: DiaryService
+	let dismiss: () -> Void
 
 	@Published private(set) var textInput: String
 
 	func update(_ text: String?) {
 		textInput = text ?? ""
+	}
+
+	func save() {
+		let store = diaryService.store
+		switch mode {
+		case .add(_, let type):
+			switch type {
+			case .location:
+				store.addLocation(name: textInput)
+			case .contactPerson:
+				store.addContactPerson(name: textInput)
+			}
+
+		case .edit(let entry):
+			Log.debug("NYD")
+		}
+
+		dismiss()
 	}
 
 	var title: String {
@@ -65,6 +87,7 @@ class DiaryAddAndEditEntryViewModel {
 	}
 
 	// MARK: - Private
+
 
 	// Unfortunately, Swift does not currently have KeyPath support for static let,
 	// so we need to go that way

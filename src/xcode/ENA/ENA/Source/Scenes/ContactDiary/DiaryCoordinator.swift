@@ -103,12 +103,14 @@ class DiaryCoordinator {
 	}
 
 	private func showAddAndEditEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode) {
-		let viewController = DiaryAddAndEditEntryViewController(
+		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: mode,
 			diaryService: diaryService,
-			onDismiss: { [weak self] in
+			dismiss: { [weak self] in
 				self?.parentNavigationController?.dismiss(animated: true)
-			}
+			})
+		let viewController = DiaryAddAndEditEntryViewController(
+			viewModel: viewModel
 		)
 
 		let navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)

@@ -5,17 +5,14 @@
 import UIKit
 import Combine
 
-class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate {
+class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate, ENANavigationControllerWithFooterChild {
 
 	// MARK: - Init
 
 	init(
-		mode: DiaryAddAndEditEntryViewModel.Mode,
-		diaryService: DiaryService,
-		onDismiss: @escaping () -> Void
+		viewModel: DiaryAddAndEditEntryViewModel
 	) {
-		self.viewModel = DiaryAddAndEditEntryViewModel(mode: mode, diaryService: diaryService)
-		self.onDismiss = onDismiss
+		self.viewModel = viewModel
 
 		super.init(nibName: nil, bundle: nil)
 
@@ -34,7 +31,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate 
 
 		navigationItem.rightBarButtonItem = CloseBarButtonItem(
 			onTap: { [weak self] in
-				self?.onDismiss()
+				self?.viewModel.dismiss()
 			}
 		)
 		navigationController?.navigationBar.prefersLargeTitles = true
@@ -53,6 +50,12 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate 
 		navigationFooterItem
 	}
 
+	// MARK: - ENANavigationControllerWithFooterChild
+
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+		viewModel.save()
+	}
+
 	// MARK: - Protocol UITextFieldDelegate
 
 	func textFieldDidEndEditing(_ textField: UITextField) {
@@ -62,7 +65,6 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate 
 	// MARK: - Private
 
 	private let viewModel: DiaryAddAndEditEntryViewModel
-	private let onDismiss: () -> Void
 
 	private var entryTextField: DiaryEntryTextFiled!
 	private var bindings: [AnyCancellable] = []
