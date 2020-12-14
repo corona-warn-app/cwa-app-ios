@@ -49,6 +49,7 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 		viewModel.$entries
 			.receive(on: RunLoop.main)
 			.sink { [weak self] _ in
+				guard self?.shouldReload ?? false else { return }
 				self?.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
@@ -86,10 +87,13 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		if editingStyle == .delete {
+			shouldReload = false
 			viewModel.remove(entry: viewModel.entries[indexPath.row])
-//			tableView.beginUpdates()
-			tableView.deleteRows(at: [indexPath], with: .automatic)
-//			tableView.endUpdates()
+			tableView.performBatchUpdates({
+				tableView.deleteRows(at: [indexPath], with: .automatic)
+			}, completion: { _ in
+				self.shouldReload = true
+			})
 		}
 	}
 
@@ -100,6 +104,8 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 	private let onDismiss: () -> Void
 
 	private var subscriptions = [AnyCancellable]()
+
+	private var shouldReload = true
 
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var deleteAllButton: ENAButton!
