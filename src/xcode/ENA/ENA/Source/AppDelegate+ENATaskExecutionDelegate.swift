@@ -16,26 +16,44 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	///         This will set the background task state to _completed_. We only mark the task as incomplete
 	///         when the OS calls the expiration handler before all tasks were able to finish.
 	func executeENABackgroundTask(completion: @escaping ((Bool) -> Void)) {
+		Log.info("Starting background task…", log: .background)
+
 		let group = DispatchGroup()
 
 		group.enter()
 		DispatchQueue.global().async {
-			self.executeSubmitTemporaryExposureKeys { _ in group.leave() }
+			Log.info("Trying to submit TEKs…", log: .background)
+			self.executeSubmitTemporaryExposureKeys { _ in
+				group.leave()
+				Log.info("Done submitting TEKs…", log: .background)
+			}
 		}
 
 		group.enter()
 		DispatchQueue.global().async {
-			self.executeFetchTestResults { _ in group.leave() }
+			Log.info("Trying to fetch TestResults…", log: .background)
+			self.executeFetchTestResults { _ in
+				group.leave()
+				Log.info("Done fetching TestResults…", log: .background)
+			}
 		}
 
 		group.enter()
 		DispatchQueue.global().async {
-			self.executeExposureDetectionRequest { _ in group.leave() }
+			Log.info("Starting ExposureDetection…", log: .background)
+			self.executeExposureDetectionRequest { _ in
+				group.leave()
+				Log.info("Done detecting Exposures…", log: .background)
+			}
 		}
 
 		group.enter()
 		DispatchQueue.global().async {
-			self.executeFakeRequests { group.leave() }
+			Log.info("Starting FakeRequests…", log: .background)
+			self.executeFakeRequests {
+				group.leave()
+				Log.info("Done sending FakeRequests…", log: .background)
+			}
 		}
 
 		group.notify(queue: .main) {
@@ -87,15 +105,17 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			completion(false)
 			return
 		}
-
+		Log.info("Requesting TestResult…", log: .api)
 		service.getTestResult { result in
 			switch result {
 			case .failure(let error):
 				Log.error(error.localizedDescription, log: .api)
 			case .success(.pending), .success(.expired):
 				// Do not trigger notifications for pending or expired results.
+				Log.info("TestResult pending or expired", log: .api)
 				break
 			case .success:
+				Log.info("Triggering Notification to inform user about TestResult", log: .api)
 				UNUserNotificationCenter.current().presentNotification(
 					title: AppStrings.LocalNotifications.testResultsTitle,
 					body: AppStrings.LocalNotifications.testResultsBody,
