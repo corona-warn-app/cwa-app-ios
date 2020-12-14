@@ -55,10 +55,10 @@ class DiaryCoordinator {
 				self?.showExportActivity()
 			},
 			onEditContactPersonsButtonTap: { [weak self] in
-				self?.showEditEntriesScreen(type: .contactPerson)
+				self?.showEditEntryScreen(type: .contactPerson)
 			},
 			onEditLocationsButtonTap: { [weak self] in
-				self?.showEditEntriesScreen(type: .location)
+				self?.showEditEntryScreen(type: .location)
 			}
 		)
 	}()
@@ -95,14 +95,14 @@ class DiaryCoordinator {
 		let viewController = DiaryDayViewController(
 			viewModel: DiaryDayViewModel(day: day, store: diaryService.store),
 			onAddEntryCellTap: { [weak self] day, entryType in
-				self?.showAddAndEditEntryScreen(mode: .add(day, entryType))
+				self?.showAddEntryScreen(mode: .add(day, entryType))
 			}
 		)
 
 		parentNavigationController?.pushViewController(viewController, animated: true)
 	}
 
-	private func showAddAndEditEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode) {
+	private func showAddEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode) {
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: mode,
 			diaryService: diaryService,
@@ -117,11 +117,11 @@ class DiaryCoordinator {
 		parentNavigationController?.present(navigationController, animated: true)
 	}
 
-	private func showEditEntriesScreen(type: DiaryEntryType) {
+	private func showEditEntryScreen(type: DiaryEntryType) {
 		let viewController = DiaryEditEntriesTableViewController(
 			diaryService: diaryService,
 			onCellSelection: { [weak self] entry in
-				self?.showAddAndEditEntryScreen(mode: .edit(entry))
+				self?.showAddEntryScreen(mode: .edit(entry))
 			},
 			onDismiss: { [weak self] in
 				self?.parentNavigationController?.dismiss(animated: true)

@@ -53,12 +53,14 @@ class DiaryAddAndEditEntryViewModel {
 	func save() {
 		let store = diaryService.store
 		switch mode {
-		case .add(_, let type):
+		case .add(let day, let type):
 			switch type {
 			case .location:
-				store.addLocation(name: textInput)
+				let id = store.addLocation(name: textInput)
+				store.addLocationVisit(locationId: id, date: day.dateString)
 			case .contactPerson:
-				store.addContactPerson(name: textInput)
+				let id = store.addContactPerson(name: textInput)
+				store.addContactPersonEncounter(contactPersonId: id, date: day.dateString)
 			}
 
 		case .edit(let entry):
