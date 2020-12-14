@@ -113,7 +113,6 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			case .success(.pending), .success(.expired):
 				// Do not trigger notifications for pending or expired results.
 				Log.info("TestResult pending or expired", log: .api)
-				break
 			case .success:
 				Log.info("Triggering Notification to inform user about TestResult", log: .api)
 				UNUserNotificationCenter.current().presentNotification(

@@ -153,6 +153,10 @@ struct FileLogger {
 		}
 		return logString
 	}
+	
+	func deleteLogs() {
+		try? FileManager.default.removeItem(at: logFileBaseURL)
+	}
 }
 
 #endif
