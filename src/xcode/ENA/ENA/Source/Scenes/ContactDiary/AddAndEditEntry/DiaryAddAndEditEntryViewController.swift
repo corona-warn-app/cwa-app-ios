@@ -84,7 +84,6 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		title = viewModel.title
 
 		let scrollView = UIScrollView(frame: view.frame)
-		scrollView.contentInset = UIEdgeInsets(top: 55, left: 0, bottom: 0, right: 0.0)
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(scrollView)
 

@@ -117,12 +117,16 @@ class DiaryCoordinator {
 		parentNavigationController?.present(navigationController, animated: true)
 	}
 
-	private func showEditEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode, from: UINavigationController? = nil) {
+	private func showEditEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode, from: ENANavigationControllerWithFooter? = nil) {
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: mode,
 			diaryService: diaryService,
 			dismiss: { [weak self] in
-				self?.parentNavigationController?.dismiss(animated: true)
+				if from == nil {
+					self?.parentNavigationController?.dismiss(animated: true)
+				} else {
+					from?.popViewController(animated: true)
+				}
 			})
 		let viewController = DiaryAddAndEditEntryViewController(
 			viewModel: viewModel
@@ -137,7 +141,7 @@ class DiaryCoordinator {
 	}
 
 	private func showEditEntriesListScreen(entryType: DiaryEntryType) {
-		var navigationController: UINavigationController!
+		var navigationController: ENANavigationControllerWithFooter!
 
 		let viewController = DiaryEditEntriesViewController(
 			entryType: entryType,
@@ -152,7 +156,7 @@ class DiaryCoordinator {
 				self?.parentNavigationController?.dismiss(animated: true)
 			}
 		)
-		navigationController = UINavigationController(rootViewController: viewController)
+		navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
 		parentNavigationController?.present(navigationController, animated: true)
 	}
 

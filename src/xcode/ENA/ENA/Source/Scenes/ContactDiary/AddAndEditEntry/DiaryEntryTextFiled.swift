@@ -27,12 +27,16 @@ class DiaryEntryTextFiled: UITextField {
 
 	// MARK: - Overrides
 
+	override func textRect(forBounds bounds: CGRect) -> CGRect {
+		return super.textRect(forBounds: bounds).insetBy(dx: deltaXInset, dy: 0.0)
+	}
+
 	override func editingRect(forBounds bounds: CGRect) -> CGRect {
-		return textRect(forBounds: bounds).insetBy(dx: deltaXInset, dy: 0.0)
+		return textRect(forBounds: bounds)
 	}
 
 	override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-		return textRect(forBounds: bounds).insetBy(dx: deltaXInset, dy: 0.0)
+		return textRect(forBounds: bounds)
 	}
 
 	// MARK: - Internal

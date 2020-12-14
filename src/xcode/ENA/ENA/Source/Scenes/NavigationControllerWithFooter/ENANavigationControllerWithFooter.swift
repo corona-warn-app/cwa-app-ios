@@ -125,6 +125,7 @@ extension ENANavigationControllerWithFooter {
 		transitionFooterView(to: viewController)
 	}
 
+	@discardableResult
 	override func popViewController(animated: Bool) -> UIViewController? {
 		let viewController = super.popViewController(animated: animated)
 		transitionFooterView(to: topViewController)

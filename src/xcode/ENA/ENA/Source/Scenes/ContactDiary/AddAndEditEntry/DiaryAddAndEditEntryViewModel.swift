@@ -63,7 +63,14 @@ class DiaryAddAndEditEntryViewModel {
 			}
 
 		case .edit(let entry):
-			Log.debug("NYD")
+			switch entry {
+			case .location(let location):
+				let id = location.id
+				store.updateLocation(id: id, name: textInput)
+			case .contactPerson(let person):
+				let id = person.id
+				store.updateContactPerson(id: id, name: textInput)
+			}
 		}
 
 		dismiss()
