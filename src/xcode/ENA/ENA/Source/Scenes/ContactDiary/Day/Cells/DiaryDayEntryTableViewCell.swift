@@ -8,21 +8,10 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(entry: DiaryEntry) {
-		switch entry {
-		case .contactPerson(let contactPerson):
-			checkboxImageView.image = contactPerson.isSelected ? UIImage(named: "Diary_Checkmark_Selected") : UIImage(named: "Diary_Checkmark_Unselected")
-			label.text = contactPerson.name
-		case .location(let location):
-			checkboxImageView.image = location.isSelected ? UIImage(named: "Diary_Checkmark_Selected") : UIImage(named: "Diary_Checkmark_Unselected")
-			label.text = location.name
-		}
-
-		if entry.isSelected {
-			accessibilityTraits = [.button, .selected]
-		} else {
-			accessibilityTraits = [.button]
-		}
+	func configure(cellModel: DiaryDayEntryCellModel) {
+		checkboxImageView.image = cellModel.image
+		label.text = cellModel.text
+		accessibilityTraits = cellModel.accessibilityTraits
 	}
 
 	// MARK: - Private
