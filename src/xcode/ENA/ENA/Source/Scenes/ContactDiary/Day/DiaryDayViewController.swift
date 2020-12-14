@@ -10,11 +10,9 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	// MARK: - Init
 
 	init(
-		viewModel: DiaryDayViewModel,
-		onAddEntryCellTap: @escaping (DiaryDay, DiaryEntryType) -> Void
+		viewModel: DiaryDayViewModel
 	) {
 		self.viewModel = viewModel
-		self.onAddEntryCellTap = onAddEntryCellTap
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -57,18 +55,11 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	// MARK: - Protocol UITableViewDataSource
 
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return 2
+		return viewModel.numberOfSections
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		switch section {
-		case 0:
-			return 1
-		case 1:
-			return viewModel.entriesOfSelectedType.count
-		default:
-			fatalError("Invalid section")
-		}
+		return viewModel.numberOfRows(in: section)
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -87,7 +78,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		switch DiaryDayViewModel.Section(rawValue: indexPath.section) {
 		case .add:
-			onAddEntryCellTap(viewModel.day, viewModel.selectedEntryType)
+			viewModel.didTapAddEntryCell()
 		case .entries:
 			viewModel.toggleSelection(at: indexPath)
 		case .none:
@@ -98,7 +89,6 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	// MARK: - Private
 
 	private let viewModel: DiaryDayViewModel
-	private let onAddEntryCellTap: (DiaryDay, DiaryEntryType) -> Void
 
 	private var subscriptions = [AnyCancellable]()
 

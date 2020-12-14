@@ -9,9 +9,14 @@ class DiaryDayViewModel {
 
 	// MARK: - Init
 
-	init(day: DiaryDay, store: DiaryStoring) {
+	init(
+		day: DiaryDay,
+		store: DiaryStoring,
+		onAddEntryCellTap: @escaping (DiaryDay, DiaryEntryType) -> Void
+	) {
 		self.day = day
 		self.store = store
+		self.onAddEntryCellTap = onAddEntryCellTap
 
 		store.diaryDaysPublisher
 			.sink { [weak self] days in
@@ -23,7 +28,7 @@ class DiaryDayViewModel {
 
 	// MARK: - Internal
 
-	enum Section: Int {
+	enum Section: Int, CaseIterable {
 		case add
 		case entries
 	}
@@ -37,6 +42,25 @@ class DiaryDayViewModel {
 		}
 	}
 
+	var numberOfSections: Int {
+		Section.allCases.count
+	}
+
+	func numberOfRows(in section: Int) -> Int {
+		switch DiaryDayViewModel.Section(rawValue: section) {
+		case .add:
+			return 1
+		case .entries:
+			return entriesOfSelectedType.count
+		case .none:
+			fatalError("Invalid section")
+		}
+	}
+
+	func didTapAddEntryCell() {
+		onAddEntryCellTap(day, selectedEntryType)
+	}
+
 	func toggleSelection(at indexPath: IndexPath) {
 		guard Section(rawValue: indexPath.section) == .entries else {
 			fatalError("Cannot toggle other elements outside the entries section")
@@ -48,6 +72,7 @@ class DiaryDayViewModel {
 	// MARK: - Private
 
 	private let store: DiaryStoring
+	private let onAddEntryCellTap: (DiaryDay, DiaryEntryType) -> Void
 
 	private var subscriptions: [AnyCancellable] = []
 
