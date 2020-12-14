@@ -31,5 +31,12 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 	func appConfiguration() -> AnyPublisher<SAP_Internal_V2_ApplicationConfigurationIOS, Never> {
 		return appConfiguration(forceFetch: false)
 	}
+
+	func supportedCountries() -> AnyPublisher<[Country], Never> {
+		appConfiguration().map({ config -> [Country] in
+			let countries = config.supportedCountries.compactMap({ Country(countryCode: $0) })
+			return countries.isEmpty ? [.defaultCountry()] : countries
+		}).eraseToAnyPublisher()
+	}
 }
 #endif

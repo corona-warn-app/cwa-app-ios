@@ -60,7 +60,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			switch error {
 			case .noSubmissionConsent:
 				Log.info("[ENATaskExecutionDelegate] Submission: no consent given", log: .api)
-			case .noKeys:
+			case .noKeysCollected:
 				Log.info("[ENATaskExecutionDelegate] Submission: no keys to submit", log: .api)
 			case .some(let error):
 				Log.error("[ENATaskExecutionDelegate] Submission error: \(error.localizedDescription)", log: .api)

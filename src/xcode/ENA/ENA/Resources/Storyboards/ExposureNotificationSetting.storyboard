@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IOf-gd-WHN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IOf-gd-WHN">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -413,14 +413,14 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="descriptionCell" id="xbF-3o-4Hm" userLabel="descriptionCell" customClass="DescriptionTableViewCell" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="1131" width="414" height="362"/>
+                                <rect key="frame" x="0.0" y="1131" width="414" height="454"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xbF-3o-4Hm" id="cDL-9j-OWe">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="362"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="454"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="6bP-P7-YgE">
-                                            <rect key="frame" x="20" y="16" width="374" height="330"/>
+                                            <rect key="frame" x="20" y="16" width="374" height="422"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title 2" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pmd-OM-eEY" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="26.5"/>
@@ -461,6 +461,16 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6r-VR-mSm" userLabel="Label4" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="350" width="374" height="72"/>
+                                                    <string key="text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
                                             </subviews>
                                         </stackView>
                                     </subviews>
@@ -477,6 +487,7 @@
                                     <outlet property="label1" destination="UfA-sL-vm9" id="0d3-7c-Rul"/>
                                     <outlet property="label2" destination="O9j-kq-zNp" id="uan-xm-pSP"/>
                                     <outlet property="label3" destination="hry-3n-zsB" id="5bc-fJ-EOx"/>
+                                    <outlet property="label4" destination="I6r-VR-mSm" id="uUa-Tp-FnZ"/>
                                     <outlet property="titleLabel" destination="pmd-OM-eEY" id="MEw-F2-h4z"/>
                                 </connections>
                             </tableViewCell>
@@ -503,10 +514,13 @@
             <size key="intrinsicContentSize" width="41.5" height="20.5"/>
         </designable>
         <designable name="BAn-nl-BA0">
-            <size key="intrinsicContentSize" width="63.5" height="26.5"/>
+            <size key="intrinsicContentSize" width="64" height="26.5"/>
         </designable>
         <designable name="EmT-y3-vLn">
             <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+        </designable>
+        <designable name="I6r-VR-mSm">
+            <size key="intrinsicContentSize" width="1190" height="18"/>
         </designable>
         <designable name="IPp-fC-i40">
             <size key="intrinsicContentSize" width="37.5" height="18"/>
@@ -533,10 +547,10 @@
             <size key="intrinsicContentSize" width="70" height="50"/>
         </designable>
         <designable name="jEQ-Jd-cnW">
-            <size key="intrinsicContentSize" width="63.5" height="26.5"/>
+            <size key="intrinsicContentSize" width="64" height="26.5"/>
         </designable>
         <designable name="pmd-OM-eEY">
-            <size key="intrinsicContentSize" width="63.5" height="26.5"/>
+            <size key="intrinsicContentSize" width="64" height="26.5"/>
         </designable>
         <designable name="tDg-xD-SUW">
             <size key="intrinsicContentSize" width="1514" height="16"/>
