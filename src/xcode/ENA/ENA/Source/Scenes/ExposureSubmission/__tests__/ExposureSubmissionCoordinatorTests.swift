@@ -63,7 +63,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 		// Get navigation controller and make sure to load view.
 		let navigationController = getNavigationController(from: coordinator)
-		_ = navigationController?.view
+		navigationController?.loadViewIfNeeded()
 
 		XCTAssertNotNil(navigationController)
 		XCTAssertNotNil(navigationController?.topViewController)
@@ -86,7 +86,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 	}
 
-	func testStart_withResult() {
+	func testStart_withNegativeResult() {
 		let result = TestResult.negative
 		exposureSubmissionService.hasRegistrationToken = true
 		let coordinator = createCoordinator(
@@ -99,11 +99,31 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 		// Get navigation controller and make sure to load view.
 		let navigationController = getNavigationController(from: coordinator)
-		_ = navigationController?.view
+		navigationController?.loadViewIfNeeded()
 
 		XCTAssertNotNil(navigationController)
 		XCTAssertNotNil(navigationController?.topViewController)
 		XCTAssertNotNil(navigationController?.topViewController as? ExposureSubmissionTestResultViewController)
+	}
+
+	func testStart_withPositiveResult() {
+		let result = TestResult.positive
+		exposureSubmissionService.hasRegistrationToken = true
+		let coordinator = createCoordinator(
+			parentNavigationController: parentNavigationController,
+			exposureSubmissionService: exposureSubmissionService,
+			delegate: delegate
+		)
+
+		coordinator.start(with: result)
+
+		// Get navigation controller and make sure to load view.
+		let navigationController = getNavigationController(from: coordinator)
+		navigationController?.loadViewIfNeeded()
+
+		XCTAssertNotNil(navigationController)
+		XCTAssertNotNil(navigationController?.topViewController)
+		XCTAssertNotNil(navigationController?.topViewController as? TestResultAvailableViewController)
 	}
 
 	func testDismiss() {
@@ -128,4 +148,22 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
+	func testInitialViewController() throws {
+		// dummy
+		exposureSubmissionService.hasRegistrationToken = true
+		let coordinator = createCoordinator(
+			parentNavigationController: parentNavigationController,
+			exposureSubmissionService: exposureSubmissionService,
+			delegate: delegate
+		)
+
+		let unknown = coordinator.getInitialViewController(with: .positive)
+		XCTAssertTrue(unknown.self is TestResultAvailableViewController)
+
+		// [CAR] work in progress!
+		store.positiveTestResultWasShown = true
+
+		let positive = coordinator.getInitialViewController(with: .positive)
+		XCTAssertTrue(positive.self is ExposureSubmissionWarnOthersViewController)
+	}
 }

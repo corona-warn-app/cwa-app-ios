@@ -76,7 +76,7 @@ class ExposureSubmissionCoordinatorModel {
 				return
 
 			// We continue the regular flow even if there are no keys collected.
-			case .none, .noKeys:
+			case .none, .noKeysCollected:
 				onSuccess()
 
 			// We don't show an error if the submission consent was not given, because we assume that the submission already happend in the background.
