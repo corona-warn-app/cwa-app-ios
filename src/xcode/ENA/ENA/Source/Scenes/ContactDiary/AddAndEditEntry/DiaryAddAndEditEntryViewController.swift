@@ -57,15 +57,26 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 
 	// MARK: - Protocol UITextFieldDelegate
 
-	func textFieldDidEndEditing(_ textField: UITextField) {
-		viewModel.update(textField.text)
+	func textFieldShouldClear(_ textField: UITextField) -> Bool {
+		viewModel.reset()
+		return true
+	}
+
+	func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+		return true
+	}
+
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		entryTextField.resignFirstResponder()
+		viewModel.save()
+		return false
 	}
 
 	// MARK: - Private
 
 	private let viewModel: DiaryAddAndEditEntryViewModel
 
-	private var entryTextField: DiaryEntryTextFiled!
+	private var entryTextField: DiaryEntryTextField!
 	private var bindings: [AnyCancellable] = []
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
@@ -102,11 +113,13 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 			contentView.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
 			contentView.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
 			contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-			contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+			contentView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			contentView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 			contentView.widthAnchor.constraint(equalTo: view.widthAnchor)
 		])
 
-		entryTextField = DiaryEntryTextFiled(frame: .zero)
+		entryTextField = DiaryEntryTextField(frame: .zero)
+		entryTextField.clearButtonMode = .whileEditing
 		entryTextField.placeholder = viewModel.placeholderText
 		entryTextField.textColor = .enaColor(for: .textPrimary1)
 		entryTextField.autocorrectionType = .no
@@ -114,7 +127,9 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		entryTextField.spellCheckingType = .no
 		entryTextField.smartQuotesType = .no
 		entryTextField.keyboardAppearance = .default
+		entryTextField.returnKeyType = .done
 		entryTextField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
+		entryTextField.delegate = self
 		entryTextField.text = viewModel.textInput
 
 		entryTextField.translatesAutoresizingMaskIntoConstraints = false

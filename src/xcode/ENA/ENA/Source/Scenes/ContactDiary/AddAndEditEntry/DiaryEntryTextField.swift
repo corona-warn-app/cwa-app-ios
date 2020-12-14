@@ -4,7 +4,7 @@
 
 import UIKit
 
-class DiaryEntryTextFiled: UITextField {
+class DiaryEntryTextField: UITextField {
 
 	// MARK: - Init
 

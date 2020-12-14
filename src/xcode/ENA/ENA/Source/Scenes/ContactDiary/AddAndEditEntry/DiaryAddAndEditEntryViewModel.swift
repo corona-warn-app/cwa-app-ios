@@ -49,6 +49,10 @@ class DiaryAddAndEditEntryViewModel {
 		textInput = text ?? ""
 	}
 
+	func reset() {
+		textInput = ""
+	}
+
 	func save() {
 		let store = diaryService.store
 		switch mode {
