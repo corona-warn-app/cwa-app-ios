@@ -85,6 +85,10 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 		onCellSelection(viewModel.entries[indexPath.row])
 	}
 
+	func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+		onCellSelection(viewModel.entries[indexPath.row])
+	}
+
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		if editingStyle == .delete {
 			shouldReload = false

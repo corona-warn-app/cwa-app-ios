@@ -102,35 +102,35 @@ class DiaryCoordinator {
 		parentNavigationController?.pushViewController(viewController, animated: true)
 	}
 
-	private func showAddAndEditEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode) {
-		let navigationController = UINavigationController()
+	private func showAddAndEditEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode, from fromViewController: UIViewController? = nil) {
+		let presentingViewController = fromViewController ?? parentNavigationController
 
 		let viewController = DiaryAddAndEditEntryViewController(
 			mode: mode,
 			diaryService: diaryService,
-			onDismiss: { [weak self] in
-				self?.parentNavigationController?.dismiss(animated: true)
+			onDismiss: {
+				presentingViewController?.dismiss(animated: true)
 			}
 		)
-		navigationController.viewControllers = [viewController]
+		let navigationController = UINavigationController(rootViewController: viewController)
 
-		parentNavigationController?.present(navigationController, animated: true)
+		presentingViewController?.present(navigationController, animated: true)
 	}
 
 	private func showEditEntriesScreen(entryType: DiaryEntryType) {
-		let navigationController = UINavigationController()
+		var navigationController: UINavigationController!
 
 		let viewController = DiaryEditEntriesViewController(
 			entryType: entryType,
 			store: diaryService.store,
 			onCellSelection: { [weak self] entry in
-				self?.showAddAndEditEntryScreen(mode: .edit(entry))
+				self?.showAddAndEditEntryScreen(mode: .edit(entry), from: navigationController)
 			},
 			onDismiss: { [weak self] in
 				self?.parentNavigationController?.dismiss(animated: true)
 			}
 		)
-		navigationController.viewControllers = [viewController]
+		navigationController = UINavigationController(rootViewController: viewController)
 
 		parentNavigationController?.present(navigationController, animated: true)
 	}
