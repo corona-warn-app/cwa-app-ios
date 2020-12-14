@@ -10,9 +10,11 @@ class DiaryInfoViewController: DynamicTableViewController, ENANavigationControll
 	// MARK: - Init
 	
 	init(
-		onPrimaryButtonTap: @escaping () -> Void
+		viewModel: DiaryInfoViewModel,
+		onDismiss: @escaping () -> Void
 	) {
-		self.onPrimaryButtonTap = onPrimaryButtonTap
+		self.viewModel = viewModel
+		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -29,9 +31,13 @@ class DiaryInfoViewController: DynamicTableViewController, ENANavigationControll
 
 		setupView()
 
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(
+			onTap: { [weak self] in
+				self?.onDismiss()
+			}
+		)
+		navigationController?.navigationBar.prefersLargeTitles = true
 		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
-		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
-		footerView?.isHidden = false
 	}
 
 	override var navigationItem: UINavigationItem {
@@ -41,35 +47,34 @@ class DiaryInfoViewController: DynamicTableViewController, ENANavigationControll
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		onPrimaryButtonTap()
+		onDismiss()
 	}
 
 	// MARK: - Internal
 
-	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case legal = "DynamicLegalCell"
-	}
-
 	// MARK: - Private
 
-	private let viewModel = DiaryInfoViewModel()
-	private let onPrimaryButtonTap: () -> Void
+	private let viewModel: DiaryInfoViewModel
+	private let onDismiss: () -> Void
+
+	private enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case legal = "DynamicLegalCell"
+	}
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
 
-		item.primaryButtonTitle = AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle
+		item.primaryButtonTitle = AppStrings.ContactDiary.Information.primaryButtonTitle
 		item.isPrimaryButtonEnabled = true
 		item.isSecondaryButtonHidden = true
 
-		item.title = AppStrings.ExposureSubmissionQRInfo.title
+		item.title = AppStrings.ContactDiary.Information.title
 
 		return item
 	}()
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
-		cellBackgroundColor = .clear
 
 		tableView.register(
 			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),

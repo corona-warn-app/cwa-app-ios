@@ -9,12 +9,12 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		diaryEntry: DiaryEntry?,
+		mode: DiaryAddAndEditEntryViewModel.Mode,
 		diaryService: DiaryService,
-		onPrimaryButtonTap: @escaping () -> Void
+		onDismiss: @escaping () -> Void
 	) {
-		self.viewModel = DiaryAddAndEditEntryViewModel(diaryEntry: diaryEntry, diaryService: diaryService)
-		self.onPrimaryButtonTap = onPrimaryButtonTap
+		self.viewModel = DiaryAddAndEditEntryViewModel(mode: mode, diaryService: diaryService)
+		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -28,11 +28,18 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(
+			onTap: { [weak self] in
+				self?.onDismiss()
+			}
+		)
+		navigationController?.navigationBar.prefersLargeTitles = true
 	}
 
 	// MARK: - Private
 
-	let viewModel: DiaryAddAndEditEntryViewModel
-	let onPrimaryButtonTap: () -> Void
+	private let viewModel: DiaryAddAndEditEntryViewModel
+	private let onDismiss: () -> Void
 
 }

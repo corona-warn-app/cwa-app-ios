@@ -45,7 +45,7 @@ struct ExposureSubmissionWarnOthersViewModel {
 					height: 250
 				),
 				cells: [
-					.headline(
+					.title2(
 						text: AppStrings.ExposureSubmissionWarnOthers.sectionTitle,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.sectionTitle
 					),

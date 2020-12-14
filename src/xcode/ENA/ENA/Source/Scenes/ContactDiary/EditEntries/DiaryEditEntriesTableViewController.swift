@@ -29,6 +29,13 @@ class DiaryEditEntriesTableViewController: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(
+			onTap: { [weak self] in
+				self?.onDismiss()
+			}
+		)
+		navigationController?.navigationBar.prefersLargeTitles = true
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -59,8 +66,8 @@ class DiaryEditEntriesTableViewController: UITableViewController {
 
 	// MARK: - Private
 
-	let viewModel: DiaryEditEntriesViewModel
-	let onCellSelection: (DiaryEntry) -> Void
-	let onDismiss: () -> Void
+	private let viewModel: DiaryEditEntriesViewModel
+	private let onCellSelection: (DiaryEntry) -> Void
+	private let onDismiss: () -> Void
 
 }

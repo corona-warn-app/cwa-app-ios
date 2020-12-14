@@ -2,7 +2,7 @@
 
 "ExposureSubmissionWarnOthers_acknowledgement_1_1" = "Die App teilt Ihr Testergebnis, um Nutzer von offiziellen Corona-Apps, denen Sie begegnet sind, zu warnen. Die Warnung funktioniert in den oben genannten Ländern. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
 
-"ExposureSubmissionWarnOthers_acknowledgement_1_2" = "Bitte geben Sie Ihr Testergebnis (genauer gesagt: Ihrer Zufalls-IDs der letzten 14 Tage) im nächsten Schritt frei, indem Sie „Teilen“ antippen.";
+"ExposureSubmissionWarnOthers_acknowledgement_1_2" = "Bitte geben Sie Ihr Testergebnis (genauer gesagt: Ihre Zufalls-IDs der letzten 14 Tage) im nächsten Schritt frei, indem Sie „Teilen“ antippen.";
 
 "ExposureSubmissionWarnOthers_acknowledgement_footer" = "Sie können Ihr Einverständnis nach bereits erfolgter Warnung zurücknehmen, indem Sie die App löschen.";
 
@@ -43,3 +43,11 @@
 "AutomaticSharingConsent_DescriptionPart3" = "Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
 
 "AutomaticSharingConsent_DescriptionPart4" = "Sie können Ihr Einverständnis zurücknehmen, indem Sie oben „Andere warnen“ deaktivieren.";
+
+"AutomaticSharingConsent_DescriptionPart5" = "Ihr Testergebnis wird Ihnen anschließend angezeigt.";
+
+/* Contact diary information */
+
+"ContactDiary_Information_Legal_Headline_1" = "PLACEHOLDER: Das Kontakt-Tagebuch dient Ihnen als Gedächtnisstütze.";
+
+"ContactDiary_Information_Legal_Text_1" = "PLACEHOLDER: Die Nutzung dieser zusätzlichen Funktion der Corona-Warn-App ist freiwillig und nur Sie entscheiden, welche Personen, Orte und Begegnungen Sie erfassen.\nFalls Sie Corona-positiv getestet werden, ist es wichtig, dass Sie sich an Ihre letzten Kontakte erinnern können, um Ihre Mitmenschen vor Ansteckungen zu schützen. Dies gilt vor allem dann, wenn Sie das Gesundheitsamt um Mithilfe bei der Nachverfolgung Ihrer Kontakte bittet. Die schnelle und vollständige Information kann so helfen, weitere Ansteckungen zu vermeiden.";

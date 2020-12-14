@@ -794,7 +794,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_DescriptionText2" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer Nutzer empfängt und Ihre eigenen Zufalls-IDs an deren Smartphone weitergibt. Die App lädt täglich Listen mit den Zufalls-IDs und eventuellen Angaben zum Symptombeginn aller Corona-positiv getesteten Nutzer herunter, die ihr Testergebnis (genauer gesagt: ihre Zufalls-IDs) freiwillig über ihre App geteilt haben. Diese Listen werden dann mit den von Ihrem iPhone aufgezeichneten Zufalls-IDs anderer Nutzer, denen Sie begegnet sind, verglichen, um Ihr Ansteckungsrisiko zu berechnen und Sie zu warnen. Die Risiko-Ermittlung lässt sich jederzeit über den Schieberegler deaktivieren.";
 
-"ExposureNotificationSetting_DescriptionText3" = "Persönliche Daten wie Ihr Name, Ihre Adresse oder Ihr Aufenthaltsort werden über die App zu keiner Zeit erfasst oder an andere Nutzer übermittelt. Rückschlüsse auf Ihre Identität, Ihren Namen oder andere persönliche Angaben sind anhand der Zufalls-IDs nicht möglich.";
+"ExposureNotificationSetting_DescriptionText3" = "Persönliche Daten wie Ihr Name, Ihre Adresse oder Ihr Aufenthaltsort werden über die App zu keiner Zeit erfasst oder an andere Nutzer übermittelt. Rückschlüsse auf einzelne Personen sind anhand der Zufalls-IDs nicht möglich.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Bluetooth aktivieren";
 
@@ -862,7 +862,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_EU_Desc_1" = "Mehrere Länder arbeiten zusammen, um über den gemeinsam betriebenen Austausch-Server länderübergreifende Warnungen zu ermöglichen. So können bei der Risiko-Ermittlung auch die Kontakte mit Nutzern einer offiziellen Corona-App anderer teilnehmender Länder berücksichtigt werden.";
 
-"ExposureNotificationSetting_EU_Desc_2" = "Hierfür lädt die App täglich eine aktuelle Liste mit den Zufalls-IDs aller Nutzer herunter, die ihr Testergebnis zur Warnung anderer über ihre App geteilt haben. Diese Liste wird dann mit den von Ihrem iPhone aufgezeichneten Zufalls-IDs verglichen. Die Downloads der Listen sind für Sie in der Regel kostenlos. Das heißt: Das von der App verursachte Datenvolumen wird von den Mobilfunk-Betreibern nicht angerechnet und im EU-Ausland werden Ihnen keine Roaming-Gebühren berechnet. Näheres erfahren Sie von Ihrem Mobilfunk-Betreiber.";
+"ExposureNotificationSetting_EU_Desc_2" = "Hierfür lädt die App täglich aktuelle Listen mit den Zufalls-IDs aller Nutzer herunter, die ihr Testergebnis zur Warnung anderer über ihre App geteilt haben. Diese Liste wird dann mit den von Ihrem iPhone aufgezeichneten Zufalls-IDs verglichen. Die Downloads der Listen mit den Zufalls-IDs sind für Sie in der Regel kostenlos. Das heißt: Das von der App verursachte Datenvolumen wird von den Mobilfunk-Betreibern nicht angerechnet und im EU-Ausland werden Ihnen keine Roaming-Gebühren berechnet. Näheres erfahren Sie von Ihrem Mobilfunk-Betreiber.";
 
 "ExposureNotificationSetting_EU_Desc_3" = "Derzeit nehmen die folgenden Länder an der länderübergreifenden Risiko-Ermittlung teil:";
 
@@ -991,6 +991,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Home_SubmitCard_Body" = "Schützen Sie sich und Ihre Mitmenschen!";
 
 "Home_SubmitCard_Button" = "Nächste Schritte";
+
+/* Home Diary card */
+"Home_DiaryCard_Title" = "Kontakt-Tagebuch";
+
+"Home_DiaryCard_Body" = "Merken Sie sich, wo Sie waren und wen Sie getroffen haben.";
+
+"Home_DiaryCard_Button" = "Tagebuch führen";
 
 "Home_InfoCard_ShareTitle" = "Corona-Warn-App empfehlen";
 
@@ -1252,7 +1259,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "DeltaOnboarding_Headline" = "Länderübergreifende Risiko-Ermittlung";
 
-"DeltaOnboarding_Description" = "Die Funktion der Corona-Warn-App wurde erweitert. Es arbeiten nun mehrere Länder zusammen, um über einen gemeinsam betriebenen Austausch-Server länderübergreifende Warnungen zu ermöglichen. So können bei der Risiko-Ermittlung jetzt auch die Kontakte mit Nutzern einer offiziellen Corona-App anderer teilnehmender Länder berücksichtigt werden.\n\nHierfür lädt die App täglich eine aktuelle Liste mit den Zufalls-IDs aller Nutzer herunter, die ihr Testergebnis zur Warnung anderer über ihre App geteilt haben. Diese Liste wird dann mit den von Ihrem iPhone aufgezeichneten Zufalls-IDs verglichen.\n\nDie Downloads der Listen sind mit den Zufalls-IDs ist für Sie in der Regel kostenlos. Das heißt: Das von der App verursachte Datenvolumen wird von den Mobilfunk-Betreibern nicht angerechnet und im EU-Ausland werden Ihnen keine Roaming-Gebühren berechnet. Näheres erfahren Sie von Ihrem Mobilfunk-Betreiber.";
+"DeltaOnboarding_Description" = "Die Funktion der Corona-Warn-App wurde erweitert. Es arbeiten nun mehrere Länder zusammen, um über einen gemeinsam betriebenen Austausch-Server länderübergreifende Warnungen zu ermöglichen. So können bei der Risiko-Ermittlung jetzt auch die Kontakte mit Nutzern einer offiziellen Corona-App anderer teilnehmender Länder berücksichtigt werden.\n\nHierfür lädt die App täglich aktuelle Listen mit den Zufalls-IDs aller Nutzer herunter, die ihr Testergebnis zur Warnung anderer über ihre App geteilt haben. Diese Liste wird dann mit den von Ihrem iPhone aufgezeichneten Zufalls-IDs verglichen.\n\nDie Downloads der Listen sind mit den Zufalls-IDs ist für Sie in der Regel kostenlos. Das heißt: Das von der App verursachte Datenvolumen wird von den Mobilfunk-Betreibern nicht angerechnet und im EU-Ausland werden Ihnen keine Roaming-Gebühren berechnet. Näheres erfahren Sie von Ihrem Mobilfunk-Betreiber.";
 
 "DeltaOnboarding_ParticipatingCountries" = "Derzeit nehmen die folgenden Länder teil:";
 
@@ -1326,3 +1333,38 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "TestResultPositive_WithConsent_PrimaryButton" = "Weiter mit Symptom-Erfassung";
 
 "TestResultPositive_WithConsent_SecondaryButton" = "Beenden";
+
+/* Contact Diary*/
+
+/* Overview */
+"ContactDiary_Overview_Title" = "Kontakt-Tagebuch";
+
+"ContactDiary_Overview_Description" = "Tragen Sie ein, mit wem Sie sich getroffen haben und wo Sie gewesen sind. ";
+
+/* Information */
+"ContactDiary_Information_Title" = "Kontakt-Tagebuch";
+
+"ContactDiary_Information_ImageDescription" = "Wir sehen drei Personen mit Abstand zueinander, die ihre Smartphones zur Kontaktprotokollierung verwenden.";
+
+"ContactDiary_Information_DescriptionTitle" = "Behalten Sie den Überblick.";
+
+"ContactDiary_Information_DescriptionSubHeadline" = "Erstellen Sie eine Übersicht über Ihre Kontakte der letzten 16 Tage. So haben Sie bei Bedarf schnell eine vollständige Liste zur Hand.";
+
+"ContactDiary_Information_Item_Person_Title" = "Tragen Sie ein, mit wem Sie sich getroffen haben.";
+
+"ContactDiary_Information_Item_Location_Title" = "Tragen Sie ein, an welchen Orten Sie anderen begegnet sind.";
+
+"ContactDiary_Information_Item_Lock_Title" = "Ihr Tagebuch ist nur für Sie bestimmt. Ihre Einträge werden nur auf Ihrem Smartphone gespeichert und nach 16 Tagen automatisch gelöscht.";
+
+"ContactDiary_Information_Dataprivacy_Title" = "Weitere Hinweise finden Sie in der Datenschutzerklärung";
+
+"ContactDiary_Information_PrimaryButton_Title" = "Tagebuch führen";
+
+/* ActionSheet */
+"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Info";
+
+"ContactDiary_Overview_ActionSheet_ExportActionTitle" = "Einträge exportieren";
+
+"ContactDiary_Overview_ActionSheet_EditPersonTitle" = "Personen bearbeiten";
+
+"ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Orte bearbeiten";

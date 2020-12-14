@@ -108,11 +108,6 @@ final class SecureStore: Store {
 		set { kvStore["devicePairingSuccessfulTimestamp"] = newValue }
 	}
 
-	var isAllowedToSubmitDiagnosisKeys: Bool {
-		get { kvStore["isAllowedToSubmitDiagnosisKeys"] as Bool? ?? false }
-		set { kvStore["isAllowedToSubmitDiagnosisKeys"] = newValue }
-	}
-
 	var isOnboarded: Bool {
 		get { kvStore["isOnboarded"] as Bool? ?? false }
 		set { kvStore["isOnboarded"] = newValue }
@@ -259,6 +254,11 @@ final class SecureStore: Store {
 	var submissionSymptomsOnset: SymptomsOnset {
 		get { kvStore["submissionSymptomsOnset"] as SymptomsOnset? ?? .noInformation }
 		set { kvStore["submissionSymptomsOnset"] = newValue }
+	}
+
+	var diaryInfoScreenShown: Bool {
+		get { kvStore["diaryInfoScreenShown"] as Bool? ?? false }
+		set { kvStore["diaryInfoScreenShown"] = newValue }
 	}
 	
 	#if !RELEASE

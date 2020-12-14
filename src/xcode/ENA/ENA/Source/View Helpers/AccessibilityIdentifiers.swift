@@ -28,6 +28,7 @@ enum AccessibilityIdentifiers {
 
 	enum Home {
 		static let submitCardButton = "AppStrings.Home.submitCardButton"
+		static let diaryCardButton = "AppStrings.Home.diaryCardButton"
 		static let activateCardOnTitle = "AppStrings.Home.activateCardOnTitle"
 		static let activateCardOffTitle = "AppStrings.Home.activateCardOffTitle"
 		static let activateCardBluetoothOffTitle = "AppStrings.Home.activateCardBluetoothOffTitle"
@@ -39,7 +40,14 @@ enum AccessibilityIdentifiers {
 		static let infoCardAboutTitle = "AppStrings.Home.infoCardAboutTitle"
 		static let appInformationCardTitle = "AppStrings.Home.appInformationCardTitle"
 		static let settingsCardTitle = "AppStrings.Home.settingsCardTitle"
+	}
 
+	enum ContactDiaryInformation {
+		static let imageDescription = "AppStrings.ContactDiaryInformation.imageDescription"
+		static let descriptionTitle = "AppStrings.ContactDiaryInformation.descriptionTitle"
+		static let descriptionSubHeadline = "AppStrings.ContactDiaryInformation.descriptionSubHeadline"
+		static let dataPrivacyTitle = "AppStrings.ContactDiaryInformation.dataPrivacyTitle"
+		static let legal_1 = "AppStrings.ContactDiaryInformation.legalHeadline_1"
 	}
 
 	enum Onboarding {

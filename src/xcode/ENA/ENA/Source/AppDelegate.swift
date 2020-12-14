@@ -17,6 +17,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var serverEnvironment: ServerEnvironment { get }
+	var contactDiaryStore: ContactDiaryStoreV1 { get }
 }
 
 extension AppDelegate: CoronaWarnAppDelegate {
@@ -208,9 +209,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		self.client = HTTPClient(configuration: configuration)
 		self.wifiClient = WifiOnlyHTTPClient(configuration: configuration)
 
-		#if !RELEASE
 		downloadedPackagesStore.keyValueStore = self.store
-		#endif
 	}
 
 	func application(

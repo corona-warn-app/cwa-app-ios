@@ -38,7 +38,6 @@ final class MockTestStore: Store, AppConfigCaching {
 	var devicePairingConsentAccept: Bool = false
 	var devicePairingConsentAcceptTimestamp: Int64?
 	var devicePairingSuccessfulTimestamp: Int64?
-	var isAllowedToSubmitDiagnosisKeys: Bool = false
 	var registrationToken: String?
 	var allowRiskChangesNotification: Bool = true
 	var allowTestsStatusNotification: Bool = true
@@ -53,6 +52,7 @@ final class MockTestStore: Store, AppConfigCaching {
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]?
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
+	var diaryInfoScreenShown: Bool = false
 
 	#if !RELEASE
 	// Settings from the debug menu.

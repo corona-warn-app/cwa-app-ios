@@ -37,20 +37,16 @@
 		0177F48825501111009DD568 /* RiskCalculationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177F48125501111009DD568 /* RiskCalculationResult.swift */; };
 		0177F4B125503805009DD568 /* ScanInstanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177F4B025503805009DD568 /* ScanInstanceTest.swift */; };
 		0190986A257E64A70065D050 /* DiaryOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909845257E61350065D050 /* DiaryOverviewTableViewController.swift */; };
-		0190986E257E64B40065D050 /* DiaryOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909844257E61350065D050 /* DiaryOverviewViewModel.swift */; };
 		01909874257E64BD0065D050 /* DiaryDayTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909862257E63810065D050 /* DiaryDayTableViewController.swift */; };
 		01909875257E64BD0065D050 /* DiaryAddAndEditEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190984C257E62C70065D050 /* DiaryAddAndEditEntryViewController.swift */; };
 		01909876257E64BD0065D050 /* DiaryAddAndEditEntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909851257E62CB0065D050 /* DiaryAddAndEditEntryViewModel.swift */; };
 		01909877257E64BD0065D050 /* DiaryEditEntriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909834257E606C0065D050 /* DiaryEditEntriesTableViewController.swift */; };
 		01909878257E64BD0065D050 /* DiaryEditEntriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190983C257E60760065D050 /* DiaryEditEntriesViewModel.swift */; };
-		01909879257E64BD0065D050 /* DiaryDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909863257E63810065D050 /* DiaryDayViewModel.swift */; };
 		0190987D257E64C70065D050 /* DiaryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190982B257E5AF70065D050 /* DiaryCoordinator.swift */; };
 		01909882257E675D0065D050 /* DiaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909881257E675D0065D050 /* DiaryService.swift */; };
 		01909888257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909886257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift */; };
 		01909889257E7B900065D050 /* ExposureSubmissionQRInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909887257E7B900065D050 /* ExposureSubmissionQRInfoViewModel.swift */; };
 		0190B225255C423600CF4244 /* Date+Age.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190B224255C423600CF4244 /* Date+Age.swift */; };
-		019357182525FAD00038F615 /* DiaryInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019357162525FAD00038F615 /* DiaryInfoViewController.swift */; };
-		019357192525FAD00038F615 /* DiaryInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019357172525FAD00038F615 /* DiaryInfoViewModel.swift */; };
 		019BFC6C24C9901A0053973D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCC2702484DC8400E2811D /* sqlite3.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		01A1B442252DE57000841B63 /* ExposureSubmissionQRScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1B441252DE54600841B63 /* ExposureSubmissionQRScannerViewModelTests.swift */; };
 		01A1B44A252DFD7800841B63 /* MetadataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1B449252DFD7700841B63 /* MetadataObject.swift */; };
@@ -88,6 +84,14 @@
 		01DB708525068167008F7244 /* Calendar+GregorianLocale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DB708425068167008F7244 /* Calendar+GregorianLocale.swift */; };
 		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
 		01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01E42990251DCDC90057FCBE /* Localizable.legal.strings */; };
+		01F2A535257FACDF00DA96A6 /* HomeTestResultCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F2A534257FACDF00DA96A6 /* HomeTestResultCellConfigurator.swift */; };
+		01F2A543257FB90200DA96A6 /* CloseBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F2A542257FB90200DA96A6 /* CloseBarButtonItem.swift */; };
+		01F2A54F257FC0A000DA96A6 /* HomeDiaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F2A54D257FC0A000DA96A6 /* HomeDiaryCollectionViewCell.swift */; };
+		01F2A559257FC33800DA96A6 /* HomeDiaryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F2A54E257FC0A000DA96A6 /* HomeDiaryCollectionViewCell.xib */; };
+		01F2A563257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F2A561257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.swift */; };
+		01F2A564257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F2A562257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.xib */; };
+		01F2A58125803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F2A57F25803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.swift */; };
+		01F2A59725803D2600DA96A6 /* DiaryOverviewDescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F2A58025803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.xib */; };
 		01F52F8A2550679600997A26 /* RiskCalculationExposureWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F52F892550679600997A26 /* RiskCalculationExposureWindow.swift */; };
 		01F52F92255067A000997A26 /* RiskCalculationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F52F91255067A000997A26 /* RiskCalculationError.swift */; };
 		01F52FF42552DB9600997A26 /* DMAppConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F52FF32552DB9600997A26 /* DMAppConfigurationViewController.swift */; };
@@ -240,7 +244,7 @@
 		710021DE248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 710021DD248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib */; };
 		710021E0248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710021DF248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift */; };
 		710224EA248FA67F000C5DEF /* HomeTestResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710224E9248FA67F000C5DEF /* HomeTestResultCollectionViewCell.swift */; };
-		710224EC248FC150000C5DEF /* HomeTestResultCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710224EB248FC150000C5DEF /* HomeTestResultCellConfigurator.swift */; };
+		710224EC248FC150000C5DEF /* HomeDiaryCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710224EB248FC150000C5DEF /* HomeDiaryCellConfigurator.swift */; };
 		710224EE2490E2FD000C5DEF /* ExposureSubmissionStepCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 710224ED2490E2FC000C5DEF /* ExposureSubmissionStepCell.xib */; };
 		710224F42490E7A3000C5DEF /* ExposureSubmissionStepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710224F32490E7A3000C5DEF /* ExposureSubmissionStepCell.swift */; };
 		710224F624910661000C5DEF /* ExposureSubmissionDynamicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710224F524910661000C5DEF /* ExposureSubmissionDynamicCell.swift */; };
@@ -285,10 +289,8 @@
 		71FE1C69247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C68247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift */; };
 		71FE1C71247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C70247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift */; };
 		71FE1C7B247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C74247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift */; };
-		71FE1C7D247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C76247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift */; };
 		71FE1C7F247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */; };
 		71FE1C80247AC2B500851FEB /* ExposureSubmissionNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C79247AC2B500851FEB /* ExposureSubmissionNavigationController.swift */; };
-		71FE1C82247AC30300851FEB /* ENATanInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C81247AC30300851FEB /* ENATanInput.swift */; };
 		71FE1C86247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C84247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift */; };
 		71FE1C8C247AC79D00851FEB /* DynamicTableViewIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C8A247AC79D00851FEB /* DynamicTableViewIconCell.swift */; };
 		71FE1C8D247AC79D00851FEB /* DynamicTableViewIconCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71FE1C8B247AC79D00851FEB /* DynamicTableViewIconCell.xib */; };
@@ -348,7 +350,6 @@
 		A328424E248B91E0006B1F09 /* HomeTestResultLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328424C248B91E0006B1F09 /* HomeTestResultLoadingCell.swift */; };
 		A3284250248B9269006B1F09 /* HomeTestResultLoadingCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328424F248B9269006B1F09 /* HomeTestResultLoadingCellConfigurator.swift */; };
 		A328425D248E82BC006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328425B248E82B5006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift */; };
-		A328425F248E943D006B1F09 /* ExposureSubmissionTanInputViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328425E248E943D006B1F09 /* ExposureSubmissionTanInputViewControllerTests.swift */; };
 		A32842612490E2AC006B1F09 /* ExposureSubmissionWarnOthersViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842602490E2AC006B1F09 /* ExposureSubmissionWarnOthersViewControllerTests.swift */; };
 		A32842652491136E006B1F09 /* ExposureSubmissionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */; };
 		A32842672492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842662492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift */; };
@@ -509,6 +510,7 @@
 		BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */; };
 		BA112E0A25559CDD007F5712 /* ClientWifiOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */; };
 		BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */; };
+		BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */; };
 		BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8A9D254D634E008344F5 /* RiskCalculationConfiguration.swift */; };
 		BA6C8AA6254D63A0008344F5 /* MinutesAtAttenuationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AA5254D63A0008344F5 /* MinutesAtAttenuationFilter.swift */; };
 		BA6C8AAE254D6476008344F5 /* ENARange.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AAD254D6476008344F5 /* ENARange.swift */; };
@@ -529,8 +531,13 @@
 		BA6D163B255AD35900ED3492 /* DMSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA6D1639255AD35900ED3492 /* DMSwitchTableViewCell.xib */; };
 		BA6D1640255ADD0500ED3492 /* DMSwitchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D163F255ADD0400ED3492 /* DMSwitchCellViewModel.swift */; };
 		BA8BBA08255A90690034D4BC /* WifiHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */; };
+		BA904C9E25769D1800692110 /* TanInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA904C9D25769D1800692110 /* TanInputView.swift */; };
+		BA904CA62576A0B900692110 /* ENAInputLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA904CA52576A0B900692110 /* ENAInputLabel.swift */; };
 		BA92A45E255163460063B46F /* ExposureSubmissionQRScannerViewModelGuidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA92A45D255163460063B46F /* ExposureSubmissionQRScannerViewModelGuidTests.swift */; };
 		BA9DD53F2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9DD53E2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift */; };
+		BAB1239C2572A06D00A179FB /* TanInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1239B2572A06D00A179FB /* TanInputViewModel.swift */; };
+		BAB123A22572A0B700A179FB /* TanInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB123A02572A0B700A179FB /* TanInputViewController.swift */; };
+		BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */; };
 		BAD962FB25668F4000FAB615 /* TestResultAvailableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */; };
 		BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */; };
 		CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */; };
@@ -568,6 +575,8 @@
 		EB7F8E9524E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7F8E9424E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift */; };
 		EB858D2024E700D10048A0AA /* UIView+Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */; };
 		EB873540253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */; };
+		EB91288A257FBD1E00241D3E /* DiaryInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB912888257FBD1E00241D3E /* DiaryInfoViewModel.swift */; };
+		EB91288B257FBD1E00241D3E /* DiaryInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB912889257FBD1E00241D3E /* DiaryInfoViewController.swift */; };
 		EBBABC47256402A9005B7C07 /* default_app_config_18 in Resources */ = {isa = PBXBuildFile; fileRef = EBBABC46256402A9005B7C07 /* default_app_config_18 */; };
 		EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */; };
 		EBDE11B2255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDE11B1255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift */; };
@@ -665,18 +674,14 @@
 		0190982B257E5AF70065D050 /* DiaryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCoordinator.swift; sourceTree = "<group>"; };
 		01909834257E606C0065D050 /* DiaryEditEntriesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesTableViewController.swift; sourceTree = "<group>"; };
 		0190983C257E60760065D050 /* DiaryEditEntriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesViewModel.swift; sourceTree = "<group>"; };
-		01909844257E61350065D050 /* DiaryOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewViewModel.swift; sourceTree = "<group>"; };
 		01909845257E61350065D050 /* DiaryOverviewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewTableViewController.swift; sourceTree = "<group>"; };
 		0190984C257E62C70065D050 /* DiaryAddAndEditEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryViewController.swift; sourceTree = "<group>"; };
 		01909851257E62CB0065D050 /* DiaryAddAndEditEntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryViewModel.swift; sourceTree = "<group>"; };
 		01909862257E63810065D050 /* DiaryDayTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayTableViewController.swift; sourceTree = "<group>"; };
-		01909863257E63810065D050 /* DiaryDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayViewModel.swift; sourceTree = "<group>"; };
 		01909881257E675D0065D050 /* DiaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryService.swift; sourceTree = "<group>"; };
 		01909886257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRInfoViewController.swift; sourceTree = "<group>"; };
 		01909887257E7B900065D050 /* ExposureSubmissionQRInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRInfoViewModel.swift; sourceTree = "<group>"; };
 		0190B224255C423600CF4244 /* Date+Age.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Age.swift"; sourceTree = "<group>"; };
-		019357162525FAD00038F615 /* DiaryInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewController.swift; sourceTree = "<group>"; };
-		019357172525FAD00038F615 /* DiaryInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModel.swift; sourceTree = "<group>"; };
 		01A1B441252DE54600841B63 /* ExposureSubmissionQRScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRScannerViewModelTests.swift; sourceTree = "<group>"; };
 		01A1B449252DFD7700841B63 /* MetadataObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataObject.swift; sourceTree = "<group>"; };
 		01A1B451252DFD9400841B63 /* FakeMetadataMachineReadableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeMetadataMachineReadableObject.swift; sourceTree = "<group>"; };
@@ -714,6 +719,14 @@
 		01E4298F251DCDC90057FCBE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.legal.strings; sourceTree = "<group>"; };
 		01E42994251DCDCE0057FCBE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.legal.strings; sourceTree = "<group>"; };
 		01E42995251DCDD10057FCBE /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.legal.strings; sourceTree = "<group>"; };
+		01F2A534257FACDF00DA96A6 /* HomeTestResultCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellConfigurator.swift; sourceTree = "<group>"; };
+		01F2A542257FB90200DA96A6 /* CloseBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseBarButtonItem.swift; sourceTree = "<group>"; };
+		01F2A54D257FC0A000DA96A6 /* HomeDiaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDiaryCollectionViewCell.swift; sourceTree = "<group>"; };
+		01F2A54E257FC0A000DA96A6 /* HomeDiaryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeDiaryCollectionViewCell.xib; sourceTree = "<group>"; };
+		01F2A561257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewDayTableViewCell.swift; sourceTree = "<group>"; };
+		01F2A562257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryOverviewDayTableViewCell.xib; sourceTree = "<group>"; };
+		01F2A57F25803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewDescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		01F2A58025803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryOverviewDescriptionTableViewCell.xib; sourceTree = "<group>"; };
 		01F52F892550679600997A26 /* RiskCalculationExposureWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationExposureWindow.swift; sourceTree = "<group>"; };
 		01F52F91255067A000997A26 /* RiskCalculationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationError.swift; sourceTree = "<group>"; };
 		01F52FF32552DB9600997A26 /* DMAppConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMAppConfigurationViewController.swift; sourceTree = "<group>"; };
@@ -876,7 +889,7 @@
 		710021DD248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExposureSubmissionImageCardCell.xib; sourceTree = "<group>"; };
 		710021DF248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionImageCardCell.swift; sourceTree = "<group>"; };
 		710224E9248FA67F000C5DEF /* HomeTestResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCollectionViewCell.swift; sourceTree = "<group>"; };
-		710224EB248FC150000C5DEF /* HomeTestResultCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellConfigurator.swift; sourceTree = "<group>"; };
+		710224EB248FC150000C5DEF /* HomeDiaryCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDiaryCellConfigurator.swift; sourceTree = "<group>"; };
 		710224ED2490E2FC000C5DEF /* ExposureSubmissionStepCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExposureSubmissionStepCell.xib; sourceTree = "<group>"; };
 		710224F32490E7A3000C5DEF /* ExposureSubmissionStepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionStepCell.swift; sourceTree = "<group>"; };
 		710224F524910661000C5DEF /* ExposureSubmissionDynamicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionDynamicCell.swift; sourceTree = "<group>"; };
@@ -929,10 +942,8 @@
 		71FE1C68247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHeaderFooterView.swift; sourceTree = "<group>"; };
 		71FE1C70247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHeaderImageView.swift; sourceTree = "<group>"; };
 		71FE1C74247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRScannerViewController.swift; sourceTree = "<group>"; };
-		71FE1C76247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTanInputViewController.swift; sourceTree = "<group>"; };
 		71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultViewController.swift; sourceTree = "<group>"; };
 		71FE1C79247AC2B500851FEB /* ExposureSubmissionNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionNavigationController.swift; sourceTree = "<group>"; };
-		71FE1C81247AC30300851FEB /* ENATanInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENATanInput.swift; sourceTree = "<group>"; };
 		71FE1C84247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultHeaderView.swift; sourceTree = "<group>"; };
 		71FE1C8A247AC79D00851FEB /* DynamicTableViewIconCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicTableViewIconCell.swift; sourceTree = "<group>"; };
 		71FE1C8B247AC79D00851FEB /* DynamicTableViewIconCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DynamicTableViewIconCell.xib; sourceTree = "<group>"; };
@@ -1001,7 +1012,6 @@
 		A328424F248B9269006B1F09 /* HomeTestResultLoadingCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultLoadingCellConfigurator.swift; sourceTree = "<group>"; };
 		A3284256248E7431006B1F09 /* MockExposureSubmissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureSubmissionService.swift; sourceTree = "<group>"; };
 		A328425B248E82B5006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultViewControllerTests.swift; sourceTree = "<group>"; };
-		A328425E248E943D006B1F09 /* ExposureSubmissionTanInputViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTanInputViewControllerTests.swift; sourceTree = "<group>"; };
 		A32842602490E2AC006B1F09 /* ExposureSubmissionWarnOthersViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnOthersViewControllerTests.swift; sourceTree = "<group>"; };
 		A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionUITests.swift; sourceTree = "<group>"; };
 		A32842662492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureSubmissionNavigationControllerChild.swift; sourceTree = "<group>"; };
@@ -1152,6 +1162,7 @@
 		BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WifiOnlyHTTPClient.swift; sourceTree = "<group>"; };
 		BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientWifiOnly.swift; sourceTree = "<group>"; };
 		BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWifiClientViewController.swift; sourceTree = "<group>"; };
+		BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModelTest.swift; sourceTree = "<group>"; };
 		BA6C8A8F254D61F4008344F5 /* exposure-windows-risk-calculation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "exposure-windows-risk-calculation.json"; sourceTree = "<group>"; };
 		BA6C8A95254D62C3008344F5 /* TestCasesWithConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCasesWithConfiguration.swift; sourceTree = "<group>"; };
 		BA6C8A9D254D634E008344F5 /* RiskCalculationConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationConfiguration.swift; sourceTree = "<group>"; };
@@ -1172,8 +1183,13 @@
 		BA6D1639255AD35900ED3492 /* DMSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DMSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		BA6D163F255ADD0400ED3492 /* DMSwitchCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSwitchCellViewModel.swift; sourceTree = "<group>"; };
 		BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiHTTPClientTests.swift; sourceTree = "<group>"; };
+		BA904C9D25769D1800692110 /* TanInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputView.swift; sourceTree = "<group>"; };
+		BA904CA52576A0B900692110 /* ENAInputLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAInputLabel.swift; sourceTree = "<group>"; };
 		BA92A45D255163460063B46F /* ExposureSubmissionQRScannerViewModelGuidTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRScannerViewModelGuidTests.swift; sourceTree = "<group>"; };
 		BA9DD53E2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewModelTest.swift; sourceTree = "<group>"; };
+		BAB1239B2572A06D00A179FB /* TanInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewModel.swift; sourceTree = "<group>"; };
+		BAB123A02572A0B700A179FB /* TanInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewController.swift; sourceTree = "<group>"; };
+		BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewModelTests.swift; sourceTree = "<group>"; };
 		BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewController.swift; sourceTree = "<group>"; };
 		BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewModel.swift; sourceTree = "<group>"; };
 		CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
@@ -1217,6 +1233,8 @@
 		EB7F8E9424E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAppRefreshViewController.swift; sourceTree = "<group>"; };
 		EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Screenshot.swift"; sourceTree = "<group>"; };
 		EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenter+DeadManSwitch.swift"; sourceTree = "<group>"; };
+		EB912888257FBD1E00241D3E /* DiaryInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModel.swift; sourceTree = "<group>"; };
+		EB912889257FBD1E00241D3E /* DiaryInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewController.swift; sourceTree = "<group>"; };
 		EBBABC46256402A9005B7C07 /* default_app_config_18 */ = {isa = PBXFileReference; lastKnownFileType = file; path = default_app_config_18; sourceTree = "<group>"; };
 		EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewController.swift; sourceTree = "<group>"; };
 		EBDE11B1255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDeviceTimeCheckViewController.swift; sourceTree = "<group>"; };
@@ -1351,8 +1369,9 @@
 		0190982C257E5B340065D050 /* Info */ = {
 			isa = PBXGroup;
 			children = (
-				019357162525FAD00038F615 /* DiaryInfoViewController.swift */,
-				019357172525FAD00038F615 /* DiaryInfoViewModel.swift */,
+				BA288AEF25825D5B0071009A /* __test__ */,
+				EB912889257FBD1E00241D3E /* DiaryInfoViewController.swift */,
+				EB912888257FBD1E00241D3E /* DiaryInfoViewModel.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -1361,7 +1380,7 @@
 			isa = PBXGroup;
 			children = (
 				01909845257E61350065D050 /* DiaryOverviewTableViewController.swift */,
-				01909844257E61350065D050 /* DiaryOverviewViewModel.swift */,
+				01F2A560257FC79F00DA96A6 /* Cells */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
@@ -1370,7 +1389,6 @@
 			isa = PBXGroup;
 			children = (
 				01909862257E63810065D050 /* DiaryDayTableViewController.swift */,
-				01909863257E63810065D050 /* DiaryDayViewModel.swift */,
 			);
 			path = Day;
 			sourceTree = "<group>";
@@ -1467,6 +1485,17 @@
 				01A97DD22506769F00C07C37 /* DatePickerDayViewModelTests.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		01F2A560257FC79F00DA96A6 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				01F2A57F25803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.swift */,
+				01F2A58025803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.xib */,
+				01F2A561257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.swift */,
+				01F2A562257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		13091950247972CF0066E329 /* PrivacyProtectionViewController */ = {
@@ -1718,6 +1747,7 @@
 		51B5B41A246E059700DC5D3E /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				01F2A542257FB90200DA96A6 /* CloseBarButtonItem.swift */,
 				713EA26024798AD100AB7EE8 /* InsetTableViewCell.swift */,
 				71F54190248BF677006DB793 /* HtmlTextView.swift */,
 				351E6305256BEC8D00D89B29 /* LabeledCountriesView.swift */,
@@ -1742,6 +1772,8 @@
 				A328424B248B91E0006B1F09 /* HomeTestResultLoadingCell.xib */,
 				710224E9248FA67F000C5DEF /* HomeTestResultCollectionViewCell.swift */,
 				2F78574F248506BD00323A9C /* HomeTestResultCollectionViewCell.xib */,
+				01F2A54D257FC0A000DA96A6 /* HomeDiaryCollectionViewCell.swift */,
+				01F2A54E257FC0A000DA96A6 /* HomeDiaryCollectionViewCell.xib */,
 				51B5B41B246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift */,
 				51CE1B78246078B6002CF42A /* ActivateCollectionViewCell.swift */,
 				51CE1B76246078B6002CF42A /* ActivateCollectionViewCell.xib */,
@@ -1767,7 +1799,8 @@
 				51CE1BC22460B28D002CF42A /* HomeInfoCellConfigurator.swift */,
 				13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */,
 				A328424F248B9269006B1F09 /* HomeTestResultLoadingCellConfigurator.swift */,
-				710224EB248FC150000C5DEF /* HomeTestResultCellConfigurator.swift */,
+				01F2A534257FACDF00DA96A6 /* HomeTestResultCellConfigurator.swift */,
+				710224EB248FC150000C5DEF /* HomeDiaryCellConfigurator.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -2038,7 +2071,7 @@
 			children = (
 				853D987924694A8700490DBA /* ENAButton.swift */,
 				8595BF5E246032D90056EA27 /* ENASwitch.swift */,
-				71FE1C81247AC30300851FEB /* ENATanInput.swift */,
+				BA904CA52576A0B900692110 /* ENAInputLabel.swift */,
 				71B804462484CC0800D53506 /* ENALabel.swift */,
 				711EFCC62492EE31005FEF21 /* ENAFooterView.swift */,
 			);
@@ -2273,7 +2306,6 @@
 				01A1B440252DE53800841B63 /* QRScanner */,
 				A328425B248E82B5006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift */,
 				016961AF2549630100FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift */,
-				A328425E248E943D006B1F09 /* ExposureSubmissionTanInputViewControllerTests.swift */,
 				2FD881CB2490F65C00BEC8FC /* ExposureSubmissionHotlineViewControllerTest.swift */,
 				2FD881CD249115E700BEC8FC /* ExposureSubmissionNavigationControllerTest.swift */,
 				015178C12507D2A90074F095 /* ExposureSubmissionSymptomsOnsetViewControllerTests.swift */,
@@ -2336,11 +2368,10 @@
 				503DB1AB255D826900576E57 /* ExposureSubmissionIntroViewModel.swift */,
 				01909886257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift */,
 				01909887257E7B900065D050 /* ExposureSubmissionQRInfoViewModel.swift */,
-				71FE1C76247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift */,
-				71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */,
-				016961982540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift */,
 				5222AA67255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift */,
 				5222AA6F255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift */,
+				71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */,
+				016961982540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift */,
 				523D5E74256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift */,
 				523D5E79256FE04000EF67EA /* ExposureSubmissionThankYouViewModel.swift */,
 				01C6AC2D252B23FC0052814D /* QRScanner */,
@@ -2350,6 +2381,7 @@
 				EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */,
 				A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */,
 				01A236792519D1E80043D9F8 /* ExposureSubmissionWarnOthersViewModel.swift */,
+				BAB1239A25729FEA00A179FB /* TANInputViewController */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2985,6 +3017,14 @@
 			path = CWASQLite;
 			sourceTree = "<group>";
 		};
+		BA288AEF25825D5B0071009A /* __test__ */ = {
+			isa = PBXGroup;
+			children = (
+				BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */,
+			);
+			path = __test__;
+			sourceTree = "<group>";
+		};
 		BA6C8A8E254D60E0008344F5 /* Calculation */ = {
 			isa = PBXGroup;
 			children = (
@@ -3061,6 +3101,25 @@
 			isa = PBXGroup;
 			children = (
 				BA9DD53E2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		BAB1239A25729FEA00A179FB /* TANInputViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BAC0A4DC25768017002B5361 /* __tests__ */,
+				BA904C9D25769D1800692110 /* TanInputView.swift */,
+				BAB1239B2572A06D00A179FB /* TanInputViewModel.swift */,
+				BAB123A02572A0B700A179FB /* TanInputViewController.swift */,
+			);
+			path = TANInputViewController;
+			sourceTree = "<group>";
+		};
+		BAC0A4DC25768017002B5361 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -3418,6 +3477,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				514E813024618E3D00636861 /* ExposureDetection.storyboard in Resources */,
+				01F2A59725803D2600DA96A6 /* DiaryOverviewDescriptionTableViewCell.xib in Resources */,
 				51486DA32485101500FCE216 /* RiskInactiveCollectionViewCell.xib in Resources */,
 				13156CFD248C19D000AFC472 /* usage.html in Resources */,
 				51486DA72485237200FCE216 /* RiskThankYouCollectionViewCell.xib in Resources */,
@@ -3438,8 +3498,10 @@
 				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				51CE1B85246078B6002CF42A /* ActivateCollectionViewCell.xib in Resources */,
+				01F2A559257FC33800DA96A6 /* HomeDiaryCollectionViewCell.xib in Resources */,
 				AB628A1F251CDADE00CF61D2 /* ServerEnvironments.json in Resources */,
 				014891B324F90D0B002A6F77 /* ENA.plist in Resources */,
+				01F2A564257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.xib in Resources */,
 				01C6AC21252B21DF0052814D /* ExposureSubmissionQRScannerViewController.xib in Resources */,
 				51C779142486E5AB004582F8 /* RiskFindingPositiveCollectionViewCell.xib in Resources */,
 				51D420CE245869C800AD70CA /* Home.storyboard in Resources */,
@@ -3572,6 +3634,7 @@
 				B1EDFD8D248E74D000E7EAFF /* URL+StaticString.swift in Sources */,
 				A3E851B224ADD09900402485 /* CountdownTimer.swift in Sources */,
 				EB08F1882541CE5700D11FA9 /* diagnosis_key_batch.pb.swift in Sources */,
+				EB91288B257FBD1E00241D3E /* DiaryInfoViewController.swift in Sources */,
 				011E13AE24680A4000973467 /* HTTPClient.swift in Sources */,
 				A1C683FA24AEC57400B90D12 /* DynamicTableViewTextViewCell.swift in Sources */,
 				01C6AC3A252B2A500052814D /* UIImage+Color.swift in Sources */,
@@ -3587,6 +3650,7 @@
 				01C6AC26252B23D70052814D /* ExposureSubmissionQRScannerFocusView.swift in Sources */,
 				01B7232424F812500064C0EB /* DynamicTableViewOptionGroupCell.swift in Sources */,
 				137846492488027600A50AB8 /* OnboardingInfoViewController+Extension.swift in Sources */,
+				BAB123A22572A0B700A179FB /* TanInputViewController.swift in Sources */,
 				ABDA2792251CE308006BAE84 /* DMServerEnvironmentViewController.swift in Sources */,
 				85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */,
 				AB1886D1252DE51E00D39BBE /* Bundle+Identifier.swift in Sources */,
@@ -3611,6 +3675,7 @@
 				A36D07B92486D61C00E46F96 /* HomeCardCellButtonDelegate.swift in Sources */,
 				B1A89F3824819C2B00DA1CEC /* HomeInteractor.swift in Sources */,
 				2F3D953C2518BCE9002B2C81 /* EUSettingsViewModel.swift in Sources */,
+				01F2A54F257FC0A000DA96A6 /* HomeDiaryCollectionViewCell.swift in Sources */,
 				01734B6E255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift in Sources */,
 				01B7232924F812DF0064C0EB /* OptionView.swift in Sources */,
 				514C0A16247C164700F235F6 /* HomeHighRiskCellConfigurator.swift in Sources */,
@@ -3619,7 +3684,6 @@
 				B1FC2D2024D9C8DF00083C81 /* SAP_TemporaryExposureKey+DeveloperMenu.swift in Sources */,
 				717D21E9248C022E00D9717E /* DynamicTableViewHtmlCell.swift in Sources */,
 				BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */,
-				71FE1C82247AC30300851FEB /* ENATanInput.swift in Sources */,
 				7154EB4A247D21E200A467FF /* ExposureDetectionLongGuideCell.swift in Sources */,
 				51CE1B4A246016B0002CF42A /* UICollectionViewCell+Identifier.swift in Sources */,
 				50DC527924FEB2AE00F6D8EB /* AppInformationDynamicCell.swift in Sources */,
@@ -3647,7 +3711,7 @@
 				CDCE11D6247D644100F30825 /* NotificationSettingsViewModel.swift in Sources */,
 				BA6C8AAE254D6476008344F5 /* ENARange.swift in Sources */,
 				50BD2E6424FE232E00932566 /* AppInformationImprintViewModel.swift in Sources */,
-				710224EC248FC150000C5DEF /* HomeTestResultCellConfigurator.swift in Sources */,
+				710224EC248FC150000C5DEF /* HomeDiaryCellConfigurator.swift in Sources */,
 				71330E4724810A0C00EB10F6 /* DynamicTableViewFooter.swift in Sources */,
 				B1D431CB246C84A400E728AD /* DownloadedPackagesStoreV1.swift in Sources */,
 				714194EA247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift in Sources */,
@@ -3662,21 +3726,19 @@
 				B1741B4E2462C21F006275D9 /* DMViewController.swift in Sources */,
 				EB2394A024E5492900E71225 /* BackgroundAppRefreshViewModel.swift in Sources */,
 				71CAB9D4248AB33500F516A5 /* DynamicTypeSymbolImageView.swift in Sources */,
-				019357182525FAD00038F615 /* DiaryInfoViewController.swift in Sources */,
 				EE22DB8C247FB43A001B0A71 /* DescriptionTableViewCell.swift in Sources */,
 				2F3218D0248063E300A7AC0A /* UIView+Convenience.swift in Sources */,
 				01734B5F255D6C4500E60A8B /* app_config_ios.pb.swift in Sources */,
 				B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */,
 				BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */,
+				EB91288A257FBD1E00241D3E /* DiaryInfoViewModel.swift in Sources */,
 				AB010CFE253ECB6B00DF1F61 /* HomeFailedCellConfigurator.swift in Sources */,
 				710ABB23247513E300948792 /* DynamicTypeTableViewCell.swift in Sources */,
-				71FE1C7D247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift in Sources */,
 				EE22DB81247FB40A001B0A71 /* ENStateHandler.swift in Sources */,
 				A16714AF248CA1B70031B111 /* Bundle+ReadPlist.swift in Sources */,
 				2F80CFDB247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift in Sources */,
 				BA6D163A255AD35900ED3492 /* DMSwitchTableViewCell.swift in Sources */,
 				941ADDB02518C2B200E421D9 /* EuTracingTableViewCell.swift in Sources */,
-				01909879257E64BD0065D050 /* DiaryDayViewModel.swift in Sources */,
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
 				01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */,
 				B1741B582462EBDB006275D9 /* HomeViewController.swift in Sources */,
@@ -3688,6 +3750,7 @@
 				B143DBDF2477F292000A29E8 /* ExposureNotificationSettingViewController.swift in Sources */,
 				016146912487A43E00660992 /* LinkHelper.swift in Sources */,
 				51D420B924583B8300AD70CA /* UIViewController+AppStoryboard.swift in Sources */,
+				BA904C9E25769D1800692110 /* TanInputView.swift in Sources */,
 				71B804542485273C00D53506 /* RiskLegendDotBodyCell.swift in Sources */,
 				EE22DB8A247FB43A001B0A71 /* ImageTableViewCell.swift in Sources */,
 				B11E619C246EE4E9004A056A /* UIFont+DynamicType.swift in Sources */,
@@ -3719,8 +3782,10 @@
 				713EA25D24798A7000AB7EE8 /* ExposureDetectionRoundedView.swift in Sources */,
 				AB5F84B224F8F7E3000400D4 /* Migration0To1.swift in Sources */,
 				01734B5B255D6C4500E60A8B /* app_features_v2.pb.swift in Sources */,
+				01F2A58125803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.swift in Sources */,
 				A3EE6E5D249BB9B900C64B61 /* UITestingParameters.swift in Sources */,
 				EB08F17A2541CE3300D11FA9 /* risk_level.pb.swift in Sources */,
+				01F2A563257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.swift in Sources */,
 				EBDE11B2255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift in Sources */,
 				B1A31F6924DAE6C000E263DF /* DMKeyCell.swift in Sources */,
 				710224F42490E7A3000C5DEF /* ExposureSubmissionStepCell.swift in Sources */,
@@ -3729,6 +3794,7 @@
 				B19FD7132491A08500A9D56A /* SAP_SemanticVersion+Compare.swift in Sources */,
 				B1B381432472EF8B0056BEEE /* HTTPClient+Configuration.swift in Sources */,
 				354E305924EFF26E00526C9F /* Country.swift in Sources */,
+				BA904CA62576A0B900692110 /* ENAInputLabel.swift in Sources */,
 				A328424E248B91E0006B1F09 /* HomeTestResultLoadingCell.swift in Sources */,
 				51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */,
 				4026C2DC24852B7600926FB4 /* AppInformationViewController+LegalModel.swift in Sources */,
@@ -3757,6 +3823,7 @@
 				13722044247AEEAD00152764 /* UNNotificationCenter+Extension.swift in Sources */,
 				B10FD5ED246EAADC00E9D7F2 /* AppInformationDetailViewController.swift in Sources */,
 				351E630C256C5B9C00D89B29 /* LabeledCountriesCell.swift in Sources */,
+				01F2A535257FACDF00DA96A6 /* HomeTestResultCellConfigurator.swift in Sources */,
 				CDCE11D9247D64C600F30825 /* NotificationSettingsOnTableViewCell.swift in Sources */,
 				0DF6BB97248AD616007E8B0C /* AppUpdateCheckHelper.swift in Sources */,
 				0DD260FF248D549B007C3B2C /* KeychainHelper.swift in Sources */,
@@ -3792,7 +3859,6 @@
 				2FA9E39324D2F2920030561C /* ExposureSubmission+TestResult.swift in Sources */,
 				94092541254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift in Sources */,
 				EB17144625716EA80088D7A9 /* FileManager+KeyPackageStorage.swift in Sources */,
-				0190986E257E64B40065D050 /* DiaryOverviewViewModel.swift in Sources */,
 				EE22DB89247FB43A001B0A71 /* TracingHistoryTableViewCell.swift in Sources */,
 				71B804472484CC0800D53506 /* ENALabel.swift in Sources */,
 				71FE1C7F247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift in Sources */,
@@ -3881,6 +3947,7 @@
 				71EF33DB2497F419007B7E1B /* ENANavigationFooterItem.swift in Sources */,
 				710ABB1F2475115500948792 /* UITableViewController+Enum.swift in Sources */,
 				51CE1B8B246078B6002CF42A /* InfoCollectionViewCell.swift in Sources */,
+				01F2A543257FB90200DA96A6 /* CloseBarButtonItem.swift in Sources */,
 				B14D0CDB246E968C00D5BEBC /* String+Today.swift in Sources */,
 				EB08F17B2541CE3300D11FA9 /* app_features.pb.swift in Sources */,
 				85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */,
@@ -3905,6 +3972,7 @@
 				BA6C8AD4254D6552008344F5 /* TrlFilter.swift in Sources */,
 				35327FF6256D4CE600C36A44 /* UIStackView+prune.swift in Sources */,
 				01A2367A2519D1E80043D9F8 /* ExposureSubmissionWarnOthersViewModel.swift in Sources */,
+				BAB1239C2572A06D00A179FB /* TanInputViewModel.swift in Sources */,
 				EB3BCA882507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift in Sources */,
 				FEDCE29E414945F14E7CE576 /* ENStateHandler+State.swift in Sources */,
 				FEDCE6E2763B0BABFADF36BA /* ExposureDetectionViewController+State.swift in Sources */,
@@ -3912,7 +3980,6 @@
 				EB08F1792541CE3300D11FA9 /* attenuation_duration.pb.swift in Sources */,
 				B1221BE02492ECE800E6C4E4 /* CFDictionary+KeychainQuery.swift in Sources */,
 				94F594622521CBF50077681B /* DeltaOnboardingV15ViewModel.swift in Sources */,
-				019357192525FAD00038F615 /* DiaryInfoViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3933,7 +4000,6 @@
 				A1E419582495A8F90016E52A /* HTTPClient+RegistrationTokenTests.swift in Sources */,
 				A1E419552495A8060016E52A /* HTTPClient+GetTestResultTests.swift in Sources */,
 				01D16C5E24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift in Sources */,
-				A328425F248E943D006B1F09 /* ExposureSubmissionTanInputViewControllerTests.swift in Sources */,
 				A14BDEC024A1AD660063E4EC /* MockExposureDetector.swift in Sources */,
 				35A7F081250A7CF8005E6C33 /* KeychainHelperTests.swift in Sources */,
 				A3483B0B24C5EFA40037855F /* MockExposureDetectionViewControllerDelegate.swift in Sources */,
@@ -3957,6 +4023,7 @@
 				AB453F602534B04400D8339E /* ExposureManagerTests.swift in Sources */,
 				B10F9B8C249961CE00C418F4 /* UIFont+DynamicTypeTests.swift in Sources */,
 				01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */,
+				BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */,
 				A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */,
 				A1877CAB248F2532006FEFC0 /* SAPDownloadedPackageTests.swift in Sources */,
 				948AFE5F2552F6F60019579A /* WarnOthersReminderTests.swift in Sources */,
@@ -3984,6 +4051,7 @@
 				516E430024B777B20008CC30 /* HomeHighRiskCellConfiguratorTests.swift in Sources */,
 				F2DC809224898B1800EDC40A /* DynamicTableViewControllerHeaderTests.swift in Sources */,
 				01F52FFC2552E6F600997A26 /* ENARangeTest.swift in Sources */,
+				BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */,
 				B1D431C8246C69F300E728AD /* HTTPClient+ConfigurationTests.swift in Sources */,
 				B15382FE248424F00010F007 /* ExposureDetectionTests.swift in Sources */,
 				A372DA3F24BEF773003248BB /* ExposureSubmissionCoordinatorTests.swift in Sources */,
@@ -4266,7 +4334,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -4422,7 +4490,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -4597,7 +4665,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -4834,7 +4902,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -4875,7 +4943,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -5018,7 +5086,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -5062,7 +5130,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -5105,7 +5173,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;

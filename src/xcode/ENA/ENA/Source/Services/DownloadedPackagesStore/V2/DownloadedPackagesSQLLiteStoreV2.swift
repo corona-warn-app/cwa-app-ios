@@ -20,12 +20,11 @@ import Foundation
 
 final class DownloadedPackagesSQLLiteStoreV2 {
 
-	struct StoreError: Error {
-		init(_ message: String) {
-			self.message = message
-		}
-		let message: String
+	enum StoreError: Error {
+		case sqliteError(SQLiteErrorCode)
+		case revokedPackage
 	}
+
 	// MARK: Creating a Store
 
 	init(
@@ -58,9 +57,7 @@ final class DownloadedPackagesSQLLiteStoreV2 {
 
 	// MARK: Properties
 
-	#if !RELEASE
 	var keyValueStore: Store?
-	#endif
 
 	var revokationList: [String] = []
 	
@@ -118,11 +115,14 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 
 	func set(country: Country.ID, hour: Int, day: String, etag: String?, package: SAPDownloadedPackage) throws {
 		guard !revokationList.contains(etag ?? "") else {
-			// package is on block list. Ignore this set operation.
-			return
+			// Package is on block list.
+			Log.info("[DownloadedPackagesSQLLiteStoreV2] Revoke hour package day: \(day) hour: \(hour) with etag: \(String(describing: etag)) for country: \(country)")
+			throw StoreError.revokedPackage
 		}
 
 		try queue.sync {
+			Log.info("[DownloadedPackagesSQLLiteStoreV2] Persist hour package day: \(day) hour: \(hour) with etag: \(String(describing: etag)) for country: \(country)")
+
 			let sql = """
 				INSERT INTO Z_DOWNLOADED_PACKAGE (
 					Z_BIN,
@@ -163,20 +163,23 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 			]
 			guard self.database.executeUpdate(sql, withParameterDictionary: parameters) else {
 				Log.error("[SQLite] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				throw SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+				let sqliteError = SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+				throw StoreError.sqliteError(sqliteError)
 			}
 		}
 	}
 
 	func set(country: Country.ID, day: String, etag: String?, package: SAPDownloadedPackage) throws {
 		guard !revokationList.contains(etag ?? "") else {
-			// package is on block list. Ignore this set operation.
-			return
+			// Package is on block list.
+			Log.info("[DownloadedPackagesSQLLiteStoreV2] Revoke package \(day) with etag: \(String(describing: etag)) for country: \(country)")
+			throw StoreError.revokedPackage
 		}
 
 		#if !RELEASE
 		if let store = keyValueStore, let errorCode = store.fakeSQLiteError {
-			throw SQLiteErrorCode(rawValue: errorCode) ?? SQLiteErrorCode.unknown
+			let sqliteError = SQLiteErrorCode(rawValue: errorCode) ?? SQLiteErrorCode.unknown
+			throw StoreError.sqliteError(sqliteError)
 		}
 		#endif
 
@@ -197,7 +200,9 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 			)
 		}
 		func insertDay() -> Bool {
-			database.executeUpdate(
+			Log.info("[DownloadedPackagesSQLLiteStoreV2] persist package \(day) with etag: \(String(describing: etag)) for country: \(country)")
+
+			return database.executeUpdate(
 				"""
 					INSERT INTO
 						Z_DOWNLOADED_PACKAGE (
@@ -244,7 +249,8 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 
 			guard deleteHours(), insertDay() else {
 				Log.error("[SQLite] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				throw SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+				let sqliteError = SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+				throw StoreError.sqliteError(sqliteError)
 			}
 			self._commit()
 		}
@@ -431,6 +437,13 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 
 	func delete(packages: [SAPDownloadedPackage]) throws {
 		guard !packages.isEmpty else { return }
+
+		Log.info("Delete key packages with fingerprint: \(packages.map { $0.fingerprint })", log: .localData)
+
+		// Reset the download flags to ensure that the KeyPackageDownload will download packages after revoked packages were deleted.
+		keyValueStore?.wasRecentDayKeyDownloadSuccessful = false
+		keyValueStore?.wasRecentHourKeyDownloadSuccessful = false
+
 		try queue.sync {
 			let fingerprints = packages.map({ $0.fingerprint })
 			// ['a', 'b', 'c'] --> ?, ?, ?
@@ -448,7 +461,8 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 				try database.executeUpdate(sql, values: fingerprints)
 			} catch {
 				Log.error("[SQLite] (\(database.lastErrorCode()) \(database.lastErrorMessage())", log: .localData)
-				throw SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+				let sqliteError = SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+				throw StoreError.sqliteError(sqliteError)
 			}
 		}
 	}

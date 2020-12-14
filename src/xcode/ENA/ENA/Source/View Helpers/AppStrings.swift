@@ -654,6 +654,10 @@ enum AppStrings {
 		static let submitCardBody = NSLocalizedString("Home_SubmitCard_Body", comment: "")
 		static let submitCardButton = NSLocalizedString("Home_SubmitCard_Button", comment: "")
 
+		static let diaryCardTitle = NSLocalizedString("Home_DiaryCard_Title", comment: "")
+		static let diaryCardBody = NSLocalizedString("Home_DiaryCard_Body", comment: "")
+		static let diaryCardButton = NSLocalizedString("Home_DiaryCard_Button", comment: "")
+
 		static let settingsCardTitle = NSLocalizedString("Home_SettingsCard_Title", comment: "")
 		static let appInformationCardTitle = NSLocalizedString("Home_AppInformationCard_Title", comment: "")
 		static let appInformationVersion = NSLocalizedString("Home_AppInformationCard_Version", comment: "")
@@ -851,6 +855,7 @@ enum AppStrings {
 		static let consentDescriptionPart2 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart2", tableName: "Localizable.legal", comment: "")
 		static let consentDescriptionPart3 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart3", tableName: "Localizable.legal", comment: "")
 		static let consentDescriptionPart4 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart4", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPart5 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart5", tableName: "Localizable.legal", comment: "")
 		static let dataProcessingDetailInfo = NSLocalizedString("AutomaticSharingConsent_DataProcessingDetailInfo", comment: "")
 	}
 	
@@ -862,6 +867,34 @@ enum AppStrings {
 		static let continueButton = NSLocalizedString("Thank_You_Continue_Button", comment: "")
 		static let cancelButton = NSLocalizedString("Thank_You_Cancel_Button", comment: "")
 		static let accImageDescription = NSLocalizedString("Thank_You_AccImageDescription", comment: "")
+	}
+	
+	enum ContactDiary {
+		enum Overview {
+			static let title = NSLocalizedString("ContactDiary_Overview_Title", comment: "")
+			static let description = NSLocalizedString("ContactDiary_Overview_Description", comment: "")
+
+			enum ActionSheet {
+				static let infoActionTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_InfoActionTitle", comment: "")
+				static let exportActionTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_ExportActionTitle", comment: "")
+				static let editPersonTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_EditPersonTitle", comment: "")
+				static let editLocationTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_EditLocationTitle", comment: "")
+			}
+		}
+
+		enum Information {
+			static let title = NSLocalizedString("ContactDiary_Information_Title", comment: "")
+			static let imageDescription = NSLocalizedString("ContactDiary_Information_ImageDescription", comment: "")
+			static let descriptionTitle = NSLocalizedString("ContactDiary_Information_DescriptionTitle", comment: "")
+			static let descriptionSubHeadline = NSLocalizedString("ContactDiary_Information_DescriptionSubHeadline", comment: "")
+			static let itemPersonTitle = NSLocalizedString("ContactDiary_Information_Item_Person_Title", comment: "")
+			static let itemContactTitle = NSLocalizedString("ContactDiary_Information_Item_Location_Title", comment: "")
+			static let itemLockTitle = NSLocalizedString("ContactDiary_Information_Item_Lock_Title", comment: "")
+			static let legalHeadline_1 = NSLocalizedString("ContactDiary_Information_Legal_Headline_1", tableName: "Localizable.legal", comment: "")
+			static let legalText_1 = NSLocalizedString("ContactDiary_Information_Legal_Text_1", tableName: "Localizable.legal", comment: "")
+			static let dataPrivacyTitle = NSLocalizedString("ContactDiary_Information_Dataprivacy_Title", comment: "")
+			static let primaryButtonTitle = NSLocalizedString("ContactDiary_Information_PrimaryButton_Title", comment: "")
+		}
 	}
 	
 	// swiftlint:disable:next file_length

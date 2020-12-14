@@ -24,14 +24,17 @@ class Coordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 
 	private let rootViewController: UINavigationController
+	private let contactDiaryStore: ContactDiaryStoreV1
 
 	private var homeController: HomeViewController?
 	private var settingsController: SettingsViewController?
 	private var exposureDetectionController: ExposureDetectionViewController?
 
+	private var diaryCoordinator: DiaryCoordinator?
+
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		ExposureSubmissionServiceFactory.create(
-			diagnosiskeyRetrieval: self.exposureManager,
+			diagnosisKeysRetrieval: self.exposureManager,
 			appConfigurationProvider: appConfigurationProvider,
 			client: self.client,
 			store: self.store
@@ -40,9 +43,14 @@ class Coordinator: RequiresAppDependencies {
 	
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
-	init(_ delegate: CoordinatorDelegate, _ rootViewController: UINavigationController) {
+	init(
+		_ delegate: CoordinatorDelegate,
+		_ rootViewController: UINavigationController,
+		contactDiaryStore: ContactDiaryStoreV1
+	) {
 		self.delegate = delegate
 		self.rootViewController = rootViewController
+		self.contactDiaryStore = contactDiaryStore
 	}
 
 	deinit {
@@ -198,6 +206,16 @@ extension Coordinator: HomeViewControllerDelegate {
 		)
 
 		coordinator.start(with: result)
+	}
+
+	func showDiary() {
+		diaryCoordinator = DiaryCoordinator(
+			store: store,
+			diaryStore: MockDiaryStore(), //contactDiaryStore,
+			parentNavigationController: rootViewController
+		)
+
+		diaryCoordinator?.start()
 	}
 
 	func showInviteFriends() {

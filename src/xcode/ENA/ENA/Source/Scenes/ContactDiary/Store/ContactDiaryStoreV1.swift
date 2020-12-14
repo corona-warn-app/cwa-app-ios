@@ -20,9 +20,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return dateFormatter
 	}()
 
-	var diaryDaysPublisher: Published<[DiaryDay]>.Publisher { $diaryDays }
-
-	@Published private var diaryDays: [DiaryDay] = []
+	var diaryDaysPublisher = CurrentValueSubject<[DiaryDay], Never>([])
 
 	private let database: FMDatabase
 	private let queue: DispatchQueue
@@ -181,7 +179,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			diaryDays.append(diaryDay)
 		}
 
-		self.diaryDays = diaryDays
+		diaryDaysPublisher.send(diaryDays)
 
 		return .success(())
 	}
