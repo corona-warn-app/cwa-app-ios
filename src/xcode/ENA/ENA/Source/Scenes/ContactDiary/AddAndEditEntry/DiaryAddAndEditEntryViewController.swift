@@ -38,7 +38,6 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		navigationItem.largeTitleDisplayMode = .always
 
 		setupView()
-		setupBindiungs()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -117,6 +116,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		entryTextField.smartQuotesType = .no
 		entryTextField.keyboardAppearance = .default
 		entryTextField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
+		entryTextField.text = viewModel.textInput
 
 		entryTextField.translatesAutoresizingMaskIntoConstraints = false
 		entryTextField.isUserInteractionEnabled = true
@@ -128,12 +128,6 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 			entryTextField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 39.0),
 			entryTextField.heightAnchor.constraint(greaterThanOrEqualToConstant: 40.0)
 		])
-	}
-
-	private func setupBindiungs() {
-		viewModel.$textInput.sink { [weak self] newText in
-			self?.navigationFooterItem.isPrimaryButtonEnabled = !newText.isEmpty
-		}.store(in: &bindings)
 	}
 
 	@objc

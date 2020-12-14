@@ -4,7 +4,6 @@
 
 import Foundation
 import UIKit
-import Combine
 
 class DiaryAddAndEditEntryViewModel {
 
@@ -44,7 +43,7 @@ class DiaryAddAndEditEntryViewModel {
 	let diaryService: DiaryService
 	let dismiss: () -> Void
 
-	@Published private(set) var textInput: String
+	private(set) var textInput: String
 
 	func update(_ text: String?) {
 		textInput = text ?? ""
@@ -53,7 +52,7 @@ class DiaryAddAndEditEntryViewModel {
 	func save() {
 		let store = diaryService.store
 		switch mode {
-		case .add(let day, let type):
+		case let .add(day, type):
 			switch type {
 			case .location:
 				let id = store.addLocation(name: textInput)
@@ -89,7 +88,6 @@ class DiaryAddAndEditEntryViewModel {
 	}
 
 	// MARK: - Private
-
 
 	// Unfortunately, Swift does not currently have KeyPath support for static let,
 	// so we need to go that way
