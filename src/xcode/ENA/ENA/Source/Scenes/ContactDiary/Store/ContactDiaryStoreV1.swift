@@ -10,6 +10,8 @@ import Combine
 // swiftlint:disable:next type_body_length
 class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
+	static let encriptionKeyKey = "ContactDiaryStoreEncryptionKey"
+
 	private let dataRetentionPeriodInDays = 16
 
 	private var dateFormatter: ISO8601DateFormatter = {
@@ -561,10 +563,29 @@ extension ContactDiaryStoreV1 {
 				.appendingPathComponent(fileName)
 				.appendingPathExtension("sqlite3")
 
-		let db = FMDatabase(url: storeURL)
+		guard let keychain = try? KeychainHelper() else {
+			fatalError("Failed to create KeychainHelper for contact diary store.")
+		}
 
+		let key: String
+		if let keyData = keychain.loadFromKeychain(key: ContactDiaryStoreV1.encriptionKeyKey) {
+			key = String(decoding: keyData, as: UTF8.self)
+		} else {
+			do {
+				key = try keychain.generateDatabaseKey()
+			} catch {
+				fatalError("Failed to create key for contact diary store.")
+			}
+		}
+
+		let db = FMDatabase(url: storeURL)
 		let queue = DispatchQueue(label: "ContactDiaryStoreSchemaV1TestsQueue")
-		let schema = ContactDiaryStoreSchemaV1(database: db, queue: queue)
+
+		let schema = ContactDiaryStoreSchemaV1(
+			database: db,
+			queue: queue,
+			key: key
+		)
 
 		self.init(
 			database: db,
