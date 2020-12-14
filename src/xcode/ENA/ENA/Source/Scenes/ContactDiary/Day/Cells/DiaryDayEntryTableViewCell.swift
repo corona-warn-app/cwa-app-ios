@@ -8,9 +8,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(entry: DiaryEntry) {
-		let cellModel = DiaryDayEntryCellModel(entry: entry)
-
+	func configure(cellModel: DiaryDayEntryCellModel) {
 		checkboxImageView.image = cellModel.image
 		label.text = cellModel.text
 		accessibilityTraits = cellModel.accessibilityTraits

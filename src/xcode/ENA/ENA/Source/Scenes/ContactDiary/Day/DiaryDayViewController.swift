@@ -137,7 +137,8 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 			fatalError("Could not dequeue DiaryDayAddTableViewCell")
 		}
 
-		cell.configure(entryType: viewModel.selectedEntryType)
+		let cellModel = DiaryDayAddCellModel(entryType: viewModel.selectedEntryType)
+		cell.configure(cellModel: cellModel)
 
 		return cell
 	}
@@ -147,7 +148,8 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 			fatalError("Could not dequeue DiaryDayEntryTableViewCell")
 		}
 
-		cell.configure(entry: viewModel.entriesOfSelectedType[indexPath.row])
+		let cellModel = DiaryDayEntryCellModel(entry: viewModel.entriesOfSelectedType[indexPath.row])
+		cell.configure(cellModel: cellModel)
 
 		return cell
 	}

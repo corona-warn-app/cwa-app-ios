@@ -8,9 +8,7 @@ class DiaryDayAddTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(entryType: DiaryEntryType) {
-		let cellModel = DiaryDayAddCellModel(entryType: entryType)
-
+	func configure(cellModel: DiaryDayAddCellModel) {
 		label.text = cellModel.text
 		accessibilityTraits = cellModel.accessibilityTraits
 	}
