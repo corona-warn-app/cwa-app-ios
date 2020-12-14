@@ -9,21 +9,9 @@ import Combine
 
 // swiftlint:disable:next type_body_length
 class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
-
 	static let encriptionKeyKey = "ContactDiaryStoreEncryptionKey"
 
-	private let dataRetentionPeriodInDays = 16
-	private let key: String
-
-	private var dateFormatter: ISO8601DateFormatter = {
-		let dateFormatter = ISO8601DateFormatter()
-		dateFormatter.formatOptions = [.withFullDate]
-		return dateFormatter
-	}()
-
-	var diaryDaysPublisher = CurrentValueSubject<[DiaryDay], Never>([])
-
-	private let databaseQueue: FMDatabaseQueue
+	// MARK: - Init
 
 	init(
 		databaseQueue: FMDatabaseQueue,
@@ -45,153 +33,11 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		registerToDidFinishLaunchingNotification()
 	}
 
-	private func createSchemaIfNeeded(schema: ContactDiaryStoreSchemaV1) {
-		_ = schema.create()
-	}
+	// MARK: - Protocol DiaryProviding
 
-	private func openAndSetup() {
-		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Open and setup database.", log: .localData)
+	var diaryDaysPublisher = CurrentValueSubject<[DiaryDay], Never>([])
 
-			let dbhandle = OpaquePointer(database.sqliteHandle)
-			guard CWASQLite.sqlite3_key(dbhandle, key, Int32(key.count)) == SQLITE_OK else {
-				Log.error("[ContactDiaryStore] Unable to set Key for encryption.", log: .localData)
-				return
-			}
-
-			guard database.open() else {
-				Log.error("[ContactDiaryStore] Database could not be opened", log: .localData)
-				return
-			}
-
-			let sql = """
-				PRAGMA locking_mode=EXCLUSIVE;
-				PRAGMA auto_vacuum=2;
-				PRAGMA journal_mode=WAL;
-				PRAGMA foreign_keys=ON;
-			"""
-			guard database.executeStatements(sql) else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				return
-			}
-		}
-	}
-
-	private func registerToDidFinishLaunchingNotification() {
-		NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActiveNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
-	}
-
-	@objc
-	private func didBecomeActiveNotification(_ notification: Notification) {
-		_ = cleanup()
-	}
-
-	private func fetchContactPersons(for date: String, in database: FMDatabase) -> Result<[DiaryContactPerson], SQLiteErrorCode> {
-		var contactPersons = [DiaryContactPerson]()
-
-		let sql = """
-				SELECT ContactPerson.id AS contactPersonId, ContactPerson.name, ContactPersonEncounter.id AS contactPersonEncounterId
-				FROM ContactPerson
-				LEFT JOIN ContactPersonEncounter
-				ON ContactPersonEncounter.contactPersonId = ContactPerson.id
-				AND ContactPersonEncounter.date = ?
-				ORDER BY ContactPerson.name ASC, contactPersonId ASC
-			"""
-
-		do {
-			let result = try database.executeQuery(sql, values: [date])
-
-			while result.next() {
-				let encounterId = result.longLongInt(forColumn: "contactPersonEncounterId")
-				let contactPerson = DiaryContactPerson(
-					id: result.longLongInt(forColumn: "contactPersonId"),
-					name: result.string(forColumn: "name") ?? "",
-					encounterId: encounterId == 0 ? nil : encounterId
-				)
-				contactPersons.append(contactPerson)
-			}
-		} catch {
-			Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-			return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
-		}
-
-		return .success(contactPersons)
-	}
-
-	private func fetchLocations(for date: String, in database: FMDatabase) -> Result<[DiaryLocation], SQLiteErrorCode> {
-		var locations = [DiaryLocation]()
-
-		let sql = """
-				SELECT Location.id AS locationId, Location.name, LocationVisit.id AS locationVisitId
-				FROM Location
-				LEFT JOIN LocationVisit
-				ON Location.id = LocationVisit.locationId
-				AND LocationVisit.date = ?
-				ORDER BY Location.name ASC, locationId ASC
-			"""
-
-		do {
-			let result = try database.executeQuery(sql, values: [date])
-
-			while result.next() {
-				let visitId = result.longLongInt(forColumn: "locationVisitId")
-				let contactPerson = DiaryLocation(
-					id: result.longLongInt(forColumn: "locationId"),
-					name: result.string(forColumn: "name") ?? "",
-					visitId: visitId == 0 ? nil : visitId
-				)
-				locations.append(contactPerson)
-			}
-		} catch {
-			Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-			return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
-		}
-
-		return .success(locations)
-	}
-
-	private func updateDiaryDays(with database: FMDatabase) -> DiaryStoringVoidResult {
-		var diaryDays = [DiaryDay]()
-
-		for index in 0...dataRetentionPeriodInDays {
-			guard let date = Calendar.current.date(byAdding: .day, value: -index, to: Date()) else {
-				continue
-			}
-			let dateString = dateFormatter.string(from: date)
-
-			let contactPersonsResult = fetchContactPersons(for: dateString, in: database)
-
-			var personDiaryEntries: [DiaryEntry]
-			switch contactPersonsResult {
-			case .success(let contactPersons):
-				personDiaryEntries = contactPersons.map {
-					return DiaryEntry.contactPerson($0)
-				}
-			case .failure(let error):
-				return .failure(error)
-			}
-
-			let locationsResult = fetchLocations(for: dateString, in: database)
-
-			var locationDiaryEntries: [DiaryEntry]
-			switch locationsResult {
-			case .success(let locations):
-				locationDiaryEntries = locations.map {
-					return DiaryEntry.location($0)
-				}
-			case .failure(let error):
-				return .failure(error)
-			}
-
-			let diaryEntries = personDiaryEntries + locationDiaryEntries
-			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries)
-			diaryDays.append(diaryDay)
-		}
-
-		diaryDaysPublisher.send(diaryDays)
-
-		return .success(())
-	}
+	// MARK: - Protocol DiaryStoring
 
 	func cleanup() -> DiaryStoringVoidResult {
 		var result: DiaryStoringVoidResult = .success(())
@@ -637,6 +483,168 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 
 		return result
+	}
+	
+	// MARK: - Private
+
+	private let dataRetentionPeriodInDays = 16
+	private let key: String
+
+	private var dateFormatter: ISO8601DateFormatter = {
+		let dateFormatter = ISO8601DateFormatter()
+		dateFormatter.formatOptions = [.withFullDate]
+		return dateFormatter
+	}()
+
+
+	private let databaseQueue: FMDatabaseQueue
+
+	private func createSchemaIfNeeded(schema: ContactDiaryStoreSchemaV1) {
+		_ = schema.create()
+	}
+
+	private func openAndSetup() {
+		databaseQueue.inDatabase { database in
+			Log.info("[ContactDiaryStore] Open and setup database.", log: .localData)
+
+			let dbhandle = OpaquePointer(database.sqliteHandle)
+			guard CWASQLite.sqlite3_key(dbhandle, key, Int32(key.count)) == SQLITE_OK else {
+				Log.error("[ContactDiaryStore] Unable to set Key for encryption.", log: .localData)
+				return
+			}
+
+			guard database.open() else {
+				Log.error("[ContactDiaryStore] Database could not be opened", log: .localData)
+				return
+			}
+
+			let sql = """
+				PRAGMA locking_mode=EXCLUSIVE;
+				PRAGMA auto_vacuum=2;
+				PRAGMA journal_mode=WAL;
+				PRAGMA foreign_keys=ON;
+			"""
+			guard database.executeStatements(sql) else {
+				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				return
+			}
+		}
+	}
+
+	private func registerToDidFinishLaunchingNotification() {
+		NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActiveNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
+	}
+
+	@objc
+	private func didBecomeActiveNotification(_ notification: Notification) {
+		_ = cleanup()
+	}
+
+	private func fetchContactPersons(for date: String, in database: FMDatabase) -> Result<[DiaryContactPerson], SQLiteErrorCode> {
+		var contactPersons = [DiaryContactPerson]()
+
+		let sql = """
+				SELECT ContactPerson.id AS contactPersonId, ContactPerson.name, ContactPersonEncounter.id AS contactPersonEncounterId
+				FROM ContactPerson
+				LEFT JOIN ContactPersonEncounter
+				ON ContactPersonEncounter.contactPersonId = ContactPerson.id
+				AND ContactPersonEncounter.date = ?
+				ORDER BY ContactPerson.name ASC, contactPersonId ASC
+			"""
+
+		do {
+			let result = try database.executeQuery(sql, values: [date])
+
+			while result.next() {
+				let encounterId = result.longLongInt(forColumn: "contactPersonEncounterId")
+				let contactPerson = DiaryContactPerson(
+					id: result.longLongInt(forColumn: "contactPersonId"),
+					name: result.string(forColumn: "name") ?? "",
+					encounterId: encounterId == 0 ? nil : encounterId
+				)
+				contactPersons.append(contactPerson)
+			}
+		} catch {
+			Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+			return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+		}
+
+		return .success(contactPersons)
+	}
+
+	private func fetchLocations(for date: String, in database: FMDatabase) -> Result<[DiaryLocation], SQLiteErrorCode> {
+		var locations = [DiaryLocation]()
+
+		let sql = """
+				SELECT Location.id AS locationId, Location.name, LocationVisit.id AS locationVisitId
+				FROM Location
+				LEFT JOIN LocationVisit
+				ON Location.id = LocationVisit.locationId
+				AND LocationVisit.date = ?
+				ORDER BY Location.name ASC, locationId ASC
+			"""
+
+		do {
+			let result = try database.executeQuery(sql, values: [date])
+
+			while result.next() {
+				let visitId = result.longLongInt(forColumn: "locationVisitId")
+				let contactPerson = DiaryLocation(
+					id: result.longLongInt(forColumn: "locationId"),
+					name: result.string(forColumn: "name") ?? "",
+					visitId: visitId == 0 ? nil : visitId
+				)
+				locations.append(contactPerson)
+			}
+		} catch {
+			Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+			return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+		}
+
+		return .success(locations)
+	}
+
+	private func updateDiaryDays(with database: FMDatabase) -> DiaryStoringVoidResult {
+		var diaryDays = [DiaryDay]()
+
+		for index in 0...dataRetentionPeriodInDays {
+			guard let date = Calendar.current.date(byAdding: .day, value: -index, to: Date()) else {
+				continue
+			}
+			let dateString = dateFormatter.string(from: date)
+
+			let contactPersonsResult = fetchContactPersons(for: dateString, in: database)
+
+			var personDiaryEntries: [DiaryEntry]
+			switch contactPersonsResult {
+			case .success(let contactPersons):
+				personDiaryEntries = contactPersons.map {
+					return DiaryEntry.contactPerson($0)
+				}
+			case .failure(let error):
+				return .failure(error)
+			}
+
+			let locationsResult = fetchLocations(for: dateString, in: database)
+
+			var locationDiaryEntries: [DiaryEntry]
+			switch locationsResult {
+			case .success(let locations):
+				locationDiaryEntries = locations.map {
+					return DiaryEntry.location($0)
+				}
+			case .failure(let error):
+				return .failure(error)
+			}
+
+			let diaryEntries = personDiaryEntries + locationDiaryEntries
+			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries)
+			diaryDays.append(diaryDay)
+		}
+
+		diaryDaysPublisher.send(diaryDays)
+
+		return .success(())
 	}
 }
 

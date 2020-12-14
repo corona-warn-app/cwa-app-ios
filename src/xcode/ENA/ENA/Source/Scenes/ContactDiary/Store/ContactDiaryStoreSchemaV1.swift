@@ -7,11 +7,13 @@ import CWASQLite
 
 class ContactDiaryStoreSchemaV1 {
 
-	private let databaseQueue: FMDatabaseQueue
+	// MARK: - Init
 
 	init(databaseQueue: FMDatabaseQueue) {
 		self.databaseQueue = databaseQueue
 	}
+
+	// MARK: - Public
 
 	func create() -> Result<Void, SQLiteErrorCode> {
 		var result: Result<Void, SQLiteErrorCode> = .success(())
@@ -55,4 +57,9 @@ class ContactDiaryStoreSchemaV1 {
 
 		return result
 	}
+
+	// MARK: - Private
+
+	private let databaseQueue: FMDatabaseQueue
+
 }
