@@ -33,6 +33,10 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 		setUpView()
 		setUpBindings()
+		
+		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
+		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
+		footerView?.isHidden = false
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
