@@ -89,7 +89,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		case 0:
 			onAddEntryCellTap(viewModel.day, viewModel.selectedEntryType)
 		case 1:
-			viewModel.toggle(entry: viewModel.entriesOfSelectedType[indexPath.row])
+			viewModel.toggleSelection(of: viewModel.entriesOfSelectedType[indexPath.row])
 		default:
 			fatalError("Invalid section")
 		}

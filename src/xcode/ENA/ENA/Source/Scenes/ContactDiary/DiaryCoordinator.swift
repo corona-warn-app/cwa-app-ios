@@ -55,10 +55,10 @@ class DiaryCoordinator {
 				self?.showExportActivity()
 			},
 			onEditContactPersonsButtonTap: { [weak self] in
-				self?.showEditEntryScreen(type: .contactPerson)
+				self?.showEditEntriesListScreen(entryType: .contactPerson)
 			},
 			onEditLocationsButtonTap: { [weak self] in
-				self?.showEditEntryScreen(type: .location)
+				self?.showEditEntriesListScreen(entryType: .location)
 			}
 		)
 	}()
@@ -117,18 +117,42 @@ class DiaryCoordinator {
 		parentNavigationController?.present(navigationController, animated: true)
 	}
 
-	private func showEditEntryScreen(type: DiaryEntryType) {
-		let viewController = DiaryEditEntriesTableViewController(
+	private func showEditEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode, from: UINavigationController? = nil) {
+		let viewModel = DiaryAddAndEditEntryViewModel(
+			mode: mode,
 			diaryService: diaryService,
+			dismiss: { [weak self] in
+				self?.parentNavigationController?.dismiss(animated: true)
+			})
+		let viewController = DiaryAddAndEditEntryViewController(
+			viewModel: viewModel
+		)
+
+		if let fromNavigationController = from {
+			fromNavigationController.pushViewController(viewController, animated: true)
+		} else {
+			let navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
+			parentNavigationController?.present(navigationController, animated: true)
+		}
+	}
+
+	private func showEditEntriesListScreen(entryType: DiaryEntryType) {
+		var navigationController: UINavigationController!
+
+		let viewController = DiaryEditEntriesViewController(
+			entryType: entryType,
+			store: diaryService.store,
 			onCellSelection: { [weak self] entry in
-				self?.showAddEntryScreen(mode: .edit(entry))
+				self?.showEditEntryScreen(
+					mode: .edit(entry),
+					from: navigationController
+				)
 			},
 			onDismiss: { [weak self] in
 				self?.parentNavigationController?.dismiss(animated: true)
 			}
 		)
-
-		let navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
+		navigationController = UINavigationController(rootViewController: viewController)
 		parentNavigationController?.present(navigationController, animated: true)
 	}
 
