@@ -41,6 +41,7 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 		navigationItem.largeTitleDisplayMode = .always
 
 		navigationItem.title = viewModel.title
+		deleteAllButton.setTitle(viewModel.deleteAllButtonTitle, for: .normal)
 
 		view.backgroundColor = .enaColor(for: .darkBackground)
 

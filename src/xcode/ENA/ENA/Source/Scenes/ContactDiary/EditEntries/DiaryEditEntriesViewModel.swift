@@ -33,7 +33,21 @@ class DiaryEditEntriesViewModel {
 	@Published private(set) var entries: [DiaryEntry]
 
 	var title: String {
-		""
+		switch entryType {
+		case .contactPerson:
+			return AppStrings.ContactDiary.EditEntries.ContactPersons.title
+		case .location:
+			return AppStrings.ContactDiary.EditEntries.Locations.title
+		}
+	}
+
+	var deleteAllButtonTitle: String {
+		switch entryType {
+		case .contactPerson:
+			return AppStrings.ContactDiary.EditEntries.ContactPersons.deleteAllButtonTitle
+		case .location:
+			return AppStrings.ContactDiary.EditEntries.Locations.deleteAllButtonTitle
+		}
 	}
 
 	func remove(entry: DiaryEntry) {
