@@ -8,7 +8,7 @@ import UIKit
 struct ExposureSubmissionQRInfoViewModel {
 
 	init(supportedCountries: [Country]) {
-		countries = supportedCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
+		countries = supportedCountries.sortedByLocalizedName
 	}
 
 	// MARK: - Internal
