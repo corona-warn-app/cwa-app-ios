@@ -910,6 +910,8 @@ enum AppStrings {
 		}
 
 		enum AddEditEntry {
+			static let primaryButtonTitle = NSLocalizedString("ContactDiary_AddEditEntry_PrimaryButton_Title", comment: "")
+
 			enum location {
 				static let title = NSLocalizedString("ContactDiary_AddEditEntry_LocationTitle", comment: "")
 				static let placeholder = NSLocalizedString("ContactDiary_AddEditEntry_LocationPlaceholder", comment: "")
