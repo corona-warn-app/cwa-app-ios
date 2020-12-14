@@ -1345,7 +1345,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Info";
-<<<<<<< HEAD
 
 "ContactDiary_Overview_ActionSheet_ExportActionTitle" = "Einträge exportieren";
 
