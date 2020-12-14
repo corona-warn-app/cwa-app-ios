@@ -280,6 +280,9 @@ enum AccessibilityIdentifiers {
 	enum General {
 		static let exposureSubmissionNavigationControllerTitle = "ExposureSubmissionNavigationController"
 		static let image = "ExposureSubmissionIntroViewController.image"
+
+		static let primaryFooterButton = "General.primaryFooterButton"
+		static let secondaryFooterButton = "General.secondaryFooterButton"
 	}
 
 	enum DatePickerOption {
