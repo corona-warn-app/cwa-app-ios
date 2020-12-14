@@ -9,11 +9,11 @@ import FMDB
 class ContactDiaryStoreSchemaV1Tests: XCTestCase {
 
 	func test_When_createIsCalled_Then_AllTablesAreCreated() {
-		let database = FMDatabase.inMemory()
-		database.open()
+		guard let databaseQueue = FMDatabaseQueue(path: "file::memory:") else {
+			fatalError("Could not create FMDatabaseQueue.")
+		}
 
-		let queue = DispatchQueue(label: "ContactDiaryStoreSchemaV1TestsQueue")
-		let schema = ContactDiaryStoreSchemaV1(database: database, queue: queue)
+		let schema = ContactDiaryStoreSchemaV1(databaseQueue: databaseQueue)
 
 		let result = schema.create()
 
@@ -21,9 +21,11 @@ class ContactDiaryStoreSchemaV1Tests: XCTestCase {
 			XCTFail("Error not expected: \(error)")
 		}
 
-		XCTAssertTrue(database.tableExists("ContactPerson"))
-		XCTAssertTrue(database.tableExists("Location"))
-		XCTAssertTrue(database.tableExists("ContactPersonEncounter"))
-		XCTAssertTrue(database.tableExists("LocationVisit"))
+		databaseQueue.inDatabase { database in
+			XCTAssertTrue(database.tableExists("ContactPerson"))
+			XCTAssertTrue(database.tableExists("Location"))
+			XCTAssertTrue(database.tableExists("ContactPersonEncounter"))
+			XCTAssertTrue(database.tableExists("LocationVisit"))
+		}
 	}
 }

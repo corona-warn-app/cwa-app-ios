@@ -13,8 +13,8 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 	private var subscriptions = [AnyCancellable]()
 
 	func test_When_addContactPerson_Then_ContactPersonIsPersisted() {
-		let database = FMDatabase.inMemory()
-		let store = makeContactDiaryStore(with: database)
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
 
 		let result = store.addContactPerson(name: "Helge Schneider")
 
@@ -23,7 +23,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		}
 
 		guard case let .success(id) = result,
-			  let contactPerson = fetchEntries(for: "ContactPerson", with: id, from: database),
+			  let contactPerson = fetchEntries(for: "ContactPerson", with: id, from: databaseQueue),
 			  let name = contactPerson.string(forColumn: "name") else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
@@ -33,8 +33,8 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 	}
 
 	func test_When_addLocation_Then_LocationIsPersisted() {
-		let database = FMDatabase.inMemory()
-		let store = makeContactDiaryStore(with: database)
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
 
 		let result = store.addLocation(name: "Hinterm Mond")
 
@@ -43,7 +43,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		}
 
 		guard case let .success(id) = result,
-			  let location = fetchEntries(for: "Location", with: id, from: database),
+			  let location = fetchEntries(for: "Location", with: id, from: databaseQueue),
 			  let name = location.string(forColumn: "name") else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
@@ -53,8 +53,8 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 	}
 
 	func test_When_addContactPersonEncounter_Then_ContactPersonEncounterIsPersisted() {
-		let database = FMDatabase.inMemory()
-		let store = makeContactDiaryStore(with: database)
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
 
 		let addPersonResult = store.addContactPerson(name: "Helge Schneider")
 
@@ -70,7 +70,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		}
 
 		guard case let .success(id) = result,
-			  let contactPersonEncounter = fetchEntries(for: "ContactPersonEncounter", with: id, from: database),
+			  let contactPersonEncounter = fetchEntries(for: "ContactPersonEncounter", with: id, from: databaseQueue),
 			  let date = contactPersonEncounter.string(forColumn: "date") else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
@@ -83,8 +83,8 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 	}
 
 	func test_When_addLocationVisit_Then_LocationVisitIsPersisted() {
-		let database = FMDatabase.inMemory()
-		let store = makeContactDiaryStore(with: database)
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
 
 		let addLocationResult = store.addLocation(name: "Nirgendwo")
 
@@ -100,7 +100,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		}
 
 		guard case let .success(id) = result,
-			  let locationVisit = fetchEntries(for: "LocationVisit", with: id, from: database),
+			  let locationVisit = fetchEntries(for: "LocationVisit", with: id, from: databaseQueue),
 			  let date = locationVisit.string(forColumn: "date") else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
@@ -113,8 +113,8 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 	}
 
 	func test_When_updateContactPerson_Then_ContactPersonIsUpdated() {
-		let database = FMDatabase.inMemory()
-		let store = makeContactDiaryStore(with: database)
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
 
 		let result = store.addContactPerson(name: "Helge Schneider")
 
@@ -130,7 +130,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			return
 		}
 
-		guard let contactPerson = fetchEntries(for: "ContactPerson", with: id, from: database),
+		guard let contactPerson = fetchEntries(for: "ContactPerson", with: id, from: databaseQueue),
 			  let name = contactPerson.string(forColumn: "name") else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
@@ -140,8 +140,8 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 	}
 
 	func test_When_updateLocation_Then_LocationIsUpdated() {
-		let database = FMDatabase.inMemory()
-		let store = makeContactDiaryStore(with: database)
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
 
 		let result = store.addLocation(name: "Woanders")
 
@@ -157,7 +157,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			return
 		}
 
-		guard let location = fetchEntries(for: "Location", with: id, from: database),
+		guard let location = fetchEntries(for: "Location", with: id, from: databaseQueue),
 			  let name = location.string(forColumn: "name") else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
@@ -167,8 +167,8 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 	}
 
 	func test_When_removeContactPerson_Then_ContactPersonAndEncountersAreDeleted() {
-		let database = FMDatabase.inMemory()
-		let store = makeContactDiaryStore(with: database)
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
 
 		let addContactPersonResult = store.addContactPerson(name: "Helge Schneider")
 		guard case let .success(contactPersonId) = addContactPersonResult else {
@@ -187,16 +187,16 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			XCTFail("Error not expected: \(error)")
 		}
 
-		let fetchPersonResult = fetchEntries(for: "ContactPerson", with: contactPersonId, from: database)
+		let fetchPersonResult = fetchEntries(for: "ContactPerson", with: contactPersonId, from: databaseQueue)
 		XCTAssertNil(fetchPersonResult)
 
-		let fetchEncounterResult = fetchEntries(for: "ContactPersonEncounter", with: encounterId, from: database)
+		let fetchEncounterResult = fetchEntries(for: "ContactPersonEncounter", with: encounterId, from: databaseQueue)
 		XCTAssertNil(fetchEncounterResult)
 	}
 
 	func test_When_removeLocation_Then_LocationAndLocationVisitsAreDeleted() {
-		let database = FMDatabase.inMemory()
-		let store = makeContactDiaryStore(with: database)
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
 
 		let addLocationResult = store.addLocation(name: "Nicht hier")
 		guard case let .success(locationId) = addLocationResult else {
@@ -215,16 +215,16 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			XCTFail("Error not expected: \(error)")
 		}
 
-		let fetchLocationResult = fetchEntries(for: "Location", with: locationId, from: database)
+		let fetchLocationResult = fetchEntries(for: "Location", with: locationId, from: databaseQueue)
 		XCTAssertNil(fetchLocationResult)
 
-		let fetchLocationVisitResult = fetchEntries(for: "LocationVisit", with: locationVisitId, from: database)
+		let fetchLocationVisitResult = fetchEntries(for: "LocationVisit", with: locationVisitId, from: databaseQueue)
 		XCTAssertNil(fetchLocationVisitResult)
 	}
 
 	func test_When_removeContactPersonEncounter_Then_ContactPersonEncounterIsDeleted() {
-		let database = FMDatabase.inMemory()
-		let store = makeContactDiaryStore(with: database)
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
 
 		let addContactPersonResult = store.addContactPerson(name: "Helge Schneider")
 		guard case let .success(contactPersonId) = addContactPersonResult else {
@@ -238,7 +238,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			return
 		}
 
-		let encounterResultBeforeDelete = fetchEntries(for: "ContactPersonEncounter", with: encounterId, from: database)
+		let encounterResultBeforeDelete = fetchEntries(for: "ContactPersonEncounter", with: encounterId, from: databaseQueue)
 		XCTAssertNotNil(encounterResultBeforeDelete)
 
 		let removeEncounterResult = store.removeContactPersonEncounter(id: encounterId)
@@ -246,13 +246,13 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			XCTFail("Error not expected: \(error)")
 		}
 
-		let encounterResultAfterDelete = fetchEntries(for: "ContactPersonEncounter", with: encounterId, from: database)
+		let encounterResultAfterDelete = fetchEntries(for: "ContactPersonEncounter", with: encounterId, from: databaseQueue)
 		XCTAssertNil(encounterResultAfterDelete)
 	}
 
 	func test_When_removeLocationVisit_Then_LocationVisitIsDeleted() {
-		let database = FMDatabase.inMemory()
-		let store = makeContactDiaryStore(with: database)
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
 
 		let addLocationResult = store.addLocation(name: "Nicht hier")
 		guard case let .success(locationId) = addLocationResult else {
@@ -266,7 +266,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			return
 		}
 
-		let fetchLocationVisitResult1 = fetchEntries(for: "LocationVisit", with: locationVisitId, from: database)
+		let fetchLocationVisitResult1 = fetchEntries(for: "LocationVisit", with: locationVisitId, from: databaseQueue)
 		XCTAssertNotNil(fetchLocationVisitResult1)
 
 		let removeEncounterResult = store.removeLocationVisit(id: locationVisitId)
@@ -274,13 +274,13 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			XCTFail("Error not expected: \(error)")
 		}
 
-		let fetchLocationVisitResult2 = fetchEntries(for: "LocationVisit", with: locationVisitId, from: database)
+		let fetchLocationVisitResult2 = fetchEntries(for: "LocationVisit", with: locationVisitId, from: databaseQueue)
 		XCTAssertNil(fetchLocationVisitResult2)
 	}
 
 	func test_When_removeAllContactPersons_Then_AllContactPersonsAreDeleted() {
-		let database = FMDatabase.inMemory()
-		let store = makeContactDiaryStore(with: database)
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
 
 		let addContactPerson1Result = store.addContactPerson(name: "Some Person")
 		guard case let .success(contactPerson1Id) = addContactPerson1Result else {
@@ -294,9 +294,9 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			return
 		}
 
-		let fetchPerson1ResultBeforeDelete = fetchEntries(for: "ContactPerson", with: contactPerson1Id, from: database)
+		let fetchPerson1ResultBeforeDelete = fetchEntries(for: "ContactPerson", with: contactPerson1Id, from: databaseQueue)
 		XCTAssertNotNil(fetchPerson1ResultBeforeDelete)
-		let fetchPerson2ResultBeforeDelete = fetchEntries(for: "ContactPerson", with: contactPerson2Id, from: database)
+		let fetchPerson2ResultBeforeDelete = fetchEntries(for: "ContactPerson", with: contactPerson2Id, from: databaseQueue)
 		XCTAssertNotNil(fetchPerson2ResultBeforeDelete)
 
 		let removeResult = store.removeAllContactPersons()
@@ -304,21 +304,21 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			XCTFail("Error not expected: \(error)")
 		}
 
-		let fetchPerson1ResultAfterDelete = fetchEntries(for: "ContactPerson", with: contactPerson1Id, from: database)
+		let fetchPerson1ResultAfterDelete = fetchEntries(for: "ContactPerson", with: contactPerson1Id, from: databaseQueue)
 		XCTAssertNil(fetchPerson1ResultAfterDelete)
-		let fetchPerson2ResultAfterDelete = fetchEntries(for: "ContactPerson", with: contactPerson2Id, from: database)
+		let fetchPerson2ResultAfterDelete = fetchEntries(for: "ContactPerson", with: contactPerson2Id, from: databaseQueue)
 		XCTAssertNil(fetchPerson2ResultAfterDelete)
 	}
 
 	func test_When_sinkOnDiaryDays_Then_diaryDaysAreReturned() {
-		let database = FMDatabase.inMemory()
-		let store = makeContactDiaryStore(with: database)
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
 
 		let today = Date()
 
-		guard let tenDaysAgo = Calendar.utcCalendar.date(byAdding: .day, value: -10, to: today),
-			  let sixteenDaysAgo = Calendar.utcCalendar.date(byAdding: .day, value: -16, to: today),
-			  let seventeenDaysAgo = Calendar.utcCalendar.date(byAdding: .day, value: -17, to: today) else {
+		guard let tenDaysAgo = Calendar.current.date(byAdding: .day, value: -10, to: today),
+			  let sixteenDaysAgo = Calendar.current.date(byAdding: .day, value: -16, to: today),
+			  let seventeenDaysAgo = Calendar.current.date(byAdding: .day, value: -17, to: today) else {
 			fatalError("Could not create test dates.")
 		}
 
@@ -383,12 +383,12 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 	}
 
 	func test_When_cleanupIsCalled_Then_EntriesOlderThen16DaysAreDeleted() {
-		let database = FMDatabase.inMemory()
-		let store = makeContactDiaryStore(with: database)
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
 
 		let today = Date()
 
-		guard let seventeenDaysAgo = Calendar.utcCalendar.date(byAdding: .day, value: -17, to: today) else {
+		guard let seventeenDaysAgo = Calendar.current.date(byAdding: .day, value: -17, to: today) else {
 			fatalError("Could not create test dates.")
 		}
 
@@ -398,10 +398,10 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		let personEncounterId = addPersonEncounter(personId: emmaHicksPersonId, date: seventeenDaysAgo, store: store)
 		let locationVisitId = addLocationVisit(locationId: kincardineLocationId, date: seventeenDaysAgo, store: store)
 
-		let personEncouterBeforeCleanupResult = fetchEntries(for: "ContactPersonEncounter", with: personEncounterId, from: database)
+		let personEncouterBeforeCleanupResult = fetchEntries(for: "ContactPersonEncounter", with: personEncounterId, from: databaseQueue)
 		XCTAssertNotNil(personEncouterBeforeCleanupResult)
 
-		let locationVisitBeforeCleanupResult = fetchEntries(for: "LocationVisit", with: locationVisitId, from: database)
+		let locationVisitBeforeCleanupResult = fetchEntries(for: "LocationVisit", with: locationVisitId, from: databaseQueue)
 		XCTAssertNotNil(locationVisitBeforeCleanupResult)
 
 		let cleanupResult = store.cleanup()
@@ -409,16 +409,16 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			fatalError("Failed to cleanup store.")
 		}
 
-		let personEncouterResult = fetchEntries(for: "ContactPersonEncounter", with: personEncounterId, from: database)
+		let personEncouterResult = fetchEntries(for: "ContactPersonEncounter", with: personEncounterId, from: databaseQueue)
 		XCTAssertNil(personEncouterResult)
 
-		let locationVisitResult = fetchEntries(for: "LocationVisit", with: locationVisitId, from: database)
+		let locationVisitResult = fetchEntries(for: "LocationVisit", with: locationVisitId, from: databaseQueue)
 		XCTAssertNil(locationVisitResult)
 	}
 
 	func test_OrderIsCorrect() {
-		let database = FMDatabase.inMemory()
-		let store = makeContactDiaryStore(with: database)
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
 
 		addContactPerson(name: "Adam Sandale", to: store)
 		addContactPerson(name: "Adam Sandale", to: store)
@@ -474,14 +474,14 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 	}
 
 	func test_When_ContactPersonNameIsToLong_Then_ContactPersonNameIsTruncated() {
-		let database = FMDatabase.inMemory()
-		let store = makeContactDiaryStore(with: database)
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
 
 		let stringWith251Chars = String(repeating: "Y", count: 251) //(0...250).map { "Y" }
 
 		let addPersonResult = store.addContactPerson(name: stringWith251Chars)
 		guard case .success(let personId) = addPersonResult,
-			  let contactPerson = fetchEntries(for: "ContactPerson", with: personId, from: database),
+			  let contactPerson = fetchEntries(for: "ContactPerson", with: personId, from: databaseQueue),
 			  let name = contactPerson.string(forColumn: "name")else {
 			fatalError("An error is not expected.")
 		}
@@ -493,7 +493,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		let updateResult = store.updateContactPerson(id: personId, name: stringWith251Chars)
 
 		guard case .success = updateResult,
-			  let contactPersonUpdated = fetchEntries(for: "ContactPerson", with: personId, from: database),
+			  let contactPersonUpdated = fetchEntries(for: "ContactPerson", with: personId, from: databaseQueue),
 			  let nameUpdated = contactPersonUpdated.string(forColumn: "name")  else {
 			fatalError("An error is not expected.")
 		}
@@ -502,14 +502,14 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 	}
 
 	func test_When_LocationNameIsToLong_Then_LocationNameIsTruncated() {
-		let database = FMDatabase.inMemory()
-		let store = makeContactDiaryStore(with: database)
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
 
 		let stringWith251Chars = String(repeating: "Y", count: 251)
 
 		let addLocationResult = store.addLocation(name: stringWith251Chars)
 		guard case .success(let locationId) = addLocationResult,
-			  let location = fetchEntries(for: "Location", with: locationId, from: database),
+			  let location = fetchEntries(for: "Location", with: locationId, from: databaseQueue),
 			  let name = location.string(forColumn: "name")else {
 			fatalError("An error is not expected.")
 		}
@@ -521,7 +521,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		let updateResult = store.updateLocation(id: locationId, name: stringWith251Chars)
 
 		guard case .success = updateResult,
-			  let locationUpdated = fetchEntries(for: "Location", with: locationId, from: database),
+			  let locationUpdated = fetchEntries(for: "Location", with: locationId, from: databaseQueue),
 			  let nameUpdated = locationUpdated.string(forColumn: "name")  else {
 			fatalError("An error is not expected.")
 		}
@@ -547,24 +547,30 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		XCTAssertEqual(entry.isSelected, isSelected)
 	}
 
-	private func fetchEntries(for table: String, with id: Int64, from database: FMDatabase) -> FMResultSet? {
-		let sql =
-		"""
-			SELECT
-				*
-			FROM
-				\(table)
-			WHERE
-				id = '\(id)'
-		;
-		"""
+	private func fetchEntries(for table: String, with id: Int64, from databaseQueue: FMDatabaseQueue) -> FMResultSet? {
+		var result: FMResultSet?
 
-		guard let result = database.executeQuery(sql, withParameterDictionary: nil) else {
-			return nil
-		}
+		databaseQueue.inDatabase { database in
+			let sql =
+			"""
+				SELECT
+					*
+				FROM
+					\(table)
+				WHERE
+					id = '\(id)'
+			;
+			"""
 
-		guard result.next() else {
-			return nil
+			guard let queryResult = database.executeQuery(sql, withParameterDictionary: nil) else {
+				return
+			}
+
+			guard queryResult.next() else {
+				return
+			}
+
+			result = queryResult
 		}
 
 		return result
@@ -608,14 +614,20 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		return encounterId
 	}
 
-	private func makeContactDiaryStore(with database: FMDatabase) -> ContactDiaryStoreV1 {
-		let queue = DispatchQueue(label: "ContactDiaryStoreSchemaV1TestsQueue")
-		let schema = ContactDiaryStoreSchemaV1(database: database, queue: queue)
+	private func makeDatabaseQueue() -> FMDatabaseQueue {
+		guard let databaseQueue = FMDatabaseQueue(path: "file::memory:") else {
+			fatalError("Could not create FMDatabaseQueue.")
+		}
+		return databaseQueue
+	}
+
+	private func makeContactDiaryStore(with databaseQueue: FMDatabaseQueue) -> ContactDiaryStoreV1 {
+		let schema = ContactDiaryStoreSchemaV1(databaseQueue: databaseQueue)
 
 		return ContactDiaryStoreV1(
-			database: database,
-			queue: queue,
-			schema: schema
+			databaseQueue: databaseQueue,
+			schema: schema,
+			key: "Dummy"
 		)
 	}
 

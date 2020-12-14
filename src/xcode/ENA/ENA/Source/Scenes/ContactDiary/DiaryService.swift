@@ -59,7 +59,7 @@ protocol DiaryProviding {
 	var diaryDaysPublisher: CurrentValueSubject<[DiaryDay], Never> { get }
 }
 
-class MockDiaryStore: DiaryStoring, DiaryProviding {
+class MockDiaryStore: DiaryStoringProviding {
 
 	// MARK: - Init
 

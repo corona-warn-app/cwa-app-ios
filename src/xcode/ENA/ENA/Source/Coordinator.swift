@@ -24,7 +24,7 @@ class Coordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 
 	private let rootViewController: UINavigationController
-	private let contactDiaryStore: ContactDiaryStoreV1
+	private let contactDiaryStore: DiaryStoringProviding
 
 	private var homeController: HomeViewController?
 	private var settingsController: SettingsViewController?
@@ -46,7 +46,7 @@ class Coordinator: RequiresAppDependencies {
 	init(
 		_ delegate: CoordinatorDelegate,
 		_ rootViewController: UINavigationController,
-		contactDiaryStore: ContactDiaryStoreV1
+		contactDiaryStore: DiaryStoringProviding
 	) {
 		self.delegate = delegate
 		self.rootViewController = rootViewController
@@ -211,7 +211,7 @@ extension Coordinator: HomeViewControllerDelegate {
 	func showDiary() {
 		diaryCoordinator = DiaryCoordinator(
 			store: store,
-			diaryStore: MockDiaryStore(), //contactDiaryStore,
+			diaryStore: contactDiaryStore,
 			parentNavigationController: rootViewController
 		)
 
