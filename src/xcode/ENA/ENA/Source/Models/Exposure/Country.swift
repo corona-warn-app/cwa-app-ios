@@ -69,3 +69,9 @@ extension Locale {
 	}
 
 }
+
+extension Array where Element == Country {
+	var sortedByLocalizedName: [Country] {
+		return self.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
+	}
+}

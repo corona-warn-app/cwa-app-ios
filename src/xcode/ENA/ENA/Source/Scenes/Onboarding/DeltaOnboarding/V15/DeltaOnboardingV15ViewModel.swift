@@ -12,7 +12,7 @@ struct DeltaOnboardingV15ViewModel {
 	init(
 		supportedCountries: [Country]
 	) {
-		self.supportedCountries = supportedCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
+		self.supportedCountries = supportedCountries.sortedByLocalizedName
 	}
 
 	// MARK: - Internal
