@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import ExposureNotification
 
 class ENAUITests_01_Home: XCTestCase {
 	var app: XCUIApplication!
@@ -119,6 +120,33 @@ class ENAUITests_01_Home: XCTestCase {
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
+	func test_screenshot_homescreen_riskCardLow_noExposureLogging() throws {
+		var screenshotCounter = 0
+		let riskLevel = "low"
+		let numberOfDaysWithLowRisk = 0
+		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.disabled.stringValue])
+		app.launch()
+
+		XCTAssert(app.buttons["RiskLevelCollectionViewCell.topContainer"].waitForExistence(timeout: .medium))
+		XCTAssert(app.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .short))
+
+		// Green risk card title "Niedriges Risiko" – the localized text is used as accessibility identifier
+		// see HomeRiskLevelCellConfigurator.setupAccessibility()
+		XCTAssertNotNil(app.buttons[accessibilityLabels.localized(AppStrings.Home.riskCardLowTitle)].waitForExistence(timeout: .short))
+
+		// find an element with localized text "Keine Risiko-Begegnungen"
+		let lowRiskTitle = String(format: accessibilityLabels.localized(AppStrings.Home.riskCardLowNumberContactsItemTitle), numberOfDaysWithLowRisk)
+		XCTAssert(app.staticTexts[lowRiskTitle].waitForExistence(timeout: .short))
+
+		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: .short))
+		snapshot("homescreenrisk_level_\(riskLevel)_noExposureLogging_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp()
+		snapshot("homescreenrisk_level_\(riskLevel)_noExposureLogging_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 	
 	func test_screenshot_homescreen_riskCardInactive() throws {
