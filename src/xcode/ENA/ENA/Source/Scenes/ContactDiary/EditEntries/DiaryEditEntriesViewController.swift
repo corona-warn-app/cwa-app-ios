@@ -50,8 +50,8 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 		viewModel.$entries
 			.receive(on: RunLoop.main)
 			.sink { [weak self] _ in
-				guard self?.shouldReload ?? false else { return }
-				self?.tableView.reloadData()
+				guard let self = self, self.shouldReload else { return }
+				self.tableView.reloadData()
 			}
 			.store(in: &subscriptions)
 	}
