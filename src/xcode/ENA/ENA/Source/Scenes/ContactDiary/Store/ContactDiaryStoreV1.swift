@@ -9,6 +9,7 @@ import Combine
 
 // swiftlint:disable:next type_body_length
 class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
+
 	static let encriptionKeyKey = "ContactDiaryStoreEncryptionKey"
 
 	// MARK: - Init
@@ -81,7 +82,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	}
 
 	func addContactPerson(name: String) -> DiaryStoringResult {
-		var result: DiaryStoringResult = .success(0)
+		var result: DiaryStoringResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Add ContactPerson.", log: .localData)
@@ -113,11 +114,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			result = .success(database.lastInsertRowId)
 		}
 
-		return result
+		guard let _result = result else {
+			fatalError("Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	func addLocation(name: String) -> DiaryStoringResult {
-		var result: DiaryStoringResult = .success(0)
+		var result: DiaryStoringResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Add Location.", log: .localData)
@@ -150,11 +155,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			result = .success(database.lastInsertRowId)
 		}
 
-		return result
+		guard let _result = result else {
+			fatalError("Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	func addContactPersonEncounter(contactPersonId: Int64, date: String) -> DiaryStoringResult {
-		var result: DiaryStoringResult = .success(0)
+		var result: DiaryStoringResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Add ContactPersonEncounter.", log: .localData)
@@ -190,11 +199,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			result = .success(database.lastInsertRowId)
 		}
 
-		return result
+		guard let _result = result else {
+			fatalError("Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	func addLocationVisit(locationId: Int64, date: String) -> DiaryStoringResult {
-		var result: DiaryStoringResult = .success(0)
+		var result: DiaryStoringResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Add LocationVisit.", log: .localData)
@@ -230,11 +243,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			result = .success(database.lastInsertRowId)
 		}
 
-		return result
+		guard let _result = result else {
+			fatalError("Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	func updateContactPerson(id: Int64, name: String) -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult = .success(())
+		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Update ContactPerson with id: \(id).", log: .localData)
@@ -263,11 +280,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			result = .success(())
 		}
 
-		return result
+		guard let _result = result else {
+			fatalError("Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	func updateLocation(id: Int64, name: String) -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult = .success(())
+		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Update Location with id: \(id).", log: .localData)
@@ -296,11 +317,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			result = .success(())
 		}
 
-		return result
+		guard let _result = result else {
+			fatalError("Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	func removeContactPerson(id: Int64) -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult = .success(())
+		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Remove ContactPerson with id: \(id).", log: .localData)
@@ -328,11 +353,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			result = .success(())
 		}
 
-		return result
+		guard let _result = result else {
+			fatalError("Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	func removeLocation(id: Int64) -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult = .success(())
+		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Remove Location with id: \(id).", log: .localData)
@@ -360,11 +389,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			result = .success(())
 		}
 
-		return result
+		guard let _result = result else {
+			fatalError("Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	func removeContactPersonEncounter(id: Int64) -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult = .success(())
+		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Remove ContactPersonEncounter with id: \(id).", log: .localData)
@@ -392,11 +425,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			result = .success(())
 		}
 
-		return result
+		guard let _result = result else {
+			fatalError("Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	func removeLocationVisit(id: Int64) -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult = .success(())
+		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Remove LocationVisit with id: \(id).", log: .localData)
@@ -424,11 +461,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			result = .success(())
 		}
 
-		return result
+		guard let _result = result else {
+			fatalError("Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	func removeAllLocations() -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult = .success(())
+		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Remove all Locations", log: .localData)
@@ -453,11 +494,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			result = .success(())
 		}
 
-		return result
+		guard let _result = result else {
+			fatalError("Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	func removeAllContactPersons() -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult = .success(())
+		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Remove all ContactPersons", log: .localData)
@@ -482,7 +527,11 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			result = .success(())
 		}
 
-		return result
+		guard let _result = result else {
+			fatalError("Result should not be nil.")
+		}
+
+		return _result
 	}
 	
 	// MARK: - Private
