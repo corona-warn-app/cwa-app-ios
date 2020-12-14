@@ -18,6 +18,23 @@ class DiaryEditEntriesViewModel {
 		self.store = store
 		self.entries = []
 
+		switch entryType {
+		case .contactPerson:
+			title = AppStrings.ContactDiary.EditEntries.ContactPersons.title
+			deleteAllButtonTitle = AppStrings.ContactDiary.EditEntries.ContactPersons.deleteAllButtonTitle
+			alertTitle = AppStrings.ContactDiary.EditEntries.ContactPersons.Alert.title
+			alertMessage = AppStrings.ContactDiary.EditEntries.ContactPersons.Alert.message
+			alertConfirmButtonTitle = AppStrings.ContactDiary.EditEntries.ContactPersons.Alert.confirmButtonTitle
+			alertCancelButtonTitle = AppStrings.ContactDiary.EditEntries.ContactPersons.Alert.cancelButtonTitle
+		case .location:
+			title = AppStrings.ContactDiary.EditEntries.Locations.title
+			deleteAllButtonTitle = AppStrings.ContactDiary.EditEntries.Locations.deleteAllButtonTitle
+			alertTitle = AppStrings.ContactDiary.EditEntries.Locations.Alert.title
+			alertMessage = AppStrings.ContactDiary.EditEntries.Locations.Alert.message
+			alertConfirmButtonTitle = AppStrings.ContactDiary.EditEntries.Locations.Alert.confirmButtonTitle
+			alertCancelButtonTitle = AppStrings.ContactDiary.EditEntries.Locations.Alert.cancelButtonTitle
+		}
+
 		store.diaryDaysPublisher
 			.sink { [weak self] days in
 				guard let firstDay = days.first else { return }
@@ -32,23 +49,13 @@ class DiaryEditEntriesViewModel {
 
 	@Published private(set) var entries: [DiaryEntry]
 
-	var title: String {
-		switch entryType {
-		case .contactPerson:
-			return AppStrings.ContactDiary.EditEntries.ContactPersons.title
-		case .location:
-			return AppStrings.ContactDiary.EditEntries.Locations.title
-		}
-	}
+	let title: String
+	let deleteAllButtonTitle: String
+	let alertTitle: String
+	let alertMessage: String
+	let alertConfirmButtonTitle: String
+	let alertCancelButtonTitle: String
 
-	var deleteAllButtonTitle: String {
-		switch entryType {
-		case .contactPerson:
-			return AppStrings.ContactDiary.EditEntries.ContactPersons.deleteAllButtonTitle
-		case .location:
-			return AppStrings.ContactDiary.EditEntries.Locations.deleteAllButtonTitle
-		}
-	}
 
 	func remove(entry: DiaryEntry) {
 		switch entry {
@@ -59,7 +66,7 @@ class DiaryEditEntriesViewModel {
 		}
 	}
 
-	func removeAll(entryType: DiaryEntryType) {
+	func removeAll() {
 		switch entryType {
 		case .location:
 			store.removeAllLocations()

@@ -59,7 +59,7 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 	// MARK: - Protocol UITableViewDataSource
 
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return 1
+		return viewModel.entries.isEmpty ? 0 : 1
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -132,7 +132,36 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 	}
 
 	@IBAction func didTapDeleteAllButton(_ sender: ENAButton) {
+		let alert = UIAlertController(
+			title: viewModel.alertTitle,
+			message: viewModel.alertMessage,
+			preferredStyle: .alert
+		)
 
+		alert.addAction(
+			UIAlertAction(
+				title: viewModel.alertCancelButtonTitle,
+				style: .cancel
+			)
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: viewModel.alertConfirmButtonTitle,
+				style: .destructive,
+				handler: { [weak self] _ in
+					self?.shouldReload = false
+					self?.viewModel.removeAll()
+					self?.tableView.performBatchUpdates({
+						self?.tableView.deleteSections([0], with: .automatic)
+					}, completion: { _ in
+						self?.shouldReload = true
+					})
+				}
+			)
+		)
+
+		present(alert, animated: true, completion: nil)
 	}
 
 }
