@@ -27,7 +27,7 @@ struct ExposureSubmissionWarnOthersViewModel {
 	// MARK: - Init
 
 	init(supportedCountries: [Country]) {
-		countries = supportedCountries
+		countries = supportedCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
 	}
 
 	// MARK: - Internal
