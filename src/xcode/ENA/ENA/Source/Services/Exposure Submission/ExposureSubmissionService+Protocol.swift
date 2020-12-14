@@ -14,6 +14,8 @@ protocol ExposureSubmissionService: class {
 	var exposureManagerState: ExposureManagerState { get }
 	var hasRegistrationToken: Bool { get }
 
+	var supportedCountries: [Country] { get } // temporary!
+
 	var devicePairingConsentAcceptTimestamp: Int64? { get }
 	var devicePairingSuccessfulTimestamp: Int64? { get }
 
@@ -42,5 +44,6 @@ protocol ExposureSubmissionService: class {
 	func deleteTest()
 	func acceptPairing()
 	func fakeRequest(completionHandler: ExposureSubmissionHandler?)
+	func reset()
 
 }

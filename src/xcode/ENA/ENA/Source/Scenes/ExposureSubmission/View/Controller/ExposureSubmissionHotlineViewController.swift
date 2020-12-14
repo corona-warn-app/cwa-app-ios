@@ -6,11 +6,7 @@ import UIKit
 
 class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 
-	// MARK: - Attributes.
-
-	private(set) weak var coordinator: ExposureSubmissionCoordinating?
-
-	// MARK: - Initializers.
+	// MARK: - Init
 
 	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating) {
 		self.coordinator = coordinator
@@ -22,39 +18,45 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - View lifecycle methods.
+	// MARK: - Overrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		setUpView()
+		title = AppStrings.ExposureSubmissionHotline.title
+		setupTableView()
+		setupBackButton()
+		
+		footerView?.primaryButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionHotline.primaryButton
+		footerView?.secondaryButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionHotline.secondaryButton
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		setupButtons()
-		
 	}
-
+	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 	}
 
-	// MARK: - View setup.
-
-	private func setUpView() {
-		title = AppStrings.ExposureSubmissionHotline.title
-		setupButtons()
-		setupTableView()
-		setupBackButton()
+	override var navigationItem: UINavigationItem {
+		navigationFooterItem
 	}
 
-	private func setupButtons() {
-		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionHotline.callButtonTitle
-		navigationFooterItem?.secondaryButtonTitle = AppStrings.ExposureSubmissionHotline.tanInputButtonTitle
-		navigationFooterItem?.isSecondaryButtonHidden = false
-	}
-
-	// MARK: - Data setup.
+	// MARK: - Private
+	
+	private(set) weak var coordinator: ExposureSubmissionCoordinating?
+	
+	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		let item = ENANavigationFooterItem()
+		item.primaryButtonTitle = AppStrings.ExposureSubmissionHotline.callButtonTitle
+		item.isPrimaryButtonEnabled = true
+		item.secondaryButtonTitle = AppStrings.ExposureSubmissionHotline.tanInputButtonTitle
+		item.isSecondaryButtonEnabled = true
+		item.isSecondaryButtonHidden = false
+		footerView?.isHidden = false
+		item.title = AppStrings.ExposureSubmissionHotline.title
+		return item
+	}()
 
 	private func setupTableView() {
 		tableView.delegate = self

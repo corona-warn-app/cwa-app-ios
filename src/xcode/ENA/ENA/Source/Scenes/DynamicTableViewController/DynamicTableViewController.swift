@@ -251,7 +251,8 @@ extension DynamicTableViewController {
 
 		cell.removeSeparators()
 
-		if section.separators != .none {
+		// no separators for spacers please
+		if section.separators != .none, cell is DynamicTableViewSpaceCell == false {
 			let isFirst = indexPath.row == 0
 			let isLast = indexPath.row == section.cells.count - 1
 

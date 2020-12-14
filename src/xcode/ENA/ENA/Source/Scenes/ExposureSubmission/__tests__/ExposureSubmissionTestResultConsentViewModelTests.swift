@@ -12,7 +12,7 @@ class ExposureSubmissionTestResultConsentViewModelTests: XCTestCase {
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
 			supportedCountries: [],
 			exposureSubmissionService: MockExposureSubmissionService(),
-			onDismiss: {}
+			testResultAvailability: .available
 		)
 
 		let section = viewModel.dynamicTableViewModel.section(0)
@@ -41,7 +41,7 @@ class ExposureSubmissionTestResultConsentViewModelTests: XCTestCase {
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
 			supportedCountries: [],
 			exposureSubmissionService: MockExposureSubmissionService(),
-			onDismiss: {}
+			testResultAvailability: .available
 		)
 		
 		let section = viewModel.dynamicTableViewModel.section(1)
@@ -58,7 +58,7 @@ class ExposureSubmissionTestResultConsentViewModelTests: XCTestCase {
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
 			supportedCountries: [],
 			exposureSubmissionService: MockExposureSubmissionService(),
-			onDismiss: {}
+			testResultAvailability: .available
 		)
 		
 		let section = viewModel.dynamicTableViewModel.section(2)
