@@ -310,12 +310,12 @@ final class RiskProvider: RiskProviding {
 
 	private func _provideRiskResult(_ result: RiskProviderResult, to consumer: RiskConsumer?) {
 		#if DEBUG
-		if isUITesting {
-			consumer?.provideRiskCalculationResult(.success(.mocked))
+		if isUITesting && UserDefaults.standard.string(forKey: "riskLevel") == "inactive" {
+			consumer?.provideRiskCalculationResult(.failure(.inactive))
 			return
 		}
 		#endif
-
+		
 		consumer?.provideRiskCalculationResult(result)
 	}
 
@@ -418,22 +418,32 @@ private extension RiskConsumer {
 extension RiskProvider {
 	private func _requestRiskLevel_Mock(userInitiated: Bool) {
 		let risk = Risk.mocked
-		successOnTargetQueue(risk: risk)
 
-		for consumer in consumers {
-			_provideRiskResult(.success(risk), to: consumer)
+		switch risk.level {
+		case .high:
+			store.riskCalculationResult = RiskCalculationResult(
+				riskLevel: .high,
+				minimumDistinctEncountersWithLowRisk: 0,
+				minimumDistinctEncountersWithHighRisk: 0,
+				mostRecentDateWithLowRisk: risk.details.mostRecentDateWithRiskLevel,
+				mostRecentDateWithHighRisk: risk.details.mostRecentDateWithRiskLevel,
+				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
+				numberOfDaysWithHighRisk: risk.details.numberOfDaysWithRiskLevel,
+				calculationDate: Date()
+			)
+		default:
+			store.riskCalculationResult = RiskCalculationResult(
+				riskLevel: .low,
+				minimumDistinctEncountersWithLowRisk: 0,
+				minimumDistinctEncountersWithHighRisk: 0,
+				mostRecentDateWithLowRisk: risk.details.mostRecentDateWithRiskLevel,
+				mostRecentDateWithHighRisk: risk.details.mostRecentDateWithRiskLevel,
+				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
+				numberOfDaysWithHighRisk: 0,
+				calculationDate: Date()
+			)
 		}
-
-		store.riskCalculationResult = RiskCalculationResult(
-			riskLevel: risk.level == .high ? .high : .low,
-			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: nil,
-			mostRecentDateWithHighRisk: nil,
-			numberOfDaysWithLowRisk: 0,
-			numberOfDaysWithHighRisk: 0,
-			calculationDate: Date()
-		)
+		successOnTargetQueue(risk: risk)
 	}
 }
 #endif

@@ -29,7 +29,7 @@
 
 "ExposureSubmissionQRInfo_acknowledgement_2_1" = "Korona testiniz pozitif çıkmışsa, Uygulama karşılaştığınız kullanıcıları uyarmak üzere test sonucunuzu paylaşır. Bu, yukarıda belirtilen ülkelerdeki resmi Korona uygulamalarının kullanıcıları için geçerlidir. Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
 
-"ExposureSubmissionQRInfo_acknowledgement_2_2" = "Verdiğiniz rıza beyanını istediğiniz zaman geri alabilirsiniz. Bunun ayarını, “Testi göster” altında bulabilirsiniz. Paylaşmadan önce, rıza beyanınıza ilişkin yeniden bilgilendirilecek ve test sonucunuzu yayınlamaya izin vermeniz istenecektir.";
+"ExposureSubmissionQRInfo_acknowledgement_2_2" = "Verdiğiniz rıza beyanını istediğiniz zaman geri alabilirsiniz. Bunun ayarını, “Testi Göster” altında bulabilirsiniz. Paylaşmadan önce, rıza beyanınıza ilişkin yeniden bilgilendirilecek ve test sonucunuzu yayınlamaya izin vermeniz istenecektir.";
 
 /* Automatic share submission result consent */
 
@@ -41,7 +41,7 @@
 
 "AutomaticSharingConsent_DescriptionPart3" = "Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
 
-"AutomaticSharingConsent_DescriptionPart4" = "Yukarıdaki “Diğerlerini uyarın” seçeneğini devre dışı bırakarak, verdiğiniz rıza beyanını geri alabilirsiniz.";
+"AutomaticSharingConsent_DescriptionPart4" = "Yukarıdaki “Diğer Kullanıcıları Uyarın” seçeneğini devre dışı bırakarak, verdiğiniz rıza beyanını geri alabilirsiniz.";
 
 "AutomaticSharingConsent_DescriptionPart5" = "Bunun ardından test sonucunuz size görüntülenir.";
 
@@ -52,4 +52,3 @@
 "ExposureSubmissionWarnOthers_acknowledgement_1_2" = "Lütfen bir sonraki adımda “Paylaş”a tıklayarak test sonucunuzu (daha doğrusu: Son 14 güne ait rastgele kimlik no'larınız) paylaşın.";
 
 "ExposureSubmissionWarnOthers_acknowledgement_footer" = "Uyarı gerçekleştikten sonra, Uygulamayı silerek verdiğiniz rıza beyanını da geri alabilirsiniz.";
-

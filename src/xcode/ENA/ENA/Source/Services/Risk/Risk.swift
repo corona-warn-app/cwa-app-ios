@@ -24,9 +24,11 @@ extension Risk {
 #if DEBUG
 extension Risk {
 	static let mocked = Risk(
-		level: .low,
+		//UITests can set app.launchArguments "-riskLevel"
+		level: UserDefaults.standard.string(forKey: "riskLevel") == "high" ? .high : .low,
 		details: Risk.Details(
-			numberOfDaysWithRiskLevel: 0,
+			mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
+			numberOfDaysWithRiskLevel: UserDefaults.standard.string(forKey: "riskLevel") == "high" ? 1 : 0,
 			activeTracing: .init(interval: 336 * 3600),  // two weeks
 			exposureDetectionDate: Date()),
 		riskLevelHasChanged: true

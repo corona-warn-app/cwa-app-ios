@@ -1,7 +1,7 @@
 {
   "configurations" : [
     {
-      "id" : "E49DA41E-E8E3-4DAA-8D5E-903DF2089E55",
+      "id" : "0E0E0978-2717-4490-8723-B6BDF33AD923",
       "name" : "Configuration 1",
       "options" : {
 
@@ -15,22 +15,18 @@
   },
   "testTargets" : [
     {
-      "skippedTests" : [
-        "ENAUITests_00_Onboarding\/test_0000_OnboardingFlow_DisablePermissions_normal_XXXL()",
-        "ENAUITests_00_Onboarding\/test_0001_OnboardingFlow_EnablePermissions_normal_XS()",
-        "ENAUITests_01_Home\/test_0010_HomeFlow_medium()",
-        "ENAUITests_01_Home\/test_0011_HomeFlow_extrasmall()",
-        "ENAUITests_01_Home\/test_0013_HomeFlow_extralarge()",
-        "ENAUITests_02_AppInformation",
-        "ENAUITests_03_Settings",
-        "ENAUITests_04_ExposureSubmissionUITests\/test_NavigateToHotlineVC()",
-        "ENAUITests_04_ExposureSubmissionUITests\/test_NavigateToIntroVC()",
-        "ENAUITests_04_ExposureSubmissionUITests\/test_QRCodeScanOpened()",
-        "ENAUITests_04_ExposureSubmissionUITests\/test_SubmitTAN_SecondaryFlowWithoutSymptomsScreens()",
-        "ENAUITests_04_ExposureSubmissionUITests\/test_SubmitTAN_SymptomsOnsetDateOption()",
-        "ENAUITests_04_ExposureSubmissionUITests\/test_SubmitTAN_SymptomsOptionNo()",
-        "ENAUITests_04_ExposureSubmissionUITests\/test_SubmitTAN_SymptomsOptionPreferNotToSay()",
-        "ENAUITests_06_DeltaOnboarding\/testDeltaOnboardingV15View()"
+      "selectedTests" : [
+        "ENAUITests\/test_0000_Generate_Screenshots_For_AppStore()",
+        "ENAUITests\/test_0001_Generate_Screenshots_For_AppStore_Submission()",
+        "ENAUITests_00_Onboarding\/test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S()",
+        "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardHigh()",
+        "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardInactive()",
+        "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardLow()",
+        "ENAUITests_04_ExposureSubmissionUITests\/test_screenshot_SubmissionNotPossible()",
+        "ENAUITests_04_ExposureSubmissionUITests\/test_screenshot_SubmitTAN()",
+        "ENAUITests_05_ExposureLogging\/test_screenshot_exposureLogging()",
+        "ENAUITests_05_ExposureLogging\/test_screenshot_exposureLoggingOff()",
+        "ENAUITests_06_DeltaOnboarding\/test_screenshotDeltaOnboardingV15View()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

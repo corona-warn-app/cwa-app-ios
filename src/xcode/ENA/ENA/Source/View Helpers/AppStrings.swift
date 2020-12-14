@@ -279,7 +279,7 @@ enum AppStrings {
 	}
 
 	enum ExposureSubmissionError {
-		static let noKeys = NSLocalizedString("ExposureSubmissionError_NoKeys", comment: "")
+		static let noKeysCollected = NSLocalizedString("ExposureSubmissionError_NoKeys", comment: "")
 		static let invalidTan = NSLocalizedString("ExposureSubmissionError_InvalidTan", comment: "")
 		static let enNotEnabled = NSLocalizedString("ExposureSubmissionError_EnNotEnabled", comment: "")
 		static let noRegistrationToken = NSLocalizedString("ExposureSubmissionError_NoRegistrationToken", comment: "")
@@ -520,6 +520,7 @@ enum AppStrings {
 		static let descriptionText1 = NSLocalizedString("ExposureNotificationSetting_DescriptionText1", comment: "")
 		static let descriptionText2 = NSLocalizedString("ExposureNotificationSetting_DescriptionText2", comment: "")
 		static let descriptionText3 = NSLocalizedString("ExposureNotificationSetting_DescriptionText3", comment: "")
+		static let descriptionText4 = NSLocalizedString("ExposureNotificationSetting_DescriptionText4", comment: "")
 		static let actionCellHeader = NSLocalizedString("ExposureNotificationSetting_ActionCell_Header", comment: "")
 		static let activateBluetooth = NSLocalizedString("ExposureNotificationSetting_Activate_Bluetooth", comment: "")
 		static let activateInternet = NSLocalizedString("ExposureNotificationSetting_Activate_Internet", comment: "")

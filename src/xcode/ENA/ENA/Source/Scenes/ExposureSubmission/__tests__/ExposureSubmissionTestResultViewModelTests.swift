@@ -356,7 +356,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonLoading)
 		XCTAssertTrue(model.navigationFooterItem.isSecondaryButtonEnabled)
 		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonHidden)
-		XCTAssertTrue(model.navigationFooterItem.secondaryButtonHasBorder)
 	}
 	
 	func testNavigationFooterItemForNegaitveInvalidOrExpiredTestResult() {
