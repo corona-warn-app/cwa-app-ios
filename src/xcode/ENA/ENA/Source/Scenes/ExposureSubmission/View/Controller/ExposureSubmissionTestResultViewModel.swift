@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 
 // swiftlint:disable:next type_body_length
 class ExposureSubmissionTestResultViewModel {
@@ -35,10 +35,10 @@ class ExposureSubmissionTestResultViewModel {
 	
 	// MARK: - Internal
 	
-	@Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
-	@Published var shouldShowDeletionConfirmationAlert: Bool = false
-	@Published var error: ExposureSubmissionError?
-	@Published var shouldAttemptToDismiss: Bool = false
+	@OpenCombine.Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
+	@OpenCombine.Published var shouldShowDeletionConfirmationAlert: Bool = false
+	@OpenCombine.Published var error: ExposureSubmissionError?
+	@OpenCombine.Published var shouldAttemptToDismiss: Bool = false
 
 	var testResult: TestResult {
 		didSet {

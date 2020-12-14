@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 import UserNotifications
 import ExposureNotification
 

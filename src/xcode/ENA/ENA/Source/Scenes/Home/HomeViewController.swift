@@ -3,7 +3,7 @@
 //
 
 import ExposureNotification
-import Combine
+import OpenCombine
 import UIKit
 
 protocol HomeViewControllerDelegate: AnyObject {

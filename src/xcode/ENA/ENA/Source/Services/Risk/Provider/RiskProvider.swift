@@ -5,7 +5,7 @@
 import Foundation
 import ExposureNotification
 import UIKit
-import Combine
+import OpenCombine
 
 final class RiskProvider: RiskProviding {
 

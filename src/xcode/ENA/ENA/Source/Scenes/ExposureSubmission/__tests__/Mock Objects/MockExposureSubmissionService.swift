@@ -31,7 +31,7 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 	var symptomsOnset: SymptomsOnset = .noInformation
 
 	// Needed to use a publisher in the protocol
-	@Published var isSubmissionConsentGiven: Bool = false
+	@OpenCombine.Published var isSubmissionConsentGiven: Bool = false
 	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { $isSubmissionConsentGiven }
 
 	// MARK: - ExposureSubmissionService methods.

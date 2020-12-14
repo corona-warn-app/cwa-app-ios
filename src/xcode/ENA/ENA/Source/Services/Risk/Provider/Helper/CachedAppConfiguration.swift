@@ -3,7 +3,8 @@
 //
 
 import Foundation
-import Combine
+import OpenCombine
+import OpenCombineDispatch
 import ZIPFoundation
 
 final class CachedAppConfiguration {
@@ -20,7 +21,7 @@ final class CachedAppConfiguration {
 		case notModified
 	}
 
-	@Published var configuration: SAP_Internal_V2_ApplicationConfigurationIOS?
+	@OpenCombine.Published var configuration: SAP_Internal_V2_ApplicationConfigurationIOS?
 
 	/// A reference to the key package store to directly allow removal of invalidated key packages
 	weak var packageStore: DownloadedPackagesStore?

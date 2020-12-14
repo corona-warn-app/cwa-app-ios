@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 
 protocol LowPowerModeStatusProviding {
 	var isLowPowerModeEnabled: Bool { get }
@@ -54,11 +54,11 @@ class BackgroundAppRefreshViewModel {
 	let settingsHeaderTitle = AppStrings.BackgroundAppRefreshSettings.Status.header.uppercased()
 	let backgroundAppRefreshTitle = AppStrings.BackgroundAppRefreshSettings.Status.title
 
-	@Published var backgroundAppRefreshStatusText: String = ""
-	@Published var backgroundAppRefreshStatusAccessibilityLabel: String = ""
-	@Published var backgroundAppRefreshStatusImageAccessibilityLabel: String = ""
-	@Published var image: UIImage?
-	@Published var infoBoxViewModel: InfoBoxViewModel?
+	@OpenCombine.Published var backgroundAppRefreshStatusText: String = ""
+	@OpenCombine.Published var backgroundAppRefreshStatusAccessibilityLabel: String = ""
+	@OpenCombine.Published var backgroundAppRefreshStatusImageAccessibilityLabel: String = ""
+	@OpenCombine.Published var image: UIImage?
+	@OpenCombine.Published var infoBoxViewModel: InfoBoxViewModel?
 
 
 	// MARK: - Private

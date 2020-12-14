@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-import Combine
+import OpenCombine
 import ExposureNotification
 import FMDB
 import UIKit

@@ -4,7 +4,7 @@
 
 import ExposureNotification
 import Foundation
-import Combine
+import OpenCombine
 
 /// The `ENASubmissionSubmission Service` provides functions and attributes to access relevant information
 /// around the exposure submission process.
@@ -264,7 +264,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let store: Store
 	private let warnOthersReminder: WarnOthersRemindable
 
-	@Published private var _isSubmissionConsentGiven: Bool
+	@OpenCombine.Published private var _isSubmissionConsentGiven: Bool
 
 	private var devicePairingConsentAccept: Bool {
 		get { store.devicePairingConsentAccept }

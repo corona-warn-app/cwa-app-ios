@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 
 final class ExposureSubmissionSymptomsViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
 
@@ -73,7 +73,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 	private var selectedSymptomsOptionConfirmationButtonStateSubscription: AnyCancellable?
 	private var optionGroupSelectionSubscription: AnyCancellable?
 
-	@Published private var selectedSymptomsOption: SymptomsOption?
+	@OpenCombine.Published private var selectedSymptomsOption: SymptomsOption?
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
