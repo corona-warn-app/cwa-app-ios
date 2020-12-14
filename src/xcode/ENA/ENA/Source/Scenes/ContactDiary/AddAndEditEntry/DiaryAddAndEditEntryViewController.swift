@@ -5,7 +5,7 @@
 import UIKit
 import Combine
 
-class DiaryAddAndEditEntryViewController: UIViewController {
+class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate {
 
 	// MARK: - Init
 
@@ -53,6 +53,12 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 		navigationFooterItem
 	}
 
+	// MARK: - Protocol UITextFieldDelegate
+
+	func textFieldDidEndEditing(_ textField: UITextField) {
+		viewModel.update(textField.text)
+	}
+
 	// MARK: - Private
 
 	private let viewModel: DiaryAddAndEditEntryViewModel
@@ -64,7 +70,7 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
 
-		item.primaryButtonTitle = AppStrings.ContactDiary.Information.primaryButtonTitle
+		item.primaryButtonTitle = AppStrings.ContactDiary.AddEditEntry.primaryButtonTitle
 		item.isPrimaryButtonEnabled = true
 		item.isSecondaryButtonHidden = true
 
@@ -77,6 +83,7 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 		title = viewModel.title
 
 		let scrollView = UIScrollView(frame: view.frame)
+		scrollView.contentInset = UIEdgeInsets(top: 55, left: 0, bottom: 0, right: 0.0)
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(scrollView)
 
@@ -99,7 +106,7 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 			contentView.widthAnchor.constraint(equalTo: view.widthAnchor)
 		])
 
-		entryTextField = DiaryEntryTextFiled(frame: .zero, xDeltaInset: 14.0)
+		entryTextField = DiaryEntryTextFiled(frame: .zero)
 		entryTextField.placeholder = viewModel.placeholderText
 		entryTextField.textColor = .enaColor(for: .textPrimary1)
 		entryTextField.autocorrectionType = .no
@@ -107,6 +114,7 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 		entryTextField.spellCheckingType = .no
 		entryTextField.smartQuotesType = .no
 		entryTextField.keyboardAppearance = .default
+		entryTextField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
 
 		entryTextField.translatesAutoresizingMaskIntoConstraints = false
 		entryTextField.isUserInteractionEnabled = true
@@ -121,9 +129,14 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 	}
 
 	private func setupBindiungs() {
-		viewModel.$textInput.sink { [entryTextField] newText in
-			entryTextField?.text = newText
+		viewModel.$textInput.sink { [weak self] newText in
+			self?.navigationFooterItem.isPrimaryButtonEnabled = !newText.isEmpty
 		}.store(in: &bindings)
+	}
+
+	@objc
+	private func textValueChanged(sender: UITextField) {
+		viewModel.update(sender.text)
 	}
 
 }

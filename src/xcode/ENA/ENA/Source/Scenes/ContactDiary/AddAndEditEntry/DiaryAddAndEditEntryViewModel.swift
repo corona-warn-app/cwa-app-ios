@@ -30,12 +30,6 @@ class DiaryAddAndEditEntryViewModel {
 		}
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	enum Mode {
@@ -47,6 +41,10 @@ class DiaryAddAndEditEntryViewModel {
 	let diaryService: DiaryService
 
 	@Published private(set) var textInput: String
+
+	func update(_ text: String?) {
+		textInput = text ?? ""
+	}
 
 	var title: String {
 		switch mode {

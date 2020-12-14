@@ -8,8 +8,8 @@ class DiaryEntryTextFiled: UITextField {
 
 	// MARK: - Init
 
-	init(frame: CGRect, xDeltaInset: CGFloat) {
-		self.xDeltaInset = xDeltaInset
+	init(frame: CGRect, deltaXInset: CGFloat = 14.0) {
+		self.deltaXInset = deltaXInset
 		super.init(frame: frame)
 
 		borderStyle = .none
@@ -19,7 +19,6 @@ class DiaryEntryTextFiled: UITextField {
 		layer.borderWidth = 1
 		layer.masksToBounds = true
 		layer.cornerRadius = 8.0
-		layer.masksToBounds = true
 	}
 
 	required init?(coder: NSCoder) {
@@ -29,17 +28,17 @@ class DiaryEntryTextFiled: UITextField {
 	// MARK: - Overrides
 
 	override func editingRect(forBounds bounds: CGRect) -> CGRect {
-		return textRect(forBounds: bounds).insetBy(dx: xDeltaInset, dy: 0.0)
+		return textRect(forBounds: bounds).insetBy(dx: deltaXInset, dy: 0.0)
 	}
 
 	override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-		return textRect(forBounds: bounds).insetBy(dx: xDeltaInset, dy: 0.0)
+		return textRect(forBounds: bounds).insetBy(dx: deltaXInset, dy: 0.0)
 	}
 
 	// MARK: - Internal
 
 	// MARK: - Private
 
-	private let xDeltaInset: CGFloat
+	private let deltaXInset: CGFloat
 
 }
