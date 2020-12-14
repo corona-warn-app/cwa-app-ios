@@ -72,12 +72,12 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		switch indexPath.section {
-		case 0:
+		switch DiaryDayViewModel.Section(rawValue: indexPath.section) {
+		case .add:
 			return addCell(forRowAt: indexPath)
-		case 1:
+		case .entries:
 			return entryCell(forRowAt: indexPath)
-		default:
+		case .none:
 			fatalError("Invalid section")
 		}
 	}
@@ -85,12 +85,12 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	// MARK: - Protocol UITableViewDelegate
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		switch indexPath.section {
-		case 0:
+		switch DiaryDayViewModel.Section(rawValue: indexPath.section) {
+		case .add:
 			onAddEntryCellTap(viewModel.day, viewModel.selectedEntryType)
-		case 1:
-			viewModel.toggleSelection(of: viewModel.entriesOfSelectedType[indexPath.row])
-		default:
+		case .entries:
+			viewModel.toggleSelection(at: indexPath)
+		case .none:
 			fatalError("Invalid section")
 		}
 	}

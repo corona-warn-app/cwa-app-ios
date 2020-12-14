@@ -23,6 +23,11 @@ class DiaryDayViewModel {
 
 	// MARK: - Internal
 
+	enum Section: Int {
+		case add
+		case entries
+	}
+
 	@Published private(set) var day: DiaryDay
 	@Published var selectedEntryType: DiaryEntryType = .contactPerson
 
@@ -32,8 +37,12 @@ class DiaryDayViewModel {
 		}
 	}
 
-	func toggleSelection(of entry: DiaryEntry) {
-		entry.isSelected ? deselect(entry: entry) : select(entry: entry)
+	func toggleSelection(at indexPath: IndexPath) {
+		guard Section(rawValue: indexPath.section) == .entries else {
+			fatalError("Cannot toggle other elements outside the entries section")
+		}
+
+		toggleSelection(of: entriesOfSelectedType[indexPath.row])
 	}
 
 	// MARK: - Private
@@ -41,6 +50,10 @@ class DiaryDayViewModel {
 	private let store: DiaryStoring
 
 	private var subscriptions: [AnyCancellable] = []
+
+	private func toggleSelection(of entry: DiaryEntry) {
+		entry.isSelected ? deselect(entry: entry) : select(entry: entry)
+	}
 
 	private func select(entry: DiaryEntry) {
 		switch entry {
