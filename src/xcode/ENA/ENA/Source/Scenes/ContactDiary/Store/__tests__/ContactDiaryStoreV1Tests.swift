@@ -76,7 +76,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			return
 		}
 
-		let fetchedContactPersonId = contactPersonEncounter.longLongInt(forColumn: "contactPersonId")
+		let fetchedContactPersonId = Int(contactPersonEncounter.int(forColumn: "contactPersonId"))
 
 		XCTAssertEqual(date, "2020-12-10")
 		XCTAssertEqual(fetchedContactPersonId, contactPersonId)
@@ -106,7 +106,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			return
 		}
 
-		let fetchedLocationId = locationVisit.longLongInt(forColumn: "locationId")
+		let fetchedLocationId = Int(locationVisit.int(forColumn: "locationId"))
 
 		XCTAssertEqual(date, "2020-12-10")
 		XCTAssertEqual(fetchedLocationId, locationId)
@@ -450,7 +450,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 
 			XCTAssertEqual(storedNames, expectedNames)
 
-			let storedIds: [Int64] =
+			let storedIds: [Int] =
 				diaryDays[0].entries.map { entry in
 					switch entry {
 					case .contactPerson(let person):
@@ -461,12 +461,12 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 				}
 
 			let expectedIds = [
-				Int64(1),
-				Int64(2),
-				Int64(3),
-				Int64(1),
-				Int64(2),
-				Int64(3)
+				Int(1),
+				Int(2),
+				Int(3),
+				Int(1),
+				Int(2),
+				Int(3)
 			]
 
 			XCTAssertEqual(storedIds, expectedIds)
@@ -529,7 +529,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		XCTAssertEqual(nameUpdated, expectedName)
 	}
 
-	private func checkLocationEntry(entry: DiaryEntry, name: String, id: Int64, isSelected: Bool) {
+	private func checkLocationEntry(entry: DiaryEntry, name: String, id: Int, isSelected: Bool) {
 		guard case .location(let location) = entry else {
 			fatalError("Not expected")
 		}
@@ -538,7 +538,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		XCTAssertEqual(entry.isSelected, isSelected)
 	}
 
-	private func checkPersonEntry(entry: DiaryEntry, name: String, id: Int64, isSelected: Bool) {
+	private func checkPersonEntry(entry: DiaryEntry, name: String, id: Int, isSelected: Bool) {
 		guard case .contactPerson(let person) = entry else {
 			fatalError("Not expected")
 		}
@@ -547,7 +547,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		XCTAssertEqual(entry.isSelected, isSelected)
 	}
 
-	private func fetchEntries(for table: String, with id: Int64, from databaseQueue: FMDatabaseQueue) -> FMResultSet? {
+	private func fetchEntries(for table: String, with id: Int, from databaseQueue: FMDatabaseQueue) -> FMResultSet? {
 		var result: FMResultSet?
 
 		databaseQueue.inDatabase { database in
@@ -577,7 +577,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 	}
 
 	@discardableResult
-	private func addContactPerson(name: String, to store: ContactDiaryStoreV1) -> Int64 {
+	private func addContactPerson(name: String, to store: ContactDiaryStoreV1) -> Int {
 		let addContactPersonResult = store.addContactPerson(name: name)
 		guard case let .success(contactPersonId) = addContactPersonResult else {
 			fatalError("Failed to add ContactPerson")
@@ -586,7 +586,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 	}
 
 	@discardableResult
-	private func addLocation(name: String, to store: ContactDiaryStoreV1) -> Int64 {
+	private func addLocation(name: String, to store: ContactDiaryStoreV1) -> Int {
 		let addLocationResult = store.addLocation(name: name)
 		guard case let .success(locationId) = addLocationResult else {
 			fatalError("Failed to add Location")
@@ -595,7 +595,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 	}
 
 	@discardableResult
-	private func addLocationVisit(locationId: Int64, date: Date, store: ContactDiaryStoreV1) -> Int64 {
+	private func addLocationVisit(locationId: Int, date: Date, store: ContactDiaryStoreV1) -> Int {
 		let dateString = dateFormatter.string(from: date)
 		let addLocationVisitResult = store.addLocationVisit(locationId: locationId, date: dateString)
 		guard case let .success(locationVisitId) = addLocationVisitResult else {
@@ -605,7 +605,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 	}
 
 	@discardableResult
-	private func addPersonEncounter(personId: Int64, date: Date, store: ContactDiaryStoreV1) -> Int64 {
+	private func addPersonEncounter(personId: Int, date: Date, store: ContactDiaryStoreV1) -> Int {
 		let dateString = dateFormatter.string(from: date)
 		let addEncounterResult = store.addContactPersonEncounter(contactPersonId: personId, date: dateString)
 		guard case let .success(encounterId) = addEncounterResult else {

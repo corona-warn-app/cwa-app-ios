@@ -111,7 +111,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return
 			}
 
-			result = .success(database.lastInsertRowId)
+			result = .success(Int(database.lastInsertRowId))
 		}
 
 		guard let _result = result else {
@@ -152,7 +152,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return
 			}
 
-			result = .success(database.lastInsertRowId)
+			result = .success(Int(database.lastInsertRowId))
 		}
 
 		guard let _result = result else {
@@ -162,7 +162,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
-	func addContactPersonEncounter(contactPersonId: Int64, date: String) -> DiaryStoringResult {
+	func addContactPersonEncounter(contactPersonId: Int, date: String) -> DiaryStoringResult {
 		var result: DiaryStoringResult?
 
 		databaseQueue.inDatabase { database in
@@ -196,7 +196,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return
 			}
 
-			result = .success(database.lastInsertRowId)
+			result = .success(Int(database.lastInsertRowId))
 		}
 
 		guard let _result = result else {
@@ -206,7 +206,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
-	func addLocationVisit(locationId: Int64, date: String) -> DiaryStoringResult {
+	func addLocationVisit(locationId: Int, date: String) -> DiaryStoringResult {
 		var result: DiaryStoringResult?
 
 		databaseQueue.inDatabase { database in
@@ -240,7 +240,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return
 			}
 
-			result = .success(database.lastInsertRowId)
+			result = .success(Int(database.lastInsertRowId))
 		}
 
 		guard let _result = result else {
@@ -250,7 +250,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
-	func updateContactPerson(id: Int64, name: String) -> DiaryStoringVoidResult {
+	func updateContactPerson(id: Int, name: String) -> DiaryStoringVoidResult {
 		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
@@ -287,7 +287,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
-	func updateLocation(id: Int64, name: String) -> DiaryStoringVoidResult {
+	func updateLocation(id: Int, name: String) -> DiaryStoringVoidResult {
 		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
@@ -324,7 +324,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
-	func removeContactPerson(id: Int64) -> DiaryStoringVoidResult {
+	func removeContactPerson(id: Int) -> DiaryStoringVoidResult {
 		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
@@ -360,7 +360,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
-	func removeLocation(id: Int64) -> DiaryStoringVoidResult {
+	func removeLocation(id: Int) -> DiaryStoringVoidResult {
 		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
@@ -396,7 +396,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
-	func removeContactPersonEncounter(id: Int64) -> DiaryStoringVoidResult {
+	func removeContactPersonEncounter(id: Int) -> DiaryStoringVoidResult {
 		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
@@ -432,7 +432,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
-	func removeLocationVisit(id: Int64) -> DiaryStoringVoidResult {
+	func removeLocationVisit(id: Int) -> DiaryStoringVoidResult {
 		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
@@ -607,9 +607,9 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			while result.next() {
 				let encounterId = result.longLongInt(forColumn: "contactPersonEncounterId")
 				let contactPerson = DiaryContactPerson(
-					id: result.longLongInt(forColumn: "contactPersonId"),
+					id: Int(result.int(forColumn: "contactPersonId")),
 					name: result.string(forColumn: "name") ?? "",
-					encounterId: encounterId == 0 ? nil : encounterId
+					encounterId: encounterId == 0 ? nil : Int(encounterId)
 				)
 				contactPersons.append(contactPerson)
 			}
@@ -639,9 +639,9 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			while result.next() {
 				let visitId = result.longLongInt(forColumn: "locationVisitId")
 				let contactPerson = DiaryLocation(
-					id: result.longLongInt(forColumn: "locationId"),
+					id: Int(result.int(forColumn: "locationId")),
 					name: result.string(forColumn: "name") ?? "",
-					visitId: visitId == 0 ? nil : visitId
+					visitId: visitId == 0 ? nil : Int(visitId)
 				)
 				locations.append(contactPerson)
 			}

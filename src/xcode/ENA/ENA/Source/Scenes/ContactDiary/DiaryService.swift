@@ -6,22 +6,22 @@ import Foundation
 import Combine
 
 struct ContactPersonEncounter {
-	let id: Int64
+	let id: Int
 	let date: String
-	let contactPersonId: Int64
+	let contactPersonId: Int
 }
 
 struct LocationVisit {
-	let id: Int64
+	let id: Int
 	let date: String
-	let locationId: Int64
+	let locationId: Int
 }
 
 typealias DiaryStoringProviding = DiaryStoring & DiaryProviding
 
 protocol DiaryStoring {
 
-	typealias DiaryStoringResult = Result<Int64, SQLiteErrorCode>
+	typealias DiaryStoringResult = Result<Int, SQLiteErrorCode>
 	typealias DiaryStoringVoidResult = Result<Void, SQLiteErrorCode>
 
 	@discardableResult
@@ -29,23 +29,23 @@ protocol DiaryStoring {
 	@discardableResult
 	func addLocation(name: String) -> DiaryStoringResult
 	@discardableResult
-	func addContactPersonEncounter(contactPersonId: Int64, date: String) -> DiaryStoringResult
+	func addContactPersonEncounter(contactPersonId: Int, date: String) -> DiaryStoringResult
 	@discardableResult
-	func addLocationVisit(locationId: Int64, date: String) -> DiaryStoringResult
+	func addLocationVisit(locationId: Int, date: String) -> DiaryStoringResult
 
 	@discardableResult
-	func updateContactPerson(id: Int64, name: String) -> DiaryStoringVoidResult
+	func updateContactPerson(id: Int, name: String) -> DiaryStoringVoidResult
 	@discardableResult
-	func updateLocation(id: Int64, name: String) -> DiaryStoringVoidResult
+	func updateLocation(id: Int, name: String) -> DiaryStoringVoidResult
 
 	@discardableResult
-	func removeContactPerson(id: Int64) -> DiaryStoringVoidResult
+	func removeContactPerson(id: Int) -> DiaryStoringVoidResult
 	@discardableResult
-	func removeLocation(id: Int64) -> DiaryStoringVoidResult
+	func removeLocation(id: Int) -> DiaryStoringVoidResult
 	@discardableResult
-	func removeContactPersonEncounter(id: Int64) -> DiaryStoringVoidResult
+	func removeContactPersonEncounter(id: Int) -> DiaryStoringVoidResult
 	@discardableResult
-	func removeLocationVisit(id: Int64) -> DiaryStoringVoidResult
+	func removeLocationVisit(id: Int) -> DiaryStoringVoidResult
 	@discardableResult
 	func removeAllLocations() -> DiaryStoringVoidResult
 	@discardableResult
@@ -92,7 +92,7 @@ class MockDiaryStore: DiaryStoringProviding {
 	}
 
 	@discardableResult
-	func addContactPersonEncounter(contactPersonId: Int64, date: String) -> DiaryStoringResult {
+	func addContactPersonEncounter(contactPersonId: Int, date: String) -> DiaryStoringResult {
 		let id = contactPersonEncounters.map { $0.id }.max() ?? -1 + 1
 		contactPersonEncounters.append(ContactPersonEncounter(id: id, date: date, contactPersonId: contactPersonId))
 
@@ -102,7 +102,7 @@ class MockDiaryStore: DiaryStoringProviding {
 	}
 
 	@discardableResult
-	func addLocationVisit(locationId: Int64, date: String) -> DiaryStoringResult {
+	func addLocationVisit(locationId: Int, date: String) -> DiaryStoringResult {
 		let id = locationVisits.map { $0.id }.max() ?? -1 + 1
 		locationVisits.append(LocationVisit(id: id, date: date, locationId: locationId))
 
@@ -111,7 +111,7 @@ class MockDiaryStore: DiaryStoringProviding {
 		return .success(id)
 	}
 
-	func updateContactPerson(id: Int64, name: String) -> DiaryStoringVoidResult {
+	func updateContactPerson(id: Int, name: String) -> DiaryStoringVoidResult {
 		guard let index = contactPersons.firstIndex(where: { $0.id == id }) else { return .success(()) }
 		contactPersons[index] = DiaryContactPerson(id: id, name: name)
 
@@ -120,7 +120,7 @@ class MockDiaryStore: DiaryStoringProviding {
 		return .success(())
 	}
 
-	func updateLocation(id: Int64, name: String) -> DiaryStoringVoidResult {
+	func updateLocation(id: Int, name: String) -> DiaryStoringVoidResult {
 		guard let index = locations.firstIndex(where: { $0.id == id }) else { return .success(()) }
 		locations[index] = DiaryLocation(id: id, name: name)
 
@@ -129,7 +129,7 @@ class MockDiaryStore: DiaryStoringProviding {
 		return .success(())
 	}
 
-	func removeContactPerson(id: Int64) -> DiaryStoringVoidResult {
+	func removeContactPerson(id: Int) -> DiaryStoringVoidResult {
 		contactPersons.removeAll { $0.id == id }
 		contactPersonEncounters.removeAll { $0.contactPersonId == id }
 
@@ -138,7 +138,7 @@ class MockDiaryStore: DiaryStoringProviding {
 		return .success(())
 	}
 
-	func removeLocation(id: Int64) -> DiaryStoringVoidResult {
+	func removeLocation(id: Int) -> DiaryStoringVoidResult {
 		locations.removeAll { $0.id == id }
 		locationVisits.removeAll { $0.locationId == id }
 
@@ -147,7 +147,7 @@ class MockDiaryStore: DiaryStoringProviding {
 		return .success(())
 	}
 
-	func removeContactPersonEncounter(id: Int64) -> DiaryStoringVoidResult {
+	func removeContactPersonEncounter(id: Int) -> DiaryStoringVoidResult {
 		contactPersonEncounters.removeAll { $0.id == id }
 
 		updateDays()
@@ -155,7 +155,7 @@ class MockDiaryStore: DiaryStoringProviding {
 		return .success(())
 	}
 
-	func removeLocationVisit(id: Int64) -> DiaryStoringVoidResult {
+	func removeLocationVisit(id: Int) -> DiaryStoringVoidResult {
 		locationVisits.removeAll { $0.id == id }
 
 		updateDays()
@@ -182,6 +182,7 @@ class MockDiaryStore: DiaryStoringProviding {
 	}
 
 	func cleanup() -> DiaryStoringVoidResult {
+		// There is no cleanup implemented (deleting old entries) for the mock.
 		return .success(())
 	}
 
@@ -480,7 +481,7 @@ struct DiaryLocation {
 
 	// MARK: - Init
 
-	init(id: Int64, name: String, visitId: Int64? = nil) {
+	init(id: Int, name: String, visitId: Int? = nil) {
 		self.id = id
 		self.name = name
 		self.visitId = visitId
@@ -488,9 +489,9 @@ struct DiaryLocation {
 
 	// MARK: - Internal
 
-	let id: Int64
+	let id: Int
 	let name: String
-	let visitId: Int64?
+	let visitId: Int?
 
 }
 
@@ -506,7 +507,7 @@ struct DiaryContactPerson {
 
 	// MARK: - Init
 
-	init(id: Int64, name: String, encounterId: Int64? = nil) {
+	init(id: Int, name: String, encounterId: Int? = nil) {
 		self.id = id
 		self.name = name
 		self.encounterId = encounterId
@@ -514,8 +515,8 @@ struct DiaryContactPerson {
 
 	// MARK: - Internal
 
-	let id: Int64
+	let id: Int
 	let name: String
-	let encounterId: Int64?
+	let encounterId: Int?
 
 }
