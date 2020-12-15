@@ -38,6 +38,52 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 	var diaryDaysPublisher = CurrentValueSubject<[DiaryDay], Never>([])
 
+	func export() -> Result<String, SQLiteErrorCode> {
+		var result: Result<String, SQLiteErrorCode>?
+
+		databaseQueue.inDatabase { database in
+			Log.info("[ContactDiaryStore] export entries.", log: .localData)
+
+			var exportString = ""
+
+			let personEncounterSQL = """
+					SELECT 'cp' as type, ContactPerson.id AS entryId, ContactPerson.name AS entryName, ContactPersonEncounter.id AS contactPersonEncounterId, ContactPersonEncounter.date
+					FROM ContactPersonEncounter
+					LEFT JOIN ContactPerson
+					ON ContactPersonEncounter.contactPersonId = ContactPerson.id
+					WHERE ContactPersonEncounter.date > date('now','-\(userVisiblePeriodInDays) days')
+					UNION
+					SELECT 'loc' as type, Location.id AS entryId, Location.name AS entryName, LocationVisit.id AS locationVisitId, LocationVisit.date
+					FROM LocationVisit
+					LEFT JOIN Location
+					ON LocationVisit.locationId = Location.id
+					WHERE LocationVisit.date > date('now','-\(userVisiblePeriodInDays) days')
+					ORDER BY entryName COLLATE NOCASE ASC, type ASC, entryId ASC
+				"""
+
+			do {
+				let queryResult = try database.executeQuery(personEncounterSQL, values: [])
+
+				while queryResult.next() {
+					let name = queryResult.string(forColumn: "entryName") ?? ""
+					let date = queryResult.string(forColumn: "date") ?? ""
+					exportString.append("\(date) \(name)\n")
+				}
+			} catch {
+				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+			}
+
+			result = .success(exportString)
+		}
+
+		guard let _result = result else {
+			fatalError("Result should not be nil.")
+		}
+
+		return _result
+	}
+
 	// MARK: - Protocol DiaryStoring
 
 	@discardableResult

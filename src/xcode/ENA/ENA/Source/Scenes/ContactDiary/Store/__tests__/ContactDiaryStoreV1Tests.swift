@@ -529,6 +529,36 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		XCTAssertEqual(nameUpdated, expectedName)
 	}
 
+	func test_When_export_Then_CorrectStringIsReturned() {
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
+
+		let today = Date()
+
+		let adamSandaleId = addContactPerson(name: "Adam Sandale", to: store)
+		let emmaHicksId = addContactPerson(name: "Emma Hicks", to: store)
+
+		let amsterdamLocationId = addLocation(name: "Amsterdam", to: store)
+		let berlinId = addLocation(name: "Berlin", to: store)
+
+		addLocationVisit(locationId: amsterdamLocationId, date: today, store: store)
+		addLocationVisit(locationId: berlinId, date: today, store: store)
+		addPersonEncounter(personId: emmaHicksId, date: today, store: store)
+		addPersonEncounter(personId: adamSandaleId, date: today, store: store)
+
+		let exportResult = store.export()
+		if case let .failure(error) = exportResult {
+			XCTFail("Error not expected: \(error)")
+		}
+
+		switch exportResult {
+		case .success(let exportString):
+			print("***** \n\(exportString)")
+		case .failure(let error):
+			XCTFail("Error not expected: \(error)")
+		}
+	}
+
 	private func checkLocationEntry(entry: DiaryEntry, name: String, id: Int, isSelected: Bool) {
 		guard case .location(let location) = entry else {
 			fatalError("Not expected")
