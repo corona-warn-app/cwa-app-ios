@@ -93,10 +93,13 @@ class DiaryCoordinator {
 
 	private func showDayScreen(day: DiaryDay) {
 		let viewController = DiaryDayViewController(
-			viewModel: DiaryDayViewModel(day: day, store: diaryService.store),
-			onAddEntryCellTap: { [weak self] day, entryType in
-				self?.showAddEntryScreen(mode: .add(day, entryType))
-			}
+			viewModel: DiaryDayViewModel(
+				day: day,
+				store: diaryService.store,
+				onAddEntryCellTap: { [weak self] day, entryType in
+					self?.showAddEntryScreen(mode: .add(day, entryType))
+				}
+			)
 		)
 
 		parentNavigationController?.pushViewController(viewController, animated: true)

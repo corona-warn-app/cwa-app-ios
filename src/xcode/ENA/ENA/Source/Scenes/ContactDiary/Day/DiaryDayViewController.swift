@@ -10,11 +10,9 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	// MARK: - Init
 
 	init(
-		viewModel: DiaryDayViewModel,
-		onAddEntryCellTap: @escaping (DiaryDay, DiaryEntryType) -> Void
+		viewModel: DiaryDayViewModel
 	) {
 		self.viewModel = viewModel
-		self.onAddEntryCellTap = onAddEntryCellTap
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -57,27 +55,20 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	// MARK: - Protocol UITableViewDataSource
 
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return 2
+		return viewModel.numberOfSections
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		switch section {
-		case 0:
-			return 1
-		case 1:
-			return viewModel.entriesOfSelectedType.count
-		default:
-			fatalError("Invalid section")
-		}
+		return viewModel.numberOfRows(in: section)
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		switch indexPath.section {
-		case 0:
+		switch DiaryDayViewModel.Section(rawValue: indexPath.section) {
+		case .add:
 			return addCell(forRowAt: indexPath)
-		case 1:
+		case .entries:
 			return entryCell(forRowAt: indexPath)
-		default:
+		case .none:
 			fatalError("Invalid section")
 		}
 	}
@@ -85,12 +76,12 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	// MARK: - Protocol UITableViewDelegate
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		switch indexPath.section {
-		case 0:
-			onAddEntryCellTap(viewModel.day, viewModel.selectedEntryType)
-		case 1:
-			viewModel.toggleSelection(of: viewModel.entriesOfSelectedType[indexPath.row])
-		default:
+		switch DiaryDayViewModel.Section(rawValue: indexPath.section) {
+		case .add:
+			viewModel.didTapAddEntryCell()
+		case .entries:
+			viewModel.toggleSelection(at: indexPath)
+		case .none:
 			fatalError("Invalid section")
 		}
 	}
@@ -98,7 +89,6 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	// MARK: - Private
 
 	private let viewModel: DiaryDayViewModel
-	private let onAddEntryCellTap: (DiaryDay, DiaryEntryType) -> Void
 
 	private var subscriptions = [AnyCancellable]()
 
@@ -137,7 +127,8 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 			fatalError("Could not dequeue DiaryDayAddTableViewCell")
 		}
 
-		cell.configure(entryType: viewModel.selectedEntryType)
+		let cellModel = DiaryDayAddCellModel(entryType: viewModel.selectedEntryType)
+		cell.configure(cellModel: cellModel)
 
 		return cell
 	}
@@ -147,7 +138,8 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 			fatalError("Could not dequeue DiaryDayEntryTableViewCell")
 		}
 
-		cell.configure(entry: viewModel.entriesOfSelectedType[indexPath.row])
+		let cellModel = DiaryDayEntryCellModel(entry: viewModel.entriesOfSelectedType[indexPath.row])
+		cell.configure(cellModel: cellModel)
 
 		return cell
 	}

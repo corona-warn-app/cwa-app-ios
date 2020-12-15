@@ -60,25 +60,25 @@ class DiaryOverviewTableViewController: UITableViewController {
 	// MARK: - Protocol UITableViewDataSource
 
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		return 2
+		return Section.allCases.count
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		switch section {
-		case 0:
+		switch Section(rawValue: section) {
+		case .description:
 			return 1
-		case 1:
+		case .days:
 			return diaryService.days.count
-		default:
+		case .none:
 			fatalError("Invalid section")
 		}
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		switch indexPath.section {
-		case 0:
+		switch Section(rawValue: indexPath.section) {
+		case .description:
 			return descriptionCell(forRowAt: indexPath)
-		case 1:
+		case .days:
 			return dayCell(forRowAt: indexPath)
 		default:
 			fatalError("Invalid section")
@@ -96,6 +96,11 @@ class DiaryOverviewTableViewController: UITableViewController {
 	}
 
 	// MARK: - Private
+
+	private enum Section: Int, CaseIterable {
+		case description
+		case days
+	}
 
 	private let diaryService: DiaryService
 	private let onCellSelection: (DiaryDay) -> Void

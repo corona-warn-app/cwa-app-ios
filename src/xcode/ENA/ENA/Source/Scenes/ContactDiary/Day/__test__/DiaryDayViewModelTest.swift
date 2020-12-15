@@ -14,7 +14,8 @@ class DiaryDayViewModelTest: XCTestCase {
 		let store = makeMockStore()
 		let viewModel = DiaryDayViewModel(
 			day: day,
-			store: store
+			store: store,
+			onAddEntryCellTap: { _, _ in }
 		)
 
 		XCTAssertEqual(viewModel.day, day)
@@ -31,6 +32,9 @@ class DiaryDayViewModelTest: XCTestCase {
 			.contactPerson(DiaryContactPerson(id: 3, name: "Pascal Brause")),
 			.contactPerson(DiaryContactPerson(id: 8, name: "Puneet Mahali"))
 		])
+		XCTAssertEqual(viewModel.numberOfSections, 2)
+		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
+		XCTAssertEqual(viewModel.numberOfRows(in: 1), 10)
 	}
 
 	func testDayIsUpdatedWhenStoreChanges() throws {
@@ -38,7 +42,8 @@ class DiaryDayViewModelTest: XCTestCase {
 		let store = makeMockStore()
 		let viewModel = DiaryDayViewModel(
 			day: day,
-			store: store
+			store: store,
+			onAddEntryCellTap: { _, _ in }
 		)
 
 		let dayPublisherExpectation = expectation(description: "Day publisher called")
@@ -61,7 +66,8 @@ class DiaryDayViewModelTest: XCTestCase {
 		let store = makeMockStore()
 		let viewModel = DiaryDayViewModel(
 			day: day,
-			store: store
+			store: store,
+			onAddEntryCellTap: { _, _ in }
 		)
 
 		let selectedEntryTypePublisherExpectation = expectation(description: "SelectedEntryType publisher called")
@@ -80,6 +86,51 @@ class DiaryDayViewModelTest: XCTestCase {
 			.location(DiaryLocation(id: 1, name: "Bakery")),
 			.location(DiaryLocation(id: 0, name: "Supermarket"))
 		])
+		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
+		XCTAssertEqual(viewModel.numberOfRows(in: 1), 2)
+	}
+
+	func testDidTapAddEntryCellForContactPersons() {
+		let onAddEntryCellTapExpectation = expectation(description: "onAddEntryCellTap called")
+
+		let mockDay = makeDay()
+		let store = makeMockStore()
+		let viewModel = DiaryDayViewModel(
+			day: mockDay,
+			store: store,
+			onAddEntryCellTap: { day, entryType in
+				XCTAssertEqual(day, mockDay)
+				XCTAssertEqual(entryType, .contactPerson)
+
+				onAddEntryCellTapExpectation.fulfill()
+			}
+		)
+
+		viewModel.didTapAddEntryCell()
+
+		waitForExpectations(timeout: .medium)
+	}
+
+	func testDidTapAddEntryCellForLocations() {
+		let onAddEntryCellTapExpectation = expectation(description: "onAddEntryCellTap called")
+
+		let mockDay = makeDay()
+		let store = makeMockStore()
+		let viewModel = DiaryDayViewModel(
+			day: mockDay,
+			store: store,
+			onAddEntryCellTap: { day, entryType in
+				XCTAssertEqual(day, mockDay)
+				XCTAssertEqual(entryType, .location)
+
+				onAddEntryCellTapExpectation.fulfill()
+			}
+		)
+		viewModel.selectedEntryType = .location
+
+		viewModel.didTapAddEntryCell()
+
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testSelectContactPerson() throws {
@@ -87,7 +138,8 @@ class DiaryDayViewModelTest: XCTestCase {
 		let store = makeMockStore()
 		let viewModel = DiaryDayViewModel(
 			day: day,
-			store: store
+			store: store,
+			onAddEntryCellTap: { _, _ in }
 		)
 
 		let dayPublisherExpectation = expectation(description: "Day publisher called")
@@ -98,17 +150,11 @@ class DiaryDayViewModelTest: XCTestCase {
 			dayPublisherExpectation.fulfill()
 		}.store(in: &subscriptions)
 
-		viewModel.toggleSelection(of: .contactPerson(DiaryContactPerson(id: 1, name: "Marcus Scherer")))
+		viewModel.toggleSelection(at: IndexPath(row: 5, section: DiaryDayViewModel.Section.entries.rawValue))
 
 		waitForExpectations(timeout: .medium)
 
-		let entry = try XCTUnwrap(viewModel.day.entries.first {
-			guard case .contactPerson(let contactPerson) = $0 else {
-				return false
-			}
-
-			return contactPerson.id == 1
-		})
+		let entry = viewModel.entriesOfSelectedType[5]
 
 		XCTAssertTrue(entry.isSelected)
 	}
@@ -118,7 +164,8 @@ class DiaryDayViewModelTest: XCTestCase {
 		let store = makeMockStore()
 		let viewModel = DiaryDayViewModel(
 			day: day,
-			store: store
+			store: store,
+			onAddEntryCellTap: { _, _ in }
 		)
 
 		store.addContactPersonEncounter(contactPersonId: 1, date: day.dateString)
@@ -131,17 +178,11 @@ class DiaryDayViewModelTest: XCTestCase {
 			dayPublisherExpectation.fulfill()
 		}.store(in: &subscriptions)
 
-		viewModel.toggleSelection(of: .contactPerson(DiaryContactPerson(id: 1, name: "Marcus Scherer", encounterId: 0)))
+		viewModel.toggleSelection(at: IndexPath(row: 5, section: DiaryDayViewModel.Section.entries.rawValue))
 
 		waitForExpectations(timeout: .medium)
 
-		let entry = try XCTUnwrap(viewModel.day.entries.first {
-			guard case .contactPerson(let contactPerson) = $0 else {
-				return false
-			}
-
-			return contactPerson.id == 1
-		})
+		let entry = viewModel.entriesOfSelectedType[5]
 
 		XCTAssertFalse(entry.isSelected)
 	}
@@ -151,8 +192,10 @@ class DiaryDayViewModelTest: XCTestCase {
 		let store = makeMockStore()
 		let viewModel = DiaryDayViewModel(
 			day: day,
-			store: store
+			store: store,
+			onAddEntryCellTap: { _, _ in }
 		)
+		viewModel.selectedEntryType = .location
 
 		let dayPublisherExpectation = expectation(description: "Day publisher called")
 		dayPublisherExpectation.expectedFulfillmentCount = 2
@@ -162,17 +205,11 @@ class DiaryDayViewModelTest: XCTestCase {
 			dayPublisherExpectation.fulfill()
 		}.store(in: &subscriptions)
 
-		viewModel.toggleSelection(of: .location(DiaryLocation(id: 0, name: "Supermarket")))
+		viewModel.toggleSelection(at: IndexPath(row: 1, section: DiaryDayViewModel.Section.entries.rawValue))
 
 		waitForExpectations(timeout: .medium)
 
-		let entry = try XCTUnwrap(viewModel.day.entries.first {
-			guard case .location(let location) = $0 else {
-				return false
-			}
-
-			return location.id == 0
-		})
+		let entry = viewModel.entriesOfSelectedType[1]
 
 		XCTAssertTrue(entry.isSelected)
 	}
@@ -182,8 +219,10 @@ class DiaryDayViewModelTest: XCTestCase {
 		let store = makeMockStore()
 		let viewModel = DiaryDayViewModel(
 			day: day,
-			store: store
+			store: store,
+			onAddEntryCellTap: { _, _ in }
 		)
+		viewModel.selectedEntryType = .location
 
 		store.addLocationVisit(locationId: 0, date: day.dateString)
 
@@ -195,17 +234,11 @@ class DiaryDayViewModelTest: XCTestCase {
 			dayPublisherExpectation.fulfill()
 		}.store(in: &subscriptions)
 
-		viewModel.toggleSelection(of: .location(DiaryLocation(id: 0, name: "Supermarket", visitId: 0)))
+		viewModel.toggleSelection(at: IndexPath(row: 1, section: DiaryDayViewModel.Section.entries.rawValue))
 
 		waitForExpectations(timeout: .medium)
 
-		let entry = try XCTUnwrap(viewModel.day.entries.first {
-			guard case .location(let location) = $0 else {
-				return false
-			}
-
-			return location.id == 0
-		})
+		let entry = viewModel.entriesOfSelectedType[1]
 
 		XCTAssertFalse(entry.isSelected)
 	}

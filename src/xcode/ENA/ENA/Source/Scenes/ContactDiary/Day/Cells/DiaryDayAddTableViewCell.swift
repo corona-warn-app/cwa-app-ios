@@ -8,15 +8,9 @@ class DiaryDayAddTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(entryType: DiaryEntryType) {
-		switch entryType {
-		case .contactPerson:
-			label.text = AppStrings.ContactDiary.Day.addContactPerson
-		case .location:
-			label.text = AppStrings.ContactDiary.Day.addLocation
-		}
-
-		accessibilityTraits = [.button]
+	func configure(cellModel: DiaryDayAddCellModel) {
+		label.text = cellModel.text
+		accessibilityTraits = cellModel.accessibilityTraits
 	}
 
 	// MARK: - Private

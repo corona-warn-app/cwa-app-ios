@@ -1401,46 +1401,28 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_AddEditEntry_PersonPlaceholder" = "Person";
 
-/* Day */
-"ContactDiary_Day_ContactPersonsSegment" = "Personen";
-"ContactDiary_Day_AddContactPerson" = "Person hinzufügen";
-"ContactDiary_Day_ContactPersonsEmptyTitle" = "Noch keine Personen vorhanden";
-"ContactDiary_Day_ContactPersonsEmptyDescription" = "Legen Sie eine Person an und fügen Sie sie in Ihrem Kontakt-Tagebuch hinzu.";
-"ContactDiary_Day_LocationsSegment" = "Orte";
-"ContactDiary_Day_AddLocation" = "Ort hinzufügen";
-"ContactDiary_Day_LocationsEmptyTitle" = "Noch keine Orte vorhanden";
-"ContactDiary_Day_LocationsEmptyDescription" = "Legen Sie einen Ort an und fügen Sie ihn in Ihrem Kontakt-Tagebuch hinzu. ";
-
 /* Edit Entries */
 
 "ContactDiary_EditEntries_ContactPersons_Title" = "Personen";
+
 "ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Alle entfernen";
+
 "ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Wollen Sie wirklich alle Personen entfernen?";
+
 "ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Wenn Sie eine Person entfernen, werden alle Einträge für diese Person aus dem Tagebuch gelöscht.";
+
 "ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Ja";
+
 "ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "Nein";
+
 "ContactDiary_EditEntries_Locations_Title" = "Orte";
+
 "ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Alle entfernen";
+
 "ContactDiary_EditEntries_Locations_AlertTitle" = "Wollen Sie wirklich alle Orte entfernen?";
+
 "ContactDiary_EditEntries_Locations_AlertMessage" = "Wenn Sie einen Ort entfernen, werden alle Einträge für diesen Ort aus dem Tagebuch gelöscht.";
+
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Ja";
+
 "ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "Nein";
-
-/* Information */
-"ContactDiary_Information_Title" = "Kontakt-Tagebuch";
-
-"ContactDiary_Information_ImageDescription" = "Wir sehen drei Personen mit Abstand zueinander, die ihre Smartphones zur Kontaktprotokollierung verwenden.";
-
-"ContactDiary_Information_DescriptionTitle" = "Behalten Sie den Überblick.";
-
-"ContactDiary_Information_DescriptionSubHeadline" = "Erstellen Sie eine Übersicht über Ihre Kontakte der letzten 16 Tage. So haben Sie bei Bedarf schnell eine vollständige Liste zur Hand.";
-
-"ContactDiary_Information_Item_Person_Title" = "Tragen Sie ein, mit wem Sie sich getroffen haben.";
-
-"ContactDiary_Information_Item_Location_Title" = "Tragen Sie ein, an welchen Orten Sie anderen begegnet sind.";
-
-"ContactDiary_Information_Item_Lock_Title" = "Ihr Tagebuch ist nur für Sie bestimmt. Ihre Einträge werden nur auf Ihrem Smartphone gespeichert und nach 16 Tagen automatisch gelöscht.";
-
-"ContactDiary_Information_Dataprivacy_Title" = "Weitere Hinweise finden Sie in der Datenschutzerklärung";
-
-"ContactDiary_Information_PrimaryButton_Title" = "Tagebuch führen";
