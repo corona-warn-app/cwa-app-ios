@@ -10,9 +10,11 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	// MARK: - Init
 
 	init(
-		viewModel: DiaryAddAndEditEntryViewModel
+		viewModel: DiaryAddAndEditEntryViewModel,
+		dismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
+		self.dismiss = dismiss
 
 		super.init(nibName: nil, bundle: nil)
 
@@ -31,7 +33,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 
 		navigationItem.rightBarButtonItem = CloseBarButtonItem(
 			onTap: { [weak self] in
-				self?.viewModel.dismiss()
+				self?.dismiss()
 			}
 		)
 		navigationController?.navigationBar.prefersLargeTitles = true
@@ -53,6 +55,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		viewModel.save()
+		dismiss()
 	}
 
 	// MARK: - Protocol UITextFieldDelegate
@@ -69,12 +72,14 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 		entryTextField.resignFirstResponder()
 		viewModel.save()
+		dismiss()
 		return false
 	}
 
 	// MARK: - Private
 
 	private let viewModel: DiaryAddAndEditEntryViewModel
+	private let dismiss: () -> Void
 
 	private var entryTextField: DiaryEntryTextField!
 	private var bindings: [AnyCancellable] = []

@@ -11,12 +11,10 @@ class DiaryAddAndEditEntryViewModel {
 
 	init(
 		mode: Mode,
-		store: DiaryStoring,
-		dismiss: @escaping () -> Void
+		store: DiaryStoring
 	) {
 		self.mode = mode
 		self.store = store
-		self.dismiss = dismiss
 
 		switch mode {
 		case .add:
@@ -37,10 +35,6 @@ class DiaryAddAndEditEntryViewModel {
 		case add(DiaryDay, DiaryEntryType)
 		case edit(DiaryEntry)
 	}
-
-	let mode: Mode
-	let store: DiaryStoring
-	let dismiss: () -> Void
 
 	private(set) var textInput: String
 
@@ -74,8 +68,6 @@ class DiaryAddAndEditEntryViewModel {
 				store.updateContactPerson(id: id, name: textInput)
 			}
 		}
-
-		dismiss()
 	}
 
 	var title: String {
@@ -98,7 +90,10 @@ class DiaryAddAndEditEntryViewModel {
 
 	// MARK: - Private
 
-	// Unfortunately, Swift does not currently have KeyPath support for static let,
+	private let mode: Mode
+	private let store: DiaryStoring
+
+	// Unfortunately, Swift currently does not have KeyPath support for static let,
 	// so we need to go that way
 	private func titleText(from type: DiaryEntryType) -> String {
 		switch type {
@@ -109,7 +104,7 @@ class DiaryAddAndEditEntryViewModel {
 		}
 	}
 
-	// Unfortunately, Swift does not currently have KeyPath support for static let,
+	// Unfortunately, Swift currently does not have KeyPath support for static let,
 	// so we need to go that way
 	private func placeholderText(from type: DiaryEntryType) -> String {
 		switch type {
