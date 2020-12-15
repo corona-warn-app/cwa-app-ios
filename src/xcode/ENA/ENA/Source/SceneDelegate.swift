@@ -53,9 +53,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	func sceneDidEnterBackground(_ scene: UIScene) {
 		showPrivacyProtectionWindow()
 		taskScheduler.scheduleTask()
+		Log.info("Scene did enter Background.", log: .background)
 	}
 
 	func sceneDidBecomeActive(_: UIScene) {
+		Log.info("Scene did become active.", log: .background)
+
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
 		// explicitely disabled as per #EXPOSUREAPP-2214
