@@ -39,7 +39,6 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 					riskLevelHasChanged: false
 				)
 			),
-			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			detectionMode: .automatic,
 			activityState: .idle,
 			previousRiskLevel: nil
@@ -65,7 +64,6 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 
 		let state = ExposureDetectionViewController.State(
 			riskState: .risk(lowRisk),
-			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			detectionMode: .automatic,
 			activityState: .idle,
 			previousRiskLevel: nil
@@ -108,7 +106,6 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 
 		let state = ExposureDetectionViewController.State(
 			riskState: .risk(lowRisk),
-			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			detectionMode: .automatic,
 			activityState: .idle,
 			previousRiskLevel: nil
