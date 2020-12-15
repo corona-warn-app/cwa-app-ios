@@ -25,10 +25,13 @@ extension URLSessionConfiguration {
 	class func coronaWarnSessionConfigurationWifiOnly() -> URLSessionConfiguration {
 		let config = coronaWarnSessionConfiguration()
 		config.allowsCellularAccess = false
-		// no download over expensive network (cellular)
-		config.allowsExpensiveNetworkAccess = false
-		// no download in case user has activated the low data mode
-		config.allowsConstrainedNetworkAccess = false
+		if #available(iOS 13.0, *) {
+			// no download over expensive network (cellular)
+			config.allowsExpensiveNetworkAccess = false
+			// no download in case user has activated the low data mode
+			config.allowsConstrainedNetworkAccess = false
+		}
+
 		return config
 	}
 
