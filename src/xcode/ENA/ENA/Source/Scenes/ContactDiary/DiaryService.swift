@@ -150,35 +150,10 @@ class MockDiaryStore: DiaryStoring {
 
 	// MARK: - Private
 
-	private var contactPersons: [DiaryContactPerson] = [
-		DiaryContactPerson(id: 0, name: "Andreas"),
-		DiaryContactPerson(id: 1, name: "Marcus"),
-		DiaryContactPerson(id: 2, name: "Carsten"),
-		DiaryContactPerson(id: 3, name: "Artur"),
-		DiaryContactPerson(id: 4, name: "Karsten"),
-		DiaryContactPerson(id: 5, name: "Kai"),
-		DiaryContactPerson(id: 6, name: "Nick"),
-		DiaryContactPerson(id: 7, name: "Omar"),
-		DiaryContactPerson(id: 8, name: "Pascal"),
-		DiaryContactPerson(id: 9, name: "Puneet")
-	]
-
-	private var locations: [DiaryLocation] = [
-		DiaryLocation(id: 0, name: "Supermarkt"),
-		DiaryLocation(id: 1, name: "Bäckerei")
-	]
-
-	private var contactPersonEncounters = [
-		ContactPersonEncounter(id: 0, date: "2020-12-09", contactPersonId: 5),
-		ContactPersonEncounter(id: 1, date: "2020-12-09", contactPersonId: 1),
-		ContactPersonEncounter(id: 2, date: "2020-12-09", contactPersonId: 3),
-		ContactPersonEncounter(id: 3, date: "2020-12-07", contactPersonId: 8)
-	]
-
-	private var locationVisits = [
-		LocationVisit(id: 0, date: "2020-12-09", locationId: 1),
-		LocationVisit(id: 1, date: "2020-12-08", locationId: 0)
-	]
+	private var contactPersons: [DiaryContactPerson] = []
+	private var locations: [DiaryLocation] = []
+	private var contactPersonEncounters: [ContactPersonEncounter] = []
+	private var locationVisits: [LocationVisit] = []
 
 	private func updateDays() {
 		var diaryDays = [DiaryDay]()
@@ -336,6 +311,15 @@ enum DiaryEntry: Equatable {
 
 	case location(DiaryLocation)
 	case contactPerson(DiaryContactPerson)
+
+	var name: String {
+		switch self {
+		case .location(let location):
+			return location.name
+		case .contactPerson(let contactPerson):
+			return contactPerson.name
+		}
+	}
 
 	var isSelected: Bool {
 		switch self {

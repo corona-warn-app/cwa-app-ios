@@ -17,6 +17,9 @@
 		013C412825545C2D00826C9F /* DebugRiskCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C412725545C2D00826C9F /* DebugRiskCalculation.swift */; };
 		013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */; };
 		013DC102245DAC4E00EE58B0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
+		014086B82588F9FD00E9E5B2 /* DiaryEditEntriesViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014086B72588F95000E9E5B2 /* DiaryEditEntriesViewModelTest.swift */; };
+		014086BD2589033A00E9E5B2 /* DiaryEditEntriesCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014086BC2589033A00E9E5B2 /* DiaryEditEntriesCellModel.swift */; };
+		014086C52589040200E9E5B2 /* DiaryEditEntriesCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014086C42589040200E9E5B2 /* DiaryEditEntriesCellModelTest.swift */; };
 		0144BDE1250924CC00B0857C /* SymptomsOnset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144BDE0250924CC00B0857C /* SymptomsOnset.swift */; };
 		0144BDE32509288B00B0857C /* SymptomsOnsetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144BDE22509288B00B0857C /* SymptomsOnsetTests.swift */; };
 		0144BDED250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144BDEC250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift */; };
@@ -668,6 +671,9 @@
 		013C412725545C2D00826C9F /* DebugRiskCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRiskCalculation.swift; sourceTree = "<group>"; };
 		013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDebugRiskCalculationViewController.swift; sourceTree = "<group>"; };
 		013DC101245DAC4E00EE58B0 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		014086B72588F95000E9E5B2 /* DiaryEditEntriesViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesViewModelTest.swift; sourceTree = "<group>"; };
+		014086BC2589033A00E9E5B2 /* DiaryEditEntriesCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesCellModel.swift; sourceTree = "<group>"; };
+		014086C42589040200E9E5B2 /* DiaryEditEntriesCellModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesCellModelTest.swift; sourceTree = "<group>"; };
 		0144BDE0250924CC00B0857C /* SymptomsOnset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsOnset.swift; sourceTree = "<group>"; };
 		0144BDE22509288B00B0857C /* SymptomsOnsetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsOnsetTests.swift; sourceTree = "<group>"; };
 		0144BDEC250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCoordinatorModel.swift; sourceTree = "<group>"; };
@@ -1365,6 +1371,15 @@
 			path = __test__;
 			sourceTree = "<group>";
 		};
+		014086B52588F8EB00E9E5B2 /* __test__ */ = {
+			isa = PBXGroup;
+			children = (
+				014086C42589040200E9E5B2 /* DiaryEditEntriesCellModelTest.swift */,
+				014086B72588F95000E9E5B2 /* DiaryEditEntriesViewModelTest.swift */,
+			);
+			path = __test__;
+			sourceTree = "<group>";
+		};
 		01734B51255D6BEE00E60A8B /* v2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1436,6 +1451,7 @@
 		01909830257E5CCF0065D050 /* EditEntries */ = {
 			isa = PBXGroup;
 			children = (
+				014086B52588F8EB00E9E5B2 /* __test__ */,
 				01909834257E606C0065D050 /* DiaryEditEntriesViewController.swift */,
 				01B72BDC2583AB1400A3E3BC /* DiaryEditEntriesViewController.xib */,
 				0190983C257E60760065D050 /* DiaryEditEntriesViewModel.swift */,
@@ -1492,6 +1508,7 @@
 			children = (
 				01B72BEE2583B51C00A3E3BC /* DiaryEditEntriesTableViewCell.swift */,
 				01B72BF02583B51C00A3E3BC /* DiaryEditEntriesTableViewCell.xib */,
+				014086BC2589033A00E9E5B2 /* DiaryEditEntriesCellModel.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -3836,6 +3853,7 @@
 				5270E9B8256D20A900B08606 /* NSTextAttachment+ImageHeight.swift in Sources */,
 				B1FE13EF24891D0C00D012E5 /* RiskProvidingConfiguration.swift in Sources */,
 				51CE1B89246078B6002CF42A /* RiskLevelCollectionViewCell.swift in Sources */,
+				014086BD2589033A00E9E5B2 /* DiaryEditEntriesCellModel.swift in Sources */,
 				B1F82DF224718C7300E2E56A /* DMBackendConfigurationViewController.swift in Sources */,
 				B1CD33412486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift in Sources */,
 				94427A5025502B8900C36BE6 /* WarnOthersNotificationsTimeInterval.swift in Sources */,
@@ -4069,6 +4087,7 @@
 				01D16C5E24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift in Sources */,
 				A14BDEC024A1AD660063E4EC /* MockExposureDetector.swift in Sources */,
 				35A7F081250A7CF8005E6C33 /* KeychainHelperTests.swift in Sources */,
+				014086C52589040200E9E5B2 /* DiaryEditEntriesCellModelTest.swift in Sources */,
 				A3483B0B24C5EFA40037855F /* MockExposureDetectionViewControllerDelegate.swift in Sources */,
 				0120ECF32587607600F78944 /* DiaryDayEntryCellModelTest.swift in Sources */,
 				B1C7EE482493D97000F1F284 /* RiskProvidingConfigurationManualTriggerTests.swift in Sources */,
@@ -4162,6 +4181,7 @@
 				A124E64C249C4C9000E95F72 /* SAPDownloadedPackagesStore+Helpers.swift in Sources */,
 				A36FACC424C5EA1500DED947 /* ExposureDetectionViewControllerTests.swift in Sources */,
 				71176E2F248922B0004B0C9F /* ENAColorTests.swift in Sources */,
+				014086B82588F9FD00E9E5B2 /* DiaryEditEntriesViewModelTest.swift in Sources */,
 				0DF6BB9D248AE232007E8B0C /* AppUpdateCheckerHelperTests.swift in Sources */,
 				A328425D248E82BC006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift in Sources */,
 				BA6C8B0E254D6BF9008344F5 /* RiskCalculationTest.swift in Sources */,
