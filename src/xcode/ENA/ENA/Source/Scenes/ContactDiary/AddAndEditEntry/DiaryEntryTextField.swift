@@ -13,7 +13,7 @@ class DiaryEntryTextField: UITextField {
 		super.init(frame: frame)
 
 		borderStyle = .none
-		backgroundColor = .enaColor(for: ENAColor.cellBackground)
+		backgroundColor = .enaColor(for: ENAColor.textField)
 
 		layer.borderColor = UIColor.enaColor(for: ENAColor.cellBackground).cgColor
 		layer.borderWidth = 1
