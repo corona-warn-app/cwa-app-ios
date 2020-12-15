@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Icons_Diary_ContactPerson.pdf",
+      "filename" : "Illu_Diary_Location_Empty.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Icons_Diary_ContactPerson_Dark.pdf",
+      "filename" : "Illu_Diary_Location_Empty_Dark.pdf",
       "idiom" : "universal"
     }
   ],

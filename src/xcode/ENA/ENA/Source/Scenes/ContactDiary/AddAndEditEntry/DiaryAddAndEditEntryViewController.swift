@@ -17,6 +17,8 @@ class DiaryAddAndEditEntryViewController: UIViewController {
 		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
+
+		view.backgroundColor = .enaColor(for: .background)
 	}
 
 	@available(*, unavailable)

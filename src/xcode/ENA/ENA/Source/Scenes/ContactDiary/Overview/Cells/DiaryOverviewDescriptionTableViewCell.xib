@@ -28,7 +28,7 @@
                         </userDefinedRuntimeAttributes>
                     </label>
                 </subviews>
-                <color key="backgroundColor" name="ENA Background Color"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="UAS-Bk-PQl" secondAttribute="trailing" constant="16" id="7g9-1u-GQL"/>
                     <constraint firstItem="UAS-Bk-PQl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="Hhd-Ce-uPa"/>
@@ -37,7 +37,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <color key="backgroundColor" name="ENA Background Color"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="descriptionLabel" destination="UAS-Bk-PQl" id="IwE-yq-al5"/>
             </connections>
@@ -46,13 +46,10 @@
     </objects>
     <designables>
         <designable name="UAS-Bk-PQl">
-            <size key="intrinsicContentSize" width="37.5" height="18"/>
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
         </designable>
     </designables>
     <resources>
-        <namedColor name="ENA Background Color">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="ENA Text Primary 2 Color">
             <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
