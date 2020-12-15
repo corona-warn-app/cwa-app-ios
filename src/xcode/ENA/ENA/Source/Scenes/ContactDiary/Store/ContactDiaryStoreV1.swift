@@ -66,8 +66,14 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 				while queryResult.next() {
 					let name = queryResult.string(forColumn: "entryName") ?? ""
-					let date = queryResult.string(forColumn: "date") ?? ""
-					exportString.append("\(date) \(name)\n")
+					let dateString = queryResult.string(forColumn: "date") ?? ""
+
+					guard let date = dateFormatter.date(from: dateString) else {
+						fatalError("Failed to read date from string.")
+					}
+
+					let germanDateString = germanDateFormatter.string(from: date)
+					exportString.append("\(germanDateString) \(name)\n")
 				}
 			} catch {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
@@ -542,6 +548,13 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return dateFormatter
 	}()
 
+	private var germanDateFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .short
+		dateFormatter.timeStyle = .none
+		dateFormatter.locale = Locale(identifier: "de_DE")
+		return dateFormatter
+	}()
 
 	private let databaseQueue: FMDatabaseQueue
 

@@ -560,16 +560,26 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		addPersonEncounter(personId: adamSandaleId, date: thirteenDaysAgo, store: store)
 
 		let exportResult = store.export()
-		if case let .failure(error) = exportResult {
-			XCTFail("Error not expected: \(error)")
+		guard case let .success(exportString) = exportResult else {
+			XCTFail("Error not expected")
+			return
 		}
 
-		switch exportResult {
-		case .success(let exportString):
-			print("***** \n\(exportString)")
-		case .failure(let error):
-			XCTFail("Error not expected: \(error)")
-		}
+		let expectedString = """
+			15.12.20 Adam Sandale
+			15.12.20 Emma Hicks
+			15.12.20 Amsterdam
+			15.12.20 Berlin
+			05.12.20 Emma Hicks
+			05.12.20 Amsterdam
+			02.12.20 Adam Sandale
+			02.12.20 Emma Hicks
+			02.12.20 Amsterdam
+			02.12.20 Berlin
+
+			"""
+
+		XCTAssertEqual(exportString, expectedString)
 	}
 
 	private func checkLocationEntry(entry: DiaryEntry, name: String, id: Int, isSelected: Bool) {
