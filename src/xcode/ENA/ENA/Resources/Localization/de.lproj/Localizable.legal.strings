@@ -48,6 +48,8 @@
 
 /* Contact diary information */
 
-"ContactDiary_Information_Legal_Headline_1" = "PLACEHOLDER: Das Kontakt-Tagebuch dient Ihnen als Gedächtnisstütze.";
+"ContactDiary_Information_Legal_Headline_1" = "Datenschutz und Datensicherheit";
 
-"ContactDiary_Information_Legal_Text_1" = "PLACEHOLDER: Die Nutzung dieser zusätzlichen Funktion der Corona-Warn-App ist freiwillig und nur Sie entscheiden, welche Personen, Orte und Begegnungen Sie erfassen.\nFalls Sie Corona-positiv getestet werden, ist es wichtig, dass Sie sich an Ihre letzten Kontakte erinnern können, um Ihre Mitmenschen vor Ansteckungen zu schützen. Dies gilt vor allem dann, wenn Sie das Gesundheitsamt um Mithilfe bei der Nachverfolgung Ihrer Kontakte bittet. Die schnelle und vollständige Information kann so helfen, weitere Ansteckungen zu vermeiden.";
+"ContactDiary_Information_Legal_SubHeadline_1" = "Sie behalten über alle erfassten Informationen die volle Kontrolle.";
+
+"ContactDiary_Information_Legal_Text_1" = "Die Nutzung dieser zusätzlichen Funktion der Corona-Warn-App ist freiwillig und nur Sie entscheiden welche Personen und Orte Sie eintragen.";

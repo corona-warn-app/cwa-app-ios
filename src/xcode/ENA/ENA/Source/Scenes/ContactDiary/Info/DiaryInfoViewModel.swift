@@ -66,16 +66,16 @@ struct DiaryInfoViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Lock"),
-						text: .string(AppStrings.ContactDiary.Information.itemTimerTitle)
+						UIImage(imageLiteralResourceName: "Icons_Diary_Deleted_Automatically"),
+						text: .string(AppStrings.ContactDiary.Information.deletedAutomatically)
 					),
 					.space(
 						height: 15.0,
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Lock"),
-						text: .string(AppStrings.ContactDiary.Information.itemTextFileTitle)
+						UIImage(imageLiteralResourceName: "Icons_Diary_Export_Textformat"),
+						text: .string(AppStrings.ContactDiary.Information.exportTextformat)
 					)
 				]
 			),
