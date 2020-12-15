@@ -55,12 +55,12 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 			let sqlContactPersonEncounter = """
 				DELETE FROM ContactPersonEncounter
-				WHERE date < date('now','-\(dataRetentionPeriodInDays) days')
+				WHERE date < date('now','-\(dataRetentionPeriodInDays - 1) days')
 			"""
 
 			let sqlLocationVisit = """
 				DELETE FROM LocationVisit
-				WHERE date < date('now','-\(dataRetentionPeriodInDays) days')
+				WHERE date < date('now','-\(dataRetentionPeriodInDays - 1) days')
 			"""
 
 			do {
@@ -486,8 +486,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	
 	// MARK: - Private
 
-	private let dataRetentionPeriodInDays = 16
-	private let userVisiblePeriodInDays = 14
+	private let dataRetentionPeriodInDays = 16 // Including today.
+	private let userVisiblePeriodInDays = 14 // Including today.
 	private let key: String
 
 	private var dateFormatter: ISO8601DateFormatter = {
@@ -537,7 +537,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 	@objc
 	private func didBecomeActiveNotification(_ notification: Notification) {
-		_ = cleanup()
+		cleanup()
 	}
 
 	private func fetchContactPersons(for date: String, in database: FMDatabase) -> Result<[DiaryContactPerson], SQLiteErrorCode> {
@@ -549,7 +549,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				LEFT JOIN ContactPersonEncounter
 				ON ContactPersonEncounter.contactPersonId = ContactPerson.id
 				AND ContactPersonEncounter.date = ?
-				ORDER BY ContactPerson.name COLLATE NOCASE ASC, contactPersonId COLLATE NOCASE ASC
+				ORDER BY ContactPerson.name COLLATE NOCASE ASC, contactPersonId ASC
 			"""
 
 		do {
@@ -581,7 +581,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				LEFT JOIN LocationVisit
 				ON Location.id = LocationVisit.locationId
 				AND LocationVisit.date = ?
-				ORDER BY Location.name COLLATE NOCASE ASC, locationId COLLATE NOCASE ASC
+				ORDER BY Location.name COLLATE NOCASE ASC, locationId ASC
 			"""
 
 		do {
@@ -607,7 +607,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	private func updateDiaryDays(with database: FMDatabase) -> DiaryStoringVoidResult {
 		var diaryDays = [DiaryDay]()
 
-		for index in 0...userVisiblePeriodInDays {
+		for index in 0..<userVisiblePeriodInDays {
 			guard let date = Calendar.current.date(byAdding: .day, value: -index, to: Date()) else {
 				continue
 			}
