@@ -88,12 +88,20 @@ struct DiaryInfoViewModel {
 						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_1),
 						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_2)
 						],
-//					description: NSAttributedString(string: AppStrings.ContactDiary.Information.legalSubHeadline_2),   // should be BOLD
-//					bulletPoints: [
-//						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_3),
-//						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_4)
-//						],
-
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle,
+					configure: { _, cell, _ in
+						cell.backgroundColor = .enaColor(for: .background)
+					}
+				)
+			]),
+			.section(cells: [
+				.acknowledgement(
+					title: NSAttributedString(string: AppStrings.ContactDiary.Information.legalSubHeadline_2), // larger font required
+					description: nil,
+					bulletPoints: [
+						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_3),
+						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_4)
+						],
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle,
 					configure: { _, cell, _ in
 						cell.backgroundColor = .enaColor(for: .background)
