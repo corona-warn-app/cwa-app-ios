@@ -27,7 +27,11 @@ final class RiskLoadingItemView: UIView, RiskItemView, RiskItemViewSeparatorable
 
 	private func configureActivityIndicatorView() {
 		let greaterThanAccessibilityMedium = traitCollection.preferredContentSizeCategory >= .accessibilityLarge
-		activityIndicatorView.style = greaterThanAccessibilityMedium ? .large : .medium
+		if #available(iOS 13.0, *) {
+			activityIndicatorView.style = greaterThanAccessibilityMedium ? .large : .medium
+		} else {
+			activityIndicatorView.style = greaterThanAccessibilityMedium ? .whiteLarge : .white
+		}
 	}
 
 	private func configureStackView() {
