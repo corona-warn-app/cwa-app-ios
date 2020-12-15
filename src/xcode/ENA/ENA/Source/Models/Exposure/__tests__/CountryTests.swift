@@ -39,17 +39,36 @@ class CountryTests: XCTestCase {
 	
 	func testSortingOfCountries() throws {
 	
+		//GIVEN
 		var unsortedList = [Country]()
 		unsortedList.append(Country(countryCode: "FR") ?? Country.defaultCountry())
 		unsortedList.append(Country(countryCode: "DE") ?? Country.defaultCountry())
 		unsortedList.append(Country(countryCode: "CY") ?? Country.defaultCountry())
 		unsortedList.append(Country(countryCode: "DK") ?? Country.defaultCountry())
-
+		
+		//WHEN
 		let sortedList = unsortedList.sortedByLocalizedName
-		XCTAssertEqual(sortedList[0].id, "DK")
-		XCTAssertEqual(sortedList[1].id, "DE")
-		XCTAssertEqual(sortedList[2].id, "FR")
-		XCTAssertEqual(sortedList[3].id, "CY")
+		
+		//THEN
+		switch Locale.current.languageCode {
+		case "de":
+			XCTAssertEqual(sortedList[0].id, "DK")
+			XCTAssertEqual(sortedList[1].id, "DE")
+			XCTAssertEqual(sortedList[2].id, "FR")
+			XCTAssertEqual(sortedList[3].id, "CY")
+		case "tr":
+			XCTAssertEqual(sortedList[0].id, "DE")
+			XCTAssertEqual(sortedList[1].id, "DK")
+			XCTAssertEqual(sortedList[2].id, "FR")
+			XCTAssertEqual(sortedList[3].id, "CY")
+		case "en", "ro", "pl":
+			XCTAssertEqual(sortedList[0].id, "CY")
+			XCTAssertEqual(sortedList[1].id, "DK")
+			XCTAssertEqual(sortedList[2].id, "FR")
+			XCTAssertEqual(sortedList[3].id, "DE")
+		default:
+			XCTFail("unknow language code")
+		}
 	}
-	
+
 }
