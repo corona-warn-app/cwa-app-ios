@@ -883,7 +883,7 @@ enum AppStrings {
 				static let editLocationTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_EditLocationTitle", comment: "")
 			}
 		}
-		
+
 		enum Day {
 			static let contactPersonsSegment = NSLocalizedString("ContactDiary_Day_ContactPersonsSegment", comment: "")
 			static let addContactPerson = NSLocalizedString("ContactDiary_Day_AddContactPerson", comment: "")
@@ -935,6 +935,19 @@ enum AppStrings {
 			static let primaryButtonTitle = NSLocalizedString("ContactDiary_Information_PrimaryButton_Title", comment: "")
 		}
 
+		enum AddEditEntry {
+			static let primaryButtonTitle = NSLocalizedString("ContactDiary_AddEditEntry_PrimaryButton_Title", comment: "")
+
+			enum location {
+				static let title = NSLocalizedString("ContactDiary_AddEditEntry_LocationTitle", comment: "")
+				static let placeholder = NSLocalizedString("ContactDiary_AddEditEntry_LocationPlaceholder", comment: "")
+			}
+
+			enum person {
+				static let title = NSLocalizedString("ContactDiary_AddEditEntry_PersonTitle", comment: "")
+				static let placeholder = NSLocalizedString("ContactDiary_AddEditEntry_PersonPlaceholder", comment: "")
+			}
+		}
 	}
 	
 	// swiftlint:disable:next file_length

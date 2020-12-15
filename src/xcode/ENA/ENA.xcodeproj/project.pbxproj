@@ -530,6 +530,7 @@
 		B1FF6B772497D2330041CF02 /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DFCC2712484DC8400E2811D /* sqlite3.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */; };
 		BA112E0A25559CDD007F5712 /* ClientWifiOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */; };
+		BA11D5BA2588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */; };
 		BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */; };
 		BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */; };
 		BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8A9D254D634E008344F5 /* RiskCalculationConfiguration.swift */; };
@@ -559,6 +560,7 @@
 		BAB1239C2572A06D00A179FB /* TanInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1239B2572A06D00A179FB /* TanInputViewModel.swift */; };
 		BAB123A22572A0B700A179FB /* TanInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB123A02572A0B700A179FB /* TanInputViewController.swift */; };
 		BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */; };
+		BAC42DC42583AF9D001A94C0 /* DiaryEntryTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC42DC32583AF9D001A94C0 /* DiaryEntryTextField.swift */; };
 		BAD962FB25668F4000FAB615 /* TestResultAvailableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */; };
 		BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */; };
 		CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */; };
@@ -1202,6 +1204,7 @@
 		B1FF6B6D2497D0B50041CF02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WifiOnlyHTTPClient.swift; sourceTree = "<group>"; };
 		BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientWifiOnly.swift; sourceTree = "<group>"; };
+		BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryViewModelTest.swift; sourceTree = "<group>"; };
 		BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWifiClientViewController.swift; sourceTree = "<group>"; };
 		BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModelTest.swift; sourceTree = "<group>"; };
 		BA6C8A8F254D61F4008344F5 /* exposure-windows-risk-calculation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "exposure-windows-risk-calculation.json"; sourceTree = "<group>"; };
@@ -1231,6 +1234,7 @@
 		BAB1239B2572A06D00A179FB /* TanInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewModel.swift; sourceTree = "<group>"; };
 		BAB123A02572A0B700A179FB /* TanInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewController.swift; sourceTree = "<group>"; };
 		BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewModelTests.swift; sourceTree = "<group>"; };
+		BAC42DC32583AF9D001A94C0 /* DiaryEntryTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntryTextField.swift; sourceTree = "<group>"; };
 		BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewController.swift; sourceTree = "<group>"; };
 		BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewModel.swift; sourceTree = "<group>"; };
 		CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
@@ -1451,8 +1455,10 @@
 		0190982F257E5B7F0065D050 /* AddAndEditEntry */ = {
 			isa = PBXGroup;
 			children = (
+				BA11D5B82588D576005DCD6B /* __test__ */,
 				0190984C257E62C70065D050 /* DiaryAddAndEditEntryViewController.swift */,
 				01909851257E62CB0065D050 /* DiaryAddAndEditEntryViewModel.swift */,
+				BAC42DC32583AF9D001A94C0 /* DiaryEntryTextField.swift */,
 			);
 			path = AddAndEditEntry;
 			sourceTree = "<group>";
@@ -3118,6 +3124,14 @@
 			path = CWASQLite;
 			sourceTree = "<group>";
 		};
+		BA11D5B82588D576005DCD6B /* __test__ */ = {
+			isa = PBXGroup;
+			children = (
+				BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */,
+			);
+			path = __test__;
+			sourceTree = "<group>";
+		};
 		BA288AEF25825D5B0071009A /* __test__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -3972,6 +3986,7 @@
 				2FA9E39324D2F2920030561C /* ExposureSubmission+TestResult.swift in Sources */,
 				94092541254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift in Sources */,
 				EB17144625716EA80088D7A9 /* FileManager+KeyPackageStorage.swift in Sources */,
+				BAC42DC42583AF9D001A94C0 /* DiaryEntryTextField.swift in Sources */,
 				EE22DB89247FB43A001B0A71 /* TracingHistoryTableViewCell.swift in Sources */,
 				71B804472484CC0800D53506 /* ENALabel.swift in Sources */,
 				71FE1C7F247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift in Sources */,
@@ -4168,6 +4183,7 @@
 				BA6C8B24254D76ED008344F5 /* ExposureWindowTestCase.swift in Sources */,
 				01A97DD32506769F00C07C37 /* DatePickerDayViewModelTests.swift in Sources */,
 				516E430024B777B20008CC30 /* HomeHighRiskCellConfiguratorTests.swift in Sources */,
+				BA11D5BA2588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift in Sources */,
 				F2DC809224898B1800EDC40A /* DynamicTableViewControllerHeaderTests.swift in Sources */,
 				01F52FFC2552E6F600997A26 /* ENARangeTest.swift in Sources */,
 				BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */,

@@ -134,6 +134,9 @@ private extension ENAColor {
 		case .textSemanticGreen: return "text-semantic-green"
 		case .textSemanticRed: return "text-semantic-red"
 		case .textTint: return "text-tint"
+
+		// MARK: - Textfiled Colors
+		case .textField: return "text-field"
 		}
 	}
 }
