@@ -60,6 +60,22 @@ struct DiaryInfoViewModel {
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Lock"),
 						text: .string(AppStrings.ContactDiary.Information.itemLockTitle)
+					),
+					.space(
+						height: 15.0,
+						color: .enaColor(for: .background)
+					),
+					.icon(
+						UIImage(imageLiteralResourceName: "Icons_Lock"),
+						text: .string(AppStrings.ContactDiary.Information.itemTimerTitle)
+					),
+					.space(
+						height: 15.0,
+						color: .enaColor(for: .background)
+					),
+					.icon(
+						UIImage(imageLiteralResourceName: "Icons_Lock"),
+						text: .string(AppStrings.ContactDiary.Information.itemTextFileTitle)
 					)
 				]
 			),
