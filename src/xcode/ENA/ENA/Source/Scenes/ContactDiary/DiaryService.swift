@@ -163,6 +163,7 @@ class MockDiaryStore: DiaryStoringProviding {
 		return .success(())
 	}
 
+	@discardableResult
 	func removeAllLocations() -> DiaryStoringVoidResult {
 		locations.removeAll()
 		locationVisits.removeAll()
@@ -171,7 +172,8 @@ class MockDiaryStore: DiaryStoringProviding {
 
 		return .success(())
 	}
-
+	
+	@discardableResult
 	func removeAllContactPersons() -> DiaryStoringVoidResult {
 		contactPersons.removeAll()
 		contactPersonEncounters.removeAll()

@@ -128,7 +128,12 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		// GIVEN
 		let store = emptyMockStore()
 		let name = "Kai Teuber"
-		let id = store.addContactPerson(name: name)
+		let result = store.addContactPerson(name: name)
+
+		guard case let .success(id) = result else {
+			fatalError("Failure not expected")
+		}
+		
 		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: id, name: name))
 		
 		let viewModel = DiaryAddAndEditEntryViewModel(
@@ -231,7 +236,12 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		// GIVEN
 		let mockStore = emptyMockStore()
 		let name = "Office"
-		let id = mockStore.addLocation(name: name)
+		let result = mockStore.addLocation(name: name)
+
+		guard case let .success(id) = result else {
+			fatalError("Failure not expected")
+		}
+
 		let entry: DiaryEntry = .location(.init(id: id, name: name))
 		
 		let viewModel = DiaryAddAndEditEntryViewModel(
