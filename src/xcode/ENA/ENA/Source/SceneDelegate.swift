@@ -159,7 +159,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	// MARK: - Private
 
 	private lazy var navigationController: UINavigationController = AppNavigationController()
-	private lazy var coordinator = Coordinator(self, navigationController)
+	private lazy var coordinator = Coordinator(
+		self,
+		navigationController,
+		contactDiaryStore: UIApplication.coronaWarnDelegate().contactDiaryStore
+	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
 

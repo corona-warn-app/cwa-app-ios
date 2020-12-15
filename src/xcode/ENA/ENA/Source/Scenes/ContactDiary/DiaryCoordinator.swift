@@ -10,7 +10,7 @@ class DiaryCoordinator {
 
 	init(
 		store: Store,
-		diaryStore: DiaryStoring,
+		diaryStore: DiaryStoringProviding,
 		parentNavigationController: UINavigationController
 	) {
 		self.store = store

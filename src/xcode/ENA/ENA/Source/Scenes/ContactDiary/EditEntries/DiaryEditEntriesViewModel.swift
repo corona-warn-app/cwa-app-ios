@@ -12,7 +12,7 @@ class DiaryEditEntriesViewModel {
 
 	init(
 		entryType: DiaryEntryType,
-		store: DiaryStoring
+		store: DiaryStoringProviding
 	) {
 		self.entryType = entryType
 		self.store = store
@@ -72,7 +72,7 @@ class DiaryEditEntriesViewModel {
 	// MARK: - Private
 
 	private let entryType: DiaryEntryType
-	private let store: DiaryStoring
+	private let store: DiaryStoringProviding
 
 	private var subscriptions: [AnyCancellable] = []
 

@@ -17,32 +17,49 @@ struct LocationVisit {
 	let locationId: Int
 }
 
+typealias DiaryStoringProviding = DiaryStoring & DiaryProviding
+
 protocol DiaryStoring {
 
-	var diaryDaysPublisher: CurrentValueSubject<[DiaryDay], Never> { get }
+	typealias DiaryStoringResult = Result<Int, SQLiteErrorCode>
+	typealias DiaryStoringVoidResult = Result<Void, SQLiteErrorCode>
 
 	@discardableResult
-	func addContactPerson(name: String) -> Int
+	func addContactPerson(name: String) -> DiaryStoringResult
 	@discardableResult
-	func addLocation(name: String) -> Int
+	func addLocation(name: String) -> DiaryStoringResult
 	@discardableResult
-	func addContactPersonEncounter(contactPersonId: Int, date: String) -> Int
+	func addContactPersonEncounter(contactPersonId: Int, date: String) -> DiaryStoringResult
 	@discardableResult
-	func addLocationVisit(locationId: Int, date: String) -> Int
+	func addLocationVisit(locationId: Int, date: String) -> DiaryStoringResult
 
-	func updateContactPerson(id: Int, name: String)
-	func updateLocation(id: Int, name: String)
+	@discardableResult
+	func updateContactPerson(id: Int, name: String) -> DiaryStoringVoidResult
+	@discardableResult
+	func updateLocation(id: Int, name: String) -> DiaryStoringVoidResult
 
-	func removeContactPerson(id: Int)
-	func removeLocation(id: Int)
-	func removeContactPersonEncounter(id: Int)
-	func removeLocationVisit(id: Int)
-	func removeAllLocations()
-	func removeAllContactPersons()
-
+	@discardableResult
+	func removeContactPerson(id: Int) -> DiaryStoringVoidResult
+	@discardableResult
+	func removeLocation(id: Int) -> DiaryStoringVoidResult
+	@discardableResult
+	func removeContactPersonEncounter(id: Int) -> DiaryStoringVoidResult
+	@discardableResult
+	func removeLocationVisit(id: Int) -> DiaryStoringVoidResult
+	@discardableResult
+	func removeAllLocations() -> DiaryStoringVoidResult
+	@discardableResult
+	func removeAllContactPersons() -> DiaryStoringVoidResult
+	@discardableResult
+	func cleanup() -> DiaryStoringVoidResult
 }
 
-class MockDiaryStore: DiaryStoring {
+protocol DiaryProviding {
+
+	var diaryDaysPublisher: CurrentValueSubject<[DiaryDay], Never> { get }
+}
+
+class MockDiaryStore: DiaryStoringProviding {
 
 	// MARK: - Init
 
@@ -55,97 +72,120 @@ class MockDiaryStore: DiaryStoring {
 	var diaryDaysPublisher = CurrentValueSubject<[DiaryDay], Never>([])
 
 	@discardableResult
-	func addContactPerson(name: String) -> Int {
+	func addContactPerson(name: String) -> DiaryStoringResult {
 		let id = (contactPersons.map { $0.id }.max() ?? -1) + 1
 		contactPersons.append(DiaryContactPerson(id: id, name: name))
 
 		updateDays()
 
-		return id
+		return .success(id)
 	}
 
 	@discardableResult
-	func addLocation(name: String) -> Int {
+	func addLocation(name: String) -> DiaryStoringResult {
 		let id = (locations.map { $0.id }.max() ?? -1) + 1
 		locations.append(DiaryLocation(id: id, name: name))
 
 		updateDays()
 
-		return id
+		return .success(id)
 	}
 
 	@discardableResult
-	func addContactPersonEncounter(contactPersonId: Int, date: String) -> Int {
+	func addContactPersonEncounter(contactPersonId: Int, date: String) -> DiaryStoringResult {
 		let id = (contactPersonEncounters.map { $0.id }.max() ?? -1) + 1
 		contactPersonEncounters.append(ContactPersonEncounter(id: id, date: date, contactPersonId: contactPersonId))
 
 		updateDays()
 
-		return id
+		return .success(id)
 	}
 
 	@discardableResult
-	func addLocationVisit(locationId: Int, date: String) -> Int {
+	func addLocationVisit(locationId: Int, date: String) -> DiaryStoringResult {
 		let id = (locationVisits.map { $0.id }.max() ?? -1) + 1
 		locationVisits.append(LocationVisit(id: id, date: date, locationId: locationId))
 
 		updateDays()
 
-		return id
+		return .success(id)
 	}
 
-	func updateContactPerson(id: Int, name: String) {
-		guard let index = contactPersons.firstIndex(where: { $0.id == id }) else { return }
+	func updateContactPerson(id: Int, name: String) -> DiaryStoringVoidResult {
+		guard let index = contactPersons.firstIndex(where: { $0.id == id }) else { return .success(()) }
 		contactPersons[index] = DiaryContactPerson(id: id, name: name)
 
 		updateDays()
+
+		return .success(())
 	}
 
-	func updateLocation(id: Int, name: String) {
-		guard let index = locations.firstIndex(where: { $0.id == id }) else { return }
+	func updateLocation(id: Int, name: String) -> DiaryStoringVoidResult {
+		guard let index = locations.firstIndex(where: { $0.id == id }) else { return .success(()) }
 		locations[index] = DiaryLocation(id: id, name: name)
 
 		updateDays()
+
+		return .success(())
 	}
 
-	func removeContactPerson(id: Int) {
+	func removeContactPerson(id: Int) -> DiaryStoringVoidResult {
 		contactPersons.removeAll { $0.id == id }
 		contactPersonEncounters.removeAll { $0.contactPersonId == id }
 
 		updateDays()
+
+		return .success(())
 	}
 
-	func removeLocation(id: Int) {
+	func removeLocation(id: Int) -> DiaryStoringVoidResult {
 		locations.removeAll { $0.id == id }
 		locationVisits.removeAll { $0.locationId == id }
 
 		updateDays()
+
+		return .success(())
 	}
 
-	func removeContactPersonEncounter(id: Int) {
+	func removeContactPersonEncounter(id: Int) -> DiaryStoringVoidResult {
 		contactPersonEncounters.removeAll { $0.id == id }
 
 		updateDays()
+
+		return .success(())
 	}
 
-	func removeLocationVisit(id: Int) {
+	func removeLocationVisit(id: Int) -> DiaryStoringVoidResult {
 		locationVisits.removeAll { $0.id == id }
 
 		updateDays()
+
+		return .success(())
 	}
 
-	func removeAllLocations() {
+	@discardableResult
+	func removeAllLocations() -> DiaryStoringVoidResult {
 		locations.removeAll()
 		locationVisits.removeAll()
 
 		updateDays()
-	}
 
-	func removeAllContactPersons() {
+		return .success(())
+	}
+	
+	@discardableResult
+	func removeAllContactPersons() -> DiaryStoringVoidResult {
 		contactPersons.removeAll()
 		contactPersonEncounters.removeAll()
 
 		updateDays()
+
+		return .success(())
+	}
+
+	func cleanup() -> DiaryStoringVoidResult {
+		// There is no cleanup implemented (deleting old entries) for the mock.
+		return .success(())
 	}
 
 	// MARK: - Private
@@ -196,7 +236,7 @@ class DiaryService {
 
 	// MARK: - Init
 
-	init(store: DiaryStoring) {
+	init(store: DiaryStoringProviding) {
 		self.store = store
 
 		store.diaryDaysPublisher.sink { [weak self] in
@@ -205,10 +245,10 @@ class DiaryService {
 	}
 
 	// MARK: - Internal
+	
+	let store: DiaryStoringProviding
 
 	@Published private(set) var days: [DiaryDay] = []
-
-	let store: DiaryStoring
 
 	var exportString: String {
 		"These are your exported diary entries."

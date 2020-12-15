@@ -11,7 +11,7 @@ class DiaryDayViewModel {
 
 	init(
 		day: DiaryDay,
-		store: DiaryStoring,
+		store: DiaryStoringProviding,
 		onAddEntryCellTap: @escaping (DiaryDay, DiaryEntryType) -> Void
 	) {
 		self.day = day
@@ -71,7 +71,7 @@ class DiaryDayViewModel {
 
 	// MARK: - Private
 
-	private let store: DiaryStoring
+	private let store: DiaryStoringProviding
 	private let onAddEntryCellTap: (DiaryDay, DiaryEntryType) -> Void
 
 	private var subscriptions: [AnyCancellable] = []

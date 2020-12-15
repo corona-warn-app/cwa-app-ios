@@ -24,6 +24,7 @@ class Coordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 
 	private let rootViewController: UINavigationController
+	private let contactDiaryStore: DiaryStoringProviding
 
 	private var homeController: HomeViewController?
 	private var settingsController: SettingsViewController?
@@ -42,9 +43,14 @@ class Coordinator: RequiresAppDependencies {
 	
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
-	init(_ delegate: CoordinatorDelegate, _ rootViewController: UINavigationController) {
+	init(
+		_ delegate: CoordinatorDelegate,
+		_ rootViewController: UINavigationController,
+		contactDiaryStore: DiaryStoringProviding
+	) {
 		self.delegate = delegate
 		self.rootViewController = rootViewController
+		self.contactDiaryStore = contactDiaryStore
 	}
 
 	deinit {
@@ -205,7 +211,7 @@ extension Coordinator: HomeViewControllerDelegate {
 	func showDiary() {
 		diaryCoordinator = DiaryCoordinator(
 			store: store,
-			diaryStore: MockDiaryStore(),
+			diaryStore: contactDiaryStore,
 			parentNavigationController: rootViewController
 		)
 
