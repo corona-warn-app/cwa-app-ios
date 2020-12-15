@@ -5,7 +5,7 @@
 import UIKit
 import Combine
 
-class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate, ENANavigationControllerWithFooterChild {
+class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate, ENANavigationControllerWithFooterChild, DismissHandling {
 
 	// MARK: - Init
 
@@ -53,14 +53,6 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		navigationFooterItem
 	}
 
-	// MARK: - ENANavigationControllerWithFooterChild
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		viewModel.save()
-		entryTextField.resignFirstResponder()
-		dismiss()
-	}
-
 	// MARK: - Protocol UITextFieldDelegate
 
 	func textFieldShouldClear(_ textField: UITextField) -> Bool {
@@ -80,6 +72,21 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		return false
 	}
 
+	// MARK: - ENANavigationControllerWithFooterChild
+
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+		viewModel.save()
+		entryTextField.resignFirstResponder()
+		dismiss()
+	}
+
+	// MARK: - DismissHandling
+
+	func wasAttemptedToBeDismissed() {
+		entryTextField.resignFirstResponder()
+		dismiss()
+	}
+
 	// MARK: - Private
 
 	private let viewModel: DiaryAddAndEditEntryViewModel
@@ -96,18 +103,18 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		item.isSecondaryButtonHidden = true
 
 		item.title = viewModel.title
-
-		return item
-	}()
-
-	private func setupNavigationBar() {
-		navigationItem.rightBarButtonItem = CloseBarButtonItem(
+		item.largeTitleDisplayMode = .always
+		item.rightBarButtonItem = CloseBarButtonItem(
 			onTap: { [weak self] in
 				self?.dismiss()
 			}
 		)
+		return item
+	}()
+
+	private func setupNavigationBar() {
+//		navigationItem
 		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationItem.largeTitleDisplayMode = .always
 	}
 
 	private func setupBindings() {
@@ -120,6 +127,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		title = viewModel.title
 
 		let scrollView = UIScrollView(frame: view.frame)
+//		scrollView.contentInset = UIEdgeInsets(top: 55, left: 0, bottom: 0, right: 0.0)
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(scrollView)
 
