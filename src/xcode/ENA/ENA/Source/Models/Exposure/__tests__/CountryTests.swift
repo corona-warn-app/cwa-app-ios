@@ -36,4 +36,20 @@ class CountryTests: XCTestCase {
 	func testInvalidCountryRegionName() throws {
 		XCTAssertNil(Locale.current.regionName(forCountryCode: ""))
 	}
+	
+	func testSortingOfCountries() throws {
+	
+		var unsortedList = [Country]()
+		unsortedList.append(Country(countryCode: "FR") ?? Country.defaultCountry())
+		unsortedList.append(Country(countryCode: "DE") ?? Country.defaultCountry())
+		unsortedList.append(Country(countryCode: "CY") ?? Country.defaultCountry())
+		unsortedList.append(Country(countryCode: "DK") ?? Country.defaultCountry())
+
+		let sortedList = unsortedList.sortedByLocalizedName
+		XCTAssertEqual(sortedList[0].id, "DK")
+		XCTAssertEqual(sortedList[1].id, "DE")
+		XCTAssertEqual(sortedList[2].id, "FR")
+		XCTAssertEqual(sortedList[3].id, "CY")
+	}
+	
 }
