@@ -59,7 +59,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		return true
 	}
 	
-	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { $_isSubmissionConsentGiven }
+	var isSubmissionConsentGivenPublisher: OpenCombine.Published<Bool>.Publisher { $_isSubmissionConsentGiven }
 	
 	var isSubmissionConsentGiven: Bool {
 		get {
