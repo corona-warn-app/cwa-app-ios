@@ -2312,7 +2312,7 @@
 		AB126871254C0598006E9194 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				EBA403A32588E6D400D1F039 /* IBPCollectionViewCompositionalLayoutInteroperability.swift */,
+				EBA403A82588F72A00D1F039 /* iOS12Support */,
 				AB126872254C05A7006E9194 /* ENAFormatter.swift */,
 			);
 			path = Utils;
@@ -3072,6 +3072,14 @@
 				EB7057D624E6BACA002235B4 /* InfoBoxView.xib */,
 			);
 			path = BackgroundAppRefresh;
+			sourceTree = "<group>";
+		};
+		EBA403A82588F72A00D1F039 /* iOS12Support */ = {
+			isa = PBXGroup;
+			children = (
+				EBA403A32588E6D400D1F039 /* IBPCollectionViewCompositionalLayoutInteroperability.swift */,
+			);
+			path = iOS12Support;
 			sourceTree = "<group>";
 		};
 		EBDE11B6255EC2D7008C0F51 /* DMDeviceTimeCheck */ = {
