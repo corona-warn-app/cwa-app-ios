@@ -317,7 +317,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		let today = Date()
 
 		guard let tenDaysAgo = Calendar.current.date(byAdding: .day, value: -10, to: today),
-			  let fourteenDaysAgo = Calendar.current.date(byAdding: .day, value: -14, to: today),
+			  let thirteenDaysAgo = Calendar.current.date(byAdding: .day, value: -13, to: today),
 			  let seventeenDaysAgo = Calendar.current.date(byAdding: .day, value: -17, to: today) else {
 			fatalError("Could not create test dates.")
 		}
@@ -338,16 +338,16 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		addPersonEncounter(personId: maryBarryPersonId, date: tenDaysAgo, store: store)
 
 		// 16 days ago (should not be persisted)
-		addPersonEncounter(personId: maryBarryPersonId, date: fourteenDaysAgo, store: store)
-		addPersonEncounter(personId: emmaHicksPersonId, date: fourteenDaysAgo, store: store)
+		addPersonEncounter(personId: maryBarryPersonId, date: thirteenDaysAgo, store: store)
+		addPersonEncounter(personId: emmaHicksPersonId, date: thirteenDaysAgo, store: store)
 
 		// 17 days ago (should not be persisted)
 		addLocationVisit(locationId: kincardineLocationId, date: seventeenDaysAgo, store: store)
 		addLocationVisit(locationId: conistonLocationId, date: seventeenDaysAgo, store: store)
 
 		store.diaryDaysPublisher.sink { diaryDays in
-			// Only the last 14 days + today should be returned.
-			XCTAssertEqual(diaryDays.count, 15)
+			// Only the last 14 days (including today) should be returned.
+			XCTAssertEqual(diaryDays.count, 14)
 
 			for diaryDay in diaryDays {
 				XCTAssertEqual(diaryDay.entries.count, 4)
@@ -371,8 +371,8 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			self.checkLocationEntry(entry: tenDaysAgoDiaryDay.entries[2], name: "Coniston", id: conistonLocationId, isSelected: false)
 			self.checkLocationEntry(entry: tenDaysAgoDiaryDay.entries[3], name: "Kincardine", id: kincardineLocationId, isSelected: true)
 
-			// Test the data for sixteen days ago
-			let sixteenDaysAgoDiaryDay = diaryDays[14]
+			// Test the data for thirteen days ago
+			let sixteenDaysAgoDiaryDay = diaryDays[13]
 			self.checkPersonEntry(entry: sixteenDaysAgoDiaryDay.entries[0], name: "Emma Hicks", id: emmaHicksPersonId, isSelected: true)
 			self.checkPersonEntry(entry: sixteenDaysAgoDiaryDay.entries[1], name: "Mary Barry", id: maryBarryPersonId, isSelected: true)
 
