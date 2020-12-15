@@ -92,20 +92,24 @@ final class DMLogsViewController: UIViewController {
 			target: self,
 			action: #selector(exportErrorLog)
 		)
-
+		
+		let deleteItem = UIBarButtonItem(
+			title: "Delete Logs",
+			style: .plain,
+			target: self,
+			action: #selector(deleteErrorLog)
+		)
+		deleteItem.tintColor = .red
+		
 		setToolbarItems(
 			[
-				UIBarButtonItem(
-					barButtonSystemItem: .flexibleSpace,
-					target: nil,
-					action: nil
-				),
 				exportItem,
 				UIBarButtonItem(
 					barButtonSystemItem: .flexibleSpace,
 					target: nil,
 					action: nil
-				)
+				),
+				deleteItem
 			],
 			animated: animated
 		)
@@ -132,10 +136,28 @@ final class DMLogsViewController: UIViewController {
 	@objc
 	func exportErrorLog() {
 		let fileLogger = FileLogger()
-		let logString = fileLogger.read(logType: selectedLogType)
+		var logString = String()
+		OSLogType.allCases.forEach { logString.append(fileLogger.read(logType: $0)) }
 		let activityViewController = UIActivityViewController(activityItems: [logString], applicationActivities: nil)
 		activityViewController.modalTransitionStyle = .coverVertical
 		present(activityViewController, animated: true, completion: nil)
+	}
+	
+	@objc
+	func deleteErrorLog() {
+		let alert = UIAlertController(title: "Logs", message: "Do you really want to delete ALL logs?", preferredStyle: .alert)
+		
+		let cancelAction = UIAlertAction(title: "No, i want to keep them", style: .cancel, handler: nil)
+		alert.addAction(cancelAction)
+		
+		let deleteAction = UIAlertAction(title: "Yes, delete them ALL!", style: .destructive, handler: { [weak self] _ in
+			let fileLogger = FileLogger()
+			fileLogger.deleteLogs()
+			self?.updateTextView()
+		})
+		alert.addAction(deleteAction)
+		
+		self.present(alert, animated: true, completion: nil)
 	}
 
 	@objc

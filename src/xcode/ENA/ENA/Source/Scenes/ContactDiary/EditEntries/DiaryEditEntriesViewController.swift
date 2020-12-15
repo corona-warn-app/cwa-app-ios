@@ -114,8 +114,8 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 
 	private var shouldReload = true
 
-	@IBOutlet weak var tableView: UITableView!
-	@IBOutlet weak var deleteAllButton: ENAButton!
+	@IBOutlet private weak var tableView: UITableView!
+	@IBOutlet private weak var deleteAllButton: ENAButton!
 
 	private func setupTableView() {
 		tableView.register(
@@ -133,7 +133,7 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 		tableView.isEditing = true
 	}
 
-	@IBAction func didTapDeleteAllButton(_ sender: ENAButton) {
+	@IBAction private func didTapDeleteAllButton(_ sender: ENAButton) {
 		let alert = UIAlertController(
 			title: viewModel.alertTitle,
 			message: viewModel.alertMessage,
