@@ -185,7 +185,7 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 			Log.debug("no last config fetch timestamp stored", log: .appConfig)
 			return true
 		}
-        Log.debug("timestamp >= 300s? \(abs(lastFetch.distance(to: Date())) >= 300)", log: .appConfig)
-        return abs(lastFetch.distance(to: Date())) >= 300
+		Log.debug("timestamp >= 300s? \(abs(Date().timeIntervalSince(lastFetch))) >= 300)", log: .appConfig)
+        return abs(Date().timeIntervalSince(lastFetch)) >= 300
 	}
 }
