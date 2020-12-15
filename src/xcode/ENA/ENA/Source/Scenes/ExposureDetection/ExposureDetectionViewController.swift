@@ -162,13 +162,6 @@ private extension ExposureDetectionViewController {
 	}
 }
 
-extension ExposureDetectionViewController: ExposureStateUpdating {
-	func updateExposureState(_ exposureManagerState: ExposureManagerState) {
-		state.exposureManagerState = exposureManagerState
-		updateUI()
-	}
-}
-
 extension ExposureDetectionViewController {
 	func updateUI() {
 		dynamicTableViewModel = dynamicTableViewModel(for: state.riskLevel, riskDetectionFailed: state.riskDetectionFailed, isTracingEnabled: state.isTracingEnabled)
