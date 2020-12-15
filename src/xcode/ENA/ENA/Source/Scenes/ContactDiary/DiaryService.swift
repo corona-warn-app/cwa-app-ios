@@ -188,10 +188,10 @@ class MockDiaryStore: DiaryStoringProviding {
 
 	// MARK: - Private
 
-	private var contactPersons = [DiaryContactPerson]()
-	private var locations = [DiaryLocation]()
-	private var contactPersonEncounters = [ContactPersonEncounter]()
-	private var locationVisits = [LocationVisit]()
+	private var contactPersons: [DiaryContactPerson] = []
+	private var locations: [DiaryLocation] = []
+	private var contactPersonEncounters: [ContactPersonEncounter] = []
+	private var locationVisits: [LocationVisit] = []
 
 	private func updateDays() {
 		var diaryDays = [DiaryDay]()
@@ -258,24 +258,6 @@ class DiaryService {
 			store.updateLocation(id: location.id, name: location.name)
 		case .contactPerson(let contactPerson):
 			store.updateContactPerson(id: contactPerson.id, name: contactPerson.name)
-		}
-	}
-
-	func remove(entry: DiaryEntry) {
-		switch entry {
-		case .location(let location):
-			store.removeLocation(id: location.id)
-		case .contactPerson(let contactPerson):
-			store.removeContactPerson(id: contactPerson.id)
-		}
-	}
-
-	func removeAll(entryType: DiaryEntryType) {
-		switch entryType {
-		case .location:
-			store.removeAllLocations()
-		case .contactPerson:
-			store.removeAllContactPersons()
 		}
 	}
 
@@ -367,6 +349,15 @@ enum DiaryEntry: Equatable {
 
 	case location(DiaryLocation)
 	case contactPerson(DiaryContactPerson)
+
+	var name: String {
+		switch self {
+		case .location(let location):
+			return location.name
+		case .contactPerson(let contactPerson):
+			return contactPerson.name
+		}
+	}
 
 	var isSelected: Bool {
 		switch self {
