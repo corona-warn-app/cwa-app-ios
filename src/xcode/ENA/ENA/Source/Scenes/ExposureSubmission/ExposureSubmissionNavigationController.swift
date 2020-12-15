@@ -27,7 +27,9 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 		super.init(rootViewController: rootViewController)
 		// init default UIAdaptivePresentation delegate
 		self.presentationController?.delegate = self
-		self.isModalInPresentation = true
+		if #available(iOS 13.0, *) {
+			self.isModalInPresentation = true
+		}
 	}
 
 	@available(*, unavailable)
