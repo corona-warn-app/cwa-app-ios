@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "ColorCompatibility",
+        "repositoryURL": "https://github.com/noahsark769/ColorCompatibility.git",
+        "state": {
+          "branch": null,
+          "revision": "1c07a8dba6e1acb3dd2ce58eec4a2b92e0136c77",
+          "version": "1.1.0"
+        }
+      },
+      {
         "package": "DiffableDataSources",
         "repositoryURL": "https://github.com/ra1028/DiffableDataSources",
         "state": {

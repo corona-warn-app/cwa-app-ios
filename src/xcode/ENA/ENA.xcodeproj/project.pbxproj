@@ -561,6 +561,7 @@
 		EBA4038D2588E06E00D1F039 /* IBPCollectionViewCompositionalLayout in Frameworks */ = {isa = PBXBuildFile; productRef = EBA4038C2588E06E00D1F039 /* IBPCollectionViewCompositionalLayout */; };
 		EBA403932588E0C300D1F039 /* DiffableDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = EBA403922588E0C300D1F039 /* DiffableDataSources */; };
 		EBA403A42588E6D400D1F039 /* IBPCollectionViewCompositionalLayoutInteroperability.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA403A32588E6D400D1F039 /* IBPCollectionViewCompositionalLayoutInteroperability.swift */; };
+		EBA403AB2588F7B700D1F039 /* ColorCompatibility in Frameworks */ = {isa = PBXBuildFile; productRef = EBA403AA2588F7B700D1F039 /* ColorCompatibility */; };
 		EBBABC47256402A9005B7C07 /* default_app_config_18 in Resources */ = {isa = PBXBuildFile; fileRef = EBBABC46256402A9005B7C07 /* default_app_config_18 */; };
 		EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */; };
 		EBDE11B2255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDE11B1255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift */; };
@@ -1264,6 +1265,7 @@
 				EBA4038D2588E06E00D1F039 /* IBPCollectionViewCompositionalLayout in Frameworks */,
 				EB7AF62A2587E98C00D94CA8 /* OpenCombineFoundation in Frameworks */,
 				EB7AF62E2587E98C00D94CA8 /* OpenCombineDispatch in Frameworks */,
+				EBA403AB2588F7B700D1F039 /* ColorCompatibility in Frameworks */,
 				B1B5A76024924B3D0029D5D7 /* FMDB in Frameworks */,
 				858F6F6E245A103C009FFD33 /* ExposureNotification.framework in Frameworks */,
 				EBA403932588E0C300D1F039 /* DiffableDataSources in Frameworks */,
@@ -3231,6 +3233,7 @@
 				EB7AF62D2587E98C00D94CA8 /* OpenCombineDispatch */,
 				EBA4038C2588E06E00D1F039 /* IBPCollectionViewCompositionalLayout */,
 				EBA403922588E0C300D1F039 /* DiffableDataSources */,
+				EBA403AA2588F7B700D1F039 /* ColorCompatibility */,
 			);
 			productName = ENA;
 			productReference = 85D7593B2457048F008175F0 /* ENA.app */;
@@ -3339,6 +3342,7 @@
 				EB7AF6282587E98C00D94CA8 /* XCRemoteSwiftPackageReference "OpenCombine" */,
 				EBA4038B2588E06E00D1F039 /* XCRemoteSwiftPackageReference "IBPCollectionViewCompositionalLayout" */,
 				EBA403912588E0C300D1F039 /* XCRemoteSwiftPackageReference "DiffableDataSources" */,
+				EBA403A92588F7B700D1F039 /* XCRemoteSwiftPackageReference "ColorCompatibility" */,
 			);
 			productRefGroup = 85D7593C2457048F008175F0 /* Products */;
 			projectDirPath = "";
@@ -5180,6 +5184,14 @@
 				version = 0.4.0;
 			};
 		};
+		EBA403A92588F7B700D1F039 /* XCRemoteSwiftPackageReference "ColorCompatibility" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/noahsark769/ColorCompatibility.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -5222,6 +5234,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EBA403912588E0C300D1F039 /* XCRemoteSwiftPackageReference "DiffableDataSources" */;
 			productName = DiffableDataSources;
+		};
+		EBA403AA2588F7B700D1F039 /* ColorCompatibility */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBA403A92588F7B700D1F039 /* XCRemoteSwiftPackageReference "ColorCompatibility" */;
+			productName = ColorCompatibility;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
