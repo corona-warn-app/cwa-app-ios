@@ -25,13 +25,13 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		openAndSetup()
 
 		createSchemaIfNeeded(schema: schema)
-		_ = cleanup()
+		cleanup()
 
 		databaseQueue.inDatabase { database in
 			_ = updateDiaryDays(with: database)
 		}
 
-		registerToDidFinishLaunchingNotification()
+		registerToDidBecomeActiveNotification()
 	}
 
 	// MARK: - Protocol DiaryProviding
@@ -40,6 +40,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 	// MARK: - Protocol DiaryStoring
 
+	@discardableResult
 	func cleanup() -> DiaryStoringVoidResult {
 		var result: DiaryStoringVoidResult = .success(())
 
@@ -72,6 +73,13 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			}
 
 			guard database.commit() else {
+				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				return
+			}
+
+			let updateDiaryDaysResult = updateDiaryDays(with: database)
+			guard case .success = updateDiaryDaysResult else {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 				return
@@ -537,6 +545,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	// MARK: - Private
 
 	private let dataRetentionPeriodInDays = 16
+	private let userVisiblePeriodInDays = 14
 	private let key: String
 
 	private var dateFormatter: ISO8601DateFormatter = {
@@ -556,8 +565,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Open and setup database.", log: .localData)
 
-			let dbhandle = OpaquePointer(database.sqliteHandle)
-			guard CWASQLite.sqlite3_key(dbhandle, key, Int32(key.count)) == SQLITE_OK else {
+			let dbHandle = OpaquePointer(database.sqliteHandle)
+			guard CWASQLite.sqlite3_key(dbHandle, key, Int32(key.count)) == SQLITE_OK else {
 				Log.error("[ContactDiaryStore] Unable to set Key for encryption.", log: .localData)
 				return
 			}
@@ -580,7 +589,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 	}
 
-	private func registerToDidFinishLaunchingNotification() {
+	private func registerToDidBecomeActiveNotification() {
 		NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActiveNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
 	}
 
@@ -656,7 +665,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	private func updateDiaryDays(with database: FMDatabase) -> DiaryStoringVoidResult {
 		var diaryDays = [DiaryDay]()
 
-		for index in 0...dataRetentionPeriodInDays {
+		for index in 0...userVisiblePeriodInDays {
 			guard let date = Calendar.current.date(byAdding: .day, value: -index, to: Date()) else {
 				continue
 			}
