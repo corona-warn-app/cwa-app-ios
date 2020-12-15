@@ -535,6 +535,11 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 
 		let today = Date()
 
+		guard let tenDaysAgo = Calendar.current.date(byAdding: .day, value: -10, to: today),
+			  let thirteenDaysAgo = Calendar.current.date(byAdding: .day, value: -13, to: today) else {
+			fatalError("Could not create test dates.")
+		}
+
 		let adamSandaleId = addContactPerson(name: "Adam Sandale", to: store)
 		let emmaHicksId = addContactPerson(name: "Emma Hicks", to: store)
 
@@ -545,6 +550,14 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		addLocationVisit(locationId: berlinId, date: today, store: store)
 		addPersonEncounter(personId: emmaHicksId, date: today, store: store)
 		addPersonEncounter(personId: adamSandaleId, date: today, store: store)
+
+		addLocationVisit(locationId: amsterdamLocationId, date: tenDaysAgo, store: store)
+		addPersonEncounter(personId: emmaHicksId, date: tenDaysAgo, store: store)
+
+		addLocationVisit(locationId: amsterdamLocationId, date: thirteenDaysAgo, store: store)
+		addLocationVisit(locationId: berlinId, date: thirteenDaysAgo, store: store)
+		addPersonEncounter(personId: emmaHicksId, date: thirteenDaysAgo, store: store)
+		addPersonEncounter(personId: adamSandaleId, date: thirteenDaysAgo, store: store)
 
 		let exportResult = store.export()
 		if case let .failure(error) = exportResult {

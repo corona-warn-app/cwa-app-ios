@@ -47,18 +47,18 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			var exportString = ""
 
 			let personEncounterSQL = """
-					SELECT 'cp' as type, ContactPerson.id AS entryId, ContactPerson.name AS entryName, ContactPersonEncounter.id AS contactPersonEncounterId, ContactPersonEncounter.date
+					SELECT 'A' AS sourtGroup, ContactPerson.id AS entryId, ContactPerson.name AS entryName, ContactPersonEncounter.id AS contactPersonEncounterId, ContactPersonEncounter.date
 					FROM ContactPersonEncounter
 					LEFT JOIN ContactPerson
 					ON ContactPersonEncounter.contactPersonId = ContactPerson.id
 					WHERE ContactPersonEncounter.date > date('now','-\(userVisiblePeriodInDays) days')
 					UNION
-					SELECT 'loc' as type, Location.id AS entryId, Location.name AS entryName, LocationVisit.id AS locationVisitId, LocationVisit.date
+					SELECT 'B' AS sourtGroup, Location.id AS entryId, Location.name AS entryName, LocationVisit.id AS locationVisitId, LocationVisit.date
 					FROM LocationVisit
 					LEFT JOIN Location
 					ON LocationVisit.locationId = Location.id
 					WHERE LocationVisit.date > date('now','-\(userVisiblePeriodInDays) days')
-					ORDER BY entryName COLLATE NOCASE ASC, type ASC, entryId ASC
+					ORDER BY date DESC, sourtGroup ASC, entryName COLLATE NOCASE ASC, entryId ASC
 				"""
 
 			do {
