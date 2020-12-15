@@ -14,7 +14,7 @@ class DiaryCoordinator {
 		parentNavigationController: UINavigationController
 	) {
 		self.store = store
-		self.diaryService = DiaryService(store: diaryStore)
+		self.diaryStore = diaryStore
 		self.parentNavigationController = parentNavigationController
 	}
 
@@ -31,7 +31,7 @@ class DiaryCoordinator {
 	// MARK: - Private
 
 	private let store: Store
-	private let diaryService: DiaryService
+	private let diaryStore: DiaryStoringProviding
 
 	private weak var parentNavigationController: UINavigationController?
 
@@ -44,7 +44,7 @@ class DiaryCoordinator {
 
 	lazy var overviewScreen: DiaryOverviewTableViewController = {
 		return DiaryOverviewTableViewController(
-			diaryService: diaryService,
+			viewModel: DiaryOverviewViewModel(store: diaryStore),
 			onCellSelection: { [weak self] day in
 				self?.showDayScreen(day: day)
 			},
@@ -95,7 +95,7 @@ class DiaryCoordinator {
 		let viewController = DiaryDayViewController(
 			viewModel: DiaryDayViewModel(
 				day: day,
-				store: diaryService.store,
+				store: diaryStore,
 				onAddEntryCellTap: { [weak self] day, entryType in
 					self?.showAddAndEditEntryScreen(mode: .add(day, entryType))
 				}
@@ -110,7 +110,7 @@ class DiaryCoordinator {
 
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: mode,
-			store: diaryService.store
+			store: diaryStore
 		)
 
 		let viewController = DiaryAddAndEditEntryViewController(
@@ -129,7 +129,7 @@ class DiaryCoordinator {
 
 		let viewController = DiaryEditEntriesViewController(
 			entryType: entryType,
-			store: diaryService.store,
+			store: diaryStore,
 			onCellSelection: { [weak self] entry in
 				self?.showAddAndEditEntryScreen(
 					mode: .edit(entry),
@@ -146,7 +146,7 @@ class DiaryCoordinator {
 
 	private func showExportActivity() {
 		let viewController = UIActivityViewController(
-			activityItems: [diaryService.exportString],
+			activityItems: [""],
 			applicationActivities: nil
 		)
 		parentNavigationController?.present(viewController, animated: true, completion: nil)
