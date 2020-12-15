@@ -477,69 +477,11 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	}
 
 	func removeAllLocations() -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult?
-
-		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Remove all Locations", log: .localData)
-
-			let sql = """
-				DELETE FROM Location
-			"""
-
-			guard database.executeStatements(sql) else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
-				return
-			}
-
-			let updateDiaryDaysResult = updateDiaryDays(with: database)
-			guard case .success = updateDiaryDaysResult else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
-				return
-			}
-
-			result = .success(())
-		}
-
-		guard let _result = result else {
-			fatalError("Result should not be nil.")
-		}
-
-		return _result
+		return removeAllEntries(from: "Location")
 	}
 
 	func removeAllContactPersons() -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult?
-
-		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Remove all ContactPersons", log: .localData)
-
-			let sql = """
-				DELETE FROM ContactPerson
-			"""
-
-			guard database.executeStatements(sql) else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
-				return
-			}
-
-			let updateDiaryDaysResult = updateDiaryDays(with: database)
-			guard case .success = updateDiaryDaysResult else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
-				return
-			}
-
-			result = .success(())
-		}
-
-		guard let _result = result else {
-			fatalError("Result should not be nil.")
-		}
-
-		return _result
+		return removeAllEntries(from: "ContactPerson")
 	}
 	
 	// MARK: - Private
@@ -703,6 +645,39 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		diaryDaysPublisher.send(diaryDays)
 
 		return .success(())
+	}
+
+	private func removeAllEntries(from tableName: String) -> DiaryStoringVoidResult {
+		var result: DiaryStoringVoidResult?
+
+		databaseQueue.inDatabase { database in
+			Log.info("[ContactDiaryStore] Remove all entires from \(tableName)", log: .localData)
+
+			let sql = """
+				DELETE FROM \(tableName)
+			"""
+
+			guard database.executeStatements(sql) else {
+				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				return
+			}
+
+			let updateDiaryDaysResult = updateDiaryDays(with: database)
+			guard case .success = updateDiaryDaysResult else {
+				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				return
+			}
+
+			result = .success(())
+		}
+
+		guard let _result = result else {
+			fatalError("Result should not be nil.")
+		}
+
+		return _result
 	}
 }
 
