@@ -5,7 +5,7 @@
 #if !RELEASE
 
 import UIKit
-
+import ColorCompatibility
 final class DMSQLiteErrorViewController: UIViewController, UITextFieldDelegate {
 	
 	// MARK: Properties
@@ -27,7 +27,7 @@ final class DMSQLiteErrorViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		view.backgroundColor = .systemBackground
+		view.backgroundColor = ColorCompatibility.systemBackground
 
 		let titleLabel = UILabel(frame: .zero)
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false

@@ -6,6 +6,7 @@
 
 import UIKit
 import os.log
+import ColorCompatibility
 
 private extension OSLogType {
 
@@ -62,8 +63,8 @@ final class DMLogsViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		view.backgroundColor = .systemBackground
-		textView.textColor = .label
+		view.backgroundColor = ColorCompatibility.systemBackground
+		textView.textColor = ColorCompatibility.label
 
 		let segementedControlItems = OSLogType.allCases.map { $0.title }
 		segmentedControl = UISegmentedControl(items: segementedControlItems)

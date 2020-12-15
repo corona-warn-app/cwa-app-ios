@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import ColorCompatibility
 
 class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
@@ -29,7 +30,7 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		view.backgroundColor = .systemBackground
+		view.backgroundColor = ColorCompatibility.systemBackground
 
 		currentEnvironmentLabel = UILabel(frame: .zero)
 		currentEnvironmentLabel.translatesAutoresizingMaskIntoConstraints = false
