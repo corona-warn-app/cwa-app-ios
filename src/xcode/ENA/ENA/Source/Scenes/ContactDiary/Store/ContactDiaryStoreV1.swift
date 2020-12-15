@@ -48,8 +48,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			Log.info("[ContactDiaryStore] Cleanup old entries.", log: .localData)
 
 			guard database.beginExclusiveTransaction() else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
@@ -67,21 +67,21 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				try database.executeUpdate(sqlContactPersonEncounter, values: nil)
 				try database.executeUpdate(sqlLocationVisit, values: nil)
 			} catch {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
 			guard database.commit() else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
 			let updateDiaryDaysResult = updateDiaryDays(with: database)
 			guard case .success = updateDiaryDaysResult else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 		}
@@ -107,15 +107,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				"name": name
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
 			let updateDiaryDaysResult = updateDiaryDays(with: database)
 			guard case .success = updateDiaryDaysResult else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
@@ -148,15 +148,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				"name": name
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
 			let updateDiaryDaysResult = updateDiaryDays(with: database)
 			guard case .success = updateDiaryDaysResult else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
@@ -192,15 +192,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				"contactPersonId": contactPersonId
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
 			let updateDiaryDaysResult = updateDiaryDays(with: database)
 			guard case .success = updateDiaryDaysResult else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
@@ -236,15 +236,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				"locationId": locationId
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
 			let updateDiaryDaysResult = updateDiaryDays(with: database)
 			guard case .success = updateDiaryDaysResult else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
@@ -273,15 +273,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			do {
 				try database.executeUpdate(sql, values: [name, id])
 			} catch {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
 			let updateDiaryDaysResult = updateDiaryDays(with: database)
 			guard case .success = updateDiaryDaysResult else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
@@ -310,15 +310,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			do {
 				try database.executeUpdate(sql, values: [name, id])
 			} catch {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
 			let updateDiaryDaysResult = updateDiaryDays(with: database)
 			guard case .success = updateDiaryDaysResult else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
@@ -346,15 +346,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			do {
 				try database.executeUpdate(sql, values: [id])
 			} catch {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
 			let updateDiaryDaysResult = updateDiaryDays(with: database)
 			guard case .success = updateDiaryDaysResult else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
@@ -382,15 +382,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			do {
 				try database.executeUpdate(sql, values: [id])
 			} catch {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
 			let updateDiaryDaysResult = updateDiaryDays(with: database)
 			guard case .success = updateDiaryDaysResult else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
@@ -418,15 +418,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			do {
 				try database.executeUpdate(sql, values: [id])
 			} catch {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
 			let updateDiaryDaysResult = updateDiaryDays(with: database)
 			guard case .success = updateDiaryDaysResult else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
@@ -454,15 +454,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			do {
 				try database.executeUpdate(sql, values: [id])
 			} catch {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
 			let updateDiaryDaysResult = updateDiaryDays(with: database)
 			guard case .success = updateDiaryDaysResult else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
@@ -525,7 +525,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				PRAGMA foreign_keys=ON;
 			"""
 			guard database.executeStatements(sql) else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				logLastErrorCode(from: database)
 				return
 			}
 		}
@@ -565,8 +565,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				contactPersons.append(contactPerson)
 			}
 		} catch {
-			Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-			return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+			logLastErrorCode(from: database)
+			return .failure(dbError(from: database))
 		}
 
 		return .success(contactPersons)
@@ -597,8 +597,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				locations.append(contactPerson)
 			}
 		} catch {
-			Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-			return .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+			logLastErrorCode(from: database)
+			return .failure(dbError(from: database))
 		}
 
 		return .success(locations)
@@ -658,15 +658,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			"""
 
 			guard database.executeStatements(sql) else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
 			let updateDiaryDaysResult = updateDiaryDays(with: database)
 			guard case .success = updateDiaryDaysResult else {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
 				return
 			}
 
@@ -678,6 +678,14 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 
 		return _result
+	}
+
+	private func logLastErrorCode(from database: FMDatabase) {
+		Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+	}
+
+	private func dbError(from database: FMDatabase) -> SQLiteErrorCode {
+		return SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
 	}
 }
 
